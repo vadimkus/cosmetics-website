@@ -121,7 +121,7 @@ export default function ProductPage() {
 
   // Create multiple images for the product (in real app, this would come from the product data)
   const productImages = product.id === '3' 
-    ? [product.image, '/images/booster2.jpg', 'https://www.youtube.com/watch?v=7VTkWKkYKwA']
+    ? [product.image, '/images/Booster2.jpg', 'https://www.youtube.com/watch?v=7VTkWKkYKwA']
     : product.id === '14'
     ? [product.image, '/images/MIST2.png']
     : product.id === '15'

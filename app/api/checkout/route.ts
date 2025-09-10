@@ -38,7 +38,7 @@ export async function POST(request: NextRequest) {
     const total = totalBeforeVAT + vat
 
     // Generate order ID (since we're not using database)
-    const orderId = `Genosys Order #${Date.now()}`
+    const orderId = `Genosys Order ${Date.now()}`
 
     // Send email notifications (commented out for now to avoid errors)
     // try {

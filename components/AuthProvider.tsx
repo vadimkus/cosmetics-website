@@ -59,15 +59,29 @@ export default function AuthProvider({ children }: AuthProviderProps) {
     setIsLoading(false)
   }, [])
 
+  // Prevent hydration mismatch by not rendering children until client-side
+  if (!isClient) {
+    return (
+      <AuthContext.Provider value={{
+        user: null,
+        login: async () => false,
+        register: async () => false,
+        logout: () => {},
+        refreshUser: async () => {},
+        isLoading: true
+      }}>
+        {children}
+      </AuthContext.Provider>
+    )
+  }
 
-  // Save user to localStorage whenever user changes
+
+  // Save user to localStorage whenever user changes (only on client)
   useEffect(() => {
-    if (isClient) {
-      if (user) {
-        localStorage.setItem('genosys_user', JSON.stringify(user))
-      } else {
-        localStorage.removeItem('genosys_user')
-      }
+    if (isClient && user) {
+      localStorage.setItem('genosys_user', JSON.stringify(user))
+    } else if (isClient && !user) {
+      localStorage.removeItem('genosys_user')
     }
   }, [user, isClient])
 
@@ -91,18 +105,20 @@ export default function AuthProvider({ children }: AuthProviderProps) {
       }
 
       // Merge API user data with any existing localStorage data (like profile picture)
-      const existingUser = localStorage.getItem('genosys_user')
       let mergedUser = data.user
       
-      if (existingUser) {
-        try {
-          const parsedExistingUser = JSON.parse(existingUser)
-          // Only merge if it's the same user (same email)
-          if (parsedExistingUser.email === data.user.email) {
-            mergedUser = { ...data.user, ...parsedExistingUser }
+      if (isClient) {
+        const existingUser = localStorage.getItem('genosys_user')
+        if (existingUser) {
+          try {
+            const parsedExistingUser = JSON.parse(existingUser)
+            // Only merge if it's the same user (same email)
+            if (parsedExistingUser.email === data.user.email) {
+              mergedUser = { ...data.user, ...parsedExistingUser }
+            }
+          } catch (error) {
+            console.error('Error parsing existing user data:', error)
           }
-        } catch (error) {
-          console.error('Error parsing existing user data:', error)
         }
       }
 

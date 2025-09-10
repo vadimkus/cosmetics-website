@@ -181,9 +181,13 @@ export default function AuthProvider({ children }: AuthProviderProps) {
           })
           setUser(mergedUser)
         }
+      } else {
+        console.log('❌ Refresh failed with status:', response.status)
+        // Don't throw error, just log it to avoid breaking the app
       }
     } catch (error) {
-      console.error('Error refreshing user data:', error)
+      console.error('❌ Error refreshing user data:', error)
+      // Don't throw error, just log it to avoid breaking the app
     }
   }, [user])
 

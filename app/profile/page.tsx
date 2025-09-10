@@ -1,14 +1,14 @@
 'use client'
 
 import Link from 'next/link'
-import { ArrowLeft, User, Mail, Phone, MapPin, Calendar, Edit3, Package, CheckCircle, Clock, Camera, X, MessageCircle, Lock, Eye, Trash2, Percent, Crown, Building, ShoppingBag, Truck, CreditCard } from 'lucide-react'
+import { ArrowLeft, User, Mail, Phone, MapPin, Calendar, Edit3, Package, CheckCircle, Clock, Camera, X, MessageCircle, Lock, Eye, Trash2, Percent, Crown, Building, ShoppingBag, Truck, CreditCard, RefreshCw } from 'lucide-react'
 import { useAuth } from '@/components/AuthProvider'
 import { useState, useRef, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { Order } from '@/lib/orderStorage'
 
 export default function ProfilePage() {
-  const { user, logout } = useAuth()
+  const { user, logout, forceRefreshUser } = useAuth()
   const router = useRouter()
   const [isEditing, setIsEditing] = useState(false)
   const [editData, setEditData] = useState({
@@ -307,13 +307,23 @@ export default function ProfilePage() {
               <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold text-gray-800 text-center sm:text-left">
                 {customerNumber > 0 ? `Genosys Family Member #${customerNumber}` : 'My Profile'}
               </h1>
-              <button
-                onClick={() => setIsEditing(!isEditing)}
-                className="flex items-center justify-center gap-2 px-4 py-2 text-primary-600 hover:text-primary-700 transition-colors text-sm md:text-base touch-manipulation"
-              >
-                <Edit3 className="h-4 w-4 md:h-5 md:w-5" />
-                {isEditing ? 'Cancel' : 'Edit Profile'}
-              </button>
+              <div className="flex gap-2">
+                <button
+                  onClick={forceRefreshUser}
+                  className="flex items-center justify-center gap-2 px-4 py-2 text-blue-600 hover:text-blue-700 transition-colors text-sm md:text-base touch-manipulation"
+                  title="Refresh profile data"
+                >
+                  <RefreshCw className="h-4 w-4 md:h-5 md:w-5" />
+                  Refresh
+                </button>
+                <button
+                  onClick={() => setIsEditing(!isEditing)}
+                  className="flex items-center justify-center gap-2 px-4 py-2 text-primary-600 hover:text-primary-700 transition-colors text-sm md:text-base touch-manipulation"
+                >
+                  <Edit3 className="h-4 w-4 md:h-5 md:w-5" />
+                  {isEditing ? 'Cancel' : 'Edit Profile'}
+                </button>
+              </div>
             </div>
 
             {/* Profile Picture Section */}

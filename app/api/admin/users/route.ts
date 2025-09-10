@@ -1,11 +1,19 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { getAllUsers } from '@/lib/userStorage'
 
 export async function GET(request: NextRequest) {
   try {
-    // Return empty users since we're not using database
+    const users = await getAllUsers()
+    
+    // Remove password field for security
+    const safeUsers = users.map(user => ({
+      ...user,
+      password: undefined
+    }))
+    
     return NextResponse.json({
       success: true,
-      users: []
+      users: safeUsers
     })
   } catch (error) {
     console.error('Error fetching users:', error)

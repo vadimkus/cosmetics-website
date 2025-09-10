@@ -30,7 +30,7 @@ function SuccessContent() {
           <p className="text-xl text-gray-600 mb-8">
             Your order has been confirmed.
             {orderId && (
-              <span className="block mt-2 text-lg font-semibold text-blue-600">
+              <span className="block mt-2 text-sm font-semibold text-blue-600">
                 Order ID: {orderId}
               </span>
             )}

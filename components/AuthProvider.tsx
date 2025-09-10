@@ -8,6 +8,7 @@ interface User {
   name: string
   phone?: string
   address?: string
+  birthday?: string
   profilePicture?: string
   createdAt: string
   isAdmin?: boolean

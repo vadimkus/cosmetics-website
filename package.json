@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "vercel-start": "node index.js",
     "lint": "next lint"
   },
   "dependencies": {

@@ -47,13 +47,15 @@ export default function AuthProvider({ children }: AuthProviderProps) {
   // Ensure we're on the client side before accessing localStorage
   useEffect(() => {
     setIsClient(true)
-    const savedUser = localStorage.getItem('genosys_user')
-    if (savedUser) {
-      try {
-        setUser(JSON.parse(savedUser))
-      } catch (error) {
-        console.error('Error parsing saved user:', error)
-        localStorage.removeItem('genosys_user')
+    if (typeof window !== 'undefined') {
+      const savedUser = localStorage.getItem('genosys_user')
+      if (savedUser) {
+        try {
+          setUser(JSON.parse(savedUser))
+        } catch (error) {
+          console.error('Error parsing saved user:', error)
+          localStorage.removeItem('genosys_user')
+        }
       }
     }
     setIsLoading(false)
@@ -78,10 +80,12 @@ export default function AuthProvider({ children }: AuthProviderProps) {
 
   // Save user to localStorage whenever user changes (only on client)
   useEffect(() => {
-    if (isClient && user) {
-      localStorage.setItem('genosys_user', JSON.stringify(user))
-    } else if (isClient && !user) {
-      localStorage.removeItem('genosys_user')
+    if (isClient && typeof window !== 'undefined') {
+      if (user) {
+        localStorage.setItem('genosys_user', JSON.stringify(user))
+      } else {
+        localStorage.removeItem('genosys_user')
+      }
     }
   }, [user, isClient])
 
@@ -107,7 +111,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
       // Merge API user data with any existing localStorage data (like profile picture)
       let mergedUser = data.user
       
-      if (isClient) {
+      if (isClient && typeof window !== 'undefined') {
         const existingUser = localStorage.getItem('genosys_user')
         if (existingUser) {
           try {

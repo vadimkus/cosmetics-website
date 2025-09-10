@@ -1,9 +1,22 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { getOrdersByEmail } from '@/lib/orderStorage'
 
 export async function GET(request: NextRequest) {
   try {
-    // Return empty orders since we're not using database
-    return NextResponse.json({ orders: [] })
+    const { searchParams } = new URL(request.url)
+    const email = searchParams.get('email')
+
+    if (!email) {
+      return NextResponse.json(
+        { error: 'Email parameter is required' },
+        { status: 400 }
+      )
+    }
+
+    // Get orders for the specific user
+    const orders = getOrdersByEmail(email)
+    
+    return NextResponse.json({ orders })
   } catch (error) {
     console.error('Error fetching orders:', error)
     return NextResponse.json(

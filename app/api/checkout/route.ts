@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { sendOrderNotification, sendOrderConfirmation } from '@/lib/emailService'
+import { addOrder, Order, OrderItem } from '@/lib/orderStorage'
 
 export async function POST(request: NextRequest) {
   try {
@@ -37,8 +38,38 @@ export async function POST(request: NextRequest) {
     const vat = totalBeforeVAT * 0.05
     const total = totalBeforeVAT + vat
 
-    // Generate order ID (since we're not using database)
+    // Generate order ID
     const orderId = `Genosys Order ${Math.floor(Math.random() * 9999) + 1000}`
+
+    // Create order items
+    const orderItems: OrderItem[] = items.map((item: any) => ({
+      productId: item.product.id,
+      productName: item.product.name,
+      price: item.product.price,
+      quantity: item.quantity,
+      image: item.product.image
+    }))
+
+    // Create order object
+    const order: Order = {
+      id: orderId,
+      customerEmail,
+      customerName,
+      customerPhone,
+      customerEmirate,
+      customerAddress,
+      items: orderItems,
+      subtotal,
+      discountAmount,
+      shipping,
+      vat,
+      total,
+      status: 'pending',
+      createdAt: new Date().toISOString()
+    }
+
+    // Store the order
+    addOrder(order)
 
     // Send email notifications (commented out for now to avoid errors)
     // try {

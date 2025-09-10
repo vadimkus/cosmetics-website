@@ -14,7 +14,8 @@ export default function ProfilePage() {
   const [editData, setEditData] = useState({
     name: user?.name || '',
     phone: user?.phone || '',
-    address: user?.address || ''
+    address: user?.address || '',
+    birthday: user?.birthday || ''
   })
   const [profilePicture, setProfilePicture] = useState<string | null>(null)
   const [previewImage, setPreviewImage] = useState<string | null>(null)
@@ -222,7 +223,8 @@ export default function ProfilePage() {
     setEditData({
       name: user.name,
       phone: user.phone || '',
-      address: user.address || ''
+      address: user.address || '',
+      birthday: user.birthday || ''
     })
     setProfilePicture(user?.profilePicture || null)
     setPreviewImage(user?.profilePicture || null)
@@ -390,6 +392,31 @@ export default function ProfilePage() {
                       />
                     ) : (
                       <p className="text-gray-600 text-sm md:text-base">{user.phone || 'Not provided'}</p>
+                    )}
+                  </div>
+                </div>
+
+                <div className="flex flex-col sm:flex-row sm:items-center gap-3 md:gap-4">
+                  <div className="bg-primary-100 p-2 md:p-3 rounded-full flex-shrink-0 mx-auto sm:mx-0">
+                    <Calendar className="h-6 w-6 md:h-8 md:w-8 text-primary-600" />
+                  </div>
+                  <div className="flex-1 text-center sm:text-left">
+                    <h3 className="text-base md:text-lg font-semibold text-gray-800">Birthday</h3>
+                    {isEditing ? (
+                      <input
+                        type="date"
+                        value={editData.birthday}
+                        onChange={(e) => setEditData({...editData, birthday: e.target.value})}
+                        className="mt-1 px-3 py-3 md:py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent w-full text-base"
+                      />
+                    ) : (
+                      <p className="text-gray-600 text-sm md:text-base">
+                        {user.birthday ? new Date(user.birthday).toLocaleDateString('en-US', {
+                          year: 'numeric',
+                          month: 'long',
+                          day: 'numeric'
+                        }) : 'Not provided'}
+                      </p>
                     )}
                   </div>
                 </div>

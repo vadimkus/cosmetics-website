@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { updateUser } from '@/lib/userStorage'
 
 export async function POST(request: NextRequest) {
   try {
@@ -11,8 +12,20 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Since we're not using database, just return success
-    return NextResponse.json({ success: true })
+    // Update user in database
+    const success = updateUser(userId, updates)
+    
+    if (!success) {
+      return NextResponse.json(
+        { error: 'User not found' },
+        { status: 404 }
+      )
+    }
+
+    return NextResponse.json({ 
+      success: true,
+      message: 'Profile updated successfully'
+    })
   } catch (error) {
     console.error('Error updating user profile:', error)
     return NextResponse.json(

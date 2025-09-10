@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { updateUser, deleteUser } from '@/lib/userStorage'
 
 export async function PUT(
   request: NextRequest,
@@ -6,7 +7,8 @@ export async function PUT(
 ) {
   try {
     const { id } = await params
-    const { canSeePrices, discountType, discountPercentage } = await request.json()
+    const updates = await request.json()
+    const { canSeePrices, discountType, discountPercentage, name, phone, address } = updates
 
     if (canSeePrices !== undefined && typeof canSeePrices !== 'boolean') {
       return NextResponse.json(
@@ -29,7 +31,16 @@ export async function PUT(
       )
     }
 
-    // Since we're not using database, just return success
+    // Update user in database
+    const success = updateUser(id, updates)
+    
+    if (!success) {
+      return NextResponse.json(
+        { error: 'User not found' },
+        { status: 404 }
+      )
+    }
+
     return NextResponse.json({
       success: true,
       message: 'User updated successfully'
@@ -50,7 +61,16 @@ export async function DELETE(
   try {
     const { id } = await params
 
-    // Since we're not using database, just return success
+    // Delete user from database
+    const success = deleteUser(id)
+    
+    if (!success) {
+      return NextResponse.json(
+        { error: 'User not found' },
+        { status: 404 }
+      )
+    }
+
     return NextResponse.json({
       success: true,
       message: 'User deleted successfully'

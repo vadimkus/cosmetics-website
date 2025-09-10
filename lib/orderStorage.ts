@@ -1,6 +1,23 @@
 import fs from 'fs'
 import path from 'path'
 
+// Use environment-specific data directory
+const getDataPath = () => {
+  const env = process.env.NODE_ENV || 'development'
+  const basePath = process.cwd()
+  
+  // In production (Vercel), use /tmp for data storage
+  if (env === 'production') {
+    return path.join('/tmp', 'genosys-data')
+  }
+  
+  // In development, use local data directory
+  return path.join(basePath, 'data')
+}
+
+const ORDERS_FILE = path.join(getDataPath(), 'orders.json')
+const ORDERS_TEMPLATE = path.join(process.cwd(), 'data', 'templates', 'orders.template.json')
+
 export interface OrderItem {
   productId: string
   productName: string
@@ -27,21 +44,32 @@ export interface Order {
   sessionId?: string
 }
 
-const DATA_DIR = path.join(process.cwd(), 'data')
-const ORDERS_FILE = path.join(DATA_DIR, 'orders.json')
-
 // Ensure data directory exists
-if (!fs.existsSync(DATA_DIR)) {
-  fs.mkdirSync(DATA_DIR, { recursive: true })
-}
-
-// Initialize orders file if it doesn't exist
-if (!fs.existsSync(ORDERS_FILE)) {
-  fs.writeFileSync(ORDERS_FILE, JSON.stringify([], null, 2))
+const ensureDataDirectory = () => {
+  const dataDir = path.dirname(ORDERS_FILE)
+  if (!fs.existsSync(dataDir)) {
+    fs.mkdirSync(dataDir, { recursive: true })
+  }
 }
 
 export function readOrders(): Order[] {
   try {
+    ensureDataDirectory()
+    if (!fs.existsSync(ORDERS_FILE)) {
+      // Initialize from template if it exists
+      if (fs.existsSync(ORDERS_TEMPLATE)) {
+        const templateData = fs.readFileSync(ORDERS_TEMPLATE, 'utf8')
+        const templateOrders = JSON.parse(templateData)
+        writeOrders(templateOrders)
+        return templateOrders
+      }
+      
+      // Fallback: Create empty orders array
+      const initialOrders: Order[] = []
+      writeOrders(initialOrders)
+      return initialOrders
+    }
+    
     const data = fs.readFileSync(ORDERS_FILE, 'utf8')
     return JSON.parse(data)
   } catch (error) {
@@ -52,6 +80,7 @@ export function readOrders(): Order[] {
 
 export function writeOrders(orders: Order[]): void {
   try {
+    ensureDataDirectory()
     fs.writeFileSync(ORDERS_FILE, JSON.stringify(orders, null, 2))
   } catch (error) {
     console.error('Error writing orders:', error)

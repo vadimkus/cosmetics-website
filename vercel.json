@@ -3,5 +3,10 @@
   "buildCommand": "npm run build",
   "outputDirectory": ".next",
   "installCommand": "npm install",
-  "devCommand": "npm run dev"
+  "devCommand": "npm run dev",
+  "functions": {
+    "index.js": {
+      "runtime": "nodejs18.x"
+    }
+  }
 }

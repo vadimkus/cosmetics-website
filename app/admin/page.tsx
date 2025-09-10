@@ -189,10 +189,9 @@ export default function AdminPage() {
       })
       
       if (response.ok) {
-        // Update local state
-        setOrders(orders.map(order => 
-          order.id === orderId ? { ...order, status } : order
-        ))
+        // Refresh orders from server to get the latest data
+        await fetchOrders()
+        alert('Order status updated successfully')
       } else {
         const errorData = await response.json()
         console.error('Status update failed:', errorData)
@@ -216,8 +215,8 @@ export default function AdminPage() {
       })
       
       if (response.ok) {
-        // Remove from local state
-        setOrders(orders.filter(order => order.id !== orderId))
+        // Refresh orders from server to get the latest data
+        await fetchOrders()
         alert('Order deleted successfully')
       } else {
         const errorData = await response.json()

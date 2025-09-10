@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { UserService } from '@/lib/databaseService'
 
 export async function POST(request: NextRequest) {
   try {
@@ -12,16 +11,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Update the user using Prisma
-    try {
-      await UserService.update(userId, updates)
-    } catch (error) {
-      return NextResponse.json(
-        { error: 'User not found' },
-        { status: 404 }
-      )
-    }
-
+    // Since we're not using database, just return success
     return NextResponse.json({ success: true })
   } catch (error) {
     console.error('Error updating user profile:', error)

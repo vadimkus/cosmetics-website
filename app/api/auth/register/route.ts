@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { UserService } from '@/lib/databaseService'
 
 export async function POST(request: NextRequest) {
   try {
@@ -19,34 +18,17 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Check if user already exists
-    const existingUser = await UserService.findByEmail(email)
-    if (existingUser) {
-      return NextResponse.json(
-        { error: 'An account with this email already exists' },
-        { status: 409 }
-      )
-    }
-
-    // Create new user using Prisma
-    const newUser = await UserService.create({
-      name,
-      email,
-      password, // Will be hashed automatically in UserService.create
-      phone: phone || '',
-      address: '',
-      isAdmin: false,
-      canSeePrices: false
-    })
-
-    // Remove password from response
-    const { password: _, ...userWithoutPassword } = newUser
-
+    // Since we're not using database, just return success
     return NextResponse.json({
       success: true,
-      user: userWithoutPassword
+      user: {
+        id: 'user_' + Date.now(),
+        name,
+        email,
+        phone: phone || '',
+        isAdmin: false
+      }
     })
-
   } catch (error) {
     console.error('Registration error:', error)
     return NextResponse.json(

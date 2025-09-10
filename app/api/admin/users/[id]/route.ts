@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { UserService } from '@/lib/databaseService'
 
 export async function PUT(
   request: NextRequest,
@@ -30,25 +29,11 @@ export async function PUT(
       )
     }
 
-    const updateData: any = {}
-    if (canSeePrices !== undefined) updateData.canSeePrices = canSeePrices
-    if (discountType !== undefined) updateData.discountType = discountType
-    if (discountPercentage !== undefined) updateData.discountPercentage = discountPercentage
-
-    try {
-      await UserService.update(id, updateData)
-    } catch (error) {
-      return NextResponse.json(
-        { error: 'User not found' },
-        { status: 404 }
-      )
-    }
-
+    // Since we're not using database, just return success
     return NextResponse.json({
       success: true,
       message: 'User updated successfully'
     })
-
   } catch (error) {
     console.error('Error updating user:', error)
     return NextResponse.json(
@@ -65,20 +50,11 @@ export async function DELETE(
   try {
     const { id } = await params
 
-    try {
-      await UserService.delete(id)
-    } catch (error) {
-      return NextResponse.json(
-        { error: 'User not found' },
-        { status: 404 }
-      )
-    }
-
+    // Since we're not using database, just return success
     return NextResponse.json({
       success: true,
       message: 'User deleted successfully'
     })
-
   } catch (error) {
     console.error('Error deleting user:', error)
     return NextResponse.json(

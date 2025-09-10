@@ -63,6 +63,11 @@ export const writeUsers = (users: any[]): void => {
   }
 }
 
+// Get all users (alias for readUsers)
+export const getAllUsers = (): any[] => {
+  return readUsers()
+}
+
 // Add a new user
 export const addUser = (user: any): void => {
   const users = readUsers()

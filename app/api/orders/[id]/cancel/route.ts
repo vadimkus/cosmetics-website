@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { deleteOrder } from '@/lib/orderStorage'
+import { updateOrderStatus } from '@/lib/orderStorage'
 
 export async function POST(
   request: NextRequest,
@@ -8,19 +8,12 @@ export async function POST(
   try {
     const { id } = await params
 
-    // Delete the order completely
-    const deleted = deleteOrder(id)
-    
-    if (!deleted) {
-      return NextResponse.json(
-        { success: false, error: 'Order not found' },
-        { status: 404 }
-      )
-    }
+    // Update order status to cancelled
+    updateOrderStatus(id, 'cancelled')
 
     return NextResponse.json({ 
       success: true,
-      message: 'Order cancelled and removed successfully'
+      message: 'Order cancelled successfully'
     })
   } catch (error) {
     console.error('Error cancelling order:', error)

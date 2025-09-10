@@ -13,8 +13,9 @@ export async function GET(request: NextRequest) {
       )
     }
 
-    // Get orders for the specific user
-    const orders = getOrdersByEmail(email)
+    // Get orders for the specific user, excluding cancelled orders
+    const allOrders = getOrdersByEmail(email)
+    const orders = allOrders.filter(order => order.status !== 'cancelled')
     
     return NextResponse.json({ orders })
   } catch (error) {

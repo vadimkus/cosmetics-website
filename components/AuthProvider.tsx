@@ -23,6 +23,7 @@ interface AuthContextType {
   register: (name: string, email: string, password: string, phone?: string) => Promise<boolean>
   logout: () => void
   refreshUser: () => Promise<void>
+  forceRefreshUser: () => Promise<void>
   isLoading: boolean
 }
 
@@ -169,19 +170,25 @@ export default function AuthProvider({ children }: AuthProviderProps) {
       if (response.ok) {
         const data = await response.json()
         if (data.user) {
-          // Server data takes precedence for critical fields like canSeePrices
-          // Only preserve non-critical client-side data
+          // Server data takes precedence for all fields
+          // Only preserve client-side data that shouldn't be overridden
           const mergedUser = { 
             ...user, 
             ...data.user,
             // Ensure server data overrides these critical fields
             canSeePrices: data.user.canSeePrices,
-            isAdmin: data.user.isAdmin
+            isAdmin: data.user.isAdmin,
+            // Ensure all server fields are included (like birthday)
+            birthday: data.user.birthday,
+            name: data.user.name,
+            phone: data.user.phone,
+            address: data.user.address
           }
           console.log('✅ User data refreshed:', { 
             email: mergedUser.email, 
             canSeePrices: mergedUser.canSeePrices,
-            isAdmin: mergedUser.isAdmin 
+            isAdmin: mergedUser.isAdmin,
+            birthday: mergedUser.birthday
           })
           setUser(mergedUser)
         }
@@ -192,6 +199,40 @@ export default function AuthProvider({ children }: AuthProviderProps) {
     } catch (error) {
       console.error('❌ Error refreshing user data:', error)
       // Don't throw error, just log it to avoid breaking the app
+    }
+  }, [user])
+
+  const forceRefreshUser = useCallback(async (): Promise<void> => {
+    if (!user) return
+    
+    try {
+      console.log('🔄 Force refreshing user data for:', user.email)
+      // Fetch the latest user data from the server
+      const response = await fetch('/api/auth/refresh', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: user.email }),
+      })
+
+      if (response.ok) {
+        const data = await response.json()
+        if (data.user) {
+          // Use server data directly without merging with existing data
+          console.log('✅ User data force refreshed:', { 
+            email: data.user.email, 
+            canSeePrices: data.user.canSeePrices,
+            isAdmin: data.user.isAdmin,
+            birthday: data.user.birthday
+          })
+          setUser(data.user)
+        }
+      } else {
+        console.log('❌ Force refresh failed with status:', response.status)
+      }
+    } catch (error) {
+      console.error('❌ Error force refreshing user data:', error)
     }
   }, [user])
 
@@ -209,6 +250,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
     register,
     logout,
     refreshUser,
+    forceRefreshUser,
     isLoading
   }
 

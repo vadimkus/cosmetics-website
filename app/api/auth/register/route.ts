@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { addUser, findUserByEmail } from '@/lib/userStorage'
 
 export async function POST(request: NextRequest) {
   try {
@@ -18,16 +19,40 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Since we're not using database, just return success
+    // Check if user already exists
+    const existingUser = findUserByEmail(email)
+    if (existingUser) {
+      return NextResponse.json(
+        { error: 'User with this email already exists' },
+        { status: 400 }
+      )
+    }
+
+    // Create new user object
+    const newUser = {
+      id: 'user_' + Date.now(),
+      name,
+      email,
+      password, // Store password for login purposes
+      phone: phone || '',
+      address: '',
+      profilePicture: '',
+      isAdmin: false,
+      canSeePrices: false,
+      discountType: null,
+      discountPercentage: null,
+      createdAt: new Date().toISOString(),
+      birthday: ''
+    }
+
+    // Store user in JSON file
+    addUser(newUser)
+
+    // Return success response (without password)
+    const { password: _, ...userWithoutPassword } = newUser
     return NextResponse.json({
       success: true,
-      user: {
-        id: 'user_' + Date.now(),
-        name,
-        email,
-        phone: phone || '',
-        isAdmin: false
-      }
+      user: userWithoutPassword
     })
   } catch (error) {
     console.error('Registration error:', error)

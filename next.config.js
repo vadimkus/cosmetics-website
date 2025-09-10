@@ -27,7 +27,7 @@ const nextConfig = {
     loaderFile: process.env.CDN_URL ? './lib/cdn-loader.js' : undefined,
   },
   experimental: {
-    optimizePackageImports: ['lucide-react'],
+    // optimizePackageImports: ['lucide-react'], // Temporarily disabled to fix build issues
   },
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',

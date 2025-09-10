@@ -40,6 +40,14 @@ export default function ProfilePage() {
       setProfilePicture(user.profilePicture || null)
       setPreviewImage(user.profilePicture || null)
       
+      // Update editData when user data changes
+      setEditData({
+        name: user.name || '',
+        phone: user.phone || '',
+        address: user.address || '',
+        birthday: user.birthday || ''
+      })
+      
       // Check if user already has a customer number
       const savedCustomerNumber = localStorage.getItem(`customer_number_${user.id}`)
       if (savedCustomerNumber) {

@@ -17,10 +17,32 @@ const Header = memo(function Header() {
   const [isLoginMode, setIsLoginMode] = useState(true)
   const [showMobileMenu, setShowMobileMenu] = useState(false)
   const [isClient, setIsClient] = useState(false)
+  const [isHeartBeating, setIsHeartBeating] = useState(false)
 
   useEffect(() => {
     setIsClient(true)
   }, [])
+
+  // Heartbeat animation every 16 seconds
+  useEffect(() => {
+    if (!isClient) return
+
+    const startHeartbeat = () => {
+      setIsHeartBeating(true)
+      // Stop the animation after 0.6 seconds (duration of one heartbeat)
+      setTimeout(() => {
+        setIsHeartBeating(false)
+      }, 600)
+    }
+
+    // Start the first heartbeat immediately
+    startHeartbeat()
+
+    // Set up interval for every 16 seconds
+    const interval = setInterval(startHeartbeat, 16000)
+
+    return () => clearInterval(interval)
+  }, [isClient])
 
   return (
     <header className="bg-white shadow-sm border-b">
@@ -35,7 +57,12 @@ const Header = memo(function Header() {
             </Link>
             <div className="hidden md:flex text-sm text-gray-600 items-center gap-1 ml-0 md:ml-40">
               United Arab Emirates
-              <Heart className="h-3 w-3 text-primary-600 fill-current" />
+              <Heart className={`h-3 w-3 text-primary-600 fill-current transition-transform duration-300 ${
+                isHeartBeating ? 'animate-pulse' : ''
+              }`} 
+                     style={isHeartBeating ? {
+                       animation: 'heartbeat 0.6s ease-in-out'
+                     } : {}} />
             </div>
           </div>
           

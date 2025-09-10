@@ -8,10 +8,6 @@
     "export": "next build && next export",
     "start": "next start",
     "lint": "next lint",
-    "db:seed": "tsx prisma/seed.ts"
-  },
-  "prisma": {
-    "seed": "tsx prisma/seed.ts"
   },
   "dependencies": {
     "@next/bundle-analyzer": "^15.5.2",

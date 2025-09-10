@@ -1,7 +1,22 @@
 import fs from 'fs'
 import path from 'path'
 
-const USERS_FILE = path.join(process.cwd(), 'data', 'users.json')
+// Use environment-specific data directory
+const getDataPath = () => {
+  const env = process.env.NODE_ENV || 'development'
+  const basePath = process.cwd()
+  
+  // In production (Vercel), use /tmp for data storage
+  if (env === 'production') {
+    return path.join('/tmp', 'genosys-data')
+  }
+  
+  // In development, use local data directory
+  return path.join(basePath, 'data')
+}
+
+const USERS_FILE = path.join(getDataPath(), 'users.json')
+const USERS_TEMPLATE = path.join(process.cwd(), 'data', 'templates', 'users.template.json')
 
 // Ensure data directory exists
 const ensureDataDirectory = () => {
@@ -16,21 +31,18 @@ export const readUsers = (): any[] => {
   try {
     ensureDataDirectory()
     if (!fs.existsSync(USERS_FILE)) {
-      // Create initial users file with demo user and admin
+      // Initialize from template if it exists
+      if (fs.existsSync(USERS_TEMPLATE)) {
+        const templateData = fs.readFileSync(USERS_TEMPLATE, 'utf8')
+        const templateUsers = JSON.parse(templateData)
+        writeUsers(templateUsers)
+        return templateUsers
+      }
+      
+      // Fallback: Create minimal initial users
       const initialUsers = [
         {
-          id: 'demo-user-1',
-          name: 'Demo User',
-          email: 'demo@genosys.ae',
-          password: 'demo123',
-          phone: '+971 50 123 4567',
-          address: 'Dubai, UAE',
-          createdAt: new Date().toISOString(),
-          isAdmin: false,
-          canSeePrices: true
-        },
-        {
-          id: 'admin-user-1',
+          id: 'admin-user',
           name: 'Admin User',
           email: 'admin@genosys.ae',
           password: 'admin5',
@@ -38,7 +50,10 @@ export const readUsers = (): any[] => {
           address: 'Dubai, UAE',
           createdAt: new Date().toISOString(),
           isAdmin: true,
-          canSeePrices: true
+          canSeePrices: true,
+          discountType: null,
+          discountPercentage: null,
+          birthday: '1985-05-15'
         }
       ]
       writeUsers(initialUsers)

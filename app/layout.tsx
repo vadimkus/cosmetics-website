@@ -7,7 +7,7 @@ import FavoritesProvider from '@/components/FavoritesProvider'
 import Header from '@/components/Header'
 import UserRefreshWrapper from '@/components/UserRefreshWrapper'
 import PerformanceMonitor from '@/components/PerformanceMonitor'
-import { ServiceWorkerProvider, ServiceWorkerStatus } from '@/components/ServiceWorkerProvider'
+import { ServiceWorkerProvider } from '@/components/ServiceWorkerProvider'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -83,7 +83,6 @@ export default function RootLayout({
                 <main className="min-h-screen">
                   {children}
                 </main>
-                <ServiceWorkerStatus />
               </ServiceWorkerProvider>
             </CartProvider>
           </FavoritesProvider>

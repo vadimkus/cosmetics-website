@@ -129,7 +129,7 @@ export default function ProductPage() {
     : product.id === '22'
     ? [product.image, '/images/mss2.png']
     : product.id === '41'
-    ? [product.image, '/images/cushc.png']
+    ? [product.image, '/images/CUSHC.png']
     : [product.image]
 
   return (

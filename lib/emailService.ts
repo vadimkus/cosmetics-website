@@ -1,5 +1,4 @@
 import nodemailer from 'nodemailer'
-import { Order } from '@prisma/client'
 
 // Email configuration
 const EMAIL_CONFIG = {

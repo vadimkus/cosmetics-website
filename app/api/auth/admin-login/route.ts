@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { UserService } from '@/lib/databaseService'
 
 export async function POST(request: NextRequest) {
   try {
@@ -12,41 +11,23 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Find user by email using Prisma
-    const user = await UserService.findByEmail(email)
-    
-    if (!user) {
+    // Simple admin authentication (no database)
+    if (email === 'admin@genosys.ae' && password === 'admin5') {
+      return NextResponse.json({
+        success: true,
+        user: {
+          id: 'admin',
+          email: 'admin@genosys.ae',
+          name: 'Admin',
+          isAdmin: true
+        }
+      })
+    } else {
       return NextResponse.json(
-        { error: 'User not found' },
-        { status: 404 }
-      )
-    }
-
-    // Check if user is admin
-    if (!user.isAdmin) {
-      return NextResponse.json(
-        { error: 'Access denied. Admin privileges required.' },
-        { status: 403 }
-      )
-    }
-
-    // Verify password using bcrypt
-    const isValidPassword = await UserService.verifyPassword(email, password)
-    if (!isValidPassword) {
-      return NextResponse.json(
-        { error: 'Incorrect password' },
+        { error: 'Invalid admin credentials' },
         { status: 401 }
       )
     }
-
-    // Remove password from response
-    const { password: _, ...userWithoutPassword } = user
-
-    return NextResponse.json({
-      success: true,
-      user: userWithoutPassword
-    })
-
   } catch (error) {
     console.error('Admin login error:', error)
     return NextResponse.json(

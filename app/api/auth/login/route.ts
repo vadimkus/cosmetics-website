@@ -10,8 +10,11 @@ export async function POST(request: NextRequest) {
   try {
     // Apply rate limiting
     const rateLimitResult = await loginLimiter(request)
-    if (rateLimitResult) {
-      return rateLimitResult
+    if (!rateLimitResult.success) {
+      return NextResponse.json(
+        { error: rateLimitResult.message },
+        { status: 429 }
+      )
     }
 
     const { email, password } = await request.json()

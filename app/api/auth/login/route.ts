@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { rateLimit } from '@/lib/rateLimit'
+import { findUserByEmail } from '@/lib/userStorage'
 
 const loginLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
@@ -26,35 +27,30 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Simple authentication (no database)
-    if (email === 'admin@genosys.ae' && password === 'admin5') {
-      // Admin login
-      return NextResponse.json({
-        user: {
-          id: 'admin',
-          email: 'admin@genosys.ae',
-          name: 'Admin',
-          isAdmin: true
-        },
-        message: 'Login successful'
-      })
-    } else if (email === 'f.this.that@gmail.com' && password === 'Gestapo9') {
-      // Regular user login
-      return NextResponse.json({
-        user: {
-          id: 'user1',
-          email: 'f.this.that@gmail.com',
-          name: 'User',
-          isAdmin: false
-        },
-        message: 'Login successful'
-      })
-    } else {
+    // Find user in database
+    const user = findUserByEmail(email)
+    
+    if (!user) {
       return NextResponse.json(
         { error: 'Invalid email or password' },
         { status: 401 }
       )
     }
+
+    // Check password
+    if (user.password !== password) {
+      return NextResponse.json(
+        { error: 'Invalid email or password' },
+        { status: 401 }
+      )
+    }
+
+    // Return user data (without password)
+    const { password: _, ...userWithoutPassword } = user
+    return NextResponse.json({
+      user: userWithoutPassword,
+      message: 'Login successful'
+    })
 
   } catch (error) {
     console.error('Login error:', error)

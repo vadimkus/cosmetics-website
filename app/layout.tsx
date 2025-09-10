@@ -12,6 +12,7 @@ import { ServiceWorkerProvider, ServiceWorkerStatus } from '@/components/Service
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://cosmetics-website-58hy.vercel.app'),
   title: 'Genosys Middle East FZ-LLC - Premium Beauty Products',
   description: 'Discover our premium collection of cosmetics and beauty products',
   icons: {
@@ -24,8 +25,6 @@ export const metadata: Metadata = {
     apple: '/favicon/genosys-logo.png',
   },
   manifest: '/manifest.json',
-  themeColor: '#1f2937',
-  viewport: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no',
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
@@ -54,6 +53,14 @@ export const metadata: Metadata = {
     description: 'Discover our premium collection of cosmetics and beauty products',
     images: ['/images/genosys-products.jpg'],
   },
+}
+
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  themeColor: '#1f2937',
 }
 
 export default function RootLayout({

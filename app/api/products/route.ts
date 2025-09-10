@@ -5,18 +5,10 @@ export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url)
     const category = searchParams.get('category')
-    const search = searchParams.get('search')
     
     let filteredProducts = products
     
-    if (search) {
-      // Search products by name or description
-      const searchLower = search.toLowerCase()
-      filteredProducts = products.filter(product => 
-        product.name.toLowerCase().includes(searchLower) ||
-        product.description.toLowerCase().includes(searchLower)
-      )
-    } else if (category) {
+    if (category) {
       // Filter by category
       filteredProducts = products.filter(product => product.category === category)
     }

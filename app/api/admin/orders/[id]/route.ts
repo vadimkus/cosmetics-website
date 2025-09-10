@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { updateOrderStatus, getOrderById, deleteOrder } from '@/lib/orderStorage'
 
 export async function PUT(
   request: NextRequest,
@@ -17,7 +18,18 @@ export async function PUT(
       )
     }
 
-    // Since we're not using database, just return success
+    // Check if order exists
+    const order = getOrderById(id)
+    if (!order) {
+      return NextResponse.json(
+        { success: false, error: 'Order not found' },
+        { status: 404 }
+      )
+    }
+
+    // Update order status in database
+    updateOrderStatus(id, status)
+
     return NextResponse.json({ 
       success: true,
       message: 'Order status updated successfully'
@@ -38,7 +50,24 @@ export async function DELETE(
   try {
     const { id } = await params
 
-    // Since we're not using database, just return success
+    // Check if order exists
+    const order = getOrderById(id)
+    if (!order) {
+      return NextResponse.json(
+        { success: false, error: 'Order not found' },
+        { status: 404 }
+      )
+    }
+
+    // Delete order from database
+    const deleted = deleteOrder(id)
+    if (!deleted) {
+      return NextResponse.json(
+        { success: false, error: 'Failed to delete order' },
+        { status: 500 }
+      )
+    }
+
     return NextResponse.json({ 
       success: true,
       message: 'Order deleted successfully'

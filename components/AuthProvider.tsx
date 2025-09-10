@@ -61,23 +61,6 @@ export default function AuthProvider({ children }: AuthProviderProps) {
     setIsLoading(false)
   }, [])
 
-  // Prevent hydration mismatch by not rendering children until client-side
-  if (!isClient) {
-    return (
-      <AuthContext.Provider value={{
-        user: null,
-        login: async () => false,
-        register: async () => false,
-        logout: () => {},
-        refreshUser: async () => {},
-        isLoading: true
-      }}>
-        {children}
-      </AuthContext.Provider>
-    )
-  }
-
-
   // Save user to localStorage whenever user changes (only on client)
   useEffect(() => {
     if (isClient && typeof window !== 'undefined') {
@@ -226,6 +209,22 @@ export default function AuthProvider({ children }: AuthProviderProps) {
     logout,
     refreshUser,
     isLoading
+  }
+
+  // Prevent hydration mismatch by not rendering children until client-side
+  if (!isClient) {
+    return (
+      <AuthContext.Provider value={{
+        user: null,
+        login: async () => false,
+        register: async () => false,
+        logout: () => {},
+        refreshUser: async () => {},
+        isLoading: true
+      }}>
+        {children}
+      </AuthContext.Provider>
+    )
   }
 
   return (

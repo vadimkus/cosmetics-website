@@ -25,10 +25,10 @@ function SuccessContent() {
         <div className="mb-8">
           <CheckCircle className="h-24 w-24 text-green-500 mx-auto mb-6" />
           <h1 className="text-4xl font-bold text-gray-800 mb-4">
-            Payment Successful!
+            Order submission - Success!
           </h1>
           <p className="text-xl text-gray-600 mb-8">
-            Thank you for your order. Your order has been confirmed.
+            Your order has been confirmed.
             {orderId && (
               <span className="block mt-2 text-lg font-semibold text-blue-600">
                 Order ID: {orderId}

@@ -263,6 +263,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
         register: async () => false,
         logout: () => {},
         refreshUser: async () => {},
+        forceRefreshUser: async () => {},
         isLoading: true
       }}>
         {children}

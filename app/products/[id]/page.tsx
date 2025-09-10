@@ -123,7 +123,7 @@ export default function ProductPage() {
   const productImages = product.id === '3' 
     ? [product.image, '/images/booster2.jpg', 'https://www.youtube.com/watch?v=7VTkWKkYKwA']
     : product.id === '14'
-    ? [product.image, '/images/mist2.png']
+    ? [product.image, '/images/MIST2.png']
     : product.id === '15'
     ? [product.image, '/images/PRS2.png']
     : product.id === '22'

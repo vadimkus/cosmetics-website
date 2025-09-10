@@ -194,6 +194,19 @@ export default function ProfilePage() {
 
   const handleSave = async () => {
     try {
+      console.log('Saving profile with data:', {
+        userId: user?.id,
+        updates: {
+          ...editData,
+          profilePicture
+        }
+      })
+
+      if (!user?.id) {
+        alert('User ID not found. Please try logging out and back in.')
+        return
+      }
+
       // Update user data via API
       const response = await fetch('/api/profile/update', {
         method: 'POST',
@@ -209,6 +222,9 @@ export default function ProfilePage() {
         }),
       })
 
+      const responseData = await response.json()
+      console.log('Profile update response:', responseData)
+
       if (response.ok) {
         // Update local user state
         const updatedUser = { ...user, ...editData, profilePicture }
@@ -216,14 +232,15 @@ export default function ProfilePage() {
         setIsEditing(false)
         
         // Show success message or refresh user data
+        alert('Profile updated successfully!')
         window.location.reload() // Simple refresh to reload user data
       } else {
-        console.error('Failed to update profile')
-        alert('Failed to update profile. Please try again.')
+        console.error('Failed to update profile:', responseData)
+        alert(`Failed to update profile: ${responseData.error || 'Unknown error'}`)
       }
     } catch (error) {
       console.error('Error updating profile:', error)
-      alert('Error updating profile. Please try again.')
+      alert(`Error updating profile: ${error instanceof Error ? error.message : 'Unknown error'}`)
     }
   }
 

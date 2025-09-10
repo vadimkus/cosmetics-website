@@ -62,3 +62,7 @@ admin.php
 # cPanel deployment files
 cpanel-upload/
 genosys-nextjs-app/
+
+# Large files (over 100MB)
+*.pdf
+public/documents/*.pdf

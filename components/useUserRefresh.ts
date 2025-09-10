@@ -7,7 +7,8 @@ export function useUserRefresh() {
   const { user, refreshUser } = useAuth()
 
   useEffect(() => {
-    if (!user) return
+    // Only run on client side and when user exists
+    if (typeof window === 'undefined' || !user) return
 
     console.log('🔄 Setting up user refresh interval for:', user.email)
     

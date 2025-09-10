@@ -1,11 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { readOrders } from '@/lib/orderStorage'
 
 export async function GET(request: NextRequest) {
   try {
-    // Return empty orders since we're not using database
+    // Get all orders from storage
+    const orders = readOrders()
+    
     return NextResponse.json({ 
       success: true,
-      orders: [] 
+      orders 
     })
   } catch (error) {
     console.error('Error fetching orders:', error)

@@ -12,7 +12,7 @@ import { ServiceWorkerProvider, ServiceWorkerStatus } from '@/components/Service
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://cosmetics-website-58hy.vercel.app'),
+  metadataBase: new URL('https://cosmetics-website-5jzy.vercel.app'),
   title: 'Genosys Middle East FZ-LLC - Premium Beauty Products',
   description: 'Discover our premium collection of cosmetics and beauty products',
   icons: {

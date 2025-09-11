@@ -4,7 +4,12 @@ import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { User as UserIcon, Phone, MapPin, Percent, Crown, Building, Package, ShoppingBag, Clock, CheckCircle, Truck, X, CreditCard, Trash2, RefreshCw, ArrowLeft } from 'lucide-react'
 import AdminLogin from '@/components/AdminLogin'
-import { Order } from '@prisma/client'
+import { Order, OrderItem } from '@prisma/client'
+
+// Custom type that includes the items relation
+type OrderWithItems = Order & {
+  items: OrderItem[]
+}
 
 interface User {
   id: string
@@ -22,14 +27,14 @@ interface User {
 
 export default function AdminPage() {
   const [users, setUsers] = useState<User[]>([])
-  const [orders, setOrders] = useState<Order[]>([])
+  const [orders, setOrders] = useState<OrderWithItems[]>([])
   const [loading, setLoading] = useState(true)
   const [ordersLoading, setOrdersLoading] = useState(false)
   const [usersRefreshing, setUsersRefreshing] = useState(false)
   const [ordersRefreshing, setOrdersRefreshing] = useState(false)
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [activeTab, setActiveTab] = useState<'users' | 'orders'>('users')
-  const [selectedOrder, setSelectedOrder] = useState<Order | null>(null)
+  const [selectedOrder, setSelectedOrder] = useState<OrderWithItems | null>(null)
 
   const fetchUsers = async () => {
     try {

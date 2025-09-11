@@ -96,9 +96,9 @@ export async function searchProducts(query: string): Promise<Product[]> {
     const products = await prisma.product.findMany({
       where: {
         OR: [
-          { name: { contains: query, mode: 'insensitive' } },
-          { description: { contains: query, mode: 'insensitive' } },
-          { category: { contains: query, mode: 'insensitive' } }
+          { name: { contains: query } },
+          { description: { contains: query } },
+          { category: { contains: query } }
         ]
       },
       orderBy: {

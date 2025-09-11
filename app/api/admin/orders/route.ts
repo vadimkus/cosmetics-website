@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { readOrders } from '@/lib/orderStorage'
+import { readOrders } from '@/lib/orderStorageDb'
 
 export async function GET(request: NextRequest) {
   try {
     // Get all orders from storage, excluding cancelled orders
-    const allOrders = readOrders()
-    const orders = allOrders.filter(order => order.status !== 'cancelled')
+    const allOrders = await readOrders()
+    const orders = allOrders.filter(order => order.status !== 'CANCELLED')
     
     return NextResponse.json({ 
       success: true,

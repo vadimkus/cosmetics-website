@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { updateOrderStatus, getOrderById, deleteOrder } from '@/lib/orderStorageDb'
+import { sendOrderStatusUpdate } from '@/lib/emailService'
 
 export async function PUT(
   request: NextRequest,
@@ -34,6 +35,15 @@ export async function PUT(
         { success: false, error: 'Failed to update order status' },
         { status: 500 }
       )
+    }
+
+    // Send email notification to customer about status change
+    try {
+      await sendOrderStatusUpdate(order, status)
+      console.log(`Order status update email sent for order ${id} to ${order.customerEmail}`)
+    } catch (emailError) {
+      console.error('Error sending order status update email:', emailError)
+      // Don't fail the status update if email fails
     }
 
     return NextResponse.json({ 

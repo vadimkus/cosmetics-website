@@ -60,8 +60,9 @@ export default function TrainingPage() {
                       Professional home care protocols and guidelines
                     </p>
                     <a 
-                      href="/documents/genosys-home-care-guide.pdf"
-                      download="Genosys-Home-Care-Guide-2026.pdf"
+                      href="https://filebin.net/ymz1tpge5lk1a3ps/Genosys-Home-Care-Guide.pdf"
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="inline-flex items-center justify-center w-full px-4 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors font-medium"
                     >
                       <Download className="h-4 w-4 mr-2" />

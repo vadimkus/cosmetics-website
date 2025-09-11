@@ -1,6 +1,12 @@
-# Vercel Deployment Fix - Wed Sep 10 12:47:07 +04 2025
+# Cosmetics Website - Database Version
 
-## Fixed Client-Side Exceptions
+## Database: genosys-db (Vercel Postgres)
+- Connected to Vercel Postgres database
+- Prisma ORM with PostgreSQL
+- Persistent data storage for users, products, and orders
+- Production-ready deployment
+
+## Previous Fixes
 - Cleared Next.js build cache to resolve webpack module resolution errors
 - Fixed React Client Manifest issues with segment-explorer-node
 - Resolved ENOENT errors for webpack cache files

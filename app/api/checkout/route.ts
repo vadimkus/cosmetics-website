@@ -78,17 +78,26 @@ export async function POST(request: NextRequest) {
       details: `Order #${orderId} - ${items.length} items - Total: ${total} AED`
     })
 
-    // Send email notifications
-    try {
-      await Promise.all([
-        sendOrderNotification(order),
-        sendOrderConfirmation(order)
-      ])
+    // Send email notifications (non-blocking with timeout)
+    const emailPromise = Promise.all([
+      sendOrderNotification(order),
+      sendOrderConfirmation(order)
+    ]).then(() => {
       console.log(`Order ${order.orderNumber} created and notifications sent`)
-    } catch (emailError) {
+    }).catch((emailError) => {
       console.error('Error sending email notifications:', emailError)
-      // Don't fail the checkout if email fails
-    }
+    })
+
+    // Set a timeout for email sending (don't wait more than 10 seconds)
+    const emailTimeout = new Promise((resolve) => {
+      setTimeout(() => {
+        console.log('Email sending timed out, continuing with order creation')
+        resolve(null)
+      }, 10000) // 10 second timeout
+    })
+
+    // Don't wait for email completion - let it run in background
+    Promise.race([emailPromise, emailTimeout])
 
     // Return success response
     return NextResponse.json({ 

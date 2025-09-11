@@ -3,8 +3,8 @@ import nodemailer from 'nodemailer'
 // Email configuration
 const EMAIL_CONFIG = {
   host: process.env.SMTP_HOST || 'mail.genosys.ae',
-  port: parseInt(process.env.SMTP_PORT || '465'),
-  secure: true, // true for 465, false for other ports
+  port: parseInt(process.env.SMTP_PORT || '587'),
+  secure: false, // true for 465, false for other ports
   auth: {
     user: process.env.SMTP_USER || 'hello@genosys.ae',
     pass: process.env.SMTP_PASS || process.env.EMAIL_PASSWORD,
@@ -15,7 +15,18 @@ const ADMIN_EMAIL = 'hello@genosys.ae'
 
 // Create transporter
 const createTransporter = () => {
-  return nodemailer.createTransport(EMAIL_CONFIG)
+  console.log('📧 Creating email transporter with config:', {
+    host: EMAIL_CONFIG.host,
+    port: EMAIL_CONFIG.port,
+    secure: EMAIL_CONFIG.secure,
+    user: EMAIL_CONFIG.auth.user
+  })
+  return nodemailer.createTransporter({
+    ...EMAIL_CONFIG,
+    connectionTimeout: 10000, // 10 seconds
+    greetingTimeout: 10000,   // 10 seconds
+    socketTimeout: 10000,     // 10 seconds
+  })
 }
 
 // Format currency

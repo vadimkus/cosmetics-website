@@ -254,25 +254,17 @@ export default function AuthProvider({ children }: AuthProviderProps) {
     isLoading
   }
 
-  // Prevent hydration mismatch by not rendering children until client-side
-  if (!isClient) {
-    return (
-      <AuthContext.Provider value={{
-        user: null,
-        login: async () => false,
-        register: async () => false,
-        logout: () => {},
-        refreshUser: async () => {},
-        forceRefreshUser: async () => {},
-        isLoading: true
-      }}>
-        {children}
-      </AuthContext.Provider>
-    )
-  }
-
+  // Always return the same structure to prevent hooks order issues
   return (
-    <AuthContext.Provider value={value}>
+    <AuthContext.Provider value={!isClient ? {
+      user: null,
+      login: async () => false,
+      register: async () => false,
+      logout: () => {},
+      refreshUser: async () => {},
+      forceRefreshUser: async () => {},
+      isLoading: true
+    } : value}>
       {children}
     </AuthContext.Provider>
   )

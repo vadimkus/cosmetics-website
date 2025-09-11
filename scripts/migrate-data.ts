@@ -1,4 +1,4 @@
-import { PrismaClient } from '../lib/generated/prisma'
+import { PrismaClient } from '@prisma/client'
 import { readUsers } from '../lib/userStorage'
 import { readOrders } from '../lib/orderStorage'
 

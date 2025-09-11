@@ -1,5 +1,5 @@
 import { prisma } from './database'
-import { Order, OrderItem, OrderStatus } from '../lib/generated/prisma'
+import { Order, OrderItem, OrderStatus } from '@prisma/client'
 
 export interface OrderItemData {
   productId: string

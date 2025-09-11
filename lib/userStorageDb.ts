@@ -1,5 +1,5 @@
 import { prisma } from './database'
-import { User } from '../lib/generated/prisma'
+import { User } from '@prisma/client'
 
 export interface UserData {
   id?: string

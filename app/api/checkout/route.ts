@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { sendOrderNotification, sendOrderConfirmation } from '@/lib/emailService'
-import { addOrder, Order, OrderItem } from '@/lib/orderStorage'
+import { addOrder } from '@/lib/orderStorageDb'
+import { Order, OrderItem } from '@prisma/client'
 
 export async function POST(request: NextRequest) {
   try {

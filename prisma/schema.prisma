@@ -55,7 +55,7 @@ model Order {
   shipping        Float       @default(0)
   vat             Float
   total           Float
-  status          OrderStatus @default(PENDING)
+  status          String      @default("PENDING")
   sessionId       String?
   createdAt       DateTime    @default(now())
   updatedAt       DateTime    @updatedAt
@@ -78,10 +78,3 @@ model OrderItem {
   @@map("order_items")
 }
 
-enum OrderStatus {
-  PENDING
-  PAID
-  SHIPPED
-  DELIVERED
-  CANCELLED
-}

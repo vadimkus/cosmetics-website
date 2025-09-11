@@ -25,13 +25,43 @@ EMAIL_PASSWORD=your_app_password_here
 ADMIN_EMAIL=sales@genosys.ae
 ```
 
-### Gmail Setup for sales@genosys.ae
-1. **Enable 2-Factor Authentication** on your Genosys Gmail account
-2. **Generate an App Password**:
-   - Go to Google Account settings for sales@genosys.ae
-   - Security → 2-Step Verification → App passwords
-   - Generate a password for "Mail"
-   - Use this password in `SMTP_PASS` and `EMAIL_PASSWORD`
+### Email Provider Setup for sales@genosys.ae
+
+**Choose your email provider and follow the appropriate setup:**
+
+#### Option 1: Outlook/Microsoft 365
+```env
+SMTP_HOST=smtp-mail.outlook.com
+SMTP_PORT=587
+SMTP_USER=sales@genosys.ae
+SMTP_PASS=your_outlook_password
+```
+
+#### Option 2: Yahoo Mail
+```env
+SMTP_HOST=smtp.mail.yahoo.com
+SMTP_PORT=587
+SMTP_USER=sales@genosys.ae
+SMTP_PASS=your_yahoo_app_password
+```
+
+#### Option 3: Gmail (if using Gmail)
+```env
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USER=sales@genosys.ae
+SMTP_PASS=your_gmail_app_password
+```
+
+#### Option 4: Custom Hosting Provider
+```env
+SMTP_HOST=mail.genosys.ae
+SMTP_PORT=587
+SMTP_USER=sales@genosys.ae
+SMTP_PASS=your_email_password
+```
+
+**Note:** Replace `your_email_password` with your actual email password or app-specific password.
 
 ### Alternative Email Providers
 You can use other SMTP providers by changing the configuration:

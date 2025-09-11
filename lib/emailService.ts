@@ -2,16 +2,16 @@ import nodemailer from 'nodemailer'
 
 // Email configuration
 const EMAIL_CONFIG = {
-  host: process.env.SMTP_HOST || 'smtp.gmail.com',
-  port: parseInt(process.env.SMTP_PORT || '587'),
-  secure: false, // true for 465, false for other ports
+  host: process.env.SMTP_HOST || 'mail.genosys.ae',
+  port: parseInt(process.env.SMTP_PORT || '465'),
+  secure: true, // true for 465, false for other ports
   auth: {
-    user: process.env.SMTP_USER || 'sales@genosys.ae',
+    user: process.env.SMTP_USER || 'hello@genosys.ae',
     pass: process.env.SMTP_PASS || process.env.EMAIL_PASSWORD,
   },
 }
 
-const ADMIN_EMAIL = 'sales@genosys.ae'
+const ADMIN_EMAIL = 'hello@genosys.ae'
 
 // Create transporter
 const createTransporter = () => {

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { sendOrderNotification, sendOrderConfirmation } from '@/lib/emailService'
-import { addOrder, OrderData } from '@/lib/orderStorageDb'
+import { addOrder, OrderData, OrderItemData } from '@/lib/orderStorageDb'
 
 export async function POST(request: NextRequest) {
   try {
@@ -42,7 +42,7 @@ export async function POST(request: NextRequest) {
     const orderId = `Genosys Order ${Math.floor(Math.random() * 9999) + 1000}`
 
     // Create order items
-    const orderItems: OrderItem[] = items.map((item: any) => ({
+    const orderItems: OrderItemData[] = items.map((item: any) => ({
       productId: item.product.id,
       productName: item.product.name,
       price: item.product.price,

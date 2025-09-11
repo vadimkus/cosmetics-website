@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
     const total = totalBeforeVAT + vat
 
     // Generate order ID - shorter numeric format
-    const orderId = Math.floor(Math.random() * 900000000) + 100000000
+    const orderId = (Math.floor(Math.random() * 900000000) + 100000000).toString()
 
     // Create order items
     const orderItems: OrderItemData[] = items.map((item: any) => ({

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { addUser, findUserByEmail } from '@/lib/userStorage'
+import { addUser, findUserByEmail } from '@/lib/userStorageDb'
 
 export async function POST(request: NextRequest) {
   try {
@@ -20,7 +20,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Check if user already exists
-    const existingUser = findUserByEmail(email)
+    const existingUser = await findUserByEmail(email)
     if (existingUser) {
       return NextResponse.json(
         { error: 'User with this email already exists' },
@@ -30,7 +30,6 @@ export async function POST(request: NextRequest) {
 
     // Create new user object
     const newUser = {
-      id: 'user_' + Date.now(),
       name,
       email,
       password, // Store password for login purposes
@@ -41,15 +40,14 @@ export async function POST(request: NextRequest) {
       canSeePrices: false,
       discountType: null,
       discountPercentage: null,
-      createdAt: new Date().toISOString(),
       birthday: ''
     }
 
-    // Store user in JSON file
-    addUser(newUser)
+    // Store user in database
+    const createdUser = await addUser(newUser)
 
     // Return success response (without password)
-    const { password: _, ...userWithoutPassword } = newUser
+    const { password: _, ...userWithoutPassword } = createdUser
     return NextResponse.json({
       success: true,
       user: userWithoutPassword

@@ -1,0 +1,88 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                 String   @id @default(cuid())
+  email              String   @unique
+  name               String
+  password           String
+  phone              String?
+  address            String?
+  profilePicture     String?
+  isAdmin            Boolean  @default(false)
+  canSeePrices       Boolean  @default(false)
+  discountType       String?
+  discountPercentage Float?
+  birthday           String?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+  orders             Order[]
+
+  @@map("users")
+}
+
+model Product {
+  id          String   @id @default(cuid())
+  name        String
+  price       Float
+  description String
+  image       String
+  category    String
+  inStock     Boolean  @default(true)
+  size        String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("products")
+}
+
+model Order {
+  id              String      @id @default(cuid())
+  orderNumber     String      @unique
+  customerEmail   String
+  customerName    String
+  customerPhone   String
+  customerEmirate String
+  customerAddress String
+  subtotal        Float
+  discountAmount  Float       @default(0)
+  shipping        Float       @default(0)
+  vat             Float
+  total           Float
+  status          OrderStatus @default(PENDING)
+  sessionId       String?
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+  items           OrderItem[]
+  customer        User        @relation(fields: [customerEmail], references: [email])
+
+  @@map("orders")
+}
+
+model OrderItem {
+  id          String @id @default(cuid())
+  orderId     String
+  productId   String
+  productName String
+  price       Float
+  quantity    Int
+  image       String
+  order       Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  @@map("order_items")
+}
+
+enum OrderStatus {
+  PENDING
+  PAID
+  SHIPPED
+  DELIVERED
+  CANCELLED
+}

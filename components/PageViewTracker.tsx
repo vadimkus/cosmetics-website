@@ -2,22 +2,37 @@
 
 import { useEffect } from 'react'
 import { usePathname } from 'next/navigation'
-import { useAnalytics } from '@/hooks/useAnalytics'
 
 export default function PageViewTracker() {
   const pathname = usePathname()
-  const { trackPageView } = useAnalytics()
 
   useEffect(() => {
+    // Only track on client side
+    if (typeof window === 'undefined' || !pathname) return
+
     // Track page view when pathname changes
-    if (pathname && typeof window !== 'undefined') {
+    const trackPageView = async (page: string) => {
       try {
-        trackPageView(pathname)
+        await fetch('/api/analytics/track', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            type: 'pageview',
+            page,
+            userAgent: navigator.userAgent,
+            referrer: document.referrer
+          })
+        })
+        console.log('✅ Page view tracked:', page)
       } catch (error) {
         console.error('Error tracking page view:', error)
       }
     }
-  }, [pathname, trackPageView])
+
+    trackPageView(pathname)
+  }, [pathname])
 
   return null // This component doesn't render anything
 }

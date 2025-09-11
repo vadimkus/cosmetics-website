@@ -78,3 +78,27 @@ model OrderItem {
   @@map("order_items")
 }
 
+model PageView {
+  id        String   @id @default(cuid())
+  page      String
+  userId    String?
+  userEmail String?
+  userAgent String?
+  ipAddress String?
+  referrer  String?
+  timestamp DateTime @default(now())
+
+  @@map("page_views")
+}
+
+model UserAction {
+  id        String   @id @default(cuid())
+  action    String
+  userId    String?
+  userEmail String?
+  details   String?
+  timestamp DateTime @default(now())
+
+  @@map("user_actions")
+}
+

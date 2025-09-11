@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { sendOrderNotification, sendOrderConfirmation } from '@/lib/emailService'
 import { addOrder, OrderData, OrderItemData } from '@/lib/orderStorageDb'
+import { trackUserAction } from '@/lib/analytics'
 
 export async function POST(request: NextRequest) {
   try {
@@ -69,6 +70,13 @@ export async function POST(request: NextRequest) {
 
     // Store the order
     await addOrder(order)
+
+    // Track order creation
+    await trackUserAction({
+      action: 'order_created',
+      userEmail: customerEmail,
+      details: `Order #${orderId} - ${items.length} items - Total: ${total} AED`
+    })
 
     // Send email notifications
     try {

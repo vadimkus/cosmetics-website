@@ -1,25 +1,24 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getAllProducts, getProductsByCategory } from '@/lib/productsDb'
+import { products } from '@/lib/products'
 
 export async function GET(request: NextRequest) {
   try {
-    console.log('📦 Fetching products from POSTGRES DATABASE')
+    console.log('📦 Fetching products from JSON storage')
     const { searchParams } = new URL(request.url)
     const category = searchParams.get('category')
     
-    let products
+    let filteredProducts = products
     
     if (category) {
-      console.log('📦 Fetching products by category:', category)
-      products = await getProductsByCategory(category)
-    } else {
-      console.log('📦 Fetching all products')
-      products = await getAllProducts()
+      console.log('📦 Filtering products by category:', category)
+      filteredProducts = products.filter(product => 
+        product.category.toLowerCase() === category.toLowerCase()
+      )
     }
     
-    console.log('✅ Retrieved', products.length, 'products from POSTGRES')
+    console.log('✅ Retrieved', filteredProducts.length, 'products from JSON storage')
     
-    const response = NextResponse.json(products)
+    const response = NextResponse.json(filteredProducts)
     
     // Add caching headers for better performance
     response.headers.set('Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=86400')

@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { sendOrderNotification, sendOrderConfirmation } from '@/lib/emailService'
-import { addOrder } from '@/lib/orderStorageDb'
-import { Order, OrderItem } from '@prisma/client'
+import { addOrder, OrderData } from '@/lib/orderStorageDb'
 
 export async function POST(request: NextRequest) {
   try {
@@ -52,8 +51,8 @@ export async function POST(request: NextRequest) {
     }))
 
     // Create order object
-    const order: Order = {
-      id: orderId,
+    const order: OrderData = {
+      orderNumber: orderId,
       customerEmail,
       customerName,
       customerPhone,
@@ -65,12 +64,11 @@ export async function POST(request: NextRequest) {
       shipping,
       vat,
       total,
-      status: 'pending',
-      createdAt: new Date()
+      status: 'PENDING'
     }
 
     // Store the order
-    addOrder(order)
+    await addOrder(order)
 
     // Send email notifications (commented out for now to avoid errors)
     // try {

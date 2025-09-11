@@ -38,8 +38,8 @@ export async function POST(request: NextRequest) {
     const vat = totalBeforeVAT * 0.05
     const total = totalBeforeVAT + vat
 
-    // Generate order ID
-    const orderId = `Genosys Order ${Math.floor(Math.random() * 9999) + 1000}`
+    // Generate order ID - shorter numeric format
+    const orderId = Math.floor(Math.random() * 900000000) + 100000000
 
     // Create order items
     const orderItems: OrderItemData[] = items.map((item: any) => ({

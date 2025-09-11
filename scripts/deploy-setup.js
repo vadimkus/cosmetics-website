@@ -28,13 +28,9 @@ try {
   console.log('🔧 Generating Prisma client...');
   execSync('npx prisma generate', { stdio: 'inherit' });
 
-  // Only run db push in development or if explicitly requested
-  if (process.env.NODE_ENV !== 'production' || process.env.FORCE_DB_PUSH === 'true') {
-    console.log('🗄️ Pushing database schema...');
-    execSync('npx prisma db push', { stdio: 'inherit' });
-  } else {
-    console.log('⏭️ Skipping database push in production');
-  }
+  // Skip database push in serverless environments (Vercel)
+  // Database will be initialized when first accessed
+  console.log('⏭️ Skipping database push (serverless environment)');
 
   console.log('✅ Deployment setup completed successfully!');
 } catch (error) {

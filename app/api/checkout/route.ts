@@ -66,7 +66,7 @@ export async function POST(request: NextRequest) {
       vat,
       total,
       status: 'pending',
-      createdAt: new Date().toISOString()
+      createdAt: new Date()
     }
 
     // Store the order

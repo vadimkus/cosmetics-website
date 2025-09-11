@@ -4,10 +4,13 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "prisma generate && prisma db push && next build",
+    "build": "node scripts/deploy-setup.js && next build",
     "start": "next start",
     "lint": "next lint",
-    "postinstall": "prisma generate && prisma db push"
+    "postinstall": "node scripts/deploy-setup.js",
+    "db:push": "prisma db push",
+    "db:generate": "prisma generate",
+    "deploy:setup": "node scripts/deploy-setup.js"
   },
   "dependencies": {
     "@prisma/client": "^5.22.0",

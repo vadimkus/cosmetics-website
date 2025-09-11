@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { rateLimit } from '@/lib/rateLimit'
-import { findUserByEmail } from '@/lib/userStorageHybrid'
+import { findUserByEmail } from '@/lib/userStorageDb'
 
 const loginLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes

@@ -220,7 +220,9 @@ export default function AdminPage() {
       })
       
       if (response.ok) {
-        // Refresh orders from server to get the latest data
+        // Remove the order from local state immediately
+        setOrders(prevOrders => prevOrders.filter(order => order.id !== orderId))
+        // Also refresh orders from server to get the latest data
         await fetchOrders()
         alert('Order deleted successfully')
       } else {

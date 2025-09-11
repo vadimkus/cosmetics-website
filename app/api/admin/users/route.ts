@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getAllUsers } from '@/lib/userStorage'
+import { getAllUsers } from '@/lib/userStorageDb'
 
 export async function GET(request: NextRequest) {
   try {

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { updateUser, deleteUser } from '@/lib/userStorage'
+import { updateUser, deleteUser } from '@/lib/userStorageDb'
 
 export async function PUT(
   request: NextRequest,

@@ -5,7 +5,12 @@ import { ArrowLeft, User, Mail, Phone, MapPin, Calendar, Edit3, Package, CheckCi
 import { useAuth } from '@/components/AuthProvider'
 import { useState, useRef, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { Order } from '@prisma/client'
+import { Order, OrderItem } from '@prisma/client'
+
+// Custom type that includes the items relation
+type OrderWithItems = Order & {
+  items: OrderItem[]
+}
 
 export default function ProfilePage() {
   const { user, logout, forceRefreshUser } = useAuth()
@@ -22,7 +27,7 @@ export default function ProfilePage() {
   const [customerNumber, setCustomerNumber] = useState<number>(0)
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
   const [isDeleting, setIsDeleting] = useState(false)
-  const [orders, setOrders] = useState<Order[]>([])
+  const [orders, setOrders] = useState<OrderWithItems[]>([])
   const [loadingOrders, setLoadingOrders] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
 

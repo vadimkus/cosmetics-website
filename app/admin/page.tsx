@@ -508,7 +508,7 @@ export default function AdminPage() {
                             <ShoppingBag className="h-6 w-6 text-primary-600" />
                           </div>
                           <div>
-                            <h3 className="text-xl font-bold text-gray-800">{selectedOrder.id}</h3>
+                            <h3 className="text-xl font-bold text-gray-800">Order #{selectedOrder.orderNumber}</h3>
                             <p className="text-sm text-gray-500">
                               {new Date(selectedOrder.createdAt).toLocaleDateString('en-AE', {
                                 year: 'numeric',
@@ -755,7 +755,7 @@ export default function AdminPage() {
                                       <ShoppingBag className="h-4 w-4 text-primary-600" />
                                     </div>
                                     <div>
-                                      <div className="text-sm font-medium text-gray-900">{order.id}</div>
+                                      <div className="text-sm font-medium text-gray-900">Order #{order.orderNumber}</div>
                                     </div>
                                   </div>
                                 </td>

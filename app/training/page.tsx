@@ -38,8 +38,9 @@ export default function TrainingPage() {
                       Complete product overview and specifications
                     </p>
                     <a 
-                      href="/documents/genosys-product-catalogue-2025.pdf.pdf"
-                      download="Genosys-Product-Catalogue-2026.pdf"
+                      href="https://filebin.net/ymz1tpge5lk1a3ps/genosys-product-catalogue-2026.pdf.pdf"
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="inline-flex items-center justify-center w-full px-4 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors font-medium"
                     >
                       <Download className="h-4 w-4 mr-2" />

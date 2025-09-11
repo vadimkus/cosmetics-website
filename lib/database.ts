@@ -1,4 +1,4 @@
-import { PrismaClient } from './generated/prisma'
+import { PrismaClient } from '@prisma/client'
 
 // Global variable to store the Prisma client instance
 const globalForPrisma = globalThis as unknown as {

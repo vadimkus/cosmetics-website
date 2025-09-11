@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getOrdersByEmail } from '@/lib/orderStorage'
+import { getOrdersByEmail } from '@/lib/orderStorageDb'
 
 export async function GET(request: NextRequest) {
   try {
@@ -14,7 +14,7 @@ export async function GET(request: NextRequest) {
     }
 
     // Get orders for the specific user, excluding cancelled orders
-    const allOrders = getOrdersByEmail(email)
+    const allOrders = await getOrdersByEmail(email)
     const orders = allOrders.filter(order => order.status !== 'cancelled')
     
     return NextResponse.json({ orders })

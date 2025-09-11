@@ -28,13 +28,12 @@ export default function ProductPage() {
     const fetchProduct = async () => {
       try {
         setLoading(true)
-        const response = await fetch('/api/products')
+        const response = await fetch(`/api/products/${params.id}`)
         if (!response.ok) {
-          throw new Error('Failed to fetch products')
+          throw new Error('Failed to fetch product')
         }
-        const products = await response.json()
-        const foundProduct = products.find((p: Product) => p.id === params.id)
-        setProduct(foundProduct || null)
+        const productData = await response.json()
+        setProduct(productData)
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Failed to fetch product')
         console.error('Error fetching product:', err)
@@ -1242,7 +1241,7 @@ export default function ProductPage() {
             {/* Product Features */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-6 border-t">
               <div className="flex items-center gap-3">
-                <Truck className="h-5 w-5 text-primary-600" />
+                <Truck className="h-5 w-5 text-green-600" />
                 <div>
                   <div className="text-sm font-medium text-gray-800">Free Shipping</div>
                   <div className="text-xs text-gray-600">On orders over 1,000 AED</div>
@@ -1250,7 +1249,7 @@ export default function ProductPage() {
               </div>
               
               <div className="flex items-center gap-3">
-                <Shield className="h-5 w-5 text-primary-600" />
+                <Shield className="h-5 w-5 text-green-600" />
                 <div>
                   <div className="text-sm font-medium text-gray-800">Secure Payment</div>
                   <div className="text-xs text-gray-600">Stripe checkout</div>
@@ -1258,7 +1257,7 @@ export default function ProductPage() {
               </div>
               
               <div className="flex items-center gap-3">
-                <svg className="h-5 w-5 text-primary-600" fill="currentColor" viewBox="0 0 24 24">
+                <svg className="h-5 w-5 text-green-600" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
                 </svg>
                 <div>

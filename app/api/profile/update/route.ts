@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { updateUser } from '@/lib/userStorage'
+import { updateUser } from '@/lib/userStorageDb'
 
 export async function POST(request: NextRequest) {
   try {
@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Update user in database
-    const success = updateUser(userId, updates)
+    const success = await updateUser(userId, updates)
     
     if (!success) {
       return NextResponse.json(

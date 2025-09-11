@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { findUserByEmail } from '@/lib/userStorage'
+import { findUserByEmail } from '@/lib/userStorageDb'
 
 export async function POST(request: NextRequest) {
   try {
@@ -12,7 +12,7 @@ export async function POST(request: NextRequest) {
     }
 
     console.log('🔍 Looking for user:', email)
-    const user = findUserByEmail(email)
+    const user = await findUserByEmail(email)
     
     if (!user) {
       console.log('❌ User not found:', email)

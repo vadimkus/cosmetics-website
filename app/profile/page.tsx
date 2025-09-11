@@ -5,7 +5,7 @@ import { ArrowLeft, User, Mail, Phone, MapPin, Calendar, Edit3, Package, CheckCi
 import { useAuth } from '@/components/AuthProvider'
 import { useState, useRef, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { Order } from '@/lib/orderStorage'
+import { Order } from '@prisma/client'
 
 export default function ProfilePage() {
   const { user, logout, forceRefreshUser } = useAuth()

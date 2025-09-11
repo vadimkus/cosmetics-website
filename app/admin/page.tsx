@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { User as UserIcon, Phone, MapPin, Percent, Crown, Building, Package, ShoppingBag, Clock, CheckCircle, Truck, X, CreditCard, Trash2, RefreshCw, ArrowLeft } from 'lucide-react'
 import AdminLogin from '@/components/AdminLogin'
-import { Order } from '@/lib/orderStorage'
+import { Order } from '@prisma/client'
 
 interface User {
   id: string

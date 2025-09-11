@@ -1,5 +1,5 @@
 import { prisma } from './database'
-import { Order, OrderItem, OrderStatus } from '@prisma/client'
+import { Order, OrderItem } from '@prisma/client'
 
 export interface OrderItemData {
   productId: string
@@ -23,7 +23,7 @@ export interface OrderData {
   shipping?: number
   vat: number
   total: number
-  status?: OrderStatus
+  status?: string
   sessionId?: string
   createdAt?: string
 }
@@ -103,7 +103,7 @@ export const addOrder = async (orderData: OrderData): Promise<Order> => {
 }
 
 // Update order status
-export const updateOrderStatus = async (orderId: string, status: OrderStatus): Promise<boolean> => {
+export const updateOrderStatus = async (orderId: string, status: string): Promise<boolean> => {
   try {
     await prisma.order.update({
       where: { id: orderId },

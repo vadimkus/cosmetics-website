@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { updateOrderStatus, getOrderById, deleteOrder } from '@/lib/orderStorage'
+import { updateOrderStatus, getOrderById, deleteOrder } from '@/lib/orderStorageDb'
 
 export async function PUT(
   request: NextRequest,
@@ -10,7 +10,7 @@ export async function PUT(
     const { status } = await request.json()
 
     // Validate status
-    const validStatuses = ['pending', 'paid', 'shipped', 'delivered', 'cancelled']
+    const validStatuses = ['PENDING', 'PAID', 'SHIPPED', 'DELIVERED', 'CANCELLED']
     if (!validStatuses.includes(status)) {
       return NextResponse.json(
         { success: false, error: 'Invalid status' },
@@ -19,7 +19,7 @@ export async function PUT(
     }
 
     // Check if order exists
-    const order = getOrderById(id)
+    const order = await getOrderById(id)
     if (!order) {
       return NextResponse.json(
         { success: false, error: 'Order not found' },
@@ -28,7 +28,13 @@ export async function PUT(
     }
 
     // Update order status in database
-    updateOrderStatus(id, status)
+    const success = await updateOrderStatus(id, status)
+    if (!success) {
+      return NextResponse.json(
+        { success: false, error: 'Failed to update order status' },
+        { status: 500 }
+      )
+    }
 
     return NextResponse.json({ 
       success: true,
@@ -51,7 +57,7 @@ export async function DELETE(
     const { id } = await params
 
     // Check if order exists
-    const order = getOrderById(id)
+    const order = await getOrderById(id)
     if (!order) {
       return NextResponse.json(
         { success: false, error: 'Order not found' },
@@ -60,7 +66,7 @@ export async function DELETE(
     }
 
     // Delete order from database
-    const deleted = deleteOrder(id)
+    const deleted = await deleteOrder(id)
     if (!deleted) {
       return NextResponse.json(
         { success: false, error: 'Failed to delete order' },

@@ -6,12 +6,12 @@ const EMAIL_CONFIG = {
   port: parseInt(process.env.SMTP_PORT || '587'),
   secure: false, // true for 465, false for other ports
   auth: {
-    user: process.env.SMTP_USER || 'f.this.that@gmail.com',
+    user: process.env.SMTP_USER || 'sales@genosys.ae',
     pass: process.env.SMTP_PASS || process.env.EMAIL_PASSWORD,
   },
 }
 
-const ADMIN_EMAIL = 'f.this.that@gmail.com'
+const ADMIN_EMAIL = 'sales@genosys.ae'
 
 // Create transporter
 const createTransporter = () => {

@@ -17,18 +17,18 @@ Create a `.env.local` file in your project root with the following variables:
 # Email Configuration
 SMTP_HOST=smtp.gmail.com
 SMTP_PORT=587
-SMTP_USER=your_email@gmail.com
+SMTP_USER=sales@genosys.ae
 SMTP_PASS=your_app_password_here
 EMAIL_PASSWORD=your_app_password_here
 
 # Admin Configuration
-ADMIN_EMAIL=your_admin_email@gmail.com
+ADMIN_EMAIL=sales@genosys.ae
 ```
 
-### Gmail Setup
-1. **Enable 2-Factor Authentication** on your Gmail account
+### Gmail Setup for sales@genosys.ae
+1. **Enable 2-Factor Authentication** on your Genosys Gmail account
 2. **Generate an App Password**:
-   - Go to Google Account settings
+   - Go to Google Account settings for sales@genosys.ae
    - Security → 2-Step Verification → App passwords
    - Generate a password for "Mail"
    - Use this password in `SMTP_PASS` and `EMAIL_PASSWORD`

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { findUserByEmail } from '@/lib/userStorageDb'
+import { findUserByEmail } from '@/lib/userStorageHybrid'
 
 export async function POST(request: NextRequest) {
   try {

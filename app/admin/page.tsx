@@ -2,8 +2,9 @@
 
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
-import { User as UserIcon, Phone, MapPin, Percent, Crown, Building, Package, ShoppingBag, Clock, CheckCircle, Truck, X, CreditCard, Trash2, RefreshCw, ArrowLeft } from 'lucide-react'
+import { User as UserIcon, Phone, MapPin, Percent, Crown, Building, Package, ShoppingBag, Clock, CheckCircle, Truck, X, CreditCard, Trash2, RefreshCw, ArrowLeft, BarChart3 } from 'lucide-react'
 import AdminLogin from '@/components/AdminLogin'
+import AnalyticsDashboard from '@/components/AnalyticsDashboard'
 import { Order, OrderItem } from '@prisma/client'
 
 // Custom type that includes the items relation
@@ -33,7 +34,7 @@ export default function AdminPage() {
   const [usersRefreshing, setUsersRefreshing] = useState(false)
   const [ordersRefreshing, setOrdersRefreshing] = useState(false)
   const [isAuthenticated, setIsAuthenticated] = useState(false)
-  const [activeTab, setActiveTab] = useState<'users' | 'orders'>('users')
+  const [activeTab, setActiveTab] = useState<'analytics' | 'users' | 'orders'>('analytics')
   const [selectedOrder, setSelectedOrder] = useState<OrderWithItems | null>(null)
 
   const fetchUsers = async () => {
@@ -302,6 +303,17 @@ export default function AdminPage() {
         {/* Tab Navigation */}
         <div className="flex space-x-1 mb-6 bg-gray-100 p-1 rounded-lg">
           <button
+            onClick={() => setActiveTab('analytics')}
+            className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-colors ${
+              activeTab === 'analytics'
+                ? 'bg-white text-gray-900 shadow-sm'
+                : 'text-gray-500 hover:text-gray-700'
+            }`}
+          >
+            <BarChart3 className="h-4 w-4 inline mr-2" />
+            Analytics
+          </button>
+          <button
             onClick={() => setActiveTab('users')}
             className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-colors ${
               activeTab === 'users'
@@ -326,7 +338,9 @@ export default function AdminPage() {
         </div>
 
         <div className="bg-white rounded-lg shadow-sm border p-8">
-          {activeTab === 'users' ? (
+          {activeTab === 'analytics' ? (
+            <AnalyticsDashboard />
+          ) : activeTab === 'users' ? (
             <>
               <div className="flex justify-between items-center mb-6">
                 <h2 className="text-2xl font-bold text-gray-800">User Management</h2>
@@ -387,7 +401,7 @@ export default function AdminPage() {
                       </div>
                     </div>
                     
-                      {/* Controls */}
+                    {/* Controls */}
                     <div className="text-right flex-shrink-0 ml-4 space-y-2">
                       {/* Price Access Controls */}
                       <div>
@@ -507,15 +521,15 @@ export default function AdminPage() {
                           <div className="bg-white rounded-full p-3 shadow-sm">
                             <ShoppingBag className="h-6 w-6 text-primary-600" />
                           </div>
-                          <div>
+                            <div>
                             <h3 className="text-xl font-bold text-gray-800">Order #{selectedOrder.orderNumber}</h3>
                             <p className="text-sm text-gray-500">
                               {new Date(selectedOrder.createdAt).toLocaleDateString('en-AE', {
-                                year: 'numeric',
-                                month: 'long',
-                                day: 'numeric',
-                                hour: '2-digit',
-                                minute: '2-digit'
+                                  year: 'numeric',
+                                  month: 'long',
+                                  day: 'numeric',
+                                  hour: '2-digit',
+                                  minute: '2-digit'
                               })}
                             </p>
                           </div>
@@ -565,7 +579,7 @@ export default function AdminPage() {
                               </div>
                             </div>
                           </div>
-
+                          
                           {/* Order Items */}
                           <div>
                             <h4 className="font-semibold text-gray-800 mb-4 flex items-center gap-2">
@@ -576,11 +590,11 @@ export default function AdminPage() {
                               {selectedOrder.items.map((item, itemIndex) => (
                                 <div key={itemIndex} className="flex items-center gap-4 bg-gray-50 rounded-xl p-4 hover:bg-gray-100 transition-colors">
                                   <div className="relative">
-                                    <img
-                                      src={item.image}
-                                      alt={item.productName}
+                                  <img
+                                    src={item.image}
+                                    alt={item.productName}
                                       className="w-16 h-16 object-cover rounded-lg shadow-sm"
-                                    />
+                                  />
                                     <div className="absolute -top-2 -right-2 bg-primary-600 text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center">
                                       {item.quantity}
                                     </div>
@@ -595,7 +609,7 @@ export default function AdminPage() {
                             </div>
                           </div>
                         </div>
-
+                        
                         {/* Order Actions */}
                         <div className="space-y-4">
                           <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl p-4">
@@ -606,20 +620,20 @@ export default function AdminPage() {
                             
                             <div className="space-y-3">
                               <h5 className="text-sm font-medium text-gray-600">Update Status</h5>
-                              {(['pending', 'paid', 'shipped', 'delivered', 'cancelled'] as const).map((status) => (
-                                <button
-                                  key={status}
+                            {(['pending', 'paid', 'shipped', 'delivered', 'cancelled'] as const).map((status) => (
+                              <button
+                                key={status}
                                   onClick={() => updateOrderStatus(selectedOrder.id, status)}
                                   disabled={selectedOrder.status === status}
                                   className={`w-full px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                                     selectedOrder.status === status
-                                      ? 'bg-gray-200 text-gray-500 cursor-not-allowed'
+                                    ? 'bg-gray-200 text-gray-500 cursor-not-allowed'
                                       : 'bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 hover:border-gray-400 hover:shadow-sm'
-                                  }`}
-                                >
-                                  {status.charAt(0).toUpperCase() + status.slice(1)}
-                                </button>
-                              ))}
+                                }`}
+                              >
+                                {status.charAt(0).toUpperCase() + status.slice(1)}
+                              </button>
+                            ))}
                             </div>
                             
                             <div className="mt-6 pt-4 border-t border-gray-200">
@@ -796,8 +810,8 @@ export default function AdminPage() {
                           </tbody>
                         </table>
                       </div>
-                    )}
-                  </div>
+                )}
+              </div>
                 </div>
               )}
             </>

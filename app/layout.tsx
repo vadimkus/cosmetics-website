@@ -8,6 +8,7 @@ import Header from '@/components/Header'
 import UserRefreshWrapper from '@/components/UserRefreshWrapper'
 import PerformanceMonitor from '@/components/PerformanceMonitor'
 import { ServiceWorkerProvider } from '@/components/ServiceWorkerProvider'
+import PageViewTracker from '@/components/PageViewTracker'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -79,6 +80,7 @@ export default function RootLayout({
               <ServiceWorkerProvider>
                 <PerformanceMonitor />
                 <UserRefreshWrapper />
+                <PageViewTracker />
                 <Header />
                 <main className="min-h-screen">
                   {children}

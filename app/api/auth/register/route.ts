@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { addUser, findUserByEmail } from '@/lib/userStorageDb'
+import { trackUserAction } from '@/lib/analytics'
 
 export async function POST(request: NextRequest) {
   try {
@@ -45,6 +46,13 @@ export async function POST(request: NextRequest) {
 
     // Store user in database
     const createdUser = await addUser(newUser)
+
+    // Track user registration
+    await trackUserAction({
+      action: 'user_registered',
+      userEmail: email,
+      details: `New user registered: ${name}`
+    })
 
     // Return success response (without password)
     const { password: _, ...userWithoutPassword } = createdUser

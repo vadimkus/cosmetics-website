@@ -1,6 +1,13 @@
 import { PrismaClient } from '@prisma/client'
 
-const prisma = new PrismaClient()
+// Create a singleton Prisma client instance
+const globalForPrisma = globalThis as unknown as {
+  prisma: PrismaClient | undefined
+}
+
+const prisma = globalForPrisma.prisma ?? new PrismaClient()
+
+if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma
 
 export interface AnalyticsData {
   totalVisitors: number
@@ -34,6 +41,11 @@ export async function trackPageView(data: {
   referrer?: string
 }): Promise<void> {
   try {
+    if (!prisma || !prisma.pageView) {
+      console.warn('Prisma client not available for page view tracking')
+      return
+    }
+    
     await prisma.pageView.create({
       data: {
         page: data.page,
@@ -58,6 +70,11 @@ export async function trackUserAction(data: {
   details?: string
 }): Promise<void> {
   try {
+    if (!prisma || !prisma.userAction) {
+      console.warn('Prisma client not available for user action tracking')
+      return
+    }
+    
     await prisma.userAction.create({
       data: {
         action: data.action,
@@ -75,6 +92,20 @@ export async function trackUserAction(data: {
 // Get analytics data for admin dashboard
 export async function getAnalyticsData(days: number = 30): Promise<AnalyticsData> {
   try {
+    if (!prisma || !prisma.pageView || !prisma.userAction || !prisma.user || !prisma.order) {
+      console.warn('Prisma client not available for analytics data')
+      return {
+        totalVisitors: 0,
+        totalPageViews: 0,
+        uniqueVisitors: 0,
+        topPages: [],
+        recentActivity: [],
+        userRegistrations: 0,
+        ordersPlaced: 0,
+        conversionRate: 0
+      }
+    }
+
     const startDate = new Date()
     startDate.setDate(startDate.getDate() - days)
 
@@ -235,6 +266,11 @@ export async function getPageViews(page: string, days: number = 30): Promise<num
 // Get user activity timeline
 export async function getUserActivityTimeline(days: number = 7): Promise<Array<{ date: string; visitors: number; pageViews: number }>> {
   try {
+    if (!prisma || !prisma.pageView) {
+      console.warn('Prisma client not available for timeline data')
+      return []
+    }
+
     const startDate = new Date()
     startDate.setDate(startDate.getDate() - days)
 

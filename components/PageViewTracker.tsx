@@ -10,8 +10,12 @@ export default function PageViewTracker() {
 
   useEffect(() => {
     // Track page view when pathname changes
-    if (pathname) {
-      trackPageView(pathname)
+    if (pathname && typeof window !== 'undefined') {
+      try {
+        trackPageView(pathname)
+      } catch (error) {
+        console.error('Error tracking page view:', error)
+      }
     }
   }, [pathname, trackPageView])
 

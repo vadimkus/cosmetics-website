@@ -15,7 +15,7 @@ export async function GET(request: NextRequest) {
 
     // Get orders for the specific user, excluding cancelled orders
     const allOrders = await getOrdersByEmail(email)
-    const orders = allOrders.filter(order => order.status !== 'cancelled')
+    const orders = allOrders.filter(order => order.status !== 'CANCELLED')
     
     return NextResponse.json({ orders })
   } catch (error) {

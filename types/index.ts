@@ -6,7 +6,7 @@ export interface Product {
   image: string
   category: string
   inStock: boolean
-  size?: string
+  size?: string | null
 }
 
 export interface CartItem {

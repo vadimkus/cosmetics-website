@@ -10,7 +10,7 @@ export interface Product {
   image: string
   category: string
   inStock: boolean
-  size?: string
+  size?: string | null
 }
 
 export async function getAllProducts(): Promise<Product[]> {

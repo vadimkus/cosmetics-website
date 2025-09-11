@@ -46,9 +46,9 @@ const generateOrderSummaryHTML = (order: any) => {
       
       <div style="background: #f8f9fa; padding: 15px; border-radius: 5px; margin: 20px 0;">
         <h3 style="margin: 0 0 10px 0; color: #333;">Order Details</h3>
-        <p><strong>Order ID:</strong> ${order.id}</p>
-        <p><strong>Date:</strong> ${new Date(order.createdAt).toLocaleString('en-AE', { timeZone: 'Asia/Dubai' })}</p>
-        <p><strong>Status:</strong> ${order.status.toUpperCase()}</p>
+        <p><strong>Order ID:</strong> ${order.orderNumber || order.id}</p>
+        <p><strong>Date:</strong> ${new Date(order.createdAt || new Date()).toLocaleString('en-AE', { timeZone: 'Asia/Dubai' })}</p>
+        <p><strong>Status:</strong> ${(order.status || 'PENDING').toUpperCase()}</p>
       </div>
 
       <div style="background: #f8f9fa; padding: 15px; border-radius: 5px; margin: 20px 0;">
@@ -104,7 +104,7 @@ export async function sendOrderNotification(order: any): Promise<boolean> {
     const mailOptions = {
       from: `"Genosys Orders" <${EMAIL_CONFIG.auth.user}>`,
       to: ADMIN_EMAIL,
-      subject: `New Order #${order.id} - ${order.customerName || 'Customer'} - ${formatCurrency(order.total || order.totalAmount)}`,
+      subject: `New Order #${order.orderNumber || order.id} - ${order.customerName || 'Customer'} - ${formatCurrency(order.total || order.totalAmount)}`,
       html: generateOrderSummaryHTML(order),
     }
 
@@ -132,8 +132,8 @@ export async function sendOrderConfirmation(order: any): Promise<boolean> {
         
         <div style="background: #f8f9fa; padding: 15px; border-radius: 5px; margin: 20px 0;">
           <h3 style="margin: 0 0 10px 0; color: #333;">Order Details</h3>
-          <p><strong>Order ID:</strong> ${order.id}</p>
-          <p><strong>Date:</strong> ${new Date(order.createdAt).toLocaleString('en-AE', { timeZone: 'Asia/Dubai' })}</p>
+          <p><strong>Order ID:</strong> ${order.orderNumber || order.id}</p>
+          <p><strong>Date:</strong> ${new Date(order.createdAt || new Date()).toLocaleString('en-AE', { timeZone: 'Asia/Dubai' })}</p>
           <p><strong>Total:</strong> ${formatCurrency(order.total)}</p>
         </div>
 
@@ -151,7 +151,7 @@ export async function sendOrderConfirmation(order: any): Promise<boolean> {
     const mailOptions = {
       from: `"Genosys Middle East" <${EMAIL_CONFIG.auth.user}>`,
       to: order.customerEmail,
-      subject: `Order Confirmation #${order.id} - Genosys Middle East`,
+      subject: `Order Confirmation #${order.orderNumber || order.id} - Genosys Middle East`,
       html: customerHTML,
     }
 
@@ -160,6 +160,60 @@ export async function sendOrderConfirmation(order: any): Promise<boolean> {
     return true
   } catch (error) {
     console.error('Error sending order confirmation:', error)
+    return false
+  }
+}
+
+// Send order status update to customer
+export async function sendOrderStatusUpdate(order: any, newStatus: string): Promise<boolean> {
+  try {
+    const transporter = createTransporter()
+    
+    const statusMessages: { [key: string]: string } = {
+      'PROCESSING': 'Your order is being processed and prepared for shipment.',
+      'SHIPPED': 'Great news! Your order has been shipped and is on its way to you.',
+      'DELIVERED': 'Your order has been delivered successfully. Thank you for your business!',
+      'CANCELLED': 'Your order has been cancelled as requested.'
+    }
+    
+    const statusMessage = statusMessages[newStatus.toUpperCase()] || 'Your order status has been updated.'
+    
+    const customerHTML = `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+        <h2 style="color: #333; border-bottom: 2px solid #007bff; padding-bottom: 10px;">Order Status Update</h2>
+        
+        <p>Dear ${order.customerName},</p>
+        
+        <p>${statusMessage}</p>
+        
+        <div style="background: #f8f9fa; padding: 15px; border-radius: 5px; margin: 20px 0;">
+          <h3 style="margin: 0 0 10px 0; color: #333;">Order Details</h3>
+          <p><strong>Order ID:</strong> ${order.orderNumber || order.id}</p>
+          <p><strong>Status:</strong> <span style="color: #007bff; font-weight: bold;">${newStatus.toUpperCase()}</span></p>
+          <p><strong>Date:</strong> ${new Date().toLocaleString('en-AE', { timeZone: 'Asia/Dubai' })}</p>
+        </div>
+
+        <p>If you have any questions about your order, please contact us at +971 58 548 76 65.</p>
+        
+        <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #ddd; text-align: center; color: #666; font-size: 12px;">
+          <p>Genosys Middle East FZ-LLC</p>
+          <p>Professional Skincare Products</p>
+        </div>
+      </div>
+    `
+    
+    const mailOptions = {
+      from: `"Genosys Middle East" <${EMAIL_CONFIG.auth.user}>`,
+      to: order.customerEmail,
+      subject: `Order Status Update #${order.orderNumber || order.id} - ${newStatus.toUpperCase()}`,
+      html: customerHTML,
+    }
+
+    const info = await transporter.sendMail(mailOptions)
+    console.log('Order status update sent:', info.messageId)
+    return true
+  } catch (error) {
+    console.error('Error sending order status update:', error)
     return false
   }
 }

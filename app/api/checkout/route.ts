@@ -70,17 +70,17 @@ export async function POST(request: NextRequest) {
     // Store the order
     await addOrder(order)
 
-    // Send email notifications (commented out for now to avoid errors)
-    // try {
-    //   await Promise.all([
-    //     sendOrderNotification(order),
-    //     sendOrderConfirmation(order)
-    //   ])
-    //   console.log(`Order ${order.id} created and notifications sent`)
-    // } catch (emailError) {
-    //   console.error('Error sending email notifications:', emailError)
-    //   // Don't fail the checkout if email fails
-    // }
+    // Send email notifications
+    try {
+      await Promise.all([
+        sendOrderNotification(order),
+        sendOrderConfirmation(order)
+      ])
+      console.log(`Order ${order.orderNumber} created and notifications sent`)
+    } catch (emailError) {
+      console.error('Error sending email notifications:', emailError)
+      // Don't fail the checkout if email fails
+    }
 
     // Return success response
     return NextResponse.json({ 

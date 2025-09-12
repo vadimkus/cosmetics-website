@@ -80,7 +80,7 @@ export default function RootLayout({
               <ServiceWorkerProvider>
                 <PerformanceMonitor />
                 <UserRefreshWrapper />
-                <PageViewTracker />
+                {/* <PageViewTracker /> */}
                 <Header />
                 <main className="min-h-screen">
                   {children}

@@ -21,7 +21,7 @@ const createTransporter = () => {
     secure: EMAIL_CONFIG.secure,
     user: EMAIL_CONFIG.auth.user
   })
-  return nodemailer.createTransporter({
+  return nodemailer.createTransport({
     ...EMAIL_CONFIG,
     connectionTimeout: 10000, // 10 seconds
     greetingTimeout: 10000,   // 10 seconds

@@ -565,7 +565,7 @@ export default function CustomerProfile({
                         {customer.discountType} {customer.discountPercentage}%
                       </span>
                       <button
-                        onClick={() => onUpdateCustomer(customer.id, { discountType: null, discountPercentage: null })}
+                        onClick={() => onUpdateCustomer(customer.id, { discountType: undefined, discountPercentage: undefined })}
                         className="px-2 py-1 bg-gray-500 text-white rounded text-xs hover:bg-gray-600"
                       >
                         Remove

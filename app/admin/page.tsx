@@ -156,7 +156,11 @@ export default function AdminPage() {
       if (response.ok) {
         // Update local state
         setUsers(users.map(user => 
-          user.id === userId ? { ...user, discountType, discountPercentage } : user
+          user.id === userId ? { 
+            ...user, 
+            discountType: discountType || undefined, 
+            discountPercentage: discountPercentage || undefined 
+          } : user
         ))
       }
     } catch (error) {

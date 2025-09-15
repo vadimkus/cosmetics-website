@@ -123,11 +123,11 @@ export default function CustomerProfile({
   const handleSave = async () => {
     try {
       await onUpdateCustomer(customer.id, {
-        email: editData.email || null,
-        phone: editData.phone || null,
-        address: editData.address || null,
-        birthday: editData.birthday || null,
-        profilePicture: editData.profilePicture || null
+        email: editData.email || undefined,
+        phone: editData.phone || undefined,
+        address: editData.address || undefined,
+        birthday: editData.birthday || undefined,
+        profilePicture: editData.profilePicture || undefined
       })
       setEditing(false)
     } catch (error) {

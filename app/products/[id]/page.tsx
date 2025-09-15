@@ -4,6 +4,7 @@ import { useParams, useRouter } from 'next/navigation'
 import { useCart } from '@/components/CartProvider'
 import { useFavorites } from '@/components/FavoritesProvider'
 import { useAuth } from '@/components/AuthProvider'
+import ErrorPage from '@/components/ErrorPage'
 import { ArrowLeft, ShoppingCart, Heart, Star, Truck, Shield, Lock, Minus, Plus } from 'lucide-react'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
@@ -62,47 +63,47 @@ export default function ProductPage() {
 
   if (error) {
     return (
-      <div className="bg-white min-h-screen">
-        <div className="container mx-auto px-4 py-16">
-          <div className="text-center">
-            <h1 className="text-3xl font-bold text-gray-800 mb-4">Error</h1>
-            <p className="text-red-600 mb-8">{error}</p>
-            <button 
-              onClick={() => window.location.reload()} 
-              className="bg-primary-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary-700 transition-colors mr-4"
-            >
-              Retry
-            </button>
-            <Link 
-              href="/products"
-              className="inline-flex items-center bg-gray-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-gray-700 transition-colors"
-            >
-              <ArrowLeft className="mr-2 h-5 w-5" />
-              Back to Products
-            </Link>
-          </div>
-        </div>
-      </div>
+      <ErrorPage
+        title="Product Not Available"
+        message="We're having trouble loading this product. This might be due to a network issue or the product may have been removed."
+        error={error}
+        type="error"
+        onRetry={() => {
+          setError(null)
+          setLoading(true)
+          // Re-fetch the product
+          const fetchProduct = async () => {
+            try {
+              const response = await fetch(`/api/products/${params.id}`)
+              if (!response.ok) {
+                throw new Error('Failed to fetch product')
+              }
+              const productData = await response.json()
+              setProduct(productData)
+            } catch (err) {
+              setError(err instanceof Error ? err.message : 'Failed to fetch product')
+            } finally {
+              setLoading(false)
+            }
+          }
+          fetchProduct()
+        }}
+        onBack={() => router.push('/products')}
+        showHome={false}
+      />
     )
   }
 
   if (!product) {
     return (
-      <div className="bg-white min-h-screen">
-        <div className="container mx-auto px-4 py-16">
-          <div className="text-center">
-            <h1 className="text-3xl font-bold text-gray-800 mb-4">Product Not Found</h1>
-            <p className="text-gray-600 mb-8">The product you're looking for doesn't exist.</p>
-            <Link 
-              href="/products"
-              className="inline-flex items-center bg-primary-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary-700 transition-colors"
-            >
-              <ArrowLeft className="mr-2 h-5 w-5" />
-              Back to Products
-            </Link>
-          </div>
-        </div>
-      </div>
+      <ErrorPage
+        title="Product Not Found"
+        message="The product you're looking for doesn't exist or may have been removed from our catalog."
+        type="not-found"
+        onBack={() => router.push('/products')}
+        showRetry={false}
+        showHome={false}
+      />
     )
   }
 

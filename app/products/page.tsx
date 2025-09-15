@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
 import ProductCard from '@/components/ProductCard'
+import ErrorPage from '@/components/ErrorPage'
 import { useState, useMemo, useCallback, useEffect } from 'react'
 import { Product } from '@/types'
 
@@ -132,14 +133,36 @@ export default function ProductsPage() {
                 </div>
               </div>
             ) : error ? (
-              <div className="text-center py-12">
-                <p className="text-red-600 mb-4">Error: {error}</p>
-                <button 
-                  onClick={() => window.location.reload()} 
-                  className="bg-primary-600 text-white px-6 py-2 rounded-lg hover:bg-primary-700 transition-colors"
-                >
-                  Retry
-                </button>
+              <div className="py-12">
+                <ErrorPage
+                  title="Products Unavailable"
+                  message="We're having trouble loading our product catalog. This might be due to a network issue or server maintenance."
+                  error={error}
+                  type="network"
+                  onRetry={() => {
+                    setError(null)
+                    setLoading(true)
+                    // Re-fetch products
+                    const fetchProducts = async () => {
+                      try {
+                        const response = await fetch(`${window.location.origin}/api/products`)
+                        if (!response.ok) {
+                          throw new Error('Failed to fetch products')
+                        }
+                        const data = await response.json()
+                        setProducts(data)
+                      } catch (err) {
+                        const errorMessage = err instanceof Error ? err.message : 'Failed to fetch products'
+                        setError(errorMessage)
+                      } finally {
+                        setLoading(false)
+                      }
+                    }
+                    fetchProducts()
+                  }}
+                  showBack={false}
+                  showHome={false}
+                />
               </div>
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">

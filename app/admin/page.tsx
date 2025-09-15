@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { User as UserIcon, Phone, MapPin, Percent, Crown, Building, Package, ShoppingBag, Clock, CheckCircle, Truck, X, CreditCard, Trash2, RefreshCw, ArrowLeft, BarChart3 } from 'lucide-react'
 import AdminLogin from '@/components/AdminLogin'
 import AnalyticsDashboard from '@/components/AnalyticsDashboard'
+import CustomerProfile from '@/components/CustomerProfile'
 import { Order, OrderItem } from '@prisma/client'
 
 // Custom type that includes the items relation
@@ -36,6 +37,7 @@ export default function AdminPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [activeTab, setActiveTab] = useState<'analytics' | 'users' | 'orders'>('analytics')
   const [selectedOrder, setSelectedOrder] = useState<OrderWithItems | null>(null)
+  const [selectedCustomer, setSelectedCustomer] = useState<User | null>(null)
 
   const fetchUsers = async () => {
     try {
@@ -182,6 +184,33 @@ export default function AdminPage() {
     } catch (error) {
       console.error('Error deleting user:', error)
       alert('Failed to delete user')
+    }
+  }
+
+  const updateUser = async (userId: string, updates: Partial<User>) => {
+    try {
+      const response = await fetch(`/api/admin/users/${userId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(updates)
+      })
+      
+      if (response.ok) {
+        // Update local state
+        setUsers(users.map(user => 
+          user.id === userId ? { ...user, ...updates } : user
+        ))
+        alert('User updated successfully')
+      } else {
+        const errorData = await response.json()
+        console.error('Update failed:', errorData)
+        alert(`Failed to update user: ${errorData.error || 'Unknown error'}`)
+      }
+    } catch (error) {
+      console.error('Error updating user:', error)
+      alert('Failed to update user')
     }
   }
 
@@ -334,18 +363,33 @@ export default function AdminPage() {
           {activeTab === 'analytics' ? (
             <AnalyticsDashboard />
           ) : activeTab === 'users' ? (
-            <>
-              <div className="flex justify-between items-center mb-6">
-                <h2 className="text-2xl font-bold text-gray-800">User Management</h2>
-                <button
-                  onClick={refreshUsers}
-                  disabled={usersRefreshing}
-                  className="flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  <RefreshCw className={`h-4 w-4 ${usersRefreshing ? 'animate-spin' : ''}`} />
-                  {usersRefreshing ? 'Refreshing...' : 'Refresh'}
-                </button>
-              </div>
+            selectedCustomer ? (
+              <CustomerProfile
+                customer={selectedCustomer}
+                onBack={() => setSelectedCustomer(null)}
+                onUpdateCustomer={async (id, updates) => {
+                  // Update customer logic here
+                  await updateUser(id, updates)
+                  setSelectedCustomer({ ...selectedCustomer, ...updates })
+                }}
+                onDeleteCustomer={async (id, name) => {
+                  await deleteUser(id, name)
+                  setSelectedCustomer(null)
+                }}
+              />
+            ) : (
+              <>
+                <div className="flex justify-between items-center mb-6">
+                  <h2 className="text-2xl font-bold text-gray-800">User Management</h2>
+                  <button
+                    onClick={refreshUsers}
+                    disabled={usersRefreshing}
+                    className="flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    <RefreshCw className={`h-4 w-4 ${usersRefreshing ? 'animate-spin' : ''}`} />
+                    {usersRefreshing ? 'Refreshing...' : 'Refresh'}
+                  </button>
+                </div>
           
           <div className="space-y-4">
             {loading ? (
@@ -357,17 +401,26 @@ export default function AdminPage() {
                     <div className="flex items-start space-x-4 flex-1">
                       {/* User Avatar */}
                       <div className="flex-shrink-0">
-                        <div className="w-12 h-12 rounded-full overflow-hidden bg-gray-200 border-2 border-gray-300 flex items-center justify-center">
+                        <button
+                          onClick={() => setSelectedCustomer(user)}
+                          className="w-12 h-12 rounded-full overflow-hidden bg-gray-200 border-2 border-gray-300 flex items-center justify-center hover:border-blue-500 hover:shadow-md transition-all duration-200 cursor-pointer"
+                        >
                           {user.profilePicture ? (
                             <img
                               src={user.profilePicture}
                               alt={user.name}
                               className="w-full h-full object-cover"
                             />
+                          ) : user.isAdmin ? (
+                            <img
+                              src="/favicon/genosys-logo.png"
+                              alt="Admin"
+                              className="w-full h-full object-cover"
+                            />
                           ) : (
                             <UserIcon className="h-6 w-6 text-gray-400" />
                           )}
-                        </div>
+                        </button>
                       </div>
                       
                       {/* User Information */}
@@ -461,11 +514,18 @@ export default function AdminPage() {
                         )}
                       </div>
 
-                      {/* Delete User Button */}
-                      <div className="pt-2 border-t border-gray-200">
+                      {/* Action Buttons */}
+                      <div className="pt-2 border-t border-gray-200 space-y-2">
+                        <button
+                          onClick={() => setSelectedCustomer(user)}
+                          className="w-full px-3 py-1 bg-blue-500 text-white rounded text-xs hover:bg-blue-600 flex items-center justify-center gap-1"
+                        >
+                          <UserIcon className="h-3 w-3" />
+                          View Profile
+                        </button>
                         <button
                           onClick={() => deleteUser(user.id, user.name)}
-                          className="px-3 py-1 bg-red-500 text-white rounded text-xs hover:bg-red-600 flex items-center gap-1"
+                          className="w-full px-3 py-1 bg-red-500 text-white rounded text-xs hover:bg-red-600 flex items-center justify-center gap-1"
                         >
                           <Trash2 className="h-3 w-3" />
                           Delete User
@@ -477,7 +537,8 @@ export default function AdminPage() {
               ))
             )}
           </div>
-            </>
+              </>
+            )
           ) : (
             <>
               <div className="flex justify-between items-center mb-6">

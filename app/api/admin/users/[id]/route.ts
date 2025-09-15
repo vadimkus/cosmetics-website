@@ -8,7 +8,7 @@ export async function PUT(
   try {
     const { id } = await params
     const updates = await request.json()
-    const { canSeePrices, discountType, discountPercentage, name, phone, address } = updates
+    const { canSeePrices, discountType, discountPercentage, name, email, phone, address, birthday, profilePicture } = updates
 
     if (canSeePrices !== undefined && typeof canSeePrices !== 'boolean') {
       return NextResponse.json(

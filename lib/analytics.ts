@@ -1,4 +1,5 @@
 import { prisma } from './prisma'
+import { parseUserAgent, generateSessionId } from './deviceDetection'
 
 export interface AnalyticsData {
   totalVisitors: number
@@ -6,6 +7,18 @@ export interface AnalyticsData {
   uniqueVisitors: number
   topPages: Array<{ page: string; views: number }>
   topCountries: Array<{ country: string; visitors: number }>
+  deviceAnalytics: {
+    mobile: number
+    tablet: number
+    desktop: number
+    topBrowsers: Array<{ browser: string; count: number }>
+    topOS: Array<{ os: string; count: number }>
+  }
+  uxMetrics: {
+    bounceRate: number
+    avgSessionDuration: number
+    avgPageViewsPerSession: number
+  }
   recentActivity: Array<{ timestamp: Date; action: string; details: string }>
   userRegistrations: number
   ordersPlaced: number
@@ -22,6 +35,11 @@ export interface PageView {
   ipAddress?: string
   country?: string
   referrer?: string
+  deviceType?: string
+  browser?: string
+  os?: string
+  screenWidth?: number
+  screenHeight?: number
 }
 
 // Track a page view
@@ -33,6 +51,11 @@ export async function trackPageView(data: {
   ipAddress?: string
   country?: string
   referrer?: string
+  deviceType?: string
+  browser?: string
+  os?: string
+  screenWidth?: number
+  screenHeight?: number
 }): Promise<void> {
   try {
     await prisma.pageView.create({
@@ -44,6 +67,11 @@ export async function trackPageView(data: {
         ipAddress: data.ipAddress,
         country: data.country,
         referrer: data.referrer,
+        deviceType: data.deviceType,
+        browser: data.browser,
+        os: data.os,
+        screenWidth: data.screenWidth,
+        screenHeight: data.screenHeight,
         timestamp: new Date()
       }
     })
@@ -145,6 +173,87 @@ export async function getAnalyticsData(days: number = 30): Promise<AnalyticsData
       take: 10
     })
 
+    // Get device analytics
+    const deviceStats = await prisma.pageView.groupBy({
+      by: ['deviceType'],
+      where: {
+        timestamp: {
+          gte: startDate
+        },
+        deviceType: {
+          not: null
+        }
+      },
+      _count: {
+        deviceType: true
+      }
+    })
+
+    // Get browser analytics
+    const browserStats = await prisma.pageView.groupBy({
+      by: ['browser'],
+      where: {
+        timestamp: {
+          gte: startDate
+        },
+        browser: {
+          not: null
+        }
+      },
+      _count: {
+        browser: true
+      },
+      orderBy: {
+        _count: {
+          browser: 'desc'
+        }
+      },
+      take: 5
+    })
+
+    // Get OS analytics
+    const osStats = await prisma.pageView.groupBy({
+      by: ['os'],
+      where: {
+        timestamp: {
+          gte: startDate
+        },
+        os: {
+          not: null
+        }
+      },
+      _count: {
+        os: true
+      },
+      orderBy: {
+        _count: {
+          os: 'desc'
+        }
+      },
+      take: 5
+    })
+
+    // Get UX metrics from sessions
+    const sessions = await prisma.userSession.findMany({
+      where: {
+        startTime: {
+          gte: startDate
+        }
+      }
+    })
+
+    const totalSessions = sessions.length
+    const bounceSessions = sessions.filter(s => s.isBounce).length
+    const bounceRate = totalSessions > 0 ? (bounceSessions / totalSessions) * 100 : 0
+    
+    const avgSessionDuration = sessions.length > 0 
+      ? sessions.reduce((sum, s) => sum + (s.duration || 0), 0) / sessions.length 
+      : 0
+    
+    const avgPageViewsPerSession = sessions.length > 0
+      ? sessions.reduce((sum, s) => sum + s.pageViews, 0) / sessions.length
+      : 0
+
     // Get recent activity
     const recentActivity = await prisma.userAction.findMany({
       where: {
@@ -167,11 +276,14 @@ export async function getAnalyticsData(days: number = 30): Promise<AnalyticsData
       }
     })
 
-    // Get orders placed
+    // Get orders placed (excluding cancelled orders)
     const ordersPlaced = await prisma.order.count({
       where: {
         createdAt: {
           gte: startDate
+        },
+        status: {
+          not: 'CANCELLED'
         }
       }
     })
@@ -180,6 +292,21 @@ export async function getAnalyticsData(days: number = 30): Promise<AnalyticsData
     const conversionRate = uniqueVisitors.length > 0 
       ? (ordersPlaced / uniqueVisitors.length) * 100 
       : 0
+
+    // Process device stats
+    const deviceAnalytics = {
+      mobile: deviceStats.find(d => d.deviceType === 'mobile')?._count.deviceType || 0,
+      tablet: deviceStats.find(d => d.deviceType === 'tablet')?._count.deviceType || 0,
+      desktop: deviceStats.find(d => d.deviceType === 'desktop')?._count.deviceType || 0,
+      topBrowsers: browserStats.map(b => ({
+        browser: b.browser || 'Unknown',
+        count: b._count.browser
+      })),
+      topOS: osStats.map(o => ({
+        os: o.os || 'Unknown',
+        count: o._count.os
+      }))
+    }
 
     return {
       totalVisitors: uniqueVisitors.length,
@@ -193,6 +320,12 @@ export async function getAnalyticsData(days: number = 30): Promise<AnalyticsData
         country: c.country || 'Unknown',
         visitors: c._count.country
       })),
+      deviceAnalytics,
+      uxMetrics: {
+        bounceRate: Math.round(bounceRate * 100) / 100,
+        avgSessionDuration: Math.round(avgSessionDuration),
+        avgPageViewsPerSession: Math.round(avgPageViewsPerSession * 100) / 100
+      },
       recentActivity: recentActivity.map(a => ({
         timestamp: a.timestamp,
         action: a.action,
@@ -210,6 +343,18 @@ export async function getAnalyticsData(days: number = 30): Promise<AnalyticsData
       uniqueVisitors: 0,
       topPages: [],
       topCountries: [],
+      deviceAnalytics: {
+        mobile: 0,
+        tablet: 0,
+        desktop: 0,
+        topBrowsers: [],
+        topOS: []
+      },
+      uxMetrics: {
+        bounceRate: 0,
+        avgSessionDuration: 0,
+        avgPageViewsPerSession: 0
+      },
       recentActivity: [],
       userRegistrations: 0,
       ordersPlaced: 0,

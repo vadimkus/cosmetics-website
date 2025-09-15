@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { trackPageView, trackUserAction } from '@/lib/analytics'
 import { getCountryFromIP } from '@/lib/geolocation'
+import { parseUserAgent } from '@/lib/deviceDetection'
 
 export async function POST(request: NextRequest) {
   try {
@@ -21,12 +22,20 @@ export async function POST(request: NextRequest) {
       // Get country from IP address
       const country = await getCountryFromIP(ip)
       
+      // Parse device information from user agent
+      const deviceInfo = parseUserAgent(userAgent)
+      
       await trackPageView({
         ...data,
         ipAddress: ip,
         country,
         userAgent,
-        referrer
+        referrer,
+        deviceType: deviceInfo.deviceType,
+        browser: deviceInfo.browser,
+        os: deviceInfo.os,
+        screenWidth: data.screenWidth,
+        screenHeight: data.screenHeight
       })
     } else if (type === 'action') {
       await trackUserAction(data)

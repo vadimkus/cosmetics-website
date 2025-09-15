@@ -24,7 +24,9 @@ interface User {
   canSeePrices?: boolean
   discountType?: string | null
   discountPercentage?: number | null
+  birthday?: string
   createdAt: string
+  updatedAt: string
 }
 
 export default function AdminPage() {

@@ -20,8 +20,8 @@ interface User {
   phone?: string
   address?: string
   profilePicture?: string
-  isAdmin?: boolean
-  canSeePrices?: boolean
+  isAdmin: boolean
+  canSeePrices: boolean
   discountType?: string | null
   discountPercentage?: number | null
   birthday?: string

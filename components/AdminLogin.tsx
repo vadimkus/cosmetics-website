@@ -19,7 +19,7 @@ export default function AdminLogin({ onLogin }: AdminLoginProps) {
 
     const success = await onLogin(email, password)
     if (!success) {
-      setError('Invalid admin credentials')
+      setError('Haha, better luck next time, cowboy!')
     }
     setLoading(false)
   }

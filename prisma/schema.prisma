@@ -85,6 +85,7 @@ model PageView {
   userEmail String?
   userAgent String?
   ipAddress String?
+  country   String?
   referrer  String?
   timestamp DateTime @default(now())
 

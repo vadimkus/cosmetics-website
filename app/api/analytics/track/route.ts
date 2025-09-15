@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { trackPageView, trackUserAction } from '@/lib/analytics'
+import { getCountryFromIP } from '@/lib/geolocation'
 
 export async function POST(request: NextRequest) {
   try {
@@ -17,9 +18,13 @@ export async function POST(request: NextRequest) {
     const referrer = request.headers.get('referer') || 'unknown'
 
     if (type === 'pageview') {
+      // Get country from IP address
+      const country = await getCountryFromIP(ip)
+      
       await trackPageView({
         ...data,
         ipAddress: ip,
+        country,
         userAgent,
         referrer
       })

@@ -7,6 +7,10 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url)
     const days = parseInt(searchParams.get('days') || '30')
     const type = searchParams.get('type') || 'overview'
+    
+    // Calculate start date for all cases that need it
+    const startDate = new Date()
+    startDate.setDate(startDate.getDate() - days)
 
     switch (type) {
       case 'overview':
@@ -26,9 +30,6 @@ export async function GET(request: NextRequest) {
         return NextResponse.json(countries)
       
       case 'devices':
-        const startDate = new Date()
-        startDate.setDate(startDate.getDate() - days)
-        
         const deviceStats = await prisma.pageView.groupBy({
           by: ['deviceType'],
           where: {

@@ -22,8 +22,8 @@ interface User {
   profilePicture?: string
   isAdmin: boolean
   canSeePrices: boolean
-  discountType?: string | null
-  discountPercentage?: number | null
+  discountType?: string
+  discountPercentage?: number
   birthday?: string
   createdAt: string
   updatedAt: string

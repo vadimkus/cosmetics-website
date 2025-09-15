@@ -3,10 +3,21 @@ import { readOrders } from '@/lib/orderStorageDb'
 
 export async function GET(request: NextRequest) {
   try {
+    const { searchParams } = new URL(request.url)
+    const customerEmail = searchParams.get('customerEmail')
+    
     // Get all orders from storage, excluding cancelled orders
     const allOrders = await readOrders()
     console.log(`📊 Admin orders API: Found ${allOrders.length} total orders`)
-    const orders = allOrders.filter(order => order.status !== 'CANCELLED')
+    
+    let orders = allOrders.filter(order => order.status !== 'CANCELLED')
+    
+    // Filter by customer email if provided
+    if (customerEmail) {
+      orders = orders.filter(order => order.customerEmail === customerEmail)
+      console.log(`📊 Admin orders API: Found ${orders.length} orders for customer ${customerEmail}`)
+    }
+    
     console.log(`📊 Admin orders API: Returning ${orders.length} non-cancelled orders`)
     
     return NextResponse.json({ 

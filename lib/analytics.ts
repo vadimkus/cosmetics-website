@@ -5,6 +5,7 @@ export interface AnalyticsData {
   totalPageViews: number
   uniqueVisitors: number
   topPages: Array<{ page: string; views: number }>
+  topCountries: Array<{ country: string; visitors: number }>
   recentActivity: Array<{ timestamp: Date; action: string; details: string }>
   userRegistrations: number
   ordersPlaced: number
@@ -19,6 +20,7 @@ export interface PageView {
   timestamp: Date
   userAgent?: string
   ipAddress?: string
+  country?: string
   referrer?: string
 }
 
@@ -29,6 +31,7 @@ export async function trackPageView(data: {
   userEmail?: string
   userAgent?: string
   ipAddress?: string
+  country?: string
   referrer?: string
 }): Promise<void> {
   try {
@@ -39,6 +42,7 @@ export async function trackPageView(data: {
         userEmail: data.userEmail,
         userAgent: data.userAgent,
         ipAddress: data.ipAddress,
+        country: data.country,
         referrer: data.referrer,
         timestamp: new Date()
       }
@@ -119,6 +123,28 @@ export async function getAnalyticsData(days: number = 30): Promise<AnalyticsData
       take: 10
     })
 
+    // Get top countries
+    const topCountries = await prisma.pageView.groupBy({
+      by: ['country'],
+      where: {
+        timestamp: {
+          gte: startDate
+        },
+        country: {
+          not: null
+        }
+      },
+      _count: {
+        country: true
+      },
+      orderBy: {
+        _count: {
+          country: 'desc'
+        }
+      },
+      take: 10
+    })
+
     // Get recent activity
     const recentActivity = await prisma.userAction.findMany({
       where: {
@@ -163,6 +189,10 @@ export async function getAnalyticsData(days: number = 30): Promise<AnalyticsData
         page: p.page,
         views: p._count.page
       })),
+      topCountries: topCountries.map(c => ({
+        country: c.country || 'Unknown',
+        visitors: c._count.country
+      })),
       recentActivity: recentActivity.map(a => ({
         timestamp: a.timestamp,
         action: a.action,
@@ -179,6 +209,7 @@ export async function getAnalyticsData(days: number = 30): Promise<AnalyticsData
       totalPageViews: 0,
       uniqueVisitors: 0,
       topPages: [],
+      topCountries: [],
       recentActivity: [],
       userRegistrations: 0,
       ordersPlaced: 0,
@@ -229,6 +260,43 @@ export async function getPageViews(page: string, days: number = 30): Promise<num
   } catch (error) {
     console.error('Error getting page views:', error)
     return 0
+  }
+}
+
+// Get top countries data
+export async function getTopCountries(days: number = 30): Promise<Array<{ country: string; visitors: number }>> {
+  try {
+    const startDate = new Date()
+    startDate.setDate(startDate.getDate() - days)
+
+    const topCountries = await prisma.pageView.groupBy({
+      by: ['country'],
+      where: {
+        timestamp: {
+          gte: startDate
+        },
+        country: {
+          not: null
+        }
+      },
+      _count: {
+        country: true
+      },
+      orderBy: {
+        _count: {
+          country: 'desc'
+        }
+      },
+      take: 20
+    })
+
+    return topCountries.map(c => ({
+      country: c.country || 'Unknown',
+      visitors: c._count.country
+    }))
+  } catch (error) {
+    console.error('Error getting top countries:', error)
+    return []
   }
 }
 

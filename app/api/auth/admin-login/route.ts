@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { findUserByEmail } from '@/lib/userStorageDb'
 
 export async function POST(request: NextRequest) {
   try {
@@ -11,20 +12,22 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Simple admin authentication (no database)
-    if (email === 'admin@genosys.ae' && password === 'admin5') {
+    // Check if user exists in database and is admin
+    const user = await findUserByEmail(email)
+    
+    if (user && user.isAdmin && user.password === password) {
       return NextResponse.json({
         success: true,
         user: {
-          id: 'admin',
-          email: 'admin@genosys.ae',
-          name: 'Admin',
+          id: user.id,
+          email: user.email,
+          name: user.name,
           isAdmin: true
         }
       })
     } else {
       return NextResponse.json(
-        { error: 'Invalid admin credentials' },
+        { error: 'Haha, better luck next time, cowboy!' },
         { status: 401 }
       )
     }

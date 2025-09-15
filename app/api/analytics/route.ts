@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getAnalyticsData, getRealTimeVisitors, getUserActivityTimeline } from '@/lib/analytics'
+import { getAnalyticsData, getRealTimeVisitors, getUserActivityTimeline, getTopCountries } from '@/lib/analytics'
 
 export async function GET(request: NextRequest) {
   try {
@@ -19,6 +19,10 @@ export async function GET(request: NextRequest) {
       case 'timeline':
         const timeline = await getUserActivityTimeline(days)
         return NextResponse.json(timeline)
+      
+      case 'countries':
+        const countries = await getTopCountries(days)
+        return NextResponse.json(countries)
       
       default:
         return NextResponse.json({ error: 'Invalid type parameter' }, { status: 400 })

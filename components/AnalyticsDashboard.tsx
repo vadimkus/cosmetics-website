@@ -8,6 +8,7 @@ interface AnalyticsData {
   totalPageViews: number
   uniqueVisitors: number
   topPages: Array<{ page: string; views: number }>
+  topCountries: Array<{ country: string; visitors: number }>
   recentActivity: Array<{ timestamp: string; action: string; details: string }>
   userRegistrations: number
   ordersPlaced: number
@@ -210,7 +211,7 @@ export default function AnalyticsDashboard() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Top Pages */}
         <div className="bg-white rounded-lg shadow p-6">
           <h3 className="text-lg font-semibold text-gray-800 mb-4">Top Pages</h3>
@@ -221,6 +222,40 @@ export default function AnalyticsDashboard() {
                 <span className="text-sm font-medium text-gray-900">{page.views}</span>
               </div>
             ))}
+          </div>
+        </div>
+
+        {/* Top Countries */}
+        <div className="bg-white rounded-lg shadow p-6">
+          <h3 className="text-lg font-semibold text-gray-800 mb-4">Visitor Countries</h3>
+          <div className="space-y-3">
+            {analytics.topCountries.length > 0 ? (
+              analytics.topCountries.slice(0, 8).map((country, index) => (
+                <div key={index} className="flex justify-between items-center">
+                  <div className="flex items-center">
+                    <span className="text-sm text-gray-600">{country.country}</span>
+                  </div>
+                  <div className="flex items-center">
+                    <div className="w-16 bg-gray-200 rounded-full h-2 mr-2">
+                      <div 
+                        className="bg-blue-600 h-2 rounded-full"
+                        style={{ 
+                          width: `${(country.visitors / Math.max(...analytics.topCountries.map(c => c.visitors))) * 100}%` 
+                        }}
+                      ></div>
+                    </div>
+                    <span className="text-sm font-medium text-gray-900 w-8 text-right">
+                      {country.visitors}
+                    </span>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div className="text-center py-4">
+                <p className="text-sm text-gray-500">No country data available</p>
+                <p className="text-xs text-gray-400 mt-1">Country tracking starts with new visits</p>
+              </div>
+            )}
           </div>
         </div>
 

@@ -283,13 +283,6 @@ export default function AdminPage() {
       <div className="max-w-6xl mx-auto">
         <div className="flex justify-between items-center mb-8">
           <div className="flex items-center">
-            <Image
-              src="/images/scalpel.png"
-              alt="Admin"
-              width={48}
-              height={48}
-              className="mr-4"
-            />
             <h1 className="text-4xl font-bold text-gray-800">Admin Dashboard</h1>
           </div>
           <button

@@ -79,15 +79,20 @@ model OrderItem {
 }
 
 model PageView {
-  id        String   @id @default(cuid())
-  page      String
-  userId    String?
-  userEmail String?
-  userAgent String?
-  ipAddress String?
-  country   String?
-  referrer  String?
-  timestamp DateTime @default(now())
+  id           String   @id @default(cuid())
+  page         String
+  userId       String?
+  userEmail    String?
+  userAgent    String?
+  ipAddress    String?
+  country      String?
+  referrer     String?
+  deviceType   String?  // mobile, tablet, desktop
+  browser      String?  // Chrome, Safari, Firefox, etc.
+  os           String?  // Windows, macOS, iOS, Android, etc.
+  screenWidth  Int?     // Screen width in pixels
+  screenHeight Int?     // Screen height in pixels
+  timestamp    DateTime @default(now())
 
   @@map("page_views")
 }
@@ -101,5 +106,27 @@ model UserAction {
   timestamp DateTime @default(now())
 
   @@map("user_actions")
+}
+
+model UserSession {
+  id           String   @id @default(cuid())
+  sessionId    String   @unique
+  userId       String?
+  userEmail    String?
+  ipAddress    String?
+  country      String?
+  deviceType   String?
+  browser      String?
+  os           String?
+  screenWidth  Int?
+  screenHeight Int?
+  startTime    DateTime @default(now())
+  endTime      DateTime?
+  pageViews    Int      @default(1)
+  duration     Int?     // Duration in seconds
+  isBounce     Boolean  @default(true) // Single page view = bounce
+  referrer     String?
+
+  @@map("user_sessions")
 }
 

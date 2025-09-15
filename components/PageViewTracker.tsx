@@ -22,7 +22,9 @@ export default function PageViewTracker() {
             type: 'pageview',
             page,
             userAgent: navigator.userAgent,
-            referrer: document.referrer
+            referrer: document.referrer,
+            screenWidth: window.screen.width,
+            screenHeight: window.screen.height
           })
         })
         console.log('✅ Page view tracked:', page)

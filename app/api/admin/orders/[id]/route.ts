@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { updateOrderStatus, getOrderById, deleteOrder } from '@/lib/orderStorageDb'
 import { sendOrderStatusUpdate } from '@/lib/emailService'
+import { prisma } from '@/lib/prisma'
 
 export async function PUT(
   request: NextRequest,
@@ -73,6 +74,22 @@ export async function DELETE(
         { success: false, error: 'Order not found' },
         { status: 404 }
       )
+    }
+
+    // Delete related user actions from analytics (order_created activities)
+    try {
+      await prisma.userAction.deleteMany({
+        where: {
+          action: 'order_created',
+          details: {
+            contains: order.orderNumber
+          }
+        }
+      })
+      console.log(`✅ Deleted analytics activities for order ${order.orderNumber}`)
+    } catch (analyticsError) {
+      console.error('❌ Failed to delete analytics activities:', analyticsError)
+      // Don't fail order deletion if analytics cleanup fails
     }
 
     // Delete order from database

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { 
   UserIcon, 
   Mail, 
@@ -85,6 +85,12 @@ export default function CustomerProfile({
   onUpdateCustomer, 
   onDeleteCustomer 
 }: CustomerProfileProps) {
+  console.log('CustomerProfile received customer:', customer)
+  
+  useEffect(() => {
+    console.log('CustomerProfile mounted, fileInputRef:', fileInputRef.current)
+  }, [])
+  
   const [orders, setOrders] = useState<Order[]>([])
   const [loading, setLoading] = useState(true)
   const [editing, setEditing] = useState(false)
@@ -97,6 +103,7 @@ export default function CustomerProfile({
   })
   const [uploading, setUploading] = useState(false)
   const [refreshing, setRefreshing] = useState(false)
+  const fileInputRef = useRef<HTMLInputElement>(null)
   const [customerStats, setCustomerStats] = useState({
     totalOrders: 0,
     totalSpent: 0,
@@ -122,6 +129,13 @@ export default function CustomerProfile({
 
   const handleSave = async () => {
     try {
+      console.log('Saving customer updates:', {
+        email: editData.email || undefined,
+        phone: editData.phone || undefined,
+        address: editData.address || undefined,
+        birthday: editData.birthday || undefined,
+        profilePicture: editData.profilePicture || undefined
+      })
       await onUpdateCustomer(customer.id, {
         email: editData.email || undefined,
         phone: editData.phone || undefined,
@@ -129,6 +143,7 @@ export default function CustomerProfile({
         birthday: editData.birthday || undefined,
         profilePicture: editData.profilePicture || undefined
       })
+      console.log('Customer update completed')
       setEditing(false)
     } catch (error) {
       console.error('Error updating customer:', error)
@@ -147,8 +162,13 @@ export default function CustomerProfile({
   }
 
   const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log('handleImageUpload called', event.target.files)
     const file = event.target.files?.[0]
-    if (!file) return
+    if (!file) {
+      console.log('No file selected')
+      return
+    }
+    console.log('File selected:', file.name, file.size, file.type)
 
     // Validate file type
     if (!file.type.startsWith('image/')) {
@@ -314,7 +334,27 @@ export default function CustomerProfile({
         <div className="lg:col-span-1">
           <div className="bg-white rounded-lg shadow-sm border p-6">
             <div className="text-center mb-6">
-              <div className="relative w-24 h-24 rounded-full overflow-hidden bg-gray-200 border-4 border-gray-300 flex items-center justify-center mx-auto mb-4 group cursor-pointer" onClick={handleEdit}>
+              <div 
+                className="relative w-24 h-24 rounded-full overflow-hidden bg-gray-200 border-4 border-gray-300 flex items-center justify-center mx-auto mb-4 group cursor-pointer"
+                onClick={(e) => {
+                  e.stopPropagation()
+                  console.log('Avatar clicked - triggering file input')
+                  if (fileInputRef.current) {
+                    console.log('File input ref found, clicking...')
+                    fileInputRef.current.click()
+                  } else {
+                    console.log('File input ref not found, trying alternative approach')
+                    // Alternative approach: find the file input by querying the DOM
+                    const fileInput = document.querySelector('input[type="file"][accept="image/*"]') as HTMLInputElement
+                    if (fileInput) {
+                      console.log('Found file input via DOM query, clicking...')
+                      fileInput.click()
+                    } else {
+                      console.log('No file input found in DOM')
+                    }
+                  }
+                }}
+              >
                 {editing ? (
                   editData.profilePicture ? (
                     <img
@@ -352,8 +392,13 @@ export default function CustomerProfile({
                 {/* Always show hover overlay for profile picture upload */}
                 <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                   <div className="flex flex-col gap-1">
-                    <label className="cursor-pointer p-1 bg-white rounded-full hover:bg-gray-100 transition-colors" onClick={(e) => e.stopPropagation()}>
+                    <label 
+                      className="cursor-pointer p-1 bg-white rounded-full hover:bg-gray-100 transition-colors" 
+                      htmlFor="profile-picture-upload"
+                    >
                       <input
+                        ref={fileInputRef}
+                        id="profile-picture-upload"
                         type="file"
                         accept="image/*"
                         onChange={handleImageUpload}
@@ -385,8 +430,12 @@ export default function CustomerProfile({
               
               {editing && (
                 <div className="mb-4">
-                  <label className="cursor-pointer inline-flex items-center gap-2 px-3 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors text-sm">
+                  <label 
+                    className="cursor-pointer inline-flex items-center gap-2 px-3 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors text-sm"
+                    htmlFor="change-picture-upload"
+                  >
                     <input
+                      id="change-picture-upload"
                       type="file"
                       accept="image/*"
                       onChange={handleImageUpload}

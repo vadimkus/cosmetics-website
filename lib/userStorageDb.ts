@@ -80,13 +80,15 @@ export const findUserById = async (id: string): Promise<User | null> => {
 // Update user
 export const updateUser = async (userId: string, updates: Partial<UserData>): Promise<boolean> => {
   try {
-    await prisma.user.update({
+    console.log('Updating user in database:', { userId, updates })
+    const result = await prisma.user.update({
       where: { id: userId },
       data: {
         ...updates,
         updatedAt: new Date()
       }
     })
+    console.log('User update result:', result)
     return true
   } catch (error) {
     console.error('Error updating user:', error)

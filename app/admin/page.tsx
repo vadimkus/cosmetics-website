@@ -410,7 +410,16 @@ export default function AdminPage() {
 
         <div className="bg-white rounded-lg shadow-sm border p-8">
           {activeTab === 'analytics' && (
-            <AnalyticsDashboard />
+            <AnalyticsDashboard 
+              onCustomerClick={async (userEmail) => {
+                // Find the customer by email and set as selected
+                const customer = users.find(user => user.email === userEmail)
+                if (customer) {
+                  setSelectedCustomer(customer)
+                  setActiveTab('users') // Switch to users tab to show the profile
+                }
+              }}
+            />
           )}
 
           {activeTab === 'users' && (

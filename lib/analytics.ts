@@ -329,7 +329,8 @@ export async function getAnalyticsData(days: number = 30): Promise<AnalyticsData
       recentActivity: recentActivity.map(a => ({
         timestamp: a.timestamp,
         action: a.action,
-        details: a.details || ''
+        details: a.details || '',
+        userEmail: a.userEmail || undefined
       })),
       userRegistrations,
       ordersPlaced,

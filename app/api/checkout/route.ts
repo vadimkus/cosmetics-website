@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { sendOrderNotification, sendOrderConfirmation } from '@/lib/emailService'
 import { addOrder, OrderData, OrderItemData } from '@/lib/orderStorageDb'
 import { trackUserAction } from '@/lib/analytics'
+import { sendOrderConfirmationEmail, sendAdminNewOrderNotification } from '@/lib/email'
 
 export async function POST(request: NextRequest) {
   try {
@@ -78,20 +78,45 @@ export async function POST(request: NextRequest) {
       details: `Order #${orderId} - ${items.length} items - Total: ${total} AED`
     })
 
-    // Send email notifications (temporarily disabled for testing)
-    console.log(`Order ${order.orderNumber} created - email notifications temporarily disabled`)
-    
-    // TODO: Re-enable email notifications once SMTP connection is fixed
-    // setImmediate(() => {
-    //   Promise.all([
-    //     sendOrderNotification(order),
-    //     sendOrderConfirmation(order)
-    //   ]).then(() => {
-    //     console.log(`Order ${order.orderNumber} created and notifications sent`)
-    //   }).catch((emailError) => {
-    //     console.error('Error sending email notifications:', emailError)
-    //   })
-    // })
+    // Send order confirmation email to customer
+    try {
+      await sendOrderConfirmationEmail({
+        orderNumber: order.orderNumber,
+        customerName: order.customerName,
+        customerEmail: order.customerEmail,
+        items: order.items.map(item => ({
+          productName: item.productName,
+          quantity: item.quantity,
+          price: item.price,
+          image: item.image
+        })),
+        subtotal: order.subtotal,
+        shipping: order.shipping,
+        vat: order.vat,
+        total: order.total,
+        address: order.customerAddress,
+        emirate: order.customerEmirate
+      })
+      console.log('✅ Order confirmation email sent to:', order.customerEmail)
+    } catch (emailError) {
+      console.error('❌ Failed to send order confirmation email:', emailError)
+      // Don't fail order creation if email fails
+    }
+
+    // Send admin notification for new order
+    try {
+      await sendAdminNewOrderNotification({
+        orderNumber: order.orderNumber,
+        customerName: order.customerName,
+        customerEmail: order.customerEmail,
+        total: order.total,
+        itemCount: order.items.length
+      })
+      console.log('✅ Admin notification sent for new order:', order.orderNumber)
+    } catch (emailError) {
+      console.error('❌ Failed to send admin notification:', emailError)
+      // Don't fail order creation if email fails
+    }
 
     // Return success response
     return NextResponse.json({ 

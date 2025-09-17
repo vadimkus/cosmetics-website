@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { ArrowLeft, User, Mail, Phone, MapPin, Calendar, Edit3, Package, CheckCircle, Clock, Camera, X, MessageCircle, Lock, Eye, Trash2, Percent, Crown, Building, ShoppingBag, Truck, CreditCard, RefreshCw, Settings, Bell, Shield, Star, Award, Gift, Heart, Share2, Download, Upload, Zap, Sparkles } from 'lucide-react'
+import { ArrowLeft, User, Mail, Phone, MapPin, Calendar, Edit3, Package, CheckCircle, Clock, Camera, X, MessageCircle, Lock, Eye, Trash2, Percent, Crown, Building, ShoppingBag, Truck, CreditCard, RefreshCw, Settings, Bell, Shield, Star, Award, Gift, Heart, Share2, Download, Upload, Zap, Sparkles, MoreHorizontal } from 'lucide-react'
 import { useAuth } from '@/components/AuthProvider'
 import { useState, useRef, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
@@ -31,7 +31,9 @@ export default function ProfilePageNew() {
   const [loadingOrders, setLoadingOrders] = useState(false)
   const [activeTab, setActiveTab] = useState<'profile' | 'orders' | 'settings' | 'downloads'>('profile')
   const [isRefreshing, setIsRefreshing] = useState(false)
+  const [showMoreMenu, setShowMoreMenu] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
+  const moreMenuRef = useRef<HTMLDivElement>(null)
 
   // Handle refresh with loading state
   const handleRefresh = async () => {
@@ -84,6 +86,23 @@ export default function ProfilePageNew() {
       }
     }
   }, [user])
+
+  // Close more menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (moreMenuRef.current && !moreMenuRef.current.contains(event.target as Node)) {
+        setShowMoreMenu(false)
+      }
+    }
+
+    if (showMoreMenu) {
+      document.addEventListener('mousedown', handleClickOutside)
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [showMoreMenu])
 
   // Fetch user orders
   useEffect(() => {
@@ -298,7 +317,7 @@ export default function ProfilePageNew() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-green-50 to-emerald-100">
+    <div className="min-h-screen bg-white">
       {/* Header */}
       <div className="bg-white/80 backdrop-blur-sm border-b border-white/20 sticky top-0 z-40">
         <div className="container mx-auto px-4 py-4">
@@ -421,59 +440,124 @@ export default function ProfilePageNew() {
 
           {/* Navigation Tabs */}
           <div className="bg-white/70 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 p-2 mb-8">
-            <div className="flex gap-2">
-              {[
-                { id: 'profile', label: 'Profile', icon: User },
-                { id: 'orders', label: 'Orders', icon: Package },
-                { id: 'settings', label: 'Settings', icon: Settings }
-              ].map((tab) => (
-                <button
-                  key={tab.id}
-                  onClick={() => setActiveTab(tab.id as any)}
-                  className={`flex items-center gap-2 px-6 py-3 rounded-xl font-medium transition-all duration-200 ${
-                    activeTab === tab.id
-                      ? 'bg-gradient-to-r from-red-600 to-red-700 text-white shadow-lg'
-                      : 'text-gray-600 hover:text-gray-900 hover:bg-white/50'
-                  }`}
-                >
-                  <tab.icon className="h-5 w-5" />
-                  {tab.label}
-                </button>
-              ))}
+            {/* Mobile: Horizontal scroll with scroll indicators */}
+            <div className="relative">
+              {/* Scroll indicators for mobile */}
+              <div className="absolute left-0 top-0 bottom-0 w-4 bg-gradient-to-r from-white/70 to-transparent z-10 pointer-events-none sm:hidden"></div>
+              <div className="absolute right-0 top-0 bottom-0 w-4 bg-gradient-to-l from-white/70 to-transparent z-10 pointer-events-none sm:hidden"></div>
               
-              <button
-                onClick={handleRefresh}
-                disabled={isRefreshing}
-                className="flex items-center gap-2 px-4 py-3 text-gray-600 hover:text-gray-900 hover:bg-white/50 rounded-xl font-medium transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
-                title="Refresh profile data"
-              >
-                <RefreshCw className={`h-5 w-5 ${isRefreshing ? 'animate-spin' : ''}`} />
-                Refresh
-              </button>
-              
-              <button
-                onClick={() => setIsEditing(!isEditing)}
-                className={`flex items-center gap-2 px-6 py-3 rounded-xl font-medium transition-all duration-200 ${
-                  isEditing 
-                    ? 'bg-gradient-to-r from-red-600 to-red-700 text-white shadow-lg' 
-                    : 'text-gray-600 hover:text-gray-900 hover:bg-white/50'
-                }`}
-              >
-                <Edit3 className="h-5 w-5" />
-                {isEditing ? 'Cancel' : 'Edit Profile'}
-              </button>
-              
-              <button
-                onClick={() => setActiveTab('downloads')}
-                className={`flex items-center gap-2 px-6 py-3 rounded-xl font-medium transition-all duration-200 ${
-                  activeTab === 'downloads'
-                    ? 'bg-gradient-to-r from-red-600 to-red-700 text-white shadow-lg' 
-                    : 'text-gray-600 hover:text-gray-900 hover:bg-white/50'
-                }`}
-              >
-                <Download className="h-5 w-5" />
-                Downloads
-              </button>
+              {/* Navigation container with horizontal scroll on mobile */}
+              <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-1 sm:overflow-x-visible sm:pb-0">
+                {/* Primary Navigation Tabs */}
+                {[
+                  { id: 'profile', label: 'Profile', icon: User, shortLabel: 'Profile' },
+                  { id: 'orders', label: 'Orders', icon: Package, shortLabel: 'Orders' },
+                  { id: 'settings', label: 'Settings', icon: Settings, shortLabel: 'Settings' }
+                ].map((tab) => (
+                  <button
+                    key={tab.id}
+                    onClick={() => setActiveTab(tab.id as any)}
+                    className={`flex items-center gap-1 sm:gap-2 px-2 xs:px-3 sm:px-6 py-3 rounded-xl font-medium transition-all duration-200 whitespace-nowrap flex-shrink-0 ${
+                      activeTab === tab.id
+                        ? 'bg-gradient-to-r from-red-600 to-red-700 text-white shadow-lg'
+                        : 'text-gray-600 hover:text-gray-900 hover:bg-white/50'
+                    }`}
+                    title={tab.label}
+                  >
+                    <tab.icon className="h-4 w-4 sm:h-5 sm:w-5" />
+                    <span className="text-sm sm:text-base hidden xs:inline">{tab.shortLabel}</span>
+                  </button>
+                ))}
+                
+                {/* Secondary Actions - Show on larger screens */}
+                <div className="hidden xs:flex items-center gap-2">
+                  <button
+                    onClick={handleRefresh}
+                    disabled={isRefreshing}
+                    className="flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-3 text-gray-600 hover:text-gray-900 hover:bg-white/50 rounded-xl font-medium transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap flex-shrink-0"
+                    title="Refresh profile data"
+                  >
+                    <RefreshCw className={`h-4 w-4 sm:h-5 sm:w-5 ${isRefreshing ? 'animate-spin' : ''}`} />
+                    <span className="text-sm sm:text-base">Refresh</span>
+                  </button>
+                  
+                  <button
+                    onClick={() => setIsEditing(!isEditing)}
+                    className={`flex items-center gap-1 sm:gap-2 px-3 sm:px-6 py-3 rounded-xl font-medium transition-all duration-200 whitespace-nowrap flex-shrink-0 ${
+                      isEditing 
+                        ? 'bg-gradient-to-r from-red-600 to-red-700 text-white shadow-lg' 
+                        : 'text-gray-600 hover:text-gray-900 hover:bg-white/50'
+                    }`}
+                    title={isEditing ? 'Cancel editing' : 'Edit profile'}
+                  >
+                    <Edit3 className="h-4 w-4 sm:h-5 sm:w-5" />
+                    <span className="text-sm sm:text-base">{isEditing ? 'Cancel' : 'Edit'}</span>
+                  </button>
+                  
+                  <button
+                    onClick={() => setActiveTab('downloads')}
+                    className={`flex items-center gap-1 sm:gap-2 px-3 sm:px-6 py-3 rounded-xl font-medium transition-all duration-200 whitespace-nowrap flex-shrink-0 ${
+                      activeTab === 'downloads'
+                        ? 'bg-gradient-to-r from-red-600 to-red-700 text-white shadow-lg' 
+                        : 'text-gray-600 hover:text-gray-900 hover:bg-white/50'
+                    }`}
+                    title="Downloads"
+                  >
+                    <Download className="h-4 w-4 sm:h-5 sm:w-5" />
+                    <span className="text-sm sm:text-base">Downloads</span>
+                  </button>
+                </div>
+
+                {/* More Menu for very small screens */}
+                <div className="relative xs:hidden" ref={moreMenuRef}>
+                  <button
+                    onClick={() => setShowMoreMenu(!showMoreMenu)}
+                    className="flex items-center gap-1 px-2 py-3 text-gray-600 hover:text-gray-900 hover:bg-white/50 rounded-xl font-medium transition-all duration-200 whitespace-nowrap flex-shrink-0"
+                    title="More actions"
+                  >
+                    <MoreHorizontal className="h-4 w-4" />
+                  </button>
+                  
+                  {/* Dropdown Menu */}
+                  {showMoreMenu && (
+                    <div className="absolute right-0 top-full mt-2 w-48 bg-white rounded-xl shadow-lg border border-gray-200 py-2 z-50">
+                      <button
+                        onClick={() => {
+                          handleRefresh()
+                          setShowMoreMenu(false)
+                        }}
+                        disabled={isRefreshing}
+                        className="w-full flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-gray-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                      >
+                        <RefreshCw className={`h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`} />
+                        <span className="text-sm">Refresh</span>
+                      </button>
+                      
+                      <button
+                        onClick={() => {
+                          setIsEditing(!isEditing)
+                          setShowMoreMenu(false)
+                        }}
+                        className="w-full flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-gray-50 transition-colors"
+                      >
+                        <Edit3 className="h-4 w-4" />
+                        <span className="text-sm">{isEditing ? 'Cancel' : 'Edit Profile'}</span>
+                      </button>
+                      
+                      <button
+                        onClick={() => {
+                          setActiveTab('downloads')
+                          setShowMoreMenu(false)
+                        }}
+                        className="w-full flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-gray-50 transition-colors"
+                      >
+                        <Download className="h-4 w-4" />
+                        <span className="text-sm">Downloads</span>
+                      </button>
+                    </div>
+                  )}
+                </div>
+              </div>
             </div>
           </div>
 

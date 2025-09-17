@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { addUser, findUserByEmail } from '@/lib/userStorageDb'
 import { trackUserAction } from '@/lib/analytics'
+import { sendWelcomeEmail, sendAdminNewUserNotification } from '@/lib/email'
 
 export async function POST(request: NextRequest) {
   try {
@@ -53,6 +54,24 @@ export async function POST(request: NextRequest) {
       userEmail: email,
       details: `New user registered: ${name}`
     })
+
+    // Send welcome email to user
+    try {
+      await sendWelcomeEmail(name, email)
+      console.log('✅ Welcome email sent to:', email)
+    } catch (emailError) {
+      console.error('❌ Failed to send welcome email:', emailError)
+      // Don't fail registration if email fails
+    }
+
+    // Send admin notification
+    try {
+      await sendAdminNewUserNotification(name, email)
+      console.log('✅ Admin notification sent for new user:', email)
+    } catch (emailError) {
+      console.error('❌ Failed to send admin notification:', emailError)
+      // Don't fail registration if email fails
+    }
 
     // Return success response (without password)
     const { password: _, ...userWithoutPassword } = createdUser

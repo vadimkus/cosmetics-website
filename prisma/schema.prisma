@@ -32,7 +32,8 @@ model Product {
   name        String
   price       Float
   description String
-  image       String
+  image       String   // Keep for backward compatibility (primary image)
+  images      String?  // JSON array of all images
   category    String
   inStock     Boolean  @default(true)
   size        String?
@@ -87,12 +88,12 @@ model PageView {
   ipAddress    String?
   country      String?
   referrer     String?
-  deviceType   String?  // mobile, tablet, desktop
-  browser      String?  // Chrome, Safari, Firefox, etc.
-  os           String?  // Windows, macOS, iOS, Android, etc.
-  screenWidth  Int?     // Screen width in pixels
-  screenHeight Int?     // Screen height in pixels
   timestamp    DateTime @default(now())
+  browser      String?
+  deviceType   String?
+  os           String?
+  screenHeight Int?
+  screenWidth  Int?
 
   @@map("page_views")
 }
@@ -109,8 +110,8 @@ model UserAction {
 }
 
 model UserSession {
-  id           String   @id @default(cuid())
-  sessionId    String   @unique
+  id           String    @id @default(cuid())
+  sessionId    String    @unique
   userId       String?
   userEmail    String?
   ipAddress    String?
@@ -120,13 +121,12 @@ model UserSession {
   os           String?
   screenWidth  Int?
   screenHeight Int?
-  startTime    DateTime @default(now())
+  startTime    DateTime  @default(now())
   endTime      DateTime?
-  pageViews    Int      @default(1)
-  duration     Int?     // Duration in seconds
-  isBounce     Boolean  @default(true) // Single page view = bounce
+  pageViews    Int       @default(1)
+  duration     Int?
+  isBounce     Boolean   @default(true)
   referrer     String?
 
   @@map("user_sessions")
 }
-

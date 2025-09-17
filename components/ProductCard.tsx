@@ -91,8 +91,13 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
       </div>
       
       <div className="p-3 md:p-4">
-        <div className="mb-2">
+        <div className="mb-2 flex items-center justify-between">
           <span className="text-xs md:text-sm text-primary-600 font-medium">{product.category}</span>
+          {product.inStock && (
+            <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+              In Stock
+            </span>
+          )}
         </div>
         
         <Link href={`/products/${product.id}`}>

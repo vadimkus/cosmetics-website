@@ -26,10 +26,10 @@ export async function GET(
     
     const response = NextResponse.json(product)
     
-    // Add caching headers for better performance
-    response.headers.set('Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=86400')
-    response.headers.set('CDN-Cache-Control', 'public, s-maxage=3600')
-    response.headers.set('Vercel-CDN-Cache-Control', 'public, s-maxage=3600')
+    // Temporarily disable caching for immediate updates
+    response.headers.set('Cache-Control', 'no-cache, no-store, must-revalidate')
+    response.headers.set('Pragma', 'no-cache')
+    response.headers.set('Expires', '0')
     
     return response
   } catch (error) {

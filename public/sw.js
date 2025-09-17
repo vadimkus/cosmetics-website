@@ -144,7 +144,8 @@ async function handleImageRequest(request) {
     
     const networkResponse = await fetch(request)
     
-    if (networkResponse.ok) {
+    // Only cache full responses (200 status), not partial responses (206)
+    if (networkResponse.ok && networkResponse.status === 200) {
       cache.put(request, networkResponse.clone())
     }
     
@@ -160,7 +161,8 @@ async function handleAPIRequest(request) {
   try {
     const networkResponse = await fetch(request)
     
-    if (networkResponse.ok) {
+    // Only cache full responses (200 status), not partial responses (206)
+    if (networkResponse.ok && networkResponse.status === 200) {
       const cache = await caches.open(DYNAMIC_CACHE)
       cache.put(request, networkResponse.clone())
     }
@@ -201,7 +203,8 @@ async function handleStaticRequest(request) {
     
     const networkResponse = await fetch(request)
     
-    if (networkResponse.ok) {
+    // Only cache full responses (200 status), not partial responses (206)
+    if (networkResponse.ok && networkResponse.status === 200) {
       cache.put(request, networkResponse.clone())
     }
     
@@ -217,7 +220,8 @@ async function handlePageRequest(request) {
   try {
     const networkResponse = await fetch(request)
     
-    if (networkResponse.ok) {
+    // Only cache full responses (200 status), not partial responses (206)
+    if (networkResponse.ok && networkResponse.status === 200) {
       const cache = await caches.open(DYNAMIC_CACHE)
       cache.put(request, networkResponse.clone())
     }

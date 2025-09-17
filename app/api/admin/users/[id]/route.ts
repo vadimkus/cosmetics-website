@@ -8,6 +8,7 @@ export async function PUT(
   try {
     const { id } = await params
     const updates = await request.json()
+    console.log('Admin user update request:', { id, updates })
     const { canSeePrices, discountType, discountPercentage, name, email, phone, address, birthday, profilePicture } = updates
 
     if (canSeePrices !== undefined && typeof canSeePrices !== 'boolean') {
@@ -32,7 +33,7 @@ export async function PUT(
     }
 
     // Update user in database
-    const success = updateUser(id, updates)
+    const success = await updateUser(id, updates)
     
     if (!success) {
       return NextResponse.json(
@@ -62,7 +63,7 @@ export async function DELETE(
     const { id } = await params
 
     // Delete user from database
-    const success = deleteUser(id)
+    const success = await deleteUser(id)
     
     if (!success) {
       return NextResponse.json(

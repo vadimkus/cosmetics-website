@@ -21,10 +21,14 @@ interface AnalyticsData {
     avgSessionDuration: number
     avgPageViewsPerSession: number
   }
-  recentActivity: Array<{ timestamp: string; action: string; details: string }>
+  recentActivity: Array<{ timestamp: string; action: string; details: string; userEmail?: string }>
   userRegistrations: number
   ordersPlaced: number
   conversionRate: number
+}
+
+interface AnalyticsDashboardProps {
+  onCustomerClick?: (userEmail: string) => void
 }
 
 interface TimelineData {
@@ -33,7 +37,7 @@ interface TimelineData {
   pageViews: number
 }
 
-export default function AnalyticsDashboard() {
+export default function AnalyticsDashboard({ onCustomerClick }: AnalyticsDashboardProps = {}) {
   const [analytics, setAnalytics] = useState<AnalyticsData | null>(null)
   const [timeline, setTimeline] = useState<TimelineData[]>([])
   const [loading, setLoading] = useState(true)
@@ -92,6 +96,18 @@ export default function AnalyticsDashboard() {
       hour: '2-digit',
       minute: '2-digit'
     })
+  }
+
+  const extractCustomerName = (details: string) => {
+    // Extract name from "New user registered: Franziska Wauer"
+    const match = details.match(/New user registered: (.+)/)
+    return match ? match[1] : null
+  }
+
+  const handleCustomerClick = (userEmail: string) => {
+    if (onCustomerClick) {
+      onCustomerClick(userEmail)
+    }
   }
 
   if (loading) {
@@ -275,19 +291,35 @@ export default function AnalyticsDashboard() {
         <div className="bg-white rounded-lg shadow p-6">
           <h3 className="text-lg font-semibold text-gray-800 mb-4">Recent Activity</h3>
           <div className="space-y-3 max-h-64 overflow-y-auto">
-            {analytics.recentActivity.slice(0, 10).map((activity, index) => (
-              <div key={index} className="flex justify-between items-start">
-                <div className="flex-1">
-                  <p className="text-sm font-medium text-gray-900">{activity.action}</p>
-                  {activity.details && (
-                    <p className="text-xs text-gray-600">{activity.details}</p>
-                  )}
+            {analytics.recentActivity.slice(0, 10).map((activity, index) => {
+              const customerName = extractCustomerName(activity.details || activity.action)
+              const isUserRegistration = activity.action === 'user_registered' && activity.userEmail
+              
+              return (
+                <div key={index} className="flex justify-between items-start">
+                  <div className="flex-1">
+                    {isUserRegistration && customerName ? (
+                      <p className="text-sm font-medium text-gray-900">
+                        New user registered:{' '}
+                        <button
+                          onClick={() => handleCustomerClick(activity.userEmail!)}
+                          className="text-blue-600 hover:text-blue-800 hover:underline cursor-pointer"
+                        >
+                          {customerName}
+                        </button>
+                      </p>
+                    ) : (
+                      <p className="text-sm font-medium text-gray-900">
+                        {activity.details || activity.action}
+                      </p>
+                    )}
+                  </div>
+                  <span className="text-xs text-gray-500 ml-2">
+                    {formatTimestamp(activity.timestamp)}
+                  </span>
                 </div>
-                <span className="text-xs text-gray-500 ml-2">
-                  {formatTimestamp(activity.timestamp)}
-                </span>
-              </div>
-            ))}
+              )
+            })}
           </div>
         </div>
       </div>

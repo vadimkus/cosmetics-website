@@ -371,6 +371,7 @@ export default function ProductForm({ product, onSave, onCancel }: ProductFormPr
                             alt={`Product Preview ${index + 1}`} 
                             fill 
                             className="object-cover" 
+                            sizes="(max-width: 768px) 33vw, 200px"
                           />
                           <button
                             type="button"

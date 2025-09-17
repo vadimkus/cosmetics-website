@@ -33,6 +33,7 @@ export default function CartItem({ item }: CartItemProps) {
             alt={product.name}
             fill
             className="object-cover rounded-lg cursor-pointer"
+            sizes="(max-width: 640px) 64px, 80px"
           />
         </Link>
         

@@ -211,6 +211,29 @@ export default function AdminPage() {
     }
   }
 
+  const deleteOrder = async (orderId: string, orderNumber: string) => {
+    if (!confirm(`Are you sure you want to delete order #${orderNumber}? This action cannot be undone.`)) {
+      return
+    }
+
+    try {
+      const response = await fetch(`/api/admin/orders/${orderId}`, {
+        method: 'DELETE'
+      })
+      
+      if (response.ok) {
+        setOrders(orders.filter(order => order.id !== orderId))
+        alert('Order deleted successfully')
+      } else {
+        const errorData = await response.json()
+        alert(`Failed to delete order: ${errorData.error || 'Unknown error'}`)
+      }
+    } catch (error) {
+      console.error('Error deleting order:', error)
+      alert('Failed to delete order')
+    }
+  }
+
   const handleAdminLogin = async (email: string, password: string): Promise<boolean> => {
     // Simple admin authentication (in production, this should be more secure)
     if (email === 'admin@genosys.ae' && password === 'admin5') {
@@ -680,12 +703,22 @@ export default function AdminPage() {
                                 {formatCurrency(order.total)}
                               </td>
                               <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                <button
-                                  onClick={() => setSelectedOrder(order)}
-                                  className="text-primary-600 hover:text-primary-900 font-semibold"
-                                >
-                                  View Details
-                                </button>
+                                <div className="flex items-center gap-2">
+                                  <button
+                                    onClick={() => setSelectedOrder(order)}
+                                    className="text-primary-600 hover:text-primary-900 font-semibold"
+                                  >
+                                    View Details
+                                  </button>
+                                  <button
+                                    onClick={() => deleteOrder(order.id, order.id.slice(-8))}
+                                    className="text-red-600 hover:text-red-900 font-semibold flex items-center gap-1"
+                                    title="Delete Order"
+                                  >
+                                    <Trash2 className="h-4 w-4" />
+                                    Delete
+                                  </button>
+                                </div>
                               </td>
                             </tr>
                           ))}

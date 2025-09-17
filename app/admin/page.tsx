@@ -213,7 +213,7 @@ export default function AdminPage() {
 
   const handleAdminLogin = async (email: string, password: string): Promise<boolean> => {
     // Simple admin authentication (in production, this should be more secure)
-    if (email === 'admin@genosys.ae' && password === 'admin123') {
+    if (email === 'admin@genosys.ae' && password === 'admin5') {
       setIsAuthenticated(true)
       return true
     }

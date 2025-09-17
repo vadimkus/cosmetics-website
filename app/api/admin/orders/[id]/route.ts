@@ -78,7 +78,8 @@ export async function DELETE(
 
     // Delete related user actions from analytics (order_created activities)
     try {
-      await prisma.userAction.deleteMany({
+      // Delete activities that match the order number exactly
+      const deletedByOrderNumber = await prisma.userAction.deleteMany({
         where: {
           action: 'order_created',
           details: {
@@ -86,7 +87,53 @@ export async function DELETE(
           }
         }
       })
-      console.log(`✅ Deleted analytics activities for order ${order.orderNumber}`)
+      
+      // Also delete activities that match the customer email and are order-related
+      // This catches cases where order numbers might not match exactly
+      const deletedByEmail = await prisma.userAction.deleteMany({
+        where: {
+          action: 'order_created',
+          userEmail: order.customerEmail,
+          details: {
+            contains: 'items - Total:'
+          }
+        }
+      })
+      
+      console.log(`✅ Deleted ${deletedByOrderNumber.count} analytics activities by order number`)
+      console.log(`✅ Deleted ${deletedByEmail.count} analytics activities by customer email`)
+      
+      // If no activities were deleted by order number, try to find and delete by pattern
+      if (deletedByOrderNumber.count === 0) {
+        console.log(`⚠️ No activities found for order number ${order.orderNumber}, checking for pattern matches...`)
+        
+        // Look for activities that might reference this order with different formatting
+        const patternMatches = await prisma.userAction.findMany({
+          where: {
+            action: 'order_created',
+            userEmail: order.customerEmail,
+            details: {
+              contains: 'items - Total:'
+            }
+          }
+        })
+        
+        if (patternMatches.length > 0) {
+          console.log(`🔍 Found ${patternMatches.length} potential matches for cleanup`)
+          // Delete the most recent one that matches the customer email
+          const mostRecent = patternMatches.sort((a, b) => 
+            new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
+          )[0]
+          
+          await prisma.userAction.delete({
+            where: {
+              id: mostRecent.id
+            }
+          })
+          
+          console.log(`✅ Deleted most recent order activity for customer ${order.customerEmail}`)
+        }
+      }
     } catch (analyticsError) {
       console.error('❌ Failed to delete analytics activities:', analyticsError)
       // Don't fail order deletion if analytics cleanup fails

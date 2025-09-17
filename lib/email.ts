@@ -121,7 +121,7 @@ export const emailTemplates = {
           <div style="margin-bottom: 20px;">
             ${orderData.items.map(item => `
               <div style="display: flex; align-items: center; padding: 10px 0; border-bottom: 1px solid #e5e7eb;">
-                <img src="${item.image}" alt="${item.productName}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 6px; margin-right: 15px;">
+                <img src="https://genosys.ae${item.image}" alt="${item.productName}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 6px; margin-right: 15px;">
                 <div style="flex: 1;">
                   <h4 style="margin: 0 0 5px 0; color: #374151; font-size: 14px;">${item.productName}</h4>
                   <p style="margin: 0; color: #6b7280; font-size: 12px;">Qty: ${item.quantity}</p>

@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { ArrowLeft, User, Mail, Phone, MapPin, Calendar, Edit3, Package, CheckCircle, Clock, Camera, X, MessageCircle, Lock, Eye, Trash2, Percent, Crown, Building, ShoppingBag, Truck, CreditCard, RefreshCw } from 'lucide-react'
+import { ArrowLeft, User, Mail, Phone, MapPin, Calendar, Edit3, Package, CheckCircle, Clock, Camera, X, MessageCircle, Lock, Eye, Trash2, Percent, Crown, Building, ShoppingBag, Truck, CreditCard, RefreshCw, Settings, Bell, Shield, Star, Award, Gift, Heart, Share2, Download, Upload, Zap, Sparkles } from 'lucide-react'
 import { useAuth } from '@/components/AuthProvider'
 import { useState, useRef, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
@@ -12,7 +12,7 @@ type OrderWithItems = Order & {
   items: OrderItem[]
 }
 
-export default function ProfilePage() {
+export default function ProfilePageNew() {
   const { user, logout, forceRefreshUser } = useAuth()
   const router = useRouter()
   const [isEditing, setIsEditing] = useState(false)
@@ -29,7 +29,26 @@ export default function ProfilePage() {
   const [isDeleting, setIsDeleting] = useState(false)
   const [orders, setOrders] = useState<OrderWithItems[]>([])
   const [loadingOrders, setLoadingOrders] = useState(false)
+  const [activeTab, setActiveTab] = useState<'profile' | 'orders' | 'settings' | 'downloads'>('profile')
+  const [isRefreshing, setIsRefreshing] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
+
+  // Handle refresh with loading state
+  const handleRefresh = async () => {
+    if (isRefreshing) return // Prevent multiple simultaneous refreshes
+    
+    setIsRefreshing(true)
+    try {
+      await forceRefreshUser()
+    } catch (error) {
+      console.error('Error refreshing user data:', error)
+    } finally {
+      // Add a small delay to show the animation
+      setTimeout(() => {
+        setIsRefreshing(false)
+      }, 1000)
+    }
+  }
 
   // Redirect to login page if user is not logged in
   useEffect(() => {
@@ -41,11 +60,9 @@ export default function ProfilePage() {
   // Initialize profile picture and customer number when user loads
   useEffect(() => {
     if (user) {
-      // Initialize profile picture
       setProfilePicture(user.profilePicture || null)
       setPreviewImage(user.profilePicture || null)
       
-      // Update editData when user data changes
       setEditData({
         name: user.name || '',
         phone: user.phone || '',
@@ -53,16 +70,13 @@ export default function ProfilePage() {
         birthday: user.birthday || ''
       })
       
-      // Check if user already has a customer number
       const savedCustomerNumber = localStorage.getItem(`customer_number_${user.id}`)
       if (savedCustomerNumber) {
         setCustomerNumber(parseInt(savedCustomerNumber))
       } else {
-        // Get the next customer number
         const lastCustomerNumber = parseInt(localStorage.getItem('last_customer_number') || '0')
         const newCustomerNumber = lastCustomerNumber + 1
         
-        // Save the customer number for this user
         localStorage.setItem(`customer_number_${user.id}`, newCustomerNumber.toString())
         localStorage.setItem('last_customer_number', newCustomerNumber.toString())
         
@@ -106,15 +120,15 @@ export default function ProfilePage() {
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'paid':
-        return 'bg-green-100 text-green-800'
+        return 'bg-emerald-100 text-emerald-800 border-emerald-200'
       case 'shipped':
-        return 'bg-blue-100 text-blue-800'
+        return 'bg-blue-100 text-blue-800 border-blue-200'
       case 'delivered':
-        return 'bg-purple-100 text-purple-800'
+        return 'bg-purple-100 text-purple-800 border-purple-200'
       case 'cancelled':
-        return 'bg-red-100 text-red-800'
+        return 'bg-red-100 text-red-800 border-red-200'
       default:
-        return 'bg-yellow-100 text-yellow-800'
+        return 'bg-amber-100 text-amber-800 border-amber-200'
     }
   }
 
@@ -146,7 +160,6 @@ export default function ProfilePage() {
       })
       
       if (response.ok) {
-        // Remove order from local state
         setOrders(orders.filter(order => order.id !== orderId))
         alert('Order cancelled and removed successfully')
       } else {
@@ -167,13 +180,11 @@ export default function ProfilePage() {
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
     if (file) {
-      // Validate file type
       if (!file.type.startsWith('image/')) {
         alert('Please select an image file')
         return
       }
       
-      // Validate file size (max 5MB)
       if (file.size > 5 * 1024 * 1024) {
         alert('Image size should be less than 5MB')
         return
@@ -199,20 +210,11 @@ export default function ProfilePage() {
 
   const handleSave = async () => {
     try {
-      console.log('Saving profile with data:', {
-        userId: user?.id,
-        updates: {
-          ...editData,
-          profilePicture
-        }
-      })
-
       if (!user?.id) {
         alert('User ID not found. Please try logging out and back in.')
         return
       }
 
-      // Update user data via API
       const response = await fetch('/api/profile/update', {
         method: 'POST',
         headers: {
@@ -228,17 +230,13 @@ export default function ProfilePage() {
       })
 
       const responseData = await response.json()
-      console.log('Profile update response:', responseData)
 
       if (response.ok) {
-        // Update local user state
         const updatedUser = { ...user, ...editData, profilePicture }
         localStorage.setItem('genosys_user', JSON.stringify(updatedUser))
         setIsEditing(false)
-        
-        // Show success message or refresh user data
         alert('Profile updated successfully!')
-        window.location.reload() // Simple refresh to reload user data
+        window.location.reload()
       } else {
         console.error('Failed to update profile:', responseData)
         alert(`Failed to update profile: ${responseData.error || 'Unknown error'}`)
@@ -260,7 +258,6 @@ export default function ProfilePage() {
     setPreviewImage(user?.profilePicture || null)
     setIsEditing(false)
     
-    // Reset file input
     if (fileInputRef.current) {
       fileInputRef.current.value = ''
     }
@@ -280,11 +277,9 @@ export default function ProfilePage() {
       })
 
       if (response.ok) {
-        // Clear all local data
         localStorage.removeItem('genosys_user')
         localStorage.removeItem(`customer_number_${user.id}`)
         
-        // Logout and redirect to home
         logout()
         router.push('/')
         
@@ -303,38 +298,35 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="bg-white min-h-screen">
-      <div className="container mx-auto px-4 py-8 md:py-16">
-        <div className="max-w-4xl mx-auto">
-
-          <div className="bg-white rounded-lg shadow-sm border p-4 md:p-8">
-            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-6 md:mb-8 gap-4">
-              <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold text-gray-800 text-center sm:text-left">
-                {customerNumber > 0 ? `Genosys Family Member #${customerNumber}` : 'My Profile'}
-              </h1>
-              <div className="flex gap-2">
-                <button
-                  onClick={forceRefreshUser}
-                  className="flex items-center justify-center gap-2 px-4 py-2 text-blue-600 hover:text-blue-700 transition-colors text-sm md:text-base touch-manipulation"
-                  title="Refresh profile data"
-                >
-                  <RefreshCw className="h-4 w-4 md:h-5 md:w-5" />
-                  Refresh
-                </button>
-                <button
-                  onClick={() => setIsEditing(!isEditing)}
-                  className="flex items-center justify-center gap-2 px-4 py-2 text-primary-600 hover:text-primary-700 transition-colors text-sm md:text-base touch-manipulation"
-                >
-                  <Edit3 className="h-4 w-4 md:h-5 md:w-5" />
-                  {isEditing ? 'Cancel' : 'Edit Profile'}
-                </button>
-              </div>
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-green-50 to-emerald-100">
+      {/* Header */}
+      <div className="bg-white/80 backdrop-blur-sm border-b border-white/20 sticky top-0 z-40">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
+            <Link 
+              href="/" 
+              className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
+            >
+              <ArrowLeft className="h-5 w-5" />
+              <span className="font-medium">Back to Home</span>
+            </Link>
+            
+            <div className="flex items-center gap-3">
             </div>
+          </div>
+        </div>
+      </div>
 
-            {/* Profile Picture Section */}
-            <div className="flex flex-col items-center mb-6 md:mb-8">
+      <div className="container mx-auto px-4 py-8">
+        <div className="max-w-6xl mx-auto">
+          
+          {/* Profile Header Card */}
+          <div className="bg-white/70 backdrop-blur-sm rounded-3xl shadow-xl border border-white/20 p-8 mb-8">
+            <div className="flex flex-col lg:flex-row items-center gap-8">
+              
+              {/* Profile Picture */}
               <div className="relative">
-                <div className="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden bg-gray-100 border-4 border-gray-200 flex items-center justify-center">
+                <div className="w-32 h-32 rounded-full overflow-hidden bg-gradient-to-br from-green-100 to-emerald-200 border-4 border-white shadow-2xl flex items-center justify-center">
                   {previewImage ? (
                     <img
                       src={previewImage}
@@ -342,7 +334,7 @@ export default function ProfilePage() {
                       className="w-full h-full object-cover"
                     />
                   ) : (
-                    <User className="h-12 w-12 md:h-16 md:w-16 text-gray-400" />
+                    <User className="h-16 w-16 text-green-400" />
                   )}
                 </div>
 
@@ -350,18 +342,18 @@ export default function ProfilePage() {
                   <div className="absolute -bottom-2 -right-2 flex gap-2">
                     <button
                       onClick={() => fileInputRef.current?.click()}
-                      className="bg-primary-600 text-white p-2 rounded-full hover:bg-primary-700 transition-colors shadow-lg touch-manipulation"
+                      className="bg-gradient-to-r from-red-600 to-red-700 text-white p-3 rounded-full hover:from-red-700 hover:to-red-800 transition-all duration-200 shadow-lg hover:shadow-xl"
                       title="Upload Photo"
                     >
-                      <Camera className="h-3 w-3 md:h-4 md:w-4" />
+                      <Camera className="h-4 w-4" />
                     </button>
                     {previewImage && (
                       <button
                         onClick={handleRemoveImage}
-                        className="bg-red-600 text-white p-2 rounded-full hover:bg-red-700 transition-colors shadow-lg touch-manipulation"
+                        className="bg-gradient-to-r from-red-500 to-red-600 text-white p-3 rounded-full hover:from-red-600 hover:to-red-700 transition-all duration-200 shadow-lg hover:shadow-xl"
                         title="Remove Photo"
                       >
-                        <X className="h-3 w-3 md:h-4 md:w-4" />
+                        <X className="h-4 w-4" />
                       </button>
                     )}
                   </div>
@@ -376,237 +368,326 @@ export default function ProfilePage() {
                 />
               </div>
 
-              {/* Customer Status Badge */}
-              {customerNumber > 0 && (
-                <div className="mt-4 px-3 md:px-4 py-2 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-full shadow-lg">
-                  <span className="text-xs md:text-sm font-semibold">
-                    👨‍👩‍👧‍👦 Family Member #{customerNumber}
-                  </span>
+              {/* Profile Info */}
+              <div className="flex-1 text-center lg:text-left">
+                <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-4">
+                  <h1 className="text-3xl lg:text-4xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent">
+                    {user.name}
+                  </h1>
+                  
+                  {customerNumber > 0 && (
+                    <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-full shadow-lg">
+                      <Sparkles className="h-4 w-4" />
+                      <span className="text-sm font-semibold">
+                        Family Member #{customerNumber}
+                      </span>
+                    </div>
+                  )}
                 </div>
-              )}
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-              <div className="space-y-4 md:space-y-6">
-                <div className="flex flex-col sm:flex-row sm:items-center gap-3 md:gap-4">
-                  <div className="bg-primary-100 p-2 md:p-3 rounded-full flex-shrink-0 mx-auto sm:mx-0">
-                    <User className="h-6 w-6 md:h-8 md:w-8 text-primary-600" />
+                
+                <p className="text-gray-600 text-lg mb-4">{user.email}</p>
+                
+                <div className="flex flex-wrap gap-3 justify-center lg:justify-start">
+                  {user.canSeePrices && (
+                    <div className="flex items-center gap-2 px-3 py-1 bg-emerald-100 text-emerald-800 rounded-full text-sm font-medium">
+                      <Eye className="h-4 w-4" />
+                      Price Access
+                    </div>
+                  )}
+                  
+                  {user.discountType && (
+                    <div className={`flex items-center gap-2 px-3 py-1 rounded-full text-sm font-medium ${
+                      user.discountType === 'CLINIC' 
+                        ? 'bg-green-100 text-green-800' 
+                        : 'bg-red-100 text-red-800'
+                    }`}>
+                      {user.discountType === 'CLINIC' ? (
+                        <Building className="h-4 w-4" />
+                      ) : (
+                        <Crown className="h-4 w-4" />
+                      )}
+                      {user.discountType} {user.discountPercentage}% OFF
+                    </div>
+                  )}
+                  
+                  <div className="flex items-center gap-2 px-3 py-1 bg-gray-100 text-gray-800 rounded-full text-sm font-medium">
+                    <Calendar className="h-4 w-4" />
+                    Member since {new Date(user.createdAt).getFullYear()}
                   </div>
-                  <div className="flex-1 text-center sm:text-left">
-                    <h3 className="text-base md:text-lg font-semibold text-gray-800">Full Name</h3>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Navigation Tabs */}
+          <div className="bg-white/70 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 p-2 mb-8">
+            <div className="flex gap-2">
+              {[
+                { id: 'profile', label: 'Profile', icon: User },
+                { id: 'orders', label: 'Orders', icon: Package },
+                { id: 'settings', label: 'Settings', icon: Settings }
+              ].map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id as any)}
+                  className={`flex items-center gap-2 px-6 py-3 rounded-xl font-medium transition-all duration-200 ${
+                    activeTab === tab.id
+                      ? 'bg-gradient-to-r from-red-600 to-red-700 text-white shadow-lg'
+                      : 'text-gray-600 hover:text-gray-900 hover:bg-white/50'
+                  }`}
+                >
+                  <tab.icon className="h-5 w-5" />
+                  {tab.label}
+                </button>
+              ))}
+              
+              <button
+                onClick={handleRefresh}
+                disabled={isRefreshing}
+                className="flex items-center gap-2 px-4 py-3 text-gray-600 hover:text-gray-900 hover:bg-white/50 rounded-xl font-medium transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                title="Refresh profile data"
+              >
+                <RefreshCw className={`h-5 w-5 ${isRefreshing ? 'animate-spin' : ''}`} />
+                Refresh
+              </button>
+              
+              <button
+                onClick={() => setIsEditing(!isEditing)}
+                className={`flex items-center gap-2 px-6 py-3 rounded-xl font-medium transition-all duration-200 ${
+                  isEditing 
+                    ? 'bg-gradient-to-r from-red-600 to-red-700 text-white shadow-lg' 
+                    : 'text-gray-600 hover:text-gray-900 hover:bg-white/50'
+                }`}
+              >
+                <Edit3 className="h-5 w-5" />
+                {isEditing ? 'Cancel' : 'Edit Profile'}
+              </button>
+              
+              <button
+                onClick={() => setActiveTab('downloads')}
+                className={`flex items-center gap-2 px-6 py-3 rounded-xl font-medium transition-all duration-200 ${
+                  activeTab === 'downloads'
+                    ? 'bg-gradient-to-r from-red-600 to-red-700 text-white shadow-lg' 
+                    : 'text-gray-600 hover:text-gray-900 hover:bg-white/50'
+                }`}
+              >
+                <Download className="h-5 w-5" />
+                Downloads
+              </button>
+            </div>
+          </div>
+
+          {/* Tab Content */}
+          {activeTab === 'profile' && (
+            <div className="space-y-8">
+              
+              {/* Personal Information */}
+              <div className="bg-white/70 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 p-8">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="p-3 bg-gradient-to-r from-green-100 to-emerald-100 rounded-xl">
+                    <User className="h-6 w-6 text-green-600" />
+                  </div>
+                  <h2 className="text-2xl font-bold text-gray-800">Personal Information</h2>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  
+                  {/* Name */}
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium text-gray-700">Full Name</label>
                     {isEditing ? (
                       <input
                         type="text"
                         value={editData.name}
                         onChange={(e) => setEditData({...editData, name: e.target.value})}
-                        className="mt-1 px-3 py-3 md:py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent w-full text-base"
+                        className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent bg-white/50 backdrop-blur-sm"
                       />
                     ) : (
-                      <p className="text-gray-600 text-sm md:text-base">{user.name}</p>
+                      <div className="px-4 py-3 bg-white/50 backdrop-blur-sm rounded-xl border border-gray-200">
+                        <p className="text-gray-800">{user.name}</p>
+                      </div>
                     )}
                   </div>
-                </div>
 
-                <div className="flex flex-col sm:flex-row sm:items-center gap-3 md:gap-4">
-                  <div className="bg-primary-100 p-2 md:p-3 rounded-full flex-shrink-0 mx-auto sm:mx-0">
-                    <Mail className="h-6 w-6 md:h-8 md:w-8 text-primary-600" />
+                  {/* Email */}
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium text-gray-700">Email</label>
+                    <div className="px-4 py-3 bg-white/50 backdrop-blur-sm rounded-xl border border-gray-200">
+                      <p className="text-gray-800 break-all">{user.email}</p>
+                    </div>
                   </div>
-                  <div className="flex-1 text-center sm:text-left">
-                    <h3 className="text-base md:text-lg font-semibold text-gray-800">Email</h3>
-                    <p className="text-gray-600 text-sm md:text-base break-all">{user.email}</p>
-                  </div>
-                </div>
 
-                <div className="flex flex-col sm:flex-row sm:items-center gap-3 md:gap-4">
-                  <div className="bg-primary-100 p-2 md:p-3 rounded-full flex-shrink-0 mx-auto sm:mx-0">
-                    <Phone className="h-6 w-6 md:h-8 md:w-8 text-primary-600" />
-                  </div>
-                  <div className="flex-1 text-center sm:text-left">
-                    <h3 className="text-base md:text-lg font-semibold text-gray-800">Phone</h3>
+                  {/* Phone */}
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium text-gray-700">Phone</label>
                     {isEditing ? (
                       <input
                         type="tel"
                         value={editData.phone}
                         onChange={(e) => setEditData({...editData, phone: e.target.value})}
-                        className="mt-1 px-3 py-3 md:py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent w-full text-base"
+                        className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent bg-white/50 backdrop-blur-sm"
                       />
                     ) : (
-                      <p className="text-gray-600 text-sm md:text-base">{user.phone || 'Not provided'}</p>
+                      <div className="px-4 py-3 bg-white/50 backdrop-blur-sm rounded-xl border border-gray-200">
+                        <p className="text-gray-800">{user.phone || 'Not provided'}</p>
+                      </div>
                     )}
                   </div>
-                </div>
 
-                <div className="flex flex-col sm:flex-row sm:items-center gap-3 md:gap-4">
-                  <div className="bg-primary-100 p-2 md:p-3 rounded-full flex-shrink-0 mx-auto sm:mx-0">
-                    <Calendar className="h-6 w-6 md:h-8 md:w-8 text-primary-600" />
-                  </div>
-                  <div className="flex-1 text-center sm:text-left">
-                    <h3 className="text-base md:text-lg font-semibold text-gray-800">Birthday</h3>
+                  {/* Birthday */}
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium text-gray-700">Birthday</label>
                     {isEditing ? (
                       <input
                         type="date"
                         value={editData.birthday}
                         onChange={(e) => setEditData({...editData, birthday: e.target.value})}
-                        className="mt-1 px-3 py-3 md:py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent w-full text-base"
+                        className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent bg-white/50 backdrop-blur-sm"
                       />
                     ) : (
-                      <p className="text-gray-600 text-sm md:text-base">
-                        {user.birthday ? new Date(user.birthday).toLocaleDateString('en-US', {
-                          year: 'numeric',
-                          month: 'long',
-                          day: 'numeric'
-                        }) : 'Not provided'}
-                      </p>
+                      <div className="px-4 py-3 bg-white/50 backdrop-blur-sm rounded-xl border border-gray-200">
+                        <p className="text-gray-800">
+                          {user.birthday ? new Date(user.birthday).toLocaleDateString('en-US', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric'
+                          }) : 'Not provided'}
+                        </p>
+                      </div>
                     )}
                   </div>
-                </div>
-              </div>
 
-              <div className="space-y-4 md:space-y-6">
-                <div className="flex flex-col sm:flex-row sm:items-start gap-3 md:gap-4">
-                  <div className="bg-primary-100 p-2 md:p-3 rounded-full flex-shrink-0 mx-auto sm:mx-0">
-                    <MapPin className="h-6 w-6 md:h-8 md:w-8 text-primary-600" />
-                  </div>
-                  <div className="flex-1 text-center sm:text-left">
-                    <h3 className="text-base md:text-lg font-semibold text-gray-800">Address</h3>
+                  {/* Address */}
+                  <div className="space-y-2 md:col-span-2">
+                    <label className="text-sm font-medium text-gray-700">Address</label>
                     {isEditing ? (
                       <textarea
                         value={editData.address}
                         onChange={(e) => setEditData({...editData, address: e.target.value})}
                         rows={3}
-                        className="mt-1 px-3 py-3 md:py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent w-full text-base"
+                        className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent bg-white/50 backdrop-blur-sm resize-none"
                         placeholder="Enter your address"
                       />
                     ) : (
-                      <p className="text-gray-600 text-sm md:text-base">{user.address || 'Not provided'}</p>
-                    )}
-                  </div>
-                </div>
-
-                <div className="flex flex-col sm:flex-row sm:items-center gap-3 md:gap-4">
-                  <div className="bg-primary-100 p-2 md:p-3 rounded-full flex-shrink-0 mx-auto sm:mx-0">
-                    <Calendar className="h-6 w-6 md:h-8 md:w-8 text-primary-600" />
-                  </div>
-                  <div className="flex-1 text-center sm:text-left">
-                    <h3 className="text-base md:text-lg font-semibold text-gray-800">Member Since</h3>
-                    <p className="text-gray-600 text-sm md:text-base">
-                      {new Date(user.createdAt).toLocaleDateString('en-US', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric'
-                      })}
-                    </p>
-                  </div>
-                </div>
-
-                {/* Price Access Status */}
-                <div className="flex flex-col sm:flex-row sm:items-center gap-3 md:gap-4">
-                  <div className={`p-2 md:p-3 rounded-full flex-shrink-0 mx-auto sm:mx-0 ${
-                    user.canSeePrices ? 'bg-green-100' : 'bg-red-100'
-                  }`}>
-                    {user.canSeePrices ? (
-                      <Eye className="h-6 w-6 md:h-8 md:w-8 text-green-600" />
-                    ) : (
-                      <Lock className="h-6 w-6 md:h-8 md:w-8 text-red-600" />
-                    )}
-                  </div>
-                  <div className="flex-1 text-center sm:text-left">
-                    <h3 className="text-base md:text-lg font-semibold text-gray-800">Price Access</h3>
-                    <div className="flex items-center gap-2 mt-1">
-                      {user.canSeePrices ? (
-                        <>
-                          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                            <CheckCircle className="h-3 w-3 mr-1" />
-                            Allowed
-                          </span>
-                          <p className="text-green-600 text-sm md:text-base font-medium">You can view product prices</p>
-                        </>
-                      ) : (
-                        <>
-                          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
-                            <Lock className="h-3 w-3 mr-1" />
-                            Restricted
-                          </span>
-                          <p className="text-red-600 text-sm md:text-base font-medium">Price access required</p>
-                        </>
-                      )}
-                    </div>
-                    {!user.canSeePrices && (
-                      <p className="text-gray-500 text-xs mt-1">
-                        Contact support to request price access
-                      </p>
-                    )}
-                  </div>
-                </div>
-
-                {/* Discount Level Status */}
-                {user.discountType && (
-                  <div className="flex flex-col sm:flex-row sm:items-center gap-3 md:gap-4">
-                    <div className={`p-2 md:p-3 rounded-full flex-shrink-0 mx-auto sm:mx-0 ${
-                      user.discountType === 'CLINIC' ? 'bg-blue-100' : 'bg-purple-100'
-                    }`}>
-                      {user.discountType === 'CLINIC' ? (
-                        <Building className="h-6 w-6 md:h-8 md:w-8 text-blue-600" />
-                      ) : (
-                        <Crown className="h-6 w-6 md:h-8 md:w-8 text-purple-600" />
-                      )}
-                    </div>
-                    <div className="flex-1 text-center sm:text-left">
-                      <h3 className="text-base md:text-lg font-semibold text-gray-800">Discount Level</h3>
-                      <div className="flex items-center gap-2 mt-1">
-                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                          user.discountType === 'CLINIC' ? 'bg-blue-100 text-blue-800' : 'bg-purple-100 text-purple-800'
-                        }`}>
-                          {user.discountType === 'CLINIC' ? (
-                            <Building className="h-3 w-3 mr-1" />
-                          ) : (
-                            <Crown className="h-3 w-3 mr-1" />
-                          )}
-                          {user.discountType} {user.discountPercentage}% OFF
-                        </span>
-                        <p className={`text-sm md:text-base font-medium ${
-                          user.discountType === 'CLINIC' ? 'text-blue-600' : 'text-purple-600'
-                        }`}>
-                          {user.discountType === 'CLINIC' ? 'Clinic Partnership Discount' : 'VIP Customer Discount'}
-                        </p>
+                      <div className="px-4 py-3 bg-white/50 backdrop-blur-sm rounded-xl border border-gray-200">
+                        <p className="text-gray-800">{user.address || 'Not provided'}</p>
                       </div>
-                      <p className="text-gray-500 text-xs mt-1">
-                        Applied automatically to all orders
-                      </p>
-                    </div>
+                    )}
+                  </div>
+                </div>
+
+                {isEditing && (
+                  <div className="flex gap-4 mt-8 pt-6 border-t border-gray-200">
+                    <button
+                      onClick={handleSave}
+                      className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-emerald-600 to-emerald-700 text-white rounded-xl font-semibold hover:from-emerald-700 hover:to-emerald-800 transition-all duration-200 shadow-lg hover:shadow-xl"
+                    >
+                      <CheckCircle className="h-5 w-5" />
+                      Save Changes
+                    </button>
+                    <button
+                      onClick={handleCancel}
+                      className="flex items-center gap-2 px-6 py-3 bg-gray-200 text-gray-700 rounded-xl font-semibold hover:bg-gray-300 transition-all duration-200"
+                    >
+                      <X className="h-5 w-5" />
+                      Cancel
+                    </button>
                   </div>
                 )}
               </div>
-            </div>
 
-            {isEditing && (
-              <div className="flex flex-col sm:flex-row gap-3 md:gap-4 mt-6 md:mt-8 pt-6 border-t">
-                <button
-                  onClick={handleSave}
-                  className="bg-primary-600 text-white px-6 py-3 md:py-2 rounded-lg font-semibold hover:bg-primary-700 transition-colors text-base md:text-lg touch-manipulation"
-                >
-                  Save Changes
-                </button>
-                <button
-                  onClick={handleCancel}
-                  className="bg-gray-300 text-gray-700 px-6 py-3 md:py-2 rounded-lg font-semibold hover:bg-gray-400 transition-colors text-base md:text-lg touch-manipulation"
-                >
-                  Cancel
-                </button>
+              {/* Account Status */}
+              <div className="bg-white/70 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 p-8">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="p-3 bg-gradient-to-r from-green-100 to-emerald-100 rounded-xl">
+                    <Shield className="h-6 w-6 text-green-600" />
+                  </div>
+                  <h2 className="text-2xl font-bold text-gray-800">Account Status</h2>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  
+                  {/* Price Access */}
+                  <div className="p-6 bg-gradient-to-br from-emerald-50 to-emerald-100 rounded-xl border border-emerald-200">
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="p-2 bg-emerald-200 rounded-lg">
+                        <Eye className="h-5 w-5 text-emerald-700" />
+                      </div>
+                      <h3 className="font-semibold text-gray-800">Price Access</h3>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      {user.canSeePrices ? (
+                        <>
+                          <span className="inline-flex items-center gap-1 px-3 py-1 bg-emerald-200 text-emerald-800 rounded-full text-sm font-medium">
+                            <CheckCircle className="h-4 w-4" />
+                            Allowed
+                          </span>
+                          <p className="text-emerald-700 text-sm font-medium">You can view product prices</p>
+                        </>
+                      ) : (
+                        <>
+                          <span className="inline-flex items-center gap-1 px-3 py-1 bg-red-200 text-red-800 rounded-full text-sm font-medium">
+                            <Lock className="h-4 w-4" />
+                            Restricted
+                          </span>
+                          <p className="text-red-700 text-sm font-medium">Price access required</p>
+                        </>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Discount Level */}
+                  {user.discountType && (
+                    <div className={`p-6 rounded-xl border ${
+                      user.discountType === 'CLINIC' 
+                        ? 'bg-gradient-to-br from-green-50 to-green-100 border-green-200' 
+                        : 'bg-gradient-to-br from-red-50 to-red-100 border-red-200'
+                    }`}>
+                      <div className="flex items-center gap-3 mb-3">
+                        <div className={`p-2 rounded-lg ${
+                          user.discountType === 'CLINIC' ? 'bg-green-200' : 'bg-red-200'
+                        }`}>
+                          {user.discountType === 'CLINIC' ? (
+                            <Building className="h-5 w-5 text-green-700" />
+                          ) : (
+                            <Crown className="h-5 w-5 text-red-700" />
+                          )}
+                        </div>
+                        <h3 className="font-semibold text-gray-800">Discount Level</h3>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-sm font-medium ${
+                          user.discountType === 'CLINIC' 
+                            ? 'bg-green-200 text-green-800' 
+                            : 'bg-red-200 text-red-800'
+                        }`}>
+                          {user.discountType === 'CLINIC' ? (
+                            <Building className="h-4 w-4" />
+                          ) : (
+                            <Crown className="h-4 w-4" />
+                          )}
+                          {user.discountType} {user.discountPercentage}% OFF
+                        </span>
+                        <p className={`text-sm font-medium ${
+                          user.discountType === 'CLINIC' ? 'text-green-700' : 'text-red-700'
+                        }`}>
+                          {user.discountType === 'CLINIC' ? 'Clinic Partnership' : 'VIP Customer'}
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                </div>
               </div>
-            )}
 
-            {/* Support Section */}
-            <div className="mt-8 pt-6 border-t">
-              
-              <div className="bg-green-50 border border-green-200 rounded-lg p-6">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="bg-green-100 p-3 rounded-full">
-                    <MessageCircle className="h-6 w-6 text-green-600" />
+              {/* Support Section */}
+              <div className="bg-white/70 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 p-8">
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="p-3 bg-gradient-to-r from-green-100 to-emerald-100 rounded-xl">
+                    <MessageCircle className="h-8 w-8 text-green-600" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold text-gray-800">Chat with Support</h3>
-                    <p className="text-gray-600">Get instant help via WhatsApp</p>
+                    <h2 className="text-2xl font-bold text-gray-800">Need Help?</h2>
+                    <p className="text-gray-600">Get instant support via WhatsApp</p>
                   </div>
                 </div>
                 
@@ -615,62 +696,78 @@ export default function ProfilePage() {
                     href="https://wa.me/971585487665"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-2 bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors"
+                    className="flex items-center justify-center gap-2 bg-gradient-to-r from-green-600 to-green-700 text-white px-6 py-3 rounded-xl font-semibold hover:from-green-700 hover:to-green-800 transition-all duration-200 shadow-lg hover:shadow-xl"
                   >
                     <MessageCircle className="h-5 w-5" />
                     Start WhatsApp Chat
                   </a>
-                  <div className="text-sm text-gray-600 flex items-center">
-                    <Phone className="h-4 w-4 mr-2" />
-                    +971 58 548 76 65
+                  <div className="flex items-center justify-center gap-2 text-gray-600">
+                    <Phone className="h-5 w-5" />
+                    <span className="font-medium">+971 58 548 76 65</span>
                   </div>
                 </div>
                 
-                <div className="mt-4 text-sm text-gray-500">
-                  <p>• Available 24/7 for your convenience</p>
-                  <p>• Quick response for order inquiries</p>
-                  <p>• Product recommendations and support</p>
+                <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm text-gray-600">
+                  <div className="flex items-center gap-2">
+                    <Zap className="h-4 w-4" />
+                    <span>Available 24/7</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Clock className="h-4 w-4" />
+                    <span>Quick response</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Gift className="h-4 w-4" />
+                    <span>Product recommendations</span>
+                  </div>
                 </div>
               </div>
             </div>
+          )}
 
-            {/* Order History Section */}
-            <div className="mt-8 pt-6 border-t">
+          {activeTab === 'orders' && (
+            <div className="bg-white/70 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 p-8">
               <div className="flex items-center gap-3 mb-6">
-                <Package className="h-6 w-6 text-primary-600" />
+                <div className="p-3 bg-gradient-to-r from-green-100 to-emerald-100 rounded-xl">
+                  <Package className="h-6 w-6 text-green-600" />
+                </div>
                 <h2 className="text-2xl font-bold text-gray-800">Order History</h2>
               </div>
               
               {loadingOrders ? (
-                <div className="text-center py-8">
-                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600 mx-auto mb-3"></div>
+                <div className="text-center py-12">
+                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600 mx-auto mb-4"></div>
                   <p className="text-gray-500">Loading your orders...</p>
                 </div>
               ) : orders.length === 0 ? (
-                <div className="text-center py-8 text-gray-500">
-                  <Package className="h-12 w-12 mx-auto mb-3 text-gray-300" />
-                  <p className="text-sm">No orders yet. Start shopping to see your order history here!</p>
+                <div className="text-center py-12">
+                  <div className="w-24 h-24 bg-gradient-to-br from-gray-100 to-gray-200 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <Package className="h-12 w-12 text-gray-400" />
+                  </div>
+                  <h3 className="text-xl font-semibold text-gray-800 mb-2">No orders yet</h3>
+                  <p className="text-gray-500 mb-6">Start shopping to see your order history here!</p>
                   <Link
                     href="/products"
-                    className="inline-block mt-3 text-primary-600 hover:text-primary-700 font-medium"
+                    className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-xl font-semibold hover:from-red-700 hover:to-red-800 transition-all duration-200 shadow-lg hover:shadow-xl"
                   >
+                    <ShoppingBag className="h-5 w-5" />
                     Browse Products
                   </Link>
                 </div>
               ) : (
-                <div className="space-y-4">
+                <div className="space-y-6">
                   {orders.map((order) => (
-                    <div key={order.id} className="bg-gray-50 rounded-lg p-4 border border-gray-200">
-                      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4">
+                    <div key={order.id} className="bg-white/50 backdrop-blur-sm rounded-xl p-6 border border-gray-200 hover:shadow-lg transition-all duration-200">
+                      <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-6">
                         <div className="flex-1">
-                          <div className="flex items-center gap-3 mb-2">
-                            <h3 className="font-semibold text-gray-800">Order #{order.id}</h3>
-                            <span className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(order.status)}`}>
+                          <div className="flex items-center gap-3 mb-3">
+                            <h3 className="text-lg font-semibold text-gray-800">Order #{order.id}</h3>
+                            <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-sm font-medium border ${getStatusColor(order.status)}`}>
                               {getStatusIcon(order.status)}
                               {order.status.toUpperCase()}
                             </span>
                           </div>
-                          <p className="text-sm text-gray-600 mb-2">
+                          <p className="text-sm text-gray-600 mb-4">
                             {new Date(order.createdAt).toLocaleDateString('en-AE', {
                               year: 'numeric',
                               month: 'long',
@@ -679,37 +776,37 @@ export default function ProfilePage() {
                               minute: '2-digit'
                             })}
                           </p>
-                          <div className="flex flex-wrap gap-2 mb-3">
+                          <div className="flex flex-wrap gap-2">
                             {order.items.slice(0, 3).map((item, index) => (
-                              <div key={index} className="flex items-center gap-2 bg-white rounded-lg p-2 border">
+                              <div key={index} className="flex items-center gap-2 bg-white rounded-lg p-3 border border-gray-200 shadow-sm">
                                 <img
                                   src={item.image}
                                   alt={item.productName}
-                                  className="w-8 h-8 object-cover rounded"
+                                  className="w-10 h-10 object-cover rounded-lg"
                                 />
-                                <span className="text-xs text-gray-600">
+                                <span className="text-sm text-gray-700 font-medium">
                                   {item.productName} × {item.quantity}
                                 </span>
                               </div>
                             ))}
                             {order.items.length > 3 && (
-                              <div className="flex items-center bg-white rounded-lg p-2 border">
-                                <span className="text-xs text-gray-500">
+                              <div className="flex items-center bg-white rounded-lg p-3 border border-gray-200 shadow-sm">
+                                <span className="text-sm text-gray-500 font-medium">
                                   +{order.items.length - 3} more items
                                 </span>
                               </div>
                             )}
                           </div>
                         </div>
-                        <div className="text-right">
-                          <p className="text-lg font-bold text-gray-800">{formatCurrency(order.total)}</p>
-                          <p className="text-sm text-gray-500">
+                        <div className="text-center lg:text-right">
+                          <p className="text-2xl font-bold text-gray-800 mb-2">{formatCurrency(order.total)}</p>
+                          <p className="text-sm text-gray-500 mb-4">
                             {order.items.reduce((sum, item) => sum + item.quantity, 0)} items
                           </p>
                           {(order.status === 'pending' || order.status === 'paid') && (
                             <button
                               onClick={() => cancelOrder(order.id)}
-                              className="mt-2 px-3 py-1 bg-red-500 text-white text-xs rounded hover:bg-red-600 transition-colors"
+                              className="px-4 py-2 bg-red-500 text-white text-sm rounded-lg hover:bg-red-600 transition-colors font-medium"
                             >
                               Cancel Order
                             </button>
@@ -721,54 +818,230 @@ export default function ProfilePage() {
                 </div>
               )}
             </div>
+          )}
 
-            <div className="mt-8 pt-6 border-t">
-              <div className="flex flex-col sm:flex-row gap-4">
-                <a
-                  href="https://wa.me/971585487665"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors"
-                >
-                  <MessageCircle className="h-5 w-5" />
-                  Chat with Support
-                </a>
-                <button
-                  onClick={logout}
-                  className="bg-red-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-red-700 transition-colors"
-                >
-                  Logout
-                </button>
-                <button
-                  onClick={() => setShowDeleteConfirm(true)}
-                  className="bg-red-800 text-white px-6 py-3 rounded-lg font-semibold hover:bg-red-900 transition-colors flex items-center justify-center gap-2"
-                >
-                  <Trash2 className="h-5 w-5" />
-                  Delete Account
-                </button>
+          {activeTab === 'settings' && (
+            <div className="space-y-8">
+              
+              {/* Account Actions */}
+              <div className="bg-white/70 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 p-8">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="p-3 bg-gradient-to-r from-gray-100 to-gray-200 rounded-xl">
+                    <Settings className="h-6 w-6 text-gray-600" />
+                  </div>
+                  <h2 className="text-2xl font-bold text-gray-800">Account Actions</h2>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  
+                  {/* Logout */}
+                  <button
+                    onClick={logout}
+                    className="flex items-center gap-4 p-6 bg-gradient-to-br from-red-50 to-red-100 rounded-xl border border-red-200 hover:from-red-100 hover:to-red-200 transition-all duration-200 group"
+                  >
+                    <div className="p-3 bg-red-200 rounded-lg group-hover:bg-red-300 transition-colors">
+                      <ArrowLeft className="h-6 w-6 text-red-700" />
+                    </div>
+                    <div className="text-left">
+                      <h3 className="font-semibold text-gray-800">Logout</h3>
+                      <p className="text-sm text-gray-600">Sign out of your account</p>
+                    </div>
+                  </button>
+
+                  {/* Delete Account */}
+                  <button
+                    onClick={() => setShowDeleteConfirm(true)}
+                    className="flex items-center gap-4 p-6 bg-gradient-to-br from-red-50 to-red-100 rounded-xl border border-red-200 hover:from-red-100 hover:to-red-200 transition-all duration-200 group"
+                  >
+                    <div className="p-3 bg-red-200 rounded-lg group-hover:bg-red-300 transition-colors">
+                      <Trash2 className="h-6 w-6 text-red-700" />
+                    </div>
+                    <div className="text-left">
+                      <h3 className="font-semibold text-gray-800">Delete Account</h3>
+                      <p className="text-sm text-gray-600">Permanently delete your account</p>
+                    </div>
+                  </button>
+                </div>
+              </div>
+
+              {/* Quick Actions */}
+              <div className="bg-white/70 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 p-8">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="p-3 bg-gradient-to-r from-red-100 to-pink-100 rounded-xl">
+                    <Zap className="h-6 w-6 text-red-600" />
+                  </div>
+                  <h2 className="text-2xl font-bold text-gray-800">Quick Actions</h2>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                  
+                  <Link
+                    href="/products"
+                    className="flex flex-col items-center gap-3 p-6 bg-gradient-to-br from-emerald-50 to-emerald-100 rounded-xl border border-emerald-200 hover:from-emerald-100 hover:to-emerald-200 transition-all duration-200 group"
+                  >
+                    <div className="p-3 bg-emerald-200 rounded-lg group-hover:bg-emerald-300 transition-colors">
+                      <ShoppingBag className="h-6 w-6 text-emerald-700" />
+                    </div>
+                    <div className="text-center">
+                      <h3 className="font-semibold text-gray-800">Browse Products</h3>
+                      <p className="text-sm text-gray-600">Shop our collection</p>
+                    </div>
+                  </Link>
+
+                  <Link
+                    href="/favorites"
+                    className="flex flex-col items-center gap-3 p-6 bg-gradient-to-br from-pink-50 to-pink-100 rounded-xl border border-pink-200 hover:from-pink-100 hover:to-pink-200 transition-all duration-200 group"
+                  >
+                    <div className="p-3 bg-pink-200 rounded-lg group-hover:bg-pink-300 transition-colors">
+                      <Heart className="h-6 w-6 text-pink-700" />
+                    </div>
+                    <div className="text-center">
+                      <h3 className="font-semibold text-gray-800">Favorites</h3>
+                      <p className="text-sm text-gray-600">Your saved items</p>
+                    </div>
+                  </Link>
+
+                  <a
+                    href="https://wa.me/971585487665"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex flex-col items-center gap-3 p-6 bg-gradient-to-br from-green-50 to-green-100 rounded-xl border border-green-200 hover:from-green-100 hover:to-green-200 transition-all duration-200 group"
+                  >
+                    <div className="p-3 bg-green-200 rounded-lg group-hover:bg-green-300 transition-colors">
+                      <MessageCircle className="h-6 w-6 text-green-700" />
+                    </div>
+                    <div className="text-center">
+                      <h3 className="font-semibold text-gray-800">Support</h3>
+                      <p className="text-sm text-gray-600">Get help via WhatsApp</p>
+                    </div>
+                  </a>
+
+                  <button
+                    onClick={handleRefresh}
+                    disabled={isRefreshing}
+                    className="flex flex-col items-center gap-3 p-6 bg-gradient-to-br from-green-50 to-green-100 rounded-xl border border-green-200 hover:from-green-100 hover:to-green-200 transition-all duration-200 group disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    <div className="p-3 bg-green-200 rounded-lg group-hover:bg-green-300 transition-colors">
+                      <RefreshCw className={`h-6 w-6 text-green-700 ${isRefreshing ? 'animate-spin' : ''}`} />
+                    </div>
+                    <div className="text-center">
+                      <h3 className="font-semibold text-gray-800">Refresh</h3>
+                      <p className="text-sm text-gray-600">Update profile data</p>
+                    </div>
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
+          )}
+
+          {activeTab === 'downloads' && (
+            <div className="bg-white/70 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 p-8">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="p-3 bg-gradient-to-r from-green-100 to-emerald-100 rounded-xl">
+                  <Download className="h-6 w-6 text-green-600" />
+                </div>
+                <h2 className="text-2xl font-bold text-gray-800">Download Documents</h2>
+              </div>
+              
+              <div className="text-center mb-8">
+                <p className="text-gray-600 max-w-2xl mx-auto text-lg">
+                  Access our guides and training manuals to enhance your professional/home training
+                </p>
+              </div>
+              
+              <div className="grid md:grid-cols-3 gap-6">
+                <div className="group border border-gray-200 rounded-lg p-6 hover:border-green-300 hover:shadow-lg transition-all duration-200">
+                  <div className="text-center">
+                    <div className="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-green-100 transition-colors">
+                      <Download className="h-8 w-8 text-green-600" />
+                    </div>
+                    <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                      Product Catalogue 2026
+                    </h3>
+                    <p className="text-sm text-gray-500 mb-4">
+                      Complete product overview and specifications
+                    </p>
+                    <a 
+                      href="https://filebin.net/ymz1tpge5lk1a3ps/genosys-product-catalogue-2026.pdf.pdf"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center w-full px-4 py-3 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-lg hover:from-green-700 hover:to-green-800 transition-colors font-medium"
+                    >
+                      <Download className="h-4 w-4 mr-2" />
+                      Download PDF
+                    </a>
+                  </div>
+                </div>
+                
+                <div className="group border border-gray-200 rounded-lg p-6 hover:border-green-300 hover:shadow-lg transition-all duration-200">
+                  <div className="text-center">
+                    <div className="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-green-100 transition-colors">
+                      <Download className="h-8 w-8 text-green-600" />
+                    </div>
+                    <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                      Home Care Guide 2026
+                    </h3>
+                    <p className="text-sm text-gray-500 mb-4">
+                      Professional home care protocols and guidelines
+                    </p>
+                    <a 
+                      href="https://filebin.net/ymz1tpge5lk1a3ps/Genosys-Home-Care-Guide.pdf"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center w-full px-4 py-3 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-lg hover:from-green-700 hover:to-green-800 transition-colors font-medium"
+                    >
+                      <Download className="h-4 w-4 mr-2" />
+                      Download PDF
+                    </a>
+                  </div>
+                </div>
+                
+                <div className="group border border-gray-200 rounded-lg p-6 hover:border-green-300 hover:shadow-lg transition-all duration-200">
+                  <div className="text-center">
+                    <div className="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-green-100 transition-colors">
+                      <Download className="h-8 w-8 text-green-600" />
+                    </div>
+                    <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                      Professional Manual 2026
+                    </h3>
+                    <p className="text-sm text-gray-500 mb-4">
+                      Comprehensive professional treatment manual
+                    </p>
+                    <a 
+                      href="https://filebin.net/ymz1tpge5lk1a3ps/Genosys-Professional-Manual.pdf"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center w-full px-4 py-3 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-lg hover:from-green-700 hover:to-green-800 transition-colors font-medium"
+                    >
+                      <Download className="h-4 w-4 mr-2" />
+                      Download PDF
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
         </div>
       </div>
 
       {/* Delete Account Confirmation Modal */}
       {showDeleteConfirm && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg shadow-xl max-w-md w-full p-6">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="bg-red-100 p-2 rounded-full">
-                <Trash2 className="h-6 w-6 text-red-600" />
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8">
+            <div className="flex items-center gap-4 mb-6">
+              <div className="p-3 bg-red-100 rounded-xl">
+                <Trash2 className="h-8 w-8 text-red-600" />
               </div>
-              <h3 className="text-lg font-semibold text-gray-800">Delete Account</h3>
+              <h3 className="text-xl font-bold text-gray-800">Delete Account</h3>
             </div>
             
-            <div className="mb-6">
-              <p className="text-gray-600 mb-3">
+            <div className="mb-8">
+              <p className="text-gray-600 mb-4">
                 Are you sure you want to delete your account? This action cannot be undone.
               </p>
-              <div className="bg-red-50 border border-red-200 rounded-lg p-3">
-                <p className="text-red-800 text-sm font-medium mb-1">This will permanently delete:</p>
+              <div className="bg-red-50 border border-red-200 rounded-xl p-4">
+                <p className="text-red-800 font-medium mb-2">This will permanently delete:</p>
                 <ul className="text-red-700 text-sm space-y-1">
                   <li>• Your profile and personal information</li>
                   <li>• All order history</li>
@@ -778,20 +1051,20 @@ export default function ProfilePage() {
               </div>
             </div>
             
-            <div className="flex flex-col sm:flex-row gap-3">
+            <div className="flex gap-3">
               <button
                 onClick={handleDeleteAccount}
                 disabled={isDeleting}
-                className="bg-red-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-red-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-red-600 text-white rounded-xl font-semibold hover:bg-red-700 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isDeleting ? (
                   <>
-                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
                     Deleting...
                   </>
                 ) : (
                   <>
-                    <Trash2 className="h-4 w-4" />
+                    <Trash2 className="h-5 w-5" />
                     Yes, Delete My Account
                   </>
                 )}
@@ -799,7 +1072,7 @@ export default function ProfilePage() {
               <button
                 onClick={() => setShowDeleteConfirm(false)}
                 disabled={isDeleting}
-                className="bg-gray-300 text-gray-700 px-4 py-2 rounded-lg font-semibold hover:bg-gray-400 transition-colors disabled:opacity-50"
+                className="px-6 py-3 bg-gray-200 text-gray-700 rounded-xl font-semibold hover:bg-gray-300 transition-all duration-200 disabled:opacity-50"
               >
                 Cancel
               </button>

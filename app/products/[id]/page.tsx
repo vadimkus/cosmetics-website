@@ -30,6 +30,7 @@ export default function ProductPage() {
       try {
         setLoading(true)
         const response = await fetch(`/api/products/${params.id}`)
+        
         if (!response.ok) {
           throw new Error('Failed to fetch product')
         }
@@ -45,6 +46,8 @@ export default function ProductPage() {
 
     if (params.id) {
       fetchProduct()
+    } else {
+      setLoading(false)
     }
   }, [params.id])
 
@@ -119,18 +122,38 @@ export default function ProductPage() {
     toggleFavorite(product)
   }
 
-  // Create multiple images for the product (in real app, this would come from the product data)
-  const productImages = product.id === '3' 
-    ? [product.image, '/images/Booster2.jpg', 'https://www.youtube.com/watch?v=7VTkWKkYKwA']
-    : product.id === '14'
-    ? [product.image, '/images/MIST2.png']
-    : product.id === '15'
-    ? [product.image, '/images/PRS2.png']
-    : product.id === '22'
-    ? [product.image, '/images/mss2.png']
-    : product.id === '41'
-    ? [product.image, '/images/CUSHC.png']
-    : [product.image]
+  // Get product images from database or fallback to hardcoded ones
+  const getProductImages = () => {
+    // If product has images field from database, use those
+    if (product.images) {
+      try {
+        const parsedImages = JSON.parse(product.images)
+        if (Array.isArray(parsedImages) && parsedImages.length > 0) {
+          return parsedImages
+        }
+      } catch (error) {
+        console.error('Error parsing product images:', error)
+      }
+    }
+    
+    // Fallback to hardcoded images for specific products
+    if (product.id === '3') {
+      return [product.image, '/images/Booster2.jpg', 'https://www.youtube.com/watch?v=7VTkWKkYKwA']
+    } else if (product.id === '14') {
+      return [product.image, '/images/MIST2.png']
+    } else if (product.id === '15') {
+      return [product.image, '/images/PRS2.png']
+    } else if (product.id === '22') {
+      return [product.image, '/images/mss2.png']
+    } else if (product.id === '41') {
+      return [product.image, '/images/CUSHC.png']
+    }
+    
+    // Default to single image
+    return [product.image]
+  }
+
+  const productImages = getProductImages()
 
   return (
     <div className="bg-white min-h-screen">
@@ -208,7 +231,11 @@ export default function ProductPage() {
                 <span className="text-sm text-primary-600 font-medium bg-primary-50 px-2 py-1 rounded">
                   {product.category}
                 </span>
-                {!product.inStock && (
+                {product.inStock ? (
+                  <span className="text-sm text-green-600 font-medium bg-green-50 px-2 py-1 rounded">
+                    In Stock
+                  </span>
+                ) : (
                   <span className="text-sm text-red-600 font-medium bg-red-50 px-2 py-1 rounded">
                     Out of Stock
                   </span>
@@ -1250,7 +1277,7 @@ export default function ProductPage() {
               </div>
               
               <div className="flex items-center gap-3">
-                <Shield className="h-5 w-5 text-green-600" />
+                <Shield className="h-5 w-5 text-green-700" />
                 <div>
                   <div className="text-sm font-medium text-gray-800">Secure Payment</div>
                   <div className="text-xs text-gray-600">Stripe checkout</div>

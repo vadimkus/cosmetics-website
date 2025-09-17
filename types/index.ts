@@ -4,6 +4,7 @@ export interface Product {
   price: number
   description: string
   image: string
+  images?: string // JSON array of all images
   category: string
   inStock: boolean
   size?: string | null

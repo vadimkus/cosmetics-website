@@ -260,7 +260,7 @@ export const sendOrderConfirmationEmail = async (orderData: any) => {
 }
 
 export const sendAdminNewUserNotification = async (userName: string, userEmail: string) => {
-  const adminEmail = process.env.ADMIN_EMAIL || process.env.EMAIL_USER
+  const adminEmail = process.env.ADMIN_EMAIL || process.env.GMAIL_USER || process.env.EMAIL_USER
   if (!adminEmail) {
     console.warn('⚠️ Admin email not configured')
     return { success: false, error: 'Admin email not configured' }
@@ -271,7 +271,7 @@ export const sendAdminNewUserNotification = async (userName: string, userEmail: 
 }
 
 export const sendAdminNewOrderNotification = async (orderData: any) => {
-  const adminEmail = process.env.ADMIN_EMAIL || process.env.EMAIL_USER
+  const adminEmail = process.env.ADMIN_EMAIL || process.env.GMAIL_USER || process.env.EMAIL_USER
   if (!adminEmail) {
     console.warn('⚠️ Admin email not configured')
     return { success: false, error: 'Admin email not configured' }

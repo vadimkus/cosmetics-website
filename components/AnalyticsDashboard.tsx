@@ -9,6 +9,7 @@ interface AnalyticsData {
   uniqueVisitors: number
   topPages: Array<{ page: string; views: number }>
   topCountries: Array<{ country: string; visitors: number }>
+  topCities: Array<{ city: string; country: string; visitors: number }>
   deviceAnalytics: {
     mobile: number
     tablet: number
@@ -56,14 +57,20 @@ export default function AnalyticsDashboard({ onCustomerClick }: AnalyticsDashboa
         setLoading(true)
       }
       
-      const [analyticsRes, timelineRes] = await Promise.all([
+      const [analyticsRes, timelineRes, citiesRes] = await Promise.all([
         fetch(`/api/analytics?type=overview&days=${timeRange}`),
-        fetch(`/api/analytics?type=timeline&days=${timeRange}`)
+        fetch(`/api/analytics?type=timeline&days=${timeRange}`),
+        fetch(`/api/analytics?type=cities&days=${timeRange}`)
       ])
 
       if (analyticsRes.ok) {
         const analyticsData = await analyticsRes.json()
         setAnalytics(analyticsData)
+      }
+
+      if (citiesRes.ok) {
+        const citiesData = await citiesRes.json()
+        setAnalytics(prev => prev ? { ...prev, topCities: citiesData } : null)
       }
 
       if (timelineRes.ok) {
@@ -282,6 +289,42 @@ export default function AnalyticsDashboard({ onCustomerClick }: AnalyticsDashboa
               <div className="text-center py-4">
                 <p className="text-sm text-gray-500">No country data available</p>
                 <p className="text-xs text-gray-400 mt-1">Country tracking starts with new visits</p>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Top Cities */}
+        <div className="bg-white rounded-lg shadow p-6">
+          <h3 className="text-lg font-semibold text-gray-800 mb-4">Visitor Cities</h3>
+          <div className="space-y-3">
+            {analytics.topCities && analytics.topCities.length > 0 ? (
+              analytics.topCities.slice(0, 8).map((city, index) => (
+                <div key={index} className="flex justify-between items-center">
+                  <div className="flex items-center">
+                    <span className="text-sm text-gray-600">
+                      {city.city}, {city.country}
+                    </span>
+                  </div>
+                  <div className="flex items-center">
+                    <div className="w-16 bg-gray-200 rounded-full h-2 mr-2">
+                      <div 
+                        className="bg-green-600 h-2 rounded-full"
+                        style={{ 
+                          width: `${(city.visitors / Math.max(...analytics.topCities.map(c => c.visitors))) * 100}%` 
+                        }}
+                      ></div>
+                    </div>
+                    <span className="text-sm font-medium text-gray-900 w-8 text-right">
+                      {city.visitors}
+                    </span>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div className="text-center py-4">
+                <p className="text-sm text-gray-500">No city data available</p>
+                <p className="text-xs text-gray-400 mt-1">City tracking starts with new visits</p>
               </div>
             )}
           </div>

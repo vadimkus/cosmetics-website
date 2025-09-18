@@ -94,6 +94,7 @@ model PageView {
   os           String?
   screenHeight Int?
   screenWidth  Int?
+  city         String?
 
   @@map("page_views")
 }

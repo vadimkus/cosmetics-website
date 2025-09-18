@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { trackPageView, trackUserAction } from '@/lib/analytics'
-import { getCountryFromIP } from '@/lib/geolocation'
+import { getGeolocationData } from '@/lib/geolocation'
 import { parseUserAgent } from '@/lib/deviceDetection'
 
 export async function POST(request: NextRequest) {
@@ -19,8 +19,8 @@ export async function POST(request: NextRequest) {
     const referrer = request.headers.get('referer') || 'unknown'
 
     if (type === 'pageview') {
-      // Get country from IP address
-      const country = await getCountryFromIP(ip)
+      // Get geolocation data from IP address (includes country and city)
+      const geolocationData = await getGeolocationData(ip)
       
       // Parse device information from user agent
       const deviceInfo = parseUserAgent(userAgent)
@@ -28,7 +28,8 @@ export async function POST(request: NextRequest) {
       await trackPageView({
         ...data,
         ipAddress: ip,
-        country,
+        country: geolocationData?.country,
+        city: geolocationData?.city,
         userAgent,
         referrer,
         deviceType: deviceInfo.deviceType,

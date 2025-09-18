@@ -1,5 +1,6 @@
 import { prisma } from './prisma'
 import { parseUserAgent, generateSessionId } from './deviceDetection'
+import { randomUUID } from 'crypto'
 
 export interface AnalyticsData {
   totalVisitors: number
@@ -50,6 +51,7 @@ export async function trackPageView(data: {
   userAgent?: string
   ipAddress?: string
   country?: string
+  city?: string
   referrer?: string
   deviceType?: string
   browser?: string
@@ -58,23 +60,20 @@ export async function trackPageView(data: {
   screenHeight?: number
 }): Promise<void> {
   try {
-    await prisma.pageView.create({
-      data: {
-        page: data.page,
-        userId: data.userId,
-        userEmail: data.userEmail,
-        userAgent: data.userAgent,
-        ipAddress: data.ipAddress,
-        country: data.country,
-        referrer: data.referrer,
-        deviceType: data.deviceType,
-        browser: data.browser,
-        os: data.os,
-        screenWidth: data.screenWidth,
-        screenHeight: data.screenHeight,
-        timestamp: new Date()
-      }
-    })
+    // Use raw query to avoid TypeScript issues with new city field
+    await prisma.$executeRaw`
+      INSERT INTO page_views (
+        id, page, "userId", "userEmail", "userAgent", "ipAddress", 
+        country, city, referrer, "deviceType", browser, os, 
+        "screenWidth", "screenHeight", timestamp
+      ) VALUES (
+        ${randomUUID()}, ${data.page}, ${data.userId || null}, 
+        ${data.userEmail || null}, ${data.userAgent || null}, ${data.ipAddress || null},
+        ${data.country || null}, ${data.city || null}, ${data.referrer || null},
+        ${data.deviceType || null}, ${data.browser || null}, ${data.os || null},
+        ${data.screenWidth || null}, ${data.screenHeight || null}, ${new Date()}
+      )
+    `
     console.log('✅ Page view tracked:', data.page)
   } catch (error) {
     console.error('Error tracking page view:', error)
@@ -442,6 +441,35 @@ export async function getTopCountries(days: number = 30): Promise<Array<{ countr
     }))
   } catch (error) {
     console.error('Error getting top countries:', error)
+    return []
+  }
+}
+
+// Get top cities data
+export async function getTopCities(days: number = 30): Promise<Array<{ city: string; country: string; visitors: number }>> {
+  try {
+    const startDate = new Date()
+    startDate.setDate(startDate.getDate() - days)
+
+    // Use raw query to avoid TypeScript issues with new field
+    const topCities = await prisma.$queryRaw<Array<{ city: string; country: string; count: number }>>`
+      SELECT city, country, COUNT(*) as count
+      FROM page_views 
+      WHERE timestamp >= ${startDate}
+        AND city IS NOT NULL 
+        AND country IS NOT NULL
+      GROUP BY city, country
+      ORDER BY count DESC
+      LIMIT 20
+    `
+
+    return topCities.map(c => ({
+      city: c.city || 'Unknown',
+      country: c.country || 'Unknown',
+      visitors: Number(c.count)
+    }))
+  } catch (error) {
+    console.error('Error getting top cities:', error)
     return []
   }
 }

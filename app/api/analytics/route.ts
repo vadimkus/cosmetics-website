@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getAnalyticsData, getRealTimeVisitors, getUserActivityTimeline, getTopCountries } from '@/lib/analytics'
+import { getAnalyticsData, getRealTimeVisitors, getUserActivityTimeline, getTopCountries, getTopCities } from '@/lib/analytics'
 import { prisma } from '@/lib/prisma'
 
 export async function GET(request: NextRequest) {
@@ -28,6 +28,10 @@ export async function GET(request: NextRequest) {
       case 'countries':
         const countries = await getTopCountries(days)
         return NextResponse.json(countries)
+      
+      case 'cities':
+        const cities = await getTopCities(days)
+        return NextResponse.json(cities)
       
       case 'devices':
         const deviceStats = await prisma.pageView.groupBy({

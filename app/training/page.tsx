@@ -129,8 +129,12 @@ export default function TrainingPage() {
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                   <div className="group border border-gray-200 rounded-lg p-6 hover:border-red-300 hover:shadow-lg transition-all duration-200">
                     <div className="text-center">
-                      <div className="w-16 h-16 bg-red-50 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-red-100 transition-colors">
-                        <Download className="h-8 w-8 text-red-600" />
+                      <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center mx-auto mb-4 overflow-hidden">
+                        <img 
+                          src="/images/RAA.jpg" 
+                          alt="MULTI VITA RADIANCE CREAM" 
+                          className="w-full h-full object-cover"
+                        />
                       </div>
                       <h4 className="text-lg font-semibold text-gray-900 mb-3">
                         MULTI VITA RADIANCE CREAM
@@ -152,8 +156,12 @@ export default function TrainingPage() {
                   
                   <div className="group border border-gray-200 rounded-lg p-6 hover:border-red-300 hover:shadow-lg transition-all duration-200">
                     <div className="text-center">
-                      <div className="w-16 h-16 bg-red-50 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-red-100 transition-colors">
-                        <Download className="h-8 w-8 text-red-600" />
+                      <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center mx-auto mb-4 overflow-hidden">
+                        <img 
+                          src="/images/EYEZ.jpg" 
+                          alt="EyeCell EYE ZONE CARE SYSTEM" 
+                          className="w-full h-full object-cover"
+                        />
                       </div>
                       <h4 className="text-lg font-semibold text-gray-900 mb-3">
                         EyeCell EYE ZONE CARE SYSTEM

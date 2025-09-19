@@ -35,70 +35,70 @@ export default function TrainingPage() {
                   </div>
                   Training Documents
                 </h3>
-                <div className="grid md:grid-cols-3 gap-6">
+              <div className="grid md:grid-cols-3 gap-6">
                   <div className="group border border-gray-200 rounded-lg p-6 hover:border-green-300 hover:shadow-lg transition-all duration-200">
-                    <div className="text-center">
+                  <div className="text-center">
                       <div className="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-green-100 transition-colors">
                         <Download className="h-8 w-8 text-green-600" />
-                      </div>
+                    </div>
                       <h4 className="text-lg font-semibold text-gray-900 mb-3">
-                        Product Catalogue 2026
+                      Product Catalogue 2026
                       </h4>
-                      <p className="text-sm text-gray-500 mb-4">
-                        Complete product overview and specifications
-                      </p>
+                    <p className="text-sm text-gray-500 mb-4">
+                      Complete product overview and specifications
+                    </p>
                       <p className="text-xs text-gray-400 mb-4">
                         235.5 MB
                       </p>
-                      <a 
+                    <a 
                         href="https://u.pcloud.link/publink/show?code=XZ9wc15ZDTFcM6uvKg0snY1dEJwzwQgHsEF7"
-                        target="_blank"
-                        rel="noopener noreferrer"
+                      target="_blank"
+                      rel="noopener noreferrer"
                         className="inline-flex items-center justify-center w-full px-4 py-3 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-lg hover:from-green-700 hover:to-green-800 transition-colors font-medium"
-                      >
-                        <Download className="h-4 w-4 mr-2" />
-                        Download PDF
-                      </a>
-                    </div>
+                    >
+                      <Download className="h-4 w-4 mr-2" />
+                      Download PDF
+                    </a>
                   </div>
-                  
+                </div>
+                
                   <div className="group border border-gray-200 rounded-lg p-6 hover:border-green-300 hover:shadow-lg transition-all duration-200">
-                    <div className="text-center">
+                  <div className="text-center">
                       <div className="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-green-100 transition-colors">
                         <Download className="h-8 w-8 text-green-600" />
-                      </div>
+                    </div>
                       <h4 className="text-lg font-semibold text-gray-900 mb-3">
-                        Home Care Guide 2026
+                      Home Care Guide 2026
                       </h4>
-                      <p className="text-sm text-gray-500 mb-4">
-                        Professional home care protocols and guidelines
-                      </p>
+                    <p className="text-sm text-gray-500 mb-4">
+                      Professional home care protocols and guidelines
+                    </p>
                       <p className="text-xs text-gray-400 mb-4">
                         9.8 MB
                       </p>
-                      <a 
+                    <a 
                         href="https://genosys.ae/documents/Genosys-Home-Care-Guide.pdf"
-                        target="_blank"
-                        rel="noopener noreferrer"
+                      target="_blank"
+                      rel="noopener noreferrer"
                         className="inline-flex items-center justify-center w-full px-4 py-3 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-lg hover:from-green-700 hover:to-green-800 transition-colors font-medium"
-                      >
-                        <Download className="h-4 w-4 mr-2" />
-                        Download PDF
-                      </a>
-                    </div>
+                    >
+                      <Download className="h-4 w-4 mr-2" />
+                      Download PDF
+                    </a>
                   </div>
-                  
+                </div>
+                
                   <div className="group border border-gray-200 rounded-lg p-6 hover:border-green-300 hover:shadow-lg transition-all duration-200">
-                    <div className="text-center">
+                  <div className="text-center">
                       <div className="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-green-100 transition-colors">
                         <Download className="h-8 w-8 text-green-600" />
-                      </div>
+                    </div>
                       <h4 className="text-lg font-semibold text-gray-900 mb-3">
-                        Professional Manual 2026
+                      Professional Manual 2026
                       </h4>
-                      <p className="text-sm text-gray-500 mb-4">
-                        Comprehensive professional treatment manual
-                      </p>
+                    <p className="text-sm text-gray-500 mb-4">
+                      Comprehensive professional treatment manual
+                    </p>
                       <p className="text-xs text-gray-400 mb-4">
                         10.4 MB
                       </p>
@@ -184,6 +184,37 @@ export default function TrainingPage() {
                         <Download className="h-4 w-4 mr-2" />
                         Download PDF
                       </a>
+                    </div>
+                  </div>
+                  
+                  {/* EPI TURNOVER BOOSTING PEELING GEL */}
+                  <div className="group border border-gray-200 rounded-lg p-6 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+                    <div className="text-center">
+                      <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center mx-auto mb-4 overflow-hidden">
+                        <img 
+                          src="/images/EPI.jpg" 
+                          alt="EPI TURNOVER BOOSTING PEELING GEL" 
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      <h4 className="text-lg font-semibold text-gray-900 mb-3">
+                        EPI TURNOVER BOOSTING PEELING GEL
+                      </h4>
+                      <p className="text-sm text-gray-500 mb-2">
+                        Product documentation and usage guide
+                      </p>
+                      <p className="text-xs text-gray-400 mb-4">
+                        3.8 MB
+                      </p>
+                      <a 
+                        href="/documents/ppt/GENOSYS%20EPI%20TURNOVER%20BOOSTING%20PEELING%20GEL.pdf"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                        className="inline-flex items-center justify-center w-full px-4 py-3 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-lg hover:from-red-700 hover:to-red-800 transition-colors font-medium"
+                    >
+                      <Download className="h-4 w-4 mr-2" />
+                      Download PDF
+                    </a>
                     </div>
                   </div>
                 </div>

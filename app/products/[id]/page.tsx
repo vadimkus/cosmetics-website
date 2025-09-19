@@ -734,6 +734,7 @@ export default function ProductPage() {
                     
                     <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-4">
                       <h4 className="font-semibold text-green-800 mb-2">📄 MULTI VITA RADIANCE CREAM Documentation</h4>
+                      <p className="text-xs text-gray-500 mb-3">2.1 MB</p>
                       <a 
                         href="/documents/ppt/GENOSYS%20MULTI%20VITA%20RADIANCE%20CREAM.pdf"
                         target="_blank"
@@ -1225,6 +1226,7 @@ export default function ProductPage() {
                     
                     <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-4">
                       <h4 className="font-semibold text-red-800 mb-2">📄 EyeCell EYE ZONE CARE SYSTEM Documentation</h4>
+                      <p className="text-xs text-gray-500 mb-3">1.8 MB</p>
                       <a 
                         href="/documents/ppt/GENOSYS%20EyeCell%20EYE%20ZONE%20CARE%20SYSTEM.pdf"
                         target="_blank"

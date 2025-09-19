@@ -1147,8 +1147,11 @@ export default function ProfilePageNew() {
                       <h4 className="text-lg font-semibold text-gray-900 mb-3">
                         MULTI VITA RADIANCE CREAM
                       </h4>
-                      <p className="text-sm text-gray-500 mb-4">
+                      <p className="text-sm text-gray-500 mb-2">
                         Product documentation and usage guide
+                      </p>
+                      <p className="text-xs text-gray-400 mb-4">
+                        2.1 MB
                       </p>
                       <a 
                         href="/documents/ppt/GENOSYS%20MULTI%20VITA%20RADIANCE%20CREAM.pdf"
@@ -1174,8 +1177,11 @@ export default function ProfilePageNew() {
                       <h4 className="text-lg font-semibold text-gray-900 mb-3">
                         EyeCell EYE ZONE CARE SYSTEM
                       </h4>
-                      <p className="text-sm text-gray-500 mb-4">
+                      <p className="text-sm text-gray-500 mb-2">
                         Product documentation and usage guide
+                      </p>
+                      <p className="text-xs text-gray-400 mb-4">
+                        1.8 MB
                       </p>
                       <a 
                         href="/documents/ppt/GENOSYS%20EyeCell%20EYE%20ZONE%20CARE%20SYSTEM.pdf"

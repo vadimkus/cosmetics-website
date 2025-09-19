@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { updateUser, deleteUser } from '@/lib/userStorageDb'
+import { prisma } from '@/lib/prisma'
 
 export async function PUT(
   request: NextRequest,
@@ -61,6 +62,34 @@ export async function DELETE(
 ) {
   try {
     const { id } = await params
+
+    // Get user info before deletion for analytics cleanup
+    const user = await prisma.user.findUnique({
+      where: { id },
+      select: { email: true, name: true }
+    })
+
+    if (!user) {
+      return NextResponse.json(
+        { error: 'User not found' },
+        { status: 404 }
+      )
+    }
+
+    // Delete related user actions from analytics (user_registered activities)
+    try {
+      const deletedActivities = await prisma.userAction.deleteMany({
+        where: {
+          action: 'user_registered',
+          userEmail: user.email
+        }
+      })
+      
+      console.log(`✅ Deleted ${deletedActivities.count} analytics activities for user ${user.email}`)
+    } catch (analyticsError) {
+      console.error('❌ Failed to delete analytics activities:', analyticsError)
+      // Don't fail user deletion if analytics cleanup fails
+    }
 
     // Delete user from database
     const success = await deleteUser(id)

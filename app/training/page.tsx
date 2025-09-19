@@ -67,7 +67,7 @@ export default function TrainingPage() {
                       9.8 MB
                     </p>
                     <a 
-                      href="https://u.pcloud.link/publink/show?code=XZRKc15Z0b2TErJfuBY9CjuoCOWGI5jDlN5X"
+                      href="https://genosys.ae/documents/Genosys-Home-Care-Guide.pdf"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center justify-center w-full px-4 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors font-medium"
@@ -93,7 +93,7 @@ export default function TrainingPage() {
                       10.4 MB
                     </p>
                     <a 
-                      href="https://u.pcloud.link/publink/show?code=XZfKc15ZBvhWfVTHiq8umGpavuEm1yp5p8XV"
+                      href="https://genosys.ae/documents/Genosys-Professional-Manual.pdf"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center justify-center w-full px-4 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors font-medium"

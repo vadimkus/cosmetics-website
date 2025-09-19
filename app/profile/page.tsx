@@ -1075,7 +1075,7 @@ export default function ProfilePageNew() {
                       9.8 MB
                     </p>
                     <a 
-                      href="https://u.pcloud.link/publink/show?code=XZRKc15Z0b2TErJfuBY9CjuoCOWGI5jDlN5X"
+                      href="https://genosys.ae/documents/Genosys-Home-Care-Guide.pdf"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center justify-center w-full px-4 py-3 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-lg hover:from-green-700 hover:to-green-800 transition-colors font-medium"
@@ -1101,7 +1101,7 @@ export default function ProfilePageNew() {
                       10.4 MB
                     </p>
                     <a 
-                      href="https://u.pcloud.link/publink/show?code=XZfKc15ZBvhWfVTHiq8umGpavuEm1yp5p8XV"
+                      href="https://genosys.ae/documents/Genosys-Professional-Manual.pdf"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center justify-center w-full px-4 py-3 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-lg hover:from-green-700 hover:to-green-800 transition-colors font-medium"

@@ -520,9 +520,25 @@ export default function ProductPage() {
                     </ul>
                     
                     <h4 className="font-semibold text-gray-800 mb-2">How to Use:</h4>
-                    <div className="text-gray-600 space-y-2">
+                    <div className="text-gray-600 space-y-2 mb-4">
                       <p><strong>To remove dead skin cells / residues after washing the face:</strong> Soak the cotton pad with toner and wipe it along the skin texture.</p>
                       <p><strong>To enhance the pore contraction effect and to soothe the skin:</strong> Soak the cotton pad with toner and apply them to the face. Leave them on for 5-10 minutes.</p>
+                    </div>
+                    
+                    <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-4">
+                      <h4 className="font-semibold text-green-800 mb-2">📄 INTENSIVE PROBLEM CONTROL TONER Documentation</h4>
+                      <p className="text-xs text-gray-500 mb-3">1.0 MB</p>
+                      <a 
+                        href="/documents/ppt/GENOSYS%20INTENSIVE%20PROBLEM%20CONTROL%20TONER.pdf"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors text-sm font-medium"
+                      >
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                        Download
+                      </a>
                     </div>
                   </>
                 ) : product.id === '16' ? (

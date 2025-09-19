@@ -9,7 +9,7 @@ export default function TrainingPage() {
 
           <div className="text-center">
             <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
-              Genosys Professional Video Lessons
+              Genosys Professional Training
             </h1>
           </div>
 

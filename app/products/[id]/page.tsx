@@ -483,9 +483,25 @@ export default function ProductPage() {
                     </ul>
                     
                     <h4 className="font-semibold text-gray-800 mb-2">How to Use:</h4>
-                    <p className="text-gray-600">
+                    <p className="text-gray-600 mb-4">
                       Shake well before use, then spray over the face with eyes closed at a distance of 10-20cm throughout the day. It can be sprayed over make-up.
                     </p>
+                    
+                    <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-4">
+                      <h4 className="font-semibold text-green-800 mb-2">📄 MICROBIOME ENERGY INFUSING MIST Documentation</h4>
+                      <p className="text-xs text-gray-500 mb-3">0.8 MB</p>
+                      <a 
+                        href="/documents/ppt/GENOSYS%20MICROBIOME%20ENERGY%20INFUSING%20MIST.pdf"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors text-sm font-medium"
+                      >
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                        Download
+                      </a>
+                    </div>
                   </>
                 ) : product.id === '15' ? (
                   <>

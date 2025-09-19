@@ -1138,11 +1138,13 @@ export default function ProfilePageNew() {
                   <div className="group border border-gray-200 rounded-lg p-6 hover:border-red-300 hover:shadow-lg transition-all duration-200">
                     <div className="text-center">
                       <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center mx-auto mb-4 overflow-hidden">
-                        <img 
-                          src="/images/RAA.jpg" 
-                          alt="MULTI VITA RADIANCE CREAM" 
-                          className="w-full h-full object-cover"
-                        />
+                        <Link href="/products/31">
+                          <img 
+                            src="/images/RAA.jpg" 
+                            alt="MULTI VITA RADIANCE CREAM" 
+                            className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+                          />
+                        </Link>
                       </div>
                       <h4 className="text-lg font-semibold text-gray-900 mb-3">
                         MULTI VITA RADIANCE CREAM
@@ -1168,11 +1170,13 @@ export default function ProfilePageNew() {
                   <div className="group border border-gray-200 rounded-lg p-6 hover:border-red-300 hover:shadow-lg transition-all duration-200">
                     <div className="text-center">
                       <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center mx-auto mb-4 overflow-hidden">
-                        <img 
-                          src="/images/EYEZ.jpg" 
-                          alt="EyeCell EYE ZONE CARE SYSTEM" 
-                          className="w-full h-full object-cover"
-                        />
+                        <Link href="/products/50">
+                          <img 
+                            src="/images/EYEZ.jpg" 
+                            alt="EyeCell EYE ZONE CARE SYSTEM" 
+                            className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+                          />
+                        </Link>
                       </div>
                       <h4 className="text-lg font-semibold text-gray-900 mb-3">
                         EyeCell EYE ZONE CARE SYSTEM
@@ -1199,11 +1203,13 @@ export default function ProfilePageNew() {
                   <div className="group border border-gray-200 rounded-lg p-6 hover:border-red-300 hover:shadow-lg transition-all duration-200">
                     <div className="text-center">
                       <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center mx-auto mb-4 overflow-hidden">
-                        <img 
-                          src="/images/EPI.jpg" 
-                          alt="EPI TURNOVER BOOSTING PEELING GEL" 
-                          className="w-full h-full object-cover"
-                        />
+                        <Link href="/products/12">
+                          <img 
+                            src="/images/EPI.jpg" 
+                            alt="EPI TURNOVER BOOSTING PEELING GEL" 
+                            className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+                          />
+                        </Link>
                       </div>
                       <h4 className="text-lg font-semibold text-gray-900 mb-3">
                         EPI TURNOVER BOOSTING PEELING GEL
@@ -1230,11 +1236,13 @@ export default function ProfilePageNew() {
                   <div className="group border border-gray-200 rounded-lg p-6 hover:border-red-300 hover:shadow-lg transition-all duration-200">
                     <div className="text-center">
                       <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center mx-auto mb-4 overflow-hidden">
-                        <img 
-                          src="/images/RADS.jpg" 
-                          alt="MULTI VITA RADIANCE SERUM" 
-                          className="w-full h-full object-cover"
-                        />
+                        <Link href="/products/21">
+                          <img 
+                            src="/images/RADS.jpg" 
+                            alt="MULTI VITA RADIANCE SERUM" 
+                            className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+                          />
+                        </Link>
                       </div>
                       <h4 className="text-lg font-semibold text-gray-900 mb-3">
                         MULTI VITA RADIANCE SERUM
@@ -1261,11 +1269,13 @@ export default function ProfilePageNew() {
                   <div className="group border border-gray-200 rounded-lg p-6 hover:border-red-300 hover:shadow-lg transition-all duration-200">
                     <div className="text-center">
                       <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center mx-auto mb-4 overflow-hidden">
-                        <img 
-                          src="/images/DEF.jpg" 
-                          alt="SKIN DEFENDER LIP & EYE MAKEUP REMOVER" 
-                          className="w-full h-full object-cover"
-                        />
+                        <Link href="/products/11">
+                          <img 
+                            src="/images/DEF.jpg" 
+                            alt="SKIN DEFENDER LIP & EYE MAKEUP REMOVER" 
+                            className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+                          />
+                        </Link>
                       </div>
                       <h4 className="text-lg font-semibold text-gray-900 mb-3">
                         SKIN DEFENDER LIP & EYE MAKEUP REMOVER
@@ -1292,11 +1302,13 @@ export default function ProfilePageNew() {
                   <div className="group border border-gray-200 rounded-lg p-6 hover:border-red-300 hover:shadow-lg transition-all duration-200">
                     <div className="text-center">
                       <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center mx-auto mb-4 overflow-hidden">
-                        <img 
-                          src="/images/mist.jpg" 
-                          alt="MICROBIOME ENERGY INFUSING MIST" 
-                          className="w-full h-full object-cover"
-                        />
+                        <Link href="/products/14">
+                          <img 
+                            src="/images/mist.jpg" 
+                            alt="MICROBIOME ENERGY INFUSING MIST" 
+                            className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+                          />
+                        </Link>
                       </div>
                       <h4 className="text-lg font-semibold text-gray-900 mb-3">
                         MICROBIOME ENERGY INFUSING MIST
@@ -1323,11 +1335,13 @@ export default function ProfilePageNew() {
                   <div className="group border border-gray-200 rounded-lg p-6 hover:border-red-300 hover:shadow-lg transition-all duration-200">
                     <div className="text-center">
                       <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center mx-auto mb-4 overflow-hidden">
-                        <img 
-                          src="/images/SKIN.jpg" 
-                          alt="SKIN RESCUE OVERNIGHT CREAM MASK" 
-                          className="w-full h-full object-cover"
-                        />
+                        <Link href="/products/34">
+                          <img 
+                            src="/images/SKIN.jpg" 
+                            alt="SKIN RESCUE OVERNIGHT CREAM MASK" 
+                            className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+                          />
+                        </Link>
                       </div>
                       <h4 className="text-lg font-semibold text-gray-900 mb-3">
                         SKIN RESCUE OVERNIGHT CREAM MASK
@@ -1354,11 +1368,13 @@ export default function ProfilePageNew() {
                   <div className="group border border-gray-200 rounded-lg p-6 hover:border-red-300 hover:shadow-lg transition-all duration-200">
                     <div className="text-center">
                       <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center mx-auto mb-4 overflow-hidden">
-                        <img 
-                          src="/images/PRS.jpg" 
-                          alt="INTENSIVE PROBLEM CONTROL TONER" 
-                          className="w-full h-full object-cover"
-                        />
+                        <Link href="/products/15">
+                          <img 
+                            src="/images/PRS.jpg" 
+                            alt="INTENSIVE PROBLEM CONTROL TONER" 
+                            className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+                          />
+                        </Link>
                       </div>
                       <h4 className="text-lg font-semibold text-gray-900 mb-3">
                         INTENSIVE PROBLEM CONTROL TONER
@@ -1385,11 +1401,13 @@ export default function ProfilePageNew() {
                   <div className="group border border-gray-200 rounded-lg p-6 hover:border-red-300 hover:shadow-lg transition-all duration-200">
                     <div className="text-center">
                       <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center mx-auto mb-4 overflow-hidden">
-                        <img 
-                          src="/images/SPF50.jpg" 
-                          alt="ULTRA SHIELD SUN CREAM" 
-                          className="w-full h-full object-cover"
-                        />
+                        <Link href="/products/39">
+                          <img 
+                            src="/images/SPF50.jpg" 
+                            alt="ULTRA SHIELD SUN CREAM" 
+                            className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+                          />
+                        </Link>
                       </div>
                       <h4 className="text-lg font-semibold text-gray-900 mb-3">
                         ULTRA SHIELD SUN CREAM

@@ -1046,7 +1046,7 @@ export default function ProfilePageNew() {
                       Complete product overview and specifications
                     </p>
                     <a 
-                      href="https://filebin.net/ymz1tpge5lk1a3ps/genosys-product-catalogue-2026.pdf.pdf"
+                      href="https://u.pcloud.link/publink/show?code=XZ9wc15ZDTFcM6uvKg0snY1dEJwzwQgHsEF7"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center justify-center w-full px-4 py-3 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-lg hover:from-green-700 hover:to-green-800 transition-colors font-medium"
@@ -1069,7 +1069,7 @@ export default function ProfilePageNew() {
                       Professional home care protocols and guidelines
                     </p>
                     <a 
-                      href="https://filebin.net/ymz1tpge5lk1a3ps/Genosys-Home-Care-Guide.pdf"
+                      href="https://u.pcloud.link/publink/show?code=XZRKc15Z0b2TErJfuBY9CjuoCOWGI5jDlN5X"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center justify-center w-full px-4 py-3 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-lg hover:from-green-700 hover:to-green-800 transition-colors font-medium"
@@ -1092,7 +1092,7 @@ export default function ProfilePageNew() {
                       Comprehensive professional treatment manual
                     </p>
                     <a 
-                      href="https://filebin.net/ymz1tpge5lk1a3ps/Genosys-Professional-Manual.pdf"
+                      href="https://u.pcloud.link/publink/show?code=XZfKc15ZBvhWfVTHiq8umGpavuEm1yp5p8XV"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center justify-center w-full px-4 py-3 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-lg hover:from-green-700 hover:to-green-800 transition-colors font-medium"

@@ -37,6 +37,9 @@ export default function TrainingPage() {
                     <p className="text-sm text-gray-500 mb-4">
                       Complete product overview and specifications
                     </p>
+                    <p className="text-xs text-gray-400 mb-4">
+                      235.5 MB
+                    </p>
                     <a 
                       href="https://u.pcloud.link/publink/show?code=XZ9wc15ZDTFcM6uvKg0snY1dEJwzwQgHsEF7"
                       target="_blank"
@@ -60,6 +63,9 @@ export default function TrainingPage() {
                     <p className="text-sm text-gray-500 mb-4">
                       Professional home care protocols and guidelines
                     </p>
+                    <p className="text-xs text-gray-400 mb-4">
+                      9.8 MB
+                    </p>
                     <a 
                       href="https://u.pcloud.link/publink/show?code=XZRKc15Z0b2TErJfuBY9CjuoCOWGI5jDlN5X"
                       target="_blank"
@@ -82,6 +88,9 @@ export default function TrainingPage() {
                     </h3>
                     <p className="text-sm text-gray-500 mb-4">
                       Comprehensive professional treatment manual
+                    </p>
+                    <p className="text-xs text-gray-400 mb-4">
+                      10.4 MB
                     </p>
                     <a 
                       href="https://u.pcloud.link/publink/show?code=XZfKc15ZBvhWfVTHiq8umGpavuEm1yp5p8XV"

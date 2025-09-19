@@ -26,6 +26,7 @@ interface User {
   canSeePrices: boolean
   discountType?: string
   discountPercentage?: number
+  lastLoginAt?: string
   createdAt: string
   updatedAt: string
 }
@@ -461,20 +462,20 @@ export default function AdminPage() {
                   }}
                 />
               ) : (
-                <>
-                  <div className="flex justify-between items-center mb-6">
-                    <h2 className="text-2xl font-bold text-gray-800">User Management</h2>
-                    <button
-                      onClick={refreshUsers}
-                      disabled={usersRefreshing}
-                      className="flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                    >
-                      <RefreshCw className={`h-4 w-4 ${usersRefreshing ? 'animate-spin' : ''}`} />
-                      {usersRefreshing ? 'Refreshing...' : 'Refresh'}
-                    </button>
-                  </div>
+            <>
+              <div className="flex justify-between items-center mb-6">
+                <h2 className="text-2xl font-bold text-gray-800">User Management</h2>
+                <button
+                  onClick={refreshUsers}
+                  disabled={usersRefreshing}
+                  className="flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  <RefreshCw className={`h-4 w-4 ${usersRefreshing ? 'animate-spin' : ''}`} />
+                  {usersRefreshing ? 'Refreshing...' : 'Refresh'}
+                </button>
+              </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {loading ? (
+            {loading ? (
                       Array.from({ length: 6 }).map((_, index) => (
                         <div key={index} className="bg-gray-50 rounded-lg p-4 border animate-pulse">
                           <div className="flex items-center space-x-3 mb-3">
@@ -490,18 +491,18 @@ export default function AdminPage() {
                           </div>
                         </div>
                       ))
-                    ) : (
-                      users.map((user) => (
-                        <div key={user.id} className="bg-gray-50 rounded-lg p-4 border">
+            ) : (
+              users.map((user) => (
+                <div key={user.id} className="bg-gray-50 rounded-lg p-4 border">
                           <div className="flex items-center space-x-3 mb-3">
                             <div 
                               className="h-10 w-10 rounded-full bg-primary-100 flex items-center justify-center cursor-pointer hover:bg-primary-200 transition-colors"
                               onClick={() => setSelectedCustomer(user)}
                             >
-                              {user.profilePicture ? (
+                          {user.profilePicture ? (
                                 <Image
-                                  src={user.profilePicture}
-                                  alt={user.name}
+                              src={user.profilePicture}
+                              alt={user.name}
                                   width={40}
                                   height={40}
                                   className="w-10 h-10 rounded-full object-cover"
@@ -513,11 +514,11 @@ export default function AdminPage() {
                                   width={40}
                                   height={40}
                                   className="w-10 h-10 rounded-full object-cover"
-                                />
-                              ) : (
+                            />
+                          ) : (
                                 <UserIcon className="h-5 w-5 text-primary-600" />
-                              )}
-                            </div>
+                          )}
+                        </div>
                             <div className="flex-1">
                               <h3 className="font-semibold text-gray-900 flex items-center gap-2">
                                 {user.name}
@@ -529,26 +530,26 @@ export default function AdminPage() {
                                 )}
                               </h3>
                               <p className="text-sm text-gray-600">{user.email}</p>
-                            </div>
-                          </div>
-                          
+                      </div>
+                        </div>
+                        
                           <div className="space-y-2 text-sm text-gray-600">
                             <div className="flex justify-between">
                               <span>Phone:</span>
                               <span className="font-medium">{user.phone || 'Not provided'}</span>
-                            </div>
+                        </div>
                             <div className="flex justify-between">
                               <span>Address:</span>
                               <span className="font-medium text-right max-w-[150px] truncate" title={user.address || 'Not provided'}>
                                 {user.address || 'Not provided'}
                               </span>
-                            </div>
+                      </div>
                             <div className="flex justify-between">
                               <span>Birthday:</span>
                               <span className="font-medium">
                                 {user.birthday ? new Date(user.birthday).toLocaleDateString('en-AE') : 'Not provided'}
                               </span>
-                            </div>
+                    </div>
                             <div className="flex justify-between">
                               <span>Joined:</span>
                               <span className="font-medium">
@@ -557,24 +558,36 @@ export default function AdminPage() {
                                   day: 'numeric',
                                   year: 'numeric'
                                 })}
-                              </span>
-                            </div>
+                        </span>
+                      </div>
+                            <div className="flex justify-between">
+                              <span>Last Login:</span>
+                              <span className="font-medium">
+                                {user.lastLoginAt ? new Date(user.lastLoginAt).toLocaleDateString('en-AE', {
+                                  month: 'short',
+                                  day: 'numeric',
+                                  year: 'numeric',
+                                  hour: '2-digit',
+                                  minute: '2-digit'
+                                }) : 'Never'}
+                            </span>
+                          </div>
                             <div className="flex justify-between">
                               <span>Can See Prices:</span>
                               <span className={`font-medium ${user.canSeePrices ? 'text-green-600' : 'text-red-600'}`}>
                                 {user.canSeePrices ? 'Yes' : 'No'}
-                              </span>
-                            </div>
+                            </span>
+                          </div>
                             {user.discountType && user.discountPercentage && (
                               <div className="flex justify-between">
                                 <span>Discount:</span>
                                 <span className="font-medium text-green-600">
                                   {user.discountPercentage}% {user.discountType}
                                 </span>
-                              </div>
-                            )}
                           </div>
-          
+                        )}
+                      </div>
+
                           {/* Action Buttons */}
                           <div className="pt-2 border-t border-gray-200 space-y-2">
                             <button
@@ -584,19 +597,19 @@ export default function AdminPage() {
                               <UserIcon className="h-3 w-3" />
                               View Profile
                             </button>
-                            <button
-                              onClick={() => deleteUser(user.id, user.name)}
+                        <button
+                          onClick={() => deleteUser(user.id, user.name)}
                               className="w-full px-3 py-1 bg-red-500 text-white rounded text-xs hover:bg-red-600 flex items-center justify-center gap-1"
-                            >
-                              <Trash2 className="h-3 w-3" />
-                              Delete User
-                            </button>
-                          </div>
-                        </div>
-                      ))
-                    )}
+                        >
+                          <Trash2 className="h-3 w-3" />
+                          Delete User
+                        </button>
                   </div>
-                </>
+                </div>
+              ))
+            )}
+          </div>
+            </>
               )}
             </>
           )}
@@ -645,64 +658,64 @@ export default function AdminPage() {
                 />
               ) : (
                 <div className="bg-white rounded-lg border">
-                  {ordersLoading ? (
+                    {ordersLoading ? (
                     <div className="flex items-center justify-center py-12">
                       <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600"></div>
                       <span className="ml-2 text-gray-600">Loading orders...</span>
-                    </div>
-                  ) : orders.length === 0 ? (
-                    <div className="text-center py-12">
-                      <div className="bg-gray-100 rounded-full w-24 h-24 flex items-center justify-center mx-auto mb-4">
-                        <Package className="h-12 w-12 text-gray-300" />
                       </div>
-                      <h3 className="text-xl font-semibold mb-2">No orders yet</h3>
+                    ) : orders.length === 0 ? (
+                    <div className="text-center py-12">
+                        <div className="bg-gray-100 rounded-full w-24 h-24 flex items-center justify-center mx-auto mb-4">
+                          <Package className="h-12 w-12 text-gray-300" />
+                        </div>
+                        <h3 className="text-xl font-semibold mb-2">No orders yet</h3>
                       <p className="text-gray-400">Orders will appear here when customers make purchases.</p>
-                    </div>
-                  ) : (
-                    <div className="overflow-x-auto">
-                      <table className="w-full">
-                        <thead className="bg-gray-50">
-                          <tr>
+                      </div>
+                    ) : (
+                      <div className="overflow-x-auto">
+                        <table className="w-full">
+                          <thead className="bg-gray-50">
+                            <tr>
                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Order ID</th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Customer</th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Items</th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total</th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-                          </tr>
-                        </thead>
-                        <tbody className="bg-white divide-y divide-gray-200">
-                          {orders.map((order) => (
-                            <tr key={order.id} className="hover:bg-gray-50 transition-colors">
+                              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Customer</th>
+                              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Items</th>
+                              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total</th>
+                              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                            </tr>
+                          </thead>
+                          <tbody className="bg-white divide-y divide-gray-200">
+                            {orders.map((order) => (
+                              <tr key={order.id} className="hover:bg-gray-50 transition-colors">
                               <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                 #{order.id.slice(-8)}
-                              </td>
+                                </td>
                               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                 {order.customerName}
                                 <div className="text-xs text-gray-500">{order.customerEmail}</div>
-                              </td>
-                              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                {new Date(order.createdAt).toLocaleDateString('en-AE', {
-                                  month: 'short',
-                                  day: 'numeric',
-                                  hour: '2-digit',
-                                  minute: '2-digit'
-                                })}
-                              </td>
-                              <td className="px-6 py-4 whitespace-nowrap">
-                                <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold ${getStatusColor(order.status)}`}>
-                                  {getStatusIcon(order.status)}
-                                  {order.status.toUpperCase()}
-                                </span>
-                              </td>
-                              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                {order.items.reduce((sum, item) => sum + item.quantity, 0)} items
-                              </td>
-                              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                {formatCurrency(order.total)}
-                              </td>
-                              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                  {new Date(order.createdAt).toLocaleDateString('en-AE', {
+                                    month: 'short',
+                                    day: 'numeric',
+                                    hour: '2-digit',
+                                    minute: '2-digit'
+                                  })}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                  <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold ${getStatusColor(order.status)}`}>
+                                    {getStatusIcon(order.status)}
+                                    {order.status.toUpperCase()}
+                                  </span>
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                  {order.items.reduce((sum, item) => sum + item.quantity, 0)} items
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                  {formatCurrency(order.total)}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                 <div className="flex items-center gap-2">
                                   <button
                                     onClick={() => setSelectedOrder(order)}
@@ -719,14 +732,14 @@ export default function AdminPage() {
                                     Delete
                                   </button>
                                 </div>
-                              </td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
-                  )}
-                </div>
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                )}
+              </div>
               )}
             </>
           )}
@@ -861,7 +874,7 @@ export default function AdminPage() {
                         ))}
                       </tbody>
                     </table>
-                  </div>
+                </div>
                 )}
               </div>
 

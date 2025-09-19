@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { rateLimit } from '@/lib/rateLimit'
-import { findUserByEmail } from '@/lib/userStorageDb'
+import { findUserByEmail, updateUser } from '@/lib/userStorageDb'
 
 const loginLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
@@ -43,6 +43,14 @@ export async function POST(request: NextRequest) {
         { error: 'Invalid email or password' },
         { status: 401 }
       )
+    }
+
+    // Update last login timestamp
+    try {
+      await updateUser(user.id, { lastLoginAt: new Date().toISOString() })
+    } catch (error) {
+      console.error('Error updating last login timestamp:', error)
+      // Don't fail login if timestamp update fails
     }
 
     // Return user data (without password)

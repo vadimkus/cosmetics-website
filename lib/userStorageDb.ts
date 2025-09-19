@@ -14,6 +14,7 @@ export interface UserData {
   discountType?: string | null
   discountPercentage?: number | null
   birthday?: string
+  lastLoginAt?: string
   createdAt?: string
 }
 

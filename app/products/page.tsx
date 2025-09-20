@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { ArrowLeft } from 'lucide-react'
 import ProductCard from '@/components/ProductCard'
 import ErrorPage from '@/components/ErrorPage'
@@ -97,13 +98,20 @@ export default function ProductsPage() {
 
   return (
     <div className="bg-white min-h-screen">
-      <div className="container mx-auto px-4 py-16">
+      <div className="container mx-auto px-4 py-8">
         <div className="max-w-6xl mx-auto">
 
           <div className="text-center mb-8">
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
-              Genosys Products
-            </h1>
+            <div className="flex justify-center mb-6">
+              <Image 
+                src="/images/genosys-logo.png" 
+                alt="Genosys Logo" 
+                width={400} 
+                height={200} 
+                className="object-contain"
+                priority
+              />
+            </div>
           </div>
 
           {/* Category Navigation */}

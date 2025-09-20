@@ -844,7 +844,44 @@ export default function ProductPage() {
                       </a>
                     </div>
                   </>
-                ) : product.id === '27' || product.id === '28' || product.id === '29' || product.id === '30' || product.id === '32' ? (
+                ) : product.id === '29' ? (
+                  <>
+                    <h3 className="text-lg font-semibold text-gray-800 mb-2">Product Details</h3>
+                    <p className="text-gray-600 mb-4">
+                      This premium {product.category.toLowerCase()} product is carefully formulated with high-quality ingredients 
+                      to deliver exceptional results. Perfect for professional use and home care routines.
+                    </p>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2">Key Benefits:</h4>
+                    <ul className="list-disc list-inside text-gray-600 space-y-1 mb-4">
+                      <li>Professional-grade quality</li>
+                      <li>Dermatologically tested</li>
+                      <li>Safe for all skin types</li>
+                      <li>Long-lasting results</li>
+                    </ul>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2">How to Use:</h4>
+                    <p className="text-gray-600 mb-4">
+                      Apply the product on the face and gently massage in the morning and evening.
+                    </p>
+                    
+                    <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-4">
+                      <h4 className="font-semibold text-green-800 mb-2">📄 MOISTURE REPLENISHING HYALURON CREAM Documentation</h4>
+                      <p className="text-xs text-gray-500 mb-3">2.0 MB</p>
+                      <a 
+                        href="/documents/ppt/GENOSYS%20MOISTURE%20REPLENISHING%20HYALURON%20CREAM.pdf"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors text-sm font-medium"
+                      >
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                        Download
+                      </a>
+                    </div>
+                  </>
+                ) : product.id === '27' || product.id === '28' || product.id === '30' || product.id === '32' ? (
                   <>
                     <h3 className="text-lg font-semibold text-gray-800 mb-2">Product Details</h3>
                     <p className="text-gray-600 mb-4">

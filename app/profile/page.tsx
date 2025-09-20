@@ -1020,22 +1020,10 @@ export default function ProfilePageNew() {
 
           {activeTab === 'downloads' && (
             <div className="bg-white/70 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 p-8">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="p-3 bg-gradient-to-r from-green-100 to-emerald-100 rounded-xl">
-                  <Download className="h-6 w-6 text-green-600" />
-                </div>
-                <h2 className="text-2xl font-bold text-gray-800">Download Documents</h2>
-              </div>
-              
-              <div className="text-center mb-8">
-                <p className="text-gray-600 max-w-2xl mx-auto text-lg">
-                  Access our guides and training manuals to enhance your professional/home training
-                </p>
-              </div>
               
               {/* Training Documents Section */}
               <div className="mb-8">
-                <h3 className="text-xl font-semibold text-gray-800 mb-6 flex items-center gap-2">
+                <h3 className="text-xl font-semibold text-gray-800 mb-6 flex items-center justify-center gap-2">
                   <div className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center">
                     <svg className="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
@@ -1043,81 +1031,78 @@ export default function ProfilePageNew() {
                   </div>
                   Training Documents
                 </h3>
-                <div className="grid md:grid-cols-3 gap-6">
-                  <div className="group border border-gray-200 rounded-lg p-6 hover:border-green-300 hover:shadow-lg transition-all duration-200">
-                    <div className="text-center">
-                      <div className="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-green-100 transition-colors">
-                        <Download className="h-8 w-8 text-green-600" />
+                <div className="space-y-2">
+                  <div className="group border border-gray-200 rounded-lg p-3 hover:border-green-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0 group-hover:bg-green-100 transition-colors">
+                        <Download className="h-5 w-5 text-green-600" />
                       </div>
-                      <h4 className="text-lg font-semibold text-gray-900 mb-3">
+                      <div className="flex-1 min-w-0">
+                        <h4 className="text-sm font-semibold text-gray-900 truncate">
                         Product Catalogue 2026
                       </h4>
-                      <p className="text-sm text-gray-500 mb-4">
-                        Complete product overview and specifications
-                      </p>
-                      <p className="text-xs text-gray-400 mb-4">
+                        <p className="text-xs text-gray-400">
                         235.5 MB
                       </p>
+                      </div>
                       <a 
                         href="https://u.pcloud.link/publink/show?code=XZ9wc15ZDTFcM6uvKg0snY1dEJwzwQgHsEF7"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center w-full px-4 py-3 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-lg hover:from-green-700 hover:to-green-800 transition-colors font-medium"
+                        className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-md hover:from-green-700 hover:to-green-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
-                        <Download className="h-4 w-4 mr-2" />
-                        Download PDF
+                        <Download className="h-3 w-3 mr-1" />
+                        Download
                       </a>
                     </div>
                   </div>
                   
-                  <div className="group border border-gray-200 rounded-lg p-6 hover:border-green-300 hover:shadow-lg transition-all duration-200">
-                    <div className="text-center">
-                      <div className="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-green-100 transition-colors">
-                        <Download className="h-8 w-8 text-green-600" />
+                  <div className="group border border-gray-200 rounded-lg p-3 hover:border-green-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0 group-hover:bg-green-100 transition-colors">
+                        <Download className="h-5 w-5 text-green-600" />
                       </div>
-                      <h4 className="text-lg font-semibold text-gray-900 mb-3">
+                      <div className="flex-1 min-w-0">
+                        <h4 className="text-sm font-semibold text-gray-900 truncate">
                         Home Care Guide 2026
                       </h4>
-                      <p className="text-sm text-gray-500 mb-4">
-                        Professional home care protocols and guidelines
-                      </p>
-                      <p className="text-xs text-gray-400 mb-4">
+                        <p className="text-xs text-gray-400">
                         9.8 MB
                       </p>
+                      </div>
                       <a 
                         href="https://genosys.ae/documents/Genosys-Home-Care-Guide.pdf"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center w-full px-4 py-3 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-lg hover:from-green-700 hover:to-green-800 transition-colors font-medium"
+                        className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-md hover:from-green-700 hover:to-green-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
-                        <Download className="h-4 w-4 mr-2" />
-                        Download PDF
+                        <Download className="h-3 w-3 mr-1" />
+                        Download
                       </a>
                     </div>
                   </div>
                   
-                  <div className="group border border-gray-200 rounded-lg p-6 hover:border-green-300 hover:shadow-lg transition-all duration-200">
-                    <div className="text-center">
-                      <div className="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-green-100 transition-colors">
-                        <Download className="h-8 w-8 text-green-600" />
+                  <div className="group border border-gray-200 rounded-lg p-3 hover:border-green-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0 group-hover:bg-green-100 transition-colors">
+                        <Download className="h-5 w-5 text-green-600" />
                       </div>
-                      <h4 className="text-lg font-semibold text-gray-900 mb-3">
+                      <div className="flex-1 min-w-0">
+                        <h4 className="text-sm font-semibold text-gray-900 truncate">
                         Professional Manual 2026
                       </h4>
-                      <p className="text-sm text-gray-500 mb-4">
-                        Comprehensive professional treatment manual
-                      </p>
-                      <p className="text-xs text-gray-400 mb-4">
+                        <p className="text-xs text-gray-400">
                         10.4 MB
                       </p>
+                      </div>
                       <a 
                         href="https://genosys.ae/documents/Genosys-Professional-Manual.pdf"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center w-full px-4 py-3 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-lg hover:from-green-700 hover:to-green-800 transition-colors font-medium"
+                        className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-md hover:from-green-700 hover:to-green-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
-                        <Download className="h-4 w-4 mr-2" />
-                        Download PDF
+                        <Download className="h-3 w-3 mr-1" />
+                        Download
                       </a>
                     </div>
                   </div>
@@ -1126,18 +1111,18 @@ export default function ProfilePageNew() {
               
               {/* Product Documentation Section */}
               <div>
-                <h3 className="text-xl font-semibold text-gray-800 mb-6 flex items-center gap-2">
-                  <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
-                    <svg className="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <h3 className="text-xl font-semibold text-gray-800 mb-6 flex items-center justify-center gap-2">
+                  <div className="w-8 h-8 bg-red-100 rounded-lg flex items-center justify-center">
+                    <svg className="w-4 h-4 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
                     </svg>
                   </div>
                   Product Documentation
                 </h3>
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  <div className="group border border-gray-200 rounded-lg p-6 hover:border-red-300 hover:shadow-lg transition-all duration-200">
-                    <div className="text-center">
-                      <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center mx-auto mb-4 overflow-hidden">
+                <div className="space-y-2">
+                  <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                         <Link href="/products/31">
                           <img 
                             src="/images/RAA.jpg" 
@@ -1146,30 +1131,29 @@ export default function ProfilePageNew() {
                           />
                         </Link>
                       </div>
-                      <h4 className="text-lg font-semibold text-gray-900 mb-3">
-                        MULTI VITA RADIANCE CREAM
-                      </h4>
-                      <p className="text-sm text-gray-500 mb-2">
-                        Product guide
-                      </p>
-                      <p className="text-xs text-gray-400 mb-4">
-                        2.1 MB
-                      </p>
+                      <div className="flex-1 min-w-0">
+                        <h4 className="text-sm font-semibold text-gray-900 truncate">
+                          MULTI VITA RADIANCE CREAM
+                        </h4>
+                        <p className="text-xs text-gray-400">
+                          2.1 MB
+                        </p>
+                      </div>
                       <a 
                         href="/documents/ppt/GENOSYS%20MULTI%20VITA%20RADIANCE%20CREAM.pdf"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center w-full px-4 py-3 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-lg hover:from-red-700 hover:to-red-800 transition-colors font-medium"
+                        className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
-                        <Download className="h-4 w-4 mr-2" />
-                        Download PDF
+                        <Download className="h-3 w-3 mr-1" />
+                        Download
                       </a>
                     </div>
                   </div>
                   
-                  <div className="group border border-gray-200 rounded-lg p-6 hover:border-red-300 hover:shadow-lg transition-all duration-200">
-                    <div className="text-center">
-                      <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center mx-auto mb-4 overflow-hidden">
+                  <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                         <Link href="/products/50">
                           <img 
                             src="/images/EYEZ.jpg" 
@@ -1178,31 +1162,30 @@ export default function ProfilePageNew() {
                           />
                         </Link>
                       </div>
-                      <h4 className="text-lg font-semibold text-gray-900 mb-3">
+                      <div className="flex-1 min-w-0">
+                        <h4 className="text-sm font-semibold text-gray-900 truncate">
                         EyeCell EYE ZONE CARE SYSTEM
                       </h4>
-                      <p className="text-sm text-gray-500 mb-2">
-                        Product guide
-                      </p>
-                      <p className="text-xs text-gray-400 mb-4">
+                        <p className="text-xs text-gray-400">
                         1.8 MB
                       </p>
+                      </div>
                       <a 
                         href="/documents/ppt/GENOSYS%20EyeCell%20EYE%20ZONE%20CARE%20SYSTEM.pdf"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center w-full px-4 py-3 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-lg hover:from-red-700 hover:to-red-800 transition-colors font-medium"
+                        className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
-                        <Download className="h-4 w-4 mr-2" />
-                        Download PDF
+                        <Download className="h-3 w-3 mr-1" />
+                        Download
                       </a>
                     </div>
                   </div>
                   
                   {/* EPI TURNOVER BOOSTING PEELING GEL */}
-                  <div className="group border border-gray-200 rounded-lg p-6 hover:border-red-300 hover:shadow-lg transition-all duration-200">
-                    <div className="text-center">
-                      <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center mx-auto mb-4 overflow-hidden">
+                  <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                         <Link href="/products/12">
                           <img 
                             src="/images/EPI.jpg" 
@@ -1211,31 +1194,30 @@ export default function ProfilePageNew() {
                           />
                         </Link>
                       </div>
-                      <h4 className="text-lg font-semibold text-gray-900 mb-3">
+                      <div className="flex-1 min-w-0">
+                        <h4 className="text-sm font-semibold text-gray-900 truncate">
                         EPI TURNOVER BOOSTING PEELING GEL
                       </h4>
-                      <p className="text-sm text-gray-500 mb-2">
-                        Product guide
-                      </p>
-                      <p className="text-xs text-gray-400 mb-4">
+                        <p className="text-xs text-gray-400">
                         3.8 MB
                       </p>
+                      </div>
                       <a 
                         href="/documents/ppt/GENOSYS%20EPI%20TURNOVER%20BOOSTING%20PEELING%20GEL.pdf"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center w-full px-4 py-3 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-lg hover:from-red-700 hover:to-red-800 transition-colors font-medium"
+                        className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
-                        <Download className="h-4 w-4 mr-2" />
-                        Download PDF
+                        <Download className="h-3 w-3 mr-1" />
+                        Download
                       </a>
                     </div>
                   </div>
                   
                   {/* MULTI VITA RADIANCE SERUM */}
-                  <div className="group border border-gray-200 rounded-lg p-6 hover:border-red-300 hover:shadow-lg transition-all duration-200">
-                    <div className="text-center">
-                      <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center mx-auto mb-4 overflow-hidden">
+                  <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                         <Link href="/products/21">
                           <img 
                             src="/images/RADS.jpg" 
@@ -1244,31 +1226,30 @@ export default function ProfilePageNew() {
                           />
                         </Link>
                       </div>
-                      <h4 className="text-lg font-semibold text-gray-900 mb-3">
+                      <div className="flex-1 min-w-0">
+                        <h4 className="text-sm font-semibold text-gray-900 truncate">
                         MULTI VITA RADIANCE SERUM
                       </h4>
-                      <p className="text-sm text-gray-500 mb-2">
-                        Product guide
-                      </p>
-                      <p className="text-xs text-gray-400 mb-4">
+                        <p className="text-xs text-gray-400">
                         1.5 MB
                       </p>
+                      </div>
                       <a 
                         href="/documents/ppt/GENOSYS%20MULTI%20VITA%20RADIANCE%20SERUM.pdf"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center w-full px-4 py-3 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-lg hover:from-red-700 hover:to-red-800 transition-colors font-medium"
+                        className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
-                        <Download className="h-4 w-4 mr-2" />
-                        Download PDF
+                        <Download className="h-3 w-3 mr-1" />
+                        Download
                       </a>
                     </div>
                   </div>
                   
                   {/* SKIN DEFENDER LIP & EYE MAKEUP REMOVER */}
-                  <div className="group border border-gray-200 rounded-lg p-6 hover:border-red-300 hover:shadow-lg transition-all duration-200">
-                    <div className="text-center">
-                      <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center mx-auto mb-4 overflow-hidden">
+                  <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                         <Link href="/products/11">
                           <img 
                             src="/images/DEF.jpg" 
@@ -1277,31 +1258,30 @@ export default function ProfilePageNew() {
                           />
                         </Link>
                       </div>
-                      <h4 className="text-lg font-semibold text-gray-900 mb-3">
+                      <div className="flex-1 min-w-0">
+                        <h4 className="text-sm font-semibold text-gray-900 truncate">
                         SKIN DEFENDER LIP & EYE MAKEUP REMOVER
                       </h4>
-                      <p className="text-sm text-gray-500 mb-2">
-                        Product guide
-                      </p>
-                      <p className="text-xs text-gray-400 mb-4">
+                        <p className="text-xs text-gray-400">
                         0.7 MB
                       </p>
+                      </div>
                       <a 
                         href="/documents/ppt/GENOSYS%20SKIN%20DEFENDER%20LIP%20%26%20EYE%20MAKEUP%20REMOVER.pdf"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center w-full px-4 py-3 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-lg hover:from-red-700 hover:to-red-800 transition-colors font-medium"
+                        className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
-                        <Download className="h-4 w-4 mr-2" />
-                        Download PDF
+                        <Download className="h-3 w-3 mr-1" />
+                        Download
                       </a>
                     </div>
                   </div>
                   
                   {/* MICROBIOME ENERGY INFUSING MIST */}
-                  <div className="group border border-gray-200 rounded-lg p-6 hover:border-red-300 hover:shadow-lg transition-all duration-200">
-                    <div className="text-center">
-                      <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center mx-auto mb-4 overflow-hidden">
+                  <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                         <Link href="/products/14">
                           <img 
                             src="/images/mist.jpg" 
@@ -1310,31 +1290,30 @@ export default function ProfilePageNew() {
                           />
                         </Link>
                       </div>
-                      <h4 className="text-lg font-semibold text-gray-900 mb-3">
+                      <div className="flex-1 min-w-0">
+                        <h4 className="text-sm font-semibold text-gray-900 truncate">
                         MICROBIOME ENERGY INFUSING MIST
                       </h4>
-                      <p className="text-sm text-gray-500 mb-2">
-                        Product guide
-                      </p>
-                      <p className="text-xs text-gray-400 mb-4">
+                        <p className="text-xs text-gray-400">
                         0.8 MB
                       </p>
+                      </div>
                       <a 
                         href="/documents/ppt/GENOSYS%20MICROBIOME%20ENERGY%20INFUSING%20MIST.pdf"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center w-full px-4 py-3 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-lg hover:from-red-700 hover:to-red-800 transition-colors font-medium"
+                        className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
-                        <Download className="h-4 w-4 mr-2" />
-                        Download PDF
+                        <Download className="h-3 w-3 mr-1" />
+                        Download
                       </a>
                     </div>
                   </div>
                   
                   {/* SKIN RESCUE OVERNIGHT CREAM MASK */}
-                  <div className="group border border-gray-200 rounded-lg p-6 hover:border-red-300 hover:shadow-lg transition-all duration-200">
-                    <div className="text-center">
-                      <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center mx-auto mb-4 overflow-hidden">
+                  <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                         <Link href="/products/34">
                           <img 
                             src="/images/SKIN.jpg" 
@@ -1343,31 +1322,30 @@ export default function ProfilePageNew() {
                           />
                         </Link>
                       </div>
-                      <h4 className="text-lg font-semibold text-gray-900 mb-3">
+                      <div className="flex-1 min-w-0">
+                        <h4 className="text-sm font-semibold text-gray-900 truncate">
                         SKIN RESCUE OVERNIGHT CREAM MASK
                       </h4>
-                      <p className="text-sm text-gray-500 mb-2">
-                        Product guide
-                      </p>
-                      <p className="text-xs text-gray-400 mb-4">
+                        <p className="text-xs text-gray-400">
                         1.3 MB
                       </p>
+                      </div>
                       <a 
                         href="/documents/ppt/GENOSYS%20SKIN%20RESCUE%20OVERNIGHT%20CREAM%20MASK.pdf"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center w-full px-4 py-3 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-lg hover:from-red-700 hover:to-red-800 transition-colors font-medium"
+                        className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
-                        <Download className="h-4 w-4 mr-2" />
-                        Download PDF
+                        <Download className="h-3 w-3 mr-1" />
+                        Download
                       </a>
                     </div>
                   </div>
                   
                   {/* INTENSIVE PROBLEM CONTROL TONER */}
-                  <div className="group border border-gray-200 rounded-lg p-6 hover:border-red-300 hover:shadow-lg transition-all duration-200">
-                    <div className="text-center">
-                      <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center mx-auto mb-4 overflow-hidden">
+                  <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                         <Link href="/products/15">
                           <img 
                             src="/images/PRS.jpg" 
@@ -1376,31 +1354,30 @@ export default function ProfilePageNew() {
                           />
                         </Link>
                       </div>
-                      <h4 className="text-lg font-semibold text-gray-900 mb-3">
+                      <div className="flex-1 min-w-0">
+                        <h4 className="text-sm font-semibold text-gray-900 truncate">
                         INTENSIVE PROBLEM CONTROL TONER
                       </h4>
-                      <p className="text-sm text-gray-500 mb-2">
-                        Product guide
-                      </p>
-                      <p className="text-xs text-gray-400 mb-4">
+                        <p className="text-xs text-gray-400">
                         1.0 MB
                       </p>
+                      </div>
                       <a 
                         href="/documents/ppt/GENOSYS%20INTENSIVE%20PROBLEM%20CONTROL%20TONER.pdf"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center w-full px-4 py-3 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-lg hover:from-red-700 hover:to-red-800 transition-colors font-medium"
+                        className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
-                        <Download className="h-4 w-4 mr-2" />
-                        Download PDF
+                        <Download className="h-3 w-3 mr-1" />
+                        Download
                       </a>
                     </div>
                   </div>
                   
                   {/* ULTRA SHIELD SUN CREAM */}
-                  <div className="group border border-gray-200 rounded-lg p-6 hover:border-red-300 hover:shadow-lg transition-all duration-200">
-                    <div className="text-center">
-                      <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center mx-auto mb-4 overflow-hidden">
+                  <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                         <Link href="/products/39">
                           <img 
                             src="/images/SPF50.jpg" 
@@ -1409,31 +1386,30 @@ export default function ProfilePageNew() {
                           />
                         </Link>
                       </div>
-                      <h4 className="text-lg font-semibold text-gray-900 mb-3">
+                      <div className="flex-1 min-w-0">
+                        <h4 className="text-sm font-semibold text-gray-900 truncate">
                         ULTRA SHIELD SUN CREAM
                       </h4>
-                      <p className="text-sm text-gray-500 mb-2">
-                        Product guide
-                      </p>
-                      <p className="text-xs text-gray-400 mb-4">
+                        <p className="text-xs text-gray-400">
                         0.6 MB
                       </p>
+                      </div>
                       <a 
                         href="/documents/ppt/GENOSYS%20ULTRA%20SHIELD%20SUN%20CREAM.pdf"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center w-full px-4 py-3 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-lg hover:from-red-700 hover:to-red-800 transition-colors font-medium"
+                        className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
-                        <Download className="h-4 w-4 mr-2" />
-                        Download PDF
+                        <Download className="h-3 w-3 mr-1" />
+                        Download
                       </a>
                     </div>
                   </div>
                   
                   {/* HR³ MATRIX SCALP SHAMPOO α */}
-                  <div className="group border border-gray-200 rounded-lg p-6 hover:border-red-300 hover:shadow-lg transition-all duration-200">
-                    <div className="text-center">
-                      <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center mx-auto mb-4 overflow-hidden">
+                  <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                         <Link href="/products/44">
                           <img 
                             src="/images/Sham.jpg" 
@@ -1442,31 +1418,30 @@ export default function ProfilePageNew() {
                           />
                         </Link>
                       </div>
-                      <h4 className="text-lg font-semibold text-gray-900 mb-3">
+                      <div className="flex-1 min-w-0">
+                        <h4 className="text-sm font-semibold text-gray-900 truncate">
                         HR³ MATRIX SCALP SHAMPOO α
                       </h4>
-                      <p className="text-sm text-gray-500 mb-2">
-                        Product guide
-                      </p>
-                      <p className="text-xs text-gray-400 mb-4">
+                        <p className="text-xs text-gray-400">
                         2.3 MB
                       </p>
+                      </div>
                       <a 
                         href="/documents/ppt/GENOSYS%20HR3%20MATRIX%20SCALP%20SHAMPOO%20ALPHA.pdf"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center w-full px-4 py-3 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-lg hover:from-red-700 hover:to-red-800 transition-colors font-medium"
+                        className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
-                        <Download className="h-4 w-4 mr-2" />
-                        Download PDF
+                        <Download className="h-3 w-3 mr-1" />
+                        Download
                       </a>
                     </div>
                   </div>
                   
                   {/* MOISTURE REPLENISHING HYALURON SERUM */}
-                  <div className="group border border-gray-200 rounded-lg p-6 hover:border-red-300 hover:shadow-lg transition-all duration-200">
-                    <div className="text-center">
-                      <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center mx-auto mb-4 overflow-hidden">
+                  <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                         <Link href="/products/18">
                           <img 
                             src="/images/HRS.jpg" 
@@ -1475,31 +1450,30 @@ export default function ProfilePageNew() {
                           />
                         </Link>
                       </div>
-                      <h4 className="text-lg font-semibold text-gray-900 mb-3">
+                      <div className="flex-1 min-w-0">
+                        <h4 className="text-sm font-semibold text-gray-900 truncate">
                         MOISTURE REPLENISHING HYALURON SERUM
                       </h4>
-                      <p className="text-sm text-gray-500 mb-2">
-                        Product guide
-                      </p>
-                      <p className="text-xs text-gray-400 mb-4">
+                        <p className="text-xs text-gray-400">
                         1.9 MB
                       </p>
+                      </div>
                       <a 
                         href="/documents/ppt/GENOSYS%20MOISTURE%20REPLENISHING%20HYALURON%20SERUM.pdf"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center w-full px-4 py-3 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-lg hover:from-red-700 hover:to-red-800 transition-colors font-medium"
+                        className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
-                        <Download className="h-4 w-4 mr-2" />
-                        Download PDF
+                        <Download className="h-3 w-3 mr-1" />
+                        Download
                       </a>
                     </div>
                   </div>
                   
                   {/* MOISTURE REPLENISHING HYALURON CREAM */}
-                  <div className="group border border-gray-200 rounded-lg p-6 hover:border-red-300 hover:shadow-lg transition-all duration-200">
-                    <div className="text-center">
-                      <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center mx-auto mb-4 overflow-hidden">
+                  <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                         <Link href="/products/29">
                           <img 
                             src="/images/HER.jpg" 
@@ -1508,31 +1482,30 @@ export default function ProfilePageNew() {
                           />
                         </Link>
                       </div>
-                      <h4 className="text-lg font-semibold text-gray-900 mb-3">
+                      <div className="flex-1 min-w-0">
+                        <h4 className="text-sm font-semibold text-gray-900 truncate">
                         MOISTURE REPLENISHING HYALURON CREAM
                       </h4>
-                      <p className="text-sm text-gray-500 mb-2">
-                        Product guide
-                      </p>
-                      <p className="text-xs text-gray-400 mb-4">
+                        <p className="text-xs text-gray-400">
                         2.0 MB
                       </p>
+                      </div>
                       <a 
                         href="/documents/ppt/GENOSYS%20MOISTURE%20REPLENISHING%20HYALURON%20CREAM.pdf"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center w-full px-4 py-3 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-lg hover:from-red-700 hover:to-red-800 transition-colors font-medium"
+                        className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
-                        <Download className="h-4 w-4 mr-2" />
-                        Download PDF
+                        <Download className="h-3 w-3 mr-1" />
+                        Download
                       </a>
                     </div>
                   </div>
                   
                   {/* SKIN CARING BLEMISH BALM CUSHION */}
-                  <div className="group border border-gray-200 rounded-lg p-6 hover:border-red-300 hover:shadow-lg transition-all duration-200">
-                    <div className="text-center">
-                      <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center mx-auto mb-4 overflow-hidden">
+                  <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                         <Link href="/products/41">
                           <img 
                             src="/images/BBC.jpg" 
@@ -1541,31 +1514,30 @@ export default function ProfilePageNew() {
                           />
                         </Link>
                       </div>
-                      <h4 className="text-lg font-semibold text-gray-900 mb-3">
+                      <div className="flex-1 min-w-0">
+                        <h4 className="text-sm font-semibold text-gray-900 truncate">
                         SKIN CARING BLEMISH BALM CUSHION
                       </h4>
-                      <p className="text-sm text-gray-500 mb-2">
-                        Product guide
-                      </p>
-                      <p className="text-xs text-gray-400 mb-4">
+                        <p className="text-xs text-gray-400">
                         1.2 MB
                       </p>
+                      </div>
                       <a 
                         href="/documents/ppt/GENOSYS%20SKIN%20CARING%20BLEMISH%20BALM%20CUSHION.pdf"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center w-full px-4 py-3 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-lg hover:from-red-700 hover:to-red-800 transition-colors font-medium"
+                        className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
-                        <Download className="h-4 w-4 mr-2" />
-                        Download PDF
+                        <Download className="h-3 w-3 mr-1" />
+                        Download
                       </a>
                     </div>
                   </div>
                   
                   {/* EyeCell EYE PEPTIDE GEL PATCH */}
-                  <div className="group border border-gray-200 rounded-lg p-6 hover:border-red-300 hover:shadow-lg transition-all duration-200">
-                    <div className="text-center">
-                      <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center mx-auto mb-4 overflow-hidden">
+                  <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                         <Link href="/products/33">
                           <img 
                             src="/images/Patch.jpg" 
@@ -1574,31 +1546,30 @@ export default function ProfilePageNew() {
                           />
                         </Link>
                       </div>
-                      <h4 className="text-lg font-semibold text-gray-900 mb-3">
+                      <div className="flex-1 min-w-0">
+                        <h4 className="text-sm font-semibold text-gray-900 truncate">
                         EyeCell EYE PEPTIDE GEL PATCH
                       </h4>
-                      <p className="text-sm text-gray-500 mb-2">
-                        Product guide
-                      </p>
-                      <p className="text-xs text-gray-400 mb-4">
+                        <p className="text-xs text-gray-400">
                         1.4 MB
                       </p>
+                      </div>
                       <a 
                         href="/documents/ppt/GENOSYS%20EyeCell%20EYE%20PEPTIDE%20GEL%20PATCH.pdf"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center w-full px-4 py-3 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-lg hover:from-red-700 hover:to-red-800 transition-colors font-medium"
+                        className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
-                        <Download className="h-4 w-4 mr-2" />
-                        Download PDF
+                        <Download className="h-3 w-3 mr-1" />
+                        Download
                       </a>
                     </div>
                   </div>
                   
                   {/* BIO-FERMENT AGE DEFYING POWDER MASK */}
-                  <div className="group border border-gray-200 rounded-lg p-6 hover:border-red-300 hover:shadow-lg transition-all duration-200">
-                    <div className="text-center">
-                      <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center mx-auto mb-4 overflow-hidden">
+                  <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                         <Link href="/products/51">
                           <img 
                             src="/images/BFAD.png" 
@@ -1607,31 +1578,30 @@ export default function ProfilePageNew() {
                           />
                         </Link>
                       </div>
-                      <h4 className="text-lg font-semibold text-gray-900 mb-3">
+                      <div className="flex-1 min-w-0">
+                        <h4 className="text-sm font-semibold text-gray-900 truncate">
                         BIO-FERMENT AGE DEFYING POWDER MASK
                       </h4>
-                      <p className="text-sm text-gray-500 mb-2">
-                        Product guide
-                      </p>
-                      <p className="text-xs text-gray-400 mb-4">
+                        <p className="text-xs text-gray-400">
                         2.1 MB
                       </p>
+                      </div>
                       <a 
                         href="/documents/ppt/GENOSYS%20BIO-FERMENT%20AGE%20DEFYING%20POWDER%20MASK.pdf"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center w-full px-4 py-3 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-lg hover:from-red-700 hover:to-red-800 transition-colors font-medium"
+                        className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
-                        <Download className="h-4 w-4 mr-2" />
-                        Download PDF
+                        <Download className="h-3 w-3 mr-1" />
+                        Download
                       </a>
                     </div>
                   </div>
                   
                   {/* HAIR GENTRON */}
-                  <div className="group border border-gray-200 rounded-lg p-6 hover:border-red-300 hover:shadow-lg transition-all duration-200">
-                    <div className="text-center">
-                      <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center mx-auto mb-4 overflow-hidden">
+                  <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                         <Link href="/products/48">
                           <img 
                             src="/images/gen.jpg" 
@@ -1640,31 +1610,30 @@ export default function ProfilePageNew() {
                           />
                         </Link>
                       </div>
-                      <h4 className="text-lg font-semibold text-gray-900 mb-3">
+                      <div className="flex-1 min-w-0">
+                        <h4 className="text-sm font-semibold text-gray-900 truncate">
                         HAIR GENTRON
                       </h4>
-                      <p className="text-sm text-gray-500 mb-2">
-                        Product guide
-                      </p>
-                      <p className="text-xs text-gray-400 mb-4">
+                        <p className="text-xs text-gray-400">
                         1.8 MB
                       </p>
+                      </div>
                       <a 
                         href="/documents/ppt/HAIR%20GENTRON.pdf"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center w-full px-4 py-3 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-lg hover:from-red-700 hover:to-red-800 transition-colors font-medium"
+                        className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
-                        <Download className="h-4 w-4 mr-2" />
-                        Download PDF
+                        <Download className="h-3 w-3 mr-1" />
+                        Download
                       </a>
                     </div>
                   </div>
                   
                   {/* HR³ MATRIX HAIR SOLUTION α */}
-                  <div className="group border border-gray-200 rounded-lg p-6 hover:border-red-300 hover:shadow-lg transition-all duration-200">
-                    <div className="text-center">
-                      <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center mx-auto mb-4 overflow-hidden">
+                  <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                         <Link href="/products/45">
                           <img 
                             src="/images/HHR.jpg" 
@@ -1673,31 +1642,30 @@ export default function ProfilePageNew() {
                           />
                         </Link>
                       </div>
-                      <h4 className="text-lg font-semibold text-gray-900 mb-3">
+                      <div className="flex-1 min-w-0">
+                        <h4 className="text-sm font-semibold text-gray-900 truncate">
                         HR³ MATRIX HAIR SOLUTION α
                       </h4>
-                      <p className="text-sm text-gray-500 mb-2">
-                        Product guide
-                      </p>
-                      <p className="text-xs text-gray-400 mb-4">
+                        <p className="text-xs text-gray-400">
                         2.3 MB
                       </p>
+                      </div>
                       <a 
                         href="/documents/ppt/GENOSYS%20HR3%20MATRIX%20HAIR%20SOLUTION%20ALPHA.pdf"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center w-full px-4 py-3 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-lg hover:from-red-700 hover:to-red-800 transition-colors font-medium"
+                        className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
-                        <Download className="h-4 w-4 mr-2" />
-                        Download PDF
+                        <Download className="h-3 w-3 mr-1" />
+                        Download
                       </a>
                     </div>
                   </div>
                   
                   {/* HR³ MATRIX HAIR TONIC α */}
-                  <div className="group border border-gray-200 rounded-lg p-6 hover:border-red-300 hover:shadow-lg transition-all duration-200">
-                    <div className="text-center">
-                      <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center mx-auto mb-4 overflow-hidden">
+                  <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                         <Link href="/products/43">
                           <img 
                             src="/images/HT.jpg" 
@@ -1706,31 +1674,30 @@ export default function ProfilePageNew() {
                           />
                         </Link>
                       </div>
-                      <h4 className="text-lg font-semibold text-gray-900 mb-3">
+                      <div className="flex-1 min-w-0">
+                        <h4 className="text-sm font-semibold text-gray-900 truncate">
                         HR³ MATRIX HAIR TONIC α
                       </h4>
-                      <p className="text-sm text-gray-500 mb-2">
-                        Product guide
-                      </p>
-                      <p className="text-xs text-gray-400 mb-4">
+                        <p className="text-xs text-gray-400">
                         1.9 MB
                       </p>
+                      </div>
                       <a 
                         href="/documents/ppt/GENOSYS%20HR3%20MATRIX%20HAIR%20TONIC%20ALPHA.pdf"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center w-full px-4 py-3 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-lg hover:from-red-700 hover:to-red-800 transition-colors font-medium"
+                        className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
-                        <Download className="h-4 w-4 mr-2" />
-                        Download PDF
+                        <Download className="h-3 w-3 mr-1" />
+                        Download
                       </a>
                     </div>
                   </div>
                   
                   {/* HR³ MATRIX SCALP PEELING α */}
-                  <div className="group border border-gray-200 rounded-lg p-6 hover:border-red-300 hover:shadow-lg transition-all duration-200">
-                    <div className="text-center">
-                      <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center mx-auto mb-4 overflow-hidden">
+                  <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                         <Link href="/products/46">
                           <img 
                             src="/images/scal.jpg" 
@@ -1739,23 +1706,22 @@ export default function ProfilePageNew() {
                           />
                         </Link>
                       </div>
-                      <h4 className="text-lg font-semibold text-gray-900 mb-3">
+                      <div className="flex-1 min-w-0">
+                        <h4 className="text-sm font-semibold text-gray-900 truncate">
                         HR³ MATRIX SCALP PEELING α
                       </h4>
-                      <p className="text-sm text-gray-500 mb-2">
-                        Product guide
-                      </p>
-                      <p className="text-xs text-gray-400 mb-4">
+                        <p className="text-xs text-gray-400">
                         2.1 MB
                       </p>
+                      </div>
                       <a 
                         href="/documents/ppt/GENOSYS%20HR3%20MATRIX%20SCALP%20PEELING%20ALPHA.pdf"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center w-full px-4 py-3 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-lg hover:from-red-700 hover:to-red-800 transition-colors font-medium"
+                        className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
-                        <Download className="h-4 w-4 mr-2" />
-                        Download PDF
+                        <Download className="h-3 w-3 mr-1" />
+                        Download
                       </a>
                     </div>
                   </div>

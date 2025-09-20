@@ -101,30 +101,31 @@ export default function ProductsPage() {
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-6xl mx-auto">
 
-          <div className="text-center mb-8">
-            <div className="flex justify-center mb-6">
+          <div className="text-center mb-6 sm:mb-8">
+            <div className="flex justify-center mb-4 sm:mb-6">
               <Image 
                 src="/images/genosys-logo.png" 
                 alt="Genosys Logo" 
                 width={400} 
                 height={200} 
-                className="object-contain"
+                className="object-contain w-full max-w-xs sm:max-w-sm md:max-w-md"
                 priority
               />
             </div>
           </div>
 
           {/* Category Navigation */}
-          <div className="flex flex-wrap justify-center gap-4 mb-8">
+          <div className="flex flex-wrap justify-center gap-2 sm:gap-4 mb-6 sm:mb-8">
             {CATEGORIES.map((category) => (
               <button
                 key={category.id}
                 onClick={() => handleCategoryChange(category.id)}
-                className={`px-6 py-3 rounded-lg font-semibold transition-colors ${
+                className={`px-3 sm:px-6 py-2 sm:py-3 rounded-lg font-semibold transition-colors text-xs sm:text-sm min-h-[44px] touch-manipulation ${
                   activeCategory === category.id
                     ? 'bg-primary-600 text-white'
                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                 }`}
+                style={{ touchAction: 'manipulation' }}
               >
                 {category.name}
               </button>
@@ -173,7 +174,7 @@ export default function ProductsPage() {
                 />
               </div>
             ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
                 {filteredProducts.map((product) => (
                   <ProductCard key={product.id} product={product} />
                 ))}

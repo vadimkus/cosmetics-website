@@ -1150,7 +1150,7 @@ export default function ProfilePageNew() {
                         MULTI VITA RADIANCE CREAM
                       </h4>
                       <p className="text-sm text-gray-500 mb-2">
-                        Product documentation and usage guide
+                        Product guide
                       </p>
                       <p className="text-xs text-gray-400 mb-4">
                         2.1 MB
@@ -1182,7 +1182,7 @@ export default function ProfilePageNew() {
                         EyeCell EYE ZONE CARE SYSTEM
                       </h4>
                       <p className="text-sm text-gray-500 mb-2">
-                        Product documentation and usage guide
+                        Product guide
                       </p>
                       <p className="text-xs text-gray-400 mb-4">
                         1.8 MB
@@ -1215,7 +1215,7 @@ export default function ProfilePageNew() {
                         EPI TURNOVER BOOSTING PEELING GEL
                       </h4>
                       <p className="text-sm text-gray-500 mb-2">
-                        Product documentation and usage guide
+                        Product guide
                       </p>
                       <p className="text-xs text-gray-400 mb-4">
                         3.8 MB
@@ -1248,7 +1248,7 @@ export default function ProfilePageNew() {
                         MULTI VITA RADIANCE SERUM
                       </h4>
                       <p className="text-sm text-gray-500 mb-2">
-                        Product documentation and usage guide
+                        Product guide
                       </p>
                       <p className="text-xs text-gray-400 mb-4">
                         1.5 MB
@@ -1281,7 +1281,7 @@ export default function ProfilePageNew() {
                         SKIN DEFENDER LIP & EYE MAKEUP REMOVER
                       </h4>
                       <p className="text-sm text-gray-500 mb-2">
-                        Product documentation and usage guide
+                        Product guide
                       </p>
                       <p className="text-xs text-gray-400 mb-4">
                         0.7 MB
@@ -1314,7 +1314,7 @@ export default function ProfilePageNew() {
                         MICROBIOME ENERGY INFUSING MIST
                       </h4>
                       <p className="text-sm text-gray-500 mb-2">
-                        Product documentation and usage guide
+                        Product guide
                       </p>
                       <p className="text-xs text-gray-400 mb-4">
                         0.8 MB
@@ -1347,7 +1347,7 @@ export default function ProfilePageNew() {
                         SKIN RESCUE OVERNIGHT CREAM MASK
                       </h4>
                       <p className="text-sm text-gray-500 mb-2">
-                        Product documentation and usage guide
+                        Product guide
                       </p>
                       <p className="text-xs text-gray-400 mb-4">
                         1.3 MB
@@ -1380,7 +1380,7 @@ export default function ProfilePageNew() {
                         INTENSIVE PROBLEM CONTROL TONER
                       </h4>
                       <p className="text-sm text-gray-500 mb-2">
-                        Product documentation and usage guide
+                        Product guide
                       </p>
                       <p className="text-xs text-gray-400 mb-4">
                         1.0 MB
@@ -1413,7 +1413,7 @@ export default function ProfilePageNew() {
                         ULTRA SHIELD SUN CREAM
                       </h4>
                       <p className="text-sm text-gray-500 mb-2">
-                        Product documentation and usage guide
+                        Product guide
                       </p>
                       <p className="text-xs text-gray-400 mb-4">
                         0.6 MB
@@ -1446,7 +1446,7 @@ export default function ProfilePageNew() {
                         HR³ MATRIX SCALP SHAMPOO α
                       </h4>
                       <p className="text-sm text-gray-500 mb-2">
-                        Product documentation and usage guide
+                        Product guide
                       </p>
                       <p className="text-xs text-gray-400 mb-4">
                         2.3 MB
@@ -1479,7 +1479,7 @@ export default function ProfilePageNew() {
                         MOISTURE REPLENISHING HYALURON SERUM
                       </h4>
                       <p className="text-sm text-gray-500 mb-2">
-                        Product documentation and usage guide
+                        Product guide
                       </p>
                       <p className="text-xs text-gray-400 mb-4">
                         1.9 MB
@@ -1502,7 +1502,7 @@ export default function ProfilePageNew() {
                       <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center mx-auto mb-4 overflow-hidden">
                         <Link href="/products/29">
                           <img 
-                            src="/images/HYAC.jpg" 
+                            src="/images/HER.jpg" 
                             alt="MOISTURE REPLENISHING HYALURON CREAM" 
                             className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
                           />
@@ -1512,13 +1512,46 @@ export default function ProfilePageNew() {
                         MOISTURE REPLENISHING HYALURON CREAM
                       </h4>
                       <p className="text-sm text-gray-500 mb-2">
-                        Product documentation and usage guide
+                        Product guide
                       </p>
                       <p className="text-xs text-gray-400 mb-4">
                         2.0 MB
                       </p>
                       <a 
                         href="/documents/ppt/GENOSYS%20MOISTURE%20REPLENISHING%20HYALURON%20CREAM.pdf"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center justify-center w-full px-4 py-3 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-lg hover:from-red-700 hover:to-red-800 transition-colors font-medium"
+                      >
+                        <Download className="h-4 w-4 mr-2" />
+                        Download PDF
+                      </a>
+                    </div>
+                  </div>
+                  
+                  {/* SKIN CARING BLEMISH BALM CUSHION */}
+                  <div className="group border border-gray-200 rounded-lg p-6 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+                    <div className="text-center">
+                      <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center mx-auto mb-4 overflow-hidden">
+                        <Link href="/products/41">
+                          <img 
+                            src="/images/BBC.jpg" 
+                            alt="SKIN CARING BLEMISH BALM CUSHION" 
+                            className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+                          />
+                        </Link>
+                      </div>
+                      <h4 className="text-lg font-semibold text-gray-900 mb-3">
+                        SKIN CARING BLEMISH BALM CUSHION
+                      </h4>
+                      <p className="text-sm text-gray-500 mb-2">
+                        Product guide
+                      </p>
+                      <p className="text-xs text-gray-400 mb-4">
+                        1.2 MB
+                      </p>
+                      <a 
+                        href="/documents/ppt/GENOSYS%20SKIN%20CARING%20BLEMISH%20BALM%20CUSHION.pdf"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center justify-center w-full px-4 py-3 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-lg hover:from-red-700 hover:to-red-800 transition-colors font-medium"

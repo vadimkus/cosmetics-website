@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { ArrowLeft, Download } from 'lucide-react'
 
 export default function TrainingPage() {
@@ -8,11 +9,14 @@ export default function TrainingPage() {
         <div className="max-w-4xl mx-auto">
 
           <div className="text-center">
-            <div className="mb-6">
-              <img 
+            <div className="flex justify-center mb-6">
+              <Image 
                 src="/images/genosys-logo.png" 
                 alt="Genosys Professional Training" 
-                className="mx-auto h-16 md:h-20 w-auto"
+                width={400} 
+                height={200} 
+                className="object-contain"
+                priority
               />
             </div>
           </div>
@@ -716,6 +720,38 @@ export default function TrainingPage() {
                       </div>
                       <a 
                         href="/documents/ppt/GENOSYS%20HR3%20MATRIX%20SCALP%20PEELING%20ALPHA.pdf"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
+                      >
+                        <Download className="h-3 w-3 mr-1" />
+                        Download
+                      </a>
+                    </div>
+                  </div>
+                  
+                  {/* GENOSYS SKIN REBOOT PDRN MASK PACK */}
+                  <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+                        <Link href="/products/52">
+                          <img 
+                            src="/images/REB.png" 
+                            alt="GENOSYS SKIN REBOOT PDRN MASK PACK" 
+                            className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+                          />
+                        </Link>
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h4 className="text-sm font-semibold text-gray-900 truncate">
+                        GENOSYS SKIN REBOOT PDRN MASK PACK
+                      </h4>
+                        <p className="text-xs text-gray-400">
+                        1.2 MB
+                      </p>
+                      </div>
+                      <a 
+                        href="/documents/ppt/GENOSYS%20SKIN%20REBOOT%20PDRN%20MASK%20PACK.pdf"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"

@@ -29,17 +29,18 @@ model User {
 }
 
 model Product {
-  id          String   @id @default(cuid())
-  name        String
-  price       Float
-  description String
-  image       String
-  category    String
-  inStock     Boolean  @default(true)
-  size        String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  images      String?
+  id            String   @id @default(cuid())
+  productNumber String?  @unique
+  name          String
+  price         Float
+  description   String
+  image         String
+  category      String
+  inStock       Boolean  @default(true)
+  size          String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  images        String?
 
   @@map("products")
 }

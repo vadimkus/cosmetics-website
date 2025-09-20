@@ -48,7 +48,7 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
       <div className="relative">
-        <Link href={`/products/${product.id}`} className="block">
+        <Link href={`/products/${product.productNumber || product.id}`} className="block">
           <Image
             src={product.image}
             alt={product.name}
@@ -97,7 +97,7 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
         </div>
         
         <div className="mb-2 flex items-center justify-between">
-          <Link href={`/products/${product.id}`}>
+          <Link href={`/products/${product.productNumber || product.id}`}>
             <h3 className="text-base md:text-lg font-semibold text-gray-800 line-clamp-2 hover:text-primary-600 transition-colors cursor-pointer">
               {product.name}
             </h3>

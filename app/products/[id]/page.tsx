@@ -1548,6 +1548,47 @@ export default function ProductPage() {
                       </a>
                     </div>
                   </>
+                ) : product.productNumber === '52' ? (
+                  <>
+                    <h3 className="text-lg font-semibold text-gray-800 mb-2">Product Details</h3>
+                    <p className="text-gray-600 mb-4">
+                      Professional PDRN (Polydeoxyribonucleotide) mask pack for skin regeneration and repair. This advanced treatment mask contains PDRN extracted from salmon DNA to promote cellular regeneration, improve skin texture, and enhance overall skin health. Perfect for post-treatment care and intensive skin rejuvenation.
+                    </p>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2">Key Benefits:</h4>
+                    <ul className="list-disc list-inside text-gray-600 space-y-1 mb-4">
+                      <li>Ultra-slim fit sheet adheres seamlessly to the skin for effective delivery of active ingredients</li>
+                      <li>Contains 30 sheets per container; tissue-style packaging allows for convenient one-by-one dispensing</li>
+                      <li>Clinical results: Helps restore the skin barrier damaged by physical irritation</li>
+                      <li>Professional-grade PDRN and panthenol for skin regeneration</li>
+                    </ul>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2">How to Use:</h4>
+                    <div className="text-gray-600 space-y-2 mb-4">
+                      <ol className="list-decimal list-inside space-y-1">
+                        <li>Take out one sheet mask with the built-in tweezers.</li>
+                        <li>Apply the mask closely to the face for 10-15 minutes.</li>
+                        <li>Remove the mask sheet and gently pat the remaining essence into your skin.</li>
+                        <li>After use, make sure to close the closure seal and the cap tightly to prevent the product from drying out.</li>
+                      </ol>
+                    </div>
+                    
+                    <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-4">
+                      <h4 className="font-semibold text-green-800 mb-2">📄 GENOSYS SKIN REBOOT PDRN MASK PACK Documentation</h4>
+                      <p className="text-xs text-gray-500 mb-3">1.2 MB</p>
+                      <a 
+                        href="/documents/ppt/GENOSYS%20SKIN%20REBOOT%20PDRN%20MASK%20PACK.pdf"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors text-sm font-medium"
+                      >
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                        Download
+                      </a>
+                    </div>
+                  </>
                 ) : (
                   <>
                     <h3 className="text-lg font-semibold text-gray-800 mb-2">Product Details</h3>

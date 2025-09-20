@@ -2,6 +2,7 @@ import { prisma } from './prisma'
 
 export interface Product {
   id: string
+  productNumber?: string | null
   name: string
   price: number
   description: string
@@ -28,9 +29,18 @@ export async function getAllProducts(): Promise<Product[]> {
 
 export async function getProductById(id: string): Promise<Product | null> {
   try {
-    const product = await prisma.product.findUnique({
+    // First try to find by UUID (primary key)
+    let product = await prisma.product.findUnique({
       where: { id }
     })
+    
+    // If not found by UUID, try to find by productNumber
+    if (!product) {
+      product = await prisma.product.findUnique({
+        where: { productNumber: id }
+      })
+    }
+    
     return product
   } catch (error) {
     console.error('Error fetching product by ID:', error)

@@ -227,15 +227,8 @@ const Header = memo(function Header() {
           <div className="container mx-auto px-4 py-4">
             <nav className="flex flex-col space-y-4">
               <Link 
-                href="/products" 
-                className="text-gray-700 hover:text-primary-600 transition-colors py-2 border-b border-gray-100 font-semibold"
-                onClick={() => setShowMobileMenu(false)}
-              >
-                Products
-              </Link>
-              <Link 
                 href="/" 
-                className="text-gray-700 hover:text-primary-600 transition-colors py-2 border-b border-gray-100"
+                className="text-gray-700 hover:text-primary-600 transition-colors py-2 border-b border-gray-100 font-semibold"
                 onClick={() => setShowMobileMenu(false)}
               >
                 Home

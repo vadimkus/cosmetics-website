@@ -172,7 +172,7 @@ export default function ProductPage() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
           {/* Product Images */}
           <div className="space-y-4">
-            <div className="w-2/3 mx-auto aspect-square bg-gray-100 rounded-lg overflow-hidden">
+            <div className="w-full sm:w-2/3 mx-auto aspect-square bg-gray-100 rounded-lg overflow-hidden">
               {product.id === '3' && selectedImage === 2 ? (
                 <iframe
                   className="w-full h-full rounded-lg"

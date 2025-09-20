@@ -15,7 +15,7 @@ export default function TrainingPage() {
                 alt="Genosys Professional Training" 
                 width={400} 
                 height={200} 
-                className="object-contain"
+                className="object-contain w-full max-w-sm sm:max-w-md md:max-w-lg"
                 priority
               />
             </div>
@@ -23,7 +23,7 @@ export default function TrainingPage() {
 
           {/* Download Documents Section */}
           <div className="bg-white border border-gray-200 rounded-xl shadow-sm mb-12">
-            <div className="p-8">
+            <div className="p-4 sm:p-6 md:p-8">
               
               {/* Training Documents Section */}
               <div className="mb-8">

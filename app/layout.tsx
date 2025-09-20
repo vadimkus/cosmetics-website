@@ -18,12 +18,12 @@ export const metadata: Metadata = {
   description: 'Discover our premium collection of cosmetics and beauty products',
   icons: {
     icon: [
-      { url: '/favicon/genosys-favicon.ico?v=4', type: 'image/x-icon' },
-      { url: '/favicon/genosys-logo.png?v=4', type: 'image/png', sizes: '32x32' },
-      { url: '/favicon/favicon.svg?v=4', type: 'image/svg+xml' }
+      { url: '/favicon/genosys-official-favicon.ico?v=5', type: 'image/x-icon' },
+      { url: '/favicon/genosys-logo.png?v=5', type: 'image/png', sizes: '32x32' },
+      { url: '/favicon/favicon.svg?v=5', type: 'image/svg+xml' }
     ],
-    shortcut: '/favicon/genosys-favicon.ico?v=4',
-    apple: '/favicon/genosys-logo.png?v=4',
+    shortcut: '/favicon/genosys-official-favicon.ico?v=5',
+    apple: '/favicon/genosys-logo.png?v=5',
   },
   manifest: '/manifest.json',
   appleWebApp: {

@@ -1204,6 +1204,22 @@ export default function ProductPage() {
                     <p className="text-gray-600">
                       Spray the product on the scalp in the morning and evening. Use circular massage for the better effect. Do not wash off. Leave it at least 3~4 hours.
                     </p>
+                    
+                    <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-4">
+                      <h4 className="font-semibold text-green-800 mb-2">📄 HR³ MATRIX HAIR TONIC α Documentation</h4>
+                      <p className="text-xs text-gray-500 mb-3">1.9 MB</p>
+                      <a 
+                        href="/documents/ppt/GENOSYS%20HR3%20MATRIX%20HAIR%20TONIC%20ALPHA.pdf"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors text-sm font-medium"
+                      >
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                        Download
+                      </a>
+                    </div>
                   </>
                 ) : product.id === '44' ? (
                   <>
@@ -1315,6 +1331,22 @@ export default function ProductPage() {
                     <p className="text-gray-600">
                       Drop SCALP PEELING α 5ml into the glass cylinder and dip swab enough in the solvent. Hold right under the swab head and run rather powerfully.
                     </p>
+                    
+                    <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-4">
+                      <h4 className="font-semibold text-green-800 mb-2">📄 HR³ MATRIX SCALP PEELING α Documentation</h4>
+                      <p className="text-xs text-gray-500 mb-3">2.1 MB</p>
+                      <a 
+                        href="/documents/ppt/GENOSYS%20HR3%20MATRIX%20SCALP%20PEELING%20ALPHA.pdf"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors text-sm font-medium"
+                      >
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                        Download
+                      </a>
+                    </div>
                   </>
                 ) : product.id === '47' ? (
                   <>

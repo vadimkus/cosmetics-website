@@ -586,6 +586,39 @@ export default function TrainingPage() {
                       </a>
                     </div>
                   </div>
+                  
+                  {/* BIO-FERMENT AGE DEFYING POWDER MASK */}
+                  <div className="group border border-gray-200 rounded-lg p-6 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+                    <div className="text-center">
+                      <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center mx-auto mb-4 overflow-hidden">
+                        <Link href="/products/51">
+                          <img 
+                            src="/images/BFAD.png" 
+                            alt="BIO-FERMENT AGE DEFYING POWDER MASK" 
+                            className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+                          />
+                        </Link>
+                      </div>
+                      <h4 className="text-lg font-semibold text-gray-900 mb-3">
+                        BIO-FERMENT AGE DEFYING POWDER MASK
+                      </h4>
+                      <p className="text-sm text-gray-500 mb-2">
+                        Product guide
+                      </p>
+                      <p className="text-xs text-gray-400 mb-4">
+                        2.1 MB
+                      </p>
+                      <a 
+                        href="/documents/ppt/GENOSYS%20BIO-FERMENT%20AGE%20DEFYING%20POWDER%20MASK.pdf"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center justify-center w-full px-4 py-3 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-lg hover:from-red-700 hover:to-red-800 transition-colors font-medium"
+                      >
+                        <Download className="h-4 w-4 mr-2" />
+                        Download PDF
+                      </a>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

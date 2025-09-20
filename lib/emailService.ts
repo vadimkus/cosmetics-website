@@ -160,9 +160,9 @@ export async function sendOrderConfirmation(order: any): Promise<boolean> {
     `
     
     const mailOptions = {
-      from: `"Genosys Middle East" <${EMAIL_CONFIG.auth.user}>`,
+      from: `"Genosys Middle East FZ-LLC" <${EMAIL_CONFIG.auth.user}>`,
       to: order.customerEmail,
-      subject: `Order Confirmation #${order.orderNumber || order.id} - Genosys Middle East`,
+      subject: `Order Confirmation #${order.orderNumber || order.id} - Genosys Middle East FZ-LLC`,
       html: customerHTML,
     }
 
@@ -214,7 +214,7 @@ export async function sendOrderStatusUpdate(order: any, newStatus: string): Prom
     `
     
     const mailOptions = {
-      from: `"Genosys Middle East" <${EMAIL_CONFIG.auth.user}>`,
+      from: `"Genosys Middle East FZ-LLC" <${EMAIL_CONFIG.auth.user}>`,
       to: order.customerEmail,
       subject: `Order Status Update #${order.orderNumber || order.id} - ${newStatus.toUpperCase()}`,
       html: customerHTML,

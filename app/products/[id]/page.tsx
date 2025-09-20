@@ -919,9 +919,25 @@ export default function ProductPage() {
                     </ul>
                     
                     <h4 className="font-semibold text-gray-800 mb-2">How to Use:</h4>
-                    <p className="text-gray-600">
+                    <p className="text-gray-600 mb-4">
                       Apply patches under the eyes and/or the eye brow bones for 20~40 minutes and remove the patches.
                     </p>
+                    
+                    <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-4">
+                      <h4 className="font-semibold text-green-800 mb-2">📄 EyeCell EYE PEPTIDE GEL PATCH Documentation</h4>
+                      <p className="text-xs text-gray-500 mb-3">1.4 MB</p>
+                      <a 
+                        href="/documents/ppt/GENOSYS%20EyeCell%20EYE%20PEPTIDE%20GEL%20PATCH.pdf"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors text-sm font-medium"
+                      >
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                        Download
+                      </a>
+                    </div>
                   </>
                 ) : product.id === '34' ? (
                   <>

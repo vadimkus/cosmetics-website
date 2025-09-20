@@ -1468,13 +1468,6 @@ export default function ProductPage() {
                       <li>Temporary decrease in skin temperature (cooling effect)</li>
                     </ul>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2">How to Use:</h4>
-                    <ol className="list-decimal list-inside text-gray-600 space-y-1 mb-4">
-                      <li>Mix three scoops of powder (40g) with four and a half scoops of water using the provided measuring cup (Powder 1: Water 1.5 ratio).</li>
-                      <li>Apply evenly to the treatment area, avoiding the eyes and eyebrows.</li>
-                      <li>Peel off after 15-20 minutes and wipe off any residue with toner.</li>
-                    </ol>
-                    
                     <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-4">
                       <h4 className="font-semibold text-green-800 mb-2">📄 BIO-FERMENT AGE DEFYING POWDER MASK Documentation</h4>
                       <p className="text-xs text-gray-500 mb-3">2.1 MB</p>

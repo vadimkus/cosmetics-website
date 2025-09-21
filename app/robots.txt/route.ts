@@ -18,7 +18,18 @@ Disallow: /checkout/
 Disallow: /success/
 Disallow: /login/
 
-# Allow important pages
+# Allow optimized pages
+Allow: /korean-dermacosmetics-products/
+Allow: /products/category/
+Allow: /about-genosys-middle-east
+Allow: /genosys-brand-story
+Allow: /professional-skincare-training
+Allow: /contact-genosys-uae
+Allow: /delivery-shipping-uae
+Allow: /genosys-official
+Allow: /professional-documents
+
+# Allow legacy pages (will redirect)
 Allow: /products/
 Allow: /about
 Allow: /brand

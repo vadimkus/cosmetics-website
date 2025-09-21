@@ -1,12 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getAllProducts } from '@/lib/productsDb'
+import { getOptimizedUrl } from '@/lib/urlUtils'
 
 export async function GET(request: NextRequest) {
   try {
     const baseUrl = 'https://genosys.ae'
     const currentDate = new Date().toISOString()
     
-    // Static pages
+    // Static pages (existing URLs)
     const staticPages = [
       {
         url: '',
@@ -51,52 +52,16 @@ export async function GET(request: NextRequest) {
         priority: '0.6'
       },
       {
-        url: '/cart',
-        lastmod: currentDate,
-        changefreq: 'weekly',
-        priority: '0.5'
-      },
-      {
-        url: '/favorites',
-        lastmod: currentDate,
-        changefreq: 'weekly',
-        priority: '0.5'
-      },
-      {
-        url: '/checkout',
-        lastmod: currentDate,
-        changefreq: 'weekly',
-        priority: '0.6'
-      },
-      {
-        url: '/success',
-        lastmod: currentDate,
-        changefreq: 'monthly',
-        priority: '0.4'
-      },
-      {
-        url: '/login',
-        lastmod: currentDate,
-        changefreq: 'monthly',
-        priority: '0.3'
-      },
-      {
-        url: '/profile',
-        lastmod: currentDate,
-        changefreq: 'weekly',
-        priority: '0.4'
-      },
-      {
         url: '/genosys',
         lastmod: currentDate,
         changefreq: 'monthly',
         priority: '0.7'
       },
       {
-        url: '/offline',
+        url: '/documents',
         lastmod: currentDate,
-        changefreq: 'yearly',
-        priority: '0.2'
+        changefreq: 'monthly',
+        priority: '0.6'
       }
     ]
 
@@ -123,7 +88,29 @@ export async function GET(request: NextRequest) {
   </url>`
     })
 
-    // Add product pages
+    // Add optimized URLs (these redirect to the static pages above)
+    const optimizedUrls = [
+      { url: '/about-genosys-middle-east', priority: '0.8' },
+      { url: '/genosys-brand-story', priority: '0.8' },
+      { url: '/korean-dermacosmetics-products', priority: '0.9' },
+      { url: '/professional-skincare-training', priority: '0.7' },
+      { url: '/contact-genosys-uae', priority: '0.8' },
+      { url: '/delivery-shipping-uae', priority: '0.6' },
+      { url: '/genosys-official', priority: '0.7' },
+      { url: '/professional-documents', priority: '0.6' }
+    ]
+
+    optimizedUrls.forEach(page => {
+      sitemap += `
+  <url>
+    <loc>${baseUrl}${page.url}</loc>
+    <lastmod>${currentDate}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>${page.priority}</priority>
+  </url>`
+    })
+
+    // Add product pages (existing URLs)
     products.forEach(product => {
       sitemap += `
   <url>

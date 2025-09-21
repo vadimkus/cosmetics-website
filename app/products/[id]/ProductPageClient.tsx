@@ -117,17 +117,17 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   allowFullScreen
                 ></iframe>
               ) : (
-                <Image
+              <Image
                   src={productImages[selectedImage]}
-                  alt={product.name}
-                  width={600}
-                  height={600}
-                  className="w-full h-full object-cover"
-                  priority
-                />
+                alt={product.name}
+                width={600}
+                height={600}
+                className="w-full h-full object-cover"
+                priority
+              />
               )}
             </div>
-            
+
             {/* Thumbnail Images */}
             {productImages.length > 1 && (
               <div className="flex gap-2 justify-center">
@@ -176,9 +176,9 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
             </h1>
 
             {/* Rating */}
-            <div className="flex items-center gap-2">
-              <div className="flex items-center">
-                {[...Array(5)].map((_, i) => (
+              <div className="flex items-center gap-2">
+                <div className="flex items-center">
+                  {[...Array(5)].map((_, i) => (
                   <Star
                     key={i}
                     className={`h-5 w-5 ${
@@ -248,13 +248,35 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </p>
                     </div>
                     
+                    {/* Product Documentation Section */}
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                      <p className="text-blue-800 text-sm">
-                        <strong>Professional Use:</strong> This product is suitable for both professional salon use and home care. 
-                        <a href="/documents/PPT/GENOSYS-SKIN-REBOOT-PDRN-MASK-PACK.pdf" className="text-blue-600 hover:text-blue-800 underline ml-1">
-                          View professional manual
-                        </a>
+                      <h4 className="font-semibold text-blue-800 mb-2">Product Documentation</h4>
+                      <p className="text-blue-700 text-sm mb-3">
+                        Download the complete product manual and usage guide for professional application.
                       </p>
+                      <div className="flex gap-3">
+                        <a
+                          href="/documents/ppt/GENOSYS%20SKIN%20DEFENDER%20LIP%20%26%20EYE%20MAKEUP%20REMOVER.pdf"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
+                        >
+                          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                          </svg>
+                          View PDF
+                        </a>
+                        <a
+                          href="/documents/ppt/GENOSYS%20SKIN%20DEFENDER%20LIP%20%26%20EYE%20MAKEUP%20REMOVER.pdf"
+                          download="GENOSYS SKIN DEFENDER LIP & EYE MAKEUP REMOVER.pdf"
+                          className="inline-flex items-center gap-2 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors text-sm font-medium"
+                        >
+                          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                          </svg>
+                          Download
+                        </a>
+                      </div>
                     </div>
                   </>
                 ) : product.id === '12' ? (
@@ -285,13 +307,35 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </p>
                     </div>
                     
+                    {/* Product Documentation Section */}
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                      <p className="text-blue-800 text-sm">
-                        <strong>Professional Use:</strong> This product is suitable for both professional salon use and home care. 
-                        <a href="/documents/PPT/GENOSYS-SKIN-REBOOT-PDRN-MASK-PACK.pdf" className="text-blue-600 hover:text-blue-800 underline ml-1">
-                          View professional manual
-                        </a>
+                      <h4 className="font-semibold text-blue-800 mb-2">Product Documentation</h4>
+                      <p className="text-blue-700 text-sm mb-3">
+                        Download the complete product manual and usage guide for professional application.
                       </p>
+                      <div className="flex gap-3">
+                        <a
+                          href="/documents/ppt/GENOSYS%20EPI%20TURNOVER%20BOOSTING%20PEELING%20GEL.pdf"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
+                        >
+                          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                          </svg>
+                          View PDF
+                        </a>
+                        <a
+                          href="/documents/ppt/GENOSYS%20EPI%20TURNOVER%20BOOSTING%20PEELING%20GEL.pdf"
+                          download="GENOSYS EPI TURNOVER BOOSTING PEELING GEL.pdf"
+                          className="inline-flex items-center gap-2 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors text-sm font-medium"
+                        >
+                          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                          </svg>
+                          Download
+                        </a>
+                      </div>
                     </div>
                   </>
                 ) : product.id === '13' ? (
@@ -343,13 +387,35 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </p>
                     </div>
                     
+                    {/* Product Documentation Section */}
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                      <p className="text-blue-800 text-sm">
-                        <strong>Professional Use:</strong> This product is suitable for both professional salon use and home care. 
-                        <a href="/documents/PPT/GENOSYS-SKIN-REBOOT-PDRN-MASK-PACK.pdf" className="text-blue-600 hover:text-blue-800 underline ml-1">
-                          View professional manual
-                        </a>
+                      <h4 className="font-semibold text-blue-800 mb-2">Product Documentation</h4>
+                      <p className="text-blue-700 text-sm mb-3">
+                        Download the complete product manual and usage guide for professional application.
                       </p>
+                      <div className="flex gap-3">
+                        <a
+                          href="/documents/ppt/GENOSYS%20MICROBIOME%20ENERGY%20INFUSING%20MIST.pdf"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
+                        >
+                          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                          </svg>
+                          View PDF
+                        </a>
+                        <a
+                          href="/documents/ppt/GENOSYS%20MICROBIOME%20ENERGY%20INFUSING%20MIST.pdf"
+                          download="GENOSYS MICROBIOME ENERGY INFUSING MIST.pdf"
+                          className="inline-flex items-center gap-2 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors text-sm font-medium"
+                        >
+                          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                          </svg>
+                          Download
+                        </a>
+                      </div>
                     </div>
                   </>
                 ) : product.id === '15' ? (
@@ -372,22 +438,44 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     <div className="text-gray-600 space-y-2 mb-4">
                       <p><strong>To remove dead skin cells / residues after washing the face:</strong> Soak the cotton pad with toner and wipe it along the skin texture.</p>
                       <p><strong>To enhance the pore contraction effect and to soothe the skin:</strong> Soak the cotton pad with toner and apply them to the face. Leave them on for 5-10 minutes.</p>
-                    </div>
-                    
+            </div>
+
                     <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-4">
                       <p className="text-green-800 text-sm">
                         <strong>Note:</strong> This product is dermatologically tested and safe for all skin types. 
                         For best results, use as part of your daily skincare routine.
                       </p>
-                    </div>
+                </div>
                     
+                    {/* Product Documentation Section */}
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                      <p className="text-blue-800 text-sm">
-                        <strong>Professional Use:</strong> This product is suitable for both professional salon use and home care. 
-                        <a href="/documents/PPT/GENOSYS-SKIN-REBOOT-PDRN-MASK-PACK.pdf" className="text-blue-600 hover:text-blue-800 underline ml-1">
-                          View professional manual
-                        </a>
+                      <h4 className="font-semibold text-blue-800 mb-2">Product Documentation</h4>
+                      <p className="text-blue-700 text-sm mb-3">
+                        Download the complete product manual and usage guide for professional application.
                       </p>
+                      <div className="flex gap-3">
+                        <a
+                          href="/documents/ppt/GENOSYS%20INTENSIVE%20PROBLEM%20CONTROL%20TONER.pdf"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
+                        >
+                          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                          </svg>
+                          View PDF
+                        </a>
+                        <a
+                          href="/documents/ppt/GENOSYS%20INTENSIVE%20PROBLEM%20CONTROL%20TONER.pdf"
+                          download="GENOSYS INTENSIVE PROBLEM CONTROL TONER.pdf"
+                          className="inline-flex items-center gap-2 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors text-sm font-medium"
+                        >
+                          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                          </svg>
+                          Download
+                        </a>
+                      </div>
                     </div>
                   </>
                 ) : product.id === '16' ? (
@@ -411,7 +499,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       <p><strong>To remove dead skin cells/ residues after washing the face:</strong> Soak the cotton pad with toner and wipe it along the skin texture.</p>
                       <p><strong>To provide immediate moisture replenishment after washing the face:</strong> Spray the product for homecare (200ml) sufficiently with eyes closed and tap gently. It can be used even on the makeup.</p>
                       <p><strong>To provide intensive moisturizing and soothing effects:</strong> Soak the cotton pad with toner and apply them to the face. Leave them on for 5-10 minutes.</p>
-                    </div>
+                </div>
                   </>
                 ) : product.id === '17' ? (
                   <>
@@ -439,7 +527,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                         <strong>Note:</strong> This product is dermatologically tested and safe for all skin types. 
                         For best results, use as part of your daily skincare routine.
                       </p>
-                    </div>
+              </div>
                     
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
                       <p className="text-blue-800 text-sm">
@@ -448,7 +536,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                           View professional manual
                         </a>
                       </p>
-                    </div>
+                </div>
                   </>
                 ) : product.id === '19' ? (
                   <>
@@ -471,7 +559,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       <p className="text-green-800 text-sm">
                         <strong>Note:</strong> Dermatologically tested.
                       </p>
-                    </div>
+              </div>
                   </>
                 ) : (
                   <>
@@ -494,53 +582,154 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       Apply the product on the face and gently pat with fingers in the morning and evening.
                     </p>
                     
-                    <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                    <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-4">
                       <p className="text-green-800 text-sm">
                         <strong>Note:</strong> This product is dermatologically tested and safe for all skin types. 
                         For best results, use as part of your daily skincare routine.
                       </p>
                     </div>
+                    
+                    {/* Product Documentation Section - Show for products with PDFs */}
+                    {(product.id === '51' || product.id === '12' || product.id === '33' || product.id === '50' || 
+                      product.id === '45' || product.id === '43' || product.id === '46' || product.id === '44' || 
+                      product.id === '20' || product.id === '14' || product.id === '18' || product.id === '29' || 
+                      product.id === '23' || product.id === '15' || product.id === '41' || product.id === '11' || 
+                      product.id === '34' || product.id === '39' || product.id === '48' || 
+                      product.name === 'GENOSYS SKIN REBOOT PDRN MASK PACK') && (
+                      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                        <h4 className="font-semibold text-blue-800 mb-2">Product Documentation</h4>
+                        <p className="text-blue-700 text-sm mb-3">
+                          Download the complete product manual and usage guide for professional application.
+                        </p>
+                        <div className="flex gap-3">
+                          <a
+                            href={`/documents/ppt/${
+                              product.id === '51' ? 'GENOSYS%20BIO-FERMENT%20AGE%20DEFYING%20POWDER%20MASK.pdf' :
+                              product.id === '12' ? 'GENOSYS%20EPI%20TURNOVER%20BOOSTING%20PEELING%20GEL.pdf' :
+                              product.id === '33' ? 'GENOSYS%20EyeCell%20EYE%20PEPTIDE%20GEL%20PATCH.pdf' :
+                              product.id === '50' ? 'GENOSYS%20EyeCell%20EYE%20ZONE%20CARE%20SYSTEM.pdf' :
+                              product.id === '45' ? 'GENOSYS%20HR3%20MATRIX%20HAIR%20SOLUTION%20ALPHA.pdf' :
+                              product.id === '43' ? 'GENOSYS%20HR3%20MATRIX%20HAIR%20TONIC%20ALPHA.pdf' :
+                              product.id === '46' ? 'GENOSYS%20HR3%20MATRIX%20SCALP%20PEELING%20ALPHA.pdf' :
+                              product.id === '44' ? 'GENOSYS%20HR3%20MATRIX%20SCALP%20SHAMPOO%20ALPHA.pdf' :
+                              product.id === '20' ? 'GENOSYS%20INTENSIVE%20PROBLEM%20CONTROL%20TONER.pdf' :
+                              product.id === '14' ? 'GENOSYS%20MICROBIOME%20ENERGY%20INFUSING%20MIST.pdf' :
+product.id === '18' ? 'GENOSYS%20MOISTURE%20REPLENISHING%20HYALURON%20SERUM.pdf' :
+product.id === '29' ? 'GENOSYS%20MOISTURE%20REPLENISHING%20HYALURON%20CREAM.pdf' :
+                              product.id === '23' ? 'GENOSYS%20MULTI%20VITA%20RADIANCE%20CREAM.pdf' :
+                              product.id === '15' ? 'GENOSYS%20INTENSIVE%20PROBLEM%20CONTROL%20TONER.pdf' :
+                              product.id === '41' ? 'GENOSYS%20SKIN%20CARING%20BLEMISH%20BALM%20CUSHION.pdf' :
+                              product.id === '11' ? 'GENOSYS%20SKIN%20DEFENDER%20LIP%20%26%20EYE%20MAKEUP%20REMOVER.pdf' :
+                              product.id === '34' ? 'GENOSYS%20SKIN%20RESCUE%20OVERNIGHT%20CREAM%20MASK.pdf' :
+                              product.id === '39' ? 'GENOSYS%20ULTRA%20SHIELD%20SUN%20CREAM.pdf' :
+                              product.id === '48' ? 'HAIR%20GENTRON.pdf' :
+                              product.name === 'GENOSYS SKIN REBOOT PDRN MASK PACK' ? 'GENOSYS%20SKIN%20REBOOT%20PDRN%20MASK%20PACK.pdf' : ''
+                            }`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
+                          >
+                            <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                            </svg>
+                            View PDF
+                          </a>
+                          <a
+                            href={`/documents/ppt/${
+                              product.id === '51' ? 'GENOSYS%20BIO-FERMENT%20AGE%20DEFYING%20POWDER%20MASK.pdf' :
+                              product.id === '12' ? 'GENOSYS%20EPI%20TURNOVER%20BOOSTING%20PEELING%20GEL.pdf' :
+                              product.id === '33' ? 'GENOSYS%20EyeCell%20EYE%20PEPTIDE%20GEL%20PATCH.pdf' :
+                              product.id === '50' ? 'GENOSYS%20EyeCell%20EYE%20ZONE%20CARE%20SYSTEM.pdf' :
+                              product.id === '45' ? 'GENOSYS%20HR3%20MATRIX%20HAIR%20SOLUTION%20ALPHA.pdf' :
+                              product.id === '43' ? 'GENOSYS%20HR3%20MATRIX%20HAIR%20TONIC%20ALPHA.pdf' :
+                              product.id === '46' ? 'GENOSYS%20HR3%20MATRIX%20SCALP%20PEELING%20ALPHA.pdf' :
+                              product.id === '44' ? 'GENOSYS%20HR3%20MATRIX%20SCALP%20SHAMPOO%20ALPHA.pdf' :
+                              product.id === '20' ? 'GENOSYS%20INTENSIVE%20PROBLEM%20CONTROL%20TONER.pdf' :
+                              product.id === '14' ? 'GENOSYS%20MICROBIOME%20ENERGY%20INFUSING%20MIST.pdf' :
+product.id === '18' ? 'GENOSYS%20MOISTURE%20REPLENISHING%20HYALURON%20SERUM.pdf' :
+product.id === '29' ? 'GENOSYS%20MOISTURE%20REPLENISHING%20HYALURON%20CREAM.pdf' :
+                              product.id === '23' ? 'GENOSYS%20MULTI%20VITA%20RADIANCE%20CREAM.pdf' :
+                              product.id === '15' ? 'GENOSYS%20INTENSIVE%20PROBLEM%20CONTROL%20TONER.pdf' :
+                              product.id === '41' ? 'GENOSYS%20SKIN%20CARING%20BLEMISH%20BALM%20CUSHION.pdf' :
+                              product.id === '11' ? 'GENOSYS%20SKIN%20DEFENDER%20LIP%20%26%20EYE%20MAKEUP%20REMOVER.pdf' :
+                              product.id === '34' ? 'GENOSYS%20SKIN%20RESCUE%20OVERNIGHT%20CREAM%20MASK.pdf' :
+                              product.id === '39' ? 'GENOSYS%20ULTRA%20SHIELD%20SUN%20CREAM.pdf' :
+                              product.id === '48' ? 'HAIR%20GENTRON.pdf' :
+                              product.name === 'GENOSYS SKIN REBOOT PDRN MASK PACK' ? 'GENOSYS%20SKIN%20REBOOT%20PDRN%20MASK%20PACK.pdf' : ''
+                            }`}
+                            download={`${
+                              product.id === '51' ? 'GENOSYS BIO-FERMENT AGE DEFYING POWDER MASK.pdf' :
+                              product.id === '12' ? 'GENOSYS EPI TURNOVER BOOSTING PEELING GEL.pdf' :
+                              product.id === '33' ? 'GENOSYS EyeCell EYE PEPTIDE GEL PATCH.pdf' :
+                              product.id === '50' ? 'GENOSYS EyeCell EYE ZONE CARE SYSTEM.pdf' :
+                              product.id === '45' ? 'GENOSYS HR3 MATRIX HAIR SOLUTION ALPHA.pdf' :
+                              product.id === '43' ? 'GENOSYS HR3 MATRIX HAIR TONIC ALPHA.pdf' :
+                              product.id === '46' ? 'GENOSYS HR3 MATRIX SCALP PEELING ALPHA.pdf' :
+                              product.id === '44' ? 'GENOSYS HR3 MATRIX SCALP SHAMPOO ALPHA.pdf' :
+                              product.id === '20' ? 'GENOSYS INTENSIVE PROBLEM CONTROL TONER.pdf' :
+                              product.id === '14' ? 'GENOSYS MICROBIOME ENERGY INFUSING MIST.pdf' :
+product.id === '18' ? 'GENOSYS MOISTURE REPLENISHING HYALURON SERUM.pdf' :
+product.id === '29' ? 'GENOSYS MOISTURE REPLENISHING HYALURON CREAM.pdf' :
+                              product.id === '23' ? 'GENOSYS MULTI VITA RADIANCE CREAM.pdf' :
+                              product.id === '15' ? 'GENOSYS INTENSIVE PROBLEM CONTROL TONER.pdf' :
+                              product.id === '41' ? 'GENOSYS SKIN CARING BLEMISH BALM CUSHION.pdf' :
+                              product.id === '11' ? 'GENOSYS SKIN DEFENDER LIP & EYE MAKEUP REMOVER.pdf' :
+                              product.id === '34' ? 'GENOSYS SKIN RESCUE OVERNIGHT CREAM MASK.pdf' :
+                              product.id === '39' ? 'GENOSYS ULTRA SHIELD SUN CREAM.pdf' :
+                              product.id === '48' ? 'HAIR GENTRON.pdf' :
+                              product.name === 'GENOSYS SKIN REBOOT PDRN MASK PACK' ? 'GENOSYS SKIN REBOOT PDRN MASK PACK.pdf' : ''
+                            }`}
+                            className="inline-flex items-center gap-2 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors text-sm font-medium"
+                          >
+                            <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                            Download
+                          </a>
+                        </div>
+                      </div>
+                    )}
                   </>
                 )}
-              </div>
+                    </div>
             </div>
 
             {/* Quantity and Add to Cart */}
             <div className="space-y-4">
-              <div className="flex items-center gap-4">
-                <span className="text-sm font-medium text-gray-700">Quantity:</span>
-                <div className="flex items-center border border-gray-300 rounded-lg">
-                  <button
+            <div className="flex items-center gap-4">
+              <span className="text-sm font-medium text-gray-700">Quantity:</span>
+              <div className="flex items-center border border-gray-300 rounded-lg">
+                <button
                     onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                    className="p-2 hover:bg-gray-100 transition-colors"
-                    disabled={quantity <= 1}
-                  >
-                    <Minus className="h-4 w-4" />
-                  </button>
+                  className="p-2 hover:bg-gray-100 transition-colors"
+                  disabled={quantity <= 1}
+                >
+                  <Minus className="h-4 w-4" />
+                </button>
                   <span className="px-4 py-2 min-w-[3rem] text-center">
                     {quantity}
                   </span>
-                  <button
+                <button
                     onClick={() => setQuantity(quantity + 1)}
-                    className="p-2 hover:bg-gray-100 transition-colors"
-                  >
-                    <Plus className="h-4 w-4" />
-                  </button>
-                </div>
-              </div>
-
-              <div className="flex gap-4">
-                <button
-                  onClick={handleAddToCart}
-                  disabled={!product.inStock || isAdding}
-                  className="flex-1 bg-primary-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                  className="p-2 hover:bg-gray-100 transition-colors"
                 >
-                  <ShoppingCart className="h-5 w-5" />
-                  {isAdding ? 'Adding...' : 'Add to Cart'}
+                  <Plus className="h-4 w-4" />
                 </button>
+              </div>
+            </div>
+
+            <div className="flex gap-4">
+              <button
+                onClick={handleAddToCart}
+                disabled={!product.inStock || isAdding}
+                  className="flex-1 bg-primary-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              >
+                <ShoppingCart className="h-5 w-5" />
+                {isAdding ? 'Adding...' : 'Add to Cart'}
+              </button>
                 
-                <button
-                  onClick={handleToggleFavorite}
+              <button
+                onClick={handleToggleFavorite}
                   className="p-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors flex items-center justify-center"
                 >
                   <Heart 
@@ -550,7 +739,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                         : 'text-gray-400'
                     }`} 
                   />
-                </button>
+              </button>
               </div>
             </div>
 
@@ -573,12 +762,12 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
               </div>
               
               <div className="flex items-center gap-3">
-                <input
-                  type="checkbox"
-                  checked 
-                  readOnly
-                  className="h-4 w-4 text-green-600 border-green-300 rounded focus:ring-green-500 accent-green-600"
-                />
+                  <input 
+                    type="checkbox" 
+                    checked 
+                    readOnly
+                    className="h-4 w-4 text-green-600 border-green-300 rounded focus:ring-green-500 accent-green-600"
+                  />
                 <div>
                   <div className="text-sm font-medium text-gray-800">Proud UAE Tax Payer</div>
                   <div className="text-xs text-gray-600">Supporting local economy</div>

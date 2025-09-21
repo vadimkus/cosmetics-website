@@ -37,17 +37,32 @@ export default function ProductsPageClient() {
     const fetchProducts = async () => {
       try {
         setLoading(true)
-        const response = await fetch('/api/products')
+        setError(null)
+        console.log('Fetching products...')
+        
+        const response = await fetch('/api/products', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
         
         if (!response.ok) {
-          throw new Error('Failed to fetch products')
+          throw new Error(`HTTP ${response.status}: ${response.statusText}`)
         }
         
         const productsData = await response.json()
+        console.log('Products fetched successfully:', productsData.length)
+        
+        if (!Array.isArray(productsData)) {
+          throw new Error('Invalid response format: expected array')
+        }
+        
         setProducts(productsData)
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'Failed to fetch products')
+        const errorMessage = err instanceof Error ? err.message : 'Failed to fetch products'
         console.error('Error fetching products:', err)
+        setError(errorMessage)
       } finally {
         setLoading(false)
       }
@@ -61,9 +76,20 @@ export default function ProductsPageClient() {
     if (activeCategory === 'all') {
       return products
     }
-    return products.filter(product => 
-      product.category.toLowerCase().replace(/\s+/g, '-') === activeCategory
-    )
+    
+    // Handle special cases where category ID doesn't match the exact transformation
+    const categoryMapping: Record<string, string> = {
+      'toner-mist': 'Toner/Mist',
+      'pro-solution': 'PRO Solution',
+      'cushion-bb': 'Cushion BB',
+      'scalp-hair': 'Scalp/Hair',
+      'eye-care': 'Eye care'
+    }
+    
+    const expectedCategory = categoryMapping[activeCategory] || 
+      activeCategory.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')
+    
+    return products.filter(product => product.category === expectedCategory)
   }, [products, activeCategory])
 
   const handleCategoryChange = useCallback((categoryId: string) => {
@@ -82,8 +108,16 @@ export default function ProductsPageClient() {
   }
 
   if (error) {
-    return <ErrorPage />
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-white">
+        <div className="text-center">
+          <p className="text-red-600 text-lg">Error: {error}</p>
+        </div>
+      </div>
+    )
   }
+
+  console.log('Products loaded:', products.length, 'Filtered:', filteredProducts.length, 'Active category:', activeCategory)
 
   return (
     <div className="bg-white min-h-screen">
@@ -95,7 +129,7 @@ export default function ProductsPageClient() {
             GENOSYS Products
           </h1>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Professional Korean dermacosmetics for exceptional skincare results
+            Professional Korean dermacosmetics
           </p>
         </div>
 

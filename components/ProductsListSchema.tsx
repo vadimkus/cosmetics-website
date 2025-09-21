@@ -22,7 +22,16 @@ export default function ProductsListSchema({ products, category }: ProductsListS
       "@type": "ItemList",
       "numberOfItems": products.length,
       "itemListElement": products.map((product, index) => {
-        const images = product.images ? JSON.parse(product.images) : [product.image]
+        let images = [product.image]
+        try {
+          if (product.images) {
+            const parsedImages = JSON.parse(product.images)
+            images = Array.isArray(parsedImages) && parsedImages.length > 0 ? parsedImages : [product.image]
+          }
+        } catch (error) {
+          console.warn('Error parsing images for product:', product.id, error)
+          images = [product.image]
+        }
         const displayImages = images.length > 0 ? images : [product.image]
         
         return {

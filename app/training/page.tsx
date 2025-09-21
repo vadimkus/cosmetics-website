@@ -5,7 +5,7 @@ import { ArrowLeft, Download } from 'lucide-react'
 export default function TrainingPage() {
   return (
     <div className="bg-white min-h-screen">
-      <div className="container mx-auto px-4 py-16">
+      <div className="container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto">
 
           <div className="text-center">
@@ -15,7 +15,7 @@ export default function TrainingPage() {
                 alt="Genosys Professional Training" 
                 width={400} 
                 height={200} 
-                className="object-contain w-full max-w-sm sm:max-w-md md:max-w-lg"
+                className="object-contain w-full max-w-xs sm:max-w-sm md:max-w-md"
                 priority
               />
             </div>

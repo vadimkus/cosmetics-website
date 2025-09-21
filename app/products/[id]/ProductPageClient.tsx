@@ -522,21 +522,12 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       Apply the product on the face and gently pat with fingers in the morning and evening.
                     </p>
                     
-                    <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-4">
+                    <div className="bg-green-50 border border-green-200 rounded-lg p-4">
                       <p className="text-green-800 text-sm">
                         <strong>Note:</strong> This product is dermatologically tested and safe for all skin types. 
                         For best results, use as part of your daily skincare routine.
                       </p>
-              </div>
-                    
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                      <p className="text-blue-800 text-sm">
-                        <strong>Professional Use:</strong> This product is suitable for both professional salon use and home care. 
-                        <a href="/documents/PPT/GENOSYS-SKIN-REBOOT-PDRN-MASK-PACK.pdf" className="text-blue-600 hover:text-blue-800 underline ml-1">
-                          View professional manual
-                        </a>
-                      </p>
-                </div>
+                    </div>
                   </>
                 ) : product.id === '19' ? (
                   <>

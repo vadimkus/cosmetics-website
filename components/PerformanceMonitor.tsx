@@ -23,13 +23,15 @@ export default function PerformanceMonitor() {
       }
     }
 
-    // Import and use web-vitals
+    // Import and use web-vitals (already dynamically imported)
     import('web-vitals').then(({ onCLS, onINP, onFCP, onLCP, onTTFB }) => {
       onCLS(reportWebVitals)
       onINP(reportWebVitals)
       onFCP(reportWebVitals)
       onLCP(reportWebVitals)
       onTTFB(reportWebVitals)
+    }).catch((error) => {
+      console.warn('Failed to load web-vitals:', error)
     })
 
     // Performance observer for custom metrics

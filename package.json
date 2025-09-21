@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "node scripts/deploy-setup.js && next build",
+    "build:analyze": "ANALYZE=true node scripts/deploy-setup.js && next build",
     "start": "next start",
     "lint": "next lint",
     "postinstall": "node scripts/deploy-setup.js",
@@ -31,9 +32,11 @@
     "zustand": "^4.5.7"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^15.5.3",
     "@types/node": "^20.19.13",
     "@types/react": "^18.3.24",
     "@types/react-dom": "^18.3.7",
+    "cssnano": "^7.1.1",
     "eslint": "^8.57.1",
     "eslint-config-next": "^14.2.32",
     "prisma": "^6.16.2",

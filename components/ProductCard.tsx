@@ -110,43 +110,51 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
         
         <p className="text-gray-600 text-xs md:text-sm mb-3 md:mb-4 line-clamp-2">{product.description}</p>
         
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-          {user && user.canSeePrices ? (
-            <span className="text-sm md:text-base font-bold text-primary-600">
-              {product.price.toFixed(2)} AED
-            </span>
-          ) : user ? (
-            <div className="flex items-center text-gray-500">
-              <Lock className="h-4 w-4 mr-1" />
-              <span className="text-sm">Price locked</span>
-            </div>
-          ) : (
-            <span className="text-sm md:text-base font-bold text-gray-500">
-              Login to see price
-            </span>
-          )}
+        <div className="flex flex-col gap-3">
+          <div className="flex items-center justify-between">
+            {user && user.canSeePrices ? (
+              <span className="text-base font-bold text-primary-600">
+                {product.price.toFixed(2)} AED
+              </span>
+            ) : user ? (
+              <div className="flex items-center text-gray-500">
+                <Lock className="h-4 w-4 mr-1" />
+                <span className="text-sm">Price locked</span>
+              </div>
+            ) : (
+              <span className="text-base font-bold text-gray-500">
+                Login to see price
+              </span>
+            )}
+            
+            {product.inStock && (
+              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                In Stock
+              </span>
+            )}
+          </div>
           
           {!user ? (
             <button
               onClick={handleLoginClick}
-              className="flex items-center justify-center space-x-2 px-3 md:px-4 py-2 md:py-3 rounded-lg font-medium transition-colors touch-manipulation w-full sm:w-auto bg-primary-600 text-white hover:bg-primary-700"
+              className="flex items-center justify-center space-x-2 px-4 py-3 rounded-lg font-medium transition-colors touch-manipulation w-full bg-primary-600 text-white hover:bg-primary-700 min-h-[44px]"
             >
               <User className="h-4 w-4" />
-              <span className="text-xs md:text-sm">Login</span>
+              <span className="text-sm">Login to Purchase</span>
             </button>
           ) : (
             <button
               onClick={handleAddToCart}
               disabled={!product.inStock || isAdding}
-              className={`flex items-center justify-center space-x-2 px-3 md:px-4 py-2 md:py-3 rounded-lg font-medium transition-colors touch-manipulation w-full sm:w-auto ${
+              className={`flex items-center justify-center space-x-2 px-4 py-3 rounded-lg font-medium transition-colors touch-manipulation w-full min-h-[44px] ${
                 product.inStock && !isAdding
                   ? 'bg-primary-600 text-white hover:bg-primary-700'
                   : 'bg-gray-300 text-gray-500 cursor-not-allowed'
               }`}
             >
               <ShoppingCart className="h-4 w-4" />
-              <span className="text-xs md:text-sm">
-                {isAdding ? 'Adding...' : 'Order'}
+              <span className="text-sm">
+                {isAdding ? 'Adding...' : 'Add to Cart'}
               </span>
             </button>
           )}

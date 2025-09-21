@@ -76,6 +76,22 @@ body {
   body {
     -webkit-overflow-scrolling: touch;
   }
+  
+  /* Improve touch interactions */
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  /* Better mobile spacing */
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  /* Mobile-specific improvements */
+  .mobile-optimized {
+    touch-action: manipulation;
+  }
 }
 
 /* Heartbeat Animation */

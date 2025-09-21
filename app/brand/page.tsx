@@ -72,7 +72,7 @@ export default function BrandPage() {
                   <div className="text-sm text-gray-500">Business Presentation • 2.8 MB</div>
                 </div>
                 <a
-                  href="/documents/ppt/GENOSYS%20Business%20presentation.pdf"
+                  href="/documents/PPT/GENOSYS%20Business%20presentation.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="ml-4 bg-gradient-to-r from-green-600 to-green-700 text-white px-6 py-2 rounded-lg hover:from-green-700 hover:to-green-800 transition-colors font-medium"

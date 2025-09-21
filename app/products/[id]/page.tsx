@@ -9,9 +9,9 @@ interface ProductPageProps {
 
 async function getProduct(id: string): Promise<Product | null> {
   try {
-    // Use absolute URL for server-side requests
-    const baseUrl = process.env.VERCEL_URL 
-      ? `https://${process.env.VERCEL_URL}` 
+    // Use the correct base URL for server-side requests
+    const baseUrl = process.env.NODE_ENV === 'production' 
+      ? 'https://genosys.ae'
       : process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
     
     const response = await fetch(`${baseUrl}/api/products/${id}`, {

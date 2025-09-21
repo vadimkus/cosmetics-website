@@ -73,11 +73,9 @@ export default function BrandPage() {
                 </div>
                 <a
                   href="/documents/ppt/GENOSYS%20Business%20presentation.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
                   className="ml-4 bg-gradient-to-r from-green-600 to-green-700 text-white px-6 py-2 rounded-lg hover:from-green-700 hover:to-green-800 transition-colors font-medium"
                 >
-                  Download
+                  View PDF
                 </a>
               </div>
             </div>

@@ -1047,12 +1047,10 @@ export default function ProfilePageNew() {
                       </div>
                       <a 
                         href="https://u.pcloud.link/publink/show?code=XZ9wc15ZDTFcM6uvKg0snY1dEJwzwQgHsEF7"
-                        target="_blank"
-                        rel="noopener noreferrer"
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-md hover:from-green-700 hover:to-green-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
                         <Download className="h-3 w-3 mr-1" />
-                        Download
+                        View PDF
                       </a>
                     </div>
                   </div>
@@ -1072,12 +1070,10 @@ export default function ProfilePageNew() {
                       </div>
                       <a 
                         href="https://genosys.ae/documents/Genosys-Home-Care-Guide.pdf"
-                        target="_blank"
-                        rel="noopener noreferrer"
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-md hover:from-green-700 hover:to-green-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
                         <Download className="h-3 w-3 mr-1" />
-                        Download
+                        View PDF
                       </a>
                     </div>
                   </div>
@@ -1097,12 +1093,10 @@ export default function ProfilePageNew() {
                       </div>
                       <a 
                         href="https://genosys.ae/documents/Genosys-Professional-Manual.pdf"
-                        target="_blank"
-                        rel="noopener noreferrer"
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-md hover:from-green-700 hover:to-green-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
                         <Download className="h-3 w-3 mr-1" />
-                        Download
+                        View PDF
                       </a>
                     </div>
                   </div>
@@ -1141,12 +1135,10 @@ export default function ProfilePageNew() {
                       </div>
                       <a 
                         href="/documents/ppt/GENOSYS%20MULTI%20VITA%20RADIANCE%20CREAM.pdf"
-                        target="_blank"
-                        rel="noopener noreferrer"
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
                         <Download className="h-3 w-3 mr-1" />
-                        Download
+                        View PDF
                       </a>
                     </div>
                   </div>
@@ -1172,12 +1164,10 @@ export default function ProfilePageNew() {
                       </div>
                       <a 
                         href="/documents/ppt/GENOSYS%20EyeCell%20EYE%20ZONE%20CARE%20SYSTEM.pdf"
-                        target="_blank"
-                        rel="noopener noreferrer"
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
                         <Download className="h-3 w-3 mr-1" />
-                        Download
+                        View PDF
                       </a>
                     </div>
                   </div>
@@ -1204,12 +1194,10 @@ export default function ProfilePageNew() {
                       </div>
                       <a 
                         href="/documents/ppt/GENOSYS%20EPI%20TURNOVER%20BOOSTING%20PEELING%20GEL.pdf"
-                        target="_blank"
-                        rel="noopener noreferrer"
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
                         <Download className="h-3 w-3 mr-1" />
-                        Download
+                        View PDF
                       </a>
                     </div>
                   </div>
@@ -1236,12 +1224,10 @@ export default function ProfilePageNew() {
                       </div>
                       <a 
                         href="/documents/ppt/GENOSYS%20MULTI%20VITA%20RADIANCE%20SERUM.pdf"
-                        target="_blank"
-                        rel="noopener noreferrer"
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
                         <Download className="h-3 w-3 mr-1" />
-                        Download
+                        View PDF
                       </a>
                     </div>
                   </div>
@@ -1268,12 +1254,10 @@ export default function ProfilePageNew() {
                       </div>
                       <a 
                         href="/documents/ppt/GENOSYS%20SKIN%20DEFENDER%20LIP%20%26%20EYE%20MAKEUP%20REMOVER.pdf"
-                        target="_blank"
-                        rel="noopener noreferrer"
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
                         <Download className="h-3 w-3 mr-1" />
-                        Download
+                        View PDF
                       </a>
                     </div>
                   </div>
@@ -1300,12 +1284,10 @@ export default function ProfilePageNew() {
                       </div>
                       <a 
                         href="/documents/ppt/GENOSYS%20MICROBIOME%20ENERGY%20INFUSING%20MIST.pdf"
-                        target="_blank"
-                        rel="noopener noreferrer"
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
                         <Download className="h-3 w-3 mr-1" />
-                        Download
+                        View PDF
                       </a>
                     </div>
                   </div>
@@ -1332,12 +1314,10 @@ export default function ProfilePageNew() {
                       </div>
                       <a 
                         href="/documents/ppt/GENOSYS%20SKIN%20RESCUE%20OVERNIGHT%20CREAM%20MASK.pdf"
-                        target="_blank"
-                        rel="noopener noreferrer"
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
                         <Download className="h-3 w-3 mr-1" />
-                        Download
+                        View PDF
                       </a>
                     </div>
                   </div>
@@ -1364,12 +1344,10 @@ export default function ProfilePageNew() {
                       </div>
                       <a 
                         href="/documents/ppt/GENOSYS%20INTENSIVE%20PROBLEM%20CONTROL%20TONER.pdf"
-                        target="_blank"
-                        rel="noopener noreferrer"
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
                         <Download className="h-3 w-3 mr-1" />
-                        Download
+                        View PDF
                       </a>
                     </div>
                   </div>
@@ -1396,12 +1374,10 @@ export default function ProfilePageNew() {
                       </div>
                       <a 
                         href="/documents/ppt/GENOSYS%20ULTRA%20SHIELD%20SUN%20CREAM.pdf"
-                        target="_blank"
-                        rel="noopener noreferrer"
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
                         <Download className="h-3 w-3 mr-1" />
-                        Download
+                        View PDF
                       </a>
                     </div>
                   </div>
@@ -1428,12 +1404,10 @@ export default function ProfilePageNew() {
                       </div>
                       <a 
                         href="/documents/ppt/GENOSYS%20HR3%20MATRIX%20SCALP%20SHAMPOO%20ALPHA.pdf"
-                        target="_blank"
-                        rel="noopener noreferrer"
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
                         <Download className="h-3 w-3 mr-1" />
-                        Download
+                        View PDF
                       </a>
                     </div>
                   </div>
@@ -1460,12 +1434,10 @@ export default function ProfilePageNew() {
                       </div>
                       <a 
                         href="/documents/ppt/GENOSYS%20MOISTURE%20REPLENISHING%20HYALURON%20SERUM.pdf"
-                        target="_blank"
-                        rel="noopener noreferrer"
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
                         <Download className="h-3 w-3 mr-1" />
-                        Download
+                        View PDF
                       </a>
                     </div>
                   </div>
@@ -1492,12 +1464,10 @@ export default function ProfilePageNew() {
                       </div>
                       <a 
                         href="/documents/ppt/GENOSYS%20MOISTURE%20REPLENISHING%20HYALURON%20CREAM.pdf"
-                        target="_blank"
-                        rel="noopener noreferrer"
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
                         <Download className="h-3 w-3 mr-1" />
-                        Download
+                        View PDF
                       </a>
                     </div>
                   </div>
@@ -1524,12 +1494,10 @@ export default function ProfilePageNew() {
                       </div>
                       <a 
                         href="/documents/ppt/GENOSYS%20SKIN%20CARING%20BLEMISH%20BALM%20CUSHION.pdf"
-                        target="_blank"
-                        rel="noopener noreferrer"
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
                         <Download className="h-3 w-3 mr-1" />
-                        Download
+                        View PDF
                       </a>
                     </div>
                   </div>
@@ -1556,12 +1524,10 @@ export default function ProfilePageNew() {
                       </div>
                       <a 
                         href="/documents/ppt/GENOSYS%20EyeCell%20EYE%20PEPTIDE%20GEL%20PATCH.pdf"
-                        target="_blank"
-                        rel="noopener noreferrer"
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
                         <Download className="h-3 w-3 mr-1" />
-                        Download
+                        View PDF
                       </a>
                     </div>
                   </div>
@@ -1588,12 +1554,10 @@ export default function ProfilePageNew() {
                       </div>
                       <a 
                         href="/documents/ppt/GENOSYS%20BIO-FERMENT%20AGE%20DEFYING%20POWDER%20MASK.pdf"
-                        target="_blank"
-                        rel="noopener noreferrer"
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
                         <Download className="h-3 w-3 mr-1" />
-                        Download
+                        View PDF
                       </a>
                     </div>
                   </div>
@@ -1620,12 +1584,10 @@ export default function ProfilePageNew() {
                       </div>
                       <a 
                         href="/documents/ppt/HAIR%20GENTRON.pdf"
-                        target="_blank"
-                        rel="noopener noreferrer"
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
                         <Download className="h-3 w-3 mr-1" />
-                        Download
+                        View PDF
                       </a>
                     </div>
                   </div>
@@ -1652,12 +1614,10 @@ export default function ProfilePageNew() {
                       </div>
                       <a 
                         href="/documents/ppt/GENOSYS%20HR3%20MATRIX%20HAIR%20SOLUTION%20ALPHA.pdf"
-                        target="_blank"
-                        rel="noopener noreferrer"
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
                         <Download className="h-3 w-3 mr-1" />
-                        Download
+                        View PDF
                       </a>
                     </div>
                   </div>
@@ -1684,12 +1644,10 @@ export default function ProfilePageNew() {
                       </div>
                       <a 
                         href="/documents/ppt/GENOSYS%20HR3%20MATRIX%20HAIR%20TONIC%20ALPHA.pdf"
-                        target="_blank"
-                        rel="noopener noreferrer"
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
                         <Download className="h-3 w-3 mr-1" />
-                        Download
+                        View PDF
                       </a>
                     </div>
                   </div>
@@ -1716,12 +1674,10 @@ export default function ProfilePageNew() {
                       </div>
                       <a 
                         href="/documents/ppt/GENOSYS%20HR3%20MATRIX%20SCALP%20PEELING%20ALPHA.pdf"
-                        target="_blank"
-                        rel="noopener noreferrer"
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
                         <Download className="h-3 w-3 mr-1" />
-                        Download
+                        View PDF
                       </a>
                     </div>
                   </div>
@@ -1748,12 +1704,10 @@ export default function ProfilePageNew() {
                       </div>
                       <a 
                         href="/documents/ppt/GENOSYS%20SKIN%20REBOOT%20PDRN%20MASK%20PACK.pdf"
-                        target="_blank"
-                        rel="noopener noreferrer"
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
                         <Download className="h-3 w-3 mr-1" />
-                        Download
+                        View PDF
                       </a>
                     </div>
                   </div>

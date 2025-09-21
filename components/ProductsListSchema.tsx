@@ -1,0 +1,100 @@
+'use client'
+
+import { Product } from '@/types'
+
+interface ProductsListSchemaProps {
+  products: Product[]
+  category?: string
+}
+
+export default function ProductsListSchema({ products, category }: ProductsListSchemaProps) {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://genosys.ae'
+  
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": category ? `${category} Products - GENOSYS` : "GENOSYS Products",
+    "description": category 
+      ? `Professional ${category.toLowerCase()} products by GENOSYS Middle East FZ-LLC. Korean dermacosmetics for professional and home use.`
+      : "Professional Korean dermacosmetics by GENOSYS Middle East FZ-LLC. Complete range of skincare products for professional and home use.",
+    "url": `${baseUrl}/products${category ? `?category=${category}` : ''}`,
+    "mainEntity": {
+      "@type": "ItemList",
+      "numberOfItems": products.length,
+      "itemListElement": products.map((product, index) => {
+        const images = product.images ? JSON.parse(product.images) : [product.image]
+        const displayImages = images.length > 0 ? images : [product.image]
+        
+        return {
+          "@type": "ListItem",
+          "position": index + 1,
+          "item": {
+            "@type": "Product",
+            "name": product.name,
+            "description": product.description,
+            "image": displayImages.map((img: string) => `${baseUrl}${img}`),
+            "brand": {
+              "@type": "Brand",
+              "name": "GENOSYS"
+            },
+            "category": product.category,
+            "offers": {
+              "@type": "Offer",
+              "price": product.price,
+              "priceCurrency": "AED",
+              "availability": product.inStock ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+              "seller": {
+                "@type": "Organization",
+                "name": "GENOSYS Middle East FZ-LLC",
+                "url": baseUrl
+              },
+              "url": `${baseUrl}/products/${product.id}`
+            },
+            "sku": product.id,
+            "mpn": product.productNumber || product.id,
+            "url": `${baseUrl}/products/${product.id}`
+          }
+        }
+      })
+    },
+    "breadcrumb": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": baseUrl
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Products",
+          "item": `${baseUrl}/products`
+        },
+        ...(category ? [{
+          "@type": "ListItem",
+          "position": 3,
+          "name": category,
+          "item": `${baseUrl}/products?category=${category}`
+        }] : [])
+      ]
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "GENOSYS Middle East FZ-LLC",
+      "url": baseUrl,
+      "logo": {
+        "@type": "ImageObject",
+        "url": `${baseUrl}/favicon/genosys-logo.png`
+      }
+    }
+  }
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema, null, 2) }}
+    />
+  )
+}

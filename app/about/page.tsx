@@ -1,6 +1,35 @@
 import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
 import Logo from '@/components/Logo'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'About GENOSYS Middle East FZ-LLC - Official Korean Dermacosmetics Distributor',
+  description: 'Learn about GENOSYS Middle East FZ-LLC, the official distributor of DTSMG Co., Ltd Korea in the UAE. Professional Korean dermacosmetics with Dubai Municipality certification.',
+  keywords: 'GENOSYS Middle East, Korean dermacosmetics distributor, DTSMG Korea, Dubai Municipality certified, UAE cosmetics distributor',
+  openGraph: {
+    title: 'About GENOSYS Middle East FZ-LLC - Official Korean Dermacosmetics Distributor',
+    description: 'Learn about GENOSYS Middle East FZ-LLC, the official distributor of DTSMG Co., Ltd Korea in the UAE. Professional Korean dermacosmetics with Dubai Municipality certification.',
+    type: 'website',
+    images: [
+      {
+        url: '/images/genosys-logo.png',
+        width: 400,
+        height: 400,
+        alt: 'GENOSYS Middle East FZ-LLC Logo',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'About GENOSYS Middle East FZ-LLC - Official Korean Dermacosmetics Distributor',
+    description: 'Learn about GENOSYS Middle East FZ-LLC, the official distributor of DTSMG Co., Ltd Korea in the UAE.',
+    images: ['/images/genosys-logo.png'],
+  },
+  alternates: {
+    canonical: 'https://genosys.ae/about',
+  },
+}
 
 export default function AboutPage() {
   return (

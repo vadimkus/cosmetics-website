@@ -1,5 +1,34 @@
 import Link from 'next/link'
 import { ArrowLeft, Phone, Mail, MapPin, FileText, Globe, Instagram } from 'lucide-react'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Contact GENOSYS Middle East FZ-LLC - Get in Touch | Genosys.ae',
+  description: 'Contact GENOSYS Middle East FZ-LLC for professional Korean dermacosmetics. Phone: +971 58 548 76 65, Email: sales@genosys.ae. Located in Dubai, UAE.',
+  keywords: 'contact GENOSYS, UAE cosmetics contact, Korean dermacosmetics UAE, Dubai skincare distributor, GENOSYS phone number',
+  openGraph: {
+    title: 'Contact GENOSYS Middle East FZ-LLC - Get in Touch',
+    description: 'Contact GENOSYS Middle East FZ-LLC for professional Korean dermacosmetics. Phone: +971 58 548 76 65, Email: sales@genosys.ae.',
+    type: 'website',
+    images: [
+      {
+        url: '/images/genosys-logo.png',
+        width: 400,
+        height: 400,
+        alt: 'GENOSYS Middle East FZ-LLC Contact',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Contact GENOSYS Middle East FZ-LLC - Get in Touch',
+    description: 'Contact GENOSYS Middle East FZ-LLC for professional Korean dermacosmetics. Phone: +971 58 548 76 65, Email: sales@genosys.ae.',
+    images: ['/images/genosys-logo.png'],
+  },
+  alternates: {
+    canonical: 'https://genosys.ae/contact',
+  },
+}
 
 export default function ContactPage() {
   return (

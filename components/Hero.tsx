@@ -35,6 +35,15 @@ export default function Hero() {
           </div>
         </div>
         
+        {/* GENOSYS Logo */}
+        <div className="mb-6 md:mb-8 flex justify-center">
+          <img 
+            src="/images/genosys-logo.png" 
+            alt="GENOSYS Logo" 
+            className="h-16 md:h-20 w-auto"
+          />
+        </div>
+        
         <p className="text-lg md:text-xl text-gray-600 mb-6 md:mb-8 max-w-2xl mx-auto px-4">
           Premium Korean dermacosmetics and products that enhance your natural beauty. Shop our high-quality skincare essentials.
         </p>

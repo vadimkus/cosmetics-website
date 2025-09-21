@@ -9,6 +9,7 @@ import UserRefreshWrapper from '@/components/UserRefreshWrapper'
 import PerformanceMonitor from '@/components/PerformanceMonitor'
 import { ServiceWorkerProvider } from '@/components/ServiceWorkerProvider'
 import PageViewTracker from '@/components/PageViewTracker'
+import OrganizationSchema from '@/components/OrganizationSchema'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -74,6 +75,7 @@ export default function RootLayout({
       <head>
       </head>
       <body className={inter.className}>
+        <OrganizationSchema />
         <AuthProvider>
           <FavoritesProvider>
             <CartProvider>

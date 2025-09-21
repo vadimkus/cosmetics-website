@@ -1,41 +1,16 @@
-import { notFound } from 'next/navigation'
+import type { Metadata } from 'next'
 import { Product } from '@/types'
 import ProductPageClient from './ProductPageClient'
-import type { Metadata } from 'next'
 
-interface ProductPageProps {
-  params: Promise<{ id: string }>
+interface ProductPageServerProps {
+  product: Product
 }
 
-async function getProduct(id: string): Promise<Product | null> {
-  try {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
-    const response = await fetch(`${baseUrl}/api/products/${id}`, {
-      cache: 'no-store' // Ensure fresh data
-    })
-    
-    if (!response.ok) {
-      return null
-    }
-    
-    return await response.json()
-  } catch (error) {
-    console.error('Error fetching product:', error)
-    return null
-  }
+export default function ProductPageServer({ product }: ProductPageServerProps) {
+  return <ProductPageClient product={product} />
 }
 
-export async function generateMetadata({ params }: ProductPageProps): Promise<Metadata> {
-  const { id } = await params
-  const product = await getProduct(id)
-  
-  if (!product) {
-    return {
-      title: 'Product Not Found - GENOSYS Middle East FZ-LLC',
-      description: 'The requested product could not be found.',
-    }
-  }
-
+export async function generateMetadata({ product }: { product: Product }): Promise<Metadata> {
   const images = product.images ? JSON.parse(product.images) : [product.image]
   const displayImages = images.length > 0 ? images : [product.image]
   
@@ -64,15 +39,4 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
       canonical: `https://genosys.ae/products/${product.id}`,
     },
   }
-}
-
-export default async function ProductPage({ params }: ProductPageProps) {
-  const { id } = await params
-  const product = await getProduct(id)
-  
-  if (!product) {
-    notFound()
-  }
-
-  return <ProductPageClient product={product} />
 }

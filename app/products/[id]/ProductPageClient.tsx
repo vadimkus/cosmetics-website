@@ -584,7 +584,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     {(product.id === '51' || product.id === '12' || product.id === '33' || product.id === '50' || 
                       product.id === '45' || product.id === '43' || product.id === '46' || product.id === '44' || 
                       product.id === '20' || product.id === '14' || product.id === '18' || product.id === '29' || 
-                      product.id === '23' || product.id === '15' || product.id === '41' || product.id === '11' || 
+                      product.id === '21' || product.id === '23' || product.id === '15' || product.id === '41' || product.id === '11' || 
                       product.id === '34' || product.id === '39' || product.id === '48' || 
                       product.name === 'GENOSYS SKIN REBOOT PDRN MASK PACK') && (
                       <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
@@ -607,6 +607,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                               product.id === '14' ? 'GENOSYS%20MICROBIOME%20ENERGY%20INFUSING%20MIST.pdf' :
 product.id === '18' ? 'GENOSYS%20MOISTURE%20REPLENISHING%20HYALURON%20SERUM.pdf' :
 product.id === '29' ? 'GENOSYS%20MOISTURE%20REPLENISHING%20HYALURON%20CREAM.pdf' :
+                              product.id === '21' ? 'GENOSYS%20MULTI%20VITA%20RADIANCE%20SERUM.pdf' :
                               product.id === '23' ? 'GENOSYS%20MULTI%20VITA%20RADIANCE%20CREAM.pdf' :
                               product.id === '15' ? 'GENOSYS%20INTENSIVE%20PROBLEM%20CONTROL%20TONER.pdf' :
                               product.id === '41' ? 'GENOSYS%20SKIN%20CARING%20BLEMISH%20BALM%20CUSHION.pdf' :
@@ -639,6 +640,7 @@ product.id === '29' ? 'GENOSYS%20MOISTURE%20REPLENISHING%20HYALURON%20CREAM.pdf'
                               product.id === '14' ? 'GENOSYS%20MICROBIOME%20ENERGY%20INFUSING%20MIST.pdf' :
 product.id === '18' ? 'GENOSYS%20MOISTURE%20REPLENISHING%20HYALURON%20SERUM.pdf' :
 product.id === '29' ? 'GENOSYS%20MOISTURE%20REPLENISHING%20HYALURON%20CREAM.pdf' :
+                              product.id === '21' ? 'GENOSYS%20MULTI%20VITA%20RADIANCE%20SERUM.pdf' :
                               product.id === '23' ? 'GENOSYS%20MULTI%20VITA%20RADIANCE%20CREAM.pdf' :
                               product.id === '15' ? 'GENOSYS%20INTENSIVE%20PROBLEM%20CONTROL%20TONER.pdf' :
                               product.id === '41' ? 'GENOSYS%20SKIN%20CARING%20BLEMISH%20BALM%20CUSHION.pdf' :
@@ -661,6 +663,7 @@ product.id === '29' ? 'GENOSYS%20MOISTURE%20REPLENISHING%20HYALURON%20CREAM.pdf'
                               product.id === '14' ? 'GENOSYS MICROBIOME ENERGY INFUSING MIST.pdf' :
 product.id === '18' ? 'GENOSYS MOISTURE REPLENISHING HYALURON SERUM.pdf' :
 product.id === '29' ? 'GENOSYS MOISTURE REPLENISHING HYALURON CREAM.pdf' :
+                              product.id === '21' ? 'GENOSYS MULTI VITA RADIANCE SERUM.pdf' :
                               product.id === '23' ? 'GENOSYS MULTI VITA RADIANCE CREAM.pdf' :
                               product.id === '15' ? 'GENOSYS INTENSIVE PROBLEM CONTROL TONER.pdf' :
                               product.id === '41' ? 'GENOSYS SKIN CARING BLEMISH BALM CUSHION.pdf' :

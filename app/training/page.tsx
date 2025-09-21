@@ -751,7 +751,7 @@ export default function TrainingPage() {
                       </p>
                       </div>
                       <a 
-                        href="/documents/ppt/GENOSYS%20SKIN%20REBOOT%20PDRN%20MASK%20PACK.pdf"
+                        href="/documents/PPT/GENOSYS%20SKIN%20REBOOT%20PDRN%20MASK%20PACK.pdf"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"

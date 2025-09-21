@@ -1592,7 +1592,7 @@ export default function ProductPage() {
                       <h4 className="font-semibold text-green-800 mb-2">📄 GENOSYS SKIN REBOOT PDRN MASK PACK Documentation</h4>
                       <p className="text-xs text-gray-500 mb-3">1.2 MB</p>
                       <a 
-                        href="/documents/ppt/GENOSYS%20SKIN%20REBOOT%20PDRN%20MASK%20PACK.pdf"
+                        href="/documents/PPT/GENOSYS%20SKIN%20REBOOT%20PDRN%20MASK%20PACK.pdf"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors text-sm font-medium"

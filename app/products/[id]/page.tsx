@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation'
 import { Product } from '@/types'
 import ProductPageClient from './ProductPageClient'
 import type { Metadata } from 'next'
+import { getProductById } from '@/lib/productsDb'
 
 interface ProductPageProps {
   params: Promise<{ id: string }>
@@ -9,20 +10,8 @@ interface ProductPageProps {
 
 async function getProduct(id: string): Promise<Product | null> {
   try {
-    // Use the correct base URL for server-side requests
-    const baseUrl = process.env.NODE_ENV === 'production' 
-      ? 'https://genosys.ae'
-      : process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
-    
-    const response = await fetch(`${baseUrl}/api/products/${id}`, {
-      cache: 'no-store' // Ensure fresh data
-    })
-    
-    if (!response.ok) {
-      return null
-    }
-    
-    return await response.json()
+    // Use direct database access for better reliability
+    return await getProductById(id)
   } catch (error) {
     console.error('Error fetching product:', error)
     return null

@@ -585,7 +585,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       product.id === '45' || product.id === '43' || product.id === '46' || product.id === '44' || 
                       product.id === '20' || product.id === '14' || product.id === '18' || product.id === '29' || 
                       product.id === '21' || product.id === '23' || product.id === '15' || product.id === '41' || product.id === '11' || 
-                      product.id === '34' || product.id === '39' || product.id === '48' || 
+                      product.id === '34' || product.id === '39' || product.id === '48' || product.id === '38' ||
                       product.name === 'GENOSYS SKIN REBOOT PDRN MASK PACK') && (
                       <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
                         <h4 className="font-semibold text-blue-800 mb-2">Product Documentation</h4>
@@ -615,6 +615,7 @@ product.id === '29' ? 'GENOSYS%20MOISTURE%20REPLENISHING%20HYALURON%20CREAM.pdf'
                               product.id === '34' ? 'GENOSYS%20SKIN%20RESCUE%20OVERNIGHT%20CREAM%20MASK.pdf' :
                               product.id === '39' ? 'GENOSYS%20ULTRA%20SHIELD%20SUN%20CREAM.pdf' :
                               product.id === '48' ? 'HAIR%20GENTRON.pdf' :
+                              product.id === '38' ? 'Genosys%20Ez%20Co2%20Mask.pdf' :
                               product.name === 'GENOSYS SKIN REBOOT PDRN MASK PACK' ? 'GENOSYS%20SKIN%20REBOOT%20PDRN%20MASK%20PACK.pdf' : ''
                             }`}
                             target="_blank"
@@ -671,6 +672,7 @@ product.id === '29' ? 'GENOSYS MOISTURE REPLENISHING HYALURON CREAM.pdf' :
                               product.id === '34' ? 'GENOSYS SKIN RESCUE OVERNIGHT CREAM MASK.pdf' :
                               product.id === '39' ? 'GENOSYS ULTRA SHIELD SUN CREAM.pdf' :
                               product.id === '48' ? 'HAIR GENTRON.pdf' :
+                              product.id === '38' ? 'Genosys Ez Co2 Mask.pdf' :
                               product.name === 'GENOSYS SKIN REBOOT PDRN MASK PACK' ? 'GENOSYS SKIN REBOOT PDRN MASK PACK.pdf' : ''
                             }`}
                             className="inline-flex items-center gap-2 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors text-sm font-medium"

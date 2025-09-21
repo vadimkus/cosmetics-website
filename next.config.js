@@ -8,24 +8,14 @@ const nextConfig = {
   assetPrefix: process.env.CDN_URL || '',
   
   // Enhanced minification and optimization
-  swcMinify: true, // Use SWC minifier (faster than Terser)
+  // swcMinify is now default in Next.js 15+
   
   // Experimental optimizations
   experimental: {
-    optimizeCss: true, // Enable CSS optimization
+    // optimizeCss: true, // Disabled due to critters dependency issue
     optimizePackageImports: [
       'lucide-react', // Tree-shake icon imports
-      '@heroicons/react', // Tree-shake heroicons
-      'react-icons', // Tree-shake react-icons if used
     ],
-    turbo: {
-      rules: {
-        '*.svg': {
-          loaders: ['@svgr/webpack'],
-          as: '*.js',
-        },
-      },
-    },
   },
   
   images: {
@@ -113,13 +103,10 @@ const nextConfig = {
       }
     }
     
-    // Optimize imports for better tree shaking
-    config.resolve.alias = {
-      ...config.resolve.alias,
-      // Optimize icon imports
-      '@heroicons/react/24/outline': '@heroicons/react/24/outline/index.js',
-      '@heroicons/react/24/solid': '@heroicons/react/24/solid/index.js',
-    }
+            // Optimize imports for better tree shaking
+            config.resolve.alias = {
+              ...config.resolve.alias,
+            }
     
     return config
   },

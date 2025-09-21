@@ -9,9 +9,6 @@ module.exports = {
   future: {
     hoverOnlyWhenSupported: true,
   },
-  experimental: {
-    optimizeUniversalDefaults: true,
-  },
   theme: {
     extend: {
       screens: {

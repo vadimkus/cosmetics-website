@@ -2,7 +2,20 @@
 
 import dynamic from 'next/dynamic'
 import { Suspense } from 'react'
-import { Product } from '@/types'
+
+interface Product {
+  id: string
+  name: string
+  price: number
+  description: string
+  image: string
+  images: string | null // JSON array of all images
+  category: string
+  inStock: boolean
+  size?: string | null
+  createdAt: string
+  updatedAt: string
+}
 
 const ProductForm = dynamic(() => import('./ProductForm'), {
   loading: () => (
@@ -17,8 +30,8 @@ const ProductForm = dynamic(() => import('./ProductForm'), {
 })
 
 interface ProductFormWrapperProps {
-  product?: Product
-  onSave: (product: Product) => void
+  product?: Product | null
+  onSave: (productData: Partial<Product>) => Promise<boolean>
   onCancel: () => void
 }
 

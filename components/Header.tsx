@@ -67,7 +67,7 @@ const Header = memo(function Header() {
           </div>
           
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex space-x-8">
+          <nav className="hidden md:flex space-x-8" role="navigation" aria-label="Main navigation">
             <Link href="/" className="text-gray-700 hover:text-primary-600 transition-colors">
               Home
             </Link>
@@ -94,20 +94,28 @@ const Header = memo(function Header() {
           {/* Mobile Icons and Menu Button */}
           <div className="md:hidden flex items-center space-x-2">
             {/* Mobile Cart Icon */}
-            <Link href="/cart" className="relative p-2 text-gray-700 hover:text-primary-600 transition-colors">
-              <ShoppingCart className="h-6 w-6" />
+            <Link 
+              href="/cart" 
+              className="relative p-2 text-gray-700 hover:text-primary-600 transition-colors"
+              aria-label={`Shopping cart with ${isClient ? getTotalItems() : 0} items`}
+            >
+              <ShoppingCart className="h-6 w-6" aria-hidden="true" />
               {isClient && getTotalItems() > 0 && (
-                <span className="absolute -top-1 -right-1 bg-primary-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                <span className="absolute -top-1 -right-1 bg-primary-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center" aria-hidden="true">
                   {getTotalItems()}
                 </span>
               )}
             </Link>
             
             {/* Mobile Favorites Icon */}
-            <Link href="/favorites" className="relative p-2 text-gray-700 hover:text-primary-600 transition-colors">
-              <Heart className="h-6 w-6" />
+            <Link 
+              href="/favorites" 
+              className="relative p-2 text-gray-700 hover:text-primary-600 transition-colors"
+              aria-label={`Favorites with ${isClient ? favorites.length : 0} items`}
+            >
+              <Heart className="h-6 w-6" aria-hidden="true" />
               {isClient && favorites.length > 0 && (
-                <span className="absolute -top-1 -right-1 bg-primary-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                <span className="absolute -top-1 -right-1 bg-primary-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center" aria-hidden="true">
                   {favorites.length}
                 </span>
               )}
@@ -119,25 +127,25 @@ const Header = memo(function Header() {
                 <Link 
                   href="/profile" 
                   className="p-2 text-gray-700 hover:text-primary-600 transition-colors"
-                  title="My Profile"
+                  aria-label="My Profile"
                 >
-                  <User className="h-6 w-6 text-green-600" />
+                  <User className="h-6 w-6 text-green-600" aria-hidden="true" />
                 </Link>
                 <button 
                   onClick={logout}
                   className="p-2 text-gray-700 hover:text-primary-600 transition-colors"
-                  title="Logout"
+                  aria-label="Logout"
                 >
-                  <LogOut className="h-6 w-6" />
+                  <LogOut className="h-6 w-6" aria-hidden="true" />
                 </button>
               </>
             ) : (
               <button 
                 onClick={() => setShowLoginModal(true)}
                 className="p-2 text-gray-700 hover:text-primary-600 transition-colors"
-                title="Login"
+                aria-label="Login"
               >
-                <User className="h-6 w-6" />
+                <User className="h-6 w-6" aria-hidden="true" />
               </button>
             )}
             
@@ -145,8 +153,10 @@ const Header = memo(function Header() {
             <button
               onClick={() => setShowMobileMenu(!showMobileMenu)}
               className="p-2 text-gray-700 hover:text-primary-600 transition-colors"
+              aria-label={showMobileMenu ? "Close mobile menu" : "Open mobile menu"}
+              aria-expanded={showMobileMenu}
             >
-              <Menu className="h-6 w-6" />
+              <Menu className="h-6 w-6" aria-hidden="true" />
             </button>
           </div>
           
@@ -177,41 +187,50 @@ const Header = memo(function Header() {
                   <Link 
                     href="/profile" 
                     className="p-2 text-gray-700 hover:text-primary-600 transition-colors"
-                    title="My Profile"
+                    aria-label="My Profile"
                   >
-                    <User className="h-6 w-6 text-green-600" />
+                    <User className="h-6 w-6 text-green-600" aria-hidden="true" />
                   </Link>
                   <button 
                     onClick={logout}
                     className="p-2 text-gray-700 hover:text-primary-600 transition-colors"
-                    title="Logout"
+                    aria-label="Logout"
                   >
-                    <LogOut className="h-6 w-6" />
+                    <LogOut className="h-6 w-6" aria-hidden="true" />
                   </button>
                 </>
               ) : (
                 <button 
                   onClick={() => setShowLoginModal(true)}
                   className="p-2 text-gray-700 hover:text-primary-600 transition-colors flex items-center gap-2 touch-manipulation"
+                  aria-label="Login"
                 >
-                  <User className="h-5 w-5" />
+                  <User className="h-5 w-5" aria-hidden="true" />
                   <span className="text-sm font-medium hidden sm:inline">Login</span>
                 </button>
               )}
               
-              <Link href="/favorites" className="relative p-2 text-gray-700 hover:text-primary-600 transition-colors">
-                <Heart className="h-6 w-6" />
+              <Link 
+                href="/favorites" 
+                className="relative p-2 text-gray-700 hover:text-primary-600 transition-colors"
+                aria-label={`Favorites with ${isClient ? favorites.length : 0} items`}
+              >
+                <Heart className="h-6 w-6" aria-hidden="true" />
                 {isClient && favorites.length > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-primary-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                  <span className="absolute -top-1 -right-1 bg-primary-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center" aria-hidden="true">
                     {favorites.length}
                   </span>
                 )}
               </Link>
               
-              <Link href="/cart" className="relative p-2 text-gray-700 hover:text-primary-600 transition-colors">
-                <ShoppingCart className="h-6 w-6" />
+              <Link 
+                href="/cart" 
+                className="relative p-2 text-gray-700 hover:text-primary-600 transition-colors"
+                aria-label={`Shopping cart with ${isClient ? getTotalItems() : 0} items`}
+              >
+                <ShoppingCart className="h-6 w-6" aria-hidden="true" />
                 {isClient && getTotalItems() > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-primary-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                  <span className="absolute -top-1 -right-1 bg-primary-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center" aria-hidden="true">
                     {getTotalItems()}
                   </span>
                 )}
@@ -223,7 +242,7 @@ const Header = memo(function Header() {
 
       {/* Mobile Navigation Menu */}
       {showMobileMenu && (
-        <div className="md:hidden bg-white border-t">
+        <div className="md:hidden bg-white border-t" role="navigation" aria-label="Mobile navigation">
           <div className="container mx-auto px-4 py-4">
             <nav className="flex flex-col space-y-4">
               <Link 

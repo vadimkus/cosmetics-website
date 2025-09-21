@@ -80,7 +80,8 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
               isFavorite(product.id) 
                 ? 'text-red-500 fill-current' 
                 : 'text-gray-600 hover:text-red-500'
-            }`} 
+            }`}
+            aria-hidden="true"
           />
         </button>
         {!product.inStock && (
@@ -138,21 +139,23 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
             <button
               onClick={handleLoginClick}
               className="flex items-center justify-center space-x-2 px-4 py-3 rounded-lg font-medium transition-colors touch-manipulation w-full bg-primary-600 text-white hover:bg-primary-700 min-h-[44px]"
+              aria-label="Login to purchase this product"
             >
-              <User className="h-4 w-4" />
+              <User className="h-4 w-4" aria-hidden="true" />
               <span className="text-sm">Login to Purchase</span>
             </button>
           ) : (
             <button
               onClick={handleAddToCart}
               disabled={!product.inStock || isAdding}
+              aria-label={isAdding ? "Adding to cart..." : `Add ${product.name} to cart`}
               className={`flex items-center justify-center space-x-2 px-4 py-3 rounded-lg font-medium transition-colors touch-manipulation w-full min-h-[44px] ${
                 product.inStock && !isAdding
                   ? 'bg-primary-600 text-white hover:bg-primary-700'
                   : 'bg-gray-300 text-gray-500 cursor-not-allowed'
               }`}
             >
-              <ShoppingCart className="h-4 w-4" />
+              <ShoppingCart className="h-4 w-4" aria-hidden="true" />
               <span className="text-sm">
                 {isAdding ? 'Adding...' : 'Add to Cart'}
               </span>

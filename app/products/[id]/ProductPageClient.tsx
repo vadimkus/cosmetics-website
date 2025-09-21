@@ -585,13 +585,40 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       product.id === '45' || product.id === '43' || product.id === '46' || product.id === '44' || 
                       product.id === '20' || product.id === '14' || product.id === '18' || product.id === '29' || 
                       product.id === '21' || product.id === '23' || product.id === '15' || product.id === '41' || product.id === '11' || 
-                      product.id === '34' || product.id === '39' || product.id === '48' || product.id === '38' ||
+                      product.id === '34' || product.id === '39' || product.id === '48' || product.id === '38' || product.id === '49' ||
                       product.name === 'GENOSYS SKIN REBOOT PDRN MASK PACK') && (
                       <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
                         <h4 className="font-semibold text-blue-800 mb-2">Product Documentation</h4>
                         <p className="text-blue-700 text-sm mb-3">
                           Download the complete product manual and usage guide for professional application.
                         </p>
+                        <div className="text-xs text-blue-600 mb-3">
+                          📄 File size: {
+                            product.id === '51' ? '2.1 MB' :
+                            product.id === '12' ? '1.2 MB' :
+                            product.id === '33' ? '850 KB' :
+                            product.id === '50' ? '1.5 MB' :
+                            product.id === '45' ? '1.1 MB' :
+                            product.id === '43' ? '650 KB' :
+                            product.id === '46' ? '900 KB' :
+                            product.id === '44' ? '800 KB' :
+                            product.id === '20' ? '750 KB' :
+                            product.id === '14' ? '1.0 MB' :
+                            product.id === '18' ? '1.3 MB' :
+                            product.id === '29' ? '1.4 MB' :
+                            product.id === '21' ? '1.1 MB' :
+                            product.id === '23' ? '1.2 MB' :
+                            product.id === '15' ? '750 KB' :
+                            product.id === '41' ? '950 KB' :
+                            product.id === '11' ? '800 KB' :
+                            product.id === '34' ? '1.0 MB' :
+                            product.id === '39' ? '1.2 MB' :
+                            product.id === '48' ? '650 KB' :
+                            product.id === '38' ? '2.8 MB' :
+                            product.id === '49' ? '4.6 MB' :
+                            product.name === 'GENOSYS SKIN REBOOT PDRN MASK PACK' ? '1.8 MB' : 'N/A'
+                          }
+                        </div>
                         <div className="flex gap-3">
                           <a
                             href={`/documents/ppt/${
@@ -616,6 +643,7 @@ product.id === '29' ? 'GENOSYS%20MOISTURE%20REPLENISHING%20HYALURON%20CREAM.pdf'
                               product.id === '39' ? 'GENOSYS%20ULTRA%20SHIELD%20SUN%20CREAM.pdf' :
                               product.id === '48' ? 'HAIR%20GENTRON.pdf' :
                               product.id === '38' ? 'Genosys%20Ez%20Co2%20Mask.pdf' :
+                              product.id === '49' ? 'GENO-LED%20IR%20II_2025.pdf' :
                               product.name === 'GENOSYS SKIN REBOOT PDRN MASK PACK' ? 'GENOSYS%20SKIN%20REBOOT%20PDRN%20MASK%20PACK.pdf' : ''
                             }`}
                             target="_blank"
@@ -673,6 +701,7 @@ product.id === '29' ? 'GENOSYS MOISTURE REPLENISHING HYALURON CREAM.pdf' :
                               product.id === '39' ? 'GENOSYS ULTRA SHIELD SUN CREAM.pdf' :
                               product.id === '48' ? 'HAIR GENTRON.pdf' :
                               product.id === '38' ? 'Genosys Ez Co2 Mask.pdf' :
+                              product.id === '49' ? 'GENO-LED IR II_2025.pdf' :
                               product.name === 'GENOSYS SKIN REBOOT PDRN MASK PACK' ? 'GENOSYS SKIN REBOOT PDRN MASK PACK.pdf' : ''
                             }`}
                             className="inline-flex items-center gap-2 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors text-sm font-medium"
@@ -718,23 +747,26 @@ product.id === '29' ? 'GENOSYS MOISTURE REPLENISHING HYALURON CREAM.pdf' :
               <button
                 onClick={handleAddToCart}
                 disabled={!product.inStock || isAdding}
-                  className="flex-1 bg-primary-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                aria-label={isAdding ? "Adding to cart..." : `Add ${product.name} to cart`}
+                className="flex-1 bg-primary-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
-                <ShoppingCart className="h-5 w-5" />
+                <ShoppingCart className="h-5 w-5" aria-hidden="true" />
                 {isAdding ? 'Adding...' : 'Add to Cart'}
               </button>
                 
               <button
                 onClick={handleToggleFavorite}
-                  className="p-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors flex items-center justify-center"
-                >
-                  <Heart 
-                    className={`h-5 w-5 ${
-                      isFavorite(product.id) 
-                        ? 'text-red-500 fill-current' 
-                        : 'text-gray-400'
-                    }`} 
-                  />
+                aria-label={isFavorite(product.id) ? "Remove from favorites" : "Add to favorites"}
+                className="p-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors flex items-center justify-center"
+              >
+                <Heart 
+                  className={`h-5 w-5 ${
+                    isFavorite(product.id) 
+                      ? 'text-red-500 fill-current' 
+                      : 'text-gray-400'
+                  }`}
+                  aria-hidden="true"
+                />
               </button>
               </div>
             </div>

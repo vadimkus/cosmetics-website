@@ -87,6 +87,12 @@ export default function RootLayout({
                 <main className="min-h-screen">
                   {children}
                 </main>
+                <footer role="contentinfo" className="bg-gray-50 border-t border-gray-200 py-8">
+                  <div className="container mx-auto px-4 text-center text-gray-600">
+                    <p>&copy; 2024 Genosys Middle East FZ-LLC. All rights reserved.</p>
+                    <p className="mt-2 text-sm">Official Distributor in the UAE</p>
+                  </div>
+                </footer>
               </ServiceWorkerProvider>
             </CartProvider>
           </FavoritesProvider>

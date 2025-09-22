@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { ArrowLeft, Phone, Mail, MapPin, FileText, Globe, Instagram } from 'lucide-react'
+import BreadcrumbSchema from '@/components/BreadcrumbSchema'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -21,6 +22,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
+    site: '@genosys_me',
+    creator: '@genosys_me',
     title: 'Contact GENOSYS Middle East FZ-LLC - Get in Touch',
     description: 'Contact GENOSYS Middle East FZ-LLC for professional Korean dermacosmetics. Phone: +971 58 548 76 65, Email: sales@genosys.ae.',
     images: ['/images/genosys-logo.png'],
@@ -33,8 +36,28 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <div className="bg-white min-h-screen">
+      <BreadcrumbSchema 
+        items={[
+          { name: 'Home', url: '/' },
+          { name: 'Contact', url: '/contact' }
+        ]}
+      />
       <div className="container mx-auto px-4 py-8 md:py-16">
         <div className="max-w-4xl mx-auto">
+
+          {/* Navigation Breadcrumb */}
+          <nav className="flex items-center gap-2 text-sm md:text-base text-gray-600 mb-8" aria-label="Breadcrumb">
+            <Link 
+              href="/"
+              className="hover:text-primary-600 transition-colors flex items-center"
+            >
+              Home
+            </Link>
+            <span className="flex items-center">/</span>
+            <span className="text-gray-900 font-medium flex items-center">
+              Contact
+            </span>
+          </nav>
           
           <div className="text-center mb-8 md:mb-12">
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 mb-4 md:mb-6">

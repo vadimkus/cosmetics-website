@@ -52,6 +52,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
+    site: '@genosys_me',
+    creator: '@genosys_me',
     title: 'Genosys Middle East FZ-LLC - Premium Beauty Products',
     description: 'Discover our premium collection of cosmetics and beauty products',
     images: ['/images/genosys-products.jpg'],

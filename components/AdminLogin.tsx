@@ -130,22 +130,6 @@ export default function AdminLogin({ onLogin }: AdminLoginProps) {
       <div className="absolute inset-0 bg-black/60" style={{ zIndex: 2 }}></div>
 
       <div className="max-w-md w-full space-y-8 relative" style={{ zIndex: 10 }}>
-        {/* Header with Matrix Animation */}
-        <div className="text-center">
-          <div className="flex justify-center mb-4">
-            <div className="relative">
-              <div className="absolute inset-0 bg-green-500 rounded-full blur-lg opacity-30 animate-pulse"></div>
-              <div className="relative bg-black/80 border border-green-500 p-4 rounded-full shadow-lg">
-                <Terminal className="h-12 w-12 text-green-400 animate-pulse" />
-              </div>
-            </div>
-          </div>
-          
-          <h1 className="text-4xl font-bold text-green-400 mb-2 font-mono">
-            &gt; ACCESS
-          </h1>
-          
-        </div>
 
         {/* Login Form */}
         <div className="bg-black/90 backdrop-blur-sm rounded-lg shadow-2xl p-8 border border-green-500/50">

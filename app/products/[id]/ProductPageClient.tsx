@@ -11,6 +11,7 @@ import { useState } from 'react'
 import Image from 'next/image'
 import { Product } from '@/types'
 import ProductSchema from '@/components/ProductSchema'
+import BreadcrumbSchema from '@/components/BreadcrumbSchema'
 
 interface ProductPageClientProps {
   product: Product
@@ -70,6 +71,14 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
   return (
     <div className="bg-white min-h-screen">
       <ProductSchema product={product} />
+      <BreadcrumbSchema 
+        items={[
+          { name: 'Home', url: '/' },
+          { name: 'Products', url: '/products' },
+          { name: product.category, url: `/products?category=${product.category}` },
+          { name: product.name, url: `/products/${product.id}` }
+        ]}
+      />
       <div className="container mx-auto px-4 py-4 md:py-8">
         {/* Navigation Breadcrumb */}
         <nav className="flex items-center gap-2 text-sm md:text-base text-gray-600 mb-4 md:mb-6 py-1 min-h-[32px] md:min-h-[36px]" aria-label="Breadcrumb">

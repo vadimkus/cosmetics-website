@@ -1,12 +1,64 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { ArrowLeft } from 'lucide-react'
+import BreadcrumbSchema from '@/components/BreadcrumbSchema'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'GENOSYS Brand Story - Gene Re-Birth System | Genosys Middle East FZ-LLC',
+  description: 'Discover GENOSYS, the world\'s first microneedling-dedicated brand. Gene Re-Birth System combines microneedling with specially formulated cosmeceuticals for optimal skincare results.',
+  keywords: 'GENOSYS brand, Gene Re-Birth System, microneedling brand, Korean dermacosmetics, professional skincare, UAE cosmetics',
+  openGraph: {
+    title: 'GENOSYS Brand Story - Gene Re-Birth System',
+    description: 'Discover GENOSYS, the world\'s first microneedling-dedicated brand. Gene Re-Birth System combines microneedling with specially formulated cosmeceuticals.',
+    type: 'website',
+    images: [
+      {
+        url: '/images/genosys-products.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'GENOSYS Brand - Gene Re-Birth System',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    site: '@genosys_me',
+    creator: '@genosys_me',
+    title: 'GENOSYS Brand Story - Gene Re-Birth System',
+    description: 'Discover GENOSYS, the world\'s first microneedling-dedicated brand. Gene Re-Birth System combines microneedling with specially formulated cosmeceuticals.',
+    images: ['/images/genosys-products.jpg'],
+  },
+  alternates: {
+    canonical: 'https://genosys.ae/brand',
+  },
+}
 
 export default function BrandPage() {
   return (
     <div className="bg-white min-h-screen">
-      <div className="container mx-auto px-4 py-16">
+      <BreadcrumbSchema 
+        items={[
+          { name: 'Home', url: '/' },
+          { name: 'Brand', url: '/brand' }
+        ]}
+      />
+      <div className="container mx-auto px-4 py-8 md:py-16">
         <div className="max-w-4xl mx-auto">
+
+          {/* Navigation Breadcrumb */}
+          <nav className="flex items-center gap-2 text-sm md:text-base text-gray-600 mb-8" aria-label="Breadcrumb">
+            <Link 
+              href="/"
+              className="hover:text-primary-600 transition-colors flex items-center"
+            >
+              Home
+            </Link>
+            <span className="flex items-center">/</span>
+            <span className="text-gray-900 font-medium flex items-center">
+              Brand
+            </span>
+          </nav>
           
           <div className="text-center mb-12">
             <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-6">

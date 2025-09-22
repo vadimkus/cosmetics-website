@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
 import Logo from '@/components/Logo'
+import BreadcrumbSchema from '@/components/BreadcrumbSchema'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -22,6 +23,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
+    site: '@genosys_me',
+    creator: '@genosys_me',
     title: 'About GENOSYS Middle East FZ-LLC - Official Korean Dermacosmetics Distributor',
     description: 'Learn about GENOSYS Middle East FZ-LLC, the official distributor of DTSMG Co., Ltd Korea in the UAE.',
     images: ['/images/genosys-logo.png'],
@@ -34,8 +37,28 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <div className="bg-white min-h-screen">
-      <div className="container mx-auto px-4 py-16">
+      <BreadcrumbSchema 
+        items={[
+          { name: 'Home', url: '/' },
+          { name: 'About', url: '/about' }
+        ]}
+      />
+      <div className="container mx-auto px-4 py-8 md:py-16">
       <div className="max-w-4xl mx-auto">
+
+        {/* Navigation Breadcrumb */}
+        <nav className="flex items-center gap-2 text-sm md:text-base text-gray-600 mb-8" aria-label="Breadcrumb">
+          <Link 
+            href="/"
+            className="hover:text-primary-600 transition-colors flex items-center"
+          >
+            Home
+          </Link>
+          <span className="flex items-center">/</span>
+          <span className="text-gray-900 font-medium flex items-center">
+            About
+          </span>
+        </nav>
 
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-6">

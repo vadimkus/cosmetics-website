@@ -20,6 +20,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
+    site: '@genosys_me',
+    creator: '@genosys_me',
     title: 'GENOSYS Products - Professional Korean Dermacosmetics',
     description: 'Explore our complete collection of professional Korean dermacosmetics. Premium skincare products for professional and home use.',
     images: ['/images/genosys-products.jpg'],

@@ -1,12 +1,64 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { ArrowLeft, Download } from 'lucide-react'
+import BreadcrumbSchema from '@/components/BreadcrumbSchema'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Professional Training - GENOSYS Skincare Training | Genosys Middle East FZ-LLC',
+  description: 'Professional training resources for GENOSYS skincare products. Download training documents, watch video lessons, and master professional techniques for Korean dermacosmetics.',
+  keywords: 'GENOSYS training, professional skincare training, Korean dermacosmetics training, microneedling training, UAE skincare training',
+  openGraph: {
+    title: 'Professional Training - GENOSYS Skincare Training',
+    description: 'Professional training resources for GENOSYS skincare products. Download training documents, watch video lessons, and master professional techniques.',
+    type: 'website',
+    images: [
+      {
+        url: '/images/genosys-logo.png',
+        width: 400,
+        height: 200,
+        alt: 'GENOSYS Professional Training',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    site: '@genosys_me',
+    creator: '@genosys_me',
+    title: 'Professional Training - GENOSYS Skincare Training',
+    description: 'Professional training resources for GENOSYS skincare products. Download training documents, watch video lessons, and master professional techniques.',
+    images: ['/images/genosys-logo.png'],
+  },
+  alternates: {
+    canonical: 'https://genosys.ae/training',
+  },
+}
 
 export default function TrainingPage() {
   return (
     <div className="bg-white min-h-screen">
-      <div className="container mx-auto px-4 py-8">
+      <BreadcrumbSchema 
+        items={[
+          { name: 'Home', url: '/' },
+          { name: 'Training', url: '/training' }
+        ]}
+      />
+      <div className="container mx-auto px-4 py-8 md:py-16">
         <div className="max-w-4xl mx-auto">
+
+          {/* Navigation Breadcrumb */}
+          <nav className="flex items-center gap-2 text-sm md:text-base text-gray-600 mb-8" aria-label="Breadcrumb">
+            <Link 
+              href="/"
+              className="hover:text-primary-600 transition-colors flex items-center"
+            >
+              Home
+            </Link>
+            <span className="flex items-center">/</span>
+            <span className="text-gray-900 font-medium flex items-center">
+              Training
+            </span>
+          </nav>
 
           <div className="text-center">
             <div className="flex justify-center mb-6">

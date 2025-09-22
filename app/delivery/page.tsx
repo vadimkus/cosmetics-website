@@ -1,11 +1,63 @@
 import Link from 'next/link'
 import { ArrowLeft, Clock, Truck, MapPin, Phone, Mail, Gift } from 'lucide-react'
+import BreadcrumbSchema from '@/components/BreadcrumbSchema'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Delivery Information - Fast Shipping UAE | Genosys Middle East FZ-LLC',
+  description: 'Fast and reliable delivery service across the UAE. 1 hour delivery in Dubai, 24-36 hours across UAE. Free shipping on orders above 1,000 AED.',
+  keywords: 'delivery UAE, fast shipping Dubai, Careem delivery, QuipQup delivery, free shipping UAE, Korean cosmetics delivery',
+  openGraph: {
+    title: 'Delivery Information - Fast Shipping UAE',
+    description: 'Fast and reliable delivery service across the UAE. 1 hour delivery in Dubai, 24-36 hours across UAE. Free shipping on orders above 1,000 AED.',
+    type: 'website',
+    images: [
+      {
+        url: '/images/genosys-products.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'GENOSYS Delivery Service UAE',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    site: '@genosys_me',
+    creator: '@genosys_me',
+    title: 'Delivery Information - Fast Shipping UAE',
+    description: 'Fast and reliable delivery service across the UAE. 1 hour delivery in Dubai, 24-36 hours across UAE.',
+    images: ['/images/genosys-products.jpg'],
+  },
+  alternates: {
+    canonical: 'https://genosys.ae/delivery',
+  },
+}
 
 export default function DeliveryPage() {
   return (
     <div className="bg-white min-h-screen">
-      <div className="container mx-auto px-4 py-16">
+      <BreadcrumbSchema 
+        items={[
+          { name: 'Home', url: '/' },
+          { name: 'Delivery', url: '/delivery' }
+        ]}
+      />
+      <div className="container mx-auto px-4 py-8 md:py-16">
         <div className="max-w-4xl mx-auto">
+
+          {/* Navigation Breadcrumb */}
+          <nav className="flex items-center gap-2 text-sm md:text-base text-gray-600 mb-8" aria-label="Breadcrumb">
+            <Link 
+              href="/"
+              className="hover:text-primary-600 transition-colors flex items-center"
+            >
+              Home
+            </Link>
+            <span className="flex items-center">/</span>
+            <span className="text-gray-900 font-medium flex items-center">
+              Delivery
+            </span>
+          </nav>
 
           <div className="text-center mb-12">
             <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-6">

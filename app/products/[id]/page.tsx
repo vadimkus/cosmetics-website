@@ -49,6 +49,8 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
     },
     twitter: {
       card: 'summary_large_image',
+      site: '@genosys_me',
+      creator: '@genosys_me',
       title: `${product.name} - GENOSYS Professional Korean Dermacosmetics`,
       description: `${product.description.substring(0, 155)}... Professional Korean dermacosmetics by GENOSYS.`,
       images: displayImages.map((img: string) => `https://genosys.ae${img}`),

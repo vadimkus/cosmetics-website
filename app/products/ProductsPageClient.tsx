@@ -130,23 +130,22 @@ export default function ProductsPageClient() {
         ]}
       />
       <div className="container mx-auto px-4 py-8 md:py-16">
-        <div className="max-w-4xl mx-auto">
-          {/* Navigation Breadcrumb */}
-          <nav className="flex items-center gap-2 text-sm md:text-base text-gray-600 mb-8" aria-label="Breadcrumb">
-            <Link 
-              href="/"
-              className="hover:text-primary-600 transition-colors flex items-center"
-            >
-              Home
-            </Link>
-            <span className="flex items-center">/</span>
-            <span className="text-gray-900 font-medium flex items-center">
-              Products
-            </span>
-          </nav>
+        {/* Navigation Breadcrumb */}
+        <nav className="flex items-center gap-2 text-sm md:text-base text-gray-600 mb-8" aria-label="Breadcrumb">
+          <Link 
+            href="/"
+            className="hover:text-primary-600 transition-colors flex items-center"
+          >
+            Home
+          </Link>
+          <span className="flex items-center">/</span>
+          <span className="text-gray-900 font-medium flex items-center">
+            Products
+          </span>
+        </nav>
 
-          {/* Header */}
-          <div className="text-center mb-8">
+        {/* Header */}
+        <div className="text-center mb-8">
           <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
             GENOSYS Products
           </h1>
@@ -174,20 +173,19 @@ export default function ProductsPageClient() {
           </div>
         </div>
 
-          {/* Products Grid */}
-          <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
-            {filteredProducts.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
-
-          {/* No Products Message */}
-          {filteredProducts.length === 0 && (
-            <div className="text-center py-12">
-              <p className="text-gray-600 text-lg">No products found in this category.</p>
-            </div>
-          )}
+        {/* Products Grid */}
+        <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
+          {filteredProducts.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
         </div>
+
+        {/* No Products Message */}
+        {filteredProducts.length === 0 && (
+          <div className="text-center py-12">
+            <p className="text-gray-600 text-lg">No products found in this category.</p>
+          </div>
+        )}
       </div>
     </div>
   )

@@ -134,10 +134,10 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
             <button
               onClick={handleLoginClick}
               className="flex items-center justify-center space-x-2 px-4 py-3 rounded-lg font-medium transition-colors touch-manipulation w-full bg-primary-600 text-white hover:bg-primary-700 min-h-[44px]"
-              aria-label="Login to purchase this product"
+              aria-label="Login to see price for this product"
             >
               <User className="h-4 w-4" aria-hidden="true" />
-              <span className="text-sm">Login to Purchase</span>
+              <span className="text-sm">Login to see price</span>
             </button>
           ) : (
             <button

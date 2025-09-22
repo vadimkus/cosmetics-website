@@ -452,7 +452,8 @@ export default function ProfilePageNew() {
                 {[
                   { id: 'profile', label: 'Profile', icon: User, shortLabel: 'Profile' },
                   { id: 'orders', label: 'Orders', icon: Package, shortLabel: 'Orders' },
-                  { id: 'settings', label: 'Settings', icon: Settings, shortLabel: 'Settings' }
+                  { id: 'settings', label: 'Settings', icon: Settings, shortLabel: 'Settings' },
+                  { id: 'downloads', label: 'Downloads', icon: Download, shortLabel: 'Downloads' }
                 ].map((tab) => (
                   <button
                     key={tab.id}
@@ -494,26 +495,19 @@ export default function ProfilePageNew() {
                     <span className="text-sm sm:text-base">{isEditing ? 'Cancel' : 'Edit'}</span>
                   </button>
                   
-                  <button
-                    onClick={() => setActiveTab('downloads')}
-                    className={`flex items-center gap-1 sm:gap-2 px-3 sm:px-6 py-3 rounded-xl font-medium transition-all duration-200 whitespace-nowrap flex-shrink-0 ${
-                      activeTab === 'downloads'
-                        ? 'bg-gradient-to-r from-red-600 to-red-700 text-white shadow-lg' 
-                        : 'text-gray-600 hover:text-gray-900 hover:bg-white/50'
-                    }`}
-                    title="Downloads"
-                  >
-                    <Download className="h-4 w-4 sm:h-5 sm:w-5" />
-                    <span className="text-sm sm:text-base">Downloads</span>
-                  </button>
                 </div>
 
                 {/* More Menu for very small screens */}
                 <div className="relative xs:hidden" ref={moreMenuRef}>
                   <button
                     onClick={() => setShowMoreMenu(!showMoreMenu)}
-                    className="flex items-center gap-1 px-2 py-3 text-gray-600 hover:text-gray-900 hover:bg-white/50 rounded-xl font-medium transition-all duration-200 whitespace-nowrap flex-shrink-0"
+                    onTouchStart={(e) => {
+                      e.preventDefault()
+                      setShowMoreMenu(!showMoreMenu)
+                    }}
+                    className="flex items-center gap-1 px-2 py-3 text-gray-600 hover:text-gray-900 hover:bg-white/50 rounded-xl font-medium transition-all duration-200 whitespace-nowrap flex-shrink-0 min-h-[44px] min-w-[44px] touch-manipulation"
                     title="More actions"
+                    style={{ touchAction: 'manipulation' }}
                   >
                     <MoreHorizontal className="h-4 w-4" />
                   </button>
@@ -526,8 +520,14 @@ export default function ProfilePageNew() {
                           handleRefresh()
                           setShowMoreMenu(false)
                         }}
+                        onTouchStart={(e) => {
+                          e.preventDefault()
+                          handleRefresh()
+                          setShowMoreMenu(false)
+                        }}
                         disabled={isRefreshing}
-                        className="w-full flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-gray-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="w-full flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-gray-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed min-h-[44px] touch-manipulation"
+                        style={{ touchAction: 'manipulation' }}
                       >
                         <RefreshCw className={`h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`} />
                         <span className="text-sm">Refresh</span>
@@ -538,22 +538,18 @@ export default function ProfilePageNew() {
                           setIsEditing(!isEditing)
                           setShowMoreMenu(false)
                         }}
-                        className="w-full flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-gray-50 transition-colors"
+                        onTouchStart={(e) => {
+                          e.preventDefault()
+                          setIsEditing(!isEditing)
+                          setShowMoreMenu(false)
+                        }}
+                        className="w-full flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-gray-50 transition-colors min-h-[44px] touch-manipulation"
+                        style={{ touchAction: 'manipulation' }}
                       >
                         <Edit3 className="h-4 w-4" />
                         <span className="text-sm">{isEditing ? 'Cancel' : 'Edit Profile'}</span>
                       </button>
                       
-                      <button
-                        onClick={() => {
-                          setActiveTab('downloads')
-                          setShowMoreMenu(false)
-                        }}
-                        className="w-full flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-gray-50 transition-colors"
-                      >
-                        <Download className="h-4 w-4" />
-                        <span className="text-sm">Downloads</span>
-                      </button>
                     </div>
                   )}
                 </div>

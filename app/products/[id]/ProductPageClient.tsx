@@ -72,22 +72,22 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
       <ProductSchema product={product} />
       <div className="container mx-auto px-4 py-4 md:py-8">
         {/* Navigation Breadcrumb */}
-        <nav className="flex items-center gap-2 text-sm md:text-base text-gray-600 mb-4 md:mb-6" aria-label="Breadcrumb">
+        <nav className="flex items-center gap-2 text-sm md:text-base text-gray-600 mb-4 md:mb-6 py-1 min-h-[32px] md:min-h-[36px]" aria-label="Breadcrumb">
           <Link 
             href="/"
-            className="hover:text-primary-600 transition-colors"
+            className="hover:text-primary-600 transition-colors flex items-center"
           >
             Home
           </Link>
-          <span>/</span>
+          <span className="flex items-center">/</span>
           <Link 
             href="/products"
-            className="hover:text-primary-600 transition-colors"
+            className="hover:text-primary-600 transition-colors flex items-center"
           >
             Products
           </Link>
-          <span>/</span>
-          <span className="text-gray-900 font-medium truncate max-w-xs md:max-w-md">
+          <span className="flex items-center">/</span>
+          <span className="text-gray-900 font-medium truncate max-w-xs md:max-w-md flex items-center">
             {product.name}
           </span>
         </nav>

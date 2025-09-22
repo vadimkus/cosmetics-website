@@ -552,8 +552,8 @@ export default function CheckoutClient() {
                 <div className="space-y-3 mb-6">
                   {items.length > 0 ? (
                     items.map((item) => {
-                      const price = parseFloat(item.product.price) || 0
-                      const quantity = parseInt(item.quantity) || 1
+                      const price = item.product.price || 0
+                      const quantity = item.quantity || 1
                       const total = price * quantity
                       return (
                         <div key={item.product.id} className="flex justify-between text-sm">

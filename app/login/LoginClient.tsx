@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation'
 export default function LoginClient() {
   const { user } = useAuth()
   const [showLoginModal, setShowLoginModal] = useState(false)
+  const [isLoginMode, setIsLoginMode] = useState(true)
   const router = useRouter()
 
   useEffect(() => {
@@ -117,11 +118,10 @@ export default function LoginClient() {
 
       {showLoginModal && (
         <LoginModal
+          isOpen={showLoginModal}
           onClose={() => setShowLoginModal(false)}
-          onSuccess={() => {
-            setShowLoginModal(false)
-            router.push('/products')
-          }}
+          isLoginMode={isLoginMode}
+          setIsLoginMode={setIsLoginMode}
         />
       )}
     </div>

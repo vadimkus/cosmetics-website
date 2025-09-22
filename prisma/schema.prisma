@@ -133,3 +133,21 @@ model UserSession {
 
   @@map("user_sessions")
 }
+
+model PDFDownload {
+  id           String   @id @default(cuid())
+  filename     String
+  userId       String?
+  userEmail    String?
+  ipAddress    String?
+  userAgent    String?
+  country      String?
+  city         String?
+  deviceType   String?
+  browser      String?
+  os           String?
+  referrer     String?
+  timestamp    DateTime @default(now())
+
+  @@map("pdf_downloads")
+}

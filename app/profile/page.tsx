@@ -5,6 +5,7 @@ import { ArrowLeft, User, Mail, Phone, MapPin, Calendar, Edit3, Package, CheckCi
 import { useAuth } from '@/components/AuthProvider'
 import { useState, useRef, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import PDFDownloadButton from '@/components/PDFDownloadButton'
 import { Order, OrderItem } from '@prisma/client'
 
 // Custom type that includes the items relation
@@ -1041,13 +1042,15 @@ export default function ProfilePageNew() {
                         235.5 MB
                       </p>
                       </div>
-                      <a 
+                      <PDFDownloadButton
                         href="https://u.pcloud.link/publink/show?code=XZ9wc15ZDTFcM6uvKg0snY1dEJwzwQgHsEF7"
+                        filename="Product Catalogue 2026.pdf"
+                        external={true}
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-md hover:from-green-700 hover:to-green-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
                         <Download className="h-3 w-3 mr-1" />
                         View PDF
-                      </a>
+                      </PDFDownloadButton>
                     </div>
                   </div>
                   

@@ -1,7 +1,7 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { Shield, Eye, EyeOff, Lock, Mail, Zap, Crown, Sparkles, AlertTriangle, CheckCircle } from 'lucide-react'
+import { useState, useEffect, useRef } from 'react'
+import { Shield, Eye, EyeOff, Lock, Mail, Zap, Crown, Sparkles, AlertTriangle, CheckCircle, Terminal, Code, Cpu, Database } from 'lucide-react'
 
 interface AdminLoginProps {
   onLogin: (email: string, password: string) => Promise<boolean>
@@ -14,30 +14,31 @@ export default function AdminLogin({ onLogin }: AdminLoginProps) {
   const [error, setError] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [attempts, setAttempts] = useState(0)
+  const canvasRef = useRef<HTMLCanvasElement>(null)
   const [funnyMessages] = useState([
-    "Nice try, but that's not the secret handshake! 🤝",
-    "Oops! Wrong password. The admin is probably laughing right now! 😂",
-    "Access denied! Even my pet hamster has better credentials! 🐹",
-    "Nope! That's not the magic word. Try 'Abracadabra' next time! ✨",
-    "Wrong credentials! The admin is probably sipping coffee and watching this! ☕",
-    "Access denied! The security system is having a good laugh! 🤖",
-    "Nope! That's not the secret sauce recipe! 🍝",
-    "Wrong password! The admin is probably doing a victory dance! 💃",
-    "Access denied! Even the coffee machine has better security! ☕",
-    "Nice try! The admin is probably facepalming right now! 🤦‍♂️"
+    "ACCESS DENIED: Invalid credentials detected! 🚫",
+    "ERROR 404: Admin privileges not found! 🔍",
+    "SECURITY BREACH: Unauthorized access attempt! ⚠️",
+    "SYSTEM ALERT: Wrong password matrix! 🔐",
+    "NEURAL NETWORK: Authentication failed! 🧠",
+    "CYBER SECURITY: Intrusion detected! 🛡️",
+    "QUANTUM ENCRYPTION: Access denied! ⚛️",
+    "MATRIX PROTOCOL: Invalid user! 🔮",
+    "DIGITAL FORTRESS: Breach attempt failed! 🏰",
+    "BINARY CODE: Wrong sequence! 💻"
   ])
 
   const [securityTips] = useState([
-    "💡 Pro tip: The admin loves Korean skincare products!",
-    "🔐 Hint: The password is related to the number of products we sell!",
-    "🎯 Fun fact: Our admin is a certified skincare expert!",
-    "🌟 Insider info: The admin's favorite product is a serum!",
-    "🎨 Did you know? Our admin designed this login page!",
-    "🚀 The admin once coded this entire website in one day!",
-    "🎪 The admin's secret power: Making skincare look magical!",
-    "🎭 The admin's alter ego: The Skincare Superhero!",
-    "🎨 The admin's favorite color: GENOSYS blue!",
-    "🎯 The admin's motto: 'Beauty is code, code is beauty!'"
+    "💡 SYSTEM INFO: Admin credentials are encrypted with quantum algorithms!",
+    "🔐 SECURITY PROTOCOL: Password contains binary sequences!",
+    "🎯 NEURAL NETWORK: Admin is a certified cybersecurity expert!",
+    "🌟 MATRIX DATA: Admin's favorite language is JavaScript!",
+    "🎨 DIGITAL ART: This login was designed in the Matrix!",
+    "🚀 QUANTUM SPEED: Admin coded this in one matrix cycle!",
+    "🎪 CYBER POWER: Admin's secret: Making code look magical!",
+    "🎭 DIGITAL IDENTITY: Admin's alter ego: The Code Architect!",
+    "🎨 MATRIX COLORS: Admin's favorite: Neon green!",
+    "🎯 CYBER MOTTO: 'Code is reality, reality is code!'"
   ])
 
   const [currentTip, setCurrentTip] = useState(0)
@@ -48,6 +49,50 @@ export default function AdminLogin({ onLogin }: AdminLoginProps) {
     }, 3000)
     return () => clearInterval(tipInterval)
   }, [securityTips.length])
+
+  // Matrix Rain Effect
+  useEffect(() => {
+    const canvas = canvasRef.current
+    if (!canvas) return
+
+    const ctx = canvas.getContext('2d')
+    if (!ctx) return
+
+    canvas.width = window.innerWidth
+    canvas.height = window.innerHeight
+
+    const matrix = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%+-/~{[|`]}"
+    const matrixArray = matrix.split("")
+
+    const fontSize = 10
+    const columns = canvas.width / fontSize
+
+    const drops: number[] = []
+    for (let x = 0; x < columns; x++) {
+      drops[x] = 1
+    }
+
+    const draw = () => {
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.04)'
+      ctx.fillRect(0, 0, canvas.width, canvas.height)
+
+      ctx.fillStyle = '#0F4'
+      ctx.font = fontSize + 'px monospace'
+
+      for (let i = 0; i < drops.length; i++) {
+        const text = matrixArray[Math.floor(Math.random() * matrixArray.length)]
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize)
+
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+          drops[i] = 0
+        }
+        drops[i]++
+      }
+    }
+
+    const interval = setInterval(draw, 35)
+    return () => clearInterval(interval)
+  }, [])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -73,49 +118,43 @@ export default function AdminLogin({ onLogin }: AdminLoginProps) {
   const securityLevel = getSecurityLevel()
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 relative overflow-hidden">
-      {/* Animated Background Elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse" style={{ animationDelay: '2s' }}></div>
-        <div className="absolute top-40 left-1/2 w-80 h-80 bg-pink-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse" style={{ animationDelay: '4s' }}></div>
-      </div>
+    <div className="min-h-screen flex items-center justify-center bg-black relative overflow-hidden">
+      {/* Matrix Rain Background */}
+      <canvas
+        ref={canvasRef}
+        className="absolute inset-0 w-full h-full"
+        style={{ zIndex: 1 }}
+      />
+      
+      {/* Dark overlay for better contrast */}
+      <div className="absolute inset-0 bg-black/60" style={{ zIndex: 2 }}></div>
 
-      <div className="max-w-md w-full space-y-8 relative z-10">
-        {/* Header with Animation */}
+      <div className="max-w-md w-full space-y-8 relative" style={{ zIndex: 10 }}>
+        {/* Header with Matrix Animation */}
         <div className="text-center">
           <div className="flex justify-center mb-4">
             <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full blur-lg opacity-30 animate-pulse"></div>
-              <div className="relative bg-white p-4 rounded-full shadow-lg">
-                <Crown className="h-12 w-12 text-yellow-500 animate-bounce" />
+              <div className="absolute inset-0 bg-green-500 rounded-full blur-lg opacity-30 animate-pulse"></div>
+              <div className="relative bg-black/80 border border-green-500 p-4 rounded-full shadow-lg">
+                <Terminal className="h-12 w-12 text-green-400 animate-pulse" />
               </div>
             </div>
           </div>
           
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
-            Admin Portal
+          <h1 className="text-4xl font-bold text-green-400 mb-2 font-mono">
+            &gt; ACCESS
           </h1>
-          <p className="text-gray-600 text-lg">Welcome to the GENOSYS Command Center! 🚀</p>
           
-          {/* Security Level Indicator */}
-          <div className="mt-4 flex items-center justify-center gap-2">
-            <Shield className="h-5 w-5 text-blue-600" />
-            <span className="text-sm font-medium">Security Level:</span>
-            <span className={`text-sm font-bold ${securityLevel.color}`}>
-              {securityLevel.level}
-            </span>
-          </div>
         </div>
 
         {/* Login Form */}
-        <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl p-8 border border-white/20">
+        <div className="bg-black/90 backdrop-blur-sm rounded-lg shadow-2xl p-8 border border-green-500/50">
           <form className="space-y-6" onSubmit={handleSubmit}>
             {/* Email Field */}
             <div className="space-y-2">
-              <label className="flex items-center gap-2 text-sm font-medium text-gray-700">
-                <Mail className="h-4 w-4 text-blue-600" />
-                Admin Email
+              <label className="flex items-center gap-2 text-sm font-medium text-green-400 font-mono">
+                <Database className="h-4 w-4 text-green-400" />
+                &gt; USER_ID
               </label>
               <div className="relative">
                 <input
@@ -123,18 +162,18 @@ export default function AdminLogin({ onLogin }: AdminLoginProps) {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full px-4 py-3 pl-12 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white/50"
+                  className="w-full px-4 py-3 pl-12 border border-green-500/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-200 bg-black/50 text-green-400 font-mono placeholder-green-600"
                   placeholder="admin@genosys.ae"
                 />
-                <Mail className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                <Database className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-green-400" />
               </div>
             </div>
 
             {/* Password Field */}
             <div className="space-y-2">
-              <label className="flex items-center gap-2 text-sm font-medium text-gray-700">
-                <Lock className="h-4 w-4 text-blue-600" />
-                Secret Password
+              <label className="flex items-center gap-2 text-sm font-medium text-green-400 font-mono">
+                <Lock className="h-4 w-4 text-green-400" />
+                &gt; ACCESS_KEY
               </label>
               <div className="relative">
                 <input
@@ -142,14 +181,14 @@ export default function AdminLogin({ onLogin }: AdminLoginProps) {
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full px-4 py-3 pl-12 pr-12 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white/50"
-                  placeholder="Enter the magic word..."
+                  className="w-full px-4 py-3 pl-12 pr-12 border border-green-500/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-200 bg-black/50 text-green-400 font-mono placeholder-green-600"
+                  placeholder="Enter quantum key..."
                 />
-                <Lock className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                <Lock className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-green-400" />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+                  className="absolute right-4 top-1/2 transform -translate-y-1/2 text-green-400 hover:text-green-300 transition-colors"
                 >
                   {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                 </button>
@@ -158,9 +197,9 @@ export default function AdminLogin({ onLogin }: AdminLoginProps) {
 
             {/* Error Message */}
             {error && (
-              <div className="flex items-center gap-2 p-4 bg-red-50 border border-red-200 rounded-xl">
-                <AlertTriangle className="h-5 w-5 text-red-500 flex-shrink-0" />
-                <p className="text-red-700 text-sm font-medium">{error}</p>
+              <div className="flex items-center gap-2 p-4 bg-red-900/50 border border-red-500 rounded-lg">
+                <AlertTriangle className="h-5 w-5 text-red-400 flex-shrink-0" />
+                <p className="text-red-300 text-sm font-medium font-mono">{error}</p>
               </div>
             )}
 
@@ -168,50 +207,28 @@ export default function AdminLogin({ onLogin }: AdminLoginProps) {
             <button
               type="submit"
               disabled={loading}
-              className="w-full flex items-center justify-center gap-2 py-3 px-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 transform hover:scale-105 active:scale-95"
+              className="w-full flex items-center justify-center gap-2 py-3 px-6 bg-gradient-to-r from-green-600 to-green-800 text-white font-semibold rounded-lg hover:from-green-700 hover:to-green-900 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:ring-offset-black disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 transform hover:scale-105 active:scale-95 font-mono border border-green-500/50"
             >
               {loading ? (
                 <>
                   <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
-                  <span>Authenticating...</span>
+                  <span>INITIALIZING...</span>
                 </>
               ) : (
                 <>
-                  <Zap className="h-5 w-5" />
-                  <span>Access the Matrix</span>
+                  <Code className="h-5 w-5" />
+                  <span>CLICK</span>
                 </>
               )}
             </button>
           </form>
 
-          {/* Security Tips */}
-          <div className="mt-6 p-4 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl border border-blue-200">
-            <div className="flex items-center gap-2 mb-2">
-              <Sparkles className="h-4 w-4 text-blue-600" />
-              <span className="text-sm font-medium text-blue-800">Security Tip:</span>
-            </div>
-            <p className="text-sm text-blue-700 animate-fade-in">
-              {securityTips[currentTip]}
-            </p>
-          </div>
 
-          {/* Fun Stats */}
-          <div className="mt-4 grid grid-cols-2 gap-4 text-center">
-            <div className="p-3 bg-white/50 rounded-lg">
-              <div className="text-2xl font-bold text-blue-600">{attempts}</div>
-              <div className="text-xs text-gray-600">Failed Attempts</div>
-            </div>
-            <div className="p-3 bg-white/50 rounded-lg">
-              <div className="text-2xl font-bold text-purple-600">∞</div>
-              <div className="text-xs text-gray-600">Admin Patience</div>
-            </div>
-          </div>
         </div>
 
         {/* Footer */}
-        <div className="text-center text-sm text-gray-500">
-          <p>🔒 Secured by GENOSYS Advanced Security</p>
-          <p className="mt-1">Made with ❤️ and lots of ☕</p>
+        <div className="text-center text-sm text-green-500 font-mono">
+          <p>🔒 QUANTUM ENCRYPTION</p>
         </div>
       </div>
 
@@ -222,6 +239,13 @@ export default function AdminLogin({ onLogin }: AdminLoginProps) {
         }
         .animate-fade-in {
           animation: fade-in 0.5s ease-in-out;
+        }
+        @keyframes matrix-glow {
+          0%, 100% { text-shadow: 0 0 5px #0F4, 0 0 10px #0F4, 0 0 15px #0F4; }
+          50% { text-shadow: 0 0 10px #0F4, 0 0 20px #0F4, 0 0 30px #0F4; }
+        }
+        .matrix-glow {
+          animation: matrix-glow 2s ease-in-out infinite;
         }
       `}</style>
     </div>

@@ -122,6 +122,58 @@ export async function GET(request: NextRequest) {
           ordersPlaced: nonCancelledOrders
         })
       
+      case 'pdf-downloads':
+        const pdfDownloads = await prisma.pDFDownload.findMany({
+          where: {
+            timestamp: {
+              gte: startDate
+            }
+          },
+          orderBy: {
+            timestamp: 'desc'
+          }
+        })
+        
+        // Get total downloads count
+        const totalDownloads = pdfDownloads.length
+        
+        // Get downloads by filename
+        const downloadsByFile = pdfDownloads.reduce((acc, download) => {
+          acc[download.filename] = (acc[download.filename] || 0) + 1
+          return acc
+        }, {} as Record<string, number>)
+        
+        // Get downloads by device type
+        const downloadsByDevice = pdfDownloads.reduce((acc, download) => {
+          const device = download.deviceType || 'Unknown'
+          acc[device] = (acc[device] || 0) + 1
+          return acc
+        }, {} as Record<string, number>)
+        
+        // Get downloads by browser
+        const downloadsByBrowser = pdfDownloads.reduce((acc, download) => {
+          const browser = download.browser || 'Unknown'
+          acc[browser] = (acc[browser] || 0) + 1
+          return acc
+        }, {} as Record<string, number>)
+        
+        // Get recent downloads (last 10)
+        const recentDownloads = pdfDownloads.slice(0, 10).map(download => ({
+          filename: download.filename,
+          userEmail: download.userEmail,
+          timestamp: download.timestamp,
+          deviceType: download.deviceType,
+          browser: download.browser
+        }))
+        
+        return NextResponse.json({
+          totalDownloads,
+          downloadsByFile,
+          downloadsByDevice,
+          downloadsByBrowser,
+          recentDownloads
+        })
+      
       default:
         return NextResponse.json({ error: 'Invalid type parameter' }, { status: 400 })
     }

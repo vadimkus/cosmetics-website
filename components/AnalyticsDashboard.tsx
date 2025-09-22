@@ -38,9 +38,24 @@ interface TimelineData {
   pageViews: number
 }
 
+interface PDFDownloadData {
+  totalDownloads: number
+  downloadsByFile: Record<string, number>
+  downloadsByDevice: Record<string, number>
+  downloadsByBrowser: Record<string, number>
+  recentDownloads: Array<{
+    filename: string
+    userEmail: string | null
+    timestamp: string
+    deviceType: string | null
+    browser: string | null
+  }>
+}
+
 export default function AnalyticsDashboard({ onCustomerClick }: AnalyticsDashboardProps = {}) {
   const [analytics, setAnalytics] = useState<AnalyticsData | null>(null)
   const [timeline, setTimeline] = useState<TimelineData[]>([])
+  const [pdfDownloads, setPdfDownloads] = useState<PDFDownloadData | null>(null)
   const [loading, setLoading] = useState(true)
   const [refreshing, setRefreshing] = useState(false)
   const [timeRange, setTimeRange] = useState(30)
@@ -57,10 +72,11 @@ export default function AnalyticsDashboard({ onCustomerClick }: AnalyticsDashboa
         setLoading(true)
       }
       
-      const [analyticsRes, timelineRes, citiesRes] = await Promise.all([
+      const [analyticsRes, timelineRes, citiesRes, pdfDownloadsRes] = await Promise.all([
         fetch(`/api/analytics?type=overview&days=${timeRange}`),
         fetch(`/api/analytics?type=timeline&days=${timeRange}`),
-        fetch(`/api/analytics?type=cities&days=${timeRange}`)
+        fetch(`/api/analytics?type=cities&days=${timeRange}`),
+        fetch(`/api/analytics?type=pdf-downloads&days=${timeRange}`)
       ])
 
       if (analyticsRes.ok) {
@@ -76,6 +92,11 @@ export default function AnalyticsDashboard({ onCustomerClick }: AnalyticsDashboa
       if (timelineRes.ok) {
         const timelineData = await timelineRes.json()
         setTimeline(timelineData)
+      }
+
+      if (pdfDownloadsRes.ok) {
+        const pdfDownloadsData = await pdfDownloadsRes.json()
+        setPdfDownloads(pdfDownloadsData)
       }
     } catch (error) {
       console.error('Error fetching analytics:', error)
@@ -476,6 +497,70 @@ export default function AnalyticsDashboard({ onCustomerClick }: AnalyticsDashboa
             ))}
           </div>
         </div>
+
+        {/* PDF Downloads Analytics */}
+        {pdfDownloads && (
+          <div className="bg-white rounded-lg shadow p-6 mt-6">
+            <h3 className="text-lg font-semibold text-gray-800 mb-4">📄 PDF Downloads Analytics</h3>
+            
+            {/* Total Downloads */}
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+              <div className="text-center p-4 bg-blue-50 rounded-lg">
+                <div className="text-2xl font-bold text-blue-600">{pdfDownloads.totalDownloads}</div>
+                <div className="text-sm text-gray-600">Total Downloads</div>
+                <div className="text-xs text-gray-500 mt-1">Last {timeRange} days</div>
+              </div>
+              
+              {/* Downloads by Device */}
+              {Object.entries(pdfDownloads.downloadsByDevice).map(([device, count]) => (
+                <div key={device} className="text-center p-4 bg-green-50 rounded-lg">
+                  <div className="text-2xl font-bold text-green-600">{count}</div>
+                  <div className="text-sm text-gray-600">{device}</div>
+                  <div className="text-xs text-gray-500 mt-1">Downloads</div>
+                </div>
+              ))}
+            </div>
+
+            {/* Downloads by File */}
+            {Object.keys(pdfDownloads.downloadsByFile).length > 0 && (
+              <div className="mb-6">
+                <h4 className="text-md font-semibold text-gray-700 mb-3">Downloads by File</h4>
+                <div className="space-y-2">
+                  {Object.entries(pdfDownloads.downloadsByFile)
+                    .sort(([,a], [,b]) => b - a)
+                    .map(([filename, count]) => (
+                    <div key={filename} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                      <span className="text-sm font-medium text-gray-700 truncate">{filename}</span>
+                      <span className="text-sm font-bold text-blue-600">{count} downloads</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Recent Downloads */}
+            {pdfDownloads.recentDownloads.length > 0 && (
+              <div>
+                <h4 className="text-md font-semibold text-gray-700 mb-3">Recent Downloads</h4>
+                <div className="space-y-2">
+                  {pdfDownloads.recentDownloads.map((download, index) => (
+                    <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                      <div className="flex-1 min-w-0">
+                        <div className="text-sm font-medium text-gray-700 truncate">{download.filename}</div>
+                        <div className="text-xs text-gray-500">
+                          {download.userEmail || 'Anonymous'} • {download.deviceType} • {download.browser}
+                        </div>
+                      </div>
+                      <div className="text-xs text-gray-500 ml-2">
+                        {formatTimestamp(download.timestamp)}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
 
         {/* Accessibility Metrics */}
         <div className="bg-white rounded-lg shadow p-6 mt-6">

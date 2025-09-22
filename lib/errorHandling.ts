@@ -296,24 +296,18 @@ export const withErrorBoundary = <P extends object>(
           return React.createElement(fallback, { error: this.state.error })
         }
         
-        return (
-          <div className="min-h-screen flex items-center justify-center bg-white">
-            <div className="text-center">
-              <h1 className="text-2xl font-bold text-gray-800 mb-4">
-                Something went wrong
-              </h1>
-              <p className="text-gray-600 mb-6">
-                {errorHandling.getUserFriendlyMessage(this.state.error)}
-              </p>
-              <button
-                onClick={() => this.setState({ hasError: false, error: undefined })}
-                className="bg-primary-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary-700 transition-colors"
-              >
-                Try Again
-              </button>
-            </div>
-          </div>
-        )
+        return React.createElement('div', {
+          className: "min-h-screen flex items-center justify-center bg-white"
+        }, React.createElement('div', {
+          className: "text-center"
+        }, React.createElement('h1', {
+          className: "text-2xl font-bold text-gray-800 mb-4"
+        }, "Something went wrong"), React.createElement('p', {
+          className: "text-gray-600 mb-6"
+        }, errorHandling.getUserFriendlyMessage(this.state.error)), React.createElement('button', {
+          onClick: () => this.setState({ hasError: false, error: undefined }),
+          className: "bg-primary-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary-700 transition-colors"
+        }, "Try Again")))
       }
 
       return React.createElement(Component, this.props)

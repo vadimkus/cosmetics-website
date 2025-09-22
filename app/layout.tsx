@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import Image from 'next/image'
 import './globals.css'
 import { CartProvider } from '@/components/CartProvider'
 import AuthProvider from '@/components/AuthProvider'
@@ -87,10 +88,20 @@ export default function RootLayout({
                 <main className="min-h-screen">
                   {children}
                 </main>
-                <footer role="contentinfo" className="bg-gray-50 border-t border-gray-200 py-8">
+                <footer role="contentinfo" className="bg-white border-t border-gray-200 py-8">
                   <div className="container mx-auto px-4 text-center text-gray-600">
-                    <p>&copy; 2024 Genosys Middle East FZ-LLC. All rights reserved.</p>
-                    <p className="mt-2 text-sm">Official Distributor in the UAE</p>
+                    <div className="flex flex-col items-center">
+                      <Image
+                        src="/Logo/Full.png"
+                        alt="Genosys Middle East FZ-LLC"
+                        width={200}
+                        height={60}
+                        className="mb-2"
+                        priority={false}
+                      />
+                      <p className="text-sm">Official Distributor in the UAE</p>
+                      <p className="mt-2">&copy; 2025 Genosys Middle East FZ-LLC. All rights reserved.</p>
+                    </div>
                   </div>
                 </footer>
               </ServiceWorkerProvider>

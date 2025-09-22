@@ -45,9 +45,9 @@ export default function CheckoutClient() {
       const invoiceData = {
         orderNumber,
         customerEmail: invoiceEmail,
-        customerName: user.name,
-        customerPhone: user.phone,
-        customerAddress: user.address,
+        customerName: user?.name || 'Customer',
+        customerPhone: user?.phone || '',
+        customerAddress: user?.address || '',
         emirate: selectedEmirate,
         items: items.map(item => ({
           id: item.product.id,
@@ -87,7 +87,7 @@ export default function CheckoutClient() {
   // Helper function to split user name
   const getUserName = () => {
     if (!user?.name) return { firstName: '', lastName: '' }
-    const nameParts = user.name.trim().split(' ')
+    const nameParts = user!.name.trim().split(' ')
     const firstName = nameParts[0] || ''
     const lastName = nameParts.slice(1).join(' ') || ''
     return { firstName, lastName }

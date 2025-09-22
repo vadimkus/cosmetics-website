@@ -185,7 +185,7 @@ export default function AboutPage() {
               View Products
             </Link>
             <Link 
-              href="/contact"
+              href="/contact-genosys-uae"
               className="border border-primary-600 text-primary-600 px-8 py-3 rounded-lg font-semibold hover:bg-primary-50 transition-colors"
             >
               Contact Us

@@ -228,3 +228,24 @@ export async function sendOrderStatusUpdate(order: any, newStatus: string): Prom
     return false
   }
 }
+
+// Generic email sending function
+export async function sendEmail({ to, subject, html }: { to: string; subject: string; html: string }): Promise<boolean> {
+  try {
+    const transporter = createTransporter()
+    
+    const mailOptions = {
+      from: `"Genosys Middle East FZ-LLC" <${EMAIL_CONFIG.auth.user}>`,
+      to,
+      subject,
+      html,
+    }
+
+    const info = await transporter.sendMail(mailOptions)
+    console.log('Email sent:', info.messageId)
+    return true
+  } catch (error) {
+    console.error('Error sending email:', error)
+    return false
+  }
+}

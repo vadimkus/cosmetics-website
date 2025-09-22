@@ -1,51 +1,47 @@
-'use client'
+import FavoritesClient from './FavoritesClient'
+import BreadcrumbSchema from '@/components/BreadcrumbSchema'
+import type { Metadata } from 'next'
 
-import Link from 'next/link'
-import { ArrowLeft, Heart } from 'lucide-react'
-import { useFavorites } from '@/components/FavoritesProvider'
-import ProductCard from '@/components/ProductCard'
+export const metadata: Metadata = {
+  title: 'My Favorites - GENOSYS Professional Korean Dermacosmetics | Genosys Middle East FZ-LLC',
+  description: 'View your favorite GENOSYS professional Korean dermacosmetics products. Save and organize your preferred skincare products for easy access.',
+  keywords: 'GENOSYS favorites, Korean dermacosmetics favorites, professional skincare favorites, saved products, wishlist',
+  openGraph: {
+    title: 'My Favorites - GENOSYS Professional Korean Dermacosmetics',
+    description: 'View your favorite GENOSYS professional Korean dermacosmetics products. Save and organize your preferred skincare products.',
+    type: 'website',
+    images: [
+      {
+        url: '/images/genosys-products.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'GENOSYS Favorites',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    site: '@genosys_me',
+    creator: '@genosys_me',
+    title: 'My Favorites - GENOSYS Professional Korean Dermacosmetics',
+    description: 'View your favorite GENOSYS professional Korean dermacosmetics products.',
+    images: ['/images/genosys-products.jpg'],
+  },
+  alternates: {
+    canonical: 'https://genosys.ae/favorites',
+  },
+}
 
 export default function FavoritesPage() {
-  const { favorites } = useFavorites()
-
   return (
     <div className="bg-white min-h-screen">
-      <div className="container mx-auto px-4 py-16">
-        <div className="max-w-6xl mx-auto">
-          
-          <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
-              Your Favorites
-            </h1>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              {favorites.length === 0 
-                ? "Your favorite products will appear here. Start adding products to your wishlist to see them in this section."
-                : `You have ${favorites.length} favorite product${favorites.length === 1 ? '' : 's'}.`
-              }
-            </p>
-          </div>
-
-          {favorites.length === 0 ? (
-            <div className="text-center">
-              <div className="mb-8">
-                <Heart className="h-16 w-16 text-gray-300 mx-auto mb-4" />
-              </div>
-              <Link
-                href="/products"
-                className="inline-block bg-primary-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-primary-700 transition-colors"
-              >
-                Browse Products
-              </Link>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {favorites.map((product) => (
-                <ProductCard key={product.id} product={product} />
-              ))}
-            </div>
-          )}
-        </div>
-      </div>
+      <BreadcrumbSchema
+        items={[
+          { name: 'Home', url: '/' },
+          { name: 'Favorites', url: '/favorites' }
+        ]}
+      />
+      <FavoritesClient />
     </div>
   )
 }

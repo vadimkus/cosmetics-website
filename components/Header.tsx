@@ -71,22 +71,22 @@ const Header = memo(function Header() {
             <Link href="/" className="text-gray-700 hover:text-primary-600 transition-colors">
               Home
             </Link>
-            <Link href="/about" className="text-gray-700 hover:text-primary-600 transition-colors">
+            <Link href="/about-genosys-middle-east" className="text-gray-700 hover:text-primary-600 transition-colors">
               About
             </Link>
-            <Link href="/brand" className="text-gray-700 hover:text-primary-600 transition-colors">
+            <Link href="/genosys-brand-story" className="text-gray-700 hover:text-primary-600 transition-colors">
               Brand
             </Link>
-            <Link href="/products" className="text-gray-700 hover:text-primary-600 transition-colors">
+            <Link href="/korean-dermacosmetics-products" className="text-gray-700 hover:text-primary-600 transition-colors">
               Products
             </Link>
-            <Link href="/training" className="text-gray-700 hover:text-primary-600 transition-colors">
+            <Link href="/professional-skincare-training" className="text-gray-700 hover:text-primary-600 transition-colors">
               Training
             </Link>
-            <Link href="/contact" className="text-gray-700 hover:text-primary-600 transition-colors">
+            <Link href="/contact-genosys-uae" className="text-gray-700 hover:text-primary-600 transition-colors">
               Contact
             </Link>
-            <Link href="/delivery" className="text-gray-700 hover:text-primary-600 transition-colors">
+            <Link href="/delivery-shipping-uae" className="text-gray-700 hover:text-primary-600 transition-colors">
               Delivery
             </Link>
           </nav>
@@ -253,42 +253,42 @@ const Header = memo(function Header() {
                 Home
               </Link>
               <Link 
-                href="/about" 
+                href="/about-genosys-middle-east" 
                 className="text-gray-700 hover:text-primary-600 transition-colors py-2 border-b border-gray-100"
                 onClick={() => setShowMobileMenu(false)}
               >
                 About
               </Link>
               <Link 
-                href="/brand" 
+                href="/genosys-brand-story" 
                 className="text-gray-700 hover:text-primary-600 transition-colors py-2 border-b border-gray-100"
                 onClick={() => setShowMobileMenu(false)}
               >
                 Brand
               </Link>
               <Link 
-                href="/products" 
+                href="/korean-dermacosmetics-products" 
                 className="text-gray-700 hover:text-primary-600 transition-colors py-2 border-b border-gray-100"
                 onClick={() => setShowMobileMenu(false)}
               >
                 Products
               </Link>
               <Link 
-                href="/training" 
+                href="/professional-skincare-training" 
                 className="text-gray-700 hover:text-primary-600 transition-colors py-2 border-b border-gray-100"
                 onClick={() => setShowMobileMenu(false)}
               >
                 Training
               </Link>
               <Link 
-                href="/contact" 
+                href="/contact-genosys-uae" 
                 className="text-gray-700 hover:text-primary-600 transition-colors py-2 border-b border-gray-100"
                 onClick={() => setShowMobileMenu(false)}
               >
                 Contact
               </Link>
               <Link 
-                href="/delivery" 
+                href="/delivery-shipping-uae" 
                 className="text-gray-700 hover:text-primary-600 transition-colors py-2 border-b border-gray-100"
                 onClick={() => setShowMobileMenu(false)}
               >

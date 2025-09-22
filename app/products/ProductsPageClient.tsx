@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { ArrowLeft } from 'lucide-react'
 import ProductCard from '@/components/ProductCard'
 import ErrorPage from '@/components/ErrorPage'
+import LoadingSpinner from '@/components/LoadingSpinner'
 import { useState, useMemo, useCallback, useEffect } from 'react'
 import { Product } from '@/types'
 import ProductsListSchema from '@/components/ProductsListSchema'
@@ -98,24 +99,11 @@ export default function ProductsPageClient() {
   }, [])
 
   if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-white">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto mb-4"></div>
-          <p className="text-gray-600 text-lg">Loading products...</p>
-        </div>
-      </div>
-    )
+    return <LoadingSpinner fullScreen text="Loading products..." size="xl" />
   }
 
   if (error) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-white">
-        <div className="text-center">
-          <p className="text-red-600 text-lg">Error: {error}</p>
-        </div>
-      </div>
-    )
+    return <ErrorPage error={error} />
   }
 
   console.log('Products loaded:', products.length, 'Filtered:', filteredProducts.length, 'Active category:', activeCategory)

@@ -56,16 +56,45 @@ export const generateOrderId = async (): Promise<string> => {
   try {
     const orderCount = await prisma.order.count()
     const orderNumber = orderCount + 1
-    return `Genosys Order ${orderNumber}`
+    const now = new Date()
+    const year = now.getFullYear().toString().slice(-2)
+    const month = (now.getMonth() + 1).toString().padStart(2, '0')
+    const day = now.getDate().toString().padStart(2, '0')
+    const sequence = orderNumber.toString().padStart(4, '0')
+    return `GEN${year}${month}${day}${sequence}`
   } catch (error) {
     console.error('Error generating order ID:', error)
-    return `Genosys Order ${Date.now()}`
+    const now = new Date()
+    const year = now.getFullYear().toString().slice(-2)
+    const month = (now.getMonth() + 1).toString().padStart(2, '0')
+    const day = now.getDate().toString().padStart(2, '0')
+    const sequence = Math.floor(Math.random() * 10000).toString().padStart(4, '0')
+    return `GEN${year}${month}${day}${sequence}`
   }
 }
 
 // Add order
 export const addOrder = async (orderData: OrderData): Promise<Order> => {
   try {
+    // First, ensure the customer exists in the database
+    await prisma.user.upsert({
+      where: { email: orderData.customerEmail },
+      update: {
+        name: orderData.customerName,
+        phone: orderData.customerPhone,
+        address: orderData.customerAddress,
+      },
+      create: {
+        email: orderData.customerEmail,
+        name: orderData.customerName,
+        password: 'temp-password', // Temporary password for guest orders
+        phone: orderData.customerPhone,
+        address: orderData.customerAddress,
+        isAdmin: false,
+        canSeePrices: false,
+      }
+    })
+
     return await prisma.order.create({
       data: {
         orderNumber: orderData.orderNumber,

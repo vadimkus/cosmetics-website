@@ -6,6 +6,7 @@ export const useCartStore = create<CartState>()(
   persist(
     (set, get) => ({
       items: [],
+      selectedEmirate: 'Dubai',
       
       addItem: (product: Product, quantity = 1) => {
         const items = get().items
@@ -59,6 +60,10 @@ export const useCartStore = create<CartState>()(
       
       getTotalItems: () => {
         return get().items.reduce((total, item) => total + item.quantity, 0)
+      },
+      
+      setSelectedEmirate: (emirate: string) => {
+        set({ selectedEmirate: emirate })
       }
     }),
     {

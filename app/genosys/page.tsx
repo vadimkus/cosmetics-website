@@ -5,7 +5,7 @@ import Logo from '@/components/Logo'
 export default function GenosysPage() {
   return (
     <div className="bg-white min-h-screen">
-      <div className="container mx-auto px-4 py-16">
+      <div className="container mx-auto px-4 py-8 md:py-16">
       <div className="max-w-4xl mx-auto">
         <div className="mb-6">
           <Link 
@@ -142,7 +142,7 @@ export default function GenosysPage() {
               View Products
             </Link>
             <Link 
-              href="/contact"
+              href="/contact-genosys-uae"
               className="border border-primary-600 text-primary-600 px-8 py-3 rounded-lg font-semibold hover:bg-primary-50 transition-colors"
             >
               Contact Us

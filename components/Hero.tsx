@@ -66,7 +66,7 @@ export default function Hero() {
             </button>
           )}
           <Link 
-            href="/about"
+            href="/about-genosys-middle-east"
             className="border border-primary-600 text-primary-600 px-6 md:px-8 py-3 md:py-4 rounded-lg font-semibold hover:bg-primary-50 transition-colors text-base md:text-lg"
           >
             Learn More

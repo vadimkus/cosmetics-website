@@ -18,11 +18,13 @@ export interface CartItem {
 
 export interface CartState {
   items: CartItem[]
+  selectedEmirate: string
   addItem: (product: Product, quantity?: number) => void
   removeItem: (productId: string) => void
   updateQuantity: (productId: string, quantity: number) => void
   clearCart: () => void
   getTotalPrice: () => number
   getTotalItems: () => number
+  setSelectedEmirate: (emirate: string) => void
 }
 

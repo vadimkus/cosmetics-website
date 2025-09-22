@@ -60,6 +60,8 @@ export default function AdminPage() {
   const [selectedCustomer, setSelectedCustomer] = useState<User | null>(null)
   const [showProductForm, setShowProductForm] = useState(false)
   const [editingProduct, setEditingProduct] = useState<Product | null>(null)
+  const [selectedOrders, setSelectedOrders] = useState<string[]>([])
+  const [isDeletingOrders, setIsDeletingOrders] = useState(false)
 
   const fetchUsers = async () => {
     try {
@@ -189,11 +191,7 @@ export default function AdminPage() {
     }
   }
 
-  const deleteUser = async (userId: string, userName: string) => {
-    if (!confirm(`Are you sure you want to delete user "${userName}"? This action cannot be undone.`)) {
-      return
-    }
-
+  const deleteUser = async (userId: string) => {
     try {
       const response = await fetch(`/api/admin/users/${userId}`, {
         method: 'DELETE'
@@ -201,22 +199,16 @@ export default function AdminPage() {
       
       if (response.ok) {
         setUsers(users.filter(user => user.id !== userId))
-        alert('User deleted successfully')
       } else {
         const errorData = await response.json()
-        alert(`Failed to delete user: ${errorData.error || 'Unknown error'}`)
+        console.error(`Failed to delete user: ${errorData.error || 'Unknown error'}`)
       }
     } catch (error) {
       console.error('Error deleting user:', error)
-      alert('Failed to delete user')
     }
   }
 
-  const deleteOrder = async (orderId: string, orderNumber: string) => {
-    if (!confirm(`Are you sure you want to delete order #${orderNumber}? This action cannot be undone.`)) {
-      return
-    }
-
+  const deleteOrder = async (orderId: string) => {
     try {
       const response = await fetch(`/api/admin/orders/${orderId}`, {
         method: 'DELETE'
@@ -224,14 +216,47 @@ export default function AdminPage() {
       
       if (response.ok) {
         setOrders(orders.filter(order => order.id !== orderId))
-        alert('Order deleted successfully')
       } else {
         const errorData = await response.json()
-        alert(`Failed to delete order: ${errorData.error || 'Unknown error'}`)
+        console.error(`Failed to delete order: ${errorData.error || 'Unknown error'}`)
       }
     } catch (error) {
       console.error('Error deleting order:', error)
-      alert('Failed to delete order')
+    }
+  }
+
+  const deleteSelectedOrders = async () => {
+    if (selectedOrders.length === 0) return
+
+    setIsDeletingOrders(true)
+    try {
+      const deletePromises = selectedOrders.map(orderId => 
+        fetch(`/api/admin/orders/${orderId}`, { method: 'DELETE' })
+      )
+      
+      await Promise.all(deletePromises)
+      setOrders(orders.filter(order => !selectedOrders.includes(order.id)))
+      setSelectedOrders([])
+    } catch (error) {
+      console.error('Error deleting orders:', error)
+    } finally {
+      setIsDeletingOrders(false)
+    }
+  }
+
+  const toggleOrderSelection = (orderId: string) => {
+    setSelectedOrders(prev => 
+      prev.includes(orderId) 
+        ? prev.filter(id => id !== orderId)
+        : [...prev, orderId]
+    )
+  }
+
+  const selectAllOrders = () => {
+    if (selectedOrders.length === orders.length) {
+      setSelectedOrders([])
+    } else {
+      setSelectedOrders(orders.map(order => order.id))
     }
   }
 
@@ -370,7 +395,7 @@ export default function AdminPage() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-16">
+    <div className="container mx-auto px-4 py-8 md:py-16">
       <div className="max-w-6xl mx-auto">
         <div className="flex justify-between items-center mb-8">
           <div className="flex items-center">
@@ -456,8 +481,8 @@ export default function AdminPage() {
                     await updateUser(id, updates)
                     setSelectedCustomer({ ...selectedCustomer, ...updates })
                   }}
-                  onDeleteCustomer={async (id, name) => {
-                    await deleteUser(id, name)
+                  onDeleteCustomer={async (id) => {
+                    await deleteUser(id)
                     setSelectedCustomer(null)
                   }}
                 />
@@ -598,7 +623,7 @@ export default function AdminPage() {
                               View Profile
                             </button>
                         <button
-                          onClick={() => deleteUser(user.id, user.name)}
+                          onClick={() => deleteUser(user.id)}
                               className="w-full px-3 py-1 bg-red-500 text-white rounded text-xs hover:bg-red-600 flex items-center justify-center gap-1"
                         >
                           <Trash2 className="h-3 w-3" />
@@ -672,24 +697,71 @@ export default function AdminPage() {
                       <p className="text-gray-400">Orders will appear here when customers make purchases.</p>
                       </div>
                     ) : (
-                      <div className="overflow-x-auto">
-                        <table className="w-full">
-                          <thead className="bg-gray-50">
-                            <tr>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Order ID</th>
-                              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Customer</th>
-                              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
-                              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Items</th>
-                              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total</th>
-                              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-                            </tr>
-                          </thead>
+                      <div>
+                        {/* Bulk Actions */}
+                        {selectedOrders.length > 0 && (
+                          <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-4">
+                            <div className="flex items-center justify-between">
+                              <div className="flex items-center gap-3">
+                                <span className="text-sm font-medium text-red-800">
+                                  {selectedOrders.length} order{selectedOrders.length > 1 ? 's' : ''} selected
+                                </span>
+                              </div>
+                              <button
+                                onClick={deleteSelectedOrders}
+                                disabled={isDeletingOrders}
+                                className="inline-flex items-center gap-2 px-4 py-2 bg-red-600 text-white text-sm rounded-lg hover:bg-red-700 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                              >
+                                {isDeletingOrders ? (
+                                  <>
+                                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                                    Deleting...
+                                  </>
+                                ) : (
+                                  <>
+                                    <Trash2 className="h-4 w-4" />
+                                    Delete Selected
+                                  </>
+                                )}
+                              </button>
+                            </div>
+                          </div>
+                        )}
+
+                        <div className="overflow-x-auto">
+                          <table className="w-full">
+                            <thead className="bg-gray-50">
+                              <tr>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                  <input
+                                    type="checkbox"
+                                    checked={selectedOrders.length === orders.length && orders.length > 0}
+                                    onChange={selectAllOrders}
+                                    className="rounded border-gray-300 text-red-600 focus:ring-red-500"
+                                  />
+                                </th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Order ID</th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Customer</th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Items</th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total</th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                              </tr>
+                            </thead>
                           <tbody className="bg-white divide-y divide-gray-200">
                             {orders.map((order) => (
                               <tr key={order.id} className="hover:bg-gray-50 transition-colors">
-                              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                #{order.id.slice(-8)}
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                  <input
+                                    type="checkbox"
+                                    checked={selectedOrders.includes(order.id)}
+                                    onChange={() => toggleOrderSelection(order.id)}
+                                    className="rounded border-gray-300 text-red-600 focus:ring-red-500"
+                                  />
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                  #{order.id.slice(-8)}
                                 </td>
                               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                 {order.customerName}
@@ -724,7 +796,7 @@ export default function AdminPage() {
                                     View Details
                                   </button>
                                   <button
-                                    onClick={() => deleteOrder(order.id, order.id.slice(-8))}
+                                    onClick={() => deleteOrder(order.id)}
                                     className="text-red-600 hover:text-red-900 font-semibold flex items-center gap-1"
                                     title="Delete Order"
                                   >
@@ -737,6 +809,7 @@ export default function AdminPage() {
                             ))}
                           </tbody>
                         </table>
+                        </div>
                       </div>
                 )}
               </div>

@@ -90,7 +90,12 @@ export function writeOrders(orders: Order[]): void {
 export function generateOrderId(): string {
   const orders = readOrders()
   const orderNumber = orders.length + 1
-  return `Genosys Order #${orderNumber}`
+  const now = new Date()
+  const year = now.getFullYear().toString().slice(-2)
+  const month = (now.getMonth() + 1).toString().padStart(2, '0')
+  const day = now.getDate().toString().padStart(2, '0')
+  const sequence = orderNumber.toString().padStart(4, '0')
+  return `GEN${year}${month}${day}${sequence}`
 }
 
 export function addOrder(order: Order): void {

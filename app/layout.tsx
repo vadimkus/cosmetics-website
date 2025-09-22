@@ -11,6 +11,7 @@ import PerformanceMonitor from '@/components/PerformanceMonitor'
 import { ServiceWorkerProvider } from '@/components/ServiceWorkerProvider'
 import PageViewTracker from '@/components/PageViewTracker'
 import OrganizationSchema from '@/components/OrganizationSchema'
+import ErrorBoundary from '@/components/ErrorBoundary'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -88,7 +89,9 @@ export default function RootLayout({
                 <PageViewTracker />
                 <Header />
                 <main className="min-h-screen">
-                  {children}
+                  <ErrorBoundary>
+                    {children}
+                  </ErrorBoundary>
                 </main>
                 <footer role="contentinfo" className="bg-white border-t border-gray-200 py-8">
                   <div className="container mx-auto px-4 text-center text-gray-600">

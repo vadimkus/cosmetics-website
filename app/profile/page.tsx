@@ -137,6 +137,97 @@ export default function ProfilePageNew() {
     }).format(amount)
   }
 
+  // Product name to image mapping - Complete list of all GENOSYS products
+  const getProductImage = (productName: string) => {
+    const imageMap: { [key: string]: string } = {
+      // Microneedling Devices
+      'Microneedle Roller': '/images/genosys-microneedling-devices.jpg',
+      'Needle Pen-K': '/images/Needle-pen.jpg',
+      'HairGen BOOSTER': '/images/Booster.jpg',
+      
+      // PRO Solutions
+      'POWER SOLUTION HES': '/images/HES.jpg',
+      'POWER SOLUTION CVS': '/images/CVS.jpg',
+      'POWER SOLUTION CTS': '/images/CTS.jpg',
+      'POWER SOLUTION PCS': '/images/PCS.jpg',
+      'POWER SOLUTION SWS': '/images/SWS.jpg',
+      'POWER SOLUTION AWS': '/images/AWS.jpg',
+      
+      // Cleansers
+      'SNOW O₂': '/images/SNOW.jpg',
+      'SKIN DEFENDER LIP & EYE MAKEUP REMOVER': '/images/DEF.jpg',
+      
+      // Peeling
+      'EPI TURNOVER BOOSTING PEELING GEL': '/images/EPI.jpg',
+      'SKIN RENEWAL PEELING SYSTEM (SRS)': '/images/SRS.jpg',
+      
+      // Toner/Mist
+      'MICROBIOME ENERGY INFUSING MIST': '/images/mist.jpg',
+      'INTENSIVE PROBLEM CONTROL TONER': '/images/PRS.jpg',
+      'SNOW BOOSTER': '/images/BOOS.jpg',
+      
+      // Eye Care
+      'EyeCell EYE CONTOUR SERUM': '/images/EYS.jpg',
+      'EyeCell EYE CONTOUR CREAM': '/images/EC.jpg',
+      'EyeCell EYE PEPTIDE GEL PATCH': '/images/Patch.jpg',
+      'EyeCell EYE ZONE CARE KIT': '/images/EYEZ.jpg',
+      
+      // Serums
+      'MOISTURE REPLENISHING HYALURON SERUM': '/images/HRS.jpg',
+      'ALL FOR SENSITIVE SERUM': '/images/ASE.jpg',
+      'PROBLEM CONTROL SERUM': '/images/PRSS.jpg',
+      'MULTI VITA RADIANCE SERUM': '/images/RADS.jpg',
+      'MULTI FUNCTIONAL ANTI-WRINKLE SERUM': '/images/MSSS.jpg',
+      
+      // Creams
+      'ND Cell ANTI-WRINKLE CREAM': '/images/ND.jpg',
+      'SOOTHING REPAIR POSTCREAM': '/images/SRC.jpg',
+      'EGF REPAIR OXYMASK CREAM': '/images/EGF.jpg',
+      'SKIN BARRIER PROTECTING CREAM': '/images/BRR.jpg',
+      'INTENSIVE HYDRO SOOTHING CREAM': '/images/HSC.jpg',
+      'MOISTURE REPLENISHING HYALURON CREAM': '/images/HER.jpg',
+      'INTENSIVE PROBLEM CONTROL CREAM': '/images/PRB.jpg',
+      'MULTI VITA RADIANCE CREAM': '/images/RAA.jpg',
+      'MULTI FUNCTIONAL ANTI-WRINKLE CREAM': '/images/ANT.jpg',
+      
+      // Masks
+      'SKIN RESCUE OVERNIGHT CREAM MASK': '/images/SKIN.jpg',
+      'HYDRO COOL MODELING MASK': '/images/HYDR.jpg',
+      'SOOTHING BOMB SEA ALGAE MASK': '/images/SEA.jpg',
+      'PEPTIDE GEL MASK': '/images/PEP.jpg',
+      'EZ CO₂ MASK KIT': '/images/EZE.jpg',
+      
+      // Sun Protection
+      'ULTRA SHIELD SUN CREAM [SPF 50+ PA++++]': '/images/SPF50.jpg',
+      'MULTI SUN CREAM [SPF 40 PA++]': '/images/SSUN.jpg',
+      
+      // Cushion BB
+      'SKIN CARING BLEMISH BALM CUSHION [SPF 50+ PA++++]': '/images/BBC.jpg',
+      'INTENSIVE BLEMISH BALM CREAM [SPF 30 PA++]': '/images/BLEM.jpg',
+      
+      // Scalp/Hair
+      'HR³ MATRIX HAIR TONIC α': '/images/HT.jpg',
+      'HR³ MATRIX SCALP SHAMPOO α': '/images/Sham.jpg',
+      'HR³ MATRIX HAIR SOLUTION α': '/images/HHR.jpg',
+      'HR³ MATRIX SCALP PEELING α': '/images/scal.jpg',
+      'HR³ MATRIX MESOPECIA KIT': '/images/meso.jpg',
+      
+      // Devices
+      'Hair-GENTRON': '/images/gen.jpg',
+      'GENO-LED IR II': '/images/LEDD.jpg',
+      
+      // Special Products (from training/profile pages)
+      'BIO-FERMENT AGE DEFYING POWDER MASK': '/images/BFAD.png',
+      'SKIN REBOOT PDRN MASK PACK': '/images/REB.png',
+      
+      // Test/Support Products
+      'Test Product': '/images/placeholder.jpg',
+      'Support Product': '/images/placeholder.jpg'
+    }
+    
+    return imageMap[productName] || '/images/placeholder.jpg'
+  }
+
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'paid':
@@ -321,7 +412,7 @@ export default function ProfilePageNew() {
     <div className="min-h-screen bg-white">
       {/* Header */}
       <div className="bg-white/80 backdrop-blur-sm border-b border-white/20 sticky top-0 z-40">
-        <div className="container mx-auto px-4 py-4">
+        <div className="container mx-auto px-4 py-8 md:py-16">
           <div className="flex items-center justify-between">
             <Link 
               href="/" 
@@ -337,7 +428,7 @@ export default function ProfilePageNew() {
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-8 md:py-16">
         <div className="max-w-6xl mx-auto">
           
           {/* Profile Header Card */}
@@ -836,59 +927,109 @@ export default function ProfilePageNew() {
                   </Link>
                 </div>
               ) : (
-                <div className="space-y-6">
+                <div className="space-y-4">
                   {orders.map((order) => (
-                    <div key={order.id} className="bg-white/50 backdrop-blur-sm rounded-xl p-6 border border-gray-200 hover:shadow-lg transition-all duration-200">
-                      <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-6">
-                        <div className="flex-1">
-                          <div className="flex items-center gap-3 mb-3">
-                            <h3 className="text-lg font-semibold text-gray-800">Order #{order.id}</h3>
-                            <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-sm font-medium border ${getStatusColor(order.status)}`}>
+                    <div key={order.id} className="bg-white rounded-2xl border border-gray-200 shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden">
+                      {/* Order Header */}
+                      <div className="bg-gradient-to-r from-gray-50 to-gray-100 px-6 py-4 border-b border-gray-200">
+                        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                          <div className="flex items-center gap-4">
+                            <div className="flex items-center gap-3">
+                              <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-sm">
+                                <Package className="h-5 w-5 text-gray-600" />
+                              </div>
+                              <div>
+                                <h3 className="text-lg font-bold text-gray-900">Order #{order.orderNumber || order.id}</h3>
+                                <p className="text-sm text-gray-600">
+                                  {new Date(order.createdAt).toLocaleDateString('en-AE', {
+                                    year: 'numeric',
+                                    month: 'short',
+                                    day: 'numeric',
+                                    hour: '2-digit',
+                                    minute: '2-digit'
+                                  })}
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-3">
+                            <span className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold border ${getStatusColor(order.status)}`}>
                               {getStatusIcon(order.status)}
                               {order.status.toUpperCase()}
                             </span>
+                            <div className="text-right">
+                              <p className="text-xl font-bold text-gray-900">{formatCurrency(order.total)}</p>
+                              <p className="text-xs text-gray-500">
+                                {order.items.reduce((sum, item) => sum + item.quantity, 0)} items
+                              </p>
+                            </div>
                           </div>
-                          <p className="text-sm text-gray-600 mb-4">
-                            {new Date(order.createdAt).toLocaleDateString('en-AE', {
-                              year: 'numeric',
-                              month: 'long',
-                              day: 'numeric',
-                              hour: '2-digit',
-                              minute: '2-digit'
-                            })}
-                          </p>
-                          <div className="flex flex-wrap gap-2">
-                            {order.items.slice(0, 3).map((item, index) => (
-                              <div key={index} className="flex items-center gap-2 bg-white rounded-lg p-3 border border-gray-200 shadow-sm">
-                                <img
-                                  src={item.image}
-                                  alt={item.productName}
-                                  className="w-10 h-10 object-cover rounded-lg"
-                                />
-                                <span className="text-sm text-gray-700 font-medium">
-                                  {item.productName} × {item.quantity}
-                                </span>
+                        </div>
+                      </div>
+
+                      {/* Order Content */}
+                      <div className="p-6">
+                        <div className="mb-4">
+                          <h4 className="text-sm font-semibold text-gray-700 mb-3 flex items-center gap-2">
+                            <ShoppingBag className="h-4 w-4" />
+                            Products Ordered
+                          </h4>
+                          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                            {order.items.slice(0, 6).map((item, index) => (
+                              <div key={index} className="flex items-center gap-3 bg-gray-50 rounded-xl p-3 border border-gray-100 hover:bg-gray-100 transition-colors">
+                                <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center overflow-hidden shadow-sm border border-gray-200">
+                                  <img
+                                    src={getProductImage(item.productName)}
+                                    alt={item.productName}
+                                    className="w-full h-full object-cover"
+                                    onError={(e) => {
+                                      const target = e.target as HTMLImageElement;
+                                      target.style.display = 'none';
+                                      const parent = target.parentElement;
+                                      if (parent) {
+                                        parent.innerHTML = '<div class="w-full h-full flex items-center justify-center text-gray-400 text-xs">📦</div>';
+                                      }
+                                    }}
+                                  />
+                                </div>
+                                <div className="flex-1 min-w-0">
+                                  <p className="text-sm font-medium text-gray-900 truncate">
+                                    {item.productName}
+                                  </p>
+                                  <div className="flex items-center gap-2 text-xs text-gray-600">
+                                    <span>Qty: {item.quantity}</span>
+                                    <span>•</span>
+                                    <span className="font-medium text-gray-800">{formatCurrency(item.price * item.quantity)}</span>
+                                  </div>
+                                </div>
                               </div>
                             ))}
-                            {order.items.length > 3 && (
-                              <div className="flex items-center bg-white rounded-lg p-3 border border-gray-200 shadow-sm">
-                                <span className="text-sm text-gray-500 font-medium">
-                                  +{order.items.length - 3} more items
+                            {order.items.length > 6 && (
+                              <div className="flex items-center justify-center bg-gray-50 rounded-xl p-3 border border-gray-100">
+                                <span className="text-sm text-gray-600 font-medium">
+                                  +{order.items.length - 6} more products
                                 </span>
                               </div>
                             )}
                           </div>
                         </div>
-                        <div className="text-center lg:text-right">
-                          <p className="text-2xl font-bold text-gray-800 mb-2">{formatCurrency(order.total)}</p>
-                          <p className="text-sm text-gray-500 mb-4">
-                            {order.items.reduce((sum, item) => sum + item.quantity, 0)} items
-                          </p>
+
+                        {/* Order Actions */}
+                        <div className="flex items-center justify-between pt-4 border-t border-gray-200">
+                          <div className="flex items-center gap-2 text-sm text-gray-600">
+                            <Calendar className="h-4 w-4" />
+                            <span>Ordered on {new Date(order.createdAt).toLocaleDateString('en-AE', { 
+                              year: 'numeric', 
+                              month: 'long', 
+                              day: 'numeric' 
+                            })}</span>
+                          </div>
                           {(order.status === 'pending' || order.status === 'paid') && (
                             <button
                               onClick={() => cancelOrder(order.id)}
-                              className="px-4 py-2 bg-red-500 text-white text-sm rounded-lg hover:bg-red-600 transition-colors font-medium"
+                              className="inline-flex items-center gap-2 px-4 py-2 bg-red-50 text-red-700 text-sm rounded-lg hover:bg-red-100 transition-colors font-medium border border-red-200"
                             >
+                              <X className="h-4 w-4" />
                               Cancel Order
                             </button>
                           )}

@@ -79,7 +79,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
           { name: product.name, url: `/products/${product.id}` }
         ]}
       />
-      <div className="container mx-auto px-4 py-4 md:py-8">
+      <div className="container mx-auto px-4 py-8 md:py-16">
         {/* Navigation Breadcrumb */}
         <nav className="flex items-center gap-2 text-sm md:text-base text-gray-600 mb-4 md:mb-6 py-1 min-h-[32px] md:min-h-[36px]" aria-label="Breadcrumb">
           <Link 

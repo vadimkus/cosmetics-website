@@ -254,7 +254,9 @@ export const performanceMonitoring = {
       new PerformanceObserver((list) => {
         const entries = list.getEntries()
         entries.forEach((entry) => {
-          console.log('FID:', entry.processingStart - entry.startTime)
+          if (entry.entryType === 'first-input' && 'processingStart' in entry) {
+            console.log('FID:', (entry as any).processingStart - entry.startTime)
+          }
         })
       }).observe({ entryTypes: ['first-input'] })
 

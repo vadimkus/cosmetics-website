@@ -265,8 +265,10 @@ export const performanceMonitoring = {
       new PerformanceObserver((list) => {
         const entries = list.getEntries()
         entries.forEach((entry) => {
-          if (!entry.hadRecentInput) {
-            clsValue += entry.value
+          if (entry.entryType === 'layout-shift' && 'hadRecentInput' in entry && 'value' in entry) {
+            if (!(entry as any).hadRecentInput) {
+              clsValue += (entry as any).value
+            }
           }
         })
         console.log('CLS:', clsValue)

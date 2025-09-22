@@ -21,6 +21,7 @@ Disallow: /login/
 # Allow optimized pages
 Allow: /korean-dermacosmetics-products/
 Allow: /products/category/
+Allow: /products/
 Allow: /about-genosys-middle-east
 Allow: /genosys-brand-story
 Allow: /professional-skincare-training
@@ -28,9 +29,9 @@ Allow: /contact-genosys-uae
 Allow: /delivery-shipping-uae
 Allow: /genosys-official
 Allow: /professional-documents
+Allow: /documents/
 
 # Allow legacy pages (will redirect)
-Allow: /products/
 Allow: /about
 Allow: /brand
 Allow: /training
@@ -38,8 +39,8 @@ Allow: /contact
 Allow: /delivery
 Allow: /genosys
 
-# Crawl delay (optional)
-Crawl-delay: 1`
+# Crawl delay (optimized for better SEO)
+Crawl-delay: 0.5`
 
   return new NextResponse(robotsTxt, {
     status: 200,

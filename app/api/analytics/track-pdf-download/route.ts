@@ -12,7 +12,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Get request headers for analytics data
-    const headersList = headers()
+    const headersList = await headers()
     const userAgent = headersList.get('user-agent') || ''
     const ipAddress = headersList.get('x-forwarded-for') || 
                      headersList.get('x-real-ip') || 

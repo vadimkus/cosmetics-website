@@ -171,8 +171,8 @@ export default function TrainingPage() {
                       </div>
                       <div className="flex-1 min-w-0">
                         <h4 className="text-sm font-semibold text-gray-900 truncate">
-                        GENOSYS FACIAL TREATMENT Homecare 2025
-                      </h4>
+                          Facial Treatment Homecare 2026
+                        </h4>
                         <p className="text-xs text-gray-400">
                         8.2 MB
                       </p>

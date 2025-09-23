@@ -92,7 +92,7 @@ export default function LoginClient() {
 
             <div className="text-center">
               <p className="text-sm text-gray-600 mb-4">
-                Don't have a professional account?
+                Don&apos;t have a professional account?
               </p>
               <a
                 href="https://wa.me/971501234567?text=Hi, I'm interested in becoming a professional customer for GENOSYS Korean dermacosmetics. Can you help me with registration?"

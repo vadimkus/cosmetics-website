@@ -99,7 +99,7 @@ export default function PDFViewerClient({ filename, pdfUrl }: PDFViewerClientPro
         
         {/* Footer info */}
         <div className="mt-6 text-center text-sm text-gray-500">
-          <p>If the PDF doesn't load properly, try opening it in a new tab or downloading it.</p>
+          <p>If the PDF doesn&apos;t load properly, try opening it in a new tab or downloading it.</p>
         </div>
       </div>
     </div>

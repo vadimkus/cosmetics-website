@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
-import { User as UserIcon, Phone, MapPin, Percent, Crown, Building, Package, ShoppingBag, Clock, CheckCircle, Truck, X, CreditCard, Trash2, RefreshCw, ArrowLeft, BarChart3, Plus, Edit, Image as ImageIcon, Shield } from 'lucide-react'
+import { User as UserIcon, Package, Clock, CheckCircle, Truck, X, Trash2, RefreshCw, ArrowLeft, BarChart3, Plus, Edit, Image as ImageIcon, Shield } from 'lucide-react'
 import AdminLogin from '@/components/AdminLogin'
 import AnalyticsDashboard from '@/components/AnalyticsDashboard'
 import CustomerProfile from '@/components/CustomerProfile'

@@ -223,7 +223,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   <>
                     <h3 className="text-lg font-semibold text-gray-800 mb-2">Microneedling Therapy</h3>
                     <p className="text-gray-600 mb-4">
-                      Microneedling therapy is a minimally invasive cosmetic procedure that involves using fine needles to create hundreds of tiny, invisible puncture wounds in the top layer of skin. This process stimulates the body's natural wound healing processes, resulting in cell and collagen turnover.
+                      Microneedling therapy is a minimally invasive cosmetic procedure that involves using fine needles to create hundreds of tiny, invisible puncture wounds in the top layer of skin. This process stimulates the body&apos;s natural wound healing processes, resulting in cell and collagen turnover.
                     </p>
                     <p className="text-gray-600 mb-4">
                       Types of GENOSYS microneedling device are subdivided to facial roller, roller/stamp for scalp, body roller, eye roller, Needle pen-K depending on the treatment area and purpose of treatment, allowing effective and safe treatment.

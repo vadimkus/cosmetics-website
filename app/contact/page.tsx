@@ -71,7 +71,7 @@ export default function ContactPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 mb-8 md:mb-12">
             <div className="text-center p-4 md:p-6 bg-gray-50 rounded-lg">
               <Phone className="h-6 w-6 md:h-8 md:w-8 text-black mx-auto mb-3 md:mb-4" />
-              <h3 className="text-base md:text-lg font-semibold text-gray-800 mb-2">Phone/What's up</h3>
+              <h3 className="text-base md:text-lg font-semibold text-gray-800 mb-2">Phone/What&apos;s up</h3>
               <a 
                 href="https://wa.me/971585487665"
                 target="_blank"

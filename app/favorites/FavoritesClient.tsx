@@ -31,7 +31,7 @@ export default function FavoritesClient() {
             <Heart className="h-24 w-24 text-gray-300 mx-auto mb-4" />
             <h1 className="text-3xl font-bold text-gray-900 mb-4">No Favorites Yet</h1>
             <p className="text-gray-600 text-lg mb-8">
-              You haven't added any products to your favorites yet. Start exploring our collection!
+              You haven&apos;t added any products to your favorites yet. Start exploring our collection!
             </p>
           </div>
           

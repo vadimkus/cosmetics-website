@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { ArrowLeft } from 'lucide-react'
 import BreadcrumbSchema from '@/components/BreadcrumbSchema'
 import type { Metadata } from 'next'
 
@@ -65,7 +64,7 @@ export default function BrandPage() {
               Genosys Gene Re-Birth System
             </h1>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-8">
-              GENOSYS is the world's first microneedling-dedicated brand born by combining microneedling with the cosmeceuticals specially formulated for microneedling treatment to optimize the skin care effects.
+              GENOSYS is the world&apos;s first microneedling-dedicated brand born by combining microneedling with the cosmeceuticals specially formulated for microneedling treatment to optimize the skin care effects.
             </p>
             
             {/* Video Section */}

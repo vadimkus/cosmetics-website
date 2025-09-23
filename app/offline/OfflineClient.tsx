@@ -35,7 +35,7 @@ export default function OfflineClient() {
         <div className="text-center">
           <Wifi className="h-16 w-16 text-green-500 mx-auto mb-4" />
           <h1 className="text-2xl font-bold text-gray-800 mb-2">Back Online!</h1>
-          <p className="text-gray-600 mb-4">You're connected to the internet again.</p>
+          <p className="text-gray-600 mb-4">You&apos;re connected to the internet again.</p>
           <Link 
             href="/"
             className="inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
@@ -54,11 +54,11 @@ export default function OfflineClient() {
         <div className="mb-8">
           <WifiOff className="h-20 w-20 text-gray-400 mx-auto mb-4" />
           <h1 className="text-3xl font-bold text-gray-800 mb-2">
-            You're Offline
+            You&apos;re Offline
           </h1>
           <p className="text-gray-600 mb-6">
-            It looks like you're not connected to the internet. Don't worry, 
-            you can still browse some of our content that's been cached.
+            It looks like you&apos;re not connected to the internet. Don&apos;t worry, 
+            you can still browse some of our content that&apos;s been cached.
           </p>
         </div>
 

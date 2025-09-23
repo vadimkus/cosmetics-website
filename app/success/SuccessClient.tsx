@@ -56,17 +56,17 @@ function SuccessContent() {
           </div>
 
           <div className="bg-gray-50 rounded-lg p-6 mb-8">
-            <h2 className="text-lg font-semibold text-gray-800 mb-4">What's Next?</h2>
+            <h2 className="text-lg font-semibold text-gray-800 mb-4">What&apos;s Next?</h2>
             <div className="space-y-3 text-left">
               {paymentMethod === 'support-link' ? (
                 <>
                   <div className="flex items-center">
                     <div className="w-6 h-6 bg-primary-600 text-white rounded-full flex items-center justify-center text-sm font-bold mr-3">1</div>
-                    <span className="text-gray-700">Our support team will contact you via phone/what'sup</span>
+                    <span className="text-gray-700">Our support team will contact you via phone/what&apos;sup</span>
                   </div>
                   <div className="flex items-center">
                     <div className="w-6 h-6 bg-primary-600 text-white rounded-full flex items-center justify-center text-sm font-bold mr-3">2</div>
-                    <span className="text-gray-700">You'll receive a secure Stripe payment link</span>
+                    <span className="text-gray-700">You&apos;ll receive a secure Stripe payment link</span>
                   </div>
                   <div className="flex items-center">
                     <div className="w-6 h-6 bg-primary-600 text-white rounded-full flex items-center justify-center text-sm font-bold mr-3">3</div>
@@ -74,22 +74,22 @@ function SuccessContent() {
                   </div>
                   <div className="flex items-center">
                     <div className="w-6 h-6 bg-primary-600 text-white rounded-full flex items-center justify-center text-sm font-bold mr-3">4</div>
-                    <span className="text-gray-700">You'll receive Careem tracking information once your order ships</span>
+                    <span className="text-gray-700">You&apos;ll receive Careem tracking information once your order ships</span>
                   </div>
                 </>
               ) : (
                 <>
                   <div className="flex items-center">
                     <div className="w-6 h-6 bg-primary-600 text-white rounded-full flex items-center justify-center text-sm font-bold mr-3">1</div>
-                    <span className="text-gray-700">You'll receive an email confirmation with your order details</span>
+                    <span className="text-gray-700">You&apos;ll receive an email confirmation with your order details</span>
                   </div>
                   <div className="flex items-center">
                     <div className="w-6 h-6 bg-primary-600 text-white rounded-full flex items-center justify-center text-sm font-bold mr-3">2</div>
-                    <span className="text-gray-700">We'll process and ship your order ASAP</span>
+                    <span className="text-gray-700">We&apos;ll process and ship your order ASAP</span>
                   </div>
                   <div className="flex items-center">
                     <div className="w-6 h-6 bg-primary-600 text-white rounded-full flex items-center justify-center text-sm font-bold mr-3">3</div>
-                    <span className="text-gray-700">You'll receive tracking information once your order ships</span>
+                    <span className="text-gray-700">You&apos;ll receive tracking information once your order ships</span>
                   </div>
                 </>
               )}

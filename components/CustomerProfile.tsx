@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import { 
   UserIcon, 
   Mail, 
@@ -112,9 +112,26 @@ export default function CustomerProfile({
     favoriteCategory: 'N/A'
   })
 
+  const fetchCustomerOrders = useCallback(async () => {
+    try {
+      setLoading(true)
+      const response = await fetch(`/api/admin/orders?customerEmail=${customer.email}`)
+      const data = await response.json()
+      
+      if (data.success) {
+        setOrders(data.orders || [])
+        calculateCustomerStats(data.orders || [])
+      }
+    } catch (error) {
+      console.error('Error fetching customer orders:', error)
+    } finally {
+      setLoading(false)
+    }
+  }, [customer.email])
+
   useEffect(() => {
     fetchCustomerOrders()
-  }, [customer.id])
+  }, [customer.id, fetchCustomerOrders])
 
   const handleEdit = () => {
     setEditing(true)
@@ -224,23 +241,6 @@ export default function CustomerProfile({
       console.error('Error refreshing customer data:', error)
     } finally {
       setRefreshing(false)
-    }
-  }
-
-  const fetchCustomerOrders = async () => {
-    try {
-      setLoading(true)
-      const response = await fetch(`/api/admin/orders?customerEmail=${customer.email}`)
-      const data = await response.json()
-      
-      if (data.success) {
-        setOrders(data.orders || [])
-        calculateCustomerStats(data.orders || [])
-      }
-    } catch (error) {
-      console.error('Error fetching customer orders:', error)
-    } finally {
-      setLoading(false)
     }
   }
 

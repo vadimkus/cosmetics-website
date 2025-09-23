@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import { ArrowLeft } from 'lucide-react'
 import Logo from '@/components/Logo'
 import BreadcrumbSchema from '@/components/BreadcrumbSchema'
 import type { Metadata } from 'next'
@@ -86,7 +85,7 @@ export default function AboutPage() {
           <div className="bg-white rounded-lg shadow-sm border p-6">
             <h2 className="text-2xl font-semibold text-gray-800 mb-4 text-center">Our Mission</h2>
             <p className="text-gray-600 leading-relaxed">
-              To provide exceptional beauty products and services that enhance our customers' 
+              To provide exceptional beauty products and services that enhance our customers&apos; 
               confidence and natural beauty, while maintaining the highest standards of quality 
               and customer satisfaction.
             </p>

@@ -4,7 +4,7 @@ import { useCart } from '@/components/CartProvider'
 import { useAuth } from '@/components/AuthProvider'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { ArrowLeft, CreditCard, Lock, Percent, Crown, Building, MapPin, Truck, MessageCircle, Mail } from 'lucide-react'
+import { ArrowLeft, CreditCard, Lock, MapPin, Truck, MessageCircle, Mail, Building } from 'lucide-react'
 import Link from 'next/link'
 
 export default function CheckoutClient() {

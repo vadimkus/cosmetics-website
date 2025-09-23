@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     const products = await prisma.product.findMany({
       orderBy: {
@@ -9,9 +9,10 @@ export async function GET(request: NextRequest) {
       },
     })
     return NextResponse.json({ success: true, products })
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Error fetching products:', error)
-    return NextResponse.json({ success: false, error: error.message }, { status: 500 })
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred'
+    return NextResponse.json({ success: false, error: errorMessage }, { status: 500 })
   }
 }
 
@@ -38,8 +39,9 @@ export async function POST(request: NextRequest) {
     })
 
     return NextResponse.json({ success: true, product: newProduct }, { status: 201 })
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Error creating product:', error)
-    return NextResponse.json({ success: false, error: error.message }, { status: 500 })
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred'
+    return NextResponse.json({ success: false, error: errorMessage }, { status: 500 })
   }
 }

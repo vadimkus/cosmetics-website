@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { RefreshCw } from 'lucide-react'
 
 interface AnalyticsData {
@@ -60,11 +60,7 @@ export default function AnalyticsDashboard({ onCustomerClick }: AnalyticsDashboa
   const [refreshing, setRefreshing] = useState(false)
   const [timeRange, setTimeRange] = useState(30)
 
-  useEffect(() => {
-    fetchAnalytics()
-  }, [timeRange])
-
-  const fetchAnalytics = async (isRefresh = false) => {
+  const fetchAnalytics = useCallback(async (isRefresh = false) => {
     try {
       if (isRefresh) {
         setRefreshing(true)
@@ -104,7 +100,11 @@ export default function AnalyticsDashboard({ onCustomerClick }: AnalyticsDashboa
       setLoading(false)
       setRefreshing(false)
     }
-  }
+  }, [timeRange])
+
+  useEffect(() => {
+    fetchAnalytics()
+  }, [fetchAnalytics])
 
   const handleRefresh = () => {
     fetchAnalytics(true)

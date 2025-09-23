@@ -13,9 +13,10 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
     }
 
     return NextResponse.json({ success: true, product })
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Error fetching product:', error)
-    return NextResponse.json({ success: false, error: error.message }, { status: 500 })
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred'
+    return NextResponse.json({ success: false, error: errorMessage }, { status: 500 })
   }
 }
 
@@ -44,9 +45,10 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
     })
 
     return NextResponse.json({ success: true, product: updatedProduct })
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Error updating product:', error)
-    return NextResponse.json({ success: false, error: error.message }, { status: 500 })
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred'
+    return NextResponse.json({ success: false, error: errorMessage }, { status: 500 })
   }
 }
 
@@ -71,8 +73,9 @@ export async function DELETE(request: NextRequest, { params }: { params: Promise
     })
 
     return NextResponse.json({ success: true, message: 'Product deleted successfully' })
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Error deleting product:', error)
-    return NextResponse.json({ success: false, error: error.message }, { status: 500 })
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred'
+    return NextResponse.json({ success: false, error: errorMessage }, { status: 500 })
   }
 }

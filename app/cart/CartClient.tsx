@@ -4,7 +4,7 @@ import { useCart } from '@/components/CartProvider'
 import { useAuth } from '@/components/AuthProvider'
 import CartItem from '@/components/CartItem'
 import Link from 'next/link'
-import { ShoppingBag, ArrowLeft, Lock, Percent, Crown, Building, MessageCircle, MapPin } from 'lucide-react'
+import { ShoppingBag, ArrowLeft, Lock, MessageCircle, MapPin } from 'lucide-react'
 
 export default function CartClient() {
   const { items, getTotalPrice, getTotalItems, selectedEmirate, setSelectedEmirate } = useCart()
@@ -55,7 +55,7 @@ export default function CartClient() {
             <ShoppingBag className="h-24 w-24 text-gray-300 mx-auto mb-4" />
             <h1 className="text-3xl font-bold text-gray-900 mb-4">Your Cart is Empty</h1>
             <p className="text-gray-600 text-lg mb-8">
-              Looks like you haven't added any products to your cart yet.
+              Looks like you haven&apos;t added any products to your cart yet.
             </p>
           </div>
           

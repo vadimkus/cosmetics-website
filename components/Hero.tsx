@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { ArrowRight } from 'lucide-react'
 import { useAuth } from './AuthProvider'
 import LoginModal from './LoginModal'
@@ -37,10 +38,13 @@ export default function Hero() {
         
         {/* GENOSYS Logo */}
         <div className="mb-6 md:mb-8 flex justify-center">
-          <img 
+          <Image 
             src="/images/genosys-logo.png" 
             alt="GENOSYS Logo" 
+            width={80}
+            height={80}
             className="h-16 md:h-20 w-auto"
+            priority
           />
         </div>
         

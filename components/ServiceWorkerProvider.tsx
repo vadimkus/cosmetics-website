@@ -53,7 +53,7 @@ export function ServiceWorkerStatus() {
         <div className="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-2 rounded-lg shadow-lg mb-2">
           <div className="flex items-center">
             <div className="w-2 h-2 bg-yellow-500 rounded-full mr-2"></div>
-            <span className="text-sm font-medium">You're offline</span>
+            <span className="text-sm font-medium">You&apos;re offline</span>
           </div>
         </div>
       )}

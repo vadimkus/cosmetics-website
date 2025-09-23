@@ -263,7 +263,7 @@ export const withErrorBoundary = <P extends object>(
   Component: React.ComponentType<P>,
   fallback?: React.ComponentType<{ error: AppError }>
 ) => {
-  return class extends React.Component<P, { hasError: boolean; error?: AppError }> {
+  return class ErrorBoundaryWrapper extends React.Component<P, { hasError: boolean; error?: AppError }> {
     constructor(props: P) {
       super(props)
       this.state = { hasError: false }

@@ -1208,13 +1208,15 @@ export default function ProfilePageNew() {
                         9.8 MB
                       </p>
                       </div>
-                      <a 
+                      <PDFDownloadButton
                         href="https://genosys.ae/documents/Genosys-Home-Care-Guide.pdf"
+                        filename="Home Care Guide 2026"
+                        external={true}
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-md hover:from-green-700 hover:to-green-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
                         <Download className="h-3 w-3 mr-1" />
                         View PDF
-                      </a>
+                      </PDFDownloadButton>
                     </div>
                   </div>
                   
@@ -1231,13 +1233,15 @@ export default function ProfilePageNew() {
                         10.4 MB
                       </p>
                       </div>
-                      <a 
+                      <PDFDownloadButton
                         href="https://genosys.ae/documents/Genosys-Professional-Manual.pdf"
+                        filename="Professional Manual 2026"
+                        external={true}
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-md hover:from-green-700 hover:to-green-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
                         <Download className="h-3 w-3 mr-1" />
                         View PDF
-                      </a>
+                      </PDFDownloadButton>
                     </div>
                   </div>
                 </div>
@@ -1273,13 +1277,15 @@ export default function ProfilePageNew() {
                           2.1 MB
                         </p>
                       </div>
-                      <a 
+                      <PDFDownloadButton 
                         href="/documents/ppt/GENOSYS%20MULTI%20VITA%20RADIANCE%20CREAM.pdf"
+                        filename="MULTI VITA RADIANCE CREAM"
+                        external={true}
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
                         <Download className="h-3 w-3 mr-1" />
                         View PDF
-                      </a>
+                      </PDFDownloadButton>
                     </div>
                   </div>
                   
@@ -1302,13 +1308,14 @@ export default function ProfilePageNew() {
                         1.8 MB
                       </p>
                       </div>
-                      <a 
-                        href="/documents/ppt/GENOSYS%20EyeCell%20EYE%20ZONE%20CARE%20SYSTEM.pdf"
+                      <PDFDownloadButton 
+                        href="/documents/ppt/GENOSYS%20EyeCell%20EYE%20ZONE%20CARE%20SYSTEM.pdf" filename="EyeCell EYE ZONE CARE SYSTEM"
+                        external={true}
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
                         <Download className="h-3 w-3 mr-1" />
                         View PDF
-                      </a>
+                      </PDFDownloadButton>
                     </div>
                   </div>
                   
@@ -1332,13 +1339,14 @@ export default function ProfilePageNew() {
                         3.8 MB
                       </p>
                       </div>
-                      <a 
-                        href="/documents/ppt/GENOSYS%20EPI%20TURNOVER%20BOOSTING%20PEELING%20GEL.pdf"
+                      <PDFDownloadButton 
+                        href="/documents/ppt/GENOSYS%20EPI%20TURNOVER%20BOOSTING%20PEELING%20GEL.pdf" filename="EPI TURNOVER BOOSTING PEELING GEL"
+                        external={true}
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
                         <Download className="h-3 w-3 mr-1" />
                         View PDF
-                      </a>
+                      </PDFDownloadButton>
                     </div>
                   </div>
                   
@@ -1362,13 +1370,14 @@ export default function ProfilePageNew() {
                         1.5 MB
                       </p>
                       </div>
-                      <a 
-                        href="/documents/ppt/GENOSYS%20MULTI%20VITA%20RADIANCE%20SERUM.pdf"
+                      <PDFDownloadButton 
+                        href="/documents/ppt/GENOSYS%20MULTI%20VITA%20RADIANCE%20SERUM.pdf" filename="MULTI VITA RADIANCE SERUM"
+                        external={true}
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
                         <Download className="h-3 w-3 mr-1" />
                         View PDF
-                      </a>
+                      </PDFDownloadButton>
                     </div>
                   </div>
                   
@@ -1392,13 +1401,15 @@ export default function ProfilePageNew() {
                         0.7 MB
                       </p>
                       </div>
-                      <a 
+                      <PDFDownloadButton 
                         href="/documents/ppt/GENOSYS%20SKIN%20DEFENDER%20LIP%20%26%20EYE%20MAKEUP%20REMOVER.pdf"
+                        filename="SKIN DEFENDER LIP & EYE MAKEUP REMOVER"
+                        external={true}
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
                         <Download className="h-3 w-3 mr-1" />
                         View PDF
-                      </a>
+                      </PDFDownloadButton>
                     </div>
                   </div>
                   
@@ -1422,13 +1433,14 @@ export default function ProfilePageNew() {
                         0.8 MB
                       </p>
                       </div>
-                      <a 
-                        href="/documents/ppt/GENOSYS%20MICROBIOME%20ENERGY%20INFUSING%20MIST.pdf"
+                      <PDFDownloadButton 
+                        href="/documents/ppt/GENOSYS%20MICROBIOME%20ENERGY%20INFUSING%20MIST.pdf" filename="MICROBIOME ENERGY INFUSING MIST"
+                        external={true}
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
                         <Download className="h-3 w-3 mr-1" />
                         View PDF
-                      </a>
+                      </PDFDownloadButton>
                     </div>
                   </div>
                   
@@ -1452,13 +1464,14 @@ export default function ProfilePageNew() {
                         1.3 MB
                       </p>
                       </div>
-                      <a 
-                        href="/documents/ppt/GENOSYS%20SKIN%20RESCUE%20OVERNIGHT%20CREAM%20MASK.pdf"
+                      <PDFDownloadButton 
+                        href="/documents/ppt/GENOSYS%20SKIN%20RESCUE%20OVERNIGHT%20CREAM%20MASK.pdf" filename="SKIN RESCUE OVERNIGHT CREAM MASK"
+                        external={true}
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
                         <Download className="h-3 w-3 mr-1" />
                         View PDF
-                      </a>
+                      </PDFDownloadButton>
                     </div>
                   </div>
                   
@@ -1482,13 +1495,14 @@ export default function ProfilePageNew() {
                         1.0 MB
                       </p>
                       </div>
-                      <a 
-                        href="/documents/ppt/GENOSYS%20INTENSIVE%20PROBLEM%20CONTROL%20TONER.pdf"
+                      <PDFDownloadButton 
+                        href="/documents/ppt/GENOSYS%20INTENSIVE%20PROBLEM%20CONTROL%20TONER.pdf" filename="INTENSIVE PROBLEM CONTROL TONER"
+                        external={true}
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
                         <Download className="h-3 w-3 mr-1" />
                         View PDF
-                      </a>
+                      </PDFDownloadButton>
                     </div>
                   </div>
                   
@@ -1512,13 +1526,14 @@ export default function ProfilePageNew() {
                         0.6 MB
                       </p>
                       </div>
-                      <a 
-                        href="/documents/ppt/GENOSYS%20ULTRA%20SHIELD%20SUN%20CREAM.pdf"
+                      <PDFDownloadButton 
+                        href="/documents/ppt/GENOSYS%20ULTRA%20SHIELD%20SUN%20CREAM.pdf" filename="ULTRA SHIELD SUN CREAM"
+                        external={true}
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
                         <Download className="h-3 w-3 mr-1" />
                         View PDF
-                      </a>
+                      </PDFDownloadButton>
                     </div>
                   </div>
                   
@@ -1542,13 +1557,14 @@ export default function ProfilePageNew() {
                         2.3 MB
                       </p>
                       </div>
-                      <a 
-                        href="/documents/ppt/GENOSYS%20HR3%20MATRIX%20SCALP%20SHAMPOO%20ALPHA.pdf"
+                      <PDFDownloadButton 
+                        href="/documents/ppt/GENOSYS%20HR3%20MATRIX%20SCALP%20SHAMPOO%20ALPHA.pdf" filename="HR³ MATRIX SCALP SHAMPOO α"
+                        external={true}
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
                         <Download className="h-3 w-3 mr-1" />
                         View PDF
-                      </a>
+                      </PDFDownloadButton>
                     </div>
                   </div>
                   
@@ -1572,13 +1588,14 @@ export default function ProfilePageNew() {
                         1.9 MB
                       </p>
                       </div>
-                      <a 
-                        href="/documents/ppt/GENOSYS%20MOISTURE%20REPLENISHING%20HYALURON%20SERUM.pdf"
+                      <PDFDownloadButton 
+                        href="/documents/ppt/GENOSYS%20MOISTURE%20REPLENISHING%20HYALURON%20SERUM.pdf" filename="MOISTURE REPLENISHING HYALURON SERUM"
+                        external={true}
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
                         <Download className="h-3 w-3 mr-1" />
                         View PDF
-                      </a>
+                      </PDFDownloadButton>
                     </div>
                   </div>
                   
@@ -1602,13 +1619,14 @@ export default function ProfilePageNew() {
                         2.0 MB
                       </p>
                       </div>
-                      <a 
-                        href="/documents/ppt/GENOSYS%20MOISTURE%20REPLENISHING%20HYALURON%20CREAM.pdf"
+                      <PDFDownloadButton 
+                        href="/documents/ppt/GENOSYS%20MOISTURE%20REPLENISHING%20HYALURON%20CREAM.pdf" filename="MOISTURE REPLENISHING HYALURON CREAM"
+                        external={true}
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
                         <Download className="h-3 w-3 mr-1" />
                         View PDF
-                      </a>
+                      </PDFDownloadButton>
                     </div>
                   </div>
                   
@@ -1632,13 +1650,14 @@ export default function ProfilePageNew() {
                         1.2 MB
                       </p>
                       </div>
-                      <a 
-                        href="/documents/ppt/GENOSYS%20SKIN%20CARING%20BLEMISH%20BALM%20CUSHION.pdf"
+                      <PDFDownloadButton 
+                        href="/documents/ppt/GENOSYS%20SKIN%20CARING%20BLEMISH%20BALM%20CUSHION.pdf" filename="SKIN CARING BLEMISH BALM CUSHION"
+                        external={true}
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
                         <Download className="h-3 w-3 mr-1" />
                         View PDF
-                      </a>
+                      </PDFDownloadButton>
                     </div>
                   </div>
                   
@@ -1662,13 +1681,14 @@ export default function ProfilePageNew() {
                         1.4 MB
                       </p>
                       </div>
-                      <a 
-                        href="/documents/ppt/GENOSYS%20EyeCell%20EYE%20PEPTIDE%20GEL%20PATCH.pdf"
+                      <PDFDownloadButton 
+                        href="/documents/ppt/GENOSYS%20EyeCell%20EYE%20PEPTIDE%20GEL%20PATCH.pdf" filename="EyeCell EYE PEPTIDE GEL PATCH"
+                        external={true}
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
                         <Download className="h-3 w-3 mr-1" />
                         View PDF
-                      </a>
+                      </PDFDownloadButton>
                     </div>
                   </div>
                   
@@ -1692,13 +1712,14 @@ export default function ProfilePageNew() {
                         2.1 MB
                       </p>
                       </div>
-                      <a 
-                        href="/documents/ppt/GENOSYS%20BIO-FERMENT%20AGE%20DEFYING%20POWDER%20MASK.pdf"
+                      <PDFDownloadButton 
+                        href="/documents/ppt/GENOSYS%20BIO-FERMENT%20AGE%20DEFYING%20POWDER%20MASK.pdf" filename="BIO-FERMENT AGE DEFYING POWDER MASK"
+                        external={true}
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
                         <Download className="h-3 w-3 mr-1" />
                         View PDF
-                      </a>
+                      </PDFDownloadButton>
                     </div>
                   </div>
                   
@@ -1722,13 +1743,14 @@ export default function ProfilePageNew() {
                         1.8 MB
                       </p>
                       </div>
-                      <a 
-                        href="/documents/ppt/HAIR%20GENTRON.pdf"
+                      <PDFDownloadButton 
+                        href="/documents/ppt/HAIR%20GENTRON.pdf" filename="HAIR GENTRON"
+                        external={true}
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
                         <Download className="h-3 w-3 mr-1" />
                         View PDF
-                      </a>
+                      </PDFDownloadButton>
                     </div>
                   </div>
                   
@@ -1752,13 +1774,14 @@ export default function ProfilePageNew() {
                         2.3 MB
                       </p>
                       </div>
-                      <a 
-                        href="/documents/ppt/GENOSYS%20HR3%20MATRIX%20HAIR%20SOLUTION%20ALPHA.pdf"
+                      <PDFDownloadButton 
+                        href="/documents/ppt/GENOSYS%20HR3%20MATRIX%20HAIR%20SOLUTION%20ALPHA.pdf" filename="HR³ MATRIX HAIR SOLUTION α"
+                        external={true}
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
                         <Download className="h-3 w-3 mr-1" />
                         View PDF
-                      </a>
+                      </PDFDownloadButton>
                     </div>
                   </div>
                   
@@ -1782,13 +1805,14 @@ export default function ProfilePageNew() {
                         1.9 MB
                       </p>
                       </div>
-                      <a 
-                        href="/documents/ppt/GENOSYS%20HR3%20MATRIX%20HAIR%20TONIC%20ALPHA.pdf"
+                      <PDFDownloadButton 
+                        href="/documents/ppt/GENOSYS%20HR3%20MATRIX%20HAIR%20TONIC%20ALPHA.pdf" filename="HR³ MATRIX HAIR TONIC α"
+                        external={true}
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
                         <Download className="h-3 w-3 mr-1" />
                         View PDF
-                      </a>
+                      </PDFDownloadButton>
                     </div>
                   </div>
                   
@@ -1812,13 +1836,14 @@ export default function ProfilePageNew() {
                         2.1 MB
                       </p>
                       </div>
-                      <a 
-                        href="/documents/ppt/GENOSYS%20HR3%20MATRIX%20SCALP%20PEELING%20ALPHA.pdf"
+                      <PDFDownloadButton 
+                        href="/documents/ppt/GENOSYS%20HR3%20MATRIX%20SCALP%20PEELING%20ALPHA.pdf" filename="HR³ MATRIX SCALP PEELING α"
+                        external={true}
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
                         <Download className="h-3 w-3 mr-1" />
                         View PDF
-                      </a>
+                      </PDFDownloadButton>
                     </div>
                   </div>
                   
@@ -1842,13 +1867,14 @@ export default function ProfilePageNew() {
                         4.6 MB
                       </p>
                       </div>
-                      <a 
-                        href="/documents/ppt/GENO-LED%20IR%20II_2025.pdf"
+                      <PDFDownloadButton 
+                        href="/documents/ppt/GENO-LED%20IR%20II_2025.pdf" filename="GENO-LED IR II"
+                        external={true}
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
                         <Download className="h-3 w-3 mr-1" />
                         View PDF
-                      </a>
+                      </PDFDownloadButton>
                     </div>
                   </div>
 
@@ -1872,13 +1898,14 @@ export default function ProfilePageNew() {
                         1.2 MB
                       </p>
                       </div>
-                      <a 
-                        href="/documents/ppt/GENOSYS%20SKIN%20REBOOT%20PDRN%20MASK%20PACK.pdf"
+                      <PDFDownloadButton 
+                        href="/documents/ppt/GENOSYS%20SKIN%20REBOOT%20PDRN%20MASK%20PACK.pdf" filename="GENOSYS SKIN REBOOT PDRN MASK PACK"
+                        external={true}
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
                         <Download className="h-3 w-3 mr-1" />
                         View PDF
-                      </a>
+                      </PDFDownloadButton>
                     </div>
                   </div>
                   
@@ -1902,13 +1929,14 @@ export default function ProfilePageNew() {
                         0.5 MB
                       </p>
                       </div>
-                      <a 
-                        href="/documents/ppt/Genosys%20Ez%20Co2%20Mask.pdf"
+                      <PDFDownloadButton 
+                        href="/documents/ppt/Genosys%20Ez%20Co2%20Mask.pdf" filename="EZ CO₂ MASK KIT"
+                        external={true}
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
                         <Download className="h-3 w-3 mr-1" />
                         View PDF
-                      </a>
+                      </PDFDownloadButton>
                     </div>
                   </div>
                 </div>

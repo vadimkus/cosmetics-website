@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { ArrowLeft, Download } from 'lucide-react'
+import PDFDownloadButton from '@/components/PDFDownloadButton'
 import BreadcrumbSchema from '@/components/BreadcrumbSchema'
 import type { Metadata } from 'next'
 
@@ -101,13 +102,15 @@ export default function TrainingPage() {
                         235.5 MB
                       </p>
                       </div>
-                      <a 
+                      <PDFDownloadButton
                         href="https://u.pcloud.link/publink/show?code=XZ9wc15ZDTFcM6uvKg0snY1dEJwzwQgHsEF7"
+                        filename="Product Catalogue 2026"
+                        external={true}
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-md hover:from-green-700 hover:to-green-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
                         <Download className="h-3 w-3 mr-1" />
                         View PDF
-                      </a>
+                      </PDFDownloadButton>
                     </div>
                   </div>
                 
@@ -124,13 +127,15 @@ export default function TrainingPage() {
                         9.8 MB
                       </p>
                       </div>
-                      <a 
+                      <PDFDownloadButton
                         href="https://genosys.ae/documents/Genosys-Home-Care-Guide.pdf"
+                        filename="Home Care Guide 2026"
+                        external={true}
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-md hover:from-green-700 hover:to-green-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
                         <Download className="h-3 w-3 mr-1" />
                         View PDF
-                      </a>
+                      </PDFDownloadButton>
                     </div>
                   </div>
                 
@@ -147,13 +152,15 @@ export default function TrainingPage() {
                         10.4 MB
                       </p>
                       </div>
-                      <a 
+                      <PDFDownloadButton
                         href="https://genosys.ae/documents/Genosys-Professional-Manual.pdf"
+                        filename="Professional Manual 2026"
+                        external={true}
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-md hover:from-green-700 hover:to-green-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
                         <Download className="h-3 w-3 mr-1" />
                         View PDF
-                      </a>
+                      </PDFDownloadButton>
                     </div>
                   </div>
                 
@@ -170,13 +177,40 @@ export default function TrainingPage() {
                         8.2 MB
                       </p>
                       </div>
-                      <a 
+                      <PDFDownloadButton
                         href="/documents/PPT/GENOSYS%20FACIAL%20TREATMENT_Homecare_2025.pdf"
+                        filename="Facial Treatment Homecare 2026"
+                        external={true}
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-md hover:from-green-700 hover:to-green-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
                         <Download className="h-3 w-3 mr-1" />
                         View PDF
-                      </a>
+                      </PDFDownloadButton>
+                    </div>
+                  </div>
+                  
+                  <div className="group border border-gray-200 rounded-lg p-3 hover:border-green-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0 group-hover:bg-green-100 transition-colors">
+                        <Download className="h-5 w-5 text-green-600" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h4 className="text-sm font-semibold text-gray-900 truncate">
+                          Facial Treatment Professional 2026
+                        </h4>
+                        <p className="text-xs text-gray-400">
+                          8.2 MB
+                        </p>
+                      </div>
+                      <PDFDownloadButton
+                        href="/documents/ppt/GENOSYS%20FACIAL%20TREATMENT_Professional_2025.pdf"
+                        filename="Facial Treatment Professional 2026"
+                        external={true}
+                        className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-md hover:from-green-700 hover:to-green-800 transition-colors text-xs font-medium flex-shrink-0"
+                      >
+                        <Download className="h-3 w-3 mr-1" />
+                        View PDF
+                      </PDFDownloadButton>
                     </div>
                   </div>
                 </div>
@@ -212,13 +246,15 @@ export default function TrainingPage() {
                         2.1 MB
                       </p>
                       </div>
-                      <a 
+                      <PDFDownloadButton 
                         href="/documents/ppt/GENOSYS%20MULTI%20VITA%20RADIANCE%20CREAM.pdf"
+                        filename="Product Documentation"
+                        external={true}
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
                         <Download className="h-3 w-3 mr-1" />
                         View PDF
-                      </a>
+                      </PDFDownloadButton>
                     </div>
                   </div>
                   
@@ -241,13 +277,15 @@ export default function TrainingPage() {
                         1.8 MB
                       </p>
                       </div>
-                      <a 
+                      <PDFDownloadButton 
                         href="/documents/ppt/GENOSYS%20EyeCell%20EYE%20ZONE%20CARE%20SYSTEM.pdf"
+                        filename="Product Documentation"
+                        external={true}
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
                         <Download className="h-3 w-3 mr-1" />
                         View PDF
-                      </a>
+                      </PDFDownloadButton>
                     </div>
                   </div>
                   
@@ -271,13 +309,15 @@ export default function TrainingPage() {
                         3.8 MB
                       </p>
                       </div>
-                      <a 
+                      <PDFDownloadButton 
                         href="/documents/ppt/GENOSYS%20EPI%20TURNOVER%20BOOSTING%20PEELING%20GEL.pdf"
+                        filename="Product Documentation"
+                        external={true}
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
                         <Download className="h-3 w-3 mr-1" />
                         View PDF
-                      </a>
+                      </PDFDownloadButton>
                     </div>
                   </div>
                   
@@ -301,13 +341,15 @@ export default function TrainingPage() {
                         1.5 MB
                       </p>
                       </div>
-                      <a 
+                      <PDFDownloadButton 
                         href="/documents/ppt/GENOSYS%20MULTI%20VITA%20RADIANCE%20SERUM.pdf"
+                        filename="Product Documentation"
+                        external={true}
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
                         <Download className="h-3 w-3 mr-1" />
                         View PDF
-                      </a>
+                      </PDFDownloadButton>
                     </div>
                   </div>
                   
@@ -331,13 +373,15 @@ export default function TrainingPage() {
                         0.7 MB
                       </p>
                       </div>
-                      <a 
+                      <PDFDownloadButton 
                         href="/documents/ppt/GENOSYS%20SKIN%20DEFENDER%20LIP%20%26%20EYE%20MAKEUP%20REMOVER.pdf"
+                        filename="Product Documentation"
+                        external={true}
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
                         <Download className="h-3 w-3 mr-1" />
                         View PDF
-                      </a>
+                      </PDFDownloadButton>
                     </div>
                   </div>
                   
@@ -361,13 +405,15 @@ export default function TrainingPage() {
                         0.8 MB
                       </p>
                       </div>
-                      <a 
+                      <PDFDownloadButton 
                         href="/documents/ppt/GENOSYS%20MICROBIOME%20ENERGY%20INFUSING%20MIST.pdf"
+                        filename="Product Documentation"
+                        external={true}
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
                         <Download className="h-3 w-3 mr-1" />
                         View PDF
-                      </a>
+                      </PDFDownloadButton>
                     </div>
                   </div>
                   
@@ -391,13 +437,15 @@ export default function TrainingPage() {
                         1.3 MB
                       </p>
                       </div>
-                      <a 
+                      <PDFDownloadButton 
                         href="/documents/ppt/GENOSYS%20SKIN%20RESCUE%20OVERNIGHT%20CREAM%20MASK.pdf"
+                        filename="Product Documentation"
+                        external={true}
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
                         <Download className="h-3 w-3 mr-1" />
                         View PDF
-                      </a>
+                      </PDFDownloadButton>
                     </div>
                   </div>
                   
@@ -421,13 +469,15 @@ export default function TrainingPage() {
                         1.0 MB
                       </p>
                       </div>
-                      <a 
+                      <PDFDownloadButton 
                         href="/documents/ppt/GENOSYS%20INTENSIVE%20PROBLEM%20CONTROL%20TONER.pdf"
+                        filename="Product Documentation"
+                        external={true}
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
                         <Download className="h-3 w-3 mr-1" />
                         View PDF
-                      </a>
+                      </PDFDownloadButton>
                     </div>
                   </div>
                   
@@ -451,13 +501,15 @@ export default function TrainingPage() {
                         0.6 MB
                       </p>
                       </div>
-                      <a 
+                      <PDFDownloadButton 
                         href="/documents/ppt/GENOSYS%20ULTRA%20SHIELD%20SUN%20CREAM.pdf"
+                        filename="Product Documentation"
+                        external={true}
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
                         <Download className="h-3 w-3 mr-1" />
                         View PDF
-                      </a>
+                      </PDFDownloadButton>
                     </div>
                   </div>
                   
@@ -481,13 +533,15 @@ export default function TrainingPage() {
                         2.3 MB
                       </p>
                       </div>
-                      <a 
+                      <PDFDownloadButton 
                         href="/documents/ppt/GENOSYS%20HR3%20MATRIX%20SCALP%20SHAMPOO%20ALPHA.pdf"
+                        filename="Product Documentation"
+                        external={true}
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
                         <Download className="h-3 w-3 mr-1" />
                         View PDF
-                      </a>
+                      </PDFDownloadButton>
                     </div>
                   </div>
                   
@@ -511,13 +565,15 @@ export default function TrainingPage() {
                         1.9 MB
                       </p>
                       </div>
-                      <a 
+                      <PDFDownloadButton 
                         href="/documents/ppt/GENOSYS%20MOISTURE%20REPLENISHING%20HYALURON%20SERUM.pdf"
+                        filename="Product Documentation"
+                        external={true}
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
                         <Download className="h-3 w-3 mr-1" />
                         View PDF
-                      </a>
+                      </PDFDownloadButton>
                     </div>
                   </div>
                   
@@ -541,13 +597,15 @@ export default function TrainingPage() {
                         2.0 MB
                       </p>
                       </div>
-                      <a 
+                      <PDFDownloadButton 
                         href="/documents/ppt/GENOSYS%20MOISTURE%20REPLENISHING%20HYALURON%20CREAM.pdf"
+                        filename="Product Documentation"
+                        external={true}
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
                         <Download className="h-3 w-3 mr-1" />
                         View PDF
-                      </a>
+                      </PDFDownloadButton>
                     </div>
                   </div>
                   
@@ -571,13 +629,15 @@ export default function TrainingPage() {
                         1.2 MB
                       </p>
                       </div>
-                      <a 
+                      <PDFDownloadButton 
                         href="/documents/ppt/GENOSYS%20SKIN%20CARING%20BLEMISH%20BALM%20CUSHION.pdf"
+                        filename="Product Documentation"
+                        external={true}
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
                         <Download className="h-3 w-3 mr-1" />
                         View PDF
-                      </a>
+                      </PDFDownloadButton>
                     </div>
                   </div>
                   
@@ -601,13 +661,15 @@ export default function TrainingPage() {
                         1.4 MB
                       </p>
                       </div>
-                      <a 
+                      <PDFDownloadButton 
                         href="/documents/ppt/GENOSYS%20EyeCell%20EYE%20PEPTIDE%20GEL%20PATCH.pdf"
+                        filename="Product Documentation"
+                        external={true}
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
                         <Download className="h-3 w-3 mr-1" />
                         View PDF
-                      </a>
+                      </PDFDownloadButton>
                     </div>
                   </div>
                   
@@ -631,13 +693,15 @@ export default function TrainingPage() {
                         2.1 MB
                       </p>
                       </div>
-                      <a 
+                      <PDFDownloadButton 
                         href="/documents/ppt/GENOSYS%20BIO-FERMENT%20AGE%20DEFYING%20POWDER%20MASK.pdf"
+                        filename="Product Documentation"
+                        external={true}
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
                         <Download className="h-3 w-3 mr-1" />
                         View PDF
-                      </a>
+                      </PDFDownloadButton>
                     </div>
                   </div>
                   
@@ -661,13 +725,15 @@ export default function TrainingPage() {
                         1.8 MB
                       </p>
                       </div>
-                      <a 
+                      <PDFDownloadButton 
                         href="/documents/ppt/HAIR%20GENTRON.pdf"
+                        filename="Product Documentation"
+                        external={true}
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
                         <Download className="h-3 w-3 mr-1" />
                         View PDF
-                      </a>
+                      </PDFDownloadButton>
                     </div>
                   </div>
                   
@@ -691,13 +757,15 @@ export default function TrainingPage() {
                         2.3 MB
                       </p>
                       </div>
-                      <a 
+                      <PDFDownloadButton 
                         href="/documents/ppt/GENOSYS%20HR3%20MATRIX%20HAIR%20SOLUTION%20ALPHA.pdf"
+                        filename="Product Documentation"
+                        external={true}
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
                         <Download className="h-3 w-3 mr-1" />
                         View PDF
-                      </a>
+                      </PDFDownloadButton>
                     </div>
                   </div>
                   
@@ -721,13 +789,15 @@ export default function TrainingPage() {
                         1.9 MB
                       </p>
                       </div>
-                      <a 
+                      <PDFDownloadButton 
                         href="/documents/ppt/GENOSYS%20HR3%20MATRIX%20HAIR%20TONIC%20ALPHA.pdf"
+                        filename="Product Documentation"
+                        external={true}
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
                         <Download className="h-3 w-3 mr-1" />
                         View PDF
-                      </a>
+                      </PDFDownloadButton>
                     </div>
                   </div>
                   
@@ -751,13 +821,15 @@ export default function TrainingPage() {
                         2.1 MB
                       </p>
                       </div>
-                      <a 
+                      <PDFDownloadButton 
                         href="/documents/ppt/GENOSYS%20HR3%20MATRIX%20SCALP%20PEELING%20ALPHA.pdf"
+                        filename="Product Documentation"
+                        external={true}
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
                         <Download className="h-3 w-3 mr-1" />
                         View PDF
-                      </a>
+                      </PDFDownloadButton>
                     </div>
                   </div>
                   
@@ -781,13 +853,15 @@ export default function TrainingPage() {
                         4.6 MB
                       </p>
                       </div>
-                      <a 
+                      <PDFDownloadButton 
                         href="/documents/ppt/GENO-LED%20IR%20II_2025.pdf"
+                        filename="Product Documentation"
+                        external={true}
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
                         <Download className="h-3 w-3 mr-1" />
                         View PDF
-                      </a>
+                      </PDFDownloadButton>
                     </div>
                   </div>
 
@@ -811,13 +885,15 @@ export default function TrainingPage() {
                         1.2 MB
                       </p>
                       </div>
-                      <a 
+                      <PDFDownloadButton 
                         href="/documents/ppt/GENOSYS%20SKIN%20REBOOT%20PDRN%20MASK%20PACK.pdf"
+                        filename="Product Documentation"
+                        external={true}
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
                         <Download className="h-3 w-3 mr-1" />
                         View PDF
-                      </a>
+                      </PDFDownloadButton>
                     </div>
                   </div>
                   
@@ -841,13 +917,15 @@ export default function TrainingPage() {
                         0.5 MB
                       </p>
                       </div>
-                      <a 
+                      <PDFDownloadButton 
                         href="/documents/ppt/Genosys%20Ez%20Co2%20Mask.pdf"
+                        filename="Product Documentation"
+                        external={true}
                         className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
                       >
                         <Download className="h-3 w-3 mr-1" />
                         View PDF
-                      </a>
+                      </PDFDownloadButton>
                     </div>
                   </div>
                 </div>

@@ -17,8 +17,9 @@ const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://cosmetics-website-5jzy.vercel.app'),
-  title: 'Genosys Middle East FZ-LLC - Premium Beauty Products',
-  description: 'Discover our premium collection of cosmetics and beauty products',
+  title: 'Genosys Dubai - Premium Beauty Products & Cosmetics UAE',
+  description: 'Genosys Dubai - Premium beauty products and cosmetics in UAE. Discover our professional skincare, hair care, and beauty treatments.',
+  keywords: 'Genosys Dubai, Genosys cosmetics Dubai, beauty products Dubai, cosmetics UAE, skincare Dubai, professional beauty, Genosys Middle East, beauty treatments UAE, premium cosmetics',
   icons: {
     icon: [
       { url: '/favicon/genosys-official-favicon.ico?v=5', type: 'image/x-icon' },
@@ -39,9 +40,9 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: 'website',
-    siteName: 'Genosys Middle East FZ-LLC',
-    title: 'Premium Beauty Products',
-    description: 'Discover our premium collection of cosmetics and beauty products',
+    siteName: 'Genosys Dubai',
+    title: 'Genosys Dubai - Premium Beauty Products & Cosmetics UAE',
+    description: 'Genosys Dubai - Premium beauty products and cosmetics in UAE. Discover our professional skincare, hair care, and beauty treatments.',
     images: [
       {
         url: '/images/genosys-products.jpg',

@@ -142,7 +142,12 @@ export const getAnalyticsData = async (days: number = 30) => {
     uniqueVisitors,
     totalOrders,
     totalRevenue,
-    pdfDownloads
+    pdfDownloads,
+    topPages,
+    topCountries,
+    deviceStats,
+    browserStats,
+    userRegistrations
   ] = await Promise.all([
     prisma.pageView.count({
       where: { timestamp: { gte: startDate } }
@@ -166,13 +171,89 @@ export const getAnalyticsData = async (days: number = 30) => {
     }),
     prisma.pDFDownload.count({
       where: { timestamp: { gte: startDate } }
+    }),
+    // Get top pages
+    prisma.pageView.groupBy({
+      by: ['page'],
+      where: { timestamp: { gte: startDate } },
+      _count: { page: true },
+      orderBy: { _count: { page: 'desc' } },
+      take: 10
+    }),
+    // Get top countries
+    prisma.pageView.groupBy({
+      by: ['country'],
+      where: { 
+        timestamp: { gte: startDate },
+        country: { not: null }
+      },
+      _count: { country: true },
+      orderBy: { _count: { country: 'desc' } },
+      take: 10
+    }),
+    // Get device stats
+    prisma.pageView.groupBy({
+      by: ['deviceType'],
+      where: { 
+        timestamp: { gte: startDate },
+        deviceType: { not: null }
+      },
+      _count: { deviceType: true }
+    }),
+    // Get browser stats
+    prisma.pageView.groupBy({
+      by: ['browser'],
+      where: { 
+        timestamp: { gte: startDate },
+        browser: { not: null }
+      },
+      _count: { browser: true },
+      orderBy: { _count: { browser: 'desc' } },
+      take: 5
+    }),
+    // Get user registrations
+    prisma.user.count({
+      where: { 
+        createdAt: { gte: startDate }
+      }
     })
   ])
 
+  // Format the data to match component expectations
+  const deviceAnalytics = {
+    mobile: deviceStats.find(d => d.deviceType === 'mobile')?._count.deviceType || 0,
+    tablet: deviceStats.find(d => d.deviceType === 'tablet')?._count.deviceType || 0,
+    desktop: deviceStats.find(d => d.deviceType === 'desktop')?._count.deviceType || 0,
+    topBrowsers: browserStats.map(b => ({
+      browser: b.browser || 'Unknown',
+      count: b._count.browser
+    })),
+    topOS: [] // We don't track OS separately, but component expects this
+  }
+
   return {
+    totalVisitors: uniqueVisitors, // Map uniqueVisitors to totalVisitors
     totalPageViews,
     uniqueVisitors,
-    totalOrders,
+    topPages: topPages.map(p => ({
+      page: p.page || 'Unknown',
+      views: p._count.page
+    })),
+    topCountries: topCountries.map(c => ({
+      country: c.country || 'Unknown',
+      visitors: c._count.country
+    })),
+    topCities: [], // Will be populated by separate API call
+    deviceAnalytics,
+    uxMetrics: {
+      bounceRate: 0, // Will be calculated separately
+      avgSessionDuration: 0, // Will be calculated separately
+      avgPageViewsPerSession: 0 // Will be calculated separately
+    },
+    recentActivity: [], // Will be populated by timeline API
+    userRegistrations,
+    ordersPlaced: totalOrders,
+    conversionRate: uniqueVisitors > 0 ? (totalOrders / uniqueVisitors) * 100 : 0,
     totalRevenue: totalRevenue._sum.total || 0,
     pdfDownloads
   }

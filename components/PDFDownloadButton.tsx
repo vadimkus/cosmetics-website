@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { Download } from 'lucide-react'
 import { usePDFTracking } from '@/lib/pdfTracking'
+import { trackPDFDownload } from '@/lib/analytics'
 
 interface PDFDownloadButtonProps {
   href: string
@@ -29,6 +30,9 @@ export default function PDFDownloadButton({
     try {
       // Track the download
       await trackDownload(filename)
+      
+      // Track in Google Analytics
+      trackPDFDownload(filename)
       
       if (external) {
         // For external links, open in new tab

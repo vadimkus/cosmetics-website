@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import Image from 'next/image'
+import Script from 'next/script'
 import './globals.css'
 import { CartProvider } from '@/components/CartProvider'
 import AuthProvider from '@/components/AuthProvider'
@@ -78,6 +79,19 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        {/* Google Analytics */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-50SH0F79YG"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-50SH0F79YG');
+          `}
+        </Script>
       </head>
       <body className={inter.className}>
         <OrganizationSchema />

@@ -252,8 +252,24 @@ export const getTopCities = async (days: number = 30) => {
   }))
 }
 
-export const trackUserAction = async (action: string, userId?: string, metadata?: any) => {
+export const trackUserAction = async (data: {
+  action: string;
+  userEmail?: string;
+  details?: string;
+  userId?: string;
+  metadata?: any;
+}) => {
   // This function is for server-side tracking
   // For client-side tracking, use the gtag functions above
-  console.log('User action tracked:', { action, userId, metadata })
+  console.log('User action tracked:', data)
+  
+  // You can add database logging here if needed
+  // await prisma.userAction.create({
+  //   data: {
+  //     action: data.action,
+  //     userEmail: data.userEmail,
+  //     details: data.details,
+  //     metadata: data.metadata
+  //   }
+  // })
 }

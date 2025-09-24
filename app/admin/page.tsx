@@ -215,7 +215,7 @@ export default function AdminPage() {
       })
       
       if (response.ok) {
-        setOrders(orders.filter(order => order.id !== orderId))
+        setOrders(orders.filter(order => order.id && order.id !== orderId))
       } else {
         const errorData = await response.json()
         console.error(`Failed to delete order: ${errorData.error || 'Unknown error'}`)
@@ -235,7 +235,7 @@ export default function AdminPage() {
       )
       
       await Promise.all(deletePromises)
-      setOrders(orders.filter(order => !selectedOrders.includes(order.id)))
+      setOrders(orders.filter(order => order.id && !selectedOrders.includes(order.id)))
       setSelectedOrders([])
     } catch (error) {
       console.error('Error deleting orders:', error)
@@ -256,7 +256,7 @@ export default function AdminPage() {
     if (selectedOrders.length === orders.length) {
       setSelectedOrders([])
     } else {
-      setSelectedOrders(orders.map(order => order.id))
+      setSelectedOrders(orders.filter(order => order.id).map(order => order.id))
     }
   }
 
@@ -300,7 +300,7 @@ export default function AdminPage() {
           Back to Orders
         </button>
         <div className="text-sm text-gray-500">
-          Order #{order.id.slice(-8)}
+          Order #{order.id?.slice(-8) || 'N/A'}
         </div>
       </div>
 
@@ -667,7 +667,7 @@ export default function AdminPage() {
                       
                       if (response.ok) {
                         setOrders(orders.map(order => 
-                          order.id === orderId ? { ...order, status } : order
+                          order.id && order.id === orderId ? { ...order, status } : order
                         ))
                         setSelectedOrder({ ...selectedOrder, status })
                         alert('Order status updated successfully!')
@@ -761,7 +761,7 @@ export default function AdminPage() {
                                   />
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                  #{order.id.slice(-8)}
+                                  #{order.id?.slice(-8) || 'N/A'}
                                 </td>
                               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                 {order.customerName}

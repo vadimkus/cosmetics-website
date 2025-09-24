@@ -245,6 +245,7 @@ export default function AdminPage() {
   }
 
   const toggleOrderSelection = (orderId: string) => {
+    if (!orderId) return
     setSelectedOrders(prev => 
       prev.includes(orderId) 
         ? prev.filter(id => id !== orderId)
@@ -653,7 +654,7 @@ export default function AdminPage() {
                 </button>
               </div>
               
-              {selectedOrder ? (
+              {selectedOrder && selectedOrder.id ? (
                 <OrderDetails 
                   order={selectedOrder} 
                   onBack={() => setSelectedOrder(null)}
@@ -669,7 +670,7 @@ export default function AdminPage() {
                         setOrders(orders.map(order => 
                           order.id && order.id === orderId ? { ...order, status } : order
                         ))
-                        setSelectedOrder({ ...selectedOrder, status })
+                        setSelectedOrder(selectedOrder ? { ...selectedOrder, status } : null)
                         alert('Order status updated successfully!')
                       } else {
                         const errorData = await response.json()
@@ -750,7 +751,7 @@ export default function AdminPage() {
                               </tr>
                             </thead>
                           <tbody className="bg-white divide-y divide-gray-200">
-                            {orders.map((order) => (
+                            {orders.filter(order => order.id).map((order) => (
                               <tr key={order.id} className="hover:bg-gray-50 transition-colors">
                                 <td className="px-6 py-4 whitespace-nowrap">
                                   <input

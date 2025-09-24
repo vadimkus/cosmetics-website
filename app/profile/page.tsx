@@ -975,7 +975,7 @@ export default function ProfilePageNew() {
                             Products Ordered
                           </h4>
                           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                            {order.items.slice(0, 6).map((item, index) => (
+                            {(order.items || []).slice(0, 6).map((item, index) => (
                               <div key={index} className="flex items-center gap-3 bg-gray-50 rounded-xl p-3 border border-gray-100 hover:bg-gray-100 transition-colors">
                                 <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center overflow-hidden shadow-sm border border-gray-200">
                                   <img

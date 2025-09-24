@@ -129,3 +129,131 @@ export const trackContactForm = () => {
     });
   }
 };
+
+// Server-side analytics functions for admin dashboard
+import { prisma } from './prisma'
+
+export const getAnalyticsData = async (days: number = 30) => {
+  const startDate = new Date()
+  startDate.setDate(startDate.getDate() - days)
+
+  const [
+    totalPageViews,
+    uniqueVisitors,
+    totalOrders,
+    totalRevenue,
+    pdfDownloads
+  ] = await Promise.all([
+    prisma.pageView.count({
+      where: { timestamp: { gte: startDate } }
+    }),
+    prisma.pageView.groupBy({
+      by: ['ipAddress'],
+      where: { timestamp: { gte: startDate } }
+    }).then(result => result.length),
+    prisma.order.count({
+      where: { 
+        createdAt: { gte: startDate },
+        status: { not: 'CANCELLED' }
+      }
+    }),
+    prisma.order.aggregate({
+      where: { 
+        createdAt: { gte: startDate },
+        status: { not: 'CANCELLED' }
+      },
+      _sum: { total: true }
+    }),
+    prisma.pDFDownload.count({
+      where: { timestamp: { gte: startDate } }
+    })
+  ])
+
+  return {
+    totalPageViews,
+    uniqueVisitors,
+    totalOrders,
+    totalRevenue: totalRevenue._sum.total || 0,
+    pdfDownloads
+  }
+}
+
+export const getRealTimeVisitors = async () => {
+  const fiveMinutesAgo = new Date()
+  fiveMinutesAgo.setMinutes(fiveMinutesAgo.getMinutes() - 5)
+  
+  const recentVisitors = await prisma.pageView.count({
+    where: { timestamp: { gte: fiveMinutesAgo } }
+  })
+  
+  return recentVisitors
+}
+
+export const getUserActivityTimeline = async (days: number = 30) => {
+  const startDate = new Date()
+  startDate.setDate(startDate.getDate() - days)
+
+  const timeline = await prisma.pageView.findMany({
+    where: { timestamp: { gte: startDate } },
+    select: {
+      timestamp: true,
+      page: true,
+      userEmail: true,
+      ipAddress: true,
+      country: true,
+      city: true
+    },
+    orderBy: { timestamp: 'desc' },
+    take: 100
+  })
+
+  return timeline
+}
+
+export const getTopCountries = async (days: number = 30) => {
+  const startDate = new Date()
+  startDate.setDate(startDate.getDate() - days)
+
+  const countries = await prisma.pageView.groupBy({
+    by: ['country'],
+    where: {
+      timestamp: { gte: startDate },
+      country: { not: null }
+    },
+    _count: { country: true },
+    orderBy: { _count: { country: 'desc' } },
+    take: 10
+  })
+
+  return countries.map(c => ({
+    country: c.country || 'Unknown',
+    count: c._count.country
+  }))
+}
+
+export const getTopCities = async (days: number = 30) => {
+  const startDate = new Date()
+  startDate.setDate(startDate.getDate() - days)
+
+  const cities = await prisma.pageView.groupBy({
+    by: ['city'],
+    where: {
+      timestamp: { gte: startDate },
+      city: { not: null }
+    },
+    _count: { city: true },
+    orderBy: { _count: { city: 'desc' } },
+    take: 10
+  })
+
+  return cities.map(c => ({
+    city: c.city || 'Unknown',
+    count: c._count.city
+  }))
+}
+
+export const trackUserAction = async (action: string, userId?: string, metadata?: any) => {
+  // This function is for server-side tracking
+  // For client-side tracking, use the gtag functions above
+  console.log('User action tracked:', { action, userId, metadata })
+}

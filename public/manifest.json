@@ -13,16 +13,10 @@
   "categories": ["beauty", "cosmetics", "shopping", "lifestyle"],
   "icons": [
     {
-      "src": "/favicon/genosys-logo.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "/favicon/genosys-logo.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "src": "/favicon/genosys-official-favicon.ico",
+      "sizes": "32x32",
+      "type": "image/x-icon",
+      "purpose": "any"
     },
     {
       "src": "/favicon/favicon.svg",
@@ -48,8 +42,8 @@
       "url": "/products",
       "icons": [
         {
-          "src": "/favicon/genosys-logo.png",
-          "sizes": "96x96"
+          "src": "/favicon/genosys-official-favicon.ico",
+          "sizes": "32x32"
         }
       ]
     },
@@ -60,8 +54,8 @@
       "url": "/cart",
       "icons": [
         {
-          "src": "/favicon/genosys-logo.png",
-          "sizes": "96x96"
+          "src": "/favicon/genosys-official-favicon.ico",
+          "sizes": "32x32"
         }
       ]
     },
@@ -72,8 +66,8 @@
       "url": "/favorites",
       "icons": [
         {
-          "src": "/favicon/genosys-logo.png",
-          "sizes": "96x96"
+          "src": "/favicon/genosys-official-favicon.ico",
+          "sizes": "32x32"
         }
       ]
     }

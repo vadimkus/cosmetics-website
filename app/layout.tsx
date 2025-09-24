@@ -25,10 +25,10 @@ export const metadata: Metadata = {
     icon: [
       { url: '/favicon.ico', type: 'image/x-icon' },
       { url: '/favicon/favicon.svg', type: 'image/svg+xml' },
-      { url: '/favicon/genosys-logo.png', type: 'image/png', sizes: '32x32' }
+      { url: '/favicon/genosys-official-favicon.ico', type: 'image/x-icon', sizes: '32x32' }
     ],
     shortcut: '/favicon.ico',
-    apple: '/favicon/genosys-logo.png',
+    apple: '/favicon/genosys-official-favicon.ico',
   },
   manifest: '/manifest.json',
   appleWebApp: {

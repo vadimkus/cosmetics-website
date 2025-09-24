@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { trackPageView, trackUserAction } from '@/lib/analytics'
+import { trackPageView } from '@/lib/analytics'
+import { trackUserAction } from '@/lib/analyticsServer'
 import { getGeolocationData } from '@/lib/geolocation'
 import { parseUserAgent } from '@/lib/deviceDetection'
 

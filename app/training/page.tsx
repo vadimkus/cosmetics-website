@@ -1369,6 +1369,54 @@ export default function TrainingPage() {
                 </div>
               </div>
 
+              {/* Genosys HAIRGEN BOOSTER Treatment Lesson */}
+              <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+                <div className="p-6">
+                  <h3 className="text-2xl font-bold text-gray-800 mb-4 text-center">
+                    Genosys HAIRGEN BOOSTER Treatment
+                  </h3>
+                  <p className="text-gray-600 mb-6">
+                    Master the advanced hair treatment techniques using Genosys HAIRGEN BOOSTER technology. 
+                    This comprehensive training covers hair restoration protocols, scalp preparation methods, and achieving optimal results for hair growth and enhancement.
+                  </p>
+                  
+                  {/* Video Container */}
+                  <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
+                    <iframe
+                      className="absolute top-0 left-0 w-full h-full rounded-lg"
+                      src="https://www.youtube.com/embed/dsS-d8HahQA"
+                      title="Genosys HAIRGEN BOOSTER Treatment Training"
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowFullScreen
+                    ></iframe>
+                  </div>
+                  
+                  {/* Lesson Details */}
+                  <div className="mt-6 grid md:grid-cols-2 gap-6">
+                    <div>
+                      <h4 className="font-semibold text-gray-800 mb-2">What You'll Learn:</h4>
+                      <ul className="text-gray-600 space-y-1">
+                        <li>• Advanced hair treatment protocols</li>
+                        <li>• Scalp preparation and assessment techniques</li>
+                        <li>• HAIRGEN BOOSTER application methods</li>
+                        <li>• Hair growth stimulation procedures</li>
+                        <li>• Treatment customization for different hair types</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-800 mb-2">Lesson Details:</h4>
+                      <ul className="text-gray-600 space-y-1">
+                        <li>• Duration: 20-25 minutes</li>
+                        <li>• Level: Advanced Professional</li>
+                        <li>• Category: Hair Treatments</li>
+                        <li>• Certification: Available upon completion</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               {/* Placeholder for future lessons */}
               <div className="bg-gray-50 rounded-lg p-8 text-center">
                 <h3 className="text-xl font-semibold text-gray-600 mb-2">

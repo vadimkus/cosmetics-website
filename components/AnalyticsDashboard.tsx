@@ -32,11 +32,6 @@ interface AnalyticsDashboardProps {
   onCustomerClick?: (userEmail: string) => void
 }
 
-interface TimelineData {
-  date: string
-  visitors: number
-  pageViews: number
-}
 
 interface PDFDownloadData {
   totalDownloads: number
@@ -54,7 +49,6 @@ interface PDFDownloadData {
 
 export default function AnalyticsDashboard({ onCustomerClick }: AnalyticsDashboardProps = {}) {
   const [analytics, setAnalytics] = useState<AnalyticsData | null>(null)
-  const [timeline, setTimeline] = useState<TimelineData[]>([])
   const [pdfDownloads, setPdfDownloads] = useState<PDFDownloadData | null>(null)
   const [loading, setLoading] = useState(true)
   const [refreshing, setRefreshing] = useState(false)
@@ -68,9 +62,8 @@ export default function AnalyticsDashboard({ onCustomerClick }: AnalyticsDashboa
         setLoading(true)
       }
       
-      const [analyticsRes, timelineRes, citiesRes, pdfDownloadsRes] = await Promise.all([
+      const [analyticsRes, citiesRes, pdfDownloadsRes] = await Promise.all([
         fetch(`/api/analytics?type=overview&days=${timeRange}`),
-        fetch(`/api/analytics?type=timeline&days=${timeRange}`),
         fetch(`/api/analytics?type=cities&days=${timeRange}`),
         fetch(`/api/analytics?type=pdf-downloads&days=${timeRange}`)
       ])
@@ -85,10 +78,6 @@ export default function AnalyticsDashboard({ onCustomerClick }: AnalyticsDashboa
         setAnalytics(prev => prev ? { ...prev, topCities: citiesData } : null)
       }
 
-      if (timelineRes.ok) {
-        const timelineData = await timelineRes.json()
-        setTimeline(timelineData)
-      }
 
       if (pdfDownloadsRes.ok) {
         const pdfDownloadsData = await pdfDownloadsRes.json()
@@ -110,12 +99,6 @@ export default function AnalyticsDashboard({ onCustomerClick }: AnalyticsDashboa
     fetchAnalytics(true)
   }
 
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
-      month: 'short',
-      day: 'numeric'
-    })
-  }
 
   const formatTimestamp = (timestamp: string) => {
     return new Date(timestamp).toLocaleString('en-US', {
@@ -596,34 +579,6 @@ export default function AnalyticsDashboard({ onCustomerClick }: AnalyticsDashboa
         </div>
       </div>
 
-      {/* Timeline Chart */}
-      {timeline.length > 0 && (
-        <div className="bg-white rounded-lg shadow p-6">
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">Visitor Timeline</h3>
-          <div className="space-y-2">
-            {timeline.map((day, index) => (
-              <div key={index} className="flex items-center">
-                <div className="w-20 text-sm text-gray-600">
-                  {formatDate(day.date)}
-                </div>
-                <div className="flex-1 mx-4">
-                  <div className="flex items-center space-x-2">
-                    <div className="flex-1 bg-gray-200 rounded-full h-2">
-                      <div 
-                        className="bg-blue-600 h-2 rounded-full"
-                        style={{ width: `${(day.visitors / Math.max(...timeline.map(d => d.visitors))) * 100}%` }}
-                      ></div>
-                    </div>
-                    <span className="text-sm text-gray-600 w-12 text-right">
-                      {day.visitors}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
     </div>
   )
 }

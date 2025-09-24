@@ -17,7 +17,7 @@ import ErrorBoundary from '@/components/ErrorBoundary'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://cosmetics-website-5jzy.vercel.app'),
+  metadataBase: new URL('https://genosys.ae'),
   title: 'Genosys Dubai - Premium Beauty Products & Cosmetics UAE',
   description: 'Genosys Dubai - Premium beauty products and cosmetics in UAE. Discover our professional skincare, hair care, and beauty treatments.',
   keywords: 'Genosys Dubai, Genosys cosmetics Dubai, beauty products Dubai, cosmetics UAE, skincare Dubai, professional beauty, Genosys Middle East, beauty treatments UAE, premium cosmetics',
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     description: 'Genosys Dubai - Premium beauty products and cosmetics in UAE. Discover our professional skincare, hair care, and beauty treatments.',
     images: [
       {
-        url: '/images/genosys-products.jpg',
+        url: 'https://genosys.ae/images/genosys-products.jpg',
         width: 1200,
         height: 630,
         alt: 'Genosys Products',
@@ -59,7 +59,7 @@ export const metadata: Metadata = {
     creator: '@genosys_me',
     title: 'Genosys Middle East FZ-LLC - Premium Beauty Products',
     description: 'Discover our premium collection of cosmetics and beauty products',
-    images: ['/images/genosys-products.jpg'],
+    images: ['https://genosys.ae/images/genosys-products.jpg'],
   },
 }
 

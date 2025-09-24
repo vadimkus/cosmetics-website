@@ -1417,6 +1417,54 @@ export default function TrainingPage() {
                 </div>
               </div>
 
+              {/* HR3 MATRIX Anti Hair Loss Treatment Lesson */}
+              <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+                <div className="p-6">
+                  <h3 className="text-2xl font-bold text-gray-800 mb-4 text-center">
+                    HR3 MATRIX Anti Hair Loss Treatment
+                  </h3>
+                  <p className="text-gray-600 mb-6">
+                    Learn the specialized techniques for treating hair loss using HR3 MATRIX technology. 
+                    This advanced training covers anti-hair loss protocols, scalp treatment methods, and achieving optimal results for hair restoration and prevention of further hair loss.
+                  </p>
+                  
+                  {/* Video Container */}
+                  <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
+                    <iframe
+                      className="absolute top-0 left-0 w-full h-full rounded-lg"
+                      src="https://www.youtube.com/embed/XwOIRrizmF4"
+                      title="HR3 MATRIX Anti Hair Loss Treatment Training"
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowFullScreen
+                    ></iframe>
+                  </div>
+                  
+                  {/* Lesson Details */}
+                  <div className="mt-6 grid md:grid-cols-2 gap-6">
+                    <div>
+                      <h4 className="font-semibold text-gray-800 mb-2">What You'll Learn:</h4>
+                      <ul className="text-gray-600 space-y-1">
+                        <li>• Anti-hair loss treatment protocols</li>
+                        <li>• HR3 MATRIX application techniques</li>
+                        <li>• Scalp assessment and preparation methods</li>
+                        <li>• Hair loss prevention strategies</li>
+                        <li>• Treatment customization for different hair loss types</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-800 mb-2">Lesson Details:</h4>
+                      <ul className="text-gray-600 space-y-1">
+                        <li>• Duration: 18-22 minutes</li>
+                        <li>• Level: Advanced Professional</li>
+                        <li>• Category: Hair Loss Treatments</li>
+                        <li>• Certification: Available upon completion</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               {/* Placeholder for future lessons */}
               <div className="bg-gray-50 rounded-lg p-8 text-center">
                 <h3 className="text-xl font-semibold text-gray-600 mb-2">

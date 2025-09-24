@@ -22,12 +22,12 @@ export const metadata: Metadata = {
   keywords: 'Genosys Dubai, Genosys cosmetics Dubai, beauty products Dubai, cosmetics UAE, skincare Dubai, professional beauty, Genosys Middle East, beauty treatments UAE, premium cosmetics',
   icons: {
     icon: [
-      { url: '/favicon/genosys-official-favicon.ico?v=5', type: 'image/x-icon' },
-      { url: '/favicon/genosys-logo.png?v=5', type: 'image/png', sizes: '32x32' },
-      { url: '/favicon/favicon.svg?v=5', type: 'image/svg+xml' }
+      { url: '/favicon.ico', type: 'image/x-icon' },
+      { url: '/favicon/favicon.svg', type: 'image/svg+xml' },
+      { url: '/favicon/genosys-logo.png', type: 'image/png', sizes: '32x32' }
     ],
-    shortcut: '/favicon/genosys-official-favicon.ico?v=5',
-    apple: '/favicon/genosys-logo.png?v=5',
+    shortcut: '/favicon.ico',
+    apple: '/favicon/genosys-logo.png',
   },
   manifest: '/manifest.json',
   appleWebApp: {

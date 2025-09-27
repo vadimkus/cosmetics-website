@@ -13,8 +13,20 @@
   "categories": ["beauty", "cosmetics", "shopping", "lifestyle"],
   "icons": [
     {
+      "src": "/favicon.ico",
+      "sizes": "16x16 32x32",
+      "type": "image/x-icon",
+      "purpose": "any"
+    },
+    {
       "src": "/favicon/genosys-official-favicon.ico",
       "sizes": "32x32",
+      "type": "image/x-icon",
+      "purpose": "any"
+    },
+    {
+      "src": "/favicon/genosys-official.ico",
+      "sizes": "16x16",
       "type": "image/x-icon",
       "purpose": "any"
     },

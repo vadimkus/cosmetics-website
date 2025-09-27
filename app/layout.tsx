@@ -23,12 +23,19 @@ export const metadata: Metadata = {
   keywords: 'Genosys Dubai, Genosys cosmetics Dubai, beauty products Dubai, cosmetics UAE, skincare Dubai, professional beauty, Genosys Middle East, beauty treatments UAE, premium cosmetics',
   icons: {
     icon: [
-      { url: '/favicon.ico', type: 'image/x-icon' },
+      { url: '/favicon.ico', type: 'image/x-icon', sizes: '16x16 32x32' },
       { url: '/favicon/favicon.svg', type: 'image/svg+xml' },
-      { url: '/favicon/genosys-official-favicon.ico', type: 'image/x-icon', sizes: '32x32' }
+      { url: '/favicon/genosys-official-favicon.ico', type: 'image/x-icon', sizes: '32x32' },
+      { url: '/favicon/genosys-official.ico', type: 'image/x-icon', sizes: '16x16' }
     ],
-    shortcut: '/favicon.ico',
-    apple: '/favicon/genosys-official-favicon.ico',
+    shortcut: [
+      { url: '/favicon.ico', type: 'image/x-icon' },
+      { url: '/favicon/genosys-official-favicon.ico', type: 'image/x-icon' }
+    ],
+    apple: [
+      { url: '/favicon/genosys-official-favicon.ico', sizes: '32x32' },
+      { url: '/favicon/genosys-official.ico', sizes: '16x16' }
+    ],
   },
   manifest: '/manifest.json',
   appleWebApp: {
@@ -111,15 +118,17 @@ export default function RootLayout({
                 <footer role="contentinfo" className="bg-white border-t border-gray-200 py-8">
                   <div className="container mx-auto px-4 text-center text-gray-600">
                     <div className="flex flex-col items-center">
-                      <Image
-                        src="/Logo/Full.png"
-                        alt="Genosys Middle East FZ-LLC"
-                        width={200}
-                        height={60}
-                        className="mb-2"
-                        priority={false}
-                      />
-                      <p className="text-sm">Official Distributor in the UAE</p>
+                      <div className="bg-white p-4 rounded-lg shadow-sm">
+                        <Image
+                          src={`/images/Full.avif?v=${Date.now()}`}
+                          alt="Genosys Middle East FZ-LLC"
+                          width={200}
+                          height={60}
+                          className="mb-2"
+                          priority={false}
+                        />
+                      </div>
+                      <p className="text-sm mt-4">Official Distributor in the UAE</p>
                       <p className="mt-2">&copy; 2025 Genosys Middle East FZ-LLC. All rights reserved.</p>
                     </div>
                   </div>

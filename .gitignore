@@ -64,5 +64,4 @@ cpanel-upload/
 genosys-nextjs-app/
 
 # Large files (over 100MB)
-*.pdf
-public/documents/*.pdf
+# Note: PDF files in public/documents/ are needed for the website

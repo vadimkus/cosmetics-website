@@ -182,8 +182,8 @@ function generateInvoiceHTML(data: any) {
         </div>
 
         <div class="footer">
-          <div style="text-align: center; margin-bottom: 15px;">
-            <img src="https://genosys.ae/_next/image?url=%2FLogo%2FFull.png&w=640&q=75" alt="GENOSYS Logo" style="max-width: 200px; height: auto;" />
+          <div style="text-align: center; margin-bottom: 15px; background-color: white; padding: 16px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+            <img src="https://genosys.ae/_next/image?url=%2Fimages%2FFull.avif%3Fv%3D${Date.now()}&w=640&q=75" alt="GENOSYS Logo" style="max-width: 200px; height: auto;" />
           </div>
           <p>Official Distributor in the UAE</p>
           <p>© 2025 Genosys Middle East FZ-LLC. All rights reserved.</p>

@@ -1,7 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { sendAdminNewOrderNotification } from '@/lib/email'
 import { getOrdersByEmail } from '@/lib/orderStorageDb'
-import { Order } from '@prisma/client'
+import { Order, OrderItem } from '@prisma/client'
+
+type OrderWithItems = Order & {
+  items: OrderItem[]
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -14,18 +18,18 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    let orders: Order[] = []
+    let orders: OrderWithItems[] = []
     
     if (orderNumber) {
       // Get specific order by order number
       const allOrders = await getOrdersByEmail('') // Get all orders
       const specificOrder = allOrders.find(order => order.orderNumber === orderNumber)
       if (specificOrder) {
-        orders = [specificOrder]
+        orders = [specificOrder as OrderWithItems]
       }
     } else if (customerEmail) {
       // Get orders for specific customer
-      orders = await getOrdersByEmail(customerEmail)
+      orders = await getOrdersByEmail(customerEmail) as OrderWithItems[]
     }
 
     if (orders.length === 0) {

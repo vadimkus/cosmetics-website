@@ -93,7 +93,7 @@ export async function GET(request: NextRequest) {
       )
     }
 
-    const orders = await getOrdersByEmail(customerEmail)
+    const orders = await getOrdersByEmail(customerEmail) as OrderWithItems[]
     
     return NextResponse.json({
       success: true,

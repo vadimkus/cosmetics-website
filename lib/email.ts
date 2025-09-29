@@ -206,18 +206,132 @@ export const emailTemplates = {
     customerEmail: string
     total: number
     itemCount: number
+    items?: Array<{
+      productName: string
+      quantity: number
+      price: number
+      image: string
+    }>
+    subtotal?: number
+    shipping?: number
+    vat?: number
+    address?: string
+    emirate?: string
   }) => ({
-    subject: `New Order #${orderData.orderNumber} - ${orderData.customerName}`,
+    subject: `New Order #${orderData.orderNumber} - ${orderData.customerName} - AED ${orderData.total.toFixed(2)}`,
     html: `
-      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
-        <h2 style="color: #dc2626;">New Order Received</h2>
-        <div style="background: #f9fafb; padding: 20px; border-radius: 8px;">
-          <p><strong>Order Number:</strong> ${orderData.orderNumber}</p>
-          <p><strong>Customer:</strong> ${orderData.customerName}</p>
-          <p><strong>Email:</strong> ${orderData.customerEmail}</p>
-          <p><strong>Total Amount:</strong> AED ${orderData.total.toFixed(2)}</p>
-          <p><strong>Items:</strong> ${orderData.itemCount}</p>
-          <p><strong>Order Time:</strong> ${new Date().toLocaleString()}</p>
+      <div style="font-family: Arial, sans-serif; max-width: 700px; margin: 0 auto; padding: 20px;">
+        <div style="text-align: center; margin-bottom: 30px;">
+          <h1 style="color: #dc2626; margin: 0;">Genosys Middle East FZ-LLC</h1>
+          <p style="color: #666; margin: 5px 0;">New Order Notification</p>
+        </div>
+        
+        <div style="background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%); padding: 30px; border-radius: 10px; margin-bottom: 20px; border-left: 5px solid #dc2626;">
+          <h2 style="color: #dc2626; margin: 0 0 15px 0;">🛒 New Order Received!</h2>
+          <p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 0 0 10px 0;">
+            A new order has been placed and requires your attention.
+          </p>
+        </div>
+        
+        <div style="background: #f9fafb; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+          <h3 style="color: #dc2626; margin: 0 0 15px 0;">Order Information</h3>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px;">
+            <div>
+              <p style="margin: 0 0 5px 0; color: #374151;"><strong>Order Number:</strong></p>
+              <p style="margin: 0; color: #dc2626; font-size: 18px; font-weight: bold;">#${orderData.orderNumber}</p>
+            </div>
+            <div>
+              <p style="margin: 0 0 5px 0; color: #374151;"><strong>Order Time:</strong></p>
+              <p style="margin: 0; color: #374151;">${new Date().toLocaleString()}</p>
+            </div>
+            <div>
+              <p style="margin: 0 0 5px 0; color: #374151;"><strong>Customer Name:</strong></p>
+              <p style="margin: 0; color: #374151;">${orderData.customerName}</p>
+            </div>
+            <div>
+              <p style="margin: 0 0 5px 0; color: #374151;"><strong>Customer Email:</strong></p>
+              <p style="margin: 0; color: #374151;">${orderData.customerEmail}</p>
+            </div>
+          </div>
+        </div>
+        
+        ${orderData.items && orderData.items.length > 0 ? `
+        <div style="background: #ffffff; padding: 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e5e7eb;">
+          <h3 style="color: #dc2626; margin: 0 0 15px 0;">Order Items (${orderData.itemCount} items)</h3>
+          <div style="space-y: 10px;">
+            ${orderData.items.map(item => `
+              <div style="display: flex; align-items: center; padding: 15px 0; border-bottom: 1px solid #f3f4f6;">
+                <img src="https://genosys.ae${item.image}" alt="${item.productName}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 8px; margin-right: 15px; border: 1px solid #e5e7eb;">
+                <div style="flex: 1;">
+                  <h4 style="margin: 0 0 5px 0; color: #374151; font-size: 16px; font-weight: 600;">${item.productName}</h4>
+                  <p style="margin: 0; color: #6b7280; font-size: 14px;">Quantity: ${item.quantity}</p>
+                </div>
+                <div style="text-align: right;">
+                  <p style="margin: 0; color: #dc2626; font-weight: bold; font-size: 16px;">AED ${item.price.toFixed(2)}</p>
+                  <p style="margin: 0; color: #6b7280; font-size: 12px;">each</p>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+        ` : ''}
+        
+        <div style="background: #f0f9ff; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+          <h3 style="color: #dc2626; margin: 0 0 15px 0;">Order Summary</h3>
+          <div style="space-y: 8px;">
+            ${orderData.subtotal ? `
+            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+              <span style="color: #374151;">Subtotal:</span>
+              <span style="color: #374151;">AED ${orderData.subtotal.toFixed(2)}</span>
+            </div>
+            ` : ''}
+            ${orderData.shipping !== undefined ? `
+            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+              <span style="color: #374151;">Shipping:</span>
+              <span style="color: #374151;">AED ${orderData.shipping.toFixed(2)}</span>
+            </div>
+            ` : ''}
+            ${orderData.vat !== undefined ? `
+            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+              <span style="color: #374151;">VAT:</span>
+              <span style="color: #374151;">AED ${orderData.vat.toFixed(2)}</span>
+            </div>
+            ` : ''}
+            <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 18px; color: #dc2626; border-top: 2px solid #dc2626; padding-top: 8px;">
+              <span>Total:</span>
+              <span>AED ${orderData.total.toFixed(2)}</span>
+            </div>
+          </div>
+        </div>
+        
+        ${orderData.address ? `
+        <div style="background: #fef3c7; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+          <h3 style="color: #92400e; margin: 0 0 15px 0;">Delivery Information</h3>
+          <p style="color: #374151; margin: 0 0 10px 0;"><strong>Address:</strong> ${orderData.address}</p>
+          ${orderData.emirate ? `<p style="color: #374151; margin: 0;"><strong>Emirate:</strong> ${orderData.emirate}</p>` : ''}
+        </div>
+        ` : ''}
+        
+        <div style="text-align: center; margin: 30px 0;">
+          <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://genosys.ae'}/admin" 
+             style="background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%); 
+                    color: white; 
+                    padding: 12px 30px; 
+                    text-decoration: none; 
+                    border-radius: 6px; 
+                    font-weight: bold; 
+                    display: inline-block;">
+            View Order in Admin Panel
+          </a>
+        </div>
+        
+        <div style="border-top: 1px solid #e5e7eb; padding-top: 20px; text-align: center;">
+          <p style="color: #6b7280; font-size: 14px; margin: 0;">
+            This is an automated notification from Genosys Middle East FZ-LLC
+          </p>
+          <p style="color: #6b7280; font-size: 12px; margin: 10px 0 0 0;">
+            Official Genosys distributor in the United Arab Emirates
+          </p>
         </div>
       </div>
     `,

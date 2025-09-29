@@ -18,6 +18,48 @@ export const trackPageView = (url: string) => {
   }
 };
 
+// Server-side page view tracking for database
+export const trackPageViewToDatabase = async (data: {
+  page: string;
+  ipAddress: string;
+  country?: string;
+  city?: string;
+  userAgent: string;
+  referrer?: string;
+  deviceType?: string;
+  browser?: string;
+  os?: string;
+  screenWidth?: number;
+  screenHeight?: number;
+  userEmail?: string;
+}) => {
+  try {
+    const { prisma } = await import('./prisma');
+    
+    await prisma.pageView.create({
+      data: {
+        page: data.page,
+        ipAddress: data.ipAddress,
+        country: data.country,
+        city: data.city,
+        userAgent: data.userAgent,
+        referrer: data.referrer,
+        deviceType: data.deviceType,
+        browser: data.browser,
+        os: data.os,
+        screenWidth: data.screenWidth,
+        screenHeight: data.screenHeight,
+        userEmail: data.userEmail,
+        timestamp: new Date()
+      }
+    });
+    
+    console.log('✅ Page view stored in database:', data.page);
+  } catch (error) {
+    console.error('❌ Error storing page view:', error);
+  }
+};
+
 // Track product views
 export const trackProductView = (product: {
   id: string;

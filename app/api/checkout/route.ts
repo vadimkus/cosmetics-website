@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { addOrder, OrderData, OrderItemData } from '@/lib/orderStorageDb'
 import { trackUserAction } from '@/lib/analyticsServer'
 import { sendOrderConfirmationEmail, sendAdminNewOrderNotification } from '@/lib/email'
+import { trackPurchase } from '@/lib/analytics'
 
 export async function POST(request: NextRequest) {
   try {
@@ -14,10 +15,17 @@ export async function POST(request: NextRequest) {
       customerAddress 
     } = await request.json()
 
-    // Calculate order totals
-    const subtotal = items.reduce((total: number, item: any) => 
-      total + (item.product.price * item.quantity), 0
-    )
+    // Calculate order totals with debugging
+    console.log('🔍 Order calculation debug:')
+    console.log('Items received:', JSON.stringify(items, null, 2))
+    
+    const subtotal = items.reduce((total: number, item: any) => {
+      const itemTotal = item.product.price * item.quantity
+      console.log(`Item: ${item.product.name} - Price: ${item.product.price} x Qty: ${item.quantity} = ${itemTotal}`)
+      return total + itemTotal
+    }, 0)
+    
+    console.log('Subtotal calculated:', subtotal)
     
     // Calculate shipping (free for orders above 1000 AED)
     const emirates = [
@@ -34,10 +42,19 @@ export async function POST(request: NextRequest) {
     const baseShippingCost = selectedEmirateData?.shippingCost || 45
     const shipping = subtotal >= 1000 ? 0 : baseShippingCost
     
+    console.log('Emirate:', customerEmirate)
+    console.log('Base shipping cost:', baseShippingCost)
+    console.log('Final shipping:', shipping)
+    
     const discountAmount = 0 // You can add discount logic here if needed
     const totalBeforeVAT = subtotal - discountAmount + shipping
     const vat = totalBeforeVAT * 0.05
     const total = totalBeforeVAT + vat
+
+    console.log('Discount amount:', discountAmount)
+    console.log('Total before VAT:', totalBeforeVAT)
+    console.log('VAT (5%):', vat)
+    console.log('Final total:', total)
 
     // Generate order ID - shorter numeric format
     const orderId = (Math.floor(Math.random() * 900000000) + 100000000).toString()
@@ -71,11 +88,26 @@ export async function POST(request: NextRequest) {
     // Store the order
     await addOrder(order)
 
-    // Track order creation
+    // Track order creation in database
     await trackUserAction({
       action: 'order_created',
       userEmail: customerEmail,
       details: `Order #${orderId} - ${items.length} items - Total: ${total} AED`
+    })
+
+    // Track purchase in Google Analytics (server-side)
+    // Note: This will be called on the server, so we need to handle it differently
+    // The actual Google Analytics tracking should happen on the client side
+    console.log('📊 Purchase tracking data prepared for client-side Google Analytics:', {
+      orderId,
+      total,
+      items: orderItems.map(item => ({
+        id: item.productId,
+        name: item.productName,
+        category: 'cosmetics', // You can make this dynamic based on product data
+        price: item.price,
+        quantity: item.quantity
+      }))
     })
 
     // Send order confirmation email to customer
@@ -110,7 +142,18 @@ export async function POST(request: NextRequest) {
         customerName: order.customerName,
         customerEmail: order.customerEmail,
         total: order.total,
-        itemCount: order.items.length
+        itemCount: order.items.length,
+        items: order.items.map(item => ({
+          productName: item.productName,
+          quantity: item.quantity,
+          price: item.price,
+          image: item.image
+        })),
+        subtotal: order.subtotal,
+        shipping: order.shipping,
+        vat: order.vat,
+        address: order.customerAddress,
+        emirate: order.customerEmirate
       })
       console.log('✅ Admin notification sent for new order:', order.orderNumber)
     } catch (emailError) {

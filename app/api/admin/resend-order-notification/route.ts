@@ -1,0 +1,113 @@
+import { NextRequest, NextResponse } from 'next/server'
+import { sendAdminNewOrderNotification } from '@/lib/email'
+import { getOrdersByEmail } from '@/lib/orderStorageDb'
+
+export async function POST(request: NextRequest) {
+  try {
+    const { orderNumber, customerEmail } = await request.json()
+
+    if (!orderNumber && !customerEmail) {
+      return NextResponse.json(
+        { error: 'Either orderNumber or customerEmail is required' },
+        { status: 400 }
+      )
+    }
+
+    let orders = []
+    
+    if (orderNumber) {
+      // Get specific order by order number
+      const allOrders = await getOrdersByEmail('') // Get all orders
+      const specificOrder = allOrders.find(order => order.orderNumber === orderNumber)
+      if (specificOrder) {
+        orders = [specificOrder]
+      }
+    } else if (customerEmail) {
+      // Get orders for specific customer
+      orders = await getOrdersByEmail(customerEmail)
+    }
+
+    if (orders.length === 0) {
+      return NextResponse.json(
+        { error: 'No orders found' },
+        { status: 404 }
+      )
+    }
+
+    // Send admin notification for each order
+    const results = []
+    for (const order of orders) {
+      try {
+        const result = await sendAdminNewOrderNotification({
+          orderNumber: order.orderNumber,
+          customerName: order.customerName,
+          customerEmail: order.customerEmail,
+          total: order.total,
+          itemCount: order.items.length
+        })
+        
+        results.push({
+          orderNumber: order.orderNumber,
+          success: result.success,
+          messageId: result.messageId,
+          error: result.error
+        })
+      } catch (error) {
+        results.push({
+          orderNumber: order.orderNumber,
+          success: false,
+          error: error instanceof Error ? error.message : 'Unknown error'
+        })
+      }
+    }
+
+    return NextResponse.json({
+      success: true,
+      message: `Processed ${results.length} orders`,
+      results
+    })
+
+  } catch (error) {
+    console.error('Error resending order notifications:', error)
+    return NextResponse.json(
+      { error: 'Failed to resend notifications' },
+      { status: 500 }
+    )
+  }
+}
+
+export async function GET(request: NextRequest) {
+  try {
+    const { searchParams } = new URL(request.url)
+    const customerEmail = searchParams.get('email')
+    
+    if (!customerEmail) {
+      return NextResponse.json(
+        { error: 'Email parameter is required' },
+        { status: 400 }
+      )
+    }
+
+    const orders = await getOrdersByEmail(customerEmail)
+    
+    return NextResponse.json({
+      success: true,
+      orders: orders.map(order => ({
+        orderNumber: order.orderNumber,
+        customerName: order.customerName,
+        customerEmail: order.customerEmail,
+        total: order.total,
+        itemCount: order.items.length,
+        status: order.status,
+        createdAt: order.createdAt
+      }))
+    })
+
+  } catch (error) {
+    console.error('Error fetching orders:', error)
+    return NextResponse.json(
+      { error: 'Failed to fetch orders' },
+      { status: 500 }
+    )
+  }
+}

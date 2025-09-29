@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { trackPageView } from '@/lib/analytics'
+import { trackPageViewToDatabase } from '@/lib/analytics'
 import { trackUserAction } from '@/lib/analyticsServer'
 import { getGeolocationData } from '@/lib/geolocation'
 import { parseUserAgent } from '@/lib/deviceDetection'
@@ -26,7 +26,7 @@ export async function POST(request: NextRequest) {
       // Parse device information from user agent
       const deviceInfo = parseUserAgent(userAgent)
       
-      await trackPageView({
+      await trackPageViewToDatabase({
         ...data,
         ipAddress: ip,
         country: geolocationData?.country,

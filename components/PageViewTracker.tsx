@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react'
 import { usePathname } from 'next/navigation'
+import { trackPageView } from '@/lib/analytics'
 
 export default function PageViewTracker() {
   const pathname = usePathname()
@@ -11,8 +12,12 @@ export default function PageViewTracker() {
     if (typeof window === 'undefined' || !pathname) return
 
     // Track page view when pathname changes
-    const trackPageView = async (page: string) => {
+    const trackPageViewData = async (page: string) => {
       try {
+        // Track in Google Analytics
+        trackPageView(page)
+        
+        // Track in database
         await fetch('/api/analytics/track', {
           method: 'POST',
           headers: {
@@ -27,13 +32,13 @@ export default function PageViewTracker() {
             screenHeight: window.screen.height
           })
         })
-        console.log('✅ Page view tracked:', page)
+        console.log('✅ Page view tracked in both Google Analytics and database:', page)
       } catch (error) {
         console.error('Error tracking page view:', error)
       }
     }
 
-    trackPageView(pathname)
+    trackPageViewData(pathname)
   }, [pathname])
 
   return null // This component doesn't render anything

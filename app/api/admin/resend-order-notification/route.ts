@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { sendAdminNewOrderNotification } from '@/lib/email'
 import { getOrdersByEmail } from '@/lib/orderStorageDb'
+import { Order } from '@prisma/client'
 
 export async function POST(request: NextRequest) {
   try {
@@ -13,7 +14,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    let orders = []
+    let orders: Order[] = []
     
     if (orderNumber) {
       // Get specific order by order number

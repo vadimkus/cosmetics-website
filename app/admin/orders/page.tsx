@@ -1,9 +1,6 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
 import { RefreshCw, Mail, Eye } from 'lucide-react'
 
 interface Order {
@@ -79,10 +76,14 @@ export default function AdminOrdersPage() {
     <div className="container mx-auto p-6">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold">Order Management</h1>
-        <Button onClick={fetchOrders} disabled={loading}>
+        <button 
+          onClick={fetchOrders} 
+          disabled={loading}
+          className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
+        >
           <RefreshCw className={`w-4 h-4 mr-2 ${loading ? 'animate-spin' : ''}`} />
           Refresh
-        </Button>
+        </button>
       </div>
 
       {loading ? (
@@ -91,40 +92,43 @@ export default function AdminOrdersPage() {
           <p>Loading orders...</p>
         </div>
       ) : orders.length === 0 ? (
-        <Card>
-          <CardContent className="text-center py-8">
+        <div className="bg-white rounded-lg shadow-md border border-gray-200">
+          <div className="text-center py-8">
             <p className="text-gray-500">No orders found</p>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       ) : (
         <div className="grid gap-4">
           {orders.map((order) => (
-            <Card key={order.orderNumber}>
-              <CardHeader>
+            <div key={order.orderNumber} className="bg-white rounded-lg shadow-md border border-gray-200">
+              <div className="p-6 border-b border-gray-200">
                 <div className="flex justify-between items-start">
                   <div>
-                    <CardTitle className="text-lg">Order #{order.orderNumber}</CardTitle>
+                    <h3 className="text-lg font-semibold">Order #{order.orderNumber}</h3>
                     <p className="text-sm text-gray-600 mt-1">
                       {order.customerName} ({order.customerEmail})
                     </p>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Badge variant={order.status === 'PENDING' ? 'default' : 'secondary'}>
+                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                      order.status === 'PENDING' 
+                        ? 'bg-yellow-100 text-yellow-800' 
+                        : 'bg-gray-100 text-gray-800'
+                    }`}>
                       {order.status}
-                    </Badge>
-                    <Button
-                      size="sm"
-                      variant="outline"
+                    </span>
+                    <button
                       onClick={() => resendNotification(order.orderNumber)}
                       disabled={resending === order.orderNumber}
+                      className="px-3 py-1 text-sm border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
                     >
                       <Mail className="w-4 h-4 mr-1" />
                       {resending === order.orderNumber ? 'Sending...' : 'Resend Email'}
-                    </Button>
+                    </button>
                   </div>
                 </div>
-              </CardHeader>
-              <CardContent>
+              </div>
+              <div className="p-6">
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                   <div>
                     <p className="font-medium text-gray-600">Total Amount</p>
@@ -140,13 +144,17 @@ export default function AdminOrdersPage() {
                   </div>
                   <div>
                     <p className="font-medium text-gray-600">Status</p>
-                    <Badge variant={order.status === 'PENDING' ? 'default' : 'secondary'}>
+                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                      order.status === 'PENDING' 
+                        ? 'bg-yellow-100 text-yellow-800' 
+                        : 'bg-gray-100 text-gray-800'
+                    }`}>
                       {order.status}
-                    </Badge>
+                    </span>
                   </div>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           ))}
         </div>
       )}

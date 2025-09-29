@@ -1,10 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
 import { Mail, Send } from 'lucide-react'
 
 export default function ManualNotificationPage() {
@@ -60,58 +56,63 @@ export default function ManualNotificationPage() {
 
   return (
     <div className="container mx-auto p-6 max-w-2xl">
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
+      <div className="bg-white rounded-lg shadow-md border border-gray-200">
+        <div className="p-6 border-b border-gray-200">
+          <h1 className="text-2xl font-bold flex items-center gap-2">
             <Mail className="w-5 h-5" />
             Manual Order Notification
-          </CardTitle>
-          <p className="text-sm text-gray-600">
+          </h1>
+          <p className="text-sm text-gray-600 mt-2">
             Send admin notification for orders that were created before the email system was fixed.
           </p>
-        </CardHeader>
-        <CardContent>
+        </div>
+        <div className="p-6">
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <Label htmlFor="orderNumber">Order Number *</Label>
-                <Input
+                <label htmlFor="orderNumber" className="block text-sm font-medium text-gray-700 mb-1">Order Number *</label>
+                <input
                   id="orderNumber"
+                  type="text"
                   value={formData.orderNumber}
                   onChange={(e) => handleInputChange('orderNumber', e.target.value)}
                   placeholder="e.g., 123456789"
                   required
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 />
               </div>
               
               <div>
-                <Label htmlFor="customerName">Customer Name *</Label>
-                <Input
+                <label htmlFor="customerName" className="block text-sm font-medium text-gray-700 mb-1">Customer Name *</label>
+                <input
                   id="customerName"
+                  type="text"
                   value={formData.customerName}
                   onChange={(e) => handleInputChange('customerName', e.target.value)}
                   placeholder="e.g., John Doe"
                   required
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 />
               </div>
             </div>
 
             <div>
-              <Label htmlFor="customerEmail">Customer Email *</Label>
-              <Input
+              <label htmlFor="customerEmail" className="block text-sm font-medium text-gray-700 mb-1">Customer Email *</label>
+              <input
                 id="customerEmail"
                 type="email"
                 value={formData.customerEmail}
                 onChange={(e) => handleInputChange('customerEmail', e.target.value)}
                 placeholder="e.g., customer@example.com"
                 required
+                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               />
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <Label htmlFor="total">Total Amount (AED) *</Label>
-                <Input
+                <label htmlFor="total" className="block text-sm font-medium text-gray-700 mb-1">Total Amount (AED) *</label>
+                <input
                   id="total"
                   type="number"
                   step="0.01"
@@ -119,25 +120,27 @@ export default function ManualNotificationPage() {
                   onChange={(e) => handleInputChange('total', e.target.value)}
                   placeholder="e.g., 150.00"
                   required
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 />
               </div>
               
               <div>
-                <Label htmlFor="itemCount">Number of Items</Label>
-                <Input
+                <label htmlFor="itemCount" className="block text-sm font-medium text-gray-700 mb-1">Number of Items</label>
+                <input
                   id="itemCount"
                   type="number"
                   value={formData.itemCount}
                   onChange={(e) => handleInputChange('itemCount', e.target.value)}
                   placeholder="e.g., 2"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 />
               </div>
             </div>
 
-            <Button 
+            <button 
               type="submit" 
               disabled={loading}
-              className="w-full"
+              className="w-full bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
             >
               {loading ? (
                 <>
@@ -150,7 +153,7 @@ export default function ManualNotificationPage() {
                   Send Admin Notification
                 </>
               )}
-            </Button>
+            </button>
           </form>
 
           {result && (
@@ -179,8 +182,8 @@ export default function ManualNotificationPage() {
               <p>• Number of Items: Count of products in the order</p>
             </div>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     </div>
   )
 }

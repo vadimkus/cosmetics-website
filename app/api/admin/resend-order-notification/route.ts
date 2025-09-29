@@ -3,6 +3,7 @@ import { sendAdminNewOrderNotification } from '@/lib/email'
 import { getOrdersByEmail } from '@/lib/orderStorageDb'
 import { Order, OrderItem } from '@prisma/client'
 
+// Type definition for Order with items relation
 type OrderWithItems = Order & {
   items: OrderItem[]
 }

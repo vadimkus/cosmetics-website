@@ -1879,14 +1879,132 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </p>
                     </div>
                   </>
-                ) : (
+                ) : product.id === '50' ? (
                   <>
-                    <h3 className="text-lg font-semibold text-gray-800 mb-2">Product Details</h3>
-                    <p className="text-gray-600 mb-4">
-                      This premium {product.category.toLowerCase()} product is carefully formulated with high-quality ingredients 
-                      to deliver exceptional results. Perfect for professional use and home care routines.
+                    <h3 className="text-lg font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <p className="text-gray-600 mb-4 text-base">
+                      GENOSYS EyeCell EYE ZONE CARE KIT is a comprehensive professional-grade solution designed to address 
+                      various concerns in the delicate eye area, including fine lines, dark circles, puffiness, and crow's feet. 
+                      This advanced kit combines cosmeceuticals with a specialized micro-needle roller to enhance the absorption 
+                      of active ingredients and stimulate collagen production for comprehensive eye rejuvenation.
                     </p>
                     
+                    <h4 className="font-semibold text-gray-800 mb-2 text-base">Kit Components</h4>
+                    <div className="space-y-3 mb-4">
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-base">Eye Contour Serum (10ml)</h5>
+                        <p className="text-base text-gray-600">
+                          Intensive serum formulated with plant stem cell extracts and biopeptides to reduce deep wrinkles, 
+                          diminish dark circles, and alleviate puffiness around the eyes.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-base">Eye Contour Cream (20g)</h5>
+                        <p className="text-base text-gray-600">
+                          Rich cream that targets fine lines, dark circles, and under-eye swelling while strengthening 
+                          the skin's protective barrier and maintaining optimal moisture levels.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-base">Eye Peptide Gel Patches (101g, 60 patches)</h5>
+                        <p className="text-base text-gray-600">
+                          Innovative hydrogel patches designed to soothe and hydrate the eye area, reduce puffiness, 
+                          combat dark circles, and provide a lifting effect for improved skin texture and tone.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-base">Eye Roller Dermaroller (0.25mm)</h5>
+                        <p className="text-base text-gray-600">
+                          Micro-needle roller specifically designed for the eye area to facilitate absorption of active 
+                          ingredients and activate collagen production, enhancing overall treatment effectiveness.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-base">Benefits</h4>
+                    <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-base">
+                      <li>Comprehensive Eye Care - Multi-faceted approach addressing wrinkles, dark circles, and puffiness</li>
+                      <li>Advanced Ingredients - Formulated with peptides, plant stem cell extracts, and hyaluronic acid</li>
+                      <li>Enhanced Absorption - Micro-needle roller ensures deeper penetration of active ingredients</li>
+                      <li>Professional and Home Use - Suitable for both professional treatments and daily home care</li>
+                      <li>Complete System - All-in-one kit for comprehensive eye area rejuvenation</li>
+                      <li>Visible Results - Delivers a more youthful, vibrant, and refreshed appearance</li>
+                    </ul>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-base">Directions</h4>
+                    <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
+                      <ol className="list-decimal list-inside text-gray-600 space-y-2 text-base">
+                        <li><strong>Cleansing:</strong> Begin by thoroughly cleansing the face and eye area</li>
+                        <li><strong>Serum Application:</strong> Apply the Eye Contour Serum gently around the eyes</li>
+                        <li><strong>Micro-Needling:</strong> Use the Eye Roller Dermaroller over the serum-treated area for approximately 2 minutes, avoiding excessive pressure</li>
+                        <li><strong>Patch Application:</strong> Place the Eye Peptide Gel Patches under the eyes and leave them on for 20-40 minutes</li>
+                        <li><strong>Cream Application:</strong> Finish by applying the Eye Contour Cream to the treated area</li>
+                      </ol>
+                    </div>
+                    
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-base">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Form:</strong> Professional eye care system</p>
+                        <p><strong>Skin Type:</strong> All skin types, especially mature and aging skin</p>
+                        <p><strong>Technology:</strong> Micro-needling + advanced peptide technology</p>
+                        <p><strong>Key Benefits:</strong> Wrinkle reduction, dark circle diminishment, puffiness relief</p>
+                        <p><strong>Usage:</strong> Professional and home care</p>
+                        <p><strong>Kit Contents:</strong> 4 components (serum, cream, patches, roller)</p>
+                        <p><strong>Origin:</strong> Made in South Korea</p>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                      <p className="text-green-800 text-base">
+                        <strong>Note:</strong> This product is dermatologically tested and safe for all skin types. 
+                        Regular use can lead to a more youthful, vibrant, and refreshed appearance around the eyes. 
+                        For best results, use in conjunction with other Genosys EyeCell products as part of your daily eye care regimen.
+                      </p>
+                    </div>
+                    
+                    {/* Spacing between note and product documentation */}
+                    <div className="mt-6"></div>
+                    
+                    {/* Product Documentation Section for Product 50 */}
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                      <h4 className="font-semibold text-blue-800 mb-2">Product Documentation</h4>
+                      <p className="text-blue-700 text-sm mb-3">
+                        Download the complete product manual and usage guide for professional application.
+                      </p>
+                      <div className="text-xs text-blue-600 mb-3">
+                        📄 File size: 1.5 MB
+                      </div>
+                      <div className="flex gap-3">
+                        <a
+                          href="/documents/ppt/GENOSYS%20EyeCell%20EYE%20ZONE%20CARE%20SYSTEM.pdf"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
+                        >
+                          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                          </svg>
+                          View PDF
+                        </a>
+                        <a
+                          href="/documents/ppt/GENOSYS%20EyeCell%20EYE%20ZONE%20CARE%20SYSTEM.pdf"
+                          download="GENOSYS EyeCell EYE ZONE CARE SYSTEM.pdf"
+                          className="inline-flex items-center gap-2 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors text-sm font-medium"
+                        >
+                          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                          </svg>
+                          Download PDF
+                        </a>
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <>
                     <h4 className="font-semibold text-gray-800 mb-2">Key Benefits:</h4>
                     <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1">
                       <li>Professional-grade quality</li>
@@ -1906,9 +2024,11 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                         For best results, use as part of your daily skincare routine.
                       </p>
                     </div>
+                  </>
+                )}
                     
                     {/* Product Documentation Section - Show for products with PDFs */}
-                    {(product.id === '51' || product.id === '12' || product.id === '33' || product.id === '50' || 
+                    {(product.id === '51' || product.id === '12' || product.id === '33' || 
                       product.id === '45' || product.id === '43' || product.id === '46' || product.id === '44' || 
                       product.id === '20' || product.id === '14' || product.id === '18' || product.id === '29' || 
                       product.id === '21' || product.id === '23' || product.id === '15' || product.id === '41' || product.id === '11' || 
@@ -1924,7 +2044,6 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                             product.id === '51' ? '2.1 MB' :
                             product.id === '12' ? '1.2 MB' :
                             product.id === '33' ? '850 KB' :
-                            product.id === '50' ? '1.5 MB' :
                             product.id === '45' ? '1.1 MB' :
                             product.id === '43' ? '650 KB' :
                             product.id === '46' ? '900 KB' :
@@ -1952,7 +2071,6 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                               product.id === '51' ? 'GENOSYS%20BIO-FERMENT%20AGE%20DEFYING%20POWDER%20MASK.pdf' :
                               product.id === '12' ? 'GENOSYS%20EPI%20TURNOVER%20BOOSTING%20PEELING%20GEL.pdf' :
                               product.id === '33' ? 'GENOSYS%20EyeCell%20EYE%20PEPTIDE%20GEL%20PATCH.pdf' :
-                              product.id === '50' ? 'GENOSYS%20EyeCell%20EYE%20ZONE%20CARE%20SYSTEM.pdf' :
                               product.id === '45' ? 'GENOSYS%20HR3%20MATRIX%20HAIR%20SOLUTION%20ALPHA.pdf' :
                               product.id === '43' ? 'GENOSYS%20HR3%20MATRIX%20HAIR%20TONIC%20ALPHA.pdf' :
                               product.id === '46' ? 'GENOSYS%20HR3%20MATRIX%20SCALP%20PEELING%20ALPHA.pdf' :
@@ -1987,7 +2105,6 @@ product.id === '29' ? 'GENOSYS%20MOISTURE%20REPLENISHING%20HYALURON%20CREAM.pdf'
                               product.id === '51' ? 'GENOSYS%20BIO-FERMENT%20AGE%20DEFYING%20POWDER%20MASK.pdf' :
                               product.id === '12' ? 'GENOSYS%20EPI%20TURNOVER%20BOOSTING%20PEELING%20GEL.pdf' :
                               product.id === '33' ? 'GENOSYS%20EyeCell%20EYE%20PEPTIDE%20GEL%20PATCH.pdf' :
-                              product.id === '50' ? 'GENOSYS%20EyeCell%20EYE%20ZONE%20CARE%20SYSTEM.pdf' :
                               product.id === '45' ? 'GENOSYS%20HR3%20MATRIX%20HAIR%20SOLUTION%20ALPHA.pdf' :
                               product.id === '43' ? 'GENOSYS%20HR3%20MATRIX%20HAIR%20TONIC%20ALPHA.pdf' :
                               product.id === '46' ? 'GENOSYS%20HR3%20MATRIX%20SCALP%20PEELING%20ALPHA.pdf' :
@@ -2010,7 +2127,6 @@ product.id === '29' ? 'GENOSYS%20MOISTURE%20REPLENISHING%20HYALURON%20CREAM.pdf'
                               product.id === '51' ? 'GENOSYS BIO-FERMENT AGE DEFYING POWDER MASK.pdf' :
                               product.id === '12' ? 'GENOSYS EPI TURNOVER BOOSTING PEELING GEL.pdf' :
                               product.id === '33' ? 'GENOSYS EyeCell EYE PEPTIDE GEL PATCH.pdf' :
-                              product.id === '50' ? 'GENOSYS EyeCell EYE ZONE CARE SYSTEM.pdf' :
                               product.id === '45' ? 'GENOSYS HR3 MATRIX HAIR SOLUTION ALPHA.pdf' :
                               product.id === '43' ? 'GENOSYS HR3 MATRIX HAIR TONIC ALPHA.pdf' :
                               product.id === '46' ? 'GENOSYS HR3 MATRIX SCALP PEELING ALPHA.pdf' :
@@ -2041,9 +2157,7 @@ product.id === '29' ? 'GENOSYS MOISTURE REPLENISHING HYALURON CREAM.pdf' :
                         </div>
                       </div>
                     )}
-                  </>
-                )}
-                    </div>
+                </div>
             </div>
           </div>
         </div>

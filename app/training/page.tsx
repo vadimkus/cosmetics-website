@@ -48,7 +48,21 @@ export default function TrainingPage() {
         <div className="max-w-4xl mx-auto">
 
           {/* Navigation Breadcrumb */}
-          <nav className="flex items-center gap-2 text-sm md:text-base text-gray-600 mb-8" aria-label="Breadcrumb">
+          <nav className="flex flex-col gap-2 text-sm md:text-base text-gray-600 mb-8" aria-label="Breadcrumb">
+            {/* Mobile Breadcrumb */}
+            <div className="md:hidden flex items-center gap-2">
+              <Link 
+                href="/"
+                className="hover:text-primary-600 transition-colors flex items-center"
+              >
+                Home
+              </Link>
+              <span className="flex items-center">/</span>
+              <span className="text-gray-900 font-medium flex items-center">
+                Training
+              </span>
+            </div>
+            
             {/* Mobile Back Button */}
             <Link 
               href="/"

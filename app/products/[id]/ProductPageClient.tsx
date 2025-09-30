@@ -6164,8 +6164,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                 )}
                     
                     {/* Product Documentation Section - Show for products with PDFs */}
-                    {(product.id === '51' || product.id === '33' || 
-                      product.id === '44' || 
+                    {(product.id === '44' || 
                       product.id === '20' || product.id === '14' || product.id === '18' || product.id === '29' || 
                       product.id === '21' || product.id === '23' || product.id === '41' || 
                       product.id === '34' || product.id === '39' || product.id === '38' ||
@@ -6177,8 +6176,6 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                         </p>
                         <div className="text-xs text-blue-600 mb-3">
                           📄 File size: {
-                            product.id === '51' ? '2.1 MB' :
-                            product.id === '33' ? '850 KB' :
                             product.id === '44' ? '800 KB' :
                             product.id === '20' ? '750 KB' :
                             product.id === '14' ? '1.0 MB' :
@@ -6197,8 +6194,6 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                         <div className="flex gap-3">
                           <a
                             href={`/documents/ppt/${
-                              product.id === '51' ? 'GENOSYS%20BIO-FERMENT%20AGE%20DEFYING%20POWDER%20MASK.pdf' :
-                              product.id === '33' ? 'GENOSYS%20EyeCell%20EYE%20PEPTIDE%20GEL%20PATCH.pdf' :
                               product.id === '44' ? 'GENOSYS%20HR3%20MATRIX%20SCALP%20SHAMPOO%20ALPHA.pdf' :
                               product.id === '20' ? 'GENOSYS%20INTENSIVE%20PROBLEM%20CONTROL%20TONER.pdf' :
                               product.id === '14' ? 'GENOSYS%20MICROBIOME%20ENERGY%20INFUSING%20MIST.pdf' :
@@ -6224,8 +6219,6 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                           </a>
                           <a
                             href={`/documents/ppt/${
-                              product.id === '51' ? 'GENOSYS%20BIO-FERMENT%20AGE%20DEFYING%20POWDER%20MASK.pdf' :
-                              product.id === '33' ? 'GENOSYS%20EyeCell%20EYE%20PEPTIDE%20GEL%20PATCH.pdf' :
                               product.id === '44' ? 'GENOSYS%20HR3%20MATRIX%20SCALP%20SHAMPOO%20ALPHA.pdf' :
                               product.id === '20' ? 'GENOSYS%20INTENSIVE%20PROBLEM%20CONTROL%20TONER.pdf' :
                               product.id === '14' ? 'GENOSYS%20MICROBIOME%20ENERGY%20INFUSING%20MIST.pdf' :
@@ -6240,8 +6233,6 @@ product.id === '29' ? 'GENOSYS%20MOISTURE%20REPLENISHING%20HYALURON%20CREAM.pdf'
                               product.name === 'GENOSYS SKIN REBOOT PDRN MASK PACK' ? 'GENOSYS%20SKIN%20REBOOT%20PDRN%20MASK%20PACK.pdf' : ''
                             }`}
                             download={`${
-                              product.id === '51' ? 'GENOSYS BIO-FERMENT AGE DEFYING POWDER MASK.pdf' :
-                              product.id === '33' ? 'GENOSYS EyeCell EYE PEPTIDE GEL PATCH.pdf' :
                               product.id === '44' ? 'GENOSYS HR3 MATRIX SCALP SHAMPOO ALPHA.pdf' :
                               product.id === '20' ? 'GENOSYS INTENSIVE PROBLEM CONTROL TONER.pdf' :
                               product.id === '14' ? 'GENOSYS MICROBIOME ENERGY INFUSING MIST.pdf' :

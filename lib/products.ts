@@ -320,6 +320,7 @@ export const products: Product[] = [
     images: null,
     category: 'Cream',
     inStock: true,
+    size: '50g',
   },
   {
     id: '32',

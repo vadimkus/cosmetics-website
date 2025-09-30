@@ -1168,6 +1168,128 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </p>
               </div>
                   </>
+                ) : product.id === '29' ? (
+                  <>
+                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <p className="text-gray-600 mb-4 text-sm">
+                      MOISTURE REPLENISHING HYALURON CREAM is an advanced moisturizing cream that provides 
+                      long-lasting hydration through a sophisticated 4-step skin hydration system. This innovative 
+                      formula combines multiple molecular weights of hyaluronic acid with mushroom extracts to 
+                      deliver deep, sustained moisture that lasts up to 72 hours.
+                    </p>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
+                    <div className="space-y-3 mb-4">
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">4-Step Hydration System</h5>
+                        <p className="text-sm text-gray-600">
+                          Advanced multi-layered hydration that cools, attracts, replenishes, and locks in moisture 
+                          for comprehensive skin hydration.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">72-Hour Hydration Persistence</h5>
+                        <p className="text-sm text-gray-600">
+                          Clinically proven to maintain skin hydration for up to 72 hours, providing long-lasting 
+                          moisture benefits.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Hyaluronan 11 Multi-Complex</h5>
+                        <p className="text-sm text-gray-600">
+                          Advanced hyaluronic acid complex with multiple molecular weights for deep penetration 
+                          and surface protection.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Mushroom Extract Complex</h5>
+                        <p className="text-sm text-gray-600">
+                          Powerful anti-inflammatory and antioxidant properties from various mushroom extracts 
+                          for skin nourishment and protection.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
+                    <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
+                      <li>Deep Hydration - Multi-layered moisture delivery for comprehensive skin hydration</li>
+                      <li>Long-Lasting Results - 72-hour hydration persistence for sustained moisture</li>
+                      <li>Skin Barrier Protection - Strengthens moisture barrier to prevent water loss</li>
+                      <li>Cooling Sensation - Natural cooling agents provide instant skin refreshment</li>
+                      <li>Anti-Aging Benefits - Reduces fine lines and improves skin elasticity</li>
+                      <li>All Skin Types - Suitable for all skin types, including sensitive skin</li>
+                      <li>Professional Results - Salon-quality hydration at home</li>
+                    </ul>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Hyaluronan 11 Multi-Complex</h5>
+                        <p className="text-sm text-gray-600">
+                          Advanced hyaluronic acid complex with low, middle, and high molecular weights for 
+                          comprehensive skin hydration and protection.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Mushroom Extracts</h5>
+                        <p className="text-sm text-gray-600">
+                          Various mushroom extracts provide powerful anti-inflammatory and antioxidant 
+                          properties for skin nourishment and protection.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Moisture Magnet Technology</h5>
+                        <p className="text-sm text-gray-600">
+                          Special ingredients that attract and retain moisture, creating a moisture 
+                          reservoir in the skin for sustained hydration.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Natural Cooling Agents</h5>
+                        <p className="text-sm text-gray-600">
+                          Natural-origin cooling agents provide instant skin refreshment and help 
+                          lower skin temperature for a refreshing sensation.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h4>
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <ol className="list-decimal list-inside text-blue-800 text-sm space-y-2">
+                        <li><strong>Cleanse:</strong> Start with clean, dry skin</li>
+                        <li><strong>Apply:</strong> Take a small amount and gently massage onto face and neck</li>
+                        <li><strong>Massage:</strong> Use upward circular motions until fully absorbed</li>
+                        <li><strong>Frequency:</strong> Use morning and evening for best results</li>
+                        <li><strong>Follow-up:</strong> Apply sunscreen during the day</li>
+                      </ol>
+                    </div>
+                    
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Type:</strong> Advanced moisturizing cream</p>
+                        <p><strong>Size:</strong> 50g/250g</p>
+                        <p><strong>Key Benefits:</strong> Deep hydration, 72-hour persistence, skin barrier protection</p>
+                        <p><strong>Skin Type:</strong> All skin types, especially dry and dehydrated skin</p>
+                        <p><strong>Usage:</strong> Daily morning and evening application</p>
+                        <p><strong>Technology:</strong> 4-step hydration system with multi-molecular hyaluronic acid</p>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                      <p className="text-green-800 text-sm">
+                        <strong>Note:</strong> This product is dermatologically tested and clinically proven for 
+                        72-hour hydration persistence. For best results, use consistently as part of your daily 
+                        skincare routine. Store in a cool, dry place away from direct sunlight.
+                      </p>
+                    </div>
+                  </>
                 ) : product.id === '30' ? (
                   <>
                     <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>

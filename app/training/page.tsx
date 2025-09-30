@@ -49,16 +49,28 @@ export default function TrainingPage() {
 
           {/* Navigation Breadcrumb */}
           <nav className="flex items-center gap-2 text-sm md:text-base text-gray-600 mb-8" aria-label="Breadcrumb">
+            {/* Mobile Back Button */}
             <Link 
               href="/"
-              className="hover:text-primary-600 transition-colors flex items-center"
+              className="md:hidden flex items-center gap-2 text-primary-600 hover:text-primary-700 transition-colors"
             >
-              Home
+              <ArrowLeft className="h-4 w-4" />
+              <span className="font-medium">Back to Home</span>
             </Link>
-            <span className="flex items-center">/</span>
-            <span className="text-gray-900 font-medium flex items-center">
-              Training
-            </span>
+            
+            {/* Desktop Breadcrumb */}
+            <div className="hidden md:flex items-center gap-2">
+              <Link 
+                href="/"
+                className="hover:text-primary-600 transition-colors flex items-center"
+              >
+                Home
+              </Link>
+              <span className="flex items-center">/</span>
+              <span className="text-gray-900 font-medium flex items-center">
+                Training
+              </span>
+            </div>
           </nav>
 
           <div className="text-center">

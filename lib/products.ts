@@ -10,6 +10,7 @@ export const products: Product[] = [
     images: null,
     category: 'Microneedling',
     inStock: true,
+    size: '0.25mm',
   },
   {
     id: '2',

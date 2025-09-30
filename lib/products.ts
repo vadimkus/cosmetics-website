@@ -20,6 +20,7 @@ export const products: Product[] = [
     images: null,
     category: 'Microneedling',
     inStock: true,
+    size: '1 Device',
   },
   {
     id: '3',
@@ -100,6 +101,7 @@ export const products: Product[] = [
     images: null,
     category: 'Cleanser',
     inStock: true,
+    size: '180ml',
   },
   {
     id: '11',
@@ -200,6 +202,7 @@ export const products: Product[] = [
     images: null,
     category: 'Serum',
     inStock: true,
+    size: '30ml',
   },
   {
     id: '21',
@@ -210,6 +213,7 @@ export const products: Product[] = [
     images: null,
     category: 'Serum',
     inStock: true,
+    size: '30ml',
   },
   {
     id: '22',
@@ -230,6 +234,7 @@ export const products: Product[] = [
     images: null,
     category: 'Cream',
     inStock: true,
+    size: '50g',
   },
   {
     id: '24',
@@ -250,6 +255,7 @@ export const products: Product[] = [
     images: null,
     category: 'Cream',
     inStock: true,
+    size: '20g / 100g',
   },
   {
     id: '26',
@@ -270,6 +276,7 @@ export const products: Product[] = [
     images: null,
     category: 'Cream',
     inStock: true,
+    size: '100g',
   },
   {
     id: '28',
@@ -340,6 +347,7 @@ export const products: Product[] = [
     images: null,
     category: 'Mask',
     inStock: true,
+    size: '100g',
   },
   {
     id: '35',
@@ -360,6 +368,7 @@ export const products: Product[] = [
     images: null,
     category: 'Mask',
     inStock: true,
+    size: '25g x 10ea',
   },
   {
     id: '37',

@@ -601,65 +601,6 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       Apply the product evenly on face, avoiding lips and eye area. After 15-20 minutes, rinse with cold water.
                     </p>
                   </>
-                ) : product.id === '14' ? (
-                  <>
-                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Details</h3>
-                    <p className="text-gray-600 mb-4">
-                      This premium {product.category.toLowerCase()} product is carefully formulated with high-quality ingredients 
-                      to deliver exceptional results. Perfect for professional use and home care routines.
-                    </p>
-                    
-                    <h4 className="font-semibold text-gray-800 mb-2">Key Benefits:</h4>
-                    <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1">
-                      <li>Professional-grade quality</li>
-                      <li>Dermatologically tested</li>
-                      <li>Safe for all skin types</li>
-                      <li>Long-lasting results</li>
-                    </ul>
-                    
-                    <h4 className="font-semibold text-gray-800 mb-2">How to Use:</h4>
-                    <p className="text-gray-600 mb-4">
-                      Shake well before use, then spray over the face with eyes closed at a distance of 10-20cm throughout the day. It can be sprayed over make-up.
-                    </p>
-                    
-                    <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-4">
-                      <p className="text-green-800 text-sm">
-                        <strong>Note:</strong> This product is dermatologically tested and safe for all skin types. 
-                        For best results, use as part of your daily skincare routine.
-                      </p>
-                    </div>
-                    
-                    {/* Product Documentation Section */}
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                      <h4 className="font-semibold text-blue-800 mb-2">Product Documentation</h4>
-                      <p className="text-blue-700 text-sm mb-3">
-                        Download the complete product manual and usage guide for professional application.
-                      </p>
-                      <div className="flex gap-3">
-                        <a
-                          href="/documents/ppt/GENOSYS%20MICROBIOME%20ENERGY%20INFUSING%20MIST.pdf"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
-                        >
-                          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                          </svg>
-                          View PDF
-                        </a>
-                        <a
-                          href="/documents/ppt/GENOSYS%20MICROBIOME%20ENERGY%20INFUSING%20MIST.pdf"
-                          download="GENOSYS MICROBIOME ENERGY INFUSING MIST.pdf"
-                          className="inline-flex items-center gap-2 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors text-sm font-medium"
-                        >
-                          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                          </svg>
-                          Download
-                        </a>
-                      </div>
-                    </div>
-                  </>
                 ) : product.id === '15' ? (
                   <>
                     <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
@@ -757,7 +698,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                         Particularly effective for problematic and acne-prone skin. For best results, use as part 
                         of your daily skincare routine and follow with appropriate moisturizer.
                       </p>
-                </div>
+                    </div>
                     
                     {/* Spacing between note and product documentation */}
                     <div className="mt-6"></div>
@@ -814,7 +755,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       <p><strong>To remove dead skin cells/ residues after washing the face:</strong> Soak the cotton pad with toner and wipe it along the skin texture.</p>
                       <p><strong>To provide immediate moisture replenishment after washing the face:</strong> Spray the product for homecare (200ml) sufficiently with eyes closed and tap gently. It can be used even on the makeup.</p>
                       <p><strong>To provide intensive moisturizing and soothing effects:</strong> Soak the cotton pad with toner and apply them to the face. Leave them on for 5-10 minutes.</p>
-                </div>
+            </div>
                   </>
                 ) : product.id === '17' ? (
                   <>
@@ -1118,7 +1059,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                         <strong>Note:</strong> This product is dermatologically tested and safe for all skin types. 
                         For best results, use as part of your daily skincare routine.
                       </p>
-                    </div>
+                </div>
                   </>
                 ) : product.id === '31' ? (
                   <>
@@ -1676,7 +1617,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                         For optimal bubbling, avoid rubbing the product during application. For best results, 
                         incorporate it into your daily skincare routine.
                       </p>
-                    </div>
+                </div>
                   </>
                 ) : product.id === '33' ? (
                   <>
@@ -1956,7 +1897,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                         For optimal results, use in conjunction with other Genosys EyeCell products as part of 
                         your daily eye care routine.
                       </p>
-                    </div>
+              </div>
                   </>
                 ) : product.id === '46' ? (
                   <>
@@ -2820,6 +2761,245 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                           Download PDF
                         </a>
                       </div>
+                    </div>
+                  </>
+                ) : product.id === '14' ? (
+                  <>
+                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <p className="text-gray-600 mb-4 text-sm">
+                      MICROBIOME ENERGY INFUSING MIST is an advanced revitalizing mist designed to restore and balance 
+                      the skin's natural microbiome while providing instant hydration and radiance. This innovative 
+                      formula combines cutting-edge probiotic technology with powerful hydrating ingredients to enhance 
+                      skin's natural strength and glow.
+                    </p>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
+                    <div className="space-y-3 mb-4">
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Microbiome Technology</h5>
+                        <p className="text-sm text-gray-600">
+                          Advanced probiotic and prebiotic blend that corrects and maintains the natural balance of skin microbiome.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Instant Hydration</h5>
+                        <p className="text-sm text-gray-600">
+                          Powerful hyaluronic acid complex that provides immediate and long-lasting moisture to the skin.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Natural Radiance</h5>
+                        <p className="text-sm text-gray-600">
+                          Unique formula that revitalizes skin and enhances natural glow and radiance for a healthy complexion.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Barrier Protection</h5>
+                        <p className="text-sm text-gray-600">
+                          Strengthens skin's natural moisture barrier and enhances skin's natural defense mechanisms.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
+                    <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
+                      <li>Microbiome Balance - Restores and maintains healthy skin microbiome</li>
+                      <li>Instant Hydration - Provides immediate moisture and long-lasting hydration</li>
+                      <li>Natural Radiance - Enhances skin's natural glow and radiance</li>
+                      <li>Barrier Strengthening - Improves skin's natural moisture barrier function</li>
+                      <li>Skin Revitalization - Energizes and revitalizes tired, stressed skin</li>
+                      <li>Gentle Care - Suitable for all skin types, including sensitive skin</li>
+                    </ul>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h4>
+                    <div className="space-y-3 mb-4">
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">CUREBIOME (Probiotics & Prebiotics)</h5>
+                        <p className="text-sm text-gray-600">
+                          Advanced microbiome technology that corrects skin microbiome balance and promotes healthy skin flora.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">FENSEBIOME™ (Acetyl Heptapeptide-4)</h5>
+                        <p className="text-sm text-gray-600">
+                          Innovative peptide that enhances skin's natural defense mechanisms and microbiome health.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Hyaluronan 10 Multi-Complex</h5>
+                        <p className="text-sm text-gray-600">
+                          Multi-molecular hyaluronic acid complex that provides deep hydration and plumping effects.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Butyrospermum Parkii (Shea) Butter</h5>
+                        <p className="text-sm text-gray-600">
+                          Natural emollient that provides additional moisture and helps maintain skin's natural barrier.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h4>
+                    <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
+                      <ol className="list-decimal list-inside text-gray-600 space-y-2 text-sm">
+                        <li><strong>Preparation:</strong> Cleanse your skin thoroughly before application</li>
+                        <li><strong>Application:</strong> Hold the bottle 15-20cm away from your face and mist evenly</li>
+                        <li><strong>Absorption:</strong> Gently pat the mist into your skin with your fingertips</li>
+                        <li><strong>Frequency:</strong> Use morning and evening, or as needed throughout the day</li>
+                        <li><strong>Layering:</strong> Can be used before or after other skincare products</li>
+                      </ol>
+                    </div>
+                    
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Type:</strong> Microbiome energy infusing mist</p>
+                        <p><strong>Size:</strong> 80ml</p>
+                        <p><strong>Key Benefits:</strong> Microbiome balance, hydration, radiance, barrier protection</p>
+                        <p><strong>Skin Type:</strong> All skin types</p>
+                        <p><strong>Usage:</strong> Daily skincare routine, on-the-go hydration</p>
+                        <p><strong>Origin:</strong> Made in South Korea</p>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-6">
+                      <p className="text-green-800 text-sm">
+                        <strong>Note:</strong> This product is dermatologically tested and safe for all skin types. 
+                        Perfect for daily use and can be reapplied throughout the day for instant hydration. 
+                        Store in a cool, dry place and shake well before use for best results.
+                      </p>
+                    </div>
+                  </>
+                ) : product.id === '28' ? (
+                  <>
+                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <p className="text-gray-600 mb-4 text-sm">
+                      INTENSIVE HYDRO SOOTHING CREAM is a premium hydrating and soothing cream designed to provide intensive 
+                      moisture and calm irritated skin. This advanced formula combines powerful natural ingredients including 
+                      aloe vera, snail secretion filtrate, and hyaluronic acid to deliver long-lasting hydration and skin comfort.
+                    </p>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
+                    <div className="space-y-3 mb-4">
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Intensive Hydration</h5>
+                        <p className="text-sm text-gray-600">
+                          Advanced hydrating formula that provides long-lasting moisture and helps maintain optimal skin hydration levels.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Soothing Properties</h5>
+                        <p className="text-sm text-gray-600">
+                          Calms down skin irritation and provides relief for sensitive, stressed, or damaged skin.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Natural Ingredients</h5>
+                        <p className="text-sm text-gray-600">
+                          Formulated with premium natural ingredients including aloe vera and snail secretion filtrate for gentle, effective care.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Professional & Home Use</h5>
+                        <p className="text-sm text-gray-600">
+                          Available in both homecare (50g) and professional (250g) sizes for versatile application.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
+                    <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
+                      <li>Intensive Hydration - Provides long-lasting moisture for all skin types</li>
+                      <li>Skin Soothing - Calms irritation and reduces redness and inflammation</li>
+                      <li>Skin Repair - Promotes natural healing and skin regeneration</li>
+                      <li>Barrier Protection - Strengthens skin's natural protective barrier</li>
+                      <li>Gentle Care - Suitable for sensitive and irritated skin</li>
+                      <li>Versatile Use - Perfect for both professional treatments and daily home care</li>
+                    </ul>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h4>
+                    <div className="space-y-3 mb-4">
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Aloe Barbadensis Leaf Extract</h5>
+                        <p className="text-sm text-gray-600">
+                          Natural soothing and healing ingredient that calms irritated skin and provides gentle hydration.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Snail Secretion Filtrate</h5>
+                        <p className="text-sm text-gray-600">
+                          Premium ingredient rich in glycoproteins and growth factors that promote skin regeneration and healing.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Hyaluronic Acid</h5>
+                        <p className="text-sm text-gray-600">
+                          Powerful humectant that attracts and retains moisture, providing intense hydration and plumping effects.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Lactobacillus/Pumpkin Ferment Extract</h5>
+                        <p className="text-sm text-gray-600">
+                          Fermented ingredient that provides probiotics and nutrients for improved skin health and texture.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Beta-Glucan</h5>
+                        <p className="text-sm text-gray-600">
+                          Natural immune-boosting ingredient that enhances skin's defense mechanisms and promotes healing.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Phytolex SC</h5>
+                        <p className="text-sm text-gray-600">
+                          Advanced botanical complex that provides additional skin protection and soothing benefits.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h4>
+                    <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
+                      <ol className="list-decimal list-inside text-gray-600 space-y-2 text-sm">
+                        <li><strong>Preparation:</strong> Cleanse your skin thoroughly before application</li>
+                        <li><strong>Application:</strong> Apply a generous amount to the face and neck area</li>
+                        <li><strong>Massage:</strong> Gently massage in circular motions until fully absorbed</li>
+                        <li><strong>Frequency:</strong> Use morning and evening for optimal results</li>
+                        <li><strong>Professional Use:</strong> Can be used as a treatment mask for enhanced benefits</li>
+                      </ol>
+                    </div>
+                    
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Type:</strong> Intensive hydro soothing cream</p>
+                        <p><strong>Size Options:</strong> 50g (Homecare) / 250g (Professional)</p>
+                        <p><strong>Key Benefits:</strong> Hydration, soothing, skin repair, barrier protection</p>
+                        <p><strong>Skin Type:</strong> All skin types, especially sensitive and irritated skin</p>
+                        <p><strong>Usage:</strong> Professional and home care</p>
+                        <p><strong>Origin:</strong> Made in South Korea</p>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                      <p className="text-green-800 text-sm">
+                        <strong>Note:</strong> This product is dermatologically tested and safe for all skin types. 
+                        Perfect for daily use and post-treatment care. For best results, use as part of your 
+                        daily skincare routine and reapply as needed for additional hydration.
+                      </p>
                     </div>
                   </>
                 ) : product.id === '42' ? (

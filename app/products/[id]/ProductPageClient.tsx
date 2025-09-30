@@ -402,13 +402,78 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
               <div className="prose max-w-none">
                 {product.id === '1' ? (
                   <>
-                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Microneedling Therapy</h3>
+                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
                     <p className="text-gray-600 mb-4 text-sm">
-                      Microneedling therapy is a minimally invasive cosmetic procedure that involves using fine needles to create hundreds of tiny, invisible puncture wounds in the top layer of skin. This process stimulates the body&apos;s natural wound healing processes, resulting in cell and collagen turnover.
+                      The GENOSYS Microneedle Roller is a professional-grade microneedling device featuring the patented Diskneedle Therapy System (DTS) for enhanced skin rejuvenation. This advanced device utilizes 450 ultra-thin needles that are 25% thinner than competitors, ensuring superior product absorption with minimal skin trauma.
                     </p>
-                    <p className="text-gray-600 mb-4 text-sm">
-                      Types of GENOSYS microneedling device are subdivided to facial roller, roller/stamp for scalp, body roller, eye roller, Needle pen-K depending on the treatment area and purpose of treatment, allowing effective and safe treatment.
-                    </p>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
+                    <div className="space-y-3 mb-4">
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Patented DTS Technology</h5>
+                        <p className="text-sm text-gray-600">
+                          Diskneedle Therapy System ensures safe and effective treatments with reduced recovery time.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Ultra-Thin Needles</h5>
+                        <p className="text-sm text-gray-600">
+                          450 needles per unit, 25% thinner than other brands for enhanced comfort and effectiveness.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Professional Grade</h5>
+                        <p className="text-sm text-gray-600">
+                          Manufactured in South Korea with precision engineering for professional use.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
+                    <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
+                      <li>Enhanced Product Absorption - Creates microchannels for 300% better product penetration</li>
+                      <li>Natural Collagen Induction - Stimulates skin's healing response for firmer, younger-looking skin</li>
+                      <li>Reduced Fine Lines & Wrinkles - Promotes elastin production for improved skin texture</li>
+                      <li>Scar Reduction - Effective for treating acne scars, surgical scars, and stretch marks</li>
+                      <li>Pore Minimization - Helps reduce pore size and improve skin smoothness</li>
+                      <li>Hyperpigmentation Treatment - Aids in reducing dark spots and uneven skin tone</li>
+                      <li>Minimal Downtime - Less invasive than traditional treatments with faster recovery</li>
+                    </ul>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h4>
+                    <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
+                      <ol className="list-decimal list-inside text-gray-600 space-y-2 text-sm">
+                        <li><strong>Preparation:</strong> Cleanse skin thoroughly and sanitize the roller</li>
+                        <li><strong>Application:</strong> Roll gently in vertical, horizontal, and diagonal directions</li>
+                        <li><strong>Coverage:</strong> Treat each area for 2-3 minutes with light pressure</li>
+                        <li><strong>Post-Treatment:</strong> Apply soothing serum or hyaluronic acid</li>
+                        <li><strong>Frequency:</strong> Use once every 4-6 weeks for optimal results</li>
+                        <li><strong>Maintenance:</strong> Clean and sanitize after each use</li>
+                      </ol>
+                    </div>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Product Details</h4>
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Technical Specifications</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Needle Count:</strong> 450 ultra-thin needles</p>
+                        <p><strong>Needle Thickness:</strong> 25% thinner than competitors</p>
+                        <p><strong>Technology:</strong> Patented Diskneedle Therapy System (DTS)</p>
+                        <p><strong>Manufacturing:</strong> South Korea</p>
+                        <p><strong>Professional Use:</strong> Licensed practitioners only</p>
+                        <p><strong>Treatment Areas:</strong> Face, body, scalp applications</p>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                      <p className="text-green-800 text-sm">
+                        <strong>Note:</strong> This device is intended for professional use by licensed practitioners. 
+                        Consult with a qualified professional to determine the appropriate treatment protocol 
+                        based on your individual skin needs and concerns.
+                      </p>
+                    </div>
                   </>
                 ) : product.id === '11' ? (
                   <>

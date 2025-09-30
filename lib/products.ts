@@ -5,7 +5,7 @@ export const products: Product[] = [
     id: '1',
     name: 'Microneedle Roller',
     price: 230,
-    description: 'Skin stimulator to promote collagen production and transdermal nutrient delivery. Professional microneedling device for effective skin regeneration. Manufactured in South Korea.',
+    description: 'Professional-grade microneedling device with patented Diskneedle Therapy System (DTS) for enhanced skin rejuvenation. Features 450 ultra-thin needles (25% thinner than competitors) for superior product absorption and minimal skin trauma. Stimulates natural collagen production and improves skin texture. Manufactured in South Korea.',
     image: '/images/genosys-microneedling-devices.jpg',
     images: null,
     category: 'Microneedling',

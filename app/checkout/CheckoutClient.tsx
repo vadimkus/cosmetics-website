@@ -176,6 +176,7 @@ export default function CheckoutClient() {
             })),
             subtotal,
             shippingCost,
+            vatAmount,
             total
           }
 
@@ -225,6 +226,7 @@ export default function CheckoutClient() {
           })),
           subtotal,
           shippingCost,
+          vatAmount,
           total
         }
 

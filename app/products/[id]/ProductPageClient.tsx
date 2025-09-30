@@ -36,6 +36,9 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
     if (product.id === '30' || product.id === '29' || product.id === '32' || product.id === '28' || product.id === '31') {
       return size === '50g' ? 290 : 420
     }
+    if (product.id === '15') {
+      return size === '200ml' ? 260 : 490
+    }
     return product.price
   }
 
@@ -63,11 +66,11 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
     try {
       // Only pass selectedColor for product ID 41
       const colorToPass = product.id === '41' ? selectedColor : undefined
-      // Only pass selectedSize for product ID 30, 29, 32, 28, and 31
-      const sizeToPass = (product.id === '30' || product.id === '29' || product.id === '32' || product.id === '28' || product.id === '31') ? selectedSize : undefined
+      // Only pass selectedSize for product ID 30, 29, 32, 28, 31, and 15
+      const sizeToPass = (product.id === '30' || product.id === '29' || product.id === '32' || product.id === '28' || product.id === '31' || product.id === '15') ? selectedSize : undefined
       
-      // Create a modified product with the correct price for products 30, 29, 32, 28, and 31
-      const productToAdd = (product.id === '30' || product.id === '29' || product.id === '32' || product.id === '28' || product.id === '31')
+      // Create a modified product with the correct price for products 30, 29, 32, 28, 31, and 15
+      const productToAdd = (product.id === '30' || product.id === '29' || product.id === '32' || product.id === '28' || product.id === '31' || product.id === '15')
         ? { ...product, price: getPriceForSize(selectedSize) }
         : product
       
@@ -184,12 +187,12 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
             {/* Size and Price */}
             <div className="flex items-center gap-4 mt-12 pt-4">
               {(product.size || product.id === '41' || product.id === '30' || product.id === '29' || product.id === '32' || product.id === '28' || product.id === '31' || product.id === '24') && (
-                <div className="text-lg font-medium text-gray-700">
-                  Size: {product.id === '41' ? '15g' : product.id === '31' ? '50g/230g' : (product.id === '30' || product.id === '29' || product.id === '32' || product.id === '28') ? '50g/250g' : product.id === '24' ? '20g' : product.size}
+                <div className="text-sm font-medium text-gray-700">
+                  Size: {product.id === '41' ? '15g' : product.id === '31' ? '50g/230g' : (product.id === '30' || product.id === '29' || product.id === '32' || product.id === '28') ? '50g/250g' : product.id === '15' ? '200ml/500ml' : product.id === '24' ? '20g' : product.size}
                 </div>
               )}
               <div className="text-2xl md:text-3xl font-bold text-primary-600">
-                {getPriceForSize((product.id === '30' || product.id === '29' || product.id === '32' || product.id === '28' || product.id === '31') ? selectedSize : 'default').toFixed(2)} AED
+                {getPriceForSize((product.id === '30' || product.id === '29' || product.id === '32' || product.id === '28' || product.id === '31' || product.id === '15') ? selectedSize : 'default').toFixed(2)} AED
               </div>
               <div className="text-sm font-normal text-gray-600">(VAT included)</div>
             </div>
@@ -216,14 +219,17 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
               </div>
             )}
 
-            {/* Size Selection - Only for product ID 30, 29, 32, 28, and 31 */}
-            {(product.id === '30' || product.id === '29' || product.id === '32' || product.id === '28' || product.id === '31') && (
+            {/* Size Selection - Only for product ID 30, 29, 32, 28, 31, and 15 */}
+            {(product.id === '30' || product.id === '29' || product.id === '32' || product.id === '28' || product.id === '31' || product.id === '15') && (
               <div className="space-y-3">
                 <div className="text-sm font-medium text-gray-700">Size:</div>
                 <div className="flex gap-3">
                   {(product.id === '31' ? [
                     { size: '50g', price: 290 },
                     { size: '230g', price: 420 }
+                  ] : product.id === '15' ? [
+                    { size: '200ml', price: 260 },
+                    { size: '500ml', price: 490 }
                   ] : [
                     { size: '50g', price: 290 },
                     { size: '250g', price: 420 }
@@ -378,32 +384,32 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
               <div className="prose max-w-none">
                 {product.id === '1' ? (
                   <>
-                    <h3 className="text-lg font-semibold text-gray-800 mb-2">Microneedling Therapy</h3>
-                    <p className="text-gray-600 mb-4">
+                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Microneedling Therapy</h3>
+                    <p className="text-gray-600 mb-4 text-sm">
                       Microneedling therapy is a minimally invasive cosmetic procedure that involves using fine needles to create hundreds of tiny, invisible puncture wounds in the top layer of skin. This process stimulates the body&apos;s natural wound healing processes, resulting in cell and collagen turnover.
                     </p>
-                    <p className="text-gray-600 mb-4">
+                    <p className="text-gray-600 mb-4 text-sm">
                       Types of GENOSYS microneedling device are subdivided to facial roller, roller/stamp for scalp, body roller, eye roller, Needle pen-K depending on the treatment area and purpose of treatment, allowing effective and safe treatment.
                     </p>
                   </>
                 ) : product.id === '11' ? (
                   <>
-                    <h3 className="text-lg font-semibold text-gray-800 mb-2">Product Details</h3>
-                    <p className="text-gray-600 mb-4">
+                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Details</h3>
+                    <p className="text-gray-600 mb-4 text-sm">
                       This premium {product.category.toLowerCase()} product is carefully formulated with high-quality ingredients 
                       to deliver exceptional results. Perfect for professional use and home care routines.
                     </p>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2">Key Benefits:</h4>
-                    <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1">
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Benefits:</h4>
+                    <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
                       <li>Professional-grade quality</li>
                       <li>Dermatologically tested</li>
                       <li>Safe for all skin types</li>
                       <li>Long-lasting results</li>
                     </ul>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2">How to Use:</h4>
-                    <p className="text-gray-600 mb-4">
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">How to Use:</h4>
+                    <p className="text-gray-600 mb-4 text-sm">
                       Apply with a cotton pad to lip and eye area and hold for few seconds. Then, gently wipe off the makeup.
                     </p>
                     
@@ -447,7 +453,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '12' ? (
                   <>
-                    <h3 className="text-lg font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
                     <p className="text-gray-600 mb-4 text-sm">
                       GENOSYS EPI TURNOVER BOOSTING PEELING GEL is an enzyme-based exfoliating gel designed to 
                       gently remove dead skin cells without causing irritation. This innovative peeling gel utilizes 
@@ -576,7 +582,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '13' ? (
                   <>
-                    <h3 className="text-lg font-semibold text-gray-800 mb-2">Product Details</h3>
+                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Details</h3>
                     <p className="text-gray-600 mb-4">
                       This premium {product.category.toLowerCase()} product is carefully formulated with high-quality ingredients 
                       to deliver exceptional results. Perfect for professional use and home care routines.
@@ -597,7 +603,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '14' ? (
                   <>
-                    <h3 className="text-lg font-semibold text-gray-800 mb-2">Product Details</h3>
+                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Details</h3>
                     <p className="text-gray-600 mb-4">
                       This premium {product.category.toLowerCase()} product is carefully formulated with high-quality ingredients 
                       to deliver exceptional results. Perfect for professional use and home care routines.
@@ -656,32 +662,105 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '15' ? (
                   <>
-                    <h3 className="text-lg font-semibold text-gray-800 mb-2">Product Details</h3>
-                    <p className="text-gray-600 mb-4">
-                      This premium {product.category.toLowerCase()} product is carefully formulated with high-quality ingredients 
-                      to deliver exceptional results. Perfect for professional use and home care routines.
+                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <p className="text-gray-600 mb-4 text-sm">
+                      GENOSYS INTENSIVE PROBLEM CONTROL TONER is a professional-grade toner specifically formulated 
+                      to address problematic skin conditions and provide intensive care for acne-prone, sensitive, 
+                      and irritated skin. This advanced toner combines powerful active ingredients with soothing 
+                      botanical extracts to deliver comprehensive skin care benefits.
                     </p>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2">Key Benefits:</h4>
-                    <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1">
-                      <li>Professional-grade quality</li>
-                      <li>Dermatologically tested</li>
-                      <li>Safe for all skin types</li>
-                      <li>Long-lasting results</li>
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Benefits</h4>
+                    <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
+                      <li>Intensive Problem Control - Targets acne, blemishes, and skin irritations effectively</li>
+                      <li>Pore Minimizing - Helps reduce pore size and tighten skin texture</li>
+                      <li>Skin Soothing - Calms irritated and sensitive skin with anti-inflammatory properties</li>
+                      <li>Dead Skin Cell Removal - Gently exfoliates and removes impurities for clearer skin</li>
+                      <li>pH Balancing - Restores optimal skin pH levels for healthy skin barrier</li>
+                      <li>Professional Results - Delivers clinical-grade benefits for problem skin management</li>
                     </ul>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2">How to Use:</h4>
-                    <div className="text-gray-600 space-y-2 mb-4">
-                      <p><strong>To remove dead skin cells / residues after washing the face:</strong> Soak the cotton pad with toner and wipe it along the skin texture.</p>
-                      <p><strong>To enhance the pore contraction effect and to soothe the skin:</strong> Soak the cotton pad with toner and apply them to the face. Leave them on for 5-10 minutes.</p>
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Directions</h4>
+                    <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
+                      <div className="space-y-3 text-gray-600 text-sm">
+                        <div>
+                          <strong>Method 1 - Daily Cleansing:</strong>
+                          <p>Soak a cotton pad with toner and gently wipe along the skin texture to remove dead skin cells and residues after washing the face.</p>
+                        </div>
+                        <div>
+                          <strong>Method 2 - Intensive Treatment:</strong>
+                          <p>Soak cotton pads with toner and apply them to the face. Leave them on for 5-10 minutes to enhance pore contraction effect and soothe the skin.</p>
+                        </div>
+                      </div>
             </div>
 
-                    <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-4">
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h4>
+                    <div className="space-y-4 mb-4">
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-sm">Salicylic Acid</h5>
+                        <p className="text-sm text-gray-600">
+                          Beta-hydroxy acid that penetrates pores to dissolve dead skin cells and excess oil, 
+                          helping to prevent acne breakouts and improve skin texture.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-sm">Witch Hazel Extract</h5>
+                        <p className="text-sm text-gray-600">
+                          Natural astringent that tightens pores, reduces inflammation, and provides soothing 
+                          relief for irritated and sensitive skin.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-sm">Tea Tree Extract</h5>
+                        <p className="text-sm text-gray-600">
+                          Powerful antimicrobial and anti-inflammatory agent that helps combat acne-causing 
+                          bacteria while soothing irritated skin.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-sm">Aloe Vera Extract</h5>
+                        <p className="text-sm text-gray-600">
+                          Soothing and healing ingredient that calms inflammation, reduces redness, and 
+                          promotes skin healing for problem areas.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-sm">Niacinamide</h5>
+                        <p className="text-sm text-gray-600">
+                          Vitamin B3 derivative that helps regulate sebum production, minimize pores, and 
+                          improve skin barrier function for healthier skin.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Form:</strong> Intensive problem control toner</p>
+                        <p><strong>Target:</strong> Acne-prone, sensitive, and problematic skin</p>
+                        <p><strong>Technology:</strong> Advanced active ingredient complex</p>
+                        <p><strong>Key Benefits:</strong> Problem control, pore minimizing, skin soothing</p>
+                        <p><strong>Usage:</strong> Professional and home care</p>
+                        <p><strong>Volume:</strong> 200ml / 500ml</p>
+                        <p><strong>Skin Type:</strong> Problematic, acne-prone, sensitive skin</p>
+                        <p><strong>Origin:</strong> Made in South Korea</p>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-green-50 border border-green-200 rounded-lg p-4">
                       <p className="text-green-800 text-sm">
                         <strong>Note:</strong> This product is dermatologically tested and safe for all skin types. 
-                        For best results, use as part of your daily skincare routine.
+                        Particularly effective for problematic and acne-prone skin. For best results, use as part 
+                        of your daily skincare routine and follow with appropriate moisturizer.
                       </p>
                 </div>
+                    
+                    {/* Spacing between note and product documentation */}
+                    <div className="mt-6"></div>
                     
                     {/* Product Documentation Section */}
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
@@ -716,7 +795,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '16' ? (
                   <>
-                    <h3 className="text-lg font-semibold text-gray-800 mb-2">Product Details</h3>
+                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Details</h3>
                     <p className="text-gray-600 mb-4">
                       This premium {product.category.toLowerCase()} product is carefully formulated with high-quality ingredients 
                       to deliver exceptional results. Perfect for professional use and home care routines.
@@ -739,7 +818,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '17' ? (
                   <>
-                    <h3 className="text-lg font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
                     <p className="text-gray-600 mb-4 text-sm">
                       GENOSYS EyeCell EYE CONTOUR SERUM is a highly enriched all-in-one eye serum specifically designed to address 
                       multiple concerns around the delicate eye area. This advanced serum targets fine wrinkles, dark circles, 
@@ -846,7 +925,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '19' ? (
                   <>
-                    <h3 className="text-lg font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
                     <p className="text-gray-600 mb-4 text-sm">
                       GENOSYS ALL FOR SENSITIVE SERUM is a specialized skin repairing serum designed specifically for sensitive skin. 
                       This advanced formula provides a protective moisture barrier while delivering anti-inflammatory and soothing 
@@ -948,7 +1027,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '30' ? (
                   <>
-                    <h3 className="text-lg font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
                     <p className="text-gray-600 mb-4 text-sm">
                       INTENSIVE PROBLEM CONTROL CREAM is a specialized cream designed to address various skin concerns 
                       with powerful anti-microbial and anti-inflammatory properties. This advanced formula helps control 
@@ -1043,7 +1122,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '31' ? (
                   <>
-                    <h3 className="text-lg font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
                     <p className="text-gray-600 mb-4 text-sm">
                       GENOSYS MULTI VITA RADIANCE CREAM combines a complex of 12 vitamins with potent antioxidants like Astaxanthin 
                       to provide effective protection against free radicals, thereby slowing down the skin's aging process. 
@@ -1181,7 +1260,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '32' ? ( // Added detailed description for product 32
                   <>
-                    <h3 className="text-lg font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
                     <p className="text-gray-600 mb-4 text-sm">
                       GENOSYS MULTI FUNCTIONAL ANTI-WRINKLE CREAM is an intensive anti-aging cream designed to enhance 
                       skin elasticity, reduce wrinkles, and promote a radiant complexion. This advanced formula combines 
@@ -1283,7 +1362,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '41' ? (
                   <>
-                    <h3 className="text-lg font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
                     <p className="text-gray-600 mb-4 text-sm">
                       GENOSYS SKIN CARING BLEMISH BALM CUSHION is a BB cushion that can be used after professional treatment. 
                       More than 60% of the product is composed of moisture essence, which enables a natural and healthy glow. 
@@ -1367,7 +1446,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '51' ? (
                   <>
-                    <h3 className="text-lg font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
                     <p className="text-gray-600 mb-4 text-sm">
                       GENOSYS BIO-FERMENT AGE DEFYING POWDER MASK is an innovative fermented powder mask that combines 
                       traditional fermentation technology with modern skincare science. This unique powder-to-mask formula 
@@ -1502,7 +1581,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '26' ? (
                   <>
-                    <h3 className="text-lg font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
                     <p className="text-gray-600 mb-4 text-sm">
                       GENOSYS EGF REPAIR OXYMASK CREAM is a unique oxygen bubbling mask cream designed to rejuvenate 
                       dull and stressed skin. This innovative "S.O.S" cream effectively addresses skin damage from 
@@ -1601,7 +1680,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '33' ? (
                   <>
-                    <h3 className="text-lg font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
                     <p className="text-gray-600 mb-4 text-sm">
                       GENOSYS EyeCell EYE PEPTIDE GEL PATCH is a specialized treatment designed to rejuvenate and care for the delicate skin around the eyes. These crescent-shaped gel patches are infused with a potent blend of peptides, botanical extracts, and other active ingredients to address common eye area concerns including puffiness, dark circles, fine lines, and signs of fatigue.
                     </p>
@@ -1720,7 +1799,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '38' ? (
                   <>
-                    <h3 className="text-lg font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
                     <p className="text-gray-600 mb-4 text-sm">
                       GENOSYS EZ CO₂ MASK KIT is a professional carboxy therapy system designed to deliver 
                       oxygen to the skin through the innovative "Bohr Effect" mechanism. This advanced CO₂ 
@@ -1789,7 +1868,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '24' ? (
                   <>
-                    <h3 className="text-lg font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
                     <p className="text-gray-600 mb-4 text-sm">
                       GENOSYS EyeCell EYE CONTOUR CREAM is a daily eye care product specifically designed to address 
                       multiple concerns around the delicate eye area. This advanced eye cream targets fine wrinkles, 
@@ -1881,7 +1960,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '46' ? (
                   <>
-                    <h3 className="text-lg font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
                     <p className="text-gray-600 mb-4 text-sm">
                       GENOSYS HR³ MATRIX SCALP PEELING α is a gentle scalp peeling solution designed to cleanse 
                       and prepare the scalp for microneedling treatments. This advanced peeling formula effectively 
@@ -2012,9 +2091,114 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                     </div>
                   </>
+                ) : product.id === '35' ? (
+                  <>
+                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <p className="text-gray-600 mb-4 text-sm">
+                      GENOSYS HYDRO COOL MODELING MASK is a professional modeling mask that provides immediate 
+                      cooling and soothing effects to the skin. This advanced mask is specifically designed to 
+                      soothe skin after professional treatments, improve hydration, and reduce pore size while 
+                      delivering a refreshing cooling sensation for optimal skin comfort.
+                    </p>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Benefits</h4>
+                    <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
+                      <li>Immediate Cooling Effect - Provides instant cooling and refreshing sensation</li>
+                      <li>Post-Treatment Soothing - Calms and soothes skin after professional treatments</li>
+                      <li>Enhanced Hydration - Delivers deep moisture and improves skin hydration</li>
+                      <li>Pore Minimizing - Helps reduce pore size for smoother skin texture</li>
+                      <li>Skin Barrier Support - Strengthens and enhances skin barrier function</li>
+                      <li>Collagen Synthesis - Stimulates collagen production for firmer skin</li>
+                    </ul>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Directions</h4>
+                    <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
+                      <ol className="list-decimal list-inside text-gray-600 space-y-2 text-sm">
+                        <li><strong>Cleanse:</strong> Begin with thoroughly cleansed facial skin</li>
+                        <li><strong>Application:</strong> Apply the modeling mask evenly to the face</li>
+                        <li><strong>Processing Time:</strong> Leave the mask on for 15-20 minutes</li>
+                        <li><strong>Removal:</strong> Gently rub the residue into the skin for additional benefits</li>
+                        <li><strong>Rinse:</strong> Rinse off any remaining residue with lukewarm water</li>
+                        <li><strong>Follow-up:</strong> Continue with your regular skincare routine</li>
+                      </ol>
+                    </div>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h4>
+                    <div className="space-y-4 mb-4">
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-sm">Centella Asiatica Extract</h5>
+                        <p className="text-sm text-gray-600">
+                          Powerful botanical extract that increases collagen synthesis, enhances skin barrier 
+                          function, and provides anti-inflammatory benefits for improved skin health and texture.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-sm">Hyaluronic Acid</h5>
+                        <p className="text-sm text-gray-600">
+                          Deep hydrating ingredient that attracts and retains moisture, providing intense 
+                          hydration and plumping effects for smoother, more youthful-looking skin.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-sm">Ceramide</h5>
+                        <p className="text-sm text-gray-600">
+                          Essential lipid that strengthens the skin barrier, locks in moisture, and protects 
+                          against environmental damage for healthier, more resilient skin.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-sm">Allantoin</h5>
+                        <p className="text-sm text-gray-600">
+                          Soothing and healing ingredient that calms irritated skin, promotes cell regeneration, 
+                          and provides gentle exfoliation for improved skin texture.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-sm">Mentha Piperita (Peppermint) Extract</h5>
+                        <p className="text-sm text-gray-600">
+                          Natural cooling agent that provides refreshing sensation, soothes inflammation, 
+                          and helps reduce skin redness and irritation.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-sm">Chamaecyparis Obtusa Water</h5>
+                        <p className="text-sm text-gray-600">
+                          Purified water extract that provides gentle hydration and soothing properties, 
+                          helping to calm and refresh the skin naturally.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Form:</strong> Professional modeling mask</p>
+                        <p><strong>Target:</strong> Post-treatment skin soothing and hydration</p>
+                        <p><strong>Technology:</strong> Advanced cooling and hydrating formula</p>
+                        <p><strong>Key Benefits:</strong> Cooling effect, hydration, pore minimizing, skin soothing</p>
+                        <p><strong>Usage:</strong> Professional and home care</p>
+                        <p><strong>Volume:</strong> 1kg</p>
+                        <p><strong>Skin Type:</strong> All skin types</p>
+                        <p><strong>Origin:</strong> Made in South Korea</p>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                      <p className="text-green-800 text-sm">
+                        <strong>Note:</strong> This product is dermatologically tested and safe for all skin types. 
+                        Particularly beneficial after professional skin treatments. For best results, use as part 
+                        of your regular skincare routine to maintain optimal skin health and comfort.
+                      </p>
+                    </div>
+                  </>
                 ) : product.id === '44' ? (
                   <>
-                    <h3 className="text-lg font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
                     <p className="text-gray-600 mb-4 text-sm">
                       GENOSYS HR³ MATRIX SCALP SHAMPOO α is a functional shampoo specifically designed to improve 
                       hair loss conditions and promote scalp health. This KFDA-approved functional product helps 
@@ -2135,7 +2319,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '47' ? (
                   <>
-                    <h3 className="text-lg font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
                     <p className="text-gray-600 mb-4 text-sm">
                       GENOSYS HR³ MATRIX MESOPECIA KIT is a comprehensive hair and scalp treatment system designed to 
                       prevent hair loss and promote healthy hair regrowth by addressing the fundamental causes of hair loss. 
@@ -2242,7 +2426,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '43' ? (
                   <>
-                    <h3 className="text-lg font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
                     <p className="text-gray-600 mb-4 text-sm">
                       GENOSYS HR³ MATRIX HAIR TONIC α is a specialized scalp and hair treatment designed to revitalize 
                       and strengthen hair follicles while providing essential nutrients for optimal hair growth. This 
@@ -2385,7 +2569,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '45' ? (
                   <>
-                    <h3 className="text-lg font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
                     <p className="text-gray-600 mb-4 text-sm">
                       GENOSYS HR³ MATRIX HAIR SOLUTION α is a premium scalp and hair care treatment specifically formulated 
                       to combat hair loss and promote healthy hair regrowth. This advanced solution addresses the fundamental 
@@ -2528,7 +2712,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '49' ? (
                   <>
-                    <h3 className="text-lg font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
                     <p className="text-gray-600 mb-4 text-sm">
                       GENOSYS GENO-LED IR II is an advanced LED therapy device that combines infrared and red light technology 
                       to provide professional-grade skin rejuvenation treatments. This innovative device utilizes specific 
@@ -2640,7 +2824,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '50' ? (
                   <>
-                    <h3 className="text-lg font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
                     <p className="text-gray-600 mb-4 text-sm">
                       GENOSYS EyeCell EYE ZONE CARE KIT is a comprehensive professional-grade solution designed to address 
                       various concerns in the delicate eye area, including fine lines, dark circles, puffiness, and crow's feet. 
@@ -2790,7 +2974,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     {(product.id === '51' || product.id === '12' || product.id === '33' || 
                       product.id === '44' || 
                       product.id === '20' || product.id === '14' || product.id === '18' || product.id === '29' || 
-                      product.id === '21' || product.id === '23' || product.id === '15' || product.id === '41' || product.id === '11' || 
+                      product.id === '21' || product.id === '23' || product.id === '41' || product.id === '11' || 
                       product.id === '34' || product.id === '39' || product.id === '48' || product.id === '38' ||
                       product.name === 'GENOSYS SKIN REBOOT PDRN MASK PACK') && (
                       <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
@@ -2810,7 +2994,6 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                             product.id === '29' ? '1.4 MB' :
                             product.id === '21' ? '1.1 MB' :
                             product.id === '23' ? '1.2 MB' :
-                            product.id === '15' ? '750 KB' :
                             product.id === '41' ? '950 KB' :
                             product.id === '11' ? '800 KB' :
                             product.id === '34' ? '1.0 MB' :
@@ -2833,7 +3016,6 @@ product.id === '18' ? 'GENOSYS%20MOISTURE%20REPLENISHING%20HYALURON%20SERUM.pdf'
 product.id === '29' ? 'GENOSYS%20MOISTURE%20REPLENISHING%20HYALURON%20CREAM.pdf' :
                               product.id === '21' ? 'GENOSYS%20MULTI%20VITA%20RADIANCE%20SERUM.pdf' :
                               product.id === '23' ? 'GENOSYS%20MULTI%20VITA%20RADIANCE%20CREAM.pdf' :
-                              product.id === '15' ? 'GENOSYS%20INTENSIVE%20PROBLEM%20CONTROL%20TONER.pdf' :
                               product.id === '41' ? 'GENOSYS%20SKIN%20CARING%20BLEMISH%20BALM%20CUSHION.pdf' :
                               product.id === '11' ? 'GENOSYS%20SKIN%20DEFENDER%20LIP%20%26%20EYE%20MAKEUP%20REMOVER.pdf' :
                               product.id === '34' ? 'GENOSYS%20SKIN%20RESCUE%20OVERNIGHT%20CREAM%20MASK.pdf' :
@@ -2863,7 +3045,6 @@ product.id === '18' ? 'GENOSYS%20MOISTURE%20REPLENISHING%20HYALURON%20SERUM.pdf'
 product.id === '29' ? 'GENOSYS%20MOISTURE%20REPLENISHING%20HYALURON%20CREAM.pdf' :
                               product.id === '21' ? 'GENOSYS%20MULTI%20VITA%20RADIANCE%20SERUM.pdf' :
                               product.id === '23' ? 'GENOSYS%20MULTI%20VITA%20RADIANCE%20CREAM.pdf' :
-                              product.id === '15' ? 'GENOSYS%20INTENSIVE%20PROBLEM%20CONTROL%20TONER.pdf' :
                               product.id === '41' ? 'GENOSYS%20SKIN%20CARING%20BLEMISH%20BALM%20CUSHION.pdf' :
                               product.id === '11' ? 'GENOSYS%20SKIN%20DEFENDER%20LIP%20%26%20EYE%20MAKEUP%20REMOVER.pdf' :
                               product.id === '34' ? 'GENOSYS%20SKIN%20RESCUE%20OVERNIGHT%20CREAM%20MASK.pdf' :
@@ -2882,7 +3063,6 @@ product.id === '18' ? 'GENOSYS MOISTURE REPLENISHING HYALURON SERUM.pdf' :
 product.id === '29' ? 'GENOSYS MOISTURE REPLENISHING HYALURON CREAM.pdf' :
                               product.id === '21' ? 'GENOSYS MULTI VITA RADIANCE SERUM.pdf' :
                               product.id === '23' ? 'GENOSYS MULTI VITA RADIANCE CREAM.pdf' :
-                              product.id === '15' ? 'GENOSYS INTENSIVE PROBLEM CONTROL TONER.pdf' :
                               product.id === '41' ? 'GENOSYS SKIN CARING BLEMISH BALM CUSHION.pdf' :
                               product.id === '11' ? 'GENOSYS SKIN DEFENDER LIP & EYE MAKEUP REMOVER.pdf' :
                               product.id === '34' ? 'GENOSYS SKIN RESCUE OVERNIGHT CREAM MASK.pdf' :

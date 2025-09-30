@@ -114,7 +114,7 @@ export default function RootLayout({
                     {children}
                   </ErrorBoundary>
                 </main>
-                <footer role="contentinfo" className="bg-white border-t border-gray-200 py-8">
+                <footer role="contentinfo" className="bg-white border-t border-gray-200 py-8" style={{ backgroundColor: 'white' }}>
                   <div className="container mx-auto px-4 text-center text-gray-600">
                     <div className="flex flex-col items-center">
                       <div className="bg-white p-4 rounded-lg shadow-sm">
@@ -128,7 +128,7 @@ export default function RootLayout({
                         />
                       </div>
                       <p className="text-sm mt-4">Official Distributor in the UAE</p>
-                      <p className="mt-2">&copy; 2025 Genosys Middle East FZ-LLC. All rights reserved.</p>
+                      <p className="text-sm mt-2">&copy; 2025 Genosys Middle East FZ-LLC. All rights reserved.</p>
                     </div>
                   </div>
                 </footer>

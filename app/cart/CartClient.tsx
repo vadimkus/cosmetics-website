@@ -175,6 +175,15 @@ export default function CartClient() {
                     <span>{user ? (shippingCost === 0 ? 'FREE' : `AED ${shippingCost}`) : 'Login to see price'}</span>
                   </div>
                   
+                  <div className="flex justify-between text-gray-600">
+                    <span>VAT (5%)</span>
+                    <span>{user ? `AED ${(subtotal * 0.05).toFixed(2)}` : 'Login to see price'}</span>
+                  </div>
+                  
+                  <div className="text-xs text-gray-500 text-center">
+                    All prices include 5% VAT
+                  </div>
+                  
                   <div className="border-t border-gray-200 pt-3">
                     <div className="flex justify-between text-lg font-bold text-gray-900">
                       <span>Total</span>

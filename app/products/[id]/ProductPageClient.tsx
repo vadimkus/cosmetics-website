@@ -25,9 +25,18 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
   const [selectedImage, setSelectedImage] = useState(0)
   const [quantity, setQuantity] = useState(1)
   const [isAdding, setIsAdding] = useState(false)
+  const [selectedColor, setSelectedColor] = useState('Beige')
+  const [selectedSize, setSelectedSize] = useState('50g')
 
   if (!product) {
     return <ErrorPage />
+  }
+
+  const getPriceForSize = (size: string) => {
+    if (product.id === '30' || product.id === '29' || product.id === '32' || product.id === '28' || product.id === '31') {
+      return size === '50g' ? 290 : 420
+    }
+    return product.price
   }
 
   const getProductImages = () => {
@@ -52,7 +61,17 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
 
     setIsAdding(true)
     try {
-      await addItem(product, quantity)
+      // Only pass selectedColor for product ID 41
+      const colorToPass = product.id === '41' ? selectedColor : undefined
+      // Only pass selectedSize for product ID 30, 29, 32, 28, and 31
+      const sizeToPass = (product.id === '30' || product.id === '29' || product.id === '32' || product.id === '28' || product.id === '31') ? selectedSize : undefined
+      
+      // Create a modified product with the correct price for products 30, 29, 32, 28, and 31
+      const productToAdd = (product.id === '30' || product.id === '29' || product.id === '32' || product.id === '28' || product.id === '31')
+        ? { ...product, price: getPriceForSize(selectedSize) }
+        : product
+      
+      await addItem(productToAdd, quantity, colorToPass, sizeToPass)
     } catch (error) {
       console.error('Error adding to cart:', error)
     } finally {
@@ -161,6 +180,156 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                 ))}
               </div>
             )}
+
+            {/* Size and Price */}
+            <div className="flex items-center gap-4 mt-12 pt-4">
+              {(product.size || product.id === '41' || product.id === '30' || product.id === '29' || product.id === '32' || product.id === '28' || product.id === '31') && (
+                <div className="text-lg font-medium text-gray-700">
+                  Size: {product.id === '41' ? '15g' : product.id === '31' ? '50g/230g' : (product.id === '30' || product.id === '29' || product.id === '32' || product.id === '28') ? '50g/250g' : product.size}
+                </div>
+              )}
+              <div className="text-2xl md:text-3xl font-bold text-primary-600">
+                {getPriceForSize((product.id === '30' || product.id === '29' || product.id === '32' || product.id === '28' || product.id === '31') ? selectedSize : 'default').toFixed(2)} AED
+              </div>
+              <div className="text-sm font-normal text-gray-600">(VAT included)</div>
+            </div>
+
+            {/* Color Selection - Only for product ID 41 */}
+            {product.id === '41' && (
+              <div className="space-y-3">
+                <div className="text-sm font-medium text-gray-700">Color:</div>
+                <div className="flex gap-3">
+                  {['Beige', 'Ivory', 'Camel'].map((color) => (
+                    <button
+                      key={color}
+                      onClick={() => setSelectedColor(color)}
+                      className={`px-4 py-2 rounded-lg border-2 transition-all duration-200 ${
+                        selectedColor === color
+                          ? 'border-primary-600 bg-primary-50 text-primary-700 font-medium'
+                          : 'border-gray-300 bg-white text-gray-700 hover:border-gray-400'
+                      }`}
+                    >
+                      {color}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Size Selection - Only for product ID 30, 29, 32, 28, and 31 */}
+            {(product.id === '30' || product.id === '29' || product.id === '32' || product.id === '28' || product.id === '31') && (
+              <div className="space-y-3">
+                <div className="text-sm font-medium text-gray-700">Size:</div>
+                <div className="flex gap-3">
+                  {(product.id === '31' ? [
+                    { size: '50g', price: 290 },
+                    { size: '230g', price: 420 }
+                  ] : [
+                    { size: '50g', price: 290 },
+                    { size: '250g', price: 420 }
+                  ]).map((option) => (
+                    <button
+                      key={option.size}
+                      onClick={() => setSelectedSize(option.size)}
+                      className={`px-4 py-2 rounded-lg border-2 transition-all duration-200 ${
+                        selectedSize === option.size
+                          ? 'border-primary-600 bg-primary-50 text-primary-700 font-medium'
+                          : 'border-gray-300 bg-white text-gray-700 hover:border-gray-400'
+                      }`}
+                    >
+                      <div className="text-center">
+                        <div className="font-medium">{option.size}</div>
+                        <div className="text-sm text-gray-500">{option.price} AED</div>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Quantity and Add to Cart */}
+            <div className="space-y-4">
+              <div className="flex items-center gap-4">
+                <span className="text-sm font-medium text-gray-700">Quantity:</span>
+                <div className="flex items-center border border-gray-300 rounded-lg">
+                  <button
+                      onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                    className="p-2 hover:bg-gray-100 transition-colors"
+                    disabled={quantity <= 1}
+                  >
+                    <Minus className="h-4 w-4" />
+                  </button>
+                    <span className="px-4 py-2 min-w-[3rem] text-center">
+                      {quantity}
+                    </span>
+                  <button
+                      onClick={() => setQuantity(quantity + 1)}
+                    className="p-2 hover:bg-gray-100 transition-colors"
+                  >
+                    <Plus className="h-4 w-4" />
+                  </button>
+                </div>
+              </div>
+
+              <div className="flex gap-4">
+                <button
+                  onClick={handleAddToCart}
+                  disabled={!product.inStock || isAdding}
+                  aria-label={isAdding ? "Adding to cart..." : `Add ${product.name} to cart`}
+                  className="flex-1 bg-primary-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                >
+                  <ShoppingCart className="h-5 w-5" aria-hidden="true" />
+                  {isAdding ? 'Adding...' : 'Add to Cart'}
+                </button>
+                  
+                <button
+                  onClick={handleToggleFavorite}
+                  aria-label={isFavorite(product.id) ? "Remove from favorites" : "Add to favorites"}
+                  className="p-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors flex items-center justify-center"
+                >
+                  <Heart 
+                    className={`h-5 w-5 ${
+                      isFavorite(product.id) 
+                        ? 'text-red-500 fill-current' 
+                        : 'text-gray-400'
+                    }`}
+                    aria-hidden="true"
+                  />
+                </button>
+              </div>
+            </div>
+
+            {/* Features */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-6 border-t border-gray-200">
+              <div className="flex items-center gap-3">
+                <Truck className="h-5 w-5 text-green-600" />
+                <div>
+                  <div className="text-sm font-medium text-gray-800">Free Shipping</div>
+                  <div className="text-xs text-gray-600">On orders over 1,000 AED</div>
+                </div>
+              </div>
+              
+              <div className="flex items-center gap-3">
+                <Shield className="h-5 w-5 text-green-700" />
+                <div>
+                  <div className="text-sm font-medium text-gray-800">Secure Payment</div>
+                  <div className="text-xs text-gray-600">Stripe checkout</div>
+                </div>
+              </div>
+              
+              <div className="flex items-center gap-3">
+                  <input 
+                    type="checkbox" 
+                    checked 
+                    readOnly
+                    className="h-4 w-4 text-green-600 border-green-300 rounded focus:ring-green-500 accent-green-600"
+                  />
+                <div>
+                  <div className="text-sm font-medium text-gray-800">Proud UAE Tax Payer</div>
+                  <div className="text-xs text-gray-600">Supporting local economy</div>
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* Product Details */}
@@ -197,18 +366,6 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                 ))}
               </div>
               <span className="text-sm text-gray-600">(4.8/5)</span>
-            </div>
-
-            {/* Size and Price */}
-            <div className="flex items-center gap-4">
-              {product.size && (
-                <div className="text-lg font-medium text-gray-700">
-                  Size: {product.size}
-                </div>
-              )}
-              <div className="text-2xl md:text-3xl font-bold text-primary-600">
-                {product.price.toFixed(2)} AED
-              </div>
             </div>
 
             {/* Description */}
@@ -561,6 +718,340 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </p>
               </div>
                   </>
+                ) : product.id === '30' ? (
+                  <>
+                    <h3 className="text-lg font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <p className="text-gray-600 mb-4 text-base">
+                      INTENSIVE PROBLEM CONTROL CREAM is a specialized cream designed to address various skin concerns 
+                      with powerful anti-microbial and anti-inflammatory properties. This advanced formula helps control 
+                      sebum production while providing soothing relief for problematic skin.
+                    </p>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-base">Benefits</h4>
+                    <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-base">
+                      <li>Anti-microbial</li>
+                      <li>Anti-inflammation</li>
+                      <li>Sebum control</li>
+                      <li>Soothing</li>
+                    </ul>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-base">Directions</h4>
+                    <p className="text-gray-600 mb-4 text-base">
+                      Apply a small amount to cleansed skin twice daily.
+                    </p>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-base">Key Ingredients</h4>
+                    <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
+                      <p className="text-base text-gray-600">
+                        Aqua(Water), Dipropylene Glycol, 1,2-Hexanediol, Trehalose, Zinc PCA, Acrylates/C10-30 Alkyl Acrylate Crosspolymer, 
+                        Sodium Polyacrylate, Xylitol, Allantoin, Betaine, Lactobacillus/Pumpkin Ferment Extract, Panthenol, Beta-Glucan, 
+                        Betula Platyphylla Japonica Bark Extract, Leuconostoc/Radish Root Ferment Filtrate, Phaseolus Radiatus Extract, 
+                        Polyglutamic Acid, Rumex Crispus Root Extract, Disodium EDTA, Potassium Hydroxide, Butylene Glycol, Dimethicone, 
+                        Glycerin, Hydrogenated Lecithin
+                      </p>
+                    </div>
+                    
+                    <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                      <p className="text-green-800 text-base">
+                        <strong>Note:</strong> This product is dermatologically tested and safe for all skin types. 
+                        For best results, use as part of your daily skincare routine.
+                      </p>
+                    </div>
+                  </>
+                ) : product.id === '31' ? (
+                  <>
+                    <h3 className="text-lg font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <p className="text-gray-600 mb-4 text-base">
+                      GENOSYS MULTI VITA RADIANCE CREAM combines a complex of 12 vitamins with potent antioxidants like Astaxanthin 
+                      to provide effective protection against free radicals, thereby slowing down the skin's aging process. 
+                      This advanced formula deeply nourishes and moisturizes the skin, evens out skin tone, and imparts a 
+                      noticeable radiance while activating collagen production and shielding the skin from UV radiation and environmental stressors.
+                    </p>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-base">Benefits</h4>
+                    <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-base">
+                      <li>Brightening - Helps lighten pigmentation spots and improve overall skin tone</li>
+                      <li>Deep Moisturizing - Provides intense hydration, leaving the skin soft and supple</li>
+                      <li>Antioxidant Protection - Protects against free radicals, reducing signs of aging</li>
+                      <li>Skin Nourishment - Supplies essential nutrients to enhance skin health and appearance</li>
+                      <li>Collagen Activation - Stimulates collagen production for firmer, more youthful skin</li>
+                      <li>UV Protection - Shields skin from harmful UV radiation and environmental stressors</li>
+                    </ul>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-base">Directions</h4>
+                    <p className="text-gray-600 mb-4 text-base">
+                      Apply the cream to the face and gently massage in both morning and evening for optimal results.
+                    </p>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-base">Key Ingredients</h4>
+                    
+                    <div className="space-y-4 mb-4">
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-base">Astaxanthin</h5>
+                        <p className="text-base text-gray-600">
+                          A powerful antioxidant that is 6,000 times stronger than Vitamin C. It helps reduce skin pigmentation 
+                          caused by free radicals and sun exposure, diminishes photodamage, and acts as an internal sunscreen.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-base">VITA 12 Complex</h5>
+                        <p className="text-base text-gray-600">
+                          Provides nutrients to the skin, helps increase collagen production, and prevents skin water loss. 
+                          This complex includes Vitamins A, B1, B3, B5, B6, B9, B12, C, E, F, H, and K for comprehensive skin nourishment.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-base">Gluconolactone</h5>
+                        <p className="text-base text-gray-600">
+                          A Poly-Hydroxy Acid (PHA) that improves skin tone by exfoliating dead skin cells and hydrates 
+                          the skin by attracting water for enhanced moisture retention.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-base">Glycyrrhiza Uralensis (Licorice) Root Extract</h5>
+                        <p className="text-base text-gray-600">
+                          Inhibits pigmentation by preventing tyrosinase activation, brightens the skin, and improves skin tone 
+                          for a more even complexion.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-base">Macadamia Ternifolia Seed Oil</h5>
+                        <p className="text-base text-gray-600">
+                          Contains linoleic acid, which prevents trans-epidermal water loss and creates a natural protective barrier. 
+                          Palmitoleic acid in the oil aids in wound healing and soothes skin irritation.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-base">Ascorbic Acid (Vitamin C)</h5>
+                        <p className="text-base text-gray-600">
+                          A natural antioxidant that protects the skin against UV-induced damage caused by free radicals 
+                          and inhibits melanin production for brighter, more even skin tone.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-base">Ceramide NP</h5>
+                        <p className="text-base text-gray-600">
+                          Reinforces the skin's natural protective lipid barrier and improves long-term moisturization 
+                          for enhanced skin health and resilience.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-base">Full Ingredients List</h5>
+                      <p className="text-blue-800 text-sm">
+                        Aqua (Water), Ethylhexyl Methoxycinnamate, Butylene Glycol, Ethylhexyl Salicylate, Titanium Dioxide, 
+                        Isoamyl p-Methoxycinnamate, Dimethicone, Polysorbate 60, Glyceryl Stearate, Glycerin, Palmitoyl Pentapeptide-4, 
+                        Sodium Hyaluronate, Rosa Damascena Callus Culture Extract, Vitis Vinifera (Grape) Callus Culture Extract, 
+                        Centella Asiatica Extract, Scutellaria Baicalensis Root Extract, Lactobacillus/Soymilk Ferment Filtrate, 
+                        Stearyl Alcohol, Cetyl Alcohol, PEG-100 Stearate, VP/Eicosene Copolymer, Palmitic Acid, Isohexadecane, 
+                        Stearic Acid, Sorbitan Stearate, Glycine Soja (Soybean) Sterols, Polysorbate 80, Xanthan Gum, 
+                        Magnesium Aluminum Silicate, Sorbitan Oleate, 1,2-Hexanediol, Disodium EDTA, Amorphophallus Konjac Root Extract, 
+                        Myristic Acid, Myristyl Alcohol, Lauryl Alcohol, Dimethicone/Vinyl Dimethicone Crosspolymer, 
+                        Sodium Acrylate/Sodium Acryloyldimethyl Taurate Copolymer, Fragrance, Caprylyl Glycol, Ethylhexylglycerin, 
+                        Tropolone, Butylphenyl Methylpropional, Benzyl Benzoate, Citronellol, Hexyl Cinnamal, Limonene, Alpha-Isomethyl Ionone.
+                      </p>
+                    </div>
+                    
+                    <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                      <p className="text-green-800 text-base">
+                        <strong>Note:</strong> This product is dermatologically tested and safe for all skin types. 
+                        For best results, use as part of your daily skincare routine to achieve radiant, youthful-looking skin.
+                      </p>
+                    </div>
+                  </>
+                ) : product.id === '32' ? ( // Added detailed description for product 32
+                  <>
+                    <h3 className="text-lg font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <p className="text-gray-600 mb-4 text-base">
+                      GENOSYS MULTI FUNCTIONAL ANTI-WRINKLE CREAM is an intensive anti-aging cream designed to enhance 
+                      skin elasticity, reduce wrinkles, and promote a radiant complexion. This advanced formula combines 
+                      powerful anti-aging ingredients to deliver comprehensive skin rejuvenation and protection.
+                    </p>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-base">Benefits</h4>
+                    <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-base">
+                      <li>Wrinkle Reduction - Smooths fine lines and wrinkles, improving skin texture</li>
+                      <li>Firming - Enhances skin firmness and elasticity for a more youthful appearance</li>
+                      <li>Collagen Synthesis - Promotes the production of collagen for skin rejuvenation</li>
+                      <li>Antioxidant Protection - Shields the skin from oxidative stress and environmental damage</li>
+                      <li>Brightening - Evens out skin tone and adds natural radiance</li>
+                      <li>Deep Hydration - Provides intense moisture for plump, healthy-looking skin</li>
+                    </ul>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-base">Directions</h4>
+                    <p className="text-gray-600 mb-4 text-base">
+                      Apply a thin layer of the cream to the face, neck, and décolleté with gentle patting motions. 
+                      Use in the morning and/or evening for optimal results.
+                    </p>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-base">Key Ingredients</h4>
+                    
+                    <div className="space-y-4 mb-4">
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-base">Bakuchiol</h5>
+                        <p className="text-base text-gray-600">
+                          A natural alternative to retinol, known for its powerful anti-aging properties. 
+                          It helps reduce fine lines and wrinkles while being gentle on sensitive skin.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-base">Collagen & Elastin</h5>
+                        <p className="text-base text-gray-600">
+                          Essential proteins that support skin structure and elasticity, helping to maintain 
+                          firmness and prevent sagging for a more youthful appearance.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-base">Adenosine</h5>
+                        <p className="text-base text-gray-600">
+                          A powerful anti-aging ingredient that aids in reducing wrinkles and improving skin 
+                          smoothness while promoting cellular renewal.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-base">Propolis Extract</h5>
+                        <p className="text-base text-gray-600">
+                          Offers exceptional anti-inflammatory and antioxidant benefits, helping to protect 
+                          the skin from environmental damage while soothing irritation.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-base">Mango Seed Butter</h5>
+                        <p className="text-base text-gray-600">
+                          Provides deep hydration and nourishment, creating a protective barrier that helps 
+                          retain moisture and keep skin soft and supple.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-base">Niacinamide</h5>
+                        <p className="text-base text-gray-600">
+                          Brightens the skin and improves tone while helping to minimize the appearance 
+                          of pores and fine lines for a more even complexion.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-base">Ceramide NP, Phytosphingosine, Cholesterol</h5>
+                        <p className="text-base text-gray-600">
+                          These essential lipids strengthen the skin barrier and retain moisture, 
+                          helping to prevent moisture loss and maintain healthy, resilient skin.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-base">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Size:</strong> 50g/250g</p>
+                        <p><strong>Suitable for:</strong> All skin types, especially mature skin</p>
+                        <p><strong>Country of Origin:</strong> South Korea</p>
+                        <p><strong>Formulation:</strong> Advanced anti-aging cream with multi-functional benefits</p>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                      <p className="text-green-800 text-base">
+                        <strong>Note:</strong> This product is dermatologically tested and safe for all skin types. 
+                        For best results, use as part of your daily skincare routine to achieve youthful, radiant skin.
+                      </p>
+                    </div>
+                  </>
+                ) : product.id === '41' ? (
+                  <>
+                    <h3 className="text-lg font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <p className="text-gray-600 mb-4 text-base">
+                      GENOSYS SKIN CARING BLEMISH BALM CUSHION is a BB cushion that can be used after professional treatment. 
+                      More than 60% of the product is composed of moisture essence, which enables a natural and healthy glow. 
+                      Various peptide complex 40% - helps calm the irritated skin. (SPF 50 / PA++++)
+                    </p>
+                    
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <p className="text-blue-800 text-base font-medium">
+                        <strong>Includes:</strong> 1 x replacement refill - 15g
+                      </p>
+                      <p className="text-blue-800 text-base font-medium mt-1">
+                        <strong>Color Note:</strong> Beige is darker than Ivory to suit Fitzpatrick 2-4
+                      </p>
+                    </div>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-base">Benefits</h4>
+                    <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-base">
+                      <li>BB cushion that can be used after the professional treatment</li>
+                      <li>Convenient and quick base makeup in the morning</li>
+                      <li>Skin Protection from harmful environment</li>
+                      <li>Sun protection</li>
+                      <li>Skin cover up</li>
+                    </ul>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-base">Directions</h4>
+                    <p className="text-gray-600 mb-4 text-base">
+                      Press the puff lightly onto cushion and pat evenly onto skin. We recommend patting the puff gently 
+                      on the skin several times to enhance the long-lasting effect.
+                    </p>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-base">Key Ingredients</h4>
+                    
+                    <div className="space-y-4 mb-4">
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-base">Repairing Pep9 Complex</h5>
+                        <div className="space-y-2 text-base text-gray-600">
+                          <div>
+                            <strong>Promotion of collagen induction and skin regeneration:</strong>
+                            <ul className="list-disc list-inside ml-4 mt-1 space-y-1">
+                              <li>Hexapeptide-9</li>
+                              <li>Copper Tripeptide-1</li>
+                              <li>Palmitoyl Pentapeptide-4</li>
+                              <li>Palmitoyl Tripeptide-1</li>
+                              <li>Hexapeptide-11</li>
+                              <li>Tripeptide-1</li>
+                              <li>Alanine/Histidine/Lysine Polypeptide Copper HCl</li>
+                            </ul>
+                          </div>
+                          <div>
+                            <strong>Firming:</strong> Acetyl Hexapeptide-8
+                          </div>
+                          <div>
+                            <strong>Skin brightening:</strong> Nonapeptide-1
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-base">Volufiline™</h5>
+                        <p className="text-base text-gray-600">
+                          Sarsasapogenin from anemarrhena asphodeloides root. It provides a volume-enhancing benefit by a 
+                          cosmetic lipofilling-like effect. And as rich in saponin, it has anti-inflammatory and antioxidant features.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-base">Glutathione</h5>
+                        <p className="text-base text-gray-600">
+                          As a powerful antioxidant, it helps brighten and even skin by blocking the tyrosinase activity. 
+                          And it also has a beneficial effect for cystic acne or even the occasional breakout.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                      <p className="text-green-800 text-base">
+                        <strong>Note:</strong> This product is dermatologically tested and safe for all skin types. 
+                        For best results, use as part of your daily skincare routine.
+                      </p>
+                    </div>
+                  </>
                 ) : (
                   <>
                     <h3 className="text-lg font-semibold text-gray-800 mb-2">Product Details</h3>
@@ -726,90 +1217,6 @@ product.id === '29' ? 'GENOSYS MOISTURE REPLENISHING HYALURON CREAM.pdf' :
                   </>
                 )}
                     </div>
-            </div>
-
-            {/* Quantity and Add to Cart */}
-            <div className="space-y-4">
-            <div className="flex items-center gap-4">
-              <span className="text-sm font-medium text-gray-700">Quantity:</span>
-              <div className="flex items-center border border-gray-300 rounded-lg">
-                <button
-                    onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                  className="p-2 hover:bg-gray-100 transition-colors"
-                  disabled={quantity <= 1}
-                >
-                  <Minus className="h-4 w-4" />
-                </button>
-                  <span className="px-4 py-2 min-w-[3rem] text-center">
-                    {quantity}
-                  </span>
-                <button
-                    onClick={() => setQuantity(quantity + 1)}
-                  className="p-2 hover:bg-gray-100 transition-colors"
-                >
-                  <Plus className="h-4 w-4" />
-                </button>
-              </div>
-            </div>
-
-            <div className="flex gap-4">
-              <button
-                onClick={handleAddToCart}
-                disabled={!product.inStock || isAdding}
-                aria-label={isAdding ? "Adding to cart..." : `Add ${product.name} to cart`}
-                className="flex-1 bg-primary-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-              >
-                <ShoppingCart className="h-5 w-5" aria-hidden="true" />
-                {isAdding ? 'Adding...' : 'Add to Cart'}
-              </button>
-                
-              <button
-                onClick={handleToggleFavorite}
-                aria-label={isFavorite(product.id) ? "Remove from favorites" : "Add to favorites"}
-                className="p-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors flex items-center justify-center"
-              >
-                <Heart 
-                  className={`h-5 w-5 ${
-                    isFavorite(product.id) 
-                      ? 'text-red-500 fill-current' 
-                      : 'text-gray-400'
-                  }`}
-                  aria-hidden="true"
-                />
-              </button>
-              </div>
-            </div>
-
-            {/* Features */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-6 border-t border-gray-200">
-              <div className="flex items-center gap-3">
-                <Truck className="h-5 w-5 text-green-600" />
-                <div>
-                  <div className="text-sm font-medium text-gray-800">Free Shipping</div>
-                  <div className="text-xs text-gray-600">On orders over 1,000 AED</div>
-                </div>
-              </div>
-              
-              <div className="flex items-center gap-3">
-                <Shield className="h-5 w-5 text-green-700" />
-                <div>
-                  <div className="text-sm font-medium text-gray-800">Secure Payment</div>
-                  <div className="text-xs text-gray-600">Stripe checkout</div>
-                </div>
-              </div>
-              
-              <div className="flex items-center gap-3">
-                  <input 
-                    type="checkbox" 
-                    checked 
-                    readOnly
-                    className="h-4 w-4 text-green-600 border-green-300 rounded focus:ring-green-500 accent-green-600"
-                  />
-                <div>
-                  <div className="text-sm font-medium text-gray-800">Proud UAE Tax Payer</div>
-                  <div className="text-xs text-gray-600">Supporting local economy</div>
-                </div>
-              </div>
             </div>
           </div>
         </div>

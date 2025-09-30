@@ -405,7 +405,7 @@ export const products: Product[] = [
     id: '41',
     name: 'SKIN CARING BLEMISH BALM CUSHION [SPF 50+ PA++++]',
     price: 300,
-    description: 'Cushion 15g, Refill 15g. BB cushion that enables a natural and healthy glow. Dermatologically tested. Key ingredients: Repairing Pep9 Complex, Volufiline™, Glutathione, Adenosine, Niacinamide.',
+    description: 'Professional BB cushion for post-treatment use with natural coverage and skin protection.',
     image: '/images/BBC.jpg',
     images: null,
     category: 'Cushion BB',

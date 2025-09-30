@@ -14,14 +14,14 @@ interface CartItemProps {
 export default function CartItem({ item }: CartItemProps) {
   const { updateQuantity, removeItem } = useCart()
   const { user } = useAuth()
-  const { product, quantity } = item
+  const { product, quantity, selectedColor, selectedSize } = item
 
   const handleQuantityChange = (newQuantity: number) => {
-    updateQuantity(product.id, newQuantity)
+    updateQuantity(product.id, newQuantity, selectedColor, selectedSize)
   }
 
   const handleRemove = () => {
-    removeItem(product.id)
+    removeItem(product.id, selectedColor, selectedSize)
   }
 
   return (
@@ -42,8 +42,21 @@ export default function CartItem({ item }: CartItemProps) {
             <h3 className="text-base md:text-lg font-semibold text-gray-800 truncate hover:text-primary-600 transition-colors cursor-pointer">{product.name}</h3>
           </Link>
           <p className="text-xs md:text-sm text-gray-600">{product.category}</p>
+          {selectedColor && (
+            <p className="text-xs md:text-sm text-gray-500">
+              Color: <span className="font-medium text-gray-700">{selectedColor}</span>
+            </p>
+          )}
+          {selectedSize && (
+            <p className="text-xs md:text-sm text-gray-500">
+              Size: <span className="font-medium text-gray-700">{selectedSize}</span>
+            </p>
+          )}
           {user && user.canSeePrices ? (
-            <p className="text-base md:text-lg font-bold text-primary-600">{product.price.toFixed(2)} AED</p>
+            <div>
+              <p className="text-base md:text-lg font-bold text-primary-600">{product.price.toFixed(2)} AED</p>
+              <p className="text-xs text-gray-500">VAT included</p>
+            </div>
           ) : (
             <div className="flex items-center text-gray-500">
               <Lock className="h-4 w-4 mr-1" />
@@ -80,9 +93,12 @@ export default function CartItem({ item }: CartItemProps) {
         
         <div className="text-center sm:text-right">
           {user && user.canSeePrices ? (
-            <p className="text-base md:text-lg font-semibold text-gray-800">
-              {(product.price * quantity).toFixed(2)} AED
-            </p>
+            <div>
+              <p className="text-base md:text-lg font-semibold text-gray-800">
+                {(product.price * quantity).toFixed(2)} AED
+              </p>
+              <p className="text-xs text-gray-500">VAT included</p>
+            </div>
           ) : (
             <div className="flex items-center justify-center text-gray-500">
               <Lock className="h-4 w-4 mr-1" />

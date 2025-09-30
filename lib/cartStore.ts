@@ -8,40 +8,52 @@ export const useCartStore = create<CartState>()(
       items: [],
       selectedEmirate: 'Dubai',
       
-      addItem: (product: Product, quantity = 1) => {
+      addItem: (product: Product, quantity = 1, selectedColor?: string, selectedSize?: string) => {
         const items = get().items
-        const existingItem = items.find(item => item.product.id === product.id)
+        const existingItem = items.find(item => 
+          item.product.id === product.id && 
+          item.selectedColor === selectedColor && 
+          item.selectedSize === selectedSize
+        )
         
         if (existingItem) {
           set({
             items: items.map(item =>
-              item.product.id === product.id
+              item.product.id === product.id && 
+              item.selectedColor === selectedColor && 
+              item.selectedSize === selectedSize
                 ? { ...item, quantity: item.quantity + quantity }
                 : item
             )
           })
         } else {
           set({
-            items: [...items, { product, quantity }]
+            items: [...items, { product, quantity, selectedColor, selectedSize }]
           })
         }
       },
       
-      removeItem: (productId: string) => {
+      removeItem: (productId: string, selectedColor?: string, selectedSize?: string) => {
         set({
-          items: get().items.filter(item => item.product.id !== productId)
+          items: get().items.filter(item => 
+            !(item.product.id === productId && 
+              item.selectedColor === selectedColor && 
+              item.selectedSize === selectedSize)
+          )
         })
       },
       
-      updateQuantity: (productId: string, quantity: number) => {
+      updateQuantity: (productId: string, quantity: number, selectedColor?: string, selectedSize?: string) => {
         if (quantity <= 0) {
-          get().removeItem(productId)
+          get().removeItem(productId, selectedColor, selectedSize)
           return
         }
         
         set({
           items: get().items.map(item =>
-            item.product.id === productId
+            item.product.id === productId && 
+            item.selectedColor === selectedColor && 
+            item.selectedSize === selectedSize
               ? { ...item, quantity }
               : item
           )

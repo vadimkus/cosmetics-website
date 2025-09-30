@@ -115,9 +115,12 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
         <div className="flex flex-col gap-3">
           <div className="flex items-center justify-between">
             {user && user.canSeePrices ? (
-              <span className="text-base font-bold text-primary-600">
-                {product.price.toFixed(2)} AED
-              </span>
+              <div>
+                <span className="text-base font-bold text-primary-600">
+                  {product.price.toFixed(2)} AED
+                </span>
+                <p className="text-xs text-gray-500">VAT included</p>
+              </div>
             ) : user ? (
               <div className="flex items-center text-gray-500">
                 <Lock className="h-4 w-4 mr-1" />

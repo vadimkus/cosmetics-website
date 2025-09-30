@@ -513,4 +513,15 @@ export const products: Product[] = [
     inStock: true,
     size: '1 box',
   },
+  {
+    id: '52',
+    name: 'GENOSYS SKIN REBOOT PDRN MASK PACK',
+    price: 450,
+    description: 'Professional PDRN (Polydeoxyribonucleotide) mask pack for skin regeneration and repair. This advanced treatment mask contains PDRN extracted from salmon DNA to promote cellular regeneration, improve skin texture, and enhance overall skin health. Perfect for post-treatment care and intensive skin rejuvenation.',
+    image: '/images/PDRN.jpg',
+    images: null,
+    category: 'Mask',
+    inStock: true,
+    size: '30 sheets',
+  },
 ]

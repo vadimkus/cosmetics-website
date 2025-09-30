@@ -3758,6 +3758,411 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </p>
                     </div>
                   </>
+                ) : product.id === '37' ? (
+                  <>
+                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <p className="text-gray-600 mb-4 text-sm">
+                      PEPTIDE GEL MASK is a revolutionary thermo-sensitive hydrogel mask that provides instant cooling relief 
+                      and deep hydration for post-treatment skin care. This patented technology transforms from gel to fluid 
+                      upon contact with skin temperature, ensuring optimal ingredient delivery and maximum comfort.
+                    </p>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
+                    <div className="space-y-3 mb-4">
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Thermo-Sensitive Technology</h5>
+                        <p className="text-sm text-gray-600">
+                          Patented hydrogel that transforms from gel to fluid at body temperature for enhanced skin adhesion and ingredient penetration.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Instant Cooling Effect</h5>
+                        <p className="text-sm text-gray-600">
+                          Provides immediate cooling relief by displacing skin heat with moisture, perfect for post-treatment care.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Advanced Peptide Formula</h5>
+                        <p className="text-sm text-gray-600">
+                          Contains Acetyl Hexapeptide-8 and other peptides for enhanced skin regeneration and healing.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Post-Treatment Care</h5>
+                        <p className="text-sm text-gray-600">
+                          Specifically recommended after dermatological procedures like laser treatments and microneedling.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
+                    <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
+                      <li>Instant Cooling Relief - Provides immediate cooling sensation to soothe irritated skin</li>
+                      <li>Deep Hydration - Delivers intense moisture for optimal skin recovery</li>
+                      <li>Enhanced Penetration - Thermo-sensitive technology ensures maximum ingredient absorption</li>
+                      <li>Post-Treatment Healing - Accelerates recovery after dermatological procedures</li>
+                      <li>Skin Comfort - Reduces inflammation and irritation from treatments</li>
+                      <li>Professional Results - Clinical-grade formula for advanced skincare treatments</li>
+                    </ul>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h4>
+                    <div className="space-y-3 mb-4">
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Acetyl Hexapeptide-8</h5>
+                        <p className="text-sm text-gray-600">
+                          Advanced peptide that helps relax facial muscles and reduce expression lines for smoother skin.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Hyaluronic Acid</h5>
+                        <p className="text-sm text-gray-600">
+                          Powerful humectant that attracts and retains moisture for deep hydration and plumping effects.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Hydrolyzed Collagen</h5>
+                        <p className="text-sm text-gray-600">
+                          Bioactive collagen peptides that support skin structure and promote elasticity.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Chondrus Crispus Extract</h5>
+                        <p className="text-sm text-gray-600">
+                          Natural carrageenan extract that provides soothing and anti-inflammatory benefits.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Dipotassium Glycyrrhizate</h5>
+                        <p className="text-sm text-gray-600">
+                          Licorice root derivative that provides anti-inflammatory and soothing properties.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Botanical Extracts</h5>
+                        <p className="text-sm text-gray-600">
+                          Arnica Montana and Chamomile extracts provide natural soothing and healing benefits.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h4>
+                    <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
+                      <ol className="list-decimal list-inside text-gray-600 space-y-2 text-sm">
+                        <li><strong>Preparation:</strong> Cleanse skin thoroughly and ensure it's dry before application</li>
+                        <li><strong>Application:</strong> Apply the gel mask evenly to the treatment area, avoiding eye area</li>
+                        <li><strong>Contact:</strong> The mask will transform from gel to fluid upon contact with skin temperature</li>
+                        <li><strong>Duration:</strong> Leave on for 15-20 minutes for optimal results</li>
+                        <li><strong>Removal:</strong> Gently remove and massage any remaining product into skin</li>
+                        <li><strong>Frequency:</strong> Use as directed by your skincare professional</li>
+                      </ol>
+                    </div>
+                    
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Type:</strong> Professional thermo-sensitive hydrogel mask</p>
+                        <p><strong>Size:</strong> 38g x 5ea</p>
+                        <p><strong>Treatment:</strong> Post-treatment care, cooling therapy</p>
+                        <p><strong>Skin Type:</strong> All skin types, especially post-treatment skin</p>
+                        <p><strong>Usage:</strong> Professional treatments, post-procedure care</p>
+                        <p><strong>Technology:</strong> Patented thermo-sensitive hydrogel</p>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                      <p className="text-green-800 text-sm">
+                        <strong>Note:</strong> This product is dermatologically tested and specifically formulated for professional use. 
+                        For best results, use as directed by your skincare professional. Not recommended for home use without 
+                        professional guidance. Store in a cool, dry place away from direct sunlight.
+                      </p>
+                    </div>
+                  </>
+                ) : product.id === '22' ? (
+                  <>
+                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <p className="text-gray-600 mb-4 text-sm">
+                      MULTI FUNCTIONAL ANTI-WRINKLE SERUM is an advanced anti-aging serum that combines the power of bakuchiol, 
+                      a natural alternative to retinol, with cutting-edge peptide technology. This clinically-tested formula 
+                      helps visibly smooth wrinkles, reinforce skin firmness, and restore youthful radiance for all skin types.
+                    </p>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
+                    <div className="space-y-3 mb-4">
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Natural Retinol Alternative</h5>
+                        <p className="text-sm text-gray-600">
+                          Features bakuchiol, a plant-derived alternative to retinol that provides anti-aging benefits without irritation.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Advanced Peptide Complex</h5>
+                        <p className="text-sm text-gray-600">
+                          Contains Anti-aging Peptide 6 and other peptides that target specific signs of aging for comprehensive results.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Lipid Barrier Technology</h5>
+                        <p className="text-sm text-gray-600">
+                          Innovative liposome delivery system with ceramides, cholesterol, and phytosphingosine for enhanced penetration.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Clinical Validation</h5>
+                        <p className="text-sm text-gray-600">
+                          Clinically tested with proven results in improving skin age index and overall skin quality.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
+                    <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
+                      <li>Wrinkle Reduction - Visibly smooths fine lines and deep wrinkles for younger-looking skin</li>
+                      <li>Skin Firmness - Reinforces skin elasticity and firmness for a more lifted appearance</li>
+                      <li>Gentle Formula - Natural bakuchiol provides retinol-like benefits without irritation or sensitivity</li>
+                      <li>Enhanced Penetration - Lipid barrier technology ensures optimal ingredient delivery</li>
+                      <li>Skin Tone Balance - Improves overall skin tone and texture for radiant complexion</li>
+                      <li>Anti-Aging Protection - Comprehensive approach to preventing and reversing signs of aging</li>
+                    </ul>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h4>
+                    <div className="space-y-3 mb-4">
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Bakuchiol</h5>
+                        <p className="text-sm text-gray-600">
+                          Natural plant-derived alternative to retinol that provides anti-aging benefits without irritation or photosensitivity.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Anti-aging Peptide 6</h5>
+                        <p className="text-sm text-gray-600">
+                          Advanced peptide that targets specific aging mechanisms for comprehensive anti-wrinkle benefits.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Lipid Barrier Liposome</h5>
+                        <p className="text-sm text-gray-600">
+                          Ceramide NP, cholesterol, and phytosphingosine create a protective barrier while enhancing ingredient penetration.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Collagen & Elastin</h5>
+                        <p className="text-sm text-gray-600">
+                          Essential proteins that support skin structure and elasticity for firm, youthful skin.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Propolis Extract</h5>
+                        <p className="text-sm text-gray-600">
+                          Natural bee-derived ingredient that provides antioxidant protection and skin healing benefits.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Adenosine & Niacinamide</h5>
+                        <p className="text-sm text-gray-600">
+                          Powerful combination that improves skin texture, reduces fine lines, and enhances skin barrier function.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h4>
+                    <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
+                      <ol className="list-decimal list-inside text-gray-600 space-y-2 text-sm">
+                        <li><strong>Preparation:</strong> Cleanse skin thoroughly and apply toner if desired</li>
+                        <li><strong>Application:</strong> Apply 2-3 drops to face and neck, avoiding eye area</li>
+                        <li><strong>Massage:</strong> Gently massage in upward motions until fully absorbed</li>
+                        <li><strong>Follow-up:</strong> Apply moisturizer and sunscreen during daytime</li>
+                        <li><strong>Frequency:</strong> Use once daily, preferably in the evening</li>
+                        <li><strong>Results:</strong> Visible improvements typically seen within 4-6 weeks of consistent use</li>
+                      </ol>
+                    </div>
+                    
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Type:</strong> Multi-functional anti-wrinkle serum</p>
+                        <p><strong>Size:</strong> 30ml</p>
+                        <p><strong>Key Benefits:</strong> Wrinkle reduction, skin firmness, anti-aging</p>
+                        <p><strong>Skin Type:</strong> All skin types, especially aging and mature skin</p>
+                        <p><strong>Usage:</strong> Daily anti-aging treatment</p>
+                        <p><strong>Clinical Testing:</strong> Clinically tested for efficacy and safety</p>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                      <p className="text-green-800 text-sm">
+                        <strong>Note:</strong> This product is dermatologically tested and clinically proven. For best results, 
+                        use consistently as part of your daily skincare routine. Suitable for all skin types, including 
+                        sensitive skin. Store in a cool, dry place away from direct sunlight.
+                      </p>
+                    </div>
+                  </>
+                ) : product.id === '18' ? (
+                  <>
+                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <p className="text-gray-600 mb-4 text-sm">
+                      MOISTURE REPLENISHING HYALURON SERUM is a revolutionary coconut water-based hydrating serum that delivers 
+                      multi-depth hydration through an innovative 4-step hydration system. This advanced formula combines 
+                      hyaluronic acid complex with mushroom extracts to provide deep moisture replenishment and long-lasting hydration.
+                    </p>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
+                    <div className="space-y-3 mb-4">
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">4-Step Hydration System</h5>
+                        <p className="text-sm text-gray-600">
+                          Advanced hydration technology that works in layers for comprehensive moisture delivery and retention.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Coconut Water Base</h5>
+                        <p className="text-sm text-gray-600">
+                          Natural coconut water provides electrolytes and natural hydration for optimal skin balance.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Hyaluronic Acid Complex</h5>
+                        <p className="text-sm text-gray-600">
+                          Multi-molecular weight hyaluronic acids for layer-by-layer moisture replenishment and barrier formation.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Mushroom Extracts</h5>
+                        <p className="text-sm text-gray-600">
+                          Powerful mushroom extracts provide anti-inflammatory and antioxidant protection for healthy skin.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
+                    <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
+                      <li>Deep Hydration - Multi-layer moisture delivery for comprehensive skin hydration</li>
+                      <li>Moisture Retention - Prevents moisture evaporation with barrier-forming technology</li>
+                      <li>Natural Hydration - Coconut water provides electrolytes for optimal skin balance</li>
+                      <li>Anti-Inflammatory - Mushroom extracts soothe and protect skin from environmental damage</li>
+                      <li>Enhanced Penetration - Aquaporin stimulation improves moisture transport into skin</li>
+                      <li>Long-Lasting Results - Sustained hydration that lasts throughout the day</li>
+                    </ul>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">4-Step Hydration Process</h4>
+                    <div className="space-y-3 mb-4">
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Step 1: Electrolyte Balance</h5>
+                        <p className="text-sm text-gray-600">
+                          Coconut water electrolytes lead moisture into the skin and balance water content for optimal hydration.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Step 2: Aquaporin Stimulation</h5>
+                        <p className="text-sm text-gray-600">
+                          Stimulates aquaporin formation to open water-transport channels and attract moisture to the skin.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Step 3: Multi-Layer Replenishment</h5>
+                        <p className="text-sm text-gray-600">
+                          Low and middle molecular weight hyaluronic acids replenish moisture layer by layer from deep within the skin.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Step 4: Barrier Formation</h5>
+                        <p className="text-sm text-gray-600">
+                          High molecular weight hyaluronic acid prevents moisture evaporation by forming a protective barrier on the skin surface.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h4>
+                    <div className="space-y-3 mb-4">
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Coconut Water Complex (78%)</h5>
+                        <p className="text-sm text-gray-600">
+                          Natural coconut water provides electrolytes, vitamins, and minerals for optimal skin hydration and balance.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Hyaluronan 11 Multi-Complex</h5>
+                        <p className="text-sm text-gray-600">
+                          Advanced hyaluronic acid complex with multiple molecular weights for comprehensive hydration at all skin levels.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Glyceryl Glucoside</h5>
+                        <p className="text-sm text-gray-600">
+                          Aquaporin-stimulating ingredient that enhances moisture transport and improves skin's natural hydration mechanisms.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Mushroom Extracts</h5>
+                        <p className="text-sm text-gray-600">
+                          Powerful mushroom extracts provide anti-inflammatory, antioxidant, and protective benefits for healthy skin.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Moisture Magnet Technology</h5>
+                        <p className="text-sm text-gray-600">
+                          Advanced ingredients that attract and retain moisture for long-lasting hydration and skin comfort.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h4>
+                    <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
+                      <ol className="list-decimal list-inside text-gray-600 space-y-2 text-sm">
+                        <li><strong>Preparation:</strong> Cleanse skin thoroughly and apply toner if desired</li>
+                        <li><strong>Application:</strong> Apply 2-3 drops to face and neck, avoiding eye area</li>
+                        <li><strong>Massage:</strong> Gently massage in upward motions until fully absorbed</li>
+                        <li><strong>Follow-up:</strong> Apply moisturizer to lock in hydration</li>
+                        <li><strong>Frequency:</strong> Use morning and evening for optimal results</li>
+                        <li><strong>Results:</strong> Immediate hydration with long-lasting moisture retention</li>
+                      </ol>
+                    </div>
+                    
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Type:</strong> Moisture replenishing hyaluron serum</p>
+                        <p><strong>Size:</strong> 30ml</p>
+                        <p><strong>Key Benefits:</strong> Deep hydration, moisture retention, skin balance</p>
+                        <p><strong>Skin Type:</strong> All skin types, especially dry and dehydrated skin</p>
+                        <p><strong>Usage:</strong> Daily hydration treatment</p>
+                        <p><strong>Technology:</strong> 4-step hydration system</p>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                      <p className="text-green-800 text-sm">
+                        <strong>Note:</strong> This product is dermatologically tested and suitable for all skin types. 
+                        For best results, use consistently as part of your daily skincare routine. Store in a cool, 
+                        dry place away from direct sunlight.
+                      </p>
+                    </div>
+                  </>
                 ) : product.id === '40' ? (
                   <>
                     <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>

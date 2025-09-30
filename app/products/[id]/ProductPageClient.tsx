@@ -400,29 +400,114 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '11' ? (
                   <>
-                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Details</h3>
+                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
                     <p className="text-gray-600 mb-4 text-sm">
-                      This premium {product.category.toLowerCase()} product is carefully formulated with high-quality ingredients 
-                      to deliver exceptional results. Perfect for professional use and home care routines.
+                      SKIN DEFENDER LIP & EYE MAKEUP REMOVER is an advanced biphasic makeup remover specifically 
+                      designed for the delicate lip and eye areas. This innovative formula combines vitamin complex 
+                      and firming peptides to provide gentle yet effective cleansing without irritation.
                     </p>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Benefits:</h4>
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
+                    <div className="space-y-3 mb-4">
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Biphasic Technology</h5>
+                        <p className="text-sm text-gray-600">
+                          Dual-layer formula with essence layer containing vitamins and firming peptides, plus oil layer for powerful cleansing.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Gentle Formula</h5>
+                        <p className="text-sm text-gray-600">
+                          Specifically designed for delicate lip and eye areas with non-greasy, non-irritating properties.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Vitamin Complex</h5>
+                        <p className="text-sm text-gray-600">
+                          10 Vitamin Complex provides nourishment while cleansing, promoting healthy skin around the eyes and lips.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Firming Peptides</h5>
+                        <p className="text-sm text-gray-600">
+                          Palmitoyl Tripeptide-5 and Acetyl Tetrapeptide-5 help maintain skin firmness and elasticity.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
                     <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
-                      <li>Professional-grade quality</li>
-                      <li>Dermatologically tested</li>
-                      <li>Safe for all skin types</li>
-                      <li>Long-lasting results</li>
+                      <li>Effective Makeup Removal - Removes even waterproof makeup from delicate areas</li>
+                      <li>Gentle Cleansing - Non-irritating formula suitable for sensitive skin</li>
+                      <li>Nourishing Properties - Vitamin complex provides skin nourishment</li>
+                      <li>Firming Action - Peptides help maintain skin firmness and elasticity</li>
+                      <li>Easy Application - Shake well before use for optimal results</li>
+                      <li>Professional Quality - Dermatologically tested for safety and efficacy</li>
                     </ul>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">How to Use:</h4>
-                    <p className="text-gray-600 mb-4 text-sm">
-                      Apply with a cotton pad to lip and eye area and hold for few seconds. Then, gently wipe off the makeup.
-                    </p>
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h4>
+                    <div className="space-y-3 mb-4">
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">10 Vitamin Complex</h5>
+                        <p className="text-sm text-gray-600">
+                          Comprehensive vitamin blend that provides nourishment and antioxidant protection while cleansing.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Firming Peptides</h5>
+                        <p className="text-sm text-gray-600">
+                          Palmitoyl Tripeptide-5 and Acetyl Tetrapeptide-5 help maintain skin firmness and reduce signs of aging.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Botanical Extracts</h5>
+                        <p className="text-sm text-gray-600">
+                          Rosa Damascena Flower Water, Carrot Root Extract, and Broccoli Extract provide natural nourishment.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Nourishing Oils</h5>
+                        <p className="text-sm text-gray-600">
+                          Carrot Seed Oil and Sea Buckthorn Oil provide essential fatty acids and vitamins for skin health.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h4>
+                    <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
+                      <ol className="list-decimal list-inside text-gray-600 space-y-2 text-sm">
+                        <li><strong>Shake Well:</strong> Shake the bottle well before use to mix the biphasic layers</li>
+                        <li><strong>Application:</strong> Apply a small amount to cotton pad or fingertips</li>
+                        <li><strong>Gentle Removal:</strong> Gently wipe away makeup from lips and eye area</li>
+                        <li><strong>Rinse:</strong> Rinse with lukewarm water if desired</li>
+                        <li><strong>Follow-up:</strong> Continue with your regular skincare routine</li>
+                        <li><strong>Storage:</strong> Store in a cool, dry place away from direct sunlight</li>
+                      </ol>
+                    </div>
+                    
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Type:</strong> Biphasic makeup remover</p>
+                        <p><strong>Size:</strong> 200ml</p>
+                        <p><strong>Key Benefits:</strong> Gentle cleansing, makeup removal, skin nourishment</p>
+                        <p><strong>Target Areas:</strong> Lips and eye area</p>
+                        <p><strong>Usage:</strong> Daily makeup removal</p>
+                        <p><strong>Testing:</strong> Dermatologically tested</p>
+                      </div>
+                    </div>
                     
                     <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-4">
                       <p className="text-green-800 text-sm">
-                        <strong>Note:</strong> This product is dermatologically tested and safe for all skin types. 
-                        For best results, use as part of your daily skincare routine.
+                        <strong>Note:</strong> This product is dermatologically tested and specifically formulated for 
+                        delicate lip and eye areas. For best results, shake well before use and store in a cool, 
+                        dry place away from direct sunlight.
                       </p>
                     </div>
                     

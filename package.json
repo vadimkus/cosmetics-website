@@ -23,6 +23,7 @@
     "autoprefixer": "^10.4.21",
     "bcryptjs": "^3.0.2",
     "clsx": "^2.1.1",
+    "dotenv": "^17.2.3",
     "logrocket": "^4.0.0",
     "lucide-react": "^0.543.0",
     "next": "^15.5.2",

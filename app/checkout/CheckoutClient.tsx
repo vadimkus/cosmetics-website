@@ -59,6 +59,7 @@ export default function CheckoutClient() {
         })),
         subtotal,
         shippingCost,
+        vatAmount,
         total
       }
 
@@ -117,7 +118,8 @@ export default function CheckoutClient() {
   const selectedEmirateData = emirates.find(e => e.name === selectedEmirate)
   const subtotal = getTotalPrice()
   const shippingCost = subtotal >= 1000 ? 0 : (selectedEmirateData?.shippingCost || 45)
-  const total = subtotal + shippingCost
+  const vatAmount = Math.round((subtotal + shippingCost) * 0.05 * 100) / 100 // 5% VAT
+  const total = subtotal + shippingCost + vatAmount
 
   // Redirect if cart is empty
   useEffect(() => {
@@ -581,7 +583,7 @@ export default function CheckoutClient() {
                   
                   <div className="flex justify-between text-gray-600">
                     <span>VAT (5%)</span>
-                    <span>AED {(subtotal * 0.05).toFixed(2)}</span>
+                    <span>AED {vatAmount.toFixed(2)}</span>
                   </div>
                   
                   <div className="text-xs text-gray-500 text-center">

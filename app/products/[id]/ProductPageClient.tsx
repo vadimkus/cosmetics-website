@@ -183,9 +183,9 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
 
             {/* Size and Price */}
             <div className="flex items-center gap-4 mt-12 pt-4">
-              {(product.size || product.id === '41' || product.id === '30' || product.id === '29' || product.id === '32' || product.id === '28' || product.id === '31') && (
+              {(product.size || product.id === '41' || product.id === '30' || product.id === '29' || product.id === '32' || product.id === '28' || product.id === '31' || product.id === '24') && (
                 <div className="text-lg font-medium text-gray-700">
-                  Size: {product.id === '41' ? '15g' : product.id === '31' ? '50g/230g' : (product.id === '30' || product.id === '29' || product.id === '32' || product.id === '28') ? '50g/250g' : product.size}
+                  Size: {product.id === '41' ? '15g' : product.id === '31' ? '50g/230g' : (product.id === '30' || product.id === '29' || product.id === '32' || product.id === '28') ? '50g/250g' : product.id === '24' ? '20g' : product.size}
                 </div>
               )}
               <div className="text-2xl md:text-3xl font-bold text-primary-600">
@@ -447,29 +447,99 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '12' ? (
                   <>
-                    <h3 className="text-lg font-semibold text-gray-800 mb-2">Product Details</h3>
-                    <p className="text-gray-600 mb-4">
-                      This premium {product.category.toLowerCase()} product is carefully formulated with high-quality ingredients 
-                      to deliver exceptional results. Perfect for professional use and home care routines.
+                    <h3 className="text-lg font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <p className="text-gray-600 mb-4 text-base">
+                      GENOSYS EPI TURNOVER BOOSTING PEELING GEL is an enzyme-based exfoliating gel designed to 
+                      gently remove dead skin cells without causing irritation. This innovative peeling gel utilizes 
+                      natural enzymes and plant extracts to purify, nourish, and moisturize the skin, making it 
+                      suitable for all skin types while promoting a smoother, more radiant complexion.
                     </p>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2">Key Benefits:</h4>
-                    <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1">
-                      <li>Professional-grade quality</li>
-                      <li>Dermatologically tested</li>
-                      <li>Safe for all skin types</li>
-                      <li>Long-lasting results</li>
+                    <h4 className="font-semibold text-gray-800 mb-2 text-base">Benefits</h4>
+                    <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-base">
+                      <li>Gentle Exfoliation - Effectively removes dead skin cells, promoting smoother skin texture</li>
+                      <li>Radiance Enhancement - Helps correct skin tone, resulting in a brighter complexion</li>
+                      <li>Deep Moisturization - Provides hydration to the skin, preventing dryness</li>
+                      <li>Pore Purification - Cleanses and purifies pores, reducing the likelihood of breakouts</li>
+                      <li>Enzyme Technology - Natural enzyme-based exfoliation for gentle skin renewal</li>
+                      <li>All Skin Types - Suitable for sensitive and all skin types</li>
+                      <li>Professional Results - Delivers salon-quality exfoliation at home</li>
                     </ul>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2">How to Use:</h4>
-                    <p className="text-gray-600 mb-4">
-                      Apply the product on clean, dry skin and gently massage in a circular motion for up to one minute. Rinse the clumped dead skin cells with tepid water. Dermatologically tested.
+                    <h4 className="font-semibold text-gray-800 mb-2 text-base">Directions</h4>
+                    <p className="text-gray-600 mb-4 text-base">
+                      Apply the gel to clean, dry skin and gently massage in a circular motion for up to one minute. 
+                      Rinse off the clumped dead skin cells with lukewarm water. Use 1-2 times per week for optimal results.
                     </p>
                     
+                    <h4 className="font-semibold text-gray-800 mb-2 text-base">Key Ingredients</h4>
+                    <div className="space-y-4 mb-4">
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-base">Natural Enzymes</h5>
+                        <p className="text-base text-gray-600">
+                          Facilitate gentle exfoliation by breaking down dead skin cells naturally, 
+                          providing effective yet non-irritating skin renewal.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-base">Retinol (Vitamin A)</h5>
+                        <p className="text-base text-gray-600">
+                          Promotes skin renewal and improves texture while supporting cellular turnover 
+                          for a more youthful appearance.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-base">Provitamin A</h5>
+                        <p className="text-base text-gray-600">
+                          Supports skin health and regeneration, providing essential nutrients for 
+                          optimal skin function and recovery.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-base">Vitamin E</h5>
+                        <p className="text-base text-gray-600">
+                          Provides antioxidant protection and moisturization, helping to protect 
+                          the skin from environmental damage while maintaining hydration.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-base">Vitamin C (Ascorbic Acid)</h5>
+                        <p className="text-base text-gray-600">
+                          Brightens the skin and boosts collagen production, helping to reduce 
+                          signs of aging and improve skin radiance.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-base">Allantoin</h5>
+                        <p className="text-base text-gray-600">
+                          Soothes and calms the skin, reducing irritation and providing gentle 
+                          care for sensitive skin during exfoliation.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-base">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Form:</strong> Enzyme-based peeling gel</p>
+                        <p><strong>Skin Type:</strong> All skin types, including sensitive skin</p>
+                        <p><strong>Technology:</strong> Natural enzyme exfoliation</p>
+                        <p><strong>Key Benefits:</strong> Gentle exfoliation, radiance enhancement, pore purification</p>
+                        <p><strong>Usage:</strong> 1-2 times per week</p>
+                        <p><strong>Origin:</strong> Made in South Korea</p>
+                      </div>
+                    </div>
+                    
                     <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-4">
-                      <p className="text-green-800 text-sm">
+                      <p className="text-green-800 text-base">
                         <strong>Note:</strong> This product is dermatologically tested and safe for all skin types. 
-                        For best results, use as part of your daily skincare routine.
+                        For best results, use as part of your weekly skincare routine to achieve smoother, 
+                        more radiant skin.
                       </p>
                     </div>
                     
@@ -1349,6 +1419,266 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                           Download
                         </a>
                       </div>
+                    </div>
+                  </>
+                ) : product.id === '26' ? (
+                  <>
+                    <h3 className="text-lg font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <p className="text-gray-600 mb-4 text-base">
+                      GENOSYS EGF REPAIR OXYMASK CREAM is a unique oxygen bubbling mask cream designed to rejuvenate 
+                      dull and stressed skin. This innovative "S.O.S" cream effectively addresses skin damage from 
+                      various causes, providing immediate relief and long-term skin regeneration through advanced 
+                      oxygen therapy and skin-regenerating ingredients.
+                    </p>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-base">Benefits</h4>
+                    <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-base">
+                      <li>Oxygen Therapy - Supplies oxygen to the skin, improving cellular metabolism</li>
+                      <li>Skin Regeneration - Accelerates healing process and reduces skin irritations</li>
+                      <li>Anti-Inflammatory - Provides soothing effects for sensitive and damaged skin</li>
+                      <li>Deep Hydration - Promotes intense moisture retention and skin plumping</li>
+                      <li>Collagen Stimulation - Enhances skin elasticity and firmness</li>
+                      <li>EGF Technology - Advanced epidermal growth factor for cellular renewal</li>
+                      <li>Bubbling Action - Unique oxygen bubbling effect for enhanced penetration</li>
+                    </ul>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-base">Directions</h4>
+                    <p className="text-gray-600 mb-4 text-base">
+                      Apply a thin layer of the cream mask evenly on dry skin. Do not rub; wait for the oxygen 
+                      bubbles to form and cover the face. Once the bubbles start popping (after 1-2 minutes), 
+                      gently massage and tap for better absorption. Do not rinse off. Use in the morning and evening.
+                    </p>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-base">Key Ingredients</h4>
+                    <div className="space-y-4 mb-4">
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-base">sh-Oligopeptide-1 (EGF)</h5>
+                        <p className="text-base text-gray-600">
+                          Epidermal Growth Factor stimulates cell proliferation and aids in wound healing, 
+                          promoting faster skin recovery and regeneration.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-base">Madecassoside</h5>
+                        <p className="text-base text-gray-600">
+                          Derived from Centella Asiatica, it combats redness, reduces itching, and soothes 
+                          sensitive skin while providing anti-inflammatory benefits.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-base">Copper Tripeptide-1</h5>
+                        <p className="text-base text-gray-600">
+                          Promotes collagen synthesis and has wound-healing properties, helping to improve 
+                          skin texture and reduce signs of aging.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-base">SEPITONIC M3 (Mineral Complex)</h5>
+                        <p className="text-base text-gray-600">
+                          Enhances cellular metabolism and revitalizes the skin, providing essential minerals 
+                          for optimal skin function and health.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-base">Salmon Oil</h5>
+                        <p className="text-base text-gray-600">
+                          Rich in unsaturated fatty acids, it offers anti-inflammatory and wound-healing 
+                          effects while providing deep nourishment to the skin.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-base">Adenosine</h5>
+                        <p className="text-base text-gray-600">
+                          Provides anti-aging benefits by reducing the appearance of wrinkles and fine lines, 
+                          promoting smoother, more youthful-looking skin.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-base">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Form:</strong> Oxygen bubbling mask cream</p>
+                        <p><strong>Skin Type:</strong> All skin types, especially damaged and stressed skin</p>
+                        <p><strong>Technology:</strong> EGF and oxygen therapy</p>
+                        <p><strong>Key Benefits:</strong> Skin regeneration, oxygen therapy, anti-inflammatory</p>
+                        <p><strong>Usage:</strong> Morning and evening</p>
+                        <p><strong>Special Feature:</strong> Unique oxygen bubbling effect</p>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                      <p className="text-green-800 text-base">
+                        <strong>Note:</strong> This product is dermatologically tested and suitable for all skin types. 
+                        For optimal bubbling, avoid rubbing the product during application. For best results, 
+                        incorporate it into your daily skincare routine.
+                      </p>
+                    </div>
+                  </>
+                ) : product.id === '38' ? (
+                  <>
+                    <h3 className="text-lg font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <p className="text-gray-600 mb-4 text-base">
+                      GENOSYS EZ CO₂ MASK KIT is a professional carboxy therapy system designed to deliver 
+                      oxygen to the skin through the innovative "Bohr Effect" mechanism. This advanced CO₂ 
+                      therapy kit combines a specialized gel and sheet mask to accelerate oxygen delivery 
+                      to skin tissues, providing firming, brightening, and anti-blemish effects while 
+                      preparing the skin for optimal absorption of active ingredients.
+                    </p>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-base">Benefits</h4>
+                    <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-base">
+                      <li>Oxygen Therapy - Accelerates oxygen delivery to skin tissues through CO₂ therapy</li>
+                      <li>Skin Firming - Provides firming effects through improved cellular metabolism</li>
+                      <li>Brightening - Helps correct skin tone and reduce hyperpigmentation</li>
+                      <li>Anti-Blemish - Reduces blemishes and improves overall skin clarity</li>
+                      <li>Catalytic Effect - Prepares skin for optimal absorption of active ingredients</li>
+                      <li>Professional Results - Delivers salon-quality carboxy therapy at home</li>
+                      <li>Microneedling Enhancement - Acts as a catalytic mask for better treatment results</li>
+                    </ul>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-base">Directions</h4>
+                    <p className="text-gray-600 mb-4 text-base">
+                      Apply the CO₂ gel evenly to clean skin, then place the sheet mask over the treated area. 
+                      Leave on for 15-20 minutes to allow the CO₂ therapy to work. The fine particles of CO₂ 
+                      generated by the contact between gel and mask will accelerate oxygen delivery to skin tissues. 
+                      Remove mask and gently massage any remaining product into the skin.
+                    </p>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-base">Key Ingredients</h4>
+                    <div className="space-y-4 mb-4">
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-base">EZ CO₂ GEL Ingredients</h5>
+                        <div className="text-base text-gray-600 space-y-2">
+                          <p><strong>Lactic Acid:</strong> Gentle exfoliation and skin renewal</p>
+                          <p><strong>Portulaca Oleracea Extract:</strong> Antioxidant and anti-inflammatory properties</p>
+                          <p><strong>Rosemary Leaf Extract:</strong> Antimicrobial and circulation-boosting effects</p>
+                          <p><strong>Chamomile Flower Extract:</strong> Soothing and anti-inflammatory benefits</p>
+                          <p><strong>Licorice Root Extract:</strong> Skin brightening and anti-inflammatory properties</p>
+                          <p><strong>Scutellaria Baicalensis Root Extract:</strong> Antioxidant and anti-aging benefits</p>
+                          <p><strong>Centella Asiatica Extract:</strong> Wound healing and anti-inflammatory effects</p>
+                          <p><strong>Green Tea Leaf Extract:</strong> Antioxidant protection and skin renewal</p>
+                        </div>
+                      </div>
+                      
+                    </div>
+                    
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-base">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Form:</strong> Professional carboxy therapy kit (Gel + Sheet Mask)</p>
+                        <p><strong>Skin Type:</strong> All skin types, especially dull and stressed skin</p>
+                        <p><strong>Technology:</strong> CO₂ therapy with Bohr Effect mechanism</p>
+                        <p><strong>Key Benefits:</strong> Oxygen therapy, skin firming, brightening, anti-blemish</p>
+                        <p><strong>Usage:</strong> 1-2 times per week</p>
+                        <p><strong>Kit Contents:</strong> Gel 20g x 5ea, Mask 12g x 5ea</p>
+                        <p><strong>Special Feature:</strong> Catalytic mask for enhanced treatment absorption</p>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                      <p className="text-green-800 text-base">
+                        <strong>Note:</strong> This product is dermatologically tested and safe for all skin types. 
+                        The CO₂ therapy mechanism accelerates oxygen delivery to skin tissues, providing 
+                        professional-grade results. For best results, use as part of your weekly skincare routine.
+                      </p>
+                    </div>
+                  </>
+                ) : product.id === '24' ? (
+                  <>
+                    <h3 className="text-lg font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <p className="text-gray-600 mb-4 text-base">
+                      GENOSYS EyeCell EYE CONTOUR CREAM is a daily eye care product specifically designed to address 
+                      multiple concerns around the delicate eye area. This advanced eye cream targets fine wrinkles, 
+                      crow's feet, dark circles, and under-eye puffiness while promoting microcirculation to enhance 
+                      overall skin health and provide comprehensive eye area care.
+                    </p>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-base">Benefits</h4>
+                    <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-base">
+                      <li>Fine Wrinkle Reduction - Targets and reduces fine lines around the eye area</li>
+                      <li>Crow's Feet Diminishing - Helps diminish the appearance of crow's feet</li>
+                      <li>Dark Circle Lightening - Lightens dark circles and under-eye discoloration</li>
+                      <li>Puffiness Relief - Alleviates under-eye puffiness and swelling</li>
+                      <li>Microcirculation Enhancement - Promotes blood circulation for healthier skin</li>
+                      <li>Firming Effects - Provides firming and lifting benefits</li>
+                      <li>Daily Care - Suitable for daily use in morning and evening routines</li>
+                    </ul>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-base">Directions</h4>
+                    <p className="text-gray-600 mb-4 text-base">
+                      Apply the cream to pre-cleansed skin around the eyes in the morning and evening. 
+                      Gently pat the product around the eye contour area using your ring finger for optimal 
+                      absorption. For best results, use in conjunction with other Genosys EyeCell products.
+                    </p>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-base">Key Ingredients</h4>
+                    <div className="space-y-4 mb-4">
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-base">Palmitoyl Hexapeptide-12</h5>
+                        <p className="text-base text-gray-600">
+                          Stimulates fibroblast cell growth, imparting firming effects and helping to 
+                          improve skin elasticity around the delicate eye area.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-base">Copper Tripeptide-1</h5>
+                        <p className="text-base text-gray-600">
+                          Promotes collagen synthesis in skin fibroblasts, aiding in skin regeneration 
+                          and helping to reduce the appearance of fine lines and wrinkles.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-base">Rosa Damascena Callus Culture Extract</h5>
+                        <p className="text-base text-gray-600">
+                          Offers moisturizing, soothing, and whitening effects with anti-aging benefits, 
+                          helping to brighten the eye area and reduce signs of aging.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-base">Scutellaria Baicalensis Root Extract</h5>
+                        <p className="text-base text-gray-600">
+                          Provides anti-inflammatory, antioxidant, antimicrobial, antifungal, antiviral, 
+                          and free radical scavenging properties for comprehensive skin protection.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-base">Sodium Hyaluronate</h5>
+                        <p className="text-base text-gray-600">
+                          Hydrates the skin, reduces water loss, minimizes the appearance of wrinkles 
+                          and fine lines, and improves skin elasticity for a more youthful appearance.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-base">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Form:</strong> Eye contour cream</p>
+                        <p><strong>Skin Type:</strong> All skin types, especially mature and aging skin</p>
+                        <p><strong>Technology:</strong> Advanced peptide and botanical technology</p>
+                        <p><strong>Key Benefits:</strong> Fine wrinkle reduction, dark circle lightening, puffiness relief</p>
+                        <p><strong>Usage:</strong> Morning and evening</p>
+                        <p><strong>Volume:</strong> 20ml</p>
+                        <p><strong>Origin:</strong> Made in South Korea</p>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                      <p className="text-green-800 text-base">
+                        <strong>Note:</strong> This product is dermatologically tested and safe for all skin types. 
+                        For optimal results, use in conjunction with other Genosys EyeCell products as part of 
+                        your daily eye care routine.
+                      </p>
                     </div>
                   </>
                 ) : (

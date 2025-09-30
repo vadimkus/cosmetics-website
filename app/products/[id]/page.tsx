@@ -73,7 +73,7 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
     openGraph: {
       title: productTitle,
       description: productDescription,
-      type: 'product',
+      type: 'website',
       url: `https://genosys.ae/products/${product.id}`,
       siteName: 'GENOSYS Middle East FZ-LLC',
       images: displayImages.map((img: string) => ({

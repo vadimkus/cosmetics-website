@@ -153,6 +153,7 @@ export const products: Product[] = [
     images: null,
     category: 'Toner/Mist',
     inStock: true,
+    size: '200ml',
   },
   {
     id: '16',

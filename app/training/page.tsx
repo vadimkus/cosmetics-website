@@ -940,6 +940,38 @@ export default function TrainingPage() {
                       </PDFDownloadButton>
                     </div>
                   </div>
+                  
+                  {/* Microneedle Roller */}
+                  <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+                        <Link href="/products/1">
+                          <img 
+                            src="/images/genosys-microneedling-devices.jpg" 
+                            alt="Microneedle Roller" 
+                            className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+                          />
+                        </Link>
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h4 className="text-sm font-semibold text-gray-900 truncate">
+                        Microneedle Roller
+                      </h4>
+                        <p className="text-xs text-gray-400">
+                        1.5 MB
+                      </p>
+                      </div>
+                      <PDFDownloadButton 
+                        href="/documents/ppt/Overview%20of%20Microneedling_S.pdf"
+                        filename="Product Documentation"
+                        external={true}
+                        className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
+                      >
+                        <Download className="h-3 w-3 mr-1" />
+                        View PDF
+                      </PDFDownloadButton>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

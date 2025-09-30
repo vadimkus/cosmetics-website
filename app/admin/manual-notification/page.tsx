@@ -170,7 +170,7 @@ export default function ManualNotificationPage() {
           )}
 
           <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-            <h3 className="font-medium text-blue-900 mb-2">Quick Fill for Yesterday's Order</h3>
+            <h3 className="font-medium text-blue-900 mb-2">Quick Fill for Yesterday&apos;s Order</h3>
             <p className="text-sm text-blue-700 mb-3">
               If you have the order details from the admin panel, you can quickly fill them in:
             </p>

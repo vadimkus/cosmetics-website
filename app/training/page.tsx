@@ -963,7 +963,7 @@ export default function TrainingPage() {
                   {/* Lesson Details */}
                   <div className="mt-6 grid md:grid-cols-2 gap-6">
                     <div>
-                      <h4 className="font-semibold text-gray-800 mb-2">What You'll Learn:</h4>
+                      <h4 className="font-semibold text-gray-800 mb-2">What You&apos;ll Learn:</h4>
                       <ul className="text-gray-600 space-y-1">
                         <li>• Proper product application techniques</li>
                         <li>• Safety protocols and precautions</li>
@@ -1011,7 +1011,7 @@ export default function TrainingPage() {
                   {/* Lesson Details */}
                   <div className="mt-6 grid md:grid-cols-2 gap-6">
                     <div>
-                      <h4 className="font-semibold text-gray-800 mb-2">What You'll Learn:</h4>
+                      <h4 className="font-semibold text-gray-800 mb-2">What You&apos;ll Learn:</h4>
                       <ul className="text-gray-600 space-y-1">
                         <li>• Specialized neck and décolletage techniques</li>
                         <li>• Proper handling of sensitive skin areas</li>
@@ -1059,7 +1059,7 @@ export default function TrainingPage() {
                   {/* Lesson Details */}
                   <div className="mt-6 grid md:grid-cols-2 gap-6">
                     <div>
-                      <h4 className="font-semibold text-gray-800 mb-2">What You'll Learn:</h4>
+                      <h4 className="font-semibold text-gray-800 mb-2">What You&apos;ll Learn:</h4>
                       <ul className="text-gray-600 space-y-1">
                         <li>• Precise eye area treatment techniques</li>
                         <li>• Safety protocols for sensitive eye region</li>
@@ -1107,7 +1107,7 @@ export default function TrainingPage() {
                   {/* Lesson Details */}
                   <div className="mt-6 grid md:grid-cols-2 gap-6">
                     <div>
-                      <h4 className="font-semibold text-gray-800 mb-2">What You'll Learn:</h4>
+                      <h4 className="font-semibold text-gray-800 mb-2">What You&apos;ll Learn:</h4>
                       <ul className="text-gray-600 space-y-1">
                         <li>• HR3 Matrix application techniques</li>
                         <li>• Treatment protocols and timing</li>
@@ -1155,7 +1155,7 @@ export default function TrainingPage() {
                   {/* Lesson Details */}
                   <div className="mt-6 grid md:grid-cols-2 gap-6">
                     <div>
-                      <h4 className="font-semibold text-gray-800 mb-2">What You'll Learn:</h4>
+                      <h4 className="font-semibold text-gray-800 mb-2">What You&apos;ll Learn:</h4>
                       <ul className="text-gray-600 space-y-1">
                         <li>• Complete facial treatment protocols</li>
                         <li>• Product application sequences</li>
@@ -1203,7 +1203,7 @@ export default function TrainingPage() {
                   {/* Lesson Details */}
                   <div className="mt-6 grid md:grid-cols-2 gap-6">
                     <div>
-                      <h4 className="font-semibold text-gray-800 mb-2">What You'll Learn:</h4>
+                      <h4 className="font-semibold text-gray-800 mb-2">What You&apos;ll Learn:</h4>
                       <ul className="text-gray-600 space-y-1">
                         <li>• Proper Snow 02 Cleanser application</li>
                         <li>• Correct timing and duration</li>
@@ -1251,7 +1251,7 @@ export default function TrainingPage() {
                   {/* Lesson Details */}
                   <div className="mt-6 grid md:grid-cols-2 gap-6">
                     <div>
-                      <h4 className="font-semibold text-gray-800 mb-2">What You'll Learn:</h4>
+                      <h4 className="font-semibold text-gray-800 mb-2">What You&apos;ll Learn:</h4>
                       <ul className="text-gray-600 space-y-1">
                         <li>• Advanced HR3 MATRIX techniques</li>
                         <li>• Matrix treatment protocols</li>
@@ -1299,7 +1299,7 @@ export default function TrainingPage() {
                   {/* Lesson Details */}
                   <div className="mt-6 grid md:grid-cols-2 gap-6">
                     <div>
-                      <h4 className="font-semibold text-gray-800 mb-2">What You'll Learn:</h4>
+                      <h4 className="font-semibold text-gray-800 mb-2">What You&apos;ll Learn:</h4>
                       <ul className="text-gray-600 space-y-1">
                         <li>• Hair matrix treatment protocols</li>
                         <li>• Scalp preparation techniques</li>
@@ -1347,7 +1347,7 @@ export default function TrainingPage() {
                   {/* Lesson Details */}
                   <div className="mt-6 grid md:grid-cols-2 gap-6">
                     <div>
-                      <h4 className="font-semibold text-gray-800 mb-2">What You'll Learn:</h4>
+                      <h4 className="font-semibold text-gray-800 mb-2">What You&apos;ll Learn:</h4>
                       <ul className="text-gray-600 space-y-1">
                         <li>• Eye Roller 0.25mm application techniques</li>
                         <li>• Eye zone treatment protocols</li>
@@ -1395,7 +1395,7 @@ export default function TrainingPage() {
                   {/* Lesson Details */}
                   <div className="mt-6 grid md:grid-cols-2 gap-6">
                     <div>
-                      <h4 className="font-semibold text-gray-800 mb-2">What You'll Learn:</h4>
+                      <h4 className="font-semibold text-gray-800 mb-2">What You&apos;ll Learn:</h4>
                       <ul className="text-gray-600 space-y-1">
                         <li>• Advanced hair treatment protocols</li>
                         <li>• Scalp preparation and assessment techniques</li>
@@ -1443,7 +1443,7 @@ export default function TrainingPage() {
                   {/* Lesson Details */}
                   <div className="mt-6 grid md:grid-cols-2 gap-6">
                     <div>
-                      <h4 className="font-semibold text-gray-800 mb-2">What You'll Learn:</h4>
+                      <h4 className="font-semibold text-gray-800 mb-2">What You&apos;ll Learn:</h4>
                       <ul className="text-gray-600 space-y-1">
                         <li>• Anti-hair loss treatment protocols</li>
                         <li>• HR3 MATRIX application techniques</li>
@@ -1471,7 +1471,7 @@ export default function TrainingPage() {
                   More Training Lessons Coming Soon
                 </h3>
                 <p className="text-gray-500">
-                  We're continuously adding new training content. Check back regularly for updates.
+                  We&apos;re continuously adding new training content. Check back regularly for updates.
                 </p>
               </div>
             </div>

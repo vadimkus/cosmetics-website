@@ -135,7 +135,7 @@ export default function TestAnalyticsPage() {
       <div className="mt-8 p-4 bg-blue-50 rounded">
         <h3 className="font-semibold mb-2">Instructions:</h3>
         <ol className="list-decimal list-inside space-y-1 text-sm">
-          <li>Open your browser's Developer Tools (F12)</li>
+          <li>Open your browser&apos;s Developer Tools (F12)</li>
           <li>Go to the Network tab</li>
           <li>Click the test buttons above</li>
           <li>Look for requests to <code>google-analytics.com</code> or <code>googletagmanager.com</code></li>

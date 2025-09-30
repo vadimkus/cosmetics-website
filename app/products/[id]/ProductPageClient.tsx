@@ -833,26 +833,131 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '16' ? (
                   <>
-                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Details</h3>
-                    <p className="text-gray-600 mb-4">
-                      This premium {product.category.toLowerCase()} product is carefully formulated with high-quality ingredients 
-                      to deliver exceptional results. Perfect for professional use and home care routines.
+                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <p className="text-gray-600 mb-4 text-sm">
+                      SNOW BOOSTER is a premium daily moisturizing and skin refining toner designed for all skin types. 
+                      This advanced formula combines powerful botanical extracts with innovative fermentation technology to 
+                      provide deep hydration, pH balancing, and skin refinement for a healthy, glowing complexion.
                     </p>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2">Key Benefits:</h4>
-                    <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1">
-                      <li>Professional-grade quality</li>
-                      <li>Dermatologically tested</li>
-                      <li>Safe for all skin types</li>
-                      <li>Long-lasting results</li>
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
+                    <div className="space-y-3 mb-4">
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Daily Moisturizing</h5>
+                        <p className="text-sm text-gray-600">
+                          Provides essential hydration and moisture replenishment for all skin types, maintaining optimal skin barrier function.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Skin Refining</h5>
+                        <p className="text-sm text-gray-600">
+                          Helps refine skin texture and improve overall skin quality through gentle exfoliation and pH balancing.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">pH Balancing</h5>
+                        <p className="text-sm text-gray-600">
+                          Restores optimal skin pH levels after cleansing, promoting healthy skin function and barrier protection.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Botanical Extracts</h5>
+                        <p className="text-sm text-gray-600">
+                          Enriched with natural botanical extracts that provide soothing, anti-inflammatory, and antioxidant benefits.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
+                    <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
+                      <li>Deep Hydration - Provides immediate and long-lasting moisture to all skin types</li>
+                      <li>Skin Refinement - Gently exfoliates and refines skin texture for smoother appearance</li>
+                      <li>pH Restoration - Balances skin pH levels after cleansing for optimal skin health</li>
+                      <li>Soothing Properties - Calms and soothes irritated or sensitive skin</li>
+                      <li>Antioxidant Protection - Protects against environmental damage and free radicals</li>
+                      <li>Versatile Usage - Suitable for daily use in both homecare and professional settings</li>
                     </ul>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2">How to Use:</h4>
-                    <div className="text-gray-600 space-y-2">
-                      <p><strong>To remove dead skin cells/ residues after washing the face:</strong> Soak the cotton pad with toner and wipe it along the skin texture.</p>
-                      <p><strong>To provide immediate moisture replenishment after washing the face:</strong> Spray the product for homecare (200ml) sufficiently with eyes closed and tap gently. It can be used even on the makeup.</p>
-                      <p><strong>To provide intensive moisturizing and soothing effects:</strong> Soak the cotton pad with toner and apply them to the face. Leave them on for 5-10 minutes.</p>
-            </div>
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h4>
+                    <div className="space-y-3 mb-4">
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Phytolex SC</h5>
+                        <p className="text-sm text-gray-600">
+                          Advanced botanical complex that provides deep hydration and skin-soothing properties while supporting natural skin barrier function.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Nelumbo Nucifera Flower Extract</h5>
+                        <p className="text-sm text-gray-600">
+                          Sacred lotus extract known for its antioxidant properties, skin brightening effects, and ability to promote skin radiance.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Lactobacillus/Pumpkin Ferment Extract</h5>
+                        <p className="text-sm text-gray-600">
+                          Innovative fermentation technology that enhances ingredient absorption and provides probiotic benefits for skin microbiome health.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Betaine</h5>
+                        <p className="text-sm text-gray-600">
+                          Natural moisturizing agent that helps maintain skin hydration and provides gentle cleansing properties without stripping natural oils.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h4>
+                    <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
+                      <div className="space-y-4">
+                        <div>
+                          <h5 className="font-semibold text-gray-800 mb-2 text-sm">Method 1: Skin Cleansing & Exfoliation</h5>
+                          <p className="text-sm text-gray-600">
+                            Soak a cotton pad with toner and gently wipe along the skin texture to remove dead skin cells and residues after cleansing.
+                          </p>
+                        </div>
+                        
+                        <div>
+                          <h5 className="font-semibold text-gray-800 mb-2 text-sm">Method 2: Immediate Moisture Replenishment</h5>
+                          <p className="text-sm text-gray-600">
+                            Spray the product (200ml homecare version) generously with eyes closed and tap gently. Can be used even over makeup for instant hydration.
+                          </p>
+                        </div>
+                        
+                        <div>
+                          <h5 className="font-semibold text-gray-800 mb-2 text-sm">Method 3: Intensive Moisturizing Treatment</h5>
+                          <p className="text-sm text-gray-600">
+                            Soak cotton pads with toner and apply to face as a hydrating mask. Leave on for 5-10 minutes for intensive moisturizing and soothing effects.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Type:</strong> Daily moisturizing and skin refining toner</p>
+                        <p><strong>Size Options:</strong> 200ml (Homecare) / 1000ml (Professional)</p>
+                        <p><strong>Skin Types:</strong> All skin types</p>
+                        <p><strong>Usage:</strong> Daily skincare routine</p>
+                        <p><strong>Key Benefits:</strong> Hydration, skin refinement, pH balancing</p>
+                        <p><strong>Testing:</strong> Dermatologically tested</p>
+                        <p><strong>Efficacy:</strong> Proven skin hydration improvement</p>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                      <p className="text-green-800 text-sm">
+                        <strong>Note:</strong> This product is dermatologically tested and safe for all skin types. 
+                        For best results, use as part of your daily skincare routine. The 200ml size is perfect for homecare, 
+                        while the 1000ml size is ideal for professional use in clinics and spas.
+                      </p>
+                    </div>
                   </>
                 ) : product.id === '17' ? (
                   <>

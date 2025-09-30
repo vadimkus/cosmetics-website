@@ -1216,6 +1216,141 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </p>
                     </div>
                   </>
+                ) : product.id === '51' ? (
+                  <>
+                    <h3 className="text-lg font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <p className="text-gray-600 mb-4 text-base">
+                      GENOSYS BIO-FERMENT AGE DEFYING POWDER MASK is an innovative fermented powder mask that combines 
+                      traditional fermentation technology with modern skincare science. This unique powder-to-mask formula 
+                      activates upon mixing with water, creating a powerful treatment that delivers concentrated nutrients 
+                      and beneficial compounds directly to the skin for maximum anti-aging benefits.
+                    </p>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-base">Benefits</h4>
+                    <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-base">
+                      <li>Age Defying - Reduces fine lines and wrinkles through advanced fermentation technology</li>
+                      <li>Bio-Ferment Technology - Harnesses the power of beneficial microorganisms for skin health</li>
+                      <li>Deep Penetration - Powder-to-mask formula ensures maximum ingredient absorption</li>
+                      <li>Antioxidant Protection - Neutralizes free radicals and environmental damage</li>
+                      <li>Skin Renewal - Promotes cellular turnover for younger-looking skin</li>
+                      <li>Hydration Boost - Provides intense moisture and plumping effects</li>
+                      <li>Firming Action - Improves skin elasticity and firmness</li>
+                    </ul>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-base">Directions</h4>
+                    <p className="text-gray-600 mb-4 text-base">
+                      Mix the powder with water or your preferred liquid to create a smooth paste. Apply evenly to clean skin, 
+                      avoiding the eye area. Leave on for 15-20 minutes, then rinse thoroughly with lukewarm water. 
+                      Use 1-2 times per week for optimal results.
+                    </p>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-base">Key Ingredients</h4>
+                    
+                    <div className="space-y-4 mb-4">
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-base">Bio-Fermented Extracts</h5>
+                        <p className="text-base text-gray-600">
+                          Advanced fermentation process creates beneficial compounds, peptides, and amino acids that 
+                          enhance skin barrier function and provide anti-aging benefits through natural biological processes.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-base">Fermented Rice Extract</h5>
+                        <p className="text-base text-gray-600">
+                          Rich in vitamins, minerals, and antioxidants, fermented rice provides gentle exfoliation 
+                          and brightening effects while nourishing the skin with essential nutrients.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-base">Fermented Soybean Extract</h5>
+                        <p className="text-base text-gray-600">
+                          Contains isoflavones and peptides that help improve skin elasticity, reduce inflammation, 
+                          and provide antioxidant protection against environmental stressors.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-base">Fermented Green Tea Extract</h5>
+                        <p className="text-base text-gray-600">
+                          Enhanced antioxidant properties through fermentation, providing superior protection against 
+                          free radicals and helping to reduce signs of aging and environmental damage.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-base">Fermented Ginseng Extract</h5>
+                        <p className="text-base text-gray-600">
+                          Traditional Korean ingredient enhanced through fermentation, providing energizing and 
+                          revitalizing effects while improving skin tone and reducing fatigue signs.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-base">Hyaluronic Acid</h5>
+                        <p className="text-base text-gray-600">
+                          Provides intense hydration and plumping effects, helping to reduce the appearance of 
+                          fine lines and wrinkles while maintaining optimal skin moisture levels.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-base">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Form:</strong> Powder mask (activates with water)</p>
+                        <p><strong>Skin Type:</strong> All skin types, especially mature and aging skin</p>
+                        <p><strong>Technology:</strong> Bio-fermentation process</p>
+                        <p><strong>Key Benefits:</strong> Age defying, skin renewal, deep hydration</p>
+                        <p><strong>Usage:</strong> 1-2 times per week</p>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                      <p className="text-green-800 text-base">
+                        <strong>Note:</strong> This product is dermatologically tested and safe for all skin types. 
+                        For best results, use as part of your weekly skincare routine to achieve youthful, radiant skin.
+                      </p>
+                    </div>
+                    
+                    {/* Spacing between note and product documentation */}
+                    <div className="mt-6"></div>
+                    
+                    {/* Product Documentation Section for Product 51 */}
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                      <h4 className="font-semibold text-blue-800 mb-2">Product Documentation</h4>
+                      <p className="text-blue-700 text-sm mb-3">
+                        Download the complete product manual and usage guide for professional application.
+                      </p>
+                      <div className="text-xs text-blue-600 mb-3">
+                        📄 File size: 2.1 MB
+                      </div>
+                      <div className="flex gap-3">
+                        <a
+                          href="/documents/ppt/GENOSYS%20BIO-FERMENT%20AGE%20DEFYING%20POWDER%20MASK.pdf"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
+                        >
+                          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                          </svg>
+                          View PDF
+                        </a>
+                        <a
+                          href="/documents/ppt/GENOSYS%20BIO-FERMENT%20AGE%20DEFYING%20POWDER%20MASK.pdf"
+                          download="GENOSYS BIO-FERMENT AGE DEFYING POWDER MASK.pdf"
+                          className="inline-flex items-center gap-2 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors text-sm font-medium"
+                        >
+                          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                          </svg>
+                          Download
+                        </a>
+                      </div>
+                    </div>
+                  </>
                 ) : (
                   <>
                     <h3 className="text-lg font-semibold text-gray-800 mb-2">Product Details</h3>

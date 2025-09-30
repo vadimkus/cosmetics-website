@@ -117,7 +117,11 @@ export default function AboutPage() {
                   <a href="/documents/genosys-trn-104229886700003.pdf" download="GENOSYS-TRN-104229886700003.pdf" className="text-primary-600 hover:text-primary-700 underline mt-1">104229886700003</a>
                 </div>
                 <div className="flex flex-col">
-                  <span className="font-semibold text-gray-800 text-sm uppercase tracking-wide">Office Address</span>
+                  <span className="font-semibold text-gray-800 text-sm uppercase tracking-wide">Main Office Address</span>
+                  <span className="mt-1">MBAM0014 Compass Building, Al Shohada Road<br />AL Hamra Industrial Zone-FZ<br />Ras Al Khaimah, United Arab Emirates</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="font-semibold text-gray-800 text-sm uppercase tracking-wide">Dubai Office Address</span>
                   <span className="mt-1">Cordoba Residence, Villa E02<br />Dubai, United Arab Emirates</span>
                 </div>
               </div>

@@ -256,7 +256,7 @@ export const products: Product[] = [
     images: null,
     category: 'Cream',
     inStock: true,
-    size: '20g / 100g',
+    size: '20g',
   },
   {
     id: '26',

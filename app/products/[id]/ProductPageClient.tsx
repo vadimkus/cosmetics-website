@@ -6164,7 +6164,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                 )}
                     
                     {/* Product Documentation Section - Show for products with PDFs */}
-                    {(product.id === '51' || product.id === '12' || product.id === '33' || 
+                    {(product.id === '51' || product.id === '33' || 
                       product.id === '44' || 
                       product.id === '20' || product.id === '14' || product.id === '18' || product.id === '29' || 
                       product.id === '21' || product.id === '23' || product.id === '41' || 
@@ -6178,7 +6178,6 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                         <div className="text-xs text-blue-600 mb-3">
                           📄 File size: {
                             product.id === '51' ? '2.1 MB' :
-                            product.id === '12' ? '1.2 MB' :
                             product.id === '33' ? '850 KB' :
                             product.id === '44' ? '800 KB' :
                             product.id === '20' ? '750 KB' :
@@ -6199,13 +6198,12 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                           <a
                             href={`/documents/ppt/${
                               product.id === '51' ? 'GENOSYS%20BIO-FERMENT%20AGE%20DEFYING%20POWDER%20MASK.pdf' :
-                              product.id === '12' ? 'GENOSYS%20EPI%20TURNOVER%20BOOSTING%20PEELING%20GEL.pdf' :
                               product.id === '33' ? 'GENOSYS%20EyeCell%20EYE%20PEPTIDE%20GEL%20PATCH.pdf' :
                               product.id === '44' ? 'GENOSYS%20HR3%20MATRIX%20SCALP%20SHAMPOO%20ALPHA.pdf' :
                               product.id === '20' ? 'GENOSYS%20INTENSIVE%20PROBLEM%20CONTROL%20TONER.pdf' :
                               product.id === '14' ? 'GENOSYS%20MICROBIOME%20ENERGY%20INFUSING%20MIST.pdf' :
-product.id === '18' ? 'GENOSYS%20MOISTURE%20REPLENISHING%20HYALURON%20SERUM.pdf' :
-product.id === '29' ? 'GENOSYS%20MOISTURE%20REPLENISHING%20HYALURON%20CREAM.pdf' :
+                              product.id === '18' ? 'GENOSYS%20MOISTURE%20REPLENISHING%20HYALURON%20SERUM.pdf' :
+                              product.id === '29' ? 'GENOSYS%20MOISTURE%20REPLENISHING%20HYALURON%20CREAM.pdf' :
                               product.id === '21' ? 'GENOSYS%20MULTI%20VITA%20RADIANCE%20SERUM.pdf' :
                               product.id === '23' ? 'GENOSYS%20MULTI%20VITA%20RADIANCE%20CREAM.pdf' :
                               product.id === '41' ? 'GENOSYS%20SKIN%20CARING%20BLEMISH%20BALM%20CUSHION.pdf' :
@@ -6227,7 +6225,6 @@ product.id === '29' ? 'GENOSYS%20MOISTURE%20REPLENISHING%20HYALURON%20CREAM.pdf'
                           <a
                             href={`/documents/ppt/${
                               product.id === '51' ? 'GENOSYS%20BIO-FERMENT%20AGE%20DEFYING%20POWDER%20MASK.pdf' :
-                              product.id === '12' ? 'GENOSYS%20EPI%20TURNOVER%20BOOSTING%20PEELING%20GEL.pdf' :
                               product.id === '33' ? 'GENOSYS%20EyeCell%20EYE%20PEPTIDE%20GEL%20PATCH.pdf' :
                               product.id === '44' ? 'GENOSYS%20HR3%20MATRIX%20SCALP%20SHAMPOO%20ALPHA.pdf' :
                               product.id === '20' ? 'GENOSYS%20INTENSIVE%20PROBLEM%20CONTROL%20TONER.pdf' :
@@ -6244,7 +6241,6 @@ product.id === '29' ? 'GENOSYS%20MOISTURE%20REPLENISHING%20HYALURON%20CREAM.pdf'
                             }`}
                             download={`${
                               product.id === '51' ? 'GENOSYS BIO-FERMENT AGE DEFYING POWDER MASK.pdf' :
-                              product.id === '12' ? 'GENOSYS EPI TURNOVER BOOSTING PEELING GEL.pdf' :
                               product.id === '33' ? 'GENOSYS EyeCell EYE PEPTIDE GEL PATCH.pdf' :
                               product.id === '44' ? 'GENOSYS HR3 MATRIX SCALP SHAMPOO ALPHA.pdf' :
                               product.id === '20' ? 'GENOSYS INTENSIVE PROBLEM CONTROL TONER.pdf' :

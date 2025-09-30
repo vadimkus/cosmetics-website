@@ -6261,6 +6261,130 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                     </div>
                   </>
+                ) : product.id === '52' || product.name === 'GENOSYS SKIN REBOOT PDRN MASK PACK' ? (
+                  <>
+                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <p className="text-gray-600 mb-4 text-sm">
+                      GENOSYS SKIN REBOOT PDRN MASK PACK is a professional-grade treatment mask infused with PDRN 
+                      (Polydeoxyribonucleotide) extracted from salmon DNA. This advanced mask promotes cellular 
+                      regeneration, accelerates skin repair, and enhances overall skin health. Perfect for post-treatment 
+                      care and intensive skin rejuvenation.
+                    </p>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
+                    <div className="space-y-3 mb-4">
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">PDRN Technology</h5>
+                        <p className="text-sm text-gray-600">
+                          Contains PDRN extracted from salmon DNA to promote cellular regeneration and accelerate 
+                          skin healing and repair processes.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Ultra-Slim Fit Sheet</h5>
+                        <p className="text-sm text-gray-600">
+                          Ultra-slim fit sheet adheres seamlessly to the skin for effective delivery of active 
+                          ingredients and maximum absorption.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Convenient Packaging</h5>
+                        <p className="text-sm text-gray-600">
+                          Contains 30 sheets per container with tissue-style packaging that allows for convenient 
+                          one-by-one dispensing with built-in tweezers.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Skin Barrier Restoration</h5>
+                        <p className="text-sm text-gray-600">
+                          Clinical results show significant improvement in restoring the skin barrier damaged 
+                          by physical irritation or environmental stress.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
+                    <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
+                      <li>Skin Regeneration - Accelerates cell regeneration and improves skin texture</li>
+                      <li>Deep Hydration - Provides intense moisture for plump, dewy skin</li>
+                      <li>Elasticity Enhancement - Boosts skin firmness and elasticity</li>
+                      <li>Anti-Aging - Reduces fine lines and signs of aging</li>
+                      <li>Soothing Effect - Calms inflammation and supports skin healing</li>
+                      <li>Barrier Repair - Restores damaged skin barrier function</li>
+                      <li>Professional Results - Delivers clinical-grade skin rejuvenation</li>
+                    </ul>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">PDRN (Polydeoxyribonucleotide)</h5>
+                        <p className="text-sm text-gray-600">
+                          DNA-based ingredient derived from salmon that accelerates skin regeneration, improves 
+                          elasticity, and promotes healing.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Panthenol (Pro-Vitamin B5)</h5>
+                        <p className="text-sm text-gray-600">
+                          Deeply hydrates and soothes the skin while supporting the skin barrier and promoting 
+                          wound healing.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Hyaluronic Acid</h5>
+                        <p className="text-sm text-gray-600">
+                          Provides deep moisture retention, plumps the skin, and helps reduce the appearance 
+                          of fine lines and wrinkles.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Peptide Complex</h5>
+                        <p className="text-sm text-gray-600">
+                          Stimulates collagen production and improves skin firmness for a more youthful, 
+                          resilient complexion.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h4>
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <ol className="list-decimal list-inside text-blue-800 text-sm space-y-2">
+                        <li><strong>Prepare:</strong> Cleanse your face and pat dry</li>
+                        <li><strong>Extract:</strong> Take out one sheet mask with the built-in tweezers</li>
+                        <li><strong>Apply:</strong> Apply the mask closely to the face, smoothing out any air bubbles</li>
+                        <li><strong>Wait:</strong> Leave on for 10-15 minutes to allow active ingredients to absorb</li>
+                        <li><strong>Remove:</strong> Remove the mask sheet and gently pat the remaining essence into your skin</li>
+                        <li><strong>Store:</strong> Close the closure seal and cap tightly to prevent the product from drying out</li>
+                      </ol>
+                    </div>
+                    
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Type:</strong> Professional-grade PDRN mask pack</p>
+                        <p><strong>Size:</strong> 30 sheets per container</p>
+                        <p><strong>Key Benefits:</strong> Skin regeneration, barrier repair, anti-aging</p>
+                        <p><strong>Skin Type:</strong> All skin types, especially damaged or aging skin</p>
+                        <p><strong>Usage:</strong> 2-3 times per week or as needed for intensive care</p>
+                        <p><strong>Technology:</strong> PDRN (salmon DNA) extraction technology</p>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-6">
+                      <p className="text-green-800 text-sm">
+                        <strong>Note:</strong> This product is clinically proven to restore skin barrier function 
+                        damaged by physical irritation. For optimal results, use consistently 2-3 times per week. 
+                        Store in a cool, dry place and ensure the container is tightly sealed after each use to 
+                        maintain product freshness.
+                      </p>
+                    </div>
+                  </>
                 ) : (
                   <>
                     <h4 className="font-semibold text-gray-800 mb-2">Key Benefits:</h4>

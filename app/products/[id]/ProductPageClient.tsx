@@ -2822,6 +2822,118 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                     </div>
                   </>
+                ) : product.id === '42' ? (
+                  <>
+                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <p className="text-gray-600 mb-4 text-sm">
+                      INTENSIVE BLEMISH BALM CREAM is a premium natural coverage cream designed to provide comprehensive skin protection 
+                      and flawless coverage. This advanced formula combines natural coverage technology with SPF 30 PA++ protection 
+                      to cover redness, blemishes, and imperfections while protecting skin from harmful environmental factors.
+                    </p>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
+                    <div className="space-y-3 mb-4">
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Natural Coverage Technology</h5>
+                        <p className="text-sm text-gray-600">
+                          Advanced formula that provides natural-looking coverage while allowing your skin's natural tone to shine through.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">SPF 30 PA++ Protection</h5>
+                        <p className="text-sm text-gray-600">
+                          Broad-spectrum sun protection that shields skin from harmful UV rays and environmental damage.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Blemish Coverage</h5>
+                        <p className="text-sm text-gray-600">
+                          Effectively covers redness, blemishes, and imperfections for a flawless, even complexion.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Post-Treatment Care</h5>
+                        <p className="text-sm text-gray-600">
+                          Ideal for covering redness and blemishes after dermatological treatments while promoting skin healing.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
+                    <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
+                      <li>Natural Coverage - Provides flawless coverage while maintaining natural skin appearance</li>
+                      <li>Sun Protection - SPF 30 PA++ shields skin from harmful UV rays and environmental damage</li>
+                      <li>Blemish Concealing - Effectively covers redness, blemishes, and skin imperfections</li>
+                      <li>Post-Treatment Care - Safe for use after dermatological procedures and treatments</li>
+                      <li>Environmental Protection - Guards against harmful environmental factors and pollutants</li>
+                      <li>Skin Tone Enhancement - Helps express and enhance your natural skin tone</li>
+                    </ul>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h4>
+                    <div className="space-y-3 mb-4">
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Adenosine</h5>
+                        <p className="text-sm text-gray-600">
+                          Anti-aging ingredient that helps reduce fine lines and wrinkles while promoting skin renewal.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Allantoin</h5>
+                        <p className="text-sm text-gray-600">
+                          Soothing and healing ingredient that calms irritated skin and promotes skin regeneration.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Origanum Vulgare Leaf Extract</h5>
+                        <p className="text-sm text-gray-600">
+                          Natural antioxidant extract that provides protection against environmental damage and free radicals.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Phytolex SC</h5>
+                        <p className="text-sm text-gray-600">
+                          Advanced botanical complex that enhances skin protection and provides natural coverage benefits.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h4>
+                    <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
+                      <ol className="list-decimal list-inside text-gray-600 space-y-2 text-sm">
+                        <li><strong>Preparation:</strong> Cleanse and moisturize your skin before application</li>
+                        <li><strong>Application:</strong> Apply a small amount to areas needing coverage and blend gently</li>
+                        <li><strong>Blending:</strong> Use fingertips or a beauty sponge to blend for natural-looking coverage</li>
+                        <li><strong>Build Coverage:</strong> Layer for additional coverage on areas with more significant blemishes</li>
+                        <li><strong>Setting:</strong> Allow to set for a few minutes before applying additional makeup if desired</li>
+                      </ol>
+                    </div>
+                    
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Type:</strong> Natural coverage cream with SPF protection</p>
+                        <p><strong>SPF Rating:</strong> SPF 30 PA++</p>
+                        <p><strong>Coverage:</strong> Natural to medium coverage</p>
+                        <p><strong>Key Benefits:</strong> Blemish coverage, sun protection, post-treatment care</p>
+                        <p><strong>Skin Type:</strong> All skin types, especially sensitive and post-treatment skin</p>
+                        <p><strong>Origin:</strong> Made in South Korea</p>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                      <p className="text-green-800 text-sm">
+                        <strong>Note:</strong> This product is dermatologically tested and safe for all skin types. 
+                        Perfect for daily use and post-treatment care. For best results, use as part of your 
+                        daily skincare routine and reapply as needed throughout the day.
+                      </p>
+                    </div>
+                  </>
                 ) : product.id === '3' ? (
                   <>
                     <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>

@@ -55,8 +55,8 @@ export async function POST(request: NextRequest) {
         results.push({
           orderNumber: order.orderNumber,
           success: result.success,
-          messageId: result.messageId,
-          error: result.error
+          messageId: result.success && 'messageId' in result ? result.messageId : undefined,
+          error: result.success ? undefined : result.error
         })
       } catch (error) {
         results.push({

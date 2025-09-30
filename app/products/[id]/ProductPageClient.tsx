@@ -739,29 +739,108 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '17' ? (
                   <>
-                    <h3 className="text-lg font-semibold text-gray-800 mb-2">Product Details</h3>
-                    <p className="text-gray-600 mb-4">
-                      This premium {product.category.toLowerCase()} product is carefully formulated with high-quality ingredients 
-                      to deliver exceptional results. Perfect for professional use and home care routines.
+                    <h3 className="text-lg font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <p className="text-gray-600 mb-4 text-base">
+                      GENOSYS EyeCell EYE CONTOUR SERUM is a highly enriched all-in-one eye serum specifically designed to address 
+                      multiple concerns around the delicate eye area. This advanced serum targets fine wrinkles, dark circles, 
+                      and under-eye puffiness while promoting skin regeneration and providing comprehensive eye area care with 
+                      its powerful peptide complex and botanical callus culture extracts.
                     </p>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2">Key Benefits:</h4>
-                    <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1">
-                      <li>Professional-grade quality</li>
-                      <li>Dermatologically tested</li>
-                      <li>Safe for all skin types</li>
-                      <li>Long-lasting results</li>
+                    <h4 className="font-semibold text-gray-800 mb-2 text-base">Benefits</h4>
+                    <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-base">
+                      <li>Wrinkle Reduction - Stimulates collagen production and relaxes facial muscles for smoother skin</li>
+                      <li>Dark Circle Diminishment - Anti-dark circle complex strengthens skin and visibly reduces dark circles</li>
+                      <li>Puffiness Relief - Alleviates under-eye puffiness and swelling</li>
+                      <li>Hydration and Firmness - Deeply moisturizes and plumps skin, enhancing elasticity</li>
+                      <li>Antioxidant Protection - Botanical stem cell extracts provide soothing and whitening effects</li>
+                      <li>Skin Regeneration - Promotes cellular renewal and skin repair</li>
+                      <li>Professional Results - Delivers clinical-grade results for comprehensive eye care</li>
                     </ul>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2">How to Use:</h4>
-                    <p className="text-gray-600 mb-4">
-                      Apply the product on the face and gently pat with fingers in the morning and evening.
+                    <h4 className="font-semibold text-gray-800 mb-2 text-base">Directions</h4>
+                    <p className="text-gray-600 mb-4 text-base">
+                      Apply a small amount around the eye area in the morning and evening. Gently massage until fully absorbed 
+                      using your ring finger for optimal absorption. For best results, use in conjunction with the Genosys 
+                      EyeCell Eye Contour Cream as part of your daily eye care routine.
                     </p>
                     
+                    <h4 className="font-semibold text-gray-800 mb-2 text-base">Key Ingredients</h4>
+                    <div className="space-y-4 mb-4">
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-base">Palmitoyl Hexapeptide-12</h5>
+                        <p className="text-base text-gray-600">
+                          Stimulates fibroblast growth for firming effects and improved skin elasticity around the delicate eye area.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-base">Copper Tripeptide-1</h5>
+                        <p className="text-base text-gray-600">
+                          Promotes collagen synthesis and skin regeneration, reducing fine lines and wrinkles for a more youthful appearance.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-base">Acetyl Hexapeptide-8</h5>
+                        <p className="text-base text-gray-600">
+                          Acts as muscle relaxant, reducing wrinkle appearance and expression lines for smoother skin.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-base">Anti-Dark Circle Complex (Haloxyl™)</h5>
+                        <p className="text-base text-gray-600">
+                          Specialized complex for dark circle reduction and skin strengthening, targeting under-eye discoloration.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-base">Vitis Vinifera (Grape) Callus Culture Extract</h5>
+                        <p className="text-base text-gray-600">
+                          Provides antioxidant and skin-renewing properties with anti-aging benefits for enhanced skin health.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-base">Rosa Damascena Callus Culture Extract</h5>
+                        <p className="text-base text-gray-600">
+                          Offers moisturizing, soothing, and whitening effects with anti-aging benefits, helping to brighten the eye area.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-base">Adenosine</h5>
+                        <p className="text-base text-gray-600">
+                          Provides anti-aging and skin-soothing properties with wrinkle-reducing effects for improved skin texture.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-base">Arbutin</h5>
+                        <p className="text-base text-gray-600">
+                          Natural skin brightening agent that helps even skin tone and reduce the appearance of dark spots.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-base">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Form:</strong> Eye contour serum</p>
+                        <p><strong>Skin Type:</strong> All skin types, especially mature and aging skin</p>
+                        <p><strong>Technology:</strong> Advanced peptide and botanical callus culture technology</p>
+                        <p><strong>Key Benefits:</strong> Wrinkle reduction, dark circle diminishment, puffiness relief</p>
+                        <p><strong>Usage:</strong> Morning and evening</p>
+                        <p><strong>Volume:</strong> 10ml</p>
+                        <p><strong>Origin:</strong> Made in South Korea</p>
+                      </div>
+                    </div>
+                    
                     <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-                      <p className="text-green-800 text-sm">
+                      <p className="text-green-800 text-base">
                         <strong>Note:</strong> This product is dermatologically tested and safe for all skin types. 
-                        For best results, use as part of your daily skincare routine.
+                        For optimal results, use in conjunction with other Genosys EyeCell products as part of your daily eye care routine.
                       </p>
                     </div>
                   </>

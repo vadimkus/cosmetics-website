@@ -4163,6 +4163,1215 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </p>
                     </div>
                   </>
+                ) : product.id === '2' ? (
+                  <>
+                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <p className="text-gray-600 mb-4 text-sm">
+                      Needle Pen-K is a professional automatic microneedling device designed to enhance collagen production 
+                      and improve transdermal nutrient delivery. This advanced device creates micro-channels in the skin 
+                      to significantly increase the absorption rate of active skincare ingredients while promoting natural 
+                      skin rejuvenation through controlled micro-injuries.
+                    </p>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
+                    <div className="space-y-3 mb-4">
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Automatic Microneedling</h5>
+                        <p className="text-sm text-gray-600">
+                          Advanced automatic technology for precise, controlled microneedling therapy with consistent results.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Collagen Production</h5>
+                        <p className="text-sm text-gray-600">
+                          Stimulates natural collagen and elastin production through controlled micro-injuries for skin rejuvenation.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Enhanced Absorption</h5>
+                        <p className="text-sm text-gray-600">
+                          Creates physical pathways through skin to dramatically increase absorption of active skincare ingredients.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Professional Grade</h5>
+                        <p className="text-sm text-gray-600">
+                          Medical-grade device manufactured in South Korea with precision engineering for optimal results.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
+                    <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
+                      <li>Enhanced Product Absorption - Increases absorption rate of active skincare ingredients by up to 300%</li>
+                      <li>Collagen Stimulation - Promotes natural collagen and elastin production for firmer, younger-looking skin</li>
+                      <li>Skin Rejuvenation - Accelerates natural wound healing process for improved skin texture and tone</li>
+                      <li>Precise Control - Automatic technology ensures consistent, controlled microneedling depth and speed</li>
+                      <li>Professional Results - Medical-grade device delivers clinical-quality results at home</li>
+                      <li>Versatile Treatment - Suitable for face, neck, and body for comprehensive skin improvement</li>
+                    </ul>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">How It Works</h4>
+                    <div className="space-y-3 mb-4">
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Micro-Channel Creation</h5>
+                        <p className="text-sm text-gray-600">
+                          Creates thousands of tiny micro-channels in the skin to enhance penetration of active ingredients.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Natural Healing Response</h5>
+                        <p className="text-sm text-gray-600">
+                          Triggers the body's natural wound healing process, stimulating collagen and elastin production.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Enhanced Penetration</h5>
+                        <p className="text-sm text-gray-600">
+                          Physical pathways allow deeper penetration of skincare products for maximum effectiveness.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h4>
+                    <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
+                      <ol className="list-decimal list-inside text-gray-600 space-y-2 text-sm">
+                        <li><strong>Preparation:</strong> Cleanse skin thoroughly and ensure device is properly sterilized</li>
+                        <li><strong>Settings:</strong> Adjust needle depth and speed according to treatment area and skin sensitivity</li>
+                        <li><strong>Application:</strong> Move device in gentle, overlapping motions across treatment area</li>
+                        <li><strong>Post-Treatment:</strong> Apply recommended serums or treatments for enhanced absorption</li>
+                        <li><strong>Recovery:</strong> Follow post-treatment care instructions for optimal healing</li>
+                        <li><strong>Frequency:</strong> Use as directed by skincare professional or device instructions</li>
+                      </ol>
+                    </div>
+                    
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Type:</strong> Professional automatic microneedling device</p>
+                        <p><strong>Technology:</strong> Automatic microneedling with adjustable depth and speed</p>
+                        <p><strong>Key Benefits:</strong> Collagen production, enhanced absorption, skin rejuvenation</p>
+                        <p><strong>Skin Type:</strong> All skin types, especially aging and textured skin</p>
+                        <p><strong>Usage:</strong> Professional and home use</p>
+                        <p><strong>Origin:</strong> Made in South Korea</p>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                      <p className="text-green-800 text-sm">
+                        <strong>Note:</strong> This is a professional medical device. For best results and safety, 
+                        use as directed by a skincare professional. Ensure proper sterilization and follow 
+                        all safety guidelines. Not recommended for use on active acne or inflamed skin.
+                      </p>
+                    </div>
+                  </>
+                ) : product.id === '10' ? (
+                  <>
+                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <p className="text-gray-600 mb-4 text-sm">
+                      SNOW O₂ is a revolutionary oxygen bubble cleanser that combines gentle cleansing with oxygen therapy 
+                      for deep skin nourishment. This innovative formula naturally generates oxygen bubbles to effectively 
+                      remove makeup, dirt, and impurities while providing a luxurious treatment sensation without irritation.
+                    </p>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
+                    <div className="space-y-3 mb-4">
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Oxygen Therapy Mechanism</h5>
+                        <p className="text-sm text-gray-600">
+                          Advanced oxygen therapy technology that provides deep cleansing and skin nourishment through natural oxygen bubbles.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Gentle Cleansing</h5>
+                        <p className="text-sm text-gray-600">
+                          Effective removal of makeup and impurities without excessive cleansing movement or skin irritation.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Natural Oxygen Bubbles</h5>
+                        <p className="text-sm text-gray-600">
+                          Naturally generated oxygen bubbles provide a luxurious treatment sensation while cleansing the skin.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">All-in-One Formula</h5>
+                        <p className="text-sm text-gray-600">
+                          Comprehensive cleanser that removes makeup, dirt, and impurities while nourishing the skin.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
+                    <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
+                      <li>Deep Cleansing - Effectively removes makeup, dirt, and skin impurities without irritation</li>
+                      <li>Oxygen Therapy - Provides skin with oxygen for improved circulation and nourishment</li>
+                      <li>Gentle Formula - Suitable for all skin types, including sensitive skin</li>
+                      <li>Luxurious Experience - Creates a spa-like treatment sensation with oxygen bubbles</li>
+                      <li>No Irritation - Gentle cleansing without excessive movement or skin damage</li>
+                      <li>Skin Nourishment - Provides essential nutrients while cleansing for healthy skin</li>
+                    </ul>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h4>
+                    <div className="space-y-3 mb-4">
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Phytolex SC</h5>
+                        <p className="text-sm text-gray-600">
+                          Advanced botanical complex that provides gentle cleansing and skin nourishment.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">MultiEx Phytrogen</h5>
+                        <p className="text-sm text-gray-600">
+                          Multi-functional plant extract that enhances oxygen delivery and skin health.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Methyl Perfluoroisobutyl Ether</h5>
+                        <p className="text-sm text-gray-600">
+                          Specialized ingredient that creates the oxygen bubble effect for enhanced cleansing and treatment sensation.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h4>
+                    <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
+                      <ol className="list-decimal list-inside text-gray-600 space-y-2 text-sm">
+                        <li><strong>Application:</strong> Apply product to dry face, avoiding the eye area</li>
+                        <li><strong>Wait:</strong> Allow oxygen bubbles to form naturally on the skin surface</li>
+                        <li><strong>Activation:</strong> Wet your fingers and gently spread the product across the face</li>
+                        <li><strong>Bubble Formation:</strong> Let the oxygen bubbles develop fully for maximum effect</li>
+                        <li><strong>Massage:</strong> Gently massage with wet hands in circular motions</li>
+                        <li><strong>Rinse:</strong> Rinse thoroughly with lukewarm water to remove all product and bubbles</li>
+                      </ol>
+                    </div>
+                    
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Type:</strong> Oxygen bubble cleanser</p>
+                        <p><strong>Size:</strong> 180ml (Homecare) / 500ml (Professional)</p>
+                        <p><strong>Key Benefits:</strong> Deep cleansing, oxygen therapy, gentle formula</p>
+                        <p><strong>Skin Type:</strong> All skin types, including sensitive skin</p>
+                        <p><strong>Usage:</strong> Daily cleansing treatment</p>
+                        <p><strong>Technology:</strong> Oxygen therapy mechanism</p>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                      <p className="text-green-800 text-sm">
+                        <strong>Note:</strong> This product is dermatologically tested and suitable for all skin types. 
+                        For best results, use as part of your daily cleansing routine. Store in a cool, 
+                        dry place away from direct sunlight.
+                      </p>
+                    </div>
+                  </>
+                ) : product.id === '20' ? (
+                  <>
+                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <p className="text-gray-600 mb-4 text-sm">
+                      PROBLEM CONTROL SERUM is a specialized anti-blemish serum designed for combination and oily acne-prone skin. 
+                      This advanced formula helps fight skin breakouts by regulating excessive oil and sebum production while refining 
+                      skin texture for a healthier, clearer complexion.
+                    </p>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
+                    <div className="space-y-3 mb-4">
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Sebum Regulation</h5>
+                        <p className="text-sm text-gray-600">
+                          Advanced sebum-regulating technology that controls excessive oil production for balanced, healthy skin.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Anti-Blemish Formula</h5>
+                        <p className="text-sm text-gray-600">
+                          Specifically designed to target and prevent skin breakouts while promoting clear, healthy skin.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Texture Refinement</h5>
+                        <p className="text-sm text-gray-600">
+                          Helps refine and smooth skin texture for a healthier-looking, clearer complexion.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Natural Ingredients</h5>
+                        <p className="text-sm text-gray-600">
+                          Formulated with zinc PCA and willow bark extract for gentle yet effective blemish control.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
+                    <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
+                      <li>Breakout Prevention - Helps prevent and control skin breakouts for clearer skin</li>
+                      <li>Sebum Control - Regulates excessive oil production for balanced, healthy skin</li>
+                      <li>Texture Improvement - Refines skin texture for smoother, healthier-looking skin</li>
+                      <li>Oil Balance - Restores natural oil balance for optimal skin health</li>
+                      <li>Gentle Formula - Suitable for combination and oily skin types</li>
+                      <li>Clear Complexion - Promotes a healthier, clearer skin appearance</li>
+                    </ul>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h4>
+                    <div className="space-y-3 mb-4">
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Zinc PCA</h5>
+                        <p className="text-sm text-gray-600">
+                          Powerful sebum-regulating ingredient that controls oil production and helps prevent breakouts.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Willow Bark Extract</h5>
+                        <p className="text-sm text-gray-600">
+                          Natural salicylic acid source that gently exfoliates and helps clear clogged pores.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Trehalose</h5>
+                        <p className="text-sm text-gray-600">
+                          Natural sugar that provides hydration and helps maintain skin barrier function.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Panthenol</h5>
+                        <p className="text-sm text-gray-600">
+                          Soothing and hydrating ingredient that helps calm irritated skin and promote healing.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Allantoin</h5>
+                        <p className="text-sm text-gray-600">
+                          Gentle healing ingredient that soothes irritated skin and promotes skin regeneration.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Beta-Glucan</h5>
+                        <p className="text-sm text-gray-600">
+                          Natural immune-boosting ingredient that helps strengthen skin's natural defense mechanisms.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h4>
+                    <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
+                      <ol className="list-decimal list-inside text-gray-600 space-y-2 text-sm">
+                        <li><strong>Preparation:</strong> Cleanse skin thoroughly and apply toner if desired</li>
+                        <li><strong>Application:</strong> Apply 2-3 drops to face and neck, focusing on problem areas</li>
+                        <li><strong>Massage:</strong> Gently massage in upward motions until fully absorbed</li>
+                        <li><strong>Follow-up:</strong> Apply moisturizer to lock in hydration</li>
+                        <li><strong>Frequency:</strong> Use morning and evening for optimal results</li>
+                        <li><strong>Results:</strong> Visible improvements typically seen within 2-4 weeks of consistent use</li>
+                      </ol>
+                    </div>
+                    
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Type:</strong> Anti-blemish serum</p>
+                        <p><strong>Size:</strong> 30ml</p>
+                        <p><strong>Key Benefits:</strong> Sebum control, breakout prevention, texture refinement</p>
+                        <p><strong>Skin Type:</strong> Combination and oily acne-prone skin</p>
+                        <p><strong>Usage:</strong> Daily anti-blemish treatment</p>
+                        <p><strong>Testing:</strong> Dermatologically tested and clinically proven</p>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                      <p className="text-green-800 text-sm">
+                        <strong>Note:</strong> This product is dermatologically tested and specifically formulated for 
+                        combination and oily skin types. For best results, use consistently as part of your daily 
+                        skincare routine. Store in a cool, dry place away from direct sunlight.
+                      </p>
+                    </div>
+                  </>
+                ) : product.id === '21' ? (
+                  <>
+                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <p className="text-gray-600 mb-4 text-sm">
+                      MULTI VITA RADIANCE SERUM is an advanced skin brightening serum that combines multi vitamins with 
+                      patented MELAZERO® melanin care complex for comprehensive skin radiance. This innovative formula 
+                      helps even skin tone, revive skin's natural brightness, and provides a natural glow with 
+                      moisturizing barrier protection.
+                    </p>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
+                    <div className="space-y-3 mb-4">
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">MELAZERO® Technology</h5>
+                        <p className="text-sm text-gray-600">
+                          Patented melanin care complex that targets skin surface melanin for effective brightening and even skin tone.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Multi Vitamin Complex</h5>
+                        <p className="text-sm text-gray-600">
+                          Advanced VITA 12 Complex with multiple vitamins for comprehensive skin nourishment and radiance.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Vitamin C Derivative</h5>
+                        <p className="text-sm text-gray-600">
+                          Stable 3-O-Ethyl Ascorbic Acid provides powerful antioxidant protection and skin brightening benefits.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Moisturizing Barrier</h5>
+                        <p className="text-sm text-gray-600">
+                          Panthenol-rich formula creates a protective barrier while providing deep hydration and skin comfort.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
+                    <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
+                      <li>Skin Brightening - Targets melanin production for even skin tone and natural radiance</li>
+                      <li>Even Skin Tone - Helps reduce dark spots and hyperpigmentation for uniform complexion</li>
+                      <li>Natural Glow - Revives skin's natural brightness for healthy, radiant appearance</li>
+                      <li>Antioxidant Protection - Vitamin C derivative provides powerful antioxidant benefits</li>
+                      <li>Moisturizing - Creates protective barrier while providing deep hydration</li>
+                      <li>Gentle Formula - Suitable for all skin types with anti-inflammatory properties</li>
+                    </ul>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h4>
+                    <div className="space-y-3 mb-4">
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">3-O-Ethyl Ascorbic Acid</h5>
+                        <p className="text-sm text-gray-600">
+                          Stable vitamin C derivative that provides powerful antioxidant protection and skin brightening benefits.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">MELAZERO®</h5>
+                        <p className="text-sm text-gray-600">
+                          Patented melanin care complex that targets skin surface melanin for effective brightening and even skin tone.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">VITA 12 Complex</h5>
+                        <p className="text-sm text-gray-600">
+                          Multi-vitamin complex that provides comprehensive skin nourishment and radiance enhancement.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Niacinamide</h5>
+                        <p className="text-sm text-gray-600">
+                          Vitamin B3 that helps improve skin texture, reduce pore size, and enhance skin barrier function.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Glutathione</h5>
+                        <p className="text-sm text-gray-600">
+                          Powerful antioxidant that helps protect skin from environmental damage and promotes skin health.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Gluconolactone (PHA)</h5>
+                        <p className="text-sm text-gray-600">
+                          Gentle exfoliating acid that helps improve skin texture and enhance product penetration.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h4>
+                    <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
+                      <ol className="list-decimal list-inside text-gray-600 space-y-2 text-sm">
+                        <li><strong>Preparation:</strong> Cleanse skin thoroughly and apply toner if desired</li>
+                        <li><strong>Application:</strong> Apply 2-3 drops to face and neck, avoiding eye area</li>
+                        <li><strong>Massage:</strong> Gently massage in upward motions until fully absorbed</li>
+                        <li><strong>Follow-up:</strong> Apply moisturizer and sunscreen during daytime</li>
+                        <li><strong>Frequency:</strong> Use morning and evening for optimal results</li>
+                        <li><strong>Results:</strong> Visible improvements typically seen within 4-6 weeks of consistent use</li>
+                      </ol>
+                    </div>
+                    
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Type:</strong> Skin brightening serum</p>
+                        <p><strong>Size:</strong> 30ml</p>
+                        <p><strong>Key Benefits:</strong> Skin brightening, even skin tone, natural radiance</p>
+                        <p><strong>Skin Type:</strong> All skin types, especially dull and uneven skin</p>
+                        <p><strong>Usage:</strong> Daily brightening treatment</p>
+                        <p><strong>Technology:</strong> MELAZERO® melanin care complex</p>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                      <p className="text-green-800 text-sm">
+                        <strong>Note:</strong> This product is dermatologically tested and suitable for all skin types. 
+                        For best results, use consistently as part of your daily skincare routine. Always use sunscreen 
+                        during daytime to protect skin from UV damage. Store in a cool, dry place away from direct sunlight.
+                      </p>
+                    </div>
+                  </>
+                ) : product.id === '23' ? (
+                  <>
+                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <p className="text-gray-600 mb-4 text-sm">
+                      ND Cell ANTI-WRINKLE CREAM is a specialized anti-aging cream designed for the delicate neck and décolleté area. 
+                      This advanced formula targets the special needs of these sensitive areas with a powerful peptide complex 
+                      and vitamin blend for lifting, firming, and depigmentation.
+                    </p>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
+                    <div className="space-y-3 mb-4">
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Advanced Peptide Complex</h5>
+                        <p className="text-sm text-gray-600">
+                          Copper Tripeptide-1 and multiple peptides work synergistically to stimulate collagen production and skin renewal.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Lifting & Firming</h5>
+                        <p className="text-sm text-gray-600">
+                          Specialized formula that lifts and firms delicate skin around neck and décolleté area.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Depigmentation Effect</h5>
+                        <p className="text-sm text-gray-600">
+                          Excellent depigmentation properties help reduce age spots and uneven skin tone.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Vitamin Complex</h5>
+                        <p className="text-sm text-gray-600">
+                          Comprehensive vitamin blend (A, B5, C, E) provides antioxidant protection and skin nourishment.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
+                    <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
+                      <li>Anti-Aging - Targets fine lines and wrinkles in delicate neck and décolleté area</li>
+                      <li>Lifting Effect - Helps lift and firm sagging skin for more youthful appearance</li>
+                      <li>Texture Refinement - Refines skin texture for smoother, younger-looking skin</li>
+                      <li>Depigmentation - Reduces age spots and uneven skin tone</li>
+                      <li>Collagen Stimulation - Peptides help stimulate natural collagen production</li>
+                      <li>Hydration - Deep moisturizing for delicate skin areas</li>
+                    </ul>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h4>
+                    <div className="space-y-3 mb-4">
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Copper Tripeptide-1</h5>
+                        <p className="text-sm text-gray-600">
+                          Powerful peptide that stimulates collagen synthesis and promotes skin healing and renewal.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Acetyl Hexapeptide-8</h5>
+                        <p className="text-sm text-gray-600">
+                          "Botox-like" peptide that helps relax facial muscles and reduce expression lines.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Palmitoyl Hexapeptide-12</h5>
+                        <p className="text-sm text-gray-600">
+                          Advanced peptide that helps improve skin firmness and elasticity.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Hyaluronic Acid</h5>
+                        <p className="text-sm text-gray-600">
+                          Deep hydrating ingredient that plumps skin and reduces the appearance of fine lines.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Ceramide</h5>
+                        <p className="text-sm text-gray-600">
+                          Essential lipid that helps strengthen skin barrier and maintain moisture balance.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Squalane</h5>
+                        <p className="text-sm text-gray-600">
+                          Natural emollient that provides deep hydration and helps improve skin texture.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h4>
+                    <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
+                      <ol className="list-decimal list-inside text-gray-600 space-y-2 text-sm">
+                        <li><strong>Preparation:</strong> Cleanse neck and décolleté area thoroughly</li>
+                        <li><strong>Application:</strong> Apply a small amount to neck and décolleté area</li>
+                        <li><strong>Massage:</strong> Gently massage in upward motions from chest to neck</li>
+                        <li><strong>Technique:</strong> Use upward strokes to help lift and firm the skin</li>
+                        <li><strong>Frequency:</strong> Use morning and evening for optimal results</li>
+                        <li><strong>Results:</strong> Visible improvements typically seen within 4-8 weeks of consistent use</li>
+                      </ol>
+                    </div>
+                    
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Type:</strong> Anti-aging cream for neck and décolleté</p>
+                        <p><strong>Size:</strong> 50g</p>
+                        <p><strong>Key Benefits:</strong> Lifting, firming, depigmentation, texture refinement</p>
+                        <p><strong>Target Area:</strong> Neck and décolleté area</p>
+                        <p><strong>Usage:</strong> Daily anti-aging treatment</p>
+                        <p><strong>Testing:</strong> Dermatologically tested and clinically proven</p>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                      <p className="text-green-800 text-sm">
+                        <strong>Note:</strong> This product is dermatologically tested and specifically formulated for 
+                        the delicate neck and décolleté area. For best results, use consistently as part of your daily 
+                        skincare routine. Always use sunscreen during daytime to protect treated areas from UV damage.
+                      </p>
+                    </div>
+                  </>
+                ) : product.id === '25' ? (
+                  <>
+                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <p className="text-gray-600 mb-4 text-sm">
+                      SOOTHING REPAIR POSTCREAM is a specialized regenerating cream designed for healthy skin recovery after 
+                      professional treatments. This advanced formula helps irritated skin rapidly recover from redness, erythema, 
+                      and edema while promoting healthy rejuvenation with centella complex and peptide technology.
+                    </p>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
+                    <div className="space-y-3 mb-4">
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Post-Treatment Recovery</h5>
+                        <p className="text-sm text-gray-600">
+                          Specifically formulated for skin recovery after professional dermatological operations and treatments.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Centella Complex</h5>
+                        <p className="text-sm text-gray-600">
+                          Powerful centella asiatica complex with asiaticoside, madecassic acid, and asiatic acid for healing.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Rapid Recovery</h5>
+                        <p className="text-sm text-gray-600">
+                          Helps skin rapidly recover from redness, erythema, and edema after professional treatments.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Peptide Technology</h5>
+                        <p className="text-sm text-gray-600">
+                          Advanced sh-Polypeptide-7 helps promote skin regeneration and healing processes.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
+                    <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
+                      <li>Rapid Recovery - Helps skin quickly recover from professional treatment side effects</li>
+                      <li>Redness Reduction - Soothes and reduces redness and inflammation</li>
+                      <li>Erythema Relief - Helps alleviate erythema and skin irritation</li>
+                      <li>Edema Reduction - Helps reduce swelling and edema after treatments</li>
+                      <li>Skin Regeneration - Promotes healthy skin cell regeneration and renewal</li>
+                      <li>Gentle Healing - Suitable for sensitive, post-treatment skin</li>
+                    </ul>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h4>
+                    <div className="space-y-3 mb-4">
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Centella Asiatica Complex</h5>
+                        <p className="text-sm text-gray-600">
+                          Powerful healing complex with asiaticoside, madecassic acid, and asiatic acid for skin recovery.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">sh-Polypeptide-7</h5>
+                        <p className="text-sm text-gray-600">
+                          Advanced peptide that helps promote skin regeneration and healing processes.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Dipotassium Glycyrrhizate</h5>
+                        <p className="text-sm text-gray-600">
+                          Licorice root extract that provides anti-inflammatory and soothing benefits.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Panthenol</h5>
+                        <p className="text-sm text-gray-600">
+                          Vitamin B5 that helps soothe irritated skin and promote healing.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Plant Callus Extracts</h5>
+                        <p className="text-sm text-gray-600">
+                          Vitis Vinifera and Rosa Damascena callus culture extracts for enhanced healing properties.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Scutellaria Baicalensis</h5>
+                        <p className="text-sm text-gray-600">
+                          Chinese skullcap root extract with anti-inflammatory and antioxidant properties.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h4>
+                    <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
+                      <ol className="list-decimal list-inside text-gray-600 space-y-2 text-sm">
+                        <li><strong>Preparation:</strong> Cleanse skin gently after professional treatment</li>
+                        <li><strong>Application:</strong> Apply a thin layer to affected areas</li>
+                        <li><strong>Massage:</strong> Gently massage in circular motions until absorbed</li>
+                        <li><strong>Frequency:</strong> Use as needed for post-treatment recovery</li>
+                        <li><strong>Duration:</strong> Continue until skin fully recovers from treatment</li>
+                        <li><strong>Results:</strong> Visible improvement in redness and irritation within 24-48 hours</li>
+                      </ol>
+                    </div>
+                    
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Type:</strong> Post-treatment regenerating cream</p>
+                        <p><strong>Size:</strong> 20g (Homecare) / 100g (Professional)</p>
+                        <p><strong>Key Benefits:</strong> Recovery, soothing, healing, regeneration</p>
+                        <p><strong>Target:</strong> Post-treatment skin recovery</p>
+                        <p><strong>Usage:</strong> As needed after professional treatments</p>
+                        <p><strong>Testing:</strong> Dermatologically tested and clinically proven</p>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                      <p className="text-green-800 text-sm">
+                        <strong>Note:</strong> This product is dermatologically tested and specifically formulated for 
+                        post-treatment skin recovery. Use as directed by your skincare professional. Store in a cool, 
+                        dry place away from direct sunlight.
+                      </p>
+                    </div>
+                  </>
+                ) : product.id === '27' ? (
+                  <>
+                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <p className="text-gray-600 mb-4 text-sm">
+                      SKIN BARRIER PROTECTING CREAM is an advanced skin barrier strengthening cream with enriched ceramide 
+                      and amino acid complex. This innovative formula encourages healthy and soft skin by promoting water 
+                      retention and protecting the skin barrier with MultiEx BSASM® Plus technology.
+                    </p>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
+                    <div className="space-y-3 mb-4">
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">MultiEx BSASM® Plus</h5>
+                        <p className="text-sm text-gray-600">
+                          Advanced technology that helps strengthen and protect the skin barrier for optimal skin health.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Enriched Ceramide Complex</h5>
+                        <p className="text-sm text-gray-600">
+                          High concentration of ceramides that help restore and maintain skin barrier function.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Amino Acid Complex</h5>
+                        <p className="text-sm text-gray-600">
+                          Essential amino acids that help support skin barrier integrity and moisture retention.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Water Retention</h5>
+                        <p className="text-sm text-gray-600">
+                          Promotes optimal water retention for healthy, hydrated, and soft skin.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
+                    <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
+                      <li>Barrier Protection - Strengthens and protects the skin barrier from environmental damage</li>
+                      <li>Moisture Retention - Promotes optimal water retention for healthy, hydrated skin</li>
+                      <li>Skin Softening - Helps achieve soft, smooth, and supple skin texture</li>
+                      <li>Barrier Repair - Helps repair and restore compromised skin barrier function</li>
+                      <li>Long-lasting Hydration - Provides sustained moisture for all-day comfort</li>
+                      <li>Gentle Formula - Suitable for sensitive and compromised skin</li>
+                    </ul>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h4>
+                    <div className="space-y-3 mb-4">
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Ceramide Complex</h5>
+                        <p className="text-sm text-gray-600">
+                          Essential lipids that help strengthen and maintain skin barrier function and integrity.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">MultiEx BSASM® Plus</h5>
+                        <p className="text-sm text-gray-600">
+                          Advanced technology that enhances skin barrier protection and moisture retention.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Amino Acid Complex</h5>
+                        <p className="text-sm text-gray-600">
+                          Essential amino acids that support skin barrier integrity and natural repair processes.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Shea Butter</h5>
+                        <p className="text-sm text-gray-600">
+                          Rich emollient that provides deep hydration and helps protect skin from environmental stress.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Macadamia Oil</h5>
+                        <p className="text-sm text-gray-600">
+                          Nourishing oil that helps restore skin barrier function and provides antioxidant protection.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h4>
+                    <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
+                      <ol className="list-decimal list-inside text-gray-600 space-y-2 text-sm">
+                        <li><strong>Preparation:</strong> Cleanse skin thoroughly and apply toner if desired</li>
+                        <li><strong>Application:</strong> Apply a generous amount to face and neck</li>
+                        <li><strong>Massage:</strong> Gently massage in upward motions until fully absorbed</li>
+                        <li><strong>Frequency:</strong> Use morning and evening for optimal results</li>
+                        <li><strong>Target Areas:</strong> Focus on areas with compromised skin barrier</li>
+                        <li><strong>Results:</strong> Visible improvement in skin barrier function within 2-4 weeks</li>
+                      </ol>
+                    </div>
+                    
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Type:</strong> Skin barrier strengthening cream</p>
+                        <p><strong>Size:</strong> 100g</p>
+                        <p><strong>Key Benefits:</strong> Barrier protection, moisture retention, skin softening</p>
+                        <p><strong>Skin Type:</strong> All skin types, especially compromised skin</p>
+                        <p><strong>Usage:</strong> Daily barrier protection and repair</p>
+                        <p><strong>Technology:</strong> MultiEx BSASM® Plus</p>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                      <p className="text-green-800 text-sm">
+                        <strong>Note:</strong> This product is dermatologically tested and clinically proven to improve 
+                        skin restorative force. For best results, use consistently as part of your daily skincare routine. 
+                        Store in a cool, dry place away from direct sunlight.
+                      </p>
+                    </div>
+                  </>
+                ) : product.id === '34' ? (
+                  <>
+                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <p className="text-gray-600 mb-4 text-sm">
+                      SKIN RESCUE OVERNIGHT CREAM MASK is a revitalizing overnight treatment that provides intensive care 
+                      to fatigued skin. This innovative dual formula combines oxygen capsules with pink ceramide complex 
+                      for comprehensive skin renewal and recovery.
+                    </p>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
+                    <div className="space-y-3 mb-4">
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Dual Formula Technology</h5>
+                        <p className="text-sm text-gray-600">
+                          Oxygen capsules burst smoothly when touching skin and melt with pink ceramide cream for maximum efficacy.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Oxygen Therapy</h5>
+                        <p className="text-sm text-gray-600">
+                          Italian oxygenated water capsules provide instant oxygen therapy for skin revitalization.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Pink Ceramide Complex</h5>
+                        <p className="text-sm text-gray-600">
+                          Unique pink ceramide complex provides intensive skin protection and recovery benefits.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Growth Factor Complex</h5>
+                        <p className="text-sm text-gray-600">
+                          Advanced growth factor complex (EGF, aFGF, bFGF, PIGF, IGF) promotes skin renewal and healing.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
+                    <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
+                      <li>Skin Revitalization - Provides intensive care to fatigued and stressed skin</li>
+                      <li>Oxygen Therapy - Delivers instant oxygen therapy for skin renewal and energy</li>
+                      <li>Overnight Recovery - Works while you sleep to repair and rejuvenate skin</li>
+                      <li>Erythema Improvement - Helps reduce redness and skin irritation</li>
+                      <li>Moisture Retention - Improves transepidermal water loss for better hydration</li>
+                      <li>Growth Factor Benefits - Stimulates natural skin renewal and healing processes</li>
+                    </ul>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h4>
+                    <div className="space-y-3 mb-4">
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Pink Ceramide Complex</h5>
+                        <p className="text-sm text-gray-600">
+                          Unique ceramide complex that provides intensive skin protection and recovery benefits.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Oxygen Capsules</h5>
+                        <p className="text-sm text-gray-600">
+                          Italian oxygenated water capsules that burst on contact for instant oxygen therapy.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Growth Factor Complex</h5>
+                        <p className="text-sm text-gray-600">
+                          EGF, aFGF, bFGF, PIGF, IGF work together to promote skin renewal and healing.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Pumpkin Extract</h5>
+                        <p className="text-sm text-gray-600">
+                          Cucurbita Pepo fruit extract provides antioxidant protection and skin nourishment.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Phytosphingosine</h5>
+                        <p className="text-sm text-gray-600">
+                          Natural lipid that helps strengthen skin barrier and improve moisture retention.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Swelling Controller</h5>
+                        <p className="text-sm text-gray-600">
+                          Special ingredient that helps control swelling and inflammation for comfortable application.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h4>
+                    <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
+                      <ol className="list-decimal list-inside text-gray-600 space-y-2 text-sm">
+                        <li><strong>Preparation:</strong> Cleanse skin thoroughly and apply toner if desired</li>
+                        <li><strong>Application:</strong> Apply a generous amount to face and neck</li>
+                        <li><strong>Massage:</strong> Gently massage until oxygen capsules burst and blend with cream</li>
+                        <li><strong>Overnight:</strong> Leave on overnight for maximum benefits</li>
+                        <li><strong>Frequency:</strong> Use 2-3 times per week for optimal results</li>
+                        <li><strong>Results:</strong> Wake up to revitalized, refreshed skin</li>
+                      </ol>
+                    </div>
+                    
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Type:</strong> Overnight cream mask</p>
+                        <p><strong>Size:</strong> 100g</p>
+                        <p><strong>Key Benefits:</strong> Revitalization, oxygen therapy, overnight recovery</p>
+                        <p><strong>Skin Type:</strong> All skin types, especially fatigued skin</p>
+                        <p><strong>Usage:</strong> Overnight treatment 2-3 times per week</p>
+                        <p><strong>Technology:</strong> Dual formula with oxygen capsules</p>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                      <p className="text-green-800 text-sm">
+                        <strong>Note:</strong> This product is dermatologically tested and clinically proven to improve 
+                        erythema and transepidermal water loss. For best results, use consistently as part of your 
+                        weekly skincare routine. Store in a cool, dry place away from direct sunlight.
+                      </p>
+                    </div>
+                  </>
+                ) : product.id === '36' ? (
+                  <>
+                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <p className="text-gray-600 mb-4 text-sm">
+                      SOOTHING BOMB SEA ALGAE MASK is an Eucalace® sheet mask inspired by the healing power of the ocean. 
+                      This innovative mask provides intensive relief to the skin and moisturizes with sea algae complex 
+                      and centella asiatica extract for comprehensive skin healing and hydration.
+                    </p>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
+                    <div className="space-y-3 mb-4">
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Eucalace® Technology</h5>
+                        <p className="text-sm text-gray-600">
+                          Advanced sheet mask technology that provides optimal skin contact and ingredient delivery.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Sea Algae Complex</h5>
+                        <p className="text-sm text-gray-600">
+                          Powerful sea algae extracts provide intensive relief and healing benefits for stressed skin.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Ocean Healing Power</h5>
+                        <p className="text-sm text-gray-600">
+                          Inspired by the healing power of the ocean for natural skin recovery and rejuvenation.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Centella Asiatica</h5>
+                        <p className="text-sm text-gray-600">
+                          Traditional healing herb that provides soothing and anti-inflammatory benefits.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
+                    <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
+                      <li>Intensive Relief - Provides immediate relief to stressed and irritated skin</li>
+                      <li>Deep Hydration - Sea algae complex delivers intense moisture for skin hydration</li>
+                      <li>Soothing Effect - Centella asiatica provides calming and anti-inflammatory benefits</li>
+                      <li>Skin Healing - Promotes natural skin healing and recovery processes</li>
+                      <li>Ocean Therapy - Harnesses the healing power of marine ingredients</li>
+                      <li>Convenient Use - Easy-to-use sheet mask format for quick application</li>
+                    </ul>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h4>
+                    <div className="space-y-3 mb-4">
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Jania Rubens Extract</h5>
+                        <p className="text-sm text-gray-600">
+                          Red algae extract that provides antioxidant protection and skin nourishment.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Undaria Pinnatifida Extract</h5>
+                        <p className="text-sm text-gray-600">
+                          Wakame seaweed extract that provides hydration and skin conditioning benefits.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Bambusa Vulgaris Extract</h5>
+                        <p className="text-sm text-gray-600">
+                          Bamboo extract that provides natural silica and skin strengthening benefits.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Centella Asiatica Extract</h5>
+                        <p className="text-sm text-gray-600">
+                          Traditional healing herb that provides soothing and anti-inflammatory benefits.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Witch Hazel Extract</h5>
+                        <p className="text-sm text-gray-600">
+                          Natural astringent that helps tone and soothe irritated skin.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Panthenol & Allantoin</h5>
+                        <p className="text-sm text-gray-600">
+                          Soothing ingredients that help calm irritated skin and promote healing.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h4>
+                    <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
+                      <ol className="list-decimal list-inside text-gray-600 space-y-2 text-sm">
+                        <li><strong>Preparation:</strong> Cleanse skin thoroughly and apply toner if desired</li>
+                        <li><strong>Application:</strong> Remove mask from package and unfold carefully</li>
+                        <li><strong>Placement:</strong> Apply mask to face, adjusting for proper fit</li>
+                        <li><strong>Duration:</strong> Leave on for 15-20 minutes for optimal results</li>
+                        <li><strong>Removal:</strong> Gently remove mask and massage remaining essence into skin</li>
+                        <li><strong>Frequency:</strong> Use 2-3 times per week for best results</li>
+                      </ol>
+                    </div>
+                    
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Type:</strong> Eucalace® sheet mask</p>
+                        <p><strong>Size:</strong> 25g x 10ea</p>
+                        <p><strong>Key Benefits:</strong> Intensive relief, deep hydration, soothing effect</p>
+                        <p><strong>Skin Type:</strong> All skin types, especially stressed skin</p>
+                        <p><strong>Usage:</strong> 2-3 times per week</p>
+                        <p><strong>Technology:</strong> Eucalace® sheet mask technology</p>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                      <p className="text-green-800 text-sm">
+                        <strong>Note:</strong> This product is dermatologically tested and clinically proven to improve 
+                        skin hydration. For best results, use consistently as part of your weekly skincare routine. 
+                        Store in a cool, dry place away from direct sunlight.
+                      </p>
+                    </div>
+                  </>
+                ) : product.id === '39' ? (
+                  <>
+                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <p className="text-gray-600 mb-4 text-sm">
+                      ULTRA SHIELD SUN CREAM [SPF 50+ PA++++] is a non-greasy, silky sunscreen with powerful UV protection 
+                      and sunburn care effect. This advanced formula strongly defends skin against UV rays while promoting 
+                      skin recovery from sun damage with innovative MicroHA™ and ProbioMETA™ technology.
+                    </p>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
+                    <div className="space-y-3 mb-4">
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Ultra-High Protection</h5>
+                        <p className="text-sm text-gray-600">
+                          SPF 50+ PA++++ provides maximum protection against both UVA and UVB rays.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Non-Greasy Formula</h5>
+                        <p className="text-sm text-gray-600">
+                          Silky, lightweight texture that absorbs quickly without leaving a greasy residue.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Sunburn Care Complex</h5>
+                        <p className="text-sm text-gray-600">
+                          Specialized complex that helps promote skin recovery from sun damage and exposure.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Reef-Safe Formula</h5>
+                        <p className="text-sm text-gray-600">
+                          Environmentally friendly formula that is safe for coral reefs and marine life.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
+                    <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
+                      <li>Maximum UV Protection - SPF 50+ PA++++ provides superior sun protection</li>
+                      <li>Sunburn Recovery - Helps promote skin recovery from sun damage and exposure</li>
+                      <li>Non-Greasy Feel - Silky, lightweight texture for comfortable daily wear</li>
+                      <li>Skin Recovery - MicroHA™ and ProbioMETA™ technology promote skin healing</li>
+                      <li>Antioxidant Protection - Tropical antioxidant complex fights free radical damage</li>
+                      <li>Reef-Safe - Environmentally conscious formula safe for marine ecosystems</li>
+                    </ul>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h4>
+                    <div className="space-y-3 mb-4">
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Sunburn Care Complex</h5>
+                        <p className="text-sm text-gray-600">
+                          Specialized complex that helps promote skin recovery from sun damage and exposure.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">MicroHA™</h5>
+                        <p className="text-sm text-gray-600">
+                          Ultra-low molecular weight hyaluronic acid for deep hydration and skin recovery.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">ProbioMETA™</h5>
+                        <p className="text-sm text-gray-600">
+                          Lactobacillus ferment that helps strengthen skin barrier and promote healing.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Tropical Antioxidant Complex</h5>
+                        <p className="text-sm text-gray-600">
+                          Powerful antioxidant blend that helps protect skin from environmental damage.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h4>
+                    <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
+                      <ol className="list-decimal list-inside text-gray-600 space-y-2 text-sm">
+                        <li><strong>Preparation:</strong> Cleanse skin and apply moisturizer if desired</li>
+                        <li><strong>Application:</strong> Apply generously to all exposed skin areas</li>
+                        <li><strong>Coverage:</strong> Ensure even coverage including face, neck, and ears</li>
+                        <li><strong>Reapplication:</strong> Reapply every 2 hours or after swimming/sweating</li>
+                        <li><strong>Daily Use:</strong> Use daily as the final step in your morning routine</li>
+                        <li><strong>Results:</strong> Protected, healthy skin with improved recovery from sun exposure</li>
+                      </ol>
+                    </div>
+                    
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Type:</strong> Daily sunscreen with sunburn care</p>
+                        <p><strong>Size:</strong> 50g</p>
+                        <p><strong>Protection:</strong> SPF 50+ PA++++</p>
+                        <p><strong>Key Benefits:</strong> UV protection, sunburn care, skin recovery</p>
+                        <p><strong>Skin Type:</strong> All skin types</p>
+                        <p><strong>Usage:</strong> Daily sun protection</p>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                      <p className="text-green-800 text-sm">
+                        <strong>Note:</strong> This product is dermatologically tested and reef-safe. For best results, 
+                        apply generously and reapply every 2 hours or after swimming/sweating. Store in a cool, 
+                        dry place away from direct sunlight.
+                      </p>
+                    </div>
+                  </>
                 ) : product.id === '40' ? (
                   <>
                     <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>

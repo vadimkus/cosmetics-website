@@ -110,6 +110,14 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
           </Link>
         </div>
         
+        {product.size && (
+          <div className="mb-2">
+            <span className="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-gray-100 text-gray-700">
+              Size: {product.size}
+            </span>
+          </div>
+        )}
+        
         <p className="text-gray-600 text-xs md:text-sm mb-3 md:mb-4 line-clamp-2">{product.description}</p>
         
         <div className="flex flex-col gap-3">

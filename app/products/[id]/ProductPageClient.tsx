@@ -1599,6 +1599,125 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </p>
                     </div>
                   </>
+                ) : product.id === '33' ? (
+                  <>
+                    <h3 className="text-lg font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <p className="text-gray-600 mb-4 text-base">
+                      GENOSYS EyeCell EYE PEPTIDE GEL PATCH is a specialized treatment designed to rejuvenate and care for the delicate skin around the eyes. These crescent-shaped gel patches are infused with a potent blend of peptides, botanical extracts, and other active ingredients to address common eye area concerns including puffiness, dark circles, fine lines, and signs of fatigue.
+                    </p>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-base">Benefits</h4>
+                    <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-base">
+                      <li>Reduces Puffiness and Dark Circles - Effectively combats under-eye bags and dark circles for a refreshed appearance</li>
+                      <li>Smooths Fine Lines and Wrinkles - Peptide complex works to diminish the appearance of fine lines, promoting smoother skin</li>
+                      <li>Hydrates and Soothes - Deep hydration and soothing effect, reducing signs of fatigue and stress</li>
+                      <li>Improves Skin Elasticity - Advanced peptide technology enhances skin firmness and elasticity</li>
+                      <li>Anti-Aging Properties - Targets multiple signs of aging around the delicate eye area</li>
+                      <li>Professional Results - Delivers clinical-grade results for comprehensive eye care</li>
+                    </ul>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-base">Directions</h4>
+                    <p className="text-gray-600 mb-4 text-base">
+                      Cleanse the face thoroughly. Apply the gel patches under the eyes, ensuring good contact with the skin. 
+                      Leave on for 20-40 minutes, then remove and discard the patches. For optimal results, use regularly as part of your skincare routine.
+                    </p>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-base">Key Ingredients</h4>
+                    <div className="space-y-4 mb-4">
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-base">Peptide Complex</h5>
+                        <p className="text-base text-gray-600">
+                          Includes Copper Tripeptide-1, Acetyl Hexapeptide-8, Palmitoyl Hexapeptide-12, Palmitoyl Oligopeptide, 
+                          and Palmitoyl Tetrapeptide-7 to reduce fine lines and improve skin elasticity.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-base">Hyaluronic Acid</h5>
+                        <p className="text-base text-gray-600">
+                          Increases skin moisture levels, plumping the eye area and providing deep hydration for a refreshed appearance.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-base">Arbutin</h5>
+                        <p className="text-base text-gray-600">
+                          Natural skin brightening agent that helps reduce the appearance of dark circles and evens skin tone.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-base">Retinyl Palmitate</h5>
+                        <p className="text-base text-gray-600">
+                          Vitamin A derivative that supports skin renewal and combats signs of aging around the eye area.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-base">Botanical Extracts</h5>
+                        <p className="text-base text-gray-600">
+                          Chamomile, Lavender, Peppermint, and Rosemary extracts that soothe and revitalize the delicate eye area.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-base">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Form:</strong> Thermo-sensitive hydrogel patches</p>
+                        <p><strong>Skin Type:</strong> All skin types, especially mature and aging skin</p>
+                        <p><strong>Technology:</strong> Patented thermo-sensitive hydrogel technology</p>
+                        <p><strong>Key Benefits:</strong> Puffiness reduction, dark circle diminishment, wrinkle smoothing</p>
+                        <p><strong>Usage:</strong> 20-40 minutes per application</p>
+                        <p><strong>Quantity:</strong> 60 patches</p>
+                        <p><strong>Origin:</strong> Made in South Korea</p>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                      <p className="text-green-800 text-base">
+                        <strong>Note:</strong> This product is dermatologically tested and safe for all skin types. 
+                        For best results, use in conjunction with other Genosys EyeCell products as part of your daily eye care regimen.
+                      </p>
+                    </div>
+                    
+                    {/* Spacing between note and product documentation */}
+                    <div className="mt-6"></div>
+                    
+                    {/* Product Documentation Section for Product 33 */}
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                      <h4 className="font-semibold text-blue-800 mb-2">Product Documentation</h4>
+                      <p className="text-blue-700 text-sm mb-3">
+                        Download the complete product manual and usage guide for professional application.
+                      </p>
+                      <div className="text-xs text-blue-600 mb-3">
+                        📄 File size: 850 KB
+                      </div>
+                      <div className="flex gap-3">
+                        <a
+                          href="/documents/ppt/GENOSYS%20EyeCell%20EYE%20PEPTIDE%20GEL%20PATCH.pdf"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
+                        >
+                          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                          </svg>
+                          View PDF
+                        </a>
+                        <a
+                          href="/documents/ppt/GENOSYS%20EyeCell%20EYE%20PEPTIDE%20GEL%20PATCH.pdf"
+                          download="GENOSYS EyeCell EYE PEPTIDE GEL PATCH.pdf"
+                          className="inline-flex items-center gap-2 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors text-sm font-medium"
+                        >
+                          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                          </svg>
+                          Download PDF
+                        </a>
+                      </div>
+                    </div>
+                  </>
                 ) : product.id === '38' ? (
                   <>
                     <h3 className="text-lg font-semibold text-gray-800 mb-2">Product Description</h3>

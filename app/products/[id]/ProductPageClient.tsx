@@ -5971,7 +5971,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     {(product.id === '51' || product.id === '12' || product.id === '33' || 
                       product.id === '44' || 
                       product.id === '20' || product.id === '14' || product.id === '18' || product.id === '29' || 
-                      product.id === '21' || product.id === '23' || product.id === '41' || product.id === '11' || 
+                      product.id === '21' || product.id === '23' || product.id === '41' || 
                       product.id === '34' || product.id === '39' || product.id === '38' ||
                       product.name === 'GENOSYS SKIN REBOOT PDRN MASK PACK') && (
                       <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
@@ -5992,7 +5992,6 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                             product.id === '21' ? '1.1 MB' :
                             product.id === '23' ? '1.2 MB' :
                             product.id === '41' ? '950 KB' :
-                            product.id === '11' ? '800 KB' :
                             product.id === '34' ? '1.0 MB' :
                             product.id === '39' ? '1.2 MB' :
                             product.id === '48' ? '650 KB' :
@@ -6014,7 +6013,6 @@ product.id === '29' ? 'GENOSYS%20MOISTURE%20REPLENISHING%20HYALURON%20CREAM.pdf'
                               product.id === '21' ? 'GENOSYS%20MULTI%20VITA%20RADIANCE%20SERUM.pdf' :
                               product.id === '23' ? 'GENOSYS%20MULTI%20VITA%20RADIANCE%20CREAM.pdf' :
                               product.id === '41' ? 'GENOSYS%20SKIN%20CARING%20BLEMISH%20BALM%20CUSHION.pdf' :
-                              product.id === '11' ? 'GENOSYS%20SKIN%20DEFENDER%20LIP%20%26%20EYE%20MAKEUP%20REMOVER.pdf' :
                               product.id === '34' ? 'GENOSYS%20SKIN%20RESCUE%20OVERNIGHT%20CREAM%20MASK.pdf' :
                               product.id === '39' ? 'GENOSYS%20ULTRA%20SHIELD%20SUN%20CREAM.pdf' :
                               product.id === '48' ? 'HAIR%20GENTRON.pdf' :
@@ -6043,7 +6041,6 @@ product.id === '29' ? 'GENOSYS%20MOISTURE%20REPLENISHING%20HYALURON%20CREAM.pdf'
                               product.id === '21' ? 'GENOSYS%20MULTI%20VITA%20RADIANCE%20SERUM.pdf' :
                               product.id === '23' ? 'GENOSYS%20MULTI%20VITA%20RADIANCE%20CREAM.pdf' :
                               product.id === '41' ? 'GENOSYS%20SKIN%20CARING%20BLEMISH%20BALM%20CUSHION.pdf' :
-                              product.id === '11' ? 'GENOSYS%20SKIN%20DEFENDER%20LIP%20%26%20EYE%20MAKEUP%20REMOVER.pdf' :
                               product.id === '34' ? 'GENOSYS%20SKIN%20RESCUE%20OVERNIGHT%20CREAM%20MASK.pdf' :
                               product.id === '39' ? 'GENOSYS%20ULTRA%20SHIELD%20SUN%20CREAM.pdf' :
                               product.id === '48' ? 'HAIR%20GENTRON.pdf' :
@@ -6061,7 +6058,6 @@ product.id === '29' ? 'GENOSYS MOISTURE REPLENISHING HYALURON CREAM.pdf' :
                               product.id === '21' ? 'GENOSYS MULTI VITA RADIANCE SERUM.pdf' :
                               product.id === '23' ? 'GENOSYS MULTI VITA RADIANCE CREAM.pdf' :
                               product.id === '41' ? 'GENOSYS SKIN CARING BLEMISH BALM CUSHION.pdf' :
-                              product.id === '11' ? 'GENOSYS SKIN DEFENDER LIP & EYE MAKEUP REMOVER.pdf' :
                               product.id === '34' ? 'GENOSYS SKIN RESCUE OVERNIGHT CREAM MASK.pdf' :
                               product.id === '39' ? 'GENOSYS ULTRA SHIELD SUN CREAM.pdf' :
                               product.id === '48' ? 'HAIR GENTRON.pdf' :

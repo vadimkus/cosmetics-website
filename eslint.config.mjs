@@ -25,6 +25,13 @@ const eslintConfig = [
       "*.config.mjs",
     ],
   },
+  {
+    files: ["**/*.{js,jsx,ts,tsx}"],
+    languageOptions: {
+      ecmaVersion: "latest",
+      sourceType: "module",
+    },
+  },
 ];
 
 export default eslintConfig;

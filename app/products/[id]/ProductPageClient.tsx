@@ -2822,6 +2822,90 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                     </div>
                   </>
+                ) : product.id === '3' ? (
+                  <>
+                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <p className="text-gray-600 mb-4 text-sm">
+                      HairGen BOOSTER is an advanced auto-microneedling LED device specifically designed for comprehensive scalp treatment 
+                      and hair loss prevention. This innovative device combines microneedling technology with LED light therapy to 
+                      enhance scalp health, promote hair growth, and deliver nutrients directly to hair follicles for optimal results.
+                    </p>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
+                    <div className="space-y-3 mb-4">
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Auto-Microneedling Technology</h5>
+                        <p className="text-sm text-gray-600">
+                          Automated microneedling system that creates micro-channels in the scalp to enhance nutrient absorption 
+                          and stimulate natural healing processes.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">LED Light Therapy</h5>
+                        <p className="text-sm text-gray-600">
+                          Advanced LED light system that stimulates hair follicles, improves scalp circulation, 
+                          and promotes cellular regeneration for enhanced hair growth.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">HR³ MATRIX HAIR SOLUTION α</h5>
+                        <p className="text-sm text-gray-600">
+                          Premium anti-hair loss solution that supplies essential nutrients to combat factors 
+                          causing hair loss and promote healthy hair growth.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">HR³ MATRIX HAIR STAMP</h5>
+                        <p className="text-sm text-gray-600">
+                          Patented delivery enhancer with microneedles that leads to scalp regeneration and 
+                          collagen production through natural wound healing processes.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
+                    <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
+                      <li>Enhanced Hair Growth - Stimulates hair follicles and promotes natural hair regrowth</li>
+                      <li>Improved Scalp Health - Increases blood circulation and nutrient delivery to hair roots</li>
+                      <li>Collagen Production - Promotes scalp regeneration and strengthens hair structure</li>
+                      <li>Nutrient Absorption - Creates pathways for better penetration of hair care products</li>
+                      <li>Professional Results - Advanced technology for both professional and home use</li>
+                      <li>Non-Invasive Treatment - Safe and effective without side effects</li>
+                    </ul>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">How It Works</h4>
+                    <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
+                      <ol className="list-decimal list-inside text-gray-600 space-y-2 text-sm">
+                        <li><strong>Microneedling:</strong> Creates micro-channels in the scalp to enhance product absorption</li>
+                        <li><strong>LED Therapy:</strong> Light therapy stimulates hair follicles and improves scalp circulation</li>
+                        <li><strong>Nutrient Delivery:</strong> HR³ MATRIX HAIR SOLUTION α provides essential nutrients for hair growth</li>
+                        <li><strong>Regeneration:</strong> Natural wound healing process promotes collagen production and scalp health</li>
+                      </ol>
+                    </div>
+                    
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Type:</strong> Auto-microneedling LED device for scalp treatment</p>
+                        <p><strong>Technology:</strong> Microneedling + LED light therapy</p>
+                        <p><strong>Key Components:</strong> HR³ MATRIX HAIR SOLUTION α + HR³ MATRIX HAIR STAMP</p>
+                        <p><strong>Benefits:</strong> Hair growth stimulation, scalp health improvement, nutrient delivery</p>
+                        <p><strong>Usage:</strong> Professional and home care</p>
+                        <p><strong>Origin:</strong> Made in South Korea</p>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                      <p className="text-green-800 text-sm">
+                        <strong>Note:</strong> This device is designed for professional and home use. For best results, 
+                        use consistently as part of your hair care routine. Consult with a hair care professional 
+                        for personalized treatment protocols.
+                      </p>
+                    </div>
+                  </>
                 ) : product.id === '48' ? (
                   <>
                     <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>

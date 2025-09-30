@@ -28,7 +28,7 @@ export async function POST(request: NextRequest) {
       itemCount: parseInt(itemCount) || 1
     })
 
-    if (result.success) {
+    if (result.success && 'messageId' in result) {
       return NextResponse.json({
         success: true,
         message: `Admin notification sent for order #${orderNumber}`,

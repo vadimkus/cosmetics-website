@@ -33,6 +33,9 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
   }
 
   const getPriceForSize = (size: string) => {
+    if (product.id === '1') {
+      return 230 // Same price for all needle sizes
+    }
     if (product.id === '10') {
       return size === '180ml' ? 330 : 510
     }
@@ -75,11 +78,11 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
     try {
       // Only pass selectedColor for product ID 41
       const colorToPass = product.id === '41' ? selectedColor : undefined
-      // Only pass selectedSize for product ID 10, 30, 29, 32, 28, 31, 15, 16, and 25
-      const sizeToPass = (product.id === '10' || product.id === '30' || product.id === '29' || product.id === '32' || product.id === '28' || product.id === '31' || product.id === '15' || product.id === '16' || product.id === '25') ? selectedSize : undefined
+      // Only pass selectedSize for product ID 1, 10, 30, 29, 32, 28, 31, 15, 16, and 25
+      const sizeToPass = (product.id === '1' || product.id === '10' || product.id === '30' || product.id === '29' || product.id === '32' || product.id === '28' || product.id === '31' || product.id === '15' || product.id === '16' || product.id === '25') ? selectedSize : undefined
       
-      // Create a modified product with the correct price for products 10, 30, 29, 32, 28, 31, 15, 16, and 25
-      const productToAdd = (product.id === '10' || product.id === '30' || product.id === '29' || product.id === '32' || product.id === '28' || product.id === '31' || product.id === '15' || product.id === '16' || product.id === '25')
+      // Create a modified product with the correct price for products 1, 10, 30, 29, 32, 28, 31, 15, 16, and 25
+      const productToAdd = (product.id === '1' || product.id === '10' || product.id === '30' || product.id === '29' || product.id === '32' || product.id === '28' || product.id === '31' || product.id === '15' || product.id === '16' || product.id === '25')
         ? { ...product, price: getPriceForSize(selectedSize) }
         : product
       
@@ -195,13 +198,13 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
 
             {/* Size and Price */}
             <div className="flex items-center gap-4 mt-12 pt-4">
-              {(product.size || product.id === '41' || product.id === '10' || product.id === '30' || product.id === '29' || product.id === '32' || product.id === '28' || product.id === '31' || product.id === '24' || product.id === '16' || product.id === '25') && (
+              {(product.size || product.id === '1' || product.id === '41' || product.id === '10' || product.id === '30' || product.id === '29' || product.id === '32' || product.id === '28' || product.id === '31' || product.id === '24' || product.id === '16' || product.id === '25') && (
                 <div className="text-sm font-medium text-gray-700">
-                  Size: {product.id === '41' ? '15g' : product.id === '10' ? '180ml/500ml' : product.id === '31' ? '50g/230g' : (product.id === '30' || product.id === '29' || product.id === '32' || product.id === '28') ? '50g/250g' : product.id === '15' ? '200ml/500ml' : product.id === '16' ? '200ml/1000ml' : product.id === '25' ? '20g/100g' : product.id === '24' ? '20g' : product.size}
+                  Size: {product.id === '1' ? '0.25mm/0.5mm/0.1mm/0.15mm/0.2mm' : product.id === '41' ? '15g' : product.id === '10' ? '180ml/500ml' : product.id === '31' ? '50g/230g' : (product.id === '30' || product.id === '29' || product.id === '32' || product.id === '28') ? '50g/250g' : product.id === '15' ? '200ml/500ml' : product.id === '16' ? '200ml/1000ml' : product.id === '25' ? '20g/100g' : product.id === '24' ? '20g' : product.size}
                 </div>
               )}
               <div className="text-2xl md:text-3xl font-bold text-primary-600">
-                {getPriceForSize((product.id === '10' || product.id === '30' || product.id === '29' || product.id === '32' || product.id === '28' || product.id === '31' || product.id === '15' || product.id === '16' || product.id === '25') ? selectedSize : 'default').toFixed(2)} AED
+                {getPriceForSize((product.id === '1' || product.id === '10' || product.id === '30' || product.id === '29' || product.id === '32' || product.id === '28' || product.id === '31' || product.id === '15' || product.id === '16' || product.id === '25') ? selectedSize : 'default').toFixed(2)} AED
               </div>
               <div className="text-sm font-normal text-gray-600">(VAT included)</div>
             </div>
@@ -228,12 +231,18 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
               </div>
             )}
 
-            {/* Size Selection - Only for product ID 10, 30, 29, 32, 28, 31, 15, 16, and 25 */}
-            {(product.id === '10' || product.id === '30' || product.id === '29' || product.id === '32' || product.id === '28' || product.id === '31' || product.id === '15' || product.id === '16' || product.id === '25') && (
+            {/* Size Selection - Only for product ID 1, 10, 30, 29, 32, 28, 31, 15, 16, and 25 */}
+            {(product.id === '1' || product.id === '10' || product.id === '30' || product.id === '29' || product.id === '32' || product.id === '28' || product.id === '31' || product.id === '15' || product.id === '16' || product.id === '25') && (
               <div className="space-y-3">
                 <div className="text-sm font-medium text-gray-700">Size:</div>
                 <div className="flex gap-3">
-                  {(product.id === '10' ? [
+                  {(product.id === '1' ? [
+                    { size: '0.25mm', price: 230 },
+                    { size: '0.5mm', price: 230 },
+                    { size: '0.1mm', price: 230 },
+                    { size: '0.15mm', price: 230 },
+                    { size: '0.2mm', price: 230 }
+                  ] : product.id === '10' ? [
                     { size: '180ml', price: 330 },
                     { size: '500ml', price: 510 }
                   ] : product.id === '31' ? [

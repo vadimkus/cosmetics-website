@@ -2822,6 +2822,125 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                     </div>
                   </>
+                ) : product.id === '48' ? (
+                  <>
+                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <p className="text-gray-600 mb-4 text-sm">
+                      Hair-GENTRON is an advanced LED helmet device designed for professional hair loss treatment and scalp therapy. 
+                      This innovative device combines multiple light therapy technologies with massaging and heating functions to 
+                      promote hair growth, improve scalp circulation, and provide comprehensive hair and scalp care. Patent No. 10-2151442, 
+                      Bronze medal winner of 2020 Korea invention patent competition.
+                    </p>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
+                    <div className="space-y-3 mb-4">
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Multi-LED Light Therapy</h5>
+                        <p className="text-sm text-gray-600">
+                          Infrared light + Red light + Blue light combination for comprehensive scalp treatment and hair follicle stimulation.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Massaging Function</h5>
+                        <p className="text-sm text-gray-600">
+                          Air pressure massaging system that can be used simultaneously with light therapy for enhanced treatment effectiveness.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Heating Function</h5>
+                        <p className="text-sm text-gray-600">
+                          Optional heating feature that can be added during treatment to improve blood circulation and enhance light penetration.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Music Mode</h5>
+                        <p className="text-sm text-gray-600">
+                          Built-in relaxation features to help users feel comfortable and relaxed during treatment sessions.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
+                    <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
+                      <li>Hair Growth Stimulation - Promotes natural hair growth through advanced light therapy</li>
+                      <li>Improved Blood Circulation - Enhances scalp blood flow for better nutrient delivery to hair follicles</li>
+                      <li>Non-Invasive Treatment - Safe and painless therapy without side effects</li>
+                      <li>Professional & Home Use - Suitable for both professional clinics and home care</li>
+                      <li>Stress Relief - Massaging function helps reduce tension and stress</li>
+                      <li>Optimal Light Distance - Guaranteed proper distance from light source to scalp for maximum effectiveness</li>
+                    </ul>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">How It Works</h4>
+                    <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
+                      <ol className="list-decimal list-inside text-gray-600 space-y-2 text-sm">
+                        <li><strong>Light Therapy:</strong> Infrared, red, and blue LED lights stimulate hair follicles and improve scalp health</li>
+                        <li><strong>Massaging:</strong> Air pressure massaging improves blood circulation and enhances treatment effectiveness</li>
+                        <li><strong>Heating:</strong> Optional heating function increases blood flow and light penetration</li>
+                        <li><strong>Relaxation:</strong> Music mode and comfortable design ensure a pleasant treatment experience</li>
+                      </ol>
+                    </div>
+                    
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Type:</strong> LED helmet with massaging and heating functions</p>
+                        <p><strong>Patent:</strong> No. 10-2151442 (Korea)</p>
+                        <p><strong>Award:</strong> Bronze medal winner of 2020 Korea invention patent competition</p>
+                        <p><strong>Light Types:</strong> Infrared + Red + Blue LED combination</p>
+                        <p><strong>Features:</strong> Massaging, heating, music mode</p>
+                        <p><strong>Usage:</strong> Professional and home care</p>
+                        <p><strong>Origin:</strong> Made in South Korea</p>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                      <p className="text-green-800 text-sm">
+                        <strong>Note:</strong> This device is designed for professional and home use. For best results, 
+                        use consistently as part of your hair care routine. Consult with a hair care professional 
+                        for personalized treatment protocols.
+                      </p>
+                    </div>
+                    
+                    {/* Spacing between note and product documentation */}
+                    <div className="mt-6"></div>
+                    
+                    {/* Product Documentation Section for Product 48 */}
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                      <h4 className="font-semibold text-blue-800 mb-2">Product Documentation</h4>
+                      <p className="text-blue-700 text-sm mb-3">
+                        Download the complete product manual and usage guide for professional application.
+                      </p>
+                      <div className="text-xs text-blue-600 mb-3">
+                        📄 File size: 650 KB
+                      </div>
+                      <div className="flex gap-3">
+                        <a
+                          href="/documents/ppt/HAIR%20GENTRON.pdf"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
+                        >
+                          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                          </svg>
+                          View PDF
+                        </a>
+                        <a
+                          href="/documents/ppt/HAIR%20GENTRON.pdf"
+                          download="HAIR GENTRON.pdf"
+                          className="inline-flex items-center gap-2 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors text-sm font-medium"
+                        >
+                          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                          </svg>
+                          Download PDF
+                        </a>
+                      </div>
+                    </div>
+                  </>
                 ) : product.id === '50' ? (
                   <>
                     <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
@@ -2975,7 +3094,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       product.id === '44' || 
                       product.id === '20' || product.id === '14' || product.id === '18' || product.id === '29' || 
                       product.id === '21' || product.id === '23' || product.id === '41' || product.id === '11' || 
-                      product.id === '34' || product.id === '39' || product.id === '48' || product.id === '38' ||
+                      product.id === '34' || product.id === '39' || product.id === '38' ||
                       product.name === 'GENOSYS SKIN REBOOT PDRN MASK PACK') && (
                       <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
                         <h4 className="font-semibold text-blue-800 mb-2">Product Documentation</h4>

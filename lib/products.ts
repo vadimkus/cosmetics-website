@@ -112,6 +112,7 @@ export const products: Product[] = [
     images: null,
     category: 'Cleanser',
     inStock: true,
+    size: '200ml',
   },
   {
     id: '12',

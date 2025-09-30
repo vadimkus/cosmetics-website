@@ -42,6 +42,9 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
     if (product.id === '15') {
       return size === '200ml' ? 260 : 490
     }
+    if (product.id === '16') {
+      return size === '200ml' ? 260 : 490
+    }
     return product.price
   }
 
@@ -69,11 +72,11 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
     try {
       // Only pass selectedColor for product ID 41
       const colorToPass = product.id === '41' ? selectedColor : undefined
-      // Only pass selectedSize for product ID 10, 30, 29, 32, 28, 31, and 15
-      const sizeToPass = (product.id === '10' || product.id === '30' || product.id === '29' || product.id === '32' || product.id === '28' || product.id === '31' || product.id === '15') ? selectedSize : undefined
+      // Only pass selectedSize for product ID 10, 30, 29, 32, 28, 31, 15, and 16
+      const sizeToPass = (product.id === '10' || product.id === '30' || product.id === '29' || product.id === '32' || product.id === '28' || product.id === '31' || product.id === '15' || product.id === '16') ? selectedSize : undefined
       
-      // Create a modified product with the correct price for products 10, 30, 29, 32, 28, 31, and 15
-      const productToAdd = (product.id === '10' || product.id === '30' || product.id === '29' || product.id === '32' || product.id === '28' || product.id === '31' || product.id === '15')
+      // Create a modified product with the correct price for products 10, 30, 29, 32, 28, 31, 15, and 16
+      const productToAdd = (product.id === '10' || product.id === '30' || product.id === '29' || product.id === '32' || product.id === '28' || product.id === '31' || product.id === '15' || product.id === '16')
         ? { ...product, price: getPriceForSize(selectedSize) }
         : product
       
@@ -189,13 +192,13 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
 
             {/* Size and Price */}
             <div className="flex items-center gap-4 mt-12 pt-4">
-              {(product.size || product.id === '41' || product.id === '10' || product.id === '30' || product.id === '29' || product.id === '32' || product.id === '28' || product.id === '31' || product.id === '24') && (
+              {(product.size || product.id === '41' || product.id === '10' || product.id === '30' || product.id === '29' || product.id === '32' || product.id === '28' || product.id === '31' || product.id === '24' || product.id === '16') && (
                 <div className="text-sm font-medium text-gray-700">
-                  Size: {product.id === '41' ? '15g' : product.id === '10' ? '180ml/500ml' : product.id === '31' ? '50g/230g' : (product.id === '30' || product.id === '29' || product.id === '32' || product.id === '28') ? '50g/250g' : product.id === '15' ? '200ml/500ml' : product.id === '24' ? '20g' : product.size}
+                  Size: {product.id === '41' ? '15g' : product.id === '10' ? '180ml/500ml' : product.id === '31' ? '50g/230g' : (product.id === '30' || product.id === '29' || product.id === '32' || product.id === '28') ? '50g/250g' : product.id === '15' ? '200ml/500ml' : product.id === '16' ? '200ml/1000ml' : product.id === '24' ? '20g' : product.size}
                 </div>
               )}
               <div className="text-2xl md:text-3xl font-bold text-primary-600">
-                {getPriceForSize((product.id === '10' || product.id === '30' || product.id === '29' || product.id === '32' || product.id === '28' || product.id === '31' || product.id === '15') ? selectedSize : 'default').toFixed(2)} AED
+                {getPriceForSize((product.id === '10' || product.id === '30' || product.id === '29' || product.id === '32' || product.id === '28' || product.id === '31' || product.id === '15' || product.id === '16') ? selectedSize : 'default').toFixed(2)} AED
               </div>
               <div className="text-sm font-normal text-gray-600">(VAT included)</div>
             </div>
@@ -222,8 +225,8 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
               </div>
             )}
 
-            {/* Size Selection - Only for product ID 10, 30, 29, 32, 28, 31, and 15 */}
-            {(product.id === '10' || product.id === '30' || product.id === '29' || product.id === '32' || product.id === '28' || product.id === '31' || product.id === '15') && (
+            {/* Size Selection - Only for product ID 10, 30, 29, 32, 28, 31, 15, and 16 */}
+            {(product.id === '10' || product.id === '30' || product.id === '29' || product.id === '32' || product.id === '28' || product.id === '31' || product.id === '15' || product.id === '16') && (
               <div className="space-y-3">
                 <div className="text-sm font-medium text-gray-700">Size:</div>
                 <div className="flex gap-3">
@@ -236,6 +239,9 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   ] : product.id === '15' ? [
                     { size: '200ml', price: 260 },
                     { size: '500ml', price: 490 }
+                  ] : product.id === '16' ? [
+                    { size: '200ml', price: 260 },
+                    { size: '1000ml', price: 490 }
                   ] : [
                     { size: '50g', price: 290 },
                     { size: '250g', price: 420 }

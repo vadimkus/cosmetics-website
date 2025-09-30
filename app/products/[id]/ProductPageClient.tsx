@@ -697,26 +697,105 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '19' ? (
                   <>
-                    <h3 className="text-lg font-semibold text-gray-800 mb-2">Product Details</h3>
-                    <p className="text-gray-600 mb-4">
-                      30ml. Skin repairing serum for sensitive skin. It is a skin repairing serum that provides moisture barrier to skin and relieves the sensitized skin with its anti-inflammatory and soothing properties.
+                    <h3 className="text-lg font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <p className="text-gray-600 mb-4 text-base">
+                      GENOSYS ALL FOR SENSITIVE SERUM is a specialized skin repairing serum designed specifically for sensitive skin. 
+                      This advanced formula provides a protective moisture barrier while delivering anti-inflammatory and soothing 
+                      properties to calm and repair sensitized skin. Perfect for those with reactive, easily irritated skin.
                     </p>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2">Key Ingredients</h4>
-                    <p className="text-gray-600 mb-4">
-                      MultiEx BSASM® Plus, Phytolex SC, Hyaluronic Acid, Phytosphingosine, Aloe Barbadensis Leaf Extract, Hamamelis Virginiana (Witch Hazel) Extract, Beta-Glucan.
+                    <h4 className="font-semibold text-gray-800 mb-2 text-base">Benefits</h4>
+                    <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-base">
+                      <li>Skin Barrier Repair - Strengthens and rebuilds the skin's natural protective barrier</li>
+                      <li>Anti-Inflammatory - Reduces redness and calms irritated, sensitive skin</li>
+                      <li>Soothing Relief - Provides immediate comfort for sensitized skin</li>
+                      <li>Moisture Barrier - Creates a protective layer to prevent moisture loss</li>
+                      <li>Gentle Formula - Specifically designed for sensitive and reactive skin</li>
+                      <li>Skin Repair - Helps repair damaged skin and restore healthy function</li>
+                    </ul>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-base">Directions</h4>
+                    <p className="text-gray-600 mb-4 text-base">
+                      Apply the serum to clean skin in the morning and evening. Gently pat with fingers until fully absorbed. 
+                      Use as part of your daily skincare routine for sensitive skin care.
                     </p>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2">How to Use</h4>
-                    <p className="text-gray-600 mb-4">
-                      Apply the product on the face and gently pat with fingers in the morning and evening.
-                    </p>
+                    <h4 className="font-semibold text-gray-800 mb-2 text-base">Key Ingredients</h4>
+                    
+                    <div className="space-y-4 mb-4">
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-base">MultiEx BSASM® Plus</h5>
+                        <p className="text-base text-gray-600">
+                          A patented complex that helps strengthen the skin barrier and provides long-lasting hydration 
+                          while protecting sensitive skin from environmental stressors.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-base">Phytolex SC</h5>
+                        <p className="text-base text-gray-600">
+                          A plant-derived ingredient that provides natural anti-inflammatory benefits and helps 
+                          soothe irritated skin while supporting the skin's natural healing process.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-base">Hyaluronic Acid</h5>
+                        <p className="text-base text-gray-600">
+                          A powerful humectant that attracts and retains moisture, providing deep hydration 
+                          without causing irritation or clogging pores.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-base">Phytosphingosine</h5>
+                        <p className="text-base text-gray-600">
+                          A natural lipid that helps restore the skin's barrier function and provides gentle 
+                          antimicrobial protection while being suitable for sensitive skin.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-base">Aloe Barbadensis Leaf Extract</h5>
+                        <p className="text-base text-gray-600">
+                          Known for its soothing and healing properties, aloe vera helps calm irritated skin, 
+                          reduce inflammation, and provide natural moisture to sensitive skin.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-base">Hamamelis Virginiana (Witch Hazel) Extract</h5>
+                        <p className="text-base text-gray-600">
+                          A natural astringent that helps tighten pores, reduce inflammation, and provide 
+                          gentle cleansing properties while being gentle on sensitive skin.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-base">Beta-Glucan</h5>
+                        <p className="text-base text-gray-600">
+                          A natural immune-boosting ingredient that helps strengthen the skin's defense mechanisms, 
+                          reduce inflammation, and promote healing in sensitive skin.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-base">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Size:</strong> 30ml</p>
+                        <p><strong>Skin Type:</strong> Sensitive, reactive, and easily irritated skin</p>
+                        <p><strong>Formulation:</strong> Gentle, non-irritating serum</p>
+                        <p><strong>Key Benefits:</strong> Barrier repair, anti-inflammatory, soothing</p>
+                      </div>
+                    </div>
                     
                     <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-                      <p className="text-green-800 text-sm">
-                        <strong>Note:</strong> Dermatologically tested.
+                      <p className="text-green-800 text-base">
+                        <strong>Note:</strong> This product is dermatologically tested and specifically formulated for sensitive skin. 
+                        For best results, use as part of your daily sensitive skin care routine.
                       </p>
-              </div>
+                    </div>
                   </>
                 ) : product.id === '30' ? (
                   <>
@@ -729,20 +808,75 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     
                     <h4 className="font-semibold text-gray-800 mb-2 text-base">Benefits</h4>
                     <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-base">
-                      <li>Anti-microbial</li>
-                      <li>Anti-inflammation</li>
-                      <li>Sebum control</li>
-                      <li>Soothing</li>
+                      <li>Anti-microbial - Helps combat bacteria and prevent breakouts</li>
+                      <li>Anti-inflammatory - Reduces redness and calms irritated skin</li>
+                      <li>Sebum Control - Regulates oil production for balanced skin</li>
+                      <li>Soothing Relief - Provides comfort for problematic skin</li>
+                      <li>Skin Barrier Support - Strengthens the skin's natural defenses</li>
+                      <li>Moisture Retention - Keeps skin hydrated without clogging pores</li>
                     </ul>
                     
                     <h4 className="font-semibold text-gray-800 mb-2 text-base">Directions</h4>
                     <p className="text-gray-600 mb-4 text-base">
-                      Apply a small amount to cleansed skin twice daily.
+                      Apply a small amount to cleansed skin twice daily. Gently massage into the skin until fully absorbed. 
+                      Use as part of your morning and evening skincare routine for best results.
                     </p>
                     
                     <h4 className="font-semibold text-gray-800 mb-2 text-base">Key Ingredients</h4>
-                    <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
-                      <p className="text-base text-gray-600">
+                    
+                    <div className="space-y-4 mb-4">
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-base">Zinc PCA</h5>
+                        <p className="text-base text-gray-600">
+                          A powerful sebum-regulating ingredient that helps control oil production and has antimicrobial properties 
+                          to prevent breakouts and maintain clear skin.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-base">Panthenol (Vitamin B5)</h5>
+                        <p className="text-base text-gray-600">
+                          Provides deep hydration and has anti-inflammatory properties that help soothe irritated skin 
+                          while promoting healing and skin barrier function.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-base">Beta-Glucan</h5>
+                        <p className="text-base text-gray-600">
+                          A natural immune-boosting ingredient that helps strengthen the skin's defense mechanisms, 
+                          reduce inflammation, and promote healing.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-base">Allantoin</h5>
+                        <p className="text-base text-gray-600">
+                          A gentle, soothing ingredient that helps calm irritated skin, reduce redness, and promote 
+                          skin healing while being suitable for sensitive skin.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-base">Lactobacillus/Pumpkin Ferment Extract</h5>
+                        <p className="text-base text-gray-600">
+                          A probiotic ingredient that helps balance the skin's microbiome, providing natural antimicrobial 
+                          benefits and supporting healthy skin flora.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <h5 className="font-semibold text-gray-800 mb-2 text-base">Trehalose</h5>
+                        <p className="text-base text-gray-600">
+                          A natural sugar that acts as a humectant, helping to retain moisture and protect the skin 
+                          from environmental stressors while maintaining skin hydration.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-base">Full Ingredients List</h5>
+                      <p className="text-blue-800 text-sm">
                         Aqua(Water), Dipropylene Glycol, 1,2-Hexanediol, Trehalose, Zinc PCA, Acrylates/C10-30 Alkyl Acrylate Crosspolymer, 
                         Sodium Polyacrylate, Xylitol, Allantoin, Betaine, Lactobacillus/Pumpkin Ferment Extract, Panthenol, Beta-Glucan, 
                         Betula Platyphylla Japonica Bark Extract, Leuconostoc/Radish Root Ferment Filtrate, Phaseolus Radiatus Extract, 
@@ -864,6 +998,36 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                         <strong>Note:</strong> This product is dermatologically tested and safe for all skin types. 
                         For best results, use as part of your daily skincare routine to achieve radiant, youthful-looking skin.
                       </p>
+                    </div>
+                    
+                    {/* PDF Download Section */}
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mt-4">
+                      <h4 className="font-semibold text-blue-800 mb-2">Product Documentation</h4>
+                      <p className="text-blue-700 text-sm mb-3">Download the complete product manual and usage guide for professional application.</p>
+                      <div className="text-xs text-blue-600 mb-3">📄 File size: 2.1 MB</div>
+                      <div className="flex gap-3">
+                        <a 
+                          href="/documents/ppt/GENOSYS%20MULTI%20VITA%20RADIANCE%20CREAM.pdf" 
+                          target="_blank" 
+                          rel="noopener noreferrer" 
+                          className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
+                        >
+                          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                          </svg>
+                          View PDF
+                        </a>
+                        <a 
+                          href="/documents/ppt/GENOSYS%20MULTI%20VITA%20RADIANCE%20CREAM.pdf" 
+                          download="GENOSYS MULTI VITA RADIANCE CREAM.pdf" 
+                          className="inline-flex items-center gap-2 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors text-sm font-medium"
+                        >
+                          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                          </svg>
+                          Download
+                        </a>
+                      </div>
                     </div>
                   </>
                 ) : product.id === '32' ? ( // Added detailed description for product 32

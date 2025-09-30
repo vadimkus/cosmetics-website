@@ -18,9 +18,39 @@ const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://genosys.ae'),
-  title: 'Genosys Dubai - Premium Beauty Products & Cosmetics UAE',
-  description: 'Genosys Dubai - Premium beauty products and cosmetics in UAE. Discover our professional skincare, hair care, and beauty treatments.',
-  keywords: 'Genosys Dubai, Genosys cosmetics Dubai, beauty products Dubai, cosmetics UAE, skincare Dubai, professional beauty, Genosys Middle East, beauty treatments UAE, premium cosmetics',
+  title: 'GENOSYS Middle East FZ-LLC - Professional Korean Dermacosmetics & Microneedling Devices UAE',
+  description: 'Official distributor of GENOSYS Korean dermacosmetics in UAE. Professional microneedling devices, skincare products, and beauty treatments. Free shipping over 1000 AED. Licensed practitioners only.',
+  keywords: [
+    'Korean dermacosmetics UAE',
+    'GENOSYS Dubai',
+    'microneedling devices UAE', 
+    'professional skincare Dubai',
+    'Korean beauty UAE',
+    'dermacosmetics training UAE',
+    'GENOSYS Middle East',
+    'professional beauty Dubai',
+    'Korean skincare UAE',
+    'microneedling Dubai',
+    'dermacosmetics products UAE',
+    'professional beauty training UAE'
+  ],
+  authors: [{ name: 'GENOSYS Middle East FZ-LLC' }],
+  creator: 'GENOSYS Middle East FZ-LLC',
+  publisher: 'GENOSYS Middle East FZ-LLC',
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  alternates: {
+    canonical: 'https://genosys.ae',
+  },
   icons: {
     icon: [
       { url: '/favicon.ico', type: 'image/x-icon', sizes: '32x32' },
@@ -47,25 +77,39 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: 'website',
-    siteName: 'Genosys Dubai',
-    title: 'Genosys Dubai - Premium Beauty Products & Cosmetics UAE',
-    description: 'Genosys Dubai - Premium beauty products and cosmetics in UAE. Discover our professional skincare, hair care, and beauty treatments.',
+    siteName: 'GENOSYS Middle East FZ-LLC',
+    title: 'GENOSYS Middle East FZ-LLC - Professional Korean Dermacosmetics & Microneedling Devices UAE',
+    description: 'Official distributor of GENOSYS Korean dermacosmetics in UAE. Professional microneedling devices, skincare products, and beauty treatments. Free shipping over 1000 AED.',
+    url: 'https://genosys.ae',
     images: [
+      {
+        url: 'https://genosys.ae/images/genosys-logo.png',
+        width: 1200,
+        height: 630,
+        alt: 'GENOSYS Middle East FZ-LLC - Professional Korean Dermacosmetics',
+      },
       {
         url: 'https://genosys.ae/images/genosys-products.jpg',
         width: 1200,
         height: 630,
-        alt: 'Genosys Products',
+        alt: 'GENOSYS Professional Korean Dermacosmetics Products',
       },
     ],
+    locale: 'en_AE',
+    countryName: 'United Arab Emirates',
   },
   twitter: {
     card: 'summary_large_image',
-    site: '@genosys_me',
-    creator: '@genosys_me',
-    title: 'Genosys Middle East FZ-LLC - Premium Beauty Products',
-    description: 'Discover our premium collection of cosmetics and beauty products',
-    images: ['https://genosys.ae/images/genosys-products.jpg'],
+    site: '@genosys_official',
+    creator: '@genosys_official',
+    title: 'GENOSYS Middle East FZ-LLC - Professional Korean Dermacosmetics UAE',
+    description: 'Official distributor of GENOSYS Korean dermacosmetics in UAE. Professional microneedling devices and skincare products.',
+    images: [
+      {
+        url: 'https://genosys.ae/images/genosys-logo.png',
+        alt: 'GENOSYS Middle East FZ-LLC - Professional Korean Dermacosmetics',
+      }
+    ],
   },
 }
 
@@ -74,7 +118,11 @@ export const viewport = {
   initialScale: 1,
   maximumScale: 5,
   userScalable: true,
-  themeColor: '#1f2937',
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
+    { media: '(prefers-color-scheme: dark)', color: '#1f2937' }
+  ],
+  colorScheme: 'light dark',
 }
 
 export default function RootLayout({

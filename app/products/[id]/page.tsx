@@ -26,37 +26,85 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
     return {
       title: 'Product Not Found - GENOSYS Middle East FZ-LLC',
       description: 'The requested product could not be found.',
+      robots: {
+        index: false,
+        follow: false,
+      },
     }
   }
 
   const images = product.images ? JSON.parse(product.images) : [product.image]
   const displayImages = images.length > 0 ? images : [product.image]
   
+  // Enhanced product-specific meta tags
+  const productTitle = `${product.name} - Professional Korean Dermacosmetics UAE | GENOSYS Middle East FZ-LLC`
+  const productDescription = `${product.description.substring(0, 150)}... Professional Korean dermacosmetics by GENOSYS. Official distributor in UAE. Free shipping over 1000 AED.`
+  const productKeywords = [
+    product.name,
+    `GENOSYS ${product.category}`,
+    'Korean dermacosmetics UAE',
+    'professional skincare Dubai',
+    `${product.category.toLowerCase()} UAE`,
+    'GENOSYS Middle East',
+    'Korean beauty Dubai',
+    'professional beauty UAE',
+    'dermacosmetics products',
+    'GENOSYS official distributor'
+  ]
+  
   return {
-    title: `${product.name} - GENOSYS Professional Korean Dermacosmetics | Genosys Middle East FZ-LLC`,
-    description: `${product.description.substring(0, 155)}... Professional Korean dermacosmetics by GENOSYS. Available in UAE.`,
-    keywords: `${product.name}, GENOSYS ${product.category}, Korean dermacosmetics, professional skincare, ${product.category.toLowerCase()}, UAE cosmetics`,
+    title: productTitle,
+    description: productDescription,
+    keywords: productKeywords,
+    authors: [{ name: 'GENOSYS Middle East FZ-LLC' }],
+    creator: 'GENOSYS Middle East FZ-LLC',
+    publisher: 'GENOSYS Middle East FZ-LLC',
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
+    },
     openGraph: {
-      title: `${product.name} - GENOSYS Professional Korean Dermacosmetics`,
-      description: `${product.description.substring(0, 155)}... Professional Korean dermacosmetics by GENOSYS.`,
-      type: 'website',
+      title: productTitle,
+      description: productDescription,
+      type: 'product',
+      url: `https://genosys.ae/products/${product.id}`,
+      siteName: 'GENOSYS Middle East FZ-LLC',
       images: displayImages.map((img: string) => ({
         url: `https://genosys.ae${img}`,
         width: 800,
         height: 800,
-        alt: product.name,
+        alt: `${product.name} - Professional Korean Dermacosmetics`,
       })),
+      locale: 'en_AE',
+      countryName: 'United Arab Emirates',
     },
     twitter: {
       card: 'summary_large_image',
-      site: '@genosys_me',
-      creator: '@genosys_me',
-      title: `${product.name} - GENOSYS Professional Korean Dermacosmetics`,
-      description: `${product.description.substring(0, 155)}... Professional Korean dermacosmetics by GENOSYS.`,
-      images: displayImages.map((img: string) => `https://genosys.ae${img}`),
+      site: '@genosys_official',
+      creator: '@genosys_official',
+      title: productTitle,
+      description: productDescription,
+      images: displayImages.map((img: string) => ({
+        url: `https://genosys.ae${img}`,
+        alt: `${product.name} - Professional Korean Dermacosmetics`,
+      })),
     },
     alternates: {
       canonical: `https://genosys.ae/products/${product.id}`,
+    },
+    other: {
+      'product:price:amount': product.price.toString(),
+      'product:price:currency': 'AED',
+      'product:availability': product.inStock ? 'in stock' : 'out of stock',
+      'product:brand': 'GENOSYS',
+      'product:category': product.category,
     },
   }
 }

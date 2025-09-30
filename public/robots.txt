@@ -1,7 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server'
-
-export async function GET(request: NextRequest) {
-  const robotsTxt = `# GENOSYS Middle East FZ-LLC - Professional Korean Dermacosmetics
+# GENOSYS Middle East FZ-LLC - Professional Korean Dermacosmetics
 # Official Distributor in the UAE - Microneedling Devices & Skincare Products
 
 # Allow all search engines to crawl the site
@@ -88,13 +85,4 @@ User-agent: DataForSeoBot
 Disallow: /
 
 # Host directive (helps with duplicate content)
-Host: https://genosys.ae`
-
-  return new NextResponse(robotsTxt, {
-    status: 200,
-    headers: {
-      'Content-Type': 'text/plain',
-      'Cache-Control': 'public, s-maxage=86400',
-    },
-  })
-}
+Host: https://genosys.ae

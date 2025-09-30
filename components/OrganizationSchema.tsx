@@ -44,17 +44,38 @@ export default function OrganizationSchema() {
       }
     ],
     "sameAs": [
-      "https://wa.me/971585487665"
+      "https://wa.me/971585487665",
+      "https://www.genosys.info/",
+      "https://www.instagram.com/genosys.uae/"
     ],
-    "foundingDate": "2020",
-    "slogan": "Professional Korean Dermacosmetics",
+    "foundingDate": "2019",
+    "slogan": "Professional Korean Dermacosmetics & Microneedling Devices",
     "knowsAbout": [
       "Korean Skincare",
       "Dermacosmetics",
       "Professional Beauty Products",
       "Skincare Solutions",
-      "Beauty Devices"
+      "Beauty Devices",
+      "Microneedling",
+      "Professional Training",
+      "Korean Beauty Trends"
     ],
+    "hasCredential": [
+      {
+        "@type": "EducationalOccupationalCredential",
+        "credentialCategory": "certification",
+        "recognizedBy": {
+          "@type": "Organization",
+          "name": "Dubai Municipality"
+        },
+        "name": "Montaji System Certification"
+      }
+    ],
+    "memberOf": {
+      "@type": "Organization",
+      "name": "DTS MG Co., Ltd.",
+      "url": "https://www.genosys.info/"
+    },
     "makesOffer": {
       "@type": "Offer",
       "itemOffered": {

@@ -18,7 +18,9 @@ export default function ProductSchema({ product }: ProductSchemaProps) {
     "image": displayImages.map((img: string) => `${process.env.NEXT_PUBLIC_BASE_URL || 'https://genosys.ae'}${img}`),
     "brand": {
       "@type": "Brand",
-      "name": "GENOSYS"
+      "name": "GENOSYS",
+      "url": "https://www.genosys.info/",
+      "logo": "https://genosys.ae/images/genosys-logo.png"
     },
     "category": product.category,
     "offers": {
@@ -26,12 +28,57 @@ export default function ProductSchema({ product }: ProductSchemaProps) {
       "price": product.price,
       "priceCurrency": "AED",
       "availability": product.inStock ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+      "priceValidUntil": new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString().split('T')[0], // 1 year from now
+      "itemCondition": "https://schema.org/NewCondition",
       "seller": {
         "@type": "Organization",
         "name": "GENOSYS Middle East FZ-LLC",
-        "url": "https://genosys.ae"
+        "url": "https://genosys.ae",
+        "address": {
+          "@type": "PostalAddress",
+          "addressCountry": "AE",
+          "addressRegion": "Dubai"
+        },
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "+971-58-548-7665",
+          "contactType": "sales",
+          "email": "sales@genosys.ae"
+        }
       },
-      "url": `${process.env.NEXT_PUBLIC_BASE_URL || 'https://genosys.ae'}/products/${product.id}`
+      "url": `${process.env.NEXT_PUBLIC_BASE_URL || 'https://genosys.ae'}/products/${product.id}`,
+      "shippingDetails": {
+        "@type": "OfferShippingDetails",
+        "shippingRate": {
+          "@type": "MonetaryAmount",
+          "value": "0",
+          "currency": "AED"
+        },
+        "shippingDestination": {
+          "@type": "DefinedRegion",
+          "addressCountry": "AE"
+        },
+        "deliveryTime": {
+          "@type": "ShippingDeliveryTime",
+          "businessDays": {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
+          },
+          "cutoffTime": "14:00",
+          "handlingTime": {
+            "@type": "QuantitativeValue",
+            "minValue": 1,
+            "maxValue": 2,
+            "unitCode": "DAY"
+          },
+          "transitTime": {
+            "@type": "QuantitativeValue",
+            "minValue": 1,
+            "maxValue": 3,
+            "unitCode": "DAY"
+          }
+        }
+      }
     },
     "manufacturer": {
       "@type": "Organization",

@@ -12,6 +12,8 @@ import PerformanceMonitor from '@/components/PerformanceMonitor'
 import { ServiceWorkerProvider } from '@/components/ServiceWorkerProvider'
 import PageViewTracker from '@/components/PageViewTracker'
 import OrganizationSchema from '@/components/OrganizationSchema'
+import LocalBusinessSchema from '@/components/LocalBusinessSchema'
+import AggregateRatingSchema from '@/components/AggregateRatingSchema'
 import ErrorBoundary from '@/components/ErrorBoundary'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -149,6 +151,8 @@ export default function RootLayout({
       </head>
       <body className={inter.className}>
         <OrganizationSchema />
+        <LocalBusinessSchema />
+        <AggregateRatingSchema />
         <AuthProvider>
           <FavoritesProvider>
             <CartProvider>

@@ -55,15 +55,12 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: '/favicon.ico', type: 'image/x-icon', sizes: '32x32' },
       { url: '/favicon/genosys-official-favicon.ico', type: 'image/x-icon', sizes: '32x32' },
       { url: '/favicon/genosys-official.ico', type: 'image/x-icon', sizes: '16x16' },
-      { url: '/favicon/favicon.svg', type: 'image/svg+xml' },
-      { url: '/favicon/favicon-16x16.svg', type: 'image/svg+xml', sizes: '16x16' },
-      { url: '/favicon/favicon-32x32.svg', type: 'image/svg+xml', sizes: '32x32' }
+      { url: '/favicon.ico', type: 'image/x-icon', sizes: '32x32' }
     ],
     shortcut: [
-      { url: '/favicon.ico', type: 'image/x-icon' }
+      { url: '/favicon/genosys-official-favicon.ico', type: 'image/x-icon' }
     ],
     apple: [
       { url: '/favicon/genosys-official-favicon.ico', sizes: '32x32' },

@@ -3547,22 +3547,6 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </p>
                     </div>
                     
-                    {/* Product Video */}
-                    <div className="mt-8">
-                      <div className="relative w-full max-w-2xl mx-auto">
-                        <video
-                          className="w-full h-auto rounded-lg shadow-lg"
-                          controls
-                          loop
-                          muted
-                          autoPlay
-                          playsInline
-                          preload="metadata"
-                        >
-                          <source src="/videos/HES_FINAL.mp4" type="video/mp4" />
-                          Your browser does not support the video tag.
-                        </video>
-                      </div>
                     </div>
                   </>
                 ) : product.id === '5' ? (

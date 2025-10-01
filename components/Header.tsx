@@ -1,13 +1,13 @@
 'use client'
 
 import Link from 'next/link'
-import { ShoppingCart, Heart, X, User, LogOut, Menu } from 'lucide-react'
-import { useCart } from './CartProvider'
+import { ShoppingCart, Heart, User, LogOut, Menu } from 'lucide-react'
+// import { useCart } from './CartProvider' // Unused for now
 import { useCartStore } from '@/lib/cartStore'
 import { useAuth } from './AuthProvider'
 import { useFavorites } from './FavoritesProvider'
 import LoginModal from './LoginModal'
-import { useState, useEffect, memo, useCallback } from 'react'
+import { useState, useEffect, memo } from 'react'
 
 const Header = memo(function Header() {
   const { getTotalItems } = useCartStore()

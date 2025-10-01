@@ -1,5 +1,4 @@
 import ErrorPage from '@/components/ErrorPage'
-import Link from 'next/link'
 
 export default function NotFound() {
   return (

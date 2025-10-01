@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-export async function GET(request: NextRequest) {
+export async function GET(_request: NextRequest) {
   const robotsTxt = `# GENOSYS Middle East FZ-LLC - Professional Korean Dermacosmetics
 # Official Distributor in the UAE - Microneedling Devices & Skincare Products
 

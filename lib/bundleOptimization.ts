@@ -9,7 +9,7 @@ import React from 'react'
  */
 export const lazyLoad = <T extends React.ComponentType<any>>(
   importFunc: () => Promise<{ default: T }>,
-  fallback?: React.ComponentType
+  _fallback?: React.ComponentType
 ) => {
   return React.lazy(importFunc)
 }
@@ -247,7 +247,7 @@ export const performanceMonitoring = {
       new PerformanceObserver((list) => {
         const entries = list.getEntries()
         const lastEntry = entries[entries.length - 1]
-        console.log('LCP:', lastEntry.startTime)
+        console.log('LCP:', lastEntry?.startTime)
       }).observe({ entryTypes: ['largest-contentful-paint'] })
 
       // Track First Input Delay (FID)

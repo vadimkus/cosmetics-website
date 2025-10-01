@@ -12,7 +12,11 @@
     "postinstall": "node scripts/deploy-setup.js",
     "db:push": "prisma db push",
     "db:generate": "prisma generate",
-    "deploy:setup": "node scripts/deploy-setup.js"
+    "deploy:setup": "node scripts/deploy-setup.js",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "test:ci": "jest --ci --coverage --watchAll=false"
   },
   "dependencies": {
     "@prisma/client": "^6.16.2",

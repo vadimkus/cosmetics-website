@@ -12,7 +12,7 @@ const transporter = nodemailer.createTransport({
 })
 
 // Verify connection configuration
-transporter.verify((error, success) => {
+transporter.verify((error, _success) => {
   if (error) {
     console.log('❌ SMTP connection error:', error)
   } else {

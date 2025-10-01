@@ -8,7 +8,7 @@ import { ArrowLeft, CreditCard, Lock, MapPin, Truck, MessageCircle, Mail, Buildi
 import Link from 'next/link'
 
 export default function CheckoutClient() {
-  const { items, getTotalPrice, getTotalItems, clearCart, selectedEmirate, setSelectedEmirate } = useCart()
+  const { items, getTotalPrice, getTotalItems, selectedEmirate, setSelectedEmirate } = useCart()
   const { user } = useAuth()
   const router = useRouter()
   const [isProcessing, setIsProcessing] = useState(false)

@@ -20,12 +20,12 @@ export const focusManagement = {
     const handleTabKey = (e: KeyboardEvent) => {
       if (e.key === 'Tab') {
         if (e.shiftKey) {
-          if (document.activeElement === firstElement) {
+          if (document.activeElement === firstElement && lastElement) {
             lastElement.focus()
             e.preventDefault()
           }
         } else {
-          if (document.activeElement === lastElement) {
+          if (document.activeElement === lastElement && firstElement) {
             firstElement.focus()
             e.preventDefault()
           }
@@ -104,7 +104,7 @@ export const colorContrast = {
       c = c / 255
       return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4)
     })
-    return 0.2126 * rs + 0.7152 * gs + 0.0722 * bs
+    return 0.2126 * (rs || 0) + 0.7152 * (gs || 0) + 0.0722 * (bs || 0)
   },
 
   /**
@@ -144,7 +144,7 @@ export const keyboardNavigation = {
     orientation: 'horizontal' | 'vertical' = 'vertical'
   ): number => {
     const isHorizontal = orientation === 'horizontal'
-    const isVertical = orientation === 'vertical'
+    // const isVertical = orientation === 'vertical' // Unused for now
     
     switch (event.key) {
       case isHorizontal ? 'ArrowLeft' : 'ArrowUp':

@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { ArrowLeft, User, Mail, Phone, MapPin, Calendar, Edit3, Package, CheckCircle, Clock, Camera, X, MessageCircle, Lock, Eye, Trash2, Percent, Crown, Building, ShoppingBag, Truck, CreditCard, RefreshCw, Settings, Bell, Shield, Star, Award, Gift, Heart, Share2, Download, Upload, Zap, Sparkles, MoreHorizontal } from 'lucide-react'
+import { ArrowLeft, User, Phone, Calendar, Edit3, Package, CheckCircle, Clock, Camera, X, MessageCircle, Lock, Eye, Trash2, Crown, Building, ShoppingBag, Truck, CreditCard, RefreshCw, Settings, Shield, Gift, Heart, Download, Zap, Sparkles, MoreHorizontal } from 'lucide-react'
 import { useAuth } from '@/components/AuthProvider'
 import { useState, useRef, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
@@ -154,7 +154,7 @@ export default function ProfilePageNew() {
       'POWER SOLUTION AWS': '/images/AWS.jpg',
       
       // Cleansers
-      'SNOW O₂': '/images/SNOW.jpg',
+      'SNOW O₂ CLEANSER': '/images/SNOW.jpg',
       'SKIN DEFENDER LIP & EYE MAKEUP REMOVER': '/images/DEF.jpg',
       
       // Peeling

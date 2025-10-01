@@ -5,7 +5,7 @@ import { useCart } from '@/components/CartProvider'
 import { useFavorites } from '@/components/FavoritesProvider'
 import { useAuth } from '@/components/AuthProvider'
 import ErrorPage from '@/components/ErrorPage'
-import { ArrowLeft, ShoppingCart, Heart, Star, Truck, Shield, Lock, Minus, Plus } from 'lucide-react'
+import { ArrowLeft, ShoppingCart, Heart, Star, Truck, Shield, Minus, Plus } from 'lucide-react'
 import Link from 'next/link'
 import { useState } from 'react'
 import Image from 'next/image'
@@ -203,10 +203,21 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   Size: {product.id === '1' ? '0.25mm/0.5mm/0.1mm/0.15mm/0.2mm' : product.id === '41' ? '15g' : product.id === '10' ? '180ml/500ml' : product.id === '31' ? '50g/230g' : (product.id === '30' || product.id === '29' || product.id === '32' || product.id === '28') ? '50g/250g' : product.id === '15' ? '200ml/500ml' : product.id === '16' ? '200ml/1000ml' : product.id === '25' ? '20g/100g' : product.id === '24' ? '20g' : product.size}
                 </div>
               )}
-              <div className="text-2xl md:text-3xl font-bold text-primary-600">
-                {getPriceForSize((product.id === '1' || product.id === '10' || product.id === '30' || product.id === '29' || product.id === '32' || product.id === '28' || product.id === '31' || product.id === '15' || product.id === '16' || product.id === '25') ? selectedSize : 'default').toFixed(2)} AED
-              </div>
-              <div className="text-sm font-normal text-gray-600">(VAT included)</div>
+              {user ? (
+                <>
+                  <div className="text-2xl md:text-3xl font-bold text-primary-600">
+                    {getPriceForSize((product.id === '1' || product.id === '10' || product.id === '30' || product.id === '29' || product.id === '32' || product.id === '28' || product.id === '31' || product.id === '15' || product.id === '16' || product.id === '25') ? selectedSize : 'default').toFixed(2)} AED
+                  </div>
+                  <div className="text-sm font-normal text-gray-600">(VAT included)</div>
+                </>
+              ) : (
+                <button
+                  onClick={() => router.push('/login')}
+                  className="bg-primary-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-primary-700 transition-colors"
+                >
+                  Login to see price
+                </button>
+              )}
             </div>
 
             {/* Color Selection - Only for product ID 41 */}
@@ -272,7 +283,11 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     >
                       <div className="text-center">
                         <div className="font-medium">{option.size}</div>
-                        <div className="text-sm text-gray-500">{option.price} AED</div>
+                        {user ? (
+                          <div className="text-sm text-gray-500">{option.price} AED</div>
+                        ) : (
+                          <div className="text-sm text-gray-400">Login to see price</div>
+                        )}
                       </div>
                     </button>
                   ))}
@@ -4678,7 +4693,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   <>
                     <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
                     <p className="text-gray-600 mb-4 text-sm">
-                      SNOW O₂ is a revolutionary oxygen bubble cleanser that combines gentle cleansing with oxygen therapy 
+                      SNOW O₂ CLEANSER is a revolutionary oxygen bubble cleanser that combines gentle cleansing with oxygen therapy 
                       for deep skin nourishment. This innovative formula naturally generates oxygen bubbles to effectively 
                       remove makeup, dirt, and impurities while providing a luxurious treatment sensation without irritation.
                     </p>

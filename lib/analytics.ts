@@ -40,16 +40,16 @@ export const trackPageViewToDatabase = async (data: {
       data: {
         page: data.page,
         ipAddress: data.ipAddress,
-        country: data.country,
-        city: data.city,
+        country: data.country || null,
+        city: data.city || null,
         userAgent: data.userAgent,
-        referrer: data.referrer,
-        deviceType: data.deviceType,
-        browser: data.browser,
-        os: data.os,
-        screenWidth: data.screenWidth,
-        screenHeight: data.screenHeight,
-        userEmail: data.userEmail,
+        referrer: data.referrer || null,
+        deviceType: data.deviceType || null,
+        browser: data.browser || null,
+        os: data.os || null,
+        screenWidth: data.screenWidth || null,
+        screenHeight: data.screenHeight || null,
+        userEmail: data.userEmail || null,
         timestamp: new Date()
       }
     });

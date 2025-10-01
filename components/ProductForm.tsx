@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
-import { X, UploadCloud, Image as ImageIcon, DollarSign, Tag, FileText, Ruler, Plus, Trash2 } from 'lucide-react'
+import { X, Image as ImageIcon, DollarSign, Tag, FileText, Ruler, Plus } from 'lucide-react'
 
 interface Product {
   id: string
@@ -36,7 +36,7 @@ export default function ProductForm({ product, onSave, onCancel }: ProductFormPr
     description: '',
     image: '',
     images: '',
-    category: defaultCategories[0],
+    category: defaultCategories[0] || '',
     inStock: true,
     size: '',
   })
@@ -79,7 +79,7 @@ export default function ProductForm({ product, onSave, onCancel }: ProductFormPr
         description: '',
         image: '',
         images: '',
-        category: defaultCategories[0],
+        category: defaultCategories[0] || '',
         inStock: true,
         size: '',
       })

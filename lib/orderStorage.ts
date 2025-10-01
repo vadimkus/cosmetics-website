@@ -108,7 +108,7 @@ export function updateOrderStatus(orderId: string, status: Order['status']): voi
   const orders = readOrders()
   const orderIndex = orders.findIndex(order => order.id === orderId)
   
-  if (orderIndex !== -1) {
+  if (orderIndex !== -1 && orders[orderIndex]) {
     orders[orderIndex].status = status
     writeOrders(orders)
   }

@@ -45,7 +45,7 @@ export default function ProductFormWrapper({ product, onSave, onCancel }: Produc
         </div>
       </div>
     }>
-      <ProductForm product={product} onSave={onSave} onCancel={onCancel} />
+      <ProductForm product={product || null} onSave={onSave} onCancel={onCancel} />
     </Suspense>
   )
 }

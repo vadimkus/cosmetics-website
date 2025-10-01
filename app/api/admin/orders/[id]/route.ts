@@ -61,7 +61,7 @@ export async function PUT(
 }
 
 export async function DELETE(
-  request: NextRequest,
+  _request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
@@ -125,11 +125,13 @@ export async function DELETE(
             new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
           )[0]
           
-          await prisma.userAction.delete({
-            where: {
-              id: mostRecent.id
-            }
-          })
+          if (mostRecent) {
+            await prisma.userAction.delete({
+              where: {
+                id: mostRecent.id
+              }
+            })
+          }
           
           console.log(`✅ Deleted most recent order activity for customer ${order.customerEmail}`)
         }

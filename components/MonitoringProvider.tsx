@@ -86,7 +86,7 @@ export function usePerformanceTracking() {
 
   const trackPerformance = async (name: string, value: number, unit: 'ms' | 'bytes' | 'count' = 'ms', tags?: Record<string, string>) => {
     const { trackPerformance } = await import('@/lib/monitoring')
-    await trackPerformance({ name, value, unit, tags })
+    await trackPerformance({ name, value, unit, tags: tags || {} })
   }
 
   const trackSlowOperation = async (operation: string, duration: number, threshold: number = 1000) => {

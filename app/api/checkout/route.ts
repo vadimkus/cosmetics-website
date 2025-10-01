@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { addOrder, OrderData, OrderItemData } from '@/lib/orderStorageDb'
 import { trackUserAction } from '@/lib/analyticsServer'
 import { sendOrderConfirmationEmail, sendAdminNewOrderNotification } from '@/lib/email'
-import { trackPurchase } from '@/lib/analytics'
+// import { trackPurchase } from '@/lib/analytics' // Unused for now
 
 export async function POST(request: NextRequest) {
   try {

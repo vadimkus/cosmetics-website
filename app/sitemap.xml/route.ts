@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getAllProducts } from '@/lib/productsDb'
-import { getOptimizedUrl } from '@/lib/urlUtils'
+// import { getOptimizedUrl } from '@/lib/urlUtils' // Unused for now
 
-export async function GET(request: NextRequest) {
+export async function GET(_request: NextRequest) {
   try {
     const baseUrl = 'https://genosys.ae'
     const currentDate = new Date().toISOString()

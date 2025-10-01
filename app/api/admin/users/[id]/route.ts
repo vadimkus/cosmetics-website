@@ -10,7 +10,7 @@ export async function PUT(
     const { id } = await params
     const updates = await request.json()
     console.log('Admin user update request:', { id, updates })
-    const { canSeePrices, discountType, discountPercentage, name, email, phone, address, birthday, profilePicture } = updates
+    const { canSeePrices, discountType, discountPercentage, name: _name, email: _email, phone: _phone, address: _address, birthday: _birthday, profilePicture: _profilePicture } = updates
 
     if (canSeePrices !== undefined && typeof canSeePrices !== 'boolean') {
       return NextResponse.json(
@@ -57,7 +57,7 @@ export async function PUT(
 }
 
 export async function DELETE(
-  request: NextRequest,
+  _request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {

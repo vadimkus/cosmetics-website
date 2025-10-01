@@ -1,8 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import Image from 'next/image'
-import { ArrowLeft } from 'lucide-react'
+// import { ArrowLeft } from 'lucide-react' // Unused for now
 import ProductCard from '@/components/ProductCard'
 import ErrorPage from '@/components/ErrorPage'
 import LoadingSpinner from '@/components/LoadingSpinner'
@@ -110,7 +109,7 @@ export default function ProductsPageClient() {
 
   return (
     <div className="bg-white min-h-screen">
-      <ProductsListSchema products={filteredProducts} category={activeCategory !== 'all' ? activeCategory : undefined} />
+      <ProductsListSchema products={filteredProducts} category={activeCategory !== 'all' ? activeCategory : ''} />
       <BreadcrumbSchema 
         items={[
           { name: 'Home', url: '/' },

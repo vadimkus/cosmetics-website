@@ -21,11 +21,11 @@ export function rateLimit(options: RateLimitOptions) {
   return (request: NextRequest) => {
     const ip = request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'unknown'
     const now = Date.now()
-    const windowStart = now - windowMs
+    // const windowStart = now - windowMs // Unused for now
 
     // Clean up expired entries
     Object.keys(store).forEach(key => {
-      if (store[key].resetTime < now) {
+      if (store[key] && store[key].resetTime < now) {
         delete store[key]
       }
     })

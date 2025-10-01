@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
-import { Shield, Eye, EyeOff, Lock, Mail, Zap, Crown, Sparkles, AlertTriangle, CheckCircle, Terminal, Code, Cpu, Database } from 'lucide-react'
+import { Eye, EyeOff, Lock, AlertTriangle, Database, Code } from 'lucide-react'
 
 interface AdminLoginProps {
   onLogin: (email: string, password: string) => Promise<boolean>
@@ -13,7 +13,7 @@ export default function AdminLogin({ onLogin }: AdminLoginProps) {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [showPassword, setShowPassword] = useState(false)
-  const [attempts, setAttempts] = useState(0)
+  // const [attempts, setAttempts] = useState(0) // Unused for now
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const [funnyMessages] = useState([
     "ACCESS DENIED: Invalid credentials detected! 🚫",
@@ -41,11 +41,11 @@ export default function AdminLogin({ onLogin }: AdminLoginProps) {
     "🎯 CYBER MOTTO: 'Code is reality, reality is code!'"
   ])
 
-  const [currentTip, setCurrentTip] = useState(0)
+  // const [currentTip, setCurrentTip] = useState(0) // Unused for now
 
   useEffect(() => {
     const tipInterval = setInterval(() => {
-      setCurrentTip((prev) => (prev + 1) % securityTips.length)
+      // setCurrentTip((prev) => (prev + 1) % securityTips.length) // Unused for now
     }, 3000)
     return () => clearInterval(tipInterval)
   }, [securityTips.length])
@@ -81,12 +81,16 @@ export default function AdminLogin({ onLogin }: AdminLoginProps) {
 
       for (let i = 0; i < drops.length; i++) {
         const text = matrixArray[Math.floor(Math.random() * matrixArray.length)]
-        ctx.fillText(text, i * fontSize, drops[i] * fontSize)
+        if (text && drops[i] !== undefined) {
+          ctx.fillText(text, i * fontSize, drops[i]! * fontSize)
+        }
 
-        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+        if (drops[i] !== undefined && drops[i]! * fontSize > canvas.height && Math.random() > 0.975) {
           drops[i] = 0
         }
-        drops[i]++
+        if (drops[i] !== undefined) {
+          drops[i]!++
+        }
       }
     }
 
@@ -101,21 +105,23 @@ export default function AdminLogin({ onLogin }: AdminLoginProps) {
 
     const success = await onLogin(email, password)
     if (!success) {
-      setAttempts(prev => prev + 1)
+      // setAttempts(prev => prev + 1) // Unused for now
       const randomMessage = funnyMessages[Math.floor(Math.random() * funnyMessages.length)]
-      setError(randomMessage)
+      if (randomMessage) {
+        setError(randomMessage)
+      }
     }
     setLoading(false)
   }
 
-  const getSecurityLevel = () => {
-    if (attempts === 0) return { level: "🟢 Low", color: "text-green-600" }
-    if (attempts < 3) return { level: "🟡 Medium", color: "text-yellow-600" }
-    if (attempts < 5) return { level: "🟠 High", color: "text-orange-600" }
-    return { level: "🔴 Maximum", color: "text-red-600" }
-  }
+  // const getSecurityLevel = () => {
+  //   if (attempts === 0) return { level: "🟢 Low", color: "text-green-600" }
+  //   if (attempts < 3) return { level: "🟡 Medium", color: "text-yellow-600" }
+  //   if (attempts < 5) return { level: "🟠 High", color: "text-orange-600" }
+  //   return { level: "🔴 Maximum", color: "text-red-600" }
+  // } // Unused for now
 
-  const securityLevel = getSecurityLevel()
+  // const securityLevel = getSecurityLevel() // Unused for now
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-black relative overflow-hidden">

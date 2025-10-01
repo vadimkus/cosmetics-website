@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { RefreshCw, Mail, Eye } from 'lucide-react'
+import { RefreshCw, Mail } from 'lucide-react'
 
 interface Order {
   orderNumber: string

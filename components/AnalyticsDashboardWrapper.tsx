@@ -29,7 +29,7 @@ export default function AnalyticsDashboardWrapper({ onCustomerClick }: Analytics
         </div>
       </div>
     }>
-      <AnalyticsDashboard onCustomerClick={onCustomerClick} />
+      <AnalyticsDashboard onCustomerClick={onCustomerClick || (() => {})} />
     </Suspense>
   )
 }

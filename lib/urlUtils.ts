@@ -43,15 +43,15 @@ export function parseProductSlug(slug: string): { category: string; productName:
   if (parts.length !== 2) return null
   
   const [categorySlug, productPart] = parts
-  const productIdMatch = productPart.match(/-([a-f0-9-]+)$/)
+  const productIdMatch = productPart?.match(/-([a-f0-9-]+)$/)
   
   if (!productIdMatch) return null
   
-  const productId = productIdMatch[1]
-  const productName = productPart.replace(`-${productId}`, '')
+  const productId = productIdMatch[1] || ''
+  const productName = productPart?.replace(`-${productId}`, '') || ''
   
   return {
-    category: categorySlug,
+    category: categorySlug || '',
     productName: productName.replace(/-/g, ' '),
     productId
   }

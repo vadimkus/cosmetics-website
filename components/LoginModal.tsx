@@ -53,12 +53,12 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
         const lastElement = focusableElements[focusableElements.length - 1]
 
         if (e.shiftKey) {
-          if (document.activeElement === firstElement) {
+          if (document.activeElement === firstElement && lastElement) {
             e.preventDefault()
             lastElement.focus()
           }
         } else {
-          if (document.activeElement === lastElement) {
+          if (document.activeElement === lastElement && firstElement) {
             e.preventDefault()
             firstElement.focus()
           }
@@ -70,6 +70,8 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
       document.addEventListener('keydown', handleKeyDown)
       return () => document.removeEventListener('keydown', handleKeyDown)
     }
+    
+    return undefined
   }, [isOpen, onClose])
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {

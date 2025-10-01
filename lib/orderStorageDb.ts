@@ -1,5 +1,5 @@
 import { prisma } from './database'
-import { Order, OrderItem } from '@prisma/client'
+import { Order } from '@prisma/client'
 
 export interface OrderItemData {
   productId: string
@@ -45,7 +45,7 @@ export const readOrders = async (): Promise<Order[]> => {
 }
 
 // Write orders (not needed with database, but keeping for compatibility)
-export const writeOrders = async (orders: OrderData[]): Promise<void> => {
+export const writeOrders = async (_orders: OrderData[]): Promise<void> => {
   // This function is not needed with database storage
   // Keeping for compatibility with existing code
   console.warn('writeOrders is deprecated with database storage')

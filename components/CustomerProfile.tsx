@@ -8,20 +8,20 @@ import {
   MapPin, 
   Calendar, 
   Package, 
-  DollarSign, 
-  TrendingUp,
+  // DollarSign, // Unused for now
+  // TrendingUp, // Unused for now
   ShoppingBag,
-  Star,
+  // Star, // Unused for now
   Building,
   Crown,
   Eye,
   EyeOff,
   Trash2,
   ArrowLeft,
-  Clock,
-  CheckCircle,
-  XCircle,
-  AlertCircle,
+  // Clock, // Unused for now
+  // CheckCircle, // Unused for now
+  // XCircle, // Unused for now
+  // AlertCircle, // Unused for now
   Edit3,
   Save,
   X,
@@ -154,11 +154,11 @@ export default function CustomerProfile({
         profilePicture: editData.profilePicture || undefined
       })
       await onUpdateCustomer(customer.id, {
-        email: editData.email || undefined,
-        phone: editData.phone || undefined,
-        address: editData.address || undefined,
-        birthday: editData.birthday || undefined,
-        profilePicture: editData.profilePicture || undefined
+        email: editData.email || '',
+        phone: editData.phone || '',
+        address: editData.address || '',
+        birthday: editData.birthday || '',
+        profilePicture: editData.profilePicture || ''
       })
       console.log('Customer update completed')
       setEditing(false)
@@ -249,7 +249,7 @@ export default function CustomerProfile({
     const totalSpent = orders.reduce((sum, order) => sum + order.total, 0)
     const averageOrderValue = totalOrders > 0 ? totalSpent / totalOrders : 0
     const lastOrderDate = orders.length > 0 
-      ? orders.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())[0].createdAt
+      ? orders.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())[0]?.createdAt || null
       : null
 
     // Calculate favorite category (simplified - would need product data)
@@ -264,18 +264,18 @@ export default function CustomerProfile({
     })
   }
 
-  const getStatusIcon = (status: string) => {
-    switch (status) {
-      case 'COMPLETED':
-        return <CheckCircle className="h-4 w-4 text-green-600" />
-      case 'PENDING':
-        return <Clock className="h-4 w-4 text-yellow-600" />
-      case 'CANCELLED':
-        return <XCircle className="h-4 w-4 text-red-600" />
-      default:
-        return <AlertCircle className="h-4 w-4 text-gray-600" />
-    }
-  }
+  // const getStatusIcon = (status: string) => {
+  //   switch (status) {
+  //     case 'COMPLETED':
+  //       return <CheckCircle className="h-4 w-4 text-green-600" />
+  //     case 'PENDING':
+  //       return <Clock className="h-4 w-4 text-yellow-600" />
+  //     case 'CANCELLED':
+  //       return <XCircle className="h-4 w-4 text-red-600" />
+  //     default:
+  //       return <AlertCircle className="h-4 w-4 text-gray-600" />
+  //   }
+  // } // Unused for now
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -614,7 +614,7 @@ export default function CustomerProfile({
                         {customer.discountType} {customer.discountPercentage}%
                       </span>
                       <button
-                        onClick={() => onUpdateCustomer(customer.id, { discountType: undefined, discountPercentage: undefined })}
+                        onClick={() => onUpdateCustomer(customer.id, { discountType: '', discountPercentage: 0 })}
                         className="px-2 py-1 bg-gray-500 text-white rounded text-xs hover:bg-gray-600"
                       >
                         Remove

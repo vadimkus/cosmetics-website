@@ -77,7 +77,7 @@ export default function LoginClient() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                 </svg>
               </div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">Welcome Back</h2>
+              <h2 className="text-2xl font-bold text-gray-900 mb-2">Sign In</h2>
               <p className="text-gray-600">
                 Sign in to your professional account
               </p>
@@ -92,16 +92,17 @@ export default function LoginClient() {
 
             <div className="text-center">
               <p className="text-sm text-gray-600 mb-4">
-                Don&apos;t have a professional account?
+                Don&apos;t have an account?
               </p>
-              <a
-                href="https://wa.me/971501234567?text=Hi, I'm interested in becoming a professional customer for GENOSYS Korean dermacosmetics. Can you help me with registration?"
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                onClick={() => {
+                  setIsLoginMode(false)
+                  setShowLoginModal(true)
+                }}
                 className="text-primary-600 hover:text-primary-700 font-medium text-sm"
               >
-                Contact us to register
-              </a>
+                Register
+              </button>
             </div>
           </div>
 

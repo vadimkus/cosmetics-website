@@ -4,7 +4,7 @@ import { useCart } from '@/components/CartProvider'
 import { useAuth } from '@/components/AuthProvider'
 import CartItem from '@/components/CartItem'
 import Link from 'next/link'
-import { ShoppingBag, ArrowLeft, Lock, MessageCircle, MapPin } from 'lucide-react'
+import { ShoppingBag, ArrowLeft, Lock, MessageCircle } from 'lucide-react'
 
 export default function CartClient() {
   const { items, getTotalPrice, getTotalItems, selectedEmirate, setSelectedEmirate } = useCart()

@@ -21,7 +21,7 @@ export async function POST(request: NextRequest) {
 
     if (type === 'pageview') {
       // Get geolocation data from IP address (includes country and city)
-      const geolocationData = await getGeolocationData(ip)
+      const geolocationData = await getGeolocationData(ip || '127.0.0.1')
       
       // Parse device information from user agent
       const deviceInfo = parseUserAgent(userAgent)

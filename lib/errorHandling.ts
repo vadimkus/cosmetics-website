@@ -33,12 +33,12 @@ export class CustomError extends Error implements AppError {
   ) {
     super(message)
     this.name = 'CustomError'
-    this.code = options.code
-    this.statusCode = options.statusCode
-    this.context = options.context
+    this.code = options.code || 'UNKNOWN_ERROR'
+    this.statusCode = options.statusCode || 500
+    this.context = options.context || {}
     this.timestamp = new Date()
-    this.userId = options.userId
-    this.sessionId = options.sessionId
+    this.userId = options.userId || ''
+    this.sessionId = options.sessionId || ''
   }
 }
 
@@ -82,7 +82,7 @@ export const errorHandling = {
     const error = new CustomError(message, {
       code: type,
       statusCode: errorHandling.getStatusCode(type),
-      context
+      context: context || {}
     })
     
     errorHandling.logError(error, severity)
@@ -277,7 +277,7 @@ export const withErrorBoundary = <P extends object>(
       return { hasError: true, error: appError }
     }
 
-    componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    override componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
       const appError = error instanceof CustomError 
         ? error 
         : errorHandling.createError(
@@ -290,7 +290,7 @@ export const withErrorBoundary = <P extends object>(
       errorHandling.logError(appError, ErrorSeverity.HIGH)
     }
 
-    render() {
+    override render() {
       if (this.state.hasError && this.state.error) {
         if (fallback) {
           return React.createElement(fallback, { error: this.state.error })
@@ -305,7 +305,7 @@ export const withErrorBoundary = <P extends object>(
         }, "Something went wrong"), React.createElement('p', {
           className: "text-gray-600 mb-6"
         }, errorHandling.getUserFriendlyMessage(this.state.error)), React.createElement('button', {
-          onClick: () => this.setState({ hasError: false, error: undefined }),
+          onClick: () => this.setState({ hasError: false }),
           className: "bg-primary-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary-700 transition-colors"
         }, "Try Again")))
       }

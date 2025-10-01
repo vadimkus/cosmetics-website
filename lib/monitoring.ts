@@ -66,7 +66,7 @@ class ConsoleMonitoringService extends MonitoringService {
     console.log(`👤 User set: ${userId} (${userEmail})`, extra || '')
   }
 
-  async addBreadcrumb(message: string, category?: string, level?: 'info' | 'warning' | 'error'): Promise<void> {
+  async addBreadcrumb(message: string, category?: string, _level?: 'info' | 'warning' | 'error'): Promise<void> {
     console.log(`🍞 Breadcrumb [${category || 'default'}]: ${message}`)
   }
 }
@@ -165,7 +165,7 @@ class LogRocketMonitoringService extends MonitoringService {
     }
   }
 
-  async captureError(error: Error, context?: ErrorContext): Promise<void> {
+  async captureError(error: Error, _context?: ErrorContext): Promise<void> {
     if (!this.logRocket) return
 
     this.logRocket.captureException(error)
@@ -280,8 +280,8 @@ export const trackError = async (error: Error, context?: ErrorContext): Promise<
   await monitoring.captureError(error, {
     ...context,
     timestamp: new Date(),
-    url: typeof window !== 'undefined' ? window.location.href : undefined,
-    userAgent: typeof window !== 'undefined' ? window.navigator.userAgent : undefined
+    url: typeof window !== 'undefined' ? window.location.href : '',
+    userAgent: typeof window !== 'undefined' ? window.navigator.userAgent : ''
   })
 }
 

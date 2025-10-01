@@ -76,7 +76,7 @@ export default function OptimizedImage({
     loading: priority ? 'eager' : loading,
     onError: handleError,
     onLoad: handleLoad,
-    ...(fill ? { fill: true } : { width, height })
+    ...(fill ? { fill: true } : { width: width || 0, height: height || 0 })
   }
 
   return (

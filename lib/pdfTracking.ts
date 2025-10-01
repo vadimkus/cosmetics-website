@@ -28,8 +28,8 @@ export function usePDFTracking() {
   const trackDownload = async (filename: string) => {
     await trackPDFDownload({
       filename,
-      userId: user?.id,
-      userEmail: user?.email,
+      userId: user?.id || '',
+      userEmail: user?.email || '',
     })
   }
 

@@ -266,14 +266,14 @@ export const withErrorTracking = <P extends object>(
       return { hasError: true, error }
     }
 
-    componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    override componentDidCatch(error: Error, _errorInfo: React.ErrorInfo) {
       enhancedErrorTracking.trackClientError(error, componentName, {
-        url: typeof window !== 'undefined' ? window.location.href : undefined,
-        userAgent: typeof window !== 'undefined' ? window.navigator.userAgent : undefined
+        url: typeof window !== 'undefined' ? window.location.href : '',
+        userAgent: typeof window !== 'undefined' ? window.navigator.userAgent : ''
       })
     }
 
-    render() {
+    override render() {
       if (this.state.hasError && this.state.error) {
         return React.createElement('div', {
           className: "min-h-screen flex items-center justify-center bg-white"
@@ -284,7 +284,7 @@ export const withErrorTracking = <P extends object>(
         }, "Something went wrong"), React.createElement('p', {
           className: "text-gray-600 mb-6"
         }, "We're working to fix this issue. Please try again later."), React.createElement('button', {
-          onClick: () => this.setState({ hasError: false, error: undefined }),
+          onClick: () => this.setState({ hasError: false }),
           className: "bg-primary-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary-700 transition-colors"
         }, "Try Again")))
       }

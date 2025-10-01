@@ -3545,6 +3545,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                         For best results, use as directed by your skincare professional. Not recommended for home use without 
                         professional guidance. Store in a cool, dry place away from direct sunlight.
                       </p>
+                    </div>
                   </>
                 ) : product.id === '5' ? (
                   <>

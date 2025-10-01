@@ -3546,6 +3546,25 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                         professional guidance. Store in a cool, dry place away from direct sunlight.
                       </p>
                     </div>
+                    
+                    {/* Product Video */}
+                    <div className="mt-8">
+                      <h4 className="font-semibold text-gray-800 mb-4 text-sm">Product Demonstration</h4>
+                      <div className="relative w-full max-w-2xl mx-auto">
+                        <video
+                          className="w-full h-auto rounded-lg shadow-lg"
+                          controls
+                          loop
+                          muted
+                          autoPlay
+                          playsInline
+                          preload="metadata"
+                        >
+                          <source src="/videos/HES_FINAL.mp4" type="video/mp4" />
+                          Your browser does not support the video tag.
+                        </video>
+                      </div>
+                    </div>
                   </>
                 ) : product.id === '5' ? (
                   <>

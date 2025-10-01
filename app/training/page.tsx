@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import Link from 'next/link'
 import Image from 'next/image'
 import { ArrowLeft, Download } from 'lucide-react'
@@ -257,11 +258,12 @@ export default function TrainingPage() {
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                         <Link href="/products/31">
-                          <img 
-                            src="/images/RAA.jpg" 
-                            alt="MULTI VITA RADIANCE CREAM" 
-                            className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
-                          />
+                          <Image
+        src="/images/RAA.jpg"
+        alt="MULTI VITA RADIANCE CREAM"
+        width={500}
+        height={300} className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+      />
                         </Link>
                       </div>
                       <div className="flex-1 min-w-0">
@@ -288,11 +290,12 @@ export default function TrainingPage() {
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                         <Link href="/products/50">
-                          <img 
-                            src="/images/EYEZ.jpg" 
-                            alt="EyeCell EYE ZONE CARE SYSTEM" 
-                            className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
-                          />
+                          <Image
+        src="/images/EYEZ.jpg"
+        alt="EyeCell EYE ZONE CARE SYSTEM"
+        width={500}
+        height={300} className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+      />
                         </Link>
                       </div>
                       <div className="flex-1 min-w-0">
@@ -320,11 +323,12 @@ export default function TrainingPage() {
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                         <Link href="/products/12">
-                          <img 
-                            src="/images/EPI.jpg" 
-                            alt="EPI TURNOVER BOOSTING PEELING GEL" 
-                            className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
-                          />
+                          <Image
+        src="/images/EPI.jpg"
+        alt="EPI TURNOVER BOOSTING PEELING GEL"
+        width={500}
+        height={300} className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+      />
                         </Link>
                       </div>
                       <div className="flex-1 min-w-0">
@@ -352,11 +356,12 @@ export default function TrainingPage() {
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                         <Link href="/products/21">
-                          <img 
-                            src="/images/RADS.jpg" 
-                            alt="MULTI VITA RADIANCE SERUM" 
-                            className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
-                          />
+                          <Image
+        src="/images/RADS.jpg"
+        alt="MULTI VITA RADIANCE SERUM"
+        width={500}
+        height={300} className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+      />
                         </Link>
                       </div>
                       <div className="flex-1 min-w-0">
@@ -384,11 +389,12 @@ export default function TrainingPage() {
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                         <Link href="/products/11">
-                          <img 
-                            src="/images/DEF.jpg" 
-                            alt="SKIN DEFENDER LIP & EYE MAKEUP REMOVER" 
-                            className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
-                          />
+                          <Image
+        src="/images/DEF.jpg"
+        alt="SKIN DEFENDER LIP & EYE MAKEUP REMOVER"
+        width={500}
+        height={300} className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+      />
                         </Link>
                       </div>
                       <div className="flex-1 min-w-0">
@@ -416,11 +422,12 @@ export default function TrainingPage() {
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                         <Link href="/products/14">
-                          <img 
-                            src="/images/mist.jpg" 
-                            alt="MICROBIOME ENERGY INFUSING MIST" 
-                            className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
-                          />
+                          <Image
+        src="/images/mist.jpg"
+        alt="MICROBIOME ENERGY INFUSING MIST"
+        width={500}
+        height={300} className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+      />
                         </Link>
                       </div>
                       <div className="flex-1 min-w-0">
@@ -448,11 +455,12 @@ export default function TrainingPage() {
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                         <Link href="/products/34">
-                          <img 
-                            src="/images/SKIN.jpg" 
-                            alt="SKIN RESCUE OVERNIGHT CREAM MASK" 
-                            className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
-                          />
+                          <Image
+        src="/images/SKIN.jpg"
+        alt="SKIN RESCUE OVERNIGHT CREAM MASK"
+        width={500}
+        height={300} className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+      />
                         </Link>
                       </div>
                       <div className="flex-1 min-w-0">
@@ -480,11 +488,12 @@ export default function TrainingPage() {
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                         <Link href="/products/15">
-                          <img 
-                            src="/images/PRS.jpg" 
-                            alt="INTENSIVE PROBLEM CONTROL TONER" 
-                            className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
-                          />
+                          <Image
+        src="/images/PRS.jpg"
+        alt="INTENSIVE PROBLEM CONTROL TONER"
+        width={500}
+        height={300} className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+      />
                         </Link>
                       </div>
                       <div className="flex-1 min-w-0">
@@ -512,11 +521,12 @@ export default function TrainingPage() {
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                         <Link href="/products/39">
-                          <img 
-                            src="/images/SPF50.jpg" 
-                            alt="ULTRA SHIELD SUN CREAM" 
-                            className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
-                          />
+                          <Image
+        src="/images/SPF50.jpg"
+        alt="ULTRA SHIELD SUN CREAM"
+        width={500}
+        height={300} className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+      />
                         </Link>
                       </div>
                       <div className="flex-1 min-w-0">
@@ -544,11 +554,12 @@ export default function TrainingPage() {
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                         <Link href="/products/44">
-                          <img 
-                            src="/images/Sham.jpg" 
-                            alt="HR³ MATRIX SCALP SHAMPOO α" 
-                            className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
-                          />
+                          <Image
+        src="/images/Sham.jpg"
+        alt="HR³ MATRIX SCALP SHAMPOO α"
+        width={500}
+        height={300} className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+      />
                         </Link>
                       </div>
                       <div className="flex-1 min-w-0">
@@ -576,11 +587,12 @@ export default function TrainingPage() {
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                         <Link href="/products/18">
-                          <img 
-                            src="/images/HRS.jpg" 
-                            alt="MOISTURE REPLENISHING HYALURON SERUM" 
-                            className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
-                          />
+                          <Image
+        src="/images/HRS.jpg"
+        alt="MOISTURE REPLENISHING HYALURON SERUM"
+        width={500}
+        height={300} className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+      />
                         </Link>
                       </div>
                       <div className="flex-1 min-w-0">
@@ -608,11 +620,12 @@ export default function TrainingPage() {
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                         <Link href="/products/29">
-                          <img 
-                            src="/images/HER.jpg" 
-                            alt="MOISTURE REPLENISHING HYALURON CREAM" 
-                            className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
-                          />
+                          <Image
+        src="/images/HER.jpg"
+        alt="MOISTURE REPLENISHING HYALURON CREAM"
+        width={500}
+        height={300} className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+      />
                         </Link>
                       </div>
                       <div className="flex-1 min-w-0">
@@ -640,11 +653,12 @@ export default function TrainingPage() {
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                         <Link href="/products/41">
-                          <img 
-                            src="/images/BBC.jpg" 
-                            alt="SKIN CARING BLEMISH BALM CUSHION" 
-                            className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
-                          />
+                          <Image
+        src="/images/BBC.jpg"
+        alt="SKIN CARING BLEMISH BALM CUSHION"
+        width={500}
+        height={300} className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+      />
                         </Link>
                       </div>
                       <div className="flex-1 min-w-0">
@@ -672,11 +686,12 @@ export default function TrainingPage() {
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                         <Link href="/products/33">
-                          <img 
-                            src="/images/Patch.jpg" 
-                            alt="EyeCell EYE PEPTIDE GEL PATCH" 
-                            className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
-                          />
+                          <Image
+        src="/images/Patch.jpg"
+        alt="EyeCell EYE PEPTIDE GEL PATCH"
+        width={500}
+        height={300} className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+      />
                         </Link>
                       </div>
                       <div className="flex-1 min-w-0">
@@ -704,11 +719,12 @@ export default function TrainingPage() {
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                         <Link href="/products/51">
-                          <img 
-                            src="/images/BFAD.png" 
-                            alt="BIO-FERMENT AGE DEFYING POWDER MASK" 
-                            className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
-                          />
+                          <Image
+        src="/images/BFAD.png"
+        alt="BIO-FERMENT AGE DEFYING POWDER MASK"
+        width={500}
+        height={300} className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+      />
                         </Link>
                       </div>
                       <div className="flex-1 min-w-0">
@@ -736,11 +752,12 @@ export default function TrainingPage() {
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                         <Link href="/products/48">
-                          <img 
-                            src="/images/gen.jpg" 
-                            alt="HAIR GENTRON" 
-                            className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
-                          />
+                          <Image
+        src="/images/gen.jpg"
+        alt="HAIR GENTRON"
+        width={500}
+        height={300} className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+      />
                         </Link>
                       </div>
                       <div className="flex-1 min-w-0">
@@ -768,11 +785,12 @@ export default function TrainingPage() {
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                         <Link href="/products/45">
-                          <img 
-                            src="/images/HHR.jpg" 
-                            alt="HR³ MATRIX HAIR SOLUTION α" 
-                            className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
-                          />
+                          <Image
+        src="/images/HHR.jpg"
+        alt="HR³ MATRIX HAIR SOLUTION α"
+        width={500}
+        height={300} className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+      />
                         </Link>
                       </div>
                       <div className="flex-1 min-w-0">
@@ -800,11 +818,12 @@ export default function TrainingPage() {
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                         <Link href="/products/43">
-                          <img 
-                            src="/images/HT.jpg" 
-                            alt="HR³ MATRIX HAIR TONIC α" 
-                            className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
-                          />
+                          <Image
+        src="/images/HT.jpg"
+        alt="HR³ MATRIX HAIR TONIC α"
+        width={500}
+        height={300} className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+      />
                         </Link>
                       </div>
                       <div className="flex-1 min-w-0">
@@ -832,11 +851,12 @@ export default function TrainingPage() {
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                         <Link href="/products/46">
-                          <img 
-                            src="/images/scal.jpg" 
-                            alt="HR³ MATRIX SCALP PEELING α" 
-                            className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
-                          />
+                          <Image
+        src="/images/scal.jpg"
+        alt="HR³ MATRIX SCALP PEELING α"
+        width={500}
+        height={300} className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+      />
                         </Link>
                       </div>
                       <div className="flex-1 min-w-0">
@@ -864,11 +884,12 @@ export default function TrainingPage() {
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                         <Link href="/products/49">
-                          <img 
-                            src="/images/LEDD.jpg" 
-                            alt="GENO-LED IR II" 
-                            className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
-                          />
+                          <Image
+        src="/images/LEDD.jpg"
+        alt="GENO-LED IR II"
+        width={500}
+        height={300} className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+      />
                         </Link>
                       </div>
                       <div className="flex-1 min-w-0">
@@ -896,11 +917,12 @@ export default function TrainingPage() {
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                         <Link href="/products/52">
-                          <img 
-                            src="/images/PDRN.png" 
-                            alt="GENOSYS SKIN REBOOT PDRN MASK PACK" 
-                            className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
-                          />
+                          <Image
+        src="/images/PDRN.png"
+        alt="GENOSYS SKIN REBOOT PDRN MASK PACK"
+        width={500}
+        height={300} className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+      />
                         </Link>
                       </div>
                       <div className="flex-1 min-w-0">
@@ -928,11 +950,12 @@ export default function TrainingPage() {
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                         <Link href="/products/38">
-                          <img 
-                            src="/images/EZE.jpg" 
-                            alt="EZ CO₂ MASK KIT" 
-                            className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
-                          />
+                          <Image
+        src="/images/EZE.jpg"
+        alt="EZ CO₂ MASK KIT"
+        width={500}
+        height={300} className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+      />
                         </Link>
                       </div>
                       <div className="flex-1 min-w-0">
@@ -960,11 +983,12 @@ export default function TrainingPage() {
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                         <Link href="/products/1">
-                          <img 
-                            src="/images/genosys-microneedling-devices.jpg" 
-                            alt="Microneedle Roller" 
-                            className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
-                          />
+                          <Image
+        src="/images/genosys-microneedling-devices.jpg"
+        alt="Microneedle Roller"
+        width={500}
+        height={300} className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+      />
                         </Link>
                       </div>
                       <div className="flex-1 min-w-0">

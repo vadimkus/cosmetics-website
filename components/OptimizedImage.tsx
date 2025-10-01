@@ -82,6 +82,7 @@ export default function OptimizedImage({
   return (
     <Image
       {...imageProps}
+      alt={imageProps.alt || 'Image'}
       style={{
         objectFit,
         objectPosition,

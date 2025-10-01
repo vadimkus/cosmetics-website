@@ -116,26 +116,6 @@ export default function ProfilePageRefactored() {
     }
   }
 
-  const handleOrderCancel = async (orderId: string) => {
-    try {
-      const response = await fetch(`/api/orders/${orderId}/cancel`, {
-        method: 'POST'
-      })
-
-      if (response.ok) {
-        // Refresh orders
-        const ordersResponse = await fetch('/api/orders')
-        if (ordersResponse.ok) {
-          const orders = await ordersResponse.json()
-          actions.setOrders(orders)
-        }
-      } else {
-        console.error('Failed to cancel order')
-      }
-    } catch (error) {
-      console.error('Error cancelling order:', error)
-    }
-  }
 
   if (isLoading) {
     return (
@@ -169,24 +149,40 @@ export default function ProfilePageRefactored() {
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <ProfileHeader
+          user={user}
           state={state}
           actions={actions}
           onSave={handleSave}
           onCancel={handleCancel}
           onDelete={handleDelete}
           onRefresh={handleRefresh}
+          onProfilePictureChange={(file: File) => {
+            const reader = new FileReader()
+            reader.onload = (e) => {
+              actions.setPreviewImage(e.target?.result as string)
+            }
+            reader.readAsDataURL(file)
+          }}
+          onRemoveProfilePicture={() => {
+            actions.setPreviewImage(null)
+          }}
         />
 
         <ProfileTabs
           activeTab={state.activeTab}
-          onTabChange={actions.setActiveTab}
+          setActiveTab={actions.setActiveTab}
         />
 
         <ProfileContent
+          user={user}
           activeTab={state.activeTab}
-          state={state}
+          isEditing={state.isEditing}
+          editData={state.editData}
+          setEditData={actions.setEditData}
           orders={state.orders}
-          onOrderCancel={handleOrderCancel}
+          loadingOrders={state.loadingOrders}
+          onSave={handleSave}
+          onCancel={handleCancel}
         />
       </div>
     </div>

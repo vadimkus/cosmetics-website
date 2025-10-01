@@ -1,45 +1,43 @@
 'use client'
 
 import { User, Package, Settings, Download } from 'lucide-react'
-import { ProfileTab } from '@/types/profile'
 
 interface ProfileTabsProps {
-  activeTab: ProfileTab
-  onTabChange: (tab: ProfileTab) => void
+  activeTab: 'profile' | 'orders' | 'settings' | 'downloads'
+  setActiveTab: (tab: 'profile' | 'orders' | 'settings' | 'downloads') => void
 }
 
-export default function ProfileTabs({ activeTab, onTabChange }: ProfileTabsProps) {
+export default function ProfileTabs({ activeTab, setActiveTab }: ProfileTabsProps) {
   const tabs = [
-    { id: 'profile' as const, label: 'Profile', icon: User },
-    { id: 'orders' as const, label: 'Orders', icon: Package },
-    { id: 'settings' as const, label: 'Settings', icon: Settings },
-    { id: 'downloads' as const, label: 'Downloads', icon: Download }
-  ]
+    { id: 'profile', label: 'Profile', icon: User },
+    { id: 'orders', label: 'Orders', icon: Package },
+    { id: 'downloads', label: 'Downloads', icon: Download },
+    { id: 'settings', label: 'Settings', icon: Settings }
+  ] as const
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border mb-6">
-      <div className="flex overflow-x-auto">
-        {tabs.map((tab) => {
-          const Icon = tab.icon
-          const isActive = activeTab === tab.id
-          
-          return (
-            <button
-              key={tab.id}
-              onClick={() => onTabChange(tab.id)}
-              className={`flex items-center gap-2 px-6 py-4 text-sm font-medium transition-colors whitespace-nowrap border-b-2 ${
-                isActive
-                  ? 'border-primary-600 text-primary-600 bg-primary-50'
-                  : 'border-transparent text-gray-600 hover:text-gray-800 hover:bg-gray-50'
-              }`}
-            >
-              <Icon className="h-4 w-4" />
-              {tab.label}
-            </button>
-          )
-        })}
+    <div className="bg-white rounded-lg shadow-sm border border-gray-200 mb-6">
+      <div className="border-b border-gray-200">
+        <nav className="flex space-x-8 px-6" aria-label="Tabs">
+          {tabs.map((tab) => {
+            const Icon = tab.icon
+            return (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`py-4 px-1 border-b-2 font-medium text-sm flex items-center space-x-2 ${
+                  activeTab === tab.id
+                    ? 'border-primary-500 text-primary-600'
+                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                }`}
+              >
+                <Icon className="h-5 w-5" />
+                <span>{tab.label}</span>
+              </button>
+            )
+          })}
+        </nav>
       </div>
     </div>
   )
 }
-

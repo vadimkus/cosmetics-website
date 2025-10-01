@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef, useCallback } from 'react'
+import Image from 'next/image'
 import { 
   UserIcon, 
   Mail, 
@@ -357,15 +358,19 @@ export default function CustomerProfile({
               >
                 {editing ? (
                   editData.profilePicture ? (
-                    <img
+                    <Image
                       src={editData.profilePicture}
                       alt={customer.name}
+                      width={64}
+                      height={64}
                       className="w-full h-full object-cover"
                     />
                   ) : customer.isAdmin ? (
-                    <img
+                    <Image
                       src="/favicon/genosys-logo.png"
                       alt="Admin"
+                      width={64}
+                      height={64}
                       className="w-full h-full object-cover"
                     />
                   ) : (
@@ -373,15 +378,19 @@ export default function CustomerProfile({
                   )
                 ) : (
                   customer.profilePicture ? (
-                    <img
+                    <Image
                       src={customer.profilePicture}
                       alt={customer.name}
+                      width={64}
+                      height={64}
                       className="w-full h-full object-cover"
                     />
                   ) : customer.isAdmin ? (
-                    <img
+                    <Image
                       src="/favicon/genosys-logo.png"
                       alt="Admin"
+                      width={64}
+                      height={64}
                       className="w-full h-full object-cover"
                     />
                   ) : (

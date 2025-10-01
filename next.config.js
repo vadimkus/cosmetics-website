@@ -16,7 +16,12 @@ const nextConfig = {
   experimental: {
     optimizePackageImports: [
       'lucide-react', // Tree-shake icon imports
+      '@prisma/client', // Optimize Prisma imports
     ],
+    // Enable modern bundling
+    esmExternals: true,
+    // Optimize CSS - disabled due to critters dependency
+    // optimizeCss: true,
   },
   
   images: {
@@ -94,6 +99,27 @@ const nextConfig = {
               name: 'ui',
               chunks: 'all',
               priority: 15,
+            },
+            // Separate chunk for product components
+            product: {
+              test: /[\\/]components[\\/]product[\\/]/,
+              name: 'product',
+              chunks: 'all',
+              priority: 12,
+            },
+            // Separate chunk for profile components
+            profile: {
+              test: /[\\/]components[\\/]profile[\\/]/,
+              name: 'profile',
+              chunks: 'all',
+              priority: 12,
+            },
+            // Separate chunk for shared components
+            shared: {
+              test: /[\\/]components[\\/]shared[\\/]/,
+              name: 'shared',
+              chunks: 'all',
+              priority: 11,
             },
           },
         },

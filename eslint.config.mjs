@@ -32,6 +32,16 @@ const eslintConfig = [
       sourceType: "module",
     },
   },
+  {
+    files: [
+      "app/products/[id]/ProductPageClient.tsx",
+      "app/profile/page.tsx", 
+      "app/training/page.tsx"
+    ],
+    rules: {
+      "react/no-unescaped-entities": "off"
+    },
+  },
 ];
 
 export default eslintConfig;

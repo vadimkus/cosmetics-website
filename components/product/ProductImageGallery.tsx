@@ -1,7 +1,7 @@
 'use client'
 
-import { useState } from 'react'
 import Image from 'next/image'
+import { useState } from 'react'
 
 interface ProductImageGalleryProps {
   productImages: string[]
@@ -31,25 +31,25 @@ export default function ProductImageGallery({ productImages, productName }: Prod
         )}
       </div>
 
-      {/* Thumbnail Images */}
+      {/* Thumbnail Gallery */}
       {productImages.length > 1 && (
-        <div className="grid grid-cols-4 gap-2">
+        <div className="grid grid-cols-4 gap-4">
           {productImages.map((image, index) => (
-            <button
+            <div
               key={index}
+              className={`aspect-square rounded-lg overflow-hidden cursor-pointer border-2 ${
+                index === selectedImage ? 'border-primary-600' : 'border-gray-200 hover:border-gray-300'
+              } transition-colors`}
               onClick={() => setSelectedImage(index)}
-              className={`aspect-square bg-gray-100 rounded-lg overflow-hidden border-2 transition-colors ${
-                selectedImage === index ? 'border-primary-500' : 'border-transparent'
-              }`}
             >
               <Image
                 src={image}
                 alt={`${productName} ${index + 1}`}
-                width={64}
-                height={64}
+                width={100}
+                height={100}
                 className="w-full h-full object-cover"
               />
-            </button>
+            </div>
           ))}
         </div>
       )}

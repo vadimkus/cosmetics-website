@@ -12,12 +12,8 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
   
-  // Enhanced minification and optimization
-  // swcMinify is now default in Next.js 15+
-  
   // Experimental optimizations
   experimental: {
-    // optimizeCss: true, // Disabled due to critters dependency issue
     optimizePackageImports: [
       'lucide-react', // Tree-shake icon imports
     ],
@@ -107,11 +103,6 @@ const nextConfig = {
         sideEffects: false,
       }
     }
-    
-            // Optimize imports for better tree shaking
-            config.resolve.alias = {
-              ...config.resolve.alias,
-            }
     
     return config
   },

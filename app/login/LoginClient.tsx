@@ -61,6 +61,16 @@ export default function LoginClient() {
         </span>
       </nav>
 
+      {/* Back to Home Link */}
+      <div className="mb-8">
+        <Link
+          href="/"
+          className="text-gray-600 hover:text-gray-900 transition-colors text-sm"
+        >
+          ← Back to Home
+        </Link>
+      </div>
+
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">Professional Login</h1>
@@ -104,15 +114,6 @@ export default function LoginClient() {
                 Register
               </button>
             </div>
-          </div>
-
-          <div className="mt-8 text-center">
-            <Link
-              href="/"
-              className="text-gray-600 hover:text-gray-900 transition-colors text-sm"
-            >
-              ← Back to Home
-            </Link>
           </div>
         </div>
       </div>

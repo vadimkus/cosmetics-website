@@ -392,7 +392,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   ? 'bg-green-100 text-green-800' 
                   : 'bg-red-100 text-red-800'
               }`}>
-                {product.inStock ? 'In Stock' : 'Out of Stock'}
+                {product.inStock ? (product.id === '47' ? 'Order by Request' : 'In Stock') : 'Out of Stock'}
               </span>
             </div>
 

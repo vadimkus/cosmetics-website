@@ -3549,7 +3549,6 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     
                     {/* Product Video */}
                     <div className="mt-8">
-                      <h4 className="font-semibold text-gray-800 mb-4 text-sm">Product Demonstration</h4>
                       <div className="relative w-full max-w-2xl mx-auto">
                         <video
                           className="w-full h-auto rounded-lg shadow-lg"

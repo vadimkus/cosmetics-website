@@ -57,6 +57,7 @@ export default function DownloadsSection() {
       case 'pdf':
         return <FileText className="h-5 w-5 text-red-600" />
       case 'image':
+        // eslint-disable-next-line jsx-a11y/alt-text
         return <Image className="h-5 w-5 text-blue-600" />
       case 'video':
         return <Video className="h-5 w-5 text-purple-600" />

@@ -26,17 +26,6 @@ const nextConfig = {
         pathname: '/**',
       },
     ],
-    localPatterns: [
-      {
-        hostname: 'localhost',
-        port: '3000',
-        pathname: '/images/**',
-      },
-      {
-        hostname: 'genosys.ae',
-        pathname: '/images/**',
-      },
-    ],
     formats: ['image/webp', 'image/avif'],
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",

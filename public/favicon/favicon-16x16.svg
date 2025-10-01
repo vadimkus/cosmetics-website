@@ -1,0 +1,13 @@
+<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle -->
+  <circle cx="8" cy="8" r="8" fill="#10B981"/>
+  
+  <!-- Genosys logo - stylized G -->
+  <path d="M4 4h8v1H5v6h6v1H4V4z" fill="white"/>
+  <path d="M5 5h4v1H6v4h4v1H5V5z" fill="white"/>
+  
+  <!-- Cosmetic/skincare elements -->
+  <circle cx="11" cy="5" r="1" fill="white" opacity="0.8"/>
+  <circle cx="12" cy="6" r="0.8" fill="white" opacity="0.6"/>
+  <circle cx="10" cy="6" r="0.5" fill="white" opacity="0.7"/>
+</svg>

@@ -12,6 +12,15 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
   
+  // Production optimizations
+  productionBrowserSourceMaps: false,
+  
+  // Error handling
+  onDemandEntries: {
+    maxInactiveAge: 25 * 1000,
+    pagesBufferLength: 2,
+  },
+  
   // Experimental optimizations
   experimental: {
     optimizePackageImports: [

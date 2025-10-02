@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
 import { Package, Clock, CheckCircle, Truck, X, Eye, RefreshCw, ArrowLeft } from 'lucide-react'
 import { OrderWithItems } from '@/types/profile'
 
@@ -86,12 +87,12 @@ export default function OrderHistory({ orders, loading, onOrderCancel }: OrderHi
           <Package className="h-12 w-12 text-gray-300 mx-auto mb-4" />
           <h3 className="text-lg font-semibold text-gray-900 mb-2">No orders yet</h3>
           <p className="text-gray-600 mb-6">Your order history will appear here once you make a purchase.</p>
-          <a
+          <Link
             href="/products"
             className="inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
           >
             Start Shopping
-          </a>
+          </Link>
         </div>
       </div>
     )

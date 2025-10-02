@@ -41,6 +41,12 @@ model Product {
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
   images        String?
+  
+  // Skin recommendation fields
+  skinType      String?  // dry, oily, combination, normal, sensitive
+  targetConcerns String? // JSON array of concerns like ["anti-aging", "acne", "hydration"]
+  usage         String?  // morning, evening, all-day, morning-evening
+  ageGroup      String? // teen, young-adult, adult, mature
 
   @@map("products")
 }

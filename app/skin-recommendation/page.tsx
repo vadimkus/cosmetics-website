@@ -1132,14 +1132,17 @@ export default function SkinRecommendationPage() {
                      productDescription.includes('protection') ||
                      productCategory.includes('sun')
             case 'eye-care':
-              return productName.includes('eye') ||
-                     productName.includes('eyecell') ||
-                     productName.includes('peptide gel mask') ||
-                     productDescription.includes('eye') ||
-                     productDescription.includes('dark circle') ||
-                     productDescription.includes('puff') ||
-                     productDescription.includes('contour') ||
-                     productCategory.includes('eye')
+              return productName.toLowerCase().includes('eye') ||
+                     productName.toLowerCase().includes('eyecell') ||
+                     productName.toLowerCase().includes('peptide gel patch') ||
+                     productDescription.toLowerCase().includes('eye') ||
+                     productDescription.toLowerCase().includes('dark circle') ||
+                     productDescription.toLowerCase().includes('puff') ||
+                     productDescription.toLowerCase().includes('contour') ||
+                     productDescription.toLowerCase().includes('eye bag') ||
+                     productDescription.toLowerCase().includes('crow\'s feet') ||
+                     productCategory.toLowerCase().includes('eye') ||
+                     productCategory.toLowerCase().includes('patch')
             default:
               return false
           }
@@ -1198,7 +1201,7 @@ export default function SkinRecommendationPage() {
                   <span>Home</span>
                 </Link>
                 <span className="text-gray-400">/</span>
-                <span className="text-gray-900 font-medium">Skin Recommendation</span>
+                <span className="text-gray-900 font-medium">Skin</span>
               </nav>
             </div>
           </div>

@@ -215,7 +215,10 @@ export default function SkinRecommendationPage() {
       <div className="bg-gray-50 border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
           <nav className="flex items-center space-x-2 text-sm">
-            <Link href="/" className="text-gray-500 hover:text-primary-600 transition-colors">
+            <Link 
+              href="/" 
+              className="text-gray-500 hover:text-primary-600 transition-colors"
+            >
               Home
             </Link>
             <span className="text-gray-400">/</span>

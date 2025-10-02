@@ -15,7 +15,7 @@ const PRODUCTS_DATABASE = [
     description: "Soothing serum for irritated and sensitive skin with calming ingredients",
     price: "AED 250",
     image: "/images/ASE.jpg",
-    category: "Serum",
+    category: "Sensitivity",
     usage: "Evening"
   },
   {

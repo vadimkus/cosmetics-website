@@ -19,6 +19,12 @@
       "purpose": "any"
     },
     {
+      "src": "/favicon/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
       "src": "/favicon/genosys-official-favicon.ico",
       "sizes": "32x32",
       "type": "image/x-icon",
@@ -48,8 +54,9 @@
       "url": "/products",
       "icons": [
         {
-          "src": "/favicon/genosys-official-favicon.ico",
-          "sizes": "32x32"
+          "src": "/favicon/favicon.svg",
+          "sizes": "any",
+          "type": "image/svg+xml"
         }
       ]
     },
@@ -60,8 +67,9 @@
       "url": "/cart",
       "icons": [
         {
-          "src": "/favicon/genosys-official-favicon.ico",
-          "sizes": "32x32"
+          "src": "/favicon/favicon.svg",
+          "sizes": "any",
+          "type": "image/svg+xml"
         }
       ]
     },
@@ -72,8 +80,9 @@
       "url": "/favorites",
       "icons": [
         {
-          "src": "/favicon/genosys-official-favicon.ico",
-          "sizes": "32x32"
+          "src": "/favicon/favicon.svg",
+          "sizes": "any",
+          "type": "image/svg+xml"
         }
       ]
     }

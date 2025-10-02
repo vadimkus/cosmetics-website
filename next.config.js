@@ -29,6 +29,9 @@ const nextConfig = {
     formats: ['image/webp', 'image/avif'],
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+    // Configure for Next.js 16 compatibility
+    unoptimized: false,
+    loader: 'default',
   },
   
   // Enhanced compiler options

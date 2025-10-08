@@ -28,9 +28,20 @@ export async function GET(request: NextRequest) {
     
     return response
   } catch (error) {
-    console.error('Error fetching products:', error)
+    console.error('❌ Error fetching products:', error)
+    console.error('❌ Error details:', {
+      message: error instanceof Error ? error.message : 'Unknown error',
+      stack: error instanceof Error ? error.stack : undefined,
+      name: error instanceof Error ? error.name : undefined
+    })
+    
+    // Return a more detailed error response for debugging
     return NextResponse.json(
-      { error: 'Failed to fetch products' },
+      { 
+        error: 'Failed to fetch products',
+        details: error instanceof Error ? error.message : 'Unknown error',
+        timestamp: new Date().toISOString()
+      },
       { status: 500 }
     )
   }

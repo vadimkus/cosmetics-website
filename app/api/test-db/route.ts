@@ -7,15 +7,15 @@ export async function GET() {
     console.log('🔍 DATABASE_URL exists:', !!process.env.DATABASE_URL)
     console.log('🔍 DATABASE_URL length:', process.env.DATABASE_URL?.length)
     
-    // Create a new Prisma client with explicit configuration
-    const prisma = new PrismaClient({
-      datasources: {
-        db: {
-          url: process.env.DATABASE_URL || "postgres://fallback"
-        }
-      },
-      log: ['query', 'error', 'warn']
-    })
+      // Create a new Prisma client with explicit configuration
+      const prisma = new PrismaClient({
+        datasources: {
+          db: {
+            url: process.env.PRISMA_DATABASE_URL || process.env.DATABASE_URL || "postgres://fallback"
+          }
+        },
+        log: ['query', 'error', 'warn']
+      })
     
     // Test basic connection
     await prisma.$connect()

@@ -11,6 +11,14 @@ export const prisma = globalForPrisma.prisma ?? new PrismaClient({
     }
   },
   log: process.env.NODE_ENV === 'development' ? ['query', 'error', 'warn'] : ['error'],
+  // Add connection pooling settings for production
+  ...(process.env.NODE_ENV === 'production' && {
+    datasources: {
+      db: {
+        url: process.env.DATABASE_URL + "?connection_limit=1&pool_timeout=20"
+      }
+    }
+  })
 })
 
 if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma

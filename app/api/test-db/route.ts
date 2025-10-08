@@ -11,7 +11,7 @@ export async function GET() {
       const prisma = new PrismaClient({
         datasources: {
           db: {
-            url: process.env.PRISMA_DATABASE_URL || process.env.DATABASE_URL || "postgres://fallback"
+            url: process.env.DATABASE_URL || "postgres://fallback"
           }
         },
         log: ['query', 'error', 'warn']

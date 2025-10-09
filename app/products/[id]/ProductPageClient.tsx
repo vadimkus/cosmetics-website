@@ -794,24 +794,149 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '13' ? (
                   <>
-                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Details</h3>
-                    <p className="text-gray-600 mb-4">
-                      This premium {product.category.toLowerCase()} product is carefully formulated with high-quality ingredients 
-                      to deliver exceptional results. Perfect for professional use and home care routines.
+                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <p className="text-gray-600 mb-4 text-sm">
+                      SKIN RENEWAL PEELING SYSTEM (SRS) is a professional peeling treatment with naturally occurring AHA acids 
+                      designed for smoother, brighter, and more even skin tone. These naturally occurring acids found in fruits 
+                      and other foods help remove dead cells on the surface of the skin, encouraging cell turnover and bringing 
+                      new healthy cells to the surface.
                     </p>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2">Key Benefits:</h4>
-                    <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1">
-                      <li>Professional-grade quality</li>
-                      <li>Dermatologically tested</li>
-                      <li>Safe for all skin types</li>
-                      <li>Long-lasting results</li>
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Form:</strong> Professional chemical peeling system</p>
+                        <p><strong>Size:</strong> 2ml x 10ea</p>
+                        <p><strong>Target:</strong> Skin renewal and exfoliation</p>
+                        <p><strong>Technology:</strong> Multi-AHA complex with naturally occurring acids</p>
+                        <p><strong>Key Benefits:</strong> Dead cell removal, cell turnover, skin brightening, tone evening</p>
+                        <p><strong>Usage:</strong> Professional treatments only</p>
+                        <p><strong>Skin Type:</strong> All skin types, especially dull and textured skin</p>
+                        <p><strong>Application:</strong> Apply evenly to face by licensed practitioner</p>
+                        <p><strong>Testing:</strong> Dermatologically tested</p>
+                        <p><strong>Country of Origin:</strong> South Korea</p>
+                      </div>
+                    </div>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
+                    <div className="space-y-3 mb-4">
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Naturally Occurring AHA Complex</h5>
+                        <p className="text-sm text-gray-600">
+                          Multi-acid formula with glycolic, lactic, mandelic, and phytic acids derived from natural sources for gentle yet effective exfoliation.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Cell Turnover Enhancement</h5>
+                        <p className="text-sm text-gray-600">
+                          Encourages natural skin renewal by removing dead surface cells and promoting new healthy cell growth.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Professional Grade Formula</h5>
+                        <p className="text-sm text-gray-600">
+                          Specifically formulated for professional use to deliver controlled and effective peeling results.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Peptide Support</h5>
+                        <p className="text-sm text-gray-600">
+                          Enhanced with sh-Polypeptide-7 for skin regeneration and healing support during the renewal process.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
+                    <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
+                      <li>Skin Renewal - Removes dead skin cells and promotes natural cell turnover</li>
+                      <li>Brightening - Reveals fresh, radiant skin for a brighter complexion</li>
+                      <li>Even Tone - Helps achieve smoother, more even skin tone and texture</li>
+                      <li>Professional Results - Clinical-grade peeling for advanced skincare treatments</li>
+                      <li>Natural Acids - Uses naturally occurring AHA acids from fruits and foods</li>
+                      <li>Safe & Tested - Dermatologically tested for professional use</li>
                     </ul>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2">How to Use:</h4>
-                    <p className="text-gray-600">
-                      Apply the product evenly on face, avoiding lips and eye area. After 15-20 minutes, rinse with cold water.
-                    </p>
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h4>
+                    <div className="space-y-3 mb-4">
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Glycolic Acid</h5>
+                        <p className="text-sm text-gray-600">
+                          The smallest AHA molecule that penetrates deeply to exfoliate and stimulate collagen production for smoother, younger-looking skin.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Lactic Acid</h5>
+                        <p className="text-sm text-gray-600">
+                          Gentle AHA that exfoliates while providing hydration, improving skin texture and tone without excessive irritation.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Mandelic Acid</h5>
+                        <p className="text-sm text-gray-600">
+                          Larger molecule AHA that works more gently on the skin surface, ideal for sensitive skin and reducing post-inflammatory hyperpigmentation.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Phytic Acid</h5>
+                        <p className="text-sm text-gray-600">
+                          Natural chelating agent with antioxidant properties that helps brighten skin and enhance the effectiveness of other AHA acids.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">sh-Polypeptide-7</h5>
+                        <p className="text-sm text-gray-600">
+                          Advanced peptide that supports skin regeneration and healing during the peeling process for optimal recovery.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Scutellaria Baicalensis Root Extract</h5>
+                        <p className="text-sm text-gray-600">
+                          Powerful antioxidant botanical extract that soothes skin and provides anti-inflammatory benefits during treatment.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Houttuynia Cordata Extract</h5>
+                        <p className="text-sm text-gray-600">
+                          Natural extract with anti-inflammatory and antibacterial properties that helps soothe and protect skin during peeling.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Chamaecyparis Obtusa Water</h5>
+                        <p className="text-sm text-gray-600">
+                          Purified cypress water that provides gentle hydration and soothing properties to calm skin during the renewal process.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h4>
+                    <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
+                      <ol className="list-decimal list-inside text-gray-600 space-y-2 text-sm">
+                        <li><strong>Preparation:</strong> Cleanse skin thoroughly and ensure it's completely dry</li>
+                        <li><strong>Application:</strong> Apply peeling solution evenly to face, avoiding eye and lip areas</li>
+                        <li><strong>Duration:</strong> Leave on for recommended time as directed by professional (varies by skin type)</li>
+                        <li><strong>Neutralization:</strong> Neutralize and rinse thoroughly with cool water</li>
+                        <li><strong>Post-Care:</strong> Apply soothing and protective products as recommended</li>
+                        <li><strong>Frequency:</strong> Professional treatment schedule as determined by skincare specialist</li>
+                      </ol>
+                    </div>
+                    
+                    <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                      <p className="text-green-800 text-sm">
+                        <strong>Note:</strong> This is a professional-grade chemical peeling system and should only be administered 
+                        by licensed skincare professionals. Post-treatment sun protection is essential. May cause temporary 
+                        redness and sensitivity. Not recommended for pregnant or nursing women. Always perform a patch test before use.
+                      </p>
+                    </div>
                   </>
                 ) : product.id === '15' ? (
                   <>

@@ -2717,11 +2717,11 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
                       <div className="space-y-2 text-blue-800 text-sm">
                         <p><strong>Form:</strong> Functional scalp shampoo</p>
+                        <p><strong>Size:</strong> 300ml</p>
                         <p><strong>Target:</strong> Hair loss prevention and scalp health</p>
                         <p><strong>Technology:</strong> Patented ingredient complex with KFDA approval</p>
                         <p><strong>Key Benefits:</strong> Hair loss prevention, scalp cooling, sebum control</p>
                         <p><strong>Usage:</strong> Professional and home care</p>
-                        <p><strong>Volume:</strong> 300ml</p>
                         <p><strong>Approval:</strong> KFDA approved functional product</p>
                         <p><strong>Country of Origin:</strong> South Korea</p>
                       </div>
@@ -2816,13 +2816,16 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                     </div>
                     
-                    <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                    <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-6">
                       <p className="text-green-800 text-sm">
                         <strong>Note:</strong> This product is KFDA approved as a functional product for improving 
                         hair loss symptoms. For best results, use as part of the complete HR³ MATRIX treatment 
                         protocol. Regular use helps maintain optimal scalp health and promotes healthy hair growth.
                       </p>
                     </div>
+                    
+                    {/* Spacing between note and product documentation */}
+                    <div className="mt-6"></div>
                   </>
                 ) : product.id === '47' ? (
                   <>
@@ -2833,6 +2836,20 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       This advanced kit combines multiple treatment components to create a complete solution for hair 
                       health and vitality, suitable for both professional and home use.
                     </p>
+                    
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Form:</strong> Professional hair and scalp treatment kit</p>
+                        <p><strong>Size:</strong> 1 Kit</p>
+                        <p><strong>Target:</strong> Hair loss prevention and regrowth</p>
+                        <p><strong>Technology:</strong> Advanced peptide and botanical extract technology</p>
+                        <p><strong>Key Benefits:</strong> Hair loss prevention, regrowth stimulation, scalp health</p>
+                        <p><strong>Usage:</strong> Professional and home care</p>
+                        <p><strong>Kit Contents:</strong> Scalp peeling, hair solution, roller device</p>
+                        <p><strong>Country of Origin:</strong> South Korea</p>
+                      </div>
+                    </div>
                     
                     <h4 className="font-semibold text-gray-800 mb-2 text-sm">Kit Components</h4>
                     <div className="space-y-3 mb-4">
@@ -2910,19 +2927,6 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                     </div>
                     
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
-                      <div className="space-y-2 text-blue-800 text-sm">
-                        <p><strong>Form:</strong> Complete hair and scalp treatment system</p>
-                        <p><strong>Target:</strong> Hair loss prevention and regrowth stimulation</p>
-                        <p><strong>Technology:</strong> Advanced peptide and botanical extract technology</p>
-                        <p><strong>Key Benefits:</strong> Hair loss prevention, regrowth stimulation, scalp health</p>
-                        <p><strong>Usage:</strong> Professional and home care</p>
-                        <p><strong>Components:</strong> 3 specialized products for comprehensive treatment</p>
-                        <p><strong>Country of Origin:</strong> South Korea</p>
-                      </div>
-                    </div>
-                    
                     <div className="bg-green-50 border border-green-200 rounded-lg p-4">
                       <p className="text-green-800 text-sm">
                         <strong>Note:</strong> This comprehensive kit is designed for both professional and home use. 
@@ -2940,6 +2944,20 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       advanced tonic combines peptide technology with botanical extracts to create a comprehensive 
                       solution for hair health and vitality.
                     </p>
+                    
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Form:</strong> Premium hair and scalp tonic</p>
+                        <p><strong>Size:</strong> 70ml</p>
+                        <p><strong>Target:</strong> Hair health and scalp revitalization</p>
+                        <p><strong>Technology:</strong> Advanced peptide and botanical extract technology</p>
+                        <p><strong>Key Benefits:</strong> Hair strengthening, scalp health, circulation improvement</p>
+                        <p><strong>Usage:</strong> Professional and home care</p>
+                        <p><strong>System:</strong> Part of HR³ MATRIX MESOPECIA KIT</p>
+                        <p><strong>Country of Origin:</strong> South Korea</p>
+                      </div>
+                    </div>
                     
                     <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
                     <div className="space-y-3 mb-4">
@@ -3016,19 +3034,6 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </ol>
                     </div>
                     
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
-                      <div className="space-y-2 text-blue-800 text-sm">
-                        <p><strong>Form:</strong> Premium hair and scalp tonic</p>
-                        <p><strong>Target:</strong> Hair health and scalp revitalization</p>
-                        <p><strong>Technology:</strong> Advanced peptide and botanical extract technology</p>
-                        <p><strong>Key Benefits:</strong> Hair strengthening, scalp health, circulation improvement</p>
-                        <p><strong>Usage:</strong> Professional and home care</p>
-                        <p><strong>System:</strong> Part of HR³ MATRIX MESOPECIA KIT</p>
-                        <p><strong>Country of Origin:</strong> South Korea</p>
-                      </div>
-                    </div>
-                    
                     <div className="bg-green-50 border border-green-200 rounded-lg p-4">
                       <p className="text-green-800 text-sm">
                         <strong>Note:</strong> This product is designed for both professional and home use. For best results, 
@@ -3083,6 +3088,20 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       causes of hair loss by accelerating angiogenesis, inhibiting hair loss substances, and providing 
                       essential nutrients to hair follicles for optimal growth and strength.
                     </p>
+                    
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Form:</strong> Premium hair and scalp solution</p>
+                        <p><strong>Size:</strong> 5ml*8pcs</p>
+                        <p><strong>Target:</strong> Hair loss prevention and regrowth</p>
+                        <p><strong>Technology:</strong> Advanced peptide and botanical extract technology</p>
+                        <p><strong>Key Benefits:</strong> Hair loss prevention, regrowth stimulation, scalp health</p>
+                        <p><strong>Usage:</strong> Professional and home care</p>
+                        <p><strong>System:</strong> Part of HR³ MATRIX MESOPECIA KIT</p>
+                        <p><strong>Country of Origin:</strong> South Korea</p>
+                      </div>
+                    </div>
                     
                     <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
                     <div className="space-y-3 mb-4">
@@ -3157,19 +3176,6 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                         <li><strong>Enhancement:</strong> Use with GENOSYS STAMP (ROLLER) for deeper penetration</li>
                         <li><strong>Frequency:</strong> Use 2-3 times per week for optimal results</li>
                       </ol>
-                    </div>
-                    
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
-                      <div className="space-y-2 text-blue-800 text-sm">
-                        <p><strong>Form:</strong> Premium hair and scalp solution</p>
-                        <p><strong>Target:</strong> Hair loss prevention and regrowth</p>
-                        <p><strong>Technology:</strong> Advanced peptide and botanical extract technology</p>
-                        <p><strong>Key Benefits:</strong> Hair loss prevention, regrowth stimulation, scalp health</p>
-                        <p><strong>Usage:</strong> Professional and home care</p>
-                        <p><strong>System:</strong> Part of HR³ MATRIX MESOPECIA KIT</p>
-                        <p><strong>Country of Origin:</strong> South Korea</p>
-                      </div>
                     </div>
                     
                     <div className="bg-green-50 border border-green-200 rounded-lg p-4">

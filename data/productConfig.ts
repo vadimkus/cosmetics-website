@@ -1,5 +1,3 @@
-import { Product } from '@/types'
-
 export interface ProductConfig {
   id: string
   pricing: {

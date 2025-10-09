@@ -4808,11 +4808,15 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
                       <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
                       <div className="space-y-2 text-blue-800 text-sm">
-                        <p><strong>Type:</strong> Professional automatic microneedling device</p>
+                        <p><strong>Form:</strong> Professional automatic microneedling device</p>
+                        <p><strong>Size:</strong> 1 Device</p>
+                        <p><strong>Target:</strong> Collagen production and transdermal nutrient delivery</p>
                         <p><strong>Technology:</strong> Automatic microneedling with adjustable depth and speed</p>
-                        <p><strong>Key Benefits:</strong> Collagen production, enhanced absorption, skin rejuvenation</p>
+                        <p><strong>Key Benefits:</strong> Collagen production, enhanced absorption, skin rejuvenation, micro-channel creation</p>
+                        <p><strong>Usage:</strong> Professional and home use, controlled micro-injuries</p>
                         <p><strong>Skin Type:</strong> All skin types, especially aging and textured skin</p>
-                        <p><strong>Usage:</strong> Professional and home use</p>
+                        <p><strong>Application:</strong> Creates micro-channels for enhanced ingredient absorption</p>
+                        <p><strong>Safety:</strong> Professional-grade device with controlled penetration</p>
                         <p><strong>Country of Origin:</strong> South Korea</p>
                       </div>
                     </div>
@@ -5293,12 +5297,16 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
                       <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
                       <div className="space-y-2 text-blue-800 text-sm">
-                        <p><strong>Type:</strong> Anti-aging cream for neck and décolleté</p>
+                        <p><strong>Form:</strong> Specialized anti-aging cream</p>
                         <p><strong>Size:</strong> 50g</p>
+                        <p><strong>Target:</strong> Neck and décolleté area anti-aging</p>
+                        <p><strong>Technology:</strong> Advanced peptide complex with vitamin blend</p>
                         <p><strong>Key Benefits:</strong> Lifting, firming, depigmentation, texture refinement</p>
-                        <p><strong>Target Area:</strong> Neck and décolleté area</p>
-                        <p><strong>Usage:</strong> Daily anti-aging treatment</p>
+                        <p><strong>Usage:</strong> Daily anti-aging treatment, morning and evening</p>
+                        <p><strong>Skin Type:</strong> All skin types, especially aging neck and décolleté</p>
+                        <p><strong>Application:</strong> Apply to clean neck and décolleté area</p>
                         <p><strong>Testing:</strong> Dermatologically tested and clinically proven</p>
+                        <p><strong>Country of Origin:</strong> South Korea</p>
                       </div>
                     </div>
                     
@@ -5407,6 +5415,8 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                         skincare routine. Always use sunscreen during daytime to protect treated areas from UV damage.
                       </p>
                     </div>
+                    
+                    <div className="mb-8"></div>
                   </>
                 ) : product.id === '25' ? (
                   <>

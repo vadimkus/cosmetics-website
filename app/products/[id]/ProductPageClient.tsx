@@ -442,6 +442,19 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       The GENOSYS Microneedle Roller is a professional-grade microneedling device featuring the patented Diskneedle Therapy System (DTS) for enhanced skin rejuvenation. This advanced device utilizes 450 ultra-thin needles that are 25% thinner than competitors, ensuring superior product absorption with minimal skin trauma.
                     </p>
                     
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Product Details</h4>
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Technical Specifications</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Needle Count:</strong> 450 ultra-thin needles</p>
+                        <p><strong>Needle Thickness:</strong> 25% thinner than competitors</p>
+                        <p><strong>Technology:</strong> Patented Diskneedle Therapy System (DTS)</p>
+                        <p><strong>Manufacturing:</strong> South Korea</p>
+                        <p><strong>Professional Use:</strong> Licensed practitioners only</p>
+                        <p><strong>Treatment Areas:</strong> Face, body, scalp applications</p>
+                      </div>
+                    </div>
+                    
                     <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
@@ -489,19 +502,6 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </ol>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Product Details</h4>
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Technical Specifications</h5>
-                      <div className="space-y-2 text-blue-800 text-sm">
-                        <p><strong>Needle Count:</strong> 450 ultra-thin needles</p>
-                        <p><strong>Needle Thickness:</strong> 25% thinner than competitors</p>
-                        <p><strong>Technology:</strong> Patented Diskneedle Therapy System (DTS)</p>
-                        <p><strong>Manufacturing:</strong> South Korea</p>
-                        <p><strong>Professional Use:</strong> Licensed practitioners only</p>
-                        <p><strong>Treatment Areas:</strong> Face, body, scalp applications</p>
-                      </div>
-                    </div>
-                    
                     <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-6">
                       <p className="text-green-800 text-sm">
                         <strong>Note:</strong> This device is intended for professional use by licensed practitioners. 
@@ -518,6 +518,19 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       designed for the delicate lip and eye areas. This innovative formula combines vitamin complex 
                       and firming peptides to provide gentle yet effective cleansing without irritation.
                     </p>
+                    
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Type:</strong> Biphasic makeup remover</p>
+                        <p><strong>Size:</strong> 200ml</p>
+                        <p><strong>Key Benefits:</strong> Gentle cleansing, makeup removal, skin nourishment</p>
+                        <p><strong>Target Areas:</strong> Lips and eye area</p>
+                        <p><strong>Usage:</strong> Daily makeup removal</p>
+                        <p><strong>Testing:</strong> Dermatologically tested</p>
+                        <p><strong>Country of Origin:</strong> South Korea</p>
+                      </div>
+                    </div>
                     
                     <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
                     <div className="space-y-3 mb-4">
@@ -603,18 +616,6 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </ol>
                     </div>
                     
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
-                      <div className="space-y-2 text-blue-800 text-sm">
-                        <p><strong>Type:</strong> Biphasic makeup remover</p>
-                        <p><strong>Size:</strong> 200ml</p>
-                        <p><strong>Key Benefits:</strong> Gentle cleansing, makeup removal, skin nourishment</p>
-                        <p><strong>Target Areas:</strong> Lips and eye area</p>
-                        <p><strong>Usage:</strong> Daily makeup removal</p>
-                        <p><strong>Testing:</strong> Dermatologically tested</p>
-                      </div>
-                    </div>
-                    
                     <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-4">
                       <p className="text-green-800 text-sm">
                         <strong>Note:</strong> This product is dermatologically tested and specifically formulated for 
@@ -663,6 +664,18 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       natural enzymes and plant extracts to purify, nourish, and moisturize the skin, making it 
                       suitable for all skin types while promoting a smoother, more radiant complexion.
                     </p>
+                    
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Form:</strong> Enzyme-based peeling gel</p>
+                        <p><strong>Skin Type:</strong> All skin types, including sensitive skin</p>
+                        <p><strong>Technology:</strong> Natural enzyme exfoliation</p>
+                        <p><strong>Key Benefits:</strong> Gentle exfoliation, radiance enhancement, pore purification</p>
+                        <p><strong>Usage:</strong> 1-2 times per week</p>
+                        <p><strong>Country of Origin:</strong> South Korea</p>
+                      </div>
+                    </div>
                     
                     <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
                     <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
@@ -729,18 +742,6 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                           Soothes and calms the skin, reducing irritation and providing gentle 
                           care for sensitive skin during exfoliation.
                         </p>
-                      </div>
-                    </div>
-                    
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
-                      <div className="space-y-2 text-blue-800 text-sm">
-                        <p><strong>Form:</strong> Enzyme-based peeling gel</p>
-                        <p><strong>Skin Type:</strong> All skin types, including sensitive skin</p>
-                        <p><strong>Technology:</strong> Natural enzyme exfoliation</p>
-                        <p><strong>Key Benefits:</strong> Gentle exfoliation, radiance enhancement, pore purification</p>
-                        <p><strong>Usage:</strong> 1-2 times per week</p>
-                        <p><strong>Origin:</strong> Made in South Korea</p>
                       </div>
                     </div>
                     
@@ -814,6 +815,20 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       botanical extracts to deliver comprehensive skin care benefits.
                     </p>
                     
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Form:</strong> Intensive problem control toner</p>
+                        <p><strong>Target:</strong> Acne-prone, sensitive, and problematic skin</p>
+                        <p><strong>Technology:</strong> Advanced active ingredient complex</p>
+                        <p><strong>Key Benefits:</strong> Problem control, pore minimizing, skin soothing</p>
+                        <p><strong>Usage:</strong> Professional and home care</p>
+                        <p><strong>Volume:</strong> 200ml / 500ml</p>
+                        <p><strong>Skin Type:</strong> Problematic, acne-prone, sensitive skin</p>
+                        <p><strong>Country of Origin:</strong> South Korea</p>
+                      </div>
+                    </div>
+                    
                     <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Benefits</h4>
                     <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
                       <li>Intensive Problem Control - Targets acne, blemishes, and skin irritations effectively</li>
@@ -881,20 +896,6 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                     </div>
                     
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
-                      <div className="space-y-2 text-blue-800 text-sm">
-                        <p><strong>Form:</strong> Intensive problem control toner</p>
-                        <p><strong>Target:</strong> Acne-prone, sensitive, and problematic skin</p>
-                        <p><strong>Technology:</strong> Advanced active ingredient complex</p>
-                        <p><strong>Key Benefits:</strong> Problem control, pore minimizing, skin soothing</p>
-                        <p><strong>Usage:</strong> Professional and home care</p>
-                        <p><strong>Volume:</strong> 200ml / 500ml</p>
-                        <p><strong>Skin Type:</strong> Problematic, acne-prone, sensitive skin</p>
-                        <p><strong>Origin:</strong> Made in South Korea</p>
-                      </div>
-                    </div>
-                    
                     <div className="bg-green-50 border border-green-200 rounded-lg p-4">
                       <p className="text-green-800 text-sm">
                         <strong>Note:</strong> This product is dermatologically tested and safe for all skin types. 
@@ -945,6 +946,19 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       This advanced formula combines powerful botanical extracts with innovative fermentation technology to 
                       provide deep hydration, pH balancing, and skin refinement for a healthy, glowing complexion.
                     </p>
+                    
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Type:</strong> Daily moisturizing and skin refining toner</p>
+                        <p><strong>Size:</strong> 200ml/1000ml</p>
+                        <p><strong>Key Benefits:</strong> Deep hydration, pH balancing, skin refinement</p>
+                        <p><strong>Skin Type:</strong> All skin types</p>
+                        <p><strong>Usage:</strong> Daily skincare routine</p>
+                        <p><strong>Technology:</strong> Fermentation technology</p>
+                        <p><strong>Country of Origin:</strong> South Korea</p>
+                      </div>
+                    </div>
                     
                     <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
                     <div className="space-y-3 mb-4">
@@ -1044,19 +1058,6 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                     </div>
                     
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
-                      <div className="space-y-2 text-blue-800 text-sm">
-                        <p><strong>Type:</strong> Daily moisturizing and skin refining toner</p>
-                        <p><strong>Size Options:</strong> 200ml (Homecare) / 1000ml (Professional)</p>
-                        <p><strong>Skin Types:</strong> All skin types</p>
-                        <p><strong>Usage:</strong> Daily skincare routine</p>
-                        <p><strong>Key Benefits:</strong> Hydration, skin refinement, pH balancing</p>
-                        <p><strong>Testing:</strong> Dermatologically tested</p>
-                        <p><strong>Efficacy:</strong> Proven skin hydration improvement</p>
-                      </div>
-                    </div>
-                    
                     <div className="bg-green-50 border border-green-200 rounded-lg p-4">
                       <p className="text-green-800 text-sm">
                         <strong>Note:</strong> This product is dermatologically tested and safe for all skin types. 
@@ -1074,6 +1075,19 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       and under-eye puffiness while promoting skin regeneration and providing comprehensive eye area care with 
                       its powerful peptide complex and botanical callus culture extracts.
                     </p>
+                    
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Form:</strong> Eye contour serum</p>
+                        <p><strong>Size:</strong> 10ml</p>
+                        <p><strong>Skin Type:</strong> All skin types, especially mature and aging skin</p>
+                        <p><strong>Technology:</strong> Advanced peptide and botanical callus culture technology</p>
+                        <p><strong>Key Benefits:</strong> Wrinkle reduction, dark circle diminishment, puffiness relief</p>
+                        <p><strong>Usage:</strong> Morning and evening</p>
+                        <p><strong>Country of Origin:</strong> South Korea</p>
+                      </div>
+                    </div>
                     
                     <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
                     <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
@@ -1152,19 +1166,6 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                     </div>
                     
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
-                      <div className="space-y-2 text-blue-800 text-sm">
-                        <p><strong>Form:</strong> Eye contour serum</p>
-                        <p><strong>Skin Type:</strong> All skin types, especially mature and aging skin</p>
-                        <p><strong>Technology:</strong> Advanced peptide and botanical callus culture technology</p>
-                        <p><strong>Key Benefits:</strong> Wrinkle reduction, dark circle diminishment, puffiness relief</p>
-                        <p><strong>Usage:</strong> Morning and evening</p>
-                        <p><strong>Volume:</strong> 10ml</p>
-                        <p><strong>Origin:</strong> Made in South Korea</p>
-                      </div>
-                    </div>
-                    
                     <div className="bg-green-50 border border-green-200 rounded-lg p-4">
                       <p className="text-green-800 text-sm">
                         <strong>Note:</strong> This product is dermatologically tested and safe for all skin types. 
@@ -1180,6 +1181,17 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       This advanced formula provides a protective moisture barrier while delivering anti-inflammatory and soothing 
                       properties to calm and repair sensitized skin. Perfect for those with reactive, easily irritated skin.
                     </p>
+                    
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Size:</strong> 30ml</p>
+                        <p><strong>Skin Type:</strong> Sensitive, reactive, and easily irritated skin</p>
+                        <p><strong>Formulation:</strong> Gentle, non-irritating serum</p>
+                        <p><strong>Key Benefits:</strong> Barrier repair, anti-inflammatory, soothing</p>
+                        <p><strong>Country of Origin:</strong> South Korea</p>
+                      </div>
+                    </div>
                     
                     <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
                     <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
@@ -1257,16 +1269,6 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                     </div>
                     
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
-                      <div className="space-y-2 text-blue-800 text-sm">
-                        <p><strong>Size:</strong> 30ml</p>
-                        <p><strong>Skin Type:</strong> Sensitive, reactive, and easily irritated skin</p>
-                        <p><strong>Formulation:</strong> Gentle, non-irritating serum</p>
-                        <p><strong>Key Benefits:</strong> Barrier repair, anti-inflammatory, soothing</p>
-                      </div>
-                    </div>
-                    
                     <div className="bg-green-50 border border-green-200 rounded-lg p-4">
                       <p className="text-green-800 text-sm">
                         <strong>Note:</strong> This product is dermatologically tested and specifically formulated for sensitive skin. 
@@ -1283,6 +1285,19 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       formula combines multiple molecular weights of hyaluronic acid with mushroom extracts to 
                       deliver deep, sustained moisture that lasts up to 72 hours.
                     </p>
+                    
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Type:</strong> Advanced moisturizing cream</p>
+                        <p><strong>Size:</strong> 50g/250g</p>
+                        <p><strong>Key Benefits:</strong> Deep hydration, 72-hour persistence, skin barrier protection</p>
+                        <p><strong>Skin Type:</strong> All skin types, especially dry and dehydrated skin</p>
+                        <p><strong>Usage:</strong> Daily morning and evening application</p>
+                        <p><strong>Technology:</strong> 4-step hydration system with multi-molecular hyaluronic acid</p>
+                        <p><strong>Country of Origin:</strong> South Korea</p>
+                      </div>
+                    </div>
                     
                     <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
                     <div className="space-y-3 mb-4">
@@ -1374,18 +1389,6 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                         <li><strong>Frequency:</strong> Use morning and evening for best results</li>
                         <li><strong>Follow-up:</strong> Apply sunscreen during the day</li>
                       </ol>
-                    </div>
-                    
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
-                      <div className="space-y-2 text-blue-800 text-sm">
-                        <p><strong>Type:</strong> Advanced moisturizing cream</p>
-                        <p><strong>Size:</strong> 50g/250g</p>
-                        <p><strong>Key Benefits:</strong> Deep hydration, 72-hour persistence, skin barrier protection</p>
-                        <p><strong>Skin Type:</strong> All skin types, especially dry and dehydrated skin</p>
-                        <p><strong>Usage:</strong> Daily morning and evening application</p>
-                        <p><strong>Technology:</strong> 4-step hydration system with multi-molecular hyaluronic acid</p>
-                      </div>
                     </div>
                     
                     <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-6">
@@ -1638,6 +1641,18 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       for comprehensive skin nourishment and hydration.
                     </p>
                     
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Type:</strong> Professional collagen sheet mask</p>
+                        <p><strong>Size:</strong> 1 Sheet (23g)</p>
+                        <p><strong>Key Benefits:</strong> Intensive repair, deep hydration, anti-aging</p>
+                        <p><strong>Skin Type:</strong> All skin types, especially mature skin</p>
+                        <p><strong>Usage:</strong> 2-3 times per week</p>
+                        <p><strong>Technology:</strong> Hydrolyzed collagen delivery system</p>
+                      </div>
+                    </div>
+                    
                     <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
@@ -1736,18 +1751,6 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </ol>
                     </div>
                     
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
-                      <div className="space-y-2 text-blue-800 text-sm">
-                        <p><strong>Type:</strong> Professional collagen sheet mask</p>
-                        <p><strong>Size:</strong> 1 Sheet (23g)</p>
-                        <p><strong>Key Benefits:</strong> Intensive repair, deep hydration, anti-aging</p>
-                        <p><strong>Skin Type:</strong> All skin types, especially mature skin</p>
-                        <p><strong>Usage:</strong> 2-3 times per week</p>
-                        <p><strong>Technology:</strong> Hydrolyzed collagen delivery system</p>
-                      </div>
-                    </div>
-                    
                     <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-4">
                       <h5 className="font-semibold text-green-800 mb-2 text-sm">Note:</h5>
                       <p className="text-green-800 text-sm">
@@ -1763,6 +1766,16 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       skin elasticity, reduce wrinkles, and promote a radiant complexion. This advanced formula combines 
                       powerful anti-aging ingredients to deliver comprehensive skin rejuvenation and protection.
                     </p>
+                    
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Size:</strong> 50g/250g</p>
+                        <p><strong>Suitable for:</strong> All skin types, especially mature skin</p>
+                        <p><strong>Country of Origin:</strong> South Korea</p>
+                        <p><strong>Formulation:</strong> Advanced anti-aging cream with multi-functional benefits</p>
+                      </div>
+                    </div>
                     
                     <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
                     <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
@@ -1837,16 +1850,6 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                           These essential lipids strengthen the skin barrier and retain moisture, 
                           helping to prevent moisture loss and maintain healthy, resilient skin.
                         </p>
-                      </div>
-                    </div>
-                    
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
-                      <div className="space-y-2 text-blue-800 text-sm">
-                        <p><strong>Size:</strong> 50g/250g</p>
-                        <p><strong>Suitable for:</strong> All skin types, especially mature skin</p>
-                        <p><strong>Country of Origin:</strong> South Korea</p>
-                        <p><strong>Formulation:</strong> Advanced anti-aging cream with multi-functional benefits</p>
                       </div>
                     </div>
                     
@@ -1951,6 +1954,18 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       and beneficial compounds directly to the skin for maximum anti-aging benefits.
                     </p>
                     
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Form:</strong> Powder mask (activates with water)</p>
+                        <p><strong>Skin Type:</strong> All skin types, especially mature and aging skin</p>
+                        <p><strong>Technology:</strong> Bio-fermentation process</p>
+                        <p><strong>Key Benefits:</strong> Age defying, skin renewal, deep hydration</p>
+                        <p><strong>Usage:</strong> 1-2 times per week</p>
+                        <p><strong>Country of Origin:</strong> South Korea</p>
+                      </div>
+                    </div>
+                    
                     <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
                     <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
                       <li>Age Defying - Reduces fine lines and wrinkles through advanced fermentation technology</li>
@@ -2021,17 +2036,6 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                     </div>
                     
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
-                      <div className="space-y-2 text-blue-800 text-sm">
-                        <p><strong>Form:</strong> Powder mask (activates with water)</p>
-                        <p><strong>Skin Type:</strong> All skin types, especially mature and aging skin</p>
-                        <p><strong>Technology:</strong> Bio-fermentation process</p>
-                        <p><strong>Key Benefits:</strong> Age defying, skin renewal, deep hydration</p>
-                        <p><strong>Usage:</strong> 1-2 times per week</p>
-                      </div>
-                    </div>
-                    
                     <div className="bg-green-50 border border-green-200 rounded-lg p-4">
                       <p className="text-green-800 text-sm">
                         <strong>Note:</strong> This product is dermatologically tested and safe for all skin types. 
@@ -2085,6 +2089,19 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       various causes, providing immediate relief and long-term skin regeneration through advanced 
                       oxygen therapy and skin-regenerating ingredients.
                     </p>
+                    
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Form:</strong> Oxygen bubbling mask cream</p>
+                        <p><strong>Skin Type:</strong> All skin types, especially damaged and stressed skin</p>
+                        <p><strong>Technology:</strong> EGF and oxygen therapy</p>
+                        <p><strong>Key Benefits:</strong> Skin regeneration, oxygen therapy, anti-inflammatory</p>
+                        <p><strong>Usage:</strong> Morning and evening</p>
+                        <p><strong>Special Feature:</strong> Unique oxygen bubbling effect</p>
+                        <p><strong>Country of Origin:</strong> South Korea</p>
+                      </div>
+                    </div>
                     
                     <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
                     <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
@@ -2155,18 +2172,6 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                     </div>
                     
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
-                      <div className="space-y-2 text-blue-800 text-sm">
-                        <p><strong>Form:</strong> Oxygen bubbling mask cream</p>
-                        <p><strong>Skin Type:</strong> All skin types, especially damaged and stressed skin</p>
-                        <p><strong>Technology:</strong> EGF and oxygen therapy</p>
-                        <p><strong>Key Benefits:</strong> Skin regeneration, oxygen therapy, anti-inflammatory</p>
-                        <p><strong>Usage:</strong> Morning and evening</p>
-                        <p><strong>Special Feature:</strong> Unique oxygen bubbling effect</p>
-                      </div>
-                    </div>
-                    
                     <div className="bg-green-50 border border-green-200 rounded-lg p-4">
                       <p className="text-green-800 text-sm">
                         <strong>Note:</strong> This product is dermatologically tested and suitable for all skin types. 
@@ -2181,6 +2186,19 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     <p className="text-gray-600 mb-4 text-sm">
                       GENOSYS EyeCell EYE PEPTIDE GEL PATCH is a specialized treatment designed to rejuvenate and care for the delicate skin around the eyes. These crescent-shaped gel patches are infused with a potent blend of peptides, botanical extracts, and other active ingredients to address common eye area concerns including puffiness, dark circles, fine lines, and signs of fatigue.
                     </p>
+                    
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Form:</strong> Thermo-sensitive hydrogel patches</p>
+                        <p><strong>Size:</strong> 60 patches</p>
+                        <p><strong>Skin Type:</strong> All skin types, especially mature and aging skin</p>
+                        <p><strong>Technology:</strong> Patented thermo-sensitive hydrogel technology</p>
+                        <p><strong>Key Benefits:</strong> Puffiness reduction, dark circle lightening, fine line smoothing</p>
+                        <p><strong>Usage:</strong> 20-40 minutes per application</p>
+                        <p><strong>Country of Origin:</strong> South Korea</p>
+                      </div>
+                    </div>
                     
                     <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
                     <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
@@ -2234,19 +2252,6 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                         <p className="text-sm text-gray-600">
                           Chamomile, Lavender, Peppermint, and Rosemary extracts that soothe and revitalize the delicate eye area.
                         </p>
-                      </div>
-                    </div>
-                    
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
-                      <div className="space-y-2 text-blue-800 text-sm">
-                        <p><strong>Form:</strong> Thermo-sensitive hydrogel patches</p>
-                        <p><strong>Skin Type:</strong> All skin types, especially mature and aging skin</p>
-                        <p><strong>Technology:</strong> Patented thermo-sensitive hydrogel technology</p>
-                        <p><strong>Key Benefits:</strong> Puffiness reduction, dark circle diminishment, wrinkle smoothing</p>
-                        <p><strong>Usage:</strong> 20-40 minutes per application</p>
-                        <p><strong>Quantity:</strong> 60 patches</p>
-                        <p><strong>Origin:</strong> Made in South Korea</p>
                       </div>
                     </div>
                     
@@ -2305,6 +2310,20 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       preparing the skin for optimal absorption of active ingredients.
                     </p>
                     
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Form:</strong> Professional carboxy therapy kit (Gel + Sheet Mask)</p>
+                        <p><strong>Skin Type:</strong> All skin types, especially dull and stressed skin</p>
+                        <p><strong>Technology:</strong> CO₂ therapy with Bohr Effect mechanism</p>
+                        <p><strong>Key Benefits:</strong> Oxygen therapy, skin firming, brightening, anti-blemish</p>
+                        <p><strong>Usage:</strong> 1-2 times per week</p>
+                        <p><strong>Kit Contents:</strong> Gel 20g x 5ea, Mask 12g x 5ea</p>
+                        <p><strong>Special Feature:</strong> Catalytic mask for enhanced treatment absorption</p>
+                        <p><strong>Country of Origin:</strong> South Korea</p>
+                      </div>
+                    </div>
+                    
                     <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
                     <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
                       <li>Oxygen Therapy - Accelerates oxygen delivery to skin tissues through CO₂ therapy</li>
@@ -2342,19 +2361,6 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       
                     </div>
                     
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
-                      <div className="space-y-2 text-blue-800 text-sm">
-                        <p><strong>Form:</strong> Professional carboxy therapy kit (Gel + Sheet Mask)</p>
-                        <p><strong>Skin Type:</strong> All skin types, especially dull and stressed skin</p>
-                        <p><strong>Technology:</strong> CO₂ therapy with Bohr Effect mechanism</p>
-                        <p><strong>Key Benefits:</strong> Oxygen therapy, skin firming, brightening, anti-blemish</p>
-                        <p><strong>Usage:</strong> 1-2 times per week</p>
-                        <p><strong>Kit Contents:</strong> Gel 20g x 5ea, Mask 12g x 5ea</p>
-                        <p><strong>Special Feature:</strong> Catalytic mask for enhanced treatment absorption</p>
-                      </div>
-                    </div>
-                    
                     <div className="bg-green-50 border border-green-200 rounded-lg p-4">
                       <p className="text-green-800 text-sm">
                         <strong>Note:</strong> This product is dermatologically tested and safe for all skin types. 
@@ -2372,6 +2378,19 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       crow's feet, dark circles, and under-eye puffiness while promoting microcirculation to enhance 
                       overall skin health and provide comprehensive eye area care.
                     </p>
+                    
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Form:</strong> Eye contour cream</p>
+                        <p><strong>Size:</strong> 20g</p>
+                        <p><strong>Skin Type:</strong> All skin types, especially mature and aging skin</p>
+                        <p><strong>Technology:</strong> Advanced peptide and botanical callus culture technology</p>
+                        <p><strong>Key Benefits:</strong> Wrinkle reduction, dark circle diminishment, puffiness relief</p>
+                        <p><strong>Usage:</strong> Morning and evening</p>
+                        <p><strong>Country of Origin:</strong> South Korea</p>
+                      </div>
+                    </div>
                     
                     <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
                     <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
@@ -2434,19 +2453,6 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                     </div>
                     
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
-                      <div className="space-y-2 text-blue-800 text-sm">
-                        <p><strong>Form:</strong> Eye contour cream</p>
-                        <p><strong>Skin Type:</strong> All skin types, especially mature and aging skin</p>
-                        <p><strong>Technology:</strong> Advanced peptide and botanical technology</p>
-                        <p><strong>Key Benefits:</strong> Fine wrinkle reduction, dark circle lightening, puffiness relief</p>
-                        <p><strong>Usage:</strong> Morning and evening</p>
-                        <p><strong>Volume:</strong> 20ml</p>
-                        <p><strong>Origin:</strong> Made in South Korea</p>
-                      </div>
-                    </div>
-                    
                     <div className="bg-green-50 border border-green-200 rounded-lg p-4">
                       <p className="text-green-800 text-sm">
                         <strong>Note:</strong> This product is dermatologically tested and safe for all skin types. 
@@ -2464,6 +2470,19 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       removes keratinized particles and impurities while providing a refreshing, cooling sensation 
                       that soothes the scalp and enhances treatment absorption.
                     </p>
+                    
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Form:</strong> Scalp peeling solution</p>
+                        <p><strong>Target:</strong> Scalp preparation for microneedling treatments</p>
+                        <p><strong>Technology:</strong> Gentle exfoliating and refreshing formula</p>
+                        <p><strong>Key Benefits:</strong> Scalp cleansing, refreshing sensation, treatment preparation</p>
+                        <p><strong>Usage:</strong> Professional and home care</p>
+                        <p><strong>Volume:</strong> 100ml</p>
+                        <p><strong>Country of Origin:</strong> South Korea</p>
+                      </div>
+                    </div>
                     
                     <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Benefits</h4>
                     <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
@@ -2527,19 +2546,6 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                           Provides natural antimicrobial properties to help cleanse the scalp and 
                           maintain a healthy scalp environment.
                         </p>
-                      </div>
-                    </div>
-                    
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
-                      <div className="space-y-2 text-blue-800 text-sm">
-                        <p><strong>Form:</strong> Scalp peeling solution</p>
-                        <p><strong>Target:</strong> Scalp preparation for microneedling treatments</p>
-                        <p><strong>Technology:</strong> Gentle exfoliating and refreshing formula</p>
-                        <p><strong>Key Benefits:</strong> Scalp cleansing, refreshing sensation, treatment preparation</p>
-                        <p><strong>Usage:</strong> Professional and home care</p>
-                        <p><strong>Volume:</strong> 100ml</p>
-                        <p><strong>Origin:</strong> Made in South Korea</p>
                       </div>
                     </div>
                     
@@ -2681,7 +2687,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                         <p><strong>Usage:</strong> Professional and home care</p>
                         <p><strong>Volume:</strong> 1kg</p>
                         <p><strong>Skin Type:</strong> All skin types</p>
-                        <p><strong>Origin:</strong> Made in South Korea</p>
+                        <p><strong>Country of Origin:</strong> South Korea</p>
                       </div>
                     </div>
                     
@@ -2702,6 +2708,20 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       control excess sebum, cools down scalp heat, and creates an optimal environment for healthy 
                       hair growth through its advanced ingredient complex.
                     </p>
+                    
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Form:</strong> Functional scalp shampoo</p>
+                        <p><strong>Target:</strong> Hair loss prevention and scalp health</p>
+                        <p><strong>Technology:</strong> Patented ingredient complex with KFDA approval</p>
+                        <p><strong>Key Benefits:</strong> Hair loss prevention, scalp cooling, sebum control</p>
+                        <p><strong>Usage:</strong> Professional and home care</p>
+                        <p><strong>Volume:</strong> 300ml</p>
+                        <p><strong>Approval:</strong> KFDA approved functional product</p>
+                        <p><strong>Country of Origin:</strong> South Korea</p>
+                      </div>
+                    </div>
                     
                     <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Benefits</h4>
                     <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
@@ -2789,20 +2809,6 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                           Provides a refreshing, cooling sensation that soothes the scalp and 
                           stimulates blood circulation for improved nutrient delivery to hair follicles.
                         </p>
-                      </div>
-                    </div>
-                    
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
-                      <div className="space-y-2 text-blue-800 text-sm">
-                        <p><strong>Form:</strong> Functional scalp shampoo</p>
-                        <p><strong>Target:</strong> Hair loss prevention and scalp health</p>
-                        <p><strong>Technology:</strong> Patented ingredient complex with KFDA approval</p>
-                        <p><strong>Key Benefits:</strong> Hair loss prevention, scalp cooling, sebum control</p>
-                        <p><strong>Usage:</strong> Professional and home care</p>
-                        <p><strong>Volume:</strong> 300ml</p>
-                        <p><strong>Approval:</strong> KFDA approved functional product</p>
-                        <p><strong>Origin:</strong> Made in South Korea</p>
                       </div>
                     </div>
                     
@@ -2909,7 +2915,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                         <p><strong>Key Benefits:</strong> Hair loss prevention, regrowth stimulation, scalp health</p>
                         <p><strong>Usage:</strong> Professional and home care</p>
                         <p><strong>Components:</strong> 3 specialized products for comprehensive treatment</p>
-                        <p><strong>Origin:</strong> Made in South Korea</p>
+                        <p><strong>Country of Origin:</strong> South Korea</p>
                       </div>
                     </div>
                     
@@ -3015,7 +3021,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                         <p><strong>Key Benefits:</strong> Hair strengthening, scalp health, circulation improvement</p>
                         <p><strong>Usage:</strong> Professional and home care</p>
                         <p><strong>System:</strong> Part of HR³ MATRIX MESOPECIA KIT</p>
-                        <p><strong>Origin:</strong> Made in South Korea</p>
+                        <p><strong>Country of Origin:</strong> South Korea</p>
                       </div>
                     </div>
                     
@@ -3158,7 +3164,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                         <p><strong>Key Benefits:</strong> Hair loss prevention, regrowth stimulation, scalp health</p>
                         <p><strong>Usage:</strong> Professional and home care</p>
                         <p><strong>System:</strong> Part of HR³ MATRIX MESOPECIA KIT</p>
-                        <p><strong>Origin:</strong> Made in South Korea</p>
+                        <p><strong>Country of Origin:</strong> South Korea</p>
                       </div>
                     </div>
                     
@@ -3329,6 +3335,18 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       skin's natural strength and glow.
                     </p>
                     
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Type:</strong> Microbiome energy infusing mist</p>
+                        <p><strong>Size:</strong> 80ml</p>
+                        <p><strong>Key Benefits:</strong> Microbiome balance, hydration, radiance, barrier protection</p>
+                        <p><strong>Skin Type:</strong> All skin types</p>
+                        <p><strong>Usage:</strong> Daily skincare routine, on-the-go hydration</p>
+                        <p><strong>Country of Origin:</strong> South Korea</p>
+                      </div>
+                    </div>
+                    
                     <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
@@ -3412,18 +3430,6 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </ol>
                     </div>
                     
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
-                      <div className="space-y-2 text-blue-800 text-sm">
-                        <p><strong>Type:</strong> Microbiome energy infusing mist</p>
-                        <p><strong>Size:</strong> 80ml</p>
-                        <p><strong>Key Benefits:</strong> Microbiome balance, hydration, radiance, barrier protection</p>
-                        <p><strong>Skin Type:</strong> All skin types</p>
-                        <p><strong>Usage:</strong> Daily skincare routine, on-the-go hydration</p>
-                        <p><strong>Origin:</strong> Made in South Korea</p>
-                      </div>
-                    </div>
-                    
                     <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-6">
                       <p className="text-green-800 text-sm">
                         <strong>Note:</strong> This product is dermatologically tested and safe for all skin types. 
@@ -3440,6 +3446,18 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       moisture and calm irritated skin. This advanced formula combines powerful natural ingredients including 
                       aloe vera, snail secretion filtrate, and hyaluronic acid to deliver long-lasting hydration and skin comfort.
                     </p>
+                    
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Type:</strong> Intensive hydro soothing cream</p>
+                        <p><strong>Size Options:</strong> 50g (Homecare) / 250g (Professional)</p>
+                        <p><strong>Key Benefits:</strong> Hydration, soothing, skin repair, barrier protection</p>
+                        <p><strong>Skin Type:</strong> All skin types, especially sensitive and irritated skin</p>
+                        <p><strong>Usage:</strong> Professional and home care</p>
+                        <p><strong>Country of Origin:</strong> South Korea</p>
+                      </div>
+                    </div>
                     
                     <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
                     <div className="space-y-3 mb-4">
@@ -3538,18 +3556,6 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </ol>
                     </div>
                     
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
-                      <div className="space-y-2 text-blue-800 text-sm">
-                        <p><strong>Type:</strong> Intensive hydro soothing cream</p>
-                        <p><strong>Size Options:</strong> 50g (Homecare) / 250g (Professional)</p>
-                        <p><strong>Key Benefits:</strong> Hydration, soothing, skin repair, barrier protection</p>
-                        <p><strong>Skin Type:</strong> All skin types, especially sensitive and irritated skin</p>
-                        <p><strong>Usage:</strong> Professional and home care</p>
-                        <p><strong>Origin:</strong> Made in South Korea</p>
-                      </div>
-                    </div>
-                    
                     <div className="bg-green-50 border border-green-200 rounded-lg p-4">
                       <p className="text-green-800 text-sm">
                         <strong>Note:</strong> This product is dermatologically tested and safe for all skin types. 
@@ -3566,6 +3572,18 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       This advanced formula combines powerful hydrating agents with firming peptides to provide long-lasting moisturizing 
                       and plumping effects while relieving skin irritation and promoting optimal healing post-treatment.
                     </p>
+                    
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Type:</strong> Professional hydrating and firming ampoule</p>
+                        <p><strong>Size:</strong> 2ml x 10ea</p>
+                        <p><strong>Treatment:</strong> Microneedling, professional skincare</p>
+                        <p><strong>Skin Type:</strong> All skin types, especially dry and aging skin</p>
+                        <p><strong>Usage:</strong> Professional treatments, post-microneedling care</p>
+                        <p><strong>Country of Origin:</strong> South Korea</p>
+                      </div>
+                    </div>
                     
                     <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
                     <div className="space-y-3 mb-4">
@@ -3664,18 +3682,6 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </ol>
                     </div>
                     
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
-                      <div className="space-y-2 text-blue-800 text-sm">
-                        <p><strong>Type:</strong> Professional hydrating and firming ampoule</p>
-                        <p><strong>Size:</strong> 2ml x 10ea</p>
-                        <p><strong>Treatment:</strong> Microneedling, professional skincare</p>
-                        <p><strong>Skin Type:</strong> All skin types, especially dry and aging skin</p>
-                        <p><strong>Usage:</strong> Professional treatments, post-microneedling care</p>
-                        <p><strong>Origin:</strong> Made in South Korea</p>
-                      </div>
-                    </div>
-                    
                     <div className="bg-green-50 border border-green-200 rounded-lg p-4">
                       <p className="text-green-800 text-sm">
                         <strong>Note:</strong> This product is dermatologically tested and specifically formulated for professional use. 
@@ -3692,6 +3698,18 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       This advanced formula supplies essential nutrients to the skin while providing soothing and hydrating benefits 
                       to promote optimal healing and skin regeneration post-treatment.
                     </p>
+                    
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Type:</strong> Professional skin revitalizing ampoule</p>
+                        <p><strong>Size:</strong> 2ml x 10ea</p>
+                        <p><strong>Treatment:</strong> Microneedling, skin revitalization</p>
+                        <p><strong>Skin Type:</strong> All skin types, especially dull and tired skin</p>
+                        <p><strong>Usage:</strong> Professional treatments, post-microneedling care</p>
+                        <p><strong>Country of Origin:</strong> South Korea</p>
+                      </div>
+                    </div>
                     
                     <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
                     <div className="space-y-3 mb-4">
@@ -3790,18 +3808,6 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </ol>
                     </div>
                     
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
-                      <div className="space-y-2 text-blue-800 text-sm">
-                        <p><strong>Type:</strong> Professional skin revitalizing ampoule</p>
-                        <p><strong>Size:</strong> 2ml x 10ea</p>
-                        <p><strong>Treatment:</strong> Microneedling, skin revitalization</p>
-                        <p><strong>Skin Type:</strong> All skin types, especially dull and tired skin</p>
-                        <p><strong>Usage:</strong> Professional treatments, skin revitalization</p>
-                        <p><strong>Origin:</strong> Made in South Korea</p>
-                      </div>
-                    </div>
-                    
                     <div className="bg-green-50 border border-green-200 rounded-lg p-4">
                       <p className="text-green-800 text-sm">
                         <strong>Note:</strong> This product is dermatologically tested and specifically formulated for professional use. 
@@ -3818,6 +3824,18 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       This advanced formula helps the skin retain its natural elasticity and increases skin strength while promoting 
                       optimal healing and regeneration post-treatment.
                     </p>
+                    
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Type:</strong> Professional skin remodeling ampoule</p>
+                        <p><strong>Size:</strong> 2ml x 10ea</p>
+                        <p><strong>Treatment:</strong> Microneedling, skin remodeling</p>
+                        <p><strong>Skin Type:</strong> All skin types, especially aging and sagging skin</p>
+                        <p><strong>Usage:</strong> Professional treatments, skin remodeling</p>
+                        <p><strong>Country of Origin:</strong> South Korea</p>
+                      </div>
+                    </div>
                     
                     <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
                     <div className="space-y-3 mb-4">
@@ -3916,18 +3934,6 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </ol>
                     </div>
                     
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
-                      <div className="space-y-2 text-blue-800 text-sm">
-                        <p><strong>Type:</strong> Professional skin remodeling ampoule</p>
-                        <p><strong>Size:</strong> 2ml x 10ea</p>
-                        <p><strong>Treatment:</strong> Microneedling, skin remodeling</p>
-                        <p><strong>Skin Type:</strong> All skin types, especially aging and sagging skin</p>
-                        <p><strong>Usage:</strong> Professional treatments, skin remodeling</p>
-                        <p><strong>Origin:</strong> Made in South Korea</p>
-                      </div>
-                    </div>
-                    
                     <div className="bg-green-50 border border-green-200 rounded-lg p-4">
                       <p className="text-green-800 text-sm">
                         <strong>Note:</strong> This product is dermatologically tested and specifically formulated for professional use. 
@@ -3944,6 +3950,18 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       This advanced formula controls excessive oil and sebum production while helping prevent skin breakouts 
                       and promoting clear, healthy skin post-treatment.
                     </p>
+                    
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Type:</strong> Professional anti-blemish ampoule</p>
+                        <p><strong>Size:</strong> 2ml x 10ea</p>
+                        <p><strong>Treatment:</strong> Microneedling, anti-blemish</p>
+                        <p><strong>Skin Type:</strong> All skin types, especially oily and acne-prone skin</p>
+                        <p><strong>Usage:</strong> Professional treatments, blemish control</p>
+                        <p><strong>Country of Origin:</strong> South Korea</p>
+                      </div>
+                    </div>
                     
                     <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
                     <div className="space-y-3 mb-4">
@@ -4042,18 +4060,6 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </ol>
                     </div>
                     
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
-                      <div className="space-y-2 text-blue-800 text-sm">
-                        <p><strong>Type:</strong> Professional anti-blemish ampoule</p>
-                        <p><strong>Size:</strong> 2ml x 10ea</p>
-                        <p><strong>Treatment:</strong> Microneedling, blemish control</p>
-                        <p><strong>Skin Type:</strong> All skin types, especially acne-prone and oily skin</p>
-                        <p><strong>Usage:</strong> Professional treatments, blemish control</p>
-                        <p><strong>Origin:</strong> Made in South Korea</p>
-                      </div>
-                    </div>
-                    
                     <div className="bg-green-50 border border-green-200 rounded-lg p-4">
                       <p className="text-green-800 text-sm">
                         <strong>Note:</strong> This product is dermatologically tested and specifically formulated for professional use. 
@@ -4070,6 +4076,18 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       This advanced formula helps improve pigmentation, even skin tone, and brighten the skin surface while promoting 
                       optimal healing and skin clarity post-treatment.
                     </p>
+                    
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Type:</strong> Professional anti-pigment ampoule</p>
+                        <p><strong>Size:</strong> 2ml x 10ea</p>
+                        <p><strong>Treatment:</strong> Microneedling, pigmentation control</p>
+                        <p><strong>Skin Type:</strong> All skin types, especially hyperpigmented and uneven skin</p>
+                        <p><strong>Usage:</strong> Professional treatments, pigmentation control</p>
+                        <p><strong>Country of Origin:</strong> South Korea</p>
+                      </div>
+                    </div>
                     
                     <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
                     <div className="space-y-3 mb-4">
@@ -4168,18 +4186,6 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </ol>
                     </div>
                     
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
-                      <div className="space-y-2 text-blue-800 text-sm">
-                        <p><strong>Type:</strong> Professional anti-pigment ampoule</p>
-                        <p><strong>Size:</strong> 2ml x 10ea</p>
-                        <p><strong>Treatment:</strong> Microneedling, pigmentation control</p>
-                        <p><strong>Skin Type:</strong> All skin types, especially hyperpigmented and uneven skin</p>
-                        <p><strong>Usage:</strong> Professional treatments, pigmentation control</p>
-                        <p><strong>Origin:</strong> Made in South Korea</p>
-                      </div>
-                    </div>
-                    
                     <div className="bg-green-50 border border-green-200 rounded-lg p-4">
                       <p className="text-green-800 text-sm">
                         <strong>Note:</strong> This product is dermatologically tested and specifically formulated for professional use. 
@@ -4196,6 +4202,18 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       This advanced formula helps reduce the appearance of wrinkles and improve skin firmness while promoting 
                       optimal healing and skin regeneration post-treatment.
                     </p>
+                    
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Type:</strong> Professional anti-aging ampoule</p>
+                        <p><strong>Size:</strong> 2ml x 10ea</p>
+                        <p><strong>Treatment:</strong> Microneedling, anti-aging</p>
+                        <p><strong>Skin Type:</strong> All skin types, especially aging and mature skin</p>
+                        <p><strong>Usage:</strong> Professional treatments, anti-aging</p>
+                        <p><strong>Country of Origin:</strong> South Korea</p>
+                      </div>
+                    </div>
                     
                     <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
                     <div className="space-y-3 mb-4">
@@ -4292,18 +4310,6 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                         <li><strong>Frequency:</strong> Use as directed by your skincare professional</li>
                         <li><strong>Storage:</strong> Store in cool, dry place and use within recommended timeframe</li>
                       </ol>
-                    </div>
-                    
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
-                      <div className="space-y-2 text-blue-800 text-sm">
-                        <p><strong>Type:</strong> Professional anti-aging ampoule</p>
-                        <p><strong>Size:</strong> 2ml x 10ea</p>
-                        <p><strong>Treatment:</strong> Microneedling, anti-aging</p>
-                        <p><strong>Skin Type:</strong> All skin types, especially aging and mature skin</p>
-                        <p><strong>Usage:</strong> Professional treatments, anti-aging</p>
-                        <p><strong>Origin:</strong> Made in South Korea</p>
-                      </div>
                     </div>
                     
                     <div className="bg-green-50 border border-green-200 rounded-lg p-4">
@@ -4699,18 +4705,6 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </ol>
                     </div>
                     
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
-                      <div className="space-y-2 text-blue-800 text-sm">
-                        <p><strong>Type:</strong> Moisture replenishing hyaluron serum</p>
-                        <p><strong>Size:</strong> 30ml</p>
-                        <p><strong>Key Benefits:</strong> Deep hydration, moisture retention, skin balance</p>
-                        <p><strong>Skin Type:</strong> All skin types, especially dry and dehydrated skin</p>
-                        <p><strong>Usage:</strong> Daily hydration treatment</p>
-                        <p><strong>Technology:</strong> 4-step hydration system</p>
-                      </div>
-                    </div>
-                    
                     <div className="bg-green-50 border border-green-200 rounded-lg p-4">
                       <p className="text-green-800 text-sm">
                         <strong>Note:</strong> This product is dermatologically tested and suitable for all skin types. 
@@ -4728,6 +4722,18 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       to significantly increase the absorption rate of active skincare ingredients while promoting natural 
                       skin rejuvenation through controlled micro-injuries.
                     </p>
+                    
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Type:</strong> Professional automatic microneedling device</p>
+                        <p><strong>Technology:</strong> Automatic microneedling with adjustable depth and speed</p>
+                        <p><strong>Key Benefits:</strong> Collagen production, enhanced absorption, skin rejuvenation</p>
+                        <p><strong>Skin Type:</strong> All skin types, especially aging and textured skin</p>
+                        <p><strong>Usage:</strong> Professional and home use</p>
+                        <p><strong>Country of Origin:</strong> South Korea</p>
+                      </div>
+                    </div>
                     
                     <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
                     <div className="space-y-3 mb-4">
@@ -4806,18 +4812,6 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </ol>
                     </div>
                     
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
-                      <div className="space-y-2 text-blue-800 text-sm">
-                        <p><strong>Type:</strong> Professional automatic microneedling device</p>
-                        <p><strong>Technology:</strong> Automatic microneedling with adjustable depth and speed</p>
-                        <p><strong>Key Benefits:</strong> Collagen production, enhanced absorption, skin rejuvenation</p>
-                        <p><strong>Skin Type:</strong> All skin types, especially aging and textured skin</p>
-                        <p><strong>Usage:</strong> Professional and home use</p>
-                        <p><strong>Origin:</strong> Made in South Korea</p>
-                      </div>
-                    </div>
-                    
                     <div className="bg-green-50 border border-green-200 rounded-lg p-4">
                       <p className="text-green-800 text-sm">
                         <strong>Note:</strong> This is a professional medical device. For best results and safety, 
@@ -4834,6 +4828,19 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       for deep skin nourishment. This innovative formula naturally generates oxygen bubbles to effectively 
                       remove makeup, dirt, and impurities while providing a luxurious treatment sensation without irritation.
                     </p>
+                    
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Type:</strong> Moisture replenishing hyaluron serum</p>
+                        <p><strong>Size:</strong> 30ml</p>
+                        <p><strong>Key Benefits:</strong> Deep hydration, moisture retention, skin balance</p>
+                        <p><strong>Skin Type:</strong> All skin types, especially dry and dehydrated skin</p>
+                        <p><strong>Usage:</strong> Daily hydration treatment</p>
+                        <p><strong>Technology:</strong> 4-step hydration system</p>
+                        <p><strong>Country of Origin:</strong> South Korea</p>
+                      </div>
+                    </div>
                     
                     <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
                     <div className="space-y-3 mb-4">
@@ -4941,6 +4948,18 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       skin texture for a healthier, clearer complexion.
                     </p>
                     
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Type:</strong> Anti-blemish serum</p>
+                        <p><strong>Size:</strong> 30ml</p>
+                        <p><strong>Key Benefits:</strong> Sebum control, breakout prevention, texture refinement</p>
+                        <p><strong>Skin Type:</strong> Combination and oily acne-prone skin</p>
+                        <p><strong>Usage:</strong> Daily anti-blemish treatment</p>
+                        <p><strong>Testing:</strong> Dermatologically tested and clinically proven</p>
+                      </div>
+                    </div>
+                    
                     <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
@@ -5039,18 +5058,6 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </ol>
                     </div>
                     
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
-                      <div className="space-y-2 text-blue-800 text-sm">
-                        <p><strong>Type:</strong> Anti-blemish serum</p>
-                        <p><strong>Size:</strong> 30ml</p>
-                        <p><strong>Key Benefits:</strong> Sebum control, breakout prevention, texture refinement</p>
-                        <p><strong>Skin Type:</strong> Combination and oily acne-prone skin</p>
-                        <p><strong>Usage:</strong> Daily anti-blemish treatment</p>
-                        <p><strong>Testing:</strong> Dermatologically tested and clinically proven</p>
-                      </div>
-                    </div>
-                    
                     <div className="bg-green-50 border border-green-200 rounded-lg p-4">
                       <p className="text-green-800 text-sm">
                         <strong>Note:</strong> This product is dermatologically tested and specifically formulated for 
@@ -5068,6 +5075,18 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       helps even skin tone, revive skin's natural brightness, and provides a natural glow with 
                       moisturizing barrier protection.
                     </p>
+                    
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Type:</strong> Skin brightening serum</p>
+                        <p><strong>Size:</strong> 30ml</p>
+                        <p><strong>Key Benefits:</strong> Skin brightening, even skin tone, natural radiance</p>
+                        <p><strong>Skin Type:</strong> All skin types, especially dull and uneven skin</p>
+                        <p><strong>Usage:</strong> Daily brightening treatment</p>
+                        <p><strong>Technology:</strong> MELAZERO® melanin care complex</p>
+                      </div>
+                    </div>
                     
                     <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
                     <div className="space-y-3 mb-4">
@@ -5167,18 +5186,6 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </ol>
                     </div>
                     
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
-                      <div className="space-y-2 text-blue-800 text-sm">
-                        <p><strong>Type:</strong> Skin brightening serum</p>
-                        <p><strong>Size:</strong> 30ml</p>
-                        <p><strong>Key Benefits:</strong> Skin brightening, even skin tone, natural radiance</p>
-                        <p><strong>Skin Type:</strong> All skin types, especially dull and uneven skin</p>
-                        <p><strong>Usage:</strong> Daily brightening treatment</p>
-                        <p><strong>Technology:</strong> MELAZERO® melanin care complex</p>
-                      </div>
-                    </div>
-                    
                     <div className="bg-green-50 border border-green-200 rounded-lg p-4">
                       <p className="text-green-800 text-sm">
                         <strong>Note:</strong> This product is dermatologically tested and suitable for all skin types. 
@@ -5195,6 +5202,18 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       This advanced formula targets the special needs of these sensitive areas with a powerful peptide complex 
                       and vitamin blend for lifting, firming, and depigmentation.
                     </p>
+                    
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Type:</strong> Anti-aging cream for neck and décolleté</p>
+                        <p><strong>Size:</strong> 50g</p>
+                        <p><strong>Key Benefits:</strong> Lifting, firming, depigmentation, texture refinement</p>
+                        <p><strong>Target Area:</strong> Neck and décolleté area</p>
+                        <p><strong>Usage:</strong> Daily anti-aging treatment</p>
+                        <p><strong>Testing:</strong> Dermatologically tested and clinically proven</p>
+                      </div>
+                    </div>
                     
                     <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
                     <div className="space-y-3 mb-4">
@@ -5294,18 +5313,6 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </ol>
                     </div>
                     
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
-                      <div className="space-y-2 text-blue-800 text-sm">
-                        <p><strong>Type:</strong> Anti-aging cream for neck and décolleté</p>
-                        <p><strong>Size:</strong> 50g</p>
-                        <p><strong>Key Benefits:</strong> Lifting, firming, depigmentation, texture refinement</p>
-                        <p><strong>Target Area:</strong> Neck and décolleté area</p>
-                        <p><strong>Usage:</strong> Daily anti-aging treatment</p>
-                        <p><strong>Testing:</strong> Dermatologically tested and clinically proven</p>
-                      </div>
-                    </div>
-                    
                     <div className="bg-green-50 border border-green-200 rounded-lg p-4">
                       <p className="text-green-800 text-sm">
                         <strong>Note:</strong> This product is dermatologically tested and specifically formulated for 
@@ -5322,6 +5329,18 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       professional treatments. This advanced formula helps irritated skin rapidly recover from redness, erythema, 
                       and edema while promoting healthy rejuvenation with centella complex and peptide technology.
                     </p>
+                    
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Type:</strong> Post-treatment regenerating cream</p>
+                        <p><strong>Size:</strong> 20g (Homecare) / 100g (Professional)</p>
+                        <p><strong>Key Benefits:</strong> Recovery, soothing, healing, regeneration</p>
+                        <p><strong>Target:</strong> Post-treatment skin recovery</p>
+                        <p><strong>Usage:</strong> As needed after professional treatments</p>
+                        <p><strong>Testing:</strong> Dermatologically tested and clinically proven</p>
+                      </div>
+                    </div>
                     
                     <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
                     <div className="space-y-3 mb-4">
@@ -5421,18 +5440,6 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </ol>
                     </div>
                     
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
-                      <div className="space-y-2 text-blue-800 text-sm">
-                        <p><strong>Type:</strong> Post-treatment regenerating cream</p>
-                        <p><strong>Size:</strong> 20g (Homecare) / 100g (Professional)</p>
-                        <p><strong>Key Benefits:</strong> Recovery, soothing, healing, regeneration</p>
-                        <p><strong>Target:</strong> Post-treatment skin recovery</p>
-                        <p><strong>Usage:</strong> As needed after professional treatments</p>
-                        <p><strong>Testing:</strong> Dermatologically tested and clinically proven</p>
-                      </div>
-                    </div>
-                    
                     <div className="bg-green-50 border border-green-200 rounded-lg p-4">
                       <p className="text-green-800 text-sm">
                         <strong>Note:</strong> This product is dermatologically tested and specifically formulated for 
@@ -5449,6 +5456,18 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       and amino acid complex. This innovative formula encourages healthy and soft skin by promoting water 
                       retention and protecting the skin barrier with MultiEx BSASM® Plus technology.
                     </p>
+                    
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Type:</strong> Skin barrier strengthening cream</p>
+                        <p><strong>Size:</strong> 100g</p>
+                        <p><strong>Key Benefits:</strong> Barrier protection, moisture retention, skin softening</p>
+                        <p><strong>Skin Type:</strong> All skin types, especially compromised skin</p>
+                        <p><strong>Usage:</strong> Daily barrier protection and repair</p>
+                        <p><strong>Technology:</strong> MultiEx BSASM® Plus</p>
+                      </div>
+                    </div>
                     
                     <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
                     <div className="space-y-3 mb-4">
@@ -5539,18 +5558,6 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                         <li><strong>Target Areas:</strong> Focus on areas with compromised skin barrier</li>
                         <li><strong>Results:</strong> Visible improvement in skin barrier function within 2-4 weeks</li>
                       </ol>
-                    </div>
-                    
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
-                      <div className="space-y-2 text-blue-800 text-sm">
-                        <p><strong>Type:</strong> Skin barrier strengthening cream</p>
-                        <p><strong>Size:</strong> 100g</p>
-                        <p><strong>Key Benefits:</strong> Barrier protection, moisture retention, skin softening</p>
-                        <p><strong>Skin Type:</strong> All skin types, especially compromised skin</p>
-                        <p><strong>Usage:</strong> Daily barrier protection and repair</p>
-                        <p><strong>Technology:</strong> MultiEx BSASM® Plus</p>
-                      </div>
                     </div>
                     
                     <div className="bg-green-50 border border-green-200 rounded-lg p-4">
@@ -6042,7 +6049,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                         <p><strong>Protection:</strong> UVA/UVB protection, SPF 40, PA++</p>
                         <p><strong>Skin Type:</strong> All skin types, including sensitive skin</p>
                         <p><strong>Usage:</strong> Daily sun protection, outdoor activities</p>
-                        <p><strong>Origin:</strong> Made in South Korea</p>
+                        <p><strong>Country of Origin:</strong> South Korea</p>
                       </div>
                     </div>
                     
@@ -6154,7 +6161,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                         <p><strong>Coverage:</strong> Natural to medium coverage</p>
                         <p><strong>Key Benefits:</strong> Blemish coverage, sun protection, post-treatment care</p>
                         <p><strong>Skin Type:</strong> All skin types, especially sensitive and post-treatment skin</p>
-                        <p><strong>Origin:</strong> Made in South Korea</p>
+                        <p><strong>Country of Origin:</strong> South Korea</p>
                       </div>
                     </div>
                     
@@ -6174,6 +6181,18 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       and hair loss prevention. This innovative device combines microneedling technology with LED light therapy to 
                       enhance scalp health, promote hair growth, and deliver nutrients directly to hair follicles for optimal results.
                     </p>
+                    
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Type:</strong> Auto-microneedling LED device for scalp treatment</p>
+                        <p><strong>Technology:</strong> Microneedling + LED light therapy</p>
+                        <p><strong>Key Components:</strong> HR³ MATRIX HAIR SOLUTION α + HR³ MATRIX HAIR STAMP</p>
+                        <p><strong>Benefits:</strong> Hair growth stimulation, scalp health improvement, nutrient delivery</p>
+                        <p><strong>Usage:</strong> Professional and home care</p>
+                        <p><strong>Country of Origin:</strong> South Korea</p>
+                      </div>
+                    </div>
                     
                     <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
                     <div className="space-y-3 mb-4">
@@ -6228,18 +6247,6 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                         <li><strong>Nutrient Delivery:</strong> HR³ MATRIX HAIR SOLUTION α provides essential nutrients for hair growth</li>
                         <li><strong>Regeneration:</strong> Natural wound healing process promotes collagen production and scalp health</li>
                       </ol>
-                    </div>
-                    
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
-                      <div className="space-y-2 text-blue-800 text-sm">
-                        <p><strong>Type:</strong> Auto-microneedling LED device for scalp treatment</p>
-                        <p><strong>Technology:</strong> Microneedling + LED light therapy</p>
-                        <p><strong>Key Components:</strong> HR³ MATRIX HAIR SOLUTION α + HR³ MATRIX HAIR STAMP</p>
-                        <p><strong>Benefits:</strong> Hair growth stimulation, scalp health improvement, nutrient delivery</p>
-                        <p><strong>Usage:</strong> Professional and home care</p>
-                        <p><strong>Origin:</strong> Made in South Korea</p>
-                      </div>
                     </div>
                     
                     <div className="bg-green-50 border border-green-200 rounded-lg p-4">
@@ -6320,7 +6327,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                         <p><strong>Light Types:</strong> Infrared + Red + Blue LED combination</p>
                         <p><strong>Features:</strong> Massaging, heating, music mode</p>
                         <p><strong>Usage:</strong> Professional and home care</p>
-                        <p><strong>Origin:</strong> Made in South Korea</p>
+                        <p><strong>Country of Origin:</strong> South Korea</p>
                       </div>
                     </div>
                     
@@ -6444,7 +6451,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                         <p><strong>Key Benefits:</strong> Wrinkle reduction, dark circle diminishment, puffiness relief</p>
                         <p><strong>Usage:</strong> Professional and home care</p>
                         <p><strong>Kit Contents:</strong> 4 components (serum, cream, patches, roller)</p>
-                        <p><strong>Origin:</strong> Made in South Korea</p>
+                        <p><strong>Country of Origin:</strong> South Korea</p>
                       </div>
                     </div>
                     

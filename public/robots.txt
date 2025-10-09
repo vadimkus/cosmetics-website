@@ -84,5 +84,5 @@ Disallow: /
 User-agent: DataForSeoBot
 Disallow: /
 
-# Host directive (helps with duplicate content)
-Host: https://genosys.ae
+# Note: Host directive is not supported in robots.txt
+# Use canonical URLs in HTML instead

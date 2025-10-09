@@ -5085,12 +5085,15 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
                       <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
                       <div className="space-y-2 text-blue-800 text-sm">
-                        <p><strong>Type:</strong> Moisture replenishing hyaluron serum</p>
-                        <p><strong>Size:</strong> 30ml</p>
-                        <p><strong>Key Benefits:</strong> Deep hydration, moisture retention, skin balance</p>
-                        <p><strong>Skin Type:</strong> All skin types, especially dry and dehydrated skin</p>
-                        <p><strong>Usage:</strong> Daily hydration treatment</p>
-                        <p><strong>Technology:</strong> 4-step hydration system</p>
+                        <p><strong>Form:</strong> Oxygen bubble cleanser</p>
+                        <p><strong>Size:</strong> 180ml (Homecare) / 500ml (Professional)</p>
+                        <p><strong>Target:</strong> Deep cleansing and skin nourishment</p>
+                        <p><strong>Technology:</strong> Oxygen therapy mechanism with natural bubble generation</p>
+                        <p><strong>Key Benefits:</strong> Gentle cleansing, oxygen therapy, makeup removal, skin nourishment</p>
+                        <p><strong>Usage:</strong> Morning and evening cleansing</p>
+                        <p><strong>Skin Type:</strong> All skin types, especially sensitive skin</p>
+                        <p><strong>Application:</strong> Apply to wet skin, massage gently, rinse thoroughly</p>
+                        <p><strong>Formulation:</strong> Oxygen bubble technology with gentle surfactants</p>
                         <p><strong>Country of Origin:</strong> South Korea</p>
                       </div>
                     </div>
@@ -5172,17 +5175,6 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </ol>
                     </div>
                     
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
-                      <div className="space-y-2 text-blue-800 text-sm">
-                        <p><strong>Type:</strong> Oxygen bubble cleanser</p>
-                        <p><strong>Size:</strong> 180ml (Homecare) / 500ml (Professional)</p>
-                        <p><strong>Key Benefits:</strong> Deep cleansing, oxygen therapy, gentle formula</p>
-                        <p><strong>Skin Type:</strong> All skin types, including sensitive skin</p>
-                        <p><strong>Usage:</strong> Daily cleansing treatment</p>
-                        <p><strong>Technology:</strong> Oxygen therapy mechanism</p>
-                      </div>
-                    </div>
                     
                     <div className="bg-green-50 border border-green-200 rounded-lg p-4">
                       <p className="text-green-800 text-sm">

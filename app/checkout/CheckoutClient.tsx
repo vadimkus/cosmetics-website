@@ -35,7 +35,15 @@ export default function CheckoutClient() {
   // Generate and send invoice function
   const generateAndSendInvoice = async () => {
     if (!invoiceEmail) {
-      alert('Please enter an email address')
+      // Show subtle notification instead of alert
+      const emailInput = document.querySelector('input[type="email"]') as HTMLInputElement
+      if (emailInput) {
+        emailInput.focus()
+        emailInput.style.borderColor = '#ef4444'
+        setTimeout(() => {
+          emailInput.style.borderColor = ''
+        }, 3000)
+      }
       return
     }
 
@@ -72,13 +80,33 @@ export default function CheckoutClient() {
       })
 
       if (response.ok) {
-        alert('Invoice generated and sent to your email successfully!')
+        // Show subtle success notification instead of alert
+        const button = document.querySelector('button[type="button"]') as HTMLButtonElement
+        if (button) {
+          const originalText = button.textContent
+          button.textContent = '✓ Invoice sent!'
+          button.style.backgroundColor = '#10b981'
+          setTimeout(() => {
+            button.textContent = originalText
+            button.style.backgroundColor = ''
+          }, 2000)
+        }
       } else {
         throw new Error('Failed to generate invoice')
       }
     } catch (error) {
       console.error('Error generating invoice:', error)
-      alert('Failed to generate invoice. Please try again.')
+      // Show subtle error notification instead of alert
+      const button = document.querySelector('button[type="button"]') as HTMLButtonElement
+      if (button) {
+        const originalText = button.textContent
+        button.textContent = '✗ Failed, try again'
+        button.style.backgroundColor = '#ef4444'
+        setTimeout(() => {
+          button.textContent = originalText
+          button.style.backgroundColor = ''
+        }, 2000)
+      }
     } finally {
       setIsGeneratingInvoice(false)
     }
@@ -537,34 +565,58 @@ export default function CheckoutClient() {
 
           {/* Order Summary */}
           <div className="lg:w-1/3">
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200 sticky top-4">
-              <div className="p-6">
-                <div className="flex justify-between items-center mb-6">
-                  <h2 className="text-xl font-bold text-gray-900">Order Summary</h2>
+            <div className="bg-white rounded-xl shadow-lg border border-gray-100 sticky top-4 overflow-hidden">
+              {/* Header */}
+              <div className="bg-gradient-to-r from-primary-600 to-primary-700 px-6 py-4">
+                <div className="flex justify-between items-center">
+                  <h2 className="text-xl font-bold text-white">Order Summary</h2>
                   <div className="text-right">
-                    <div className="text-sm text-gray-500">Order #</div>
-                    <div className="text-sm font-mono font-semibold text-primary-600">{orderNumber}</div>
+                    <div className="text-xs text-primary-100 uppercase tracking-wide">Order #</div>
+                    <div className="text-sm font-mono font-bold text-white">{orderNumber}</div>
                   </div>
                 </div>
-                
-                {/* Items */}
-                <div className="space-y-3 mb-6">
+              </div>
+
+              <div className="p-6">
+                {/* Items List */}
+                <div className="mb-6">
+                  <h3 className="text-sm font-semibold text-gray-700 mb-4 uppercase tracking-wide">Items</h3>
                   {items.length > 0 ? (
-                    items.map((item) => {
-                      const price = item.product.price || 0
-                      const quantity = item.quantity || 1
-                      const total = price * quantity
-                      return (
-                        <div key={item.product.id} className="flex justify-between text-sm">
-                          <span className="text-gray-600">{item.product.name} x{quantity}</span>
-                          <span className="font-medium">AED {total.toFixed(2)}</span>
-                        </div>
-                      )
-                    })
+                    <div className="space-y-4">
+                      {items.map((item) => {
+                        const price = item.product.price || 0
+                        const quantity = item.quantity || 1
+                        const total = price * quantity
+                        return (
+                          <div key={item.product.id} className="flex items-start justify-between">
+                            <div className="flex-1 min-w-0">
+                              <h4 className="text-sm font-medium text-gray-900 leading-tight">
+                                {item.product.name}
+                              </h4>
+                              <div className="flex items-center gap-2 mt-1">
+                                <span className="text-xs text-gray-500">Qty: {quantity}</span>
+                                <span className="text-xs text-gray-400">•</span>
+                                <span className="text-xs text-gray-500">AED {price.toFixed(2)} each</span>
+                              </div>
+                            </div>
+                            <div className="text-right ml-3">
+                              <div className="text-sm font-semibold text-gray-900">
+                                AED {total.toFixed(2)}
+                              </div>
+                            </div>
+                          </div>
+                        )
+                      })}
+                    </div>
                   ) : (
-                    <div className="text-center text-gray-500 py-4">
-                      <p>No items in cart</p>
-                      <Link href="/products" className="text-primary-600 hover:underline text-sm">
+                    <div className="text-center py-8">
+                      <div className="w-16 h-16 mx-auto mb-4 bg-gray-100 rounded-full flex items-center justify-center">
+                        <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                        </svg>
+                      </div>
+                      <p className="text-gray-500 mb-2">Your cart is empty</p>
+                      <Link href="/products" className="text-primary-600 hover:text-primary-700 text-sm font-medium">
                         Continue Shopping
                       </Link>
                     </div>
@@ -573,29 +625,34 @@ export default function CheckoutClient() {
                 
                 {/* Price Breakdown */}
                 <div className="space-y-3 mb-6">
-                  <div className="flex justify-between text-gray-600">
-                    <span>Subtotal ({getTotalItems()} {getTotalItems() === 1 ? 'item' : 'items'})</span>
-                    <span>AED {subtotal.toFixed(2)}</span>
+                  <div className="flex justify-between items-center py-2">
+                    <span className="text-sm text-gray-600">Subtotal ({getTotalItems()} {getTotalItems() === 1 ? 'item' : 'items'})</span>
+                    <span className="text-sm font-medium text-gray-900">AED {subtotal.toFixed(2)}</span>
                   </div>
                   
-                  <div className="flex justify-between text-gray-600">
-                    <span>Shipping to {selectedEmirate}</span>
-                    <span>{shippingCost === 0 ? 'FREE' : `AED ${shippingCost}`}</span>
+                  <div className="flex justify-between items-center py-2">
+                    <div className="flex items-center gap-2">
+                      <Truck className="h-4 w-4 text-gray-400" />
+                      <span className="text-sm text-gray-600">Shipping to {selectedEmirate}</span>
+                    </div>
+                    <span className="text-sm font-medium text-gray-900">
+                      {shippingCost === 0 ? 'FREE' : `AED ${shippingCost}`}
+                    </span>
                   </div>
                   
-                  <div className="flex justify-between text-gray-600">
-                    <span>VAT (5%)</span>
-                    <span>AED {vatAmount.toFixed(2)}</span>
+                  <div className="flex justify-between items-center py-2">
+                    <span className="text-sm text-gray-600">VAT (5%)</span>
+                    <span className="text-sm font-medium text-gray-900">AED {vatAmount.toFixed(2)}</span>
                   </div>
                   
-                  <div className="text-xs text-gray-500 text-center">
+                  <div className="text-xs text-gray-500 text-center py-2 bg-gray-50 rounded-lg">
                     All prices include 5% VAT
                   </div>
                   
-                  <div className="border-t border-gray-200 pt-3">
-                    <div className="flex justify-between text-lg font-bold text-gray-900">
-                      <span>Total</span>
-                      <span>AED {total.toFixed(2)}</span>
+                  <div className="border-t-2 border-gray-200 pt-4">
+                    <div className="flex justify-between items-center">
+                      <span className="text-lg font-bold text-gray-900">Total</span>
+                      <span className="text-xl font-bold text-primary-600">AED {total.toFixed(2)}</span>
                     </div>
                   </div>
                 </div>

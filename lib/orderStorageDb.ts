@@ -32,9 +32,33 @@ export interface OrderData {
 export const readOrders = async (): Promise<Order[]> => {
   try {
     return await prisma.order.findMany({
-      include: {
-        items: true,
-        customer: true
+      select: {
+        id: true,
+        orderNumber: true,
+        customerEmail: true,
+        customerName: true,
+        customerPhone: true,
+        customerEmirate: true,
+        customerAddress: true,
+        subtotal: true,
+        discountAmount: true,
+        shipping: true,
+        vat: true,
+        total: true,
+        status: true,
+        sessionId: true,
+        createdAt: true,
+        updatedAt: true,
+        items: {
+          select: {
+            id: true,
+            productId: true,
+            productName: true,
+            price: true,
+            quantity: true,
+            image: true
+          }
+        }
       },
       orderBy: { createdAt: 'desc' }
     })

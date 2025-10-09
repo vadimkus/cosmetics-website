@@ -1924,12 +1924,20 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     </p>
                     
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <p className="text-blue-800 text-sm font-medium">
-                        <strong>Includes:</strong> 1 x replacement refill - 15g
-                      </p>
-                      <p className="text-blue-800 text-sm font-medium mt-1">
-                        <strong>Color Note:</strong> Beige is darker than Ivory to suit Fitzpatrick 2-4
-                      </p>
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Form:</strong> Blemish balm cushion</p>
+                        <p><strong>Size:</strong> 15g (includes replacement refill)</p>
+                        <p><strong>Target:</strong> Post-treatment coverage and skin protection</p>
+                        <p><strong>Technology:</strong> 60% moisture essence with 40% peptide complex</p>
+                        <p><strong>Key Benefits:</strong> Natural healthy glow, skin calming, sun protection, post-treatment care</p>
+                        <p><strong>Usage:</strong> Daily makeup base, especially after professional treatments</p>
+                        <p><strong>Skin Type:</strong> All skin types, especially post-treatment skin</p>
+                        <p><strong>SPF Rating:</strong> SPF 50 / PA++++</p>
+                        <p><strong>Available Colors:</strong> Beige, Ivory, Camel</p>
+                        <p><strong>Color Note:</strong> Beige is darker than Ivory to suit Fitzpatrick 2-4</p>
+                        <p><strong>Country of Origin:</strong> South Korea</p>
+                      </div>
                     </div>
                     
                     <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>

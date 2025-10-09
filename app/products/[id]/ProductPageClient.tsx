@@ -820,7 +820,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
                       <div className="space-y-2 text-blue-800 text-sm">
                         <p><strong>Form:</strong> Intensive problem control toner</p>
-                        <p><strong>Size:</strong> 200ml / 500ml</p>
+                        <p><strong>Size:</strong> 200ml (Homecare) / 500ml (Professional)</p>
                         <p><strong>Target:</strong> Acne-prone, sensitive, and problematic skin</p>
                         <p><strong>Technology:</strong> Advanced active ingredient complex</p>
                         <p><strong>Key Benefits:</strong> Problem control, pore minimizing, skin soothing</p>
@@ -1665,6 +1665,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                         <p><strong>Skin Type:</strong> All skin types, especially mature skin</p>
                         <p><strong>Usage:</strong> 2-3 times per week</p>
                         <p><strong>Technology:</strong> Hydrolyzed collagen delivery system</p>
+                        <p><strong>Country of Origin:</strong> South Korea</p>
                       </div>
                     </div>
                     

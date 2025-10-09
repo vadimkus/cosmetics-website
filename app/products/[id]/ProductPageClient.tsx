@@ -4030,11 +4030,15 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
                       <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
                       <div className="space-y-2 text-blue-800 text-sm">
-                        <p><strong>Type:</strong> Professional anti-blemish ampoule</p>
+                        <p><strong>Form:</strong> Professional anti-blemish ampoule</p>
                         <p><strong>Size:</strong> 2ml x 10ea</p>
-                        <p><strong>Treatment:</strong> Microneedling, anti-blemish</p>
-                        <p><strong>Skin Type:</strong> All skin types, especially oily and acne-prone skin</p>
+                        <p><strong>Target:</strong> Microneedling treatments and anti-blemish care</p>
+                        <p><strong>Technology:</strong> Advanced anti-blemish formula with sebum control</p>
+                        <p><strong>Key Benefits:</strong> Oil and sebum control, blemish prevention, clear skin promotion, breakout prevention</p>
                         <p><strong>Usage:</strong> Professional treatments, blemish control</p>
+                        <p><strong>Skin Type:</strong> All skin types, especially oily and acne-prone skin</p>
+                        <p><strong>Application:</strong> Apply during microneedling treatments for enhanced blemish control</p>
+                        <p><strong>Professional Use:</strong> Licensed practitioners only</p>
                         <p><strong>Country of Origin:</strong> South Korea</p>
                       </div>
                     </div>
@@ -4156,11 +4160,15 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
                       <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
                       <div className="space-y-2 text-blue-800 text-sm">
-                        <p><strong>Type:</strong> Professional anti-pigment ampoule</p>
+                        <p><strong>Form:</strong> Professional anti-pigment ampoule</p>
                         <p><strong>Size:</strong> 2ml x 10ea</p>
-                        <p><strong>Treatment:</strong> Microneedling, pigmentation control</p>
-                        <p><strong>Skin Type:</strong> All skin types, especially hyperpigmented and uneven skin</p>
+                        <p><strong>Target:</strong> Microneedling treatments and pigmentation control</p>
+                        <p><strong>Technology:</strong> Advanced anti-pigment formula for skin brightening</p>
+                        <p><strong>Key Benefits:</strong> Pigmentation improvement, even skin tone, skin brightening, clarity enhancement</p>
                         <p><strong>Usage:</strong> Professional treatments, pigmentation control</p>
+                        <p><strong>Skin Type:</strong> All skin types, especially hyperpigmented and uneven skin</p>
+                        <p><strong>Application:</strong> Apply during microneedling treatments for enhanced brightening</p>
+                        <p><strong>Professional Use:</strong> Licensed practitioners only</p>
                         <p><strong>Country of Origin:</strong> South Korea</p>
                       </div>
                     </div>
@@ -5057,12 +5065,16 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
                       <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
                       <div className="space-y-2 text-blue-800 text-sm">
-                        <p><strong>Type:</strong> Anti-blemish serum</p>
+                        <p><strong>Form:</strong> Anti-blemish serum</p>
                         <p><strong>Size:</strong> 30ml</p>
-                        <p><strong>Key Benefits:</strong> Sebum control, breakout prevention, texture refinement</p>
+                        <p><strong>Target:</strong> Combination and oily acne-prone skin</p>
+                        <p><strong>Technology:</strong> Advanced sebum-regulating formula</p>
+                        <p><strong>Key Benefits:</strong> Sebum control, breakout prevention, texture refinement, oil regulation</p>
+                        <p><strong>Usage:</strong> Daily anti-blemish treatment, morning and evening</p>
                         <p><strong>Skin Type:</strong> Combination and oily acne-prone skin</p>
-                        <p><strong>Usage:</strong> Daily anti-blemish treatment</p>
+                        <p><strong>Application:</strong> Apply to clean skin, focus on problem areas</p>
                         <p><strong>Testing:</strong> Dermatologically tested and clinically proven</p>
+                        <p><strong>Country of Origin:</strong> South Korea</p>
                       </div>
                     </div>
                     
@@ -5577,12 +5589,15 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
                       <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
                       <div className="space-y-2 text-blue-800 text-sm">
-                        <p><strong>Type:</strong> Skin barrier strengthening cream</p>
+                        <p><strong>Form:</strong> Skin barrier strengthening cream</p>
                         <p><strong>Size:</strong> 100g</p>
-                        <p><strong>Key Benefits:</strong> Barrier protection, moisture retention, skin softening</p>
-                        <p><strong>Skin Type:</strong> All skin types, especially compromised skin</p>
-                        <p><strong>Usage:</strong> Daily barrier protection and repair</p>
-                        <p><strong>Technology:</strong> MultiEx BSASM® Plus</p>
+                        <p><strong>Target:</strong> Barrier protection and repair</p>
+                        <p><strong>Technology:</strong> MultiEx BSASM® Plus with ceramide and amino acid complex</p>
+                        <p><strong>Key Benefits:</strong> Barrier protection, moisture retention, skin softening, water retention promotion</p>
+                        <p><strong>Usage:</strong> Daily barrier protection and repair, morning and evening</p>
+                        <p><strong>Skin Type:</strong> All skin types, especially compromised and sensitive skin</p>
+                        <p><strong>Application:</strong> Apply to clean skin, focus on dry or damaged areas</p>
+                        <p><strong>Country of Origin:</strong> South Korea</p>
                       </div>
                     </div>
                     

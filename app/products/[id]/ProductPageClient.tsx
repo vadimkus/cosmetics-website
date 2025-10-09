@@ -526,12 +526,15 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
                       <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
                       <div className="space-y-2 text-blue-800 text-sm">
-                        <p><strong>Type:</strong> Biphasic makeup remover</p>
+                        <p><strong>Form:</strong> Biphasic makeup remover</p>
                         <p><strong>Size:</strong> 200ml</p>
-                        <p><strong>Key Benefits:</strong> Gentle cleansing, makeup removal, skin nourishment</p>
-                        <p><strong>Target Areas:</strong> Lips and eye area</p>
-                        <p><strong>Usage:</strong> Daily makeup removal</p>
-                        <p><strong>Testing:</strong> Dermatologically tested</p>
+                        <p><strong>Target:</strong> Lip and eye area makeup removal</p>
+                        <p><strong>Technology:</strong> Dual-layer formula with vitamin complex and firming peptides</p>
+                        <p><strong>Key Benefits:</strong> Gentle cleansing, effective makeup removal, skin nourishment, no irritation</p>
+                        <p><strong>Usage:</strong> Daily makeup removal, morning and evening</p>
+                        <p><strong>Skin Type:</strong> All skin types, including sensitive eye and lip areas</p>
+                        <p><strong>Application:</strong> Shake well, apply to cotton pad, gently wipe lip and eye areas</p>
+                        <p><strong>Testing:</strong> Dermatologically tested and ophthalmologically tested</p>
                         <p><strong>Country of Origin:</strong> South Korea</p>
                       </div>
                     </div>

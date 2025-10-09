@@ -3,11 +3,11 @@ import BreadcrumbSchema from '@/components/BreadcrumbSchema'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'GENOSYS Middle East FZ-LLC - Premium Korean Dermacosmetics | Official Distributor UAE',
+  title: 'GENOSYS Middle East FZ-LLC | Official Distributor in the UAE',
   description: 'Discover premium Korean dermacosmetics by GENOSYS. Official distributor in UAE. Professional skincare products, microneedling devices, and advanced beauty solutions.',
   keywords: 'GENOSYS, Korean dermacosmetics, UAE cosmetics, professional skincare, microneedling, Korean beauty products, Dubai cosmetics',
   openGraph: {
-    title: 'GENOSYS Middle East FZ-LLC - Premium Korean Dermacosmetics',
+    title: 'GENOSYS Middle East FZ-LLC | Official Distributor in the UAE',
     description: 'Discover premium Korean dermacosmetics by GENOSYS. Official distributor in UAE. Professional skincare products and advanced beauty solutions.',
     type: 'website',
     images: [
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     site: '@genosys_me',
     creator: '@genosys_me',
-    title: 'GENOSYS Middle East FZ-LLC - Premium Korean Dermacosmetics',
+    title: 'GENOSYS Middle East FZ-LLC | Official Distributor in the UAE',
     description: 'Discover premium Korean dermacosmetics by GENOSYS. Official distributor in UAE.',
     images: ['/images/genosys-products.jpg'],
   },

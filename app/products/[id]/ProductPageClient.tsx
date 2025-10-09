@@ -442,16 +442,20 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       The GENOSYS Microneedle Roller is a professional-grade microneedling device featuring the patented Diskneedle Therapy System (DTS) for enhanced skin rejuvenation. This advanced device utilizes 450 ultra-thin needles that are 25% thinner than competitors, ensuring superior product absorption with minimal skin trauma.
                     </p>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Product Details</h4>
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Technical Specifications</h5>
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
                       <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Type:</strong> Professional microneedle roller device</p>
                         <p><strong>Needle Count:</strong> 450 ultra-thin needles</p>
                         <p><strong>Needle Thickness:</strong> 25% thinner than competitors</p>
                         <p><strong>Technology:</strong> Patented Diskneedle Therapy System (DTS)</p>
-                        <p><strong>Manufacturing:</strong> South Korea</p>
-                        <p><strong>Professional Use:</strong> Licensed practitioners only</p>
+                        <p><strong>Target:</strong> Skin rejuvenation and product absorption enhancement</p>
+                        <p><strong>Key Benefits:</strong> Enhanced product absorption, reduced skin trauma, professional-grade results</p>
+                        <p><strong>Usage:</strong> Professional treatments by licensed practitioners</p>
                         <p><strong>Treatment Areas:</strong> Face, body, scalp applications</p>
+                        <p><strong>Professional Use:</strong> Licensed practitioners only</p>
+                        <p><strong>Safety:</strong> Medical-grade stainless steel needles</p>
+                        <p><strong>Country of Origin:</strong> South Korea</p>
                       </div>
                     </div>
                     
@@ -5157,12 +5161,15 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
                       <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
                       <div className="space-y-2 text-blue-800 text-sm">
-                        <p><strong>Type:</strong> Skin brightening serum</p>
+                        <p><strong>Form:</strong> Advanced skin brightening serum</p>
                         <p><strong>Size:</strong> 30ml</p>
-                        <p><strong>Key Benefits:</strong> Skin brightening, even skin tone, natural radiance</p>
+                        <p><strong>Target:</strong> Skin brightening and melanin control</p>
+                        <p><strong>Technology:</strong> MELAZERO® melanin care complex with multi-vitamin formula</p>
+                        <p><strong>Key Benefits:</strong> Skin brightening, even skin tone, natural radiance, melanin control</p>
+                        <p><strong>Usage:</strong> Daily brightening treatment, morning and evening</p>
                         <p><strong>Skin Type:</strong> All skin types, especially dull and uneven skin</p>
-                        <p><strong>Usage:</strong> Daily brightening treatment</p>
-                        <p><strong>Technology:</strong> MELAZERO® melanin care complex</p>
+                        <p><strong>Application:</strong> Apply to clean skin before moisturizer</p>
+                        <p><strong>Country of Origin:</strong> South Korea</p>
                       </div>
                     </div>
                     
@@ -5271,6 +5278,8 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                         during daytime to protect skin from UV damage. Store in a cool, dry place away from direct sunlight.
                       </p>
                     </div>
+                    
+                    <div className="mb-8"></div>
                   </>
                 ) : product.id === '23' ? (
                   <>

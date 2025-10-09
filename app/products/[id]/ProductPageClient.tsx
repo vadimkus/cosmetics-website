@@ -1083,12 +1083,15 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
                       <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
                       <div className="space-y-2 text-blue-800 text-sm">
-                        <p><strong>Type:</strong> Daily moisturizing and skin refining toner</p>
-                        <p><strong>Size:</strong> 200ml/1000ml</p>
-                        <p><strong>Key Benefits:</strong> Deep hydration, pH balancing, skin refinement</p>
+                        <p><strong>Form:</strong> Daily moisturizing and skin refining toner</p>
+                        <p><strong>Size:</strong> 200ml (Homecare) / 1000ml (Professional)</p>
+                        <p><strong>Target:</strong> Hydration and skin refinement</p>
+                        <p><strong>Technology:</strong> Botanical extract complex with pH balancing system</p>
+                        <p><strong>Key Benefits:</strong> Deep moisturization, skin soothing, texture refinement, pH balancing</p>
+                        <p><strong>Usage:</strong> Morning and evening after cleansing</p>
                         <p><strong>Skin Type:</strong> All skin types</p>
-                        <p><strong>Usage:</strong> Daily skincare routine</p>
-                        <p><strong>Technology:</strong> Fermentation technology</p>
+                        <p><strong>Application:</strong> Apply with cotton pad or pat gently with hands</p>
+                        <p><strong>Formulation:</strong> Lightweight, fast-absorbing formula</p>
                         <p><strong>Country of Origin:</strong> South Korea</p>
                       </div>
                     </div>
@@ -5845,6 +5848,22 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       for comprehensive skin renewal and recovery.
                     </p>
                     
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Form:</strong> Overnight cream mask</p>
+                        <p><strong>Size:</strong> 100g</p>
+                        <p><strong>Target:</strong> Fatigued and stressed skin recovery</p>
+                        <p><strong>Technology:</strong> Dual formula with oxygen capsules and pink ceramide complex</p>
+                        <p><strong>Key Benefits:</strong> Skin revitalization, oxygen therapy, overnight recovery, erythema improvement</p>
+                        <p><strong>Usage:</strong> Overnight treatment 2-3 times per week</p>
+                        <p><strong>Skin Type:</strong> All skin types, especially fatigued skin</p>
+                        <p><strong>Application:</strong> Apply generously, massage until capsules burst, leave overnight</p>
+                        <p><strong>Results:</strong> Clinically proven to improve erythema and transepidermal water loss</p>
+                        <p><strong>Country of Origin:</strong> South Korea</p>
+                      </div>
+                    </div>
+                    
                     <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
@@ -5941,18 +5960,6 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                         <li><strong>Frequency:</strong> Use 2-3 times per week for optimal results</li>
                         <li><strong>Results:</strong> Wake up to revitalized, refreshed skin</li>
                       </ol>
-                    </div>
-                    
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
-                      <div className="space-y-2 text-blue-800 text-sm">
-                        <p><strong>Type:</strong> Overnight cream mask</p>
-                        <p><strong>Size:</strong> 100g</p>
-                        <p><strong>Key Benefits:</strong> Revitalization, oxygen therapy, overnight recovery</p>
-                        <p><strong>Skin Type:</strong> All skin types, especially fatigued skin</p>
-                        <p><strong>Usage:</strong> Overnight treatment 2-3 times per week</p>
-                        <p><strong>Technology:</strong> Dual formula with oxygen capsules</p>
-                      </div>
                     </div>
                     
                     <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-6">

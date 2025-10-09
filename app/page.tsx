@@ -4,11 +4,11 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'GENOSYS Middle East FZ-LLC | Official Distributor in the UAE',
-  description: 'Discover premium Korean dermacosmetics by GENOSYS. Official distributor in UAE. Professional skincare products, microneedling devices, and advanced beauty solutions.',
+  description: 'Premium Korean dermacosmetics by GENOSYS. Official UAE distributor. Professional skincare products, microneedling devices & beauty solutions.',
   keywords: 'GENOSYS, Korean dermacosmetics, UAE cosmetics, professional skincare, microneedling, Korean beauty products, Dubai cosmetics',
   openGraph: {
     title: 'GENOSYS Middle East FZ-LLC | Official Distributor in the UAE',
-    description: 'Discover premium Korean dermacosmetics by GENOSYS. Official distributor in UAE. Professional skincare products and advanced beauty solutions.',
+    description: 'Premium Korean dermacosmetics by GENOSYS. Official UAE distributor. Professional skincare products, microneedling devices & beauty solutions.',
     type: 'website',
     images: [
       {

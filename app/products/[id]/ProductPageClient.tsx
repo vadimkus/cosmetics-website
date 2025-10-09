@@ -1291,7 +1291,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
                       <div className="space-y-2 text-blue-800 text-sm">
                         <p><strong>Type:</strong> Advanced moisturizing cream</p>
-                        <p><strong>Size:</strong> 50g/250g</p>
+                        <p><strong>Size:</strong> 50g (Homecare) / 250g (Professional)</p>
                         <p><strong>Key Benefits:</strong> Deep hydration, 72-hour persistence, skin barrier protection</p>
                         <p><strong>Skin Type:</strong> All skin types, especially dry and dehydrated skin</p>
                         <p><strong>Usage:</strong> Daily morning and evening application</p>
@@ -1786,10 +1786,15 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
                       <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
                       <div className="space-y-2 text-blue-800 text-sm">
-                        <p><strong>Size:</strong> 50g/250g</p>
-                        <p><strong>Suitable for:</strong> All skin types, especially mature skin</p>
-                        <p><strong>Country of Origin:</strong> South Korea</p>
+                        <p><strong>Form:</strong> Multi-functional anti-wrinkle cream</p>
+                        <p><strong>Size:</strong> 50g (Homecare) / 250g (Professional)</p>
+                        <p><strong>Target:</strong> Anti-aging and wrinkle reduction</p>
+                        <p><strong>Technology:</strong> Advanced anti-aging formula with multi-functional benefits</p>
+                        <p><strong>Key Benefits:</strong> Wrinkle reduction, firming, collagen synthesis, antioxidant protection</p>
+                        <p><strong>Usage:</strong> Morning and/or evening application</p>
+                        <p><strong>Skin Type:</strong> All skin types, especially mature skin</p>
                         <p><strong>Formulation:</strong> Advanced anti-aging cream with multi-functional benefits</p>
+                        <p><strong>Country of Origin:</strong> South Korea</p>
                       </div>
                     </div>
                     
@@ -4609,6 +4614,20 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       hyaluronic acid complex with mushroom extracts to provide deep moisture replenishment and long-lasting hydration.
                     </p>
                     
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Form:</strong> Hydrating serum with coconut water base</p>
+                        <p><strong>Size:</strong> 30ml</p>
+                        <p><strong>Target:</strong> Deep hydration and moisture replenishment</p>
+                        <p><strong>Technology:</strong> 4-step hydration system with multi-molecular hyaluronic acid</p>
+                        <p><strong>Key Benefits:</strong> Deep hydration, moisture retention, anti-inflammatory protection</p>
+                        <p><strong>Usage:</strong> Daily morning and evening application</p>
+                        <p><strong>Skin Type:</strong> All skin types, especially dry and dehydrated skin</p>
+                        <p><strong>Country of Origin:</strong> South Korea</p>
+                      </div>
+                    </div>
+                    
                     <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
@@ -4731,13 +4750,16 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </ol>
                     </div>
                     
-                    <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                    <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-6">
                       <p className="text-green-800 text-sm">
                         <strong>Note:</strong> This product is dermatologically tested and suitable for all skin types. 
                         For best results, use consistently as part of your daily skincare routine. Store in a cool, 
                         dry place away from direct sunlight.
                       </p>
                     </div>
+                    
+                    {/* Spacing between note and product documentation */}
+                    <div className="mt-6"></div>
                   </>
                 ) : product.id === '2' ? (
                   <>

@@ -5593,12 +5593,17 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
                       <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
                       <div className="space-y-2 text-blue-800 text-sm">
-                        <p><strong>Type:</strong> Post-treatment regenerating cream</p>
+                        <p><strong>Form:</strong> Post-treatment regenerating cream</p>
                         <p><strong>Size:</strong> 20g (Homecare) / 100g (Professional)</p>
-                        <p><strong>Key Benefits:</strong> Recovery, soothing, healing, regeneration</p>
-                        <p><strong>Target:</strong> Post-treatment skin recovery</p>
+                        <p><strong>Target:</strong> Post-treatment skin recovery and healing</p>
+                        <p><strong>Technology:</strong> Centella complex with peptide technology</p>
+                        <p><strong>Key Benefits:</strong> Rapid recovery, redness reduction, erythema relief, edema reduction, skin regeneration</p>
                         <p><strong>Usage:</strong> As needed after professional treatments</p>
+                        <p><strong>Skin Type:</strong> All skin types, especially post-treatment sensitive skin</p>
+                        <p><strong>Application:</strong> Apply thin layer to affected areas, massage gently</p>
+                        <p><strong>Formulation:</strong> Centella asiatica complex with sh-Polypeptide-7</p>
                         <p><strong>Testing:</strong> Dermatologically tested and clinically proven</p>
+                        <p><strong>Country of Origin:</strong> South Korea</p>
                       </div>
                     </div>
                     
@@ -5971,6 +5976,22 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       and centella asiatica extract for comprehensive skin healing and hydration.
                     </p>
                     
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Form:</strong> Eucalace® sheet mask</p>
+                        <p><strong>Size:</strong> 1 sheet (23g)</p>
+                        <p><strong>Target:</strong> Stressed and irritated skin relief</p>
+                        <p><strong>Technology:</strong> Eucalace® sheet mask technology with sea algae complex</p>
+                        <p><strong>Key Benefits:</strong> Intensive relief, deep hydration, soothing effect, skin healing</p>
+                        <p><strong>Usage:</strong> 2-3 times per week for optimal results</p>
+                        <p><strong>Skin Type:</strong> All skin types, especially stressed and irritated skin</p>
+                        <p><strong>Application:</strong> Apply to clean skin, leave for 15-20 minutes</p>
+                        <p><strong>Formulation:</strong> Sea algae complex with centella asiatica extract</p>
+                        <p><strong>Country of Origin:</strong> South Korea</p>
+                      </div>
+                    </div>
+                    
                     <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
@@ -6069,17 +6090,6 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </ol>
                     </div>
                     
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
-                      <div className="space-y-2 text-blue-800 text-sm">
-                        <p><strong>Type:</strong> Eucalace® sheet mask</p>
-                        <p><strong>Size:</strong> 25g x 10ea</p>
-                        <p><strong>Key Benefits:</strong> Intensive relief, deep hydration, soothing effect</p>
-                        <p><strong>Skin Type:</strong> All skin types, especially stressed skin</p>
-                        <p><strong>Usage:</strong> 2-3 times per week</p>
-                        <p><strong>Technology:</strong> Eucalace® sheet mask technology</p>
-                      </div>
-                    </div>
                     
                     <div className="bg-green-50 border border-green-200 rounded-lg p-4">
                       <p className="text-green-800 text-sm">
@@ -6097,6 +6107,23 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       and sunburn care effect. This advanced formula strongly defends skin against UV rays while promoting 
                       skin recovery from sun damage with innovative MicroHA™ and ProbioMETA™ technology.
                     </p>
+                    
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Form:</strong> Daily sunscreen with sunburn care</p>
+                        <p><strong>Size:</strong> 50g</p>
+                        <p><strong>Protection:</strong> SPF 50+ PA++++</p>
+                        <p><strong>Target:</strong> UV protection and sunburn care</p>
+                        <p><strong>Technology:</strong> MicroHA™ and ProbioMETA™ technology</p>
+                        <p><strong>Key Benefits:</strong> UV protection, sunburn care, skin recovery, reef-safe protection</p>
+                        <p><strong>Usage:</strong> Daily sun protection, reapply every 2 hours</p>
+                        <p><strong>Skin Type:</strong> All skin types</p>
+                        <p><strong>Application:</strong> Apply generously to all exposed skin areas</p>
+                        <p><strong>Formulation:</strong> Non-greasy, silky texture with tropical antioxidant complex</p>
+                        <p><strong>Country of Origin:</strong> South Korea</p>
+                      </div>
+                    </div>
                     
                     <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
                     <div className="space-y-3 mb-4">
@@ -6182,17 +6209,6 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </ol>
                     </div>
                     
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
-                      <div className="space-y-2 text-blue-800 text-sm">
-                        <p><strong>Type:</strong> Daily sunscreen with sunburn care</p>
-                        <p><strong>Size:</strong> 50g</p>
-                        <p><strong>Protection:</strong> SPF 50+ PA++++</p>
-                        <p><strong>Key Benefits:</strong> UV protection, sunburn care, skin recovery</p>
-                        <p><strong>Skin Type:</strong> All skin types</p>
-                        <p><strong>Usage:</strong> Daily sun protection</p>
-                      </div>
-                    </div>
                     
                     <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-6">
                       <p className="text-green-800 text-sm">

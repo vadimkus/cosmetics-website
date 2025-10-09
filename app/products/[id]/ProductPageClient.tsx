@@ -1629,6 +1629,132 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                     </div>
                   </>
+                ) : product.id === 'cmgj9ifoi00008o07p4eqmfb7' ? ( // Product 53 - INTENSIVE REPAIR COLLAGEN MASK
+                  <>
+                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <p className="text-gray-600 mb-4 text-sm">
+                      INTENSIVE REPAIR COLLAGEN MASK is a professional-grade sheet mask designed to restore skin firmness and elasticity. 
+                      This innovative mask provides intensive repair and anti-aging benefits with hydrolyzed collagen and hyaluronic acid 
+                      for comprehensive skin nourishment and hydration.
+                    </p>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
+                    <div className="space-y-3 mb-4">
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Professional-Grade Quality</h5>
+                        <p className="text-sm text-gray-600">
+                          Advanced collagen mask technology that provides optimal skin contact and ingredient delivery.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Dermatologically Tested</h5>
+                        <p className="text-sm text-gray-600">
+                          Clinically tested formula safe for all skin types with proven results.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Long-Lasting Results</h5>
+                        <p className="text-sm text-gray-600">
+                          Provides sustained benefits for improved skin texture and appearance.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Safe for All Skin Types</h5>
+                        <p className="text-sm text-gray-600">
+                          Gentle yet effective formula suitable for sensitive and mature skin.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
+                    <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
+                      <li>Intensive Hydration - Provides deep moisture for soft, supple skin</li>
+                      <li>Enhanced Elasticity - Boosts collagen production for improved skin firmness</li>
+                      <li>Reduces Fine Lines - Diminishes appearance of wrinkles for youthful complexion</li>
+                      <li>Skin Brightening - Enhances radiance and evens skin tone</li>
+                      <li>Deep Nourishment - Delivers essential nutrients for skin health</li>
+                      <li>Anti-Aging Properties - Combats signs of aging for younger-looking skin</li>
+                    </ul>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h4>
+                    <div className="space-y-3 mb-4">
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Hydrolyzed Collagen</h5>
+                        <p className="text-sm text-gray-600">
+                          Protein that supports skin structure and improves firmness.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Hyaluronic Acid</h5>
+                        <p className="text-sm text-gray-600">
+                          Powerful humectant that attracts and retains moisture.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Vitamin E</h5>
+                        <p className="text-sm text-gray-600">
+                          Antioxidant that protects skin from environmental damage.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Seaweed Extract</h5>
+                        <p className="text-sm text-gray-600">
+                          Rich in minerals and vitamins for skin nourishment.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Argan Oil</h5>
+                        <p className="text-sm text-gray-600">
+                          Moisturizes and softens skin with essential fatty acids.
+                        </p>
+                      </div>
+                      
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Shea Butter</h5>
+                        <p className="text-sm text-gray-600">
+                          Natural emollient that soothes and hydrates skin.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h4>
+                    <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
+                      <ol className="list-decimal list-inside text-gray-600 space-y-2 text-sm">
+                        <li><strong>Preparation:</strong> Cleanse skin thoroughly and apply toner if desired</li>
+                        <li><strong>Application:</strong> Remove mask from package and unfold carefully</li>
+                        <li><strong>Placement:</strong> Apply mask to face, adjusting for proper fit</li>
+                        <li><strong>Duration:</strong> Leave on for 15-20 minutes for optimal results</li>
+                        <li><strong>Removal:</strong> Gently remove mask and massage remaining essence into skin</li>
+                        <li><strong>Frequency:</strong> Use 2-3 times per week for best results</li>
+                      </ol>
+                    </div>
+                    
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Type:</strong> Professional collagen sheet mask</p>
+                        <p><strong>Size:</strong> 1 Sheet (23g)</p>
+                        <p><strong>Key Benefits:</strong> Intensive repair, deep hydration, anti-aging</p>
+                        <p><strong>Skin Type:</strong> All skin types, especially mature skin</p>
+                        <p><strong>Usage:</strong> 2-3 times per week</p>
+                        <p><strong>Technology:</strong> Hydrolyzed collagen delivery system</p>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-green-800 mb-2 text-sm">Note:</h5>
+                      <p className="text-green-800 text-sm">
+                        This product is dermatologically tested and clinically proven to improve skin hydration. For best results, use consistently as part of your weekly skincare routine. Store in a cool, dry place away from direct sunlight.
+                      </p>
+                    </div>
+                  </>
                 ) : product.id === '32' ? ( // Added detailed description for product 32
                   <>
                     <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>

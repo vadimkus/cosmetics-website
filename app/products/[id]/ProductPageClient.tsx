@@ -1519,6 +1519,20 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       noticeable radiance while activating collagen production and shielding the skin from UV radiation and environmental stressors.
                     </p>
                     
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Form:</strong> Multi-vitamin radiance cream</p>
+                        <p><strong>Size:</strong> 50g (Homecare) / 230g (Professional)</p>
+                        <p><strong>Target:</strong> Anti-aging and skin brightening</p>
+                        <p><strong>Technology:</strong> VITA 12 Complex with Astaxanthin</p>
+                        <p><strong>Key Benefits:</strong> Brightening, deep moisturizing, antioxidant protection</p>
+                        <p><strong>Usage:</strong> Morning and evening application</p>
+                        <p><strong>Skin Type:</strong> All skin types, especially aging and dull skin</p>
+                        <p><strong>Country of Origin:</strong> South Korea</p>
+                      </div>
+                    </div>
+                    
                     <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
                     <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
                       <li>Brightening - Helps lighten pigmentation spots and improve overall skin tone</li>
@@ -1596,18 +1610,33 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
                       <h5 className="font-semibold text-blue-800 mb-2 text-sm">Full Ingredients List</h5>
-                      <p className="text-blue-800 text-sm">
-                        Aqua (Water), Ethylhexyl Methoxycinnamate, Butylene Glycol, Ethylhexyl Salicylate, Titanium Dioxide, 
-                        Isoamyl p-Methoxycinnamate, Dimethicone, Polysorbate 60, Glyceryl Stearate, Glycerin, Palmitoyl Pentapeptide-4, 
-                        Sodium Hyaluronate, Rosa Damascena Callus Culture Extract, Vitis Vinifera (Grape) Callus Culture Extract, 
-                        Centella Asiatica Extract, Scutellaria Baicalensis Root Extract, Lactobacillus/Soymilk Ferment Filtrate, 
-                        Stearyl Alcohol, Cetyl Alcohol, PEG-100 Stearate, VP/Eicosene Copolymer, Palmitic Acid, Isohexadecane, 
-                        Stearic Acid, Sorbitan Stearate, Glycine Soja (Soybean) Sterols, Polysorbate 80, Xanthan Gum, 
-                        Magnesium Aluminum Silicate, Sorbitan Oleate, 1,2-Hexanediol, Disodium EDTA, Amorphophallus Konjac Root Extract, 
-                        Myristic Acid, Myristyl Alcohol, Lauryl Alcohol, Dimethicone/Vinyl Dimethicone Crosspolymer, 
-                        Sodium Acrylate/Sodium Acryloyldimethyl Taurate Copolymer, Fragrance, Caprylyl Glycol, Ethylhexylglycerin, 
-                        Tropolone, Butylphenyl Methylpropional, Benzyl Benzoate, Citronellol, Hexyl Cinnamal, Limonene, Alpha-Isomethyl Ionone.
-                      </p>
+                      <div className="text-blue-800 text-sm leading-relaxed">
+                        <p className="mb-2">
+                          <strong>Base Ingredients:</strong> Aqua (Water), Butylene Glycol, Glycerin, Dimethicone, 
+                          Glyceryl Stearate, Stearyl Alcohol, Cetyl Alcohol, PEG-100 Stearate, VP/Eicosene Copolymer, 
+                          Palmitic Acid, Isohexadecane, Stearic Acid, Sorbitan Stearate, Polysorbate 60, Polysorbate 80, 
+                          Xanthan Gum, Magnesium Aluminum Silicate, Sorbitan Oleate, 1,2-Hexanediol, Disodium EDTA.
+                        </p>
+                        <p className="mb-2">
+                          <strong>Active Ingredients:</strong> Palmitoyl Pentapeptide-4, Sodium Hyaluronate, 
+                          Rosa Damascena Callus Culture Extract, Vitis Vinifera (Grape) Callus Culture Extract, 
+                          Centella Asiatica Extract, Scutellaria Baicalensis Root Extract, Lactobacillus/Soymilk Ferment Filtrate, 
+                          Amorphophallus Konjac Root Extract, Glycine Soja (Soybean) Sterols.
+                        </p>
+                        <p className="mb-2">
+                          <strong>UV Protection:</strong> Ethylhexyl Methoxycinnamate, Ethylhexyl Salicylate, Titanium Dioxide, 
+                          Isoamyl p-Methoxycinnamate.
+                        </p>
+                        <p className="mb-2">
+                          <strong>Preservatives & Stabilizers:</strong> Myristic Acid, Myristyl Alcohol, Lauryl Alcohol, 
+                          Dimethicone/Vinyl Dimethicone Crosspolymer, Sodium Acrylate/Sodium Acryloyldimethyl Taurate Copolymer, 
+                          Caprylyl Glycol, Ethylhexylglycerin, Tropolone.
+                        </p>
+                        <p>
+                          <strong>Fragrance Components:</strong> Fragrance, Butylphenyl Methylpropional, Benzyl Benzoate, 
+                          Citronellol, Hexyl Cinnamal, Limonene, Alpha-Isomethyl Ionone.
+                        </p>
+                      </div>
                     </div>
                     
                     <div className="bg-green-50 border border-green-200 rounded-lg p-4">
@@ -4487,6 +4516,19 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       helps visibly smooth wrinkles, reinforce skin firmness, and restore youthful radiance for all skin types.
                     </p>
                     
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Type:</strong> Multi-functional anti-wrinkle serum</p>
+                        <p><strong>Size:</strong> 30ml</p>
+                        <p><strong>Key Benefits:</strong> Wrinkle reduction, skin firmness, anti-aging</p>
+                        <p><strong>Skin Type:</strong> All skin types, especially aging and mature skin</p>
+                        <p><strong>Usage:</strong> Daily anti-aging treatment</p>
+                        <p><strong>Clinical Testing:</strong> Clinically tested for efficacy and safety</p>
+                        <p><strong>Country of Origin:</strong> South Korea</p>
+                      </div>
+                    </div>
+                    
                     <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
@@ -4583,18 +4625,6 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                         <li><strong>Frequency:</strong> Use once daily, preferably in the evening</li>
                         <li><strong>Results:</strong> Visible improvements typically seen within 4-6 weeks of consistent use</li>
                       </ol>
-                    </div>
-                    
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
-                      <div className="space-y-2 text-blue-800 text-sm">
-                        <p><strong>Type:</strong> Multi-functional anti-wrinkle serum</p>
-                        <p><strong>Size:</strong> 30ml</p>
-                        <p><strong>Key Benefits:</strong> Wrinkle reduction, skin firmness, anti-aging</p>
-                        <p><strong>Skin Type:</strong> All skin types, especially aging and mature skin</p>
-                        <p><strong>Usage:</strong> Daily anti-aging treatment</p>
-                        <p><strong>Clinical Testing:</strong> Clinically tested for efficacy and safety</p>
-                      </div>
                     </div>
                     
                     <div className="bg-green-50 border border-green-200 rounded-lg p-4">
@@ -5992,6 +6022,18 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       with skin-nourishing ingredients to protect against both UVA and UVB rays while promoting healthy, radiant skin.
                     </p>
                     
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Type:</strong> Daily sunscreen with SPF 40 PA++</p>
+                        <p><strong>Size:</strong> 40g</p>
+                        <p><strong>Protection:</strong> UVA/UVB protection, SPF 40, PA++</p>
+                        <p><strong>Skin Type:</strong> All skin types, including sensitive skin</p>
+                        <p><strong>Usage:</strong> Daily sun protection, outdoor activities</p>
+                        <p><strong>Country of Origin:</strong> South Korea</p>
+                      </div>
+                    </div>
+                    
                     <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
@@ -6087,18 +6129,6 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                         <li><strong>Daily Use:</strong> Use as the final step in your morning skincare routine</li>
                         <li><strong>Coverage:</strong> Ensure even coverage for optimal protection</li>
                       </ol>
-                    </div>
-                    
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
-                      <div className="space-y-2 text-blue-800 text-sm">
-                        <p><strong>Type:</strong> Daily sunscreen with SPF 40 PA++</p>
-                        <p><strong>Size:</strong> 40g</p>
-                        <p><strong>Protection:</strong> UVA/UVB protection, SPF 40, PA++</p>
-                        <p><strong>Skin Type:</strong> All skin types, including sensitive skin</p>
-                        <p><strong>Usage:</strong> Daily sun protection, outdoor activities</p>
-                        <p><strong>Country of Origin:</strong> South Korea</p>
-                      </div>
                     </div>
                     
                     <div className="bg-green-50 border border-green-200 rounded-lg p-4">

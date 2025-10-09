@@ -1,6 +1,6 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useMemo } from 'react'
 import { Product } from '@/types'
-import { getProductSizes, getProductColors, hasProductVariants } from '@/data/productConfig'
+import { getProductSizes, getProductColors, hasProductVariants, getProductPrice } from '@/data/productConfig'
 
 export interface UseProductVariantsReturn {
   selectedSize: string
@@ -16,8 +16,23 @@ export interface UseProductVariantsReturn {
 }
 
 export const useProductVariants = (product: Product): UseProductVariantsReturn => {
-  const availableSizes = getProductSizes(product.id)
-  const availableColors = getProductColors(product.id)
+  const rawSizes = getProductSizes(product.id)
+  const rawColors = getProductColors(product.id)
+  
+  const availableSizes = useMemo(() => {
+    return rawSizes.map(size => ({
+      value: size.value,
+      label: size.label,
+      price: getProductPrice(product.id, size.value)
+    }))
+  }, [rawSizes, product.id])
+  
+  const availableColors = useMemo(() => {
+    return rawColors.map(color => ({
+      value: color.value,
+      label: color.label
+    }))
+  }, [rawColors])
   
   const hasSizeVariants = availableSizes.length > 0
   const hasColorVariants = availableColors.length > 0

@@ -669,6 +669,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
                       <div className="space-y-2 text-blue-800 text-sm">
                         <p><strong>Form:</strong> Enzyme-based peeling gel</p>
+                        <p><strong>Size:</strong> 100g</p>
                         <p><strong>Skin Type:</strong> All skin types, including sensitive skin</p>
                         <p><strong>Technology:</strong> Natural enzyme exfoliation</p>
                         <p><strong>Key Benefits:</strong> Gentle exfoliation, radiance enhancement, pore purification</p>
@@ -819,11 +820,11 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
                       <div className="space-y-2 text-blue-800 text-sm">
                         <p><strong>Form:</strong> Intensive problem control toner</p>
+                        <p><strong>Size:</strong> 200ml / 500ml</p>
                         <p><strong>Target:</strong> Acne-prone, sensitive, and problematic skin</p>
                         <p><strong>Technology:</strong> Advanced active ingredient complex</p>
                         <p><strong>Key Benefits:</strong> Problem control, pore minimizing, skin soothing</p>
                         <p><strong>Usage:</strong> Professional and home care</p>
-                        <p><strong>Volume:</strong> 200ml / 500ml</p>
                         <p><strong>Skin Type:</strong> Problematic, acne-prone, sensitive skin</p>
                         <p><strong>Country of Origin:</strong> South Korea</p>
                       </div>
@@ -1958,6 +1959,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
                       <div className="space-y-2 text-blue-800 text-sm">
                         <p><strong>Form:</strong> Powder mask (activates with water)</p>
+                        <p><strong>Size:</strong> 300g</p>
                         <p><strong>Skin Type:</strong> All skin types, especially mature and aging skin</p>
                         <p><strong>Technology:</strong> Bio-fermentation process</p>
                         <p><strong>Key Benefits:</strong> Age defying, skin renewal, deep hydration</p>
@@ -2094,6 +2096,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
                       <div className="space-y-2 text-blue-800 text-sm">
                         <p><strong>Form:</strong> Oxygen bubbling mask cream</p>
+                        <p><strong>Size:</strong> 50g</p>
                         <p><strong>Skin Type:</strong> All skin types, especially damaged and stressed skin</p>
                         <p><strong>Technology:</strong> EGF and oxygen therapy</p>
                         <p><strong>Key Benefits:</strong> Skin regeneration, oxygen therapy, anti-inflammatory</p>
@@ -2191,7 +2194,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
                       <div className="space-y-2 text-blue-800 text-sm">
                         <p><strong>Form:</strong> Thermo-sensitive hydrogel patches</p>
-                        <p><strong>Size:</strong> 60 patches</p>
+                        <p><strong>Size:</strong> 101g (60 patches)</p>
                         <p><strong>Skin Type:</strong> All skin types, especially mature and aging skin</p>
                         <p><strong>Technology:</strong> Patented thermo-sensitive hydrogel technology</p>
                         <p><strong>Key Benefits:</strong> Puffiness reduction, dark circle lightening, fine line smoothing</p>
@@ -2314,11 +2317,12 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
                       <div className="space-y-2 text-blue-800 text-sm">
                         <p><strong>Form:</strong> Professional carboxy therapy kit (Gel + Sheet Mask)</p>
+                        <p><strong>Size:</strong> 1 kit</p>
                         <p><strong>Skin Type:</strong> All skin types, especially dull and stressed skin</p>
                         <p><strong>Technology:</strong> CO₂ therapy with Bohr Effect mechanism</p>
                         <p><strong>Key Benefits:</strong> Oxygen therapy, skin firming, brightening, anti-blemish</p>
                         <p><strong>Usage:</strong> 1-2 times per week</p>
-                        <p><strong>Kit Contents:</strong> Gel 20g x 5ea, Mask 12g x 5ea</p>
+                        <p><strong>Kit Contents:</strong> Gel 20g x 5ea, Mask 12g x 5ea, 1 Peptide Mask</p>
                         <p><strong>Special Feature:</strong> Catalytic mask for enhanced treatment absorption</p>
                         <p><strong>Country of Origin:</strong> South Korea</p>
                       </div>
@@ -2475,11 +2479,11 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
                       <div className="space-y-2 text-blue-800 text-sm">
                         <p><strong>Form:</strong> Scalp peeling solution</p>
+                        <p><strong>Size:</strong> 100ml</p>
                         <p><strong>Target:</strong> Scalp preparation for microneedling treatments</p>
                         <p><strong>Technology:</strong> Gentle exfoliating and refreshing formula</p>
                         <p><strong>Key Benefits:</strong> Scalp cleansing, refreshing sensation, treatment preparation</p>
                         <p><strong>Usage:</strong> Professional and home care</p>
-                        <p><strong>Volume:</strong> 100ml</p>
                         <p><strong>Country of Origin:</strong> South Korea</p>
                       </div>
                     </div>
@@ -2681,11 +2685,11 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
                       <div className="space-y-2 text-blue-800 text-sm">
                         <p><strong>Form:</strong> Professional modeling mask</p>
+                        <p><strong>Size:</strong> 1kg</p>
                         <p><strong>Target:</strong> Post-treatment skin soothing and hydration</p>
                         <p><strong>Technology:</strong> Advanced cooling and hydrating formula</p>
                         <p><strong>Key Benefits:</strong> Cooling effect, hydration, pore minimizing, skin soothing</p>
                         <p><strong>Usage:</strong> Professional and home care</p>
-                        <p><strong>Volume:</strong> 1kg</p>
                         <p><strong>Skin Type:</strong> All skin types</p>
                         <p><strong>Country of Origin:</strong> South Korea</p>
                       </div>
@@ -3223,6 +3227,19 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       skin health for both professional and home use.
                     </p>
                     
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Light Wavelengths:</strong> Red light (630-660nm) and Infrared (800-1000nm)</p>
+                        <p><strong>Treatment Time:</strong> 10-20 minutes per session</p>
+                        <p><strong>Frequency:</strong> 3-5 times per week for optimal results</p>
+                        <p><strong>Safety:</strong> FDA-cleared for home use</p>
+                        <p><strong>Power Source:</strong> Rechargeable battery with long-lasting performance</p>
+                        <p><strong>Design:</strong> Ergonomic, portable, and easy to use</p>
+                        <p><strong>Country of Origin:</strong> South Korea</p>
+                      </div>
+                    </div>
+                    
                     <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
@@ -3266,18 +3283,6 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                         <li><strong>Post-Treatment Care:</strong> Enhances recovery after professional treatments</li>
                         <li><strong>General Maintenance:</strong> Regular use for ongoing skin health and vitality</li>
                       </ul>
-                    </div>
-                    
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Technical Specifications</h5>
-                      <div className="space-y-2 text-blue-800 text-sm">
-                        <p><strong>Light Wavelengths:</strong> Red light (630-660nm) and Infrared (800-1000nm)</p>
-                        <p><strong>Treatment Time:</strong> 10-20 minutes per session</p>
-                        <p><strong>Frequency:</strong> 3-5 times per week for optimal results</p>
-                        <p><strong>Safety:</strong> FDA-cleared for home use</p>
-                        <p><strong>Power Source:</strong> Rechargeable battery with long-lasting performance</p>
-                        <p><strong>Design:</strong> Ergonomic, portable, and easy to use</p>
-                      </div>
                     </div>
                     
                     <div className="bg-green-50 border border-green-200 rounded-lg p-4">
@@ -6386,6 +6391,20 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       of active ingredients and stimulate collagen production for comprehensive eye rejuvenation.
                     </p>
                     
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Form:</strong> Professional eye care system</p>
+                        <p><strong>Size:</strong> 1 box</p>
+                        <p><strong>Skin Type:</strong> All skin types, especially mature and aging skin</p>
+                        <p><strong>Technology:</strong> Micro-needling + advanced peptide technology</p>
+                        <p><strong>Key Benefits:</strong> Wrinkle reduction, dark circle diminishment, puffiness relief</p>
+                        <p><strong>Usage:</strong> Professional and home care</p>
+                        <p><strong>Kit Contents:</strong> 4 components (serum, cream, patches, eye roller)</p>
+                        <p><strong>Country of Origin:</strong> South Korea</p>
+                      </div>
+                    </div>
+                    
                     <h4 className="font-semibold text-gray-800 mb-2 text-sm">Kit Components</h4>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
@@ -6442,19 +6461,6 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </ol>
                     </div>
                     
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
-                      <div className="space-y-2 text-blue-800 text-sm">
-                        <p><strong>Form:</strong> Professional eye care system</p>
-                        <p><strong>Skin Type:</strong> All skin types, especially mature and aging skin</p>
-                        <p><strong>Technology:</strong> Micro-needling + advanced peptide technology</p>
-                        <p><strong>Key Benefits:</strong> Wrinkle reduction, dark circle diminishment, puffiness relief</p>
-                        <p><strong>Usage:</strong> Professional and home care</p>
-                        <p><strong>Kit Contents:</strong> 4 components (serum, cream, patches, roller)</p>
-                        <p><strong>Country of Origin:</strong> South Korea</p>
-                      </div>
-                    </div>
-                    
                     <div className="bg-green-50 border border-green-200 rounded-lg p-4">
                       <p className="text-green-800 text-sm">
                         <strong>Note:</strong> This product is dermatologically tested and safe for all skin types. 
@@ -6509,6 +6515,19 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       regeneration, accelerates skin repair, and enhances overall skin health. Perfect for post-treatment 
                       care and intensive skin rejuvenation.
                     </p>
+                    
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Type:</strong> Professional-grade PDRN mask pack</p>
+                        <p><strong>Size:</strong> 30 sheets per container</p>
+                        <p><strong>Key Benefits:</strong> Skin regeneration, barrier repair, anti-aging</p>
+                        <p><strong>Skin Type:</strong> All skin types, especially damaged or aging skin</p>
+                        <p><strong>Usage:</strong> 2-3 times per week or as needed for intensive care</p>
+                        <p><strong>Technology:</strong> PDRN (salmon DNA) extraction technology</p>
+                        <p><strong>Country of Origin:</strong> South Korea</p>
+                      </div>
+                    </div>
                     
                     <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
                     <div className="space-y-3 mb-4">
@@ -6601,18 +6620,6 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                         <li><strong>Remove:</strong> Remove the mask sheet and gently pat the remaining essence into your skin</li>
                         <li><strong>Store:</strong> Close the closure seal and cap tightly to prevent the product from drying out</li>
                       </ol>
-                    </div>
-                    
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
-                      <div className="space-y-2 text-blue-800 text-sm">
-                        <p><strong>Type:</strong> Professional-grade PDRN mask pack</p>
-                        <p><strong>Size:</strong> 30 sheets per container</p>
-                        <p><strong>Key Benefits:</strong> Skin regeneration, barrier repair, anti-aging</p>
-                        <p><strong>Skin Type:</strong> All skin types, especially damaged or aging skin</p>
-                        <p><strong>Usage:</strong> 2-3 times per week or as needed for intensive care</p>
-                        <p><strong>Technology:</strong> PDRN (salmon DNA) extraction technology</p>
-                      </div>
                     </div>
                     
                     <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-6">

@@ -3640,11 +3640,15 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
                       <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
                       <div className="space-y-2 text-blue-800 text-sm">
-                        <p><strong>Type:</strong> Professional hydrating and firming ampoule</p>
+                        <p><strong>Form:</strong> Professional hydrating and firming ampoule</p>
                         <p><strong>Size:</strong> 2ml x 10ea</p>
-                        <p><strong>Treatment:</strong> Microneedling, professional skincare</p>
-                        <p><strong>Skin Type:</strong> All skin types, especially dry and aging skin</p>
+                        <p><strong>Target:</strong> Microneedling treatments and professional skincare</p>
+                        <p><strong>Technology:</strong> Advanced hydrating and firming formula with peptides</p>
+                        <p><strong>Key Benefits:</strong> Long-lasting moisturizing, plumping effects, irritation relief, healing promotion</p>
                         <p><strong>Usage:</strong> Professional treatments, post-microneedling care</p>
+                        <p><strong>Skin Type:</strong> All skin types, especially dry and aging skin</p>
+                        <p><strong>Application:</strong> Apply during microneedling treatments for enhanced hydration and firming</p>
+                        <p><strong>Professional Use:</strong> Licensed practitioners only</p>
                         <p><strong>Country of Origin:</strong> South Korea</p>
                       </div>
                     </div>
@@ -3766,11 +3770,15 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
                       <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
                       <div className="space-y-2 text-blue-800 text-sm">
-                        <p><strong>Type:</strong> Professional skin revitalizing ampoule</p>
+                        <p><strong>Form:</strong> Professional skin revitalizing ampoule</p>
                         <p><strong>Size:</strong> 2ml x 10ea</p>
-                        <p><strong>Treatment:</strong> Microneedling, skin revitalization</p>
-                        <p><strong>Skin Type:</strong> All skin types, especially dull and tired skin</p>
+                        <p><strong>Target:</strong> Microneedling treatments and skin revitalization</p>
+                        <p><strong>Technology:</strong> Advanced revitalizing formula with essential nutrients</p>
+                        <p><strong>Key Benefits:</strong> Essential nutrient supply, soothing hydration, healing promotion, skin regeneration</p>
                         <p><strong>Usage:</strong> Professional treatments, post-microneedling care</p>
+                        <p><strong>Skin Type:</strong> All skin types, especially dull and tired skin</p>
+                        <p><strong>Application:</strong> Apply during microneedling treatments for enhanced revitalization</p>
+                        <p><strong>Professional Use:</strong> Licensed practitioners only</p>
                         <p><strong>Country of Origin:</strong> South Korea</p>
                       </div>
                     </div>
@@ -3892,11 +3900,15 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
                       <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
                       <div className="space-y-2 text-blue-800 text-sm">
-                        <p><strong>Type:</strong> Professional skin remodeling ampoule</p>
+                        <p><strong>Form:</strong> Professional skin remodeling ampoule</p>
                         <p><strong>Size:</strong> 2ml x 10ea</p>
-                        <p><strong>Treatment:</strong> Microneedling, skin remodeling</p>
+                        <p><strong>Target:</strong> Microneedling treatments and skin remodeling</p>
+                        <p><strong>Technology:</strong> Advanced skin remodeling formula with professional-grade ingredients</p>
+                        <p><strong>Key Benefits:</strong> Skin elasticity retention, increased skin strength, healing promotion, regeneration</p>
+                        <p><strong>Usage:</strong> Professional treatments, microneedling post-care</p>
                         <p><strong>Skin Type:</strong> All skin types, especially aging and sagging skin</p>
-                        <p><strong>Usage:</strong> Professional treatments, skin remodeling</p>
+                        <p><strong>Application:</strong> Apply during microneedling treatments for enhanced remodeling</p>
+                        <p><strong>Professional Use:</strong> Licensed practitioners only</p>
                         <p><strong>Country of Origin:</strong> South Korea</p>
                       </div>
                     </div>
@@ -4270,11 +4282,15 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
                       <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
                       <div className="space-y-2 text-blue-800 text-sm">
-                        <p><strong>Type:</strong> Professional anti-aging ampoule</p>
+                        <p><strong>Form:</strong> Professional anti-aging ampoule</p>
                         <p><strong>Size:</strong> 2ml x 10ea</p>
-                        <p><strong>Treatment:</strong> Microneedling, anti-aging</p>
+                        <p><strong>Target:</strong> Microneedling treatments and anti-aging</p>
+                        <p><strong>Technology:</strong> Advanced anti-aging formula with professional-grade ingredients</p>
+                        <p><strong>Key Benefits:</strong> Wrinkle reduction, skin firmness, healing promotion, skin regeneration</p>
+                        <p><strong>Usage:</strong> Professional treatments, microneedling post-care</p>
                         <p><strong>Skin Type:</strong> All skin types, especially aging and mature skin</p>
-                        <p><strong>Usage:</strong> Professional treatments, anti-aging</p>
+                        <p><strong>Application:</strong> Apply during microneedling treatments for enhanced results</p>
+                        <p><strong>Professional Use:</strong> Licensed practitioners only</p>
                         <p><strong>Country of Origin:</strong> South Korea</p>
                       </div>
                     </div>
@@ -4393,6 +4409,22 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       upon contact with skin temperature, ensuring optimal ingredient delivery and maximum comfort.
                     </p>
                     
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Form:</strong> Professional thermo-sensitive hydrogel mask</p>
+                        <p><strong>Size:</strong> 38g x 5ea</p>
+                        <p><strong>Target:</strong> Post-treatment care and cooling therapy</p>
+                        <p><strong>Technology:</strong> Patented thermo-sensitive hydrogel technology</p>
+                        <p><strong>Key Benefits:</strong> Instant cooling relief, deep hydration, enhanced penetration</p>
+                        <p><strong>Usage:</strong> Professional treatments, post-procedure care</p>
+                        <p><strong>Skin Type:</strong> All skin types, especially post-treatment skin</p>
+                        <p><strong>Application:</strong> Apply evenly to treatment area, avoid eye area</p>
+                        <p><strong>Duration:</strong> 15-20 minutes for optimal results</p>
+                        <p><strong>Country of Origin:</strong> South Korea</p>
+                      </div>
+                    </div>
+                    
                     <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
@@ -4489,18 +4521,6 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                         <li><strong>Removal:</strong> Gently remove and massage any remaining product into skin</li>
                         <li><strong>Frequency:</strong> Use as directed by your skincare professional</li>
                       </ol>
-                    </div>
-                    
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
-                      <div className="space-y-2 text-blue-800 text-sm">
-                        <p><strong>Type:</strong> Professional thermo-sensitive hydrogel mask</p>
-                        <p><strong>Size:</strong> 38g x 5ea</p>
-                        <p><strong>Treatment:</strong> Post-treatment care, cooling therapy</p>
-                        <p><strong>Skin Type:</strong> All skin types, especially post-treatment skin</p>
-                        <p><strong>Usage:</strong> Professional treatments, post-procedure care</p>
-                        <p><strong>Technology:</strong> Patented thermo-sensitive hydrogel</p>
-                      </div>
                     </div>
                     
                     <div className="bg-green-50 border border-green-200 rounded-lg p-4">

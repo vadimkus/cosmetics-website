@@ -1409,6 +1409,20 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       sebum production while providing soothing relief for problematic skin.
                     </p>
                     
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Form:</strong> Specialized problem control cream</p>
+                        <p><strong>Size:</strong> 50g (Homecare) 250g (Professional)</p>
+                        <p><strong>Target:</strong> Problematic and acne-prone skin</p>
+                        <p><strong>Technology:</strong> Advanced anti-microbial and anti-inflammatory formula</p>
+                        <p><strong>Key Benefits:</strong> Sebum control, anti-microbial, anti-inflammatory, soothing relief</p>
+                        <p><strong>Usage:</strong> Morning and evening skincare routine</p>
+                        <p><strong>Skin Type:</strong> All skin types, especially problematic and acne-prone skin</p>
+                        <p><strong>Country of Origin:</strong> South Korea</p>
+                      </div>
+                    </div>
+                    
                     <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
                     <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
                       <li>Anti-microbial - Helps combat bacteria and prevent breakouts</li>
@@ -2608,6 +2622,20 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       delivering a refreshing cooling sensation for optimal skin comfort.
                     </p>
                     
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Form:</strong> Professional modeling mask</p>
+                        <p><strong>Size:</strong> 1kg</p>
+                        <p><strong>Target:</strong> Post-treatment skin soothing and hydration</p>
+                        <p><strong>Technology:</strong> Advanced cooling and hydrating formula</p>
+                        <p><strong>Key Benefits:</strong> Cooling effect, hydration, pore minimizing, skin soothing</p>
+                        <p><strong>Usage:</strong> Professional and home care</p>
+                        <p><strong>Skin Type:</strong> All skin types</p>
+                        <p><strong>Country of Origin:</strong> South Korea</p>
+                      </div>
+                    </div>
+                    
                     <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Benefits</h4>
                     <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
                       <li>Immediate Cooling Effect - Provides instant cooling and refreshing sensation</li>
@@ -2678,20 +2706,6 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                           Purified water extract that provides gentle hydration and soothing properties, 
                           helping to calm and refresh the skin naturally.
                         </p>
-                      </div>
-                    </div>
-                    
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
-                      <div className="space-y-2 text-blue-800 text-sm">
-                        <p><strong>Form:</strong> Professional modeling mask</p>
-                        <p><strong>Size:</strong> 1kg</p>
-                        <p><strong>Target:</strong> Post-treatment skin soothing and hydration</p>
-                        <p><strong>Technology:</strong> Advanced cooling and hydrating formula</p>
-                        <p><strong>Key Benefits:</strong> Cooling effect, hydration, pore minimizing, skin soothing</p>
-                        <p><strong>Usage:</strong> Professional and home care</p>
-                        <p><strong>Skin Type:</strong> All skin types</p>
-                        <p><strong>Country of Origin:</strong> South Korea</p>
                       </div>
                     </div>
                     
@@ -6081,6 +6095,19 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       to cover redness, blemishes, and imperfections while protecting skin from harmful environmental factors.
                     </p>
                     
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Type:</strong> Natural coverage cream with SPF protection</p>
+                        <p><strong>Size:</strong> 50g</p>
+                        <p><strong>SPF Rating:</strong> SPF 30 PA++</p>
+                        <p><strong>Coverage:</strong> Natural to medium coverage</p>
+                        <p><strong>Key Benefits:</strong> Blemish coverage, sun protection, post-treatment care</p>
+                        <p><strong>Skin Type:</strong> All skin types, especially sensitive and post-treatment skin</p>
+                        <p><strong>Country of Origin:</strong> South Korea</p>
+                      </div>
+                    </div>
+                    
                     <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
@@ -6164,18 +6191,6 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </ol>
                     </div>
                     
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
-                      <div className="space-y-2 text-blue-800 text-sm">
-                        <p><strong>Type:</strong> Natural coverage cream with SPF protection</p>
-                        <p><strong>SPF Rating:</strong> SPF 30 PA++</p>
-                        <p><strong>Coverage:</strong> Natural to medium coverage</p>
-                        <p><strong>Key Benefits:</strong> Blemish coverage, sun protection, post-treatment care</p>
-                        <p><strong>Skin Type:</strong> All skin types, especially sensitive and post-treatment skin</p>
-                        <p><strong>Country of Origin:</strong> South Korea</p>
-                      </div>
-                    </div>
-                    
                     <div className="bg-green-50 border border-green-200 rounded-lg p-4">
                       <p className="text-green-800 text-sm">
                         <strong>Note:</strong> This product is dermatologically tested and safe for all skin types. 
@@ -6197,6 +6212,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
                       <div className="space-y-2 text-blue-800 text-sm">
                         <p><strong>Type:</strong> Auto-microneedling LED device for scalp treatment</p>
+                        <p><strong>Size:</strong> 1 Device</p>
                         <p><strong>Technology:</strong> Microneedling + LED light therapy</p>
                         <p><strong>Key Components:</strong> HR³ MATRIX HAIR SOLUTION α + HR³ MATRIX HAIR STAMP</p>
                         <p><strong>Benefits:</strong> Hair growth stimulation, scalp health improvement, nutrient delivery</p>
@@ -6278,6 +6294,20 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       Bronze medal winner of 2020 Korea invention patent competition.
                     </p>
                     
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <div className="space-y-2 text-blue-800 text-sm">
+                        <p><strong>Type:</strong> LED helmet with massaging and heating functions</p>
+                        <p><strong>Size:</strong> 1 Device</p>
+                        <p><strong>Patent:</strong> No. 10-2151442 (Korea)</p>
+                        <p><strong>Award:</strong> Bronze medal winner of 2020 Korea invention patent competition</p>
+                        <p><strong>Light Types:</strong> Infrared + Red + Blue LED combination</p>
+                        <p><strong>Features:</strong> Massaging, heating, music mode</p>
+                        <p><strong>Usage:</strong> Professional and home care</p>
+                        <p><strong>Country of Origin:</strong> South Korea</p>
+                      </div>
+                    </div>
+                    
                     <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
@@ -6327,19 +6357,6 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                         <li><strong>Heating:</strong> Optional heating function increases blood flow and light penetration</li>
                         <li><strong>Relaxation:</strong> Music mode and comfortable design ensure a pleasant treatment experience</li>
                       </ol>
-                    </div>
-                    
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
-                      <div className="space-y-2 text-blue-800 text-sm">
-                        <p><strong>Type:</strong> LED helmet with massaging and heating functions</p>
-                        <p><strong>Patent:</strong> No. 10-2151442 (Korea)</p>
-                        <p><strong>Award:</strong> Bronze medal winner of 2020 Korea invention patent competition</p>
-                        <p><strong>Light Types:</strong> Infrared + Red + Blue LED combination</p>
-                        <p><strong>Features:</strong> Massaging, heating, music mode</p>
-                        <p><strong>Usage:</strong> Professional and home care</p>
-                        <p><strong>Country of Origin:</strong> South Korea</p>
-                      </div>
                     </div>
                     
                     <div className="bg-green-50 border border-green-200 rounded-lg p-4">

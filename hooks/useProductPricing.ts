@@ -17,8 +17,23 @@ export const useProductPricing = (
   selectedSize?: string,
   selectedColor?: string
 ): UseProductPricingReturn => {
-  const availableSizes = useMemo(() => getProductSizes(product.id), [product.id])
-  const availableColors = useMemo(() => getProductColors(product.id), [product.id])
+  const rawSizes = useMemo(() => getProductSizes(product.id), [product.id])
+  const rawColors = useMemo(() => getProductColors(product.id), [product.id])
+  
+  const availableSizes = useMemo(() => {
+    return rawSizes.map(size => ({
+      value: size.value,
+      label: size.label,
+      price: getProductPrice(product.id, size.value)
+    }))
+  }, [rawSizes, product.id])
+  
+  const availableColors = useMemo(() => {
+    return rawColors.map(color => ({
+      value: color.value,
+      label: color.label
+    }))
+  }, [rawColors])
   
   const hasVariants = useMemo(() => {
     return availableSizes.length > 0 || availableColors.length > 0

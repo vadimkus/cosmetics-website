@@ -21,6 +21,8 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
   })
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState('')
+  const [showPrivacyPolicy, setShowPrivacyPolicy] = useState(false)
+  const [privacyConsent, setPrivacyConsent] = useState(false)
   const modalRef = useRef<HTMLDivElement>(null)
   const firstInputRef = useRef<HTMLInputElement>(null)
   const lastInputRef = useRef<HTMLInputElement>(null)
@@ -110,11 +112,16 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
         setError('Password must be at least 6 characters')
         return
       }
+      if (!privacyConsent) {
+        setError('You must accept the privacy policy to create an account')
+        return
+      }
 
       const success = await register(formData.name, formData.email, formData.password, formData.phone)
       if (success) {
         onClose()
         setFormData({ name: '', email: '', password: '', phone: '' })
+        setPrivacyConsent(false)
       }
     }
   }
@@ -124,6 +131,8 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
     setIsLoginMode(!isLoginMode)
     setError('')
     setFormData({ name: '', email: '', password: '', phone: '' })
+    setPrivacyConsent(false)
+    setShowPrivacyPolicy(false)
   }
 
   if (!isOpen) return null
@@ -236,6 +245,138 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
                 )}
               </button>
             </div>
+
+            {/* Privacy Policy Section - Only show for registration */}
+            {!isLoginMode && (
+              <div className="space-y-3">
+                <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                  <div className="flex items-start justify-between">
+                    <div className="flex-1">
+                      <h4 className="font-semibold text-gray-800 mb-2 text-sm">Privacy Policy</h4>
+                      <p className="text-xs text-gray-600 mb-3">
+                        By creating an account, you agree to our privacy policy regarding the collection and use of personal information.
+                      </p>
+                      <button
+                        type="button"
+                        onClick={() => setShowPrivacyPolicy(!showPrivacyPolicy)}
+                        className="text-primary-600 hover:text-primary-700 text-xs font-medium underline"
+                      >
+                        {showPrivacyPolicy ? 'Hide Details' : 'View Details'}
+                      </button>
+                    </div>
+                  </div>
+                  
+                  {showPrivacyPolicy && (
+                    <div className="mt-4 pt-4 border-t border-gray-200">
+                      <div className="text-xs text-gray-700 space-y-3 max-h-60 overflow-y-auto">
+                        <div>
+                          <h5 className="font-semibold mb-1">1. Personal Information Processed</h5>
+                          <p className="mb-2">GENOSYS MIDDLE EAST FZ-LLC (hereinafter referred to as the "Company") processes the following types of personal information:</p>
+                          
+                          <div className="ml-2 space-y-2">
+                            <div>
+                              <p className="font-medium">1. Website Membership Registration and Management</p>
+                              <p className="ml-2">• Required Information: ID, password, name, nickname, email, mobile phone number</p>
+                              <p className="ml-2">• Optional Information: (If applicable, specify here)</p>
+                            </div>
+                            
+                            <div>
+                              <p className="font-medium">2. Provision of Goods or Services</p>
+                              <p className="ml-2">• ID, password, name, nickname, email, mobile phone number</p>
+                            </div>
+                            
+                            <div>
+                              <p className="font-medium">3. Automatically Collected Information During Internet Service Usage</p>
+                              <p className="ml-2">• IP address, cookies, MAC address, service usage history, visit records, records of improper use, etc.</p>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div>
+                          <h5 className="font-semibold mb-1">2. Purpose of Processing Personal Information</h5>
+                          <p className="mb-2">The Company processes personal information for the following purposes. Personal information will not be used for purposes other than those stated below. If the purpose of use changes, necessary measures such as obtaining separate consent in accordance with Article 18 of the Personal Information Protection Act will be implemented.</p>
+                          
+                          <div className="ml-2 space-y-2">
+                            <div>
+                              <p className="font-medium">1. Website Membership Registration and Management</p>
+                              <p className="ml-2">• To confirm membership registration intent, verify and authenticate users for membership-based services, maintain and manage membership status, enforce identity verification under the limited identity verification system, prevent fraudulent use of services, issue various notices and notifications, and handle user inquiries and complaints.</p>
+                            </div>
+                            
+                            <div>
+                              <p className="font-medium">2. Provision of Goods or Services</p>
+                              <p className="ml-2">• To provide services, deliver content, offer customized services, and verify users' identity.</p>
+                            </div>
+                            
+                            <div>
+                              <p className="font-medium">3. Handling User Inquiries and Complaints</p>
+                              <p className="ml-2">• To verify the identity of the complainant, check complaint details, conduct fact-checking, provide notifications regarding the investigation, and inform the results.</p>
+                            </div>
+                            
+                            <div>
+                              <p className="font-medium">4. Marketing and Advertising</p>
+                              <p className="ml-2">• To provide event and promotional information, offer participation opportunities, and generate statistics on users' service usage.</p>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div>
+                          <h5 className="font-semibold mb-1">3. Retention and Use Period of Personal Information</h5>
+                          <p className="mb-2">The Company processes and retains personal information within the period specified by relevant UAE laws and regulations or within the period agreed upon at the time of personal information collection.</p>
+                          
+                          <div className="ml-2 space-y-2">
+                            <div>
+                              <p className="font-medium">1. Website Membership Registration and Management</p>
+                              <p className="ml-2">• Until the user withdraws their membership from the Company's website.</p>
+                              <p className="ml-2">• However, if the following conditions apply, the information will be retained until the relevant situation is resolved:</p>
+                              <p className="ml-4">· If an investigation or inquiry is ongoing due to a violation of related UAE laws, retention continues until the investigation or inquiry is concluded.</p>
+                              <p className="ml-4">· If there are outstanding financial obligations related to website usage, retention continues until the debts are settled.</p>
+                            </div>
+                            
+                            <div>
+                              <p className="font-medium">2. Provision of Goods and Services</p>
+                              <p className="ml-2">• Until the completion of service provision, payment, and settlement of related charges.</p>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div>
+                          <h5 className="font-semibold mb-1">4. Right to Refuse Consent to Collection and Use of Personal Information</h5>
+                          <p className="mb-2">Users have the right to refuse consent to the collection and use of personal information.</p>
+                          <p className="mb-2">However, as the aforementioned personal information is essential for the operation of this website, users who do not consent to the collection and use of personal information may be restricted from membership registration and service usage.</p>
+                          <p className="mb-2">By checking the consent box or submitting your information, you acknowledge that you have read, understood, and agreed to the terms outlined in this Privacy Notice.</p>
+                        </div>
+                        
+                        <div className="text-primary-600">
+                          <p><strong>For further inquiries regarding our privacy policy, please contact us at sales@genosys.ae</strong></p>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+                
+                <div className="flex items-start space-x-3">
+                  <input
+                    type="checkbox"
+                    id="privacy-consent"
+                    checked={privacyConsent}
+                    onChange={(e) => setPrivacyConsent(e.target.checked)}
+                    className="mt-1 h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
+                    required
+                  />
+                  <label htmlFor="privacy-consent" className="text-sm text-gray-700">
+                    I have read, understood, and agree to the{' '}
+                    <button
+                      type="button"
+                      onClick={() => setShowPrivacyPolicy(!showPrivacyPolicy)}
+                      className="text-primary-600 hover:text-primary-700 underline"
+                    >
+                      Privacy Policy
+                    </button>
+                    {' '}outlined above.
+                  </label>
+                </div>
+              </div>
+            )}
 
             <button
               type="submit"

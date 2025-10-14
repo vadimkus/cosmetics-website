@@ -610,7 +610,7 @@ export default function ProfilePageNew() {
                       e.preventDefault()
                       setIsEditing(!isEditing)
                     }}
-                    className={`flex items-center gap-1 px-3 py-3 rounded-xl font-medium transition-all duration-200 whitespace-nowrap flex-shrink-0 min-h-[44px] touch-manipulation ${
+                    className={`flex items-center justify-center px-3 py-3 rounded-xl font-medium transition-all duration-200 whitespace-nowrap flex-shrink-0 min-h-[44px] min-w-[44px] touch-manipulation ${
                       isEditing 
                         ? 'bg-red-100 text-red-700 hover:bg-red-200' 
                         : 'text-gray-600 hover:text-gray-900 hover:bg-white/50'
@@ -619,7 +619,6 @@ export default function ProfilePageNew() {
                     style={{ touchAction: 'manipulation' }}
                   >
                     <Edit3 className="h-4 w-4" />
-                    <span className="text-sm">{isEditing ? 'Cancel' : 'Edit'}</span>
                   </button>
                 </div>
               </div>

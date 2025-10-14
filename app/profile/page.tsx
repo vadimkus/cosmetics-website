@@ -2219,7 +2219,7 @@ export default function ProfilePageNew() {
                         <Trash2 className="h-4 w-4" />
                         Deletion
                       </div>
-                      <p className="text-sm text-red-700">Request deletion of your personal information. When you delete your account, all your personal information is permanently removed from our systems.</p>
+                      <p className="text-sm text-red-700">When you delete your account, all your personal information is permanently removed from our systems.</p>
                     </div>
                     <div className="bg-purple-50 rounded-lg p-4">
                       <div className="font-semibold text-purple-800 mb-2 flex items-center gap-2">

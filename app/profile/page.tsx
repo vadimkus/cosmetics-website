@@ -2175,15 +2175,19 @@ export default function ProfilePageNew() {
                     <ul className="space-y-2 text-sm text-gray-700">
                       <li className="flex items-start gap-2">
                         <span className="text-blue-600 mt-1">•</span>
-                        <div><strong>Account Data:</strong> Until you withdraw your membership</div>
+                        <div><strong>Account Data:</strong> Until you withdraw your membership or delete your account</div>
                       </li>
                       <li className="flex items-start gap-2">
                         <span className="text-blue-600 mt-1">•</span>
-                        <div><strong>Order Information:</strong> Retained for accounting and legal compliance</div>
+                        <div><strong>Order Information:</strong> Retained for accounting and legal compliance (anonymized after account deletion)</div>
                       </li>
                       <li className="flex items-start gap-2">
                         <span className="text-blue-600 mt-1">•</span>
                         <div><strong>Legal Investigations:</strong> If ongoing, retention continues until resolved</div>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-green-600 mt-1">✓</span>
+                        <div><strong>Account Deletion:</strong> All personal information is permanently removed from our systems</div>
                       </li>
                     </ul>
                   </div>
@@ -2215,7 +2219,7 @@ export default function ProfilePageNew() {
                         <Trash2 className="h-4 w-4" />
                         Deletion
                       </div>
-                      <p className="text-sm text-red-700">Request deletion of your personal information</p>
+                      <p className="text-sm text-red-700">Request deletion of your personal information. When you delete your account, all your personal information is permanently removed from our systems.</p>
                     </div>
                     <div className="bg-purple-50 rounded-lg p-4">
                       <div className="font-semibold text-purple-800 mb-2 flex items-center gap-2">
@@ -2267,7 +2271,7 @@ export default function ProfilePageNew() {
                   </h4>
                   <p className="text-green-700 text-sm mb-4 leading-relaxed">
                     For any privacy-related questions, to exercise your rights, or to request deletion of your account data, 
-                    please contact us:
+                    please contact us. When you delete your account, all your personal information is permanently removed from our systems:
                   </p>
                   <div className="flex flex-col sm:flex-row gap-3">
                     <a 

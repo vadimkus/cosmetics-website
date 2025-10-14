@@ -27,7 +27,7 @@ export default function ProfilePageOptimized() {
   const [customerNumber, setCustomerNumber] = useState<number>(0)
   const [orders, setOrders] = useState<OrderWithItems[]>([])
   const [loadingOrders, setLoadingOrders] = useState(false)
-  const [activeTab, setActiveTab] = useState<'profile' | 'orders' | 'settings' | 'downloads'>('profile')
+  const [activeTab, setActiveTab] = useState<'profile' | 'orders' | 'settings' | 'downloads' | 'privacy'>('profile')
   const [isRefreshing, setIsRefreshing] = useState(false)
   const [showMoreMenu, setShowMoreMenu] = useState(false)
 

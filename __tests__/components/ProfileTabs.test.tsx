@@ -2,14 +2,14 @@ import { render, screen, fireEvent } from '@testing-library/react'
 import ProfileTabs from '@/components/profile/ProfileTabs'
 
 describe('ProfileTabs', () => {
-  const mockOnTabChange = jest.fn()
+  const mockSetActiveTab = jest.fn()
 
   beforeEach(() => {
-    mockOnTabChange.mockClear()
+    mockSetActiveTab.mockClear()
   })
 
   it('renders all tabs correctly', () => {
-    render(<ProfileTabs activeTab="profile" onTabChange={mockOnTabChange} />)
+    render(<ProfileTabs activeTab="profile" setActiveTab={mockSetActiveTab} />)
     
     expect(screen.getByText('Profile')).toBeInTheDocument()
     expect(screen.getByText('Orders')).toBeInTheDocument()
@@ -17,38 +17,39 @@ describe('ProfileTabs', () => {
     expect(screen.getByText('Downloads')).toBeInTheDocument()
   })
 
-  it('calls onTabChange when a tab is clicked', () => {
-    render(<ProfileTabs activeTab="profile" onTabChange={mockOnTabChange} />)
+  it('calls setActiveTab when a tab is clicked', () => {
+    render(<ProfileTabs activeTab="profile" setActiveTab={mockSetActiveTab} />)
     
     fireEvent.click(screen.getByText('Orders'))
-    expect(mockOnTabChange).toHaveBeenCalledWith('orders')
+    expect(mockSetActiveTab).toHaveBeenCalledWith('orders')
   })
 
   it('applies active styles to the current tab', () => {
-    render(<ProfileTabs activeTab="orders" onTabChange={mockOnTabChange} />)
+    render(<ProfileTabs activeTab="orders" setActiveTab={mockSetActiveTab} />)
     
     const ordersTab = screen.getByText('Orders').closest('button')
-    expect(ordersTab).toHaveClass('border-primary-600', 'text-primary-600', 'bg-primary-50')
+    expect(ordersTab).toHaveClass('border-primary-500', 'text-primary-600')
   })
 
   it('applies inactive styles to non-active tabs', () => {
-    render(<ProfileTabs activeTab="profile" onTabChange={mockOnTabChange} />)
+    render(<ProfileTabs activeTab="profile" setActiveTab={mockSetActiveTab} />)
     
     const ordersTab = screen.getByText('Orders').closest('button')
-    expect(ordersTab).toHaveClass('border-transparent', 'text-gray-600')
+    expect(ordersTab).toHaveClass('border-transparent', 'text-gray-500')
   })
 
   it('handles tab switching correctly', () => {
-    const { rerender } = render(<ProfileTabs activeTab="profile" onTabChange={mockOnTabChange} />)
+    const { rerender } = render(<ProfileTabs activeTab="profile" setActiveTab={mockSetActiveTab} />)
     
     // Initially profile should be active
-    expect(screen.getByText('Profile').closest('button')).toHaveClass('border-primary-600')
+    expect(screen.getByText('Profile').closest('button')).toHaveClass('border-primary-500')
     
     // Switch to orders
-    rerender(<ProfileTabs activeTab="orders" onTabChange={mockOnTabChange} />)
-    expect(screen.getByText('Orders').closest('button')).toHaveClass('border-primary-600')
+    rerender(<ProfileTabs activeTab="orders" setActiveTab={mockSetActiveTab} />)
+    expect(screen.getByText('Orders').closest('button')).toHaveClass('border-primary-500')
   })
 })
+
 
 
 

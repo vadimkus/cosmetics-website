@@ -1,10 +1,10 @@
 import { render, screen } from '@testing-library/react'
-import ProductPricing from '@/app/products/[id]/components/ProductPricing'
 import { Product } from '@/types'
 
 // Mock AuthProvider
+const mockUseAuth = jest.fn()
 jest.mock('@/components/AuthProvider', () => ({
-  useAuth: () => ({ user: { id: '1', email: 'test@test.com' } })
+  useAuth: () => mockUseAuth()
 }))
 
 // Mock pricing hook
@@ -14,6 +14,9 @@ jest.mock('@/hooks/useProductPricing', () => ({
     hasVariants: false
   })
 }))
+
+// Import after mocks
+import ProductPricing from '@/app/products/[id]/components/ProductPricing'
 
 const mockProduct: Product = {
   id: '1',
@@ -28,7 +31,15 @@ const mockProduct: Product = {
 }
 
 describe('ProductPricing', () => {
+  beforeEach(() => {
+    jest.clearAllMocks()
+  })
+
   it('renders price correctly for authenticated user', () => {
+    mockUseAuth.mockReturnValue({ 
+      user: { id: '1', email: 'test@test.com' } 
+    })
+
     render(
       <ProductPricing 
         product={mockProduct}
@@ -42,10 +53,7 @@ describe('ProductPricing', () => {
   })
 
   it('shows login message for unauthenticated user', () => {
-    // Mock unauthenticated user
-    jest.doMock('@/components/AuthProvider', () => ({
-      useAuth: () => ({ user: null })
-    }))
+    mockUseAuth.mockReturnValue({ user: null })
 
     render(
       <ProductPricing 

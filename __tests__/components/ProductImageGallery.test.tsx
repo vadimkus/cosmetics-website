@@ -4,8 +4,13 @@ import { Product } from '@/types'
 
 // Mock Next.js Image component
 jest.mock('next/image', () => {
-  return function MockImage({ src, alt, ...props }: any) {
-    return <img src={src} alt={alt} {...props} />
+  return function MockImage({ src, alt, priority, ...props }: any) {
+    // Convert priority boolean to string to avoid React warning
+    const imgProps = { ...props }
+    if (priority !== undefined) {
+      imgProps.priority = priority.toString()
+    }
+    return <img src={src} alt={alt} {...imgProps} />
   }
 })
 

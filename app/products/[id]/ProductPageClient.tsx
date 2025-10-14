@@ -437,13 +437,13 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
               <div className="prose max-w-none">
                 {product.id === '1' ? (
                   <>
-                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <h2 className="text-lg font-semibold text-gray-800 mb-4">Product Description</h2>
                     <p className="text-gray-600 mb-4 text-sm">
                       The GENOSYS Microneedle Roller is a professional-grade microneedling device featuring the patented Diskneedle Therapy System (DTS) for enhanced skin rejuvenation. This advanced device utilizes 450 ultra-thin needles that are 25% thinner than competitors, ensuring superior product absorption with minimal skin trauma.
                     </p>
                     
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <h3 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h3>
                       <div className="space-y-2 text-blue-800 text-sm">
                         <p><strong>Type:</strong> Professional microneedle roller device</p>
                         <p><strong>Needle Count:</strong> 450 ultra-thin needles</p>
@@ -459,31 +459,31 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h2>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Patented DTS Technology</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Patented DTS Technology</h3>
                         <p className="text-sm text-gray-600">
                           Diskneedle Therapy System ensures safe and effective treatments with reduced recovery time.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Ultra-Thin Needles</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Ultra-Thin Needles</h3>
                         <p className="text-sm text-gray-600">
                           450 needles per unit, 25% thinner than other brands for enhanced comfort and effectiveness.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Professional Grade</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Professional Grade</h3>
                         <p className="text-sm text-gray-600">
                           Manufactured in South Korea with precision engineering for professional use.
                         </p>
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h2>
                     <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
                       <li>Enhanced Product Absorption - Creates microchannels for 300% better product penetration</li>
                       <li>Natural Collagen Induction - Stimulates skin's healing response for firmer, younger-looking skin</li>
@@ -494,7 +494,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       <li>Minimal Downtime - Less invasive than traditional treatments with faster recovery</li>
                     </ul>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h2>
                     <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
                       <ol className="list-decimal list-inside text-gray-600 space-y-2 text-sm">
                         <li><strong>Preparation:</strong> Cleanse skin thoroughly and sanitize the roller</li>
@@ -516,7 +516,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '11' ? (
                   <>
-                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <h2 className="text-lg font-semibold text-gray-800 mb-4">Product Description</h2>
                     <p className="text-gray-600 mb-4 text-sm">
                       SKIN DEFENDER LIP & EYE MAKEUP REMOVER is an advanced biphasic makeup remover specifically 
                       designed for the delicate lip and eye areas. This innovative formula combines vitamin complex 
@@ -524,7 +524,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     </p>
                     
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <h3 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h3>
                       <div className="space-y-2 text-blue-800 text-sm">
                         <p><strong>Form:</strong> Biphasic makeup remover</p>
                         <p><strong>Size:</strong> 200ml</p>
@@ -539,38 +539,38 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h2>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Biphasic Technology</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Biphasic Technology</h3>
                         <p className="text-sm text-gray-600">
                           Dual-layer formula with essence layer containing vitamins and firming peptides, plus oil layer for powerful cleansing.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Gentle Formula</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Gentle Formula</h3>
                         <p className="text-sm text-gray-600">
                           Specifically designed for delicate lip and eye areas with non-greasy, non-irritating properties.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Vitamin Complex</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Vitamin Complex</h3>
                         <p className="text-sm text-gray-600">
                           10 Vitamin Complex provides nourishment while cleansing, promoting healthy skin around the eyes and lips.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Firming Peptides</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Firming Peptides</h3>
                         <p className="text-sm text-gray-600">
                           Palmitoyl Tripeptide-5 and Acetyl Tetrapeptide-5 help maintain skin firmness and elasticity.
                         </p>
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h2>
                     <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
                       <li>Effective Makeup Removal - Removes even waterproof makeup from delicate areas</li>
                       <li>Gentle Cleansing - Non-irritating formula suitable for sensitive skin</li>
@@ -580,38 +580,38 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       <li>Professional Quality - Dermatologically tested for safety and efficacy</li>
                     </ul>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h2>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">10 Vitamin Complex</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">10 Vitamin Complex</h3>
                         <p className="text-sm text-gray-600">
                           Comprehensive vitamin blend that provides nourishment and antioxidant protection while cleansing.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Firming Peptides</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Firming Peptides</h3>
                         <p className="text-sm text-gray-600">
                           Palmitoyl Tripeptide-5 and Acetyl Tetrapeptide-5 help maintain skin firmness and reduce signs of aging.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Botanical Extracts</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Botanical Extracts</h3>
                         <p className="text-sm text-gray-600">
                           Rosa Damascena Flower Water, Carrot Root Extract, and Broccoli Extract provide natural nourishment.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Nourishing Oils</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Nourishing Oils</h3>
                         <p className="text-sm text-gray-600">
                           Carrot Seed Oil and Sea Buckthorn Oil provide essential fatty acids and vitamins for skin health.
                         </p>
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h2>
                     <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
                       <ol className="list-decimal list-inside text-gray-600 space-y-2 text-sm">
                         <li><strong>Shake Well:</strong> Shake the bottle well before use to mix the biphasic layers</li>
@@ -664,7 +664,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '12' ? (
                   <>
-                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <h2 className="text-lg font-semibold text-gray-800 mb-4">Product Description</h2>
                     <p className="text-gray-600 mb-4 text-sm">
                       GENOSYS EPI TURNOVER BOOSTING PEELING GEL is an enzyme-based exfoliating gel designed to 
                       gently remove dead skin cells without causing irritation. This innovative peeling gel utilizes 
@@ -673,7 +673,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     </p>
                     
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <h3 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h3>
                       <div className="space-y-2 text-blue-800 text-sm">
                         <p><strong>Form:</strong> Enzyme-based peeling gel</p>
                         <p><strong>Size:</strong> 100g</p>
@@ -685,7 +685,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h2>
                     <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
                       <li>Gentle Exfoliation - Effectively removes dead skin cells, promoting smoother skin texture</li>
                       <li>Radiance Enhancement - Helps correct skin tone, resulting in a brighter complexion</li>
@@ -702,7 +702,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       Rinse off the clumped dead skin cells with lukewarm water. Use 1-2 times per week for optimal results.
                     </p>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h2>
                     <div className="space-y-4 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
                         <h5 className="font-semibold text-gray-800 mb-2 text-sm">Natural Enzymes</h5>
@@ -794,7 +794,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '13' ? (
                   <>
-                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <h2 className="text-lg font-semibold text-gray-800 mb-4">Product Description</h2>
                     <p className="text-gray-600 mb-4 text-sm">
                       SKIN RENEWAL PEELING SYSTEM (SRS) is a professional peeling treatment with naturally occurring AHA acids 
                       designed for smoother, brighter, and more even skin tone. These naturally occurring acids found in fruits 
@@ -803,7 +803,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     </p>
                     
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <h3 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h3>
                       <div className="space-y-2 text-blue-800 text-sm">
                         <p><strong>Form:</strong> Professional chemical peeling system</p>
                         <p><strong>Size:</strong> 2ml x 10ea</p>
@@ -818,38 +818,38 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h2>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Naturally Occurring AHA Complex</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Naturally Occurring AHA Complex</h3>
                         <p className="text-sm text-gray-600">
                           Multi-acid formula with glycolic, lactic, mandelic, and phytic acids derived from natural sources for gentle yet effective exfoliation.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Cell Turnover Enhancement</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Cell Turnover Enhancement</h3>
                         <p className="text-sm text-gray-600">
                           Encourages natural skin renewal by removing dead surface cells and promoting new healthy cell growth.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Professional Grade Formula</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Professional Grade Formula</h3>
                         <p className="text-sm text-gray-600">
                           Specifically formulated for professional use to deliver controlled and effective peeling results.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Peptide Support</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Peptide Support</h3>
                         <p className="text-sm text-gray-600">
                           Enhanced with sh-Polypeptide-7 for skin regeneration and healing support during the renewal process.
                         </p>
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h2>
                     <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
                       <li>Skin Renewal - Removes dead skin cells and promotes natural cell turnover</li>
                       <li>Brightening - Reveals fresh, radiant skin for a brighter complexion</li>
@@ -859,66 +859,66 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       <li>Safe & Tested - Dermatologically tested for professional use</li>
                     </ul>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h2>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Glycolic Acid</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Glycolic Acid</h3>
                         <p className="text-sm text-gray-600">
                           The smallest AHA molecule that penetrates deeply to exfoliate and stimulate collagen production for smoother, younger-looking skin.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Lactic Acid</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Lactic Acid</h3>
                         <p className="text-sm text-gray-600">
                           Gentle AHA that exfoliates while providing hydration, improving skin texture and tone without excessive irritation.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Mandelic Acid</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Mandelic Acid</h3>
                         <p className="text-sm text-gray-600">
                           Larger molecule AHA that works more gently on the skin surface, ideal for sensitive skin and reducing post-inflammatory hyperpigmentation.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Phytic Acid</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Phytic Acid</h3>
                         <p className="text-sm text-gray-600">
                           Natural chelating agent with antioxidant properties that helps brighten skin and enhance the effectiveness of other AHA acids.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">sh-Polypeptide-7</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">sh-Polypeptide-7</h3>
                         <p className="text-sm text-gray-600">
                           Advanced peptide that supports skin regeneration and healing during the peeling process for optimal recovery.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Scutellaria Baicalensis Root Extract</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Scutellaria Baicalensis Root Extract</h3>
                         <p className="text-sm text-gray-600">
                           Powerful antioxidant botanical extract that soothes skin and provides anti-inflammatory benefits during treatment.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Houttuynia Cordata Extract</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Houttuynia Cordata Extract</h3>
                         <p className="text-sm text-gray-600">
                           Natural extract with anti-inflammatory and antibacterial properties that helps soothe and protect skin during peeling.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Chamaecyparis Obtusa Water</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Chamaecyparis Obtusa Water</h3>
                         <p className="text-sm text-gray-600">
                           Purified cypress water that provides gentle hydration and soothing properties to calm skin during the renewal process.
                         </p>
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h2>
                     <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
                       <ol className="list-decimal list-inside text-gray-600 space-y-2 text-sm">
                         <li><strong>Preparation:</strong> Cleanse skin thoroughly and ensure it's completely dry</li>
@@ -940,7 +940,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '15' ? (
                   <>
-                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <h2 className="text-lg font-semibold text-gray-800 mb-4">Product Description</h2>
                     <p className="text-gray-600 mb-4 text-sm">
                       GENOSYS INTENSIVE PROBLEM CONTROL TONER is a professional-grade toner specifically formulated 
                       to address problematic skin conditions and provide intensive care for acne-prone, sensitive, 
@@ -949,7 +949,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     </p>
                     
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <h3 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h3>
                       <div className="space-y-2 text-blue-800 text-sm">
                         <p><strong>Form:</strong> Intensive problem control toner</p>
                         <p><strong>Size:</strong> 200ml (Homecare) / 500ml (Professional)</p>
@@ -986,7 +986,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
             </div>
 
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h2>
                     <div className="space-y-4 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
                         <h5 className="font-semibold text-gray-800 mb-2 text-sm">Salicylic Acid</h5>
@@ -1073,7 +1073,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '16' ? (
                   <>
-                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <h2 className="text-lg font-semibold text-gray-800 mb-4">Product Description</h2>
                     <p className="text-gray-600 mb-4 text-sm">
                       SNOW BOOSTER is a premium daily moisturizing and skin refining toner designed for all skin types. 
                       This advanced formula combines powerful botanical extracts with innovative fermentation technology to 
@@ -1081,7 +1081,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     </p>
                     
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <h3 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h3>
                       <div className="space-y-2 text-blue-800 text-sm">
                         <p><strong>Form:</strong> Daily moisturizing and skin refining toner</p>
                         <p><strong>Size:</strong> 200ml (Homecare) / 1000ml (Professional)</p>
@@ -1096,38 +1096,38 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h2>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Daily Moisturizing</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Daily Moisturizing</h3>
                         <p className="text-sm text-gray-600">
                           Provides essential hydration and moisture replenishment for all skin types, maintaining optimal skin barrier function.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Skin Refining</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Skin Refining</h3>
                         <p className="text-sm text-gray-600">
                           Helps refine skin texture and improve overall skin quality through gentle exfoliation and pH balancing.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">pH Balancing</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">pH Balancing</h3>
                         <p className="text-sm text-gray-600">
                           Restores optimal skin pH levels after cleansing, promoting healthy skin function and barrier protection.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Botanical Extracts</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Botanical Extracts</h3>
                         <p className="text-sm text-gray-600">
                           Enriched with natural botanical extracts that provide soothing, anti-inflammatory, and antioxidant benefits.
                         </p>
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h2>
                     <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
                       <li>Deep Hydration - Provides immediate and long-lasting moisture to all skin types</li>
                       <li>Skin Refinement - Gently exfoliates and refines skin texture for smoother appearance</li>
@@ -1137,38 +1137,38 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       <li>Versatile Usage - Suitable for daily use in both homecare and professional settings</li>
                     </ul>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h2>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Phytolex SC</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Phytolex SC</h3>
                         <p className="text-sm text-gray-600">
                           Advanced botanical complex that provides deep hydration and skin-soothing properties while supporting natural skin barrier function.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Nelumbo Nucifera Flower Extract</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Nelumbo Nucifera Flower Extract</h3>
                         <p className="text-sm text-gray-600">
                           Sacred lotus extract known for its antioxidant properties, skin brightening effects, and ability to promote skin radiance.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Lactobacillus/Pumpkin Ferment Extract</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Lactobacillus/Pumpkin Ferment Extract</h3>
                         <p className="text-sm text-gray-600">
                           Innovative fermentation technology that enhances ingredient absorption and provides probiotic benefits for skin microbiome health.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Betaine</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Betaine</h3>
                         <p className="text-sm text-gray-600">
                           Natural moisturizing agent that helps maintain skin hydration and provides gentle cleansing properties without stripping natural oils.
                         </p>
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h2>
                     <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
                       <div className="space-y-4">
                         <div>
@@ -1204,7 +1204,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '17' ? (
                   <>
-                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <h2 className="text-lg font-semibold text-gray-800 mb-4">Product Description</h2>
                     <p className="text-gray-600 mb-4 text-sm">
                       GENOSYS EyeCell EYE CONTOUR SERUM is a highly enriched all-in-one eye serum specifically designed to address 
                       multiple concerns around the delicate eye area. This advanced serum targets fine wrinkles, dark circles, 
@@ -1213,7 +1213,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     </p>
                     
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <h3 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h3>
                       <div className="space-y-2 text-blue-800 text-sm">
                         <p><strong>Form:</strong> Eye contour serum</p>
                         <p><strong>Size:</strong> 10ml</p>
@@ -1225,7 +1225,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h2>
                     <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
                       <li>Wrinkle Reduction - Stimulates collagen production and relaxes facial muscles for smoother skin</li>
                       <li>Dark Circle Diminishment - Anti-dark circle complex strengthens skin and visibly reduces dark circles</li>
@@ -1243,7 +1243,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       EyeCell Eye Contour Cream as part of your daily eye care routine.
                     </p>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h2>
                     <div className="space-y-4 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
                         <h5 className="font-semibold text-gray-800 mb-2 text-sm">Palmitoyl Hexapeptide-12</h5>
@@ -1311,7 +1311,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '19' ? (
                   <>
-                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <h2 className="text-lg font-semibold text-gray-800 mb-4">Product Description</h2>
                     <p className="text-gray-600 mb-4 text-sm">
                       GENOSYS ALL FOR SENSITIVE SERUM is a specialized skin repairing serum designed specifically for sensitive skin. 
                       This advanced formula provides a protective moisture barrier while delivering anti-inflammatory and soothing 
@@ -1319,7 +1319,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     </p>
                     
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <h3 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h3>
                       <div className="space-y-2 text-blue-800 text-sm">
                         <p><strong>Size:</strong> 30ml</p>
                         <p><strong>Skin Type:</strong> Sensitive, reactive, and easily irritated skin</p>
@@ -1329,7 +1329,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h2>
                     <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
                       <li>Skin Barrier Repair - Strengthens and rebuilds the skin's natural protective barrier</li>
                       <li>Anti-Inflammatory - Reduces redness and calms irritated, sensitive skin</li>
@@ -1345,7 +1345,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       Use as part of your daily skincare routine for sensitive skin care.
                     </p>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h2>
                     
                     <div className="space-y-4 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
@@ -1414,7 +1414,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '29' ? (
                   <>
-                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <h2 className="text-lg font-semibold text-gray-800 mb-4">Product Description</h2>
                     <p className="text-gray-600 mb-4 text-sm">
                       MOISTURE REPLENISHING HYALURON CREAM is an advanced moisturizing cream that provides 
                       long-lasting hydration through a sophisticated 4-step skin hydration system. This innovative 
@@ -1423,7 +1423,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     </p>
                     
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <h3 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h3>
                       <div className="space-y-2 text-blue-800 text-sm">
                         <p><strong>Type:</strong> Advanced moisturizing cream</p>
                         <p><strong>Size:</strong> 50g (Homecare) / 250g (Professional)</p>
@@ -1435,10 +1435,10 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h2>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">4-Step Hydration System</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">4-Step Hydration System</h3>
                         <p className="text-sm text-gray-600">
                           Advanced multi-layered hydration that cools, attracts, replenishes, and locks in moisture 
                           for comprehensive skin hydration.
@@ -1446,7 +1446,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">72-Hour Hydration Persistence</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">72-Hour Hydration Persistence</h3>
                         <p className="text-sm text-gray-600">
                           Clinically proven to maintain skin hydration for up to 72 hours, providing long-lasting 
                           moisture benefits.
@@ -1454,7 +1454,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Hyaluronan 11 Multi-Complex</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Hyaluronan 11 Multi-Complex</h3>
                         <p className="text-sm text-gray-600">
                           Advanced hyaluronic acid complex with multiple molecular weights for deep penetration 
                           and surface protection.
@@ -1462,7 +1462,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Mushroom Extract Complex</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Mushroom Extract Complex</h3>
                         <p className="text-sm text-gray-600">
                           Powerful anti-inflammatory and antioxidant properties from various mushroom extracts 
                           for skin nourishment and protection.
@@ -1470,7 +1470,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h2>
                     <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
                       <li>Deep Hydration - Multi-layered moisture delivery for comprehensive skin hydration</li>
                       <li>Long-Lasting Results - 72-hour hydration persistence for sustained moisture</li>
@@ -1481,10 +1481,10 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       <li>Professional Results - Salon-quality hydration at home</li>
                     </ul>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Hyaluronan 11 Multi-Complex</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Hyaluronan 11 Multi-Complex</h3>
                         <p className="text-sm text-gray-600">
                           Advanced hyaluronic acid complex with low, middle, and high molecular weights for 
                           comprehensive skin hydration and protection.
@@ -1492,7 +1492,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Mushroom Extracts</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Mushroom Extracts</h3>
                         <p className="text-sm text-gray-600">
                           Various mushroom extracts provide powerful anti-inflammatory and antioxidant 
                           properties for skin nourishment and protection.
@@ -1500,7 +1500,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Moisture Magnet Technology</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Moisture Magnet Technology</h3>
                         <p className="text-sm text-gray-600">
                           Special ingredients that attract and retain moisture, creating a moisture 
                           reservoir in the skin for sustained hydration.
@@ -1508,7 +1508,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Natural Cooling Agents</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Natural Cooling Agents</h3>
                         <p className="text-sm text-gray-600">
                           Natural-origin cooling agents provide instant skin refreshment and help 
                           lower skin temperature for a refreshing sensation.
@@ -1516,7 +1516,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h2>
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
                       <ol className="list-decimal list-inside text-blue-800 text-sm space-y-2">
                         <li><strong>Cleanse:</strong> Start with clean, dry skin</li>
@@ -1537,7 +1537,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '30' ? (
                   <>
-                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <h2 className="text-lg font-semibold text-gray-800 mb-4">Product Description</h2>
                     <p className="text-gray-600 mb-4 text-sm">
                       INTENSIVE PROBLEM CONTROL CREAM is a specialized cream designed to address various skin concerns 
                       with powerful anti-microbial and anti-inflammatory properties. This advanced formula helps control 
@@ -1545,7 +1545,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     </p>
                     
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <h3 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h3>
                       <div className="space-y-2 text-blue-800 text-sm">
                         <p><strong>Form:</strong> Specialized problem control cream</p>
                         <p><strong>Size:</strong> 50g (Homecare) 250g (Professional)</p>
@@ -1558,7 +1558,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h2>
                     <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
                       <li>Anti-microbial - Helps combat bacteria and prevent breakouts</li>
                       <li>Anti-inflammatory - Reduces redness and calms irritated skin</li>
@@ -1574,7 +1574,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       Use as part of your morning and evening skincare routine for best results.
                     </p>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h2>
                     
                     <div className="space-y-4 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
@@ -1646,7 +1646,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '31' ? (
                   <>
-                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <h2 className="text-lg font-semibold text-gray-800 mb-4">Product Description</h2>
                     <p className="text-gray-600 mb-4 text-sm">
                       GENOSYS MULTI VITA RADIANCE CREAM combines a complex of 12 vitamins with potent antioxidants like Astaxanthin 
                       to provide effective protection against free radicals, thereby slowing down the skin's aging process. 
@@ -1655,7 +1655,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     </p>
                     
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <h3 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h3>
                       <div className="space-y-2 text-blue-800 text-sm">
                         <p><strong>Form:</strong> Multi-vitamin radiance cream</p>
                         <p><strong>Size:</strong> 50g (Homecare) / 230g (Professional)</p>
@@ -1668,7 +1668,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h2>
                     <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
                       <li>Brightening - Helps lighten pigmentation spots and improve overall skin tone</li>
                       <li>Deep Moisturizing - Provides intense hydration, leaving the skin soft and supple</li>
@@ -1683,7 +1683,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       Apply the cream to the face and gently massage in both morning and evening for optimal results.
                     </p>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h2>
                     
                     <div className="space-y-4 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
@@ -1813,7 +1813,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === 'cmgj9ifoi00008o07p4eqmfb7' ? ( // Product 53 - INTENSIVE REPAIR COLLAGEN MASK
                   <>
-                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <h2 className="text-lg font-semibold text-gray-800 mb-4">Product Description</h2>
                     <p className="text-gray-600 mb-4 text-sm">
                       INTENSIVE REPAIR COLLAGEN MASK is a professional-grade sheet mask designed to restore skin firmness and elasticity. 
                       This innovative mask provides intensive repair and anti-aging benefits with hydrolyzed collagen and hyaluronic acid 
@@ -1821,7 +1821,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     </p>
                     
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <h3 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h3>
                       <div className="space-y-2 text-blue-800 text-sm">
                         <p><strong>Type:</strong> Professional collagen sheet mask</p>
                         <p><strong>Size:</strong> 1 Sheet (23g)</p>
@@ -1833,38 +1833,38 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h2>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Professional-Grade Quality</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Professional-Grade Quality</h3>
                         <p className="text-sm text-gray-600">
                           Advanced collagen mask technology that provides optimal skin contact and ingredient delivery.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Dermatologically Tested</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Dermatologically Tested</h3>
                         <p className="text-sm text-gray-600">
                           Clinically tested formula safe for all skin types with proven results.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Long-Lasting Results</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Long-Lasting Results</h3>
                         <p className="text-sm text-gray-600">
                           Provides sustained benefits for improved skin texture and appearance.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Safe for All Skin Types</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Safe for All Skin Types</h3>
                         <p className="text-sm text-gray-600">
                           Gentle yet effective formula suitable for sensitive and mature skin.
                         </p>
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h2>
                     <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
                       <li>Intensive Hydration - Provides deep moisture for soft, supple skin</li>
                       <li>Enhanced Elasticity - Boosts collagen production for improved skin firmness</li>
@@ -1874,52 +1874,52 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       <li>Anti-Aging Properties - Combats signs of aging for younger-looking skin</li>
                     </ul>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h2>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Hydrolyzed Collagen</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Hydrolyzed Collagen</h3>
                         <p className="text-sm text-gray-600">
                           Protein that supports skin structure and improves firmness.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Hyaluronic Acid</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Hyaluronic Acid</h3>
                         <p className="text-sm text-gray-600">
                           Powerful humectant that attracts and retains moisture.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Vitamin E</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Vitamin E</h3>
                         <p className="text-sm text-gray-600">
                           Antioxidant that protects skin from environmental damage.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Seaweed Extract</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Seaweed Extract</h3>
                         <p className="text-sm text-gray-600">
                           Rich in minerals and vitamins for skin nourishment.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Argan Oil</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Argan Oil</h3>
                         <p className="text-sm text-gray-600">
                           Moisturizes and softens skin with essential fatty acids.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Shea Butter</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Shea Butter</h3>
                         <p className="text-sm text-gray-600">
                           Natural emollient that soothes and hydrates skin.
                         </p>
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h2>
                     <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
                       <ol className="list-decimal list-inside text-gray-600 space-y-2 text-sm">
                         <li><strong>Preparation:</strong> Cleanse skin thoroughly and apply toner if desired</li>
@@ -1940,7 +1940,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '32' ? ( // Added detailed description for product 32
                   <>
-                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <h2 className="text-lg font-semibold text-gray-800 mb-4">Product Description</h2>
                     <p className="text-gray-600 mb-4 text-sm">
                       GENOSYS MULTI FUNCTIONAL ANTI-WRINKLE CREAM is an intensive anti-aging cream designed to enhance 
                       skin elasticity, reduce wrinkles, and promote a radiant complexion. This advanced formula combines 
@@ -1948,7 +1948,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     </p>
                     
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <h3 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h3>
                       <div className="space-y-2 text-blue-800 text-sm">
                         <p><strong>Form:</strong> Multi-functional anti-wrinkle cream</p>
                         <p><strong>Size:</strong> 50g (Homecare) / 250g (Professional)</p>
@@ -1962,7 +1962,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h2>
                     <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
                       <li>Wrinkle Reduction - Smooths fine lines and wrinkles, improving skin texture</li>
                       <li>Firming - Enhances skin firmness and elasticity for a more youthful appearance</li>
@@ -1978,7 +1978,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       Use in the morning and/or evening for optimal results.
                     </p>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h2>
                     
                     <div className="space-y-4 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
@@ -2047,7 +2047,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '41' ? (
                   <>
-                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <h2 className="text-lg font-semibold text-gray-800 mb-4">Product Description</h2>
                     <p className="text-gray-600 mb-4 text-sm">
                       GENOSYS SKIN CARING BLEMISH BALM CUSHION is a BB cushion that can be used after professional treatment. 
                       More than 60% of the product is composed of moisture essence, which enables a natural and healthy glow. 
@@ -2055,7 +2055,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     </p>
                     
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <h3 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h3>
                       <div className="space-y-2 text-blue-800 text-sm">
                         <p><strong>Form:</strong> Blemish balm cushion</p>
                         <p><strong>Size:</strong> 15g (includes replacement refill)</p>
@@ -2071,7 +2071,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h2>
                     <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
                       <li>BB cushion that can be used after the professional treatment</li>
                       <li>Convenient and quick base makeup in the morning</li>
@@ -2086,7 +2086,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       on the skin several times to enhance the long-lasting effect.
                     </p>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h2>
                     
                     <div className="space-y-4 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
@@ -2139,7 +2139,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '51' ? (
                   <>
-                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <h2 className="text-lg font-semibold text-gray-800 mb-4">Product Description</h2>
                     <p className="text-gray-600 mb-4 text-sm">
                       GENOSYS BIO-FERMENT AGE DEFYING POWDER MASK is an innovative fermented powder mask that combines 
                       traditional fermentation technology with modern skincare science. This unique powder-to-mask formula 
@@ -2148,7 +2148,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     </p>
                     
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <h3 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h3>
                       <div className="space-y-2 text-blue-800 text-sm">
                         <p><strong>Form:</strong> Powder mask (activates with water)</p>
                         <p><strong>Size:</strong> 300g</p>
@@ -2160,7 +2160,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h2>
                     <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
                       <li>Age Defying - Reduces fine lines and wrinkles through advanced fermentation technology</li>
                       <li>Bio-Ferment Technology - Harnesses the power of beneficial microorganisms for skin health</li>
@@ -2178,7 +2178,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       Use 1-2 times per week for optimal results.
                     </p>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h2>
                     
                     <div className="space-y-4 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
@@ -2276,7 +2276,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '26' ? (
                   <>
-                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <h2 className="text-lg font-semibold text-gray-800 mb-4">Product Description</h2>
                     <p className="text-gray-600 mb-4 text-sm">
                       GENOSYS EGF REPAIR OXYMASK CREAM is a unique oxygen bubbling mask cream designed to rejuvenate 
                       dull and stressed skin. This innovative "S.O.S" cream effectively addresses skin damage from 
@@ -2285,7 +2285,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     </p>
                     
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <h3 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h3>
                       <div className="space-y-2 text-blue-800 text-sm">
                         <p><strong>Form:</strong> Oxygen bubbling mask cream</p>
                         <p><strong>Size:</strong> 50g</p>
@@ -2298,7 +2298,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h2>
                     <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
                       <li>Oxygen Therapy - Supplies oxygen to the skin, improving cellular metabolism</li>
                       <li>Skin Regeneration - Accelerates healing process and reduces skin irritations</li>
@@ -2316,7 +2316,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       gently massage and tap for better absorption. Do not rinse off. Use in the morning and evening.
                     </p>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h2>
                     <div className="space-y-4 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
                         <h5 className="font-semibold text-gray-800 mb-2 text-sm">sh-Oligopeptide-1 (EGF)</h5>
@@ -2377,13 +2377,13 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '33' ? (
                   <>
-                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <h2 className="text-lg font-semibold text-gray-800 mb-4">Product Description</h2>
                     <p className="text-gray-600 mb-4 text-sm">
                       GENOSYS EyeCell EYE PEPTIDE GEL PATCH is a specialized treatment designed to rejuvenate and care for the delicate skin around the eyes. These crescent-shaped gel patches are infused with a potent blend of peptides, botanical extracts, and other active ingredients to address common eye area concerns including puffiness, dark circles, fine lines, and signs of fatigue.
                     </p>
                     
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <h3 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h3>
                       <div className="space-y-2 text-blue-800 text-sm">
                         <p><strong>Form:</strong> Thermo-sensitive hydrogel patches</p>
                         <p><strong>Size:</strong> 101g (60 patches)</p>
@@ -2395,7 +2395,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h2>
                     <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
                       <li>Reduces Puffiness and Dark Circles - Effectively combats under-eye bags and dark circles for a refreshed appearance</li>
                       <li>Smooths Fine Lines and Wrinkles - Peptide complex works to diminish the appearance of fine lines, promoting smoother skin</li>
@@ -2411,7 +2411,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       Leave on for 20-40 minutes, then remove and discard the patches. For optimal results, use regularly as part of your skincare routine.
                     </p>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h2>
                     <div className="space-y-4 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
                         <h5 className="font-semibold text-gray-800 mb-2 text-sm">Peptide Complex</h5>
@@ -2496,7 +2496,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '38' ? (
                   <>
-                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <h2 className="text-lg font-semibold text-gray-800 mb-4">Product Description</h2>
                     <p className="text-gray-600 mb-4 text-sm">
                       GENOSYS EZ CO₂ MASK KIT is a professional carboxy therapy system designed to deliver 
                       oxygen to the skin through the innovative "Bohr Effect" mechanism. This advanced CO₂ 
@@ -2506,7 +2506,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     </p>
                     
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <h3 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h3>
                       <div className="space-y-2 text-blue-800 text-sm">
                         <p><strong>Form:</strong> Professional carboxy therapy kit (Gel + Sheet Mask)</p>
                         <p><strong>Size:</strong> 1 kit</p>
@@ -2520,7 +2520,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h2>
                     <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
                       <li>Oxygen Therapy - Accelerates oxygen delivery to skin tissues through CO₂ therapy</li>
                       <li>Skin Firming - Provides firming effects through improved cellular metabolism</li>
@@ -2539,7 +2539,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       Remove mask and gently massage any remaining product into the skin.
                     </p>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h2>
                     <div className="space-y-4 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
                         <h5 className="font-semibold text-gray-800 mb-2 text-sm">EZ CO₂ GEL Ingredients</h5>
@@ -2567,7 +2567,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '24' ? (
                   <>
-                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <h2 className="text-lg font-semibold text-gray-800 mb-4">Product Description</h2>
                     <p className="text-gray-600 mb-4 text-sm">
                       GENOSYS EyeCell EYE CONTOUR CREAM is a daily eye care product specifically designed to address 
                       multiple concerns around the delicate eye area. This advanced eye cream targets fine wrinkles, 
@@ -2576,7 +2576,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     </p>
                     
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <h3 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h3>
                       <div className="space-y-2 text-blue-800 text-sm">
                         <p><strong>Form:</strong> Eye contour cream</p>
                         <p><strong>Size:</strong> 20g</p>
@@ -2588,7 +2588,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h2>
                     <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
                       <li>Fine Wrinkle Reduction - Targets and reduces fine lines around the eye area</li>
                       <li>Crow's Feet Diminishing - Helps diminish the appearance of crow's feet</li>
@@ -2606,7 +2606,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       absorption. For best results, use in conjunction with other Genosys EyeCell products.
                     </p>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h2>
                     <div className="space-y-4 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
                         <h5 className="font-semibold text-gray-800 mb-2 text-sm">Palmitoyl Hexapeptide-12</h5>
@@ -2659,7 +2659,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '46' ? (
                   <>
-                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <h2 className="text-lg font-semibold text-gray-800 mb-4">Product Description</h2>
                     <p className="text-gray-600 mb-4 text-sm">
                       GENOSYS HR³ MATRIX SCALP PEELING α is a gentle scalp peeling solution designed to cleanse 
                       and prepare the scalp for microneedling treatments. This advanced peeling formula effectively 
@@ -2668,7 +2668,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     </p>
                     
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <h3 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h3>
                       <div className="space-y-2 text-blue-800 text-sm">
                         <p><strong>Form:</strong> Scalp peeling solution</p>
                         <p><strong>Size:</strong> 100ml</p>
@@ -2702,7 +2702,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </ol>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h2>
                     <div className="space-y-4 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
                         <h5 className="font-semibold text-gray-800 mb-2 text-sm">Salicylic Acid</h5>
@@ -2792,7 +2792,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '35' ? (
                   <>
-                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <h2 className="text-lg font-semibold text-gray-800 mb-4">Product Description</h2>
                     <p className="text-gray-600 mb-4 text-sm">
                       GENOSYS HYDRO COOL MODELING MASK is a professional modeling mask that provides immediate 
                       cooling and soothing effects to the skin. This advanced mask is specifically designed to 
@@ -2801,7 +2801,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     </p>
                     
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <h3 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h3>
                       <div className="space-y-2 text-blue-800 text-sm">
                         <p><strong>Form:</strong> Professional modeling mask</p>
                         <p><strong>Size:</strong> 1kg</p>
@@ -2836,7 +2836,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </ol>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h2>
                     <div className="space-y-4 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
                         <h5 className="font-semibold text-gray-800 mb-2 text-sm">Centella Asiatica Extract</h5>
@@ -2897,7 +2897,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '44' ? (
                   <>
-                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <h2 className="text-lg font-semibold text-gray-800 mb-4">Product Description</h2>
                     <p className="text-gray-600 mb-4 text-sm">
                       GENOSYS HR³ MATRIX SCALP SHAMPOO α is a functional shampoo specifically designed to improve 
                       hair loss conditions and promote scalp health. This KFDA-approved functional product helps 
@@ -2906,7 +2906,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     </p>
                     
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <h3 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h3>
                       <div className="space-y-2 text-blue-800 text-sm">
                         <p><strong>Form:</strong> Functional scalp shampoo</p>
                         <p><strong>Size:</strong> 300ml</p>
@@ -2941,7 +2941,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </ol>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h2>
                     <div className="space-y-4 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
                         <h5 className="font-semibold text-gray-800 mb-2 text-sm">Patented Viscum Album Extract</h5>
@@ -3021,7 +3021,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '47' ? (
                   <>
-                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <h2 className="text-lg font-semibold text-gray-800 mb-4">Product Description</h2>
                     <p className="text-gray-600 mb-4 text-sm">
                       GENOSYS HR³ MATRIX MESOPECIA KIT is a comprehensive hair and scalp treatment system designed to 
                       prevent hair loss and promote healthy hair regrowth by addressing the fundamental causes of hair loss. 
@@ -3030,7 +3030,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     </p>
                     
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <h3 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h3>
                       <div className="space-y-2 text-blue-800 text-sm">
                         <p><strong>Form:</strong> Professional hair and scalp treatment kit</p>
                         <p><strong>Size:</strong> 1 Kit</p>
@@ -3046,21 +3046,21 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     <h4 className="font-semibold text-gray-800 mb-2 text-sm">Kit Components</h4>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">HR³ MATRIX SCALP PEELING (100ml)</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">HR³ MATRIX SCALP PEELING (100ml)</h3>
                         <p className="text-sm text-gray-600">
                           Deep-cleansing solution that removes keratin, sebum, and impurities while providing a refreshing cooling effect for optimal scalp preparation.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">HR³ MATRIX HAIR SOLUTION (5ml x 6 vials)</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">HR³ MATRIX HAIR SOLUTION (5ml x 6 vials)</h3>
                         <p className="text-sm text-gray-600">
                           Premium scalp and hair care product that combats factors causing hair loss, accelerates angiogenesis, and inhibits substances responsible for hair thinning.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">GENOSYS STAMP (ROLLER)</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">GENOSYS STAMP (ROLLER)</h3>
                         <p className="text-sm text-gray-600">
                           Specialized device designed to enhance absorption of active ingredients into the scalp, optimizing treatment effectiveness and ensuring deeper penetration.
                         </p>
@@ -3088,7 +3088,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </ol>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h2>
                     <div className="space-y-4 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
                         <h5 className="font-semibold text-gray-800 mb-2 text-sm">Peptide Complex</h5>
@@ -3129,7 +3129,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '43' ? (
                   <>
-                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <h2 className="text-lg font-semibold text-gray-800 mb-4">Product Description</h2>
                     <p className="text-gray-600 mb-4 text-sm">
                       GENOSYS HR³ MATRIX HAIR TONIC α is a specialized scalp and hair treatment designed to revitalize 
                       and strengthen hair follicles while providing essential nutrients for optimal hair growth. This 
@@ -3138,7 +3138,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     </p>
                     
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <h3 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h3>
                       <div className="space-y-2 text-blue-800 text-sm">
                         <p><strong>Form:</strong> Premium hair and scalp tonic</p>
                         <p><strong>Size:</strong> 70ml</p>
@@ -3151,31 +3151,31 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h2>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Peptide Technology</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Peptide Technology</h3>
                         <p className="text-sm text-gray-600">
                           Advanced peptide complex including Sh-polypeptide-71 and Copper Tripeptide-1 for targeted hair follicle nourishment and growth stimulation.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Botanical Extracts</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Botanical Extracts</h3>
                         <p className="text-sm text-gray-600">
                           Rich blend of traditional herbs and plant extracts including Sophora Japonica, Portulaca Oleracea, and Polygonum Multiflorum for natural scalp nourishment.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Scalp Revitalization</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Scalp Revitalization</h3>
                         <p className="text-sm text-gray-600">
                           Niacinamide and botanical extracts work synergistically to improve scalp circulation and provide essential nutrients to hair follicles.
                         </p>
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h2>
                     <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
                       <li>Strengthens Hair Follicles - Provides essential nutrients and peptides for stronger, healthier hair</li>
                       <li>Improves Scalp Health - Nourishes and revitalizes the scalp environment for optimal hair growth</li>
@@ -3185,7 +3185,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       <li>Antioxidant Protection - Botanical extracts provide antioxidant benefits for scalp protection</li>
                     </ul>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h2>
                     <div className="space-y-4 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
                         <h5 className="font-semibold text-gray-800 mb-2 text-sm">Peptide Complex</h5>
@@ -3273,7 +3273,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '45' ? (
                   <>
-                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <h2 className="text-lg font-semibold text-gray-800 mb-4">Product Description</h2>
                     <p className="text-gray-600 mb-4 text-sm">
                       GENOSYS HR³ MATRIX HAIR SOLUTION α is a premium scalp and hair care treatment specifically formulated 
                       to combat hair loss and promote healthy hair regrowth. This advanced solution addresses the fundamental 
@@ -3282,7 +3282,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     </p>
                     
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <h3 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h3>
                       <div className="space-y-2 text-blue-800 text-sm">
                         <p><strong>Form:</strong> Premium hair and scalp solution</p>
                         <p><strong>Size:</strong> 5ml*8pcs</p>
@@ -3295,31 +3295,31 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h2>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Advanced Peptide Technology</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Advanced Peptide Technology</h3>
                         <p className="text-sm text-gray-600">
                           Features Sh-polypeptide-71, Copper Tripeptide-1, and Pentapeptide-20 for targeted hair follicle support and growth stimulation.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Botanical Extracts</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Botanical Extracts</h3>
                         <p className="text-sm text-gray-600">
                           Rich blend of traditional herbs including Sophora Japonica, Portulaca Oleracea, and Polygonum Multiflorum for natural scalp nourishment.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Scalp Circulation Enhancement</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Scalp Circulation Enhancement</h3>
                         <p className="text-sm text-gray-600">
                           Niacinamide and botanical extracts work together to improve blood circulation and nutrient delivery to hair follicles.
                         </p>
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h2>
                     <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
                       <li>Prevents Hair Loss - Targets fundamental causes of hair loss and inhibits substances responsible for hair thinning</li>
                       <li>Promotes Hair Regrowth - Accelerates angiogenesis and stimulates hair follicle activity for new growth</li>
@@ -3329,7 +3329,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       <li>Antioxidant Protection - Sophora Japonica and other botanical extracts provide antioxidant benefits</li>
                     </ul>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h2>
                     <div className="space-y-4 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
                         <h5 className="font-semibold text-gray-800 mb-2 text-sm">Peptide Complex</h5>
@@ -3417,7 +3417,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '49' ? (
                   <>
-                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <h2 className="text-lg font-semibold text-gray-800 mb-4">Product Description</h2>
                     <p className="text-gray-600 mb-4 text-sm">
                       GENOSYS GENO-LED IR II is an advanced LED therapy device that combines infrared and red light technology 
                       to provide professional-grade skin rejuvenation treatments. This innovative device utilizes specific 
@@ -3426,7 +3426,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     </p>
                     
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <h3 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h3>
                       <div className="space-y-2 text-blue-800 text-sm">
                         <p><strong>Light Wavelengths:</strong> Red light (630-660nm) and Infrared (800-1000nm)</p>
                         <p><strong>Treatment Time:</strong> 10-20 minutes per session</p>
@@ -3438,31 +3438,31 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h2>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Dual Light Technology</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Dual Light Technology</h3>
                         <p className="text-sm text-gray-600">
                           Combines infrared (IR) and red light therapy for comprehensive skin treatment and deep tissue penetration.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Professional Grade</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Professional Grade</h3>
                         <p className="text-sm text-gray-600">
                           Medical-grade LED technology designed for both professional clinic use and safe home treatments.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Advanced Safety Features</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Advanced Safety Features</h3>
                         <p className="text-sm text-gray-600">
                           Built-in safety mechanisms and timer controls ensure optimal treatment duration and user safety.
                         </p>
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h2>
                     <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
                       <li>Stimulates Collagen Production - Red light therapy promotes natural collagen synthesis for firmer, younger-looking skin</li>
                       <li>Reduces Inflammation - Infrared light helps calm irritated skin and reduces redness and swelling</li>
@@ -3530,7 +3530,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '14' ? (
                   <>
-                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <h2 className="text-lg font-semibold text-gray-800 mb-4">Product Description</h2>
                     <p className="text-gray-600 mb-4 text-sm">
                       MICROBIOME ENERGY INFUSING MIST is an advanced revitalizing mist designed to restore and balance 
                       the skin's natural microbiome while providing instant hydration and radiance. This innovative 
@@ -3539,7 +3539,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     </p>
                     
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <h3 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h3>
                       <div className="space-y-2 text-blue-800 text-sm">
                         <p><strong>Type:</strong> Microbiome energy infusing mist</p>
                         <p><strong>Size:</strong> 80ml</p>
@@ -3550,38 +3550,38 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h2>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Microbiome Technology</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Microbiome Technology</h3>
                         <p className="text-sm text-gray-600">
                           Advanced probiotic and prebiotic blend that corrects and maintains the natural balance of skin microbiome.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Instant Hydration</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Instant Hydration</h3>
                         <p className="text-sm text-gray-600">
                           Powerful hyaluronic acid complex that provides immediate and long-lasting moisture to the skin.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Natural Radiance</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Natural Radiance</h3>
                         <p className="text-sm text-gray-600">
                           Unique formula that revitalizes skin and enhances natural glow and radiance for a healthy complexion.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Barrier Protection</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Barrier Protection</h3>
                         <p className="text-sm text-gray-600">
                           Strengthens skin's natural moisture barrier and enhances skin's natural defense mechanisms.
                         </p>
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h2>
                     <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
                       <li>Microbiome Balance - Restores and maintains healthy skin microbiome</li>
                       <li>Instant Hydration - Provides immediate moisture and long-lasting hydration</li>
@@ -3591,38 +3591,38 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       <li>Gentle Care - Suitable for all skin types, including sensitive skin</li>
                     </ul>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h2>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">CUREBIOME (Probiotics & Prebiotics)</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">CUREBIOME (Probiotics & Prebiotics)</h3>
                         <p className="text-sm text-gray-600">
                           Advanced microbiome technology that corrects skin microbiome balance and promotes healthy skin flora.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">FENSEBIOME™ (Acetyl Heptapeptide-4)</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">FENSEBIOME™ (Acetyl Heptapeptide-4)</h3>
                         <p className="text-sm text-gray-600">
                           Innovative peptide that enhances skin's natural defense mechanisms and microbiome health.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Hyaluronan 10 Multi-Complex</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Hyaluronan 10 Multi-Complex</h3>
                         <p className="text-sm text-gray-600">
                           Multi-molecular hyaluronic acid complex that provides deep hydration and plumping effects.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Butyrospermum Parkii (Shea) Butter</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Butyrospermum Parkii (Shea) Butter</h3>
                         <p className="text-sm text-gray-600">
                           Natural emollient that provides additional moisture and helps maintain skin's natural barrier.
                         </p>
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h2>
                     <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
                       <ol className="list-decimal list-inside text-gray-600 space-y-2 text-sm">
                         <li><strong>Preparation:</strong> Cleanse your skin thoroughly before application</li>
@@ -3643,7 +3643,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '28' ? (
                   <>
-                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <h2 className="text-lg font-semibold text-gray-800 mb-4">Product Description</h2>
                     <p className="text-gray-600 mb-4 text-sm">
                       INTENSIVE HYDRO SOOTHING CREAM is a premium hydrating and soothing cream designed to provide intensive 
                       moisture and calm irritated skin. This advanced formula combines powerful natural ingredients including 
@@ -3651,7 +3651,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     </p>
                     
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <h3 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h3>
                       <div className="space-y-2 text-blue-800 text-sm">
                         <p><strong>Type:</strong> Intensive hydro soothing cream</p>
                         <p><strong>Size Options:</strong> 50g (Homecare) / 250g (Professional)</p>
@@ -3662,38 +3662,38 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h2>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Intensive Hydration</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Intensive Hydration</h3>
                         <p className="text-sm text-gray-600">
                           Advanced hydrating formula that provides long-lasting moisture and helps maintain optimal skin hydration levels.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Soothing Properties</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Soothing Properties</h3>
                         <p className="text-sm text-gray-600">
                           Calms down skin irritation and provides relief for sensitive, stressed, or damaged skin.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Natural Ingredients</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Natural Ingredients</h3>
                         <p className="text-sm text-gray-600">
                           Formulated with premium natural ingredients including aloe vera and snail secretion filtrate for gentle, effective care.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Professional & Home Use</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Professional & Home Use</h3>
                         <p className="text-sm text-gray-600">
                           Available in both homecare (50g) and professional (250g) sizes for versatile application.
                         </p>
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h2>
                     <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
                       <li>Intensive Hydration - Provides long-lasting moisture for all skin types</li>
                       <li>Skin Soothing - Calms irritation and reduces redness and inflammation</li>
@@ -3703,52 +3703,52 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       <li>Versatile Use - Perfect for both professional treatments and daily home care</li>
                     </ul>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h2>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Aloe Barbadensis Leaf Extract</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Aloe Barbadensis Leaf Extract</h3>
                         <p className="text-sm text-gray-600">
                           Natural soothing and healing ingredient that calms irritated skin and provides gentle hydration.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Snail Secretion Filtrate</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Snail Secretion Filtrate</h3>
                         <p className="text-sm text-gray-600">
                           Premium ingredient rich in glycoproteins and growth factors that promote skin regeneration and healing.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Hyaluronic Acid</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Hyaluronic Acid</h3>
                         <p className="text-sm text-gray-600">
                           Powerful humectant that attracts and retains moisture, providing intense hydration and plumping effects.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Lactobacillus/Pumpkin Ferment Extract</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Lactobacillus/Pumpkin Ferment Extract</h3>
                         <p className="text-sm text-gray-600">
                           Fermented ingredient that provides probiotics and nutrients for improved skin health and texture.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Beta-Glucan</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Beta-Glucan</h3>
                         <p className="text-sm text-gray-600">
                           Natural immune-boosting ingredient that enhances skin's defense mechanisms and promotes healing.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Phytolex SC</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Phytolex SC</h3>
                         <p className="text-sm text-gray-600">
                           Advanced botanical complex that provides additional skin protection and soothing benefits.
                         </p>
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h2>
                     <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
                       <ol className="list-decimal list-inside text-gray-600 space-y-2 text-sm">
                         <li><strong>Preparation:</strong> Cleanse your skin thoroughly before application</li>
@@ -3769,7 +3769,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '4' ? (
                   <>
-                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <h2 className="text-lg font-semibold text-gray-800 mb-4">Product Description</h2>
                     <p className="text-gray-600 mb-4 text-sm">
                       POWER SOLUTION HES is a professional hydrating and firming ampoule specifically formulated for microneedling treatments. 
                       This advanced formula combines powerful hydrating agents with firming peptides to provide long-lasting moisturizing 
@@ -3777,7 +3777,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     </p>
                     
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <h3 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h3>
                       <div className="space-y-2 text-blue-800 text-sm">
                         <p><strong>Form:</strong> Professional hydrating and firming ampoule</p>
                         <p><strong>Size:</strong> 2ml x 10ea</p>
@@ -3792,38 +3792,38 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h2>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Professional Microneedling Formula</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Professional Microneedling Formula</h3>
                         <p className="text-sm text-gray-600">
                           Specifically designed for use with microneedling treatments to maximize ingredient penetration and effectiveness.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Hydrating & Firming</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Hydrating & Firming</h3>
                         <p className="text-sm text-gray-600">
                           Advanced formula that provides deep hydration while promoting skin firmness and elasticity.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Growth Factor Technology</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Growth Factor Technology</h3>
                         <p className="text-sm text-gray-600">
                           Contains sh-polypeptide-7, a human growth hormone-like peptide for enhanced skin regeneration.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Skin-Friendly Formulation</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Skin-Friendly Formulation</h3>
                         <p className="text-sm text-gray-600">
                           Free from harmful additives, parabens, ethanol, artificial fragrances, and sulfates for safe use.
                         </p>
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h2>
                     <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
                       <li>Deep Hydration - Provides long-lasting moisturizing effects for plump, hydrated skin</li>
                       <li>Skin Firming - Promotes skin elasticity and firmness for youthful appearance</li>
@@ -3833,52 +3833,52 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       <li>Professional Results - Delivers clinical-grade results for advanced skincare treatments</li>
                     </ul>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h2>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">sh-Polypeptide-7</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">sh-Polypeptide-7</h3>
                         <p className="text-sm text-gray-600">
                           Human growth hormone-like peptide that stimulates skin regeneration and healing processes.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Hyaluronic Acid</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Hyaluronic Acid</h3>
                         <p className="text-sm text-gray-600">
                           Powerful humectant that attracts and retains moisture for deep hydration and plumping effects.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">BIOPHYTEX™</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">BIOPHYTEX™</h3>
                         <p className="text-sm text-gray-600">
                           Advanced botanical complex that provides antioxidant protection and skin nourishment.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Copper Tripeptide-1</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Copper Tripeptide-1</h3>
                         <p className="text-sm text-gray-600">
                           Healing peptide that promotes skin repair and reduces inflammation for faster recovery.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Panthenol</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Panthenol</h3>
                         <p className="text-sm text-gray-600">
                           Soothing and hydrating ingredient that helps maintain skin barrier function and comfort.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Phytosphingosine</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Phytosphingosine</h3>
                         <p className="text-sm text-gray-600">
                           Natural lipid that supports skin barrier function and provides anti-inflammatory benefits.
                         </p>
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h2>
                     <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
                       <ol className="list-decimal list-inside text-gray-600 space-y-2 text-sm">
                         <li><strong>Preparation:</strong> Cleanse skin thoroughly and prepare for microneedling treatment</li>
@@ -3899,7 +3899,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '5' ? (
                   <>
-                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <h2 className="text-lg font-semibold text-gray-800 mb-4">Product Description</h2>
                     <p className="text-gray-600 mb-4 text-sm">
                       POWER SOLUTION CVS is a professional skin revitalizing ampoule designed specifically for microneedling treatments. 
                       This advanced formula supplies essential nutrients to the skin while providing soothing and hydrating benefits 
@@ -3907,7 +3907,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     </p>
                     
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <h3 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h3>
                       <div className="space-y-2 text-blue-800 text-sm">
                         <p><strong>Form:</strong> Professional skin revitalizing ampoule</p>
                         <p><strong>Size:</strong> 2ml x 10ea</p>
@@ -3922,38 +3922,38 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h2>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Skin Revitalization</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Skin Revitalization</h3>
                         <p className="text-sm text-gray-600">
                           Advanced formula that revitalizes and rejuvenates skin for a healthy, radiant complexion.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Nutrient Supply</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Nutrient Supply</h3>
                         <p className="text-sm text-gray-600">
                           Delivers essential nutrients directly to the skin for optimal health and vitality.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Soothing & Hydrating</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Soothing & Hydrating</h3>
                         <p className="text-sm text-gray-600">
                           Calms irritated skin while providing deep hydration for comfort and healing.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Botanical Stem Cell Technology</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Botanical Stem Cell Technology</h3>
                         <p className="text-sm text-gray-600">
                           Contains botanical stem cell extracts for enhanced skin regeneration and protection.
                         </p>
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h2>
                     <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
                       <li>Skin Revitalization - Restores skin vitality and promotes healthy cell turnover</li>
                       <li>Nutrient Delivery - Supplies essential nutrients for optimal skin health</li>
@@ -3963,52 +3963,52 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       <li>Professional Results - Delivers clinical-grade revitalization for advanced treatments</li>
                     </ul>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h2>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">sh-Polypeptide-7</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">sh-Polypeptide-7</h3>
                         <p className="text-sm text-gray-600">
                           Human growth hormone-like peptide that stimulates skin regeneration and healing.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Botanical Callus Culture Extracts</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Botanical Callus Culture Extracts</h3>
                         <p className="text-sm text-gray-600">
                           Rosa Damascena and Vitis Vinifera extracts provide antioxidant protection and skin nourishment.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Panthenol</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Panthenol</h3>
                         <p className="text-sm text-gray-600">
                           Soothing and hydrating ingredient that helps maintain skin barrier function.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Allantoin</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Allantoin</h3>
                         <p className="text-sm text-gray-600">
                           Gentle healing ingredient that soothes irritated skin and promotes cell renewal.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Hyaluronic Acid</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Hyaluronic Acid</h3>
                         <p className="text-sm text-gray-600">
                           Powerful humectant that attracts and retains moisture for deep hydration.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Lactobacillus Ferment Lysate</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Lactobacillus Ferment Lysate</h3>
                         <p className="text-sm text-gray-600">
                           Probiotic ingredient that supports skin's natural barrier and overall health.
                         </p>
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h2>
                     <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
                       <ol className="list-decimal list-inside text-gray-600 space-y-2 text-sm">
                         <li><strong>Preparation:</strong> Cleanse skin thoroughly and prepare for microneedling treatment</li>
@@ -4029,7 +4029,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '6' ? (
                   <>
-                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <h2 className="text-lg font-semibold text-gray-800 mb-4">Product Description</h2>
                     <p className="text-gray-600 mb-4 text-sm">
                       POWER SOLUTION CTS is a professional skin remodeling ampoule specifically formulated for microneedling treatments. 
                       This advanced formula helps the skin retain its natural elasticity and increases skin strength while promoting 
@@ -4037,7 +4037,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     </p>
                     
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <h3 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h3>
                       <div className="space-y-2 text-blue-800 text-sm">
                         <p><strong>Form:</strong> Professional skin remodeling ampoule</p>
                         <p><strong>Size:</strong> 2ml x 10ea</p>
@@ -4052,38 +4052,38 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h2>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Skin Remodeling</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Skin Remodeling</h3>
                         <p className="text-sm text-gray-600">
                           Advanced formula that helps remodel and restructure skin for improved texture and firmness.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Elasticity Enhancement</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Elasticity Enhancement</h3>
                         <p className="text-sm text-gray-600">
                           Promotes skin elasticity and natural flexibility for youthful, resilient skin.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Strength Building</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Strength Building</h3>
                         <p className="text-sm text-gray-600">
                           Increases skin strength and resilience for better overall skin health.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Collagen Support</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Collagen Support</h3>
                         <p className="text-sm text-gray-600">
                           Contains collagen and peptides to support skin structure and firmness.
                         </p>
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h2>
                     <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
                       <li>Skin Remodeling - Helps restructure and improve skin texture and appearance</li>
                       <li>Elasticity Enhancement - Promotes natural skin flexibility and resilience</li>
@@ -4093,52 +4093,52 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       <li>Professional Results - Delivers clinical-grade remodeling for advanced treatments</li>
                     </ul>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h2>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">sh-Polypeptide-7</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">sh-Polypeptide-7</h3>
                         <p className="text-sm text-gray-600">
                           Human growth hormone-like peptide that stimulates skin regeneration and remodeling.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Collagen</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Collagen</h3>
                         <p className="text-sm text-gray-600">
                           Essential protein that provides structural support and improves skin firmness.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Hyaluronic Acid</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Hyaluronic Acid</h3>
                         <p className="text-sm text-gray-600">
                           Powerful humectant that provides deep hydration and plumping effects.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Copper Tripeptide-1</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Copper Tripeptide-1</h3>
                         <p className="text-sm text-gray-600">
                           Healing peptide that promotes skin repair and reduces inflammation.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Botanical Callus Culture Extracts</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Botanical Callus Culture Extracts</h3>
                         <p className="text-sm text-gray-600">
                           Rosa Damascena and Vitis Vinifera extracts provide antioxidant protection and nourishment.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Palmitoyl Hexapeptide-12</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Palmitoyl Hexapeptide-12</h3>
                         <p className="text-sm text-gray-600">
                           Advanced peptide that helps improve skin elasticity and firmness.
                         </p>
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h2>
                     <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
                       <ol className="list-decimal list-inside text-gray-600 space-y-2 text-sm">
                         <li><strong>Preparation:</strong> Cleanse skin thoroughly and prepare for microneedling treatment</li>
@@ -4159,7 +4159,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '7' ? (
                   <>
-                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <h2 className="text-lg font-semibold text-gray-800 mb-4">Product Description</h2>
                     <p className="text-gray-600 mb-4 text-sm">
                       POWER SOLUTION PCS is a professional anti-blemish ampoule specifically formulated for microneedling treatments. 
                       This advanced formula controls excessive oil and sebum production while helping prevent skin breakouts 
@@ -4167,7 +4167,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     </p>
                     
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <h3 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h3>
                       <div className="space-y-2 text-blue-800 text-sm">
                         <p><strong>Form:</strong> Professional anti-blemish ampoule</p>
                         <p><strong>Size:</strong> 2ml x 10ea</p>
@@ -4182,38 +4182,38 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h2>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Anti-Blemish Formula</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Anti-Blemish Formula</h3>
                         <p className="text-sm text-gray-600">
                           Specifically designed to target and prevent blemishes and skin breakouts.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Sebum Control</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Sebum Control</h3>
                         <p className="text-sm text-gray-600">
                           Controls excessive oil and sebum production for balanced, clear skin.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Breakout Prevention</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Breakout Prevention</h3>
                         <p className="text-sm text-gray-600">
                           Helps prevent skin breakouts and promotes clear, healthy complexion.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Natural Extracts</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Natural Extracts</h3>
                         <p className="text-sm text-gray-600">
                           Contains witch hazel and houttuynia cordata extracts for natural blemish control.
                         </p>
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h2>
                     <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
                       <li>Blemish Control - Targets and prevents blemishes and skin imperfections</li>
                       <li>Sebum Regulation - Controls excessive oil production for balanced skin</li>
@@ -4223,52 +4223,52 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       <li>Professional Results - Delivers clinical-grade blemish control for advanced treatments</li>
                     </ul>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h2>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">sh-Polypeptide-7</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">sh-Polypeptide-7</h3>
                         <p className="text-sm text-gray-600">
                           Human growth hormone-like peptide that stimulates skin regeneration and healing.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Witch Hazel Extract</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Witch Hazel Extract</h3>
                         <p className="text-sm text-gray-600">
                           Natural astringent that helps control oil production and soothes irritated skin.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Houttuynia Cordata Extract</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Houttuynia Cordata Extract</h3>
                         <p className="text-sm text-gray-600">
                           Natural anti-inflammatory ingredient that helps control blemishes and soothes skin.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Botanical Callus Culture Extracts</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Botanical Callus Culture Extracts</h3>
                         <p className="text-sm text-gray-600">
                           Rosa Damascena and Vitis Vinifera extracts provide antioxidant protection and nourishment.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Pine Bark Extract</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Pine Bark Extract</h3>
                         <p className="text-sm text-gray-600">
                           Natural antioxidant that helps protect skin from environmental damage.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Advanced Peptides</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Advanced Peptides</h3>
                         <p className="text-sm text-gray-600">
                           Acetyl Hexapeptide-8, Palmitoyl Hexapeptide-12, and Palmitoyl Tripeptide-1 for skin health.
                         </p>
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h2>
                     <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
                       <ol className="list-decimal list-inside text-gray-600 space-y-2 text-sm">
                         <li><strong>Preparation:</strong> Cleanse skin thoroughly and prepare for microneedling treatment</li>
@@ -4289,7 +4289,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '8' ? (
                   <>
-                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <h2 className="text-lg font-semibold text-gray-800 mb-4">Product Description</h2>
                     <p className="text-gray-600 mb-4 text-sm">
                       POWER SOLUTION SWS is a professional anti-pigment ampoule specifically formulated for microneedling treatments. 
                       This advanced formula helps improve pigmentation, even skin tone, and brighten the skin surface while promoting 
@@ -4297,7 +4297,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     </p>
                     
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <h3 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h3>
                       <div className="space-y-2 text-blue-800 text-sm">
                         <p><strong>Form:</strong> Professional anti-pigment ampoule</p>
                         <p><strong>Size:</strong> 2ml x 10ea</p>
@@ -4312,38 +4312,38 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h2>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Anti-Pigment Formula</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Anti-Pigment Formula</h3>
                         <p className="text-sm text-gray-600">
                           Specifically designed to target and reduce hyperpigmentation and dark spots.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Skin Brightening</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Skin Brightening</h3>
                         <p className="text-sm text-gray-600">
                           Helps brighten and even skin tone for a more radiant, uniform complexion.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Pigmentation Control</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Pigmentation Control</h3>
                         <p className="text-sm text-gray-600">
                           Targets existing pigmentation while preventing new dark spots from forming.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Natural Brightening Agents</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Natural Brightening Agents</h3>
                         <p className="text-sm text-gray-600">
                           Contains arbutin and kojic acid for natural, effective skin brightening.
                         </p>
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h2>
                     <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
                       <li>Pigmentation Reduction - Targets and reduces hyperpigmentation and dark spots</li>
                       <li>Skin Brightening - Helps brighten and even skin tone for radiant complexion</li>
@@ -4353,52 +4353,52 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       <li>Professional Results - Delivers clinical-grade brightening for advanced treatments</li>
                     </ul>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h2>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">sh-Polypeptide-7</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">sh-Polypeptide-7</h3>
                         <p className="text-sm text-gray-600">
                           Human growth hormone-like peptide that stimulates skin regeneration and healing.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Arbutin</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Arbutin</h3>
                         <p className="text-sm text-gray-600">
                           Natural skin brightening agent that helps reduce hyperpigmentation and dark spots.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Kojic Acid</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Kojic Acid</h3>
                         <p className="text-sm text-gray-600">
                           Powerful natural brightening ingredient that inhibits melanin production.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Licorice Root Extract</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Licorice Root Extract</h3>
                         <p className="text-sm text-gray-600">
                           Natural anti-inflammatory and brightening ingredient that soothes and evens skin tone.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Botanical Callus Culture Extracts</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Botanical Callus Culture Extracts</h3>
                         <p className="text-sm text-gray-600">
                           Rosa Damascena and Vitis Vinifera extracts provide antioxidant protection and nourishment.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Fermented Extracts</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Fermented Extracts</h3>
                         <p className="text-sm text-gray-600">
                           Aspergillus/Saccharomyces/Glycyrrhiza Uralensis Root Extract Ferment for enhanced skin health.
                         </p>
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h2>
                     <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
                       <ol className="list-decimal list-inside text-gray-600 space-y-2 text-sm">
                         <li><strong>Preparation:</strong> Cleanse skin thoroughly and prepare for microneedling treatment</li>
@@ -4419,7 +4419,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '9' ? (
                   <>
-                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <h2 className="text-lg font-semibold text-gray-800 mb-4">Product Description</h2>
                     <p className="text-gray-600 mb-4 text-sm">
                       POWER SOLUTION AWS is a professional anti-aging ampoule specifically formulated for microneedling treatments. 
                       This advanced formula helps reduce the appearance of wrinkles and improve skin firmness while promoting 
@@ -4427,7 +4427,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     </p>
                     
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <h3 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h3>
                       <div className="space-y-2 text-blue-800 text-sm">
                         <p><strong>Form:</strong> Professional anti-aging ampoule</p>
                         <p><strong>Size:</strong> 2ml x 10ea</p>
@@ -4442,38 +4442,38 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h2>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Anti-Aging Formula</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Anti-Aging Formula</h3>
                         <p className="text-sm text-gray-600">
                           Specifically designed to target and reduce the appearance of wrinkles and fine lines.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Firmness Improvement</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Firmness Improvement</h3>
                         <p className="text-sm text-gray-600">
                           Helps improve skin firmness and elasticity for a more youthful appearance.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Wrinkle Reduction</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Wrinkle Reduction</h3>
                         <p className="text-sm text-gray-600">
                           Targets existing wrinkles while helping prevent new ones from forming.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Peptide Technology</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Peptide Technology</h3>
                         <p className="text-sm text-gray-600">
                           Contains firming peptide complex and adenosine for advanced anti-aging benefits.
                         </p>
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h2>
                     <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
                       <li>Wrinkle Reduction - Targets and reduces the appearance of wrinkles and fine lines</li>
                       <li>Skin Firming - Improves skin firmness and elasticity for youthful appearance</li>
@@ -4483,52 +4483,52 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       <li>Professional Results - Delivers clinical-grade anti-aging for advanced treatments</li>
                     </ul>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h2>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">sh-Polypeptide-7</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">sh-Polypeptide-7</h3>
                         <p className="text-sm text-gray-600">
                           Human growth hormone-like peptide that stimulates skin regeneration and healing.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Acetyl Hexapeptide-8</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Acetyl Hexapeptide-8</h3>
                         <p className="text-sm text-gray-600">
                           Advanced peptide that helps relax facial muscles and reduce expression lines.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Ceramide</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Ceramide</h3>
                         <p className="text-sm text-gray-600">
                           Essential lipid that helps maintain skin barrier function and moisture retention.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Adenosine</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Adenosine</h3>
                         <p className="text-sm text-gray-600">
                           Natural anti-aging ingredient that helps improve skin texture and reduce fine lines.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Allantoin</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Allantoin</h3>
                         <p className="text-sm text-gray-600">
                           Soothing and healing ingredient that promotes skin regeneration and comfort.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Copper Tripeptide-1</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Copper Tripeptide-1</h3>
                         <p className="text-sm text-gray-600">
                           Healing peptide that promotes skin repair and reduces inflammation for faster recovery.
                         </p>
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h2>
                     <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
                       <ol className="list-decimal list-inside text-gray-600 space-y-2 text-sm">
                         <li><strong>Preparation:</strong> Cleanse skin thoroughly and prepare for microneedling treatment</li>
@@ -4549,7 +4549,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '37' ? (
                   <>
-                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <h2 className="text-lg font-semibold text-gray-800 mb-4">Product Description</h2>
                     <p className="text-gray-600 mb-4 text-sm">
                       PEPTIDE GEL MASK is a revolutionary thermo-sensitive hydrogel mask that provides instant cooling relief 
                       and deep hydration for post-treatment skin care. This patented technology transforms from gel to fluid 
@@ -4557,7 +4557,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     </p>
                     
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <h3 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h3>
                       <div className="space-y-2 text-blue-800 text-sm">
                         <p><strong>Form:</strong> Professional thermo-sensitive hydrogel mask</p>
                         <p><strong>Size:</strong> 38g x 5ea</p>
@@ -4572,38 +4572,38 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h2>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Thermo-Sensitive Technology</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Thermo-Sensitive Technology</h3>
                         <p className="text-sm text-gray-600">
                           Patented hydrogel that transforms from gel to fluid at body temperature for enhanced skin adhesion and ingredient penetration.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Instant Cooling Effect</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Instant Cooling Effect</h3>
                         <p className="text-sm text-gray-600">
                           Provides immediate cooling relief by displacing skin heat with moisture, perfect for post-treatment care.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Advanced Peptide Formula</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Advanced Peptide Formula</h3>
                         <p className="text-sm text-gray-600">
                           Contains Acetyl Hexapeptide-8 and other peptides for enhanced skin regeneration and healing.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Post-Treatment Care</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Post-Treatment Care</h3>
                         <p className="text-sm text-gray-600">
                           Specifically recommended after dermatological procedures like laser treatments and microneedling.
                         </p>
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h2>
                     <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
                       <li>Instant Cooling Relief - Provides immediate cooling sensation to soothe irritated skin</li>
                       <li>Deep Hydration - Delivers intense moisture for optimal skin recovery</li>
@@ -4613,52 +4613,52 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       <li>Professional Results - Clinical-grade formula for advanced skincare treatments</li>
                     </ul>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h2>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Acetyl Hexapeptide-8</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Acetyl Hexapeptide-8</h3>
                         <p className="text-sm text-gray-600">
                           Advanced peptide that helps relax facial muscles and reduce expression lines for smoother skin.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Hyaluronic Acid</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Hyaluronic Acid</h3>
                         <p className="text-sm text-gray-600">
                           Powerful humectant that attracts and retains moisture for deep hydration and plumping effects.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Hydrolyzed Collagen</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Hydrolyzed Collagen</h3>
                         <p className="text-sm text-gray-600">
                           Bioactive collagen peptides that support skin structure and promote elasticity.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Chondrus Crispus Extract</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Chondrus Crispus Extract</h3>
                         <p className="text-sm text-gray-600">
                           Natural carrageenan extract that provides soothing and anti-inflammatory benefits.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Dipotassium Glycyrrhizate</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Dipotassium Glycyrrhizate</h3>
                         <p className="text-sm text-gray-600">
                           Licorice root derivative that provides anti-inflammatory and soothing properties.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Botanical Extracts</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Botanical Extracts</h3>
                         <p className="text-sm text-gray-600">
                           Arnica Montana and Chamomile extracts provide natural soothing and healing benefits.
                         </p>
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h2>
                     <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
                       <ol className="list-decimal list-inside text-gray-600 space-y-2 text-sm">
                         <li><strong>Preparation:</strong> Cleanse skin thoroughly and ensure it's dry before application</li>
@@ -4680,7 +4680,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '22' ? (
                   <>
-                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <h2 className="text-lg font-semibold text-gray-800 mb-4">Product Description</h2>
                     <p className="text-gray-600 mb-4 text-sm">
                       MULTI FUNCTIONAL ANTI-WRINKLE SERUM is an advanced anti-aging serum that combines the power of bakuchiol, 
                       a natural alternative to retinol, with cutting-edge peptide technology. This clinically-tested formula 
@@ -4688,7 +4688,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     </p>
                     
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <h3 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h3>
                       <div className="space-y-2 text-blue-800 text-sm">
                         <p><strong>Type:</strong> Multi-functional anti-wrinkle serum</p>
                         <p><strong>Size:</strong> 30ml</p>
@@ -4700,38 +4700,38 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h2>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Natural Retinol Alternative</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Natural Retinol Alternative</h3>
                         <p className="text-sm text-gray-600">
                           Features bakuchiol, a plant-derived alternative to retinol that provides anti-aging benefits without irritation.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Advanced Peptide Complex</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Advanced Peptide Complex</h3>
                         <p className="text-sm text-gray-600">
                           Contains Anti-aging Peptide 6 and other peptides that target specific signs of aging for comprehensive results.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Lipid Barrier Technology</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Lipid Barrier Technology</h3>
                         <p className="text-sm text-gray-600">
                           Innovative liposome delivery system with ceramides, cholesterol, and phytosphingosine for enhanced penetration.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Clinical Validation</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Clinical Validation</h3>
                         <p className="text-sm text-gray-600">
                           Clinically tested with proven results in improving skin age index and overall skin quality.
                         </p>
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h2>
                     <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
                       <li>Wrinkle Reduction - Visibly smooths fine lines and deep wrinkles for younger-looking skin</li>
                       <li>Skin Firmness - Reinforces skin elasticity and firmness for a more lifted appearance</li>
@@ -4741,52 +4741,52 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       <li>Anti-Aging Protection - Comprehensive approach to preventing and reversing signs of aging</li>
                     </ul>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h2>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Bakuchiol</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Bakuchiol</h3>
                         <p className="text-sm text-gray-600">
                           Natural plant-derived alternative to retinol that provides anti-aging benefits without irritation or photosensitivity.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Anti-aging Peptide 6</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Anti-aging Peptide 6</h3>
                         <p className="text-sm text-gray-600">
                           Advanced peptide that targets specific aging mechanisms for comprehensive anti-wrinkle benefits.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Lipid Barrier Liposome</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Lipid Barrier Liposome</h3>
                         <p className="text-sm text-gray-600">
                           Ceramide NP, cholesterol, and phytosphingosine create a protective barrier while enhancing ingredient penetration.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Collagen & Elastin</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Collagen & Elastin</h3>
                         <p className="text-sm text-gray-600">
                           Essential proteins that support skin structure and elasticity for firm, youthful skin.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Propolis Extract</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Propolis Extract</h3>
                         <p className="text-sm text-gray-600">
                           Natural bee-derived ingredient that provides antioxidant protection and skin healing benefits.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Adenosine & Niacinamide</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Adenosine & Niacinamide</h3>
                         <p className="text-sm text-gray-600">
                           Powerful combination that improves skin texture, reduces fine lines, and enhances skin barrier function.
                         </p>
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h2>
                     <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
                       <ol className="list-decimal list-inside text-gray-600 space-y-2 text-sm">
                         <li><strong>Preparation:</strong> Cleanse skin thoroughly and apply toner if desired</li>
@@ -4808,7 +4808,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '18' ? (
                   <>
-                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <h2 className="text-lg font-semibold text-gray-800 mb-4">Product Description</h2>
                     <p className="text-gray-600 mb-4 text-sm">
                       MOISTURE REPLENISHING HYALURON SERUM is a revolutionary coconut water-based hydrating serum that delivers 
                       multi-depth hydration through an innovative 4-step hydration system. This advanced formula combines 
@@ -4816,7 +4816,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     </p>
                     
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <h3 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h3>
                       <div className="space-y-2 text-blue-800 text-sm">
                         <p><strong>Form:</strong> Hydrating serum with coconut water base</p>
                         <p><strong>Size:</strong> 30ml</p>
@@ -4829,38 +4829,38 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h2>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">4-Step Hydration System</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">4-Step Hydration System</h3>
                         <p className="text-sm text-gray-600">
                           Advanced hydration technology that works in layers for comprehensive moisture delivery and retention.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Coconut Water Base</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Coconut Water Base</h3>
                         <p className="text-sm text-gray-600">
                           Natural coconut water provides electrolytes and natural hydration for optimal skin balance.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Hyaluronic Acid Complex</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Hyaluronic Acid Complex</h3>
                         <p className="text-sm text-gray-600">
                           Multi-molecular weight hyaluronic acids for layer-by-layer moisture replenishment and barrier formation.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Mushroom Extracts</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Mushroom Extracts</h3>
                         <p className="text-sm text-gray-600">
                           Powerful mushroom extracts provide anti-inflammatory and antioxidant protection for healthy skin.
                         </p>
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h2>
                     <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
                       <li>Deep Hydration - Multi-layer moisture delivery for comprehensive skin hydration</li>
                       <li>Moisture Retention - Prevents moisture evaporation with barrier-forming technology</li>
@@ -4873,73 +4873,73 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     <h4 className="font-semibold text-gray-800 mb-2 text-sm">4-Step Hydration Process</h4>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Step 1: Electrolyte Balance</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Step 1: Electrolyte Balance</h3>
                         <p className="text-sm text-gray-600">
                           Coconut water electrolytes lead moisture into the skin and balance water content for optimal hydration.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Step 2: Aquaporin Stimulation</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Step 2: Aquaporin Stimulation</h3>
                         <p className="text-sm text-gray-600">
                           Stimulates aquaporin formation to open water-transport channels and attract moisture to the skin.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Step 3: Multi-Layer Replenishment</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Step 3: Multi-Layer Replenishment</h3>
                         <p className="text-sm text-gray-600">
                           Low and middle molecular weight hyaluronic acids replenish moisture layer by layer from deep within the skin.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Step 4: Barrier Formation</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Step 4: Barrier Formation</h3>
                         <p className="text-sm text-gray-600">
                           High molecular weight hyaluronic acid prevents moisture evaporation by forming a protective barrier on the skin surface.
                         </p>
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h2>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Coconut Water Complex (78%)</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Coconut Water Complex (78%)</h3>
                         <p className="text-sm text-gray-600">
                           Natural coconut water provides electrolytes, vitamins, and minerals for optimal skin hydration and balance.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Hyaluronan 11 Multi-Complex</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Hyaluronan 11 Multi-Complex</h3>
                         <p className="text-sm text-gray-600">
                           Advanced hyaluronic acid complex with multiple molecular weights for comprehensive hydration at all skin levels.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Glyceryl Glucoside</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Glyceryl Glucoside</h3>
                         <p className="text-sm text-gray-600">
                           Aquaporin-stimulating ingredient that enhances moisture transport and improves skin's natural hydration mechanisms.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Mushroom Extracts</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Mushroom Extracts</h3>
                         <p className="text-sm text-gray-600">
                           Powerful mushroom extracts provide anti-inflammatory, antioxidant, and protective benefits for healthy skin.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Moisture Magnet Technology</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Moisture Magnet Technology</h3>
                         <p className="text-sm text-gray-600">
                           Advanced ingredients that attract and retain moisture for long-lasting hydration and skin comfort.
                         </p>
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h2>
                     <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
                       <ol className="list-decimal list-inside text-gray-600 space-y-2 text-sm">
                         <li><strong>Preparation:</strong> Cleanse skin thoroughly and apply toner if desired</li>
@@ -4964,7 +4964,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '2' ? (
                   <>
-                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <h2 className="text-lg font-semibold text-gray-800 mb-4">Product Description</h2>
                     <p className="text-gray-600 mb-4 text-sm">
                       Needle Pen-K is a professional automatic microneedling device designed to enhance collagen production 
                       and improve transdermal nutrient delivery. This advanced device creates micro-channels in the skin 
@@ -4973,7 +4973,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     </p>
                     
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <h3 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h3>
                       <div className="space-y-2 text-blue-800 text-sm">
                         <p><strong>Form:</strong> Professional automatic microneedling device</p>
                         <p><strong>Size:</strong> 1 Device</p>
@@ -4988,38 +4988,38 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h2>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Automatic Microneedling</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Automatic Microneedling</h3>
                         <p className="text-sm text-gray-600">
                           Advanced automatic technology for precise, controlled microneedling therapy with consistent results.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Collagen Production</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Collagen Production</h3>
                         <p className="text-sm text-gray-600">
                           Stimulates natural collagen and elastin production through controlled micro-injuries for skin rejuvenation.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Enhanced Absorption</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Enhanced Absorption</h3>
                         <p className="text-sm text-gray-600">
                           Creates physical pathways through skin to dramatically increase absorption of active skincare ingredients.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Professional Grade</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Professional Grade</h3>
                         <p className="text-sm text-gray-600">
                           Medical-grade device manufactured in South Korea with precision engineering for optimal results.
                         </p>
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h2>
                     <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
                       <li>Enhanced Product Absorption - Increases absorption rate of active skincare ingredients by up to 300%</li>
                       <li>Collagen Stimulation - Promotes natural collagen and elastin production for firmer, younger-looking skin</li>
@@ -5032,28 +5032,28 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     <h4 className="font-semibold text-gray-800 mb-2 text-sm">How It Works</h4>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Micro-Channel Creation</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Micro-Channel Creation</h3>
                         <p className="text-sm text-gray-600">
                           Creates thousands of tiny micro-channels in the skin to enhance penetration of active ingredients.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Natural Healing Response</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Natural Healing Response</h3>
                         <p className="text-sm text-gray-600">
                           Triggers the body's natural wound healing process, stimulating collagen and elastin production.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Enhanced Penetration</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Enhanced Penetration</h3>
                         <p className="text-sm text-gray-600">
                           Physical pathways allow deeper penetration of skincare products for maximum effectiveness.
                         </p>
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h2>
                     <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
                       <ol className="list-decimal list-inside text-gray-600 space-y-2 text-sm">
                         <li><strong>Preparation:</strong> Cleanse skin thoroughly and ensure device is properly sterilized</li>
@@ -5075,7 +5075,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '10' ? (
                   <>
-                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <h2 className="text-lg font-semibold text-gray-800 mb-4">Product Description</h2>
                     <p className="text-gray-600 mb-4 text-sm">
                       SNOW O₂ CLEANSER is a revolutionary oxygen bubble cleanser that combines gentle cleansing with oxygen therapy 
                       for deep skin nourishment. This innovative formula naturally generates oxygen bubbles to effectively 
@@ -5083,7 +5083,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     </p>
                     
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <h3 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h3>
                       <div className="space-y-2 text-blue-800 text-sm">
                         <p><strong>Form:</strong> Oxygen bubble cleanser</p>
                         <p><strong>Size:</strong> 180ml (Homecare) / 500ml (Professional)</p>
@@ -5098,38 +5098,38 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h2>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Oxygen Therapy Mechanism</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Oxygen Therapy Mechanism</h3>
                         <p className="text-sm text-gray-600">
                           Advanced oxygen therapy technology that provides deep cleansing and skin nourishment through natural oxygen bubbles.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Gentle Cleansing</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Gentle Cleansing</h3>
                         <p className="text-sm text-gray-600">
                           Effective removal of makeup and impurities without excessive cleansing movement or skin irritation.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Natural Oxygen Bubbles</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Natural Oxygen Bubbles</h3>
                         <p className="text-sm text-gray-600">
                           Naturally generated oxygen bubbles provide a luxurious treatment sensation while cleansing the skin.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">All-in-One Formula</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">All-in-One Formula</h3>
                         <p className="text-sm text-gray-600">
                           Comprehensive cleanser that removes makeup, dirt, and impurities while nourishing the skin.
                         </p>
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h2>
                     <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
                       <li>Deep Cleansing - Effectively removes makeup, dirt, and skin impurities without irritation</li>
                       <li>Oxygen Therapy - Provides skin with oxygen for improved circulation and nourishment</li>
@@ -5139,31 +5139,31 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       <li>Skin Nourishment - Provides essential nutrients while cleansing for healthy skin</li>
                     </ul>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h2>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Phytolex SC</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Phytolex SC</h3>
                         <p className="text-sm text-gray-600">
                           Advanced botanical complex that provides gentle cleansing and skin nourishment.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">MultiEx Phytrogen</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">MultiEx Phytrogen</h3>
                         <p className="text-sm text-gray-600">
                           Multi-functional plant extract that enhances oxygen delivery and skin health.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Methyl Perfluoroisobutyl Ether</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Methyl Perfluoroisobutyl Ether</h3>
                         <p className="text-sm text-gray-600">
                           Specialized ingredient that creates the oxygen bubble effect for enhanced cleansing and treatment sensation.
                         </p>
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h2>
                     <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
                       <ol className="list-decimal list-inside text-gray-600 space-y-2 text-sm">
                         <li><strong>Application:</strong> Apply product to dry face, avoiding the eye area</li>
@@ -5186,7 +5186,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '20' ? (
                   <>
-                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <h2 className="text-lg font-semibold text-gray-800 mb-4">Product Description</h2>
                     <p className="text-gray-600 mb-4 text-sm">
                       PROBLEM CONTROL SERUM is a specialized anti-blemish serum designed for combination and oily acne-prone skin. 
                       This advanced formula helps fight skin breakouts by regulating excessive oil and sebum production while refining 
@@ -5194,7 +5194,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     </p>
                     
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <h3 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h3>
                       <div className="space-y-2 text-blue-800 text-sm">
                         <p><strong>Form:</strong> Anti-blemish serum</p>
                         <p><strong>Size:</strong> 30ml</p>
@@ -5209,38 +5209,38 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h2>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Sebum Regulation</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Sebum Regulation</h3>
                         <p className="text-sm text-gray-600">
                           Advanced sebum-regulating technology that controls excessive oil production for balanced, healthy skin.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Anti-Blemish Formula</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Anti-Blemish Formula</h3>
                         <p className="text-sm text-gray-600">
                           Specifically designed to target and prevent skin breakouts while promoting clear, healthy skin.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Texture Refinement</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Texture Refinement</h3>
                         <p className="text-sm text-gray-600">
                           Helps refine and smooth skin texture for a healthier-looking, clearer complexion.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Natural Ingredients</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Natural Ingredients</h3>
                         <p className="text-sm text-gray-600">
                           Formulated with zinc PCA and willow bark extract for gentle yet effective blemish control.
                         </p>
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h2>
                     <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
                       <li>Breakout Prevention - Helps prevent and control skin breakouts for clearer skin</li>
                       <li>Sebum Control - Regulates excessive oil production for balanced, healthy skin</li>
@@ -5250,52 +5250,52 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       <li>Clear Complexion - Promotes a healthier, clearer skin appearance</li>
                     </ul>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h2>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Zinc PCA</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Zinc PCA</h3>
                         <p className="text-sm text-gray-600">
                           Powerful sebum-regulating ingredient that controls oil production and helps prevent breakouts.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Willow Bark Extract</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Willow Bark Extract</h3>
                         <p className="text-sm text-gray-600">
                           Natural salicylic acid source that gently exfoliates and helps clear clogged pores.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Trehalose</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Trehalose</h3>
                         <p className="text-sm text-gray-600">
                           Natural sugar that provides hydration and helps maintain skin barrier function.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Panthenol</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Panthenol</h3>
                         <p className="text-sm text-gray-600">
                           Soothing and hydrating ingredient that helps calm irritated skin and promote healing.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Allantoin</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Allantoin</h3>
                         <p className="text-sm text-gray-600">
                           Gentle healing ingredient that soothes irritated skin and promotes skin regeneration.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Beta-Glucan</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Beta-Glucan</h3>
                         <p className="text-sm text-gray-600">
                           Natural immune-boosting ingredient that helps strengthen skin's natural defense mechanisms.
                         </p>
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h2>
                     <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
                       <ol className="list-decimal list-inside text-gray-600 space-y-2 text-sm">
                         <li><strong>Preparation:</strong> Cleanse skin thoroughly and apply toner if desired</li>
@@ -5317,7 +5317,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '21' ? (
                   <>
-                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <h2 className="text-lg font-semibold text-gray-800 mb-4">Product Description</h2>
                     <p className="text-gray-600 mb-4 text-sm">
                       MULTI VITA RADIANCE SERUM is an advanced skin brightening serum that combines multi vitamins with 
                       patented MELAZERO® melanin care complex for comprehensive skin radiance. This innovative formula 
@@ -5326,7 +5326,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     </p>
                     
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <h3 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h3>
                       <div className="space-y-2 text-blue-800 text-sm">
                         <p><strong>Form:</strong> Advanced skin brightening serum</p>
                         <p><strong>Size:</strong> 30ml</p>
@@ -5340,38 +5340,38 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h2>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">MELAZERO® Technology</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">MELAZERO® Technology</h3>
                         <p className="text-sm text-gray-600">
                           Patented melanin care complex that targets skin surface melanin for effective brightening and even skin tone.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Multi Vitamin Complex</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Multi Vitamin Complex</h3>
                         <p className="text-sm text-gray-600">
                           Advanced VITA 12 Complex with multiple vitamins for comprehensive skin nourishment and radiance.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Vitamin C Derivative</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Vitamin C Derivative</h3>
                         <p className="text-sm text-gray-600">
                           Stable 3-O-Ethyl Ascorbic Acid provides powerful antioxidant protection and skin brightening benefits.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Moisturizing Barrier</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Moisturizing Barrier</h3>
                         <p className="text-sm text-gray-600">
                           Panthenol-rich formula creates a protective barrier while providing deep hydration and skin comfort.
                         </p>
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h2>
                     <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
                       <li>Skin Brightening - Targets melanin production for even skin tone and natural radiance</li>
                       <li>Even Skin Tone - Helps reduce dark spots and hyperpigmentation for uniform complexion</li>
@@ -5381,52 +5381,52 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       <li>Gentle Formula - Suitable for all skin types with anti-inflammatory properties</li>
                     </ul>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h2>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">3-O-Ethyl Ascorbic Acid</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">3-O-Ethyl Ascorbic Acid</h3>
                         <p className="text-sm text-gray-600">
                           Stable vitamin C derivative that provides powerful antioxidant protection and skin brightening benefits.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">MELAZERO®</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">MELAZERO®</h3>
                         <p className="text-sm text-gray-600">
                           Patented melanin care complex that targets skin surface melanin for effective brightening and even skin tone.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">VITA 12 Complex</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">VITA 12 Complex</h3>
                         <p className="text-sm text-gray-600">
                           Multi-vitamin complex that provides comprehensive skin nourishment and radiance enhancement.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Niacinamide</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Niacinamide</h3>
                         <p className="text-sm text-gray-600">
                           Vitamin B3 that helps improve skin texture, reduce pore size, and enhance skin barrier function.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Glutathione</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Glutathione</h3>
                         <p className="text-sm text-gray-600">
                           Powerful antioxidant that helps protect skin from environmental damage and promotes skin health.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Gluconolactone (PHA)</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Gluconolactone (PHA)</h3>
                         <p className="text-sm text-gray-600">
                           Gentle exfoliating acid that helps improve skin texture and enhance product penetration.
                         </p>
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h2>
                     <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
                       <ol className="list-decimal list-inside text-gray-600 space-y-2 text-sm">
                         <li><strong>Preparation:</strong> Cleanse skin thoroughly and apply toner if desired</li>
@@ -5450,7 +5450,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '23' ? (
                   <>
-                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <h2 className="text-lg font-semibold text-gray-800 mb-4">Product Description</h2>
                     <p className="text-gray-600 mb-4 text-sm">
                       ND Cell ANTI-WRINKLE CREAM is a specialized anti-aging cream designed for the delicate neck and décolleté area. 
                       This advanced formula targets the special needs of these sensitive areas with a powerful peptide complex 
@@ -5458,7 +5458,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     </p>
                     
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <h3 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h3>
                       <div className="space-y-2 text-blue-800 text-sm">
                         <p><strong>Form:</strong> Specialized anti-aging cream</p>
                         <p><strong>Size:</strong> 50g</p>
@@ -5473,38 +5473,38 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h2>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Advanced Peptide Complex</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Advanced Peptide Complex</h3>
                         <p className="text-sm text-gray-600">
                           Copper Tripeptide-1 and multiple peptides work synergistically to stimulate collagen production and skin renewal.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Lifting & Firming</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Lifting & Firming</h3>
                         <p className="text-sm text-gray-600">
                           Specialized formula that lifts and firms delicate skin around neck and décolleté area.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Depigmentation Effect</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Depigmentation Effect</h3>
                         <p className="text-sm text-gray-600">
                           Excellent depigmentation properties help reduce age spots and uneven skin tone.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Vitamin Complex</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Vitamin Complex</h3>
                         <p className="text-sm text-gray-600">
                           Comprehensive vitamin blend (A, B5, C, E) provides antioxidant protection and skin nourishment.
                         </p>
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h2>
                     <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
                       <li>Anti-Aging - Targets fine lines and wrinkles in delicate neck and décolleté area</li>
                       <li>Lifting Effect - Helps lift and firm sagging skin for more youthful appearance</li>
@@ -5514,52 +5514,52 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       <li>Hydration - Deep moisturizing for delicate skin areas</li>
                     </ul>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h2>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Copper Tripeptide-1</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Copper Tripeptide-1</h3>
                         <p className="text-sm text-gray-600">
                           Powerful peptide that stimulates collagen synthesis and promotes skin healing and renewal.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Acetyl Hexapeptide-8</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Acetyl Hexapeptide-8</h3>
                         <p className="text-sm text-gray-600">
                           "Botox-like" peptide that helps relax facial muscles and reduce expression lines.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Palmitoyl Hexapeptide-12</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Palmitoyl Hexapeptide-12</h3>
                         <p className="text-sm text-gray-600">
                           Advanced peptide that helps improve skin firmness and elasticity.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Hyaluronic Acid</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Hyaluronic Acid</h3>
                         <p className="text-sm text-gray-600">
                           Deep hydrating ingredient that plumps skin and reduces the appearance of fine lines.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Ceramide</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Ceramide</h3>
                         <p className="text-sm text-gray-600">
                           Essential lipid that helps strengthen skin barrier and maintain moisture balance.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Squalane</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Squalane</h3>
                         <p className="text-sm text-gray-600">
                           Natural emollient that provides deep hydration and helps improve skin texture.
                         </p>
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h2>
                     <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
                       <ol className="list-decimal list-inside text-gray-600 space-y-2 text-sm">
                         <li><strong>Preparation:</strong> Cleanse neck and décolleté area thoroughly</li>
@@ -5583,7 +5583,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '25' ? (
                   <>
-                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <h2 className="text-lg font-semibold text-gray-800 mb-4">Product Description</h2>
                     <p className="text-gray-600 mb-4 text-sm">
                       SOOTHING REPAIR POSTCREAM is a specialized regenerating cream designed for healthy skin recovery after 
                       professional treatments. This advanced formula helps irritated skin rapidly recover from redness, erythema, 
@@ -5591,7 +5591,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     </p>
                     
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <h3 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h3>
                       <div className="space-y-2 text-blue-800 text-sm">
                         <p><strong>Form:</strong> Post-treatment regenerating cream</p>
                         <p><strong>Size:</strong> 20g (Homecare) / 100g (Professional)</p>
@@ -5607,38 +5607,38 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h2>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Post-Treatment Recovery</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Post-Treatment Recovery</h3>
                         <p className="text-sm text-gray-600">
                           Specifically formulated for skin recovery after professional dermatological operations and treatments.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Centella Complex</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Centella Complex</h3>
                         <p className="text-sm text-gray-600">
                           Powerful centella asiatica complex with asiaticoside, madecassic acid, and asiatic acid for healing.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Rapid Recovery</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Rapid Recovery</h3>
                         <p className="text-sm text-gray-600">
                           Helps skin rapidly recover from redness, erythema, and edema after professional treatments.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Peptide Technology</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Peptide Technology</h3>
                         <p className="text-sm text-gray-600">
                           Advanced sh-Polypeptide-7 helps promote skin regeneration and healing processes.
                         </p>
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h2>
                     <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
                       <li>Rapid Recovery - Helps skin quickly recover from professional treatment side effects</li>
                       <li>Redness Reduction - Soothes and reduces redness and inflammation</li>
@@ -5648,52 +5648,52 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       <li>Gentle Healing - Suitable for sensitive, post-treatment skin</li>
                     </ul>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h2>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Centella Asiatica Complex</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Centella Asiatica Complex</h3>
                         <p className="text-sm text-gray-600">
                           Powerful healing complex with asiaticoside, madecassic acid, and asiatic acid for skin recovery.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">sh-Polypeptide-7</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">sh-Polypeptide-7</h3>
                         <p className="text-sm text-gray-600">
                           Advanced peptide that helps promote skin regeneration and healing processes.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Dipotassium Glycyrrhizate</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Dipotassium Glycyrrhizate</h3>
                         <p className="text-sm text-gray-600">
                           Licorice root extract that provides anti-inflammatory and soothing benefits.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Panthenol</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Panthenol</h3>
                         <p className="text-sm text-gray-600">
                           Vitamin B5 that helps soothe irritated skin and promote healing.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Plant Callus Extracts</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Plant Callus Extracts</h3>
                         <p className="text-sm text-gray-600">
                           Vitis Vinifera and Rosa Damascena callus culture extracts for enhanced healing properties.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Scutellaria Baicalensis</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Scutellaria Baicalensis</h3>
                         <p className="text-sm text-gray-600">
                           Chinese skullcap root extract with anti-inflammatory and antioxidant properties.
                         </p>
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h2>
                     <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
                       <ol className="list-decimal list-inside text-gray-600 space-y-2 text-sm">
                         <li><strong>Preparation:</strong> Cleanse skin gently after professional treatment</li>
@@ -5715,7 +5715,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '27' ? (
                   <>
-                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <h2 className="text-lg font-semibold text-gray-800 mb-4">Product Description</h2>
                     <p className="text-gray-600 mb-4 text-sm">
                       SKIN BARRIER PROTECTING CREAM is an advanced skin barrier strengthening cream with enriched ceramide 
                       and amino acid complex. This innovative formula encourages healthy and soft skin by promoting water 
@@ -5723,7 +5723,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     </p>
                     
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <h3 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h3>
                       <div className="space-y-2 text-blue-800 text-sm">
                         <p><strong>Form:</strong> Skin barrier strengthening cream</p>
                         <p><strong>Size:</strong> 100g</p>
@@ -5737,38 +5737,38 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h2>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">MultiEx BSASM® Plus</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">MultiEx BSASM® Plus</h3>
                         <p className="text-sm text-gray-600">
                           Advanced technology that helps strengthen and protect the skin barrier for optimal skin health.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Enriched Ceramide Complex</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Enriched Ceramide Complex</h3>
                         <p className="text-sm text-gray-600">
                           High concentration of ceramides that help restore and maintain skin barrier function.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Amino Acid Complex</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Amino Acid Complex</h3>
                         <p className="text-sm text-gray-600">
                           Essential amino acids that help support skin barrier integrity and moisture retention.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Water Retention</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Water Retention</h3>
                         <p className="text-sm text-gray-600">
                           Promotes optimal water retention for healthy, hydrated, and soft skin.
                         </p>
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h2>
                     <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
                       <li>Barrier Protection - Strengthens and protects the skin barrier from environmental damage</li>
                       <li>Moisture Retention - Promotes optimal water retention for healthy, hydrated skin</li>
@@ -5778,45 +5778,45 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       <li>Gentle Formula - Suitable for sensitive and compromised skin</li>
                     </ul>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h2>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Ceramide Complex</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Ceramide Complex</h3>
                         <p className="text-sm text-gray-600">
                           Essential lipids that help strengthen and maintain skin barrier function and integrity.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">MultiEx BSASM® Plus</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">MultiEx BSASM® Plus</h3>
                         <p className="text-sm text-gray-600">
                           Advanced technology that enhances skin barrier protection and moisture retention.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Amino Acid Complex</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Amino Acid Complex</h3>
                         <p className="text-sm text-gray-600">
                           Essential amino acids that support skin barrier integrity and natural repair processes.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Shea Butter</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Shea Butter</h3>
                         <p className="text-sm text-gray-600">
                           Rich emollient that provides deep hydration and helps protect skin from environmental stress.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Macadamia Oil</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Macadamia Oil</h3>
                         <p className="text-sm text-gray-600">
                           Nourishing oil that helps restore skin barrier function and provides antioxidant protection.
                         </p>
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h2>
                     <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
                       <ol className="list-decimal list-inside text-gray-600 space-y-2 text-sm">
                         <li><strong>Preparation:</strong> Cleanse skin thoroughly and apply toner if desired</li>
@@ -5838,7 +5838,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '34' ? (
                   <>
-                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <h2 className="text-lg font-semibold text-gray-800 mb-4">Product Description</h2>
                     <p className="text-gray-600 mb-4 text-sm">
                       SKIN RESCUE OVERNIGHT CREAM MASK is a revitalizing overnight treatment that provides intensive care 
                       to fatigued skin. This innovative dual formula combines oxygen capsules with pink ceramide complex 
@@ -5846,7 +5846,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     </p>
                     
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <h3 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h3>
                       <div className="space-y-2 text-blue-800 text-sm">
                         <p><strong>Form:</strong> Overnight cream mask</p>
                         <p><strong>Size:</strong> 100g</p>
@@ -5861,38 +5861,38 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h2>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Dual Formula Technology</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Dual Formula Technology</h3>
                         <p className="text-sm text-gray-600">
                           Oxygen capsules burst smoothly when touching skin and melt with pink ceramide cream for maximum efficacy.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Oxygen Therapy</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Oxygen Therapy</h3>
                         <p className="text-sm text-gray-600">
                           Italian oxygenated water capsules provide instant oxygen therapy for skin revitalization.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Pink Ceramide Complex</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Pink Ceramide Complex</h3>
                         <p className="text-sm text-gray-600">
                           Unique pink ceramide complex provides intensive skin protection and recovery benefits.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Growth Factor Complex</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Growth Factor Complex</h3>
                         <p className="text-sm text-gray-600">
                           Advanced growth factor complex (EGF, aFGF, bFGF, PIGF, IGF) promotes skin renewal and healing.
                         </p>
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h2>
                     <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
                       <li>Skin Revitalization - Provides intensive care to fatigued and stressed skin</li>
                       <li>Oxygen Therapy - Delivers instant oxygen therapy for skin renewal and energy</li>
@@ -5902,52 +5902,52 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       <li>Growth Factor Benefits - Stimulates natural skin renewal and healing processes</li>
                     </ul>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h2>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Pink Ceramide Complex</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Pink Ceramide Complex</h3>
                         <p className="text-sm text-gray-600">
                           Unique ceramide complex that provides intensive skin protection and recovery benefits.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Oxygen Capsules</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Oxygen Capsules</h3>
                         <p className="text-sm text-gray-600">
                           Italian oxygenated water capsules that burst on contact for instant oxygen therapy.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Growth Factor Complex</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Growth Factor Complex</h3>
                         <p className="text-sm text-gray-600">
                           EGF, aFGF, bFGF, PIGF, IGF work together to promote skin renewal and healing.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Pumpkin Extract</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Pumpkin Extract</h3>
                         <p className="text-sm text-gray-600">
                           Cucurbita Pepo fruit extract provides antioxidant protection and skin nourishment.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Phytosphingosine</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Phytosphingosine</h3>
                         <p className="text-sm text-gray-600">
                           Natural lipid that helps strengthen skin barrier and improve moisture retention.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Swelling Controller</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Swelling Controller</h3>
                         <p className="text-sm text-gray-600">
                           Special ingredient that helps control swelling and inflammation for comfortable application.
                         </p>
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h2>
                     <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
                       <ol className="list-decimal list-inside text-gray-600 space-y-2 text-sm">
                         <li><strong>Preparation:</strong> Cleanse skin thoroughly and apply toner if desired</li>
@@ -5969,7 +5969,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '36' ? (
                   <>
-                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <h2 className="text-lg font-semibold text-gray-800 mb-4">Product Description</h2>
                     <p className="text-gray-600 mb-4 text-sm">
                       SOOTHING BOMB SEA ALGAE MASK is an Eucalace® sheet mask inspired by the healing power of the ocean. 
                       This innovative mask provides intensive relief to the skin and moisturizes with sea algae complex 
@@ -5977,7 +5977,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     </p>
                     
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <h3 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h3>
                       <div className="space-y-2 text-blue-800 text-sm">
                         <p><strong>Form:</strong> Eucalace® sheet mask</p>
                         <p><strong>Size:</strong> 1 sheet (23g)</p>
@@ -5992,38 +5992,38 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h2>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Eucalace® Technology</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Eucalace® Technology</h3>
                         <p className="text-sm text-gray-600">
                           Advanced sheet mask technology that provides optimal skin contact and ingredient delivery.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Sea Algae Complex</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Sea Algae Complex</h3>
                         <p className="text-sm text-gray-600">
                           Powerful sea algae extracts provide intensive relief and healing benefits for stressed skin.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Ocean Healing Power</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Ocean Healing Power</h3>
                         <p className="text-sm text-gray-600">
                           Inspired by the healing power of the ocean for natural skin recovery and rejuvenation.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Centella Asiatica</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Centella Asiatica</h3>
                         <p className="text-sm text-gray-600">
                           Traditional healing herb that provides soothing and anti-inflammatory benefits.
                         </p>
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h2>
                     <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
                       <li>Intensive Relief - Provides immediate relief to stressed and irritated skin</li>
                       <li>Deep Hydration - Sea algae complex delivers intense moisture for skin hydration</li>
@@ -6033,52 +6033,52 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       <li>Convenient Use - Easy-to-use sheet mask format for quick application</li>
                     </ul>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h2>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Jania Rubens Extract</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Jania Rubens Extract</h3>
                         <p className="text-sm text-gray-600">
                           Red algae extract that provides antioxidant protection and skin nourishment.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Undaria Pinnatifida Extract</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Undaria Pinnatifida Extract</h3>
                         <p className="text-sm text-gray-600">
                           Wakame seaweed extract that provides hydration and skin conditioning benefits.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Bambusa Vulgaris Extract</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Bambusa Vulgaris Extract</h3>
                         <p className="text-sm text-gray-600">
                           Bamboo extract that provides natural silica and skin strengthening benefits.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Centella Asiatica Extract</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Centella Asiatica Extract</h3>
                         <p className="text-sm text-gray-600">
                           Traditional healing herb that provides soothing and anti-inflammatory benefits.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Witch Hazel Extract</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Witch Hazel Extract</h3>
                         <p className="text-sm text-gray-600">
                           Natural astringent that helps tone and soothe irritated skin.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Panthenol & Allantoin</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Panthenol & Allantoin</h3>
                         <p className="text-sm text-gray-600">
                           Soothing ingredients that help calm irritated skin and promote healing.
                         </p>
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h2>
                     <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
                       <ol className="list-decimal list-inside text-gray-600 space-y-2 text-sm">
                         <li><strong>Preparation:</strong> Cleanse skin thoroughly and apply toner if desired</li>
@@ -6101,7 +6101,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '39' ? (
                   <>
-                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <h2 className="text-lg font-semibold text-gray-800 mb-4">Product Description</h2>
                     <p className="text-gray-600 mb-4 text-sm">
                       ULTRA SHIELD SUN CREAM [SPF 50+ PA++++] is a non-greasy, silky sunscreen with powerful UV protection 
                       and sunburn care effect. This advanced formula strongly defends skin against UV rays while promoting 
@@ -6109,7 +6109,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     </p>
                     
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <h3 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h3>
                       <div className="space-y-2 text-blue-800 text-sm">
                         <p><strong>Form:</strong> Daily sunscreen with sunburn care</p>
                         <p><strong>Size:</strong> 50g</p>
@@ -6125,38 +6125,38 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h2>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Ultra-High Protection</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Ultra-High Protection</h3>
                         <p className="text-sm text-gray-600">
                           SPF 50+ PA++++ provides maximum protection against both UVA and UVB rays.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Non-Greasy Formula</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Non-Greasy Formula</h3>
                         <p className="text-sm text-gray-600">
                           Silky, lightweight texture that absorbs quickly without leaving a greasy residue.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Sunburn Care Complex</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Sunburn Care Complex</h3>
                         <p className="text-sm text-gray-600">
                           Specialized complex that helps promote skin recovery from sun damage and exposure.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Reef-Safe Formula</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Reef-Safe Formula</h3>
                         <p className="text-sm text-gray-600">
                           Environmentally friendly formula that is safe for coral reefs and marine life.
                         </p>
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h2>
                     <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
                       <li>Maximum UV Protection - SPF 50+ PA++++ provides superior sun protection</li>
                       <li>Sunburn Recovery - Helps promote skin recovery from sun damage and exposure</li>
@@ -6166,38 +6166,38 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       <li>Reef-Safe - Environmentally conscious formula safe for marine ecosystems</li>
                     </ul>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h2>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Sunburn Care Complex</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Sunburn Care Complex</h3>
                         <p className="text-sm text-gray-600">
                           Specialized complex that helps promote skin recovery from sun damage and exposure.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">MicroHA™</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">MicroHA™</h3>
                         <p className="text-sm text-gray-600">
                           Ultra-low molecular weight hyaluronic acid for deep hydration and skin recovery.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">ProbioMETA™</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">ProbioMETA™</h3>
                         <p className="text-sm text-gray-600">
                           Lactobacillus ferment that helps strengthen skin barrier and promote healing.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Tropical Antioxidant Complex</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Tropical Antioxidant Complex</h3>
                         <p className="text-sm text-gray-600">
                           Powerful antioxidant blend that helps protect skin from environmental damage.
                         </p>
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h2>
                     <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
                       <ol className="list-decimal list-inside text-gray-600 space-y-2 text-sm">
                         <li><strong>Preparation:</strong> Cleanse skin and apply moisturizer if desired</li>
@@ -6220,7 +6220,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '40' ? (
                   <>
-                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <h2 className="text-lg font-semibold text-gray-800 mb-4">Product Description</h2>
                     <p className="text-gray-600 mb-4 text-sm">
                       MULTI SUN CREAM [SPF 40 PA++] is an advanced daily sunscreen designed to provide comprehensive UV protection 
                       while maintaining a natural, glowing complexion. This innovative formula combines high-level sun protection 
@@ -6228,7 +6228,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     </p>
                     
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <h3 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h3>
                       <div className="space-y-2 text-blue-800 text-sm">
                         <p><strong>Type:</strong> Daily sunscreen with SPF 40 PA++</p>
                         <p><strong>Size:</strong> 40g</p>
@@ -6239,38 +6239,38 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h2>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">High SPF Protection</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">High SPF Protection</h3>
                         <p className="text-sm text-gray-600">
                           SPF 40 PA++ provides strong protection against both UVA and UVB rays for comprehensive sun defense.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Non-Greasy Formula</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Non-Greasy Formula</h3>
                         <p className="text-sm text-gray-600">
                           Lightweight, non-greasy texture that absorbs quickly without leaving a white cast or sticky residue.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Skin Glowing Effect</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Skin Glowing Effect</h3>
                         <p className="text-sm text-gray-600">
                           Advanced formula that enhances natural skin radiance while providing sun protection.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Daily Use Formula</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Daily Use Formula</h3>
                         <p className="text-sm text-gray-600">
                           Gentle enough for daily use while providing robust protection for all skin types.
                         </p>
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h2>
                     <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
                       <li>UV Protection - Comprehensive protection against UVA and UVB rays</li>
                       <li>Skin Soothing - Calms and soothes skin irritated by sun exposure</li>
@@ -6280,52 +6280,52 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       <li>Gentle Care - Suitable for sensitive skin and daily use</li>
                     </ul>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h2>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Palmitoyl Pentapeptide-4</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Palmitoyl Pentapeptide-4</h3>
                         <p className="text-sm text-gray-600">
                           Advanced peptide that helps repair and protect skin from environmental damage while promoting healing.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Sodium Hyaluronate</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Sodium Hyaluronate</h3>
                         <p className="text-sm text-gray-600">
                           Deep hydrating ingredient that attracts and retains moisture for plump, hydrated skin.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Botanical Callus Culture Extracts</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Botanical Callus Culture Extracts</h3>
                         <p className="text-sm text-gray-600">
                           Rosa Damascena and Vitis Vinifera extracts provide antioxidant protection and skin nourishment.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Centella Asiatica Extract</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Centella Asiatica Extract</h3>
                         <p className="text-sm text-gray-600">
                           Soothing and healing ingredient that calms irritated skin and promotes skin repair.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Scutellaria Baicalensis Root Extract</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Scutellaria Baicalensis Root Extract</h3>
                         <p className="text-sm text-gray-600">
                           Powerful antioxidant that protects skin from free radical damage and environmental stress.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Lactobacillus/Soymilk Ferment Filtrate</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Lactobacillus/Soymilk Ferment Filtrate</h3>
                         <p className="text-sm text-gray-600">
                           Probiotic ingredient that supports skin's natural barrier function and overall skin health.
                         </p>
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h2>
                     <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
                       <ol className="list-decimal list-inside text-gray-600 space-y-2 text-sm">
                         <li><strong>Preparation:</strong> Cleanse your skin thoroughly before application</li>
@@ -6346,7 +6346,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '42' ? (
                   <>
-                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <h2 className="text-lg font-semibold text-gray-800 mb-4">Product Description</h2>
                     <p className="text-gray-600 mb-4 text-sm">
                       INTENSIVE BLEMISH BALM CREAM is a premium natural coverage cream designed to provide comprehensive skin protection 
                       and flawless coverage. This advanced formula combines natural coverage technology with SPF 30 PA++ protection 
@@ -6354,7 +6354,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     </p>
                     
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <h3 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h3>
                       <div className="space-y-2 text-blue-800 text-sm">
                         <p><strong>Type:</strong> Natural coverage cream with SPF protection</p>
                         <p><strong>Size:</strong> 50g</p>
@@ -6366,38 +6366,38 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h2>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Natural Coverage Technology</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Natural Coverage Technology</h3>
                         <p className="text-sm text-gray-600">
                           Advanced formula that provides natural-looking coverage while allowing your skin's natural tone to shine through.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">SPF 30 PA++ Protection</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">SPF 30 PA++ Protection</h3>
                         <p className="text-sm text-gray-600">
                           Broad-spectrum sun protection that shields skin from harmful UV rays and environmental damage.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Blemish Coverage</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Blemish Coverage</h3>
                         <p className="text-sm text-gray-600">
                           Effectively covers redness, blemishes, and imperfections for a flawless, even complexion.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Post-Treatment Care</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Post-Treatment Care</h3>
                         <p className="text-sm text-gray-600">
                           Ideal for covering redness and blemishes after dermatological treatments while promoting skin healing.
                         </p>
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h2>
                     <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
                       <li>Natural Coverage - Provides flawless coverage while maintaining natural skin appearance</li>
                       <li>Sun Protection - SPF 30 PA++ shields skin from harmful UV rays and environmental damage</li>
@@ -6407,38 +6407,38 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       <li>Skin Tone Enhancement - Helps express and enhance your natural skin tone</li>
                     </ul>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h2>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Adenosine</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Adenosine</h3>
                         <p className="text-sm text-gray-600">
                           Anti-aging ingredient that helps reduce fine lines and wrinkles while promoting skin renewal.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Allantoin</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Allantoin</h3>
                         <p className="text-sm text-gray-600">
                           Soothing and healing ingredient that calms irritated skin and promotes skin regeneration.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Origanum Vulgare Leaf Extract</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Origanum Vulgare Leaf Extract</h3>
                         <p className="text-sm text-gray-600">
                           Natural antioxidant extract that provides protection against environmental damage and free radicals.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Phytolex SC</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Phytolex SC</h3>
                         <p className="text-sm text-gray-600">
                           Advanced botanical complex that enhances skin protection and provides natural coverage benefits.
                         </p>
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h2>
                     <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
                       <ol className="list-decimal list-inside text-gray-600 space-y-2 text-sm">
                         <li><strong>Preparation:</strong> Cleanse and moisturize your skin before application</li>
@@ -6459,7 +6459,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '3' ? (
                   <>
-                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <h2 className="text-lg font-semibold text-gray-800 mb-4">Product Description</h2>
                     <p className="text-gray-600 mb-4 text-sm">
                       HairGen BOOSTER is an advanced auto-microneedling LED device specifically designed for comprehensive scalp treatment 
                       and hair loss prevention. This innovative device combines microneedling technology with LED light therapy to 
@@ -6467,7 +6467,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     </p>
                     
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <h3 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h3>
                       <div className="space-y-2 text-blue-800 text-sm">
                         <p><strong>Type:</strong> Auto-microneedling LED device for scalp treatment</p>
                         <p><strong>Size:</strong> 1 Device</p>
@@ -6479,10 +6479,10 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h2>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Auto-Microneedling Technology</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Auto-Microneedling Technology</h3>
                         <p className="text-sm text-gray-600">
                           Automated microneedling system that creates micro-channels in the scalp to enhance nutrient absorption 
                           and stimulate natural healing processes.
@@ -6490,7 +6490,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">LED Light Therapy</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">LED Light Therapy</h3>
                         <p className="text-sm text-gray-600">
                           Advanced LED light system that stimulates hair follicles, improves scalp circulation, 
                           and promotes cellular regeneration for enhanced hair growth.
@@ -6498,7 +6498,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">HR³ MATRIX HAIR SOLUTION α</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">HR³ MATRIX HAIR SOLUTION α</h3>
                         <p className="text-sm text-gray-600">
                           Premium anti-hair loss solution that supplies essential nutrients to combat factors 
                           causing hair loss and promote healthy hair growth.
@@ -6506,7 +6506,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">HR³ MATRIX HAIR STAMP</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">HR³ MATRIX HAIR STAMP</h3>
                         <p className="text-sm text-gray-600">
                           Patented delivery enhancer with microneedles that leads to scalp regeneration and 
                           collagen production through natural wound healing processes.
@@ -6514,7 +6514,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h2>
                     <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
                       <li>Enhanced Hair Growth - Stimulates hair follicles and promotes natural hair regrowth</li>
                       <li>Improved Scalp Health - Increases blood circulation and nutrient delivery to hair roots</li>
@@ -6544,7 +6544,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '48' ? (
                   <>
-                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <h2 className="text-lg font-semibold text-gray-800 mb-4">Product Description</h2>
                     <p className="text-gray-600 mb-4 text-sm">
                       Hair-GENTRON is an advanced LED helmet device designed for professional hair loss treatment and scalp therapy. 
                       This innovative device combines multiple light therapy technologies with massaging and heating functions to 
@@ -6553,7 +6553,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     </p>
                     
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <h3 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h3>
                       <div className="space-y-2 text-blue-800 text-sm">
                         <p><strong>Type:</strong> LED helmet with massaging and heating functions</p>
                         <p><strong>Size:</strong> 1 Device</p>
@@ -6566,38 +6566,38 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h2>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Multi-LED Light Therapy</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Multi-LED Light Therapy</h3>
                         <p className="text-sm text-gray-600">
                           Infrared light + Red light + Blue light combination for comprehensive scalp treatment and hair follicle stimulation.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Massaging Function</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Massaging Function</h3>
                         <p className="text-sm text-gray-600">
                           Air pressure massaging system that can be used simultaneously with light therapy for enhanced treatment effectiveness.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Heating Function</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Heating Function</h3>
                         <p className="text-sm text-gray-600">
                           Optional heating feature that can be added during treatment to improve blood circulation and enhance light penetration.
                         </p>
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Music Mode</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Music Mode</h3>
                         <p className="text-sm text-gray-600">
                           Built-in relaxation features to help users feel comfortable and relaxed during treatment sessions.
                         </p>
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h2>
                     <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
                       <li>Hair Growth Stimulation - Promotes natural hair growth through advanced light therapy</li>
                       <li>Improved Blood Circulation - Enhances scalp blood flow for better nutrient delivery to hair follicles</li>
@@ -6664,7 +6664,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                   </>
                 ) : product.id === '50' ? (
                   <>
-                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <h2 className="text-lg font-semibold text-gray-800 mb-4">Product Description</h2>
                     <p className="text-gray-600 mb-4 text-sm">
                       GENOSYS EyeCell EYE ZONE CARE KIT is a comprehensive professional-grade solution designed to address 
                       various concerns in the delicate eye area, including fine lines, dark circles, puffiness, and crow's feet. 
@@ -6673,7 +6673,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     </p>
                     
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <h3 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h3>
                       <div className="space-y-2 text-blue-800 text-sm">
                         <p><strong>Form:</strong> Professional eye care system</p>
                         <p><strong>Size:</strong> 1 box</p>
@@ -6689,7 +6689,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                     <h4 className="font-semibold text-gray-800 mb-2 text-sm">Kit Components</h4>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Eye Contour Serum (10ml)</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Eye Contour Serum (10ml)</h3>
                         <p className="text-sm text-gray-600">
                           Intensive serum formulated with plant stem cell extracts and biopeptides to reduce deep wrinkles, 
                           diminish dark circles, and alleviate puffiness around the eyes.
@@ -6697,7 +6697,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Eye Contour Cream (20g)</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Eye Contour Cream (20g)</h3>
                         <p className="text-sm text-gray-600">
                           Rich cream that targets fine lines, dark circles, and under-eye swelling while strengthening 
                           the skin's protective barrier and maintaining optimal moisture levels.
@@ -6705,7 +6705,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Eye Peptide Gel Patches (101g, 60 patches)</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Eye Peptide Gel Patches (101g, 60 patches)</h3>
                         <p className="text-sm text-gray-600">
                           Innovative hydrogel patches designed to soothe and hydrate the eye area, reduce puffiness, 
                           combat dark circles, and provide a lifting effect for improved skin texture and tone.
@@ -6713,7 +6713,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Eye Roller Dermaroller (0.25mm)</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Eye Roller Dermaroller (0.25mm)</h3>
                         <p className="text-sm text-gray-600">
                           Micro-needle roller specifically designed for the eye area to facilitate absorption of active 
                           ingredients and activate collagen production, enhancing overall treatment effectiveness.
@@ -6721,7 +6721,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h2>
                     <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
                       <li>Comprehensive Eye Care - Multi-faceted approach addressing wrinkles, dark circles, and puffiness</li>
                       <li>Advanced Ingredients - Formulated with peptides, plant stem cell extracts, and hyaluronic acid</li>
@@ -6787,18 +6787,18 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                     </div>
                   </>
-                ) : product.id === '52' || product.name === 'GENOSYS SKIN REBOOT PDRN MASK PACK' ? (
+                ) : product.id === '52' || product.name === 'SKIN REBOOT PDRN MASK PACK' ? (
                   <>
-                    <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>
+                    <h2 className="text-lg font-semibold text-gray-800 mb-4">Product Description</h2>
                     <p className="text-gray-600 mb-4 text-sm">
-                      GENOSYS SKIN REBOOT PDRN MASK PACK is a professional-grade treatment mask infused with PDRN 
+                      SKIN REBOOT PDRN MASK PACK is a professional-grade treatment mask infused with PDRN 
                       (Polydeoxyribonucleotide) extracted from salmon DNA. This advanced mask promotes cellular 
                       regeneration, accelerates skin repair, and enhances overall skin health. Perfect for post-treatment 
                       care and intensive skin rejuvenation.
                     </p>
                     
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                      <h5 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h5>
+                      <h3 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h3>
                       <div className="space-y-2 text-blue-800 text-sm">
                         <p><strong>Type:</strong> Professional-grade PDRN mask pack</p>
                         <p><strong>Size:</strong> 30 sheets per container</p>
@@ -6810,10 +6810,10 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Features</h2>
                     <div className="space-y-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">PDRN Technology</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">PDRN Technology</h3>
                         <p className="text-sm text-gray-600">
                           Contains PDRN extracted from salmon DNA to promote cellular regeneration and accelerate 
                           skin healing and repair processes.
@@ -6821,7 +6821,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Ultra-Slim Fit Sheet</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Ultra-Slim Fit Sheet</h3>
                         <p className="text-sm text-gray-600">
                           Ultra-slim fit sheet adheres seamlessly to the skin for effective delivery of active 
                           ingredients and maximum absorption.
@@ -6829,7 +6829,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Convenient Packaging</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Convenient Packaging</h3>
                         <p className="text-sm text-gray-600">
                           Contains 30 sheets per container with tissue-style packaging that allows for convenient 
                           one-by-one dispensing with built-in tweezers.
@@ -6837,7 +6837,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Skin Barrier Restoration</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Skin Barrier Restoration</h3>
                         <p className="text-sm text-gray-600">
                           Clinical results show significant improvement in restoring the skin barrier damaged 
                           by physical irritation or environmental stress.
@@ -6845,7 +6845,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h2>
                     <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
                       <li>Skin Regeneration - Accelerates cell regeneration and improves skin texture</li>
                       <li>Deep Hydration - Provides intense moisture for plump, dewy skin</li>
@@ -6856,10 +6856,10 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       <li>Professional Results - Delivers clinical-grade skin rejuvenation</li>
                     </ul>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">PDRN (Polydeoxyribonucleotide)</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">PDRN (Polydeoxyribonucleotide)</h3>
                         <p className="text-sm text-gray-600">
                           DNA-based ingredient derived from salmon that accelerates skin regeneration, improves 
                           elasticity, and promotes healing.
@@ -6867,7 +6867,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Panthenol (Pro-Vitamin B5)</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Panthenol (Pro-Vitamin B5)</h3>
                         <p className="text-sm text-gray-600">
                           Deeply hydrates and soothes the skin while supporting the skin barrier and promoting 
                           wound healing.
@@ -6875,7 +6875,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Hyaluronic Acid</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Hyaluronic Acid</h3>
                         <p className="text-sm text-gray-600">
                           Provides deep moisture retention, plumps the skin, and helps reduce the appearance 
                           of fine lines and wrinkles.
@@ -6883,7 +6883,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                       
                       <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                        <h5 className="font-semibold text-gray-800 mb-1 text-sm">Peptide Complex</h5>
+                        <h3 className="font-semibold text-gray-800 mb-1 text-sm">Peptide Complex</h3>
                         <p className="text-sm text-gray-600">
                           Stimulates collagen production and improves skin firmness for a more youthful, 
                           resilient complexion.
@@ -6891,7 +6891,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                     </div>
                     
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h4>
+                    <h2 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h2>
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
                       <ol className="list-decimal list-inside text-blue-800 text-sm space-y-2">
                         <li><strong>Prepare:</strong> Cleanse your face and pat dry</li>
@@ -6910,6 +6910,40 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                         Store in a cool, dry place and ensure the container is tightly sealed after each use to 
                         maintain product freshness.
                       </p>
+                    </div>
+                    
+                    {/* Product Documentation Section */}
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                      <h4 className="font-semibold text-blue-800 mb-2">Product Documentation</h4>
+                      <p className="text-blue-700 text-sm mb-3">
+                        Download the complete product manual and usage guide for professional application.
+                      </p>
+                      <div className="text-xs text-blue-600 mb-3">
+                        📄 File size: 1.8 MB
+                      </div>
+                      <div className="flex gap-3">
+                        <a
+                          href="http://localhost:3000/documents/ppt/GENOSYS%20SKIN%20REBOOT%20PDRN%20MASK%20PACK.pdf"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
+                        >
+                          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                          </svg>
+                          View PDF
+                        </a>
+                        <a
+                          href="http://localhost:3000/documents/ppt/GENOSYS%20SKIN%20REBOOT%20PDRN%20MASK%20PACK.pdf"
+                          download="SKIN REBOOT PDRN MASK PACK.pdf"
+                          className="inline-flex items-center gap-2 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors text-sm font-medium"
+                        >
+                          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                          </svg>
+                          Download
+                        </a>
+                      </div>
                     </div>
                   </>
                 ) : (
@@ -6937,103 +6971,6 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                 )}
                     
                     {/* Product Documentation Section - Show for products with PDFs */}
-                    {(product.id === '1' || product.id === '44' || 
-                      product.id === '20' || product.id === '14' || product.id === '18' || product.id === '29' || 
-                      product.id === '21' || product.id === '23' || product.id === '41' || 
-                      product.id === '34' || product.id === '39' || product.id === '38' ||
-                      product.name === 'GENOSYS SKIN REBOOT PDRN MASK PACK') && (
-                      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                        <h4 className="font-semibold text-blue-800 mb-2">Product Documentation</h4>
-                        <p className="text-blue-700 text-sm mb-3">
-                          Download the complete product manual and usage guide for professional application.
-                        </p>
-                        <div className="text-xs text-blue-600 mb-3">
-                          📄 File size: {
-                            product.id === '1' ? '1.5 MB' :
-                            product.id === '44' ? '800 KB' :
-                            product.id === '20' ? '750 KB' :
-                            product.id === '14' ? '1.0 MB' :
-                            product.id === '18' ? '1.3 MB' :
-                            product.id === '29' ? '1.4 MB' :
-                            product.id === '21' ? '1.1 MB' :
-                            product.id === '23' ? '1.2 MB' :
-                            product.id === '41' ? '950 KB' :
-                            product.id === '34' ? '1.0 MB' :
-                            product.id === '39' ? '1.2 MB' :
-                            product.id === '48' ? '650 KB' :
-                            product.id === '38' ? '2.8 MB' :
-                            product.name === 'GENOSYS SKIN REBOOT PDRN MASK PACK' ? '1.8 MB' : 'N/A'
-                          }
-                        </div>
-                        <div className="flex gap-3">
-                          <a
-                            href={`/documents/ppt/${
-                              product.id === '1' ? 'Overview%20of%20Microneedling_S.pdf' :
-                              product.id === '44' ? 'GENOSYS%20HR3%20MATRIX%20SCALP%20SHAMPOO%20ALPHA.pdf' :
-                              product.id === '20' ? 'GENOSYS%20INTENSIVE%20PROBLEM%20CONTROL%20TONER.pdf' :
-                              product.id === '14' ? 'GENOSYS%20MICROBIOME%20ENERGY%20INFUSING%20MIST.pdf' :
-                              product.id === '18' ? 'GENOSYS%20MOISTURE%20REPLENISHING%20HYALURON%20SERUM.pdf' :
-                              product.id === '29' ? 'GENOSYS%20MOISTURE%20REPLENISHING%20HYALURON%20CREAM.pdf' :
-                              product.id === '21' ? 'GENOSYS%20MULTI%20VITA%20RADIANCE%20SERUM.pdf' :
-                              product.id === '23' ? 'GENOSYS%20MULTI%20VITA%20RADIANCE%20CREAM.pdf' :
-                              product.id === '41' ? 'GENOSYS%20SKIN%20CARING%20BLEMISH%20BALM%20CUSHION.pdf' :
-                              product.id === '34' ? 'GENOSYS%20SKIN%20RESCUE%20OVERNIGHT%20CREAM%20MASK.pdf' :
-                              product.id === '39' ? 'GENOSYS%20ULTRA%20SHIELD%20SUN%20CREAM.pdf' :
-                              product.id === '48' ? 'HAIR%20GENTRON.pdf' :
-                              product.id === '38' ? 'Genosys%20Ez%20Co2%20Mask.pdf' :
-                              product.name === 'GENOSYS SKIN REBOOT PDRN MASK PACK' ? 'GENOSYS%20SKIN%20REBOOT%20PDRN%20MASK%20PACK.pdf' : ''
-                            }`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
-                          >
-                            <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                            </svg>
-                            View PDF
-                          </a>
-                          <a
-                            href={`/documents/ppt/${
-                              product.id === '1' ? 'Overview%20of%20Microneedling_S.pdf' :
-                              product.id === '44' ? 'GENOSYS%20HR3%20MATRIX%20SCALP%20SHAMPOO%20ALPHA.pdf' :
-                              product.id === '20' ? 'GENOSYS%20INTENSIVE%20PROBLEM%20CONTROL%20TONER.pdf' :
-                              product.id === '14' ? 'GENOSYS%20MICROBIOME%20ENERGY%20INFUSING%20MIST.pdf' :
-product.id === '18' ? 'GENOSYS%20MOISTURE%20REPLENISHING%20HYALURON%20SERUM.pdf' :
-product.id === '29' ? 'GENOSYS%20MOISTURE%20REPLENISHING%20HYALURON%20CREAM.pdf' :
-                              product.id === '21' ? 'GENOSYS%20MULTI%20VITA%20RADIANCE%20SERUM.pdf' :
-                              product.id === '23' ? 'GENOSYS%20MULTI%20VITA%20RADIANCE%20CREAM.pdf' :
-                              product.id === '41' ? 'GENOSYS%20SKIN%20CARING%20BLEMISH%20BALM%20CUSHION.pdf' :
-                              product.id === '34' ? 'GENOSYS%20SKIN%20RESCUE%20OVERNIGHT%20CREAM%20MASK.pdf' :
-                              product.id === '39' ? 'GENOSYS%20ULTRA%20SHIELD%20SUN%20CREAM.pdf' :
-                              product.id === '48' ? 'HAIR%20GENTRON.pdf' :
-                              product.name === 'GENOSYS SKIN REBOOT PDRN MASK PACK' ? 'GENOSYS%20SKIN%20REBOOT%20PDRN%20MASK%20PACK.pdf' : ''
-                            }`}
-                            download={`${
-                              product.id === '1' ? 'Overview of Microneedling_S.pdf' :
-                              product.id === '44' ? 'GENOSYS HR3 MATRIX SCALP SHAMPOO ALPHA.pdf' :
-                              product.id === '20' ? 'GENOSYS INTENSIVE PROBLEM CONTROL TONER.pdf' :
-                              product.id === '14' ? 'GENOSYS MICROBIOME ENERGY INFUSING MIST.pdf' :
-product.id === '18' ? 'GENOSYS MOISTURE REPLENISHING HYALURON SERUM.pdf' :
-product.id === '29' ? 'GENOSYS MOISTURE REPLENISHING HYALURON CREAM.pdf' :
-                              product.id === '21' ? 'GENOSYS MULTI VITA RADIANCE SERUM.pdf' :
-                              product.id === '23' ? 'GENOSYS MULTI VITA RADIANCE CREAM.pdf' :
-                              product.id === '41' ? 'GENOSYS SKIN CARING BLEMISH BALM CUSHION.pdf' :
-                              product.id === '34' ? 'GENOSYS SKIN RESCUE OVERNIGHT CREAM MASK.pdf' :
-                              product.id === '39' ? 'GENOSYS ULTRA SHIELD SUN CREAM.pdf' :
-                              product.id === '48' ? 'HAIR GENTRON.pdf' :
-                              product.id === '38' ? 'Genosys Ez Co2 Mask.pdf' :
-                              product.name === 'GENOSYS SKIN REBOOT PDRN MASK PACK' ? 'GENOSYS SKIN REBOOT PDRN MASK PACK.pdf' : ''
-                            }`}
-                            className="inline-flex items-center gap-2 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors text-sm font-medium"
-                          >
-                            <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                        </svg>
-                            Download
-                          </a>
-                        </div>
-                      </div>
-                )}
                     </div>
             </div>
           </div>

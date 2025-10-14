@@ -57,7 +57,7 @@ export default function ProductDescription({ product }: ProductDescriptionProps)
       )
     }
 
-    if (product.id === '52' || product.name === 'GENOSYS SKIN REBOOT PDRN MASK PACK') {
+    if (product.id === '52' || product.name === 'SKIN REBOOT PDRN MASK PACK') {
       return (
         <>
           <h3 className="text-sm font-semibold text-gray-800 mb-2">Product Description</h3>

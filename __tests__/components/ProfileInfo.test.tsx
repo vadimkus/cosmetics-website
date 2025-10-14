@@ -79,14 +79,15 @@ describe('ProfileInfo', () => {
     
     render(<ProfileInfo user={userWithMissingFields} />)
     
-    expect(screen.getByText('Not provided')).toBeInTheDocument()
+    // Check for multiple "Not provided" elements
+    expect(screen.getAllByText('Not provided')).toHaveLength(3)
   })
 
   it('formats birthday correctly', () => {
     render(<ProfileInfo user={mockUser} />)
     
-    // The birthday should be formatted according to the locale
-    expect(screen.getByText(/Jan.*1990/)).toBeInTheDocument()
+    // The birthday should be formatted according to the locale (en-AE format)
+    expect(screen.getByText('01/01/1990')).toBeInTheDocument()
   })
 
   it('displays member since date correctly', () => {
@@ -95,6 +96,7 @@ describe('ProfileInfo', () => {
     expect(screen.getByText(/Jan.*2023/)).toBeInTheDocument()
   })
 })
+
 
 
 

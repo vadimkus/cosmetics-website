@@ -14,7 +14,7 @@ export default async function PDFViewerPage({ params }: PageProps) {
   // List of valid PDF files
   const validPDFs = [
     'GENOSYS Business presentation.pdf',
-    'GENOSYS SKIN REBOOT PDRN MASK PACK.pdf',
+    'SKIN REBOOT PDRN MASK PACK.pdf',
     'GENOSYS HR3 MATRIX SCALP PEELING ALPHA.pdf',
     'GENOSYS BIO-FERMENT AGE DEFYING POWDER MASK.pdf',
     'GENOSYS EPI TURNOVER BOOSTING PEELING GEL.pdf',

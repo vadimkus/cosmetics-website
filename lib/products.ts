@@ -519,7 +519,7 @@ export const products: Product[] = [
   },
   {
     id: '52',
-    name: 'GENOSYS SKIN REBOOT PDRN MASK PACK',
+    name: 'SKIN REBOOT PDRN MASK PACK',
     price: 450,
     description: 'Professional PDRN mask pack with salmon DNA technology for skin regeneration and repair. Ultra-slim fit sheets with 30 masks per container.',
     image: '/images/PDRN.png',

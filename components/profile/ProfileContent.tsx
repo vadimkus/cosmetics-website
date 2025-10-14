@@ -10,7 +10,7 @@ type OrderWithItems = Order & {
 
 interface ProfileContentProps {
   user: UserType | null
-  activeTab: 'profile' | 'orders' | 'settings' | 'downloads'
+  activeTab: 'profile' | 'orders' | 'settings' | 'downloads' | 'privacy'
   isEditing: boolean
   editData: {
     name: string
@@ -175,6 +175,93 @@ export default function ProfileContent({
     </div>
   )
 
+  const renderPrivacyTab = () => (
+    <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+      <h2 className="text-xl font-semibold text-gray-900 mb-6">Privacy Policy</h2>
+      <div className="space-y-6">
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+          <h3 className="font-semibold text-blue-800 mb-2">Your Privacy Rights</h3>
+          <p className="text-blue-700 text-sm">
+            As a registered user, you have the right to access, update, or delete your personal information. 
+            This section outlines how we handle your data and your rights under our privacy policy.
+          </p>
+        </div>
+
+        <div className="space-y-4">
+          <div>
+            <h4 className="font-semibold text-gray-800 mb-2">1. Personal Information We Collect</h4>
+            <div className="bg-gray-50 rounded-lg p-4">
+              <ul className="list-disc list-inside space-y-1 text-sm text-gray-700">
+                <li><strong>Account Information:</strong> Name, email, phone number, address</li>
+                <li><strong>Profile Data:</strong> Birthday, profile picture, customer preferences</li>
+                <li><strong>Order Information:</strong> Purchase history, shipping addresses, payment details</li>
+                <li><strong>Usage Data:</strong> Website interactions, page views, session data</li>
+              </ul>
+            </div>
+          </div>
+
+          <div>
+            <h4 className="font-semibold text-gray-800 mb-2">2. How We Use Your Information</h4>
+            <div className="bg-gray-50 rounded-lg p-4">
+              <ul className="list-disc list-inside space-y-1 text-sm text-gray-700">
+                <li>Process and fulfill your orders</li>
+                <li>Provide customer support and respond to inquiries</li>
+                <li>Send order updates and promotional communications (with your consent)</li>
+                <li>Improve our website and services</li>
+                <li>Comply with legal obligations</li>
+              </ul>
+            </div>
+          </div>
+
+          <div>
+            <h4 className="font-semibold text-gray-800 mb-2">3. Data Retention</h4>
+            <div className="bg-gray-50 rounded-lg p-4">
+              <p className="text-sm text-gray-700">
+                We retain your personal information for as long as your account is active or as needed to provide services. 
+                Order information is retained for accounting and legal compliance purposes. You can request deletion of your 
+                account and associated data at any time.
+              </p>
+            </div>
+          </div>
+
+          <div>
+            <h4 className="font-semibold text-gray-800 mb-2">4. Your Rights</h4>
+            <div className="bg-gray-50 rounded-lg p-4">
+              <ul className="list-disc list-inside space-y-1 text-sm text-gray-700">
+                <li><strong>Access:</strong> View all personal information we have about you</li>
+                <li><strong>Correction:</strong> Update or correct inaccurate information</li>
+                <li><strong>Deletion:</strong> Request deletion of your personal information</li>
+                <li><strong>Portability:</strong> Export your data in a machine-readable format</li>
+                <li><strong>Opt-out:</strong> Unsubscribe from marketing communications</li>
+              </ul>
+            </div>
+          </div>
+
+          <div>
+            <h4 className="font-semibold text-gray-800 mb-2">5. Data Security</h4>
+            <div className="bg-gray-50 rounded-lg p-4">
+              <p className="text-sm text-gray-700">
+                We implement appropriate technical and organizational measures to protect your personal information 
+                against unauthorized access, alteration, disclosure, or destruction. This includes encryption, 
+                secure servers, and regular security assessments.
+              </p>
+            </div>
+          </div>
+
+          <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+            <h4 className="font-semibold text-green-800 mb-2">Contact Us</h4>
+            <p className="text-green-700 text-sm">
+              For any privacy-related questions or to exercise your rights, please contact us at{' '}
+              <a href="mailto:sales@genosys.ae" className="text-green-600 hover:text-green-700 underline">
+                sales@genosys.ae
+              </a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+
   const renderContent = () => {
     switch (activeTab) {
       case 'profile':
@@ -185,6 +272,8 @@ export default function ProfileContent({
         return renderDownloadsTab()
       case 'settings':
         return renderSettingsTab()
+      case 'privacy':
+        return renderPrivacyTab()
       default:
         return renderProfileTab()
     }

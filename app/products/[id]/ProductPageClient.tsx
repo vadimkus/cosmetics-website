@@ -6923,7 +6923,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </div>
                       <div className="flex gap-3">
                         <a
-                          href="http://localhost:3000/documents/ppt/GENOSYS%20SKIN%20REBOOT%20PDRN%20MASK%20PACK.pdf"
+                          href="https://genosys.ae/documents/ppt/GENOSYS%20SKIN%20REBOOT%20PDRN%20MASK%20PACK.pdf"
                           target="_blank"
                           rel="noopener noreferrer"
                           className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
@@ -6934,7 +6934,7 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                           View PDF
                         </a>
                         <a
-                          href="http://localhost:3000/documents/ppt/GENOSYS%20SKIN%20REBOOT%20PDRN%20MASK%20PACK.pdf"
+                          href="https://genosys.ae/documents/ppt/GENOSYS%20SKIN%20REBOOT%20PDRN%20MASK%20PACK.pdf"
                           download="SKIN REBOOT PDRN MASK PACK.pdf"
                           className="inline-flex items-center gap-2 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors text-sm font-medium"
                         >

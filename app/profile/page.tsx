@@ -620,12 +620,16 @@ export default function ProfilePageNew() {
                   
                 </div>
 
-                {/* More Menu for very small screens */}
-                <div className="relative xs:hidden" ref={moreMenuRef}>
+                {/* More Menu for small screens */}
+                <div className="relative sm:hidden" ref={moreMenuRef}>
                   <button
-                    onClick={() => setShowMoreMenu(!showMoreMenu)}
+                    onClick={() => {
+                      console.log('3 dots clicked, current state:', showMoreMenu)
+                      setShowMoreMenu(!showMoreMenu)
+                    }}
                     onTouchStart={(e) => {
                       e.preventDefault()
+                      console.log('3 dots touched, current state:', showMoreMenu)
                       setShowMoreMenu(!showMoreMenu)
                     }}
                     className="flex items-center gap-1 px-2 py-3 text-gray-600 hover:text-gray-900 hover:bg-white/50 rounded-xl font-medium transition-all duration-200 whitespace-nowrap flex-shrink-0 min-h-[44px] min-w-[44px] touch-manipulation"
@@ -637,7 +641,11 @@ export default function ProfilePageNew() {
                   
                   {/* Dropdown Menu */}
                   {showMoreMenu && (
-                    <div className="absolute right-0 top-full mt-2 w-48 bg-white rounded-xl shadow-lg border border-gray-200 py-2 z-50">
+                    <div className="absolute right-0 top-full mt-2 w-48 bg-white rounded-xl shadow-lg border border-gray-200 py-2 z-[100]">
+                      {/* Debug indicator */}
+                      <div className="text-xs text-gray-500 px-4 py-1 border-b border-gray-100">
+                        Menu is open
+                      </div>
                       <button
                         onClick={() => {
                           handleRefresh()

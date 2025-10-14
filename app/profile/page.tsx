@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { ArrowLeft, User, Phone, Calendar, Edit3, Package, CheckCircle, Clock, Camera, X, MessageCircle, Lock, Eye, Trash2, Crown, Building, ShoppingBag, Truck, CreditCard, RefreshCw, Settings, Shield, Gift, Heart, Download, Zap, Sparkles, MoreHorizontal } from 'lucide-react'
+import { ArrowLeft, User, Phone, Calendar, Edit3, Package, CheckCircle, Clock, Camera, X, MessageCircle, Lock, Eye, Trash2, Crown, Building, ShoppingBag, Truck, CreditCard, RefreshCw, Settings, Shield, Gift, Heart, Download, Zap, Sparkles } from 'lucide-react'
 import { useAuth } from '@/components/AuthProvider'
 import { useState, useRef, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
@@ -33,9 +33,7 @@ export default function ProfilePageNew() {
   const [loadingOrders, setLoadingOrders] = useState(false)
   const [activeTab, setActiveTab] = useState<'profile' | 'orders' | 'settings' | 'downloads' | 'privacy'>('profile')
   const [isRefreshing, setIsRefreshing] = useState(false)
-  const [showMoreMenu, setShowMoreMenu] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
-  const moreMenuRef = useRef<HTMLDivElement>(null)
 
   // Handle refresh with loading state
   const handleRefresh = async () => {
@@ -89,22 +87,6 @@ export default function ProfilePageNew() {
     }
   }, [user])
 
-  // Close more menu when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (moreMenuRef.current && !moreMenuRef.current.contains(event.target as Node)) {
-        setShowMoreMenu(false)
-      }
-    }
-
-    if (showMoreMenu) {
-      document.addEventListener('mousedown', handleClickOutside)
-    }
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside)
-    }
-  }, [showMoreMenu])
 
   // Fetch user orders
   useEffect(() => {
@@ -620,69 +602,25 @@ export default function ProfilePageNew() {
                   
                 </div>
 
-                {/* More Menu for small screens */}
-                <div className="relative sm:hidden" ref={moreMenuRef}>
+                {/* Edit Button for small screens */}
+                <div className="relative sm:hidden">
                   <button
-                    onClick={() => {
-                      console.log('3 dots clicked, current state:', showMoreMenu)
-                      setShowMoreMenu(!showMoreMenu)
-                    }}
+                    onClick={() => setIsEditing(!isEditing)}
                     onTouchStart={(e) => {
                       e.preventDefault()
-                      console.log('3 dots touched, current state:', showMoreMenu)
-                      setShowMoreMenu(!showMoreMenu)
+                      setIsEditing(!isEditing)
                     }}
-                    className="flex items-center gap-1 px-2 py-3 text-gray-600 hover:text-gray-900 hover:bg-white/50 rounded-xl font-medium transition-all duration-200 whitespace-nowrap flex-shrink-0 min-h-[44px] min-w-[44px] touch-manipulation"
-                    title="More actions"
+                    className={`flex items-center gap-1 px-3 py-3 rounded-xl font-medium transition-all duration-200 whitespace-nowrap flex-shrink-0 min-h-[44px] touch-manipulation ${
+                      isEditing 
+                        ? 'bg-red-100 text-red-700 hover:bg-red-200' 
+                        : 'text-gray-600 hover:text-gray-900 hover:bg-white/50'
+                    }`}
+                    title={isEditing ? 'Cancel editing' : 'Edit profile'}
                     style={{ touchAction: 'manipulation' }}
                   >
-                    <MoreHorizontal className="h-4 w-4" />
+                    <Edit3 className="h-4 w-4" />
+                    <span className="text-sm">{isEditing ? 'Cancel' : 'Edit'}</span>
                   </button>
-                  
-                  {/* Dropdown Menu */}
-                  {showMoreMenu && (
-                    <div className="absolute right-0 top-full mt-2 w-48 bg-white rounded-xl shadow-lg border border-gray-200 py-2 z-[100]">
-                      {/* Debug indicator */}
-                      <div className="text-xs text-gray-500 px-4 py-1 border-b border-gray-100">
-                        Menu is open
-                      </div>
-                      <button
-                        onClick={() => {
-                          handleRefresh()
-                          setShowMoreMenu(false)
-                        }}
-                        onTouchStart={(e) => {
-                          e.preventDefault()
-                          handleRefresh()
-                          setShowMoreMenu(false)
-                        }}
-                        disabled={isRefreshing}
-                        className="w-full flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-gray-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed min-h-[44px] touch-manipulation"
-                        style={{ touchAction: 'manipulation' }}
-                      >
-                        <RefreshCw className={`h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`} />
-                        <span className="text-sm">Refresh</span>
-                      </button>
-                      
-                      <button
-                        onClick={() => {
-                          setIsEditing(!isEditing)
-                          setShowMoreMenu(false)
-                        }}
-                        onTouchStart={(e) => {
-                          e.preventDefault()
-                          setIsEditing(!isEditing)
-                          setShowMoreMenu(false)
-                        }}
-                        className="w-full flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-gray-50 transition-colors min-h-[44px] touch-manipulation"
-                        style={{ touchAction: 'manipulation' }}
-                      >
-                        <Edit3 className="h-4 w-4" />
-                        <span className="text-sm">{isEditing ? 'Cancel' : 'Edit Profile'}</span>
-                      </button>
-                      
-                    </div>
-                  )}
                 </div>
               </div>
             </div>

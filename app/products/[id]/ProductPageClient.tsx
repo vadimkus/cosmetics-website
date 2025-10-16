@@ -767,6 +767,9 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       <p className="text-blue-700 text-sm mb-3">
                         Download the complete product manual and usage guide for professional application.
                       </p>
+                      <div className="text-xs text-blue-600 mb-3">
+                        📄 File size: 850 KB
+                      </div>
                       <div className="flex gap-3">
                         <a
                           href="/documents/ppt/GENOSYS%20EPI%20TURNOVER%20BOOSTING%20PEELING%20GEL.pdf"
@@ -2557,12 +2560,46 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       
                     </div>
                     
-                    <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                    <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-4">
                       <p className="text-green-800 text-sm">
                         <strong>Note:</strong> This product is dermatologically tested and safe for all skin types. 
                         The CO₂ therapy mechanism accelerates oxygen delivery to skin tissues, providing 
                         professional-grade results. For best results, use as part of your weekly skincare routine.
                       </p>
+                    </div>
+                    
+                    {/* Product Documentation Section */}
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                      <h4 className="font-semibold text-blue-800 mb-2">Product Documentation</h4>
+                      <p className="text-blue-700 text-sm mb-3">
+                        Download the complete product manual and usage guide for professional application.
+                      </p>
+                      <div className="text-xs text-blue-600 mb-3">
+                        📄 File size: 1.2 MB
+                      </div>
+                      <div className="flex gap-3">
+                        <a
+                          href="https://genosys.ae/documents/ppt/Genosys%20Ez%20Co2%20Mask.pdf"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
+                        >
+                          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                          </svg>
+                          View PDF
+                        </a>
+                        <a
+                          href="https://genosys.ae/documents/ppt/Genosys%20Ez%20Co2%20Mask.pdf"
+                          download="EZ CO₂ MASK KIT.pdf"
+                          className="inline-flex items-center gap-2 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors text-sm font-medium"
+                        >
+                          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                          </svg>
+                          Download
+                        </a>
+                      </div>
                     </div>
                   </>
                 ) : product.id === '24' ? (
@@ -3639,6 +3676,40 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                         Perfect for daily use and can be reapplied throughout the day for instant hydration. 
                         Store in a cool, dry place and shake well before use for best results.
                       </p>
+                    </div>
+                    
+                    {/* Product Documentation Section */}
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                      <h4 className="font-semibold text-blue-800 mb-2">Product Documentation</h4>
+                      <p className="text-blue-700 text-sm mb-3">
+                        Download the complete product manual and usage guide for professional application.
+                      </p>
+                      <div className="text-xs text-blue-600 mb-3">
+                        📄 File size: 1.8 MB
+                      </div>
+                      <div className="flex gap-3">
+                        <a
+                          href="https://genosys.ae/documents/ppt/GENOSYS%20MICROBIOME%20ENERGY%20INFUSING%20MIST.pdf"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
+                        >
+                          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                          </svg>
+                          View PDF
+                        </a>
+                        <a
+                          href="https://genosys.ae/documents/ppt/GENOSYS%20MICROBIOME%20ENERGY%20INFUSING%20MIST.pdf"
+                          download="GENOSYS MICROBIOME ENERGY INFUSING MIST.pdf"
+                          className="inline-flex items-center gap-2 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors text-sm font-medium"
+                        >
+                          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                          </svg>
+                          Download
+                        </a>
+                      </div>
                     </div>
                   </>
                 ) : product.id === '28' ? (
@@ -5438,12 +5509,46 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                       </ol>
                     </div>
                     
-                    <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                    <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-4">
                       <p className="text-green-800 text-sm">
                         <strong>Note:</strong> This product is dermatologically tested and suitable for all skin types. 
                         For best results, use consistently as part of your daily skincare routine. Always use sunscreen 
                         during daytime to protect skin from UV damage. Store in a cool, dry place away from direct sunlight.
                       </p>
+                    </div>
+                    
+                    {/* Product Documentation Section */}
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                      <h4 className="font-semibold text-blue-800 mb-2">Product Documentation</h4>
+                      <p className="text-blue-700 text-sm mb-3">
+                        Download the complete product manual and usage guide for professional application.
+                      </p>
+                      <div className="text-xs text-blue-600 mb-3">
+                        📄 File size: 2.1 MB
+                      </div>
+                      <div className="flex gap-3">
+                        <a
+                          href="https://genosys.ae/documents/ppt/GENOSYS%20MULTI%20VITA%20RADIANCE%20SERUM.pdf"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
+                        >
+                          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                          </svg>
+                          View PDF
+                        </a>
+                        <a
+                          href="https://genosys.ae/documents/ppt/GENOSYS%20MULTI%20VITA%20RADIANCE%20SERUM.pdf"
+                          download="GENOSYS MULTI VITA RADIANCE SERUM.pdf"
+                          className="inline-flex items-center gap-2 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors text-sm font-medium"
+                        >
+                          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                          </svg>
+                          Download
+                        </a>
+                      </div>
                     </div>
                     
                     <div className="mb-8"></div>
@@ -5966,6 +6071,40 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                         weekly skincare routine. Store in a cool, dry place away from direct sunlight.
                       </p>
                     </div>
+                    
+                    {/* Product Documentation Section */}
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                      <h4 className="font-semibold text-blue-800 mb-2">Product Documentation</h4>
+                      <p className="text-blue-700 text-sm mb-3">
+                        Download the complete product manual and usage guide for professional application.
+                      </p>
+                      <div className="text-xs text-blue-600 mb-3">
+                        📄 File size: 2.3 MB
+                      </div>
+                      <div className="flex gap-3">
+                        <a
+                          href="https://genosys.ae/documents/ppt/GENOSYS%20SKIN%20RESCUE%20OVERNIGHT%20CREAM%20MASK.pdf"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
+                        >
+                          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                          </svg>
+                          View PDF
+                        </a>
+                        <a
+                          href="https://genosys.ae/documents/ppt/GENOSYS%20SKIN%20RESCUE%20OVERNIGHT%20CREAM%20MASK.pdf"
+                          download="GENOSYS SKIN RESCUE OVERNIGHT CREAM MASK.pdf"
+                          className="inline-flex items-center gap-2 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors text-sm font-medium"
+                        >
+                          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                          </svg>
+                          Download
+                        </a>
+                      </div>
+                    </div>
                   </>
                 ) : product.id === '36' ? (
                   <>
@@ -6216,6 +6355,40 @@ export default function ProductPageClient({ product }: ProductPageClientProps) {
                         apply generously and reapply every 2 hours or after swimming/sweating. Store in a cool, 
                         dry place away from direct sunlight.
                       </p>
+                    </div>
+                    
+                    {/* Product Documentation Section */}
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                      <h4 className="font-semibold text-blue-800 mb-2">Product Documentation</h4>
+                      <p className="text-blue-700 text-sm mb-3">
+                        Download the complete product manual and usage guide for professional application.
+                      </p>
+                      <div className="text-xs text-blue-600 mb-3">
+                        📄 File size: 1.5 MB
+                      </div>
+                      <div className="flex gap-3">
+                        <a
+                          href="https://genosys.ae/documents/ppt/GENOSYS%20ULTRA%20SHIELD%20SUN%20CREAM.pdf"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
+                        >
+                          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                          </svg>
+                          View PDF
+                        </a>
+                        <a
+                          href="https://genosys.ae/documents/ppt/GENOSYS%20ULTRA%20SHIELD%20SUN%20CREAM.pdf"
+                          download="GENOSYS ULTRA SHIELD SUN CREAM.pdf"
+                          className="inline-flex items-center gap-2 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors text-sm font-medium"
+                        >
+                          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                          </svg>
+                          Download
+                        </a>
+                      </div>
                     </div>
                   </>
                 ) : product.id === '40' ? (

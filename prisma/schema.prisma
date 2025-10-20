@@ -16,7 +16,7 @@ model User {
   address            String?
   profilePicture     String?
   isAdmin            Boolean  @default(false)
-  canSeePrices       Boolean  @default(false)
+  canSeePrices       Boolean  @default(true)
   discountType       String?
   discountPercentage Float?
   birthday           String?

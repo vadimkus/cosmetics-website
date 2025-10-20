@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
       address: '',
       profilePicture: '',
       isAdmin: false,
-      canSeePrices: false,
+      canSeePrices: true,
       discountType: null,
       discountPercentage: null,
       birthday: ''

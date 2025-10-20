@@ -42,7 +42,7 @@ export const addUser = async (userData: UserData): Promise<User> => {
         address: userData.address || null,
         profilePicture: userData.profilePicture || null,
         isAdmin: userData.isAdmin || false,
-        canSeePrices: userData.canSeePrices || false,
+        canSeePrices: userData.canSeePrices !== undefined ? userData.canSeePrices : true,
         discountType: userData.discountType || null,
         discountPercentage: userData.discountPercentage || null,
         birthday: userData.birthday || null,

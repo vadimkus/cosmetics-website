@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { findUserByEmail } from '@/lib/userStorageDb'
+import bcrypt from 'bcryptjs'
 
 export async function POST(request: NextRequest) {
   try {
@@ -15,7 +16,20 @@ export async function POST(request: NextRequest) {
     // Check if user exists in database and is admin
     const user = await findUserByEmail(email)
     
-    if (user && user.isAdmin && user.password === password) {
+    let isValid = false
+    if (user) {
+      try {
+        if (user.password && user.password.startsWith('$2')) {
+          isValid = await bcrypt.compare(password, user.password)
+        } else {
+          isValid = user.password === password
+        }
+      } catch (e) {
+        isValid = false
+      }
+    }
+
+    if (user && user.isAdmin && isValid) {
       return NextResponse.json({
         success: true,
         user: {

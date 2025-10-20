@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { rateLimit } from '@/lib/rateLimit'
 import { findUserByEmail, updateUser } from '@/lib/userStorageDb'
+import bcrypt from 'bcryptjs'
 
 const loginLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
@@ -37,8 +38,21 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Check password
-    if (user.password !== password) {
+    // Check password (supports bcrypt hashes and legacy plaintext)
+    let passwordMatches = false
+    try {
+      if (user.password && user.password.startsWith('$2')) {
+        // bcrypt hash
+        passwordMatches = await bcrypt.compare(password, user.password)
+      } else {
+        // legacy plaintext
+        passwordMatches = user.password === password
+      }
+    } catch (e) {
+      passwordMatches = false
+    }
+
+    if (!passwordMatches) {
       return NextResponse.json(
         { error: 'Invalid email or password' },
         { status: 401 }

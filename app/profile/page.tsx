@@ -374,10 +374,14 @@ export default function ProfilePageNew() {
         localStorage.removeItem('genosys_user')
         localStorage.removeItem(`customer_number_${user.id}`)
         
+        // Immediately logout and redirect
         logout()
         router.push('/')
         
-        alert('Your account has been successfully deleted.')
+        // Show success message after redirect
+        setTimeout(() => {
+          alert('Your account has been successfully deleted.')
+        }, 100)
       } else {
         const data = await response.json()
         alert(data.error || 'Failed to delete account. Please try again.')

@@ -56,7 +56,11 @@ export async function getProductById(id: string): Promise<Product | null> {
 export async function getProductsByCategory(category: string): Promise<Product[]> {
   try {
     const products = await prisma.product.findMany({
-      where: { category },
+      where: { 
+        category: {
+          contains: category
+        }
+      },
       orderBy: {
         name: 'asc'
       }

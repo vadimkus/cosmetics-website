@@ -90,7 +90,7 @@ export default function ProductsPageClient() {
     const expectedCategory = categoryMapping[activeCategory] || 
       activeCategory.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')
     
-    return products.filter(product => product.category === expectedCategory)
+    return products.filter(product => product.category.includes(expectedCategory))
   }, [products, activeCategory])
 
   const handleCategoryChange = useCallback((categoryId: string) => {

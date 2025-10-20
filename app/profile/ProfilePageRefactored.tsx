@@ -84,17 +84,28 @@ export default function ProfilePageRefactored() {
     actions.setIsDeleting(true)
     try {
       const response = await fetch('/api/profile', {
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ userId: user.id }),
       })
 
       if (response.ok) {
+        localStorage.removeItem('genosys_user')
+        localStorage.removeItem(`customer_number_${user.id}`)
+        
         logout()
         router.push('/')
+        
+        alert('Your account has been successfully deleted.')
       } else {
-        console.error('Failed to delete account')
+        const data = await response.json()
+        alert(data.error || 'Failed to delete account. Please try again.')
       }
     } catch (error) {
       console.error('Error deleting account:', error)
+      alert('Error deleting account. Please try again.')
     } finally {
       actions.setIsDeleting(false)
       actions.setShowDeleteConfirm(false)

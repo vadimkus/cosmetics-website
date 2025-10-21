@@ -47,13 +47,15 @@ export async function POST(request: NextRequest) {
     console.log('Final shipping:', shipping)
     
     const discountAmount = 0 // You can add discount logic here if needed
-    const totalBeforeVAT = subtotal - discountAmount + shipping
-    const vat = totalBeforeVAT * 0.05
-    const total = totalBeforeVAT + vat
+    const total = subtotal - discountAmount + shipping
+    // Calculate VAT amount from VAT-inclusive prices
+    // VAT = (VAT-inclusive amount / 1.05) * 0.05
+    const vat = Math.round(((subtotal + shipping) / 1.05) * 0.05 * 100) / 100
 
     console.log('Discount amount:', discountAmount)
-    console.log('Total before VAT:', totalBeforeVAT)
-    console.log('VAT (5%):', vat)
+    console.log('Subtotal (VAT included):', subtotal)
+    console.log('Shipping (VAT included):', shipping)
+    console.log('VAT amount (calculated from inclusive prices):', vat)
     console.log('Final total:', total)
 
     // Generate order ID - shorter numeric format

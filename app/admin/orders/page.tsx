@@ -8,6 +8,11 @@ interface Order {
   customerName: string
   customerEmail: string
   total: number
+  subtotal?: number
+  shipping?: number
+  vat?: number
+  discountAmount?: number
+  customerEmirate?: string
   itemCount: number
   status: string
   createdAt: string
@@ -129,7 +134,7 @@ export default function AdminOrdersPage() {
                 </div>
               </div>
               <div className="p-6">
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm mb-4">
                   <div>
                     <p className="font-medium text-gray-600">Total Amount</p>
                     <p className="text-lg font-bold text-red-600">{formatCurrency(order.total)}</p>
@@ -151,6 +156,28 @@ export default function AdminOrdersPage() {
                     }`}>
                       {order.status}
                     </span>
+                  </div>
+                </div>
+                
+                {/* Order Breakdown Summary */}
+                <div className="bg-gray-50 rounded-lg p-3 text-xs">
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+                    <div>
+                      <span className="text-gray-500">Subtotal:</span>
+                      <span className="ml-1 font-medium">{formatCurrency(order.subtotal || 0)}</span>
+                    </div>
+                    <div>
+                      <span className="text-gray-500">Shipping:</span>
+                      <span className="ml-1 font-medium">{formatCurrency(order.shipping || 0)}</span>
+                    </div>
+                    <div>
+                      <span className="text-gray-500">VAT:</span>
+                      <span className="ml-1 font-medium">{formatCurrency(order.vat || 0)}</span>
+                    </div>
+                    <div>
+                      <span className="text-gray-500">Emirate:</span>
+                      <span className="ml-1 font-medium">{order.customerEmirate || 'N/A'}</span>
+                    </div>
                   </div>
                 </div>
               </div>

@@ -339,7 +339,7 @@ export default function AdminPage() {
         </div>
 
         <h3 className="text-lg font-semibold mb-4">Order Items</h3>
-        <div className="space-y-3">
+        <div className="space-y-3 mb-6">
           {order.items.map((item) => (
             <div key={item.id} className="flex items-center justify-between p-3 bg-gray-50 rounded">
               <div>
@@ -352,6 +352,57 @@ export default function AdminPage() {
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Order Breakdown */}
+        <div className="bg-gray-50 rounded-lg p-4">
+          <h3 className="text-lg font-semibold mb-4">Order Breakdown</h3>
+          <div className="space-y-2">
+            <div className="flex justify-between">
+              <span className="text-gray-600">Subtotal:</span>
+              <span>{formatCurrency(order.subtotal)}</span>
+            </div>
+            {order.discountAmount > 0 && (
+              <div className="flex justify-between text-green-600">
+                <span>Discount:</span>
+                <span>-{formatCurrency(order.discountAmount)}</span>
+              </div>
+            )}
+            <div className="flex justify-between">
+              <span className="text-gray-600">Shipping:</span>
+              <span>{formatCurrency(order.shipping)}</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-gray-600">VAT (5%):</span>
+              <span>{formatCurrency(order.vat)}</span>
+            </div>
+            <hr className="my-2" />
+            <div className="flex justify-between text-lg font-semibold">
+              <span>Total:</span>
+              <span className="text-red-600">{formatCurrency(order.total)}</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Additional Order Information */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+          <div className="bg-blue-50 rounded-lg p-4">
+            <h4 className="font-semibold text-blue-800 mb-2">Delivery Information</h4>
+            <div className="space-y-1 text-sm">
+              <div><span className="font-medium">Emirate:</span> {order.customerEmirate}</div>
+              <div><span className="font-medium">Address:</span> {order.customerAddress}</div>
+              <div><span className="font-medium">Phone:</span> {order.customerPhone}</div>
+            </div>
+          </div>
+          <div className="bg-green-50 rounded-lg p-4">
+            <h4 className="font-semibold text-green-800 mb-2">Order Summary</h4>
+            <div className="space-y-1 text-sm">
+              <div><span className="font-medium">Order Number:</span> {order.orderNumber}</div>
+              <div><span className="font-medium">Items Count:</span> {order.items.length}</div>
+              <div><span className="font-medium">Created:</span> {new Date(order.createdAt).toLocaleDateString()}</div>
+              <div><span className="font-medium">Updated:</span> {new Date(order.updatedAt).toLocaleDateString()}</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -177,7 +177,7 @@ export default function CartClient() {
                   
                   <div className="flex justify-between text-gray-600">
                     <span>VAT (5%)</span>
-                    <span>{user ? `AED ${(subtotal * 0.05).toFixed(2)}` : 'Login to see price'}</span>
+                    <span>{user ? `AED ${((subtotal + shippingCost) / 1.05 * 0.05).toFixed(2)}` : 'Login to see price'}</span>
                   </div>
                   
                   <div className="text-xs text-gray-500 text-center">

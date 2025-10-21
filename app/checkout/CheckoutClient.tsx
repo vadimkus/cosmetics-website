@@ -146,8 +146,10 @@ export default function CheckoutClient() {
   const selectedEmirateData = emirates.find(e => e.name === selectedEmirate)
   const subtotal = getTotalPrice()
   const shippingCost = subtotal >= 1000 ? 0 : (selectedEmirateData?.shippingCost || 45)
-  const vatAmount = Math.round((subtotal + shippingCost) * 0.05 * 100) / 100 // 5% VAT
-  const total = subtotal + shippingCost + vatAmount
+  // Calculate VAT amount from VAT-inclusive prices
+  // VAT = (VAT-inclusive amount / 1.05) * 0.05
+  const vatAmount = Math.round(((subtotal + shippingCost) / 1.05) * 0.05 * 100) / 100
+  const total = subtotal + shippingCost // Total is VAT-inclusive
 
   // Redirect if cart is empty
   useEffect(() => {

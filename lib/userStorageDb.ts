@@ -82,6 +82,18 @@ export const findUserById = async (id: string): Promise<User | null> => {
 export const updateUser = async (userId: string, updates: Partial<UserData>): Promise<boolean> => {
   try {
     console.log('Updating user in database:', { userId, updates })
+    
+    // First, get the user to check if address is being updated
+    const user = await prisma.user.findUnique({
+      where: { id: userId }
+    })
+    
+    if (!user) {
+      console.error('User not found')
+      return false
+    }
+    
+    // Update user
     const result = await prisma.user.update({
       where: { id: userId },
       data: {
@@ -89,6 +101,17 @@ export const updateUser = async (userId: string, updates: Partial<UserData>): Pr
         updatedAt: new Date()
       }
     })
+    
+    // If address is being updated, also update all existing orders for this user
+    if (updates.address && updates.address !== user.address) {
+      console.log('Address updated, updating existing orders for user:', user.email)
+      await prisma.order.updateMany({
+        where: { customerEmail: user.email },
+        data: { customerAddress: updates.address }
+      })
+      console.log('Updated existing orders with new address')
+    }
+    
     console.log('User update result:', result)
     return true
   } catch (error) {

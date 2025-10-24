@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { sendEmail } from '@/lib/email'
+import { sendEmail, sendAdminNewOrderNotification } from '@/lib/email'
 import { addOrder, OrderData, OrderItemData } from '@/lib/orderStorageDb'
 
 export async function POST(request: NextRequest) {
@@ -189,10 +189,27 @@ export async function POST(request: NextRequest) {
       throw new Error(result.error || 'Failed to send email')
     }
 
+    // Send admin notification for support-link order
+    console.log('📧 Sending admin notification for support-link order:', orderNumber)
+    const adminResult = await sendAdminNewOrderNotification({
+      orderNumber,
+      customerName,
+      customerEmail,
+      total,
+      itemCount: items.length
+    })
+
+    if (adminResult.success) {
+      console.log('✅ Admin notification sent for support-link order:', orderNumber)
+    } else {
+      console.error('❌ Failed to send admin notification for support-link order:', adminResult.error)
+    }
+
     return NextResponse.json({ 
       success: true, 
       message: 'Support link order request sent successfully',
-      orderId: savedOrder.id
+      orderId: savedOrder.id,
+      adminNotificationSent: adminResult.success
     })
 
   } catch (error) {

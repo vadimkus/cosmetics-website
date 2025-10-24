@@ -385,12 +385,14 @@ export const sendAdminNewUserNotification = async (userName: string, userEmail: 
 }
 
 export const sendAdminNewOrderNotification = async (orderData: any) => {
-  const adminEmail = process.env.ADMIN_EMAIL || process.env.GMAIL_USER || process.env.EMAIL_USER
+  // Use a specific admin email address
+  const adminEmail = process.env.ADMIN_EMAIL || '5856825@gmail.com' // Default to your Gmail
   if (!adminEmail) {
     console.warn('⚠️ Admin email not configured')
     return { success: false, error: 'Admin email not configured' }
   }
   
+  console.log(`📧 Sending admin notification to: ${adminEmail}`)
   const template = emailTemplates.adminNewOrder(orderData)
   return await sendEmail(adminEmail, template.subject, template.html)
 }

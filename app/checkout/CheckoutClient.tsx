@@ -26,7 +26,7 @@ export default function CheckoutClient() {
 
   // WhatsApp support function
   const contactWhatsApp = () => {
-    const phoneNumber = '971501234567' // Replace with actual WhatsApp number
+    const phoneNumber = '971585487665' // WhatsApp number
     const message = `Hi! I need help with my order ${orderNumber}. Can you assist me?`
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`
     window.open(whatsappUrl, '_blank')

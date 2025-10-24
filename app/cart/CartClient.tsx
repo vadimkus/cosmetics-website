@@ -211,7 +211,7 @@ export default function CartClient() {
                     </Link>
                     
                     <a
-                      href="https://wa.me/971501234567?text=Hi, I'm interested in your professional Korean dermacosmetics products. Can you help me with pricing and ordering?"
+                      href="https://wa.me/971585487665?text=Hi, I'm interested in your professional Korean dermacosmetics products. Can you help me with pricing and ordering?"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="w-full bg-green-600 text-white py-3 md:py-4 rounded-lg font-semibold hover:bg-green-700 transition-colors text-center block text-sm md:text-base touch-manipulation flex items-center justify-center gap-2"
@@ -242,7 +242,7 @@ export default function CartClient() {
                       </p>
                       <div className="space-y-2">
                         <a
-                          href="https://wa.me/971501234567?text=Hi, I'm interested in your professional Korean dermacosmetics products. Can you help me with pricing and ordering?"
+                          href="https://wa.me/971585487665?text=Hi, I'm interested in your professional Korean dermacosmetics products. Can you help me with pricing and ordering?"
                           target="_blank"
                           rel="noopener noreferrer"
                           className="w-full bg-green-600 text-white py-3 md:py-4 rounded-lg font-semibold hover:bg-green-700 transition-colors text-center block text-sm md:text-base touch-manipulation flex items-center justify-center gap-2"

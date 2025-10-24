@@ -106,7 +106,7 @@ function SuccessContent() {
               <ArrowRight className="ml-2 h-5 w-5" />
             </Link>
             <a 
-              href={`https://wa.me/971501234567?text=Hi! I need help with my order ${orderId || 'request'}. Can you assist me?`}
+              href={`https://wa.me/971585487665?text=Hi! I need help with my order ${orderId || 'request'}. Can you assist me?`}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center border border-primary-600 text-primary-600 px-6 py-3 rounded-lg font-semibold hover:bg-primary-50 transition-colors"

@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
       itemCount: 0
     })
     
-    if (result.success) {
+    if (result.success && 'messageId' in result) {
       return NextResponse.json({
         success: true,
         message: `Admin email configuration test sent to ${adminEmail}`,

@@ -105,12 +105,14 @@ function SuccessContent() {
               Continue Shopping
               <ArrowRight className="ml-2 h-5 w-5" />
             </Link>
-            <Link 
-              href="/contact-genosys-uae"
+            <a 
+              href={`https://wa.me/971501234567?text=Hi! I need help with my order ${orderId || 'request'}. Can you assist me?`}
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center border border-primary-600 text-primary-600 px-6 py-3 rounded-lg font-semibold hover:bg-primary-50 transition-colors"
             >
-              Contact Support
-            </Link>
+              Contact Support via WhatsApp
+            </a>
           </div>
 
           {sessionId && (

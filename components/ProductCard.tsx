@@ -25,7 +25,7 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
 
   const handleAddToCart = useCallback(async () => {
     setIsAdding(true)
-    addItem(product)
+    addItem(product, 1, '', '')
     // Simulate a brief loading state
     setTimeout(() => setIsAdding(false), 500)
   }, [addItem, product])

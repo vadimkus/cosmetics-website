@@ -10,35 +10,39 @@ export const useCartStore = create<CartState>()(
       
       addItem: (product: Product, quantity = 1, selectedColor?: string, selectedSize?: string) => {
         const items = get().items
+        const normalizedColor = selectedColor || ''
+        const normalizedSize = selectedSize || ''
         const existingItem = items.find(item => 
           item.product.id === product.id && 
-          item.selectedColor === selectedColor && 
-          item.selectedSize === selectedSize
+          item.selectedColor === normalizedColor && 
+          item.selectedSize === normalizedSize
         )
         
         if (existingItem) {
           set({
             items: items.map(item =>
               item.product.id === product.id && 
-              item.selectedColor === selectedColor && 
-              item.selectedSize === selectedSize
+              item.selectedColor === normalizedColor && 
+              item.selectedSize === normalizedSize
                 ? { ...item, quantity: item.quantity + quantity }
                 : item
             )
           })
         } else {
           set({
-            items: [...items, { product, quantity, selectedColor: selectedColor || '', selectedSize: selectedSize || '' }]
+            items: [...items, { product, quantity, selectedColor: normalizedColor, selectedSize: normalizedSize }]
           })
         }
       },
       
       removeItem: (productId: string, selectedColor?: string, selectedSize?: string) => {
+        const normalizedColor = selectedColor || ''
+        const normalizedSize = selectedSize || ''
         set({
           items: get().items.filter(item => 
             !(item.product.id === productId && 
-              item.selectedColor === selectedColor && 
-              item.selectedSize === selectedSize)
+              item.selectedColor === normalizedColor && 
+              item.selectedSize === normalizedSize)
           )
         })
       },
@@ -49,11 +53,13 @@ export const useCartStore = create<CartState>()(
           return
         }
         
+        const normalizedColor = selectedColor || ''
+        const normalizedSize = selectedSize || ''
         set({
           items: get().items.map(item =>
             item.product.id === productId && 
-            item.selectedColor === selectedColor && 
-            item.selectedSize === selectedSize
+            item.selectedColor === normalizedColor && 
+            item.selectedSize === normalizedSize
               ? { ...item, quantity }
               : item
           )

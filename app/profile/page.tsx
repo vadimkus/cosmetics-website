@@ -2123,19 +2123,19 @@ export default function ProfilePageNew() {
                     </p>
                     <ul className="space-y-2 text-sm text-gray-700">
                       <li className="flex items-start gap-2">
-                        <span className="text-blue-600 mt-1">•</span>
+                        <span className="text-blue-600 flex-shrink-0">•</span>
                         <div><strong>Account Data:</strong> Until you withdraw your membership or delete your account</div>
                       </li>
                       <li className="flex items-start gap-2">
-                        <span className="text-blue-600 mt-1">•</span>
+                        <span className="text-blue-600 flex-shrink-0">•</span>
                         <div><strong>Order Information:</strong> Retained for accounting and legal compliance (anonymized after account deletion)</div>
                       </li>
                       <li className="flex items-start gap-2">
-                        <span className="text-blue-600 mt-1">•</span>
+                        <span className="text-blue-600 flex-shrink-0">•</span>
                         <div><strong>Legal Investigations:</strong> If ongoing, retention continues until resolved</div>
                       </li>
                       <li className="flex items-start gap-2">
-                        <span className="text-blue-600 mt-1">•</span>
+                        <span className="text-blue-600 flex-shrink-0">•</span>
                         <div><strong>Account Deletion:</strong> All personal information is permanently removed from our systems</div>
                       </li>
                     </ul>

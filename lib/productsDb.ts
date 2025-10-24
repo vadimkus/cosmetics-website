@@ -138,66 +138,104 @@ export async function getSkinRecommendations(filters: {
   try {
     const { skinType, ageGroup, targetConcerns } = filters
     
-    // Get ALL products first
-    const allProducts = await prisma.product.findMany({
-      where: {
-        inStock: true
-      },
+    console.log('🔍 Fetching skin recommendations with filters:', { skinType, ageGroup, targetConcerns })
+    
+    // Special handling for hair products - return them regardless of other filters
+    if (targetConcerns && targetConcerns.includes('hair')) {
+      console.log('🔍 Hair category selected - returning hair products')
+      
+      const hairProducts = await prisma.product.findMany({
+        where: {
+          inStock: true,
+          targetConcerns: {
+            contains: 'hair'
+          }
+        },
+        orderBy: {
+          name: 'asc'
+        }
+      })
+      
+      console.log(`✅ Returning ${hairProducts.length} hair products`)
+      return hairProducts
+    }
+    
+    // Build where clause for database query
+    const whereClause: any = {
+      inStock: true,
+      skinType: { not: null } // Only products with skin type data
+    }
+    
+    // Add skin type filter
+    if (skinType) {
+      whereClause.skinType = skinType
+    }
+    
+    // Add age group filter
+    if (ageGroup) {
+      whereClause.ageGroup = ageGroup
+    }
+    
+    // Add target concerns filter
+    if (targetConcerns && targetConcerns.length > 0) {
+      // Create OR conditions for each target concern
+      whereClause.OR = targetConcerns.map(concern => ({
+        targetConcerns: {
+          contains: concern
+        }
+      }))
+    }
+    
+    console.log('🔍 Database query where clause:', JSON.stringify(whereClause, null, 2))
+    
+    // Query products from database
+    const products = await prisma.product.findMany({
+      where: whereClause,
       orderBy: {
         name: 'asc'
       }
     })
     
-    console.log(`📦 Total products in database: ${allProducts.length}`)
-    console.log(`🔍 Target concerns:`, targetConcerns)
-    console.log(`🔍 Target concerns type:`, typeof targetConcerns)
-    console.log(`🔍 Target concerns length:`, targetConcerns ? targetConcerns.length : 'null')
-    console.log(`🔍 Checking if hair is in target concerns:`, targetConcerns && targetConcerns.includes('hair'))
+    console.log(`✅ Found ${products.length} products matching criteria`)
     
-    // Special handling for hair products - return them regardless of other filters
-    if (targetConcerns && targetConcerns.includes('hair')) {
-      console.log('🔍 Hair category selected - returning specific hair products by ID')
+    // If no products found with exact matches, try more flexible matching
+    if (products.length === 0) {
+      console.log('🔄 No exact matches found, trying flexible matching...')
       
-      // Return only the specific hair products by their IDs
-      const hairProductIds = ['45', '43', '44', '46']
+      // Try without age group filter
+      if (ageGroup) {
+        const flexibleWhere = { ...whereClause }
+        delete flexibleWhere.ageGroup
+        
+        const flexibleProducts = await prisma.product.findMany({
+          where: flexibleWhere,
+          orderBy: {
+            name: 'asc'
+          }
+        })
+        
+        if (flexibleProducts.length > 0) {
+          console.log(`✅ Found ${flexibleProducts.length} products with flexible matching`)
+          return flexibleProducts
+        }
+      }
       
-      const hairProducts = allProducts.filter(product => 
-        hairProductIds.includes(product.id)
-      )
+      // If still no products, return all products with skin type data
+      console.log('🔄 No flexible matches found, returning all products with skin data')
+      const allProductsWithSkinData = await prisma.product.findMany({
+        where: {
+          inStock: true,
+          skinType: { not: null }
+        },
+        orderBy: {
+          name: 'asc'
+        }
+      })
       
-      console.log(`✅ Returning ${hairProducts.length} specific hair products (ignoring all other filters)`)
-      return hairProducts
-    } else {
-      console.log('❌ Hair condition not met - targetConcerns:', targetConcerns, 'includes hair:', targetConcerns ? targetConcerns.includes('hair') : false)
+      return allProductsWithSkinData
     }
     
-    // Filter products based on description analysis
-    const filteredProducts = allProducts.filter(product => {
-      const productName = product.name.toLowerCase()
-      const productDesc = product.description.toLowerCase()
-      
-      // Check if product matches skin type based on description
-      const matchesSkinType = !skinType || checkSkinTypeMatch(productName, productDesc, skinType)
-      
-      // Check if product matches target concerns based on description
-      const matchesTargetConcerns = !targetConcerns || targetConcerns.length === 0 || 
-        checkTargetConcernsMatch(productName, productDesc, targetConcerns)
-      
-      // Check if product matches age group based on description
-      const matchesAgeGroup = !ageGroup || checkAgeGroupMatch(productName, productDesc, ageGroup)
-      
-      return matchesSkinType && matchesTargetConcerns && matchesAgeGroup
-    })
-    
-    console.log(`✅ Found ${filteredProducts.length} products matching criteria`)
-    
-    // If no products found, return all products as fallback
-    if (filteredProducts.length === 0) {
-      console.log('🔄 No products found with specific criteria, returning all products')
-      return allProducts
-    }
-    
-    return filteredProducts
+    return products
   } catch (error) {
     console.error('Error fetching skin recommendations:', error)
     throw new Error('Failed to fetch skin recommendations')

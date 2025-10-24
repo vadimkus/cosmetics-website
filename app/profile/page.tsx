@@ -2135,7 +2135,7 @@ export default function ProfilePageNew() {
                         <div><strong>Legal Investigations:</strong> If ongoing, retention continues until resolved</div>
                       </li>
                       <li className="flex items-start gap-2">
-                        <span className="text-green-600 mt-1">✓</span>
+                        <span className="text-blue-600 mt-1">•</span>
                         <div><strong>Account Deletion:</strong> All personal information is permanently removed from our systems</div>
                       </li>
                     </ul>

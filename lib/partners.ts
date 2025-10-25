@@ -196,7 +196,7 @@ export const partnersData: Partner[] = [
     id: "hideaway",
     name: "THE HIDEAWAY FOR WOMEN SALON, JUMEIRAH 3",
     type: "Hair & Beauty Salon",
-    description: "Family owned and run hair and beauty salon established in 2021, specializing in effortless & chic colour with emphasis on long-term hair condition using gentle, nourishing products",
+    description: "Family owned and run hair and beauty salon established in 2021",
     location: "La Plage Shop 6 - 403 jumeirah Street - Al Athar Street - Dubai",
     phone: "+971 4 591 8879",
     website: "https://thehideaway.ae",

@@ -50,6 +50,18 @@ export const partnersData: Partner[] = [
     theme: "pink"
   },
   {
+    id: "persona-downtown",
+    name: "UNIQUE PERSONA DOWNTOWN",
+    type: "Beauty & Aesthetic Center",
+    description: "Third location of professional beauty salon offering comprehensive skincare and aesthetic services in Downtown Dubai",
+    location: "Downtown Dubai - South Ridge, Dubai",
+    phone: "+971 58 298 0622",
+    website: "https://persona-dubai.com/downtown",
+    directions: "https://www.google.com/maps?sca_esv=254941356981cfe9&rlz=1C5CHFA_enAE820AE820&sxsrf=AE3TifMcvEfeB5vjDCsZXY1dxYn3F-03KA:1761385503810&uact=5&gs_lp=Egxnd3Mtd2l6LXNlcnAiIFVOSVFVRSBQRVJTT05BIHNvdXRoIHJpZGdlIHRvd2VyMgcQIRigARgKMgcQIRigARgKMgcQIRigARgKSM0lUFBY6iRwAXgBkAEAmAHbAqAB6BOqAQgwLjE2LjAuMbgBA8gBAPgBAZgCEqACxxTCAgoQABiwAxjWBBhHwgINEAAYgAQYsAMYQxiKBcICDhAuGIAEGMcBGMsBGK8BwgIIEAAYgAQYywHCAgUQABiABMICCxAuGIAEGMcBGK8BwgIIEAAYFhgKGB7CAgYQABgWGB7CAh0QLhiABBjHARjLARivARiXBRjcBBjeBBjgBNgBAcICBxAAGIAEGA3CAg0QLhiABBjHARgNGK8BwgIFECEYoAHCAgQQIRgVwgIFECEYnwWYAwCIBgGQBgm6BgYIARABGBSSBwgxLjE2LjAuMaAHykOyBwgwLjE2LjAuMbgHxRTCBwYwLjE1LjPIBy4&um=1&ie=UTF-8&fb=1&gl=es&sa=X&geocode=KQEgvFUnaV8-MW_iFs8DwPSX&daddr=Downtown+Dubai+-+South+Ridge+-+Dubai+-+%D0%9E%D0%90%D0%AD",
+    logo: "/images/partners/Persona.png",
+    theme: "pink"
+  },
+  {
     id: "faceroom",
     name: "FACE ROOM DUBAI MARINA",
     type: "Facial Care & Massage Studio",
@@ -84,5 +96,17 @@ export const partnersData: Partner[] = [
     directions: "https://www.google.com/maps/search/One+by+Omniyat+Business+Bay+Dubai",
     logo: "/images/partners/Shakirovna.png",
     theme: "purple"
+  },
+  {
+    id: "face-only",
+    name: "THE FACE ONLY",
+    type: "Specialized Facial Treatment Salon",
+    description: "Professional facial treatment salon specializing in signature TFO massage, skin therapy, and advanced facial treatments with focus on natural beauty and effective results",
+    location: "Blue Waves Residence - 9 A Street - Marsa Dubai, Dubai",
+    phone: "+971 54 348 8117",
+    website: "https://thefaceonly.com",
+    directions: "https://www.google.com/maps?sca_esv=254941356981cfe9&rlz=1C5CHFA_enAE820AE820&sxsrf=AE3TifPF4L5bN-vsNASbTGi2iDyOGwbNcQ:1761385666402&uact=5&gs_lp=Egxnd3Mtd2l6LXNlcnAiFWZhY2Ugb25seSBzYWxvbiBkdWJhaTIFECEYoAEyBRAhGKABMgUQIRigATIFECEYnwUyBRAhGJ8FMgUQIRifBTIFECEYnwUyBRAhGJ8FMgUQIRifBTIFECEYnwVIkB9QmghYnx1wAngBkAEAmAGYAaAB9AmqAQQwLjEwuAEDyAEA-AEBmAIMoAK4CsICChAAGLADGNYEGEfCAgQQIxgnwgIIEAAYBRgNGB7CAgUQABjvBcICCBAAGIAEGKIEwgIIEAAYCBgNGB7CAgYQABgWGB7CAgQQIRgVwgIHECEYoAEYCpgDAIgGAZAGCJIHBDIuMTCgB8gvsgcEMC4xMLgHsgrCBwUwLjQuOMgHJw&um=1&ie=UTF-8&fb=1&gl=es&sa=X&geocode=KQG0tOpTFV8-Maa3vu0wEN-S&daddr=Blue+Waves+Residence+-+9+A+Street+-+Marsa+Dubai+-+Dubai+-+%D0%9E%D0%90%D0%AD",
+    logo: "/images/partners/thefaceonly.png",
+    theme: "blue"
   }
 ];

@@ -1,10 +1,10 @@
 import { Partner } from '@/types/partner';
 
 export const partnersData: Partner[] = [
-  {
-    id: "hortman-1",
-    name: "HORTMAN CLINICS",
-    type: "Premium Aesthetic Clinic",
+      {
+        id: "hortman-1",
+        name: "HORTMAN CLINICS, BUSINESS BAY",
+        type: "Premium Aesthetic Clinic",
     description: "Renowned aesthetic clinic specializing in cosmetic surgeries, dermatology, anti-aging treatments, and wellness services",
     location: "32 Floor - 1 Sheikh Zayed Rd - Trade Center First - Dubai",
     phone: "+971 4 566 2615",
@@ -15,7 +15,7 @@ export const partnersData: Partner[] = [
   },
       {
         id: "hortman-2",
-        name: "HORTMAN CLINICS 2",
+        name: "HORTMAN CLINICS 2, JUMEIRAH 3",
         type: "Premium Aesthetic Clinic",
     description: "Second location of renowned aesthetic clinic specializing in cosmetic surgeries, dermatology, and wellness services",
     location: "450 Jumeira St - Jumeirah - Jumeirah 3 - Dubai",
@@ -27,7 +27,7 @@ export const partnersData: Partner[] = [
   },
   {
     id: "persona-marina",
-    name: "UNIQUE PERSONA DUBAI MARINA",
+    name: "UNIQUE PERSONA, DUBAI MARINA",
     type: "Beauty & Aesthetic Center",
     description: "Professional beauty salon offering comprehensive skincare and aesthetic services in Dubai Marina",
     location: "The Residences at Marina Gate 1, Dubai Marina",
@@ -39,7 +39,7 @@ export const partnersData: Partner[] = [
   },
   {
     id: "persona-palm",
-    name: "UNIQUE PERSONA PALM JUMEIRAH",
+    name: "UNIQUE PERSONA, PALM JUMEIRAH",
     type: "Beauty & Aesthetic Center",
     description: "Second location of professional beauty salon offering comprehensive skincare and aesthetic services in Palm Jumeirah",
     location: "LG floor, Nakheel Mall - Palm Jumeirah, Dubai",
@@ -51,7 +51,7 @@ export const partnersData: Partner[] = [
   },
   {
     id: "persona-downtown",
-    name: "UNIQUE PERSONA DOWNTOWN",
+    name: "UNIQUE PERSONA, DOWNTOWN",
     type: "Beauty & Aesthetic Center",
     description: "Third location of professional beauty salon offering comprehensive skincare and aesthetic services in Downtown Dubai",
     location: "Downtown Dubai - South Ridge, Dubai",
@@ -63,7 +63,7 @@ export const partnersData: Partner[] = [
   },
   {
     id: "faceroom",
-    name: "FACE ROOM DUBAI MARINA",
+    name: "FACE ROOM, DUBAI MARINA",
     type: "Facial Care & Massage Studio",
     description: "Professional facial massage and cosmetology services with unique techniques for skin care and relaxation",
     location: "The Residences at Marina Gate 2, Dubai Marina",
@@ -75,7 +75,7 @@ export const partnersData: Partner[] = [
   },
   {
     id: "shakirovna",
-    name: "SHAKIROVNA LADIES BEAUTY SALOON",
+    name: "SHAKIROVNA LADIES BEAUTY SALOON, DUBAI MARINA",
     type: "Ladies Beauty Salon",
     description: "Professional beauty services for women with expert care and attention to detail in Jumeirah Beach Residence",
     location: "Jumeirah Beach Residence 2, Marina Wharf 1",
@@ -87,7 +87,7 @@ export const partnersData: Partner[] = [
   },
   {
     id: "shakirovna-business-bay",
-    name: "ELITE SHAKIROVNA BEAUTY CENTER",
+    name: "ELITE SHAKIROVNA BEAUTY CENTER, BUSINESS BAY",
     type: "Elite Beauty Center",
     description: "Premium beauty center offering comprehensive beauty services including hair, eyelashes, cosmetology, massage therapy, and specialized treatments in Business Bay",
     location: "One by Omniyat, Business Bay, Dubai",
@@ -97,10 +97,10 @@ export const partnersData: Partner[] = [
     logo: "/images/partners/Shakirovna.png",
     theme: "purple"
   },
-  {
-    id: "face-only",
-    name: "THE FACE ONLY",
-    type: "Specialized Facial Treatment Salon",
+      {
+        id: "face-only",
+        name: "THE FACE ONLY, BLUEWATERS ISLAND",
+        type: "Specialized Facial Treatment Salon",
     description: "Professional facial treatment salon specializing in signature TFO massage, skin therapy, and advanced facial treatments with focus on natural beauty and effective results",
     location: "Blue Waves Residence - 9 A Street - Marsa Dubai, Dubai",
     phone: "+971 54 348 8117",
@@ -111,7 +111,7 @@ export const partnersData: Partner[] = [
   },
   {
     id: "egoistka",
-    name: "EGOISTKA BEAUTY SALON",
+    name: "EGOISTKA BEAUTY SALON, DUBAI MARINA",
     type: "Comprehensive Beauty Salon",
     description: "Professional beauty salon offering comprehensive beauty services including manicure, pedicure, podiatry, eyebrow and eyelash services, hair treatments, cosmetology, massage, and advanced beauty treatments in Dubai Marina",
     location: "Dubai Marina Promenade, Delphine Tower, Ground Floor, Shop 2",
@@ -123,7 +123,7 @@ export const partnersData: Partner[] = [
   },
   {
     id: "vesna",
-    name: "VESNA BEAUTY LOUNGE",
+    name: "VESNA BEAUTY LOUNGE, DUBAI MARINA",
     type: "Beauty Lounge",
     description: "Professional beauty lounge offering comprehensive beauty services and treatments in Dubai Marina",
     location: "The Zen - Al Seba St - Marsa Dubai - Dubai Marina, Dubai",

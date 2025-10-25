@@ -165,20 +165,18 @@ export default function RootLayout({
                     {children}
                   </ErrorBoundary>
                 </main>
-                <footer role="contentinfo" className="bg-white border-t border-gray-200 py-8" style={{ backgroundColor: 'white' }}>
+                <footer role="contentinfo" className="bg-white border-t border-gray-200 py-8">
                   <div className="container mx-auto px-4 text-center text-gray-600">
                     <div className="flex flex-col items-center">
-                      <div className="bg-white p-4 rounded-lg shadow-sm">
-                        <Image
-                          src={`/images/Full.avif?v=${Date.now()}`}
-                          alt="Genosys Middle East FZ-LLC"
-                          width={200}
-                          height={60}
-                          className="mb-2"
-                          priority={false}
-                        />
-                      </div>
-                      <p className="text-sm mt-4">Official Distributor in the UAE</p>
+                      <Image
+                        src="/Logo/upLOGO.png"
+                        alt="Genosys Middle East FZ-LLC"
+                        width={180}
+                        height={54}
+                        className="mb-2"
+                        priority={false}
+                      />
+                      <p className="text-sm mt-1">Official Distributor in the UAE</p>
                       <p className="text-sm mt-2">&copy; 2025 Genosys Middle East FZ-LLC. All rights reserved.</p>
                     </div>
                   </div>

@@ -50,6 +50,18 @@ export const partnersData: Partner[] = [
     theme: "blue"
   },
   {
+    id: "evolution",
+    name: "EVOLUTION AESTHETICS CLINIC, JUMEIRAH 3",
+    type: "Aesthetic Medical Clinic",
+    description: "Elevating aesthetics standards with comprehensive aesthetic cosmetology, gynecology, injectables, and advanced beauty treatments",
+    location: "49 Umm Al Sheif Rd - Jumeira Third - Jumeirah 3 - Dubai",
+    phone: "+971 4 706 5000",
+    website: "https://evoclinic.ae",
+    directions: "https://www.google.com/maps?rlz=1C5CHFA_enAE820AE820&gs_lcrp=EgZjaHJvbWUyCQgAEEUYORiABDIHCAEQABjvBTIKCAIQABiABBiiBDIKCAMQABiABBiiBDIHCAQQABjvBdIBCDU5NjRqMGo3qAIAsAIA&um=1&ie=UTF-8&fb=1&gl=es&sa=X&geocode=KZmTgf_la18-MRupdQ8rSJ36&daddr=49+Umm+Al+Sheif+Rd+-+Jumeira+Third+-+Jumeirah+3+-+Dubai+-+%D0%9E%D0%90%D0%AD",
+    logo: "/images/partners/evo.png",
+    theme: "purple"
+  },
+  {
     id: "shakirovna",
     name: "SHAKIROVNA LADIES BEAUTY SALOON, DUBAI MARINA",
     type: "Ladies Beauty Salon",

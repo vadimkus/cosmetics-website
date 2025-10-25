@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import BreadcrumbSchema from '@/components/BreadcrumbSchema'
-import { Building, Heart } from 'lucide-react'
+import { Building } from 'lucide-react'
 import Image from 'next/image'
 
 export const metadata: Metadata = {

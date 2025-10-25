@@ -56,7 +56,7 @@ export const partnersData: Partner[] = [
     description: "Professional facial massage and cosmetology services with unique techniques for skin care and relaxation",
     location: "The Residences at Marina Gate 2, Dubai Marina",
     phone: "+971 52 829 0457",
-    website: "https://face-rooms.com/",
+    website: "https://face-rooms.com",
     directions: "https://www.google.com/maps/search/The+Residences+at+Marina+Gate+2+Dubai+Marina",
     logo: "/images/partners/logo-faceroom.png",
     theme: "blue"
@@ -68,7 +68,7 @@ export const partnersData: Partner[] = [
     description: "Professional beauty services for women with expert care and attention to detail in Jumeirah Beach Residence",
     location: "Jumeirah Beach Residence 2, Marina Wharf 1",
     phone: "+971 50 409 9407",
-    website: "https://shakirovna.com/",
+    website: "https://shakirovna.com",
     directions: "https://www.google.com/maps?rlz=1C5CHFA_enAE820AE820&um=1&ie=UTF-8&fb=1&gl=es&sa=X&geocode=KS37CzxUE18-MV_-F9n4c6n1&daddr=Marina+Promenade+-+Marsa+Dubai+-+Dubai+Marina+-+Dubai+-+%D0%9E%D0%90%D0%AD",
     logo: "/images/partners/Shakirovna.png",
     theme: "purple"

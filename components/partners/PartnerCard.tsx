@@ -1,4 +1,4 @@
-import { Building } from 'lucide-react'
+import { Building, Phone, Globe } from 'lucide-react'
 import Image from 'next/image'
 import { Partner } from '@/types/partner'
 
@@ -67,15 +67,15 @@ export default function PartnerCard({ partner }: PartnerCardProps) {
             </div>
             {partner.phone && (
               <div className="flex items-center justify-center lg:justify-start gap-2">
-              <span className={theme.icon}>📞</span>
-              <a href={`tel:${partner.phone.replace(/\s/g, '')}`} className={`hover:${theme.icon} transition-colors break-all`}>
-                {partner.phone}
-              </a>
-            </div>
+                <Phone className={`h-3 w-3 sm:h-4 sm:w-4 ${theme.icon} flex-shrink-0`} />
+                <a href={`tel:${partner.phone.replace(/\s/g, '')}`} className={`hover:${theme.icon} transition-colors break-all`}>
+                  {partner.phone}
+                </a>
+              </div>
             )}
             {partner.website && (
               <div className="flex items-center justify-center lg:justify-start gap-2">
-                <span className={theme.icon}>🌐</span>
+                <Globe className={`h-3 w-3 sm:h-4 sm:w-4 ${theme.icon} flex-shrink-0`} />
                 <a 
                   href={partner.website} 
                   target="_blank" 

@@ -92,6 +92,9 @@ const Header = memo(function Header() {
             <Link href="/skin-recommendation" className="text-gray-700 hover:text-primary-600 transition-colors">
               Skin
             </Link>
+            <Link href="/partners" className="text-gray-700 hover:text-primary-600 transition-colors">
+              Partners
+            </Link>
           </nav>
 
           {/* Mobile Icons and Menu Button */}
@@ -303,6 +306,13 @@ const Header = memo(function Header() {
                 onClick={() => setShowMobileMenu(false)}
               >
                 Skin
+              </Link>
+              <Link 
+                href="/partners" 
+                className="text-gray-700 hover:text-primary-600 transition-colors py-2 border-b border-gray-100"
+                onClick={() => setShowMobileMenu(false)}
+              >
+                Partners
               </Link>
               
               {/* Mobile Login/Profile Section */}

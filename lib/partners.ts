@@ -108,5 +108,17 @@ export const partnersData: Partner[] = [
     directions: "https://www.google.com/maps?sca_esv=254941356981cfe9&rlz=1C5CHFA_enAE820AE820&sxsrf=AE3TifPF4L5bN-vsNASbTGi2iDyOGwbNcQ:1761385666402&uact=5&gs_lp=Egxnd3Mtd2l6LXNlcnAiFWZhY2Ugb25seSBzYWxvbiBkdWJhaTIFECEYoAEyBRAhGKABMgUQIRigATIFECEYnwUyBRAhGJ8FMgUQIRifBTIFECEYnwUyBRAhGJ8FMgUQIRifBTIFECEYnwVIkB9QmghYnx1wAngBkAEAmAGYAaAB9AmqAQQwLjEwuAEDyAEA-AEBmAIMoAK4CsICChAAGLADGNYEGEfCAgQQIxgnwgIIEAAYBRgNGB7CAgUQABjvBcICCBAAGIAEGKIEwgIIEAAYCBgNGB7CAgYQABgWGB7CAgQQIRgVwgIHECEYoAEYCpgDAIgGAZAGCJIHBDIuMTCgB8gvsgcEMC4xMLgHsgrCBwUwLjQuOMgHJw&um=1&ie=UTF-8&fb=1&gl=es&sa=X&geocode=KQG0tOpTFV8-Maa3vu0wEN-S&daddr=Blue+Waves+Residence+-+9+A+Street+-+Marsa+Dubai+-+Dubai+-+%D0%9E%D0%90%D0%AD",
     logo: "/images/partners/thefaceonly.png",
     theme: "blue"
+  },
+  {
+    id: "egoistka",
+    name: "EGOISTKA BEAUTY SALON",
+    type: "Comprehensive Beauty Salon",
+    description: "Professional beauty salon offering comprehensive beauty services including manicure, pedicure, podiatry, eyebrow and eyelash services, hair treatments, cosmetology, massage, and advanced beauty treatments in Dubai Marina",
+    location: "Dubai Marina Promenade, Delphine Tower, Ground Floor, Shop 2",
+    phone: "+971 58 558 4002",
+    website: "https://davaidubai.ae/en/my-daily-life-in-dubai/beauty-and-self-care/egoistka-beauty-salon",
+    directions: "https://www.google.com/maps?sca_esv=254941356981cfe9&biw=1554&bih=862&sxsrf=AE3TifMsU4ygFJB7jBNdHE1kZZkhtC-Q7g:1761386513035&uact=5&gs_lp=Egxnd3Mtd2l6LXNlcnAiH2Vnb2lzdGthIGJlYXV0eSBzYWxvbiBkdWJhaSBtYXAyCBAhGKABGMMESOAPUPwIWOsNcAJ4AJABAJgBpQGgAbUGqgEDMC42uAEDyAEA-AEBmAIFoAK4A8ICCBAAGLADGO8FwgILEAAYgAQYsAMYogTCAgoQIRigARjDBBgKmAMAiAYBkAYFkgcDMi4zoAeuFLIHAzAuM7gHtQPCBwMwLjXIBwg&um=1&ie=UTF-8&fb=1&gl=es&sa=X&geocode=KXdgif0DE18-MaAmDFkVt05k&daddr=Marina+Promenade,+Delphine+Tower,+Shop+No+2+-+Dubai+-+%D0%9E%D0%90%D0%AD",
+    logo: "/images/partners/Egoistka.png",
+    theme: "purple"
   }
 ];

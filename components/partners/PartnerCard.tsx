@@ -66,16 +66,16 @@ export default function PartnerCard({ partner }: PartnerCardProps) {
               <span className="break-words">{partner.location}</span>
             </div>
             {partner.phone && (
-              <div className="flex items-center justify-center lg:justify-start gap-2">
-                <Phone className={`h-3 w-3 sm:h-4 sm:w-4 ${theme.icon} flex-shrink-0`} />
+              <div className="flex items-start justify-center lg:justify-start gap-2">
+                <Phone className={`h-3 w-3 sm:h-4 sm:w-4 ${theme.icon} flex-shrink-0 mt-0.5`} />
                 <a href={`tel:${partner.phone.replace(/\s/g, '')}`} className={`hover:${theme.icon} transition-colors break-all`}>
                   {partner.phone}
                 </a>
               </div>
             )}
             {partner.website && (
-              <div className="flex items-center justify-center lg:justify-start gap-2">
-                <Globe className={`h-3 w-3 sm:h-4 sm:w-4 ${theme.icon} flex-shrink-0`} />
+              <div className="flex items-start justify-center lg:justify-start gap-2">
+                <Globe className={`h-3 w-3 sm:h-4 sm:w-4 ${theme.icon} flex-shrink-0 mt-0.5`} />
                 <a 
                   href={partner.website} 
                   target="_blank" 

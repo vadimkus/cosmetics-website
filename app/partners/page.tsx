@@ -133,6 +133,71 @@ export default function PartnersPage() {
                 </div>
               </div>
 
+              {/* HORTMAN CLINICS 2 L.L.C */}
+              <div className="bg-gradient-to-r from-emerald-50 to-teal-50 rounded-xl shadow-lg border border-emerald-200 p-6 mb-8">
+                <div className="flex flex-col lg:flex-row items-center gap-6">
+                  <div className="flex-shrink-0">
+                    <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-lg border border-emerald-200">
+                      <Image
+                        src="/images/partners/hortman.png"
+                        alt="Hortman Clinics 2 L.L.C Logo"
+                        width={50}
+                        height={50}
+                        className="object-contain"
+                      />
+                    </div>
+                  </div>
+                  <div className="flex-1 text-center lg:text-left">
+                    <h3 className="text-xl font-bold text-gray-800 mb-1">HORTMAN CLINICS 2 L.L.C</h3>
+                    <p className="text-base text-gray-600 mb-2">Premium Aesthetic Clinic</p>
+                    <p className="text-sm text-gray-600 mb-3">
+                      Second location of renowned aesthetic clinic specializing in cosmetic surgeries, dermatology, and wellness services
+                    </p>
+                    <div className="space-y-2 text-sm text-gray-600">
+                      <div className="flex items-center justify-center lg:justify-start gap-2">
+                        <Building className="h-4 w-4 text-emerald-600" />
+                        <span>450 Jumeira St - Jumeirah - Jumeirah 3 - Dubai</span>
+                      </div>
+                      <div className="flex items-center justify-center lg:justify-start gap-2">
+                        <span className="text-emerald-600">📞</span>
+                        <a href="tel:+971522005011" className="hover:text-emerald-600 transition-colors">
+                          +971 52 200 5011
+                        </a>
+                      </div>
+                      <div className="flex items-center justify-center lg:justify-start gap-2">
+                        <span className="text-emerald-600">🌐</span>
+                        <a 
+                          href="https://hortmanclinics.com/contact/" 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="hover:text-emerald-600 transition-colors"
+                        >
+                          hortmanclinics.com
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex flex-col sm:flex-row gap-2">
+                    <a 
+                      href="https://www.google.com/maps?sca_esv=254941356981cfe9&rlz=1C5CHFA_enAE820AE820&sxsrf=AE3TifNdK-nhSVi0UM_BIxnB3Rm8KYCyPg:1761382025361&uact=5&gs_lp=Egxnd3Mtd2l6LXNlcnAiEWhvcnRtYW4gY2xpbmljcyAyMhAQLhiABBjHARgnGIoFGK8BMggQABiABBjLATIIEAAYgAQYywEyCBAAGIAEGMsBMgYQABgWGB4yBhAAGBYYHjIGEAAYFhgeMgYQABgWGB4yBRAAGO8FMgUQABjvBTIdEC4YgAQYxwEYigUYrwEYlwUY3AQY3gQY4ATYAQFI7wRQCFiEAnABeACQAQCYAW-gAcwCqgEDMC4zuAEDyAEA-AEBmAIDoALrAcICDRAuGLADGMcBGCcYrwHCAgoQABiwAxjWBBhHwgINEAAYgAQYsAMYQxiKBcICBRAAGIAEmAMAiAYBkAYKugYGCAEQARgUkgcDMS4yoAe7H7IHAzAuMrgH6AHCBwUwLjEuMsgHCg&um=1&ie=UTF-8&fb=1&gl=es&sa=X&geocode=KWNJRzEAQ18-MZtAmPB8BfjS&daddr=450+Jumeira+St+-+Jumeirah+-+Jumeirah+3+-+Dubai+-+%D0%9E%D0%90%D0%AD"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center bg-emerald-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-emerald-700 transition-colors"
+                    >
+                      📍 Directions
+                    </a>
+                    <a 
+                      href="https://hortmanclinics.com/contact/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center border border-emerald-600 text-emerald-600 px-4 py-2 rounded-lg text-sm font-semibold hover:bg-emerald-50 transition-colors"
+                    >
+                      Website
+                    </a>
+                  </div>
+                </div>
+              </div>
+
               {/* UNIQUE PERSONA */}
               <div className="bg-gradient-to-r from-pink-50 to-rose-50 rounded-xl shadow-lg border border-pink-200 p-6 mb-8">
                 <div className="flex flex-col lg:flex-row items-center gap-6">

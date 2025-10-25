@@ -120,5 +120,16 @@ export const partnersData: Partner[] = [
     directions: "https://www.google.com/maps?sca_esv=254941356981cfe9&biw=1554&bih=862&sxsrf=AE3TifMsU4ygFJB7jBNdHE1kZZkhtC-Q7g:1761386513035&uact=5&gs_lp=Egxnd3Mtd2l6LXNlcnAiH2Vnb2lzdGthIGJlYXV0eSBzYWxvbiBkdWJhaSBtYXAyCBAhGKABGMMESOAPUPwIWOsNcAJ4AJABAJgBpQGgAbUGqgEDMC42uAEDyAEA-AEBmAIFoAK4A8ICCBAAGLADGO8FwgILEAAYgAQYsAMYogTCAgoQIRigARjDBBgKmAMAiAYBkAYFkgcDMi4zoAeuFLIHAzAuM7gHtQPCBwMwLjXIBwg&um=1&ie=UTF-8&fb=1&gl=es&sa=X&geocode=KXdgif0DE18-MaAmDFkVt05k&daddr=Marina+Promenade,+Delphine+Tower,+Shop+No+2+-+Dubai+-+%D0%9E%D0%90%D0%AD",
     logo: "/images/partners/Egoistka.png",
     theme: "purple"
+  },
+  {
+    id: "vesna",
+    name: "VESNA BEAUTY LOUNGE",
+    type: "Beauty Lounge",
+    description: "Professional beauty lounge offering comprehensive beauty services and treatments in Dubai Marina",
+    location: "The Zen - Al Seba St - Marsa Dubai - Dubai Marina, Dubai",
+    phone: "+971 55 341 1859",
+    directions: "https://www.google.com/maps/dir//The+Zen+-+Al+Seba+St+-+Marsa+Dubai+-+Dubai+Marina+-+Dubai+-+%D0%9E%D0%90%D0%AD/@25.0675537,55.0485508,12z/data=!4m8!4m7!1m0!1m5!1m1!1s0x3e5f13045e9c3d51:0x33cac3f11886f661!2m2!1d55.1309523!2d25.0675764?entry=ttu&g_ep=EgoyMDI1MTAyMi4wIKXMDSoASAFQAw%3D%3D",
+    logo: "/images/partners/vesna.png",
+    theme: "pink"
   }
 ];

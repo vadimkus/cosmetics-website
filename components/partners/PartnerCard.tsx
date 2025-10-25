@@ -60,7 +60,7 @@ export default function PartnerCard({ partner }: PartnerCardProps) {
           <p className="text-xs sm:text-sm text-gray-600 mb-2 leading-relaxed">
             {partner.description}
           </p>
-          <div className="space-y-0.5 text-xs sm:text-sm text-gray-600">
+          <div className="space-y-0 text-xs sm:text-sm text-gray-600">
             <div className="flex items-start justify-start gap-2">
               <Building className={`h-3 w-3 sm:h-4 sm:w-4 ${theme.icon} flex-shrink-0 mt-0.5`} />
               <span className="break-words leading-relaxed">{partner.location}</span>

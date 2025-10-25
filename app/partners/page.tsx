@@ -61,13 +61,78 @@ export default function PartnersPage() {
                 Our Partners
               </h1>
               <p className="text-lg text-gray-600 mb-4">
-                Building strong partnerships across the UAE and Middle East
+                Building strong partnerships across the United Arab Emirates
               </p>
             </div>
             
             {/* Featured Partners */}
             <div className="mb-8">
               
+              {/* HORTMAN CLINICS */}
+              <div className="bg-gradient-to-r from-emerald-50 to-teal-50 rounded-xl shadow-lg border border-emerald-200 p-6 mb-8">
+                <div className="flex flex-col lg:flex-row items-center gap-6">
+                  <div className="flex-shrink-0">
+                    <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-lg border border-emerald-200">
+                      <Image
+                        src="/images/partners/hortman.png"
+                        alt="Hortman Clinics Logo"
+                        width={50}
+                        height={50}
+                        className="object-contain"
+                      />
+                    </div>
+                  </div>
+                  <div className="flex-1 text-center lg:text-left">
+                    <h3 className="text-xl font-bold text-gray-800 mb-1">HORTMAN CLINICS</h3>
+                    <p className="text-base text-gray-600 mb-2">Premium Aesthetic Clinic</p>
+                    <p className="text-sm text-gray-600 mb-3">
+                      Renowned aesthetic clinic specializing in cosmetic surgeries, dermatology, anti-aging treatments, and wellness services
+                    </p>
+                    <div className="space-y-2 text-sm text-gray-600">
+                      <div className="flex items-center justify-center lg:justify-start gap-2">
+                        <Building className="h-4 w-4 text-emerald-600" />
+                        <span>32 Floor - 1 Sheikh Zayed Rd - Trade Center First - Dubai</span>
+                      </div>
+                      <div className="flex items-center justify-center lg:justify-start gap-2">
+                        <span className="text-emerald-600">📞</span>
+                        <a href="tel:+97145662615" className="hover:text-emerald-600 transition-colors">
+                          +971 4 566 2615
+                        </a>
+                      </div>
+                      <div className="flex items-center justify-center lg:justify-start gap-2">
+                        <span className="text-emerald-600">🌐</span>
+                        <a 
+                          href="https://hortmanclinics.com/" 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="hover:text-emerald-600 transition-colors"
+                        >
+                          hortmanclinics.com
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex flex-col sm:flex-row gap-2">
+                    <a 
+                      href="https://www.google.com/maps?sca_esv=254941356981cfe9&rlz=1C5CHFA_enAE820AE820&sxsrf=AE3TifPTZte0PBmw_HTgKUi-In8WvlDkGQ:1761382021983&uact=5&gs_lp=Egxnd3Mtd2l6LXNlcnAiEGhvcnRtYW4gY2xpbmljcyAyEBAuGIAEGMcBGCcYigUYrwEyCBAAGIAEGMsBMggQABiABBjLATIIEAAYgAQYywEyCBAAGIAEGMsBMggQABiABBjLATIIEAAYgAQYywEyCBAAGIAEGMsBMgUQABiABDIGEAAYFhgeMh0QLhiABBjHARiKBRivARiXBRjcBBjeBBjgBNgBAUjYA1CvAVivAXABeAGQAQCYAYABoAGAAaoBAzAuMbgBA8gBAPgBAZgCAqACjQHCAgoQABiwAxjWBBhHmAMAiAYBkAYIugYGCAEQARgUkgcDMS4xoAfiCrIHAzAuMbgHiwHCBwcwLjEuMC4xyAcK&um=1&ie=UTF-8&fb=1&gl=es&sa=X&geocode=KSEXfIP9Q18-MRkmpM9ul2lD&daddr=32+Floor+-+1+Sheikh+Zayed+Rd+-+Trade+Center+First+-+Dubai+-+%D0%9E%D0%90%D0%AD"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center bg-emerald-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-emerald-700 transition-colors"
+                    >
+                      📍 Directions
+                    </a>
+                    <a 
+                      href="https://hortmanclinics.com/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center border border-emerald-600 text-emerald-600 px-4 py-2 rounded-lg text-sm font-semibold hover:bg-emerald-50 transition-colors"
+                    >
+                      Website
+                    </a>
+                  </div>
+                </div>
+              </div>
+
               {/* UNIQUE PERSONA */}
               <div className="bg-gradient-to-r from-pink-50 to-rose-50 rounded-xl shadow-lg border border-pink-200 p-6 mb-8">
                 <div className="flex flex-col lg:flex-row items-center gap-6">

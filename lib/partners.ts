@@ -115,7 +115,7 @@ export const partnersData: Partner[] = [
     description: "Integrative multispeciality healthcare provider offering comprehensive medical services including family medicine, dermatology, plastic surgery, and specialized treatments in Jumeirah",
     location: "Villa number 794 - Jumeira St - Umm Suqeim Second - Jumeirah 3 - Dubai",
     phone: "+971 4 338 8588",
-    website: "https://kindcare.ae/?utm_source=google&utm_medium=GMB&utm_campaign=gmb_Dubai",
+    website: "https://kindcare.ae",
     directions: "https://www.google.com/maps?rlz=1C5CHFA_enAE820AE820&gs_lcrp=EgZjaHJvbWUqCggAEAAY4wIYgAQyCggAEAAY4wIYgAQyDQgBEC4YrwEYxwEYgAQyCQgCEAAYChiABDIHCAMQABiABDIICAQQABgWGB4yCAgFEAAYFhgeMggIBhAAGBYYHjIICAcQABgWGB4yCAgIEAAYFhgeMggICRAAGBYYHtIBCDIxNzRqMGo3qAIAsAIA&um=1&ie=UTF-8&fb=1&gl=es&sa=X&geocode=KcMzGY5QQl8-MYaoJDpzrhyP&daddr=Villa+number+794+-+Jumeira+St+-+Umm+Suqeim+Second+-+Jumeirah+3+-+Dubai+-+%D0%9E%D0%90%D0%AD",
     logo: "/images/partners/KIND.png",
     theme: "emerald"

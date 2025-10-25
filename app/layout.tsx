@@ -177,7 +177,7 @@ export default function RootLayout({
                         priority={false}
                       />
                       <p className="text-sm mt-1">Official Distributor in the UAE</p>
-                      <p className="text-sm mt-2">&copy; 2025 Genosys Middle East FZ-LLC. All rights reserved.</p>
+                      <p className="text-sm mt-2">&copy; 2026 Genosys Middle East FZ-LLC. All rights reserved.</p>
                     </div>
                   </div>
                 </footer>

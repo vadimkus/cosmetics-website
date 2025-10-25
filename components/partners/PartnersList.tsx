@@ -1,4 +1,4 @@
-import { partnersData } from '@/data/partners'
+import { partnersData } from '@/lib/partners'
 import PartnerCard from './PartnerCard'
 
 export default function PartnersList() {

@@ -57,7 +57,7 @@ export default function PartnerCard({ partner }: PartnerCardProps) {
         <div className="flex-1 text-center lg:text-left min-w-0">
           <h3 className="text-base sm:text-lg lg:text-xl font-bold text-gray-800 mb-1 break-words leading-tight">{partner.name}</h3>
           <p className="text-xs sm:text-sm lg:text-base text-gray-600 mb-2">{partner.type}</p>
-          <p className="text-xs sm:text-sm text-gray-600 mb-3 leading-relaxed">
+          <p className="text-xs sm:text-sm text-gray-600 mb-2 leading-relaxed">
             {partner.description}
           </p>
           <div className="space-y-0.5 text-xs sm:text-sm text-gray-600">
@@ -88,7 +88,7 @@ export default function PartnerCard({ partner }: PartnerCardProps) {
             )}
           </div>
         </div>
-        <div className="flex flex-col w-full sm:w-auto gap-2 mt-4 lg:mt-0">
+        <div className="flex flex-col w-full sm:w-auto gap-2 mt-2 lg:mt-0">
           {partner.directions && (
             <a 
               href={partner.directions}

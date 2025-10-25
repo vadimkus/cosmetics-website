@@ -263,6 +263,71 @@ export default function PartnersPage() {
                 </div>
               </div>
 
+              {/* UNIQUE PERSONA PALM JUMEIRAH */}
+              <div className="bg-gradient-to-r from-pink-50 to-rose-50 rounded-xl shadow-lg border border-pink-200 p-6 mb-8">
+                <div className="flex flex-col lg:flex-row items-center gap-6">
+                  <div className="flex-shrink-0">
+                    <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-lg border border-pink-200">
+                      <Image
+                        src="/images/partners/Persona.png"
+                        alt="UNIQUE PERSONA Palm Jumeirah Logo"
+                        width={50}
+                        height={50}
+                        className="object-contain"
+                      />
+                    </div>
+                  </div>
+                  <div className="flex-1 text-center lg:text-left">
+                    <h3 className="text-xl font-bold text-gray-800 mb-1">UNIQUE PERSONA PALM JUMEIRAH</h3>
+                    <p className="text-base text-gray-600 mb-2">Beauty & Aesthetic Center</p>
+                    <p className="text-sm text-gray-600 mb-3">
+                      Second location of professional beauty salon offering comprehensive skincare and aesthetic services in Palm Jumeirah
+                    </p>
+                    <div className="space-y-2 text-sm text-gray-600">
+                      <div className="flex items-center justify-center lg:justify-start gap-2">
+                        <Building className="h-4 w-4 text-pink-600" />
+                        <span>LG floor, Nakheel Mall - Palm Jumeira, Dubai</span>
+                      </div>
+                      <div className="flex items-center justify-center lg:justify-start gap-2">
+                        <span className="text-pink-600">📞</span>
+                        <a href="tel:+971527236572" className="hover:text-pink-600 transition-colors">
+                          +971 52 723 6572
+                        </a>
+                      </div>
+                      <div className="flex items-center justify-center lg:justify-start gap-2">
+                        <span className="text-pink-600">🌐</span>
+                        <a 
+                          href="https://persona-dubai.com/palm" 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="hover:text-pink-600 transition-colors"
+                        >
+                          persona-dubai.com/palm
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex flex-col sm:flex-row gap-2">
+                    <a 
+                      href="https://www.google.com/maps?sca_esv=254941356981cfe9&rlz=1C5CHFA_enAE820AE820&sxsrf=AE3TifNZ5hzw_WMOirnwpcghXVhwM3hBJw:1761383254480&gs_lp=Egxnd3Mtd2l6LXNlcnAiCnBlcnNvbmEgbmEqAggAMgoQIxiABBgnGIoFMggQABiABBjLATIIEAAYgAQYywEyCBAAGIAEGMsBMggQABiABBjLATIIEAAYgAQYywEyCBAAGIAEGMsBMggQABiABBjLATIIEAAYgAQYywEyCBAAGIAEGMsBSOURUIEBWL0IcAF4AZABAJgBhwGgAYMHqgEDMC43uAEDyAEA-AEBmAIIoAK5B8ICChAAGLADGNYEGEfCAgYQABgWGB7CAggQLhiABBjLAcICCxAuGIAEGNQCGMsBmAMAiAYBkAYIkgcDMS43oAf_O7IHAzAuN7gHuAfCBwUwLjEuN8gHKQ&um=1&ie=UTF-8&fb=1&gl=es&sa=X&geocode=KT9ts0Vza18-MV2OH9RxvODz&daddr=LG+floor,+Nakheel+Mall+-+Nakhlat+Jumeira+-+Dubai+-+%D0%9E%D0%90%D0%AD"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center bg-pink-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-pink-700 transition-colors"
+                    >
+                      📍 Directions
+                    </a>
+                    <a 
+                      href="https://persona-dubai.com/palm"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center border border-pink-600 text-pink-600 px-4 py-2 rounded-lg text-sm font-semibold hover:bg-pink-50 transition-colors"
+                    >
+                      Website
+                    </a>
+                  </div>
+                </div>
+              </div>
+
               {/* FACE ROOM */}
               <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl shadow-lg border border-blue-200 p-6 mb-8">
                 <div className="flex flex-col lg:flex-row items-center gap-6">

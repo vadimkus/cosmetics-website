@@ -13,10 +13,10 @@ export const partnersData: Partner[] = [
     logo: "/images/partners/hortman.png",
     theme: "emerald"
   },
-  {
-    id: "hortman-2",
-    name: "HORTMAN CLINICS 2 L.L.C",
-    type: "Premium Aesthetic Clinic",
+      {
+        id: "hortman-2",
+        name: "HORTMAN CLINICS 2",
+        type: "Premium Aesthetic Clinic",
     description: "Second location of renowned aesthetic clinic specializing in cosmetic surgeries, dermatology, and wellness services",
     location: "450 Jumeira St - Jumeirah - Jumeirah 3 - Dubai",
     phone: "+971 52 200 5011",
@@ -129,7 +129,7 @@ export const partnersData: Partner[] = [
     location: "The Zen - Al Seba St - Marsa Dubai - Dubai Marina, Dubai",
     phone: "+971 55 341 1859",
     directions: "https://www.google.com/maps/dir//The+Zen+-+Al+Seba+St+-+Marsa+Dubai+-+Dubai+Marina+-+Dubai+-+%D0%9E%D0%90%D0%AD/@25.0675537,55.0485508,12z/data=!4m8!4m7!1m0!1m5!1m1!1s0x3e5f13045e9c3d51:0x33cac3f11886f661!2m2!1d55.1309523!2d25.0675764?entry=ttu&g_ep=EgoyMDI1MTAyMi4wIKXMDSoASAFQAw%3D%3D",
-    logo: "/images/partners/vesna.png",
+    logo: "/images/partners/Vesna.png",
     theme: "pink"
   }
 ];

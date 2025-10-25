@@ -60,13 +60,13 @@ export default function PartnerCard({ partner }: PartnerCardProps) {
           <p className="text-xs sm:text-sm text-gray-600 mb-2 leading-relaxed">
             {partner.description}
           </p>
-          <div className="text-xs sm:text-sm text-gray-600">
-            <div className="flex items-start justify-start gap-2 mb-0">
+          <div className="text-xs sm:text-sm text-gray-600 space-y-0 sm:space-y-2">
+            <div className="flex items-start justify-start gap-2">
               <Building className={`h-3 w-3 sm:h-4 sm:w-4 ${theme.icon} flex-shrink-0`} />
               <span className="break-words leading-tight">{partner.location}</span>
             </div>
             {partner.phone && (
-              <div className="flex items-start justify-start gap-2 mb-0">
+              <div className="flex items-start justify-start gap-2">
                 <Phone className={`h-3 w-3 sm:h-4 sm:w-4 ${theme.icon} flex-shrink-0`} />
                 <a href={`tel:${partner.phone.replace(/\s/g, '')}`} className={`hover:${theme.icon} transition-colors break-all leading-tight`}>
                   {partner.phone}
@@ -74,7 +74,7 @@ export default function PartnerCard({ partner }: PartnerCardProps) {
               </div>
             )}
             {partner.website && (
-              <div className="flex items-start justify-start gap-2 mb-0">
+              <div className="flex items-start justify-start gap-2">
                 <Globe className={`h-3 w-3 sm:h-4 sm:w-4 ${theme.icon} flex-shrink-0`} />
                 <a 
                   href={partner.website} 

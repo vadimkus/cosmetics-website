@@ -143,5 +143,17 @@ export const partnersData: Partner[] = [
     directions: "https://www.google.com/maps?sca_esv=254941356981cfe9&rlz=1C5CHFA_enAE820AE820&sxsrf=AE3TifNdK-nhSVi0UM_BIxnB3Rm8KYCyPg:1761382025361&uact=5&gs_lp=Egxnd3Mtd2l6LXNlcnAiEWhvcnRtYW4gY2xpbmljcyAyMhAQLhiABBjHARgnGIoFGK8BMggQABiABBjLATIIEAAYgAQYywEyCBAAGIAEGMsBMgYQABgWGB4yBhAAGBYYHjIGEAAYFhgeMgYQABgWGB4yBRAAGO8FMgUQABjvBTIdEC4YgAQYxwEYigUYrwEYlwUY3AQY3gQY4ATYAQFI7wRQCFiEAnABeACQAQCYAW-gAcwCqgEDMC4zuAEDyAEA-AEBmAIIoAK5B8ICDRAuGLADGMcBGCcYrwHCAgoQABiwAxjWBBhHwgINEAAYgAQYsAMYQxiKBcICBRAAGIAEmAMAiAYBkAYKugYGCAEQARgUkgcDMS4yoAe7H7IHAzAuMrgH6AHCBwUwLjEuMsgHCg&um=1&ie=UTF-8&fb=1&gl=es&sa=X&geocode=KWNJRzEAQ18-MZtAmPB8BfjS&daddr=450+Jumeira+St+-+Jumeirah+-+Jumeirah+3+-+Dubai+-+%D0%9E%D0%90%D0%AD",
     logo: "/images/partners/hortman.png",
     theme: "emerald"
+  },
+  {
+    id: "lfk-clinic",
+    name: "LFK CLINIC, BUSINESS BAY",
+    type: "Luxury Aesthetic Clinic",
+    description: "Award-winning luxury aesthetic clinic specializing in Russian Lips technique, Hollywood Face, and advanced cosmetic procedures with expert care from leading Russian specialists",
+    location: "Al Saqr Business Tower, 11th floor, DIFC, Dubai",
+    phone: "+971 54 233 6281",
+    website: "https://lipsforkiss.com/dubai_clinic",
+    directions: "https://www.google.com/maps/dir//Al+Saqr+Business+Tower+-+Trade+Center+Second+-+DIFC+-+Dubai+-+%D0%9E%D0%90%D0%AD/@25.2139349,55.1956632,12z/data=!4m8!4m7!1m0!1m5!1m1!1s0x3e5f439c6c9f96a5:0x7ac63fa8a8735ce!2m2!1d55.2780647!2d25.2139577?entry=ttu&g_ep=EgoyMDI1MTAyMi4wIKXMDSoASAFQAw%3D%3D",
+    logo: "/images/partners/kiss.png",
+    theme: "purple"
   }
 ];

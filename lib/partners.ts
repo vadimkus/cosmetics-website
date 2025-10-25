@@ -8,7 +8,7 @@ export const partnersData: Partner[] = [
     description: "Renowned aesthetic clinic specializing in cosmetic surgeries, dermatology, anti-aging treatments, and wellness services",
     location: "32 Floor - 1 Sheikh Zayed Rd - Trade Center First - Dubai",
     phone: "+971 4 566 2615",
-    website: "https://hortmanclinics.com/",
+    website: "https://hortmanclinics.com",
     directions: "https://www.google.com/maps?sca_esv=254941356981cfe9&rlz=1C5CHFA_enAE820AE820&sxsrf=AE3TifPTZte0PBmw_HTgKUi-In8WvlDkGQ:1761382021983&uact=5&gs_lp=Egxnd3Mtd2l6LXNlcnAiEGhvcnRtYW4gY2xpbmljcyAyEBAuGIAEGMcBGCcYigUYrwEyCBAAGIAEGMsBMggQABiABBjLATIIEAAYgAQYywEyCBAAGIAEGMsBMgYQABgWGB4yBhAAGBYYHjIGEAAYFhgeMgYQABgWGB4yBRAAGO8FMgUQABjvBTIdEC4YgAQYxwEYigUYrwEYlwUY3AQY3gQY4ATYAQFI7wRQCFiEAnABeACQAQCYAW-gAcwCqgEDMC4zuAEDyAEA-AEBmAIIoAK5B8ICDRAuGLADGMcBGCcYrwHCAgoQABiwAxjWBBhHwgINEAAYgAQYsAMYQxiKBcICBRAAGIAEmAMAiAYBkAYKugYGCAEQARgUkgcDMS4yoAe7H7IHAzAuMrgH6AHCBwUwLjEuMsgHCg&um=1&ie=UTF-8&fb=1&gl=es&sa=X&geocode=KSEXfIP9Q18-MRkmpM9ul2lD&daddr=32+Floor+-+1+Sheikh+Zayed+Rd+-+Trade+Center+First+-+Dubai+-+%D0%9E%D0%90%D0%AD",
     logo: "/images/partners/hortman.png",
     theme: "emerald"
@@ -20,7 +20,7 @@ export const partnersData: Partner[] = [
     description: "Second location of renowned aesthetic clinic specializing in cosmetic surgeries, dermatology, and wellness services",
     location: "450 Jumeira St - Jumeirah - Jumeirah 3 - Dubai",
     phone: "+971 52 200 5011",
-    website: "https://hortmanclinics.com/contact/",
+    website: "https://hortmanclinics.com/contact",
     directions: "https://www.google.com/maps?sca_esv=254941356981cfe9&rlz=1C5CHFA_enAE820AE820&sxsrf=AE3TifNdK-nhSVi0UM_BIxnB3Rm8KYCyPg:1761382025361&uact=5&gs_lp=Egxnd3Mtd2l6LXNlcnAiEWhvcnRtYW4gY2xpbmljcyAyMhAQLhiABBjHARgnGIoFGK8BMggQABiABBjLATIIEAAYgAQYywEyCBAAGIAEGMsBMgYQABgWGB4yBhAAGBYYHjIGEAAYFhgeMgYQABgWGB4yBRAAGO8FMgUQABjvBTIdEC4YgAQYxwEYigUYrwEYlwUY3AQY3gQY4ATYAQFI7wRQCFiEAnABeACQAQCYAW-gAcwCqgEDMC4zuAEDyAEA-AEBmAIIoAK5B8ICDRAuGLADGMcBGCcYrwHCAgoQABiwAxjWBBhHwgINEAAYgAQYsAMYQxiKBcICBRAAGIAEmAMAiAYBkAYKugYGCAEQARgUkgcDMS4yoAe7H7IHAzAuMrgH6AHCBwUwLjEuMsgHCg&um=1&ie=UTF-8&fb=1&gl=es&sa=X&geocode=KWNJRzEAQ18-MZtAmPB8BfjS&daddr=450+Jumeira+St+-+Jumeirah+-+Jumeirah+3+-+Dubai+-+%D0%9E%D0%90%D0%AD",
     logo: "/images/partners/hortman.png",
     theme: "emerald"

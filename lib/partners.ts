@@ -179,5 +179,17 @@ export const partnersData: Partner[] = [
     directions: "https://www.google.com/maps/dir/28.2295568,-16.8407006/Elaris+Beauty+Salon+-+Business+Bay,+Maison+Prive,+Shop+%233+%26+4+-+Dubai+-+%D0%9E%D0%90%D0%AD/@33.1022972,-2.0987042,4z/data=!4m9!4m8!1m1!4e1!1m5!1m1!1s0x89af6d6aa285182f:0xfb3c239d4e636169!2m2!1d55.2751612!2d25.1846245?entry=ttu&g_ep=EgoyMDI1MTAyMi4wIKXMDSoASAFQAw%3D%3D",
     logo: "/images/partners/elaris.png",
     theme: "pink"
+  },
+  {
+    id: "milyne",
+    name: "MILYNE AESTHETIC CENTER, DUBAI CREEK HARBOUR",
+    type: "Aesthetic Medical Center",
+    description: "Your one-stop beauty solution offering Morpheus8, Forma, Hydrafacial, Fillers, Skin Boosters, Endospheres, Body Treatments, Professional Skin Care, Mesojet and many more advanced treatments",
+    location: "Dubai Creek Residences - Ground Floor - Al Kheeran First - Dubai Creek Harbour - Dubai",
+    phone: "+971 52 117 9436",
+    website: "https://milyne.ae",
+    directions: "https://www.google.com/maps?rlz=1C5CHFA_enAE820AE820&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIJCAEQABgTGIAEMgcIAhAAGO8FMgcIAxAAGO8FMgcIBBAAGO8FMgcIBRAAGO8FMgcIBhAAGO8F0gEIMzY2NWowajmoAgawAgHxBSFPW0ktbJMd&um=1&ie=UTF-8&fb=1&gl=es&sa=X&geocode=KQHeW0f2_02CMXP3qlhiZjlO&daddr=Dubai+Creek+Residences+-+Ground+Floor+-+Al+Kheeran+First+-+Dubai+Creek+Harbour+-+Dubai+-+%D0%9E%D0%90%D0%AD",
+    logo: "/images/partners/milyne.png",
+    theme: "emerald"
   }
 ];

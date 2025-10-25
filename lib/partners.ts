@@ -191,5 +191,17 @@ export const partnersData: Partner[] = [
     directions: "https://www.google.com/maps?rlz=1C5CHFA_enAE820AE820&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIJCAEQABgTGIAEMgcIAhAAGO8FMgcIAxAAGO8FMgcIBBAAGO8FMgcIBRAAGO8FMgcIBhAAGO8F0gEIMzY2NWowajmoAgawAgHxBSFPW0ktbJMd&um=1&ie=UTF-8&fb=1&gl=es&sa=X&geocode=KQHeW0f2_02CMXP3qlhiZjlO&daddr=Dubai+Creek+Residences+-+Ground+Floor+-+Al+Kheeran+First+-+Dubai+Creek+Harbour+-+Dubai+-+%D0%9E%D0%90%D0%AD",
     logo: "/images/partners/milyne.png",
     theme: "emerald"
+  },
+  {
+    id: "hideaway",
+    name: "THE HIDEAWAY FOR WOMEN SALON, JUMEIRAH 3",
+    type: "Hair & Beauty Salon",
+    description: "Family owned and run hair and beauty salon established in 2021, specializing in effortless & chic colour with emphasis on long-term hair condition using gentle, nourishing products",
+    location: "La Plage Shop 6 - 403 jumeirah Street - Al Athar Street - Dubai",
+    phone: "+971 4 591 8879",
+    website: "https://thehideaway.ae",
+    directions: "https://www.google.com/maps?sca_esv=408005786895665f&rlz=1C5CHFA_enAE820AE820&sxsrf=AE3TifOwLEVh0KaiO4iVJsSIlFTBM1SLxw:1761426054574&uact=5&gs_lp=Egxnd3Mtd2l6LXNlcnAiIXRoZSBoaWRld2F5IGZvciB3b21lbiBzYWxvbiBkdWJhaTIGEAAYFhgeMgUQABjvBTIFEAAY7wUyBRAAGO8FMggQABiABBiiBEi2CFBqWOUGcAF4AJABAJgBkwGgAfIFqgEDMi41uAEDyAEA-AEBmAIHoAK6BcICChAAGLADGNYEGEeYAwDiAwUSATEgQIgGAZAGB5IHAzIuNaAH5ByyBwMxLjW4B7cFwgcFMC42LjHIBw8&um=1&ie=UTF-8&fb=1&gl=es&sa=X&geocode=KY-K7sUuQ18-MZ8GtMbLO0UX&daddr=La+Plage+Shop+6+-+403+jumeirah+Street+-+Al+Athar+Street+-+Dubai+-+%D0%9E%D0%90%D0%AD",
+    logo: "/images/partners/hideaway.png",
+    theme: "pink"
   }
 ];

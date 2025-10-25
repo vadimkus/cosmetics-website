@@ -131,5 +131,17 @@ export const partnersData: Partner[] = [
     directions: "https://www.google.com/maps/dir//The+Zen+-+Al+Seba+St+-+Marsa+Dubai+-+Dubai+Marina+-+Dubai+-+%D0%9E%D0%90%D0%AD/@25.0675537,55.0485508,12z/data=!4m8!4m7!1m0!1m5!1m1!1s0x3e5f13045e9c3d51:0x33cac3f11886f661!2m2!1d55.1309523!2d25.0675764?entry=ttu&g_ep=EgoyMDI1MTAyMi4wIKXMDSoASAFQAw%3D%3D",
     logo: "/images/partners/Vesna.png",
     theme: "pink"
+  },
+  {
+    id: "kindcare",
+    name: "KINDCARE MEDICAL CENTER, JUMEIRAH",
+    type: "Multispeciality Medical Center",
+    description: "Integrative multispeciality healthcare provider offering comprehensive medical services including family medicine, dermatology, plastic surgery, and specialized treatments in Jumeirah",
+    location: "Villa number 794 - Jumeira St - Umm Suqeim Second - Jumeirah 3 - Dubai",
+    phone: "+971 4 338 8588",
+    website: "https://kindcare.ae/?utm_source=google&utm_medium=GMB&utm_campaign=gmb_Dubai",
+    directions: "https://www.google.com/maps?rlz=1C5CHFA_enAE820AE820&gs_lcrp=EgZjaHJvbWUqCggAEAAY4wIYgAQyCggAEAAY4wIYgAQyDQgBEC4YrwEYxwEYgAQyCQgCEAAYChiABDIHCAMQABiABDIICAQQABgWGB4yCAgFEAAYFhgeMggIBhAAGBYYHjIICAcQABgWGB4yCAgIEAAYFhgeMggICRAAGBYYHtIBCDIxNzRqMGo3qAIAsAIA&um=1&ie=UTF-8&fb=1&gl=es&sa=X&geocode=KcMzGY5QQl8-MYaoJDpzrhyP&daddr=Villa+number+794+-+Jumeira+St+-+Umm+Suqeim+Second+-+Jumeirah+3+-+Dubai+-+%D0%9E%D0%90%D0%AD",
+    logo: "/images/partners/KIND.png",
+    theme: "emerald"
   }
 ];

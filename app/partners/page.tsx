@@ -42,9 +42,9 @@ export default function PartnersPage() {
         ]}
       />
       <div className="bg-white min-h-screen">
-        <div className="container mx-auto px-4 py-8 md:py-16">
+        <div className="container mx-auto px-4 py-6 sm:py-8 md:py-16">
           {/* Navigation Breadcrumb */}
-          <nav className="flex items-center gap-2 text-sm md:text-base text-gray-600 mb-8" aria-label="Breadcrumb">
+          <nav className="flex items-center gap-2 text-xs sm:text-sm md:text-base text-gray-600 mb-6 sm:mb-8" aria-label="Breadcrumb">
             <a href="/" className="hover:text-primary-600 transition-colors flex items-center">
               Home
             </a>
@@ -55,11 +55,11 @@ export default function PartnersPage() {
           </nav>
 
           <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-4">
-              <h1 className="text-3xl font-bold text-gray-800 mb-2">
+            <div className="text-center mb-6 sm:mb-8">
+              <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-2">
                 Our Partners
               </h1>
-              <p className="text-lg text-gray-600 mb-4">
+              <p className="text-base sm:text-lg text-gray-600 mb-4 px-4">
                 Building strong partnerships across the United Arab Emirates
               </p>
             </div>
@@ -67,24 +67,24 @@ export default function PartnersPage() {
             <PartnersList />
 
             {/* Call to Action */}
-            <div className="mt-12 text-center">
-              <div className="bg-gradient-to-r from-primary-50 to-red-50 rounded-xl p-8">
-                <h2 className="text-2xl font-bold text-gray-800 mb-4">
+            <div className="mt-8 sm:mt-12 text-center">
+              <div className="bg-gradient-to-r from-primary-50 to-red-50 rounded-xl p-4 sm:p-6 md:p-8">
+                <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-3 sm:mb-4">
                   Interested in Becoming a Partner?
                 </h2>
-                <p className="text-gray-600 mb-6">
+                <p className="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6 px-2">
                   Join our network of trusted partners and help us bring GENOSYS products to more customers
                 </p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
                   <a 
                     href="/contact-genosys-uae"
-                    className="inline-flex items-center bg-primary-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary-700 transition-colors"
+                    className="inline-flex items-center justify-center bg-primary-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg text-sm sm:text-base font-semibold hover:bg-primary-700 transition-colors"
                   >
                     Contact Us
                   </a>
                   <a 
                     href="/products"
-                    className="inline-flex items-center border border-primary-600 text-primary-600 px-6 py-3 rounded-lg font-semibold hover:bg-primary-50 transition-colors"
+                    className="inline-flex items-center justify-center border border-primary-600 text-primary-600 px-4 sm:px-6 py-2 sm:py-3 rounded-lg text-sm sm:text-base font-semibold hover:bg-primary-50 transition-colors"
                   >
                     View Products
                   </a>

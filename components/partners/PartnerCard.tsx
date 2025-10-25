@@ -41,37 +41,37 @@ export default function PartnerCard({ partner }: PartnerCardProps) {
   const theme = themeClasses[partner.theme]
   
   return (
-    <div className={`bg-gradient-to-r ${theme.bg} rounded-xl shadow-lg border ${theme.border} p-6 mb-8`}>
-      <div className="flex flex-col lg:flex-row items-center gap-6">
+    <div className={`bg-gradient-to-r ${theme.bg} rounded-xl shadow-lg border ${theme.border} p-4 sm:p-6 mb-6 sm:mb-8`}>
+      <div className="flex flex-col lg:flex-row items-center gap-4 lg:gap-6">
         <div className="flex-shrink-0">
-          <div className={`w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-lg border ${theme.border}`}>
+          <div className={`w-16 h-16 sm:w-20 sm:h-20 bg-white rounded-full flex items-center justify-center shadow-lg border ${theme.border}`}>
             <Image
               src={partner.logo}
               alt={`${partner.name} Logo`}
-              width={50}
-              height={50}
-              className="object-contain"
+              width={40}
+              height={40}
+              className="object-contain sm:w-[50px] sm:h-[50px]"
             />
           </div>
         </div>
         <div className="flex-1 text-center lg:text-left">
-          <h3 className="text-xl font-bold text-gray-800 mb-1">{partner.name}</h3>
-          <p className="text-base text-gray-600 mb-2">{partner.type}</p>
-          <p className="text-sm text-gray-600 mb-3">
+          <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-1">{partner.name}</h3>
+          <p className="text-sm sm:text-base text-gray-600 mb-2">{partner.type}</p>
+          <p className="text-xs sm:text-sm text-gray-600 mb-3">
             {partner.description}
           </p>
-          <div className="space-y-2 text-sm text-gray-600">
+          <div className="space-y-1 sm:space-y-2 text-xs sm:text-sm text-gray-600">
             <div className="flex items-center justify-center lg:justify-start gap-2">
-              <Building className={`h-4 w-4 ${theme.icon}`} />
-              <span>{partner.location}</span>
+              <Building className={`h-3 w-3 sm:h-4 sm:w-4 ${theme.icon}`} />
+              <span className="break-words">{partner.location}</span>
             </div>
             {partner.phone && (
               <div className="flex items-center justify-center lg:justify-start gap-2">
-                <span className={theme.icon}>📞</span>
-                <a href={`tel:${partner.phone.replace(/\s/g, '')}`} className={`hover:${theme.icon} transition-colors`}>
-                  {partner.phone}
-                </a>
-              </div>
+              <span className={theme.icon}>📞</span>
+              <a href={`tel:${partner.phone.replace(/\s/g, '')}`} className={`hover:${theme.icon} transition-colors break-all`}>
+                {partner.phone}
+              </a>
+            </div>
             )}
             {partner.website && (
               <div className="flex items-center justify-center lg:justify-start gap-2">
@@ -80,7 +80,7 @@ export default function PartnerCard({ partner }: PartnerCardProps) {
                   href={partner.website} 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className={`hover:${theme.icon} transition-colors`}
+                  className={`hover:${theme.icon} transition-colors break-all`}
                 >
                   {partner.website.replace('https://', '').replace('http://', '')}
                 </a>
@@ -88,13 +88,13 @@ export default function PartnerCard({ partner }: PartnerCardProps) {
             )}
           </div>
         </div>
-        <div className="flex flex-col sm:flex-row gap-2">
+        <div className="flex flex-col w-full sm:w-auto gap-2 mt-4 lg:mt-0">
           {partner.directions && (
             <a 
               href={partner.directions}
               target="_blank"
               rel="noopener noreferrer"
-              className={`inline-flex items-center ${theme.button} text-white px-4 py-2 rounded-lg text-sm font-semibold transition-colors`}
+              className={`inline-flex items-center justify-center ${theme.button} text-white px-3 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-colors`}
             >
               📍 Directions
             </a>
@@ -104,7 +104,7 @@ export default function PartnerCard({ partner }: PartnerCardProps) {
               href={partner.website}
               target="_blank"
               rel="noopener noreferrer"
-              className={`inline-flex items-center border ${theme.buttonBorder} px-4 py-2 rounded-lg text-sm font-semibold transition-colors`}
+              className={`inline-flex items-center justify-center border ${theme.buttonBorder} px-3 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-colors`}
             >
               Website
             </a>

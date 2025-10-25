@@ -89,9 +89,6 @@ const Header = memo(function Header() {
             <Link href="/delivery-shipping-uae" className="text-gray-700 hover:text-primary-600 transition-colors">
               Delivery
             </Link>
-            <Link href="/skin-recommendation" className="text-gray-700 hover:text-primary-600 transition-colors">
-              Skin
-            </Link>
             <Link href="/partners" className="text-gray-700 hover:text-primary-600 transition-colors">
               Partners
             </Link>
@@ -299,13 +296,6 @@ const Header = memo(function Header() {
                 onClick={() => setShowMobileMenu(false)}
               >
                 Delivery
-              </Link>
-              <Link 
-                href="/skin-recommendation" 
-                className="text-gray-700 hover:text-primary-600 transition-colors py-2 border-b border-gray-100"
-                onClick={() => setShowMobileMenu(false)}
-              >
-                Skin
               </Link>
               <Link 
                 href="/partners" 

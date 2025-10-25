@@ -874,6 +874,48 @@ export default function ProfilePageNew() {
                   </div>
                 </div>
               </div>
+
+              {/* Skin Recommendation */}
+              <div className="bg-white/70 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 p-8">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="p-3 bg-gradient-to-r from-pink-100 to-rose-100 rounded-xl">
+                    <Sparkles className="h-6 w-6 text-pink-600" />
+                  </div>
+                  <div>
+                    <h2 className="text-2xl font-bold text-gray-800">Skin Recommendation</h2>
+                    <p className="text-gray-600">Get personalized product recommendations based on your skin type</p>
+                  </div>
+                </div>
+                
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <Link
+                    href="/skin-recommendation"
+                    className="flex items-center justify-center gap-2 bg-gradient-to-r from-pink-600 to-rose-600 text-white px-6 py-3 rounded-xl font-semibold hover:from-pink-700 hover:to-rose-700 transition-all duration-200 shadow-lg hover:shadow-xl"
+                  >
+                    <Sparkles className="h-5 w-5" />
+                    Get Skin Analysis
+                  </Link>
+                  <div className="flex items-center justify-center gap-2 text-gray-600">
+                    <Heart className="h-5 w-5" />
+                    <span className="font-medium">Personalized recommendations</span>
+                  </div>
+                </div>
+                
+                <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm text-gray-600">
+                  <div className="flex items-center gap-2">
+                    <Sparkles className="h-4 w-4" />
+                    <span>AI-powered analysis</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Heart className="h-4 w-4" />
+                    <span>Personalized results</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Gift className="h-4 w-4" />
+                    <span>Product suggestions</span>
+                  </div>
+                </div>
+              </div>
             </div>
           )}
 

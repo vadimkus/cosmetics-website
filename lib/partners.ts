@@ -72,5 +72,17 @@ export const partnersData: Partner[] = [
     directions: "https://www.google.com/maps?rlz=1C5CHFA_enAE820AE820&um=1&ie=UTF-8&fb=1&gl=es&sa=X&geocode=KS37CzxUE18-MV_-F9n4c6n1&daddr=Marina+Promenade+-+Marsa+Dubai+-+Dubai+Marina+-+Dubai+-+%D0%9E%D0%90%D0%AD",
     logo: "/images/partners/Shakirovna.png",
     theme: "purple"
+  },
+  {
+    id: "shakirovna-business-bay",
+    name: "ELITE SHAKIROVNA BEAUTY CENTER",
+    type: "Elite Beauty Center",
+    description: "Premium beauty center offering comprehensive beauty services including hair, eyelashes, cosmetology, massage therapy, and specialized treatments in Business Bay",
+    location: "One by Omniyat, Business Bay, Dubai",
+    phone: "+971 58 875 9719",
+    website: "https://shakirovna.com/bb",
+    directions: "https://www.google.com/maps/search/One+by+Omniyat+Business+Bay+Dubai",
+    logo: "/images/partners/Shakirovna.png",
+    theme: "purple"
   }
 ];

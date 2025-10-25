@@ -54,21 +54,21 @@ export default function PartnerCard({ partner }: PartnerCardProps) {
             />
           </div>
         </div>
-        <div className="flex-1 text-center lg:text-left">
-          <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-1">{partner.name}</h3>
-          <p className="text-sm sm:text-base text-gray-600 mb-2">{partner.type}</p>
-          <p className="text-xs sm:text-sm text-gray-600 mb-3">
+        <div className="flex-1 text-center lg:text-left min-w-0">
+          <h3 className="text-base sm:text-lg lg:text-xl font-bold text-gray-800 mb-1 break-words leading-tight">{partner.name}</h3>
+          <p className="text-xs sm:text-sm lg:text-base text-gray-600 mb-2">{partner.type}</p>
+          <p className="text-xs sm:text-sm text-gray-600 mb-3 leading-relaxed">
             {partner.description}
           </p>
-          <div className="space-y-0.5 sm:space-y-1 text-xs sm:text-sm text-gray-600">
-            <div className="flex items-center justify-center lg:justify-start gap-2">
-              <Building className={`h-3 w-3 sm:h-4 sm:w-4 ${theme.icon}`} />
-              <span className="break-words">{partner.location}</span>
+          <div className="space-y-1 text-xs sm:text-sm text-gray-600">
+            <div className="flex items-start justify-center lg:justify-start gap-2">
+              <Building className={`h-3 w-3 sm:h-4 sm:w-4 ${theme.icon} flex-shrink-0 mt-0.5`} />
+              <span className="break-words leading-relaxed">{partner.location}</span>
             </div>
             {partner.phone && (
               <div className="flex items-start justify-center lg:justify-start gap-2">
                 <Phone className={`h-3 w-3 sm:h-4 sm:w-4 ${theme.icon} flex-shrink-0 mt-0.5`} />
-                <a href={`tel:${partner.phone.replace(/\s/g, '')}`} className={`hover:${theme.icon} transition-colors break-all`}>
+                <a href={`tel:${partner.phone.replace(/\s/g, '')}`} className={`hover:${theme.icon} transition-colors break-all leading-relaxed`}>
                   {partner.phone}
                 </a>
               </div>
@@ -80,7 +80,7 @@ export default function PartnerCard({ partner }: PartnerCardProps) {
                   href={partner.website} 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className={`hover:${theme.icon} transition-colors break-all`}
+                  className={`hover:${theme.icon} transition-colors break-all leading-relaxed`}
                 >
                   {partner.website.replace('https://', '').replace('http://', '')}
                 </a>
@@ -94,7 +94,7 @@ export default function PartnerCard({ partner }: PartnerCardProps) {
               href={partner.directions}
               target="_blank"
               rel="noopener noreferrer"
-              className={`inline-flex items-center justify-center ${theme.button} text-white px-3 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-colors`}
+              className={`inline-flex items-center justify-center ${theme.button} text-white px-3 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-colors w-full sm:w-auto`}
             >
               📍 Directions
             </a>
@@ -104,7 +104,7 @@ export default function PartnerCard({ partner }: PartnerCardProps) {
               href={partner.website}
               target="_blank"
               rel="noopener noreferrer"
-              className={`inline-flex items-center justify-center border ${theme.buttonBorder} px-3 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-colors`}
+              className={`inline-flex items-center justify-center border ${theme.buttonBorder} px-3 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-colors w-full sm:w-auto`}
             >
               Website
             </a>

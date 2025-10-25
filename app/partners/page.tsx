@@ -60,7 +60,7 @@ export default function PartnersPage() {
                 Our Partners
               </h1>
               <p className="text-sm sm:text-base lg:text-lg text-gray-600 mb-4 px-2">
-                Building strong partnerships across the United Arab Emirates
+                Building strong partnerships across United Arab Emirates
               </p>
             </div>
             

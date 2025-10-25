@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import BreadcrumbSchema from '@/components/BreadcrumbSchema'
-import { Building, Truck, Heart } from 'lucide-react'
+import { Building, Heart } from 'lucide-react'
 import Image from 'next/image'
 
 export const metadata: Metadata = {
@@ -229,6 +229,17 @@ export default function PartnersPage() {
                           +971 50 409 9407
                         </a>
                       </div>
+                      <div className="flex items-center justify-center lg:justify-start gap-2">
+                        <span className="text-purple-600">🌐</span>
+                        <a 
+                          href="https://shakirovna.com/" 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="hover:text-purple-600 transition-colors"
+                        >
+                          shakirovna.com
+                        </a>
+                      </div>
                     </div>
                   </div>
                   <div className="flex flex-col sm:flex-row gap-2">
@@ -239,6 +250,14 @@ export default function PartnersPage() {
                       className="inline-flex items-center bg-purple-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-purple-700 transition-colors"
                     >
                       📍 Directions
+                    </a>
+                    <a 
+                      href="https://shakirovna.com/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center border border-purple-600 text-purple-600 px-4 py-2 rounded-lg text-sm font-semibold hover:bg-purple-50 transition-colors"
+                    >
+                      Website
                     </a>
                   </div>
                 </div>

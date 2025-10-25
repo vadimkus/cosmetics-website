@@ -286,7 +286,7 @@ export default function PartnersPage() {
                     <div className="space-y-2 text-sm text-gray-600">
                       <div className="flex items-center justify-center lg:justify-start gap-2">
                         <Building className="h-4 w-4 text-pink-600" />
-                        <span>LG floor, Nakheel Mall - Palm Jumeira, Dubai</span>
+                        <span>LG floor, Nakheel Mall - Palm Jumeirah, Dubai</span>
                       </div>
                       <div className="flex items-center justify-center lg:justify-start gap-2">
                         <span className="text-pink-600">📞</span>

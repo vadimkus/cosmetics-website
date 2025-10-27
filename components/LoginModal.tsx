@@ -271,7 +271,7 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
                       <div className="text-xs text-gray-700 space-y-3 max-h-60 overflow-y-auto">
                         <div>
                           <h5 className="font-semibold mb-1">1. Personal Information Processed</h5>
-                          <p className="mb-2">GENOSYS MIDDLE EAST FZ-LLC (hereinafter referred to as the "Company") processes the following types of personal information:</p>
+                          <p className="mb-2">GENOSYS MIDDLE EAST FZ-LLC (hereinafter referred to as the &quot;Company&quot;) processes the following types of personal information:</p>
                           
                           <div className="ml-2 space-y-2">
                             <div>
@@ -304,7 +304,7 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
                             
                             <div>
                               <p className="font-medium">2. Provision of Goods or Services</p>
-                              <p className="ml-2">• To provide services, deliver content, offer customized services, and verify users' identity.</p>
+                              <p className="ml-2">• To provide services, deliver content, offer customized services, and verify users&apos; identity.</p>
                             </div>
                             
                             <div>
@@ -314,7 +314,7 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
                             
                             <div>
                               <p className="font-medium">4. Marketing and Advertising</p>
-                              <p className="ml-2">• To provide event and promotional information, offer participation opportunities, and generate statistics on users' service usage.</p>
+                              <p className="ml-2">• To provide event and promotional information, offer participation opportunities, and generate statistics on users&apos; service usage.</p>
                             </div>
                           </div>
                         </div>
@@ -326,7 +326,7 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
                           <div className="ml-2 space-y-2">
                             <div>
                               <p className="font-medium">1. Website Membership Registration and Management</p>
-                              <p className="ml-2">• Until the user withdraws their membership from the Company's website.</p>
+                              <p className="ml-2">• Until the user withdraws their membership from the Company&apos;s website.</p>
                               <p className="ml-2">• However, if the following conditions apply, the information will be retained until the relevant situation is resolved:</p>
                               <p className="ml-4">· If an investigation or inquiry is ongoing due to a violation of related UAE laws, retention continues until the investigation or inquiry is concluded.</p>
                               <p className="ml-4">· If there are outstanding financial obligations related to website usage, retention continues until the debts are settled.</p>

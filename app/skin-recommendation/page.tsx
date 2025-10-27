@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { ShoppingCart, Heart, CheckCircle } from 'lucide-react'
 import { useCartStore } from '@/lib/cartStore'
 import { useFavorites } from '@/components/FavoritesProvider'
@@ -244,7 +245,7 @@ export default function SkinRecommendationPage() {
             <form onSubmit={handleSubmit} className="space-y-8">
               {/* Skin Type Selection */}
               <div className="bg-white rounded-2xl border border-gray-200 p-8">
-                <h2 className="text-2xl font-bold text-gray-900 mb-6">1. What's your skin type?</h2>
+                <h2 className="text-2xl font-bold text-gray-900 mb-6">1. What&apos;s your skin type?</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                   {SKIN_TYPES.map((skinType) => (
                     <button
@@ -270,7 +271,7 @@ export default function SkinRecommendationPage() {
 
               {/* Age Group Selection */}
               <div className="bg-white rounded-2xl border border-gray-200 p-8">
-                <h2 className="text-2xl font-bold text-gray-900 mb-6">2. What's your age group?</h2>
+                <h2 className="text-2xl font-bold text-gray-900 mb-6">2. What&apos;s your age group?</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {AGE_GROUPS.map((ageGroup) => (
                     <button
@@ -397,7 +398,7 @@ export default function SkinRecommendationPage() {
               </div>
               
               <p className="text-lg text-gray-600 mb-6">
-                We've selected {recommendations.length} products perfect for your {SKIN_TYPES.find(type => type.value === selectedSkinType)?.label?.toLowerCase() || selectedSkinType} skin
+                We&apos;ve selected {recommendations.length} products perfect for your {SKIN_TYPES.find(type => type.value === selectedSkinType)?.label?.toLowerCase() || selectedSkinType} skin
               </p>
               <button
                 onClick={resetForm}
@@ -419,9 +420,11 @@ export default function SkinRecommendationPage() {
                       className="relative cursor-pointer"
                       onClick={() => handleProductClick(product.id)}
                     >
-                      <img
+                      <Image
                         src={product.image}
                         alt={product.name}
+                        width={300}
+                        height={192}
                         className="w-full h-48 object-cover"
                       />
                       <button
@@ -481,7 +484,7 @@ export default function SkinRecommendationPage() {
                 </div>
                 <h3 className="text-xl font-semibold text-gray-900 mb-2">No products found</h3>
                 <p className="text-gray-600 mb-6">
-                  We couldn't find products matching your criteria. Try adjusting your selections.
+                  We couldn&apos;t find products matching your criteria. Try adjusting your selections.
                 </p>
                 <button
                   onClick={resetForm}

@@ -188,20 +188,33 @@ export const getOrderById = async (orderId: string): Promise<Order | null> => {
   }
 }
 
-// Get orders by email
-export const getOrdersByEmail = async (email: string): Promise<Order[]> => {
+// Get orders by email with pagination
+export const getOrdersByEmail = async (email: string, limit: number = 50, offset: number = 0): Promise<Order[]> => {
   try {
     return await prisma.order.findMany({
       where: { customerEmail: email },
       include: {
-        items: true,
-        customer: true
+        items: true
       },
-      orderBy: { createdAt: 'desc' }
+      orderBy: { createdAt: 'desc' },
+      take: limit,
+      skip: offset
     })
   } catch (error) {
     console.error('Error finding orders by email:', error)
     return []
+  }
+}
+
+// Get total count of orders by email
+export const getOrdersCountByEmail = async (email: string): Promise<number> => {
+  try {
+    return await prisma.order.count({
+      where: { customerEmail: email }
+    })
+  } catch (error) {
+    console.error('Error counting orders by email:', error)
+    return 0
   }
 }
 

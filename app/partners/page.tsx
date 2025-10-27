@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import BreadcrumbSchema from '@/components/BreadcrumbSchema'
 import PartnersList from '@/components/partners/PartnersList'
 
@@ -45,9 +46,9 @@ export default function PartnersPage() {
         <div className="container mx-auto px-3 sm:px-4 py-4 sm:py-6 md:py-8 lg:py-16">
           {/* Navigation Breadcrumb */}
           <nav className="flex items-center gap-2 text-xs sm:text-sm md:text-base text-gray-600 mb-4 sm:mb-6 lg:mb-8" aria-label="Breadcrumb">
-            <a href="/" className="hover:text-primary-600 transition-colors flex items-center">
+            <Link href="/" className="hover:text-primary-600 transition-colors flex items-center">
               Home
-            </a>
+            </Link>
             <span className="flex items-center">/</span>
             <span className="text-gray-900 font-medium flex items-center">
               Partners
@@ -76,18 +77,18 @@ export default function PartnersPage() {
                   Join our network of trusted partners and help us bring GENOSYS products to more customers
                 </p>
                 <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 lg:gap-4 justify-center">
-                  <a 
+                  <Link 
                     href="/contact-genosys-uae"
                     className="inline-flex items-center justify-center bg-primary-600 text-white px-3 sm:px-4 lg:px-6 py-2 sm:py-2.5 lg:py-3 rounded-lg text-xs sm:text-sm lg:text-base font-semibold hover:bg-primary-700 transition-colors w-full sm:w-auto"
                   >
                     Contact Us
-                  </a>
-                  <a 
+                  </Link>
+                  <Link 
                     href="/products"
                     className="inline-flex items-center justify-center border border-primary-600 text-primary-600 px-3 sm:px-4 lg:px-6 py-2 sm:py-2.5 lg:py-3 rounded-lg text-xs sm:text-sm lg:text-base font-semibold hover:bg-primary-50 transition-colors w-full sm:w-auto"
                   >
                     View Products
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>

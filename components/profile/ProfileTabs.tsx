@@ -1,16 +1,18 @@
 'use client'
 
-import { User, Package, Settings, Download, Shield } from 'lucide-react'
+import { User, Package, Settings, Download, Shield, Sparkles } from 'lucide-react'
+import { ProfileTab } from '@/types/profile'
 
 interface ProfileTabsProps {
-  activeTab: 'profile' | 'orders' | 'settings' | 'downloads' | 'privacy'
-  setActiveTab: (tab: 'profile' | 'orders' | 'settings' | 'downloads' | 'privacy') => void
+  activeTab: ProfileTab
+  setActiveTab: (tab: ProfileTab) => void
 }
 
 export default function ProfileTabs({ activeTab, setActiveTab }: ProfileTabsProps) {
   const tabs = [
     { id: 'profile', label: 'Profile', icon: User },
     { id: 'orders', label: 'Orders', icon: Package },
+    { id: 'recommendations', label: 'Recommendations', icon: Sparkles },
     { id: 'downloads', label: 'Downloads', icon: Download },
     { id: 'settings', label: 'Settings', icon: Settings },
     { id: 'privacy', label: 'Privacy', icon: Shield }

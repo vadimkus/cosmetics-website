@@ -10,6 +10,7 @@ jest.mock('next/image', () => {
     if (priority !== undefined) {
       imgProps.priority = priority.toString()
     }
+    // eslint-disable-next-line @next/next/no-img-element
     return <img src={src} alt={alt} {...imgProps} />
   }
 })

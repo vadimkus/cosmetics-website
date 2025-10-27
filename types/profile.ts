@@ -12,7 +12,7 @@ export interface ProfileEditData {
   birthday: string
 }
 
-export type ProfileTab = 'profile' | 'orders' | 'settings' | 'downloads' | 'privacy'
+export type ProfileTab = 'profile' | 'orders' | 'settings' | 'downloads' | 'privacy' | 'recommendations'
 
 export interface ProfileState {
   isEditing: boolean

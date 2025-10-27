@@ -7,6 +7,7 @@ import ProfileHeader from '@/components/profile/ProfileHeader'
 import ProfileTabs from '@/components/profile/ProfileTabs'
 import ProfileContent from '@/components/profile/ProfileContent'
 import { Order, OrderItem } from '@prisma/client'
+import { ProfileTab } from '@/types/profile'
 
 type OrderWithItems = Order & {
   items: OrderItem[]
@@ -27,7 +28,7 @@ export default function ProfilePageOptimized() {
   const [customerNumber, setCustomerNumber] = useState<number>(0)
   const [orders, setOrders] = useState<OrderWithItems[]>([])
   const [loadingOrders, setLoadingOrders] = useState(false)
-  const [activeTab, setActiveTab] = useState<'profile' | 'orders' | 'settings' | 'downloads' | 'privacy'>('profile')
+  const [activeTab, setActiveTab] = useState<ProfileTab>('profile')
   const [isRefreshing, setIsRefreshing] = useState(false)
   const [showMoreMenu, setShowMoreMenu] = useState(false)
 

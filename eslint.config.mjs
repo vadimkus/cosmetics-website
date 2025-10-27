@@ -23,6 +23,7 @@ const eslintConfig = [
       "scripts/**",
       "*.config.js",
       "*.config.mjs",
+      "coverage/**",
     ],
   },
   {

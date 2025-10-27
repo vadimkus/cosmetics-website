@@ -203,5 +203,16 @@ export const partnersData: Partner[] = [
     directions: "https://www.google.com/maps?sca_esv=408005786895665f&rlz=1C5CHFA_enAE820AE820&sxsrf=AE3TifOwLEVh0KaiO4iVJsSIlFTBM1SLxw:1761426054574&uact=5&gs_lp=Egxnd3Mtd2l6LXNlcnAiIXRoZSBoaWRld2F5IGZvciB3b21lbiBzYWxvbiBkdWJhaTIGEAAYFhgeMgUQABjvBTIFEAAY7wUyBRAAGO8FMggQABiABBiiBEi2CFBqWOUGcAF4AJABAJgBkwGgAfIFqgEDMi41uAEDyAEA-AEBmAIHoAK6BcICChAAGLADGNYEGEeYAwDiAwUSATEgQIgGAZAGB5IHAzIuNaAH5ByyBwMxLjW4B7cFwgcFMC42LjHIBw8&um=1&ie=UTF-8&fb=1&gl=es&sa=X&geocode=KY-K7sUuQ18-MZ8GtMbLO0UX&daddr=La+Plage+Shop+6+-+403+jumeirah+Street+-+Al+Athar+Street+-+Dubai+-+%D0%9E%D0%90%D0%AD",
     logo: "/images/partners/hideaway.png",
     theme: "pink"
+  },
+  {
+    id: "skinstory",
+    name: "SKIN STORY DUBAI",
+    type: "Korean Skincare Online Store",
+    description: "Renowned Korean skincare online store offering an extensive collection of authentic Korean skincare products including GENOSYS products",
+    location: "Online Store - UAE Wide Delivery",
+    phone: "+971 58 509 2199",
+    website: "https://skinstorydubai.com",
+    logo: "/images/partners/skinstory.png",
+    theme: "blue"
   }
 ];

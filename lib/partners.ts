@@ -214,5 +214,17 @@ export const partnersData: Partner[] = [
     website: "https://skinstorydubai.com",
     logo: "/images/partners/skinstory.png",
     theme: "blue"
+  },
+  {
+    id: "melanta",
+    name: "MELANTA AESTHETIC MEDICAL CLINIC",
+    type: "Medical Aesthetic Clinic",
+    description: "Professional medical aesthetic clinic offering advanced cosmetic treatments and skincare solutions in Jumeirah 3",
+    location: "748A Al Wasl Rd - Jumeirah - Jumeirah 3 - Dubai",
+    phone: "+971 50 577 3043",
+    website: "https://clinicamelanta.com",
+    directions: "https://www.google.com/maps?sca_esv=5f8ad457132af750&rlz=1C5CHFA_enAE820AE820&sxsrf=AE3TifOw07ZH8BqJw7gWtf_Tq1KX9XyhAQ:1761576218126&gs_lp=Egxnd3Mtd2l6LXNlcnAiB21lbGFudGEqAggAMg4QLhiABBjHARjLARivATIIEAAYgAQYywEyCBAAGIAEGMsBMggQABiABBjLATIIEAAYgAQYywEyDhAuGIAEGMcBGMsBGK8BMggQABiABBjLATIIEAAYgAQYywEyCBAAGIAEGMsBMggQABiABBjLATIdEC4YgAQYxwEYywEYrwEYlwUY3AQY3gQY4ATYAQFI3B1QxQdYlRNwAXgBkAEAmAGyAqABlQ-qAQUyLTQuM7gBA8gBAPgBAZgCCaACohnCAgoQABiwAxjWBBhHwgIEECMYJ8ICChAAGIAEGEMYigXCAgsQLhiABBjHARivAcICCxAuGIAEGNEDGMcBwgIFEAAYgATCAhAQLhiABBjHARgnGIoFGK8BwgIKECMYgAQYJxiKBcICChAAGIAEGBQYhwLCAgoQLhiABBhDGIoFwgIFEC4YgATCAhQQLhiABBjHARiYBRiZBRieBRivAcICGRAuGIAEGEMYigUYlwUY3AQY3gQY4ATYAQHCAggQLhiABBjLAcICGRAuGIAEGEMYigUYlwUY3AQY3gQY3wTYAQHCAgoQABiABBgKGMsBmAMA4gMFEgExIECIBgGQBgi6BgYIARABGBSSBwsxLjAuNC4zLjctMaAH4oQBsgcFMi00LjO4B9APwgcHMC4xLjcuMcgHMw&um=1&ie=UTF-8&fb=1&gl=ae&sa=X&geocode=KU83fM2taV8-McWNMxayfSN1&daddr=748A+Al+Wasl+Rd+-+Jumeirah+-+Jumeirah+3+-+Dubai",
+    logo: "/images/partners/melanta.png",
+    theme: "purple"
   }
 ];

@@ -22,7 +22,7 @@ export default function CartClient() {
   ]
 
   const selectedEmirateData = emirates.find(e => e.name === selectedEmirate)
-  const subtotal = getTotalPrice()
+  const subtotal = getTotalPrice(user)
   const shippingCost = subtotal >= 1000 ? 0 : (selectedEmirateData?.shippingCost || 45)
   const total = subtotal + shippingCost
 

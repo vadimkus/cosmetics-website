@@ -1,3 +1,5 @@
+import { User } from '@/types/user'
+
 export interface Product {
   id: string
   productNumber?: string | null
@@ -33,7 +35,7 @@ export interface CartState {
   removeItem: (productId: string, selectedColor?: string, selectedSize?: string) => void
   updateQuantity: (productId: string, quantity: number, selectedColor?: string, selectedSize?: string) => void
   clearCart: () => void
-  getTotalPrice: () => number
+  getTotalPrice: (user?: User | null) => number
   getTotalItems: () => number
   setSelectedEmirate: (emirate: string) => void
 }

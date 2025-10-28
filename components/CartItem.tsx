@@ -53,10 +53,37 @@ export default function CartItem({ item }: CartItemProps) {
               Size: <span className="font-medium text-gray-700">{selectedSize}</span>
             </p>
           )}
-          {user && user.canSeePrices ? (
+          {canUserSeePrices(user) ? (
             <div>
-              <p className="text-base md:text-lg font-bold text-primary-600">{product.price.toFixed(2)} AED</p>
-              <p className="text-xs text-gray-500">VAT included</p>
+              {(() => {
+                const pricing = calculateDiscountedPrice(product, user)
+                return (
+                  <div>
+                    {pricing.hasDiscount ? (
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <p className="text-base md:text-lg font-bold text-primary-600">
+                            {pricing.discountedPrice.toFixed(2)} AED
+                          </p>
+                          <p className="text-sm text-gray-500 line-through">
+                            {pricing.originalPrice.toFixed(2)} AED
+                          </p>
+                        </div>
+                        <p className="text-xs text-green-600 font-medium">
+                          {pricing.discountPercentage}% OFF • VAT included
+                        </p>
+                      </div>
+                    ) : (
+                      <div>
+                        <p className="text-base md:text-lg font-bold text-primary-600">
+                          {pricing.originalPrice.toFixed(2)} AED
+                        </p>
+                        <p className="text-xs text-gray-500">VAT included</p>
+                      </div>
+                    )}
+                  </div>
+                )
+              })()}
             </div>
           ) : (
             <div className="flex items-center text-gray-500">

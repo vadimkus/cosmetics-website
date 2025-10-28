@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { ArrowLeft, CreditCard, Lock, MapPin, Truck, MessageCircle, Mail, Building } from 'lucide-react'
 import Link from 'next/link'
+import { calculateDiscountedPrice } from '@/lib/discountUtils'
 
 export default function CheckoutClient() {
   const { items, getTotalPrice, getTotalItems, selectedEmirate, setSelectedEmirate } = useCart()
@@ -57,14 +58,17 @@ export default function CheckoutClient() {
         customerPhone: user?.phone || '',
         customerAddress: user?.address || '',
         emirate: selectedEmirate,
-        items: items.map(item => ({
-          id: item.product.id,
-          name: item.product.name,
-          image: item.product.image,
-          price: item.product.price,
-          quantity: item.quantity,
-          total: item.product.price * item.quantity
-        })),
+        items: items.map(item => {
+          const pricing = calculateDiscountedPrice(item.product, user)
+          return {
+            id: item.product.id,
+            name: item.product.name,
+            image: item.product.image,
+            price: pricing.discountedPrice,
+            quantity: item.quantity,
+            total: pricing.discountedPrice * item.quantity
+          }
+        }),
         subtotal,
         shippingCost,
         vatAmount,
@@ -144,7 +148,7 @@ export default function CheckoutClient() {
   ]
 
   const selectedEmirateData = emirates.find(e => e.name === selectedEmirate)
-  const subtotal = getTotalPrice()
+  const subtotal = getTotalPrice(user)
   const shippingCost = subtotal >= 1000 ? 0 : (selectedEmirateData?.shippingCost || 45)
   // Calculate VAT amount from VAT-inclusive prices
   // VAT = (VAT-inclusive amount / 1.05) * 0.05
@@ -198,12 +202,15 @@ export default function CheckoutClient() {
             customerPhone: user?.phone || '',
             customerAddress: user?.address || '',
             emirate: selectedEmirate,
-            items: items.map(item => ({
-              name: item.product.name,
-              price: item.product.price,
-              quantity: item.quantity,
-              total: item.product.price * item.quantity
-            })),
+            items: items.map(item => {
+              const pricing = calculateDiscountedPrice(item.product, user)
+              return {
+                name: item.product.name,
+                price: pricing.discountedPrice,
+                quantity: item.quantity,
+                total: pricing.discountedPrice * item.quantity
+              }
+            }),
             subtotal,
             shippingCost,
             vatAmount,
@@ -248,12 +255,15 @@ export default function CheckoutClient() {
           customerPhone: user?.phone || '',
           customerAddress: user?.address || '',
           emirate: selectedEmirate,
-          items: items.map(item => ({
-            name: item.product.name,
-            price: item.product.price,
-            quantity: item.quantity,
-            total: item.product.price * item.quantity
-          })),
+          items: items.map(item => {
+            const pricing = calculateDiscountedPrice(item.product, user)
+            return {
+              name: item.product.name,
+              price: pricing.discountedPrice,
+              quantity: item.quantity,
+              total: pricing.discountedPrice * item.quantity
+            }
+          }),
           subtotal,
           shippingCost,
           vatAmount,
@@ -586,9 +596,9 @@ export default function CheckoutClient() {
                   {items.length > 0 ? (
                     <div className="space-y-4">
                       {items.map((item) => {
-                        const price = item.product.price || 0
+                        const pricing = calculateDiscountedPrice(item.product, user)
                         const quantity = item.quantity || 1
-                        const total = price * quantity
+                        const total = pricing.discountedPrice * quantity
                         return (
                           <div key={item.product.id} className="flex items-start justify-between">
                             <div className="flex-1 min-w-0">
@@ -598,7 +608,15 @@ export default function CheckoutClient() {
                               <div className="flex items-center gap-2 mt-1">
                                 <span className="text-xs text-gray-500">Qty: {quantity}</span>
                                 <span className="text-xs text-gray-400">•</span>
-                                <span className="text-xs text-gray-500">AED {price.toFixed(2)} each</span>
+                                {pricing.hasDiscount ? (
+                                  <div className="flex items-center gap-1">
+                                    <span className="text-xs text-gray-500 line-through">AED {pricing.originalPrice.toFixed(2)}</span>
+                                    <span className="text-xs text-green-600 font-medium">AED {pricing.discountedPrice.toFixed(2)} each</span>
+                                    <span className="text-xs text-green-600 font-medium">({pricing.discountPercentage}% OFF)</span>
+                                  </div>
+                                ) : (
+                                  <span className="text-xs text-gray-500">AED {pricing.discountedPrice.toFixed(2)} each</span>
+                                )}
                               </div>
                             </div>
                             <div className="text-right ml-3">

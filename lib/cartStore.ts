@@ -1,6 +1,8 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { CartState, Product } from '@/types'
+import { calculateDiscountedPrice } from '@/lib/discountUtils'
+import { User } from '@/types/user'
 
 export const useCartStore = create<CartState>()(
   persist(
@@ -70,10 +72,11 @@ export const useCartStore = create<CartState>()(
         set({ items: [] })
       },
       
-      getTotalPrice: () => {
-        return get().items.reduce((total, item) => 
-          total + (item.product.price * item.quantity), 0
-        )
+      getTotalPrice: (user?: User | null) => {
+        return get().items.reduce((total, item) => {
+          const pricing = calculateDiscountedPrice(item.product, user || null)
+          return total + (pricing.discountedPrice * item.quantity)
+        }, 0)
       },
       
       getTotalItems: () => {

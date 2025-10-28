@@ -11,7 +11,14 @@ interface ProductPageProps {
 async function getProduct(id: string): Promise<Product | null> {
   try {
     // Use direct database access for better reliability
-    return await getProductById(id)
+    const product = await getProductById(id)
+    if (product) {
+      // Ensure noDiscount is explicitly set to prevent serialization issues
+      if (product.noDiscount === undefined) {
+        product.noDiscount = false
+      }
+    }
+    return product
   } catch (error) {
     console.error('Error fetching product:', error)
     return null

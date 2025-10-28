@@ -109,6 +109,15 @@ export default function ProductInfo({
             {(() => {
               const basePrice = getPriceForSize((product.id === '1' || product.id === '10' || product.id === '30' || product.id === '29' || product.id === '32' || product.id === '28' || product.id === '31' || product.id === '15' || product.id === '16' || product.id === '25') ? selectedSize : 'default')
               const productWithPrice = { ...product, price: basePrice }
+              console.log('ProductInfo Debug:', {
+                productId: product.id,
+                productName: product.name,
+                basePrice,
+                noDiscount: product.noDiscount,
+                productWithPriceNoDiscount: productWithPrice.noDiscount,
+                userDiscountType: user?.discountType,
+                userDiscountPercentage: user?.discountPercentage
+              })
               const pricing = calculateDiscountedPrice(productWithPrice, user)
               
               return (

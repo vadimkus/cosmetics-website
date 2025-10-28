@@ -56,5 +56,5 @@ export function getDisplayPrice(product: Product, user: User | null): number {
  * @returns boolean indicating if user can see prices
  */
 export function canUserSeePrices(user: User | null): boolean {
-  return user ? user.canSeePrices : false
+  return user ? (user.canSeePrices ?? false) : false
 }

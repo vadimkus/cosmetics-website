@@ -18,11 +18,29 @@ export interface UserData {
   createdAt?: string
 }
 
-// Get all users
-export const getAllUsers = async (): Promise<User[]> => {
+// Get all users with pagination and limited fields
+export const getAllUsers = async (limit: number = 100, offset: number = 0): Promise<User[]> => {
   try {
     return await prisma.user.findMany({
-      orderBy: { createdAt: 'desc' }
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        phone: true,
+        address: true,
+        profilePicture: true,
+        isAdmin: true,
+        canSeePrices: true,
+        discountType: true,
+        discountPercentage: true,
+        birthday: true,
+        lastLoginAt: true,
+        createdAt: true,
+        updatedAt: true
+      },
+      orderBy: { createdAt: 'desc' },
+      take: limit,
+      skip: offset
     })
   } catch (error) {
     console.error('Error fetching users:', error)

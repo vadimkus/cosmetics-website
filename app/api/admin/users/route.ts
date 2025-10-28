@@ -1,22 +1,43 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getAllUsers } from '@/lib/userStorageDb'
+import { PrismaClient } from '@prisma/client'
 
 export async function GET(_request: NextRequest) {
   try {
-    const users = await getAllUsers()
+    console.log('🔍 Admin users API called')
     
-    // Remove password field for security
-    const safeUsers = users.map(user => ({
-      ...user,
-      password: undefined
-    }))
+    const prisma = new PrismaClient()
+    
+    const users = await prisma.user.findMany({
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        phone: true,
+        address: true,
+        profilePicture: true,
+        isAdmin: true,
+        canSeePrices: true,
+        discountType: true,
+        discountPercentage: true,
+        birthday: true,
+        lastLoginAt: true,
+        createdAt: true,
+        updatedAt: true
+      },
+      orderBy: { createdAt: 'desc' },
+      take: 100
+    })
+    
+    console.log('📊 Found', users.length, 'users')
+    
+    await prisma.$disconnect()
     
     return NextResponse.json({
       success: true,
-      users: safeUsers
+      users: users
     })
   } catch (error) {
-    console.error('Error fetching users:', error)
+    console.error('❌ Error fetching users:', error)
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }

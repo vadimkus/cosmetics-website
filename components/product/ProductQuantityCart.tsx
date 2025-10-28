@@ -1,27 +1,18 @@
 'use client'
 
-import { Product } from '@/types'
 import { User } from '@/types/user'
 import { ShoppingCart, Heart, Minus, Plus } from 'lucide-react'
 import { useState } from 'react'
 
 interface ProductQuantityCartProps {
-  product: Product
   user: User | null
-  selectedSize?: string
-  selectedColor?: string
-  getPriceForSize: (size: string) => number
   onAddToCart: (quantity: number) => Promise<void>
   onToggleFavorite: () => void
   isFavorite: boolean
 }
 
 export default function ProductQuantityCart({
-  product,
   user,
-  selectedSize,
-  selectedColor,
-  getPriceForSize,
   onAddToCart,
   onToggleFavorite,
   isFavorite

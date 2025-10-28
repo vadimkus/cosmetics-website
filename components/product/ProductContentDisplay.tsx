@@ -50,7 +50,7 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
           </p>
           <div className="flex gap-3">
             <a
-              href={documentation[0].url}
+              href={documentation[0]?.url || '#'}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
@@ -61,8 +61,8 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
               View PDF
             </a>
             <a
-              href={documentation[0].url}
-              download={documentation[0].title}
+              href={documentation[0]?.url || '#'}
+              download={documentation[0]?.title || 'documentation'}
               className="inline-flex items-center gap-2 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors text-sm font-medium"
             >
               <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -145,7 +145,7 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
                     <div>
                       <strong>Promotion of collagen induction and skin regeneration:</strong>
                       <ul className="list-disc list-inside ml-4 mt-1 space-y-1">
-                        {ingredient.subList.map((item, i) => (
+                        {ingredient.subList.map((item: string, i: number) => (
                           <li key={i}>{item}</li>
                         ))}
                       </ul>

@@ -19,20 +19,6 @@ export default function ProductPageClientOptimized({ product }: ProductPageClien
   const [quantity, setQuantity] = useState(1)
   const [selectedSize, setSelectedSize] = useState('50g')
 
-  const getProductImages = () => {
-    if (product.images) {
-      try {
-        const parsedImages = JSON.parse(product.images)
-        return Array.isArray(parsedImages) ? parsedImages : [product.image]
-      } catch {
-        return [product.image]
-      }
-    }
-    return [product.image]
-  }
-
-  const productImages = getProductImages()
-
 
 
   if (!product) {
@@ -65,7 +51,7 @@ export default function ProductPageClientOptimized({ product }: ProductPageClien
         </nav>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <ProductImageGallery productImages={productImages} productName={product.name} />
+          <ProductImageGallery product={product} />
           <ProductInfo
             product={product}
             selectedSize={selectedSize}

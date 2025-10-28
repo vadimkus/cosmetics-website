@@ -1,7 +1,7 @@
 'use client'
 
 import { Product } from '@/types'
-import { Truck, Shield, Star } from 'lucide-react'
+import { Star } from 'lucide-react'
 
 interface ProductDetailsProps {
   product: Product

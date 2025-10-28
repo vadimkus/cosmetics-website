@@ -143,11 +143,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
 
             {/* Quantity and Cart - Below Variants */}
             <ProductQuantityCart
-              product={product}
               user={user}
-              selectedSize={selectedSize}
-              selectedColor={selectedColor}
-              getPriceForSize={(size) => getPriceForSize(product, size)}
               onAddToCart={handleAddToCart}
               onToggleFavorite={handleToggleFavorite}
               isFavorite={isFavorite(product.id)}

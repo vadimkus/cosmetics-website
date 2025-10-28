@@ -1,7 +1,6 @@
 'use client'
 
 import { Product } from '@/types'
-import { Lock } from 'lucide-react'
 import { User } from '@/types/user'
 
 interface ProductVariantSelectorProps {

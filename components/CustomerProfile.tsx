@@ -100,8 +100,12 @@ export default function CustomerProfile({
     phone: customer.phone || '',
     address: customer.address || '',
     birthday: customer.birthday || '',
-    profilePicture: customer.profilePicture || ''
+    profilePicture: customer.profilePicture || '',
+    discountType: customer.discountType || '',
+    discountPercentage: customer.discountPercentage || 0
   })
+  const [discountEditing, setDiscountEditing] = useState(false)
+  const [saving, setSaving] = useState(false)
   const [uploading, setUploading] = useState(false)
   const [refreshing, setRefreshing] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
@@ -143,6 +147,23 @@ export default function CustomerProfile({
       birthday: customer.birthday || '',
       profilePicture: customer.profilePicture || ''
     })
+  }
+
+  const handleDiscountSave = async () => {
+    try {
+      setSaving(true)
+      await onUpdateCustomer(customer.id, {
+        discountType: editData.discountType || null,
+        discountPercentage: editData.discountPercentage || null
+      })
+      setDiscountEditing(false)
+      alert('Discount updated successfully!')
+    } catch (error) {
+      console.error('Error updating discount:', error)
+      alert('Failed to update discount')
+    } finally {
+      setSaving(false)
+    }
   }
 
   const handleSave = async () => {
@@ -610,45 +631,82 @@ export default function CustomerProfile({
               <div className="flex items-center justify-between">
                 <span className="text-sm font-medium text-gray-700">Discount</span>
                 <div className="flex items-center gap-2">
-                  {customer.discountType ? (
-                    <div className="flex items-center gap-1">
-                      {customer.discountType === 'CLINIC' ? (
-                        <Building className="h-4 w-4 text-blue-600" />
+                  {!discountEditing ? (
+                    <div className="flex items-center gap-2">
+                      {customer.discountType ? (
+                        <div className="flex items-center gap-1">
+                          {customer.discountType === 'CLINIC' ? (
+                            <Building className="h-4 w-4 text-blue-600" />
+                          ) : (
+                            <Crown className="h-4 w-4 text-purple-600" />
+                          )}
+                          <span className={`px-2 py-1 rounded text-xs ${
+                            customer.discountType === 'CLINIC' ? 'bg-blue-100 text-blue-800' : 'bg-purple-100 text-purple-800'
+                          }`}>
+                            {customer.discountType} {customer.discountPercentage}%
+                          </span>
+                        </div>
                       ) : (
-                        <Crown className="h-4 w-4 text-purple-600" />
+                        <span className="text-gray-500 text-sm">No discount</span>
                       )}
-                      <span className={`px-2 py-1 rounded text-xs ${
-                        customer.discountType === 'CLINIC' ? 'bg-blue-100 text-blue-800' : 'bg-purple-100 text-purple-800'
-                      }`}>
-                        {customer.discountType} {customer.discountPercentage}%
-                      </span>
                       <button
-                        onClick={() => onUpdateCustomer(customer.id, { discountType: '', discountPercentage: 0 })}
-                        className="px-2 py-1 bg-gray-500 text-white rounded text-xs hover:bg-gray-600"
+                        onClick={() => {
+                          setDiscountEditing(true)
+                          setEditData(prev => ({
+                            ...prev,
+                            discountType: customer.discountType || '',
+                            discountPercentage: customer.discountPercentage || 0
+                          }))
+                        }}
+                        className="px-2 py-1 bg-blue-500 text-white rounded text-xs hover:bg-blue-600 flex items-center gap-1"
                       >
-                        Remove
+                        <Edit3 className="h-3 w-3" />
+                        Edit
                       </button>
                     </div>
                   ) : (
-                    <div className="flex gap-1">
-                      <button
-                        onClick={() => onUpdateCustomer(customer.id, { discountType: 'CLINIC', discountPercentage: 50 })}
-                        className="px-2 py-1 bg-blue-500 text-white rounded text-xs hover:bg-blue-600 flex items-center gap-1"
+                    <div className="flex items-center gap-2">
+                      <select
+                        value={editData.discountType}
+                        onChange={(e) => setEditData(prev => ({ ...prev, discountType: e.target.value }))}
+                        className="px-2 py-1 border border-gray-300 rounded text-xs"
                       >
-                        <Building className="h-3 w-3" />
-                        CLINIC 50%
+                        <option value="">No Discount</option>
+                        <option value="CLINIC">CLINIC</option>
+                        <option value="VIP">VIP</option>
+                      </select>
+                      {editData.discountType && (
+                        <input
+                          type="number"
+                          min="0"
+                          max="100"
+                          value={editData.discountPercentage}
+                          onChange={(e) => setEditData(prev => ({ ...prev, discountPercentage: Number(e.target.value) }))}
+                          className="w-16 px-2 py-1 border border-gray-300 rounded text-xs"
+                          placeholder="%"
+                        />
+                      )}
+                      <button
+                        onClick={handleDiscountSave}
+                        disabled={saving}
+                        className="px-2 py-1 bg-green-500 text-white rounded text-xs hover:bg-green-600 flex items-center gap-1 disabled:opacity-50"
+                      >
+                        <Save className="h-3 w-3" />
+                        {saving ? 'Saving...' : 'Save'}
                       </button>
                       <button
                         onClick={() => {
-                          const customPercent = prompt('Enter VIP discount percentage (0-100):')
-                          if (customPercent && !isNaN(Number(customPercent)) && Number(customPercent) >= 0 && Number(customPercent) <= 100) {
-                            onUpdateCustomer(customer.id, { discountType: 'VIP', discountPercentage: Number(customPercent) })
-                          }
+                          setDiscountEditing(false)
+                          setEditData(prev => ({
+                            ...prev,
+                            discountType: customer.discountType || '',
+                            discountPercentage: customer.discountPercentage || 0
+                          }))
                         }}
-                        className="px-2 py-1 bg-purple-500 text-white rounded text-xs hover:bg-purple-600 flex items-center gap-1"
+                        className="px-2 py-1 bg-gray-500 text-white rounded text-xs hover:bg-gray-600 flex items-center gap-1"
                       >
-                        <Crown className="h-3 w-3" />
-                        VIP
+                        <X className="h-3 w-3" />
+                        Cancel
                       </button>
                     </div>
                   )}

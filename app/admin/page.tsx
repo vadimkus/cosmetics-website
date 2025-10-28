@@ -174,6 +174,7 @@ export default function AdminPage() {
 
   const updateUser = async (userId: string, updates: Partial<User>) => {
     try {
+      console.log('Updating user:', { userId, updates })
       const response = await fetch(`/api/admin/users/${userId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
@@ -185,9 +186,18 @@ export default function AdminPage() {
         setUsers(users.map(user => 
           user.id === userId ? { ...user, ...updates } : user
         ))
+        console.log('User updated successfully')
+        return true
+      } else {
+        const errorData = await response.json()
+        console.error('Failed to update user:', errorData)
+        alert(`Failed to update user: ${errorData.error || 'Unknown error'}`)
+        return false
       }
     } catch (error) {
       console.error('Error updating user:', error)
+      alert('Failed to update user')
+      return false
     }
   }
 

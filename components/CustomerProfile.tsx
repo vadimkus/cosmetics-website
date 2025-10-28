@@ -155,8 +155,8 @@ export default function CustomerProfile({
     try {
       setSaving(true)
       await onUpdateCustomer(customer.id, {
-        discountType: editData.discountType || null,
-        discountPercentage: editData.discountPercentage || null
+        discountType: editData.discountType === '' ? null : editData.discountType,
+        discountPercentage: editData.discountPercentage === 0 ? null : editData.discountPercentage
       })
       setDiscountEditing(false)
       alert('Discount updated successfully!')

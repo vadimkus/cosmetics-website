@@ -28,22 +28,9 @@ import {
   X,
   RefreshCw
 } from 'lucide-react'
+import { User } from '@/types/user'
 
-interface Customer {
-  id: string
-  email: string
-  name: string
-  phone?: string
-  address?: string
-  profilePicture?: string
-  isAdmin: boolean
-  canSeePrices: boolean
-  discountType?: string
-  discountPercentage?: number
-  birthday?: string
-  createdAt: string
-  updatedAt: string
-}
+type Customer = User
 
 interface Order {
   id: string
@@ -103,6 +90,14 @@ export default function CustomerProfile({
     profilePicture: customer.profilePicture || '',
     discountType: customer.discountType || '',
     discountPercentage: customer.discountPercentage || 0
+  } as {
+    email: string
+    phone: string
+    address: string
+    birthday: string
+    profilePicture: string
+    discountType: string | null
+    discountPercentage: number | null
   })
   const [discountEditing, setDiscountEditing] = useState(false)
   const [saving, setSaving] = useState(false)
@@ -146,8 +141,8 @@ export default function CustomerProfile({
       address: customer.address || '',
       birthday: customer.birthday || '',
       profilePicture: customer.profilePicture || '',
-      discountType: customer.discountType || '',
-      discountPercentage: customer.discountPercentage || 0
+      discountType: customer.discountType || null,
+      discountPercentage: customer.discountPercentage || null
     })
   }
 
@@ -198,7 +193,9 @@ export default function CustomerProfile({
       phone: customer.phone || '',
       address: customer.address || '',
       birthday: customer.birthday || '',
-      profilePicture: customer.profilePicture || ''
+      profilePicture: customer.profilePicture || '',
+      discountType: customer.discountType || null,
+      discountPercentage: customer.discountPercentage || null
     })
   }
 
@@ -234,7 +231,9 @@ export default function CustomerProfile({
           phone: customer.phone || '',
           address: customer.address || '',
           birthday: customer.birthday || '',
-          profilePicture: customer.profilePicture || ''
+          profilePicture: customer.profilePicture || '',
+          discountType: customer.discountType || null,
+          discountPercentage: customer.discountPercentage || null
         })
       }
       
@@ -656,8 +655,8 @@ export default function CustomerProfile({
                           setDiscountEditing(true)
                           setEditData(prev => ({
                             ...prev,
-                            discountType: customer.discountType || '',
-                            discountPercentage: customer.discountPercentage || 0
+                            discountType: customer.discountType || null,
+                            discountPercentage: customer.discountPercentage || null
                           }))
                         }}
                         className="px-2 py-1 bg-blue-500 text-white rounded text-xs hover:bg-blue-600 flex items-center gap-1"
@@ -669,8 +668,8 @@ export default function CustomerProfile({
                   ) : (
                     <div className="flex items-center gap-2">
                       <select
-                        value={editData.discountType}
-                        onChange={(e) => setEditData(prev => ({ ...prev, discountType: e.target.value }))}
+                        value={editData.discountType || ''}
+                        onChange={(e) => setEditData(prev => ({ ...prev, discountType: e.target.value || null }))}
                         className="px-2 py-1 border border-gray-300 rounded text-xs"
                       >
                         <option value="">No Discount</option>
@@ -682,8 +681,8 @@ export default function CustomerProfile({
                           type="number"
                           min="0"
                           max="100"
-                          value={editData.discountPercentage}
-                          onChange={(e) => setEditData(prev => ({ ...prev, discountPercentage: Number(e.target.value) }))}
+                          value={editData.discountPercentage || ''}
+                          onChange={(e) => setEditData(prev => ({ ...prev, discountPercentage: Number(e.target.value) || null }))}
                           className="w-16 px-2 py-1 border border-gray-300 rounded text-xs"
                           placeholder="%"
                         />
@@ -701,8 +700,8 @@ export default function CustomerProfile({
                           setDiscountEditing(false)
                           setEditData(prev => ({
                             ...prev,
-                            discountType: customer.discountType || '',
-                            discountPercentage: customer.discountPercentage || 0
+                            discountType: customer.discountType || null,
+                            discountPercentage: customer.discountPercentage || null
                           }))
                         }}
                         className="px-2 py-1 bg-gray-500 text-white rounded text-xs hover:bg-gray-600 flex items-center gap-1"

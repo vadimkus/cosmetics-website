@@ -18,17 +18,17 @@ interface User {
   id: string
   name: string
   email: string
-  phone?: string
-  address?: string
-  birthday?: string
-  profilePicture?: string
-  isAdmin: boolean
-  canSeePrices: boolean
-  discountType?: string
-  discountPercentage?: number
-  lastLoginAt?: string
+  phone?: string | null
+  address?: string | null
+  birthday?: string | null
+  profilePicture?: string | null
+  isAdmin?: boolean
+  canSeePrices?: boolean
+  discountType?: string | null
+  discountPercentage?: number | null
+  lastLoginAt?: string | null
   createdAt: string
-  updatedAt: string
+  updatedAt?: string | null
 }
 
 interface Product {

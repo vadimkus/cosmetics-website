@@ -19,7 +19,7 @@ export interface UserData {
 }
 
 // Get all users with pagination and limited fields
-export const getAllUsers = async (limit: number = 100, offset: number = 0): Promise<User[]> => {
+export const getAllUsers = async (limit: number = 100, offset: number = 0) => {
   try {
     return await prisma.user.findMany({
       select: {

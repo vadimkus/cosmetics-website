@@ -145,7 +145,9 @@ export default function CustomerProfile({
       phone: customer.phone || '',
       address: customer.address || '',
       birthday: customer.birthday || '',
-      profilePicture: customer.profilePicture || ''
+      profilePicture: customer.profilePicture || '',
+      discountType: customer.discountType || '',
+      discountPercentage: customer.discountPercentage || 0
     })
   }
 

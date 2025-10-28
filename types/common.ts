@@ -50,6 +50,7 @@ export interface Product {
   image: string
   images?: string
   inStock: boolean
+  noDiscount?: boolean
   createdAt: Timestamp
   updatedAt: Timestamp
 }

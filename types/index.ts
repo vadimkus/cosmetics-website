@@ -9,6 +9,7 @@ export interface Product {
   category: string
   inStock: boolean
   size?: string | null
+  noDiscount?: boolean
 }
 
 export interface CartItem {

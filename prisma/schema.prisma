@@ -41,6 +41,7 @@ model Product {
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
   images        String?
+  noDiscount    Boolean  @default(false) // Exclude from discount calculations
   
   // Skin recommendation fields
   skinType      String?  // dry, oily, combination, normal, sensitive

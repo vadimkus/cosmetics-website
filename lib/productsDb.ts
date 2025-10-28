@@ -11,6 +11,7 @@ export interface Product {
   category: string
   inStock: boolean
   size?: string | null
+  noDiscount?: boolean
   // Skin recommendation fields
   skinType?: string | null
   targetConcerns?: string | null // JSON array of concerns

@@ -9,6 +9,7 @@ import { useState, memo, useCallback } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import LoginModal from './LoginModal'
+import { calculateDiscountedPrice, canUserSeePrices } from '@/lib/discountUtils'
 
 interface ProductCardProps {
   product: Product
@@ -122,12 +123,40 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
         
         <div className="flex flex-col gap-3">
           <div className="flex items-center justify-between">
-            {user && user.canSeePrices ? (
+            {canUserSeePrices(user) ? (
               <div>
-                <span className="text-base font-bold text-primary-600">
-                  {product.price.toFixed(2)} AED
-                </span>
-                <p className="text-xs text-gray-500">VAT included</p>
+                {(() => {
+                  const pricing = calculateDiscountedPrice(product, user)
+                  return (
+                    <div>
+                      {pricing.hasDiscount ? (
+                        <div>
+                          <div className="flex items-center gap-2">
+                            <span className="text-base font-bold text-primary-600">
+                              {pricing.discountedPrice.toFixed(2)} AED
+                            </span>
+                            <span className="text-sm text-gray-500 line-through">
+                              {pricing.originalPrice.toFixed(2)} AED
+                            </span>
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <span className="text-xs text-green-600 font-medium">
+                              {pricing.discountPercentage}% OFF
+                            </span>
+                            <span className="text-xs text-gray-500">VAT included</span>
+                          </div>
+                        </div>
+                      ) : (
+                        <div>
+                          <span className="text-base font-bold text-primary-600">
+                            {pricing.originalPrice.toFixed(2)} AED
+                          </span>
+                          <p className="text-xs text-gray-500">VAT included</p>
+                        </div>
+                      )}
+                    </div>
+                  )
+                })()}
               </div>
             ) : user ? (
               <div className="flex items-center text-gray-500">

@@ -6,6 +6,7 @@ import { useAuth } from './AuthProvider'
 import { Minus, Plus, Trash2, Lock } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { calculateDiscountedPrice, canUserSeePrices } from '@/lib/discountUtils'
 
 interface CartItemProps {
   item: CartItemType
@@ -92,12 +93,40 @@ export default function CartItem({ item }: CartItemProps) {
         </div>
         
         <div className="text-center sm:text-right">
-          {user && user.canSeePrices ? (
+          {canUserSeePrices(user) ? (
             <div>
-              <p className="text-base md:text-lg font-semibold text-gray-800">
-                {(product.price * quantity).toFixed(2)} AED
-              </p>
-              <p className="text-xs text-gray-500">VAT included</p>
+              {(() => {
+                const pricing = calculateDiscountedPrice(product, user)
+                const totalPrice = pricing.discountedPrice * quantity
+                const originalTotalPrice = pricing.originalPrice * quantity
+                
+                return (
+                  <div>
+                    {pricing.hasDiscount ? (
+                      <div>
+                        <div className="flex items-center justify-end gap-2">
+                          <p className="text-base md:text-lg font-semibold text-gray-800">
+                            {totalPrice.toFixed(2)} AED
+                          </p>
+                          <p className="text-sm text-gray-500 line-through">
+                            {originalTotalPrice.toFixed(2)} AED
+                          </p>
+                        </div>
+                        <p className="text-xs text-green-600 font-medium">
+                          {pricing.discountPercentage}% OFF • VAT included
+                        </p>
+                      </div>
+                    ) : (
+                      <div>
+                        <p className="text-base md:text-lg font-semibold text-gray-800">
+                          {totalPrice.toFixed(2)} AED
+                        </p>
+                        <p className="text-xs text-gray-500">VAT included</p>
+                      </div>
+                    )}
+                  </div>
+                )
+              })()}
             </div>
           ) : (
             <div className="flex items-center justify-center text-gray-500">

@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation'
 import { Product } from '@/types'
-import ProductPageClient from './ProductPageClient'
+import ProductPageClientRefactored from './ProductPageClientRefactored'
 import type { Metadata } from 'next'
 import { getProductById } from '@/lib/productsDb'
 
@@ -124,5 +124,5 @@ export default async function ProductPage({ params }: ProductPageProps) {
     notFound()
   }
 
-  return <ProductPageClient product={product} />
+  return <ProductPageClientRefactored product={product} />
 }

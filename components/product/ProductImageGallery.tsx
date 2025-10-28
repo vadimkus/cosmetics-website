@@ -1,55 +1,78 @@
 'use client'
 
-import Image from 'next/image'
 import { useState } from 'react'
+import Image from 'next/image'
+import { Product } from '@/types'
+import { getProductVideoUrl } from '@/data/productConfig'
 
 interface ProductImageGalleryProps {
-  productImages: string[]
-  productName: string
+  product: Product
 }
 
-export default function ProductImageGallery({ productImages, productName }: ProductImageGalleryProps) {
+export default function ProductImageGallery({ product }: ProductImageGalleryProps) {
   const [selectedImage, setSelectedImage] = useState(0)
+  const videoUrl = getProductVideoUrl(product.id)
+
+  const getProductImages = () => {
+    if (product.images) {
+      try {
+        const parsedImages = JSON.parse(product.images)
+        return Array.isArray(parsedImages) ? parsedImages : [product.image]
+      } catch {
+        return [product.image]
+      }
+    }
+    return [product.image]
+  }
+
+  const productImages = getProductImages()
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-      {/* Main Image */}
-      <div className="aspect-square bg-gray-100 rounded-lg overflow-hidden">
-        {productImages.length > 0 && productImages[selectedImage] ? (
+    <div className="space-y-4">
+      {/* Main Image or Video */}
+      <div className="w-full max-w-md mx-auto aspect-square bg-gray-100 rounded-lg overflow-hidden">
+        {product.id === '3' && selectedImage === 2 && videoUrl ? (
+          <iframe
+            className="w-full h-full rounded-lg"
+            src={videoUrl}
+            title={`${product.name} Video`}
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
+          ></iframe>
+        ) : (
           <Image
             src={productImages[selectedImage]}
-            alt={productName}
+            alt={`${product.name} - Image ${selectedImage + 1}`}
             width={600}
             height={600}
             className="w-full h-full object-cover"
-            priority
+            priority={selectedImage === 0}
           />
-        ) : (
-          <div className="w-full h-full flex items-center justify-center text-gray-400">
-            No image available
-          </div>
         )}
       </div>
 
-      {/* Thumbnail Gallery */}
+      {/* Thumbnail Navigation */}
       {productImages.length > 1 && (
-        <div className="grid grid-cols-4 gap-4">
-          {productImages.map((image, index) => (
-            <div
+        <div className="flex gap-2 justify-center">
+          {productImages.map((img, index) => (
+            <button
               key={index}
-              className={`aspect-square rounded-lg overflow-hidden cursor-pointer border-2 ${
-                index === selectedImage ? 'border-primary-600' : 'border-gray-200 hover:border-gray-300'
-              } transition-colors`}
               onClick={() => setSelectedImage(index)}
+              className={`w-16 h-16 rounded-lg overflow-hidden border-2 transition-colors ${
+                selectedImage === index
+                  ? 'border-primary-600'
+                  : 'border-gray-200 hover:border-gray-300'
+              }`}
             >
               <Image
-                src={image}
-                alt={`${productName} ${index + 1}`}
-                width={100}
-                height={100}
+                src={img}
+                alt={`${product.name} ${index + 1}`}
+                width={64}
+                height={64}
                 className="w-full h-full object-cover"
               />
-            </div>
+            </button>
           ))}
         </div>
       )}

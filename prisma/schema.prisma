@@ -33,7 +33,7 @@ model Product {
   productNumber String?  @unique
   name          String
   price         Float
-  description   String
+  description   String   @db.Text
   image         String
   category      String
   inStock       Boolean  @default(true)
@@ -43,11 +43,19 @@ model Product {
   images        String?
   noDiscount    Boolean  @default(false) // Exclude from discount calculations
   
+  // Detailed product content fields
+  productDetails String?  @db.Text // JSON object with key-value pairs for product specs
+  keyFeatures    String?  @db.Text // JSON array of features with title and description
+  benefits       String?  @db.Text // JSON array of benefits
+  ingredients    String?  @db.Text // JSON array of ingredients with name and description
+  howToUse       String?  @db.Text // Step-by-step usage instructions
+  directions     String?  @db.Text // Detailed directions for use
+  
   // Skin recommendation fields
-  skinType      String?  // dry, oily, combination, normal, sensitive
-  targetConcerns String? // JSON array of concerns like ["anti-aging", "acne", "hydration"]
-  usage         String?  // morning, evening, all-day, morning-evening
-  ageGroup      String? // teen, young-adult, adult, mature
+  skinType       String?  // dry, oily, combination, normal, sensitive
+  targetConcerns String?  // JSON array of concerns like ["anti-aging", "acne", "hydration"]
+  usage          String?  // morning, evening, all-day, morning-evening
+  ageGroup       String?  // teen, young-adult, adult, mature
 
   @@map("products")
 }

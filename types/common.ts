@@ -51,6 +51,13 @@ export interface Product {
   images?: string
   inStock: boolean
   noDiscount?: boolean
+  // Detailed product content
+  productDetails?: string | null // JSON object with key-value pairs
+  keyFeatures?: string | null // JSON array of features
+  benefits?: string | null // JSON array of benefits
+  ingredients?: string | null // JSON array of ingredients
+  howToUse?: string | null // Usage instructions
+  directions?: string | null // Detailed directions
   createdAt: Timestamp
   updatedAt: Timestamp
 }

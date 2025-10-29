@@ -226,5 +226,17 @@ export const partnersData: Partner[] = [
     directions: "https://www.google.com/maps?sca_esv=5f8ad457132af750&rlz=1C5CHFA_enAE820AE820&sxsrf=AE3TifOw07ZH8BqJw7gWtf_Tq1KX9XyhAQ:1761576218126&gs_lp=Egxnd3Mtd2l6LXNlcnAiB21lbGFudGEqAggAMg4QLhiABBjHARjLARivATIIEAAYgAQYywEyCBAAGIAEGMsBMggQABiABBjLATIIEAAYgAQYywEyDhAuGIAEGMcBGMsBGK8BMggQABiABBjLATIIEAAYgAQYywEyCBAAGIAEGMsBMggQABiABBjLATIdEC4YgAQYxwEYywEYrwEYlwUY3AQY3gQY4ATYAQFI3B1QxQdYlRNwAXgBkAEAmAGyAqABlQ-qAQUyLTQuM7gBA8gBAPgBAZgCCaACohnCAgoQABiwAxjWBBhHwgIEECMYJ8ICChAAGIAEGEMYigXCAgsQLhiABBjHARivAcICCxAuGIAEGNEDGMcBwgIFEAAYgATCAhAQLhiABBjHARgnGIoFGK8BwgIKECMYgAQYJxiKBcICChAAGIAEGBQYhwLCAgoQLhiABBhDGIoFwgIFEC4YgATCAhQQLhiABBjHARiYBRiZBRieBRivAcICGRAuGIAEGEMYigUYlwUY3AQY3gQY4ATYAQHCAggQLhiABBjLAcICGRAuGIAEGEMYigUYlwUY3AQY3gQY3wTYAQHCAgoQABiABBgKGMsBmAMA4gMFEgExIECIBgGQBgi6BgYIARABGBSSBwsxLjAuNC4zLjctMaAH4oQBsgcFMi00LjO4B9APwgcHMC4xLjcuMcgHMw&um=1&ie=UTF-8&fb=1&gl=ae&sa=X&geocode=KU83fM2taV8-McWNMxayfSN1&daddr=748A+Al+Wasl+Rd+-+Jumeirah+-+Jumeirah+3+-+Dubai",
     logo: "/images/partners/melanta.png",
     theme: "purple"
+  },
+  {
+    id: "sugar-wax",
+    name: "SUGAR & WAX BEAUTY SALON, DUBAI MARINA",
+    type: "Beauty Salon",
+    description: "Professional beauty salon offering comprehensive beauty services including waxing, skincare, and beauty treatments in Dubai Marina",
+    location: "Dubai Marina, Al Sayorah Street, Marina Wharf 2, Basement 2, Shop 4, Dubai, United Arab Emirates",
+    phone: "050 829 8727",
+    website: "https://sugarwaxuae.com/",
+    directions: "https://www.google.com/maps?s=web&rlz=1C5CHFA_enAE820AE820&lqi=ChhTdWdhciAmIFdheCBCZWF1dHkgU2Fsb25I4ab8ouS5gIAIWjIQABABEAIQAxAEGAAYARgCGAMYBCIYc3VnYXIgJiB3YXggYmVhdXR5IHNhbG9uMgJlbpIBDGJlYXV0eV9zYWxvbpoBI0NoWkRTVWhOTUc5blMwVkpRMEZuU1VRMWQyOHlUMXBCRUFFqgFbCg0vZy8xMXR0MjV6NHcxCgkvbS8wNTY5emcQATIfEAEiG8Qe-29yMbEvFvLrjWSxk0yGKJNoCT_02R8m1TIcEAIiGHN1Z2FyICYgd2F4IGJlYXV0eSBzYWxvbvoBBAhQEEo&phdesc=5KxfX1gGpUU&vet=12ahUKEwixyYPZqMmQAxU5ExAIHYKcIpAQ1YkKegQIJhAB..i&cs=0&um=1&ie=UTF-8&fb=1&gl=ae&sa=X&geocode=KWc5mCujE18-MYBdpj0RmzXd&daddr=Marina+Warf+2+-+Dubai",
+    logo: "/images/partners/wax.png",
+    theme: "pink"
   }
 ];

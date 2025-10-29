@@ -238,5 +238,53 @@ export const partnersData: Partner[] = [
     directions: "https://www.google.com/maps?s=web&rlz=1C5CHFA_enAE820AE820&lqi=ChhTdWdhciAmIFdheCBCZWF1dHkgU2Fsb25I4ab8ouS5gIAIWjIQABABEAIQAxAEGAAYARgCGAMYBCIYc3VnYXIgJiB3YXggYmVhdXR5IHNhbG9uMgJlbpIBDGJlYXV0eV9zYWxvbpoBI0NoWkRTVWhOTUc5blMwVkpRMEZuU1VRMWQyOHlUMXBCRUFFqgFbCg0vZy8xMXR0MjV6NHcxCgkvbS8wNTY5emcQATIfEAEiG8Qe-29yMbEvFvLrjWSxk0yGKJNoCT_02R8m1TIcEAIiGHN1Z2FyICYgd2F4IGJlYXV0eSBzYWxvbvoBBAhQEEo&phdesc=5KxfX1gGpUU&vet=12ahUKEwixyYPZqMmQAxU5ExAIHYKcIpAQ1YkKegQIJhAB..i&cs=0&um=1&ie=UTF-8&fb=1&gl=ae&sa=X&geocode=KWc5mCujE18-MYBdpj0RmzXd&daddr=Marina+Warf+2+-+Dubai",
     logo: "/images/partners/wax.png",
     theme: "pink"
+  },
+  {
+    id: "bianco-spa",
+    name: "BIANCO SPA, SILICON OASIS (DSO)",
+    type: "Spa & Wellness Center",
+    description: "Since 2018, Bianco has been at the forefront of women's empowerment, offering a sanctuary where women can express themselves in a space of their own. Our minimalist design creates a serene and luxurious atmosphere, allowing every woman to experience true elegance and comfort.",
+    location: "Cedre Villas Community Centre - Cedre Shopping Centre shop 24&26 - Dubai",
+    phone: "+971 4 333 6166",
+    website: "https://biancospa.ae",
+    directions: "https://www.google.com/maps/dir//Cedre+Villas+Community+Centre+-+Cedre+Shopping+Centre+shop+24%2626+-+Dubai/@25.1272187,55.3142557,12z/data=!4m8!4m7!1m0!1m5!1m1!1s0x3e5f65f4c055c2df:0xe96eb4d3642e0d30!2m2!1d55.3966572!2d25.1272415?entry=ttu&g_ep=EgoyMDI1MTAyNi4wIKXMDSoASAFQAw%3D%3D",
+    logo: "/images/partners/bianco.png",
+    theme: "emerald"
+  },
+  {
+    id: "bianco-spa-dubai-hills",
+    name: "BIANCO SPA, DUBAI HILLS MALL",
+    type: "Spa & Wellness Center",
+    description: "Since 2018, Bianco has been at the forefront of women's empowerment, offering a sanctuary where women can express themselves in a space of their own. Our minimalist design creates a serene and luxurious atmosphere, allowing every woman to experience true elegance and comfort.",
+    location: "1st Floor, Dubai Hills Mall - Dubai",
+    phone: "+971 4 458 0078",
+    website: "https://biancospa.ae",
+    directions: "https://www.google.com/maps/dir//Al+Khail+Rd+-+Hadaeq+Sheikh+Mohammed+Bin+Rashid+-+Dubai/@25.1027297,55.1553557,12z/data=!4m8!4m7!1m0!1m5!1m1!1s0x3e5f6fddd99a5929:0xfe04d22cbdb3723b!2m2!1d55.2377572!2d25.1027525?entry=ttu&g_ep=EgoyMDI1MTAyNi4wIKXMDSoASAFQAw%3D%3D",
+    logo: "/images/partners/bianco.png",
+    theme: "emerald"
+  },
+  {
+    id: "bianco-spa-layan",
+    name: "BIANCO SPA, LAYAN COMMUNITY",
+    type: "Spa & Wellness Center",
+    description: "Since 2018, Bianco has been at the forefront of women's empowerment, offering a sanctuary where women can express themselves in a space of their own. Our minimalist design creates a serene and luxurious atmosphere, allowing every woman to experience true elegance and comfort.",
+    location: "Layan Community Center - Dubai",
+    phone: "+971 4 423 2216",
+    website: "https://biancospa.ae",
+    directions: "https://www.google.com/maps/dir/25.2161539,55.3131125/Bianco+Spa+(Layan+Branch)+-+%D0%94%D1%83%D0%B1%D0%B0%D0%B9/@25.1375185,55.2114523,12z/data=!3m2!4b1!5s0x3e5f6eb259c704c9:0x83ba7f3255ad4510!4m8!4m7!1m0!1m5!1m1!1s0x3e5f7178f7cc40af:0xdcf13164632ce82b!2m2!1d55.2830924!2d25.0321311?entry=ttu&g_ep=EgoyMDI1MTAyNi4wIKXMDSoASAFQAw%3D%3D",
+    logo: "/images/partners/bianco.png",
+    theme: "emerald"
+  },
+  {
+    id: "bianco-spa-jumeirah-golf",
+    name: "BIANCO SPA, JUMEIRAH GOLF ESTATES",
+    type: "Spa & Wellness Center",
+    description: "Since 2018, Bianco has been at the forefront of women's empowerment, offering a sanctuary where women can express themselves in a space of their own. Our minimalist design creates a serene and luxurious atmosphere, allowing every woman to experience true elegance and comfort.",
+    location: "Jumeirah Golf Estates Country Club - Dubai",
+    phone: "+971 4 572 7765",
+    website: "https://biancospa.ae",
+    directions: "https://www.google.com/maps/dir/25.2161539,55.3131125/Bianco+JGE+Ladies+Salon+-+Jumeirah+Golf+Estates+-+%D0%94%D1%83%D0%B1%D0%B0%D0%B9/@25.1337839,55.1388647,12z/data=!3m2!4b1!5s0x3e5f6eb259c704c9:0x83ba7f3255ad4510!4m8!4m7!1m0!1m5!1m1!1s0x9b0aa2102b78d27:0x2eae56fe46822572!2m2!1d55.19986!2d25.0209213?entry=ttu&g_ep=EgoyMDI1MTAyNi4wIKXMDSoASAFQAw%3D%3D",
+    logo: "/images/partners/bianco.png",
+    theme: "emerald"
   }
 ];

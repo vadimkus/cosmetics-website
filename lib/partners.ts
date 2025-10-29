@@ -286,5 +286,29 @@ export const partnersData: Partner[] = [
     directions: "https://www.google.com/maps/dir/25.2161539,55.3131125/Bianco+JGE+Ladies+Salon+-+Jumeirah+Golf+Estates+-+%D0%94%D1%83%D0%B1%D0%B0%D0%B9/@25.1337839,55.1388647,12z/data=!3m2!4b1!5s0x3e5f6eb259c704c9:0x83ba7f3255ad4510!4m8!4m7!1m0!1m5!1m1!1s0x9b0aa2102b78d27:0x2eae56fe46822572!2m2!1d55.19986!2d25.0209213?entry=ttu&g_ep=EgoyMDI1MTAyNi4wIKXMDSoASAFQAw%3D%3D",
     logo: "/images/partners/bianco.png",
     theme: "emerald"
+  },
+  {
+    id: "lodyana-spa",
+    name: "LODYana Ladies Spa - L.L.C - S.P C Healing and Wellness Center",
+    type: "Healing and Wellness Center",
+    description: "LODYana Spa is your destination to celebrate the harmony of body and soul, where through our various treatments we create a warm and relaxing place, so that you can enjoy a unique experience in our various facilities and enjoy the serenity that reflects beauty, confidence and radiance.",
+    location: "Al Sahel Towers - Block A 1st Floor - Al Bateen - W12 - Abu Dhabi",
+    phone: "+971 02 585 7072",
+    website: "https://www.lodyanaspa.ae",
+    directions: "https://www.google.com/maps?rlz=1C5CHFA_enAE820AE820&um=1&ie=UTF-8&fb=1&gl=ae&sa=X&geocode=KUfZ18p8ZV4-MTBQxZ9_9Ntv&daddr=Al+Sahel+Towers+-+Block+A+1st+Floor+-+Al+Bateen+-+W12+-+Abu+Dhabi",
+    logo: "/images/partners/lodyana.png",
+    theme: "purple"
+  },
+  {
+    id: "different-aesthetic-clinic",
+    name: "DIFFERENT AESTHETIC CLINIC",
+    type: "Aesthetic Medical Clinic",
+    description: "Professional aesthetic clinic offering advanced cosmetic treatments and medical aesthetic services in Abu Dhabi. Committed to providing exceptional care and innovative solutions for beauty and wellness.",
+    location: "St Regis Residences Block 5 - Abu Dhabi",
+    phone: "+971 058 519 2533",
+    website: "https://n1313175.alteg.io/company/1256716/personal/menu?o=",
+    directions: "https://www.google.com/maps?sca_esv=4371f740622c0d3e&rlz=1C5CHFA_enAE820AE820&sxsrf=AE3TifMWP5n_iUUsRWoRNFaCtfg1PAon8A:1761746161432&uact=5&gs_lp=Egxnd3Mtd2l6LXNlcnAiJURpZmZlcmVudCBBZXN0aGV0aWMgQ2xpbmljICBhYnUgZGhhYmkyCBAAGIAEGMsBMggQABiABBjLATIEEAAYHjIFEAAY7wUyBRAAGO8FMgUQABjvBTIIEAAYgAQYogRI3wJQAFgAcAB4AZABAJgB6gGgAeoBqgEDMi0xuAEDyAEA-AEC-AEBmAIBoALxAZgDAJIHAzItMaAHxwSyBwMyLTG4B_EBwgcDMi0xyAcF&um=1&ie=UTF-8&fb=1&gl=ae&sa=X&geocode=KbuJJ11S0TdAMdOreALJ6DcS&daddr=St+Regis+Residences+Block+5+-+Abu+Dhabi",
+    logo: "/images/partners/different.png",
+    theme: "blue"
   }
 ];

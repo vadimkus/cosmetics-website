@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ArrowLeft, Clock, Truck, MapPin, Phone, Mail, Gift } from 'lucide-react'
+import { ArrowLeft, Clock, Truck, MapPin, Phone, Mail, Gift, RotateCcw } from 'lucide-react'
 import BreadcrumbSchema from '@/components/BreadcrumbSchema'
 import type { Metadata } from 'next'
 
@@ -179,6 +179,61 @@ export default function DeliveryPage() {
                 No minimum order restrictions, no hidden fees. Simply place an order worth 1,000 AED or more 
                 and enjoy complimentary delivery service across the United Arab Emirates.
               </p>
+            </div>
+          </div>
+
+          {/* Return Policy Section */}
+          <div className="bg-gradient-to-r from-blue-50 to-blue-100 rounded-lg p-8 mb-8">
+            <div className="text-center">
+              <div className="flex items-center justify-center gap-3 mb-4">
+                <RotateCcw className="h-10 w-10 text-blue-600" />
+                <h2 className="text-3xl font-bold text-gray-800">Return Policy</h2>
+              </div>
+              <p className="text-xl text-black mb-6">
+                We accept returns for your peace of mind
+              </p>
+              <div className="bg-white rounded-lg p-6 max-w-4xl mx-auto">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+                  <div className="space-y-4">
+                    <div className="flex items-start">
+                      <RotateCcw className="h-5 w-5 text-blue-600 mr-3 mt-1" />
+                      <div>
+                        <h3 className="font-semibold text-gray-800 mb-1">Return Period</h3>
+                        <p className="text-gray-600">10 days from delivery date</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start">
+                      <Clock className="h-5 w-5 text-blue-600 mr-3 mt-1" />
+                      <div>
+                        <h3 className="font-semibold text-gray-800 mb-1">Processing Time</h3>
+                        <p className="text-gray-600">3-5 business days for refund processing</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="space-y-4">
+                    <div className="flex items-start">
+                      <Gift className="h-5 w-5 text-blue-600 mr-3 mt-1" />
+                      <div>
+                        <h3 className="font-semibold text-gray-800 mb-1">Condition</h3>
+                        <p className="text-gray-600">Items must be unused and in original packaging</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start">
+                      <Truck className="h-5 w-5 text-blue-600 mr-3 mt-1" />
+                      <div>
+                        <h3 className="font-semibold text-gray-800 mb-1">Return Process</h3>
+                        <p className="text-gray-600">Contact us to initiate return process</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="mt-6 p-4 bg-blue-50 rounded-lg">
+                  <p className="text-gray-700 text-center">
+                    <strong>We accept returns</strong> - Your satisfaction is our priority. If you're not completely satisfied with your purchase, 
+                    we're here to help make it right.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
 

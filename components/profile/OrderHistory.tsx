@@ -1,47 +1,80 @@
 'use client'
 
-import { useState } from 'react'
 import Link from 'next/link'
-import { Package, Clock, CheckCircle, Truck, X, Eye, RefreshCw, ArrowLeft } from 'lucide-react'
-import { OrderWithItems } from '@/types/profile'
+import Image from 'next/image'
+import { Package, ShoppingBag, Calendar, X, CreditCard, Truck, CheckCircle, Clock } from 'lucide-react'
+import { Order, OrderItem } from '@prisma/client'
+
+// Custom type that includes the items relation
+type OrderWithItems = Order & {
+  items: OrderItem[]
+}
 
 interface OrderHistoryProps {
   orders: OrderWithItems[]
-  loading: boolean
-  onOrderCancel: (orderId: string) => Promise<void>
+  loadingOrders: boolean
+  onCancelOrder: (orderId: string) => void
 }
 
-export default function OrderHistory({ orders, loading, onOrderCancel }: OrderHistoryProps) {
-  const [selectedOrder, setSelectedOrder] = useState<OrderWithItems | null>(null)
-  const [cancellingOrder, setCancellingOrder] = useState<string | null>(null)
+export default function OrderHistory({ orders, loadingOrders, onCancelOrder }: OrderHistoryProps) {
+  const formatCurrency = (amount: number) => {
+    return new Intl.NumberFormat('en-AE', {
+      style: 'currency',
+      currency: 'AED',
+      minimumFractionDigits: 2
+    }).format(amount)
+  }
+
+  const getProductImage = (productName: string) => {
+    const imageMap: Record<string, string> = {
+      // Add your product image mappings here
+      'Microneedle Roller': '/images/genosys-microneedling-devices.jpg',
+      'Needle Pen-K': '/images/Needle-pen.jpg',
+      'SNOW O₂ CLEANSER': '/images/SNOW.jpg',
+      'SNOW BOOSTER': '/images/BOOS.jpg',
+      'MULTI VITA RADIANCE CREAM': '/images/RAA.jpg',
+      'MULTI VITA RADIANCE SERUM': '/images/RADS.jpg',
+      'MULTI FUNCTIONAL ANTI-WRINKLE SERUM': '/images/MSSS.jpg',
+      'ND Cell ANTI-WRINKLE CREAM': '/images/ND.jpg',
+      'SOOTHING REPAIR POSTCREAM': '/images/SRC.jpg',
+      'SKIN RENEWAL PEELING SYSTEM (SRS)': '/images/SRS.jpg',
+      'PEPTIDE GEL MASK': '/images/PEP.jpg',
+      'SKIN RESCUE OVERNIGHT CREAM MASK': '/images/SKIN.jpg',
+      'SOOTHING BOMB SEA ALGAE MASK': '/images/SEA.jpg',
+      'MULTI SUN CREAM [SPF 40 PA++]': '/images/SSUN.jpg',
+      'ULTRA SHIELD SUN CREAM [SPF 50+ PA++++]': '/images/SPF50.jpg',
+      'BIO-FERMENT AGE DEFYING POWDER MASK': '/images/BFAD.png',
+      'SKIN REBOOT PDRN MASK PACK': '/images/REB.png',
+      'Test Product': '/images/placeholder.jpg',
+      'Support Product': '/images/placeholder.jpg'
+    }
+    
+    return imageMap[productName] || '/images/placeholder.jpg'
+  }
 
   const getStatusColor = (status: string) => {
-    switch (status.toLowerCase()) {
-      case 'pending':
-        return 'bg-yellow-100 text-yellow-800'
-      case 'confirmed':
-        return 'bg-blue-100 text-blue-800'
+    switch (status) {
+      case 'paid':
+        return 'bg-emerald-100 text-emerald-800 border-emerald-200'
       case 'shipped':
-        return 'bg-purple-100 text-purple-800'
+        return 'bg-blue-100 text-blue-800 border-blue-200'
       case 'delivered':
-        return 'bg-green-100 text-green-800'
+        return 'bg-purple-100 text-purple-800 border-purple-200'
       case 'cancelled':
-        return 'bg-red-100 text-red-800'
+        return 'bg-red-100 text-red-800 border-red-200'
       default:
-        return 'bg-gray-100 text-gray-800'
+        return 'bg-amber-100 text-amber-800 border-amber-200'
     }
   }
 
   const getStatusIcon = (status: string) => {
-    switch (status.toLowerCase()) {
-      case 'pending':
-        return <Clock className="h-4 w-4" />
-      case 'confirmed':
-        return <CheckCircle className="h-4 w-4" />
+    switch (status) {
+      case 'paid':
+        return <CreditCard className="h-4 w-4" />
       case 'shipped':
         return <Truck className="h-4 w-4" />
       case 'delivered':
-        return <Package className="h-4 w-4" />
+        return <CheckCircle className="h-4 w-4" />
       case 'cancelled':
         return <X className="h-4 w-4" />
       default:
@@ -49,175 +82,150 @@ export default function OrderHistory({ orders, loading, onOrderCancel }: OrderHi
     }
   }
 
-  const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('en-AE', {
-      style: 'currency',
-      currency: 'AED'
-    }).format(amount)
-  }
-
-  const handleCancelOrder = async (orderId: string) => {
-    if (!confirm('Are you sure you want to cancel this order?')) return
-    
-    setCancellingOrder(orderId)
-    try {
-      await onOrderCancel(orderId)
-    } catch (error) {
-      console.error('Error cancelling order:', error)
-    } finally {
-      setCancellingOrder(null)
-    }
-  }
-
-  if (loading) {
-    return (
-      <div className="p-6">
-        <div className="flex items-center justify-center py-12">
-          <RefreshCw className="h-8 w-8 animate-spin text-primary-600" />
-          <span className="ml-2 text-gray-600">Loading orders...</span>
+  return (
+    <div className="bg-white/70 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 p-8">
+      <div className="flex items-center gap-3 mb-6">
+        <div className="p-3 bg-gradient-to-r from-green-100 to-emerald-100 rounded-xl">
+          <Package className="h-6 w-6 text-green-600" />
         </div>
+        <h2 className="text-2xl font-bold text-gray-800">Order History</h2>
       </div>
-    )
-  }
-
-  if (orders.length === 0) {
-    return (
-      <div className="p-6">
+      
+      {loadingOrders ? (
         <div className="text-center py-12">
-          <Package className="h-12 w-12 text-gray-300 mx-auto mb-4" />
-          <h3 className="text-lg font-semibold text-gray-900 mb-2">No orders yet</h3>
-          <p className="text-gray-600 mb-6">Your order history will appear here once you make a purchase.</p>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600 mx-auto mb-4"></div>
+          <p className="text-gray-500">Loading your orders...</p>
+        </div>
+      ) : orders.length === 0 ? (
+        <div className="text-center py-12">
+          <div className="w-24 h-24 bg-gradient-to-br from-gray-100 to-gray-200 rounded-full flex items-center justify-center mx-auto mb-6">
+            <Package className="h-12 w-12 text-gray-400" />
+          </div>
+          <h3 className="text-xl font-semibold text-gray-800 mb-2">No orders yet</h3>
+          <p className="text-gray-500 mb-6">Start shopping to see your order history here!</p>
           <Link
             href="/products"
-            className="inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-xl font-semibold hover:from-red-700 hover:to-red-800 transition-all duration-200 shadow-lg hover:shadow-xl"
           >
-            Start Shopping
+            <ShoppingBag className="h-5 w-5" />
+            Browse Products
           </Link>
         </div>
-      </div>
-    )
-  }
-
-  if (selectedOrder) {
-    return (
-      <div className="p-6">
-        <div className="flex items-center justify-between mb-6">
-          <button
-            onClick={() => setSelectedOrder(null)}
-            className="flex items-center gap-2 text-gray-600 hover:text-gray-800 transition-colors"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            Back to Orders
-          </button>
-          <div className="text-sm text-gray-500">
-            Order #{selectedOrder.id?.slice(-8) || 'N/A'}
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Order Information</h3>
-            <div className="space-y-2 text-sm">
-              <div><span className="font-medium">Order Number:</span> {selectedOrder.orderNumber}</div>
-              <div><span className="font-medium">Date:</span> {new Date(selectedOrder.createdAt).toLocaleString()}</div>
-              <div><span className="font-medium">Status:</span> 
-                <span className={`ml-2 inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-semibold ${getStatusColor(selectedOrder.status)}`}>
-                  {getStatusIcon(selectedOrder.status)}
-                  {selectedOrder.status.toUpperCase()}
-                </span>
+      ) : (
+        <div className="space-y-4">
+          {orders.map((order) => (
+            <div key={order.id} className="bg-white rounded-2xl border border-gray-200 shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden">
+              {/* Order Header */}
+              <div className="bg-gradient-to-r from-gray-50 to-gray-100 px-6 py-4 border-b border-gray-200">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                  <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-sm">
+                        <Package className="h-5 w-5 text-gray-600" />
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-bold text-gray-900">Order #{order.orderNumber || order.id}</h3>
+                        <p className="text-sm text-gray-600">
+                          {new Date(order.createdAt).toLocaleDateString('en-AE', {
+                            year: 'numeric',
+                            month: 'short',
+                            day: 'numeric',
+                            hour: '2-digit',
+                            minute: '2-digit'
+                          })}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <span className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold border ${getStatusColor(order.status)}`}>
+                      {getStatusIcon(order.status)}
+                      {order.status.toUpperCase()}
+                    </span>
+                    <div className="text-right">
+                      <p className="text-xl font-bold text-gray-900">{formatCurrency(order.total)}</p>
+                      <p className="text-xs text-gray-500">
+                        {order.items.reduce((sum, item) => sum + item.quantity, 0)} items
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div><span className="font-medium">Total:</span> {formatCurrency(selectedOrder.total)}</div>
-            </div>
-          </div>
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Customer Information</h3>
-            <div className="space-y-2 text-sm">
-              <div><span className="font-medium">Name:</span> {selectedOrder.customerName}</div>
-              <div><span className="font-medium">Email:</span> {selectedOrder.customerEmail}</div>
-              <div><span className="font-medium">Phone:</span> {selectedOrder.customerPhone}</div>
-              <div><span className="font-medium">Address:</span> {selectedOrder.customerAddress}</div>
-            </div>
-          </div>
-        </div>
 
-        <h3 className="text-lg font-semibold mb-4">Order Items</h3>
-        <div className="space-y-3">
-          {selectedOrder.items.map((item) => (
-            <div key={item.id} className="flex items-center justify-between p-3 bg-gray-50 rounded">
-              <div>
-                <div className="font-medium">{item.productName}</div>
-                <div className="text-sm text-gray-600">Quantity: {item.quantity}</div>
-              </div>
-              <div className="text-right">
-                <div className="font-medium">{formatCurrency(item.price)}</div>
-                <div className="text-sm text-gray-600">each</div>
+              {/* Order Content */}
+              <div className="p-6">
+                <div className="mb-4">
+                  <h4 className="text-sm font-semibold text-gray-700 mb-3 flex items-center gap-2">
+                    <ShoppingBag className="h-4 w-4" />
+                    Products Ordered
+                  </h4>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                    {(order.items || []).slice(0, 6).map((item, index) => (
+                      <div key={index} className="flex items-center gap-3 bg-gray-50 rounded-xl p-3 border border-gray-100 hover:bg-gray-100 transition-colors">
+                        <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center overflow-hidden shadow-sm border border-gray-200">
+                          <Image
+                            src={getProductImage(item.productName)}
+                            alt={item.productName}
+                            width={48}
+                            height={48}
+                            className="w-full h-full object-cover"
+                            onError={(e) => {
+                              const target = e.target as HTMLImageElement;
+                              target.style.display = 'none';
+                              const parent = target.parentElement;
+                              if (parent) {
+                                parent.innerHTML = '<div class="w-full h-full flex items-center justify-center text-gray-400 text-xs">📦</div>';
+                              }
+                            }}
+                          />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-sm font-medium text-gray-900 truncate">
+                            {item.productName}
+                          </p>
+                          <div className="flex items-center gap-2 text-xs text-gray-600">
+                            <span>Qty: {item.quantity}</span>
+                            <span>•</span>
+                            <span className="font-medium text-gray-800">{formatCurrency(item.price * item.quantity)}</span>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                    {order.items.length > 6 && (
+                      <div className="flex items-center justify-center bg-gray-50 rounded-xl p-3 border border-gray-100">
+                        <span className="text-sm text-gray-600 font-medium">
+                          +{order.items.length - 6} more products
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* Order Actions */}
+                <div className="flex items-center justify-between pt-4 border-t border-gray-200">
+                  <div className="flex items-center gap-2 text-sm text-gray-600">
+                    <Calendar className="h-4 w-4" />
+                    <span>Ordered on {new Date(order.createdAt).toLocaleDateString('en-AE', { 
+                      year: 'numeric', 
+                      month: 'long', 
+                      day: 'numeric' 
+                    })}</span>
+                  </div>
+                  {(order.status === 'pending' || order.status === 'paid') && (
+                    <button
+                      onClick={() => onCancelOrder(order.id)}
+                      className="inline-flex items-center gap-2 px-4 py-2 bg-red-50 text-red-700 text-sm rounded-lg hover:bg-red-100 transition-colors font-medium border border-red-200"
+                    >
+                      <X className="h-4 w-4" />
+                      Cancel Order
+                    </button>
+                  )}
+                </div>
               </div>
             </div>
           ))}
         </div>
-      </div>
-    )
-  }
-
-  return (
-    <div className="p-6">
-      <div className="flex items-center justify-between mb-6">
-        <h3 className="text-lg font-semibold text-gray-900">Order History</h3>
-        <span className="text-sm text-gray-600">{orders.length} orders</span>
-      </div>
-
-      <div className="space-y-4">
-        {orders.map((order) => (
-          <div key={order.id} className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
-            <div className="flex items-center justify-between mb-3">
-              <div className="flex items-center gap-3">
-                <div className="text-sm font-medium text-gray-900">
-                  Order #{order.id?.slice(-8) || 'N/A'}
-                </div>
-                <span className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-semibold ${getStatusColor(order.status)}`}>
-                  {getStatusIcon(order.status)}
-                  {order.status.toUpperCase()}
-                </span>
-              </div>
-              <div className="text-sm font-medium text-gray-900">
-                {formatCurrency(order.total)}
-              </div>
-            </div>
-            
-            <div className="flex items-center justify-between text-sm text-gray-600 mb-3">
-              <span>{new Date(order.createdAt).toLocaleDateString('en-AE')}</span>
-              <span>{order.items.length} items</span>
-            </div>
-            
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={() => setSelectedOrder(order)}
-                  className="flex items-center gap-1 px-3 py-1 text-primary-600 hover:text-primary-700 transition-colors"
-                >
-                  <Eye className="h-4 w-4" />
-                  View Details
-                </button>
-                {order.status === 'PENDING' && (
-                  <button
-                    onClick={() => handleCancelOrder(order.id)}
-                    disabled={cancellingOrder === order.id}
-                    className="flex items-center gap-1 px-3 py-1 text-red-600 hover:text-red-700 transition-colors disabled:opacity-50"
-                  >
-                    {cancellingOrder === order.id ? (
-                      <RefreshCw className="h-4 w-4 animate-spin" />
-                    ) : (
-                      <X className="h-4 w-4" />
-                    )}
-                    Cancel
-                  </button>
-                )}
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
+      )}
     </div>
   )
 }
-

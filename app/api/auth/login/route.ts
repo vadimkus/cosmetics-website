@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { rateLimit } from '@/lib/rateLimit'
+import { rateLimitSimple, getClientIdentifierFromNextRequest } from '@/lib/rateLimitSimple'
 import { findUserByEmail, updateUser } from '@/lib/userStorageDb'
 import bcrypt from 'bcryptjs'
 
-const loginLimiter = rateLimit({
+const loginLimiter = rateLimitSimple({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 5, // 5 attempts per window
 })
@@ -11,12 +11,27 @@ const loginLimiter = rateLimit({
 export async function POST(request: NextRequest) {
   try {
     // Apply rate limiting
-    const rateLimitResult = await loginLimiter(request)
-    if (!rateLimitResult.success) {
-      return NextResponse.json(
-        { error: rateLimitResult.message },
-        { status: 429 }
-      )
+    let clientIdentifier: string
+    try {
+      clientIdentifier = getClientIdentifierFromNextRequest(request)
+    } catch (rateLimitError) {
+      console.error('Rate limit identifier error:', rateLimitError)
+      clientIdentifier = 'unknown'
+    }
+
+    let rateLimitResult
+    try {
+      rateLimitResult = await loginLimiter(clientIdentifier)
+      if (!rateLimitResult.success) {
+        return NextResponse.json(
+          { error: rateLimitResult.message },
+          { status: 429 }
+        )
+      }
+    } catch (rateLimitError) {
+      console.error('Rate limiting error:', rateLimitError)
+      // Fail open - allow login if rate limiting fails
+      console.warn('Rate limiting failed, allowing login attempt')
     }
 
     const { email, password } = await request.json()
@@ -38,15 +53,19 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Check password (supports bcrypt hashes and legacy plaintext)
+    // Check password - only bcrypt hashes allowed
     let passwordMatches = false
     try {
       if (user.password && user.password.startsWith('$2')) {
         // bcrypt hash
         passwordMatches = await bcrypt.compare(password, user.password)
       } else {
-        // legacy plaintext
-        passwordMatches = user.password === password
+        // Legacy plaintext passwords are no longer supported
+        console.warn('Legacy plaintext password detected for user:', user.email)
+        return NextResponse.json(
+          { error: 'Account requires password reset. Please contact support.' },
+          { status: 401 }
+        )
       }
     } catch (e) {
       passwordMatches = false

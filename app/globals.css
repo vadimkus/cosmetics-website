@@ -115,3 +115,37 @@ body {
     transform: scale(1);
   }
 }
+
+/* Holiday Star Twinkle Animation */
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 0;
+    transform: scale(0) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2) rotate(180deg);
+  }
+}
+
+/* Holiday Sparkle Animation */
+@keyframes sparkle {
+  0%, 100% {
+    opacity: 0;
+    transform: scale(0) translateY(0);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.5) translateY(-10px);
+  }
+}
+
+@layer utilities {
+  .animate-twinkle {
+    animation: twinkle infinite ease-in-out;
+  }
+  
+  .animate-sparkle {
+    animation: sparkle infinite ease-in-out;
+  }
+}

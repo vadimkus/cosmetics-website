@@ -23,7 +23,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
               <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
             ))}
           </div>
-          <span className="text-sm text-gray-600">(4.8/5)</span>
+          <span className="text-sm text-gray-600">({(product.rating || 5.0).toFixed(1)}/5)</span>
         </div>
       </div>
 

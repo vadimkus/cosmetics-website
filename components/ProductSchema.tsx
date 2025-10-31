@@ -92,7 +92,7 @@ export default function ProductSchema({ product }: ProductSchemaProps) {
     },
     "aggregateRating": {
       "@type": "AggregateRating",
-      "ratingValue": "4.8",
+      "ratingValue": String(product.rating || 5.0),
       "reviewCount": "127",
       "bestRating": "5",
       "worstRating": "1"
@@ -115,7 +115,7 @@ export default function ProductSchema({ product }: ProductSchemaProps) {
         "@type": "Review",
         "reviewRating": {
           "@type": "Rating",
-          "ratingValue": "4",
+          "ratingValue": "5",
           "bestRating": "5"
         },
         "author": {

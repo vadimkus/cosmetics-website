@@ -24,7 +24,8 @@ const CATEGORIES = [
   { id: 'cushion-bb', name: 'Cushion BB' },
   { id: 'scalp-hair', name: 'Scalp/Hair' },
   { id: 'eye-care', name: 'Eye care' },
-  { id: 'device', name: 'Device' }
+  { id: 'device', name: 'Device' },
+  { id: 'kits', name: 'Holiday kits' }
 ] as const
 
 export default function ProductsPageClient() {
@@ -84,13 +85,16 @@ export default function ProductsPageClient() {
       'pro-solution': 'PRO Solution',
       'cushion-bb': 'Cushion BB',
       'scalp-hair': 'Scalp/Hair',
-      'eye-care': 'Eye care'
+      'eye-care': 'Eye care',
+      'kits': 'kits'
     }
     
     const expectedCategory = categoryMapping[activeCategory] || 
       activeCategory.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')
     
-    return products.filter(product => product.category.includes(expectedCategory))
+    return products.filter(product => 
+      product.category.toLowerCase().includes(expectedCategory.toLowerCase())
+    )
   }, [products, activeCategory])
 
   const handleCategoryChange = useCallback((categoryId: string) => {

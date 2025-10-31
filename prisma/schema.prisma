@@ -56,6 +56,9 @@ model Product {
   targetConcerns String?  // JSON array of concerns like ["anti-aging", "acne", "hydration"]
   usage          String?  // morning, evening, all-day, morning-evening
   ageGroup       String?  // teen, young-adult, adult, mature
+  
+  // Rating fields
+  rating         Float?   @default(5.0) // Product rating out of 5
 
   @@map("products")
 }
@@ -165,4 +168,15 @@ model PDFDownload {
   timestamp    DateTime @default(now())
 
   @@map("pdf_downloads")
+}
+
+model RateLimit {
+  id         String   @id @default(cuid())
+  identifier String   @unique
+  count      Int      @default(0)
+  resetTime  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("rate_limits")
 }

@@ -91,10 +91,10 @@ export default function ProductInfo({
       <div className="flex items-center mb-4">
         <div className="flex text-yellow-400">
           {[...Array(5)].map((_, i) => (
-            <Star key={i} className={`h-5 w-5 ${i < 4 ? 'fill-current' : ''}`} />
+            <Star key={i} className="h-5 w-5 fill-current" />
           ))}
         </div>
-        <span className="text-gray-600 text-sm ml-2">(4.0)</span>
+        <span className="text-gray-600 text-sm ml-2">({(product.rating || 5.0).toFixed(1)}/5)</span>
       </div>
 
       {/* Price and Size */}

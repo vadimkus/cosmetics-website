@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { addUser, findUserByEmail } from '@/lib/userStorageDb'
 import { trackUserAction } from '@/lib/analyticsServer'
 import { sendWelcomeEmail, sendAdminNewUserNotification } from '@/lib/email'
+import bcrypt from 'bcryptjs'
 
 export async function POST(request: NextRequest) {
   try {
@@ -30,11 +31,14 @@ export async function POST(request: NextRequest) {
       )
     }
 
+    // Hash password with bcrypt before storing
+    const hashedPassword = await bcrypt.hash(password, 12)
+
     // Create new user object
     const newUser = {
       name,
       email,
-      password, // Store password for login purposes
+      password: hashedPassword, // Store hashed password
       phone: phone || '',
       address: '',
       profilePicture: '',

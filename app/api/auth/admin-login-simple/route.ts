@@ -1,41 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { findUserByEmail, updateUser } from '@/lib/userStorageDb'
 import bcrypt from 'bcryptjs'
-import { rateLimitSimple, getClientIdentifierFromNextRequest } from '@/lib/rateLimitSimple'
-
-const adminLoginLimiter = rateLimitSimple({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 3, // 3 attempts per window for admin
-  message: 'Too many admin login attempts. Please try again later.'
-})
 
 export async function POST(request: NextRequest) {
   try {
-    // Apply rate limiting
-    let clientIdentifier: string
-    try {
-      clientIdentifier = getClientIdentifierFromNextRequest(request)
-    } catch (rateLimitError) {
-      console.error('Rate limit identifier error:', rateLimitError)
-      // Continue without rate limiting if identifier fails
-      clientIdentifier = 'unknown'
-    }
-
-    let rateLimitResult
-    try {
-      rateLimitResult = await adminLoginLimiter(clientIdentifier)
-      if (!rateLimitResult.success) {
-        return NextResponse.json(
-          { error: rateLimitResult.message },
-          { status: 429 }
-        )
-      }
-    } catch (rateLimitError) {
-      console.error('Rate limiting error:', rateLimitError)
-      // Fail open - allow login if rate limiting fails
-      console.warn('Rate limiting failed, allowing login attempt')
-    }
-
     const { email, password } = await request.json()
 
     if (!email || !password) {
@@ -92,14 +60,10 @@ export async function POST(request: NextRequest) {
     })
   } catch (error) {
     console.error('Admin login error:', error)
-    console.error('Error details:', {
-      message: error instanceof Error ? error.message : 'Unknown error',
-      stack: error instanceof Error ? error.stack : undefined,
-      name: error instanceof Error ? error.name : undefined
-    })
     return NextResponse.json(
-      { error: 'Internal server error', details: error instanceof Error ? error.message : 'Unknown error' },
+      { error: 'Internal server error' },
       { status: 500 }
     )
   }
 }
+

@@ -24,6 +24,7 @@ export interface Product {
   targetConcerns?: string | null // JSON array of concerns
   usage?: string | null
   ageGroup?: string | null
+  rating?: number | null // Product rating out of 5
 }
 
 export async function getAllProducts(): Promise<Product[]> {

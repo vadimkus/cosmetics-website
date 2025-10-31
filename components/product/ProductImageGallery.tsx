@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import Image from 'next/image'
 import { Product } from '@/types'
 import { getProductVideoUrl } from '@/data/productConfig'
@@ -12,6 +12,32 @@ interface ProductImageGalleryProps {
 export default function ProductImageGallery({ product }: ProductImageGalleryProps) {
   const [selectedImage, setSelectedImage] = useState(0)
   const videoUrl = getProductVideoUrl(product.id)
+  
+  // Check if this is the Holiday Kit
+  const isHolidayKit = product.id === 'cmhf1a6p400000xfa0iu3bw42' || product.productNumber === '54' || product.category === 'kits'
+  
+  // Generate fixed positions for stars and sparkles
+  const holidayElements = useMemo(() => {
+    if (!isHolidayKit) return { stars: [], sparkles: [] }
+    
+    const stars = Array.from({ length: 12 }, (_, i) => ({
+      id: i,
+      left: Math.random() * 100,
+      top: Math.random() * 100,
+      delay: i * 0.3,
+      duration: 3 + Math.random() * 2,
+    }))
+    
+    const sparkles = Array.from({ length: 8 }, (_, i) => ({
+      id: i,
+      left: Math.random() * 100,
+      top: Math.random() * 100,
+      delay: i * 0.4,
+      duration: 2 + Math.random() * 1.5,
+    }))
+    
+    return { stars, sparkles }
+  }, [isHolidayKit])
 
   const getProductImages = () => {
     if (product.images) {
@@ -30,7 +56,7 @@ export default function ProductImageGallery({ product }: ProductImageGalleryProp
   return (
     <div className="space-y-4">
       {/* Main Image or Video */}
-      <div className="w-full max-w-md mx-auto aspect-square bg-gray-100 rounded-lg overflow-hidden">
+      <div className="w-full max-w-md mx-auto aspect-square bg-gray-100 rounded-lg overflow-hidden relative">
         {product.id === '3' && selectedImage === 2 && videoUrl ? (
           <iframe
             className="w-full h-full rounded-lg"
@@ -41,14 +67,66 @@ export default function ProductImageGallery({ product }: ProductImageGalleryProp
             allowFullScreen
           ></iframe>
         ) : (
-          <Image
-            src={productImages[selectedImage]}
-            alt={`${product.name} - Image ${selectedImage + 1}`}
-            width={600}
-            height={600}
-            className="w-full h-full object-cover"
-            priority={selectedImage === 0}
-          />
+          <>
+            <Image
+              src={productImages[selectedImage]}
+              alt={`${product.name} - Image ${selectedImage + 1}`}
+              width={600}
+              height={600}
+              className="w-full h-full object-cover"
+              priority={selectedImage === 0}
+            />
+            
+            {/* Holiday Star Animation Overlay */}
+            {isHolidayKit && (
+              <div className="absolute inset-0 pointer-events-none overflow-hidden rounded-lg">
+                {holidayElements.stars.map((star) => (
+                  <div
+                    key={star.id}
+                    className="absolute animate-twinkle"
+                    style={{
+                      left: `${star.left}%`,
+                      top: `${star.top}%`,
+                      animationDelay: `${star.delay}s`,
+                      animationDuration: `${star.duration}s`,
+                    }}
+                  >
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      className="text-yellow-400 drop-shadow-lg"
+                    >
+                      <path
+                        d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"
+                        fill="currentColor"
+                        stroke="currentColor"
+                        strokeWidth="1"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </div>
+                ))}
+                
+                {/* Sparkle effects */}
+                {holidayElements.sparkles.map((sparkle) => (
+                  <div
+                    key={`sparkle-${sparkle.id}`}
+                    className="absolute animate-sparkle"
+                    style={{
+                      left: `${sparkle.left}%`,
+                      top: `${sparkle.top}%`,
+                      animationDelay: `${sparkle.delay}s`,
+                      animationDuration: `${sparkle.duration}s`,
+                    }}
+                  >
+                    <div className="w-2 h-2 bg-yellow-300 rounded-full shadow-lg"></div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </>
         )}
       </div>
 

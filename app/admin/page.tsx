@@ -55,6 +55,8 @@ export default function AdminPage() {
   const [ordersRefreshing, setOrdersRefreshing] = useState(false)
   const [productsRefreshing, setProductsRefreshing] = useState(false)
   const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [isCheckingSession, setIsCheckingSession] = useState(true)
+  const [adminUser, setAdminUser] = useState<{ email: string; name: string } | null>(null)
   const [activeTab, setActiveTab] = useState<'analytics' | 'users' | 'orders' | 'products'>('analytics')
   const [selectedOrder, setSelectedOrder] = useState<OrderWithItems | null>(null)
   const [selectedCustomer, setSelectedCustomer] = useState<User | null>(null)
@@ -272,21 +274,118 @@ export default function AdminPage() {
   }
 
   const handleAdminLogin = async (email: string, password: string): Promise<boolean> => {
-    // Simple admin authentication (in production, this should be more secure)
-    if (email === 'admin@genosys.ae' && password === 'admin5') {
-      setIsAuthenticated(true)
-      return true
+    try {
+      const response = await fetch('/api/auth/admin-login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      })
+
+      const data = await response.json()
+
+      if (response.ok && data.success) {
+        setIsAuthenticated(true)
+        setAdminUser({ email: data.user.email, name: data.user.name })
+        
+        // Store admin session in localStorage
+        if (typeof window !== 'undefined') {
+          localStorage.setItem('admin_session', JSON.stringify({
+            email: data.user.email,
+            name: data.user.name,
+            authenticatedAt: new Date().toISOString()
+          }))
+        }
+        
+        return true
+      } else {
+        console.error('Admin login failed:', data.error)
+        return false
+      }
+    } catch (error) {
+      console.error('Admin login error:', error)
+      return false
     }
-    return false
   }
 
+  const handleAdminLogout = () => {
+    setIsAuthenticated(false)
+    setAdminUser(null)
+    
+    // Clear admin session from localStorage
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('admin_session')
+    }
+  }
+
+  // Check for existing admin session on mount
   useEffect(() => {
-    if (isAuthenticated) {
+    const checkAdminSession = async () => {
+      setIsCheckingSession(true)
+      
+      if (typeof window === 'undefined') {
+        setIsCheckingSession(false)
+        return
+      }
+
+      try {
+        const savedSession = localStorage.getItem('admin_session')
+        
+        if (!savedSession) {
+          setIsCheckingSession(false)
+          return
+        }
+
+        const session = JSON.parse(savedSession)
+        
+        // Verify session is still valid (check if less than 24 hours old)
+        const authenticatedAt = new Date(session.authenticatedAt)
+        const hoursSinceAuth = (Date.now() - authenticatedAt.getTime()) / (1000 * 60 * 60)
+        
+        if (hoursSinceAuth > 24) {
+          // Session expired (24 hours)
+          localStorage.removeItem('admin_session')
+          setIsCheckingSession(false)
+          return
+        }
+
+        // Verify session with server
+        const response = await fetch('/api/auth/admin-verify', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email: session.email }),
+        })
+
+        const data = await response.json()
+
+        if (response.ok && data.success) {
+          setIsAuthenticated(true)
+          setAdminUser({ email: data.user.email, name: data.user.name })
+        } else {
+          // Invalid session, clear it
+          localStorage.removeItem('admin_session')
+        }
+      } catch (error) {
+        console.error('Error checking admin session:', error)
+        localStorage.removeItem('admin_session')
+      } finally {
+        setIsCheckingSession(false)
+      }
+    }
+
+    checkAdminSession()
+  }, [])
+
+  useEffect(() => {
+    if (isAuthenticated && !isCheckingSession) {
       fetchUsers()
       fetchOrders()
       fetchProducts()
     }
-  }, [isAuthenticated])
+  }, [isAuthenticated, isCheckingSession])
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('en-AE', {
@@ -452,6 +551,17 @@ export default function AdminPage() {
     }
   }
 
+  if (isCheckingSession) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900 mx-auto mb-4"></div>
+          <p className="text-gray-600">Checking admin session...</p>
+        </div>
+      </div>
+    )
+  }
+
   if (!isAuthenticated) {
     return <AdminLogin onLogin={handleAdminLogin} />
   }
@@ -462,9 +572,14 @@ export default function AdminPage() {
         <div className="flex justify-between items-center mb-8">
           <div className="flex items-center">
             <h1 className="text-4xl font-bold text-gray-800">Admin Dashboard</h1>
+            {adminUser && (
+              <span className="ml-4 text-sm text-gray-600">
+                ({adminUser.name} - {adminUser.email})
+              </span>
+            )}
           </div>
           <button
-            onClick={() => setIsAuthenticated(false)}
+            onClick={handleAdminLogout}
             className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
           >
             Logout

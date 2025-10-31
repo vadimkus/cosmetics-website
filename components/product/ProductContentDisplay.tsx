@@ -1,4 +1,5 @@
 import React from 'react'
+import Link from 'next/link'
 import { Product } from '@/types'
 import { getProductDocumentation } from '@/data/productConfig'
 
@@ -15,15 +16,143 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
   const howToUse = product.howToUse ? tryParseJSON(product.howToUse) : null
   const documentation = getProductDocumentation(product.id)
 
+  // Parse description for kit items
+  const parseKitDescription = (description: string) => {
+    if (!description.includes('Kit includes:')) {
+      return { intro: description, kitItems: [] }
+    }
+
+    const parts = description.split('Kit includes:')
+    const intro = parts[0]?.trim() || ''
+    const kitSection = parts[1]?.trim() || ''
+
+    // Parse kit items (numbered list)
+    const kitItems: Array<{ number: string; name: string; description: string }> = []
+    
+    // Split by numbered items (1., 2., etc.)
+    const itemParts = kitSection.split(/(?=\n\d+\.)/g).filter(Boolean)
+    
+    itemParts.forEach((part) => {
+      const lines = part.trim().split('\n').filter(Boolean)
+      if (lines.length === 0) return
+      
+      const firstLine = lines[0]
+      if (!firstLine) return
+      
+      const numberMatch = firstLine.match(/^(\d+)\.\s*(.+)$/)
+      if (numberMatch && numberMatch[1] && numberMatch[2]) {
+        const number = numberMatch[1]
+        const name = numberMatch[2].trim()
+        const description = lines.slice(1).join('\n').trim()
+        
+        kitItems.push({
+          number,
+          name,
+          description: description || ''
+        })
+      }
+    })
+
+    return { intro, kitItems }
+  }
+
+  const { intro, kitItems } = product.description ? parseKitDescription(product.description) : { intro: '', kitItems: [] }
+
+  // Map product names to their IDs (for linking)
+  const getProductLink = (productName: string): string | null => {
+    const productMap: { [key: string]: string } = {
+      'MULTI VITA RADIANCE SERUM': '21',
+      'MULTI VITA RADIANCE CREAM': '31',
+      'GENOSYS MULTI VITA RADIANCE CREAM': '31',
+      'SNOW O₂ CLEANSER': '10',
+    }
+    
+    // Try exact match first
+    if (productMap[productName]) {
+      return `/products/${productMap[productName]}`
+    }
+    
+    // Try partial match
+    for (const [key, id] of Object.entries(productMap)) {
+      if (productName.includes(key) || key.includes(productName)) {
+        return `/products/${id}`
+      }
+    }
+    
+    return null
+  }
+
+  // Color palette for kit items
+  const kitItemColors = [
+    { bg: 'bg-blue-50', border: 'border-blue-200', text: 'text-blue-900', title: 'text-blue-800' },
+    { bg: 'bg-purple-50', border: 'border-purple-200', text: 'text-purple-900', title: 'text-purple-800' },
+    { bg: 'bg-pink-50', border: 'border-pink-200', text: 'text-pink-900', title: 'text-pink-800' },
+    { bg: 'bg-cyan-50', border: 'border-cyan-200', text: 'text-cyan-900', title: 'text-cyan-800' },
+    { bg: 'bg-indigo-50', border: 'border-indigo-200', text: 'text-indigo-900', title: 'text-indigo-800' },
+  ]
+
   return (
     <div className="space-y-6">
-      {/* Product Description heading (if we have detailed content) */}
-      {productDetails && (
+      {/* Product Description - Always show if description exists */}
+      {product.description && (
         <>
           <h2 className="text-lg font-semibold text-gray-800 mb-4">Product Description</h2>
-          <p className="text-gray-600 mb-4 text-sm">
-            {product.description}
-          </p>
+          {intro && (
+            <p className="text-gray-600 mb-4 text-sm whitespace-pre-line">
+              {intro}
+            </p>
+          )}
+
+          {/* Kit Includes Section */}
+          {kitItems.length > 0 && (
+            <div className="mb-6">
+              <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
+                <span className="text-primary-600">Kit includes:</span>
+              </h3>
+              <div className="space-y-3">
+                {kitItems.map((item, index) => {
+                  const colors = kitItemColors[index % kitItemColors.length]
+                  if (!colors) return null
+                  
+                  return (
+                    <div
+                      key={index}
+                      className={`${colors.bg} ${colors.border} border-2 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow`}
+                    >
+                      <div className="flex items-start gap-3">
+                        <span className={`${colors.title} font-bold text-xl flex-shrink-0 w-8 text-center`}>
+                          {item.number}
+                        </span>
+                        <div className="flex-1">
+                          {getProductLink(item.name) ? (
+                            <Link href={getProductLink(item.name)!}>
+                              <h4 className={`${colors.title} font-semibold text-sm mb-2 hover:underline cursor-pointer transition-colors`}>
+                              {item.name}
+                            </h4>
+                            </Link>
+                          ) : (
+                            <h4 className={`${colors.title} font-semibold text-sm mb-2`}>
+                              {item.name}
+                            </h4>
+                          )}
+                          <p className={`${colors.text} text-sm leading-relaxed`}>
+                            {item.description}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+          )}
+
+          {/* Fallback: If no kit items parsed, show full description */}
+          {kitItems.length === 0 && (
+            <p className="text-gray-600 mb-4 text-sm whitespace-pre-line">
+              {product.description}
+            </p>
+          )}
         </>
       )}
 

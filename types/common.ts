@@ -58,6 +58,7 @@ export interface Product {
   ingredients?: string | null // JSON array of ingredients
   howToUse?: string | null // Usage instructions
   directions?: string | null // Detailed directions
+  rating?: number | null // Product rating out of 5
   createdAt: Timestamp
   updatedAt: Timestamp
 }

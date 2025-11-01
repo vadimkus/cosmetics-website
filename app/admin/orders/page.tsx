@@ -120,6 +120,13 @@ export default function AdminOrdersPage() {
     return `AED ${amount.toFixed(2)}`
   }
 
+  // Calculate totals
+  const totalRevenue = orders.reduce((sum, order) => sum + order.total, 0)
+  const totalSubtotal = orders.reduce((sum, order) => sum + (order.subtotal || 0), 0)
+  const totalShipping = orders.reduce((sum, order) => sum + (order.shipping || 0), 0)
+  const totalVat = orders.reduce((sum, order) => sum + (order.vat || 0), 0)
+  const totalItems = orders.reduce((sum, order) => sum + order.itemCount, 0)
+
   return (
     <div className="container mx-auto p-6">
       <div className="flex justify-between items-center mb-6">
@@ -133,6 +140,39 @@ export default function AdminOrdersPage() {
           Refresh
         </button>
       </div>
+
+      {/* Summary Section */}
+      {!loading && orders.length > 0 && (
+        <div className="bg-gradient-to-r from-red-600 to-red-700 rounded-lg shadow-lg p-6 mb-6 text-white">
+          <h2 className="text-xl font-bold mb-4">Order Summary</h2>
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+            <div>
+              <p className="text-sm opacity-90">Total Orders</p>
+              <p className="text-2xl font-bold">{orders.length}</p>
+            </div>
+            <div>
+              <p className="text-sm opacity-90">Total Revenue</p>
+              <p className="text-2xl font-bold">{formatCurrency(totalRevenue)}</p>
+            </div>
+            <div>
+              <p className="text-sm opacity-90">Total Subtotal</p>
+              <p className="text-xl font-semibold">{formatCurrency(totalSubtotal)}</p>
+            </div>
+            <div>
+              <p className="text-sm opacity-90">Total Shipping</p>
+              <p className="text-xl font-semibold">{formatCurrency(totalShipping)}</p>
+            </div>
+            <div>
+              <p className="text-sm opacity-90">Total VAT</p>
+              <p className="text-xl font-semibold">{formatCurrency(totalVat)}</p>
+            </div>
+          </div>
+          <div className="mt-4 pt-4 border-t border-red-500">
+            <p className="text-sm opacity-90">Total Items</p>
+            <p className="text-xl font-semibold">{totalItems} items</p>
+          </div>
+        </div>
+      )}
 
       {loading ? (
         <div className="text-center py-8">

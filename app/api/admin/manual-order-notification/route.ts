@@ -19,9 +19,16 @@ export async function POST(request: NextRequest) {
     const { 
       orderNumber, 
       customerName, 
-      customerEmail, 
+      customerEmail,
+      customerPhone,
       total, 
-      itemCount 
+      itemCount,
+      items,
+      subtotal,
+      shipping,
+      vat,
+      address,
+      emirate
     } = await request.json()
 
     // Validate required fields
@@ -37,8 +44,26 @@ export async function POST(request: NextRequest) {
       orderNumber,
       customerName,
       customerEmail,
+      customerPhone: customerPhone || undefined,
       total: parseFloat(total),
-      itemCount: parseInt(itemCount) || 1
+      itemCount: parseInt(itemCount) || (items && Array.isArray(items) ? items.length : 1),
+      items: items && Array.isArray(items) ? items.map((item: {
+        productName?: string
+        name?: string
+        quantity: number
+        price: number
+        image?: string
+      }) => ({
+        productName: item.productName || item.name || 'Product',
+        quantity: item.quantity || 1,
+        price: item.price || 0,
+        image: item.image || '/images/default-product.jpg'
+      })) : undefined,
+      subtotal: subtotal !== undefined ? parseFloat(subtotal.toString()) : undefined,
+      shipping: shipping !== undefined ? parseFloat(shipping.toString()) : undefined,
+      vat: vat !== undefined ? parseFloat(vat.toString()) : undefined,
+      address: address || undefined,
+      emirate: emirate || undefined
     })
 
     if (result.success && 'messageId' in result) {

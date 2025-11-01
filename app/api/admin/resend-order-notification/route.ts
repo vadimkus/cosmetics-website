@@ -61,8 +61,20 @@ export async function POST(request: NextRequest) {
           orderNumber: order.orderNumber,
           customerName: order.customerName,
           customerEmail: order.customerEmail,
+          customerPhone: order.customerPhone || undefined,
           total: order.total,
-          itemCount: order.items.length
+          itemCount: order.items.length,
+          items: order.items.map(item => ({
+            productName: item.productName || 'Product',
+            quantity: item.quantity,
+            price: item.price,
+            image: item.image || '/images/default-product.jpg'
+          })),
+          subtotal: order.subtotal || undefined,
+          shipping: order.shipping || undefined,
+          vat: order.vat || undefined,
+          address: order.customerAddress || undefined,
+          emirate: order.customerEmirate || undefined
         })
         
         results.push({

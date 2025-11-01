@@ -202,8 +202,20 @@ export async function POST(request: NextRequest) {
       orderNumber,
       customerName,
       customerEmail,
+      customerPhone,
       total,
-      itemCount: items.length
+      itemCount: items.length,
+      items: items.map((item: { name?: string; quantity: number; price: number; image?: string }) => ({
+        productName: item.name || 'Product',
+        quantity: item.quantity,
+        price: item.price,
+        image: item.image || '/images/default-product.jpg'
+      })),
+      subtotal,
+      shipping: shippingCost,
+      vat: vatAmount,
+      address: customerAddress,
+      emirate: emirate
     })
 
     if (adminResult.success) {

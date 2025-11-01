@@ -913,6 +913,41 @@ export default function AdminPage() {
                   {ordersRefreshing ? 'Refreshing...' : 'Refresh'}
                 </button>
               </div>
+
+              {/* Order Summary */}
+              {!ordersLoading && orders.length > 0 && (
+                <div className="bg-white border border-gray-200 rounded-lg shadow-sm p-6 mb-6">
+                  <h3 className="text-xl font-bold text-gray-800 mb-4">Order Summary</h3>
+                  <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+                    <div className="p-4 bg-gray-50 rounded-lg">
+                      <p className="text-sm text-gray-600 mb-1">Total Orders</p>
+                      <p className="text-2xl font-bold text-gray-900">{orders.length}</p>
+                    </div>
+                    <div className="p-4 bg-blue-50 rounded-lg">
+                      <p className="text-sm text-gray-600 mb-1">Total Revenue</p>
+                      <p className="text-2xl font-bold text-blue-600">{formatCurrency(orders.reduce((sum, order) => sum + order.total, 0))}</p>
+                    </div>
+                    <div className="p-4 bg-gray-50 rounded-lg">
+                      <p className="text-sm text-gray-600 mb-1">Total Subtotal</p>
+                      <p className="text-xl font-semibold text-gray-900">{formatCurrency(orders.reduce((sum, order) => sum + (order.subtotal || 0), 0))}</p>
+                    </div>
+                    <div className="p-4 bg-gray-50 rounded-lg">
+                      <p className="text-sm text-gray-600 mb-1">Total Shipping</p>
+                      <p className="text-xl font-semibold text-gray-900">{formatCurrency(orders.reduce((sum, order) => sum + (order.shipping || 0), 0))}</p>
+                    </div>
+                    <div className="p-4 bg-gray-50 rounded-lg">
+                      <p className="text-sm text-gray-600 mb-1">Total VAT</p>
+                      <p className="text-xl font-semibold text-gray-900">{formatCurrency(orders.reduce((sum, order) => sum + (order.vat || 0), 0))}</p>
+                    </div>
+                  </div>
+                  <div className="mt-4 pt-4 border-t border-gray-200">
+                    <p className="text-sm text-gray-600 mb-1">Total Items</p>
+                    <p className="text-xl font-semibold text-gray-900">
+                      {orders.reduce((sum, order) => sum + order.items.reduce((itemSum, item) => itemSum + item.quantity, 0), 0)} items
+                    </p>
+                  </div>
+                </div>
+              )}
               
               {selectedOrder && selectedOrder.id ? (
                 <OrderDetails 

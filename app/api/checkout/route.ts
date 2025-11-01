@@ -158,6 +158,7 @@ export async function POST(request: NextRequest) {
         orderNumber: order.orderNumber,
         customerName: order.customerName,
         customerEmail: order.customerEmail,
+        customerPhone: customerPhone,
         total: order.total,
         itemCount: order.items.length,
         items: order.items.map(item => ({

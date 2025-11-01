@@ -119,9 +119,26 @@ export const emailTemplates = {
         <div style="background: #f9fafb; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
           <h3 style="color: #dc2626; margin: 0 0 15px 0;">Order Details</h3>
           <div style="margin-bottom: 20px;">
-            ${orderData.items.map(item => `
+            ${orderData.items.map(item => {
+              // Construct image URL - handle both absolute and relative paths
+              let imageUrl = ''
+              if (item.image) {
+                if (item.image.startsWith('http://') || item.image.startsWith('https://')) {
+                  imageUrl = item.image // Already absolute
+                } else if (item.image.startsWith('//')) {
+                  imageUrl = `https:${item.image}` // Protocol-relative
+                } else {
+                  // Relative path - prepend domain
+                  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://genosys.ae'
+                  imageUrl = `${baseUrl}${item.image.startsWith('/') ? item.image : '/' + item.image}`
+                }
+              }
+              
+              return `
               <div style="display: flex; align-items: center; padding: 10px 0; border-bottom: 1px solid #e5e7eb;">
-                <img src="https://genosys.ae${item.image}" alt="${item.productName}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 6px; margin-right: 15px;">
+                ${imageUrl ? `
+                <img src="${imageUrl}" alt="${item.productName}" width="60" height="60" border="0" style="display: block; width: 60px; height: 60px; object-fit: cover; border-radius: 6px; margin-right: 15px;" />
+                ` : '<div style="width: 60px; height: 60px; background: #f3f4f6; border-radius: 6px; margin-right: 15px; display: flex; align-items: center; justify-content: center; color: #9ca3af; font-size: 24px;">📦</div>'}
                 <div style="flex: 1;">
                   <h4 style="margin: 0 0 5px 0; color: #374151; font-size: 14px;">${item.productName}</h4>
                   <p style="margin: 0; color: #6b7280; font-size: 12px;">Qty: ${item.quantity}</p>
@@ -130,7 +147,8 @@ export const emailTemplates = {
                   <p style="margin: 0; color: #dc2626; font-weight: bold;">AED ${item.price.toFixed(2)}</p>
                 </div>
               </div>
-            `).join('')}
+            `
+            }).join('')}
           </div>
           
           <div style="border-top: 1px solid #e5e7eb; padding-top: 15px;">
@@ -204,6 +222,7 @@ export const emailTemplates = {
     orderNumber: string
     customerName: string
     customerEmail: string
+    customerPhone?: string
     total: number
     itemCount: number
     items?: Array<{
@@ -252,29 +271,60 @@ export const emailTemplates = {
               <p style="margin: 0 0 5px 0; color: #374151;"><strong>Customer Email:</strong></p>
               <p style="margin: 0; color: #374151;">${orderData.customerEmail}</p>
             </div>
+            ${orderData.customerPhone ? `
+            <div>
+              <p style="margin: 0 0 5px 0; color: #374151;"><strong>Customer Phone:</strong></p>
+              <p style="margin: 0; color: #374151;">
+                <a href="tel:${orderData.customerPhone.replace(/\s/g, '')}" style="color: #dc2626; text-decoration: none;">${orderData.customerPhone}</a>
+              </p>
+            </div>
+            ` : ''}
           </div>
         </div>
         
         ${orderData.items && orderData.items.length > 0 ? `
         <div style="background: #ffffff; padding: 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e5e7eb;">
-          <h3 style="color: #dc2626; margin: 0 0 15px 0;">Order Items (${orderData.itemCount} items)</h3>
+          <h3 style="color: #dc2626; margin: 0 0 15px 0;">📦 Order Items (${orderData.itemCount} ${orderData.itemCount === 1 ? 'item' : 'items'})</h3>
           <div style="space-y: 10px;">
-            ${orderData.items.map(item => `
+            ${orderData.items.map(item => {
+              // Construct image URL - handle both absolute and relative paths
+              let imageUrl = ''
+              if (item.image) {
+                if (item.image.startsWith('http://') || item.image.startsWith('https://')) {
+                  imageUrl = item.image // Already absolute
+                } else if (item.image.startsWith('//')) {
+                  imageUrl = `https:${item.image}` // Protocol-relative
+                } else {
+                  // Relative path - prepend domain
+                  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://genosys.ae'
+                  imageUrl = `${baseUrl}${item.image.startsWith('/') ? item.image : '/' + item.image}`
+                }
+              }
+              
+              return `
               <div style="display: flex; align-items: center; padding: 15px 0; border-bottom: 1px solid #f3f4f6;">
-                <img src="https://genosys.ae${item.image}" alt="${item.productName}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 8px; margin-right: 15px; border: 1px solid #e5e7eb;">
+                ${imageUrl ? `
+                <img src="${imageUrl}" alt="${item.productName}" width="60" height="60" border="0" style="display: block; width: 60px; height: 60px; max-width: 60px; object-fit: cover; border-radius: 8px; margin-right: 15px; border: 1px solid #e5e7eb;" />
+                ` : '<div style="width: 60px; height: 60px; background: #f3f4f6; border-radius: 8px; margin-right: 15px; display: flex; align-items: center; justify-content: center; color: #9ca3af; font-size: 24px;">📦</div>'}
                 <div style="flex: 1;">
                   <h4 style="margin: 0 0 5px 0; color: #374151; font-size: 16px; font-weight: 600;">${item.productName}</h4>
-                  <p style="margin: 0; color: #6b7280; font-size: 14px;">Quantity: ${item.quantity}</p>
+                  <p style="margin: 0; color: #6b7280; font-size: 14px;">Quantity: ${item.quantity} × AED ${item.price.toFixed(2)} = AED ${(item.quantity * item.price).toFixed(2)}</p>
                 </div>
                 <div style="text-align: right;">
-                  <p style="margin: 0; color: #dc2626; font-weight: bold; font-size: 16px;">AED ${item.price.toFixed(2)}</p>
-                  <p style="margin: 0; color: #6b7280; font-size: 12px;">each</p>
+                  <p style="margin: 0; color: #dc2626; font-weight: bold; font-size: 18px;">AED ${(item.quantity * item.price).toFixed(2)}</p>
+                  <p style="margin: 0; color: #6b7280; font-size: 12px;">total</p>
                 </div>
               </div>
-            `).join('')}
+            `
+            }).join('')}
           </div>
         </div>
-        ` : ''}
+        ` : `
+        <div style="background: #fef2f2; padding: 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #fecaca;">
+          <h3 style="color: #dc2626; margin: 0 0 15px 0;">📦 Order Items</h3>
+          <p style="color: #6b7280; margin: 0;">${orderData.itemCount} ${orderData.itemCount === 1 ? 'item' : 'items'} in this order (product details not available)</p>
+        </div>
+        `}
         
         <div style="background: #f0f9ff; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
           <h3 style="color: #dc2626; margin: 0 0 15px 0;">Order Summary</h3>

@@ -84,8 +84,21 @@ export async function validateCsrfToken(request: NextRequest): Promise<{
     }
   }
 
-  // Compare tokens (constant-time comparison)
-  const isValid = cookieToken === submittedToken
+  // Compare tokens using constant-time comparison to prevent timing attacks
+  // First check length to avoid buffer mismatch errors
+  if (cookieToken.length !== submittedToken.length) {
+    return {
+      valid: false,
+      error: 'CSRF token mismatch. Please refresh the page and try again.'
+    }
+  }
+
+  // Convert to Buffers for timing-safe comparison
+  const cookieBuffer = Buffer.from(cookieToken, 'utf8')
+  const submittedBuffer = Buffer.from(submittedToken, 'utf8')
+  
+  // Use constant-time comparison to prevent timing attacks
+  const isValid = crypto.timingSafeEqual(cookieBuffer, submittedBuffer)
 
   if (!isValid) {
     return {

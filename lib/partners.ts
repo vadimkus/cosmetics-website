@@ -289,7 +289,7 @@ export const partnersData: Partner[] = [
   },
   {
     id: "lodyana-spa",
-    name: "LODYana Ladies Spa - L.L.C - S.P C Healing and Wellness Center",
+    name: "LODYana Ladies Spa - Healing and Wellness Center, ABU DHABI",
     type: "Healing and Wellness Center",
     description: "LODYana Spa is your destination to celebrate the harmony of body and soul, where through our various treatments we create a warm and relaxing place, so that you can enjoy a unique experience in our various facilities and enjoy the serenity that reflects beauty, confidence and radiance.",
     location: "Al Sahel Towers - Block A 1st Floor - Al Bateen - W12 - Abu Dhabi",
@@ -301,7 +301,7 @@ export const partnersData: Partner[] = [
   },
   {
     id: "different-aesthetic-clinic",
-    name: "DIFFERENT AESTHETIC CLINIC",
+    name: "DIFFERENT AESTHETIC CLINIC, ABU DHABI",
     type: "Aesthetic Medical Clinic",
     description: "Professional aesthetic clinic offering advanced cosmetic treatments and medical aesthetic services in Abu Dhabi. Committed to providing exceptional care and innovative solutions for beauty and wellness.",
     location: "St Regis Residences Block 5 - Abu Dhabi",
@@ -310,5 +310,41 @@ export const partnersData: Partner[] = [
     directions: "https://www.google.com/maps?sca_esv=4371f740622c0d3e&rlz=1C5CHFA_enAE820AE820&sxsrf=AE3TifMWP5n_iUUsRWoRNFaCtfg1PAon8A:1761746161432&uact=5&gs_lp=Egxnd3Mtd2l6LXNlcnAiJURpZmZlcmVudCBBZXN0aGV0aWMgQ2xpbmljICBhYnUgZGhhYmkyCBAAGIAEGMsBMggQABiABBjLATIEEAAYHjIFEAAY7wUyBRAAGO8FMgUQABjvBTIIEAAYgAQYogRI3wJQAFgAcAB4AZABAJgB6gGgAeoBqgEDMi0xuAEDyAEA-AEC-AEBmAIBoALxAZgDAJIHAzItMaAHxwSyBwMyLTG4B_EBwgcDMi0xyAcF&um=1&ie=UTF-8&fb=1&gl=ae&sa=X&geocode=KbuJJ11S0TdAMdOreALJ6DcS&daddr=St+Regis+Residences+Block+5+-+Abu+Dhabi",
     logo: "/images/partners/different.png",
     theme: "blue"
+  },
+  {
+    id: "brau-jumeirah",
+    name: "BRAU LADIES SALON, JUMEIRAH",
+    type: "Ladies Beauty Salon",
+    description: "Professional ladies salon specializing in brows, lashes, lips, eyes, and skin treatments. Express yourself with expert artistry for superior results.",
+    location: "شارع الوصل - Dubai",
+    phone: "+971 4 437 2600",
+    website: "https://brau.ae/",
+    directions: "https://www.google.com/maps/dir//%D8%B4%D8%A7%D8%B1%D8%B9+%D8%A7%D9%84%D9%88%D8%B5%D9%84+-+%D8%AF%D8%A8%D9%8A%E2%80%AD/@25.1511827,55.1303564,12z/data=!4m8!4m7!1m0!1m5!1m1!1s0x3e5f6bdd74614a63:0x5070289594987312!2m2!1d55.2127665!2d25.1512?entry=ttu",
+    logo: "/images/partners/brau.png",
+    theme: "pink"
+  },
+  {
+    id: "brau-springs-souk",
+    name: "BRAU LADIES SALON, SPRINGS SOUK",
+    type: "Ladies Beauty Salon",
+    description: "Professional ladies salon specializing in brows, lashes, lips, eyes, and skin treatments. Express yourself with expert artistry for superior results.",
+    location: "The Springs Souk - Dubai",
+    phone: "+971 4 437 2600",
+    website: "https://brau.ae/",
+    directions: "https://www.google.com/maps/place/Brau/@25.0662021,55.1508382,13z/data=!4m22!1m15!4m14!1m6!1m2!1s0x3e5f6c36babd2c79:0x675853b2595d1a65!2zSnVtZWlyYWggVmlsbGFnZSBDaXJjbGUg2YLYsdmK2Kkg2KzZhdmK2LHYpyDYp9mE2K_Yp9im2LHZitip!2m2!1d55.2088007!2d25.0608609!1m6!1m2!1s0x3e5f6d9647ec5e6b:0xcc6634c38847d830!2sBrau,+The+Springs+Souk+-+Dubai!2m2!1d55.1921234!2d25.0662078!3m5!1s0x3e5f6d9647ec5e6b:0xcc6634c38847d830!8m2!3d25.0662078!4d55.1921234!16s%2Fg%2F11j1hx10km?entry=ttu",
+    logo: "/images/partners/brau.png",
+    theme: "pink"
+  },
+  {
+    id: "brau-khalifa-city",
+    name: "BRAU LADIES SALON, KHALIFA CITY, ABU DHABI",
+    type: "Ladies Beauty Salon",
+    description: "Professional ladies salon specializing in brows, lashes, lips, eyes, and skin treatments. Express yourself with expert artistry for superior results.",
+    location: "Waitrose Center - Khalifa City - Abu Dhabi",
+    phone: "+971 4 437 2600",
+    website: "https://brau.ae/",
+    directions: "https://www.google.com/maps/place/Brau/@24.7602938,54.5758733,10z/data=!4m22!1m15!4m14!1m6!1m2!1s0x3e5f6c36babd2c79:0x675853b2595d1a65!2zSnVtZWlyYWggVmlsbGFnZSBDaXJjbGUg2YLYsdmK2Kkg2KzZhdmK2LHYpyDYp9mE2K_Yp9im2LHZitip!2m2!1d55.2088007!2d25.0608609!1m6!1m2!1s0x3e5e4703c397d4b3:0xa6c998c3ddeb20a3!2sBRAU,+Waitrose+Center+-+Khalifa+City+-+Abu+Dhabi!2m2!1d54.5663204!2d24.4167725!3m5!1s0x3e5f6d9647ec5e6b:0xcc6634c38847d830!8m2!3d25.0662078!4d55.1921234!16s%2Fg%2F11j1hx10km?entry=ttu",
+    logo: "/images/partners/brau.png",
+    theme: "pink"
   }
 ];

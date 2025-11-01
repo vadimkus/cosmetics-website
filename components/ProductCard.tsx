@@ -119,7 +119,9 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
           </div>
         )}
         
-        <p className="text-gray-600 text-xs md:text-sm mb-3 md:mb-4 line-clamp-2">{product.description}</p>
+        <p className="text-gray-600 text-xs md:text-sm mb-3 md:mb-4 line-clamp-2">
+          {product.description ? product.description.replace(/<[^>]*>/g, '').trim() : ''}
+        </p>
         
         <div className="flex flex-col gap-3">
           <div className="flex items-center justify-between">

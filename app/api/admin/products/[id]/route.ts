@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { requireAdminAuth } from '@/lib/adminAuth'
 import { requireCsrfToken } from '@/lib/csrf'
+import { validateProductInput } from '@/lib/validation'
+import { requireBodySizeLimit, getSizeLimitForContentType } from '@/lib/requestSizeLimit'
 
 export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const auth = await requireAdminAuth(request)
@@ -39,6 +41,13 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
     return csrfCheck.response!
   }
 
+  // Request body size limit check (DoS prevention)
+  const sizeLimit = getSizeLimitForContentType(request)
+  const sizeCheck = requireBodySizeLimit(request, sizeLimit)
+  if (!sizeCheck.valid) {
+    return sizeCheck.response!
+  }
+
   try {
     const { id } = await params
     const { 
@@ -59,6 +68,23 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
 
     if (!name || !price || !description || !image || !category) {
       return NextResponse.json({ success: false, error: 'Missing required fields' }, { status: 400 })
+    }
+
+    // Server-side validation: Input length limits and price validation
+    const validation = validateProductInput({
+      name,
+      price,
+      description,
+      category,
+      size,
+      productNumber,
+    })
+    
+    if (!validation.valid) {
+      return NextResponse.json(
+        { success: false, error: 'Validation failed', errors: validation.errors },
+        { status: 400 }
+      )
     }
 
     const updatedProduct = await prisma.product.update({

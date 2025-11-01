@@ -4,12 +4,21 @@ import { trackUserAction } from '@/lib/analyticsServer'
 import { sendWelcomeEmail, sendAdminNewUserNotification } from '@/lib/email'
 import bcrypt from 'bcryptjs'
 import { requireCsrfToken } from '@/lib/csrf'
+import { validateLength, INPUT_LIMITS } from '@/lib/validation'
+import { requireBodySizeLimit, getSizeLimitForContentType } from '@/lib/requestSizeLimit'
 
 export async function POST(request: NextRequest) {
   // CSRF protection
   const csrfCheck = await requireCsrfToken(request)
   if (!csrfCheck.valid) {
     return csrfCheck.response!
+  }
+
+  // Request body size limit check (DoS prevention)
+  const sizeLimit = getSizeLimitForContentType(request)
+  const sizeCheck = requireBodySizeLimit(request, sizeLimit)
+  if (!sizeCheck.valid) {
+    return sizeCheck.response!
   }
 
   try {
@@ -27,6 +36,33 @@ export async function POST(request: NextRequest) {
         { error: 'Password must be at least 6 characters' },
         { status: 400 }
       )
+    }
+
+    // Server-side validation: Input length limits
+    const nameValidation = validateLength(name, INPUT_LIMITS.USER_NAME, 'Name')
+    if (!nameValidation.valid) {
+      return NextResponse.json(
+        { error: nameValidation.error },
+        { status: 400 }
+      )
+    }
+
+    const emailValidation = validateLength(email, INPUT_LIMITS.USER_EMAIL, 'Email')
+    if (!emailValidation.valid) {
+      return NextResponse.json(
+        { error: emailValidation.error },
+        { status: 400 }
+      )
+    }
+
+    if (phone) {
+      const phoneValidation = validateLength(phone, INPUT_LIMITS.USER_PHONE, 'Phone')
+      if (!phoneValidation.valid) {
+        return NextResponse.json(
+          { error: phoneValidation.error },
+          { status: 400 }
+        )
+      }
     }
 
     // Check if user already exists

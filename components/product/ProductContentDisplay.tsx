@@ -2,6 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import { Product } from '@/types'
 import { getProductDocumentation } from '@/data/productConfig'
+import { sanitizeProductDescription } from '@/lib/sanitize'
 
 interface ProductContentDisplayProps {
   product: Product
@@ -56,7 +57,9 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
     return { intro, kitItems }
   }
 
-  const { intro, kitItems } = product.description ? parseKitDescription(product.description) : { intro: '', kitItems: [] }
+  // Sanitize product description to prevent XSS
+  const sanitizedDescription = product.description ? sanitizeProductDescription(product.description) : ''
+  const { intro, kitItems } = sanitizedDescription ? parseKitDescription(sanitizedDescription) : { intro: '', kitItems: [] }
 
   // Map product names to their IDs (for linking)
   const getProductLink = (productName: string): string | null => {
@@ -150,7 +153,7 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
           {/* Fallback: If no kit items parsed, show full description */}
           {kitItems.length === 0 && (
             <p className="text-gray-600 mb-4 text-sm whitespace-pre-line">
-              {product.description}
+              {sanitizedDescription}
             </p>
           )}
         </>

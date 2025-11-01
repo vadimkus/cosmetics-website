@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { rateLimitSimple, getClientIdentifierFromNextRequest } from '@/lib/rateLimitSimple'
 import { findUserByEmail, updateUser } from '@/lib/userStorageDb'
 import { requireCsrfToken } from '@/lib/csrf'
+import { requireBodySizeLimit, getSizeLimitForContentType } from '@/lib/requestSizeLimit'
 import bcrypt from 'bcryptjs'
 
 const loginLimiter = rateLimitSimple({
@@ -15,6 +16,13 @@ export async function POST(request: NextRequest) {
     const csrfCheck = await requireCsrfToken(request)
     if (!csrfCheck.valid) {
       return csrfCheck.response!
+    }
+
+    // Request body size limit check (DoS prevention)
+    const sizeLimit = getSizeLimitForContentType(request)
+    const sizeCheck = requireBodySizeLimit(request, sizeLimit)
+    if (!sizeCheck.valid) {
+      return sizeCheck.response!
     }
 
     // Apply rate limiting

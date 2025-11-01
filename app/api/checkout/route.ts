@@ -3,6 +3,7 @@ import { addOrder, OrderData, OrderItemData } from '@/lib/orderStorageDb'
 import { trackUserAction } from '@/lib/analyticsServer'
 import { sendOrderConfirmationEmail, sendAdminNewOrderNotification } from '@/lib/email'
 import { requireCsrfToken } from '@/lib/csrf'
+import { requireBodySizeLimit, getSizeLimitForContentType } from '@/lib/requestSizeLimit'
 // import { trackPurchase } from '@/lib/analytics' // Unused for now
 
 export async function POST(request: NextRequest) {
@@ -10,6 +11,13 @@ export async function POST(request: NextRequest) {
   const csrfCheck = await requireCsrfToken(request)
   if (!csrfCheck.valid) {
     return csrfCheck.response!
+  }
+
+  // Request body size limit check (DoS prevention)
+  const sizeLimit = getSizeLimitForContentType(request)
+  const sizeCheck = requireBodySizeLimit(request, sizeLimit)
+  if (!sizeCheck.valid) {
+    return sizeCheck.response!
   }
 
   try {

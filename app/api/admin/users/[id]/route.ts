@@ -3,6 +3,8 @@ import { updateUser, deleteUser } from '@/lib/userStorageDb'
 import { prisma } from '@/lib/prisma'
 import { requireAdminAuth } from '@/lib/adminAuth'
 import { requireCsrfToken } from '@/lib/csrf'
+import { validateUserProfileInput } from '@/lib/validation'
+import { requireBodySizeLimit, getSizeLimitForContentType } from '@/lib/requestSizeLimit'
 
 export async function PUT(
   request: NextRequest,
@@ -17,6 +19,13 @@ export async function PUT(
   const csrfCheck = await requireCsrfToken(request)
   if (!csrfCheck.valid) {
     return csrfCheck.response!
+  }
+
+  // Request body size limit check (DoS prevention)
+  const sizeLimit = getSizeLimitForContentType(request)
+  const sizeCheck = requireBodySizeLimit(request, sizeLimit)
+  if (!sizeCheck.valid) {
+    return sizeCheck.response!
   }
 
   try {
@@ -42,6 +51,15 @@ export async function PUT(
     if (discountPercentage !== undefined && discountPercentage !== null && (typeof discountPercentage !== 'number' || discountPercentage < 0 || discountPercentage > 100)) {
       return NextResponse.json(
         { error: 'discountPercentage must be a number between 0 and 100' },
+        { status: 400 }
+      )
+    }
+
+    // Server-side validation: Input length limits and file upload validation
+    const validation = validateUserProfileInput(updates)
+    if (!validation.valid) {
+      return NextResponse.json(
+        { error: 'Validation failed', errors: validation.errors },
         { status: 400 }
       )
     }

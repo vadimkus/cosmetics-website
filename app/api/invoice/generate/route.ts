@@ -1,8 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { sendEmail } from '@/lib/email'
+import { requireCsrfToken } from '@/lib/csrf'
 
 export async function POST(request: NextRequest) {
   try {
+    // CSRF protection
+    const csrfCheck = await requireCsrfToken(request)
+    if (!csrfCheck.valid) {
+      return csrfCheck.response!
+    }
+
     const invoiceData = await request.json()
     
     const {

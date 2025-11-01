@@ -4,10 +4,19 @@ const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined
 }
 
+// Ensure DATABASE_URL is set
+const databaseUrl = process.env.PRISMA_DATABASE_URL || process.env.DATABASE_URL
+if (!databaseUrl) {
+  throw new Error(
+    'DATABASE_URL or PRISMA_DATABASE_URL environment variable is required. ' +
+    'Please set it in your .env.local file.'
+  )
+}
+
 export const prisma = globalForPrisma.prisma ?? new PrismaClient({
   datasources: {
     db: {
-      url: process.env.PRISMA_DATABASE_URL || process.env.DATABASE_URL || "postgres://bba1d642802ecf0af6b89802617217c7ee4bd9e45a9df009f7fcc332176072e7:sk_-vf4T6G2TVhfLC4FwIJsi@db.prisma.io:5432/postgres?sslmode=require&connection_limit=1&pool_timeout=20"
+      url: databaseUrl
     }
   },
   log: process.env.NODE_ENV === 'development' ? ['query', 'error', 'warn'] : ['error']

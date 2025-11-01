@@ -2,9 +2,16 @@ import { NextRequest, NextResponse } from 'next/server'
 import { addOrder, OrderData, OrderItemData } from '@/lib/orderStorageDb'
 import { trackUserAction } from '@/lib/analyticsServer'
 import { sendOrderConfirmationEmail, sendAdminNewOrderNotification } from '@/lib/email'
+import { requireCsrfToken } from '@/lib/csrf'
 // import { trackPurchase } from '@/lib/analytics' // Unused for now
 
 export async function POST(request: NextRequest) {
+  // CSRF protection
+  const csrfCheck = await requireCsrfToken(request)
+  if (!csrfCheck.valid) {
+    return csrfCheck.response!
+  }
+
   try {
     const { 
       items, 

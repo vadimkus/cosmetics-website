@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation'
 import { ArrowLeft, CreditCard, Lock, MapPin, Truck, MessageCircle, Mail, Building } from 'lucide-react'
 import Link from 'next/link'
 import { calculateDiscountedPrice } from '@/lib/discountUtils'
+import { fetchCsrfToken, getCsrfHeaders, addCsrfToBody } from '@/lib/csrfClient'
 
 export default function CheckoutClient() {
   const { items, getTotalPrice, getTotalItems, selectedEmirate, setSelectedEmirate } = useCart()
@@ -15,6 +16,13 @@ export default function CheckoutClient() {
   const [isProcessing, setIsProcessing] = useState(false)
   const [isGeneratingInvoice, setIsGeneratingInvoice] = useState(false)
   const [invoiceEmail, setInvoiceEmail] = useState('')
+
+  // Fetch CSRF token on mount
+  useEffect(() => {
+    fetchCsrfToken().catch(err => {
+      console.error('Failed to fetch CSRF token:', err)
+    })
+  }, [])
   const [orderNumber] = useState(() => {
     // Generate professional order number: GEN + year + month + day + 4 digit sequence
     const now = new Date()
@@ -75,12 +83,18 @@ export default function CheckoutClient() {
         total
       }
 
+      // Ensure CSRF token is available
+      const csrfToken = await fetchCsrfToken()
+      if (!csrfToken) {
+        alert('Security error: Could not verify request. Please refresh the page and try again.')
+        setIsGeneratingInvoice(false)
+        return
+      }
+
       const response = await fetch('/api/invoice/generate', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(invoiceData),
+        headers: getCsrfHeaders(),
+        body: JSON.stringify(addCsrfToBody(invoiceData)),
       })
 
       if (response.ok) {
@@ -217,12 +231,18 @@ export default function CheckoutClient() {
             total
           }
 
+          // Ensure CSRF token is available
+          const csrfToken = await fetchCsrfToken()
+          if (!csrfToken) {
+            alert('Security error: Could not verify request. Please refresh the page and try again.')
+            setIsProcessing(false)
+            return
+          }
+
           const response = await fetch('/api/orders/support-link', {
             method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(orderData),
+            headers: getCsrfHeaders(),
+            body: JSON.stringify(addCsrfToBody(orderData)),
           })
 
           if (response.ok) {
@@ -270,12 +290,18 @@ export default function CheckoutClient() {
           total
         }
 
+        // Ensure CSRF token is available
+        const csrfToken = await fetchCsrfToken()
+        if (!csrfToken) {
+          alert('Security error: Could not verify request. Please refresh the page and try again.')
+          setIsProcessing(false)
+          return
+        }
+
         const response = await fetch('/api/orders/cod-confirmation', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(orderData),
+          headers: getCsrfHeaders(),
+          body: JSON.stringify(addCsrfToBody(orderData)),
         })
 
         if (!response.ok) {

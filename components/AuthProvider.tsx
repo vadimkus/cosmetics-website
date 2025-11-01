@@ -1,6 +1,7 @@
 'use client'
 
 import { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react'
+import { fetchCsrfToken, getCsrfHeaders, addCsrfToBody } from '@/lib/csrfClient'
 
 interface User {
   id: string
@@ -59,6 +60,11 @@ export default function AuthProvider({ children }: AuthProviderProps) {
           localStorage.removeItem('genosys_user')
         }
       }
+      
+      // Fetch CSRF token on mount
+      fetchCsrfToken().catch(err => {
+        console.error('Failed to fetch CSRF token:', err)
+      })
     }
     setIsLoading(false)
   }, [])
@@ -78,12 +84,18 @@ export default function AuthProvider({ children }: AuthProviderProps) {
     try {
       setIsLoading(true)
       
+      // Ensure CSRF token is available
+      const csrfToken = await fetchCsrfToken()
+      if (!csrfToken) {
+        alert('Security error: Could not verify request. Please refresh the page and try again.')
+        setIsLoading(false)
+        return false
+      }
+
       const response = await fetch('/api/auth/login', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
+        headers: getCsrfHeaders(),
+        body: JSON.stringify(addCsrfToBody({ email, password })),
       })
 
       const data = await response.json()
@@ -126,12 +138,17 @@ export default function AuthProvider({ children }: AuthProviderProps) {
     try {
       setIsLoading(true)
       
+      // Ensure CSRF token is available
+      const csrfToken = await fetchCsrfToken()
+      if (!csrfToken) {
+        alert('Security error: Could not verify request. Please refresh the page and try again.')
+        return false
+      }
+
       const response = await fetch('/api/auth/register', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ name, email, password, phone }),
+        headers: getCsrfHeaders(),
+        body: JSON.stringify(addCsrfToBody({ name, email, password, phone })),
       })
 
       const data = await response.json()

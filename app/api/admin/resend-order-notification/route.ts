@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import { sendAdminNewOrderNotification } from '@/lib/email'
 import { getOrdersByEmail } from '@/lib/orderStorageDb'
 import { Order, OrderItem } from '@prisma/client'
+import { requireAdminAuth } from '@/lib/adminAuth'
+import { requireCsrfToken } from '@/lib/csrf'
 
 // Type definition for Order with items relation
 type OrderWithItems = Order & {
@@ -9,6 +11,17 @@ type OrderWithItems = Order & {
 }
 
 export async function POST(request: NextRequest) {
+  const auth = await requireAdminAuth(request)
+  if (!auth.authorized) {
+    return auth.response
+  }
+
+  // CSRF protection (defense in depth)
+  const csrfCheck = await requireCsrfToken(request)
+  if (!csrfCheck.valid) {
+    return csrfCheck.response!
+  }
+
   try {
     const { orderNumber, customerEmail } = await request.json()
 
@@ -83,6 +96,11 @@ export async function POST(request: NextRequest) {
 }
 
 export async function GET(request: NextRequest) {
+  const auth = await requireAdminAuth(request)
+  if (!auth.authorized) {
+    return auth.response
+  }
+
   try {
     const { searchParams } = new URL(request.url)
     const customerEmail = searchParams.get('email')

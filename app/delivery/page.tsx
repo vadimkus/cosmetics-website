@@ -229,8 +229,8 @@ export default function DeliveryPage() {
                 </div>
                 <div className="mt-6 p-4 bg-blue-50 rounded-lg">
                   <p className="text-gray-700 text-center">
-                    <strong>We accept returns</strong> - Your satisfaction is our priority. If you're not completely satisfied with your purchase, 
-                    we're here to help make it right.
+                    <strong>We accept returns</strong> - Your satisfaction is our priority. If you&apos;re not completely satisfied with your purchase, 
+                    we&apos;re here to help make it right.
                   </p>
                 </div>
               </div>

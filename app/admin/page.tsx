@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import Image from 'next/image'
 import { User as UserIcon, Package, Clock, CheckCircle, Truck, X, Trash2, RefreshCw, ArrowLeft, BarChart3, Plus, Edit, Image as ImageIcon, Shield } from 'lucide-react'
 import AdminLogin from '@/components/AdminLogin'
@@ -8,6 +8,7 @@ import AnalyticsDashboard from '@/components/AnalyticsDashboard'
 import CustomerProfile from '@/components/CustomerProfile'
 import ProductForm from '@/components/ProductForm'
 import { Order, OrderItem } from '@prisma/client'
+import { fetchCsrfToken, getCsrfHeaders, addCsrfToBody } from '@/lib/csrfClient'
 
 // Custom type that includes the items relation
 type OrderWithItems = Order & {
@@ -57,6 +58,30 @@ export default function AdminPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [isCheckingSession, setIsCheckingSession] = useState(true)
   const [adminUser, setAdminUser] = useState<{ email: string; name: string } | null>(null)
+
+  // Fetch CSRF token on mount
+  useEffect(() => {
+    if (isAuthenticated) {
+      fetchCsrfToken().catch(err => {
+        console.error('Failed to fetch CSRF token:', err)
+      })
+    }
+  }, [isAuthenticated])
+
+  // Helper function to get admin auth headers with CSRF
+  const getAdminHeaders = useCallback((additionalHeaders: Record<string, string> = {}): HeadersInit => {
+    const headers: Record<string, string> = {
+      'Content-Type': 'application/json',
+      ...additionalHeaders,
+      ...getCsrfHeaders() as Record<string, string>
+    }
+    
+    if (adminUser?.email) {
+      headers['X-Admin-Email'] = adminUser.email
+    }
+    
+    return headers as HeadersInit
+  }, [adminUser?.email])
   const [activeTab, setActiveTab] = useState<'analytics' | 'users' | 'orders' | 'products'>('analytics')
   const [selectedOrder, setSelectedOrder] = useState<OrderWithItems | null>(null)
   const [selectedCustomer, setSelectedCustomer] = useState<User | null>(null)
@@ -65,9 +90,11 @@ export default function AdminPage() {
   const [selectedOrders, setSelectedOrders] = useState<string[]>([])
   const [isDeletingOrders, setIsDeletingOrders] = useState(false)
 
-  const fetchUsers = async () => {
+  const fetchUsers = useCallback(async () => {
     try {
-      const response = await fetch('/api/admin/users')
+      const response = await fetch('/api/admin/users', {
+        headers: getAdminHeaders()
+      })
       const data = await response.json()
       if (data.success) {
         setUsers(data.users)
@@ -77,12 +104,14 @@ export default function AdminPage() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [getAdminHeaders])
 
-  const fetchProducts = async () => {
+  const fetchProducts = useCallback(async () => {
     try {
       setProductsRefreshing(true)
-      const response = await fetch('/api/admin/products')
+      const response = await fetch('/api/admin/products', {
+        headers: getAdminHeaders()
+      })
       const data = await response.json()
       if (data.success) {
         setProducts(data.products)
@@ -92,17 +121,24 @@ export default function AdminPage() {
     } finally {
       setProductsRefreshing(false)
     }
-  }
+  }, [getAdminHeaders])
 
   const saveProduct = async (productData: Partial<Product>) => {
     try {
+      // Ensure CSRF token is available
+      const csrfToken = await fetchCsrfToken()
+      if (!csrfToken) {
+        alert('Security error: Could not verify request. Please refresh the page and try again.')
+        return false
+      }
+
       const url = editingProduct ? `/api/admin/products/${editingProduct.id}` : '/api/admin/products'
       const method = editingProduct ? 'PUT' : 'POST'
       
       const response = await fetch(url, {
         method,
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(productData)
+        headers: getAdminHeaders(),
+        body: JSON.stringify(addCsrfToBody(productData))
       })
       
       if (response.ok) {
@@ -129,8 +165,17 @@ export default function AdminPage() {
     }
 
     try {
+      // Ensure CSRF token is available
+      const csrfToken = await fetchCsrfToken()
+      if (!csrfToken) {
+        alert('Security error: Could not verify request. Please refresh the page and try again.')
+        return
+      }
+
       const response = await fetch(`/api/admin/products/${productId}`, {
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: getAdminHeaders(),
+        body: JSON.stringify(addCsrfToBody({}))
       })
       
       if (response.ok) {
@@ -147,10 +192,12 @@ export default function AdminPage() {
     }
   }
 
-  const fetchOrders = async () => {
+  const fetchOrders = useCallback(async () => {
     try {
       setOrdersLoading(true)
-      const response = await fetch('/api/admin/orders')
+      const response = await fetch('/api/admin/orders', {
+        headers: getAdminHeaders()
+      })
       const data = await response.json()
       if (data.success) {
         setOrders(data.orders)
@@ -160,7 +207,7 @@ export default function AdminPage() {
     } finally {
       setOrdersLoading(false)
     }
-  }
+  }, [getAdminHeaders])
 
   const refreshUsers = async () => {
     setUsersRefreshing(true)
@@ -176,11 +223,18 @@ export default function AdminPage() {
 
   const updateUser = async (userId: string, updates: Partial<User>) => {
     try {
+      // Ensure CSRF token is available
+      const csrfToken = await fetchCsrfToken()
+      if (!csrfToken) {
+        alert('Security error: Could not verify request. Please refresh the page and try again.')
+        return false
+      }
+
       console.log('Updating user:', { userId, updates })
       const response = await fetch(`/api/admin/users/${userId}`, {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(updates)
+        headers: getAdminHeaders(),
+        body: JSON.stringify(addCsrfToBody(updates))
       })
       
       if (response.ok) {
@@ -205,8 +259,17 @@ export default function AdminPage() {
 
   const deleteUser = async (userId: string) => {
     try {
+      // Ensure CSRF token is available
+      const csrfToken = await fetchCsrfToken()
+      if (!csrfToken) {
+        alert('Security error: Could not verify request. Please refresh the page and try again.')
+        return
+      }
+
       const response = await fetch(`/api/admin/users/${userId}`, {
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: getAdminHeaders(),
+        body: JSON.stringify(addCsrfToBody({}))
       })
       
       if (response.ok) {
@@ -222,8 +285,17 @@ export default function AdminPage() {
 
   const deleteOrder = async (orderId: string) => {
     try {
+      // Ensure CSRF token is available
+      const csrfToken = await fetchCsrfToken()
+      if (!csrfToken) {
+        alert('Security error: Could not verify request. Please refresh the page and try again.')
+        return
+      }
+
       const response = await fetch(`/api/admin/orders/${orderId}`, {
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: getAdminHeaders(),
+        body: JSON.stringify(addCsrfToBody({}))
       })
       
       if (response.ok) {
@@ -242,8 +314,20 @@ export default function AdminPage() {
 
     setIsDeletingOrders(true)
     try {
+      // Ensure CSRF token is available
+      const csrfToken = await fetchCsrfToken()
+      if (!csrfToken) {
+        alert('Security error: Could not verify request. Please refresh the page and try again.')
+        setIsDeletingOrders(false)
+        return
+      }
+
       const deletePromises = selectedOrders.map(orderId => 
-        fetch(`/api/admin/orders/${orderId}`, { method: 'DELETE' })
+        fetch(`/api/admin/orders/${orderId}`, { 
+          method: 'DELETE',
+          headers: getAdminHeaders(),
+          body: JSON.stringify(addCsrfToBody({}))
+        })
       )
       
       await Promise.all(deletePromises)
@@ -385,7 +469,7 @@ export default function AdminPage() {
       fetchOrders()
       fetchProducts()
     }
-  }, [isAuthenticated, isCheckingSession])
+  }, [isAuthenticated, isCheckingSession, fetchUsers, fetchOrders, fetchProducts])
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('en-AE', {
@@ -836,10 +920,17 @@ export default function AdminPage() {
                   onBack={() => setSelectedOrder(null)}
                   onUpdateStatus={async (orderId, status) => {
                     try {
+                      // Ensure CSRF token is available
+                      const csrfToken = await fetchCsrfToken()
+                      if (!csrfToken) {
+                        alert('Security error: Could not verify request. Please refresh the page and try again.')
+                        return
+                      }
+
                       const response = await fetch(`/api/admin/orders/${orderId}`, {
                         method: 'PUT',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ status })
+                        headers: getAdminHeaders(),
+                        body: JSON.stringify(addCsrfToBody({ status }))
                       })
                       
                       if (response.ok) {

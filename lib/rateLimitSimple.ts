@@ -81,11 +81,13 @@ export function rateLimitSimple(options: RateLimitOptions) {
       }
     } catch (error) {
       console.error('Rate limiting error:', error)
-      // Fail open - allow request if rate limiting fails
+      // Fail closed - reject request if rate limiting fails
+      // This is more secure than allowing requests through when rate limiting is down
       return {
-        success: true,
+        success: false,
+        message: 'Rate limiting service unavailable. Please try again later.',
         count: 0,
-        resetTime: Date.now() + windowMs
+        resetTime: Date.now() + (windowMs)
       }
     }
   }

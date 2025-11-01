@@ -1,11 +1,24 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { updateUser, deleteUser } from '@/lib/userStorageDb'
 import { prisma } from '@/lib/prisma'
+import { requireAdminAuth } from '@/lib/adminAuth'
+import { requireCsrfToken } from '@/lib/csrf'
 
 export async function PUT(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  const auth = await requireAdminAuth(request)
+  if (!auth.authorized) {
+    return auth.response
+  }
+
+  // CSRF protection (defense in depth)
+  const csrfCheck = await requireCsrfToken(request)
+  if (!csrfCheck.valid) {
+    return csrfCheck.response!
+  }
+
   try {
     const { id } = await params
     const updates = await request.json()
@@ -57,9 +70,20 @@ export async function PUT(
 }
 
 export async function DELETE(
-  _request: NextRequest,
+  request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  const auth = await requireAdminAuth(request)
+  if (!auth.authorized) {
+    return auth.response
+  }
+
+  // CSRF protection (defense in depth)
+  const csrfCheck = await requireCsrfToken(request)
+  if (!csrfCheck.valid) {
+    return csrfCheck.response!
+  }
+
   try {
     const { id } = await params
 

@@ -1,7 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
+import { requireAdminAuth } from '@/lib/adminAuth'
+import { requireCsrfToken } from '@/lib/csrf'
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  const auth = await requireAdminAuth(request)
+  if (!auth.authorized) {
+    return auth.response
+  }
+
   try {
     const products = await prisma.product.findMany({
       orderBy: {
@@ -17,6 +24,17 @@ export async function GET() {
 }
 
 export async function POST(request: NextRequest) {
+  const auth = await requireAdminAuth(request)
+  if (!auth.authorized) {
+    return auth.response
+  }
+
+  // CSRF protection (defense in depth)
+  const csrfCheck = await requireCsrfToken(request)
+  if (!csrfCheck.valid) {
+    return csrfCheck.response!
+  }
+
   try {
     const { name, price, description, image, images, category, inStock, size, productNumber } = await request.json()
 

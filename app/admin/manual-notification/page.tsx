@@ -1,7 +1,8 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Mail, Send } from 'lucide-react'
+import { fetchCsrfToken, getCsrfHeaders, addCsrfToBody } from '@/lib/csrfClient'
 
 export default function ManualNotificationPage() {
   const [formData, setFormData] = useState({
@@ -14,18 +15,59 @@ export default function ManualNotificationPage() {
   const [loading, setLoading] = useState(false)
   const [result, setResult] = useState<{ success: boolean; message: string } | null>(null)
 
+  // Helper to get admin email from session
+  const getAdminEmail = (): string | null => {
+    if (typeof window === 'undefined') return null
+    try {
+      const session = localStorage.getItem('admin_session')
+      if (session) {
+        const parsed = JSON.parse(session)
+        return parsed.email || null
+      }
+    } catch (e) {
+      return null
+    }
+    return null
+  }
+
+  // Helper to get admin headers with CSRF
+  const getAdminHeaders = (): HeadersInit => {
+    const headers: Record<string, string> = {
+      'Content-Type': 'application/json',
+      ...getCsrfHeaders() as Record<string, string>
+    }
+    const email = getAdminEmail()
+    if (email) {
+      headers['X-Admin-Email'] = email
+    }
+    return headers as HeadersInit
+  }
+
+  // Fetch CSRF token on mount
+  useEffect(() => {
+    fetchCsrfToken().catch(err => {
+      console.error('Failed to fetch CSRF token:', err)
+    })
+  }, [])
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
     setResult(null)
 
     try {
+      // Ensure CSRF token is available
+      const csrfToken = await fetchCsrfToken()
+      if (!csrfToken) {
+        alert('Security error: Could not verify request. Please refresh the page and try again.')
+        setLoading(false)
+        return
+      }
+
       const response = await fetch('/api/admin/manual-order-notification', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
+        headers: getAdminHeaders(),
+        body: JSON.stringify(addCsrfToBody(formData)),
       })
 
       const data = await response.json()

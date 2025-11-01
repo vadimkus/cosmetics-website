@@ -1,7 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { PrismaClient } from '@prisma/client'
+import { requireAdminAuth } from '@/lib/adminAuth'
 
-export async function GET(_request: NextRequest) {
+export async function GET(request: NextRequest) {
+  const auth = await requireAdminAuth(request)
+  if (!auth.authorized) {
+    return auth.response
+  }
+
   try {
     console.log('🔍 Admin users API called')
     

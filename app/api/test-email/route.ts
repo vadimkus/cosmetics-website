@@ -1,7 +1,20 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { sendWelcomeEmail, sendOrderConfirmationEmail, sendAdminNewUserNotification, sendAdminNewOrderNotification } from '@/lib/email'
+import { requireAdminAuth } from '@/lib/adminAuth'
+import { requireCsrfToken } from '@/lib/csrf'
 
 export async function POST(request: NextRequest) {
+  // Require admin authentication and CSRF protection
+  const auth = await requireAdminAuth(request)
+  if (!auth.authorized) {
+    return auth.response
+  }
+
+  const csrfCheck = await requireCsrfToken(request)
+  if (!csrfCheck.valid) {
+    return csrfCheck.response!
+  }
+
   try {
     const { type, testEmail } = await request.json()
 

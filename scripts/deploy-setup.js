@@ -9,6 +9,24 @@ const { execSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 
+// Load environment variables from .env.local if it exists
+const envLocalPath = path.join(process.cwd(), '.env.local');
+if (fs.existsSync(envLocalPath)) {
+  const envContent = fs.readFileSync(envLocalPath, 'utf8');
+  envContent.split('\n').forEach(line => {
+    const trimmedLine = line.trim();
+    if (trimmedLine && !trimmedLine.startsWith('#')) {
+      const [key, ...valueParts] = trimmedLine.split('=');
+      if (key && valueParts.length > 0) {
+        const value = valueParts.join('=').trim().replace(/^["']|["']$/g, '');
+        if (!process.env[key]) {
+          process.env[key] = value;
+        }
+      }
+    }
+  });
+}
+
 console.log('🚀 Starting deployment setup...');
 
 try {
@@ -18,10 +36,11 @@ try {
     fs.mkdirSync(dbDir, { recursive: true });
   }
 
-  // Set default DATABASE_URL if not provided
+  // Ensure DATABASE_URL is provided
   if (!process.env.DATABASE_URL) {
-    process.env.DATABASE_URL = 'postgres://bba1d642802ecf0af6b89802617217c7ee4bd9e45a9df009f7fcc332176072e7:sk_-vf4T6G2TVhfLC4FwIJsi@db.prisma.io:5432/postgres?sslmode=require';
-    console.log('📝 Set default DATABASE_URL to PostgreSQL');
+    console.error('❌ DATABASE_URL environment variable is required');
+    console.error('   Please set DATABASE_URL in your environment or .env.local file');
+    process.exit(1);
   }
 
   // Generate Prisma client

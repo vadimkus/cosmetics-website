@@ -3,8 +3,15 @@ import { addUser, findUserByEmail } from '@/lib/userStorageDb'
 import { trackUserAction } from '@/lib/analyticsServer'
 import { sendWelcomeEmail, sendAdminNewUserNotification } from '@/lib/email'
 import bcrypt from 'bcryptjs'
+import { requireCsrfToken } from '@/lib/csrf'
 
 export async function POST(request: NextRequest) {
+  // CSRF protection
+  const csrfCheck = await requireCsrfToken(request)
+  if (!csrfCheck.valid) {
+    return csrfCheck.response!
+  }
+
   try {
     const { name, email, password, phone } = await request.json()
 

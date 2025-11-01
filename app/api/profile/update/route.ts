@@ -1,7 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { updateUser } from '@/lib/userStorageDb'
+import { requireCsrfToken } from '@/lib/csrf'
 
 export async function POST(request: NextRequest) {
+  // CSRF protection
+  const csrfCheck = await requireCsrfToken(request)
+  if (!csrfCheck.valid) {
+    return csrfCheck.response!
+  }
+
   try {
     const { userId, updates } = await request.json()
 

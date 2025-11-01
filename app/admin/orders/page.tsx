@@ -1,7 +1,8 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { RefreshCw, Mail } from 'lucide-react'
+import { fetchCsrfToken, getCsrfHeaders, addCsrfToBody } from '@/lib/csrfClient'
 
 interface Order {
   orderNumber: string
@@ -23,11 +24,48 @@ export default function AdminOrdersPage() {
   const [loading, setLoading] = useState(true)
   const [resending, setResending] = useState<string | null>(null)
 
-  const fetchOrders = async () => {
+  // Helper to get admin email from session
+  const getAdminEmail = (): string | null => {
+    if (typeof window === 'undefined') return null
+    try {
+      const session = localStorage.getItem('admin_session')
+      if (session) {
+        const parsed = JSON.parse(session)
+        return parsed.email || null
+      }
+    } catch (e) {
+      return null
+    }
+    return null
+  }
+
+  // Helper to get admin headers with CSRF
+  const getAdminHeaders = useCallback((): HeadersInit => {
+    const headers: Record<string, string> = {
+      'Content-Type': 'application/json',
+      ...getCsrfHeaders() as Record<string, string>
+    }
+    const email = getAdminEmail()
+    if (email) {
+      headers['X-Admin-Email'] = email
+    }
+    return headers as HeadersInit
+  }, [])
+
+  // Fetch CSRF token on mount
+  useEffect(() => {
+    fetchCsrfToken().catch(err => {
+      console.error('Failed to fetch CSRF token:', err)
+    })
+  }, [])
+
+  const fetchOrders = useCallback(async () => {
     try {
       setLoading(true)
       // Get all recent orders by fetching from a known email or implementing a getAllOrders function
-      const response = await fetch('/api/admin/orders')
+      const response = await fetch('/api/admin/orders', {
+        headers: getAdminHeaders()
+      })
       if (response.ok) {
         const data = await response.json()
         setOrders(data.orders || [])
@@ -37,17 +75,22 @@ export default function AdminOrdersPage() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [getAdminHeaders])
 
   const resendNotification = async (orderNumber: string) => {
     try {
+      // Ensure CSRF token is available
+      const csrfToken = await fetchCsrfToken()
+      if (!csrfToken) {
+        alert('Security error: Could not verify request. Please refresh the page and try again.')
+        return
+      }
+
       setResending(orderNumber)
       const response = await fetch('/api/admin/resend-order-notification', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ orderNumber }),
+        headers: getAdminHeaders(),
+        body: JSON.stringify(addCsrfToBody({ orderNumber })),
       })
       
       const result = await response.json()
@@ -67,7 +110,7 @@ export default function AdminOrdersPage() {
 
   useEffect(() => {
     fetchOrders()
-  }, [])
+  }, [fetchOrders])
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleString()

@@ -21,19 +21,13 @@ export async function POST(request: NextRequest) {
       clientIdentifier = 'unknown'
     }
 
-    let rateLimitResult
-    try {
-      rateLimitResult = await adminLoginLimiter(clientIdentifier)
-      if (!rateLimitResult.success) {
-        return NextResponse.json(
-          { error: rateLimitResult.message },
-          { status: 429 }
-        )
-      }
-    } catch (rateLimitError) {
-      console.error('Rate limiting error:', rateLimitError)
-      // Fail open - allow login if rate limiting fails
-      console.warn('Rate limiting failed, allowing login attempt')
+    // Apply rate limiting - fail closed for security
+    const rateLimitResult = await adminLoginLimiter(clientIdentifier)
+    if (!rateLimitResult.success) {
+      return NextResponse.json(
+        { error: rateLimitResult.message || 'Rate limit exceeded' },
+        { status: 429 }
+      )
     }
 
     const { email, password } = await request.json()

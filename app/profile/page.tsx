@@ -8,6 +8,7 @@ import { useState, useRef, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import PDFDownloadButton from '@/components/PDFDownloadButton'
 import { Order, OrderItem } from '@prisma/client'
+import { fetchCsrfToken, getCsrfHeaders, addCsrfToBody } from '@/lib/csrfClient'
 
 // Custom type that includes the items relation
 type OrderWithItems = Order & {
@@ -34,6 +35,13 @@ export default function ProfilePageNew() {
   const [activeTab, setActiveTab] = useState<'profile' | 'orders' | 'settings' | 'downloads' | 'privacy'>('profile')
   const [isRefreshing, setIsRefreshing] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
+
+  // Fetch CSRF token on mount
+  useEffect(() => {
+    fetchCsrfToken().catch(err => {
+      console.error('Failed to fetch CSRF token:', err)
+    })
+  }, [])
 
   // Handle refresh with loading state
   const handleRefresh = async () => {
@@ -247,10 +255,18 @@ export default function ProfilePageNew() {
     }
 
     try {
+      // Ensure CSRF token is available
+      const csrfToken = await fetchCsrfToken()
+      if (!csrfToken) {
+        alert('Security error: Could not verify request. Please refresh the page and try again.')
+        return
+      }
+
       const encodedOrderId = encodeURIComponent(orderId)
       const response = await fetch(`/api/orders/${encodedOrderId}/cancel`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' }
+        headers: getCsrfHeaders(),
+        body: JSON.stringify(addCsrfToBody({}))
       })
       
       if (response.ok) {
@@ -309,18 +325,23 @@ export default function ProfilePageNew() {
         return
       }
 
+      // Ensure CSRF token is available
+      const csrfToken = await fetchCsrfToken()
+      if (!csrfToken) {
+        alert('Security error: Could not verify request. Please refresh the page and try again.')
+        return
+      }
+
       const response = await fetch('/api/profile/update', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
+        headers: getCsrfHeaders(),
+        body: JSON.stringify(addCsrfToBody({
           userId: user.id,
           updates: {
             ...editData,
             profilePicture
           }
-        }),
+        })),
       })
 
       const responseData = await response.json()
@@ -362,12 +383,18 @@ export default function ProfilePageNew() {
     
     setIsDeleting(true)
     try {
+      // Ensure CSRF token is available
+      const csrfToken = await fetchCsrfToken()
+      if (!csrfToken) {
+        alert('Security error: Could not verify request. Please refresh the page and try again.')
+        setIsDeleting(false)
+        return
+      }
+
       const response = await fetch('/api/profile/delete', {
         method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ userId: user.id }),
+        headers: getCsrfHeaders(),
+        body: JSON.stringify(addCsrfToBody({ userId: user.id })),
       })
 
       if (response.ok) {

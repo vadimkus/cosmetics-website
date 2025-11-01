@@ -1,6 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { requireAdminAuth } from '@/lib/adminAuth'
 
 export async function POST(request: NextRequest) {
+  // Require admin authentication
+  const auth = await requireAdminAuth(request)
+  if (!auth.authorized) {
+    return auth.response
+  }
+
   try {
     const { adminEmail } = await request.json()
     

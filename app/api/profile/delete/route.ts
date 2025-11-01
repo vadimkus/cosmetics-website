@@ -1,7 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { deleteUser } from '@/lib/userStorageDb'
+import { requireCsrfToken } from '@/lib/csrf'
 
 export async function DELETE(request: NextRequest) {
+  // CSRF protection
+  const csrfCheck = await requireCsrfToken(request)
+  if (!csrfCheck.valid) {
+    return csrfCheck.response!
+  }
+
   try {
     const { userId } = await request.json()
 

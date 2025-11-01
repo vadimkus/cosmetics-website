@@ -1,7 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { readOrders } from '@/lib/orderStorageDb'
+import { requireAdminAuth } from '@/lib/adminAuth'
 
 export async function GET(request: NextRequest) {
+  const auth = await requireAdminAuth(request)
+  if (!auth.authorized) {
+    return auth.response
+  }
+
   try {
     const { searchParams } = new URL(request.url)
     const customerEmail = searchParams.get('customerEmail')

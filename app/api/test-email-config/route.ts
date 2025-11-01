@@ -1,6 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { requireAdminAuth } from '@/lib/adminAuth'
 
-export async function GET(_request: NextRequest) {
+export async function GET(request: NextRequest) {
+  // Require admin authentication
+  const auth = await requireAdminAuth(request)
+  if (!auth.authorized) {
+    return auth.response
+  }
+
   try {
     const config = {
       gmailUser: process.env.GMAIL_USER ? '✅ Set' : '❌ Missing',

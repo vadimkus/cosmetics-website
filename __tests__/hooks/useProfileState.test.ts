@@ -62,8 +62,44 @@ describe('useProfileState', () => {
     const { result } = renderHook(() => useProfileState(mockUser))
     
     const mockOrders = [
-      { id: '1', status: 'pending', total: 100 },
-      { id: '2', status: 'delivered', total: 200 }
+      {
+        id: '1',
+        orderNumber: 'GEN123456',
+        customerEmail: 'test@example.com',
+        customerName: 'Test Customer',
+        customerPhone: '1234567890',
+        customerEmirate: 'Dubai',
+        customerAddress: 'Test Address',
+        subtotal: 100,
+        discountAmount: 0,
+        shipping: 0,
+        vat: 5,
+        total: 100,
+        status: 'pending',
+        sessionId: null,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        items: []
+      },
+      {
+        id: '2',
+        orderNumber: 'GEN789012',
+        customerEmail: 'test2@example.com',
+        customerName: 'Test Customer 2',
+        customerPhone: '0987654321',
+        customerEmirate: 'Abu Dhabi',
+        customerAddress: 'Test Address 2',
+        subtotal: 200,
+        discountAmount: 0,
+        shipping: 0,
+        vat: 10,
+        total: 200,
+        status: 'delivered',
+        sessionId: null,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        items: []
+      }
     ]
     
     act(() => {

@@ -1,8 +1,21 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { findUserByEmail } from '@/lib/userStorageDb'
+import { requireAdminAuth } from '@/lib/adminAuth'
+import { requireCsrfToken } from '@/lib/csrf'
 import bcrypt from 'bcryptjs'
 
 export async function POST(request: NextRequest) {
+  // Require admin authentication and CSRF protection
+  const auth = await requireAdminAuth(request)
+  if (!auth.authorized) {
+    return auth.response
+  }
+
+  const csrfCheck = await requireCsrfToken(request)
+  if (!csrfCheck.valid) {
+    return csrfCheck.response!
+  }
+
   try {
     console.log('🔍 Test admin API called')
     

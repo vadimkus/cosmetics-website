@@ -287,11 +287,27 @@ export const emailTemplates = {
           <h3 style="color: #dc2626; margin: 0 0 15px 0;">📦 Order Items (${orderData.itemCount} ${orderData.itemCount === 1 ? 'item' : 'items'})</h3>
           <div style="space-y: 10px;">
             ${orderData.items.map(item => {
-              // Construct image URL - handle both absolute and relative paths
+              // Construct image URL - handle both absolute and relative paths, including Next.js optimized URLs
               let imageUrl = ''
               if (item.image) {
-                if (item.image.startsWith('http://') || item.image.startsWith('https://')) {
-                  imageUrl = item.image // Already absolute
+                // Check for Next.js optimized image URLs first (both absolute and relative)
+                if (item.image.includes('_next/image')) {
+                  // Next.js optimized image URL - extract the actual image path
+                  // Example: /_next/image?url=%2Fimages%2Fproduct.jpg&w=828&q=75
+                  // Example: https://genosys.ae/_next/image?url=%2Fimages%2Fproduct.jpg&w=828&q=75
+                  const urlMatch = item.image.match(/url=([^&]+)/)
+                  if (urlMatch && urlMatch[1]) {
+                    // Decode URL-encoded path
+                    const decodedPath = decodeURIComponent(urlMatch[1])
+                    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://genosys.ae'
+                    imageUrl = `${baseUrl}${decodedPath}`
+                  } else {
+                    // Fallback: use base URL with the path
+                    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://genosys.ae'
+                    imageUrl = `${baseUrl}${item.image.startsWith('/') ? item.image : '/' + item.image}`
+                  }
+                } else if (item.image.startsWith('http://') || item.image.startsWith('https://')) {
+                  imageUrl = item.image // Already absolute (and not Next.js optimized)
                 } else if (item.image.startsWith('//')) {
                   imageUrl = `https:${item.image}` // Protocol-relative
                 } else {

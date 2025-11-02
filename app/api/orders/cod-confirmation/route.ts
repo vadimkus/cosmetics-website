@@ -180,8 +180,8 @@ export async function POST(request: NextRequest) {
       customerEmail,
       customerPhone,
       total,
-      itemCount: items.length,
-      items: items.map((item: OrderItemData) => ({
+      itemCount: orderItems.length,
+      items: orderItems.map((item: OrderItemData) => ({
         productName: item.productName || 'Product',
         quantity: item.quantity,
         price: item.price,

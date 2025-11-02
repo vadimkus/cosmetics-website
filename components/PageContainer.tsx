@@ -1,8 +1,8 @@
-import React from 'react'
+import type { ReactNode } from 'react'
 import { cn } from '@/lib/utils'
 
 interface PageContainerProps {
-  children: React.ReactNode
+  children: ReactNode
   className?: string
   maxWidth?: 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '4xl' | '6xl' | 'full'
   spacing?: 'sm' | 'md' | 'lg' | 'xl'

@@ -68,12 +68,19 @@ export async function validateCsrfToken(request: NextRequest): Promise<{
   // If not in header, try body (for POST/PUT requests)
   if (!submittedToken) {
     try {
+      // Use a timeout to prevent hanging
       const clonedRequest = request.clone()
-      const body = await clonedRequest.json().catch(() => ({}))
-      submittedToken = body[CSRF_TOKEN_BODY_FIELD] || null
+      const timeoutPromise = new Promise((_, reject) => 
+        setTimeout(() => reject(new Error('Body read timeout')), 5000)
+      )
+      
+      const bodyPromise = clonedRequest.json().catch(() => ({}))
+      const body = await Promise.race([bodyPromise, timeoutPromise]).catch(() => ({}))
+      submittedToken = body && typeof body === 'object' ? body[CSRF_TOKEN_BODY_FIELD] || null : null
     } catch (error) {
       // Body might not be JSON or might already be consumed
-      // Continue with header-only check
+      // Continue with header-only check - this is acceptable for security
+      console.warn('CSRF token body read failed (non-critical):', error instanceof Error ? error.message : 'Unknown error')
     }
   }
 

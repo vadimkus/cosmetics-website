@@ -75,11 +75,21 @@ export const addUser = async (userData: UserData): Promise<User> => {
 // Find user by email
 export const findUserByEmail = async (email: string): Promise<User | null> => {
   try {
-    return await prisma.user.findUnique({
+    // Add timeout to prevent hanging
+    const timeoutPromise = new Promise<User | null>((_, reject) => {
+      setTimeout(() => reject(new Error('Database query timeout')), 10000) // 10 second timeout
+    })
+    
+    const queryPromise = prisma.user.findUnique({
       where: { email }
     })
+    
+    return await Promise.race([queryPromise, timeoutPromise])
   } catch (error) {
     console.error('Error finding user by email:', error)
+    if (error instanceof Error && error.message === 'Database query timeout') {
+      console.error('⚠️ Database query timed out for email:', email)
+    }
     return null
   }
 }

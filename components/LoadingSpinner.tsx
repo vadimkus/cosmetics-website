@@ -1,4 +1,4 @@
-import React from 'react'
+// React import removed (not needed in React 19)
 import { cn } from '@/lib/utils'
 
 interface LoadingSpinnerProps {

@@ -760,6 +760,87 @@ export default function AdminPage() {
                   {usersRefreshing ? 'Refreshing...' : 'Refresh'}
                 </button>
               </div>
+              
+              {/* User Summary */}
+              {!loading && (
+                <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-6 mb-8">
+                  <h3 className="text-xl font-bold text-gray-800 mb-4">User Summary</h3>
+                  <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                    <div className="bg-gray-50 rounded-lg p-4 border border-gray-100">
+                      <p className="text-sm text-gray-600">Total Users</p>
+                      <p className="text-2xl font-bold text-gray-900">{users.length || 0}</p>
+                    </div>
+                    <div className="bg-blue-50 rounded-lg p-4 border border-blue-100">
+                      <p className="text-sm text-blue-700 font-medium">Admin Users</p>
+                      <p className="text-2xl font-bold text-blue-800">{users.filter(u => u.isAdmin).length || 0}</p>
+                    </div>
+                    <div className="bg-gray-50 rounded-lg p-4 border border-gray-100">
+                      <p className="text-sm text-gray-600">Regular Users</p>
+                      <p className="text-2xl font-bold text-gray-900">{users.filter(u => !u.isAdmin).length || 0}</p>
+                    </div>
+                    <div className="bg-green-50 rounded-lg p-4 border border-green-100">
+                      <p className="text-sm text-green-700 font-medium">Price Access</p>
+                      <p className="text-2xl font-bold text-green-800">{users.filter(u => u.canSeePrices).length || 0}</p>
+                    </div>
+                    <div className="bg-gray-50 rounded-lg p-4 border border-gray-100">
+                      <p className="text-sm text-gray-600">With Discount</p>
+                      <p className="text-2xl font-bold text-gray-900">{users.filter(u => u.discountType && u.discountPercentage).length || 0}</p>
+                    </div>
+                    <div className="bg-gray-50 rounded-lg p-4 border border-gray-100 lg:col-span-2">
+                      <p className="text-sm text-gray-600 mb-2">Recent Logins (Last 7 Days)</p>
+                      <div className="space-y-2 max-h-32 overflow-y-auto">
+                        {(() => {
+                          const recentLogins = users
+                            .filter(u => {
+                              if (!u.lastLoginAt) return false
+                              const lastLogin = new Date(u.lastLoginAt)
+                              const sevenDaysAgo = new Date()
+                              sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7)
+                              return lastLogin > sevenDaysAgo
+                            })
+                            .sort((a, b) => {
+                              if (!a.lastLoginAt || !b.lastLoginAt) return 0
+                              return new Date(b.lastLoginAt).getTime() - new Date(a.lastLoginAt).getTime()
+                            })
+                            .slice(0, 5) // Show top 5 most recent
+                          
+                          if (recentLogins.length === 0) {
+                            return <p className="text-sm text-gray-500">No recent logins</p>
+                          }
+                          
+                          return (
+                            <>
+                              <p className="text-2xl font-bold text-gray-900 mb-2">
+                                {users.filter(u => {
+                                  if (!u.lastLoginAt) return false
+                                  const lastLogin = new Date(u.lastLoginAt)
+                                  const sevenDaysAgo = new Date()
+                                  sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7)
+                                  return lastLogin > sevenDaysAgo
+                                }).length} total
+                              </p>
+                              {recentLogins.map(user => (
+                                <div key={user.id} className="flex items-center justify-between text-xs border-b border-gray-200 pb-1">
+                                  <span className="font-medium text-gray-900 truncate flex-1">{user.name}</span>
+                                  <span className="text-gray-500 ml-2 flex-shrink-0">
+                                    {user.lastLoginAt && new Date(user.lastLoginAt).toLocaleDateString('en-AE', {
+                                      month: 'short',
+                                      day: 'numeric',
+                                      hour: '2-digit',
+                                      minute: '2-digit'
+                                    })}
+                                  </span>
+                                </div>
+                              ))}
+                            </>
+                          )
+                        })()}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+              
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {loading ? (
                       Array.from({ length: 6 }).map((_, index) => (

@@ -1,6 +1,6 @@
 'use client'
 
-import React, { createContext, useContext, useEffect, ReactNode } from 'react'
+import { createContext, useContext, useEffect, type ReactNode } from 'react'
 import { initMonitoring, setUserContext, addBreadcrumb } from '@/lib/monitoring'
 import { enhancedErrorTracking } from '@/lib/errorTracking'
 

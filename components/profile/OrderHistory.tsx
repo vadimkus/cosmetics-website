@@ -83,7 +83,7 @@ export default function OrderHistory({ orders, loadingOrders, onCancelOrder }: O
   }
 
   return (
-    <div className="bg-white/70 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 p-8">
+    <div className="bg-white/70 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 p-4 sm:p-6 lg:p-8">
       <div className="flex items-center gap-3 mb-6">
         <div className="p-3 bg-gradient-to-r from-green-100 to-emerald-100 rounded-xl">
           <Package className="h-6 w-6 text-green-600" />
@@ -214,7 +214,7 @@ export default function OrderHistory({ orders, loadingOrders, onCancelOrder }: O
                   {(order.status === 'pending' || order.status === 'paid') && (
                     <button
                       onClick={() => onCancelOrder(order.id)}
-                      className="inline-flex items-center gap-2 px-4 py-2 bg-red-50 text-red-700 text-sm rounded-lg hover:bg-red-100 transition-colors font-medium border border-red-200"
+                      className="inline-flex items-center gap-2 px-4 py-2 bg-red-50 text-red-700 text-sm rounded-lg hover:bg-red-100 transition-colors font-medium border border-red-200 min-h-[44px] touch-manipulation"
                     >
                       <X className="h-4 w-4" />
                       Cancel Order

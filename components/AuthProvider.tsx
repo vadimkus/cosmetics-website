@@ -92,11 +92,28 @@ export default function AuthProvider({ children }: AuthProviderProps) {
         return false
       }
 
-      const response = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: getCsrfHeaders(),
-        body: JSON.stringify(addCsrfToBody({ email, password })),
-      })
+      // Add timeout to prevent hanging
+      const controller = new AbortController()
+      const timeoutId = setTimeout(() => controller.abort(), 30000) // 30 second timeout
+      
+      let response
+      try {
+        response = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: getCsrfHeaders(),
+          body: JSON.stringify(addCsrfToBody({ email, password })),
+          signal: controller.signal
+        })
+      } catch (error: any) {
+        clearTimeout(timeoutId)
+        if (error.name === 'AbortError') {
+          alert('Login request timed out. Please check your connection and try again.')
+        } else {
+          throw error
+        }
+        return false
+      }
+      clearTimeout(timeoutId)
 
       const data = await response.json()
 

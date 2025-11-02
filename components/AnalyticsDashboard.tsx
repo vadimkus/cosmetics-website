@@ -75,7 +75,13 @@ export default function AnalyticsDashboard({ onCustomerClick }: AnalyticsDashboa
 
       if (citiesRes.ok) {
         const citiesData = await citiesRes.json()
-        setAnalytics(prev => prev ? { ...prev, topCities: citiesData } : null)
+        // Transform API response to match expected format
+        const transformedCities = citiesData.map((c: { city: string; count: number; country?: string }) => ({
+          city: c.city,
+          country: c.country || 'Unknown',
+          visitors: c.count || 0
+        }))
+        setAnalytics(prev => prev ? { ...prev, topCities: transformedCities } : null)
       }
 
 
@@ -301,30 +307,39 @@ export default function AnalyticsDashboard({ onCustomerClick }: AnalyticsDashboa
         {/* Top Cities */}
         <div className="bg-white rounded-lg shadow p-6">
           <h3 className="text-lg font-semibold text-gray-800 mb-4">Visitor Cities</h3>
-          <div className="space-y-3">
+          <div className="space-y-2">
             {analytics.topCities && analytics.topCities.length > 0 ? (
-              analytics.topCities.slice(0, 8).map((city, index) => (
-                <div key={index} className="flex justify-between items-center">
-                  <div className="flex items-center">
-                    <span className="text-sm text-gray-600">
-                      {city.city}, {city.country}
-                    </span>
-                  </div>
-                  <div className="flex items-center">
-                    <div className="w-16 bg-gray-200 rounded-full h-2 mr-2">
-                      <div 
-                        className="bg-green-600 h-2 rounded-full"
-                        style={{ 
-                          width: `${(city.visitors / Math.max(...analytics.topCities.map(c => c.visitors))) * 100}%` 
-                        }}
-                      ></div>
+              analytics.topCities.slice(0, 8).map((city, index) => {
+                const maxVisitors = Math.max(...analytics.topCities.map(c => c.visitors || 0))
+                return (
+                  <div key={index} className="flex justify-between items-center py-2 border-b border-gray-100 last:border-b-0">
+                    <div className="flex items-center flex-1">
+                      <span className="text-xs font-semibold text-gray-500 mr-3 w-6 text-center">
+                        {index + 1}
+                      </span>
+                      <span className="text-sm font-medium text-gray-900">
+                        {city.city}
+                        {city.country && city.country !== 'Unknown' && (
+                          <span className="text-gray-500 font-normal">, {city.country}</span>
+                        )}
+                      </span>
                     </div>
-                    <span className="text-sm font-medium text-gray-900 w-8 text-right">
-                      {city.visitors}
-                    </span>
+                    <div className="flex items-center gap-3">
+                      <div className="w-20 bg-gray-200 rounded-full h-2">
+                        <div 
+                          className="bg-green-600 h-2 rounded-full transition-all"
+                          style={{ 
+                            width: maxVisitors > 0 ? `${(city.visitors / maxVisitors) * 100}%` : '0%'
+                          }}
+                        ></div>
+                      </div>
+                      <span className="text-sm font-bold text-gray-900 w-10 text-right">
+                        {city.visitors || 0}
+                      </span>
+                    </div>
                   </div>
-                </div>
-              ))
+                )
+              })
             ) : (
               <div className="text-center py-4">
                 <p className="text-sm text-gray-500">No city data available</p>

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { type ReactNode } from 'react'
 import { cn } from '@/lib/utils'
 
 interface AccessibleButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -6,10 +6,10 @@ interface AccessibleButtonProps extends React.ButtonHTMLAttributes<HTMLButtonEle
   size?: 'sm' | 'md' | 'lg'
   loading?: boolean
   loadingText?: string
-  icon?: React.ReactNode
+  icon?: ReactNode
   iconPosition?: 'left' | 'right'
   fullWidth?: boolean
-  children: React.ReactNode
+  children: ReactNode
 }
 
 const variantClasses = {

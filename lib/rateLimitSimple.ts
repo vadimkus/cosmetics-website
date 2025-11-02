@@ -21,19 +21,25 @@ export function rateLimitSimple(options: RateLimitOptions) {
       const now = new Date()
       const newResetTime = new Date(now.getTime() + windowMs)
 
-      // Clean up old entries
-      await prisma.rateLimit.deleteMany({
-        where: {
-          resetTime: {
-            lt: now
-          }
-        }
-      })
-
-      // Check if rate limit entry exists
+      // Check if rate limit entry exists first (faster path)
       const existingEntry = await prisma.rateLimit.findUnique({
         where: { identifier }
       })
+      
+      // Only clean up old entries if the entry doesn't exist or is expired
+      // This avoids expensive cleanup on every request
+      if (!existingEntry || existingEntry.resetTime < now) {
+        // Clean up old entries (async, don't wait for completion)
+        prisma.rateLimit.deleteMany({
+          where: {
+            resetTime: {
+              lt: now
+            }
+          }
+        }).catch(error => {
+          console.error('Rate limit cleanup error (non-blocking):', error)
+        })
+      }
 
       let rateLimitEntry
 

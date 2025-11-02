@@ -1,11 +1,12 @@
 'use client'
 
 import Link from 'next/link'
-import { ArrowLeft, User, Package, Settings, Download, Shield, Trash2 } from 'lucide-react'
+import { ArrowLeft, User, Package, Settings, Download, Shield, Trash2, X } from 'lucide-react'
 import { useAuth } from '@/components/AuthProvider'
 import { useState, useRef, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { Order, OrderItem } from '@prisma/client'
+import { fetchCsrfToken, getCsrfHeaders, addCsrfToBody } from '@/lib/csrfClient'
 
 // Import refactored components
 import ProfileHeader from '@/components/profile/ProfileHeader'
@@ -15,16 +16,54 @@ import SettingsPanel from '@/components/profile/SettingsPanel'
 import DownloadsSection from '@/components/profile/DownloadsSection'
 import PrivacySettings from '@/components/profile/PrivacySettings'
 
+// Constants
+const LOCAL_STORAGE_KEYS = {
+  USER: 'genosys_user',
+  CUSTOMER_NUMBER: (userId: string) => `customer_number_${userId}`,
+  LAST_CUSTOMER_NUMBER: 'last_customer_number'
+} as const
+
+const MAX_IMAGE_SIZE = 5 * 1024 * 1024 // 5MB
+const REFRESH_ANIMATION_DELAY = 1000 // 1 second
+
 // Custom type that includes the items relation
 type OrderWithItems = Order & {
   items: OrderItem[]
+}
+
+// Tab type for better type safety
+type ActiveTab = 'profile' | 'orders' | 'settings' | 'downloads' | 'privacy'
+
+// Edit data type
+type EditData = {
+  name: string
+  phone: string
+  address: string
+  birthday: string
+}
+
+// Helper function for error messages
+const getErrorMessage = (error: unknown): string => {
+  if (error instanceof Error) {
+    return error.message
+  }
+  if (typeof error === 'string') {
+    return error
+  }
+  return 'An unknown error occurred'
+}
+
+// Helper function for API error handling
+const handleApiError = (error: unknown, defaultMessage: string): void => {
+  console.error(defaultMessage, error)
+  alert(`${defaultMessage}: ${getErrorMessage(error)}`)
 }
 
 export default function ProfilePageRefactored() {
   const { user, logout, forceRefreshUser } = useAuth()
   const router = useRouter()
   const [isEditing, setIsEditing] = useState(false)
-  const [editData, setEditData] = useState({
+  const [editData, setEditData] = useState<EditData>({
     name: user?.name || '',
     phone: user?.phone || '',
     address: user?.address || '',
@@ -35,11 +74,20 @@ export default function ProfilePageRefactored() {
   const [customerNumber, setCustomerNumber] = useState<number>(0)
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
   const [isDeleting, setIsDeleting] = useState(false)
+  const [showCancelOrderConfirm, setShowCancelOrderConfirm] = useState(false)
+  const [orderToCancel, setOrderToCancel] = useState<string | null>(null)
   const [orders, setOrders] = useState<OrderWithItems[]>([])
   const [loadingOrders, setLoadingOrders] = useState(false)
-  const [activeTab, setActiveTab] = useState<'profile' | 'orders' | 'settings' | 'downloads' | 'privacy'>('profile')
+  const [activeTab, setActiveTab] = useState<ActiveTab>('profile')
   const [isRefreshing, setIsRefreshing] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
+
+  // Fetch CSRF token on mount
+  useEffect(() => {
+    fetchCsrfToken().catch(err => {
+      console.error('Failed to fetch CSRF token:', err)
+    })
+  }, [])
 
   // Handle refresh with loading state
   const handleRefresh = async () => {
@@ -54,7 +102,7 @@ export default function ProfilePageRefactored() {
       // Add a small delay to show the animation
       setTimeout(() => {
         setIsRefreshing(false)
-      }, 1000)
+      }, REFRESH_ANIMATION_DELAY)
     }
   }
 
@@ -78,15 +126,15 @@ export default function ProfilePageRefactored() {
         birthday: user.birthday || ''
       })
       
-      const savedCustomerNumber = localStorage.getItem(`customer_number_${user.id}`)
+      const savedCustomerNumber = localStorage.getItem(LOCAL_STORAGE_KEYS.CUSTOMER_NUMBER(user.id))
       if (savedCustomerNumber) {
-        setCustomerNumber(parseInt(savedCustomerNumber))
+        setCustomerNumber(parseInt(savedCustomerNumber, 10))
       } else {
-        const lastCustomerNumber = parseInt(localStorage.getItem('last_customer_number') || '0')
+        const lastCustomerNumber = parseInt(localStorage.getItem(LOCAL_STORAGE_KEYS.LAST_CUSTOMER_NUMBER) || '0', 10)
         const newCustomerNumber = lastCustomerNumber + 1
         
-        localStorage.setItem(`customer_number_${user.id}`, newCustomerNumber.toString())
-        localStorage.setItem('last_customer_number', newCustomerNumber.toString())
+        localStorage.setItem(LOCAL_STORAGE_KEYS.CUSTOMER_NUMBER(user.id), newCustomerNumber.toString())
+        localStorage.setItem(LOCAL_STORAGE_KEYS.LAST_CUSTOMER_NUMBER, newCustomerNumber.toString())
         
         setCustomerNumber(newCustomerNumber)
       }
@@ -125,8 +173,8 @@ export default function ProfilePageRefactored() {
         return
       }
       
-      if (file.size > 5 * 1024 * 1024) {
-        alert('Image size should be less than 5MB')
+      if (file.size > MAX_IMAGE_SIZE) {
+        alert(`Image size should be less than ${MAX_IMAGE_SIZE / (1024 * 1024)}MB`)
         return
       }
 
@@ -155,25 +203,30 @@ export default function ProfilePageRefactored() {
         return
       }
 
+      // Ensure CSRF token is available
+      const csrfToken = await fetchCsrfToken()
+      if (!csrfToken) {
+        alert('Security error: Could not verify request. Please refresh the page and try again.')
+        return
+      }
+
       const response = await fetch('/api/profile/update', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
+        headers: getCsrfHeaders(),
+        body: JSON.stringify(addCsrfToBody({
           userId: user.id,
           updates: {
             ...editData,
             profilePicture
           }
-        }),
+        })),
       })
 
       const responseData = await response.json()
 
       if (response.ok) {
         const updatedUser = { ...user, ...editData, profilePicture }
-        localStorage.setItem('genosys_user', JSON.stringify(updatedUser))
+        localStorage.setItem(LOCAL_STORAGE_KEYS.USER, JSON.stringify(updatedUser))
         setIsEditing(false)
         alert('Profile updated successfully!')
         window.location.reload()
@@ -182,8 +235,7 @@ export default function ProfilePageRefactored() {
         alert(`Failed to update profile: ${responseData.error || 'Unknown error'}`)
       }
     } catch (error) {
-      console.error('Error updating profile:', error)
-      alert(`Error updating profile: ${error instanceof Error ? error.message : 'Unknown error'}`)
+      handleApiError(error, 'Error updating profile')
     }
   }
 
@@ -210,17 +262,23 @@ export default function ProfilePageRefactored() {
     
     setIsDeleting(true)
     try {
+      // Ensure CSRF token is available
+      const csrfToken = await fetchCsrfToken()
+      if (!csrfToken) {
+        alert('Security error: Could not verify request. Please refresh the page and try again.')
+        setIsDeleting(false)
+        return
+      }
+
       const response = await fetch('/api/profile/delete', {
         method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ userId: user.id }),
+        headers: getCsrfHeaders(),
+        body: JSON.stringify(addCsrfToBody({ userId: user.id })),
       })
 
       if (response.ok) {
-        localStorage.removeItem('genosys_user')
-        localStorage.removeItem(`customer_number_${user.id}`)
+        localStorage.removeItem(LOCAL_STORAGE_KEYS.USER)
+        localStorage.removeItem(LOCAL_STORAGE_KEYS.CUSTOMER_NUMBER(user.id))
         
         // Immediately logout and redirect
         logout()
@@ -235,36 +293,52 @@ export default function ProfilePageRefactored() {
         alert(data.error || 'Failed to delete account. Please try again.')
       }
     } catch (error) {
-      console.error('Error deleting account:', error)
-      alert('Error deleting account. Please try again.')
+      handleApiError(error, 'Error deleting account')
     } finally {
       setIsDeleting(false)
       setShowDeleteConfirm(false)
     }
   }
 
-  const cancelOrder = async (orderId: string) => {
-    if (!confirm('Are you sure you want to cancel this order? The order will be permanently removed from your history. This action cannot be undone.')) {
-      return
-    }
+  const handleCancelOrderClick = (orderId: string) => {
+    setOrderToCancel(orderId)
+    setShowCancelOrderConfirm(true)
+  }
+
+  const cancelOrder = async () => {
+    if (!orderToCancel) return
 
     try {
-      const encodedOrderId = encodeURIComponent(orderId)
+      // Ensure CSRF token is available
+      const csrfToken = await fetchCsrfToken()
+      if (!csrfToken) {
+        alert('Security error: Could not verify request. Please refresh the page and try again.')
+        setShowCancelOrderConfirm(false)
+        setOrderToCancel(null)
+        return
+      }
+
+      const encodedOrderId = encodeURIComponent(orderToCancel)
       const response = await fetch(`/api/orders/${encodedOrderId}/cancel`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' }
+        headers: getCsrfHeaders(),
+        body: JSON.stringify(addCsrfToBody({}))
       })
       
       if (response.ok) {
-        setOrders(orders.filter(order => order.id !== orderId))
+        setOrders(orders.filter(order => order.id !== orderToCancel))
+        setShowCancelOrderConfirm(false)
+        setOrderToCancel(null)
         alert('Order cancelled and removed successfully')
       } else {
         const errorData = await response.json()
         alert(`Failed to cancel order: ${errorData.error || 'Unknown error'}`)
       }
     } catch (error) {
-      console.error('Error cancelling order:', error)
-      alert('Failed to cancel order')
+      handleApiError(error, 'Failed to cancel order')
+    } finally {
+      setShowCancelOrderConfirm(false)
+      setOrderToCancel(null)
     }
   }
 
@@ -329,11 +403,8 @@ export default function ProfilePageRefactored() {
             isEditing={isEditing}
             previewImage={previewImage}
             customerNumber={customerNumber}
-            isRefreshing={isRefreshing}
-            onEditToggle={() => setIsEditing(!isEditing)}
             onImageUpload={handleImageUpload}
             onRemoveImage={handleRemoveImage}
-            onRefresh={handleRefresh}
             fileInputRef={fileInputRef}
           />
 
@@ -357,7 +428,7 @@ export default function ProfilePageRefactored() {
                 ].map((tab) => (
                   <button
                     key={tab.id}
-                    onClick={() => setActiveTab(tab.id as any)}
+                    onClick={() => setActiveTab(tab.id as ActiveTab)}
                     className={`flex items-center gap-1 sm:gap-2 px-2 xs:px-3 sm:px-6 py-3 rounded-xl font-medium transition-all duration-200 whitespace-nowrap flex-shrink-0 ${
                       activeTab === tab.id
                         ? 'bg-gradient-to-r from-red-600 to-red-700 text-white shadow-lg'
@@ -389,7 +460,7 @@ export default function ProfilePageRefactored() {
             <OrderHistory
               orders={orders}
               loadingOrders={loadingOrders}
-              onCancelOrder={cancelOrder}
+              onCancelOrder={handleCancelOrderClick}
             />
           )}
 
@@ -450,6 +521,53 @@ export default function ProfilePageRefactored() {
               <button
                 onClick={() => setShowDeleteConfirm(false)}
                 className="flex-1 bg-gray-200 text-gray-800 py-3 px-6 rounded-xl font-semibold hover:bg-gray-300 transition-colors"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Cancel Order Confirmation Modal */}
+      {showCancelOrderConfirm && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8">
+            <div className="flex items-center gap-4 mb-6">
+              <div className="p-3 bg-red-100 rounded-xl">
+                <X className="h-8 w-8 text-red-600" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-800">Cancel Order</h3>
+            </div>
+            
+            <div className="mb-8">
+              <p className="text-gray-600 mb-4">
+                Are you sure you want to cancel this order? The order will be permanently removed from your history. This action cannot be undone.
+              </p>
+              <div className="bg-red-50 border border-red-200 rounded-xl p-4">
+                <p className="text-red-800 font-medium mb-2">This will:</p>
+                <ul className="text-red-700 text-sm space-y-1">
+                  <li>• Permanently cancel the order</li>
+                  <li>• Remove it from your order history</li>
+                  <li>• Cannot be restored</li>
+                </ul>
+              </div>
+            </div>
+            
+            <div className="flex gap-3">
+              <button
+                onClick={cancelOrder}
+                className="flex-1 flex items-center justify-center gap-2 bg-red-600 text-white py-3 px-6 rounded-xl font-semibold hover:bg-red-700 transition-colors"
+              >
+                <X className="h-5 w-5" />
+                Yes, Cancel Order
+              </button>
+              <button
+                onClick={() => {
+                  setShowCancelOrderConfirm(false)
+                  setOrderToCancel(null)
+                }}
+                className="px-6 py-3 bg-gray-200 text-gray-700 rounded-xl font-semibold hover:bg-gray-300 transition-colors"
               >
                 Cancel
               </button>

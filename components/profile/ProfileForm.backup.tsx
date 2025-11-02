@@ -1,7 +1,6 @@
 'use client'
 
-import Link from 'next/link'
-import { User, Shield, Eye, Lock, CheckCircle, X, MessageCircle, Phone, Zap, Clock, Gift, Sparkles, Heart } from 'lucide-react'
+import { User, Shield, Eye, Lock, CheckCircle, X } from 'lucide-react'
 import { User as UserType } from '@/types/user'
 
 interface ProfileFormProps {
@@ -37,7 +36,7 @@ export default function ProfileForm({
     <div className="space-y-8">
       
       {/* Personal Information */}
-      <div className="bg-white/70 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 p-4 sm:p-6 lg:p-8">
+      <div className="bg-white/70 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 p-8">
         <div className="flex items-center gap-3 mb-6">
           <div className="p-3 bg-gradient-to-r from-green-100 to-emerald-100 rounded-xl">
             <User className="h-6 w-6 text-green-600" />
@@ -132,17 +131,17 @@ export default function ProfileForm({
         </div>
 
         {isEditing && (
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-6 sm:mt-8 pt-4 sm:pt-6 border-t border-gray-200">
+          <div className="flex gap-4 mt-8 pt-6 border-t border-gray-200">
             <button
               onClick={onSave}
-              className="flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-emerald-600 to-emerald-700 text-white rounded-xl font-semibold hover:from-emerald-700 hover:to-emerald-800 transition-all duration-200 shadow-lg hover:shadow-xl min-h-[44px] touch-manipulation"
+              className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-emerald-600 to-emerald-700 text-white rounded-xl font-semibold hover:from-emerald-700 hover:to-emerald-800 transition-all duration-200 shadow-lg hover:shadow-xl"
             >
               <CheckCircle className="h-5 w-5" />
               Save Changes
             </button>
             <button
               onClick={onCancel}
-              className="flex items-center justify-center gap-2 px-6 py-3 bg-gray-200 text-gray-700 rounded-xl font-semibold hover:bg-gray-300 transition-all duration-200 min-h-[44px] touch-manipulation"
+              className="flex items-center gap-2 px-6 py-3 bg-gray-200 text-gray-700 rounded-xl font-semibold hover:bg-gray-300 transition-all duration-200"
             >
               <X className="h-5 w-5" />
               Cancel
@@ -152,7 +151,7 @@ export default function ProfileForm({
       </div>
 
       {/* Account Status */}
-      <div className="bg-white/70 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 p-4 sm:p-6 lg:p-8">
+      <div className="bg-white/70 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 p-8">
         <div className="flex items-center gap-3 mb-6">
           <div className="p-3 bg-gradient-to-r from-green-100 to-emerald-100 rounded-xl">
             <Shield className="h-6 w-6 text-green-600" />
@@ -224,92 +223,6 @@ export default function ProfileForm({
               </div>
             </div>
           )}
-        </div>
-      </div>
-
-      {/* Support Section */}
-      <div className="bg-white/70 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 p-4 sm:p-6 lg:p-8">
-        <div className="flex items-center gap-4 mb-6">
-          <div className="p-3 bg-gradient-to-r from-green-100 to-emerald-100 rounded-xl">
-            <MessageCircle className="h-8 w-8 text-green-600" />
-          </div>
-          <div>
-            <h2 className="text-2xl font-bold text-gray-800">Need Help?</h2>
-            <p className="text-gray-600">Get instant support via WhatsApp</p>
-          </div>
-        </div>
-        
-        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-          <a
-            href="https://wa.me/971585487665"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center justify-center gap-2 bg-gradient-to-r from-green-600 to-green-700 text-white px-6 py-3 rounded-xl font-semibold hover:from-green-700 hover:to-green-800 transition-all duration-200 shadow-lg hover:shadow-xl min-h-[44px] touch-manipulation"
-          >
-            <MessageCircle className="h-5 w-5" />
-            Start WhatsApp Chat
-          </a>
-          <div className="flex items-center justify-center gap-2 text-gray-600 py-2">
-            <Phone className="h-5 w-5" />
-            <span className="font-medium text-sm sm:text-base">+971 58 548 76 65</span>
-          </div>
-        </div>
-        
-        <div className="mt-4 sm:mt-6 grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 text-xs sm:text-sm text-gray-600">
-          <div className="flex items-center gap-2">
-            <Zap className="h-4 w-4" />
-            <span>Available 24/7</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <Clock className="h-4 w-4" />
-            <span>Quick response</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <Gift className="h-4 w-4" />
-            <span>Product recommendations</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Skin Recommendation */}
-      <div className="bg-white/70 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 p-4 sm:p-6 lg:p-8">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="p-3 bg-gradient-to-r from-pink-100 to-rose-100 rounded-xl">
-            <Sparkles className="h-6 w-6 text-pink-600" />
-          </div>
-          <div>
-            <h2 className="text-2xl font-bold text-gray-800">Skin Recommendation</h2>
-            <p className="text-gray-600">Get personalized product recommendations based on your skin type</p>
-          </div>
-        </div>
-        
-        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-          <Link
-            href="/skin-recommendation"
-            className="flex items-center justify-center gap-2 bg-gradient-to-r from-pink-600 to-rose-600 text-white px-6 py-3 rounded-xl font-semibold hover:from-pink-700 hover:to-rose-700 transition-all duration-200 shadow-lg hover:shadow-xl min-h-[44px] touch-manipulation"
-          >
-            <Sparkles className="h-5 w-5" />
-            Get Skin Analysis
-          </Link>
-          <div className="flex items-center justify-center gap-2 text-gray-600 py-2">
-            <Heart className="h-5 w-5" />
-            <span className="font-medium text-sm sm:text-base">Personalized recommendations</span>
-          </div>
-        </div>
-        
-        <div className="mt-4 sm:mt-6 grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 text-xs sm:text-sm text-gray-600">
-          <div className="flex items-center gap-2">
-            <Sparkles className="h-4 w-4" />
-            <span>AI-powered analysis</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <Heart className="h-4 w-4" />
-            <span>Personalized results</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <Gift className="h-4 w-4" />
-            <span>Product suggestions</span>
-          </div>
         </div>
       </div>
     </div>

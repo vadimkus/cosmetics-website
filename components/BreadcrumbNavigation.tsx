@@ -1,4 +1,3 @@
-import React from 'react'
 import Link from 'next/link'
 import { ChevronRight } from 'lucide-react'
 import { cn } from '@/lib/utils'
@@ -50,7 +49,7 @@ export default function BreadcrumbNavigation({
       aria-label="Breadcrumb"
     >
       {items.map((item, index) => (
-        <React.Fragment key={item.url}>
+        <div key={item.url}>
           {index > 0 && (
             <span className="flex items-center" aria-hidden="true">
               {renderSeparator()}
@@ -71,7 +70,7 @@ export default function BreadcrumbNavigation({
               {item.name}
             </Link>
           )}
-        </React.Fragment>
+        </div>
       ))}
     </nav>
   )

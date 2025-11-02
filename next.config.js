@@ -4,18 +4,16 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 })
 
 const nextConfig = {
-  // Disable ESLint during build to avoid configuration conflicts
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
-  
   // Production optimizations
   productionBrowserSourceMaps: false,
   
-  // Experimental optimizations - simplified
+  // Optimize package imports (Next.js 16)
   experimental: {
     optimizePackageImports: ['lucide-react'],
   },
+  
+  // Server-side packages that shouldn't be bundled (fixes jsdom version warning)
+  serverExternalPackages: ['jsdom', 'isomorphic-dompurify'],
   
   images: {
     remotePatterns: [
@@ -24,6 +22,21 @@ const nextConfig = {
         hostname: 'images.unsplash.com',
         port: '',
         pathname: '/**',
+      },
+    ],
+    // Next.js 16: Allow query strings for local images
+    localPatterns: [
+      {
+        pathname: '/images/**',
+        search: '',
+      },
+      {
+        pathname: '/Logo/**',
+        search: '',
+      },
+      {
+        pathname: '/favicon/**',
+        search: '',
       },
     ],
     formats: ['image/webp', 'image/avif'],

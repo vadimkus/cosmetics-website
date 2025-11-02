@@ -7,7 +7,7 @@ import PDFDownloadButton from '@/components/PDFDownloadButton'
 
 export default function DownloadsSection() {
   return (
-    <div className="bg-white/70 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 p-8">
+    <div className="bg-white/70 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 p-4 sm:p-6 lg:p-8">
       
       {/* Training Documents Section */}
       <div className="mb-8">
@@ -35,7 +35,7 @@ export default function DownloadsSection() {
               </div>
               <PDFDownloadButton
                 href="https://u.pcloud.link/publink/show?code=XZ9wc15ZDTFcM6uvKg0snY1dEJwzwQgHsEF7"
-                filename="Product Catalogue 2026.pdf"
+                filename="Product Catalogue 2026"
                 external={true}
                 className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-md hover:from-green-700 hover:to-green-800 transition-colors text-xs font-medium flex-shrink-0"
               >
@@ -181,7 +181,7 @@ export default function DownloadsSection() {
               </div>
               <PDFDownloadButton 
                 href="/documents/ppt/GENOSYS%20MULTI%20VITA%20RADIANCE%20CREAM.pdf"
-                filename="MULTI VITA RADIANCE CREAM"
+                filename="Product Documentation"
                 external={true}
                 className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
               >
@@ -214,7 +214,7 @@ export default function DownloadsSection() {
               </div>
               <PDFDownloadButton 
                 href="/documents/ppt/GENOSYS%20EyeCell%20EYE%20ZONE%20CARE%20SYSTEM.pdf" 
-                filename="EyeCell EYE ZONE CARE SYSTEM"
+                filename="Product Documentation"
                 external={true}
                 className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
               >
@@ -248,7 +248,7 @@ export default function DownloadsSection() {
               </div>
               <PDFDownloadButton 
                 href="/documents/ppt/GENOSYS%20EPI%20TURNOVER%20BOOSTING%20PEELING%20GEL.pdf" 
-                filename="EPI TURNOVER BOOSTING PEELING GEL"
+                filename="Product Documentation"
                 external={true}
                 className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
               >
@@ -282,7 +282,7 @@ export default function DownloadsSection() {
               </div>
               <PDFDownloadButton 
                 href="/documents/ppt/GENOSYS%20MULTI%20VITA%20RADIANCE%20SERUM.pdf" 
-                filename="MULTI VITA RADIANCE SERUM"
+                filename="Product Documentation"
                 external={true}
                 className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
               >
@@ -316,7 +316,7 @@ export default function DownloadsSection() {
               </div>
               <PDFDownloadButton 
                 href="/documents/ppt/GENOSYS%20SKIN%20DEFENDER%20LIP%20%26%20EYE%20MAKEUP%20REMOVER.pdf"
-                filename="SKIN DEFENDER LIP & EYE MAKEUP REMOVER"
+                filename="Product Documentation"
                 external={true}
                 className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
               >
@@ -350,7 +350,7 @@ export default function DownloadsSection() {
               </div>
               <PDFDownloadButton 
                 href="/documents/ppt/GENOSYS%20MICROBIOME%20ENERGY%20INFUSING%20MIST.pdf" 
-                filename="MICROBIOME ENERGY INFUSING MIST"
+                filename="Product Documentation"
                 external={true}
                 className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
               >
@@ -384,7 +384,7 @@ export default function DownloadsSection() {
               </div>
               <PDFDownloadButton 
                 href="/documents/ppt/GENOSYS%20SKIN%20RESCUE%20OVERNIGHT%20CREAM%20MASK.pdf" 
-                filename="SKIN RESCUE OVERNIGHT CREAM MASK"
+                filename="Product Documentation"
                 external={true}
                 className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
               >
@@ -418,7 +418,517 @@ export default function DownloadsSection() {
               </div>
               <PDFDownloadButton 
                 href="/documents/ppt/GENOSYS%20INTENSIVE%20PROBLEM%20CONTROL%20TONER.pdf"
-                filename="INTENSIVE PROBLEM CONTROL TONER"
+                filename="Product Documentation"
+                external={true}
+                className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
+              >
+                <Download className="h-3 w-3 mr-1" />
+                View PDF
+              </PDFDownloadButton>
+            </div>
+          </div>
+          
+          {/* ULTRA SHIELD SUN CREAM */}
+          <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+                <Link href="/products/39">
+                  <Image
+                    src="/images/SPF50.jpg"
+                    alt="ULTRA SHIELD SUN CREAM"
+                    width={500}
+                    height={300} 
+                    className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+                  />
+                </Link>
+              </div>
+              <div className="flex-1 min-w-0">
+                <h4 className="text-sm font-semibold text-gray-900 truncate">
+                  ULTRA SHIELD SUN CREAM
+                </h4>
+                <p className="text-xs text-gray-400">
+                  0.6 MB
+                </p>
+              </div>
+              <PDFDownloadButton 
+                href="/documents/ppt/GENOSYS%20ULTRA%20SHIELD%20SUN%20CREAM.pdf"
+                filename="Product Documentation"
+                external={true}
+                className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
+              >
+                <Download className="h-3 w-3 mr-1" />
+                View PDF
+              </PDFDownloadButton>
+            </div>
+          </div>
+          
+          {/* HR³ MATRIX SCALP SHAMPOO α */}
+          <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+                <Link href="/products/44">
+                  <Image
+                    src="/images/Sham.jpg"
+                    alt="HR³ MATRIX SCALP SHAMPOO α"
+                    width={500}
+                    height={300} 
+                    className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+                  />
+                </Link>
+              </div>
+              <div className="flex-1 min-w-0">
+                <h4 className="text-sm font-semibold text-gray-900 truncate">
+                  HR³ MATRIX SCALP SHAMPOO α
+                </h4>
+                <p className="text-xs text-gray-400">
+                  2.3 MB
+                </p>
+              </div>
+              <PDFDownloadButton 
+                href="/documents/ppt/GENOSYS%20HR3%20MATRIX%20SCALP%20SHAMPOO%20ALPHA.pdf"
+                filename="Product Documentation"
+                external={true}
+                className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
+              >
+                <Download className="h-3 w-3 mr-1" />
+                View PDF
+              </PDFDownloadButton>
+            </div>
+          </div>
+          
+          {/* MOISTURE REPLENISHING HYALURON SERUM */}
+          <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+                <Link href="/products/18">
+                  <Image
+                    src="/images/HRS.jpg"
+                    alt="MOISTURE REPLENISHING HYALURON SERUM"
+                    width={500}
+                    height={300} 
+                    className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+                  />
+                </Link>
+              </div>
+              <div className="flex-1 min-w-0">
+                <h4 className="text-sm font-semibold text-gray-900 truncate">
+                  MOISTURE REPLENISHING HYALURON SERUM
+                </h4>
+                <p className="text-xs text-gray-400">
+                  1.9 MB
+                </p>
+              </div>
+              <PDFDownloadButton 
+                href="/documents/ppt/GENOSYS%20MOISTURE%20REPLENISHING%20HYALURON%20SERUM.pdf"
+                filename="Product Documentation"
+                external={true}
+                className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
+              >
+                <Download className="h-3 w-3 mr-1" />
+                View PDF
+              </PDFDownloadButton>
+            </div>
+          </div>
+          
+          {/* MOISTURE REPLENISHING HYALURON CREAM */}
+          <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+                <Link href="/products/29">
+                  <Image
+                    src="/images/HER.jpg"
+                    alt="MOISTURE REPLENISHING HYALURON CREAM"
+                    width={500}
+                    height={300} 
+                    className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+                  />
+                </Link>
+              </div>
+              <div className="flex-1 min-w-0">
+                <h4 className="text-sm font-semibold text-gray-900 truncate">
+                  MOISTURE REPLENISHING HYALURON CREAM
+                </h4>
+                <p className="text-xs text-gray-400">
+                  2.0 MB
+                </p>
+              </div>
+              <PDFDownloadButton 
+                href="/documents/ppt/GENOSYS%20MOISTURE%20REPLENISHING%20HYALURON%20CREAM.pdf"
+                filename="Product Documentation"
+                external={true}
+                className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
+              >
+                <Download className="h-3 w-3 mr-1" />
+                View PDF
+              </PDFDownloadButton>
+            </div>
+          </div>
+          
+          {/* SKIN CARING BLEMISH BALM CUSHION */}
+          <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+                <Link href="/products/41">
+                  <Image
+                    src="/images/BBC.jpg"
+                    alt="SKIN CARING BLEMISH BALM CUSHION"
+                    width={500}
+                    height={300} 
+                    className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+                  />
+                </Link>
+              </div>
+              <div className="flex-1 min-w-0">
+                <h4 className="text-sm font-semibold text-gray-900 truncate">
+                  SKIN CARING BLEMISH BALM CUSHION
+                </h4>
+                <p className="text-xs text-gray-400">
+                  1.2 MB
+                </p>
+              </div>
+              <PDFDownloadButton 
+                href="/documents/ppt/GENOSYS%20SKIN%20CARING%20BLEMISH%20BALM%20CUSHION.pdf"
+                filename="Product Documentation"
+                external={true}
+                className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
+              >
+                <Download className="h-3 w-3 mr-1" />
+                View PDF
+              </PDFDownloadButton>
+            </div>
+          </div>
+          
+          {/* EyeCell EYE PEPTIDE GEL PATCH */}
+          <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+                <Link href="/products/33">
+                  <Image
+                    src="/images/Patch.jpg"
+                    alt="EyeCell EYE PEPTIDE GEL PATCH"
+                    width={500}
+                    height={300} 
+                    className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+                  />
+                </Link>
+              </div>
+              <div className="flex-1 min-w-0">
+                <h4 className="text-sm font-semibold text-gray-900 truncate">
+                  EyeCell EYE PEPTIDE GEL PATCH
+                </h4>
+                <p className="text-xs text-gray-400">
+                  1.4 MB
+                </p>
+              </div>
+              <PDFDownloadButton 
+                href="/documents/ppt/GENOSYS%20EyeCell%20EYE%20PEPTIDE%20GEL%20PATCH.pdf"
+                filename="Product Documentation"
+                external={true}
+                className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
+              >
+                <Download className="h-3 w-3 mr-1" />
+                View PDF
+              </PDFDownloadButton>
+            </div>
+          </div>
+          
+          {/* BIO-FERMENT AGE DEFYING POWDER MASK */}
+          <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+                <Link href="/products/51">
+                  <Image
+                    src="/images/BFAD.png"
+                    alt="BIO-FERMENT AGE DEFYING POWDER MASK"
+                    width={500}
+                    height={300} 
+                    className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+                  />
+                </Link>
+              </div>
+              <div className="flex-1 min-w-0">
+                <h4 className="text-sm font-semibold text-gray-900 truncate">
+                  BIO-FERMENT AGE DEFYING POWDER MASK
+                </h4>
+                <p className="text-xs text-gray-400">
+                  2.1 MB
+                </p>
+              </div>
+              <PDFDownloadButton 
+                href="/documents/ppt/GENOSYS%20BIO-FERMENT%20AGE%20DEFYING%20POWDER%20MASK.pdf"
+                filename="Product Documentation"
+                external={true}
+                className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
+              >
+                <Download className="h-3 w-3 mr-1" />
+                View PDF
+              </PDFDownloadButton>
+            </div>
+          </div>
+          
+          {/* HAIR GENTRON */}
+          <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+                <Link href="/products/48">
+                  <Image
+                    src="/images/gen.jpg"
+                    alt="HAIR GENTRON"
+                    width={500}
+                    height={300} 
+                    className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+                  />
+                </Link>
+              </div>
+              <div className="flex-1 min-w-0">
+                <h4 className="text-sm font-semibold text-gray-900 truncate">
+                  HAIR GENTRON
+                </h4>
+                <p className="text-xs text-gray-400">
+                  1.8 MB
+                </p>
+              </div>
+              <PDFDownloadButton 
+                href="/documents/ppt/HAIR%20GENTRON.pdf"
+                filename="Product Documentation"
+                external={true}
+                className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
+              >
+                <Download className="h-3 w-3 mr-1" />
+                View PDF
+              </PDFDownloadButton>
+            </div>
+          </div>
+          
+          {/* HR³ MATRIX HAIR SOLUTION α */}
+          <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+                <Link href="/products/45">
+                  <Image
+                    src="/images/HHR.jpg"
+                    alt="HR³ MATRIX HAIR SOLUTION α"
+                    width={500}
+                    height={300} 
+                    className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+                  />
+                </Link>
+              </div>
+              <div className="flex-1 min-w-0">
+                <h4 className="text-sm font-semibold text-gray-900 truncate">
+                  HR³ MATRIX HAIR SOLUTION α
+                </h4>
+                <p className="text-xs text-gray-400">
+                  2.3 MB
+                </p>
+              </div>
+              <PDFDownloadButton 
+                href="/documents/ppt/GENOSYS%20HR3%20MATRIX%20HAIR%20SOLUTION%20ALPHA.pdf"
+                filename="Product Documentation"
+                external={true}
+                className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
+              >
+                <Download className="h-3 w-3 mr-1" />
+                View PDF
+              </PDFDownloadButton>
+            </div>
+          </div>
+          
+          {/* HR³ MATRIX HAIR TONIC α */}
+          <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+                <Link href="/products/43">
+                  <Image
+                    src="/images/HT.jpg"
+                    alt="HR³ MATRIX HAIR TONIC α"
+                    width={500}
+                    height={300} 
+                    className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+                  />
+                </Link>
+              </div>
+              <div className="flex-1 min-w-0">
+                <h4 className="text-sm font-semibold text-gray-900 truncate">
+                  HR³ MATRIX HAIR TONIC α
+                </h4>
+                <p className="text-xs text-gray-400">
+                  1.9 MB
+                </p>
+              </div>
+              <PDFDownloadButton 
+                href="/documents/ppt/GENOSYS%20HR3%20MATRIX%20HAIR%20TONIC%20ALPHA.pdf"
+                filename="Product Documentation"
+                external={true}
+                className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
+              >
+                <Download className="h-3 w-3 mr-1" />
+                View PDF
+              </PDFDownloadButton>
+            </div>
+          </div>
+          
+          {/* HR³ MATRIX SCALP PEELING α */}
+          <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+                <Link href="/products/46">
+                  <Image
+                    src="/images/scal.jpg"
+                    alt="HR³ MATRIX SCALP PEELING α"
+                    width={500}
+                    height={300} 
+                    className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+                  />
+                </Link>
+              </div>
+              <div className="flex-1 min-w-0">
+                <h4 className="text-sm font-semibold text-gray-900 truncate">
+                  HR³ MATRIX SCALP PEELING α
+                </h4>
+                <p className="text-xs text-gray-400">
+                  2.1 MB
+                </p>
+              </div>
+              <PDFDownloadButton 
+                href="/documents/ppt/GENOSYS%20HR3%20MATRIX%20SCALP%20PEELING%20ALPHA.pdf"
+                filename="Product Documentation"
+                external={true}
+                className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
+              >
+                <Download className="h-3 w-3 mr-1" />
+                View PDF
+              </PDFDownloadButton>
+            </div>
+          </div>
+          
+          {/* GENO-LED IR II */}
+          <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+                <Link href="/products/49">
+                  <Image
+                    src="/images/LEDD.jpg"
+                    alt="GENO-LED IR II"
+                    width={500}
+                    height={300} 
+                    className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+                  />
+                </Link>
+              </div>
+              <div className="flex-1 min-w-0">
+                <h4 className="text-sm font-semibold text-gray-900 truncate">
+                  GENO-LED IR II
+                </h4>
+                <p className="text-xs text-gray-400">
+                  4.6 MB
+                </p>
+              </div>
+              <PDFDownloadButton 
+                href="/documents/ppt/GENO-LED%20IR%20II_2025.pdf"
+                filename="Product Documentation"
+                external={true}
+                className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
+              >
+                <Download className="h-3 w-3 mr-1" />
+                View PDF
+              </PDFDownloadButton>
+            </div>
+          </div>
+
+          {/* SKIN REBOOT PDRN MASK PACK */}
+          <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+                <Link href="/products/52">
+                  <Image
+                    src="/images/PDRN.png"
+                    alt="SKIN REBOOT PDRN MASK PACK"
+                    width={500}
+                    height={300} 
+                    className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+                  />
+                </Link>
+              </div>
+              <div className="flex-1 min-w-0">
+                <h4 className="text-sm font-semibold text-gray-900 truncate">
+                  SKIN REBOOT PDRN MASK PACK
+                </h4>
+                <p className="text-xs text-gray-400">
+                  1.2 MB
+                </p>
+              </div>
+              <PDFDownloadButton 
+                href="/documents/ppt/GENOSYS%20SKIN%20REBOOT%20PDRN%20MASK%20PACK.pdf"
+                filename="Product Documentation"
+                external={true}
+                className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
+              >
+                <Download className="h-3 w-3 mr-1" />
+                View PDF
+              </PDFDownloadButton>
+            </div>
+          </div>
+          
+          {/* EZ CO₂ MASK KIT */}
+          <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+                <Link href="/products/38">
+                  <Image
+                    src="/images/EZE.jpg"
+                    alt="EZ CO₂ MASK KIT"
+                    width={500}
+                    height={300} 
+                    className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+                  />
+                </Link>
+              </div>
+              <div className="flex-1 min-w-0">
+                <h4 className="text-sm font-semibold text-gray-900 truncate">
+                  EZ CO₂ MASK KIT
+                </h4>
+                <p className="text-xs text-gray-400">
+                  0.5 MB
+                </p>
+              </div>
+              <PDFDownloadButton 
+                href="/documents/ppt/Genosys%20Ez%20Co2%20Mask.pdf"
+                filename="Product Documentation"
+                external={true}
+                className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
+              >
+                <Download className="h-3 w-3 mr-1" />
+                View PDF
+              </PDFDownloadButton>
+            </div>
+          </div>
+          
+          {/* Microneedle Roller */}
+          <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+                <Link href="/products/1">
+                  <Image
+                    src="/images/genosys-microneedling-devices.jpg"
+                    alt="Microneedle Roller"
+                    width={500}
+                    height={300} 
+                    className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+                  />
+                </Link>
+              </div>
+              <div className="flex-1 min-w-0">
+                <h4 className="text-sm font-semibold text-gray-900 truncate">
+                  Microneedle Roller
+                </h4>
+                <p className="text-xs text-gray-400">
+                  1.5 MB
+                </p>
+              </div>
+              <PDFDownloadButton 
+                href="/documents/ppt/Overview%20of%20Microneedling_S.pdf"
+                filename="Product Documentation"
                 external={true}
                 className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
               >

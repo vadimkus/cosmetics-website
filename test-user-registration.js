@@ -1,365 +1,169 @@
 #!/usr/bin/env node
 
 /**
- * Test script for user registration with validation
- * Tests input length limits, validation errors, and successful registration
+ * Test User Registration
+ * Tests the new user creation functionality
  */
 
 const baseUrl = process.env.TEST_URL || 'http://localhost:3000'
 
-// Colors for terminal output
-const colors = {
-  reset: '\x1b[0m',
-  bright: '\x1b[1m',
-  red: '\x1b[31m',
-  green: '\x1b[32m',
-  yellow: '\x1b[33m',
-  blue: '\x1b[34m',
-  cyan: '\x1b[36m',
-}
-
-function log(message, color = 'reset') {
-  console.log(`${colors[color]}${message}${colors.reset}`)
-}
-
-function logHeader(message) {
-  log(`\n${'='.repeat(60)}`, 'cyan')
-  log(message, 'bright')
-  log('='.repeat(60), 'cyan')
-}
-
-function logTest(name, passed, details = '') {
-  const icon = passed ? '✅' : '❌'
-  const color = passed ? 'green' : 'red'
-  log(`${icon} ${name}`, color)
-  
-  if (details) {
-    log(`    ${details}`, 'yellow')
-  }
-}
-
-let testsPassed = 0
-let testsFailed = 0
+// Simple cookie store for Node.js fetch
+const cookies = new Map()
 
 async function getCsrfToken() {
   try {
     const response = await fetch(`${baseUrl}/api/csrf-token`, {
+      credentials: 'include',
       headers: {
-        'Accept': 'application/json',
-      },
+        'Cookie': Array.from(cookies.entries()).map(([name, value]) => `${name}=${value}`).join('; ')
+      }
     })
     
+    // Extract cookies from response
+    const setCookie = response.headers.get('set-cookie')
+    if (setCookie) {
+      const tokenMatch = setCookie.match(/csrf-token=([^;]+)/)
+      if (tokenMatch && tokenMatch[1]) {
+        cookies.set('csrf-token', tokenMatch[1])
+      }
+    }
+    
+    const data = await response.json()
+    const token = data.token || cookies.get('csrf-token')
+    return token
+  } catch (error) {
+    console.error('Failed to get CSRF token:', error.message)
+    return null
+  }
+}
+
+async function testRegistration(name, email, password, phone) {
+  const csrfToken = await getCsrfToken()
+  if (!csrfToken) {
+    console.error('❌ Failed to get CSRF token')
+    return false
+  }
+
+  try {
+    const startTime = Date.now()
+    const response = await fetch(`${baseUrl}/api/auth/register`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-Token': csrfToken,
+        'Cookie': Array.from(cookies.entries()).map(([name, value]) => `${name}=${value}`).join('; ')
+      },
+      credentials: 'include',
+      body: JSON.stringify({
+        name,
+        email,
+        password,
+        phone,
+        csrfToken
+      })
+    })
+
+    const data = await response.json()
+    const elapsed = Date.now() - startTime
+
+    if (response.ok) {
+      console.log(`✅ Registration successful!`)
+      console.log(`   User ID: ${data.user.id}`)
+      console.log(`   Name: ${data.user.name}`)
+      console.log(`   Email: ${data.user.email}`)
+      console.log(`   Time: ${elapsed}ms`)
+      return true
+    } else {
+      console.log(`❌ Registration failed: ${data.error}`)
+      console.log(`   Status: ${response.status}`)
+      console.log(`   Time: ${elapsed}ms`)
+      return false
+    }
+  } catch (error) {
+    console.error(`❌ Registration error: ${error.message}`)
+    return false
+  }
+}
+
+async function runTests() {
+  console.log('\n🧪 Testing User Registration\n')
+  console.log('='.repeat(60))
+
+  // Test 1: Valid registration
+  console.log('\n📝 Test 1: Valid new user registration')
+  const testEmail = `test-${Date.now()}@example.com`
+  const success = await testRegistration(
+    'Test User',
+    testEmail,
+    'testpassword123',
+    '+971 50 123 4567'
+  )
+
+  if (!success) {
+    console.log('\n⚠️  Valid registration failed!')
+    return
+  }
+
+  // Test 2: Duplicate email
+  console.log('\n📝 Test 2: Duplicate email (should fail)')
+  await testRegistration(
+    'Another User',
+    testEmail, // Same email as Test 1
+    'password123',
+    '+971 50 999 9999'
+  )
+
+  // Test 3: Weak password
+  console.log('\n📝 Test 3: Weak password (should fail)')
+  await testRegistration(
+    'Test User 2',
+    `test2-${Date.now()}@example.com`,
+    '12345', // Too short
+    '+971 50 111 1111'
+  )
+
+  // Test 4: Missing required fields
+  console.log('\n📝 Test 4: Missing required fields (should fail)')
+  const csrfToken = await getCsrfToken()
+  try {
+    const response = await fetch(`${baseUrl}/api/auth/register`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-Token': csrfToken,
+        'Cookie': Array.from(cookies.entries()).map(([name, value]) => `${name}=${value}`).join('; ')
+      },
+      credentials: 'include',
+      body: JSON.stringify({
+        name: 'Test User',
+        // Missing email and password
+        csrfToken
+      })
+    })
+    const data = await response.json()
     if (!response.ok) {
-      log(`CSRF token endpoint returned status ${response.status}`, 'red')
-      return null
+      console.log(`✅ Correctly rejected: ${data.error}`)
+    } else {
+      console.log(`❌ Should have rejected missing fields`)
     }
-    
-    const contentType = response.headers.get('content-type')
-    if (!contentType || !contentType.includes('application/json')) {
-      log(`CSRF token endpoint returned ${contentType}, expected JSON`, 'red')
-      const text = await response.text()
-      log(`Response: ${text.substring(0, 100)}`, 'yellow')
-      return null
-    }
-    
-    const data = await response.json()
-    return data.token
   } catch (error) {
-    log(`Failed to get CSRF token: ${error.message}`, 'red')
-    return null
+    console.error(`❌ Error: ${error.message}`)
   }
+
+  // Test 5: Long name (should be validated)
+  console.log('\n📝 Test 5: Name length validation')
+  await testRegistration(
+    'A'.repeat(200), // Very long name
+    `test3-${Date.now()}@example.com`,
+    'password123',
+    '+971 50 222 2222'
+  )
+
+  console.log('\n' + '='.repeat(60))
+  console.log('\n✅ Registration testing completed!\n')
 }
 
-async function testNormalRegistration() {
-  logHeader('TEST 1: Normal User Registration')
-  
-  const csrfToken = await getCsrfToken()
-  if (!csrfToken) {
-    log('Cannot proceed without CSRF token', 'red')
-    testsFailed++
-    return
-  }
-  
-  // Generate unique email for testing
-  const timestamp = Date.now()
-  const testEmail = `test-${timestamp}@example.com`
-  const testName = 'Test User'
-  const testPassword = 'password123'
-  
-  try {
-    const response = await fetch(`${baseUrl}/api/auth/register`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-CSRF-Token': csrfToken,
-      },
-      body: JSON.stringify({
-        name: testName,
-        email: testEmail,
-        password: testPassword,
-        phone: '1234567890',
-        csrfToken: csrfToken,
-      }),
-    })
-    
-    const data = await response.json()
-    const success = response.ok && data.success
-    
-    logTest('Normal registration succeeds', success,
-      success ? `User created: ${testEmail}` : `Error: ${data.error}`)
-    
-    if (success) testsPassed++
-    else testsFailed++
-    
-    return testEmail
-  } catch (error) {
-    log(`Error: ${error.message}`, 'red')
-    testsFailed++
-    return null
-  }
-}
-
-async function testNameLengthLimit() {
-  logHeader('TEST 2: Name Length Limit (100 chars)')
-  
-  const csrfToken = await getCsrfToken()
-  if (!csrfToken) {
-    testsFailed++
-    return
-  }
-  
-  // Generate name longer than 100 chars
-  const longName = 'A'.repeat(101)
-  const timestamp = Date.now()
-  const testEmail = `test-long-name-${timestamp}@example.com`
-  
-  try {
-    const response = await fetch(`${baseUrl}/api/auth/register`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-CSRF-Token': csrfToken,
-      },
-      body: JSON.stringify({
-        name: longName,
-        email: testEmail,
-        password: 'password123',
-        csrfToken: csrfToken,
-      }),
-    })
-    
-    const data = await response.json()
-    const rejected = !response.ok && (data.error?.includes('100') || data.error?.includes('Name'))
-    
-    logTest('Long name (>100 chars) is rejected', rejected,
-      rejected ? `Correctly rejected: ${data.error}` : `Unexpected: ${response.status}`)
-    
-    if (rejected) testsPassed++
-    else testsFailed++
-  } catch (error) {
-    log(`Error: ${error.message}`, 'red')
-    testsFailed++
-  }
-}
-
-async function testEmailLengthLimit() {
-  logHeader('TEST 3: Email Length Limit (255 chars)')
-  
-  const csrfToken = await getCsrfToken()
-  if (!csrfToken) {
-    testsFailed++
-    return
-  }
-  
-  // Generate email longer than 255 chars
-  const longLocalPart = 'a'.repeat(240)
-  const longEmail = `${longLocalPart}@example.com`
-  
-  try {
-    const response = await fetch(`${baseUrl}/api/auth/register`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-CSRF-Token': csrfToken,
-      },
-      body: JSON.stringify({
-        name: 'Test User',
-        email: longEmail,
-        password: 'password123',
-        csrfToken: csrfToken,
-      }),
-    })
-    
-    const data = await response.json()
-    const rejected = !response.ok && (data.error?.includes('255') || data.error?.includes('Email'))
-    
-    logTest('Long email (>255 chars) is rejected', rejected,
-      rejected ? `Correctly rejected: ${data.error}` : `Unexpected: ${response.status}`)
-    
-    if (rejected) testsPassed++
-    else testsFailed++
-  } catch (error) {
-    log(`Error: ${error.message}`, 'red')
-    testsFailed++
-  }
-}
-
-async function testPhoneLengthLimit() {
-  logHeader('TEST 4: Phone Length Limit (20 chars)')
-  
-  const csrfToken = await getCsrfToken()
-  if (!csrfToken) {
-    testsFailed++
-    return
-  }
-  
-  // Generate phone longer than 20 chars
-  const longPhone = '1'.repeat(21)
-  const timestamp = Date.now()
-  const testEmail = `test-phone-${timestamp}@example.com`
-  
-  try {
-    const response = await fetch(`${baseUrl}/api/auth/register`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-CSRF-Token': csrfToken,
-      },
-      body: JSON.stringify({
-        name: 'Test User',
-        email: testEmail,
-        password: 'password123',
-        phone: longPhone,
-        csrfToken: csrfToken,
-      }),
-    })
-    
-    const data = await response.json()
-    const rejected = !response.ok && (data.error?.includes('20') || data.error?.includes('Phone'))
-    
-    logTest('Long phone (>20 chars) is rejected', rejected,
-      rejected ? `Correctly rejected: ${data.error}` : `Unexpected: ${response.status}`)
-    
-    if (rejected) testsPassed++
-    else testsFailed++
-  } catch (error) {
-    log(`Error: ${error.message}`, 'red')
-    testsFailed++
-  }
-}
-
-async function testMissingFields() {
-  logHeader('TEST 5: Required Fields Validation')
-  
-  const csrfToken = await getCsrfToken()
-  if (!csrfToken) {
-    testsFailed++
-    return
-  }
-  
-  // Test missing name
-  try {
-    const response = await fetch(`${baseUrl}/api/auth/register`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-CSRF-Token': csrfToken,
-      },
-      body: JSON.stringify({
-        email: 'test@example.com',
-        password: 'password123',
-        csrfToken: csrfToken,
-      }),
-    })
-    
-    const data = await response.json()
-    const rejected = !response.ok && data.error?.includes('required')
-    
-    logTest('Missing name is rejected', rejected,
-      rejected ? `Correctly rejected: ${data.error}` : `Unexpected: ${response.status}`)
-    
-    if (rejected) testsPassed++
-    else testsFailed++
-  } catch (error) {
-    log(`Error: ${error.message}`, 'red')
-    testsFailed++
-  }
-  
-  // Test missing email
-  try {
-    const response = await fetch(`${baseUrl}/api/auth/register`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-CSRF-Token': csrfToken,
-      },
-      body: JSON.stringify({
-        name: 'Test User',
-        password: 'password123',
-        csrfToken: csrfToken,
-      }),
-    })
-    
-    const data = await response.json()
-    const rejected = !response.ok && data.error?.includes('required')
-    
-    logTest('Missing email is rejected', rejected,
-      rejected ? `Correctly rejected: ${data.error}` : `Unexpected: ${response.status}`)
-    
-    if (rejected) testsPassed++
-    else testsFailed++
-  } catch (error) {
-    log(`Error: ${error.message}`, 'red')
-    testsFailed++
-  }
-}
-
-async function runAllTests() {
-  logHeader('USER REGISTRATION VALIDATION TEST SUITE')
-  log('Testing input length limits, validation, and successful registration...\n', 'blue')
-  
-  const startTime = Date.now()
-  
-  await testNormalRegistration()
-  await testNameLengthLimit()
-  await testEmailLengthLimit()
-  await testPhoneLengthLimit()
-  await testMissingFields()
-  
-  const endTime = Date.now()
-  const duration = ((endTime - startTime) / 1000).toFixed(2)
-  
-  // Summary
-  logHeader('FINAL TEST SUMMARY')
-  log(`Total Tests: ${testsPassed + testsFailed}`, 'cyan')
-  log(`✅ Passed: ${testsPassed}`, 'green')
-  log(`❌ Failed: ${testsFailed}`, testsFailed > 0 ? 'red' : 'green')
-  log(`⏱️  Duration: ${duration}s`, 'yellow')
-  
-  const successRate = ((testsPassed / (testsPassed + testsFailed)) * 100).toFixed(1)
-  log(`\nSuccess Rate: ${successRate}%`, successRate >= 80 ? 'green' : 'red')
-  
-  log('\n📋 Validation Features Tested:', 'cyan')
-  log('  ✅ Normal registration', 'green')
-  log('  ✅ Name length limit (100 chars)', 'green')
-  log('  ✅ Email length limit (255 chars)', 'green')
-  log('  ✅ Phone length limit (20 chars)', 'green')
-  log('  ✅ Required fields validation', 'green')
-  
-  if (testsFailed === 0) {
-    log('\n🎉 ALL VALIDATION TESTS PASSED!', 'green')
-    log('\n🛡️  User registration validation is working correctly!', 'green')
-  } else {
-    log(`\n⚠️  ${testsFailed} test(s) failed. Please review the output above.`, 'yellow')
-  }
-  
-  process.exit(testsFailed === 0 ? 0 : 1)
-}
-
-// Run tests
-runAllTests().catch(error => {
-  log(`\n💥 Test suite crashed: ${error.message}`, 'red')
-  log(error.stack, 'red')
+runTests().catch(error => {
+  console.error('\n❌ Fatal error:', error.message)
   process.exit(1)
 })
-

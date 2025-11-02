@@ -11,39 +11,55 @@ const loginLimiter = rateLimitSimple({
 })
 
 export async function POST(request: NextRequest) {
+  const startTime = Date.now()
+  console.log('[LOGIN] Request started')
+  
   try {
     // CSRF protection
+    console.log('[LOGIN] Checking CSRF token...')
     const csrfCheck = await requireCsrfToken(request)
     if (!csrfCheck.valid) {
+      console.log('[LOGIN] CSRF check failed')
       return csrfCheck.response!
     }
+    console.log('[LOGIN] CSRF check passed', Date.now() - startTime, 'ms')
 
     // Request body size limit check (DoS prevention)
+    console.log('[LOGIN] Checking body size...')
     const sizeLimit = getSizeLimitForContentType(request)
     const sizeCheck = requireBodySizeLimit(request, sizeLimit)
     if (!sizeCheck.valid) {
+      console.log('[LOGIN] Body size check failed')
       return sizeCheck.response!
     }
 
     // Apply rate limiting
+    console.log('[LOGIN] Getting client identifier...')
     let clientIdentifier: string
     try {
       clientIdentifier = getClientIdentifierFromNextRequest(request)
     } catch (rateLimitError) {
-      console.error('Rate limit identifier error:', rateLimitError)
+      console.error('[LOGIN] Rate limit identifier error:', rateLimitError)
       clientIdentifier = 'unknown'
     }
 
     // Apply rate limiting - fail closed for security
+    console.log('[LOGIN] Applying rate limiting...', Date.now() - startTime, 'ms')
+    const rateLimitStart = Date.now()
     const rateLimitResult = await loginLimiter(clientIdentifier)
+    console.log('[LOGIN] Rate limiting completed', Date.now() - rateLimitStart, 'ms')
     if (!rateLimitResult.success) {
+      console.log('[LOGIN] Rate limit exceeded')
       return NextResponse.json(
         { error: rateLimitResult.message || 'Rate limit exceeded' },
         { status: 429 }
       )
     }
+    console.log('[LOGIN] Rate limiting passed', Date.now() - startTime, 'ms')
 
+    console.log('[LOGIN] Parsing request body...')
     const { email, password } = await request.json()
+    console.log('[LOGIN] Email:', email, Date.now() - startTime, 'ms')
 
     if (!email || !password) {
       return NextResponse.json(
@@ -53,7 +69,10 @@ export async function POST(request: NextRequest) {
     }
 
     // Find user in database
+    console.log('[LOGIN] Searching for user:', email, Date.now() - startTime, 'ms')
+    const dbStart = Date.now()
     const user = await findUserByEmail(email)
+    console.log('[LOGIN] Database query completed', Date.now() - dbStart, 'ms', 'User found:', !!user)
     
     if (!user) {
       return NextResponse.json(
@@ -63,11 +82,14 @@ export async function POST(request: NextRequest) {
     }
 
     // Check password - only bcrypt hashes allowed
+    console.log('[LOGIN] Verifying password...', Date.now() - startTime, 'ms')
     let passwordMatches = false
     try {
       if (user.password && user.password.startsWith('$2')) {
         // bcrypt hash
+        const bcryptStart = Date.now()
         passwordMatches = await bcrypt.compare(password, user.password)
+        console.log('[LOGIN] Password verification completed', Date.now() - bcryptStart, 'ms')
       } else {
         // Legacy plaintext passwords are no longer supported
         console.warn('Legacy plaintext password detected for user:', user.email)

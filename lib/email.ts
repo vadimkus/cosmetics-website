@@ -287,41 +287,8 @@ export const emailTemplates = {
           <h3 style="color: #dc2626; margin: 0 0 15px 0;">📦 Order Items (${orderData.itemCount} ${orderData.itemCount === 1 ? 'item' : 'items'})</h3>
           <div style="space-y: 10px;">
             ${orderData.items.map(item => {
-              // Construct image URL - handle both absolute and relative paths, including Next.js optimized URLs
-              let imageUrl = ''
-              if (item.image) {
-                // Check for Next.js optimized image URLs first (both absolute and relative)
-                if (item.image.includes('_next/image')) {
-                  // Next.js optimized image URL - extract the actual image path
-                  // Example: /_next/image?url=%2Fimages%2Fproduct.jpg&w=828&q=75
-                  // Example: https://genosys.ae/_next/image?url=%2Fimages%2Fproduct.jpg&w=828&q=75
-                  const urlMatch = item.image.match(/url=([^&]+)/)
-                  if (urlMatch && urlMatch[1]) {
-                    // Decode URL-encoded path
-                    const decodedPath = decodeURIComponent(urlMatch[1])
-                    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://genosys.ae'
-                    imageUrl = `${baseUrl}${decodedPath}`
-                  } else {
-                    // Fallback: use base URL with the path
-                    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://genosys.ae'
-                    imageUrl = `${baseUrl}${item.image.startsWith('/') ? item.image : '/' + item.image}`
-                  }
-                } else if (item.image.startsWith('http://') || item.image.startsWith('https://')) {
-                  imageUrl = item.image // Already absolute (and not Next.js optimized)
-                } else if (item.image.startsWith('//')) {
-                  imageUrl = `https:${item.image}` // Protocol-relative
-                } else {
-                  // Relative path - prepend domain
-                  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://genosys.ae'
-                  imageUrl = `${baseUrl}${item.image.startsWith('/') ? item.image : '/' + item.image}`
-                }
-              }
-              
               return `
               <div style="display: flex; align-items: center; padding: 15px 0; border-bottom: 1px solid #f3f4f6;">
-                ${imageUrl ? `
-                <img src="${imageUrl}" alt="${item.productName}" width="60" height="60" border="0" style="display: block; width: 60px; height: 60px; max-width: 60px; object-fit: cover; border-radius: 8px; margin-right: 15px; border: 1px solid #e5e7eb;" />
-                ` : '<div style="width: 60px; height: 60px; background: #f3f4f6; border-radius: 8px; margin-right: 15px; display: flex; align-items: center; justify-content: center; color: #9ca3af; font-size: 24px;">📦</div>'}
                 <div style="flex: 1;">
                   <h4 style="margin: 0 0 5px 0; color: #374151; font-size: 16px; font-weight: 600;">${item.productName}</h4>
                   <p style="margin: 0; color: #6b7280; font-size: 14px;">Quantity: ${item.quantity} × AED ${item.price.toFixed(2)} = AED ${(item.quantity * item.price).toFixed(2)}</p>

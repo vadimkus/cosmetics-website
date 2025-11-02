@@ -14,9 +14,27 @@ function SuccessContent() {
   const paymentMethod = searchParams.get('payment')
 
   useEffect(() => {
-    // Clear the cart after successful payment (except for support-link)
-    if ((sessionId && paymentMethod !== 'support-link') || paymentMethod === 'cod') {
+    // Clear the cart after successful payment
+    let timeout: NodeJS.Timeout | undefined
+
+    if (paymentMethod === 'cod') {
+      // Clear immediately for COD orders
       clearCart()
+    } else if (paymentMethod === 'support-link') {
+      // Clear cart after 2 seconds for support-link orders
+      timeout = setTimeout(() => {
+        clearCart()
+      }, 2000)
+    } else if (sessionId) {
+      // Clear immediately for payment gateway orders
+      clearCart()
+    }
+
+    // Cleanup function - always return (even if undefined)
+    return () => {
+      if (timeout) {
+        clearTimeout(timeout)
+      }
     }
   }, [sessionId, paymentMethod, clearCart])
 

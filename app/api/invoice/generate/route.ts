@@ -116,7 +116,7 @@ function generateInvoiceHTML(data: any) {
       <div class="invoice-container">
         <div class="header">
           <div class="logo">
-            <img src="https://genosys.ae/_next/image?url=%2Fimages%2Fgenosys-logo.png%3Fv%3D1758554698129&w=828&q=75" alt="GENOSYS Logo" />
+            <img src="https://genosys.ae/images/genosys-logo.png" alt="GENOSYS Logo" width="200" border="0" style="display: block; max-width: 200px; height: auto; margin: 0 auto;" />
           </div>
           <h1 class="invoice-title">TAX INVOICE #${orderNumber.replace('GEN', '')} dated: ${new Date().toLocaleDateString('en-AE', { timeZone: 'Asia/Dubai', year: 'numeric', month: '2-digit', day: '2-digit' })}</h1>
         </div>
@@ -190,7 +190,7 @@ function generateInvoiceHTML(data: any) {
 
         <div class="footer">
           <div style="text-align: center; margin-bottom: 15px; background-color: white; padding: 16px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
-            <img src="https://genosys.ae/_next/image?url=%2Fimages%2FFull.avif%3Fv%3D${Date.now()}&w=640&q=75" alt="GENOSYS Logo" style="max-width: 200px; height: auto;" />
+            <img src="https://genosys.ae/Logo/Full.png" alt="GENOSYS Logo" width="200" border="0" style="display: block; max-width: 200px; height: auto; margin: 0 auto;" />
           </div>
           <p>Official Distributor in the UAE</p>
           <p>© 2025 Genosys Middle East FZ-LLC. All rights reserved.</p>

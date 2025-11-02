@@ -26,7 +26,7 @@ export default function Logo({ className = '', showText: _showText = true, size 
         {/* Logo Image */}
         <div className="flex-shrink-0">
           <Image
-            src={`/images/genosys-logo.png?v=${Date.now()}`}
+            src="/images/genosys-logo.png"
             alt="GENOSYS professional logo"
             width={size === 'sm' ? 128 : size === 'md' ? 240 : 400}
             height={size === 'sm' ? 128 : size === 'md' ? 240 : 400}

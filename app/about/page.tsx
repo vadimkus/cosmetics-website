@@ -102,7 +102,7 @@ export default function AboutPage() {
               Genosys Middle East FZ-LLC is an official distributor of DTSMG. Co., Ltd, Korea in the United Arab Emirates.
             </p>
             <p className="text-gray-600 leading-relaxed">
-              All Genosys products on sale in United Arab Emirates are certified in Montaji System by 
+              All Genosys products on sale in United Arab Emirates are manufactured in our factory in Seoul, South Korea and certified in Montaji System by 
               <a href="https://www.dm.gov.ae/" target="_blank" rel="noopener noreferrer" className="text-primary-600 hover:text-primary-700 underline ml-1">
                 Dubai Municipality
               </a>.

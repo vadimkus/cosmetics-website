@@ -762,8 +762,7 @@ export default function AdminPage() {
               </div>
               
               {/* User Summary */}
-              {!loading && (
-                <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-6 mb-8">
+              <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-6 mb-8">
                   <h3 className="text-xl font-bold text-gray-800 mb-4">User Summary</h3>
                   <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
                     <div className="bg-gray-50 rounded-lg p-4 border border-gray-100">
@@ -790,19 +789,31 @@ export default function AdminPage() {
                       <p className="text-sm text-gray-600 mb-2">Recent Logins (Last 7 Days)</p>
                       <div className="space-y-2 max-h-32 overflow-y-auto">
                         {(() => {
+                          // Calculate 7 days ago in UTC to avoid timezone issues
+                          const now = new Date()
+                          const sevenDaysAgo = new Date(now.getTime() - (7 * 24 * 60 * 60 * 1000))
+                          
                           const recentLogins = users
                             .filter(u => {
                               if (!u.lastLoginAt) return false
+                              // Parse lastLoginAt as UTC ISO string
                               const lastLogin = new Date(u.lastLoginAt)
-                              const sevenDaysAgo = new Date()
-                              sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7)
-                              return lastLogin > sevenDaysAgo
+                              // Check if login is within the last 7 days
+                              return lastLogin >= sevenDaysAgo && lastLogin <= now
                             })
                             .sort((a, b) => {
                               if (!a.lastLoginAt || !b.lastLoginAt) return 0
-                              return new Date(b.lastLoginAt).getTime() - new Date(a.lastLoginAt).getTime()
+                              const dateA = new Date(a.lastLoginAt).getTime()
+                              const dateB = new Date(b.lastLoginAt).getTime()
+                              return dateB - dateA // Most recent first
                             })
                             .slice(0, 5) // Show top 5 most recent
+                          
+                          const totalRecentLogins = users.filter(u => {
+                            if (!u.lastLoginAt) return false
+                            const lastLogin = new Date(u.lastLoginAt)
+                            return lastLogin >= sevenDaysAgo && lastLogin <= now
+                          }).length
                           
                           if (recentLogins.length === 0) {
                             return <p className="text-sm text-gray-500">No recent logins</p>
@@ -811,21 +822,17 @@ export default function AdminPage() {
                           return (
                             <>
                               <p className="text-2xl font-bold text-gray-900 mb-2">
-                                {users.filter(u => {
-                                  if (!u.lastLoginAt) return false
-                                  const lastLogin = new Date(u.lastLoginAt)
-                                  const sevenDaysAgo = new Date()
-                                  sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7)
-                                  return lastLogin > sevenDaysAgo
-                                }).length} total
+                                {totalRecentLogins} total
                               </p>
                               {recentLogins.map(user => (
                                 <div key={user.id} className="flex items-center justify-between text-xs border-b border-gray-200 pb-1">
                                   <span className="font-medium text-gray-900 truncate flex-1">{user.name}</span>
                                   <span className="text-gray-500 ml-2 flex-shrink-0">
                                     {user.lastLoginAt && new Date(user.lastLoginAt).toLocaleDateString('en-AE', {
+                                      timeZone: 'Asia/Dubai',
                                       month: 'short',
                                       day: 'numeric',
+                                      year: new Date(user.lastLoginAt).getFullYear() !== new Date().getFullYear() ? 'numeric' : undefined,
                                       hour: '2-digit',
                                       minute: '2-digit'
                                     })}
@@ -839,7 +846,6 @@ export default function AdminPage() {
                     </div>
                   </div>
                 </div>
-              )}
               
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {loading ? (

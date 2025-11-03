@@ -111,31 +111,86 @@ export const updateUser = async (userId: string, updates: Partial<UserData>): Pr
   try {
     console.log('Updating user in database:', { userId, updates })
     
+    // Validate userId format (should be a non-empty string)
+    if (!userId || typeof userId !== 'string' || userId.trim() === '') {
+      console.error('Invalid userId provided:', userId)
+      return false
+    }
+    
     // First, get the user to check if address is being updated
     const user = await prisma.user.findUnique({
-      where: { id: userId }
+      where: { id: userId.trim() }
     })
     
     if (!user) {
-      console.error('User not found')
+      console.error('User not found for userId:', userId)
+      // Try to find by email if provided in updates (for debugging)
+      if (updates.email) {
+        const userByEmail = await prisma.user.findUnique({
+          where: { email: updates.email }
+        })
+        if (userByEmail) {
+          console.error('User found by email but ID mismatch:', {
+            providedId: userId,
+            actualId: userByEmail.id,
+            email: updates.email
+          })
+        }
+      }
       return false
     }
+    
+    console.log('User found:', { id: user.id, email: user.email, name: user.name })
+    
+    // Build update data object, only including fields that are actually being updated
+    // Convert empty strings to null for optional fields (Prisma accepts null for optional fields)
+    const updateData: any = {
+      updatedAt: new Date()
+    }
+    
+    // Only include fields that are explicitly provided and not undefined
+    if (updates.name !== undefined) updateData.name = updates.name
+    if (updates.email !== undefined) updateData.email = updates.email
+    if (updates.phone !== undefined) {
+      updateData.phone = updates.phone === '' ? null : updates.phone
+    }
+    if (updates.address !== undefined) {
+      updateData.address = updates.address === '' ? null : updates.address
+    }
+    if (updates.birthday !== undefined) {
+      updateData.birthday = updates.birthday === '' ? null : updates.birthday
+    }
+    if (updates.profilePicture !== undefined) {
+      updateData.profilePicture = updates.profilePicture === '' ? null : updates.profilePicture
+    }
+    if (updates.isAdmin !== undefined) updateData.isAdmin = updates.isAdmin
+    if (updates.canSeePrices !== undefined) updateData.canSeePrices = updates.canSeePrices
+    if (updates.discountType !== undefined) {
+      updateData.discountType = updates.discountType === '' ? null : updates.discountType
+    }
+    if (updates.discountPercentage !== undefined) {
+      updateData.discountPercentage = (updates.discountPercentage === 0 || updates.discountPercentage === null) ? null : updates.discountPercentage
+    }
+    if (updates.lastLoginAt !== undefined) {
+      updateData.lastLoginAt = updates.lastLoginAt ? new Date(updates.lastLoginAt) : null
+    }
+    
+    // Don't allow password updates through this function (use separate function if needed)
+    // if (updates.password !== undefined) updateData.password = updates.password
     
     // Update user
     const result = await prisma.user.update({
       where: { id: userId },
-      data: {
-        ...updates,
-        updatedAt: new Date()
-      }
+      data: updateData
     })
     
     // If address is being updated, also update all existing orders for this user
-    if (updates.address && updates.address !== user.address) {
+    if (updates.address !== undefined && updates.address !== user.address) {
       console.log('Address updated, updating existing orders for user:', user.email)
+      const newAddress = updates.address === '' ? null : updates.address
       await prisma.order.updateMany({
         where: { customerEmail: user.email },
-        data: { customerAddress: updates.address }
+        data: { customerAddress: newAddress as any }
       })
       console.log('Updated existing orders with new address')
     }
@@ -144,6 +199,8 @@ export const updateUser = async (userId: string, updates: Partial<UserData>): Pr
     return true
   } catch (error) {
     console.error('Error updating user:', error)
+    console.error('Update data:', updates)
+    console.error('User ID:', userId)
     return false
   }
 }

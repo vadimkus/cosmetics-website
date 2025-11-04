@@ -478,6 +478,7 @@ export default function AdminPage() {
       
       return () => clearInterval(refreshInterval)
     }
+    return undefined
   }, [isAuthenticated, isCheckingSession, fetchUsers, fetchOrders, fetchProducts])
 
   const formatCurrency = (amount: number) => {

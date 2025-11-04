@@ -110,15 +110,21 @@ export async function POST(request: NextRequest) {
     }
 
     // Update last login timestamp
+    let updatedUser = user
     try {
       await updateUser(user.id, { lastLoginAt: new Date().toISOString() })
+      // Fetch updated user to get the latest lastLoginAt value
+      const refreshedUser = await findUserByEmail(email)
+      if (refreshedUser) {
+        updatedUser = refreshedUser
+      }
     } catch (error) {
       console.error('Error updating last login timestamp:', error)
       // Don't fail login if timestamp update fails
     }
 
     // Return user data (without password)
-    const { password: _, ...userWithoutPassword } = user
+    const { password: _, ...userWithoutPassword } = updatedUser
     return NextResponse.json({
       user: userWithoutPassword,
       message: 'Login successful'

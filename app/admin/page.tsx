@@ -468,6 +468,15 @@ export default function AdminPage() {
       fetchUsers()
       fetchOrders()
       fetchProducts()
+      
+      // Auto-refresh users, orders, and products every 30 seconds to show new registrations/logins
+      const refreshInterval = setInterval(() => {
+        fetchUsers()
+        fetchOrders()
+        fetchProducts()
+      }, 30000) // 30 seconds
+      
+      return () => clearInterval(refreshInterval)
     }
   }, [isAuthenticated, isCheckingSession, fetchUsers, fetchOrders, fetchProducts])
 

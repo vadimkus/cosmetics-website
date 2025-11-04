@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { addUser, findUserByEmail } from '@/lib/userStorageDb'
+import { addUser, findUserByEmail, updateUser } from '@/lib/userStorageDb'
 import { trackUserAction } from '@/lib/analyticsServer'
 import { sendWelcomeEmail, sendAdminNewUserNotification } from '@/lib/email'
 import bcrypt from 'bcryptjs'
@@ -94,6 +94,20 @@ export async function POST(request: NextRequest) {
 
     // Store user in database
     const createdUser = await addUser(newUser)
+
+    // Set lastLoginAt on registration (treat registration as first login)
+    // This ensures new users appear in the "Recent Logins" section
+    try {
+      await updateUser(createdUser.id, { lastLoginAt: new Date().toISOString() })
+      // Refresh createdUser with updated lastLoginAt
+      const refreshedUser = await findUserByEmail(email)
+      if (refreshedUser) {
+        Object.assign(createdUser, refreshedUser)
+      }
+    } catch (error) {
+      console.error('Error updating lastLoginAt on registration:', error)
+      // Don't fail registration if timestamp update fails
+    }
 
     // Track user registration
     await trackUserAction({

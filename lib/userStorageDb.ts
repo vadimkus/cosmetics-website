@@ -1,5 +1,5 @@
 import { prisma } from './database'
-import { User } from '@prisma/client'
+import { User, Prisma } from '@prisma/client'
 
 export interface UserData {
   id?: string
@@ -144,7 +144,7 @@ export const updateUser = async (userId: string, updates: Partial<UserData>): Pr
     
     // Build update data object, only including fields that are actually being updated
     // Convert empty strings to null for optional fields (Prisma accepts null for optional fields)
-    const updateData: any = {
+    const updateData: Prisma.UserUpdateInput = {
       updatedAt: new Date()
     }
     
@@ -187,10 +187,10 @@ export const updateUser = async (userId: string, updates: Partial<UserData>): Pr
     // If address is being updated, also update all existing orders for this user
     if (updates.address !== undefined && updates.address !== user.address) {
       console.log('Address updated, updating existing orders for user:', user.email)
-      const newAddress = updates.address === '' ? null : updates.address
+      const newAddress = updates.address === '' ? '' : updates.address
       await prisma.order.updateMany({
         where: { customerEmail: user.email },
-        data: { customerAddress: newAddress as any }
+        data: { customerAddress: newAddress }
       })
       console.log('Updated existing orders with new address')
     }

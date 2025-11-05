@@ -201,7 +201,7 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
                   placeholder="Full Name * (Required)"
                   value={formData.name}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 md:py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-primary-600 text-base text-gray-900 bg-white placeholder:text-gray-400"
+                  className="w-full px-4 py-3 md:py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-primary-600 text-base text-gray-900 bg-white bg-opacity-50 backdrop-blur-sm placeholder:text-gray-400"
                   required={!isLoginMode}
                   aria-describedby={error && !isLoginMode ? "error-message" : undefined}
                 />
@@ -218,7 +218,7 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
                 placeholder={isLoginMode ? "Email address" : "Email address * (Required)"}
                 value={formData.email}
                 onChange={handleInputChange}
-                className="w-full px-4 py-3 md:py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-primary-600 text-base text-gray-900 bg-white placeholder:text-gray-400"
+                className="w-full px-4 py-3 md:py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-primary-600 text-base text-gray-900 bg-white bg-opacity-50 backdrop-blur-sm placeholder:text-gray-400"
                 required
                 aria-describedby={error ? "error-message" : undefined}
               />
@@ -234,7 +234,7 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
                   placeholder="UAE Phone Number * (Required)"
                   value={formData.phone}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 md:py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-primary-600 text-base text-gray-900 bg-white placeholder:text-gray-400"
+                  className="w-full px-4 py-3 md:py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-primary-600 text-base text-gray-900 bg-white bg-opacity-50 backdrop-blur-sm placeholder:text-gray-400"
                   required={!isLoginMode}
                   aria-describedby={error && !isLoginMode ? "error-message" : undefined}
                 />
@@ -251,7 +251,7 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
                   placeholder="Address * (Required)"
                   value={formData.address}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 md:py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-primary-600 text-base text-gray-900 bg-white placeholder:text-gray-400"
+                  className="w-full px-4 py-3 md:py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-primary-600 text-base text-gray-900 bg-white bg-opacity-50 backdrop-blur-sm placeholder:text-gray-400"
                   required={!isLoginMode}
                   aria-describedby={error && !isLoginMode ? "error-message" : undefined}
                 />
@@ -266,7 +266,7 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
                   name="emirate"
                   value={formData.emirate}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 md:py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-primary-600 text-base text-gray-900 bg-white"
+                  className="w-full px-4 py-3 md:py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-primary-600 text-base text-gray-900 bg-white bg-opacity-50 backdrop-blur-sm"
                   required={!isLoginMode}
                   aria-describedby={error && !isLoginMode ? "error-message" : undefined}
                 >
@@ -292,7 +292,7 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
                 placeholder="Password"
                 value={formData.password}
                 onChange={handleInputChange}
-                className="w-full px-4 py-3 md:py-2 pr-12 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-primary-600 text-base text-gray-900 bg-white"
+                className="w-full px-4 py-3 md:py-2 pr-12 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-primary-600 text-base text-gray-900 bg-white bg-opacity-50 backdrop-blur-sm"
                 required
                 aria-describedby={error ? "error-message" : undefined}
               />

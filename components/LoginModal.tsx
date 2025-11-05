@@ -17,7 +17,9 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
     name: '',
     email: '',
     password: '',
-    phone: ''
+    phone: '',
+    address: '',
+    emirate: ''
   })
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState('')
@@ -76,7 +78,7 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
     return undefined
   }, [isOpen, onClose])
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target
     setFormData(prev => ({
       ...prev,
@@ -93,7 +95,7 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
       const success = await login(formData.email, formData.password)
       if (success) {
         onClose()
-        setFormData({ name: '', email: '', password: '', phone: '' })
+        setFormData({ name: '', email: '', password: '', phone: '', address: '', emirate: '' })
       }
     } else {
       if (!formData.name.trim()) {
@@ -112,15 +114,27 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
         setError('Password must be at least 6 characters')
         return
       }
+      if (!formData.phone.trim()) {
+        setError('Phone number is required')
+        return
+      }
+      if (!formData.address.trim()) {
+        setError('Address is required')
+        return
+      }
+      if (!formData.emirate.trim()) {
+        setError('Emirate is required')
+        return
+      }
       if (!privacyConsent) {
         setError('You must accept the privacy policy to create an account')
         return
       }
 
-      const success = await register(formData.name, formData.email, formData.password, formData.phone)
+      const success = await register(formData.name, formData.email, formData.password, formData.phone, formData.address, formData.emirate)
       if (success) {
         onClose()
-        setFormData({ name: '', email: '', password: '', phone: '' })
+        setFormData({ name: '', email: '', password: '', phone: '', address: '', emirate: '' })
         setPrivacyConsent(false)
       }
     }
@@ -130,7 +144,7 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
   const toggleMode = () => {
     setIsLoginMode(!isLoginMode)
     setError('')
-    setFormData({ name: '', email: '', password: '', phone: '' })
+    setFormData({ name: '', email: '', password: '', phone: '', address: '', emirate: '' })
     setPrivacyConsent(false)
     setShowPrivacyPolicy(false)
   }
@@ -148,10 +162,17 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
         ref={modalRef}
         className="bg-white rounded-lg p-6 md:p-8 max-w-md w-full max-h-[90vh] overflow-y-auto"
       >
-        <div className="flex justify-between items-center mb-6">
-          <h2 id="modal-title" className="text-xl md:text-2xl font-bold text-gray-800">
-            {isLoginMode ? 'Login' : 'Create Account'}
-          </h2>
+        <div className="flex justify-between items-start mb-6">
+          <div className="flex-1">
+            <h2 id="modal-title" className="text-lg md:text-xl font-bold text-gray-800">
+              {isLoginMode ? 'Login' : 'Genosys Professional Account'}
+            </h2>
+            {!isLoginMode && (
+              <p className="text-sm text-gray-600 mt-1 text-center">
+                United Arab Emirates ❤️
+              </p>
+            )}
+          </div>
           <button
             onClick={onClose}
             className="text-gray-500 hover:text-gray-700 p-2 touch-manipulation"
@@ -177,10 +198,10 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
                   type="text"
                   id="name"
                   name="name"
-                  placeholder="Full Name"
+                  placeholder="Full Name * (Required)"
                   value={formData.name}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 md:py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-primary-600 text-base text-gray-900 bg-white"
+                  className="w-full px-4 py-3 md:py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-primary-600 text-base text-gray-900 bg-white placeholder:text-gray-400"
                   required={!isLoginMode}
                   aria-describedby={error && !isLoginMode ? "error-message" : undefined}
                 />
@@ -194,10 +215,10 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
                 type="email"
                 id="email"
                 name="email"
-                placeholder="Email address"
+                placeholder={isLoginMode ? "Email address" : "Email address * (Required)"}
                 value={formData.email}
                 onChange={handleInputChange}
-                className="w-full px-4 py-3 md:py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-primary-600 text-base text-gray-900 bg-white"
+                className="w-full px-4 py-3 md:py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-primary-600 text-base text-gray-900 bg-white placeholder:text-gray-400"
                 required
                 aria-describedby={error ? "error-message" : undefined}
               />
@@ -205,16 +226,59 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
 
             {!isLoginMode && (
               <div>
-                <label htmlFor="phone" className="sr-only">Phone Number (Optional)</label>
+                <label htmlFor="phone" className="sr-only">UAE Phone Number</label>
                 <input
                   type="tel"
                   id="phone"
                   name="phone"
-                  placeholder="Phone Number (Optional)"
+                  placeholder="UAE Phone Number * (Required)"
                   value={formData.phone}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 md:py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-primary-600 text-base text-gray-900 bg-white"
+                  className="w-full px-4 py-3 md:py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-primary-600 text-base text-gray-900 bg-white placeholder:text-gray-400"
+                  required={!isLoginMode}
+                  aria-describedby={error && !isLoginMode ? "error-message" : undefined}
                 />
+              </div>
+            )}
+
+            {!isLoginMode && (
+              <div>
+                <label htmlFor="address" className="sr-only">Address</label>
+                <input
+                  type="text"
+                  id="address"
+                  name="address"
+                  placeholder="Address * (Required)"
+                  value={formData.address}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 md:py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-primary-600 text-base text-gray-900 bg-white placeholder:text-gray-400"
+                  required={!isLoginMode}
+                  aria-describedby={error && !isLoginMode ? "error-message" : undefined}
+                />
+              </div>
+            )}
+
+            {!isLoginMode && (
+              <div>
+                <label htmlFor="emirate" className="sr-only">Emirate</label>
+                <select
+                  id="emirate"
+                  name="emirate"
+                  value={formData.emirate}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 md:py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-primary-600 text-base text-gray-900 bg-white"
+                  required={!isLoginMode}
+                  aria-describedby={error && !isLoginMode ? "error-message" : undefined}
+                >
+                  <option value="">Select Emirate</option>
+                  <option value="Dubai">Dubai</option>
+                  <option value="Abu Dhabi">Abu Dhabi</option>
+                  <option value="Sharjah">Sharjah</option>
+                  <option value="Ajman">Ajman</option>
+                  <option value="Ras Al Khaimah">Ras Al Khaimah</option>
+                  <option value="Fujairah">Fujairah</option>
+                  <option value="Umm Al Quwain">Umm Al Quwain</option>
+                </select>
               </div>
             )}
 
@@ -383,7 +447,7 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
               disabled={isLoading}
               className="w-full bg-primary-600 text-white py-3 rounded-lg font-semibold hover:bg-primary-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {isLoading ? 'Please wait...' : (isLoginMode ? 'Sign In' : 'Create Account')}
+              {isLoading ? 'Please wait...' : (isLoginMode ? 'Sign In' : 'Create Professional Account')}
             </button>
           </form>
 
@@ -395,7 +459,7 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
                 className="text-primary-600 hover:text-primary-700 font-medium"
                 aria-label={isLoginMode ? 'Switch to create account' : 'Switch to login'}
               >
-                {isLoginMode ? 'Create Account' : 'Sign In'}
+                {isLoginMode ? 'Create Genosys Professional Account' : 'Sign In'}
               </button>
             </p>
           </div>

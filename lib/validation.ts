@@ -14,6 +14,7 @@ export const INPUT_LIMITS = {
   USER_EMAIL: 255,
   USER_PHONE: 20,
   USER_ADDRESS: 500,
+  USER_EMIRATE: 50,
   USER_BIRTHDAY: 50,
 } as const
 

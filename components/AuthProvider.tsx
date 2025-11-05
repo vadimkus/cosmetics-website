@@ -151,7 +151,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
     }
   }
 
-  const register = async (name: string, email: string, password: string, phone?: string): Promise<boolean> => {
+  const register = async (name: string, email: string, password: string, phone: string, address: string, emirate: string): Promise<boolean> => {
     try {
       setIsLoading(true)
       
@@ -165,7 +165,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
       const response = await fetch('/api/auth/register', {
         method: 'POST',
         headers: getCsrfHeaders(),
-        body: JSON.stringify(addCsrfToBody({ name, email, password, phone })),
+        body: JSON.stringify(addCsrfToBody({ name, email, password, phone, address, emirate })),
       })
 
       const data = await response.json()

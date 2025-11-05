@@ -22,11 +22,11 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    const { name, email, password, phone } = await request.json()
+    const { name, email, password, phone, address, emirate } = await request.json()
 
-    if (!name || !email || !password) {
+    if (!name || !email || !password || !phone || !address || !emirate) {
       return NextResponse.json(
-        { error: 'Name, email and password are required' },
+        { error: 'Name, email, password, phone, address and emirate are required' },
         { status: 400 }
       )
     }
@@ -55,14 +55,40 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    if (phone) {
-      const phoneValidation = validateLength(phone, INPUT_LIMITS.USER_PHONE, 'Phone')
-      if (!phoneValidation.valid) {
-        return NextResponse.json(
-          { error: phoneValidation.error },
-          { status: 400 }
-        )
-      }
+    // Phone is now required - validate it
+    const phoneValidation = validateLength(phone, INPUT_LIMITS.USER_PHONE, 'Phone')
+    if (!phoneValidation.valid) {
+      return NextResponse.json(
+        { error: phoneValidation.error },
+        { status: 400 }
+      )
+    }
+
+    // Address is now required - validate it
+    const addressValidation = validateLength(address, INPUT_LIMITS.USER_ADDRESS, 'Address')
+    if (!addressValidation.valid) {
+      return NextResponse.json(
+        { error: addressValidation.error },
+        { status: 400 }
+      )
+    }
+
+    // Emirate is now required - validate it
+    const emirateValidation = validateLength(emirate, INPUT_LIMITS.USER_EMIRATE, 'Emirate')
+    if (!emirateValidation.valid) {
+      return NextResponse.json(
+        { error: emirateValidation.error },
+        { status: 400 }
+      )
+    }
+
+    // Validate emirate is one of the valid UAE emirates
+    const validEmirates = ['Dubai', 'Abu Dhabi', 'Sharjah', 'Ajman', 'Ras Al Khaimah', 'Fujairah', 'Umm Al Quwain']
+    if (!validEmirates.includes(emirate)) {
+      return NextResponse.json(
+        { error: 'Please select a valid emirate' },
+        { status: 400 }
+      )
     }
 
     // Check if user already exists
@@ -78,12 +104,15 @@ export async function POST(request: NextRequest) {
     const hashedPassword = await bcrypt.hash(password, 12)
 
     // Create new user object
+    // Store address with emirate: "address, Emirate"
+    const fullAddress = `${address}, ${emirate}`
+    
     const newUser = {
       name,
       email,
       password: hashedPassword, // Store hashed password
-      phone: phone || '',
-      address: '',
+      phone: phone, // Phone is now required
+      address: fullAddress, // Address and emirate are now required
       profilePicture: '',
       isAdmin: false,
       canSeePrices: true,

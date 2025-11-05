@@ -21,7 +21,7 @@ interface User {
 interface AuthContextType {
   user: User | null
   login: (email: string, password: string) => Promise<boolean>
-  register: (name: string, email: string, password: string, phone?: string) => Promise<boolean>
+  register: (name: string, email: string, password: string, phone: string, address: string, emirate: string) => Promise<boolean>
   logout: () => void
   refreshUser: () => Promise<void>
   forceRefreshUser: () => Promise<void>
@@ -293,7 +293,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
     <AuthContext.Provider value={!isClient ? {
       user: null,
       login: async () => false,
-      register: async () => false,
+      register: async (_name: string, _email: string, _password: string, _phone: string, _address: string, _emirate: string) => false,
       logout: () => {},
       refreshUser: async () => {},
       forceRefreshUser: async () => {},

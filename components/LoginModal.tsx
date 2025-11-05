@@ -162,20 +162,16 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
         ref={modalRef}
         className="bg-white rounded-lg p-6 md:p-8 max-w-md w-full max-h-[90vh] overflow-y-auto"
       >
-        <div className="flex justify-between items-start mb-6">
-          <div className="flex-1">
-            <h2 id="modal-title" className="text-lg md:text-xl font-bold text-gray-800">
-              {isLoginMode ? 'Login' : 'Genosys Professional Account'}
-            </h2>
-            {!isLoginMode && (
-              <p className="text-sm text-gray-600 mt-1 text-center">
-                United Arab Emirates ❤️
-              </p>
-            )}
-          </div>
+        <div className="relative mb-6">
+          <h2 id="modal-title" className="text-lg md:text-xl font-bold text-gray-800 text-center">
+            {isLoginMode ? 'Genosys Professional Login' : 'Genosys Professional Account'}
+          </h2>
+          <p className="text-sm text-gray-600 mt-1 text-center">
+            United Arab Emirates ❤️
+          </p>
           <button
             onClick={onClose}
-            className="text-gray-500 hover:text-gray-700 p-2 touch-manipulation"
+            className="absolute top-0 right-0 text-gray-500 hover:text-gray-700 p-2 touch-manipulation"
             aria-label="Close modal"
           >
             <X className="h-6 w-6" aria-hidden="true" />

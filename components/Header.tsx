@@ -80,9 +80,11 @@ const Header = memo(function Header() {
             <Link href="/korean-dermacosmetics-products" className="text-gray-700 hover:text-primary-600 transition-colors">
               Products
             </Link>
-            <Link href="/professional-skincare-training" className="text-gray-700 hover:text-primary-600 transition-colors">
-              Training
-            </Link>
+            {isClient && user && (
+              <Link href="/professional-skincare-training" className="text-gray-700 hover:text-primary-600 transition-colors">
+                Training
+              </Link>
+            )}
             <Link href="/contact-genosys-uae" className="text-gray-700 hover:text-primary-600 transition-colors">
               Contact
             </Link>
@@ -276,13 +278,15 @@ const Header = memo(function Header() {
               >
                 Products
               </Link>
-              <Link 
-                href="/professional-skincare-training" 
-                className="text-gray-700 hover:text-primary-600 transition-colors py-2 border-b border-gray-100"
-                onClick={() => setShowMobileMenu(false)}
-              >
-                Training
-              </Link>
+              {isClient && user && (
+                <Link 
+                  href="/professional-skincare-training" 
+                  className="text-gray-700 hover:text-primary-600 transition-colors py-2 border-b border-gray-100"
+                  onClick={() => setShowMobileMenu(false)}
+                >
+                  Training
+                </Link>
+              )}
               <Link 
                 href="/contact-genosys-uae" 
                 className="text-gray-700 hover:text-primary-600 transition-colors py-2 border-b border-gray-100"

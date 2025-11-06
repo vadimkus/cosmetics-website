@@ -119,12 +119,14 @@ export function getProductColorOptions(productId: string): Array<{ value: string
   if (productId === '41') {
     return [
       { value: 'Beige', label: 'Beige' },
-      { value: 'Ivory', label: 'Ivory' }
+      { value: 'Ivory', label: 'Ivory' },
+      { value: 'Camel', label: 'Camel' }
     ]
   }
   
   return []
 }
+
 
 
 

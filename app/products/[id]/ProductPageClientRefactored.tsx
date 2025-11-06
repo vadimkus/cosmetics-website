@@ -19,6 +19,7 @@ import ProductVariantSelector from '@/components/product/ProductVariantSelector'
 import ProductQuantityCart from '@/components/product/ProductQuantityCart'
 import ProductContentDisplay from '@/components/product/ProductContentDisplay'
 import TrustBadges from '@/components/product/TrustBadges'
+import ProductRecommendation from '@/components/product/ProductRecommendation'
 import { 
   getPriceForSize, 
   hasProductSizeVariants, 
@@ -149,6 +150,46 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
               onToggleFavorite={handleToggleFavorite}
               isFavorite={isFavorite(product.id)}
             />
+
+            {/* Product Recommendation Section - Only for product 22 */}
+            {(product.id === '22' || product.productNumber === '22') && (
+              <ProductRecommendation 
+                recommendedProductId="32"
+                currentProduct={product}
+              />
+            )}
+
+            {/* Product Recommendation Section - Only for product 20 */}
+            {(product.id === '20' || product.productNumber === '20') && (
+              <ProductRecommendation 
+                recommendedProductId="30"
+                currentProduct={product}
+              />
+            )}
+
+            {/* Product Recommendation Section - Only for product 21 */}
+            {(product.id === '21' || product.productNumber === '21') && (
+              <ProductRecommendation 
+                recommendedProductId="31"
+                currentProduct={product}
+              />
+            )}
+
+            {/* Product Recommendation Section - Only for product 15 */}
+            {(product.id === '15' || product.productNumber === '15') && (
+              <ProductRecommendation 
+                recommendedProductId="30"
+                currentProduct={product}
+              />
+            )}
+
+            {/* Product Recommendation Section - Only for product 19 */}
+            {(product.id === '19' || product.productNumber === '19') && (
+              <ProductRecommendation 
+                recommendedProductId="27"
+                currentProduct={product}
+              />
+            )}
 
             {/* Trust Badges - Below Cart */}
             <TrustBadges />

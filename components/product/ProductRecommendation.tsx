@@ -163,6 +163,118 @@ export default function ProductRecommendation({
       }
     }
 
+    // Hydration/moisturizing combination (18 + 29)
+    if ((currentProduct.id === '18' || currentProduct.productNumber === '18') && recommendedProduct.id === '29') {
+      return {
+        intro: `Maximize your skin hydration by combining the <strong>${currentName}</strong> with <strong>${recommendedName}</strong>. Together, they provide comprehensive multi-depth hydration and long-lasting moisture for plump, dewy skin.`,
+        benefits: [
+          { title: '4-Step Hydration System:', text: 'Both products work together using electrolytes, aquaporin stimulation, and multi-weight hyaluronic acids for complete hydration' },
+          { title: 'Multi-Depth Moisture:', text: 'Serum quickly replenishes from deep inside while cream forms a protective barrier to prevent evaporation' },
+          { title: 'Long-Lasting Hydration:', text: 'Cream provides 72-hour hydration persistence, locking in the moisture delivered by serum' },
+          { title: 'Complete Moisture Routine:', text: 'Addresses both immediate hydration needs and long-term moisture barrier health for all skin types' }
+        ]
+      }
+    }
+
+    // Cleanser + toner combination (10 + 16)
+    if ((currentProduct.id === '10' || currentProduct.productNumber === '10') && recommendedProduct.id === '16') {
+      return {
+        intro: `Complete your cleansing routine by combining the <strong>${currentName}</strong> with <strong>${recommendedName}</strong>. Together, they provide comprehensive deep cleansing and skin preparation for a refreshed, balanced complexion.`,
+        benefits: [
+          { title: 'Complete Cleansing Routine:', text: 'Oxygen bubble cleanser removes impurities while toner balances pH and refines skin texture' },
+          { title: 'Deep Cleansing + Hydration:', text: 'Cleanser provides oxygen therapy for deep cleansing while toner moisturizes and soothes the skin' },
+          { title: 'Skin Preparation:', text: 'Toner prepares skin for optimal absorption of subsequent skincare products after cleansing' },
+          { title: 'Balanced pH Level:', text: 'Toner helps restore and balance skin\'s natural pH after cleansing for healthier skin barrier' }
+        ]
+      }
+    }
+
+    // Post-treatment recovery + professional treatment combination (25 + 38)
+    if ((currentProduct.id === '25' || currentProduct.productNumber === '25') && recommendedProduct.id === '38') {
+      return {
+        intro: `Enhance your professional treatment results by combining the <strong>${currentName}</strong> with <strong>${recommendedName}</strong>. Together, they provide comprehensive treatment support and optimal recovery for professional skincare results.`,
+        benefits: [
+          { title: 'Complete Treatment Protocol:', text: 'CO₂ mask provides oxygen therapy and skin activation while post-cream promotes rapid recovery and healing' },
+          { title: 'Enhanced Recovery:', text: 'Post-cream helps skin recover from redness and irritation while mask prepares skin for optimal treatment absorption' },
+          { title: 'Synergistic Healing:', text: 'Centella complex in both products works together to soothe, repair, and regenerate skin after professional treatments' },
+          { title: 'Professional Results:', text: 'Addresses both treatment preparation and post-treatment recovery for comprehensive professional skincare protocol' }
+        ]
+      }
+    }
+
+    // Eye care combination (33 + 17)
+    if ((currentProduct.id === '33' || currentProduct.productNumber === '33') && recommendedProduct.id === '17') {
+      return {
+        intro: `Maximize your eye care results by combining the <strong>${currentName}</strong> with <strong>${recommendedName}</strong>. Together, they provide comprehensive eye contour treatment for wrinkles, dark circles, and eye bags.`,
+        benefits: [
+          { title: 'Enhanced Delivery System:', text: 'Thermo-sensitive gel patch improves serum absorption through transdermal delivery while serum provides active peptide treatment' },
+          { title: 'Synergistic Peptide Action:', text: 'Acetyl Hexapeptide-8 in both products works together to reduce wrinkles and improve eye contour appearance' },
+          { title: 'Complete Eye Care:', text: 'Patch provides cooling, soothing, and moisturizing while serum targets wrinkles, dark circles, and eye puffs' },
+          { title: '24/7 Eye Treatment:', text: 'Serum for daily use and patch for intensive treatment sessions provide comprehensive eye care routine' }
+        ]
+      }
+    }
+
+    // Eye care serum + cream combination (17 + 24 or 24 + 17)
+    if (((currentProduct.id === '17' || currentProduct.productNumber === '17') && recommendedProduct.id === '24') ||
+        ((currentProduct.id === '24' || currentProduct.productNumber === '24') && recommendedProduct.id === '17')) {
+      // Determine which is serum and which is cream for proper description
+      const isSerumFirst = (currentProduct.id === '17' || currentProduct.productNumber === '17')
+      
+      return {
+        intro: `Complete your eye care routine by combining the <strong>${currentName}</strong> with <strong>${recommendedName}</strong>. Together, they provide comprehensive eye contour treatment for wrinkles, dark circles, and eye puffs.`,
+        benefits: [
+          { title: 'Synergistic Peptide Complex:', text: 'Same peptide complex (Palmitoyl Hexapeptide-12, Copper Tripeptide-1, Acetyl Hexapeptide-8) in both products works together for enhanced wrinkle reduction' },
+          { title: 'Enhanced Absorption:', text: isSerumFirst ? 'Serum prepares eye contour area for deeper cream penetration and optimal ingredient delivery' : 'Cream locks in serum\'s active ingredients for prolonged treatment and protection' },
+          { title: '24/7 Eye Protection:', text: isSerumFirst ? 'Serum for active treatment while cream provides daily protection and maintains results' : 'Cream provides daily protection while serum delivers intensive treatment for optimal results' },
+          { title: 'Complete Eye Care:', text: 'Addresses wrinkles, dark circles, and eye puffs comprehensively for younger-looking eye contour' }
+        ]
+      }
+    }
+
+    // Hair care shampoo + tonic combination (44 + 43 or 43 + 44)
+    if (((currentProduct.id === '44' || currentProduct.productNumber === '44') && recommendedProduct.id === '43') ||
+        ((currentProduct.id === '43' || currentProduct.productNumber === '43') && recommendedProduct.id === '44')) {
+      // Determine which is shampoo and which is tonic for proper description
+      const isShampooFirst = (currentProduct.id === '44' || currentProduct.productNumber === '44')
+      
+      return {
+        intro: `Complete your hair loss treatment routine by combining the <strong>${currentName}</strong> with <strong>${recommendedName}</strong>. Together, they provide comprehensive scalp care and hair loss improvement for healthier, stronger hair.`,
+        benefits: [
+          { title: 'Complete Hair Loss Treatment:', text: 'Both products are KFDA-approved functional products that work together to improve hair loss symptoms and scalp health' },
+          { title: 'Scalp Environment Improvement:', text: isShampooFirst ? 'Shampoo cleanses and controls excess sebum while tonic cools scalp heat and improves scalp conditions' : 'Tonic cools scalp heat and improves conditions while shampoo cleanses and controls excess sebum for optimal scalp health' },
+          { title: 'Synergistic Active Ingredients:', text: isShampooFirst ? 'Copper Tripeptide-1 and MultiEx BSASM™ in tonic complement shampoo\'s patented extracts for enhanced hair loss treatment' : 'Shampoo\'s patented extracts work with tonic\'s Copper Tripeptide-1 and MultiEx BSASM™ for comprehensive hair loss treatment' },
+          { title: 'Complete Hair Care Routine:', text: 'Addresses both cleansing/preparation and active treatment for comprehensive hair loss management' }
+        ]
+      }
+    }
+
+    // Hair care ampoule + tonic combination (45 + 43)
+    if ((currentProduct.id === '45' || currentProduct.productNumber === '45') && recommendedProduct.id === '43') {
+      return {
+        intro: `Enhance your premium hair loss treatment by combining the <strong>${currentName}</strong> with <strong>${recommendedName}</strong>. Together, they provide comprehensive anti-hair loss therapy and scalp health improvement for optimal results.`,
+        benefits: [
+          { title: 'Premium Hair Loss Treatment:', text: 'Ampoule delivers advanced peptide nutrients via microneedling while tonic improves scalp environment and cools scalp heat' },
+          { title: 'Synergistic Peptide Action:', text: 'Copper Tripeptide-1 in both products works together with ampoule\'s sh-Polypeptides for enhanced hair loss treatment and scalp regeneration' },
+          { title: 'Complete Treatment Protocol:', text: 'Ampoule provides intensive microneedling treatment while tonic maintains scalp health and improves conditions between treatments' },
+          { title: 'Optimal Scalp Environment:', text: 'Tonic cools scalp heat and improves conditions, creating the ideal environment for ampoule\'s nutrients to work effectively' }
+        ]
+      }
+    }
+
+    // Scalp peeling + shampoo combination (46 + 44)
+    if ((currentProduct.id === '46' || currentProduct.productNumber === '46') && recommendedProduct.id === '44') {
+      return {
+        intro: `Complete your scalp care routine by combining the <strong>${currentName}</strong> with <strong>${recommendedName}</strong>. Together, they provide comprehensive deep cleansing and hair loss treatment for healthier scalp and hair.`,
+        benefits: [
+          { title: 'Complete Scalp Cleansing:', text: 'Peeling provides deep cleansing and exfoliation while shampoo maintains daily cleansing and controls excess sebum' },
+          { title: 'Synergistic Scalp Care:', text: 'Both products contain Salicylic Acid and Menthol that work together to deeply cleanse, cool scalp heat, and improve scalp conditions' },
+          { title: 'Hair Loss Treatment Support:', text: 'KFDA-approved shampoo complements peeling\'s deep cleansing to create optimal scalp environment for hair loss treatment' },
+          { title: 'Complete Scalp Care Routine:', text: 'Addresses both deep cleansing/exfoliation and daily maintenance for comprehensive scalp health and hair loss management' }
+        ]
+      }
+    }
+
     // Default generic description
     return {
       intro: `Enhance your skincare routine by combining <strong>${currentName}</strong> with <strong>${recommendedName}</strong>. Together, they provide comprehensive care for optimal results.`,

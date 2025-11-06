@@ -899,7 +899,13 @@ export default function AdminPage() {
                                   className="w-10 h-10 rounded-full object-cover"
                             />
                           ) : (
-                                <UserIcon className="h-5 w-5 text-primary-600" />
+                                <Image
+                                  src="/images/avatar/avatar.png"
+                                  alt={user.name}
+                                  width={40}
+                                  height={40}
+                                  className="w-10 h-10 rounded-full object-cover"
+                                />
                           )}
                         </div>
                             <div className="flex-1">

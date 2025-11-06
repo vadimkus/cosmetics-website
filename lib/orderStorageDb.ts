@@ -191,8 +191,14 @@ export const getOrderById = async (orderId: string): Promise<Order | null> => {
 // Get orders by email with pagination
 export const getOrdersByEmail = async (email: string, limit: number = 50, offset: number = 0): Promise<Order[]> => {
   try {
-    return await prisma.order.findMany({
-      where: { customerEmail: email },
+    // Normalize email to lowercase and trim whitespace for consistent matching
+    const normalizedEmail = email.trim().toLowerCase()
+    
+    console.log(`🔍 Searching for orders with email: "${normalizedEmail}" (original: "${email}")`)
+    
+    // Try exact match first with normalized email
+    let orders = await prisma.order.findMany({
+      where: { customerEmail: normalizedEmail },
       include: {
         items: true
       },
@@ -200,6 +206,39 @@ export const getOrdersByEmail = async (email: string, limit: number = 50, offset
       take: limit,
       skip: offset
     })
+    
+    // If no orders found, try case-insensitive search using raw query
+    if (orders.length === 0) {
+      console.log(`⚠️ No exact match found, trying case-insensitive search...`)
+      try {
+        // Use Prisma's column names (camelCase) - Prisma will map them to database columns
+        const orderIds = await prisma.$queryRaw<Array<{ id: string }>>`
+          SELECT id FROM orders 
+          WHERE LOWER(TRIM("customerEmail")) = LOWER(TRIM(${normalizedEmail}))
+          ORDER BY "createdAt" DESC
+          LIMIT ${limit}
+          OFFSET ${offset}
+        `
+        
+        if (orderIds.length > 0) {
+          const ids = orderIds.map(o => o.id)
+          orders = await prisma.order.findMany({
+            where: { id: { in: ids } },
+            include: {
+              items: true
+            },
+            orderBy: { createdAt: 'desc' }
+          })
+          console.log(`✅ Found ${orders.length} orders using case-insensitive search`)
+        }
+      } catch (rawQueryError) {
+        console.error('⚠️ Case-insensitive raw query failed, using exact match only:', rawQueryError)
+      }
+    } else {
+      console.log(`✅ Found ${orders.length} orders with exact match`)
+    }
+    
+    return orders
   } catch (error) {
     console.error('Error finding orders by email:', error)
     return []
@@ -209,9 +248,28 @@ export const getOrdersByEmail = async (email: string, limit: number = 50, offset
 // Get total count of orders by email
 export const getOrdersCountByEmail = async (email: string): Promise<number> => {
   try {
-    return await prisma.order.count({
-      where: { customerEmail: email }
+    // Normalize email to lowercase and trim whitespace for consistent matching
+    const normalizedEmail = email.trim().toLowerCase()
+    
+    // Try exact match first
+    let count = await prisma.order.count({
+      where: { customerEmail: normalizedEmail }
     })
+    
+    // If no orders found, try case-insensitive count
+    if (count === 0) {
+      try {
+        const result = await prisma.$queryRaw<Array<{ count: bigint }>>`
+          SELECT COUNT(*)::int as count FROM orders 
+          WHERE LOWER(TRIM("customerEmail")) = LOWER(TRIM(${normalizedEmail}))
+        `
+        count = result[0]?.count ? Number(result[0].count) : 0
+      } catch (rawQueryError) {
+        console.error('⚠️ Case-insensitive count query failed:', rawQueryError)
+      }
+    }
+    
+    return count
   } catch (error) {
     console.error('Error counting orders by email:', error)
     return 0

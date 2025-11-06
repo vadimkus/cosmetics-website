@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { User, Camera, X, Crown, Building, Eye, Calendar, Sparkles } from 'lucide-react'
+import { Camera, X, Crown, Building, Eye, Calendar, Sparkles } from 'lucide-react'
 import { User as UserType } from '@/types/user'
 
 interface ProfileHeaderProps {
@@ -38,8 +38,22 @@ export default function ProfileHeader({
                 height={128}
                 className="w-full h-full object-cover"
               />
+            ) : user.profilePicture ? (
+              <Image
+                src={user.profilePicture}
+                alt="Profile"
+                width={128}
+                height={128}
+                className="w-full h-full object-cover"
+              />
             ) : (
-              <User className="h-12 w-12 sm:h-14 sm:w-14 lg:h-16 lg:w-16 text-green-400" />
+              <Image
+                src="/images/avatar/avatar.png"
+                alt="Profile"
+                width={128}
+                height={128}
+                className="w-full h-full object-cover"
+              />
             )}
           </div>
 

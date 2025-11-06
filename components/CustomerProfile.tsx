@@ -3,7 +3,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import Image from 'next/image'
 import { 
-  UserIcon, 
   Mail, 
   Phone, 
   MapPin, 
@@ -29,6 +28,7 @@ import {
   RefreshCw
 } from 'lucide-react'
 import { User } from '@/types/user'
+import { getCsrfHeaders } from '@/lib/csrfClient'
 
 type Customer = User
 
@@ -83,6 +83,7 @@ export default function CustomerProfile({
   const [loading, setLoading] = useState(true)
   const [editing, setEditing] = useState(false)
   const [editData, setEditData] = useState({
+    name: customer.name || '',
     email: customer.email || '',
     phone: customer.phone || '',
     address: customer.address || '',
@@ -91,6 +92,7 @@ export default function CustomerProfile({
     discountType: customer.discountType || '',
     discountPercentage: customer.discountPercentage || 0
   } as {
+    name: string
     email: string
     phone: string
     address: string
@@ -112,22 +114,69 @@ export default function CustomerProfile({
     favoriteCategory: 'N/A'
   })
 
+  // Helper to get admin email from session
+  const getAdminEmail = (): string | null => {
+    if (typeof window === 'undefined') return null
+    try {
+      const session = localStorage.getItem('admin_session')
+      if (session) {
+        const parsed = JSON.parse(session)
+        return parsed.email || null
+      }
+    } catch (e) {
+      return null
+    }
+    return null
+  }
+
+  // Helper to get admin headers with CSRF
+  const getAdminHeaders = useCallback((): HeadersInit => {
+    const headers: Record<string, string> = {
+      'Content-Type': 'application/json',
+      ...getCsrfHeaders() as Record<string, string>
+    }
+    const email = getAdminEmail()
+    if (email) {
+      headers['X-Admin-Email'] = email
+    }
+    return headers as HeadersInit
+  }, [])
+
   const fetchCustomerOrders = useCallback(async () => {
     try {
       setLoading(true)
-      const response = await fetch(`/api/admin/orders?customerEmail=${customer.email}`)
+      // URL encode the email to handle special characters
+      const encodedEmail = encodeURIComponent(customer.email)
+      const response = await fetch(`/api/admin/orders?customerEmail=${encodedEmail}`, {
+        headers: getAdminHeaders()
+      })
+      
+      if (!response.ok) {
+        console.error('Failed to fetch orders:', response.status, response.statusText)
+        const errorData = await response.json().catch(() => ({}))
+        console.error('Error data:', errorData)
+        return
+      }
+      
       const data = await response.json()
+      console.log('📦 Orders API response:', { success: data.success, orderCount: data.orders?.length || 0 })
       
       if (data.success) {
-        setOrders(data.orders || [])
-        calculateCustomerStats(data.orders || [])
+        const ordersList = data.orders || []
+        console.log('📦 Setting orders:', ordersList.length, 'orders')
+        setOrders(ordersList)
+        calculateCustomerStats(ordersList)
+      } else {
+        console.error('API returned success: false', data)
+        setOrders([])
       }
     } catch (error) {
       console.error('Error fetching customer orders:', error)
+      setOrders([])
     } finally {
       setLoading(false)
     }
-  }, [customer.email])
+  }, [customer.email, getAdminHeaders])
 
   useEffect(() => {
     fetchCustomerOrders()
@@ -136,6 +185,7 @@ export default function CustomerProfile({
   const handleEdit = () => {
     setEditing(true)
     setEditData({
+      name: customer.name || '',
       email: customer.email || '',
       phone: customer.phone || '',
       address: customer.address || '',
@@ -166,6 +216,7 @@ export default function CustomerProfile({
   const handleSave = async () => {
     try {
       console.log('Saving customer updates:', {
+        name: editData.name || undefined,
         email: editData.email || undefined,
         phone: editData.phone || undefined,
         address: editData.address || undefined,
@@ -173,6 +224,7 @@ export default function CustomerProfile({
         profilePicture: editData.profilePicture || undefined
       })
       await onUpdateCustomer(customer.id, {
+        name: editData.name || '',
         email: editData.email || '',
         phone: editData.phone || '',
         address: editData.address || '',
@@ -189,6 +241,7 @@ export default function CustomerProfile({
   const handleCancel = () => {
     setEditing(false)
     setEditData({
+      name: customer.name || '',
       email: customer.email || '',
       phone: customer.phone || '',
       address: customer.address || '',
@@ -227,6 +280,7 @@ export default function CustomerProfile({
       if (!editing) {
         setEditing(true)
         setEditData({
+          name: customer.name || '',
           email: customer.email || '',
           phone: customer.phone || '',
           address: customer.address || '',
@@ -396,7 +450,13 @@ export default function CustomerProfile({
                       className="w-full h-full object-cover"
                     />
                   ) : (
-                    <UserIcon className="h-12 w-12 text-gray-400" />
+                    <Image
+                      src="/images/avatar/avatar.png"
+                      alt={customer.name}
+                      width={64}
+                      height={64}
+                      className="w-full h-full object-cover"
+                    />
                   )
                 ) : (
                   customer.profilePicture ? (
@@ -416,7 +476,13 @@ export default function CustomerProfile({
                       className="w-full h-full object-cover"
                     />
                   ) : (
-                    <UserIcon className="h-12 w-12 text-gray-400" />
+                    <Image
+                      src="/images/avatar/avatar.png"
+                      alt={customer.name}
+                      width={64}
+                      height={64}
+                      className="w-full h-full object-cover"
+                    />
                   )
                 )}
                 
@@ -488,7 +554,17 @@ export default function CustomerProfile({
                 </div>
               )}
               
-              <h3 className="text-xl font-bold text-gray-800">{customer.name}</h3>
+              {editing ? (
+                <input
+                  type="text"
+                  value={editData.name}
+                  onChange={(e) => setEditData({ ...editData, name: e.target.value })}
+                  placeholder="Customer name"
+                  className="text-xl font-bold text-gray-800 bg-transparent border-b-2 border-blue-500 focus:outline-none focus:border-blue-600 px-1 py-1 w-full"
+                />
+              ) : (
+                <h3 className="text-xl font-bold text-gray-800">{customer.name}</h3>
+              )}
               <p className="text-gray-600">{customer.email}</p>
               {customer.isAdmin && (
                 <span className="inline-block mt-2 px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-sm font-medium">
@@ -719,9 +795,9 @@ export default function CustomerProfile({
             <div className="mt-6 pt-4 border-t border-gray-200">
               <button
                 onClick={() => onDeleteCustomer(customer.id, customer.name)}
-                className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors"
+                className="flex items-center justify-center gap-1.5 px-2 py-1 bg-red-500 text-white rounded text-sm hover:bg-red-600 transition-colors"
               >
-                <Trash2 className="h-4 w-4" />
+                <Trash2 className="h-3 w-3" />
                 Delete Customer
               </button>
             </div>

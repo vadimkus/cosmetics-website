@@ -1,3 +1,4 @@
+import { errorLog } from '@/lib/logger'
 import { PrismaClient } from '@prisma/client'
 
 const globalForPrisma = globalThis as unknown as {
@@ -26,7 +27,7 @@ if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma
 
 // Test the connection
 prisma.$connect().catch((error) => {
-  console.error('Failed to connect to database:', error)
+  errorLog('Failed to connect to database:', error)
 })
 
 // Set max listeners to prevent memory leak warning

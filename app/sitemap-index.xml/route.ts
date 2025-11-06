@@ -1,3 +1,4 @@
+import { errorLog } from '@/lib/logger'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function GET(_request: NextRequest) {
@@ -21,7 +22,7 @@ export async function GET(_request: NextRequest) {
       },
     })
   } catch (error) {
-    console.error('Error generating sitemap index:', error)
+    errorLog('Error generating sitemap index:', error)
     return new NextResponse('Error generating sitemap index', { status: 500 })
   }
 }

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getAllProducts } from '@/lib/productsDb'
+import { errorLog } from '@/lib/logger'
 // import { getOptimizedUrl } from '@/lib/urlUtils' // Unused for now
 
 export async function GET(_request: NextRequest) {
@@ -70,7 +71,7 @@ export async function GET(_request: NextRequest) {
     try {
       products = await getAllProducts()
     } catch (error) {
-      console.error('Error fetching products for sitemap:', error)
+      errorLog('Error fetching products for sitemap:', error)
     }
 
     // Generate XML sitemap
@@ -132,7 +133,7 @@ export async function GET(_request: NextRequest) {
       },
     })
   } catch (error) {
-    console.error('Error generating sitemap:', error)
+    errorLog('Error generating sitemap:', error)
     return new NextResponse('Error generating sitemap', { status: 500 })
   }
 }

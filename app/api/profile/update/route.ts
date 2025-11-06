@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { updateUser } from '@/lib/userStorageDb'
+import { errorLog } from '@/lib/logger'
 import { requireCsrfToken } from '@/lib/csrf'
 import { validateUserProfileInput } from '@/lib/validation'
 import { requireBodySizeLimit, getSizeLimitForContentType } from '@/lib/requestSizeLimit'
@@ -52,7 +53,7 @@ export async function POST(request: NextRequest) {
       message: 'Profile updated successfully'
     })
   } catch (error) {
-    console.error('Error updating user profile:', error)
+    errorLog('Error updating user profile:', error)
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }

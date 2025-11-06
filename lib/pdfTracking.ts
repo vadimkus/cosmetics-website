@@ -1,3 +1,4 @@
+import { errorLog } from '@/lib/logger'
 import { useAuth } from '@/components/AuthProvider'
 
 export interface PDFDownloadData {
@@ -16,7 +17,7 @@ export async function trackPDFDownload(data: PDFDownloadData): Promise<void> {
       body: JSON.stringify(data),
     })
   } catch (error) {
-    console.error('Error tracking PDF download:', error)
+    errorLog('Error tracking PDF download:', error)
     // Don't throw error to avoid breaking the download
   }
 }

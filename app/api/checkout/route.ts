@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { addOrder, OrderData, OrderItemData } from '@/lib/orderStorageDb'
+import { debugLog, errorLog } from '@/lib/logger'
 import { trackUserAction } from '@/lib/analyticsServer'
 import { sendOrderConfirmationEmail, sendAdminNewOrderNotification } from '@/lib/email'
 import { requireCsrfToken } from '@/lib/csrf'
@@ -31,16 +32,16 @@ export async function POST(request: NextRequest) {
     } = await request.json()
 
     // Calculate order totals with debugging
-    console.log('🔍 Order calculation debug:')
-    console.log('Items received:', JSON.stringify(items, null, 2))
+    debugLog('🔍 Order calculation debug:')
+    debugLog('Items received:', JSON.stringify(items, null, 2))
     
     const subtotal = items.reduce((total: number, item: any) => {
       const itemTotal = item.product.price * item.quantity
-      console.log(`Item: ${item.product.name} - Price: ${item.product.price} x Qty: ${item.quantity} = ${itemTotal}`)
+      debugLog(`Item: ${item.product.name} - Price: ${item.product.price} x Qty: ${item.quantity} = ${itemTotal}`)
       return total + itemTotal
     }, 0)
     
-    console.log('Subtotal calculated:', subtotal)
+    debugLog('Subtotal calculated:', subtotal)
     
     // Calculate shipping (free for orders above 1000 AED)
     const emirates = [
@@ -57,9 +58,9 @@ export async function POST(request: NextRequest) {
     const baseShippingCost = selectedEmirateData?.shippingCost || 45
     const shipping = subtotal >= 1000 ? 0 : baseShippingCost
     
-    console.log('Emirate:', customerEmirate)
-    console.log('Base shipping cost:', baseShippingCost)
-    console.log('Final shipping:', shipping)
+    debugLog('Emirate:', customerEmirate)
+    debugLog('Base shipping cost:', baseShippingCost)
+    debugLog('Final shipping:', shipping)
     
     const discountAmount = 0 // You can add discount logic here if needed
     const total = subtotal - discountAmount + shipping
@@ -67,11 +68,11 @@ export async function POST(request: NextRequest) {
     // VAT = (VAT-inclusive amount / 1.05) * 0.05
     const vat = Math.round(((subtotal + shipping) / 1.05) * 0.05 * 100) / 100
 
-    console.log('Discount amount:', discountAmount)
-    console.log('Subtotal (VAT included):', subtotal)
-    console.log('Shipping (VAT included):', shipping)
-    console.log('VAT amount (calculated from inclusive prices):', vat)
-    console.log('Final total:', total)
+    debugLog('Discount amount:', discountAmount)
+    debugLog('Subtotal (VAT included):', subtotal)
+    debugLog('Shipping (VAT included):', shipping)
+    debugLog('VAT amount (calculated from inclusive prices):', vat)
+    debugLog('Final total:', total)
 
     // Generate order ID - shorter numeric format
     const orderId = (Math.floor(Math.random() * 900000000) + 100000000).toString()
@@ -115,7 +116,7 @@ export async function POST(request: NextRequest) {
     // Track purchase in Google Analytics (server-side)
     // Note: This will be called on the server, so we need to handle it differently
     // The actual Google Analytics tracking should happen on the client side
-    console.log('📊 Purchase tracking data prepared for client-side Google Analytics:', {
+    debugLog('📊 Purchase tracking data prepared for client-side Google Analytics:', {
       orderId,
       total,
       items: orderItems.map(item => ({
@@ -146,9 +147,9 @@ export async function POST(request: NextRequest) {
         address: order.customerAddress,
         emirate: order.customerEmirate
       })
-      console.log('✅ Order confirmation email sent to:', order.customerEmail)
+      debugLog('✅ Order confirmation email sent to:', order.customerEmail)
     } catch (emailError) {
-      console.error('❌ Failed to send order confirmation email:', emailError)
+      errorLog('❌ Failed to send order confirmation email:', emailError)
       // Don't fail order creation if email fails
     }
 
@@ -173,9 +174,9 @@ export async function POST(request: NextRequest) {
         address: order.customerAddress,
         emirate: order.customerEmirate
       })
-      console.log('✅ Admin notification sent for new order:', order.orderNumber)
+      debugLog('✅ Admin notification sent for new order:', order.orderNumber)
     } catch (emailError) {
-      console.error('❌ Failed to send admin notification:', emailError)
+      errorLog('❌ Failed to send admin notification:', emailError)
       // Don't fail order creation if email fails
     }
 
@@ -186,9 +187,9 @@ export async function POST(request: NextRequest) {
     })
 
   } catch (error) {
-    console.error('Error creating checkout session:', error)
-    console.error('Error details:', error instanceof Error ? error.message : 'Unknown error')
-    console.error('Error stack:', error instanceof Error ? error.stack : 'No stack trace')
+    errorLog('Error creating checkout session:', error)
+    errorLog('Error details:', error instanceof Error ? error.message : 'Unknown error')
+    errorLog('Error stack:', error instanceof Error ? error.stack : 'No stack trace')
     return NextResponse.json(
       { error: 'Failed to process checkout. Please try again.' },
       { status: 500 }

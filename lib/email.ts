@@ -1,3 +1,4 @@
+import { debugLog, errorLog, warnLog } from '@/lib/logger'
 import nodemailer from 'nodemailer'
 
 // Email configuration
@@ -14,9 +15,9 @@ const transporter = nodemailer.createTransport({
 // Verify connection configuration
 transporter.verify((error, _success) => {
   if (error) {
-    console.log('❌ SMTP connection error:', error)
+    debugLog('❌ SMTP connection error:', error)
   } else {
-    console.log('✅ SMTP server is ready to take our messages')
+    debugLog('✅ SMTP server is ready to take our messages')
   }
 })
 
@@ -374,9 +375,9 @@ export const emailTemplates = {
 // Email sending functions
 export const sendEmail = async (to: string, subject: string, html: string) => {
   try {
-    console.log('📧 Attempting to send email to:', to)
-    console.log('📧 Using Gmail service')
-    console.log('📧 Using Gmail user:', process.env.GMAIL_USER)
+    debugLog('📧 Attempting to send email to:', to)
+    debugLog('📧 Using Gmail service')
+    debugLog('📧 Using Gmail user:', process.env.GMAIL_USER)
     
     const mailOptions = {
       from: `"Genosys Middle East FZ-LLC" <${process.env.GMAIL_USER}>`,
@@ -386,11 +387,11 @@ export const sendEmail = async (to: string, subject: string, html: string) => {
     }
 
     const result = await transporter.sendMail(mailOptions)
-    console.log('✅ Email sent successfully:', result.messageId)
+    debugLog('✅ Email sent successfully:', result.messageId)
     return { success: true, messageId: result.messageId }
   } catch (error) {
-    console.error('❌ Error sending email:', error)
-    console.error('❌ Error details:', error instanceof Error ? error.message : 'Unknown error')
+    errorLog('❌ Error sending email:', error)
+    errorLog('❌ Error details:', error instanceof Error ? error.message : 'Unknown error')
     return { success: false, error: error instanceof Error ? error.message : 'Unknown error' }
   }
 }
@@ -409,7 +410,7 @@ export const sendOrderConfirmationEmail = async (orderData: any) => {
 export const sendAdminNewUserNotification = async (userName: string, userEmail: string) => {
   const adminEmail = process.env.ADMIN_EMAIL || process.env.GMAIL_USER || process.env.EMAIL_USER
   if (!adminEmail) {
-    console.warn('⚠️ Admin email not configured')
+    warnLog('⚠️ Admin email not configured')
     return { success: false, error: 'Admin email not configured' }
   }
   
@@ -421,11 +422,11 @@ export const sendAdminNewOrderNotification = async (orderData: any) => {
   // Use a specific admin email address
   const adminEmail = process.env.ADMIN_EMAIL || '5856825@gmail.com' // Default to your Gmail
   if (!adminEmail) {
-    console.warn('⚠️ Admin email not configured')
+    warnLog('⚠️ Admin email not configured')
     return { success: false, error: 'Admin email not configured' }
   }
   
-  console.log(`📧 Sending admin notification to: ${adminEmail}`)
+  debugLog(`📧 Sending admin notification to: ${adminEmail}`)
   const template = emailTemplates.adminNewOrder(orderData)
   return await sendEmail(adminEmail, template.subject, template.html)
 }

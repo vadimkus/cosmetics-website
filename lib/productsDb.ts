@@ -1,3 +1,4 @@
+import { debugLog, errorLog } from '@/lib/logger'
 import { prisma } from './prisma'
 
 export interface Product {
@@ -36,7 +37,7 @@ export async function getAllProducts(): Promise<Product[]> {
     })
     return products
   } catch (error) {
-    console.error('Error fetching products from database:', error)
+    errorLog('Error fetching products from database:', error)
     throw new Error('Failed to fetch products')
   }
 }
@@ -57,7 +58,7 @@ export async function getProductById(id: string): Promise<Product | null> {
     
     return product
   } catch (error) {
-    console.error('Error fetching product by ID:', error)
+    errorLog('Error fetching product by ID:', error)
     throw new Error('Failed to fetch product')
   }
 }
@@ -76,7 +77,7 @@ export async function getProductsByCategory(category: string): Promise<Product[]
     })
     return products
   } catch (error) {
-    console.error('Error fetching products by category:', error)
+    errorLog('Error fetching products by category:', error)
     throw new Error('Failed to fetch products by category')
   }
 }
@@ -88,7 +89,7 @@ export async function addProduct(productData: Omit<Product, 'id'>): Promise<Prod
     })
     return product
   } catch (error) {
-    console.error('Error adding product:', error)
+    errorLog('Error adding product:', error)
     throw new Error('Failed to add product')
   }
 }
@@ -101,7 +102,7 @@ export async function updateProduct(id: string, updates: Partial<Product>): Prom
     })
     return product
   } catch (error) {
-    console.error('Error updating product:', error)
+    errorLog('Error updating product:', error)
     throw new Error('Failed to update product')
   }
 }
@@ -113,7 +114,7 @@ export async function deleteProduct(id: string): Promise<boolean> {
     })
     return true
   } catch (error) {
-    console.error('Error deleting product:', error)
+    errorLog('Error deleting product:', error)
     return false
   }
 }
@@ -134,7 +135,7 @@ export async function searchProducts(query: string): Promise<Product[]> {
     })
     return products
   } catch (error) {
-    console.error('Error searching products:', error)
+    errorLog('Error searching products:', error)
     throw new Error('Failed to search products')
   }
 }
@@ -147,11 +148,11 @@ export async function getSkinRecommendations(filters: {
   try {
     const { skinType, ageGroup, targetConcerns } = filters
     
-    console.log('🔍 Fetching skin recommendations with filters:', { skinType, ageGroup, targetConcerns })
+    debugLog('🔍 Fetching skin recommendations with filters:', { skinType, ageGroup, targetConcerns })
     
     // Special handling for hair products - return them regardless of other filters
     if (targetConcerns && targetConcerns.includes('hair')) {
-      console.log('🔍 Hair category selected - returning hair products')
+      debugLog('🔍 Hair category selected - returning hair products')
       
       const hairProducts = await prisma.product.findMany({
         where: {
@@ -165,7 +166,7 @@ export async function getSkinRecommendations(filters: {
         }
       })
       
-      console.log(`✅ Returning ${hairProducts.length} hair products`)
+      debugLog(`✅ Returning ${hairProducts.length} hair products`)
       return hairProducts
     }
     
@@ -195,7 +196,7 @@ export async function getSkinRecommendations(filters: {
       }))
     }
     
-    console.log('🔍 Database query where clause:', JSON.stringify(whereClause, null, 2))
+    debugLog('🔍 Database query where clause:', JSON.stringify(whereClause, null, 2))
     
     // Query products from database
     const products = await prisma.product.findMany({
@@ -205,11 +206,11 @@ export async function getSkinRecommendations(filters: {
       }
     })
     
-    console.log(`✅ Found ${products.length} products matching criteria`)
+    debugLog(`✅ Found ${products.length} products matching criteria`)
     
     // If no products found with exact matches, try more flexible matching
     if (products.length === 0) {
-      console.log('🔄 No exact matches found, trying flexible matching...')
+      debugLog('🔄 No exact matches found, trying flexible matching...')
       
       // Try without age group filter
       if (ageGroup) {
@@ -224,13 +225,13 @@ export async function getSkinRecommendations(filters: {
         })
         
         if (flexibleProducts.length > 0) {
-          console.log(`✅ Found ${flexibleProducts.length} products with flexible matching`)
+          debugLog(`✅ Found ${flexibleProducts.length} products with flexible matching`)
           return flexibleProducts
         }
       }
       
       // If still no products, return all products with skin type data
-      console.log('🔄 No flexible matches found, returning all products with skin data')
+      debugLog('🔄 No flexible matches found, returning all products with skin data')
       const allProductsWithSkinData = await prisma.product.findMany({
         where: {
           inStock: true,
@@ -246,7 +247,7 @@ export async function getSkinRecommendations(filters: {
     
     return products
   } catch (error) {
-    console.error('Error fetching skin recommendations:', error)
+    errorLog('Error fetching skin recommendations:', error)
     throw new Error('Failed to fetch skin recommendations')
   }
 }

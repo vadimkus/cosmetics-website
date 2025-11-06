@@ -5,6 +5,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { ShoppingCart, Heart, CheckCircle } from 'lucide-react'
 import { useCartStore } from '@/lib/cartStore'
+import { errorLog } from '@/lib/logger'
 import { useFavorites } from '@/components/FavoritesProvider'
 
 // Product interface for database integration
@@ -177,7 +178,7 @@ export default function SkinRecommendationPage() {
       setRecommendations(products)
       setShowResults(true)
     } catch (error) {
-      console.error('Error fetching recommendations:', error)
+      errorLog('Error fetching recommendations:', error)
     } finally {
       setIsLoading(false)
     }

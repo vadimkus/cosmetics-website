@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getOrdersByEmail, getOrdersCountByEmail } from '@/lib/orderStorageDb'
+import { errorLog } from '@/lib/logger'
 
 export async function GET(request: NextRequest) {
   try {
@@ -26,7 +27,7 @@ export async function GET(request: NextRequest) {
       hasMore: offset + limit < totalCount
     })
   } catch (error) {
-    console.error('Error fetching orders:', error)
+    errorLog('Error fetching orders:', error)
     return NextResponse.json(
       { error: 'Failed to fetch orders' },
       { status: 500 }

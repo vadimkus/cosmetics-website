@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation'
 import PDFDownloadButton from '@/components/PDFDownloadButton'
 import { Order, OrderItem } from '@prisma/client'
 import { fetchCsrfToken, getCsrfHeaders, addCsrfToBody } from '@/lib/csrfClient'
+import { errorLog } from '@/lib/logger'
 
 // Custom type that includes the items relation
 type OrderWithItems = Order & {
@@ -39,7 +40,7 @@ export default function ProfilePageNew() {
   // Fetch CSRF token on mount
   useEffect(() => {
     fetchCsrfToken().catch(err => {
-      console.error('Failed to fetch CSRF token:', err)
+      errorLog('Failed to fetch CSRF token:', err)
     })
   }, [])
 
@@ -51,7 +52,7 @@ export default function ProfilePageNew() {
     try {
       await forceRefreshUser()
     } catch (error) {
-      console.error('Error refreshing user data:', error)
+      errorLog('Error refreshing user data:', error)
     } finally {
       // Add a small delay to show the animation
       setTimeout(() => {
@@ -108,10 +109,10 @@ export default function ProfilePageNew() {
           const data = await response.json()
           setOrders(data.orders || [])
         } else {
-          console.error('Failed to fetch orders')
+          errorLog('Failed to fetch orders')
         }
       } catch (error) {
-        console.error('Error fetching orders:', error)
+        errorLog('Error fetching orders:', error)
       } finally {
         setLoadingOrders(false)
       }
@@ -277,7 +278,7 @@ export default function ProfilePageNew() {
         alert(`Failed to cancel order: ${errorData.error || 'Unknown error'}`)
       }
     } catch (error) {
-      console.error('Error cancelling order:', error)
+      errorLog('Error cancelling order:', error)
       alert('Failed to cancel order')
     }
   }
@@ -353,11 +354,11 @@ export default function ProfilePageNew() {
         alert('Profile updated successfully!')
         window.location.reload()
       } else {
-        console.error('Failed to update profile:', responseData)
+        errorLog('Failed to update profile:', responseData)
         alert(`Failed to update profile: ${responseData.error || 'Unknown error'}`)
       }
     } catch (error) {
-      console.error('Error updating profile:', error)
+      errorLog('Error updating profile:', error)
       alert(`Error updating profile: ${error instanceof Error ? error.message : 'Unknown error'}`)
     }
   }
@@ -414,7 +415,7 @@ export default function ProfilePageNew() {
         alert(data.error || 'Failed to delete account. Please try again.')
       }
     } catch (error) {
-      console.error('Error deleting account:', error)
+      errorLog('Error deleting account:', error)
       alert('Error deleting account. Please try again.')
     } finally {
       setIsDeleting(false)

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { deleteUser } from '@/lib/userStorageDb'
+import { errorLog } from '@/lib/logger'
 import { requireCsrfToken } from '@/lib/csrf'
 
 export async function DELETE(request: NextRequest) {
@@ -28,7 +29,7 @@ export async function DELETE(request: NextRequest) {
       message: 'Account deleted successfully'
     })
   } catch (error) {
-    console.error('Account deletion error:', error)
+    errorLog('Account deletion error:', error)
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
   }
 }

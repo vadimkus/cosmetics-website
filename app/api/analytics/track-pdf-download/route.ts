@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
+import { debugLog, errorLog } from '@/lib/logger'
 import { headers } from 'next/headers'
 
 export async function POST(request: NextRequest) {
@@ -41,7 +42,7 @@ export async function POST(request: NextRequest) {
       }
     })
 
-    console.log(`📄 PDF download tracked: ${filename} by ${userEmail || 'anonymous'}`)
+    debugLog(`📄 PDF download tracked: ${filename} by ${userEmail || 'anonymous'}`)
 
     return NextResponse.json({ 
       success: true, 
@@ -49,7 +50,7 @@ export async function POST(request: NextRequest) {
     })
 
   } catch (error) {
-    console.error('Error tracking PDF download:', error)
+    errorLog('Error tracking PDF download:', error)
     return NextResponse.json(
       { error: 'Failed to track PDF download' },
       { status: 500 }

@@ -1,3 +1,4 @@
+import { errorLog } from '@/lib/logger'
 /**
  * Client-side CSRF token management
  * 
@@ -20,7 +21,7 @@ export async function fetchCsrfToken(): Promise<string | null> {
     })
 
     if (!response.ok) {
-      console.error('Failed to fetch CSRF token')
+      errorLog('Failed to fetch CSRF token')
       return null
     }
 
@@ -28,7 +29,7 @@ export async function fetchCsrfToken(): Promise<string | null> {
     csrfToken = data.token
     return csrfToken
   } catch (error) {
-    console.error('Error fetching CSRF token:', error)
+    errorLog('Error fetching CSRF token:', error)
     return null
   }
 }

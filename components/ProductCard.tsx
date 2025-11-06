@@ -10,6 +10,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import LoginModal from './LoginModal'
 import { calculateDiscountedPrice, canUserSeePrices } from '@/lib/discountUtils'
+import { debugLog, errorLog } from '@/lib/logger'
 
 interface ProductCardProps {
   product: Product
@@ -61,10 +62,10 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
             sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
             unoptimized={true}
             onError={(e) => {
-              console.error('Image failed to load:', product.image, e)
+              errorLog('Image failed to load:', product.image, e)
             }}
             onLoad={() => {
-              console.log('Image loaded successfully:', product.image)
+              debugLog('Image loaded successfully:', product.image)
             }}
           />
         </Link>

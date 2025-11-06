@@ -1,3 +1,4 @@
+import { debugLog, errorLog } from '@/lib/logger'
 import { prisma } from './database'
 import { User, Prisma } from '@prisma/client'
 
@@ -43,7 +44,7 @@ export const getAllUsers = async (limit: number = 100, offset: number = 0) => {
       skip: offset
     })
   } catch (error) {
-    console.error('Error fetching users:', error)
+    errorLog('Error fetching users:', error)
     return []
   }
 }
@@ -67,7 +68,7 @@ export const addUser = async (userData: UserData): Promise<User> => {
       }
     })
   } catch (error) {
-    console.error('Error creating user:', error)
+    errorLog('Error creating user:', error)
     throw error
   }
 }
@@ -86,9 +87,9 @@ export const findUserByEmail = async (email: string): Promise<User | null> => {
     
     return await Promise.race([queryPromise, timeoutPromise])
   } catch (error) {
-    console.error('Error finding user by email:', error)
+    errorLog('Error finding user by email:', error)
     if (error instanceof Error && error.message === 'Database query timeout') {
-      console.error('⚠️ Database query timed out for email:', email)
+      errorLog('⚠️ Database query timed out for email:', email)
     }
     return null
   }
@@ -101,7 +102,7 @@ export const findUserById = async (id: string): Promise<User | null> => {
       where: { id }
     })
   } catch (error) {
-    console.error('Error finding user by ID:', error)
+    errorLog('Error finding user by ID:', error)
     return null
   }
 }
@@ -109,11 +110,11 @@ export const findUserById = async (id: string): Promise<User | null> => {
 // Update user
 export const updateUser = async (userId: string, updates: Partial<UserData>): Promise<boolean> => {
   try {
-    console.log('Updating user in database:', { userId, updates })
+    debugLog('Updating user in database:', { userId, updates })
     
     // Validate userId format (should be a non-empty string)
     if (!userId || typeof userId !== 'string' || userId.trim() === '') {
-      console.error('Invalid userId provided:', userId)
+      errorLog('Invalid userId provided:', userId)
       return false
     }
     
@@ -123,14 +124,14 @@ export const updateUser = async (userId: string, updates: Partial<UserData>): Pr
     })
     
     if (!user) {
-      console.error('User not found for userId:', userId)
+      errorLog('User not found for userId:', userId)
       // Try to find by email if provided in updates (for debugging)
       if (updates.email) {
         const userByEmail = await prisma.user.findUnique({
           where: { email: updates.email }
         })
         if (userByEmail) {
-          console.error('User found by email but ID mismatch:', {
+          errorLog('User found by email but ID mismatch:', {
             providedId: userId,
             actualId: userByEmail.id,
             email: updates.email
@@ -140,7 +141,7 @@ export const updateUser = async (userId: string, updates: Partial<UserData>): Pr
       return false
     }
     
-    console.log('User found:', { id: user.id, email: user.email, name: user.name })
+    debugLog('User found:', { id: user.id, email: user.email, name: user.name })
     
     // Build update data object, only including fields that are actually being updated
     // Convert empty strings to null for optional fields (Prisma accepts null for optional fields)
@@ -186,21 +187,21 @@ export const updateUser = async (userId: string, updates: Partial<UserData>): Pr
     
     // If address is being updated, also update all existing orders for this user
     if (updates.address !== undefined && updates.address !== user.address) {
-      console.log('Address updated, updating existing orders for user:', user.email)
+      debugLog('Address updated, updating existing orders for user:', user.email)
       const newAddress = updates.address === '' ? '' : updates.address
       await prisma.order.updateMany({
         where: { customerEmail: user.email },
         data: { customerAddress: newAddress }
       })
-      console.log('Updated existing orders with new address')
+      debugLog('Updated existing orders with new address')
     }
     
-    console.log('User update result:', result)
+    debugLog('User update result:', result)
     return true
   } catch (error) {
-    console.error('Error updating user:', error)
-    console.error('Update data:', updates)
-    console.error('User ID:', userId)
+    errorLog('Error updating user:', error)
+    errorLog('Update data:', updates)
+    errorLog('User ID:', userId)
     return false
   }
 }
@@ -213,7 +214,7 @@ export const deleteUser = async (userId: string): Promise<boolean> => {
     })
     return true
   } catch (error) {
-    console.error('Error deleting user:', error)
+    errorLog('Error deleting user:', error)
     return false
   }
 }
@@ -246,9 +247,9 @@ export const cleanupDuplicateUsers = async (): Promise<void> => {
       })
     }
     
-    console.log(`Cleaned up ${usersToDelete.length} duplicate users`)
+    debugLog(`Cleaned up ${usersToDelete.length} duplicate users`)
   } catch (error) {
-    console.error('Error cleaning up duplicate users:', error)
+    errorLog('Error cleaning up duplicate users:', error)
   }
 }
 
@@ -278,7 +279,7 @@ export const findOrCreateUser = async (email: string, userData: Partial<UserData
     
     return user
   } catch (error) {
-    console.error('Error finding or creating user:', error)
+    errorLog('Error finding or creating user:', error)
     throw error
   }
 }

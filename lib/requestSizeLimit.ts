@@ -1,3 +1,4 @@
+import { warnLog } from '@/lib/logger'
 /**
  * Request body size limit middleware
  * Prevents DoS attacks via large payloads
@@ -32,7 +33,7 @@ export function checkRequestBodySize(
   
   if (isNaN(bodySize)) {
     // Invalid content-length - allow through but log warning
-    console.warn('Invalid content-length header:', contentLength)
+    warnLog('Invalid content-length header:', contentLength)
     return { valid: true }
   }
   

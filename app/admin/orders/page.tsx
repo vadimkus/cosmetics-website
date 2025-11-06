@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import { RefreshCw, Mail } from 'lucide-react'
 import { fetchCsrfToken, getCsrfHeaders, addCsrfToBody } from '@/lib/csrfClient'
+import { errorLog } from '@/lib/logger'
 
 interface Order {
   orderNumber: string
@@ -55,7 +56,7 @@ export default function AdminOrdersPage() {
   // Fetch CSRF token on mount
   useEffect(() => {
     fetchCsrfToken().catch(err => {
-      console.error('Failed to fetch CSRF token:', err)
+      errorLog('Failed to fetch CSRF token:', err)
     })
   }, [])
 
@@ -71,7 +72,7 @@ export default function AdminOrdersPage() {
         setOrders(data.orders || [])
       }
     } catch (error) {
-      console.error('Error fetching orders:', error)
+      errorLog('Error fetching orders:', error)
     } finally {
       setLoading(false)
     }
@@ -101,7 +102,7 @@ export default function AdminOrdersPage() {
         alert('Failed to send notification: ' + result.error)
       }
     } catch (error) {
-      console.error('Error resending notification:', error)
+      errorLog('Error resending notification:', error)
       alert('Error sending notification')
     } finally {
       setResending(null)

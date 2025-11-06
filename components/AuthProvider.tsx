@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react'
 import { fetchCsrfToken, getCsrfHeaders, addCsrfToBody } from '@/lib/csrfClient'
+import { debugLog, errorLog } from '@/lib/logger'
 
 interface User {
   id: string
@@ -56,14 +57,14 @@ export default function AuthProvider({ children }: AuthProviderProps) {
         try {
           setUser(JSON.parse(savedUser))
         } catch (error) {
-          console.error('Error parsing saved user:', error)
+          errorLog('Error parsing saved user:', error)
           localStorage.removeItem('genosys_user')
         }
       }
       
       // Fetch CSRF token on mount
       fetchCsrfToken().catch(err => {
-        console.error('Failed to fetch CSRF token:', err)
+        errorLog('Failed to fetch CSRF token:', err)
       })
     }
     setIsLoading(false)
@@ -135,7 +136,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
               mergedUser = { ...data.user, ...parsedExistingUser }
             }
           } catch (error) {
-            console.error('Error parsing existing user data:', error)
+            errorLog('Error parsing existing user data:', error)
           }
         }
       }
@@ -143,7 +144,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
       setUser(mergedUser)
       return true
     } catch (error) {
-      console.error('Login error:', error)
+      errorLog('Login error:', error)
       alert('Login failed. Please check your connection and try again.')
       return false
     } finally {
@@ -178,7 +179,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
       setUser(data.user)
       return true
     } catch (error) {
-      console.error('Registration error:', error)
+      errorLog('Registration error:', error)
       alert('Registration failed. Please check your connection and try again.')
       return false
     } finally {
@@ -191,7 +192,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
     if (!user) return
     
     try {
-      console.log('🔄 Refreshing user data for:', user.email)
+      debugLog('🔄 Refreshing user data for:', user.email)
       // Fetch the latest user data from the server
       const response = await fetch('/api/auth/refresh', {
         method: 'POST',
@@ -218,7 +219,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
             phone: data.user.phone,
             address: data.user.address
           }
-          console.log('✅ User data refreshed:', { 
+          debugLog('✅ User data refreshed:', { 
             email: mergedUser.email, 
             canSeePrices: mergedUser.canSeePrices,
             isAdmin: mergedUser.isAdmin,
@@ -227,11 +228,11 @@ export default function AuthProvider({ children }: AuthProviderProps) {
           setUser(mergedUser)
         }
       } else {
-        console.log('❌ Refresh failed with status:', response.status)
+        debugLog('❌ Refresh failed with status:', response.status)
         // Don't throw error, just log it to avoid breaking the app
       }
     } catch (error) {
-      console.error('❌ Error refreshing user data:', error)
+      errorLog('❌ Error refreshing user data:', error)
       // Don't throw error, just log it to avoid breaking the app
     }
   }, [user])
@@ -240,7 +241,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
     if (!user) return
     
     try {
-      console.log('🔄 Force refreshing user data for:', user.email)
+      debugLog('🔄 Force refreshing user data for:', user.email)
       // Fetch the latest user data from the server
       const response = await fetch('/api/auth/refresh', {
         method: 'POST',
@@ -254,7 +255,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
         const data = await response.json()
         if (data.user) {
           // Use server data directly without merging with existing data
-          console.log('✅ User data force refreshed:', { 
+          debugLog('✅ User data force refreshed:', { 
             email: data.user.email, 
             canSeePrices: data.user.canSeePrices,
             isAdmin: data.user.isAdmin,
@@ -263,10 +264,10 @@ export default function AuthProvider({ children }: AuthProviderProps) {
           setUser(data.user)
         }
       } else {
-        console.log('❌ Force refresh failed with status:', response.status)
+        debugLog('❌ Force refresh failed with status:', response.status)
       }
     } catch (error) {
-      console.error('❌ Error force refreshing user data:', error)
+      errorLog('❌ Error force refreshing user data:', error)
     }
   }, [user])
 

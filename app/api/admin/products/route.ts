@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
+import { errorLog } from '@/lib/logger'
 import { requireAdminAuth } from '@/lib/adminAuth'
 import { requireCsrfToken } from '@/lib/csrf'
 import { validateProductInput } from '@/lib/validation'
@@ -19,7 +20,7 @@ export async function GET(request: NextRequest) {
     })
     return NextResponse.json({ success: true, products })
   } catch (error: unknown) {
-    console.error('Error fetching products:', error)
+    errorLog('Error fetching products:', error)
     const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred'
     return NextResponse.json({ success: false, error: errorMessage }, { status: 500 })
   }
@@ -84,7 +85,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ success: true, product: newProduct }, { status: 201 })
   } catch (error: unknown) {
-    console.error('Error creating product:', error)
+    errorLog('Error creating product:', error)
     const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred'
     return NextResponse.json({ success: false, error: errorMessage }, { status: 500 })
   }

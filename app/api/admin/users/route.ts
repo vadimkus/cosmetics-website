@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { PrismaClient } from '@prisma/client'
 import { requireAdminAuth } from '@/lib/adminAuth'
+import { debugLog, errorLog } from '@/lib/logger'
 
 export async function GET(request: NextRequest) {
   const auth = await requireAdminAuth(request)
@@ -9,7 +10,7 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    console.log('🔍 Admin users API called')
+    debugLog('🔍 Admin users API called')
     
     const prisma = new PrismaClient()
     
@@ -34,7 +35,7 @@ export async function GET(request: NextRequest) {
       take: 100
     })
     
-    console.log('📊 Found', users.length, 'users')
+    debugLog('📊 Found', users.length, 'users')
     
     await prisma.$disconnect()
     
@@ -43,7 +44,7 @@ export async function GET(request: NextRequest) {
       users: users
     })
   } catch (error) {
-    console.error('❌ Error fetching users:', error)
+    errorLog('❌ Error fetching users:', error)
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }

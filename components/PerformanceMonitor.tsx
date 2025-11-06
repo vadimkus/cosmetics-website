@@ -1,4 +1,5 @@
 'use client'
+import { debugLog, warnLog } from '@/lib/logger'
 
 import { useEffect } from 'react'
 
@@ -10,7 +11,7 @@ export default function PerformanceMonitor() {
     // Web Vitals monitoring
     const reportWebVitals = (metric: any) => {
       // Send to analytics service (replace with your preferred service)
-      console.log('Web Vital:', metric)
+      debugLog('Web Vital:', metric)
       
       // Example: Send to Google Analytics
       if (typeof window !== 'undefined' && (window as any).gtag) {
@@ -31,7 +32,7 @@ export default function PerformanceMonitor() {
       onLCP(reportWebVitals)
       onTTFB(reportWebVitals)
     }).catch((error) => {
-      console.warn('Failed to load web-vitals:', error)
+      warnLog('Failed to load web-vitals:', error)
     })
 
     // Performance observer for custom metrics
@@ -40,7 +41,7 @@ export default function PerformanceMonitor() {
         for (const entry of list.getEntries()) {
           if (entry.entryType === 'navigation') {
             const navEntry = entry as PerformanceNavigationTiming
-            console.log('Navigation timing:', {
+            debugLog('Navigation timing:', {
               domContentLoaded: navEntry.domContentLoadedEventEnd - navEntry.domContentLoadedEventStart,
               loadComplete: navEntry.loadEventEnd - navEntry.loadEventStart,
               totalTime: navEntry.loadEventEnd - navEntry.fetchStart
@@ -55,7 +56,7 @@ export default function PerformanceMonitor() {
     // Memory usage monitoring (if available)
     if ('memory' in performance) {
       const memory = (performance as any).memory
-      console.log('Memory usage:', {
+      debugLog('Memory usage:', {
         used: Math.round(memory.usedJSHeapSize / 1048576) + ' MB',
         total: Math.round(memory.totalJSHeapSize / 1048576) + ' MB',
         limit: Math.round(memory.jsHeapSizeLimit / 1048576) + ' MB'

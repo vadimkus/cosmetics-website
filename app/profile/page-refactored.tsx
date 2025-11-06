@@ -7,6 +7,7 @@ import { useState, useRef, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { Order, OrderItem } from '@prisma/client'
 import { fetchCsrfToken, getCsrfHeaders, addCsrfToBody } from '@/lib/csrfClient'
+import { errorLog } from '@/lib/logger'
 
 // Import refactored components
 import ProfileHeader from '@/components/profile/ProfileHeader'
@@ -55,7 +56,7 @@ const getErrorMessage = (error: unknown): string => {
 
 // Helper function for API error handling
 const handleApiError = (error: unknown, defaultMessage: string): void => {
-  console.error(defaultMessage, error)
+  errorLog(defaultMessage, error)
   alert(`${defaultMessage}: ${getErrorMessage(error)}`)
 }
 
@@ -85,7 +86,7 @@ export default function ProfilePageRefactored() {
   // Fetch CSRF token on mount
   useEffect(() => {
     fetchCsrfToken().catch(err => {
-      console.error('Failed to fetch CSRF token:', err)
+      errorLog('Failed to fetch CSRF token:', err)
     })
   }, [])
 
@@ -97,7 +98,7 @@ export default function ProfilePageRefactored() {
     try {
       await forceRefreshUser()
     } catch (error) {
-      console.error('Error refreshing user data:', error)
+      errorLog('Error refreshing user data:', error)
     } finally {
       // Add a small delay to show the animation
       setTimeout(() => {
@@ -153,10 +154,10 @@ export default function ProfilePageRefactored() {
           const data = await response.json()
           setOrders(data.orders || [])
         } else {
-          console.error('Failed to fetch orders:', response.statusText)
+          errorLog('Failed to fetch orders:', response.statusText)
         }
       } catch (error) {
-        console.error('Error fetching orders:', error)
+        errorLog('Error fetching orders:', error)
       } finally {
         setLoadingOrders(false)
       }
@@ -231,7 +232,7 @@ export default function ProfilePageRefactored() {
         alert('Profile updated successfully!')
         window.location.reload()
       } else {
-        console.error('Failed to update profile:', responseData)
+        errorLog('Failed to update profile:', responseData)
         alert(`Failed to update profile: ${responseData.error || 'Unknown error'}`)
       }
     } catch (error) {

@@ -1,3 +1,4 @@
+import { debugLog, errorLog, warnLog } from '@/lib/logger'
 /**
  * External monitoring and error tracking utilities
  * Supports multiple monitoring services for production error tracking
@@ -40,34 +41,34 @@ abstract class MonitoringService {
  */
 class ConsoleMonitoringService extends MonitoringService {
   async init(): Promise<void> {
-    console.log('🔍 Console monitoring initialized')
+    debugLog('🔍 Console monitoring initialized')
   }
 
   async captureError(error: Error, context?: ErrorContext): Promise<void> {
     console.group('🚨 Error Captured')
-    console.error('Error:', error.message)
-    console.error('Stack:', error.stack)
+    errorLog('Error:', error.message)
+    errorLog('Stack:', error.stack)
     if (context) {
-      console.log('Context:', context)
+      debugLog('Context:', context)
     }
     console.groupEnd()
   }
 
   async captureMessage(message: string, level: 'info' | 'warning' | 'error', context?: ErrorContext): Promise<void> {
     const emoji = level === 'error' ? '🚨' : level === 'warning' ? '⚠️' : 'ℹ️'
-    console.log(`${emoji} ${message}`, context || '')
+    debugLog(`${emoji} ${message}`, context || '')
   }
 
   async capturePerformance(metrics: PerformanceMetrics): Promise<void> {
-    console.log(`📊 Performance: ${metrics.name} = ${metrics.value}${metrics.unit}`, metrics.tags || '')
+    debugLog(`📊 Performance: ${metrics.name} = ${metrics.value}${metrics.unit}`, metrics.tags || '')
   }
 
   async setUser(userId: string, userEmail?: string, extra?: Record<string, any>): Promise<void> {
-    console.log(`👤 User set: ${userId} (${userEmail})`, extra || '')
+    debugLog(`👤 User set: ${userId} (${userEmail})`, extra || '')
   }
 
   async addBreadcrumb(message: string, category?: string, _level?: 'info' | 'warning' | 'error'): Promise<void> {
-    console.log(`🍞 Breadcrumb [${category || 'default'}]: ${message}`)
+    debugLog(`🍞 Breadcrumb [${category || 'default'}]: ${message}`)
   }
 }
 
@@ -83,9 +84,9 @@ class SentryMonitoringService extends MonitoringService {
         // Dynamic import to avoid bundling in development
         const Sentry = await import('@sentry/nextjs')
         this.sentry = Sentry
-        console.log('🔍 Sentry monitoring initialized')
+        debugLog('🔍 Sentry monitoring initialized')
       } catch (error) {
-        console.warn('Sentry not available:', error)
+        warnLog('Sentry not available:', error)
       }
     }
   }
@@ -158,9 +159,9 @@ class LogRocketMonitoringService extends MonitoringService {
         // Dynamic import to avoid bundling in development
         const LogRocket = await import('logrocket')
         this.logRocket = LogRocket.default
-        console.log('🔍 LogRocket monitoring initialized')
+        debugLog('🔍 LogRocket monitoring initialized')
       } catch (error) {
-        console.warn('LogRocket not available:', error)
+        warnLog('LogRocket not available:', error)
       }
     }
   }
@@ -231,41 +232,41 @@ class MonitoringManager {
 
     await Promise.all(this.services.map(service => service.init()))
     this.initialized = true
-    console.log('🔍 Monitoring manager initialized with', this.services.length, 'services')
+    debugLog('🔍 Monitoring manager initialized with', this.services.length, 'services')
   }
 
   async captureError(error: Error, context?: ErrorContext): Promise<void> {
     await this.init()
     await Promise.all(this.services.map(service => 
-      service.captureError(error, context).catch(console.warn)
+      service.captureError(error, context).catch(warnLog)
     ))
   }
 
   async captureMessage(message: string, level: 'info' | 'warning' | 'error', context?: ErrorContext): Promise<void> {
     await this.init()
     await Promise.all(this.services.map(service => 
-      service.captureMessage(message, level, context).catch(console.warn)
+      service.captureMessage(message, level, context).catch(warnLog)
     ))
   }
 
   async capturePerformance(metrics: PerformanceMetrics): Promise<void> {
     await this.init()
     await Promise.all(this.services.map(service => 
-      service.capturePerformance(metrics).catch(console.warn)
+      service.capturePerformance(metrics).catch(warnLog)
     ))
   }
 
   async setUser(userId: string, userEmail?: string, extra?: Record<string, any>): Promise<void> {
     await this.init()
     await Promise.all(this.services.map(service => 
-      service.setUser(userId, userEmail, extra).catch(console.warn)
+      service.setUser(userId, userEmail, extra).catch(warnLog)
     ))
   }
 
   async addBreadcrumb(message: string, category?: string, level?: 'info' | 'warning' | 'error'): Promise<void> {
     await this.init()
     await Promise.all(this.services.map(service => 
-      service.addBreadcrumb(message, category, level).catch(console.warn)
+      service.addBreadcrumb(message, category, level).catch(warnLog)
     ))
   }
 }

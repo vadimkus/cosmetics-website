@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useEffect, type ReactNode } from 'react'
 import { initMonitoring, setUserContext, addBreadcrumb } from '@/lib/monitoring'
+import { errorLog } from '@/lib/logger'
 import { enhancedErrorTracking } from '@/lib/errorTracking'
 
 interface MonitoringContextType {
@@ -20,10 +21,10 @@ interface MonitoringProviderProps {
 export function MonitoringProvider({ children }: MonitoringProviderProps) {
   useEffect(() => {
     // Initialize monitoring services
-    initMonitoring().catch(console.error)
+    initMonitoring().catch(errorLog)
     
     // Add initial breadcrumb
-    addBreadcrumb('Application started', 'app-lifecycle', 'info').catch(console.error)
+    addBreadcrumb('Application started', 'app-lifecycle', 'info').catch(errorLog)
   }, [])
 
   const contextValue: MonitoringContextType = {

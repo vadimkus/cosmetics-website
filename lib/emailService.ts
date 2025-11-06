@@ -1,3 +1,4 @@
+import { debugLog, errorLog } from '@/lib/logger'
 import nodemailer from 'nodemailer'
 
 // Email configuration
@@ -15,7 +16,7 @@ const ADMIN_EMAIL = 'hello@genosys.ae'
 
 // Create transporter
 const createTransporter = () => {
-  console.log('📧 Creating email transporter with config:', {
+  debugLog('📧 Creating email transporter with config:', {
     host: EMAIL_CONFIG.host,
     port: EMAIL_CONFIG.port,
     secure: EMAIL_CONFIG.secure,
@@ -120,10 +121,10 @@ export async function sendOrderNotification(order: any): Promise<boolean> {
     }
 
     const info = await transporter.sendMail(mailOptions)
-    console.log('Order notification sent:', info.messageId)
+    debugLog('Order notification sent:', info.messageId)
     return true
   } catch (error) {
-    console.error('Error sending order notification:', error)
+    errorLog('Error sending order notification:', error)
     return false
   }
 }
@@ -167,10 +168,10 @@ export async function sendOrderConfirmation(order: any): Promise<boolean> {
     }
 
     const info = await transporter.sendMail(mailOptions)
-    console.log('Order confirmation sent:', info.messageId)
+    debugLog('Order confirmation sent:', info.messageId)
     return true
   } catch (error) {
-    console.error('Error sending order confirmation:', error)
+    errorLog('Error sending order confirmation:', error)
     return false
   }
 }
@@ -221,10 +222,10 @@ export async function sendOrderStatusUpdate(order: any, newStatus: string): Prom
     }
 
     const info = await transporter.sendMail(mailOptions)
-    console.log('Order status update sent:', info.messageId)
+    debugLog('Order status update sent:', info.messageId)
     return true
   } catch (error) {
-    console.error('Error sending order status update:', error)
+    errorLog('Error sending order status update:', error)
     return false
   }
 }
@@ -242,10 +243,10 @@ export async function sendEmail({ to, subject, html }: { to: string; subject: st
     }
 
     const info = await transporter.sendMail(mailOptions)
-    console.log('Email sent:', info.messageId)
+    debugLog('Email sent:', info.messageId)
     return true
   } catch (error) {
-    console.error('Error sending email:', error)
+    errorLog('Error sending email:', error)
     return false
   }
 }

@@ -1,4 +1,5 @@
 'use client'
+import { errorLog } from '@/lib/logger'
 
 import Link from 'next/link'
 import { ArrowLeft, User, Package, Settings, Download, Shield, Trash2 } from 'lucide-react'
@@ -49,7 +50,7 @@ export default function ProfilePageRefactored() {
     try {
       await forceRefreshUser()
     } catch (error) {
-      console.error('Error refreshing user data:', error)
+      errorLog('Error refreshing user data:', error)
     } finally {
       // Add a small delay to show the animation
       setTimeout(() => {
@@ -105,10 +106,10 @@ export default function ProfilePageRefactored() {
           const data = await response.json()
           setOrders(data.orders || [])
         } else {
-          console.error('Failed to fetch orders:', response.statusText)
+          errorLog('Failed to fetch orders:', response.statusText)
         }
       } catch (error) {
-        console.error('Error fetching orders:', error)
+        errorLog('Error fetching orders:', error)
       } finally {
         setLoadingOrders(false)
       }
@@ -178,11 +179,11 @@ export default function ProfilePageRefactored() {
         alert('Profile updated successfully!')
         window.location.reload()
       } else {
-        console.error('Failed to update profile:', responseData)
+        errorLog('Failed to update profile:', responseData)
         alert(`Failed to update profile: ${responseData.error || 'Unknown error'}`)
       }
     } catch (error) {
-      console.error('Error updating profile:', error)
+      errorLog('Error updating profile:', error)
       alert(`Error updating profile: ${error instanceof Error ? error.message : 'Unknown error'}`)
     }
   }
@@ -235,7 +236,7 @@ export default function ProfilePageRefactored() {
         alert(data.error || 'Failed to delete account. Please try again.')
       }
     } catch (error) {
-      console.error('Error deleting account:', error)
+      errorLog('Error deleting account:', error)
       alert('Error deleting account. Please try again.')
     } finally {
       setIsDeleting(false)
@@ -263,7 +264,7 @@ export default function ProfilePageRefactored() {
         alert(`Failed to cancel order: ${errorData.error || 'Unknown error'}`)
       }
     } catch (error) {
-      console.error('Error cancelling order:', error)
+      errorLog('Error cancelling order:', error)
       alert('Failed to cancel order')
     }
   }

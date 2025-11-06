@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getSkinRecommendations } from '@/lib/productsDb'
+import { debugLog, errorLog } from '@/lib/logger'
 
 export async function GET(request: NextRequest) {
   try {
@@ -8,7 +9,7 @@ export async function GET(request: NextRequest) {
     const ageGroup = searchParams.get('ageGroup')
     const targetConcerns = searchParams.get('targetConcerns')?.split(',') || []
     
-    console.log('🔍 Fetching skin recommendations:', { skinType, ageGroup, targetConcerns })
+    debugLog('🔍 Fetching skin recommendations:', { skinType, ageGroup, targetConcerns })
     
     // Use the proper skin recommendations function that handles hair products correctly
     const products = await getSkinRecommendations({
@@ -17,7 +18,7 @@ export async function GET(request: NextRequest) {
       ...(targetConcerns.length > 0 && { targetConcerns })
     })
     
-    console.log('✅ Found', products.length, 'recommended products')
+    debugLog('✅ Found', products.length, 'recommended products')
     
     const response = NextResponse.json(products)
     
@@ -26,7 +27,7 @@ export async function GET(request: NextRequest) {
     
     return response
   } catch (error) {
-    console.error('Error fetching skin recommendations:', error)
+    errorLog('Error fetching skin recommendations:', error)
     return NextResponse.json(
       { error: 'Failed to fetch skin recommendations' },
       { status: 500 }
@@ -39,7 +40,7 @@ export async function POST(request: NextRequest) {
     const body = await request.json()
     const { skinType, ageGroup, targetConcerns } = body
     
-    console.log('🔍 Fetching skin recommendations via POST:', { skinType, ageGroup, targetConcerns })
+    debugLog('🔍 Fetching skin recommendations via POST:', { skinType, ageGroup, targetConcerns })
     
     // Use the proper skin recommendations function that handles hair products correctly
     const products = await getSkinRecommendations({
@@ -48,11 +49,11 @@ export async function POST(request: NextRequest) {
       ...(targetConcerns && targetConcerns.length > 0 && { targetConcerns })
     })
     
-    console.log('✅ Found', products.length, 'recommended products')
+    debugLog('✅ Found', products.length, 'recommended products')
     
     return NextResponse.json(products)
   } catch (error) {
-    console.error('Error fetching skin recommendations:', error)
+    errorLog('Error fetching skin recommendations:', error)
     return NextResponse.json(
       { error: 'Failed to fetch skin recommendations' },
       { status: 500 }

@@ -1,4 +1,5 @@
 'use client'
+import { errorLog } from '@/lib/logger'
 
 import ErrorPage from '@/components/ErrorPage'
 import { useEffect } from 'react'
@@ -12,7 +13,7 @@ export default function Error({
 }) {
   useEffect(() => {
     // Log the error to an error reporting service
-    console.error('Application error:', error)
+    errorLog('Application error:', error)
   }, [error])
 
   return (

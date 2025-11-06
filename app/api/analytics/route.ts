@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getAnalyticsData, getRealTimeVisitors, getUserActivityTimeline, getTopCountries, getTopCities } from '@/lib/analyticsServer'
+import { errorLog } from '@/lib/logger'
 import { prisma } from '@/lib/prisma'
 
 export async function GET(request: NextRequest) {
@@ -178,7 +179,7 @@ export async function GET(request: NextRequest) {
         return NextResponse.json({ error: 'Invalid type parameter' }, { status: 400 })
     }
   } catch (error) {
-    console.error('Error fetching analytics:', error)
+    errorLog('Error fetching analytics:', error)
     return NextResponse.json(
       { error: 'Failed to fetch analytics data' },
       { status: 500 }

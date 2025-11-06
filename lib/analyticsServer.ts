@@ -1,3 +1,4 @@
+import { debugLog } from '@/lib/logger'
 // Server-side analytics functions for admin dashboard
 import { prisma } from './prisma'
 
@@ -210,7 +211,7 @@ export const trackUserAction = async (data: {
 }) => {
   // This function is for server-side tracking
   // For client-side tracking, use the gtag functions in analytics.ts
-  console.log('User action tracked:', data)
+  debugLog('User action tracked:', data)
   
   // You can add database logging here if needed
   // await prisma.userAction.create({

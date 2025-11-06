@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { updateOrderStatus } from '@/lib/orderStorageDb'
+import { errorLog } from '@/lib/logger'
 import { requireCsrfToken } from '@/lib/csrf'
 
 export async function POST(
@@ -30,7 +31,7 @@ export async function POST(
       message: 'Order cancelled successfully'
     })
   } catch (error) {
-    console.error('Error cancelling order:', error)
+    errorLog('Error cancelling order:', error)
     return NextResponse.json(
       { success: false, error: 'Failed to cancel order' },
       { status: 500 }

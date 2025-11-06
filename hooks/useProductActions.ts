@@ -1,3 +1,4 @@
+import { errorLog } from '@/lib/logger'
 import { useState, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import { useCart } from '@/components/CartProvider'
@@ -54,7 +55,7 @@ export const useProductActions = (): UseProductActionsReturn => {
       
       await addItem(productToAdd, quantity, selectedColor, selectedSize)
     } catch (error) {
-      console.error('Error adding to cart:', error)
+      errorLog('Error adding to cart:', error)
     } finally {
       setIsAdding(false)
     }

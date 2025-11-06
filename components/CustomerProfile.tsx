@@ -29,6 +29,7 @@ import {
 } from 'lucide-react'
 import { User } from '@/types/user'
 import { getCsrfHeaders } from '@/lib/csrfClient'
+import { debugLog, errorLog } from '@/lib/logger'
 
 type Customer = User
 
@@ -73,10 +74,10 @@ export default function CustomerProfile({
   onUpdateCustomer, 
   onDeleteCustomer 
 }: CustomerProfileProps) {
-  console.log('CustomerProfile received customer:', customer)
+  debugLog('CustomerProfile received customer:', customer)
   
   useEffect(() => {
-    console.log('CustomerProfile mounted, fileInputRef:', fileInputRef.current)
+    debugLog('CustomerProfile mounted, fileInputRef:', fileInputRef.current)
   }, [])
   
   const [orders, setOrders] = useState<Order[]>([])
@@ -152,26 +153,26 @@ export default function CustomerProfile({
       })
       
       if (!response.ok) {
-        console.error('Failed to fetch orders:', response.status, response.statusText)
+        errorLog('Failed to fetch orders:', response.status, response.statusText)
         const errorData = await response.json().catch(() => ({}))
-        console.error('Error data:', errorData)
+        errorLog('Error data:', errorData)
         return
       }
       
       const data = await response.json()
-      console.log('📦 Orders API response:', { success: data.success, orderCount: data.orders?.length || 0 })
+      debugLog('📦 Orders API response:', { success: data.success, orderCount: data.orders?.length || 0 })
       
       if (data.success) {
         const ordersList = data.orders || []
-        console.log('📦 Setting orders:', ordersList.length, 'orders')
+        debugLog('📦 Setting orders:', ordersList.length, 'orders')
         setOrders(ordersList)
         calculateCustomerStats(ordersList)
       } else {
-        console.error('API returned success: false', data)
+        errorLog('API returned success: false', data)
         setOrders([])
       }
     } catch (error) {
-      console.error('Error fetching customer orders:', error)
+      errorLog('Error fetching customer orders:', error)
       setOrders([])
     } finally {
       setLoading(false)
@@ -206,7 +207,7 @@ export default function CustomerProfile({
       setDiscountEditing(false)
       alert('Discount updated successfully!')
     } catch (error) {
-      console.error('Error updating discount:', error)
+      errorLog('Error updating discount:', error)
       alert('Failed to update discount')
     } finally {
       setSaving(false)
@@ -215,7 +216,7 @@ export default function CustomerProfile({
 
   const handleSave = async () => {
     try {
-      console.log('Saving customer updates:', {
+      debugLog('Saving customer updates:', {
         name: editData.name || undefined,
         email: editData.email || undefined,
         phone: editData.phone || undefined,
@@ -231,10 +232,10 @@ export default function CustomerProfile({
         birthday: editData.birthday || '',
         profilePicture: editData.profilePicture || ''
       })
-      console.log('Customer update completed')
+      debugLog('Customer update completed')
       setEditing(false)
     } catch (error) {
-      console.error('Error updating customer:', error)
+      errorLog('Error updating customer:', error)
     }
   }
 
@@ -253,13 +254,13 @@ export default function CustomerProfile({
   }
 
   const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log('handleImageUpload called', event.target.files)
+    debugLog('handleImageUpload called', event.target.files)
     const file = event.target.files?.[0]
     if (!file) {
-      console.log('No file selected')
+      debugLog('No file selected')
       return
     }
-    console.log('File selected:', file.name, file.size, file.type)
+    debugLog('File selected:', file.name, file.size, file.type)
 
     // Validate file type
     if (!file.type.startsWith('image/')) {
@@ -299,7 +300,7 @@ export default function CustomerProfile({
       }
       reader.readAsDataURL(file)
     } catch (error) {
-      console.error('Error uploading image:', error)
+      errorLog('Error uploading image:', error)
       alert('Error uploading image')
     } finally {
       setUploading(false)
@@ -315,7 +316,7 @@ export default function CustomerProfile({
     try {
       await fetchCustomerOrders()
     } catch (error) {
-      console.error('Error refreshing customer data:', error)
+      errorLog('Error refreshing customer data:', error)
     } finally {
       setRefreshing(false)
     }
@@ -415,19 +416,19 @@ export default function CustomerProfile({
                 className="relative w-24 h-24 rounded-full overflow-hidden bg-gray-200 border-4 border-gray-300 flex items-center justify-center mx-auto mb-4 group cursor-pointer"
                 onClick={(e) => {
                   e.stopPropagation()
-                  console.log('Avatar clicked - triggering file input')
+                  debugLog('Avatar clicked - triggering file input')
                   if (fileInputRef.current) {
-                    console.log('File input ref found, clicking...')
+                    debugLog('File input ref found, clicking...')
                     fileInputRef.current.click()
                   } else {
-                    console.log('File input ref not found, trying alternative approach')
+                    debugLog('File input ref not found, trying alternative approach')
                     // Alternative approach: find the file input by querying the DOM
                     const fileInput = document.querySelector('input[type="file"][accept="image/*"]') as HTMLInputElement
                     if (fileInput) {
-                      console.log('Found file input via DOM query, clicking...')
+                      debugLog('Found file input via DOM query, clicking...')
                       fileInput.click()
                     } else {
-                      console.log('No file input found in DOM')
+                      debugLog('No file input found in DOM')
                     }
                   }
                 }}

@@ -1,3 +1,4 @@
+import { errorLog } from '@/lib/logger'
 import fs from 'fs'
 import path from 'path'
 
@@ -63,7 +64,7 @@ export const readUsers = (): any[] => {
     const data = fs.readFileSync(USERS_FILE, 'utf8')
     return JSON.parse(data)
   } catch (error) {
-    console.error('Error reading users:', error)
+    errorLog('Error reading users:', error)
     return []
   }
 }
@@ -74,7 +75,7 @@ export const writeUsers = (users: any[]): void => {
     ensureDataDirectory()
     fs.writeFileSync(USERS_FILE, JSON.stringify(users, null, 2))
   } catch (error) {
-    console.error('Error writing users:', error)
+    errorLog('Error writing users:', error)
   }
 }
 

@@ -1,3 +1,4 @@
+import { debugLog, errorLog } from '@/lib/logger'
 import { PrismaClient } from '@prisma/client'
 import { readUsers } from '../lib/userStorage'
 import { readOrders } from '../lib/orderStorage'
@@ -5,10 +6,10 @@ import { readOrders } from '../lib/orderStorage'
 const prisma = new PrismaClient()
 
 async function migrateUsers() {
-  console.log('🔄 Migrating users...')
+  debugLog('🔄 Migrating users...')
   
   const users = readUsers()
-  console.log(`Found ${users.length} users to migrate`)
+  debugLog(`Found ${users.length} users to migrate`)
   
   for (const user of users) {
     try {
@@ -42,18 +43,18 @@ async function migrateUsers() {
           createdAt: new Date(user.createdAt || new Date()),
         }
       })
-      console.log(`✅ Migrated user: ${user.email}`)
+      debugLog(`✅ Migrated user: ${user.email}`)
     } catch (error) {
-      console.error(`❌ Failed to migrate user ${user.email}:`, error)
+      errorLog(`❌ Failed to migrate user ${user.email}:`, error)
     }
   }
 }
 
 async function migrateOrders() {
-  console.log('🔄 Migrating orders...')
+  debugLog('🔄 Migrating orders...')
   
   const orders = readOrders()
-  console.log(`Found ${orders.length} orders to migrate`)
+  debugLog(`Found ${orders.length} orders to migrate`)
   
   for (const order of orders) {
     try {
@@ -91,32 +92,32 @@ async function migrateOrders() {
         })
       }
       
-      console.log(`✅ Migrated order: ${order.id}`)
+      debugLog(`✅ Migrated order: ${order.id}`)
     } catch (error) {
-      console.error(`❌ Failed to migrate order ${order.id}:`, error)
+      errorLog(`❌ Failed to migrate order ${order.id}:`, error)
     }
   }
 }
 
 async function main() {
   try {
-    console.log('🚀 Starting data migration...')
+    debugLog('🚀 Starting data migration...')
     
     await migrateUsers()
     await migrateOrders()
     
-    console.log('✅ Migration completed successfully!')
+    debugLog('✅ Migration completed successfully!')
     
     // Verify migration
     const userCount = await prisma.user.count()
     const orderCount = await prisma.order.count()
     
-    console.log(`📊 Migration results:`)
-    console.log(`   Users: ${userCount}`)
-    console.log(`   Orders: ${orderCount}`)
+    debugLog(`📊 Migration results:`)
+    debugLog(`   Users: ${userCount}`)
+    debugLog(`   Orders: ${orderCount}`)
     
   } catch (error) {
-    console.error('❌ Migration failed:', error)
+    errorLog('❌ Migration failed:', error)
   } finally {
     await prisma.$disconnect()
   }

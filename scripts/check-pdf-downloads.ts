@@ -1,9 +1,10 @@
+import { debugLog } from '@/lib/logger'
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
 async function checkPdfDownloads() {
-  console.log('🔍 Checking recent PDF downloads...');
+  debugLog('🔍 Checking recent PDF downloads...');
   
   const downloads = await prisma.pDFDownload.findMany({
     orderBy: { timestamp: 'desc' },
@@ -19,17 +20,17 @@ async function checkPdfDownloads() {
   });
 
   if (downloads.length > 0) {
-    console.log('📊 Recent PDF Downloads:');
+    debugLog('📊 Recent PDF Downloads:');
     downloads.forEach((dl, index) => {
-      console.log(`${index + 1}. ${dl.filename}`);
-      console.log(`   User: ${dl.userEmail || 'anonymous'}`);
-      console.log(`   IP: ${dl.ipAddress}`);
-      console.log(`   Location: ${dl.city || 'Unknown'}, ${dl.country || 'Unknown'}`);
-      console.log(`   Time: ${dl.timestamp.toISOString()}`);
-      console.log('');
+      debugLog(`${index + 1}. ${dl.filename}`);
+      debugLog(`   User: ${dl.userEmail || 'anonymous'}`);
+      debugLog(`   IP: ${dl.ipAddress}`);
+      debugLog(`   Location: ${dl.city || 'Unknown'}, ${dl.country || 'Unknown'}`);
+      debugLog(`   Time: ${dl.timestamp.toISOString()}`);
+      debugLog('');
     });
   } else {
-    console.log('❌ No PDF downloads found in database');
+    debugLog('❌ No PDF downloads found in database');
   }
 }
 

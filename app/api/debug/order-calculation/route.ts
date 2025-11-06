@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { requireAdminAuth } from '@/lib/adminAuth'
+import { debugLog, errorLog } from '@/lib/logger'
 import { requireCsrfToken } from '@/lib/csrf'
 
 export async function POST(request: NextRequest) {
@@ -25,16 +26,16 @@ export async function POST(request: NextRequest) {
     }
 
     // Calculate order totals with detailed logging
-    console.log('🔍 Debugging order calculation...')
-    console.log('Items received:', JSON.stringify(items, null, 2))
+    debugLog('🔍 Debugging order calculation...')
+    debugLog('Items received:', JSON.stringify(items, null, 2))
     
     const subtotal = items.reduce((total: number, item: any) => {
       const itemTotal = item.product.price * item.quantity
-      console.log(`Item: ${item.product.name} - Price: ${item.product.price} x Qty: ${item.quantity} = ${itemTotal}`)
+      debugLog(`Item: ${item.product.name} - Price: ${item.product.price} x Qty: ${item.quantity} = ${itemTotal}`)
       return total + itemTotal
     }, 0)
     
-    console.log('Subtotal calculated:', subtotal)
+    debugLog('Subtotal calculated:', subtotal)
     
     // Calculate shipping (free for orders above 1000 AED)
     const emirates = [
@@ -51,9 +52,9 @@ export async function POST(request: NextRequest) {
     const baseShippingCost = selectedEmirateData?.shippingCost || 45
     const shipping = subtotal >= 1000 ? 0 : baseShippingCost
     
-    console.log('Emirate:', customerEmirate)
-    console.log('Base shipping cost:', baseShippingCost)
-    console.log('Final shipping:', shipping)
+    debugLog('Emirate:', customerEmirate)
+    debugLog('Base shipping cost:', baseShippingCost)
+    debugLog('Final shipping:', shipping)
     
     const discountAmount = 0 // You can add discount logic here if needed
     const total = subtotal - discountAmount + shipping
@@ -61,11 +62,11 @@ export async function POST(request: NextRequest) {
     // VAT = (VAT-inclusive amount / 1.05) * 0.05
     const vat = Math.round(((subtotal + shipping) / 1.05) * 0.05 * 100) / 100
 
-    console.log('Discount amount:', discountAmount)
-    console.log('Subtotal (VAT included):', subtotal)
-    console.log('Shipping (VAT included):', shipping)
-    console.log('VAT amount (calculated from inclusive prices):', vat)
-    console.log('Final total:', total)
+    debugLog('Discount amount:', discountAmount)
+    debugLog('Subtotal (VAT included):', subtotal)
+    debugLog('Shipping (VAT included):', shipping)
+    debugLog('VAT amount (calculated from inclusive prices):', vat)
+    debugLog('Final total:', total)
 
     const calculation = {
       items: items.map(item => ({
@@ -97,7 +98,7 @@ export async function POST(request: NextRequest) {
     })
 
   } catch (error) {
-    console.error('Error in order calculation debug:', error)
+    errorLog('Error in order calculation debug:', error)
     return NextResponse.json(
       { error: 'Failed to calculate order' },
       { status: 500 }

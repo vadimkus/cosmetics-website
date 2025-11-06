@@ -1,4 +1,5 @@
 'use client'
+import { errorLog } from '@/lib/logger'
 
 import { useState, useEffect, useCallback } from 'react'
 import { RefreshCw } from 'lucide-react'
@@ -90,7 +91,7 @@ export default function AnalyticsDashboard({ onCustomerClick }: AnalyticsDashboa
         setPdfDownloads(pdfDownloadsData)
       }
     } catch (error) {
-      console.error('Error fetching analytics:', error)
+      errorLog('Error fetching analytics:', error)
     } finally {
       setLoading(false)
       setRefreshing(false)

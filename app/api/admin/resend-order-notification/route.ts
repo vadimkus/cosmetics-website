@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { sendAdminNewOrderNotification } from '@/lib/email'
+import { errorLog } from '@/lib/logger'
 import { getOrdersByEmail } from '@/lib/orderStorageDb'
 import { Order, OrderItem } from '@prisma/client'
 import { requireAdminAuth } from '@/lib/adminAuth'
@@ -99,7 +100,7 @@ export async function POST(request: NextRequest) {
     })
 
   } catch (error) {
-    console.error('Error resending order notifications:', error)
+    errorLog('Error resending order notifications:', error)
     return NextResponse.json(
       { error: 'Failed to resend notifications' },
       { status: 500 }
@@ -140,7 +141,7 @@ export async function GET(request: NextRequest) {
     })
 
   } catch (error) {
-    console.error('Error fetching orders:', error)
+    errorLog('Error fetching orders:', error)
     return NextResponse.json(
       { error: 'Failed to fetch orders' },
       { status: 500 }

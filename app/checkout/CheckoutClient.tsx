@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation'
 import { ArrowLeft, CreditCard, Lock, MapPin, Truck, MessageCircle, Mail, Building } from 'lucide-react'
 import Link from 'next/link'
 import { calculateDiscountedPrice } from '@/lib/discountUtils'
+import { errorLog } from '@/lib/logger'
 import { fetchCsrfToken, getCsrfHeaders, addCsrfToBody } from '@/lib/csrfClient'
 
 export default function CheckoutClient() {
@@ -20,7 +21,7 @@ export default function CheckoutClient() {
   // Fetch CSRF token on mount
   useEffect(() => {
     fetchCsrfToken().catch(err => {
-      console.error('Failed to fetch CSRF token:', err)
+      errorLog('Failed to fetch CSRF token:', err)
     })
   }, [])
   const [orderNumber] = useState(() => {
@@ -113,7 +114,7 @@ export default function CheckoutClient() {
         throw new Error('Failed to generate invoice')
       }
     } catch (error) {
-      console.error('Error generating invoice:', error)
+      errorLog('Error generating invoice:', error)
       // Show subtle error notification instead of alert
       const button = document.querySelector('button[type="button"]') as HTMLButtonElement
       if (button) {
@@ -251,7 +252,7 @@ export default function CheckoutClient() {
             throw new Error('Failed to send order request')
           }
         } catch (error) {
-          console.error('Error sending support link order request:', error)
+          errorLog('Error sending support link order request:', error)
           router.push(`/success?payment=support-link&order_id=${supportOrderNumber}`)
         }
         return
@@ -305,10 +306,10 @@ export default function CheckoutClient() {
         })
 
         if (!response.ok) {
-          console.error('Failed to send COD confirmation email')
+          errorLog('Failed to send COD confirmation email')
         }
       } catch (error) {
-        console.error('Error sending COD confirmation email:', error)
+        errorLog('Error sending COD confirmation email:', error)
       }
       
       // Simulate order processing
@@ -317,7 +318,7 @@ export default function CheckoutClient() {
       // Redirect to success page with order number (cart will be cleared there)
       router.push(`/success?order_id=${codOrderNumber}&payment=cod`)
     } catch (error) {
-      console.error('Order processing failed:', error)
+      errorLog('Order processing failed:', error)
       setIsProcessing(false)
     }
   }

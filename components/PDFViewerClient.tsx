@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { ArrowLeft, Download, ExternalLink } from 'lucide-react'
 import Link from 'next/link'
 import { usePDFTracking } from '@/lib/pdfTracking'
+import { errorLog } from '@/lib/logger'
 
 interface PDFViewerClientProps {
   filename: string
@@ -28,7 +29,7 @@ export default function PDFViewerClient({ filename, pdfUrl }: PDFViewerClientPro
       link.click()
       document.body.removeChild(link)
     } catch (error) {
-      console.error('Error downloading PDF:', error)
+      errorLog('Error downloading PDF:', error)
     } finally {
       setIsDownloading(false)
     }
@@ -42,7 +43,7 @@ export default function PDFViewerClient({ filename, pdfUrl }: PDFViewerClientPro
       // Open in new tab
       window.open(pdfUrl, '_blank', 'noopener,noreferrer')
     } catch (error) {
-      console.error('Error opening PDF:', error)
+      errorLog('Error opening PDF:', error)
     }
   }
 

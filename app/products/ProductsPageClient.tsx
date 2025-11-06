@@ -1,4 +1,5 @@
 'use client'
+import { debugLog, errorLog } from '@/lib/logger'
 
 import Link from 'next/link'
 // import { ArrowLeft } from 'lucide-react' // Unused for now
@@ -40,7 +41,7 @@ export default function ProductsPageClient() {
       try {
         setLoading(true)
         setError(null)
-        console.log('Fetching products...')
+        debugLog('Fetching products...')
         
         const response = await fetch('/api/products', {
           method: 'GET',
@@ -54,7 +55,7 @@ export default function ProductsPageClient() {
         }
         
         const productsData = await response.json()
-        console.log('Products fetched successfully:', productsData.length)
+        debugLog('Products fetched successfully:', productsData.length)
         
         if (!Array.isArray(productsData)) {
           throw new Error('Invalid response format: expected array')
@@ -63,7 +64,7 @@ export default function ProductsPageClient() {
         setProducts(productsData)
       } catch (err) {
         const errorMessage = err instanceof Error ? err.message : 'Failed to fetch products'
-        console.error('Error fetching products:', err)
+        errorLog('Error fetching products:', err)
         setError(errorMessage)
       } finally {
         setLoading(false)
@@ -109,7 +110,7 @@ export default function ProductsPageClient() {
     return <ErrorPage error={error} />
   }
 
-  console.log('Products loaded:', products.length, 'Filtered:', filteredProducts.length, 'Active category:', activeCategory)
+  debugLog('Products loaded:', products.length, 'Filtered:', filteredProducts.length, 'Active category:', activeCategory)
 
   return (
     <div className="bg-white min-h-screen">

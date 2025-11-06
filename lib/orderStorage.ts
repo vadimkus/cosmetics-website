@@ -1,3 +1,4 @@
+import { errorLog } from '@/lib/logger'
 import fs from 'fs'
 import path from 'path'
 
@@ -73,7 +74,7 @@ export function readOrders(): Order[] {
     const data = fs.readFileSync(ORDERS_FILE, 'utf8')
     return JSON.parse(data)
   } catch (error) {
-    console.error('Error reading orders:', error)
+    errorLog('Error reading orders:', error)
     return []
   }
 }
@@ -83,7 +84,7 @@ export function writeOrders(orders: Order[]): void {
     ensureDataDirectory()
     fs.writeFileSync(ORDERS_FILE, JSON.stringify(orders, null, 2))
   } catch (error) {
-    console.error('Error writing orders:', error)
+    errorLog('Error writing orders:', error)
   }
 }
 

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { trackPageViewToDatabase } from '@/lib/analytics'
+import { errorLog } from '@/lib/logger'
 import { trackUserAction } from '@/lib/analyticsServer'
 import { getGeolocationData } from '@/lib/geolocation'
 import { parseUserAgent } from '@/lib/deviceDetection'
@@ -45,7 +46,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ success: true })
   } catch (error) {
-    console.error('Error tracking analytics:', error)
+    errorLog('Error tracking analytics:', error)
     return NextResponse.json(
       { error: 'Failed to track analytics' },
       { status: 500 }

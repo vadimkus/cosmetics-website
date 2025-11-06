@@ -1,3 +1,4 @@
+import { errorLog } from '@/lib/logger'
 import { useCallback } from 'react'
 import { useAuth } from '@/components/AuthProvider'
 
@@ -19,7 +20,7 @@ export function useAnalytics() {
         })
       })
     } catch (error) {
-      console.error('Error tracking page view:', error)
+      errorLog('Error tracking page view:', error)
     }
   }, [user])
 
@@ -39,7 +40,7 @@ export function useAnalytics() {
         })
       })
     } catch (error) {
-      console.error('Error tracking action:', error)
+      errorLog('Error tracking action:', error)
     }
   }, [user])
 

@@ -1,17 +1,18 @@
 import { NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
+import { debugLog, errorLog } from '@/lib/logger'
 
 export async function GET() {
   try {
-    console.log('🏥 Health check: Testing database connection...')
+    debugLog('🏥 Health check: Testing database connection...')
     
     // Test database connection
     await prisma.$queryRaw`SELECT 1`
-    console.log('✅ Database connection successful')
+    debugLog('✅ Database connection successful')
     
     // Test products table
     const productCount = await prisma.product.count()
-    console.log(`✅ Products table accessible: ${productCount} products found`)
+    debugLog(`✅ Products table accessible: ${productCount} products found`)
     
     return NextResponse.json({
       status: 'healthy',
@@ -20,7 +21,7 @@ export async function GET() {
       timestamp: new Date().toISOString()
     })
   } catch (error) {
-    console.error('❌ Health check failed:', error)
+    errorLog('❌ Health check failed:', error)
     
     return NextResponse.json({
       status: 'unhealthy',

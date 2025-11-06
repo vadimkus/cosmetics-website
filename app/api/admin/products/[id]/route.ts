@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
+import { errorLog } from '@/lib/logger'
 import { requireAdminAuth } from '@/lib/adminAuth'
 import { requireCsrfToken } from '@/lib/csrf'
 import { validateProductInput } from '@/lib/validation'
@@ -23,7 +24,7 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
 
     return NextResponse.json({ success: true, product })
   } catch (error: unknown) {
-    console.error('Error fetching product:', error)
+    errorLog('Error fetching product:', error)
     const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred'
     return NextResponse.json({ success: false, error: errorMessage }, { status: 500 })
   }
@@ -108,7 +109,7 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
 
     return NextResponse.json({ success: true, product: updatedProduct })
   } catch (error: unknown) {
-    console.error('Error updating product:', error)
+    errorLog('Error updating product:', error)
     const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred'
     return NextResponse.json({ success: false, error: errorMessage }, { status: 500 })
   }
@@ -147,7 +148,7 @@ export async function DELETE(request: NextRequest, { params }: { params: Promise
 
     return NextResponse.json({ success: true, message: 'Product deleted successfully' })
   } catch (error: unknown) {
-    console.error('Error deleting product:', error)
+    errorLog('Error deleting product:', error)
     const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred'
     return NextResponse.json({ success: false, error: errorMessage }, { status: 500 })
   }

@@ -1,3 +1,4 @@
+import { debugLog, errorLog } from '@/lib/logger'
 // Google Analytics 4 tracking utilities
 declare global {
   interface Window {
@@ -54,9 +55,9 @@ export const trackPageViewToDatabase = async (data: {
       }
     });
     
-    console.log('✅ Page view stored in database:', data.page);
+    debugLog('✅ Page view stored in database:', data.page);
   } catch (error) {
-    console.error('❌ Error storing page view:', error);
+    errorLog('❌ Error storing page view:', error);
   }
 };
 

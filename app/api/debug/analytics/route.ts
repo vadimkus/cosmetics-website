@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
+import { errorLog } from '@/lib/logger'
 import { requireAdminAuth } from '@/lib/adminAuth'
 
 export async function GET(request: NextRequest) {
@@ -108,7 +109,7 @@ export async function GET(request: NextRequest) {
     })
 
   } catch (error) {
-    console.error('Analytics debug error:', error)
+    errorLog('Analytics debug error:', error)
     return NextResponse.json(
       { 
         success: false,

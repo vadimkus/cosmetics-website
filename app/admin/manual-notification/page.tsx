@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { Mail, Send } from 'lucide-react'
 import { fetchCsrfToken, getCsrfHeaders, addCsrfToBody } from '@/lib/csrfClient'
+import { errorLog } from '@/lib/logger'
 
 export default function ManualNotificationPage() {
   const [formData, setFormData] = useState({
@@ -46,7 +47,7 @@ export default function ManualNotificationPage() {
   // Fetch CSRF token on mount
   useEffect(() => {
     fetchCsrfToken().catch(err => {
-      console.error('Failed to fetch CSRF token:', err)
+      errorLog('Failed to fetch CSRF token:', err)
     })
   }, [])
 

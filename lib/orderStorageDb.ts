@@ -1,3 +1,4 @@
+import { debugLog, errorLog, warnLog } from '@/lib/logger'
 import { prisma } from './database'
 import { Order } from '@prisma/client'
 
@@ -63,7 +64,7 @@ export const readOrders = async (): Promise<Order[]> => {
       orderBy: { createdAt: 'desc' }
     })
   } catch (error) {
-    console.error('Error reading orders:', error)
+    errorLog('Error reading orders:', error)
     return []
   }
 }
@@ -72,7 +73,7 @@ export const readOrders = async (): Promise<Order[]> => {
 export const writeOrders = async (_orders: OrderData[]): Promise<void> => {
   // This function is not needed with database storage
   // Keeping for compatibility with existing code
-  console.warn('writeOrders is deprecated with database storage')
+  warnLog('writeOrders is deprecated with database storage')
 }
 
 // Generate order ID
@@ -87,7 +88,7 @@ export const generateOrderId = async (): Promise<string> => {
     const sequence = orderNumber.toString().padStart(4, '0')
     return `GEN${year}${month}${day}${sequence}`
   } catch (error) {
-    console.error('Error generating order ID:', error)
+    errorLog('Error generating order ID:', error)
     const now = new Date()
     const year = now.getFullYear().toString().slice(-2)
     const month = (now.getMonth() + 1).toString().padStart(2, '0')
@@ -150,7 +151,7 @@ export const addOrder = async (orderData: OrderData): Promise<Order> => {
       }
     })
   } catch (error) {
-    console.error('Error creating order:', error)
+    errorLog('Error creating order:', error)
     throw error
   }
 }
@@ -167,7 +168,7 @@ export const updateOrderStatus = async (orderId: string, status: string): Promis
     })
     return true
   } catch (error) {
-    console.error('Error updating order status:', error)
+    errorLog('Error updating order status:', error)
     return false
   }
 }
@@ -183,7 +184,7 @@ export const getOrderById = async (orderId: string): Promise<Order | null> => {
       }
     })
   } catch (error) {
-    console.error('Error finding order by ID:', error)
+    errorLog('Error finding order by ID:', error)
     return null
   }
 }
@@ -194,7 +195,7 @@ export const getOrdersByEmail = async (email: string, limit: number = 50, offset
     // Normalize email to lowercase and trim whitespace for consistent matching
     const normalizedEmail = email.trim().toLowerCase()
     
-    console.log(`🔍 Searching for orders with email: "${normalizedEmail}" (original: "${email}")`)
+    debugLog(`🔍 Searching for orders with email: "${normalizedEmail}" (original: "${email}")`)
     
     // Try exact match first with normalized email
     let orders = await prisma.order.findMany({
@@ -209,7 +210,7 @@ export const getOrdersByEmail = async (email: string, limit: number = 50, offset
     
     // If no orders found, try case-insensitive search using raw query
     if (orders.length === 0) {
-      console.log(`⚠️ No exact match found, trying case-insensitive search...`)
+      debugLog(`⚠️ No exact match found, trying case-insensitive search...`)
       try {
         // Use Prisma's column names (camelCase) - Prisma will map them to database columns
         const orderIds = await prisma.$queryRaw<Array<{ id: string }>>`
@@ -229,18 +230,18 @@ export const getOrdersByEmail = async (email: string, limit: number = 50, offset
             },
             orderBy: { createdAt: 'desc' }
           })
-          console.log(`✅ Found ${orders.length} orders using case-insensitive search`)
+          debugLog(`✅ Found ${orders.length} orders using case-insensitive search`)
         }
       } catch (rawQueryError) {
-        console.error('⚠️ Case-insensitive raw query failed, using exact match only:', rawQueryError)
+        errorLog('⚠️ Case-insensitive raw query failed, using exact match only:', rawQueryError)
       }
     } else {
-      console.log(`✅ Found ${orders.length} orders with exact match`)
+      debugLog(`✅ Found ${orders.length} orders with exact match`)
     }
     
     return orders
   } catch (error) {
-    console.error('Error finding orders by email:', error)
+    errorLog('Error finding orders by email:', error)
     return []
   }
 }
@@ -265,13 +266,13 @@ export const getOrdersCountByEmail = async (email: string): Promise<number> => {
         `
         count = result[0]?.count ? Number(result[0].count) : 0
       } catch (rawQueryError) {
-        console.error('⚠️ Case-insensitive count query failed:', rawQueryError)
+        errorLog('⚠️ Case-insensitive count query failed:', rawQueryError)
       }
     }
     
     return count
   } catch (error) {
-    console.error('Error counting orders by email:', error)
+    errorLog('Error counting orders by email:', error)
     return 0
   }
 }
@@ -284,7 +285,7 @@ export const deleteOrder = async (orderId: string): Promise<boolean> => {
     })
     return true
   } catch (error) {
-    console.error('Error deleting order:', error)
+    errorLog('Error deleting order:', error)
     return false
   }
 }
@@ -300,7 +301,7 @@ export const getOrderByOrderNumber = async (orderNumber: string): Promise<Order 
       }
     })
   } catch (error) {
-    console.error('Error finding order by order number:', error)
+    errorLog('Error finding order by order number:', error)
     return null
   }
 }

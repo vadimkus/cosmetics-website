@@ -1,3 +1,4 @@
+import { errorLog } from '@/lib/logger'
 import { prisma } from './prisma'
 
 interface RateLimitOptions {
@@ -37,7 +38,7 @@ export function rateLimitSimple(options: RateLimitOptions) {
             }
           }
         }).catch(error => {
-          console.error('Rate limit cleanup error (non-blocking):', error)
+          errorLog('Rate limit cleanup error (non-blocking):', error)
         })
       }
 
@@ -86,7 +87,7 @@ export function rateLimitSimple(options: RateLimitOptions) {
         resetTime: rateLimitEntry.resetTime.getTime()
       }
     } catch (error) {
-      console.error('Rate limiting error:', error)
+      errorLog('Rate limiting error:', error)
       // Fail closed - reject request if rate limiting fails
       // This is more secure than allowing requests through when rate limiting is down
       return {

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { sendEmail, sendAdminNewOrderNotification } from '@/lib/email'
+import { debugLog, errorLog } from '@/lib/logger'
 import { addOrder, OrderData, OrderItemData } from '@/lib/orderStorageDb'
 import { requireCsrfToken } from '@/lib/csrf'
 
@@ -169,7 +170,7 @@ export async function POST(request: NextRequest) {
 
     // Save to database
     const savedOrder = await addOrder(dbOrder)
-    console.log('✅ Support Link order saved to database:', savedOrder.id)
+    debugLog('✅ Support Link order saved to database:', savedOrder.id)
 
     const orderHTML = generateSupportLinkOrderHTML({
       customerName,
@@ -197,7 +198,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Send admin notification for support-link order
-    console.log('📧 Sending admin notification for support-link order:', orderNumber)
+    debugLog('📧 Sending admin notification for support-link order:', orderNumber)
     const adminResult = await sendAdminNewOrderNotification({
       orderNumber,
       customerName,
@@ -219,9 +220,9 @@ export async function POST(request: NextRequest) {
     })
 
     if (adminResult.success) {
-      console.log('✅ Admin notification sent for support-link order:', orderNumber)
+      debugLog('✅ Admin notification sent for support-link order:', orderNumber)
     } else {
-      console.error('❌ Failed to send admin notification for support-link order:', adminResult.error)
+      errorLog('❌ Failed to send admin notification for support-link order:', adminResult.error)
     }
 
     return NextResponse.json({ 
@@ -232,7 +233,7 @@ export async function POST(request: NextRequest) {
     })
 
   } catch (error) {
-    console.error('Error sending support link order request:', error)
+    errorLog('Error sending support link order request:', error)
     return NextResponse.json(
       { error: 'Failed to send support link order request', details: error instanceof Error ? error.message : String(error) },
       { status: 500 }

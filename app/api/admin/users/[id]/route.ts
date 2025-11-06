@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { updateUser, deleteUser } from '@/lib/userStorageDb'
+import { debugLog, errorLog } from '@/lib/logger'
 import { prisma } from '@/lib/prisma'
 import { requireAdminAuth } from '@/lib/adminAuth'
 import { requireCsrfToken } from '@/lib/csrf'
@@ -31,7 +32,7 @@ export async function PUT(
   try {
     const { id } = await params
     const updates = await request.json()
-    console.log('Admin user update request:', { id, updates })
+    debugLog('Admin user update request:', { id, updates })
     const { canSeePrices, discountType, discountPercentage, name: _name, email: _email, phone: _phone, address: _address, birthday: _birthday, profilePicture: _profilePicture } = updates
 
     if (canSeePrices !== undefined && typeof canSeePrices !== 'boolean') {
@@ -79,7 +80,7 @@ export async function PUT(
       message: 'User updated successfully'
     })
   } catch (error) {
-    console.error('Error updating user:', error)
+    errorLog('Error updating user:', error)
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }
@@ -127,9 +128,9 @@ export async function DELETE(
         }
       })
       
-      console.log(`✅ Deleted ${deletedActivities.count} analytics activities for user ${user.email}`)
+      debugLog(`✅ Deleted ${deletedActivities.count} analytics activities for user ${user.email}`)
     } catch (analyticsError) {
-      console.error('❌ Failed to delete analytics activities:', analyticsError)
+      errorLog('❌ Failed to delete analytics activities:', analyticsError)
       // Don't fail user deletion if analytics cleanup fails
     }
 
@@ -148,7 +149,7 @@ export async function DELETE(
       message: 'User deleted successfully'
     })
   } catch (error) {
-    console.error('Error deleting user:', error)
+    errorLog('Error deleting user:', error)
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }

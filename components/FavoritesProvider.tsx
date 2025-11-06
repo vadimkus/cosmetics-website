@@ -1,4 +1,5 @@
 'use client'
+import { errorLog } from '@/lib/logger'
 
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react'
 import { Product } from '@/types'
@@ -37,7 +38,7 @@ export default function FavoritesProvider({ children }: FavoritesProviderProps) 
       try {
         setFavorites(JSON.parse(savedFavorites))
       } catch (error) {
-        console.error('Error parsing saved favorites:', error)
+        errorLog('Error parsing saved favorites:', error)
         localStorage.removeItem('genosys_favorites')
       }
     }

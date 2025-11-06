@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { findUserByEmail, updateUser } from '@/lib/userStorageDb'
+import { errorLog } from '@/lib/logger'
 import bcrypt from 'bcryptjs'
 import { rateLimitSimple, getClientIdentifierFromNextRequest } from '@/lib/rateLimitSimple'
 
@@ -16,7 +17,7 @@ export async function POST(request: NextRequest) {
     try {
       clientIdentifier = getClientIdentifierFromNextRequest(request)
     } catch (rateLimitError) {
-      console.error('Rate limit identifier error:', rateLimitError)
+      errorLog('Rate limit identifier error:', rateLimitError)
       // Continue without rate limiting if identifier fails
       clientIdentifier = 'unknown'
     }
@@ -71,7 +72,7 @@ export async function POST(request: NextRequest) {
     try {
       await updateUser(user.id, { lastLoginAt: new Date().toISOString() })
     } catch (error) {
-      console.error('Error updating admin last login timestamp:', error)
+      errorLog('Error updating admin last login timestamp:', error)
       // Don't fail login if timestamp update fails
     }
 
@@ -85,8 +86,8 @@ export async function POST(request: NextRequest) {
       }
     })
   } catch (error) {
-    console.error('Admin login error:', error)
-    console.error('Error details:', {
+    errorLog('Admin login error:', error)
+    errorLog('Error details:', {
       message: error instanceof Error ? error.message : 'Unknown error',
       stack: error instanceof Error ? error.stack : undefined,
       name: error instanceof Error ? error.name : undefined

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { findUserByEmail } from '@/lib/userStorageDb'
 import { requireAdminAuth } from '@/lib/adminAuth'
 import { requireCsrfToken } from '@/lib/csrf'
+import { debugLog, errorLog } from '@/lib/logger'
 import bcrypt from 'bcryptjs'
 
 export async function POST(request: NextRequest) {
@@ -17,11 +18,11 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    console.log('🔍 Test admin API called')
+    debugLog('🔍 Test admin API called')
     
     const { email, password } = await request.json()
-    console.log('📧 Email:', email)
-    console.log('🔑 Password provided:', !!password)
+    debugLog('📧 Email:', email)
+    debugLog('🔑 Password provided:', !!password)
 
     if (!email || !password) {
       return NextResponse.json(
@@ -31,24 +32,24 @@ export async function POST(request: NextRequest) {
     }
 
     // Check if user exists in database and is admin
-    console.log('🔍 Looking up user...')
+    debugLog('🔍 Looking up user...')
     const user = await findUserByEmail(email)
-    console.log('👤 User found:', !!user)
+    debugLog('👤 User found:', !!user)
     
     if (!user || !user.isAdmin) {
-      console.log('❌ User not found or not admin')
+      debugLog('❌ User not found or not admin')
       return NextResponse.json(
         { error: 'Invalid credentials' },
         { status: 401 }
       )
     }
 
-    console.log('✅ User is admin, checking password...')
-    console.log('🔐 Password hash starts with $2:', user.password.startsWith('$2'))
+    debugLog('✅ User is admin, checking password...')
+    debugLog('🔐 Password hash starts with $2:', user.password.startsWith('$2'))
 
     // Only allow bcrypt hashed passwords - no plaintext support
     if (!user.password || !user.password.startsWith('$2')) {
-      console.log('❌ Password not properly hashed')
+      debugLog('❌ Password not properly hashed')
       return NextResponse.json(
         { error: 'Account requires password reset. Please contact support.' },
         { status: 401 }
@@ -56,19 +57,19 @@ export async function POST(request: NextRequest) {
     }
 
     // Verify password with bcrypt
-    console.log('🔍 Verifying password with bcrypt...')
+    debugLog('🔍 Verifying password with bcrypt...')
     const isValid = await bcrypt.compare(password, user.password)
-    console.log('✅ Password verification result:', isValid)
+    debugLog('✅ Password verification result:', isValid)
 
     if (!isValid) {
-      console.log('❌ Password verification failed')
+      debugLog('❌ Password verification failed')
       return NextResponse.json(
         { error: 'Invalid credentials' },
         { status: 401 }
       )
     }
 
-    console.log('✅ Admin login successful')
+    debugLog('✅ Admin login successful')
     return NextResponse.json({
       success: true,
       user: {
@@ -79,7 +80,7 @@ export async function POST(request: NextRequest) {
       }
     })
   } catch (error) {
-    console.error('❌ Test admin API error:', error)
+    errorLog('❌ Test admin API error:', error)
     return NextResponse.json(
       { error: 'Internal server error', details: error instanceof Error ? error.message : 'Unknown error' },
       { status: 500 }

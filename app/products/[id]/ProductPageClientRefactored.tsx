@@ -1,4 +1,5 @@
 'use client'
+import { errorLog } from '@/lib/logger'
 
 import { useRouter } from 'next/navigation'
 import { useCart } from '@/components/CartProvider'
@@ -68,7 +69,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
       
       await addItem(productToAdd, quantity, colorToPass, sizeToPass)
     } catch (error) {
-      console.error('Error adding to cart:', error)
+      errorLog('Error adding to cart:', error)
     }
   }, [user, product, selectedSize, selectedColor, addItem, router])
 

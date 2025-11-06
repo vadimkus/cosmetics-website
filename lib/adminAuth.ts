@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { findUserByEmail } from '@/lib/userStorageDb'
+import { errorLog } from '@/lib/logger'
 
 /**
  * Admin authentication middleware
@@ -47,7 +48,7 @@ export async function verifyAdminAuth(request: NextRequest): Promise<{
       error: null
     }
   } catch (error) {
-    console.error('Admin auth verification error:', error)
+    errorLog('Admin auth verification error:', error)
     return {
       user: null,
       error: 'Authentication verification failed. Please try again.'

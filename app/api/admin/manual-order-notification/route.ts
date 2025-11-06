@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { sendAdminNewOrderNotification } from '@/lib/email'
+import { errorLog } from '@/lib/logger'
 import { requireAdminAuth } from '@/lib/adminAuth'
 import { requireCsrfToken } from '@/lib/csrf'
 
@@ -80,7 +81,7 @@ export async function POST(request: NextRequest) {
     }
 
   } catch (error) {
-    console.error('Error sending manual order notification:', error)
+    errorLog('Error sending manual order notification:', error)
     return NextResponse.json(
       { error: 'Failed to send notification' },
       { status: 500 }

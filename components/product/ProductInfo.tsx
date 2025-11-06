@@ -8,6 +8,7 @@ import { useCart } from '@/components/CartProvider'
 import { useFavorites } from '@/components/FavoritesProvider'
 import { useState, useCallback } from 'react'
 import { calculateDiscountedPrice, canUserSeePrices } from '@/lib/discountUtils'
+import { errorLog } from '@/lib/logger'
 
 interface ProductInfoProps {
   product: Product
@@ -68,7 +69,7 @@ export default function ProductInfo({
       
       await addItem(productToAdd, quantity, undefined, sizeToPass)
     } catch (error) {
-      console.error('Error adding to cart:', error)
+      errorLog('Error adding to cart:', error)
     } finally {
       setIsAdding(false)
     }

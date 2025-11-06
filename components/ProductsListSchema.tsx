@@ -1,4 +1,5 @@
 'use client'
+import { warnLog } from '@/lib/logger'
 
 import { Product } from '@/types'
 
@@ -29,7 +30,7 @@ export default function ProductsListSchema({ products, category }: ProductsListS
             images = Array.isArray(parsedImages) && parsedImages.length > 0 ? parsedImages : [product.image]
           }
         } catch (error) {
-          console.warn('Error parsing images for product:', product.id, error)
+          warnLog('Error parsing images for product:', product.id, error)
           images = [product.image]
         }
         const displayImages = images.length > 0 ? images : [product.image]

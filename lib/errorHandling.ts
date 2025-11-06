@@ -1,3 +1,4 @@
+import { errorLog, warnLog, infoLog } from '@/lib/logger'
 /**
  * Comprehensive error handling utilities
  */
@@ -130,16 +131,16 @@ export const errorHandling = {
 
     switch (severity) {
       case ErrorSeverity.LOW:
-        console.info('Error (Low):', logData)
+        infoLog('Error (Low):', logData)
         break
       case ErrorSeverity.MEDIUM:
-        console.warn('Error (Medium):', logData)
+        warnLog('Error (Medium):', logData)
         break
       case ErrorSeverity.HIGH:
-        console.error('Error (High):', logData)
+        errorLog('Error (High):', logData)
         break
       case ErrorSeverity.CRITICAL:
-        console.error('Error (Critical):', logData)
+        errorLog('Error (Critical):', logData)
         // In production, you might want to send to external logging service
         // errorHandling.sendToExternalLogger(logData)
         break

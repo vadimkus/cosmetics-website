@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { addUser, findUserByEmail, updateUser } from '@/lib/userStorageDb'
+import { debugLog, errorLog } from '@/lib/logger'
 import { trackUserAction } from '@/lib/analyticsServer'
 import { sendWelcomeEmail, sendAdminNewUserNotification } from '@/lib/email'
 import bcrypt from 'bcryptjs'
@@ -134,7 +135,7 @@ export async function POST(request: NextRequest) {
         Object.assign(createdUser, refreshedUser)
       }
     } catch (error) {
-      console.error('Error updating lastLoginAt on registration:', error)
+      errorLog('Error updating lastLoginAt on registration:', error)
       // Don't fail registration if timestamp update fails
     }
 
@@ -148,18 +149,18 @@ export async function POST(request: NextRequest) {
     // Send welcome email to user
     try {
       await sendWelcomeEmail(name, email)
-      console.log('✅ Welcome email sent to:', email)
+      debugLog('✅ Welcome email sent to:', email)
     } catch (emailError) {
-      console.error('❌ Failed to send welcome email:', emailError)
+      errorLog('❌ Failed to send welcome email:', emailError)
       // Don't fail registration if email fails
     }
 
     // Send admin notification
     try {
       await sendAdminNewUserNotification(name, email)
-      console.log('✅ Admin notification sent for new user:', email)
+      debugLog('✅ Admin notification sent for new user:', email)
     } catch (emailError) {
-      console.error('❌ Failed to send admin notification:', emailError)
+      errorLog('❌ Failed to send admin notification:', emailError)
       // Don't fail registration if email fails
     }
 
@@ -170,7 +171,7 @@ export async function POST(request: NextRequest) {
       user: userWithoutPassword
     })
   } catch (error) {
-    console.error('Registration error:', error)
+    errorLog('Registration error:', error)
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }

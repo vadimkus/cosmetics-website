@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getProductById } from '@/lib/productsDb'
+import { errorLog } from '@/lib/logger'
 
 export async function GET(
   _request: NextRequest,
@@ -33,7 +34,7 @@ export async function GET(
     
     return response
   } catch (error) {
-    console.error('Error fetching product:', error)
+    errorLog('Error fetching product:', error)
     return NextResponse.json(
       { error: 'Failed to fetch product' },
       { status: 500 }

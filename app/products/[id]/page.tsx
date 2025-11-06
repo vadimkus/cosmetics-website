@@ -3,6 +3,7 @@ import { Product } from '@/types'
 import ProductPageClientRefactored from './ProductPageClientRefactored'
 import type { Metadata } from 'next'
 import { getProductById } from '@/lib/productsDb'
+import { errorLog } from '@/lib/logger'
 
 interface ProductPageProps {
   params: Promise<{ id: string }>
@@ -20,7 +21,7 @@ async function getProduct(id: string): Promise<Product | null> {
     }
     return product
   } catch (error) {
-    console.error('Error fetching product:', error)
+    errorLog('Error fetching product:', error)
     return null
   }
 }

@@ -1,3 +1,4 @@
+import { warnLog } from '@/lib/logger'
 /**
  * Environment variable validation
  * Ensures all required environment variables are present and valid
@@ -61,7 +62,7 @@ function validateEnvironment(): EnvConfig {
   // Warn about missing admin credentials in production
   if (requiredVars.NODE_ENV === 'production') {
     if (!optionalVars.ADMIN_EMAIL || !optionalVars.ADMIN_PASSWORD) {
-      console.warn(
+      warnLog(
         '⚠️  WARNING: ADMIN_EMAIL and ADMIN_PASSWORD not set in production.\n' +
         'Admin user will be created with default credentials. Please change them immediately!'
       )

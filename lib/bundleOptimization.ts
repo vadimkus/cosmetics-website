@@ -1,3 +1,4 @@
+import { debugLog, warnLog } from '@/lib/logger'
 /**
  * Bundle optimization utilities
  */
@@ -71,7 +72,7 @@ export const preload = {
    */
   component: (importFunc: () => Promise<any>) => {
     // Start loading in the background
-    importFunc().catch(console.warn)
+    importFunc().catch(warnLog)
   },
 
   /**
@@ -143,12 +144,12 @@ export const bundleAnalysis = {
   logPerformance: () => {
     const info = bundleAnalysis.getBundleInfo()
     if (info) {
-      console.group('Bundle Performance')
-      console.log(`Total Size: ${(info.totalSize / 1024).toFixed(2)} KB`)
-      console.log(`JS Size: ${(info.jsSize / 1024).toFixed(2)} KB (${info.jsCount} files)`)
-      console.log(`CSS Size: ${(info.cssSize / 1024).toFixed(2)} KB (${info.cssCount} files)`)
-      console.log(`Load Time: ${info.loadTime.toFixed(2)} ms`)
-      console.groupEnd()
+      debugLog('Bundle Performance:', {
+        totalSize: `${(info.totalSize / 1024).toFixed(2)} KB`,
+        jsSize: `${(info.jsSize / 1024).toFixed(2)} KB (${info.jsCount} files)`,
+        cssSize: `${(info.cssSize / 1024).toFixed(2)} KB (${info.cssCount} files)`,
+        loadTime: `${info.loadTime.toFixed(2)} ms`
+      })
     }
   }
 }
@@ -221,7 +222,7 @@ export const performanceMonitoring = {
       const result = func(...args)
       const end = performance.now()
       
-      console.log(`${name} executed in ${(end - start).toFixed(2)}ms`)
+      debugLog(`${name} executed in ${(end - start).toFixed(2)}ms`)
       return result
     }) as T
   },
@@ -234,7 +235,7 @@ export const performanceMonitoring = {
     
     return () => {
       const end = performance.now()
-      console.log(`${componentName} rendered in ${(end - start).toFixed(2)}ms`)
+      debugLog(`${componentName} rendered in ${(end - start).toFixed(2)}ms`)
     }
   },
 
@@ -247,7 +248,7 @@ export const performanceMonitoring = {
       new PerformanceObserver((list) => {
         const entries = list.getEntries()
         const lastEntry = entries[entries.length - 1]
-        console.log('LCP:', lastEntry?.startTime)
+        debugLog('LCP:', lastEntry?.startTime)
       }).observe({ entryTypes: ['largest-contentful-paint'] })
 
       // Track First Input Delay (FID)
@@ -255,7 +256,7 @@ export const performanceMonitoring = {
         const entries = list.getEntries()
         entries.forEach((entry) => {
           if (entry.entryType === 'first-input' && 'processingStart' in entry) {
-            console.log('FID:', (entry as any).processingStart - entry.startTime)
+            debugLog('FID:', (entry as any).processingStart - entry.startTime)
           }
         })
       }).observe({ entryTypes: ['first-input'] })
@@ -271,7 +272,7 @@ export const performanceMonitoring = {
             }
           }
         })
-        console.log('CLS:', clsValue)
+        debugLog('CLS:', clsValue)
       }).observe({ entryTypes: ['layout-shift'] })
     }
   }

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { requireAdminAuth } from '@/lib/adminAuth'
+import { errorLog } from '@/lib/logger'
 
 export async function POST(request: NextRequest) {
   // Require admin authentication
@@ -43,7 +44,7 @@ export async function POST(request: NextRequest) {
     }
     
   } catch (error) {
-    console.error('Error testing admin email:', error)
+    errorLog('Error testing admin email:', error)
     return NextResponse.json(
       { error: 'Failed to test admin email configuration' },
       { status: 500 }

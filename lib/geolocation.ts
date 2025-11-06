@@ -1,3 +1,4 @@
+import { errorLog, warnLog } from '@/lib/logger'
 // IP Geolocation utility
 // Uses ipapi.co for free IP geolocation (1000 requests/day free)
 
@@ -23,20 +24,20 @@ export async function getCountryFromIP(ipAddress: string): Promise<string | null
     })
 
     if (!response.ok) {
-      console.warn(`Failed to get geolocation for IP ${ipAddress}: ${response.status}`)
+      warnLog(`Failed to get geolocation for IP ${ipAddress}: ${response.status}`)
       return null
     }
 
     const data = await response.json()
     
     if (data.error) {
-      console.warn(`Geolocation error for IP ${ipAddress}: ${data.reason}`)
+      warnLog(`Geolocation error for IP ${ipAddress}: ${data.reason}`)
       return null
     }
 
     return data.country_name || null
   } catch (error) {
-    console.error(`Error getting geolocation for IP ${ipAddress}:`, error)
+    errorLog(`Error getting geolocation for IP ${ipAddress}:`, error)
     return null
   }
 }
@@ -92,7 +93,7 @@ export async function getGeolocationData(ipAddress: string): Promise<Geolocation
       region: data.region || 'Unknown'
     }
   } catch (error) {
-    console.error(`Error getting geolocation data for IP ${ipAddress}:`, error)
+    errorLog(`Error getting geolocation data for IP ${ipAddress}:`, error)
     return null
   }
 }

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { sendEmail, sendAdminNewOrderNotification } from '@/lib/email'
+import { debugLog, errorLog } from '@/lib/logger'
 import { addOrder, OrderData, OrderItemData } from '@/lib/orderStorageDb'
 import { requireCsrfToken } from '@/lib/csrf'
 
@@ -145,7 +146,7 @@ export async function POST(request: NextRequest) {
 
     // Save to database
     const savedOrder = await addOrder(dbOrder)
-    console.log('✅ COD order saved to database:', savedOrder.id)
+    debugLog('✅ COD order saved to database:', savedOrder.id)
 
     const orderHTML = generateCODOrderHTML({
       orderNumber,
@@ -173,7 +174,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Send admin notification for COD order
-    console.log('📧 Sending admin notification for COD order:', orderNumber)
+    debugLog('📧 Sending admin notification for COD order:', orderNumber)
     const adminResult = await sendAdminNewOrderNotification({
       orderNumber,
       customerName,
@@ -195,9 +196,9 @@ export async function POST(request: NextRequest) {
     })
 
     if (adminResult.success) {
-      console.log('✅ Admin notification sent for COD order:', orderNumber)
+      debugLog('✅ Admin notification sent for COD order:', orderNumber)
     } else {
-      console.error('❌ Failed to send admin notification for COD order:', adminResult.error)
+      errorLog('❌ Failed to send admin notification for COD order:', adminResult.error)
     }
 
     return NextResponse.json({ 
@@ -208,7 +209,7 @@ export async function POST(request: NextRequest) {
     })
 
   } catch (error) {
-    console.error('Error sending COD order confirmation:', error)
+    errorLog('Error sending COD order confirmation:', error)
     return NextResponse.json(
       { error: 'Failed to send COD order confirmation', details: error instanceof Error ? error.message : String(error) },
       { status: 500 }

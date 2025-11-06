@@ -1,4 +1,5 @@
 'use client'
+import { debugLog, errorLog } from '@/lib/logger'
 
 import { useEffect, useState } from 'react'
 
@@ -42,7 +43,7 @@ export function useServiceWorker() {
           error: null,
         }))
 
-        console.log('Service Worker registered successfully:', registration)
+        debugLog('Service Worker registered successfully:', registration)
 
         // Handle updates
         registration.addEventListener('updatefound', () => {
@@ -60,7 +61,7 @@ export function useServiceWorker() {
         })
 
       } catch (error) {
-        console.error('Service Worker registration failed:', error)
+        errorLog('Service Worker registration failed:', error)
         setState(prev => ({
           ...prev,
           error: error instanceof Error ? error.message : 'Registration failed',
@@ -90,7 +91,7 @@ export function useServiceWorker() {
       try {
         await state.registration.update()
       } catch (error) {
-        console.error('Failed to check for updates:', error)
+        errorLog('Failed to check for updates:', error)
       }
     }
   }
@@ -106,7 +107,7 @@ export function useServiceWorker() {
           registration: null,
         }))
       } catch (error) {
-        console.error('Failed to unregister service worker:', error)
+        errorLog('Failed to unregister service worker:', error)
       }
     }
   }
@@ -118,9 +119,9 @@ export function useServiceWorker() {
       await Promise.all(
         cacheNames.map(cacheName => caches.delete(cacheName))
       )
-      console.log('All caches cleared')
+      debugLog('All caches cleared')
     } catch (error) {
-      console.error('Failed to clear caches:', error)
+      errorLog('Failed to clear caches:', error)
     }
   }
 
@@ -141,7 +142,7 @@ export function useServiceWorker() {
       )
       return cacheStatus
     } catch (error) {
-      console.error('Failed to get cache status:', error)
+      errorLog('Failed to get cache status:', error)
       return []
     }
   }

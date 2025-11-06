@@ -1,23 +1,24 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getAllProducts, getProductsByCategory } from '@/lib/productsDb'
+import { debugLog, errorLog } from '@/lib/logger'
 
 export async function GET(request: NextRequest) {
   try {
-    console.log('📦 Fetching products from DATABASE')
+    debugLog('📦 Fetching products from DATABASE')
     const { searchParams } = new URL(request.url)
     const category = searchParams.get('category')
     
     let products
     
     if (category) {
-      console.log('📦 Fetching products by category:', category)
+      debugLog('📦 Fetching products by category:', category)
       products = await getProductsByCategory(category)
     } else {
-      console.log('📦 Fetching all products')
+      debugLog('📦 Fetching all products')
       products = await getAllProducts()
     }
     
-    console.log('✅ Retrieved', products.length, 'products from DATABASE')
+    debugLog('✅ Retrieved', products.length, 'products from DATABASE')
     
     const response = NextResponse.json(products)
     
@@ -28,8 +29,8 @@ export async function GET(request: NextRequest) {
     
     return response
   } catch (error) {
-    console.error('❌ Error fetching products:', error)
-    console.error('❌ Error details:', {
+    errorLog('❌ Error fetching products:', error)
+    errorLog('❌ Error details:', {
       message: error instanceof Error ? error.message : 'Unknown error',
       stack: error instanceof Error ? error.stack : undefined,
       name: error instanceof Error ? error.name : undefined

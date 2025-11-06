@@ -1,3 +1,4 @@
+import { warnLog } from '@/lib/logger'
 import { NextRequest, NextResponse } from 'next/server'
 import crypto from 'crypto'
 
@@ -80,7 +81,7 @@ export async function validateCsrfToken(request: NextRequest): Promise<{
     } catch (error) {
       // Body might not be JSON or might already be consumed
       // Continue with header-only check - this is acceptable for security
-      console.warn('CSRF token body read failed (non-critical):', error instanceof Error ? error.message : 'Unknown error')
+      warnLog('CSRF token body read failed (non-critical):', error instanceof Error ? error.message : 'Unknown error')
     }
   }
 

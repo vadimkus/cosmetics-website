@@ -1,4 +1,5 @@
 'use client'
+import { errorLog } from '@/lib/logger'
 
 import { useState, useEffect, useCallback } from 'react'
 
@@ -32,7 +33,7 @@ export function useOrderHistory(user: any) {
         setOrders(ordersData)
       }
     } catch (error) {
-      console.error('Error fetching orders:', error)
+      errorLog('Error fetching orders:', error)
     } finally {
       setLoadingOrders(false)
     }
@@ -55,7 +56,7 @@ export function useOrderHistory(user: any) {
         )
       }
     } catch (error) {
-      console.error('Error cancelling order:', error)
+      errorLog('Error cancelling order:', error)
     }
   }
 

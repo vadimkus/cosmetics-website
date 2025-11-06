@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { sendEmail } from '@/lib/email'
+import { errorLog } from '@/lib/logger'
 import { requireCsrfToken } from '@/lib/csrf'
 
 export async function POST(request: NextRequest) {
@@ -58,7 +59,7 @@ export async function POST(request: NextRequest) {
     })
 
   } catch (error) {
-    console.error('Error generating invoice:', error)
+    errorLog('Error generating invoice:', error)
     return NextResponse.json(
       { success: false, message: 'Failed to generate invoice' },
       { status: 500 }

@@ -3,6 +3,7 @@
 import { useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 import { trackPageView } from '@/lib/analytics'
+import { debugLog, errorLog } from '@/lib/logger'
 
 export default function PageViewTracker() {
   const pathname = usePathname()
@@ -32,9 +33,9 @@ export default function PageViewTracker() {
             screenHeight: window.screen.height
           })
         })
-        console.log('✅ Page view tracked in both Google Analytics and database:', page)
+        debugLog('✅ Page view tracked in both Google Analytics and database:', page)
       } catch (error) {
-        console.error('Error tracking page view:', error)
+        errorLog('Error tracking page view:', error)
       }
     }
 

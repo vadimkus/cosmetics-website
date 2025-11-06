@@ -1,16 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/database'
+import { debugLog, errorLog } from '@/lib/logger'
 
 export async function POST(_request: NextRequest) {
   try {
-    console.log('🚀 Checking database status (DB-only)...')
+    debugLog('🚀 Checking database status (DB-only)...')
     const existingProducts = await prisma.product.count()
     return NextResponse.json({
       success: true,
       message: `Database is active. Products in DB: ${existingProducts}`
     })
   } catch (error) {
-    console.error('Error checking database status:', error)
+    errorLog('Error checking database status:', error)
     return NextResponse.json(
       { 
         success: false, 
@@ -37,7 +38,7 @@ export async function GET(_request: NextRequest) {
       }
     })
   } catch (error) {
-    console.error('Error checking database status:', error)
+    errorLog('Error checking database status:', error)
     return NextResponse.json(
       { 
         success: false, 

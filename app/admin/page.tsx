@@ -9,6 +9,7 @@ import CustomerProfile from '@/components/CustomerProfile'
 import ProductForm from '@/components/ProductForm'
 import { Order, OrderItem } from '@prisma/client'
 import { fetchCsrfToken, getCsrfHeaders, addCsrfToBody } from '@/lib/csrfClient'
+import { debugLog, errorLog } from '@/lib/logger'
 
 // Custom type that includes the items relation
 type OrderWithItems = Order & {
@@ -63,7 +64,7 @@ export default function AdminPage() {
   useEffect(() => {
     if (isAuthenticated) {
       fetchCsrfToken().catch(err => {
-        console.error('Failed to fetch CSRF token:', err)
+        errorLog('Failed to fetch CSRF token:', err)
       })
     }
   }, [isAuthenticated])
@@ -100,7 +101,7 @@ export default function AdminPage() {
         setUsers(data.users)
       }
     } catch (error) {
-      console.error('Error fetching users:', error)
+      errorLog('Error fetching users:', error)
     } finally {
       setLoading(false)
     }
@@ -117,7 +118,7 @@ export default function AdminPage() {
         setProducts(data.products)
       }
     } catch (error) {
-      console.error('Error fetching products:', error)
+      errorLog('Error fetching products:', error)
     } finally {
       setProductsRefreshing(false)
     }
@@ -148,12 +149,12 @@ export default function AdminPage() {
         return true
       } else {
         const errorData = await response.json()
-        console.error('Product save failed:', errorData)
+        errorLog('Product save failed:', errorData)
         alert(`Failed to save product: ${errorData.error || 'Unknown error'}`)
         return false
       }
     } catch (error) {
-      console.error('Error saving product:', error)
+      errorLog('Error saving product:', error)
       alert('Failed to save product')
       return false
     }
@@ -183,11 +184,11 @@ export default function AdminPage() {
         alert('Product deleted successfully')
       } else {
         const errorData = await response.json()
-        console.error('Delete failed:', errorData)
+        errorLog('Delete failed:', errorData)
         alert(`Failed to delete product: ${errorData.error || 'Unknown error'}`)
       }
     } catch (error) {
-      console.error('Error deleting product:', error)
+      errorLog('Error deleting product:', error)
       alert('Failed to delete product')
     }
   }
@@ -203,7 +204,7 @@ export default function AdminPage() {
         setOrders(data.orders)
       }
     } catch (error) {
-      console.error('Error fetching orders:', error)
+      errorLog('Error fetching orders:', error)
     } finally {
       setOrdersLoading(false)
     }
@@ -230,7 +231,7 @@ export default function AdminPage() {
         return false
       }
 
-      console.log('Updating user:', { userId, updates })
+      debugLog('Updating user:', { userId, updates })
       const response = await fetch(`/api/admin/users/${userId}`, {
         method: 'PUT',
         headers: getAdminHeaders(),
@@ -242,16 +243,16 @@ export default function AdminPage() {
         setUsers(users.map(user => 
           user.id === userId ? { ...user, ...updates } : user
         ))
-        console.log('User updated successfully')
+        debugLog('User updated successfully')
         return true
       } else {
         const errorData = await response.json()
-        console.error('Failed to update user:', errorData)
+        errorLog('Failed to update user:', errorData)
         alert(`Failed to update user: ${errorData.error || 'Unknown error'}`)
         return false
       }
     } catch (error) {
-      console.error('Error updating user:', error)
+      errorLog('Error updating user:', error)
       alert('Failed to update user')
       return false
     }
@@ -276,10 +277,10 @@ export default function AdminPage() {
         setUsers(users.filter(user => user.id !== userId))
       } else {
         const errorData = await response.json()
-        console.error(`Failed to delete user: ${errorData.error || 'Unknown error'}`)
+        errorLog(`Failed to delete user: ${errorData.error || 'Unknown error'}`)
       }
     } catch (error) {
-      console.error('Error deleting user:', error)
+      errorLog('Error deleting user:', error)
     }
   }
 
@@ -302,10 +303,10 @@ export default function AdminPage() {
         setOrders(orders.filter(order => order.id && order.id !== orderId))
       } else {
         const errorData = await response.json()
-        console.error(`Failed to delete order: ${errorData.error || 'Unknown error'}`)
+        errorLog(`Failed to delete order: ${errorData.error || 'Unknown error'}`)
       }
     } catch (error) {
-      console.error('Error deleting order:', error)
+      errorLog('Error deleting order:', error)
     }
   }
 
@@ -334,7 +335,7 @@ export default function AdminPage() {
       setOrders(orders.filter(order => order.id && !selectedOrders.includes(order.id)))
       setSelectedOrders([])
     } catch (error) {
-      console.error('Error deleting orders:', error)
+      errorLog('Error deleting orders:', error)
     } finally {
       setIsDeletingOrders(false)
     }
@@ -384,11 +385,11 @@ export default function AdminPage() {
         
         return true
       } else {
-        console.error('Admin login failed:', data.error)
+        errorLog('Admin login failed:', data.error)
         return false
       }
     } catch (error) {
-      console.error('Admin login error:', error)
+      errorLog('Admin login error:', error)
       return false
     }
   }
@@ -453,7 +454,7 @@ export default function AdminPage() {
           localStorage.removeItem('admin_session')
         }
       } catch (error) {
-        console.error('Error checking admin session:', error)
+        errorLog('Error checking admin session:', error)
         localStorage.removeItem('admin_session')
       } finally {
         setIsCheckingSession(false)
@@ -1082,7 +1083,7 @@ export default function AdminPage() {
                         alert(`Failed to update order status: ${errorData.error || 'Unknown error'}`)
                       }
                     } catch (error) {
-                      console.error('Error updating order status:', error)
+                      errorLog('Error updating order status:', error)
                       alert('Failed to update order status')
                     }
                   }}

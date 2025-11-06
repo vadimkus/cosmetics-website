@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { sendWelcomeEmail, sendOrderConfirmationEmail, sendAdminNewUserNotification, sendAdminNewOrderNotification } from '@/lib/email'
 import { requireAdminAuth } from '@/lib/adminAuth'
 import { requireCsrfToken } from '@/lib/csrf'
+import { errorLog } from '@/lib/logger'
 
 export async function POST(request: NextRequest) {
   // Require admin authentication and CSRF protection
@@ -89,7 +90,7 @@ export async function POST(request: NextRequest) {
     }
 
   } catch (error) {
-    console.error('Test email error:', error)
+    errorLog('Test email error:', error)
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }

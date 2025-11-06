@@ -418,7 +418,7 @@ export default function CheckoutClient() {
                 {/* Shipping Information */}
                 <div className="space-y-4">
                   <h2 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                    <MapPin className="h-5 w-5" />
+                    <MapPin className="h-5 w-5 text-red-600" />
                     Shipping Information
                   </h2>
                   
@@ -512,7 +512,7 @@ export default function CheckoutClient() {
                 {/* Payment Information */}
                 <div className="space-y-4">
                   <h2 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                    <CreditCard className="h-5 w-5" />
+                    <CreditCard className="h-5 w-5 text-green-600" />
                     Payment Information
                   </h2>
                   

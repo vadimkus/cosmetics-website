@@ -408,7 +408,7 @@ export default function CheckoutClient() {
             <div className="bg-white rounded-lg shadow-sm border border-gray-200">
               <div className="p-6 border-b border-gray-200">
                 <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
-                  <CreditCard className="h-6 w-6" />
+                  <CreditCard className="h-6 w-6 text-green-600" />
                   Secure Checkout
                 </h1>
               </div>
@@ -450,30 +450,32 @@ export default function CheckoutClient() {
                     </div>
                   </div>
                   
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Email Address *
-                    </label>
-                    <input
-                      type="email"
-                      required
-                      defaultValue={user?.email || ''}
-                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
-                      placeholder="Enter your email address"
-                    />
-                  </div>
-                  
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Phone Number *
-                    </label>
-                    <input
-                      type="tel"
-                      required
-                      defaultValue={user?.phone || ''}
-                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
-                      placeholder="Enter your phone number"
-                    />
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Email Address *
+                      </label>
+                      <input
+                        type="email"
+                        required
+                        defaultValue={user?.email || ''}
+                        className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                        placeholder="Enter your email address"
+                      />
+                    </div>
+                    
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Phone Number *
+                      </label>
+                      <input
+                        type="tel"
+                        required
+                        defaultValue={user?.phone || ''}
+                        className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                        placeholder="Enter your phone number"
+                      />
+                    </div>
                   </div>
                   
                   <div>
@@ -608,10 +610,8 @@ export default function CheckoutClient() {
               {/* Header */}
               <div className="bg-gradient-to-r from-primary-600 to-primary-700 px-6 py-4">
                 <div className="flex justify-between items-center">
-                  <h2 className="text-xl font-bold text-white">Order Summary</h2>
                   <div className="text-right">
-                    <div className="text-xs text-primary-100 uppercase tracking-wide">Order #</div>
-                    <div className="text-sm font-mono font-bold text-white">{orderNumber}</div>
+                    <div className="text-lg font-mono font-bold text-white">Order # {orderNumber}</div>
                   </div>
                 </div>
               </div>
@@ -619,7 +619,7 @@ export default function CheckoutClient() {
               <div className="p-6">
                 {/* Items List */}
                 <div className="mb-6">
-                  <h3 className="text-sm font-semibold text-gray-700 mb-4 uppercase tracking-wide">Items</h3>
+                  <h3 className="text-sm font-semibold text-gray-700 mb-4 uppercase tracking-wide">Items:</h3>
                   {items.length > 0 ? (
                     <div className="space-y-4">
                       {items.map((item) => {
@@ -634,15 +634,8 @@ export default function CheckoutClient() {
                               </h4>
                               <div className="flex items-center gap-2 mt-1">
                                 <span className="text-xs text-gray-500">Qty: {quantity}</span>
-                                <span className="text-xs text-gray-400">•</span>
-                                {pricing.hasDiscount ? (
-                                  <div className="flex items-center gap-1">
-                                    <span className="text-xs text-gray-500 line-through">AED {pricing.originalPrice.toFixed(2)}</span>
-                                    <span className="text-xs text-green-600 font-medium">AED {pricing.discountedPrice.toFixed(2)} each</span>
-                                    <span className="text-xs text-green-600 font-medium">({pricing.discountPercentage}% OFF)</span>
-                                  </div>
-                                ) : (
-                                  <span className="text-xs text-gray-500">AED {pricing.discountedPrice.toFixed(2)} each</span>
+                                {pricing.hasDiscount && (
+                                  <span className="text-xs text-green-600 font-medium">({pricing.discountPercentage}% OFF)</span>
                                 )}
                               </div>
                             </div>
@@ -679,7 +672,7 @@ export default function CheckoutClient() {
                   
                   <div className="flex justify-between items-center py-2">
                     <div className="flex items-center gap-2">
-                      <Truck className="h-4 w-4 text-gray-400" />
+                      <Truck className="h-4 w-4 text-green-600" />
                       <span className="text-sm text-gray-600">Shipping to {selectedEmirate}</span>
                     </div>
                     <span className="text-sm font-medium text-gray-900">
@@ -692,13 +685,13 @@ export default function CheckoutClient() {
                     <span className="text-sm font-medium text-gray-900">AED {vatAmount.toFixed(2)}</span>
                   </div>
                   
-                  <div className="text-xs text-gray-500 text-center py-2 bg-gray-50 rounded-lg">
+                  <div className="text-xs text-red-600 text-left py-2 bg-gray-50 rounded-lg">
                     All prices include 5% VAT
                   </div>
                   
                   <div className="border-t-2 border-gray-200 pt-4">
                     <div className="flex justify-between items-center">
-                      <span className="text-lg font-bold text-gray-900">Total</span>
+                      <span className="text-lg font-bold text-gray-900">Total:</span>
                       <span className="text-xl font-bold text-primary-600">AED {total.toFixed(2)}</span>
                     </div>
                   </div>

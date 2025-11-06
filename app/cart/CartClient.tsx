@@ -6,6 +6,7 @@ import CartItem from '@/components/CartItem'
 import Link from 'next/link'
 import { ShoppingBag, ArrowLeft, Lock, MessageCircle } from 'lucide-react'
 
+
 export default function CartClient() {
   const { items, getTotalPrice, getTotalItems, selectedEmirate, setSelectedEmirate } = useCart()
   const { user } = useAuth()
@@ -103,8 +104,8 @@ export default function CartClient() {
             <div className="bg-white rounded-lg shadow-sm border border-gray-200">
               <div className="p-6 border-b border-gray-200">
                 <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
-                  <ShoppingBag className="h-6 w-6" />
-                  Shopping Cart ({getTotalItems()} {getTotalItems() === 1 ? 'item' : 'items'})
+                  <ShoppingBag className="h-6 w-6 text-green-600" />
+                  Shopping Cart: {getTotalItems()} {getTotalItems() === 1 ? 'item' : 'items'}
                 </h1>
               </div>
               
@@ -180,7 +181,7 @@ export default function CartClient() {
                     <span>{user ? `AED ${((subtotal + shippingCost) / 1.05 * 0.05).toFixed(2)}` : 'Login to see price'}</span>
                   </div>
                   
-                  <div className="text-xs text-gray-500 text-center">
+                  <div className="text-xs text-red-600 text-left">
                     All prices include 5% VAT
                   </div>
                   

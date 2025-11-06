@@ -40,9 +40,9 @@ export default function CartItem({ item }: CartItemProps) {
         
         <div className="flex-1 min-w-0 text-center sm:text-left">
           <Link href={`/products/${product.id}`}>
-            <h3 className="text-base md:text-lg font-semibold text-gray-800 truncate hover:text-primary-600 transition-colors cursor-pointer">{product.name}</h3>
+            <h3 className="text-sm md:text-base font-semibold text-gray-800 break-words hover:text-primary-600 transition-colors cursor-pointer leading-tight">{product.name}</h3>
           </Link>
-          <p className="text-xs md:text-sm text-gray-600">{product.category}</p>
+          <p className="text-xs md:text-sm text-red-600">{product.category}</p>
           {selectedColor && (
             <p className="text-xs md:text-sm text-gray-500">
               Color: <span className="font-medium text-gray-700">{selectedColor}</span>
@@ -52,44 +52,6 @@ export default function CartItem({ item }: CartItemProps) {
             <p className="text-xs md:text-sm text-gray-500">
               Size: <span className="font-medium text-gray-700">{selectedSize}</span>
             </p>
-          )}
-          {canUserSeePrices(user) ? (
-            <div>
-              {(() => {
-                const pricing = calculateDiscountedPrice(product, user)
-                return (
-                  <div>
-                    {pricing.hasDiscount ? (
-                      <div>
-                        <div className="flex items-center gap-2">
-                          <p className="text-base md:text-lg font-bold text-primary-600">
-                            {pricing.discountedPrice.toFixed(2)} AED
-                          </p>
-                          <p className="text-sm text-gray-500 line-through">
-                            {pricing.originalPrice.toFixed(2)} AED
-                          </p>
-                        </div>
-                        <p className="text-xs text-green-600 font-medium">
-                          {pricing.discountPercentage}% OFF • VAT included
-                        </p>
-                      </div>
-                    ) : (
-                      <div>
-                        <p className="text-base md:text-lg font-bold text-primary-600">
-                          {pricing.originalPrice.toFixed(2)} AED
-                        </p>
-                        <p className="text-xs text-gray-500">VAT included</p>
-                      </div>
-                    )}
-                  </div>
-                )
-              })()}
-            </div>
-          ) : (
-            <div className="flex items-center text-gray-500">
-              <Lock className="h-4 w-4 mr-1" />
-              <span className="text-sm">Price access required</span>
-            </div>
           )}
         </div>
         
@@ -139,8 +101,10 @@ export default function CartItem({ item }: CartItemProps) {
                             {originalTotalPrice.toFixed(2)} AED
                           </p>
                         </div>
-                        <p className="text-xs text-green-600 font-medium">
-                          {pricing.discountPercentage}% OFF • VAT included
+                        <p className="text-xs font-medium">
+                          <span className="text-green-600">{pricing.discountPercentage}% OFF</span>
+                          <span className="text-gray-400"> • </span>
+                          <span className="text-red-600">VAT included</span>
                         </p>
                       </div>
                     ) : (
@@ -148,7 +112,7 @@ export default function CartItem({ item }: CartItemProps) {
                         <p className="text-base md:text-lg font-semibold text-gray-800">
                           {totalPrice.toFixed(2)} AED
                         </p>
-                        <p className="text-xs text-gray-500">VAT included</p>
+                        <p className="text-xs text-red-600">VAT included</p>
                       </div>
                     )}
                   </div>

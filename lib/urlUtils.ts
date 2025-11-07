@@ -164,7 +164,8 @@ export const CATEGORY_DISPLAY_NAMES: Record<string, string> = {
   'scalp-hair': 'Scalp & Hair Care',
   'eye-care': 'Eye Care Products',
   'device': 'Skincare Devices',
-  'kits': 'Holiday kits'
+  'kits': 'Holiday kits',
+  'beauty-boxes': 'Beauty Boxes'
 }
 
 /**

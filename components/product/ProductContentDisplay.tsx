@@ -2,7 +2,7 @@
 import Link from 'next/link'
 import { Product } from '@/types'
 import { getProductDocumentation } from '@/data/productConfig'
-import { sanitizeProductDescription } from '@/lib/sanitize'
+import { sanitizeProductDescription, sanitizeHtml } from '@/lib/sanitize'
 
 interface ProductContentDisplayProps {
   product: Product
@@ -61,6 +61,22 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
   const sanitizedDescription = product.description ? sanitizeProductDescription(product.description) : ''
   const { intro, kitItems } = sanitizedDescription ? parseKitDescription(sanitizedDescription) : { intro: '', kitItems: [] }
 
+  // Process intro text to style bundle price in red
+  const processIntroText = (text: string): string => {
+    // Match "Bundle price: X AED" pattern and wrap in red span
+    let processed = text.replace(
+      /(Bundle price:\s*[\d,]+\.?\d*\s+AED)/g,
+      '<span class="text-red-600 font-semibold">$1</span>'
+    )
+    // Match "Save 15% (X AED)" pattern and wrap in red span
+    processed = processed.replace(
+      /(Save\s+\d+%\s*\([\d,]+\.?\d*\s+AED\))/g,
+      '<span class="text-red-600 font-semibold">$1</span>'
+    )
+    // Sanitize the processed HTML to ensure security
+    return sanitizeHtml(processed)
+  }
+
   // Map product names to their IDs (for linking)
   const getProductLink = (productName: string): string | null => {
     const productMap: { [key: string]: string } = {
@@ -101,9 +117,10 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
         <>
           <h2 className="text-lg font-semibold text-gray-800 mb-4">Product Description</h2>
           {intro && (
-            <p className="text-gray-600 mb-4 text-sm whitespace-pre-line">
-              {intro}
-            </p>
+            <p 
+              className="text-gray-600 mb-4 text-sm whitespace-pre-line"
+              dangerouslySetInnerHTML={{ __html: processIntroText(intro) }}
+            />
           )}
 
           {/* Kit Includes Section */}

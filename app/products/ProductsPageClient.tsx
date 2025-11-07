@@ -26,7 +26,8 @@ const CATEGORIES = [
   { id: 'scalp-hair', name: 'Scalp/Hair' },
   { id: 'eye-care', name: 'Eye care' },
   { id: 'device', name: 'Device' },
-  { id: 'kits', name: 'Holiday kits' }
+  { id: 'kits', name: 'Holiday kits' },
+  { id: 'beauty-boxes', name: 'Beauty Boxes' }
 ] as const
 
 export default function ProductsPageClient() {
@@ -87,7 +88,8 @@ export default function ProductsPageClient() {
       'cushion-bb': 'Cushion BB',
       'scalp-hair': 'Scalp/Hair',
       'eye-care': 'Eye care',
-      'kits': 'kits'
+      'kits': 'kits',
+      'beauty-boxes': 'Beauty Boxes'
     }
     
     const expectedCategory = categoryMapping[activeCategory] || 

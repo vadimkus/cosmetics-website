@@ -102,6 +102,13 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
       'INTENSIVE PROBLEM CONTROL CREAM': '30',
       'Intensive problem control cream': '30',
       'Intensive Problem Control Cream': '30',
+      // Charming Look Beauty Box items
+      'SKIN CARING BLEMISH BALM CUSHION': '41',
+      'Skin Caring Blemish Balm Cushion': '41',
+      'SKIN DEFENDER LIP & EYE MAKEUP REMOVER': '11',
+      'Skin Defender Lip & Eye Makeup Remover': '11',
+      'SKIN RESCUE OVERNIGHT CREAM MASK': '34',
+      'Skin Rescue Overnight Cream Mask': '34',
     }
     
     // Normalize product name for matching (uppercase, remove extra spaces)
@@ -227,6 +234,10 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
                   const isSoothingBombItem = (product.id === '56' || product.productNumber === '56') && 
                     (item.name.toLowerCase().includes('soothing bomb') || item.name.toLowerCase().includes('sea algae'))
                   
+                  // Check if this is the Skin Rescue Overnight Cream Mask item for product 57
+                  const isOvernightMaskItem = (product.id === '57' || product.productNumber === '57') && 
+                    (item.name.toLowerCase().includes('skin rescue') || item.name.toLowerCase().includes('overnight'))
+                  
                   return (
                     <div key={index}>
                       <div
@@ -305,6 +316,53 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
                               <div className="flex-1 min-w-0">
                                 <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">Soothing Bomb Sea Algae Mask</h4>
                                 <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">Use 2-3 times per week to complement your routine. It provides intensive hydration and soothes skin while enhancing the brightening effects.</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Skincare Routine Block - Mobile only - Only for Charming Look Beauty Box (product 57) - After Overnight Mask item */}
+                      {isOvernightMaskItem && (
+                        <div className="block lg:hidden bg-pink-50 border-2 border-pink-200 rounded-xl p-3 sm:p-4 md:p-6 shadow-md mt-4">
+                          <div className="flex items-center gap-2 mb-3 md:mb-4">
+                            <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-pink-600 flex-shrink-0" />
+                            <h3 className="text-base sm:text-lg md:text-xl font-bold text-gray-900 leading-tight">Recommended Skincare & Makeup Routine</h3>
+                          </div>
+                          <div className="space-y-2.5 sm:space-y-3 md:space-y-4">
+                            <div className="flex items-start gap-2 sm:gap-3">
+                              <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-pink-600 text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">1</span>
+                              <div className="flex-1 min-w-0">
+                                <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">Snow O₂ Cleanser</h4>
+                                <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">Start your routine by cleansing your face with Snow O₂. Apply to dry skin, wait for oxygen bubbles to form, then gently massage and rinse with lukewarm water.</p>
+                              </div>
+                            </div>
+                            <div className="flex items-start gap-2 sm:gap-3">
+                              <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-pink-600 text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">2</span>
+                              <div className="flex-1 min-w-0">
+                                <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">Snow Booster Toner</h4>
+                                <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">After cleansing, apply the toner to moisturize and refine skin texture. It helps balance pH level and prepares your skin for makeup application.</p>
+                              </div>
+                            </div>
+                            <div className="flex items-start gap-2 sm:gap-3">
+                              <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-pink-600 text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">3</span>
+                              <div className="flex-1 min-w-0">
+                                <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">Skin Caring Blemish Balm Cushion</h4>
+                                <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">Apply the BB cushion for natural coverage and skin protection. It covers redness and blemishes while providing SPF 50+ PA++++ protection for a flawless, radiant look.</p>
+                              </div>
+                            </div>
+                            <div className="flex items-start gap-2 sm:gap-3">
+                              <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-pink-600 text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">4</span>
+                              <div className="flex-1 min-w-0">
+                                <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">Professional Biphasic Make Up Remover</h4>
+                                <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">At the end of the day, shake well and use the makeup remover to gently cleanse lip and eye makeup. The biphasic formula removes makeup without irritation while nourishing the delicate areas.</p>
+                              </div>
+                            </div>
+                            <div className="flex items-start gap-2 sm:gap-3">
+                              <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-pink-600 text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">5</span>
+                              <div className="flex-1 min-w-0">
+                                <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">Skin Rescue Overnight Cream Mask</h4>
+                                <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">Before bed, apply the overnight mask to revitalize and provide intensive care to fatigued skin. The oxygen capsules and pink ceramide complex work together to restore and protect your skin overnight.</p>
                               </div>
                             </div>
                           </div>

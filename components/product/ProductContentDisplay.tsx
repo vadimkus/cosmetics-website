@@ -85,16 +85,37 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
       'MULTI VITA RADIANCE CREAM': '31',
       'GENOSYS MULTI VITA RADIANCE CREAM': '31',
       'SNOW O₂ CLEANSER': '10',
+      'SNOW O2': '10',
+      'Snow O2': '10',
+      'SNOW BOOSTER': '16',
+      'Snow Booster': '16',
+      'EPI TURNOVER BOOSTING PEELING GEL': '12',
+      'EPI Turnover Boosting Peeling Gel': '12',
+      'SOOTHING BOMB SEA ALGAE MASK': '36',
+      'Soothing Bomb Sea Algae Mask': '36',
+      // Problem Skin Care Beauty Box items
+      'PROBLEM CONTROL TONER': '15',
+      'Problem Control Toner': '15',
+      'PROBLEM CONTROL SERUM': '20',
+      'Problem control serum': '20',
+      'Problem Control Serum': '20',
+      'INTENSIVE PROBLEM CONTROL CREAM': '30',
+      'Intensive problem control cream': '30',
+      'Intensive Problem Control Cream': '30',
     }
+    
+    // Normalize product name for matching (uppercase, remove extra spaces)
+    const normalizedName = productName.toUpperCase().trim()
     
     // Try exact match first
-    if (productMap[productName]) {
-      return `/products/${productMap[productName]}`
+    if (productMap[normalizedName]) {
+      return `/products/${productMap[normalizedName]}`
     }
     
-    // Try partial match
+    // Try partial match - check if any key is contained in the product name or vice versa
     for (const [key, id] of Object.entries(productMap)) {
-      if (productName.includes(key) || key.includes(productName)) {
+      const normalizedKey = key.toUpperCase()
+      if (normalizedName.includes(normalizedKey) || normalizedKey.includes(normalizedName)) {
         return `/products/${id}`
       }
     }
@@ -102,9 +123,76 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
     return null
   }
 
+  // Convert description to concise bullet points
+  const formatDescriptionAsBullets = (description: string): string[] => {
+    if (!description) return []
+    
+    const bullets: string[] = []
+    const lines = description.split('\n').filter(Boolean)
+    
+    // Extract key information
+    let mainDescription = ''
+    let keyIngredients: string[] = []
+    let benefits: string[] = []
+    
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i]?.trim()
+      if (!line) continue
+      
+      // Extract main description (first sentence or two)
+      if (!mainDescription && line && !line.includes('Key ingredients:') && !line.includes('Dermatologically tested')) {
+        // Get first sentence or first 100 characters
+        const sentences = line.split('.')
+        const firstSentence = sentences[0]
+        if (firstSentence && firstSentence.length < 150) {
+          mainDescription = firstSentence.trim()
+        } else {
+          mainDescription = line.substring(0, 120).trim() + '...'
+        }
+      }
+      
+      // Extract key ingredients
+      if (line.includes('Key ingredients:')) {
+        const ingredientsLine = line.replace('Key ingredients:', '').trim()
+        if (ingredientsLine) {
+          // Split by comma and clean up
+          keyIngredients = ingredientsLine.split(',').map(ing => ing.trim()).filter(Boolean)
+        }
+      }
+      
+      // Extract benefits (look for common benefit phrases)
+      if (line.toLowerCase().includes('helps') || line.toLowerCase().includes('provides') || line.toLowerCase().includes('improves')) {
+        const sentences = line.split('.')
+        const benefit = sentences[0]?.trim()
+        if (benefit && benefit.length < 100 && !benefits.includes(benefit)) {
+          benefits.push(benefit)
+        }
+      }
+    }
+    
+    // Build bullet points
+    if (mainDescription) {
+      bullets.push(mainDescription)
+    }
+    
+    // Add up to 3 key benefits
+    if (benefits.length > 0) {
+      bullets.push(...benefits.slice(0, 3))
+    }
+    
+    // Add key ingredients if available (limit to 3-4 main ones)
+    if (keyIngredients.length > 0) {
+      const mainIngredients = keyIngredients.slice(0, 4).join(', ')
+      if (mainIngredients) {
+        bullets.push(`Key ingredients: ${mainIngredients}`)
+      }
+    }
+    
+    return bullets.length > 0 ? bullets : [description.substring(0, 150) + '...']
+  }
+
   // Color palette for kit items
   const kitItemColors = [
-    { bg: 'bg-blue-50', border: 'border-blue-200', text: 'text-blue-900', title: 'text-blue-800' },
     { bg: 'bg-purple-50', border: 'border-purple-200', text: 'text-purple-900', title: 'text-purple-800' },
     { bg: 'bg-pink-50', border: 'border-pink-200', text: 'text-pink-900', title: 'text-pink-800' },
     { bg: 'bg-cyan-50', border: 'border-cyan-200', text: 'text-cyan-900', title: 'text-cyan-800' },
@@ -135,32 +223,93 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
                   const colors = kitItemColors[index % kitItemColors.length]
                   if (!colors) return null
                   
+                  // Check if this is the Soothing Bomb Sea Algae Mask item for product 56
+                  const isSoothingBombItem = (product.id === '56' || product.productNumber === '56') && 
+                    (item.name.toLowerCase().includes('soothing bomb') || item.name.toLowerCase().includes('sea algae'))
+                  
                   return (
-                    <div
-                      key={index}
-                      className={`${colors.bg} ${colors.border} border-2 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow`}
-                    >
-                      <div className="flex items-start gap-3">
-                        <span className={`${colors.title} font-bold text-xl flex-shrink-0 w-8 text-center`}>
-                          {item.number}
-                        </span>
-                        <div className="flex-1">
-                          {getProductLink(item.name) ? (
-                            <Link href={getProductLink(item.name)!}>
-                              <h4 className={`${colors.title} font-semibold text-sm mb-2 hover:underline cursor-pointer transition-colors`}>
-                              {item.name}
-                            </h4>
-                            </Link>
-                          ) : (
-                            <h4 className={`${colors.title} font-semibold text-sm mb-2`}>
-                              {item.name}
-                            </h4>
-                          )}
-                          <p className={`${colors.text} text-sm leading-relaxed`}>
-                            {item.description}
-                          </p>
+                    <div key={index}>
+                      <div
+                        className={`${colors.bg} ${colors.border} border-2 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow`}
+                      >
+                        <div className="flex items-start gap-3">
+                          <span className={`${colors.title} font-bold text-xl flex-shrink-0 w-8 text-center`}>
+                            {item.number}
+                          </span>
+                          <div className="flex-1">
+                            {getProductLink(item.name) ? (
+                              <Link href={getProductLink(item.name)!}>
+                                <h4 className={`${colors.title} font-semibold text-sm mb-2 hover:underline cursor-pointer transition-colors`}>
+                                {item.name}
+                              </h4>
+                              </Link>
+                            ) : (
+                              <h4 className={`${colors.title} font-semibold text-sm mb-2`}>
+                                {item.name}
+                              </h4>
+                            )}
+                            <ul className={`${colors.text} text-sm leading-relaxed space-y-1 list-disc list-inside`}>
+                              {formatDescriptionAsBullets(item.description).map((bullet, bulletIndex) => (
+                                <li key={bulletIndex}>{bullet}</li>
+                              ))}
+                            </ul>
+                          </div>
                         </div>
                       </div>
+                      
+                      {/* Skincare Routine Block - Mobile only - Only for Skin Brightening Beauty Box (product 56) - After Soothing Bomb item */}
+                      {isSoothingBombItem && (
+                        <div className="block lg:hidden bg-orange-50 border-2 border-orange-200 rounded-xl p-3 sm:p-4 md:p-6 shadow-md mt-4">
+                          <div className="flex items-center gap-2 mb-3 md:mb-4">
+                            <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-orange-600 flex-shrink-0" />
+                            <h3 className="text-base sm:text-lg md:text-xl font-bold text-gray-900 leading-tight">Recommended Skincare Routine</h3>
+                          </div>
+                          <div className="space-y-2.5 sm:space-y-3 md:space-y-4">
+                            <div className="flex items-start gap-2 sm:gap-3">
+                              <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-orange-600 text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">1</span>
+                              <div className="flex-1 min-w-0">
+                                <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">Snow O₂ Cleanser</h4>
+                                <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">Start your routine by cleansing your face with Snow O₂. Apply to dry skin, wait for oxygen bubbles to form, then gently massage and rinse with lukewarm water.</p>
+                              </div>
+                            </div>
+                            <div className="flex items-start gap-2 sm:gap-3">
+                              <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-orange-600 text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">2</span>
+                              <div className="flex-1 min-w-0">
+                                <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">Snow Booster Toner</h4>
+                                <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">After cleansing, apply the toner to moisturize and refine skin texture. It helps balance pH level and prepares your skin for the brightening treatment.</p>
+                              </div>
+                            </div>
+                            <div className="flex items-start gap-2 sm:gap-3">
+                              <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-orange-600 text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">3</span>
+                              <div className="flex-1 min-w-0">
+                                <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">Multi Vita Radiance Serum</h4>
+                                <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">Apply the serum to even skin tone and revive natural brightness. The MELAZERO® complex and multi vitamins work together to reduce dullness and reveal a brighter complexion.</p>
+                              </div>
+                            </div>
+                            <div className="flex items-start gap-2 sm:gap-3">
+                              <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-orange-600 text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">4</span>
+                              <div className="flex-1 min-w-0">
+                                <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">Multi Vita Radiance Cream</h4>
+                                <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">Finish with the cream to maintain and protect your brightened skin. It forms a moisturizing barrier and continues to even skin tone for a luminous glow.</p>
+                              </div>
+                            </div>
+                            <div className="flex items-start gap-2 sm:gap-3">
+                              <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-orange-600 text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">5</span>
+                              <div className="flex-1 min-w-0">
+                                <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">EPI Turnover Boosting Peeling Gel</h4>
+                                <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">Use 1-2 times per week to remove dead skin cells and smooth texture. This gentle enzymatic peeling gel reveals brighter, smoother skin without irritation.</p>
+                              </div>
+                            </div>
+                            <div className="flex items-start gap-2 sm:gap-3">
+                              <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-orange-600 text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">6</span>
+                              <div className="flex-1 min-w-0">
+                                <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">Soothing Bomb Sea Algae Mask</h4>
+                                <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">Use 2-3 times per week to complement your routine. It provides intensive hydration and soothes skin while enhancing the brightening effects.</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      )}
                     </div>
                   )
                 })}

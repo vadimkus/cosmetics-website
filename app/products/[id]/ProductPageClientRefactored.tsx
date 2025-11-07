@@ -151,9 +151,9 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
               isFavorite={isFavorite(product.id)}
             />
 
-            {/* Skincare Routine Block - Only for Problem Skin Care Beauty Box (product 55) */}
+            {/* Skincare Routine Block - Only for Problem Skin Care Beauty Box (product 55) - Desktop only */}
             {(product.id === '55' || product.productNumber === '55') && (
-              <div className="bg-blue-50 border-2 border-blue-200 rounded-xl p-3 sm:p-4 md:p-6 shadow-md mt-4">
+              <div className="hidden lg:block bg-blue-50 border-2 border-blue-200 rounded-xl p-3 sm:p-4 md:p-6 shadow-md mt-4">
                 <div className="flex items-center gap-2 mb-3 md:mb-4">
                   <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-blue-600 flex-shrink-0" />
                   <h3 className="text-base sm:text-lg md:text-xl font-bold text-gray-900 leading-tight">Recommended Skincare Routine</h3>

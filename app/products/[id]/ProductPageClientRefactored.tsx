@@ -299,6 +299,53 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
               </div>
             )}
 
+            {/* Skincare Routine Block - Only for Anti-Aging Beauty Box (product 58) - Desktop only */}
+            {(product.id === '58' || product.productNumber === '58') && (
+              <div className="hidden lg:block bg-red-50 border-2 border-red-200 rounded-xl p-3 sm:p-4 md:p-6 shadow-md mt-4">
+                <div className="flex items-center gap-2 mb-3 md:mb-4">
+                  <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-red-600 flex-shrink-0" />
+                  <h3 className="text-base sm:text-lg md:text-xl font-bold text-gray-900 leading-tight">Recommended Anti-Aging Routine</h3>
+                </div>
+                <div className="space-y-2.5 sm:space-y-3 md:space-y-4">
+                  <div className="flex items-start gap-2 sm:gap-3">
+                    <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-red-600 text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">1</span>
+                    <div className="flex-1 min-w-0">
+                      <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">Snow O₂ Cleanser</h4>
+                      <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">Start your routine by cleansing your face with Snow O₂. Apply to dry skin, wait for oxygen bubbles to form, then gently massage and rinse with lukewarm water.</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-2 sm:gap-3">
+                    <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-red-600 text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">2</span>
+                    <div className="flex-1 min-w-0">
+                      <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">Snow Booster Toner</h4>
+                      <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">After cleansing, apply the toner to moisturize and refine skin texture. It helps balance pH level and prepares your skin for the anti-aging treatment.</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-2 sm:gap-3">
+                    <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-red-600 text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">3</span>
+                    <div className="flex-1 min-w-0">
+                      <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">Multi Functional Anti-Wrinkle Serum</h4>
+                      <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">Apply the serum to visibly smooth wrinkles and reinforce skin firmness. The bakuchiol and anti-aging peptide complex work together to improve skin age index and reduce signs of aging.</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-2 sm:gap-3">
+                    <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-red-600 text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">4</span>
+                    <div className="flex-1 min-w-0">
+                      <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">Multifunctional Anti-Wrinkle Cream</h4>
+                      <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">Finish with the cream to lock in the anti-aging benefits and provide ongoing protection. It continues to smooth wrinkles and enhance skin firmness throughout the day.</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-2 sm:gap-3">
+                    <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-red-600 text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">5</span>
+                    <div className="flex-1 min-w-0">
+                      <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">Collagen Mask</h4>
+                      <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">Use 2-3 times per week to complement your routine. The collagen mask provides intensive hydration and supports skin elasticity for enhanced anti-aging results.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
             {/* Product Recommendation Section - Only for product 22 - Desktop only */}
             {(product.id === '22' || product.productNumber === '22') && (
               <div className="hidden lg:block">

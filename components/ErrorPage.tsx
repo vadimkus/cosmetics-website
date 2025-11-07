@@ -1,7 +1,8 @@
 'use client'
 
-import { AlertTriangle, RefreshCw, Home, ArrowLeft, WifiOff } from 'lucide-react'
+import { RefreshCw, Home, ArrowLeft } from 'lucide-react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { useState } from 'react'
 
 interface ErrorPageProps {
@@ -17,8 +18,8 @@ interface ErrorPageProps {
 }
 
 export default function ErrorPage({
-  title = "Oops! Something went wrong",
-  message = "We're experiencing some technical difficulties. Please try again in a moment.",
+  title = "Ghost in the machine!",
+  message = "No worries, we'll get him!",
   error,
   showRetry = true,
   showHome = true,
@@ -43,16 +44,15 @@ export default function ErrorPage({
   }
 
   const getIcon = () => {
-    switch (type) {
-      case 'network':
-        return <WifiOff className="h-16 w-16 text-orange-500" />
-      case 'not-found':
-        return <AlertTriangle className="h-16 w-16 text-blue-500" />
-      case 'server':
-        return <AlertTriangle className="h-16 w-16 text-red-500" />
-      default:
-        return <AlertTriangle className="h-16 w-16 text-red-500" />
-    }
+    return (
+      <Image
+        src="/images/wrong/wrong.png"
+        alt="Error"
+        width={64}
+        height={64}
+        className="h-16 w-16"
+      />
+    )
   }
 
   const getBackgroundGradient = () => {
@@ -90,9 +90,9 @@ export default function ErrorPage({
           {/* Error Details (if provided) */}
           {error && (
             <div className="bg-gray-50 rounded-lg p-4 mb-6 text-left">
-              <p className="text-sm text-gray-500 mb-1">Error details:</p>
+              <p className="text-sm text-gray-500 mb-1">What's going on:</p>
               <p className="text-sm text-red-600 font-mono break-all">
-                {error}
+                {error.replace('Internal Server Error', 'Internal Server Boom-Boom')}
               </p>
             </div>
           )}
@@ -145,7 +145,7 @@ export default function ErrorPage({
           {/* Help Text */}
           <div className="mt-6 pt-6 border-t border-gray-200">
             <p className="text-xs text-gray-500">
-              If this problem persists, please contact our support team at{' '}
+              If this goes on, send us a mail at{' '}
               <a 
                 href="mailto:sales@genosys.ae" 
                 className="text-primary-600 hover:text-primary-700 underline"

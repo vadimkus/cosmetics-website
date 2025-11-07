@@ -116,6 +116,13 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
       'Multifunctional Anti-Wrinkle cream': '32',
       'COLLAGEN MASK': '36',
       'Collagen mask': '36',
+      // Deep Moisturizing Beauty Box items
+      'MOISTURE REPLENISHING HYALURON SERUM': '18',
+      'Moisture Replenishing Hyaluron serum': '18',
+      'Moisture Replenishing Hyaluron Serum': '18',
+      'MOISTURE REPLENISHING HYALURON CREAM': '29',
+      'Moisture Replenishing Hyaluron cream': '29',
+      'Moisture Replenishing Hyaluron Cream': '29',
     }
     
     // Normalize product name for matching (uppercase, remove extra spaces)
@@ -237,17 +244,21 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
                   const colors = kitItemColors[index % kitItemColors.length]
                   if (!colors) return null
                   
-                  // Check if this is the Soothing Bomb Sea Algae Mask item for product 56
-                  const isSoothingBombItem = (product.id === '56' || product.productNumber === '56') && 
-                    (item.name.toLowerCase().includes('soothing bomb') || item.name.toLowerCase().includes('sea algae'))
-                  
-                  // Check if this is the Skin Rescue Overnight Cream Mask item for product 57
-                  const isOvernightMaskItem = (product.id === '57' || product.productNumber === '57') && 
-                    (item.name.toLowerCase().includes('skin rescue') || item.name.toLowerCase().includes('overnight'))
-                  
-                  // Check if this is the Collagen mask item for product 58
-                  const isCollagenMaskItem = (product.id === '58' || product.productNumber === '58') && 
-                    (item.name.toLowerCase().includes('collagen mask') || item.name.toLowerCase().includes('collagen'))
+                        // Check if this is the Soothing Bomb Sea Algae Mask item for product 56
+                        const isSoothingBombItem = (product.id === '56' || product.productNumber === '56') && 
+                          (item.name.toLowerCase().includes('soothing bomb') || item.name.toLowerCase().includes('sea algae'))
+                        
+                        // Check if this is the Soothing Bomb Sea Algae Mask item for product 59
+                        const isSoothingBombItem59 = (product.id === '59' || product.productNumber === '59') && 
+                          (item.name.toLowerCase().includes('soothing bomb') || item.name.toLowerCase().includes('sea algae'))
+                        
+                        // Check if this is the Skin Rescue Overnight Cream Mask item for product 57
+                        const isOvernightMaskItem = (product.id === '57' || product.productNumber === '57') && 
+                          (item.name.toLowerCase().includes('skin rescue') || item.name.toLowerCase().includes('overnight'))
+                        
+                        // Check if this is the Collagen mask item for product 58
+                        const isCollagenMaskItem = (product.id === '58' || product.productNumber === '58') && 
+                          (item.name.toLowerCase().includes('collagen mask') || item.name.toLowerCase().includes('collagen'))
                   
                   return (
                     <div key={index}>
@@ -421,6 +432,53 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
                               <div className="flex-1 min-w-0">
                                 <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">Collagen Mask</h4>
                                 <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">Use 2-3 times per week to complement your routine. The collagen mask provides intensive hydration and supports skin elasticity for enhanced anti-aging results.</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                      
+                      {/* Skincare Routine Block - Mobile only - Only for Deep Moisturizing Beauty Box (product 59) - After Soothing Bomb item */}
+                      {isSoothingBombItem59 && (
+                        <div className="block lg:hidden bg-cyan-50 border-2 border-cyan-200 rounded-xl p-3 sm:p-4 md:p-6 shadow-md mt-4">
+                          <div className="flex items-center gap-2 mb-3 md:mb-4">
+                            <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-cyan-600 flex-shrink-0" />
+                            <h3 className="text-base sm:text-lg md:text-xl font-bold text-gray-900 leading-tight">Recommended Deep Moisturizing Routine</h3>
+                          </div>
+                          <div className="space-y-2.5 sm:space-y-3 md:space-y-4">
+                            <div className="flex items-start gap-2 sm:gap-3">
+                              <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-cyan-600 text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">1</span>
+                              <div className="flex-1 min-w-0">
+                                <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">Snow O₂ Cleanser</h4>
+                                <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">Start your routine by cleansing your face with Snow O₂. Apply to dry skin, wait for oxygen bubbles to form, then gently massage and rinse with lukewarm water.</p>
+                              </div>
+                            </div>
+                            <div className="flex items-start gap-2 sm:gap-3">
+                              <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-cyan-600 text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">2</span>
+                              <div className="flex-1 min-w-0">
+                                <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">Snow Booster Toner</h4>
+                                <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">After cleansing, apply the toner to moisturize and refine skin texture. It helps balance pH level and prepares your skin for deep hydration treatment.</p>
+                              </div>
+                            </div>
+                            <div className="flex items-start gap-2 sm:gap-3">
+                              <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-cyan-600 text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">3</span>
+                              <div className="flex-1 min-w-0">
+                                <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">Moisture Replenishing Hyaluron Serum</h4>
+                                <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">Apply the serum to deeply replenish moisture and support the skin barrier. The hyaluronic acid complex delivers intensive hydration for plump, glowing skin.</p>
+                              </div>
+                            </div>
+                            <div className="flex items-start gap-2 sm:gap-3">
+                              <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-cyan-600 text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">4</span>
+                              <div className="flex-1 min-w-0">
+                                <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">Moisture Replenishing Hyaluron Cream</h4>
+                                <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">Finish with the cream to lock in moisture and maintain hydration throughout the day. It forms a protective barrier and leaves your complexion soft, plump, and glowing.</p>
+                              </div>
+                            </div>
+                            <div className="flex items-start gap-2 sm:gap-3">
+                              <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-cyan-600 text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">5</span>
+                              <div className="flex-1 min-w-0">
+                                <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">Soothing Bomb Sea Algae Mask</h4>
+                                <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">Use 2-3 times per week to complement your routine. It provides intensive hydration and soothes skin while enhancing the moisturizing effects for optimal results.</p>
                               </div>
                             </div>
                           </div>

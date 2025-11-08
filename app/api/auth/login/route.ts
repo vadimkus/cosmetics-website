@@ -47,12 +47,23 @@ export async function POST(request: NextRequest) {
     // Apply rate limiting - fail closed for security
     debugLog('[LOGIN] Applying rate limiting...', Date.now() - startTime, 'ms')
     const rateLimitStart = Date.now()
-    const rateLimitResult = await loginLimiter(clientIdentifier)
+    let rateLimitResult
+    try {
+      rateLimitResult = await loginLimiter(clientIdentifier)
+    } catch (rateLimitError) {
+      errorLog('[LOGIN] Rate limiting error:', rateLimitError)
+      // Fail closed - reject request if rate limiting fails
+      return NextResponse.json(
+        { error: 'Rate limiting service unavailable. Please try again later.' },
+        { status: 503 }
+      )
+    }
     debugLog('[LOGIN] Rate limiting completed', Date.now() - rateLimitStart, 'ms')
-    if (!rateLimitResult.success) {
+    
+    if (!rateLimitResult || !rateLimitResult.success) {
       debugLog('[LOGIN] Rate limit exceeded')
       return NextResponse.json(
-        { error: rateLimitResult.message || 'Rate limit exceeded' },
+        { error: rateLimitResult?.message || 'Rate limit exceeded' },
         { status: 429 }
       )
     }

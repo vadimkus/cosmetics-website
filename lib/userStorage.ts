@@ -1,6 +1,7 @@
 import { errorLog } from '@/lib/logger'
 import fs from 'fs'
 import path from 'path'
+import { User } from '@/types/user'
 
 // Use environment-specific data directory
 const getDataPath = () => {
@@ -28,7 +29,7 @@ const ensureDataDirectory = () => {
 }
 
 // Read users from file
-export const readUsers = (): any[] => {
+export const readUsers = (): User[] => {
   try {
     ensureDataDirectory()
     if (!fs.existsSync(USERS_FILE)) {
@@ -70,7 +71,7 @@ export const readUsers = (): any[] => {
 }
 
 // Write users to file
-export const writeUsers = (users: any[]): void => {
+export const writeUsers = (users: User[]): void => {
   try {
     ensureDataDirectory()
     fs.writeFileSync(USERS_FILE, JSON.stringify(users, null, 2))
@@ -80,31 +81,31 @@ export const writeUsers = (users: any[]): void => {
 }
 
 // Get all users (alias for readUsers)
-export const getAllUsers = (): any[] => {
+export const getAllUsers = (): User[] => {
   return readUsers()
 }
 
 // Add a new user
-export const addUser = (user: any): void => {
+export const addUser = (user: User): void => {
   const users = readUsers()
   users.push(user)
   writeUsers(users)
 }
 
 // Find user by email
-export const findUserByEmail = (email: string): any | null => {
+export const findUserByEmail = (email: string): User | null => {
   const users = readUsers()
   return users.find(u => u.email === email) || null
 }
 
 // Find user by ID
-export const findUserById = (id: string): any | null => {
+export const findUserById = (id: string): User | null => {
   const users = readUsers()
   return users.find(u => u.id === id) || null
 }
 
 // Update user
-export const updateUser = (userId: string, updates: any): boolean => {
+export const updateUser = (userId: string, updates: Partial<User>): boolean => {
   const users = readUsers()
   const userIndex = users.findIndex(u => u.id === userId)
   
@@ -112,7 +113,7 @@ export const updateUser = (userId: string, updates: any): boolean => {
     return false
   }
   
-  users[userIndex] = { ...users[userIndex], ...updates }
+  users[userIndex] = { ...users[userIndex], ...updates } as User
   writeUsers(users)
   return true
 }
@@ -150,22 +151,24 @@ export const cleanupDuplicateUsers = (): void => {
 }
 
 // Find or create user by email (for cross-device consistency)
-export const findOrCreateUser = (email: string, userData: any): any => {
+export const findOrCreateUser = (email: string, userData: Partial<User>): User => {
   const users = readUsers()
   let user = users.find(u => u.email === email)
   
   if (!user) {
     // Create new user
-    user = {
+    const newUser: User = {
       id: Date.now().toString(),
       email,
+      name: userData.name || '',
       ...userData,
       createdAt: new Date().toISOString()
     }
-    addUser(user)
+    addUser(newUser)
+    user = newUser
   } else {
     // Update existing user with new data (but keep original creation date)
-    const updatedUser = {
+    const updatedUser: User = {
       ...user,
       ...userData,
       createdAt: user.createdAt // Keep original creation date

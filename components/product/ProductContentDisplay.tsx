@@ -10,12 +10,12 @@ interface ProductContentDisplayProps {
 }
 
 export default function ProductContentDisplay({ product }: ProductContentDisplayProps) {
-  // Parse JSON fields safely
-  const productDetails = product.productDetails ? tryParseJSON(product.productDetails) : null
-  const keyFeatures = product.keyFeatures ? tryParseJSON(product.keyFeatures) : null
-  const benefits = product.benefits ? tryParseJSON(product.benefits) : null
-  const ingredients = product.ingredients ? tryParseJSON(product.ingredients) : null
-  const howToUse = product.howToUse ? tryParseJSON(product.howToUse) : null
+  // Parse JSON fields safely with proper type assertions
+  const productDetails = product.productDetails ? (tryParseJSON(product.productDetails) as Record<string, string> | string) : null
+  const keyFeatures = product.keyFeatures ? (tryParseJSON(product.keyFeatures) as Array<{ title?: string; description?: string }> | string) : null
+  const benefits = product.benefits ? (tryParseJSON(product.benefits) as string[] | string) : null
+  const ingredients = product.ingredients ? (tryParseJSON(product.ingredients) as Array<{ name?: string; description?: string; subList?: string[] }> | string) : null
+  const howToUse = product.howToUse ? (tryParseJSON(product.howToUse) as string) : null
   const documentation = getProductDocumentation(product.id)
 
   // Parse description for kit items
@@ -548,11 +548,11 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
       )}
 
       {/* Product Details - Always just the specs */}
-      {productDetails && (
+      {productDetails && typeof productDetails === 'object' && !Array.isArray(productDetails) && (
         <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
           <h3 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h3>
           <div className="space-y-2 text-blue-800 text-sm">
-            {Object.entries(productDetails).map(([key, value]) => (
+            {Object.entries(productDetails as Record<string, string>).map(([key, value]) => (
               <p key={key}>
                 <strong>{formatKey(key)}:</strong> {String(value)}
               </p>
@@ -599,7 +599,7 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
         <div>
           <h2 className="font-semibold text-gray-800 mb-3 text-sm">Key Features</h2>
           <div className="space-y-3">
-            {keyFeatures.map((feature, index) => (
+            {(keyFeatures as Array<{ title?: string; description?: string }>).map((feature, index) => (
               <div key={index} className="bg-gray-50 border border-gray-200 rounded-lg p-3">
                 <h3 className="font-semibold text-gray-800 mb-1 text-sm">
                   {feature.title}
@@ -618,7 +618,7 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
         <div>
           <h2 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h2>
           <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
-            {benefits.map((benefit, index) => (
+            {(benefits as string[]).map((benefit, index) => (
               <li key={index}>{benefit}</li>
             ))}
           </ul>
@@ -702,7 +702,7 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
 }
 
 // Helper function to safely parse JSON - returns original string if not valid JSON
-function tryParseJSON(jsonString: string): any {
+function tryParseJSON(jsonString: string): unknown {
   try {
     return JSON.parse(jsonString)
   } catch (error) {

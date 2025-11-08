@@ -1,6 +1,7 @@
 import { debugLog, errorLog } from '@/lib/logger'
 import { addUser as addUserDb, findUserByEmail as findUserByEmailDb } from './userStorageDb'
 import { addUser as addUserFile, findUserByEmail as findUserByEmailFile } from './userStorage'
+import { User } from '@/types/user'
 
 export interface UserData {
   id?: string
@@ -31,9 +32,23 @@ export const addUser = async (userData: UserData) => {
     try {
       // Fallback to file storage
       debugLog('🔄 Adding user to file storage...')
-      const user = addUserFile(userData)
+      const userToAdd: User = {
+        id: userData.id || Date.now().toString(),
+        name: userData.name,
+        email: userData.email,
+        phone: userData.phone || null,
+        address: userData.address || null,
+        profilePicture: userData.profilePicture || null,
+        isAdmin: userData.isAdmin || false,
+        canSeePrices: userData.canSeePrices ?? true,
+        discountType: userData.discountType || null,
+        discountPercentage: userData.discountPercentage || null,
+        birthday: userData.birthday || null,
+        createdAt: userData.createdAt || new Date().toISOString()
+      }
+      addUserFile(userToAdd)
       debugLog('✅ User added to file storage successfully')
-      return user
+      return userToAdd
     } catch (fileError) {
       errorLog('❌ File storage error:', fileError)
       throw new Error('Failed to create user in both database and file storage')

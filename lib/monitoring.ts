@@ -76,6 +76,7 @@ class ConsoleMonitoringService extends MonitoringService {
  * Sentry monitoring service (production)
  */
 class SentryMonitoringService extends MonitoringService {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private sentry: any = null
 
   async init(): Promise<void> {
@@ -151,6 +152,7 @@ class SentryMonitoringService extends MonitoringService {
  * LogRocket monitoring service (production)
  */
 class LogRocketMonitoringService extends MonitoringService {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private logRocket: any = null
 
   async init(): Promise<void> {

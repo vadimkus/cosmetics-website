@@ -2,6 +2,7 @@ import { debugLog, errorLog } from '@/lib/logger'
 import { PrismaClient } from '@prisma/client'
 import { readUsers } from '../lib/userStorage'
 import { readOrders } from '../lib/orderStorage'
+import { User } from '@/types/user'
 
 const prisma = new PrismaClient()
 
@@ -13,11 +14,13 @@ async function migrateUsers() {
   
   for (const user of users) {
     try {
+      // Cast user to include password field (from file storage)
+      const userWithPassword = user as User & { password?: string }
       await prisma.user.upsert({
         where: { email: user.email },
         update: {
           name: user.name,
-          password: user.password,
+          password: userWithPassword.password || '',
           phone: user.phone || null,
           address: user.address || null,
           profilePicture: user.profilePicture || null,
@@ -31,7 +34,7 @@ async function migrateUsers() {
           id: user.id,
           email: user.email,
           name: user.name,
-          password: user.password,
+          password: userWithPassword.password || '',
           phone: user.phone || null,
           address: user.address || null,
           profilePicture: user.profilePicture || null,

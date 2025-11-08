@@ -22,8 +22,17 @@ export function calculateDiscountedPrice(product: Product, user: User | null): D
   let discountPercentage = 0
   let hasDiscount = false
 
+  // Check if product should be excluded from discounts
+  // Exclude if: noDiscount flag is true OR category is "Beauty Boxes" OR product ID/productNumber is "35" OR product ID/productNumber is "54"
+  const isExcludedFromDiscount = product.noDiscount || 
+    product.category === 'Beauty Boxes' || 
+    product.id === '35' || 
+    product.productNumber === '35' ||
+    product.id === '54' || 
+    product.productNumber === '54'
+
   // Check if user has discount and product is not excluded from discounts
-  if (user && user.discountType && user.discountPercentage && user.discountPercentage > 0 && !product.noDiscount) {
+  if (user && user.discountType && user.discountPercentage && user.discountPercentage > 0 && !isExcludedFromDiscount) {
     discountPercentage = user.discountPercentage
     discountAmount = (originalPrice * discountPercentage) / 100
     discountedPrice = originalPrice - discountAmount

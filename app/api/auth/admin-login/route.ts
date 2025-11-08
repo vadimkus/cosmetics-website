@@ -23,10 +23,21 @@ export async function POST(request: NextRequest) {
     }
 
     // Apply rate limiting - fail closed for security
-    const rateLimitResult = await adminLoginLimiter(clientIdentifier)
-    if (!rateLimitResult.success) {
+    let rateLimitResult
+    try {
+      rateLimitResult = await adminLoginLimiter(clientIdentifier)
+    } catch (rateLimitError) {
+      errorLog('Admin login rate limiting error:', rateLimitError)
+      // Fail closed - reject request if rate limiting fails
       return NextResponse.json(
-        { error: rateLimitResult.message || 'Rate limit exceeded' },
+        { error: 'Rate limiting service unavailable. Please try again later.' },
+        { status: 503 }
+      )
+    }
+    
+    if (!rateLimitResult || !rateLimitResult.success) {
+      return NextResponse.json(
+        { error: rateLimitResult?.message || 'Rate limit exceeded' },
         { status: 429 }
       )
     }

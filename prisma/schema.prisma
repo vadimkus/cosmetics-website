@@ -61,6 +61,9 @@ model Product {
   // Rating fields
   rating         Float?   @default(5.0) // Product rating out of 5
 
+  @@index([category]) // Index for faster category filtering
+  @@index([isHidden]) // Index for filtering hidden products
+  @@index([noDiscount]) // Index for discount exclusion queries
   @@map("products")
 }
 
@@ -84,6 +87,7 @@ model Order {
   items           OrderItem[]
   customer        User        @relation(fields: [customerEmail], references: [email])
 
+  @@index([customerEmail]) // Index for faster order lookups by email
   @@map("orders")
 }
 
@@ -97,6 +101,7 @@ model OrderItem {
   image       String
   order       Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
 
+  @@index([orderId]) // Index for faster order item lookups
   @@map("order_items")
 }
 
@@ -117,6 +122,8 @@ model PageView {
   screenWidth  Int?
   city         String?
 
+  @@index([timestamp]) // Index for faster analytics queries by time
+  @@index([userId]) // Index for user-specific analytics
   @@map("page_views")
 }
 

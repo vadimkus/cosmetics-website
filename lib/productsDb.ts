@@ -28,6 +28,25 @@ export interface Product {
   rating?: number | null // Product rating out of 5
 }
 
+/**
+ * Check if a product should be hidden
+ * @param product - The product to check
+ * @returns true if product should be hidden
+ */
+function shouldHideInProduction(product: Product): boolean {
+  // Hide product ID 2 or productNumber 2 (hidden in all environments)
+  return product.id === '2' || product.productNumber === '2'
+}
+
+/**
+ * Filter out products that should be hidden in production
+ * @param products - Array of products to filter
+ * @returns Filtered array of products
+ */
+function filterHiddenProducts(products: Product[]): Product[] {
+  return products.filter(product => !shouldHideInProduction(product))
+}
+
 export async function getAllProducts(): Promise<Product[]> {
   try {
     const products = await prisma.product.findMany({
@@ -35,7 +54,7 @@ export async function getAllProducts(): Promise<Product[]> {
         name: 'asc'
       }
     })
-    return products
+    return filterHiddenProducts(products)
   } catch (error) {
     errorLog('Error fetching products from database:', error)
     throw new Error('Failed to fetch products')
@@ -54,6 +73,11 @@ export async function getProductById(id: string): Promise<Product | null> {
       product = await prisma.product.findUnique({
         where: { productNumber: id }
       })
+    }
+    
+    // Hide product 2 in production
+    if (product && shouldHideInProduction(product)) {
+      return null
     }
     
     return product
@@ -75,7 +99,7 @@ export async function getProductsByCategory(category: string): Promise<Product[]
         name: 'asc'
       }
     })
-    return products
+    return filterHiddenProducts(products)
   } catch (error) {
     errorLog('Error fetching products by category:', error)
     throw new Error('Failed to fetch products by category')
@@ -133,7 +157,7 @@ export async function searchProducts(query: string): Promise<Product[]> {
         name: 'asc'
       }
     })
-    return products
+    return filterHiddenProducts(products)
   } catch (error) {
     errorLog('Error searching products:', error)
     throw new Error('Failed to search products')
@@ -167,7 +191,7 @@ export async function getSkinRecommendations(filters: {
       })
       
       debugLog(`✅ Returning ${hairProducts.length} hair products`)
-      return hairProducts
+      return filterHiddenProducts(hairProducts)
     }
     
     // Build where clause for database query
@@ -208,8 +232,11 @@ export async function getSkinRecommendations(filters: {
     
     debugLog(`✅ Found ${products.length} products matching criteria`)
     
+    // Filter hidden products
+    const filteredProducts = filterHiddenProducts(products)
+    
     // If no products found with exact matches, try more flexible matching
-    if (products.length === 0) {
+    if (filteredProducts.length === 0) {
       debugLog('🔄 No exact matches found, trying flexible matching...')
       
       // Try without age group filter
@@ -226,7 +253,7 @@ export async function getSkinRecommendations(filters: {
         
         if (flexibleProducts.length > 0) {
           debugLog(`✅ Found ${flexibleProducts.length} products with flexible matching`)
-          return flexibleProducts
+          return filterHiddenProducts(flexibleProducts)
         }
       }
       
@@ -242,10 +269,10 @@ export async function getSkinRecommendations(filters: {
         }
       })
       
-      return allProductsWithSkinData
+      return filterHiddenProducts(allProductsWithSkinData)
     }
     
-    return products
+    return filteredProducts
   } catch (error) {
     errorLog('Error fetching skin recommendations:', error)
     throw new Error('Failed to fetch skin recommendations')

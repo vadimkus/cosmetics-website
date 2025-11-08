@@ -1,5 +1,6 @@
 import { debugLog, errorLog } from '@/lib/logger'
 import { prisma } from './prisma'
+import { Prisma } from '@prisma/client'
 
 export interface Product {
   id: string
@@ -192,8 +193,9 @@ export async function getSkinRecommendations(filters: {
       return hairProducts // No need to filter again since we filtered at DB level
     }
     
-    // Build where clause for database query
-    const whereClause: any = {
+    // Build where clause for database query with proper typing
+    // Using Prisma.ProductWhereInput ensures type safety while allowing dynamic field assignment
+    const whereClause: Prisma.ProductWhereInput = {
       inStock: true,
       isHidden: false, // Filter hidden products at database level
       skinType: { not: null } // Only products with skin type data
@@ -237,7 +239,7 @@ export async function getSkinRecommendations(filters: {
       
       // Try without age group filter
       if (ageGroup) {
-        const flexibleWhere = { ...whereClause }
+        const flexibleWhere: Prisma.ProductWhereInput = { ...whereClause }
         delete flexibleWhere.ageGroup
         
         const flexibleProducts = await prisma.product.findMany({

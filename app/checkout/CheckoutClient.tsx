@@ -705,7 +705,7 @@ export default function CheckoutClient() {
                     <span className="font-semibold">Delivery Information</span>
                   </div>
                   <p className="text-sm text-green-700">
-                    Your order will be delivered within {selectedEmirate === 'Dubai' ? '1-2 hours' : '24-36 hours'} in {selectedEmirate}.
+                    Your order will be delivered within {selectedEmirate === 'Dubai' ? '1-2 hours' : '24-36 hours'} {selectedEmirate === 'Dubai' ? 'in' : 'to'} {selectedEmirate}.
                   </p>
                 </div>
 

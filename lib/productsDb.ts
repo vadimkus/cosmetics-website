@@ -13,6 +13,7 @@ export interface Product {
   inStock: boolean
   size?: string | null
   noDiscount?: boolean
+  isHidden?: boolean
   // Detailed product content
   productDetails?: string | null // JSON object with key-value pairs
   keyFeatures?: string | null // JSON array of features
@@ -33,28 +34,22 @@ export interface Product {
  * @param product - The product to check
  * @returns true if product should be hidden
  */
-function shouldHideInProduction(product: Product): boolean {
-  // Hide product ID 2 or productNumber 2 (hidden in all environments)
-  return product.id === '2' || product.productNumber === '2'
-}
-
-/**
- * Filter out products that should be hidden in production
- * @param products - Array of products to filter
- * @returns Filtered array of products
- */
-function filterHiddenProducts(products: Product[]): Product[] {
-  return products.filter(product => !shouldHideInProduction(product))
+function shouldHideProduct(product: Product): boolean {
+  // Use database flag instead of hardcoded IDs
+  return product.isHidden === true
 }
 
 export async function getAllProducts(): Promise<Product[]> {
   try {
     const products = await prisma.product.findMany({
+      where: {
+        isHidden: false // Filter at database level for better performance
+      },
       orderBy: {
         name: 'asc'
       }
     })
-    return filterHiddenProducts(products)
+    return products // No need to filter again since we filtered at DB level
   } catch (error) {
     errorLog('Error fetching products from database:', error)
     throw new Error('Failed to fetch products')
@@ -75,8 +70,8 @@ export async function getProductById(id: string): Promise<Product | null> {
       })
     }
     
-    // Hide product 2 in production
-    if (product && shouldHideInProduction(product)) {
+    // Hide product if isHidden flag is set
+    if (product && shouldHideProduct(product)) {
       return null
     }
     
@@ -93,13 +88,14 @@ export async function getProductsByCategory(category: string): Promise<Product[]
       where: { 
         category: {
           contains: category
-        }
+        },
+        isHidden: false // Filter at database level
       },
       orderBy: {
         name: 'asc'
       }
     })
-    return filterHiddenProducts(products)
+    return products // No need to filter again since we filtered at DB level
   } catch (error) {
     errorLog('Error fetching products by category:', error)
     throw new Error('Failed to fetch products by category')
@@ -147,6 +143,7 @@ export async function searchProducts(query: string): Promise<Product[]> {
   try {
     const products = await prisma.product.findMany({
       where: {
+        isHidden: false, // Filter at database level
         OR: [
           { name: { contains: query } },
           { description: { contains: query } },
@@ -157,7 +154,7 @@ export async function searchProducts(query: string): Promise<Product[]> {
         name: 'asc'
       }
     })
-    return filterHiddenProducts(products)
+    return products // No need to filter again since we filtered at DB level
   } catch (error) {
     errorLog('Error searching products:', error)
     throw new Error('Failed to search products')
@@ -181,6 +178,7 @@ export async function getSkinRecommendations(filters: {
       const hairProducts = await prisma.product.findMany({
         where: {
           inStock: true,
+          isHidden: false, // Filter at database level
           targetConcerns: {
             contains: 'hair'
           }
@@ -191,12 +189,13 @@ export async function getSkinRecommendations(filters: {
       })
       
       debugLog(`✅ Returning ${hairProducts.length} hair products`)
-      return filterHiddenProducts(hairProducts)
+      return hairProducts // No need to filter again since we filtered at DB level
     }
     
     // Build where clause for database query
     const whereClause: any = {
       inStock: true,
+      isHidden: false, // Filter hidden products at database level
       skinType: { not: null } // Only products with skin type data
     }
     
@@ -232,11 +231,8 @@ export async function getSkinRecommendations(filters: {
     
     debugLog(`✅ Found ${products.length} products matching criteria`)
     
-    // Filter hidden products
-    const filteredProducts = filterHiddenProducts(products)
-    
     // If no products found with exact matches, try more flexible matching
-    if (filteredProducts.length === 0) {
+    if (products.length === 0) {
       debugLog('🔄 No exact matches found, trying flexible matching...')
       
       // Try without age group filter
@@ -253,7 +249,7 @@ export async function getSkinRecommendations(filters: {
         
         if (flexibleProducts.length > 0) {
           debugLog(`✅ Found ${flexibleProducts.length} products with flexible matching`)
-          return filterHiddenProducts(flexibleProducts)
+          return flexibleProducts // Already filtered at DB level
         }
       }
       
@@ -262,6 +258,7 @@ export async function getSkinRecommendations(filters: {
       const allProductsWithSkinData = await prisma.product.findMany({
         where: {
           inStock: true,
+          isHidden: false, // Filter at database level
           skinType: { not: null }
         },
         orderBy: {
@@ -269,10 +266,10 @@ export async function getSkinRecommendations(filters: {
         }
       })
       
-      return filterHiddenProducts(allProductsWithSkinData)
+      return allProductsWithSkinData // Already filtered at DB level
     }
     
-    return filteredProducts
+    return products
   } catch (error) {
     errorLog('Error fetching skin recommendations:', error)
     throw new Error('Failed to fetch skin recommendations')

@@ -42,6 +42,7 @@ model Product {
   updatedAt     DateTime @updatedAt
   images        String?
   noDiscount    Boolean  @default(false) // Exclude from discount calculations
+  isHidden      Boolean  @default(false) // Hide product from public listings
   
   // Detailed product content fields
   productDetails String?  @db.Text // JSON object with key-value pairs for product specs

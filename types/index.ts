@@ -12,6 +12,7 @@ export interface Product {
   inStock: boolean
   size?: string | null
   noDiscount?: boolean
+  isHidden?: boolean
   // Detailed product content
   productDetails?: string | null // JSON object with key-value pairs
   keyFeatures?: string | null // JSON array of features

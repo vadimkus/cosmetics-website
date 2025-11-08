@@ -6,6 +6,8 @@ export default function AdminUserNotificationEmailTemplate() {
   const [userData, setUserData] = useState({
     userName: 'John Doe',
     userEmail: 'john.doe@example.com',
+    userPhone: '+971 50 123 4567',
+    userAddress: '123 Main Street, Dubai',
     registrationTime: new Date().toLocaleString()
   })
 
@@ -50,6 +52,18 @@ export default function AdminUserNotificationEmailTemplate() {
               <strong style="color: #374151;">Email:</strong>
               <span style="color: #6b7280; margin-left: 8px;">${data.userEmail}</span>
             </div>
+            ${data.userPhone ? `
+            <div style="margin-bottom: 10px;">
+              <strong style="color: #374151;">Phone:</strong>
+              <span style="color: #6b7280; margin-left: 8px;">${data.userPhone}</span>
+            </div>
+            ` : ''}
+            ${data.userAddress ? `
+            <div style="margin-bottom: 10px;">
+              <strong style="color: #374151;">Address:</strong>
+              <span style="color: #6b7280; margin-left: 8px;">${data.userAddress}</span>
+            </div>
+            ` : ''}
             <div style="margin-bottom: 0;">
               <strong style="color: #374151;">Registration Time:</strong>
               <span style="color: #6b7280; margin-left: 8px;">${data.registrationTime}</span>
@@ -125,6 +139,32 @@ export default function AdminUserNotificationEmailTemplate() {
                   onChange={(e) => setUserData({...userData, userEmail: e.target.value})}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
                   placeholder="Enter user email"
+                />
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  User Phone
+                </label>
+                <input
+                  type="tel"
+                  value={userData.userPhone}
+                  onChange={(e) => setUserData({...userData, userPhone: e.target.value})}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
+                  placeholder="Enter user phone"
+                />
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  User Address
+                </label>
+                <input
+                  type="text"
+                  value={userData.userAddress}
+                  onChange={(e) => setUserData({...userData, userAddress: e.target.value})}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
+                  placeholder="Enter user address"
                 />
               </div>
               

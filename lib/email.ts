@@ -204,7 +204,7 @@ export const emailTemplates = {
   }),
 
   // Admin notification for new user
-  adminNewUser: (userName: string, userEmail: string) => ({
+  adminNewUser: (userName: string, userEmail: string, userPhone?: string, userAddress?: string) => ({
     subject: `New User Registration: ${userName}`,
     html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
@@ -212,6 +212,8 @@ export const emailTemplates = {
         <div style="background: #f9fafb; padding: 20px; border-radius: 8px;">
           <p><strong>Name:</strong> ${userName}</p>
           <p><strong>Email:</strong> ${userEmail}</p>
+          ${userPhone ? `<p><strong>Phone:</strong> ${userPhone}</p>` : ''}
+          ${userAddress ? `<p><strong>Address:</strong> ${userAddress}</p>` : ''}
           <p><strong>Registration Time:</strong> ${new Date().toLocaleString()}</p>
         </div>
       </div>
@@ -407,14 +409,14 @@ export const sendOrderConfirmationEmail = async (orderData: any) => {
   return await sendEmail(orderData.customerEmail, template.subject, template.html)
 }
 
-export const sendAdminNewUserNotification = async (userName: string, userEmail: string) => {
+export const sendAdminNewUserNotification = async (userName: string, userEmail: string, userPhone?: string, userAddress?: string) => {
   const adminEmail = process.env.ADMIN_EMAIL || process.env.GMAIL_USER || process.env.EMAIL_USER
   if (!adminEmail) {
     warnLog('⚠️ Admin email not configured')
     return { success: false, error: 'Admin email not configured' }
   }
   
-  const template = emailTemplates.adminNewUser(userName, userEmail)
+  const template = emailTemplates.adminNewUser(userName, userEmail, userPhone, userAddress)
   return await sendEmail(adminEmail, template.subject, template.html)
 }
 

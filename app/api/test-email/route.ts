@@ -56,7 +56,7 @@ export async function POST(request: NextRequest) {
         break
       
       case 'admin-user':
-        result = await sendAdminNewUserNotification('Test User', testEmail)
+        result = await sendAdminNewUserNotification('Test User', testEmail, '+971 50 123 4567', 'Test Address, Dubai')
         break
       
       case 'admin-order':

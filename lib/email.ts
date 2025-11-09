@@ -375,7 +375,7 @@ export const emailTemplates = {
 
   // Password reset email
   passwordReset: (userName: string, resetToken: string) => {
-    const resetUrl = `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/reset-password/${resetToken}`
+    const resetUrl = `${process.env.NEXT_PUBLIC_SITE_URL || 'https://genosys.ae'}/reset-password/${resetToken}`
     return {
       subject: 'Reset Your Password - Genosys Middle East FZ-LLC',
       html: `

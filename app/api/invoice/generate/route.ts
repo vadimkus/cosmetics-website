@@ -3,6 +3,28 @@ import { sendEmail } from '@/lib/email'
 import { errorLog } from '@/lib/logger'
 import { requireCsrfToken } from '@/lib/csrf'
 
+interface InvoiceItem {
+  id?: string
+  name: string
+  quantity: number
+  price: number
+  total: number
+}
+
+interface InvoiceData {
+  orderNumber: string
+  customerName: string
+  customerEmail: string
+  customerPhone: string
+  customerAddress: string
+  emirate: string
+  items: InvoiceItem[]
+  subtotal: number
+  shippingCost: number
+  vatAmount: number
+  total: number
+}
+
 export async function POST(request: NextRequest) {
   try {
     // CSRF protection
@@ -35,7 +57,7 @@ export async function POST(request: NextRequest) {
       customerPhone,
       customerAddress,
       emirate,
-      items,
+      items: items as InvoiceItem[],
       subtotal,
       shippingCost,
       vatAmount,
@@ -67,7 +89,7 @@ export async function POST(request: NextRequest) {
   }
 }
 
-function generateInvoiceHTML(data: any) {
+function generateInvoiceHTML(data: InvoiceData): string {
   const {
     orderNumber,
     customerName,
@@ -75,7 +97,6 @@ function generateInvoiceHTML(data: any) {
     customerPhone,
     customerAddress,
     emirate,
-    items,
     subtotal,
     shippingCost,
     vatAmount,
@@ -158,7 +179,7 @@ function generateInvoiceHTML(data: any) {
               </tr>
             </thead>
             <tbody>
-              ${items.map((item: any) => `
+              ${data.items.map((item: InvoiceItem) => `
                 <tr>
                   <td><a href="https://genosys.ae/products/${item.id || item.name.toLowerCase().replace(/\s+/g, '-')}" style="color: #2563eb; text-decoration: none;">${item.name}</a></td>
                   <td>AED ${item.price.toFixed(2)}</td>

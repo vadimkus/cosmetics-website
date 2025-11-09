@@ -3,7 +3,7 @@
 import { Phone, Calendar, MapPin } from 'lucide-react'
 import { Order, OrderItem } from '@prisma/client'
 import { User as UserType } from '@/types/user'
-import { ProfileTab } from '@/types/profile'
+import { ProfileTab, ProfileEditData } from '@/types/profile'
 
 type OrderWithItems = Order & {
   items: OrderItem[]
@@ -13,13 +13,8 @@ interface ProfileContentProps {
   user: UserType | null
   activeTab: ProfileTab
   isEditing: boolean
-  editData: {
-    name: string
-    phone: string
-    address: string
-    birthday: string
-  }
-  setEditData: (data: any) => void
+  editData: ProfileEditData
+  setEditData: (data: ProfileEditData) => void
   orders: OrderWithItems[]
   loadingOrders: boolean
   onSave: () => void

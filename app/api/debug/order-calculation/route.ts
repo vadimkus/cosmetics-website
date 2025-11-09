@@ -2,6 +2,12 @@ import { NextRequest, NextResponse } from 'next/server'
 import { requireAdminAuth } from '@/lib/adminAuth'
 import { debugLog, errorLog } from '@/lib/logger'
 import { requireCsrfToken } from '@/lib/csrf'
+import { Product } from '@/types/index'
+
+interface DebugCheckoutItem {
+  product: Product
+  quantity: number
+}
 
 export async function POST(request: NextRequest) {
   // Require admin authentication and CSRF protection
@@ -29,7 +35,7 @@ export async function POST(request: NextRequest) {
     debugLog('🔍 Debugging order calculation...')
     debugLog('Items received:', JSON.stringify(items, null, 2))
     
-    const subtotal = items.reduce((total: number, item: any) => {
+    const subtotal = items.reduce((total: number, item: DebugCheckoutItem) => {
       const itemTotal = item.product.price * item.quantity
       debugLog(`Item: ${item.product.name} - Price: ${item.product.price} x Qty: ${item.quantity} = ${itemTotal}`)
       return total + itemTotal
@@ -69,7 +75,7 @@ export async function POST(request: NextRequest) {
     debugLog('Final total:', total)
 
     const calculation = {
-      items: items.map(item => ({
+      items: items.map((item: DebugCheckoutItem) => ({
         name: item.product.name,
         price: item.product.price,
         quantity: item.quantity,

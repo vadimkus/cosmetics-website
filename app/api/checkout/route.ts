@@ -5,7 +5,13 @@ import { trackUserAction } from '@/lib/analyticsServer'
 import { sendOrderConfirmationEmail, sendAdminNewOrderNotification } from '@/lib/email'
 import { requireCsrfToken } from '@/lib/csrf'
 import { requireBodySizeLimit, getSizeLimitForContentType } from '@/lib/requestSizeLimit'
+import { Product } from '@/types/index'
 // import { trackPurchase } from '@/lib/analytics' // Unused for now
+
+interface CheckoutItem {
+  product: Product
+  quantity: number
+}
 
 export async function POST(request: NextRequest) {
   // CSRF protection
@@ -35,7 +41,7 @@ export async function POST(request: NextRequest) {
     debugLog('🔍 Order calculation debug:')
     debugLog('Items received:', JSON.stringify(items, null, 2))
     
-    const subtotal = items.reduce((total: number, item: any) => {
+    const subtotal = items.reduce((total: number, item: CheckoutItem) => {
       const itemTotal = item.product.price * item.quantity
       debugLog(`Item: ${item.product.name} - Price: ${item.product.price} x Qty: ${item.quantity} = ${itemTotal}`)
       return total + itemTotal
@@ -78,7 +84,7 @@ export async function POST(request: NextRequest) {
     const orderId = (Math.floor(Math.random() * 900000000) + 100000000).toString()
 
     // Create order items
-    const orderItems: OrderItemData[] = items.map((item: any) => ({
+    const orderItems: OrderItemData[] = items.map((item: CheckoutItem) => ({
       productId: item.product.id,
       productName: item.product.name,
       price: item.product.price,

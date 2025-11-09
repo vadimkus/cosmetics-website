@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getAllProducts } from '@/lib/productsDb'
 import { errorLog } from '@/lib/logger'
+import { Product } from '@/types/index'
 // import { getOptimizedUrl } from '@/lib/urlUtils' // Unused for now
 
 export async function GET(_request: NextRequest) {
@@ -67,7 +68,7 @@ export async function GET(_request: NextRequest) {
     ]
 
     // Get all products for dynamic URLs
-    let products: any[] = []
+    let products: Product[] = []
     try {
       products = await getAllProducts()
     } catch (error) {
@@ -116,7 +117,7 @@ export async function GET(_request: NextRequest) {
       sitemap += `
   <url>
     <loc>${baseUrl}/products/${product.id}</loc>
-    <lastmod>${new Date(product.updatedAt || product.createdAt).toISOString()}</lastmod>
+    <lastmod>${currentDate}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>`

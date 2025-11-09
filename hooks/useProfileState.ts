@@ -1,7 +1,8 @@
 import { useState, useCallback } from 'react'
 import { ProfileState, ProfileEditData, ProfileTab, OrderWithItems } from '@/types/profile'
+import { User } from '@/types/user'
 
-export function useProfileState(initialUser: any) {
+export function useProfileState(initialUser: User | null) {
   const [state, setState] = useState<ProfileState>({
     isEditing: false,
     editData: {

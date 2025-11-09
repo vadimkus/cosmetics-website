@@ -65,3 +65,5 @@ genosys-nextjs-app/
 
 # Large files (over 100MB)
 # Note: PDF files in public/documents/ are needed for the website
+.env.production
+.env.production.local

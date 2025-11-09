@@ -223,6 +223,7 @@ export async function POST(request: NextRequest) {
       debugLog('✅ Admin notification sent for support-link order:', orderNumber)
     } else {
       errorLog('❌ Failed to send admin notification for support-link order:', adminResult.error)
+      errorLog('❌ Admin notification error details:', JSON.stringify(adminResult, null, 2))
     }
 
     return NextResponse.json({ 

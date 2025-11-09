@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { updateOrderStatus, getOrderById, deleteOrder } from '@/lib/orderStorageDb'
 import { debugLog, errorLog } from '@/lib/logger'
-import { sendOrderStatusUpdate } from '@/lib/emailService'
+import { sendOrderStatusUpdate } from '@/lib/email'
 import { prisma } from '@/lib/prisma'
 import { requireAdminAuth } from '@/lib/adminAuth'
 import { requireCsrfToken } from '@/lib/csrf'
@@ -54,10 +54,17 @@ export async function PUT(
 
     // Send email notification to customer about status change
     try {
-      await sendOrderStatusUpdate(order, status)
-      debugLog(`Order status update email sent for order ${id} to ${order.customerEmail}`)
+      const emailResult = await sendOrderStatusUpdate(order, status)
+      
+      if (emailResult.success) {
+        debugLog(`✅ Order status update email sent for order ${id} to ${order.customerEmail}`)
+      } else {
+        errorLog(`❌ Failed to send order status update email:`, emailResult.error)
+        errorLog(`❌ Email error details:`, JSON.stringify(emailResult, null, 2))
+      }
     } catch (emailError) {
-      errorLog('Error sending order status update email:', emailError)
+      errorLog('❌ Exception sending order status update email:', emailError)
+      errorLog('❌ Exception details:', emailError instanceof Error ? emailError.message : String(emailError))
       // Don't fail the status update if email fails
     }
 

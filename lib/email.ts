@@ -1,5 +1,44 @@
-import { debugLog, errorLog, warnLog } from '@/lib/logger'
+import { debugLog, errorLog } from '@/lib/logger'
 import nodemailer from 'nodemailer'
+
+// TypeScript interfaces for email data
+export interface OrderConfirmationEmailData {
+  orderNumber: string
+  customerName: string
+  customerEmail: string
+  items: Array<{
+    productName: string
+    quantity: number
+    price: number
+    image: string
+  }>
+  subtotal: number
+  shipping: number
+  vat: number
+  total: number
+  address: string
+  emirate: string
+}
+
+export interface AdminNewOrderEmailData {
+  orderNumber: string
+  customerName: string
+  customerEmail: string
+  customerPhone?: string | undefined
+  total: number
+  itemCount: number
+  items?: Array<{
+    productName: string
+    quantity: number
+    price: number
+    image: string
+  }> | undefined
+  subtotal?: number | undefined
+  shipping?: number | undefined
+  vat?: number | undefined
+  address?: string | undefined
+  emirate?: string | undefined
+}
 
 // Email configuration
 const transporter = nodemailer.createTransport({
@@ -79,23 +118,7 @@ export const emailTemplates = {
   }),
 
   // Order confirmation email
-  orderConfirmation: (orderData: {
-    orderNumber: string
-    customerName: string
-    customerEmail: string
-    items: Array<{
-      productName: string
-      quantity: number
-      price: number
-      image: string
-    }>
-    subtotal: number
-    shipping: number
-    vat: number
-    total: number
-    address: string
-    emirate: string
-  }) => ({
+  orderConfirmation: (orderData: OrderConfirmationEmailData) => ({
     subject: `Order Confirmation #${orderData.orderNumber} - Genosys Middle East FZ-LLC`,
     html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
@@ -221,25 +244,7 @@ export const emailTemplates = {
   }),
 
   // Admin notification for new order
-  adminNewOrder: (orderData: {
-    orderNumber: string
-    customerName: string
-    customerEmail: string
-    customerPhone?: string
-    total: number
-    itemCount: number
-    items?: Array<{
-      productName: string
-      quantity: number
-      price: number
-      image: string
-    }>
-    subtotal?: number
-    shipping?: number
-    vat?: number
-    address?: string
-    emirate?: string
-  }) => ({
+  adminNewOrder: (orderData: AdminNewOrderEmailData) => ({
     subject: `New Order #${orderData.orderNumber} - ${orderData.customerName} - AED ${orderData.total.toFixed(2)}`,
     html: `
       <div style="font-family: Arial, sans-serif; max-width: 700px; margin: 0 auto; padding: 20px;">
@@ -472,37 +477,132 @@ export const sendWelcomeEmail = async (userName: string, userEmail: string) => {
   return await sendEmail(userEmail, template.subject, template.html)
 }
 
-export const sendOrderConfirmationEmail = async (orderData: any) => {
+export const sendOrderConfirmationEmail = async (orderData: OrderConfirmationEmailData) => {
   const template = emailTemplates.orderConfirmation(orderData)
   return await sendEmail(orderData.customerEmail, template.subject, template.html)
 }
 
 export const sendAdminNewUserNotification = async (userName: string, userEmail: string, userPhone?: string, userAddress?: string) => {
-  const adminEmail = process.env.ADMIN_EMAIL || process.env.GMAIL_USER || process.env.EMAIL_USER
-  if (!adminEmail) {
-    warnLog('⚠️ Admin email not configured')
-    return { success: false, error: 'Admin email not configured' }
-  }
+  // Use ADMIN_EMAIL, or fallback to GMAIL_USER/EMAIL_USER, or use default
+  const adminEmail = process.env.ADMIN_EMAIL || process.env.GMAIL_USER || process.env.EMAIL_USER || '5856825@gmail.com'
+  
+  debugLog(`📧 Sending admin new user notification to: ${adminEmail}`)
+  debugLog(`📧 Admin email sources - ADMIN_EMAIL: ${process.env.ADMIN_EMAIL || 'NOT_SET'}, GMAIL_USER: ${process.env.GMAIL_USER || 'NOT_SET'}, EMAIL_USER: ${process.env.EMAIL_USER || 'NOT_SET'}`)
   
   const template = emailTemplates.adminNewUser(userName, userEmail, userPhone, userAddress)
-  return await sendEmail(adminEmail, template.subject, template.html)
-}
-
-export const sendAdminNewOrderNotification = async (orderData: any) => {
-  // Use a specific admin email address
-  const adminEmail = process.env.ADMIN_EMAIL || '5856825@gmail.com' // Default to your Gmail
-  if (!adminEmail) {
-    warnLog('⚠️ Admin email not configured')
-    return { success: false, error: 'Admin email not configured' }
+  const result = await sendEmail(adminEmail, template.subject, template.html)
+  
+  if (!result.success) {
+    errorLog(`❌ Failed to send admin new user notification to ${adminEmail}:`, result.error)
+  } else {
+    debugLog(`✅ Admin new user notification sent successfully to ${adminEmail}`)
   }
   
-  debugLog(`📧 Sending admin notification to: ${adminEmail}`)
+  return result
+}
+
+export const sendAdminNewOrderNotification = async (orderData: AdminNewOrderEmailData) => {
+  // Use ADMIN_EMAIL, or fallback to GMAIL_USER/EMAIL_USER, or use default
+  const adminEmail = process.env.ADMIN_EMAIL || process.env.GMAIL_USER || process.env.EMAIL_USER || '5856825@gmail.com'
+  
+  debugLog(`📧 Sending admin new order notification to: ${adminEmail}`)
+  debugLog(`📧 Admin email sources - ADMIN_EMAIL: ${process.env.ADMIN_EMAIL || 'NOT_SET'}, GMAIL_USER: ${process.env.GMAIL_USER || 'NOT_SET'}, EMAIL_USER: ${process.env.EMAIL_USER || 'NOT_SET'}`)
+  
   const template = emailTemplates.adminNewOrder(orderData)
-  return await sendEmail(adminEmail, template.subject, template.html)
+  const result = await sendEmail(adminEmail, template.subject, template.html)
+  
+  if (!result.success) {
+    errorLog(`❌ Failed to send admin new order notification to ${adminEmail}:`, result.error)
+  } else {
+    debugLog(`✅ Admin new order notification sent successfully to ${adminEmail}`)
+  }
+  
+  return result
 }
 
 export const sendPasswordResetEmail = async (userEmail: string, userName: string, resetToken: string) => {
   const template = emailTemplates.passwordReset(userName, resetToken)
   debugLog(`📧 Sending password reset email to: ${userEmail}`)
   return await sendEmail(userEmail, template.subject, template.html)
+}
+
+// Order status update email
+export interface OrderStatusUpdateEmailData {
+  orderNumber: string
+  customerName: string
+  customerEmail: string
+  status: string
+}
+
+export const sendOrderStatusUpdate = async (order: { orderNumber: string; customerName: string; customerEmail: string; id?: string }, newStatus: string): Promise<{ success: boolean; error?: string; messageId?: string }> => {
+  try {
+    const statusMessages: { [key: string]: string } = {
+      'PROCESSING': 'Your order is being processed and prepared for shipment.',
+      'CONFIRMED': 'Your order has been confirmed and is being prepared.',
+      'PAID': 'Your order payment has been confirmed.',
+      'SHIPPED': 'Great news! Your order has been shipped and is on its way to you.',
+      'DELIVERED': 'Your order has been delivered successfully. Thank you for your business!',
+      'CANCELLED': 'Your order has been cancelled as requested.'
+    }
+    
+    const statusMessage = statusMessages[newStatus.toUpperCase()] || 'Your order status has been updated.'
+    const orderId = order.orderNumber || order.id || 'Unknown'
+    
+    const html = `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+        <div style="text-align: center; margin-bottom: 30px;">
+          <h1 style="color: #dc2626; margin: 0;">Genosys Middle East FZ-LLC</h1>
+          <p style="color: #666; margin: 5px 0;">Official Genosys distributor in the United Arab Emirates</p>
+        </div>
+        
+        <div style="background: white; padding: 30px; border-radius: 10px; margin-bottom: 20px; border: 1px solid #e5e7eb;">
+          <h2 style="color: #dc2626; margin: 0 0 15px 0;">Order Status Update</h2>
+          
+          <p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 0 0 20px 0;">
+            Dear ${order.customerName},
+          </p>
+          
+          <p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 0 0 20px 0;">
+            ${statusMessage}
+          </p>
+          
+          <div style="background: #f9fafb; padding: 20px; border-radius: 8px; margin: 20px 0;">
+            <h3 style="color: #dc2626; margin: 0 0 15px 0;">Order Details</h3>
+            <p style="color: #374151; margin: 0 0 10px 0;"><strong>Order Number:</strong> ${orderId}</p>
+            <p style="color: #374151; margin: 0 0 10px 0;"><strong>Status:</strong> <span style="color: #dc2626; font-weight: bold;">${newStatus.toUpperCase()}</span></p>
+            <p style="color: #374151; margin: 0;"><strong>Date:</strong> ${new Date().toLocaleString('en-AE', { timeZone: 'Asia/Dubai' })}</p>
+          </div>
+          
+          <p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 20px 0 0 0;">
+            If you have any questions about your order, please contact us at <a href="mailto:sales@genosys.ae" style="color: #dc2626;">sales@genosys.ae</a> or call +971 58 548 76 65.
+          </p>
+        </div>
+        
+        <div style="border-top: 1px solid #e5e7eb; padding-top: 20px; text-align: center;">
+          <p style="color: #6b7280; font-size: 14px; margin: 0;">
+            Genosys Middle East FZ-LLC - Official Genosys distributor in the United Arab Emirates
+          </p>
+        </div>
+      </div>
+    `
+    
+    const subject = `Order Status Update #${orderId} - ${newStatus.toUpperCase()} - Genosys Middle East FZ-LLC`
+    
+    debugLog(`📧 Sending order status update email to: ${order.customerEmail}`)
+    const result = await sendEmail(order.customerEmail, subject, html)
+    
+    if (!result.success) {
+      errorLog(`❌ Failed to send order status update email to ${order.customerEmail}:`, result.error)
+      return { success: false, error: result.error || 'Unknown error' }
+    } else {
+      debugLog(`✅ Order status update email sent successfully to ${order.customerEmail}`)
+      return result.messageId 
+        ? { success: true, messageId: result.messageId }
+        : { success: true }
+    }
+  } catch (error) {
+    errorLog('Error sending order status update email:', error)
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error'
+    return { success: false, error: errorMessage }
+  }
 }

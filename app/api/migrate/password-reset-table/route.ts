@@ -12,16 +12,31 @@ import { execSync } from 'child_process'
 
 export async function POST(request: NextRequest) {
   try {
-    // Check for a simple secret token to prevent unauthorized access
-    // In production, you can set MIGRATION_SECRET in environment variables
-    const authHeader = request.headers.get('authorization')
-    const migrationSecret = process.env.MIGRATION_SECRET || 'migration-secret-change-in-production'
+    // Require MIGRATION_SECRET in production
+    const migrationSecret = process.env.MIGRATION_SECRET
+    const isProduction = process.env.NODE_ENV === 'production'
     
-    if (authHeader !== `Bearer ${migrationSecret}`) {
-      return NextResponse.json(
-        { error: 'Unauthorized. Provide Authorization: Bearer <MIGRATION_SECRET>' },
-        { status: 401 }
-      )
+    if (!migrationSecret) {
+      if (isProduction) {
+        errorLog('[MIGRATION] MIGRATION_SECRET not set in production')
+        return NextResponse.json(
+          { error: 'Migration endpoint not available. MIGRATION_SECRET must be set in production.' },
+          { status: 503 }
+        )
+      }
+      // In development, allow without secret (but warn)
+      errorLog('[MIGRATION] ⚠️ MIGRATION_SECRET not set - allowing in development only. Set MIGRATION_SECRET in production!')
+      // Continue without authentication in development
+    } else {
+      // Only check authentication if secret is set
+      const authHeader = request.headers.get('authorization')
+      
+      if (!authHeader || authHeader !== `Bearer ${migrationSecret}`) {
+        return NextResponse.json(
+          { error: 'Unauthorized. Provide Authorization: Bearer <MIGRATION_SECRET>' },
+          { status: 401 }
+        )
+      }
     }
 
     errorLog('[MIGRATION] Starting password reset table migration...')

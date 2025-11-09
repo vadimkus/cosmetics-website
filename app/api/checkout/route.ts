@@ -141,7 +141,7 @@ export async function POST(request: NextRequest) {
           image: item.image
         })),
         subtotal: order.subtotal,
-        shipping: order.shipping,
+        shipping: order.shipping ?? 0,
         vat: order.vat,
         total: order.total,
         address: order.customerAddress,
@@ -155,7 +155,7 @@ export async function POST(request: NextRequest) {
 
     // Send admin notification for new order
     try {
-      await sendAdminNewOrderNotification({
+      const adminResult = await sendAdminNewOrderNotification({
         orderNumber: order.orderNumber,
         customerName: order.customerName,
         customerEmail: order.customerEmail,
@@ -174,9 +174,16 @@ export async function POST(request: NextRequest) {
         address: order.customerAddress,
         emirate: order.customerEmirate
       })
-      debugLog('✅ Admin notification sent for new order:', order.orderNumber)
+      
+      if (adminResult.success) {
+        debugLog('✅ Admin notification sent for new order:', order.orderNumber)
+      } else {
+        errorLog('❌ Failed to send admin notification:', adminResult.error)
+        errorLog('❌ Admin notification error details:', JSON.stringify(adminResult, null, 2))
+      }
     } catch (emailError) {
-      errorLog('❌ Failed to send admin notification:', emailError)
+      errorLog('❌ Exception sending admin notification:', emailError)
+      errorLog('❌ Exception details:', emailError instanceof Error ? emailError.message : String(emailError))
       // Don't fail order creation if email fails
     }
 

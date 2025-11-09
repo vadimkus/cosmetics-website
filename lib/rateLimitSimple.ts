@@ -1,5 +1,6 @@
 import { errorLog } from '@/lib/logger'
 import { prisma } from './prisma'
+import { NextRequest } from 'next/server'
 
 interface RateLimitOptions {
   windowMs: number
@@ -101,7 +102,7 @@ export function rateLimitSimple(options: RateLimitOptions) {
 }
 
 // Helper function to get client identifier from NextRequest
-export function getClientIdentifierFromNextRequest(request: any): string {
+export function getClientIdentifierFromNextRequest(request: NextRequest): string {
   const forwarded = request.headers.get('x-forwarded-for')
   const realIp = request.headers.get('x-real-ip')
   const ip = forwarded?.split(',')[0] || realIp || 'unknown'

@@ -24,6 +24,7 @@ model User {
   createdAt          DateTime @default(now())
   updatedAt          DateTime @updatedAt
   orders             Order[]
+  passwordResetTokens PasswordResetToken[]
 
   @@map("users")
 }
@@ -187,4 +188,18 @@ model RateLimit {
   updatedAt  DateTime @updatedAt
 
   @@map("rate_limits")
+}
+
+model PasswordResetToken {
+  id        String   @id @default(cuid())
+  userId    String
+  token     String   // Hashed token (for security)
+  expiresAt DateTime // Token expiration time
+  used      Boolean  @default(false) // Track if token was already used
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([expiresAt])
+  @@map("password_reset_tokens")
 }

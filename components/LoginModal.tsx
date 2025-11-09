@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { X, Eye, EyeOff } from 'lucide-react'
 import { useAuth } from './AuthProvider'
+import Link from 'next/link'
 
 interface LoginModalProps {
   isOpen: boolean
@@ -305,6 +306,19 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
                 )}
               </button>
             </div>
+
+            {/* Forgot Password Link - Only show in login mode */}
+            {isLoginMode && (
+              <div className="text-right">
+                <Link
+                  href="/forgot-password"
+                  onClick={onClose}
+                  className="text-sm text-primary-600 hover:text-primary-700 font-medium"
+                >
+                  Forgot Password?
+                </Link>
+              </div>
+            )}
 
             {/* Privacy Policy Section - Only show for registration */}
             {!isLoginMode && (

@@ -372,6 +372,74 @@ export const emailTemplates = {
       </div>
     `,
   }),
+
+  // Password reset email
+  passwordReset: (userName: string, resetToken: string) => {
+    const resetUrl = `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/reset-password/${resetToken}`
+    return {
+      subject: 'Reset Your Password - Genosys Middle East FZ-LLC',
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+          <div style="text-align: center; margin-bottom: 30px;">
+            <h1 style="color: #dc2626; margin: 0;">Genosys Middle East FZ-LLC</h1>
+            <p style="color: #666; margin: 5px 0;">Official Genosys distributor in the United Arab Emirates</p>
+          </div>
+          
+          <div style="background: white; padding: 30px; border-radius: 10px; margin-bottom: 20px; border: 1px solid #e5e7eb;">
+            <h2 style="color: #dc2626; margin: 0 0 15px 0;">Password Reset Request</h2>
+            <p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 0 0 20px 0;">
+              Dear ${userName.split(' ')[0]},
+            </p>
+            <p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 0 0 20px 0;">
+              Click the button below to reset your Genosys password:
+            </p>
+            
+            <div style="text-align: center; margin: 30px 0;">
+              <a href="${resetUrl}" 
+                 style="background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%); 
+                        color: white; 
+                        padding: 14px 32px; 
+                        text-decoration: none; 
+                        border-radius: 6px; 
+                        font-weight: bold; 
+                        display: inline-block;
+                        font-size: 16px;">
+                Reset Password
+              </a>
+            </div>
+            
+            <p style="color: #6b7280; font-size: 14px; line-height: 1.6; margin: 20px 0 0 0;">
+              Or copy and paste this link into your browser:
+            </p>
+            <p style="color: #6b7280; font-size: 12px; line-height: 1.6; margin: 5px 0; word-break: break-all;">
+              ${resetUrl}
+            </p>
+            
+            <div style="background: #fef3c7; border-left: 4px solid #f59e0b; padding: 15px; margin: 25px 0; border-radius: 4px;">
+              <p style="color: #92400e; font-size: 14px; margin: 0; font-weight: 600;">
+                ⏰ This link will expire in 30 minutes.
+              </p>
+            </div>
+            
+            <div style="background: #fee2e2; border-left: 4px solid #ef4444; padding: 15px; margin: 25px 0; border-radius: 4px;">
+              <p style="color: #991b1b; font-size: 14px; margin: 0;">
+                <strong>Security Notice:</strong> If you didn't request this password reset, please ignore this email. Never share this link with anyone. GENOSYS will never ask for your password.
+              </p>
+            </div>
+          </div>
+          
+          <div style="border-top: 1px solid #e5e7eb; padding-top: 20px; text-align: center;">
+            <p style="color: #6b7280; font-size: 14px; margin: 0;">
+              Need help? Contact us at <a href="mailto:sales@genosys.ae" style="color: #dc2626;">sales@genosys.ae</a>
+            </p>
+            <p style="color: #6b7280; font-size: 12px; margin: 10px 0 0 0;">
+              Genosys Middle East FZ-LLC - Official Genosys distributor in the United Arab Emirates
+            </p>
+          </div>
+        </div>
+      `,
+    }
+  },
 }
 
 // Email sending functions
@@ -431,4 +499,10 @@ export const sendAdminNewOrderNotification = async (orderData: any) => {
   debugLog(`📧 Sending admin notification to: ${adminEmail}`)
   const template = emailTemplates.adminNewOrder(orderData)
   return await sendEmail(adminEmail, template.subject, template.html)
+}
+
+export const sendPasswordResetEmail = async (userEmail: string, userName: string, resetToken: string) => {
+  const template = emailTemplates.passwordReset(userName, resetToken)
+  debugLog(`📧 Sending password reset email to: ${userEmail}`)
+  return await sendEmail(userEmail, template.subject, template.html)
 }

@@ -125,11 +125,24 @@ export async function verifyPasswordResetToken(
     const errorStack = error instanceof Error ? error.stack : undefined
     debugLog('❌ Token verification error details:', { errorMessage, errorStack })
     
-    // Check for specific database errors
-    if (errorMessage.includes('passwordResetToken') || errorMessage.includes('password_reset_tokens')) {
+    // Check for Prisma client errors (model not found)
+    if (errorMessage.includes('passwordResetToken') || 
+        errorMessage.includes('password_reset_tokens') ||
+        errorMessage.includes('Unknown arg') ||
+        errorMessage.includes('does not exist') ||
+        (errorStack && errorStack.includes('passwordResetToken'))) {
+      errorLog('❌ Prisma client error - passwordResetToken model not available')
       return {
         valid: false,
-        error: 'Database configuration error. Please contact support.'
+        error: 'Password reset feature not configured. Please regenerate Prisma client.'
+      }
+    }
+    
+    // Check for table doesn't exist errors
+    if (errorMessage.includes('does not exist') || errorMessage.includes('Unknown table')) {
+      return {
+        valid: false,
+        error: 'Password reset feature not configured. Please run database migration.'
       }
     }
     

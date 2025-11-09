@@ -7,6 +7,7 @@ import * as crypto from 'crypto'
 import bcrypt from 'bcryptjs'
 import { prisma } from './prisma'
 import { debugLog, errorLog } from './logger'
+import { ensurePasswordResetTable } from './ensurePasswordResetTable'
 
 /**
  * Generate a secure password reset token
@@ -50,24 +51,50 @@ export async function verifyPasswordResetToken(
   error?: string
 }> {
   try {
-    // Find all non-expired, unused tokens
-    const tokens = await prisma.passwordResetToken.findMany({
-      where: {
-        used: false,
-        expiresAt: {
-          gt: new Date() // Not expired
-        }
-      },
-      include: {
-        user: true
-      }
-    })
+    debugLog('🔍 Starting token verification for token:', plainToken.substring(0, 10) + '...')
     
-    debugLog(`🔍 Checking ${tokens.length} valid tokens`)
+    // First, check if the table exists by trying a simple query
+    let tokens
+    try {
+      tokens = await prisma.passwordResetToken.findMany({
+        where: {
+          used: false,
+          expiresAt: {
+            gt: new Date() // Not expired
+          }
+        },
+        include: {
+          user: true
+        }
+      })
+    } catch (dbError) {
+      // Check if it's a table doesn't exist error
+      const errorMsg = dbError instanceof Error ? dbError.message : String(dbError)
+      if (errorMsg.includes('does not exist') || errorMsg.includes('Unknown table')) {
+        errorLog('❌ Password reset tokens table does not exist in database')
+        return {
+          valid: false,
+          error: 'Password reset feature not configured. Please run database migration.'
+        }
+      }
+      // Re-throw other database errors
+      throw dbError
+    }
+    
+    debugLog(`🔍 Found ${tokens.length} valid tokens in database`)
+    
+    if (tokens.length === 0) {
+      debugLog('❌ No valid tokens found in database')
+      return {
+        valid: false,
+        error: 'Invalid or expired token'
+      }
+    }
     
     // Check each token (since we stored hashed tokens, we need to compare)
     for (const tokenRecord of tokens) {
       try {
+        debugLog(`🔍 Comparing token for user: ${tokenRecord.user.email}`)
         const isValid = await bcrypt.compare(plainToken, tokenRecord.token)
         if (isValid) {
           debugLog('✅ Token verified successfully for user:', tokenRecord.user.email)
@@ -76,23 +103,39 @@ export async function verifyPasswordResetToken(
             userId: tokenRecord.userId,
             tokenId: tokenRecord.id
           }
+        } else {
+          debugLog('❌ Token comparison failed for user:', tokenRecord.user.email)
         }
       } catch (compareError) {
         // Continue checking other tokens if comparison fails
-        debugLog('⚠️ Token comparison error:', compareError)
+        errorLog('⚠️ Token comparison error:', compareError)
+        debugLog('⚠️ Token comparison error for user:', tokenRecord.user.email, compareError)
       }
     }
     
-    debugLog('❌ Token not found or invalid')
+    debugLog('❌ Token not found or invalid after checking all tokens')
     return {
       valid: false,
       error: 'Invalid or expired token'
     }
   } catch (error) {
     errorLog('Error verifying password reset token:', error)
+    // Provide more specific error information
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error'
+    const errorStack = error instanceof Error ? error.stack : undefined
+    debugLog('❌ Token verification error details:', { errorMessage, errorStack })
+    
+    // Check for specific database errors
+    if (errorMessage.includes('passwordResetToken') || errorMessage.includes('password_reset_tokens')) {
+      return {
+        valid: false,
+        error: 'Database configuration error. Please contact support.'
+      }
+    }
+    
     return {
       valid: false,
-      error: 'Error verifying token'
+      error: `Error verifying token: ${errorMessage}`
     }
   }
 }
@@ -165,6 +208,13 @@ export async function cleanupExpiredTokens(): Promise<number> {
  */
 export async function createPasswordResetToken(userId: string): Promise<string> {
   try {
+    // Ensure table exists before creating token
+    const tableCheck = await ensurePasswordResetTable()
+    if (!tableCheck.tableExists) {
+      errorLog('❌ Cannot create password reset token - table does not exist')
+      throw new Error('Password reset feature not configured. Please run database migration.')
+    }
+    
     // Generate token
     const { plainToken, hashedToken, expiresAt } = await generatePasswordResetToken()
     

@@ -12,6 +12,7 @@
     "postinstall": "node scripts/deploy-setup.js",
     "db:push": "prisma db push",
     "db:generate": "prisma generate",
+    "db:migrate-password-reset": "node scripts/migrate-password-reset-table.js",
     "deploy:setup": "node scripts/deploy-setup.js",
     "test": "jest",
     "test:watch": "jest --watch",

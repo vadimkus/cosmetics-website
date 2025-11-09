@@ -39,11 +39,14 @@ export default function ResetPasswordClient() {
         if (data.valid) {
           setTokenValid(true)
         } else {
+          // Show the actual error message from the API
           setError(data.error || 'Invalid or expired token')
         }
       } catch (err) {
         errorLog('Token verification error:', err)
-        setError('Failed to verify reset link')
+        // Show more specific error message
+        const errorMessage = err instanceof Error ? err.message : 'Failed to verify reset link'
+        setError(`Failed to verify reset link: ${errorMessage}`)
       } finally {
         setVerifying(false)
       }

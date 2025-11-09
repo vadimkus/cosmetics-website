@@ -3,15 +3,16 @@
 import { Package, RefreshCw } from 'lucide-react'
 import Link from 'next/link'
 import OrderCard from './OrderCard'
+import { OrderWithItems } from '@/types/profile'
 
 interface OrderHistorySectionProps {
-  orders: any[]
+  orders: OrderWithItems[]
   loadingOrders: boolean
   onCancel: (orderId: string) => void
   formatCurrency: (amount: number) => string
   getProductImage: (productName: string) => string
   getStatusColor: (status: string) => string
-  getStatusIcon: (status: string) => any
+  getStatusIcon: (status: string) => React.ReactNode
 }
 
 export default function OrderHistorySection({

@@ -1,17 +1,20 @@
 'use client'
 
 import { User } from 'lucide-react'
+import { User as UserType } from '@/types/user'
+
+interface EditData {
+  name: string
+  phone: string
+  address: string
+  birthday: string
+}
 
 interface PersonalInfoSectionProps {
-  user: any
+  user: UserType
   isEditing: boolean
-  editData: {
-    name: string
-    phone: string
-    address: string
-    birthday: string
-  }
-  setEditData: (data: any) => void
+  editData: EditData
+  setEditData: (data: EditData) => void
 }
 
 export default function PersonalInfoSection({ 

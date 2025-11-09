@@ -1,5 +1,6 @@
 'use client'
 import { errorLog } from '@/lib/logger'
+import { User } from '@/types/user'
 
 import { useState, useEffect, useCallback } from 'react'
 
@@ -18,7 +19,7 @@ interface OrderWithItems {
   }>
 }
 
-export function useOrderHistory(user: any) {
+export function useOrderHistory(user: User | null) {
   const [orders, setOrders] = useState<OrderWithItems[]>([])
   const [loadingOrders, setLoadingOrders] = useState(false)
 

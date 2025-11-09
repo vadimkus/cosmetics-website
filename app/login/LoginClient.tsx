@@ -111,7 +111,7 @@ export default function LoginClient() {
                 }}
                 className="text-primary-600 hover:text-primary-700 font-medium text-sm"
               >
-                Register
+                Create Professional Genosys Account
               </button>
             </div>
           </div>

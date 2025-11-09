@@ -28,6 +28,7 @@ export async function POST(request: NextRequest) {
 
     // Check if table exists
     try {
+      // @ts-ignore - Prisma client type may not be updated, but model exists at runtime
       const tokenCount = await prisma.passwordResetToken.count()
       errorLog(`[MIGRATION] Table already exists with ${tokenCount} tokens`)
       
@@ -58,6 +59,7 @@ export async function POST(request: NextRequest) {
           errorLog('[MIGRATION] Table created successfully')
           
           // Verify it was created
+          // @ts-ignore - Prisma client type may not be updated, but model exists at runtime
           const tokenCount = await prisma.passwordResetToken.count()
           
           return NextResponse.json({

@@ -28,15 +28,12 @@ const nextConfig = {
     localPatterns: [
       {
         pathname: '/images/**',
-        search: '',
       },
       {
         pathname: '/Logo/**',
-        search: '',
       },
       {
         pathname: '/favicon/**',
-        search: '',
       },
     ],
     formats: ['image/webp', 'image/avif'],

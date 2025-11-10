@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import Image from 'next/image'
 import { Product } from '@/types'
 import { getProductVideoUrl } from '@/data/productConfig'
@@ -11,6 +11,8 @@ interface ProductImageGalleryProps {
 
 export default function ProductImageGallery({ product }: ProductImageGalleryProps) {
   const [selectedImage, setSelectedImage] = useState(0)
+  const [imageError, setImageError] = useState(false)
+  const [thumbnailErrors, setThumbnailErrors] = useState<Record<number, boolean>>({})
   const videoUrl = getProductVideoUrl(product.id)
   
   // Check if this is the Holiday Kit
@@ -53,6 +55,11 @@ export default function ProductImageGallery({ product }: ProductImageGalleryProp
 
   const productImages = getProductImages()
 
+  // Reset error state when selected image changes
+  useEffect(() => {
+    setImageError(false)
+  }, [selectedImage])
+
   return (
     <div className="space-y-4">
       {/* Main Image or Video */}
@@ -68,28 +75,44 @@ export default function ProductImageGallery({ product }: ProductImageGalleryProp
           ></iframe>
         ) : (
           <>
-            <Image
-              src={(() => {
-                const imageSrc = productImages[selectedImage]
-                // For product 57 (Charming Look), add timestamp-based cache busting
-                // This ensures the new image loads on mobile devices
-                const separator = imageSrc.includes('?') ? '&' : '?'
-                let version = `${product.id}-${imageSrc.split('/').pop()?.replace(/[^a-zA-Z0-9]/g, '') || 'img'}`
-                // Special handling for product 57 to force image refresh
-                if (product.id === 'cmhoyw7d500008o9tdprqkkhb' || product.productNumber === '57') {
-                  // Use a fixed version number that changes when image is updated
-                  // Update this number when the image file changes
-                  version = `v20251108-${version}`
-                }
-                return `${imageSrc}${separator}v=${version}`
-              })()}
-              alt={`${product.name} - Image ${selectedImage + 1}`}
-              width={600}
-              height={600}
-              className="w-full h-full object-cover"
-              priority={selectedImage === 0}
-              unoptimized={product.id === 'cmhoyw7d500008o9tdprqkkhb' || product.productNumber === '57'}
-            />
+            {imageError ? (
+              <div className="w-full h-full flex items-center justify-center bg-gray-200">
+                <div className="text-center text-gray-500">
+                  <div className="text-4xl mb-2">📷</div>
+                  <div className="text-sm">Image not available</div>
+                </div>
+              </div>
+            ) : (
+              <Image
+                src={(() => {
+                  const imageSrc = productImages[selectedImage] || product.image
+                  if (!imageSrc) return '/images/placeholder.png'
+                  // For product 57 (Charming Look), add timestamp-based cache busting
+                  // This ensures the new image loads on mobile devices
+                  const separator = imageSrc.includes('?') ? '&' : '?'
+                  let version = `${product.id}-${imageSrc.split('/').pop()?.replace(/[^a-zA-Z0-9]/g, '') || 'img'}`
+                  // Special handling for product 57 to force image refresh
+                  if (product.id === 'cmhoyw7d500008o9tdprqkkhb' || product.productNumber === '57') {
+                    // Use a fixed version number that changes when image is updated
+                    // Update this number when the image file changes
+                    version = `v20251108-${version}`
+                  }
+                  return `${imageSrc}${separator}v=${version}`
+                })()}
+                alt={`${product.name} - Image ${selectedImage + 1}`}
+                width={600}
+                height={600}
+                className="w-full h-full object-cover"
+                priority={selectedImage === 0}
+                unoptimized={product.id === 'cmhoyw7d500008o9tdprqkkhb' || product.productNumber === '57'}
+                onError={() => {
+                  setImageError(true)
+                }}
+                onLoad={() => {
+                  setImageError(false)
+                }}
+              />
+            )}
             
             {/* Holiday Star Animation Overlay */}
             {isHolidayKit && (
@@ -157,18 +180,28 @@ export default function ProductImageGallery({ product }: ProductImageGalleryProp
                   : 'border-gray-200 hover:border-gray-300'
               }`}
             >
-              <Image
-                src={(() => {
-                  const imageSrc = img
-                  const separator = imageSrc.includes('?') ? '&' : '?'
-                  const version = `${product.id}-${imageSrc.split('/').pop()?.replace(/[^a-zA-Z0-9]/g, '') || 'img'}`
-                  return `${imageSrc}${separator}v=${version}`
-                })()}
-                alt={`${product.name} ${index + 1}`}
-                width={64}
-                height={64}
-                className="w-full h-full object-cover"
-              />
+              {thumbnailErrors[index] ? (
+                <div className="w-full h-full flex items-center justify-center bg-gray-200">
+                  <span className="text-xs text-gray-400">📷</span>
+                </div>
+              ) : (
+                <Image
+                  src={(() => {
+                    const imageSrc = img || product.image
+                    if (!imageSrc) return '/images/placeholder.png'
+                    const separator = imageSrc.includes('?') ? '&' : '?'
+                    const version = `${product.id}-${imageSrc.split('/').pop()?.replace(/[^a-zA-Z0-9]/g, '') || 'img'}`
+                    return `${imageSrc}${separator}v=${version}`
+                  })()}
+                  alt={`${product.name} ${index + 1}`}
+                  width={64}
+                  height={64}
+                  className="w-full h-full object-cover"
+                  onError={() => {
+                    setThumbnailErrors(prev => ({ ...prev, [index]: true }))
+                  }}
+                />
+              )}
             </button>
           ))}
         </div>

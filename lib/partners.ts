@@ -217,7 +217,7 @@ export const partnersData: Partner[] = [
   },
   {
     id: "melanta",
-    name: "MELANTA AESTHETIC MEDICAL CLINIC",
+    name: "MELANTA AESTHETIC MEDICAL CLINIC, JUMEIRAH 3",
     type: "Medical Aesthetic Clinic",
     description: "Professional medical aesthetic clinic offering advanced cosmetic treatments and skincare solutions in Jumeirah 3",
     location: "748A Al Wasl Rd - Jumeirah - Jumeirah 3 - Dubai",
@@ -346,5 +346,17 @@ export const partnersData: Partner[] = [
     directions: "https://www.google.com/maps/place/Brau/@24.7602938,54.5758733,10z/data=!4m22!1m15!4m14!1m6!1m2!1s0x3e5f6c36babd2c79:0x675853b2595d1a65!2zSnVtZWlyYWggVmlsbGFnZSBDaXJjbGUg2YLYsdmK2Kkg2KzZhdmK2LHYpyDYp9mE2K_Yp9im2LHZitip!2m2!1d55.2088007!2d25.0608609!1m6!1m2!1s0x3e5e4703c397d4b3:0xa6c998c3ddeb20a3!2sBRAU,+Waitrose+Center+-+Khalifa+City+-+Abu+Dhabi!2m2!1d54.5663204!2d24.4167725!3m5!1s0x3e5f6d9647ec5e6b:0xcc6634c38847d830!8m2!3d25.0662078!4d55.1921234!16s%2Fg%2F11j1hx10km?entry=ttu",
     logo: "/images/partners/brau.png",
     theme: "pink"
+  },
+  {
+    id: "love-my-body",
+    name: "LOVE MY BODY, BLUEWATERS ISLAND",
+    type: "Body Correction Center",
+    description: "Professional body correction center offering expert consultations and comprehensive body correction services.",
+    location: "Bluewaters island, building 9 - Dubai",
+    phone: "+971 58 578 5311",
+    website: "https://lovemybody.ae/",
+    directions: "https://www.google.com/maps/place/i+love+my+body+salon/data=!4m2!3m1!1s0x3e5f15d125214127:0xa6499e9c8b7cb6e6?sa=X&ved=1t:242&ictx=111",
+    logo: "/images/partners/body.png",
+    theme: "blue"
   }
 ];

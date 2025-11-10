@@ -31,7 +31,13 @@ export default function ProductImageGallery({
           />
         ) : (
           <Image
-            src={productImages[selectedImage] || product.image}
+            src={(() => {
+              const imageSrc = productImages[selectedImage] || product.image
+              // Add cache-busting query parameter based on product ID to ensure fresh image
+              const separator = imageSrc.includes('?') ? '&' : '?'
+              // Use product ID as version to ensure consistency across renders
+              return `${imageSrc}${separator}v=${product.id}`
+            })()}
             alt={product.name}
             width={600}
             height={600}

@@ -69,12 +69,26 @@ export default function ProductImageGallery({ product }: ProductImageGalleryProp
         ) : (
           <>
             <Image
-              src={productImages[selectedImage]}
+              src={(() => {
+                const imageSrc = productImages[selectedImage]
+                // For product 57 (Charming Look), add timestamp-based cache busting
+                // This ensures the new image loads on mobile devices
+                const separator = imageSrc.includes('?') ? '&' : '?'
+                let version = `${product.id}-${imageSrc.split('/').pop()?.replace(/[^a-zA-Z0-9]/g, '') || 'img'}`
+                // Special handling for product 57 to force image refresh
+                if (product.id === 'cmhoyw7d500008o9tdprqkkhb' || product.productNumber === '57') {
+                  // Use a fixed version number that changes when image is updated
+                  // Update this number when the image file changes
+                  version = `v20251108-${version}`
+                }
+                return `${imageSrc}${separator}v=${version}`
+              })()}
               alt={`${product.name} - Image ${selectedImage + 1}`}
               width={600}
               height={600}
               className="w-full h-full object-cover"
               priority={selectedImage === 0}
+              unoptimized={product.id === 'cmhoyw7d500008o9tdprqkkhb' || product.productNumber === '57'}
             />
             
             {/* Holiday Star Animation Overlay */}
@@ -144,7 +158,12 @@ export default function ProductImageGallery({ product }: ProductImageGalleryProp
               }`}
             >
               <Image
-                src={img}
+                src={(() => {
+                  const imageSrc = img
+                  const separator = imageSrc.includes('?') ? '&' : '?'
+                  const version = `${product.id}-${imageSrc.split('/').pop()?.replace(/[^a-zA-Z0-9]/g, '') || 'img'}`
+                  return `${imageSrc}${separator}v=${version}`
+                })()}
                 alt={`${product.name} ${index + 1}`}
                 width={64}
                 height={64}

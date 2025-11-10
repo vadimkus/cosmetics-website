@@ -58,15 +58,6 @@ const nextConfig = {
   
   // Turbopack configuration (Next.js 16)
   turbopack: {},
-  
-  // Webpack configuration for Leaflet
-  webpack: (config) => {
-    config.resolve.fallback = {
-      ...config.resolve.fallback,
-      fs: false,
-    }
-    return config
-  },
 }
 
 module.exports = withBundleAnalyzer(nextConfig)

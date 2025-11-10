@@ -188,6 +188,17 @@ export default function ContactPage() {
                   <FileText className="mr-2 h-4 w-4 md:h-5 md:w-5" />
                   TRN: 104229886700003
                 </a>
+                <a
+                  href="https://dnbuae.com/duns-number/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center text-primary-600 hover:text-primary-700 font-semibold transition-colors text-sm md:text-base touch-manipulation"
+                >
+                  <FileText className="mr-2 h-4 w-4 md:h-5 md:w-5" />
+                  <span>
+                    D&B D-U-N-S® Number: <span className="text-primary-600">850215607</span>
+                  </span>
+                </a>
               </div>
             </div>
           </div>

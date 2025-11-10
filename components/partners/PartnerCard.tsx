@@ -39,6 +39,8 @@ const themeClasses = {
 
 export default function PartnerCard({ partner }: PartnerCardProps) {
   const theme = themeClasses[partner.theme]
+  const isInstagram = partner.website?.includes('instagram.com')
+  const websiteButtonText = isInstagram ? 'Instagram' : 'Website'
   
   return (
     <div className={`bg-gradient-to-r ${theme.bg} rounded-xl shadow-lg border ${theme.border} p-4 sm:p-6 mb-6 sm:mb-8`}>
@@ -106,7 +108,7 @@ export default function PartnerCard({ partner }: PartnerCardProps) {
               rel="noopener noreferrer"
               className={`inline-flex items-center justify-center border ${theme.buttonBorder} px-3 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-colors w-full sm:w-auto`}
             >
-              Website
+              {websiteButtonText}
             </a>
           )}
         </div>

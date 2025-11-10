@@ -358,5 +358,41 @@ export const partnersData: Partner[] = [
     directions: "https://www.google.com/maps/place/i+love+my+body+salon/data=!4m2!3m1!1s0x3e5f15d125214127:0xa6499e9c8b7cb6e6?sa=X&ved=1t:242&ictx=111",
     logo: "/images/partners/body.png",
     theme: "blue"
+  },
+  {
+    id: "arfi-nails",
+    name: "ARFI NAILS, AL BARSHA",
+    type: "Nail Salon",
+    description: "Professional nail salon offering comprehensive nail care services including manicures, pedicures, and nail art in Al Barsha.",
+    location: "Shops 7, 8, and 9 Dawoud Building - Al Barsha - Al Barsha 1 - Dubai",
+    phone: "+971 52 266 8099",
+    website: "https://www.instagram.com/arfinails/",
+    directions: "https://www.google.com/maps?rlz=1C5CHFA_enAE820AE820&gs_lcrp=EgZjaHJvbWUqBggAEEUYOzIGCAAQRRg7MgYIARBFGDzSAQg1MDM3ajBqN6gCALACAA&um=1&ie=UTF-8&fb=1&gl=ae&sa=X&geocode=KSFroyh7a18-MRPu5ZYIkeDd&daddr=Shops+7,+8,+and+9+Dawoud+Building+-+Al+Barsha+-+Al+Barsha+1+-+Dubai",
+    logo: "/images/partners/arfi.png",
+    theme: "pink"
+  },
+  {
+    id: "fayy-health",
+    name: "FAYY HEALTH, ONE CENTRAL OFFICES",
+    type: "Holistic Health & Wellness Clinic",
+    description: "Dubai's premier destination for holistic health and beauty, seamlessly blending cutting-edge wellness, aesthetics, and longevity treatments with personalized care. With over 18 years of expertise and 20+ medical specialists across multiple specialties including dermatology, plastic surgery, dentistry, and more.",
+    location: "One Central, Office 2, 6th Floor, Unit 602, Dubai World Trade Centre - Dubai",
+    phone: "+971 55 688 9909",
+    website: "https://fayy.health/",
+    directions: "https://www.google.com/maps/search/One+Central+Office+2+6th+Floor+Unit+602+Dubai+World+Trade+Centre",
+    logo: "/images/partners/fay.png",
+    theme: "emerald"
+  },
+  {
+    id: "lavana-spa-difc",
+    name: "LAVANA SPA, DIFC",
+    type: "European Spa & Wellness Center",
+    description: "Premier European spa in Dubai delivering unparalleled massage experiences. With 12 years of experience and professional therapists from Russia, Ukraine, Poland, Georgia, Bulgaria and Romania, offering European Aromatherapy, Swedish, Deep Tissue Massage, Moroccan Bath, and more in a tranquil ambiance.",
+    location: "Residence Inn by Marriott - 115 Sheikh Zayed Road - Floor 45 - 2 - Trade Center Second - DIFC - Dubai",
+    phone: "+971 56 395 8899",
+    website: "https://lavanaspa.ae/",
+    directions: "https://www.google.com/maps?sca_esv=3f626f5782a50780&rlz=1C5CHFA_enAE820AE820&sxsrf=AE3TifPCzlwdVa9OQbPDQt0Y5-aB6CyBLA:1762786995199&gs_lp=Egxnd3Mtd2l6LXNlcnAiCmxhdmFuYSBzcGEqAggAMgoQIxiABBgnGIoFMggQABiABBjLATIOEC4YgAQYxwEYywEYrwEyDhAuGIAEGMcBGMsBGK8BMg4QLhiABBjHARjLARivATIIEAAYgAQYywEyCBAAGIAEGMsBMggQABiABBjLATIIEAAYgAQYywEyBRAAGIAESMUXUABY-gxwAHgAkAEAmAHxAaAB4RGqAQQyLTEwuAEDyAEA-AEBmAIKoAKeEsICChAjGPAFGCcYyQLCAgsQLhiABBjRAxjHAcICCxAuGIAEGMcBGK8BwgIQEC4YgAQYxwEYJxiKBRivAcICBRAuGIAEwgIKEC4YgAQYQxiKBcICDhAuGIAEGMcBGI4FGK8BwgIREC4YgAQYxwEYmAUYmQUYrwHCAggQLhiABBjUAsICCBAuGIAEGMsBwgIKEC4YgAQYChjLAZgDAJIHBDItMTCgB43NAbIHBDItMTC4B54SwgcFMC4xLjnIBy8&um=1&ie=UTF-8&fb=1&gl=ae&sa=X&geocode=Ka0XZqubQ18-MVl5hgZyAn4M&daddr=Residence+Inn+by+Marriott+-+115+Sheikh+Zayed+Road+-+Floor+45+-+2+-+Trade+Center+Second+-+DIFC+-+Dubai",
+    logo: "/images/partners/lava.png",
+    theme: "purple"
   }
 ];

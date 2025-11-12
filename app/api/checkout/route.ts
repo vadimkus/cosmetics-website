@@ -7,7 +7,6 @@ import { requireCsrfToken } from '@/lib/csrf'
 import { requireBodySizeLimit, getSizeLimitForContentType } from '@/lib/requestSizeLimit'
 import { Product } from '@/types/index'
 import { enhanceOrderItemWithDefaultSize } from '@/lib/orderSizeDefaults'
-// import { trackPurchase } from '@/lib/analytics' // Unused for now
 
 interface CheckoutItem {
   product: Product

@@ -8,20 +8,13 @@ import {
   MapPin, 
   Calendar, 
   Package, 
-  // DollarSign, // Unused for now
-  // TrendingUp, // Unused for now
   ShoppingBag,
-  // Star, // Unused for now
   Building,
   Crown,
   Eye,
   EyeOff,
   Trash2,
   ArrowLeft,
-  // Clock, // Unused for now
-  // CheckCircle, // Unused for now
-  // XCircle, // Unused for now
-  // AlertCircle, // Unused for now
   Edit3,
   Save,
   X,
@@ -342,20 +335,6 @@ export default function CustomerProfile({
       favoriteCategory
     })
   }
-
-  // const getStatusIcon = (status: string) => {
-  //   switch (status) {
-  //     case 'COMPLETED':
-  //       return <CheckCircle className="h-4 w-4 text-green-600" />
-  //     case 'PENDING':
-  //       return <Clock className="h-4 w-4 text-yellow-600" />
-  //     case 'CANCELLED':
-  //       return <XCircle className="h-4 w-4 text-red-600" />
-  //     default:
-  //       return <AlertCircle className="h-4 w-4 text-gray-600" />
-  //   }
-  // } // Unused for now
-
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('en-AE', {

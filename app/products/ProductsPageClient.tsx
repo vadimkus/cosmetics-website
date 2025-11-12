@@ -2,7 +2,6 @@
 import { debugLog, errorLog } from '@/lib/logger'
 
 import Link from 'next/link'
-// import { ArrowLeft } from 'lucide-react' // Unused for now
 import ProductCard from '@/components/ProductCard'
 import ErrorPage from '@/components/ErrorPage'
 import LoadingSpinner from '@/components/LoadingSpinner'

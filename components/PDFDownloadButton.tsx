@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-// import { Download } from 'lucide-react' // Unused for now
 import { usePDFTracking } from '@/lib/pdfTracking'
 import { errorLog } from '@/lib/logger'
 import { trackPDFDownload } from '@/lib/analytics'

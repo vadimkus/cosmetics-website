@@ -239,6 +239,56 @@ export default function TrainingPage() {
                       </PDFDownloadButton>
                     </div>
                   </div>
+                  
+                  <div className="group border border-gray-200 rounded-lg p-3 hover:border-green-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0 group-hover:bg-green-100 transition-colors">
+                        <Download className="h-5 w-5 text-green-600" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h4 className="text-sm font-semibold text-gray-900 truncate">
+                          Achieve Korean Glass Skin with GENOSYS approach
+                        </h4>
+                        <p className="text-xs text-gray-400">
+                          10 MB
+                        </p>
+                      </div>
+                      <PDFDownloadButton
+                        href="/documents/ppt/Achieve%20Korean%20Glass%20Skin%20with%20GENOSYS%20approach_F.pdf"
+                        filename="Achieve Korean Glass Skin with GENOSYS approach"
+                        external={true}
+                        className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-md hover:from-green-700 hover:to-green-800 transition-colors text-xs font-medium flex-shrink-0"
+                      >
+                        <Download className="h-3 w-3 mr-1" />
+                        View PDF
+                      </PDFDownloadButton>
+                    </div>
+                  </div>
+                  
+                  <div className="group border border-gray-200 rounded-lg p-3 hover:border-green-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0 group-hover:bg-green-100 transition-colors">
+                        <Download className="h-5 w-5 text-green-600" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h4 className="text-sm font-semibold text-gray-900 truncate">
+                          Bio-Meso PDRN Expert Treatment Guide
+                        </h4>
+                        <p className="text-xs text-gray-400">
+                          8.9 MB
+                        </p>
+                      </div>
+                      <PDFDownloadButton
+                        href="/documents/ppt/Bio-Meso%20PDRN%20Expert_Treatment%20guide_for%20print_S.pdf"
+                        filename="Bio-Meso PDRN Expert Treatment Guide"
+                        external={true}
+                        className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-md hover:from-green-700 hover:to-green-800 transition-colors text-xs font-medium flex-shrink-0"
+                      >
+                        <Download className="h-3 w-3 mr-1" />
+                        View PDF
+                      </PDFDownloadButton>
+                    </div>
+                  </div>
                 </div>
               </div>
               

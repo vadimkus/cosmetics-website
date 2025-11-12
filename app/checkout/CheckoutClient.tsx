@@ -320,9 +320,6 @@ export default function CheckoutClient() {
         errorLog('Error sending COD confirmation email:', error)
       }
       
-      // Simulate order processing
-      await new Promise(resolve => setTimeout(resolve, 2000))
-      
       // Redirect to success page with order number (cart will be cleared there)
       router.push(`/success?order_id=${codOrderNumber}&payment=cod`)
     } catch (error) {

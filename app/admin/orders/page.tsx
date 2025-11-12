@@ -265,10 +265,17 @@ export default function AdminOrdersPage() {
                             Qty: {item.quantity} × {formatCurrency(item.price)} = {formatCurrency(item.price * item.quantity)}
                           </div>
                           {(item.color || item.size) && (
-                            <div className="text-gray-500 mt-1">
-                              {item.color && <span>Color: <span className="font-medium">{item.color}</span></span>}
-                              {item.color && item.size && <span className="mx-2">•</span>}
-                              {item.size && <span>Size: <span className="font-medium">{item.size}</span></span>}
+                            <div className="flex gap-3 mt-2 text-xs">
+                              {item.color && (
+                                <div className="text-gray-600">
+                                  <span className="text-gray-500">Color:</span> <span className="font-semibold text-gray-800 bg-blue-50 px-2 py-0.5 rounded">{item.color}</span>
+                                </div>
+                              )}
+                              {item.size && (
+                                <div className="text-gray-600">
+                                  <span className="text-gray-500">Size:</span> <span className="font-semibold text-gray-800 bg-green-50 px-2 py-0.5 rounded">{item.size}</span>
+                                </div>
+                              )}
                             </div>
                           )}
                         </div>

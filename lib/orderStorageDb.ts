@@ -34,7 +34,8 @@ export interface OrderData {
 // Read all orders
 export const readOrders = async (): Promise<Order[]> => {
   try {
-    return await prisma.order.findMany({
+    debugLog('🔍 readOrders: Starting query...')
+    const orders = await prisma.order.findMany({
       select: {
         id: true,
         orderNumber: true,
@@ -67,8 +68,12 @@ export const readOrders = async (): Promise<Order[]> => {
       },
       orderBy: { createdAt: 'desc' }
     })
+    debugLog(`✅ readOrders: Found ${orders.length} orders`)
+    return orders
   } catch (error) {
-    errorLog('Error reading orders:', error)
+    errorLog('❌ Error reading orders:', error)
+    errorLog('❌ Error details:', error instanceof Error ? error.message : String(error))
+    errorLog('❌ Error stack:', error instanceof Error ? error.stack : 'No stack')
     return []
   }
 }

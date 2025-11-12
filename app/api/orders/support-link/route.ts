@@ -3,6 +3,7 @@ import { sendEmail, sendAdminNewOrderNotification, generateSupportLinkOrderHTML,
 import { debugLog, errorLog } from '@/lib/logger'
 import { addOrder, OrderData, OrderItemData } from '@/lib/orderStorageDb'
 import { requireCsrfToken } from '@/lib/csrf'
+import { enhanceOrderItemWithDefaultSize } from '@/lib/orderSizeDefaults'
 
 export async function POST(request: NextRequest) {
   // CSRF protection
@@ -28,13 +29,24 @@ export async function POST(request: NextRequest) {
     } = orderData
 
     // Save order to database
-    const orderItems: OrderItemData[] = items.map((item: { id?: string; name: string; price: number; quantity: number; image?: string }) => ({
-      productId: item.id || `product-${item.name.toLowerCase().replace(/\s+/g, '-')}`,
-      productName: item.name,
-      price: item.price,
-      quantity: item.quantity,
-      image: item.image || '/images/placeholder.jpg'
-    }))
+    const orderItems: OrderItemData[] = items.map((item: { id?: string; name: string; price: number; quantity: number; image?: string; color?: string; size?: string }) => {
+      // Enhance with default size if missing
+      const enhanced = enhanceOrderItemWithDefaultSize({
+        productName: item.name,
+        size: item.size || null,
+        color: item.color || null
+      })
+      
+      return {
+        productId: item.id || `product-${item.name.toLowerCase().replace(/\s+/g, '-')}`,
+        productName: item.name,
+        price: item.price,
+        quantity: item.quantity,
+        image: item.image || '/images/placeholder.jpg',
+        color: enhanced.color || undefined,
+        size: enhanced.size || undefined
+      }
+    })
 
     const dbOrder: OrderData = {
       orderNumber,
@@ -84,20 +96,25 @@ export async function POST(request: NextRequest) {
 
     const orderHTML = generateSupportLinkOrderHTML(orderHTMLData)
 
-    // Send email to customer
-    const result = await sendEmail(
+    // Send email to customer (non-blocking - fire and forget)
+    sendEmail(
       customerEmail,
       `Order Request Submitted #${orderNumber} - GENOSYS Professional`,
       orderHTML
-    )
+    ).then((result) => {
+      if (result.success) {
+        debugLog('✅ Support-link order confirmation email sent to:', customerEmail)
+      } else {
+        errorLog('❌ Failed to send support-link order confirmation email:', result.error)
+      }
+    }).catch((emailError) => {
+      errorLog('❌ Exception sending support-link order confirmation email:', emailError)
+      // Don't fail order creation if email fails
+    })
 
-    if (!result.success) {
-      throw new Error(result.error || 'Failed to send email')
-    }
-
-    // Send admin notification for support-link order
+    // Send admin notification for support-link order (non-blocking - fire and forget)
     debugLog('📧 Sending admin notification for support-link order:', orderNumber)
-    const adminResult = await sendAdminNewOrderNotification({
+    sendAdminNewOrderNotification({
       orderNumber,
       customerName,
       customerEmail,
@@ -115,20 +132,23 @@ export async function POST(request: NextRequest) {
       vat: vatAmount,
       address: customerAddress,
       emirate: emirate
+    }).then((adminResult) => {
+      if (adminResult.success) {
+        debugLog('✅ Admin notification sent for support-link order:', orderNumber)
+      } else {
+        errorLog('❌ Failed to send admin notification for support-link order:', adminResult.error)
+        errorLog('❌ Admin notification error details:', JSON.stringify(adminResult, null, 2))
+      }
+    }).catch((emailError) => {
+      errorLog('❌ Exception sending admin notification for support-link order:', emailError)
+      // Don't fail order creation if email fails
     })
 
-    if (adminResult.success) {
-      debugLog('✅ Admin notification sent for support-link order:', orderNumber)
-    } else {
-      errorLog('❌ Failed to send admin notification for support-link order:', adminResult.error)
-      errorLog('❌ Admin notification error details:', JSON.stringify(adminResult, null, 2))
-    }
-
+    // Return success response immediately (emails are sent asynchronously)
     return NextResponse.json({ 
       success: true, 
       message: 'Support link order request sent successfully',
-      orderId: savedOrder.id,
-      adminNotificationSent: adminResult.success
+      orderId: savedOrder.id
     })
 
   } catch (error) {

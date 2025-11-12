@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import Image from 'next/image'
 import { User as UserIcon, Package, Clock, CheckCircle, Truck, X, Trash2, RefreshCw, ArrowLeft, BarChart3, Plus, Edit, Image as ImageIcon, Shield } from 'lucide-react'
 import AdminLogin from '@/components/AdminLogin'
@@ -59,6 +59,16 @@ export default function AdminPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [isCheckingSession, setIsCheckingSession] = useState(true)
   const [adminUser, setAdminUser] = useState<{ email: string; name: string } | null>(null)
+  
+  // Refs to track latest values for interval closure
+  const adminUserRef = useRef(adminUser)
+  const isAuthenticatedRef = useRef(isAuthenticated)
+  
+  // Update refs when values change
+  useEffect(() => {
+    adminUserRef.current = adminUser
+    isAuthenticatedRef.current = isAuthenticated
+  }, [adminUser, isAuthenticated])
 
   // Fetch CSRF token on mount
   useEffect(() => {
@@ -194,21 +204,79 @@ export default function AdminPage() {
   }
 
   const fetchOrders = useCallback(async () => {
+    // Don't fetch if not authenticated or adminUser not set
+    if (!isAuthenticated || !adminUser?.email) {
+      console.warn('⚠️ Cannot fetch orders: Not authenticated or admin user not set', {
+        isAuthenticated,
+        adminUserEmail: adminUser?.email
+      })
+      setOrders([])
+      setOrdersLoading(false)
+      return
+    }
+    
     try {
       setOrdersLoading(true)
-      const response = await fetch('/api/admin/orders', {
-        headers: getAdminHeaders()
+      const headers = getAdminHeaders()
+      const headersObj = headers as Record<string, string>
+      console.log('🔍 Fetching orders:', {
+        adminEmail: adminUser.email,
+        headers: Object.keys(headersObj),
+        hasXAdminEmail: !!headersObj['X-Admin-Email']
       })
+      
+      // Add timeout to prevent hanging
+      const controller = new AbortController()
+      const timeoutId = setTimeout(() => controller.abort(), 10000) // 10 second timeout
+      
+      const response = await fetch('/api/admin/orders', {
+        headers: headers,
+        signal: controller.signal
+      })
+      
+      clearTimeout(timeoutId)
+      
+      console.log('📡 Response status:', response.status, response.statusText)
+      
+      if (!response.ok) {
+        const errorText = await response.text()
+        console.error('❌ Admin orders API error:', response.status, errorText)
+        errorLog('Admin orders API error:', response.status, errorText)
+        setOrders([])
+        setOrdersLoading(false)
+        return
+      }
+      
       const data = await response.json()
+      console.log('📦 Admin orders API response:', {
+        success: data.success,
+        ordersCount: data.orders?.length || 0,
+        orders: data.orders?.slice(0, 2) // Log first 2 orders as sample
+      })
+      debugLog('Admin orders API response:', data)
+      
       if (data.success) {
-        setOrders(data.orders)
+        console.log(`✅ Setting ${data.orders?.length || 0} orders`)
+        debugLog(`Setting ${data.orders?.length || 0} orders`)
+        setOrders(data.orders || [])
+      } else {
+        console.error('❌ Failed to fetch orders:', data.error)
+        errorLog('Failed to fetch orders:', data.error)
+        setOrders([])
       }
     } catch (error) {
+      console.error('❌ Error fetching orders:', error)
       errorLog('Error fetching orders:', error)
+      if (error instanceof Error && error.name === 'AbortError') {
+        console.error('⏱️ Request timed out after 10 seconds')
+        alert('Request timed out. Please check your connection and try again.')
+      }
+      setOrders([])
+      setOrdersLoading(false)
     } finally {
       setOrdersLoading(false)
     }
-  }, [getAdminHeaders])
+  }, [isAuthenticated, adminUser, getAdminHeaders])
 
   const refreshUsers = async () => {
     setUsersRefreshing(true)
@@ -285,6 +353,16 @@ export default function AdminPage() {
   }
 
   const deleteOrder = async (orderId: string) => {
+    if (!orderId) {
+      alert('Error: Order ID is missing. Please refresh the page and try again.')
+      return
+    }
+
+    // Confirm deletion
+    if (!confirm(`Are you sure you want to delete this order? This action cannot be undone.`)) {
+      return
+    }
+
     try {
       // Ensure CSRF token is available
       const csrfToken = await fetchCsrfToken()
@@ -293,20 +371,31 @@ export default function AdminPage() {
         return
       }
 
+      debugLog(`🗑️ Attempting to delete order with ID: ${orderId}`)
+      
       const response = await fetch(`/api/admin/orders/${orderId}`, {
         method: 'DELETE',
         headers: getAdminHeaders(),
         body: JSON.stringify(addCsrfToBody({}))
       })
       
+      const responseData = await response.json()
+      
       if (response.ok) {
+        debugLog(`✅ Order deleted successfully: ${orderId}`)
         setOrders(orders.filter(order => order.id && order.id !== orderId))
+        alert('Order deleted successfully!')
       } else {
-        const errorData = await response.json()
-        errorLog(`Failed to delete order: ${errorData.error || 'Unknown error'}`)
+        const errorMessage = responseData.error || responseData.message || 'Unknown error'
+        errorLog(`❌ Failed to delete order: ${errorMessage}`)
+        errorLog(`❌ Response status: ${response.status}`)
+        errorLog(`❌ Full response:`, JSON.stringify(responseData, null, 2))
+        alert(`Failed to delete order: ${errorMessage}\n\nStatus: ${response.status}\n\nPlease check the console for more details.`)
       }
     } catch (error) {
-      errorLog('Error deleting order:', error)
+      const errorMessage = error instanceof Error ? error.message : String(error)
+      errorLog('❌ Error deleting order:', error)
+      alert(`Error deleting order: ${errorMessage}\n\nPlease check the console for more details.`)
     }
   }
 
@@ -465,22 +554,42 @@ export default function AdminPage() {
   }, [])
 
   useEffect(() => {
-    if (isAuthenticated && !isCheckingSession) {
+    // Wait for authentication and adminUser to be set before fetching
+    if (isAuthenticated && !isCheckingSession && adminUser?.email) {
+      console.log('✅ Admin authenticated, fetching data...', { adminEmail: adminUser.email })
+      
+      // Initial fetch
       fetchUsers()
       fetchOrders()
       fetchProducts()
       
       // Auto-refresh users, orders, and products every 30 seconds to show new registrations/logins
       const refreshInterval = setInterval(() => {
-        fetchUsers()
-        fetchOrders()
-        fetchProducts()
+        // Use refs to get latest values in closure
+        if (isAuthenticatedRef.current && adminUserRef.current?.email) {
+          fetchUsers()
+          fetchOrders()
+          fetchProducts()
+        }
       }, 30000) // 30 seconds
       
-      return () => clearInterval(refreshInterval)
+      return () => {
+        clearInterval(refreshInterval)
+      }
     }
+    
+    // Not authenticated yet - log and return undefined (no cleanup needed)
+    console.log('⏳ Waiting for authentication...', {
+      isAuthenticated,
+      isCheckingSession,
+      hasAdminUser: !!adminUser,
+      adminEmail: adminUser?.email
+    })
+    
     return undefined
-  }, [isAuthenticated, isCheckingSession, fetchUsers, fetchOrders, fetchProducts])
+    // Only depend on the email string, not the whole adminUser object or functions
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAuthenticated, isCheckingSession, adminUser?.email])
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('en-AE', {
@@ -549,11 +658,19 @@ export default function AdminPage() {
               <div>
                 <div className="font-medium">{item.productName}</div>
                 <div className="text-sm text-gray-600">Quantity: {item.quantity}</div>
-                {item.color && (
-                  <div className="text-xs text-gray-500 mt-1">Color: <span className="font-medium">{item.color}</span></div>
-                )}
-                {item.size && (
-                  <div className="text-xs text-gray-500 mt-1">Size: <span className="font-medium">{item.size}</span></div>
+                {((item as any).color || (item as any).size) && (
+                  <div className="flex gap-4 mt-2 text-xs">
+                    {(item as any).color && (
+                      <div className="text-gray-600">
+                        <span className="text-gray-500">Color:</span> <span className="font-semibold text-gray-800 bg-blue-50 px-2 py-0.5 rounded">{(item as any).color}</span>
+                      </div>
+                    )}
+                    {(item as any).size && (
+                      <div className="text-gray-600">
+                        <span className="text-gray-500">Size:</span> <span className="font-semibold text-gray-800 bg-green-50 px-2 py-0.5 rounded">{(item as any).size}</span>
+                      </div>
+                    )}
+                  </div>
                 )}
               </div>
               <div className="text-right">
@@ -1154,27 +1271,56 @@ export default function AdminPage() {
                                   />
                                 </th>
                                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Order ID</th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Customer</th>
                                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
                                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
                                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Items</th>
                                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                               </tr>
                             </thead>
                           <tbody className="bg-white divide-y divide-gray-200">
-                            {orders.filter(order => order.id).map((order) => (
-                              <tr key={order.id} className="hover:bg-gray-50 transition-colors">
+                            {orders.map((order) => (
+                              <tr key={order.id || order.orderNumber} className="hover:bg-gray-50 transition-colors">
                                 <td className="px-6 py-4 whitespace-nowrap">
                                   <input
                                     type="checkbox"
-                                    checked={selectedOrders.includes(order.id)}
-                                    onChange={() => toggleOrderSelection(order.id)}
+                                    checked={order.id ? selectedOrders.includes(order.id) : false}
+                                    onChange={() => order.id && toggleOrderSelection(order.id)}
                                     className="rounded border-gray-300 text-red-600 focus:ring-red-500"
+                                    disabled={!order.id}
                                   />
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                  #{order.id?.slice(-8) || 'N/A'}
+                                  <div className="flex flex-col">
+                                    <span>#{order.id?.slice(-8) || order.orderNumber || 'N/A'}</span>
+                                    {order.orderNumber && order.orderNumber !== order.id?.slice(-8) && (
+                                      <span className="text-xs text-gray-500">Order: {order.orderNumber}</span>
+                                    )}
+                                    {!order.id && (
+                                      <span className="text-xs text-red-500">⚠️ No ID</span>
+                                    )}
+                                  </div>
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                <div className="flex items-center gap-2">
+                                  <button
+                                    onClick={() => setSelectedOrder(order)}
+                                    className="text-primary-600 hover:text-primary-900 font-semibold"
+                                  >
+                                    View Details
+                                  </button>
+                                  {order.id && (
+                                    <button
+                                      onClick={() => deleteOrder(order.id)}
+                                      className="text-red-600 hover:text-red-900 font-semibold flex items-center gap-1"
+                                      title="Delete Order"
+                                    >
+                                      <Trash2 className="h-4 w-4" />
+                                      Delete
+                                    </button>
+                                  )}
+                                </div>
                                 </td>
                               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                 {order.customerName}
@@ -1199,24 +1345,6 @@ export default function AdminPage() {
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                   {formatCurrency(order.total)}
-                                </td>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                <div className="flex items-center gap-2">
-                                  <button
-                                    onClick={() => setSelectedOrder(order)}
-                                    className="text-primary-600 hover:text-primary-900 font-semibold"
-                                  >
-                                    View Details
-                                  </button>
-                                  <button
-                                    onClick={() => deleteOrder(order.id)}
-                                    className="text-red-600 hover:text-red-900 font-semibold flex items-center gap-1"
-                                    title="Delete Order"
-                                  >
-                                    <Trash2 className="h-4 w-4" />
-                                    Delete
-                                  </button>
-                                </div>
                                 </td>
                               </tr>
                             ))}

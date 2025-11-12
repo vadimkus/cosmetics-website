@@ -6,6 +6,7 @@ import { sendOrderConfirmationEmail, sendAdminNewOrderNotification } from '@/lib
 import { requireCsrfToken } from '@/lib/csrf'
 import { requireBodySizeLimit, getSizeLimitForContentType } from '@/lib/requestSizeLimit'
 import { Product } from '@/types/index'
+import { enhanceOrderItemWithDefaultSize } from '@/lib/orderSizeDefaults'
 // import { trackPurchase } from '@/lib/analytics' // Unused for now
 
 interface CheckoutItem {
@@ -86,15 +87,24 @@ export async function POST(request: NextRequest) {
     const orderId = (Math.floor(Math.random() * 900000000) + 100000000).toString()
 
     // Create order items
-    const orderItems: OrderItemData[] = items.map((item: CheckoutItem) => ({
-      productId: item.product.id,
-      productName: item.product.name,
-      price: item.product.price,
-      quantity: item.quantity,
-      image: item.product.image,
-      color: item.selectedColor,
-      size: item.selectedSize
-    }))
+    const orderItems: OrderItemData[] = items.map((item: CheckoutItem) => {
+      // Enhance with default size if missing
+      const enhanced = enhanceOrderItemWithDefaultSize({
+        productName: item.product.name,
+        size: item.selectedSize || null,
+        color: item.selectedColor || null
+      })
+      
+      return {
+        productId: item.product.id,
+        productName: item.product.name,
+        price: item.product.price,
+        quantity: item.quantity,
+        image: item.product.image,
+        color: enhanced.color || undefined,
+        size: enhanced.size || undefined
+      }
+    })
 
     // Create order object
     const order: OrderData = {
@@ -116,11 +126,13 @@ export async function POST(request: NextRequest) {
     // Store the order
     await addOrder(order)
 
-    // Track order creation in database
-    await trackUserAction({
+    // Track order creation in database (non-blocking)
+    trackUserAction({
       action: 'order_created',
       userEmail: customerEmail,
       details: `Order #${orderId} - ${items.length} items - Total: ${total} AED`
+    }).catch(err => {
+      errorLog('❌ Failed to track order creation:', err)
     })
 
     // Track purchase in Google Analytics (server-side)
@@ -138,66 +150,63 @@ export async function POST(request: NextRequest) {
       }))
     })
 
-    // Send order confirmation email to customer
-    try {
-      await sendOrderConfirmationEmail({
-        orderNumber: order.orderNumber,
-        customerName: order.customerName,
-        customerEmail: order.customerEmail,
-        items: order.items.map(item => ({
-          productName: item.productName,
-          quantity: item.quantity,
-          price: item.price,
-          image: item.image
-        })),
-        subtotal: order.subtotal,
-        shipping: order.shipping ?? 0,
-        vat: order.vat,
-        total: order.total,
-        address: order.customerAddress,
-        emirate: order.customerEmirate
-      })
+    // Send order confirmation email to customer (non-blocking - fire and forget)
+    sendOrderConfirmationEmail({
+      orderNumber: order.orderNumber,
+      customerName: order.customerName,
+      customerEmail: order.customerEmail,
+      items: order.items.map(item => ({
+        productName: item.productName,
+        quantity: item.quantity,
+        price: item.price,
+        image: item.image
+      })),
+      subtotal: order.subtotal,
+      shipping: order.shipping ?? 0,
+      vat: order.vat,
+      total: order.total,
+      address: order.customerAddress,
+      emirate: order.customerEmirate
+    }).then(() => {
       debugLog('✅ Order confirmation email sent to:', order.customerEmail)
-    } catch (emailError) {
+    }).catch((emailError) => {
       errorLog('❌ Failed to send order confirmation email:', emailError)
       // Don't fail order creation if email fails
-    }
+    })
 
-    // Send admin notification for new order
-    try {
-      const adminResult = await sendAdminNewOrderNotification({
-        orderNumber: order.orderNumber,
-        customerName: order.customerName,
-        customerEmail: order.customerEmail,
-        customerPhone: customerPhone,
-        total: order.total,
-        itemCount: order.items.length,
-        items: order.items.map(item => ({
-          productName: item.productName,
-          quantity: item.quantity,
-          price: item.price,
-          image: item.image
-        })),
-        subtotal: order.subtotal,
-        shipping: order.shipping,
-        vat: order.vat,
-        address: order.customerAddress,
-        emirate: order.customerEmirate
-      })
-      
+    // Send admin notification for new order (non-blocking - fire and forget)
+    sendAdminNewOrderNotification({
+      orderNumber: order.orderNumber,
+      customerName: order.customerName,
+      customerEmail: order.customerEmail,
+      customerPhone: customerPhone,
+      total: order.total,
+      itemCount: order.items.length,
+      items: order.items.map(item => ({
+        productName: item.productName,
+        quantity: item.quantity,
+        price: item.price,
+        image: item.image
+      })),
+      subtotal: order.subtotal,
+      shipping: order.shipping,
+      vat: order.vat,
+      address: order.customerAddress,
+      emirate: order.customerEmirate
+    }).then((adminResult) => {
       if (adminResult.success) {
         debugLog('✅ Admin notification sent for new order:', order.orderNumber)
       } else {
         errorLog('❌ Failed to send admin notification:', adminResult.error)
         errorLog('❌ Admin notification error details:', JSON.stringify(adminResult, null, 2))
       }
-    } catch (emailError) {
+    }).catch((emailError) => {
       errorLog('❌ Exception sending admin notification:', emailError)
       errorLog('❌ Exception details:', emailError instanceof Error ? emailError.message : String(emailError))
       // Don't fail order creation if email fails
-    }
+    })
 
-    // Return success response
+    // Return success response immediately (emails are sent asynchronously)
     return NextResponse.json({ 
       orderId: orderId,
       message: 'Order created successfully'

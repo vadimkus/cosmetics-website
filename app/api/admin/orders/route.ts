@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { readOrders, getOrdersByEmail } from '@/lib/orderStorageDb'
 import { debugLog, errorLog } from '@/lib/logger'
 import { requireAdminAuth } from '@/lib/adminAuth'
+import { prisma } from '@/lib/database'
 
 export async function GET(request: NextRequest) {
   const auth = await requireAdminAuth(request)
@@ -48,8 +49,21 @@ export async function GET(request: NextRequest) {
       }
     } else {
       // Get all orders from storage, excluding cancelled orders
+      debugLog('📊 Admin orders API: Calling readOrders()...')
       const allOrders = await readOrders()
-      debugLog(`📊 Admin orders API: Found ${allOrders.length} total orders`)
+      debugLog(`📊 Admin orders API: readOrders returned ${allOrders.length} total orders`)
+      
+      if (allOrders.length === 0) {
+        debugLog('⚠️ Admin orders API: readOrders returned empty array!')
+        // Try a direct query to see if it's a Prisma issue
+        try {
+          const directCount = await prisma.order.count()
+          debugLog(`📊 Direct Prisma count: ${directCount} orders in database`)
+        } catch (countError) {
+          errorLog('❌ Error counting orders directly:', countError)
+        }
+      }
+      
       orders = allOrders.filter(order => order.status !== 'CANCELLED')
       debugLog(`📊 Admin orders API: Returning ${orders.length} non-cancelled orders`)
     }

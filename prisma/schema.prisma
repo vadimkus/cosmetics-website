@@ -100,6 +100,8 @@ model OrderItem {
   price       Float
   quantity    Int
   image       String
+  color       String? // Product color variant (e.g., "beige", "ivory", "camel")
+  size        String? // Product size variant (e.g., "50g", "100g")
   order       Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
 
   @@index([orderId]) // Index for faster order item lookups

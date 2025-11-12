@@ -8,6 +8,8 @@ export interface OrderItemData {
   price: number
   quantity: number
   image: string
+  color?: string // Product color variant (e.g., "beige", "ivory", "camel")
+  size?: string // Product size variant (e.g., "50g", "100g")
 }
 
 export interface OrderData {
@@ -57,7 +59,9 @@ export const readOrders = async (): Promise<Order[]> => {
             productName: true,
             price: true,
             quantity: true,
-            image: true
+            image: true,
+            color: true,
+            size: true
           }
         }
       },
@@ -142,6 +146,8 @@ export const addOrder = async (orderData: OrderData): Promise<Order> => {
             price: item.price,
             quantity: item.quantity,
             image: item.image,
+            color: item.color || null,
+            size: item.size || null,
           }))
         }
       },

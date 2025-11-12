@@ -28,12 +28,14 @@ export async function POST(request: NextRequest) {
     } = orderData
 
     // Save order to database
-    const orderItems: OrderItemData[] = items.map((item: { id?: string; name: string; price: number; quantity: number; image?: string }) => ({
+    const orderItems: OrderItemData[] = items.map((item: { id?: string; name: string; price: number; quantity: number; image?: string; color?: string; size?: string }) => ({
       productId: item.id || `product-${item.name.toLowerCase().replace(/\s+/g, '-')}`,
       productName: item.name,
       price: item.price,
       quantity: item.quantity,
-      image: item.image || '/images/placeholder.jpg'
+      image: item.image || '/images/placeholder.jpg',
+      color: item.color,
+      size: item.size
     }))
 
     const dbOrder: OrderData = {

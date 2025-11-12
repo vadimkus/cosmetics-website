@@ -5,6 +5,15 @@ import { RefreshCw, Mail } from 'lucide-react'
 import { fetchCsrfToken, getCsrfHeaders, addCsrfToBody } from '@/lib/csrfClient'
 import { errorLog } from '@/lib/logger'
 
+interface OrderItem {
+  id: string
+  productName: string
+  quantity: number
+  price: number
+  color?: string
+  size?: string
+}
+
 interface Order {
   orderNumber: string
   customerName: string
@@ -18,6 +27,7 @@ interface Order {
   itemCount: number
   status: string
   createdAt: string
+  items?: OrderItem[]
 }
 
 export default function AdminOrdersPage() {
@@ -243,8 +253,32 @@ export default function AdminOrdersPage() {
                   </div>
                 </div>
                 
+                {/* Order Items */}
+                {order.items && order.items.length > 0 && (
+                  <div className="mt-4 pt-4 border-t border-gray-200">
+                    <h4 className="text-sm font-semibold text-gray-700 mb-2">Order Items:</h4>
+                    <div className="space-y-2">
+                      {order.items.map((item) => (
+                        <div key={item.id} className="text-xs bg-white p-2 rounded border border-gray-100">
+                          <div className="font-medium text-gray-800">{item.productName}</div>
+                          <div className="text-gray-600 mt-1">
+                            Qty: {item.quantity} × {formatCurrency(item.price)} = {formatCurrency(item.price * item.quantity)}
+                          </div>
+                          {(item.color || item.size) && (
+                            <div className="text-gray-500 mt-1">
+                              {item.color && <span>Color: <span className="font-medium">{item.color}</span></span>}
+                              {item.color && item.size && <span className="mx-2">•</span>}
+                              {item.size && <span>Size: <span className="font-medium">{item.size}</span></span>}
+                            </div>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                
                 {/* Order Breakdown Summary */}
-                <div className="bg-gray-50 rounded-lg p-3 text-xs">
+                <div className="bg-gray-50 rounded-lg p-3 text-xs mt-4">
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
                     <div>
                       <span className="text-gray-500">Subtotal:</span>

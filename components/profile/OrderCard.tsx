@@ -7,6 +7,8 @@ import { OrderWithItems } from '@/types/profile'
 type OrderItemWithOptionalFields = OrderWithItems['items'][0] & {
   selectedSize?: string
   selectedColor?: string
+  size?: string
+  color?: string
 }
 
 interface OrderCardProps {
@@ -72,11 +74,11 @@ export default function OrderCard({
                 <p className="text-sm text-gray-600">
                   {item.quantity} × {formatCurrency(item.price)}
                 </p>
-                {itemWithOptional.selectedSize && (
-                  <p className="text-xs text-gray-500">Size: {itemWithOptional.selectedSize}</p>
+                {(itemWithOptional.size || itemWithOptional.selectedSize) && (
+                  <p className="text-xs text-gray-500">Size: {itemWithOptional.size || itemWithOptional.selectedSize}</p>
                 )}
-                {itemWithOptional.selectedColor && (
-                  <p className="text-xs text-gray-500">Color: {itemWithOptional.selectedColor}</p>
+                {(itemWithOptional.color || itemWithOptional.selectedColor) && (
+                  <p className="text-xs text-gray-500">Color: {itemWithOptional.color || itemWithOptional.selectedColor}</p>
                 )}
               </div>
               <div className="text-right">

@@ -220,10 +220,14 @@ export default function CheckoutClient() {
             items: items.map(item => {
               const pricing = calculateDiscountedPrice(item.product, user)
               return {
+                id: item.product.id,
                 name: item.product.name,
                 price: pricing.discountedPrice,
                 quantity: item.quantity,
-                total: pricing.discountedPrice * item.quantity
+                total: pricing.discountedPrice * item.quantity,
+                image: item.product.image,
+                color: item.selectedColor,
+                size: item.selectedSize
               }
             }),
             subtotal,
@@ -279,10 +283,14 @@ export default function CheckoutClient() {
           items: items.map(item => {
             const pricing = calculateDiscountedPrice(item.product, user)
             return {
+              id: item.product.id,
               name: item.product.name,
               price: pricing.discountedPrice,
               quantity: item.quantity,
-              total: pricing.discountedPrice * item.quantity
+              total: pricing.discountedPrice * item.quantity,
+              image: item.product.image,
+              color: item.selectedColor,
+              size: item.selectedSize
             }
           }),
           subtotal,

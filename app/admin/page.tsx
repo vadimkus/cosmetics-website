@@ -549,6 +549,12 @@ export default function AdminPage() {
               <div>
                 <div className="font-medium">{item.productName}</div>
                 <div className="text-sm text-gray-600">Quantity: {item.quantity}</div>
+                {item.color && (
+                  <div className="text-xs text-gray-500 mt-1">Color: <span className="font-medium">{item.color}</span></div>
+                )}
+                {item.size && (
+                  <div className="text-xs text-gray-500 mt-1">Size: <span className="font-medium">{item.size}</span></div>
+                )}
               </div>
               <div className="text-right">
                 <div className="font-medium">{formatCurrency(item.price)}</div>

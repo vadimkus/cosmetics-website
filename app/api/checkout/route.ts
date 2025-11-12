@@ -11,6 +11,8 @@ import { Product } from '@/types/index'
 interface CheckoutItem {
   product: Product
   quantity: number
+  selectedColor?: string
+  selectedSize?: string
 }
 
 export async function POST(request: NextRequest) {
@@ -89,7 +91,9 @@ export async function POST(request: NextRequest) {
       productName: item.product.name,
       price: item.product.price,
       quantity: item.quantity,
-      image: item.product.image
+      image: item.product.image,
+      color: item.selectedColor,
+      size: item.selectedSize
     }))
 
     // Create order object

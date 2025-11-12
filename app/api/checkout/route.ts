@@ -155,12 +155,28 @@ export async function POST(request: NextRequest) {
       orderNumber: order.orderNumber,
       customerName: order.customerName,
       customerEmail: order.customerEmail,
-      items: order.items.map(item => ({
-        productName: item.productName,
-        quantity: item.quantity,
-        price: item.price,
-        image: item.image
-      })),
+      items: order.items.map(item => {
+        const emailItem: {
+          productName: string
+          quantity: number
+          price: number
+          image: string
+          size?: string
+          color?: string
+        } = {
+          productName: item.productName,
+          quantity: item.quantity,
+          price: item.price,
+          image: item.image
+        }
+        if (item.size) {
+          emailItem.size = item.size
+        }
+        if (item.color) {
+          emailItem.color = item.color
+        }
+        return emailItem
+      }),
       subtotal: order.subtotal,
       shipping: order.shipping ?? 0,
       vat: order.vat,
@@ -182,12 +198,28 @@ export async function POST(request: NextRequest) {
       customerPhone: customerPhone,
       total: order.total,
       itemCount: order.items.length,
-      items: order.items.map(item => ({
-        productName: item.productName,
-        quantity: item.quantity,
-        price: item.price,
-        image: item.image
-      })),
+      items: order.items.map(item => {
+        const emailItem: {
+          productName: string
+          quantity: number
+          price: number
+          image: string
+          size?: string
+          color?: string
+        } = {
+          productName: item.productName,
+          quantity: item.quantity,
+          price: item.price,
+          image: item.image
+        }
+        if (item.size) {
+          emailItem.size = item.size
+        }
+        if (item.color) {
+          emailItem.color = item.color
+        }
+        return emailItem
+      }),
       subtotal: order.subtotal,
       shipping: order.shipping,
       vat: order.vat,

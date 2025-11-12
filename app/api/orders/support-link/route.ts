@@ -64,9 +64,27 @@ export async function POST(request: NextRequest) {
       status: 'PENDING'
     }
 
-    // Save to database
-    const savedOrder = await addOrder(dbOrder)
-    debugLog('✅ Support Link order saved to database:', savedOrder.id)
+    // Save to database with timeout protection
+    let savedOrder
+    try {
+      const savePromise = addOrder(dbOrder)
+      const timeoutPromise = new Promise((_, reject) => 
+        setTimeout(() => reject(new Error('Database save timeout after 8 seconds')), 8000)
+      )
+      savedOrder = await Promise.race([savePromise, timeoutPromise]) as Awaited<ReturnType<typeof addOrder>>
+      debugLog('✅ Support Link order saved to database:', savedOrder.id)
+    } catch (dbError) {
+      errorLog('⚠️ Database save failed or timed out, continuing with order processing:', dbError)
+      // Continue even if database save fails - order will be processed via email
+      savedOrder = { id: 'pending', orderNumber: dbOrder.orderNumber } as any
+      
+      // Try to save asynchronously in background (don't wait)
+      addOrder(dbOrder).then((retryOrder) => {
+        debugLog('✅ Support Link order saved to database (retry):', retryOrder.id)
+      }).catch((retryError) => {
+        errorLog('❌ Retry database save also failed:', retryError)
+      })
+    }
 
     // Prepare order HTML data with proper types
     const orderHTMLData: OrderHTMLData = {
@@ -76,7 +94,7 @@ export async function POST(request: NextRequest) {
       customerPhone,
       customerAddress,
       emirate,
-      items: items.map((item: { name: string; quantity: number; price: number; total?: number; image?: string }): OrderHTMLItem => {
+      items: items.map((item: { name: string; quantity: number; price: number; total?: number; image?: string; size?: string; color?: string }): OrderHTMLItem => {
         const orderItem: OrderHTMLItem = {
           name: item.name,
           quantity: item.quantity,
@@ -85,6 +103,12 @@ export async function POST(request: NextRequest) {
         }
         if (item.image) {
           orderItem.image = item.image
+        }
+        if (item.size) {
+          orderItem.size = item.size
+        }
+        if (item.color) {
+          orderItem.color = item.color
         }
         return orderItem
       }),
@@ -121,12 +145,28 @@ export async function POST(request: NextRequest) {
       customerPhone,
       total,
       itemCount: items.length,
-      items: items.map((item: { name: string; quantity: number; price: number; image?: string }) => ({
-        productName: item.name || 'Product',
-        quantity: item.quantity,
-        price: item.price,
-        image: item.image || '/images/default-product.jpg'
-      })),
+      items: items.map((item: { name: string; quantity: number; price: number; image?: string; size?: string; color?: string }) => {
+        const emailItem: {
+          productName: string
+          quantity: number
+          price: number
+          image: string
+          size?: string
+          color?: string
+        } = {
+          productName: item.name || 'Product',
+          quantity: item.quantity,
+          price: item.price,
+          image: item.image || '/images/default-product.jpg'
+        }
+        if (item.size) {
+          emailItem.size = item.size
+        }
+        if (item.color) {
+          emailItem.color = item.color
+        }
+        return emailItem
+      }),
       subtotal,
       shipping: shippingCost,
       vat: vatAmount,
@@ -145,10 +185,12 @@ export async function POST(request: NextRequest) {
     })
 
     // Return success response immediately (emails are sent asynchronously)
+    // Don't wait for database save if it's slow - order processing continues async
     return NextResponse.json({ 
       success: true, 
       message: 'Support link order request sent successfully',
-      orderId: savedOrder.id
+      orderId: savedOrder?.id || 'pending',
+      orderNumber: orderNumber
     })
 
   } catch (error) {

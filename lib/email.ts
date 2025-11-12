@@ -11,6 +11,8 @@ export interface OrderConfirmationEmailData {
     quantity: number
     price: number
     image: string
+    size?: string
+    color?: string
   }>
   subtotal: number
   shipping: number
@@ -32,6 +34,8 @@ export interface AdminNewOrderEmailData {
     quantity: number
     price: number
     image: string
+    size?: string
+    color?: string
   }> | undefined
   subtotal?: number | undefined
   shipping?: number | undefined
@@ -165,10 +169,10 @@ export const emailTemplates = {
                 ` : '<div style="width: 60px; height: 60px; background: #f3f4f6; border-radius: 6px; margin-right: 15px; display: flex; align-items: center; justify-content: center; color: #9ca3af; font-size: 24px;">📦</div>'}
                 <div style="flex: 1;">
                   <h4 style="margin: 0 0 5px 0; color: #374151; font-size: 14px;">${item.productName}</h4>
-                  <p style="margin: 0; color: #6b7280; font-size: 12px;">Qty: ${item.quantity}</p>
+                  <p style="margin: 0; color: #6b7280; font-size: 12px;">Qty: ${item.quantity}${item.size ? ` | Size: ${item.size}` : ''}${item.color ? ` | Color: ${item.color}` : ''}</p>
                 </div>
                 <div style="text-align: right;">
-                  <p style="margin: 0; color: #dc2626; font-weight: bold;">AED ${item.price.toFixed(2)}</p>
+                  <p style="margin: 0; color: #dc2626; font-weight: bold;">AED ${(item.price * item.quantity).toFixed(2)}</p>
                 </div>
               </div>
             `
@@ -177,19 +181,19 @@ export const emailTemplates = {
           
           <div style="border-top: 1px solid #e5e7eb; padding-top: 15px;">
             <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-              <span style="color: #374151;">Subtotal:</span>
+              <span style="color: #374151;">Subtotal: </span>
               <span style="color: #374151;">AED ${orderData.subtotal.toFixed(2)}</span>
             </div>
             <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-              <span style="color: #374151;">Shipping:</span>
+              <span style="color: #374151;">Shipping: </span>
               <span style="color: #374151;">AED ${orderData.shipping.toFixed(2)}</span>
             </div>
             <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-              <span style="color: #374151;">VAT:</span>
+              <span style="color: #374151;">VAT: </span>
               <span style="color: #374151;">AED ${orderData.vat.toFixed(2)}</span>
             </div>
             <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 18px; color: #dc2626; border-top: 2px solid #dc2626; padding-top: 8px;">
-              <span>Total:</span>
+              <span>Total: </span>
               <span>AED ${orderData.total.toFixed(2)}</span>
             </div>
           </div>
@@ -287,28 +291,44 @@ export const emailTemplates = {
               </p>
             </div>
             ` : ''}
+            ${orderData.address ? `
+            <div>
+              <p style="margin: 0 0 5px 0; color: #374151;"><strong>Delivery Address:</strong></p>
+              <p style="margin: 0; color: #374151;">${orderData.address}</p>
+            </div>
+            ` : ''}
+            ${orderData.emirate ? `
+            <div>
+              <p style="margin: 0 0 5px 0; color: #374151;"><strong>Emirate:</strong></p>
+              <p style="margin: 0; color: #374151;">${orderData.emirate}</p>
+            </div>
+            ` : ''}
           </div>
         </div>
         
         ${orderData.items && orderData.items.length > 0 ? `
         <div style="background: #ffffff; padding: 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e5e7eb;">
           <h3 style="color: #dc2626; margin: 0 0 15px 0;">📦 Order Items (${orderData.itemCount} ${orderData.itemCount === 1 ? 'item' : 'items'})</h3>
-          <div style="space-y: 10px;">
-            ${orderData.items.map(item => {
-              return `
-              <div style="display: flex; align-items: center; padding: 15px 0; border-bottom: 1px solid #f3f4f6;">
-                <div style="flex: 1;">
-                  <h4 style="margin: 0 0 5px 0; color: #374151; font-size: 16px; font-weight: 600;">${item.productName}</h4>
-                  <p style="margin: 0; color: #6b7280; font-size: 14px;">Quantity: ${item.quantity} × AED ${item.price.toFixed(2)} = AED ${(item.quantity * item.price).toFixed(2)}</p>
-                </div>
-                <div style="text-align: right;">
-                  <p style="margin: 0; color: #dc2626; font-weight: bold; font-size: 18px;">AED ${(item.quantity * item.price).toFixed(2)}</p>
-                  <p style="margin: 0; color: #6b7280; font-size: 12px;">total</p>
-                </div>
-              </div>
-            `
-            }).join('')}
-          </div>
+          <table style="width: 100%; border-collapse: collapse; margin: 10px 0;">
+            <thead>
+              <tr style="background: #dc2626; color: white;">
+                <th style="padding: 10px; text-align: left; font-size: 16px;">Product</th>
+                <th style="padding: 10px; text-align: center; font-size: 16px;">Qty</th>
+                <th style="padding: 10px; text-align: right; font-size: 16px;">Price</th>
+                <th style="padding: 10px; text-align: right; font-size: 16px;">Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${orderData.items.map(item => `
+                <tr>
+                  <td style="padding: 10px; border-bottom: 1px solid #eee;">${item.productName}${item.size ? ` (Size: ${item.size})` : ''}${item.color ? ` (Color: ${item.color})` : ''}</td>
+                  <td style="padding: 10px; border-bottom: 1px solid #eee; text-align: center;">${item.quantity}</td>
+                  <td style="padding: 10px; border-bottom: 1px solid #eee; text-align: right;">AED ${item.price.toFixed(2)}</td>
+                  <td style="padding: 10px; border-bottom: 1px solid #eee; text-align: right;">AED ${(item.quantity * item.price).toFixed(2)}</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
         </div>
         ` : `
         <div style="background: #fef2f2; padding: 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #fecaca;">
@@ -322,36 +342,29 @@ export const emailTemplates = {
           <div style="space-y: 8px;">
             ${orderData.subtotal ? `
             <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-              <span style="color: #374151;">Subtotal:</span>
+              <span style="color: #374151;">Subtotal: </span>
               <span style="color: #374151;">AED ${orderData.subtotal.toFixed(2)}</span>
             </div>
             ` : ''}
             ${orderData.shipping !== undefined ? `
             <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-              <span style="color: #374151;">Shipping:</span>
+              <span style="color: #374151;">Shipping: </span>
               <span style="color: #374151;">AED ${orderData.shipping.toFixed(2)}</span>
             </div>
             ` : ''}
             ${orderData.vat !== undefined ? `
             <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-              <span style="color: #374151;">VAT:</span>
+              <span style="color: #374151;">VAT: </span>
               <span style="color: #374151;">AED ${orderData.vat.toFixed(2)}</span>
             </div>
             ` : ''}
             <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 18px; color: #dc2626; border-top: 2px solid #dc2626; padding-top: 8px;">
-              <span>Total:</span>
+              <span>Total: </span>
               <span>AED ${orderData.total.toFixed(2)}</span>
             </div>
           </div>
         </div>
         
-        ${orderData.address ? `
-        <div style="background: #fef3c7; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
-          <h3 style="color: #92400e; margin: 0 0 15px 0;">Delivery Information</h3>
-          <p style="color: #374151; margin: 0 0 10px 0;"><strong>Address:</strong> ${orderData.address}</p>
-          ${orderData.emirate ? `<p style="color: #374151; margin: 0;"><strong>Emirate:</strong> ${orderData.emirate}</p>` : ''}
-        </div>
-        ` : ''}
         
         <div style="text-align: center; margin: 30px 0;">
           <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://genosys.ae'}/admin" 
@@ -502,22 +515,42 @@ export const sendAdminNewUserNotification = async (userName: string, userEmail: 
 }
 
 export const sendAdminNewOrderNotification = async (orderData: AdminNewOrderEmailData) => {
-  // Use ADMIN_EMAIL, or fallback to GMAIL_USER/EMAIL_USER, or use default
-  const adminEmail = process.env.ADMIN_EMAIL || process.env.GMAIL_USER || process.env.EMAIL_USER || '5856825@gmail.com'
-  
-  debugLog(`📧 Sending admin new order notification to: ${adminEmail}`)
-  debugLog(`📧 Admin email sources - ADMIN_EMAIL: ${process.env.ADMIN_EMAIL || 'NOT_SET'}, GMAIL_USER: ${process.env.GMAIL_USER || 'NOT_SET'}, EMAIL_USER: ${process.env.EMAIL_USER || 'NOT_SET'}`)
-  
-  const template = emailTemplates.adminNewOrder(orderData)
-  const result = await sendEmail(adminEmail, template.subject, template.html)
-  
-  if (!result.success) {
-    errorLog(`❌ Failed to send admin new order notification to ${adminEmail}:`, result.error)
-  } else {
-    debugLog(`✅ Admin new order notification sent successfully to ${adminEmail}`)
+  try {
+    // Use ADMIN_EMAIL, or fallback to GMAIL_USER/EMAIL_USER, or use default
+    const adminEmail = process.env.ADMIN_EMAIL || process.env.GMAIL_USER || process.env.EMAIL_USER || '5856825@gmail.com'
+    
+    debugLog(`📧 Sending admin new order notification to: ${adminEmail}`)
+    debugLog(`📧 Admin email sources - ADMIN_EMAIL: ${process.env.ADMIN_EMAIL || 'NOT_SET'}, GMAIL_USER: ${process.env.GMAIL_USER || 'NOT_SET'}, EMAIL_USER: ${process.env.EMAIL_USER || 'NOT_SET'}`)
+    debugLog(`📧 Order data for admin notification:`, JSON.stringify({
+      orderNumber: orderData.orderNumber,
+      customerName: orderData.customerName,
+      total: orderData.total,
+      itemCount: orderData.itemCount
+    }, null, 2))
+    
+    const template = emailTemplates.adminNewOrder(orderData)
+    debugLog(`📧 Admin email template generated, subject: ${template.subject}`)
+    
+    const result = await sendEmail(adminEmail, template.subject, template.html)
+    
+    if (!result.success) {
+      errorLog(`❌ FAILED to send admin new order notification to ${adminEmail}`)
+      errorLog(`❌ Error:`, result.error)
+      errorLog(`❌ Order number:`, orderData.orderNumber)
+    } else {
+      debugLog(`✅ Admin new order notification sent successfully to ${adminEmail}`)
+      debugLog(`✅ Message ID:`, result.messageId)
+      debugLog(`✅ Order number:`, orderData.orderNumber)
+    }
+    
+    return result
+  } catch (error) {
+    errorLog(`❌ EXCEPTION in sendAdminNewOrderNotification:`)
+    errorLog(`❌ Error:`, error)
+    errorLog(`❌ Order number:`, orderData.orderNumber)
+    errorLog(`❌ Stack:`, error instanceof Error ? error.stack : 'No stack')
+    return { success: false, error: error instanceof Error ? error.message : 'Unknown error' }
   }
-  
-  return result
 }
 
 export const sendPasswordResetEmail = async (userEmail: string, userName: string, resetToken: string) => {
@@ -541,6 +574,8 @@ export interface OrderHTMLItem {
   price: number
   image?: string
   total?: number
+  size?: string
+  color?: string
 }
 
 export interface OrderHTMLData {
@@ -582,36 +617,43 @@ export const generateCODOrderHTML = (order: OrderHTMLData): string => {
       </div>
       
       <div style="background: white; border: 1px solid #e5e7eb; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
-        <h3 style="color: #dc2626; margin: 0 0 15px 0;">Order Details</h3>
-        <div style="margin-bottom: 20px;">
-          ${order.items.map((item) => `
-            <div style="display: flex; align-items: center; justify-content: space-between; padding: 15px 0; border-bottom: 1px solid #e5e7eb;">
-              <div style="flex: 1; min-width: 0; margin-right: 20px;">
-                <h4 style="margin: 0 0 5px 0; color: #374151; font-size: 16px; word-wrap: break-word;">${item.name}</h4>
-                <p style="margin: 0; color: #6b7280; font-size: 16px;">Qty: ${item.quantity}</p>
-              </div>
-              <div style="text-align: right; min-width: 80px; flex-shrink: 0;">
-                <p style="margin: 0; color: #dc2626; font-weight: bold; font-size: 16px;">AED ${(item.price * item.quantity).toFixed(2)}</p>
-              </div>
-            </div>
-          `).join('')}
-        </div>
+        <h3 style="color: #dc2626; margin: 0 0 15px 0;">Order Items</h3>
+        <table style="width: 100%; border-collapse: collapse; margin: 10px 0;">
+          <thead>
+            <tr style="background: #dc2626; color: white;">
+              <th style="padding: 10px; text-align: left; font-size: 16px;">Product</th>
+              <th style="padding: 10px; text-align: center; font-size: 16px;">Qty</th>
+              <th style="padding: 10px; text-align: right; font-size: 16px;">Price</th>
+              <th style="padding: 10px; text-align: right; font-size: 16px;">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${order.items.map((item) => `
+              <tr>
+                <td style="padding: 10px; border-bottom: 1px solid #eee;">${item.name}${item.size ? ` (Size: ${item.size})` : ''}${item.color ? ` (Color: ${item.color})` : ''}</td>
+                <td style="padding: 10px; border-bottom: 1px solid #eee; text-align: center;">${item.quantity}</td>
+                <td style="padding: 10px; border-bottom: 1px solid #eee; text-align: right;">AED ${item.price.toFixed(2)}</td>
+                <td style="padding: 10px; border-bottom: 1px solid #eee; text-align: right;">AED ${(item.price * item.quantity).toFixed(2)}</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
         
         <div style="border-top: 1px solid #e5e7eb; padding-top: 20px;">
           <div style="display: flex; justify-content: space-between; margin-bottom: 12px; padding: 8px 0;">
-            <span style="color: #374151; font-size: 16px;">Subtotal:</span>
+            <span style="color: #374151; font-size: 16px;">Subtotal: </span>
             <span style="color: #374151; font-size: 16px; font-weight: 500;">AED ${order.subtotal.toFixed(2)}</span>
           </div>
           <div style="display: flex; justify-content: space-between; margin-bottom: 12px; padding: 8px 0;">
-            <span style="color: #374151; font-size: 16px;">Shipping to ${order.emirate}:</span>
+            <span style="color: #374151; font-size: 16px;">Shipping to ${order.emirate}: </span>
             <span style="color: #374151; font-size: 16px; font-weight: 500;">${order.shippingCost === 0 ? 'FREE' : `AED ${order.shippingCost.toFixed(2)}`}</span>
           </div>
           <div style="display: flex; justify-content: space-between; margin-bottom: 12px; padding: 8px 0;">
-            <span style="color: #374151; font-size: 16px;">VAT (5%):</span>
+            <span style="color: #374151; font-size: 16px;">VAT (5%): </span>
             <span style="color: #374151; font-size: 16px; font-weight: 500;">AED ${order.vatAmount.toFixed(2)}</span>
           </div>
           <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 18px; color: #dc2626; border-top: 2px solid #dc2626; padding-top: 15px; margin-top: 15px; background: #f9fafb; padding: 15px; border-radius: 6px;">
-            <span>Total:</span>
+            <span>Total: </span>
             <span>AED ${order.total.toFixed(2)}</span>
           </div>
         </div>
@@ -652,7 +694,7 @@ export const generateCODOrderHTML = (order: OrderHTMLData): string => {
 export const generateSupportLinkOrderHTML = (order: OrderHTMLData): string => {
   const itemsHTML = order.items.map((item) => `
     <tr>
-      <td style="padding: 10px; border-bottom: 1px solid #eee;">${item.name}</td>
+      <td style="padding: 10px; border-bottom: 1px solid #eee;">${item.name}${item.size ? ` (Size: ${item.size})` : ''}${item.color ? ` (Color: ${item.color})` : ''}</td>
       <td style="padding: 10px; border-bottom: 1px solid #eee; text-align: center;">${item.quantity}</td>
       <td style="padding: 10px; border-bottom: 1px solid #eee; text-align: right;">AED ${item.price.toFixed(2)}</td>
       <td style="padding: 10px; border-bottom: 1px solid #eee; text-align: right;">AED ${(item.total || (item.price * item.quantity)).toFixed(2)}</td>
@@ -712,19 +754,19 @@ export const generateSupportLinkOrderHTML = (order: OrderHTMLData): string => {
       <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e5e5e5;">
         <h3 style="color: #dc2626; margin: 0 0 15px 0; font-size: 14px;">Order Summary</h3>
         <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-          <span style="color: #374151; font-size: 14px;">Subtotal:</span>
+          <span style="color: #374151; font-size: 14px;">Subtotal: </span>
           <span style="color: #374151; font-size: 14px;">AED ${order.subtotal.toFixed(2)}</span>
         </div>
         <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-          <span style="color: #374151; font-size: 14px;">Shipping to ${order.emirate}:</span>
+          <span style="color: #374151; font-size: 14px;">Shipping to ${order.emirate}: </span>
           <span style="color: #374151; font-size: 14px;">${order.shippingCost === 0 ? 'FREE' : `AED ${order.shippingCost.toFixed(2)}`}</span>
         </div>
         <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-          <span style="color: #374151; font-size: 14px;">VAT (5%):</span>
+          <span style="color: #374151; font-size: 14px;">VAT (5%): </span>
           <span style="color: #374151; font-size: 14px;">AED ${order.vatAmount.toFixed(2)}</span>
         </div>
         <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 14px; color: #dc2626; border-top: 2px solid #dc2626; padding-top: 8px;">
-          <span>Total:</span>
+          <span>Total: </span>
           <span>AED ${order.total.toFixed(2)}</span>
         </div>
       </div>

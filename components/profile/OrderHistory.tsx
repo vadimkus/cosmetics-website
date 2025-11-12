@@ -1,9 +1,10 @@
 'use client'
 
-import Link from 'next/link'
 import Image from 'next/image'
 import { Package, ShoppingBag, Calendar, X, CreditCard, Truck, CheckCircle, Clock } from 'lucide-react'
 import { Order, OrderItem } from '@prisma/client'
+import StatusBadge from '@/components/shared/StatusBadge'
+import EmptyState from '@/components/shared/EmptyState'
 
 // Custom type that includes the items relation
 type OrderWithItems = Order & {
@@ -52,21 +53,6 @@ export default function OrderHistory({ orders, loadingOrders, onCancelOrder }: O
     return imageMap[productName] || '/images/placeholder.jpg'
   }
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'paid':
-        return 'bg-emerald-100 text-emerald-800 border-emerald-200'
-      case 'shipped':
-        return 'bg-blue-100 text-blue-800 border-blue-200'
-      case 'delivered':
-        return 'bg-purple-100 text-purple-800 border-purple-200'
-      case 'cancelled':
-        return 'bg-red-100 text-red-800 border-red-200'
-      default:
-        return 'bg-amber-100 text-amber-800 border-amber-200'
-    }
-  }
-
   const getStatusIcon = (status: string) => {
     switch (status) {
       case 'paid':
@@ -97,20 +83,16 @@ export default function OrderHistory({ orders, loadingOrders, onCancelOrder }: O
           <p className="text-gray-500">Loading your orders...</p>
         </div>
       ) : orders.length === 0 ? (
-        <div className="text-center py-12">
-          <div className="w-24 h-24 bg-gradient-to-br from-gray-100 to-gray-200 rounded-full flex items-center justify-center mx-auto mb-6">
-            <Package className="h-12 w-12 text-gray-400" />
-          </div>
-          <h3 className="text-xl font-semibold text-gray-800 mb-2">No orders yet</h3>
-          <p className="text-gray-500 mb-6">Start shopping to see your order history here!</p>
-          <Link
-            href="/products"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-xl font-semibold hover:from-red-700 hover:to-red-800 transition-all duration-200 shadow-lg hover:shadow-xl"
-          >
-            <ShoppingBag className="h-5 w-5" />
-            Browse Products
-          </Link>
-        </div>
+        <EmptyState
+          icon={<Package className="h-12 w-12 text-gray-300" />}
+          title="No orders yet"
+          description="Start shopping to see your order history here!"
+          action={{
+            label: 'Browse Products',
+            href: '/products',
+            onClick: () => {}
+          }}
+        />
       ) : (
         <div className="space-y-4">
           {orders.map((order) => (
@@ -138,10 +120,11 @@ export default function OrderHistory({ orders, loadingOrders, onCancelOrder }: O
                     </div>
                   </div>
                   <div className="flex items-center gap-3">
-                    <span className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold border ${getStatusColor(order.status)}`}>
-                      {getStatusIcon(order.status)}
-                      {order.status.toUpperCase()}
-                    </span>
+                    <StatusBadge
+                      status={order.status}
+                      icon={getStatusIcon(order.status)}
+                      className="px-4 py-2 text-sm border"
+                    />
                     <div className="text-right">
                       <p className="text-xl font-bold text-gray-900">{formatCurrency(order.total)}</p>
                       <p className="text-xs text-gray-500">

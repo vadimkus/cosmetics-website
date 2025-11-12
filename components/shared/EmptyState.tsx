@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { Package, ShoppingBag, FileText, Settings, Download } from 'lucide-react'
 
 interface EmptyStateProps {
@@ -39,16 +40,27 @@ export default function EmptyState({
       <h3 className="text-lg font-semibold text-gray-900 mb-2">{title}</h3>
       <p className="text-gray-600 mb-6">{description}</p>
       {action && (
-        <button
-          onClick={action.onClick}
-          className="inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
-        >
-          {action.label}
-        </button>
+        action.href ? (
+          <Link
+            href={action.href}
+            onClick={action.onClick}
+            className="inline-flex items-center px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
+          >
+            {action.label}
+          </Link>
+        ) : (
+          <button
+            onClick={action.onClick}
+            className="inline-flex items-center px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
+          >
+            {action.label}
+          </button>
+        )
       )}
     </div>
   )
 }
+
 
 
 

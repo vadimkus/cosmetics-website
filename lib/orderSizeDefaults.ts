@@ -54,6 +54,11 @@ export function getDefaultSizeForProduct(productName: string): string | undefine
     if (name.includes('PATCH')) return '101g'
   }
   
+  // Beauty Boxes - all beauty boxes are "1 kit"
+  if (name.includes('BEAUTY BOX') || name.includes('BEAUTYBOX')) {
+    return '1 kit'
+  }
+  
   // No default size found
   return undefined
 }

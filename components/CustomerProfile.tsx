@@ -30,6 +30,7 @@ import {
 import { User } from '@/types/user'
 import { getCsrfHeaders } from '@/lib/csrfClient'
 import { debugLog, errorLog } from '@/lib/logger'
+import StatusBadge from '@/components/shared/StatusBadge'
 
 type Customer = User
 
@@ -355,18 +356,6 @@ export default function CustomerProfile({
   //   }
   // } // Unused for now
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'COMPLETED':
-        return 'bg-green-100 text-green-800'
-      case 'PENDING':
-        return 'bg-yellow-100 text-yellow-800'
-      case 'CANCELLED':
-        return 'bg-red-100 text-red-800'
-      default:
-        return 'bg-gray-100 text-gray-800'
-    }
-  }
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('en-AE', {
@@ -860,9 +849,10 @@ export default function CustomerProfile({
                         </div>
                       </div>
                       <div className="flex items-center gap-3">
-                        <span className={`px-2 py-1 rounded text-xs ${getStatusColor(order.status)}`}>
-                          {order.status}
-                        </span>
+                        <StatusBadge
+                          status={order.status}
+                          className="px-2 py-1 text-xs"
+                        />
                         <span className="font-semibold text-gray-800">{formatCurrency(order.total)}</span>
                       </div>
                     </div>

@@ -64,9 +64,27 @@ export async function POST(request: NextRequest) {
       status: 'PENDING'
     }
 
-    // Save to database
-    const savedOrder = await addOrder(dbOrder)
-    debugLog('✅ COD order saved to database:', savedOrder.id)
+    // Save to database with timeout protection
+    let savedOrder
+    try {
+      const savePromise = addOrder(dbOrder)
+      const timeoutPromise = new Promise((_, reject) => 
+        setTimeout(() => reject(new Error('Database save timeout after 8 seconds')), 8000)
+      )
+      savedOrder = await Promise.race([savePromise, timeoutPromise]) as Awaited<ReturnType<typeof addOrder>>
+      debugLog('✅ COD order saved to database:', savedOrder.id)
+    } catch (dbError) {
+      errorLog('⚠️ Database save failed or timed out, continuing with order processing:', dbError)
+      // Continue even if database save fails - order will be processed via email
+      savedOrder = { id: 'pending', orderNumber: dbOrder.orderNumber } as any
+      
+      // Try to save asynchronously in background (don't wait)
+      addOrder(dbOrder).then((retryOrder) => {
+        debugLog('✅ COD order saved to database (retry):', retryOrder.id)
+      }).catch((retryError) => {
+        errorLog('❌ Retry database save also failed:', retryError)
+      })
+    }
 
     // Prepare order HTML data with proper types
     const orderHTMLData: OrderHTMLData = {
@@ -76,7 +94,20 @@ export async function POST(request: NextRequest) {
       customerPhone,
       customerAddress,
       emirate,
-      items: items.map((item: { name: string; quantity: number; price: number; image?: string }): OrderHTMLItem => {
+      items: items.map((item: { name: string; quantity: number; price: number; image?: string; size?: string; color?: string }): OrderHTMLItem => {
+        // Enhance with default size if missing
+        const originalSize = (item.size && item.size.trim()) || null
+        const enhanced = enhanceOrderItemWithDefaultSize({
+          productName: item.name,
+          size: originalSize,
+          color: (item.color && item.color.trim()) || null
+        })
+        
+        debugLog(`📦 COD Order Item: ${item.name}`)
+        debugLog(`   Original size: ${originalSize || 'none'}`)
+        debugLog(`   Enhanced size: ${enhanced.size || 'none'}`)
+        debugLog(`   Color: ${enhanced.color || 'none'}`)
+        
         const orderItem: OrderHTMLItem = {
           name: item.name,
           quantity: item.quantity,
@@ -84,6 +115,13 @@ export async function POST(request: NextRequest) {
         }
         if (item.image) {
           orderItem.image = item.image
+        }
+        // Always set size if we have it (from item or default)
+        if (enhanced.size && enhanced.size.trim()) {
+          orderItem.size = enhanced.size.trim()
+        }
+        if (enhanced.color && enhanced.color.trim()) {
+          orderItem.color = enhanced.color.trim()
         }
         return orderItem
       }),
@@ -113,41 +151,77 @@ export async function POST(request: NextRequest) {
 
     // Send admin notification for COD order (non-blocking - fire and forget)
     debugLog('📧 Sending admin notification for COD order:', orderNumber)
-    sendAdminNewOrderNotification({
+    debugLog('📧 Order data:', JSON.stringify({
       orderNumber,
       customerName,
       customerEmail,
       customerPhone,
       total,
       itemCount: orderItems.length,
-      items: orderItems.map((item: OrderItemData) => ({
-        productName: item.productName || 'Product',
-        quantity: item.quantity,
-        price: item.price,
-        image: item.image || '/images/default-product.jpg'
-      })),
+      subtotal,
+      shippingCost,
+      vatAmount
+    }, null, 2))
+    
+    const adminNotificationPromise = sendAdminNewOrderNotification({
+      orderNumber,
+      customerName,
+      customerEmail,
+      customerPhone,
+      total,
+      itemCount: orderItems.length,
+      items: orderItems.map((item: OrderItemData) => {
+        const emailItem: {
+          productName: string
+          quantity: number
+          price: number
+          image: string
+          size?: string
+          color?: string
+        } = {
+          productName: item.productName || 'Product',
+          quantity: item.quantity,
+          price: item.price,
+          image: item.image || '/images/default-product.jpg'
+        }
+        if (item.size) {
+          emailItem.size = item.size
+        }
+        if (item.color) {
+          emailItem.color = item.color
+        }
+        return emailItem
+      }),
       subtotal,
       shipping: shippingCost,
       vat: vatAmount,
       address: customerAddress,
       emirate: emirate
-    }).then((adminResult) => {
+    })
+    
+    adminNotificationPromise.then((adminResult) => {
       if (adminResult.success) {
-        debugLog('✅ Admin notification sent for COD order:', orderNumber)
+        debugLog('✅ Admin notification sent successfully for COD order:', orderNumber)
+        debugLog('✅ Admin notification result:', JSON.stringify(adminResult, null, 2))
       } else {
-        errorLog('❌ Failed to send admin notification for COD order:', adminResult.error)
+        errorLog('❌ FAILED to send admin notification for COD order:', orderNumber)
+        errorLog('❌ Admin notification error:', adminResult.error)
         errorLog('❌ Admin notification error details:', JSON.stringify(adminResult, null, 2))
       }
     }).catch((emailError) => {
-      errorLog('❌ Exception sending admin notification for COD order:', emailError)
+      errorLog('❌ EXCEPTION sending admin notification for COD order:', orderNumber)
+      errorLog('❌ Exception details:', emailError)
+      errorLog('❌ Exception stack:', emailError instanceof Error ? emailError.stack : 'No stack')
       // Don't fail order creation if email fails
     })
 
     // Return success response immediately (emails are sent asynchronously)
+    // Don't wait for database save if it's slow - order processing continues async
     return NextResponse.json({ 
       success: true, 
       message: 'COD order confirmation sent successfully',
-      orderId: savedOrder.id
+      orderId: savedOrder?.id || 'pending',
+      orderNumber: orderNumber
     })
 
   } catch (error) {

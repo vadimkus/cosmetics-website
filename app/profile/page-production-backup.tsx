@@ -10,6 +10,7 @@ import PDFDownloadButton from '@/components/PDFDownloadButton'
 import { Order, OrderItem } from '@prisma/client'
 import { fetchCsrfToken, getCsrfHeaders, addCsrfToBody } from '@/lib/csrfClient'
 import { errorLog } from '@/lib/logger'
+import StatusBadge from '@/components/shared/StatusBadge'
 
 // Custom type that includes the items relation
 type OrderWithItems = Order & {
@@ -220,20 +221,6 @@ export default function ProfilePageNew() {
     return imageMap[productName] || '/images/placeholder.jpg'
   }
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'paid':
-        return 'bg-emerald-100 text-emerald-800 border-emerald-200'
-      case 'shipped':
-        return 'bg-blue-100 text-blue-800 border-blue-200'
-      case 'delivered':
-        return 'bg-purple-100 text-purple-800 border-purple-200'
-      case 'cancelled':
-        return 'bg-red-100 text-red-800 border-red-200'
-      default:
-        return 'bg-amber-100 text-amber-800 border-amber-200'
-    }
-  }
 
   const getStatusIcon = (status: string) => {
     switch (status) {
@@ -1003,10 +990,11 @@ export default function ProfilePageNew() {
                             </div>
                           </div>
                           <div className="flex items-center gap-3">
-                            <span className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold border ${getStatusColor(order.status)}`}>
-                              {getStatusIcon(order.status)}
-                              {order.status.toUpperCase()}
-                            </span>
+                            <StatusBadge
+                              status={order.status}
+                              icon={getStatusIcon(order.status)}
+                              className="px-4 py-2 text-sm border"
+                            />
                             <div className="text-right">
                               <p className="text-xl font-bold text-gray-900">{formatCurrency(order.total)}</p>
                               <p className="text-xs text-gray-500">

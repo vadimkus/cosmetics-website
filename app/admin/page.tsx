@@ -10,6 +10,7 @@ import ProductForm from '@/components/ProductForm'
 import { Order, OrderItem } from '@prisma/client'
 import { fetchCsrfToken, getCsrfHeaders, addCsrfToBody } from '@/lib/csrfClient'
 import { debugLog, errorLog } from '@/lib/logger'
+import StatusBadge from '@/components/shared/StatusBadge'
 
 // Custom type that includes the items relation
 type OrderWithItems = Order & {
@@ -735,22 +736,6 @@ export default function AdminPage() {
     </div>
   )
 
-  const getStatusColor = (status: string) => {
-    switch (status.toLowerCase()) {
-      case 'pending':
-        return 'bg-yellow-100 text-yellow-800'
-      case 'confirmed':
-        return 'bg-blue-100 text-blue-800'
-      case 'shipped':
-        return 'bg-purple-100 text-purple-800'
-      case 'delivered':
-        return 'bg-green-100 text-green-800'
-      case 'cancelled':
-        return 'bg-red-100 text-red-800'
-      default:
-        return 'bg-gray-100 text-gray-800'
-    }
-  }
 
   const getStatusIcon = (status: string) => {
     switch (status.toLowerCase()) {
@@ -1335,10 +1320,11 @@ export default function AdminPage() {
                                   })}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                  <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold ${getStatusColor(order.status)}`}>
-                                    {getStatusIcon(order.status)}
-                                    {order.status.toUpperCase()}
-                                  </span>
+                                  <StatusBadge
+                                    status={order.status}
+                                    icon={getStatusIcon(order.status)}
+                                    className="px-3 py-1 text-xs"
+                                  />
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                   {order.items.reduce((sum, item) => sum + item.quantity, 0)} items

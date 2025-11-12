@@ -1,9 +1,9 @@
 'use client'
 
 import { Package, RefreshCw } from 'lucide-react'
-import Link from 'next/link'
 import OrderCard from './OrderCard'
 import { OrderWithItems } from '@/types/profile'
+import EmptyState from '@/components/shared/EmptyState'
 
 interface OrderHistorySectionProps {
   orders: OrderWithItems[]
@@ -56,19 +56,16 @@ export default function OrderHistorySection({
         </div>
 
         {orders.length === 0 ? (
-          <div className="text-center py-12">
-            <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Package className="h-8 w-8 text-gray-400" />
-            </div>
-            <h3 className="text-lg font-semibold text-gray-800 mb-2">No orders yet</h3>
-            <p className="text-gray-600 mb-6">Your order history will appear here once you make your first purchase.</p>
-            <Link
-              href="/products"
-              className="inline-flex items-center px-6 py-3 bg-red-600 text-white font-semibold rounded-xl hover:bg-red-700 transition-colors"
-            >
-              Browse Products
-            </Link>
-          </div>
+          <EmptyState
+            icon={<Package className="h-12 w-12 text-gray-300" />}
+            title="No orders yet"
+            description="Your order history will appear here once you make your first purchase."
+            action={{
+              label: 'Browse Products',
+              href: '/products',
+              onClick: () => {}
+            }}
+          />
         ) : (
           <div className="space-y-4">
             {orders.map((order) => (

@@ -219,6 +219,9 @@ export default function CheckoutClient() {
             emirate: selectedEmirate,
             items: items.map(item => {
               const pricing = calculateDiscountedPrice(item.product, user)
+              // Use selectedSize if available, otherwise fallback to product.size
+              const itemSize = (item.selectedSize && item.selectedSize.trim()) || (item.product.size && item.product.size.trim()) || undefined
+              const itemColor = (item.selectedColor && item.selectedColor.trim()) || undefined
               return {
                 id: item.product.id,
                 name: item.product.name,
@@ -226,8 +229,8 @@ export default function CheckoutClient() {
                 quantity: item.quantity,
                 total: pricing.discountedPrice * item.quantity,
                 image: item.product.image,
-                color: item.selectedColor,
-                size: item.selectedSize
+                color: itemColor,
+                size: itemSize
               }
             }),
             subtotal,
@@ -244,21 +247,39 @@ export default function CheckoutClient() {
             return
           }
 
-          const response = await fetch('/api/orders/support-link', {
-            method: 'POST',
-            headers: getCsrfHeaders(),
-            body: JSON.stringify(addCsrfToBody(orderData)),
-          })
+          // Add timeout to prevent hanging (increased to 15 seconds for database operations)
+          const controller = new AbortController()
+          const timeoutId = setTimeout(() => controller.abort(), 15000) // 15 second timeout
 
-          if (response.ok) {
-            router.push(`/success?payment=support-link&order_id=${supportOrderNumber}`)
-          } else {
-            throw new Error('Failed to send order request')
+          try {
+            const response = await fetch('/api/orders/support-link', {
+              method: 'POST',
+              headers: getCsrfHeaders(),
+              body: JSON.stringify(addCsrfToBody(orderData)),
+              signal: controller.signal
+            })
+
+            clearTimeout(timeoutId)
+
+            if (!response.ok) {
+              const errorText = await response.text()
+              errorLog('Failed to send support-link order request:', errorText)
+            }
+          } catch (fetchError: any) {
+            clearTimeout(timeoutId)
+            if (fetchError.name === 'AbortError') {
+              errorLog('Support-link order request timed out after 15 seconds')
+            } else {
+              errorLog('Error sending support-link order request:', fetchError)
+            }
           }
         } catch (error) {
-          errorLog('Error sending support link order request:', error)
-          router.push(`/success?payment=support-link&order_id=${supportOrderNumber}`)
+          errorLog('Error in support-link order processing:', error)
         }
+        
+        // Always redirect to success page (emails are non-blocking)
+        setIsProcessing(false)
+        router.push(`/success?payment=support-link&order_id=${supportOrderNumber}`)
         return
       }
 
@@ -282,6 +303,9 @@ export default function CheckoutClient() {
           emirate: selectedEmirate,
           items: items.map(item => {
             const pricing = calculateDiscountedPrice(item.product, user)
+            // Use selectedSize if available, otherwise fallback to product.size
+            const itemSize = (item.selectedSize && item.selectedSize.trim()) || (item.product.size && item.product.size.trim()) || undefined
+            const itemColor = (item.selectedColor && item.selectedColor.trim()) || undefined
             return {
               id: item.product.id,
               name: item.product.name,
@@ -289,8 +313,8 @@ export default function CheckoutClient() {
               quantity: item.quantity,
               total: pricing.discountedPrice * item.quantity,
               image: item.product.image,
-              color: item.selectedColor,
-              size: item.selectedSize
+              color: itemColor,
+              size: itemSize
             }
           }),
           subtotal,
@@ -307,20 +331,38 @@ export default function CheckoutClient() {
           return
         }
 
-        const response = await fetch('/api/orders/cod-confirmation', {
-          method: 'POST',
-          headers: getCsrfHeaders(),
-          body: JSON.stringify(addCsrfToBody(orderData)),
-        })
+        // Add timeout to prevent hanging (increased to 15 seconds for database operations)
+        const controller = new AbortController()
+        const timeoutId = setTimeout(() => controller.abort(), 15000) // 15 second timeout
 
-        if (!response.ok) {
-          errorLog('Failed to send COD confirmation email')
+        try {
+          const response = await fetch('/api/orders/cod-confirmation', {
+            method: 'POST',
+            headers: getCsrfHeaders(),
+            body: JSON.stringify(addCsrfToBody(orderData)),
+            signal: controller.signal
+          })
+
+          clearTimeout(timeoutId)
+
+          if (!response.ok) {
+            const errorText = await response.text()
+            errorLog('Failed to send COD confirmation email:', errorText)
+          }
+        } catch (fetchError: any) {
+          clearTimeout(timeoutId)
+          if (fetchError.name === 'AbortError') {
+            errorLog('COD confirmation request timed out after 10 seconds')
+          } else {
+            errorLog('Error sending COD confirmation email:', fetchError)
+          }
         }
       } catch (error) {
-        errorLog('Error sending COD confirmation email:', error)
+        errorLog('Error in COD order processing:', error)
       }
       
-      // Redirect to success page with order number (cart will be cleared there)
+      // Always redirect to success page (emails are non-blocking)
+      setIsProcessing(false)
       router.push(`/success?order_id=${codOrderNumber}&payment=cod`)
     } catch (error) {
       errorLog('Order processing failed:', error)

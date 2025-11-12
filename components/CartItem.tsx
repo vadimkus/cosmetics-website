@@ -16,6 +16,10 @@ export default function CartItem({ item }: CartItemProps) {
   const { updateQuantity, removeItem } = useCart()
   const { user } = useAuth()
   const { product, quantity, selectedColor, selectedSize } = item
+  
+  // Use selectedSize/selectedColor if available, otherwise fallback to product size
+  const displaySize = (selectedSize && selectedSize.trim()) || (product.size && product.size.trim()) || null
+  const displayColor = (selectedColor && selectedColor.trim()) || null
 
   const handleQuantityChange = (newQuantity: number) => {
     updateQuantity(product.id, newQuantity, selectedColor, selectedSize)
@@ -43,15 +47,19 @@ export default function CartItem({ item }: CartItemProps) {
             <h3 className="text-sm md:text-base font-semibold text-gray-800 break-words hover:text-primary-600 transition-colors cursor-pointer leading-tight">{product.name}</h3>
           </Link>
           <p className="text-xs md:text-sm text-red-600">{product.category}</p>
-          {selectedColor && (
-            <p className="text-xs md:text-sm text-gray-500">
-              Color: <span className="font-medium text-gray-700">{selectedColor}</span>
-            </p>
-          )}
-          {selectedSize && (
-            <p className="text-xs md:text-sm text-gray-500">
-              Size: <span className="font-medium text-gray-700">{selectedSize}</span>
-            </p>
+          {(displaySize || displayColor) && (
+            <div className="flex flex-wrap items-center gap-2 mt-2">
+              {displaySize && (
+                <span className="inline-flex items-center px-2 py-1 rounded-md text-xs md:text-sm font-medium bg-blue-50 text-blue-700 border border-blue-200">
+                  Size: {displaySize}
+                </span>
+              )}
+              {displayColor && (
+                <span className="inline-flex items-center px-2 py-1 rounded-md text-xs md:text-sm font-medium bg-purple-50 text-purple-700 border border-purple-200">
+                  Color: {displayColor}
+                </span>
+              )}
+            </div>
           )}
         </div>
         

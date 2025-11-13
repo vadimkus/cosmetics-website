@@ -32,22 +32,22 @@ export default function CartClient() {
     return (
       <div className="container mx-auto px-4 py-2 md:py-8 lg:py-16">
         {/* Navigation Breadcrumb */}
-        <nav className="flex items-center flex-nowrap gap-2 text-sm md:text-base text-gray-700 mb-4 md:mb-6 lg:mb-8 overflow-x-auto" aria-label="Breadcrumb">
+        <nav className="flex items-baseline flex-nowrap gap-2 text-sm md:text-base text-gray-700 mb-4 md:mb-6 lg:mb-8 overflow-x-auto leading-none" aria-label="Breadcrumb">
           <Link
             href="/"
-            className="hover:text-primary-600 transition-colors text-gray-700 font-normal whitespace-nowrap flex-shrink-0"
+            className="hover:text-primary-600 transition-colors text-gray-700 font-normal whitespace-nowrap flex-shrink-0 leading-none"
           >
             Home
           </Link>
-          <span className="text-gray-400 flex-shrink-0">/</span>
+          <span className="text-gray-400 flex-shrink-0 leading-none">/</span>
           <Link
             href="/products"
-            className="hover:text-primary-600 transition-colors text-gray-700 font-normal whitespace-nowrap flex-shrink-0"
+            className="hover:text-primary-600 transition-colors text-gray-700 font-normal whitespace-nowrap flex-shrink-0 leading-none"
           >
             Products
           </Link>
-          <span className="text-gray-400 flex-shrink-0">/</span>
-          <span className="text-gray-900 font-bold whitespace-nowrap flex-shrink-0">
+          <span className="text-gray-400 flex-shrink-0 leading-none">/</span>
+          <span className="text-gray-900 font-bold whitespace-nowrap flex-shrink-0 leading-none">
             Cart
           </span>
         </nav>
@@ -78,22 +78,22 @@ export default function CartClient() {
   return (
     <div className="container mx-auto px-4 py-2 md:py-8 lg:py-16">
       {/* Navigation Breadcrumb */}
-      <nav className="flex items-center flex-nowrap gap-2 text-sm md:text-base text-gray-700 mb-4 md:mb-6 lg:mb-8 overflow-x-auto" aria-label="Breadcrumb">
+      <nav className="flex items-baseline flex-nowrap gap-2 text-sm md:text-base text-gray-700 mb-4 md:mb-6 lg:mb-8 overflow-x-auto leading-none" aria-label="Breadcrumb">
         <Link
           href="/"
-          className="hover:text-primary-600 transition-colors text-gray-700 font-normal whitespace-nowrap flex-shrink-0"
+          className="hover:text-primary-600 transition-colors text-gray-700 font-normal whitespace-nowrap flex-shrink-0 leading-none"
         >
           Home
         </Link>
-        <span className="text-gray-400 flex-shrink-0">/</span>
+        <span className="text-gray-400 flex-shrink-0 leading-none">/</span>
         <Link
           href="/products"
-          className="hover:text-primary-600 transition-colors text-gray-700 font-normal whitespace-nowrap flex-shrink-0"
+          className="hover:text-primary-600 transition-colors text-gray-700 font-normal whitespace-nowrap flex-shrink-0 leading-none"
         >
           Products
         </Link>
-        <span className="text-gray-400 flex-shrink-0">/</span>
-        <span className="text-gray-900 font-bold whitespace-nowrap flex-shrink-0">
+        <span className="text-gray-400 flex-shrink-0 leading-none">/</span>
+        <span className="text-gray-900 font-bold whitespace-nowrap flex-shrink-0 leading-none">
           Cart
         </span>
       </nav>

@@ -51,14 +51,14 @@ export default function CartItem({ item }: CartItemProps) {
           <p className="text-xs md:text-sm text-red-600 mb-2">{product.category}</p>
           
           {(displaySize || displayColor) && (
-            <div className="flex items-center gap-2 mb-2 flex-wrap">
+            <div className="flex items-center gap-1.5 md:gap-2 mb-2 flex-nowrap overflow-x-auto">
               {displaySize && (
-                <span className="inline-flex items-center px-2 py-1 rounded-md text-xs md:text-sm font-medium bg-blue-50 text-blue-700 border border-blue-200">
+                <span className="inline-flex items-center px-1.5 md:px-2 py-0.5 md:py-1 rounded-md text-[10px] md:text-xs lg:text-sm font-medium bg-blue-50 text-blue-700 border border-blue-200 whitespace-nowrap flex-shrink-0">
                   Size: {displaySize}
                 </span>
               )}
               {displayColor && (
-                <span className="inline-flex items-center px-2 py-1 rounded-md text-xs md:text-sm font-medium bg-purple-50 text-purple-700 border border-purple-200">
+                <span className="inline-flex items-center px-1.5 md:px-2 py-0.5 md:py-1 rounded-md text-[10px] md:text-xs lg:text-sm font-medium bg-purple-50 text-purple-700 border border-purple-200 whitespace-nowrap flex-shrink-0">
                   Color: {displayColor}
                 </span>
               )}
@@ -76,27 +76,26 @@ export default function CartItem({ item }: CartItemProps) {
                 return (
                   <div>
                     {pricing.hasDiscount ? (
-                      <div>
-                        <div className="flex items-center gap-2 mb-1">
-                          <p className="text-base md:text-lg font-bold text-gray-900">
-                            {totalPrice.toFixed(2)} AED
-                          </p>
-                          <p className="text-sm text-gray-500 line-through">
-                            {originalTotalPrice.toFixed(2)} AED
-                          </p>
-                        </div>
-                        <p className="text-xs font-medium">
-                          <span className="text-green-600">{pricing.discountPercentage}% OFF</span>
-                          <span className="text-gray-400"> • </span>
-                          <span className="text-red-600">VAT included</span>
-                        </p>
-                      </div>
-                    ) : (
-                      <div>
+                      <div className="flex flex-wrap items-baseline gap-1.5 md:gap-2">
                         <p className="text-base md:text-lg font-bold text-gray-900">
                           {totalPrice.toFixed(2)} AED
                         </p>
-                        <p className="text-xs text-red-600 mt-0.5">VAT included</p>
+                        <p className="text-sm text-gray-500 line-through">
+                          {originalTotalPrice.toFixed(2)} AED
+                        </p>
+                        <span className="text-xs font-medium text-green-600">
+                          {pricing.discountPercentage}% OFF
+                        </span>
+                        <span className="text-gray-400 hidden md:inline">•</span>
+                        <span className="text-xs text-red-600 hidden md:inline">VAT included</span>
+                        <span className="text-xs text-red-600 md:hidden">VAT incl.</span>
+                      </div>
+                    ) : (
+                      <div className="flex flex-wrap items-baseline gap-1.5">
+                        <p className="text-base md:text-lg font-bold text-gray-900">
+                          {totalPrice.toFixed(2)} AED
+                        </p>
+                        <span className="text-xs text-red-600">VAT included</span>
                       </div>
                     )}
                   </div>

@@ -531,29 +531,29 @@ export default function CheckoutClient() {
   return (
     <div className="container mx-auto px-4 py-4 md:py-8 lg:py-16">
       {/* Navigation Breadcrumb */}
-      <nav className="flex items-center gap-1.5 md:gap-2 text-xs md:text-sm lg:text-base text-gray-600 mb-4 md:mb-6 lg:mb-8" aria-label="Breadcrumb">
+      <nav className="flex items-center gap-1 md:gap-2 text-xs md:text-sm lg:text-base text-gray-600 mb-2 md:mb-6 lg:mb-8" aria-label="Breadcrumb">
         <Link
           href="/"
-          className="hover:text-primary-600 transition-colors flex items-center"
+          className="hover:text-primary-600 transition-colors"
         >
           Home
         </Link>
-        <span className="flex items-center text-gray-400">/</span>
+        <span className="text-gray-400 mx-1">/</span>
         <Link
           href="/products"
-          className="hover:text-primary-600 transition-colors flex items-center"
+          className="hover:text-primary-600 transition-colors"
         >
           Products
         </Link>
-        <span className="flex items-center text-gray-400">/</span>
+        <span className="text-gray-400 mx-1">/</span>
         <Link
           href="/cart"
-          className="hover:text-primary-600 transition-colors flex items-center"
+          className="hover:text-primary-600 transition-colors"
         >
           Cart
         </Link>
-        <span className="flex items-center text-gray-400">/</span>
-        <span className="text-gray-900 font-medium flex items-center">
+        <span className="text-gray-400 mx-1">/</span>
+        <span className="text-gray-900 font-medium">
           Checkout
         </span>
       </nav>
@@ -588,8 +588,9 @@ export default function CheckoutClient() {
                         type="text"
                         required
                         defaultValue={firstName}
-                        className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                        className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900"
                         placeholder="Enter your first name"
+                        style={{ color: '#111827', backgroundColor: '#ffffff' }}
                       />
                     </div>
                     
@@ -601,8 +602,9 @@ export default function CheckoutClient() {
                         type="text"
                         required
                         defaultValue={lastName}
-                        className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                        className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900"
                         placeholder="Enter your last name"
+                        style={{ color: '#111827', backgroundColor: '#ffffff' }}
                       />
                     </div>
                   </div>
@@ -616,8 +618,9 @@ export default function CheckoutClient() {
                         type="email"
                         required
                         defaultValue={user?.email || ''}
-                        className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                        className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900"
                         placeholder="Enter your email address"
+                        style={{ color: '#111827', backgroundColor: '#ffffff' }}
                       />
                     </div>
                     
@@ -629,8 +632,9 @@ export default function CheckoutClient() {
                         type="tel"
                         required
                         defaultValue={user?.phone || ''}
-                        className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                        className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900"
                         placeholder="Enter your phone number"
+                        style={{ color: '#111827', backgroundColor: '#ffffff' }}
                       />
                     </div>
                   </div>
@@ -643,8 +647,9 @@ export default function CheckoutClient() {
                       required
                       rows={3}
                       defaultValue={user?.address || ''}
-                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900"
                       placeholder="Enter your complete delivery address"
+                      style={{ color: '#111827', backgroundColor: '#ffffff' }}
                     />
                   </div>
                   
@@ -735,8 +740,9 @@ export default function CheckoutClient() {
                   </label>
                   <textarea
                     rows={3}
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900"
                     placeholder="Any special instructions for your order..."
+                    style={{ color: '#111827', backgroundColor: '#ffffff' }}
                   />
                 </div>
 
@@ -925,9 +931,10 @@ export default function CheckoutClient() {
                       id="invoice-email"
                       value={invoiceEmail}
                       onChange={(e) => setInvoiceEmail(e.target.value)}
-                      className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 text-sm"
+                      className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 text-sm bg-white text-gray-900"
                       placeholder="Enter email address"
                       required
+                      style={{ color: '#111827', backgroundColor: '#ffffff' }}
                     />
                   </div>
                   <button

@@ -32,21 +32,21 @@ export default function CartClient() {
     return (
       <div className="container mx-auto px-4 py-2 md:py-8 lg:py-16">
         {/* Navigation Breadcrumb */}
-        <nav className="flex items-center gap-0.5 md:gap-2 text-[10px] md:text-sm lg:text-base text-gray-600 mb-1 md:mb-6 lg:mb-8 leading-tight" aria-label="Breadcrumb">
+        <nav className="flex items-center gap-1 md:gap-2 text-xs md:text-sm lg:text-base text-gray-600 mb-2 md:mb-6 lg:mb-8" aria-label="Breadcrumb">
           <Link
             href="/"
             className="hover:text-primary-600 transition-colors"
           >
             Home
           </Link>
-          <span className="text-gray-400 mx-0.5 md:mx-1">/</span>
+          <span className="text-gray-400 mx-1">/</span>
           <Link
             href="/products"
             className="hover:text-primary-600 transition-colors"
           >
             Products
           </Link>
-          <span className="text-gray-400 mx-0.5 md:mx-1">/</span>
+          <span className="text-gray-400 mx-1">/</span>
           <span className="text-gray-900 font-medium">
             Cart
           </span>
@@ -78,21 +78,21 @@ export default function CartClient() {
   return (
     <div className="container mx-auto px-4 py-2 md:py-8 lg:py-16">
       {/* Navigation Breadcrumb */}
-      <nav className="flex items-center gap-0.5 md:gap-2 text-[10px] md:text-sm lg:text-base text-gray-600 mb-1 md:mb-6 lg:mb-8 leading-tight" aria-label="Breadcrumb">
+      <nav className="flex items-center gap-1 md:gap-2 text-xs md:text-sm lg:text-base text-gray-600 mb-2 md:mb-6 lg:mb-8" aria-label="Breadcrumb">
         <Link
           href="/"
           className="hover:text-primary-600 transition-colors"
         >
           Home
         </Link>
-        <span className="text-gray-400 mx-0.5 md:mx-1">/</span>
+        <span className="text-gray-400 mx-1">/</span>
         <Link
           href="/products"
           className="hover:text-primary-600 transition-colors"
         >
           Products
         </Link>
-        <span className="text-gray-400 mx-0.5 md:mx-1">/</span>
+        <span className="text-gray-400 mx-1">/</span>
         <span className="text-gray-900 font-medium">
           Cart
         </span>

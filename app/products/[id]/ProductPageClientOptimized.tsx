@@ -36,8 +36,8 @@ export default function ProductPageClientOptimized({ product }: ProductPageClien
           { name: product.name, url: `/products/${product.id}` }
         ]}
       />
-      <div className="container mx-auto px-4 py-8 md:py-16">
-        <nav className="flex items-center gap-2 text-sm md:text-base text-gray-600 mb-8" aria-label="Breadcrumb">
+      <div className="container mx-auto px-4 py-4 md:py-8 lg:py-16">
+        <nav className="flex items-center gap-1.5 md:gap-2 text-xs md:text-sm lg:text-base text-gray-600 mb-4 md:mb-6 lg:mb-8" aria-label="Breadcrumb">
           <Link
             href="/products"
             className="hover:text-primary-600 transition-colors flex items-center"

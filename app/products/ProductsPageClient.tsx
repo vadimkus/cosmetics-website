@@ -122,9 +122,9 @@ export default function ProductsPageClient() {
           { name: 'Products', url: '/products' }
         ]}
       />
-      <div className="container mx-auto px-4 py-8 md:py-16">
+      <div className="container mx-auto px-4 py-4 md:py-8 lg:py-16">
         {/* Navigation Breadcrumb */}
-        <nav className="flex items-center gap-2 text-sm md:text-base text-gray-600 mb-8" aria-label="Breadcrumb">
+        <nav className="flex items-center gap-1.5 md:gap-2 text-xs md:text-sm lg:text-base text-gray-600 mb-4 md:mb-6 lg:mb-8" aria-label="Breadcrumb">
           <Link 
             href="/"
             className="hover:text-primary-600 transition-colors flex items-center"

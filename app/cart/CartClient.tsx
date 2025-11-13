@@ -5,7 +5,7 @@ import { useAuth } from '@/components/AuthProvider'
 import CartItem from '@/components/CartItem'
 import FreeMaskPromotion from '@/components/FreeMaskPromotion'
 import Link from 'next/link'
-import { ShoppingBag, ArrowLeft, Lock, MessageCircle } from 'lucide-react'
+import { ShoppingBag, ArrowLeft, Lock, MessageCircle, Truck, Gift } from 'lucide-react'
 
 
 export default function CartClient() {
@@ -120,6 +120,47 @@ export default function CartClient() {
               {user && (
                 <div className="px-6 pb-6">
                   <FreeMaskPromotion subtotal={subtotal} />
+                  
+                  {/* Free Delivery Notice */}
+                  <div className="mt-6 border-t border-gray-200 pt-6">
+                    <div className="p-4 border border-gray-200 rounded-lg">
+                      <div className="flex items-center gap-2 mb-2">
+                        <Truck className={`h-5 w-5 ${subtotal >= 1000 ? 'text-green-600' : 'text-primary-600'}`} />
+                        <span className="text-sm font-medium text-gray-900">
+                          Free Delivery
+                        </span>
+                        {subtotal >= 1000 ? (
+                          <span className="text-xs font-semibold text-green-600">
+                            ✓ Unlocked
+                          </span>
+                        ) : (
+                          <span className="text-xs text-gray-600">
+                            {subtotal < 1000 ? `AED ${(1000 - subtotal).toFixed(2)} more` : ''}
+                          </span>
+                        )}
+                      </div>
+                      
+                      {/* Progress Bar */}
+                      <div className="w-full bg-gray-200 rounded-full h-2 mb-2 overflow-hidden">
+                        <div
+                          className={`h-full rounded-full transition-all duration-500 ${
+                            subtotal >= 1000 ? 'bg-green-600' : 'bg-gray-400'
+                          }`}
+                          style={{ width: `${Math.min(100, (subtotal / 1000) * 100)}%` }}
+                        />
+                      </div>
+                      
+                      <p className="text-xs text-gray-700">
+                        {subtotal >= 1000 ? (
+                          <span className="font-medium text-green-600">
+                            You qualify for FREE delivery!
+                          </span>
+                        ) : (
+                          <span>Spend AED 1,000 to get FREE delivery</span>
+                        )}
+                      </p>
+                    </div>
+                  </div>
                 </div>
               )}
             </div>
@@ -181,7 +222,7 @@ export default function CartClient() {
                   
                   <div className="flex justify-between text-gray-600">
                     <span>Shipping to {selectedEmirate}</span>
-                    <span>{user ? (shippingCost === 0 ? 'FREE' : `AED ${shippingCost}`) : 'Login to see price'}</span>
+                    <span>{user ? (shippingCost === 0 ? <span className="text-green-600 font-semibold">FREE</span> : `AED ${shippingCost}`) : 'Login to see price'}</span>
                   </div>
                   
                   <div className="flex justify-between text-gray-600">
@@ -201,6 +242,33 @@ export default function CartClient() {
                   </div>
                 </div>
 
+                {/* Free Masks Notice */}
+                {user && subtotal >= 700 && (
+                  <div className="mb-6 p-3 bg-green-50 border border-green-200 rounded-lg">
+                    <div className="flex items-center gap-2 mb-1">
+                      <Gift className="h-4 w-4 text-green-600" />
+                      <span className="text-sm font-semibold text-green-800">
+                        2 Free Masks Added
+                      </span>
+                    </div>
+                    <p className="text-xs text-green-700">
+                      Sea Algae Mask + Collagen Mask will be automatically added to your order at checkout
+                    </p>
+                  </div>
+                )}
+                {user && subtotal >= 500 && subtotal < 700 && (
+                  <div className="mb-6 p-3 bg-green-50 border border-green-200 rounded-lg">
+                    <div className="flex items-center gap-2 mb-1">
+                      <Gift className="h-4 w-4 text-green-600" />
+                      <span className="text-sm font-semibold text-green-800">
+                        1 Free Mask Added
+                      </span>
+                    </div>
+                    <p className="text-xs text-green-700">
+                      Collagen Mask will be automatically added to your order at checkout
+                    </p>
+                  </div>
+                )}
 
                 {/* Checkout Button */}
                 {user ? (

@@ -679,7 +679,7 @@ export default function CheckoutClient() {
                       <span className="font-semibold">Payment</span>
                     </div>
                     <p className="text-sm text-blue-700">
-                      As our customer, you can pay via cash on delivery or ask our support team to generate a secure payment link. Our team will contact you once you complete your order.
+                      As our customer, you can pay via cash on delivery or ask our support team to generate a secure payment link. Our support team will share a secure payment link for payment.
                     </p>
                   </div>
                   
@@ -712,7 +712,7 @@ export default function CheckoutClient() {
                       </div>
                     </label>
 
-                    <label className="flex items-center gap-3 p-4 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50">
+                    <label className="flex items-center gap-3 p-4 border border-primary-300 rounded-lg cursor-pointer hover:bg-primary-50 bg-primary-25">
                       <input
                         type="radio"
                         name="payment"
@@ -720,8 +720,8 @@ export default function CheckoutClient() {
                         className="text-primary-600 focus:ring-primary-500"
                       />
                       <div>
-                        <div className="font-medium text-gray-900">Ask Support to Generate Link for Payment</div>
-                        <div className="text-sm text-gray-600">Contact our support team to get a secure payment link</div>
+                        <div className="font-medium text-gray-900">Generate Link for Payment</div>
+                        <div className="text-sm text-gray-600">Our support team will share a secure payment link for payment</div>
                       </div>
                     </label>
                   </div>
@@ -850,7 +850,7 @@ export default function CheckoutClient() {
                       <span className="text-sm text-gray-600">Shipping to {selectedEmirate}</span>
                     </div>
                     <span className="text-sm font-medium text-gray-900">
-                      {shippingCost === 0 ? 'FREE' : `AED ${shippingCost}`}
+                      {shippingCost === 0 ? <span className="text-green-600 font-semibold">FREE</span> : `AED ${shippingCost}`}
                     </span>
                   </div>
                   
@@ -879,7 +879,12 @@ export default function CheckoutClient() {
                     <span className="font-semibold">Delivery Information</span>
                   </div>
                   <p className="text-sm text-green-700">
-                    Your order will be delivered within {selectedEmirate === 'Dubai' ? '1-2 hours' : '24-36 hours'} {selectedEmirate === 'Dubai' ? 'in' : 'to'} {selectedEmirate}.
+                    Your order will be delivered within {selectedEmirate === 'Dubai' ? '1-2 hours' : '24-36 hours'} {selectedEmirate === 'Dubai' ? 'to' : 'to'} {selectedEmirate} {selectedEmirate === 'Dubai' ? 'by Careem' : 'by Quiqup'}.
+                    {selectedEmirate !== 'Dubai' && (
+                      <span className="block mt-2">
+                        Tracking number will be shared by Genosys team.
+                      </span>
+                    )}
                   </p>
                 </div>
 

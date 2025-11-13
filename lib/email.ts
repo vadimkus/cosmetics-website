@@ -718,7 +718,7 @@ export const generateSupportLinkOrderHTML = (order: OrderHTMLData): string => {
           Dear <strong>${order.customerName.split(' ')[0]}</strong>,
         </p>
         <p style="color: #374151; font-size: 14px; line-height: 1.6; margin: 0 0 10px 0;">
-          Your order request has been submitted. Our support team will contact you shortly to generate a secure payment link.
+          Your order request has been submitted. Our support team will share a secure payment link for payment.
         </p>
         <p style="color: #374151; font-size: 14px; line-height: 1.6; margin: 0;">
           Order Request #<strong>${order.orderNumber}</strong>

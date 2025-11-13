@@ -28,12 +28,12 @@ export default function FreeMaskPromotion({ subtotal }: FreeMaskPromotionProps) 
     <div className="border-t border-gray-200 pt-6">
       <div className="mb-4">
         <div className="flex items-center gap-2">
-          <Gift className="h-5 w-5 text-primary-600" />
+          <Gift className={`h-5 w-5 ${qualifiesFor500 || qualifiesFor700 ? 'text-green-600' : 'text-primary-600'}`} />
           <h3 className="text-lg font-semibold text-gray-900">
             Free Mask Promotion
           </h3>
         </div>
-        <p className="text-xs font-bold text-red-600 mt-1">
+        <p className={`text-xs font-bold mt-1 ${qualifiesFor500 || qualifiesFor700 ? 'text-green-600' : 'text-red-600'}`}>
           Valid until 01/12/2025
         </p>
       </div>

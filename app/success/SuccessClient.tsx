@@ -62,7 +62,7 @@ function SuccessContent() {
             </h1>
             <p className="text-xl text-gray-600 mb-8">
               {paymentMethod === 'support-link' 
-                ? 'Your order request has been submitted. Our support team will contact you shortly to generate a secure payment link.'
+                ? 'Your order request has been submitted. Our support team will share a secure payment link for payment.'
                 : 'Your order has been confirmed.'
               }
               {(orderId || paymentMethod === 'support-link') && (

@@ -360,9 +360,9 @@ export default function CheckoutClient() {
               const errorText = await response.text()
               errorLog('Failed to send support-link order request:', errorText)
             }
-          } catch (fetchError: any) {
+          } catch (fetchError: unknown) {
             clearTimeout(timeoutId)
-            if (fetchError.name === 'AbortError') {
+            if (fetchError instanceof Error && fetchError.name === 'AbortError') {
               errorLog('Support-link order request timed out after 15 seconds')
             } else {
               errorLog('Error sending support-link order request:', fetchError)
@@ -459,9 +459,9 @@ export default function CheckoutClient() {
             const errorText = await response.text()
             errorLog('Failed to send COD confirmation email:', errorText)
           }
-        } catch (fetchError: any) {
+        } catch (fetchError: unknown) {
           clearTimeout(timeoutId)
-          if (fetchError.name === 'AbortError') {
+          if (fetchError instanceof Error && fetchError.name === 'AbortError') {
             errorLog('COD confirmation request timed out after 10 seconds')
           } else {
             errorLog('Error sending COD confirmation email:', fetchError)

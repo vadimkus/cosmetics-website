@@ -207,7 +207,7 @@ export default function AdminPage() {
   const fetchOrders = useCallback(async () => {
     // Don't fetch if not authenticated or adminUser not set
     if (!isAuthenticated || !adminUser?.email) {
-      console.warn('⚠️ Cannot fetch orders: Not authenticated or admin user not set', {
+      debugLog('Cannot fetch orders: Not authenticated or admin user not set', {
         isAuthenticated,
         adminUserEmail: adminUser?.email
       })
@@ -220,7 +220,7 @@ export default function AdminPage() {
       setOrdersLoading(true)
       const headers = getAdminHeaders()
       const headersObj = headers as Record<string, string>
-      console.log('🔍 Fetching orders:', {
+      debugLog('Fetching orders:', {
         adminEmail: adminUser.email,
         headers: Object.keys(headersObj),
         hasXAdminEmail: !!headersObj['X-Admin-Email']
@@ -237,11 +237,10 @@ export default function AdminPage() {
       
       clearTimeout(timeoutId)
       
-      console.log('📡 Response status:', response.status, response.statusText)
+      debugLog('Response status:', response.status, response.statusText)
       
       if (!response.ok) {
         const errorText = await response.text()
-        console.error('❌ Admin orders API error:', response.status, errorText)
         errorLog('Admin orders API error:', response.status, errorText)
         setOrders([])
         setOrdersLoading(false)
@@ -249,27 +248,23 @@ export default function AdminPage() {
       }
       
       const data = await response.json()
-      console.log('📦 Admin orders API response:', {
+      debugLog('Admin orders API response:', {
         success: data.success,
         ordersCount: data.orders?.length || 0,
         orders: data.orders?.slice(0, 2) // Log first 2 orders as sample
       })
-      debugLog('Admin orders API response:', data)
       
       if (data.success) {
-        console.log(`✅ Setting ${data.orders?.length || 0} orders`)
         debugLog(`Setting ${data.orders?.length || 0} orders`)
         setOrders(data.orders || [])
       } else {
-        console.error('❌ Failed to fetch orders:', data.error)
         errorLog('Failed to fetch orders:', data.error)
         setOrders([])
       }
     } catch (error) {
-      console.error('❌ Error fetching orders:', error)
       errorLog('Error fetching orders:', error)
       if (error instanceof Error && error.name === 'AbortError') {
-        console.error('⏱️ Request timed out after 10 seconds')
+        errorLog('Request timed out after 10 seconds')
         alert('Request timed out. Please check your connection and try again.')
       }
       setOrders([])
@@ -557,7 +552,7 @@ export default function AdminPage() {
   useEffect(() => {
     // Wait for authentication and adminUser to be set before fetching
     if (isAuthenticated && !isCheckingSession && adminUser?.email) {
-      console.log('✅ Admin authenticated, fetching data...', { adminEmail: adminUser.email })
+      debugLog('Admin authenticated, fetching data...', { adminEmail: adminUser.email })
       
       // Initial fetch
       fetchUsers()
@@ -580,7 +575,7 @@ export default function AdminPage() {
     }
     
     // Not authenticated yet - log and return undefined (no cleanup needed)
-    console.log('⏳ Waiting for authentication...', {
+    debugLog('Waiting for authentication...', {
       isAuthenticated,
       isCheckingSession,
       hasAdminUser: !!adminUser,
@@ -659,16 +654,16 @@ export default function AdminPage() {
               <div>
                 <div className="font-medium">{item.productName}</div>
                 <div className="text-sm text-gray-600">Quantity: {item.quantity}</div>
-                {((item as any).color || (item as any).size) && (
+                {(item.color || item.size) && (
                   <div className="flex gap-4 mt-2 text-xs">
-                    {(item as any).color && (
+                    {item.color && (
                       <div className="text-gray-600">
-                        <span className="text-gray-500">Color:</span> <span className="font-semibold text-gray-800 bg-blue-50 px-2 py-0.5 rounded">{(item as any).color}</span>
+                        <span className="text-gray-500">Color:</span> <span className="font-semibold text-gray-800 bg-blue-50 px-2 py-0.5 rounded">{item.color}</span>
                       </div>
                     )}
-                    {(item as any).size && (
+                    {item.size && (
                       <div className="text-gray-600">
-                        <span className="text-gray-500">Size:</span> <span className="font-semibold text-gray-800 bg-green-50 px-2 py-0.5 rounded">{(item as any).size}</span>
+                        <span className="text-gray-500">Size:</span> <span className="font-semibold text-gray-800 bg-green-50 px-2 py-0.5 rounded">{item.size}</span>
                       </div>
                     )}
                   </div>

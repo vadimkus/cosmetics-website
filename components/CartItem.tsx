@@ -76,26 +76,26 @@ export default function CartItem({ item }: CartItemProps) {
                 return (
                   <div>
                     {pricing.hasDiscount ? (
-                      <div className="flex flex-wrap items-baseline gap-1.5 md:gap-2">
-                        <p className="text-base md:text-lg font-bold text-gray-900">
-                          {totalPrice.toFixed(2)} AED
-                        </p>
-                        <p className="text-sm text-gray-500 line-through">
-                          {originalTotalPrice.toFixed(2)} AED
-                        </p>
-                        <span className="text-xs font-medium text-green-600">
-                          {pricing.discountPercentage}% OFF
-                        </span>
-                        <span className="text-gray-400 hidden md:inline">•</span>
-                        <span className="text-xs text-red-600 hidden md:inline">VAT included</span>
-                        <span className="text-xs text-red-600 md:hidden">VAT incl.</span>
+                      <div>
+                        <div className="flex items-baseline gap-1.5 md:gap-2 flex-wrap">
+                          <p className="text-base md:text-lg font-bold text-gray-900">
+                            {totalPrice.toFixed(2)} AED
+                          </p>
+                          <p className="text-sm text-gray-500 line-through">
+                            {originalTotalPrice.toFixed(2)} AED
+                          </p>
+                          <span className="text-xs font-medium text-green-600">
+                            {pricing.discountPercentage}% OFF
+                          </span>
+                        </div>
+                        <p className="text-xs text-red-600 mt-1">VAT included</p>
                       </div>
                     ) : (
-                      <div className="flex flex-wrap items-baseline gap-1.5">
+                      <div>
                         <p className="text-base md:text-lg font-bold text-gray-900">
                           {totalPrice.toFixed(2)} AED
                         </p>
-                        <span className="text-xs text-red-600">VAT included</span>
+                        <p className="text-xs text-red-600 mt-1">VAT included</p>
                       </div>
                     )}
                   </div>

@@ -531,7 +531,7 @@ export default function CheckoutClient() {
   return (
     <div className="container mx-auto px-4 py-4 md:py-8 lg:py-16">
       {/* Navigation Breadcrumb */}
-      <nav className="flex items-baseline flex-nowrap gap-2 text-sm md:text-base text-gray-700 mb-4 md:mb-6 lg:mb-8 overflow-x-auto leading-none" aria-label="Breadcrumb">
+      <nav className="flex items-baseline flex-nowrap gap-1 md:gap-2 text-sm md:text-base text-gray-700 mb-4 md:mb-6 lg:mb-8 overflow-x-auto leading-none" aria-label="Breadcrumb">
         <Link
           href="/"
           className="hover:text-primary-600 transition-colors text-gray-700 font-normal whitespace-nowrap flex-shrink-0 leading-none"
@@ -609,7 +609,7 @@ export default function CheckoutClient() {
                     </div>
                   </div>
                   
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-4">
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
                         Email Address *

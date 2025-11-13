@@ -37,6 +37,64 @@ body {
   background: linear-gradient(135deg, #dc2626, #b91c1c);
 }
 
+/* Override scrollbar for cart and checkout pages - must be after global scrollbar styles */
+.cart-page *,
+.checkout-page *,
+.order-summary-container,
+.order-summary-container *,
+.cart-container,
+.cart-container * {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+.cart-page *::-webkit-scrollbar,
+.checkout-page *::-webkit-scrollbar,
+.order-summary-container::-webkit-scrollbar,
+.order-summary-container *::-webkit-scrollbar,
+.cart-container::-webkit-scrollbar,
+.cart-container *::-webkit-scrollbar,
+.cart-container > *::-webkit-scrollbar,
+.order-summary-container > *::-webkit-scrollbar {
+  width: 0px !important;
+  height: 0px !important;
+  display: none !important;
+  background: transparent !important;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+}
+
+.cart-page *::-webkit-scrollbar-thumb,
+.checkout-page *::-webkit-scrollbar-thumb,
+.order-summary-container::-webkit-scrollbar-thumb,
+.order-summary-container *::-webkit-scrollbar-thumb,
+.cart-container::-webkit-scrollbar-thumb,
+.cart-container *::-webkit-scrollbar-thumb,
+.cart-container > *::-webkit-scrollbar-thumb,
+.order-summary-container > *::-webkit-scrollbar-thumb {
+  width: 0px !important;
+  height: 0px !important;
+  display: none !important;
+  background: transparent !important;
+  border: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+.cart-page *::-webkit-scrollbar-track,
+.checkout-page *::-webkit-scrollbar-track,
+.order-summary-container::-webkit-scrollbar-track,
+.order-summary-container *::-webkit-scrollbar-track,
+.cart-container::-webkit-scrollbar-track,
+.cart-container *::-webkit-scrollbar-track,
+.cart-container > *::-webkit-scrollbar-track,
+.order-summary-container > *::-webkit-scrollbar-track {
+  width: 0px !important;
+  height: 0px !important;
+  display: none !important;
+  background: transparent !important;
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
@@ -49,6 +107,30 @@ body {
   }
   .scrollbar-hide::-webkit-scrollbar { 
     display: none;  /* Safari and Chrome */
+  }
+  
+  /* Hide scrollbar for order summary containers */
+  .order-summary-container,
+  .order-summary-container * {
+    -ms-overflow-style: none !important;
+    scrollbar-width: none !important;
+  }
+  .order-summary-container::-webkit-scrollbar,
+  .order-summary-container *::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    background: transparent !important;
+  }
+  .order-summary-container::-webkit-scrollbar-thumb,
+  .order-summary-container *::-webkit-scrollbar-thumb {
+    display: none !important;
+    background: transparent !important;
+  }
+  .order-summary-container::-webkit-scrollbar-track,
+  .order-summary-container *::-webkit-scrollbar-track {
+    display: none !important;
+    background: transparent !important;
   }
 }
 

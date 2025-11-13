@@ -98,11 +98,11 @@ export default function CartClient() {
         </span>
       </nav>
 
-      <div className="max-w-6xl mx-auto">
-        <div className="flex flex-col lg:flex-row gap-8">
+      <div className="max-w-6xl mx-auto" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+        <div className="flex flex-col lg:flex-row gap-8" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
           {/* Cart Items */}
           <div className="lg:w-2/3">
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200">
+            <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden cart-container" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
               <div className="p-3 md:p-6 border-b border-gray-200">
                 <h1 className="text-lg md:text-2xl font-bold text-gray-900 flex items-center gap-2">
                   <ShoppingBag className="h-5 w-5 md:h-6 md:w-6 text-green-600" />
@@ -110,7 +110,7 @@ export default function CartClient() {
                 </h1>
               </div>
               
-              <div className="divide-y divide-gray-200">
+              <div className="divide-y divide-gray-200" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
                 {items.map((item) => (
                   <CartItem key={`${item.product.id}-${item.quantity}`} item={item} />
                 ))}
@@ -168,7 +168,7 @@ export default function CartClient() {
 
           {/* Order Summary */}
           <div className="lg:w-1/3">
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200 sticky top-4">
+            <div className="bg-white rounded-lg shadow-sm border border-gray-200 sticky top-4 order-summary-container" style={{ overflow: 'hidden', overflowY: 'hidden', overflowX: 'hidden' }}>
               <div className="p-6">
                 <h2 className="text-xl font-bold text-gray-900 mb-6">Order Summary</h2>
                 

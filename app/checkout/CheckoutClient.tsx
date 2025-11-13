@@ -770,7 +770,7 @@ export default function CheckoutClient() {
 
           {/* Order Summary */}
           <div className="lg:w-1/3">
-            <div className="bg-white rounded-xl shadow-lg border border-gray-100 sticky top-4 overflow-hidden">
+            <div className="bg-white rounded-xl shadow-lg border border-gray-100 sticky top-4 order-summary-container" style={{ overflow: 'hidden', overflowY: 'hidden', overflowX: 'hidden' }}>
               {/* Header */}
               <div className="bg-gradient-to-r from-primary-600 to-primary-700 px-6 py-4">
                 <div className="flex justify-between items-center">

@@ -34,7 +34,7 @@ export const metadata: Metadata = {
 
 export default function CartPage() {
   return (
-    <div className="bg-white min-h-screen">
+    <div className="bg-white min-h-screen cart-page">
       <BreadcrumbSchema
         items={[
           { name: 'Home', url: '/' },

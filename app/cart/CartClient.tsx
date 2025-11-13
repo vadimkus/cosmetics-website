@@ -30,24 +30,24 @@ export default function CartClient() {
 
   if (items.length === 0) {
     return (
-      <div className="container mx-auto px-4 py-4 md:py-8 lg:py-16">
+      <div className="container mx-auto px-4 py-2 md:py-8 lg:py-16">
         {/* Navigation Breadcrumb */}
-        <nav className="flex items-center gap-1.5 md:gap-2 text-xs md:text-sm lg:text-base text-gray-600 mb-4 md:mb-6 lg:mb-8" aria-label="Breadcrumb">
+        <nav className="flex items-center gap-0.5 md:gap-2 text-[10px] md:text-sm lg:text-base text-gray-600 mb-1 md:mb-6 lg:mb-8 leading-tight" aria-label="Breadcrumb">
           <Link
             href="/"
-            className="hover:text-primary-600 transition-colors flex items-center"
+            className="hover:text-primary-600 transition-colors"
           >
             Home
           </Link>
-          <span className="flex items-center text-gray-400">/</span>
+          <span className="text-gray-400 mx-0.5 md:mx-1">/</span>
           <Link
             href="/products"
-            className="hover:text-primary-600 transition-colors flex items-center"
+            className="hover:text-primary-600 transition-colors"
           >
             Products
           </Link>
-          <span className="flex items-center text-gray-400">/</span>
-          <span className="text-gray-900 font-medium flex items-center">
+          <span className="text-gray-400 mx-0.5 md:mx-1">/</span>
+          <span className="text-gray-900 font-medium">
             Cart
           </span>
         </nav>
@@ -76,24 +76,24 @@ export default function CartClient() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-4 md:py-8 lg:py-16">
+    <div className="container mx-auto px-4 py-2 md:py-8 lg:py-16">
       {/* Navigation Breadcrumb */}
-      <nav className="flex items-center gap-1.5 md:gap-2 text-xs md:text-sm lg:text-base text-gray-600 mb-4 md:mb-6 lg:mb-8" aria-label="Breadcrumb">
+      <nav className="flex items-center gap-0.5 md:gap-2 text-[10px] md:text-sm lg:text-base text-gray-600 mb-1 md:mb-6 lg:mb-8 leading-tight" aria-label="Breadcrumb">
         <Link
           href="/"
-          className="hover:text-primary-600 transition-colors flex items-center"
+          className="hover:text-primary-600 transition-colors"
         >
           Home
         </Link>
-        <span className="flex items-center text-gray-400">/</span>
+        <span className="text-gray-400 mx-0.5 md:mx-1">/</span>
         <Link
           href="/products"
-          className="hover:text-primary-600 transition-colors flex items-center"
+          className="hover:text-primary-600 transition-colors"
         >
           Products
         </Link>
-        <span className="flex items-center text-gray-400">/</span>
-        <span className="text-gray-900 font-medium flex items-center">
+        <span className="text-gray-400 mx-0.5 md:mx-1">/</span>
+        <span className="text-gray-900 font-medium">
           Cart
         </span>
       </nav>
@@ -103,10 +103,10 @@ export default function CartClient() {
           {/* Cart Items */}
           <div className="lg:w-2/3">
             <div className="bg-white rounded-lg shadow-sm border border-gray-200">
-              <div className="p-6 border-b border-gray-200">
-                <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
-                  <ShoppingBag className="h-6 w-6 text-green-600" />
-                  Shopping Cart: {getTotalItems()} {getTotalItems() === 1 ? 'item' : 'items'}
+              <div className="p-3 md:p-6 border-b border-gray-200">
+                <h1 className="text-lg md:text-2xl font-bold text-gray-900 flex items-center gap-2">
+                  <ShoppingBag className="h-5 w-5 md:h-6 md:w-6 text-green-600" />
+                  <span className="text-sm md:text-base lg:text-lg">Shopping Cart:</span> <span className="text-sm md:text-base lg:text-lg">{getTotalItems()} {getTotalItems() === 1 ? 'item' : 'items'}</span>
                 </h1>
               </div>
               
@@ -200,10 +200,11 @@ export default function CartClient() {
                   <select
                     value={selectedEmirate}
                     onChange={(e) => setSelectedEmirate(e.target.value)}
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900"
+                    style={{ color: '#111827' }}
                   >
                     {emirates.map((emirate) => (
-                      <option key={emirate.name} value={emirate.name}>
+                      <option key={emirate.name} value={emirate.name} style={{ backgroundColor: '#ffffff', color: '#111827' }}>
                         {emirate.name} - AED {emirate.shippingCost}
                       </option>
                     ))}

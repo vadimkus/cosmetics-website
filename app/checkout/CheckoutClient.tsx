@@ -655,10 +655,11 @@ export default function CheckoutClient() {
                     <select
                       value={selectedEmirate}
                       onChange={(e) => setSelectedEmirate(e.target.value)}
-                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900"
+                      style={{ color: '#111827' }}
                     >
                       {emirates.map((emirate) => (
-                        <option key={emirate.name} value={emirate.name}>
+                        <option key={emirate.name} value={emirate.name} style={{ backgroundColor: '#ffffff', color: '#111827' }}>
                           {emirate.name} - AED {emirate.shippingCost}
                         </option>
                       ))}

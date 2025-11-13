@@ -2,7 +2,7 @@
 
 import { useCart } from '@/components/CartProvider'
 import { useAuth } from '@/components/AuthProvider'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import { ArrowLeft, CreditCard, Lock, MapPin, Truck, MessageCircle, Mail, Building } from 'lucide-react'
 import Link from 'next/link'
@@ -17,6 +17,7 @@ export default function CheckoutClient() {
   const [isProcessing, setIsProcessing] = useState(false)
   const [isGeneratingInvoice, setIsGeneratingInvoice] = useState(false)
   const [invoiceEmail, setInvoiceEmail] = useState('')
+  const [freeMasks, setFreeMasks] = useState<Array<{ id: string; name: string; price: number; quantity: number; image: string }>>([])
 
   // Fetch CSRF token on mount
   useEffect(() => {
@@ -60,14 +61,12 @@ export default function CheckoutClient() {
     setIsGeneratingInvoice(true)
     
     try {
-      const invoiceData = {
-        orderNumber,
-        customerEmail: invoiceEmail,
-        customerName: user?.name || 'Customer',
-        customerPhone: user?.phone || '',
-        customerAddress: user?.address || '',
-        emirate: selectedEmirate,
-        items: items.map(item => {
+      // Get free masks based on subtotal
+      const freeMasks = await getFreeMasks(subtotal)
+
+      // Combine regular items with free masks
+      const allItems = [
+        ...items.map(item => {
           const pricing = calculateDiscountedPrice(item.product, user)
           return {
             id: item.product.id,
@@ -78,6 +77,24 @@ export default function CheckoutClient() {
             total: pricing.discountedPrice * item.quantity
           }
         }),
+        ...freeMasks.map(mask => ({
+          id: mask.id,
+          name: mask.name + ' (FREE)',
+          image: mask.image,
+          price: 0,
+          quantity: mask.quantity,
+          total: 0
+        }))
+      ]
+
+      const invoiceData = {
+        orderNumber,
+        customerEmail: invoiceEmail,
+        customerName: user?.name || 'Customer',
+        customerPhone: user?.phone || '',
+        customerAddress: user?.address || '',
+        emirate: selectedEmirate,
+        items: allItems,
         subtotal,
         shippingCost,
         vatAmount,
@@ -170,6 +187,66 @@ export default function CheckoutClient() {
   const vatAmount = Math.round(((subtotal + shippingCost) / 1.05) * 0.05 * 100) / 100
   const total = subtotal + shippingCost // Total is VAT-inclusive
 
+  // Function to get free masks based on subtotal
+  const getFreeMasks = useCallback(async (subtotal: number) => {
+    const freeMasks: Array<{ id: string; name: string; price: number; quantity: number; image: string }> = []
+    
+    try {
+      // Fetch mask products
+      const [seaAlgaeResponse, collagenResponse] = await Promise.all([
+        fetch('/api/products/36'),
+        fetch('/api/products/53')
+      ])
+      
+      const seaAlgaeProduct = seaAlgaeResponse.ok ? await seaAlgaeResponse.json() : null
+      const collagenProduct = collagenResponse.ok ? await collagenResponse.json() : null
+      
+      // Add masks based on thresholds
+      if (subtotal >= 700 && collagenProduct && seaAlgaeProduct) {
+        // 2 free masks (Sea Algae + Collagen)
+        freeMasks.push({
+          id: seaAlgaeProduct.id,
+          name: seaAlgaeProduct.name,
+          price: 0, // Free
+          quantity: 1,
+          image: seaAlgaeProduct.image
+        })
+        freeMasks.push({
+          id: collagenProduct.id,
+          name: collagenProduct.name,
+          price: 0, // Free
+          quantity: 1,
+          image: collagenProduct.image
+        })
+      } else if (subtotal >= 500 && collagenProduct) {
+        // 1 free mask (Collagen)
+        freeMasks.push({
+          id: collagenProduct.id,
+          name: collagenProduct.name,
+          price: 0, // Free
+          quantity: 1,
+          image: collagenProduct.image
+        })
+      }
+    } catch (error) {
+      errorLog('Error fetching free mask products:', error)
+      // Continue without free masks if fetch fails
+    }
+    
+    return freeMasks
+  }, [])
+
+  // Fetch free masks when subtotal changes
+  useEffect(() => {
+    const fetchFreeMasks = async () => {
+      const masks = await getFreeMasks(subtotal)
+      setFreeMasks(masks)
+    }
+    if (user) {
+      fetchFreeMasks()
+    }
+  }, [subtotal, user, getFreeMasks])
+
   // Redirect if cart is empty
   useEffect(() => {
     if (items.length === 0) {
@@ -198,6 +275,9 @@ export default function CheckoutClient() {
         return
       }
 
+      // Get free masks based on subtotal
+      const freeMasks = await getFreeMasks(subtotal)
+
       // Handle different payment methods
       if (paymentMethod === 'support-link') {
                 // Generate professional order number for support link request
@@ -210,14 +290,9 @@ export default function CheckoutClient() {
         
         // Send support link order request email
         try {
-          const orderData = {
-            orderNumber: supportOrderNumber,
-            customerName: user?.name || 'Customer',
-            customerEmail: user?.email || '',
-            customerPhone: user?.phone || '',
-            customerAddress: user?.address || '',
-            emirate: selectedEmirate,
-            items: items.map(item => {
+          // Combine regular items with free masks
+          const allItems = [
+            ...items.map(item => {
               const pricing = calculateDiscountedPrice(item.product, user)
               // Use selectedSize if available, otherwise fallback to product.size
               const itemSize = (item.selectedSize && item.selectedSize.trim()) || (item.product.size && item.product.size.trim()) || undefined
@@ -233,6 +308,26 @@ export default function CheckoutClient() {
                 size: itemSize
               }
             }),
+            ...freeMasks.map(mask => ({
+              id: mask.id,
+              name: mask.name + ' (FREE)',
+              price: 0,
+              quantity: mask.quantity,
+              total: 0,
+              image: mask.image,
+              color: undefined,
+              size: undefined
+            }))
+          ]
+
+          const orderData = {
+            orderNumber: supportOrderNumber,
+            customerName: user?.name || 'Customer',
+            customerEmail: user?.email || '',
+            customerPhone: user?.phone || '',
+            customerAddress: user?.address || '',
+            emirate: selectedEmirate,
+            items: allItems,
             subtotal,
             shippingCost,
             vatAmount,
@@ -294,14 +389,9 @@ export default function CheckoutClient() {
       
       // Send COD order confirmation email
       try {
-        const orderData = {
-          orderNumber: codOrderNumber,
-          customerName: user?.name || 'Customer',
-          customerEmail: user?.email || '',
-          customerPhone: user?.phone || '',
-          customerAddress: user?.address || '',
-          emirate: selectedEmirate,
-          items: items.map(item => {
+        // Combine regular items with free masks
+        const allItems = [
+          ...items.map(item => {
             const pricing = calculateDiscountedPrice(item.product, user)
             // Use selectedSize if available, otherwise fallback to product.size
             const itemSize = (item.selectedSize && item.selectedSize.trim()) || (item.product.size && item.product.size.trim()) || undefined
@@ -317,6 +407,26 @@ export default function CheckoutClient() {
               size: itemSize
             }
           }),
+          ...freeMasks.map(mask => ({
+            id: mask.id,
+            name: mask.name + ' (FREE)',
+            price: 0,
+            quantity: mask.quantity,
+            total: 0,
+            image: mask.image,
+            color: undefined,
+            size: undefined
+          }))
+        ]
+
+        const orderData = {
+          orderNumber: codOrderNumber,
+          customerName: user?.name || 'Customer',
+          customerEmail: user?.email || '',
+          customerPhone: user?.phone || '',
+          customerAddress: user?.address || '',
+          emirate: selectedEmirate,
+          items: allItems,
           subtotal,
           shippingCost,
           vatAmount,
@@ -667,7 +777,7 @@ export default function CheckoutClient() {
                 {/* Items List */}
                 <div className="mb-6">
                   <h3 className="text-sm font-semibold text-gray-700 mb-4 uppercase tracking-wide">Items:</h3>
-                  {items.length > 0 ? (
+                  {items.length > 0 || freeMasks.length > 0 ? (
                     <div className="space-y-4">
                       {items.map((item) => {
                         const pricing = calculateDiscountedPrice(item.product, user)
@@ -694,6 +804,23 @@ export default function CheckoutClient() {
                           </div>
                         )
                       })}
+                      {freeMasks.map((mask) => (
+                        <div key={mask.id} className="flex items-start justify-between">
+                          <div className="flex-1 min-w-0">
+                            <h4 className="text-sm font-medium text-gray-900 leading-tight">
+                              {mask.name} <span className="text-green-600 font-semibold">(FREE)</span>
+                            </h4>
+                            <div className="flex items-center gap-2 mt-1">
+                              <span className="text-xs text-gray-500">Qty: {mask.quantity}</span>
+                            </div>
+                          </div>
+                          <div className="text-right ml-3">
+                            <div className="text-sm font-semibold text-green-600">
+                              FREE
+                            </div>
+                          </div>
+                        </div>
+                      ))}
                     </div>
                   ) : (
                     <div className="text-center py-8">
@@ -713,7 +840,7 @@ export default function CheckoutClient() {
                 {/* Price Breakdown */}
                 <div className="space-y-3 mb-6">
                   <div className="flex justify-between items-center py-2">
-                    <span className="text-sm text-gray-600">Subtotal ({getTotalItems()} {getTotalItems() === 1 ? 'item' : 'items'})</span>
+                    <span className="text-sm text-gray-600">Subtotal ({getTotalItems()} {getTotalItems() === 1 ? 'item' : 'items'}{freeMasks.length > 0 ? ` + ${freeMasks.length} free ${freeMasks.length === 1 ? 'mask' : 'masks'}` : ''})</span>
                     <span className="text-sm font-medium text-gray-900">AED {subtotal.toFixed(2)}</span>
                   </div>
                   

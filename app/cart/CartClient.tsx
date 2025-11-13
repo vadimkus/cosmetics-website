@@ -3,6 +3,7 @@
 import { useCart } from '@/components/CartProvider'
 import { useAuth } from '@/components/AuthProvider'
 import CartItem from '@/components/CartItem'
+import FreeMaskPromotion from '@/components/FreeMaskPromotion'
 import Link from 'next/link'
 import { ShoppingBag, ArrowLeft, Lock, MessageCircle } from 'lucide-react'
 
@@ -114,6 +115,13 @@ export default function CartClient() {
                   <CartItem key={`${item.product.id}-${item.quantity}`} item={item} />
                 ))}
               </div>
+
+              {/* Free Mask Promotion */}
+              {user && (
+                <div className="px-6 pb-6">
+                  <FreeMaskPromotion subtotal={subtotal} />
+                </div>
+              )}
             </div>
           </div>
 

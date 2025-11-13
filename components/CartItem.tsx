@@ -77,14 +77,14 @@ export default function CartItem({ item }: CartItemProps) {
                   <div>
                     {pricing.hasDiscount ? (
                       <div>
-                        <div className="flex items-baseline gap-1.5 md:gap-2 flex-wrap">
-                          <p className="text-base md:text-lg font-bold text-gray-900">
+                        <div className="flex items-baseline gap-1.5 md:gap-2 flex-nowrap">
+                          <p className="text-base md:text-lg font-bold text-gray-900 whitespace-nowrap flex-shrink-0">
                             {totalPrice.toFixed(2)} AED
                           </p>
-                          <p className="text-sm text-gray-500 line-through">
+                          <p className="text-sm text-gray-500 line-through whitespace-nowrap flex-shrink-0">
                             {originalTotalPrice.toFixed(2)} AED
                           </p>
-                          <span className="text-xs font-medium text-green-600">
+                          <span className="text-xs font-medium text-green-600 whitespace-nowrap flex-shrink-0">
                             {pricing.discountPercentage}% OFF
                           </span>
                         </div>

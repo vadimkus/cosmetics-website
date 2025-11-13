@@ -32,21 +32,21 @@ export default function CartClient() {
     return (
       <div className="container mx-auto px-4 py-2 md:py-8 lg:py-16">
         {/* Navigation Breadcrumb */}
-        <nav className="flex items-center gap-1 md:gap-2 text-xs md:text-sm lg:text-base text-gray-600 mb-2 md:mb-6 lg:mb-8" aria-label="Breadcrumb">
+        <nav className="flex items-center gap-2 text-sm md:text-base text-gray-600 mb-4 md:mb-6 lg:mb-8" aria-label="Breadcrumb">
           <Link
             href="/"
-            className="hover:text-primary-600 transition-colors"
+            className="hover:text-primary-600 transition-colors text-gray-600"
           >
             Home
           </Link>
-          <span className="text-gray-400 mx-1">/</span>
+          <span className="text-gray-400">/</span>
           <Link
             href="/products"
-            className="hover:text-primary-600 transition-colors"
+            className="hover:text-primary-600 transition-colors text-gray-600"
           >
             Products
           </Link>
-          <span className="text-gray-400 mx-1">/</span>
+          <span className="text-gray-400">/</span>
           <span className="text-gray-900 font-medium">
             Cart
           </span>
@@ -78,21 +78,21 @@ export default function CartClient() {
   return (
     <div className="container mx-auto px-4 py-2 md:py-8 lg:py-16">
       {/* Navigation Breadcrumb */}
-      <nav className="flex items-center gap-1 md:gap-2 text-xs md:text-sm lg:text-base text-gray-600 mb-2 md:mb-6 lg:mb-8" aria-label="Breadcrumb">
+      <nav className="flex items-center gap-2 text-sm md:text-base text-gray-600 mb-4 md:mb-6 lg:mb-8" aria-label="Breadcrumb">
         <Link
           href="/"
-          className="hover:text-primary-600 transition-colors"
+          className="hover:text-primary-600 transition-colors text-gray-600"
         >
           Home
         </Link>
-        <span className="text-gray-400 mx-1">/</span>
+        <span className="text-gray-400">/</span>
         <Link
           href="/products"
-          className="hover:text-primary-600 transition-colors"
+          className="hover:text-primary-600 transition-colors text-gray-600"
         >
           Products
         </Link>
-        <span className="text-gray-400 mx-1">/</span>
+        <span className="text-gray-400">/</span>
         <span className="text-gray-900 font-medium">
           Cart
         </span>

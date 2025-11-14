@@ -112,6 +112,20 @@ async function updateBlogPost() {
     </p>
   </div>
 
+  <div class="images-section mb-10">
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="bg-white rounded-xl overflow-hidden shadow-md border border-gray-200 flex items-center justify-center">
+        <img src="/blog/pd2.jpeg" alt="GENOSYS Skin Reboot PDRN Mask Pack" class="w-full h-auto max-h-64 object-contain" />
+      </div>
+      <div class="bg-white rounded-xl overflow-hidden shadow-md border border-gray-200 flex items-center justify-center">
+        <img src="/blog/pd3.jpeg" alt="GENOSYS Skin Reboot PDRN Mask Pack Application" class="w-full h-auto max-h-64 object-contain" />
+      </div>
+      <div class="bg-white rounded-xl overflow-hidden shadow-md border border-gray-200 flex items-center justify-center">
+        <img src="/blog/pd4.jpeg" alt="GENOSYS Skin Reboot PDRN Mask Pack Results" class="w-full h-auto max-h-64 object-contain" />
+      </div>
+    </div>
+  </div>
+
   <div class="ingredients-section mb-10">
     <h2 class="text-3xl font-bold text-gray-800 mb-6">Key Ingredients</h2>
     <p class="text-lg text-gray-700 mb-6 leading-relaxed">

@@ -60,7 +60,7 @@ const locations: Record<string, {
   'ras-al-khaimah': {
     name: 'Ras Al Khaimah',
     title: 'GENOSYS Ras Al Khaimah - Korean Dermacosmetics Distributor',
-    description: 'GENOSYS Middle East FZ-LLC serves Ras Al Khaimah with professional Korean dermacosmetics. Our office is located in Ras Al Khaimah Free Zone.',
+    description: 'GENOSYS Middle East FZ-LLC serves Ras Al Khaimah with professional Korean dermacosmetics. Our office is located in Ras Al Khaimah.',
     address: 'MBAM0014 Compass Building, Al Shohada Road, AL Hamra Industrial Zone-FZ, Ras Al Khaimah, UAE',
     phone: '+971 58 548 76 65',
     email: 'sales@genosys.ae',

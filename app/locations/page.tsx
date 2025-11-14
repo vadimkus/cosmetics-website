@@ -29,7 +29,7 @@ const locations = [
   {
     slug: 'dubai',
     name: 'Dubai',
-    description: 'Fast delivery across Dubai with free shipping for orders over 1000 AED',
+    description: 'Our office/warehouse is located in Dubai.',
     shippingCost: '45 AED',
     deliveryTime: '1-2 hours, same day (Careem)',
   },
@@ -50,7 +50,7 @@ const locations = [
   {
     slug: 'ras-al-khaimah',
     name: 'Ras Al Khaimah',
-    description: 'Our office is located in Ras Al Khaimah Free Zone',
+    description: 'Our office is located in Ras Al Khaimah.',
     shippingCost: '70 AED',
     deliveryTime: '48 hours via Quiqup',
   },

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useAuth } from '@/components/AuthProvider'
-import { MessageCircle, Send, User } from 'lucide-react'
+import { MessageCircle, Send, User, Smile } from 'lucide-react'
 import { errorLog } from '@/lib/logger'
 import { fetchCsrfToken, getCsrfHeaders, addCsrfToBody } from '@/lib/csrfClient'
 
@@ -92,12 +92,12 @@ export default function BlogComments({ postId, initialComments }: BlogCommentsPr
       {user ? (
         <form onSubmit={handleSubmit} className="bg-gray-50 rounded-lg p-6">
           <div className="flex items-start gap-4">
-            <div className="bg-primary-100 rounded-full p-2">
-              <User className="h-5 w-5 text-primary-600" />
+            <div className="bg-green-100 rounded-full p-3 flex items-center justify-center">
+              <Smile className="h-6 w-6 text-green-600" />
             </div>
             <div className="flex-1">
               <label htmlFor="comment" className="block text-sm font-medium text-gray-700 mb-2">
-                Add a comment as {user.name}
+                Add a comment as: {user.name}
               </label>
               <textarea
                 id="comment"
@@ -164,12 +164,7 @@ export default function BlogComments({ postId, initialComments }: BlogCommentsPr
               </div>
             </div>
           ))
-        ) : (
-          <div className="text-center py-8 text-gray-500">
-            <MessageCircle className="h-12 w-12 text-gray-300 mx-auto mb-4" />
-            <p>No comments yet. Be the first to comment!</p>
-          </div>
-        )}
+        ) : null}
       </div>
     </div>
   )

@@ -19,7 +19,7 @@ export default function Error({
   return (
     <ErrorPage
       title="Something went wrong"
-      message="Something went wrong but we are notified and will fix it shortly."
+      message="We are notified already via alert mail and will fix it shortly."
       error={error.message}
       type="server"
       onRetry={reset}

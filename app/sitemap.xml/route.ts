@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getAllProducts } from '@/lib/productsDb'
 import { errorLog } from '@/lib/logger'
 import { Product } from '@/types/index'
+import { prisma } from '@/lib/prisma'
 // import { getOptimizedUrl } from '@/lib/urlUtils' // Unused for now
 
 export async function GET(_request: NextRequest) {
@@ -34,6 +35,24 @@ export async function GET(_request: NextRequest) {
         lastmod: currentDate,
         changefreq: 'daily',
         priority: '0.9'
+      },
+      {
+        url: '/blog',
+        lastmod: currentDate,
+        changefreq: 'weekly',
+        priority: '0.8'
+      },
+      {
+        url: '/faq',
+        lastmod: currentDate,
+        changefreq: 'monthly',
+        priority: '0.7'
+      },
+      {
+        url: '/locations',
+        lastmod: currentDate,
+        changefreq: 'monthly',
+        priority: '0.7'
       },
       {
         url: '/training',
@@ -122,6 +141,43 @@ export async function GET(_request: NextRequest) {
     <priority>0.8</priority>
   </url>`
     })
+
+    // Add location pages
+    const locations = ['dubai', 'abu-dhabi', 'sharjah', 'ras-al-khaimah', 'ajman', 'fujairah', 'umm-al-quwain']
+    locations.forEach(location => {
+      sitemap += `
+  <url>
+    <loc>${baseUrl}/locations/${location}</loc>
+    <lastmod>${currentDate}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>`
+    })
+
+    // Add blog posts (if table exists)
+    try {
+      // Check if blog_posts table exists by attempting to query it
+      const blogPosts = await (prisma as any).blogPost?.findMany({
+        where: { published: true },
+        select: { slug: true, updatedAt: true },
+        take: 100,
+      }) || []
+      
+      if (Array.isArray(blogPosts)) {
+        blogPosts.forEach((post: { slug: string; updatedAt: Date }) => {
+          sitemap += `
+  <url>
+    <loc>${baseUrl}/blog/${post.slug}</loc>
+    <lastmod>${post.updatedAt.toISOString()}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>`
+        })
+      }
+    } catch (error) {
+      // Table might not exist yet - that's okay, sitemap will still work
+      errorLog('Error fetching blog posts for sitemap (table may not exist yet):', error)
+    }
 
     sitemap += `
 </urlset>`

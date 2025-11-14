@@ -205,3 +205,44 @@ model PasswordResetToken {
   @@index([expiresAt])
   @@map("password_reset_tokens")
 }
+
+model BlogPost {
+  id          String    @id @default(cuid())
+  title       String
+  slug        String    @unique
+  excerpt     String?   @db.Text
+  content     String    @db.Text
+  featuredImage String?
+  authorId    String?
+  authorName  String?   // Store author name for display
+  published   Boolean   @default(false)
+  publishedAt DateTime?
+  views       Int       @default(0)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  comments    BlogComment[]
+  tags        String?   // JSON array of tags
+
+  @@index([slug])
+  @@index([published])
+  @@index([publishedAt])
+  @@map("blog_posts")
+}
+
+model BlogComment {
+  id        String   @id @default(cuid())
+  postId    String
+  userId    String?  // Nullable for guest comments (if needed in future)
+  userName  String   // User's name
+  userEmail String?  // User's email (optional)
+  content   String   @db.Text
+  approved  Boolean  @default(true) // Auto-approve for registered users
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  post      BlogPost @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  @@index([postId])
+  @@index([approved])
+  @@index([createdAt])
+  @@map("blog_comments")
+}

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import Image from 'next/image'
+import Link from 'next/link'
 import Script from 'next/script'
 import './globals.css'
 import { CartProvider } from '@/components/CartProvider'
@@ -166,18 +167,33 @@ export default function RootLayout({
                   </ErrorBoundary>
                 </main>
                 <footer role="contentinfo" className="bg-white border-t border-gray-200 py-8">
-                  <div className="container mx-auto px-4 text-center text-gray-600">
-                    <div className="flex flex-col items-center">
-                      <Image
-                        src="/Logo/upLOGO.png"
-                        alt="Genosys Middle East FZ-LLC"
-                        width={180}
-                        height={54}
-                        className="mb-2"
-                        priority={false}
-                      />
-                      <p className="text-sm mt-1">Official Distributor in the UAE</p>
-                      <p className="text-sm mt-2">&copy; 2026 Genosys Middle East FZ-LLC. All rights reserved.</p>
+                  <div className="container mx-auto px-4">
+                    <div className="flex flex-col items-center gap-6">
+                      {/* Navigation Links */}
+                      <div className="flex flex-wrap justify-center gap-4 text-sm">
+                        <Link href="/faq" className="text-gray-600 hover:text-primary-600 transition-colors">
+                          FAQ
+                        </Link>
+                        <Link href="/blog" className="text-gray-600 hover:text-primary-600 transition-colors">
+                          Blog
+                        </Link>
+                        <Link href="/locations" className="text-gray-600 hover:text-primary-600 transition-colors">
+                          Locations
+                        </Link>
+                      </div>
+                      {/* Logo and Copyright */}
+                      <div className="flex flex-col items-center">
+                        <Image
+                          src="/Logo/upLOGO.png"
+                          alt="Genosys Middle East FZ-LLC"
+                          width={180}
+                          height={54}
+                          className="mb-2"
+                          priority={false}
+                        />
+                        <p className="text-sm mt-1">Official Distributor in the UAE</p>
+                        <p className="text-sm mt-2">&copy; 2026 Genosys Middle East FZ-LLC. All rights reserved.</p>
+                      </div>
                     </div>
                   </div>
                 </footer>

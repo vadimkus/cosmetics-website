@@ -1,10 +1,27 @@
 import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
 import Logo from '@/components/Logo'
+import BreadcrumbSchema from '@/components/BreadcrumbSchema'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'GENOSYS Official - About GENOSYS Middle East FZ-LLC | Genosys.ae',
+  description: 'Learn about GENOSYS Middle East FZ-LLC, official distributor of DTSMG Co., Ltd Korea in UAE. Certified Korean dermacosmetics distributor since 2019.',
+  keywords: 'GENOSYS official, GENOSYS Middle East, Korean dermacosmetics distributor UAE, DTSMG Korea distributor',
+  alternates: {
+    canonical: 'https://genosys.ae/genosys',
+  },
+}
 
 export default function GenosysPage() {
   return (
     <div className="bg-white min-h-screen">
+      <BreadcrumbSchema 
+        items={[
+          { name: 'Home', url: '/' },
+          { name: 'GENOSYS Official', url: '/genosys' }
+        ]}
+      />
       <div className="container mx-auto px-4 py-8 md:py-16">
       <div className="max-w-4xl mx-auto">
         <div className="mb-6">

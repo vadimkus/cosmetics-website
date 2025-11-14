@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { ArrowLeft } from 'lucide-react'
 import BreadcrumbSchema from '@/components/BreadcrumbSchema'
 import PartnersList from '@/components/partners/PartnersList'
 
@@ -43,19 +44,47 @@ export default function PartnersPage() {
         ]}
       />
       <div className="bg-white min-h-screen">
-        <div className="container mx-auto px-3 sm:px-4 py-4 sm:py-6 md:py-8 lg:py-16">
-          {/* Navigation Breadcrumb */}
-          <nav className="flex items-center gap-2 text-xs sm:text-sm md:text-base text-gray-600 mb-4 sm:mb-6 lg:mb-8" aria-label="Breadcrumb">
-            <Link href="/" className="hover:text-primary-600 transition-colors flex items-center">
-              Home
-            </Link>
-            <span className="flex items-center">/</span>
-            <span className="text-gray-900 font-medium flex items-center">
-              Partners
-            </span>
-          </nav>
-
+        <div className="container mx-auto px-4 py-8 md:py-16">
           <div className="max-w-6xl mx-auto">
+            {/* Navigation Breadcrumb */}
+            <nav className="flex flex-col gap-2 text-sm md:text-base text-gray-600 mb-8" aria-label="Breadcrumb">
+              {/* Mobile Breadcrumb */}
+              <div className="md:hidden flex items-center gap-2">
+                <Link 
+                  href="/"
+                  className="hover:text-primary-600 transition-colors flex items-center"
+                >
+                  Home
+                </Link>
+                <span className="flex items-center">/</span>
+                <span className="text-gray-900 font-medium flex items-center">
+                  Partners
+                </span>
+              </div>
+              
+              {/* Mobile Back Button */}
+              <Link 
+                href="/"
+                className="md:hidden flex items-center gap-2 text-primary-600 hover:text-primary-700 transition-colors"
+              >
+                <ArrowLeft className="h-4 w-4" />
+                <span className="font-medium">Back to Home</span>
+              </Link>
+              
+              {/* Desktop Breadcrumb */}
+              <div className="hidden md:flex items-center gap-2">
+                <Link 
+                  href="/"
+                  className="hover:text-primary-600 transition-colors flex items-center"
+                >
+                  Home
+                </Link>
+                <span className="flex items-center">/</span>
+                <span className="text-gray-900 font-medium flex items-center">
+                  Partners
+                </span>
+              </div>
+            </nav>
             <div className="text-center mb-4 sm:mb-6 lg:mb-8">
               <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-800 mb-2 px-2">
                 Our Partners

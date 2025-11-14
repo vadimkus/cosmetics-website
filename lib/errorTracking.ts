@@ -283,7 +283,7 @@ export const withErrorTracking = <P extends object>(
           className: "text-2xl font-bold text-gray-800 mb-4"
         }, "Something went wrong"), React.createElement('p', {
           className: "text-gray-600 mb-6"
-        }, "Something went wrong but we are notified and will fix it shortly."), React.createElement('button', {
+        }, "We are notified already via alert mail and will fix it shortly."), React.createElement('button', {
           onClick: () => this.setState({ hasError: false }),
           className: "bg-primary-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary-700 transition-colors"
         }, "Try Again")))

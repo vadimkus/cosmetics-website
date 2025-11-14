@@ -90,7 +90,7 @@ export default function ErrorPage({
           {/* Error Details (if provided) */}
           {error && (
             <div className="bg-gray-50 rounded-lg p-4 mb-6 text-left">
-              <p className="text-sm text-gray-500 mb-1">What's going on:</p>
+              <p className="text-sm text-gray-500 mb-1">You should not be seeing this:</p>
               <p className="text-sm text-red-600 font-mono break-all">
                 {error.replace('Internal Server Error', 'Internal Server Boom-Boom')}
               </p>
@@ -145,7 +145,7 @@ export default function ErrorPage({
           {/* Help Text */}
           <div className="mt-6 pt-6 border-t border-gray-200">
             <p className="text-xs text-gray-500">
-              If this goes on, send us a mail at{' '}
+              If this show goes on, send us a mail at{' '}
               <a 
                 href="mailto:sales@genosys.ae" 
                 className="text-primary-600 hover:text-primary-700 underline"

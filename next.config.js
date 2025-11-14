@@ -35,6 +35,9 @@ const nextConfig = {
       {
         pathname: '/favicon/**',
       },
+      {
+        pathname: '/blog/**',
+      },
     ],
     formats: ['image/webp', 'image/avif'],
     dangerouslyAllowSVG: true,

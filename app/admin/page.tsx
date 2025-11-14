@@ -2,11 +2,12 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react'
 import Image from 'next/image'
-import { User as UserIcon, Package, Clock, CheckCircle, Truck, X, Trash2, RefreshCw, ArrowLeft, BarChart3, Plus, Edit, Image as ImageIcon, Shield } from 'lucide-react'
+import { User as UserIcon, Package, Clock, CheckCircle, Truck, X, Trash2, RefreshCw, ArrowLeft, BarChart3, Plus, Edit, Image as ImageIcon, Shield, FileText } from 'lucide-react'
 import AdminLogin from '@/components/AdminLogin'
 import AnalyticsDashboard from '@/components/AnalyticsDashboard'
 import CustomerProfile from '@/components/CustomerProfile'
 import ProductForm from '@/components/ProductForm'
+import BlogManagement from '@/components/BlogManagement'
 import { Order, OrderItem } from '@prisma/client'
 import { fetchCsrfToken, getCsrfHeaders, addCsrfToBody } from '@/lib/csrfClient'
 import { debugLog, errorLog } from '@/lib/logger'
@@ -94,7 +95,7 @@ export default function AdminPage() {
     
     return headers as HeadersInit
   }, [adminUser?.email])
-  const [activeTab, setActiveTab] = useState<'analytics' | 'users' | 'orders' | 'products'>('analytics')
+  const [activeTab, setActiveTab] = useState<'analytics' | 'users' | 'orders' | 'products' | 'blog'>('analytics')
   const [selectedOrder, setSelectedOrder] = useState<OrderWithItems | null>(null)
   const [selectedCustomer, setSelectedCustomer] = useState<User | null>(null)
   const [showProductForm, setShowProductForm] = useState(false)
@@ -830,6 +831,17 @@ export default function AdminPage() {
             <ImageIcon className="h-4 w-4 inline mr-2" />
             Product Management
           </button>
+          <button
+            onClick={() => setActiveTab('blog')}
+            className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-colors ${
+              activeTab === 'blog'
+                ? 'bg-white text-gray-900 shadow-sm'
+                : 'text-gray-500 hover:text-gray-700'
+            }`}
+          >
+            <FileText className="h-4 w-4 inline mr-2" />
+            Blog Management
+          </button>
         </div>
 
         <div className="bg-white rounded-lg shadow-sm border p-8">
@@ -1485,6 +1497,10 @@ export default function AdminPage() {
                 />
               )}
             </>
+          )}
+
+          {activeTab === 'blog' && (
+            <BlogManagement adminEmail={adminUser?.email || ''} />
           )}
         </div>
       </div>

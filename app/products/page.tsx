@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import ProductsPageClient from './ProductsPageClient'
+import BreadcrumbSchema from '@/components/BreadcrumbSchema'
 
 export const metadata: Metadata = {
   title: 'GENOSYS Products - Professional Korean Dermacosmetics | Genosys Middle East FZ-LLC',
@@ -32,5 +33,15 @@ export const metadata: Metadata = {
 }
 
 export default function ProductsPage() {
-  return <ProductsPageClient />
+  return (
+    <>
+      <BreadcrumbSchema 
+        items={[
+          { name: 'Home', url: '/' },
+          { name: 'Products', url: '/products' }
+        ]}
+      />
+      <ProductsPageClient />
+    </>
+  )
 }

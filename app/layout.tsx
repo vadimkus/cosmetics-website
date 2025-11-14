@@ -171,11 +171,11 @@ export default function RootLayout({
                     <div className="flex flex-col items-center gap-6">
                       {/* Navigation Links */}
                       <div className="flex flex-wrap justify-center gap-4 text-sm">
-                        <Link href="/faq" className="text-gray-600 hover:text-primary-600 transition-colors">
-                          FAQ
-                        </Link>
                         <Link href="/blog" className="text-gray-600 hover:text-primary-600 transition-colors">
                           Blog
+                        </Link>
+                        <Link href="/faq" className="text-gray-600 hover:text-primary-600 transition-colors">
+                          FAQ
                         </Link>
                         <Link href="/locations" className="text-gray-600 hover:text-primary-600 transition-colors">
                           Locations

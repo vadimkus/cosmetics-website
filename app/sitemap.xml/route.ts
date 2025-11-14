@@ -157,7 +157,18 @@ export async function GET(_request: NextRequest) {
     // Add blog posts (if table exists)
     try {
       // Check if blog_posts table exists by attempting to query it
-      const blogPosts = await (prisma as any).blogPost?.findMany({
+      // Using type assertion for Prisma client that may not have updated types
+      type PrismaWithBlogPost = typeof prisma & {
+        blogPost?: {
+          findMany: (args: {
+            where: { published: boolean }
+            select: { slug: true; updatedAt: true }
+            take: number
+          }) => Promise<Array<{ slug: string; updatedAt: Date }>>
+        }
+      }
+      const prismaWithBlogPost = prisma as PrismaWithBlogPost
+      const blogPosts = await prismaWithBlogPost.blogPost?.findMany({
         where: { published: true },
         select: { slug: true, updatedAt: true },
         take: 100,

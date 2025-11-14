@@ -8,22 +8,22 @@ datasource db {
 }
 
 model User {
-  id                 String   @id @default(cuid())
-  email              String   @unique
-  name               String
-  password           String
-  phone              String?
-  address            String?
-  profilePicture     String?
-  isAdmin            Boolean  @default(false)
-  canSeePrices       Boolean  @default(true)
-  discountType       String?
-  discountPercentage Float?
-  birthday           String?
-  lastLoginAt        DateTime?
-  createdAt          DateTime @default(now())
-  updatedAt          DateTime @updatedAt
-  orders             Order[]
+  id                  String               @id @default(cuid())
+  email               String               @unique
+  name                String
+  password            String
+  phone               String?
+  address             String?
+  profilePicture      String?
+  isAdmin             Boolean              @default(false)
+  canSeePrices        Boolean              @default(true)
+  discountType        String?
+  discountPercentage  Float?
+  birthday            String?
+  lastLoginAt         DateTime?
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @updatedAt
+  orders              Order[]
   passwordResetTokens PasswordResetToken[]
 
   @@map("users")
@@ -44,23 +44,23 @@ model Product {
   images        String?
   noDiscount    Boolean  @default(false) // Exclude from discount calculations
   isHidden      Boolean  @default(false) // Hide product from public listings
-  
+
   // Detailed product content fields
-  productDetails String?  @db.Text // JSON object with key-value pairs for product specs
-  keyFeatures    String?  @db.Text // JSON array of features with title and description
-  benefits       String?  @db.Text // JSON array of benefits
-  ingredients    String?  @db.Text // JSON array of ingredients with name and description
-  howToUse       String?  @db.Text // Step-by-step usage instructions
-  directions     String?  @db.Text // Detailed directions for use
-  
+  productDetails String? @db.Text // JSON object with key-value pairs for product specs
+  keyFeatures    String? @db.Text // JSON array of features with title and description
+  benefits       String? @db.Text // JSON array of benefits
+  ingredients    String? @db.Text // JSON array of ingredients with name and description
+  howToUse       String? @db.Text // Step-by-step usage instructions
+  directions     String? @db.Text // Detailed directions for use
+
   // Skin recommendation fields
-  skinType       String?  // dry, oily, combination, normal, sensitive
-  targetConcerns String?  // JSON array of concerns like ["anti-aging", "acne", "hydration"]
-  usage          String?  // morning, evening, all-day, morning-evening
-  ageGroup       String?  // teen, young-adult, adult, mature
-  
+  skinType       String? // dry, oily, combination, normal, sensitive
+  targetConcerns String? // JSON array of concerns like ["anti-aging", "acne", "hydration"]
+  usage          String? // morning, evening, all-day, morning-evening
+  ageGroup       String? // teen, young-adult, adult, mature
+
   // Rating fields
-  rating         Float?   @default(5.0) // Product rating out of 5
+  rating Float? @default(5.0) // Product rating out of 5
 
   @@index([category]) // Index for faster category filtering
   @@index([isHidden]) // Index for filtering hidden products
@@ -93,7 +93,7 @@ model Order {
 }
 
 model OrderItem {
-  id          String @id @default(cuid())
+  id          String  @id @default(cuid())
   orderId     String
   productId   String
   productName String
@@ -102,7 +102,7 @@ model OrderItem {
   image       String
   color       String? // Product color variant (e.g., "beige", "ivory", "camel")
   size        String? // Product size variant (e.g., "50g", "100g")
-  order       Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  order       Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
 
   @@index([orderId]) // Index for faster order item lookups
   @@map("order_items")
@@ -164,19 +164,19 @@ model UserSession {
 }
 
 model PDFDownload {
-  id           String   @id @default(cuid())
-  filename     String
-  userId       String?
-  userEmail    String?
-  ipAddress    String?
-  userAgent    String?
-  country      String?
-  city         String?
-  deviceType   String?
-  browser      String?
-  os           String?
-  referrer     String?
-  timestamp    DateTime @default(now())
+  id         String   @id @default(cuid())
+  filename   String
+  userId     String?
+  userEmail  String?
+  ipAddress  String?
+  userAgent  String?
+  country    String?
+  city       String?
+  deviceType String?
+  browser    String?
+  os         String?
+  referrer   String?
+  timestamp  DateTime @default(now())
 
   @@map("pdf_downloads")
 }
@@ -195,7 +195,7 @@ model RateLimit {
 model PasswordResetToken {
   id        String   @id @default(cuid())
   userId    String
-  token     String   // Hashed token (for security)
+  token     String // Hashed token (for security)
   expiresAt DateTime // Token expiration time
   used      Boolean  @default(false) // Track if token was already used
   createdAt DateTime @default(now())
@@ -207,21 +207,21 @@ model PasswordResetToken {
 }
 
 model BlogPost {
-  id          String    @id @default(cuid())
-  title       String
-  slug        String    @unique
-  excerpt     String?   @db.Text
-  content     String    @db.Text
+  id            String        @id @default(cuid())
+  title         String
+  slug          String        @unique
+  excerpt       String?       @db.Text
+  content       String        @db.Text
   featuredImage String?
-  authorId    String?
-  authorName  String?   // Store author name for display
-  published   Boolean   @default(false)
-  publishedAt DateTime?
-  views       Int       @default(0)
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  comments    BlogComment[]
-  tags        String?   // JSON array of tags
+  authorId      String?
+  authorName    String? // Store author name for display
+  published     Boolean       @default(false)
+  publishedAt   DateTime?
+  views         Int           @default(0)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  comments      BlogComment[]
+  tags          String? // JSON array of tags
 
   @@index([slug])
   @@index([published])
@@ -232,9 +232,9 @@ model BlogPost {
 model BlogComment {
   id        String   @id @default(cuid())
   postId    String
-  userId    String?  // Nullable for guest comments (if needed in future)
-  userName  String   // User's name
-  userEmail String?  // User's email (optional)
+  userId    String? // Nullable for guest comments (if needed in future)
+  userName  String // User's name
+  userEmail String? // User's email (optional)
   content   String   @db.Text
   approved  Boolean  @default(true) // Auto-approve for registered users
   createdAt DateTime @default(now())

@@ -226,7 +226,8 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
       {product.description && (
         <>
           <h2 className="text-lg font-semibold text-gray-800 mb-4">Product Description</h2>
-          {intro && (
+          {/* Show intro only if there are kit items, otherwise show full description in fallback */}
+          {intro && kitItems.length > 0 && (
             <p 
               className="text-gray-600 mb-4 text-sm whitespace-pre-line"
               dangerouslySetInnerHTML={{ __html: processIntroText(intro) }}
@@ -539,10 +540,11 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
           )}
 
           {/* Fallback: If no kit items parsed, show full description */}
-          {kitItems.length === 0 && (
-            <p className="text-gray-600 mb-4 text-sm whitespace-pre-line">
-              {sanitizedDescription}
-            </p>
+          {kitItems.length === 0 && sanitizedDescription && (
+            <p 
+              className="text-gray-600 mb-4 text-sm whitespace-pre-line"
+              dangerouslySetInnerHTML={{ __html: processIntroText(sanitizedDescription) }}
+            />
           )}
         </>
       )}

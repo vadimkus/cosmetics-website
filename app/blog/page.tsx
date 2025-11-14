@@ -4,6 +4,19 @@ import { Calendar, User, ArrowRight, ArrowLeft } from 'lucide-react'
 import BreadcrumbSchema from '@/components/BreadcrumbSchema'
 import type { Metadata } from 'next'
 import { prisma } from '@/lib/prisma'
+import { errorLog } from '@/lib/logger'
+
+type BlogPostListItem = {
+  id: string
+  title: string
+  slug: string
+  excerpt: string | null
+  featuredImage: string | null
+  authorName: string | null
+  publishedAt: Date | null
+  views: number
+  createdAt: Date
+}
 
 export const metadata: Metadata = {
   title: 'GENOSYS Blog - Korean Skincare Tips & Professional Beauty Insights | Genosys Middle East FZ-LLC',
@@ -27,9 +40,31 @@ export const metadata: Metadata = {
   },
 }
 
-async function getBlogPosts() {
+async function getBlogPosts(): Promise<BlogPostListItem[]> {
   try {
-    const posts = await prisma.blogPost.findMany({
+    // Type-safe Prisma query with fallback for type checking
+    type PrismaClientWithBlogPost = typeof prisma & {
+      blogPost?: {
+        findMany: (args: {
+          where: { published: boolean }
+          orderBy: { publishedAt: 'desc' }
+          take: number
+          select: {
+            id: true
+            title: true
+            slug: true
+            excerpt: true
+            featuredImage: true
+            authorName: true
+            publishedAt: true
+            views: true
+            createdAt: true
+          }
+        }) => Promise<BlogPostListItem[]>
+      }
+    }
+    const typedPrisma = prisma as PrismaClientWithBlogPost
+    const posts = await typedPrisma.blogPost?.findMany({
       where: {
         published: true,
       },
@@ -48,10 +83,10 @@ async function getBlogPosts() {
         views: true,
         createdAt: true,
       },
-    })
+    }) || []
     return posts
   } catch (error) {
-    console.error('Error fetching blog posts:', error)
+    errorLog('Error fetching blog posts:', error)
     return []
   }
 }
@@ -142,7 +177,7 @@ export default async function BlogPage() {
           {/* Blog Posts Grid */}
           {posts.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {posts.map((post) => (
+              {posts.map((post: { id: string; slug: string; title: string; excerpt: string | null; featuredImage: string | null; authorName: string | null; publishedAt: Date | null; views: number; createdAt: Date }) => (
                 <Link
                   key={post.id}
                   href={`/blog/${post.slug}`}

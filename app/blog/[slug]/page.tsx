@@ -6,14 +6,53 @@ import BlogComments from '@/components/blog/BlogComments'
 import type { Metadata } from 'next'
 import { prisma } from '@/lib/prisma'
 import { notFound } from 'next/navigation'
+import { errorLog } from '@/lib/logger'
 
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>
 }
 
-async function getBlogPost(slug: string) {
+type BlogPostWithComments = {
+  id: string
+  title: string
+  slug: string
+  excerpt: string | null
+  content: string
+  featuredImage: string | null
+  authorName: string | null
+  publishedAt: Date | null
+  views: number
+  updatedAt: Date
+  comments: Array<{
+    id: string
+    userName: string
+    content: string
+    createdAt: Date
+  }>
+}
+
+async function getBlogPost(slug: string): Promise<BlogPostWithComments | null> {
   try {
-    const post = await prisma.blogPost.findUnique({
+    // Type-safe Prisma query with fallback for type checking
+    type PrismaClientWithBlogPost = typeof prisma & {
+      blogPost?: {
+        findUnique: (args: {
+          where: { slug: string; published: boolean }
+          include: {
+            comments: {
+              where: { approved: boolean }
+              orderBy: { createdAt: 'desc' }
+            }
+          }
+        }) => Promise<BlogPostWithComments | null>
+        update: (args: {
+          where: { id: string }
+          data: { views: { increment: number } }
+        }) => Promise<BlogPostWithComments>
+      }
+    }
+    const typedPrisma = prisma as PrismaClientWithBlogPost
+    const post = await typedPrisma.blogPost?.findUnique({
       where: {
         slug,
         published: true,
@@ -28,11 +67,11 @@ async function getBlogPost(slug: string) {
           },
         },
       },
-    })
+    }) || null
 
     if (post) {
       // Increment view count
-      await prisma.blogPost.update({
+      await typedPrisma.blogPost?.update({
         where: { id: post.id },
         data: { views: { increment: 1 } },
       })
@@ -40,7 +79,7 @@ async function getBlogPost(slug: string) {
 
     return post
   } catch (error) {
-    console.error('Error fetching blog post:', error)
+    errorLog('Error fetching blog post:', error)
     return null
   }
 }
@@ -81,11 +120,21 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
 
 export async function generateStaticParams() {
   try {
-    const posts = await prisma.blogPost.findMany({
+    // Type-safe Prisma query with fallback for type checking
+    type PrismaClientWithBlogPost = typeof prisma & {
+      blogPost?: {
+        findMany: (args: {
+          where: { published: boolean }
+          select: { slug: true }
+        }) => Promise<Array<{ slug: string }>>
+      }
+    }
+    const typedPrisma = prisma as PrismaClientWithBlogPost
+    const posts = await typedPrisma.blogPost?.findMany({
       where: { published: true },
       select: { slug: true },
-    })
-    return posts.map((post) => ({ slug: post.slug }))
+    }) || []
+    return posts.map((post: { slug: string }) => ({ slug: post.slug }))
   } catch (error) {
     return []
   }
@@ -97,6 +146,18 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   if (!post) {
     notFound()
+  }
+
+  // Remove featured image from content if it appears there (to avoid duplication)
+  let content = post.content
+  if (post.featuredImage) {
+    // Escape special regex characters in the image path
+    const escapedPath = post.featuredImage.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+    // Match img tags with the featured image src (handles both single and double quotes)
+    const imgRegex = new RegExp(`<img[^>]*src=["']${escapedPath}["'][^>]*>`, 'gi')
+    // Also match img tags within div containers
+    const divImgRegex = new RegExp(`<div[^>]*>\\s*<img[^>]*src=["']${escapedPath}["'][^>]*>\\s*</div>`, 'gi')
+    content = content.replace(divImgRegex, '').replace(imgRegex, '')
   }
 
   return (
@@ -248,7 +309,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           {/* Article Content */}
           <div 
             className="blog-content prose prose-lg prose-headings:text-gray-900 prose-headings:font-bold prose-headings:tracking-tight prose-h2:text-3xl prose-h2:mt-12 prose-h2:mb-6 prose-h3:text-2xl prose-h3:mt-10 prose-h3:mb-4 prose-h4:text-xl prose-h4:mt-8 prose-h4:mb-3 prose-p:text-gray-700 prose-p:leading-relaxed prose-p:mb-6 prose-p:text-base md:prose-p:text-lg prose-strong:text-gray-900 prose-strong:font-semibold prose-a:text-primary-600 prose-a:no-underline hover:prose-a:underline prose-a:font-medium prose-ul:text-gray-700 prose-li:text-gray-700 prose-li:leading-relaxed prose-li:mb-2 max-w-none mb-16"
-            dangerouslySetInnerHTML={{ __html: post.content }}
+            dangerouslySetInnerHTML={{ __html: content }}
           />
 
           {/* Comments Section */}
@@ -265,7 +326,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             </div>
             <BlogComments 
               postId={post.id} 
-              initialComments={post.comments.map(comment => ({
+              initialComments={post.comments.map((comment: { id: string; userName: string; content: string; createdAt: Date }) => ({
                 id: comment.id,
                 userName: comment.userName,
                 content: comment.content,

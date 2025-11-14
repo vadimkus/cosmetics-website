@@ -170,7 +170,7 @@ export default async function BlogPage() {
                     <div className="flex items-center gap-4 text-sm text-gray-500">
                       {post.authorName && (
                         <div className="flex items-center gap-1">
-                          <User className="h-4 w-4" />
+                          <User className="h-4 w-4 text-green-600" />
                           <span>{post.authorName}</span>
                         </div>
                       )}

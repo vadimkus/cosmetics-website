@@ -105,7 +105,7 @@ export default function BlogComments({ postId, initialComments }: BlogCommentsPr
                 onChange={(e) => setNewComment(e.target.value)}
                 placeholder="Write your comment..."
                 rows={4}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 resize-none"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 resize-none bg-white text-gray-900 placeholder:text-gray-500"
                 required
               />
               {error && (

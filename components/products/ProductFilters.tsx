@@ -134,7 +134,7 @@ export default function ProductFilters({
                   type="checkbox"
                   checked={localFilters.categories.includes(category.id)}
                   onChange={() => handleCategoryToggle(category.id)}
-                  className="w-4 h-4 text-primary-600 border-gray-300 rounded focus:ring-primary-500"
+                  className="w-4 h-4 text-primary-600 bg-white border-gray-300 rounded focus:ring-primary-500 accent-primary-600 cursor-pointer"
                 />
                 <span className="text-gray-900">{category.name}</span>
               </label>
@@ -211,7 +211,7 @@ export default function ProductFilters({
                   name="rating"
                   checked={localFilters.minRating === rating}
                   onChange={() => handleRatingChange(rating)}
-                  className="w-4 h-4 text-primary-600 border-gray-300 focus:ring-primary-500"
+                  className="w-4 h-4 text-primary-600 bg-white border-gray-300 focus:ring-primary-500 accent-primary-600 cursor-pointer"
                 />
                 <span className="text-gray-900">
                   {rating === 0 ? 'Any Rating' : `${rating}+ Stars`}
@@ -246,7 +246,7 @@ export default function ProductFilters({
               type="checkbox"
               checked={localFilters.inStockOnly}
               onChange={handleStockToggle}
-              className="w-4 h-4 text-primary-600 border-gray-300 rounded focus:ring-primary-500"
+              className="w-4 h-4 text-primary-600 bg-white border-gray-300 rounded focus:ring-primary-500 accent-primary-600 cursor-pointer"
             />
             <span className="text-gray-900">In Stock Only</span>
           </label>

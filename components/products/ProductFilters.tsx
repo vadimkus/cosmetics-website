@@ -109,7 +109,7 @@ export default function ProductFilters({
   }
 
   const FilterContent = () => (
-    <div className="space-y-4">
+    <div className="space-y-4 text-gray-900">
       {/* Categories */}
       <div className="border-b border-gray-200 pb-4">
         <button
@@ -136,7 +136,7 @@ export default function ProductFilters({
                   onChange={() => handleCategoryToggle(category.id)}
                   className="w-4 h-4 text-primary-600 border-gray-300 rounded focus:ring-primary-500"
                 />
-                <span>{category.name}</span>
+                <span className="text-gray-900">{category.name}</span>
               </label>
             ))}
           </div>
@@ -213,7 +213,7 @@ export default function ProductFilters({
                   onChange={() => handleRatingChange(rating)}
                   className="w-4 h-4 text-primary-600 border-gray-300 focus:ring-primary-500"
                 />
-                <span>
+                <span className="text-gray-900">
                   {rating === 0 ? 'Any Rating' : `${rating}+ Stars`}
                   {rating > 0 && (
                     <span className="ml-1 text-yellow-500">
@@ -248,7 +248,7 @@ export default function ProductFilters({
               onChange={handleStockToggle}
               className="w-4 h-4 text-primary-600 border-gray-300 rounded focus:ring-primary-500"
             />
-            <span>In Stock Only</span>
+            <span className="text-gray-900">In Stock Only</span>
           </label>
         )}
       </div>
@@ -288,7 +288,7 @@ export default function ProductFilters({
             className="md:hidden fixed inset-0 bg-black bg-opacity-50 z-50"
             onClick={() => setIsOpen(false)}
           />
-          <div className="md:hidden fixed inset-y-0 right-0 w-5/6 max-w-sm bg-white z-50 shadow-xl overflow-y-auto">
+          <div className="md:hidden fixed inset-y-0 right-0 w-5/6 max-w-sm bg-white z-50 shadow-xl overflow-y-auto text-gray-900">
             <div className="sticky top-0 bg-white border-b border-gray-200 px-4 py-4 flex items-center justify-between">
               <h2 className="text-lg font-semibold text-gray-900">Filters</h2>
               <button
@@ -299,7 +299,7 @@ export default function ProductFilters({
                 <X className="h-6 w-6" />
               </button>
             </div>
-            <div className="p-4">
+            <div className="p-4 text-gray-900">
               <FilterContent />
             </div>
           </div>

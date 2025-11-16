@@ -32,7 +32,7 @@ const faqs = [
   },
   {
     question: 'Do you offer professional training?',
-    answer: 'Yes, we offer comprehensive professional skincare training for licensed practitioners. Our training covers microneedling techniques, product application methods, and treatment protocols. Training is available for registered users. Contact us for more information about training schedules and requirements.',
+    answer: 'Yes, we offer comprehensive professional skincare training for licensed practitioners, clinics and beauty salons. Our training includes:<ul class="list-disc list-inside mt-3 space-y-2 ml-4"><li><strong>Microneedling techniques</strong> - Learn advanced microneedling procedures and protocols</li><li><strong>Product application methods</strong> - Master proper application techniques for optimal results</li><li><strong>Treatment protocols</strong> - Understand complete treatment workflows and best practices</li><li><strong>On-site training for clinics and beauty salons</strong> - Our expert trainers visit your location</li><li><strong>Live product demonstrations</strong> - See products in action with real-time demonstrations</li><li><strong>Hands-on treatment sessions</strong> - Practice techniques under expert supervision</li><li><strong>Personalized team guidance</strong> - Customized training tailored to your staff\'s needs</li></ul>Training is available upon request. Our expert trainers ensure your staff is fully equipped with the knowledge and skills needed to deliver exceptional results with GENOSYS products. Contact us for more information about training schedules, requirements, and on-site training arrangements.',
   },
   {
     question: 'Are GENOSYS products certified?',

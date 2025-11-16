@@ -45,7 +45,7 @@ export async function POST(request: NextRequest) {
     }
 
     debugLog('✅ User is admin, checking password...')
-    debugLog('🔐 Password hash starts with $2:', user.password.startsWith('$2'))
+    debugLog('🔐 Password hash starts with $2:', user.password?.startsWith('$2') || false)
 
     // Only allow bcrypt hashed passwords - no plaintext support
     if (!user.password || !user.password.startsWith('$2')) {

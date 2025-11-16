@@ -11,7 +11,7 @@ model User {
   id                  String               @id @default(cuid())
   email               String               @unique
   name                String
-  password            String
+  password            String?              // Optional for social login users
   phone               String?
   address             String?
   profilePicture      String?
@@ -23,9 +23,16 @@ model User {
   lastLoginAt         DateTime?
   createdAt           DateTime             @default(now())
   updatedAt           DateTime             @updatedAt
+  
+  // Social login fields
+  provider            String?              // 'google', 'facebook', 'email'
+  providerId          String?              // OAuth provider user ID
+  emailVerified       Boolean              @default(false)
+  
   orders              Order[]
   passwordResetTokens PasswordResetToken[]
 
+  @@index([provider, providerId]) // Index for OAuth lookups
   @@map("users")
 }
 

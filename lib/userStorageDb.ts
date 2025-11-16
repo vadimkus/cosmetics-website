@@ -6,17 +6,21 @@ export interface UserData {
   id?: string
   name: string
   email: string
-  password: string
-  phone?: string
-  address?: string
-  profilePicture?: string
+  password?: string | null // Optional for social login users
+  phone?: string | null
+  address?: string | null
+  profilePicture?: string | null
   isAdmin?: boolean
   canSeePrices?: boolean
   discountType?: string | null
   discountPercentage?: number | null
-  birthday?: string
-  lastLoginAt?: string
+  birthday?: string | null
+  lastLoginAt?: string | null
   createdAt?: string
+  // Social login fields
+  provider?: string | null
+  providerId?: string | null
+  emailVerified?: boolean
 }
 
 // Get all users with pagination and limited fields
@@ -52,20 +56,29 @@ export const getAllUsers = async (limit: number = 100, offset: number = 0) => {
 // Add a new user
 export const addUser = async (userData: UserData): Promise<User> => {
   try {
+    const createData: any = {
+      name: userData.name,
+      email: userData.email,
+      phone: userData.phone || null,
+      address: userData.address || null,
+      profilePicture: userData.profilePicture || null,
+      isAdmin: userData.isAdmin || false,
+      canSeePrices: userData.canSeePrices !== undefined ? userData.canSeePrices : true,
+      discountType: userData.discountType || null,
+      discountPercentage: userData.discountPercentage || null,
+      birthday: userData.birthday || null,
+      provider: userData.provider || null,
+      providerId: userData.providerId || null,
+      emailVerified: userData.emailVerified || false,
+    }
+    
+    // Only include password if provided (for social login users, password is null)
+    if (userData.password !== undefined) {
+      createData.password = userData.password
+    }
+    
     return await prisma.user.create({
-      data: {
-        name: userData.name,
-        email: userData.email,
-        password: userData.password,
-        phone: userData.phone || null,
-        address: userData.address || null,
-        profilePicture: userData.profilePicture || null,
-        isAdmin: userData.isAdmin || false,
-        canSeePrices: userData.canSeePrices !== undefined ? userData.canSeePrices : true,
-        discountType: userData.discountType || null,
-        discountPercentage: userData.discountPercentage || null,
-        birthday: userData.birthday || null,
-      }
+      data: createData
     })
   } catch (error) {
     errorLog('Error creating user:', error)
@@ -175,6 +188,15 @@ export const updateUser = async (userId: string, updates: Partial<UserData>): Pr
     if (updates.lastLoginAt !== undefined) {
       updateData.lastLoginAt = updates.lastLoginAt ? new Date(updates.lastLoginAt) : null
     }
+    if (updates.provider !== undefined) {
+      (updateData as any).provider = updates.provider === '' ? null : updates.provider
+    }
+    if (updates.providerId !== undefined) {
+      (updateData as any).providerId = updates.providerId === '' ? null : updates.providerId
+    }
+    if (updates.emailVerified !== undefined) {
+      (updateData as any).emailVerified = updates.emailVerified
+    }
     
     // Don't allow password updates through this function (use separate function if needed)
     // if (updates.password !== undefined) updateData.password = updates.password
@@ -188,10 +210,10 @@ export const updateUser = async (userId: string, updates: Partial<UserData>): Pr
     // If address is being updated, also update all existing orders for this user
     if (updates.address !== undefined && updates.address !== user.address) {
       debugLog('Address updated, updating existing orders for user:', user.email)
-      const newAddress = updates.address === '' ? '' : updates.address
+      const newAddress = updates.address === '' || updates.address === null ? '' : updates.address
       await prisma.order.updateMany({
         where: { customerEmail: user.email },
-        data: { customerAddress: newAddress }
+        data: { customerAddress: newAddress || '' }
       })
       debugLog('Updated existing orders with new address')
     }
@@ -260,20 +282,36 @@ export const findOrCreateUser = async (email: string, userData: Partial<UserData
     
     if (!user) {
       // Create new user
-      user = await addUser({
+      const createUserData: UserData = {
         email,
         name: userData.name || '',
-        password: userData.password || '',
         ...userData
-      })
+      }
+      // Only set password if provided, otherwise leave it undefined (will be null in DB)
+      if (userData.password !== undefined) {
+        createUserData.password = userData.password
+      }
+      user = await addUser(createUserData)
     } else {
       // Update existing user with new data (but keep original creation date)
+      const updateData: any = {
+        updatedAt: new Date()
+      }
+      if (userData.name) updateData.name = userData.name
+      if (userData.phone !== undefined) updateData.phone = userData.phone
+      if (userData.address !== undefined) updateData.address = userData.address
+      if (userData.profilePicture !== undefined) updateData.profilePicture = userData.profilePicture
+      if (userData.canSeePrices !== undefined) updateData.canSeePrices = userData.canSeePrices
+      if (userData.discountType !== undefined) updateData.discountType = userData.discountType
+      if (userData.discountPercentage !== undefined) updateData.discountPercentage = userData.discountPercentage
+      if (userData.birthday !== undefined) updateData.birthday = userData.birthday
+      if (userData.provider !== undefined) updateData.provider = userData.provider
+      if (userData.providerId !== undefined) updateData.providerId = userData.providerId
+      if (userData.emailVerified !== undefined) updateData.emailVerified = userData.emailVerified
+      
       user = await prisma.user.update({
         where: { id: user.id },
-        data: {
-          ...userData,
-          updatedAt: new Date()
-        }
+        data: updateData
       })
     }
     

@@ -93,6 +93,14 @@ export async function POST(request: NextRequest) {
       )
     }
 
+    // Check if user has a password (social login users don't have passwords)
+    if (!user.password) {
+      return NextResponse.json(
+        { error: 'This account was created with social login. Please sign in with Google instead.' },
+        { status: 401 }
+      )
+    }
+
     // Check password - only bcrypt hashes allowed
     debugLog('[LOGIN] Verifying password...', Date.now() - startTime, 'ms')
     let passwordMatches = false

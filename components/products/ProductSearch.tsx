@@ -65,7 +65,7 @@ export default function ProductSearch({ products, onSearchChange, searchQuery }:
           value={searchQuery}
           onChange={handleInputChange}
           onFocus={() => setIsFocused(true)}
-          className="w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm md:text-base"
+          className="w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm md:text-base text-gray-900 bg-white placeholder:text-gray-400"
         />
         {searchQuery && (
           <button

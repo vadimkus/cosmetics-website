@@ -165,7 +165,7 @@ export default function ProductFilters({
                 max={priceRange.max}
                 value={localFilters.priceRange[0]}
                 onChange={(e) => handlePriceChange(0, Number(e.target.value))}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm text-gray-900 bg-white placeholder:text-gray-400"
                 placeholder="Min"
               />
               <span className="text-gray-500">-</span>
@@ -175,7 +175,7 @@ export default function ProductFilters({
                 max={priceRange.max}
                 value={localFilters.priceRange[1]}
                 onChange={(e) => handlePriceChange(1, Number(e.target.value))}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm text-gray-900 bg-white placeholder:text-gray-400"
                 placeholder="Max"
               />
             </div>

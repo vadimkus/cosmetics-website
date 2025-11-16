@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { Calendar, User, ArrowRight, ArrowLeft } from 'lucide-react'
+import { Calendar, User, ArrowRight, ArrowLeft, Eye } from 'lucide-react'
 import BreadcrumbSchema from '@/components/BreadcrumbSchema'
 import type { Metadata } from 'next'
 import { prisma } from '@/lib/prisma'
@@ -202,7 +202,7 @@ export default async function BlogPage() {
                         {post.excerpt}
                       </p>
                     )}
-                    <div className="flex items-center gap-4 text-sm text-gray-500">
+                    <div className="flex items-center gap-4 text-sm text-gray-500 flex-wrap">
                       {post.authorName && (
                         <div className="flex items-center gap-1">
                           <User className="h-4 w-4 text-green-600" />
@@ -219,6 +219,12 @@ export default async function BlogPage() {
                               day: 'numeric'
                             })}
                           </span>
+                        </div>
+                      )}
+                      {post.views > 0 && (
+                        <div className="flex items-center gap-1">
+                          <Eye className="h-4 w-4" />
+                          <span>{post.views} {post.views === 1 ? 'view' : 'views'}</span>
                         </div>
                       )}
                     </div>

@@ -12,7 +12,7 @@ const faqs = [
   },
   {
     question: 'Do you ship to all UAE emirates?',
-    answer: 'Yes, we ship to all 7 UAE emirates: Dubai, Abu Dhabi, Sharjah, Ajman, Ras Al Khaimah, Fujairah, and Umm Al Quwain. Shipping costs vary by emirate, and orders over 1000 AED qualify for free shipping. Delivery typically takes 1-3 business days depending on your location.',
+    answer: 'Yes, we ship to all 7 UAE emirates: Dubai, Abu Dhabi, Sharjah, Ajman, Ras Al Khaimah, Fujairah, and Umm Al Quwain. Shipping costs vary by emirate, and orders over 1000 AED qualify for free shipping. Delivery typically takes 1-3 business days depending on your location. <a href="/locations" class="text-primary-600 hover:text-primary-700 underline font-medium">View our locations and delivery details</a>.',
   },
   {
     question: 'Are GENOSYS products suitable for home use?',
@@ -60,11 +60,19 @@ const faqs = [
   },
   {
     question: 'Do you ship internationally?',
-    answer: 'Currently, we only ship within the United Arab Emirates.',
+    answer: 'Currently, GENOSYS Middle East FZ-LLC only ships within the United Arab Emirates. However, we have offices around the globe, and GENOSYS products are likely available in your country through our international network of distributors.',
   },
   {
     question: 'How can I contact customer support?',
-    answer: 'You can reach our customer support team via email at sales@genosys.ae, WhatsApp at +971 58 548 76 65, or through our contact page. Our support team is available Monday to Friday, 9 AM to 6 PM UAE time.',
+    answer: 'You can reach our customer support team via email at sales@genosys.ae, WhatsApp at +971 58 548 76 65, Instagram at @genosys.uae, or through our contact page. Our support team is available Monday to Friday, 9 AM to 9 PM UAE time.',
+  },
+  {
+    question: 'Why choose GENOSYS?',
+    answer: 'GENOSYS stands out for several key reasons:<ul class="list-disc list-inside mt-3 space-y-2 ml-4"><li><strong>Skin-friendly formulations</strong> - Our products are developed with advanced Korean skincare technology, prioritizing skin health and compatibility.</li><li><strong>Highly effective products</strong> - We offer professional-grade dermacosmetics with clinically proven results, backed by scientific research and dermatological testing.</li><li><strong>Affordable pricing strategy</strong> - We provide premium quality products at competitive prices, making professional skincare accessible.</li><li><strong>Same-day delivery</strong> - All orders are processed and delivered on the same day for Dubai and Sharjah (1-2 hours via Careem), ensuring you receive your products quickly.</li><li><strong>Certified and authentic</strong> - All products are certified by Dubai Municipality. We are the official distributor of DTS MG Co., Ltd. Korea, with our own research and production facility in Seoul, South Korea, ensuring quality control and innovation at every step.</li><li><strong>Expert support</strong> - Our team provides professional training, comprehensive product guidance, and dedicated customer service.</li><li><strong>Comprehensive product range</strong> - From advanced ampoules and masks to professional microneedling devices, we offer everything needed for professional skincare treatments.</li></ul>',
+  },
+  {
+    question: 'Do you have a blog?',
+    answer: 'Yes! Our <a href="/blog" class="text-primary-600 hover:text-primary-700 underline font-medium">GENOSYS Blog</a> features expert insights on Korean skincare, professional dermacosmetics, beauty industry trends, and product information. Learn about the latest innovations, skincare tips, ingredient benefits, and treatment protocols. Registered users can also leave comments and engage with our community. Visit our blog to stay updated with the latest in professional skincare.',
   },
 ]
 
@@ -201,9 +209,10 @@ export default function FAQClient() {
                   >
                     <div className="px-6 pb-6 pl-[72px]">
                       <div className="border-l-2 border-primary-200 pl-6">
-                        <p className="text-gray-600 leading-relaxed">
-                          {faq.answer}
-                        </p>
+                        <div 
+                          className="text-gray-600 leading-relaxed prose prose-sm max-w-none"
+                          dangerouslySetInnerHTML={{ __html: faq.answer }}
+                        />
                       </div>
                     </div>
                   </div>

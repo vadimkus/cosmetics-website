@@ -293,12 +293,12 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             </div>
 
             {post.featuredImage && (
-              <div className="relative h-[280px] sm:h-[400px] md:h-[500px] w-full rounded-xl overflow-hidden mb-10 shadow-lg">
+              <div className="relative w-full rounded-xl overflow-hidden mb-10 shadow-lg bg-gray-50" style={{ aspectRatio: '1522 / 922' }}>
                 <Image
                   src={post.featuredImage}
                   alt={post.title}
                   fill
-                  className="object-cover"
+                  className="object-contain"
                   priority
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 896px"
                 />

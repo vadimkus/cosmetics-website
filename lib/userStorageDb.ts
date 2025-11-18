@@ -6,7 +6,7 @@ export interface UserData {
   id?: string
   name: string
   email: string
-  password?: string | null // Optional for social login users
+  password?: string | null
   phone?: string | null
   address?: string | null
   profilePicture?: string | null
@@ -17,10 +17,6 @@ export interface UserData {
   birthday?: string | null
   lastLoginAt?: string | null
   createdAt?: string
-  // Social login fields
-  provider?: string | null
-  providerId?: string | null
-  emailVerified?: boolean
 }
 
 // Get all users with pagination and limited fields
@@ -56,7 +52,7 @@ export const getAllUsers = async (limit: number = 100, offset: number = 0) => {
 // Add a new user
 export const addUser = async (userData: UserData): Promise<User> => {
   try {
-    const createData: any = {
+    const baseData = {
       name: userData.name,
       email: userData.email,
       phone: userData.phone || null,
@@ -67,15 +63,12 @@ export const addUser = async (userData: UserData): Promise<User> => {
       discountType: userData.discountType || null,
       discountPercentage: userData.discountPercentage || null,
       birthday: userData.birthday || null,
-      provider: userData.provider || null,
-      providerId: userData.providerId || null,
-      emailVerified: userData.emailVerified || false,
     }
     
-    // Only include password if provided (for social login users, password is null)
-    if (userData.password !== undefined) {
-      createData.password = userData.password
-    }
+    const createData = {
+      ...baseData,
+      ...(userData.password !== undefined && userData.password !== null && { password: userData.password }),
+    } as Prisma.UserCreateInput
     
     return await prisma.user.create({
       data: createData
@@ -188,15 +181,6 @@ export const updateUser = async (userId: string, updates: Partial<UserData>): Pr
     if (updates.lastLoginAt !== undefined) {
       updateData.lastLoginAt = updates.lastLoginAt ? new Date(updates.lastLoginAt) : null
     }
-    if (updates.provider !== undefined) {
-      (updateData as any).provider = updates.provider === '' ? null : updates.provider
-    }
-    if (updates.providerId !== undefined) {
-      (updateData as any).providerId = updates.providerId === '' ? null : updates.providerId
-    }
-    if (updates.emailVerified !== undefined) {
-      (updateData as any).emailVerified = updates.emailVerified
-    }
     
     // Don't allow password updates through this function (use separate function if needed)
     // if (updates.password !== undefined) updateData.password = updates.password
@@ -294,7 +278,7 @@ export const findOrCreateUser = async (email: string, userData: Partial<UserData
       user = await addUser(createUserData)
     } else {
       // Update existing user with new data (but keep original creation date)
-      const updateData: any = {
+      const updateData: Prisma.UserUpdateInput = {
         updatedAt: new Date()
       }
       if (userData.name) updateData.name = userData.name
@@ -305,9 +289,6 @@ export const findOrCreateUser = async (email: string, userData: Partial<UserData
       if (userData.discountType !== undefined) updateData.discountType = userData.discountType
       if (userData.discountPercentage !== undefined) updateData.discountPercentage = userData.discountPercentage
       if (userData.birthday !== undefined) updateData.birthday = userData.birthday
-      if (userData.provider !== undefined) updateData.provider = userData.provider
-      if (userData.providerId !== undefined) updateData.providerId = userData.providerId
-      if (userData.emailVerified !== undefined) updateData.emailVerified = userData.emailVerified
       
       user = await prisma.user.update({
         where: { id: user.id },

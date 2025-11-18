@@ -1,0 +1,9 @@
+{
+  "ignore_dirs": [
+    ".git",
+    "node_modules",
+    ".next",
+    ".DS_Store",
+    "*.log"
+  ]
+}

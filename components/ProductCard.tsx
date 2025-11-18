@@ -32,9 +32,9 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
     setTimeout(() => setIsAdding(false), 500)
   }, [addItem, product])
 
-  const handleFavorite = useCallback(async (e: React.MouseEvent) => {
-    e.preventDefault()
-    e.stopPropagation()
+  const handleFavorite = useCallback(async (e?: React.MouseEvent | React.TouchEvent) => {
+    e?.preventDefault()
+    e?.stopPropagation()
     setIsTogglingFavorite(true)
     toggleFavorite(product)
     // Brief delay for visual feedback
@@ -71,9 +71,9 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
         </Link>
         <button 
           onClick={handleFavorite}
-          onTouchStart={(e) => {
+          onTouchStart={(e: React.TouchEvent<HTMLButtonElement>) => {
             e.preventDefault()
-            handleFavorite(e as any)
+            handleFavorite(e)
           }}
           disabled={isTogglingFavorite}
           className={`absolute top-2 right-2 p-2 bg-white rounded-full shadow-md hover:bg-gray-50 transition-colors touch-manipulation z-20 min-h-[44px] min-w-[44px] flex items-center justify-center ${
@@ -112,10 +112,10 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
           </Link>
         </div>
         
-        {product.size && (
+        {(product.size || product.id === '37') && (
           <div className="mb-2">
             <span className="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-gray-100 text-gray-700">
-              Size: {product.size}
+              Size: {product.id === '37' ? '38g x 5ea (5 masks, 1 box)' : product.size}
             </span>
           </div>
         )}

@@ -105,9 +105,9 @@ export default function AuthProvider({ children }: AuthProviderProps) {
           body: JSON.stringify(addCsrfToBody({ email, password })),
           signal: controller.signal
         })
-      } catch (error: any) {
+      } catch (error) {
         clearTimeout(timeoutId)
-        if (error.name === 'AbortError') {
+        if (error instanceof Error && error.name === 'AbortError') {
           alert('Login request timed out. Please check your connection and try again.')
         } else {
           throw error

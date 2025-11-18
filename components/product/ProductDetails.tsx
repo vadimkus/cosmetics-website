@@ -28,9 +28,9 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
       </div>
 
       {/* Size Display (if applicable) */}
-      {product.size && (
+      {(product.size || product.id === '37') && (
         <div className="text-sm font-medium text-gray-700">
-          Size: {product.size}
+          Size: {product.id === '37' ? '38g x 5ea (5 masks, 1 box)' : product.size}
         </div>
       )}
 

@@ -61,22 +61,39 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Only allow bcrypt hashed passwords - no plaintext support
-    if (!user.password || !user.password.startsWith('$2')) {
-      return NextResponse.json(
-        { error: 'Account requires password reset. Please use the "Forgot Password" feature to reset your password.' },
-        { status: 401 }
-      )
+    // Check password - handle both bcrypt and legacy plaintext passwords
+    let isValid = false
+    let needsPasswordUpgrade = false
+    
+    if (user.password && user.password.startsWith('$2')) {
+      // bcrypt hash - normal verification
+      isValid = await bcrypt.compare(password, user.password)
+    } else {
+      // Legacy plaintext password - check if it matches, then upgrade to bcrypt
+      if (user.password === password) {
+        isValid = true
+        needsPasswordUpgrade = true
+      } else {
+        isValid = false
+      }
     }
-
-    // Verify password with bcrypt
-    const isValid = await bcrypt.compare(password, user.password)
 
     if (!isValid) {
       return NextResponse.json(
         { error: 'Invalid credentials' },
         { status: 401 }
       )
+    }
+
+    // Upgrade plaintext password to bcrypt if needed
+    if (needsPasswordUpgrade) {
+      try {
+        const hashedPassword = await bcrypt.hash(password, 12)
+        await updateUser(user.id, { password: hashedPassword })
+      } catch (upgradeError) {
+        errorLog('Error upgrading admin password:', upgradeError)
+        // Don't fail login if upgrade fails
+      }
     }
 
     // Update last login timestamp

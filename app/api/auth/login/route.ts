@@ -101,25 +101,34 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Check password - only bcrypt hashes allowed
+    // Check password - handle both bcrypt and legacy plaintext passwords
     debugLog('[LOGIN] Verifying password...', Date.now() - startTime, 'ms')
     let passwordMatches = false
+    let needsPasswordUpgrade = false
+    
     try {
       if (user.password && user.password.startsWith('$2')) {
-        // bcrypt hash
+        // bcrypt hash - normal verification
         const bcryptStart = Date.now()
         passwordMatches = await bcrypt.compare(password, user.password)
         debugLog('[LOGIN] Password verification completed', Date.now() - bcryptStart, 'ms')
       } else {
-        // Legacy plaintext passwords are no longer supported
+        // Legacy plaintext password - check if it matches, then upgrade to bcrypt
         warnLog('Legacy plaintext password detected for user:', user.email)
-        return NextResponse.json(
-          { error: 'Your account requires a password reset. Please use the "Forgot Password" link to reset your password.' },
-          { status: 401 }
-        )
+        
+        // Compare plaintext password
+        if (user.password === password) {
+          passwordMatches = true
+          needsPasswordUpgrade = true
+          debugLog('[LOGIN] Plaintext password matches, will upgrade to bcrypt')
+        } else {
+          passwordMatches = false
+          debugLog('[LOGIN] Plaintext password does not match')
+        }
       }
     } catch (e) {
       passwordMatches = false
+      errorLog('[LOGIN] Password verification error:', e)
     }
 
     if (!passwordMatches) {
@@ -127,6 +136,20 @@ export async function POST(request: NextRequest) {
         { error: 'Invalid email or password' },
         { status: 401 }
       )
+    }
+
+    // Upgrade plaintext password to bcrypt if needed
+    if (needsPasswordUpgrade) {
+      try {
+        debugLog('[LOGIN] Upgrading plaintext password to bcrypt for user:', user.email)
+        const hashedPassword = await bcrypt.hash(password, 12)
+        await updateUser(user.id, { password: hashedPassword })
+        debugLog('[LOGIN] Password successfully upgraded to bcrypt')
+      } catch (upgradeError) {
+        errorLog('[LOGIN] Error upgrading password:', upgradeError)
+        // Don't fail login if upgrade fails - user can try again next time
+        warnLog('Password upgrade failed, but allowing login to proceed')
+      }
     }
 
     // Update last login timestamp

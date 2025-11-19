@@ -182,8 +182,10 @@ export const updateUser = async (userId: string, updates: Partial<UserData>): Pr
       updateData.lastLoginAt = updates.lastLoginAt ? new Date(updates.lastLoginAt) : null
     }
     
-    // Don't allow password updates through this function (use separate function if needed)
-    // if (updates.password !== undefined) updateData.password = updates.password
+    // Allow password updates (needed for password reset and password upgrades)
+    if (updates.password !== undefined && updates.password !== null) {
+      updateData.password = updates.password
+    }
     
     // Update user
     const result = await prisma.user.update({

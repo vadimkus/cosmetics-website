@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { findUserByEmail } from '@/lib/userStorageDb'
+import { findUserByEmail, updateUser } from '@/lib/userStorageDb'
 import { requireAdminAuth } from '@/lib/adminAuth'
 import { requireCsrfToken } from '@/lib/csrf'
 import { debugLog, errorLog } from '@/lib/logger'
@@ -47,19 +47,27 @@ export async function POST(request: NextRequest) {
     debugLog('✅ User is admin, checking password...')
     debugLog('🔐 Password hash starts with $2:', user.password?.startsWith('$2') || false)
 
-    // Only allow bcrypt hashed passwords - no plaintext support
-    if (!user.password || !user.password.startsWith('$2')) {
-      debugLog('❌ Password not properly hashed')
-      return NextResponse.json(
-        { error: 'Account requires password reset. Please use the "Forgot Password" feature to reset your password.' },
-        { status: 401 }
-      )
+    // Check password - handle both bcrypt and legacy plaintext passwords
+    let isValid = false
+    let needsPasswordUpgrade = false
+    
+    if (user.password && user.password.startsWith('$2')) {
+      // bcrypt hash - normal verification
+      debugLog('🔍 Verifying password with bcrypt...')
+      isValid = await bcrypt.compare(password, user.password)
+      debugLog('✅ Password verification result:', isValid)
+    } else {
+      // Legacy plaintext password - check if it matches, then upgrade to bcrypt
+      debugLog('⚠️ Legacy plaintext password detected')
+      if (user.password === password) {
+        isValid = true
+        needsPasswordUpgrade = true
+        debugLog('✅ Plaintext password matches, will upgrade to bcrypt')
+      } else {
+        isValid = false
+        debugLog('❌ Plaintext password does not match')
+      }
     }
-
-    // Verify password with bcrypt
-    debugLog('🔍 Verifying password with bcrypt...')
-    const isValid = await bcrypt.compare(password, user.password)
-    debugLog('✅ Password verification result:', isValid)
 
     if (!isValid) {
       debugLog('❌ Password verification failed')
@@ -67,6 +75,19 @@ export async function POST(request: NextRequest) {
         { error: 'Invalid credentials' },
         { status: 401 }
       )
+    }
+
+    // Upgrade plaintext password to bcrypt if needed
+    if (needsPasswordUpgrade) {
+      try {
+        debugLog('🔄 Upgrading plaintext password to bcrypt...')
+        const hashedPassword = await bcrypt.hash(password, 12)
+        await updateUser(user.id, { password: hashedPassword })
+        debugLog('✅ Password successfully upgraded to bcrypt')
+      } catch (upgradeError) {
+        errorLog('❌ Error upgrading password:', upgradeError)
+        // Don't fail login if upgrade fails
+      }
     }
 
     debugLog('✅ Admin login successful')

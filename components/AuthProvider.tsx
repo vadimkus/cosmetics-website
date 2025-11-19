@@ -71,12 +71,91 @@ export default function AuthProvider({ children }: AuthProviderProps) {
   }, [])
 
   // Save user to localStorage whenever user changes (only on client)
+  // Only store essential user data to avoid quota exceeded errors
   useEffect(() => {
     if (isClient && typeof window !== 'undefined') {
-      if (user) {
-        localStorage.setItem('genosys_user', JSON.stringify(user))
-      } else {
-        localStorage.removeItem('genosys_user')
+      try {
+        if (user) {
+          // Only store essential fields to minimize localStorage usage
+          const essentialUserData = {
+            id: user.id,
+            email: user.email,
+            name: user.name,
+            phone: user.phone,
+            isAdmin: user.isAdmin,
+            canSeePrices: user.canSeePrices,
+            discountType: user.discountType,
+            discountPercentage: user.discountPercentage,
+            birthday: user.birthday
+            // Exclude: address, profilePicture, createdAt (not needed for session)
+          }
+          localStorage.setItem('genosys_user', JSON.stringify(essentialUserData))
+        } else {
+          localStorage.removeItem('genosys_user')
+        }
+      } catch (error) {
+        // Handle quota exceeded or other storage errors
+        if (error instanceof Error && error.name === 'QuotaExceededError') {
+          errorLog('localStorage quota exceeded, clearing old data...')
+          try {
+            // Clear old/unnecessary data first (keep user and cart)
+            try {
+              // Clear old offline actions (keep only last 20)
+              const actionsKey = 'genosys_offline_actions'
+              const actions = localStorage.getItem(actionsKey)
+              if (actions) {
+                try {
+                  const parsedActions = JSON.parse(actions)
+                  if (Array.isArray(parsedActions) && parsedActions.length > 20) {
+                    const recentActions = parsedActions.slice(-20)
+                    localStorage.setItem(actionsKey, JSON.stringify(recentActions))
+                  }
+                } catch (e) {
+                  localStorage.removeItem(actionsKey)
+                }
+              }
+            } catch (e) {
+              // Ignore errors when cleaning up
+            }
+
+            // Try storing user data again
+            if (user) {
+              const essentialUserData = {
+                id: user.id,
+                email: user.email,
+                name: user.name,
+                phone: user.phone,
+                isAdmin: user.isAdmin,
+                canSeePrices: user.canSeePrices,
+                discountType: user.discountType,
+                discountPercentage: user.discountPercentage,
+                birthday: user.birthday
+              }
+              localStorage.setItem('genosys_user', JSON.stringify(essentialUserData))
+            }
+          } catch (retryError) {
+            errorLog('Failed to store user data in localStorage after cleanup:', retryError)
+            // If still failing, clear everything except critical data
+            try {
+              localStorage.clear()
+              if (user) {
+                const minimalUserData = {
+                  id: user.id,
+                  email: user.email,
+                  name: user.name,
+                  isAdmin: user.isAdmin,
+                  canSeePrices: user.canSeePrices
+                }
+                localStorage.setItem('genosys_user', JSON.stringify(minimalUserData))
+              }
+            } catch (finalError) {
+              errorLog('Failed to store minimal user data:', finalError)
+              // User can still use the app, just won't persist session on refresh
+            }
+          }
+        } else {
+          errorLog('Error storing user data in localStorage:', error)
+        }
       }
     }
   }, [user, isClient])

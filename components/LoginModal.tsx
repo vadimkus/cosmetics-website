@@ -282,7 +282,9 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
 
             {!isLoginMode && (
               <div>
-                <label htmlFor="birthday" className="sr-only">Birthday</label>
+                <label htmlFor="birthday" className="block text-sm font-medium text-gray-700 mb-2">
+                  Birthday (Optional)
+                </label>
                 <input
                   type="date"
                   id="birthday"

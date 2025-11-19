@@ -54,33 +54,11 @@ export async function verifyPasswordResetToken(
     debugLog('🔍 Starting token verification for token:', plainToken.substring(0, 10) + '...')
     
     // First, verify Prisma client has the passwordResetToken model
-    // Check both the property existence and try to access it
-    try {
-      if (!prisma.passwordResetToken) {
-        errorLog('❌ Prisma client does not have passwordResetToken model')
-        errorLog('❌ Available Prisma models:', Object.keys(prisma).filter(k => !k.startsWith('$') && !k.startsWith('_')).join(', '))
-        return {
-          valid: false,
-          error: 'Password reset feature not configured. Please regenerate Prisma client.'
-        }
-      }
-      
-      // Verify the model is accessible
-      debugLog('✅ PasswordResetToken model found in Prisma client')
-    } catch (modelError) {
-      const errorMsg = modelError instanceof Error ? modelError.message : String(modelError)
-      errorLog('❌ Error accessing passwordResetToken model:', errorMsg)
-      errorLog('❌ Prisma client type:', typeof prisma)
-      errorLog('❌ Prisma client keys:', Object.keys(prisma).filter(k => !k.startsWith('$') && !k.startsWith('_')).join(', '))
-      return {
-        valid: false,
-        error: 'Password reset feature not configured. Please regenerate Prisma client.'
-      }
-    }
-    
-    // First, check if the table exists by trying a simple query
+    // In serverless environments, we need to check more carefully
+    // Instead of checking for existence, try to use it directly and catch errors
     let tokens
     try {
+      // Directly try to query - if model doesn't exist, this will throw
       tokens = await prisma.passwordResetToken.findMany({
         where: {
           used: false,
@@ -93,31 +71,49 @@ export async function verifyPasswordResetToken(
         }
       })
     } catch (dbError) {
-      // Check if it's a table doesn't exist error
+      // Check if it's a table doesn't exist error or model not found error
       const errorMsg = dbError instanceof Error ? dbError.message : String(dbError)
       const errorStack = dbError instanceof Error ? dbError.stack : ''
+      const errorName = dbError instanceof Error ? dbError.name : ''
       
       errorLog('❌ Database error during token verification:', errorMsg)
+      errorLog('❌ Error name:', errorName)
       errorLog('❌ Error stack:', errorStack)
       
+      // Check for Prisma client model errors (model doesn't exist in generated client)
+      if (
+        errorName === 'TypeError' ||
+        errorMsg.includes('Cannot read') ||
+        errorMsg.includes('undefined') ||
+        errorMsg.includes('passwordResetToken') ||
+        errorMsg.includes('password_reset_tokens') ||
+        errorMsg.includes('Unknown arg') ||
+        errorMsg.includes('prisma.passwordResetToken') ||
+        errorMsg.includes('is not a function') ||
+        (errorStack && errorStack.includes('passwordResetToken'))
+      ) {
+        errorLog('❌ Prisma client error - passwordResetToken model not available')
+        // Log available models for debugging
+        try {
+          const availableModels = Object.keys(prisma).filter(
+            k => !k.startsWith('$') && !k.startsWith('_') && typeof prisma[k as keyof typeof prisma] === 'object'
+          )
+          errorLog('❌ Available Prisma models:', availableModels.join(', '))
+        } catch (e) {
+          errorLog('❌ Could not list available models')
+        }
+        return {
+          valid: false,
+          error: 'Password reset feature not configured. Please regenerate Prisma client.'
+        }
+      }
+      
+      // Check if it's a table doesn't exist error
       if (errorMsg.includes('does not exist') || errorMsg.includes('Unknown table')) {
         errorLog('❌ Password reset tokens table does not exist in database')
         return {
           valid: false,
           error: 'Password reset feature not configured. Please run database migration.'
-        }
-      }
-      
-      // Check for Prisma client model errors
-      if (errorMsg.includes('passwordResetToken') || 
-          errorMsg.includes('password_reset_tokens') ||
-          errorMsg.includes('Unknown arg') ||
-          errorMsg.includes('prisma.passwordResetToken') ||
-          (errorStack && errorStack.includes('passwordResetToken'))) {
-        errorLog('❌ Prisma client error - passwordResetToken model not available')
-        return {
-          valid: false,
-          error: 'Password reset feature not configured. Please regenerate Prisma client.'
         }
       }
       

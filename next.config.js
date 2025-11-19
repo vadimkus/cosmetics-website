@@ -13,7 +13,8 @@ const nextConfig = {
   },
   
   // Server-side packages that shouldn't be bundled (fixes jsdom version warning)
-  serverExternalPackages: ['jsdom', 'isomorphic-dompurify'],
+  // Prisma client must be external in serverless environments to access generated client
+  serverExternalPackages: ['jsdom', 'isomorphic-dompurify', '@prisma/client', 'prisma'],
   
   images: {
     remotePatterns: [

@@ -45,7 +45,29 @@ try {
 
   // Generate Prisma client
   console.log('🔧 Generating Prisma client...');
-  execSync('npx prisma generate', { stdio: 'inherit' });
+  try {
+    execSync('npx prisma generate', { stdio: 'inherit' });
+    console.log('✅ Prisma client generated successfully');
+    
+    // Verify PasswordResetToken model exists in generated client
+    try {
+      const { PrismaClient } = require('@prisma/client');
+      const testClient = new PrismaClient();
+      if (!testClient.passwordResetToken) {
+        console.error('❌ WARNING: PasswordResetToken model not found in Prisma client!');
+        console.error('   This may cause password reset feature to fail.');
+        console.error('   Please ensure prisma/schema.prisma includes PasswordResetToken model.');
+      } else {
+        console.log('✅ PasswordResetToken model verified in Prisma client');
+      }
+      testClient.$disconnect();
+    } catch (verifyError) {
+      console.warn('⚠️  Could not verify Prisma client models:', verifyError.message);
+    }
+  } catch (generateError) {
+    console.error('❌ Failed to generate Prisma client:', generateError.message);
+    throw generateError;
+  }
 
   // Attempt database push to ensure schema is synced
   // This will fail silently in some serverless environments, which is OK

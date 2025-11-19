@@ -53,6 +53,15 @@ export async function verifyPasswordResetToken(
   try {
     debugLog('🔍 Starting token verification for token:', plainToken.substring(0, 10) + '...')
     
+    // First, verify Prisma client has the passwordResetToken model
+    if (!prisma.passwordResetToken) {
+      errorLog('❌ Prisma client does not have passwordResetToken model')
+      return {
+        valid: false,
+        error: 'Password reset feature not configured. Please regenerate Prisma client.'
+      }
+    }
+    
     // First, check if the table exists by trying a simple query
     let tokens
     try {
@@ -70,6 +79,11 @@ export async function verifyPasswordResetToken(
     } catch (dbError) {
       // Check if it's a table doesn't exist error
       const errorMsg = dbError instanceof Error ? dbError.message : String(dbError)
+      const errorStack = dbError instanceof Error ? dbError.stack : ''
+      
+      errorLog('❌ Database error during token verification:', errorMsg)
+      errorLog('❌ Error stack:', errorStack)
+      
       if (errorMsg.includes('does not exist') || errorMsg.includes('Unknown table')) {
         errorLog('❌ Password reset tokens table does not exist in database')
         return {
@@ -77,6 +91,20 @@ export async function verifyPasswordResetToken(
           error: 'Password reset feature not configured. Please run database migration.'
         }
       }
+      
+      // Check for Prisma client model errors
+      if (errorMsg.includes('passwordResetToken') || 
+          errorMsg.includes('password_reset_tokens') ||
+          errorMsg.includes('Unknown arg') ||
+          errorMsg.includes('prisma.passwordResetToken') ||
+          (errorStack && errorStack.includes('passwordResetToken'))) {
+        errorLog('❌ Prisma client error - passwordResetToken model not available')
+        return {
+          valid: false,
+          error: 'Password reset feature not configured. Please regenerate Prisma client.'
+        }
+      }
+      
       // Re-throw other database errors
       throw dbError
     }

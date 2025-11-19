@@ -7,11 +7,10 @@ import { debugLog, errorLog } from '@/lib/logger'
 import { createPasswordResetToken } from '@/lib/passwordReset'
 import { sendPasswordResetEmail } from '@/lib/email'
 
-// Rate limiter for password reset requests (5 requests per hour per IP)
-// Increased from 3 to 5 to allow for legitimate retries and testing
+// Rate limiter for password reset requests (20 requests per hour per IP)
 const forgotPasswordLimiter = rateLimitSimple({
   windowMs: 60 * 60 * 1000, // 1 hour
-  max: 5, // 5 attempts per hour (increased from 3)
+  max: 20, // 20 attempts per hour
   message: 'Too many password reset requests. Please try again later.'
 })
 

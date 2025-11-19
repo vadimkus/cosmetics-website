@@ -23,7 +23,7 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    const { name, email, password, phone, address, emirate } = await request.json()
+    const { name, email, password, phone, address, emirate, birthday } = await request.json()
 
     if (!name || !email || !password || !phone || !address || !emirate) {
       return NextResponse.json(
@@ -119,7 +119,7 @@ export async function POST(request: NextRequest) {
       canSeePrices: true,
       discountType: null,
       discountPercentage: null,
-      birthday: ''
+      birthday: birthday || null // Birthday is optional
     }
 
     // Store user in database

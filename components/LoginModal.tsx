@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
-import { X, Eye, EyeOff } from 'lucide-react'
+import { X, Eye, EyeOff, Gift } from 'lucide-react'
 import { useAuth } from './AuthProvider'
 import Link from 'next/link'
 
@@ -20,7 +20,8 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
     password: '',
     phone: '',
     address: '',
-    emirate: ''
+    emirate: '',
+    birthday: ''
   })
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState('')
@@ -96,7 +97,7 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
       const success = await login(formData.email, formData.password)
       if (success) {
         onClose()
-        setFormData({ name: '', email: '', password: '', phone: '', address: '', emirate: '' })
+        setFormData({ name: '', email: '', password: '', phone: '', address: '', emirate: '', birthday: '' })
       }
     } else {
       if (!formData.name.trim()) {
@@ -132,10 +133,10 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
         return
       }
 
-      const success = await register(formData.name, formData.email, formData.password, formData.phone, formData.address, formData.emirate)
+      const success = await register(formData.name, formData.email, formData.password, formData.phone, formData.address, formData.emirate, formData.birthday)
       if (success) {
         onClose()
-        setFormData({ name: '', email: '', password: '', phone: '', address: '', emirate: '' })
+        setFormData({ name: '', email: '', password: '', phone: '', address: '', emirate: '', birthday: '' })
         setPrivacyConsent(false)
       }
     }
@@ -145,7 +146,7 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
   const toggleMode = () => {
     setIsLoginMode(!isLoginMode)
     setError('')
-    setFormData({ name: '', email: '', password: '', phone: '', address: '', emirate: '' })
+    setFormData({ name: '', email: '', password: '', phone: '', address: '', emirate: '', birthday: '' })
     setPrivacyConsent(false)
     setShowPrivacyPolicy(false)
   }
@@ -240,12 +241,12 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
 
             {!isLoginMode && (
               <div>
-                <label htmlFor="address" className="sr-only">Address</label>
+                <label htmlFor="address" className="sr-only">UAE Address</label>
                 <input
                   type="text"
                   id="address"
                   name="address"
-                  placeholder="Address * (Required)"
+                  placeholder="UAE Address * (Required)"
                   value={formData.address}
                   onChange={handleInputChange}
                   className="w-full px-4 py-3 md:py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-primary-600 text-base text-gray-900 bg-white bg-opacity-50 backdrop-blur-sm placeholder:text-gray-400"
@@ -263,7 +264,7 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
                   name="emirate"
                   value={formData.emirate}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 md:py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-primary-600 text-base text-gray-900 bg-white bg-opacity-50 backdrop-blur-sm"
+                  className={`w-full px-4 py-3 md:py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-primary-600 text-base bg-white bg-opacity-50 backdrop-blur-sm ${formData.emirate ? 'text-gray-900' : 'text-gray-400'}`}
                   required={!isLoginMode}
                   aria-describedby={error && !isLoginMode ? "error-message" : undefined}
                 >
@@ -276,6 +277,24 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
                   <option value="Fujairah">Fujairah</option>
                   <option value="Umm Al Quwain">Umm Al Quwain</option>
                 </select>
+              </div>
+            )}
+
+            {!isLoginMode && (
+              <div>
+                <label htmlFor="birthday" className="sr-only">Birthday</label>
+                <input
+                  type="date"
+                  id="birthday"
+                  name="birthday"
+                  value={formData.birthday}
+                  onChange={handleInputChange}
+                  className={`w-full px-4 py-3 md:py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-primary-600 text-base bg-white bg-opacity-50 backdrop-blur-sm ${formData.birthday ? 'text-gray-900' : 'text-gray-400'}`}
+                  aria-describedby={error && !isLoginMode ? "error-message" : undefined}
+                />
+                <p className="text-xs text-gray-500 mt-1 flex items-center justify-center gap-1 flex-wrap">
+                  It's your special day, and we will make it memorable! <Gift className="h-3.5 w-3.5 text-primary-600 flex-shrink-0" />
+                </p>
               </div>
             )}
 
@@ -418,6 +437,10 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
                           <p className="mb-2">Users have the right to refuse consent to the collection and use of personal information.</p>
                           <p className="mb-2">However, as the aforementioned personal information is essential for the operation of this website, users who do not consent to the collection and use of personal information may be restricted from membership registration and service usage.</p>
                           <p className="mb-2">By checking the consent box or submitting your information, you acknowledge that you have read, understood, and agreed to the terms outlined in this Privacy Notice.</p>
+                          <div className="mt-3 p-3 bg-amber-50 border border-amber-200 rounded-lg">
+                            <p className="text-sm text-amber-800 mb-1"><strong>Important:</strong> Please ensure you provide a valid UAE phone number and UAE address during registration.</p>
+                            <p className="text-sm text-amber-800">Accounts with invalid or non-UAE contact information may be subject to deletion to maintain the integrity of our service.</p>
+                          </div>
                         </div>
                         
                         <div className="text-primary-600">

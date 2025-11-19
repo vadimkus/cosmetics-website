@@ -22,7 +22,7 @@ interface User {
 interface AuthContextType {
   user: User | null
   login: (email: string, password: string) => Promise<boolean>
-  register: (name: string, email: string, password: string, phone: string, address: string, emirate: string) => Promise<boolean>
+  register: (name: string, email: string, password: string, phone: string, address: string, emirate: string, birthday?: string) => Promise<boolean>
   logout: () => void
   refreshUser: () => Promise<void>
   forceRefreshUser: () => Promise<void>
@@ -152,7 +152,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
     }
   }
 
-  const register = async (name: string, email: string, password: string, phone: string, address: string, emirate: string): Promise<boolean> => {
+  const register = async (name: string, email: string, password: string, phone: string, address: string, emirate: string, birthday?: string): Promise<boolean> => {
     try {
       setIsLoading(true)
       
@@ -166,7 +166,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
       const response = await fetch('/api/auth/register', {
         method: 'POST',
         headers: getCsrfHeaders(),
-        body: JSON.stringify(addCsrfToBody({ name, email, password, phone, address, emirate })),
+        body: JSON.stringify(addCsrfToBody({ name, email, password, phone, address, emirate, birthday: birthday || '' })),
       })
 
       const data = await response.json()
@@ -294,7 +294,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
     <AuthContext.Provider value={!isClient ? {
       user: null,
       login: async () => false,
-      register: async (_name: string, _email: string, _password: string, _phone: string, _address: string, _emirate: string) => false,
+      register: async (_name: string, _email: string, _password: string, _phone: string, _address: string, _emirate: string, _birthday?: string) => false,
       logout: () => {},
       refreshUser: async () => {},
       forceRefreshUser: async () => {},

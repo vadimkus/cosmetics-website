@@ -8,7 +8,7 @@ import bcrypt from 'bcryptjs'
 
 const loginLimiter = rateLimitSimple({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 5, // 5 attempts per window
+  max: 20, // 20 attempts per window
 })
 
 export async function POST(request: NextRequest) {
@@ -114,7 +114,7 @@ export async function POST(request: NextRequest) {
         // Legacy plaintext passwords are no longer supported
         warnLog('Legacy plaintext password detected for user:', user.email)
         return NextResponse.json(
-          { error: 'Account requires password reset. Please contact support.' },
+          { error: 'Your account requires a password reset. Please use the "Forgot Password" link to reset your password.' },
           { status: 401 }
         )
       }

@@ -64,7 +64,7 @@ export async function POST(request: NextRequest) {
     // Only allow bcrypt hashed passwords - no plaintext support
     if (!user.password || !user.password.startsWith('$2')) {
       return NextResponse.json(
-        { error: 'Account requires password reset. Please contact support.' },
+        { error: 'Account requires password reset. Please use the "Forgot Password" feature to reset your password.' },
         { status: 401 }
       )
     }

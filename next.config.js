@@ -50,7 +50,8 @@ const nextConfig = {
   
   // Enhanced compiler options
   compiler: {
-    removeConsole: process.env.NODE_ENV === 'production',
+    // Don't remove console.log in production - we need it for build logs
+    removeConsole: false,
   },
   
   // Performance optimizations

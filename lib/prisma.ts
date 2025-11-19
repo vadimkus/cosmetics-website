@@ -23,7 +23,11 @@ export const prisma = globalForPrisma.prisma ?? new PrismaClient({
   log: process.env.NODE_ENV === 'development' ? ['query', 'error', 'warn'] : ['error']
 })
 
-if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma
+// Store on globalThis in all environments to prevent multiple instances
+// This is especially important in serverless environments
+if (!globalForPrisma.prisma) {
+  globalForPrisma.prisma = prisma
+}
 
 // Test the connection
 prisma.$connect().catch((error) => {

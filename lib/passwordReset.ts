@@ -54,8 +54,24 @@ export async function verifyPasswordResetToken(
     debugLog('🔍 Starting token verification for token:', plainToken.substring(0, 10) + '...')
     
     // First, verify Prisma client has the passwordResetToken model
-    if (!prisma.passwordResetToken) {
-      errorLog('❌ Prisma client does not have passwordResetToken model')
+    // Check both the property existence and try to access it
+    try {
+      if (!prisma.passwordResetToken) {
+        errorLog('❌ Prisma client does not have passwordResetToken model')
+        errorLog('❌ Available Prisma models:', Object.keys(prisma).filter(k => !k.startsWith('$') && !k.startsWith('_')).join(', '))
+        return {
+          valid: false,
+          error: 'Password reset feature not configured. Please regenerate Prisma client.'
+        }
+      }
+      
+      // Verify the model is accessible
+      debugLog('✅ PasswordResetToken model found in Prisma client')
+    } catch (modelError) {
+      const errorMsg = modelError instanceof Error ? modelError.message : String(modelError)
+      errorLog('❌ Error accessing passwordResetToken model:', errorMsg)
+      errorLog('❌ Prisma client type:', typeof prisma)
+      errorLog('❌ Prisma client keys:', Object.keys(prisma).filter(k => !k.startsWith('$') && !k.startsWith('_')).join(', '))
       return {
         valid: false,
         error: 'Password reset feature not configured. Please regenerate Prisma client.'

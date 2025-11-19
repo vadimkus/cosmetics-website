@@ -45,7 +45,7 @@ try {
     const availableModels = Object.keys(prisma).filter(k => !k.startsWith('$') && !k.startsWith('_'))
     errorLog('❌ Available Prisma models:', availableModels.join(', '))
     errorLog('❌ Prisma client type:', typeof prisma)
-    errorLog('❌ Prisma client constructor:', prisma.constructor?.name)
+    errorLog('❌ Prisma client constructor:', (prisma as any).constructor?.name)
   } else {
     debugLog('✅ PasswordResetToken model verified in Prisma client at initialization')
     // Try to access it to ensure it's actually callable

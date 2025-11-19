@@ -1,4 +1,4 @@
-import { errorLog } from '@/lib/logger'
+import { errorLog, debugLog } from '@/lib/logger'
 import { PrismaClient } from '@prisma/client'
 
 const globalForPrisma = globalThis as unknown as {
@@ -14,6 +14,7 @@ if (!databaseUrl) {
   )
 }
 
+// Initialize Prisma client with lazy connection
 export const prisma = globalForPrisma.prisma ?? new PrismaClient({
   datasources: {
     db: {
@@ -27,9 +28,23 @@ export const prisma = globalForPrisma.prisma ?? new PrismaClient({
 // This is especially important in serverless environments
 if (!globalForPrisma.prisma) {
   globalForPrisma.prisma = prisma
+  
+  // Verify PasswordResetToken model is available at initialization
+  // This helps catch issues early in serverless environments
+  try {
+    if (!('passwordResetToken' in prisma)) {
+      errorLog('⚠️ WARNING: PasswordResetToken model not found in Prisma client at initialization')
+      errorLog('⚠️ This may cause password reset feature to fail')
+      errorLog('⚠️ Available models:', Object.keys(prisma).filter(k => !k.startsWith('$') && !k.startsWith('_')).join(', '))
+    } else {
+      debugLog('✅ PasswordResetToken model verified in Prisma client at initialization')
+    }
+  } catch (initError) {
+    errorLog('⚠️ Could not verify Prisma client models at initialization:', initError)
+  }
 }
 
-// Test the connection
+// Test the connection (lazy - don't block initialization)
 prisma.$connect().catch((error) => {
   errorLog('Failed to connect to database:', error)
 })

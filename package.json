@@ -9,7 +9,7 @@
     "start": "next start",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "postinstall": "node scripts/deploy-setup.js",
+    "postinstall": "prisma generate && node scripts/deploy-setup.js",
     "db:push": "prisma db push",
     "db:generate": "prisma generate",
     "db:migrate-password-reset": "node scripts/migrate-password-reset-table.js",

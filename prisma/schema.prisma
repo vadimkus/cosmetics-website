@@ -1,5 +1,7 @@
 generator client {
   provider = "prisma-client-js"
+  // Ensure Prisma client works in serverless environments (Vercel, AWS Lambda, etc.)
+  binaryTargets = ["native", "rhel-openssl-3.0.x"]
 }
 
 datasource db {

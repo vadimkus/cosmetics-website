@@ -15,32 +15,50 @@ if (!databaseUrl) {
 }
 
 // Initialize Prisma client with lazy connection
-export const prisma = globalForPrisma.prisma ?? new PrismaClient({
-  datasources: {
-    db: {
-      url: databaseUrl
-    }
-  },
-  log: process.env.NODE_ENV === 'development' ? ['query', 'error', 'warn'] : ['error']
-})
+// In serverless, ensure we always get a fresh instance if needed
+let prismaInstance: PrismaClient
 
-// Store on globalThis in all environments to prevent multiple instances
-// This is especially important in serverless environments
-if (!globalForPrisma.prisma) {
-  globalForPrisma.prisma = prisma
-  
-  // Verify PasswordResetToken model is available at initialization
-  // This helps catch issues early in serverless environments
-  try {
-    if (!('passwordResetToken' in prisma)) {
-      errorLog('⚠️ WARNING: PasswordResetToken model not found in Prisma client at initialization')
-      errorLog('⚠️ This may cause password reset feature to fail')
-      errorLog('⚠️ Available models:', Object.keys(prisma).filter(k => !k.startsWith('$') && !k.startsWith('_')).join(', '))
+if (globalForPrisma.prisma) {
+  prismaInstance = globalForPrisma.prisma
+  debugLog('✅ Using existing Prisma client from globalThis')
+} else {
+  prismaInstance = new PrismaClient({
+    datasources: {
+      db: {
+        url: databaseUrl
+      }
+    },
+    log: process.env.NODE_ENV === 'development' ? ['query', 'error', 'warn'] : ['error']
+  })
+  globalForPrisma.prisma = prismaInstance
+  debugLog('✅ Created new Prisma client instance')
+}
+
+export const prisma = prismaInstance
+
+// Verify PasswordResetToken model is available at initialization
+// This helps catch issues early in serverless environments
+try {
+  if (!('passwordResetToken' in prisma)) {
+    errorLog('❌ CRITICAL: PasswordResetToken model not found in Prisma client at initialization')
+    errorLog('❌ This WILL cause password reset feature to fail')
+    const availableModels = Object.keys(prisma).filter(k => !k.startsWith('$') && !k.startsWith('_'))
+    errorLog('❌ Available Prisma models:', availableModels.join(', '))
+    errorLog('❌ Prisma client type:', typeof prisma)
+    errorLog('❌ Prisma client constructor:', prisma.constructor?.name)
+  } else {
+    debugLog('✅ PasswordResetToken model verified in Prisma client at initialization')
+    // Try to access it to ensure it's actually callable
+    if (typeof (prisma as any).passwordResetToken !== 'object') {
+      errorLog('❌ CRITICAL: passwordResetToken exists but is not an object')
     } else {
-      debugLog('✅ PasswordResetToken model verified in Prisma client at initialization')
+      debugLog('✅ PasswordResetToken model is properly initialized and callable')
     }
-  } catch (initError) {
-    errorLog('⚠️ Could not verify Prisma client models at initialization:', initError)
+  }
+} catch (initError) {
+  errorLog('❌ CRITICAL: Could not verify Prisma client models at initialization:', initError)
+  if (initError instanceof Error) {
+    errorLog('❌ Error stack:', initError.stack)
   }
 }
 

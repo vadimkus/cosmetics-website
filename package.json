@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "npx prisma generate && node scripts/deploy-setup.js && next build",
+    "build": "npx prisma generate && node scripts/deploy-setup.js && npx prisma generate && next build",
     "build:analyze": "ANALYZE=true node scripts/deploy-setup.js && next build",
     "start": "next start",
     "lint": "eslint .",

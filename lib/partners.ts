@@ -394,5 +394,17 @@ export const partnersData: Partner[] = [
     directions: "https://www.google.com/maps?sca_esv=3f626f5782a50780&rlz=1C5CHFA_enAE820AE820&sxsrf=AE3TifPCzlwdVa9OQbPDQt0Y5-aB6CyBLA:1762786995199&gs_lp=Egxnd3Mtd2l6LXNlcnAiCmxhdmFuYSBzcGEqAggAMgoQIxiABBgnGIoFMggQABiABBjLATIOEC4YgAQYxwEYywEYrwEyDhAuGIAEGMcBGMsBGK8BMg4QLhiABBjHARjLARivATIIEAAYgAQYywEyCBAAGIAEGMsBMggQABiABBjLATIIEAAYgAQYywEyBRAAGIAESMUXUABY-gxwAHgAkAEAmAHxAaAB4RGqAQQyLTEwuAEDyAEA-AEBmAIKoAKeEsICChAjGPAFGCcYyQLCAgsQLhiABBjRAxjHAcICCxAuGIAEGMcBGK8BwgIQEC4YgAQYxwEYJxiKBRivAcICBRAuGIAEwgIKEC4YgAQYQxiKBcICDhAuGIAEGMcBGI4FGK8BwgIREC4YgAQYxwEYmAUYmQUYrwHCAggQLhiABBjUAsICCBAuGIAEGMsBwgIKEC4YgAQYChjLAZgDAJIHBDItMTCgB43NAbIHBDItMTC4B54SwgcFMC4xLjnIBy8&um=1&ie=UTF-8&fb=1&gl=ae&sa=X&geocode=Ka0XZqubQ18-MVl5hgZyAn4M&daddr=Residence+Inn+by+Marriott+-+115+Sheikh+Zayed+Road+-+Floor+45+-+2+-+Trade+Center+Second+-+DIFC+-+Dubai",
     logo: "/images/partners/lava.png",
     theme: "purple"
+  },
+  {
+    id: "lips-for-kiss-difc",
+    name: "LIPS for KISS CLINIC, DIFC",
+    type: "Luxury Aesthetic Clinic",
+    description: "Award-winning luxury aesthetic clinic specializing in Russian Lips technique, Hollywood Face, and advanced cosmetic procedures. Expert care from leading Russian specialists, ensuring precision and outstanding results.",
+    location: "Al Saqr Business Tower - Trade Center Second - DIFC - Dubai, 11th floor",
+    phone: "+971 54 233 6281",
+    website: "https://lipsforkiss.com/dubai_clinic",
+    directions: "https://www.google.com/maps/dir//Al+Saqr+Business+Tower+-+Trade+Center+Second+-+DIFC+-+Dubai/@25.2139349,55.1956632,12z/data=!4m8!4m7!1m0!1m5!1m1!1s0x3e5f439c6c9f96a5:0x7ac63fa8a8735ce!2m2!1d55.2780647!2d25.2139577?entry=ttu&g_ep=EgoyMDI1MTExNy4wIKXMDSoASAFQAw%3D%3D",
+    logo: "/images/partners/lips.png",
+    theme: "purple"
   }
 ];

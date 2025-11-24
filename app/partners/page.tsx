@@ -3,30 +3,56 @@ import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
 import BreadcrumbSchema from '@/components/BreadcrumbSchema'
 import PartnersList from '@/components/partners/PartnersList'
+import PartnersSchema from '@/components/PartnersSchema'
 
 export const metadata: Metadata = {
-  title: 'Partners - GENOSYS Professional Korean Dermacosmetics | Genosys Middle East FZ-LLC',
-  description: 'Our trusted partners and distributors for GENOSYS professional Korean dermacosmetics in the UAE and Middle East region.',
-  keywords: 'GENOSYS partners, Korean dermacosmetics distributors, UAE skincare partners, Middle East cosmetics partners',
+  title: 'GENOSYS Partners in UAE - Trusted Korean Dermacosmetics Distributors | Genosys Middle East',
+  description: 'Discover our network of trusted GENOSYS partners across UAE. Professional Korean dermacosmetics distributors in Dubai, Abu Dhabi, Sharjah, and more. Find authorized GENOSYS retailers near you.',
+  keywords: [
+    'GENOSYS partners UAE',
+    'Korean dermacosmetics distributors Dubai',
+    'GENOSYS authorized retailers',
+    'professional skincare partners UAE',
+    'Korean beauty distributors',
+    'dermacosmetics partners Dubai',
+    'GENOSYS stockists UAE',
+    'Korean skincare distributors',
+    'beauty salon partners Dubai',
+    'aesthetic clinic partners UAE'
+  ],
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
   openGraph: {
-    title: 'Partners - GENOSYS Professional Korean Dermacosmetics',
-    description: 'Our trusted partners and distributors for GENOSYS professional Korean dermacosmetics in the UAE and Middle East region.',
+    title: 'GENOSYS Partners in UAE - Trusted Korean Dermacosmetics Distributors',
+    description: 'Find authorized GENOSYS partners across UAE. Professional Korean dermacosmetics distributors in Dubai, Abu Dhabi, Sharjah, and all Emirates.',
     type: 'website',
+    url: 'https://genosys.ae/partners',
+    siteName: 'GENOSYS Middle East FZ-LLC',
     images: [
       {
         url: '/images/genosys-products.jpg',
         width: 1200,
         height: 630,
-        alt: 'GENOSYS Partners',
+        alt: 'GENOSYS Partners Network in UAE',
       },
     ],
+    locale: 'en_AE',
   },
   twitter: {
     card: 'summary_large_image',
-    site: '@genosys_me',
-    creator: '@genosys_me',
-    title: 'Partners - GENOSYS Professional Korean Dermacosmetics',
-    description: 'Our trusted partners and distributors for GENOSYS professional Korean dermacosmetics in the UAE and Middle East region.',
+    site: '@genosys_official',
+    creator: '@genosys_official',
+    title: 'GENOSYS Partners in UAE - Trusted Korean Dermacosmetics Distributors',
+    description: 'Find authorized GENOSYS partners across UAE. Professional Korean dermacosmetics distributors.',
     images: ['/images/genosys-products.jpg'],
   },
   alternates: {
@@ -43,6 +69,7 @@ export default function PartnersPage() {
           { name: 'Partners', url: '/partners' }
         ]}
       />
+      <PartnersSchema />
       <div className="bg-white min-h-screen">
         <div className="container mx-auto px-4 py-8 md:py-16">
           <div className="max-w-6xl mx-auto">
@@ -90,7 +117,7 @@ export default function PartnersPage() {
                 Our Partners
               </h1>
               <p className="text-sm sm:text-base lg:text-lg text-gray-600 mb-4 px-2">
-                Building strong partnerships across United Arab Emirates
+                Building strong Genosys partnerships across United Arab Emirates
               </p>
             </div>
             

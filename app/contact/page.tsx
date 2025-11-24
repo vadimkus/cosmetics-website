@@ -20,10 +20,21 @@ export const metadata: Metadata = {
       },
     ],
   },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
   twitter: {
     card: 'summary_large_image',
-    site: '@genosys_me',
-    creator: '@genosys_me',
+    site: '@genosys_official',
+    creator: '@genosys_official',
     title: 'Contact GENOSYS Middle East FZ-LLC - Get in Touch',
     description: 'Contact GENOSYS Middle East FZ-LLC for professional Korean dermacosmetics. Phone: +971 58 548 76 65, Email: sales@genosys.ae.',
     images: ['/images/genosys-logo.png'],

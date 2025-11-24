@@ -3,13 +3,39 @@ import BreadcrumbSchema from '@/components/BreadcrumbSchema'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'GENOSYS Middle East FZ-LLC | Official Distributor in the UAE',
-  description: 'Premium Korean dermacosmetics by GENOSYS. Official UAE distributor. Professional skincare products, microneedling devices & beauty solutions.',
-  keywords: 'GENOSYS, Korean dermacosmetics, UAE cosmetics, professional skincare, microneedling, Korean beauty products, Dubai cosmetics',
+  title: 'GENOSYS Middle East FZ-LLC | Official Korean Dermacosmetics Distributor UAE',
+  description: 'Official distributor of GENOSYS professional Korean dermacosmetics in UAE. Premium microneedling devices, skincare products & beauty treatments. Free shipping over 1000 AED. Dubai, Abu Dhabi, Sharjah.',
+  keywords: [
+    'GENOSYS UAE',
+    'Korean dermacosmetics Dubai',
+    'professional skincare UAE',
+    'microneedling devices Dubai',
+    'Korean beauty products UAE',
+    'GENOSYS distributor UAE',
+    'professional skincare Dubai',
+    'Korean cosmetics Abu Dhabi',
+    'dermacosmetics Sharjah',
+    'beauty devices UAE',
+    'GENOSYS Middle East',
+    'Korean skincare UAE'
+  ],
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
   openGraph: {
-    title: 'GENOSYS Middle East FZ-LLC | Official Distributor in the UAE',
-    description: 'Premium Korean dermacosmetics by GENOSYS. Official UAE distributor. Professional skincare products, microneedling devices & beauty solutions.',
+    title: 'GENOSYS Middle East FZ-LLC | Official Korean Dermacosmetics Distributor UAE',
+    description: 'Official distributor of GENOSYS professional Korean dermacosmetics in UAE. Premium microneedling devices, skincare products & beauty treatments. Free shipping over 1000 AED.',
     type: 'website',
+    url: 'https://genosys.ae',
+    siteName: 'GENOSYS Middle East FZ-LLC',
     images: [
       {
         url: '/images/genosys-products.jpg',
@@ -18,13 +44,14 @@ export const metadata: Metadata = {
         alt: 'GENOSYS Premium Korean Dermacosmetics',
       },
     ],
+    locale: 'en_AE',
   },
   twitter: {
     card: 'summary_large_image',
-    site: '@genosys_me',
-    creator: '@genosys_me',
-    title: 'GENOSYS Middle East FZ-LLC | Official Distributor in the UAE',
-    description: 'Discover premium Korean dermacosmetics by GENOSYS. Official distributor in UAE.',
+    site: '@genosys_official',
+    creator: '@genosys_official',
+    title: 'GENOSYS Middle East FZ-LLC | Official Korean Dermacosmetics Distributor UAE',
+    description: 'Official distributor of GENOSYS professional Korean dermacosmetics in UAE. Premium microneedling devices and skincare products.',
     images: ['/images/genosys-products.jpg'],
   },
   alternates: {

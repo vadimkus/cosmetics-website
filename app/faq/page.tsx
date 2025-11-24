@@ -18,10 +18,21 @@ export const metadata: Metadata = {
       },
     ],
   },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
   twitter: {
     card: 'summary_large_image',
-    site: '@genosys_me',
-    creator: '@genosys_me',
+    site: '@genosys_official',
+    creator: '@genosys_official',
     title: 'FAQ - Frequently Asked Questions | GENOSYS Middle East FZ-LLC',
     description: 'Frequently asked questions about GENOSYS Korean dermacosmetics, shipping, orders, and professional training in UAE.',
     images: ['/images/genosys-products.jpg'],

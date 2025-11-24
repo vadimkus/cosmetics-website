@@ -19,8 +19,8 @@ export const trainingMetadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    site: '@genosys_me',
-    creator: '@genosys_me',
+    site: '@genosys_official',
+    creator: '@genosys_official',
     title: 'Professional Training - GENOSYS Skincare Training',
     description: 'Professional training resources for GENOSYS skincare products. Download training documents, watch video lessons, and master professional techniques.',
     images: ['/images/genosys-logo.png'],

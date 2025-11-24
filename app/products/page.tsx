@@ -3,13 +3,35 @@ import ProductsPageClient from './ProductsPageClient'
 import BreadcrumbSchema from '@/components/BreadcrumbSchema'
 
 export const metadata: Metadata = {
-  title: 'GENOSYS Products - Professional Korean Dermacosmetics | Genosys Middle East FZ-LLC',
-  description: 'Explore our complete collection of professional Korean dermacosmetics. Premium skincare products for professional and home use. Microneedling devices, serums, creams, and more.',
-  keywords: 'GENOSYS products, Korean dermacosmetics, professional skincare, microneedling, serums, creams, UAE cosmetics',
+  title: 'GENOSYS Products - Professional Korean Dermacosmetics Collection UAE',
+  description: 'Shop GENOSYS professional Korean dermacosmetics. Complete collection of microneedling devices, serums, creams, masks & skincare solutions. Official distributor in UAE. Free shipping over 1000 AED.',
+  keywords: [
+    'GENOSYS products',
+    'Korean dermacosmetics',
+    'professional skincare UAE',
+    'microneedling devices',
+    'Korean skincare products',
+    'serums UAE',
+    'beauty creams Dubai',
+    'professional skincare Dubai',
+    'Korean cosmetics UAE'
+  ],
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
   openGraph: {
-    title: 'GENOSYS Products - Professional Korean Dermacosmetics',
-    description: 'Explore our complete collection of professional Korean dermacosmetics. Premium skincare products for professional and home use.',
+    title: 'GENOSYS Products - Professional Korean Dermacosmetics Collection UAE',
+    description: 'Shop GENOSYS professional Korean dermacosmetics. Complete collection of microneedling devices, serums, creams, masks & skincare solutions.',
     type: 'website',
+    url: 'https://genosys.ae/products',
     images: [
       {
         url: '/images/genosys-products.jpg',
@@ -21,10 +43,10 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    site: '@genosys_me',
-    creator: '@genosys_me',
-    title: 'GENOSYS Products - Professional Korean Dermacosmetics',
-    description: 'Explore our complete collection of professional Korean dermacosmetics. Premium skincare products for professional and home use.',
+    site: '@genosys_official',
+    creator: '@genosys_official',
+    title: 'GENOSYS Products - Professional Korean Dermacosmetics Collection UAE',
+    description: 'Shop GENOSYS professional Korean dermacosmetics. Complete collection of microneedling devices, serums, creams, and more.',
     images: ['/images/genosys-products.jpg'],
   },
   alternates: {

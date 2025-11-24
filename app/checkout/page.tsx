@@ -19,10 +19,18 @@ export const metadata: Metadata = {
       },
     ],
   },
+  robots: {
+    index: false,
+    follow: true,
+    googleBot: {
+      index: false,
+      follow: true,
+    },
+  },
   twitter: {
     card: 'summary_large_image',
-    site: '@genosys_me',
-    creator: '@genosys_me',
+    site: '@genosys_official',
+    creator: '@genosys_official',
     title: 'Secure Checkout - GENOSYS Professional Korean Dermacosmetics',
     description: 'Complete your GENOSYS professional Korean dermacosmetics order securely.',
     images: ['/images/genosys-products.jpg'],

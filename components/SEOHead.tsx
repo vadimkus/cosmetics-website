@@ -23,8 +23,8 @@ export default function SEOHead({
   ogImage = '/images/genosys-products.jpg',
   ogType = 'website',
   twitterCard = 'summary_large_image',
-  twitterSite = '@genosys_me',
-  twitterCreator = '@genosys_me',
+  twitterSite = '@genosys_official',
+  twitterCreator = '@genosys_official',
   noIndex = false,
   noFollow = false
 }: SEOHeadProps) {

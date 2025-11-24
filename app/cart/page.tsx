@@ -19,10 +19,18 @@ export const metadata: Metadata = {
       },
     ],
   },
+  robots: {
+    index: false,
+    follow: true,
+    googleBot: {
+      index: false,
+      follow: true,
+    },
+  },
   twitter: {
     card: 'summary_large_image',
-    site: '@genosys_me',
-    creator: '@genosys_me',
+    site: '@genosys_official',
+    creator: '@genosys_official',
     title: 'Shopping Cart - GENOSYS Professional Korean Dermacosmetics',
     description: 'Review your selected GENOSYS professional Korean dermacosmetics products.',
     images: ['/images/genosys-products.jpg'],

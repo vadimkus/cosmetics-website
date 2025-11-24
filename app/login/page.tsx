@@ -19,10 +19,18 @@ export const metadata: Metadata = {
       },
     ],
   },
+  robots: {
+    index: false,
+    follow: true,
+    googleBot: {
+      index: false,
+      follow: true,
+    },
+  },
   twitter: {
     card: 'summary_large_image',
-    site: '@genosys_me',
-    creator: '@genosys_me',
+    site: '@genosys_official',
+    creator: '@genosys_official',
     title: 'Login - GENOSYS Professional Korean Dermacosmetics',
     description: 'Access your GENOSYS professional account. Login to view prices and manage orders.',
     images: ['/images/genosys-products.jpg'],

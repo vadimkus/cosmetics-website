@@ -19,10 +19,18 @@ export const metadata: Metadata = {
       },
     ],
   },
+  robots: {
+    index: false,
+    follow: true,
+    googleBot: {
+      index: false,
+      follow: true,
+    },
+  },
   twitter: {
     card: 'summary_large_image',
-    site: '@genosys_me',
-    creator: '@genosys_me',
+    site: '@genosys_official',
+    creator: '@genosys_official',
     title: 'Order Success - GENOSYS Professional Korean Dermacosmetics',
     description: 'Your GENOSYS professional Korean dermacosmetics order has been successfully placed.',
     images: ['/images/genosys-products.jpg'],

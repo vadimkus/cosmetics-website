@@ -40,12 +40,18 @@ const nextConfig = {
         pathname: '/blog/**',
       },
     ],
-    formats: ['image/webp', 'image/avif'],
-    dangerouslyAllowSVG: true,
-    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
-    // Configure for Next.js 16 compatibility
+    // Optimize images with modern formats - AVIF first (better compression), then WebP fallback
+    formats: ['image/avif', 'image/webp'],
+    // Enable image optimization
     unoptimized: false,
     loader: 'default',
+    // Image optimization settings
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    // Minimum quality for AVIF (better compression than WebP)
+    minimumCacheTTL: 60,
+    dangerouslyAllowSVG: true,
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
   
   // Enhanced compiler options

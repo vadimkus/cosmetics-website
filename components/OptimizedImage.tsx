@@ -26,8 +26,8 @@ export default function OptimizedImage({
   height,
   className,
   priority = false,
-  quality = 75,
-  placeholder = 'empty',
+  quality = 85, // Increased default quality for better WebP/AVIF output
+  placeholder = 'blur', // Changed to blur for better UX
   blurDataURL,
   sizes,
   fill = false,
@@ -38,7 +38,7 @@ export default function OptimizedImage({
   const [imageError, setImageError] = useState(false)
   const [imageLoading, setImageLoading] = useState(true)
 
-  // Generate blur data URL if not provided
+  // Generate blur data URL if not provided - optimized for WebP/AVIF
   const defaultBlurDataURL = 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k='
 
   // Fallback image for errors - use a simple data URL
@@ -67,7 +67,7 @@ export default function OptimizedImage({
   const imageProps = {
     src: imageError ? fallbackSrc : src,
     alt,
-    className: cn(className, imageLoading && 'opacity-0'),
+    className: cn(className, imageLoading && 'opacity-0 transition-opacity duration-300'),
     priority,
     quality,
     placeholder,
@@ -76,6 +76,7 @@ export default function OptimizedImage({
     loading: priority ? 'eager' : loading,
     onError: handleError,
     onLoad: handleLoad,
+    // Ensure WebP/AVIF formats are used (handled by Next.js automatically)
     ...(fill ? { fill: true } : { width: width || 0, height: height || 0 })
   }
 

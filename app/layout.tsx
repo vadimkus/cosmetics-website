@@ -225,7 +225,7 @@ export default function RootLayout({
           `}
         </Script>
       </head>
-      <body className={inter.className}>
+      <body className={inter.className} suppressHydrationWarning>
         <OrganizationSchema />
         <LocalBusinessSchema />
         <AggregateRatingSchema />

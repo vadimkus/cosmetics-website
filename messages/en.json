@@ -290,7 +290,7 @@
     "na": "N/A"
   },
   "footer": {
-    "officialDistributor": "Official Distributor in the UAE",
+    "officialDistributor": "Official Distributor in the UAE.",
     "copyright": "© 2026 Genosys Middle East FZ-LLC. All rights reserved."
   },
   "partners": {
@@ -458,6 +458,7 @@
       "haveBlog": {
         "q": "Do you have a blog?",
         "a": "Yes! Our GENOSYS Blog features expert insights on Korean skincare, professional dermacosmetics, beauty industry trends, and product information. Learn about the latest innovations, skincare tips, ingredient benefits, and treatment protocols."
+      }
     }
   },
   "profile": {
@@ -598,8 +599,7 @@
     "errorDeletingAccount": "Error deleting account",
     "failedToCancelOrder": "Failed to cancel order",
     "settings": "Settings"
-  }
-},
+  },
   "training": {
     "title": "Professional Training",
     "subtitle": "GENOSYS Skincare Training Resources",
@@ -928,4 +928,3 @@
     "addToCart": "Add to Cart"
   }
 }
-

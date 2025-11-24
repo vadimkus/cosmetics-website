@@ -9,7 +9,7 @@ import { getLocalizedPath, getLocaleFromPath } from '@/lib/i18n'
 
 export default function Footer() {
   const pathname = usePathname()
-  const { t, locale, dir } = useTranslation()
+  const { t, locale } = useTranslation()
   // Read direction directly from window.location.pathname FIRST - this is always available
   // Then check DOM attributes set by blocking script
   // This ensures we get the correct value even if script hasn't run yet
@@ -130,7 +130,7 @@ export default function Footer() {
             </Link>
           </div>
           {/* Logo and Copyright */}
-          <div className={`flex flex-col items-center w-full ${footerDir === 'rtl' ? 'items-end md:items-center' : ''}`}>
+          <div className="flex flex-col items-center w-full">
             <Image
               src="/Logo/upLOGO.png"
               alt="GENOSYS Middle East FZ-LLC - Official Korean Dermacosmetics Distributor UAE"
@@ -142,10 +142,10 @@ export default function Footer() {
               placeholder="blur"
               blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
             />
-            <p className={`text-sm mt-1 w-full ${footerDir === 'rtl' ? 'text-right md:text-center' : 'text-center'}`} dir={footerDir}>
+            <p className="text-sm mt-1 w-full text-center" dir={footerDir}>
               {t('footer.officialDistributor')}
             </p>
-            <p className={`text-sm mt-2 w-full ${footerDir === 'rtl' ? 'text-right md:text-center' : 'text-center'}`} dir={footerDir}>
+            <p className="text-sm mt-2 w-full text-center" dir={footerDir}>
               {t('footer.copyright')}
             </p>
           </div>

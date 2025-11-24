@@ -406,5 +406,17 @@ export const partnersData: Partner[] = [
     directions: "https://www.google.com/maps/dir//Al+Saqr+Business+Tower+-+Trade+Center+Second+-+DIFC+-+Dubai/@25.2139349,55.1956632,12z/data=!4m8!4m7!1m0!1m5!1m1!1s0x3e5f439c6c9f96a5:0x7ac63fa8a8735ce!2m2!1d55.2780647!2d25.2139577?entry=ttu&g_ep=EgoyMDI1MTExNy4wIKXMDSoASAFQAw%3D%3D",
     logo: "/images/partners/lips.png",
     theme: "purple"
+  },
+  {
+    id: "body-mind-city-walk",
+    name: "Body & Mind City Walk | Ladies Beauty Salon and Body Academy, Dubai City Walk",
+    type: "Ladies Beauty Salon and Body Academy",
+    description: "Premium class beauty academy offering comprehensive beauty services, body treatments, and professional training. A unique closed space for women only, providing conscious fitness, innovative cosmetology equipment, and expert care.",
+    location: "Walk building, 16 - Dubai City Walk - Dubai",
+    phone: "+971 58 584 7721",
+    website: "https://luxbody.ae/",
+    directions: "https://www.google.com/maps?s=web&sca_esv=d12c0c5e497b4209&lqi=ChNib2R5IGFuZCBtaW5kIGR1YmFpSMjR-5WtsoCACFo1EAAQARACEAMYABgBGAIYAyITYm9keSBhbmQgbWluZCBkdWJhaSoKCAIQABABEAIQAzICZW6SAQxiZWF1dHlfc2Fsb26aASNDaFpEU1VoTk1HOW5TMFZKUTBGblRVTlJialZIUjBabkVBRfoBBAgAEDg&vet=12ahUKEwj8pbCQwYqRAxVY8LsIHRpzIrUQ1YkKegQILBAB..i&cs=0&um=1&ie=UTF-8&fb=1&gl=ae&sa=X&geocode=KWHVBYTj6PtvMezQZ8Rms45v&daddr=Walk+building,+16+-+Dubai",
+    logo: "/images/partners/bodymind.png",
+    theme: "purple"
   }
 ];

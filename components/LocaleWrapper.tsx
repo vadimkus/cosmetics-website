@@ -10,9 +10,11 @@ export default function LocaleWrapper({ children }: { children: React.ReactNode 
   const dir = locale === 'ar' ? 'rtl' : 'ltr'
 
   useEffect(() => {
-    // Update html lang and dir attributes
-    document.documentElement.lang = locale === 'ar' ? 'ar' : 'en'
-    document.documentElement.dir = dir
+    // Ensure html lang and dir attributes are correct (backup in case script didn't run)
+    if (document.documentElement.lang !== locale && document.documentElement.dir !== dir) {
+      document.documentElement.lang = locale === 'ar' ? 'ar' : 'en'
+      document.documentElement.dir = dir
+    }
   }, [locale, dir])
 
   return <>{children}</>

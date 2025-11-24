@@ -19,21 +19,122 @@ body {
   line-height: 1.6;
 }
 
-/* RTL Support for Arabic */
-[dir="rtl"] {
-  direction: rtl;
+/* RTL Support for Arabic - Multiple selectors to ensure it works */
+[dir="rtl"],
+html[dir="rtl"],
+html[data-dir="rtl"],
+body[data-dir="rtl"] {
+  direction: rtl !important;
 }
 
-[dir="rtl"] .container {
-  direction: rtl;
+[dir="rtl"] .container,
+html[dir="rtl"] .container,
+html[data-dir="rtl"] .container {
+  direction: rtl !important;
 }
 
-[dir="rtl"] nav {
-  direction: rtl;
+[dir="rtl"] nav,
+html[dir="rtl"] nav,
+html[data-dir="rtl"] nav {
+  direction: rtl !important;
 }
 
-[dir="rtl"] .flex {
-  flex-direction: row-reverse;
+[dir="rtl"] .flex,
+html[dir="rtl"] .flex,
+html[data-dir="rtl"] .flex {
+  flex-direction: row-reverse !important;
+}
+
+/* Force RTL layout for header and footer on Arabic pages - Multiple selectors */
+html[dir="rtl"] header,
+html[dir="rtl"] footer,
+html[data-dir="rtl"] header,
+html[data-dir="rtl"] footer,
+body[data-dir="rtl"] header,
+body[data-dir="rtl"] footer {
+  direction: rtl !important;
+}
+
+html[dir="rtl"] header .flex,
+html[dir="rtl"] footer .flex,
+html[dir="rtl"] header > div > div,
+html[dir="rtl"] footer > div > div,
+html[data-dir="rtl"] header .flex,
+html[data-dir="rtl"] footer .flex,
+html[data-dir="rtl"] header > div > div,
+html[data-dir="rtl"] footer > div > div {
+  flex-direction: row-reverse !important;
+}
+
+html[dir="rtl"] header nav,
+html[dir="rtl"] footer nav,
+html[data-dir="rtl"] header nav,
+html[data-dir="rtl"] footer nav {
+  direction: rtl !important;
+}
+
+/* Ensure text alignment for RTL */
+html[dir="rtl"] header,
+html[dir="rtl"] footer,
+html[data-dir="rtl"] header,
+html[data-dir="rtl"] footer {
+  text-align: right !important;
+}
+
+html[dir="rtl"] header .text-left,
+html[dir="rtl"] footer .text-left,
+html[data-dir="rtl"] header .text-left,
+html[data-dir="rtl"] footer .text-left {
+  text-align: right !important;
+}
+
+/* Mobile footer RTL improvements */
+@media (max-width: 768px) {
+  html[dir="rtl"] footer,
+  html[data-dir="rtl"] footer {
+    text-align: right !important;
+  }
+  
+  html[dir="rtl"] footer > div > div,
+  html[data-dir="rtl"] footer > div > div {
+    align-items: flex-end !important;
+  }
+  
+  html[dir="rtl"] footer a,
+  html[data-dir="rtl"] footer a {
+    text-align: right !important;
+    justify-content: flex-end !important;
+  }
+  
+  /* Ensure footer links wrap properly on mobile */
+  html[dir="rtl"] footer .flex-wrap,
+  html[data-dir="rtl"] footer .flex-wrap {
+    justify-content: center !important;
+  }
+  
+  /* Center logo on mobile but keep text right-aligned for RTL */
+  html[dir="rtl"] footer img,
+  html[data-dir="rtl"] footer img {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* Force RTL for all flex containers in RTL mode */
+html[dir="rtl"] .flex-row,
+html[data-dir="rtl"] .flex-row {
+  flex-direction: row-reverse !important;
+}
+
+html[dir="rtl"] .space-x-2,
+html[dir="rtl"] .space-x-4,
+html[dir="rtl"] .space-x-6,
+html[dir="rtl"] .space-x-8,
+html[data-dir="rtl"] .space-x-2,
+html[data-dir="rtl"] .space-x-4,
+html[data-dir="rtl"] .space-x-6,
+html[data-dir="rtl"] .space-x-8 {
+  flex-direction: row-reverse !important;
 }
 
 [dir="rtl"] .space-x-8 > * + * {

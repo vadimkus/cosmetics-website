@@ -11,6 +11,8 @@ import { errorLog } from '@/lib/logger'
 import BreadcrumbSchema from '@/components/BreadcrumbSchema'
 import { calculateDiscountedPrice, canUserSeePrices } from '@/lib/discountUtils'
 import { Product } from '@/types'
+import { useTranslation } from '@/hooks/useTranslation'
+import { getLocalizedPath } from '@/lib/i18n'
 
 // Extended Product interface for skin recommendations
 interface SkinRecommendationProduct extends Product {
@@ -20,147 +22,8 @@ interface SkinRecommendationProduct extends Product {
   ageGroup?: string | null
 }
 
-// Skin types with detailed descriptions
-const SKIN_TYPES = [
-  { 
-    value: 'dry', 
-    label: 'Dry Skin', 
-    icon: '🌵',
-    description: 'Skin that lacks moisture and may feel tight or flaky. Often has a rough texture, visible fine lines, and may appear dull.',
-    tips: 'Focus on intensive hydration and barrier repair products with hyaluronic acid and ceramides.'
-  },
-  { 
-    value: 'oily', 
-    label: 'Oily Skin', 
-    icon: '💧',
-    description: 'Skin that produces excess oil and may appear shiny, especially in the T-zone. Often has enlarged pores and is prone to blackheads and acne.',
-    tips: 'Use oil-controlling and mattifying products with salicylic acid or niacinamide to balance sebum production.'
-  },
-  { 
-    value: 'combination', 
-    label: 'Combination Skin', 
-    icon: '⚖️',
-    description: 'Skin that is oily in some areas (like T-zone) and dry in others. The forehead, nose, and chin may be oily while cheeks are dry.',
-    tips: 'Use targeted care with different products for different areas, or balanced formulas that address both concerns.'
-  },
-  { 
-    value: 'normal', 
-    label: 'Normal Skin', 
-    icon: '✨',
-    description: 'Well-balanced skin that is neither too oily nor too dry. Has a smooth texture, small pores, and good circulation.',
-    tips: 'Maintain your skin\'s natural balance with gentle, balanced products that preserve the skin\'s equilibrium.'
-  },
-  { 
-    value: 'sensitive', 
-    label: 'Sensitive Skin', 
-    icon: '🤲',
-    description: 'Skin that reacts easily to products and environmental factors. Often experiences redness, irritation, burning, or stinging.',
-    tips: 'Use hypoallergenic, fragrance-free products with soothing ingredients like aloe, chamomile, and centella asiatica.'
-  }
-]
-
-// Age groups with skincare focus
-const AGE_GROUPS = [
-  { 
-    value: 'teen', 
-    label: 'Teen (13-19)', 
-    icon: '🎓',
-    focus: 'Acne prevention, oil control, and establishing a basic routine',
-    targetConcerns: ['acne-blemishes', 'hydration', 'pore-care'] 
-  },
-  { 
-    value: 'young-adult', 
-    label: 'Young Adult (20-29)', 
-    icon: '🌟',
-    focus: 'Prevention, hydration, and early anti-aging',
-    targetConcerns: ['acne-blemishes', 'hydration', 'brightening', 'pore-care'] 
-  },
-  { 
-    value: 'adult', 
-    label: 'Adult (30-39)', 
-    icon: '💼',
-    focus: 'Anti-aging prevention, hydration, and skin repair',
-    targetConcerns: ['anti-aging', 'hydration', 'brightening', 'sensitivity'] 
-  },
-  { 
-    value: 'mature', 
-    label: 'Mature (40+)', 
-    icon: '👑',
-    focus: 'Advanced anti-aging, firming, and intensive repair',
-    targetConcerns: ['anti-aging', 'hydration', 'sensitivity', 'eye-care'] 
-  }
-]
-
-// Target concerns with detailed information
-const TARGET_CONCERNS = [
-  { 
-    value: 'anti-aging', 
-    label: 'Anti-Aging', 
-    icon: '🕰️',
-    description: 'Reduce fine lines, wrinkles, and signs of aging',
-    keyIngredients: 'Retinol, peptides, bakuchiol, vitamin C'
-  },
-  { 
-    value: 'acne-blemishes', 
-    label: 'Acne & Blemishes', 
-    icon: '🎯',
-    description: 'Clear acne, reduce blemishes, and prevent breakouts',
-    keyIngredients: 'Salicylic acid, benzoyl peroxide, niacinamide, tea tree'
-  },
-  { 
-    value: 'hydration', 
-    label: 'Hydration', 
-    icon: '💧',
-    description: 'Boost moisture levels and prevent dehydration',
-    keyIngredients: 'Hyaluronic acid, ceramides, glycerin, squalane'
-  },
-  { 
-    value: 'brightening', 
-    label: 'Brightening', 
-    icon: '✨',
-    description: 'Even skin tone and reduce dark spots',
-    keyIngredients: 'Vitamin C, niacinamide, arbutin, licorice root'
-  },
-  { 
-    value: 'sensitivity', 
-    label: 'Sensitivity', 
-    icon: '🤲',
-    description: 'Calm and soothe sensitive, reactive skin',
-    keyIngredients: 'Centella asiatica, aloe vera, chamomile, allantoin'
-  },
-  { 
-    value: 'pore-care', 
-    label: 'Pore Care', 
-    icon: '🔍',
-    description: 'Minimize pores and improve skin texture',
-    keyIngredients: 'Salicylic acid, niacinamide, retinol, AHA/BHA'
-  },
-  { 
-    value: 'eye-care', 
-    label: 'Eye Care', 
-    icon: '👁️',
-    description: 'Target under-eye concerns and crow\'s feet',
-    keyIngredients: 'Peptides, caffeine, retinol, vitamin K'
-  },
-  { 
-    value: 'hair', 
-    label: 'Hair Care', 
-    icon: '💇‍♀️',
-    description: 'Hair care products including shampoo, tonic, and solutions',
-    keyIngredients: 'Biotin, peptides, natural extracts'
-  }
-]
-
-// Usage options
-const USAGE_OPTIONS = [
-  { value: 'morning', label: 'Morning', icon: '🌅', description: 'Start your day with protection and hydration' },
-  { value: 'evening', label: 'Evening', icon: '🌙', description: 'Repair and restore while you sleep' },
-  { value: 'all-day', label: 'All Day', icon: '☀️', description: 'Products you can use anytime' },
-  { value: 'morning-evening', label: 'Morning & Evening', icon: '🔄', description: 'Complete daily routine' }
-]
-
-
 export default function SkinRecommendationPage() {
+  const { t, locale, dir } = useTranslation()
   const { user } = useAuth()
   const { addItem } = useCart()
   const { toggleFavorite, isFavorite } = useFavorites()
@@ -173,6 +36,142 @@ export default function SkinRecommendationPage() {
   const [isLoading, setIsLoading] = useState(false)
   const [showResults, setShowResults] = useState(false)
   const [currentStep, setCurrentStep] = useState(1)
+
+  // Get translated data arrays
+  const SKIN_TYPES = [
+    { 
+      value: 'dry', 
+      label: t('skinRecommendation.drySkin'), 
+      icon: '🌵',
+      description: t('skinRecommendation.drySkinDescription'),
+      tips: t('skinRecommendation.drySkinTips')
+    },
+    { 
+      value: 'oily', 
+      label: t('skinRecommendation.oilySkin'), 
+      icon: '💧',
+      description: t('skinRecommendation.oilySkinDescription'),
+      tips: t('skinRecommendation.oilySkinTips')
+    },
+    { 
+      value: 'combination', 
+      label: t('skinRecommendation.combinationSkin'), 
+      icon: '⚖️',
+      description: t('skinRecommendation.combinationSkinDescription'),
+      tips: t('skinRecommendation.combinationSkinTips')
+    },
+    { 
+      value: 'normal', 
+      label: t('skinRecommendation.normalSkin'), 
+      icon: '✨',
+      description: t('skinRecommendation.normalSkinDescription'),
+      tips: t('skinRecommendation.normalSkinTips')
+    },
+    { 
+      value: 'sensitive', 
+      label: t('skinRecommendation.sensitiveSkin'), 
+      icon: '🤲',
+      description: t('skinRecommendation.sensitiveSkinDescription'),
+      tips: t('skinRecommendation.sensitiveSkinTips')
+    }
+  ]
+
+  const AGE_GROUPS = [
+    { 
+      value: 'teen', 
+      label: t('skinRecommendation.teen'), 
+      icon: '🎓',
+      focus: t('skinRecommendation.teenFocus'),
+      targetConcerns: ['acne-blemishes', 'hydration', 'pore-care'] 
+    },
+    { 
+      value: 'young-adult', 
+      label: t('skinRecommendation.youngAdult'), 
+      icon: '🌟',
+      focus: t('skinRecommendation.youngAdultFocus'),
+      targetConcerns: ['acne-blemishes', 'hydration', 'brightening', 'pore-care'] 
+    },
+    { 
+      value: 'adult', 
+      label: t('skinRecommendation.adult'), 
+      icon: '💼',
+      focus: t('skinRecommendation.adultFocus'),
+      targetConcerns: ['anti-aging', 'hydration', 'brightening', 'sensitivity'] 
+    },
+    { 
+      value: 'mature', 
+      label: t('skinRecommendation.mature'), 
+      icon: '👑',
+      focus: t('skinRecommendation.matureFocus'),
+      targetConcerns: ['anti-aging', 'hydration', 'sensitivity', 'eye-care'] 
+    }
+  ]
+
+  const TARGET_CONCERNS = [
+    { 
+      value: 'anti-aging', 
+      label: t('skinRecommendation.antiAging'), 
+      icon: '🕰️',
+      description: t('skinRecommendation.antiAgingDescription'),
+      keyIngredients: t('skinRecommendation.antiAgingIngredients')
+    },
+    { 
+      value: 'acne-blemishes', 
+      label: t('skinRecommendation.acneBlemishes'), 
+      icon: '🎯',
+      description: t('skinRecommendation.acneBlemishesDescription'),
+      keyIngredients: t('skinRecommendation.acneBlemishesIngredients')
+    },
+    { 
+      value: 'hydration', 
+      label: t('skinRecommendation.hydration'), 
+      icon: '💧',
+      description: t('skinRecommendation.hydrationDescription'),
+      keyIngredients: t('skinRecommendation.hydrationIngredients')
+    },
+    { 
+      value: 'brightening', 
+      label: t('skinRecommendation.brightening'), 
+      icon: '✨',
+      description: t('skinRecommendation.brighteningDescription'),
+      keyIngredients: t('skinRecommendation.brighteningIngredients')
+    },
+    { 
+      value: 'sensitivity', 
+      label: t('skinRecommendation.sensitivity'), 
+      icon: '🤲',
+      description: t('skinRecommendation.sensitivityDescription'),
+      keyIngredients: t('skinRecommendation.sensitivityIngredients')
+    },
+    { 
+      value: 'pore-care', 
+      label: t('skinRecommendation.poreCare'), 
+      icon: '🔍',
+      description: t('skinRecommendation.poreCareDescription'),
+      keyIngredients: t('skinRecommendation.poreCareIngredients')
+    },
+    { 
+      value: 'eye-care', 
+      label: t('skinRecommendation.eyeCare'), 
+      icon: '👁️',
+      description: t('skinRecommendation.eyeCareDescription'),
+      keyIngredients: t('skinRecommendation.eyeCareIngredients')
+    },
+    { 
+      value: 'hair', 
+      label: t('skinRecommendation.hairCare'), 
+      icon: '💇‍♀️',
+      description: t('skinRecommendation.hairCareDescription'),
+      keyIngredients: t('skinRecommendation.hairCareIngredients')
+    }
+  ]
+
+  const USAGE_OPTIONS = [
+    { value: 'morning', label: t('skinRecommendation.morning'), icon: '🌅', description: t('skinRecommendation.morningDescription') },
+    { value: 'evening', label: t('skinRecommendation.evening'), icon: '🌙', description: t('skinRecommendation.eveningDescription') },
+    { value: 'all-day', label: t('skinRecommendation.allDay'), icon: '☀️', description: t('skinRecommendation.allDayDescription') },
+    { value: 'morning-evening', label: t('skinRecommendation.morningEvening'), icon: '🔄', description: t('skinRecommendation.morningEveningDescription') }
+  ]
 
   const handleTargetConcernToggle = (concern: string) => {
     setSelectedTargetConcerns(prev => 
@@ -205,7 +204,7 @@ export default function SkinRecommendationPage() {
       window.scrollTo({ top: 0, behavior: 'smooth' })
     } catch (error) {
       errorLog('Error fetching recommendations:', error)
-      alert('Failed to load recommendations. Please try again.')
+      alert(t('skinRecommendation.failedToLoadRecommendations'))
     } finally {
       setIsLoading(false)
     }
@@ -213,7 +212,7 @@ export default function SkinRecommendationPage() {
 
   const handleAddToCart = (product: SkinRecommendationProduct) => {
     if (!user) {
-      window.location.href = '/login'
+      window.location.href = getLocalizedPath('/login', locale)
       return
     }
     addItem(product, 1, '', '')
@@ -257,25 +256,25 @@ export default function SkinRecommendationPage() {
   const getRecommendationReason = (product: SkinRecommendationProduct): string => {
     const reasons: string[] = []
     if (product.skinType === selectedSkinType) {
-      reasons.push(`Perfect for ${SKIN_TYPES.find(t => t.value === selectedSkinType)?.label.toLowerCase()}`)
+      reasons.push(`${t('skinRecommendation.perfectFor')} ${SKIN_TYPES.find(st => st.value === selectedSkinType)?.label.toLowerCase()}`)
     }
     const concerns = getProductConcerns(product)
     const matchedConcerns = concerns.filter(c => selectedTargetConcerns.includes(c))
     if (matchedConcerns.length > 0) {
-      reasons.push(`Targets: ${matchedConcerns.map(c => TARGET_CONCERNS.find(tc => tc.value === c)?.label).join(', ')}`)
+      reasons.push(`${t('skinRecommendation.targets')}: ${matchedConcerns.map(c => TARGET_CONCERNS.find(tc => tc.value === c)?.label).join(', ')}`)
     }
     if (product.ageGroup === selectedAgeGroup) {
-      reasons.push(`Ideal for ${AGE_GROUPS.find(a => a.value === selectedAgeGroup)?.label.toLowerCase()}`)
+      reasons.push(`${t('skinRecommendation.idealFor')} ${AGE_GROUPS.find(a => a.value === selectedAgeGroup)?.label.toLowerCase()}`)
     }
-    return reasons.join(' • ') || 'Recommended for your skin profile'
+    return reasons.join(' • ') || t('skinRecommendation.recommendedForSkinProfile')
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white" dir={dir}>
       <BreadcrumbSchema 
         items={[
-          { name: 'Home', url: '/' },
-          { name: 'Skin Recommendation', url: '/skin-recommendation' }
+          { name: t('common.home'), url: getLocalizedPath('/', locale) },
+          { name: t('profile.skinRecommendation'), url: getLocalizedPath('/skin-recommendation', locale) }
         ]}
       />
 
@@ -287,18 +286,18 @@ export default function SkinRecommendationPage() {
               <Sparkles className="w-10 h-10 text-primary-600" />
             </div>
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              Personalized Skin Recommendation
+              {t('skinRecommendation.title')}
             </h1>
             <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
-              Discover the perfect GENOSYS products tailored to your unique skin needs. Our AI-powered recommendation system analyzes your skin profile to suggest the best professional Korean dermacosmetics.
+              {t('skinRecommendation.subtitle')}
             </p>
           </div>
 
           {/* Progress Indicator */}
           <div className="mb-8">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-sm font-medium text-gray-700">Step {currentStep} of 4</span>
-              <span className="text-sm text-gray-500">{Math.round((currentStep / 4) * 100)}% Complete</span>
+            <div className={`flex items-center justify-between mb-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+              <span className="text-sm font-medium text-gray-700">{t('skinRecommendation.step')} {currentStep} {t('skinRecommendation.of')} 4</span>
+              <span className="text-sm text-gray-500">{Math.round((currentStep / 4) * 100)}% {t('skinRecommendation.complete')}</span>
             </div>
             <div className="w-full bg-gray-200 rounded-full h-2">
               <div 
@@ -316,9 +315,9 @@ export default function SkinRecommendationPage() {
                 <div className="flex items-center justify-center w-10 h-10 bg-primary-100 rounded-full text-primary-600 font-bold">
                   1
                 </div>
-                <h2 className="text-2xl md:text-3xl font-bold text-gray-900">What&apos;s your skin type?</h2>
+                <h2 className="text-2xl md:text-3xl font-bold text-gray-900">{t('skinRecommendation.whatsYourSkinType')}</h2>
               </div>
-              <p className="text-gray-600 mb-6">Select the option that best describes your skin</p>
+              <p className="text-gray-600 mb-6">{t('skinRecommendation.selectBestDescribes')}</p>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {SKIN_TYPES.map((skinType) => (
                   <button
@@ -328,7 +327,7 @@ export default function SkinRecommendationPage() {
                       setSelectedSkinType(skinType.value)
                       setCurrentStep(2)
                     }}
-                    className={`p-6 rounded-xl border-2 transition-all duration-200 text-left group ${
+                    className={`p-6 rounded-xl border-2 transition-all duration-200 ${dir === 'rtl' ? 'text-right' : 'text-left'} group ${
                       selectedSkinType === skinType.value
                         ? 'border-primary-500 bg-primary-50 shadow-md'
                         : 'border-gray-200 hover:border-primary-300 hover:bg-gray-50'
@@ -359,9 +358,9 @@ export default function SkinRecommendationPage() {
                   <div className="flex items-center justify-center w-10 h-10 bg-primary-100 rounded-full text-primary-600 font-bold">
                     2
                   </div>
-                  <h2 className="text-2xl md:text-3xl font-bold text-gray-900">What&apos;s your age group?</h2>
+                  <h2 className="text-2xl md:text-3xl font-bold text-gray-900">{t('skinRecommendation.whatsYourAgeGroup')}</h2>
                 </div>
-                <p className="text-gray-600 mb-6">This helps us recommend age-appropriate products</p>
+                <p className="text-gray-600 mb-6">{t('skinRecommendation.helpsRecommendAgeAppropriate')}</p>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {AGE_GROUPS.map((ageGroup) => (
                     <button
@@ -371,7 +370,7 @@ export default function SkinRecommendationPage() {
                         setSelectedAgeGroup(ageGroup.value)
                         setCurrentStep(3)
                       }}
-                      className={`p-6 rounded-xl border-2 transition-all duration-200 text-left ${
+                      className={`p-6 rounded-xl border-2 transition-all duration-200 ${dir === 'rtl' ? 'text-right' : 'text-left'} ${
                         selectedAgeGroup === ageGroup.value
                           ? 'border-primary-500 bg-primary-50 shadow-md'
                           : 'border-gray-200 hover:border-primary-300 hover:bg-gray-50'
@@ -395,9 +394,9 @@ export default function SkinRecommendationPage() {
                   <div className="flex items-center justify-center w-10 h-10 bg-primary-100 rounded-full text-primary-600 font-bold">
                     3
                   </div>
-                  <h2 className="text-2xl md:text-3xl font-bold text-gray-900">What are your main skin concerns?</h2>
+                  <h2 className="text-2xl md:text-3xl font-bold text-gray-900">{t('skinRecommendation.whatAreMainConcerns')}</h2>
                 </div>
-                <p className="text-gray-600 mb-6">Select all that apply - we&apos;ll find products that address these</p>
+                <p className="text-gray-600 mb-6">{t('skinRecommendation.selectAllThatApply')}</p>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                   {TARGET_CONCERNS.map((concern) => (
                     <button
@@ -407,7 +406,7 @@ export default function SkinRecommendationPage() {
                         handleTargetConcernToggle(concern.value)
                         setCurrentStep(4)
                       }}
-                      className={`p-5 rounded-xl border-2 transition-all duration-200 text-left ${
+                      className={`p-5 rounded-xl border-2 transition-all duration-200 ${dir === 'rtl' ? 'text-right' : 'text-left'} ${
                         selectedTargetConcerns.includes(concern.value)
                           ? 'border-primary-500 bg-primary-50 shadow-md'
                           : 'border-gray-200 hover:border-primary-300 hover:bg-gray-50'
@@ -420,7 +419,7 @@ export default function SkinRecommendationPage() {
                       <p className="text-xs text-gray-600 mb-2">{concern.description}</p>
                       {selectedTargetConcerns.includes(concern.value) && concern.keyIngredients && (
                         <div className="mt-2 pt-2 border-t border-primary-200">
-                          <p className="text-xs text-primary-700 font-medium">Key ingredients: {concern.keyIngredients}</p>
+                          <p className="text-xs text-primary-700 font-medium">{t('skinRecommendation.keyIngredients')}: {concern.keyIngredients}</p>
                         </div>
                       )}
                     </button>
@@ -436,9 +435,9 @@ export default function SkinRecommendationPage() {
                   <div className="flex items-center justify-center w-10 h-10 bg-primary-100 rounded-full text-primary-600 font-bold">
                     4
                   </div>
-                  <h2 className="text-2xl md:text-3xl font-bold text-gray-900">When do you prefer to use skincare?</h2>
+                  <h2 className="text-2xl md:text-3xl font-bold text-gray-900">{t('skinRecommendation.whenPreferUseSkincare')}</h2>
                 </div>
-                <p className="text-gray-600 mb-6">This helps us recommend products for your routine</p>
+                <p className="text-gray-600 mb-6">{t('skinRecommendation.helpsRecommendRoutine')}</p>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                   {USAGE_OPTIONS.map((usage) => (
                     <button
@@ -471,18 +470,18 @@ export default function SkinRecommendationPage() {
                   {isLoading ? (
                     <>
                       <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
-                      Getting Recommendations...
+                      {t('skinRecommendation.gettingRecommendations')}
                     </>
                   ) : (
                     <>
-                      Get My Recommendations
-                      <ArrowRight className="w-5 h-5" />
+                      {t('skinRecommendation.getMyRecommendations')}
+                      <ArrowRight className={`w-5 h-5 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
                     </>
                   )}
                 </button>
                 {!selectedTargetConcerns.length && selectedSkinType && (
                   <p className="text-sm text-gray-500 mt-4">
-                    💡 Tip: Selecting skin concerns will give you more targeted recommendations
+                    {t('skinRecommendation.tipSelectingConcerns')}
                   </p>
                 )}
               </div>
@@ -497,40 +496,40 @@ export default function SkinRecommendationPage() {
               <CheckCircle2 className="w-8 h-8 text-green-600" />
             </div>
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              Your Personalized Recommendations
+              {t('skinRecommendation.yourPersonalizedRecommendations')}
             </h1>
             
             {/* Selection Summary */}
             <div className="bg-white rounded-2xl border border-gray-200 p-6 mb-8 max-w-3xl mx-auto shadow-sm">
-              <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
+              <h2 className={`text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                 <Info className="w-5 h-5 text-primary-600" />
-                Your Skin Profile
+                {t('skinRecommendation.yourSkinProfile')}
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                 <div className="bg-gray-50 rounded-lg p-4">
-                  <div className="text-sm font-medium text-gray-600 mb-1">Skin Type</div>
-                  <div className="text-lg text-primary-600 font-semibold capitalize flex items-center gap-2">
+                  <div className={`text-sm font-medium text-gray-600 mb-1 ${dir === 'rtl' ? 'text-right' : ''}`}>{t('skinRecommendation.skinType')}</div>
+                  <div className={`text-lg text-primary-600 font-semibold capitalize flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                     {SKIN_TYPES.find(type => type.value === selectedSkinType)?.icon}
                     {SKIN_TYPES.find(type => type.value === selectedSkinType)?.label || selectedSkinType}
                   </div>
                 </div>
                 <div className="bg-gray-50 rounded-lg p-4">
-                  <div className="text-sm font-medium text-gray-600 mb-1">Age Group</div>
-                  <div className="text-lg text-primary-600 font-semibold flex items-center gap-2">
+                  <div className={`text-sm font-medium text-gray-600 mb-1 ${dir === 'rtl' ? 'text-right' : ''}`}>{t('skinRecommendation.ageGroup')}</div>
+                  <div className={`text-lg text-primary-600 font-semibold flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                     {AGE_GROUPS.find(age => age.value === selectedAgeGroup)?.icon}
-                    {AGE_GROUPS.find(age => age.value === selectedAgeGroup)?.label || 'Any Age'}
+                    {AGE_GROUPS.find(age => age.value === selectedAgeGroup)?.label || t('skinRecommendation.anyAge')}
                   </div>
                 </div>
               </div>
               
               {selectedTargetConcerns.length > 0 && (
                 <div className="pt-4 border-t border-gray-200">
-                  <div className="text-sm font-medium text-gray-600 mb-3">Target Concerns</div>
-                  <div className="flex flex-wrap gap-2">
+                  <div className={`text-sm font-medium text-gray-600 mb-3 ${dir === 'rtl' ? 'text-right' : ''}`}>{t('skinRecommendation.targetConcerns')}</div>
+                  <div className={`flex flex-wrap gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                     {selectedTargetConcerns.map(concern => {
                       const concernData = TARGET_CONCERNS.find(c => c.value === concern)
                       return (
-                        <span key={concern} className="bg-primary-100 text-primary-800 px-3 py-1.5 rounded-full text-sm font-medium flex items-center gap-1">
+                        <span key={concern} className={`bg-primary-100 text-primary-800 px-3 py-1.5 rounded-full text-sm font-medium flex items-center gap-1 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                           {concernData?.icon} {concernData?.label}
                         </span>
                       )
@@ -541,14 +540,14 @@ export default function SkinRecommendationPage() {
             </div>
             
             <p className="text-lg text-gray-600 mb-6">
-              We found <span className="font-bold text-primary-600">{recommendations.length}</span> products perfect for your {SKIN_TYPES.find(type => type.value === selectedSkinType)?.label?.toLowerCase() || selectedSkinType} skin
+              {t('skinRecommendation.weFound')} <span className="font-bold text-primary-600">{recommendations.length}</span> {t('skinRecommendation.productsPerfectFor')} {SKIN_TYPES.find(type => type.value === selectedSkinType)?.label?.toLowerCase() || selectedSkinType} {t('skinRecommendation.skin')}
             </p>
             <button
               onClick={resetForm}
-              className="text-primary-600 hover:text-primary-700 underline font-medium inline-flex items-center gap-1"
+              className={`text-primary-600 hover:text-primary-700 underline font-medium inline-flex items-center gap-1 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
             >
-              Start Over
-              <ArrowRight className="w-4 h-4 rotate-180" />
+              {t('skinRecommendation.startOver')}
+              <ArrowRight className={`w-4 h-4 ${dir === 'rtl' ? '' : 'rotate-180'}`} />
             </button>
           </div>
 
@@ -557,7 +556,7 @@ export default function SkinRecommendationPage() {
             <div className="space-y-12">
               {Object.entries(groupedProducts).map(([category, products]) => (
                 <div key={category} className="bg-white rounded-2xl border border-gray-200 p-6 md:p-8 shadow-sm">
-                  <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+                  <h2 className={`text-2xl md:text-3xl font-bold text-gray-900 mb-6 flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                     <Sparkles className="w-6 h-6 text-primary-600" />
                     {category}
                     <span className="text-lg font-normal text-gray-500">({products.length})</span>
@@ -573,7 +572,7 @@ export default function SkinRecommendationPage() {
                           key={product.id}
                           className="bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-lg transition-all duration-300 group"
                         >
-                          <Link href={`/products/${product.id}`}>
+                          <Link href={getLocalizedPath(`/products/${product.id}`, locale)}>
                             <div className="relative aspect-square bg-gray-100">
                               <Image
                                 src={product.image}
@@ -588,7 +587,7 @@ export default function SkinRecommendationPage() {
                                   e.stopPropagation()
                                   toggleFavorite(product)
                                 }}
-                                className="absolute top-3 right-3 p-2 bg-white/90 backdrop-blur-sm rounded-full hover:bg-white transition-colors z-10"
+                                className={`absolute top-3 ${dir === 'rtl' ? 'left-3' : 'right-3'} p-2 bg-white/90 backdrop-blur-sm rounded-full hover:bg-white transition-colors z-10`}
                               >
                                 <Heart
                                   className={`w-5 h-5 ${
@@ -610,26 +609,26 @@ export default function SkinRecommendationPage() {
                           </Link>
                           
                           <div className="p-5">
-                            <Link href={`/products/${product.id}`}>
-                              <h3 className="font-bold text-lg text-gray-900 mb-2 line-clamp-2 hover:text-primary-600 transition-colors">
+                            <Link href={getLocalizedPath(`/products/${product.id}`, locale)}>
+                              <h3 className={`font-bold text-lg text-gray-900 mb-2 line-clamp-2 hover:text-primary-600 transition-colors ${dir === 'rtl' ? 'text-right' : ''}`}>
                                 {product.name}
                               </h3>
                             </Link>
                             
                             {/* Recommendation Reason */}
                             <div className="mb-3">
-                              <p className="text-xs text-primary-700 bg-primary-50 rounded-lg px-2 py-1.5 line-clamp-2">
+                              <p className={`text-xs text-primary-700 bg-primary-50 rounded-lg px-2 py-1.5 line-clamp-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
                                 {getRecommendationReason(product)}
                               </p>
                             </div>
                             
                             {/* Product Concerns */}
                             {productConcerns.length > 0 && (
-                              <div className="flex flex-wrap gap-1 mb-3">
+                              <div className={`flex flex-wrap gap-1 mb-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                                 {productConcerns.slice(0, 3).map(concern => {
                                   const concernData = TARGET_CONCERNS.find(tc => tc.value === concern)
                                   return concernData ? (
-                                    <span key={concern} className="text-xs bg-gray-100 text-gray-700 px-2 py-0.5 rounded">
+                                    <span key={concern} className={`text-xs bg-gray-100 text-gray-700 px-2 py-0.5 rounded flex items-center gap-1 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                                       {concernData.icon} {concernData.label}
                                     </span>
                                   ) : null
@@ -640,17 +639,17 @@ export default function SkinRecommendationPage() {
                             {/* Usage Badge */}
                             {product.usage && (
                               <div className="mb-3">
-                                <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full font-medium">
+                                <span className={`text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full font-medium flex items-center gap-1 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                                   {USAGE_OPTIONS.find(u => u.value === product.usage)?.icon} {USAGE_OPTIONS.find(u => u.value === product.usage)?.label || product.usage}
                                 </span>
                               </div>
                             )}
                             
-                            <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+                            <p className={`text-gray-600 text-sm mb-4 line-clamp-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
                               {product.description}
                             </p>
                             
-                            <div className="flex items-center justify-between mb-4">
+                            <div className={`flex items-center justify-between mb-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                               {canSeePrice ? (
                                 <div>
                                   {discountedPrice.hasDiscount ? (
@@ -670,16 +669,16 @@ export default function SkinRecommendationPage() {
                                 </div>
                               ) : (
                                 <div className="text-lg font-semibold text-gray-600">
-                                  Login to see price
+                                  {t('skinRecommendation.loginToSeePrice')}
                                 </div>
                               )}
                               {product.inStock ? (
                                 <span className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full font-medium">
-                                  In Stock
+                                  {t('skinRecommendation.inStock')}
                                 </span>
                               ) : (
                                 <span className="text-xs bg-red-100 text-red-800 px-2 py-1 rounded-full font-medium">
-                                  Out of Stock
+                                  {t('skinRecommendation.outOfStock')}
                                 </span>
                               )}
                             </div>
@@ -687,10 +686,10 @@ export default function SkinRecommendationPage() {
                             <button
                               onClick={() => handleAddToCart(product)}
                               disabled={!product.inStock}
-                              className="w-full bg-primary-600 hover:bg-primary-700 disabled:bg-gray-400 text-white font-semibold py-3 px-4 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 disabled:cursor-not-allowed"
+                              className={`w-full bg-primary-600 hover:bg-primary-700 disabled:bg-gray-400 text-white font-semibold py-3 px-4 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 disabled:cursor-not-allowed ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
                             >
                               <ShoppingCart className="w-5 h-5" />
-                              Add to Cart
+                              {t('skinRecommendation.addToCart')}
                             </button>
                           </div>
                         </div>
@@ -705,23 +704,23 @@ export default function SkinRecommendationPage() {
               <div className="text-gray-400 mb-4">
                 <CheckCircle2 className="w-20 h-20 mx-auto" />
               </div>
-              <h3 className="text-2xl font-semibold text-gray-900 mb-2">No products found</h3>
-              <p className="text-gray-600 mb-8 max-w-md mx-auto">
-                We couldn&apos;t find products matching your exact criteria. Try adjusting your selections or browse our full product catalog.
+              <h3 className="text-2xl font-semibold text-gray-900 mb-2">{t('skinRecommendation.noProductsFound')}</h3>
+              <p className={`text-gray-600 mb-8 max-w-md mx-auto ${dir === 'rtl' ? 'text-right' : ''}`}>
+                {t('skinRecommendation.couldntFindProducts')}
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <div className={`flex flex-col sm:flex-row gap-4 justify-center ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                 <button
                   onClick={resetForm}
                   className="bg-primary-600 hover:bg-primary-700 text-white font-semibold py-3 px-6 rounded-xl transition-colors"
                 >
-                  Adjust Selections
+                  {t('skinRecommendation.adjustSelections')}
                 </button>
                 <Link
-                  href="/products"
-                  className="bg-gray-200 hover:bg-gray-300 text-gray-900 font-semibold py-3 px-6 rounded-xl transition-colors inline-flex items-center justify-center gap-2"
+                  href={getLocalizedPath('/products', locale)}
+                  className={`bg-gray-200 hover:bg-gray-300 text-gray-900 font-semibold py-3 px-6 rounded-xl transition-colors inline-flex items-center justify-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
                 >
-                  Browse All Products
-                  <ArrowRight className="w-4 h-4" />
+                  {t('skinRecommendation.browseAllProducts')}
+                  <ArrowRight className={`w-4 h-4 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
                 </Link>
               </div>
             </div>

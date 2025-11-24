@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { Search, X } from 'lucide-react'
 import { Product } from '@/types'
+import { useTranslation } from '@/hooks/useTranslation'
 
 interface ProductSearchProps {
   products: Product[]
@@ -11,6 +12,7 @@ interface ProductSearchProps {
 }
 
 export default function ProductSearch({ products, onSearchChange, searchQuery }: ProductSearchProps) {
+  const { t, dir } = useTranslation()
   const [isFocused, setIsFocused] = useState(false)
   const [suggestions, setSuggestions] = useState<Product[]>([])
   const searchRef = useRef<HTMLDivElement>(null)
@@ -58,20 +60,20 @@ export default function ProductSearch({ products, onSearchChange, searchQuery }:
   return (
     <div ref={searchRef} className="relative w-full max-w-2xl mx-auto mb-6">
       <div className="relative">
-        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+        <Search className={`absolute ${dir === 'rtl' ? 'right-3' : 'left-3'} top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400`} />
         <input
           type="text"
-          placeholder="Search products by name or category..."
+          placeholder={t('products.searchPlaceholder')}
           value={searchQuery}
           onChange={handleInputChange}
           onFocus={() => setIsFocused(true)}
-          className="w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm md:text-base text-gray-900 bg-white placeholder:text-gray-400"
+          className={`w-full ${dir === 'rtl' ? 'pr-10 pl-10' : 'pl-10 pr-10'} py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm md:text-base text-gray-900 bg-white placeholder:text-gray-400`}
         />
         {searchQuery && (
           <button
             onClick={clearSearch}
-            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
-            aria-label="Clear search"
+            className={`absolute ${dir === 'rtl' ? 'left-3' : 'right-3'} top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 p-2 touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center`}
+            aria-label={t('common.close')}
           >
             <X className="h-5 w-5" />
           </button>
@@ -85,12 +87,12 @@ export default function ProductSearch({ products, onSearchChange, searchQuery }:
             <button
               key={product.id}
               onClick={() => handleSuggestionClick(product)}
-              className="w-full px-4 py-3 text-left hover:bg-gray-50 transition-colors border-b border-gray-100 last:border-b-0"
+              className="w-full px-4 py-3 text-left hover:bg-gray-50 transition-colors border-b border-gray-100 last:border-b-0 touch-manipulation min-h-[44px]"
             >
               <div className="flex items-center gap-3">
                 <img
                   src={product.image}
-                  alt={product.name}
+                  alt={`${product.name} - GENOSYS Korean ${product.category || 'dermacosmetics'} product`}
                   className="w-10 h-10 object-cover rounded"
                 />
                 <div className="flex-1 min-w-0">

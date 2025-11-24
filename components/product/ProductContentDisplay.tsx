@@ -4,27 +4,46 @@ import { Product } from '@/types'
 import { getProductDocumentation } from '@/data/productConfig'
 import { sanitizeProductDescription, sanitizeHtml } from '@/lib/sanitize'
 import { Sparkles } from 'lucide-react'
+import { useTranslation } from '@/hooks/useTranslation'
+import { getProductTranslations } from '@/data/productTranslations'
 
 interface ProductContentDisplayProps {
   product: Product
 }
 
 export default function ProductContentDisplay({ product }: ProductContentDisplayProps) {
+  const { t, locale, dir } = useTranslation()
+  const arabicTranslations = locale === 'ar' ? getProductTranslations(product.id) : null
+  
+  // Use Arabic translations if available, otherwise fall back to English
+  const description = arabicTranslations?.description || product.description
+  const productDetailsStr = arabicTranslations?.productDetails || product.productDetails
+  const keyFeaturesStr = arabicTranslations?.keyFeatures || product.keyFeatures
+  const benefitsStr = arabicTranslations?.benefits || product.benefits
+  const ingredientsStr = arabicTranslations?.ingredients || product.ingredients
+  const howToUseStr = arabicTranslations?.howToUse || product.howToUse
+  const directionsStr = arabicTranslations?.directions || product.directions
+  
   // Parse JSON fields safely with proper type assertions
-  const productDetails = product.productDetails ? (tryParseJSON(product.productDetails) as Record<string, string> | string) : null
-  const keyFeatures = product.keyFeatures ? (tryParseJSON(product.keyFeatures) as Array<{ title?: string; description?: string }> | string) : null
-  const benefits = product.benefits ? (tryParseJSON(product.benefits) as string[] | string) : null
-  const ingredients = product.ingredients ? (tryParseJSON(product.ingredients) as Array<{ name?: string; description?: string; subList?: string[] }> | string) : null
-  const howToUse = product.howToUse ? (tryParseJSON(product.howToUse) as string) : null
+  const productDetails = productDetailsStr ? (tryParseJSON(productDetailsStr) as Record<string, string> | string) : null
+  const keyFeatures = keyFeaturesStr ? (tryParseJSON(keyFeaturesStr) as Array<{ title?: string; description?: string }> | string) : null
+  const benefits = benefitsStr ? (tryParseJSON(benefitsStr) as string[] | string) : null
+  const ingredients = ingredientsStr ? (tryParseJSON(ingredientsStr) as Array<{ name?: string; description?: string; subList?: string[] }> | string) : null
+  const howToUse = howToUseStr ? (tryParseJSON(howToUseStr) as string) : null
   const documentation = getProductDocumentation(product.id)
 
-  // Parse description for kit items
+  // Parse description for kit items - support both English and Arabic
   const parseKitDescription = (description: string) => {
-    if (!description.includes('Kit includes:')) {
+    const kitIncludesEn = 'Kit includes:'
+    const kitIncludesAr = 'يشمل الطقم:'
+    const kitIncludesPattern = description.includes(kitIncludesEn) ? kitIncludesEn : 
+                               description.includes(kitIncludesAr) ? kitIncludesAr : null
+    
+    if (!kitIncludesPattern) {
       return { intro: description, kitItems: [] }
     }
 
-    const parts = description.split('Kit includes:')
+    const parts = description.split(kitIncludesPattern)
     const intro = parts[0]?.trim() || ''
     const kitSection = parts[1]?.trim() || ''
 
@@ -59,7 +78,7 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
   }
 
   // Sanitize product description to prevent XSS
-  const sanitizedDescription = product.description ? sanitizeProductDescription(product.description) : ''
+  const sanitizedDescription = description ? sanitizeProductDescription(description) : ''
   const { intro, kitItems } = sanitizedDescription ? parseKitDescription(sanitizedDescription) : { intro: '', kitItems: [] }
 
   // Process intro text to style bundle price in red
@@ -148,6 +167,11 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
   const formatDescriptionAsBullets = (description: string): string[] => {
     if (!description) return []
     
+    // For short descriptions (under 200 chars), return as single bullet
+    if (description.length < 200 && !description.includes('Key ingredients:') && !description.includes('\n')) {
+      return [description.trim()]
+    }
+    
     const bullets: string[] = []
     const lines = description.split('\n').filter(Boolean)
     
@@ -185,7 +209,8 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
       if (line.toLowerCase().includes('helps') || line.toLowerCase().includes('provides') || line.toLowerCase().includes('improves')) {
         const sentences = line.split('.')
         const benefit = sentences[0]?.trim()
-        if (benefit && benefit.length < 100 && !benefits.includes(benefit)) {
+        // Don't add if it's the same as mainDescription or already in benefits
+        if (benefit && benefit.length < 100 && benefit !== mainDescription && !benefits.includes(benefit)) {
           benefits.push(benefit)
         }
       }
@@ -205,7 +230,7 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
     if (keyIngredients.length > 0) {
       const mainIngredients = keyIngredients.slice(0, 4).join(', ')
       if (mainIngredients) {
-        bullets.push(`Key ingredients: ${mainIngredients}`)
+        bullets.push(`${t('product.keyIngredientsLabel')} ${mainIngredients}`)
       }
     }
     
@@ -221,11 +246,11 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
   ]
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6" dir={dir}>
       {/* Product Description - Always show if description exists */}
-      {product.description && (
+      {description && (
         <>
-          <h2 className="text-lg font-semibold text-gray-800 mb-4">Product Description</h2>
+          <h2 className={`text-lg font-semibold text-gray-800 mb-4 ${dir === 'rtl' ? 'text-right' : ''}`}>{t('product.productDescription')}</h2>
           {/* Show intro only if there are kit items, otherwise show full description in fallback */}
           {intro && kitItems.length > 0 && (
             <p 
@@ -237,8 +262,8 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
           {/* Kit Includes Section */}
           {kitItems.length > 0 && (
             <div className="mb-6">
-              <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
-                <span className="text-primary-600">Kit includes:</span>
+              <h3 className={`text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                <span className="text-primary-600">{t('product.kitIncludes')}</span>
               </h3>
               <div className="space-y-3">
                 {kitItems.map((item, index) => {
@@ -552,7 +577,7 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
       {/* Product Details - Always just the specs */}
       {productDetails && typeof productDetails === 'object' && !Array.isArray(productDetails) && (
         <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-          <h3 className="font-semibold text-blue-800 mb-2 text-sm">Product Details</h3>
+          <h3 className={`font-semibold text-blue-800 mb-2 text-sm ${dir === 'rtl' ? 'text-right' : ''}`}>{t('product.productDetails')}</h3>
           <div className="space-y-2 text-blue-800 text-sm">
             {Object.entries(productDetails as Record<string, string>).map(([key, value]) => (
               <p key={key}>
@@ -566,31 +591,31 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
       {/* Product Documentation Section - ALWAYS right after Product Details */}
       {documentation && documentation.length > 0 && (
         <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-          <h4 className="font-semibold text-blue-800 mb-2">Product Documentation</h4>
-          <p className="text-blue-700 text-sm mb-3">
-            Download the complete product manual and usage guide for professional application.
+          <h4 className={`font-semibold text-blue-800 mb-2 ${dir === 'rtl' ? 'text-right' : ''}`}>{t('product.productDocumentation')}</h4>
+          <p className={`text-blue-700 text-sm mb-3 ${dir === 'rtl' ? 'text-right' : ''}`}>
+            {t('product.documentationDescription')}
           </p>
-          <div className="flex gap-3">
+          <div className={`flex gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
             <a
               href={documentation[0]?.url || '#'}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium min-h-[44px] min-w-[44px]"
             >
               <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
               </svg>
-              View PDF
+              {t('product.viewPdf')}
             </a>
             <a
               href={documentation[0]?.url || '#'}
               download={documentation[0]?.title || 'documentation'}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors text-sm font-medium"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors text-sm font-medium min-h-[44px] min-w-[44px]"
             >
               <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>
-              Download
+              {t('product.download')}
             </a>
           </div>
         </div>
@@ -599,7 +624,7 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
       {/* Key Features - only shown if they exist (for products that have them) */}
       {keyFeatures && Array.isArray(keyFeatures) && keyFeatures.length > 0 && (
         <div>
-          <h2 className="font-semibold text-gray-800 mb-3 text-sm">Key Features</h2>
+          <h2 className={`font-semibold text-gray-800 mb-3 text-sm ${dir === 'rtl' ? 'text-right' : ''}`}>{t('product.keyFeatures')}</h2>
           <div className="space-y-3">
             {(keyFeatures as Array<{ title?: string; description?: string }>).map((feature, index) => (
               <div key={index} className="bg-gray-50 border border-gray-200 rounded-lg p-3">
@@ -618,7 +643,7 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
       {/* Benefits - ALWAYS a separate section */}
       {benefits && Array.isArray(benefits) && benefits.length > 0 && (
         <div>
-          <h2 className="font-semibold text-gray-800 mb-2 text-sm">Benefits</h2>
+          <h2 className={`font-semibold text-gray-800 mb-2 text-sm ${dir === 'rtl' ? 'text-right' : ''}`}>{t('product.benefits')}</h2>
           <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
             {(benefits as string[]).map((benefit, index) => (
               <li key={index}>{benefit}</li>
@@ -630,7 +655,7 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
       {/* Directions - When howToUse is a string (not array) */}
       {howToUse && typeof howToUse === 'string' && (
         <div>
-          <h4 className="font-semibold text-gray-800 mb-2 text-sm">Directions</h4>
+          <h4 className={`font-semibold text-gray-800 mb-2 text-sm ${dir === 'rtl' ? 'text-right' : ''}`}>{t('product.directions')}</h4>
           <p className="text-gray-600 mb-4 text-sm">
             {howToUse}
           </p>
@@ -640,7 +665,7 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
       {/* How to Use - When howToUse is an array with steps */}
       {howToUse && Array.isArray(howToUse) && (
         <div>
-          <h2 className="font-semibold text-gray-800 mb-2 text-sm">How to Use</h2>
+          <h2 className={`font-semibold text-gray-800 mb-2 text-sm ${dir === 'rtl' ? 'text-right' : ''}`}>{t('product.howToUse')}</h2>
           <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
             <ol className="list-decimal list-inside text-gray-600 space-y-2 text-sm">
               {howToUse.map((step, index) => (
@@ -656,7 +681,7 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
       {/* Key Ingredients */}
       {ingredients && Array.isArray(ingredients) && ingredients.length > 0 && (
         <div>
-          <h2 className="font-semibold text-gray-800 mb-2 text-sm">Key Ingredients</h2>
+          <h2 className={`font-semibold text-gray-800 mb-2 text-sm ${dir === 'rtl' ? 'text-right' : ''}`}>{t('product.keyIngredients')}</h2>
           <div className="space-y-4 mb-4">
             {ingredients.map((ingredient, index) => (
               <div key={index}>
@@ -691,10 +716,10 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
       )}
 
       {/* Directions / Note */}
-      {product.directions && (
+      {directionsStr && (
         <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-          <p className="text-green-800 text-sm">
-            <strong>Note:</strong> {product.directions}
+          <p className={`text-green-800 text-sm ${dir === 'rtl' ? 'text-right' : ''}`}>
+            <strong>{t('product.note')}</strong> {directionsStr}
           </p>
         </div>
       )}

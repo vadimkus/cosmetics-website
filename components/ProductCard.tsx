@@ -11,6 +11,9 @@ import Image from 'next/image'
 import LoginModal from './LoginModal'
 import { calculateDiscountedPrice, canUserSeePrices } from '@/lib/discountUtils'
 import { debugLog, errorLog } from '@/lib/logger'
+import { useTranslation } from '@/hooks/useTranslation'
+import { getProductTranslations } from '@/data/productTranslations'
+import { getLocalizedPath } from '@/lib/i18n'
 
 interface ProductCardProps {
   product: Product
@@ -20,10 +23,16 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
   const { addItem } = useCart()
   const { toggleFavorite, isFavorite } = useFavorites()
   const { user } = useAuth()
+  const { t, locale } = useTranslation()
+  const productPath = getLocalizedPath(`/products/${product.productNumber || product.id}`, locale)
   const [isAdding, setIsAdding] = useState(false)
   const [isTogglingFavorite, setIsTogglingFavorite] = useState(false)
   const [showLoginModal, setShowLoginModal] = useState(false)
   const [isLoginMode, setIsLoginMode] = useState(true)
+  
+  // Get Arabic translation for description if available
+  const arabicTranslations = locale === 'ar' ? getProductTranslations(product.id) : null
+  const description = arabicTranslations?.description || product.description
 
   const handleAddToCart = useCallback(async () => {
     setIsAdding(true)
@@ -50,10 +59,10 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
       <div className="relative">
-        <Link href={`/products/${product.productNumber || product.id}`} className="block">
+        <Link href={productPath} className="block">
           <Image
             src={product.image}
-            alt={product.name}
+            alt={`${product.name} - GENOSYS Korean ${product.category || 'dermacosmetics'} professional skincare product UAE`}
             width={300}
             height={300}
             className="w-full h-24 sm:h-32 md:h-40 lg:h-48 object-cover cursor-pointer hover:scale-105 transition-transform"
@@ -80,8 +89,8 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
           className={`absolute top-2 right-2 p-2 bg-white rounded-full shadow-md hover:bg-gray-50 transition-colors touch-manipulation z-20 min-h-[44px] min-w-[44px] flex items-center justify-center ${
             isTogglingFavorite ? 'opacity-50' : ''
           }`}
-          title={isFavorite(product.id) ? "Remove from favorites" : "Add to favorites"}
-          aria-label={isFavorite(product.id) ? "Remove from favorites" : "Add to favorites"}
+          title={isFavorite(product.id) ? t('product.removeFromFavorites') : t('product.addToFavorites')}
+          aria-label={isFavorite(product.id) ? t('product.removeFromFavorites') : t('product.addToFavorites')}
           style={{ touchAction: 'manipulation' }}
         >
           <Heart 
@@ -94,8 +103,10 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
           />
         </button>
         {!product.inStock && (
-          <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-            <span className="text-white font-semibold text-sm md:text-base">Out of Stock</span>
+          <div className={`absolute top-2 ${locale === 'ar' ? 'left-2' : 'right-2'} z-30`}>
+            <span className="inline-flex items-center px-3 py-1.5 rounded-md bg-red-600 text-white font-bold text-xs md:text-sm shadow-lg uppercase tracking-wide">
+              {t('product.soldOut')}
+            </span>
           </div>
         )}
       </div>
@@ -106,7 +117,7 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
         </div>
         
         <div className="mb-2">
-          <Link href={`/products/${product.productNumber || product.id}`}>
+          <Link href={productPath}>
             <h3 className="text-base md:text-lg font-semibold text-gray-800 line-clamp-2 hover:text-primary-600 transition-colors cursor-pointer">
               {product.name}
             </h3>
@@ -116,19 +127,20 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
         {(product.size || product.id === '37') && (
           <div className="mb-2">
             <span className="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-gray-100 text-gray-700">
-              Size: {product.id === '37' ? '38g x 5ea (5 masks, 1 box)' : product.size}
+              {t('product.size')}: {product.id === '37' ? '38g x 5ea (5 masks, 1 box)' : product.size}
             </span>
           </div>
         )}
         
         <p className="text-gray-600 text-xs md:text-sm mb-3 md:mb-4 line-clamp-2">
-          {product.description ? product.description.replace(/<[^>]*>/g, '').trim() : ''}
+          {description ? description.replace(/<[^>]*>/g, '').trim() : ''}
         </p>
         
-        <div className="flex flex-col gap-3">
-          <div className="flex items-center justify-between">
+        {/* Price Section - Above Button */}
+        <div className="mb-3">
+          <div className="flex items-center justify-between mb-2">
             {canUserSeePrices(user) ? (
-              <div>
+              <div className="flex-1">
                 {(() => {
                   const pricing = calculateDiscountedPrice(product, user)
                   return (
@@ -143,11 +155,11 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
                               {pricing.originalPrice.toFixed(2)} AED
                             </span>
                           </div>
-                          <div className="flex items-center gap-1">
+                          <div className="flex items-center gap-1 mt-1">
                             <span className="text-xs text-green-600 font-medium">
-                              {pricing.discountPercentage}% OFF
+                              {pricing.discountPercentage}% {t('product.off')}
                             </span>
-                            <span className="text-xs text-gray-500">VAT included</span>
+                            <span className="text-xs text-gray-500">{t('product.vatIncluded')}</span>
                           </div>
                         </div>
                       ) : (
@@ -155,7 +167,7 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
                           <span className="text-base font-bold text-primary-600">
                             {pricing.originalPrice.toFixed(2)} AED
                           </span>
-                          <p className="text-xs text-gray-500">VAT included</p>
+                          <p className="text-xs text-gray-500 mt-1">{t('product.vatIncluded')}</p>
                         </div>
                       )}
                     </div>
@@ -165,48 +177,49 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
             ) : user ? (
               <div className="flex items-center text-gray-500">
                 <Lock className="h-4 w-4 mr-1" />
-                <span className="text-sm">Price locked</span>
+                <span className="text-sm">{t('product.priceLocked')}</span>
               </div>
             ) : (
               <span className="text-base font-bold text-gray-500">
-                Login to see price
+                {t('product.loginToSeePrice')}
               </span>
             )}
             
             {product.inStock && (
-              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                {product.id === '47' ? 'Order by Request' : 'In Stock'}
+              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800 flex-shrink-0">
+                {product.id === '47' ? t('product.orderByRequest') : t('product.inStock')}
               </span>
             )}
           </div>
-          
-          {!user ? (
-            <button
-              onClick={handleLoginClick}
-              className="flex items-center justify-center space-x-2 px-4 py-3 rounded-lg font-medium transition-colors touch-manipulation w-full bg-primary-600 text-white hover:bg-primary-700 min-h-[44px]"
-              aria-label="Login to see price for this product"
-            >
-              <User className="h-4 w-4" aria-hidden="true" />
-              <span className="text-sm">Login to see price</span>
-            </button>
-          ) : (
-            <button
-              onClick={handleAddToCart}
-              disabled={!product.inStock || isAdding}
-              aria-label={isAdding ? "Adding to cart..." : `Add ${product.name} to cart`}
-              className={`flex items-center justify-center space-x-2 px-4 py-3 rounded-lg font-medium transition-colors touch-manipulation w-full min-h-[44px] ${
-                product.inStock && !isAdding
-                  ? 'bg-primary-600 text-white hover:bg-primary-700'
-                  : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-              }`}
-            >
-              <ShoppingCart className="h-4 w-4" aria-hidden="true" />
-              <span className="text-sm">
-                {isAdding ? 'Adding...' : 'Add to Cart'}
-              </span>
-            </button>
-          )}
         </div>
+        
+        {/* Button Section */}
+        {!user ? (
+          <button
+            onClick={handleLoginClick}
+            className={`flex items-center justify-center gap-2 px-3 ${locale === 'ar' ? 'py-2' : 'py-2.5'} rounded-lg font-medium transition-colors touch-manipulation w-full bg-primary-600 text-white hover:bg-primary-700 ${locale === 'ar' ? 'min-h-[40px] text-xs' : 'min-h-[44px] text-sm'}`}
+            aria-label={t('product.loginToSeePrice')}
+          >
+            <User className={`${locale === 'ar' ? 'h-3.5 w-3.5' : 'h-4 w-4'}`} aria-hidden="true" />
+            <span>{t('product.loginToSeePrice')}</span>
+          </button>
+        ) : (
+          <button
+            onClick={handleAddToCart}
+            disabled={!product.inStock || isAdding}
+            aria-label={isAdding ? t('product.adding') : t('product.addToCart')}
+            className={`flex items-center justify-center gap-2 px-3 ${locale === 'ar' ? 'py-2' : 'py-2.5'} rounded-lg font-medium transition-colors touch-manipulation w-full ${locale === 'ar' ? 'min-h-[40px] text-xs' : 'min-h-[44px] text-sm'} ${
+              product.inStock && !isAdding
+                ? 'bg-primary-600 text-white hover:bg-primary-700'
+                : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+            }`}
+          >
+            <ShoppingCart className={`${locale === 'ar' ? 'h-3.5 w-3.5' : 'h-4 w-4'}`} aria-hidden="true" />
+            <span>
+              {isAdding ? t('product.adding') : t('product.addToCart')}
+            </span>
+          </button>
+        )}
       </div>
 
       {/* Login Modal */}

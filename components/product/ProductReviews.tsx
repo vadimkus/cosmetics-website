@@ -5,6 +5,7 @@ import { useAuth } from '@/components/AuthProvider'
 import { Star, Edit2, Trash2 } from 'lucide-react'
 import { errorLog } from '@/lib/logger'
 import { fetchCsrfToken, getCsrfHeaders, addCsrfToBody } from '@/lib/csrfClient'
+import { useTranslation } from '@/hooks/useTranslation'
 
 interface Review {
   id: string
@@ -23,6 +24,7 @@ interface ProductReviewsProps {
 
 export default function ProductReviews({ productId }: ProductReviewsProps) {
   const { user } = useAuth()
+  const { t, locale, dir } = useTranslation()
   const [reviews, setReviews] = useState<Review[]>([])
   const [loading, setLoading] = useState(true)
   const [showForm, setShowForm] = useState(false)
@@ -65,12 +67,12 @@ export default function ProductReviews({ productId }: ProductReviewsProps) {
     e.preventDefault()
     
     if (!user) {
-      alert('Please log in to leave a review')
+      alert(t('product.pleaseLoginToReview'))
       return
     }
 
     if (formData.comment.trim().length < 10) {
-      alert('Please write at least 10 characters')
+      alert(t('product.writeAtLeast10Characters'))
       return
     }
 
@@ -104,7 +106,7 @@ export default function ProductReviews({ productId }: ProductReviewsProps) {
       const data = await response.json()
 
       if (!response.ok) {
-        throw new Error(data.error || 'Failed to submit review')
+        throw new Error(data.error || t('product.failedToSubmitReview'))
       }
 
       // Reset form and refresh reviews
@@ -114,14 +116,14 @@ export default function ProductReviews({ productId }: ProductReviewsProps) {
       await fetchReviews()
     } catch (error) {
       errorLog('Error submitting review:', error)
-      alert(error instanceof Error ? error.message : 'Failed to submit review')
+      alert(error instanceof Error ? error.message : t('product.failedToSubmitReview'))
     } finally {
       setSubmitting(false)
     }
   }
 
   const handleDelete = async (reviewId: string) => {
-    if (!confirm('Are you sure you want to delete your review?')) return
+    if (!confirm(t('product.confirmDeleteReview'))) return
 
     try {
       const csrfToken = await fetchCsrfToken()
@@ -141,19 +143,19 @@ export default function ProductReviews({ productId }: ProductReviewsProps) {
 
       if (!response.ok) {
         const errorData = await response.json()
-        throw new Error(errorData.error || 'Failed to delete review')
+        throw new Error(errorData.error || t('product.failedToDeleteReview'))
       }
 
       await fetchReviews()
     } catch (error) {
       errorLog('Error deleting review:', error)
-      alert(error instanceof Error ? error.message : 'Failed to delete review')
+      alert(error instanceof Error ? error.message : t('product.failedToDeleteReview'))
     }
   }
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString)
-    return date.toLocaleDateString('en-US', {
+    return date.toLocaleDateString(locale === 'ar' ? 'ar-AE' : 'en-US', {
       year: 'numeric',
       month: 'long',
       day: 'numeric'
@@ -163,12 +165,12 @@ export default function ProductReviews({ productId }: ProductReviewsProps) {
   const userReview = reviews.find(r => r.userId === user?.id)
 
   return (
-    <div className="mt-12 border-t pt-6 md:pt-8">
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+    <div className="mt-12 border-t pt-6 md:pt-8" dir={dir}>
+      <div className={`flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6 ${dir === 'rtl' ? 'sm:flex-row-reverse' : ''}`}>
         <div className="flex-1">
-          <h2 className="text-xl md:text-2xl font-bold text-gray-900 mb-2">Customer Reviews</h2>
+          <h2 className={`text-xl md:text-2xl font-bold text-gray-900 mb-2 ${dir === 'rtl' ? 'text-right' : ''}`}>{t('product.customerReviews')}</h2>
           {averageRating && (
-            <div className="flex flex-wrap items-center gap-2">
+            <div className={`flex flex-wrap items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
               <div className="flex items-center">
                 {[...Array(5)].map((_, i) => (
                   <Star
@@ -182,39 +184,39 @@ export default function ProductReviews({ productId }: ProductReviewsProps) {
                 ))}
               </div>
               <span className="text-base md:text-lg font-semibold">{averageRating.toFixed(1)}</span>
-              <span className="text-sm md:text-base text-gray-600">({reviewCount} {reviewCount === 1 ? 'review' : 'reviews'})</span>
+              <span className="text-sm md:text-base text-gray-600">({reviewCount} {reviewCount === 1 ? t('product.review') : t('product.reviews')})</span>
             </div>
           )}
         </div>
         {user && !userReview && !showForm && (
           <button
             onClick={() => setShowForm(true)}
-            className="px-4 py-2.5 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors text-sm md:text-base font-medium whitespace-nowrap"
+            className="px-4 py-2.5 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors text-sm md:text-base font-medium whitespace-nowrap min-h-[44px] touch-manipulation"
           >
-            Write a Review
+            {t('product.writeReview')}
           </button>
         )}
       </div>
 
       {/* Review Form */}
       {(showForm || editingReview) && user && (
-        <form onSubmit={handleSubmit} className="mb-8 p-4 md:p-6 bg-gray-50 rounded-lg">
-          <h3 className="text-base md:text-lg font-semibold mb-4">
-            {editingReview ? 'Edit Your Review' : 'Write a Review'}
+        <form onSubmit={handleSubmit} className={`mb-8 p-4 md:p-6 bg-gray-50 rounded-lg ${dir === 'rtl' ? 'text-right' : ''}`}>
+          <h3 className={`text-base md:text-lg font-semibold mb-4 ${dir === 'rtl' ? 'text-right' : ''}`}>
+            {editingReview ? t('product.editReview') : t('product.writeReview')}
           </h3>
           
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Rating *
+            <label className={`block text-sm font-medium text-gray-700 mb-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
+              {t('product.rating')} *
             </label>
-            <div className="flex gap-1">
+            <div className={`flex gap-1 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
               {[1, 2, 3, 4, 5].map((star) => (
                 <button
                   key={star}
                   type="button"
                   onClick={() => setFormData({ ...formData, rating: star })}
-                  className="focus:outline-none touch-manipulation"
-                  aria-label={`Rate ${star} star${star !== 1 ? 's' : ''}`}
+                  className="focus:outline-none touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center"
+                  aria-label={`${t('product.rating')} ${star}`}
                 >
                   <Star
                     className={`h-7 w-7 md:h-8 md:w-8 ${
@@ -229,43 +231,45 @@ export default function ProductReviews({ productId }: ProductReviewsProps) {
           </div>
 
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Review Title (Optional)
+            <label className={`block text-sm font-medium text-gray-700 mb-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
+              {t('product.reviewTitle')}
             </label>
             <input
               type="text"
               value={formData.title}
               onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-              className="w-full px-3 py-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 bg-white text-gray-900 placeholder:text-gray-500 text-base"
-              placeholder="Summarize your experience"
+              className={`w-full px-3 py-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 bg-white text-gray-900 placeholder:text-gray-500 text-base ${dir === 'rtl' ? 'text-right' : ''}`}
+              placeholder={t('product.reviewTitlePlaceholder')}
+              dir={dir}
             />
           </div>
 
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Your Review *
+            <label className={`block text-sm font-medium text-gray-700 mb-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
+              {t('product.yourReview')} *
             </label>
             <textarea
               value={formData.comment}
               onChange={(e) => setFormData({ ...formData, comment: e.target.value })}
               rows={5}
-              className="w-full px-3 py-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 bg-white text-gray-900 placeholder:text-gray-500 text-base resize-y"
-              placeholder="Share your experience with this product..."
+              className={`w-full px-3 py-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 bg-white text-gray-900 placeholder:text-gray-500 text-base resize-y ${dir === 'rtl' ? 'text-right' : ''}`}
+              placeholder={t('product.yourReviewPlaceholder')}
               required
               minLength={10}
+              dir={dir}
             />
-            <p className="text-sm text-gray-500 mt-1">
-              Minimum 10 characters ({formData.comment.length}/10)
+            <p className={`text-sm text-gray-500 mt-1 ${dir === 'rtl' ? 'text-right' : ''}`}>
+              {t('product.minimumCharacters')} ({formData.comment.length}/10)
             </p>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-2">
+          <div className={`flex flex-col sm:flex-row gap-2 ${dir === 'rtl' ? 'sm:flex-row-reverse' : ''}`}>
             <button
               type="submit"
               disabled={submitting || formData.comment.trim().length < 10}
-              className="flex-1 sm:flex-none px-6 py-2.5 bg-primary-600 text-white rounded-lg hover:bg-primary-700 disabled:opacity-50 disabled:cursor-not-allowed font-medium text-sm md:text-base touch-manipulation"
+              className="flex-1 sm:flex-none px-6 py-2.5 bg-primary-600 text-white rounded-lg hover:bg-primary-700 disabled:opacity-50 disabled:cursor-not-allowed font-medium text-sm md:text-base touch-manipulation min-h-[44px]"
             >
-              {submitting ? 'Submitting...' : editingReview ? 'Update Review' : 'Submit Review'}
+              {submitting ? t('product.submitting') : editingReview ? t('product.updateReview') : t('product.submitReview')}
             </button>
             <button
               type="button"
@@ -274,9 +278,9 @@ export default function ProductReviews({ productId }: ProductReviewsProps) {
                 setEditingReview(null)
                 setFormData({ rating: 5, title: '', comment: '' })
               }}
-              className="flex-1 sm:flex-none px-6 py-2.5 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 font-medium text-sm md:text-base touch-manipulation"
+              className="flex-1 sm:flex-none px-6 py-2.5 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 font-medium text-sm md:text-base touch-manipulation min-h-[44px]"
             >
-              Cancel
+              {t('product.cancel')}
             </button>
           </div>
         </form>
@@ -284,16 +288,16 @@ export default function ProductReviews({ productId }: ProductReviewsProps) {
 
       {/* Reviews List */}
       {loading ? (
-        <div className="text-center py-8 text-gray-600">Loading reviews...</div>
+        <div className={`text-center py-8 text-gray-600 ${dir === 'rtl' ? 'text-right' : ''}`}>{t('product.loadingReviews')}</div>
       ) : reviews.length > 0 && (
         <div className="space-y-4 md:space-y-6">
           {reviews.map((review) => (
             <div key={review.id} className="border-b border-gray-200 pb-4 md:pb-6 last:border-b-0">
-              <div className="flex items-start justify-between gap-3 mb-2">
-                <div className="flex-1 min-w-0">
-                  <div className="flex flex-wrap items-center gap-2 mb-1">
+              <div className={`flex items-start justify-between gap-3 mb-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                <div className={`flex-1 min-w-0 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                  <div className={`flex flex-wrap items-center gap-2 mb-1 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                     <span className="font-semibold text-gray-900 text-sm md:text-base">{review.userName}</span>
-                    <div className="flex items-center flex-shrink-0">
+                    <div className={`flex items-center flex-shrink-0 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                       {[...Array(5)].map((_, i) => (
                         <Star
                           key={i}
@@ -307,12 +311,12 @@ export default function ProductReviews({ productId }: ProductReviewsProps) {
                     </div>
                   </div>
                   {review.title && (
-                    <h4 className="font-medium text-gray-900 mb-1 text-sm md:text-base">{review.title}</h4>
+                    <h4 className={`font-medium text-gray-900 mb-1 text-sm md:text-base ${dir === 'rtl' ? 'text-right' : ''}`}>{review.title}</h4>
                   )}
-                  <p className="text-xs md:text-sm text-gray-500">{formatDate(review.createdAt)}</p>
+                  <p className={`text-xs md:text-sm text-gray-500 ${dir === 'rtl' ? 'text-right' : ''}`}>{formatDate(review.createdAt)}</p>
                 </div>
                 {user?.id === review.userId && (
-                  <div className="flex gap-1 flex-shrink-0">
+                  <div className={`flex gap-1 flex-shrink-0 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                     <button
                       onClick={() => {
                         setEditingReview(review)
@@ -323,24 +327,24 @@ export default function ProductReviews({ productId }: ProductReviewsProps) {
                         })
                         setShowForm(true)
                       }}
-                      className="p-2 text-gray-600 hover:text-primary-600 touch-manipulation"
-                      title="Edit review"
-                      aria-label="Edit review"
+                      className="p-2 text-gray-600 hover:text-primary-600 touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center"
+                      title={t('product.editReviewButton')}
+                      aria-label={t('product.editReviewButton')}
                     >
                       <Edit2 className="h-4 w-4 md:h-5 md:w-5" />
                     </button>
                     <button
                       onClick={() => handleDelete(review.id)}
-                      className="p-2 text-gray-600 hover:text-red-600 touch-manipulation"
-                      title="Delete review"
-                      aria-label="Delete review"
+                      className="p-2 text-gray-600 hover:text-red-600 touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center"
+                      title={t('product.deleteReviewButton')}
+                      aria-label={t('product.deleteReviewButton')}
                     >
                       <Trash2 className="h-4 w-4 md:h-5 md:w-5" />
                     </button>
                   </div>
                 )}
               </div>
-              <p className="text-gray-700 text-sm md:text-base leading-relaxed break-words">{review.comment}</p>
+              <p className={`text-gray-700 text-sm md:text-base leading-relaxed break-words ${dir === 'rtl' ? 'text-right' : ''}`}>{review.comment}</p>
             </div>
           ))}
         </div>

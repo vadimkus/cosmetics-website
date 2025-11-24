@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { Calendar, User, ArrowLeft } from 'lucide-react'
 import BreadcrumbSchema from '@/components/BreadcrumbSchema'
 import BlogComments from '@/components/blog/BlogComments'
+import BlackFridayCountdown from '@/components/BlackFridayCountdown'
 import type { Metadata } from 'next'
 import { prisma } from '@/lib/prisma'
 import { notFound } from 'next/navigation'
@@ -296,12 +297,19 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               <div className="relative w-full rounded-xl overflow-hidden mb-10 shadow-lg bg-gray-50" style={{ aspectRatio: '1522 / 922' }}>
                 <Image
                   src={post.featuredImage}
-                  alt={post.title}
+                  alt={`${post.title} - GENOSYS Professional Korean Dermacosmetics Blog Post`}
                   fill
                   className="object-contain"
                   priority
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 896px"
                 />
+              </div>
+            )}
+
+            {/* Black Friday Countdown Timer - Only for Black Friday post */}
+            {post.slug === 'black-friday-sale-20-off' && (
+              <div className="mb-10">
+                <BlackFridayCountdown />
               </div>
             )}
           </header>

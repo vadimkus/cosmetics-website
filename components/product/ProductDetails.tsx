@@ -2,14 +2,17 @@
 
 import { Product } from '@/types'
 import { Star } from 'lucide-react'
+import { useTranslation } from '@/hooks/useTranslation'
 
 interface ProductDetailsProps {
   product: Product
 }
 
 export default function ProductDetails({ product }: ProductDetailsProps) {
+  const { t, dir } = useTranslation()
+  
   return (
-    <div className="space-y-6">
+    <div className="space-y-6" dir={dir}>
       {/* Product Header */}
       <div>
         <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
@@ -30,7 +33,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
       {/* Size Display (if applicable) */}
       {(product.size || product.id === '37') && (
         <div className="text-sm font-medium text-gray-700">
-          Size: {product.id === '37' ? '38g x 5ea (5 masks, 1 box)' : product.size}
+          {t('product.size')}: {product.id === '37' ? '38g x 5ea (5 masks, 1 box)' : product.size}
         </div>
       )}
 
@@ -44,7 +47,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
             ? 'bg-green-100 text-green-800' 
             : 'bg-red-100 text-red-800'
         }`}>
-          {product.inStock ? 'In Stock' : 'Out of Stock'}
+          {product.inStock ? t('product.inStock') : t('product.outOfStock')}
         </span>
       </div>
     </div>

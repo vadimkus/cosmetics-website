@@ -5,6 +5,8 @@ import { Package, ShoppingBag, Calendar, X, CreditCard, Truck, CheckCircle, Cloc
 import { Order, OrderItem } from '@prisma/client'
 import StatusBadge from '@/components/shared/StatusBadge'
 import EmptyState from '@/components/shared/EmptyState'
+import { useTranslation } from '@/hooks/useTranslation'
+import { getLocalizedPath } from '@/lib/i18n'
 
 // Custom type that includes the items relation
 type OrderWithItems = Order & {
@@ -18,8 +20,9 @@ interface OrderHistoryProps {
 }
 
 export default function OrderHistory({ orders, loadingOrders, onCancelOrder }: OrderHistoryProps) {
+  const { t, locale, dir } = useTranslation()
   const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('en-AE', {
+    return new Intl.NumberFormat(locale === 'ar' ? 'ar-AE' : 'en-AE', {
       style: 'currency',
       currency: 'AED',
       minimumFractionDigits: 2
@@ -74,22 +77,22 @@ export default function OrderHistory({ orders, loadingOrders, onCancelOrder }: O
         <div className="p-3 bg-gradient-to-r from-green-100 to-emerald-100 rounded-xl">
           <Package className="h-6 w-6 text-green-600" />
         </div>
-        <h2 className="text-2xl font-bold text-gray-800">Order History</h2>
+        <h2 className="text-2xl font-bold text-gray-800">{t('profile.orderHistory')}</h2>
       </div>
       
       {loadingOrders ? (
         <div className="text-center py-12">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600 mx-auto mb-4"></div>
-          <p className="text-gray-500">Loading your orders...</p>
+          <p className="text-gray-500">{t('profile.loadingYourOrders')}</p>
         </div>
       ) : orders.length === 0 ? (
         <EmptyState
           icon={<Package className="h-12 w-12 text-gray-300" />}
-          title="No orders yet"
-          description="Start shopping to see your order history here!"
+          title={t('profile.noOrdersYet')}
+          description={t('profile.startShoppingToSeeOrderHistory')}
           action={{
-            label: 'Browse Products',
-            href: '/products',
+            label: t('profile.browseProducts'),
+            href: getLocalizedPath('/products', locale),
             onClick: () => {}
           }}
         />
@@ -106,9 +109,9 @@ export default function OrderHistory({ orders, loadingOrders, onCancelOrder }: O
                         <Package className="h-5 w-5 text-gray-600" />
                       </div>
                       <div>
-                        <h3 className="text-lg font-bold text-gray-900">Order #{order.orderNumber || order.id}</h3>
+                        <h3 className="text-lg font-bold text-gray-900">{t('profile.order')} #{order.orderNumber || order.id}</h3>
                         <p className="text-sm text-gray-600">
-                          {new Date(order.createdAt).toLocaleDateString('en-AE', {
+                          {new Date(order.createdAt).toLocaleDateString(locale === 'ar' ? 'ar-AE' : 'en-AE', {
                             year: 'numeric',
                             month: 'short',
                             day: 'numeric',
@@ -128,7 +131,7 @@ export default function OrderHistory({ orders, loadingOrders, onCancelOrder }: O
                     <div className="text-right">
                       <p className="text-xl font-bold text-gray-900">{formatCurrency(order.total)}</p>
                       <p className="text-xs text-gray-500">
-                        {order.items.reduce((sum, item) => sum + item.quantity, 0)} items
+                        {order.items.reduce((sum, item) => sum + item.quantity, 0)} {t('profile.items')}
                       </p>
                     </div>
                   </div>
@@ -140,7 +143,7 @@ export default function OrderHistory({ orders, loadingOrders, onCancelOrder }: O
                 <div className="mb-4">
                   <h4 className="text-sm font-semibold text-gray-700 mb-3 flex items-center gap-2">
                     <ShoppingBag className="h-4 w-4" />
-                    Products Ordered
+                    {t('profile.productsOrdered')}
                   </h4>
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                     {(order.items || []).slice(0, 6).map((item, index) => (
@@ -177,7 +180,7 @@ export default function OrderHistory({ orders, loadingOrders, onCancelOrder }: O
                     {order.items.length > 6 && (
                       <div className="flex items-center justify-center bg-gray-50 rounded-xl p-3 border border-gray-100">
                         <span className="text-sm text-gray-600 font-medium">
-                          +{order.items.length - 6} more products
+                          +{order.items.length - 6} {t('common.products')}
                         </span>
                       </div>
                     )}
@@ -186,21 +189,21 @@ export default function OrderHistory({ orders, loadingOrders, onCancelOrder }: O
 
                 {/* Order Actions */}
                 <div className="flex items-center justify-between pt-4 border-t border-gray-200">
-                  <div className="flex items-center gap-2 text-sm text-gray-600">
+                  <div className={`flex items-center gap-2 text-sm text-gray-600 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                     <Calendar className="h-4 w-4" />
-                    <span>Ordered on {new Date(order.createdAt).toLocaleDateString('en-AE', { 
-                      year: 'numeric', 
-                      month: 'long', 
-                      day: 'numeric' 
+                    <span>{t('profile.orderedOn')} {new Date(order.createdAt).toLocaleDateString(locale === 'ar' ? 'ar-AE' : 'en-AE', { 
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric'
                     })}</span>
                   </div>
                   {(order.status === 'pending' || order.status === 'paid') && (
                     <button
                       onClick={() => onCancelOrder(order.id)}
-                      className="inline-flex items-center gap-2 px-4 py-2 bg-red-50 text-red-700 text-sm rounded-lg hover:bg-red-100 transition-colors font-medium border border-red-200 min-h-[44px] touch-manipulation"
+                      className={`inline-flex items-center gap-2 px-4 py-2 bg-red-50 text-red-700 text-sm rounded-lg hover:bg-red-100 transition-colors font-medium border border-red-200 min-h-[44px] touch-manipulation ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
                     >
                       <X className="h-4 w-4" />
-                      Cancel Order
+                      {t('profile.cancelOrder')}
                     </button>
                   )}
                 </div>

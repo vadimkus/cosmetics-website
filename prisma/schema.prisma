@@ -227,6 +227,10 @@ model BlogPost {
   updatedAt     DateTime      @updatedAt
   comments      BlogComment[]
   tags          String? // JSON array of tags
+  // Arabic translations
+  titleAr       String?       @db.Text
+  excerptAr     String?       @db.Text
+  contentAr     String?       @db.Text
 
   @@index([slug])
   @@index([published])

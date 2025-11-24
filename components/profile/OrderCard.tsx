@@ -3,6 +3,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { OrderWithItems } from '@/types/profile'
+import { useTranslation } from '@/hooks/useTranslation'
 
 type OrderItemWithOptionalFields = OrderWithItems['items'][0] & {
   selectedSize?: string
@@ -23,11 +24,12 @@ interface OrderCardProps {
 export default function OrderCard({ 
   order, 
   onCancel, 
-  formatCurrency, 
-  getProductImage, 
-  getStatusColor, 
-  getStatusIcon 
+  formatCurrency,
+  getProductImage,
+  getStatusColor,
+  getStatusIcon
 }: OrderCardProps) {
+  const { t } = useTranslation()
   
   return (
     <div className="bg-white/70 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 p-6 hover:shadow-xl transition-all duration-200">
@@ -75,10 +77,10 @@ export default function OrderCard({
                   {item.quantity} × {formatCurrency(item.price)}
                 </p>
                 {(itemWithOptional.size || itemWithOptional.selectedSize) && (
-                  <p className="text-xs text-gray-500">Size: {itemWithOptional.size || itemWithOptional.selectedSize}</p>
+                  <p className="text-xs text-gray-500">{t('product.size')}: {itemWithOptional.size || itemWithOptional.selectedSize}</p>
                 )}
                 {(itemWithOptional.color || itemWithOptional.selectedColor) && (
-                  <p className="text-xs text-gray-500">Color: {itemWithOptional.color || itemWithOptional.selectedColor}</p>
+                  <p className="text-xs text-gray-500">{t('product.color')}: {itemWithOptional.color || itemWithOptional.selectedColor}</p>
                 )}
               </div>
               <div className="text-right">

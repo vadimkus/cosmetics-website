@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { Filter, X, ChevronDown, ChevronUp } from 'lucide-react'
 import { Product } from '@/types'
+import { useTranslation } from '@/hooks/useTranslation'
 
 interface FilterState {
   categories: string[]
@@ -24,6 +25,7 @@ export default function ProductFilters({
   onFiltersChange, 
   activeFilters 
 }: ProductFiltersProps) {
+  const { t, dir } = useTranslation()
   const [isOpen, setIsOpen] = useState(false)
   const [localFilters, setLocalFilters] = useState<FilterState>(activeFilters)
   const [expandedSections, setExpandedSections] = useState({
@@ -114,9 +116,9 @@ export default function ProductFilters({
       <div className="border-b border-gray-200 pb-4">
         <button
           onClick={() => toggleSection('category')}
-          className="w-full flex items-center justify-between text-sm font-semibold text-gray-900 mb-3"
+          className={`w-full flex items-center justify-between text-sm font-semibold text-gray-900 mb-3 py-2 touch-manipulation min-h-[44px] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
         >
-          <span>Categories</span>
+          <span>{t('products.categories')}</span>
           {expandedSections.category ? (
             <ChevronUp className="h-4 w-4" />
           ) : (
@@ -147,9 +149,9 @@ export default function ProductFilters({
       <div className="border-b border-gray-200 pb-4">
         <button
           onClick={() => toggleSection('price')}
-          className="w-full flex items-center justify-between text-sm font-semibold text-gray-900 mb-3"
+          className={`w-full flex items-center justify-between text-sm font-semibold text-gray-900 mb-3 py-2 touch-manipulation min-h-[44px] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
         >
-          <span>Price Range (AED)</span>
+          <span>{t('products.priceRange')}</span>
           {expandedSections.price ? (
             <ChevronUp className="h-4 w-4" />
           ) : (
@@ -166,7 +168,7 @@ export default function ProductFilters({
                 value={localFilters.priceRange[0]}
                 onChange={(e) => handlePriceChange(0, Number(e.target.value))}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm text-gray-900 bg-white placeholder:text-gray-400"
-                placeholder="Min"
+                placeholder={t('products.min')}
               />
               <span className="text-gray-500">-</span>
               <input
@@ -176,11 +178,11 @@ export default function ProductFilters({
                 value={localFilters.priceRange[1]}
                 onChange={(e) => handlePriceChange(1, Number(e.target.value))}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm text-gray-900 bg-white placeholder:text-gray-400"
-                placeholder="Max"
+                placeholder={t('products.max')}
               />
             </div>
             <div className="text-xs text-gray-500">
-              Range: {priceRange.min.toFixed(0)} - {priceRange.max.toFixed(0)} AED
+              {t('products.range', { min: priceRange.min.toFixed(0), max: priceRange.max.toFixed(0) })}
             </div>
           </div>
         )}
@@ -190,9 +192,9 @@ export default function ProductFilters({
       <div className="border-b border-gray-200 pb-4">
         <button
           onClick={() => toggleSection('rating')}
-          className="w-full flex items-center justify-between text-sm font-semibold text-gray-900 mb-3"
+          className={`w-full flex items-center justify-between text-sm font-semibold text-gray-900 mb-3 py-2 touch-manipulation min-h-[44px] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
         >
-          <span>Minimum Rating</span>
+          <span>{t('products.minimumRating')}</span>
           {expandedSections.rating ? (
             <ChevronUp className="h-4 w-4" />
           ) : (
@@ -214,9 +216,9 @@ export default function ProductFilters({
                   className="w-4 h-4 text-primary-600 bg-white border-gray-300 focus:ring-primary-500 accent-primary-600 cursor-pointer"
                 />
                 <span className="text-gray-900">
-                  {rating === 0 ? 'Any Rating' : `${rating}+ Stars`}
+                  {rating === 0 ? t('products.anyRating') : t('products.stars', { rating })}
                   {rating > 0 && (
-                    <span className="ml-1 text-yellow-500">
+                    <span className={`${dir === 'rtl' ? 'mr-1' : 'ml-1'} text-yellow-500`}>
                       {'★'.repeat(rating)}
                     </span>
                   )}
@@ -231,9 +233,9 @@ export default function ProductFilters({
       <div className="border-b border-gray-200 pb-4">
         <button
           onClick={() => toggleSection('stock')}
-          className="w-full flex items-center justify-between text-sm font-semibold text-gray-900 mb-3"
+          className={`w-full flex items-center justify-between text-sm font-semibold text-gray-900 mb-3 py-2 touch-manipulation min-h-[44px] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
         >
-          <span>Availability</span>
+          <span>{t('products.availability')}</span>
           {expandedSections.stock ? (
             <ChevronUp className="h-4 w-4" />
           ) : (
@@ -248,7 +250,7 @@ export default function ProductFilters({
               onChange={handleStockToggle}
               className="w-4 h-4 text-primary-600 bg-white border-gray-300 rounded focus:ring-primary-500 accent-primary-600 cursor-pointer"
             />
-            <span className="text-gray-900">In Stock Only</span>
+            <span className="text-gray-900">{t('products.inStockOnly')}</span>
           </label>
         )}
       </div>
@@ -257,9 +259,9 @@ export default function ProductFilters({
       {hasActiveFilters && (
         <button
           onClick={clearAllFilters}
-          className="w-full py-2 px-4 text-sm font-medium text-primary-600 hover:text-primary-700 border border-primary-600 rounded-md hover:bg-primary-50 transition-colors"
+          className="w-full py-3 px-4 text-sm font-medium text-primary-600 hover:text-primary-700 border border-primary-600 rounded-md hover:bg-primary-50 transition-colors touch-manipulation min-h-[44px]"
         >
-          Clear All Filters
+          {t('products.clearAllFilters')}
         </button>
       )}
     </div>
@@ -270,8 +272,8 @@ export default function ProductFilters({
       {/* Mobile Filter Button */}
       <button
         onClick={() => setIsOpen(true)}
-        className="md:hidden fixed bottom-20 right-4 z-40 bg-primary-600 text-white p-4 rounded-full shadow-lg hover:bg-primary-700 transition-colors flex items-center gap-2"
-        aria-label="Open filters"
+        className={`md:hidden fixed bottom-20 ${dir === 'rtl' ? 'left-4' : 'right-4'} z-40 bg-primary-600 text-white p-4 rounded-full shadow-lg hover:bg-primary-700 transition-colors flex items-center gap-2`}
+        aria-label={t('products.filters')}
       >
         <Filter className="h-5 w-5" />
         {hasActiveFilters && (
@@ -288,13 +290,13 @@ export default function ProductFilters({
             className="md:hidden fixed inset-0 bg-black bg-opacity-50 z-50"
             onClick={() => setIsOpen(false)}
           />
-          <div className="md:hidden fixed inset-y-0 right-0 w-5/6 max-w-sm bg-white z-50 shadow-xl overflow-y-auto text-gray-900">
-            <div className="sticky top-0 bg-white border-b border-gray-200 px-4 py-4 flex items-center justify-between">
-              <h2 className="text-lg font-semibold text-gray-900">Filters</h2>
+          <div className={`md:hidden fixed inset-y-0 ${dir === 'rtl' ? 'left-0' : 'right-0'} w-5/6 max-w-sm bg-white z-50 shadow-xl overflow-y-auto text-gray-900`}>
+            <div className={`sticky top-0 bg-white border-b border-gray-200 px-4 py-4 flex items-center justify-between ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+              <h2 className="text-lg font-semibold text-gray-900">{t('products.filters')}</h2>
               <button
                 onClick={() => setIsOpen(false)}
-                className="text-gray-400 hover:text-gray-600"
-                aria-label="Close filters"
+                className="text-gray-400 hover:text-gray-600 p-2 touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center"
+                aria-label={t('common.close')}
               >
                 <X className="h-6 w-6" />
               </button>
@@ -309,14 +311,14 @@ export default function ProductFilters({
       {/* Desktop Filter Sidebar */}
       <div className="hidden md:block w-64 flex-shrink-0">
         <div className="sticky top-4 bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-semibold text-gray-900">Filters</h2>
+          <div className={`flex items-center justify-between mb-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+            <h2 className="text-lg font-semibold text-gray-900">{t('products.filters')}</h2>
             {hasActiveFilters && (
               <button
                 onClick={clearAllFilters}
-                className="text-sm text-primary-600 hover:text-primary-700"
+                className="text-sm text-primary-600 hover:text-primary-700 py-2 px-2 touch-manipulation min-h-[44px]"
               >
-                Clear
+                {t('products.clear')}
               </button>
             )}
           </div>

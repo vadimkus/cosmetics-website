@@ -4,6 +4,7 @@ import { useState, useMemo, useEffect } from 'react'
 import Image from 'next/image'
 import { Product } from '@/types'
 import { getProductVideoUrl } from '@/data/productConfig'
+import { useTranslation } from '@/hooks/useTranslation'
 
 interface ProductImageGalleryProps {
   product: Product
@@ -14,6 +15,7 @@ export default function ProductImageGallery({ product }: ProductImageGalleryProp
   const [imageError, setImageError] = useState(false)
   const [thumbnailErrors, setThumbnailErrors] = useState<Record<number, boolean>>({})
   const videoUrl = getProductVideoUrl(product.id)
+  const { t, dir } = useTranslation()
   
   // Check if this is the Holiday Kit
   const isHolidayKit = product.id === 'cmhf1a6p400000xfa0iu3bw42' || product.productNumber === '54' || product.category === 'kits'
@@ -64,6 +66,14 @@ export default function ProductImageGallery({ product }: ProductImageGalleryProp
     <div className="space-y-4">
       {/* Main Image or Video */}
       <div className="w-full max-w-md mx-auto aspect-square bg-gray-100 rounded-lg overflow-hidden relative">
+        {/* Sold Out Badge */}
+        {!product.inStock && (
+          <div className={`absolute top-3 ${dir === 'rtl' ? 'left-3' : 'right-3'} z-30`}>
+            <span className="inline-flex items-center px-4 py-2 rounded-lg bg-red-600 text-white font-bold text-sm md:text-base shadow-xl uppercase tracking-wide">
+              {t('product.soldOut')}
+            </span>
+          </div>
+        )}
         {product.id === '3' && selectedImage === 2 && videoUrl ? (
           <iframe
             className="w-full h-full rounded-lg"
@@ -99,7 +109,7 @@ export default function ProductImageGallery({ product }: ProductImageGalleryProp
                   }
                   return `${imageSrc}${separator}v=${version}`
                 })()}
-                alt={`${product.name} - Image ${selectedImage + 1}`}
+                alt={`${product.name} - GENOSYS Korean dermacosmetics product image ${selectedImage + 1} of ${productImages.length}`}
                 width={600}
                 height={600}
                 className="w-full h-full object-cover"
@@ -196,7 +206,7 @@ export default function ProductImageGallery({ product }: ProductImageGalleryProp
                     const version = `${product.id}-${imageSrc.split('/').pop()?.replace(/[^a-zA-Z0-9]/g, '') || 'img'}`
                     return `${imageSrc}${separator}v=${version}`
                   })()}
-                  alt={`${product.name} ${index + 1}`}
+                  alt={`${product.name} - GENOSYS product thumbnail ${index + 1} of ${productImages.length}`}
                   width={64}
                   height={64}
                   className="w-full h-full object-cover"

@@ -5,6 +5,8 @@ import { User } from '@/types/user'
 import { Lock } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { calculateDiscountedPrice, canUserSeePrices } from '@/lib/discountUtils'
+import { useTranslation } from '@/hooks/useTranslation'
+import { getLocalizedPath } from '@/lib/i18n'
 
 interface ProductPriceDisplayProps {
   product: Product
@@ -14,9 +16,10 @@ interface ProductPriceDisplayProps {
 
 export default function ProductPriceDisplay({ product, basePrice, user }: ProductPriceDisplayProps) {
   const router = useRouter()
+  const { t, locale, dir } = useTranslation()
 
   return (
-    <div className="flex items-center gap-4 mt-12 pt-4 ml-[30%]">
+    <div className={`flex items-center gap-4 mt-12 pt-4 ${dir === 'rtl' ? 'mr-[30%]' : 'ml-[30%]'}`} dir={dir}>
       {canUserSeePrices(user) ? (
         <>
           {(() => {
@@ -27,7 +30,7 @@ export default function ProductPriceDisplay({ product, basePrice, user }: Produc
               <div>
                 {pricing.hasDiscount ? (
                   <div>
-                    <div className="flex items-center gap-3">
+                    <div className={`flex items-center gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                       <span className="text-2xl md:text-3xl font-bold text-primary-600">
                         {pricing.discountedPrice.toFixed(2)} AED
                       </span>
@@ -35,11 +38,11 @@ export default function ProductPriceDisplay({ product, basePrice, user }: Produc
                         {pricing.originalPrice.toFixed(2)} AED
                       </span>
                     </div>
-                    <div className="flex items-center gap-2">
+                    <div className={`flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                       <span className="text-sm text-green-600 font-medium">
-                        {pricing.discountPercentage}% OFF
+                        {pricing.discountPercentage}% {t('product.off')}
                       </span>
-                      <span className="text-sm text-gray-600">(VAT included)</span>
+                      <span className="text-sm text-gray-600">({t('product.vatIncluded')})</span>
                     </div>
                   </div>
                 ) : (
@@ -47,7 +50,7 @@ export default function ProductPriceDisplay({ product, basePrice, user }: Produc
                     <div className="text-2xl md:text-3xl font-bold text-primary-600">
                       {pricing.originalPrice.toFixed(2)} AED
                     </div>
-                    <div className="text-sm font-normal text-gray-600">(VAT included)</div>
+                    <div className="text-sm font-normal text-gray-600">({t('product.vatIncluded')})</div>
                   </div>
                 )}
               </div>
@@ -55,16 +58,16 @@ export default function ProductPriceDisplay({ product, basePrice, user }: Produc
           })()}
         </>
       ) : user ? (
-        <div className="flex items-center text-gray-500">
-          <Lock className="h-5 w-5 mr-2" />
-          <span className="text-lg">Price locked</span>
+        <div className={`flex items-center text-gray-500 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+          <Lock className={`h-5 w-5 ${dir === 'rtl' ? 'ml-2' : 'mr-2'}`} />
+          <span className="text-lg">{t('product.priceLocked')}</span>
         </div>
       ) : (
         <button
-          onClick={() => router.push('/login')}
-          className="bg-primary-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-primary-700 transition-colors"
+          onClick={() => router.push(getLocalizedPath('/login', locale))}
+          className="bg-primary-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-primary-700 transition-colors touch-manipulation min-h-[44px]"
         >
-          Login to see price
+          {t('product.loginToSeePrice')}
         </button>
       )}
     </div>

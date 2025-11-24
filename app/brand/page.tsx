@@ -145,7 +145,7 @@ export default function BrandPage() {
               <div className="mt-6">
                 <Image
                   src="/Logo/Full.png"
-                  alt="GENOSYS Logo"
+                  alt="GENOSYS Gene Re-Birth System - Professional Korean Dermacosmetics Brand Logo"
                   width={200}
                   height={100}
                   className="mx-auto"
@@ -154,7 +154,7 @@ export default function BrandPage() {
               <div className="mt-6">
                 <Image
                   src="/images/genosys-products.jpg"
-                  alt="GENOSYS Professional Skincare Products"
+                  alt="GENOSYS Professional Korean Dermacosmetics Skincare Products Collection - Microneedling Devices and Skincare Solutions"
                   width={800}
                   height={600}
                   className="rounded-lg shadow-md mx-auto"

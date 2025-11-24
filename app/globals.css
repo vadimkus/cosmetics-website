@@ -19,6 +19,51 @@ body {
   line-height: 1.6;
 }
 
+/* RTL Support for Arabic */
+[dir="rtl"] {
+  direction: rtl;
+}
+
+[dir="rtl"] .container {
+  direction: rtl;
+}
+
+[dir="rtl"] nav {
+  direction: rtl;
+}
+
+[dir="rtl"] .flex {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .space-x-8 > * + * {
+  margin-left: 0;
+  margin-right: 2rem;
+}
+
+[dir="rtl"] .ml-2 {
+  margin-left: 0;
+  margin-right: 0.5rem;
+}
+
+[dir="rtl"] .mr-2 {
+  margin-right: 0;
+  margin-left: 0.5rem;
+}
+
+[dir="rtl"] .text-left {
+  text-align: right;
+}
+
+[dir="rtl"] .text-right {
+  text-align: left;
+}
+
+/* Arabic font support */
+[dir="rtl"] body {
+  font-family: 'Inter', 'Segoe UI', 'Tahoma', 'Arial', sans-serif;
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;

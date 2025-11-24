@@ -3,6 +3,7 @@
 import Image from 'next/image'
 import { Camera, X, Crown, Building, Eye, Calendar, Sparkles } from 'lucide-react'
 import { User as UserType } from '@/types/user'
+import { useTranslation } from '@/hooks/useTranslation'
 
 interface ProfileHeaderProps {
   user: UserType
@@ -23,6 +24,7 @@ export default function ProfileHeader({
   onRemoveImage,
   fileInputRef
 }: ProfileHeaderProps) {
+  const { t, locale } = useTranslation()
   return (
     <div className="bg-white/70 backdrop-blur-sm rounded-2xl sm:rounded-3xl shadow-xl border border-white/20 p-4 sm:p-6 lg:p-8 mb-4 sm:mb-6 lg:mb-8">
       <div className="flex flex-col lg:flex-row items-center gap-4 sm:gap-6 lg:gap-8">
@@ -62,7 +64,7 @@ export default function ProfileHeader({
               <button
                 onClick={() => fileInputRef.current?.click()}
                 className="bg-gradient-to-r from-red-600 to-red-700 text-white p-3 rounded-full hover:from-red-700 hover:to-red-800 transition-all duration-200 shadow-lg hover:shadow-xl"
-                title="Upload Photo"
+                title={t('profile.uploadPhoto')}
               >
                 <Camera className="h-4 w-4" />
               </button>
@@ -70,7 +72,7 @@ export default function ProfileHeader({
                 <button
                   onClick={onRemoveImage}
                   className="bg-gradient-to-r from-red-500 to-red-600 text-white p-3 rounded-full hover:from-red-600 hover:to-red-700 transition-all duration-200 shadow-lg hover:shadow-xl"
-                  title="Remove Photo"
+                  title={t('profile.removePhoto')}
                 >
                   <X className="h-4 w-4" />
                 </button>
@@ -99,7 +101,7 @@ export default function ProfileHeader({
                 <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-full shadow-lg mt-2">
                   <Sparkles className="h-3 w-3 sm:h-4 sm:w-4" />
                   <span className="text-xs sm:text-sm font-semibold">
-                    Family Member #{customerNumber}
+                    {t('profile.familyMember')} #{customerNumber}
                   </span>
                 </div>
               )}
@@ -111,7 +113,7 @@ export default function ProfileHeader({
             {user.canSeePrices && (
               <div className="flex items-center gap-2 px-3 py-1 bg-emerald-100 text-emerald-800 rounded-full text-sm font-medium">
                 <Eye className="h-4 w-4" />
-                Price Access
+                {t('profile.priceAccess')}
               </div>
             )}
             
@@ -126,13 +128,13 @@ export default function ProfileHeader({
                 ) : (
                   <Crown className="h-4 w-4" />
                 )}
-                {user.discountType} {user.discountPercentage}% OFF
+                {user.discountType === 'CLINIC' ? t('profile.clinicPartner') : t('profile.standard')} {user.discountPercentage}% {t('product.off')}
               </div>
             )}
             
             <div className="flex items-center gap-2 px-3 py-1 bg-gray-100 text-gray-800 rounded-full text-sm font-medium">
               <Calendar className="h-4 w-4" />
-              Member since {new Date(user.createdAt).getFullYear()}
+              {t('profile.memberSince')} {new Date(user.createdAt).toLocaleDateString(locale === 'ar' ? 'ar-AE' : 'en-AE', { year: 'numeric' })}
             </div>
           </div>
         </div>

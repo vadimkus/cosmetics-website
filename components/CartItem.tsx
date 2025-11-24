@@ -7,6 +7,7 @@ import { Minus, Plus, Trash2, Lock } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { calculateDiscountedPrice, canUserSeePrices } from '@/lib/discountUtils'
+import { useTranslation } from '@/hooks/useTranslation'
 
 interface CartItemProps {
   item: CartItemType
@@ -15,6 +16,7 @@ interface CartItemProps {
 export default function CartItem({ item }: CartItemProps) {
   const { updateQuantity, removeItem } = useCart()
   const { user } = useAuth()
+  const { t, dir } = useTranslation()
   const { product, quantity, selectedColor, selectedSize } = item
   
   // Use selectedSize/selectedColor if available, otherwise fallback to product size
@@ -36,7 +38,7 @@ export default function CartItem({ item }: CartItemProps) {
         <Link href={`/products/${product.id}`} className="relative w-20 h-20 md:w-24 md:h-24 flex-shrink-0 hover:opacity-80 transition-opacity">
           <Image
             src={product.image}
-            alt={product.name}
+            alt={`${product.name} - GENOSYS Korean ${product.category || 'dermacosmetics'} product in cart`}
             fill
             className="object-cover rounded-lg cursor-pointer"
             sizes="(max-width: 640px) 80px, 96px"
@@ -57,12 +59,12 @@ export default function CartItem({ item }: CartItemProps) {
             <div className="flex items-center gap-1.5 md:gap-2 mb-2 flex-nowrap overflow-x-auto">
               {displaySize && (
                 <span className="inline-flex items-center px-1.5 md:px-2 py-0.5 md:py-1 rounded-md text-[10px] md:text-xs lg:text-sm font-medium bg-blue-50 text-blue-700 border border-blue-200 whitespace-nowrap flex-shrink-0">
-                  Size: {displaySize}
+                  {t('product.size')}: {displaySize}
                 </span>
               )}
               {displayColor && (
                 <span className="inline-flex items-center px-1.5 md:px-2 py-0.5 md:py-1 rounded-md text-[10px] md:text-xs lg:text-sm font-medium bg-purple-50 text-purple-700 border border-purple-200 whitespace-nowrap flex-shrink-0">
-                  Color: {displayColor}
+                  {t('product.color')}: {displayColor}
                 </span>
               )}
             </div>
@@ -88,17 +90,17 @@ export default function CartItem({ item }: CartItemProps) {
                             {originalTotalPrice.toFixed(2)} AED
                           </p>
                           <span className="text-xs font-medium text-green-600 whitespace-nowrap flex-shrink-0">
-                            {pricing.discountPercentage}% OFF
+                            {pricing.discountPercentage}% {t('product.off')}
                           </span>
                         </div>
-                        <p className="text-xs text-red-600 mt-1">VAT included</p>
+                        <p className="text-xs text-red-600 mt-1">{t('product.vatIncluded')}</p>
                       </div>
                     ) : (
                       <div>
                         <p className="text-base md:text-lg font-bold text-gray-900">
                           {totalPrice.toFixed(2)} AED
                         </p>
-                        <p className="text-xs text-red-600 mt-1">VAT included</p>
+                        <p className="text-xs text-red-600 mt-1">{t('product.vatIncluded')}</p>
                       </div>
                     )}
                   </div>
@@ -106,9 +108,9 @@ export default function CartItem({ item }: CartItemProps) {
               })()}
             </div>
           ) : (
-            <div className="flex items-center text-gray-500 mt-2">
-              <Lock className="h-4 w-4 mr-1" />
-              <span className="text-sm">Price access required</span>
+            <div className={`flex items-center text-gray-500 mt-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+              <Lock className={`h-4 w-4 ${dir === 'rtl' ? 'ml-1' : 'mr-1'}`} />
+              <span className="text-sm">{t('profile.priceAccessRequired')}</span>
             </div>
           )}
         </div>

@@ -13,24 +13,26 @@ import { Product } from '@/types'
 import ProductsListSchema from '@/components/ProductsListSchema'
 import BreadcrumbSchema from '@/components/BreadcrumbSchema'
 import { useRouter, useSearchParams } from 'next/navigation'
+import { useTranslation } from '@/hooks/useTranslation'
+import { getLocalizedPath } from '@/lib/i18n'
 
-const CATEGORIES: Array<{ id: string; name: string }> = [
-  { id: 'all', name: 'All Products' },
-  { id: 'microneedling', name: 'Microneedling' },
-  { id: 'pro-solution', name: 'PRO Solution' },
-  { id: 'cleanser', name: 'Cleanser' },
-  { id: 'peeling', name: 'Peeling' },
-  { id: 'toner-mist', name: 'Toner/Mist' },
-  { id: 'serum', name: 'Serum' },
-  { id: 'cream', name: 'Cream' },
-  { id: 'mask', name: 'Mask' },
-  { id: 'sun', name: 'Sun' },
-  { id: 'cushion-bb', name: 'Cushion BB' },
-  { id: 'scalp-hair', name: 'Scalp/Hair' },
-  { id: 'eye-care', name: 'Eye care' },
-  { id: 'device', name: 'Device' },
-  { id: 'kits', name: 'Holiday kits' },
-  { id: 'beauty-boxes', name: 'Beauty Boxes' }
+const getCategories = (t: (key: string) => string): Array<{ id: string; name: string }> => [
+  { id: 'all', name: t('products.allProducts') },
+  { id: 'microneedling', name: t('products.microneedling') },
+  { id: 'pro-solution', name: t('products.proSolution') },
+  { id: 'cleanser', name: t('products.cleanser') },
+  { id: 'peeling', name: t('products.peeling') },
+  { id: 'toner-mist', name: t('products.tonerMist') },
+  { id: 'serum', name: t('products.serum') },
+  { id: 'cream', name: t('products.cream') },
+  { id: 'mask', name: t('products.mask') },
+  { id: 'sun', name: t('products.sun') },
+  { id: 'cushion-bb', name: t('products.cushionBb') },
+  { id: 'scalp-hair', name: t('products.scalpHair') },
+  { id: 'eye-care', name: t('products.eyeCare') },
+  { id: 'device', name: t('products.device') },
+  { id: 'kits', name: t('products.holidayKits') },
+  { id: 'beauty-boxes', name: t('products.beautyBoxes') }
 ]
 
 interface FilterState {
@@ -43,6 +45,7 @@ interface FilterState {
 export default function ProductsPageClient() {
   const router = useRouter()
   const searchParams = useSearchParams()
+  const { t, locale, dir } = useTranslation()
   
   const [products, setProducts] = useState<Product[]>([])
   const [loading, setLoading] = useState(true)
@@ -126,16 +129,17 @@ export default function ProductsPageClient() {
     if (searchQuery) params.set('search', searchQuery)
     if (sortBy !== 'name-asc') params.set('sort', sortBy)
     if (filters.categories.length > 0) params.set('categories', filters.categories.join(','))
-    if (filters.priceRange[0] !== Math.min(...products.map(p => p.price)) || filters.priceRange[1] !== Math.max(...products.map(p => p.price))) {
+    if (products.length > 0 && (filters.priceRange[0] !== Math.min(...products.map(p => p.price)) || filters.priceRange[1] !== Math.max(...products.map(p => p.price)))) {
       params.set('priceMin', filters.priceRange[0].toString())
       params.set('priceMax', filters.priceRange[1].toString())
     }
     if (filters.minRating > 0) params.set('rating', filters.minRating.toString())
     if (filters.inStockOnly) params.set('inStock', 'true')
     
-    const newUrl = params.toString() ? `/products?${params.toString()}` : '/products'
+    const basePath = getLocalizedPath('/products', locale)
+    const newUrl = params.toString() ? `${basePath}?${params.toString()}` : basePath
     router.replace(newUrl, { scroll: false })
-  }, [searchQuery, sortBy, filters, router, products])
+  }, [searchQuery, sortBy, filters, router, products, locale])
 
   // Filter and sort products
   const filteredAndSortedProducts = useMemo(() => {
@@ -246,7 +250,7 @@ export default function ProductsPageClient() {
   }, [])
 
   if (loading) {
-    return <LoadingSpinner fullScreen text="Loading products..." size="xl" />
+    return <LoadingSpinner fullScreen text={t('common.loading')} size="xl" />
   }
 
   if (error) {
@@ -267,36 +271,36 @@ export default function ProductsPageClient() {
   debugLog('Products loaded:', products.length, 'Filtered:', filteredAndSortedProducts.length)
 
   return (
-    <div className="bg-white min-h-screen">
+    <div className="bg-white min-h-screen" dir={dir}>
       <ProductsListSchema products={filteredAndSortedProducts} category="" />
       <BreadcrumbSchema 
         items={[
-          { name: 'Home', url: '/' },
-          { name: 'Products', url: '/products' }
+          { name: t('navigation.home'), url: getLocalizedPath('/', locale) },
+          { name: t('navigation.products'), url: getLocalizedPath('/products', locale) }
         ]}
       />
       <div className="container mx-auto px-4 py-4 md:py-8 lg:py-16">
         {/* Navigation Breadcrumb */}
-        <nav className="flex items-center gap-1.5 md:gap-2 text-xs md:text-sm lg:text-base text-gray-600 mb-4 md:mb-6 lg:mb-8" aria-label="Breadcrumb">
+        <nav className={`flex items-center gap-1.5 md:gap-2 text-xs md:text-sm lg:text-base text-gray-600 mb-4 md:mb-6 lg:mb-8 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`} aria-label="Breadcrumb">
           <Link 
-            href="/"
+            href={getLocalizedPath('/', locale)}
             className="hover:text-primary-600 transition-colors flex items-center"
           >
-            Home
+            {t('navigation.home')}
           </Link>
           <span className="flex items-center">/</span>
           <span className="text-gray-900 font-medium flex items-center">
-            Products
+            {t('navigation.products')}
           </span>
         </nav>
 
         {/* Header */}
         <div className="text-center mb-6 md:mb-8">
           <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
-            GENOSYS Products
+            {t('products.title')}
           </h1>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Professional Korean dermacosmetics
+            {t('products.subtitle')}
           </p>
         </div>
 
@@ -312,7 +316,7 @@ export default function ProductsPageClient() {
           {/* Desktop Filters Sidebar */}
           <ProductFilters
             products={products}
-            categories={CATEGORIES}
+            categories={getCategories(t)}
             onFiltersChange={handleFiltersChange}
             activeFilters={filters}
           />
@@ -320,13 +324,13 @@ export default function ProductsPageClient() {
           {/* Products Section */}
           <div className="flex-1">
             {/* Results Header with Sort */}
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
+            <div className={`flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
               <div className="text-sm text-gray-600">
                 {filteredAndSortedProducts.length === products.length ? (
-                  <span>Showing all {filteredAndSortedProducts.length} products</span>
+                  <span>{t('products.showingAll', { count: filteredAndSortedProducts.length })}</span>
                 ) : (
                   <span>
-                    Showing {filteredAndSortedProducts.length} of {products.length} products
+                    {t('products.showing', { filtered: filteredAndSortedProducts.length, total: products.length })}
                     {(searchQuery || filters.categories.length > 0 || filters.minRating > 0 || filters.inStockOnly) && (
                       <button
                         onClick={() => {
@@ -338,9 +342,9 @@ export default function ProductsPageClient() {
                             inStockOnly: false
                           })
                         }}
-                        className="ml-2 text-primary-600 hover:text-primary-700 underline"
+                        className={`${dir === 'rtl' ? 'mr-2' : 'ml-2'} text-primary-600 hover:text-primary-700 underline`}
                       >
-                        Clear filters
+                        {t('products.clearFilters')}
                       </button>
                     )}
                   </span>
@@ -358,9 +362,9 @@ export default function ProductsPageClient() {
               </div>
             ) : (
               <div className="text-center py-12">
-                <p className="text-gray-600 text-lg mb-2">No products found</p>
+                <p className="text-gray-600 text-lg mb-2">{t('products.noProductsFound')}</p>
                 <p className="text-gray-500 text-sm mb-4">
-                  Try adjusting your search or filters
+                  {t('products.tryAdjustingFilters')}
                 </p>
                 <button
                   onClick={() => {
@@ -374,7 +378,7 @@ export default function ProductsPageClient() {
                   }}
                   className="text-primary-600 hover:text-primary-700 underline text-sm"
                 >
-                  Clear all filters
+                  {t('products.clearAllFilters')}
                 </button>
               </div>
             )}

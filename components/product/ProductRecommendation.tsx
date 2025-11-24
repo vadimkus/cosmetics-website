@@ -10,6 +10,7 @@ import { useAuth } from '@/components/AuthProvider'
 import { useRouter } from 'next/navigation'
 import { calculateDiscountedPrice, canUserSeePrices } from '@/lib/discountUtils'
 import { errorLog } from '@/lib/logger'
+import { useTranslation } from '@/hooks/useTranslation'
 
 interface ProductRecommendationProps {
   recommendedProductId: string
@@ -25,6 +26,7 @@ export default function ProductRecommendation({
   const { addItem } = useCart()
   const { user } = useAuth()
   const router = useRouter()
+  const { t } = useTranslation()
 
   useEffect(() => {
     async function fetchRecommendedProduct() {
@@ -319,10 +321,10 @@ export default function ProductRecommendation({
               {recommendedProduct.name}
             </h4>
             {recommendedProduct.size && (
-              <p className="text-xs text-gray-600 mb-1 md:mb-2">Size: {recommendedProduct.size}</p>
+              <p className="text-xs text-gray-600 mb-1 md:mb-2">{t('product.size')}: {recommendedProduct.size}</p>
             )}
             {!recommendedProduct.size && recommendedProduct.id === '32' && (
-              <p className="text-xs text-gray-600 mb-1 md:mb-2">Size: 50g</p>
+              <p className="text-xs text-gray-600 mb-1 md:mb-2">{t('product.size')}: 50g</p>
             )}
             {canSeePrice ? (
               <div className="flex flex-wrap items-center gap-1 md:gap-2">
@@ -335,7 +337,7 @@ export default function ProductRecommendation({
                       AED {pricing.originalPrice.toFixed(2)}
                     </span>
                     <span className="text-xs bg-green-100 text-green-700 px-1.5 md:px-2 py-0.5 md:py-1 rounded">
-                      {pricing.discountPercentage}% OFF
+                      {pricing.discountPercentage}% {t('product.off')}
                     </span>
                   </>
                 ) : (
@@ -345,7 +347,7 @@ export default function ProductRecommendation({
                 )}
               </div>
             ) : (
-              <p className="text-xs md:text-sm text-gray-500">Login to see price</p>
+              <p className="text-xs md:text-sm text-gray-500">{t('product.loginToSeePrice')}</p>
             )}
             <p className="text-xs text-gray-600 mt-1 md:mt-2">Click to view details →</p>
           </Link>
@@ -354,7 +356,7 @@ export default function ProductRecommendation({
           <div className="bg-white rounded-lg p-3 md:p-4 border-2 border-red-300">
             <h4 className="font-semibold text-sm md:text-base text-gray-900 mb-2 md:mb-3 flex items-center gap-2">
               <Sparkles className="h-3 w-3 md:h-4 md:w-4 text-red-600 flex-shrink-0" />
-              <span>Why Combine These Products?</span>
+              <span>{t('product.whyCombineTheseProducts')}</span>
             </h4>
             <ul className="space-y-1.5 md:space-y-2 text-xs md:text-sm text-gray-700">
               {description.benefits.map((benefit, index) => (
@@ -371,7 +373,7 @@ export default function ProductRecommendation({
                 className="mt-3 md:mt-4 w-full flex items-center justify-center gap-2 bg-red-600 text-white px-3 md:px-4 py-2 rounded-lg hover:bg-red-700 transition-colors font-medium text-xs md:text-sm"
               >
                 <ShoppingCart className="h-3 w-3 md:h-4 md:w-4" />
-                Add product to cart
+                {t('product.addToCart')}
               </button>
             )}
           </div>

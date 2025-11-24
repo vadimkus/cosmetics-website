@@ -25,7 +25,8 @@ export async function POST(request: NextRequest) {
       subtotal,
       shippingCost,
       vatAmount,
-      total
+      total,
+      locale = 'en'
     } = orderData
 
     // Save order to database
@@ -131,12 +132,18 @@ export async function POST(request: NextRequest) {
       total
     }
 
-    const orderHTML = generateCODOrderHTML(orderHTMLData)
+    // Load translations
+    const translations = locale === 'ar' 
+      ? (await import('@/messages/ar.json')).default.orderEmail.cod
+      : (await import('@/messages/en.json')).default.orderEmail.cod
+
+    const orderHTML = generateCODOrderHTML(orderHTMLData, locale, translations)
 
     // Send email to customer (non-blocking - fire and forget)
+    const emailSubject = translations.subject.replace('{orderNumber}', orderNumber)
     sendEmail(
       customerEmail,
-      `Order Confirmation #${orderNumber} - GENOSYS Professional`,
+      emailSubject,
       orderHTML
     ).then((result) => {
       if (result.success) {

@@ -1,6 +1,9 @@
+'use client'
+
 import { Building, Phone, Globe } from 'lucide-react'
 import Image from 'next/image'
 import { Partner } from '@/types/partner'
+import { useTranslation } from '@/hooks/useTranslation'
 
 interface PartnerCardProps {
   partner: Partner
@@ -38,37 +41,38 @@ const themeClasses = {
 }
 
 export default function PartnerCard({ partner }: PartnerCardProps) {
+  const { t, dir } = useTranslation()
   const theme = themeClasses[partner.theme]
   const isInstagram = partner.website?.includes('instagram.com')
-  const websiteButtonText = isInstagram ? 'Instagram' : 'Website'
+  const websiteButtonText = isInstagram ? t('common.instagram') : t('common.website')
   
   return (
-    <div className={`bg-gradient-to-r ${theme.bg} rounded-xl shadow-lg border ${theme.border} p-4 sm:p-6 mb-6 sm:mb-8`}>
-      <div className="flex flex-col lg:flex-row items-center gap-4 lg:gap-6">
+    <div className={`bg-gradient-to-r ${theme.bg} rounded-xl shadow-lg border ${theme.border} p-4 sm:p-6 mb-6 sm:mb-8`} dir={dir}>
+      <div className={`flex flex-col lg:flex-row items-center gap-4 lg:gap-6 ${dir === 'rtl' ? 'lg:flex-row-reverse' : ''}`}>
         <div className="flex-shrink-0">
           <div className={`w-16 h-16 sm:w-20 sm:h-20 bg-white rounded-full flex items-center justify-center shadow-lg border ${theme.border}`}>
             <Image
               src={partner.logo}
-              alt={`${partner.name} Logo`}
+              alt={`${partner.name} - Authorized GENOSYS Korean dermacosmetics partner in ${partner.location.includes('Dubai') ? 'Dubai' : partner.location.includes('Abu Dhabi') ? 'Abu Dhabi' : 'UAE'}`}
               width={40}
               height={40}
               className="object-contain sm:w-[50px] sm:h-[50px]"
             />
           </div>
         </div>
-        <div className="flex-1 text-center lg:text-left min-w-0">
+        <div className={`flex-1 text-center lg:text-left min-w-0 ${dir === 'rtl' ? 'lg:text-right' : ''}`}>
           <h3 className="text-base sm:text-lg lg:text-xl font-bold text-gray-800 mb-1 break-words leading-tight">{partner.name}</h3>
           <p className="text-xs sm:text-sm lg:text-base text-gray-600 mb-2">{partner.type}</p>
           <p className="text-xs sm:text-sm text-gray-600 mb-2 leading-relaxed">
             {partner.description}
           </p>
-          <div className="text-xs sm:text-sm text-gray-600 space-y-0 sm:space-y-2">
-            <div className="flex items-start justify-start gap-2">
+          <div className={`text-xs sm:text-sm text-gray-600 space-y-0 sm:space-y-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
+            <div className={`flex items-start gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
               <Building className={`h-3 w-3 sm:h-4 sm:w-4 ${theme.icon} flex-shrink-0`} />
               <span className="break-words leading-tight">{partner.location}</span>
             </div>
             {partner.phone && (
-              <div className="flex items-start justify-start gap-2">
+              <div className={`flex items-start gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                 <Phone className={`h-3 w-3 sm:h-4 sm:w-4 ${theme.icon} flex-shrink-0`} />
                 <a href={`tel:${partner.phone.replace(/\s/g, '')}`} className={`hover:${theme.icon} transition-colors break-all leading-tight`}>
                   {partner.phone}
@@ -76,7 +80,7 @@ export default function PartnerCard({ partner }: PartnerCardProps) {
               </div>
             )}
             {partner.website && (
-              <div className="flex items-start justify-start gap-2">
+              <div className={`flex items-start gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                 <Globe className={`h-3 w-3 sm:h-4 sm:w-4 ${theme.icon} flex-shrink-0`} />
                 <a 
                   href={partner.website} 
@@ -98,7 +102,7 @@ export default function PartnerCard({ partner }: PartnerCardProps) {
               rel="noopener noreferrer"
               className={`inline-flex items-center justify-center ${theme.button} text-white px-3 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-colors w-full sm:w-auto`}
             >
-              📍 Directions
+              📍 {t('common.directions')}
             </a>
           )}
           {partner.website && (

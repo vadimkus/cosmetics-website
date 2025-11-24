@@ -7,20 +7,26 @@ import { useCartStore } from '@/lib/cartStore'
 import { useAuth } from './AuthProvider'
 import { useFavorites } from './FavoritesProvider'
 import LoginModal from './LoginModal'
+import LanguageSwitcher from './LanguageSwitcher'
 import { useState, useEffect, memo } from 'react'
+import { useTranslation } from '@/hooks/useTranslation'
+import { getLocalizedPath } from '@/lib/i18n'
 
 const Header = memo(function Header() {
   const { getTotalItems } = useCartStore()
   const { user, logout } = useAuth()
   const { favorites } = useFavorites()
+  const { t, locale, dir } = useTranslation()
   const [showLoginModal, setShowLoginModal] = useState(false)
   const [isLoginMode, setIsLoginMode] = useState(true)
   const [showMobileMenu, setShowMobileMenu] = useState(false)
   const [isClient, setIsClient] = useState(false)
   const [isHeartBeating, setIsHeartBeating] = useState(false)
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
     setIsClient(true)
+    setMounted(true)
   }, [])
 
   // Heartbeat animation every 16 seconds
@@ -44,19 +50,24 @@ const Header = memo(function Header() {
     return () => clearInterval(interval)
   }, [isClient])
 
+  // Use mounted state to prevent hydration mismatch
+  // Only determine RTL after mount to ensure server and client match
+  const isRTL = mounted ? dir === 'rtl' : false
+  const currentDir = mounted ? dir : 'ltr'
+
   return (
-    <header className="bg-white shadow-sm border-b">
+    <header className="bg-white shadow-sm border-b" dir={currentDir}>
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between py-4">
+        <div className={`flex items-center justify-between py-4${isRTL ? ' flex-row-reverse' : ''}`}>
           <div className="flex flex-col">
             <span className="hidden md:block text-lg md:text-2xl font-bold text-primary-600">
               Genosys Middle East FZ-LLC
             </span>
-            <Link href="/products" className="md:hidden text-base font-bold text-primary-600">
-              Products
+            <Link href={getLocalizedPath('/products', locale)} className="md:hidden text-base font-bold text-primary-600">
+              {t('navigation.products')}
             </Link>
-            <div className="hidden md:flex text-sm text-gray-600 items-center gap-1 ml-0 md:ml-40">
-              United Arab Emirates
+            <div className={`hidden md:flex text-sm text-gray-600 items-center gap-1 ${isRTL ? 'mr-0 md:mr-40' : 'ml-0 md:ml-40'}`}>
+              {t('common.uae')}
               <Heart className={`h-3 w-3 text-primary-600 fill-current transition-transform duration-300 ${
                 isHeartBeating ? 'animate-pulse' : ''
               }`} 
@@ -67,46 +78,43 @@ const Header = memo(function Header() {
           </div>
           
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex space-x-8" role="navigation" aria-label="Main navigation">
-            <Link href="/" className="text-gray-700 hover:text-primary-600 transition-colors">
-              Home
+          <nav className={`hidden md:flex${isRTL ? ' space-x-reverse' : ''} space-x-8`} role="navigation" aria-label="Main navigation">
+            <Link href={getLocalizedPath('/', locale)} className="text-gray-700 hover:text-primary-600 transition-colors">
+              {t('navigation.home')}
             </Link>
-            <Link href="/about-genosys-middle-east" className="text-gray-700 hover:text-primary-600 transition-colors">
-              About
+            <Link href={getLocalizedPath('/about', locale)} className="text-gray-700 hover:text-primary-600 transition-colors">
+              {t('navigation.about')}
             </Link>
-            <Link href="/genosys-brand-story" className="text-gray-700 hover:text-primary-600 transition-colors">
-              Brand
+            <Link href={getLocalizedPath('/brand', locale)} className="text-gray-700 hover:text-primary-600 transition-colors">
+              {t('navigation.brand')}
             </Link>
-            <Link href="/korean-dermacosmetics-products" className="text-gray-700 hover:text-primary-600 transition-colors">
-              Products
+            <Link href={getLocalizedPath('/products', locale)} className="text-gray-700 hover:text-primary-600 transition-colors">
+              {t('navigation.products')}
             </Link>
             {isClient && user && (
-              <Link href="/professional-skincare-training" className="text-gray-700 hover:text-primary-600 transition-colors">
-                Training
+              <Link href={getLocalizedPath('/training', locale)} className="text-gray-700 hover:text-primary-600 transition-colors">
+                {t('navigation.training')}
               </Link>
             )}
-            <Link href="/contact-genosys-uae" className="text-gray-700 hover:text-primary-600 transition-colors">
-              Contact
+            <Link href={getLocalizedPath('/contact', locale)} className="text-gray-700 hover:text-primary-600 transition-colors">
+              {t('navigation.contact')}
             </Link>
-            <Link href="/delivery-shipping-uae" className="text-gray-700 hover:text-primary-600 transition-colors">
-              Delivery
-            </Link>
-            <Link href="/partners" className="text-gray-700 hover:text-primary-600 transition-colors">
-              Partners
+            <Link href={getLocalizedPath('/delivery', locale)} className="text-gray-700 hover:text-primary-600 transition-colors">
+              {t('navigation.delivery')}
             </Link>
           </nav>
 
           {/* Mobile Icons and Menu Button */}
-          <div className="md:hidden flex items-center space-x-2">
+          <div className={`md:hidden flex items-center space-x-2${isRTL ? ' space-x-reverse' : ''}`}>
             {/* Mobile Cart Icon */}
             <Link 
-              href="/cart" 
+              href={getLocalizedPath('/cart', locale)} 
               className="relative p-2 text-gray-700 hover:text-primary-600 transition-colors"
-              aria-label={`Shopping cart with ${isClient ? getTotalItems() : 0} items`}
+              aria-label={`${t('common.cart')} with ${isClient ? getTotalItems() : 0} items`}
             >
               <ShoppingCart className="h-6 w-6" aria-hidden="true" />
               {isClient && getTotalItems() > 0 && (
-                <span className="absolute -top-1 -right-1 bg-primary-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center" aria-hidden="true">
+                <span className={`absolute -top-1 ${isRTL ? '-left-1' : '-right-1'} bg-primary-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center`} aria-hidden="true">
                   {getTotalItems()}
                 </span>
               )}
@@ -114,13 +122,13 @@ const Header = memo(function Header() {
             
             {/* Mobile Favorites Icon */}
             <Link 
-              href="/favorites" 
+              href={getLocalizedPath('/favorites', locale)} 
               className="relative p-2 text-gray-700 hover:text-primary-600 transition-colors"
-              aria-label={`Favorites with ${isClient ? favorites.length : 0} items`}
+              aria-label={`${t('common.favorites')} with ${isClient ? favorites.length : 0} items`}
             >
               <Heart className="h-6 w-6" aria-hidden="true" />
               {isClient && favorites.length > 0 && (
-                <span className="absolute -top-1 -right-1 bg-primary-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center" aria-hidden="true">
+                <span className={`absolute -top-1 ${isRTL ? '-left-1' : '-right-1'} bg-primary-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center`} aria-hidden="true">
                   {favorites.length}
                 </span>
               )}
@@ -130,51 +138,55 @@ const Header = memo(function Header() {
             {isClient && user ? (
               <>
                 <Link 
-                  href="/profile" 
-                  className="p-2 text-gray-700 hover:text-primary-600 transition-colors"
-                  aria-label="My Profile"
+                  href={getLocalizedPath('/profile', locale)} 
+                  className="p-2 text-gray-700 hover:text-primary-600 transition-colors touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center"
+                  aria-label={t('common.profile')}
                 >
                   <User className="h-6 w-6 text-green-600" aria-hidden="true" />
                 </Link>
+                <LanguageSwitcher />
                 <button 
                   onClick={logout}
-                  className="p-2 text-gray-700 hover:text-primary-600 transition-colors"
-                  aria-label="Logout"
+                  className="p-2 text-gray-700 hover:text-primary-600 transition-colors touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center"
+                  aria-label={t('common.logout')}
                 >
                   <LogOut className="h-6 w-6" aria-hidden="true" />
                 </button>
               </>
             ) : (
-              <button 
-                onClick={() => setShowLoginModal(true)}
-                className="p-2 text-gray-700 hover:text-primary-600 transition-colors"
-                aria-label="Login"
-              >
-                <User className="h-6 w-6" aria-hidden="true" />
-              </button>
+              <>
+                <button 
+                  onClick={() => setShowLoginModal(true)}
+                  className="p-2 text-gray-700 hover:text-primary-600 transition-colors touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center"
+                  aria-label={t('common.login')}
+                >
+                  <User className="h-6 w-6 text-green-600" aria-hidden="true" />
+                </button>
+                <LanguageSwitcher />
+              </>
             )}
             
             {/* Mobile Menu Button */}
             <button
               onClick={() => setShowMobileMenu(!showMobileMenu)}
-              className="p-2 text-gray-700 hover:text-primary-600 transition-colors"
-              aria-label={showMobileMenu ? "Close mobile menu" : "Open mobile menu"}
+              className="p-2 text-gray-700 hover:text-primary-600 transition-colors touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center"
+              aria-label={showMobileMenu ? t('common.closeMobileMenu') : t('common.openMobileMenu')}
               aria-expanded={showMobileMenu}
             >
               <Menu className="h-6 w-6" aria-hidden="true" />
             </button>
           </div>
           
-          <div className="hidden lg:flex items-center space-x-6">
-            <div className="flex flex-col items-end text-right">
+          <div className={`hidden lg:flex items-center space-x-6${isRTL ? ' space-x-reverse flex-row-reverse' : ''}`}>
+            <div className={`flex flex-col ${isRTL ? 'items-start text-left' : 'items-end text-right'}`}>
               <div className="text-sm text-gray-600">
-                Official Distributor in the UAE
+                {t('footer.officialDistributor')}
               </div>
               <a 
                 href="https://wa.me/971585487665" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="text-sm text-gray-600 hover:text-green-600 transition-colors flex items-center gap-1"
+                className={`text-sm text-gray-600 hover:text-green-600 transition-colors flex items-center gap-1${isRTL ? ' flex-row-reverse' : ''}`}
               >
                 +971 58 548 76 65 📱
               </a>
@@ -186,56 +198,60 @@ const Header = memo(function Header() {
               </a>
             </div>
             
-            <div className="flex items-center space-x-4">
+            <div className={`flex items-center space-x-4${isRTL ? ' space-x-reverse' : ''}`}>
               {isClient && user ? (
                 <>
                   <Link 
-                    href="/profile" 
+                    href={getLocalizedPath('/profile', locale)} 
                     className="p-2 text-gray-700 hover:text-primary-600 transition-colors"
-                    aria-label="My Profile"
+                    aria-label={t('common.profile')}
                   >
                     <User className="h-6 w-6 text-green-600" aria-hidden="true" />
                   </Link>
+                  <LanguageSwitcher />
                   <button 
                     onClick={logout}
                     className="p-2 text-gray-700 hover:text-primary-600 transition-colors"
-                    aria-label="Logout"
+                    aria-label={t('common.logout')}
                   >
                     <LogOut className="h-6 w-6" aria-hidden="true" />
                   </button>
                 </>
               ) : (
-                <button 
-                  onClick={() => setShowLoginModal(true)}
-                  className="p-2 text-gray-700 hover:text-primary-600 transition-colors flex items-center gap-2 touch-manipulation"
-                  aria-label="Login"
-                >
-                  <User className="h-5 w-5" aria-hidden="true" />
-                  <span className="text-sm font-medium hidden sm:inline">Login</span>
-                </button>
+                <>
+                  <button 
+                    onClick={() => setShowLoginModal(true)}
+                    className="p-2 text-gray-700 hover:text-primary-600 transition-colors flex items-center gap-2 touch-manipulation"
+                    aria-label={t('common.login')}
+                  >
+                    <User className="h-5 w-5 text-green-600" aria-hidden="true" />
+                    <span className="text-sm font-medium hidden sm:inline">{t('common.login')}</span>
+                  </button>
+                  <LanguageSwitcher />
+                </>
               )}
               
               <Link 
-                href="/favorites" 
-                className="relative p-2 text-gray-700 hover:text-primary-600 transition-colors"
-                aria-label={`Favorites with ${isClient ? favorites.length : 0} items`}
+                href={getLocalizedPath('/favorites', locale)} 
+                className="relative p-2 text-gray-700 hover:text-primary-600 transition-colors touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center"
+                aria-label={`${t('common.favorites')} with ${isClient ? favorites.length : 0} items`}
               >
                 <Heart className="h-6 w-6" aria-hidden="true" />
                 {isClient && favorites.length > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-primary-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center" aria-hidden="true">
+                  <span className={`absolute -top-1 ${isRTL ? '-left-1' : '-right-1'} bg-primary-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center`} aria-hidden="true">
                     {favorites.length}
                   </span>
                 )}
               </Link>
               
               <Link 
-                href="/cart" 
-                className="relative p-2 text-gray-700 hover:text-primary-600 transition-colors"
-                aria-label={`Shopping cart with ${isClient ? getTotalItems() : 0} items`}
+                href={getLocalizedPath('/cart', locale)} 
+                className="relative p-2 text-gray-700 hover:text-primary-600 transition-colors touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center"
+                aria-label={`${t('common.cart')} with ${isClient ? getTotalItems() : 0} items`}
               >
                 <ShoppingCart className="h-6 w-6" aria-hidden="true" />
                 {isClient && getTotalItems() > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-primary-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center" aria-hidden="true">
+                  <span className={`absolute -top-1 ${isRTL ? '-left-1' : '-right-1'} bg-primary-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center`} aria-hidden="true">
                     {getTotalItems()}
                   </span>
                 )}
@@ -249,65 +265,61 @@ const Header = memo(function Header() {
       {showMobileMenu && (
         <div className="md:hidden bg-white border-t" role="navigation" aria-label="Mobile navigation">
           <div className="container mx-auto px-4 py-4">
-            <nav className="flex flex-col space-y-4">
+            <nav className="flex flex-col space-y-4" dir={currentDir}>
+            <Link 
+              href={getLocalizedPath('/', locale)} 
+              className="text-gray-700 hover:text-primary-600 transition-colors py-3 border-b border-gray-100 font-semibold touch-manipulation min-h-[44px] flex items-center"
+              onClick={() => setShowMobileMenu(false)}
+            >
+              {t('navigation.home')}
+            </Link>
+            <Link 
+              href={getLocalizedPath('/about', locale)} 
+              className="text-gray-700 hover:text-primary-600 transition-colors py-3 border-b border-gray-100 touch-manipulation min-h-[44px] flex items-center"
+              onClick={() => setShowMobileMenu(false)}
+            >
+              {t('navigation.about')}
+            </Link>
+            <Link 
+              href={getLocalizedPath('/brand', locale)} 
+              className="text-gray-700 hover:text-primary-600 transition-colors py-3 border-b border-gray-100 touch-manipulation min-h-[44px] flex items-center"
+              onClick={() => setShowMobileMenu(false)}
+            >
+              {t('navigation.brand')}
+            </Link>
+            <Link 
+              href={getLocalizedPath('/products', locale)} 
+              className="text-gray-700 hover:text-primary-600 transition-colors py-3 border-b border-gray-100 touch-manipulation min-h-[44px] flex items-center"
+              onClick={() => setShowMobileMenu(false)}
+            >
+              {t('navigation.products')}
+            </Link>
+            {isClient && user && (
               <Link 
-                href="/" 
-                className="text-gray-700 hover:text-primary-600 transition-colors py-2 border-b border-gray-100 font-semibold"
+                href={getLocalizedPath('/training', locale)} 
+                className="text-gray-700 hover:text-primary-600 transition-colors py-3 border-b border-gray-100 touch-manipulation min-h-[44px] flex items-center"
                 onClick={() => setShowMobileMenu(false)}
               >
-                Home
+                {t('navigation.training')}
               </Link>
-              <Link 
-                href="/about-genosys-middle-east" 
-                className="text-gray-700 hover:text-primary-600 transition-colors py-2 border-b border-gray-100"
-                onClick={() => setShowMobileMenu(false)}
-              >
-                About
-              </Link>
-              <Link 
-                href="/genosys-brand-story" 
-                className="text-gray-700 hover:text-primary-600 transition-colors py-2 border-b border-gray-100"
-                onClick={() => setShowMobileMenu(false)}
-              >
-                Brand
-              </Link>
-              <Link 
-                href="/korean-dermacosmetics-products" 
-                className="text-gray-700 hover:text-primary-600 transition-colors py-2 border-b border-gray-100"
-                onClick={() => setShowMobileMenu(false)}
-              >
-                Products
-              </Link>
-              {isClient && user && (
-                <Link 
-                  href="/professional-skincare-training" 
-                  className="text-gray-700 hover:text-primary-600 transition-colors py-2 border-b border-gray-100"
-                  onClick={() => setShowMobileMenu(false)}
-                >
-                  Training
-                </Link>
-              )}
-              <Link 
-                href="/contact-genosys-uae" 
-                className="text-gray-700 hover:text-primary-600 transition-colors py-2 border-b border-gray-100"
-                onClick={() => setShowMobileMenu(false)}
-              >
-                Contact
-              </Link>
-              <Link 
-                href="/delivery-shipping-uae" 
-                className="text-gray-700 hover:text-primary-600 transition-colors py-2 border-b border-gray-100"
-                onClick={() => setShowMobileMenu(false)}
-              >
-                Delivery
-              </Link>
-              <Link 
-                href="/partners" 
-                className="text-gray-700 hover:text-primary-600 transition-colors py-2 border-b border-gray-100"
-                onClick={() => setShowMobileMenu(false)}
-              >
-                Partners
-              </Link>
+            )}
+            <Link 
+              href={getLocalizedPath('/contact', locale)} 
+              className="text-gray-700 hover:text-primary-600 transition-colors py-3 border-b border-gray-100 touch-manipulation min-h-[44px] flex items-center"
+              onClick={() => setShowMobileMenu(false)}
+            >
+              {t('navigation.contact')}
+            </Link>
+            <Link 
+              href={getLocalizedPath('/delivery', locale)}
+              className="text-gray-700 hover:text-primary-600 transition-colors py-3 border-b border-gray-100 touch-manipulation min-h-[44px] flex items-center"
+              onClick={() => setShowMobileMenu(false)}
+            >
+              {t('navigation.delivery')}
+            </Link>
+            <div className="py-3 border-b border-gray-100 min-h-[44px] flex items-center">
+              <LanguageSwitcher />
+            </div>
               
               {/* Mobile Login/Profile Section */}
               <div className="pt-4 border-t border-gray-200">
@@ -321,20 +333,20 @@ const Header = memo(function Header() {
                       </div>
                     </div>
                     <Link 
-                      href="/profile" 
-                      className="block text-gray-700 hover:text-primary-600 transition-colors py-2 border-b border-gray-100"
+                      href={getLocalizedPath('/profile', locale)} 
+                      className="block text-gray-700 hover:text-primary-600 transition-colors py-3 border-b border-gray-100 touch-manipulation min-h-[44px] flex items-center"
                       onClick={() => setShowMobileMenu(false)}
                     >
-                      My Profile
+                      {t('common.profile')}
                     </Link>
                     <button 
                       onClick={() => {
                         logout()
                         setShowMobileMenu(false)
                       }}
-                      className="block w-full text-left text-gray-700 hover:text-primary-600 transition-colors py-2"
+                      className={`block w-full ${dir === 'rtl' ? 'text-right' : 'text-left'} text-gray-700 hover:text-primary-600 transition-colors py-3 touch-manipulation min-h-[44px] flex items-center`}
                     >
-                      Logout
+                      {t('common.logout')}
                     </button>
                   </div>
                 ) : (
@@ -343,10 +355,10 @@ const Header = memo(function Header() {
                       setShowLoginModal(true)
                       setShowMobileMenu(false)
                     }}
-                    className="w-full bg-primary-600 text-white py-3 rounded-lg font-semibold hover:bg-primary-700 transition-colors flex items-center justify-center gap-2 touch-manipulation"
+                    className="w-full bg-primary-600 text-white py-3 rounded-lg font-semibold hover:bg-primary-700 transition-colors flex items-center justify-center gap-2 touch-manipulation min-h-[44px]"
                   >
                     <User className="h-5 w-5" />
-                    Login / Register
+                    {t('common.login')} / {t('common.register')}
                   </button>
                 )}
               </div>
@@ -354,7 +366,7 @@ const Header = memo(function Header() {
               {/* Mobile Contact Info */}
               <div className="pt-4 border-t border-gray-200">
                 <div className="text-sm text-gray-600 mb-2">
-                  Official Distributor in the UAE
+                  {t('footer.officialDistributor')}
                 </div>
                 <a 
                   href="https://wa.me/971585487665" 

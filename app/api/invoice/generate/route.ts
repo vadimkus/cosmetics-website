@@ -23,6 +23,7 @@ interface InvoiceData {
   shippingCost: number
   vatAmount: number
   total: number
+  locale?: string
 }
 
 export async function POST(request: NextRequest) {
@@ -46,8 +47,14 @@ export async function POST(request: NextRequest) {
       subtotal,
       shippingCost,
       vatAmount,
-      total
+      total,
+      locale = 'en'
     } = invoiceData
+
+    // Load translations
+    const translations = locale === 'ar' 
+      ? (await import('@/messages/ar.json')).default.invoice
+      : (await import('@/messages/en.json')).default.invoice
 
     // Generate HTML invoice
     const invoiceHtml = generateInvoiceHTML({
@@ -61,13 +68,19 @@ export async function POST(request: NextRequest) {
       subtotal,
       shippingCost,
       vatAmount,
-      total
+      total,
+      locale,
+      translations
     })
 
     // Send email with invoice
+    const emailSubject = locale === 'ar'
+      ? `${translations.emailSubject} ${orderNumber} - ${translations.emailSubjectSuffix}`
+      : `${translations.emailSubject} ${orderNumber} - ${translations.emailSubjectSuffix}`
+    
     const result = await sendEmail(
       customerEmail,
-      `Invoice ${orderNumber} - GENOSYS Professional`,
+      emailSubject,
       invoiceHtml
     )
 
@@ -89,7 +102,7 @@ export async function POST(request: NextRequest) {
   }
 }
 
-function generateInvoiceHTML(data: InvoiceData): string {
+function generateInvoiceHTML(data: InvoiceData & { locale: string; translations: any }): string {
   const {
     orderNumber,
     customerName,
@@ -100,17 +113,31 @@ function generateInvoiceHTML(data: InvoiceData): string {
     subtotal,
     shippingCost,
     vatAmount,
-    total
+    total,
+    locale,
+    translations
   } = data
+
+  const isRTL = locale === 'ar'
+  const dir = isRTL ? 'rtl' : 'ltr'
+  const textAlign = isRTL ? 'right' : 'left'
+  const fontFamily = isRTL ? 'Arial, "Arabic Typesetting", "Segoe UI", sans-serif' : 'Arial, sans-serif'
+  
+  const dateStr = new Date().toLocaleDateString(locale === 'ar' ? 'ar-AE' : 'en-AE', { 
+    timeZone: 'Asia/Dubai', 
+    year: 'numeric', 
+    month: '2-digit', 
+    day: '2-digit' 
+  })
 
   return `
     <!DOCTYPE html>
-    <html>
+    <html dir="${dir}" lang="${locale}">
     <head>
       <meta charset="utf-8">
-      <title>Invoice ${orderNumber}</title>
+      <title>${translations.emailSubject} ${orderNumber}</title>
       <style>
-        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background-color: #f5f5f5; }
+        body { font-family: ${fontFamily}; margin: 0; padding: 20px; background-color: #f5f5f5; direction: ${dir}; }
         .invoice-container { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
         .header { text-align: center; margin-bottom: 30px; border-bottom: 2px solid #e5e5e5; padding-bottom: 20px; }
         .logo { margin-bottom: 15px; }
@@ -118,18 +145,18 @@ function generateInvoiceHTML(data: InvoiceData): string {
         .invoice-title { font-size: 28px; color: #1f2937; margin: 0; }
         .invoice-number { font-size: 16px; color: #6b7280; margin-top: 5px; }
         .customer-info, .order-details { margin-bottom: 30px; }
-        .section-title { font-size: 18px; font-weight: bold; color: #1f2937; margin-bottom: 15px; border-bottom: 1px solid #e5e5e5; padding-bottom: 5px; }
-        .info-row { display: flex; margin-bottom: 8px; }
-        .info-label { font-weight: bold; width: 120px; color: #374151; }
-        .info-value { color: #6b7280; }
+        .section-title { font-size: 18px; font-weight: bold; color: #1f2937; margin-bottom: 15px; border-bottom: 1px solid #e5e5e5; padding-bottom: 5px; text-align: ${textAlign}; }
+        .info-row { display: flex; margin-bottom: 8px; ${isRTL ? 'flex-direction: row-reverse;' : ''} }
+        .info-label { font-weight: bold; width: 120px; color: #374151; text-align: ${textAlign}; }
+        .info-value { color: #6b7280; text-align: ${textAlign}; }
         .items-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
-        .items-table th, .items-table td { padding: 12px; text-align: left; border-bottom: 1px solid #e5e5e5; }
+        .items-table th, .items-table td { padding: 12px; text-align: ${textAlign}; border-bottom: 1px solid #e5e5e5; }
         .items-table th { background-color: #f9fafb; font-weight: bold; color: #374151; }
         .items-table td { color: #6b7280; }
         .total-section { background-color: #f9fafb; padding: 20px; border-radius: 8px; margin-top: 20px; }
-        .total-row { display: flex; justify-content: space-between; margin-bottom: 12px; }
-        .total-label { font-weight: bold; color: #374151; }
-        .total-value { color: #6b7280; }
+        .total-row { display: flex; justify-content: space-between; margin-bottom: 12px; ${isRTL ? 'flex-direction: row-reverse;' : ''} }
+        .total-label { font-weight: bold; color: #374151; text-align: ${textAlign}; }
+        .total-value { color: #6b7280; text-align: ${textAlign}; }
         .grand-total { font-size: 18px; font-weight: bold; color: #000000; border-top: 2px solid #e5e5e5; padding-top: 10px; margin-top: 10px; }
         .footer { text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #e5e5e5; color: #000000; font-size: 14px; }
       </style>
@@ -140,48 +167,48 @@ function generateInvoiceHTML(data: InvoiceData): string {
           <div class="logo">
             <img src="https://genosys.ae/images/genosys-logo.png" alt="GENOSYS Logo" width="200" border="0" style="display: block; max-width: 200px; height: auto; margin: 0 auto;" />
           </div>
-          <h1 class="invoice-title">TAX INVOICE #${orderNumber.replace('GEN', '')} dated: ${new Date().toLocaleDateString('en-AE', { timeZone: 'Asia/Dubai', year: 'numeric', month: '2-digit', day: '2-digit' })}</h1>
+          <h1 class="invoice-title">${translations.title} #${orderNumber.replace('GEN', '')} ${translations.dated} ${dateStr}</h1>
         </div>
 
         <div class="customer-info">
-          <h2 class="section-title">Customer Information</h2>
+          <h2 class="section-title">${translations.customerInformation}</h2>
           <div class="info-row">
-            <span class="info-label">Name:</span>
+            <span class="info-label">${translations.name}</span>
             <span class="info-value">${customerName}</span>
           </div>
           <div class="info-row">
-            <span class="info-label">Email:</span>
+            <span class="info-label">${translations.email}</span>
             <span class="info-value">${customerEmail}</span>
           </div>
           <div class="info-row">
-            <span class="info-label">Phone:</span>
-            <span class="info-value">${customerPhone || 'N/A'}</span>
+            <span class="info-label">${translations.phone}</span>
+            <span class="info-value">${customerPhone || translations.na}</span>
           </div>
           <div class="info-row">
-            <span class="info-label">Address:</span>
-            <span class="info-value">${customerAddress || 'N/A'}</span>
+            <span class="info-label">${translations.address}</span>
+            <span class="info-value">${customerAddress || translations.na}</span>
           </div>
           <div class="info-row">
-            <span class="info-label">Emirate:</span>
+            <span class="info-label">${translations.emirate}</span>
             <span class="info-value">${emirate}</span>
           </div>
         </div>
 
         <div class="order-details">
-          <h2 class="section-title">Order Details</h2>
+          <h2 class="section-title">${translations.orderDetails}</h2>
           <table class="items-table">
             <thead>
               <tr>
-                <th>Product</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Total</th>
+                <th>${translations.product}</th>
+                <th>${translations.price}</th>
+                <th>${translations.quantity}</th>
+                <th>${translations.total}</th>
               </tr>
             </thead>
             <tbody>
               ${data.items.map((item: InvoiceItem) => `
                 <tr>
-                  <td><a href="https://genosys.ae/products/${item.id || item.name.toLowerCase().replace(/\s+/g, '-')}" style="color: #2563eb; text-decoration: none;">${item.name}</a></td>
+                  <td><a href="https://genosys.ae/${locale === 'ar' ? 'ar/' : ''}products/${item.id || item.name.toLowerCase().replace(/\s+/g, '-')}" style="color: #2563eb; text-decoration: none;">${item.name}</a></td>
                   <td>AED ${item.price.toFixed(2)}</td>
                   <td>${item.quantity}</td>
                   <td>AED ${item.total.toFixed(2)}</td>
@@ -193,19 +220,19 @@ function generateInvoiceHTML(data: InvoiceData): string {
 
         <div class="total-section">
           <div class="total-row">
-            <span class="total-label">Subtotal:</span>
+            <span class="total-label">${translations.subtotal}</span>
             <span class="total-value">AED ${subtotal.toFixed(2)}</span>
           </div>
           <div class="total-row">
-            <span class="total-label">Shipping to ${emirate}:</span>
-            <span class="total-value">${shippingCost === 0 ? 'FREE' : `AED ${shippingCost.toFixed(2)}`}</span>
+            <span class="total-label">${translations.shippingTo} ${emirate}:</span>
+            <span class="total-value">${shippingCost === 0 ? (locale === 'ar' ? 'مجاني' : 'FREE') : `AED ${shippingCost.toFixed(2)}`}</span>
           </div>
           <div class="total-row">
-            <span class="total-label">VAT (5%):</span>
+            <span class="total-label">${translations.vat}</span>
             <span class="total-value">AED ${vatAmount.toFixed(2)}</span>
           </div>
           <div class="total-row grand-total">
-            <span class="total-label">Total:</span>
+            <span class="total-label">${translations.totalLabel}</span>
             <span class="total-value">AED ${total.toFixed(2)}</span>
           </div>
         </div>
@@ -214,8 +241,8 @@ function generateInvoiceHTML(data: InvoiceData): string {
           <div style="text-align: center; margin-bottom: 15px; background-color: white; padding: 16px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
             <img src="https://genosys.ae/Logo/Full.png" alt="GENOSYS Logo" width="200" border="0" style="display: block; max-width: 200px; height: auto; margin: 0 auto;" />
           </div>
-          <p>Official Distributor in the UAE</p>
-          <p>© 2025 Genosys Middle East FZ-LLC. All rights reserved.</p>
+          <p>${translations.officialDistributor}</p>
+          <p>${translations.copyright}</p>
         </div>
       </div>
     </body>

@@ -42,6 +42,10 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: 'https://genosys.ae/about',
+    languages: {
+      'en': 'https://genosys.ae/about',
+      'ar': 'https://genosys.ae/ar/about',
+    },
   },
 }
 

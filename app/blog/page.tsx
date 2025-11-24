@@ -206,7 +206,7 @@ export default async function BlogPage() {
                     <div className="relative h-48 w-full">
                       <Image
                         src={post.featuredImage}
-                        alt={post.title}
+                        alt={`${post.title} - GENOSYS Korean Skincare Blog Article`}
                         fill
                         className="object-cover"
                       />

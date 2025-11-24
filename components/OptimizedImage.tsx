@@ -83,7 +83,7 @@ export default function OptimizedImage({
   return (
     <Image
       {...imageProps}
-      alt={imageProps.alt || 'Image'}
+      alt={imageProps.alt || 'GENOSYS Korean dermacosmetics product image'}
       style={{
         objectFit,
         objectPosition,

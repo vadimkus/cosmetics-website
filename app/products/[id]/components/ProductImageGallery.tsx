@@ -38,7 +38,7 @@ export default function ProductImageGallery({
               // Use product ID as version to ensure consistency across renders
               return `${imageSrc}${separator}v=${product.id}`
             })()}
-            alt={product.name}
+            alt={`${product.name} - GENOSYS professional Korean dermacosmetics ${product.category || 'skincare'} product`}
             width={600}
             height={600}
             className="w-full h-full object-cover"
@@ -66,7 +66,7 @@ export default function ProductImageGallery({
             >
               <Image
                 src={image}
-                alt={`${product.name} ${index + 1}`}
+                alt={`${product.name} - GENOSYS product thumbnail view ${index + 1}`}
                 width={64}
                 height={64}
                 className="w-full h-full object-cover"

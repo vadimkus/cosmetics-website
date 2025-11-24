@@ -1,7 +1,5 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import Image from 'next/image'
-import Link from 'next/link'
 import Script from 'next/script'
 import './globals.css'
 import { CartProvider } from '@/components/CartProvider'
@@ -16,6 +14,8 @@ import OrganizationSchema from '@/components/OrganizationSchema'
 import LocalBusinessSchema from '@/components/LocalBusinessSchema'
 import AggregateRatingSchema from '@/components/AggregateRatingSchema'
 import ErrorBoundary from '@/components/ErrorBoundary'
+import LocaleWrapper from '@/components/LocaleWrapper'
+import Footer from '@/components/Footer'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -53,6 +53,10 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: 'https://genosys.ae',
+    languages: {
+      'en': 'https://genosys.ae',
+      'ar': 'https://genosys.ae/ar',
+    },
   },
   icons: {
     icon: [
@@ -132,8 +136,9 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  // Default to English, will be updated by client-side locale detection
   return (
-    <html lang="en">
+    <html lang="en" dir="ltr">
       <head>
         {/* Google Analytics */}
         <Script
@@ -160,46 +165,15 @@ export default function RootLayout({
                 <PerformanceMonitor />
                 <UserRefreshWrapper />
                 <PageViewTracker />
-                <Header />
-                <main className="min-h-screen">
-                  <ErrorBoundary>
-                    {children}
-                  </ErrorBoundary>
-                </main>
-                <footer role="contentinfo" className="bg-white border-t border-gray-200 py-8">
-                  <div className="container mx-auto px-4">
-                    <div className="flex flex-col items-center gap-6">
-                      {/* Navigation Links */}
-                      <div className="flex flex-wrap justify-center gap-4 text-sm">
-                        <Link href="/blog" className="text-gray-600 hover:text-primary-600 transition-colors">
-                          Blog
-                        </Link>
-                        <Link href="/faq" className="text-gray-600 hover:text-primary-600 transition-colors">
-                          FAQ
-                        </Link>
-                        <Link href="/locations" className="text-gray-600 hover:text-primary-600 transition-colors">
-                          Locations
-                        </Link>
-                      </div>
-                      {/* Logo and Copyright */}
-                      <div className="flex flex-col items-center">
-                        <Image
-                          src="/Logo/upLOGO.png"
-                          alt="Genosys Middle East FZ-LLC"
-                          width={180}
-                          height={54}
-                          className="mb-2"
-                          priority={false}
-                          quality={90}
-                          placeholder="blur"
-                          blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
-                        />
-                        <p className="text-sm mt-1">Official Distributor in the UAE</p>
-                        <p className="text-sm mt-2">&copy; 2026 Genosys Middle East FZ-LLC. All rights reserved.</p>
-                      </div>
-                    </div>
-                  </div>
-                </footer>
+                <LocaleWrapper>
+                  <Header />
+                  <main className="min-h-screen">
+                    <ErrorBoundary>
+                      {children}
+                    </ErrorBoundary>
+                  </main>
+                </LocaleWrapper>
+                <Footer />
               </ServiceWorkerProvider>
             </CartProvider>
           </FavoritesProvider>

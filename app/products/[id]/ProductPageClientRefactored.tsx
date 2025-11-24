@@ -21,6 +21,8 @@ import ProductContentDisplay from '@/components/product/ProductContentDisplay'
 import ProductReviews from '@/components/product/ProductReviews'
 import TrustBadges from '@/components/product/TrustBadges'
 import ProductRecommendation from '@/components/product/ProductRecommendation'
+import { useTranslation } from '@/hooks/useTranslation'
+import { getLocalizedPath } from '@/lib/i18n'
 import { 
   getPriceForSize, 
   hasProductSizeVariants, 
@@ -38,6 +40,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
   const { addItem } = useCart()
   const { toggleFavorite, isFavorite } = useFavorites()
   const { user } = useAuth()
+  const { t, locale, dir } = useTranslation()
   
   // Variant state
   const sizeOptions = getProductSizeOptions(product.id)
@@ -56,7 +59,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
   // Handle add to cart
   const handleAddToCart = useCallback(async (quantity: number) => {
     if (!user) {
-      router.push('/login')
+      router.push(getLocalizedPath('/login', locale))
       return
     }
 
@@ -78,11 +81,11 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
   // Handle toggle favorite
   const handleToggleFavorite = useCallback(() => {
     if (!user) {
-      router.push('/login')
+      router.push(getLocalizedPath('/login', locale))
       return
     }
     toggleFavorite(product)
-  }, [user, product, toggleFavorite, router])
+  }, [user, product, toggleFavorite, router, locale])
 
   if (!product) {
     return <ErrorPage />
@@ -97,32 +100,32 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
   const availableColors = colorOptions
 
   return (
-    <div className="bg-white min-h-screen">
+    <div className="bg-white min-h-screen" dir={dir}>
       <ProductSchema product={product} />
       <BreadcrumbSchema 
         items={[
-          { name: 'Home', url: '/' },
-          { name: 'Products', url: '/products' },
-          { name: product.name, url: `/products/${product.id}` }
+          { name: t('navigation.home'), url: getLocalizedPath('/', locale) },
+          { name: t('navigation.products'), url: getLocalizedPath('/products', locale) },
+          { name: product.name, url: getLocalizedPath(`/products/${product.id}`, locale) }
         ]}
       />
 
       <div className="container mx-auto px-4 py-8 md:py-16">
         {/* Back Button */}
-        <div className="flex items-center mb-4 md:mb-8">
+        <div className={`flex items-center mb-4 md:mb-8 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
           <Link 
-            href="/products"
-            className="flex items-center text-gray-600 hover:text-primary-600 transition-colors mr-4 text-sm md:text-sm"
+            href={getLocalizedPath('/products', locale)}
+            className={`flex items-center text-gray-600 hover:text-primary-600 transition-colors text-sm md:text-sm ${dir === 'rtl' ? 'ml-4 flex-row-reverse' : 'mr-4'}`}
           >
-            <ArrowLeft className="mr-2 h-4 w-4 md:h-5 md:w-5" />
-            Back to Products
+            <ArrowLeft className={`h-4 w-4 md:h-5 md:w-5 ${dir === 'rtl' ? 'ml-2 rotate-180' : 'mr-2'}`} />
+            {t('product.backToProducts')}
           </Link>
         </div>
 
         {/* Main Product Layout - Single Column Vertical */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 lg:gap-12">
+        <div className={`grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 lg:gap-12 ${dir === 'rtl' ? 'lg:grid-flow-row-dense' : ''}`}>
           {/* Left Column - Product Images and Purchase Controls */}
-          <div className="space-y-4">
+          <div className={`space-y-4 ${dir === 'rtl' ? 'lg:col-start-2' : ''}`}>
             <ProductImageGallery product={product} />
             
             {/* Size and Price - Below Image */}
@@ -150,6 +153,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
               onAddToCart={handleAddToCart}
               onToggleFavorite={handleToggleFavorite}
               isFavorite={isFavorite(product.id)}
+              inStock={product.inStock}
             />
 
             {/* Trust Badges - Below Cart */}
@@ -549,7 +553,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
           </div>
 
           {/* Right Column - Product Details and Content */}
-          <div className="space-y-6">
+          <div className={`space-y-6 ${dir === 'rtl' ? 'lg:col-start-1 lg:row-start-1' : ''}`}>
             <ProductDetails product={product} />
 
             {/* Detailed Product Content */}

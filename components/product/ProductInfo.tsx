@@ -9,6 +9,7 @@ import { useFavorites } from '@/components/FavoritesProvider'
 import { useState, useCallback } from 'react'
 import { calculateDiscountedPrice, canUserSeePrices } from '@/lib/discountUtils'
 import { errorLog } from '@/lib/logger'
+import { useTranslation } from '@/hooks/useTranslation'
 
 interface ProductInfoProps {
   product: Product
@@ -28,6 +29,7 @@ export default function ProductInfo({
   const { user } = useAuth()
   const router = useRouter()
   const { addItem } = useCart()
+  const { t } = useTranslation()
   const { toggleFavorite, isFavorite } = useFavorites()
   const [isAdding, setIsAdding] = useState(false)
 
@@ -102,7 +104,7 @@ export default function ProductInfo({
       <div className="flex items-center gap-4 mt-12 pt-4">
         {(product.size || product.id === '1' || product.id === '41' || product.id === '10' || product.id === '30' || product.id === '29' || product.id === '32' || product.id === '28' || product.id === '31' || product.id === '24' || product.id === '16' || product.id === '25' || product.id === '37') && (
           <div className="text-sm font-medium text-gray-700">
-            Size: {product.id === '1' ? '0.25mm/0.5mm/0.1mm/0.15mm/0.2mm' : product.id === '41' ? '15g' : product.id === '10' ? '180ml/500ml' : product.id === '31' ? '50g/230g' : (product.id === '30' || product.id === '29' || product.id === '32' || product.id === '28') ? '50g/250g' : product.id === '15' ? '200ml/500ml' : product.id === '16' ? '200ml/1000ml' : product.id === '25' ? '20g/100g' : product.id === '24' ? '20g' : product.id === '37' ? '38g x 5ea (5 masks, 1 box)' : product.size}
+            {t('product.size')}: {product.id === '1' ? '0.25mm/0.5mm/0.1mm/0.15mm/0.2mm' : product.id === '41' ? '15g' : product.id === '10' ? '180ml/500ml' : product.id === '31' ? '50g/230g' : (product.id === '30' || product.id === '29' || product.id === '32' || product.id === '28') ? '50g/250g' : product.id === '15' ? '200ml/500ml' : product.id === '16' ? '200ml/1000ml' : product.id === '25' ? '20g/100g' : product.id === '24' ? '20g' : product.id === '37' ? '38g x 5ea (5 masks, 1 box)' : product.size}
           </div>
         )}
         {canUserSeePrices(user) ? (
@@ -126,9 +128,9 @@ export default function ProductInfo({
                       </div>
                       <div className="flex items-center gap-2">
                         <span className="text-sm text-green-600 font-medium">
-                          {pricing.discountPercentage}% OFF
+                          {pricing.discountPercentage}% {t('product.off')}
                         </span>
-                        <span className="text-sm text-gray-600">(VAT included)</span>
+                        <span className="text-sm text-gray-600">({t('product.vatIncluded')})</span>
                       </div>
                     </div>
                   ) : (
@@ -136,7 +138,7 @@ export default function ProductInfo({
                       <div className="text-2xl md:text-3xl font-bold text-primary-600">
                         {pricing.originalPrice.toFixed(2)} AED
                       </div>
-                      <div className="text-sm font-normal text-gray-600">(VAT included)</div>
+                      <div className="text-sm font-normal text-gray-600">({t('product.vatIncluded')})</div>
                     </div>
                   )}
                 </div>
@@ -146,14 +148,14 @@ export default function ProductInfo({
         ) : user ? (
           <div className="flex items-center text-gray-500">
             <Lock className="h-5 w-5 mr-2" />
-            <span className="text-lg">Price locked</span>
+            <span className="text-lg">{t('product.priceLocked')}</span>
           </div>
         ) : (
           <button
             onClick={() => router.push('/login')}
             className="bg-primary-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-primary-700 transition-colors"
           >
-            Login to see price
+            {t('product.loginToSeePrice')}
           </button>
         )}
       </div>
@@ -161,7 +163,7 @@ export default function ProductInfo({
       {/* Size Options */}
       {(product.id === '1' || product.id === '10' || product.id === '30' || product.id === '29' || product.id === '32' || product.id === '28' || product.id === '31' || product.id === '15' || product.id === '16' || product.id === '25') && (
         <div className="mt-6">
-          <h4 className="text-sm font-medium text-gray-700 mb-2">Select Size:</h4>
+          <h4 className="text-sm font-medium text-gray-700 mb-2">{t('product.selectSize')}</h4>
           <div className="flex flex-wrap gap-3">
             {product.id === '1' && (
               <>
@@ -180,7 +182,7 @@ export default function ProductInfo({
                       {user ? (
                         <div className="text-sm text-gray-500">{option.price} AED</div>
                       ) : (
-                        <div className="text-sm text-gray-400">Login to see price</div>
+                        <div className="text-sm text-gray-400">{t('product.loginToSeePrice')}</div>
                       )}
                     </div>
                   </button>
@@ -204,7 +206,7 @@ export default function ProductInfo({
                       {user ? (
                         <div className="text-sm text-gray-500">{option.price} AED</div>
                       ) : (
-                        <div className="text-sm text-gray-400">Login to see price</div>
+                        <div className="text-sm text-gray-400">{t('product.loginToSeePrice')}</div>
                       )}
                     </div>
                   </button>
@@ -228,7 +230,7 @@ export default function ProductInfo({
                       {user ? (
                         <div className="text-sm text-gray-500">{option.price} AED</div>
                       ) : (
-                        <div className="text-sm text-gray-400">Login to see price</div>
+                        <div className="text-sm text-gray-400">{t('product.loginToSeePrice')}</div>
                       )}
                     </div>
                   </button>
@@ -252,7 +254,7 @@ export default function ProductInfo({
                       {user ? (
                         <div className="text-sm text-gray-500">{option.price} AED</div>
                       ) : (
-                        <div className="text-sm text-gray-400">Login to see price</div>
+                        <div className="text-sm text-gray-400">{t('product.loginToSeePrice')}</div>
                       )}
                     </div>
                   </button>
@@ -276,7 +278,7 @@ export default function ProductInfo({
                       {user ? (
                         <div className="text-sm text-gray-500">{option.price} AED</div>
                       ) : (
-                        <div className="text-sm text-gray-400">Login to see price</div>
+                        <div className="text-sm text-gray-400">{t('product.loginToSeePrice')}</div>
                       )}
                     </div>
                   </button>
@@ -289,7 +291,7 @@ export default function ProductInfo({
 
       {/* Quantity Selector */}
       <div className="flex items-center mt-6">
-        <h4 className="text-sm font-medium text-gray-700 mr-4">Quantity:</h4>
+        <h4 className="text-sm font-medium text-gray-700 mr-4">{t('product.quantity')}:</h4>
         <div className="flex items-center border border-gray-300 rounded-lg">
           <button
             onClick={() => setQuantity((prev: number) => Math.max(1, prev - 1))}
@@ -322,12 +324,12 @@ export default function ProductInfo({
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
               </svg>
-              Adding...
+              {t('product.adding')}
             </>
           ) : (
             <>
               <ShoppingCart className="h-5 w-5" aria-hidden="true" />
-              Add to Cart
+              {t('product.addToCart')}
             </>
           )}
         </button>
@@ -338,7 +340,7 @@ export default function ProductInfo({
               ? 'border-red-500 bg-red-50 text-red-600'
               : 'border-gray-300 text-gray-600 hover:border-gray-400'
           } transition-colors flex items-center justify-center`}
-          aria-label={isFavorite(product.id) ? "Remove from favorites" : "Add to favorites"}
+          aria-label={isFavorite(product.id) ? t('product.removeFromFavorites') : t('product.addToFavorites')}
         >
           <Heart className={`h-5 w-5 ${isFavorite(product.id) ? 'fill-current' : ''}`} />
         </button>

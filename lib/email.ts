@@ -593,82 +593,131 @@ export interface OrderHTMLData {
 }
 
 // Order HTML template generation functions
-export const generateCODOrderHTML = (order: OrderHTMLData): string => {
+export const generateCODOrderHTML = (order: OrderHTMLData, locale: string = 'en', translations?: any): string => {
+  // Load translations if not provided
+  let t: any
+  if (translations) {
+    t = translations
+  } else {
+    // Fallback: load translations synchronously (not ideal, but works)
+    try {
+      if (locale === 'ar') {
+        t = require('@/messages/ar.json').default.orderEmail.cod
+      } else {
+        t = require('@/messages/en.json').default.orderEmail.cod
+      }
+    } catch {
+      // Fallback to English if translations fail to load
+      t = {
+        title: `Order Confirmation #${order.orderNumber}`,
+        dated: 'dated:',
+        thankYou: `Thank you for your order, {customerName}!`,
+        orderReceived: `Your order #${order.orderNumber} has been received and is being processed. You will pay via Cash on Delivery when your order arrives.`,
+        teamContact: 'Our team will be in touch with you for the next steps via phone/mail/whatsapp.',
+        orderItems: 'Order Items',
+        product: 'Product',
+        qty: 'Qty',
+        price: 'Price',
+        total: 'Total',
+        size: 'Size:',
+        color: 'Color:',
+        subtotal: 'Subtotal:',
+        shippingTo: `Shipping to {emirate}:`,
+        free: 'FREE',
+        vat: 'VAT (5%):',
+        totalLabel: 'Total:',
+        deliveryInformation: 'Delivery Information',
+        name: 'Name:',
+        phone: 'Phone:',
+        address: 'Address:',
+        emirate: 'Emirate:',
+        contactSupport: 'Contact Support via WhatsApp',
+        officialDistributor: 'Official Distributor in the UAE',
+        copyright: '© 2025 Genosys Middle East FZ-LLC. All rights reserved.'
+      }
+    }
+  }
+
+  const isRTL = locale === 'ar'
+  const dir = isRTL ? 'rtl' : 'ltr'
+  const textAlign = isRTL ? 'right' : 'left'
+  const dateLocale = locale === 'ar' ? 'ar-AE' : 'en-AE'
+
   return `
-    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: white;">
+    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: white; direction: ${dir};">
       <div style="text-align: center; margin-bottom: 30px; border-bottom: 2px solid #e5e5e5; padding-bottom: 20px;">
         <div style="margin-bottom: 15px;">
           <img src="https://genosys.ae/_next/image?url=%2Fimages%2Fgenosys-logo.png%3Fv%3D1758554698129&w=828&q=75" alt="GENOSYS Logo" style="max-width: 200px; height: auto;" />
         </div>
-        <h1 style="color: #1f2937; margin: 0; font-size: 28px;">Order Confirmation #${order.orderNumber}</h1>
-        <p style="color: #6b7280; margin: 5px 0; font-size: 16px;">dated: ${new Date().toLocaleDateString('en-AE', { timeZone: 'Asia/Dubai', year: 'numeric', month: '2-digit', day: '2-digit' })}</p>
+        <h1 style="color: #1f2937; margin: 0; font-size: 28px;">${t.title.replace('{orderNumber}', order.orderNumber)}</h1>
+        <p style="color: #6b7280; margin: 5px 0; font-size: 16px;">${t.dated} ${new Date().toLocaleDateString(dateLocale, { timeZone: 'Asia/Dubai', year: 'numeric', month: '2-digit', day: '2-digit' })}</p>
       </div>
       
       <div style="background: white; border: 1px solid #e5e7eb; padding: 30px; border-radius: 10px; margin-bottom: 20px;">
-        <p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 0 0 10px 0;">
-          Thank you for your order, <strong>${order.customerName.split(' ')[0]}</strong>!
+        <p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 0 0 10px 0; text-align: ${textAlign};">
+          ${t.thankYou.replace('{customerName}', `<strong>${order.customerName.split(' ')[0]}</strong>`)}
         </p>
-        <p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 0 0 10px 0;">
-          Your order <strong>#${order.orderNumber}</strong> has been received and is being processed. You will pay via Cash on Delivery when your order arrives.
+        <p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 0 0 10px 0; text-align: ${textAlign};">
+          ${t.orderReceived.replace('{orderNumber}', order.orderNumber)}
         </p>
-        <p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 0;">
-          Our team will be in touch with you for the next steps via phone/mail/whatsapp.
+        <p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 0; text-align: ${textAlign};">
+          ${t.teamContact}
         </p>
       </div>
       
       <div style="background: white; border: 1px solid #e5e7eb; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
-        <h3 style="color: #dc2626; margin: 0 0 15px 0;">Order Items</h3>
+        <h3 style="color: #dc2626; margin: 0 0 15px 0; text-align: ${textAlign};">${t.orderItems}</h3>
         <table style="width: 100%; border-collapse: collapse; margin: 10px 0;">
           <thead>
             <tr style="background: #dc2626; color: white;">
-              <th style="padding: 10px; text-align: left; font-size: 16px;">Product</th>
-              <th style="padding: 10px; text-align: center; font-size: 16px;">Qty</th>
-              <th style="padding: 10px; text-align: right; font-size: 16px;">Price</th>
-              <th style="padding: 10px; text-align: right; font-size: 16px;">Total</th>
+              <th style="padding: 10px; text-align: ${textAlign}; font-size: 16px;">${t.product}</th>
+              <th style="padding: 10px; text-align: center; font-size: 16px;">${t.qty}</th>
+              <th style="padding: 10px; text-align: ${isRTL ? 'left' : 'right'}; font-size: 16px;">${t.price}</th>
+              <th style="padding: 10px; text-align: ${isRTL ? 'left' : 'right'}; font-size: 16px;">${t.total}</th>
             </tr>
           </thead>
           <tbody>
             ${order.items.map((item) => `
               <tr>
-                <td style="padding: 10px; border-bottom: 1px solid #eee;">${item.name}${item.size ? ` (Size: ${item.size})` : ''}${item.color ? ` (Color: ${item.color})` : ''}</td>
+                <td style="padding: 10px; border-bottom: 1px solid #eee; text-align: ${textAlign};">${item.name}${item.size ? ` (${t.size} ${item.size})` : ''}${item.color ? ` (${t.color} ${item.color})` : ''}</td>
                 <td style="padding: 10px; border-bottom: 1px solid #eee; text-align: center;">${item.quantity}</td>
-                <td style="padding: 10px; border-bottom: 1px solid #eee; text-align: right;">AED ${item.price.toFixed(2)}</td>
-                <td style="padding: 10px; border-bottom: 1px solid #eee; text-align: right;">AED ${(item.price * item.quantity).toFixed(2)}</td>
+                <td style="padding: 10px; border-bottom: 1px solid #eee; text-align: ${isRTL ? 'left' : 'right'};">AED ${item.price.toFixed(2)}</td>
+                <td style="padding: 10px; border-bottom: 1px solid #eee; text-align: ${isRTL ? 'left' : 'right'};">AED ${(item.price * item.quantity).toFixed(2)}</td>
               </tr>
             `).join('')}
           </tbody>
         </table>
         
         <div style="border-top: 1px solid #e5e7eb; padding-top: 20px;">
-          <div style="display: flex; justify-content: space-between; margin-bottom: 12px; padding: 8px 0;">
-            <span style="color: #374151; font-size: 16px;">Subtotal: </span>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 12px; padding: 8px 0; flex-direction: ${isRTL ? 'row-reverse' : 'row'};">
+            <span style="color: #374151; font-size: 16px;">${t.subtotal}</span>
             <span style="color: #374151; font-size: 16px; font-weight: 500;">AED ${order.subtotal.toFixed(2)}</span>
           </div>
-          <div style="display: flex; justify-content: space-between; margin-bottom: 12px; padding: 8px 0;">
-            <span style="color: #374151; font-size: 16px;">Shipping to ${order.emirate}: </span>
-            <span style="color: #374151; font-size: 16px; font-weight: 500;">${order.shippingCost === 0 ? 'FREE' : `AED ${order.shippingCost.toFixed(2)}`}</span>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 12px; padding: 8px 0; flex-direction: ${isRTL ? 'row-reverse' : 'row'};">
+            <span style="color: #374151; font-size: 16px;">${t.shippingTo.replace('{emirate}', order.emirate)}</span>
+            <span style="color: #374151; font-size: 16px; font-weight: 500;">${order.shippingCost === 0 ? t.free : `AED ${order.shippingCost.toFixed(2)}`}</span>
           </div>
-          <div style="display: flex; justify-content: space-between; margin-bottom: 12px; padding: 8px 0;">
-            <span style="color: #374151; font-size: 16px;">VAT (5%): </span>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 12px; padding: 8px 0; flex-direction: ${isRTL ? 'row-reverse' : 'row'};">
+            <span style="color: #374151; font-size: 16px;">${t.vat}</span>
             <span style="color: #374151; font-size: 16px; font-weight: 500;">AED ${order.vatAmount.toFixed(2)}</span>
           </div>
-          <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 18px; color: #dc2626; border-top: 2px solid #dc2626; padding-top: 15px; margin-top: 15px; background: #f9fafb; padding: 15px; border-radius: 6px;">
-            <span>Total: </span>
+          <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 18px; color: #dc2626; border-top: 2px solid #dc2626; padding-top: 15px; margin-top: 15px; background: #f9fafb; padding: 15px; border-radius: 6px; flex-direction: ${isRTL ? 'row-reverse' : 'row'};">
+            <span>${t.totalLabel}</span>
             <span>AED ${order.total.toFixed(2)}</span>
           </div>
         </div>
       </div>
       
       <div style="background: white; border: 1px solid #e5e7eb; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
-        <h3 style="color: #dc2626; margin: 0 0 15px 0;">Delivery Information</h3>
-        <p style="color: #374151; margin: 0 0 10px 0; font-size: 16px;"><strong>Name:</strong> ${order.customerName}</p>
-        <p style="color: #374151; margin: 0 0 10px 0; font-size: 16px;"><strong>Phone:</strong> ${order.customerPhone}</p>
-        <p style="color: #374151; margin: 0 0 10px 0; font-size: 16px;"><strong>Address:</strong> ${order.customerAddress}</p>
-        <p style="color: #374151; margin: 0; font-size: 16px;"><strong>Emirate:</strong> ${order.emirate}</p>
+        <h3 style="color: #dc2626; margin: 0 0 15px 0; text-align: ${textAlign};">${t.deliveryInformation}</h3>
+        <p style="color: #374151; margin: 0 0 10px 0; font-size: 16px; text-align: ${textAlign};"><strong>${t.name}</strong> ${order.customerName}</p>
+        <p style="color: #374151; margin: 0 0 10px 0; font-size: 16px; text-align: ${textAlign};"><strong>${t.phone}</strong> ${order.customerPhone}</p>
+        <p style="color: #374151; margin: 0 0 10px 0; font-size: 16px; text-align: ${textAlign};"><strong>${t.address}</strong> ${order.customerAddress}</p>
+        <p style="color: #374151; margin: 0; font-size: 16px; text-align: ${textAlign};"><strong>${t.emirate}</strong> ${order.emirate}</p>
       </div>
       
       <div style="text-align: center; margin: 30px 0;">
-        <a href="https://wa.me/971585487665?text=Hi! I need help with my order ${order.orderNumber}. Can you assist me?" 
+        <a href="https://wa.me/971585487665?text=${encodeURIComponent(locale === 'ar' ? `مرحباً! أحتاج مساعدة بخصوص طلبي ${order.orderNumber}. هل يمكنك مساعدتي؟` : `Hi! I need help with my order ${order.orderNumber}. Can you assist me?`)}" 
            style="background: linear-gradient(135deg, #25D366 0%, #128C7E 100%); 
                   color: white; 
                   padding: 12px 30px; 
@@ -676,7 +725,7 @@ export const generateCODOrderHTML = (order: OrderHTMLData): string => {
                   border-radius: 6px; 
                   font-weight: bold; 
                   display: inline-block;">
-          Contact Support via WhatsApp
+          ${t.contactSupport}
         </a>
       </div>
       
@@ -684,65 +733,116 @@ export const generateCODOrderHTML = (order: OrderHTMLData): string => {
         <div style="text-align: center; margin-bottom: 15px;">
           <img src="https://genosys.ae/_next/image?url=%2FLogo%2FFull.png&w=640&q=75" alt="GENOSYS Logo" style="max-width: 200px; height: auto;" />
         </div>
-        <p style="color: #000000; margin: 0;">Official Distributor in the UAE</p>
-        <p style="color: #000000; margin: 0;">© 2025 Genosys Middle East FZ-LLC. All rights reserved.</p>
+        <p style="color: #000000; margin: 0;">${t.officialDistributor}</p>
+        <p style="color: #000000; margin: 0;">${t.copyright}</p>
       </div>
     </div>
   `
 }
 
-export const generateSupportLinkOrderHTML = (order: OrderHTMLData): string => {
+export const generateSupportLinkOrderHTML = (order: OrderHTMLData, locale: string = 'en', translations?: any): string => {
+  // Load translations if not provided
+  let t: any
+  if (translations) {
+    t = translations
+  } else {
+    try {
+      if (locale === 'ar') {
+        t = require('@/messages/ar.json').default.orderEmail.supportLink
+      } else {
+        t = require('@/messages/en.json').default.orderEmail.supportLink
+      }
+    } catch {
+      // Fallback to English
+      t = {
+        companyName: 'Genosys Middle East FZ-LLC',
+        officialDistributor: 'Official Genosys distributor in the United Arab Emirates',
+        dear: 'Dear {customerName},',
+        orderSubmitted: 'Your order request has been submitted. Our support team will share a secure payment link for payment.',
+        orderRequest: 'Order Request #{orderNumber}',
+        customerInformation: 'Customer Information',
+        name: 'Name:',
+        email: 'Email:',
+        phone: 'Phone:',
+        address: 'Address:',
+        emirate: 'Emirate:',
+        orderItems: 'Order Items',
+        product: 'Product',
+        qty: 'Qty',
+        price: 'Price',
+        total: 'Total',
+        size: 'Size:',
+        color: 'Color:',
+        orderSummary: 'Order Summary',
+        subtotal: 'Subtotal:',
+        shippingTo: 'Shipping to {emirate}:',
+        free: 'FREE',
+        vat: 'VAT (5%):',
+        totalLabel: 'Total:',
+        continueShopping: 'Continue Shopping',
+        contactSupport: 'Contact Support',
+        officialDistributorFooter: 'Official Distributor in the UAE',
+        copyright: '© 2025 Genosys Middle East FZ-LLC. All rights reserved.'
+      }
+    }
+  }
+
+  const isRTL = locale === 'ar'
+  const dir = isRTL ? 'rtl' : 'ltr'
+  const textAlign = isRTL ? 'right' : 'left'
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://genosys.ae'
+  const productsUrl = locale === 'ar' ? `${siteUrl}/ar/products` : `${siteUrl}/products`
+  const contactUrl = locale === 'ar' ? `${siteUrl}/ar/contact` : `${siteUrl}/contact`
+
   const itemsHTML = order.items.map((item) => `
     <tr>
-      <td style="padding: 10px; border-bottom: 1px solid #eee;">${item.name}${item.size ? ` (Size: ${item.size})` : ''}${item.color ? ` (Color: ${item.color})` : ''}</td>
+      <td style="padding: 10px; border-bottom: 1px solid #eee; text-align: ${textAlign};">${item.name}${item.size ? ` (${t.size} ${item.size})` : ''}${item.color ? ` (${t.color} ${item.color})` : ''}</td>
       <td style="padding: 10px; border-bottom: 1px solid #eee; text-align: center;">${item.quantity}</td>
-      <td style="padding: 10px; border-bottom: 1px solid #eee; text-align: right;">AED ${item.price.toFixed(2)}</td>
-      <td style="padding: 10px; border-bottom: 1px solid #eee; text-align: right;">AED ${(item.total || (item.price * item.quantity)).toFixed(2)}</td>
+      <td style="padding: 10px; border-bottom: 1px solid #eee; text-align: ${isRTL ? 'left' : 'right'};">AED ${item.price.toFixed(2)}</td>
+      <td style="padding: 10px; border-bottom: 1px solid #eee; text-align: ${isRTL ? 'left' : 'right'};">AED ${(item.total || (item.price * item.quantity)).toFixed(2)}</td>
     </tr>
   `).join('')
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://genosys.ae'
-
   return `
-    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: white; font-size: 14px;">
+    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: white; font-size: 14px; direction: ${dir};">
       <div style="text-align: center; margin-bottom: 30px;">
         <div style="margin-bottom: 15px;">
           <img src="https://genosys.ae/_next/image?url=%2Fimages%2Fgenosys-logo.png%3Fv%3D1758554698129&w=828&q=75" alt="GENOSYS Logo" style="max-width: 200px; height: auto;" />
         </div>
-        <h1 style="color: #dc2626; margin: 0; font-size: 14px;">Genosys Middle East FZ-LLC</h1>
-        <p style="color: #666; margin: 5px 0; font-size: 14px;">Official Genosys distributor in the United Arab Emirates</p>
+        <h1 style="color: #dc2626; margin: 0; font-size: 14px;">${t.companyName}</h1>
+        <p style="color: #666; margin: 5px 0; font-size: 14px;">${t.officialDistributor}</p>
       </div>
       
       <div style="background: white; padding: 30px; border-radius: 10px; margin-bottom: 20px; border: 1px solid #e5e5e5;">
-        <p style="color: #374151; font-size: 14px; line-height: 1.6; margin: 0 0 10px 0;">
-          Dear <strong>${order.customerName.split(' ')[0]}</strong>,
+        <p style="color: #374151; font-size: 14px; line-height: 1.6; margin: 0 0 10px 0; text-align: ${textAlign};">
+          ${t.dear.replace('{customerName}', `<strong>${order.customerName.split(' ')[0]}</strong>`)}
         </p>
-        <p style="color: #374151; font-size: 14px; line-height: 1.6; margin: 0 0 10px 0;">
-          Your order request has been submitted. Our support team will share a secure payment link for payment.
+        <p style="color: #374151; font-size: 14px; line-height: 1.6; margin: 0 0 10px 0; text-align: ${textAlign};">
+          ${t.orderSubmitted}
         </p>
-        <p style="color: #374151; font-size: 14px; line-height: 1.6; margin: 0;">
-          Order Request #<strong>${order.orderNumber}</strong>
+        <p style="color: #374151; font-size: 14px; line-height: 1.6; margin: 0; text-align: ${textAlign};">
+          ${t.orderRequest.replace('{orderNumber}', order.orderNumber)}
         </p>
       </div>
       
       <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e5e5e5;">
-        <h3 style="color: #dc2626; margin: 0 0 15px 0; font-size: 14px;">Customer Information</h3>
-        <p style="margin: 0 0 8px 0; color: #374151; font-size: 14px;"><strong>Name:</strong> ${order.customerName}</p>
-        <p style="margin: 0 0 8px 0; color: #374151; font-size: 14px;"><strong>Email:</strong> ${order.customerEmail}</p>
-        <p style="margin: 0 0 8px 0; color: #374151; font-size: 14px;"><strong>Phone:</strong> ${order.customerPhone}</p>
-        <p style="margin: 0 0 8px 0; color: #374151; font-size: 14px;"><strong>Address:</strong> ${order.customerAddress}</p>
-        <p style="margin: 0; color: #374151; font-size: 14px;"><strong>Emirate:</strong> ${order.emirate}</p>
+        <h3 style="color: #dc2626; margin: 0 0 15px 0; font-size: 14px; text-align: ${textAlign};">${t.customerInformation}</h3>
+        <p style="margin: 0 0 8px 0; color: #374151; font-size: 14px; text-align: ${textAlign};"><strong>${t.name}</strong> ${order.customerName}</p>
+        <p style="margin: 0 0 8px 0; color: #374151; font-size: 14px; text-align: ${textAlign};"><strong>${t.email}</strong> ${order.customerEmail}</p>
+        <p style="margin: 0 0 8px 0; color: #374151; font-size: 14px; text-align: ${textAlign};"><strong>${t.phone}</strong> ${order.customerPhone}</p>
+        <p style="margin: 0 0 8px 0; color: #374151; font-size: 14px; text-align: ${textAlign};"><strong>${t.address}</strong> ${order.customerAddress}</p>
+        <p style="margin: 0; color: #374151; font-size: 14px; text-align: ${textAlign};"><strong>${t.emirate}</strong> ${order.emirate}</p>
       </div>
 
       <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e5e5e5;">
-        <h3 style="color: #dc2626; margin: 0 0 15px 0; font-size: 14px;">Order Items</h3>
+        <h3 style="color: #dc2626; margin: 0 0 15px 0; font-size: 14px; text-align: ${textAlign};">${t.orderItems}</h3>
         <table style="width: 100%; border-collapse: collapse; margin: 10px 0;">
           <thead>
             <tr style="background: #dc2626; color: white;">
-              <th style="padding: 10px; text-align: left; font-size: 14px;">Product</th>
-              <th style="padding: 10px; text-align: center; font-size: 14px;">Qty</th>
-              <th style="padding: 10px; text-align: right; font-size: 14px;">Price</th>
-              <th style="padding: 10px; text-align: right; font-size: 14px;">Total</th>
+              <th style="padding: 10px; text-align: ${textAlign}; font-size: 14px;">${t.product}</th>
+              <th style="padding: 10px; text-align: center; font-size: 14px;">${t.qty}</th>
+              <th style="padding: 10px; text-align: ${isRTL ? 'left' : 'right'}; font-size: 14px;">${t.price}</th>
+              <th style="padding: 10px; text-align: ${isRTL ? 'left' : 'right'}; font-size: 14px;">${t.total}</th>
             </tr>
           </thead>
           <tbody>
@@ -752,28 +852,28 @@ export const generateSupportLinkOrderHTML = (order: OrderHTMLData): string => {
       </div>
 
       <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e5e5e5;">
-        <h3 style="color: #dc2626; margin: 0 0 15px 0; font-size: 14px;">Order Summary</h3>
-        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-          <span style="color: #374151; font-size: 14px;">Subtotal: </span>
+        <h3 style="color: #dc2626; margin: 0 0 15px 0; font-size: 14px; text-align: ${textAlign};">${t.orderSummary}</h3>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 8px; flex-direction: ${isRTL ? 'row-reverse' : 'row'};">
+          <span style="color: #374151; font-size: 14px;">${t.subtotal}</span>
           <span style="color: #374151; font-size: 14px;">AED ${order.subtotal.toFixed(2)}</span>
         </div>
-        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-          <span style="color: #374151; font-size: 14px;">Shipping to ${order.emirate}: </span>
-          <span style="color: #374151; font-size: 14px;">${order.shippingCost === 0 ? 'FREE' : `AED ${order.shippingCost.toFixed(2)}`}</span>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 8px; flex-direction: ${isRTL ? 'row-reverse' : 'row'};">
+          <span style="color: #374151; font-size: 14px;">${t.shippingTo.replace('{emirate}', order.emirate)}</span>
+          <span style="color: #374151; font-size: 14px;">${order.shippingCost === 0 ? t.free : `AED ${order.shippingCost.toFixed(2)}`}</span>
         </div>
-        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-          <span style="color: #374151; font-size: 14px;">VAT (5%): </span>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 8px; flex-direction: ${isRTL ? 'row-reverse' : 'row'};">
+          <span style="color: #374151; font-size: 14px;">${t.vat}</span>
           <span style="color: #374151; font-size: 14px;">AED ${order.vatAmount.toFixed(2)}</span>
         </div>
-        <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 14px; color: #dc2626; border-top: 2px solid #dc2626; padding-top: 8px;">
-          <span>Total: </span>
+        <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 14px; color: #dc2626; border-top: 2px solid #dc2626; padding-top: 8px; flex-direction: ${isRTL ? 'row-reverse' : 'row'};">
+          <span>${t.totalLabel}</span>
           <span>AED ${order.total.toFixed(2)}</span>
         </div>
       </div>
 
       
       <div style="text-align: center; margin: 30px 0;">
-        <a href="${siteUrl}/products" 
+        <a href="${productsUrl}" 
            style="background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%); 
                   color: white; 
                   padding: 12px 30px; 
@@ -781,10 +881,10 @@ export const generateSupportLinkOrderHTML = (order: OrderHTMLData): string => {
                   border-radius: 6px; 
                   font-weight: bold; 
                   display: inline-block; 
-                  margin-right: 10px;">
-          Continue Shopping
+                  margin-${isRTL ? 'left' : 'right'}: 10px;">
+          ${t.continueShopping}
         </a>
-        <a href="${siteUrl}/contact" 
+        <a href="${contactUrl}" 
            style="background: transparent; 
                   color: #dc2626; 
                   padding: 12px 30px; 
@@ -793,7 +893,7 @@ export const generateSupportLinkOrderHTML = (order: OrderHTMLData): string => {
                   border-radius: 6px; 
                   font-weight: bold; 
                   display: inline-block;">
-          Contact Support
+          ${t.contactSupport}
         </a>
       </div>
       
@@ -801,8 +901,8 @@ export const generateSupportLinkOrderHTML = (order: OrderHTMLData): string => {
         <div style="text-align: center; margin-bottom: 15px;">
           <img src="https://genosys.ae/_next/image?url=%2FLogo%2FFull.png&w=640&q=75" alt="GENOSYS Logo" style="max-width: 200px; height: auto;" />
         </div>
-        <p style="color: #000000; margin: 0;">Official Distributor in the UAE</p>
-        <p style="color: #000000; margin: 0;">© 2025 Genosys Middle East FZ-LLC. All rights reserved.</p>
+        <p style="color: #000000; margin: 0;">${t.officialDistributorFooter || t.officialDistributor}</p>
+        <p style="color: #000000; margin: 0;">${t.copyright}</p>
       </div>
     </div>
   `

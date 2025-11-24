@@ -9,11 +9,14 @@ import Link from 'next/link'
 import { calculateDiscountedPrice } from '@/lib/discountUtils'
 import { errorLog } from '@/lib/logger'
 import { fetchCsrfToken, getCsrfHeaders, addCsrfToBody } from '@/lib/csrfClient'
+import { useTranslation } from '@/hooks/useTranslation'
+import { getLocalizedPath } from '@/lib/i18n'
 
 export default function CheckoutClient() {
   const { items, getTotalPrice, getTotalItems, selectedEmirate, setSelectedEmirate } = useCart()
   const { user } = useAuth()
   const router = useRouter()
+  const { t, locale, dir } = useTranslation()
   const [isProcessing, setIsProcessing] = useState(false)
   const [isGeneratingInvoice, setIsGeneratingInvoice] = useState(false)
   const [invoiceEmail, setInvoiceEmail] = useState('')
@@ -98,13 +101,14 @@ export default function CheckoutClient() {
         subtotal,
         shippingCost,
         vatAmount,
-        total
+        total,
+        locale
       }
 
       // Ensure CSRF token is available
       const csrfToken = await fetchCsrfToken()
       if (!csrfToken) {
-        alert('Security error: Could not verify request. Please refresh the page and try again.')
+        alert(t('checkout.securityError'))
         setIsGeneratingInvoice(false)
         return
       }
@@ -120,7 +124,7 @@ export default function CheckoutClient() {
         const button = document.querySelector('button[type="button"]') as HTMLButtonElement
         if (button) {
           const originalText = button.textContent
-          button.textContent = '✓ Invoice sent!'
+          button.textContent = t('checkout.invoiceSent')
           button.style.backgroundColor = '#10b981'
           setTimeout(() => {
             button.textContent = originalText
@@ -136,7 +140,7 @@ export default function CheckoutClient() {
       const button = document.querySelector('button[type="button"]') as HTMLButtonElement
       if (button) {
         const originalText = button.textContent
-        button.textContent = '✗ Failed, try again'
+        button.textContent = t('checkout.failedTryAgain')
         button.style.backgroundColor = '#ef4444'
         setTimeout(() => {
           button.textContent = originalText
@@ -250,16 +254,16 @@ export default function CheckoutClient() {
   // Redirect if cart is empty
   useEffect(() => {
     if (items.length === 0) {
-      router.push('/cart')
+      router.push(getLocalizedPath('/cart', locale))
     }
-  }, [items.length, router])
+  }, [items.length, router, locale])
 
   // Redirect if user is not logged in
   useEffect(() => {
     if (!user) {
-      router.push('/login')
+      router.push(getLocalizedPath('/login', locale))
     }
-  }, [user, router])
+  }, [user, router, locale])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -320,24 +324,25 @@ export default function CheckoutClient() {
             }))
           ]
 
-          const orderData = {
-            orderNumber: supportOrderNumber,
-            customerName: user?.name || 'Customer',
-            customerEmail: user?.email || '',
-            customerPhone: user?.phone || '',
-            customerAddress: user?.address || '',
-            emirate: selectedEmirate,
-            items: allItems,
-            subtotal,
-            shippingCost,
-            vatAmount,
-            total
-          }
+        const orderData = {
+          orderNumber: supportOrderNumber,
+          customerName: user?.name || 'Customer',
+          customerEmail: user?.email || '',
+          customerPhone: user?.phone || '',
+          customerAddress: user?.address || '',
+          emirate: selectedEmirate,
+          items: allItems,
+          subtotal,
+          shippingCost,
+          vatAmount,
+          total,
+          locale
+        }
 
           // Ensure CSRF token is available
           const csrfToken = await fetchCsrfToken()
           if (!csrfToken) {
-            alert('Security error: Could not verify request. Please refresh the page and try again.')
+            alert(t('checkout.securityError'))
             setIsProcessing(false)
             return
           }
@@ -430,7 +435,8 @@ export default function CheckoutClient() {
           subtotal,
           shippingCost,
           vatAmount,
-          total
+          total,
+          locale
         }
 
         // Ensure CSRF token is available
@@ -482,22 +488,22 @@ export default function CheckoutClient() {
 
   if (items.length === 0) {
     return (
-      <div className="container mx-auto px-4 py-8 md:py-16">
+      <div className={`container mx-auto px-4 py-8 md:py-16 ${dir === 'rtl' ? 'text-right' : ''}`} dir={dir}>
         <div className="max-w-4xl mx-auto text-center py-16">
           <div className="mb-8">
             <CreditCard className="h-24 w-24 text-gray-300 mx-auto mb-4" />
-            <h1 className="text-3xl font-bold text-gray-900 mb-4">Your Cart is Empty</h1>
+            <h1 className="text-3xl font-bold text-gray-900 mb-4">{t('checkout.yourCartIsEmpty')}</h1>
             <p className="text-gray-600 text-lg mb-8">
-              You need to add items to your cart before checking out.
+              {t('checkout.addItemsBeforeCheckout')}
             </p>
           </div>
           
           <Link
-            href="/products"
-            className="inline-flex items-center gap-2 bg-primary-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-primary-700 transition-colors"
+            href={getLocalizedPath('/products', locale)}
+            className={`inline-flex items-center gap-2 bg-primary-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-primary-700 transition-colors ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
           >
-            <ArrowLeft className="h-5 w-5" />
-            Continue Shopping
+            <ArrowLeft className={`h-5 w-5 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
+            {t('checkout.continueShopping')}
           </Link>
         </div>
       </div>
@@ -506,22 +512,22 @@ export default function CheckoutClient() {
 
   if (!user) {
     return (
-      <div className="container mx-auto px-4 py-8 md:py-16">
+      <div className={`container mx-auto px-4 py-8 md:py-16 ${dir === 'rtl' ? 'text-right' : ''}`} dir={dir}>
         <div className="max-w-4xl mx-auto text-center py-16">
           <div className="mb-8">
             <Lock className="h-24 w-24 text-gray-300 mx-auto mb-4" />
-            <h1 className="text-3xl font-bold text-gray-900 mb-4">Login Required</h1>
+            <h1 className="text-3xl font-bold text-gray-900 mb-4">{t('checkout.loginRequired')}</h1>
             <p className="text-gray-600 text-lg mb-8">
-              Please log in to complete your order.
+              {t('checkout.pleaseLoginToCompleteOrder')}
             </p>
           </div>
           
           <Link
-            href="/login"
-            className="inline-flex items-center gap-2 bg-primary-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-primary-700 transition-colors"
+            href={getLocalizedPath('/login', locale)}
+            className={`inline-flex items-center gap-2 bg-primary-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-primary-700 transition-colors ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
           >
             <Lock className="h-5 w-5" />
-            Login
+            {t('checkout.login')}
           </Link>
         </div>
       </div>
@@ -529,44 +535,44 @@ export default function CheckoutClient() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-4 md:py-8 lg:py-16">
+    <div className={`container mx-auto px-4 py-4 md:py-8 lg:py-16 ${dir === 'rtl' ? 'text-right' : ''}`} dir={dir}>
       {/* Navigation Breadcrumb */}
-      <nav className="flex items-baseline flex-nowrap gap-1 md:gap-2 text-sm md:text-base text-gray-700 mb-4 md:mb-6 lg:mb-8 overflow-x-auto leading-none" aria-label="Breadcrumb">
+      <nav className={`flex items-baseline flex-nowrap gap-1 md:gap-2 text-sm md:text-base text-gray-700 mb-4 md:mb-6 lg:mb-8 overflow-x-auto leading-none ${dir === 'rtl' ? 'flex-row-reverse' : ''}`} aria-label="Breadcrumb">
         <Link
-          href="/"
+          href={getLocalizedPath('/', locale)}
           className="hover:text-primary-600 transition-colors text-gray-700 font-normal whitespace-nowrap flex-shrink-0 leading-none"
         >
-          Home
+          {t('checkout.home')}
         </Link>
         <span className="text-gray-400 flex-shrink-0 leading-none">/</span>
         <Link
-          href="/products"
+          href={getLocalizedPath('/products', locale)}
           className="hover:text-primary-600 transition-colors text-gray-700 font-normal whitespace-nowrap flex-shrink-0 leading-none"
         >
-          Products
+          {t('checkout.products')}
         </Link>
         <span className="text-gray-400 flex-shrink-0 leading-none">/</span>
         <Link
-          href="/cart"
+          href={getLocalizedPath('/cart', locale)}
           className="hover:text-primary-600 transition-colors text-gray-700 font-normal whitespace-nowrap flex-shrink-0 leading-none"
         >
-          Cart
+          {t('checkout.cart')}
         </Link>
         <span className="text-gray-400 flex-shrink-0 leading-none">/</span>
         <span className="text-gray-900 font-bold whitespace-nowrap flex-shrink-0 leading-none">
-          Checkout
+          {t('checkout.checkout')}
         </span>
       </nav>
 
       <div className="max-w-6xl mx-auto">
-        <div className="flex flex-col lg:flex-row gap-8">
+        <div className={`flex flex-col lg:flex-row gap-8 ${dir === 'rtl' ? 'lg:flex-row-reverse' : ''}`}>
           {/* Checkout Form */}
           <div className="lg:w-2/3">
             <div className="bg-white rounded-lg shadow-sm border border-gray-200">
               <div className="p-6 border-b border-gray-200">
-                <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
+                <h1 className={`text-2xl font-bold text-gray-900 flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                   <CreditCard className="h-6 w-6 text-green-600" />
-                  Secure Checkout
+                  {t('checkout.title')}
                 </h1>
               </div>
               
@@ -574,36 +580,36 @@ export default function CheckoutClient() {
 
                 {/* Shipping Information */}
                 <div className="space-y-4">
-                  <h2 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
+                  <h2 className={`text-lg font-semibold text-gray-900 flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                     <MapPin className="h-5 w-5 text-red-600" />
-                    Shipping Information
+                    {t('checkout.shippingInfo')}
                   </h2>
                   
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        First Name *
+                      <label className={`block text-sm font-medium text-gray-700 mb-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                        {t('checkout.firstName')} *
                       </label>
                       <input
                         type="text"
                         required
                         defaultValue={firstName}
-                        className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900"
-                        placeholder="Enter your first name"
+                        className={`w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900 ${dir === 'rtl' ? 'text-right' : ''}`}
+                        placeholder={t('checkout.enterFirstName')}
                         style={{ color: '#111827', backgroundColor: '#ffffff' }}
                       />
                     </div>
                     
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Last Name *
+                      <label className={`block text-sm font-medium text-gray-700 mb-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                        {t('checkout.lastName')} *
                       </label>
                       <input
                         type="text"
                         required
                         defaultValue={lastName}
-                        className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900"
-                        placeholder="Enter your last name"
+                        className={`w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900 ${dir === 'rtl' ? 'text-right' : ''}`}
+                        placeholder={t('checkout.enterLastName')}
                         style={{ color: '#111827', backgroundColor: '#ffffff' }}
                       />
                     </div>
@@ -611,56 +617,56 @@ export default function CheckoutClient() {
                   
                   <div className="space-y-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Email Address *
+                      <label className={`block text-sm font-medium text-gray-700 mb-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                        {t('checkout.emailAddress')} *
                       </label>
                       <input
                         type="email"
                         required
                         defaultValue={user?.email || ''}
-                        className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900"
-                        placeholder="Enter your email address"
+                        className={`w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900 ${dir === 'rtl' ? 'text-right' : ''}`}
+                        placeholder={t('checkout.enterEmailAddress')}
                         style={{ color: '#111827', backgroundColor: '#ffffff' }}
                       />
                     </div>
                     
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Phone Number *
+                      <label className={`block text-sm font-medium text-gray-700 mb-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                        {t('checkout.phoneNumber')} *
                       </label>
                       <input
                         type="tel"
                         required
                         defaultValue={user?.phone || ''}
-                        className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900"
-                        placeholder="Enter your phone number"
+                        className={`w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900 ${dir === 'rtl' ? 'text-right' : ''}`}
+                        placeholder={t('checkout.enterPhoneNumber')}
                         style={{ color: '#111827', backgroundColor: '#ffffff' }}
                       />
                     </div>
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Delivery Address *
+                    <label className={`block text-sm font-medium text-gray-700 mb-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                      {t('checkout.deliveryAddress')} *
                     </label>
                     <textarea
                       required
                       rows={3}
                       defaultValue={user?.address || ''}
-                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900"
-                      placeholder="Enter your complete delivery address"
+                      className={`w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900 ${dir === 'rtl' ? 'text-right' : ''}`}
+                      placeholder={t('checkout.enterDeliveryAddress')}
                       style={{ color: '#111827', backgroundColor: '#ffffff' }}
                     />
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Delivery Location *
+                    <label className={`block text-sm font-medium text-gray-700 mb-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                      {t('checkout.deliveryLocation')} *
                     </label>
                     <select
                       value={selectedEmirate}
                       onChange={(e) => setSelectedEmirate(e.target.value)}
-                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900"
+                      className={`w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900 ${dir === 'rtl' ? 'text-right' : ''}`}
                       style={{ color: '#111827' }}
                     >
                       {emirates.map((emirate) => (
@@ -674,23 +680,23 @@ export default function CheckoutClient() {
 
                 {/* Payment Information */}
                 <div className="space-y-4">
-                  <h2 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
+                  <h2 className={`text-lg font-semibold text-gray-900 flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                     <CreditCard className="h-5 w-5 text-green-600" />
-                    Payment Information
+                    {t('checkout.paymentInformation')}
                   </h2>
                   
                   <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
-                    <div className="flex items-center gap-2 text-blue-800 mb-2">
+                    <div className={`flex items-center gap-2 text-blue-800 mb-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                       <Building className="h-5 w-5" />
-                      <span className="font-semibold">Payment</span>
+                      <span className="font-semibold">{t('checkout.payment')}</span>
                     </div>
-                    <p className="text-sm text-blue-700">
-                      As our customer, you can pay via cash on delivery or ask our support team to generate a secure payment link. Our support team will share a secure payment link for payment.
+                    <p className={`text-sm text-blue-700 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                      {t('checkout.paymentDescription')}
                     </p>
                   </div>
                   
                   <div className="space-y-3">
-                    <label className="flex items-center gap-3 p-4 border border-gray-300 rounded-lg cursor-not-allowed opacity-50">
+                    <label className={`flex items-center gap-3 p-4 border border-gray-300 rounded-lg cursor-not-allowed opacity-50 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                       <input
                         type="radio"
                         name="payment"
@@ -698,13 +704,13 @@ export default function CheckoutClient() {
                         disabled
                         className="text-gray-400"
                       />
-                      <div>
-                        <div className="font-medium text-gray-500">Stripe Checkout</div>
-                        <div className="text-sm text-gray-400">Coming soon - We will integrate later</div>
+                      <div className={dir === 'rtl' ? 'text-right' : ''}>
+                        <div className="font-medium text-gray-500">{t('checkout.stripeCheckout')}</div>
+                        <div className="text-sm text-gray-400">{t('checkout.comingSoon')}</div>
                       </div>
                     </label>
                     
-                    <label className="flex items-center gap-3 p-4 border border-primary-300 rounded-lg cursor-pointer hover:bg-primary-50 bg-primary-25">
+                    <label className={`flex items-center gap-3 p-4 border border-primary-300 rounded-lg cursor-pointer hover:bg-primary-50 bg-primary-25 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                       <input
                         type="radio"
                         name="payment"
@@ -712,22 +718,22 @@ export default function CheckoutClient() {
                         defaultChecked
                         className="text-primary-600 focus:ring-primary-500"
                       />
-                      <div>
-                        <div className="font-medium text-gray-900">Cash on Delivery</div>
-                        <div className="text-sm text-gray-600">Pay when your order is delivered</div>
+                      <div className={dir === 'rtl' ? 'text-right' : ''}>
+                        <div className="font-medium text-gray-900">{t('checkout.cod')}</div>
+                        <div className="text-sm text-gray-600">{t('checkout.payWhenDelivered')}</div>
                       </div>
                     </label>
 
-                    <label className="flex items-center gap-3 p-4 border border-primary-300 rounded-lg cursor-pointer hover:bg-primary-50 bg-primary-25">
+                    <label className={`flex items-center gap-3 p-4 border border-primary-300 rounded-lg cursor-pointer hover:bg-primary-50 bg-primary-25 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                       <input
                         type="radio"
                         name="payment"
                         value="support-link"
                         className="text-primary-600 focus:ring-primary-500"
                       />
-                      <div>
-                        <div className="font-medium text-gray-900">Generate Link for Payment</div>
-                        <div className="text-sm text-gray-600">Our support team will share a secure payment link for payment</div>
+                      <div className={dir === 'rtl' ? 'text-right' : ''}>
+                        <div className="font-medium text-gray-900">{t('checkout.generateLinkForPayment')}</div>
+                        <div className="text-sm text-gray-600">{t('checkout.supportTeamWillShareLink')}</div>
                       </div>
                     </label>
                   </div>
@@ -735,13 +741,13 @@ export default function CheckoutClient() {
 
                 {/* Order Notes */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Order Notes (Optional)
+                  <label className={`block text-sm font-medium text-gray-700 mb-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                    {t('checkout.orderNotes')}
                   </label>
                   <textarea
                     rows={3}
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900"
-                    placeholder="Any special instructions for your order..."
+                    className={`w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900 ${dir === 'rtl' ? 'text-right' : ''}`}
+                    placeholder={t('checkout.orderNotesPlaceholder')}
                     style={{ color: '#111827', backgroundColor: '#ffffff' }}
                   />
                 </div>
@@ -750,17 +756,17 @@ export default function CheckoutClient() {
                 <button
                   type="submit"
                   disabled={isProcessing}
-                  className="w-full bg-primary-600 text-white py-4 rounded-lg font-semibold hover:bg-primary-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                  className={`w-full bg-primary-600 text-white py-4 rounded-lg font-semibold hover:bg-primary-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
                 >
                   {isProcessing ? (
                     <>
                       <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
-                      Processing Order...
+                      {t('checkout.processingOrder')}
                     </>
                   ) : (
                     <>
                       <CreditCard className="h-5 w-5" />
-                      Complete Order - AED {total.toFixed(2)}
+                      {t('checkout.completeOrder')} - AED {total.toFixed(2)}
                     </>
                   )}
                 </button>
@@ -773,9 +779,9 @@ export default function CheckoutClient() {
             <div className="bg-white rounded-xl shadow-lg border border-gray-100 sticky top-4 order-summary-container" style={{ overflow: 'hidden', overflowY: 'hidden', overflowX: 'hidden' }}>
               {/* Header */}
               <div className="bg-gradient-to-r from-primary-600 to-primary-700 px-6 py-4">
-                <div className="flex justify-between items-center">
-                  <div className="text-right">
-                    <div className="text-lg font-mono font-bold text-white">Order # {orderNumber}</div>
+                <div className={`flex justify-between items-center ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                  <div className={dir === 'rtl' ? 'text-left' : 'text-right'}>
+                    <div className="text-lg font-mono font-bold text-white">{t('checkout.orderNumber')} {orderNumber}</div>
                   </div>
                 </div>
               </div>
@@ -783,7 +789,7 @@ export default function CheckoutClient() {
               <div className="p-6">
                 {/* Items List */}
                 <div className="mb-6">
-                  <h3 className="text-sm font-semibold text-gray-700 mb-4 uppercase tracking-wide">Items:</h3>
+                  <h3 className={`text-sm font-semibold text-gray-700 mb-4 uppercase tracking-wide ${dir === 'rtl' ? 'text-right' : ''}`}>{t('checkout.itemsLabel')}</h3>
                   {items.length > 0 || freeMasks.length > 0 ? (
                     <div className="space-y-4">
                       {items.map((item) => {
@@ -791,19 +797,19 @@ export default function CheckoutClient() {
                         const quantity = item.quantity || 1
                         const total = pricing.discountedPrice * quantity
                         return (
-                          <div key={item.product.id} className="flex items-start justify-between">
+                          <div key={item.product.id} className={`flex items-start justify-between ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                             <div className="flex-1 min-w-0">
-                              <h4 className="text-sm font-medium text-gray-900 leading-tight">
+                              <h4 className={`text-sm font-medium text-gray-900 leading-tight ${dir === 'rtl' ? 'text-right' : ''}`}>
                                 {item.product.name}
                               </h4>
-                              <div className="flex items-center gap-2 mt-1">
-                                <span className="text-xs text-gray-500">Qty: {quantity}</span>
+                              <div className={`flex items-center gap-2 mt-1 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                                <span className="text-xs text-gray-500">{t('checkout.qty')} {quantity}</span>
                                 {pricing.hasDiscount && (
-                                  <span className="text-xs text-green-600 font-medium">({pricing.discountPercentage}% OFF)</span>
+                                  <span className="text-xs text-green-600 font-medium">({pricing.discountPercentage}% {t('product.off')})</span>
                                 )}
                               </div>
                             </div>
-                            <div className="text-right ml-3">
+                            <div className={dir === 'rtl' ? 'text-left mr-3' : 'text-right ml-3'}>
                               <div className="text-sm font-semibold text-gray-900">
                                 AED {total.toFixed(2)}
                               </div>
@@ -812,18 +818,18 @@ export default function CheckoutClient() {
                         )
                       })}
                       {freeMasks.map((mask) => (
-                        <div key={mask.id} className="flex items-start justify-between">
+                        <div key={mask.id} className={`flex items-start justify-between ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                           <div className="flex-1 min-w-0">
-                            <h4 className="text-sm font-medium text-gray-900 leading-tight">
-                              {mask.name} <span className="text-green-600 font-semibold">(FREE)</span>
+                            <h4 className={`text-sm font-medium text-gray-900 leading-tight ${dir === 'rtl' ? 'text-right' : ''}`}>
+                              {mask.name} <span className="text-green-600 font-semibold">({t('checkout.free')})</span>
                             </h4>
-                            <div className="flex items-center gap-2 mt-1">
-                              <span className="text-xs text-gray-500">Qty: {mask.quantity}</span>
+                            <div className={`flex items-center gap-2 mt-1 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                              <span className="text-xs text-gray-500">{t('checkout.qty')} {mask.quantity}</span>
                             </div>
                           </div>
-                          <div className="text-right ml-3">
+                          <div className={dir === 'rtl' ? 'text-left mr-3' : 'text-right ml-3'}>
                             <div className="text-sm font-semibold text-green-600">
-                              FREE
+                              {t('checkout.free')}
                             </div>
                           </div>
                         </div>
@@ -836,9 +842,9 @@ export default function CheckoutClient() {
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                         </svg>
                       </div>
-                      <p className="text-gray-500 mb-2">Your cart is empty</p>
-                      <Link href="/products" className="text-primary-600 hover:text-primary-700 text-sm font-medium">
-                        Continue Shopping
+                      <p className="text-gray-500 mb-2">{t('checkout.yourCartIsEmpty')}</p>
+                      <Link href={getLocalizedPath('/products', locale)} className="text-primary-600 hover:text-primary-700 text-sm font-medium">
+                        {t('checkout.continueShopping')}
                       </Link>
                     </div>
                   )}
@@ -846,33 +852,35 @@ export default function CheckoutClient() {
                 
                 {/* Price Breakdown */}
                 <div className="space-y-3 mb-6">
-                  <div className="flex justify-between items-center py-2">
-                    <span className="text-sm text-gray-600">Subtotal ({getTotalItems()} {getTotalItems() === 1 ? 'item' : 'items'}{freeMasks.length > 0 ? ` + ${freeMasks.length} free ${freeMasks.length === 1 ? 'mask' : 'masks'}` : ''})</span>
+                  <div className={`flex justify-between items-center py-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                    <span className={`text-sm text-gray-600 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                      {t('checkout.subtotal')} ({getTotalItems()} {getTotalItems() === 1 ? t('checkout.item') : t('checkout.items')}{freeMasks.length > 0 ? ` + ${freeMasks.length} ${freeMasks.length === 1 ? t('checkout.freeMask') : t('checkout.freeMasks')}` : ''})
+                    </span>
                     <span className="text-sm font-medium text-gray-900">AED {subtotal.toFixed(2)}</span>
                   </div>
                   
-                  <div className="flex justify-between items-center py-2">
-                    <div className="flex items-center gap-2">
+                  <div className={`flex justify-between items-center py-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                    <div className={`flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                       <Truck className="h-4 w-4 text-green-600" />
-                      <span className="text-sm text-gray-600">Shipping to {selectedEmirate}</span>
+                      <span className={`text-sm text-gray-600 ${dir === 'rtl' ? 'text-right' : ''}`}>{t('checkout.shippingTo')} {selectedEmirate}</span>
                     </div>
                     <span className="text-sm font-medium text-gray-900">
-                      {shippingCost === 0 ? <span className="text-green-600 font-semibold">FREE</span> : `AED ${shippingCost}`}
+                      {shippingCost === 0 ? <span className="text-green-600 font-semibold">{t('checkout.free')}</span> : `AED ${shippingCost}`}
                     </span>
                   </div>
                   
-                  <div className="flex justify-between items-center py-2">
-                    <span className="text-sm text-gray-600">VAT (5%)</span>
+                  <div className={`flex justify-between items-center py-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                    <span className={`text-sm text-gray-600 ${dir === 'rtl' ? 'text-right' : ''}`}>{t('checkout.vat')}</span>
                     <span className="text-sm font-medium text-gray-900">AED {vatAmount.toFixed(2)}</span>
                   </div>
                   
-                  <div className="text-xs text-red-600 text-left py-2 bg-gray-50 rounded-lg">
-                    All prices include 5% VAT
+                  <div className={`text-xs text-red-600 py-2 bg-gray-50 rounded-lg ${dir === 'rtl' ? 'text-right' : 'text-left'}`}>
+                    {t('checkout.allPricesIncludeVat')}
                   </div>
                   
                   <div className="border-t-2 border-gray-200 pt-4">
-                    <div className="flex justify-between items-center">
-                      <span className="text-lg font-bold text-gray-900">Total:</span>
+                    <div className={`flex justify-between items-center ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                      <span className={`text-lg font-bold text-gray-900 ${dir === 'rtl' ? 'text-right' : ''}`}>{t('checkout.total')}</span>
                       <span className="text-xl font-bold text-primary-600">AED {total.toFixed(2)}</span>
                     </div>
                   </div>
@@ -881,15 +889,17 @@ export default function CheckoutClient() {
 
                 {/* Delivery Info */}
                 <div className="p-4 bg-green-50 border border-green-200 rounded-lg mb-4">
-                  <div className="flex items-center gap-2 text-green-800 mb-2">
+                  <div className={`flex items-center gap-2 text-green-800 mb-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                     <Truck className="h-5 w-5" />
-                    <span className="font-semibold">Delivery Information</span>
+                    <span className="font-semibold">{t('checkout.deliveryInformation')}</span>
                   </div>
-                  <p className="text-sm text-green-700">
-                    Your order will be delivered within {selectedEmirate === 'Dubai' ? '1-2 hours' : '24-36 hours'} {selectedEmirate === 'Dubai' ? 'to' : 'to'} {selectedEmirate} {selectedEmirate === 'Dubai' ? 'by Careem' : 'by Quiqup'}.
+                  <p className={`text-sm text-green-700 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                    {selectedEmirate === 'Dubai' 
+                      ? t('checkout.deliveryTimeDubai')
+                      : `${t('checkout.deliveryTimeOther')} ${selectedEmirate} ${t('checkout.byQuiqup')}.`}
                     {selectedEmirate !== 'Dubai' && (
                       <span className="block mt-2">
-                        Tracking number will be shared by Genosys team.
+                        {t('checkout.trackingNumberWillBeShared')}
                       </span>
                     )}
                   </p>
@@ -897,42 +907,42 @@ export default function CheckoutClient() {
 
                 {/* WhatsApp Support */}
                 <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg mb-4">
-                  <div className="flex items-center gap-2 text-blue-800 mb-2">
+                  <div className={`flex items-center gap-2 text-blue-800 mb-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                     <MessageCircle className="h-5 w-5" />
-                    <span className="font-semibold">Need Help?</span>
+                    <span className="font-semibold">{t('checkout.needHelp')}</span>
                   </div>
-                  <p className="text-sm text-blue-700 mb-3">
-                    Have questions? Contact our support team via WhatsApp for instant assistance. Please refer the order number.
+                  <p className={`text-sm text-blue-700 mb-3 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                    {t('checkout.haveQuestions')}
                   </p>
                   <button
                     onClick={contactWhatsApp}
-                    className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium text-sm"
+                    className={`w-full flex items-center justify-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium text-sm ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
                   >
                     <MessageCircle className="h-4 w-4" />
-                    Contact Support via WhatsApp
+                    {t('checkout.contactSupportViaWhatsApp')}
                   </button>
                 </div>
 
                 {/* Generate Invoice */}
                 <div className="p-4 bg-white border border-red-200 rounded-lg">
-                  <div className="flex items-center gap-2 text-black mb-2">
+                  <div className={`flex items-center gap-2 text-black mb-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                     <Mail className="h-5 w-5" />
-                    <span className="font-semibold">Invoice</span>
+                    <span className="font-semibold">{t('checkout.invoice')}</span>
                   </div>
-                  <p className="text-sm text-black mb-3">
-                    Generate and receive a detailed invoice for your order via email.
+                  <p className={`text-sm text-black mb-3 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                    {t('checkout.generateInvoiceDescription')}
                   </p>
                   <div className="mb-3">
-                    <label htmlFor="invoice-email" className="block text-sm font-medium text-black mb-1">
-                      E-mail address
+                    <label htmlFor="invoice-email" className={`block text-sm font-medium text-black mb-1 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                      {t('checkout.emailAddressLabel')}
                     </label>
                     <input
                       type="email"
                       id="invoice-email"
                       value={invoiceEmail}
                       onChange={(e) => setInvoiceEmail(e.target.value)}
-                      className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 text-sm bg-white text-gray-900"
-                      placeholder="Enter email address"
+                      className={`w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 text-sm bg-white text-gray-900 ${dir === 'rtl' ? 'text-right' : ''}`}
+                      placeholder={t('checkout.enterEmailAddressPlaceholder')}
                       required
                       style={{ color: '#111827', backgroundColor: '#ffffff' }}
                     />
@@ -940,10 +950,10 @@ export default function CheckoutClient() {
                   <button
                     onClick={generateAndSendInvoice}
                     disabled={isGeneratingInvoice || items.length === 0}
-                    className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors font-medium text-sm disabled:bg-gray-400 disabled:cursor-not-allowed"
+                    className={`w-full flex items-center justify-center gap-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors font-medium text-sm disabled:bg-gray-400 disabled:cursor-not-allowed ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
                   >
                     <Mail className="h-4 w-4" />
-                    {isGeneratingInvoice ? 'Generating...' : 'Send by E-mail'}
+                    {isGeneratingInvoice ? t('checkout.generating') : t('checkout.sendByEmail')}
                   </button>
                 </div>
               </div>

@@ -5,22 +5,25 @@ import { useAuth } from '@/components/AuthProvider'
 import LoginModal from '@/components/LoginModal'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import { useTranslation } from '@/hooks/useTranslation'
+import { getLocalizedPath } from '@/lib/i18n'
 
 export default function LoginClient() {
   const { user } = useAuth()
   const [showLoginModal, setShowLoginModal] = useState(false)
   const [isLoginMode, setIsLoginMode] = useState(true)
   const router = useRouter()
+  const { t, locale, dir } = useTranslation()
 
   useEffect(() => {
     if (user) {
-      router.push('/products')
+      router.push(getLocalizedPath('/products', locale))
     }
-  }, [user, router])
+  }, [user, router, locale])
 
   if (user) {
     return (
-      <div className="container mx-auto px-4 py-8 md:py-16">
+      <div className={`container mx-auto px-4 py-8 md:py-16 ${dir === 'rtl' ? 'text-right' : ''}`} dir={dir}>
         <div className="max-w-4xl mx-auto text-center py-16">
           <div className="mb-8">
             <div className="h-24 w-24 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -28,17 +31,17 @@ export default function LoginClient() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
             </div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-4">Already Logged In</h1>
+            <h1 className="text-3xl font-bold text-gray-900 mb-4">{t('login.alreadyLoggedIn')}</h1>
             <p className="text-gray-600 text-lg mb-8">
-              You are already logged in as {user.email}
+              {t('login.loggedInAs')} {user.email}
             </p>
           </div>
           
           <Link
-            href="/products"
-            className="inline-flex items-center gap-2 bg-primary-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-primary-700 transition-colors"
+            href={getLocalizedPath('/products', locale)}
+            className={`inline-flex items-center gap-2 bg-primary-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-primary-700 transition-colors ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
           >
-            Continue to Products
+            {t('login.continueToProducts')}
           </Link>
         </div>
       </div>
@@ -46,36 +49,36 @@ export default function LoginClient() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8 md:py-16">
+    <div className={`container mx-auto px-4 py-8 md:py-16 ${dir === 'rtl' ? 'text-right' : ''}`} dir={dir}>
       {/* Navigation Breadcrumb */}
-      <nav className="flex items-center gap-2 text-sm md:text-base text-gray-600 mb-8" aria-label="Breadcrumb">
+      <nav className={`flex items-center gap-2 text-sm md:text-base text-gray-600 mb-8 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`} aria-label="Breadcrumb">
         <Link
-          href="/"
+          href={getLocalizedPath('/', locale)}
           className="hover:text-primary-600 transition-colors flex items-center"
         >
-          Home
+          {t('common.home')}
         </Link>
         <span className="flex items-center">/</span>
         <span className="text-gray-900 font-medium flex items-center">
-          Login
+          {t('common.login')}
         </span>
       </nav>
 
       {/* Back to Home Link */}
       <div className="mb-8">
         <Link
-          href="/"
-          className="text-gray-600 hover:text-gray-900 transition-colors text-sm"
+          href={getLocalizedPath('/', locale)}
+          className={`text-gray-600 hover:text-gray-900 transition-colors text-sm flex items-center gap-1 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
         >
-          ← Back to Home
+          {dir === 'rtl' ? '→' : '←'} {t('login.backToHome')}
         </Link>
       </div>
 
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">Professional Login</h1>
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">{t('login.title')}</h1>
           <p className="text-xl text-gray-600 mb-8">
-            Access your GENOSYS professional account to view prices and manage orders
+            {t('login.subtitle')}
           </p>
         </div>
 
@@ -87,9 +90,9 @@ export default function LoginClient() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                 </svg>
               </div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">Sign In</h2>
+              <h2 className="text-2xl font-bold text-gray-900 mb-2">{t('login.signIn')}</h2>
               <p className="text-gray-600">
-                Sign in to your professional account
+                {t('login.signInToAccount')}
               </p>
             </div>
 
@@ -97,12 +100,12 @@ export default function LoginClient() {
               onClick={() => setShowLoginModal(true)}
               className="w-full bg-primary-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-primary-700 transition-colors mb-4"
             >
-              Sign In
+              {t('login.signIn')}
             </button>
 
             <div className="text-center">
               <p className="text-sm text-gray-600 mb-4">
-                Don&apos;t have an account?
+                {t('login.dontHaveAccount')}
               </p>
               <button
                 onClick={() => {
@@ -111,7 +114,7 @@ export default function LoginClient() {
                 }}
                 className="text-primary-600 hover:text-primary-700 font-medium text-sm"
               >
-                Create Professional Genosys Account
+                {t('login.createAccount')}
               </button>
             </div>
           </div>

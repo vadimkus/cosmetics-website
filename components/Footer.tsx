@@ -9,11 +9,11 @@ export default function Footer() {
   const { t, locale, dir } = useTranslation()
 
   return (
-    <footer role="contentinfo" className="bg-white border-t border-gray-200 py-8" dir="ltr">
+    <footer role="contentinfo" className="bg-white border-t border-gray-200 py-8" dir={dir}>
       <div className="container mx-auto px-4">
-        <div className="flex flex-col items-center gap-6">
+        <div className={`flex flex-col items-center gap-6 ${dir === 'rtl' ? 'text-right' : ''}`}>
           {/* Navigation Links */}
-          <div className="flex flex-wrap justify-center gap-4 md:gap-6 text-sm">
+          <div className={`flex flex-wrap justify-center gap-4 md:gap-6 text-sm ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
             <Link href={getLocalizedPath('/blog', locale)} className="text-gray-600 hover:text-primary-600 transition-colors py-2 px-2 touch-manipulation min-h-[44px] flex items-center">
               {t('navigation.blog')}
             </Link>

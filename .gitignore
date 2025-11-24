@@ -36,6 +36,8 @@ next-env.d.ts
 
 # User data storage (contains sensitive information)
 /data/
+# Exception: productTranslations.ts is needed for the build
+!/data/productTranslations.ts
 
 # Database files
 *.db

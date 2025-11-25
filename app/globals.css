@@ -73,6 +73,50 @@ html[data-dir="rtl"] footer nav {
   direction: rtl !important;
 }
 
+/* Header specific RTL rules */
+html[dir="rtl"] .header-main-flex,
+html[data-dir="rtl"] .header-main-flex {
+  flex-direction: row-reverse !important;
+}
+
+html[dir="rtl"] .header-contact,
+html[data-dir="rtl"] .header-contact {
+  align-items: flex-end !important;
+  text-align: right !important;
+}
+
+html[dir="rtl"] .header-margin,
+html[data-dir="rtl"] .header-margin {
+  margin-left: 0 !important;
+  margin-right: 10rem !important;
+}
+
+html[dir="rtl"] .header-desktop-right,
+html[data-dir="rtl"] .header-desktop-right {
+  flex-direction: row-reverse !important;
+}
+
+html[dir="rtl"] .header-contact-link,
+html[data-dir="rtl"] .header-contact-link {
+  flex-direction: row-reverse !important;
+}
+
+html[dir="rtl"] .header-icons,
+html[data-dir="rtl"] .header-icons {
+  flex-direction: row-reverse !important;
+}
+
+/* Footer specific RTL rules */
+html[dir="rtl"] .footer-links,
+html[data-dir="rtl"] .footer-links {
+  justify-content: flex-end !important;
+}
+
+html[dir="rtl"] footer .flex,
+html[data-dir="rtl"] footer .flex {
+  flex-direction: row-reverse !important;
+}
+
 /* Ensure text alignment for RTL */
 html[dir="rtl"] header,
 html[dir="rtl"] footer,
@@ -112,12 +156,43 @@ html[data-dir="rtl"] footer .text-left {
     justify-content: center !important;
   }
   
-  /* Center logo on mobile but keep text right-aligned for RTL */
+  /* Center logo and text for RTL footer */
+  html[dir="rtl"] footer .flex-col.items-center,
+  html[data-dir="rtl"] footer .flex-col.items-center {
+    text-align: center !important;
+  }
+
   html[dir="rtl"] footer img,
   html[data-dir="rtl"] footer img {
     margin-left: auto;
     margin-right: auto;
   }
+
+  html[dir="rtl"] footer p,
+  html[data-dir="rtl"] footer p {
+    text-align: center !important;
+  }
+}
+
+html[dir="rtl"] header .header-contact,
+html[data-dir="rtl"] header .header-contact {
+  align-items: flex-start !important;
+  text-align: left !important;
+}
+
+html[dir="rtl"] header .header-contact a,
+html[data-dir="rtl"] header .header-contact a {
+  justify-content: flex-start !important;
+}
+
+html[dir="rtl"] .login-logout-btn,
+html[data-dir="rtl"] .login-logout-btn {
+  text-align: right !important;
+}
+
+html[dir="rtl"] footer .footer-links,
+html[data-dir="rtl"] footer .footer-links {
+  flex-direction: row-reverse !important;
 }
 
 /* Force RTL for all flex containers in RTL mode */

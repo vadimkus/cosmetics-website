@@ -149,63 +149,54 @@ export default function RootLayout({
               (function() {
                 try {
                   // Run IMMEDIATELY - this must execute before React hydrates
-                  // Use a synchronous check that doesn't wait for anything
                   var path = window.location.pathname || '';
-                  var isArabic = path.indexOf('/ar') === 0 || path.indexOf('/ar/') === 0;
+                  var isArabic = path.indexOf('/ar') === 0;
                   var lang = isArabic ? 'ar' : 'en';
                   var dir = isArabic ? 'rtl' : 'ltr';
-                  
-                  // Get HTML element - it should exist immediately
+
+                  console.log('RTL Script: path=', path, 'isArabic=', isArabic, 'dir=', dir);
+
+                  // Get HTML element
                   var html = document.documentElement;
-                  if (!html) {
-                    // If HTML doesn't exist yet, wait a microtask and try again
-                    Promise.resolve().then(function() {
-                      var html2 = document.documentElement;
-                      if (html2) {
-                        setDir(html2, dir, lang);
-                      }
-                    });
-                    return;
+                  if (html) {
+                    // Set attributes immediately
+                    html.setAttribute('lang', lang);
+                    html.setAttribute('dir', dir);
+                    html.setAttribute('data-locale', lang);
+                    html.setAttribute('data-dir', dir);
+                    html.lang = lang;
+                    html.dir = dir;
+                    html.style.direction = dir;
+
+                    console.log('RTL Script: Set html dir to', dir);
                   }
-                  
-                  function setDir(element, dir, lang) {
-                    // Set all possible ways to ensure it sticks
-                    element.setAttribute('lang', lang);
-                    element.setAttribute('dir', dir);
-                    element.setAttribute('data-locale', lang);
-                    element.setAttribute('data-dir', dir);
-                    element.lang = lang;
-                    element.dir = dir;
-                    element.style.direction = dir;
-                    
-                    // Also set on body if it exists
+
+                  // Store globally
+                  window.__GENOSYS_DIR__ = dir;
+                  window.__GENOSYS_LANG__ = lang;
+
+                  // Handle body when it exists
+                  function setBodyDir() {
                     if (document.body) {
                       document.body.setAttribute('dir', dir);
                       document.body.setAttribute('data-dir', dir);
-                    }
-                    
-                    // Store in a way that's immediately accessible
-                    if (typeof window !== 'undefined') {
-                      window.__GENOSYS_DIR__ = dir;
-                      window.__GENOSYS_LANG__ = lang;
+                      document.body.style.direction = dir;
+                      console.log('RTL Script: Set body dir to', dir);
                     }
                   }
-                  
-                  setDir(html, dir, lang);
-                  
-                  // Also watch for body creation and set it
+
+                  setBodyDir();
+
+                  // Watch for body creation
                   if (!document.body) {
-                    var observer = new MutationObserver(function(mutations) {
-                      if (document.body) {
-                        document.body.setAttribute('dir', dir);
-                        document.body.setAttribute('data-dir', dir);
-                        observer.disconnect();
-                      }
+                    var observer = new MutationObserver(function() {
+                      setBodyDir();
+                      observer.disconnect();
                     });
                     observer.observe(document.documentElement, { childList: true });
                   }
                 } catch(e) {
-                  console.error('Locale script error:', e);
+                  console.error('RTL Script error:', e);
                 }
               })();
             `,

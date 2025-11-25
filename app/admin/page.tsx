@@ -62,6 +62,7 @@ export default function AdminPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [isCheckingSession, setIsCheckingSession] = useState(true)
   const [adminUser, setAdminUser] = useState<{ email: string; name: string } | null>(null)
+  const [userSearch, setUserSearch] = useState('')
   
   // Refs to track latest values for interval closure
   const adminUserRef = useRef(adminUser)
@@ -103,10 +104,13 @@ export default function AdminPage() {
   const [editingProduct, setEditingProduct] = useState<Product | null>(null)
   const [selectedOrders, setSelectedOrders] = useState<string[]>([])
   const [isDeletingOrders, setIsDeletingOrders] = useState(false)
-
-  const fetchUsers = useCallback(async () => {
+  
+  const fetchUsers = useCallback(async (search?: string) => {
     try {
-      const response = await fetch('/api/admin/users', {
+      const url = search 
+        ? `/api/admin/users?search=${encodeURIComponent(search)}&limit=200`
+        : '/api/admin/users?limit=200'
+      const response = await fetch(url, {
         headers: getAdminHeaders()
       })
       const data = await response.json()
@@ -278,7 +282,7 @@ export default function AdminPage() {
 
   const refreshUsers = async () => {
     setUsersRefreshing(true)
-    await fetchUsers()
+    await fetchUsers(userSearch)
     setUsersRefreshing(false)
   }
 
@@ -876,16 +880,28 @@ export default function AdminPage() {
                 />
               ) : (
             <>
-              <div className="flex justify-between items-center mb-6">
+              <div className="flex justify-between items-center mb-6 flex-wrap gap-4">
                 <h2 className="text-2xl font-bold text-gray-800">User Management</h2>
-                <button
-                  onClick={refreshUsers}
-                  disabled={usersRefreshing}
-                  className="flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  <RefreshCw className={`h-4 w-4 ${usersRefreshing ? 'animate-spin' : ''}`} />
-                  {usersRefreshing ? 'Refreshing...' : 'Refresh'}
-                </button>
+                <div className="flex items-center gap-2">
+                  <input
+                    type="text"
+                    placeholder="Search by email, name, or phone..."
+                    value={userSearch}
+                    onChange={(e) => {
+                      setUserSearch(e.target.value)
+                      fetchUsers(e.target.value)
+                    }}
+                    className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent min-w-[250px]"
+                  />
+                  <button
+                    onClick={refreshUsers}
+                    disabled={usersRefreshing}
+                    className="flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    <RefreshCw className={`h-4 w-4 ${usersRefreshing ? 'animate-spin' : ''}`} />
+                    {usersRefreshing ? 'Refreshing...' : 'Refresh'}
+                  </button>
+                </div>
               </div>
               
               {/* User Summary */}

@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { Package, ShoppingBag, Calendar, X, CreditCard, Truck, CheckCircle, Clock } from 'lucide-react'
+import { Package, ShoppingBag, Calendar, X, CreditCard, Truck, CheckCircle, Clock, Fish } from 'lucide-react'
 import { Order, OrderItem } from '@prisma/client'
 import StatusBadge from '@/components/shared/StatusBadge'
 import EmptyState from '@/components/shared/EmptyState'
@@ -71,6 +71,19 @@ export default function OrderHistory({ orders, loadingOrders, onCancelOrder }: O
     }
   }
 
+  const getOrderIcon = (orderNumber: string | null) => {
+    // Use pot emoji for SUP orders
+    if (orderNumber && orderNumber.startsWith('SUP')) {
+      return <span className="text-xl">🍲</span>
+    }
+    // Use fish icon for COD orders
+    if (orderNumber && orderNumber.startsWith('COD')) {
+      return <Fish className="h-5 w-5 text-blue-600" />
+    }
+    // Default Package icon for other orders
+    return <Package className="h-5 w-5 text-gray-600" />
+  }
+
   return (
     <div className="bg-white/70 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 p-4 sm:p-6 lg:p-8">
       <div className="flex items-center gap-3 mb-6">
@@ -105,8 +118,12 @@ export default function OrderHistory({ orders, loadingOrders, onCancelOrder }: O
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                   <div className="flex items-center gap-4">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-sm">
-                        <Package className="h-5 w-5 text-gray-600" />
+                      <div className={`w-10 h-10 rounded-full flex items-center justify-center shadow-sm ${
+                        order.orderNumber?.startsWith('SUP') ? 'bg-orange-50' : 
+                        order.orderNumber?.startsWith('COD') ? 'bg-blue-50' : 
+                        'bg-white'
+                      }`}>
+                        {getOrderIcon(order.orderNumber)}
                       </div>
                       <div>
                         <h3 className="text-lg font-bold text-gray-900">{t('profile.order')} #{order.orderNumber || order.id}</h3>
@@ -146,11 +163,14 @@ export default function OrderHistory({ orders, loadingOrders, onCancelOrder }: O
                     {t('profile.productsOrdered')}
                   </h4>
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                    {(order.items || []).slice(0, 6).map((item, index) => (
+                    {(order.items || []).slice(0, 6).map((item, index) => {
+                      // Use item.image if available, otherwise fallback to getProductImage
+                      const imageSrc = item.image || getProductImage(item.productName);
+                      return (
                       <div key={index} className="flex items-center gap-3 bg-gray-50 rounded-xl p-3 border border-gray-100 hover:bg-gray-100 transition-colors">
                         <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center overflow-hidden shadow-sm border border-gray-200">
                           <Image
-                            src={getProductImage(item.productName)}
+                            src={imageSrc}
                             alt={item.productName}
                             width={48}
                             height={48}
@@ -176,7 +196,8 @@ export default function OrderHistory({ orders, loadingOrders, onCancelOrder }: O
                           </div>
                         </div>
                       </div>
-                    ))}
+                      );
+                    })}
                     {order.items.length > 6 && (
                       <div className="flex items-center justify-center bg-gray-50 rounded-xl p-3 border border-gray-100">
                         <span className="text-sm text-gray-600 font-medium">

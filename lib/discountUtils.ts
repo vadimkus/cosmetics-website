@@ -25,16 +25,23 @@ export function calculateDiscountedPrice(product: Product, user: User | null): D
   let hasDiscount = false
   let isBlackFriday = false
 
-  // Check if product should be excluded from discounts
+  // Beauty box products excluded from Black Friday discounts specifically
+  const BLACK_FRIDAY_EXCLUDED_PRODUCT_NUMBERS = ['55', '56', '57', '58', '59']
+  
+  // Check if product should be excluded from all discounts
   // Exclude if: noDiscount flag is true OR category is "Beauty Boxes"
   // Product-specific exclusions are now handled via the noDiscount database flag
   const isExcludedFromDiscount = product.noDiscount === true || 
     product.category === 'Beauty Boxes'
+  
+  // Check if product should be excluded from Black Friday discounts specifically
+  const isExcludedFromBlackFriday = isExcludedFromDiscount ||
+    (product.productNumber && BLACK_FRIDAY_EXCLUDED_PRODUCT_NUMBERS.includes(product.productNumber))
 
   // Check if Black Friday sale is active (only applies to registered/logged-in users)
   const blackFridayActive = isBlackFridaySaleActive()
   
-  if (blackFridayActive && user && !isExcludedFromDiscount) {
+  if (blackFridayActive && user && !isExcludedFromBlackFriday) {
     // Black Friday discount applies only to registered/logged-in users
     discountPercentage = BLACK_FRIDAY_DISCOUNT_PERCENTAGE
     discountAmount = (originalPrice * discountPercentage) / 100

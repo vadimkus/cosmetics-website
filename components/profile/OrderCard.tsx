@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
+import { Package, Fish } from 'lucide-react'
 import { OrderWithItems } from '@/types/profile'
 import { useTranslation } from '@/hooks/useTranslation'
 
@@ -31,15 +32,32 @@ export default function OrderCard({
 }: OrderCardProps) {
   const { t } = useTranslation()
   
+  const getOrderIcon = (orderNumber: string | null) => {
+    // Use pot emoji for SUP orders
+    if (orderNumber && orderNumber.startsWith('SUP')) {
+      return <span className="text-xl">🍲</span>
+    }
+    // Use fish icon for COD orders
+    if (orderNumber && orderNumber.startsWith('COD')) {
+      return <Fish className="h-5 w-5 text-blue-600" />
+    }
+    // Default Package icon for other orders
+    return <Package className="h-5 w-5 text-gray-600" />
+  }
+  
   return (
     <div className="bg-white/70 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 p-6 hover:shadow-xl transition-all duration-200">
       <div className="flex items-start justify-between mb-4">
         <div className="flex items-center gap-3">
-          <div className={`p-2 rounded-lg ${getStatusColor(order.status)}`}>
-            {getStatusIcon(order.status)}
+          <div className={`w-10 h-10 rounded-full flex items-center justify-center shadow-sm ${
+            order.orderNumber?.startsWith('SUP') ? 'bg-orange-50' : 
+            order.orderNumber?.startsWith('COD') ? 'bg-blue-50' : 
+            'bg-white'
+          }`}>
+            {getOrderIcon(order.orderNumber)}
           </div>
           <div>
-            <h3 className="font-semibold text-gray-800">Order #{order.id.slice(-8)}</h3>
+            <h3 className="font-semibold text-gray-800">Order #{order.orderNumber || order.id.slice(-8)}</h3>
             <p className="text-sm text-gray-600">
               {new Date(order.createdAt).toLocaleDateString('en-AE', {
                 year: 'numeric',
@@ -60,15 +78,25 @@ export default function OrderCard({
       <div className="space-y-3">
         {order.items.map((item, index: number) => {
           const itemWithOptional = item as OrderItemWithOptionalFields
+          // Use item.image if available, otherwise fallback to getProductImage
+          const imageSrc = item.image || getProductImage(item.productName);
           return (
             <div key={index} className="flex items-center gap-3 p-3 bg-white/50 backdrop-blur-sm rounded-lg">
               <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                 <Image
-                  src={getProductImage(item.productName)}
+                  src={imageSrc}
                   alt={item.productName}
                   width={48}
                   height={48}
                   className="object-cover w-full h-full"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.style.display = 'none';
+                    const parent = target.parentElement;
+                    if (parent) {
+                      parent.innerHTML = '<div class="w-full h-full flex items-center justify-center text-gray-400 text-xs">📦</div>';
+                    }
+                  }}
                 />
               </div>
               <div className="flex-1 min-w-0">
@@ -94,7 +122,7 @@ export default function OrderCard({
       </div>
 
       <div className="flex items-center justify-between mt-4 pt-4 border-t border-gray-200">
-        <div className="flex items-center gap-2">
+        <div className={`flex items-center gap-2 p-2 rounded-lg ${getStatusColor(order.status)}`}>
           {getStatusIcon(order.status)}
           <span className="text-sm font-medium text-gray-700 capitalize">
             {order.status.replace('_', ' ')}

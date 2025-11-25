@@ -1,5 +1,6 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import { useCart } from '@/components/CartProvider'
 import { useAuth } from '@/components/AuthProvider'
 import CartItem from '@/components/CartItem'
@@ -16,6 +17,11 @@ export default function CartClient() {
   const { items, getTotalPrice, getTotalItems, selectedEmirate, setSelectedEmirate } = useCart()
   const { user } = useAuth()
   const { t, locale, dir } = useTranslation()
+  
+  // Black Friday countdown state
+  const [timeLeft, setTimeLeft] = useState<{ hours: number; minutes: number; seconds: number } | null>(null)
+  const [saleProgress, setSaleProgress] = useState(0)
+  const [isSaleActive, setIsSaleActive] = useState(false)
 
   // Emirates list with shipping costs
   const emirates = [
@@ -43,6 +49,55 @@ export default function CartClient() {
         return sum + (pricing.originalPrice * item.quantity)
       }, 0)
     : subtotal
+
+  // Black Friday countdown timer
+  useEffect(() => {
+    const saleStartDate = new Date('2025-11-25T20:00:00Z').getTime() // Nov 26th, 2025 at 00:00:00 UAE time
+    const saleEndDate = new Date('2025-11-28T19:59:59Z').getTime() // Nov 28th, 2025 at 23:59:59 UAE time
+    const totalDuration = saleEndDate - saleStartDate
+
+    const calculateTime = () => {
+      const now = new Date().getTime()
+
+      if (now >= saleEndDate) {
+        setIsSaleActive(false)
+        setTimeLeft(null)
+        setSaleProgress(100)
+        return
+      }
+
+      if (now >= saleStartDate) {
+        // Sale is active - countdown to end
+        setIsSaleActive(true)
+        const difference = saleEndDate - now
+        const elapsed = totalDuration - difference
+        const progress = Math.min(100, (elapsed / totalDuration) * 100)
+        setSaleProgress(progress)
+
+        setTimeLeft({
+          hours: Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+          minutes: Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60)),
+          seconds: Math.floor((difference % (1000 * 60)) / 1000),
+        })
+      } else {
+        // Sale hasn't started - countdown to start
+        setIsSaleActive(false)
+        const difference = saleStartDate - now
+        setSaleProgress(0)
+
+        setTimeLeft({
+          hours: Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+          minutes: Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60)),
+          seconds: Math.floor((difference % (1000 * 60)) / 1000),
+        })
+      }
+    }
+
+    calculateTime()
+    const timer = setInterval(calculateTime, 1000)
+
+    return () => clearInterval(timer)
+  }, [])
 
   if (items.length === 0) {
     return (
@@ -129,9 +184,118 @@ export default function CartClient() {
                 ))}
               </div>
 
+              {/* Black Friday Discount Block */}
+              {user && (
+                <div className="px-6 pt-6 pb-4">
+                  <div className={`p-4 ${blackFridayActive 
+                    ? 'bg-gradient-to-r from-red-50 to-orange-50 border-2 border-red-500' 
+                    : 'bg-gray-50 border-2 border-gray-300 opacity-75'
+                  } rounded-lg shadow-sm ${dir === 'rtl' ? 'text-right' : ''}`}>
+                    <div className={`flex items-center gap-2 mb-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                      <span className="text-2xl">{blackFridayActive ? '🎉' : '📅'}</span>
+                      <div className="flex-1">
+                        <h3 className={`text-lg md:text-xl font-bold ${blackFridayActive ? 'text-red-700' : 'text-gray-600'} ${dir === 'rtl' ? 'text-right' : ''}`}>
+                          {locale === 'ar' ? 'عرض الجمعة السوداء' : 'Black Friday Sale'}
+                        </h3>
+                        <p className={`text-sm font-semibold ${blackFridayActive ? 'text-red-600' : 'text-gray-500'} ${dir === 'rtl' ? 'text-right' : ''}`}>
+                          {locale === 'ar' ? 'خصم 20% على جميع المنتجات' : '20% OFF on All Products'}
+                        </p>
+                      </div>
+                    </div>
+                    
+                    {/* Countdown Timer */}
+                    {timeLeft && (
+                      <div className={`mb-3 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                        <div className={`flex items-center gap-2 mb-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                          <span className={`text-xs font-medium ${blackFridayActive ? 'text-red-600' : 'text-gray-500'}`}>
+                            {isSaleActive 
+                              ? (locale === 'ar' ? 'الوقت المتبقي:' : 'Time remaining:')
+                              : (locale === 'ar' ? 'يبدأ بعد:' : 'Starts in:')}
+                          </span>
+                        </div>
+                        <div className={`flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                          {/* Hours */}
+                          <div className={`flex flex-col items-center bg-white rounded-md px-2 py-1.5 border ${blackFridayActive ? 'border-red-300' : 'border-gray-300'} min-w-[50px]`}>
+                            <div className={`text-lg font-bold tabular-nums ${blackFridayActive ? 'text-red-600' : 'text-gray-600'}`}>
+                              {timeLeft.hours.toString().padStart(2, '0')}
+                            </div>
+                            <div className={`text-[10px] ${blackFridayActive ? 'text-red-500' : 'text-gray-500'}`}>
+                              {locale === 'ar' ? 'س' : 'H'}
+                            </div>
+                          </div>
+                          <span className={`text-lg font-bold ${blackFridayActive ? 'text-red-500' : 'text-gray-400'}`}>:</span>
+                          {/* Minutes */}
+                          <div className={`flex flex-col items-center bg-white rounded-md px-2 py-1.5 border ${blackFridayActive ? 'border-red-300' : 'border-gray-300'} min-w-[50px]`}>
+                            <div className={`text-lg font-bold tabular-nums ${blackFridayActive ? 'text-red-600' : 'text-gray-600'}`}>
+                              {timeLeft.minutes.toString().padStart(2, '0')}
+                            </div>
+                            <div className={`text-[10px] ${blackFridayActive ? 'text-red-500' : 'text-gray-500'}`}>
+                              {locale === 'ar' ? 'د' : 'M'}
+                            </div>
+                          </div>
+                          <span className={`text-lg font-bold ${blackFridayActive ? 'text-red-500' : 'text-gray-400'}`}>:</span>
+                          {/* Seconds */}
+                          <div className={`flex flex-col items-center bg-white rounded-md px-2 py-1.5 border ${blackFridayActive ? 'border-red-300' : 'border-gray-300'} min-w-[50px]`}>
+                            <div className={`text-lg font-bold tabular-nums ${blackFridayActive ? 'text-red-600' : 'text-gray-600'}`}>
+                              {timeLeft.seconds.toString().padStart(2, '0')}
+                            </div>
+                            <div className={`text-[10px] ${blackFridayActive ? 'text-red-500' : 'text-gray-500'}`}>
+                              {locale === 'ar' ? 'ث' : 'S'}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Progress Bar */}
+                    {timeLeft && (
+                      <div className="mb-3">
+                        <div className={`flex items-center justify-between mb-1.5 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                          <span className={`text-xs font-medium ${blackFridayActive ? 'text-red-600' : 'text-gray-500'}`}>
+                            {isSaleActive 
+                              ? (locale === 'ar' ? 'تقدم العرض' : 'Sale Progress')
+                              : (locale === 'ar' ? 'قريباً' : 'Starting Soon')}
+                          </span>
+                          {isSaleActive && (
+                            <span className={`text-xs font-semibold ${blackFridayActive ? 'text-red-600' : 'text-gray-500'}`}>
+                              {Math.round(saleProgress)}%
+                            </span>
+                          )}
+                        </div>
+                        <div className={`w-full h-2 rounded-full overflow-hidden ${blackFridayActive ? 'bg-red-100' : 'bg-gray-200'}`}>
+                          <div
+                            className={`h-full rounded-full transition-all duration-1000 ease-out ${
+                              blackFridayActive 
+                                ? 'bg-gradient-to-r from-red-500 to-orange-500' 
+                                : 'bg-gray-400'
+                            }`}
+                            style={{ width: `${isSaleActive ? saleProgress : 0}%` }}
+                          />
+                        </div>
+                      </div>
+                    )}
+
+                    <div className={`text-xs ${blackFridayActive ? 'text-gray-700' : 'text-gray-500'} mt-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                      <span className="font-medium">
+                        {locale === 'ar' ? 'الفترة: 26-28 نوفمبر' : 'Period: 26-28/11'}
+                      </span>
+                    </div>
+                    {blackFridayActive && originalSubtotal > subtotal && (
+                      <div className={`mt-3 pt-3 border-t border-red-200 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                        <p className={`text-sm font-semibold text-green-700 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                          {locale === 'ar' 
+                            ? `✅ وفرت ${(originalSubtotal - subtotal).toFixed(2)} درهم`
+                            : `✅ You saved AED ${(originalSubtotal - subtotal).toFixed(2)}`}
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
+
               {/* Free Mask Promotion */}
               {user && (
-                <div className="px-6 pb-6">
+                <div className={`px-6 ${blackFridayActive ? 'pb-6' : 'pt-6 pb-6'}`}>
                   <FreeMaskPromotion subtotal={subtotal} />
                   
                   {/* Free Delivery Notice */}

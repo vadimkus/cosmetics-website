@@ -8,17 +8,15 @@ import { useAuth } from './AuthProvider'
 import { useFavorites } from './FavoritesProvider'
 import LoginModal from './LoginModal'
 import LanguageSwitcher from './LanguageSwitcher'
-import { useState, useEffect, memo, useLayoutEffect } from 'react'
-import { usePathname } from 'next/navigation'
+import { useState, useEffect, memo } from 'react'
 import { useTranslation } from '@/hooks/useTranslation'
-import { getLocalizedPath, getLocaleFromPath } from '@/lib/i18n'
+import { getLocalizedPath } from '@/lib/i18n'
 
 const Header = memo(function Header() {
   const { getTotalItems } = useCartStore()
   const { user, logout } = useAuth()
   const { favorites } = useFavorites()
-  const pathname = usePathname()
-  const { t, locale, dir } = useTranslation()
+  const { t, locale } = useTranslation()
   const [showLoginModal, setShowLoginModal] = useState(false)
   const [isLoginMode, setIsLoginMode] = useState(true)
   const [showMobileMenu, setShowMobileMenu] = useState(false)
@@ -50,111 +48,10 @@ const Header = memo(function Header() {
     return () => clearInterval(interval)
   }, [isClient])
 
-  // Read direction directly from window.location.pathname FIRST - this is always available
-  // Then check DOM attributes set by blocking script
-  // This ensures we get the correct value even if script hasn't run yet
-  const getCurrentDir = (): 'ltr' | 'rtl' => {
-    // On server, always return 'ltr' to match server render
-    if (typeof window === 'undefined') return 'ltr'
-    
-    // PRIMARY: Check window.location.pathname directly (always available, no dependencies)
-    // This is the most reliable source of truth
-    if (typeof window !== 'undefined' && window.location) {
-      const currentPath = window.location.pathname || ''
-      if (currentPath.startsWith('/ar')) {
-        return 'rtl'
-      }
-    }
-    
-    // SECONDARY: Check global variable set by blocking script (fastest if available)
-    if (typeof window !== 'undefined' && (window as any).__GENOSYS_DIR__) {
-      const storedDir = (window as any).__GENOSYS_DIR__
-      if (storedDir === 'rtl' || storedDir === 'ltr') {
-        return storedDir
-      }
-    }
-    
-    // TERTIARY: Read directly from DOM (set by blocking script)
-    if (typeof document !== 'undefined' && document.documentElement) {
-      const htmlDir = document.documentElement.getAttribute('dir') || 
-                      document.documentElement.getAttribute('data-dir') ||
-                      document.documentElement.dir
-      if (htmlDir === 'rtl' || htmlDir === 'ltr') {
-        return htmlDir
-      }
-    }
-    
-    // FALLBACK: Use pathname from hook (might not be available on first render)
-    if (pathname) {
-      const pathLocale = getLocaleFromPath(pathname)
-      return pathLocale === 'ar' ? 'rtl' : 'ltr'
-    }
-    
-    return 'ltr'
-  }
-  
-  // Read direction directly on every render - no state needed
-  // This ensures we always have the correct value, even on hard refresh
-  const [mounted, setMounted] = useState(false)
-  const currentDir = getCurrentDir()
-  const isRTL = currentDir === 'rtl'
-  
-  // Ensure HTML dir attribute is set correctly and trigger re-render if needed
-  useLayoutEffect(() => {
-    setMounted(true)
-    
-    // Use pathname if available, otherwise fall back to window.location
-    const currentPath = pathname || (typeof window !== 'undefined' ? window.location.pathname : '')
-    const pathLocale = getLocaleFromPath(currentPath)
-    const dir = pathLocale === 'ar' ? 'rtl' : 'ltr'
-    const lang = pathLocale === 'ar' ? 'ar' : 'en'
-    
-    // Set HTML dir attribute immediately (ensure it's set even if blocking script didn't run)
-    if (typeof document !== 'undefined') {
-      document.documentElement.setAttribute('dir', dir)
-      document.documentElement.setAttribute('lang', lang)
-      document.documentElement.dir = dir
-      document.documentElement.lang = lang
-      document.documentElement.style.direction = dir
-      // Also set on body
-      if (document.body) {
-        document.body.setAttribute('dir', dir)
-      }
-    }
-  }, [pathname])
-  
-  // Watch for changes to HTML dir attribute and force re-render
-  useEffect(() => {
-    if (typeof document === 'undefined') return
-    
-    const observer = new MutationObserver(() => {
-      // Force re-render when dir attribute changes
-      setMounted(prev => !prev)
-    })
-    
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['dir']
-    })
-    
-    return () => observer.disconnect()
-  }, [])
-  
-  // Also sync on popstate (browser back/forward)
-  useEffect(() => {
-    if (!mounted) return
-    const handlePopState = () => {
-      // Force re-render by updating a dummy state
-      setMounted(prev => !prev)
-    }
-    window.addEventListener('popstate', handlePopState)
-    return () => window.removeEventListener('popstate', handlePopState)
-  }, [mounted])
-
   return (
-    <header className="bg-white shadow-sm border-b" dir={currentDir} style={{ direction: currentDir }} suppressHydrationWarning>
+    <header className="bg-white shadow-sm border-b" suppressHydrationWarning>
       <div className="container mx-auto px-4">
-        <div className={`flex items-center justify-between py-4${isRTL ? ' flex-row-reverse' : ''}`} suppressHydrationWarning>
+        <div className="flex items-center justify-between py-4 header-main-flex">
           <div className="flex flex-col">
             <span className="hidden md:block text-lg md:text-2xl font-bold text-primary-600">
               Genosys Middle East FZ-LLC
@@ -162,7 +59,7 @@ const Header = memo(function Header() {
             <Link href={getLocalizedPath('/products', locale)} className="md:hidden text-base font-bold text-primary-600">
               {t('navigation.products')}
             </Link>
-            <div className={`hidden md:flex text-sm text-gray-600 items-center gap-1 ${isRTL ? 'mr-0 md:mr-40' : 'ml-0 md:ml-40'}`} suppressHydrationWarning>
+            <div className="hidden md:flex text-sm text-gray-600 items-center gap-1 ml-0 md:ml-40 header-margin">
               {t('common.uae')}
               <Heart className={`h-3 w-3 text-primary-600 fill-current transition-transform duration-300 ${
                 isHeartBeating ? 'animate-pulse' : ''
@@ -174,7 +71,7 @@ const Header = memo(function Header() {
           </div>
           
           {/* Desktop Navigation */}
-          <nav className={`hidden md:flex${isRTL ? ' space-x-reverse' : ''} space-x-8`} role="navigation" aria-label="Main navigation" suppressHydrationWarning>
+          <nav className="hidden md:flex space-x-8" role="navigation" aria-label="Main navigation">
             <Link href={getLocalizedPath('/', locale)} className="text-gray-700 hover:text-primary-600 transition-colors">
               {t('navigation.home')}
             </Link>
@@ -201,7 +98,7 @@ const Header = memo(function Header() {
           </nav>
 
           {/* Mobile Icons and Menu Button */}
-          <div className={`md:hidden flex items-center space-x-2${isRTL ? ' space-x-reverse' : ''}`} suppressHydrationWarning>
+          <div className="md:hidden flex items-center space-x-2 header-icons">
             {/* Mobile Cart Icon */}
             <Link 
               href={getLocalizedPath('/cart', locale)} 
@@ -210,7 +107,7 @@ const Header = memo(function Header() {
             >
               <ShoppingCart className="h-6 w-6" aria-hidden="true" />
               {isClient && getTotalItems() > 0 && (
-                <span className={`absolute -top-1 ${isRTL ? '-left-1' : '-right-1'} bg-primary-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center`} aria-hidden="true">
+                <span className="absolute -top-1 -right-1 bg-primary-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center header-badge" aria-hidden="true">
                   {getTotalItems()}
                 </span>
               )}
@@ -224,7 +121,7 @@ const Header = memo(function Header() {
             >
               <Heart className="h-6 w-6" aria-hidden="true" />
               {isClient && favorites.length > 0 && (
-                <span className={`absolute -top-1 ${isRTL ? '-left-1' : '-right-1'} bg-primary-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center`} aria-hidden="true">
+                <span className="absolute -top-1 -right-1 bg-primary-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center header-badge" aria-hidden="true">
                   {favorites.length}
                 </span>
               )}
@@ -273,8 +170,8 @@ const Header = memo(function Header() {
             </button>
           </div>
           
-          <div className={`hidden lg:flex items-center space-x-6${isRTL ? ' space-x-reverse flex-row-reverse' : ''}`}>
-            <div className={`flex flex-col ${isRTL ? 'items-start text-left' : 'items-end text-right'}`}>
+          <div className="hidden lg:flex items-center space-x-6 header-desktop-right">
+            <div className="flex flex-col items-end text-right header-contact">
               <div className="text-sm text-gray-600">
                 {t('footer.officialDistributor')}
               </div>
@@ -282,7 +179,7 @@ const Header = memo(function Header() {
                 href="https://wa.me/971585487665" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className={`text-sm text-gray-600 hover:text-green-600 transition-colors flex items-center gap-1${isRTL ? ' flex-row-reverse' : ''}`}
+                className="text-sm text-gray-600 hover:text-green-600 transition-colors flex items-center gap-1 header-contact-link"
               >
                 +971 58 548 76 65 📱
               </a>
@@ -294,7 +191,7 @@ const Header = memo(function Header() {
               </a>
             </div>
             
-            <div className={`flex items-center space-x-4${isRTL ? ' space-x-reverse' : ''}`} suppressHydrationWarning>
+            <div className="flex items-center space-x-4 header-icons">
               {isClient && user ? (
                 <>
                   <Link 
@@ -334,7 +231,7 @@ const Header = memo(function Header() {
               >
                 <Heart className="h-6 w-6" aria-hidden="true" />
                 {isClient && favorites.length > 0 && (
-                  <span className={`absolute -top-1 ${isRTL ? '-left-1' : '-right-1'} bg-primary-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center`} aria-hidden="true">
+                  <span className="absolute -top-1 -right-1 bg-primary-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center header-badge" aria-hidden="true">
                     {favorites.length}
                   </span>
                 )}
@@ -347,7 +244,7 @@ const Header = memo(function Header() {
               >
                 <ShoppingCart className="h-6 w-6" aria-hidden="true" />
                 {isClient && getTotalItems() > 0 && (
-                  <span className={`absolute -top-1 ${isRTL ? '-left-1' : '-right-1'} bg-primary-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center`} aria-hidden="true">
+                  <span className="absolute -top-1 -right-1 bg-primary-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center header-badge" aria-hidden="true">
                     {getTotalItems()}
                   </span>
                 )}
@@ -361,7 +258,7 @@ const Header = memo(function Header() {
       {showMobileMenu && (
         <div className="md:hidden bg-white border-t" role="navigation" aria-label="Mobile navigation">
           <div className="container mx-auto px-4 py-4">
-            <nav className="flex flex-col space-y-4" dir={currentDir}>
+            <nav className="flex flex-col space-y-4">
             <Link 
               href={getLocalizedPath('/', locale)} 
               className="text-gray-700 hover:text-primary-600 transition-colors py-3 border-b border-gray-100 font-semibold touch-manipulation min-h-[44px] flex items-center"
@@ -440,7 +337,7 @@ const Header = memo(function Header() {
                         logout()
                         setShowMobileMenu(false)
                       }}
-                      className={`block w-full ${dir === 'rtl' ? 'text-right' : 'text-left'} text-gray-700 hover:text-primary-600 transition-colors py-3 touch-manipulation min-h-[44px] flex items-center`}
+                      className="block w-full text-left text-gray-700 hover:text-primary-600 transition-colors py-3 touch-manipulation min-h-[44px] flex items-center header-mobile-link"
                     >
                       {t('common.logout')}
                     </button>

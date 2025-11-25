@@ -39,10 +39,25 @@ html[data-dir="rtl"] nav {
   direction: rtl !important;
 }
 
-[dir="rtl"] .flex,
-html[dir="rtl"] .flex,
-html[data-dir="rtl"] .flex {
+/* Only reverse flex-row containers, NOT flex-col */
+[dir="rtl"] .flex:not(.flex-col):not([class*="flex-col"]),
+html[dir="rtl"] .flex:not(.flex-col):not([class*="flex-col"]),
+html[data-dir="rtl"] .flex:not(.flex-col):not([class*="flex-col"]) {
   flex-direction: row-reverse !important;
+}
+
+/* Preserve flex-col direction in RTL - must come after the above rule */
+/* BUT exclude products-layout which needs to be row on desktop */
+[dir="rtl"] .flex-col:not(.products-layout),
+html[dir="rtl"] .flex-col:not(.products-layout),
+html[data-dir="rtl"] .flex-col:not(.products-layout),
+[dir="rtl"] [class*="flex-col"]:not(.products-layout),
+html[dir="rtl"] [class*="flex-col"]:not(.products-layout),
+html[data-dir="rtl"] [class*="flex-col"]:not(.products-layout),
+[dir="rtl"] .flex.flex-col:not(.products-layout),
+html[dir="rtl"] .flex.flex-col:not(.products-layout),
+html[data-dir="rtl"] .flex.flex-col:not(.products-layout) {
+  flex-direction: column !important;
 }
 
 /* Force RTL layout for header and footer on Arabic pages - Multiple selectors */
@@ -55,14 +70,15 @@ body[data-dir="rtl"] footer {
   direction: rtl !important;
 }
 
-html[dir="rtl"] header .flex,
-html[dir="rtl"] footer .flex,
-html[dir="rtl"] header > div > div,
-html[dir="rtl"] footer > div > div,
-html[data-dir="rtl"] header .flex,
-html[data-dir="rtl"] footer .flex,
-html[data-dir="rtl"] header > div > div,
-html[data-dir="rtl"] footer > div > div {
+/* Only reverse flex-row containers in header/footer, NOT flex-col */
+html[dir="rtl"] header .flex:not(.flex-col):not([class*="flex-col"]),
+html[dir="rtl"] footer .flex:not(.flex-col):not([class*="flex-col"]),
+html[dir="rtl"] header > div > div:not(.flex-col):not([class*="flex-col"]),
+html[dir="rtl"] footer > div > div:not(.flex-col):not([class*="flex-col"]),
+html[data-dir="rtl"] header .flex:not(.flex-col):not([class*="flex-col"]),
+html[data-dir="rtl"] footer .flex:not(.flex-col):not([class*="flex-col"]),
+html[data-dir="rtl"] header > div > div:not(.flex-col):not([class*="flex-col"]),
+html[data-dir="rtl"] footer > div > div:not(.flex-col):not([class*="flex-col"]) {
   flex-direction: row-reverse !important;
 }
 
@@ -71,6 +87,102 @@ html[dir="rtl"] footer nav,
 html[data-dir="rtl"] header nav,
 html[data-dir="rtl"] footer nav {
   direction: rtl !important;
+}
+
+/* Header specific RTL rules - highest specificity */
+html[dir="rtl"] .header-main-flex,
+html[data-dir="rtl"] .header-main-flex,
+[dir="rtl"] .header-main-flex,
+[data-dir="rtl"] .header-main-flex {
+  flex-direction: row-reverse !important;
+}
+
+html[dir="rtl"] .header-contact,
+html[data-dir="rtl"] .header-contact {
+  align-items: flex-start !important;
+  text-align: left !important;
+}
+
+html[dir="rtl"] .header-margin,
+html[data-dir="rtl"] .header-margin {
+  margin-left: 0 !important;
+  margin-right: 2.5rem !important;
+}
+
+html[dir="rtl"] .header-desktop-right,
+html[data-dir="rtl"] .header-desktop-right {
+  flex-direction: row-reverse !important;
+}
+
+html[dir="rtl"] .header-contact-link,
+html[data-dir="rtl"] .header-contact-link {
+  flex-direction: row-reverse !important;
+}
+
+html[dir="rtl"] .header-icons,
+html[data-dir="rtl"] .header-icons {
+  flex-direction: row-reverse !important;
+}
+
+html[dir="rtl"] .header-badge,
+html[data-dir="rtl"] .header-badge {
+  right: auto !important;
+  left: -0.25rem !important;
+}
+
+html[dir="rtl"] .header-mobile-link,
+html[data-dir="rtl"] .header-mobile-link {
+  text-align: right !important;
+}
+
+/* Products Page Layout - Override global flex-col rule on desktop */
+/* Must come AFTER global flex rules to ensure it wins */
+/* Desktop: Force row layout (LTR: filter left, RTL: filter right) */
+@media (min-width: 768px) {
+  /* LTR: Normal row (filter left, products right) */
+  html[dir="ltr"] .products-layout,
+  html:not([dir="rtl"]):not([data-dir="rtl"]) .products-layout {
+    flex-direction: row !important;
+  }
+  
+  /* RTL: Reversed row (filter right, products left) - highest specificity */
+  html[dir="rtl"] .products-layout.flex,
+  html[data-dir="rtl"] .products-layout.flex,
+  html[dir="rtl"] .products-layout,
+  html[data-dir="rtl"] .products-layout,
+  [dir="rtl"] .products-layout,
+  [data-dir="rtl"] .products-layout {
+    flex-direction: row-reverse !important;
+  }
+}
+
+/* Mobile: Keep stacked (column) */
+@media (max-width: 767px) {
+  html[dir="rtl"] .products-layout,
+  html[data-dir="rtl"] .products-layout,
+  html[dir="ltr"] .products-layout,
+  html:not([dir="rtl"]) .products-layout {
+    flex-direction: column !important;
+  }
+}
+
+/* Products header RTL */
+html[dir="rtl"] .products-header,
+html[data-dir="rtl"] .products-header {
+  flex-direction: row-reverse !important;
+}
+
+/* Products clear filters button RTL */
+html[dir="rtl"] .products-clear-filters,
+html[data-dir="rtl"] .products-clear-filters {
+  margin-left: 0 !important;
+  margin-right: 0.5rem !important;
+}
+
+/* Products breadcrumb RTL */
+html[dir="rtl"] .products-breadcrumb,
+html[data-dir="rtl"] .products-breadcrumb {
+  flex-direction: row-reverse !important;
 }
 
 /* Ensure text alignment for RTL */
@@ -95,9 +207,16 @@ html[data-dir="rtl"] footer .text-left {
     text-align: right !important;
   }
   
-  html[dir="rtl"] footer > div > div,
-  html[data-dir="rtl"] footer > div > div {
+  /* Only apply to flex-row containers, not flex-col */
+  html[dir="rtl"] footer > div > div:not(.flex-col):not([class*="flex-col"]),
+  html[data-dir="rtl"] footer > div > div:not(.flex-col):not([class*="flex-col"]) {
     align-items: flex-end !important;
+  }
+  
+  /* Keep flex-col containers centered */
+  html[dir="rtl"] footer .flex-col,
+  html[data-dir="rtl"] footer .flex-col {
+    align-items: center !important;
   }
   
   html[dir="rtl"] footer a,
@@ -118,6 +237,24 @@ html[data-dir="rtl"] footer .text-left {
     margin-left: auto;
     margin-right: auto;
   }
+  
+  /* Center copyright text on mobile for RTL */
+  html[dir="rtl"] footer .footer-copyright,
+  html[data-dir="rtl"] footer .footer-copyright {
+    text-align: center !important;
+  }
+}
+
+/* Footer links RTL - reverse flex direction */
+html[dir="rtl"] .footer-links,
+html[data-dir="rtl"] .footer-links {
+  flex-direction: row-reverse !important;
+}
+
+/* Footer copyright text - always centered */
+html[dir="rtl"] footer .footer-copyright,
+html[data-dir="rtl"] footer .footer-copyright {
+  text-align: center !important;
 }
 
 /* Force RTL for all flex containers in RTL mode */

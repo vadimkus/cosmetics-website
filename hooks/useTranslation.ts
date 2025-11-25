@@ -8,7 +8,10 @@ import arMessages from '@/messages/ar.json'
 
 export function useTranslation() {
   const pathname = usePathname()
-  const locale = getLocaleFromPath(pathname)
+  // Use pathname if available, otherwise default to '/' to ensure consistent SSR/CSR
+  // Don't use window.location.pathname here as it causes hydration mismatch
+  const effectivePath = pathname ?? '/'
+  const locale = getLocaleFromPath(effectivePath)
   
   const messages = useMemo(() => {
     return locale === 'ar' ? arMessages : enMessages
@@ -45,4 +48,3 @@ export function useTranslation() {
     dir: locale === 'ar' ? 'rtl' : 'ltr'
   }
 }
-

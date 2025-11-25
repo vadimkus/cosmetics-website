@@ -56,15 +56,12 @@ export default function CartClient() {
         </nav>
 
         <div className={`max-w-4xl mx-auto text-center py-16 ${dir === 'rtl' ? 'text-right' : ''}`}>
-          <div className="mb-8">
-            <ShoppingBag className="h-24 w-24 text-gray-300 mx-auto mb-4" />
+          <div className="flex flex-col items-center">
+            <ShoppingBag className="h-24 w-24 text-gray-300 mb-4" />
             <h1 className={`text-3xl font-bold text-gray-900 mb-4 ${dir === 'rtl' ? 'text-right' : ''}`}>{t('cart.empty')}</h1>
             <p className={`text-gray-600 text-lg mb-8 ${dir === 'rtl' ? 'text-right' : ''}`}>
               {t('cart.emptyMessage')}
             </p>
-          </div>
-          
-          <div className={`space-y-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
             <Link
               href={getLocalizedPath('/products', locale)}
               className={`inline-flex items-center gap-2 bg-primary-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-primary-700 transition-colors ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}

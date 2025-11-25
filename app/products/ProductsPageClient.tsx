@@ -45,7 +45,7 @@ interface FilterState {
 export default function ProductsPageClient() {
   const router = useRouter()
   const searchParams = useSearchParams()
-  const { t, locale, dir } = useTranslation()
+  const { t, locale } = useTranslation()
   
   const [products, setProducts] = useState<Product[]>([])
   const [loading, setLoading] = useState(true)
@@ -271,7 +271,7 @@ export default function ProductsPageClient() {
   debugLog('Products loaded:', products.length, 'Filtered:', filteredAndSortedProducts.length)
 
   return (
-    <div className="bg-white min-h-screen" dir={dir}>
+    <div className="bg-white min-h-screen" suppressHydrationWarning>
       <ProductsListSchema products={filteredAndSortedProducts} category="" />
       <BreadcrumbSchema 
         items={[
@@ -281,7 +281,7 @@ export default function ProductsPageClient() {
       />
       <div className="container mx-auto px-4 py-4 md:py-8 lg:py-16">
         {/* Navigation Breadcrumb */}
-        <nav className={`flex items-center gap-1.5 md:gap-2 text-xs md:text-sm lg:text-base text-gray-600 mb-4 md:mb-6 lg:mb-8 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`} aria-label="Breadcrumb">
+        <nav className="flex items-center gap-1.5 md:gap-2 text-xs md:text-sm lg:text-base text-gray-600 mb-4 md:mb-6 lg:mb-8 products-breadcrumb" aria-label="Breadcrumb">
           <Link 
             href={getLocalizedPath('/', locale)}
             className="hover:text-primary-600 transition-colors flex items-center"
@@ -312,7 +312,7 @@ export default function ProductsPageClient() {
         />
 
         {/* Filters and Products Layout */}
-        <div className="flex flex-col md:flex-row gap-6">
+        <div className="flex flex-col md:flex-row gap-6 products-layout">
           {/* Desktop Filters Sidebar */}
           <ProductFilters
             products={products}
@@ -324,7 +324,7 @@ export default function ProductsPageClient() {
           {/* Products Section */}
           <div className="flex-1">
             {/* Results Header with Sort */}
-            <div className={`flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6 products-header">
               <div className="text-sm text-gray-600">
                 {filteredAndSortedProducts.length === products.length ? (
                   <span>{t('products.showingAll', { count: filteredAndSortedProducts.length })}</span>
@@ -342,7 +342,7 @@ export default function ProductsPageClient() {
                             inStockOnly: false
                           })
                         }}
-                        className={`${dir === 'rtl' ? 'mr-2' : 'ml-2'} text-primary-600 hover:text-primary-700 underline`}
+                        className="ml-2 text-primary-600 hover:text-primary-700 underline products-clear-filters"
                       >
                         {t('products.clearFilters')}
                       </button>

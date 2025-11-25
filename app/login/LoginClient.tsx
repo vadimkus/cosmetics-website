@@ -70,7 +70,7 @@ export default function LoginClient() {
           href={getLocalizedPath('/', locale)}
           className={`text-gray-600 hover:text-gray-900 transition-colors text-sm flex items-center gap-1 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
         >
-          {dir === 'rtl' ? '→' : '←'} {t('login.backToHome')}
+          {t('login.backToHome')}
         </Link>
       </div>
 

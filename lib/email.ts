@@ -815,13 +815,13 @@ export const generateSupportLinkOrderHTML = (order: OrderHTMLData, locale: strin
       
       <div style="background: white; padding: 30px; border-radius: 10px; margin-bottom: 20px; border: 1px solid #e5e5e5;">
         <p style="color: #374151; font-size: 14px; line-height: 1.6; margin: 0 0 10px 0; text-align: ${textAlign};">
-          ${t.dear.replace('{customerName}', `<strong>${order.customerName.split(' ')[0]}</strong>`)}
+          ${(t.dear || 'Dear {customerName},').replace('{customerName}', `<strong>${(order.customerName || 'Customer').split(' ')[0]}</strong>`)}
         </p>
         <p style="color: #374151; font-size: 14px; line-height: 1.6; margin: 0 0 10px 0; text-align: ${textAlign};">
-          ${t.orderSubmitted}
+          ${t.orderSubmitted || 'Your order request has been submitted. Our support team will share a secure payment link for payment.'}
         </p>
         <p style="color: #374151; font-size: 14px; line-height: 1.6; margin: 0; text-align: ${textAlign};">
-          ${t.orderRequest.replace('{orderNumber}', order.orderNumber)}
+          ${(t.orderRequest || 'Order Request #{orderNumber}').replace('#{orderNumber}', order.orderNumber || '').replace('{orderNumber}', order.orderNumber || '')}
         </p>
       </div>
       
@@ -858,8 +858,8 @@ export const generateSupportLinkOrderHTML = (order: OrderHTMLData, locale: strin
           <span style="color: #374151; font-size: 14px;">AED ${order.subtotal.toFixed(2)}</span>
         </div>
         <div style="display: flex; justify-content: space-between; margin-bottom: 8px; flex-direction: ${isRTL ? 'row-reverse' : 'row'};">
-          <span style="color: #374151; font-size: 14px;">${t.shippingTo.replace('{emirate}', order.emirate)}</span>
-          <span style="color: #374151; font-size: 14px;">${order.shippingCost === 0 ? t.free : `AED ${order.shippingCost.toFixed(2)}`}</span>
+          <span style="color: #374151; font-size: 14px;">${(t.shippingTo || 'Shipping to {emirate}:').replace('{emirate}', order.emirate || '')}</span>
+          <span style="color: #374151; font-size: 14px;">${order.shippingCost === 0 ? (t.free || 'FREE') : `AED ${order.shippingCost.toFixed(2)}`}</span>
         </div>
         <div style="display: flex; justify-content: space-between; margin-bottom: 8px; flex-direction: ${isRTL ? 'row-reverse' : 'row'};">
           <span style="color: #374151; font-size: 14px;">${t.vat}</span>

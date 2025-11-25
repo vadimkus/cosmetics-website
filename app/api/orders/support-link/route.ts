@@ -32,15 +32,16 @@ export async function POST(request: NextRequest) {
     // Save order to database
     const orderItems: OrderItemData[] = items.map((item: { id?: string; name: string; price: number; quantity: number; image?: string; color?: string; size?: string }) => {
       // Enhance with default size if missing
+      const itemName = item.name || 'Product'
       const enhanced = enhanceOrderItemWithDefaultSize({
-        productName: item.name,
+        productName: itemName,
         size: item.size || null,
         color: item.color || null
       })
       
       return {
-        productId: item.id || `product-${item.name.toLowerCase().replace(/\s+/g, '-')}`,
-        productName: item.name,
+        productId: item.id || `product-${itemName.toLowerCase().replace(/\s+/g, '-')}`,
+        productName: itemName,
         price: item.price,
         quantity: item.quantity,
         image: item.image || '/images/placeholder.jpg',
@@ -97,7 +98,7 @@ export async function POST(request: NextRequest) {
       emirate,
       items: items.map((item: { name: string; quantity: number; price: number; total?: number; image?: string; size?: string; color?: string }): OrderHTMLItem => {
         const orderItem: OrderHTMLItem = {
-          name: item.name,
+          name: item.name || 'Product',
           quantity: item.quantity,
           price: item.price,
           total: item.total || (item.price * item.quantity)
@@ -127,7 +128,7 @@ export async function POST(request: NextRequest) {
     const orderHTML = generateSupportLinkOrderHTML(orderHTMLData, locale, translations)
 
     // Send email to customer (non-blocking - fire and forget)
-    const emailSubject = translations.subject.replace('{orderNumber}', orderNumber)
+    const emailSubject = (translations?.subject || `Order Request Submitted #${orderNumber} - GENOSYS Professional`).replace('#{orderNumber}', orderNumber).replace('{orderNumber}', orderNumber)
     sendEmail(
       customerEmail,
       emailSubject,

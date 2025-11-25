@@ -8,6 +8,8 @@ import Link from 'next/link'
 import { ShoppingBag, ArrowLeft, Lock, MessageCircle, Truck, Gift } from 'lucide-react'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
+import { isBlackFridaySaleActive } from '@/lib/blackFridayUtils'
+import { calculateDiscountedPrice } from '@/lib/discountUtils'
 
 
 export default function CartClient() {
@@ -30,6 +32,17 @@ export default function CartClient() {
   const subtotal = getTotalPrice(user)
   const shippingCost = subtotal >= 1000 ? 0 : (selectedEmirateData?.shippingCost || 45)
   const total = subtotal + shippingCost
+  
+  // Check if Black Friday sale is active
+  const blackFridayActive = isBlackFridaySaleActive()
+  
+  // Calculate original subtotal (before Black Friday discount) for display
+  const originalSubtotal = blackFridayActive && items.length > 0
+    ? items.reduce((sum, item) => {
+        const pricing = calculateDiscountedPrice(item.product, user)
+        return sum + (pricing.originalPrice * item.quantity)
+      }, 0)
+    : subtotal
 
   if (items.length === 0) {
     return (
@@ -215,11 +228,37 @@ export default function CartClient() {
                   </p>
                 </div>
 
+                {/* Black Friday Notice */}
+                {blackFridayActive && (
+                  <div className={`mb-4 p-3 bg-red-50 border-2 border-red-500 rounded-lg ${dir === 'rtl' ? 'text-right' : ''}`}>
+                    <div className={`flex items-center gap-2 mb-1 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                      <span className="text-sm md:text-base font-bold text-red-600">
+                        🎉 {locale === 'ar' ? 'عرض الجمعة السوداء - خصم 20%' : 'Black Friday - 20% OFF'}
+                      </span>
+                    </div>
+                    {originalSubtotal > subtotal && (
+                      <div className={`text-xs text-gray-700 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                        {locale === 'ar' 
+                          ? `وفرت ${(originalSubtotal - subtotal).toFixed(2)} درهم`
+                          : `You saved AED ${(originalSubtotal - subtotal).toFixed(2)}`}
+                      </div>
+                    )}
+                  </div>
+                )}
+
                 {/* Price Breakdown */}
                 <div className={`space-y-3 mb-6 ${dir === 'rtl' ? 'text-right' : ''}`}>
                   <div className={`flex justify-between text-gray-600 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                     <span>{t('cart.subtotal')} ({getTotalItems()} {getTotalItems() === 1 ? t('cart.item') : t('cart.items')})</span>
-                    <span>{user ? `AED ${subtotal.toFixed(2)}` : t('cart.loginToSeePrice')}</span>
+                    {blackFridayActive && originalSubtotal > subtotal ? (
+                      <div className={`flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                        <span className="text-gray-900 font-semibold">{user ? `AED ${subtotal.toFixed(2)}` : t('cart.loginToSeePrice')}</span>
+                        <span className="text-sm text-gray-500 line-through">{user ? `AED ${originalSubtotal.toFixed(2)}` : ''}</span>
+                        <span className="text-xs font-medium text-green-600">20% OFF</span>
+                      </div>
+                    ) : (
+                      <span>{user ? `AED ${subtotal.toFixed(2)}` : t('cart.loginToSeePrice')}</span>
+                    )}
                   </div>
                   
                   <div className={`flex justify-between text-gray-600 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>

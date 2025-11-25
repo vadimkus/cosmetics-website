@@ -1,5 +1,6 @@
 import { User } from '@/types/user'
 import { Product } from '@/types'
+import { isBlackFridaySaleActive, BLACK_FRIDAY_DISCOUNT_PERCENTAGE } from './blackFridayUtils'
 
 export interface DiscountedPrice {
   originalPrice: number
@@ -7,10 +8,11 @@ export interface DiscountedPrice {
   discountAmount: number
   discountPercentage: number
   hasDiscount: boolean
+  isBlackFriday?: boolean
 }
 
 /**
- * Calculate discounted price for a product based on user's discount settings
+ * Calculate discounted price for a product based on user's discount settings and Black Friday sale
  * @param product - The product to calculate discount for
  * @param user - The user with discount settings
  * @returns DiscountedPrice object with pricing details
@@ -21,6 +23,7 @@ export function calculateDiscountedPrice(product: Product, user: User | null): D
   let discountAmount = 0
   let discountPercentage = 0
   let hasDiscount = false
+  let isBlackFriday = false
 
   // Check if product should be excluded from discounts
   // Exclude if: noDiscount flag is true OR category is "Beauty Boxes"
@@ -28,8 +31,18 @@ export function calculateDiscountedPrice(product: Product, user: User | null): D
   const isExcludedFromDiscount = product.noDiscount === true || 
     product.category === 'Beauty Boxes'
 
-  // Check if user has discount and product is not excluded from discounts
-  if (user && user.discountType && user.discountPercentage && user.discountPercentage > 0 && !isExcludedFromDiscount) {
+  // Check if Black Friday sale is active (only applies to registered/logged-in users)
+  const blackFridayActive = isBlackFridaySaleActive()
+  
+  if (blackFridayActive && user && !isExcludedFromDiscount) {
+    // Black Friday discount applies only to registered/logged-in users
+    discountPercentage = BLACK_FRIDAY_DISCOUNT_PERCENTAGE
+    discountAmount = (originalPrice * discountPercentage) / 100
+    discountedPrice = originalPrice - discountAmount
+    hasDiscount = true
+    isBlackFriday = true
+  } else if (user && user.discountType && user.discountPercentage && user.discountPercentage > 0 && !isExcludedFromDiscount) {
+    // User-specific discount (only if Black Friday is not active)
     discountPercentage = user.discountPercentage
     discountAmount = (originalPrice * discountPercentage) / 100
     discountedPrice = originalPrice - discountAmount
@@ -41,7 +54,8 @@ export function calculateDiscountedPrice(product: Product, user: User | null): D
     discountedPrice: Math.round(discountedPrice * 100) / 100, // Round to 2 decimal places
     discountAmount: Math.round(discountAmount * 100) / 100,
     discountPercentage,
-    hasDiscount
+    hasDiscount,
+    isBlackFriday
   }
 }
 

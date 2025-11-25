@@ -12,7 +12,8 @@ export async function GET(request: NextRequest) {
 
   try {
     const { searchParams } = new URL(request.url)
-    const days = parseInt(searchParams.get('days') || '30')
+    const daysParam = parseInt(searchParams.get('days') || '30')
+    const days = Number.isNaN(daysParam) ? 30 : daysParam
     
     const startDate = new Date()
     startDate.setDate(startDate.getDate() - days)

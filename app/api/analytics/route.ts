@@ -6,7 +6,8 @@ import { prisma } from '@/lib/prisma'
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url)
-    const days = parseInt(searchParams.get('days') || '30')
+    const daysParam = parseInt(searchParams.get('days') || '30')
+    const days = Number.isNaN(daysParam) ? 30 : daysParam
     const type = searchParams.get('type') || 'overview'
     
     // Calculate start date for all cases that need it

@@ -22,7 +22,7 @@ export const dynamicImport = {
   /**
    * Import component only when needed
    */
-  component: <T extends React.ComponentType<any>>(
+  component: <T extends React.ComponentType<unknown>>(
     importFunc: () => Promise<{ default: T }>
   ) => {
     return React.lazy(importFunc)
@@ -168,7 +168,7 @@ export const memoryManagement = {
   /**
    * Clear unused references
    */
-  clearReferences: (refs: Record<string, any>) => {
+  clearReferences: (refs: Record<string, unknown>) => {
     Object.keys(refs).forEach(key => {
       delete refs[key]
     })

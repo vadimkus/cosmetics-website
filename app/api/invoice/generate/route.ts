@@ -74,9 +74,7 @@ export async function POST(request: NextRequest) {
     })
 
     // Send email with invoice
-    const emailSubject = locale === 'ar'
-      ? `${translations.emailSubject} ${orderNumber} - ${translations.emailSubjectSuffix}`
-      : `${translations.emailSubject} ${orderNumber} - ${translations.emailSubjectSuffix}`
+    const emailSubject = (translations?.emailSubject || 'Invoice') + ` ${orderNumber} - ${translations?.emailSubjectSuffix || 'GENOSYS Professional'}`
     
     const result = await sendEmail(
       customerEmail,
@@ -135,7 +133,7 @@ function generateInvoiceHTML(data: InvoiceData & { locale: string; translations:
     <html dir="${dir}" lang="${locale}">
     <head>
       <meta charset="utf-8">
-      <title>${translations.emailSubject} ${orderNumber}</title>
+      <title>${translations?.emailSubject || 'Invoice'} ${orderNumber || ''}</title>
       <style>
         body { font-family: ${fontFamily}; margin: 0; padding: 20px; background-color: #f5f5f5; direction: ${dir}; }
         .invoice-container { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
@@ -167,7 +165,7 @@ function generateInvoiceHTML(data: InvoiceData & { locale: string; translations:
           <div class="logo">
             <img src="https://genosys.ae/images/genosys-logo.png" alt="GENOSYS Logo" width="200" border="0" style="display: block; max-width: 200px; height: auto; margin: 0 auto;" />
           </div>
-          <h1 class="invoice-title">${translations.title} #${orderNumber.replace('GEN', '')} ${translations.dated} ${dateStr}</h1>
+          <h1 class="invoice-title">${translations?.title || 'Invoice'} #${(orderNumber || '').replace('GEN', '')} ${translations?.dated || 'dated:'} ${dateStr}</h1>
         </div>
 
         <div class="customer-info">
@@ -206,14 +204,18 @@ function generateInvoiceHTML(data: InvoiceData & { locale: string; translations:
               </tr>
             </thead>
             <tbody>
-              ${data.items.map((item: InvoiceItem) => `
+              ${data.items.map((item: InvoiceItem) => {
+                const itemName = item.name || 'Product'
+                const itemSlug = item.id || itemName.toLowerCase().replace(/\s+/g, '-')
+                return `
                 <tr>
-                  <td><a href="https://genosys.ae/${locale === 'ar' ? 'ar/' : ''}products/${item.id || item.name.toLowerCase().replace(/\s+/g, '-')}" style="color: #2563eb; text-decoration: none;">${item.name}</a></td>
+                  <td><a href="https://genosys.ae/${locale === 'ar' ? 'ar/' : ''}products/${itemSlug}" style="color: #2563eb; text-decoration: none;">${itemName}</a></td>
                   <td>AED ${item.price.toFixed(2)}</td>
                   <td>${item.quantity}</td>
                   <td>AED ${item.total.toFixed(2)}</td>
                 </tr>
-              `).join('')}
+              `
+              }).join('')}
             </tbody>
           </table>
         </div>

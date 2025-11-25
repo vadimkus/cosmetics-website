@@ -32,15 +32,16 @@ export async function POST(request: NextRequest) {
     // Save order to database
     const orderItems: OrderItemData[] = items.map((item: { id?: string; name: string; price: number; quantity: number; image?: string; color?: string; size?: string }) => {
       // Enhance with default size if missing
+      const itemName = item.name || 'Product'
       const enhanced = enhanceOrderItemWithDefaultSize({
-        productName: item.name,
+        productName: itemName,
         size: item.size || null,
         color: item.color || null
       })
       
       return {
-        productId: item.id || `product-${item.name.toLowerCase().replace(/\s+/g, '-')}`,
-        productName: item.name,
+        productId: item.id || `product-${itemName.toLowerCase().replace(/\s+/g, '-')}`,
+        productName: itemName,
         price: item.price,
         quantity: item.quantity,
         image: item.image || '/images/placeholder.jpg',
@@ -77,7 +78,26 @@ export async function POST(request: NextRequest) {
     } catch (dbError) {
       errorLog('⚠️ Database save failed or timed out, continuing with order processing:', dbError)
       // Continue even if database save fails - order will be processed via email
-      savedOrder = { id: 'pending', orderNumber: dbOrder.orderNumber } as any
+      // Create a minimal order object for fallback (matches Order type structure)
+      savedOrder = {
+        id: 'pending',
+        orderNumber: dbOrder.orderNumber,
+        customerEmail: dbOrder.customerEmail,
+        customerName: dbOrder.customerName,
+        customerPhone: dbOrder.customerPhone,
+        customerEmirate: dbOrder.customerEmirate,
+        customerAddress: dbOrder.customerAddress,
+        subtotal: dbOrder.subtotal,
+        discountAmount: dbOrder.discountAmount ?? 0,
+        shipping: dbOrder.shipping ?? 0,
+        vat: dbOrder.vat,
+        total: dbOrder.total,
+        status: dbOrder.status ?? 'PENDING',
+        sessionId: dbOrder.sessionId ?? null,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        items: []
+      } as Awaited<ReturnType<typeof addOrder>>
       
       // Try to save asynchronously in background (don't wait)
       addOrder(dbOrder).then((retryOrder) => {
@@ -97,20 +117,21 @@ export async function POST(request: NextRequest) {
       emirate,
       items: items.map((item: { name: string; quantity: number; price: number; image?: string; size?: string; color?: string }): OrderHTMLItem => {
         // Enhance with default size if missing
+        const itemName = item.name || 'Product'
         const originalSize = (item.size && item.size.trim()) || null
         const enhanced = enhanceOrderItemWithDefaultSize({
-          productName: item.name,
+          productName: itemName,
           size: originalSize,
           color: (item.color && item.color.trim()) || null
         })
         
-        debugLog(`📦 COD Order Item: ${item.name}`)
+        debugLog(`📦 COD Order Item: ${itemName}`)
         debugLog(`   Original size: ${originalSize || 'none'}`)
         debugLog(`   Enhanced size: ${enhanced.size || 'none'}`)
         debugLog(`   Color: ${enhanced.color || 'none'}`)
         
         const orderItem: OrderHTMLItem = {
-          name: item.name,
+          name: itemName,
           quantity: item.quantity,
           price: item.price
         }
@@ -140,7 +161,7 @@ export async function POST(request: NextRequest) {
     const orderHTML = generateCODOrderHTML(orderHTMLData, locale, translations)
 
     // Send email to customer (non-blocking - fire and forget)
-    const emailSubject = translations.subject.replace('{orderNumber}', orderNumber)
+    const emailSubject = (translations?.subject || `Order Confirmation #${orderNumber} - GENOSYS Professional`).replace('#{orderNumber}', orderNumber).replace('{orderNumber}', orderNumber)
     sendEmail(
       customerEmail,
       emailSubject,

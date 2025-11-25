@@ -8,6 +8,7 @@ import type { Metadata } from 'next'
 import { prisma } from '@/lib/prisma'
 import { notFound } from 'next/navigation'
 import { errorLog } from '@/lib/logger'
+import { sanitizeHtml } from '@/lib/sanitize'
 
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>
@@ -160,6 +161,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     const divImgRegex = new RegExp(`<div[^>]*>\\s*<img[^>]*src=["']${escapedPath}["'][^>]*>\\s*</div>`, 'gi')
     content = content.replace(divImgRegex, '').replace(imgRegex, '')
   }
+
+  // Sanitize content to prevent XSS attacks
+  content = sanitizeHtml(content)
 
   return (
     <div className="bg-white min-h-screen">

@@ -12,8 +12,8 @@ export async function GET(
   try {
     const { id } = await params
     const { searchParams } = new URL(request.url)
-    const limit = parseInt(searchParams.get('limit') || '10')
-    const offset = parseInt(searchParams.get('offset') || '0')
+    const limit = Number.isNaN(parseInt(searchParams.get('limit') || '10')) ? 10 : parseInt(searchParams.get('limit') || '10')
+    const offset = Number.isNaN(parseInt(searchParams.get('offset') || '0')) ? 0 : parseInt(searchParams.get('offset') || '0')
     const approvedOnly = searchParams.get('approved') !== 'false'
 
     const reviews = await prisma.productReview.findMany({

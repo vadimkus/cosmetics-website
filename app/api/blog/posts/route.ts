@@ -2,12 +2,14 @@ import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { requireAdminAuth } from '@/lib/adminAuth'
 import { errorLog } from '@/lib/logger'
+import { sanitizeForStorage } from '@/lib/sanitize'
 
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url)
     const published = searchParams.get('published')
-    const limit = parseInt(searchParams.get('limit') || '20')
+    const limitParam = parseInt(searchParams.get('limit') || '20')
+    const limit = Number.isNaN(limitParam) ? 20 : limitParam
 
     const whereClause = published === 'true' ? { published: true } : {}
 
@@ -73,8 +75,8 @@ export async function POST(request: NextRequest) {
       data: {
         title,
         slug,
-        excerpt: excerpt || null,
-        content,
+        excerpt: excerpt ? sanitizeForStorage(excerpt) : null,
+        content: sanitizeForStorage(content),
         featuredImage: featuredImage || null,
         authorName: authorName || null,
         published: published || false,

@@ -12,6 +12,7 @@ import { Order, OrderItem } from '@prisma/client'
 import { fetchCsrfToken, getCsrfHeaders, addCsrfToBody } from '@/lib/csrfClient'
 import { debugLog, errorLog } from '@/lib/logger'
 import StatusBadge from '@/components/shared/StatusBadge'
+import { safeJsonParse } from '@/lib/utils'
 
 // Custom type that includes the items relation
 type OrderWithItems = Order & {
@@ -508,7 +509,7 @@ export default function AdminPage() {
           return
         }
 
-        const session = JSON.parse(savedSession)
+        const session = safeJsonParse<{ authenticatedAt: string; [key: string]: any }>(savedSession, { authenticatedAt: new Date().toISOString() })
         
         // Verify session is still valid (check if less than 24 hours old)
         const authenticatedAt = new Date(session.authenticatedAt)

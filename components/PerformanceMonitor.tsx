@@ -55,12 +55,21 @@ export default function PerformanceMonitor() {
 
     // Memory usage monitoring (if available)
     if ('memory' in performance) {
-      const memory = (performance as any).memory
-      debugLog('Memory usage:', {
-        used: Math.round(memory.usedJSHeapSize / 1048576) + ' MB',
-        total: Math.round(memory.totalJSHeapSize / 1048576) + ' MB',
-        limit: Math.round(memory.jsHeapSizeLimit / 1048576) + ' MB'
-      })
+      const performanceWithMemory = performance as Performance & {
+        memory?: {
+          usedJSHeapSize: number
+          totalJSHeapSize: number
+          jsHeapSizeLimit: number
+        }
+      }
+      const memory = performanceWithMemory.memory
+      if (memory) {
+        debugLog('Memory usage:', {
+          used: Math.round(memory.usedJSHeapSize / 1048576) + ' MB',
+          total: Math.round(memory.totalJSHeapSize / 1048576) + ' MB',
+          limit: Math.round(memory.jsHeapSizeLimit / 1048576) + ' MB'
+        })
+      }
     }
   }, [])
 

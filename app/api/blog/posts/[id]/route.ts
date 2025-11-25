@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { requireAdminAuth } from '@/lib/adminAuth'
 import { errorLog } from '@/lib/logger'
+import { sanitizeForStorage } from '@/lib/sanitize'
 
 export async function PUT(
   request: NextRequest,
@@ -45,8 +46,8 @@ export async function PUT(
       data: {
         title,
         slug,
-        excerpt: excerpt || null,
-        content,
+        excerpt: excerpt ? sanitizeForStorage(excerpt) : null,
+        content: sanitizeForStorage(content),
         featuredImage: featuredImage || null,
         authorName: authorName || null,
         published: published || false,

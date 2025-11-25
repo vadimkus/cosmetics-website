@@ -32,7 +32,7 @@ export const formatDateTime = (date: string | Date, locale: string = 'en-AE'): s
  * Generate unique ID
  */
 export const generateId = (): string => {
-  return Math.random().toString(36).substr(2, 9)
+  return Math.random().toString(36).substring(2, 11)
 }
 
 /**
@@ -88,6 +88,7 @@ export const isEmpty = (value: any): boolean => {
  * Capitalize first letter
  */
 export const capitalize = (str: string): string => {
+  if (!str) return str
   return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase()
 }
 
@@ -111,6 +112,7 @@ export const isValidEmail = (email: string): boolean => {
  * Validate phone number
  */
 export const isValidPhone = (phone: string): boolean => {
+  if (!phone) return false
   const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/
   return phoneRegex.test(phone.replace(/\s/g, ''))
 }

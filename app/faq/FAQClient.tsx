@@ -3,9 +3,10 @@
 import Link from 'next/link'
 import { ArrowLeft, HelpCircle, ChevronDown, ChevronUp } from 'lucide-react'
 import BreadcrumbSchema from '@/components/BreadcrumbSchema'
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
+import { sanitizeHtml } from '@/lib/sanitize'
 
 export default function FAQClient() {
   const { t, locale, dir } = useTranslation()
@@ -214,7 +215,7 @@ export default function FAQClient() {
                       <div className={`border-${dir === 'rtl' ? 'r' : 'l'}-2 border-primary-200 ${dir === 'rtl' ? 'pr-6' : 'pl-6'}`}>
                         <div 
                           className="text-gray-600 leading-relaxed prose prose-sm max-w-none"
-                          dangerouslySetInnerHTML={{ __html: faq.answer }}
+                          dangerouslySetInnerHTML={{ __html: useMemo(() => sanitizeHtml(faq.answer), [faq.answer]) }}
                         />
                       </div>
                     </div>

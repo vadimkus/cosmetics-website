@@ -6,8 +6,10 @@ export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url)
     const email = searchParams.get('email')
-    const limit = parseInt(searchParams.get('limit') || '50')
-    const offset = parseInt(searchParams.get('offset') || '0')
+    const limitParam = parseInt(searchParams.get('limit') || '50')
+    const offsetParam = parseInt(searchParams.get('offset') || '0')
+    const limit = Number.isNaN(limitParam) ? 50 : limitParam
+    const offset = Number.isNaN(offsetParam) ? 0 : offsetParam
 
     if (!email) {
       return NextResponse.json(

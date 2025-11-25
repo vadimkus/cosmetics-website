@@ -70,7 +70,7 @@ export const ariaUtils = {
    * Generate unique ID for ARIA relationships
    */
   generateId: (prefix: string = 'aria') => {
-    return `${prefix}-${Math.random().toString(36).substr(2, 9)}`
+    return `${prefix}-${Math.random().toString(36).substring(2, 11)}`
   },
 
   /**

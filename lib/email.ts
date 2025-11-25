@@ -406,7 +406,7 @@ export const emailTemplates = {
           <div style="background: white; padding: 30px; border-radius: 10px; margin-bottom: 20px; border: 1px solid #e5e7eb;">
             <h2 style="color: #dc2626; margin: 0 0 15px 0;">Password Reset Request</h2>
             <p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 0 0 20px 0;">
-              Dear ${userName.split(' ')[0]},
+              Dear ${(userName || 'User').split(' ')[0]},
             </p>
             <p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 0 0 20px 0;">
               Click the button below to reset your Genosys password:
@@ -649,16 +649,16 @@ export const generateCODOrderHTML = (order: OrderHTMLData, locale: string = 'en'
         <div style="margin-bottom: 15px;">
           <img src="https://genosys.ae/_next/image?url=%2Fimages%2Fgenosys-logo.png%3Fv%3D1758554698129&w=828&q=75" alt="GENOSYS Logo" style="max-width: 200px; height: auto;" />
         </div>
-        <h1 style="color: #1f2937; margin: 0; font-size: 28px;">${t.title.replace('{orderNumber}', order.orderNumber)}</h1>
-        <p style="color: #6b7280; margin: 5px 0; font-size: 16px;">${t.dated} ${new Date().toLocaleDateString(dateLocale, { timeZone: 'Asia/Dubai', year: 'numeric', month: '2-digit', day: '2-digit' })}</p>
+        <h1 style="color: #1f2937; margin: 0; font-size: 28px;">${(t.title || `Order Confirmation #${order.orderNumber}`).replace('#{orderNumber}', order.orderNumber || '').replace('{orderNumber}', order.orderNumber || '')}</h1>
+        <p style="color: #6b7280; margin: 5px 0; font-size: 16px;">${t.dated || 'dated:'} ${new Date().toLocaleDateString(dateLocale, { timeZone: 'Asia/Dubai', year: 'numeric', month: '2-digit', day: '2-digit' })}</p>
       </div>
       
       <div style="background: white; border: 1px solid #e5e7eb; padding: 30px; border-radius: 10px; margin-bottom: 20px;">
         <p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 0 0 10px 0; text-align: ${textAlign};">
-          ${t.thankYou.replace('{customerName}', `<strong>${order.customerName.split(' ')[0]}</strong>`)}
+          ${(t.thankYou || `Thank you for your order, {customerName}!`).replace('{customerName}', `<strong>${(order.customerName || 'Customer').split(' ')[0]}</strong>`)}
         </p>
         <p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 0 0 10px 0; text-align: ${textAlign};">
-          ${t.orderReceived.replace('{orderNumber}', order.orderNumber)}
+          ${(t.orderReceived || `Your order #${order.orderNumber} has been received and is being processed. You will pay via Cash on Delivery when your order arrives.`).replace('#{orderNumber}', order.orderNumber || '').replace('{orderNumber}', order.orderNumber || '')}
         </p>
         <p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 0; text-align: ${textAlign};">
           ${t.teamContact}
@@ -694,8 +694,8 @@ export const generateCODOrderHTML = (order: OrderHTMLData, locale: string = 'en'
             <span style="color: #374151; font-size: 16px; font-weight: 500;">AED ${order.subtotal.toFixed(2)}</span>
           </div>
           <div style="display: flex; justify-content: space-between; margin-bottom: 12px; padding: 8px 0; flex-direction: ${isRTL ? 'row-reverse' : 'row'};">
-            <span style="color: #374151; font-size: 16px;">${t.shippingTo.replace('{emirate}', order.emirate)}</span>
-            <span style="color: #374151; font-size: 16px; font-weight: 500;">${order.shippingCost === 0 ? t.free : `AED ${order.shippingCost.toFixed(2)}`}</span>
+            <span style="color: #374151; font-size: 16px;">${(t.shippingTo || `Shipping to {emirate}:`).replace('{emirate}', order.emirate || '')}</span>
+            <span style="color: #374151; font-size: 16px; font-weight: 500;">${order.shippingCost === 0 ? (t.free || 'FREE') : `AED ${order.shippingCost.toFixed(2)}`}</span>
           </div>
           <div style="display: flex; justify-content: space-between; margin-bottom: 12px; padding: 8px 0; flex-direction: ${isRTL ? 'row-reverse' : 'row'};">
             <span style="color: #374151; font-size: 16px;">${t.vat}</span>

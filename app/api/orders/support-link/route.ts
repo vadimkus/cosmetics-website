@@ -78,7 +78,26 @@ export async function POST(request: NextRequest) {
     } catch (dbError) {
       errorLog('⚠️ Database save failed or timed out, continuing with order processing:', dbError)
       // Continue even if database save fails - order will be processed via email
-      savedOrder = { id: 'pending', orderNumber: dbOrder.orderNumber } as any
+      // Create a minimal order object for fallback (matches Order type structure)
+      savedOrder = {
+        id: 'pending',
+        orderNumber: dbOrder.orderNumber,
+        customerEmail: dbOrder.customerEmail,
+        customerName: dbOrder.customerName,
+        customerPhone: dbOrder.customerPhone,
+        customerEmirate: dbOrder.customerEmirate,
+        customerAddress: dbOrder.customerAddress,
+        subtotal: dbOrder.subtotal,
+        discountAmount: dbOrder.discountAmount ?? 0,
+        shipping: dbOrder.shipping ?? 0,
+        vat: dbOrder.vat,
+        total: dbOrder.total,
+        status: dbOrder.status ?? 'PENDING',
+        sessionId: dbOrder.sessionId ?? null,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        items: []
+      } as Awaited<ReturnType<typeof addOrder>>
       
       // Try to save asynchronously in background (don't wait)
       addOrder(dbOrder).then((retryOrder) => {

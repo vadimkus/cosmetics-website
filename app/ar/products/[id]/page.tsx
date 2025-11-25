@@ -4,6 +4,7 @@ import ProductPageClientRefactored from '@/app/products/[id]/ProductPageClientRe
 import type { Metadata } from 'next'
 import { getProductById } from '@/lib/productsDb'
 import { errorLog } from '@/lib/logger'
+import { safeJsonParse } from '@/lib/utils'
 
 interface ProductPageProps {
   params: Promise<{ id: string }>
@@ -41,7 +42,7 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
     }
   }
 
-  const images = product.images ? JSON.parse(product.images) : [product.image]
+  const images = product.images ? safeJsonParse<string[]>(product.images, [product.image]) : [product.image]
   const displayImages = images.length > 0 ? images : [product.image]
   
   // Enhanced product-specific meta tags in Arabic

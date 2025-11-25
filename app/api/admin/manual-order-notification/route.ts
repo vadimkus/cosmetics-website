@@ -46,8 +46,11 @@ export async function POST(request: NextRequest) {
       customerName,
       customerEmail,
       customerPhone: customerPhone || undefined,
-      total: parseFloat(total),
-      itemCount: parseInt(itemCount) || (items && Array.isArray(items) ? items.length : 1),
+      total: Number.isNaN(parseFloat(total)) ? 0 : parseFloat(total),
+      itemCount: (() => {
+        const parsed = parseInt(itemCount)
+        return Number.isNaN(parsed) ? (items && Array.isArray(items) ? items.length : 1) : parsed
+      })(),
       items: items && Array.isArray(items) ? items.map((item: {
         productName?: string
         name?: string
@@ -60,9 +63,18 @@ export async function POST(request: NextRequest) {
         price: item.price || 0,
         image: item.image || '/images/default-product.jpg'
       })) : undefined,
-      subtotal: subtotal !== undefined ? parseFloat(subtotal.toString()) : undefined,
-      shipping: shipping !== undefined ? parseFloat(shipping.toString()) : undefined,
-      vat: vat !== undefined ? parseFloat(vat.toString()) : undefined,
+      subtotal: subtotal !== undefined ? (() => {
+        const parsed = parseFloat(subtotal.toString())
+        return Number.isNaN(parsed) ? undefined : parsed
+      })() : undefined,
+      shipping: shipping !== undefined ? (() => {
+        const parsed = parseFloat(shipping.toString())
+        return Number.isNaN(parsed) ? undefined : parsed
+      })() : undefined,
+      vat: vat !== undefined ? (() => {
+        const parsed = parseFloat(vat.toString())
+        return Number.isNaN(parsed) ? undefined : parsed
+      })() : undefined,
       address: address || undefined,
       emirate: emirate || undefined
     })

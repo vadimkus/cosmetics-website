@@ -8,7 +8,7 @@ import React from 'react'
 export interface AppError extends Error {
   code?: string
   statusCode?: number
-  context?: Record<string, any>
+  context?: Record<string, unknown>
   timestamp: Date
   userId?: string
   sessionId?: string
@@ -27,7 +27,7 @@ export class CustomError extends Error implements AppError {
     options: {
       code?: string
       statusCode?: number
-      context?: Record<string, any>
+      context?: Record<string, unknown>
       userId?: string
       sessionId?: string
     } = {}
@@ -78,7 +78,7 @@ export const errorHandling = {
     message: string,
     type: ErrorType = ErrorType.UNKNOWN,
     severity: ErrorSeverity = ErrorSeverity.MEDIUM,
-    context?: Record<string, any>
+    context?: Record<string, unknown>
   ): AppError => {
     const error = new CustomError(message, {
       code: type,
@@ -150,34 +150,37 @@ export const errorHandling = {
   /**
    * Handle API errors
    */
-  handleApiError: (error: any): AppError => {
+  handleApiError: (error: unknown): AppError => {
     if (error instanceof CustomError) {
       return error
     }
 
-    if (error.response) {
-      // Server responded with error status
+    // Type guard for error objects with response property (e.g., axios errors)
+    if (error && typeof error === 'object' && 'response' in error) {
+      const apiError = error as { response?: { status?: number; data?: { message?: string } } }
       return errorHandling.createError(
-        error.response.data?.message || 'Server error occurred',
+        apiError.response?.data?.message || 'Server error occurred',
         ErrorType.SERVER,
         ErrorSeverity.MEDIUM,
         {
-          status: error.response.status,
-          data: error.response.data
+          status: apiError.response?.status,
+          data: apiError.response?.data
         }
       )
-    } else if (error.request) {
+    } else if (error && typeof error === 'object' && 'request' in error) {
       // Request was made but no response received
+      const networkError = error as { request?: unknown }
       return errorHandling.createError(
         'Network error - please check your connection',
         ErrorType.NETWORK,
         ErrorSeverity.HIGH,
-        { request: error.request }
+        { request: networkError.request }
       )
     } else {
       // Something else happened
+      const errorMessage = error instanceof Error ? error.message : 'An unexpected error occurred'
       return errorHandling.createError(
-        error.message || 'An unexpected error occurred',
+        errorMessage,
         ErrorType.UNKNOWN,
         ErrorSeverity.MEDIUM,
         { originalError: error }

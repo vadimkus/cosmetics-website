@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { PrismaClient } from '@prisma/client'
+import { prisma } from '@/lib/prisma'
 import { requireAdminAuth } from '@/lib/adminAuth'
 import { debugLog, errorLog } from '@/lib/logger'
 
@@ -11,8 +11,6 @@ export async function GET(request: NextRequest) {
 
   try {
     debugLog('🔍 Admin users API called')
-    
-    const prisma = new PrismaClient()
     
     const users = await prisma.user.findMany({
       select: {
@@ -36,8 +34,6 @@ export async function GET(request: NextRequest) {
     })
     
     debugLog('📊 Found', users.length, 'users')
-    
-    await prisma.$disconnect()
     
     return NextResponse.json({
       success: true,

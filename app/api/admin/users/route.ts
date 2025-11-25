@@ -13,52 +13,122 @@ export async function GET(request: NextRequest) {
     debugLog('🔍 Admin users API called')
     
     const { searchParams } = new URL(request.url)
-    const search = searchParams.get('search')?.trim().toLowerCase()
-    const limitParam = parseInt(searchParams.get('limit') || '200')
-    const limit = Number.isNaN(limitParam) ? 200 : Math.min(limitParam, 500) // Max 500 users
+    const searchParam = searchParams.get('search')
+    const search = searchParam?.trim() || undefined
+    const limitParam = parseInt(searchParams.get('limit') || '50')
+    const limit = Number.isNaN(limitParam) ? 50 : Math.min(limitParam, 100) // Max 100 users per request to avoid size limits
+    const offsetParam = parseInt(searchParams.get('offset') || '0')
+    const offset = Number.isNaN(offsetParam) ? 0 : offsetParam
     
-    const whereClause = search ? {
-      OR: [
-        { email: { contains: search, mode: 'insensitive' as const } },
-        { name: { contains: search, mode: 'insensitive' as const } },
-        { phone: { contains: search, mode: 'insensitive' as const } }
-      ]
-    } : {}
+    debugLog('📊 Query params:', { search, limit })
     
-    const users = await prisma.user.findMany({
-      where: whereClause,
-      select: {
-        id: true,
-        email: true,
-        name: true,
-        phone: true,
-        address: true,
-        profilePicture: true,
-        isAdmin: true,
-        canSeePrices: true,
-        discountType: true,
-        discountPercentage: true,
-        birthday: true,
-        lastLoginAt: true,
-        createdAt: true,
-        updatedAt: true
-      },
-      orderBy: { createdAt: 'desc' },
-      take: limit
-    })
+    // Build where clause - handle search differently for PostgreSQL
+    let whereClause: any = {}
     
-    debugLog('📊 Found', users.length, 'users' + (search ? ` (search: "${search}")` : ''))
+    if (search && search.length > 0) {
+      // Use case-insensitive search for PostgreSQL
+      whereClause = {
+        OR: [
+          { email: { contains: search, mode: 'insensitive' as const } },
+          { name: { contains: search, mode: 'insensitive' as const } },
+          { phone: { contains: search, mode: 'insensitive' as const } }
+        ]
+      }
+    }
+    
+    debugLog('📊 Where clause:', JSON.stringify(whereClause))
+    
+    // Build query options - exclude profilePicture to reduce response size
+    // Profile pictures can be fetched separately if needed
+    const selectFields = {
+      id: true,
+      email: true,
+      name: true,
+      phone: true,
+      address: true,
+      // profilePicture: true, // Excluded to reduce response size - fetch separately if needed
+      isAdmin: true,
+      canSeePrices: true,
+      discountType: true,
+      discountPercentage: true,
+      birthday: true,
+      lastLoginAt: true,
+      createdAt: true,
+      updatedAt: true
+    }
+    
+    let users
+    let totalCount
+    
+    if (search && search.length > 0) {
+      // Search query with where clause
+      debugLog('🔍 Executing search query')
+      const [userResults, count] = await Promise.all([
+        prisma.user.findMany({
+          where: whereClause,
+          select: selectFields,
+          orderBy: { createdAt: 'desc' },
+          take: limit,
+          skip: offset
+        }),
+        prisma.user.count({ where: whereClause })
+      ])
+      users = userResults
+      totalCount = count
+    } else {
+      // No search - get all users (no where clause) with pagination
+      debugLog('🔍 Executing query without search')
+      const [userResults, count] = await Promise.all([
+        prisma.user.findMany({
+          select: selectFields,
+          orderBy: { createdAt: 'desc' },
+          take: limit,
+          skip: offset
+        }),
+        prisma.user.count()
+      ])
+      users = userResults
+      totalCount = count
+    }
+    
+    debugLog('📊 Found', users.length, 'users' + (search ? ` (search: "${search}")` : ''), `Total: ${totalCount}`)
     
     return NextResponse.json({
       success: true,
       users: users,
-      total: users.length
+      total: totalCount,
+      limit,
+      offset,
+      hasMore: offset + users.length < totalCount
     })
   } catch (error) {
     errorLog('❌ Error fetching users:', error)
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    )
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error'
+    const errorStack = error instanceof Error ? error.stack : undefined
+    const errorName = error instanceof Error ? error.name : undefined
+    
+    errorLog('❌ Error details:', { 
+      message: errorMessage, 
+      stack: errorStack,
+      name: errorName,
+      error: String(error)
+    })
+    
+    // Always include error details in development, simplified in production
+    const errorResponse: any = {
+      error: 'Internal server error',
+      message: errorMessage
+    }
+    
+    if (process.env.NODE_ENV === 'development') {
+      errorResponse.details = {
+        message: errorMessage,
+        stack: errorStack,
+        name: errorName,
+        error: String(error)
+      }
+    }
+    
+    return NextResponse.json(errorResponse, { status: 500 })
   }
 }

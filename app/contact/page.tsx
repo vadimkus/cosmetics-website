@@ -104,9 +104,6 @@ export default function ContactPage() {
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 mb-4 md:mb-6">
               Contact Us
             </h1>
-            <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto px-4">
-              Get in touch with Genosys Middle East FZ-LLC:
-            </p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 mb-8 md:mb-12">

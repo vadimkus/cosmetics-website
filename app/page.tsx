@@ -71,7 +71,7 @@ export default function Home() {
           { name: 'Home', url: '/' }
         ]}
       />
-      <Hero />
+      <Hero initialLocale="en" initialDir="ltr" />
     </div>
   )
 }

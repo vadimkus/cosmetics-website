@@ -105,9 +105,6 @@ export default function ArabicContactPage() {
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 mb-4 md:mb-6">
               اتصل بنا
             </h1>
-            <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto px-4">
-              تواصل مع شركة GENOSYS الشرق الأوسط FZ-LLC:
-            </p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 mb-8 md:mb-12">

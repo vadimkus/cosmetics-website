@@ -187,7 +187,7 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
             
             {product.inStock && (
               <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800 flex-shrink-0">
-                {product.id === '47' ? t('product.orderByRequest') : t('product.inStock')}
+                {product.id === '47' ? t('products.orderByRequest') : t('product.inStock')}
               </span>
             )}
           </div>

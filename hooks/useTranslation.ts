@@ -8,9 +8,12 @@ import arMessages from '@/messages/ar.json'
 
 export function useTranslation() {
   const pathname = usePathname()
-  // Use pathname if available, otherwise default to '/' to ensure consistent SSR/CSR
-  // Don't use window.location.pathname here as it causes hydration mismatch
-  const effectivePath = pathname ?? '/'
+  
+  // usePathname() can be null during SSR, but Next.js ensures it's available during hydration
+  // To avoid hydration mismatch, we need to ensure consistent behavior
+  // If pathname is null (SSR), we'll use window.location.pathname as fallback (only available client-side)
+  // This ensures server renders with default, client hydrates with actual path
+  const effectivePath = pathname ?? (typeof window !== 'undefined' ? window.location.pathname : '/')
   const locale = getLocaleFromPath(effectivePath)
   
   const messages = useMemo(() => {

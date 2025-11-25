@@ -50,6 +50,8 @@ const nextConfig = {
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     // Minimum quality for AVIF (better compression than WebP)
     minimumCacheTTL: 60,
+    // Image quality options
+    qualities: [75, 85, 90],
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },

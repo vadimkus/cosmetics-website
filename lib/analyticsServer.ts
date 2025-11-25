@@ -2,9 +2,12 @@ import { debugLog } from '@/lib/logger'
 // Server-side analytics functions for admin dashboard
 import { prisma } from './prisma'
 
-export const getAnalyticsData = async (days: number = 30) => {
-  const startDate = new Date()
-  startDate.setDate(startDate.getDate() - days)
+export const getAnalyticsData = async (days: number | null = 30) => {
+  const startDate = days === null ? null : (() => {
+    const date = new Date()
+    date.setDate(date.getDate() - days)
+    return date
+  })()
 
   const [
     totalPageViews,
@@ -19,32 +22,32 @@ export const getAnalyticsData = async (days: number = 30) => {
     userRegistrations
   ] = await Promise.all([
     prisma.pageView.count({
-      where: { timestamp: { gte: startDate } }
+      where: { ...(startDate ? { timestamp: { gte: startDate } } : {}) }
     }),
     prisma.pageView.groupBy({
       by: ['ipAddress'],
-      where: { timestamp: { gte: startDate } }
+      where: { ...(startDate ? { timestamp: { gte: startDate } } : {}) }
     }).then(result => result.length),
     prisma.order.count({
       where: { 
-        createdAt: { gte: startDate },
+        ...(startDate ? { createdAt: { gte: startDate } } : {}),
         status: { not: 'CANCELLED' }
       }
     }),
     prisma.order.aggregate({
       where: { 
-        createdAt: { gte: startDate },
+        ...(startDate ? { createdAt: { gte: startDate } } : {}),
         status: { not: 'CANCELLED' }
       },
       _sum: { total: true }
     }),
     prisma.pDFDownload.count({
-      where: { timestamp: { gte: startDate } }
+      where: { ...(startDate ? { timestamp: { gte: startDate } } : {}) }
     }),
     // Get top pages
     prisma.pageView.groupBy({
       by: ['page'],
-      where: { timestamp: { gte: startDate } },
+      where: { ...(startDate ? { timestamp: { gte: startDate } } : {}) },
       _count: { page: true },
       orderBy: { _count: { page: 'desc' } },
       take: 10
@@ -53,7 +56,7 @@ export const getAnalyticsData = async (days: number = 30) => {
     prisma.pageView.groupBy({
       by: ['country'],
       where: { 
-        timestamp: { gte: startDate },
+        ...(startDate ? { timestamp: { gte: startDate } } : {}),
         country: { not: null }
       },
       _count: { country: true },
@@ -64,7 +67,7 @@ export const getAnalyticsData = async (days: number = 30) => {
     prisma.pageView.groupBy({
       by: ['deviceType'],
       where: { 
-        timestamp: { gte: startDate },
+        ...(startDate ? { timestamp: { gte: startDate } } : {}),
         deviceType: { not: null }
       },
       _count: { deviceType: true }
@@ -73,7 +76,7 @@ export const getAnalyticsData = async (days: number = 30) => {
     prisma.pageView.groupBy({
       by: ['browser'],
       where: { 
-        timestamp: { gte: startDate },
+        ...(startDate ? { timestamp: { gte: startDate } } : {}),
         browser: { not: null }
       },
       _count: { browser: true },
@@ -83,7 +86,7 @@ export const getAnalyticsData = async (days: number = 30) => {
     // Get user registrations
     prisma.user.count({
       where: { 
-        createdAt: { gte: startDate }
+        ...(startDate ? { createdAt: { gte: startDate } } : {})
       }
     })
   ])
@@ -139,12 +142,15 @@ export const getRealTimeVisitors = async () => {
   return recentVisitors
 }
 
-export const getUserActivityTimeline = async (days: number = 30) => {
-  const startDate = new Date()
-  startDate.setDate(startDate.getDate() - days)
+export const getUserActivityTimeline = async (days: number | null = 30) => {
+  const startDate = days === null ? null : (() => {
+    const date = new Date()
+    date.setDate(date.getDate() - days)
+    return date
+  })()
 
   const timeline = await prisma.pageView.findMany({
-    where: { timestamp: { gte: startDate } },
+    where: { ...(startDate ? { timestamp: { gte: startDate } } : {}) },
     select: {
       timestamp: true,
       page: true,
@@ -160,14 +166,17 @@ export const getUserActivityTimeline = async (days: number = 30) => {
   return timeline
 }
 
-export const getTopCountries = async (days: number = 30) => {
-  const startDate = new Date()
-  startDate.setDate(startDate.getDate() - days)
+export const getTopCountries = async (days: number | null = 30) => {
+  const startDate = days === null ? null : (() => {
+    const date = new Date()
+    date.setDate(date.getDate() - days)
+    return date
+  })()
 
   const countries = await prisma.pageView.groupBy({
     by: ['country'],
     where: {
-      timestamp: { gte: startDate },
+      ...(startDate ? { timestamp: { gte: startDate } } : {}),
       country: { not: null }
     },
     _count: { country: true },
@@ -181,14 +190,17 @@ export const getTopCountries = async (days: number = 30) => {
   }))
 }
 
-export const getTopCities = async (days: number = 30) => {
-  const startDate = new Date()
-  startDate.setDate(startDate.getDate() - days)
+export const getTopCities = async (days: number | null = 30) => {
+  const startDate = days === null ? null : (() => {
+    const date = new Date()
+    date.setDate(date.getDate() - days)
+    return date
+  })()
 
   const cities = await prisma.pageView.groupBy({
     by: ['city'],
     where: {
-      timestamp: { gte: startDate },
+      ...(startDate ? { timestamp: { gte: startDate } } : {}),
       city: { not: null }
     },
     _count: { city: true },

@@ -12,11 +12,14 @@ export async function GET(request: NextRequest) {
 
   try {
     const { searchParams } = new URL(request.url)
-    const daysParam = parseInt(searchParams.get('days') || '30')
-    const days = Number.isNaN(daysParam) ? 30 : daysParam
+    const daysParam = searchParams.get('days') || '30'
+    const days = daysParam === 'all' ? null : (Number.isNaN(parseInt(daysParam)) ? 30 : parseInt(daysParam))
     
-    const startDate = new Date()
-    startDate.setDate(startDate.getDate() - days)
+    const startDate = days === null ? null : (() => {
+      const date = new Date()
+      date.setDate(date.getDate() - days)
+      return date
+    })()
 
     // Get basic analytics data
     const [
@@ -27,14 +30,14 @@ export async function GET(request: NextRequest) {
       totalRevenue
     ] = await Promise.all([
       prisma.pageView.count({
-        where: { timestamp: { gte: startDate } }
+        where: { ...(startDate ? { timestamp: { gte: startDate } } : {}) }
       }),
       prisma.pageView.groupBy({
         by: ['ipAddress'],
-        where: { timestamp: { gte: startDate } }
+        where: { ...(startDate ? { timestamp: { gte: startDate } } : {}) }
       }).then(result => result.length),
       prisma.pageView.findMany({
-        where: { timestamp: { gte: startDate } },
+        where: { ...(startDate ? { timestamp: { gte: startDate } } : {}) },
         orderBy: { timestamp: 'desc' },
         take: 10,
         select: {
@@ -49,13 +52,13 @@ export async function GET(request: NextRequest) {
       }),
       prisma.order.count({
         where: { 
-          createdAt: { gte: startDate },
+          ...(startDate ? { createdAt: { gte: startDate } } : {}),
           status: { not: 'CANCELLED' }
         }
       }),
       prisma.order.aggregate({
         where: { 
-          createdAt: { gte: startDate },
+          ...(startDate ? { createdAt: { gte: startDate } } : {}),
           status: { not: 'CANCELLED' }
         },
         _sum: { total: true }
@@ -66,7 +69,7 @@ export async function GET(request: NextRequest) {
     const deviceStats = await prisma.pageView.groupBy({
       by: ['deviceType'],
       where: { 
-        timestamp: { gte: startDate },
+        ...(startDate ? { timestamp: { gte: startDate } } : {}),
         deviceType: { not: null }
       },
       _count: { deviceType: true }
@@ -76,7 +79,7 @@ export async function GET(request: NextRequest) {
     const countryStats = await prisma.pageView.groupBy({
       by: ['country'],
       where: { 
-        timestamp: { gte: startDate },
+        ...(startDate ? { timestamp: { gte: startDate } } : {}),
         country: { not: null }
       },
       _count: { country: true },
@@ -87,8 +90,8 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({
       success: true,
       debug: {
-        timeRange: `${days} days`,
-        startDate: startDate.toISOString(),
+        timeRange: days === null ? 'all' : `${days} days`,
+        startDate: startDate ? startDate.toISOString() : 'all time',
         currentDate: new Date().toISOString()
       },
       analytics: {

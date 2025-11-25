@@ -53,7 +53,7 @@ export default function AnalyticsDashboard({ onCustomerClick }: AnalyticsDashboa
   const [pdfDownloads, setPdfDownloads] = useState<PDFDownloadData | null>(null)
   const [loading, setLoading] = useState(true)
   const [refreshing, setRefreshing] = useState(false)
-  const [timeRange, setTimeRange] = useState(30)
+  const [timeRange, setTimeRange] = useState<'all' | number>('all')
 
   const fetchAnalytics = useCallback(async (isRefresh = false) => {
     try {
@@ -63,10 +63,11 @@ export default function AnalyticsDashboard({ onCustomerClick }: AnalyticsDashboa
         setLoading(true)
       }
       
+      const daysParam = timeRange === 'all' ? 'all' : timeRange.toString()
       const [analyticsRes, citiesRes, pdfDownloadsRes] = await Promise.all([
-        fetch(`/api/analytics?type=overview&days=${timeRange}`),
-        fetch(`/api/analytics?type=cities&days=${timeRange}`),
-        fetch(`/api/analytics?type=pdf-downloads&days=${timeRange}`)
+        fetch(`/api/analytics?type=overview&days=${daysParam}`),
+        fetch(`/api/analytics?type=cities&days=${daysParam}`),
+        fetch(`/api/analytics?type=pdf-downloads&days=${daysParam}`)
       ])
 
       if (analyticsRes.ok) {
@@ -167,10 +168,11 @@ export default function AnalyticsDashboard({ onCustomerClick }: AnalyticsDashboa
             {refreshing ? 'Refreshing...' : 'Refresh'}
           </button>
           <select
-            value={timeRange}
-            onChange={(e) => setTimeRange(Number(e.target.value))}
+            value={timeRange === 'all' ? 'all' : timeRange}
+            onChange={(e) => setTimeRange(e.target.value === 'all' ? 'all' : Number(e.target.value))}
             className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
+            <option value="all">All Period</option>
             <option value={7}>Last 7 days</option>
             <option value={30}>Last 30 days</option>
             <option value={90}>Last 90 days</option>

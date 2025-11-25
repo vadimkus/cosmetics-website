@@ -71,7 +71,7 @@ export default function ArabicHome() {
           { name: 'الرئيسية', url: '/ar' }
         ]}
       />
-      <Hero />
+      <Hero initialLocale="ar" initialDir="rtl" />
     </div>
   )
 }

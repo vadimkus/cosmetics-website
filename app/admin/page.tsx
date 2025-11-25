@@ -106,23 +106,72 @@ export default function AdminPage() {
   const [isDeletingOrders, setIsDeletingOrders] = useState(false)
   
   const fetchUsers = useCallback(async (search?: string) => {
+    // Don't fetch if not authenticated or adminUser not set
+    if (!isAuthenticated || !adminUser?.email) {
+      debugLog('Cannot fetch users: Not authenticated or admin user not set', {
+        isAuthenticated,
+        adminUserEmail: adminUser?.email
+      })
+      setUsers([])
+      setLoading(false)
+      return
+    }
+    
     try {
-      const url = search 
-        ? `/api/admin/users?search=${encodeURIComponent(search)}&limit=200`
-        : '/api/admin/users?limit=200'
+      setLoading(true)
+      const url = search && search.length > 0
+        ? `/api/admin/users?search=${encodeURIComponent(search)}&limit=50`
+        : '/api/admin/users?limit=50'
+      
+      debugLog('Fetching users:', { url, search, adminEmail: adminUser.email })
+      
       const response = await fetch(url, {
         headers: getAdminHeaders()
       })
+      
+      debugLog('Users API response status:', response.status, response.statusText)
+      
+      if (!response.ok) {
+        let errorData
+        try {
+          const errorText = await response.text()
+          debugLog('Error response text:', errorText)
+          try {
+            errorData = JSON.parse(errorText)
+          } catch {
+            errorData = { error: errorText, raw: errorText }
+          }
+        } catch (parseError) {
+          errorData = { error: 'Failed to parse error response', parseError }
+        }
+        errorLog('Failed to fetch users:', {
+          status: response.status,
+          statusText: response.statusText,
+          errorData,
+          url: response.url
+        })
+        setUsers([])
+        setLoading(false)
+        return
+      }
+      
       const data = await response.json()
-      if (data.success) {
+      debugLog('Users API response:', { success: data.success, userCount: data.users?.length || 0, total: data.total })
+      
+      if (data.success && Array.isArray(data.users)) {
         setUsers(data.users)
+        debugLog(`✅ Users set: ${data.users.length} users`)
+      } else {
+        errorLog('Invalid users response:', data)
+        setUsers([])
       }
     } catch (error) {
       errorLog('Error fetching users:', error)
+      setUsers([])
     } finally {
       setLoading(false)
     }
-  }, [getAdminHeaders])
+  }, [isAuthenticated, adminUser, getAdminHeaders])
 
   const fetchProducts = useCallback(async () => {
     try {
@@ -773,83 +822,85 @@ export default function AdminPage() {
   return (
     <div className="container mx-auto px-4 py-8 md:py-16">
       <div className="max-w-6xl mx-auto">
-        <div className="flex justify-between items-center mb-8">
-          <div className="flex items-center">
-            <h1 className="text-4xl font-bold text-gray-800">Admin Dashboard</h1>
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6 md:mb-8">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800">Admin Dashboard</h1>
             {adminUser && (
-              <span className="ml-4 text-sm text-gray-600">
+              <span className="text-xs sm:text-sm text-gray-600 sm:ml-4">
                 ({adminUser.name} - {adminUser.email})
               </span>
             )}
           </div>
           <button
             onClick={handleAdminLogout}
-            className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+            className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 text-sm sm:text-base w-full sm:w-auto"
           >
             Logout
           </button>
         </div>
         
         {/* Tab Navigation */}
-        <div className="flex space-x-1 mb-6 bg-gray-100 p-1 rounded-lg">
-          <button
-            onClick={() => setActiveTab('analytics')}
-            className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-colors ${
-              activeTab === 'analytics'
-                ? 'bg-white text-gray-900 shadow-sm'
-                : 'text-gray-500 hover:text-gray-700'
-            }`}
-          >
-            <BarChart3 className="h-4 w-4 inline mr-2" />
-            Analytics
-          </button>
-          <button
-            onClick={() => setActiveTab('users')}
-            className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-colors ${
-              activeTab === 'users'
-                ? 'bg-white text-gray-900 shadow-sm'
-                : 'text-gray-500 hover:text-gray-700'
-            }`}
-          >
-            <UserIcon className="h-4 w-4 inline mr-2" />
-            User Management
-          </button>
-          <button
-            onClick={() => setActiveTab('orders')}
-            className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-colors ${
-              activeTab === 'orders'
-                ? 'bg-white text-gray-900 shadow-sm'
-                : 'text-gray-500 hover:text-gray-700'
-            }`}
-          >
-            <Package className="h-4 w-4 inline mr-2" />
-            Order Management
-          </button>
-          <button
-            onClick={() => setActiveTab('products')}
-            className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-colors ${
-              activeTab === 'products'
-                ? 'bg-white text-gray-900 shadow-sm'
-                : 'text-gray-500 hover:text-gray-700'
-            }`}
-          >
-            <ImageIcon className="h-4 w-4 inline mr-2" />
-            Product Management
-          </button>
-          <button
-            onClick={() => setActiveTab('blog')}
-            className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-colors ${
-              activeTab === 'blog'
-                ? 'bg-white text-gray-900 shadow-sm'
-                : 'text-gray-500 hover:text-gray-700'
-            }`}
-          >
-            <FileText className="h-4 w-4 inline mr-2" />
-            Blog Management
-          </button>
+        <div className="overflow-x-auto mb-6 -mx-4 px-4 sm:mx-0 sm:px-0">
+          <div className="flex space-x-1 bg-gray-100 p-1 rounded-lg min-w-max sm:min-w-0">
+            <button
+              onClick={() => setActiveTab('analytics')}
+              className={`flex-shrink-0 py-2 px-2 sm:px-4 rounded-md text-xs sm:text-sm font-medium transition-colors whitespace-nowrap ${
+                activeTab === 'analytics'
+                  ? 'bg-white text-gray-900 shadow-sm'
+                  : 'text-gray-500 hover:text-gray-700'
+              }`}
+            >
+              <BarChart3 className="h-4 w-4 inline sm:mr-2" />
+              <span className="hidden sm:inline">Analytics</span>
+            </button>
+            <button
+              onClick={() => setActiveTab('users')}
+              className={`flex-shrink-0 py-2 px-2 sm:px-4 rounded-md text-xs sm:text-sm font-medium transition-colors whitespace-nowrap ${
+                activeTab === 'users'
+                  ? 'bg-white text-gray-900 shadow-sm'
+                  : 'text-gray-500 hover:text-gray-700'
+              }`}
+            >
+              <UserIcon className="h-4 w-4 inline sm:mr-2" />
+              <span className="hidden sm:inline">Users</span>
+            </button>
+            <button
+              onClick={() => setActiveTab('orders')}
+              className={`flex-shrink-0 py-2 px-2 sm:px-4 rounded-md text-xs sm:text-sm font-medium transition-colors whitespace-nowrap ${
+                activeTab === 'orders'
+                  ? 'bg-white text-gray-900 shadow-sm'
+                  : 'text-gray-500 hover:text-gray-700'
+              }`}
+            >
+              <Package className="h-4 w-4 inline sm:mr-2" />
+              <span className="hidden sm:inline">Orders</span>
+            </button>
+            <button
+              onClick={() => setActiveTab('products')}
+              className={`flex-shrink-0 py-2 px-2 sm:px-4 rounded-md text-xs sm:text-sm font-medium transition-colors whitespace-nowrap ${
+                activeTab === 'products'
+                  ? 'bg-white text-gray-900 shadow-sm'
+                  : 'text-gray-500 hover:text-gray-700'
+              }`}
+            >
+              <ImageIcon className="h-4 w-4 inline sm:mr-2" />
+              <span className="hidden sm:inline">Products</span>
+            </button>
+            <button
+              onClick={() => setActiveTab('blog')}
+              className={`flex-shrink-0 py-2 px-2 sm:px-4 rounded-md text-xs sm:text-sm font-medium transition-colors whitespace-nowrap ${
+                activeTab === 'blog'
+                  ? 'bg-white text-gray-900 shadow-sm'
+                  : 'text-gray-500 hover:text-gray-700'
+              }`}
+            >
+              <FileText className="h-4 w-4 inline sm:mr-2" />
+              <span className="hidden sm:inline">Blog</span>
+            </button>
+          </div>
         </div>
 
-        <div className="bg-white rounded-lg shadow-sm border p-8">
+        <div className="bg-white rounded-lg shadow-sm border p-4 sm:p-6 md:p-8">
           {activeTab === 'analytics' && (
             <AnalyticsDashboard 
               onCustomerClick={async (userEmail) => {
@@ -880,9 +931,9 @@ export default function AdminPage() {
                 />
               ) : (
             <>
-              <div className="flex justify-between items-center mb-6 flex-wrap gap-4">
-                <h2 className="text-2xl font-bold text-gray-800">User Management</h2>
-                <div className="flex items-center gap-2">
+              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-6 gap-4">
+                <h2 className="text-xl sm:text-2xl font-bold text-gray-800">User Management</h2>
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 w-full sm:w-auto">
                   <input
                     type="text"
                     placeholder="Search by email, name, or phone..."
@@ -891,7 +942,7 @@ export default function AdminPage() {
                       setUserSearch(e.target.value)
                       fetchUsers(e.target.value)
                     }}
-                    className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent min-w-[250px]"
+                    className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent w-full sm:min-w-[250px]"
                   />
                   <button
                     onClick={refreshUsers}
@@ -1007,6 +1058,11 @@ export default function AdminPage() {
                           </div>
                         </div>
                       ))
+            ) : users.length === 0 ? (
+              <div className="col-span-full text-center py-12">
+                <p className="text-gray-500 text-lg">No users found</p>
+                <p className="text-gray-400 text-sm mt-2">Try clearing the search or refresh the page</p>
+              </div>
             ) : (
               users.map((user) => (
                 <div key={user.id} className="bg-gray-50 rounded-lg p-4 border">
@@ -1138,12 +1194,12 @@ export default function AdminPage() {
 
           {activeTab === 'orders' && (
             <>
-              <div className="flex justify-between items-center mb-6">
-                <h2 className="text-2xl font-bold text-gray-800">Order Management</h2>
+              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-6 gap-4">
+                <h2 className="text-xl sm:text-2xl font-bold text-gray-800">Order Management</h2>
                 <button
                   onClick={refreshOrders}
                   disabled={ordersRefreshing}
-                  className="flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="flex items-center justify-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base w-full sm:w-auto"
                 >
                   <RefreshCw className={`h-4 w-4 ${ordersRefreshing ? 'animate-spin' : ''}`} />
                   {ordersRefreshing ? 'Refreshing...' : 'Refresh'}
@@ -1154,7 +1210,7 @@ export default function AdminPage() {
               {!ordersLoading && orders.length > 0 && (
                 <div className="bg-white border border-gray-200 rounded-lg shadow-sm p-6 mb-6">
                   <h3 className="text-xl font-bold text-gray-800 mb-4">Order Summary</h3>
-                  <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 sm:gap-4">
                     <div className="p-4 bg-gray-50 rounded-lg">
                       <p className="text-sm text-gray-600 mb-1">Total Orders</p>
                       <p className="text-2xl font-bold text-gray-900">{orders.length}</p>
@@ -1222,25 +1278,25 @@ export default function AdminPage() {
                 />
               ) : (
                 <div className="bg-white rounded-lg border">
-                    {ordersLoading ? (
+                  {ordersLoading ? (
                     <div className="flex items-center justify-center py-12">
                       <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600"></div>
                       <span className="ml-2 text-gray-600">Loading orders...</span>
-                      </div>
-                    ) : orders.length === 0 ? (
-                    <div className="text-center py-12">
+                    </div>
+                  ) : orders.length === 0 ? (
+                      <div className="text-center py-12">
                         <div className="bg-gray-100 rounded-full w-24 h-24 flex items-center justify-center mx-auto mb-4">
                           <Package className="h-12 w-12 text-gray-300" />
                         </div>
                         <h3 className="text-xl font-semibold mb-2">No orders yet</h3>
-                      <p className="text-gray-400">Orders will appear here when customers make purchases.</p>
+                        <p className="text-gray-400">Orders will appear here when customers make purchases.</p>
                       </div>
                     ) : (
                       <div>
                         {/* Bulk Actions */}
                         {selectedOrders.length > 0 && (
                           <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-4">
-                            <div className="flex items-center justify-between">
+                            <div className="flex items-center justify-between flex-wrap gap-3">
                               <div className="flex items-center gap-3">
                                 <span className="text-sm font-medium text-red-800">
                                   {selectedOrders.length} order{selectedOrders.length > 1 ? 's' : ''} selected
@@ -1249,7 +1305,7 @@ export default function AdminPage() {
                               <button
                                 onClick={deleteSelectedOrders}
                                 disabled={isDeletingOrders}
-                                className="inline-flex items-center gap-2 px-4 py-2 bg-red-600 text-white text-sm rounded-lg hover:bg-red-700 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="inline-flex items-center gap-2 px-4 py-2 bg-red-600 text-white text-sm rounded-lg hover:bg-red-700 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed w-full sm:w-auto"
                               >
                                 {isDeletingOrders ? (
                                   <>
@@ -1267,122 +1323,126 @@ export default function AdminPage() {
                           </div>
                         )}
 
-                        <div className="overflow-x-auto">
-                          <table className="w-full">
-                            <thead className="bg-gray-50">
-                              <tr>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                  <input
-                                    type="checkbox"
-                                    checked={selectedOrders.length === orders.length && orders.length > 0}
-                                    onChange={selectAllOrders}
-                                    className="rounded border-gray-300 text-red-600 focus:ring-red-500"
-                                  />
-                                </th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Order ID</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Customer</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Items</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total</th>
-                              </tr>
-                            </thead>
-                          <tbody className="bg-white divide-y divide-gray-200">
-                            {orders.map((order) => (
-                              <tr key={order.id || order.orderNumber} className="hover:bg-gray-50 transition-colors">
-                                <td className="px-6 py-4 whitespace-nowrap">
-                                  <input
-                                    type="checkbox"
-                                    checked={order.id ? selectedOrders.includes(order.id) : false}
-                                    onChange={() => order.id && toggleOrderSelection(order.id)}
-                                    className="rounded border-gray-300 text-red-600 focus:ring-red-500"
-                                    disabled={!order.id}
-                                  />
-                                </td>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                  <div className="flex flex-col">
-                                    <span>#{order.id?.slice(-8) || order.orderNumber || 'N/A'}</span>
-                                    {order.orderNumber && order.orderNumber !== order.id?.slice(-8) && (
-                                      <span className="text-xs text-gray-500">Order: {order.orderNumber}</span>
-                                    )}
-                                    {!order.id && (
-                                      <span className="text-xs text-red-500">⚠️ No ID</span>
-                                    )}
-                                  </div>
-                                </td>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                <div className="flex items-center gap-2">
-                                  <button
-                                    onClick={() => setSelectedOrder(order)}
-                                    className="text-primary-600 hover:text-primary-900 font-semibold"
-                                  >
-                                    View Details
-                                  </button>
-                                  {order.id && (
-                                    <button
-                                      onClick={() => deleteOrder(order.id)}
-                                      className="text-red-600 hover:text-red-900 font-semibold flex items-center gap-1"
-                                      title="Delete Order"
-                                    >
-                                      <Trash2 className="h-4 w-4" />
-                                      Delete
-                                    </button>
-                                  )}
-                                </div>
-                                </td>
-                              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                {order.customerName}
-                                <div className="text-xs text-gray-500">{order.customerEmail}</div>
-                                </td>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                  {new Date(order.createdAt).toLocaleDateString('en-AE', {
-                                    month: 'short',
-                                    day: 'numeric',
-                                    hour: '2-digit',
-                                    minute: '2-digit'
-                                  })}
-                                </td>
-                                <td className="px-6 py-4 whitespace-nowrap">
-                                  <StatusBadge
-                                    status={order.status}
-                                    icon={getStatusIcon(order.status)}
-                                    className="px-3 py-1 text-xs"
-                                  />
-                                </td>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                  {order.items.reduce((sum, item) => sum + item.quantity, 0)} items
-                                </td>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                  {formatCurrency(order.total)}
-                                </td>
-                              </tr>
-                            ))}
-                          </tbody>
-                        </table>
+                        <div className="overflow-x-auto -mx-4 sm:mx-0">
+                          <div className="inline-block min-w-full align-middle">
+                            <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
+                              <table className="min-w-full divide-y divide-gray-300">
+                                <thead className="bg-gray-50">
+                                  <tr>
+                                    <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                      <input
+                                        type="checkbox"
+                                        checked={selectedOrders.length === orders.length && orders.length > 0}
+                                        onChange={selectAllOrders}
+                                        className="rounded border-gray-300 text-red-600 focus:ring-red-500"
+                                      />
+                                    </th>
+                                    <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Order ID</th>
+                                    <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                    <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Customer</th>
+                                    <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                                    <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                    <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Items</th>
+                                    <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total</th>
+                                  </tr>
+                                </thead>
+                                <tbody className="bg-white divide-y divide-gray-200">
+                                  {orders.map((order) => (
+                                    <tr key={order.id || order.orderNumber} className="hover:bg-gray-50 transition-colors">
+                                      <td className="px-3 sm:px-6 py-4 whitespace-nowrap">
+                                        <input
+                                          type="checkbox"
+                                          checked={order.id ? selectedOrders.includes(order.id) : false}
+                                          onChange={() => order.id && toggleOrderSelection(order.id)}
+                                          className="rounded border-gray-300 text-red-600 focus:ring-red-500"
+                                          disabled={!order.id}
+                                        />
+                                      </td>
+                                      <td className="px-3 sm:px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                        <div className="flex flex-col">
+                                          <span>#{order.id?.slice(-8) || order.orderNumber || 'N/A'}</span>
+                                          {order.orderNumber && order.orderNumber !== order.id?.slice(-8) && (
+                                            <span className="text-xs text-gray-500">Order: {order.orderNumber}</span>
+                                          )}
+                                          {!order.id && (
+                                            <span className="text-xs text-red-500">⚠️ No ID</span>
+                                          )}
+                                        </div>
+                                      </td>
+                                      <td className="px-3 sm:px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2">
+                                          <button
+                                            onClick={() => setSelectedOrder(order)}
+                                            className="text-primary-600 hover:text-primary-900 font-semibold text-xs sm:text-sm"
+                                          >
+                                            View
+                                          </button>
+                                          {order.id && (
+                                            <button
+                                              onClick={() => deleteOrder(order.id)}
+                                              className="text-red-600 hover:text-red-900 font-semibold flex items-center gap-1 text-xs sm:text-sm"
+                                              title="Delete Order"
+                                            >
+                                              <Trash2 className="h-3 w-3 sm:h-4 sm:w-4" />
+                                              <span className="hidden sm:inline">Delete</span>
+                                            </button>
+                                          )}
+                                        </div>
+                                      </td>
+                                      <td className="px-3 sm:px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                        {order.customerName}
+                                        <div className="text-xs text-gray-500">{order.customerEmail}</div>
+                                      </td>
+                                      <td className="px-3 sm:px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        {new Date(order.createdAt).toLocaleDateString('en-AE', {
+                                          month: 'short',
+                                          day: 'numeric',
+                                          hour: '2-digit',
+                                          minute: '2-digit'
+                                        })}
+                                      </td>
+                                      <td className="px-3 sm:px-6 py-4 whitespace-nowrap">
+                                        <StatusBadge
+                                          status={order.status}
+                                          icon={getStatusIcon(order.status)}
+                                          className="px-2 sm:px-3 py-1 text-xs"
+                                        />
+                                      </td>
+                                      <td className="px-3 sm:px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        {order.items.reduce((sum, item) => sum + item.quantity, 0)} items
+                                      </td>
+                                      <td className="px-3 sm:px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                        {formatCurrency(order.total)}
+                                      </td>
+                                    </tr>
+                                  ))}
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
                         </div>
                       </div>
+                    )}
+                  </div>
                 )}
-              </div>
-              )}
-            </>
-          )}
+              </>
+            )}
 
           {activeTab === 'products' && (
             <>
               {/* Products Header */}
-              <div className="flex justify-between items-center mb-6">
+              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-6 gap-4">
                 <div>
-                  <h2 className="text-2xl font-bold text-gray-900">Product Management</h2>
-                  <p className="text-gray-600 mt-1">Manage your product catalog, images, and descriptions</p>
+                  <h2 className="text-xl sm:text-2xl font-bold text-gray-900">Product Management</h2>
+                  <p className="text-sm sm:text-base text-gray-600 mt-1">Manage your product catalog, images, and descriptions</p>
                 </div>
-                <div className="flex gap-3">
+                <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
                   <button
                     onClick={() => {
                       setEditingProduct(null)
                       setShowProductForm(true)
                     }}
-                    className="inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
+                    className="inline-flex items-center justify-center px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors text-sm sm:text-base w-full sm:w-auto"
                   >
                     <Plus className="h-4 w-4 mr-2" />
                     Add Product
@@ -1390,7 +1450,7 @@ export default function AdminPage() {
                   <button
                     onClick={fetchProducts}
                     disabled={productsRefreshing}
-                    className="inline-flex items-center px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors disabled:opacity-50"
+                    className="inline-flex items-center justify-center px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors disabled:opacity-50 text-sm sm:text-base w-full sm:w-auto"
                   >
                     <RefreshCw className={`h-4 w-4 mr-2 ${productsRefreshing ? 'animate-spin' : ''}`} />
                     Refresh
@@ -1419,86 +1479,92 @@ export default function AdminPage() {
                     </button>
                   </div>
                 ) : (
-                  <div className="overflow-x-auto">
-                    <table className="w-full">
-                      <thead className="bg-gray-50">
-                        <tr>
-                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Product</th>
-                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
-                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Price</th>
-                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Stock</th>
-                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Created</th>
-                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-                        </tr>
-                      </thead>
-                      <tbody className="bg-white divide-y divide-gray-200">
-                        {products.map((product) => (
-                          <tr key={product.id} className="hover:bg-gray-50 transition-colors">
-                            <td className="px-6 py-4 whitespace-nowrap">
-                              <div className="flex items-center">
-                                <div className="flex-shrink-0 h-12 w-12">
-                                  <Image
-                                    src={product.image}
-                                    alt={product.name}
-                                    width={48}
-                                    height={48}
-                                    className="h-12 w-12 rounded-lg object-cover"
-                                  />
-                                </div>
-                                <div className="ml-4">
-                                  <div className="text-sm font-medium text-gray-900">{product.name}</div>
-                                  <div className="text-sm text-gray-500 truncate max-w-xs">{product.description}</div>
-                                </div>
-                              </div>
-                            </td>
-                            <td className="px-6 py-4 whitespace-nowrap">
-                              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                                {product.category}
-                              </span>
-                            </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                              {formatCurrency(product.price)}
-                            </td>
-                            <td className="px-6 py-4 whitespace-nowrap">
-                              <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                                product.inStock 
-                                  ? 'bg-green-100 text-green-800' 
-                                  : 'bg-red-100 text-red-800'
-                              }`}>
-                                {product.inStock ? 'In Stock' : 'Out of Stock'}
-                              </span>
-                            </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                              {new Date(product.createdAt).toLocaleDateString('en-AE', {
-                                month: 'short',
-                                day: 'numeric',
-                                year: 'numeric'
-                              })}
-                            </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                              <div className="flex space-x-2">
-                                <button
-                                  onClick={() => {
-                                    setEditingProduct(product)
-                                    setShowProductForm(true)
-                                  }}
-                                  className="text-primary-600 hover:text-primary-900 transition-colors"
-                                >
-                                  <Edit className="h-4 w-4" />
-                                </button>
-                                <button
-                                  onClick={() => deleteProduct(product.id, product.name)}
-                                  className="text-red-600 hover:text-red-900 transition-colors"
-                                >
-                                  <Trash2 className="h-4 w-4" />
-                                </button>
-                              </div>
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                </div>
+                  <div className="overflow-x-auto -mx-4 sm:mx-0">
+                    <div className="inline-block min-w-full align-middle">
+                      <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
+                        <table className="min-w-full divide-y divide-gray-300">
+                          <thead className="bg-gray-50">
+                            <tr>
+                              <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Product</th>
+                              <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
+                              <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Price</th>
+                              <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Stock</th>
+                              <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Created</th>
+                              <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                            </tr>
+                          </thead>
+                          <tbody className="bg-white divide-y divide-gray-200">
+                            {products.map((product) => (
+                              <tr key={product.id} className="hover:bg-gray-50 transition-colors">
+                                <td className="px-3 sm:px-6 py-4 whitespace-nowrap">
+                                  <div className="flex items-center">
+                                    <div className="flex-shrink-0 h-10 w-10 sm:h-12 sm:w-12">
+                                      <Image
+                                        src={product.image}
+                                        alt={product.name}
+                                        width={48}
+                                        height={48}
+                                        className="h-10 w-10 sm:h-12 sm:w-12 rounded-lg object-cover"
+                                      />
+                                    </div>
+                                    <div className="ml-2 sm:ml-4">
+                                      <div className="text-xs sm:text-sm font-medium text-gray-900">{product.name}</div>
+                                      <div className="text-xs sm:text-sm text-gray-500 truncate max-w-xs hidden sm:block">{product.description}</div>
+                                    </div>
+                                  </div>
+                                </td>
+                                <td className="px-3 sm:px-6 py-4 whitespace-nowrap">
+                                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                    {product.category}
+                                  </span>
+                                </td>
+                                <td className="px-3 sm:px-6 py-4 whitespace-nowrap text-xs sm:text-sm text-gray-900">
+                                  {formatCurrency(product.price)}
+                                </td>
+                                <td className="px-3 sm:px-6 py-4 whitespace-nowrap">
+                                  <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                                    product.inStock 
+                                      ? 'bg-green-100 text-green-800' 
+                                      : 'bg-red-100 text-red-800'
+                                  }`}>
+                                    {product.inStock ? 'In Stock' : 'Out of Stock'}
+                                  </span>
+                                </td>
+                                <td className="px-3 sm:px-6 py-4 whitespace-nowrap text-xs sm:text-sm text-gray-500">
+                                  {new Date(product.createdAt).toLocaleDateString('en-AE', {
+                                    month: 'short',
+                                    day: 'numeric',
+                                    year: 'numeric'
+                                  })}
+                                </td>
+                                <td className="px-3 sm:px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                  <div className="flex space-x-2">
+                                    <button
+                                      onClick={() => {
+                                        setEditingProduct(product)
+                                        setShowProductForm(true)
+                                      }}
+                                      className="text-primary-600 hover:text-primary-900 transition-colors"
+                                      title="Edit"
+                                    >
+                                      <Edit className="h-4 w-4" />
+                                    </button>
+                                    <button
+                                      onClick={() => deleteProduct(product.id, product.name)}
+                                      className="text-red-600 hover:text-red-900 transition-colors"
+                                      title="Delete"
+                                    >
+                                      <Trash2 className="h-4 w-4" />
+                                    </button>
+                                  </div>
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
                 )}
               </div>
 

@@ -2,11 +2,47 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { useTranslation } from '@/hooks/useTranslation'
-import { getLocalizedPath } from '@/lib/i18n'
+import { usePathname } from 'next/navigation'
+import { getLocalizedPath, getLocaleFromPath } from '@/lib/i18n'
+import { useMemo } from 'react'
+import enMessages from '@/messages/en.json'
+import arMessages from '@/messages/ar.json'
 
 export default function Footer() {
-  const { t, locale } = useTranslation()
+  const pathname = usePathname()
+  
+  // Get locale from pathname - consistent between server and client
+  const effectivePath = pathname ?? '/'
+  const locale = useMemo(() => getLocaleFromPath(effectivePath), [effectivePath])
+  
+  // Load messages based on locale
+  const messages = useMemo(() => {
+    return locale === 'ar' ? arMessages : enMessages
+  }, [locale])
+  
+  // Create translation function
+  const t = useMemo(() => {
+    return (key: string): string => {
+      const keys = key.split('.')
+      let value: unknown = messages
+      
+      for (const k of keys) {
+        if (value && typeof value === 'object' && k in value) {
+          value = (value as Record<string, unknown>)[k]
+        } else {
+          value = undefined
+          break
+        }
+      }
+      
+      if (typeof value !== 'string') {
+        console.warn(`Translation key not found: ${key}`)
+        return key
+      }
+      
+      return value
+    }
+  }, [messages])
 
   return (
     <footer role="contentinfo" className="bg-white border-t border-gray-200 py-6 md:py-8">
@@ -48,8 +84,9 @@ export default function Footer() {
               width={180}
               height={54}
               className="mb-2"
+              style={{ width: 'auto', height: 'auto' }}
               priority={false}
-              quality={90}
+              quality={75}
               placeholder="blur"
               blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
             />
@@ -65,4 +102,3 @@ export default function Footer() {
     </footer>
   )
 }
-

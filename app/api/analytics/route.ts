@@ -6,13 +6,16 @@ import { prisma } from '@/lib/prisma'
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url)
-    const daysParam = parseInt(searchParams.get('days') || '30')
-    const days = Number.isNaN(daysParam) ? 30 : daysParam
+    const daysParam = searchParams.get('days') || '30'
+    const days = daysParam === 'all' ? null : (Number.isNaN(parseInt(daysParam)) ? 30 : parseInt(daysParam))
     const type = searchParams.get('type') || 'overview'
     
-    // Calculate start date for all cases that need it
-    const startDate = new Date()
-    startDate.setDate(startDate.getDate() - days)
+    // Calculate start date for all cases that need it (null means all time)
+    const startDate = days === null ? null : (() => {
+      const date = new Date()
+      date.setDate(date.getDate() - days)
+      return date
+    })()
 
     switch (type) {
       case 'overview':
@@ -39,9 +42,7 @@ export async function GET(request: NextRequest) {
         const deviceStats = await prisma.pageView.groupBy({
           by: ['deviceType'],
           where: {
-            timestamp: {
-              gte: startDate
-            },
+            ...(startDate ? { timestamp: { gte: startDate } } : {}),
             deviceType: {
               not: null
             }
@@ -60,9 +61,7 @@ export async function GET(request: NextRequest) {
         const browserStats = await prisma.pageView.groupBy({
           by: ['browser'],
           where: {
-            timestamp: {
-              gte: startDate
-            },
+            ...(startDate ? { timestamp: { gte: startDate } } : {}),
             browser: {
               not: null
             }
@@ -86,9 +85,7 @@ export async function GET(request: NextRequest) {
       case 'ux-metrics':
         const sessions = await prisma.userSession.findMany({
           where: {
-            startTime: {
-              gte: startDate
-            }
+            ...(startDate ? { startTime: { gte: startDate } } : {})
           }
         })
         
@@ -107,9 +104,7 @@ export async function GET(request: NextRequest) {
         // Get non-cancelled orders count for consistency
         const nonCancelledOrders = await prisma.order.count({
           where: {
-            createdAt: {
-              gte: startDate
-            },
+            ...(startDate ? { createdAt: { gte: startDate } } : {}),
             status: {
               not: 'CANCELLED'
             }
@@ -127,9 +122,7 @@ export async function GET(request: NextRequest) {
       case 'pdf-downloads':
         const pdfDownloads = await prisma.pDFDownload.findMany({
           where: {
-            timestamp: {
-              gte: startDate
-            }
+            ...(startDate ? { timestamp: { gte: startDate } } : {})
           },
           orderBy: {
             timestamp: 'desc'

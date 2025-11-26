@@ -103,40 +103,43 @@ export default function LocationsPage() {
           </Link>
 
           {/* Page Header */}
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-primary-100 rounded-full mb-6">
+          <div className="text-center mb-6 md:mb-12">
+            <div className="hidden md:inline-flex items-center justify-center w-16 h-16 bg-primary-100 rounded-full mb-6">
               <MapPin className="h-8 w-8 text-primary-600" />
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+            <h1 className="text-2xl md:text-5xl font-bold text-gray-800 mb-2 md:mb-4">
               Our Locations
             </h1>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              GENOSYS Middle East FZ-LLC delivers professional Korean dermacosmetics to all 7 UAE emirates
+            <p className="text-xs md:text-lg text-gray-600 max-w-2xl mx-auto">
+              Delivering to all 7 UAE emirates
             </p>
           </div>
 
           {/* Locations Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-6 mb-6 md:mb-12">
             {locations.map((location) => (
               <Link
                 key={location.slug}
                 href={`/locations/${location.slug}`}
-                className="bg-white border border-gray-200 rounded-xl p-6 hover:shadow-md transition-all duration-200 group"
+                className="bg-white border border-gray-200 rounded-lg md:rounded-xl p-3 md:p-6 hover:shadow-md transition-all duration-200 group"
               >
-                <div className="flex items-start gap-4">
-                  <div className="bg-primary-100 rounded-full p-3 group-hover:bg-primary-600 transition-colors">
+                <div className="flex flex-col md:flex-row md:items-start gap-2 md:gap-4">
+                  <div className="hidden md:flex bg-primary-100 rounded-full p-3 group-hover:bg-primary-600 transition-colors">
                     <MapPin className="h-6 w-6 text-primary-600 group-hover:text-white transition-colors" />
                   </div>
                   <div className="flex-1">
-                    <h2 className="text-xl font-semibold text-gray-800 mb-2 group-hover:text-primary-600 transition-colors">
-                      {location.name}
-                    </h2>
-                    <p className="text-gray-600 text-sm mb-3">
+                    <div className="flex items-center gap-1.5 mb-1 md:mb-2">
+                      <MapPin className="h-3 w-3 md:hidden text-primary-600" />
+                      <h2 className="text-sm md:text-xl font-semibold text-gray-800 group-hover:text-primary-600 transition-colors">
+                        {location.name}
+                      </h2>
+                    </div>
+                    <p className="hidden md:block text-gray-600 text-sm mb-3">
                       {location.description}
                     </p>
-                    <div className="flex flex-col gap-1 text-xs text-gray-500">
-                      <span className="font-medium">Shipping: <span className="text-gray-700">{location.shippingCost}</span></span>
-                      <span className="font-medium">Delivery: <span className="text-gray-700">{location.deliveryTime}</span></span>
+                    <div className="flex flex-col gap-0.5 md:gap-1 text-[10px] md:text-xs text-gray-500">
+                      <span className="font-medium"><span className="text-gray-700">{location.shippingCost}</span></span>
+                      <span className="text-gray-600 line-clamp-1">{location.deliveryTime}</span>
                     </div>
                   </div>
                 </div>
@@ -145,27 +148,26 @@ export default function LocationsPage() {
           </div>
 
           {/* General Information */}
-          <div className="bg-gradient-to-r from-primary-50 to-red-50 rounded-xl p-8 border border-primary-100 shadow-sm">
+          <div className="bg-gradient-to-r from-primary-50 to-red-50 rounded-lg md:rounded-xl p-4 md:p-8 border border-primary-100 shadow-sm">
             <div className="text-center">
-              <h2 className="text-2xl font-bold text-gray-800 mb-3">
+              <h2 className="text-lg md:text-2xl font-bold text-gray-800 mb-2 md:mb-3">
                 Free Shipping Available
               </h2>
-              <p className="text-gray-600 mb-6 max-w-xl mx-auto">
-                All orders over 1000 AED qualify for free shipping across all UAE emirates. 
-                We deliver professional Korean dermacosmetics products with reliable and fast service via Careem and Quiqup.
+              <p className="text-xs md:text-base text-gray-600 mb-4 md:mb-6 max-w-xl mx-auto">
+                Orders over 1000 AED qualify for free shipping across all UAE emirates.
               </p>
-              <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <div className="flex flex-row gap-3 justify-center">
                 <Link
                   href="/products"
-                  className="bg-primary-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-primary-700 transition-colors text-center shadow-md hover:shadow-lg"
+                  className="bg-primary-600 text-white px-4 md:px-8 py-2 md:py-3 rounded-lg text-xs md:text-base font-semibold hover:bg-primary-700 transition-colors text-center shadow-md flex items-center justify-center"
                 >
-                  Browse Products
+                  Products
                 </Link>
                 <Link
-                  href="/contact-genosys-uae"
-                  className="border border-primary-600 text-primary-600 px-8 py-3 rounded-lg font-semibold hover:bg-white transition-colors text-center shadow-md hover:shadow-lg"
+                  href="/contact"
+                  className="border border-primary-600 text-primary-600 px-4 md:px-8 py-2 md:py-3 rounded-lg text-xs md:text-base font-semibold hover:bg-white transition-colors text-center shadow-md flex items-center justify-center"
                 >
-                  Contact Us
+                  Contact
                 </Link>
               </div>
             </div>

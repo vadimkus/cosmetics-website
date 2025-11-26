@@ -350,7 +350,9 @@ export default function ProductsPageClient() {
                   </span>
                 )}
               </div>
-              <ProductSort sortBy={sortBy} onSortChange={handleSortChange} />
+              <div className="hidden md:block">
+                <ProductSort sortBy={sortBy} onSortChange={handleSortChange} />
+              </div>
             </div>
 
             {/* Products Grid */}

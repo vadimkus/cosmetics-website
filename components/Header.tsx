@@ -100,16 +100,16 @@ const Header = memo(function Header() {
           </nav>
 
           {/* Mobile Icons and Menu Button */}
-          <div className="md:hidden flex items-center space-x-2 header-icons">
+          <div className="md:hidden flex items-center gap-1 header-icons">
             {/* Mobile Cart Icon */}
             <Link 
               href={getLocalizedPath('/cart', locale)} 
-              className="relative p-2 text-gray-700 hover:text-primary-600 transition-colors"
+              className="relative p-2 text-gray-700 hover:text-primary-600 transition-colors flex items-center justify-center"
               aria-label={`${t('common.cart')} with ${isClient ? getTotalItems() : 0} items`}
             >
-              <ShoppingCart className="h-6 w-6" aria-hidden="true" />
+              <ShoppingCart className="h-5 w-5" aria-hidden="true" />
               {isClient && getTotalItems() > 0 && (
-                <span className="absolute -top-1 -right-1 bg-primary-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center header-badge" aria-hidden="true">
+                <span className="absolute top-0 right-0 bg-primary-600 text-white text-[10px] rounded-full h-4 w-4 flex items-center justify-center header-badge" aria-hidden="true">
                   {getTotalItems()}
                 </span>
               )}
@@ -118,12 +118,12 @@ const Header = memo(function Header() {
             {/* Mobile Favorites Icon */}
             <Link 
               href={getLocalizedPath('/favorites', locale)} 
-              className="relative p-2 text-gray-700 hover:text-primary-600 transition-colors"
+              className="relative p-2 text-gray-700 hover:text-primary-600 transition-colors flex items-center justify-center"
               aria-label={`${t('common.favorites')} with ${isClient ? favorites.length : 0} items`}
             >
-              <Heart className="h-6 w-6" aria-hidden="true" />
+              <Heart className="h-5 w-5" aria-hidden="true" />
               {isClient && favorites.length > 0 && (
-                <span className="absolute -top-1 -right-1 bg-primary-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center header-badge" aria-hidden="true">
+                <span className="absolute top-0 right-0 bg-primary-600 text-white text-[10px] rounded-full h-4 w-4 flex items-center justify-center header-badge" aria-hidden="true">
                   {favorites.length}
                 </span>
               )}
@@ -134,28 +134,28 @@ const Header = memo(function Header() {
               <>
                 <Link 
                   href={getLocalizedPath('/profile', locale)} 
-                  className="p-2 text-gray-700 hover:text-primary-600 transition-colors touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center"
+                  className="p-2 text-gray-700 hover:text-primary-600 transition-colors flex items-center justify-center"
                   aria-label={t('common.profile')}
                 >
-                  <User className="h-6 w-6 text-green-600" aria-hidden="true" />
+                  <User className="h-5 w-5 text-green-600" aria-hidden="true" />
                 </Link>
                 <LanguageSwitcher />
                 <button 
                   onClick={logout}
-                  className="p-2 text-gray-700 hover:text-primary-600 transition-colors touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center"
+                  className="p-2 text-gray-700 hover:text-primary-600 transition-colors flex items-center justify-center"
                   aria-label={t('common.logout')}
                 >
-                  <LogOut className="h-6 w-6" aria-hidden="true" />
+                  <LogOut className="h-5 w-5" aria-hidden="true" />
                 </button>
               </>
             ) : (
               <>
                 <button 
                   onClick={() => setShowLoginModal(true)}
-                  className="p-2 text-gray-700 hover:text-primary-600 transition-colors touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center"
+                  className="p-2 text-gray-700 hover:text-primary-600 transition-colors flex items-center justify-center"
                   aria-label={t('common.login')}
                 >
-                  <User className="h-6 w-6 text-green-600" aria-hidden="true" />
+                  <User className="h-5 w-5 text-green-600" aria-hidden="true" />
                 </button>
                 <LanguageSwitcher />
               </>
@@ -164,11 +164,11 @@ const Header = memo(function Header() {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setShowMobileMenu(!showMobileMenu)}
-              className="p-2 text-gray-700 hover:text-primary-600 transition-colors touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center"
+              className="p-2 text-gray-700 hover:text-primary-600 transition-colors flex items-center justify-center"
               aria-label={showMobileMenu ? t('common.closeMobileMenu') : t('common.openMobileMenu')}
               aria-expanded={showMobileMenu}
             >
-              <Menu className="h-6 w-6" aria-hidden="true" />
+              <Menu className="h-5 w-5" aria-hidden="true" />
             </button>
           </div>
           

@@ -14,7 +14,6 @@ export default function BlackFridayMini() {
   const { locale } = useTranslation()
   const [timeLeft, setTimeLeft] = useState<TimeLeft | null>(null)
   const [isSaleEnded, setIsSaleEnded] = useState(false)
-  const [isSaleActive, setIsSaleActive] = useState(false)
 
   useEffect(() => {
     // Sale start: Nov 26th, 2025 at 00:00:00 UAE time (UTC+4) = Nov 25th, 2025 at 20:00:00 UTC
@@ -31,7 +30,6 @@ export default function BlackFridayMini() {
       }
 
       if (now >= saleStartDate) {
-        setIsSaleActive(true)
         const difference = saleEndDate - now
         return {
           days: Math.floor(difference / (1000 * 60 * 60 * 24)),
@@ -41,7 +39,6 @@ export default function BlackFridayMini() {
         }
       }
 
-      setIsSaleActive(false)
       const difference = saleStartDate - now
       return {
         days: Math.floor(difference / (1000 * 60 * 60 * 24)),

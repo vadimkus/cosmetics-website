@@ -70,16 +70,16 @@ export default function BrandPage() {
             <span>Back to Home</span>
           </Link>
           
-          <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
+          <div className="text-center mb-6 md:mb-12">
+            <h1 className="text-xl md:text-5xl font-bold text-gray-800 mb-3 md:mb-6">
               Genosys Gene Re-Birth System
             </h1>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-8">
+            <p className="text-xs md:text-xl text-gray-600 max-w-2xl mx-auto mb-4 md:mb-8 leading-relaxed">
               GENOSYS is the world&apos;s first microneedling-dedicated brand born by combining microneedling with the cosmeceuticals specially formulated for microneedling treatment to optimize the skin care effects.
             </p>
             
             {/* Video Section */}
-            <div className="max-w-4xl mx-auto mb-8">
+            <div className="max-w-4xl mx-auto mb-4 md:mb-8">
               <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
                 <iframe
                   className="absolute top-0 left-0 w-full h-full rounded-lg shadow-lg"
@@ -94,8 +94,8 @@ export default function BrandPage() {
             
           </div>
 
-          <div className="bg-white rounded-lg shadow-sm border p-8 mb-8">
-            <p className="text-gray-600 leading-relaxed text-lg text-center mb-8">
+          <div className="bg-white rounded-lg shadow-sm border p-3 md:p-8 mb-4 md:mb-8">
+            <p className="text-gray-600 leading-relaxed text-xs md:text-lg text-center mb-4 md:mb-8">
               With skin-friendly formulations and powerful active ingredients, GENOSYS homecare/professional lines not only provide long-lasting, visible results but also boosts the effectiveness of professional treatments.
             </p>
             
@@ -113,18 +113,18 @@ export default function BrandPage() {
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow-sm border p-8">
+          <div className="bg-white rounded-lg shadow-sm border p-3 md:p-8">
             <div className="text-center">
-              <div className="mt-6">
+              <div className="mt-3 md:mt-6">
                 <Image
                   src="/Logo/Full.png"
                   alt="GENOSYS Gene Re-Birth System - Professional Korean Dermacosmetics Brand Logo"
                   width={200}
                   height={100}
-                  className="mx-auto"
+                  className="mx-auto scale-75 md:scale-100"
                 />
               </div>
-              <div className="mt-6">
+              <div className="mt-3 md:mt-6">
                 <Image
                   src="/images/genosys-products.jpg"
                   alt="GENOSYS Professional Korean Dermacosmetics Skincare Products Collection - Microneedling Devices and Skincare Solutions"
@@ -134,7 +134,7 @@ export default function BrandPage() {
                   priority
                 />
               </div>
-              <p className="text-gray-500 text-base mt-4">
+              <p className="text-gray-500 text-[10px] md:text-base mt-2 md:mt-4">
                 GENOSYS Professional Skincare Line - Dermatologically Tested Products.
               </p>
             </div>

@@ -61,47 +61,20 @@ export default function ArabicBrandPage() {
           { name: 'العلامة التجارية', url: '/ar/brand' }
         ]}
       />
-      <div className="container mx-auto px-4 py-8 md:py-16">
+      <div className="container mx-auto px-3 md:px-4 py-4 md:py-16">
         <div className="max-w-4xl mx-auto">
           {/* Navigation Breadcrumb */}
-          <nav className="flex flex-col gap-2 text-sm md:text-base text-gray-600 mb-8" aria-label="Breadcrumb">
-            {/* Mobile Breadcrumb */}
-            <div className="md:hidden flex items-center gap-2">
-              <Link 
-                href="/ar"
-                className="hover:text-primary-600 transition-colors flex items-center"
-              >
-                الرئيسية
-              </Link>
-              <span className="flex items-center">/</span>
-              <span className="text-gray-900 font-medium flex items-center">
-                العلامة التجارية
-              </span>
-            </div>
-            
-            {/* Mobile Back Button */}
-            <Link 
-              href="/ar"
-              className="md:hidden flex items-center gap-2 text-primary-600 hover:text-primary-700 transition-colors"
-            >
-              <ArrowLeft className="h-4 w-4 rotate-180" />
-              <span className="font-medium">العودة إلى الرئيسية</span>
-            </Link>
-            
-            {/* Desktop Breadcrumb */}
-            <div className="hidden md:flex items-center gap-2">
-              <Link 
-                href="/ar"
-                className="hover:text-primary-600 transition-colors flex items-center"
-              >
-                الرئيسية
-              </Link>
-              <span className="flex items-center">/</span>
-              <span className="text-gray-900 font-medium flex items-center">
-                العلامة التجارية
-              </span>
-            </div>
+          <nav className="text-xs md:text-base text-gray-600 mb-2 md:mb-4 text-right" aria-label="Breadcrumb">
+            <Link href="/ar" className="hover:text-primary-600 transition-colors">الرئيسية</Link>
+            <span> / </span>
+            <span className="text-gray-900 font-medium">العلامة التجارية</span>
           </nav>
+          
+          {/* Back to Home */}
+          <Link href="/ar" className="inline-flex items-center flex-row-reverse gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 mb-4 md:mb-8">
+            <ArrowLeft className="h-3 w-3 md:h-4 md:w-4 rotate-180" />
+            <span>العودة للرئيسية</span>
+          </Link>
 
           <div className="text-center mb-12">
             <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-6">

@@ -2,6 +2,7 @@
 import { debugLog, errorLog } from '@/lib/logger'
 
 import Link from 'next/link'
+import { ArrowLeft } from 'lucide-react'
 import ProductCard from '@/components/ProductCard'
 import ErrorPage from '@/components/ErrorPage'
 import LoadingSpinner from '@/components/LoadingSpinner'
@@ -282,7 +283,7 @@ export default function ProductsPageClient() {
       />
       <div className="container mx-auto px-4 py-4 md:py-8 lg:py-16">
         {/* Navigation Breadcrumb */}
-        <nav className="text-xs md:text-sm lg:text-base text-gray-600 mb-4 md:mb-6 lg:mb-8 products-breadcrumb" aria-label="Breadcrumb">
+        <nav className="text-xs md:text-base text-gray-600 mb-2 md:mb-4 products-breadcrumb" aria-label="Breadcrumb">
           <Link 
             href={getLocalizedPath('/', locale)}
             className="hover:text-primary-600 transition-colors"
@@ -294,6 +295,15 @@ export default function ProductsPageClient() {
             {t('navigation.products')}
           </span>
         </nav>
+        
+        {/* Back to Home */}
+        <Link 
+          href={getLocalizedPath('/', locale)}
+          className="inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 mb-4 md:mb-8"
+        >
+          <ArrowLeft className="h-3 w-3 md:h-4 md:w-4" />
+          <span>{t('navigation.backToHome')}</span>
+        </Link>
 
         {/* Header */}
         <div className="text-center mb-6 md:mb-8">

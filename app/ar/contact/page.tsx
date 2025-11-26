@@ -58,8 +58,8 @@ export default function ArabicContactPage() {
           { name: 'اتصل بنا', url: '/ar/contact' }
         ]}
       />
-      <div className="container mx-auto px-4 py-8 md:py-16">
-        <div className="max-w-4xl mx-auto">
+      <div className="container mx-auto px-4 pt-8 md:pt-16 pb-0 mb-0">
+        <div className="max-w-4xl mx-auto mb-0 pb-0 -mb-8 md:-mb-12">
 
           {/* Navigation Breadcrumb */}
           <nav className="flex flex-col gap-2 text-sm md:text-base text-gray-600 mb-8" aria-label="Breadcrumb">
@@ -173,15 +173,15 @@ export default function ArabicContactPage() {
             </div>
           </div>
 
-          <div className="text-center">
-            <div className="bg-primary-50 rounded-lg p-6 md:p-8">
+          <div className="text-center mb-0 pb-0">
+            <div className="bg-primary-50 rounded-lg p-6 md:p-8 mb-0">
               <h2 className="text-xl md:text-2xl font-semibold text-gray-800 mb-4">
                 الموزع الرسمي في الإمارات
               </h2>
               <p className="text-gray-600 mb-4 text-sm md:text-base">
                 شركة GENOSYS الشرق الأوسط FZ-LLC هي موزع رسمي لشركة DTSMG. Co., Ltd، كوريا في الإمارات العربية المتحدة منذ عام 2019.
               </p>
-              <p className="text-xs md:text-sm text-gray-500 mb-6">
+              <p className="text-xs md:text-sm text-gray-500 mb-0">
                 جميع منتجات GENOSYS معتمدة في نظام Montaji من قبل <a href="https://www.dm.gov.ae/" target="_blank" rel="noopener noreferrer" className="text-primary-600 hover:text-primary-700">بلدية دبي</a>.
               </p>
               <div className="space-y-3">

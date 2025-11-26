@@ -83,8 +83,7 @@ export default function Footer() {
               alt="GENOSYS Middle East FZ-LLC - Official Korean Dermacosmetics Distributor UAE"
               width={180}
               height={54}
-              className="mb-2"
-              style={{ width: 'auto', height: 'auto' }}
+              className="mb-2 h-auto w-auto"
               priority={false}
               quality={75}
               placeholder="blur"

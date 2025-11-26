@@ -167,7 +167,12 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
                           <span className="text-base font-bold text-primary-600">
                             {pricing.originalPrice.toFixed(2)} AED
                           </span>
-                          <p className="text-xs text-gray-500 mt-1">{t('product.vatIncluded')}</p>
+                          <div className="flex items-center gap-1 mt-1">
+                            {product.category === 'Beauty Boxes' && (
+                              <span className="text-sm text-green-600 font-normal">15% off</span>
+                            )}
+                            <span className="text-xs text-gray-500">{t('product.vatIncluded')}</span>
+                          </div>
                         </div>
                       )}
                     </div>

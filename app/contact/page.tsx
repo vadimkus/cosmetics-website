@@ -57,8 +57,8 @@ export default function ContactPage() {
           { name: 'Contact', url: '/contact' }
         ]}
       />
-      <div className="container mx-auto px-4 py-8 md:py-16">
-        <div className="max-w-4xl mx-auto">
+      <div className="container mx-auto px-4 pt-8 md:pt-16 pb-0 mb-0">
+        <div className="max-w-4xl mx-auto mb-0 pb-0 -mb-8 md:-mb-12">
 
           {/* Navigation Breadcrumb */}
           <nav className="flex flex-col gap-2 text-sm md:text-base text-gray-600 mb-8" aria-label="Breadcrumb">
@@ -172,15 +172,15 @@ export default function ContactPage() {
             </div>
           </div>
 
-          <div className="text-center">
-            <div className="bg-primary-50 rounded-lg p-6 md:p-8">
+          <div className="text-center mb-0 pb-0">
+            <div className="bg-primary-50 rounded-lg p-6 md:p-8 mb-0">
               <h2 className="text-xl md:text-2xl font-semibold text-gray-800 mb-4">
                 Official Distributor in the UAE
               </h2>
               <p className="text-gray-600 mb-4 text-sm md:text-base">
                 Genosys Middle East FZ-LLC is an official distributor of DTSMG. Co., Ltd, Korea in the United Arab Emirates since 2019.
               </p>
-              <p className="text-xs md:text-sm text-gray-500 mb-6">
+              <p className="text-xs md:text-sm text-gray-500 mb-0">
                 All Genosys products are certified in Montaji System by <a href="https://www.dm.gov.ae/" target="_blank" rel="noopener noreferrer" className="text-primary-600 hover:text-primary-700">Dubai Municipality</a>.
               </p>
               <div className="space-y-3">

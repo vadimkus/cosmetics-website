@@ -299,7 +299,7 @@ export default function ProductsPageClient() {
           <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
             {t('products.title')}
           </h1>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="hidden md:block text-lg text-gray-600 max-w-2xl mx-auto">
             {t('products.subtitle')}
           </p>
         </div>

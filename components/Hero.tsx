@@ -116,11 +116,11 @@ export default function Hero({ initialLocale = 'en', initialDir = 'ltr' }: HeroP
         <p className="text-lg md:text-xl text-gray-600 mb-6 md:mb-8 max-w-2xl mx-auto px-4">
           {subtitleText}
         </p>
-        <div className={`flex flex-col sm:flex-row gap-3 md:gap-4 justify-center px-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+        <div className={`flex flex-col gap-3 md:gap-4 justify-center items-center px-4 ${dir === 'rtl' ? 'sm:flex-row-reverse' : 'sm:flex-row'}`}>
           {user ? (
             <Link 
               href={productsPath}
-              className="bg-primary-600 text-white px-6 md:px-8 py-3 md:py-4 rounded-lg font-semibold hover:bg-primary-700 transition-colors flex items-center justify-center text-base md:text-lg min-h-[44px] touch-manipulation"
+              className="w-full sm:w-auto bg-primary-600 text-white px-6 md:px-8 py-3 md:py-4 rounded-lg font-semibold hover:bg-primary-700 transition-colors flex items-center justify-center text-base md:text-lg min-h-[44px] touch-manipulation"
             >
               {orderNowText}
               <ArrowRight className={`${dir === 'rtl' ? 'mr-2 rotate-180' : 'ml-2'} h-4 w-4 md:h-5 md:w-5`} />
@@ -128,7 +128,7 @@ export default function Hero({ initialLocale = 'en', initialDir = 'ltr' }: HeroP
           ) : (
             <button
               onClick={() => setShowLoginModal(true)}
-              className="bg-primary-600 text-white px-6 md:px-8 py-3 md:py-4 rounded-lg font-semibold hover:bg-primary-700 transition-colors flex items-center justify-center text-base md:text-lg min-h-[44px] touch-manipulation"
+              className="w-full sm:w-auto bg-primary-600 text-white px-6 md:px-8 py-3 md:py-4 rounded-lg font-semibold hover:bg-primary-700 transition-colors flex items-center justify-center text-base md:text-lg min-h-[44px] touch-manipulation"
             >
               {loginText}
               <ArrowRight className={`${dir === 'rtl' ? 'mr-2 rotate-180' : 'ml-2'} h-4 w-4 md:h-5 md:w-5`} />
@@ -136,7 +136,7 @@ export default function Hero({ initialLocale = 'en', initialDir = 'ltr' }: HeroP
           )}
           <Link 
             href={aboutPath}
-            className="border border-primary-600 text-primary-600 px-6 md:px-8 py-3 md:py-4 rounded-lg font-semibold hover:bg-primary-50 transition-colors flex items-center justify-center text-base md:text-lg min-h-[44px] touch-manipulation"
+            className="w-full sm:w-auto border border-primary-600 text-primary-600 px-6 md:px-8 py-3 md:py-4 rounded-lg font-semibold hover:bg-primary-50 transition-colors flex items-center justify-center text-base md:text-lg min-h-[44px] touch-manipulation"
           >
             {learnMoreText}
           </Link>

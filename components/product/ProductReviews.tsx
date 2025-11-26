@@ -168,7 +168,7 @@ export default function ProductReviews({ productId }: ProductReviewsProps) {
     <div className="mt-12 border-t pt-6 md:pt-8" dir={dir}>
       <div className={`flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6 ${dir === 'rtl' ? 'sm:flex-row-reverse' : ''}`}>
         <div className="flex-1">
-          <h2 className={`text-xl md:text-2xl font-bold text-gray-900 mb-2 ${dir === 'rtl' ? 'text-right' : ''}`}>{t('product.customerReviews')}</h2>
+          <h2 className={`text-xl md:text-2xl font-bold text-gray-900 mb-2 text-center md:text-left ${dir === 'rtl' ? 'md:text-right' : ''}`}>{t('product.customerReviews')}</h2>
           {averageRating && (
             <div className={`flex flex-wrap items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
               <div className="flex items-center">

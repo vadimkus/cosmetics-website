@@ -3,10 +3,10 @@
  * Provides offline functionality and caching strategies
  */
 
-const CACHE_NAME = 'genosys-cache-v1'
-const STATIC_CACHE = 'genosys-static-v1'
-const DYNAMIC_CACHE = 'genosys-dynamic-v1'
-const IMAGE_CACHE = 'genosys-images-v1'
+const CACHE_NAME = 'genosys-cache-v5'
+const STATIC_CACHE = 'genosys-static-v5'
+const DYNAMIC_CACHE = 'genosys-dynamic-v5'
+const IMAGE_CACHE = 'genosys-images-v5'
 
 // Assets to cache immediately
 const STATIC_ASSETS = [

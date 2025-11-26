@@ -2,7 +2,7 @@
 import { debugLog, errorLog } from '@/lib/logger'
 
 import Link from 'next/link'
-import { ArrowLeft } from 'lucide-react'
+import { ArrowLeft, Heart } from 'lucide-react'
 import ProductCard from '@/components/ProductCard'
 import ErrorPage from '@/components/ErrorPage'
 import LoadingSpinner from '@/components/LoadingSpinner'
@@ -64,6 +64,37 @@ export default function ProductsPageClient() {
     minRating: 0,
     inStockOnly: false
   })
+  
+  // Heart animation state for mobile header
+  const [isHeartBeating, setIsHeartBeating] = useState(false)
+  const [isMobile, setIsMobile] = useState(true) // Default to mobile for SSR, will update on client
+  
+  // Check if mobile on mount and window resize
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+  
+  // Heart beat animation effect
+  useEffect(() => {
+    const startHeartbeat = () => {
+      setIsHeartBeating(true)
+      setTimeout(() => {
+        setIsHeartBeating(false)
+      }, 600)
+    }
+
+    startHeartbeat()
+    const interval = setInterval(startHeartbeat, 16000)
+
+    return () => clearInterval(interval)
+  }, [])
 
   // Fetch products from API
   useEffect(() => {
@@ -307,12 +338,28 @@ export default function ProductsPageClient() {
 
         {/* Header */}
         <div className="text-center mb-6 md:mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-2">
-            <span className="md:hidden">GENOSYS</span>
-            <span className="hidden md:inline">{t('products.title')}</span>
-          </h1>
+          {isMobile ? (
+            <div className="mb-2">
+              <h1 className="text-xl font-bold text-primary-600">Genosys Middle East FZ-LLC</h1>
+              <div className="flex items-center justify-center gap-1 mt-1 text-sm text-gray-600">
+                <span className="ml-[70px] flex items-center gap-1">
+                  United Arab Emirates
+                  <Heart 
+                    className={`h-3 w-3 text-primary-600 fill-current transition-transform duration-300 ${
+                      isHeartBeating ? 'animate-pulse' : ''
+                    }`}
+                    style={isHeartBeating ? { animation: 'heartbeat 0.6s ease-in-out' } : {}}
+                  />
+                </span>
+              </div>
+            </div>
+          ) : (
+            <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-2">
+              {t('products.title')}
+            </h1>
+          )}
           {/* Black Friday Mini Counter */}
-          <div className="flex justify-end mb-2">
+          <div className="flex justify-center mb-2">
             <BlackFridayMini />
           </div>
           <p className="hidden md:block text-lg text-gray-600 max-w-2xl mx-auto">

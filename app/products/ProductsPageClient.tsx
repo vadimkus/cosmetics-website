@@ -308,7 +308,8 @@ export default function ProductsPageClient() {
         {/* Header */}
         <div className="text-center mb-6 md:mb-8">
           <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-2">
-            {t('products.title')}
+            <span className="md:hidden">GENOSYS</span>
+            <span className="hidden md:inline">{t('products.title')}</span>
           </h1>
           {/* Black Friday Mini Counter */}
           <div className="flex justify-end mb-2">

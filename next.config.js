@@ -39,6 +39,9 @@ const nextConfig = {
       {
         pathname: '/blog/**',
       },
+      {
+        pathname: '/avatar/**',
+      },
     ],
     // Optimize images with modern formats - AVIF first (better compression), then WebP fallback
     formats: ['image/avif', 'image/webp'],

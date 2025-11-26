@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { ArrowLeft, Heart } from 'lucide-react'
 import { useFavorites } from '@/components/FavoritesProvider'
 import ProductCard from '@/components/ProductCard'
@@ -11,92 +12,105 @@ export default function FavoritesClient() {
 
   if (favorites.length === 0) {
     return (
-      <div className="container mx-auto px-4 py-8 md:py-16">
+      <div className="container mx-auto px-3 md:px-4 py-4 md:py-16">
         {/* Navigation Breadcrumb */}
-        <nav className="flex items-center gap-2 text-sm md:text-base text-gray-600 mb-8" aria-label="Breadcrumb">
-          <Link
-            href="/"
-            className="hover:text-primary-600 transition-colors flex items-center"
-          >
-            Home
-          </Link>
-          <span className="flex items-center">/</span>
-          <span className="text-gray-900 font-medium flex items-center">
-            Favorites
-          </span>
+        <nav className="text-xs md:text-base text-gray-600 mb-2 md:mb-4" aria-label="Breadcrumb">
+          <Link href="/" className="hover:text-primary-600 transition-colors">Home</Link>
+          <span> / </span>
+          <span className="text-gray-900 font-medium">Favorites</span>
         </nav>
+        
+        {/* Back to Home */}
+        <Link href="/" className="inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 mb-4 md:mb-8">
+          <ArrowLeft className="h-3 w-3 md:h-4 md:w-4" />
+          <span>Back to Home</span>
+        </Link>
 
-        <div className="max-w-4xl mx-auto text-center py-16">
-          <div className="mb-8">
-            <Heart className="h-24 w-24 text-gray-300 mx-auto mb-4" />
-            <h1 className="text-3xl font-bold text-gray-900 mb-4">No Favorites Yet</h1>
-            <p className="text-gray-600 text-lg mb-8">
-              You haven&apos;t added any products to your favorites yet. Start exploring our collection!
-            </p>
+        <div className="max-w-md mx-auto text-center py-6 md:py-16">
+          <div className="bg-white md:bg-gray-50 rounded-xl p-4 md:p-8">
+            {/* Mobile: Custom image, Desktop: Heart icon */}
+            <div className="md:hidden mb-2">
+              <Image
+                src="/images/avatar/uni.png"
+                alt="No favorites"
+                width={120}
+                height={120}
+                className="mx-auto"
+              />
+            </div>
+            <Heart className="hidden md:block h-16 w-16 text-gray-300 mx-auto mb-4" />
+            <h1 className="text-base md:text-2xl font-bold text-gray-900 mb-3 md:mb-6">No Favorites Yet</h1>
+            <Link
+              href="/products"
+              className="inline-flex items-center gap-1 bg-primary-600 text-white px-3 md:px-6 py-1.5 md:py-2.5 rounded-lg text-xs md:text-sm font-medium hover:bg-primary-700 transition-colors"
+            >
+              <ArrowLeft className="h-3 w-3 md:h-4 md:w-4" />
+              Browse Products
+            </Link>
           </div>
-          
-          <Link
-            href="/products"
-            className="inline-flex items-center gap-2 bg-primary-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-primary-700 transition-colors"
-          >
-            <ArrowLeft className="h-5 w-5" />
-            Browse Products
-          </Link>
         </div>
       </div>
     )
   }
 
   return (
-    <div className="container mx-auto px-4 py-8 md:py-16">
+    <div className="container mx-auto px-3 md:px-4 py-4 md:py-16">
       {/* Navigation Breadcrumb */}
-      <nav className="flex items-center gap-2 text-sm md:text-base text-gray-600 mb-8" aria-label="Breadcrumb">
-        <Link
-          href="/"
-          className="hover:text-primary-600 transition-colors flex items-center"
-        >
-          Home
-        </Link>
-        <span className="flex items-center">/</span>
-        <span className="text-gray-900 font-medium flex items-center">
-          Favorites
-        </span>
+      <nav className="text-xs md:text-base text-gray-600 mb-2 md:mb-4" aria-label="Breadcrumb">
+        <Link href="/" className="hover:text-primary-600 transition-colors">Home</Link>
+        <span> / </span>
+        <span className="text-gray-900 font-medium">Favorites</span>
       </nav>
+      
+      {/* Back to Home */}
+      <Link href="/" className="inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 mb-4 md:mb-8">
+        <ArrowLeft className="h-3 w-3 md:h-4 md:w-4" />
+        <span>Back to Home</span>
+      </Link>
 
       <div className="max-w-6xl mx-auto">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-            <Heart className="h-8 w-8 text-red-500" />
+        <div className="mb-4 md:mb-8">
+          <h1 className="text-xl md:text-3xl font-bold text-gray-900 mb-2 md:mb-4 flex items-center gap-2">
+            <Heart className="h-6 w-6 md:h-8 md:w-8 text-red-500" />
             My Favorites ({favorites.length})
           </h1>
-          <p className="text-gray-600">
+          <p className="text-xs md:text-base text-gray-600">
             Your saved GENOSYS professional Korean dermacosmetics products
           </p>
         </div>
 
         {favoriteProducts.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 md:gap-6">
             {favoriteProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
           </div>
         ) : (
-          <div className="text-center py-16">
-            <div className="mb-8">
-              <Heart className="h-24 w-24 text-gray-300 mx-auto mb-4" />
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">No Products Found</h2>
-              <p className="text-gray-600 text-lg mb-8">
-                Some of your favorite products may no longer be available.
+          <div className="max-w-md mx-auto text-center py-6 md:py-16">
+            <div className="bg-gray-50 rounded-xl p-4 md:p-8">
+              {/* Mobile: Custom image, Desktop: Heart icon */}
+              <div className="md:hidden mb-2">
+                <Image
+                  src="/images/avatar/uni.png"
+                  alt="No products"
+                  width={60}
+                  height={60}
+                  className="mx-auto"
+                />
+              </div>
+              <Heart className="hidden md:block h-16 w-16 text-gray-300 mx-auto mb-4" />
+              <h2 className="text-base md:text-2xl font-bold text-gray-900 mb-1 md:mb-3">No Products Found</h2>
+              <p className="text-[11px] md:text-sm text-gray-500 mb-3 md:mb-6 leading-relaxed">
+                Products may no longer be available.
               </p>
+              <Link
+                href="/products"
+                className="inline-flex items-center gap-1 bg-primary-600 text-white px-3 md:px-6 py-1.5 md:py-2.5 rounded-lg text-xs md:text-sm font-medium hover:bg-primary-700 transition-colors"
+              >
+                <ArrowLeft className="h-3 w-3 md:h-4 md:w-4" />
+                Browse Products
+              </Link>
             </div>
-            
-            <Link
-              href="/products"
-              className="inline-flex items-center gap-2 bg-primary-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-primary-700 transition-colors"
-            >
-              <ArrowLeft className="h-5 w-5" />
-              Browse Products
-            </Link>
           </div>
         )}
       </div>

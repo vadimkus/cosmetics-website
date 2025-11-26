@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { ShoppingCart, Heart, User, LogOut, Menu } from 'lucide-react'
 // import { useCart } from './CartProvider' // Unused for now
 import { useCartStore } from '@/lib/cartStore'
@@ -52,16 +53,75 @@ const Header = memo(function Header() {
     <header className="bg-white shadow-sm border-b" suppressHydrationWarning>
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between py-4 header-main-flex">
-          <div className="flex flex-col">
-            <span className="hidden md:block text-lg md:text-2xl font-bold text-primary-600">
+          {/* Mobile Icons - Left Side */}
+          <div className="md:hidden flex items-center gap-1 header-icons">
+            {/* 1. Mobile Menu Button (Hamburger) */}
+            <button
+              onClick={() => setShowMobileMenu(!showMobileMenu)}
+              className="p-2 text-gray-700 hover:text-primary-600 transition-colors flex items-center justify-center"
+              aria-label={showMobileMenu ? t('common.closeMobileMenu') : t('common.openMobileMenu')}
+              aria-expanded={showMobileMenu}
+            >
+              <Menu className="h-5 w-5" aria-hidden="true" />
+            </button>
+            
+            {/* 2. Language Switcher (EN) */}
+            <LanguageSwitcher />
+            
+            {/* 3. Mobile User/Login Icon (Man) */}
+            {isClient && user ? (
+              <Link 
+                href={getLocalizedPath('/profile', locale)} 
+                className="p-2 text-gray-700 hover:text-primary-600 transition-colors flex items-center justify-center"
+                aria-label={t('common.profile')}
+              >
+                <User className="h-5 w-5 text-green-600" aria-hidden="true" />
+              </Link>
+            ) : (
+              <button 
+                onClick={() => setShowLoginModal(true)}
+                className="p-2 text-gray-700 hover:text-primary-600 transition-colors flex items-center justify-center"
+                aria-label={t('common.login')}
+              >
+                <User className="h-5 w-5 text-green-600" aria-hidden="true" />
+              </button>
+            )}
+            
+            {/* 4. Mobile Favorites Icon (Heart) */}
+            <Link 
+              href={getLocalizedPath('/favorites', locale)} 
+              className="relative p-2 text-gray-700 hover:text-primary-600 transition-colors flex items-center justify-center"
+              aria-label={`${t('common.favorites')} with ${isClient ? favorites.length : 0} items`}
+            >
+              <Heart className="h-5 w-5" aria-hidden="true" />
+              {isClient && favorites.length > 0 && (
+                <span className="absolute top-0 right-0 bg-primary-600 text-white text-[10px] rounded-full h-4 w-4 flex items-center justify-center header-badge" aria-hidden="true">
+                  {favorites.length}
+                </span>
+              )}
+            </Link>
+            
+            {/* 5. Mobile Cart Icon */}
+            <Link 
+              href={getLocalizedPath('/cart', locale)} 
+              className="relative p-2 text-gray-700 hover:text-primary-600 transition-colors flex items-center justify-center"
+              aria-label={`${t('common.cart')} with ${isClient ? getTotalItems() : 0} items`}
+            >
+              <ShoppingCart className="h-5 w-5" aria-hidden="true" />
+              {isClient && getTotalItems() > 0 && (
+                <span className="absolute top-0 right-0 bg-primary-600 text-white text-[10px] rounded-full h-4 w-4 flex items-center justify-center header-badge" aria-hidden="true">
+                  {getTotalItems()}
+                </span>
+              )}
+            </Link>
+          </div>
+          
+          {/* Desktop Left Side */}
+          <div className="hidden md:flex flex-col">
+            <span className="text-lg md:text-2xl font-bold text-primary-600">
               Genosys Middle East FZ-LLC
             </span>
-            <div className="md:hidden mt-3" suppressHydrationWarning>
-              <Link href="/products" className="text-base font-normal text-primary-600">
-                {t('navigation.products')}
-              </Link>
-            </div>
-            <div className="hidden md:flex text-sm text-gray-600 items-center gap-1 ml-0 md:ml-40 header-margin">
+            <div className="flex text-sm text-gray-600 items-center gap-1 ml-0 md:ml-40 header-margin">
               {t('common.uae')}
               <Heart className={`h-3 w-3 text-primary-600 fill-current transition-transform duration-300 ${
                 isHeartBeating ? 'animate-pulse' : ''
@@ -98,79 +158,6 @@ const Header = memo(function Header() {
               {t('navigation.delivery')}
             </Link>
           </nav>
-
-          {/* Mobile Icons and Menu Button */}
-          <div className="md:hidden flex items-center gap-1 header-icons">
-            {/* Mobile Cart Icon */}
-            <Link 
-              href={getLocalizedPath('/cart', locale)} 
-              className="relative p-2 text-gray-700 hover:text-primary-600 transition-colors flex items-center justify-center"
-              aria-label={`${t('common.cart')} with ${isClient ? getTotalItems() : 0} items`}
-            >
-              <ShoppingCart className="h-5 w-5" aria-hidden="true" />
-              {isClient && getTotalItems() > 0 && (
-                <span className="absolute top-0 right-0 bg-primary-600 text-white text-[10px] rounded-full h-4 w-4 flex items-center justify-center header-badge" aria-hidden="true">
-                  {getTotalItems()}
-                </span>
-              )}
-            </Link>
-            
-            {/* Mobile Favorites Icon */}
-            <Link 
-              href={getLocalizedPath('/favorites', locale)} 
-              className="relative p-2 text-gray-700 hover:text-primary-600 transition-colors flex items-center justify-center"
-              aria-label={`${t('common.favorites')} with ${isClient ? favorites.length : 0} items`}
-            >
-              <Heart className="h-5 w-5" aria-hidden="true" />
-              {isClient && favorites.length > 0 && (
-                <span className="absolute top-0 right-0 bg-primary-600 text-white text-[10px] rounded-full h-4 w-4 flex items-center justify-center header-badge" aria-hidden="true">
-                  {favorites.length}
-                </span>
-              )}
-            </Link>
-            
-            {/* Mobile User/Login Icon */}
-            {isClient && user ? (
-              <>
-                <Link 
-                  href={getLocalizedPath('/profile', locale)} 
-                  className="p-2 text-gray-700 hover:text-primary-600 transition-colors flex items-center justify-center"
-                  aria-label={t('common.profile')}
-                >
-                  <User className="h-5 w-5 text-green-600" aria-hidden="true" />
-                </Link>
-                <LanguageSwitcher />
-                <button 
-                  onClick={logout}
-                  className="p-2 text-gray-700 hover:text-primary-600 transition-colors flex items-center justify-center"
-                  aria-label={t('common.logout')}
-                >
-                  <LogOut className="h-5 w-5" aria-hidden="true" />
-                </button>
-              </>
-            ) : (
-              <>
-                <button 
-                  onClick={() => setShowLoginModal(true)}
-                  className="p-2 text-gray-700 hover:text-primary-600 transition-colors flex items-center justify-center"
-                  aria-label={t('common.login')}
-                >
-                  <User className="h-5 w-5 text-green-600" aria-hidden="true" />
-                </button>
-                <LanguageSwitcher />
-              </>
-            )}
-            
-            {/* Mobile Menu Button */}
-            <button
-              onClick={() => setShowMobileMenu(!showMobileMenu)}
-              className="p-2 text-gray-700 hover:text-primary-600 transition-colors flex items-center justify-center"
-              aria-label={showMobileMenu ? t('common.closeMobileMenu') : t('common.openMobileMenu')}
-              aria-expanded={showMobileMenu}
-            >
-              <Menu className="h-5 w-5" aria-hidden="true" />
-            </button>
-          </div>
           
           <div className="hidden lg:flex items-center space-x-6 header-desktop-right">
             <div className="flex flex-col items-end text-right header-contact">

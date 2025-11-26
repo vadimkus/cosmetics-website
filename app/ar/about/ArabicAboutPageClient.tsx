@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import { ArrowLeft } from 'lucide-react'
 import Logo from '@/components/Logo'
 import BreadcrumbSchema from '@/components/BreadcrumbSchema'
 import { useTranslation } from '@/hooks/useTranslation'
@@ -21,18 +22,17 @@ export default function ArabicAboutPageClient() {
         <div className="max-w-4xl mx-auto">
 
           {/* Navigation Breadcrumb */}
-          <nav className={`flex items-center flex-nowrap gap-1 md:gap-2 text-xs md:text-base text-gray-600 mb-4 md:mb-8 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`} aria-label="Breadcrumb">
-            <Link 
-              href={getLocalizedPath('/', locale)}
-              className="hover:text-primary-600 transition-colors whitespace-nowrap"
-            >
-              {t('navigation.home')}
-            </Link>
-            <span className="whitespace-nowrap">/</span>
-            <span className="text-gray-900 font-medium whitespace-nowrap">
-              {t('navigation.about')}
-            </span>
+          <nav className={`text-xs md:text-base text-gray-600 mb-2 md:mb-4 ${dir === 'rtl' ? 'text-right' : ''}`} aria-label="Breadcrumb">
+            <Link href={getLocalizedPath('/', locale)} className="hover:text-primary-600 transition-colors">{t('navigation.home')}</Link>
+            <span> / </span>
+            <span className="text-gray-900 font-medium">{t('navigation.about')}</span>
           </nav>
+          
+          {/* Back to Home */}
+          <Link href={getLocalizedPath('/', locale)} className={`inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 mb-4 md:mb-8 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+            <ArrowLeft className={`h-3 w-3 md:h-4 md:w-4 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
+            <span>{t('common.backToHome')}</span>
+          </Link>
 
           {/* Header - Compact on mobile */}
           <div className="text-center mb-6 md:mb-12">

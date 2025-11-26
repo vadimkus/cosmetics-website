@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Clock, Truck, Phone, Mail, Gift, RotateCcw } from 'lucide-react'
+import { ArrowLeft, Clock, Truck, Phone, Mail, Gift, RotateCcw } from 'lucide-react'
 import BreadcrumbSchema from '@/components/BreadcrumbSchema'
 import type { Metadata } from 'next'
 
@@ -112,18 +112,17 @@ export default function DeliveryPage() {
         <div className="max-w-4xl mx-auto">
 
           {/* Navigation Breadcrumb */}
-          <nav className="flex items-center flex-nowrap gap-1 md:gap-2 text-xs md:text-base text-gray-600 mb-4 md:mb-8" aria-label="Breadcrumb">
-            <Link 
-              href="/"
-              className="hover:text-primary-600 transition-colors whitespace-nowrap"
-            >
-              Home
-            </Link>
-            <span className="whitespace-nowrap">/</span>
-            <span className="text-gray-900 font-medium whitespace-nowrap">
-              Delivery
-            </span>
+          <nav className="text-xs md:text-base text-gray-600 mb-2 md:mb-4" aria-label="Breadcrumb">
+            <Link href="/" className="hover:text-primary-600 transition-colors">Home</Link>
+            <span> / </span>
+            <span className="text-gray-900 font-medium">Delivery</span>
           </nav>
+          
+          {/* Back to Home */}
+          <Link href="/" className="inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 mb-4 md:mb-8">
+            <ArrowLeft className="h-3 w-3 md:h-4 md:w-4" />
+            <span>Back to Home</span>
+          </Link>
 
           {/* Header */}
           <div className="text-center mb-6 md:mb-12">

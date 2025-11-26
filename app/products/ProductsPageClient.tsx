@@ -8,6 +8,7 @@ import LoadingSpinner from '@/components/LoadingSpinner'
 import ProductSearch from '@/components/products/ProductSearch'
 import ProductFilters from '@/components/products/ProductFilters'
 import ProductSort, { SortOption } from '@/components/products/ProductSort'
+import BlackFridayMini from '@/components/BlackFridayMini'
 import { useState, useMemo, useCallback, useEffect } from 'react'
 import { Product } from '@/types'
 import ProductsListSchema from '@/components/ProductsListSchema'
@@ -296,9 +297,13 @@ export default function ProductsPageClient() {
 
         {/* Header */}
         <div className="text-center mb-6 md:mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-2">
             {t('products.title')}
           </h1>
+          {/* Black Friday Mini Counter */}
+          <div className="flex justify-end mb-2">
+            <BlackFridayMini />
+          </div>
           <p className="hidden md:block text-lg text-gray-600 max-w-2xl mx-auto">
             {t('products.subtitle')}
           </p>

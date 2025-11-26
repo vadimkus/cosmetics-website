@@ -27,18 +27,17 @@ export default function FavoritesClient() {
         </Link>
 
         <div className="max-w-md mx-auto text-center py-6 md:py-16">
-          <div className="bg-white md:bg-gray-50 rounded-xl p-4 md:p-8">
-            {/* Mobile: Custom image, Desktop: Heart icon */}
-            <div className="md:hidden mb-2">
+          <div className="bg-white rounded-xl p-4 md:p-8">
+            {/* Mobile: Custom image, Desktop: Custom image */}
+            <div className="mb-2 md:mb-4">
               <Image
                 src="/images/avatar/uni.png"
                 alt="No favorites"
-                width={120}
-                height={120}
+                width={210}
+                height={210}
                 className="mx-auto"
               />
             </div>
-            <Heart className="hidden md:block h-16 w-16 text-gray-300 mx-auto mb-4" />
             <h1 className="text-base md:text-2xl font-bold text-gray-900 mb-3 md:mb-6">No Favorites Yet</h1>
             <Link
               href="/products"

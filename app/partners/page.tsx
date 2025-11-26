@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { ArrowLeft } from 'lucide-react'
+import { ArrowLeft, Handshake } from 'lucide-react'
 import BreadcrumbSchema from '@/components/BreadcrumbSchema'
 import PartnersList from '@/components/partners/PartnersList'
 import PartnersSchema from '@/components/PartnersSchema'
@@ -89,36 +89,44 @@ export default function PartnersPage() {
               <ArrowLeft className="h-3 w-3 md:h-4 md:w-4" />
               <span>Back to Home</span>
             </Link>
-            <div className="text-center mb-4 sm:mb-6 lg:mb-8">
-              <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-800 mb-2 px-2">
-                Our Partners
-              </h1>
-              <p className="text-sm sm:text-base lg:text-lg text-gray-600 mb-4 px-2">
+
+            {/* Header */}
+            <div className="text-center mb-4 md:mb-8">
+              <div className="inline-flex items-center justify-center gap-2 mb-2 md:mb-3">
+                <div className="p-2 md:p-3 bg-gradient-to-r from-red-100 to-pink-100 rounded-lg md:rounded-xl">
+                  <Handshake className="h-4 w-4 md:h-6 md:w-6 text-red-600" />
+                </div>
+                <h1 className="text-xl md:text-3xl font-bold text-gray-800">
+                  Our Partners
+                </h1>
+              </div>
+              <p className="text-xs md:text-base text-gray-600 px-2">
                 Building strong Genosys partnerships across United Arab Emirates
               </p>
             </div>
             
+            {/* Partners List */}
             <PartnersList />
 
             {/* Call to Action */}
-            <div className="mt-6 sm:mt-8 lg:mt-12 text-center">
-              <div className="bg-gradient-to-r from-primary-50 to-red-50 rounded-xl p-3 sm:p-4 md:p-6 lg:p-8">
-                <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-800 mb-2 sm:mb-3 lg:mb-4">
+            <div className="mt-6 md:mt-12">
+              <div className="bg-gradient-to-r from-primary-50 to-red-50 rounded-lg md:rounded-xl p-4 md:p-8 border border-red-100">
+                <h2 className="text-base md:text-2xl font-bold text-gray-800 mb-2 md:mb-4 text-center">
                   Interested in Becoming a Partner?
                 </h2>
-                <p className="text-xs sm:text-sm lg:text-base text-gray-600 mb-3 sm:mb-4 lg:mb-6 px-1">
+                <p className="text-xs md:text-base text-gray-600 mb-4 md:mb-6 text-center px-2">
                   Join our network of trusted partners and help us bring GENOSYS products to more customers
                 </p>
-                <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 lg:gap-4 justify-center">
+                <div className="flex flex-col sm:flex-row gap-2 md:gap-4 justify-center">
                   <Link 
-                    href="/contact-genosys-uae"
-                    className="inline-flex items-center justify-center bg-primary-600 text-white px-3 sm:px-4 lg:px-6 py-2 sm:py-2.5 lg:py-3 rounded-lg text-xs sm:text-sm lg:text-base font-semibold hover:bg-primary-700 transition-colors w-full sm:w-auto"
+                    href="/contact"
+                    className="inline-flex items-center justify-center bg-primary-600 text-white px-4 md:px-6 py-2.5 md:py-3 rounded-lg text-xs md:text-base font-semibold hover:bg-primary-700 transition-colors min-h-[44px] touch-manipulation"
                   >
                     Contact Us
                   </Link>
                   <Link 
                     href="/products"
-                    className="inline-flex items-center justify-center border border-primary-600 text-primary-600 px-3 sm:px-4 lg:px-6 py-2 sm:py-2.5 lg:py-3 rounded-lg text-xs sm:text-sm lg:text-base font-semibold hover:bg-primary-50 transition-colors w-full sm:w-auto"
+                    className="inline-flex items-center justify-center border-2 border-primary-600 text-primary-600 px-4 md:px-6 py-2.5 md:py-3 rounded-lg text-xs md:text-base font-semibold hover:bg-primary-50 transition-colors min-h-[44px] touch-manipulation"
                   >
                     View Products
                   </Link>

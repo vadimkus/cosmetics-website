@@ -298,9 +298,6 @@ const Header = memo(function Header() {
             >
               {t('navigation.delivery')}
             </Link>
-            <div className="py-3 border-b border-gray-100 min-h-[44px] flex items-center">
-              <LanguageSwitcher />
-            </div>
               
               {/* Mobile Login/Profile Section */}
               <div className="pt-4 border-t border-gray-200">

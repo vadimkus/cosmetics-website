@@ -19,87 +19,59 @@ export default function ArabicTrainingPageClient() {
           { name: t('navigation.training'), url: getLocalizedPath('/training', locale) }
         ]}
       />
-      <div className="container mx-auto px-4 py-8 md:py-16">
+      <div className="container mx-auto px-3 md:px-4 py-4 md:py-16">
         <div className="max-w-4xl mx-auto">
 
           {/* Navigation Breadcrumb */}
-          <nav className={`flex flex-col gap-2 text-sm md:text-base text-gray-600 mb-8 ${dir === 'rtl' ? 'text-right' : ''}`} aria-label="Breadcrumb">
-            {/* Mobile Breadcrumb */}
-            <div className={`md:hidden flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-              <Link 
-                href={getLocalizedPath('/', locale)}
-                className="hover:text-primary-600 transition-colors flex items-center"
-              >
-                {t('navigation.home')}
-              </Link>
-              <span className="flex items-center">/</span>
-              <span className="text-gray-900 font-medium flex items-center">
-                {t('navigation.training')}
-              </span>
-            </div>
-            
-            {/* Mobile Back Button */}
-            <Link 
-              href={getLocalizedPath('/', locale)}
-              className={`md:hidden flex items-center gap-2 text-primary-600 hover:text-primary-700 transition-colors ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
-            >
-              <ArrowLeft className={`h-4 w-4 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
-              <span className="font-medium">{t('common.backToHome')}</span>
-            </Link>
-            
-            {/* Desktop Breadcrumb */}
-            <div className={`hidden md:flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-              <Link 
-                href={getLocalizedPath('/', locale)}
-                className="hover:text-primary-600 transition-colors flex items-center"
-              >
-                {t('navigation.home')}
-              </Link>
-              <span className="flex items-center">/</span>
-              <span className="text-gray-900 font-medium flex items-center">
-                {t('navigation.training')}
-              </span>
-            </div>
+          <nav className="text-xs md:text-base text-gray-600 mb-2 md:mb-4" aria-label="Breadcrumb">
+            <Link href={getLocalizedPath('/', locale)} className="hover:text-primary-600 transition-colors">{t('navigation.home')}</Link>
+            <span> / </span>
+            <span className="text-gray-900 font-medium">{t('navigation.training')}</span>
           </nav>
+          
+          {/* Back to Home */}
+          <Link href={getLocalizedPath('/', locale)} className="inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 mb-4 md:mb-8">
+            <ArrowLeft className={`h-3 w-3 md:h-4 md:w-4 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
+            <span>{t('common.backToHome')}</span>
+          </Link>
 
-          <div className="text-center">
-            <div className="flex justify-center mb-6">
-              <Image 
-                src="/images/genosys-logo.png" 
-                alt="Genosys Professional Training" 
-                width={400} 
-                height={200} 
-                className="object-contain w-full max-w-xs sm:max-w-sm md:max-w-md"
-                priority
-              />
-            </div>
+          {/* Logo - hidden on mobile */}
+          <div className="hidden md:block text-center mb-6">
+            <Image 
+              src="/images/genosys-logo.png" 
+              alt="Genosys Professional Training" 
+              width={400} 
+              height={200} 
+              className="object-contain w-64 mx-auto"
+              priority
+            />
           </div>
 
           {/* Download Documents Section */}
-          <div className="bg-white border border-gray-200 rounded-xl shadow-sm mb-12">
-            <div className="p-4 sm:p-6 md:p-8">
+          <div className="bg-white border border-gray-200 rounded-lg md:rounded-xl shadow-sm mb-6 md:mb-12">
+            <div className="p-3 md:p-8">
               
               {/* Training Documents Section */}
-              <div className="mb-8">
-                <h3 className={`text-xl font-semibold text-gray-800 mb-6 flex items-center justify-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                  <div className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center">
-                    <svg className="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="mb-4 md:mb-8">
+                <h3 className={`text-sm md:text-xl font-semibold text-gray-800 mb-3 md:mb-6 flex items-center justify-center gap-1.5 md:gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                  <div className="w-6 h-6 md:w-8 md:h-8 bg-green-100 rounded-md md:rounded-lg flex items-center justify-center">
+                    <svg className="w-3 h-3 md:w-4 md:h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                     </svg>
                   </div>
                   {t('training.trainingDocuments')}
                 </h3>
-              <div className="space-y-2">
-                  <div className="group border border-gray-200 rounded-lg p-3 hover:border-green-300 hover:shadow-lg transition-all duration-200">
-                    <div className={`flex items-center gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                      <div className="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0 group-hover:bg-green-100 transition-colors">
+              <div className="space-y-1.5 md:space-y-2">
+                  <div className="group border border-gray-200 rounded-md md:rounded-lg p-2 md:p-3 hover:border-green-300 hover:shadow-lg transition-all duration-200">
+                    <div className={`flex items-center gap-2 md:gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                      <div className="w-8 h-8 md:w-10 md:h-10 bg-green-50 rounded-md md:rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0 group-hover:bg-green-100 transition-colors">
                         <Download className="h-5 w-5 text-green-600" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h4 className="text-sm font-semibold text-gray-900 truncate">
+                        <h4 className="text-xs md:text-sm font-semibold text-gray-900 truncate">
                         {t('training.productCatalogue')}
                       </h4>
-                        <p className="text-xs text-gray-400">
+                        <p className="text-[10px] md:text-xs text-gray-400">
                         235.5 MB
                       </p>
                       </div>
@@ -107,24 +79,24 @@ export default function ArabicTrainingPageClient() {
                         href="https://u.pcloud.link/publink/show?code=XZ9wc15ZDTFcM6uvKg0snY1dEJwzwQgHsEF7"
                         filename="Product Catalogue 2026"
                         external={true}
-                        className={`inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-md hover:from-green-700 hover:to-green-800 transition-colors text-xs font-medium flex-shrink-0 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+                        className={`inline-flex items-center px-2 md:px-3 py-1 md:py-1.5 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-md hover:from-green-700 hover:to-green-800 transition-colors text-[10px] md:text-xs font-medium flex-shrink-0 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
                       >
-                        <Download className={`h-3 w-3 ${dir === 'rtl' ? 'ml-1' : 'mr-1'}`} />
+                        <Download className={`h-2.5 w-2.5 md:h-3 md:w-3 ${dir === 'rtl' ? 'ml-1' : 'mr-1'}`} />
                         {t('training.viewPdf')}
                       </PDFDownloadButton>
                     </div>
                   </div>
                 
-                  <div className="group border border-gray-200 rounded-lg p-3 hover:border-green-300 hover:shadow-lg transition-all duration-200">
-                    <div className={`flex items-center gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                      <div className="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0 group-hover:bg-green-100 transition-colors">
+                  <div className="group border border-gray-200 rounded-md md:rounded-lg p-2 md:p-3 hover:border-green-300 hover:shadow-lg transition-all duration-200">
+                    <div className={`flex items-center gap-2 md:gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                      <div className="w-8 h-8 md:w-10 md:h-10 bg-green-50 rounded-md md:rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0 group-hover:bg-green-100 transition-colors">
                         <Download className="h-5 w-5 text-green-600" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h4 className="text-sm font-semibold text-gray-900 truncate">
+                        <h4 className="text-xs md:text-sm font-semibold text-gray-900 truncate">
                         {t('training.homeCareGuide')}
                       </h4>
-                        <p className="text-xs text-gray-400">
+                        <p className="text-[10px] md:text-xs text-gray-400">
                         9.8 MB
                       </p>
                       </div>
@@ -132,24 +104,24 @@ export default function ArabicTrainingPageClient() {
                         href="https://genosys.ae/documents/Genosys-Home-Care-Guide.pdf"
                         filename="Home Care Guide 2026"
                         external={true}
-                        className={`inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-md hover:from-green-700 hover:to-green-800 transition-colors text-xs font-medium flex-shrink-0 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+                        className={`inline-flex items-center px-2 md:px-3 py-1 md:py-1.5 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-md hover:from-green-700 hover:to-green-800 transition-colors text-[10px] md:text-xs font-medium flex-shrink-0 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
                       >
-                        <Download className={`h-3 w-3 ${dir === 'rtl' ? 'ml-1' : 'mr-1'}`} />
+                        <Download className={`h-2.5 w-2.5 md:h-3 md:w-3 ${dir === 'rtl' ? 'ml-1' : 'mr-1'}`} />
                         {t('training.viewPdf')}
                       </PDFDownloadButton>
                     </div>
                   </div>
                 
-                  <div className="group border border-gray-200 rounded-lg p-3 hover:border-green-300 hover:shadow-lg transition-all duration-200">
-                    <div className={`flex items-center gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                      <div className="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0 group-hover:bg-green-100 transition-colors">
+                  <div className="group border border-gray-200 rounded-md md:rounded-lg p-2 md:p-3 hover:border-green-300 hover:shadow-lg transition-all duration-200">
+                    <div className={`flex items-center gap-2 md:gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                      <div className="w-8 h-8 md:w-10 md:h-10 bg-green-50 rounded-md md:rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0 group-hover:bg-green-100 transition-colors">
                         <Download className="h-5 w-5 text-green-600" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h4 className="text-sm font-semibold text-gray-900 truncate">
+                        <h4 className="text-xs md:text-sm font-semibold text-gray-900 truncate">
                         {t('training.professionalManual')}
                       </h4>
-                        <p className="text-xs text-gray-400">
+                        <p className="text-[10px] md:text-xs text-gray-400">
                         10.4 MB
                       </p>
                       </div>
@@ -157,24 +129,24 @@ export default function ArabicTrainingPageClient() {
                         href="https://genosys.ae/documents/Genosys-Professional-Manual.pdf"
                         filename="Professional Manual 2026"
                         external={true}
-                        className={`inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-md hover:from-green-700 hover:to-green-800 transition-colors text-xs font-medium flex-shrink-0 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+                        className={`inline-flex items-center px-2 md:px-3 py-1 md:py-1.5 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-md hover:from-green-700 hover:to-green-800 transition-colors text-[10px] md:text-xs font-medium flex-shrink-0 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
                       >
-                        <Download className={`h-3 w-3 ${dir === 'rtl' ? 'ml-1' : 'mr-1'}`} />
+                        <Download className={`h-2.5 w-2.5 md:h-3 md:w-3 ${dir === 'rtl' ? 'ml-1' : 'mr-1'}`} />
                         {t('training.viewPdf')}
                       </PDFDownloadButton>
                     </div>
                   </div>
                 
-                  <div className="group border border-gray-200 rounded-lg p-3 hover:border-green-300 hover:shadow-lg transition-all duration-200">
-                    <div className={`flex items-center gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                      <div className="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0 group-hover:bg-green-100 transition-colors">
+                  <div className="group border border-gray-200 rounded-md md:rounded-lg p-2 md:p-3 hover:border-green-300 hover:shadow-lg transition-all duration-200">
+                    <div className={`flex items-center gap-2 md:gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                      <div className="w-8 h-8 md:w-10 md:h-10 bg-green-50 rounded-md md:rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0 group-hover:bg-green-100 transition-colors">
                         <Download className="h-5 w-5 text-green-600" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h4 className="text-sm font-semibold text-gray-900 truncate">
+                        <h4 className="text-xs md:text-sm font-semibold text-gray-900 truncate">
                           {t('training.facialTreatmentHomecare')}
                         </h4>
-                        <p className="text-xs text-gray-400">
+                        <p className="text-[10px] md:text-xs text-gray-400">
                         8.2 MB
                       </p>
                       </div>
@@ -182,24 +154,24 @@ export default function ArabicTrainingPageClient() {
                         href="/documents/ppt/GENOSYS%20FACIAL%20TREATMENT_Homecare_2025.pdf"
                         filename="Facial Treatment Homecare 2026"
                         external={true}
-                        className={`inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-md hover:from-green-700 hover:to-green-800 transition-colors text-xs font-medium flex-shrink-0 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+                        className={`inline-flex items-center px-2 md:px-3 py-1 md:py-1.5 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-md hover:from-green-700 hover:to-green-800 transition-colors text-[10px] md:text-xs font-medium flex-shrink-0 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
                       >
-                        <Download className={`h-3 w-3 ${dir === 'rtl' ? 'ml-1' : 'mr-1'}`} />
+                        <Download className={`h-2.5 w-2.5 md:h-3 md:w-3 ${dir === 'rtl' ? 'ml-1' : 'mr-1'}`} />
                         {t('training.viewPdf')}
                       </PDFDownloadButton>
                     </div>
                   </div>
                   
-                  <div className="group border border-gray-200 rounded-lg p-3 hover:border-green-300 hover:shadow-lg transition-all duration-200">
-                    <div className={`flex items-center gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                      <div className="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0 group-hover:bg-green-100 transition-colors">
+                  <div className="group border border-gray-200 rounded-md md:rounded-lg p-2 md:p-3 hover:border-green-300 hover:shadow-lg transition-all duration-200">
+                    <div className={`flex items-center gap-2 md:gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                      <div className="w-8 h-8 md:w-10 md:h-10 bg-green-50 rounded-md md:rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0 group-hover:bg-green-100 transition-colors">
                         <Download className="h-5 w-5 text-green-600" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h4 className="text-sm font-semibold text-gray-900 truncate">
+                        <h4 className="text-xs md:text-sm font-semibold text-gray-900 truncate">
                           {t('training.facialTreatmentProfessional')}
                         </h4>
-                        <p className="text-xs text-gray-400">
+                        <p className="text-[10px] md:text-xs text-gray-400">
                           8.2 MB
                         </p>
                       </div>
@@ -207,24 +179,24 @@ export default function ArabicTrainingPageClient() {
                         href="/documents/ppt/GENOSYS%20FACIAL%20TREATMENT_Professional_2025.pdf"
                         filename="Facial Treatment Professional 2026"
                         external={true}
-                        className={`inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-md hover:from-green-700 hover:to-green-800 transition-colors text-xs font-medium flex-shrink-0 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+                        className={`inline-flex items-center px-2 md:px-3 py-1 md:py-1.5 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-md hover:from-green-700 hover:to-green-800 transition-colors text-[10px] md:text-xs font-medium flex-shrink-0 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
                       >
-                        <Download className={`h-3 w-3 ${dir === 'rtl' ? 'ml-1' : 'mr-1'}`} />
+                        <Download className={`h-2.5 w-2.5 md:h-3 md:w-3 ${dir === 'rtl' ? 'ml-1' : 'mr-1'}`} />
                         {t('training.viewPdf')}
                       </PDFDownloadButton>
                     </div>
                   </div>
                   
-                  <div className="group border border-gray-200 rounded-lg p-3 hover:border-green-300 hover:shadow-lg transition-all duration-200">
-                    <div className={`flex items-center gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                      <div className="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0 group-hover:bg-green-100 transition-colors">
+                  <div className="group border border-gray-200 rounded-md md:rounded-lg p-2 md:p-3 hover:border-green-300 hover:shadow-lg transition-all duration-200">
+                    <div className={`flex items-center gap-2 md:gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                      <div className="w-8 h-8 md:w-10 md:h-10 bg-green-50 rounded-md md:rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0 group-hover:bg-green-100 transition-colors">
                         <Download className="h-5 w-5 text-green-600" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h4 className="text-sm font-semibold text-gray-900 truncate">
+                        <h4 className="text-xs md:text-sm font-semibold text-gray-900 truncate">
                           {t('training.achieveKoreanGlassSkin')}
                         </h4>
-                        <p className="text-xs text-gray-400">
+                        <p className="text-[10px] md:text-xs text-gray-400">
                           10 MB
                         </p>
                       </div>
@@ -232,24 +204,24 @@ export default function ArabicTrainingPageClient() {
                         href="/documents/ppt/Achieve%20Korean%20Glass%20Skin%20with%20GENOSYS%20approach_F.pdf"
                         filename="Achieve Korean Glass Skin with GENOSYS approach"
                         external={true}
-                        className={`inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-md hover:from-green-700 hover:to-green-800 transition-colors text-xs font-medium flex-shrink-0 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+                        className={`inline-flex items-center px-2 md:px-3 py-1 md:py-1.5 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-md hover:from-green-700 hover:to-green-800 transition-colors text-[10px] md:text-xs font-medium flex-shrink-0 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
                       >
-                        <Download className={`h-3 w-3 ${dir === 'rtl' ? 'ml-1' : 'mr-1'}`} />
+                        <Download className={`h-2.5 w-2.5 md:h-3 md:w-3 ${dir === 'rtl' ? 'ml-1' : 'mr-1'}`} />
                         {t('training.viewPdf')}
                       </PDFDownloadButton>
                     </div>
                   </div>
                   
-                  <div className="group border border-gray-200 rounded-lg p-3 hover:border-green-300 hover:shadow-lg transition-all duration-200">
-                    <div className={`flex items-center gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                      <div className="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0 group-hover:bg-green-100 transition-colors">
+                  <div className="group border border-gray-200 rounded-md md:rounded-lg p-2 md:p-3 hover:border-green-300 hover:shadow-lg transition-all duration-200">
+                    <div className={`flex items-center gap-2 md:gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                      <div className="w-8 h-8 md:w-10 md:h-10 bg-green-50 rounded-md md:rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0 group-hover:bg-green-100 transition-colors">
                         <Download className="h-5 w-5 text-green-600" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h4 className="text-sm font-semibold text-gray-900 truncate">
+                        <h4 className="text-xs md:text-sm font-semibold text-gray-900 truncate">
                           {t('training.bioMesoPdrnGuide')}
                         </h4>
-                        <p className="text-xs text-gray-400">
+                        <p className="text-[10px] md:text-xs text-gray-400">
                           8.9 MB
                         </p>
                       </div>
@@ -257,9 +229,9 @@ export default function ArabicTrainingPageClient() {
                         href="/documents/ppt/Bio-Meso%20PDRN%20Expert_Treatment%20guide_for%20print_S.pdf"
                         filename="Bio-Meso PDRN Expert Treatment Guide"
                         external={true}
-                        className={`inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-md hover:from-green-700 hover:to-green-800 transition-colors text-xs font-medium flex-shrink-0 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+                        className={`inline-flex items-center px-2 md:px-3 py-1 md:py-1.5 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-md hover:from-green-700 hover:to-green-800 transition-colors text-[10px] md:text-xs font-medium flex-shrink-0 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
                       >
-                        <Download className={`h-3 w-3 ${dir === 'rtl' ? 'ml-1' : 'mr-1'}`} />
+                        <Download className={`h-2.5 w-2.5 md:h-3 md:w-3 ${dir === 'rtl' ? 'ml-1' : 'mr-1'}`} />
                         {t('training.viewPdf')}
                       </PDFDownloadButton>
                     </div>
@@ -277,7 +249,7 @@ export default function ArabicTrainingPageClient() {
                   </div>
                   {t('training.productDocumentation')}
                 </h3>
-                <div className="space-y-2">
+                <div className="space-y-1.5 md:space-y-2">
                   {/* Product documentation items - keeping product names in English as they are brand names */}
                   {[
                     { id: 31, image: '/images/RAA.jpg', name: 'MULTI VITA RADIANCE CREAM', size: '2.1 MB', href: '/documents/ppt/GENOSYS%20MULTI%20VITA%20RADIANCE%20CREAM.pdf' },
@@ -305,7 +277,7 @@ export default function ArabicTrainingPageClient() {
                     { id: 1, image: '/images/genosys-microneedling-devices.jpg', name: 'Microneedle Roller', size: '1.5 MB', href: '/documents/ppt/Overview%20of%20Microneedling_S.pdf' },
                   ].map((product) => (
                     <div key={product.id} className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
-                      <div className={`flex items-center gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                      <div className={`flex items-center gap-2 md:gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                         <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                           <Link href={getLocalizedPath(`/products/${product.id}`, locale)}>
                             <Image
@@ -318,10 +290,10 @@ export default function ArabicTrainingPageClient() {
                           </Link>
                         </div>
                         <div className="flex-1 min-w-0">
-                          <h4 className="text-sm font-semibold text-gray-900 truncate">
+                          <h4 className="text-xs md:text-sm font-semibold text-gray-900 truncate">
                             {product.name}
                           </h4>
-                          <p className="text-xs text-gray-400">
+                          <p className="text-[10px] md:text-xs text-gray-400">
                             {product.size}
                           </p>
                         </div>
@@ -329,9 +301,9 @@ export default function ArabicTrainingPageClient() {
                           href={product.href}
                           filename="Product Documentation"
                           external={true}
-                          className={`inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+                          className={`inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-[10px] md:text-xs font-medium flex-shrink-0 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
                         >
-                          <Download className={`h-3 w-3 ${dir === 'rtl' ? 'ml-1' : 'mr-1'}`} />
+                          <Download className={`h-2.5 w-2.5 md:h-3 md:w-3 ${dir === 'rtl' ? 'ml-1' : 'mr-1'}`} />
                           {t('training.viewPdf')}
                         </PDFDownloadButton>
                       </div>
@@ -840,8 +812,8 @@ export default function ArabicTrainingPageClient() {
                 </div>
               </div>
 
-              {/* Placeholder for future lessons */}
-              <div className="bg-gray-50 rounded-lg p-8 text-center">
+              {/* Placeholder for future lessons - hidden on mobile */}
+              <div className="hidden md:block bg-gray-50 rounded-lg p-8 text-center">
                 <h3 className={`text-xl font-semibold text-gray-600 mb-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
                   {t('training.moreLessonsComingSoon')}
                 </h3>

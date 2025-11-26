@@ -55,248 +55,192 @@ export default function TrainingPage() {
           { name: 'Training', url: '/training' }
         ]}
       />
-      <div className="container mx-auto px-4 py-8 md:py-16">
+      <div className="container mx-auto px-3 md:px-4 py-4 md:py-16">
         <div className="max-w-4xl mx-auto">
 
           {/* Navigation Breadcrumb */}
-          <nav className="flex flex-col gap-2 text-sm md:text-base text-gray-600 mb-8" aria-label="Breadcrumb">
-            {/* Mobile Breadcrumb */}
-            <div className="md:hidden flex items-center gap-2">
-              <Link 
-                href="/"
-                className="hover:text-primary-600 transition-colors flex items-center"
-              >
-                Home
-              </Link>
-              <span className="flex items-center">/</span>
-              <span className="text-gray-900 font-medium flex items-center">
-                Training
-              </span>
-            </div>
-            
-            {/* Mobile Back Button */}
-            <Link 
-              href="/"
-              className="md:hidden flex items-center gap-2 text-primary-600 hover:text-primary-700 transition-colors"
-            >
-              <ArrowLeft className="h-4 w-4" />
-              <span className="font-medium">Back to Home</span>
-            </Link>
-            
-            {/* Desktop Breadcrumb */}
-            <div className="hidden md:flex items-center gap-2">
-              <Link 
-                href="/"
-                className="hover:text-primary-600 transition-colors flex items-center"
-              >
-                Home
-              </Link>
-              <span className="flex items-center">/</span>
-              <span className="text-gray-900 font-medium flex items-center">
-                Training
-              </span>
-            </div>
+          <nav className="text-xs md:text-base text-gray-600 mb-2 md:mb-4" aria-label="Breadcrumb">
+            <Link href="/" className="hover:text-primary-600 transition-colors">Home</Link>
+            <span> / </span>
+            <span className="text-gray-900 font-medium">Training</span>
           </nav>
+          
+          {/* Back to Home */}
+          <Link href="/" className="inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 mb-4 md:mb-8">
+            <ArrowLeft className="h-3 w-3 md:h-4 md:w-4" />
+            <span>Back to Home</span>
+          </Link>
 
-          <div className="text-center">
-            <div className="flex justify-center mb-6">
-              <Image 
-                src="/images/genosys-logo.png" 
-                alt="Genosys Professional Training" 
-                width={400} 
-                height={200} 
-                className="object-contain w-full max-w-xs sm:max-w-sm md:max-w-md"
-                priority
-              />
-            </div>
+          {/* Logo - hidden on mobile */}
+          <div className="hidden md:block text-center mb-6">
+            <Image 
+              src="/images/genosys-logo.png" 
+              alt="Genosys Professional Training" 
+              width={400} 
+              height={200} 
+              className="object-contain w-64 mx-auto"
+              priority
+            />
           </div>
 
           {/* Download Documents Section */}
-          <div className="bg-white border border-gray-200 rounded-xl shadow-sm mb-12">
-            <div className="p-4 sm:p-6 md:p-8">
+          <div className="bg-white border border-gray-200 rounded-lg md:rounded-xl shadow-sm mb-6 md:mb-12">
+            <div className="p-3 md:p-8">
               
               {/* Training Documents Section */}
-              <div className="mb-8">
-                <h3 className="text-xl font-semibold text-gray-800 mb-6 flex items-center justify-center gap-2">
-                  <div className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center">
-                    <svg className="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="mb-4 md:mb-8">
+                <h3 className="text-sm md:text-xl font-semibold text-gray-800 mb-3 md:mb-6 flex items-center justify-center gap-1.5 md:gap-2">
+                  <div className="w-6 h-6 md:w-8 md:h-8 bg-green-100 rounded-md md:rounded-lg flex items-center justify-center">
+                    <svg className="w-3 h-3 md:w-4 md:h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                     </svg>
                   </div>
                   Training Documents
                 </h3>
-              <div className="space-y-2">
-                  <div className="group border border-gray-200 rounded-lg p-3 hover:border-green-300 hover:shadow-lg transition-all duration-200">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0 group-hover:bg-green-100 transition-colors">
+              <div className="space-y-1.5 md:space-y-2">
+                  <div className="group border border-gray-200 rounded-md md:rounded-lg p-2 md:p-3 hover:border-green-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-2 md:gap-3">
+                      <div className="hidden md:flex w-10 h-10 bg-green-50 rounded-lg items-center justify-center overflow-hidden flex-shrink-0 group-hover:bg-green-100 transition-colors">
                         <Download className="h-5 w-5 text-green-600" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h4 className="text-sm font-semibold text-gray-900 truncate">
-                        Product Catalogue 2026
-                      </h4>
-                        <p className="text-xs text-gray-400">
-                        235.5 MB
-                      </p>
+                        <h4 className="text-xs md:text-sm font-semibold text-gray-900 truncate">Product Catalogue 2026</h4>
+                        <p className="text-[10px] md:text-xs text-gray-400">235.5 MB</p>
                       </div>
                       <PDFDownloadButton
                         href="https://u.pcloud.link/publink/show?code=XZ9wc15ZDTFcM6uvKg0snY1dEJwzwQgHsEF7"
                         filename="Product Catalogue 2026"
                         external={true}
-                        className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-md hover:from-green-700 hover:to-green-800 transition-colors text-xs font-medium flex-shrink-0"
+                        className="inline-flex items-center px-2 md:px-3 py-1 md:py-1.5 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-md hover:from-green-700 hover:to-green-800 transition-colors text-[10px] md:text-xs font-medium flex-shrink-0"
                       >
-                        <Download className="h-3 w-3 mr-1" />
-                        View PDF
+                        <Download className="h-2.5 w-2.5 md:h-3 md:w-3 mr-0.5 md:mr-1" />
+                        PDF
                       </PDFDownloadButton>
                     </div>
                   </div>
                 
-                  <div className="group border border-gray-200 rounded-lg p-3 hover:border-green-300 hover:shadow-lg transition-all duration-200">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0 group-hover:bg-green-100 transition-colors">
+                  <div className="group border border-gray-200 rounded-md md:rounded-lg p-2 md:p-3 hover:border-green-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-2 md:gap-3">
+                      <div className="hidden md:flex w-10 h-10 bg-green-50 rounded-lg items-center justify-center overflow-hidden flex-shrink-0 group-hover:bg-green-100 transition-colors">
                         <Download className="h-5 w-5 text-green-600" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h4 className="text-sm font-semibold text-gray-900 truncate">
-                        Home Care Guide 2026
-                      </h4>
-                        <p className="text-xs text-gray-400">
-                        9.8 MB
-                      </p>
+                        <h4 className="text-xs md:text-sm font-semibold text-gray-900 truncate">Home Care Guide 2026</h4>
+                        <p className="text-[10px] md:text-xs text-gray-400">9.8 MB</p>
                       </div>
                       <PDFDownloadButton
                         href="https://genosys.ae/documents/Genosys-Home-Care-Guide.pdf"
                         filename="Home Care Guide 2026"
                         external={true}
-                        className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-md hover:from-green-700 hover:to-green-800 transition-colors text-xs font-medium flex-shrink-0"
+                        className="inline-flex items-center px-2 md:px-3 py-1 md:py-1.5 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-md hover:from-green-700 hover:to-green-800 transition-colors text-[10px] md:text-xs font-medium flex-shrink-0"
                       >
-                        <Download className="h-3 w-3 mr-1" />
-                        View PDF
+                        <Download className="h-2.5 w-2.5 md:h-3 md:w-3 mr-0.5 md:mr-1" />
+                        PDF
                       </PDFDownloadButton>
                     </div>
                   </div>
                 
-                  <div className="group border border-gray-200 rounded-lg p-3 hover:border-green-300 hover:shadow-lg transition-all duration-200">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0 group-hover:bg-green-100 transition-colors">
+                  <div className="group border border-gray-200 rounded-md md:rounded-lg p-2 md:p-3 hover:border-green-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-2 md:gap-3">
+                      <div className="hidden md:flex w-10 h-10 bg-green-50 rounded-lg items-center justify-center overflow-hidden flex-shrink-0 group-hover:bg-green-100 transition-colors">
                         <Download className="h-5 w-5 text-green-600" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h4 className="text-sm font-semibold text-gray-900 truncate">
-                        Professional Manual 2026
-                      </h4>
-                        <p className="text-xs text-gray-400">
-                        10.4 MB
-                      </p>
+                        <h4 className="text-xs md:text-sm font-semibold text-gray-900 truncate">Professional Manual 2026</h4>
+                        <p className="text-[10px] md:text-xs text-gray-400">10.4 MB</p>
                       </div>
                       <PDFDownloadButton
                         href="https://genosys.ae/documents/Genosys-Professional-Manual.pdf"
                         filename="Professional Manual 2026"
                         external={true}
-                        className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-md hover:from-green-700 hover:to-green-800 transition-colors text-xs font-medium flex-shrink-0"
+                        className="inline-flex items-center px-2 md:px-3 py-1 md:py-1.5 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-md hover:from-green-700 hover:to-green-800 transition-colors text-[10px] md:text-xs font-medium flex-shrink-0"
                       >
-                        <Download className="h-3 w-3 mr-1" />
-                        View PDF
+                        <Download className="h-2.5 w-2.5 md:h-3 md:w-3 mr-0.5 md:mr-1" />
+                        PDF
                       </PDFDownloadButton>
                     </div>
                   </div>
                 
-                  <div className="group border border-gray-200 rounded-lg p-3 hover:border-green-300 hover:shadow-lg transition-all duration-200">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0 group-hover:bg-green-100 transition-colors">
+                  <div className="group border border-gray-200 rounded-md md:rounded-lg p-2 md:p-3 hover:border-green-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-2 md:gap-3">
+                      <div className="hidden md:flex w-10 h-10 bg-green-50 rounded-lg items-center justify-center overflow-hidden flex-shrink-0 group-hover:bg-green-100 transition-colors">
                         <Download className="h-5 w-5 text-green-600" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h4 className="text-sm font-semibold text-gray-900 truncate">
-                          Facial Treatment Homecare 2026
-                        </h4>
-                        <p className="text-xs text-gray-400">
-                        8.2 MB
-                      </p>
+                        <h4 className="text-xs md:text-sm font-semibold text-gray-900 truncate">Facial Treatment Homecare 2026</h4>
+                        <p className="text-[10px] md:text-xs text-gray-400">8.2 MB</p>
                       </div>
                       <PDFDownloadButton
                         href="/documents/ppt/GENOSYS%20FACIAL%20TREATMENT_Homecare_2025.pdf"
                         filename="Facial Treatment Homecare 2026"
                         external={true}
-                        className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-md hover:from-green-700 hover:to-green-800 transition-colors text-xs font-medium flex-shrink-0"
+                        className="inline-flex items-center px-2 md:px-3 py-1 md:py-1.5 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-md hover:from-green-700 hover:to-green-800 transition-colors text-[10px] md:text-xs font-medium flex-shrink-0"
                       >
-                        <Download className="h-3 w-3 mr-1" />
-                        View PDF
+                        <Download className="h-2.5 w-2.5 md:h-3 md:w-3 mr-0.5 md:mr-1" />
+                        PDF
                       </PDFDownloadButton>
                     </div>
                   </div>
                   
-                  <div className="group border border-gray-200 rounded-lg p-3 hover:border-green-300 hover:shadow-lg transition-all duration-200">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0 group-hover:bg-green-100 transition-colors">
+                  <div className="group border border-gray-200 rounded-md md:rounded-lg p-2 md:p-3 hover:border-green-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-2 md:gap-3">
+                      <div className="hidden md:flex w-10 h-10 bg-green-50 rounded-lg items-center justify-center overflow-hidden flex-shrink-0 group-hover:bg-green-100 transition-colors">
                         <Download className="h-5 w-5 text-green-600" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h4 className="text-sm font-semibold text-gray-900 truncate">
-                          Facial Treatment Professional 2026
-                        </h4>
-                        <p className="text-xs text-gray-400">
-                          8.2 MB
-                        </p>
+                        <h4 className="text-xs md:text-sm font-semibold text-gray-900 truncate">Facial Treatment Professional 2026</h4>
+                        <p className="text-[10px] md:text-xs text-gray-400">8.2 MB</p>
                       </div>
                       <PDFDownloadButton
                         href="/documents/ppt/GENOSYS%20FACIAL%20TREATMENT_Professional_2025.pdf"
                         filename="Facial Treatment Professional 2026"
                         external={true}
-                        className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-md hover:from-green-700 hover:to-green-800 transition-colors text-xs font-medium flex-shrink-0"
+                        className="inline-flex items-center px-2 md:px-3 py-1 md:py-1.5 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-md hover:from-green-700 hover:to-green-800 transition-colors text-[10px] md:text-xs font-medium flex-shrink-0"
                       >
-                        <Download className="h-3 w-3 mr-1" />
-                        View PDF
+                        <Download className="h-2.5 w-2.5 md:h-3 md:w-3 mr-0.5 md:mr-1" />
+                        PDF
                       </PDFDownloadButton>
                     </div>
                   </div>
                   
-                  <div className="group border border-gray-200 rounded-lg p-3 hover:border-green-300 hover:shadow-lg transition-all duration-200">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0 group-hover:bg-green-100 transition-colors">
+                  <div className="group border border-gray-200 rounded-md md:rounded-lg p-2 md:p-3 hover:border-green-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-2 md:gap-3">
+                      <div className="hidden md:flex w-10 h-10 bg-green-50 rounded-lg items-center justify-center overflow-hidden flex-shrink-0 group-hover:bg-green-100 transition-colors">
                         <Download className="h-5 w-5 text-green-600" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h4 className="text-sm font-semibold text-gray-900 truncate">
-                          Achieve Korean Glass Skin with GENOSYS approach
-                        </h4>
-                        <p className="text-xs text-gray-400">
-                          10 MB
-                        </p>
+                        <h4 className="text-xs md:text-sm font-semibold text-gray-900 truncate">Korean Glass Skin GENOSYS</h4>
+                        <p className="text-[10px] md:text-xs text-gray-400">10 MB</p>
                       </div>
                       <PDFDownloadButton
                         href="/documents/ppt/Achieve%20Korean%20Glass%20Skin%20with%20GENOSYS%20approach_F.pdf"
                         filename="Achieve Korean Glass Skin with GENOSYS approach"
                         external={true}
-                        className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-md hover:from-green-700 hover:to-green-800 transition-colors text-xs font-medium flex-shrink-0"
+                        className="inline-flex items-center px-2 md:px-3 py-1 md:py-1.5 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-md hover:from-green-700 hover:to-green-800 transition-colors text-[10px] md:text-xs font-medium flex-shrink-0"
                       >
-                        <Download className="h-3 w-3 mr-1" />
-                        View PDF
+                        <Download className="h-2.5 w-2.5 md:h-3 md:w-3 mr-0.5 md:mr-1" />
+                        PDF
                       </PDFDownloadButton>
                     </div>
                   </div>
                   
-                  <div className="group border border-gray-200 rounded-lg p-3 hover:border-green-300 hover:shadow-lg transition-all duration-200">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0 group-hover:bg-green-100 transition-colors">
+                  <div className="group border border-gray-200 rounded-md md:rounded-lg p-2 md:p-3 hover:border-green-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-2 md:gap-3">
+                      <div className="hidden md:flex w-10 h-10 bg-green-50 rounded-lg items-center justify-center overflow-hidden flex-shrink-0 group-hover:bg-green-100 transition-colors">
                         <Download className="h-5 w-5 text-green-600" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h4 className="text-sm font-semibold text-gray-900 truncate">
-                          Bio-Meso PDRN Expert Treatment Guide
-                        </h4>
-                        <p className="text-xs text-gray-400">
-                          8.9 MB
-                        </p>
+                        <h4 className="text-xs md:text-sm font-semibold text-gray-900 truncate">Bio-Meso PDRN Expert Guide</h4>
+                        <p className="text-[10px] md:text-xs text-gray-400">8.9 MB</p>
                       </div>
                       <PDFDownloadButton
                         href="/documents/ppt/Bio-Meso%20PDRN%20Expert_Treatment%20guide_for%20print_S.pdf"
                         filename="Bio-Meso PDRN Expert Treatment Guide"
                         external={true}
-                        className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-md hover:from-green-700 hover:to-green-800 transition-colors text-xs font-medium flex-shrink-0"
+                        className="inline-flex items-center px-2 md:px-3 py-1 md:py-1.5 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-md hover:from-green-700 hover:to-green-800 transition-colors text-[10px] md:text-xs font-medium flex-shrink-0"
                       >
-                        <Download className="h-3 w-3 mr-1" />
-                        View PDF
+                        <Download className="h-2.5 w-2.5 md:h-3 md:w-3 mr-0.5 md:mr-1" />
+                        PDF
                       </PDFDownloadButton>
                     </div>
                   </div>
@@ -305,18 +249,18 @@ export default function TrainingPage() {
               
               {/* Product Documentation Section */}
               <div>
-                <h3 className="text-xl font-semibold text-gray-800 mb-6 flex items-center justify-center gap-2">
-                  <div className="w-8 h-8 bg-red-100 rounded-lg flex items-center justify-center">
-                    <svg className="w-4 h-4 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <h3 className="text-sm md:text-xl font-semibold text-gray-800 mb-3 md:mb-6 flex items-center justify-center gap-1.5 md:gap-2">
+                  <div className="w-6 h-6 md:w-8 md:h-8 bg-red-100 rounded-md md:rounded-lg flex items-center justify-center">
+                    <svg className="w-3 h-3 md:w-4 md:h-4 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
                     </svg>
                   </div>
                   Product Documentation
                 </h3>
-                <div className="space-y-2">
-                  <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+                <div className="space-y-1.5 md:space-y-2">
+                  <div className="group border border-gray-200 rounded-md md:rounded-lg p-2 md:p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-2 md:gap-3">
+                      <div className="w-8 h-8 md:w-10 md:h-10 bg-gray-100 rounded-md md:rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                         <Link href="/products/31">
                           <Image
         src="/images/RAA.jpg"
@@ -327,10 +271,10 @@ export default function TrainingPage() {
                         </Link>
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h4 className="text-sm font-semibold text-gray-900 truncate">
+                        <h4 className="text-xs md:text-sm font-semibold text-gray-900 truncate">
                         MULTI VITA RADIANCE CREAM
                       </h4>
-                        <p className="text-xs text-gray-400">
+                        <p className="text-[10px] md:text-xs text-gray-400">
                         2.1 MB
                       </p>
                       </div>
@@ -338,17 +282,17 @@ export default function TrainingPage() {
                         href="/documents/ppt/GENOSYS%20MULTI%20VITA%20RADIANCE%20CREAM.pdf"
                         filename="Product Documentation"
                         external={true}
-                        className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
+                        className="inline-flex items-center px-2 md:px-3 py-1 md:py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-[10px] md:text-xs font-medium flex-shrink-0"
                       >
-                        <Download className="h-3 w-3 mr-1" />
-                        View PDF
+                        <Download className="h-2.5 w-2.5 md:h-3 md:w-3 mr-0.5 md:mr-1" />
+                        PDF
                       </PDFDownloadButton>
                     </div>
                   </div>
                   
-                  <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+                  <div className="group border border-gray-200 rounded-md md:rounded-lg p-2 md:p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-2 md:gap-3">
+                      <div className="w-8 h-8 md:w-10 md:h-10 bg-gray-100 rounded-md md:rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                         <Link href="/products/50">
                           <Image
         src="/images/EYEZ.jpg"
@@ -359,10 +303,10 @@ export default function TrainingPage() {
                         </Link>
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h4 className="text-sm font-semibold text-gray-900 truncate">
+                        <h4 className="text-xs md:text-sm font-semibold text-gray-900 truncate">
                         EyeCell EYE ZONE CARE SYSTEM
                       </h4>
-                        <p className="text-xs text-gray-400">
+                        <p className="text-[10px] md:text-xs text-gray-400">
                         1.8 MB
                       </p>
                       </div>
@@ -370,18 +314,18 @@ export default function TrainingPage() {
                         href="/documents/ppt/GENOSYS%20EyeCell%20EYE%20ZONE%20CARE%20SYSTEM.pdf"
                         filename="Product Documentation"
                         external={true}
-                        className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
+                        className="inline-flex items-center px-2 md:px-3 py-1 md:py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-[10px] md:text-xs font-medium flex-shrink-0"
                       >
-                        <Download className="h-3 w-3 mr-1" />
-                        View PDF
+                        <Download className="h-2.5 w-2.5 md:h-3 md:w-3 mr-0.5 md:mr-1" />
+                        PDF
                       </PDFDownloadButton>
                     </div>
                   </div>
                   
                   {/* EPI TURNOVER BOOSTING PEELING GEL */}
-                  <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+                  <div className="group border border-gray-200 rounded-md md:rounded-lg p-2 md:p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-2 md:gap-3">
+                      <div className="w-8 h-8 md:w-10 md:h-10 bg-gray-100 rounded-md md:rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                         <Link href="/products/12">
                           <Image
         src="/images/EPI.jpg"
@@ -392,10 +336,10 @@ export default function TrainingPage() {
                         </Link>
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h4 className="text-sm font-semibold text-gray-900 truncate">
+                        <h4 className="text-xs md:text-sm font-semibold text-gray-900 truncate">
                         EPI TURNOVER BOOSTING PEELING GEL
                       </h4>
-                        <p className="text-xs text-gray-400">
+                        <p className="text-[10px] md:text-xs text-gray-400">
                         3.8 MB
                       </p>
                       </div>
@@ -403,18 +347,18 @@ export default function TrainingPage() {
                         href="/documents/ppt/GENOSYS%20EPI%20TURNOVER%20BOOSTING%20PEELING%20GEL.pdf"
                         filename="Product Documentation"
                         external={true}
-                        className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
+                        className="inline-flex items-center px-2 md:px-3 py-1 md:py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-[10px] md:text-xs font-medium flex-shrink-0"
                       >
-                        <Download className="h-3 w-3 mr-1" />
-                        View PDF
+                        <Download className="h-2.5 w-2.5 md:h-3 md:w-3 mr-0.5 md:mr-1" />
+                        PDF
                       </PDFDownloadButton>
                     </div>
                   </div>
                   
                   {/* MULTI VITA RADIANCE SERUM */}
-                  <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+                  <div className="group border border-gray-200 rounded-md md:rounded-lg p-2 md:p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-2 md:gap-3">
+                      <div className="w-8 h-8 md:w-10 md:h-10 bg-gray-100 rounded-md md:rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                         <Link href="/products/21">
                           <Image
         src="/images/RADS.jpg"
@@ -425,10 +369,10 @@ export default function TrainingPage() {
                         </Link>
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h4 className="text-sm font-semibold text-gray-900 truncate">
+                        <h4 className="text-xs md:text-sm font-semibold text-gray-900 truncate">
                         MULTI VITA RADIANCE SERUM
                       </h4>
-                        <p className="text-xs text-gray-400">
+                        <p className="text-[10px] md:text-xs text-gray-400">
                         1.5 MB
                       </p>
                       </div>
@@ -436,18 +380,18 @@ export default function TrainingPage() {
                         href="/documents/ppt/GENOSYS%20MULTI%20VITA%20RADIANCE%20SERUM.pdf"
                         filename="Product Documentation"
                         external={true}
-                        className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
+                        className="inline-flex items-center px-2 md:px-3 py-1 md:py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-[10px] md:text-xs font-medium flex-shrink-0"
                       >
-                        <Download className="h-3 w-3 mr-1" />
-                        View PDF
+                        <Download className="h-2.5 w-2.5 md:h-3 md:w-3 mr-0.5 md:mr-1" />
+                        PDF
                       </PDFDownloadButton>
                     </div>
                   </div>
                   
                   {/* SKIN DEFENDER LIP & EYE MAKEUP REMOVER */}
-                  <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+                  <div className="group border border-gray-200 rounded-md md:rounded-lg p-2 md:p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-2 md:gap-3">
+                      <div className="w-8 h-8 md:w-10 md:h-10 bg-gray-100 rounded-md md:rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                         <Link href="/products/11">
                           <Image
         src="/images/DEF.jpg"
@@ -458,10 +402,10 @@ export default function TrainingPage() {
                         </Link>
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h4 className="text-sm font-semibold text-gray-900 truncate">
+                        <h4 className="text-xs md:text-sm font-semibold text-gray-900 truncate">
                         SKIN DEFENDER LIP & EYE MAKEUP REMOVER
                       </h4>
-                        <p className="text-xs text-gray-400">
+                        <p className="text-[10px] md:text-xs text-gray-400">
                         0.7 MB
                       </p>
                       </div>
@@ -469,18 +413,18 @@ export default function TrainingPage() {
                         href="/documents/ppt/GENOSYS%20SKIN%20DEFENDER%20LIP%20%26%20EYE%20MAKEUP%20REMOVER.pdf"
                         filename="Product Documentation"
                         external={true}
-                        className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
+                        className="inline-flex items-center px-2 md:px-3 py-1 md:py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-[10px] md:text-xs font-medium flex-shrink-0"
                       >
-                        <Download className="h-3 w-3 mr-1" />
-                        View PDF
+                        <Download className="h-2.5 w-2.5 md:h-3 md:w-3 mr-0.5 md:mr-1" />
+                        PDF
                       </PDFDownloadButton>
                     </div>
                   </div>
                   
                   {/* MICROBIOME ENERGY INFUSING MIST */}
-                  <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+                  <div className="group border border-gray-200 rounded-md md:rounded-lg p-2 md:p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-2 md:gap-3">
+                      <div className="w-8 h-8 md:w-10 md:h-10 bg-gray-100 rounded-md md:rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                         <Link href="/products/14">
                           <Image
         src="/images/mist.jpg"
@@ -491,10 +435,10 @@ export default function TrainingPage() {
                         </Link>
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h4 className="text-sm font-semibold text-gray-900 truncate">
+                        <h4 className="text-xs md:text-sm font-semibold text-gray-900 truncate">
                         MICROBIOME ENERGY INFUSING MIST
                       </h4>
-                        <p className="text-xs text-gray-400">
+                        <p className="text-[10px] md:text-xs text-gray-400">
                         0.8 MB
                       </p>
                       </div>
@@ -502,18 +446,18 @@ export default function TrainingPage() {
                         href="/documents/ppt/GENOSYS%20MICROBIOME%20ENERGY%20INFUSING%20MIST.pdf"
                         filename="Product Documentation"
                         external={true}
-                        className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
+                        className="inline-flex items-center px-2 md:px-3 py-1 md:py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-[10px] md:text-xs font-medium flex-shrink-0"
                       >
-                        <Download className="h-3 w-3 mr-1" />
-                        View PDF
+                        <Download className="h-2.5 w-2.5 md:h-3 md:w-3 mr-0.5 md:mr-1" />
+                        PDF
                       </PDFDownloadButton>
                     </div>
                   </div>
                   
                   {/* SKIN RESCUE OVERNIGHT CREAM MASK */}
-                  <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+                  <div className="group border border-gray-200 rounded-md md:rounded-lg p-2 md:p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-2 md:gap-3">
+                      <div className="w-8 h-8 md:w-10 md:h-10 bg-gray-100 rounded-md md:rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                         <Link href="/products/34">
                           <Image
         src="/images/SKIN.jpg"
@@ -524,10 +468,10 @@ export default function TrainingPage() {
                         </Link>
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h4 className="text-sm font-semibold text-gray-900 truncate">
+                        <h4 className="text-xs md:text-sm font-semibold text-gray-900 truncate">
                         SKIN RESCUE OVERNIGHT CREAM MASK
                       </h4>
-                        <p className="text-xs text-gray-400">
+                        <p className="text-[10px] md:text-xs text-gray-400">
                         1.3 MB
                       </p>
                       </div>
@@ -535,18 +479,18 @@ export default function TrainingPage() {
                         href="/documents/ppt/GENOSYS%20SKIN%20RESCUE%20OVERNIGHT%20CREAM%20MASK.pdf"
                         filename="Product Documentation"
                         external={true}
-                        className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
+                        className="inline-flex items-center px-2 md:px-3 py-1 md:py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-[10px] md:text-xs font-medium flex-shrink-0"
                       >
-                        <Download className="h-3 w-3 mr-1" />
-                        View PDF
+                        <Download className="h-2.5 w-2.5 md:h-3 md:w-3 mr-0.5 md:mr-1" />
+                        PDF
                       </PDFDownloadButton>
                     </div>
                   </div>
                   
                   {/* INTENSIVE PROBLEM CONTROL TONER */}
-                  <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+                  <div className="group border border-gray-200 rounded-md md:rounded-lg p-2 md:p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-2 md:gap-3">
+                      <div className="w-8 h-8 md:w-10 md:h-10 bg-gray-100 rounded-md md:rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                         <Link href="/products/15">
                           <Image
         src="/images/PRS.jpg"
@@ -557,10 +501,10 @@ export default function TrainingPage() {
                         </Link>
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h4 className="text-sm font-semibold text-gray-900 truncate">
+                        <h4 className="text-xs md:text-sm font-semibold text-gray-900 truncate">
                         INTENSIVE PROBLEM CONTROL TONER
                       </h4>
-                        <p className="text-xs text-gray-400">
+                        <p className="text-[10px] md:text-xs text-gray-400">
                         1.0 MB
                       </p>
                       </div>
@@ -568,18 +512,18 @@ export default function TrainingPage() {
                         href="/documents/ppt/GENOSYS%20INTENSIVE%20PROBLEM%20CONTROL%20TONER.pdf"
                         filename="Product Documentation"
                         external={true}
-                        className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
+                        className="inline-flex items-center px-2 md:px-3 py-1 md:py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-[10px] md:text-xs font-medium flex-shrink-0"
                       >
-                        <Download className="h-3 w-3 mr-1" />
-                        View PDF
+                        <Download className="h-2.5 w-2.5 md:h-3 md:w-3 mr-0.5 md:mr-1" />
+                        PDF
                       </PDFDownloadButton>
                     </div>
                   </div>
                   
                   {/* ULTRA SHIELD SUN CREAM */}
-                  <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+                  <div className="group border border-gray-200 rounded-md md:rounded-lg p-2 md:p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-2 md:gap-3">
+                      <div className="w-8 h-8 md:w-10 md:h-10 bg-gray-100 rounded-md md:rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                         <Link href="/products/39">
                           <Image
         src="/images/SPF50.jpg"
@@ -590,10 +534,10 @@ export default function TrainingPage() {
                         </Link>
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h4 className="text-sm font-semibold text-gray-900 truncate">
+                        <h4 className="text-xs md:text-sm font-semibold text-gray-900 truncate">
                         ULTRA SHIELD SUN CREAM
                       </h4>
-                        <p className="text-xs text-gray-400">
+                        <p className="text-[10px] md:text-xs text-gray-400">
                         0.6 MB
                       </p>
                       </div>
@@ -601,18 +545,18 @@ export default function TrainingPage() {
                         href="/documents/ppt/GENOSYS%20ULTRA%20SHIELD%20SUN%20CREAM.pdf"
                         filename="Product Documentation"
                         external={true}
-                        className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
+                        className="inline-flex items-center px-2 md:px-3 py-1 md:py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-[10px] md:text-xs font-medium flex-shrink-0"
                       >
-                        <Download className="h-3 w-3 mr-1" />
-                        View PDF
+                        <Download className="h-2.5 w-2.5 md:h-3 md:w-3 mr-0.5 md:mr-1" />
+                        PDF
                       </PDFDownloadButton>
                     </div>
                   </div>
                   
                   {/* HR³ MATRIX SCALP SHAMPOO α */}
-                  <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+                  <div className="group border border-gray-200 rounded-md md:rounded-lg p-2 md:p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-2 md:gap-3">
+                      <div className="w-8 h-8 md:w-10 md:h-10 bg-gray-100 rounded-md md:rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                         <Link href="/products/44">
                           <Image
         src="/images/Sham.jpg"
@@ -623,10 +567,10 @@ export default function TrainingPage() {
                         </Link>
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h4 className="text-sm font-semibold text-gray-900 truncate">
+                        <h4 className="text-xs md:text-sm font-semibold text-gray-900 truncate">
                         HR³ MATRIX SCALP SHAMPOO α
                       </h4>
-                        <p className="text-xs text-gray-400">
+                        <p className="text-[10px] md:text-xs text-gray-400">
                         2.3 MB
                       </p>
                       </div>
@@ -634,18 +578,18 @@ export default function TrainingPage() {
                         href="/documents/ppt/GENOSYS%20HR3%20MATRIX%20SCALP%20SHAMPOO%20ALPHA.pdf"
                         filename="Product Documentation"
                         external={true}
-                        className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
+                        className="inline-flex items-center px-2 md:px-3 py-1 md:py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-[10px] md:text-xs font-medium flex-shrink-0"
                       >
-                        <Download className="h-3 w-3 mr-1" />
-                        View PDF
+                        <Download className="h-2.5 w-2.5 md:h-3 md:w-3 mr-0.5 md:mr-1" />
+                        PDF
                       </PDFDownloadButton>
                     </div>
                   </div>
                   
                   {/* MOISTURE REPLENISHING HYALURON SERUM */}
-                  <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+                  <div className="group border border-gray-200 rounded-md md:rounded-lg p-2 md:p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-2 md:gap-3">
+                      <div className="w-8 h-8 md:w-10 md:h-10 bg-gray-100 rounded-md md:rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                         <Link href="/products/18">
                           <Image
         src="/images/HRS.jpg"
@@ -656,10 +600,10 @@ export default function TrainingPage() {
                         </Link>
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h4 className="text-sm font-semibold text-gray-900 truncate">
+                        <h4 className="text-xs md:text-sm font-semibold text-gray-900 truncate">
                         MOISTURE REPLENISHING HYALURON SERUM
                       </h4>
-                        <p className="text-xs text-gray-400">
+                        <p className="text-[10px] md:text-xs text-gray-400">
                         1.9 MB
                       </p>
                       </div>
@@ -667,18 +611,18 @@ export default function TrainingPage() {
                         href="/documents/ppt/GENOSYS%20MOISTURE%20REPLENISHING%20HYALURON%20SERUM.pdf"
                         filename="Product Documentation"
                         external={true}
-                        className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
+                        className="inline-flex items-center px-2 md:px-3 py-1 md:py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-[10px] md:text-xs font-medium flex-shrink-0"
                       >
-                        <Download className="h-3 w-3 mr-1" />
-                        View PDF
+                        <Download className="h-2.5 w-2.5 md:h-3 md:w-3 mr-0.5 md:mr-1" />
+                        PDF
                       </PDFDownloadButton>
                     </div>
                   </div>
                   
                   {/* MOISTURE REPLENISHING HYALURON CREAM */}
-                  <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+                  <div className="group border border-gray-200 rounded-md md:rounded-lg p-2 md:p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-2 md:gap-3">
+                      <div className="w-8 h-8 md:w-10 md:h-10 bg-gray-100 rounded-md md:rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                         <Link href="/products/29">
                           <Image
         src="/images/HER.jpg"
@@ -689,10 +633,10 @@ export default function TrainingPage() {
                         </Link>
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h4 className="text-sm font-semibold text-gray-900 truncate">
+                        <h4 className="text-xs md:text-sm font-semibold text-gray-900 truncate">
                         MOISTURE REPLENISHING HYALURON CREAM
                       </h4>
-                        <p className="text-xs text-gray-400">
+                        <p className="text-[10px] md:text-xs text-gray-400">
                         2.0 MB
                       </p>
                       </div>
@@ -700,18 +644,18 @@ export default function TrainingPage() {
                         href="/documents/ppt/GENOSYS%20MOISTURE%20REPLENISHING%20HYALURON%20CREAM.pdf"
                         filename="Product Documentation"
                         external={true}
-                        className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
+                        className="inline-flex items-center px-2 md:px-3 py-1 md:py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-[10px] md:text-xs font-medium flex-shrink-0"
                       >
-                        <Download className="h-3 w-3 mr-1" />
-                        View PDF
+                        <Download className="h-2.5 w-2.5 md:h-3 md:w-3 mr-0.5 md:mr-1" />
+                        PDF
                       </PDFDownloadButton>
                     </div>
                   </div>
                   
                   {/* SKIN CARING BLEMISH BALM CUSHION */}
-                  <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+                  <div className="group border border-gray-200 rounded-md md:rounded-lg p-2 md:p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-2 md:gap-3">
+                      <div className="w-8 h-8 md:w-10 md:h-10 bg-gray-100 rounded-md md:rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                         <Link href="/products/41">
                           <Image
         src="/images/BBC.jpg"
@@ -722,10 +666,10 @@ export default function TrainingPage() {
                         </Link>
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h4 className="text-sm font-semibold text-gray-900 truncate">
+                        <h4 className="text-xs md:text-sm font-semibold text-gray-900 truncate">
                         SKIN CARING BLEMISH BALM CUSHION
                       </h4>
-                        <p className="text-xs text-gray-400">
+                        <p className="text-[10px] md:text-xs text-gray-400">
                         1.2 MB
                       </p>
                       </div>
@@ -733,18 +677,18 @@ export default function TrainingPage() {
                         href="/documents/ppt/GENOSYS%20SKIN%20CARING%20BLEMISH%20BALM%20CUSHION.pdf"
                         filename="Product Documentation"
                         external={true}
-                        className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
+                        className="inline-flex items-center px-2 md:px-3 py-1 md:py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-[10px] md:text-xs font-medium flex-shrink-0"
                       >
-                        <Download className="h-3 w-3 mr-1" />
-                        View PDF
+                        <Download className="h-2.5 w-2.5 md:h-3 md:w-3 mr-0.5 md:mr-1" />
+                        PDF
                       </PDFDownloadButton>
                     </div>
                   </div>
                   
                   {/* EyeCell EYE PEPTIDE GEL PATCH */}
-                  <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+                  <div className="group border border-gray-200 rounded-md md:rounded-lg p-2 md:p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-2 md:gap-3">
+                      <div className="w-8 h-8 md:w-10 md:h-10 bg-gray-100 rounded-md md:rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                         <Link href="/products/33">
                           <Image
         src="/images/Patch.jpg"
@@ -755,10 +699,10 @@ export default function TrainingPage() {
                         </Link>
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h4 className="text-sm font-semibold text-gray-900 truncate">
+                        <h4 className="text-xs md:text-sm font-semibold text-gray-900 truncate">
                         EyeCell EYE PEPTIDE GEL PATCH
                       </h4>
-                        <p className="text-xs text-gray-400">
+                        <p className="text-[10px] md:text-xs text-gray-400">
                         1.4 MB
                       </p>
                       </div>
@@ -766,18 +710,18 @@ export default function TrainingPage() {
                         href="/documents/ppt/GENOSYS%20EyeCell%20EYE%20PEPTIDE%20GEL%20PATCH.pdf"
                         filename="Product Documentation"
                         external={true}
-                        className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
+                        className="inline-flex items-center px-2 md:px-3 py-1 md:py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-[10px] md:text-xs font-medium flex-shrink-0"
                       >
-                        <Download className="h-3 w-3 mr-1" />
-                        View PDF
+                        <Download className="h-2.5 w-2.5 md:h-3 md:w-3 mr-0.5 md:mr-1" />
+                        PDF
                       </PDFDownloadButton>
                     </div>
                   </div>
                   
                   {/* BIO-FERMENT AGE DEFYING POWDER MASK */}
-                  <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+                  <div className="group border border-gray-200 rounded-md md:rounded-lg p-2 md:p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-2 md:gap-3">
+                      <div className="w-8 h-8 md:w-10 md:h-10 bg-gray-100 rounded-md md:rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                         <Link href="/products/51">
                           <Image
         src="/images/BFAD.png"
@@ -788,10 +732,10 @@ export default function TrainingPage() {
                         </Link>
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h4 className="text-sm font-semibold text-gray-900 truncate">
+                        <h4 className="text-xs md:text-sm font-semibold text-gray-900 truncate">
                         BIO-FERMENT AGE DEFYING POWDER MASK
                       </h4>
-                        <p className="text-xs text-gray-400">
+                        <p className="text-[10px] md:text-xs text-gray-400">
                         2.1 MB
                       </p>
                       </div>
@@ -799,18 +743,18 @@ export default function TrainingPage() {
                         href="/documents/ppt/GENOSYS%20BIO-FERMENT%20AGE%20DEFYING%20POWDER%20MASK.pdf"
                         filename="Product Documentation"
                         external={true}
-                        className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
+                        className="inline-flex items-center px-2 md:px-3 py-1 md:py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-[10px] md:text-xs font-medium flex-shrink-0"
                       >
-                        <Download className="h-3 w-3 mr-1" />
-                        View PDF
+                        <Download className="h-2.5 w-2.5 md:h-3 md:w-3 mr-0.5 md:mr-1" />
+                        PDF
                       </PDFDownloadButton>
                     </div>
                   </div>
                   
                   {/* HAIR GENTRON */}
-                  <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+                  <div className="group border border-gray-200 rounded-md md:rounded-lg p-2 md:p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-2 md:gap-3">
+                      <div className="w-8 h-8 md:w-10 md:h-10 bg-gray-100 rounded-md md:rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                         <Link href="/products/48">
                           <Image
         src="/images/gen.jpg"
@@ -821,10 +765,10 @@ export default function TrainingPage() {
                         </Link>
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h4 className="text-sm font-semibold text-gray-900 truncate">
+                        <h4 className="text-xs md:text-sm font-semibold text-gray-900 truncate">
                         HAIR GENTRON
                       </h4>
-                        <p className="text-xs text-gray-400">
+                        <p className="text-[10px] md:text-xs text-gray-400">
                         1.8 MB
                       </p>
                       </div>
@@ -832,18 +776,18 @@ export default function TrainingPage() {
                         href="/documents/ppt/HAIR%20GENTRON.pdf"
                         filename="Product Documentation"
                         external={true}
-                        className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
+                        className="inline-flex items-center px-2 md:px-3 py-1 md:py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-[10px] md:text-xs font-medium flex-shrink-0"
                       >
-                        <Download className="h-3 w-3 mr-1" />
-                        View PDF
+                        <Download className="h-2.5 w-2.5 md:h-3 md:w-3 mr-0.5 md:mr-1" />
+                        PDF
                       </PDFDownloadButton>
                     </div>
                   </div>
                   
                   {/* HR³ MATRIX HAIR SOLUTION α */}
-                  <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+                  <div className="group border border-gray-200 rounded-md md:rounded-lg p-2 md:p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-2 md:gap-3">
+                      <div className="w-8 h-8 md:w-10 md:h-10 bg-gray-100 rounded-md md:rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                         <Link href="/products/45">
                           <Image
         src="/images/HHR.jpg"
@@ -854,10 +798,10 @@ export default function TrainingPage() {
                         </Link>
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h4 className="text-sm font-semibold text-gray-900 truncate">
+                        <h4 className="text-xs md:text-sm font-semibold text-gray-900 truncate">
                         HR³ MATRIX HAIR SOLUTION α
                       </h4>
-                        <p className="text-xs text-gray-400">
+                        <p className="text-[10px] md:text-xs text-gray-400">
                         2.3 MB
                       </p>
                       </div>
@@ -865,18 +809,18 @@ export default function TrainingPage() {
                         href="/documents/ppt/GENOSYS%20HR3%20MATRIX%20HAIR%20SOLUTION%20ALPHA.pdf"
                         filename="Product Documentation"
                         external={true}
-                        className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
+                        className="inline-flex items-center px-2 md:px-3 py-1 md:py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-[10px] md:text-xs font-medium flex-shrink-0"
                       >
-                        <Download className="h-3 w-3 mr-1" />
-                        View PDF
+                        <Download className="h-2.5 w-2.5 md:h-3 md:w-3 mr-0.5 md:mr-1" />
+                        PDF
                       </PDFDownloadButton>
                     </div>
                   </div>
                   
                   {/* HR³ MATRIX HAIR TONIC α */}
-                  <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+                  <div className="group border border-gray-200 rounded-md md:rounded-lg p-2 md:p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-2 md:gap-3">
+                      <div className="w-8 h-8 md:w-10 md:h-10 bg-gray-100 rounded-md md:rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                         <Link href="/products/43">
                           <Image
         src="/images/HT.jpg"
@@ -887,10 +831,10 @@ export default function TrainingPage() {
                         </Link>
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h4 className="text-sm font-semibold text-gray-900 truncate">
+                        <h4 className="text-xs md:text-sm font-semibold text-gray-900 truncate">
                         HR³ MATRIX HAIR TONIC α
                       </h4>
-                        <p className="text-xs text-gray-400">
+                        <p className="text-[10px] md:text-xs text-gray-400">
                         1.9 MB
                       </p>
                       </div>
@@ -898,18 +842,18 @@ export default function TrainingPage() {
                         href="/documents/ppt/GENOSYS%20HR3%20MATRIX%20HAIR%20TONIC%20ALPHA.pdf"
                         filename="Product Documentation"
                         external={true}
-                        className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
+                        className="inline-flex items-center px-2 md:px-3 py-1 md:py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-[10px] md:text-xs font-medium flex-shrink-0"
                       >
-                        <Download className="h-3 w-3 mr-1" />
-                        View PDF
+                        <Download className="h-2.5 w-2.5 md:h-3 md:w-3 mr-0.5 md:mr-1" />
+                        PDF
                       </PDFDownloadButton>
                     </div>
                   </div>
                   
                   {/* HR³ MATRIX SCALP PEELING α */}
-                  <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+                  <div className="group border border-gray-200 rounded-md md:rounded-lg p-2 md:p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-2 md:gap-3">
+                      <div className="w-8 h-8 md:w-10 md:h-10 bg-gray-100 rounded-md md:rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                         <Link href="/products/46">
                           <Image
         src="/images/scal.jpg"
@@ -920,10 +864,10 @@ export default function TrainingPage() {
                         </Link>
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h4 className="text-sm font-semibold text-gray-900 truncate">
+                        <h4 className="text-xs md:text-sm font-semibold text-gray-900 truncate">
                         HR³ MATRIX SCALP PEELING α
                       </h4>
-                        <p className="text-xs text-gray-400">
+                        <p className="text-[10px] md:text-xs text-gray-400">
                         2.1 MB
                       </p>
                       </div>
@@ -931,18 +875,18 @@ export default function TrainingPage() {
                         href="/documents/ppt/GENOSYS%20HR3%20MATRIX%20SCALP%20PEELING%20ALPHA.pdf"
                         filename="Product Documentation"
                         external={true}
-                        className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
+                        className="inline-flex items-center px-2 md:px-3 py-1 md:py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-[10px] md:text-xs font-medium flex-shrink-0"
                       >
-                        <Download className="h-3 w-3 mr-1" />
-                        View PDF
+                        <Download className="h-2.5 w-2.5 md:h-3 md:w-3 mr-0.5 md:mr-1" />
+                        PDF
                       </PDFDownloadButton>
                     </div>
                   </div>
                   
                   {/* GENO-LED IR II */}
-                  <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+                  <div className="group border border-gray-200 rounded-md md:rounded-lg p-2 md:p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-2 md:gap-3">
+                      <div className="w-8 h-8 md:w-10 md:h-10 bg-gray-100 rounded-md md:rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                         <Link href="/products/49">
                           <Image
         src="/images/LEDD.jpg"
@@ -953,10 +897,10 @@ export default function TrainingPage() {
                         </Link>
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h4 className="text-sm font-semibold text-gray-900 truncate">
+                        <h4 className="text-xs md:text-sm font-semibold text-gray-900 truncate">
                         GENO-LED IR II
                       </h4>
-                        <p className="text-xs text-gray-400">
+                        <p className="text-[10px] md:text-xs text-gray-400">
                         4.6 MB
                       </p>
                       </div>
@@ -964,18 +908,18 @@ export default function TrainingPage() {
                         href="/documents/ppt/GENO-LED%20IR%20II_2025.pdf"
                         filename="Product Documentation"
                         external={true}
-                        className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
+                        className="inline-flex items-center px-2 md:px-3 py-1 md:py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-[10px] md:text-xs font-medium flex-shrink-0"
                       >
-                        <Download className="h-3 w-3 mr-1" />
-                        View PDF
+                        <Download className="h-2.5 w-2.5 md:h-3 md:w-3 mr-0.5 md:mr-1" />
+                        PDF
                       </PDFDownloadButton>
                     </div>
                   </div>
 
                   {/* SKIN REBOOT PDRN MASK PACK */}
-                  <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+                  <div className="group border border-gray-200 rounded-md md:rounded-lg p-2 md:p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-2 md:gap-3">
+                      <div className="w-8 h-8 md:w-10 md:h-10 bg-gray-100 rounded-md md:rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                         <Link href="/products/52">
                           <Image
         src="/images/PDRN.png"
@@ -986,10 +930,10 @@ export default function TrainingPage() {
                         </Link>
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h4 className="text-sm font-semibold text-gray-900 truncate">
+                        <h4 className="text-xs md:text-sm font-semibold text-gray-900 truncate">
                         SKIN REBOOT PDRN MASK PACK
                       </h4>
-                        <p className="text-xs text-gray-400">
+                        <p className="text-[10px] md:text-xs text-gray-400">
                         1.2 MB
                       </p>
                       </div>
@@ -997,18 +941,18 @@ export default function TrainingPage() {
                         href="/documents/ppt/GENOSYS%20SKIN%20REBOOT%20PDRN%20MASK%20PACK.pdf"
                         filename="Product Documentation"
                         external={true}
-                        className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
+                        className="inline-flex items-center px-2 md:px-3 py-1 md:py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-[10px] md:text-xs font-medium flex-shrink-0"
                       >
-                        <Download className="h-3 w-3 mr-1" />
-                        View PDF
+                        <Download className="h-2.5 w-2.5 md:h-3 md:w-3 mr-0.5 md:mr-1" />
+                        PDF
                       </PDFDownloadButton>
                     </div>
                   </div>
                   
                   {/* EZ CO₂ MASK KIT */}
-                  <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+                  <div className="group border border-gray-200 rounded-md md:rounded-lg p-2 md:p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-2 md:gap-3">
+                      <div className="w-8 h-8 md:w-10 md:h-10 bg-gray-100 rounded-md md:rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                         <Link href="/products/38">
                           <Image
         src="/images/EZE.jpg"
@@ -1019,10 +963,10 @@ export default function TrainingPage() {
                         </Link>
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h4 className="text-sm font-semibold text-gray-900 truncate">
+                        <h4 className="text-xs md:text-sm font-semibold text-gray-900 truncate">
                         EZ CO₂ MASK KIT
                       </h4>
-                        <p className="text-xs text-gray-400">
+                        <p className="text-[10px] md:text-xs text-gray-400">
                         0.5 MB
                       </p>
                       </div>
@@ -1030,18 +974,18 @@ export default function TrainingPage() {
                         href="/documents/ppt/Genosys%20Ez%20Co2%20Mask.pdf"
                         filename="Product Documentation"
                         external={true}
-                        className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
+                        className="inline-flex items-center px-2 md:px-3 py-1 md:py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-[10px] md:text-xs font-medium flex-shrink-0"
                       >
-                        <Download className="h-3 w-3 mr-1" />
-                        View PDF
+                        <Download className="h-2.5 w-2.5 md:h-3 md:w-3 mr-0.5 md:mr-1" />
+                        PDF
                       </PDFDownloadButton>
                     </div>
                   </div>
                   
                   {/* Microneedle Roller */}
-                  <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+                  <div className="group border border-gray-200 rounded-md md:rounded-lg p-2 md:p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-2 md:gap-3">
+                      <div className="w-8 h-8 md:w-10 md:h-10 bg-gray-100 rounded-md md:rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                         <Link href="/products/1">
                           <Image
         src="/images/genosys-microneedling-devices.jpg"
@@ -1052,10 +996,10 @@ export default function TrainingPage() {
                         </Link>
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h4 className="text-sm font-semibold text-gray-900 truncate">
+                        <h4 className="text-xs md:text-sm font-semibold text-gray-900 truncate">
                         Microneedle Roller
                       </h4>
-                        <p className="text-xs text-gray-400">
+                        <p className="text-[10px] md:text-xs text-gray-400">
                         1.5 MB
                       </p>
                       </div>
@@ -1063,10 +1007,10 @@ export default function TrainingPage() {
                         href="/documents/ppt/Overview%20of%20Microneedling_S.pdf"
                         filename="Product Documentation"
                         external={true}
-                        className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
+                        className="inline-flex items-center px-2 md:px-3 py-1 md:py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-[10px] md:text-xs font-medium flex-shrink-0"
                       >
-                        <Download className="h-3 w-3 mr-1" />
-                        View PDF
+                        <Download className="h-2.5 w-2.5 md:h-3 md:w-3 mr-0.5 md:mr-1" />
+                        PDF
                       </PDFDownloadButton>
                     </div>
                   </div>
@@ -1075,17 +1019,17 @@ export default function TrainingPage() {
             </div>
           </div>
 
-          {/* Training Lessons Section */}
-          <div className="mt-16">
+          {/* Training Lessons Section - Video Tutorials */}
+          <div className="mt-6 md:mt-16">
             
-            <div className="grid gap-8">
+            <div className="grid gap-4 md:gap-8">
               {/* Genosys Bodycell Stretch Mark Treatment Lesson */}
-              <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-                <div className="p-6">
-                  <h3 className="text-2xl font-bold text-gray-800 mb-4 text-center">
+              <div className="bg-white rounded-lg shadow-md md:shadow-lg overflow-hidden">
+                <div className="p-3 md:p-6">
+                  <h3 className="text-sm md:text-2xl font-bold text-gray-800 mb-2 md:mb-4 text-center">
                     Genosys Bodycell Stretch Mark Treatment
                   </h3>
-                  <p className="text-gray-600 mb-6">
+                  <p className="hidden md:block text-gray-600 mb-6">
                     Learn the professional techniques for treating stretch marks using Genosys Bodycell technology. 
                     This comprehensive training covers proper application methods, safety protocols, and expected results.
                   </p>
@@ -1103,7 +1047,7 @@ export default function TrainingPage() {
                   </div>
                   
                   {/* Lesson Details */}
-                  <div className="mt-6 grid md:grid-cols-2 gap-6">
+                  <div className="hidden md:grid mt-6 md:grid-cols-2 gap-6">
                     <div>
                       <h4 className="font-semibold text-gray-800 mb-2">What You&apos;ll Learn:</h4>
                       <ul className="text-gray-600 space-y-1">
@@ -1128,12 +1072,12 @@ export default function TrainingPage() {
               </div>
 
               {/* Genosys NDcell Neck & Decollete Treatment Lesson */}
-              <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-                <div className="p-6">
-                  <h3 className="text-2xl font-bold text-gray-800 mb-4 text-center">
+              <div className="bg-white rounded-lg shadow-md md:shadow-lg overflow-hidden">
+                <div className="p-3 md:p-6">
+                  <h3 className="text-sm md:text-2xl font-bold text-gray-800 mb-2 md:mb-4 text-center">
                     Genosys NDcell Neck & Decollete Treatment
                   </h3>
-                  <p className="text-gray-600 mb-6">
+                  <p className="hidden md:block text-gray-600 mb-6">
                     Master the specialized techniques for treating the delicate neck and décolletage area using Genosys NDcell technology. 
                     This advanced training covers proper application methods, safety considerations, and achieving optimal results for this sensitive area.
                   </p>
@@ -1151,7 +1095,7 @@ export default function TrainingPage() {
                   </div>
                   
                   {/* Lesson Details */}
-                  <div className="mt-6 grid md:grid-cols-2 gap-6">
+                  <div className="hidden md:grid mt-6 md:grid-cols-2 gap-6">
                     <div>
                       <h4 className="font-semibold text-gray-800 mb-2">What You&apos;ll Learn:</h4>
                       <ul className="text-gray-600 space-y-1">
@@ -1176,12 +1120,12 @@ export default function TrainingPage() {
               </div>
 
               {/* Genosys EyeCell Treatment Lesson */}
-              <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-                <div className="p-6">
-                  <h3 className="text-2xl font-bold text-gray-800 mb-4 text-center">
+              <div className="bg-white rounded-lg shadow-md md:shadow-lg overflow-hidden">
+                <div className="p-3 md:p-6">
+                  <h3 className="text-sm md:text-2xl font-bold text-gray-800 mb-2 md:mb-4 text-center">
                     Genosys EyeCell Treatment
                   </h3>
-                  <p className="text-gray-600 mb-6">
+                  <p className="hidden md:block text-gray-600 mb-6">
                     Learn the precise techniques for treating the delicate eye area using Genosys EyeCell technology. 
                     This specialized training covers safe application methods, client comfort protocols, and achieving optimal results for the sensitive periocular region.
                   </p>
@@ -1199,7 +1143,7 @@ export default function TrainingPage() {
                   </div>
                   
                   {/* Lesson Details */}
-                  <div className="mt-6 grid md:grid-cols-2 gap-6">
+                  <div className="hidden md:grid mt-6 md:grid-cols-2 gap-6">
                     <div>
                       <h4 className="font-semibold text-gray-800 mb-2">What You&apos;ll Learn:</h4>
                       <ul className="text-gray-600 space-y-1">
@@ -1224,12 +1168,12 @@ export default function TrainingPage() {
               </div>
 
               {/* Genosys HR3 Matrix Treatment Lesson */}
-              <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-                <div className="p-6">
-                  <h3 className="text-2xl font-bold text-gray-800 mb-4 text-center">
+              <div className="bg-white rounded-lg shadow-md md:shadow-lg overflow-hidden">
+                <div className="p-3 md:p-6">
+                  <h3 className="text-sm md:text-2xl font-bold text-gray-800 mb-2 md:mb-4 text-center">
                     Genosys HR3 Matrix Treatment
                   </h3>
-                  <p className="text-gray-600 mb-6">
+                  <p className="hidden md:block text-gray-600 mb-6">
                     Master the advanced HR3 Matrix treatment techniques using Genosys technology. 
                     This comprehensive training covers matrix application methods, treatment protocols, and achieving optimal results for skin rejuvenation and matrix enhancement.
                   </p>
@@ -1247,7 +1191,7 @@ export default function TrainingPage() {
                   </div>
                   
                   {/* Lesson Details */}
-                  <div className="mt-6 grid md:grid-cols-2 gap-6">
+                  <div className="hidden md:grid mt-6 md:grid-cols-2 gap-6">
                     <div>
                       <h4 className="font-semibold text-gray-800 mb-2">What You&apos;ll Learn:</h4>
                       <ul className="text-gray-600 space-y-1">
@@ -1272,12 +1216,12 @@ export default function TrainingPage() {
               </div>
 
               {/* Facial Treatment Lesson */}
-              <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-                <div className="p-6">
-                  <h3 className="text-2xl font-bold text-gray-800 mb-4 text-center">
+              <div className="bg-white rounded-lg shadow-md md:shadow-lg overflow-hidden">
+                <div className="p-3 md:p-6">
+                  <h3 className="text-sm md:text-2xl font-bold text-gray-800 mb-2 md:mb-4 text-center">
                     Facial Treatment
                   </h3>
-                  <p className="text-gray-600 mb-6">
+                  <p className="hidden md:block text-gray-600 mb-6">
                     Learn comprehensive facial treatment techniques using Genosys products and protocols. 
                     This essential training covers complete facial procedures, product application sequences, and achieving optimal results for various skin types and concerns.
                   </p>
@@ -1295,7 +1239,7 @@ export default function TrainingPage() {
                   </div>
                   
                   {/* Lesson Details */}
-                  <div className="mt-6 grid md:grid-cols-2 gap-6">
+                  <div className="hidden md:grid mt-6 md:grid-cols-2 gap-6">
                     <div>
                       <h4 className="font-semibold text-gray-800 mb-2">What You&apos;ll Learn:</h4>
                       <ul className="text-gray-600 space-y-1">
@@ -1320,12 +1264,12 @@ export default function TrainingPage() {
               </div>
 
               {/* How to use Genosys Snow 02 Cleanser Lesson */}
-              <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-                <div className="p-6">
-                  <h3 className="text-2xl font-bold text-gray-800 mb-4 text-center">
+              <div className="bg-white rounded-lg shadow-md md:shadow-lg overflow-hidden">
+                <div className="p-3 md:p-6">
+                  <h3 className="text-sm md:text-2xl font-bold text-gray-800 mb-2 md:mb-4 text-center">
                     How to use Genosys Snow 02 Cleanser
                   </h3>
-                  <p className="text-gray-600 mb-6">
+                  <p className="hidden md:block text-gray-600 mb-6">
                     Master the proper techniques for using Genosys Snow 02 Cleanser effectively. 
                     This detailed training covers correct application methods, timing, and achieving optimal cleansing results for different skin types and conditions.
                   </p>
@@ -1343,7 +1287,7 @@ export default function TrainingPage() {
                   </div>
                   
                   {/* Lesson Details */}
-                  <div className="mt-6 grid md:grid-cols-2 gap-6">
+                  <div className="hidden md:grid mt-6 md:grid-cols-2 gap-6">
                     <div>
                       <h4 className="font-semibold text-gray-800 mb-2">What You&apos;ll Learn:</h4>
                       <ul className="text-gray-600 space-y-1">
@@ -1368,12 +1312,12 @@ export default function TrainingPage() {
               </div>
 
               {/* GENOSYS HR3 MATRIX Lesson */}
-              <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-                <div className="p-6">
-                  <h3 className="text-2xl font-bold text-gray-800 mb-4 text-center">
+              <div className="bg-white rounded-lg shadow-md md:shadow-lg overflow-hidden">
+                <div className="p-3 md:p-6">
+                  <h3 className="text-sm md:text-2xl font-bold text-gray-800 mb-2 md:mb-4 text-center">
                     GENOSYS HR3 MATRIX
                   </h3>
-                  <p className="text-gray-600 mb-6">
+                  <p className="hidden md:block text-gray-600 mb-6">
                     Advanced training on GENOSYS HR3 MATRIX technology and application techniques. 
                     This comprehensive lesson covers matrix treatment protocols, advanced application methods, and achieving optimal results for skin rejuvenation and matrix enhancement.
                   </p>
@@ -1391,7 +1335,7 @@ export default function TrainingPage() {
                   </div>
                   
                   {/* Lesson Details */}
-                  <div className="mt-6 grid md:grid-cols-2 gap-6">
+                  <div className="hidden md:grid mt-6 md:grid-cols-2 gap-6">
                     <div>
                       <h4 className="font-semibold text-gray-800 mb-2">What You&apos;ll Learn:</h4>
                       <ul className="text-gray-600 space-y-1">
@@ -1416,12 +1360,12 @@ export default function TrainingPage() {
               </div>
 
               {/* GENOSYS HR3 MATRIX HAIR SOLUTION ALPHA Lesson */}
-              <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-                <div className="p-6">
-                  <h3 className="text-2xl font-bold text-gray-800 mb-4 text-center">
+              <div className="bg-white rounded-lg shadow-md md:shadow-lg overflow-hidden">
+                <div className="p-3 md:p-6">
+                  <h3 className="text-sm md:text-2xl font-bold text-gray-800 mb-2 md:mb-4 text-center">
                     GENOSYS HR3 MATRIX HAIR SOLUTION ALPHA
                   </h3>
-                  <p className="text-gray-600 mb-6">
+                  <p className="hidden md:block text-gray-600 mb-6">
                     Specialized training on GENOSYS HR3 MATRIX HAIR SOLUTION ALPHA for advanced hair treatment protocols. 
                     This comprehensive lesson covers hair matrix treatment techniques, scalp preparation, and achieving optimal results for hair restoration and enhancement.
                   </p>
@@ -1439,7 +1383,7 @@ export default function TrainingPage() {
                   </div>
                   
                   {/* Lesson Details */}
-                  <div className="mt-6 grid md:grid-cols-2 gap-6">
+                  <div className="hidden md:grid mt-6 md:grid-cols-2 gap-6">
                     <div>
                       <h4 className="font-semibold text-gray-800 mb-2">What You&apos;ll Learn:</h4>
                       <ul className="text-gray-600 space-y-1">
@@ -1464,12 +1408,12 @@ export default function TrainingPage() {
               </div>
 
               {/* Eye Cell Treatment - Eye zone treatment with Eye Roller 0.25mm Lesson */}
-              <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-                <div className="p-6">
-                  <h3 className="text-2xl font-bold text-gray-800 mb-4 text-center">
+              <div className="bg-white rounded-lg shadow-md md:shadow-lg overflow-hidden">
+                <div className="p-3 md:p-6">
+                  <h3 className="text-sm md:text-2xl font-bold text-gray-800 mb-2 md:mb-4 text-center">
                     Eye Cell Treatment - Eye zone treatment with Eye Roller 0.25mm
                   </h3>
-                  <p className="text-gray-600 mb-6">
+                  <p className="hidden md:block text-gray-600 mb-6">
                     Specialized training on Eye Cell Treatment using the Eye Roller 0.25mm for precise eye zone treatments. 
                     This detailed lesson covers proper roller techniques, eye area safety protocols, and achieving optimal results for the delicate periocular region.
                   </p>
@@ -1487,7 +1431,7 @@ export default function TrainingPage() {
                   </div>
                   
                   {/* Lesson Details */}
-                  <div className="mt-6 grid md:grid-cols-2 gap-6">
+                  <div className="hidden md:grid mt-6 md:grid-cols-2 gap-6">
                     <div>
                       <h4 className="font-semibold text-gray-800 mb-2">What You&apos;ll Learn:</h4>
                       <ul className="text-gray-600 space-y-1">
@@ -1512,12 +1456,12 @@ export default function TrainingPage() {
               </div>
 
               {/* Genosys HAIRGEN BOOSTER Treatment Lesson */}
-              <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-                <div className="p-6">
-                  <h3 className="text-2xl font-bold text-gray-800 mb-4 text-center">
+              <div className="bg-white rounded-lg shadow-md md:shadow-lg overflow-hidden">
+                <div className="p-3 md:p-6">
+                  <h3 className="text-sm md:text-2xl font-bold text-gray-800 mb-2 md:mb-4 text-center">
                     Genosys HAIRGEN BOOSTER Treatment
                   </h3>
-                  <p className="text-gray-600 mb-6">
+                  <p className="hidden md:block text-gray-600 mb-6">
                     Master the advanced hair treatment techniques using Genosys HAIRGEN BOOSTER technology. 
                     This comprehensive training covers hair restoration protocols, scalp preparation methods, and achieving optimal results for hair growth and enhancement.
                   </p>
@@ -1535,7 +1479,7 @@ export default function TrainingPage() {
                   </div>
                   
                   {/* Lesson Details */}
-                  <div className="mt-6 grid md:grid-cols-2 gap-6">
+                  <div className="hidden md:grid mt-6 md:grid-cols-2 gap-6">
                     <div>
                       <h4 className="font-semibold text-gray-800 mb-2">What You&apos;ll Learn:</h4>
                       <ul className="text-gray-600 space-y-1">
@@ -1560,12 +1504,12 @@ export default function TrainingPage() {
               </div>
 
               {/* HR3 MATRIX Anti Hair Loss Treatment Lesson */}
-              <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-                <div className="p-6">
-                  <h3 className="text-2xl font-bold text-gray-800 mb-4 text-center">
+              <div className="bg-white rounded-lg shadow-md md:shadow-lg overflow-hidden">
+                <div className="p-3 md:p-6">
+                  <h3 className="text-sm md:text-2xl font-bold text-gray-800 mb-2 md:mb-4 text-center">
                     HR3 MATRIX Anti Hair Loss Treatment
                   </h3>
-                  <p className="text-gray-600 mb-6">
+                  <p className="hidden md:block text-gray-600 mb-6">
                     Learn the specialized techniques for treating hair loss using HR3 MATRIX technology. 
                     This advanced training covers anti-hair loss protocols, scalp treatment methods, and achieving optimal results for hair restoration and prevention of further hair loss.
                   </p>
@@ -1583,7 +1527,7 @@ export default function TrainingPage() {
                   </div>
                   
                   {/* Lesson Details */}
-                  <div className="mt-6 grid md:grid-cols-2 gap-6">
+                  <div className="hidden md:grid mt-6 md:grid-cols-2 gap-6">
                     <div>
                       <h4 className="font-semibold text-gray-800 mb-2">What You&apos;ll Learn:</h4>
                       <ul className="text-gray-600 space-y-1">
@@ -1607,12 +1551,12 @@ export default function TrainingPage() {
                 </div>
               </div>
 
-              {/* Placeholder for future lessons */}
-              <div className="bg-gray-50 rounded-lg p-8 text-center">
+              {/* Placeholder for future lessons - hidden on mobile */}
+              <div className="hidden md:block bg-gray-50 rounded-lg p-8 text-center">
                 <h3 className="text-xl font-semibold text-gray-600 mb-2">
                   More Training Lessons Coming Soon
                 </h3>
-                <p className="text-gray-500">
+                <p className="text-base text-gray-500">
                   We&apos;re continuously adding new training content. Check back regularly for updates.
                 </p>
               </div>

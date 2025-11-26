@@ -34,7 +34,7 @@ export default function CartItem({ item }: CartItemProps) {
   return (
     <div className="bg-white rounded-lg shadow-sm border p-3 md:p-4">
       <div className="flex items-start gap-3 md:gap-4">
-        {/* Left: Product Image + Size (mobile) */}
+        {/* Left: Product Image + Size */}
         <div className="flex flex-col flex-shrink-0">
           <Link href={`/products/${product.id}`} className="relative w-20 h-20 md:w-24 md:h-24 hover:opacity-80 transition-opacity">
             <Image
@@ -48,10 +48,10 @@ export default function CartItem({ item }: CartItemProps) {
               blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
             />
           </Link>
-          {/* Size below image - mobile only */}
+          {/* Size below image */}
           {displaySize && (
-            <span className="md:hidden mt-3 text-center text-[10px] font-medium text-blue-700 bg-blue-50 border border-blue-200 rounded px-1 py-0.5">
-              {displaySize}
+            <span className="mt-2 text-center text-[10px] md:text-xs font-medium text-blue-700 bg-blue-50 border border-blue-200 rounded px-1 py-0.5">
+              {t('product.size')}: {displaySize}
             </span>
           )}
         </div>
@@ -63,19 +63,12 @@ export default function CartItem({ item }: CartItemProps) {
           </Link>
           <p className="text-xs md:text-sm text-red-600 mb-2">{product.category}</p>
           
-          {/* Size/Color badges - Size hidden on mobile (shown next to trash) */}
-          {(displaySize || displayColor) && (
+          {/* Color badge only - Size is shown below image */}
+          {displayColor && (
             <div className="flex items-center gap-1.5 md:gap-2 mb-2 flex-nowrap overflow-x-auto">
-              {displaySize && (
-                <span className="hidden md:inline-flex items-center px-2 py-1 rounded-md text-xs lg:text-sm font-medium bg-blue-50 text-blue-700 border border-blue-200 whitespace-nowrap flex-shrink-0">
-                  {t('product.size')}: {displaySize}
-                </span>
-              )}
-              {displayColor && (
-                <span className="inline-flex items-center px-1.5 md:px-2 py-0.5 md:py-1 rounded-md text-[10px] md:text-xs lg:text-sm font-medium bg-purple-50 text-purple-700 border border-purple-200 whitespace-nowrap flex-shrink-0">
-                  {t('product.color')}: {displayColor}
-                </span>
-              )}
+              <span className="inline-flex items-center px-1.5 md:px-2 py-0.5 md:py-1 rounded-md text-[10px] md:text-xs lg:text-sm font-medium bg-purple-50 text-purple-700 border border-purple-200 whitespace-nowrap flex-shrink-0">
+                {t('product.color')}: {displayColor}
+              </span>
             </div>
           )}
           
@@ -124,8 +117,8 @@ export default function CartItem({ item }: CartItemProps) {
           )}
         </div>
         
-        {/* Right: Quantity Controls + Size + Delete */}
-        <div className="flex flex-col items-end gap-2 flex-shrink-0">
+        {/* Right: Quantity Controls + Delete */}
+        <div className="flex flex-col items-center gap-1 md:gap-2 flex-shrink-0">
           <div className="flex items-center border rounded-lg">
             <button
               onClick={() => handleQuantityChange(quantity - 1)}
@@ -145,7 +138,7 @@ export default function CartItem({ item }: CartItemProps) {
           
           <button
             onClick={handleRemove}
-            className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors touch-manipulation"
+            className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors touch-manipulation ml-3 md:ml-0 -mt-1 md:mt-0"
           >
             <Trash2 className="h-4 w-4 md:h-5 md:w-5" />
           </button>

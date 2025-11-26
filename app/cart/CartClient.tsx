@@ -19,7 +19,7 @@ export default function CartClient() {
   const { t, locale, dir } = useTranslation()
   
   // Black Friday countdown state
-  const [timeLeft, setTimeLeft] = useState<{ hours: number; minutes: number; seconds: number } | null>(null)
+  const [timeLeft, setTimeLeft] = useState<{ days: number; hours: number; minutes: number; seconds: number } | null>(null)
   const [saleProgress, setSaleProgress] = useState(0)
   const [isSaleActive, setIsSaleActive] = useState(false)
 
@@ -75,6 +75,7 @@ export default function CartClient() {
         setSaleProgress(progress)
 
         setTimeLeft({
+          days: Math.floor(difference / (1000 * 60 * 60 * 24)),
           hours: Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
           minutes: Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60)),
           seconds: Math.floor((difference % (1000 * 60)) / 1000),
@@ -86,6 +87,7 @@ export default function CartClient() {
         setSaleProgress(0)
 
         setTimeLeft({
+          days: Math.floor(difference / (1000 * 60 * 60 * 24)),
           hours: Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
           minutes: Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60)),
           seconds: Math.floor((difference % (1000 * 60)) / 1000),
@@ -175,16 +177,13 @@ export default function CartClient() {
                     ? 'bg-gradient-to-r from-red-50 to-orange-50 border-2 border-red-500' 
                     : 'bg-gray-50 border-2 border-gray-300 opacity-75'
                   } rounded-lg shadow-sm ${dir === 'rtl' ? 'text-right' : ''}`}>
-                    <div className={`flex items-center gap-2 mb-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                      <span className="text-2xl">{blackFridayActive ? '🎉' : '📅'}</span>
-                      <div className="flex-1">
-                        <h3 className={`text-lg md:text-xl font-bold ${blackFridayActive ? 'text-red-700' : 'text-gray-600'} ${dir === 'rtl' ? 'text-right' : ''}`}>
-                          {locale === 'ar' ? 'عرض الجمعة السوداء' : 'Black Friday Sale'}
-                        </h3>
-                        <p className={`text-sm font-semibold ${blackFridayActive ? 'text-red-600' : 'text-gray-500'} ${dir === 'rtl' ? 'text-right' : ''}`}>
-                          {locale === 'ar' ? 'خصم 20% على جميع المنتجات' : '20% OFF on All Products'}
-                        </p>
-                      </div>
+                    <div className={`mb-3 text-center md:text-left ${dir === 'rtl' ? 'md:text-right' : ''}`}>
+                      <h3 className={`text-lg md:text-xl font-bold ${blackFridayActive ? 'text-red-700' : 'text-gray-600'}`}>
+                        {locale === 'ar' ? 'عرض الجمعة السوداء' : 'Black Friday Sale'}
+                      </h3>
+                      <p className={`text-sm font-semibold ${blackFridayActive ? 'text-red-600' : 'text-gray-500'}`}>
+                        {locale === 'ar' ? 'خصم 20% على جميع المنتجات' : '20% OFF on All Products'}
+                      </p>
                     </div>
                     
                     {/* Countdown Timer */}
@@ -198,6 +197,16 @@ export default function CartClient() {
                           </span>
                         </div>
                         <div className={`flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                          {/* Days */}
+                          <div className={`flex flex-col items-center bg-white rounded-md px-2 py-1.5 border ${blackFridayActive ? 'border-red-300' : 'border-gray-300'} min-w-[50px]`}>
+                            <div className={`text-lg font-bold tabular-nums ${blackFridayActive ? 'text-red-600' : 'text-gray-600'}`}>
+                              {timeLeft.days.toString().padStart(2, '0')}
+                            </div>
+                            <div className={`text-[10px] ${blackFridayActive ? 'text-red-500' : 'text-gray-500'}`}>
+                              {locale === 'ar' ? 'ي' : 'D'}
+                            </div>
+                          </div>
+                          <span className={`text-lg font-bold ${blackFridayActive ? 'text-red-500' : 'text-gray-400'}`}>:</span>
                           {/* Hours */}
                           <div className={`flex flex-col items-center bg-white rounded-md px-2 py-1.5 border ${blackFridayActive ? 'border-red-300' : 'border-gray-300'} min-w-[50px]`}>
                             <div className={`text-lg font-bold tabular-nums ${blackFridayActive ? 'text-red-600' : 'text-gray-600'}`}>
@@ -330,38 +339,38 @@ export default function CartClient() {
           {/* Order Summary */}
           <div className="lg:w-1/3">
             <div className="bg-white rounded-lg shadow-sm border border-gray-200 sticky top-4 order-summary-container" style={{ overflow: 'hidden', overflowY: 'hidden', overflowX: 'hidden' }}>
-              <div className={`p-6 ${dir === 'rtl' ? 'text-right' : ''}`}>
-                <h2 className={`text-xl font-bold text-gray-900 mb-6 ${dir === 'rtl' ? 'text-right' : ''}`}>{t('cart.orderSummary')}</h2>
+              <div className={`p-4 md:p-6 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                <h2 className={`text-lg md:text-xl font-bold text-gray-900 mb-4 md:mb-6 ${dir === 'rtl' ? 'text-right' : ''}`}>{t('cart.orderSummary')}</h2>
                 
                 {/* User Status */}
                 {!user && (
-                  <div className={`mb-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg ${dir === 'rtl' ? 'text-right' : ''}`}>
-                    <div className={`flex items-center gap-2 text-yellow-800 mb-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                      <Lock className="h-5 w-5" />
-                      <span className="font-semibold">{t('cart.loginRequired')}</span>
+                  <div className={`mb-4 md:mb-6 p-3 md:p-4 bg-yellow-50 border border-yellow-200 rounded-lg ${dir === 'rtl' ? 'text-right' : ''}`}>
+                    <div className={`flex items-center gap-2 text-yellow-800 mb-1.5 md:mb-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                      <Lock className="h-4 w-4 md:h-5 md:w-5" />
+                      <span className="font-semibold text-sm md:text-base">{t('cart.loginRequired')}</span>
                     </div>
-                    <p className={`text-sm text-yellow-700 mb-3 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                    <p className={`text-xs md:text-sm text-yellow-700 mb-2 md:mb-3 ${dir === 'rtl' ? 'text-right' : ''}`}>
                       {t('cart.loginRequiredMessage')}
                     </p>
                     <Link
                       href={getLocalizedPath('/login', locale)}
-                      className={`inline-flex items-center gap-2 bg-primary-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-primary-700 transition-colors ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+                      className={`inline-flex items-center gap-1.5 md:gap-2 bg-primary-600 text-white px-3 md:px-4 py-1.5 md:py-2 rounded-lg text-xs md:text-sm font-medium hover:bg-primary-700 transition-colors ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
                     >
-                      <Lock className="h-4 w-4" />
+                      <Lock className="h-3.5 w-3.5 md:h-4 md:w-4" />
                       {t('common.login')}
                     </Link>
                   </div>
                 )}
 
                 {/* Shipping Location */}
-                <div className="mb-6">
-                  <label className={`block text-sm font-medium text-gray-700 mb-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                <div className="mb-4 md:mb-6">
+                  <label className={`block text-xs md:text-sm font-medium text-gray-700 mb-1.5 md:mb-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
                     {t('cart.deliveryLocation')}
                   </label>
                   <select
                     value={selectedEmirate}
                     onChange={(e) => setSelectedEmirate(e.target.value)}
-                    className={`w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900 ${dir === 'rtl' ? 'text-right' : ''}`}
+                    className={`w-full p-2.5 md:p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900 text-sm md:text-base ${dir === 'rtl' ? 'text-right' : ''}`}
                     style={{ color: '#111827' }}
                     dir={dir}
                   >
@@ -371,60 +380,60 @@ export default function CartClient() {
                       </option>
                     ))}
                   </select>
-                  <p className={`text-xs text-gray-500 mt-1 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                  <p className={`text-[10px] md:text-xs text-gray-500 mt-1 ${dir === 'rtl' ? 'text-right' : ''}`}>
                     {t('cart.shippingCostsVary')}
                   </p>
                 </div>
 
                 {/* Black Friday Notice */}
                 {blackFridayActive && (
-                  <div className={`mb-4 p-3 bg-red-50 border-2 border-red-500 rounded-lg ${dir === 'rtl' ? 'text-right' : ''}`}>
-                    <div className={`flex items-center gap-2 mb-1 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                      <span className="text-sm md:text-base font-bold text-red-600">
-                        🎉 {locale === 'ar' ? 'عرض الجمعة السوداء - خصم 20%' : 'Black Friday - 20% OFF'}
-                      </span>
-                    </div>
-                    {originalSubtotal > subtotal && (
-                      <div className={`text-xs text-gray-700 ${dir === 'rtl' ? 'text-right' : ''}`}>
-                        {locale === 'ar' 
-                          ? `وفرت ${(originalSubtotal - subtotal).toFixed(2)} درهم`
-                          : `You saved AED ${(originalSubtotal - subtotal).toFixed(2)}`}
+                  <div className={`mb-3 md:mb-4 p-3 md:p-4 bg-gradient-to-r from-red-50 to-red-100 border-2 border-red-400 rounded-lg ${dir === 'rtl' ? 'text-right' : ''}`}>
+                    <div className="text-center">
+                      <div className="text-sm md:text-base font-bold text-red-600 mb-1">
+                        {locale === 'ar' ? 'الجمعة السوداء' : 'Black Friday'} 
+                        <span className="ml-1 bg-red-600 text-white px-2 py-0.5 rounded text-xs md:text-sm">-20%</span>
                       </div>
-                    )}
+                      {originalSubtotal > subtotal && (
+                        <div className="text-xs md:text-sm text-green-700 font-medium">
+                          {locale === 'ar' 
+                            ? `✓ وفرت ${(originalSubtotal - subtotal).toFixed(2)} درهم`
+                            : `✓ You saved AED ${(originalSubtotal - subtotal).toFixed(2)}`}
+                        </div>
+                      )}
+                    </div>
                   </div>
                 )}
 
                 {/* Price Breakdown */}
-                <div className={`space-y-3 mb-6 ${dir === 'rtl' ? 'text-right' : ''}`}>
-                  <div className={`flex justify-between text-gray-600 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                    <span>{t('cart.subtotal')} ({getTotalItems()} {getTotalItems() === 1 ? t('cart.item') : t('cart.items')})</span>
+                <div className={`space-y-2 md:space-y-3 mb-4 md:mb-6 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                  <div className={`flex justify-between text-xs md:text-base text-gray-600 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                    <span>{t('cart.subtotal')} ({getTotalItems()})</span>
                     {blackFridayActive && originalSubtotal > subtotal ? (
-                      <div className={`flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                        <span className="text-gray-900 font-semibold">{user ? `AED ${subtotal.toFixed(2)}` : t('cart.loginToSeePrice')}</span>
-                        <span className="text-sm text-gray-500 line-through">{user ? `AED ${originalSubtotal.toFixed(2)}` : ''}</span>
-                        <span className="text-xs font-medium text-green-600">20% OFF</span>
+                      <div className={`flex items-center gap-1 md:gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                        <span className="text-gray-900 font-semibold">{user ? `${subtotal.toFixed(2)}` : t('cart.loginToSeePrice')}</span>
+                        <span className="text-[10px] md:text-sm text-gray-500 line-through">{user ? `${originalSubtotal.toFixed(2)}` : ''}</span>
                       </div>
                     ) : (
                       <span>{user ? `AED ${subtotal.toFixed(2)}` : t('cart.loginToSeePrice')}</span>
                     )}
                   </div>
                   
-                  <div className={`flex justify-between text-gray-600 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                  <div className={`flex justify-between text-xs md:text-base text-gray-600 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                     <span>{t('cart.shippingTo')} {selectedEmirate}</span>
                     <span>{user ? (shippingCost === 0 ? <span className="text-green-600 font-semibold">{t('cart.freeDelivery')}</span> : `AED ${shippingCost}`) : t('cart.loginToSeePrice')}</span>
                   </div>
                   
-                  <div className={`flex justify-between text-gray-600 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                  <div className={`flex justify-between text-xs md:text-base text-gray-600 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                     <span>{t('cart.vat')}</span>
                     <span>{user ? `AED ${((subtotal + shippingCost) / 1.05 * 0.05).toFixed(2)}` : t('cart.loginToSeePrice')}</span>
                   </div>
                   
-                  <div className={`text-xs text-red-600 ${dir === 'rtl' ? 'text-right' : 'text-left'}`}>
+                  <div className={`text-[10px] md:text-xs text-red-600 ${dir === 'rtl' ? 'text-right' : 'text-left'}`}>
                     {t('cart.allPricesIncludeVat')}
                   </div>
                   
-                  <div className="border-t border-gray-200 pt-3">
-                    <div className={`flex justify-between text-lg font-bold text-gray-900 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                  <div className="border-t border-gray-200 pt-2 md:pt-3">
+                    <div className={`flex justify-between text-base md:text-lg font-bold text-gray-900 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                       <span>{t('cart.total')}</span>
                       <span>{user ? `AED ${total.toFixed(2)}` : t('cart.loginToSeePrice')}</span>
                     </div>
@@ -433,27 +442,27 @@ export default function CartClient() {
 
                 {/* Free Masks Notice */}
                 {user && subtotal >= 700 && (
-                  <div className={`mb-6 p-3 bg-green-50 border border-green-200 rounded-lg ${dir === 'rtl' ? 'text-right' : ''}`}>
-                    <div className={`flex items-center gap-2 mb-1 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                      <Gift className="h-4 w-4 text-green-600" />
-                      <span className="text-sm font-semibold text-green-800">
+                  <div className={`mb-4 md:mb-6 p-2.5 md:p-3 bg-green-50 border border-green-200 rounded-lg ${dir === 'rtl' ? 'text-right' : ''}`}>
+                    <div className={`flex items-center gap-1.5 md:gap-2 mb-0.5 md:mb-1 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                      <Gift className="h-3.5 w-3.5 md:h-4 md:w-4 text-green-600" />
+                      <span className="text-xs md:text-sm font-semibold text-green-800">
                         {t('cart.twoFreeMasksAdded')}
                       </span>
                     </div>
-                    <p className={`text-xs text-green-700 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                    <p className={`text-[10px] md:text-xs text-green-700 ${dir === 'rtl' ? 'text-right' : ''}`}>
                       {t('cart.seaAlgaeCollagenMasks')}
                     </p>
                   </div>
                 )}
                 {user && subtotal >= 500 && subtotal < 700 && (
-                  <div className={`mb-6 p-3 bg-green-50 border border-green-200 rounded-lg ${dir === 'rtl' ? 'text-right' : ''}`}>
-                    <div className={`flex items-center gap-2 mb-1 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                      <Gift className="h-4 w-4 text-green-600" />
-                      <span className="text-sm font-semibold text-green-800">
+                  <div className={`mb-4 md:mb-6 p-2.5 md:p-3 bg-green-50 border border-green-200 rounded-lg ${dir === 'rtl' ? 'text-right' : ''}`}>
+                    <div className={`flex items-center gap-1.5 md:gap-2 mb-0.5 md:mb-1 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                      <Gift className="h-3.5 w-3.5 md:h-4 md:w-4 text-green-600" />
+                      <span className="text-xs md:text-sm font-semibold text-green-800">
                         {t('cart.oneFreeMaskAdded')}
                       </span>
                     </div>
-                    <p className={`text-xs text-green-700 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                    <p className={`text-[10px] md:text-xs text-green-700 ${dir === 'rtl' ? 'text-right' : ''}`}>
                       {t('cart.collagenMaskAdded')}
                     </p>
                   </div>
@@ -463,15 +472,15 @@ export default function CartClient() {
                 {user ? (
                   <Link
                     href={getLocalizedPath('/checkout', locale)}
-                    className="w-full bg-primary-600 text-white py-3 md:py-4 rounded-lg font-semibold hover:bg-primary-700 transition-colors text-center block text-sm md:text-base touch-manipulation min-h-[44px]"
+                    className="w-full bg-primary-600 text-white py-2.5 md:py-4 rounded-lg font-semibold hover:bg-primary-700 transition-colors text-center block text-sm md:text-base touch-manipulation min-h-[40px] md:min-h-[44px]"
                   >
                     {t('cart.checkout')}
                   </Link>
                 ) : (
-                  <div className="space-y-3">
+                  <div className="space-y-2 md:space-y-3">
                     <Link
                       href={getLocalizedPath('/login', locale)}
-                      className="w-full bg-primary-600 text-white py-3 md:py-4 rounded-lg font-semibold hover:bg-primary-700 transition-colors text-center block text-sm md:text-base touch-manipulation min-h-[44px]"
+                      className="w-full bg-primary-600 text-white py-2.5 md:py-4 rounded-lg font-semibold hover:bg-primary-700 transition-colors text-center block text-sm md:text-base touch-manipulation min-h-[40px] md:min-h-[44px]"
                     >
                       {t('cart.loginToCheckout')}
                     </Link>
@@ -480,30 +489,30 @@ export default function CartClient() {
                       href={`https://wa.me/971585487665?text=${locale === 'ar' ? 'مرحباً، أنا مهتم بمنتجات مستحضرات التجميل الكورية المهنية. هل يمكنك مساعدتي في الأسعار والطلب؟' : 'Hi, I\'m interested in your professional Korean dermacosmetics products. Can you help me with pricing and ordering?'}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`w-full bg-green-600 text-white py-3 md:py-4 rounded-lg font-semibold hover:bg-green-700 transition-colors text-center block text-sm md:text-base touch-manipulation flex items-center justify-center gap-2 min-h-[44px] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+                      className={`w-full bg-green-600 text-white py-2.5 md:py-4 rounded-lg font-semibold hover:bg-green-700 transition-colors text-center block text-sm md:text-base touch-manipulation flex items-center justify-center gap-1.5 md:gap-2 min-h-[40px] md:min-h-[44px] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
                     >
-                      <MessageCircle className="h-4 w-4" />
+                      <MessageCircle className="h-3.5 w-3.5 md:h-4 md:w-4" />
                       {t('cart.contactSupport')}
                     </a>
                   </div>
                 )}
 
                 {/* Continue Shopping */}
-                <div className="mt-6 pt-6 border-t border-gray-200">
+                <div className="mt-4 md:mt-6 pt-4 md:pt-6 border-t border-gray-200">
                   <Link
                     href={getLocalizedPath('/products', locale)}
-                    className={`flex items-center gap-2 text-primary-600 hover:text-primary-700 transition-colors text-sm font-medium ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+                    className={`flex items-center gap-1.5 md:gap-2 text-primary-600 hover:text-primary-700 transition-colors text-xs md:text-sm font-medium ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
                   >
-                    <ArrowLeft className={`h-4 w-4 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
+                    <ArrowLeft className={`h-3.5 w-3.5 md:h-4 md:w-4 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
                     {t('cart.continueShopping')}
                   </Link>
                 </div>
 
                 {/* Contact Info */}
                 {!user && (
-                  <div className={`mt-6 pt-6 border-t border-gray-200 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                  <div className={`mt-4 md:mt-6 pt-4 md:pt-6 border-t border-gray-200 ${dir === 'rtl' ? 'text-right' : ''}`}>
                     <div className="text-center">
-                      <p className={`text-sm text-gray-600 mb-3 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                      <p className={`text-xs md:text-sm text-gray-600 mb-2 md:mb-3 ${dir === 'rtl' ? 'text-right' : ''}`}>
                         {t('cart.needHelp')}
                       </p>
                       <div className="space-y-2">
@@ -511,9 +520,9 @@ export default function CartClient() {
                           href={`https://wa.me/971585487665?text=${locale === 'ar' ? 'مرحباً، أنا مهتم بمنتجات مستحضرات التجميل الكورية المهنية. هل يمكنك مساعدتي في الأسعار والطلب؟' : 'Hi, I\'m interested in your professional Korean dermacosmetics products. Can you help me with pricing and ordering?'}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className={`w-full bg-green-600 text-white py-3 md:py-4 rounded-lg font-semibold hover:bg-green-700 transition-colors text-center block text-sm md:text-base touch-manipulation flex items-center justify-center gap-2 min-h-[44px] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+                          className={`w-full bg-green-600 text-white py-2.5 md:py-4 rounded-lg font-semibold hover:bg-green-700 transition-colors text-center block text-sm md:text-base touch-manipulation flex items-center justify-center gap-1.5 md:gap-2 min-h-[40px] md:min-h-[44px] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
                         >
-                          <MessageCircle className="h-4 w-4" />
+                          <MessageCircle className="h-3.5 w-3.5 md:h-4 md:w-4" />
                           {t('cart.contactSupport')}
                         </a>
                       </div>

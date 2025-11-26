@@ -1,5 +1,6 @@
 import Hero from '@/components/Hero'
 import BreadcrumbSchema from '@/components/BreadcrumbSchema'
+import MobileRedirect from '@/components/MobileRedirect'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -65,13 +66,15 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <div className="bg-white min-h-screen" dir="ltr">
-      <BreadcrumbSchema 
-        items={[
-          { name: 'Home', url: '/' }
-        ]}
-      />
-      <Hero initialLocale="en" initialDir="ltr" />
-    </div>
+    <MobileRedirect to="/products">
+      <div className="bg-white min-h-screen" dir="ltr">
+        <BreadcrumbSchema 
+          items={[
+            { name: 'Home', url: '/' }
+          ]}
+        />
+        <Hero initialLocale="en" initialDir="ltr" />
+      </div>
+    </MobileRedirect>
   )
 }

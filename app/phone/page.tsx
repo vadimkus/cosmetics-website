@@ -171,6 +171,8 @@ export default function PhoneSimulatorPage() {
                     height: phone.height,
                   }}
                 >
+                  {/* Spacer for Dynamic Island */}
+                  <div className="h-12 bg-gray-100 flex-shrink-0" />
                   {/* Safari-style Browser Address Bar */}
                   <div className="bg-gray-100 px-3 py-2 flex items-center gap-2 border-b border-gray-200 flex-shrink-0">
                     {/* Status bar icons */}

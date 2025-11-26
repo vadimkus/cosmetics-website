@@ -1,5 +1,6 @@
 import Hero from '@/components/Hero'
 import BreadcrumbSchema from '@/components/BreadcrumbSchema'
+import MobileRedirect from '@/components/MobileRedirect'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -65,14 +66,15 @@ export const metadata: Metadata = {
 
 export default function ArabicHome() {
   return (
-    <div className="bg-white min-h-screen" dir="rtl">
-      <BreadcrumbSchema 
-        items={[
-          { name: 'الرئيسية', url: '/ar' }
-        ]}
-      />
-      <Hero initialLocale="ar" initialDir="rtl" />
-    </div>
+    <MobileRedirect to="/ar/products">
+      <div className="bg-white min-h-screen" dir="rtl">
+        <BreadcrumbSchema 
+          items={[
+            { name: 'الرئيسية', url: '/ar' }
+          ]}
+        />
+        <Hero initialLocale="ar" initialDir="rtl" />
+      </div>
+    </MobileRedirect>
   )
 }
-

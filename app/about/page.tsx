@@ -108,86 +108,43 @@ export default function AboutPage() {
           </div>
         </div>
 
-        {/* Legal & Contact - Accordion-style on mobile */}
-        <div className="bg-white rounded-lg shadow-sm border p-3 md:p-8 mb-4 md:mb-8">
-          <h2 className="text-lg md:text-3xl font-bold text-gray-800 mb-4 md:mb-8 text-center">Legal Info & Contact</h2>
+        {/* Legal Info & Contact Heading */}
+        <h2 className="text-lg md:text-3xl font-bold text-gray-800 mb-3 md:mb-6 text-center">Legal Info & Contact</h2>
+        
+        {/* Separate blocks for mobile, grid for desktop */}
+        <div className="space-y-3 md:space-y-0 md:grid md:grid-cols-3 md:gap-8 mb-4 md:mb-8">
+          {/* Company Details Block */}
+          <div className="bg-white rounded-lg shadow-sm border p-3 md:p-6">
+            <h3 className="text-sm md:text-xl font-semibold text-gray-800 mb-2 md:mb-4 pb-1 md:pb-2 border-b border-gray-200">Company Details</h3>
+            <div className="space-y-0.5 md:space-y-2 text-gray-600 text-xs md:text-base">
+              <div><span className="font-semibold text-gray-800">Company:</span> Genosys Middle East FZ-LLC</div>
+              <div><span className="font-semibold text-gray-800">Year:</span> 2019</div>
+              <div><span className="font-semibold text-gray-800">License:</span> <a href="/documents/commercial-license.pdf" download="Genosys-Commercial-License-5023192.pdf" className="text-primary-600 hover:text-primary-700 underline">5023192</a></div>
+              <div><span className="font-semibold text-gray-800">TRN:</span> <a href="/documents/genosys-trn-104229886700003.pdf" download="GENOSYS-TRN-104229886700003.pdf" className="text-primary-600 hover:text-primary-700 underline">104229886700003</a></div>
+              <div><span className="font-semibold text-gray-800">Main Office:</span> Al Hamra, RAK, UAE</div>
+              <div><span className="font-semibold text-gray-800">Dubai Office:</span> Cordoba Residence, E02</div>
+            </div>
+          </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
-            {/* Company Details */}
-            <div>
-              <h3 className="text-sm md:text-xl font-semibold text-gray-800 mb-2 md:mb-6 pb-1 md:pb-2 border-b border-gray-200">Company Details</h3>
-              <div className="space-y-1 md:space-y-4 text-gray-600">
-                <div className="flex flex-col">
-                  <span className="font-semibold text-gray-800 text-[10px] md:text-sm uppercase tracking-wide">Company Name</span>
-                  <span className="text-xs md:text-base">Genosys Middle East FZ-LLC</span>
-                </div>
-                <div className="flex flex-col">
-                  <span className="font-semibold text-gray-800 text-[10px] md:text-sm uppercase tracking-wide">Year</span>
-                  <span className="text-xs md:text-base">2019</span>
-                </div>
-                <div className="flex flex-col">
-                  <span className="font-semibold text-gray-800 text-[10px] md:text-sm uppercase tracking-wide">License</span>
-                  <a href="/documents/commercial-license.pdf" download="Genosys-Commercial-License-5023192.pdf" className="text-primary-600 hover:text-primary-700 underline text-xs md:text-base">5023192</a>
-                </div>
-                <div className="flex flex-col">
-                  <span className="font-semibold text-gray-800 text-[10px] md:text-sm uppercase tracking-wide">TRN</span>
-                  <a href="/documents/genosys-trn-104229886700003.pdf" download="GENOSYS-TRN-104229886700003.pdf" className="text-primary-600 hover:text-primary-700 underline text-xs md:text-base">104229886700003</a>
-                </div>
-                <div className="flex flex-col">
-                  <span className="font-semibold text-gray-800 text-[10px] md:text-sm uppercase tracking-wide">Main Office</span>
-                  <span className="text-xs md:text-base">Al Hamra Industrial Zone-FZ, RAK, UAE</span>
-                </div>
-                <div className="flex flex-col">
-                  <span className="font-semibold text-gray-800 text-[10px] md:text-sm uppercase tracking-wide">Dubai Office</span>
-                  <span className="text-xs md:text-base">Cordoba Residence, Villa E02</span>
-                </div>
-              </div>
+          {/* Contact Block */}
+          <div className="bg-white rounded-lg shadow-sm border p-3 md:p-6">
+            <h3 className="text-sm md:text-xl font-semibold text-gray-800 mb-2 md:mb-4 pb-1 md:pb-2 border-b border-gray-200">Contact</h3>
+            <div className="space-y-0.5 md:space-y-2 text-xs md:text-base">
+              <div><span className="font-semibold text-gray-800">Phone:</span> <a href="tel:+971585487665" className="text-primary-600 hover:text-primary-700">+971 58 548 76 65</a></div>
+              <div><span className="font-semibold text-gray-800">Email:</span> <a href="mailto:sales@genosys.ae" className="text-primary-600 hover:text-primary-700">sales@genosys.ae</a></div>
+              <div><span className="font-semibold text-gray-800">Web:</span> <a href="https://genosys.ae" target="_blank" rel="noopener noreferrer" className="text-primary-600 hover:text-primary-700">genosys.ae</a></div>
+              <div><span className="font-semibold text-gray-800">Insta:</span> <a href="https://www.instagram.com/genosys.uae/" target="_blank" rel="noopener noreferrer" className="text-primary-600 hover:text-primary-700">@genosys.uae</a></div>
             </div>
-            
-            {/* Contact Information */}
-            <div>
-              <h3 className="text-sm md:text-xl font-semibold text-gray-800 mb-2 md:mb-6 pb-1 md:pb-2 border-b border-gray-200">Contact</h3>
-              <div className="space-y-1 md:space-y-4 text-gray-600">
-                <div className="flex flex-col">
-                  <span className="font-semibold text-gray-800 text-[10px] md:text-sm uppercase tracking-wide">Phone</span>
-                  <a href="tel:+971585487665" className="text-primary-600 hover:text-primary-700 text-xs md:text-base">+971 58 548 76 65</a>
-                </div>
-                <div className="flex flex-col">
-                  <span className="font-semibold text-gray-800 text-[10px] md:text-sm uppercase tracking-wide">Email</span>
-                  <a href="mailto:sales@genosys.ae" className="text-primary-600 hover:text-primary-700 text-xs md:text-base">sales@genosys.ae</a>
-                </div>
-                <div className="flex flex-col">
-                  <span className="font-semibold text-gray-800 text-[10px] md:text-sm uppercase tracking-wide">Website</span>
-                  <a href="https://genosys.ae" target="_blank" rel="noopener noreferrer" className="text-primary-600 hover:text-primary-700 text-xs md:text-base">genosys.ae</a>
-                </div>
-                <div className="flex flex-col">
-                  <span className="font-semibold text-gray-800 text-[10px] md:text-sm uppercase tracking-wide">Instagram</span>
-                  <a href="https://www.instagram.com/genosys.uae/" target="_blank" rel="noopener noreferrer" className="text-primary-600 hover:text-primary-700 text-xs md:text-base">@genosys.uae</a>
-                </div>
-              </div>
-            </div>
-            
-            {/* Business Information */}
-            <div>
-              <h3 className="text-sm md:text-xl font-semibold text-gray-800 mb-2 md:mb-6 pb-1 md:pb-2 border-b border-gray-200">Business</h3>
-              <div className="space-y-1 md:space-y-4 text-gray-600">
-                <div className="flex flex-col">
-                  <span className="font-semibold text-gray-800 text-[10px] md:text-sm uppercase tracking-wide">Distributor</span>
-                  <span className="text-xs md:text-base">DTSMG Co., Ltd, Korea</span>
-                </div>
-                <div className="flex flex-col">
-                  <span className="font-semibold text-gray-800 text-[10px] md:text-sm uppercase tracking-wide">Certification</span>
-                  <span className="text-xs md:text-base">Dubai Municipality</span>
-                </div>
-                <div className="flex flex-col">
-                  <span className="font-semibold text-gray-800 text-[10px] md:text-sm uppercase tracking-wide">Products</span>
-                  <span className="text-xs md:text-base">Korean dermacosmetics</span>
-                </div>
-                <div className="flex flex-col">
-                  <span className="font-semibold text-gray-800 text-[10px] md:text-sm uppercase tracking-wide">Area</span>
-                  <span className="text-xs md:text-base">UAE</span>
-                </div>
-              </div>
+          </div>
+          
+          {/* Business Block */}
+          <div className="bg-white rounded-lg shadow-sm border p-3 md:p-6">
+            <h3 className="text-sm md:text-xl font-semibold text-gray-800 mb-2 md:mb-4 pb-1 md:pb-2 border-b border-gray-200">Business</h3>
+            <div className="space-y-0.5 md:space-y-2 text-gray-600 text-xs md:text-base">
+              <div><span className="font-semibold text-gray-800">Distributor:</span> DTSMG Co., Ltd, Korea</div>
+              <div><span className="font-semibold text-gray-800">Certification:</span> Dubai Municipality</div>
+              <div><span className="font-semibold text-gray-800">Products:</span> Korean dermacosmetics</div>
+              <div><span className="font-semibold text-gray-800">Area:</span> UAE</div>
             </div>
           </div>
         </div>

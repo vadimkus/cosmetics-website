@@ -78,120 +78,51 @@ export default function ArabicAboutPageClient() {
             </div>
           </div>
 
-          {/* Legal & Contact */}
-          <div className="bg-white rounded-lg shadow-sm border p-3 md:p-8 mb-4 md:mb-8">
-            <h2 className={`text-lg md:text-3xl font-bold text-gray-800 mb-4 md:mb-8 text-center ${dir === 'rtl' ? 'text-right' : ''}`}>
-              {t('about.legalInformationContact')}
-            </h2>
+          {/* Legal Info & Contact Heading */}
+          <h2 className={`text-lg md:text-3xl font-bold text-gray-800 mb-3 md:mb-6 text-center ${dir === 'rtl' ? 'text-right' : ''}`}>
+            {t('about.legalInformationContact')}
+          </h2>
+          
+          {/* Separate blocks for mobile, grid for desktop */}
+          <div className="space-y-3 md:space-y-0 md:grid md:grid-cols-3 md:gap-8 mb-4 md:mb-8">
+            {/* Company Details Block */}
+            <div className="bg-white rounded-lg shadow-sm border p-3 md:p-6">
+              <h3 className={`text-sm md:text-xl font-semibold text-gray-800 mb-2 md:mb-4 pb-1 md:pb-2 border-b border-gray-200 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                {t('about.companyDetails')}
+              </h3>
+              <div className={`space-y-0.5 md:space-y-2 text-gray-600 text-xs md:text-base ${dir === 'rtl' ? 'text-right' : ''}`}>
+                <div><span className="font-semibold text-gray-800">{t('about.companyNameLabel')}:</span> {t('about.companyNameValue')}</div>
+                <div><span className="font-semibold text-gray-800">{t('about.yearOfIncorporation')}:</span> 2019</div>
+                <div><span className="font-semibold text-gray-800">{t('about.commercialLicense')}:</span> <a href="/documents/commercial-license.pdf" download="Genosys-Commercial-License-5023192.pdf" className="text-primary-600 hover:text-primary-700 underline">5023192</a></div>
+                <div><span className="font-semibold text-gray-800">TRN:</span> <a href="/documents/genosys-trn-104229886700003.pdf" download="GENOSYS-TRN-104229886700003.pdf" className="text-primary-600 hover:text-primary-700 underline">104229886700003</a></div>
+                <div><span className="font-semibold text-gray-800">{t('about.mainOfficeAddress')}:</span> Al Hamra, RAK, UAE</div>
+                <div><span className="font-semibold text-gray-800">{t('about.dubaiOfficeAddress')}:</span> Cordoba Residence, E02</div>
+              </div>
+            </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
-              {/* Company Details */}
-              <div>
-                <h3 className={`text-sm md:text-xl font-semibold text-gray-800 mb-2 md:mb-6 pb-1 md:pb-2 border-b border-gray-200 ${dir === 'rtl' ? 'text-right' : ''}`}>
-                  {t('about.companyDetails')}
-                </h3>
-                <div className={`space-y-1 md:space-y-4 text-gray-600 ${dir === 'rtl' ? 'text-right' : ''}`}>
-                  <div className="flex flex-col">
-                    <span className="font-semibold text-gray-800 text-[10px] md:text-sm uppercase tracking-wide">{t('about.companyNameLabel')}</span>
-                    <span className="text-xs md:text-base">{t('about.companyNameValue')}</span>
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="font-semibold text-gray-800 text-[10px] md:text-sm uppercase tracking-wide">{t('about.yearOfIncorporation')}</span>
-                    <span className="text-xs md:text-base">2019</span>
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="font-semibold text-gray-800 text-[10px] md:text-sm uppercase tracking-wide">{t('about.commercialLicense')}</span>
-                    <a 
-                      href="/documents/commercial-license.pdf" 
-                      download="Genosys-Commercial-License-5023192.pdf" 
-                      className="text-primary-600 hover:text-primary-700 underline text-xs md:text-base"
-                    >
-                      5023192
-                    </a>
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="font-semibold text-gray-800 text-[10px] md:text-sm uppercase tracking-wide">TRN</span>
-                    <a 
-                      href="/documents/genosys-trn-104229886700003.pdf" 
-                      download="GENOSYS-TRN-104229886700003.pdf" 
-                      className="text-primary-600 hover:text-primary-700 underline text-xs md:text-base"
-                    >
-                      104229886700003
-                    </a>
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="font-semibold text-gray-800 text-[10px] md:text-sm uppercase tracking-wide">{t('about.mainOfficeAddress')}</span>
-                    <span className="text-xs md:text-base">Al Hamra Industrial Zone-FZ, RAK, UAE</span>
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="font-semibold text-gray-800 text-[10px] md:text-sm uppercase tracking-wide">{t('about.dubaiOfficeAddress')}</span>
-                    <span className="text-xs md:text-base">Cordoba Residence, Villa E02</span>
-                  </div>
-                </div>
+            {/* Contact Block */}
+            <div className="bg-white rounded-lg shadow-sm border p-3 md:p-6">
+              <h3 className={`text-sm md:text-xl font-semibold text-gray-800 mb-2 md:mb-4 pb-1 md:pb-2 border-b border-gray-200 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                {t('about.contactInformation')}
+              </h3>
+              <div className={`space-y-0.5 md:space-y-2 text-xs md:text-base ${dir === 'rtl' ? 'text-right' : ''}`}>
+                <div><span className="font-semibold text-gray-800">{t('about.phone')}:</span> <a href="tel:+971585487665" className="text-primary-600 hover:text-primary-700">+971 58 548 76 65</a></div>
+                <div><span className="font-semibold text-gray-800">{t('about.email')}:</span> <a href="mailto:sales@genosys.ae" className="text-primary-600 hover:text-primary-700">sales@genosys.ae</a></div>
+                <div><span className="font-semibold text-gray-800">{t('about.website')}:</span> <a href="https://genosys.ae" target="_blank" rel="noopener noreferrer" className="text-primary-600 hover:text-primary-700">genosys.ae</a></div>
+                <div><span className="font-semibold text-gray-800">{t('about.instagram')}:</span> <a href="https://www.instagram.com/genosys.uae/" target="_blank" rel="noopener noreferrer" className="text-primary-600 hover:text-primary-700">@genosys.uae</a></div>
               </div>
-              
-              {/* Contact Information */}
-              <div>
-                <h3 className={`text-sm md:text-xl font-semibold text-gray-800 mb-2 md:mb-6 pb-1 md:pb-2 border-b border-gray-200 ${dir === 'rtl' ? 'text-right' : ''}`}>
-                  {t('about.contactInformation')}
-                </h3>
-                <div className={`space-y-1 md:space-y-4 text-gray-600 ${dir === 'rtl' ? 'text-right' : ''}`}>
-                  <div className="flex flex-col">
-                    <span className="font-semibold text-gray-800 text-[10px] md:text-sm uppercase tracking-wide">{t('about.phone')}</span>
-                    <a href="tel:+971585487665" className="text-primary-600 hover:text-primary-700 text-xs md:text-base">+971 58 548 76 65</a>
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="font-semibold text-gray-800 text-[10px] md:text-sm uppercase tracking-wide">{t('about.email')}</span>
-                    <a href="mailto:sales@genosys.ae" className="text-primary-600 hover:text-primary-700 text-xs md:text-base">sales@genosys.ae</a>
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="font-semibold text-gray-800 text-[10px] md:text-sm uppercase tracking-wide">{t('about.website')}</span>
-                    <a 
-                      href="https://genosys.ae" 
-                      target="_blank" 
-                      rel="noopener noreferrer" 
-                      className="text-primary-600 hover:text-primary-700 text-xs md:text-base"
-                    >
-                      genosys.ae
-                    </a>
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="font-semibold text-gray-800 text-[10px] md:text-sm uppercase tracking-wide">{t('about.instagram')}</span>
-                    <a 
-                      href="https://www.instagram.com/genosys.uae/" 
-                      target="_blank" 
-                      rel="noopener noreferrer" 
-                      className="text-primary-600 hover:text-primary-700 text-xs md:text-base"
-                    >
-                      @genosys.uae
-                    </a>
-                  </div>
-                </div>
-              </div>
-              
-              {/* Business Information */}
-              <div>
-                <h3 className={`text-sm md:text-xl font-semibold text-gray-800 mb-2 md:mb-6 pb-1 md:pb-2 border-b border-gray-200 ${dir === 'rtl' ? 'text-right' : ''}`}>
-                  {t('about.businessInformation')}
-                </h3>
-                <div className={`space-y-1 md:space-y-4 text-gray-600 ${dir === 'rtl' ? 'text-right' : ''}`}>
-                  <div className="flex flex-col">
-                    <span className="font-semibold text-gray-800 text-[10px] md:text-sm uppercase tracking-wide">{t('about.officialDistributor')}</span>
-                    <span className="text-xs md:text-base">DTSMG Co., Ltd, Korea</span>
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="font-semibold text-gray-800 text-[10px] md:text-sm uppercase tracking-wide">{t('about.certification')}</span>
-                    <span className="text-xs md:text-base">Dubai Municipality</span>
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="font-semibold text-gray-800 text-[10px] md:text-sm uppercase tracking-wide">{t('about.products')}</span>
-                    <span className="text-xs md:text-base">{t('about.premiumKoreanDermacosmetics')}</span>
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="font-semibold text-gray-800 text-[10px] md:text-sm uppercase tracking-wide">{t('about.serviceArea')}</span>
-                    <span className="text-xs md:text-base">{t('about.unitedArabEmirates')}</span>
-                  </div>
-                </div>
+            </div>
+            
+            {/* Business Block */}
+            <div className="bg-white rounded-lg shadow-sm border p-3 md:p-6">
+              <h3 className={`text-sm md:text-xl font-semibold text-gray-800 mb-2 md:mb-4 pb-1 md:pb-2 border-b border-gray-200 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                {t('about.businessInformation')}
+              </h3>
+              <div className={`space-y-0.5 md:space-y-2 text-gray-600 text-xs md:text-base ${dir === 'rtl' ? 'text-right' : ''}`}>
+                <div><span className="font-semibold text-gray-800">{t('about.officialDistributor')}:</span> DTSMG Co., Ltd, Korea</div>
+                <div><span className="font-semibold text-gray-800">{t('about.certification')}:</span> Dubai Municipality</div>
+                <div><span className="font-semibold text-gray-800">{t('about.products')}:</span> {t('about.premiumKoreanDermacosmetics')}</div>
+                <div><span className="font-semibold text-gray-800">{t('about.serviceArea')}:</span> {t('about.unitedArabEmirates')}</div>
               </div>
             </div>
           </div>

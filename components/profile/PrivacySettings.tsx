@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import { Shield, Eye, Edit3, Trash2, Download, MessageCircle, ChevronDown, ChevronUp, Lock, Database, Clock, UserCheck } from 'lucide-react'
-import { useTranslation } from '@/hooks/useTranslation'
 
 interface AccordionItemProps {
   title: string
@@ -50,8 +49,6 @@ function AccordionItem({ title, icon, children, defaultOpen = false, badge }: Ac
 }
 
 export default function PrivacySettings() {
-  const { t } = useTranslation()
-  
   return (
     <div className="bg-white/70 backdrop-blur-sm rounded-xl md:rounded-2xl shadow-lg border border-white/20 p-3 md:p-6 lg:p-8">
       {/* Header */}

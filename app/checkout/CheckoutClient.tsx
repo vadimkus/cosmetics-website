@@ -696,44 +696,44 @@ export default function CheckoutClient() {
                   </div>
                   
                   <div className="space-y-3">
-                    <label className={`flex items-center gap-3 p-4 border border-gray-300 rounded-lg cursor-not-allowed opacity-50 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                    <label className={`flex items-start gap-3 p-3 md:p-4 border border-gray-300 rounded-lg cursor-not-allowed opacity-50 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                       <input
                         type="radio"
                         name="payment"
                         value="stripe-checkout"
                         disabled
-                        className="text-gray-400"
+                        className="text-gray-400 mt-1 flex-shrink-0"
                       />
-                      <div className={dir === 'rtl' ? 'text-right' : ''}>
-                        <div className="font-medium text-gray-500">{t('checkout.stripeCheckout')}</div>
-                        <div className="text-sm text-gray-400">{t('checkout.comingSoon')}</div>
+                      <div className={`flex-1 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                        <div className="font-medium text-gray-500 text-sm md:text-base">{t('checkout.stripeCheckout')}</div>
+                        <div className="text-xs md:text-sm text-gray-400">{t('checkout.comingSoon')}</div>
                       </div>
                     </label>
                     
-                    <label className={`flex items-center gap-3 p-4 border border-primary-300 rounded-lg cursor-pointer hover:bg-primary-50 bg-primary-25 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                    <label className={`flex items-start gap-3 p-3 md:p-4 border border-primary-300 rounded-lg cursor-pointer hover:bg-primary-50 bg-primary-25 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                       <input
                         type="radio"
                         name="payment"
                         value="cod"
                         defaultChecked
-                        className="text-primary-600 focus:ring-primary-500"
+                        className="text-primary-600 focus:ring-primary-500 mt-1 flex-shrink-0"
                       />
-                      <div className={dir === 'rtl' ? 'text-right' : ''}>
-                        <div className="font-medium text-gray-900">{t('checkout.cod')}</div>
-                        <div className="text-sm text-gray-600">{t('checkout.payWhenDelivered')}</div>
+                      <div className={`flex-1 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                        <div className="font-medium text-gray-900 text-sm md:text-base">{t('checkout.cod')}</div>
+                        <div className="text-xs md:text-sm text-gray-600">{t('checkout.payWhenDelivered')}</div>
                       </div>
                     </label>
 
-                    <label className={`flex items-center gap-3 p-4 border border-primary-300 rounded-lg cursor-pointer hover:bg-primary-50 bg-primary-25 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                    <label className={`flex items-start gap-3 p-3 md:p-4 border border-primary-300 rounded-lg cursor-pointer hover:bg-primary-50 bg-primary-25 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                       <input
                         type="radio"
                         name="payment"
                         value="support-link"
-                        className="text-primary-600 focus:ring-primary-500"
+                        className="text-primary-600 focus:ring-primary-500 mt-1 flex-shrink-0"
                       />
-                      <div className={dir === 'rtl' ? 'text-right' : ''}>
-                        <div className="font-medium text-gray-900">{t('checkout.generateLinkForPayment')}</div>
-                        <div className="text-sm text-gray-600">{t('checkout.supportTeamWillShareLink')}</div>
+                      <div className={`flex-1 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                        <div className="font-medium text-gray-900 text-sm md:text-base">{t('checkout.generateLinkForPayment')}</div>
+                        <div className="text-xs md:text-sm text-gray-600">{t('checkout.supportTeamWillShareLink')}</div>
                       </div>
                     </label>
                   </div>

@@ -1,7 +1,6 @@
 'use client'
 
 import Link from 'next/link'
-import { ArrowLeft } from 'lucide-react'
 import Logo from '@/components/Logo'
 import BreadcrumbSchema from '@/components/BreadcrumbSchema'
 import { useTranslation } from '@/hooks/useTranslation'
@@ -18,68 +17,44 @@ export default function ArabicAboutPageClient() {
           { name: t('navigation.about'), url: getLocalizedPath('/about', locale) }
         ]}
       />
-      <div className="container mx-auto px-4 py-8 md:py-16">
+      <div className="container mx-auto px-3 md:px-4 py-4 md:py-16">
         <div className="max-w-4xl mx-auto">
 
           {/* Navigation Breadcrumb */}
-          <nav className={`flex flex-col gap-2 text-sm md:text-base text-gray-600 mb-8 ${dir === 'rtl' ? 'text-right' : ''}`} aria-label="Breadcrumb">
-            {/* Mobile Breadcrumb */}
-            <div className={`md:hidden flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-              <Link 
-                href={getLocalizedPath('/', locale)}
-                className="hover:text-primary-600 transition-colors flex items-center"
-              >
-                {t('navigation.home')}
-              </Link>
-              <span className="flex items-center">/</span>
-              <span className="text-gray-900 font-medium flex items-center">
-                {t('navigation.about')}
-              </span>
-            </div>
-            
-            {/* Mobile Back Button */}
+          <nav className={`flex items-center gap-1 md:gap-2 text-xs md:text-base text-gray-600 mb-4 md:mb-8 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`} aria-label="Breadcrumb">
             <Link 
               href={getLocalizedPath('/', locale)}
-              className={`md:hidden flex items-center gap-2 text-primary-600 hover:text-primary-700 transition-colors ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+              className="hover:text-primary-600 transition-colors"
             >
-              <ArrowLeft className={`h-4 w-4 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
-              <span className="font-medium">{t('common.backToHome')}</span>
+              {t('navigation.home')}
             </Link>
-            
-            {/* Desktop Breadcrumb */}
-            <div className={`hidden md:flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-              <Link 
-                href={getLocalizedPath('/', locale)}
-                className="hover:text-primary-600 transition-colors flex items-center"
-              >
-                {t('navigation.home')}
-              </Link>
-              <span className="flex items-center">/</span>
-              <span className="text-gray-900 font-medium flex items-center">
-                {t('navigation.about')}
-              </span>
-            </div>
+            <span>/</span>
+            <span className="text-gray-900 font-medium">
+              {t('navigation.about')}
+            </span>
           </nav>
 
-          <div className="text-center mb-12">
-            <h1 className={`text-4xl md:text-5xl font-bold text-gray-800 mb-6 ${dir === 'rtl' ? 'text-right' : ''}`}>
+          {/* Header - Compact on mobile */}
+          <div className="text-center mb-6 md:mb-12">
+            <h1 className={`text-xl md:text-5xl font-bold text-gray-800 mb-3 md:mb-6 ${dir === 'rtl' ? 'text-right' : ''}`}>
               {t('about.companyName')}
             </h1>
-            <div className="flex justify-center mb-6">
-              <Logo size="lg" className="justify-center" />
+            <div className="flex justify-center mb-3 md:mb-6">
+              <Logo size="lg" className="justify-center scale-50 md:scale-100" />
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-            <div className="bg-white rounded-lg shadow-sm border p-6">
-              <h2 className={`text-2xl font-semibold text-gray-800 mb-4 text-center ${dir === 'rtl' ? 'text-right' : ''}`}>
+          {/* About & Mission - Stacked on mobile */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-8 mb-6 md:mb-12">
+            <div className="bg-white rounded-lg shadow-sm border p-3 md:p-6">
+              <h2 className={`text-base md:text-2xl font-semibold text-gray-800 mb-2 md:mb-4 text-center ${dir === 'rtl' ? 'text-right' : ''}`}>
                 {t('about.aboutUs')}
               </h2>
-              <div className={`space-y-4 ${dir === 'rtl' ? 'text-right' : ''}`}>
-                <p className="text-gray-600 leading-relaxed">
+              <div className={`space-y-1 md:space-y-4 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                <p className="text-xs md:text-base text-gray-600 leading-relaxed">
                   {t('about.aboutUsDescription')}
                 </p>
-                <p className="text-gray-600 leading-relaxed">
+                <p className="text-xs md:text-base text-gray-600 leading-relaxed">
                   {t('about.productsDescription')}{' '}
                   <a 
                     href="https://www.dm.gov.ae/" 
@@ -93,106 +68,100 @@ export default function ArabicAboutPageClient() {
               </div>
             </div>
 
-            <div className="bg-white rounded-lg shadow-sm border p-6">
-              <h2 className={`text-2xl font-semibold text-gray-800 mb-4 text-center ${dir === 'rtl' ? 'text-right' : ''}`}>
+            <div className="bg-white rounded-lg shadow-sm border p-3 md:p-6">
+              <h2 className={`text-base md:text-2xl font-semibold text-gray-800 mb-2 md:mb-4 text-center ${dir === 'rtl' ? 'text-right' : ''}`}>
                 {t('about.ourMission')}
               </h2>
-              <p className={`text-gray-600 leading-relaxed ${dir === 'rtl' ? 'text-right' : ''}`}>
+              <p className={`text-xs md:text-base text-gray-600 leading-relaxed ${dir === 'rtl' ? 'text-right' : ''}`}>
                 {t('about.missionDescription')}
               </p>
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow-sm border p-8 mb-8">
-            <h2 className={`text-3xl font-bold text-gray-800 mb-8 text-center ${dir === 'rtl' ? 'text-right' : ''}`}>
+          {/* Legal & Contact */}
+          <div className="bg-white rounded-lg shadow-sm border p-3 md:p-8 mb-4 md:mb-8">
+            <h2 className={`text-lg md:text-3xl font-bold text-gray-800 mb-4 md:mb-8 text-center ${dir === 'rtl' ? 'text-right' : ''}`}>
               {t('about.legalInformationContact')}
             </h2>
             
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
               {/* Company Details */}
-              <div className="lg:col-span-1">
-                <h3 className={`text-xl font-semibold text-gray-800 mb-6 pb-2 border-b border-gray-200 ${dir === 'rtl' ? 'text-right' : ''}`}>
+              <div>
+                <h3 className={`text-sm md:text-xl font-semibold text-gray-800 mb-2 md:mb-6 pb-1 md:pb-2 border-b border-gray-200 ${dir === 'rtl' ? 'text-right' : ''}`}>
                   {t('about.companyDetails')}
                 </h3>
-                <div className={`space-y-4 text-gray-600 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                <div className={`space-y-1 md:space-y-4 text-gray-600 ${dir === 'rtl' ? 'text-right' : ''}`}>
                   <div className="flex flex-col">
-                    <span className="font-semibold text-gray-800 text-sm uppercase tracking-wide">{t('about.companyNameLabel')}</span>
-                    <span className="mt-1">{t('about.companyNameValue')}</span>
+                    <span className="font-semibold text-gray-800 text-[10px] md:text-sm uppercase tracking-wide">{t('about.companyNameLabel')}</span>
+                    <span className="text-xs md:text-base">{t('about.companyNameValue')}</span>
                   </div>
                   <div className="flex flex-col">
-                    <span className="font-semibold text-gray-800 text-sm uppercase tracking-wide">{t('about.yearOfIncorporation')}</span>
-                    <span className="mt-1">2019</span>
+                    <span className="font-semibold text-gray-800 text-[10px] md:text-sm uppercase tracking-wide">{t('about.yearOfIncorporation')}</span>
+                    <span className="text-xs md:text-base">2019</span>
                   </div>
                   <div className="flex flex-col">
-                    <span className="font-semibold text-gray-800 text-sm uppercase tracking-wide">{t('about.commercialLicense')}</span>
+                    <span className="font-semibold text-gray-800 text-[10px] md:text-sm uppercase tracking-wide">{t('about.commercialLicense')}</span>
                     <a 
                       href="/documents/commercial-license.pdf" 
                       download="Genosys-Commercial-License-5023192.pdf" 
-                      className="text-primary-600 hover:text-primary-700 underline mt-1 break-all"
+                      className="text-primary-600 hover:text-primary-700 underline text-xs md:text-base"
                     >
                       5023192
                     </a>
                   </div>
                   <div className="flex flex-col">
-                    <span className="font-semibold text-gray-800 text-sm uppercase tracking-wide">TRN</span>
+                    <span className="font-semibold text-gray-800 text-[10px] md:text-sm uppercase tracking-wide">TRN</span>
                     <a 
                       href="/documents/genosys-trn-104229886700003.pdf" 
                       download="GENOSYS-TRN-104229886700003.pdf" 
-                      className="text-primary-600 hover:text-primary-700 underline mt-1 break-all"
+                      className="text-primary-600 hover:text-primary-700 underline text-xs md:text-base"
                     >
                       104229886700003
                     </a>
                   </div>
                   <div className="flex flex-col">
-                    <span className="font-semibold text-gray-800 text-sm uppercase tracking-wide">{t('about.mainOfficeAddress')}</span>
-                    <span className="mt-1 break-words">
-                      MBAM0014 Compass Building, Al Shohada Road<br />
-                      AL Hamra Industrial Zone-FZ<br />
-                      {t('about.rasAlKhaimahUAE')}
-                    </span>
+                    <span className="font-semibold text-gray-800 text-[10px] md:text-sm uppercase tracking-wide">{t('about.mainOfficeAddress')}</span>
+                    <span className="text-xs md:text-base">Al Hamra Industrial Zone-FZ, RAK, UAE</span>
                   </div>
                   <div className="flex flex-col">
-                    <span className="font-semibold text-gray-800 text-sm uppercase tracking-wide">{t('about.dubaiOfficeAddress')}</span>
-                    <span className="mt-1 break-words">
-                      Cordoba Residence, Villa E02<br />
-                      {t('about.dubaiUAE')}
-                    </span>
+                    <span className="font-semibold text-gray-800 text-[10px] md:text-sm uppercase tracking-wide">{t('about.dubaiOfficeAddress')}</span>
+                    <span className="text-xs md:text-base">Cordoba Residence, Villa E02</span>
                   </div>
                 </div>
               </div>
               
               {/* Contact Information */}
-              <div className="lg:col-span-1">
-                <h3 className={`text-xl font-semibold text-gray-800 mb-6 pb-2 border-b border-gray-200 ${dir === 'rtl' ? 'text-right' : ''}`}>
+              <div>
+                <h3 className={`text-sm md:text-xl font-semibold text-gray-800 mb-2 md:mb-6 pb-1 md:pb-2 border-b border-gray-200 ${dir === 'rtl' ? 'text-right' : ''}`}>
                   {t('about.contactInformation')}
                 </h3>
-                <div className={`space-y-4 text-gray-600 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                <div className={`space-y-1 md:space-y-4 text-gray-600 ${dir === 'rtl' ? 'text-right' : ''}`}>
                   <div className="flex flex-col">
-                    <span className="font-semibold text-gray-800 text-sm uppercase tracking-wide">{t('about.phone')}</span>
-                    <a href="tel:+971585487665" className="text-primary-600 hover:text-primary-700 mt-1 break-all">+971 58 548 76 65</a>
+                    <span className="font-semibold text-gray-800 text-[10px] md:text-sm uppercase tracking-wide">{t('about.phone')}</span>
+                    <a href="tel:+971585487665" className="text-primary-600 hover:text-primary-700 text-xs md:text-base">+971 58 548 76 65</a>
                   </div>
                   <div className="flex flex-col">
-                    <span className="font-semibold text-gray-800 text-sm uppercase tracking-wide">{t('about.email')}</span>
-                    <a href="mailto:sales@genosys.ae" className="text-primary-600 hover:text-primary-700 mt-1 break-all">sales@genosys.ae</a>
+                    <span className="font-semibold text-gray-800 text-[10px] md:text-sm uppercase tracking-wide">{t('about.email')}</span>
+                    <a href="mailto:sales@genosys.ae" className="text-primary-600 hover:text-primary-700 text-xs md:text-base">sales@genosys.ae</a>
                   </div>
                   <div className="flex flex-col">
-                    <span className="font-semibold text-gray-800 text-sm uppercase tracking-wide">{t('about.website')}</span>
+                    <span className="font-semibold text-gray-800 text-[10px] md:text-sm uppercase tracking-wide">{t('about.website')}</span>
                     <a 
                       href="https://genosys.ae" 
                       target="_blank" 
                       rel="noopener noreferrer" 
-                      className="text-primary-600 hover:text-primary-700 mt-1 break-all"
+                      className="text-primary-600 hover:text-primary-700 text-xs md:text-base"
                     >
-                      https://genosys.ae
+                      genosys.ae
                     </a>
                   </div>
                   <div className="flex flex-col">
-                    <span className="font-semibold text-gray-800 text-sm uppercase tracking-wide">{t('about.instagram')}</span>
+                    <span className="font-semibold text-gray-800 text-[10px] md:text-sm uppercase tracking-wide">{t('about.instagram')}</span>
                     <a 
                       href="https://www.instagram.com/genosys.uae/" 
                       target="_blank" 
                       rel="noopener noreferrer" 
-                      className="text-primary-600 hover:text-primary-700 mt-1 break-all"
+                      className="text-primary-600 hover:text-primary-700 text-xs md:text-base"
                     >
                       @genosys.uae
                     </a>
@@ -201,57 +170,48 @@ export default function ArabicAboutPageClient() {
               </div>
               
               {/* Business Information */}
-              <div className="lg:col-span-1">
-                <h3 className={`text-xl font-semibold text-gray-800 mb-6 pb-2 border-b border-gray-200 ${dir === 'rtl' ? 'text-right' : ''}`}>
+              <div>
+                <h3 className={`text-sm md:text-xl font-semibold text-gray-800 mb-2 md:mb-6 pb-1 md:pb-2 border-b border-gray-200 ${dir === 'rtl' ? 'text-right' : ''}`}>
                   {t('about.businessInformation')}
                 </h3>
-                <div className={`space-y-4 text-gray-600 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                <div className={`space-y-1 md:space-y-4 text-gray-600 ${dir === 'rtl' ? 'text-right' : ''}`}>
                   <div className="flex flex-col">
-                    <span className="font-semibold text-gray-800 text-sm uppercase tracking-wide">{t('about.officialDistributor')}</span>
-                    <span className="mt-1 break-words">DTSMG Co., Ltd, Korea</span>
+                    <span className="font-semibold text-gray-800 text-[10px] md:text-sm uppercase tracking-wide">{t('about.officialDistributor')}</span>
+                    <span className="text-xs md:text-base">DTSMG Co., Ltd, Korea</span>
                   </div>
                   <div className="flex flex-col">
-                    <span className="font-semibold text-gray-800 text-sm uppercase tracking-wide">{t('about.certification')}</span>
-                    <span className="mt-1 break-words">
-                      {t('about.montajiSystem')}{' '}
-                      <a 
-                        href="https://www.dm.gov.ae/" 
-                        target="_blank" 
-                        rel="noopener noreferrer" 
-                        className="text-primary-600 hover:text-primary-700 underline"
-                      >
-                        {t('about.dubaiMunicipality')}
-                      </a>
-                    </span>
+                    <span className="font-semibold text-gray-800 text-[10px] md:text-sm uppercase tracking-wide">{t('about.certification')}</span>
+                    <span className="text-xs md:text-base">Dubai Municipality</span>
                   </div>
                   <div className="flex flex-col">
-                    <span className="font-semibold text-gray-800 text-sm uppercase tracking-wide">{t('about.products')}</span>
-                    <span className="mt-1 break-words">{t('about.premiumKoreanDermacosmetics')}</span>
+                    <span className="font-semibold text-gray-800 text-[10px] md:text-sm uppercase tracking-wide">{t('about.products')}</span>
+                    <span className="text-xs md:text-base">{t('about.premiumKoreanDermacosmetics')}</span>
                   </div>
                   <div className="flex flex-col">
-                    <span className="font-semibold text-gray-800 text-sm uppercase tracking-wide">{t('about.serviceArea')}</span>
-                    <span className="mt-1 break-words">{t('about.unitedArabEmirates')}</span>
+                    <span className="font-semibold text-gray-800 text-[10px] md:text-sm uppercase tracking-wide">{t('about.serviceArea')}</span>
+                    <span className="text-xs md:text-base">{t('about.unitedArabEmirates')}</span>
                   </div>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className={`bg-white rounded-lg p-8 text-center border ${dir === 'rtl' ? 'text-right' : ''}`}>
-            <h2 className="text-3xl font-bold text-gray-800 mb-4">{t('about.getInTouch')}</h2>
-            <p className="text-gray-600 mb-6 break-words">
+          {/* CTA Section */}
+          <div className={`bg-white rounded-lg p-4 md:p-8 text-center border ${dir === 'rtl' ? 'text-right' : ''}`}>
+            <h2 className="text-lg md:text-3xl font-bold text-gray-800 mb-2 md:mb-4">{t('about.getInTouch')}</h2>
+            <p className="text-xs md:text-base text-gray-600 mb-4 md:mb-6">
               {t('about.getInTouchDescription')}
             </p>
-            <div className={`flex flex-col sm:flex-row gap-4 justify-center ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+            <div className={`flex flex-row gap-2 md:gap-4 justify-center ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
               <Link 
                 href={getLocalizedPath('/products', locale)}
-                className="bg-primary-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-primary-700 transition-colors"
+                className="bg-primary-600 text-white px-4 md:px-8 py-2 md:py-3 rounded-lg text-xs md:text-base font-semibold hover:bg-primary-700 transition-colors"
               >
                 {t('about.viewProducts')}
               </Link>
               <Link 
                 href={getLocalizedPath('/contact', locale)}
-                className="border border-primary-600 text-primary-600 px-8 py-3 rounded-lg font-semibold hover:bg-primary-50 transition-colors"
+                className="border border-primary-600 text-primary-600 px-4 md:px-8 py-2 md:py-3 rounded-lg text-xs md:text-base font-semibold hover:bg-primary-50 transition-colors"
               >
                 {t('about.contactUs')}
               </Link>

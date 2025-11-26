@@ -207,7 +207,7 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
                 <span className="text-sm">{t('product.priceLocked')}</span>
               </div>
             ) : (
-              <span className="text-sm md:text-base font-bold text-gray-500">
+              <span className="text-xs md:text-base font-bold text-gray-500">
                 {t('product.loginToSeePrice')}
               </span>
             )}
@@ -218,10 +218,10 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
         {!user ? (
           <button
             onClick={handleLoginClick}
-            className={`flex items-center justify-center gap-2 px-3 ${locale === 'ar' ? 'py-2' : 'py-2.5'} rounded-lg font-medium transition-colors touch-manipulation w-full bg-primary-600 text-white hover:bg-primary-700 ${locale === 'ar' ? 'min-h-[40px] text-xs' : 'min-h-[44px] text-sm'}`}
+            className={`flex items-center justify-center gap-1.5 md:gap-2 px-2 md:px-3 ${locale === 'ar' ? 'py-2' : 'py-2'} rounded-lg font-medium transition-colors touch-manipulation w-full bg-primary-600 text-white hover:bg-primary-700 min-h-[40px] md:min-h-[44px] text-[10px] md:text-sm`}
             aria-label={t('product.loginToSeePrice')}
           >
-            <User className={`${locale === 'ar' ? 'h-3.5 w-3.5' : 'h-4 w-4'}`} aria-hidden="true" />
+            <User className="h-3 w-3 md:h-4 md:w-4" aria-hidden="true" />
             <span>{t('product.loginToSeePrice')}</span>
           </button>
         ) : (

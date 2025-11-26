@@ -34,19 +34,27 @@ export default function CartItem({ item }: CartItemProps) {
   return (
     <div className="bg-white rounded-lg shadow-sm border p-3 md:p-4">
       <div className="flex items-start gap-3 md:gap-4">
-        {/* Left: Product Image */}
-        <Link href={`/products/${product.id}`} className="relative w-20 h-20 md:w-24 md:h-24 flex-shrink-0 hover:opacity-80 transition-opacity">
-          <Image
-            src={product.image}
-            alt={`${product.name} - GENOSYS Korean ${product.category || 'dermacosmetics'} product in cart`}
-            fill
-            className="object-cover rounded-lg cursor-pointer"
-            sizes="(max-width: 640px) 80px, 96px"
-            quality={85}
-            placeholder="blur"
-            blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
-          />
-        </Link>
+        {/* Left: Product Image + Size (mobile) */}
+        <div className="flex flex-col flex-shrink-0">
+          <Link href={`/products/${product.id}`} className="relative w-20 h-20 md:w-24 md:h-24 hover:opacity-80 transition-opacity">
+            <Image
+              src={product.image}
+              alt={`${product.name} - GENOSYS Korean ${product.category || 'dermacosmetics'} product in cart`}
+              fill
+              className="object-cover rounded-lg cursor-pointer"
+              sizes="(max-width: 640px) 80px, 96px"
+              quality={85}
+              placeholder="blur"
+              blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
+            />
+          </Link>
+          {/* Size below image - mobile only */}
+          {displaySize && (
+            <span className="md:hidden mt-3 text-center text-[10px] font-medium text-blue-700 bg-blue-50 border border-blue-200 rounded px-1 py-0.5">
+              {displaySize}
+            </span>
+          )}
+        </div>
         
         {/* Middle: Product Info */}
         <div className="flex-1 min-w-0">
@@ -55,10 +63,11 @@ export default function CartItem({ item }: CartItemProps) {
           </Link>
           <p className="text-xs md:text-sm text-red-600 mb-2">{product.category}</p>
           
+          {/* Size/Color badges - Size hidden on mobile (shown next to trash) */}
           {(displaySize || displayColor) && (
             <div className="flex items-center gap-1.5 md:gap-2 mb-2 flex-nowrap overflow-x-auto">
               {displaySize && (
-                <span className="inline-flex items-center px-1.5 md:px-2 py-0.5 md:py-1 rounded-md text-[10px] md:text-xs lg:text-sm font-medium bg-blue-50 text-blue-700 border border-blue-200 whitespace-nowrap flex-shrink-0">
+                <span className="hidden md:inline-flex items-center px-2 py-1 rounded-md text-xs lg:text-sm font-medium bg-blue-50 text-blue-700 border border-blue-200 whitespace-nowrap flex-shrink-0">
                   {t('product.size')}: {displaySize}
                 </span>
               )}
@@ -115,7 +124,7 @@ export default function CartItem({ item }: CartItemProps) {
           )}
         </div>
         
-        {/* Right: Quantity Controls + Delete */}
+        {/* Right: Quantity Controls + Size + Delete */}
         <div className="flex flex-col items-end gap-2 flex-shrink-0">
           <div className="flex items-center border rounded-lg">
             <button

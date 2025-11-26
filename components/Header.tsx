@@ -56,7 +56,7 @@ const Header = memo(function Header() {
             <span className="hidden md:block text-lg md:text-2xl font-bold text-primary-600">
               Genosys Middle East FZ-LLC
             </span>
-            <div className="md:hidden mt-4" suppressHydrationWarning>
+            <div className="md:hidden mt-3" suppressHydrationWarning>
               <Link href="/products" className="text-base font-normal text-primary-600">
                 {t('navigation.products')}
               </Link>

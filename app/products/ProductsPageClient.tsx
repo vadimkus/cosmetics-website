@@ -282,15 +282,15 @@ export default function ProductsPageClient() {
       />
       <div className="container mx-auto px-4 py-4 md:py-8 lg:py-16">
         {/* Navigation Breadcrumb */}
-        <nav className="flex items-center gap-1.5 md:gap-2 text-xs md:text-sm lg:text-base text-gray-600 mb-4 md:mb-6 lg:mb-8 products-breadcrumb" aria-label="Breadcrumb">
+        <nav className="text-xs md:text-sm lg:text-base text-gray-600 mb-4 md:mb-6 lg:mb-8 products-breadcrumb" aria-label="Breadcrumb">
           <Link 
             href={getLocalizedPath('/', locale)}
-            className="hover:text-primary-600 transition-colors flex items-center"
+            className="hover:text-primary-600 transition-colors"
           >
             {t('navigation.home')}
           </Link>
-          <span className="flex items-center">/</span>
-          <span className="text-gray-900 font-medium flex items-center">
+          <span> / </span>
+          <span className="text-gray-900 font-medium">
             {t('navigation.products')}
           </span>
         </nav>

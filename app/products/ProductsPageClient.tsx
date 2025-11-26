@@ -296,12 +296,12 @@ export default function ProductsPageClient() {
           </span>
         </nav>
         
-        {/* Back to Home */}
+        {/* Back to Home - Desktop only */}
         <Link 
           href={getLocalizedPath('/', locale)}
-          className="inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 mb-4 md:mb-8"
+          className="hidden md:inline-flex items-center gap-1 text-sm text-primary-600 hover:text-primary-700 mb-8"
         >
-          <ArrowLeft className="h-3 w-3 md:h-4 md:w-4" />
+          <ArrowLeft className="h-4 w-4" />
           <span>{t('navigation.backToHome')}</span>
         </Link>
 

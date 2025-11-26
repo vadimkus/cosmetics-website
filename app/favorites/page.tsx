@@ -37,6 +37,10 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: 'https://genosys.ae/favorites',
+    languages: {
+      'en': 'https://genosys.ae/favorites',
+      'ar': 'https://genosys.ae/ar/favorites',
+    },
   },
 }
 

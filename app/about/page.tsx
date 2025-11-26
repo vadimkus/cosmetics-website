@@ -61,15 +61,15 @@ export default function AboutPage() {
       <div className="max-w-4xl mx-auto">
 
         {/* Navigation Breadcrumb */}
-        <nav className="flex items-center gap-1 md:gap-2 text-xs md:text-base text-gray-600 mb-4 md:mb-8" aria-label="Breadcrumb">
+        <nav className="flex items-center flex-nowrap gap-1 md:gap-2 text-xs md:text-base text-gray-600 mb-4 md:mb-8" aria-label="Breadcrumb">
           <Link 
             href="/"
-            className="hover:text-primary-600 transition-colors"
+            className="hover:text-primary-600 transition-colors whitespace-nowrap"
           >
             Home
           </Link>
-          <span>/</span>
-          <span className="text-gray-900 font-medium">
+          <span className="whitespace-nowrap">/</span>
+          <span className="text-gray-900 font-medium whitespace-nowrap">
             About
           </span>
         </nav>
@@ -158,13 +158,13 @@ export default function AboutPage() {
           <div className="flex flex-row gap-2 md:gap-4 justify-center">
             <Link 
               href="/products"
-              className="bg-primary-600 text-white px-4 md:px-8 py-2 md:py-3 rounded-lg text-xs md:text-base font-semibold hover:bg-primary-700 transition-colors"
+              className="bg-primary-600 text-white px-3 md:px-8 py-1.5 md:py-3 rounded-lg text-[10px] md:text-base font-semibold hover:bg-primary-700 transition-colors"
             >
               Products
             </Link>
             <Link 
               href="/contact-genosys-uae"
-              className="border border-primary-600 text-primary-600 px-4 md:px-8 py-2 md:py-3 rounded-lg text-xs md:text-base font-semibold hover:bg-primary-50 transition-colors"
+              className="border border-primary-600 text-primary-600 px-3 md:px-8 py-1.5 md:py-3 rounded-lg text-[10px] md:text-base font-semibold hover:bg-primary-50 transition-colors"
             >
               Contact
             </Link>

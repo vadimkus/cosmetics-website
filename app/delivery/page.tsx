@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ArrowLeft, Clock, Truck, MapPin, Phone, Mail, Gift, RotateCcw } from 'lucide-react'
+import { Clock, Truck, Phone, Mail, Gift, RotateCcw } from 'lucide-react'
 import BreadcrumbSchema from '@/components/BreadcrumbSchema'
 import type { Metadata } from 'next'
 
@@ -108,222 +108,123 @@ export default function DeliveryPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema, null, 2) }}
       />
-      <div className="container mx-auto px-4 py-8 md:py-16">
+      <div className="container mx-auto px-3 md:px-4 py-4 md:py-16">
         <div className="max-w-4xl mx-auto">
 
           {/* Navigation Breadcrumb */}
-          <nav className="flex flex-col gap-2 text-sm md:text-base text-gray-600 mb-8" aria-label="Breadcrumb">
-            {/* Mobile Breadcrumb */}
-            <div className="md:hidden flex items-center gap-2">
-              <Link 
-                href="/"
-                className="hover:text-primary-600 transition-colors flex items-center"
-              >
-                Home
-              </Link>
-              <span className="flex items-center">/</span>
-              <span className="text-gray-900 font-medium flex items-center">
-                Delivery
-              </span>
-            </div>
-            
-            {/* Mobile Back Button */}
+          <nav className="flex items-center flex-nowrap gap-1 md:gap-2 text-xs md:text-base text-gray-600 mb-4 md:mb-8" aria-label="Breadcrumb">
             <Link 
               href="/"
-              className="md:hidden flex items-center gap-2 text-primary-600 hover:text-primary-700 transition-colors"
+              className="hover:text-primary-600 transition-colors whitespace-nowrap"
             >
-              <ArrowLeft className="h-4 w-4" />
-              <span className="font-medium">Back to Home</span>
+              Home
             </Link>
-            
-            {/* Desktop Breadcrumb */}
-            <div className="hidden md:flex items-center gap-2">
-              <Link 
-                href="/"
-                className="hover:text-primary-600 transition-colors flex items-center"
-              >
-                Home
-              </Link>
-              <span className="flex items-center">/</span>
-              <span className="text-gray-900 font-medium flex items-center">
-                Delivery
-              </span>
-            </div>
+            <span className="whitespace-nowrap">/</span>
+            <span className="text-gray-900 font-medium whitespace-nowrap">
+              Delivery
+            </span>
           </nav>
 
-          <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
+          {/* Header */}
+          <div className="text-center mb-6 md:mb-12">
+            <h1 className="text-xl md:text-5xl font-bold text-gray-800 mb-2 md:mb-6">
               Delivery Information
             </h1>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Fast and reliable delivery service across the UAE
+            <p className="text-sm md:text-xl text-gray-600 max-w-2xl mx-auto">
+              Fast delivery across the UAE
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-            <div className="bg-white rounded-lg shadow-sm border p-6">
-              <div className="flex items-center mb-4">
-                <Clock className="h-8 w-8 text-black mr-3" />
-                <h2 className="text-2xl font-semibold text-gray-800">Delivery Time</h2>
+          {/* Delivery Time & Partner */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-8 mb-4 md:mb-12">
+            <div className="bg-white rounded-lg shadow-sm border p-3 md:p-6">
+              <div className="flex items-center mb-2 md:mb-4">
+                <Clock className="h-5 w-5 md:h-8 md:w-8 text-black mr-2 md:mr-3" />
+                <h2 className="text-sm md:text-2xl font-semibold text-gray-800">Delivery Time</h2>
               </div>
-              <p className="text-gray-600 leading-relaxed">
-                We provide fast delivery services with <strong>1 hour delivery within Dubai</strong> and 
-                <strong> 24-36 hours across UAE</strong>. Our commitment to efficient delivery ensures you receive 
-                your premium Korean dermacosmetics products as quickly as possible.
+              <p className="text-xs md:text-base text-gray-600 leading-relaxed">
+                <strong>1 hour in Dubai</strong>, <strong>24-36 hours across UAE</strong>
               </p>
             </div>
 
-            <div className="bg-white rounded-lg shadow-sm border p-6">
-              <div className="flex items-center mb-4">
-                <Truck className="h-8 w-8 text-black mr-3" />
-                <h2 className="text-2xl font-semibold text-gray-800">Delivery Partner</h2>
+            <div className="bg-white rounded-lg shadow-sm border p-3 md:p-6">
+              <div className="flex items-center mb-2 md:mb-4">
+                <Truck className="h-5 w-5 md:h-8 md:w-8 text-black mr-2 md:mr-3" />
+                <h2 className="text-sm md:text-2xl font-semibold text-gray-800">Delivery Partner</h2>
               </div>
-              <p className="text-gray-600 leading-relaxed">
-                Delivery is done by <strong>Careem/QuipQup</strong> directly to your doorstep. 
-                Our partnership with Careem and QuipQup ensures professional, reliable tracking, and safe delivery 
-                of your beauty products throughout the UAE.
+              <p className="text-xs md:text-base text-gray-600 leading-relaxed">
+                <strong>Careem/QuipQup</strong> - Direct to doorstep
               </p>
             </div>
           </div>
 
-          <div className="bg-primary-50 rounded-lg p-8 mb-8">
-            <h2 className="text-2xl font-semibold text-gray-800 mb-6 text-center">Delivery Details</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="space-y-4">
-                <div className="flex items-start">
-                  <MapPin className="h-5 w-5 text-primary-600 mr-3 mt-1" />
-                  <div>
-                    <h3 className="font-semibold text-gray-800 mb-1">Service Area</h3>
-                    <p className="text-gray-600">United Arab Emirates</p>
-                  </div>
-                </div>
-                <div className="flex items-start">
-                  <Clock className="h-5 w-5 text-primary-600 mr-3 mt-1" />
-                  <div>
-                    <h3 className="font-semibold text-gray-800 mb-1">Delivery Time</h3>
-                    <p className="text-gray-600">Within 1 hour of order placement across Dubai</p>
-                    <p className="text-gray-600">Within 24-36 hours across UAE</p>
-                  </div>
-                </div>
-              </div>
-              <div className="space-y-4">
-                <div className="flex items-start">
-                  <Truck className="h-5 w-5 text-primary-600 mr-3 mt-1" />
-                  <div>
-                    <h3 className="font-semibold text-gray-800 mb-1">Delivery Partner</h3>
-                    <p className="text-gray-600">Careem/QuipQup</p>
-                  </div>
-                </div>
-                <div className="flex items-start">
-                  <MapPin className="h-5 w-5 text-primary-600 mr-3 mt-1" />
-                  <div>
-                    <h3 className="font-semibold text-gray-800 mb-1">Delivery Type</h3>
-                    <p className="text-gray-600">Direct to doorstep</p>
-                  </div>
-                </div>
-              </div>
+          {/* Delivery Details */}
+          <div className="bg-primary-50 rounded-lg p-3 md:p-8 mb-3 md:mb-8">
+            <h2 className="text-sm md:text-2xl font-semibold text-gray-800 mb-3 md:mb-6 text-center">Delivery Details</h2>
+            <div className="grid grid-cols-2 gap-2 md:gap-6 text-xs md:text-base">
+              <div><span className="font-semibold text-gray-800">Area:</span> UAE</div>
+              <div><span className="font-semibold text-gray-800">Partner:</span> Careem/QuipQup</div>
+              <div><span className="font-semibold text-gray-800">Dubai:</span> 1 hour</div>
+              <div><span className="font-semibold text-gray-800">UAE:</span> 24-36 hours</div>
             </div>
           </div>
 
           {/* Free Shipping Section */}
-          <div className="bg-gradient-to-r from-green-50 to-green-100 rounded-lg p-8 mb-8">
+          <div className="bg-gradient-to-r from-green-50 to-green-100 rounded-lg p-3 md:p-8 mb-3 md:mb-8">
             <div className="text-center">
-              <div className="flex items-center justify-center gap-3 mb-4">
-                <Gift className="h-10 w-10 text-green-600" />
-                <h2 className="text-3xl font-bold text-gray-800">Free Shipping Offer</h2>
+              <div className="flex items-center justify-center gap-2 md:gap-3 mb-2 md:mb-4">
+                <Gift className="h-6 w-6 md:h-10 md:w-10 text-green-600" />
+                <h2 className="text-base md:text-3xl font-bold text-gray-800">Free Shipping</h2>
               </div>
-              <p className="text-xl text-black mb-6">
-                Enjoy FREE DELIVERY on all orders above 1,000 AED
-              </p>
-              <div className="bg-white rounded-lg p-6 max-w-md mx-auto">
+              <div className="bg-white rounded-lg p-3 md:p-6 max-w-md mx-auto">
                 <div className="text-center">
-                  <div className="text-4xl font-bold text-green-600 mb-2">1,000 AED+</div>
-                  <div className="text-2xl font-semibold text-green-600">FREE DELIVERY</div>
+                  <div className="text-2xl md:text-4xl font-bold text-green-600 mb-1">1,000 AED+</div>
+                  <div className="text-sm md:text-2xl font-semibold text-green-600">FREE DELIVERY</div>
                 </div>
               </div>
-              <p className="text-gray-600 mt-6 max-w-2xl mx-auto">
-                No minimum order restrictions, no hidden fees. Simply place an order worth 1,000 AED or more 
-                and enjoy complimentary delivery service across the United Arab Emirates.
+              <p className="text-xs md:text-base text-gray-600 mt-3 md:mt-6">
+                No minimum order, no hidden fees
               </p>
             </div>
           </div>
 
           {/* Return Policy Section */}
-          <div className="bg-gradient-to-r from-blue-50 to-blue-100 rounded-lg p-8 mb-8">
+          <div className="bg-gradient-to-r from-blue-50 to-blue-100 rounded-lg p-3 md:p-8 mb-3 md:mb-8">
             <div className="text-center">
-              <div className="flex items-center justify-center gap-3 mb-4">
-                <RotateCcw className="h-10 w-10 text-blue-600" />
-                <h2 className="text-3xl font-bold text-gray-800">Return Policy</h2>
+              <div className="flex items-center justify-center gap-2 md:gap-3 mb-2 md:mb-4">
+                <RotateCcw className="h-6 w-6 md:h-10 md:w-10 text-blue-600" />
+                <h2 className="text-base md:text-3xl font-bold text-gray-800">Return Policy</h2>
               </div>
-              <p className="text-xl text-black mb-6">
-                We accept returns for your peace of mind
-              </p>
-              <div className="bg-white rounded-lg p-6 max-w-4xl mx-auto">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
-                  <div className="space-y-4">
-                    <div className="flex items-start">
-                      <RotateCcw className="h-5 w-5 text-blue-600 mr-3 mt-1" />
-                      <div>
-                        <h3 className="font-semibold text-gray-800 mb-1">Return Period</h3>
-                        <p className="text-gray-600">10 days from delivery date</p>
-                      </div>
-                    </div>
-                    <div className="flex items-start">
-                      <Clock className="h-5 w-5 text-blue-600 mr-3 mt-1" />
-                      <div>
-                        <h3 className="font-semibold text-gray-800 mb-1">Processing Time</h3>
-                        <p className="text-gray-600">3-5 business days for refund processing</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="space-y-4">
-                    <div className="flex items-start">
-                      <Gift className="h-5 w-5 text-blue-600 mr-3 mt-1" />
-                      <div>
-                        <h3 className="font-semibold text-gray-800 mb-1">Condition</h3>
-                        <p className="text-gray-600">Items must be unused and in original packaging</p>
-                      </div>
-                    </div>
-                    <div className="flex items-start">
-                      <Truck className="h-5 w-5 text-blue-600 mr-3 mt-1" />
-                      <div>
-                        <h3 className="font-semibold text-gray-800 mb-1">Return Process</h3>
-                        <p className="text-gray-600">Contact us to initiate return process</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="mt-6 p-4 bg-blue-50 rounded-lg">
-                  <p className="text-gray-700 text-center">
-                    <strong>We accept returns</strong> - Your satisfaction is our priority. If you&apos;re not completely satisfied with your purchase, 
-                    we&apos;re here to help make it right.
-                  </p>
+              <div className="bg-white rounded-lg p-3 md:p-6">
+                <div className="grid grid-cols-2 gap-2 md:gap-4 text-xs md:text-base text-left">
+                  <div><span className="font-semibold text-gray-800">Period:</span> 10 days</div>
+                  <div><span className="font-semibold text-gray-800">Refund:</span> 3-5 days</div>
+                  <div><span className="font-semibold text-gray-800">Condition:</span> Unused, original packaging</div>
+                  <div><span className="font-semibold text-gray-800">Process:</span> Contact us</div>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow-sm border p-8 text-center">
-            <h2 className="text-2xl font-semibold text-gray-800 mb-4">Need Help with Your Order?</h2>
-            <p className="text-gray-600 mb-6">
-              Contact us for assistance.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          {/* Help Section */}
+          <div className="bg-white rounded-lg shadow-sm border p-3 md:p-8 text-center">
+            <h2 className="text-sm md:text-2xl font-semibold text-gray-800 mb-2 md:mb-4">Need Help?</h2>
+            <div className="flex flex-row gap-2 md:gap-4 justify-center">
               <a 
                 href="https://wa.me/971585487665"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors"
+                className="inline-flex items-center justify-center bg-green-600 text-white px-3 md:px-6 py-2 md:py-3 rounded-lg text-xs md:text-base font-semibold hover:bg-green-700 transition-colors"
               >
-                <Phone className="mr-2 h-5 w-5" />
-                WhatsApp Support
+                <Phone className="mr-1 md:mr-2 h-4 w-4 md:h-5 md:w-5" />
+                WhatsApp
               </a>
               <a 
                 href="mailto:sales@genosys.ae"
-                className="inline-flex items-center justify-center bg-primary-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary-700 transition-colors"
+                className="inline-flex items-center justify-center bg-primary-600 text-white px-3 md:px-6 py-2 md:py-3 rounded-lg text-xs md:text-base font-semibold hover:bg-primary-700 transition-colors"
               >
-                <Mail className="mr-2 h-5 w-5" />
-                Email Support
+                <Mail className="mr-1 md:mr-2 h-4 w-4 md:h-5 md:w-5" />
+                Email
               </a>
             </div>
           </div>

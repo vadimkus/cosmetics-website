@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { ArrowLeft, HelpCircle, ChevronDown, ChevronUp } from 'lucide-react'
+import { ArrowLeft, ChevronDown, ChevronUp } from 'lucide-react'
 import BreadcrumbSchema from '@/components/BreadcrumbSchema'
 import { useState, useMemo } from 'react'
 import { useTranslation } from '@/hooks/useTranslation'
@@ -159,9 +159,6 @@ export default function FAQClient() {
 
           {/* Page Header */}
           <div className="text-center mb-12">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-primary-100 rounded-full mb-6">
-              <HelpCircle className="h-8 w-8 text-primary-600" />
-            </div>
             <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
               {t('faq.subtitle')}
             </h1>

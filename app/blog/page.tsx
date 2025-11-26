@@ -141,47 +141,20 @@ export default async function BlogPage() {
         }}
       />
 
-      <div className="container mx-auto px-4 py-8 md:py-16">
+      <div className="container mx-auto px-3 md:px-4 py-4 md:py-16">
         <div className="max-w-6xl mx-auto">
           {/* Navigation Breadcrumb */}
-          <nav className="flex flex-col gap-2 text-sm md:text-base text-gray-600 mb-8" aria-label="Breadcrumb">
-            {/* Mobile Breadcrumb */}
-            <div className="md:hidden flex items-center gap-2">
-              <Link 
-                href="/"
-                className="hover:text-primary-600 transition-colors flex items-center"
-              >
-                Home
-              </Link>
-              <span className="flex items-center">/</span>
-              <span className="text-gray-900 font-medium flex items-center">
-                Blog
-              </span>
-            </div>
-            
-            {/* Mobile Back Button */}
-            <Link 
-              href="/"
-              className="md:hidden flex items-center gap-2 text-primary-600 hover:text-primary-700 transition-colors"
-            >
-              <ArrowLeft className="h-4 w-4" />
-              <span className="font-medium">Back to Home</span>
-            </Link>
-            
-            {/* Desktop Breadcrumb */}
-            <div className="hidden md:flex items-center gap-2">
-              <Link 
-                href="/"
-                className="hover:text-primary-600 transition-colors flex items-center"
-              >
-                Home
-              </Link>
-              <span className="flex items-center">/</span>
-              <span className="text-gray-900 font-medium flex items-center">
-                Blog
-              </span>
-            </div>
+          <nav className="text-xs md:text-base text-gray-600 mb-2 md:mb-4" aria-label="Breadcrumb">
+            <Link href="/" className="hover:text-primary-600 transition-colors">Home</Link>
+            <span> / </span>
+            <span className="text-gray-900 font-medium">Blog</span>
           </nav>
+          
+          {/* Back to Home */}
+          <Link href="/" className="inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 mb-4 md:mb-8">
+            <ArrowLeft className="h-3 w-3 md:h-4 md:w-4" />
+            <span>Back to Home</span>
+          </Link>
 
           {/* Page Header */}
           <div className="text-center mb-12">

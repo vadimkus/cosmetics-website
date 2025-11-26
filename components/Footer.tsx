@@ -4,7 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { getLocalizedPath, getLocaleFromPath } from '@/lib/i18n'
-import { useMemo, useState, useEffect } from 'react'
+import { useMemo } from 'react'
 import enMessages from '@/messages/en.json'
 import arMessages from '@/messages/ar.json'
 

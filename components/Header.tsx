@@ -1,7 +1,6 @@
 'use client'
 
 import Link from 'next/link'
-import Image from 'next/image'
 import { ShoppingCart, Heart, User, LogOut, Menu } from 'lucide-react'
 // import { useCart } from './CartProvider' // Unused for now
 import { useCartStore } from '@/lib/cartStore'

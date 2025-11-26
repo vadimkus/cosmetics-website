@@ -50,7 +50,7 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <div className="bg-white min-h-screen">
+    <div className="bg-white">
       <BreadcrumbSchema 
         items={[
           { name: 'Home', url: '/' },
@@ -58,7 +58,7 @@ export default function ContactPage() {
         ]}
       />
       <div className="container mx-auto px-4 pt-8 md:pt-16 pb-0 mb-0">
-        <div className="max-w-4xl mx-auto mb-0 pb-0 -mb-8 md:-mb-12">
+        <div className="max-w-4xl mx-auto mb-0 pb-0">
 
           {/* Navigation Breadcrumb */}
           <nav className="flex flex-col gap-2 text-sm md:text-base text-gray-600 mb-8" aria-label="Breadcrumb">
@@ -172,8 +172,8 @@ export default function ContactPage() {
             </div>
           </div>
 
-          <div className="text-center mb-0 pb-0">
-            <div className="bg-primary-50 rounded-lg p-6 md:p-8 mb-0">
+          <div className="text-center mb-4 md:mb-0 pb-0">
+            <div className="bg-primary-50 rounded-lg px-6 md:px-8 pt-6 md:pt-8 pb-6 md:pb-8 mb-0">
               <h2 className="text-xl md:text-2xl font-semibold text-gray-800 mb-4">
                 Official Distributor in the UAE
               </h2>

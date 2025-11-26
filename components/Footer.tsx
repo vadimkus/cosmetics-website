@@ -4,7 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { getLocalizedPath, getLocaleFromPath } from '@/lib/i18n'
-import { useMemo } from 'react'
+import { useMemo, useState, useEffect } from 'react'
 import enMessages from '@/messages/en.json'
 import arMessages from '@/messages/ar.json'
 
@@ -44,8 +44,16 @@ export default function Footer() {
     }
   }, [messages])
 
+  // Check if we're on the contact page - check synchronously to avoid hydration mismatch
+  // If pathname is null (SSR), default to false so server and client match initially
+  const isContactPage = useMemo(() => {
+    if (!pathname) return false
+    const path = pathname.toLowerCase()
+    return path === '/contact' || path === '/ar/contact' || path.startsWith('/contact')
+  }, [pathname])
+
   return (
-    <footer role="contentinfo" className="bg-white border-t border-gray-200 py-6 md:py-8">
+    <footer role="contentinfo" className={`bg-white border-t border-gray-200 ${isContactPage ? 'pt-0 pb-6 md:pb-8' : 'py-6 md:py-8'}`} suppressHydrationWarning>
       <div className="container mx-auto px-4">
         <div className="flex flex-col items-center gap-4 md:gap-6 text-center">
           {/* Navigation Links */}
@@ -83,7 +91,7 @@ export default function Footer() {
               alt="GENOSYS Middle East FZ-LLC - Official Korean Dermacosmetics Distributor UAE"
               width={180}
               height={54}
-              className="mb-2 h-auto w-auto"
+              className="mb-2"
               priority={false}
               quality={75}
               placeholder="blur"

@@ -218,7 +218,7 @@ export default function RootLayout({
           `}
         </Script>
       </head>
-      <body className={inter.className} suppressHydrationWarning>
+      <body className={`${inter.className} flex flex-col min-h-screen`} suppressHydrationWarning>
         <OrganizationSchema />
         <LocalBusinessSchema />
         <AggregateRatingSchema />
@@ -231,7 +231,7 @@ export default function RootLayout({
                 <PageViewTracker />
                 <LocaleWrapper>
                   <Header />
-                  <main className="min-h-screen">
+                  <main className="flex-1">
                     <ErrorBoundary>
                       {children}
                     </ErrorBoundary>

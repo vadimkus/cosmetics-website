@@ -354,52 +354,29 @@ export default function ProfilePageClient() {
 
   return (
     <div className="min-h-screen bg-white" dir={dir}>
-      {/* Header */}
-      <div className="bg-white/80 backdrop-blur-sm border-b border-white/20 sticky top-0 z-40">
-        <div className="container mx-auto px-3 sm:px-4 py-3 sm:py-4">
-          <div className={`flex items-center justify-between ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-            <div className={`flex items-center gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-            </div>
-          </div>
-        </div>
-      </div>
-
       {/* Breadcrumb Navigation */}
-      <div className="bg-gray-50/80 backdrop-blur-sm border-b border-gray-200">
-        <div className="container mx-auto px-3 sm:px-4 py-3 sm:py-4">
-          <nav className={`flex items-center ${dir === 'rtl' ? 'space-x-reverse' : ''} space-x-2 text-sm`} aria-label="Breadcrumb">
-            <Link 
-              href={getLocalizedPath('/', locale)}
-              className="text-gray-500 hover:text-gray-700 transition-colors flex items-center gap-1"
-            >
-              <span>{t('common.home')}</span>
-            </Link>
-            <span className="text-gray-400">/</span>
-            <span className="text-gray-900 font-medium">{t('profile.title')}</span>
-            {activeTab !== 'profile' && (
-              <>
-                <span className="text-gray-400">/</span>
-                <span className="text-gray-900 font-medium capitalize">{tabs.find(tab => tab.id === activeTab)?.shortLabel || activeTab}</span>
-              </>
-            )}
-          </nav>
-        </div>
+      <div className="container mx-auto px-3 md:px-4 pt-4 md:pt-8">
+        {/* Navigation Breadcrumb */}
+        <nav className="text-xs md:text-base text-gray-600 mb-2 md:mb-4" aria-label="Breadcrumb">
+          <Link href={getLocalizedPath('/', locale)} className="hover:text-primary-600 transition-colors">{t('common.home')}</Link>
+          <span> / </span>
+          <span className="text-gray-900 font-medium">{t('profile.title')}</span>
+          {activeTab !== 'profile' && (
+            <>
+              <span> / </span>
+              <span className="text-gray-900 font-medium capitalize">{tabs.find(tab => tab.id === activeTab)?.shortLabel || activeTab}</span>
+            </>
+          )}
+        </nav>
+        
+        {/* Back to Home */}
+        <Link href={getLocalizedPath('/', locale)} className="inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 mb-4 md:mb-8">
+          <ArrowLeft className={`h-3 w-3 md:h-4 md:w-4 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
+          <span>{t('common.backToHome')}</span>
+        </Link>
       </div>
 
-      {/* Back to Home Button */}
-      <div className="bg-white/80 backdrop-blur-sm border-b border-gray-200">
-        <div className="container mx-auto px-3 sm:px-4 py-3 sm:py-4">
-          <Link 
-            href={getLocalizedPath('/', locale)}
-            className={`inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
-          >
-            <ArrowLeft className={`h-5 w-5 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
-            <span className="font-medium">{t('common.backToHome')}</span>
-          </Link>
-        </div>
-      </div>
-
-      <div className="container mx-auto px-3 sm:px-4 pt-3 sm:pt-4">
+      <div className="container mx-auto px-3 sm:px-4">
         <div className="max-w-6xl mx-auto">
           
           {/* Profile Header Card */}

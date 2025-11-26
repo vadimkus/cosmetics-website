@@ -74,51 +74,59 @@ export default function OrderHistory({ orders, loadingOrders, onCancelOrder }: O
   const getOrderIcon = (orderNumber: string | null) => {
     // Use pot emoji for SUP orders
     if (orderNumber && orderNumber.startsWith('SUP')) {
-      return <span className="text-xl">🍲</span>
+      return <span className="text-base md:text-xl">🍲</span>
     }
     // Use fish icon for COD orders
     if (orderNumber && orderNumber.startsWith('COD')) {
-      return <Fish className="h-5 w-5 text-blue-600" />
+      return <Fish className="h-4 w-4 md:h-5 md:w-5 text-blue-600" />
     }
     // Default Package icon for other orders
-    return <Package className="h-5 w-5 text-gray-600" />
+    return <Package className="h-4 w-4 md:h-5 md:w-5 text-gray-600" />
   }
 
   return (
-    <div className="bg-white/70 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 p-4 sm:p-6 lg:p-8">
-      <div className="flex items-center gap-3 mb-6">
-        <div className="p-3 bg-gradient-to-r from-green-100 to-emerald-100 rounded-xl">
-          <Package className="h-6 w-6 text-green-600" />
+    <div className="bg-white/70 backdrop-blur-sm rounded-xl md:rounded-2xl shadow-lg border border-white/20 p-3 sm:p-6 lg:p-8">
+      <div className="flex items-center gap-2 md:gap-3 mb-4 md:mb-6">
+        <div className="p-2 md:p-3 bg-gradient-to-r from-green-100 to-emerald-100 rounded-lg md:rounded-xl">
+          <Package className="h-4 w-4 md:h-6 md:w-6 text-green-600" />
         </div>
-        <h2 className="text-2xl font-bold text-gray-800">{t('profile.orderHistory')}</h2>
+        <h2 className="text-lg md:text-2xl font-bold text-gray-800">{t('profile.orderHistory')}</h2>
       </div>
       
       {loadingOrders ? (
-        <div className="text-center py-12">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600 mx-auto mb-4"></div>
-          <p className="text-gray-500">{t('profile.loadingYourOrders')}</p>
+        <div className="text-center py-8 md:py-12">
+          <div className="animate-spin rounded-full h-8 w-8 md:h-12 md:w-12 border-b-2 border-red-600 mx-auto mb-3 md:mb-4"></div>
+          <p className="text-gray-500 text-sm md:text-base">{t('profile.loadingYourOrders')}</p>
         </div>
       ) : orders.length === 0 ? (
         <EmptyState
-          icon={<Package className="h-12 w-12 text-gray-300" />}
+          icon={
+            <Image
+              src="/images/avatar/kitten.png"
+              alt="No orders"
+              width={80}
+              height={80}
+              className="mx-auto"
+            />
+          }
           title={t('profile.noOrdersYet')}
-          description={t('profile.startShoppingToSeeOrderHistory')}
           action={{
             label: t('profile.browseProducts'),
             href: getLocalizedPath('/products', locale),
             onClick: () => {}
           }}
+          buttonClassName="bg-yellow-400 text-white hover:bg-yellow-500 font-semibold"
         />
       ) : (
-        <div className="space-y-4">
+        <div className="space-y-3 md:space-y-4">
           {orders.map((order) => (
-            <div key={order.id} className="bg-white rounded-2xl border border-gray-200 shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden">
+            <div key={order.id} className="bg-white rounded-xl md:rounded-2xl border border-gray-200 shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden">
               {/* Order Header */}
-              <div className="bg-gradient-to-r from-gray-50 to-gray-100 px-6 py-4 border-b border-gray-200">
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-                  <div className="flex items-center gap-4">
-                    <div className="flex items-center gap-3">
-                      <div className={`w-10 h-10 rounded-full flex items-center justify-center shadow-sm ${
+              <div className="bg-gradient-to-r from-gray-50 to-gray-100 px-3 md:px-6 py-3 md:py-4 border-b border-gray-200">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 md:gap-3">
+                  <div className="flex items-center gap-2 md:gap-4">
+                    <div className="flex items-center gap-2 md:gap-3">
+                      <div className={`w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center shadow-sm ${
                         order.orderNumber?.startsWith('SUP') ? 'bg-orange-50' : 
                         order.orderNumber?.startsWith('COD') ? 'bg-blue-50' : 
                         'bg-white'
@@ -126,8 +134,8 @@ export default function OrderHistory({ orders, loadingOrders, onCancelOrder }: O
                         {getOrderIcon(order.orderNumber)}
                       </div>
                       <div>
-                        <h3 className="text-lg font-bold text-gray-900">{t('profile.order')} #{order.orderNumber || order.id}</h3>
-                        <p className="text-sm text-gray-600">
+                        <h3 className="text-sm md:text-lg font-bold text-gray-900">{t('profile.order')} #{order.orderNumber || order.id}</h3>
+                        <p className="text-xs md:text-sm text-gray-600">
                           {new Date(order.createdAt).toLocaleDateString(locale === 'ar' ? 'ar-AE' : 'en-AE', {
                             year: 'numeric',
                             month: 'short',
@@ -139,15 +147,15 @@ export default function OrderHistory({ orders, loadingOrders, onCancelOrder }: O
                       </div>
                     </div>
                   </div>
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-2 md:gap-3">
                     <StatusBadge
                       status={order.status}
                       icon={getStatusIcon(order.status)}
-                      className="px-4 py-2 text-sm border"
+                      className="px-2 md:px-4 py-1.5 md:py-2 text-xs md:text-sm border"
                     />
                     <div className="text-right">
-                      <p className="text-xl font-bold text-gray-900">{formatCurrency(order.total)}</p>
-                      <p className="text-xs text-gray-500">
+                      <p className="text-base md:text-xl font-bold text-gray-900">{formatCurrency(order.total)}</p>
+                      <p className="text-[10px] md:text-xs text-gray-500">
                         {order.items.reduce((sum, item) => sum + item.quantity, 0)} {t('profile.items')}
                       </p>
                     </div>
@@ -156,19 +164,19 @@ export default function OrderHistory({ orders, loadingOrders, onCancelOrder }: O
               </div>
 
               {/* Order Content */}
-              <div className="p-6">
-                <div className="mb-4">
-                  <h4 className="text-sm font-semibold text-gray-700 mb-3 flex items-center gap-2">
-                    <ShoppingBag className="h-4 w-4" />
+              <div className="p-3 md:p-6">
+                <div className="mb-3 md:mb-4">
+                  <h4 className="text-xs md:text-sm font-semibold text-gray-700 mb-2 md:mb-3 flex items-center gap-1.5 md:gap-2">
+                    <ShoppingBag className="h-3.5 w-3.5 md:h-4 md:w-4" />
                     {t('profile.productsOrdered')}
                   </h4>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-3">
                     {(order.items || []).slice(0, 6).map((item, index) => {
                       // Use item.image if available, otherwise fallback to getProductImage
                       const imageSrc = item.image || getProductImage(item.productName);
                       return (
-                      <div key={index} className="flex items-center gap-3 bg-gray-50 rounded-xl p-3 border border-gray-100 hover:bg-gray-100 transition-colors">
-                        <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center overflow-hidden shadow-sm border border-gray-200">
+                      <div key={index} className="flex items-center gap-2 md:gap-3 bg-gray-50 rounded-lg md:rounded-xl p-2 md:p-3 border border-gray-100 hover:bg-gray-100 transition-colors">
+                        <div className="w-10 h-10 md:w-12 md:h-12 bg-white rounded-md md:rounded-lg flex items-center justify-center overflow-hidden shadow-sm border border-gray-200 flex-shrink-0">
                           <Image
                             src={imageSrc}
                             alt={item.productName}
@@ -186,10 +194,10 @@ export default function OrderHistory({ orders, loadingOrders, onCancelOrder }: O
                           />
                         </div>
                         <div className="flex-1 min-w-0">
-                          <p className="text-sm font-medium text-gray-900 truncate">
+                          <p className="text-xs md:text-sm font-medium text-gray-900 truncate">
                             {item.productName}
                           </p>
-                          <div className="flex items-center gap-2 text-xs text-gray-600">
+                          <div className="flex items-center gap-1.5 md:gap-2 text-[10px] md:text-xs text-gray-600">
                             <span>Qty: {item.quantity}</span>
                             <span>•</span>
                             <span className="font-medium text-gray-800">{formatCurrency(item.price * item.quantity)}</span>
@@ -199,8 +207,8 @@ export default function OrderHistory({ orders, loadingOrders, onCancelOrder }: O
                       );
                     })}
                     {order.items.length > 6 && (
-                      <div className="flex items-center justify-center bg-gray-50 rounded-xl p-3 border border-gray-100">
-                        <span className="text-sm text-gray-600 font-medium">
+                      <div className="flex items-center justify-center bg-gray-50 rounded-lg md:rounded-xl p-2 md:p-3 border border-gray-100">
+                        <span className="text-xs md:text-sm text-gray-600 font-medium">
                           +{order.items.length - 6} {t('common.products')}
                         </span>
                       </div>
@@ -209,9 +217,9 @@ export default function OrderHistory({ orders, loadingOrders, onCancelOrder }: O
                 </div>
 
                 {/* Order Actions */}
-                <div className="flex items-center justify-between pt-4 border-t border-gray-200">
-                  <div className={`flex items-center gap-2 text-sm text-gray-600 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                    <Calendar className="h-4 w-4" />
+                <div className="flex flex-col md:flex-row items-start md:items-center justify-between pt-3 md:pt-4 border-t border-gray-200 gap-2 md:gap-0">
+                  <div className={`flex items-center gap-1.5 md:gap-2 text-xs md:text-sm text-gray-600 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                    <Calendar className="h-3.5 w-3.5 md:h-4 md:w-4" />
                     <span>{t('profile.orderedOn')} {new Date(order.createdAt).toLocaleDateString(locale === 'ar' ? 'ar-AE' : 'en-AE', { 
                       year: 'numeric',
                       month: 'long',
@@ -221,9 +229,9 @@ export default function OrderHistory({ orders, loadingOrders, onCancelOrder }: O
                   {(order.status === 'pending' || order.status === 'paid') && (
                     <button
                       onClick={() => onCancelOrder(order.id)}
-                      className={`inline-flex items-center gap-2 px-4 py-2 bg-red-50 text-red-700 text-sm rounded-lg hover:bg-red-100 transition-colors font-medium border border-red-200 min-h-[44px] touch-manipulation ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+                      className={`inline-flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-1.5 md:py-2 bg-red-50 text-red-700 text-xs md:text-sm rounded-lg hover:bg-red-100 transition-colors font-medium border border-red-200 min-h-[36px] md:min-h-[44px] touch-manipulation ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
                     >
-                      <X className="h-4 w-4" />
+                      <X className="h-3.5 w-3.5 md:h-4 md:w-4" />
                       {t('profile.cancelOrder')}
                     </button>
                   )}

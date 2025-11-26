@@ -223,7 +223,12 @@ export default function ProfilePageRefactored() {
         })),
       })
 
-      const responseData = await response.json()
+      let responseData
+      try {
+        responseData = await response.json()
+      } catch {
+        responseData = {}
+      }
 
       if (response.ok) {
         const updatedUser = { ...user, ...editData, profilePicture }
@@ -232,8 +237,9 @@ export default function ProfilePageRefactored() {
         alert('Profile updated successfully!')
         window.location.reload()
       } else {
-        errorLog('Failed to update profile:', responseData)
-        alert(`Failed to update profile: ${responseData.error || 'Unknown error'}`)
+        errorLog('Failed to update profile:', response.status, responseData)
+        const errorMessage = responseData?.error || responseData?.message || `Server error (${response.status})`
+        alert(`Failed to update profile: ${errorMessage}`)
       }
     } catch (error) {
       handleApiError(error, 'Error updating profile')
@@ -350,52 +356,29 @@ export default function ProfilePageRefactored() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Header */}
-      <div className="bg-white/80 backdrop-blur-sm border-b border-white/20 sticky top-0 z-40">
-        <div className="container mx-auto px-3 sm:px-4 py-3 sm:py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-            </div>
-          </div>
-        </div>
-      </div>
-
       {/* Breadcrumb Navigation */}
-      <div className="bg-gray-50/80 backdrop-blur-sm border-b border-gray-200">
-        <div className="container mx-auto px-3 sm:px-4 py-3 sm:py-4">
-          <nav className="flex items-center space-x-2 text-sm" aria-label="Breadcrumb">
-            <Link 
-              href="/" 
-              className="text-gray-500 hover:text-gray-700 transition-colors flex items-center gap-1"
-            >
-              <span>Home</span>
-            </Link>
-            <span className="text-gray-400">/</span>
-            <span className="text-gray-900 font-medium">Profile</span>
-            {activeTab !== 'profile' && (
-              <>
-                <span className="text-gray-400">/</span>
-                <span className="text-gray-900 font-medium capitalize">{activeTab}</span>
-              </>
-            )}
-          </nav>
-        </div>
+      <div className="container mx-auto px-3 md:px-4 pt-4 md:pt-8">
+        {/* Navigation Breadcrumb */}
+        <nav className="text-xs md:text-base text-gray-600 mb-2 md:mb-4" aria-label="Breadcrumb">
+          <Link href="/" className="hover:text-primary-600 transition-colors">Home</Link>
+          <span> / </span>
+          <span className="text-gray-900 font-medium">Profile</span>
+          {activeTab !== 'profile' && (
+            <>
+              <span> / </span>
+              <span className="text-gray-900 font-medium capitalize">{activeTab}</span>
+            </>
+          )}
+        </nav>
+        
+        {/* Back to Home */}
+        <Link href="/" className="inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 mb-4 md:mb-8">
+          <ArrowLeft className="h-3 w-3 md:h-4 md:w-4" />
+          <span>Back to Home</span>
+        </Link>
       </div>
 
-      {/* Back to Home Button */}
-      <div className="bg-white/80 backdrop-blur-sm border-b border-gray-200">
-        <div className="container mx-auto px-3 sm:px-4 py-3 sm:py-4">
-          <Link 
-            href="/" 
-            className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
-          >
-            <ArrowLeft className="h-5 w-5" />
-            <span className="font-medium">Back to Home</span>
-          </Link>
-        </div>
-      </div>
-
-      <div className="container mx-auto px-3 sm:px-4 pt-3 sm:pt-4">
+      <div className="container mx-auto px-3 sm:px-4">
         <div className="max-w-6xl mx-auto">
           
           {/* Profile Header Card */}
@@ -410,65 +393,80 @@ export default function ProfilePageRefactored() {
           />
 
           {/* Navigation Tabs */}
-          <div className="bg-white/70 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 p-2 mb-4 sm:mb-6 lg:mb-8">
-            {/* Mobile: Horizontal scroll with scroll indicators */}
-            <div className="relative">
-              {/* Scroll indicators for mobile */}
-              <div className="absolute left-0 top-0 bottom-0 w-4 bg-gradient-to-r from-white/70 to-transparent z-10 pointer-events-none sm:hidden"></div>
-              <div className="absolute right-0 top-0 bottom-0 w-4 bg-gradient-to-l from-white/70 to-transparent z-10 pointer-events-none sm:hidden"></div>
+          <div className="bg-white rounded-xl md:rounded-2xl shadow-sm md:shadow-lg border border-gray-100 p-1.5 md:p-2 mb-3 md:mb-6 lg:mb-8">
+            {/* Mobile: Icon-only tabs (downloads hidden - duplicate of Training page) */}
+            <div className="flex justify-between md:hidden">
+              {[
+                { id: 'profile', icon: User },
+                { id: 'orders', icon: Package },
+                { id: 'settings', icon: Settings },
+                { id: 'privacy', icon: Shield }
+              ].map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id as ActiveTab)}
+                  className={`flex-1 flex items-center justify-center py-2.5 rounded-lg transition-all ${
+                    activeTab === tab.id
+                      ? 'bg-primary-600 text-white shadow-sm'
+                      : 'text-gray-500'
+                  }`}
+                >
+                  <tab.icon className="h-4 w-4" />
+                </button>
+              ))}
+              {/* Edit button */}
+              <button
+                onClick={() => setIsEditing(!isEditing)}
+                className={`flex-1 flex items-center justify-center py-2.5 rounded-lg transition-all ${
+                  isEditing ? 'bg-red-100 text-red-600' : 'text-gray-500'
+                }`}
+              >
+                <Edit3 className="h-4 w-4" />
+              </button>
+            </div>
+            
+            {/* Desktop: Full tabs with labels */}
+            <div className="hidden md:flex gap-2 overflow-x-auto scrollbar-hide">
+              {[
+                { id: 'profile', label: 'Profile', icon: User },
+                { id: 'orders', label: 'Orders', icon: Package },
+                { id: 'settings', label: 'Settings', icon: Settings },
+                { id: 'downloads', label: 'Downloads', icon: Download },
+                { id: 'privacy', label: 'Privacy', icon: Shield }
+              ].map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id as ActiveTab)}
+                  className={`flex items-center gap-2 px-6 py-3 rounded-xl font-medium transition-all duration-200 whitespace-nowrap flex-shrink-0 ${
+                    activeTab === tab.id
+                      ? 'bg-gradient-to-r from-red-600 to-red-700 text-white shadow-lg'
+                      : 'text-gray-600 hover:text-gray-900 hover:bg-white/50'
+                  }`}
+                >
+                  <tab.icon className="h-5 w-5" />
+                  <span>{tab.label}</span>
+                </button>
+              ))}
               
-              {/* Navigation container with horizontal scroll on mobile */}
-              <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-1 sm:overflow-x-visible sm:pb-0">
-                {/* Primary Navigation Tabs */}
-                {[
-                  { id: 'profile', label: 'Profile', icon: User, shortLabel: 'Profile' },
-                  { id: 'orders', label: 'Orders', icon: Package, shortLabel: 'Orders' },
-                  { id: 'settings', label: 'Settings', icon: Settings, shortLabel: 'Settings' },
-                  { id: 'downloads', label: 'Downloads', icon: Download, shortLabel: 'Downloads' },
-                  { id: 'privacy', label: 'Privacy', icon: Shield, shortLabel: 'Privacy' }
-                ].map((tab) => (
-                  <button
-                    key={tab.id}
-                    onClick={() => setActiveTab(tab.id as ActiveTab)}
-                    className={`flex items-center gap-1 sm:gap-2 px-2 xs:px-3 sm:px-6 py-3 rounded-xl font-medium transition-all duration-200 whitespace-nowrap flex-shrink-0 ${
-                      activeTab === tab.id
-                        ? 'bg-gradient-to-r from-red-600 to-red-700 text-white shadow-lg'
-                        : 'text-gray-600 hover:text-gray-900 hover:bg-white/50'
-                    }`}
-                    title={tab.label}
-                  >
-                    <tab.icon className="h-4 w-4 sm:h-5 sm:w-5" />
-                    <span className="text-sm sm:text-base hidden xs:inline">{tab.shortLabel}</span>
-                  </button>
-                ))}
-                
-                {/* Action Buttons - Refresh and Edit */}
-                <div className="flex items-center gap-2">
-                  {/* Refresh Button */}
-                  <button
-                    onClick={handleRefresh}
-                    disabled={isRefreshing}
-                    className="flex items-center gap-1 sm:gap-2 px-2 xs:px-3 sm:px-4 py-3 bg-white/50 backdrop-blur-sm text-gray-600 rounded-xl font-medium hover:bg-white/70 transition-all duration-200 disabled:opacity-50 whitespace-nowrap flex-shrink-0"
-                    title="Refresh profile data"
-                  >
-                    <RefreshCw className={`h-4 w-4 sm:h-5 sm:w-5 ${isRefreshing ? 'animate-spin' : ''}`} />
-                    <span className="text-sm sm:text-base hidden xs:inline sm:inline">Refresh</span>
-                  </button>
-
-                  {/* Edit Button */}
-                  <button
-                    onClick={() => setIsEditing(!isEditing)}
-                    className={`flex items-center gap-1 sm:gap-2 px-2 xs:px-3 sm:px-4 py-3 rounded-xl font-medium transition-all duration-200 whitespace-nowrap flex-shrink-0 ${
-                      isEditing 
-                        ? 'bg-red-100 text-red-700 hover:bg-red-200' 
-                        : 'text-gray-600 hover:text-gray-900 hover:bg-white/50'
-                    }`}
-                    title={isEditing ? 'Cancel editing' : 'Edit profile'}
-                  >
-                    <Edit3 className="h-4 w-4 sm:h-5 sm:w-5" />
-                    <span className="text-sm sm:text-base hidden xs:inline sm:inline">{isEditing ? 'Cancel' : 'Edit'}</span>
-                  </button>
-                </div>
+              {/* Action Buttons */}
+              <div className="flex items-center gap-2 ml-auto">
+                <button
+                  onClick={handleRefresh}
+                  disabled={isRefreshing}
+                  className="flex items-center gap-2 px-4 py-3 bg-white/50 text-gray-600 rounded-xl font-medium hover:bg-white/70 transition-all disabled:opacity-50"
+                >
+                  <RefreshCw className={`h-5 w-5 ${isRefreshing ? 'animate-spin' : ''}`} />
+                  <span>Refresh</span>
+                </button>
+                <button
+                  onClick={() => setIsEditing(!isEditing)}
+                  className={`flex items-center gap-2 px-4 py-3 rounded-xl font-medium transition-all ${
+                    isEditing ? 'bg-red-100 text-red-700 hover:bg-red-200' : 'text-gray-600 hover:text-gray-900 hover:bg-white/50'
+                  }`}
+                >
+                  <Edit3 className="h-5 w-5" />
+                  <span>{isEditing ? 'Cancel' : 'Edit'}</span>
+                </button>
               </div>
             </div>
           </div>

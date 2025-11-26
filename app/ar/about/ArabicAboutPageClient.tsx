@@ -95,8 +95,8 @@ export default function ArabicAboutPageClient() {
                 <div><span className="font-semibold text-gray-800">{t('about.yearOfIncorporation')}:</span> 2019</div>
                 <div><span className="font-semibold text-gray-800">{t('about.commercialLicense')}:</span> <a href="/documents/commercial-license.pdf" download="Genosys-Commercial-License-5023192.pdf" className="text-primary-600 hover:text-primary-700 underline">5023192</a></div>
                 <div><span className="font-semibold text-gray-800">TRN:</span> <a href="/documents/genosys-trn-104229886700003.pdf" download="GENOSYS-TRN-104229886700003.pdf" className="text-primary-600 hover:text-primary-700 underline">104229886700003</a></div>
-                <div><span className="font-semibold text-gray-800">{t('about.mainOfficeAddress')}:</span> Al Hamra, RAK, UAE</div>
-                <div><span className="font-semibold text-gray-800">{t('about.dubaiOfficeAddress')}:</span> Cordoba Residence, E02</div>
+                <div><span className="font-semibold text-gray-800">{t('about.mainOfficeAddress')}:</span> Compass Building, GF, RAK, UAE</div>
+                <div><span className="font-semibold text-gray-800">{t('about.dubaiOfficeAddress')}:</span> Cordoba Residence, E02, Knowledge Village</div>
               </div>
             </div>
             
@@ -106,7 +106,7 @@ export default function ArabicAboutPageClient() {
                 {t('about.contactInformation')}
               </h3>
               <div className={`space-y-0.5 md:space-y-2 text-xs md:text-base ${dir === 'rtl' ? 'text-right' : ''}`}>
-                <div><span className="font-semibold text-gray-800">{t('about.phone')}:</span> <a href="tel:+971585487665" className="text-primary-600 hover:text-primary-700">+971 58 548 76 65</a></div>
+                <div><span className="font-semibold text-gray-800">{t('about.phone')}/WhatsApp:</span> <a href="tel:+971585487665" className="text-primary-600 hover:text-primary-700">+971 58 548 76 65</a></div>
                 <div><span className="font-semibold text-gray-800">{t('about.email')}:</span> <a href="mailto:sales@genosys.ae" className="text-primary-600 hover:text-primary-700">sales@genosys.ae</a></div>
                 <div><span className="font-semibold text-gray-800">{t('about.website')}:</span> <a href="https://genosys.ae" target="_blank" rel="noopener noreferrer" className="text-primary-600 hover:text-primary-700">genosys.ae</a></div>
                 <div><span className="font-semibold text-gray-800">{t('about.instagram')}:</span> <a href="https://www.instagram.com/genosys.uae/" target="_blank" rel="noopener noreferrer" className="text-primary-600 hover:text-primary-700">@genosys.uae</a></div>

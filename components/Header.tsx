@@ -56,7 +56,7 @@ const Header = memo(function Header() {
             <span className="hidden md:block text-lg md:text-2xl font-bold text-primary-600">
               Genosys Middle East FZ-LLC
             </span>
-            <Link href={getLocalizedPath('/products', locale)} className="md:hidden text-base font-bold text-primary-600 mt-2">
+            <Link href={getLocalizedPath('/products', locale)} className="md:hidden text-base font-normal text-primary-600 mt-3">
               {t('navigation.products')}
             </Link>
             <div className="hidden md:flex text-sm text-gray-600 items-center gap-1 ml-0 md:ml-40 header-margin">

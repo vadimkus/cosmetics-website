@@ -52,68 +52,117 @@ const Header = memo(function Header() {
     <header className="bg-white shadow-sm border-b" suppressHydrationWarning>
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between py-4 header-main-flex">
-          {/* Mobile Icons - Left Side */}
-          <div className="md:hidden flex items-center gap-1 header-icons">
-            {/* 1. Mobile Menu Button (Hamburger) */}
-            <button
-              onClick={() => setShowMobileMenu(!showMobileMenu)}
-              className="p-2 text-gray-700 hover:text-primary-600 transition-colors flex items-center justify-center"
-              aria-label={showMobileMenu ? t('common.closeMobileMenu') : t('common.openMobileMenu')}
-              aria-expanded={showMobileMenu}
-            >
-              <Menu className="h-5 w-5" aria-hidden="true" />
-            </button>
-            
-            {/* 2. Language Switcher (EN) */}
-            <LanguageSwitcher />
-            
-            {/* 3. Mobile User/Login Icon (Man) */}
-            {isClient && user ? (
-              <Link 
-                href={getLocalizedPath('/profile', locale)} 
+          {/* Mobile Icons - English Version (LTR): hamburger, EN, man, heart, cart */}
+          {locale !== 'ar' && (
+            <div className="md:hidden flex items-center gap-1 header-icons">
+              <button
+                onClick={() => setShowMobileMenu(!showMobileMenu)}
                 className="p-2 text-gray-700 hover:text-primary-600 transition-colors flex items-center justify-center"
-                aria-label={t('common.profile')}
+                aria-label={showMobileMenu ? t('common.closeMobileMenu') : t('common.openMobileMenu')}
+                aria-expanded={showMobileMenu}
               >
-                <User className="h-5 w-5 text-green-600" aria-hidden="true" />
-              </Link>
-            ) : (
-              <button 
-                onClick={() => setShowLoginModal(true)}
-                className="p-2 text-gray-700 hover:text-primary-600 transition-colors flex items-center justify-center"
-                aria-label={t('common.login')}
-              >
-                <User className="h-5 w-5 text-green-600" aria-hidden="true" />
+                <Menu className="h-5 w-5" aria-hidden="true" />
               </button>
-            )}
-            
-            {/* 4. Mobile Favorites Icon (Heart) */}
-            <Link 
-              href={getLocalizedPath('/favorites', locale)} 
-              className="relative p-2 text-gray-700 hover:text-primary-600 transition-colors flex items-center justify-center"
-              aria-label={`${t('common.favorites')} with ${isClient ? favorites.length : 0} items`}
-            >
-              <Heart className="h-5 w-5" aria-hidden="true" />
-              {isClient && favorites.length > 0 && (
-                <span className="absolute top-0 right-0 bg-primary-600 text-white text-[10px] rounded-full h-4 w-4 flex items-center justify-center header-badge" aria-hidden="true">
-                  {favorites.length}
-                </span>
+              <LanguageSwitcher />
+              {isClient && user ? (
+                <Link 
+                  href={getLocalizedPath('/profile', locale)} 
+                  className="p-2 text-gray-700 hover:text-primary-600 transition-colors flex items-center justify-center"
+                  aria-label={t('common.profile')}
+                >
+                  <User className="h-5 w-5 text-green-600" aria-hidden="true" />
+                </Link>
+              ) : (
+                <button 
+                  onClick={() => setShowLoginModal(true)}
+                  className="p-2 text-gray-700 hover:text-primary-600 transition-colors flex items-center justify-center"
+                  aria-label={t('common.login')}
+                >
+                  <User className="h-5 w-5 text-green-600" aria-hidden="true" />
+                </button>
               )}
-            </Link>
-            
-            {/* 5. Mobile Cart Icon */}
-            <Link 
-              href={getLocalizedPath('/cart', locale)} 
-              className="relative p-2 text-gray-700 hover:text-primary-600 transition-colors flex items-center justify-center"
-              aria-label={`${t('common.cart')} with ${isClient ? getTotalItems() : 0} items`}
-            >
-              <ShoppingCart className="h-5 w-5" aria-hidden="true" />
-              {isClient && getTotalItems() > 0 && (
-                <span className="absolute top-0 right-0 bg-primary-600 text-white text-[10px] rounded-full h-4 w-4 flex items-center justify-center header-badge" aria-hidden="true">
-                  {getTotalItems()}
-                </span>
+              <Link 
+                href={getLocalizedPath('/favorites', locale)} 
+                className="relative p-2 text-gray-700 hover:text-primary-600 transition-colors flex items-center justify-center"
+                aria-label={`${t('common.favorites')} with ${isClient ? favorites.length : 0} items`}
+              >
+                <Heart className="h-5 w-5" aria-hidden="true" />
+                {isClient && favorites.length > 0 && (
+                  <span className="absolute top-0 right-0 bg-primary-600 text-white text-[10px] rounded-full h-4 w-4 flex items-center justify-center header-badge" aria-hidden="true">
+                    {favorites.length}
+                  </span>
+                )}
+              </Link>
+              <Link 
+                href={getLocalizedPath('/cart', locale)} 
+                className="relative p-2 text-gray-700 hover:text-primary-600 transition-colors flex items-center justify-center"
+                aria-label={`${t('common.cart')} with ${isClient ? getTotalItems() : 0} items`}
+              >
+                <ShoppingCart className="h-5 w-5" aria-hidden="true" />
+                {isClient && getTotalItems() > 0 && (
+                  <span className="absolute top-0 right-0 bg-primary-600 text-white text-[10px] rounded-full h-4 w-4 flex items-center justify-center header-badge" aria-hidden="true">
+                    {getTotalItems()}
+                  </span>
+                )}
+              </Link>
+            </div>
+          )}
+
+          {/* Mobile Icons - Arabic Version (RTL): cart, heart, man, AR, hamburger - positioned on right */}
+          {locale === 'ar' && (
+            <div className="md:hidden flex items-center gap-1 header-icons ml-auto">
+              <Link 
+                href={getLocalizedPath('/cart', locale)} 
+                className="relative p-2 text-gray-700 hover:text-primary-600 transition-colors flex items-center justify-center"
+                aria-label={`${t('common.cart')} with ${isClient ? getTotalItems() : 0} items`}
+              >
+                <ShoppingCart className="h-5 w-5" aria-hidden="true" />
+                {isClient && getTotalItems() > 0 && (
+                  <span className="absolute top-0 right-0 bg-primary-600 text-white text-[10px] rounded-full h-4 w-4 flex items-center justify-center header-badge" aria-hidden="true">
+                    {getTotalItems()}
+                  </span>
+                )}
+              </Link>
+              <Link 
+                href={getLocalizedPath('/favorites', locale)} 
+                className="relative p-2 text-gray-700 hover:text-primary-600 transition-colors flex items-center justify-center"
+                aria-label={`${t('common.favorites')} with ${isClient ? favorites.length : 0} items`}
+              >
+                <Heart className="h-5 w-5" aria-hidden="true" />
+                {isClient && favorites.length > 0 && (
+                  <span className="absolute top-0 right-0 bg-primary-600 text-white text-[10px] rounded-full h-4 w-4 flex items-center justify-center header-badge" aria-hidden="true">
+                    {favorites.length}
+                  </span>
+                )}
+              </Link>
+              {isClient && user ? (
+                <Link 
+                  href={getLocalizedPath('/profile', locale)} 
+                  className="p-2 text-gray-700 hover:text-primary-600 transition-colors flex items-center justify-center"
+                  aria-label={t('common.profile')}
+                >
+                  <User className="h-5 w-5 text-green-600" aria-hidden="true" />
+                </Link>
+              ) : (
+                <button 
+                  onClick={() => setShowLoginModal(true)}
+                  className="p-2 text-gray-700 hover:text-primary-600 transition-colors flex items-center justify-center"
+                  aria-label={t('common.login')}
+                >
+                  <User className="h-5 w-5 text-green-600" aria-hidden="true" />
+                </button>
               )}
-            </Link>
-          </div>
+              <LanguageSwitcher />
+              <button
+                onClick={() => setShowMobileMenu(!showMobileMenu)}
+                className="p-2 text-gray-700 hover:text-primary-600 transition-colors flex items-center justify-center"
+                aria-label={showMobileMenu ? t('common.closeMobileMenu') : t('common.openMobileMenu')}
+                aria-expanded={showMobileMenu}
+              >
+                <Menu className="h-5 w-5" aria-hidden="true" />
+              </button>
+            </div>
+          )}
           
           {/* Desktop Left Side */}
           <div className="hidden md:flex flex-col">

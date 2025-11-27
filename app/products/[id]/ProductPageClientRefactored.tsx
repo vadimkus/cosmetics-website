@@ -6,7 +6,7 @@ import { useCart } from '@/components/CartProvider'
 import { useFavorites } from '@/components/FavoritesProvider'
 import { useAuth } from '@/components/AuthProvider'
 import ErrorPage from '@/components/ErrorPage'
-import { ArrowLeft, Sparkles, Star, ShoppingCart, Heart, Minus, Plus, ChevronDown, ChevronUp } from 'lucide-react'
+import { ArrowLeft, Sparkles, Star } from 'lucide-react'
 import Link from 'next/link'
 import { useState, useCallback } from 'react'
 import { Product } from '@/types'
@@ -23,7 +23,6 @@ import TrustBadges from '@/components/product/TrustBadges'
 import ProductRecommendation from '@/components/product/ProductRecommendation'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
-import { calculateDiscountedPrice, canUserSeePrices } from '@/lib/discountUtils'
 import { 
   getPriceForSize, 
   hasProductSizeVariants, 
@@ -49,24 +48,6 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
   const [selectedSize, setSelectedSize] = useState(sizeOptions[0]?.value || '50g')
   const [selectedColor, setSelectedColor] = useState(colorOptions[0]?.value || 'Beige')
   
-  // Mobile quantity state for sticky footer
-  const [mobileQuantity, setMobileQuantity] = useState(1)
-  const [isAddingMobile, setIsAddingMobile] = useState(false)
-  
-  // Collapsible sections state for mobile
-  const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({
-    description: true,
-    details: false,
-    ingredients: false,
-  })
-  
-  const toggleSection = (section: string) => {
-    setExpandedSections(prev => ({
-      ...prev,
-      [section]: !prev[section]
-    }))
-  }
-
   // Calculate current price based on selected variant
   const currentPrice = useCallback(() => {
     if (hasProductSizeVariants(product.id)) {
@@ -97,20 +78,6 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
     }
   }, [user, product, selectedSize, selectedColor, addItem, router, locale])
   
-  // Handle mobile add to cart
-  const handleMobileAddToCart = async () => {
-    if (!user) {
-      router.push(getLocalizedPath('/login', locale))
-      return
-    }
-    setIsAddingMobile(true)
-    try {
-      await handleAddToCart(mobileQuantity)
-    } finally {
-      setIsAddingMobile(false)
-    }
-  }
-
   // Handle toggle favorite
   const handleToggleFavorite = useCallback(() => {
     if (!user) {
@@ -131,10 +98,6 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
   }))
 
   const availableColors = colorOptions
-  
-  // Calculate pricing for mobile display
-  const productWithPrice = { ...product, price: currentPrice() }
-  const pricing = calculateDiscountedPrice(productWithPrice, user)
 
   return (
     <div className="bg-white min-h-screen pb-24 lg:pb-0" dir={dir}>

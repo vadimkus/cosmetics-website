@@ -245,122 +245,86 @@ const Header = memo(function Header() {
       {/* Mobile Navigation Menu */}
       {showMobileMenu && (
         <div className="md:hidden bg-white border-t" role="navigation" aria-label="Mobile navigation">
-          <div className="container mx-auto px-4 py-4">
-            <nav className="flex flex-col space-y-4">
-            <Link 
-              href={getLocalizedPath('/', locale)} 
-              className="text-gray-700 hover:text-primary-600 transition-colors py-3 border-b border-gray-100 font-semibold touch-manipulation min-h-[44px] flex items-center"
-              onClick={() => setShowMobileMenu(false)}
-            >
-              {t('navigation.home')}
-            </Link>
-            <Link 
-              href={getLocalizedPath('/about', locale)} 
-              className="text-gray-700 hover:text-primary-600 transition-colors py-3 border-b border-gray-100 touch-manipulation min-h-[44px] flex items-center"
-              onClick={() => setShowMobileMenu(false)}
-            >
-              {t('navigation.about')}
-            </Link>
-            <Link 
-              href={getLocalizedPath('/brand', locale)} 
-              className="text-gray-700 hover:text-primary-600 transition-colors py-3 border-b border-gray-100 touch-manipulation min-h-[44px] flex items-center"
-              onClick={() => setShowMobileMenu(false)}
-            >
-              {t('navigation.brand')}
-            </Link>
-            <Link 
-              href={getLocalizedPath('/products', locale)} 
-              className="text-gray-700 hover:text-primary-600 transition-colors py-3 border-b border-gray-100 touch-manipulation min-h-[44px] flex items-center"
-              onClick={() => setShowMobileMenu(false)}
-            >
-              {t('navigation.products')}
-            </Link>
-            {isClient && user && (
+          <div className="container mx-auto px-3 py-3">
+            <nav className="grid grid-cols-2 gap-0">
               <Link 
-                href={getLocalizedPath('/training', locale)} 
-                className="text-gray-700 hover:text-primary-600 transition-colors py-3 border-b border-gray-100 touch-manipulation min-h-[44px] flex items-center"
+                href={getLocalizedPath('/', locale)} 
+                className="text-gray-700 hover:text-primary-600 hover:bg-gray-50 transition-colors py-2.5 px-3 rounded-lg text-sm font-medium touch-manipulation flex items-center"
                 onClick={() => setShowMobileMenu(false)}
               >
-                {t('navigation.training')}
+                {t('navigation.home')}
               </Link>
-            )}
-            <Link 
-              href={getLocalizedPath('/contact', locale)} 
-              className="text-gray-700 hover:text-primary-600 transition-colors py-3 border-b border-gray-100 touch-manipulation min-h-[44px] flex items-center"
-              onClick={() => setShowMobileMenu(false)}
-            >
-              {t('navigation.contact')}
-            </Link>
-            <Link 
-              href={getLocalizedPath('/delivery', locale)}
-              className="text-gray-700 hover:text-primary-600 transition-colors py-3 border-b border-gray-100 touch-manipulation min-h-[44px] flex items-center"
-              onClick={() => setShowMobileMenu(false)}
-            >
-              {t('navigation.delivery')}
-            </Link>
-              
-              {/* Mobile Login/Profile Section */}
-              <div className="pt-4 border-t border-gray-200">
-                {isClient && user ? (
-                  <div className="space-y-3">
-                    <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
-                      <User className="h-5 w-5 text-green-600" />
-                      <div>
-                        <div className="text-sm font-medium text-gray-800">{user.name}</div>
-                        <div className="text-xs text-gray-600">{user.email}</div>
-                      </div>
-                    </div>
-                    <Link 
-                      href={getLocalizedPath('/profile', locale)} 
-                      className="block text-gray-700 hover:text-primary-600 transition-colors py-3 border-b border-gray-100 touch-manipulation min-h-[44px] flex items-center"
-                      onClick={() => setShowMobileMenu(false)}
-                    >
-                      {t('common.profile')}
-                    </Link>
-                    <button 
-                      onClick={() => {
-                        logout()
-                        setShowMobileMenu(false)
-                      }}
-                      className="block w-full text-left text-gray-700 hover:text-primary-600 transition-colors py-3 touch-manipulation min-h-[44px] flex items-center header-mobile-link"
-                    >
-                      {t('common.logout')}
-                    </button>
-                  </div>
-                ) : (
+              <Link 
+                href={getLocalizedPath('/about', locale)} 
+                className="text-gray-700 hover:text-primary-600 hover:bg-gray-50 transition-colors py-2.5 px-3 rounded-lg text-sm touch-manipulation flex items-center"
+                onClick={() => setShowMobileMenu(false)}
+              >
+                {t('navigation.about')}
+              </Link>
+              <Link 
+                href={getLocalizedPath('/brand', locale)} 
+                className="text-gray-700 hover:text-primary-600 hover:bg-gray-50 transition-colors py-2.5 px-3 rounded-lg text-sm touch-manipulation flex items-center"
+                onClick={() => setShowMobileMenu(false)}
+              >
+                {t('navigation.brand')}
+              </Link>
+              <Link 
+                href={getLocalizedPath('/products', locale)} 
+                className="text-gray-700 hover:text-primary-600 hover:bg-gray-50 transition-colors py-2.5 px-3 rounded-lg text-sm touch-manipulation flex items-center"
+                onClick={() => setShowMobileMenu(false)}
+              >
+                {t('navigation.products')}
+              </Link>
+              {isClient && user && (
+                <Link 
+                  href={getLocalizedPath('/training', locale)} 
+                  className="text-gray-700 hover:text-primary-600 hover:bg-gray-50 transition-colors py-2.5 px-3 rounded-lg text-sm touch-manipulation flex items-center"
+                  onClick={() => setShowMobileMenu(false)}
+                >
+                  {t('navigation.training')}
+                </Link>
+              )}
+              <Link 
+                href={getLocalizedPath('/contact', locale)} 
+                className="text-gray-700 hover:text-primary-600 hover:bg-gray-50 transition-colors py-2.5 px-3 rounded-lg text-sm touch-manipulation flex items-center"
+                onClick={() => setShowMobileMenu(false)}
+              >
+                {t('navigation.contact')}
+              </Link>
+              <Link 
+                href={getLocalizedPath('/delivery', locale)}
+                className="text-gray-700 hover:text-primary-600 hover:bg-gray-50 transition-colors py-2.5 px-3 rounded-lg text-sm touch-manipulation flex items-center"
+                onClick={() => setShowMobileMenu(false)}
+              >
+                {t('navigation.delivery')}
+              </Link>
+              <Link 
+                href={getLocalizedPath('/faq', locale)}
+                className="text-gray-700 hover:text-primary-600 hover:bg-gray-50 transition-colors py-2.5 px-3 rounded-lg text-sm touch-manipulation flex items-center"
+                onClick={() => setShowMobileMenu(false)}
+              >
+                {t('navigation.faq')}
+              </Link>
+              {isClient && user && (
+                <>
+                  <Link 
+                    href={getLocalizedPath('/profile', locale)} 
+                    className="text-gray-700 hover:text-primary-600 hover:bg-gray-50 transition-colors py-2.5 px-3 rounded-lg text-sm touch-manipulation flex items-center"
+                    onClick={() => setShowMobileMenu(false)}
+                  >
+                    {t('common.profile')}
+                  </Link>
                   <button 
                     onClick={() => {
-                      setShowLoginModal(true)
+                      logout()
                       setShowMobileMenu(false)
                     }}
-                    className="w-full bg-primary-600 text-white py-3 rounded-lg font-semibold hover:bg-primary-700 transition-colors flex items-center justify-center gap-2 touch-manipulation min-h-[44px]"
+                    className="text-gray-700 hover:text-primary-600 hover:bg-gray-50 transition-colors py-2.5 px-3 rounded-lg text-sm touch-manipulation flex items-center text-left"
                   >
-                    <User className="h-5 w-5" />
-                    {t('common.login')} / {t('common.register')}
+                    {t('common.logout')}
                   </button>
-                )}
-              </div>
-
-              {/* Mobile Contact Info */}
-              <div className="pt-4 border-t border-gray-200">
-                <div className="text-sm text-gray-600 mb-2">
-                  {t('footer.officialDistributor')}
-                </div>
-                <a 
-                  href="https://wa.me/971585487665" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-sm text-gray-600 hover:text-green-600 transition-colors flex items-center gap-1 mb-2"
-                >
-                  +971 58 548 76 65 📱
-                </a>
-                <a 
-                  href="mailto:sales@genosys.ae"
-                  className="text-sm text-gray-600 hover:text-primary-600 transition-colors"
-                >
-                  sales@genosys.ae
-                </a>
-              </div>
+                </>
+              )}
             </nav>
           </div>
         </div>

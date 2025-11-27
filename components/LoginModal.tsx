@@ -158,7 +158,7 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
 
   return (
     <div 
-      className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
+      className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-3 md:p-4"
       role="dialog"
       aria-modal="true"
       aria-labelledby="modal-title"
@@ -166,32 +166,33 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
     >
       <div 
         ref={modalRef}
-        className={`bg-white rounded-lg p-6 md:p-8 max-w-md w-full max-h-[90vh] overflow-y-auto ${dir === 'rtl' ? 'text-right' : ''}`}
+        className={`bg-white rounded-xl p-4 md:p-6 max-w-sm md:max-w-md w-full max-h-[85vh] overflow-y-auto shadow-2xl ${dir === 'rtl' ? 'text-right' : ''}`}
       >
-        <div className="relative mb-6">
-          <h2 id="modal-title" className="text-lg md:text-xl font-bold text-gray-800 text-center">
-            {isLoginMode ? t('login.professionalLogin') : t('login.professionalAccount')}
-          </h2>
-          <p className="text-sm text-gray-600 mt-1 text-center">
-            {t('login.unitedArabEmirates')}
-          </p>
+        {/* Header */}
+        <div className="relative mb-4 md:mb-5">
           <button
             onClick={onClose}
-            className={`absolute top-0 ${dir === 'rtl' ? 'left-0' : 'right-0'} text-gray-500 hover:text-gray-700 p-2 touch-manipulation`}
+            className={`absolute top-0 ${dir === 'rtl' ? 'left-0' : 'right-0'} text-gray-400 hover:text-gray-600 p-1 touch-manipulation transition-colors`}
             aria-label={t('common.close')}
           >
-            <X className="h-6 w-6" aria-hidden="true" />
+            <X className="h-5 w-5 md:h-6 md:w-6" aria-hidden="true" />
           </button>
+          <h2 id="modal-title" className="text-base md:text-lg font-bold text-gray-900 text-center pr-6">
+            {isLoginMode ? t('login.professionalLogin') : t('login.professionalAccount')}
+          </h2>
+          <p className="text-xs md:text-sm text-gray-500 mt-0.5 text-center">
+            {t('login.unitedArabEmirates')}
+          </p>
         </div>
 
-        <div className="space-y-4">
+        <div className={`${isLoginMode ? 'space-y-3 md:space-y-4' : 'space-y-2 md:space-y-3'}`}>
           {error && (
-            <div id="error-message" className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg" role="alert">
+            <div id="error-message" className="bg-red-50 border border-red-200 text-red-600 px-3 py-2 rounded-lg text-xs md:text-sm" role="alert">
               {error}
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className={`${isLoginMode ? 'space-y-3 md:space-y-4' : 'space-y-2 md:space-y-3'}`}>
             {!isLoginMode && (
               <div>
                 <label htmlFor="name" className="sr-only">{t('login.fullName')}</label>
@@ -203,7 +204,7 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
                   placeholder={t('login.fullNamePlaceholder')}
                   value={formData.name}
                   onChange={handleInputChange}
-                  className={`w-full px-4 py-3 md:py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-primary-600 text-base text-gray-900 bg-white bg-opacity-50 backdrop-blur-sm placeholder:text-gray-400 ${dir === 'rtl' ? 'text-right' : ''}`}
+                  className={`w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-xs md:text-sm text-gray-900 placeholder:text-gray-400 transition-shadow ${dir === 'rtl' ? 'text-right' : ''}`}
                   required={!isLoginMode}
                   aria-describedby={error && !isLoginMode ? "error-message" : undefined}
                 />
@@ -220,7 +221,7 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
                 placeholder={isLoginMode ? t('login.emailAddressPlaceholder') : t('login.emailAddressRequired')}
                 value={formData.email}
                 onChange={handleInputChange}
-                className={`w-full px-4 py-3 md:py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-primary-600 text-base text-gray-900 bg-white bg-opacity-50 backdrop-blur-sm placeholder:text-gray-400 ${dir === 'rtl' ? 'text-right' : ''}`}
+                className={`w-full px-3 ${isLoginMode ? 'py-2.5 md:py-2' : 'py-2'} border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-xs md:text-sm text-gray-900 placeholder:text-gray-400 transition-shadow ${dir === 'rtl' ? 'text-right' : ''}`}
                 required
                 aria-describedby={error ? "error-message" : undefined}
               />
@@ -236,7 +237,7 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
                   placeholder={t('login.uaePhoneNumberPlaceholder')}
                   value={formData.phone}
                   onChange={handleInputChange}
-                  className={`w-full px-4 py-3 md:py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-primary-600 text-base text-gray-900 bg-white bg-opacity-50 backdrop-blur-sm placeholder:text-gray-400 ${dir === 'rtl' ? 'text-right' : ''}`}
+                  className={`w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-xs md:text-sm text-gray-900 placeholder:text-gray-400 transition-shadow ${dir === 'rtl' ? 'text-right' : ''}`}
                   required={!isLoginMode}
                   aria-describedby={error && !isLoginMode ? "error-message" : undefined}
                 />
@@ -253,7 +254,7 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
                   placeholder={t('login.uaeAddressPlaceholder')}
                   value={formData.address}
                   onChange={handleInputChange}
-                  className={`w-full px-4 py-3 md:py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-primary-600 text-base text-gray-900 bg-white bg-opacity-50 backdrop-blur-sm placeholder:text-gray-400 ${dir === 'rtl' ? 'text-right' : ''}`}
+                  className={`w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-xs md:text-sm text-gray-900 placeholder:text-gray-400 transition-shadow ${dir === 'rtl' ? 'text-right' : ''}`}
                   required={!isLoginMode}
                   aria-describedby={error && !isLoginMode ? "error-message" : undefined}
                 />
@@ -268,7 +269,7 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
                   name="emirate"
                   value={formData.emirate}
                   onChange={handleInputChange}
-                  className={`w-full px-4 py-3 md:py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-primary-600 text-base bg-white bg-opacity-50 backdrop-blur-sm ${formData.emirate ? 'text-gray-900' : 'text-gray-400'} ${dir === 'rtl' ? 'text-right' : ''}`}
+                  className={`w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-xs md:text-sm bg-white ${formData.emirate ? 'text-gray-900' : 'text-gray-400'} transition-shadow ${dir === 'rtl' ? 'text-right' : ''}`}
                   required={!isLoginMode}
                   aria-describedby={error && !isLoginMode ? "error-message" : undefined}
                 >
@@ -286,7 +287,7 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
 
             {!isLoginMode && (
               <div>
-                <label htmlFor="birthday" className={`block text-sm font-medium text-gray-700 mb-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                <label htmlFor="birthday" className={`block text-[10px] md:text-xs font-medium text-gray-600 mb-1 ${dir === 'rtl' ? 'text-right' : ''}`}>
                   {t('login.birthday')}
                 </label>
                 <input
@@ -295,11 +296,11 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
                   name="birthday"
                   value={formData.birthday}
                   onChange={handleInputChange}
-                  className={`w-full px-4 py-3 md:py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-primary-600 text-base bg-white bg-opacity-50 backdrop-blur-sm ${formData.birthday ? 'text-gray-900' : 'text-gray-400'} ${dir === 'rtl' ? 'text-right' : ''}`}
+                  className={`w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-xs md:text-sm bg-white ${formData.birthday ? 'text-gray-900' : 'text-gray-400'} transition-shadow ${dir === 'rtl' ? 'text-right' : ''}`}
                   aria-describedby={error && !isLoginMode ? "error-message" : undefined}
                 />
-                <p className={`text-xs text-gray-500 mt-1 flex items-center justify-center gap-1 flex-wrap ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                  {t('login.birthdayMessage')} <Gift className="h-3.5 w-3.5 text-primary-600 flex-shrink-0" />
+                <p className={`text-[10px] text-gray-500 mt-0.5 flex items-center justify-center gap-1 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                  {t('login.birthdayMessage')} <Gift className="h-3 w-3 text-primary-600" />
                 </p>
               </div>
             )}
@@ -314,20 +315,20 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
                 placeholder={t('login.passwordPlaceholder')}
                 value={formData.password}
                 onChange={handleInputChange}
-                className={`w-full px-4 py-3 md:py-2 ${dir === 'rtl' ? 'pl-12' : 'pr-12'} border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-primary-600 text-base text-gray-900 bg-white bg-opacity-50 backdrop-blur-sm ${dir === 'rtl' ? 'text-right' : ''}`}
+                className={`w-full px-3 ${isLoginMode ? 'py-2.5 md:py-2' : 'py-2'} ${dir === 'rtl' ? 'pl-10' : 'pr-10'} border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-xs md:text-sm text-gray-900 transition-shadow ${dir === 'rtl' ? 'text-right' : ''}`}
                 required
                 aria-describedby={error ? "error-message" : undefined}
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className={`absolute inset-y-0 ${dir === 'rtl' ? 'left-0 pl-4' : 'right-0 pr-4'} flex items-center touch-manipulation`}
+                className={`absolute inset-y-0 ${dir === 'rtl' ? 'left-0 pl-3' : 'right-0 pr-3'} flex items-center touch-manipulation`}
                 aria-label={showPassword ? t('login.hidePassword') : t('login.showPassword')}
               >
                 {showPassword ? (
-                  <EyeOff className="h-5 w-5 text-gray-500" aria-hidden="true" />
+                  <EyeOff className="h-4 w-4 text-gray-400" aria-hidden="true" />
                 ) : (
-                  <Eye className="h-5 w-5 text-gray-500" aria-hidden="true" />
+                  <Eye className="h-4 w-4 text-gray-400" aria-hidden="true" />
                 )}
               </button>
             </div>
@@ -338,7 +339,7 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
                 <Link
                   href={getLocalizedPath('/forgot-password', locale)}
                   onClick={onClose}
-                  className="text-sm text-primary-600 hover:text-primary-700 font-medium"
+                  className="text-xs md:text-sm text-primary-600 hover:text-primary-700 font-medium"
                 >
                   {t('login.forgotPassword')}
                 </Link>
@@ -347,135 +348,63 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
 
             {/* Privacy Policy Section - Only show for registration */}
             {!isLoginMode && (
-              <div className="space-y-3">
-                <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
-                  <div className={`flex items-start justify-between ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                    <div className="flex-1">
-                      <h4 className={`font-semibold text-gray-800 mb-2 text-sm ${dir === 'rtl' ? 'text-right' : ''}`}>{t('login.privacyPolicy')}</h4>
-                      <p className={`text-xs text-gray-600 mb-3 ${dir === 'rtl' ? 'text-right' : ''}`}>
-                        {t('login.privacyPolicyDescription')}
-                      </p>
-                      <button
-                        type="button"
-                        onClick={() => setShowPrivacyPolicy(!showPrivacyPolicy)}
-                        className="text-primary-600 hover:text-primary-700 text-xs font-medium underline"
-                      >
-                        {showPrivacyPolicy ? t('login.hideDetails') : t('login.viewDetails')}
-                      </button>
-                    </div>
+              <div className="space-y-2">
+                <div className="bg-gray-50 border border-gray-200 rounded-lg p-2.5 overflow-hidden">
+                  <div className={`flex items-center justify-between ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                    <h4 className={`font-semibold text-gray-800 text-[11px] ${dir === 'rtl' ? 'text-right' : ''}`}>{t('login.privacyPolicy')}</h4>
+                    <button
+                      type="button"
+                      onClick={() => setShowPrivacyPolicy(!showPrivacyPolicy)}
+                      className="text-primary-600 hover:text-primary-700 text-[10px] font-medium underline flex-shrink-0"
+                    >
+                      {showPrivacyPolicy ? t('login.hideDetails') : t('login.viewDetails')}
+                    </button>
                   </div>
                   
                   {showPrivacyPolicy && (
-                    <div className="mt-4 pt-4 border-t border-gray-200">
-                      <div className={`text-xs text-gray-700 space-y-3 max-h-60 overflow-y-auto ${dir === 'rtl' ? 'text-right' : ''}`}>
+                    <div 
+                      className="mt-2 pt-2 border-t border-gray-200 h-28 overflow-y-auto"
+                      style={{ WebkitOverflowScrolling: 'touch' }}
+                    >
+                      <div className={`text-[9px] text-gray-600 space-y-1.5 pr-1 ${dir === 'rtl' ? 'text-right pl-1 pr-0' : ''}`}>
+                        <p>{t('login.privacyPolicyDescription')}</p>
                         <div>
-                          <h5 className={`font-semibold mb-1 ${dir === 'rtl' ? 'text-right' : ''}`}>1. {t('login.personalInformationProcessed')}</h5>
-                          <p className={`mb-2 ${dir === 'rtl' ? 'text-right' : ''}`}>{t('login.privacyPolicyContent1')}</p>
-                          
-                          <div className={dir === 'rtl' ? 'mr-2' : 'ml-2'} style={{ direction: dir as 'rtl' | 'ltr' }}>
-                            <div>
-                              <p className={`font-medium ${dir === 'rtl' ? 'text-right' : ''}`}>1. {t('login.websiteMembership')}</p>
-                              <p className={dir === 'rtl' ? 'mr-2 text-right' : 'ml-2'}>• {t('login.requiredInformation')}</p>
-                              <p className={dir === 'rtl' ? 'mr-2 text-right' : 'ml-2'}>• {t('login.optionalInformation')}</p>
-                            </div>
-                            
-                            <div>
-                              <p className={`font-medium ${dir === 'rtl' ? 'text-right' : ''}`}>2. {t('login.provisionOfGoods')}</p>
-                              <p className={dir === 'rtl' ? 'mr-2 text-right' : 'ml-2'}>• ID, password, name, nickname, email, mobile phone number</p>
-                            </div>
-                            
-                            <div>
-                              <p className={`font-medium ${dir === 'rtl' ? 'text-right' : ''}`}>3. {t('login.automaticallyCollected')}</p>
-                              <p className={dir === 'rtl' ? 'mr-2 text-right' : 'ml-2'}>• {t('login.ipAddress')}</p>
-                            </div>
-                          </div>
+                          <p className="font-semibold">1. {t('login.personalInformationProcessed')}</p>
+                          <p>{t('login.privacyPolicyContent1')}</p>
                         </div>
-                        
                         <div>
-                          <h5 className={`font-semibold mb-1 ${dir === 'rtl' ? 'text-right' : ''}`}>2. {t('login.purposeOfProcessing')}</h5>
-                          <p className={`mb-2 ${dir === 'rtl' ? 'text-right' : ''}`}>{t('login.purposeDescription')}</p>
-                          
-                          <div className={dir === 'rtl' ? 'mr-2' : 'ml-2'} style={{ direction: dir as 'rtl' | 'ltr' }}>
-                            <div>
-                              <p className={`font-medium ${dir === 'rtl' ? 'text-right' : ''}`}>1. {t('login.websiteMembership')}</p>
-                              <p className={dir === 'rtl' ? 'mr-2 text-right' : 'ml-2'}>• {t('login.membershipManagement')}</p>
-                            </div>
-                            
-                            <div>
-                              <p className={`font-medium ${dir === 'rtl' ? 'text-right' : ''}`}>2. {t('login.provisionOfGoods')}</p>
-                              <p className={dir === 'rtl' ? 'mr-2 text-right' : 'ml-2'}>• {t('login.provisionOfServices')}</p>
-                            </div>
-                            
-                            <div>
-                              <p className={`font-medium ${dir === 'rtl' ? 'text-right' : ''}`}>3. {t('login.handlingInquiries')}</p>
-                              <p className={dir === 'rtl' ? 'mr-2 text-right' : 'ml-2'}>• {t('login.handlingInquiriesDescription')}</p>
-                            </div>
-                            
-                            <div>
-                              <p className={`font-medium ${dir === 'rtl' ? 'text-right' : ''}`}>4. {t('login.marketing')}</p>
-                              <p className={dir === 'rtl' ? 'mr-2 text-right' : 'ml-2'}>• {t('login.marketingDescription')}</p>
-                            </div>
-                          </div>
+                          <p className="font-semibold">2. {t('login.purposeOfProcessing')}</p>
+                          <p>{t('login.purposeDescription')}</p>
                         </div>
-                        
                         <div>
-                          <h5 className={`font-semibold mb-1 ${dir === 'rtl' ? 'text-right' : ''}`}>3. {t('login.retentionPeriod')}</h5>
-                          <p className={`mb-2 ${dir === 'rtl' ? 'text-right' : ''}`}>{t('login.retentionDescription')}</p>
-                          
-                          <div className={dir === 'rtl' ? 'mr-2' : 'ml-2'} style={{ direction: dir as 'rtl' | 'ltr' }}>
-                            <div>
-                              <p className={`font-medium ${dir === 'rtl' ? 'text-right' : ''}`}>1. {t('login.websiteMembership')}</p>
-                              <p className={dir === 'rtl' ? 'mr-2 text-right' : 'ml-2'}>• {t('login.untilWithdrawal')}</p>
-                              <p className={dir === 'rtl' ? 'mr-2 text-right' : 'ml-2'}>• {t('login.investigationOngoing')}</p>
-                              <p className={dir === 'rtl' ? 'mr-4 text-right' : 'ml-4'}>· {t('login.investigationCondition')}</p>
-                              <p className={dir === 'rtl' ? 'mr-4 text-right' : 'ml-4'}>· {t('login.financialObligations')}</p>
-                            </div>
-                            
-                            <div>
-                              <p className={`font-medium ${dir === 'rtl' ? 'text-right' : ''}`}>2. {t('login.provisionOfGoods')}</p>
-                              <p className={dir === 'rtl' ? 'mr-2 text-right' : 'ml-2'}>• {t('login.untilCompletion')}</p>
-                            </div>
-                          </div>
+                          <p className="font-semibold">3. {t('login.retentionPeriod')}</p>
+                          <p>{t('login.retentionDescription')}</p>
                         </div>
-                        
                         <div>
-                          <h5 className={`font-semibold mb-1 ${dir === 'rtl' ? 'text-right' : ''}`}>4. {t('login.rightToRefuse')}</h5>
-                          <p className={`mb-2 ${dir === 'rtl' ? 'text-right' : ''}`}>{t('login.rightToRefuseDescription')}</p>
-                          <p className={`mb-2 ${dir === 'rtl' ? 'text-right' : ''}`}>{t('login.essentialInformation')}</p>
-                          <p className={`mb-2 ${dir === 'rtl' ? 'text-right' : ''}`}>{t('login.consentAcknowledgment')}</p>
-                          <div className={`mt-3 p-3 bg-amber-50 border border-amber-200 rounded-lg ${dir === 'rtl' ? 'text-right' : ''}`}>
-                            <p className={`text-sm text-amber-800 mb-1 ${dir === 'rtl' ? 'text-right' : ''}`}><strong>{t('login.important')}</strong> {t('login.importantMessage')}</p>
-                            <p className={`text-sm text-amber-800 ${dir === 'rtl' ? 'text-right' : ''}`}>{t('login.invalidAccountWarning')}</p>
-                          </div>
+                          <p className="font-semibold">4. {t('login.rightToRefuse')}</p>
+                          <p>{t('login.rightToRefuseDescription')}</p>
                         </div>
-                        
-                        <div className={`text-primary-600 ${dir === 'rtl' ? 'text-right' : ''}`}>
-                          <p><strong>{t('login.privacyContact')}</strong></p>
+                        <div className="p-1.5 bg-amber-50 border border-amber-200 rounded text-amber-800">
+                          <p><strong>{t('login.important')}</strong> {t('login.importantMessage')}</p>
                         </div>
+                        <p className="text-primary-600 font-medium">{t('login.privacyContact')}</p>
                       </div>
                     </div>
                   )}
                 </div>
                 
-                <div className={`flex items-start ${dir === 'rtl' ? 'space-x-reverse space-x-3 flex-row-reverse' : 'space-x-3'}`}>
+                <div className={`flex items-start gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                   <input
                     type="checkbox"
                     id="privacy-consent"
                     checked={privacyConsent}
                     onChange={(e) => setPrivacyConsent(e.target.checked)}
-                    className="mt-1 h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
+                    className="mt-0.5 h-3.5 w-3.5 text-primary-600 focus:ring-primary-500 border-gray-300 rounded flex-shrink-0"
                     required
                   />
-                  <label htmlFor="privacy-consent" className={`text-sm text-gray-700 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                  <label htmlFor="privacy-consent" className={`text-[10px] text-gray-600 leading-tight ${dir === 'rtl' ? 'text-right' : ''}`}>
                     {t('login.agreeToPrivacy')}{' '}
-                    <button
-                      type="button"
-                      onClick={() => setShowPrivacyPolicy(!showPrivacyPolicy)}
-                      className="text-primary-600 hover:text-primary-700 underline"
-                    >
-                      {t('login.privacyPolicy')}
-                    </button>
-                    {' '}{t('login.privacyPolicyOutlined')}
+                    <span className="text-primary-600 font-medium">{t('login.privacyPolicy')}</span>
                   </label>
                 </div>
               </div>
@@ -484,14 +413,14 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full bg-primary-600 text-white py-3 rounded-lg font-semibold hover:bg-primary-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className={`w-full bg-primary-600 text-white ${isLoginMode ? 'py-2.5 md:py-3 text-sm md:text-base' : 'py-2 text-sm'} rounded-lg font-semibold hover:bg-primary-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-sm`}
             >
               {isLoading ? t('login.pleaseWait') : (isLoginMode ? t('login.signIn') : t('login.createProfessionalAccount'))}
             </button>
           </form>
 
-          <div className="text-center">
-            <p className={`text-gray-600 ${dir === 'rtl' ? 'text-right' : ''}`}>
+          <div className={`text-center ${isLoginMode ? 'pt-2 md:pt-3' : 'pt-2'} border-t border-gray-100`}>
+            <p className={`text-xs text-gray-600 ${dir === 'rtl' ? 'text-right' : ''}`}>
               {isLoginMode ? t('login.dontHaveAccount') : t('login.alreadyHaveAccount')}{' '}
               <button 
                 onClick={toggleMode}

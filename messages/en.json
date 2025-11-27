@@ -780,7 +780,16 @@
     "pc24Benefit3TextSerumFirst": "Serum for active treatment while cream provides daily protection and maintains results",
     "pc24Benefit3TextCreamFirst": "Cream provides daily protection while serum delivers intensive treatment for optimal results",
     "pc24Benefit4Title": "Complete Eye Care:",
-    "pc24Benefit4Text": "Addresses wrinkles, dark circles, and eye puffs comprehensively for younger-looking eye contour"
+    "pc24Benefit4Text": "Addresses wrinkles, dark circles, and eye puffs comprehensively for younger-looking eye contour",
+    "pc33Intro": "Maximize your eye care results by combining the <strong>{currentName}</strong> with <strong>{recommendedName}</strong>. Together, they provide comprehensive eye contour treatment for wrinkles, dark circles, and eye bags.",
+    "pc33Benefit1Title": "Enhanced Delivery System:",
+    "pc33Benefit1Text": "Thermo-sensitive gel patch improves serum absorption through transdermal delivery while serum provides active peptide treatment",
+    "pc33Benefit2Title": "Synergistic Peptide Action:",
+    "pc33Benefit2Text": "Acetyl Hexapeptide-8 in both products works together to reduce wrinkles and improve eye contour appearance",
+    "pc33Benefit3Title": "Complete Eye Care:",
+    "pc33Benefit3Text": "Patch provides cooling, soothing, and moisturizing while serum targets wrinkles, dark circles, and eye puffs",
+    "pc33Benefit4Title": "24/7 Eye Treatment:",
+    "pc33Benefit4Text": "Serum for daily use and patch for intensive treatment sessions provide comprehensive eye care routine"
   },
   "trustBadges": {
     "freeShipping": "Free Shipping",

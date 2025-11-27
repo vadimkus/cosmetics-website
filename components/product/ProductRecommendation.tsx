@@ -207,12 +207,12 @@ export default function ProductRecommendation({
     // Eye care combination (33 + 17)
     if ((currentProduct.id === '33' || currentProduct.productNumber === '33') && recommendedProduct.id === '17') {
       return {
-        intro: `Maximize your eye care results by combining the <strong>${currentName}</strong> with <strong>${recommendedName}</strong>. Together, they provide comprehensive eye contour treatment for wrinkles, dark circles, and eye bags.`,
+        intro: t('product.pc33Intro', { currentName: `<strong>${currentName}</strong>`, recommendedName: `<strong>${recommendedName}</strong>` }),
         benefits: [
-          { title: 'Enhanced Delivery System:', text: 'Thermo-sensitive gel patch improves serum absorption through transdermal delivery while serum provides active peptide treatment' },
-          { title: 'Synergistic Peptide Action:', text: 'Acetyl Hexapeptide-8 in both products works together to reduce wrinkles and improve eye contour appearance' },
-          { title: 'Complete Eye Care:', text: 'Patch provides cooling, soothing, and moisturizing while serum targets wrinkles, dark circles, and eye puffs' },
-          { title: '24/7 Eye Treatment:', text: 'Serum for daily use and patch for intensive treatment sessions provide comprehensive eye care routine' }
+          { title: t('product.pc33Benefit1Title'), text: t('product.pc33Benefit1Text') },
+          { title: t('product.pc33Benefit2Title'), text: t('product.pc33Benefit2Text') },
+          { title: t('product.pc33Benefit3Title'), text: t('product.pc33Benefit3Text') },
+          { title: t('product.pc33Benefit4Title'), text: t('product.pc33Benefit4Text') }
         ]
       }
     }

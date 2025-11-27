@@ -769,7 +769,18 @@
     "pc19Benefit3Title": "Enhanced Moisture Retention:",
     "pc19Benefit3Text": "Ceramides and amino acids in cream lock in hydration provided by serum's hyaluronic acid",
     "pc19Benefit4Title": "Complete Sensitive Skin Care:",
-    "pc19Benefit4Text": "Addresses both immediate soothing needs and long-term barrier health for sensitive skin"
+    "pc19Benefit4Text": "Addresses both immediate soothing needs and long-term barrier health for sensitive skin",
+    "pc24Intro": "Complete your eye care routine by combining the <strong>{currentName}</strong> with <strong>{recommendedName}</strong>. Together, they provide comprehensive eye contour treatment for wrinkles, dark circles, and eye puffs.",
+    "pc24Benefit1Title": "Synergistic Peptide Complex:",
+    "pc24Benefit1Text": "Same peptide complex (Palmitoyl Hexapeptide-12, Copper Tripeptide-1, Acetyl Hexapeptide-8) in both products works together for enhanced wrinkle reduction",
+    "pc24Benefit2TitleSerumFirst": "Enhanced Absorption:",
+    "pc24Benefit2TextSerumFirst": "Serum prepares eye contour area for deeper cream penetration and optimal ingredient delivery",
+    "pc24Benefit2TextCreamFirst": "Cream locks in serum's active ingredients for prolonged treatment and protection",
+    "pc24Benefit3Title": "24/7 Eye Protection:",
+    "pc24Benefit3TextSerumFirst": "Serum for active treatment while cream provides daily protection and maintains results",
+    "pc24Benefit3TextCreamFirst": "Cream provides daily protection while serum delivers intensive treatment for optimal results",
+    "pc24Benefit4Title": "Complete Eye Care:",
+    "pc24Benefit4Text": "Addresses wrinkles, dark circles, and eye puffs comprehensively for younger-looking eye contour"
   },
   "trustBadges": {
     "freeShipping": "Free Shipping",

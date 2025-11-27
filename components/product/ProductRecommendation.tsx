@@ -224,12 +224,12 @@ export default function ProductRecommendation({
       const isSerumFirst = (currentProduct.id === '17' || currentProduct.productNumber === '17')
       
       return {
-        intro: `Complete your eye care routine by combining the <strong>${currentName}</strong> with <strong>${recommendedName}</strong>. Together, they provide comprehensive eye contour treatment for wrinkles, dark circles, and eye puffs.`,
+        intro: t('product.pc24Intro', { currentName: `<strong>${currentName}</strong>`, recommendedName: `<strong>${recommendedName}</strong>` }),
         benefits: [
-          { title: 'Synergistic Peptide Complex:', text: 'Same peptide complex (Palmitoyl Hexapeptide-12, Copper Tripeptide-1, Acetyl Hexapeptide-8) in both products works together for enhanced wrinkle reduction' },
-          { title: 'Enhanced Absorption:', text: isSerumFirst ? 'Serum prepares eye contour area for deeper cream penetration and optimal ingredient delivery' : 'Cream locks in serum\'s active ingredients for prolonged treatment and protection' },
-          { title: '24/7 Eye Protection:', text: isSerumFirst ? 'Serum for active treatment while cream provides daily protection and maintains results' : 'Cream provides daily protection while serum delivers intensive treatment for optimal results' },
-          { title: 'Complete Eye Care:', text: 'Addresses wrinkles, dark circles, and eye puffs comprehensively for younger-looking eye contour' }
+          { title: t('product.pc24Benefit1Title'), text: t('product.pc24Benefit1Text') },
+          { title: t('product.pc24Benefit2TitleSerumFirst'), text: isSerumFirst ? t('product.pc24Benefit2TextSerumFirst') : t('product.pc24Benefit2TextCreamFirst') },
+          { title: t('product.pc24Benefit3Title'), text: isSerumFirst ? t('product.pc24Benefit3TextSerumFirst') : t('product.pc24Benefit3TextCreamFirst') },
+          { title: t('product.pc24Benefit4Title'), text: t('product.pc24Benefit4Text') }
         ]
       }
     }

@@ -1,10 +1,10 @@
 'use client'
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { useState } from 'react'
+import { useState, Suspense } from 'react'
 import { getLocaleFromPath, getLocalizedPath, type Locale } from '@/lib/i18n'
 
-export default function LanguageSwitcher() {
+function LanguageSwitcherContent() {
   const pathname = usePathname()
   const router = useRouter()
   const searchParams = useSearchParams()
@@ -59,6 +59,14 @@ export default function LanguageSwitcher() {
         </>
       )}
     </div>
+  )
+}
+
+export default function LanguageSwitcher() {
+  return (
+    <Suspense fallback={<span className="text-xs font-medium text-gray-700 px-2 py-1">EN</span>}>
+      <LanguageSwitcherContent />
+    </Suspense>
   )
 }
 

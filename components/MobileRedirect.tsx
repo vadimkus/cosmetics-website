@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 
 interface MobileRedirectProps {
@@ -8,7 +8,7 @@ interface MobileRedirectProps {
   children: React.ReactNode
 }
 
-export default function MobileRedirect({ to, children }: MobileRedirectProps) {
+function MobileRedirectContent({ to, children }: MobileRedirectProps) {
   const router = useRouter()
   const searchParams = useSearchParams()
 
@@ -24,7 +24,14 @@ export default function MobileRedirect({ to, children }: MobileRedirectProps) {
     }
   }, [router, to, searchParams])
 
-  // Show children (will flash briefly on mobile before redirect)
   return <>{children}</>
+}
+
+export default function MobileRedirect({ to, children }: MobileRedirectProps) {
+  return (
+    <Suspense fallback={<>{children}</>}>
+      <MobileRedirectContent to={to}>{children}</MobileRedirectContent>
+    </Suspense>
+  )
 }
 

@@ -120,8 +120,8 @@ export default function AdminPage() {
     try {
       setLoading(true)
       const url = search && search.length > 0
-        ? `/api/admin/users?search=${encodeURIComponent(search)}&limit=50`
-        : '/api/admin/users?limit=50'
+        ? `/api/admin/users?search=${encodeURIComponent(search)}&limit=1000`
+        : '/api/admin/users?limit=1000'
       
       debugLog('Fetching users:', { url, search, adminEmail: adminUser.email })
       

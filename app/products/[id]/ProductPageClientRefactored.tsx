@@ -6,7 +6,7 @@ import { useCart } from '@/components/CartProvider'
 import { useFavorites } from '@/components/FavoritesProvider'
 import { useAuth } from '@/components/AuthProvider'
 import ErrorPage from '@/components/ErrorPage'
-import { ArrowLeft, Sparkles, Star } from 'lucide-react'
+import { ArrowLeft, Sparkles, Star, Minus, Plus, ShoppingCart, Heart } from 'lucide-react'
 import Link from 'next/link'
 import { useState, useCallback } from 'react'
 import { Product } from '@/types'
@@ -48,6 +48,10 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
   const [selectedSize, setSelectedSize] = useState(sizeOptions[0]?.value || '50g')
   const [selectedColor, setSelectedColor] = useState(colorOptions[0]?.value || 'Beige')
   
+  // Mobile footer state
+  const [mobileQuantity, setMobileQuantity] = useState(1)
+  const [isAddingMobile, setIsAddingMobile] = useState(false)
+  
   // Calculate current price based on selected variant
   const currentPrice = useCallback(() => {
     if (hasProductSizeVariants(product.id)) {
@@ -87,6 +91,16 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
     toggleFavorite(product)
   }, [user, product, toggleFavorite, router, locale])
 
+  // Handle mobile add to cart
+  const handleMobileAddToCart = useCallback(async () => {
+    setIsAddingMobile(true)
+    try {
+      await handleAddToCart(mobileQuantity)
+    } finally {
+      setIsAddingMobile(false)
+    }
+  }, [handleAddToCart, mobileQuantity])
+
   if (!product) {
     return <ErrorPage />
   }
@@ -110,9 +124,50 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
         ]}
       />
 
-      <div className="container mx-auto px-4 py-4 md:py-8 lg:py-16">
-        {/* Back Button - Mobile optimized */}
-        <div className={`flex items-center mb-3 md:mb-6 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+      <div className="container mx-auto px-3 md:px-4 py-2 md:py-8 lg:py-16">
+        {/* Mobile Header - Product Name & Back Button */}
+        <div className="lg:hidden mb-3">
+          {/* Back Link */}
+          <Link 
+            href={getLocalizedPath('/products', locale)}
+            className={`inline-flex items-center text-gray-500 hover:text-primary-600 transition-colors text-xs font-medium mb-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+          >
+            <ArrowLeft className={`h-3 w-3 ${dir === 'rtl' ? 'ml-1 rotate-180' : 'mr-1'}`} />
+            {t('product.backToProducts')}
+          </Link>
+          
+          {/* Product Name - Centered */}
+          <h1 className="text-lg font-bold text-gray-900 leading-tight text-center">
+            {product.name}
+          </h1>
+          
+          {/* Category & Size Badges - Centered (Stock badge is on image) */}
+          <div className="flex items-center justify-center gap-2 mt-2">
+            <span className="inline-block bg-primary-50 text-primary-700 px-2.5 py-1 rounded-full text-xs font-medium">
+              {product.category.replace(/,/g, ' · ')}
+            </span>
+            {product.size && (
+              <span className="inline-block bg-gray-100 text-gray-700 px-2.5 py-1 rounded-full text-xs font-medium">
+                {t('product.size')}: {product.size}
+              </span>
+            )}
+          </div>
+          
+          {/* Rating - Centered */}
+          <div className={`flex items-center justify-center gap-1.5 mt-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+            <div className={`flex ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+              {[...Array(5)].map((_, i) => (
+                <Star key={i} className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />
+              ))}
+            </div>
+            <span className="text-xs text-gray-600 font-medium">
+              {(product.rating || 5.0).toFixed(1)}
+            </span>
+          </div>
+        </div>
+
+        {/* Desktop Back Button */}
+        <div className={`hidden lg:flex items-center mb-6 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
           <Link 
             href={getLocalizedPath('/products', locale)}
             className={`inline-flex items-center text-gray-500 hover:text-primary-600 transition-colors text-sm font-medium ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
@@ -123,20 +178,20 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
         </div>
 
         {/* ============ UNIFIED RESPONSIVE LAYOUT ============ */}
-        <div className={`grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12 ${dir === 'rtl' ? 'lg:grid-flow-row-dense' : ''}`}>
+        <div className={`grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-12 ${dir === 'rtl' ? 'lg:grid-flow-row-dense' : ''}`}>
           {/* Left Column - Product Images and Purchase Controls */}
           <div className={`flex flex-col ${dir === 'rtl' ? 'lg:col-start-2' : ''}`}>
             
-            {/* Mobile-First Product Header - Shows at TOP on mobile, hidden on desktop */}
-            <div className="mb-4 order-first lg:order-none lg:hidden">
+            {/* Desktop Product Header - Hidden on mobile */}
+            <div className="hidden lg:block mb-4">
               {/* Category Badge & Stock Status */}
-              <div className="flex items-center flex-wrap gap-2 mb-3">
+              <div className={`flex items-center flex-wrap gap-2 mb-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                 <span className="inline-block bg-gradient-to-r from-primary-100 to-primary-50 text-primary-700 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wide">
                   {product.category.replace(/,/g, ' · ')}
                 </span>
                 {product.inStock ? (
-                  <span className="inline-flex items-center bg-green-100 text-green-700 px-2.5 py-1 rounded-full text-xs font-medium">
-                    <span className="w-1.5 h-1.5 bg-green-500 rounded-full mr-1.5"></span>
+                  <span className={`inline-flex items-center bg-green-100 text-green-700 px-2.5 py-1 rounded-full text-xs font-medium ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                    <span className={`w-1.5 h-1.5 bg-green-500 rounded-full ${dir === 'rtl' ? 'ml-1.5' : 'mr-1.5'}`}></span>
                     {t('product.inStock')}
                   </span>
                 ) : (
@@ -147,13 +202,13 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
               </div>
               
               {/* Product Name */}
-              <h1 className="text-2xl font-bold text-gray-900 leading-tight mb-2">
+              <h1 className={`text-2xl font-bold text-gray-900 leading-tight mb-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
                 {product.name}
               </h1>
               
               {/* Rating & Size */}
-              <div className="flex items-center flex-wrap gap-3 text-sm">
-                <div className="flex items-center gap-1.5">
+              <div className={`flex items-center flex-wrap gap-3 text-sm ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                <div className={`flex items-center gap-1.5 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                   <div className="flex">
                     {[...Array(5)].map((_, i) => (
                       <Star key={i} className="h-4 w-4 fill-amber-400 text-amber-400" />
@@ -166,7 +221,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
                 {product.size && (
                   <>
                     <span className="text-gray-300">|</span>
-                    <span className="text-gray-600">
+                    <span className={`text-gray-600 ${dir === 'rtl' ? 'flex flex-row-reverse gap-1' : ''}`}>
                       <span className="font-medium">{t('product.size')}:</span> {product.size}
                     </span>
                   </>
@@ -175,12 +230,12 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
             </div>
 
             {/* Image Gallery */}
-            <div className="order-2 lg:order-1">
+            <div>
               <ProductImageGallery product={product} />
             </div>
             
             {/* Size and Price - Below Image */}
-            <div className="order-3 lg:order-2 mt-4">
+            <div className="mt-3 lg:mt-4">
               <ProductPriceDisplay 
                 product={product}
                 basePrice={currentPrice()}
@@ -189,7 +244,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
             </div>
 
             {/* Variant Selectors - Below Price */}
-            <div className="order-4 lg:order-3 mt-4">
+            <div className="mt-3 lg:mt-4">
               <ProductVariantSelector
                 product={product}
                 selectedSize={selectedSize}
@@ -202,8 +257,8 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
               />
             </div>
 
-            {/* Quantity and Cart - Below Variants */}
-            <div className="order-5 lg:order-4 mt-4">
+            {/* Quantity and Cart - Below Variants (Desktop only, mobile uses fixed footer) */}
+            <div className="hidden lg:block mt-4">
               <ProductQuantityCart
                 user={user}
                 onAddToCart={handleAddToCart}
@@ -214,7 +269,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
             </div>
 
             {/* Trust Badges - Below Cart (Desktop only, mobile shows after recommendations) */}
-            <div className="hidden lg:block order-6 lg:order-5 mt-4">
+            <div className="hidden lg:block mt-4">
               <TrustBadges />
             </div>
 
@@ -258,17 +313,13 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
               </div>
             )}
 
-            {/* Product Recommendation Section - Only for product 19 */}
+            {/* Product Recommendation Section - Only for product 19 - Desktop only (mobile shows after NOTE block) */}
             {(product.id === '19' || product.productNumber === '19') && (
-              <div className="order-7 lg:order-none mt-4 lg:mt-0">
+              <div className="hidden lg:block">
                 <ProductRecommendation 
                   recommendedProductId="27"
                   currentProduct={product}
                 />
-                {/* Trust Badges - Mobile only, after recommendation */}
-                <div className="lg:hidden mt-6">
-                  <TrustBadges />
-                </div>
               </div>
             )}
 
@@ -625,13 +676,86 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
 
           {/* Right Column - Product Details and Content */}
           <div className={`space-y-6 ${dir === 'rtl' ? 'lg:col-start-1 lg:row-start-1' : ''}`}>
-            <ProductDetails product={product} />
+            {/* Product Details - Hidden on mobile (info shown in mobile header above image) */}
+            <div className="hidden lg:block">
+              <ProductDetails product={product} />
+            </div>
 
             {/* Detailed Product Content */}
             <ProductContentDisplay product={product} />
 
+            {/* Product Recommendation - Mobile only for product 19 (shows after NOTE block) */}
+            {(product.id === '19' || product.productNumber === '19') && (
+              <div className="lg:hidden">
+                <ProductRecommendation 
+                  recommendedProductId="27"
+                  currentProduct={product}
+                />
+                {/* Trust Badges - Mobile only, after recommendation */}
+                <div className="mt-6">
+                  <TrustBadges />
+                </div>
+              </div>
+            )}
+
             {/* Product Reviews */}
             <ProductReviews productId={product.id} />
+          </div>
+        </div>
+      </div>
+
+      {/* Fixed Mobile Footer - Add to Cart */}
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg z-50">
+        <div className="container mx-auto px-3 py-3">
+          <div className={`flex items-center gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+            {/* Quantity Controls */}
+            <div className="flex items-center border border-gray-300 rounded-lg bg-gray-50">
+              <button
+                onClick={() => setMobileQuantity(prev => prev > 1 ? prev - 1 : 1)}
+                className="p-2 hover:bg-gray-100 transition-colors touch-manipulation"
+                aria-label={t('product.decreaseQuantity')}
+              >
+                <Minus className="h-4 w-4 text-gray-600" />
+              </button>
+              <span className="px-3 py-1.5 text-center min-w-[2.5rem] font-semibold text-gray-900">
+                {mobileQuantity}
+              </span>
+              <button
+                onClick={() => setMobileQuantity(prev => prev + 1)}
+                className="p-2 hover:bg-gray-100 transition-colors touch-manipulation"
+                aria-label={t('product.increaseQuantity')}
+              >
+                <Plus className="h-4 w-4 text-gray-600" />
+              </button>
+            </div>
+
+            {/* Add to Cart Button */}
+            <button
+              onClick={handleMobileAddToCart}
+              disabled={isAddingMobile || !user || !product.inStock}
+              className={`flex-1 py-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-2 touch-manipulation ${
+                !product.inStock || !user || isAddingMobile
+                  ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                  : 'bg-primary-600 text-white hover:bg-primary-700 active:bg-primary-800'
+              }`}
+            >
+              <ShoppingCart className="h-5 w-5" />
+              {!product.inStock ? t('product.outOfStock') : isAddingMobile ? t('product.adding') : t('product.addToCart')}
+            </button>
+
+            {/* Favorite Button */}
+            <button
+              onClick={handleToggleFavorite}
+              disabled={!user}
+              className={`p-3 rounded-lg transition-colors border-2 touch-manipulation ${
+                isFavorite(product.id)
+                  ? 'bg-red-50 border-red-500 text-red-600'
+                  : 'border-gray-300 text-gray-600 hover:border-gray-400'
+              } disabled:opacity-50 disabled:cursor-not-allowed`}
+              aria-label={isFavorite(product.id) ? t('product.removeFromFavorites') : t('product.addToFavorites')}
+            >
+              <Heart className={`h-5 w-5 ${isFavorite(product.id) ? 'fill-current' : ''}`} />
+            </button>
           </div>
         </div>
       </div>

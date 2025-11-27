@@ -15,8 +15,8 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url)
     const searchParam = searchParams.get('search')
     const search = searchParam?.trim() || undefined
-    const limitParam = parseInt(searchParams.get('limit') || '50')
-    const limit = Number.isNaN(limitParam) ? 50 : Math.min(limitParam, 100) // Max 100 users per request to avoid size limits
+    const limitParam = parseInt(searchParams.get('limit') || '1000')
+    const limit = Number.isNaN(limitParam) ? 1000 : limitParam // Allow fetching all users
     const offsetParam = parseInt(searchParams.get('offset') || '0')
     const offset = Number.isNaN(offsetParam) ? 0 : offsetParam
     

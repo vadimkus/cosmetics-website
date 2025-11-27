@@ -63,17 +63,22 @@ export default function ProductImageGallery({ product }: ProductImageGalleryProp
   }, [selectedImage])
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-2 md:space-y-4">
       {/* Main Image or Video */}
-      <div className="w-full max-w-md mx-auto aspect-square bg-gray-100 rounded-lg overflow-hidden relative">
-        {/* Sold Out Badge */}
-        {!product.inStock && (
-          <div className={`absolute top-3 ${dir === 'rtl' ? 'left-3' : 'right-3'} z-30`}>
-            <span className="inline-flex items-center px-4 py-2 rounded-lg bg-red-600 text-white font-bold text-sm md:text-base shadow-xl uppercase tracking-wide">
+      <div className="w-full max-w-xs md:max-w-md mx-auto aspect-square bg-gray-100 rounded-lg overflow-hidden relative">
+        {/* Stock Badge */}
+        <div className={`absolute top-2 md:top-3 ${dir === 'rtl' ? 'left-2 md:left-3' : 'right-2 md:right-3'} z-30`}>
+          {product.inStock ? (
+            <span className={`inline-flex items-center px-2 py-1 md:px-3 md:py-1.5 rounded-full bg-green-500 text-white font-medium text-xs md:text-sm shadow-lg ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+              <span className={`w-1.5 h-1.5 bg-white rounded-full animate-pulse ${dir === 'rtl' ? 'ml-1.5' : 'mr-1.5'}`}></span>
+              {t('product.inStock')}
+            </span>
+          ) : (
+            <span className="inline-flex items-center px-3 py-1.5 md:px-4 md:py-2 rounded-lg bg-red-600 text-white font-bold text-sm md:text-base shadow-xl uppercase tracking-wide">
               {t('product.soldOut')}
             </span>
-          </div>
-        )}
+          )}
+        </div>
         {product.id === '3' && selectedImage === 2 && videoUrl ? (
           <iframe
             className="w-full h-full rounded-lg"
@@ -182,12 +187,12 @@ export default function ProductImageGallery({ product }: ProductImageGalleryProp
 
       {/* Thumbnail Navigation */}
       {productImages.length > 1 && (
-        <div className="flex gap-2 justify-center">
+        <div className="flex gap-1.5 md:gap-2 justify-center">
           {productImages.map((img, index) => (
             <button
               key={index}
               onClick={() => setSelectedImage(index)}
-              className={`w-16 h-16 rounded-lg overflow-hidden border-2 transition-colors ${
+              className={`w-12 h-12 md:w-16 md:h-16 rounded-md md:rounded-lg overflow-hidden border-2 transition-colors ${
                 selectedImage === index
                   ? 'border-primary-600'
                   : 'border-gray-200 hover:border-gray-300'

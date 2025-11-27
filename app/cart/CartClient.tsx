@@ -140,17 +140,30 @@ export default function CartClient() {
   return (
     <div className="container mx-auto px-4 py-2 md:py-8 lg:py-16" dir={dir}>
       {/* Navigation Breadcrumb */}
-      <nav className={`inline-flex items-baseline gap-1.5 md:gap-2 text-xs md:text-base text-gray-700 mb-4 md:mb-6 lg:mb-8 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`} aria-label="Breadcrumb">
-        <span className="hover:text-primary-600 transition-colors">
-          <Link href={getLocalizedPath('/', locale)}>{t('common.home')}</Link>
-        </span>
-        <span className="text-gray-400">/</span>
-        <span className="hover:text-primary-600 transition-colors">
-          <Link href={getLocalizedPath('/products', locale)}>{t('common.products')}</Link>
-        </span>
-        <span className="text-gray-400">/</span>
-        <span className="text-gray-900 font-semibold">{t('common.cart')}</span>
-      </nav>
+      <div className={`${dir === 'rtl' ? 'flex justify-end' : ''}`}>
+        <nav className={`inline-flex items-baseline gap-1.5 md:gap-2 text-xs md:text-base text-gray-600 mb-1.5 md:mb-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`} aria-label="Breadcrumb">
+          <span className="hover:text-primary-600 transition-colors">
+            <Link href={getLocalizedPath('/', locale)}>{t('common.home')}</Link>
+          </span>
+          <span>/</span>
+          <span className="hover:text-primary-600 transition-colors">
+            <Link href={getLocalizedPath('/products', locale)}>{t('common.products')}</Link>
+          </span>
+          <span>/</span>
+          <span className="text-gray-900 font-medium">{t('common.cart')}</span>
+        </nav>
+      </div>
+      
+      {/* Back to Products */}
+      <div className={`mb-4 md:mb-8 ${dir === 'rtl' ? 'flex justify-end' : ''}`}>
+        <Link 
+          href={getLocalizedPath('/products', locale)} 
+          className={`inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+        >
+          <ArrowLeft className={`h-3 w-3 md:h-4 md:w-4 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
+          <span>{t('cart.backToProducts') || 'Back to Products'}</span>
+        </Link>
+      </div>
 
       <div className="max-w-6xl mx-auto" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
         <div className={`flex flex-col lg:flex-row gap-8 ${dir === 'rtl' ? 'lg:flex-row-reverse' : ''}`} style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>

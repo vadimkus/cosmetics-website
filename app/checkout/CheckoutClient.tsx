@@ -538,19 +538,25 @@ export default function CheckoutClient() {
     <div className={`container mx-auto px-3 md:px-4 py-3 md:py-8 lg:py-16 ${dir === 'rtl' ? 'text-right' : ''}`} dir={dir}>
       {/* Navigation Breadcrumb */}
       <div className={`${dir === 'rtl' ? 'flex justify-end' : ''}`}>
-        <nav className={`inline-flex items-baseline gap-1 md:gap-1.5 text-xs md:text-base text-gray-600 mb-1.5 md:mb-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`} aria-label="Breadcrumb">
-          <Link href={getLocalizedPath('/', locale)} className="hover:text-primary-600 transition-colors">{t('checkout.home')}</Link>
+        <nav className={`inline-flex items-baseline gap-1.5 md:gap-2 text-xs md:text-base text-gray-600 mb-1.5 md:mb-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`} aria-label="Breadcrumb">
+          <span className="hover:text-primary-600 transition-colors">
+            <Link href={getLocalizedPath('/', locale)}>{t('checkout.home')}</Link>
+          </span>
           <span>/</span>
-          <Link href={getLocalizedPath('/products', locale)} className="hover:text-primary-600 transition-colors">{t('checkout.products')}</Link>
+          <span className="hover:text-primary-600 transition-colors">
+            <Link href={getLocalizedPath('/products', locale)}>{t('checkout.products')}</Link>
+          </span>
           <span>/</span>
-          <Link href={getLocalizedPath('/cart', locale)} className="hover:text-primary-600 transition-colors">{t('checkout.cart')}</Link>
+          <span className="hover:text-primary-600 transition-colors">
+            <Link href={getLocalizedPath('/cart', locale)}>{t('checkout.cart')}</Link>
+          </span>
           <span>/</span>
           <span className="text-gray-900 font-medium">{t('checkout.checkout')}</span>
         </nav>
       </div>
       
       {/* Back to Cart */}
-      <div className={`mb-3 md:mb-8 ${dir === 'rtl' ? 'flex justify-end' : ''}`}>
+      <div className={`mb-4 md:mb-8 ${dir === 'rtl' ? 'flex justify-end' : ''}`}>
         <Link 
           href={getLocalizedPath('/cart', locale)} 
           className={`inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}

@@ -33,7 +33,7 @@ export default function CartItem({ item }: CartItemProps) {
 
   return (
     <div className="bg-white rounded-lg shadow-sm border p-3 md:p-4">
-      <div className="flex items-start gap-3 md:gap-4">
+      <div className={`flex items-start gap-3 md:gap-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
         {/* Left: Product Image + Size */}
         <div className="flex flex-col flex-shrink-0">
           <Link href={`/products/${product.id}`} className="relative w-20 h-20 md:w-24 md:h-24 hover:opacity-80 transition-opacity">
@@ -84,19 +84,19 @@ export default function CartItem({ item }: CartItemProps) {
                   <div>
                     {pricing.hasDiscount ? (
                       <div>
-                        <div className="flex items-baseline gap-1.5 md:gap-2 flex-wrap md:flex-nowrap">
-                          <p className="text-base md:text-lg font-bold text-gray-900 whitespace-nowrap flex-shrink-0">
+                        <div className={`flex items-baseline gap-1.5 flex-nowrap ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                          <p className="text-sm md:text-lg font-bold text-gray-900 whitespace-nowrap">
                             {totalPrice.toFixed(2)} AED
                           </p>
-                          <p className="text-sm text-gray-500 line-through whitespace-nowrap flex-shrink-0">
+                          <p className="text-xs md:text-sm text-gray-500 line-through whitespace-nowrap">
                             {originalTotalPrice.toFixed(2)} AED
                           </p>
                         </div>
-                        <div className="flex items-center gap-1.5 mt-0.5">
-                          <span className="text-xs font-medium text-green-600">
+                        <div className={`flex items-center gap-1 mt-0.5 flex-nowrap ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                          <span className="text-[10px] md:text-xs font-medium text-green-600 whitespace-nowrap">
                             {pricing.discountPercentage}% {t('product.off')}
                           </span>
-                          <span className="text-xs text-red-600">{t('product.vatIncluded')}</span>
+                          <span className="text-[10px] md:text-xs text-red-600 whitespace-nowrap">{t('product.vatIncluded')}</span>
                         </div>
                       </div>
                     ) : (

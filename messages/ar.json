@@ -291,6 +291,26 @@
     "emailSubjectSuffix": "GENOSYS المهنية",
     "na": "غير متوفر"
   },
+  "success": {
+    "title": "نجاح",
+    "backToProducts": "العودة إلى المنتجات",
+    "orderRequestSubmitted": "تم تقديم طلب الطلب!",
+    "orderSuccess": "تم تأكيد الطلب!",
+    "supportLinkMessage": "سيشارك فريق الدعم لدينا رابط دفع آمن.",
+    "orderConfirmedMessage": "تم تأكيد طلبك.",
+    "orderNumber": "طلب",
+    "whatsNext": "ما التالي؟",
+    "step1": "ستتلقى تأكيداً بالبريد الإلكتروني مع تفاصيل طلبك",
+    "step2": "سنقوم بمعالجة وشحن طلبك في أقرب وقت ممكن",
+    "step3": "ستتلقى معلومات التتبع بمجرد شحن طلبك",
+    "step1SupportLink": "سيتواصل معك فريق الدعم عبر الهاتف/واتساب",
+    "step2SupportLink": "ستتلقى رابط دفع آمن عبر Stripe",
+    "step3SupportLink": "أكمل الدفع وسيتم معالجة طلبك",
+    "step4SupportLink": "ستتلقى معلومات التتبع بمجرد شحن طلبك",
+    "continueShopping": "متابعة التسوق",
+    "contactWhatsApp": "تواصل مع الدعم عبر واتساب",
+    "sessionId": "معرف الجلسة"
+  },
   "footer": {
     "officialDistributor": "الموزع الرسمي في الإمارات.",
     "copyright": "© 2026 شركة GENOSYS الشرق الأوسط FZ-LLC. جميع الحقوق محفوظة."

@@ -291,6 +291,26 @@
     "emailSubjectSuffix": "GENOSYS Professional",
     "na": "N/A"
   },
+  "success": {
+    "title": "Success",
+    "backToProducts": "Back to Products",
+    "orderRequestSubmitted": "Order Request Submitted!",
+    "orderSuccess": "Order Confirmed!",
+    "supportLinkMessage": "Our support team will share a secure payment link.",
+    "orderConfirmedMessage": "Your order has been confirmed.",
+    "orderNumber": "Order",
+    "whatsNext": "What's Next?",
+    "step1": "You'll receive an email confirmation with your order details",
+    "step2": "We'll process and ship your order ASAP",
+    "step3": "You'll receive tracking information once your order ships",
+    "step1SupportLink": "Our support team will contact you via phone/WhatsApp",
+    "step2SupportLink": "You'll receive a secure Stripe payment link",
+    "step3SupportLink": "Complete payment and your order will be processed",
+    "step4SupportLink": "You'll receive tracking information once your order ships",
+    "continueShopping": "Continue Shopping",
+    "contactWhatsApp": "Contact Support via WhatsApp",
+    "sessionId": "Session ID"
+  },
   "footer": {
     "officialDistributor": "Official Distributor in the UAE.",
     "copyright": "© 2026 Genosys Middle East FZ-LLC. All rights reserved."

@@ -155,12 +155,12 @@ export default function ProductRecommendation({
     // Sensitive skin/barrier repair combination (19 + 27)
     if ((currentProduct.id === '19' || currentProduct.productNumber === '19') && recommendedProduct.id === '27') {
       return {
-        intro: `Strengthen and protect your sensitive skin by combining the <strong>${currentName}</strong> with <strong>${recommendedName}</strong>. Together, they provide comprehensive barrier repair and protection for calm, resilient skin.`,
+        intro: t('product.pc19Intro', { currentName: `<strong>${currentName}</strong>`, recommendedName: `<strong>${recommendedName}</strong>` }),
         benefits: [
-          { title: 'Barrier Repair Synergy:', text: 'MultiEx BSASM® Plus in both products works together to restore and strengthen the skin barrier' },
-          { title: 'Soothing Protection:', text: 'Serum provides anti-inflammatory relief while cream creates a protective barrier against irritants' },
-          { title: 'Enhanced Moisture Retention:', text: 'Ceramides and amino acids in cream lock in hydration provided by serum\'s hyaluronic acid' },
-          { title: 'Complete Sensitive Skin Care:', text: 'Addresses both immediate soothing needs and long-term barrier health for sensitive skin' }
+          { title: t('product.pc19Benefit1Title'), text: t('product.pc19Benefit1Text') },
+          { title: t('product.pc19Benefit2Title'), text: t('product.pc19Benefit2Text') },
+          { title: t('product.pc19Benefit3Title'), text: t('product.pc19Benefit3Text') },
+          { title: t('product.pc19Benefit4Title'), text: t('product.pc19Benefit4Text') }
         ]
       }
     }

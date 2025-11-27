@@ -760,7 +760,16 @@
     "confirmDeleteReview": "Are you sure you want to delete your review?",
     "failedToSubmitReview": "Failed to submit review",
     "failedToDeleteReview": "Failed to delete review",
-    "whyCombineTheseProducts": "Why Combine These Products?"
+    "whyCombineTheseProducts": "Why Combine These Products?",
+    "pc19Intro": "Strengthen and protect your sensitive skin by combining the <strong>{currentName}</strong> with <strong>{recommendedName}</strong>. Together, they provide comprehensive barrier repair and protection for calm, resilient skin.",
+    "pc19Benefit1Title": "Barrier Repair Synergy:",
+    "pc19Benefit1Text": "MultiEx BSASM® Plus in both products works together to restore and strengthen the skin barrier",
+    "pc19Benefit2Title": "Soothing Protection:",
+    "pc19Benefit2Text": "Serum provides anti-inflammatory relief while cream creates a protective barrier against irritants",
+    "pc19Benefit3Title": "Enhanced Moisture Retention:",
+    "pc19Benefit3Text": "Ceramides and amino acids in cream lock in hydration provided by serum's hyaluronic acid",
+    "pc19Benefit4Title": "Complete Sensitive Skin Care:",
+    "pc19Benefit4Text": "Addresses both immediate soothing needs and long-term barrier health for sensitive skin"
   },
   "trustBadges": {
     "freeShipping": "Free Shipping",

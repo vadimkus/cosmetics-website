@@ -759,7 +759,16 @@
     "confirmDeleteReview": "هل أنت متأكد من أنك تريد حذف تقييمك؟",
     "failedToSubmitReview": "فشل إرسال التقييم",
     "failedToDeleteReview": "فشل حذف التقييم",
-    "whyCombineTheseProducts": "لماذا تجمع هذه المنتجات؟"
+    "whyCombineTheseProducts": "لماذا تجمع هذه المنتجات؟",
+    "pc19Intro": "عززي وحمي بشرتك الحساسة من خلال الجمع بين <strong>{currentName}</strong> و <strong>{recommendedName}</strong>. معاً، يوفران إصلاحاً شاملاً للحاجز الجلدي وحماية لبشرة هادئة ومرنة.",
+    "pc19Benefit1Title": "تآزر إصلاح الحاجز:",
+    "pc19Benefit1Text": "يعمل MultiEx BSASM® Plus في كلا المنتجين معاً لاستعادة وتعزيز حاجز البشرة",
+    "pc19Benefit2Title": "حماية مهدئة:",
+    "pc19Benefit2Text": "يوفر السيروم تخفيفاً مضاداً للالتهابات بينما يخلق الكريم حاجزاً وقائياً ضد المهيجات",
+    "pc19Benefit3Title": "تحسين الاحتفاظ بالرطوبة:",
+    "pc19Benefit3Text": "السيراميد والأحماض الأمينية في الكريم تحبس الترطيب الذي يوفره حمض الهيالورونيك في السيروم",
+    "pc19Benefit4Title": "رعاية كاملة للبشرة الحساسة:",
+    "pc19Benefit4Text": "يعالج احتياجات التهدئة الفورية وصحة الحاجز على المدى الطويل للبشرة الحساسة"
   },
   "trustBadges": {
     "freeShipping": "شحن مجاني",

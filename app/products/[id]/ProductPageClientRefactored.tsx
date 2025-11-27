@@ -684,19 +684,132 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
             {/* Detailed Product Content */}
             <ProductContentDisplay product={product} />
 
-            {/* Product Recommendation - Mobile only for product 19 (shows after NOTE block) */}
+            {/* Product Recommendations - Mobile only (shows after content) */}
             {(product.id === '19' || product.productNumber === '19') && (
               <div className="lg:hidden">
                 <ProductRecommendation 
                   recommendedProductId="27"
                   currentProduct={product}
                 />
-                {/* Trust Badges - Mobile only, after recommendation */}
-                <div className="mt-6">
-                  <TrustBadges />
-                </div>
               </div>
             )}
+            {(product.id === '22' || product.productNumber === '22') && (
+              <div className="lg:hidden">
+                <ProductRecommendation 
+                  recommendedProductId="32"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+            {(product.id === '20' || product.productNumber === '20') && (
+              <div className="lg:hidden">
+                <ProductRecommendation 
+                  recommendedProductId="30"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+            {(product.id === '21' || product.productNumber === '21') && (
+              <div className="lg:hidden">
+                <ProductRecommendation 
+                  recommendedProductId="31"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+            {(product.id === '15' || product.productNumber === '15') && (
+              <div className="lg:hidden">
+                <ProductRecommendation 
+                  recommendedProductId="30"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+            {(product.id === '18' || product.productNumber === '18') && (
+              <div className="lg:hidden">
+                <ProductRecommendation 
+                  recommendedProductId="29"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+            {(product.id === '10' || product.productNumber === '10') && (
+              <div className="lg:hidden">
+                <ProductRecommendation 
+                  recommendedProductId="16"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+            {(product.id === '25' || product.productNumber === '25') && (
+              <div className="lg:hidden">
+                <ProductRecommendation 
+                  recommendedProductId="38"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+            {(product.id === '33' || product.productNumber === '33') && (
+              <div className="lg:hidden">
+                <ProductRecommendation 
+                  recommendedProductId="17"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+            {(product.id === '17' || product.productNumber === '17') && (
+              <div className="lg:hidden">
+                <ProductRecommendation 
+                  recommendedProductId="24"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+            {(product.id === '24' || product.productNumber === '24') && (
+              <div className="lg:hidden">
+                <ProductRecommendation 
+                  recommendedProductId="17"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+            {(product.id === '44' || product.productNumber === '44') && (
+              <div className="lg:hidden">
+                <ProductRecommendation 
+                  recommendedProductId="43"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+            {(product.id === '43' || product.productNumber === '43') && (
+              <div className="lg:hidden">
+                <ProductRecommendation 
+                  recommendedProductId="44"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+            {(product.id === '45' || product.productNumber === '45') && (
+              <div className="lg:hidden">
+                <ProductRecommendation 
+                  recommendedProductId="43"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+            {(product.id === '46' || product.productNumber === '46') && (
+              <div className="lg:hidden">
+                <ProductRecommendation 
+                  recommendedProductId="44"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+
+            {/* Trust Badges - Mobile only */}
+            <div className="lg:hidden mt-6">
+              <TrustBadges />
+            </div>
 
             {/* Product Reviews */}
             <ProductReviews productId={product.id} />

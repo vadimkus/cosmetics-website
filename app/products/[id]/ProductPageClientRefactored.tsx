@@ -6,7 +6,7 @@ import { useCart } from '@/components/CartProvider'
 import { useFavorites } from '@/components/FavoritesProvider'
 import { useAuth } from '@/components/AuthProvider'
 import ErrorPage from '@/components/ErrorPage'
-import { ArrowLeft, Sparkles } from 'lucide-react'
+import { ArrowLeft, Sparkles, Star, ShoppingCart, Heart, Minus, Plus, ChevronDown, ChevronUp } from 'lucide-react'
 import Link from 'next/link'
 import { useState, useCallback } from 'react'
 import { Product } from '@/types'
@@ -23,6 +23,7 @@ import TrustBadges from '@/components/product/TrustBadges'
 import ProductRecommendation from '@/components/product/ProductRecommendation'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
+import { calculateDiscountedPrice, canUserSeePrices } from '@/lib/discountUtils'
 import { 
   getPriceForSize, 
   hasProductSizeVariants, 
@@ -47,6 +48,24 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
   const colorOptions = getProductColorOptions(product.id)
   const [selectedSize, setSelectedSize] = useState(sizeOptions[0]?.value || '50g')
   const [selectedColor, setSelectedColor] = useState(colorOptions[0]?.value || 'Beige')
+  
+  // Mobile quantity state for sticky footer
+  const [mobileQuantity, setMobileQuantity] = useState(1)
+  const [isAddingMobile, setIsAddingMobile] = useState(false)
+  
+  // Collapsible sections state for mobile
+  const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({
+    description: true,
+    details: false,
+    ingredients: false,
+  })
+  
+  const toggleSection = (section: string) => {
+    setExpandedSections(prev => ({
+      ...prev,
+      [section]: !prev[section]
+    }))
+  }
 
   // Calculate current price based on selected variant
   const currentPrice = useCallback(() => {
@@ -76,7 +95,21 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
     } catch (error) {
       errorLog('Error adding to cart:', error)
     }
-  }, [user, product, selectedSize, selectedColor, addItem, router])
+  }, [user, product, selectedSize, selectedColor, addItem, router, locale])
+  
+  // Handle mobile add to cart
+  const handleMobileAddToCart = async () => {
+    if (!user) {
+      router.push(getLocalizedPath('/login', locale))
+      return
+    }
+    setIsAddingMobile(true)
+    try {
+      await handleAddToCart(mobileQuantity)
+    } finally {
+      setIsAddingMobile(false)
+    }
+  }
 
   // Handle toggle favorite
   const handleToggleFavorite = useCallback(() => {
@@ -98,9 +131,13 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
   }))
 
   const availableColors = colorOptions
+  
+  // Calculate pricing for mobile display
+  const productWithPrice = { ...product, price: currentPrice() }
+  const pricing = calculateDiscountedPrice(productWithPrice, user)
 
   return (
-    <div className="bg-white min-h-screen" dir={dir}>
+    <div className="bg-white min-h-screen pb-24 lg:pb-0" dir={dir}>
       <ProductSchema product={product} />
       <BreadcrumbSchema 
         items={[
@@ -110,54 +147,113 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
         ]}
       />
 
-      <div className="container mx-auto px-4 py-8 md:py-16">
-        {/* Back Button */}
-        <div className={`flex items-center mb-4 md:mb-8 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+      <div className="container mx-auto px-4 py-4 md:py-8 lg:py-16">
+        {/* Back Button - Mobile optimized */}
+        <div className={`flex items-center mb-3 md:mb-6 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
           <Link 
             href={getLocalizedPath('/products', locale)}
-            className={`flex items-center text-gray-600 hover:text-primary-600 transition-colors text-sm md:text-sm ${dir === 'rtl' ? 'ml-4 flex-row-reverse' : 'mr-4'}`}
+            className={`inline-flex items-center text-gray-500 hover:text-primary-600 transition-colors text-sm font-medium ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
           >
-            <ArrowLeft className={`h-4 w-4 md:h-5 md:w-5 ${dir === 'rtl' ? 'ml-2 rotate-180' : 'mr-2'}`} />
+            <ArrowLeft className={`h-4 w-4 ${dir === 'rtl' ? 'ml-1.5 rotate-180' : 'mr-1.5'}`} />
             {t('product.backToProducts')}
           </Link>
         </div>
 
-        {/* Main Product Layout - Single Column Vertical */}
-        <div className={`grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 lg:gap-12 ${dir === 'rtl' ? 'lg:grid-flow-row-dense' : ''}`}>
+        {/* ============ UNIFIED RESPONSIVE LAYOUT ============ */}
+        <div className={`grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12 ${dir === 'rtl' ? 'lg:grid-flow-row-dense' : ''}`}>
           {/* Left Column - Product Images and Purchase Controls */}
-          <div className={`space-y-4 ${dir === 'rtl' ? 'lg:col-start-2' : ''}`}>
-            <ProductImageGallery product={product} />
+          <div className={`flex flex-col ${dir === 'rtl' ? 'lg:col-start-2' : ''}`}>
+            
+            {/* Mobile-First Product Header - Shows at TOP on mobile, hidden on desktop */}
+            <div className="mb-4 order-first lg:order-none lg:hidden">
+              {/* Category Badge & Stock Status */}
+              <div className="flex items-center flex-wrap gap-2 mb-3">
+                <span className="inline-block bg-gradient-to-r from-primary-100 to-primary-50 text-primary-700 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wide">
+                  {product.category.replace(/,/g, ' · ')}
+                </span>
+                {product.inStock ? (
+                  <span className="inline-flex items-center bg-green-100 text-green-700 px-2.5 py-1 rounded-full text-xs font-medium">
+                    <span className="w-1.5 h-1.5 bg-green-500 rounded-full mr-1.5"></span>
+                    {t('product.inStock')}
+                  </span>
+                ) : (
+                  <span className="inline-flex items-center bg-red-100 text-red-700 px-2.5 py-1 rounded-full text-xs font-medium">
+                    {t('product.outOfStock')}
+                  </span>
+                )}
+              </div>
+              
+              {/* Product Name */}
+              <h1 className="text-2xl font-bold text-gray-900 leading-tight mb-2">
+                {product.name}
+              </h1>
+              
+              {/* Rating & Size */}
+              <div className="flex items-center flex-wrap gap-3 text-sm">
+                <div className="flex items-center gap-1.5">
+                  <div className="flex">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="h-4 w-4 fill-amber-400 text-amber-400" />
+                    ))}
+                  </div>
+                  <span className="text-gray-700 font-medium">
+                    {(product.rating || 5.0).toFixed(1)}
+                  </span>
+                </div>
+                {product.size && (
+                  <>
+                    <span className="text-gray-300">|</span>
+                    <span className="text-gray-600">
+                      <span className="font-medium">{t('product.size')}:</span> {product.size}
+                    </span>
+                  </>
+                )}
+              </div>
+            </div>
+
+            {/* Image Gallery */}
+            <div className="order-2 lg:order-1">
+              <ProductImageGallery product={product} />
+            </div>
             
             {/* Size and Price - Below Image */}
-            <ProductPriceDisplay 
-              product={product}
-              basePrice={currentPrice()}
-              user={user}
-            />
+            <div className="order-3 lg:order-2 mt-4">
+              <ProductPriceDisplay 
+                product={product}
+                basePrice={currentPrice()}
+                user={user}
+              />
+            </div>
 
             {/* Variant Selectors - Below Price */}
-            <ProductVariantSelector
-              product={product}
-              selectedSize={selectedSize}
-              selectedColor={selectedColor}
-              availableSizes={availableSizes}
-              availableColors={availableColors}
-              onSizeChange={setSelectedSize}
-              onColorChange={setSelectedColor}
-              user={user}
-            />
+            <div className="order-4 lg:order-3 mt-4">
+              <ProductVariantSelector
+                product={product}
+                selectedSize={selectedSize}
+                selectedColor={selectedColor}
+                availableSizes={availableSizes}
+                availableColors={availableColors}
+                onSizeChange={setSelectedSize}
+                onColorChange={setSelectedColor}
+                user={user}
+              />
+            </div>
 
             {/* Quantity and Cart - Below Variants */}
-            <ProductQuantityCart
-              user={user}
-              onAddToCart={handleAddToCart}
-              onToggleFavorite={handleToggleFavorite}
-              isFavorite={isFavorite(product.id)}
-              inStock={product.inStock}
-            />
+            <div className="order-5 lg:order-4 mt-4">
+              <ProductQuantityCart
+                user={user}
+                onAddToCart={handleAddToCart}
+                onToggleFavorite={handleToggleFavorite}
+                isFavorite={isFavorite(product.id)}
+                inStock={product.inStock}
+              />
+            </div>
 
-            {/* Trust Badges - Below Cart */}
-            <TrustBadges />
+            {/* Trust Badges - Below Cart (Desktop only, mobile shows after recommendations) */}
+            <div className="hidden lg:block order-6 lg:order-5 mt-4">
+              <TrustBadges />
+            </div>
 
             {/* Product Recommendation Section - Only for product 22 - Desktop only */}
             {(product.id === '22' || product.productNumber === '22') && (
@@ -199,13 +295,17 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
               </div>
             )}
 
-            {/* Product Recommendation Section - Only for product 19 - Desktop only */}
+            {/* Product Recommendation Section - Only for product 19 */}
             {(product.id === '19' || product.productNumber === '19') && (
-              <div className="hidden lg:block">
+              <div className="order-7 lg:order-none mt-4 lg:mt-0">
                 <ProductRecommendation 
                   recommendedProductId="27"
                   currentProduct={product}
                 />
+                {/* Trust Badges - Mobile only, after recommendation */}
+                <div className="lg:hidden mt-6">
+                  <TrustBadges />
+                </div>
               </div>
             )}
 
@@ -550,6 +650,14 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
                 </div>
               </div>
             )}
+
+            {/* Mobile-only Trust Badges fallback for products WITHOUT recommendations */}
+            {!['19', '22', '20', '21', '15', '18', '10', '25', '33', '17', '24', '44', '43', '45', '46', '55', '56', '57', '58', '59'].includes(product.id) && 
+             !['19', '22', '20', '21', '15', '18', '10', '25', '33', '17', '24', '44', '43', '45', '46', '55', '56', '57', '58', '59'].includes(product.productNumber || '') && (
+              <div className="lg:hidden order-7 mt-6">
+                <TrustBadges />
+              </div>
+            )}
           </div>
 
           {/* Right Column - Product Details and Content */}
@@ -561,157 +669,6 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
 
             {/* Product Reviews */}
             <ProductReviews productId={product.id} />
-
-            {/* Product Recommendation Section - Mobile only - After note block */}
-            {/* Product Recommendation Section - Only for product 22 - Mobile only */}
-            {(product.id === '22' || product.productNumber === '22') && (
-              <div className="block lg:hidden">
-                <ProductRecommendation 
-                  recommendedProductId="32"
-                  currentProduct={product}
-                />
-              </div>
-            )}
-
-            {/* Product Recommendation Section - Only for product 20 - Mobile only */}
-            {(product.id === '20' || product.productNumber === '20') && (
-              <div className="block lg:hidden">
-                <ProductRecommendation 
-                  recommendedProductId="30"
-                  currentProduct={product}
-                />
-              </div>
-            )}
-
-            {/* Product Recommendation Section - Only for product 21 - Mobile only */}
-            {(product.id === '21' || product.productNumber === '21') && (
-              <div className="block lg:hidden">
-                <ProductRecommendation 
-                  recommendedProductId="31"
-                  currentProduct={product}
-                />
-              </div>
-            )}
-
-            {/* Product Recommendation Section - Only for product 15 - Mobile only */}
-            {(product.id === '15' || product.productNumber === '15') && (
-              <div className="block lg:hidden">
-                <ProductRecommendation 
-                  recommendedProductId="30"
-                  currentProduct={product}
-                />
-              </div>
-            )}
-
-            {/* Product Recommendation Section - Only for product 19 - Mobile only */}
-            {(product.id === '19' || product.productNumber === '19') && (
-              <div className="block lg:hidden">
-                <ProductRecommendation 
-                  recommendedProductId="27"
-                  currentProduct={product}
-                />
-              </div>
-            )}
-
-            {/* Product Recommendation Section - Only for product 18 - Mobile only */}
-            {(product.id === '18' || product.productNumber === '18') && (
-              <div className="block lg:hidden">
-                <ProductRecommendation 
-                  recommendedProductId="29"
-                  currentProduct={product}
-                />
-              </div>
-            )}
-
-            {/* Product Recommendation Section - Only for product 10 - Mobile only */}
-            {(product.id === '10' || product.productNumber === '10') && (
-              <div className="block lg:hidden">
-                <ProductRecommendation 
-                  recommendedProductId="16"
-                  currentProduct={product}
-                />
-              </div>
-            )}
-
-            {/* Product Recommendation Section - Only for product 25 - Mobile only */}
-            {(product.id === '25' || product.productNumber === '25') && (
-              <div className="block lg:hidden">
-                <ProductRecommendation 
-                  recommendedProductId="38"
-                  currentProduct={product}
-                />
-              </div>
-            )}
-
-            {/* Product Recommendation Section - Only for product 33 - Mobile only */}
-            {(product.id === '33' || product.productNumber === '33') && (
-              <div className="block lg:hidden">
-                <ProductRecommendation 
-                  recommendedProductId="17"
-                  currentProduct={product}
-                />
-              </div>
-            )}
-
-            {/* Product Recommendation Section - Only for product 17 - Mobile only */}
-            {(product.id === '17' || product.productNumber === '17') && (
-              <div className="block lg:hidden">
-                <ProductRecommendation 
-                  recommendedProductId="24"
-                  currentProduct={product}
-                />
-              </div>
-            )}
-
-            {/* Product Recommendation Section - Only for product 24 - Mobile only */}
-            {(product.id === '24' || product.productNumber === '24') && (
-              <div className="block lg:hidden">
-                <ProductRecommendation 
-                  recommendedProductId="17"
-                  currentProduct={product}
-                />
-              </div>
-            )}
-
-            {/* Product Recommendation Section - Only for product 44 - Mobile only */}
-            {(product.id === '44' || product.productNumber === '44') && (
-              <div className="block lg:hidden">
-                <ProductRecommendation 
-                  recommendedProductId="43"
-                  currentProduct={product}
-                />
-              </div>
-            )}
-
-            {/* Product Recommendation Section - Only for product 43 - Mobile only */}
-            {(product.id === '43' || product.productNumber === '43') && (
-              <div className="block lg:hidden">
-                <ProductRecommendation 
-                  recommendedProductId="44"
-                  currentProduct={product}
-                />
-              </div>
-            )}
-
-            {/* Product Recommendation Section - Only for product 45 - Mobile only */}
-            {(product.id === '45' || product.productNumber === '45') && (
-              <div className="block lg:hidden">
-                <ProductRecommendation 
-                  recommendedProductId="43"
-                  currentProduct={product}
-                />
-              </div>
-            )}
-
-            {/* Product Recommendation Section - Only for product 46 - Mobile only */}
-            {(product.id === '46' || product.productNumber === '46') && (
-              <div className="block lg:hidden">
-                <ProductRecommendation 
-                  recommendedProductId="44"
-                  currentProduct={product}
-                />
-              </div>
-            )}
           </div>
         </div>
       </div>

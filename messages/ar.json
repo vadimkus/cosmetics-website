@@ -702,7 +702,7 @@
     "supportingLocalEconomy": "دعم الاقتصاد المحلي"
   },
   "login": {
-    "title": "تسجيل الدخول المهني",
+    "title": "تسجيل الدخول",
     "subtitle": "الوصول إلى حسابك المهني في GENOSYS لعرض الأسعار وإدارة الطلبات",
     "signIn": "تسجيل الدخول",
     "signInToAccount": "سجل الدخول إلى حسابك المهني",
@@ -711,7 +711,7 @@
     "alreadyLoggedIn": "تم تسجيل الدخول بالفعل",
     "loggedInAs": "أنت مسجل الدخول بالفعل كـ",
     "continueToProducts": "متابعة إلى المنتجات",
-    "backToHome": "← العودة إلى الرئيسية",
+    "backToHome": "العودة إلى الرئيسية",
     "professionalLogin": "تسجيل الدخول المهني Genosys",
     "professionalAccount": "حساب Genosys المهني",
     "unitedArabEmirates": "الإمارات العربية المتحدة ❤️",

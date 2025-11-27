@@ -42,6 +42,17 @@ export default function CartClient() {
   // Check if Black Friday sale is active
   const blackFridayActive = isBlackFridaySaleActive()
   
+  // Check if cart contains beauty boxes and calculate bundle savings
+  const beautyBoxSavings = items.reduce((savings, item) => {
+    const pricing = calculateDiscountedPrice(item.product, user)
+    if (pricing.isBeautyBox) {
+      return savings + (pricing.discountAmount * item.quantity)
+    }
+    return savings
+  }, 0)
+  
+  const hasBeautyBoxes = beautyBoxSavings > 0
+  
   // Calculate original subtotal (before Black Friday discount) for display
   const originalSubtotal = blackFridayActive && items.length > 0
     ? items.reduce((sum, item) => {
@@ -183,18 +194,57 @@ export default function CartClient() {
                 ))}
               </div>
 
-              {/* Black Friday Discount Block */}
-              {user && (
+              {/* Bundle Discount Block - Shows when beauty boxes in cart */}
+              {user && hasBeautyBoxes && !blackFridayActive && (
                 <div className="px-6 pt-6 pb-4">
-                  <div className={`p-4 ${blackFridayActive 
-                    ? 'bg-gradient-to-r from-red-50 to-orange-50 border-2 border-red-500' 
-                    : 'bg-gray-50 border-2 border-gray-300 opacity-75'
-                  } rounded-lg shadow-sm ${dir === 'rtl' ? 'text-right' : ''}`}>
+                  <div className={`p-4 bg-gradient-to-r from-purple-50 to-pink-50 border-2 border-purple-400 rounded-lg shadow-sm ${dir === 'rtl' ? 'text-right' : ''}`}>
                     <div className={`mb-3 text-center md:text-left ${dir === 'rtl' ? 'md:text-right' : ''}`}>
-                      <h3 className={`text-lg md:text-xl font-bold ${blackFridayActive ? 'text-red-700' : 'text-gray-600'}`}>
+                      <h3 className="text-lg md:text-xl font-bold text-purple-700">
+                        {locale === 'ar' ? 'خصم المجموعة' : 'Bundle Discount'}
+                      </h3>
+                      <p className="text-sm font-semibold text-purple-600">
+                        {locale === 'ar' ? 'خصم 15% على صناديق الجمال' : '15% OFF on Beauty Boxes'}
+                      </p>
+                    </div>
+                    
+                    <div className={`flex items-center justify-center gap-3 my-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                      <div className="flex flex-col items-center bg-white rounded-lg px-4 py-3 border border-purple-300 shadow-sm">
+                        <div className="text-2xl font-bold text-purple-600">15%</div>
+                        <div className="text-xs text-purple-500 font-medium">
+                          {locale === 'ar' ? 'خصم' : 'OFF'}
+                        </div>
+                      </div>
+                      <div className="text-purple-400 text-2xl">=</div>
+                      <div className="flex flex-col items-center bg-green-50 rounded-lg px-4 py-3 border border-green-300 shadow-sm">
+                        <div className="text-2xl font-bold text-green-600">
+                          {beautyBoxSavings.toFixed(0)}
+                        </div>
+                        <div className="text-xs text-green-500 font-medium">
+                          {locale === 'ar' ? 'درهم وفرت' : 'AED SAVED'}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className={`mt-3 pt-3 border-t border-purple-200 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                      <p className={`text-sm font-semibold text-green-700 text-center`}>
+                        {locale === 'ar' 
+                          ? `✅ وفرت ${beautyBoxSavings.toFixed(2)} درهم على صناديق الجمال`
+                          : `✅ You saved AED ${beautyBoxSavings.toFixed(2)} on Beauty Boxes`}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Black Friday Discount Block - Only shows when Black Friday is active */}
+              {user && blackFridayActive && (
+                <div className="px-6 pt-6 pb-4">
+                  <div className={`p-4 bg-gradient-to-r from-red-50 to-orange-50 border-2 border-red-500 rounded-lg shadow-sm ${dir === 'rtl' ? 'text-right' : ''}`}>
+                    <div className={`mb-3 text-center md:text-left ${dir === 'rtl' ? 'md:text-right' : ''}`}>
+                      <h3 className="text-lg md:text-xl font-bold text-red-700">
                         {locale === 'ar' ? 'عرض الجمعة السوداء' : 'Black Friday Sale'}
                       </h3>
-                      <p className={`text-sm font-semibold ${blackFridayActive ? 'text-red-600' : 'text-gray-500'}`}>
+                      <p className="text-sm font-semibold text-red-600">
                         {locale === 'ar' ? 'خصم 20% على جميع المنتجات' : '20% OFF on All Products'}
                       </p>
                     </div>
@@ -203,7 +253,7 @@ export default function CartClient() {
                     {timeLeft && (
                       <div className={`mb-3 ${dir === 'rtl' ? 'text-right' : ''}`}>
                         <div className={`flex items-center gap-2 mb-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                          <span className={`text-xs font-medium ${blackFridayActive ? 'text-red-600' : 'text-gray-500'}`}>
+                          <span className="text-xs font-medium text-red-600">
                             {isSaleActive 
                               ? (locale === 'ar' ? 'الوقت المتبقي:' : 'Time remaining:')
                               : (locale === 'ar' ? 'يبدأ بعد:' : 'Starts in:')}
@@ -211,41 +261,41 @@ export default function CartClient() {
                         </div>
                         <div className={`flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                           {/* Days */}
-                          <div className={`flex flex-col items-center bg-white rounded-md px-2 py-1.5 border ${blackFridayActive ? 'border-red-300' : 'border-gray-300'} min-w-[50px]`}>
-                            <div className={`text-lg font-bold tabular-nums ${blackFridayActive ? 'text-red-600' : 'text-gray-600'}`}>
+                          <div className="flex flex-col items-center bg-white rounded-md px-2 py-1.5 border border-red-300 min-w-[50px]">
+                            <div className="text-lg font-bold tabular-nums text-red-600">
                               {timeLeft.days.toString().padStart(2, '0')}
                             </div>
-                            <div className={`text-[10px] ${blackFridayActive ? 'text-red-500' : 'text-gray-500'}`}>
+                            <div className="text-[10px] text-red-500">
                               {locale === 'ar' ? 'ي' : 'D'}
                             </div>
                           </div>
-                          <span className={`text-lg font-bold ${blackFridayActive ? 'text-red-500' : 'text-gray-400'}`}>:</span>
+                          <span className="text-lg font-bold text-red-500">:</span>
                           {/* Hours */}
-                          <div className={`flex flex-col items-center bg-white rounded-md px-2 py-1.5 border ${blackFridayActive ? 'border-red-300' : 'border-gray-300'} min-w-[50px]`}>
-                            <div className={`text-lg font-bold tabular-nums ${blackFridayActive ? 'text-red-600' : 'text-gray-600'}`}>
+                          <div className="flex flex-col items-center bg-white rounded-md px-2 py-1.5 border border-red-300 min-w-[50px]">
+                            <div className="text-lg font-bold tabular-nums text-red-600">
                               {timeLeft.hours.toString().padStart(2, '0')}
                             </div>
-                            <div className={`text-[10px] ${blackFridayActive ? 'text-red-500' : 'text-gray-500'}`}>
+                            <div className="text-[10px] text-red-500">
                               {locale === 'ar' ? 'س' : 'H'}
                             </div>
                           </div>
-                          <span className={`text-lg font-bold ${blackFridayActive ? 'text-red-500' : 'text-gray-400'}`}>:</span>
+                          <span className="text-lg font-bold text-red-500">:</span>
                           {/* Minutes */}
-                          <div className={`flex flex-col items-center bg-white rounded-md px-2 py-1.5 border ${blackFridayActive ? 'border-red-300' : 'border-gray-300'} min-w-[50px]`}>
-                            <div className={`text-lg font-bold tabular-nums ${blackFridayActive ? 'text-red-600' : 'text-gray-600'}`}>
+                          <div className="flex flex-col items-center bg-white rounded-md px-2 py-1.5 border border-red-300 min-w-[50px]">
+                            <div className="text-lg font-bold tabular-nums text-red-600">
                               {timeLeft.minutes.toString().padStart(2, '0')}
                             </div>
-                            <div className={`text-[10px] ${blackFridayActive ? 'text-red-500' : 'text-gray-500'}`}>
+                            <div className="text-[10px] text-red-500">
                               {locale === 'ar' ? 'د' : 'M'}
                             </div>
                           </div>
-                          <span className={`text-lg font-bold ${blackFridayActive ? 'text-red-500' : 'text-gray-400'}`}>:</span>
+                          <span className="text-lg font-bold text-red-500">:</span>
                           {/* Seconds */}
-                          <div className={`flex flex-col items-center bg-white rounded-md px-2 py-1.5 border ${blackFridayActive ? 'border-red-300' : 'border-gray-300'} min-w-[50px]`}>
-                            <div className={`text-lg font-bold tabular-nums ${blackFridayActive ? 'text-red-600' : 'text-gray-600'}`}>
+                          <div className="flex flex-col items-center bg-white rounded-md px-2 py-1.5 border border-red-300 min-w-[50px]">
+                            <div className="text-lg font-bold tabular-nums text-red-600">
                               {timeLeft.seconds.toString().padStart(2, '0')}
                             </div>
-                            <div className={`text-[10px] ${blackFridayActive ? 'text-red-500' : 'text-gray-500'}`}>
+                            <div className="text-[10px] text-red-500">
                               {locale === 'ar' ? 'ث' : 'S'}
                             </div>
                           </div>
@@ -257,36 +307,32 @@ export default function CartClient() {
                     {timeLeft && (
                       <div className="mb-3">
                         <div className={`flex items-center justify-between mb-1.5 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                          <span className={`text-xs font-medium ${blackFridayActive ? 'text-red-600' : 'text-gray-500'}`}>
+                          <span className="text-xs font-medium text-red-600">
                             {isSaleActive 
                               ? (locale === 'ar' ? 'تقدم العرض' : 'Sale Progress')
                               : (locale === 'ar' ? 'قريباً' : 'Starting Soon')}
                           </span>
                           {isSaleActive && (
-                            <span className={`text-xs font-semibold ${blackFridayActive ? 'text-red-600' : 'text-gray-500'}`}>
+                            <span className="text-xs font-semibold text-red-600">
                               {Math.round(saleProgress)}%
                             </span>
                           )}
                         </div>
-                        <div className={`w-full h-2 rounded-full overflow-hidden ${blackFridayActive ? 'bg-red-100' : 'bg-gray-200'}`}>
+                        <div className="w-full h-2 rounded-full overflow-hidden bg-red-100">
                           <div
-                            className={`h-full rounded-full transition-all duration-1000 ease-out ${
-                              blackFridayActive 
-                                ? 'bg-gradient-to-r from-red-500 to-orange-500' 
-                                : 'bg-gray-400'
-                            }`}
+                            className="h-full rounded-full transition-all duration-1000 ease-out bg-gradient-to-r from-red-500 to-orange-500"
                             style={{ width: `${isSaleActive ? saleProgress : 0}%` }}
                           />
                         </div>
                       </div>
                     )}
 
-                    <div className={`text-xs ${blackFridayActive ? 'text-gray-700' : 'text-gray-500'} mt-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                    <div className={`text-xs text-gray-700 mt-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
                       <span className="font-medium">
                         {locale === 'ar' ? 'الفترة: 26-28 نوفمبر' : 'Period: 26-28/11'}
                       </span>
                     </div>
-                    {blackFridayActive && originalSubtotal > subtotal && (
+                    {originalSubtotal > subtotal && (
                       <div className={`mt-3 pt-3 border-t border-red-200 ${dir === 'rtl' ? 'text-right' : ''}`}>
                         <p className={`text-sm font-semibold text-green-700 ${dir === 'rtl' ? 'text-right' : ''}`}>
                           {locale === 'ar' 
@@ -416,6 +462,7 @@ export default function CartClient() {
                     </div>
                   </div>
                 )}
+
 
                 {/* Price Breakdown */}
                 <div className={`space-y-2 md:space-y-3 mb-4 md:mb-6 ${dir === 'rtl' ? 'text-right' : ''}`}>

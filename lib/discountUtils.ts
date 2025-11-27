@@ -9,7 +9,20 @@ export interface DiscountedPrice {
   discountPercentage: number
   hasDiscount: boolean
   isBlackFriday?: boolean
+  isBeautyBox?: boolean
 }
+
+// Beauty box regular prices (before 15% bundle discount)
+// These are the prices displayed in the product descriptions
+const BEAUTY_BOX_REGULAR_PRICES: { [key: string]: number } = {
+  '55': 1318,    // PROBLEM SKIN CARE BEAUTY BOX
+  '56': 1496,    // SKIN BRIGHTENING BEAUTY BOX
+  '57': 1520,    // CHARMING LOOK BEAUTY BOX (1519 rounded)
+  '58': 1390,    // ANTI-AGING BEAUTY BOX (1390 rounded)
+  '59': 1318,    // DEEP MOISTURIZING BEAUTY BOX
+}
+
+const BEAUTY_BOX_DISCOUNT_PERCENTAGE = 15
 
 /**
  * Calculate discounted price for a product based on user's discount settings and Black Friday sale
@@ -24,9 +37,30 @@ export function calculateDiscountedPrice(product: Product, user: User | null): D
   let discountPercentage = 0
   let hasDiscount = false
   let isBlackFriday = false
+  let isBeautyBox = false
 
   // Beauty box products excluded from Black Friday discounts specifically
   const BLACK_FRIDAY_EXCLUDED_PRODUCT_NUMBERS = ['55', '56', '57', '58', '59']
+  
+  // Check if this is a beauty box product
+  const isBeautyBoxProduct = product.category === 'Beauty Boxes' || 
+    (product.productNumber && BLACK_FRIDAY_EXCLUDED_PRODUCT_NUMBERS.includes(product.productNumber))
+  
+  // If it's a beauty box, show the built-in 15% discount
+  if (isBeautyBoxProduct && product.productNumber) {
+    const regularPrice = BEAUTY_BOX_REGULAR_PRICES[product.productNumber]
+    if (regularPrice !== undefined) {
+      return {
+        originalPrice: regularPrice,
+        discountedPrice: product.price, // The stored price is already the bundle price
+        discountAmount: Math.round((regularPrice - product.price) * 100) / 100,
+        discountPercentage: BEAUTY_BOX_DISCOUNT_PERCENTAGE,
+        hasDiscount: true,
+        isBlackFriday: false,
+        isBeautyBox: true
+      }
+    }
+  }
   
   // Check if product should be excluded from all discounts
   // Exclude if: noDiscount flag is true OR category is "Beauty Boxes"
@@ -62,7 +96,8 @@ export function calculateDiscountedPrice(product: Product, user: User | null): D
     discountAmount: Math.round(discountAmount * 100) / 100,
     discountPercentage,
     hasDiscount,
-    isBlackFriday
+    isBlackFriday,
+    isBeautyBox
   }
 }
 

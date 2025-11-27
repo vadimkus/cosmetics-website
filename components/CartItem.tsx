@@ -92,11 +92,11 @@ export default function CartItem({ item }: CartItemProps) {
                             {originalTotalPrice.toFixed(2)} AED
                           </p>
                         </div>
-                        <div className={`flex items-center gap-1 mt-0.5 flex-nowrap ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                          <span className="text-[10px] md:text-xs font-medium text-green-600 whitespace-nowrap">
-                            {pricing.discountPercentage}% {t('product.off')}
+                        <div className={`flex items-center mt-0.5 flex-nowrap ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                          <span className="text-[10px] md:text-xs whitespace-nowrap">
+                            <span className="font-medium text-green-600">{pricing.discountPercentage}% {t('product.off')}</span>
+                            <span className="text-red-600"> {t('product.vatIncluded')}</span>
                           </span>
-                          <span className="text-[10px] md:text-xs text-red-600 whitespace-nowrap">{t('product.vatIncluded')}</span>
                         </div>
                       </div>
                     ) : (

@@ -535,7 +535,7 @@ export default function CheckoutClient() {
   }
 
   return (
-    <div className={`container mx-auto px-3 md:px-4 py-3 md:py-8 lg:py-16 ${dir === 'rtl' ? 'text-right' : ''}`} dir={dir}>
+    <div className="container mx-auto px-4 py-2 md:py-8 lg:py-16" dir={dir}>
       {/* Navigation Breadcrumb */}
       <div className={`${dir === 'rtl' ? 'flex justify-end' : ''}`}>
         <nav className={`inline-flex items-baseline gap-1.5 md:gap-2 text-xs md:text-base text-gray-600 mb-1.5 md:mb-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`} aria-label="Breadcrumb">
@@ -807,7 +807,9 @@ export default function CheckoutClient() {
                               <div className={`flex items-center gap-1.5 md:gap-2 mt-0.5 md:mt-1 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                                 <span className="text-[10px] md:text-xs text-gray-500">{t('checkout.qty')} {quantity}</span>
                                 {pricing.hasDiscount && (
-                                  <span className="text-[10px] md:text-xs text-green-600 font-medium">({pricing.discountPercentage}% {t('product.off')})</span>
+                                  <span className="text-[10px] md:text-xs text-green-600 font-medium">
+                                    ({pricing.discountPercentage}% {t('product.off')}{pricing.isBeautyBox ? ` - ${t('product.bundleDiscount')}` : ''})
+                                  </span>
                                 )}
                               </div>
                             </div>

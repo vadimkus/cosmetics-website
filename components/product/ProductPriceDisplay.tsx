@@ -41,6 +41,7 @@ export default function ProductPriceDisplay({ product, basePrice, user }: Produc
                     <div className={`flex items-center justify-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse lg:justify-end' : 'lg:justify-start'}`}>
                       <span className="text-xs md:text-sm text-green-600 font-medium">
                         {pricing.discountPercentage}% {t('product.off')}
+                        {pricing.isBeautyBox && ` (${t('product.bundleDiscount')})`}
                       </span>
                       <span className="text-xs md:text-sm text-gray-500">({t('product.vatIncluded')})</span>
                     </div>

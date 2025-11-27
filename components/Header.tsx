@@ -297,7 +297,7 @@ const Header = memo(function Header() {
           <div className="container mx-auto px-3 py-3">
             <nav className="grid grid-cols-2 gap-0">
               <Link 
-                href={getLocalizedPath('/', locale)} 
+                href={`${getLocalizedPath('/', locale)}?full=true`} 
                 className="text-gray-700 hover:text-primary-600 hover:bg-gray-50 transition-colors py-2.5 px-3 rounded-lg text-sm font-medium touch-manipulation flex items-center"
                 onClick={() => setShowMobileMenu(false)}
               >

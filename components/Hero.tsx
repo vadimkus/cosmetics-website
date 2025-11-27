@@ -77,73 +77,156 @@ export default function Hero({ initialLocale = 'en', initialDir = 'ltr' }: HeroP
   const subtitleText = useMemo(() => t('hero.subtitle'), [t])
   
   return (
-    <section className="bg-white pt-8 pb-12 md:pt-12 md:pb-20" dir={dir}>
-      <div className="container mx-auto px-4 text-center">
-        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-800 mb-4 md:mb-6">
-          {titleText}
-          <span className="text-primary-600"> {titleHighlightText}</span>
-        </h1>
-        
-        {/* Video */}
-        <div className="mb-6 md:mb-8">
-          <div className="aspect-video w-full max-w-4xl mx-auto rounded-lg overflow-hidden">
-            <video 
-              className="w-full h-full object-cover"
-              autoPlay
-              loop
-              muted
-              playsInline
-              preload="auto"
-            >
-              <source src="/videos/start-video.mp4" type="video/mp4" />
-            </video>
+    <section className="bg-gradient-to-b from-white to-gray-50 min-h-[calc(100vh-64px)] md:min-h-0 md:pt-12 md:pb-20" dir={dir}>
+      <div className="container mx-auto px-3 md:px-4">
+        {/* Mobile Layout */}
+        <div className="md:hidden flex flex-col">
+          {/* Title - Above video */}
+          <div className="text-center pt-4 pb-3">
+            <h1 className="text-xl font-bold text-gray-800 leading-tight">
+              {titleText}
+              <span className="text-primary-600"> {titleHighlightText}</span>
+            </h1>
+          </div>
+          
+          {/* Video - Full width on mobile, hero style */}
+          <div className="relative -mx-3 mb-4">
+            <div className="aspect-[16/10] w-full overflow-hidden">
+              <video 
+                className="w-full h-full object-cover"
+                autoPlay
+                loop
+                muted
+                playsInline
+                preload="auto"
+              >
+                <source src="/videos/start-video.mp4" type="video/mp4" />
+              </video>
+              {/* Gradient overlay for text readability */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent pointer-events-none" />
+            </div>
+          </div>
+          
+          {/* Content below video */}
+          <div className="text-center px-1">
+            {/* GENOSYS Logo */}
+            <div className="mb-3 flex justify-center">
+              <Image 
+                src="/images/genosys-logo.png" 
+                alt="GENOSYS Middle East FZ-LLC - Official Korean Dermacosmetics Distributor UAE" 
+                width={120}
+                height={120}
+                className="h-12 w-auto"
+                style={{ width: 'auto', height: 'auto' }}
+                priority
+              />
+            </div>
+            
+            {/* Subtitle */}
+            <p className="text-sm text-gray-600 mb-4 leading-relaxed">
+              {subtitleText}
+            </p>
+            
+            {/* CTA Buttons */}
+            <div className="flex flex-col gap-2.5 mb-4">
+              {user ? (
+                <Link 
+                  href={productsPath}
+                  className="bg-primary-600 text-white px-5 py-3 rounded-xl font-semibold hover:bg-primary-700 transition-all flex items-center justify-center text-sm shadow-lg shadow-primary-600/25 active:scale-[0.98]"
+                >
+                  {orderNowText}
+                  <ArrowRight className={`${dir === 'rtl' ? 'mr-2 rotate-180' : 'ml-2'} h-4 w-4`} />
+                </Link>
+              ) : (
+                <button
+                  onClick={() => setShowLoginModal(true)}
+                  className="bg-primary-600 text-white px-5 py-3 rounded-xl font-semibold hover:bg-primary-700 transition-all flex items-center justify-center text-sm shadow-lg shadow-primary-600/25 active:scale-[0.98]"
+                >
+                  {loginText}
+                  <ArrowRight className={`${dir === 'rtl' ? 'mr-2 rotate-180' : 'ml-2'} h-4 w-4`} />
+                </button>
+              )}
+              <Link 
+                href={aboutPath}
+                className="border-2 border-primary-600 text-primary-600 px-5 py-2.5 rounded-xl font-semibold hover:bg-primary-50 transition-all flex items-center justify-center text-sm active:scale-[0.98]"
+              >
+                {learnMoreText}
+              </Link>
+            </div>
+
+            {/* Black Friday Countdown Timer */}
+            <BlackFridayCountdown />
           </div>
         </div>
-        
-        {/* GENOSYS Logo */}
-        <div className="mb-6 md:mb-8 flex justify-center">
-          <Image 
-            src="/images/genosys-logo.png" 
-            alt="GENOSYS Middle East FZ-LLC - Official Korean Dermacosmetics Distributor UAE" 
-            width={160}
-            height={160}
-            className="h-16 md:h-20 w-auto"
-            style={{ width: 'auto', height: 'auto' }}
-            priority
-          />
-        </div>
-        
-        <p className="text-lg md:text-xl text-gray-600 mb-6 md:mb-8 max-w-2xl mx-auto px-4">
-          {subtitleText}
-        </p>
-        <div className={`flex flex-col gap-3 md:gap-4 justify-center items-center px-4 ${dir === 'rtl' ? 'sm:flex-row-reverse' : 'sm:flex-row'}`}>
-          {user ? (
-            <Link 
-              href={productsPath}
-              className="w-full sm:w-auto bg-primary-600 text-white px-6 md:px-8 py-3 md:py-4 rounded-lg font-semibold hover:bg-primary-700 transition-colors flex items-center justify-center text-base md:text-lg min-h-[44px] touch-manipulation"
-            >
-              {orderNowText}
-              <ArrowRight className={`${dir === 'rtl' ? 'mr-2 rotate-180' : 'ml-2'} h-4 w-4 md:h-5 md:w-5`} />
-            </Link>
-          ) : (
-            <button
-              onClick={() => setShowLoginModal(true)}
-              className="w-full sm:w-auto bg-primary-600 text-white px-6 md:px-8 py-3 md:py-4 rounded-lg font-semibold hover:bg-primary-700 transition-colors flex items-center justify-center text-base md:text-lg min-h-[44px] touch-manipulation"
-            >
-              {loginText}
-              <ArrowRight className={`${dir === 'rtl' ? 'mr-2 rotate-180' : 'ml-2'} h-4 w-4 md:h-5 md:w-5`} />
-            </button>
-          )}
-          <Link 
-            href={aboutPath}
-            className="w-full sm:w-auto border border-primary-600 text-primary-600 px-6 md:px-8 py-3 md:py-4 rounded-lg font-semibold hover:bg-primary-50 transition-colors flex items-center justify-center text-base md:text-lg min-h-[44px] touch-manipulation"
-          >
-            {learnMoreText}
-          </Link>
-        </div>
 
-        {/* Black Friday Countdown Timer */}
-        <BlackFridayCountdown />
+        {/* Desktop Layout */}
+        <div className="hidden md:block text-center">
+          <h1 className="text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-800 mb-6">
+            {titleText}
+            <span className="text-primary-600"> {titleHighlightText}</span>
+          </h1>
+          
+          {/* Video */}
+          <div className="mb-8">
+            <div className="aspect-video w-full max-w-4xl mx-auto rounded-xl overflow-hidden shadow-2xl">
+              <video 
+                className="w-full h-full object-cover"
+                autoPlay
+                loop
+                muted
+                playsInline
+                preload="auto"
+              >
+                <source src="/videos/start-video.mp4" type="video/mp4" />
+              </video>
+            </div>
+          </div>
+          
+          {/* GENOSYS Logo */}
+          <div className="mb-8 flex justify-center">
+            <Image 
+              src="/images/genosys-logo.png" 
+              alt="GENOSYS Middle East FZ-LLC - Official Korean Dermacosmetics Distributor UAE" 
+              width={160}
+              height={160}
+              className="h-20 w-auto"
+              style={{ width: 'auto', height: 'auto' }}
+              priority
+            />
+          </div>
+          
+          <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+            {subtitleText}
+          </p>
+          <div className={`flex gap-4 justify-center items-center ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+            {user ? (
+              <Link 
+                href={productsPath}
+                className="bg-primary-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-primary-700 transition-colors flex items-center text-lg"
+              >
+                {orderNowText}
+                <ArrowRight className={`${dir === 'rtl' ? 'mr-2 rotate-180' : 'ml-2'} h-5 w-5`} />
+              </Link>
+            ) : (
+              <button
+                onClick={() => setShowLoginModal(true)}
+                className="bg-primary-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-primary-700 transition-colors flex items-center text-lg"
+              >
+                {loginText}
+                <ArrowRight className={`${dir === 'rtl' ? 'mr-2 rotate-180' : 'ml-2'} h-5 w-5`} />
+              </button>
+            )}
+            <Link 
+              href={aboutPath}
+              className="border border-primary-600 text-primary-600 px-8 py-4 rounded-lg font-semibold hover:bg-primary-50 transition-colors flex items-center text-lg"
+            >
+              {learnMoreText}
+            </Link>
+          </div>
+
+          {/* Black Friday Countdown Timer */}
+          <BlackFridayCountdown />
+        </div>
       </div>
       
       {/* Login Modal */}

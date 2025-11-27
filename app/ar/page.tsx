@@ -67,7 +67,7 @@ export const metadata: Metadata = {
 export default function ArabicHome() {
   return (
     <MobileRedirect to="/ar/products">
-      <div className="bg-white min-h-screen" dir="rtl">
+      <div className="bg-white" dir="rtl">
         <BreadcrumbSchema 
           items={[
             { name: 'الرئيسية', url: '/ar' }

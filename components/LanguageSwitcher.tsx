@@ -1,18 +1,22 @@
 'use client'
 
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useState } from 'react'
 import { getLocaleFromPath, getLocalizedPath, type Locale } from '@/lib/i18n'
 
 export default function LanguageSwitcher() {
   const pathname = usePathname()
   const router = useRouter()
+  const searchParams = useSearchParams()
   const currentLocale = getLocaleFromPath(pathname)
   const [isOpen, setIsOpen] = useState(false)
 
   const switchLanguage = (locale: Locale) => {
     const newPath = getLocalizedPath(pathname, locale)
-    router.push(newPath)
+    // Preserve query parameters (like ?full=true)
+    const queryString = searchParams.toString()
+    const fullPath = queryString ? `${newPath}?${queryString}` : newPath
+    router.push(fullPath)
     setIsOpen(false)
   }
 

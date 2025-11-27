@@ -164,130 +164,266 @@ const Header = memo(function Header() {
             </div>
           )}
           
-          {/* Desktop Left Side */}
-          <div className="hidden md:flex flex-col">
-            <span className="text-lg md:text-2xl font-bold text-primary-600">
-              Genosys Middle East FZ-LLC
-            </span>
-            <div className="flex text-sm text-gray-600 items-center gap-1 ml-0 md:ml-40 header-margin">
-              {t('common.uae')}
-              <Heart className={`h-3 w-3 text-primary-600 fill-current transition-transform duration-300 ${
-                isHeartBeating ? 'animate-pulse' : ''
-              }`} 
-                     style={isHeartBeating ? {
-                       animation: 'heartbeat 0.6s ease-in-out'
-                     } : {}} />
-            </div>
-          </div>
-          
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex space-x-8" role="navigation" aria-label="Main navigation">
-            <Link href={getLocalizedPath('/', locale)} className="text-gray-700 hover:text-primary-600 transition-colors">
-              {t('navigation.home')}
-            </Link>
-            <Link href={getLocalizedPath('/about', locale)} className="text-gray-700 hover:text-primary-600 transition-colors">
-              {t('navigation.about')}
-            </Link>
-            <Link href={getLocalizedPath('/brand', locale)} className="text-gray-700 hover:text-primary-600 transition-colors">
-              {t('navigation.brand')}
-            </Link>
-            <Link href={getLocalizedPath('/products', locale)} className="text-gray-700 hover:text-primary-600 transition-colors">
-              {t('navigation.products')}
-            </Link>
-            {isClient && user && (
-              <Link href={getLocalizedPath('/training', locale)} className="text-gray-700 hover:text-primary-600 transition-colors">
-                {t('navigation.training')}
-              </Link>
-            )}
-            <Link href={getLocalizedPath('/contact', locale)} className="text-gray-700 hover:text-primary-600 transition-colors">
-              {t('navigation.contact')}
-            </Link>
-            <Link href={getLocalizedPath('/delivery', locale)} className="text-gray-700 hover:text-primary-600 transition-colors">
-              {t('navigation.delivery')}
-            </Link>
-          </nav>
-          
-          <div className="hidden lg:flex items-center space-x-6 header-desktop-right">
-            <div className="flex flex-col items-end text-right header-contact">
-              <div className="text-sm text-gray-600">
-                {t('footer.officialDistributor')}
+          {/* Desktop Header - English Version (LTR) */}
+          {locale !== 'ar' && (
+            <>
+              {/* Desktop Left Side */}
+              <div className="hidden md:flex flex-col">
+                <span className="text-lg md:text-2xl font-bold text-primary-600">
+                  Genosys Middle East FZ-LLC
+                </span>
+                <div className="flex text-sm text-gray-600 items-center gap-1 ml-0 md:ml-40 header-margin">
+                  {t('common.uae')}
+                  <Heart className={`h-3 w-3 text-primary-600 fill-current transition-transform duration-300 ${
+                    isHeartBeating ? 'animate-pulse' : ''
+                  }`} 
+                         style={isHeartBeating ? {
+                           animation: 'heartbeat 0.6s ease-in-out'
+                         } : {}} />
+                </div>
               </div>
-              <a 
-                href="https://wa.me/971585487665" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-sm text-gray-600 hover:text-green-600 transition-colors flex items-center gap-1 header-contact-link"
-              >
-                +971 58 548 76 65 📱
-              </a>
-              <a 
-                href="mailto:sales@genosys.ae"
-                className="text-sm text-gray-600 hover:text-primary-600 transition-colors"
-              >
-                sales@genosys.ae
-              </a>
-            </div>
-            
-            <div className="flex items-center space-x-4 header-icons">
-              {isClient && user ? (
-                <>
-                  <Link 
-                    href={getLocalizedPath('/profile', locale)} 
-                    className="p-2 text-gray-700 hover:text-primary-600 transition-colors"
-                    aria-label={t('common.profile')}
-                  >
-                    <User className="h-6 w-6 text-green-600" aria-hidden="true" />
+              
+              {/* Desktop Navigation */}
+              <nav className="hidden md:flex space-x-8" role="navigation" aria-label="Main navigation">
+                <Link href={getLocalizedPath('/', locale)} className="text-gray-700 hover:text-primary-600 transition-colors">
+                  {t('navigation.home')}
+                </Link>
+                <Link href={getLocalizedPath('/about', locale)} className="text-gray-700 hover:text-primary-600 transition-colors">
+                  {t('navigation.about')}
+                </Link>
+                <Link href={getLocalizedPath('/brand', locale)} className="text-gray-700 hover:text-primary-600 transition-colors">
+                  {t('navigation.brand')}
+                </Link>
+                <Link href={getLocalizedPath('/products', locale)} className="text-gray-700 hover:text-primary-600 transition-colors">
+                  {t('navigation.products')}
+                </Link>
+                {isClient && user && (
+                  <Link href={getLocalizedPath('/training', locale)} className="text-gray-700 hover:text-primary-600 transition-colors">
+                    {t('navigation.training')}
                   </Link>
-                  <LanguageSwitcher />
-                  <button 
-                    onClick={logout}
-                    className="p-2 text-gray-700 hover:text-primary-600 transition-colors"
-                    aria-label={t('common.logout')}
-                  >
-                    <LogOut className="h-6 w-6" aria-hidden="true" />
-                  </button>
-                </>
-              ) : (
-                <>
-                  <button 
-                    onClick={() => setShowLoginModal(true)}
-                    className="p-2 text-gray-700 hover:text-primary-600 transition-colors flex items-center gap-2 touch-manipulation"
-                    aria-label={t('common.login')}
-                  >
-                    <User className="h-5 w-5 text-green-600" aria-hidden="true" />
-                    <span className="text-sm font-medium hidden sm:inline">{t('common.login')}</span>
-                  </button>
-                  <LanguageSwitcher />
-                </>
-              )}
-              
-              <Link 
-                href={getLocalizedPath('/favorites', locale)} 
-                className="relative p-2 text-gray-700 hover:text-primary-600 transition-colors touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center"
-                aria-label={`${t('common.favorites')} with ${isClient ? favorites.length : 0} items`}
-              >
-                <Heart className="h-6 w-6" aria-hidden="true" />
-                {isClient && favorites.length > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-primary-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center header-badge" aria-hidden="true">
-                    {favorites.length}
-                  </span>
                 )}
-              </Link>
+                <Link href={getLocalizedPath('/contact', locale)} className="text-gray-700 hover:text-primary-600 transition-colors">
+                  {t('navigation.contact')}
+                </Link>
+                <Link href={getLocalizedPath('/delivery', locale)} className="text-gray-700 hover:text-primary-600 transition-colors">
+                  {t('navigation.delivery')}
+                </Link>
+              </nav>
               
-              <Link 
-                href={getLocalizedPath('/cart', locale)} 
-                className="relative p-2 text-gray-700 hover:text-primary-600 transition-colors touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center"
-                aria-label={`${t('common.cart')} with ${isClient ? getTotalItems() : 0} items`}
-              >
-                <ShoppingCart className="h-6 w-6" aria-hidden="true" />
-                {isClient && getTotalItems() > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-primary-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center header-badge" aria-hidden="true">
-                    {getTotalItems()}
-                  </span>
+              <div className="hidden lg:flex items-center space-x-6 header-desktop-right">
+                <div className="flex flex-col items-end text-right header-contact">
+                  <div className="text-sm text-gray-600">
+                    {t('footer.officialDistributor')}
+                  </div>
+                  <a 
+                    href="https://wa.me/971585487665" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-sm text-gray-600 hover:text-green-600 transition-colors flex items-center gap-1 header-contact-link"
+                  >
+                    +971 58 548 76 65 📱
+                  </a>
+                  <a 
+                    href="mailto:sales@genosys.ae"
+                    className="text-sm text-gray-600 hover:text-primary-600 transition-colors"
+                  >
+                    sales@genosys.ae
+                  </a>
+                </div>
+                
+                <div className="flex items-center space-x-4 header-icons">
+                  {isClient && user ? (
+                    <>
+                      <Link 
+                        href={getLocalizedPath('/profile', locale)} 
+                        className="p-2 text-gray-700 hover:text-primary-600 transition-colors"
+                        aria-label={t('common.profile')}
+                      >
+                        <User className="h-6 w-6 text-green-600" aria-hidden="true" />
+                      </Link>
+                      <LanguageSwitcher />
+                      <button 
+                        onClick={logout}
+                        className="p-2 text-gray-700 hover:text-primary-600 transition-colors"
+                        aria-label={t('common.logout')}
+                      >
+                        <LogOut className="h-6 w-6" aria-hidden="true" />
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <button 
+                        onClick={() => setShowLoginModal(true)}
+                        className="p-2 text-gray-700 hover:text-primary-600 transition-colors flex items-center gap-2 touch-manipulation"
+                        aria-label={t('common.login')}
+                      >
+                        <User className="h-5 w-5 text-green-600" aria-hidden="true" />
+                        <span className="text-sm font-medium hidden sm:inline">{t('common.login')}</span>
+                      </button>
+                      <LanguageSwitcher />
+                    </>
+                  )}
+                  
+                  <Link 
+                    href={getLocalizedPath('/favorites', locale)} 
+                    className="relative p-2 text-gray-700 hover:text-primary-600 transition-colors touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center"
+                    aria-label={`${t('common.favorites')} with ${isClient ? favorites.length : 0} items`}
+                  >
+                    <Heart className="h-6 w-6" aria-hidden="true" />
+                    {isClient && favorites.length > 0 && (
+                      <span className="absolute -top-1 -right-1 bg-primary-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center header-badge" aria-hidden="true">
+                        {favorites.length}
+                      </span>
+                    )}
+                  </Link>
+                  
+                  <Link 
+                    href={getLocalizedPath('/cart', locale)} 
+                    className="relative p-2 text-gray-700 hover:text-primary-600 transition-colors touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center"
+                    aria-label={`${t('common.cart')} with ${isClient ? getTotalItems() : 0} items`}
+                  >
+                    <ShoppingCart className="h-6 w-6" aria-hidden="true" />
+                    {isClient && getTotalItems() > 0 && (
+                      <span className="absolute -top-1 -right-1 bg-primary-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center header-badge" aria-hidden="true">
+                        {getTotalItems()}
+                      </span>
+                    )}
+                  </Link>
+                </div>
+              </div>
+            </>
+          )}
+
+          {/* Desktop Header - Arabic Version (RTL) */}
+          {locale === 'ar' && (
+            <>
+              {/* Desktop Right Side (appears on left for RTL) - Icons */}
+              <div className="hidden lg:flex items-center space-x-reverse space-x-6 header-desktop-right">
+                <div className="flex items-center space-x-reverse space-x-4 header-icons">
+                  <Link 
+                    href={getLocalizedPath('/cart', locale)} 
+                    className="relative p-2 text-gray-700 hover:text-primary-600 transition-colors touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center"
+                    aria-label={`${t('common.cart')} with ${isClient ? getTotalItems() : 0} items`}
+                  >
+                    <ShoppingCart className="h-6 w-6" aria-hidden="true" />
+                    {isClient && getTotalItems() > 0 && (
+                      <span className="absolute -top-1 -left-1 bg-primary-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center header-badge" aria-hidden="true">
+                        {getTotalItems()}
+                      </span>
+                    )}
+                  </Link>
+                  
+                  <Link 
+                    href={getLocalizedPath('/favorites', locale)} 
+                    className="relative p-2 text-gray-700 hover:text-primary-600 transition-colors touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center"
+                    aria-label={`${t('common.favorites')} with ${isClient ? favorites.length : 0} items`}
+                  >
+                    <Heart className="h-6 w-6" aria-hidden="true" />
+                    {isClient && favorites.length > 0 && (
+                      <span className="absolute -top-1 -left-1 bg-primary-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center header-badge" aria-hidden="true">
+                        {favorites.length}
+                      </span>
+                    )}
+                  </Link>
+                  
+                  {isClient && user ? (
+                    <>
+                      <button 
+                        onClick={logout}
+                        className="p-2 text-gray-700 hover:text-primary-600 transition-colors"
+                        aria-label={t('common.logout')}
+                      >
+                        <LogOut className="h-6 w-6" aria-hidden="true" />
+                      </button>
+                      <LanguageSwitcher />
+                      <Link 
+                        href={getLocalizedPath('/profile', locale)} 
+                        className="p-2 text-gray-700 hover:text-primary-600 transition-colors"
+                        aria-label={t('common.profile')}
+                      >
+                        <User className="h-6 w-6 text-green-600" aria-hidden="true" />
+                      </Link>
+                    </>
+                  ) : (
+                    <>
+                      <LanguageSwitcher />
+                      <button 
+                        onClick={() => setShowLoginModal(true)}
+                        className="p-2 text-gray-700 hover:text-primary-600 transition-colors flex items-center gap-2 touch-manipulation"
+                        aria-label={t('common.login')}
+                      >
+                        <span className="text-sm font-medium hidden sm:inline">{t('common.login')}</span>
+                        <User className="h-5 w-5 text-green-600" aria-hidden="true" />
+                      </button>
+                    </>
+                  )}
+                </div>
+                
+                <div className="flex flex-col items-start text-left header-contact">
+                  <div className="text-sm text-gray-600">
+                    {t('footer.officialDistributor')}
+                  </div>
+                  <a 
+                    href="https://wa.me/971585487665" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-sm text-gray-600 hover:text-green-600 transition-colors flex items-center gap-1 header-contact-link"
+                  >
+                    📱 +971 58 548 76 65
+                  </a>
+                  <a 
+                    href="mailto:sales@genosys.ae"
+                    className="text-sm text-gray-600 hover:text-primary-600 transition-colors"
+                  >
+                    sales@genosys.ae
+                  </a>
+                </div>
+              </div>
+              
+              {/* Desktop Navigation - RTL */}
+              <nav className="hidden md:flex space-x-reverse space-x-8" role="navigation" aria-label="Main navigation">
+                <Link href={getLocalizedPath('/delivery', locale)} className="text-gray-700 hover:text-primary-600 transition-colors">
+                  {t('navigation.delivery')}
+                </Link>
+                <Link href={getLocalizedPath('/contact', locale)} className="text-gray-700 hover:text-primary-600 transition-colors">
+                  {t('navigation.contact')}
+                </Link>
+                {isClient && user && (
+                  <Link href={getLocalizedPath('/training', locale)} className="text-gray-700 hover:text-primary-600 transition-colors">
+                    {t('navigation.training')}
+                  </Link>
                 )}
-              </Link>
-            </div>
-          </div>
+                <Link href={getLocalizedPath('/products', locale)} className="text-gray-700 hover:text-primary-600 transition-colors">
+                  {t('navigation.products')}
+                </Link>
+                <Link href={getLocalizedPath('/brand', locale)} className="text-gray-700 hover:text-primary-600 transition-colors">
+                  {t('navigation.brand')}
+                </Link>
+                <Link href={getLocalizedPath('/about', locale)} className="text-gray-700 hover:text-primary-600 transition-colors">
+                  {t('navigation.about')}
+                </Link>
+                <Link href={getLocalizedPath('/', locale)} className="text-gray-700 hover:text-primary-600 transition-colors">
+                  {t('navigation.home')}
+                </Link>
+              </nav>
+              
+              {/* Desktop Left Side (appears on right for RTL) - Logo */}
+              <div className="hidden md:flex flex-col items-end">
+                <span className="text-lg md:text-2xl font-bold text-primary-600">
+                  Genosys Middle East FZ-LLC
+                </span>
+                <div className="flex text-sm text-gray-600 items-center gap-1 mr-0 md:mr-40 header-margin">
+                  <Heart className={`h-3 w-3 text-primary-600 fill-current transition-transform duration-300 ${
+                    isHeartBeating ? 'animate-pulse' : ''
+                  }`} 
+                         style={isHeartBeating ? {
+                           animation: 'heartbeat 0.6s ease-in-out'
+                         } : {}} />
+                  {t('common.uae')}
+                </div>
+              </div>
+            </>
+          )}
         </div>
       </div>
 

@@ -535,102 +535,106 @@ export default function CheckoutClient() {
   }
 
   return (
-    <div className={`container mx-auto px-4 py-4 md:py-8 lg:py-16 ${dir === 'rtl' ? 'text-right' : ''}`} dir={dir}>
+    <div className={`container mx-auto px-3 md:px-4 py-3 md:py-8 lg:py-16 ${dir === 'rtl' ? 'text-right' : ''}`} dir={dir}>
       {/* Navigation Breadcrumb */}
-      <nav className={`text-xs md:text-base text-gray-600 mb-2 md:mb-4 ${dir === 'rtl' ? 'text-right' : ''}`} aria-label="Breadcrumb">
-        <Link href={getLocalizedPath('/', locale)} className="hover:text-primary-600 transition-colors">{t('checkout.home')}</Link>
-        <span> / </span>
-        <Link href={getLocalizedPath('/products', locale)} className="hover:text-primary-600 transition-colors">{t('checkout.products')}</Link>
-        <span> / </span>
-        <Link href={getLocalizedPath('/cart', locale)} className="hover:text-primary-600 transition-colors">{t('checkout.cart')}</Link>
-        <span> / </span>
-        <span className="text-gray-900 font-medium">{t('checkout.checkout')}</span>
-      </nav>
+      <div className={`${dir === 'rtl' ? 'flex justify-end' : ''}`}>
+        <nav className={`inline-flex items-baseline gap-1 md:gap-1.5 text-xs md:text-base text-gray-600 mb-1.5 md:mb-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`} aria-label="Breadcrumb">
+          <Link href={getLocalizedPath('/', locale)} className="hover:text-primary-600 transition-colors">{t('checkout.home')}</Link>
+          <span>/</span>
+          <Link href={getLocalizedPath('/products', locale)} className="hover:text-primary-600 transition-colors">{t('checkout.products')}</Link>
+          <span>/</span>
+          <Link href={getLocalizedPath('/cart', locale)} className="hover:text-primary-600 transition-colors">{t('checkout.cart')}</Link>
+          <span>/</span>
+          <span className="text-gray-900 font-medium">{t('checkout.checkout')}</span>
+        </nav>
+      </div>
       
       {/* Back to Cart */}
-      <Link 
-        href={getLocalizedPath('/cart', locale)} 
-        className={`inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 mb-4 md:mb-8 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
-      >
-        <ArrowLeft className={`h-3 w-3 md:h-4 md:w-4 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
-        <span>{t('checkout.backToCart')}</span>
-      </Link>
+      <div className={`mb-3 md:mb-8 ${dir === 'rtl' ? 'flex justify-end' : ''}`}>
+        <Link 
+          href={getLocalizedPath('/cart', locale)} 
+          className={`inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+        >
+          <ArrowLeft className={`h-3 w-3 md:h-4 md:w-4 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
+          <span>{t('checkout.backToCart')}</span>
+        </Link>
+      </div>
 
       <div className="max-w-6xl mx-auto">
-        <div className={`flex flex-col lg:flex-row gap-8 ${dir === 'rtl' ? 'lg:flex-row-reverse' : ''}`}>
+        <div className={`flex flex-col lg:flex-row gap-4 md:gap-8 ${dir === 'rtl' ? 'lg:flex-row-reverse' : ''}`}>
           {/* Checkout Form */}
           <div className="lg:w-2/3">
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200">
-              <div className="p-6 border-b border-gray-200">
-                <h1 className={`text-2xl font-bold text-gray-900 flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                  <CreditCard className="h-6 w-6 text-green-600" />
+            <div className="bg-white rounded-lg md:rounded-xl shadow-sm border border-gray-200">
+              <div className="p-3 md:p-6 border-b border-gray-200">
+                <h1 className={`text-lg md:text-2xl font-bold text-gray-900 flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                  <CreditCard className="h-5 w-5 md:h-6 md:w-6 text-green-600" />
                   {t('checkout.title')}
                 </h1>
               </div>
               
-              <form onSubmit={handleSubmit} className="p-6 space-y-6">
+              <form onSubmit={handleSubmit} className="p-3 md:p-6 space-y-4 md:space-y-6">
 
                 {/* Shipping Information */}
-                <div className="space-y-4">
-                  <h2 className={`text-lg font-semibold text-gray-900 flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                    <MapPin className="h-5 w-5 text-red-600" />
+                <div className="space-y-3 md:space-y-4">
+                  <h2 className={`text-base md:text-lg font-semibold text-gray-900 flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                    <MapPin className="h-4 w-4 md:h-5 md:w-5 text-red-600" />
                     {t('checkout.shippingInfo')}
                   </h2>
                   
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-2 gap-2 md:gap-4">
                     <div>
-                      <label className={`block text-sm font-medium text-gray-700 mb-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                      <label className={`block text-[10px] md:text-sm font-medium text-gray-700 mb-0.5 md:mb-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
                         {t('checkout.firstName')} *
                       </label>
                       <input
                         type="text"
                         required
                         defaultValue={firstName}
-                        className={`w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900 ${dir === 'rtl' ? 'text-right' : ''}`}
+                        className={`w-full px-2 py-1.5 md:p-3 text-xs md:text-base border border-gray-300 rounded-md md:rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900 ${dir === 'rtl' ? 'text-right' : ''}`}
                         placeholder={t('checkout.enterFirstName')}
                         style={{ color: '#111827', backgroundColor: '#ffffff' }}
                       />
                     </div>
                     
                     <div>
-                      <label className={`block text-sm font-medium text-gray-700 mb-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                      <label className={`block text-[10px] md:text-sm font-medium text-gray-700 mb-0.5 md:mb-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
                         {t('checkout.lastName')} *
                       </label>
                       <input
                         type="text"
                         required
                         defaultValue={lastName}
-                        className={`w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900 ${dir === 'rtl' ? 'text-right' : ''}`}
+                        className={`w-full px-2 py-1.5 md:p-3 text-xs md:text-base border border-gray-300 rounded-md md:rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900 ${dir === 'rtl' ? 'text-right' : ''}`}
                         placeholder={t('checkout.enterLastName')}
                         style={{ color: '#111827', backgroundColor: '#ffffff' }}
                       />
                     </div>
                   </div>
                   
-                  <div className="space-y-4">
+                  <div className="space-y-2 md:space-y-4">
                     <div>
-                      <label className={`block text-sm font-medium text-gray-700 mb-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                      <label className={`block text-[10px] md:text-sm font-medium text-gray-700 mb-0.5 md:mb-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
                         {t('checkout.emailAddress')} *
                       </label>
                       <input
                         type="email"
                         required
                         defaultValue={user?.email || ''}
-                        className={`w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900 ${dir === 'rtl' ? 'text-right' : ''}`}
+                        className={`w-full px-2 py-1.5 md:p-3 text-xs md:text-base border border-gray-300 rounded-md md:rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900 ${dir === 'rtl' ? 'text-right' : ''}`}
                         placeholder={t('checkout.enterEmailAddress')}
                         style={{ color: '#111827', backgroundColor: '#ffffff' }}
                       />
                     </div>
                     
                     <div>
-                      <label className={`block text-sm font-medium text-gray-700 mb-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                      <label className={`block text-[10px] md:text-sm font-medium text-gray-700 mb-0.5 md:mb-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
                         {t('checkout.phoneNumber')} *
                       </label>
                       <input
                         type="tel"
                         required
                         defaultValue={user?.phone || ''}
-                        className={`w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900 ${dir === 'rtl' ? 'text-right' : ''}`}
+                        className={`w-full px-2 py-1.5 md:p-3 text-xs md:text-base border border-gray-300 rounded-md md:rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900 ${dir === 'rtl' ? 'text-right' : ''}`}
                         placeholder={t('checkout.enterPhoneNumber')}
                         style={{ color: '#111827', backgroundColor: '#ffffff' }}
                       />
@@ -638,27 +642,27 @@ export default function CheckoutClient() {
                   </div>
                   
                   <div>
-                    <label className={`block text-sm font-medium text-gray-700 mb-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                    <label className={`block text-[10px] md:text-sm font-medium text-gray-700 mb-0.5 md:mb-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
                       {t('checkout.deliveryAddress')} *
                     </label>
                     <textarea
                       required
-                      rows={3}
+                      rows={2}
                       defaultValue={user?.address || ''}
-                      className={`w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900 ${dir === 'rtl' ? 'text-right' : ''}`}
+                      className={`w-full px-2 py-1.5 md:p-3 text-xs md:text-base border border-gray-300 rounded-md md:rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900 ${dir === 'rtl' ? 'text-right' : ''}`}
                       placeholder={t('checkout.enterDeliveryAddress')}
                       style={{ color: '#111827', backgroundColor: '#ffffff' }}
                     />
                   </div>
                   
                   <div>
-                    <label className={`block text-sm font-medium text-gray-700 mb-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                    <label className={`block text-[10px] md:text-sm font-medium text-gray-700 mb-0.5 md:mb-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
                       {t('checkout.deliveryLocation')} *
                     </label>
                     <select
                       value={selectedEmirate}
                       onChange={(e) => setSelectedEmirate(e.target.value)}
-                      className={`w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900 ${dir === 'rtl' ? 'text-right' : ''}`}
+                      className={`w-full px-2 py-1.5 md:p-3 text-xs md:text-base border border-gray-300 rounded-md md:rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900 ${dir === 'rtl' ? 'text-right' : ''}`}
                       style={{ color: '#111827' }}
                     >
                       {emirates.map((emirate) => (
@@ -671,61 +675,61 @@ export default function CheckoutClient() {
                 </div>
 
                 {/* Payment Information */}
-                <div className="space-y-4">
-                  <h2 className={`text-lg font-semibold text-gray-900 flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                    <CreditCard className="h-5 w-5 text-green-600" />
+                <div className="space-y-3 md:space-y-4">
+                  <h2 className={`text-base md:text-lg font-semibold text-gray-900 flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                    <CreditCard className="h-4 w-4 md:h-5 md:w-5 text-green-600" />
                     {t('checkout.paymentInformation')}
                   </h2>
                   
-                  <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
-                    <div className={`flex items-center gap-2 text-blue-800 mb-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                      <Building className="h-5 w-5" />
-                      <span className="font-semibold">{t('checkout.payment')}</span>
+                  <div className="p-3 md:p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                    <div className={`flex items-center gap-2 text-blue-800 mb-1.5 md:mb-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                      <Building className="h-4 w-4 md:h-5 md:w-5" />
+                      <span className="font-semibold text-sm md:text-base">{t('checkout.payment')}</span>
                     </div>
-                    <p className={`text-sm text-blue-700 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                    <p className={`text-xs md:text-sm text-blue-700 ${dir === 'rtl' ? 'text-right' : ''}`}>
                       {t('checkout.paymentDescription')}
                     </p>
                   </div>
                   
-                  <div className="space-y-3">
-                    <label className={`flex items-start gap-3 p-3 md:p-4 border border-gray-300 rounded-lg cursor-not-allowed opacity-50 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                  <div className="space-y-2 md:space-y-3">
+                    <label className={`flex items-start gap-2.5 md:gap-3 p-2.5 md:p-4 border border-gray-300 rounded-lg cursor-not-allowed opacity-50 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                       <input
                         type="radio"
                         name="payment"
                         value="stripe-checkout"
                         disabled
-                        className="text-gray-400 mt-1 flex-shrink-0"
+                        className="text-gray-400 mt-0.5 flex-shrink-0"
                       />
                       <div className={`flex-1 ${dir === 'rtl' ? 'text-right' : ''}`}>
-                        <div className="font-medium text-gray-500 text-sm md:text-base">{t('checkout.stripeCheckout')}</div>
-                        <div className="text-xs md:text-sm text-gray-400">{t('checkout.comingSoon')}</div>
+                        <div className="font-medium text-gray-500 text-xs md:text-base">{t('checkout.stripeCheckout')}</div>
+                        <div className="text-[10px] md:text-sm text-gray-400">{t('checkout.comingSoon')}</div>
                       </div>
                     </label>
                     
-                    <label className={`flex items-start gap-3 p-3 md:p-4 border border-primary-300 rounded-lg cursor-pointer hover:bg-primary-50 bg-primary-25 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                    <label className={`flex items-start gap-2.5 md:gap-3 p-2.5 md:p-4 border-2 border-primary-400 rounded-lg cursor-pointer hover:bg-primary-50 bg-primary-50/50 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                       <input
                         type="radio"
                         name="payment"
                         value="cod"
                         defaultChecked
-                        className="text-primary-600 focus:ring-primary-500 mt-1 flex-shrink-0"
+                        className="text-primary-600 focus:ring-primary-500 mt-0.5 flex-shrink-0"
                       />
                       <div className={`flex-1 ${dir === 'rtl' ? 'text-right' : ''}`}>
-                        <div className="font-medium text-gray-900 text-sm md:text-base">{t('checkout.cod')}</div>
-                        <div className="text-xs md:text-sm text-gray-600">{t('checkout.payWhenDelivered')}</div>
+                        <div className="font-medium text-gray-900 text-xs md:text-base">{t('checkout.cod')}</div>
+                        <div className="text-[10px] md:text-sm text-gray-600">{t('checkout.payWhenDelivered')}</div>
                       </div>
                     </label>
 
-                    <label className={`flex items-start gap-3 p-3 md:p-4 border border-primary-300 rounded-lg cursor-pointer hover:bg-primary-50 bg-primary-25 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                    <label className={`flex items-start gap-2.5 md:gap-3 p-2.5 md:p-4 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                       <input
                         type="radio"
                         name="payment"
                         value="support-link"
-                        className="text-primary-600 focus:ring-primary-500 mt-1 flex-shrink-0"
+                        className="text-primary-600 focus:ring-primary-500 mt-0.5 flex-shrink-0"
                       />
                       <div className={`flex-1 ${dir === 'rtl' ? 'text-right' : ''}`}>
-                        <div className="font-medium text-gray-900 text-sm md:text-base">{t('checkout.generateLinkForPayment')}</div>
-                        <div className="text-xs md:text-sm text-gray-600">{t('checkout.supportTeamWillShareLink')}</div>
+                        <div className="font-medium text-gray-900 text-xs md:text-base">{t('checkout.generateLinkForPayment')}</div>
+                        <div className="text-[10px] md:text-sm text-gray-600">{t('checkout.supportTeamWillShareLink')}</div>
                       </div>
                     </label>
                   </div>
@@ -733,12 +737,12 @@ export default function CheckoutClient() {
 
                 {/* Order Notes */}
                 <div>
-                  <label className={`block text-sm font-medium text-gray-700 mb-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                  <label className={`block text-[10px] md:text-sm font-medium text-gray-700 mb-0.5 md:mb-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
                     {t('checkout.orderNotes')}
                   </label>
                   <textarea
-                    rows={3}
-                    className={`w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900 ${dir === 'rtl' ? 'text-right' : ''}`}
+                    rows={2}
+                    className={`w-full px-2 py-1.5 md:p-3 text-xs md:text-base border border-gray-300 rounded-md md:rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900 ${dir === 'rtl' ? 'text-right' : ''}`}
                     placeholder={t('checkout.orderNotesPlaceholder')}
                     style={{ color: '#111827', backgroundColor: '#ffffff' }}
                   />
@@ -748,17 +752,17 @@ export default function CheckoutClient() {
                 <button
                   type="submit"
                   disabled={isProcessing}
-                  className={`w-full bg-primary-600 text-white py-4 rounded-lg font-semibold hover:bg-primary-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+                  className={`w-full bg-primary-600 text-white py-3 md:py-4 rounded-lg text-sm md:text-base font-semibold hover:bg-primary-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
                 >
                   {isProcessing ? (
                     <>
-                      <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
-                      {t('checkout.processingOrder')}
+                      <div className="animate-spin rounded-full h-4 w-4 md:h-5 md:w-5 border-b-2 border-white"></div>
+                      <span className="text-sm md:text-base">{t('checkout.processingOrder')}</span>
                     </>
                   ) : (
                     <>
-                      <CreditCard className="h-5 w-5" />
-                      {t('checkout.completeOrder')} - AED {total.toFixed(2)}
+                      <CreditCard className="h-4 w-4 md:h-5 md:w-5" />
+                      <span>{t('checkout.completeOrder')} - AED {total.toFixed(2)}</span>
                     </>
                   )}
                 </button>
@@ -768,22 +772,22 @@ export default function CheckoutClient() {
 
           {/* Order Summary */}
           <div className="lg:w-1/3">
-            <div className="bg-white rounded-xl shadow-lg border border-gray-100 sticky top-4 order-summary-container" style={{ overflow: 'hidden', overflowY: 'hidden', overflowX: 'hidden' }}>
+            <div className="bg-white rounded-lg md:rounded-xl shadow-md md:shadow-lg border border-gray-100 sticky top-4 order-summary-container" style={{ overflow: 'hidden', overflowY: 'hidden', overflowX: 'hidden' }}>
               {/* Header */}
-              <div className="bg-gradient-to-r from-primary-600 to-primary-700 px-6 py-4">
+              <div className="bg-gradient-to-r from-primary-600 to-primary-700 px-3 md:px-6 py-3 md:py-4">
                 <div className={`flex justify-between items-center ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                   <div className={dir === 'rtl' ? 'text-left' : 'text-right'}>
-                    <div className="text-lg font-mono font-bold text-white">{t('checkout.orderNumber')} {orderNumber}</div>
+                    <div className="text-sm md:text-lg font-mono font-bold text-white">{t('checkout.orderNumber')} {orderNumber}</div>
                   </div>
                 </div>
               </div>
 
-              <div className="p-6">
+              <div className="p-3 md:p-6">
                 {/* Items List */}
-                <div className="mb-6">
-                  <h3 className={`text-sm font-semibold text-gray-700 mb-4 uppercase tracking-wide ${dir === 'rtl' ? 'text-right' : ''}`}>{t('checkout.itemsLabel')}</h3>
+                <div className="mb-4 md:mb-6">
+                  <h3 className={`text-xs md:text-sm font-semibold text-gray-700 mb-3 md:mb-4 uppercase tracking-wide ${dir === 'rtl' ? 'text-right' : ''}`}>{t('checkout.itemsLabel')}</h3>
                   {items.length > 0 || freeMasks.length > 0 ? (
-                    <div className="space-y-4">
+                    <div className="space-y-3 md:space-y-4">
                       {items.map((item) => {
                         const pricing = calculateDiscountedPrice(item.product, user)
                         const quantity = item.quantity || 1
@@ -791,18 +795,18 @@ export default function CheckoutClient() {
                         return (
                           <div key={item.product.id} className={`flex items-start justify-between ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                             <div className="flex-1 min-w-0">
-                              <h4 className={`text-sm font-medium text-gray-900 leading-tight ${dir === 'rtl' ? 'text-right' : ''}`}>
+                              <h4 className={`text-xs md:text-sm font-medium text-gray-900 leading-tight ${dir === 'rtl' ? 'text-right' : ''}`}>
                                 {item.product.name}
                               </h4>
-                              <div className={`flex items-center gap-2 mt-1 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                                <span className="text-xs text-gray-500">{t('checkout.qty')} {quantity}</span>
+                              <div className={`flex items-center gap-1.5 md:gap-2 mt-0.5 md:mt-1 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                                <span className="text-[10px] md:text-xs text-gray-500">{t('checkout.qty')} {quantity}</span>
                                 {pricing.hasDiscount && (
-                                  <span className="text-xs text-green-600 font-medium">({pricing.discountPercentage}% {t('product.off')})</span>
+                                  <span className="text-[10px] md:text-xs text-green-600 font-medium">({pricing.discountPercentage}% {t('product.off')})</span>
                                 )}
                               </div>
                             </div>
-                            <div className={dir === 'rtl' ? 'text-left mr-3' : 'text-right ml-3'}>
-                              <div className="text-sm font-semibold text-gray-900">
+                            <div className={dir === 'rtl' ? 'text-left mr-2 md:mr-3' : 'text-right ml-2 md:ml-3'}>
+                              <div className="text-xs md:text-sm font-semibold text-gray-900">
                                 AED {total.toFixed(2)}
                               </div>
                             </div>
@@ -812,15 +816,15 @@ export default function CheckoutClient() {
                       {freeMasks.map((mask) => (
                         <div key={mask.id} className={`flex items-start justify-between ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                           <div className="flex-1 min-w-0">
-                            <h4 className={`text-sm font-medium text-gray-900 leading-tight ${dir === 'rtl' ? 'text-right' : ''}`}>
+                            <h4 className={`text-xs md:text-sm font-medium text-gray-900 leading-tight ${dir === 'rtl' ? 'text-right' : ''}`}>
                               {mask.name} <span className="text-green-600 font-semibold">({t('checkout.free')})</span>
                             </h4>
-                            <div className={`flex items-center gap-2 mt-1 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                              <span className="text-xs text-gray-500">{t('checkout.qty')} {mask.quantity}</span>
+                            <div className={`flex items-center gap-1.5 md:gap-2 mt-0.5 md:mt-1 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                              <span className="text-[10px] md:text-xs text-gray-500">{t('checkout.qty')} {mask.quantity}</span>
                             </div>
                           </div>
-                          <div className={dir === 'rtl' ? 'text-left mr-3' : 'text-right ml-3'}>
-                            <div className="text-sm font-semibold text-green-600">
+                          <div className={dir === 'rtl' ? 'text-left mr-2 md:mr-3' : 'text-right ml-2 md:ml-3'}>
+                            <div className="text-xs md:text-sm font-semibold text-green-600">
                               {t('checkout.free')}
                             </div>
                           </div>
@@ -843,54 +847,54 @@ export default function CheckoutClient() {
                 </div>
                 
                 {/* Price Breakdown */}
-                <div className="space-y-3 mb-6">
-                  <div className={`flex justify-between items-center py-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                    <span className={`text-sm text-gray-600 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                <div className="space-y-2 md:space-y-3 mb-4 md:mb-6">
+                  <div className={`flex justify-between items-center py-1.5 md:py-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                    <span className={`text-xs md:text-sm text-gray-600 ${dir === 'rtl' ? 'text-right' : ''}`}>
                       {t('checkout.subtotal')} ({getTotalItems()} {getTotalItems() === 1 ? t('checkout.item') : t('checkout.items')}{freeMasks.length > 0 ? ` + ${freeMasks.length} ${freeMasks.length === 1 ? t('checkout.freeMask') : t('checkout.freeMasks')}` : ''})
                     </span>
-                    <span className="text-sm font-medium text-gray-900">AED {subtotal.toFixed(2)}</span>
+                    <span className="text-xs md:text-sm font-medium text-gray-900">AED {subtotal.toFixed(2)}</span>
                   </div>
                   
-                  <div className={`flex justify-between items-center py-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                    <div className={`flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                      <Truck className="h-4 w-4 text-green-600" />
-                      <span className={`text-sm text-gray-600 ${dir === 'rtl' ? 'text-right' : ''}`}>{t('checkout.shippingTo')} {selectedEmirate}</span>
+                  <div className={`flex justify-between items-center py-1.5 md:py-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                    <div className={`flex items-center gap-1.5 md:gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                      <Truck className="h-3.5 w-3.5 md:h-4 md:w-4 text-green-600" />
+                      <span className={`text-xs md:text-sm text-gray-600 ${dir === 'rtl' ? 'text-right' : ''}`}>{t('checkout.shippingTo')} {selectedEmirate}</span>
                     </div>
-                    <span className="text-sm font-medium text-gray-900">
+                    <span className="text-xs md:text-sm font-medium text-gray-900">
                       {shippingCost === 0 ? <span className="text-green-600 font-semibold">{t('checkout.free')}</span> : `AED ${shippingCost}`}
                     </span>
                   </div>
                   
-                  <div className={`flex justify-between items-center py-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                    <span className={`text-sm text-gray-600 ${dir === 'rtl' ? 'text-right' : ''}`}>{t('checkout.vat')}</span>
-                    <span className="text-sm font-medium text-gray-900">AED {vatAmount.toFixed(2)}</span>
+                  <div className={`flex justify-between items-center py-1.5 md:py-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                    <span className={`text-xs md:text-sm text-gray-600 ${dir === 'rtl' ? 'text-right' : ''}`}>{t('checkout.vat')}</span>
+                    <span className="text-xs md:text-sm font-medium text-gray-900">AED {vatAmount.toFixed(2)}</span>
                   </div>
                   
-                  <div className={`text-xs text-red-600 py-2 bg-gray-50 rounded-lg ${dir === 'rtl' ? 'text-right' : 'text-left'}`}>
+                  <div className={`text-[10px] md:text-xs text-red-600 py-1.5 md:py-2 px-2 bg-gray-50 rounded-lg ${dir === 'rtl' ? 'text-right' : 'text-left'}`}>
                     {t('checkout.allPricesIncludeVat')}
                   </div>
                   
-                  <div className="border-t-2 border-gray-200 pt-4">
+                  <div className="border-t-2 border-gray-200 pt-3 md:pt-4">
                     <div className={`flex justify-between items-center ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                      <span className={`text-lg font-bold text-gray-900 ${dir === 'rtl' ? 'text-right' : ''}`}>{t('checkout.total')}</span>
-                      <span className="text-xl font-bold text-primary-600">AED {total.toFixed(2)}</span>
+                      <span className={`text-sm md:text-lg font-bold text-gray-900 ${dir === 'rtl' ? 'text-right' : ''}`}>{t('checkout.total')}</span>
+                      <span className="text-base md:text-xl font-bold text-primary-600">AED {total.toFixed(2)}</span>
                     </div>
                   </div>
                 </div>
 
 
                 {/* Delivery Info */}
-                <div className="p-4 bg-green-50 border border-green-200 rounded-lg mb-4">
-                  <div className={`flex items-center gap-2 text-green-800 mb-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                    <Truck className="h-5 w-5" />
-                    <span className="font-semibold">{t('checkout.deliveryInformation')}</span>
+                <div className="p-2.5 md:p-4 bg-green-50 border border-green-200 rounded-lg mb-3 md:mb-4">
+                  <div className={`flex items-center gap-1.5 md:gap-2 text-green-800 mb-1.5 md:mb-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                    <Truck className="h-4 w-4 md:h-5 md:w-5" />
+                    <span className="font-semibold text-xs md:text-base">{t('checkout.deliveryInformation')}</span>
                   </div>
-                  <p className={`text-sm text-green-700 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                  <p className={`text-[10px] md:text-sm text-green-700 ${dir === 'rtl' ? 'text-right' : ''}`}>
                     {selectedEmirate === 'Dubai' 
                       ? t('checkout.deliveryTimeDubai')
                       : `${t('checkout.deliveryTimeOther')} ${selectedEmirate} ${t('checkout.byQuiqup')}.`}
                     {selectedEmirate !== 'Dubai' && (
-                      <span className="block mt-2">
+                      <span className="block mt-1.5 md:mt-2">
                         {t('checkout.trackingNumberWillBeShared')}
                       </span>
                     )}
@@ -898,34 +902,34 @@ export default function CheckoutClient() {
                 </div>
 
                 {/* WhatsApp Support */}
-                <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg mb-4">
-                  <div className={`flex items-center gap-2 text-blue-800 mb-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                    <MessageCircle className="h-5 w-5" />
-                    <span className="font-semibold">{t('checkout.needHelp')}</span>
+                <div className="p-2.5 md:p-4 bg-blue-50 border border-blue-200 rounded-lg mb-3 md:mb-4">
+                  <div className={`flex items-center gap-1.5 md:gap-2 text-blue-800 mb-1.5 md:mb-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                    <MessageCircle className="h-4 w-4 md:h-5 md:w-5" />
+                    <span className="font-semibold text-xs md:text-base">{t('checkout.needHelp')}</span>
                   </div>
-                  <p className={`text-sm text-blue-700 mb-3 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                  <p className={`text-[10px] md:text-sm text-blue-700 mb-2 md:mb-3 ${dir === 'rtl' ? 'text-right' : ''}`}>
                     {t('checkout.haveQuestions')}
                   </p>
                   <button
                     onClick={contactWhatsApp}
-                    className={`w-full flex items-center justify-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium text-sm ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+                    className={`w-full flex items-center justify-center gap-1.5 md:gap-2 px-3 md:px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium text-xs md:text-sm ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
                   >
-                    <MessageCircle className="h-4 w-4" />
+                    <MessageCircle className="h-3.5 w-3.5 md:h-4 md:w-4" />
                     {t('checkout.contactSupportViaWhatsApp')}
                   </button>
                 </div>
 
                 {/* Generate Invoice */}
-                <div className="p-4 bg-white border border-red-200 rounded-lg">
-                  <div className={`flex items-center gap-2 text-black mb-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                    <Mail className="h-5 w-5" />
-                    <span className="font-semibold">{t('checkout.invoice')}</span>
+                <div className="p-2.5 md:p-4 bg-white border border-red-200 rounded-lg">
+                  <div className={`flex items-center gap-1.5 md:gap-2 text-black mb-1.5 md:mb-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                    <Mail className="h-4 w-4 md:h-5 md:w-5" />
+                    <span className="font-semibold text-xs md:text-base">{t('checkout.invoice')}</span>
                   </div>
-                  <p className={`text-sm text-black mb-3 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                  <p className={`text-[10px] md:text-sm text-black mb-2 md:mb-3 ${dir === 'rtl' ? 'text-right' : ''}`}>
                     {t('checkout.generateInvoiceDescription')}
                   </p>
-                  <div className="mb-3">
-                    <label htmlFor="invoice-email" className={`block text-sm font-medium text-black mb-1 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                  <div className="mb-2 md:mb-3">
+                    <label htmlFor="invoice-email" className={`block text-[10px] md:text-sm font-medium text-black mb-0.5 md:mb-1 ${dir === 'rtl' ? 'text-right' : ''}`}>
                       {t('checkout.emailAddressLabel')}
                     </label>
                     <input
@@ -933,7 +937,7 @@ export default function CheckoutClient() {
                       id="invoice-email"
                       value={invoiceEmail}
                       onChange={(e) => setInvoiceEmail(e.target.value)}
-                      className={`w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 text-sm bg-white text-gray-900 ${dir === 'rtl' ? 'text-right' : ''}`}
+                      className={`w-full px-2 py-1.5 border border-gray-300 rounded-md md:rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 text-xs md:text-sm bg-white text-gray-900 ${dir === 'rtl' ? 'text-right' : ''}`}
                       placeholder={t('checkout.enterEmailAddressPlaceholder')}
                       required
                       style={{ color: '#111827', backgroundColor: '#ffffff' }}
@@ -942,9 +946,9 @@ export default function CheckoutClient() {
                   <button
                     onClick={generateAndSendInvoice}
                     disabled={isGeneratingInvoice || items.length === 0}
-                    className={`w-full flex items-center justify-center gap-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors font-medium text-sm disabled:bg-gray-400 disabled:cursor-not-allowed ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+                    className={`w-full flex items-center justify-center gap-1.5 md:gap-2 px-3 md:px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors font-medium text-xs md:text-sm disabled:bg-gray-400 disabled:cursor-not-allowed ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
                   >
-                    <Mail className="h-4 w-4" />
+                    <Mail className="h-3.5 w-3.5 md:h-4 md:w-4" />
                     {isGeneratingInvoice ? t('checkout.generating') : t('checkout.sendByEmail')}
                   </button>
                 </div>

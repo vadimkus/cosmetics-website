@@ -537,32 +537,24 @@ export default function CheckoutClient() {
   return (
     <div className={`container mx-auto px-4 py-4 md:py-8 lg:py-16 ${dir === 'rtl' ? 'text-right' : ''}`} dir={dir}>
       {/* Navigation Breadcrumb */}
-      <nav className={`flex items-baseline flex-nowrap gap-1 md:gap-2 text-sm md:text-base text-gray-700 mb-4 md:mb-6 lg:mb-8 overflow-x-auto leading-none ${dir === 'rtl' ? 'flex-row-reverse' : ''}`} aria-label="Breadcrumb">
-        <Link
-          href={getLocalizedPath('/', locale)}
-          className="hover:text-primary-600 transition-colors text-gray-700 font-normal whitespace-nowrap flex-shrink-0 leading-none"
-        >
-          {t('checkout.home')}
-        </Link>
-        <span className="text-gray-400 flex-shrink-0 leading-none">/</span>
-        <Link
-          href={getLocalizedPath('/products', locale)}
-          className="hover:text-primary-600 transition-colors text-gray-700 font-normal whitespace-nowrap flex-shrink-0 leading-none"
-        >
-          {t('checkout.products')}
-        </Link>
-        <span className="text-gray-400 flex-shrink-0 leading-none">/</span>
-        <Link
-          href={getLocalizedPath('/cart', locale)}
-          className="hover:text-primary-600 transition-colors text-gray-700 font-normal whitespace-nowrap flex-shrink-0 leading-none"
-        >
-          {t('checkout.cart')}
-        </Link>
-        <span className="text-gray-400 flex-shrink-0 leading-none">/</span>
-        <span className="text-gray-900 font-bold whitespace-nowrap flex-shrink-0 leading-none">
-          {t('checkout.checkout')}
-        </span>
+      <nav className={`text-xs md:text-base text-gray-600 mb-2 md:mb-4 ${dir === 'rtl' ? 'text-right' : ''}`} aria-label="Breadcrumb">
+        <Link href={getLocalizedPath('/', locale)} className="hover:text-primary-600 transition-colors">{t('checkout.home')}</Link>
+        <span> / </span>
+        <Link href={getLocalizedPath('/products', locale)} className="hover:text-primary-600 transition-colors">{t('checkout.products')}</Link>
+        <span> / </span>
+        <Link href={getLocalizedPath('/cart', locale)} className="hover:text-primary-600 transition-colors">{t('checkout.cart')}</Link>
+        <span> / </span>
+        <span className="text-gray-900 font-medium">{t('checkout.checkout')}</span>
       </nav>
+      
+      {/* Back to Cart */}
+      <Link 
+        href={getLocalizedPath('/cart', locale)} 
+        className={`inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 mb-4 md:mb-8 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+      >
+        <ArrowLeft className={`h-3 w-3 md:h-4 md:w-4 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
+        <span>{t('checkout.backToCart')}</span>
+      </Link>
 
       <div className="max-w-6xl mx-auto">
         <div className={`flex flex-col lg:flex-row gap-8 ${dir === 'rtl' ? 'lg:flex-row-reverse' : ''}`}>

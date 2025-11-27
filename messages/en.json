@@ -212,6 +212,7 @@
     "products": "Products",
     "cart": "Cart",
     "checkout": "Checkout",
+    "backToCart": "Back to Cart",
     "firstName": "First Name",
     "lastName": "Last Name",
     "enterFirstName": "Enter your first name",

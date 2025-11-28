@@ -82,16 +82,35 @@ export default function CartClient() {
         // Sale is active - countdown to end
         setIsSaleActive(true)
         const difference = saleEndDate - now
+        
+        // Check if countdown has reached zero
+        if (difference <= 0) {
+          setIsSaleActive(false)
+          setTimeLeft(null)
+          setSaleProgress(100)
+          return
+        }
+        
         const elapsed = totalDuration - difference
         const progress = Math.min(100, (elapsed / totalDuration) * 100)
         setSaleProgress(progress)
 
-        setTimeLeft({
+        const timeLeftValue = {
           days: Math.floor(difference / (1000 * 60 * 60 * 24)),
           hours: Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
           minutes: Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60)),
           seconds: Math.floor((difference % (1000 * 60)) / 1000),
-        })
+        }
+        
+        // Check if all time values are zero
+        if (timeLeftValue.days === 0 && timeLeftValue.hours === 0 && timeLeftValue.minutes === 0 && timeLeftValue.seconds === 0) {
+          setIsSaleActive(false)
+          setTimeLeft(null)
+          setSaleProgress(100)
+          return
+        }
+        
+        setTimeLeft(timeLeftValue)
       } else {
         // Sale hasn't started - countdown to start
         setIsSaleActive(false)

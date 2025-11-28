@@ -53,8 +53,17 @@ export default function BlackFridayMini() {
     const timer = setInterval(() => {
       const newTimeLeft = calculateTimeLeft()
       if (newTimeLeft) {
-        setTimeLeft(newTimeLeft)
+        // Check if countdown has reached zero
+        if (newTimeLeft.days === 0 && newTimeLeft.hours === 0 && newTimeLeft.minutes === 0 && newTimeLeft.seconds === 0) {
+          setIsSaleEnded(true)
+          setTimeLeft(null)
+          clearInterval(timer)
+        } else {
+          setTimeLeft(newTimeLeft)
+        }
       } else {
+        setIsSaleEnded(true)
+        setTimeLeft(null)
         clearInterval(timer)
       }
     }, 1000)

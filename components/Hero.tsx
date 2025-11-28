@@ -182,19 +182,6 @@ export default function Hero({ initialLocale = 'en', initialDir = 'ltr' }: HeroP
             </div>
           </div>
           
-          {/* GENOSYS Logo */}
-          <div className="mb-8 flex justify-center">
-            <Image 
-              src="/images/genosys-logo.png" 
-              alt="GENOSYS Middle East FZ-LLC - Official Korean Dermacosmetics Distributor UAE" 
-              width={160}
-              height={160}
-              className="h-20 w-auto"
-              style={{ width: 'auto', height: 'auto' }}
-              priority
-            />
-          </div>
-          
           <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
             {subtitleText}
           </p>

@@ -353,6 +353,56 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
               </div>
             )}
 
+            {/* Product Recommendation Section - PRO Solution products (4, 5, 6, 7, 8, 9) - Desktop only */}
+            {(product.id === '4' || product.productNumber === '4') && (
+              <div className="hidden lg:block">
+                <ProductRecommendation 
+                  recommendedProductId="1"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+            {(product.id === '5' || product.productNumber === '5') && (
+              <div className="hidden lg:block">
+                <ProductRecommendation 
+                  recommendedProductId="1"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+            {(product.id === '6' || product.productNumber === '6') && (
+              <div className="hidden lg:block">
+                <ProductRecommendation 
+                  recommendedProductId="1"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+            {(product.id === '7' || product.productNumber === '7') && (
+              <div className="hidden lg:block">
+                <ProductRecommendation 
+                  recommendedProductId="1"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+            {(product.id === '8' || product.productNumber === '8') && (
+              <div className="hidden lg:block">
+                <ProductRecommendation 
+                  recommendedProductId="1"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+            {(product.id === '9' || product.productNumber === '9') && (
+              <div className="hidden lg:block">
+                <ProductRecommendation 
+                  recommendedProductId="1"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+
             {/* Product Recommendation Section - Only for product 15 - Desktop only */}
             {(product.id === '15' || product.productNumber === '15') && (
               <div className="hidden lg:block">
@@ -806,6 +856,55 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
               <div className="lg:hidden">
                 <ProductRecommendation 
                   recommendedProductId="49"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+            {/* Product Recommendation Section - PRO Solution products (4, 5, 6, 7, 8, 9) - Mobile only */}
+            {(product.id === '4' || product.productNumber === '4') && (
+              <div className="lg:hidden">
+                <ProductRecommendation 
+                  recommendedProductId="1"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+            {(product.id === '5' || product.productNumber === '5') && (
+              <div className="lg:hidden">
+                <ProductRecommendation 
+                  recommendedProductId="1"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+            {(product.id === '6' || product.productNumber === '6') && (
+              <div className="lg:hidden">
+                <ProductRecommendation 
+                  recommendedProductId="1"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+            {(product.id === '7' || product.productNumber === '7') && (
+              <div className="lg:hidden">
+                <ProductRecommendation 
+                  recommendedProductId="1"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+            {(product.id === '8' || product.productNumber === '8') && (
+              <div className="lg:hidden">
+                <ProductRecommendation 
+                  recommendedProductId="1"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+            {(product.id === '9' || product.productNumber === '9') && (
+              <div className="lg:hidden">
+                <ProductRecommendation 
+                  recommendedProductId="1"
                   currentProduct={product}
                 />
               </div>

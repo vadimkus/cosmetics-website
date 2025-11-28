@@ -199,6 +199,73 @@ export default function ProductRecommendation({
         ]
       }
     }
+    // PRO Solution + Microneedle Roller combinations (4, 5, 6, 7, 8, 9 + 1)
+    if ((currentProduct.id === '4' || currentProduct.productNumber === '4') && recommendedProduct.id === '1') {
+      return {
+        intro: t('product.pc4Intro', { currentName: `<strong>${currentName}</strong>`, recommendedName: `<strong>${recommendedName}</strong>` }),
+        benefits: [
+          { title: t('product.pc4Benefit1Title'), text: t('product.pc4Benefit1Text') },
+          { title: t('product.pc4Benefit2Title'), text: t('product.pc4Benefit2Text') },
+          { title: t('product.pc4Benefit3Title'), text: t('product.pc4Benefit3Text') },
+          { title: t('product.pc4Benefit4Title'), text: t('product.pc4Benefit4Text') }
+        ]
+      }
+    }
+    if ((currentProduct.id === '5' || currentProduct.productNumber === '5') && recommendedProduct.id === '1') {
+      return {
+        intro: t('product.pc5Intro', { currentName: `<strong>${currentName}</strong>`, recommendedName: `<strong>${recommendedName}</strong>` }),
+        benefits: [
+          { title: t('product.pc5Benefit1Title'), text: t('product.pc5Benefit1Text') },
+          { title: t('product.pc5Benefit2Title'), text: t('product.pc5Benefit2Text') },
+          { title: t('product.pc5Benefit3Title'), text: t('product.pc5Benefit3Text') },
+          { title: t('product.pc5Benefit4Title'), text: t('product.pc5Benefit4Text') }
+        ]
+      }
+    }
+    if ((currentProduct.id === '7' || currentProduct.productNumber === '7') && recommendedProduct.id === '1') {
+      return {
+        intro: t('product.pc7Intro', { currentName: `<strong>${currentName}</strong>`, recommendedName: `<strong>${recommendedName}</strong>` }),
+        benefits: [
+          { title: t('product.pc7Benefit1Title'), text: t('product.pc7Benefit1Text') },
+          { title: t('product.pc7Benefit2Title'), text: t('product.pc7Benefit2Text') },
+          { title: t('product.pc7Benefit3Title'), text: t('product.pc7Benefit3Text') },
+          { title: t('product.pc7Benefit4Title'), text: t('product.pc7Benefit4Text') }
+        ]
+      }
+    }
+    if ((currentProduct.id === '8' || currentProduct.productNumber === '8') && recommendedProduct.id === '1') {
+      return {
+        intro: t('product.pc8Intro', { currentName: `<strong>${currentName}</strong>`, recommendedName: `<strong>${recommendedName}</strong>` }),
+        benefits: [
+          { title: t('product.pc8Benefit1Title'), text: t('product.pc8Benefit1Text') },
+          { title: t('product.pc8Benefit2Title'), text: t('product.pc8Benefit2Text') },
+          { title: t('product.pc8Benefit3Title'), text: t('product.pc8Benefit3Text') },
+          { title: t('product.pc8Benefit4Title'), text: t('product.pc8Benefit4Text') }
+        ]
+      }
+    }
+    if ((currentProduct.id === '6' || currentProduct.productNumber === '6') && recommendedProduct.id === '1') {
+      return {
+        intro: t('product.pc6Intro', { currentName: `<strong>${currentName}</strong>`, recommendedName: `<strong>${recommendedName}</strong>` }),
+        benefits: [
+          { title: t('product.pc6Benefit1Title'), text: t('product.pc6Benefit1Text') },
+          { title: t('product.pc6Benefit2Title'), text: t('product.pc6Benefit2Text') },
+          { title: t('product.pc6Benefit3Title'), text: t('product.pc6Benefit3Text') },
+          { title: t('product.pc6Benefit4Title'), text: t('product.pc6Benefit4Text') }
+        ]
+      }
+    }
+    if ((currentProduct.id === '9' || currentProduct.productNumber === '9') && recommendedProduct.id === '1') {
+      return {
+        intro: t('product.pc9Intro', { currentName: `<strong>${currentName}</strong>`, recommendedName: `<strong>${recommendedName}</strong>` }),
+        benefits: [
+          { title: t('product.pc9Benefit1Title'), text: t('product.pc9Benefit1Text') },
+          { title: t('product.pc9Benefit2Title'), text: t('product.pc9Benefit2Text') },
+          { title: t('product.pc9Benefit3Title'), text: t('product.pc9Benefit3Text') },
+          { title: t('product.pc9Benefit4Title'), text: t('product.pc9Benefit4Text') }
+        ]
+      }
+    }
 
     // Blemish control toner + cream combination (15 + 30)
     if ((currentProduct.id === '15' || currentProduct.productNumber === '15') && recommendedProduct.id === '30') {

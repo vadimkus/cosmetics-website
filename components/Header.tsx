@@ -431,7 +431,7 @@ const Header = memo(function Header() {
       {showMobileMenu && (
         <div className="md:hidden bg-white border-t" role="navigation" aria-label="Mobile navigation">
           <div className="container mx-auto px-3 py-3">
-            <nav className="grid grid-cols-2 gap-0">
+            <nav className="grid grid-cols-3 gap-1">
               <Link 
                 href={`${getLocalizedPath('/', locale)}?full=true`} 
                 className="text-gray-700 hover:text-primary-600 hover:bg-gray-50 transition-colors py-2.5 px-3 rounded-lg text-sm font-medium touch-manipulation flex items-center"
@@ -489,6 +489,27 @@ const Header = memo(function Header() {
                 onClick={() => setShowMobileMenu(false)}
               >
                 {t('navigation.faq')}
+              </Link>
+              <Link 
+                href={getLocalizedPath('/blog', locale)}
+                className="text-gray-700 hover:text-primary-600 hover:bg-gray-50 transition-colors py-2.5 px-3 rounded-lg text-sm touch-manipulation flex items-center"
+                onClick={() => setShowMobileMenu(false)}
+              >
+                {t('navigation.blog')}
+              </Link>
+              <Link 
+                href={getLocalizedPath('/locations', locale)}
+                className="text-gray-700 hover:text-primary-600 hover:bg-gray-50 transition-colors py-2.5 px-3 rounded-lg text-sm touch-manipulation flex items-center"
+                onClick={() => setShowMobileMenu(false)}
+              >
+                {t('navigation.locations')}
+              </Link>
+              <Link 
+                href={getLocalizedPath('/partners', locale)}
+                className="text-gray-700 hover:text-primary-600 hover:bg-gray-50 transition-colors py-2.5 px-3 rounded-lg text-sm touch-manipulation flex items-center"
+                onClick={() => setShowMobileMenu(false)}
+              >
+                {t('navigation.partners')}
               </Link>
               {isClient && user && (
                 <>

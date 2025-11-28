@@ -664,14 +664,6 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
                 </div>
               </div>
             )}
-
-            {/* Mobile-only Trust Badges fallback for products WITHOUT recommendations */}
-            {!['19', '22', '20', '21', '15', '18', '10', '25', '33', '17', '24', '44', '43', '45', '46', '55', '56', '57', '58', '59'].includes(product.id) && 
-             !['19', '22', '20', '21', '15', '18', '10', '25', '33', '17', '24', '44', '43', '45', '46', '55', '56', '57', '58', '59'].includes(product.productNumber || '') && (
-              <div className="lg:hidden order-7 mt-6">
-                <TrustBadges />
-              </div>
-            )}
           </div>
 
           {/* Right Column - Product Details and Content */}

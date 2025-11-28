@@ -821,7 +821,16 @@
     "pc45Benefit3Title": "Complete Treatment Protocol:",
     "pc45Benefit3Text": "Ampoule provides intensive microneedling treatment while tonic maintains scalp health and improves conditions between treatments",
     "pc45Benefit4Title": "Optimal Scalp Environment:",
-    "pc45Benefit4Text": "Tonic cools scalp heat and improves conditions, creating the ideal environment for ampoule's nutrients to work effectively"
+    "pc45Benefit4Text": "Tonic cools scalp heat and improves conditions, creating the ideal environment for ampoule's nutrients to work effectively",
+    "pc46Intro": "Complete your scalp care routine by combining the <strong>{currentName}</strong> with <strong>{recommendedName}</strong>. Together, they provide comprehensive deep cleansing and hair loss treatment for healthier scalp and hair.",
+    "pc46Benefit1Title": "Complete Scalp Cleansing:",
+    "pc46Benefit1Text": "Peeling provides deep cleansing and exfoliation while shampoo maintains daily cleansing and controls excess sebum",
+    "pc46Benefit2Title": "Synergistic Scalp Care:",
+    "pc46Benefit2Text": "Both products contain Salicylic Acid and Menthol that work together to deeply cleanse, cool scalp heat, and improve scalp conditions",
+    "pc46Benefit3Title": "Hair Loss Treatment Support:",
+    "pc46Benefit3Text": "KFDA-approved shampoo complements peeling's deep cleansing to create optimal scalp environment for hair loss treatment",
+    "pc46Benefit4Title": "Complete Scalp Care Routine:",
+    "pc46Benefit4Text": "Addresses both deep cleansing/exfoliation and daily maintenance for comprehensive scalp health and hair loss management"
   },
   "trustBadges": {
     "freeShipping": "Free Shipping",

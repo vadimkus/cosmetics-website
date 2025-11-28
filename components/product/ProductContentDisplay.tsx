@@ -254,7 +254,7 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
           {/* Show intro only if there are kit items, otherwise show full description in fallback */}
           {intro && kitItems.length > 0 && (
             <p 
-              className="text-gray-600 mb-4 text-sm whitespace-pre-line"
+              className="text-gray-600 mb-4 text-sm whitespace-pre-line line-clamp-4 lg:line-clamp-none"
               dangerouslySetInnerHTML={{ __html: processIntroText(intro) }}
             />
           )}
@@ -567,7 +567,7 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
           {/* Fallback: If no kit items parsed, show full description */}
           {kitItems.length === 0 && sanitizedDescription && (
             <p 
-              className="text-gray-600 mb-4 text-sm whitespace-pre-line"
+              className="text-gray-600 mb-4 text-sm whitespace-pre-line line-clamp-4 lg:line-clamp-none"
               dangerouslySetInnerHTML={{ __html: processIntroText(sanitizedDescription) }}
             />
           )}

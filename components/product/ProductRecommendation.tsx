@@ -267,12 +267,12 @@ export default function ProductRecommendation({
     // Scalp peeling + shampoo combination (46 + 44)
     if ((currentProduct.id === '46' || currentProduct.productNumber === '46') && recommendedProduct.id === '44') {
       return {
-        intro: `Complete your scalp care routine by combining the <strong>${currentName}</strong> with <strong>${recommendedName}</strong>. Together, they provide comprehensive deep cleansing and hair loss treatment for healthier scalp and hair.`,
+        intro: t('product.pc46Intro', { currentName: `<strong>${currentName}</strong>`, recommendedName: `<strong>${recommendedName}</strong>` }),
         benefits: [
-          { title: 'Complete Scalp Cleansing:', text: 'Peeling provides deep cleansing and exfoliation while shampoo maintains daily cleansing and controls excess sebum' },
-          { title: 'Synergistic Scalp Care:', text: 'Both products contain Salicylic Acid and Menthol that work together to deeply cleanse, cool scalp heat, and improve scalp conditions' },
-          { title: 'Hair Loss Treatment Support:', text: 'KFDA-approved shampoo complements peeling\'s deep cleansing to create optimal scalp environment for hair loss treatment' },
-          { title: 'Complete Scalp Care Routine:', text: 'Addresses both deep cleansing/exfoliation and daily maintenance for comprehensive scalp health and hair loss management' }
+          { title: t('product.pc46Benefit1Title'), text: t('product.pc46Benefit1Text') },
+          { title: t('product.pc46Benefit2Title'), text: t('product.pc46Benefit2Text') },
+          { title: t('product.pc46Benefit3Title'), text: t('product.pc46Benefit3Text') },
+          { title: t('product.pc46Benefit4Title'), text: t('product.pc46Benefit4Text') }
         ]
       }
     }

@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { ShoppingCart, Heart, User, LogOut, Menu } from 'lucide-react'
 // import { useCart } from './CartProvider' // Unused for now
 import { useCartStore } from '@/lib/cartStore'
@@ -105,12 +106,40 @@ const Header = memo(function Header() {
                   </span>
                 )}
               </Link>
+              <Link 
+                href={getLocalizedPath('/products', locale)} 
+                className="p-1 hover:opacity-80 transition-opacity flex items-center justify-center ml-3"
+                aria-label="Go to products"
+              >
+                <Image
+                  src="/Logo/upLOGO.png"
+                  alt="GENOSYS Logo"
+                  width={69}
+                  height={23}
+                  className="h-[23px] w-auto"
+                  style={{ height: 'auto' }}
+                />
+              </Link>
             </div>
           )}
 
           {/* Mobile Icons - Arabic Version (RTL): cart, heart, man, AR, hamburger - positioned on right */}
           {locale === 'ar' && (
             <div className="md:hidden flex items-center gap-1 header-icons ml-auto">
+              <Link 
+                href={getLocalizedPath('/products', locale)} 
+                className="p-1 hover:opacity-80 transition-opacity flex items-center justify-center ml-3"
+                aria-label="Go to products"
+              >
+                <Image
+                  src="/Logo/upLOGO.png"
+                  alt="GENOSYS Logo"
+                  width={69}
+                  height={23}
+                  className="h-[23px] w-auto"
+                  style={{ height: 'auto' }}
+                />
+              </Link>
               <Link 
                 href={getLocalizedPath('/cart', locale)} 
                 className="relative p-2 text-gray-700 hover:text-primary-600 transition-colors flex items-center justify-center"

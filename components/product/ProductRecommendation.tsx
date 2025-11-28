@@ -26,7 +26,7 @@ export default function ProductRecommendation({
   const { addItem } = useCart()
   const { user } = useAuth()
   const router = useRouter()
-  const { t } = useTranslation()
+  const { t, dir } = useTranslation()
 
   useEffect(() => {
     async function fetchRecommendedProduct() {
@@ -292,15 +292,15 @@ export default function ProductRecommendation({
   const description = getDescription()
 
   return (
-    <div className="mt-6 md:mt-8 border-t-2 border-gray-200 pt-6 md:pt-8">
+    <div className="mt-6 md:mt-8 border-t-2 border-gray-200 pt-6 md:pt-8" dir={dir}>
       {/* Product Recommendation Section */}
       <div className="bg-white border-2 border-red-200 rounded-xl p-4 md:p-6 shadow-lg">
-        <div className="flex items-center gap-2 mb-3 md:mb-4">
-          <Sparkles className="h-5 w-5 md:h-6 md:w-6 text-red-600" />
-          <h3 className="text-lg md:text-xl font-bold text-gray-900">Perfect Combination</h3>
+        <div className={`flex items-center gap-2 mb-3 md:mb-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+          <Sparkles className="h-5 w-5 md:h-6 md:w-6 text-red-600 flex-shrink-0" />
+          <h3 className={`text-lg md:text-xl font-bold text-gray-900 ${dir === 'rtl' ? 'text-right' : ''}`}>Perfect Combination</h3>
         </div>
         
-        <p className="text-gray-700 mb-4 md:mb-6 text-xs md:text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: description.intro }} />
+        <p className={`text-gray-700 mb-4 md:mb-6 text-xs md:text-sm leading-relaxed ${dir === 'rtl' ? 'text-right' : ''}`} dangerouslySetInnerHTML={{ __html: description.intro }} />
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
           {/* Recommended Product Preview */}
@@ -327,14 +327,14 @@ export default function ProductRecommendation({
               <p className="text-xs text-gray-600 mb-1 md:mb-2">{t('product.size')}: 50g</p>
             )}
             {canSeePrice ? (
-              <div className="flex flex-wrap items-center gap-1 md:gap-2">
+              <div className={`flex flex-wrap items-center gap-1 md:gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                 {pricing.hasDiscount ? (
                   <>
                     <span className="text-base md:text-lg font-bold text-red-600">
-                      AED {pricing.discountedPrice.toFixed(2)}
+                      {pricing.discountedPrice.toFixed(2)} {dir === 'rtl' ? 'درهم' : 'AED'}
                     </span>
                     <span className="text-xs md:text-sm text-gray-500 line-through">
-                      AED {pricing.originalPrice.toFixed(2)}
+                      {pricing.originalPrice.toFixed(2)} {dir === 'rtl' ? 'درهم' : 'AED'}
                     </span>
                     <span className="text-xs bg-green-100 text-green-700 px-1.5 md:px-2 py-0.5 md:py-1 rounded">
                       {pricing.discountPercentage}% {t('product.off')}
@@ -342,25 +342,27 @@ export default function ProductRecommendation({
                   </>
                 ) : (
                   <span className="text-base md:text-lg font-bold text-red-600">
-                    AED {pricing.originalPrice.toFixed(2)}
+                    {pricing.originalPrice.toFixed(2)} {dir === 'rtl' ? 'درهم' : 'AED'}
                   </span>
                 )}
               </div>
             ) : (
-              <p className="text-xs md:text-sm text-gray-500">{t('product.loginToSeePrice')}</p>
+              <p className={`text-xs md:text-sm text-gray-500 ${dir === 'rtl' ? 'text-right' : ''}`}>{t('product.loginToSeePrice')}</p>
             )}
-            <p className="text-xs text-gray-600 mt-1 md:mt-2">Click to view details →</p>
+            <p className={`text-xs text-gray-600 mt-1 md:mt-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
+              {dir === 'rtl' ? '← اضغط لعرض التفاصيل' : 'Click to view details →'}
+            </p>
           </Link>
 
           {/* Benefits of Combination */}
           <div className="bg-white rounded-lg p-3 md:p-4 border-2 border-red-300">
-            <h4 className="font-semibold text-sm md:text-base text-gray-900 mb-2 md:mb-3 flex items-center gap-2">
+            <h4 className={`font-semibold text-sm md:text-base text-gray-900 mb-2 md:mb-3 flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
               <Sparkles className="h-3 w-3 md:h-4 md:w-4 text-red-600 flex-shrink-0" />
               <span>{t('product.whyCombineTheseProducts')}</span>
             </h4>
-            <ul className="space-y-1.5 md:space-y-2 text-xs md:text-sm text-gray-700">
+            <ul className={`space-y-1.5 md:space-y-2 text-xs md:text-sm text-gray-700 ${dir === 'rtl' ? 'text-right' : ''}`}>
               {description.benefits.map((benefit, index) => (
-                <li key={index} className="flex items-start gap-2">
+                <li key={index} className={`flex items-start gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                   <span className="text-red-600 mt-0.5 md:mt-1 flex-shrink-0">✓</span>
                   <span className="break-words"><strong>{benefit.title}</strong> {benefit.text}</span>
                 </li>
@@ -370,9 +372,9 @@ export default function ProductRecommendation({
             {user && (
               <button
                 onClick={handleAddBothToCart}
-                className="mt-3 md:mt-4 w-full flex items-center justify-center gap-2 bg-red-600 text-white px-3 md:px-4 py-2 rounded-lg hover:bg-red-700 transition-colors font-medium text-xs md:text-sm"
+                className={`mt-3 md:mt-4 w-full flex items-center justify-center gap-2 bg-red-600 text-white px-3 md:px-4 py-2 rounded-lg hover:bg-red-700 active:bg-red-800 transition-colors font-medium text-xs md:text-sm touch-manipulation min-h-[44px] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
               >
-                <ShoppingCart className="h-3 w-3 md:h-4 md:w-4" />
+                <ShoppingCart className="h-3 w-3 md:h-4 md:w-4 flex-shrink-0" />
                 {t('product.addToCart')}
               </button>
             )}

@@ -57,7 +57,7 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
   }, [])
 
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+    <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow flex flex-col h-full">
       <div className="relative">
         <Link href={productPath} className="block">
           <Image
@@ -111,14 +111,14 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
         )}
       </div>
       
-      <div className="p-3 md:p-4">
+      <div className="p-3 md:p-4 flex flex-col h-full">
         <div className="mb-2">
           <span className="text-xs md:text-sm text-primary-600 font-medium">{product.category}</span>
         </div>
         
         <div className="mb-2">
           <Link href={productPath}>
-            <h3 className="text-base md:text-lg font-semibold text-gray-800 line-clamp-2 hover:text-primary-600 transition-colors cursor-pointer">
+            <h3 className="text-sm md:text-lg font-semibold text-gray-800 line-clamp-2 hover:text-primary-600 transition-colors cursor-pointer">
               {product.name}
             </h3>
           </Link>
@@ -138,7 +138,9 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
           )}
         </div>
         
-        <p className="text-gray-600 text-xs md:text-sm mb-3 md:mb-4 line-clamp-2">
+        <p 
+          className="text-gray-600 text-xs md:text-sm mb-3 md:mb-4 md:line-clamp-2 product-description-mobile"
+        >
           {description ? description.replace(/<[^>]*>/g, '').trim() : ''}
         </p>
         
@@ -207,40 +209,42 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
                 <span className="text-sm">{t('product.priceLocked')}</span>
               </div>
             ) : (
-              <span className="text-xs md:text-base font-bold text-gray-500">
+              <span className="hidden md:inline text-xs md:text-base font-bold text-gray-500">
                 {t('product.loginToSeePrice')}
               </span>
             )}
           </div>
         </div>
         
-        {/* Button Section */}
-        {!user ? (
-          <button
-            onClick={handleLoginClick}
-            className={`flex items-center justify-center gap-1.5 md:gap-2 px-2 md:px-3 ${locale === 'ar' ? 'py-2' : 'py-2'} rounded-lg font-medium transition-colors touch-manipulation w-full bg-primary-600 text-white hover:bg-primary-700 min-h-[40px] md:min-h-[44px] text-[10px] md:text-sm`}
-            aria-label={t('product.loginToSeePrice')}
-          >
-            <User className="h-3 w-3 md:h-4 md:w-4" aria-hidden="true" />
-            <span>{t('product.loginToSeePrice')}</span>
-          </button>
-        ) : (
-          <button
-            onClick={handleAddToCart}
-            disabled={!product.inStock || isAdding}
-            aria-label={isAdding ? t('product.adding') : t('product.addToCart')}
-            className={`flex items-center justify-center gap-2 px-3 ${locale === 'ar' ? 'py-2' : 'py-2.5'} rounded-lg font-medium transition-colors touch-manipulation w-full ${locale === 'ar' ? 'min-h-[40px] text-xs' : 'min-h-[44px] text-sm'} ${
-              product.inStock && !isAdding
-                ? 'bg-primary-600 text-white hover:bg-primary-700'
-                : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-            }`}
-          >
-            <ShoppingCart className={`${locale === 'ar' ? 'h-3.5 w-3.5' : 'h-4 w-4'}`} aria-hidden="true" />
-            <span>
-              {isAdding ? t('product.adding') : t('product.addToCart')}
-            </span>
-          </button>
-        )}
+        {/* Button Section - Always at the end */}
+        <div className="mt-auto">
+          {!user ? (
+            <button
+              onClick={handleLoginClick}
+              className={`flex items-center justify-center gap-1.5 md:gap-2 px-2 md:px-3 py-1.5 md:py-2 rounded-lg font-medium transition-colors touch-manipulation w-full bg-primary-600 text-white hover:bg-primary-700 min-h-[36px] md:min-h-[40px] text-[10px] md:text-xs`}
+              aria-label={t('product.loginToSeePrice')}
+            >
+              <User className="h-3 w-3 md:h-3.5 md:w-3.5" aria-hidden="true" />
+              <span>{t('product.loginToSeePrice')}</span>
+            </button>
+          ) : (
+            <button
+              onClick={handleAddToCart}
+              disabled={!product.inStock || isAdding}
+              aria-label={isAdding ? t('product.adding') : t('product.addToCart')}
+              className={`flex items-center justify-center gap-1.5 md:gap-2 px-2 md:px-3 py-1.5 md:py-2.5 rounded-lg font-medium transition-colors touch-manipulation w-full min-h-[36px] md:min-h-[40px] text-[10px] md:text-xs ${
+                product.inStock && !isAdding
+                  ? 'bg-primary-600 text-white hover:bg-primary-700'
+                  : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+              }`}
+            >
+              <ShoppingCart className="h-3 w-3 md:h-3.5 md:w-3.5" aria-hidden="true" />
+              <span>
+                {isAdding ? t('product.adding') : t('product.addToCart')}
+              </span>
+            </button>
+          )}
+        </div>
       </div>
 
       {/* Login Modal */}

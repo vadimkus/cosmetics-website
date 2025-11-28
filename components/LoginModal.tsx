@@ -420,8 +420,8 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
           </form>
 
           <div className={`text-center ${isLoginMode ? 'pt-2 md:pt-3' : 'pt-2'} border-t border-gray-100`}>
-            <p className={`text-xs text-gray-600 ${dir === 'rtl' ? 'text-right' : ''}`}>
-              {isLoginMode ? t('login.dontHaveAccount') : t('login.alreadyHaveAccount')}{' '}
+            <div className={`flex flex-col gap-1 text-xs text-gray-600 ${dir === 'rtl' ? 'text-right' : ''}`}>
+              <span>{isLoginMode ? t('login.dontHaveAccount') : t('login.alreadyHaveAccount')}</span>
               <button 
                 onClick={toggleMode}
                 className="text-primary-600 hover:text-primary-700 font-medium"
@@ -429,7 +429,7 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
               >
                 {isLoginMode ? t('login.switchToCreate') : t('login.switchToLogin')}
               </button>
-            </p>
+            </div>
           </div>
         </div>
       </div>

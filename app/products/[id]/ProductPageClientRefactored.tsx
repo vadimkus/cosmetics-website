@@ -130,10 +130,10 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
           {/* Back Link */}
           <Link 
             href={getLocalizedPath('/products', locale)}
-            className={`inline-flex items-center text-gray-500 hover:text-primary-600 transition-colors text-xs font-medium mb-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+            className={`inline-flex items-center text-gray-500 hover:text-primary-600 active:text-primary-700 transition-colors text-xs font-medium mb-2 touch-manipulation ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
           >
-            <ArrowLeft className={`h-3 w-3 ${dir === 'rtl' ? 'ml-1 rotate-180' : 'mr-1'}`} />
-            {t('product.backToProducts')}
+            <ArrowLeft className={`h-3.5 w-3.5 flex-shrink-0 ${dir === 'rtl' ? 'ml-1.5 rotate-180' : 'mr-1.5'}`} />
+            <span>{t('product.backToProducts')}</span>
           </Link>
           
           {/* Product Name - Centered */}
@@ -818,14 +818,14 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
       </div>
 
       {/* Fixed Mobile Footer - Add to Cart */}
-      <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg z-50">
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg z-50 safe-area-inset-bottom">
         <div className="container mx-auto px-3 py-3">
-          <div className={`flex items-center gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+          <div className={`flex items-center gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
             {/* Quantity Controls */}
-            <div className="flex items-center border border-gray-300 rounded-lg bg-gray-50">
+            <div className={`flex items-center border border-gray-300 rounded-lg bg-gray-50 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
               <button
                 onClick={() => setMobileQuantity(prev => prev > 1 ? prev - 1 : 1)}
-                className="p-2 hover:bg-gray-100 transition-colors touch-manipulation"
+                className="p-2.5 hover:bg-gray-100 active:bg-gray-200 transition-colors touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center"
                 aria-label={t('product.decreaseQuantity')}
               >
                 <Minus className="h-4 w-4 text-gray-600" />
@@ -835,7 +835,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
               </span>
               <button
                 onClick={() => setMobileQuantity(prev => prev + 1)}
-                className="p-2 hover:bg-gray-100 transition-colors touch-manipulation"
+                className="p-2.5 hover:bg-gray-100 active:bg-gray-200 transition-colors touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center"
                 aria-label={t('product.increaseQuantity')}
               >
                 <Plus className="h-4 w-4 text-gray-600" />
@@ -846,24 +846,24 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
             <button
               onClick={handleMobileAddToCart}
               disabled={isAddingMobile || !user || !product.inStock}
-              className={`flex-1 py-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-2 touch-manipulation ${
+              className={`flex-1 py-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-2 touch-manipulation min-h-[44px] ${
                 !product.inStock || !user || isAddingMobile
                   ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
                   : 'bg-primary-600 text-white hover:bg-primary-700 active:bg-primary-800'
               }`}
             >
-              <ShoppingCart className="h-5 w-5" />
-              {!product.inStock ? t('product.outOfStock') : isAddingMobile ? t('product.adding') : t('product.addToCart')}
+              <ShoppingCart className={`h-5 w-5 flex-shrink-0 ${dir === 'rtl' ? 'order-last' : ''}`} />
+              <span className="text-sm sm:text-base">{!product.inStock ? t('product.outOfStock') : isAddingMobile ? t('product.adding') : t('product.addToCart')}</span>
             </button>
 
             {/* Favorite Button */}
             <button
               onClick={handleToggleFavorite}
               disabled={!user}
-              className={`p-3 rounded-lg transition-colors border-2 touch-manipulation ${
+              className={`p-3 rounded-lg transition-colors border-2 touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center ${
                 isFavorite(product.id)
-                  ? 'bg-red-50 border-red-500 text-red-600'
-                  : 'border-gray-300 text-gray-600 hover:border-gray-400'
+                  ? 'bg-red-50 border-red-500 text-red-600 active:bg-red-100'
+                  : 'border-gray-300 text-gray-600 hover:border-gray-400 active:bg-gray-50'
               } disabled:opacity-50 disabled:cursor-not-allowed`}
               aria-label={isFavorite(product.id) ? t('product.removeFromFavorites') : t('product.addToFavorites')}
             >

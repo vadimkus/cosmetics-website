@@ -335,12 +335,12 @@ export default function ProductRecommendation({
     // Post-treatment recovery + professional treatment combination (25 + 38)
     if ((currentProduct.id === '25' || currentProduct.productNumber === '25') && recommendedProduct.id === '38') {
       return {
-        intro: `Enhance your professional treatment results by combining the <strong>${currentName}</strong> with <strong>${recommendedName}</strong>. Together, they provide comprehensive treatment support and optimal recovery for professional skincare results.`,
+        intro: t('product.pc25Intro', { currentName: `<strong>${currentName}</strong>`, recommendedName: `<strong>${recommendedName}</strong>` }),
         benefits: [
-          { title: 'Complete Treatment Protocol:', text: 'CO₂ mask provides oxygen therapy and skin activation while post-cream promotes rapid recovery and healing' },
-          { title: 'Enhanced Recovery:', text: 'Post-cream helps skin recover from redness and irritation while mask prepares skin for optimal treatment absorption' },
-          { title: 'Synergistic Healing:', text: 'Centella complex in both products works together to soothe, repair, and regenerate skin after professional treatments' },
-          { title: 'Professional Results:', text: 'Addresses both treatment preparation and post-treatment recovery for comprehensive professional skincare protocol' }
+          { title: t('product.pc25Benefit1Title'), text: t('product.pc25Benefit1Text') },
+          { title: t('product.pc25Benefit2Title'), text: t('product.pc25Benefit2Text') },
+          { title: t('product.pc25Benefit3Title'), text: t('product.pc25Benefit3Text') },
+          { title: t('product.pc25Benefit4Title'), text: t('product.pc25Benefit4Text') }
         ]
       }
     }

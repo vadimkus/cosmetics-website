@@ -322,12 +322,12 @@ export default function ProductRecommendation({
     // Cleanser + toner combination (10 + 16)
     if ((currentProduct.id === '10' || currentProduct.productNumber === '10') && recommendedProduct.id === '16') {
       return {
-        intro: `Complete your cleansing routine by combining the <strong>${currentName}</strong> with <strong>${recommendedName}</strong>. Together, they provide comprehensive deep cleansing and skin preparation for a refreshed, balanced complexion.`,
+        intro: t('product.pc10Intro', { currentName: `<strong>${currentName}</strong>`, recommendedName: `<strong>${recommendedName}</strong>` }),
         benefits: [
-          { title: 'Complete Cleansing Routine:', text: 'Oxygen bubble cleanser removes impurities while toner balances pH and refines skin texture' },
-          { title: 'Deep Cleansing + Hydration:', text: 'Cleanser provides oxygen therapy for deep cleansing while toner moisturizes and soothes the skin' },
-          { title: 'Skin Preparation:', text: 'Toner prepares skin for optimal absorption of subsequent skincare products after cleansing' },
-          { title: 'Balanced pH Level:', text: 'Toner helps restore and balance skin\'s natural pH after cleansing for healthier skin barrier' }
+          { title: t('product.pc10Benefit1Title'), text: t('product.pc10Benefit1Text') },
+          { title: t('product.pc10Benefit2Title'), text: t('product.pc10Benefit2Text') },
+          { title: t('product.pc10Benefit3Title'), text: t('product.pc10Benefit3Text') },
+          { title: t('product.pc10Benefit4Title'), text: t('product.pc10Benefit4Text') }
         ]
       }
     }

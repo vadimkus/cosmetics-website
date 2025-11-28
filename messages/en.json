@@ -904,7 +904,16 @@
     "pc21Benefit3Title": "24/7 Radiance:",
     "pc21Benefit3Text": "Serum for active brightening while cream maintains and protects your glow",
     "pc21Benefit4Title": "Complete Brightening Routine:",
-    "pc21Benefit4Text": "Addresses hyperpigmentation, dullness, and uneven tone for radiant skin"
+    "pc21Benefit4Text": "Addresses hyperpigmentation, dullness, and uneven tone for radiant skin",
+    "pc31Intro": "Complete your brightening routine by combining the <strong>{currentName}</strong> with <strong>{recommendedName}</strong>. Together, they provide comprehensive radiance enhancement and even skin tone for a naturally glowing complexion.",
+    "pc31Benefit1Title": "Optimal Layering:",
+    "pc31Benefit1Text": "Serum prepares skin for deeper cream penetration and enhanced brightening results",
+    "pc31Benefit2Title": "Multi-Vitamin Boost:",
+    "pc31Benefit2Text": "VITA 12 Complex and vitamin C derivatives provide comprehensive antioxidant protection",
+    "pc31Benefit3Title": "24/7 Radiance:",
+    "pc31Benefit3Text": "Serum for active brightening while cream maintains and protects your glow throughout the day",
+    "pc31Benefit4Title": "Complete Brightening Routine:",
+    "pc31Benefit4Text": "Addresses hyperpigmentation, dullness, and uneven tone for radiant skin"
   },
   "trustBadges": {
     "freeShipping": "Free Shipping",

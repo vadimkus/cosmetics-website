@@ -163,6 +163,18 @@ export default function ProductRecommendation({
         ]
       }
     }
+    // Brightening/Radiance combination (31 + 21) - Reverse order
+    if ((currentProduct.id === '31' || currentProduct.productNumber === '31') && recommendedProduct.id === '21') {
+      return {
+        intro: t('product.pc31Intro', { currentName: `<strong>${currentName}</strong>`, recommendedName: `<strong>${recommendedName}</strong>` }),
+        benefits: [
+          { title: t('product.pc31Benefit1Title'), text: t('product.pc31Benefit1Text') },
+          { title: t('product.pc31Benefit2Title'), text: t('product.pc31Benefit2Text') },
+          { title: t('product.pc31Benefit3Title'), text: t('product.pc31Benefit3Text') },
+          { title: t('product.pc31Benefit4Title'), text: t('product.pc31Benefit4Text') }
+        ]
+      }
+    }
 
     // Blemish control toner + cream combination (15 + 30)
     if ((currentProduct.id === '15' || currentProduct.productNumber === '15') && recommendedProduct.id === '30') {

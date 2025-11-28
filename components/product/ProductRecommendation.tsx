@@ -71,7 +71,7 @@ export default function ProductRecommendation({
   if (loading) {
     return (
       <div className="mt-8 border-t-2 border-gray-200 pt-8">
-        <div className="text-center py-4 text-gray-500">Loading recommendation...</div>
+        <div className="text-center py-4 text-gray-500">{t('common.loadingRecommendation')}</div>
       </div>
     )
   }
@@ -116,12 +116,25 @@ export default function ProductRecommendation({
     // Blemish control combination (20 + 30)
     if ((currentProduct.id === '20' || currentProduct.productNumber === '20') && recommendedProduct.id === '30') {
       return {
-        intro: `Complete your blemish control routine by combining the <strong>${currentName}</strong> with <strong>${recommendedName}</strong>. Together, they provide comprehensive oil regulation and blemish prevention for clearer, healthier skin.`,
+        intro: t('product.pc20Intro', { currentName: `<strong>${currentName}</strong>`, recommendedName: `<strong>${recommendedName}</strong>` }),
         benefits: [
-          { title: 'Dual Action Treatment:', text: 'Serum targets active breakouts while cream provides ongoing protection' },
-          { title: 'Oil Regulation:', text: 'Zinc PCA in both products works together to control excess sebum production' },
-          { title: 'Hydrated Control:', text: 'Serum treats while cream maintains moisture balance without clogging pores' },
-          { title: 'Complete Blemish Care:', text: 'Addresses both prevention and treatment of acne-prone skin' }
+          { title: t('product.pc20Benefit1Title'), text: t('product.pc20Benefit1Text') },
+          { title: t('product.pc20Benefit2Title'), text: t('product.pc20Benefit2Text') },
+          { title: t('product.pc20Benefit3Title'), text: t('product.pc20Benefit3Text') },
+          { title: t('product.pc20Benefit4Title'), text: t('product.pc20Benefit4Text') }
+        ]
+      }
+    }
+
+    // Blemish control combination (30 + 20) - Reverse order
+    if ((currentProduct.id === '30' || currentProduct.productNumber === '30') && recommendedProduct.id === '20') {
+      return {
+        intro: t('product.pc30Intro', { currentName: `<strong>${currentName}</strong>`, recommendedName: `<strong>${recommendedName}</strong>` }),
+        benefits: [
+          { title: t('product.pc30Benefit1Title'), text: t('product.pc30Benefit1Text') },
+          { title: t('product.pc30Benefit2Title'), text: t('product.pc30Benefit2Text') },
+          { title: t('product.pc30Benefit3Title'), text: t('product.pc30Benefit3Text') },
+          { title: t('product.pc30Benefit4Title'), text: t('product.pc30Benefit4Text') }
         ]
       }
     }
@@ -142,12 +155,12 @@ export default function ProductRecommendation({
     // Blemish control toner + cream combination (15 + 30)
     if ((currentProduct.id === '15' || currentProduct.productNumber === '15') && recommendedProduct.id === '30') {
       return {
-        intro: `Complete your blemish control routine by combining the <strong>${currentName}</strong> with <strong>${recommendedName}</strong>. Together, they provide comprehensive oil regulation and blemish prevention for clearer, healthier skin.`,
+        intro: t('product.pc15Intro', { currentName: `<strong>${currentName}</strong>`, recommendedName: `<strong>${recommendedName}</strong>` }),
         benefits: [
-          { title: 'Prepared Skin Base:', text: 'Toner removes excess oil and sebum while preparing skin for optimal cream absorption' },
-          { title: 'Dual Oil Control:', text: 'Anti Sebum P complex in toner and Zinc PCA in cream work together to regulate sebum production' },
-          { title: 'Complete Hydration:', text: 'Toner provides quick hydration while cream maintains moisture balance without clogging pores' },
-          { title: 'Full Blemish Care:', text: 'Addresses both cleansing/preparation and treatment/protection for acne-prone skin' }
+          { title: t('product.pc15Benefit1Title'), text: t('product.pc15Benefit1Text') },
+          { title: t('product.pc15Benefit2Title'), text: t('product.pc15Benefit2Text') },
+          { title: t('product.pc15Benefit3Title'), text: t('product.pc15Benefit3Text') },
+          { title: t('product.pc15Benefit4Title'), text: t('product.pc15Benefit4Text') }
         ]
       }
     }

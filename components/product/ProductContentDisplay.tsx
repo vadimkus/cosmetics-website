@@ -720,7 +720,7 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
                 {ingredient.name === 'Repairing Pep9 Complex' && ingredient.subList ? (
                   <div className="text-sm text-gray-600 space-y-2 mb-4">
                     <div>
-                      <strong>Promotion of collagen induction and skin regeneration:</strong>
+                      <strong>{t('product.collagenInduction')}</strong>
                       <ul className="list-disc list-inside ml-4 mt-1 space-y-1">
                         {ingredient.subList.map((item: string, i: number) => (
                           <li key={i}>{item}</li>
@@ -728,10 +728,10 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
                       </ul>
                     </div>
                     <div>
-                      <strong>Firming:</strong> Acetyl Hexapeptide-8
+                      <strong>{t('product.firming')}</strong> Acetyl Hexapeptide-8
                     </div>
                     <div>
-                      <strong>Skin brightening:</strong> Nonapeptide-1
+                      <strong>{t('product.skinBrightening')}</strong> Nonapeptide-1
                     </div>
                   </div>
                 ) : (

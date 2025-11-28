@@ -276,26 +276,26 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
   ]
 
   return (
-    <div className="space-y-6" dir={dir}>
+    <div className="space-y-3 lg:space-y-6" dir={dir}>
       {/* Product Description - Always show if description exists */}
       {description && (
         <>
-          <h2 className={`text-lg font-semibold text-gray-800 mb-4 ${dir === 'rtl' ? 'text-right' : ''}`}>{t('product.productDescription')}</h2>
+          <h2 className="text-sm lg:text-lg mb-2 lg:mb-4 font-semibold text-gray-800" dir={dir} style={{ textAlign: dir === 'rtl' ? 'right' : 'left' }}>{t('product.productDescription')}</h2>
           {/* Show intro only if there are kit items, otherwise show full description in fallback */}
           {intro && kitItems.length > 0 && (
             <p 
-              className="text-gray-600 mb-4 text-sm whitespace-pre-line line-clamp-4 lg:line-clamp-none"
+              className="text-gray-600 mb-2 lg:mb-4 text-xs lg:text-sm whitespace-pre-line"
               dangerouslySetInnerHTML={{ __html: processIntroText(intro) }}
             />
           )}
 
           {/* Kit Includes Section */}
           {kitItems.length > 0 && (
-            <div className="mb-6">
-              <h3 className={`text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+            <div className="mb-3 lg:mb-6">
+              <h3 className="text-sm lg:text-lg mb-2 lg:mb-4 font-semibold text-gray-800 flex items-center gap-1 lg:gap-2" dir={dir} style={{ flexDirection: dir === 'rtl' ? 'row-reverse' : 'row' }}>
                 <span className="text-primary-600">{t('product.kitIncludes')}</span>
               </h3>
-              <div className="space-y-3">
+              <div className="space-y-2 lg:space-y-3">
                 {kitItems.map((item, index) => {
                   const colors = kitItemColors[index % kitItemColors.length]
                   if (!colors) return null
@@ -319,27 +319,27 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
                   return (
                     <div key={index}>
                       <div
-                        className={`${colors.bg} ${colors.border} border-2 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow`}
+                        className={`${colors.bg} ${colors.border} border-2 rounded-lg p-2 lg:p-4 shadow-sm hover:shadow-md transition-shadow`}
                       >
-                        <div className="flex items-start gap-3">
-                          <span className={`${colors.title} font-bold text-xl flex-shrink-0 w-8 text-center`}>
+                        <div className="flex items-start gap-2 lg:gap-3">
+                          <span className={`${colors.title} font-bold text-base lg:text-xl w-6 lg:w-8 flex-shrink-0 text-center`}>
                             {item.number}
                           </span>
                           <div className="flex-1">
                             {getProductLink(item.name) ? (
                               <Link href={getProductLink(item.name)!}>
-                                <h4 className={`${colors.title} font-semibold text-sm mb-2 hover:underline cursor-pointer transition-colors`}>
+                                <h4 className={`${colors.title} font-semibold text-xs lg:text-sm mb-1 lg:mb-2 hover:underline cursor-pointer transition-colors`}>
                                 {item.name}
                               </h4>
                               </Link>
                             ) : (
-                              <h4 className={`${colors.title} font-semibold text-sm mb-2`}>
+                              <h4 className={`${colors.title} font-semibold text-xs lg:text-sm mb-1 lg:mb-2`}>
                                 {item.name}
                               </h4>
                             )}
-                            <div className={`${colors.text} text-sm leading-relaxed space-y-2`}>
+                            <div className={`${colors.text} text-xs lg:text-sm leading-normal lg:leading-relaxed space-y-1 lg:space-y-2`}>
                               {formatDescriptionAsBullets(item.description, true).map((bullet, bulletIndex) => (
-                                <p key={bulletIndex} className="mb-1">{bullet}</p>
+                                <p key={bulletIndex} className="mb-0.5 lg:mb-1">{bullet}</p>
                               ))}
                             </div>
                           </div>
@@ -597,7 +597,7 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
           {/* Fallback: If no kit items parsed, show full description */}
           {kitItems.length === 0 && sanitizedDescription && (
             <p 
-              className="text-gray-600 mb-4 text-sm whitespace-pre-line line-clamp-4 lg:line-clamp-none"
+              className="text-gray-600 mb-2 lg:mb-4 text-xs lg:text-sm whitespace-pre-line"
               dangerouslySetInnerHTML={{ __html: processIntroText(sanitizedDescription) }}
             />
           )}
@@ -606,9 +606,9 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
 
       {/* Product Details - Always just the specs */}
       {productDetails && typeof productDetails === 'object' && !Array.isArray(productDetails) && (
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-          <h3 className={`font-semibold text-blue-800 mb-2 text-sm ${dir === 'rtl' ? 'text-right' : ''}`}>{t('product.productDetails')}</h3>
-          <div className="space-y-2 text-blue-800 text-sm">
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-2 lg:p-4 mb-2 lg:mb-4">
+          <h3 className="font-semibold text-blue-800 mb-1 lg:mb-2 text-xs lg:text-sm" dir={dir} style={{ textAlign: dir === 'rtl' ? 'right' : 'left' }}>{t('product.productDetails')}</h3>
+          <div className="space-y-1 lg:space-y-2 text-xs lg:text-sm text-blue-800">
             {Object.entries(productDetails as Record<string, string>).map(([key, value]) => (
               <p key={key}>
                 <strong>{formatKey(key)}:</strong> {String(value)}
@@ -620,19 +620,19 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
 
       {/* Product Documentation Section - ALWAYS right after Product Details */}
       {documentation && documentation.length > 0 && (
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-          <h4 className={`font-semibold text-blue-800 mb-2 ${dir === 'rtl' ? 'text-right' : ''}`}>{t('product.productDocumentation')}</h4>
-          <p className={`text-blue-700 text-sm mb-3 ${dir === 'rtl' ? 'text-right' : ''}`}>
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-2 lg:p-4">
+          <h4 className="font-semibold text-blue-800 mb-1 lg:mb-2 text-xs lg:text-sm" dir={dir} style={{ textAlign: dir === 'rtl' ? 'right' : 'left' }}>{t('product.productDocumentation')}</h4>
+          <p className="text-blue-700 text-xs lg:text-sm mb-2 lg:mb-3" dir={dir} style={{ textAlign: dir === 'rtl' ? 'right' : 'left' }}>
             {t('product.documentationDescription')}
           </p>
-          <div className={`flex gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+          <div className="flex gap-2 lg:gap-3" dir={dir} style={{ flexDirection: dir === 'rtl' ? 'row-reverse' : 'row' }}>
             <a
               href={documentation[0]?.url || '#'}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium min-h-[44px] min-w-[44px]"
+              className="inline-flex items-center gap-1 lg:gap-2 px-2 lg:px-4 py-1.5 lg:py-2 text-xs lg:text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium min-h-[44px] min-w-[44px]"
             >
-              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="h-3 w-3 lg:h-4 lg:w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
               </svg>
               {t('product.viewPdf')}
@@ -640,9 +640,9 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
             <a
               href={documentation[0]?.url || '#'}
               download={documentation[0]?.title || 'documentation'}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors text-sm font-medium min-h-[44px] min-w-[44px]"
+              className="inline-flex items-center gap-1 lg:gap-2 px-2 lg:px-4 py-1.5 lg:py-2 text-xs lg:text-sm bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors font-medium min-h-[44px] min-w-[44px]"
             >
-              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="h-3 w-3 lg:h-4 lg:w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>
               {t('product.download')}
@@ -654,14 +654,14 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
       {/* Key Features - only shown if they exist (for products that have them) */}
       {keyFeatures && Array.isArray(keyFeatures) && keyFeatures.length > 0 && (
         <div>
-          <h2 className={`font-semibold text-gray-800 mb-3 text-sm ${dir === 'rtl' ? 'text-right' : ''}`}>{t('product.keyFeatures')}</h2>
-          <div className="space-y-3">
+          <h2 className="font-semibold text-gray-800 mb-2 lg:mb-3 text-xs lg:text-sm" dir={dir} style={{ textAlign: dir === 'rtl' ? 'right' : 'left' }}>{t('product.keyFeatures')}</h2>
+          <div className="space-y-2 lg:space-y-3">
             {(keyFeatures as Array<{ title?: string; description?: string }>).map((feature, index) => (
-              <div key={index} className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                <h3 className="font-semibold text-gray-800 mb-1 text-sm">
+              <div key={index} className="bg-gray-50 border border-gray-200 rounded-lg p-2 lg:p-3">
+                <h3 className="font-semibold text-gray-800 mb-0.5 lg:mb-1 text-xs lg:text-sm">
                   {feature.title}
                 </h3>
-                <p className="text-sm text-gray-600">
+                <p className="text-xs lg:text-sm text-gray-600">
                   {feature.description}
                 </p>
               </div>
@@ -672,9 +672,9 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
 
       {/* Benefits - ALWAYS a separate section */}
       {benefits && Array.isArray(benefits) && benefits.length > 0 && (
-        <div>
-          <h2 className={`font-semibold text-gray-800 mb-2 text-sm ${dir === 'rtl' ? 'text-right' : ''}`}>{t('product.benefits')}</h2>
-          <ul className="list-disc list-inside text-gray-600 mb-4 space-y-1 text-sm">
+        <div className="lg:bg-transparent lg:border-0 lg:p-0 bg-purple-50 border border-purple-200 rounded-lg p-2 lg:p-0 lg:mb-0 mb-2 lg:mb-4">
+          <h2 className="font-semibold text-purple-800 lg:text-gray-800 mb-1.5 lg:mb-2 text-xs lg:text-sm" dir={dir} style={{ textAlign: dir === 'rtl' ? 'right' : 'left' }}>{t('product.benefits')}</h2>
+          <ul className="list-disc list-inside text-purple-700 lg:text-gray-600 mb-0 lg:mb-0 space-y-0.5 lg:space-y-1 text-xs lg:text-sm">
             {(benefits as string[]).map((benefit, index) => (
               <li key={index}>{benefit}</li>
             ))}
@@ -684,9 +684,9 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
 
       {/* Directions - When howToUse is a string (not array) */}
       {howToUse && typeof howToUse === 'string' && (
-        <div>
-          <h4 className={`font-semibold text-gray-800 mb-2 text-sm ${dir === 'rtl' ? 'text-right' : ''}`}>{t('product.directions')}</h4>
-          <p className="text-gray-600 mb-4 text-sm">
+        <div className="lg:bg-transparent lg:border-0 lg:p-0 bg-blue-50 border border-blue-200 rounded-lg p-2 lg:p-0 lg:mb-0 mb-2 lg:mb-4">
+          <h4 className="font-semibold text-blue-800 lg:text-gray-800 mb-1.5 lg:mb-2 text-xs lg:text-sm" dir={dir} style={{ textAlign: dir === 'rtl' ? 'right' : 'left' }}>{t('product.directions')}</h4>
+          <p className="text-blue-700 lg:text-gray-600 mb-0 lg:mb-0 text-xs lg:text-sm">
             {howToUse}
           </p>
         </div>
@@ -695,9 +695,9 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
       {/* How to Use - When howToUse is an array with steps */}
       {howToUse && Array.isArray(howToUse) && (
         <div>
-          <h2 className={`font-semibold text-gray-800 mb-2 text-sm ${dir === 'rtl' ? 'text-right' : ''}`}>{t('product.howToUse')}</h2>
-          <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-4">
-            <ol className="list-decimal list-inside text-gray-600 space-y-2 text-sm">
+          <h2 className="font-semibold text-gray-800 mb-1.5 lg:mb-2 text-xs lg:text-sm" dir={dir} style={{ textAlign: dir === 'rtl' ? 'right' : 'left' }}>{t('product.howToUse')}</h2>
+          <div className="bg-gray-50 border border-gray-200 rounded-lg p-2 lg:p-4 mb-2 lg:mb-4">
+            <ol className="list-decimal list-inside text-gray-600 space-y-1 lg:space-y-2 text-xs lg:text-sm">
               {howToUse.map((step, index) => (
                 <li key={index}>
                   <strong>{step.step}:</strong> {step.instruction}
@@ -710,18 +710,18 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
 
       {/* Key Ingredients */}
       {ingredients && Array.isArray(ingredients) && ingredients.length > 0 && (
-        <div>
-          <h2 className={`font-semibold text-gray-800 mb-2 text-sm ${dir === 'rtl' ? 'text-right' : ''}`}>{t('product.keyIngredients')}</h2>
-          <div className="space-y-4 mb-4">
+        <div className="lg:bg-transparent lg:border-0 lg:p-0 bg-amber-50 border border-amber-200 rounded-lg p-2 lg:p-0 lg:mb-0 mb-2 lg:mb-4">
+          <h2 className="font-semibold text-amber-800 lg:text-gray-800 mb-1.5 lg:mb-2 text-xs lg:text-sm" dir={dir} style={{ textAlign: dir === 'rtl' ? 'right' : 'left' }}>{t('product.keyIngredients')}</h2>
+          <div className="space-y-2 lg:space-y-4 mb-0 lg:mb-0">
             {ingredients.map((ingredient, index) => (
               <div key={index}>
-                <h5 className="font-semibold text-gray-800 mb-2 text-sm">{ingredient.name}</h5>
+                <h5 className="font-semibold text-amber-900 lg:text-gray-800 mb-1 lg:mb-2 text-xs lg:text-sm">{ingredient.name}</h5>
                 {/* Handle special formatting for Repairing Pep9 Complex */}
                 {ingredient.name === 'Repairing Pep9 Complex' && ingredient.subList ? (
-                  <div className="text-sm text-gray-600 space-y-2 mb-4">
+                  <div className="text-xs lg:text-sm space-y-1.5 lg:space-y-2 mb-2 lg:mb-4 text-amber-800 lg:text-gray-600">
                     <div>
                       <strong>{t('product.collagenInduction')}</strong>
-                      <ul className="list-disc list-inside ml-4 mt-1 space-y-1">
+                      <ul className="list-disc list-inside ml-2 lg:ml-4 mt-0.5 lg:mt-1 space-y-0.5 lg:space-y-1">
                         {ingredient.subList.map((item: string, i: number) => (
                           <li key={i}>{item}</li>
                         ))}
@@ -735,7 +735,7 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
                     </div>
                   </div>
                 ) : (
-                  <p className="text-sm text-gray-600 mb-4">
+                  <p className="text-xs lg:text-sm mb-2 lg:mb-4 text-amber-800 lg:text-gray-600">
                     {ingredient.description}
                   </p>
                 )}
@@ -747,8 +747,8 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
 
       {/* Directions / Note */}
       {directionsStr && (
-        <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-          <p className={`text-green-800 text-sm ${dir === 'rtl' ? 'text-right' : ''}`}>
+        <div className="bg-green-50 border border-green-200 rounded-lg p-2 lg:p-4">
+          <p className="text-green-800 text-xs lg:text-sm" dir={dir} style={{ textAlign: dir === 'rtl' ? 'right' : 'left' }}>
             <strong>{t('product.note')}</strong> {directionsStr}
           </p>
         </div>

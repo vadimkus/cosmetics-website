@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react'
 import { fetchCsrfToken, getCsrfHeaders, addCsrfToBody } from '@/lib/csrfClient'
-import { debugLog, errorLog } from '@/lib/logger'
+import { errorLog } from '@/lib/logger'
 
 interface User {
   id: string
@@ -271,7 +271,6 @@ export default function AuthProvider({ children }: AuthProviderProps) {
     if (!user) return
     
     try {
-      debugLog('🔄 Refreshing user data for:', user.email)
       // Fetch the latest user data from the server
       const response = await fetch('/api/auth/refresh', {
         method: 'POST',
@@ -298,20 +297,22 @@ export default function AuthProvider({ children }: AuthProviderProps) {
             phone: data.user.phone,
             address: data.user.address
           }
-          debugLog('✅ User data refreshed:', { 
-            email: mergedUser.email, 
-            canSeePrices: mergedUser.canSeePrices,
-            isAdmin: mergedUser.isAdmin,
-            birthday: mergedUser.birthday
-          })
           setUser(mergedUser)
         }
-      } else {
-        debugLog('❌ Refresh failed with status:', response.status)
-        // Don't throw error, just log it to avoid breaking the app
+      } else if (response.status === 404) {
+        // User not found - might have been deleted, but don't log as error
+        // This can happen during development or if user was removed
+        return
       }
+      // For other errors, silently fail to avoid breaking the app
     } catch (error) {
-      errorLog('❌ Error refreshing user data:', error)
+      // Only log actual network errors, not 404s
+      if (error instanceof TypeError && error.message.includes('fetch')) {
+        // Network error - don't log in production to reduce noise
+        if (process.env.NODE_ENV === 'development') {
+          errorLog('❌ Network error refreshing user data:', error)
+        }
+      }
       // Don't throw error, just log it to avoid breaking the app
     }
   }, [user])
@@ -320,7 +321,6 @@ export default function AuthProvider({ children }: AuthProviderProps) {
     if (!user) return
     
     try {
-      debugLog('🔄 Force refreshing user data for:', user.email)
       // Fetch the latest user data from the server
       const response = await fetch('/api/auth/refresh', {
         method: 'POST',
@@ -334,19 +334,18 @@ export default function AuthProvider({ children }: AuthProviderProps) {
         const data = await response.json()
         if (data.user) {
           // Use server data directly without merging with existing data
-          debugLog('✅ User data force refreshed:', { 
-            email: data.user.email, 
-            canSeePrices: data.user.canSeePrices,
-            isAdmin: data.user.isAdmin,
-            birthday: data.user.birthday
-          })
           setUser(data.user)
         }
-      } else {
-        debugLog('❌ Force refresh failed with status:', response.status)
+      } else if (response.status === 404) {
+        // User not found - might have been deleted
+        return
       }
+      // For other errors, silently fail
     } catch (error) {
-      errorLog('❌ Error force refreshing user data:', error)
+      // Only log actual network errors in development
+      if (process.env.NODE_ENV === 'development' && error instanceof TypeError && error.message.includes('fetch')) {
+        errorLog('❌ Error force refreshing user data:', error)
+      }
     }
   }, [user])
 

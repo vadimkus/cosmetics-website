@@ -433,23 +433,23 @@ export default function ProductRecommendation({
   const description = getDescription()
 
   return (
-    <div className="mt-6 md:mt-8 border-t-2 border-gray-200 pt-6 md:pt-8" dir={dir}>
+    <div className="mt-3 lg:mt-6 border-t-2 border-gray-200 pt-3 lg:pt-6" dir={dir}>
       {/* Product Recommendation Section */}
-      <div className="bg-white border-2 border-red-200 rounded-xl p-4 md:p-6 shadow-lg">
-        <div className={`flex items-center gap-2 mb-3 md:mb-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-          <Sparkles className="h-5 w-5 md:h-6 md:w-6 text-red-600 flex-shrink-0" />
-          <h3 className={`text-lg md:text-xl font-bold text-gray-900 ${dir === 'rtl' ? 'text-right' : ''}`}>{t('product.perfectCombination')}</h3>
+      <div className="bg-white border-2 border-red-200 rounded-xl p-2 lg:p-4 shadow-lg">
+        <div className="flex items-center gap-1.5 lg:gap-2 mb-2 lg:mb-3" dir={dir} style={{ flexDirection: dir === 'rtl' ? 'row-reverse' : 'row' }}>
+          <Sparkles className="h-4 w-4 lg:h-5 lg:w-5 text-red-600 flex-shrink-0" />
+          <h3 className="text-sm lg:text-lg font-bold text-gray-900" dir={dir} style={{ textAlign: dir === 'rtl' ? 'right' : 'left' }}>{t('product.perfectCombination')}</h3>
         </div>
         
-        <p className={`text-gray-700 mb-4 md:mb-6 text-xs md:text-sm leading-relaxed ${dir === 'rtl' ? 'text-right' : ''}`} dangerouslySetInnerHTML={{ __html: description.intro }} />
+        <p className="text-gray-700 mb-2 lg:mb-4 text-[10px] lg:text-xs leading-relaxed" dir={dir} style={{ textAlign: dir === 'rtl' ? 'right' : 'left' }} dangerouslySetInnerHTML={{ __html: description.intro }} />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 lg:gap-4">
           {/* Recommended Product Preview */}
           <Link 
             href={`/products/${recommendedProduct.id}`}
-            className="group bg-white rounded-lg p-3 md:p-4 border-2 border-red-300 hover:border-red-500 transition-all shadow-md hover:shadow-xl"
+            className="group bg-white rounded-lg p-2 lg:p-3 border-2 border-red-300 hover:border-red-500 transition-all shadow-md hover:shadow-xl"
           >
-            <div className="relative w-full h-40 md:h-48 mb-3 md:mb-4 rounded-lg overflow-hidden bg-gray-100">
+            <div className="relative w-full h-32 lg:h-40 mb-2 lg:mb-3 rounded-lg overflow-hidden bg-gray-100">
               <Image
                 src={recommendedProduct.image}
                 alt={recommendedProduct.name}
@@ -458,53 +458,53 @@ export default function ProductRecommendation({
                 sizes="(max-width: 768px) 100vw, 50vw"
               />
             </div>
-            <h4 className="font-semibold text-sm md:text-base text-gray-900 mb-1 md:mb-2 group-hover:text-red-600 transition-colors break-words">
+            <h4 className="font-semibold text-xs lg:text-sm mb-0.5 lg:mb-1 text-gray-900 group-hover:text-red-600 transition-colors break-words">
               {recommendedProduct.name}
             </h4>
             {recommendedProduct.size && (
-              <p className="text-xs text-gray-600 mb-1 md:mb-2">{t('product.size')}: {recommendedProduct.size}</p>
+              <p className="text-[10px] lg:text-xs mb-0.5 lg:mb-1 text-gray-600">{t('product.size')}: {recommendedProduct.size}</p>
             )}
             {!recommendedProduct.size && recommendedProduct.id === '32' && (
-              <p className="text-xs text-gray-600 mb-1 md:mb-2">{t('product.size')}: 50g</p>
+              <p className="text-[10px] lg:text-xs mb-0.5 lg:mb-1 text-gray-600">{t('product.size')}: 50g</p>
             )}
             {canSeePrice ? (
-              <div className={`flex flex-wrap items-center gap-1 md:gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+              <div className="flex flex-wrap items-center gap-0.5 lg:gap-1" dir={dir} style={{ flexDirection: dir === 'rtl' ? 'row-reverse' : 'row' }}>
                 {pricing.hasDiscount ? (
                   <>
-                    <span className="text-base md:text-lg font-bold text-red-600">
+                    <span className="text-xs lg:text-base font-bold text-red-600">
                       {pricing.discountedPrice.toFixed(2)} {dir === 'rtl' ? 'درهم' : 'AED'}
                     </span>
-                    <span className="text-xs md:text-sm text-gray-500 line-through">
+                    <span className="text-[10px] lg:text-xs text-gray-500 line-through">
                       {pricing.originalPrice.toFixed(2)} {dir === 'rtl' ? 'درهم' : 'AED'}
                     </span>
-                    <span className="text-xs bg-green-100 text-green-700 px-1.5 md:px-2 py-0.5 md:py-1 rounded">
+                    <span className="text-[10px] lg:text-xs px-1 lg:px-1.5 py-0.5 bg-green-100 text-green-700 rounded">
                       {pricing.discountPercentage}% {t('product.off')}
                     </span>
                   </>
                 ) : (
-                  <span className="text-base md:text-lg font-bold text-red-600">
+                  <span className="text-xs lg:text-base font-bold text-red-600">
                     {pricing.originalPrice.toFixed(2)} {dir === 'rtl' ? 'درهم' : 'AED'}
                   </span>
                 )}
               </div>
             ) : (
-              <p className={`text-xs md:text-sm text-gray-500 ${dir === 'rtl' ? 'text-right' : ''}`}>{t('product.loginToSeePrice')}</p>
+              <p className="text-[10px] lg:text-xs text-gray-500" dir={dir} style={{ textAlign: dir === 'rtl' ? 'right' : 'left' }}>{t('product.loginToSeePrice')}</p>
             )}
-            <p className={`text-xs text-gray-600 mt-1 md:mt-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
+            <p className="text-[10px] lg:text-xs mt-0.5 lg:mt-1 text-gray-600" dir={dir} style={{ textAlign: dir === 'rtl' ? 'right' : 'left' }}>
               {dir === 'rtl' ? '← اضغط لعرض التفاصيل' : 'Click to view details →'}
             </p>
           </Link>
 
           {/* Benefits of Combination */}
-          <div className="bg-white rounded-lg p-3 md:p-4 border-2 border-red-300">
-            <h4 className={`font-semibold text-sm md:text-base text-gray-900 mb-2 md:mb-3 flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
-              <Sparkles className="h-3 w-3 md:h-4 md:w-4 text-red-600 flex-shrink-0" />
+          <div className="bg-white rounded-lg p-2 lg:p-3 border-2 border-red-300">
+            <h4 className="font-semibold text-xs lg:text-sm mb-1.5 lg:mb-2 text-gray-900 flex items-center gap-1.5 lg:gap-2" dir={dir} style={{ flexDirection: dir === 'rtl' ? 'row-reverse' : 'row' }}>
+              <Sparkles className="h-2.5 w-2.5 lg:h-3 lg:w-3 text-red-600 flex-shrink-0" />
               <span>{t('product.whyCombineTheseProducts')}</span>
             </h4>
-            <ul className={`space-y-1.5 md:space-y-2 text-xs md:text-sm text-gray-700 ${dir === 'rtl' ? 'text-right' : ''}`}>
+            <ul className="space-y-1 lg:space-y-1.5 text-[10px] lg:text-xs text-gray-700" dir={dir} style={{ textAlign: dir === 'rtl' ? 'right' : 'left' }}>
               {description.benefits.map((benefit, index) => (
-                <li key={index} className={`flex items-start gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                  <span className="text-red-600 mt-0.5 md:mt-1 flex-shrink-0">✓</span>
+                <li key={index} className="flex items-start gap-1.5 lg:gap-2" dir={dir} style={{ flexDirection: dir === 'rtl' ? 'row-reverse' : 'row' }}>
+                  <span className="text-red-600 mt-0.5 lg:mt-0.5 flex-shrink-0">✓</span>
                   <span className="break-words"><strong>{benefit.title}</strong> {benefit.text}</span>
                 </li>
               ))}
@@ -513,9 +513,11 @@ export default function ProductRecommendation({
             {user && (
               <button
                 onClick={handleAddBothToCart}
-                className={`mt-3 md:mt-4 w-full flex items-center justify-center gap-2 bg-red-600 text-white px-3 md:px-4 py-2 rounded-lg hover:bg-red-700 active:bg-red-800 transition-colors font-medium text-xs md:text-sm touch-manipulation min-h-[44px] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+                className="mt-2 lg:mt-3 px-2 lg:px-3 py-1.5 lg:py-2 text-[10px] lg:text-xs w-full flex items-center justify-center gap-2 bg-red-600 text-white rounded-lg hover:bg-red-700 active:bg-red-800 transition-colors font-medium touch-manipulation min-h-[44px]"
+                dir={dir}
+                style={{ flexDirection: dir === 'rtl' ? 'row-reverse' : 'row' }}
               >
-                <ShoppingCart className="h-3 w-3 md:h-4 md:w-4 flex-shrink-0" />
+                <ShoppingCart className="h-2.5 w-2.5 lg:h-3 lg:w-3 flex-shrink-0" />
                 {t('product.addToCart')}
               </button>
             )}

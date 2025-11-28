@@ -124,43 +124,43 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
         ]}
       />
 
-      <div className="container mx-auto px-3 md:px-4 py-2 md:py-8 lg:py-16">
+      <div className="container mx-auto px-3 md:px-4 py-1 lg:py-8 lg:py-16">
         {/* Mobile Header - Product Name & Back Button */}
-        <div className="lg:hidden mb-3">
+        <div className="lg:hidden mb-1.5">
           {/* Back Link */}
           <Link 
             href={getLocalizedPath('/products', locale)}
-            className={`inline-flex items-center text-gray-500 hover:text-primary-600 active:text-primary-700 transition-colors text-xs font-medium mb-2 touch-manipulation ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+            className={`inline-flex items-center text-gray-500 hover:text-primary-600 active:text-primary-700 transition-colors text-[10px] mb-1 font-medium touch-manipulation ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
           >
-            <ArrowLeft className={`h-3.5 w-3.5 flex-shrink-0 ${dir === 'rtl' ? 'ml-1.5 rotate-180' : 'mr-1.5'}`} />
+            <ArrowLeft className={`h-3 w-3 flex-shrink-0 ${dir === 'rtl' ? 'ml-1 rotate-180' : 'mr-1'}`} />
             <span>{t('product.backToProducts')}</span>
           </Link>
           
           {/* Product Name - Centered */}
-          <h1 className="text-base md:text-lg font-bold text-gray-900 leading-tight text-center">
+          <h1 className="text-sm lg:text-base md:text-lg font-bold text-gray-900 leading-tight text-center mb-0.5">
             {product.name}
           </h1>
           
           {/* Category & Size Badges - Centered (Stock badge is on image) */}
-          <div className="flex items-center justify-center gap-2 mt-2">
-            <span className="inline-block bg-primary-50 text-primary-700 px-2.5 py-1 rounded-full text-xs font-medium">
+          <div className="flex items-center justify-center gap-1 mt-1">
+            <span className="inline-block bg-primary-50 text-primary-700 px-1.5 py-0.5 text-[10px] lg:text-xs rounded-full font-medium">
               {product.category.replace(/,/g, ' · ')}
             </span>
             {product.size && (
-              <span className="inline-block bg-gray-100 text-gray-700 px-2.5 py-1 rounded-full text-xs font-medium">
+              <span className="inline-block bg-gray-100 text-gray-700 px-1.5 py-0.5 text-[10px] lg:text-xs rounded-full font-medium">
                 {t('product.size')}: {product.size}
               </span>
             )}
           </div>
           
           {/* Rating - Centered */}
-          <div className={`flex items-center justify-center gap-1.5 mt-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+          <div className={`flex items-center justify-center gap-1 mt-1 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
             <div className={`flex ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
               {[...Array(5)].map((_, i) => (
-                <Star key={i} className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />
+                <Star key={i} className="h-3 w-3 lg:h-3.5 lg:w-3.5 fill-amber-400 text-amber-400" />
               ))}
             </div>
-            <span className="text-xs text-gray-600 font-medium">
+            <span className="text-[10px] lg:text-xs text-gray-600 font-medium">
               {(product.rating || 5.0).toFixed(1)}
             </span>
           </div>
@@ -178,7 +178,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
         </div>
 
         {/* ============ UNIFIED RESPONSIVE LAYOUT ============ */}
-        <div className={`grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-12 ${dir === 'rtl' ? 'lg:grid-flow-row-dense' : ''}`}>
+        <div className={`grid grid-cols-1 lg:grid-cols-2 gap-2 lg:gap-12 ${dir === 'rtl' ? 'lg:grid-flow-row-dense' : ''}`}>
           {/* Left Column - Product Images and Purchase Controls */}
           <div className={`flex flex-col ${dir === 'rtl' ? 'lg:col-start-2' : ''}`}>
             
@@ -235,7 +235,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
             </div>
             
             {/* Size and Price - Below Image */}
-            <div className="mt-3 lg:mt-4 flex justify-center lg:block">
+            <div className="mt-1.5 lg:mt-4 flex justify-center lg:block">
               <ProductPriceDisplay 
                 product={product}
                 basePrice={currentPrice()}
@@ -244,7 +244,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
             </div>
 
             {/* Variant Selectors - Below Price */}
-            <div className="mt-3 lg:mt-4">
+            <div className="mt-1.5 lg:mt-4">
               <ProductVariantSelector
                 product={product}
                 selectedSize={selectedSize}
@@ -950,7 +950,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
               </div>
             )}
             {(product.id === '33' || product.productNumber === '33') && (
-              <div className="lg:hidden">
+              <div className="lg:hidden mt-2">
                 <ProductRecommendation 
                   recommendedProductId="17"
                   currentProduct={product}
@@ -1007,7 +1007,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
             )}
 
             {/* Trust Badges - Mobile only */}
-            <div className="lg:hidden mt-6">
+            <div className="lg:hidden mt-3">
               <TrustBadges />
             </div>
 

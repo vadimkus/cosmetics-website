@@ -1,6 +1,4 @@
 'use client'
-import { debugLog } from '@/lib/logger'
-
 import { useEffect } from 'react'
 import { useAuth } from './AuthProvider'
 
@@ -10,17 +8,14 @@ export function useUserRefresh() {
   useEffect(() => {
     // Only run on client side and when user exists
     if (typeof window === 'undefined' || !user) return
-
-    debugLog('🔄 Setting up user refresh interval for:', user.email)
     
-    // Refresh user data every 60 seconds to get latest permissions
+    // Refresh user data every 5 minutes to get latest permissions
+    // Reduced frequency to avoid excessive API calls
     const interval = setInterval(() => {
-      debugLog('⏰ Interval triggered - refreshing user data')
       refreshUser()
-    }, 60000) // 60 seconds
+    }, 300000) // 5 minutes (300000 ms)
 
     return () => {
-      debugLog('🧹 Clearing user refresh interval')
       clearInterval(interval)
     }
   }, [user, refreshUser])

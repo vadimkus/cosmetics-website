@@ -49,7 +49,7 @@ const Header = memo(function Header() {
   }, [isClient])
 
   return (
-    <header className="bg-white shadow-sm border-b" suppressHydrationWarning>
+    <header className="sticky top-0 z-50 bg-white shadow-sm border-b" suppressHydrationWarning>
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between py-4 header-main-flex">
           {/* Mobile Icons - English Version (LTR): hamburger, EN, man, heart, cart */}

@@ -44,9 +44,10 @@ export default function ProfileHeader({
             {isEditing && (
               <button
                 onClick={() => fileInputRef.current?.click()}
-                className="absolute -bottom-1 -right-1 bg-primary-600 text-white p-1.5 rounded-full shadow-md"
+                className="absolute bottom-0 right-0 w-6 h-6 bg-white border-2 border-primary-600 text-primary-600 rounded-full shadow-lg flex items-center justify-center hover:bg-primary-50 active:bg-primary-100 transition-colors touch-manipulation"
+                aria-label={t('profile.uploadPhoto')}
               >
-                <Camera className="h-3 w-3" />
+                <Camera className="h-3.5 w-3.5" />
               </button>
             )}
           </div>

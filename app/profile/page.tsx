@@ -366,7 +366,9 @@ export default function ProfilePageRefactored() {
           {activeTab !== 'profile' && (
             <>
               <span> / </span>
-              <span className="text-gray-900 font-medium capitalize">{activeTab}</span>
+              <span className="text-gray-900 font-medium">
+                {activeTab === 'orders' ? 'Orders' : activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}
+              </span>
             </>
           )}
         </nav>

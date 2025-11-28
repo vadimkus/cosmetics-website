@@ -6,7 +6,8 @@ import { useAuth } from '@/components/AuthProvider'
 import CartItem from '@/components/CartItem'
 import FreeMaskPromotion from '@/components/FreeMaskPromotion'
 import Link from 'next/link'
-import { ShoppingBag, ArrowLeft, Lock, MessageCircle, Truck, Gift } from 'lucide-react'
+import Image from 'next/image'
+import { ArrowLeft, Lock, MessageCircle, Truck, Gift, ShoppingBag } from 'lucide-react'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { isBlackFridaySaleActive } from '@/lib/blackFridayUtils'
@@ -114,9 +115,9 @@ export default function CartClient() {
 
   if (items.length === 0) {
     return (
-      <div className="container mx-auto px-4 py-2 md:py-8 lg:py-16" dir={dir}>
+      <div className="container mx-auto px-4 py-4 md:py-8 lg:py-16" dir={dir}>
         {/* Navigation Breadcrumb */}
-        <nav className={`inline-flex items-baseline gap-1.5 md:gap-2 text-xs md:text-base text-gray-700 mb-4 md:mb-6 lg:mb-8 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`} aria-label="Breadcrumb">
+        <nav className={`inline-flex items-baseline gap-1.5 md:gap-2 text-xs md:text-base text-gray-700 mb-6 md:mb-6 lg:mb-8 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`} aria-label="Breadcrumb">
           <span className="hover:text-primary-600 transition-colors">
             <Link href={getLocalizedPath('/', locale)}>{t('common.home')}</Link>
           </span>
@@ -128,19 +129,28 @@ export default function CartClient() {
           <span className="text-gray-900 font-semibold">{t('common.cart')}</span>
         </nav>
 
-        <div className={`max-w-4xl mx-auto text-center py-16 ${dir === 'rtl' ? 'text-right' : ''}`}>
+        <div className={`max-w-4xl mx-auto text-center py-8 md:py-16 ${dir === 'rtl' ? 'text-right' : ''}`}>
           <div className="flex flex-col items-center">
-            <ShoppingBag className="h-24 w-24 text-gray-300 mb-4" />
-            <h1 className={`text-3xl font-bold text-gray-900 mb-4 ${dir === 'rtl' ? 'text-right' : ''}`}>{t('cart.empty')}</h1>
-            <p className={`text-gray-600 text-lg mb-8 ${dir === 'rtl' ? 'text-right' : ''}`}>
+            <div className="mb-6 md:mb-4">
+              <Image
+                src="/images/avatar/uni.png"
+                alt="Empty cart"
+                width={200}
+                height={200}
+                className="w-auto h-auto max-w-[200px] md:max-w-[250px]"
+                priority
+              />
+            </div>
+            <h1 className={`text-2xl md:text-3xl font-bold text-gray-900 mb-3 md:mb-4 ${dir === 'rtl' ? 'text-right' : ''}`}>{t('cart.empty')}</h1>
+            <p className={`hidden md:block text-gray-600 text-lg mb-8 ${dir === 'rtl' ? 'text-right' : ''}`}>
               {t('cart.emptyMessage')}
             </p>
             <Link
               href={getLocalizedPath('/products', locale)}
-              className={`inline-flex items-center gap-2 bg-primary-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-primary-700 transition-colors ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+              className={`inline-flex items-center justify-center gap-2 bg-primary-600 text-white px-6 py-3 md:px-8 md:py-3 rounded-lg font-semibold hover:bg-primary-700 active:bg-primary-800 transition-colors touch-manipulation min-h-[44px] min-w-[44px] text-sm md:text-base ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
             >
-              <ArrowLeft className={`h-5 w-5 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
-              {t('cart.continueShopping')}
+              <ArrowLeft className={`h-4 w-4 md:h-5 md:w-5 flex-shrink-0 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
+              <span>{t('cart.continueShopping')}</span>
             </Link>
           </div>
         </div>

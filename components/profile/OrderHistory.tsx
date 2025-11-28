@@ -102,11 +102,12 @@ export default function OrderHistory({ orders, loadingOrders, onCancelOrder }: O
         <EmptyState
           icon={
             <Image
-              src="/images/avatar/kitten.png"
+              src="/images/avatar/uni.png"
               alt="No orders"
-              width={80}
-              height={80}
-              className="mx-auto"
+              width={120}
+              height={120}
+              className="mx-auto w-auto h-auto max-w-[108px] md:max-w-[120px]"
+              priority
             />
           }
           title={t('profile.noOrdersYet')}
@@ -115,7 +116,7 @@ export default function OrderHistory({ orders, loadingOrders, onCancelOrder }: O
             href: getLocalizedPath('/products', locale),
             onClick: () => {}
           }}
-          buttonClassName="bg-yellow-400 text-white hover:bg-yellow-500 font-semibold"
+          buttonClassName="bg-red-600 text-white hover:bg-red-700 active:bg-red-800 font-semibold"
         />
       ) : (
         <div className="space-y-3 md:space-y-4">

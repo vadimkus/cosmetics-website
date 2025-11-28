@@ -185,7 +185,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
             {/* Desktop Product Header - Hidden on mobile */}
             <div className="hidden lg:block mb-4">
               {/* Category Badge & Stock Status */}
-              <div className={`flex items-center flex-wrap gap-2 mb-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+              <div className={`flex items-center justify-center flex-wrap gap-2 mb-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                 <span className="inline-block bg-gradient-to-r from-primary-100 to-primary-50 text-primary-700 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wide">
                   {product.category.replace(/,/g, ' · ')}
                 </span>
@@ -202,12 +202,12 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
               </div>
               
               {/* Product Name */}
-              <h1 className={`text-2xl font-bold text-gray-900 leading-tight mb-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
+              <h1 className="text-2xl font-bold text-gray-900 leading-tight mb-2 text-center">
                 {product.name}
               </h1>
               
               {/* Rating & Size */}
-              <div className={`flex items-center flex-wrap gap-3 text-sm ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+              <div className={`flex items-center justify-center flex-wrap gap-3 text-sm ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                 <div className={`flex items-center gap-1.5 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                   <div className="flex">
                     {[...Array(5)].map((_, i) => (
@@ -676,8 +676,9 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
 
           {/* Right Column - Product Details and Content */}
           <div className={`space-y-6 ${dir === 'rtl' ? 'lg:col-start-1 lg:row-start-1' : ''}`}>
-            {/* Product Details - Hidden on mobile (info shown in mobile header above image) */}
-            <div className="hidden lg:block">
+            {/* Product Details - Hidden on desktop (info shown in desktop header above image in left column) */}
+            {/* Hidden on mobile (info shown in mobile header above image) */}
+            <div className="hidden">
               <ProductDetails product={product} />
             </div>
 

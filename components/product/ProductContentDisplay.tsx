@@ -13,7 +13,7 @@ interface ProductContentDisplayProps {
 
 export default function ProductContentDisplay({ product }: ProductContentDisplayProps) {
   const { t, locale, dir } = useTranslation()
-  const arabicTranslations = locale === 'ar' ? getProductTranslations(product.id) : null
+  const arabicTranslations = locale === 'ar' ? getProductTranslations(product.productNumber || product.id) : null
   
   // Use Arabic translations if available, otherwise fall back to English
   const description = arabicTranslations?.description || product.description

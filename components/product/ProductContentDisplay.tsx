@@ -164,11 +164,26 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
   }
 
   // Convert description to concise bullet points
-  const formatDescriptionAsBullets = (description: string): string[] => {
+  // For beauty box kit items, show full description instead of truncating
+  const formatDescriptionAsBullets = (description: string, isKitItem: boolean = false): string[] => {
     if (!description) return []
     
+    // For kit items in beauty boxes, show full description as paragraphs
+    if (isKitItem) {
+      // Split by newlines to preserve paragraph structure, but keep the full text
+      const lines = description.split('\n').filter(Boolean).map(p => p.trim())
+      if (lines.length > 0) {
+        return lines
+      }
+      // Fallback: return as single item if no structure found
+      return [description.trim()]
+    }
+    
+    // Check for both English and Arabic key ingredients patterns
+    const hasKeyIngredients = description.includes('Key ingredients:') || description.includes('المكونات الرئيسية:')
+    
     // For short descriptions (under 200 chars), return as single bullet
-    if (description.length < 200 && !description.includes('Key ingredients:') && !description.includes('\n')) {
+    if (description.length < 200 && !hasKeyIngredients && !description.includes('\n')) {
       return [description.trim()]
     }
     
@@ -184,8 +199,12 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
       const line = lines[i]?.trim()
       if (!line) continue
       
+      // Check for key ingredients in both English and Arabic
+      const hasKeyIngredientsInLine = line.includes('Key ingredients:') || line.includes('المكونات الرئيسية:')
+      const hasDermatologicallyTested = line.includes('Dermatologically tested') || line.includes('مختبر طبياً')
+      
       // Extract main description (first sentence or two)
-      if (!mainDescription && line && !line.includes('Key ingredients:') && !line.includes('Dermatologically tested')) {
+      if (!mainDescription && line && !hasKeyIngredientsInLine && !hasDermatologicallyTested) {
         // Get first sentence or first 100 characters
         const sentences = line.split('.')
         const firstSentence = sentences[0]
@@ -196,17 +215,28 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
         }
       }
       
-      // Extract key ingredients
+      // Extract key ingredients (both English and Arabic)
       if (line.includes('Key ingredients:')) {
         const ingredientsLine = line.replace('Key ingredients:', '').trim()
         if (ingredientsLine) {
           // Split by comma and clean up
           keyIngredients = ingredientsLine.split(',').map(ing => ing.trim()).filter(Boolean)
         }
+      } else if (line.includes('المكونات الرئيسية:')) {
+        const ingredientsLine = line.replace('المكونات الرئيسية:', '').trim()
+        if (ingredientsLine) {
+          // Split by comma and clean up (Arabic uses Arabic comma sometimes, but we'll use regular comma)
+          keyIngredients = ingredientsLine.split(',').map(ing => ing.trim()).filter(Boolean)
+        }
       }
       
-      // Extract benefits (look for common benefit phrases)
-      if (line.toLowerCase().includes('helps') || line.toLowerCase().includes('provides') || line.toLowerCase().includes('improves')) {
+      // Extract benefits (look for common benefit phrases in both languages)
+      const lowerLine = line.toLowerCase()
+      const hasBenefitPhrase = lowerLine.includes('helps') || lowerLine.includes('provides') || 
+                               lowerLine.includes('improves') || lowerLine.includes('يساعد') || 
+                               lowerLine.includes('يوفر') || lowerLine.includes('يحسن')
+      
+      if (hasBenefitPhrase) {
         const sentences = line.split('.')
         const benefit = sentences[0]?.trim()
         // Don't add if it's the same as mainDescription or already in benefits
@@ -307,11 +337,11 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
                                 {item.name}
                               </h4>
                             )}
-                            <ul className={`${colors.text} text-sm leading-relaxed space-y-1 list-disc list-inside`}>
-                              {formatDescriptionAsBullets(item.description).map((bullet, bulletIndex) => (
-                                <li key={bulletIndex}>{bullet}</li>
+                            <div className={`${colors.text} text-sm leading-relaxed space-y-2`}>
+                              {formatDescriptionAsBullets(item.description, true).map((bullet, bulletIndex) => (
+                                <p key={bulletIndex} className="mb-1">{bullet}</p>
                               ))}
-                            </ul>
+                            </div>
                           </div>
                         </div>
                       </div>

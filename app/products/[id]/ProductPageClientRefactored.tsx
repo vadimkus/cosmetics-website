@@ -333,6 +333,26 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
               </div>
             )}
 
+            {/* Product Recommendation Section - Only for product 49 - Desktop only */}
+            {(product.id === '49' || product.productNumber === '49') && (
+              <div className="hidden lg:block">
+                <ProductRecommendation 
+                  recommendedProductId="37"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+
+            {/* Product Recommendation Section - Only for product 37 - Desktop only */}
+            {(product.id === '37' || product.productNumber === '37') && (
+              <div className="hidden lg:block">
+                <ProductRecommendation 
+                  recommendedProductId="49"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+
             {/* Product Recommendation Section - Only for product 15 - Desktop only */}
             {(product.id === '15' || product.productNumber === '15') && (
               <div className="hidden lg:block">
@@ -770,6 +790,22 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
               <div className="lg:hidden">
                 <ProductRecommendation 
                   recommendedProductId="21"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+            {(product.id === '49' || product.productNumber === '49') && (
+              <div className="lg:hidden">
+                <ProductRecommendation 
+                  recommendedProductId="37"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+            {(product.id === '37' || product.productNumber === '37') && (
+              <div className="lg:hidden">
+                <ProductRecommendation 
+                  recommendedProductId="49"
                   currentProduct={product}
                 />
               </div>

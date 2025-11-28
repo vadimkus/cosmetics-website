@@ -175,6 +175,30 @@ export default function ProductRecommendation({
         ]
       }
     }
+    // LED Therapy combination (49 + 37)
+    if ((currentProduct.id === '49' || currentProduct.productNumber === '49') && recommendedProduct.id === '37') {
+      return {
+        intro: t('product.pc49Intro', { currentName: `<strong>${currentName}</strong>`, recommendedName: `<strong>${recommendedName}</strong>` }),
+        benefits: [
+          { title: t('product.pc49Benefit1Title'), text: t('product.pc49Benefit1Text') },
+          { title: t('product.pc49Benefit2Title'), text: t('product.pc49Benefit2Text') },
+          { title: t('product.pc49Benefit3Title'), text: t('product.pc49Benefit3Text') },
+          { title: t('product.pc49Benefit4Title'), text: t('product.pc49Benefit4Text') }
+        ]
+      }
+    }
+    // LED Therapy combination (37 + 49) - Reverse order
+    if ((currentProduct.id === '37' || currentProduct.productNumber === '37') && recommendedProduct.id === '49') {
+      return {
+        intro: t('product.pc37Intro', { currentName: `<strong>${currentName}</strong>`, recommendedName: `<strong>${recommendedName}</strong>` }),
+        benefits: [
+          { title: t('product.pc37Benefit1Title'), text: t('product.pc37Benefit1Text') },
+          { title: t('product.pc37Benefit2Title'), text: t('product.pc37Benefit2Text') },
+          { title: t('product.pc37Benefit3Title'), text: t('product.pc37Benefit3Text') },
+          { title: t('product.pc37Benefit4Title'), text: t('product.pc37Benefit4Text') }
+        ]
+      }
+    }
 
     // Blemish control toner + cream combination (15 + 30)
     if ((currentProduct.id === '15' || currentProduct.productNumber === '15') && recommendedProduct.id === '30') {

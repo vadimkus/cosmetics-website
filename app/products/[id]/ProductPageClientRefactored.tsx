@@ -137,7 +137,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
           </Link>
           
           {/* Product Name - Centered */}
-          <h1 className="text-lg font-bold text-gray-900 leading-tight text-center">
+          <h1 className="text-base md:text-lg font-bold text-gray-900 leading-tight text-center">
             {product.name}
           </h1>
           

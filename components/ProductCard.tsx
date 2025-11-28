@@ -127,12 +127,12 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
         {/* Size and Stock Row */}
         <div className="flex items-center gap-2 mb-2 flex-wrap">
           {(product.size || product.id === '37') && (
-            <span className="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-gray-100 text-gray-700">
+            <span className="inline-flex items-center px-2 py-1 rounded-md text-[10px] md:text-xs font-medium bg-gray-100 text-gray-700">
               {t('product.size')}: {product.id === '37' ? '38g x 5ea (5 masks, 1 box)' : product.size}
             </span>
           )}
           {product.inStock && (
-            <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+            <span className="inline-flex items-center px-2 py-1 rounded-full text-[10px] md:text-xs font-medium bg-green-100 text-green-800">
               {product.id === '47' ? t('products.orderByRequest') : t('product.inStock')}
             </span>
           )}
@@ -155,45 +155,45 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
                     <div>
                       {pricing.hasDiscount ? (
                         <div>
-                          <div className="flex items-center gap-1 md:gap-2">
-                            <span className="text-sm md:text-base font-bold text-primary-600">
+                          <div className="flex items-center gap-1 md:gap-2 flex-wrap">
+                            <span className="text-xs md:text-base font-bold text-primary-600">
                               {pricing.discountedPrice.toFixed(2)} AED
                             </span>
-                            <span className="text-xs md:text-sm text-gray-500 line-through">
+                            <span className="text-[10px] md:text-sm text-gray-500 line-through">
                               {pricing.originalPrice.toFixed(2)} AED
                             </span>
                           </div>
                           <div className="flex items-center gap-1 mt-1">
-                            <span className="text-xs text-green-600 font-medium">
+                            <span className="text-[10px] md:text-xs text-green-600 font-medium">
                               {pricing.discountPercentage}% {t('product.off')}
                             </span>
-                            <span className="text-xs text-gray-500">{t('product.vatIncluded')}</span>
+                            <span className="text-[10px] md:text-xs text-gray-500">{t('product.vatIncluded')}</span>
                           </div>
                         </div>
                       ) : (
                         <div>
                           {product.category === 'Beauty Boxes' ? (
                             <>
-                              <div className="flex items-center gap-1 md:gap-2">
-                                <span className="text-sm md:text-base font-bold text-primary-600">
+                              <div className="flex items-center gap-1 md:gap-2 flex-wrap">
+                                <span className="text-xs md:text-base font-bold text-primary-600">
                                   {pricing.originalPrice.toFixed(2)} AED
                                 </span>
-                                <span className="text-xs md:text-sm text-gray-500 line-through">
+                                <span className="text-[10px] md:text-sm text-gray-500 line-through">
                                   {(pricing.originalPrice / 0.85).toFixed(2)} AED
                                 </span>
                               </div>
                               <div className="flex items-center gap-1 mt-1">
-                                <span className="text-xs text-green-600 font-medium">15% off</span>
-                                <span className="text-xs text-gray-500">{t('product.vatIncluded')}</span>
+                                <span className="text-[10px] md:text-xs text-green-600 font-medium">15% off</span>
+                                <span className="text-[10px] md:text-xs text-gray-500">{t('product.vatIncluded')}</span>
                               </div>
                             </>
                           ) : (
                             <>
-                              <span className="text-sm md:text-base font-bold text-primary-600">
+                              <span className="text-xs md:text-base font-bold text-primary-600">
                                 {pricing.originalPrice.toFixed(2)} AED
                               </span>
                               <div className="flex items-center gap-1 mt-1">
-                                <span className="text-xs text-gray-500">{t('product.vatIncluded')}</span>
+                                <span className="text-[10px] md:text-xs text-gray-500">{t('product.vatIncluded')}</span>
                               </div>
                             </>
                           )}

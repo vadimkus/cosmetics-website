@@ -85,7 +85,7 @@ export default function CartItem({ item }: CartItemProps) {
                     {pricing.hasDiscount ? (
                       <div>
                         <div className={`flex items-baseline gap-1.5 flex-nowrap ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                          <p className="text-sm md:text-lg font-bold text-gray-900 whitespace-nowrap">
+                          <p className="text-sm md:text-lg font-bold text-red-600 md:text-gray-900 whitespace-nowrap">
                             {totalPrice.toFixed(2)} AED
                           </p>
                           <p className="text-xs md:text-sm text-gray-500 line-through whitespace-nowrap">
@@ -101,7 +101,7 @@ export default function CartItem({ item }: CartItemProps) {
                       </div>
                     ) : (
                       <div>
-                        <p className="text-base md:text-lg font-bold text-gray-900">
+                        <p className="text-base md:text-lg font-bold text-red-600 md:text-gray-900">
                           {totalPrice.toFixed(2)} AED
                         </p>
                         <p className="text-xs text-red-600 mt-1">{t('product.vatIncluded')}</p>

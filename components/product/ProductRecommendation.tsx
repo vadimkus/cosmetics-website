@@ -181,12 +181,25 @@ export default function ProductRecommendation({
     // Hydration/moisturizing combination (18 + 29)
     if ((currentProduct.id === '18' || currentProduct.productNumber === '18') && recommendedProduct.id === '29') {
       return {
-        intro: `Maximize your skin hydration by combining the <strong>${currentName}</strong> with <strong>${recommendedName}</strong>. Together, they provide comprehensive multi-depth hydration and long-lasting moisture for plump, dewy skin.`,
+        intro: t('product.pc18Intro', { currentName: `<strong>${currentName}</strong>`, recommendedName: `<strong>${recommendedName}</strong>` }),
         benefits: [
-          { title: '4-Step Hydration System:', text: 'Both products work together using electrolytes, aquaporin stimulation, and multi-weight hyaluronic acids for complete hydration' },
-          { title: 'Multi-Depth Moisture:', text: 'Serum quickly replenishes from deep inside while cream forms a protective barrier to prevent evaporation' },
-          { title: 'Long-Lasting Hydration:', text: 'Cream provides 72-hour hydration persistence, locking in the moisture delivered by serum' },
-          { title: 'Complete Moisture Routine:', text: 'Addresses both immediate hydration needs and long-term moisture barrier health for all skin types' }
+          { title: t('product.pc18Benefit1Title'), text: t('product.pc18Benefit1Text') },
+          { title: t('product.pc18Benefit2Title'), text: t('product.pc18Benefit2Text') },
+          { title: t('product.pc18Benefit3Title'), text: t('product.pc18Benefit3Text') },
+          { title: t('product.pc18Benefit4Title'), text: t('product.pc18Benefit4Text') }
+        ]
+      }
+    }
+
+    // Hydration/moisturizing combination (29 + 18) - Reverse order
+    if ((currentProduct.id === '29' || currentProduct.productNumber === '29') && recommendedProduct.id === '18') {
+      return {
+        intro: t('product.pc29Intro', { currentName: `<strong>${currentName}</strong>`, recommendedName: `<strong>${recommendedName}</strong>` }),
+        benefits: [
+          { title: t('product.pc29Benefit1Title'), text: t('product.pc29Benefit1Text') },
+          { title: t('product.pc29Benefit2Title'), text: t('product.pc29Benefit2Text') },
+          { title: t('product.pc29Benefit3Title'), text: t('product.pc29Benefit3Text') },
+          { title: t('product.pc29Benefit4Title'), text: t('product.pc29Benefit4Text') }
         ]
       }
     }

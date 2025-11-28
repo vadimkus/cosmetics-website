@@ -235,7 +235,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
             </div>
             
             {/* Size and Price - Below Image */}
-            <div className="mt-3 lg:mt-4">
+            <div className="mt-3 lg:mt-4 flex justify-center lg:block">
               <ProductPriceDisplay 
                 product={product}
                 basePrice={currentPrice()}

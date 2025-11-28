@@ -103,12 +103,12 @@ export default function ProductRecommendation({
     // Anti-aging combination (22 + 32)
     if ((currentProduct.id === '22' || currentProduct.productNumber === '22') && recommendedProduct.id === '32') {
       return {
-        intro: `Enhance your anti-aging routine by combining the <strong>${currentName}</strong> with <strong>${recommendedName}</strong>. Together, they provide comprehensive wrinkle reduction and skin firmness for maximum results.`,
+        intro: t('product.pc22Intro', { currentName: `<strong>${currentName}</strong>`, recommendedName: `<strong>${recommendedName}</strong>` }),
         benefits: [
-          { title: 'Enhanced Absorption:', text: 'Serum prepares skin for deeper cream penetration' },
-          { title: '24/7 Protection:', text: 'Serum for daytime, cream for nighttime repair' },
-          { title: 'Synergistic Effects:', text: 'Combined active ingredients work better together' },
-          { title: 'Complete Routine:', text: 'Addresses all signs of aging comprehensively' }
+          { title: t('product.pc22Benefit1Title'), text: t('product.pc22Benefit1Text') },
+          { title: t('product.pc22Benefit2Title'), text: t('product.pc22Benefit2Text') },
+          { title: t('product.pc22Benefit3Title'), text: t('product.pc22Benefit3Text') },
+          { title: t('product.pc22Benefit4Title'), text: t('product.pc22Benefit4Text') }
         ]
       }
     }

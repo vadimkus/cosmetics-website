@@ -877,7 +877,16 @@
     "pc18Benefit3Title": "Long-Lasting Hydration:",
     "pc18Benefit3Text": "Cream provides 72-hour hydration persistence, locking in the moisture delivered by serum",
     "pc18Benefit4Title": "Complete Moisture Routine:",
-    "pc18Benefit4Text": "Addresses both immediate hydration needs and long-term moisture barrier health for all skin types"
+    "pc18Benefit4Text": "Addresses both immediate hydration needs and long-term moisture barrier health for all skin types",
+    "pc22Intro": "Enhance your anti-aging routine by combining the <strong>{currentName}</strong> with <strong>{recommendedName}</strong>. Together, they provide comprehensive wrinkle reduction and skin firmness for maximum results.",
+    "pc22Benefit1Title": "Enhanced Absorption:",
+    "pc22Benefit1Text": "Serum prepares skin for deeper cream penetration",
+    "pc22Benefit2Title": "24/7 Protection:",
+    "pc22Benefit2Text": "Serum for daytime, cream for nighttime repair",
+    "pc22Benefit3Title": "Synergistic Effects:",
+    "pc22Benefit3Text": "Combined active ingredients work better together",
+    "pc22Benefit4Title": "Complete Routine:",
+    "pc22Benefit4Text": "Addresses all signs of aging comprehensively"
   },
   "trustBadges": {
     "freeShipping": "Free Shipping",

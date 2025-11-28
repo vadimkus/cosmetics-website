@@ -241,12 +241,12 @@ export default function ProductRecommendation({
       const isShampooFirst = (currentProduct.id === '44' || currentProduct.productNumber === '44')
       
       return {
-        intro: `Complete your hair loss treatment routine by combining the <strong>${currentName}</strong> with <strong>${recommendedName}</strong>. Together, they provide comprehensive scalp care and hair loss improvement for healthier, stronger hair.`,
+        intro: t('product.pc44Intro', { currentName: `<strong>${currentName}</strong>`, recommendedName: `<strong>${recommendedName}</strong>` }),
         benefits: [
-          { title: 'Complete Hair Loss Treatment:', text: 'Both products are KFDA-approved functional products that work together to improve hair loss symptoms and scalp health' },
-          { title: 'Scalp Environment Improvement:', text: isShampooFirst ? 'Shampoo cleanses and controls excess sebum while tonic cools scalp heat and improves scalp conditions' : 'Tonic cools scalp heat and improves conditions while shampoo cleanses and controls excess sebum for optimal scalp health' },
-          { title: 'Synergistic Active Ingredients:', text: isShampooFirst ? 'Copper Tripeptide-1 and MultiEx BSASM™ in tonic complement shampoo\'s patented extracts for enhanced hair loss treatment' : 'Shampoo\'s patented extracts work with tonic\'s Copper Tripeptide-1 and MultiEx BSASM™ for comprehensive hair loss treatment' },
-          { title: 'Complete Hair Care Routine:', text: 'Addresses both cleansing/preparation and active treatment for comprehensive hair loss management' }
+          { title: t('product.pc44Benefit1Title'), text: t('product.pc44Benefit1Text') },
+          { title: isShampooFirst ? t('product.pc44Benefit2TitleShampooFirst') : t('product.pc44Benefit2TitleTonicFirst'), text: isShampooFirst ? t('product.pc44Benefit2TextShampooFirst') : t('product.pc44Benefit2TextTonicFirst') },
+          { title: isShampooFirst ? t('product.pc44Benefit3TitleShampooFirst') : t('product.pc44Benefit3TitleTonicFirst'), text: isShampooFirst ? t('product.pc44Benefit3TextShampooFirst') : t('product.pc44Benefit3TextTonicFirst') },
+          { title: t('product.pc44Benefit4Title'), text: t('product.pc44Benefit4Text') }
         ]
       }
     }
@@ -254,12 +254,12 @@ export default function ProductRecommendation({
     // Hair care ampoule + tonic combination (45 + 43)
     if ((currentProduct.id === '45' || currentProduct.productNumber === '45') && recommendedProduct.id === '43') {
       return {
-        intro: `Enhance your premium hair loss treatment by combining the <strong>${currentName}</strong> with <strong>${recommendedName}</strong>. Together, they provide comprehensive anti-hair loss therapy and scalp health improvement for optimal results.`,
+        intro: t('product.pc45Intro', { currentName: `<strong>${currentName}</strong>`, recommendedName: `<strong>${recommendedName}</strong>` }),
         benefits: [
-          { title: 'Premium Hair Loss Treatment:', text: 'Ampoule delivers advanced peptide nutrients via microneedling while tonic improves scalp environment and cools scalp heat' },
-          { title: 'Synergistic Peptide Action:', text: 'Copper Tripeptide-1 in both products works together with ampoule\'s sh-Polypeptides for enhanced hair loss treatment and scalp regeneration' },
-          { title: 'Complete Treatment Protocol:', text: 'Ampoule provides intensive microneedling treatment while tonic maintains scalp health and improves conditions between treatments' },
-          { title: 'Optimal Scalp Environment:', text: 'Tonic cools scalp heat and improves conditions, creating the ideal environment for ampoule\'s nutrients to work effectively' }
+          { title: t('product.pc45Benefit1Title'), text: t('product.pc45Benefit1Text') },
+          { title: t('product.pc45Benefit2Title'), text: t('product.pc45Benefit2Text') },
+          { title: t('product.pc45Benefit3Title'), text: t('product.pc45Benefit3Text') },
+          { title: t('product.pc45Benefit4Title'), text: t('product.pc45Benefit4Text') }
         ]
       }
     }
@@ -279,12 +279,12 @@ export default function ProductRecommendation({
 
     // Default generic description
     return {
-      intro: `Enhance your skincare routine by combining <strong>${currentName}</strong> with <strong>${recommendedName}</strong>. Together, they provide comprehensive care for optimal results.`,
+      intro: t('product.pcDefaultIntro', { currentName: `<strong>${currentName}</strong>`, recommendedName: `<strong>${recommendedName}</strong>` }),
       benefits: [
-        { title: 'Enhanced Results:', text: 'Combined products work synergistically for better outcomes' },
-        { title: 'Complete Care:', text: 'Addresses multiple skin concerns comprehensively' },
-        { title: 'Optimal Formulation:', text: 'Products are designed to complement each other' },
-        { title: 'Professional Routine:', text: 'Create a complete skincare regimen for best results' }
+        { title: t('product.pcDefaultBenefit1Title'), text: t('product.pcDefaultBenefit1Text') },
+        { title: t('product.pcDefaultBenefit2Title'), text: t('product.pcDefaultBenefit2Text') },
+        { title: t('product.pcDefaultBenefit3Title'), text: t('product.pcDefaultBenefit3Text') },
+        { title: t('product.pcDefaultBenefit4Title'), text: t('product.pcDefaultBenefit4Text') }
       ]
     }
   }
@@ -297,7 +297,7 @@ export default function ProductRecommendation({
       <div className="bg-white border-2 border-red-200 rounded-xl p-4 md:p-6 shadow-lg">
         <div className={`flex items-center gap-2 mb-3 md:mb-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
           <Sparkles className="h-5 w-5 md:h-6 md:w-6 text-red-600 flex-shrink-0" />
-          <h3 className={`text-lg md:text-xl font-bold text-gray-900 ${dir === 'rtl' ? 'text-right' : ''}`}>Perfect Combination</h3>
+          <h3 className={`text-lg md:text-xl font-bold text-gray-900 ${dir === 'rtl' ? 'text-right' : ''}`}>{t('product.perfectCombination')}</h3>
         </div>
         
         <p className={`text-gray-700 mb-4 md:mb-6 text-xs md:text-sm leading-relaxed ${dir === 'rtl' ? 'text-right' : ''}`} dangerouslySetInnerHTML={{ __html: description.intro }} />

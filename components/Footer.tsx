@@ -86,17 +86,23 @@ export default function Footer() {
 
           {/* Logo and Copyright */}
           <div className="flex flex-col items-center w-full">
-            <Image
-              src="/Logo/upLOGO.png"
-              alt="GENOSYS Middle East FZ-LLC - Official Korean Dermacosmetics Distributor UAE"
-              width={180}
-              height={54}
-              className="mb-1 md:mb-2 w-[120px] md:w-[180px] h-auto"
-              priority={false}
-              quality={75}
-              placeholder="blur"
-              blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
-            />
+            <Link 
+              href={getLocalizedPath('/products', locale)}
+              className="mb-1 md:mb-2 hover:opacity-80 transition-opacity"
+              aria-label="Go to products"
+            >
+              <Image
+                src="/Logo/upLOGO.png"
+                alt="GENOSYS Middle East FZ-LLC - Official Korean Dermacosmetics Distributor UAE"
+                width={180}
+                height={54}
+                className="w-[120px] md:w-[180px] h-auto"
+                priority={false}
+                quality={75}
+                placeholder="blur"
+                blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
+              />
+            </Link>
             <p className="text-[10px] md:text-sm mt-0.5 md:mt-1 w-full text-center text-gray-500 footer-copyright">
               {t('footer.officialDistributor')}
             </p>

@@ -283,6 +283,16 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
               </div>
             )}
 
+            {/* Product Recommendation Section - Only for product 32 - Desktop only */}
+            {(product.id === '32' || product.productNumber === '32') && (
+              <div className="hidden lg:block">
+                <ProductRecommendation 
+                  recommendedProductId="22"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+
             {/* Product Recommendation Section - Only for product 20 - Desktop only */}
             {(product.id === '20' || product.productNumber === '20') && (
               <div className="hidden lg:block">
@@ -710,6 +720,14 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
               <div className="lg:hidden">
                 <ProductRecommendation 
                   recommendedProductId="32"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+            {(product.id === '32' || product.productNumber === '32') && (
+              <div className="lg:hidden">
+                <ProductRecommendation 
+                  recommendedProductId="22"
                   currentProduct={product}
                 />
               </div>

@@ -185,7 +185,8 @@ export default function OrderHistory({ orders, loadingOrders, onCancelOrder }: O
                             height={48}
                             className="w-full h-full object-cover"
                             onError={(e) => {
-                              const target = e.target as HTMLImageElement;
+                              const target = e.target as HTMLImageElement | null;
+                              if (!target) return;
                               target.style.display = 'none';
                               const parent = target.parentElement;
                               if (parent) {

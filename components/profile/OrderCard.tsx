@@ -90,7 +90,8 @@ export default function OrderCard({
                   height={48}
                   className="object-cover w-full h-full"
                   onError={(e) => {
-                    const target = e.target as HTMLImageElement;
+                    const target = e.target as HTMLImageElement | null;
+                    if (!target) return;
                     target.style.display = 'none';
                     const parent = target.parentElement;
                     if (parent) {

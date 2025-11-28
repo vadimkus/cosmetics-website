@@ -112,6 +112,18 @@ export default function ProductRecommendation({
         ]
       }
     }
+    // Anti-aging combination (32 + 22) - Reverse order
+    if ((currentProduct.id === '32' || currentProduct.productNumber === '32') && recommendedProduct.id === '22') {
+      return {
+        intro: t('product.pc32Intro', { currentName: `<strong>${currentName}</strong>`, recommendedName: `<strong>${recommendedName}</strong>` }),
+        benefits: [
+          { title: t('product.pc32Benefit1Title'), text: t('product.pc32Benefit1Text') },
+          { title: t('product.pc32Benefit2Title'), text: t('product.pc32Benefit2Text') },
+          { title: t('product.pc32Benefit3Title'), text: t('product.pc32Benefit3Text') },
+          { title: t('product.pc32Benefit4Title'), text: t('product.pc32Benefit4Text') }
+        ]
+      }
+    }
 
     // Blemish control combination (20 + 30)
     if ((currentProduct.id === '20' || currentProduct.productNumber === '20') && recommendedProduct.id === '30') {
@@ -142,12 +154,12 @@ export default function ProductRecommendation({
     // Brightening/Radiance combination (21 + 31)
     if ((currentProduct.id === '21' || currentProduct.productNumber === '21') && recommendedProduct.id === '31') {
       return {
-        intro: `Maximize your skin brightening results by combining the <strong>${currentName}</strong> with <strong>${recommendedName}</strong>. Together, they provide comprehensive radiance enhancement and even skin tone for a naturally glowing complexion.`,
+        intro: t('product.pc21Intro', { currentName: `<strong>${currentName}</strong>`, recommendedName: `<strong>${recommendedName}</strong>` }),
         benefits: [
-          { title: 'Enhanced Brightening:', text: 'MELAZERO® complex in both products works synergistically to reduce melanin and even skin tone' },
-          { title: 'Multi-Vitamin Boost:', text: 'VITA 12 Complex and vitamin C derivatives provide comprehensive antioxidant protection' },
-          { title: '24/7 Radiance:', text: 'Serum for active brightening while cream maintains and protects your glow' },
-          { title: 'Complete Brightening Routine:', text: 'Addresses hyperpigmentation, dullness, and uneven tone for radiant skin' }
+          { title: t('product.pc21Benefit1Title'), text: t('product.pc21Benefit1Text') },
+          { title: t('product.pc21Benefit2Title'), text: t('product.pc21Benefit2Text') },
+          { title: t('product.pc21Benefit3Title'), text: t('product.pc21Benefit3Text') },
+          { title: t('product.pc21Benefit4Title'), text: t('product.pc21Benefit4Text') }
         ]
       }
     }

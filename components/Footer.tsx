@@ -97,6 +97,7 @@ export default function Footer() {
                 width={180}
                 height={54}
                 className="w-[120px] md:w-[180px] h-auto"
+                style={{ height: 'auto' }}
                 priority={false}
                 quality={75}
                 placeholder="blur"

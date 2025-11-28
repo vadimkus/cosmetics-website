@@ -139,7 +139,7 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
         </div>
         
         <p 
-          className="text-gray-600 text-xs md:text-sm mb-3 md:mb-4 md:line-clamp-2 product-description-mobile"
+          className="text-gray-600 text-xs md:text-sm mb-3 md:mb-4 line-clamp-4 md:line-clamp-2"
         >
           {description ? description.replace(/<[^>]*>/g, '').trim() : ''}
         </p>

@@ -232,7 +232,7 @@
     "deliveryLocation": "Delivery Location",
     "paymentInformation": "Payment Information",
     "payment": "Payment",
-    "paymentDescription": "As our customer, you can pay via cash on delivery or ask our support team to generate a secure payment link. Our support team will share a secure payment link for payment.",
+    "paymentDescription": "You can pay via cash on delivery or ask our support team to generate a secure payment link. Our support team will share a secure payment link for payment.",
     "stripeCheckout": "Stripe Checkout",
     "comingSoon": "Coming soon - We will integrate later",
     "payWhenDelivered": "Pay when your order is delivered",

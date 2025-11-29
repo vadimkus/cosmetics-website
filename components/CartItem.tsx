@@ -23,13 +23,19 @@ export default function CartItem({ item }: CartItemProps) {
   // Check if this is CHARMING LOOK BEAUTY BOX (productNumber '57')
   const isCharmingLookBeautyBox = product.productNumber === '57' || product.id === '57'
   
+  // Check if this is the cushion product (ID 41)
+  const isCushionProduct = product.id === '41' || product.productNumber === '41'
+  
   // Get cushion color options (product 41 has colors: Beige, Ivory, Camel)
-  const cushionColorOptions = isCharmingLookBeautyBox ? getProductColorOptions('41') : []
+  const cushionColorOptions = (isCharmingLookBeautyBox || isCushionProduct) ? getProductColorOptions('41') : []
   
   // Use selectedSize/selectedColor if available, otherwise fallback to product size
   const displaySize = (selectedSize && selectedSize.trim()) || (product.size && product.size.trim()) || null
   const displayColor = (selectedColor && selectedColor.trim()) || null
   const currentCushionColor = displayColor || (cushionColorOptions.length > 0 && cushionColorOptions[0] ? cushionColorOptions[0].value : null)
+  
+  // Show color selector if: beauty box OR cushion product (always show for both)
+  const showColorSelector = (isCharmingLookBeautyBox || isCushionProduct) && cushionColorOptions.length > 0
 
   const handleQuantityChange = (newQuantity: number) => {
     updateQuantity(product.id, newQuantity, selectedColor, selectedSize)
@@ -75,11 +81,11 @@ export default function CartItem({ item }: CartItemProps) {
           </Link>
           <p className="text-xs md:text-sm text-red-600 mb-2">{product.category}</p>
           
-          {/* Cushion Color Selector for CHARMING LOOK BEAUTY BOX */}
-          {isCharmingLookBeautyBox && cushionColorOptions.length > 0 && (
+          {/* Cushion Color Selector for CHARMING LOOK BEAUTY BOX or Cushion Product */}
+          {showColorSelector && (
             <div className="mb-3 md:mb-4">
               <label className={`block text-[10px] md:text-sm font-medium text-gray-700 mb-1.5 md:mb-2 whitespace-nowrap ${dir === 'rtl' ? 'text-right' : ''}`}>
-                {t('cart.selectCushionColor')}
+                {isCharmingLookBeautyBox ? t('cart.selectCushionColor') : `${t('product.color')}:`}
               </label>
               <div className={`flex flex-nowrap gap-1 md:gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                 {cushionColorOptions.map((color) => {
@@ -101,19 +107,11 @@ export default function CartItem({ item }: CartItemProps) {
                   )
                 })}
               </div>
-              {currentCushionColor && (
-                <p className={`text-[10px] md:text-xs text-gray-600 mt-1.5 ${dir === 'rtl' ? 'text-right' : ''}`}>
-                  {(() => {
-                    const selectedText = t('cart.selectedColor')
-                    return selectedText === 'cart.selectedColor' ? 'Selected' : selectedText
-                  })()}: <span className="font-medium">{currentCushionColor}</span>
-                </p>
-              )}
             </div>
           )}
           
-          {/* Color badge for other products - Size is shown below image */}
-          {!isCharmingLookBeautyBox && displayColor && (
+          {/* Color badge for other products (not beauty box or cushion) - Size is shown below image */}
+          {!isCharmingLookBeautyBox && !isCushionProduct && displayColor && (
             <div className="flex items-center gap-1.5 md:gap-2 mb-2 flex-nowrap overflow-x-auto">
               <span className="inline-flex items-center px-1.5 md:px-2 py-0.5 md:py-1 rounded-md text-[10px] md:text-xs lg:text-sm font-medium bg-purple-50 text-purple-700 border border-purple-200 whitespace-nowrap flex-shrink-0">
                 {t('product.color')}: {displayColor}

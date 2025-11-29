@@ -321,6 +321,10 @@
     "officialDistributor": "Official Distributor in the UAE.",
     "copyright": "© 2026 Genosys Middle East FZ-LLC. All rights reserved."
   },
+  "pwa": {
+    "installApp": "Install App",
+    "installIOS": "Tap Share → Add to Home Screen"
+  },
   "partners": {
     "title": "Our Partners",
     "subtitle": "Building strong Genosys partnerships across United Arab Emirates",

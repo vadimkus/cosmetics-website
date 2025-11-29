@@ -9,6 +9,7 @@ import { useAuth } from './AuthProvider'
 import { useFavorites } from './FavoritesProvider'
 import LoginModal from './LoginModal'
 import LanguageSwitcher from './LanguageSwitcher'
+import InstallLink from './InstallLink'
 import { useState, useEffect, memo } from 'react'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
@@ -540,6 +541,12 @@ const Header = memo(function Header() {
               >
                 {t('navigation.partners')}
               </Link>
+              <div className="text-gray-700 hover:text-primary-600 hover:bg-gray-50 transition-colors py-2.5 px-3 rounded-lg text-sm touch-manipulation flex items-center">
+                <InstallLink 
+                  onClose={() => setShowMobileMenu(false)}
+                  className="w-full text-left text-gray-700 hover:text-primary-600 text-sm"
+                />
+              </div>
               {isClient && user && (
                 <>
                   <Link 

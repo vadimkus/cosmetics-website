@@ -204,7 +204,7 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
                   placeholder={t('login.fullNamePlaceholder')}
                   value={formData.name}
                   onChange={handleInputChange}
-                  className={`w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-xs md:text-sm text-gray-900 placeholder:text-gray-400 transition-shadow ${dir === 'rtl' ? 'text-right' : ''}`}
+                  className={`w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-xs md:text-sm bg-white text-gray-900 placeholder:text-gray-400 transition-shadow ${dir === 'rtl' ? 'text-right' : ''}`}
                   required={!isLoginMode}
                   aria-describedby={error && !isLoginMode ? "error-message" : undefined}
                 />
@@ -221,7 +221,7 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
                 placeholder={isLoginMode ? t('login.emailAddressPlaceholder') : t('login.emailAddressRequired')}
                 value={formData.email}
                 onChange={handleInputChange}
-                className={`w-full px-3 ${isLoginMode ? 'py-2.5 md:py-2' : 'py-2'} border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-xs md:text-sm text-gray-900 placeholder:text-gray-400 transition-shadow ${dir === 'rtl' ? 'text-right' : ''}`}
+                className={`w-full px-3 ${isLoginMode ? 'py-2.5 md:py-2' : 'py-2'} border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-xs md:text-sm bg-white text-gray-900 placeholder:text-gray-400 transition-shadow ${dir === 'rtl' ? 'text-right' : ''}`}
                 required
                 aria-describedby={error ? "error-message" : undefined}
               />
@@ -237,7 +237,7 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
                   placeholder={t('login.uaePhoneNumberPlaceholder')}
                   value={formData.phone}
                   onChange={handleInputChange}
-                  className={`w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-xs md:text-sm text-gray-900 placeholder:text-gray-400 transition-shadow ${dir === 'rtl' ? 'text-right' : ''}`}
+                  className={`w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-xs md:text-sm bg-white text-gray-900 placeholder:text-gray-400 transition-shadow ${dir === 'rtl' ? 'text-right' : ''}`}
                   required={!isLoginMode}
                   aria-describedby={error && !isLoginMode ? "error-message" : undefined}
                 />
@@ -254,7 +254,7 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
                   placeholder={t('login.uaeAddressPlaceholder')}
                   value={formData.address}
                   onChange={handleInputChange}
-                  className={`w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-xs md:text-sm text-gray-900 placeholder:text-gray-400 transition-shadow ${dir === 'rtl' ? 'text-right' : ''}`}
+                  className={`w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-xs md:text-sm bg-white text-gray-900 placeholder:text-gray-400 transition-shadow ${dir === 'rtl' ? 'text-right' : ''}`}
                   required={!isLoginMode}
                   aria-describedby={error && !isLoginMode ? "error-message" : undefined}
                 />
@@ -315,7 +315,7 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
                 placeholder={t('login.passwordPlaceholder')}
                 value={formData.password}
                 onChange={handleInputChange}
-                className={`w-full px-3 ${isLoginMode ? 'py-2.5 md:py-2' : 'py-2'} ${dir === 'rtl' ? 'pl-10' : 'pr-10'} border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-xs md:text-sm text-gray-900 transition-shadow ${dir === 'rtl' ? 'text-right' : ''}`}
+                className={`w-full px-3 ${isLoginMode ? 'py-2.5 md:py-2' : 'py-2'} ${dir === 'rtl' ? 'pl-10' : 'pr-10'} border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-xs md:text-sm bg-white text-gray-900 transition-shadow ${dir === 'rtl' ? 'text-right' : ''}`}
                 required
                 aria-describedby={error ? "error-message" : undefined}
               />

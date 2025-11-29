@@ -53,12 +53,40 @@ export default function InstallLink({ onClose, className = '' }: InstallLinkProp
     e.preventDefault()
     
     if (deferredPrompt) {
+      // Show native install prompt if available
       deferredPrompt.prompt()
       const { outcome } = await deferredPrompt.userChoice
       if (outcome === 'accepted') {
         setDeferredPrompt(null)
       }
+    } else {
+      // Show manual instructions if prompt not available
+      alert(
+        'To install this app on your Android device:\n\n' +
+        '1. Tap the menu button (three dots) in your browser\n' +
+        '2. Select "Add to Home screen" or "Install app"\n' +
+        '3. Tap "Add" or "Install" to confirm\n\n' +
+        'Alternatively, look for an install banner at the top of your browser.\n\n' +
+        'The app icon will appear on your home screen!'
+      )
     }
+    
+    // Call onClose callback if provided (e.g., to close mobile menu)
+    if (onClose) {
+      onClose()
+    }
+  }
+
+  const handleIOSClick = (e: React.MouseEvent) => {
+    e.preventDefault()
+    // Show alert with instructions for iOS users
+    alert(
+      'To install this app on your iPhone:\n\n' +
+      '1. Tap the Share button (square with arrow) at the bottom of your screen\n' +
+      '2. Scroll down and tap "Add to Home Screen"\n' +
+      '3. Tap "Add" in the top right corner\n\n' +
+      'The app icon will appear on your home screen!'
+    )
     
     // Call onClose callback if provided (e.g., to close mobile menu)
     if (onClose) {
@@ -71,23 +99,25 @@ export default function InstallLink({ onClose, className = '' }: InstallLinkProp
     return null
   }
 
-  // For iOS, show instructions
+  // For iOS, show clickable button with instructions
   if (isIOS) {
     return (
-      <span className={`text-gray-600 hover:text-primary-600 transition-colors py-1 md:py-2 px-1 md:px-2 touch-manipulation min-h-[36px] md:min-h-[44px] flex items-center justify-center text-xs md:text-sm ${className}`}>
+      <button
+        onClick={handleIOSClick}
+        className={`text-gray-600 hover:text-primary-600 transition-colors py-1 md:py-2 px-1 md:px-2 touch-manipulation min-h-[36px] md:min-h-[44px] flex items-center justify-center text-xs md:text-sm w-full text-left ${className}`}
+      >
         {t('pwa.installIOS') || 'Tap Share → Add to Home Screen'}
-      </span>
+      </button>
     )
   }
 
-  // For Android/Chrome, show install link (always show on mobile, even if prompt not ready)
+  // For Android/Chrome, show install link (always clickable, shows instructions if prompt not ready)
   return (
     <button
       onClick={handleInstallClick}
-      disabled={!deferredPrompt}
-      className={`inline-flex items-center gap-1 text-xs md:text-sm text-gray-600 hover:text-primary-600 transition-colors touch-manipulation min-h-[36px] md:min-h-[44px] flex items-center justify-center py-1 md:py-2 px-1 md:px-2 ${!deferredPrompt ? 'opacity-50 cursor-not-allowed' : ''} ${dir === 'rtl' ? 'flex-row-reverse' : ''} ${className}`}
+      className={`inline-flex items-center gap-1 text-xs md:text-sm text-gray-600 hover:text-primary-600 transition-colors touch-manipulation min-h-[36px] md:min-h-[44px] flex items-center justify-center py-1 md:py-2 px-1 md:px-2 w-full text-left ${dir === 'rtl' ? 'flex-row-reverse' : ''} ${className}`}
     >
-      <Download className="h-3 w-3 md:h-4 md:w-4" />
+      <Download className="h-3 w-3 md:h-4 md:w-4 flex-shrink-0" />
       {t('pwa.installApp') || 'Install App'}
     </button>
   )

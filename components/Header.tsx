@@ -63,7 +63,7 @@ const Header = memo(function Header() {
                 aria-label={showMobileMenu ? t('common.closeMobileMenu') : t('common.openMobileMenu')}
                 aria-expanded={showMobileMenu}
               >
-                <Menu className="h-4 w-4" aria-hidden="true" />
+                <Menu className={`h-4 w-4 ${showMobileMenu ? 'text-green-600' : ''}`} aria-hidden="true" />
               </button>
               <LanguageSwitcher />
               {isClient && user ? (
@@ -189,7 +189,7 @@ const Header = memo(function Header() {
                 aria-label={showMobileMenu ? t('common.closeMobileMenu') : t('common.openMobileMenu')}
                 aria-expanded={showMobileMenu}
               >
-                <Menu className="h-4 w-4" aria-hidden="true" />
+                <Menu className={`h-4 w-4 ${showMobileMenu ? 'text-green-600' : ''}`} aria-hidden="true" />
               </button>
             </div>
           )}

@@ -374,6 +374,43 @@ export default function ProductsPageClient() {
           searchQuery={searchQuery}
         />
 
+        {/* Mobile Categories - Below Search */}
+        <div className="md:hidden mb-4">
+          <div className="flex flex-wrap gap-2">
+            {getCategories(t).map((category) => {
+              const isActive = filters.categories.includes(category.id) || (category.id === 'all' && filters.categories.length === 0)
+              return (
+                <button
+                  key={category.id}
+                  onClick={() => {
+                    if (category.id === 'all') {
+                      handleFiltersChange({
+                        ...filters,
+                        categories: []
+                      })
+                    } else {
+                      const newCategories = isActive
+                        ? filters.categories.filter(c => c !== category.id)
+                        : [...filters.categories.filter(c => c !== 'all'), category.id]
+                      handleFiltersChange({
+                        ...filters,
+                        categories: newCategories
+                      })
+                    }
+                  }}
+                  className={`px-3 py-1.5 rounded-full text-xs font-medium whitespace-nowrap touch-manipulation min-h-[32px] flex items-center transition-colors ${
+                    isActive
+                      ? 'bg-primary-600 text-white'
+                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  }`}
+                >
+                  {category.name}
+                </button>
+              )
+            })}
+          </div>
+        </div>
+
         {/* Filters and Products Layout */}
         <div className="flex flex-col md:flex-row gap-6 products-layout">
           {/* Desktop Filters Sidebar */}

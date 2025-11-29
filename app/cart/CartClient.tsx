@@ -225,37 +225,37 @@ export default function CartClient() {
 
               {/* Bundle Discount Block - Shows when beauty boxes in cart */}
               {user && hasBeautyBoxes && !blackFridayActive && (
-                <div className="px-6 pt-6 pb-4">
-                  <div className={`p-4 bg-gradient-to-r from-purple-50 to-pink-50 border-2 border-purple-400 rounded-lg shadow-sm ${dir === 'rtl' ? 'text-right' : ''}`}>
-                    <div className={`mb-3 text-center md:text-left ${dir === 'rtl' ? 'md:text-right' : ''}`}>
-                      <h3 className="text-lg md:text-xl font-bold text-purple-700">
+                <div className="px-3 md:px-6 pt-4 md:pt-6 pb-3 md:pb-4">
+                  <div className={`p-3 md:p-4 bg-gradient-to-r from-purple-50 to-pink-50 border-2 border-purple-400 rounded-lg shadow-sm ${dir === 'rtl' ? 'text-right' : ''}`}>
+                    <div className={`mb-2 md:mb-3 text-center md:text-left ${dir === 'rtl' ? 'md:text-right' : ''}`}>
+                      <h3 className="text-base md:text-xl font-bold text-purple-700">
                         {locale === 'ar' ? 'خصم المجموعة' : 'Bundle Discount'}
                       </h3>
-                      <p className="text-sm font-semibold text-purple-600">
+                      <p className="text-xs md:text-sm font-semibold text-purple-600">
                         {locale === 'ar' ? 'خصم 15% على صناديق الجمال' : '15% OFF on Beauty Boxes'}
                       </p>
                     </div>
                     
-                    <div className={`flex items-center justify-center gap-3 my-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                      <div className="flex flex-col items-center bg-white rounded-lg px-4 py-3 border border-purple-300 shadow-sm">
-                        <div className="text-2xl font-bold text-purple-600">15%</div>
-                        <div className="text-xs text-purple-500 font-medium">
+                    <div className={`flex items-center justify-center gap-2 md:gap-3 my-3 md:my-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                      <div className="flex flex-col items-center bg-white rounded-lg px-2 md:px-4 py-2 md:py-3 border border-purple-300 shadow-sm">
+                        <div className="text-lg md:text-2xl font-bold text-purple-600">15%</div>
+                        <div className="text-[10px] md:text-xs text-purple-500 font-medium">
                           {locale === 'ar' ? 'خصم' : 'OFF'}
                         </div>
                       </div>
-                      <div className="text-purple-400 text-2xl">=</div>
-                      <div className="flex flex-col items-center bg-green-50 rounded-lg px-4 py-3 border border-green-300 shadow-sm">
-                        <div className="text-2xl font-bold text-green-600">
-                          {beautyBoxSavings.toFixed(0)}
+                      <div className="text-purple-400 text-lg md:text-2xl">=</div>
+                      <div className="flex flex-col items-center bg-green-50 rounded-lg px-2 md:px-4 py-2 md:py-3 border border-green-300 shadow-sm">
+                        <div className="text-lg md:text-2xl font-bold text-green-600 whitespace-nowrap">
+                          {beautyBoxSavings.toFixed(0)} {locale === 'ar' ? 'درهم' : 'AED'}
                         </div>
-                        <div className="text-xs text-green-500 font-medium">
-                          {locale === 'ar' ? 'درهم وفرت' : 'AED SAVED'}
+                        <div className="text-[10px] md:text-xs text-green-500 font-medium whitespace-nowrap">
+                          {locale === 'ar' ? 'وفرت' : 'SAVED'}
                         </div>
                       </div>
                     </div>
 
-                    <div className={`mt-3 pt-3 border-t border-purple-200 ${dir === 'rtl' ? 'text-right' : ''}`}>
-                      <p className={`text-sm font-semibold text-green-700 text-center`}>
+                    <div className={`mt-2 md:mt-3 pt-2 md:pt-3 border-t border-purple-200 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                      <p className={`text-xs md:text-sm font-semibold text-green-700 text-center`}>
                         {locale === 'ar' 
                           ? `✅ وفرت ${beautyBoxSavings.toFixed(2)} درهم على صناديق الجمال`
                           : `✅ You saved AED ${beautyBoxSavings.toFixed(2)} on Beauty Boxes`}

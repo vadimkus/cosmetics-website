@@ -188,14 +188,16 @@
     "needHelp": "تحتاج مساعدة؟ اتصل بفريق الدعم المهني لدينا:",
     "loginToSeePrice": "تسجيل الدخول لرؤية السعر",
     "freeMaskPromotion": "عرض الأقنعة المجانية",
-    "validUntil": "صالح حتى 01/12/2025",
+    "validUntil": "صالح حتى 01/01/2026",
     "spendAed500": "أنفق 500 درهم",
     "spendAed700": "أنفق 700 درهم",
     "oneFreeCollagenMask": "قناع كولاجين مجاني واحد",
     "twoFreeMasks": "قناعان مجانيان (قناع الطحالب البحرية + قناع الكولاجين)",
     "qualifyForTwoFreeMasks": "أنت مؤهل للحصول على قناعين مجانيين!",
     "qualifyForOneFreeMask": "أنت مؤهل للحصول على قناع مجاني واحد!",
-    "freeMasksAutoAdded": "سيتم إضافة الأقنعة المجانية تلقائياً إلى طلبك عند الدفع"
+    "freeMasksAutoAdded": "سيتم إضافة الأقنعة المجانية تلقائياً إلى طلبك عند الدفع",
+    "selectCushionColor": "اختر لون الكوشن:",
+    "selectedColor": "المحدد"
   },
   "checkout": {
     "title": "الدفع الآمن",

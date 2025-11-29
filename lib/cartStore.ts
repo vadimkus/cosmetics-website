@@ -68,6 +68,55 @@ export const useCartStore = create<CartState>()(
         })
       },
       
+      updateColor: (productId: string, newColor: string, oldColor?: string, selectedSize?: string) => {
+        const normalizedOldColor = oldColor || ''
+        const normalizedSize = selectedSize || ''
+        const normalizedNewColor = newColor || ''
+        
+        // Find the item to update
+        const items = get().items
+        const itemToUpdate = items.find(item =>
+          item.product.id === productId && 
+          (item.selectedColor || '') === normalizedOldColor && 
+          (item.selectedSize || '') === normalizedSize
+        )
+        
+        if (itemToUpdate) {
+          // Check if an item with the new color already exists
+          const existingItemWithNewColor = items.find(item =>
+            item.product.id === productId && 
+            (item.selectedColor || '') === normalizedNewColor && 
+            (item.selectedSize || '') === normalizedSize &&
+            item !== itemToUpdate
+          )
+          
+          if (existingItemWithNewColor) {
+            // Merge quantities and remove the old item
+            const updatedItems = items
+              .map(item =>
+                item.product.id === productId && 
+                (item.selectedColor || '') === normalizedNewColor && 
+                (item.selectedSize || '') === normalizedSize &&
+                item !== itemToUpdate
+                  ? { ...item, quantity: item.quantity + itemToUpdate.quantity }
+                  : item
+              )
+              .filter(item => item !== itemToUpdate)
+            
+            set({ items: updatedItems })
+          } else {
+            // Just update the color
+            set({
+              items: items.map(item =>
+                item === itemToUpdate
+                  ? { ...item, selectedColor: normalizedNewColor }
+                  : item
+              )
+            })
+          }
+        }
+      },
+      
       clearCart: () => {
         set({ items: [] })
       },

@@ -108,15 +108,15 @@ const Header = memo(function Header() {
               </Link>
               <Link 
                 href={getLocalizedPath('/products', locale)} 
-                className="p-0.5 hover:opacity-80 transition-opacity flex items-center justify-center ml-2"
+                className="p-0.5 hover:opacity-80 transition-opacity flex items-center justify-center ml-[10%] md:ml-2"
                 aria-label="Go to products"
               >
                 <Image
                   src="/Logo/upLOGO.png"
                   alt="GENOSYS Logo"
-                  width={100}
-                  height={30}
-                  className="w-[100px] h-auto"
+                  width={180}
+                  height={54}
+                  className="w-[120px] h-auto"
                   style={{ height: 'auto' }}
                 />
               </Link>
@@ -128,15 +128,15 @@ const Header = memo(function Header() {
             <div className="md:hidden flex items-center gap-0.5 header-icons ml-auto">
               <Link 
                 href={getLocalizedPath('/products', locale)} 
-                className="p-0.5 hover:opacity-80 transition-opacity flex items-center justify-center ml-2"
+                className="p-0.5 hover:opacity-80 transition-opacity flex items-center justify-center mr-[10%] md:mr-2"
                 aria-label="Go to products"
               >
                 <Image
                   src="/Logo/upLOGO.png"
                   alt="GENOSYS Logo"
-                  width={100}
-                  height={30}
-                  className="w-[100px] h-auto"
+                  width={180}
+                  height={54}
+                  className="w-[120px] h-auto"
                   style={{ height: 'auto' }}
                 />
               </Link>

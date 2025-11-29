@@ -188,14 +188,16 @@
     "needHelp": "Need help? Contact our professional support team:",
     "loginToSeePrice": "Login to see price",
     "freeMaskPromotion": "Free Mask Promotion",
-    "validUntil": "Valid until 01/12/2025",
+    "validUntil": "Valid until 01/01/2026",
     "spendAed500": "Spend AED 500",
     "spendAed700": "Spend AED 700",
     "oneFreeCollagenMask": "1 Free Collagen Mask",
     "twoFreeMasks": "2 Free Masks (Sea Algae Mask + Collagen Mask)",
     "qualifyForTwoFreeMasks": "You qualify for 2 Free Masks!",
     "qualifyForOneFreeMask": "You qualify for 1 Free Mask!",
-    "freeMasksAutoAdded": "Free masks will be automatically added to your order at checkout"
+    "freeMasksAutoAdded": "Free masks will be automatically added to your order at checkout",
+    "selectCushionColor": "Select Cushion Color:",
+    "selectedColor": "Selected"
   },
   "checkout": {
     "title": "Secure Checkout",

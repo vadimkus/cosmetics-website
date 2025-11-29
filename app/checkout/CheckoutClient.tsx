@@ -707,8 +707,8 @@ export default function CheckoutClient() {
                         className="text-gray-400 mt-0.5 flex-shrink-0"
                       />
                       <div className={`flex-1 ${dir === 'rtl' ? 'text-right' : ''}`}>
-                        <div className="font-medium text-gray-500 text-xs md:text-base">{t('checkout.stripeCheckout')}</div>
-                        <div className="text-[10px] md:text-sm text-gray-400">{t('checkout.comingSoon')}</div>
+                        <div className="font-medium text-gray-500 text-[10px] md:text-base">{t('checkout.stripeCheckout')}</div>
+                        <div className="text-[9px] md:text-sm text-gray-400">{t('checkout.comingSoon')}</div>
                       </div>
                     </label>
                     
@@ -721,8 +721,8 @@ export default function CheckoutClient() {
                         className="text-primary-600 focus:ring-primary-500 mt-0.5 flex-shrink-0"
                       />
                       <div className={`flex-1 ${dir === 'rtl' ? 'text-right' : ''}`}>
-                        <div className="font-medium text-gray-900 text-xs md:text-base">{t('checkout.cod')}</div>
-                        <div className="text-[10px] md:text-sm text-gray-600">{t('checkout.payWhenDelivered')}</div>
+                        <div className="font-medium text-gray-900 text-[10px] md:text-base">{t('checkout.cod')}</div>
+                        <div className="text-[9px] md:text-sm text-gray-600">{t('checkout.payWhenDelivered')}</div>
                       </div>
                     </label>
 
@@ -734,8 +734,8 @@ export default function CheckoutClient() {
                         className="text-primary-600 focus:ring-primary-500 mt-0.5 flex-shrink-0"
                       />
                       <div className={`flex-1 ${dir === 'rtl' ? 'text-right' : ''}`}>
-                        <div className="font-medium text-gray-900 text-xs md:text-base">{t('checkout.generateLinkForPayment')}</div>
-                        <div className="text-[10px] md:text-sm text-gray-600">{t('checkout.supportTeamWillShareLink')}</div>
+                        <div className="font-medium text-gray-900 text-[10px] md:text-base">{t('checkout.generateLinkForPayment')}</div>
+                        <div className="text-[9px] md:text-sm text-gray-600">{t('checkout.supportTeamWillShareLink')}</div>
                       </div>
                     </label>
                   </div>
@@ -805,7 +805,7 @@ export default function CheckoutClient() {
                                 {item.product.name}
                               </h4>
                               <div className={`flex items-center gap-1.5 md:gap-2 mt-0.5 md:mt-1 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                                <span className="text-[10px] md:text-xs text-gray-500">{t('checkout.qty')} {quantity}</span>
+                                <span className="text-[9px] md:text-xs text-gray-500">{t('checkout.qty')} {quantity}</span>
                                 {pricing.hasDiscount && (
                                   <span className="text-[10px] md:text-xs text-green-600 font-medium">
                                     ({pricing.discountPercentage}% {t('product.off')}{pricing.isBeautyBox ? ` - ${t('product.bundleDiscount')}` : ''})
@@ -825,10 +825,10 @@ export default function CheckoutClient() {
                         <div key={mask.id} className={`flex items-start justify-between ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                           <div className="flex-1 min-w-0">
                             <h4 className={`text-xs md:text-sm font-medium text-gray-900 leading-tight ${dir === 'rtl' ? 'text-right' : ''}`}>
-                              {mask.name} <span className="text-green-600 font-semibold">({t('checkout.free')})</span>
+                              {mask.name}
                             </h4>
                             <div className={`flex items-center gap-1.5 md:gap-2 mt-0.5 md:mt-1 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                              <span className="text-[10px] md:text-xs text-gray-500">{t('checkout.qty')} {mask.quantity}</span>
+                              <span className="text-[9px] md:text-xs text-gray-500">{t('checkout.qty')} {mask.quantity}</span>
                             </div>
                           </div>
                           <div className={dir === 'rtl' ? 'text-left mr-2 md:mr-3' : 'text-right ml-2 md:ml-3'}>
@@ -857,25 +857,25 @@ export default function CheckoutClient() {
                 {/* Price Breakdown */}
                 <div className="space-y-2 md:space-y-3 mb-4 md:mb-6">
                   <div className={`flex justify-between items-center py-1.5 md:py-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                    <span className={`text-xs md:text-sm text-gray-600 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                    <span className={`text-[10px] md:text-sm text-gray-600 ${dir === 'rtl' ? 'text-right' : ''}`}>
                       {t('checkout.subtotal')} ({getTotalItems()} {getTotalItems() === 1 ? t('checkout.item') : t('checkout.items')}{freeMasks.length > 0 ? ` + ${freeMasks.length} ${freeMasks.length === 1 ? t('checkout.freeMask') : t('checkout.freeMasks')}` : ''})
                     </span>
-                    <span className="text-xs md:text-sm font-medium text-gray-900">AED {subtotal.toFixed(2)}</span>
+                    <span className="text-[10px] md:text-sm font-medium text-gray-900">AED {subtotal.toFixed(2)}</span>
                   </div>
                   
                   <div className={`flex justify-between items-center py-1.5 md:py-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                     <div className={`flex items-center gap-1.5 md:gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                       <Truck className="h-3.5 w-3.5 md:h-4 md:w-4 text-green-600" />
-                      <span className={`text-xs md:text-sm text-gray-600 ${dir === 'rtl' ? 'text-right' : ''}`}>{t('checkout.shippingTo')} {selectedEmirate}</span>
+                      <span className={`text-[10px] md:text-sm text-gray-600 ${dir === 'rtl' ? 'text-right' : ''}`}>{t('checkout.shippingTo')} {selectedEmirate}</span>
                     </div>
-                    <span className="text-xs md:text-sm font-medium text-gray-900">
+                    <span className="text-[10px] md:text-sm font-medium text-gray-900">
                       {shippingCost === 0 ? <span className="text-green-600 font-semibold">{t('checkout.free')}</span> : `AED ${shippingCost}`}
                     </span>
                   </div>
                   
                   <div className={`flex justify-between items-center py-1.5 md:py-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                    <span className={`text-xs md:text-sm text-gray-600 ${dir === 'rtl' ? 'text-right' : ''}`}>{t('checkout.vat')}</span>
-                    <span className="text-xs md:text-sm font-medium text-gray-900">AED {vatAmount.toFixed(2)}</span>
+                    <span className={`text-[10px] md:text-sm text-gray-600 ${dir === 'rtl' ? 'text-right' : ''}`}>{t('checkout.vat')}</span>
+                    <span className="text-[10px] md:text-sm font-medium text-gray-900">AED {vatAmount.toFixed(2)}</span>
                   </div>
                   
                   <div className={`text-[10px] md:text-xs text-red-600 py-1.5 md:py-2 px-2 bg-gray-50 rounded-lg ${dir === 'rtl' ? 'text-right' : 'text-left'}`}>

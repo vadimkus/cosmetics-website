@@ -8,20 +8,28 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { calculateDiscountedPrice, canUserSeePrices } from '@/lib/discountUtils'
 import { useTranslation } from '@/hooks/useTranslation'
+import { getProductColorOptions } from '@/utils/productPricing'
 
 interface CartItemProps {
   item: CartItemType
 }
 
 export default function CartItem({ item }: CartItemProps) {
-  const { updateQuantity, removeItem } = useCart()
+  const { updateQuantity, removeItem, updateColor } = useCart()
   const { user } = useAuth()
   const { t, dir } = useTranslation()
   const { product, quantity, selectedColor, selectedSize } = item
   
+  // Check if this is CHARMING LOOK BEAUTY BOX (productNumber '57')
+  const isCharmingLookBeautyBox = product.productNumber === '57' || product.id === '57'
+  
+  // Get cushion color options (product 41 has colors: Beige, Ivory, Camel)
+  const cushionColorOptions = isCharmingLookBeautyBox ? getProductColorOptions('41') : []
+  
   // Use selectedSize/selectedColor if available, otherwise fallback to product size
   const displaySize = (selectedSize && selectedSize.trim()) || (product.size && product.size.trim()) || null
   const displayColor = (selectedColor && selectedColor.trim()) || null
+  const currentCushionColor = displayColor || (cushionColorOptions.length > 0 && cushionColorOptions[0] ? cushionColorOptions[0].value : null)
 
   const handleQuantityChange = (newQuantity: number) => {
     updateQuantity(product.id, newQuantity, selectedColor, selectedSize)
@@ -29,6 +37,10 @@ export default function CartItem({ item }: CartItemProps) {
 
   const handleRemove = () => {
     removeItem(product.id, selectedColor, selectedSize)
+  }
+  
+  const handleCushionColorChange = (newColor: string) => {
+    updateColor(product.id, newColor, selectedColor, selectedSize)
   }
 
   return (
@@ -63,8 +75,45 @@ export default function CartItem({ item }: CartItemProps) {
           </Link>
           <p className="text-xs md:text-sm text-red-600 mb-2">{product.category}</p>
           
-          {/* Color badge only - Size is shown below image */}
-          {displayColor && (
+          {/* Cushion Color Selector for CHARMING LOOK BEAUTY BOX */}
+          {isCharmingLookBeautyBox && cushionColorOptions.length > 0 && (
+            <div className="mb-3 md:mb-4">
+              <label className={`block text-[10px] md:text-sm font-medium text-gray-700 mb-1.5 md:mb-2 whitespace-nowrap ${dir === 'rtl' ? 'text-right' : ''}`}>
+                {t('cart.selectCushionColor')}
+              </label>
+              <div className={`flex flex-nowrap gap-1 md:gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                {cushionColorOptions.map((color) => {
+                  const isSelected = (currentCushionColor || '') === color.value
+                  return (
+                    <button
+                      key={color.value}
+                      onClick={() => handleCushionColorChange(color.value)}
+                      className={`px-2 md:px-4 py-1 md:py-2 rounded border transition-all touch-manipulation min-h-[32px] md:min-h-[44px] text-[10px] md:text-sm font-medium flex-shrink-0 ${
+                        isSelected
+                          ? 'border-primary-600 bg-primary-50 text-primary-700 shadow-sm'
+                          : 'border-gray-300 hover:border-gray-400 bg-white text-gray-700 hover:bg-gray-50'
+                      }`}
+                      aria-label={`${t('product.color')}: ${color.label}`}
+                      aria-pressed={isSelected}
+                    >
+                      {color.label}
+                    </button>
+                  )
+                })}
+              </div>
+              {currentCushionColor && (
+                <p className={`text-[10px] md:text-xs text-gray-600 mt-1.5 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                  {(() => {
+                    const selectedText = t('cart.selectedColor')
+                    return selectedText === 'cart.selectedColor' ? 'Selected' : selectedText
+                  })()}: <span className="font-medium">{currentCushionColor}</span>
+                </p>
+              )}
+            </div>
+          )}
+          
+          {/* Color badge for other products - Size is shown below image */}
+          {!isCharmingLookBeautyBox && displayColor && (
             <div className="flex items-center gap-1.5 md:gap-2 mb-2 flex-nowrap overflow-x-auto">
               <span className="inline-flex items-center px-1.5 md:px-2 py-0.5 md:py-1 rounded-md text-[10px] md:text-xs lg:text-sm font-medium bg-purple-50 text-purple-700 border border-purple-200 whitespace-nowrap flex-shrink-0">
                 {t('product.color')}: {displayColor}

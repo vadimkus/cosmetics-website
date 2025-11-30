@@ -147,8 +147,8 @@ export default function ContactPage() {
           </div>
 
           {/* Official Distributor Section */}
-          <div className="text-center mb-4 md:mb-0 pb-0">
-            <div className="bg-primary-50 rounded-lg px-4 md:px-8 py-4 md:py-8 mb-0">
+          <div className="text-center mb-8 md:mb-12 pb-8 md:pb-12">
+            <div className="bg-primary-50 rounded-lg px-4 md:px-8 py-4 md:py-8">
               <h2 className="text-base md:text-2xl font-semibold text-gray-800 mb-2 md:mb-4">
                 Official Distributor in the UAE
               </h2>

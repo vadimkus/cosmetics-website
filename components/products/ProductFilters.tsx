@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Filter, X, ChevronDown, ChevronUp } from 'lucide-react'
+import { ChevronDown, ChevronUp } from 'lucide-react'
 import { Product } from '@/types'
 import { useTranslation } from '@/hooks/useTranslation'
 
@@ -26,7 +26,6 @@ export default function ProductFilters({
   activeFilters 
 }: ProductFiltersProps) {
   const { t, dir } = useTranslation()
-  const [isOpen, setIsOpen] = useState(false)
   const [localFilters, setLocalFilters] = useState<FilterState>(activeFilters)
   const [expandedSections, setExpandedSections] = useState({
     category: true,
@@ -269,50 +268,6 @@ export default function ProductFilters({
 
   return (
     <>
-      {/* Mobile Filter Button */}
-      <button
-        onClick={(e) => {
-          e.preventDefault()
-          e.stopPropagation()
-          setIsOpen(true)
-        }}
-        className={`md:hidden fixed bottom-20 ${dir === 'rtl' ? 'left-3' : 'right-3'} z-40 bg-primary-600 text-white rounded-full shadow-lg hover:bg-primary-700 active:bg-primary-800 transition-all flex items-center justify-center relative touch-manipulation min-h-[56px] min-w-[56px] w-14 h-14`}
-        aria-label={t('products.filters')}
-        type="button"
-      >
-        <Filter className="h-6 w-6" />
-        {hasActiveFilters && (
-          <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-semibold leading-none border-2 border-white">
-            {localFilters.categories.length + (localFilters.minRating > 0 ? 1 : 0) + (localFilters.inStockOnly ? 1 : 0)}
-          </span>
-        )}
-      </button>
-
-      {/* Mobile Filter Drawer */}
-      {isOpen && (
-        <>
-          <div
-            className="md:hidden fixed inset-0 bg-black bg-opacity-50 z-50"
-            onClick={() => setIsOpen(false)}
-          />
-          <div className={`md:hidden fixed inset-y-0 ${dir === 'rtl' ? 'left-0' : 'right-0'} w-5/6 max-w-sm bg-white z-50 shadow-xl overflow-y-auto text-gray-900`}>
-            <div className={`sticky top-0 bg-white border-b border-gray-200 px-4 py-4 flex items-center justify-between ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-              <h2 className="text-lg font-semibold text-gray-900">{t('products.filters')}</h2>
-              <button
-                onClick={() => setIsOpen(false)}
-                className="text-gray-400 hover:text-gray-600 p-2 touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center"
-                aria-label={t('common.close')}
-              >
-                <X className="h-6 w-6" />
-              </button>
-            </div>
-            <div className="p-4 text-gray-900">
-              <FilterContent />
-            </div>
-          </div>
-        </>
-      )}
-
       {/* Desktop Filter Sidebar */}
       <div className="hidden md:block w-64 flex-shrink-0">
         <div className="sticky top-4 bg-white border border-gray-200 rounded-lg p-4 shadow-sm">

@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation'
 import { ArrowLeft, CreditCard, Lock, MapPin, Truck, MessageCircle, Mail, Building } from 'lucide-react'
 import Link from 'next/link'
 import { calculateDiscountedPrice } from '@/lib/discountUtils'
-import { errorLog } from '@/lib/logger'
+import { errorLog, debugLog } from '@/lib/logger'
 import { fetchCsrfToken, getCsrfHeaders, addCsrfToBody } from '@/lib/csrfClient'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
@@ -272,6 +272,9 @@ export default function CheckoutClient() {
     try {
       const formData = new FormData(e.target as HTMLFormElement)
       const paymentMethod = formData.get('payment') as string
+      const customerAddress = (formData.get('address') as string) || user?.address || ''
+      const customerEmail = (formData.get('email') as string) || user?.email || ''
+      const customerPhone = (formData.get('phone') as string) || user?.phone || ''
 
       // Only allow Cash on Delivery or Support Link
       if (paymentMethod !== 'cod' && paymentMethod !== 'support-link') {
@@ -327,9 +330,9 @@ export default function CheckoutClient() {
         const orderData = {
           orderNumber: supportOrderNumber,
           customerName: user?.name || 'Customer',
-          customerEmail: user?.email || '',
-          customerPhone: user?.phone || '',
-          customerAddress: user?.address || '',
+          customerEmail: customerEmail,
+          customerPhone: customerPhone,
+          customerAddress: customerAddress,
           emirate: selectedEmirate,
           items: allItems,
           subtotal,
@@ -427,9 +430,9 @@ export default function CheckoutClient() {
         const orderData = {
           orderNumber: codOrderNumber,
           customerName: user?.name || 'Customer',
-          customerEmail: user?.email || '',
-          customerPhone: user?.phone || '',
-          customerAddress: user?.address || '',
+          customerEmail: customerEmail,
+          customerPhone: customerPhone,
+          customerAddress: customerAddress,
           emirate: selectedEmirate,
           items: allItems,
           subtotal,
@@ -452,6 +455,12 @@ export default function CheckoutClient() {
         const timeoutId = setTimeout(() => controller.abort(), 15000) // 15 second timeout
 
         try {
+          debugLog('📧 Sending COD order confirmation request:', {
+            orderNumber: codOrderNumber,
+            customerEmail: user?.email,
+            itemCount: allItems.length
+          })
+          
           const response = await fetch('/api/orders/cod-confirmation', {
             method: 'POST',
             headers: getCsrfHeaders(),
@@ -463,14 +472,17 @@ export default function CheckoutClient() {
 
           if (!response.ok) {
             const errorText = await response.text()
-            errorLog('Failed to send COD confirmation email:', errorText)
+            errorLog('❌ COD confirmation API returned error:', response.status, errorText)
+          } else {
+            const responseData = await response.json().catch(() => ({}))
+            debugLog('✅ COD confirmation API response:', responseData)
           }
         } catch (fetchError: unknown) {
           clearTimeout(timeoutId)
           if (fetchError instanceof Error && fetchError.name === 'AbortError') {
-            errorLog('COD confirmation request timed out after 10 seconds')
+            errorLog('❌ COD confirmation request timed out after 15 seconds')
           } else {
-            errorLog('Error sending COD confirmation email:', fetchError)
+            errorLog('❌ Error sending COD confirmation request:', fetchError)
           }
         }
       } catch (error) {
@@ -623,6 +635,7 @@ export default function CheckoutClient() {
                         {t('checkout.emailAddress')} *
                       </label>
                       <input
+                        name="email"
                         type="email"
                         required
                         defaultValue={user?.email || ''}
@@ -637,6 +650,7 @@ export default function CheckoutClient() {
                         {t('checkout.phoneNumber')} *
                       </label>
                       <input
+                        name="phone"
                         type="tel"
                         required
                         defaultValue={user?.phone || ''}
@@ -652,6 +666,7 @@ export default function CheckoutClient() {
                       {t('checkout.deliveryAddress')} *
                     </label>
                     <textarea
+                      name="address"
                       required
                       rows={2}
                       defaultValue={user?.address || ''}

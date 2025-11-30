@@ -29,6 +29,30 @@ export async function POST(request: NextRequest) {
       locale = 'en'
     } = orderData
 
+    // Validate required fields
+    if (!customerEmail || !customerEmail.trim()) {
+      errorLog('❌ COD order missing customerEmail:', orderNumber)
+      return NextResponse.json(
+        { error: 'Customer email is required' },
+        { status: 400 }
+      )
+    }
+
+    if (!orderNumber) {
+      errorLog('❌ COD order missing orderNumber')
+      return NextResponse.json(
+        { error: 'Order number is required' },
+        { status: 400 }
+      )
+    }
+
+    debugLog('📧 COD order received:', {
+      orderNumber,
+      customerEmail,
+      customerName,
+      itemCount: items?.length || 0
+    })
+
     // Save order to database
     const orderItems: OrderItemData[] = items.map((item: { id?: string; name: string; price: number; quantity: number; image?: string; color?: string; size?: string }) => {
       // Enhance with default size if missing
@@ -112,11 +136,11 @@ export async function POST(request: NextRequest) {
     // Prepare order HTML data with proper types
     const orderHTMLData: OrderHTMLData = {
       orderNumber,
-      customerName,
-      customerEmail,
-      customerPhone,
-      customerAddress,
-      emirate,
+      customerName: customerName || 'Customer',
+      customerEmail: customerEmail || 'N/A',
+      customerPhone: customerPhone || 'N/A',
+      customerAddress: (customerAddress && customerAddress.trim()) || 'N/A',
+      emirate: (emirate && emirate.trim()) || 'N/A',
       items: items.map((item: { name: string; quantity: number; price: number; image?: string; size?: string; color?: string }): OrderHTMLItem => {
         // Enhance with default size if missing
         const itemName = item.name || 'Product'
@@ -164,18 +188,28 @@ export async function POST(request: NextRequest) {
 
     // Send email to customer (non-blocking - fire and forget)
     const emailSubject = (translations?.subject || `Order Confirmation #${orderNumber} - GENOSYS Professional`).replace('#{orderNumber}', orderNumber).replace('{orderNumber}', orderNumber)
+    
+    debugLog('📧 Attempting to send COD confirmation email to customer:', customerEmail)
+    debugLog('📧 Email subject:', emailSubject)
+    
     sendEmail(
-      customerEmail,
+      customerEmail.trim(),
       emailSubject,
       orderHTML
     ).then((result) => {
       if (result.success) {
-        debugLog('✅ COD order confirmation email sent to:', customerEmail)
+        debugLog('✅ COD order confirmation email sent successfully to:', customerEmail)
+        debugLog('✅ Message ID:', result.messageId || 'N/A')
       } else {
-        errorLog('❌ Failed to send COD order confirmation email:', result.error)
+        errorLog('❌ FAILED to send COD order confirmation email to:', customerEmail)
+        errorLog('❌ Error:', result.error)
+        errorLog('❌ Order number:', orderNumber)
       }
     }).catch((emailError) => {
-      errorLog('❌ Exception sending COD order confirmation email:', emailError)
+      errorLog('❌ EXCEPTION sending COD order confirmation email to:', customerEmail)
+      errorLog('❌ Exception:', emailError)
+      errorLog('❌ Order number:', orderNumber)
+      errorLog('❌ Stack:', emailError instanceof Error ? emailError.stack : 'No stack')
       // Don't fail order creation if email fails
     })
 
@@ -193,6 +227,7 @@ export async function POST(request: NextRequest) {
       vatAmount
     }, null, 2))
     
+    debugLog('📧 Calling sendAdminNewOrderNotification for COD order:', orderNumber)
     const adminNotificationPromise = sendAdminNewOrderNotification({
       orderNumber,
       customerName,
@@ -225,8 +260,8 @@ export async function POST(request: NextRequest) {
       subtotal,
       shipping: shippingCost,
       vat: vatAmount,
-      address: customerAddress,
-      emirate: emirate
+      address: (customerAddress && customerAddress.trim()) || undefined,
+      emirate: (emirate && emirate.trim()) || undefined
     })
     
     adminNotificationPromise.then((adminResult) => {

@@ -115,8 +115,8 @@ export async function POST(request: NextRequest) {
       customerName: customerName || 'Customer',
       customerEmail: customerEmail || 'N/A',
       customerPhone: customerPhone || 'N/A',
-      customerAddress: customerAddress || 'N/A',
-      emirate: emirate || 'N/A',
+      customerAddress: (customerAddress && customerAddress.trim()) || 'N/A',
+      emirate: (emirate && emirate.trim()) || 'N/A',
       items: items.map((item: { name: string; quantity: number; price: number; total?: number; image?: string; size?: string; color?: string }): OrderHTMLItem => {
         const orderItem: OrderHTMLItem = {
           name: item.name || 'Product',

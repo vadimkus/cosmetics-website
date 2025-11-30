@@ -23,6 +23,8 @@ import TrustBadges from '@/components/product/TrustBadges'
 import ProductRecommendation from '@/components/product/ProductRecommendation'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
+import { translateSize } from '@/utils/sizeTranslations'
+import { translateCategory } from '@/utils/categoryTranslations'
 import { 
   getPriceForSize, 
   hasProductSizeVariants, 
@@ -144,7 +146,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
           {/* Category & Size Badges - Centered (Stock badge is on image) */}
           <div className="flex items-center justify-center gap-1 mt-1">
             <span className="inline-block bg-primary-50 text-primary-700 px-1.5 py-0.5 text-[10px] lg:text-xs rounded-full font-medium">
-              {product.category.replace(/,/g, ' · ')}
+              {product.category.split(',').map(cat => translateCategory(cat.trim(), locale)).join(' · ')}
             </span>
             {product.size && (
               <span className="inline-block bg-gray-100 text-gray-700 px-1.5 py-0.5 text-[10px] lg:text-xs rounded-full font-medium">
@@ -187,7 +189,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
               {/* Category Badge & Stock Status */}
               <div className={`flex items-center justify-center flex-wrap gap-2 mb-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                 <span className="inline-block bg-gradient-to-r from-primary-100 to-primary-50 text-primary-700 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wide">
-                  {product.category.replace(/,/g, ' · ')}
+                  {product.category.split(',').map(cat => translateCategory(cat.trim(), locale)).join(' · ')}
                 </span>
                 {product.inStock ? (
                   <span className={`inline-flex items-center bg-green-100 text-green-700 px-2.5 py-1 rounded-full text-xs font-medium ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
@@ -222,7 +224,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
                   <>
                     <span className="text-gray-300">|</span>
                     <span className={`text-gray-600 ${dir === 'rtl' ? 'flex flex-row-reverse gap-1' : ''}`}>
-                      <span className="font-medium">{t('product.size')}:</span> {product.size}
+                      <span className="font-medium">{t('product.size')}:</span> {translateSize(product.size, locale, product.category)}
                     </span>
                   </>
                 )}

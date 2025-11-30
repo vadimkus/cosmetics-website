@@ -47,6 +47,7 @@
   "exclude": [
     "node_modules",
     "backups",
-    "scripts/archive"
+    "scripts/archive",
+    "scripts/**/*.ts"
   ]
 }

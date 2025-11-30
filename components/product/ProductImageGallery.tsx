@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo, useEffect, useRef } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import Image from 'next/image'
 import { Product } from '@/types'
 import { getProductVideoUrl } from '@/data/productConfig'
@@ -14,24 +14,8 @@ export default function ProductImageGallery({ product }: ProductImageGalleryProp
   const [selectedImage, setSelectedImage] = useState(0)
   const [imageError, setImageError] = useState(false)
   const [thumbnailErrors, setThumbnailErrors] = useState<Record<number, boolean>>({})
-  const [showUniVideo, setShowUniVideo] = useState(false)
-  const uniVideoRef = useRef<HTMLVideoElement>(null)
   const videoUrl = getProductVideoUrl(product.id)
   const { t, dir } = useTranslation()
-  
-  // Start video after 3 seconds on mobile
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowUniVideo(true)
-      if (uniVideoRef.current) {
-        uniVideoRef.current.play().catch(() => {
-          // Auto-play may fail, that's okay
-        })
-      }
-    }, 3000)
-    
-    return () => clearTimeout(timer)
-  }, [])
   
   // Check if this is the Holiday Kit
   const isHolidayKit = product.id === 'cmhf1a6p400000xfa0iu3bw42' || product.productNumber === '54' || product.category === 'kits'
@@ -80,33 +64,6 @@ export default function ProductImageGallery({ product }: ProductImageGalleryProp
 
   return (
     <div className="space-y-2 md:space-y-4">
-      {/* Mobile-only Uni Image/Video */}
-      <div className="md:hidden w-full max-w-xs mx-auto aspect-square bg-gray-100 rounded-lg overflow-hidden relative">
-        {/* Video behind the image */}
-        {showUniVideo && (
-          <video
-            ref={uniVideoRef}
-            src="/videos/uni_alive.mp4"
-            className="absolute inset-0 w-full h-full object-cover"
-            loop
-            muted
-            playsInline
-            autoPlay
-          />
-        )}
-        {/* Image on top */}
-        <div className="relative w-full h-full">
-          <Image
-            src="/images/avatar/uni.png"
-            alt="Uni"
-            width={640}
-            height={640}
-            className="w-full h-full object-cover"
-            priority
-          />
-        </div>
-      </div>
-      
       {/* Main Image or Video */}
       <div className="w-full max-w-xs md:max-w-md mx-auto aspect-square bg-gray-100 rounded-lg overflow-hidden relative">
         {/* Stock Badge */}

@@ -2,13 +2,15 @@
 
 import { Product } from '@/types'
 import { getProductDocumentation } from '@/data/productConfig'
+import { useTranslation } from '@/hooks/useTranslation'
 
 interface ProductDocumentationProps {
   product: Product
 }
 
 export default function ProductDocumentation({ product }: ProductDocumentationProps) {
-  const documentation = getProductDocumentation(product.id)
+  const { locale, t } = useTranslation()
+  const documentation = getProductDocumentation(product.id, locale)
 
   if (!documentation || documentation.length === 0) {
     return null
@@ -16,7 +18,7 @@ export default function ProductDocumentation({ product }: ProductDocumentationPr
 
   return (
     <div className="mt-8 p-6 bg-gray-50 rounded-lg">
-      <h3 className="text-lg font-semibold text-gray-900 mb-4">Product Documentation</h3>
+      <h3 className="text-lg font-semibold text-gray-900 mb-4">{t('product.productDocumentation')}</h3>
       
       <div className="space-y-4">
         {documentation.map((doc, index) => (
@@ -24,9 +26,9 @@ export default function ProductDocumentation({ product }: ProductDocumentationPr
             <div className="flex-1">
               <h4 className="text-sm font-medium text-gray-900">{doc.title}</h4>
               <p className="text-sm text-gray-600">
-                {doc.type === 'pdf' && 'Download detailed product information and usage instructions.'}
-                {doc.type === 'video' && 'Watch product demonstration and application guide.'}
-                {doc.type === 'link' && 'Access additional product resources and information.'}
+                {doc.type === 'pdf' && t('product.documentationDescription')}
+                {doc.type === 'video' && t('product.documentationDescription')}
+                {doc.type === 'link' && t('product.documentationDescription')}
               </p>
             </div>
             <a
@@ -51,7 +53,7 @@ export default function ProductDocumentation({ product }: ProductDocumentationPr
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                 </svg>
               )}
-              {doc.type === 'pdf' ? 'Download' : doc.type === 'video' ? 'Watch' : 'Open'}
+              {doc.type === 'pdf' ? t('product.download') : doc.type === 'video' ? t('product.viewPdf') : t('product.viewPdf')}
             </a>
           </div>
         ))}

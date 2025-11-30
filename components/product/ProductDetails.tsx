@@ -3,13 +3,15 @@
 import { Product } from '@/types'
 import { Star } from 'lucide-react'
 import { useTranslation } from '@/hooks/useTranslation'
+import { translateSize } from '@/utils/sizeTranslations'
+import { translateCategory } from '@/utils/categoryTranslations'
 
 interface ProductDetailsProps {
   product: Product
 }
 
 export default function ProductDetails({ product }: ProductDetailsProps) {
-  const { t, dir } = useTranslation()
+  const { t, dir, locale } = useTranslation()
   
   return (
     <div className="space-y-6" dir={dir}>
@@ -33,14 +35,14 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
       {/* Size Display (if applicable) */}
       {(product.size || product.id === '37') && (
         <div className="text-sm font-medium text-gray-700">
-          {t('product.size')}: {product.id === '37' ? '38g x 5ea (5 masks, 1 box)' : product.size}
+          {t('product.size')}: {product.id === '37' ? '38g x 5ea (5 masks, 1 box)' : translateSize(product.size, locale, product.category)}
         </div>
       )}
 
       {/* Category Badge */}
       <div className="flex items-center gap-2">
         <span className="inline-block bg-primary-100 text-primary-800 px-3 py-1 rounded-full text-xs font-medium">
-          {product.category.replace(/,/g, ', ')}
+          {product.category.split(',').map(cat => translateCategory(cat.trim(), locale)).join(', ')}
         </span>
         <span className={`inline-block px-3 py-1 rounded-full text-xs font-medium ${
           product.inStock 

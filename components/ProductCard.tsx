@@ -13,7 +13,10 @@ import { calculateDiscountedPrice, canUserSeePrices } from '@/lib/discountUtils'
 import { debugLog, errorLog } from '@/lib/logger'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getProductTranslations } from '@/data/productTranslations'
+import { getProductTranslationsRu } from '@/data/productTranslationsRu'
 import { getLocalizedPath } from '@/lib/i18n'
+import { translateSize } from '@/utils/sizeTranslations'
+import { translateCategory } from '@/utils/categoryTranslations'
 
 interface ProductCardProps {
   product: Product
@@ -30,9 +33,11 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
   const [showLoginModal, setShowLoginModal] = useState(false)
   const [isLoginMode, setIsLoginMode] = useState(true)
   
-  // Get Arabic translation for description if available
+  // Get translation for description if available
   const arabicTranslations = locale === 'ar' ? getProductTranslations(product.id) : null
-  const description = arabicTranslations?.description || product.description
+  const russianTranslations = locale === 'ru' ? getProductTranslationsRu(product.id) : null
+  const translations = arabicTranslations || russianTranslations
+  const description = translations?.description || product.description
 
   const handleAddToCart = useCallback(async () => {
     setIsAdding(true)
@@ -113,7 +118,7 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
       
       <div className="p-3 md:p-4 flex flex-col h-full">
         <div className="mb-2">
-          <span className="text-xs md:text-sm text-primary-600 font-medium">{product.category}</span>
+          <span className="text-xs md:text-sm text-primary-600 font-medium">{translateCategory(product.category, locale)}</span>
         </div>
         
         <div className="mb-2">
@@ -128,7 +133,7 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
         <div className="flex items-center gap-2 mb-2 flex-wrap">
           {(product.size || product.id === '37') && (
             <span className="inline-flex items-center px-2 py-1 rounded-md text-[10px] md:text-xs font-medium bg-gray-100 text-gray-700">
-              {t('product.size')}: {product.id === '37' ? '38g x 5ea (5 masks, 1 box)' : product.size}
+              {t('product.size')}: {product.id === '37' ? '38g x 5ea (5 masks, 1 box)' : translateSize(product.size, locale, product.category)}
             </span>
           )}
           {product.inStock && (

@@ -5,12 +5,13 @@ import Image from 'next/image'
 import { ArrowRight } from 'lucide-react'
 import { useAuth } from './AuthProvider'
 import LoginModal from './LoginModal'
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useRef, useEffect } from 'react'
 import { getLocalizedPath } from '@/lib/i18n'
 import BlackFridayCountdown from './BlackFridayCountdown'
 import type { Locale } from '@/lib/i18n'
 import enMessages from '@/messages/en.json'
 import arMessages from '@/messages/ar.json'
+import ruMessages from '@/messages/ru.json'
 
 interface HeroProps {
   initialLocale?: Locale
@@ -21,6 +22,30 @@ export default function Hero({ initialLocale = 'en', initialDir = 'ltr' }: HeroP
   const { user } = useAuth()
   const [showLoginModal, setShowLoginModal] = useState(false)
   const [isLoginMode, setIsLoginMode] = useState(true)
+  const [videoError, setVideoError] = useState(false)
+  const mobileVideoRef = useRef<HTMLVideoElement>(null)
+  const desktopVideoRef = useRef<HTMLVideoElement>(null)
+  
+  // Try to play video programmatically after load
+  useEffect(() => {
+    const tryPlayVideo = async (video: HTMLVideoElement | null) => {
+      if (!video || videoError) return
+      
+      try {
+        await video.play()
+      } catch (error) {
+        // Autoplay was prevented - this is normal, user interaction will be needed
+        console.log('Video autoplay prevented (normal browser behavior)')
+      }
+    }
+    
+    if (mobileVideoRef.current && !videoError) {
+      tryPlayVideo(mobileVideoRef.current)
+    }
+    if (desktopVideoRef.current && !videoError) {
+      tryPlayVideo(desktopVideoRef.current)
+    }
+  }, [videoError])
   
   // Use initialLocale prop directly - this ensures server and client render the same
   const locale = useMemo(() => initialLocale, [initialLocale])
@@ -28,7 +53,9 @@ export default function Hero({ initialLocale = 'en', initialDir = 'ltr' }: HeroP
   
   // Load messages based on initialLocale prop (not from hook)
   const messages = useMemo(() => {
-    return locale === 'ar' ? arMessages : enMessages
+    if (locale === 'ar') return arMessages
+    if (locale === 'ru') return ruMessages
+    return enMessages
   }, [locale])
   
   // Create translation function that uses the correct messages
@@ -91,17 +118,41 @@ export default function Hero({ initialLocale = 'en', initialDir = 'ltr' }: HeroP
           
           {/* Video - Full width on mobile, hero style */}
           <div className="relative -mx-3 mb-4">
-            <div className="aspect-[16/10] w-full overflow-hidden">
-              <video 
-                className="w-full h-full object-cover"
-                autoPlay
-                loop
-                muted
-                playsInline
-                preload="auto"
-              >
-                <source src="/videos/start-video.mp4" type="video/mp4" />
-              </video>
+            <div className="aspect-[16/10] w-full overflow-hidden bg-gray-100">
+              {!videoError ? (
+                <video 
+                  ref={mobileVideoRef}
+                  className="w-full h-full object-cover"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  preload="auto"
+                  onError={() => {
+                    console.warn('Video failed to load, showing fallback')
+                    setVideoError(true)
+                  }}
+                  onLoadedData={() => {
+                    // Video loaded successfully
+                    setVideoError(false)
+                  }}
+                >
+                  <source src="/videos/start-video.mp4" type="video/mp4" />
+                </video>
+              ) : (
+                <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary-50 to-primary-100">
+                  <div className="text-center p-8">
+                    <Image 
+                      src="/images/genosys-logo.png" 
+                      alt="GENOSYS" 
+                      width={200}
+                      height={200}
+                      className="mx-auto mb-4 opacity-80"
+                      style={{ width: 'auto', height: 'auto' }}
+                    />
+                  </div>
+                </div>
+              )}
               {/* Gradient overlay for text readability */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent pointer-events-none" />
             </div>
@@ -168,17 +219,41 @@ export default function Hero({ initialLocale = 'en', initialDir = 'ltr' }: HeroP
           
           {/* Video */}
           <div className="mb-8">
-            <div className="aspect-video w-full max-w-4xl mx-auto rounded-xl overflow-hidden shadow-2xl">
-              <video 
-                className="w-full h-full object-cover"
-                autoPlay
-                loop
-                muted
-                playsInline
-                preload="auto"
-              >
-                <source src="/videos/start-video.mp4" type="video/mp4" />
-              </video>
+            <div className="aspect-video w-full max-w-4xl mx-auto rounded-xl overflow-hidden shadow-2xl bg-gray-100">
+              {!videoError ? (
+                <video 
+                  ref={desktopVideoRef}
+                  className="w-full h-full object-cover"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  preload="auto"
+                  onError={() => {
+                    console.warn('Video failed to load, showing fallback')
+                    setVideoError(true)
+                  }}
+                  onLoadedData={() => {
+                    // Video loaded successfully
+                    setVideoError(false)
+                  }}
+                >
+                  <source src="/videos/start-video.mp4" type="video/mp4" />
+                </video>
+              ) : (
+                <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary-50 to-primary-100">
+                  <div className="text-center p-8">
+                    <Image 
+                      src="/images/genosys-logo.png" 
+                      alt="GENOSYS" 
+                      width={300}
+                      height={300}
+                      className="mx-auto mb-4 opacity-80"
+                      style={{ width: 'auto', height: 'auto' }}
+                    />
+                  </div>
+                </div>
+              )}
             </div>
           </div>
           

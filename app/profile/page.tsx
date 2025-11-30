@@ -8,6 +8,8 @@ import { useRouter } from 'next/navigation'
 import { Order, OrderItem } from '@prisma/client'
 import { fetchCsrfToken, getCsrfHeaders, addCsrfToBody } from '@/lib/csrfClient'
 import { errorLog } from '@/lib/logger'
+import { useTranslation } from '@/hooks/useTranslation'
+import { getLocalizedPath } from '@/lib/i18n'
 
 // Import refactored components
 import ProfileHeader from '@/components/profile/ProfileHeader'
@@ -61,6 +63,7 @@ const handleApiError = (error: unknown, defaultMessage: string): void => {
 }
 
 export default function ProfilePageRefactored() {
+  const { t, locale, dir } = useTranslation()
   const { user, logout, forceRefreshUser } = useAuth()
   const router = useRouter()
   const [isEditing, setIsEditing] = useState(false)
@@ -359,24 +362,24 @@ export default function ProfilePageRefactored() {
       {/* Breadcrumb Navigation */}
       <div className="container mx-auto px-3 md:px-4 pt-4 md:pt-8">
         {/* Navigation Breadcrumb */}
-        <nav className="text-xs md:text-base text-gray-600 mb-2 md:mb-4" aria-label="Breadcrumb">
-          <Link href="/" className="hover:text-primary-600 transition-colors">Home</Link>
+        <nav className={`text-xs md:text-base text-gray-600 mb-2 md:mb-4 ${dir === 'rtl' ? 'text-right' : ''}`} aria-label="Breadcrumb">
+          <Link href={getLocalizedPath('/', locale)} className="hover:text-primary-600 transition-colors">{t('common.home')}</Link>
           <span> / </span>
-          <span className="text-gray-900 font-medium">Profile</span>
+          <span className="text-gray-900 font-medium">{t('common.profile')}</span>
           {activeTab !== 'profile' && (
             <>
               <span> / </span>
               <span className="text-gray-900 font-medium">
-                {activeTab === 'orders' ? 'Orders' : activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}
+                {activeTab === 'orders' ? (t('profile.orders') || 'Orders') : activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}
               </span>
             </>
           )}
         </nav>
         
         {/* Back to Home */}
-        <Link href="/" className="inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 mb-4 md:mb-8">
-          <ArrowLeft className="h-3 w-3 md:h-4 md:w-4" />
-          <span>Back to Home</span>
+        <Link href={getLocalizedPath('/', locale)} className={`inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 mb-4 md:mb-8 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+          <ArrowLeft className={`h-3 w-3 md:h-4 md:w-4 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
+          <span>{t('common.backToHome')}</span>
         </Link>
       </div>
 

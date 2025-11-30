@@ -10,6 +10,8 @@ import { useFavorites } from './FavoritesProvider'
 import LoginModal from './LoginModal'
 import LanguageSwitcher from './LanguageSwitcher'
 import InstallLink from './InstallLink'
+import HeaderRussianMobile from './HeaderRussianMobile'
+import HeaderRussianDesktop from './HeaderRussianDesktop'
 import { useState, useEffect, memo } from 'react'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
@@ -54,8 +56,13 @@ const Header = memo(function Header() {
     <header className="sticky top-0 z-50 bg-white shadow-sm border-b" suppressHydrationWarning>
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between py-2 md:py-4 header-main-flex">
+          {/* Mobile Icons - Russian Version */}
+          {locale === 'ru' && (
+            <HeaderRussianMobile />
+          )}
+          
           {/* Mobile Icons - English Version (LTR): hamburger, EN, man, heart, cart */}
-          {locale !== 'ar' && (
+          {locale !== 'ar' && locale !== 'ru' && (
             <div className="md:hidden flex items-center gap-0.5 header-icons">
               <button
                 onClick={() => setShowMobileMenu(!showMobileMenu)}
@@ -118,7 +125,7 @@ const Header = memo(function Header() {
                   width={180}
                   height={54}
                   className="w-[120px] h-auto"
-                  style={{ height: 'auto' }}
+                  style={{ width: 'auto', height: 'auto' }}
                 />
               </Link>
             </div>
@@ -138,7 +145,7 @@ const Header = memo(function Header() {
                   width={180}
                   height={54}
                   className="w-[120px] h-auto"
-                  style={{ height: 'auto' }}
+                  style={{ width: 'auto', height: 'auto' }}
                 />
               </Link>
               <Link 
@@ -194,15 +201,20 @@ const Header = memo(function Header() {
             </div>
           )}
           
+          {/* Desktop Header - Russian Version */}
+          {locale === 'ru' && (
+            <HeaderRussianDesktop />
+          )}
+          
           {/* Desktop Header - English Version (LTR) */}
-          {locale !== 'ar' && (
+          {locale !== 'ar' && locale !== 'ru' && (
             <>
               {/* Desktop Left Side */}
               <div className="hidden md:flex flex-col">
                 <span className="text-lg md:text-2xl font-bold text-primary-600">
                   Genosys Middle East FZ-LLC
                 </span>
-                <div className="flex text-sm text-gray-600 items-center gap-1 ml-0 md:ml-40 header-margin">
+                <div className="flex text-sm text-gray-600 items-center gap-1 ml-0 md:ml-28 header-margin">
                   {t('common.uae')}
                   <Heart className={`h-3 w-3 text-primary-600 fill-current transition-transform duration-300 ${
                     isHeartBeating ? 'animate-pulse' : ''
@@ -457,8 +469,8 @@ const Header = memo(function Header() {
         </div>
       </div>
 
-      {/* Mobile Navigation Menu */}
-      {showMobileMenu && (
+      {/* Mobile Navigation Menu - Exclude Russian (handled by HeaderRussianMobile) */}
+      {showMobileMenu && locale !== 'ru' && (
         <div className="md:hidden bg-white border-t" role="navigation" aria-label="Mobile navigation">
           <div className="container mx-auto px-3 py-3">
             <nav className="grid grid-cols-3 gap-1">

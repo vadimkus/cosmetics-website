@@ -5,6 +5,7 @@ import { useMemo } from 'react'
 import { getLocaleFromPath } from '@/lib/i18n'
 import enMessages from '@/messages/en.json'
 import arMessages from '@/messages/ar.json'
+import ruMessages from '@/messages/ru.json'
 
 export function useTranslation() {
   const pathname = usePathname()
@@ -17,7 +18,9 @@ export function useTranslation() {
   const locale = getLocaleFromPath(effectivePath)
   
   const messages = useMemo(() => {
-    return locale === 'ar' ? arMessages : enMessages
+    if (locale === 'ar') return arMessages
+    if (locale === 'ru') return ruMessages
+    return enMessages
   }, [locale])
 
   const t = (key: string, params?: Record<string, string | number>): string => {
@@ -48,6 +51,6 @@ export function useTranslation() {
   return {
     t,
     locale,
-    dir: locale === 'ar' ? 'rtl' : 'ltr'
+    dir: locale === 'ar' ? 'rtl' : 'ltr' // Russian uses LTR like English
   }
 }

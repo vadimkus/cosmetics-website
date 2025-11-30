@@ -44,16 +44,21 @@ export function getLocaleFromPath(pathname: string): Locale {
   if (pathname.startsWith('/ar')) {
     return 'ar'
   }
+  if (pathname.startsWith('/ru')) {
+    return 'ru'
+  }
   return 'en'
 }
 
 export function getLocalizedPath(pathname: string, locale: Locale): string {
   // Remove existing locale prefix
-  let pathWithoutLocale = pathname.replace(/^\/(en|ar)/, '') || '/'
+  let pathWithoutLocale = pathname.replace(/^\/(en|ar|ru)/, '') || '/'
   
   // Handle root path
   if (pathWithoutLocale === '/') {
-    return locale === 'ar' ? '/ar' : '/'
+    if (locale === 'ar') return '/ar'
+    if (locale === 'ru') return '/ru'
+    return '/'
   }
   
   // Remove leading slash if present (except for root)
@@ -63,6 +68,9 @@ export function getLocalizedPath(pathname: string, locale: Locale): string {
   
   if (locale === 'ar') {
     return `/ar/${pathWithoutLocale}`
+  }
+  if (locale === 'ru') {
+    return `/ru/${pathWithoutLocale}`
   }
   
   return `/${pathWithoutLocale}`

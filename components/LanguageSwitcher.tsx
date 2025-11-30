@@ -16,7 +16,13 @@ function LanguageSwitcherContent() {
     // Preserve query parameters (like ?full=true)
     const queryString = searchParams.toString()
     const fullPath = queryString ? `${newPath}?${queryString}` : newPath
-    router.push(fullPath)
+    
+    // Store language preference in cookie to override Accept-Language header
+    document.cookie = `NEXT_LOCALE=${locale}; path=/; max-age=31536000; SameSite=Lax`
+    
+    // Use replace instead of push to avoid adding to history
+    // This ensures the language switch feels more natural
+    router.replace(fullPath)
     setIsOpen(false)
   }
 

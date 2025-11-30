@@ -163,13 +163,13 @@ export default function CartClient() {
           <span className="text-gray-900 font-medium">{t('common.cart')}</span>
         </nav>
 
-        {/* Back to Home - Mobile only */}
+        {/* Back to Products */}
         <Link 
-          href={getLocalizedPath('/', locale)} 
-          className={`md:hidden inline-flex items-center gap-1 text-xs text-primary-600 hover:text-primary-700 mb-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+          href={getLocalizedPath('/products', locale)} 
+          className={`inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 mb-4 md:mb-8 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
         >
-          <ArrowLeft className={`h-3 w-3 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
-          <span>{t('common.backToHome') || 'Back to Home'}</span>
+          <ArrowLeft className={`h-3 w-3 md:h-4 md:w-4 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
+          <span>{t('cart.backToProducts') || 'Back to Products'}</span>
         </Link>
 
         <div className={`max-w-4xl mx-auto text-center py-8 md:py-16 ${dir === 'rtl' ? 'text-right' : ''}`}>
@@ -241,19 +241,10 @@ export default function CartClient() {
         <span className="text-gray-900 font-medium">{t('common.cart')}</span>
       </nav>
       
-      {/* Back to Home */}
-      <Link 
-        href={getLocalizedPath('/', locale)} 
-        className={`inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 mb-4 md:mb-8 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
-      >
-        <ArrowLeft className={`h-3 w-3 md:h-4 md:w-4 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
-        <span>{t('common.backToHome') || 'Back to Home'}</span>
-      </Link>
-      
-      {/* Back to Products - Desktop only */}
+      {/* Back to Products */}
       <Link 
         href={getLocalizedPath('/products', locale)} 
-        className={`hidden md:inline-flex mb-4 md:mb-8 items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+        className={`inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 mb-4 md:mb-8 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
       >
         <ArrowLeft className={`h-3 w-3 md:h-4 md:w-4 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
         <span>{t('cart.backToProducts') || 'Back to Products'}</span>
@@ -281,12 +272,12 @@ export default function CartClient() {
               {user && hasBeautyBoxes && !blackFridayActive && (
                 <div className="px-3 md:px-6 pt-4 md:pt-6 pb-3 md:pb-4">
                   <div className={`p-3 md:p-4 bg-gradient-to-r from-purple-50 to-pink-50 border-2 border-purple-400 rounded-lg shadow-sm ${dir === 'rtl' ? 'text-right' : ''}`}>
-                    <div className={`mb-2 md:mb-3 text-center md:text-left ${dir === 'rtl' ? 'md:text-right' : ''}`}>
+                    <div className="mb-2 md:mb-3 text-center">
                       <h3 className="text-base md:text-xl font-bold text-purple-700">
-                        {locale === 'ar' ? 'خصم المجموعة' : 'Bundle Discount'}
+                        {locale === 'ar' ? 'خصم المجموعة' : locale === 'ru' ? 'Скидка на набор' : 'Bundle Discount'}
                       </h3>
                       <p className="text-xs md:text-sm font-semibold text-purple-600">
-                        {locale === 'ar' ? 'خصم 15% على صناديق الجمال' : '15% OFF on Beauty Boxes'}
+                        {locale === 'ar' ? 'خصم 15% على صناديق الجمال' : locale === 'ru' ? '15% скидка на Beauty Box' : '15% OFF on Beauty Boxes'}
                       </p>
                     </div>
                     
@@ -294,16 +285,16 @@ export default function CartClient() {
                       <div className="flex flex-col items-center bg-white rounded-lg px-2 md:px-4 py-2 md:py-3 border border-purple-300 shadow-sm">
                         <div className="text-lg md:text-2xl font-bold text-purple-600">15%</div>
                         <div className="text-[10px] md:text-xs text-purple-500 font-medium">
-                          {locale === 'ar' ? 'خصم' : 'OFF'}
+                          {locale === 'ar' ? 'خصم' : locale === 'ru' ? 'СКИДКА' : 'OFF'}
                         </div>
                       </div>
                       <div className="text-purple-400 text-lg md:text-2xl">=</div>
                       <div className="flex flex-col items-center bg-green-50 rounded-lg px-2 md:px-4 py-2 md:py-3 border border-green-300 shadow-sm">
                         <div className="text-lg md:text-2xl font-bold text-green-600 whitespace-nowrap">
-                          {beautyBoxSavings.toFixed(0)} {locale === 'ar' ? 'درهم' : 'AED'}
+                          {beautyBoxSavings.toFixed(0)} {locale === 'ar' ? 'درهم' : locale === 'ru' ? 'AED' : 'AED'}
                         </div>
                         <div className="text-[10px] md:text-xs text-green-500 font-medium whitespace-nowrap">
-                          {locale === 'ar' ? 'وفرت' : 'SAVED'}
+                          {locale === 'ar' ? 'وفرت' : locale === 'ru' ? 'СЭКОНОМЛЕНО' : 'SAVED'}
                         </div>
                       </div>
                     </div>
@@ -312,6 +303,8 @@ export default function CartClient() {
                       <p className={`text-xs md:text-sm font-semibold text-green-700 text-center`}>
                         {locale === 'ar' 
                           ? `✅ وفرت ${beautyBoxSavings.toFixed(2)} درهم على صناديق الجمال`
+                          : locale === 'ru'
+                          ? `✅ Вы сэкономили ${beautyBoxSavings.toFixed(2)} AED на Beauty Box`
                           : `✅ You saved AED ${beautyBoxSavings.toFixed(2)} on Beauty Boxes`}
                       </p>
                     </div>

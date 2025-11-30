@@ -5,25 +5,28 @@ import Image from 'next/image'
 import { ArrowLeft, Heart } from 'lucide-react'
 import { useFavorites } from '@/components/FavoritesProvider'
 import ProductCard from '@/components/ProductCard'
+import { useTranslation } from '@/hooks/useTranslation'
+import { getLocalizedPath } from '@/lib/i18n'
 
 export default function FavoritesClient() {
+  const { t, locale, dir } = useTranslation()
   const { favorites } = useFavorites()
   const favoriteProducts = favorites
 
   if (favorites.length === 0) {
     return (
-      <div className="container mx-auto px-3 md:px-4 py-4 md:py-16">
+      <div className="container mx-auto px-3 md:px-4 py-4 md:py-16" dir={dir}>
         {/* Navigation Breadcrumb */}
-        <nav className="text-xs md:text-base text-gray-600 mb-2 md:mb-4" aria-label="Breadcrumb">
-          <Link href="/" className="hover:text-primary-600 transition-colors">Home</Link>
+        <nav className={`text-xs md:text-base text-gray-600 mb-2 md:mb-4 ${dir === 'rtl' ? 'text-right' : ''}`} aria-label="Breadcrumb">
+          <Link href={getLocalizedPath('/', locale)} className="hover:text-primary-600 transition-colors">{t('common.home')}</Link>
           <span> / </span>
-          <span className="text-gray-900 font-medium">Favorites</span>
+          <span className="text-gray-900 font-medium">{t('common.favorites')}</span>
         </nav>
         
         {/* Back to Home */}
-        <Link href="/" className="inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 mb-4 md:mb-8">
-          <ArrowLeft className="h-3 w-3 md:h-4 md:w-4" />
-          <span>Back to Home</span>
+        <Link href={getLocalizedPath('/', locale)} className={`inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 mb-4 md:mb-8 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+          <ArrowLeft className={`h-3 w-3 md:h-4 md:w-4 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
+          <span>{t('common.backToHome')}</span>
         </Link>
 
         <div className="max-w-md mx-auto text-center py-6 md:py-16">
@@ -38,13 +41,13 @@ export default function FavoritesClient() {
                 className="mx-auto"
               />
             </div>
-            <h1 className="text-base md:text-2xl font-bold text-gray-900 mb-3 md:mb-6">No Favorites Yet</h1>
+            <h1 className="text-base md:text-2xl font-bold text-gray-900 mb-3 md:mb-6">{t('favorites.empty') || 'No Favorites Yet'}</h1>
             <Link
-              href="/products"
-              className="inline-flex items-center gap-1 bg-primary-600 text-white px-3 md:px-6 py-1.5 md:py-2.5 rounded-lg text-xs md:text-sm font-medium hover:bg-primary-700 transition-colors"
+              href={getLocalizedPath('/products', locale)}
+              className={`inline-flex items-center gap-1 bg-primary-600 text-white px-3 md:px-6 py-1.5 md:py-2.5 rounded-lg text-xs md:text-sm font-medium hover:bg-primary-700 transition-colors ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
             >
-              <ArrowLeft className="h-3 w-3 md:h-4 md:w-4" />
-              Browse Products
+              <ArrowLeft className={`h-3 w-3 md:h-4 md:w-4 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
+              {t('favorites.browseProducts') || 'Browse Products'}
             </Link>
           </div>
         </div>
@@ -53,18 +56,18 @@ export default function FavoritesClient() {
   }
 
   return (
-    <div className="container mx-auto px-3 md:px-4 py-4 md:py-16">
+    <div className="container mx-auto px-3 md:px-4 py-4 md:py-16" dir={dir}>
       {/* Navigation Breadcrumb */}
-      <nav className="text-xs md:text-base text-gray-600 mb-2 md:mb-4" aria-label="Breadcrumb">
-        <Link href="/" className="hover:text-primary-600 transition-colors">Home</Link>
+      <nav className={`text-xs md:text-base text-gray-600 mb-2 md:mb-4 ${dir === 'rtl' ? 'text-right' : ''}`} aria-label="Breadcrumb">
+        <Link href={getLocalizedPath('/', locale)} className="hover:text-primary-600 transition-colors">{t('common.home')}</Link>
         <span> / </span>
-        <span className="text-gray-900 font-medium">Favorites</span>
+        <span className="text-gray-900 font-medium">{t('common.favorites')}</span>
       </nav>
       
       {/* Back to Home */}
-      <Link href="/" className="inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 mb-4 md:mb-8">
-        <ArrowLeft className="h-3 w-3 md:h-4 md:w-4" />
-        <span>Back to Home</span>
+      <Link href={getLocalizedPath('/', locale)} className={`inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 mb-4 md:mb-8 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+        <ArrowLeft className={`h-3 w-3 md:h-4 md:w-4 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
+        <span>{t('common.backToHome')}</span>
       </Link>
 
       <div className="max-w-6xl mx-auto">
@@ -103,11 +106,11 @@ export default function FavoritesClient() {
                 Products may no longer be available.
               </p>
               <Link
-                href="/products"
-                className="inline-flex items-center gap-1 bg-primary-600 text-white px-3 md:px-6 py-1.5 md:py-2.5 rounded-lg text-xs md:text-sm font-medium hover:bg-primary-700 transition-colors"
+                href={getLocalizedPath('/products', locale)}
+                className={`inline-flex items-center gap-1 bg-primary-600 text-white px-3 md:px-6 py-1.5 md:py-2.5 rounded-lg text-xs md:text-sm font-medium hover:bg-primary-700 transition-colors ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
               >
-                <ArrowLeft className="h-3 w-3 md:h-4 md:w-4" />
-                Browse Products
+                <ArrowLeft className={`h-3 w-3 md:h-4 md:w-4 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
+                {t('favorites.browseProducts') || 'Browse Products'}
               </Link>
             </div>
           </div>

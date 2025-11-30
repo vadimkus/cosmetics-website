@@ -11,6 +11,7 @@ import { useRouter } from 'next/navigation'
 import { calculateDiscountedPrice, canUserSeePrices } from '@/lib/discountUtils'
 import { errorLog } from '@/lib/logger'
 import { useTranslation } from '@/hooks/useTranslation'
+import { translateSize } from '@/utils/sizeTranslations'
 
 interface ProductRecommendationProps {
   recommendedProductId: string
@@ -26,7 +27,7 @@ export default function ProductRecommendation({
   const { addItem } = useCart()
   const { user } = useAuth()
   const router = useRouter()
-  const { t, dir } = useTranslation()
+  const { t, dir, locale } = useTranslation()
 
   useEffect(() => {
     async function fetchRecommendedProduct() {
@@ -87,12 +88,12 @@ export default function ProductRecommendation({
   const getDescription = () => {
     if (!currentProduct) {
       return {
-        intro: `Enhance your skincare routine by combining these complementary products.`,
+        intro: t('product.pcDefaultIntroNoProducts', { currentName: '', recommendedName: recommendedProduct.name }),
         benefits: [
-          { title: 'Enhanced Results:', text: 'Combined products work synergistically for better outcomes' },
-          { title: 'Complete Care:', text: 'Addresses multiple skin concerns comprehensively' },
-          { title: 'Optimal Formulation:', text: 'Products are designed to complement each other' },
-          { title: 'Professional Routine:', text: 'Create a complete skincare regimen for best results' }
+          { title: t('product.pcDefaultBenefit1Title'), text: t('product.pcDefaultBenefit1Text') },
+          { title: t('product.pcDefaultBenefit2Title'), text: t('product.pcDefaultBenefit2Text') },
+          { title: t('product.pcDefaultBenefit3Title'), text: t('product.pcDefaultBenefit3Text') },
+          { title: t('product.pcDefaultBenefit4Title'), text: t('product.pcDefaultBenefit4Text') }
         ]
       }
     }
@@ -462,7 +463,7 @@ export default function ProductRecommendation({
               {recommendedProduct.name}
             </h4>
             {recommendedProduct.size && (
-              <p className="text-[10px] lg:text-xs mb-0.5 lg:mb-1 text-gray-600">{t('product.size')}: {recommendedProduct.size}</p>
+              <p className="text-[10px] lg:text-xs mb-0.5 lg:mb-1 text-gray-600">{t('product.size')}: {translateSize(recommendedProduct.size, locale, recommendedProduct.category)}</p>
             )}
             {!recommendedProduct.size && recommendedProduct.id === '32' && (
               <p className="text-[10px] lg:text-xs mb-0.5 lg:mb-1 text-gray-600">{t('product.size')}: 50g</p>
@@ -491,7 +492,7 @@ export default function ProductRecommendation({
               <p className="text-[10px] lg:text-xs text-gray-500" dir={dir} style={{ textAlign: dir === 'rtl' ? 'right' : 'left' }}>{t('product.loginToSeePrice')}</p>
             )}
             <p className="text-[10px] lg:text-xs mt-0.5 lg:mt-1 text-gray-600" dir={dir} style={{ textAlign: dir === 'rtl' ? 'right' : 'left' }}>
-              {dir === 'rtl' ? '← اضغط لعرض التفاصيل' : 'Click to view details →'}
+              {dir === 'rtl' ? '← اضغط لعرض التفاصيل' : t('product.clickToViewDetails')}
             </p>
           </Link>
 

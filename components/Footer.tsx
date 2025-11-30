@@ -7,17 +7,29 @@ import { getLocalizedPath, getLocaleFromPath } from '@/lib/i18n'
 import { useMemo } from 'react'
 import enMessages from '@/messages/en.json'
 import arMessages from '@/messages/ar.json'
+import ruMessages from '@/messages/ru.json'
 
 export default function Footer() {
   const pathname = usePathname()
   
-  // Get locale from pathname - consistent between server and client
+  // Get locale from pathname - handle null consistently
+  // During SSR, pathname might be null, so we default to '/' which gives 'en'
+  // On client, pathname will be available, so we use it
+  // This ensures consistent initial render between server and client
   const effectivePath = pathname ?? '/'
-  const locale = useMemo(() => getLocaleFromPath(effectivePath), [effectivePath])
+  const locale = useMemo(() => {
+    // If pathname is null, try to get from window.location on client
+    if (!pathname && typeof window !== 'undefined' && window.location) {
+      return getLocaleFromPath(window.location.pathname)
+    }
+    return getLocaleFromPath(effectivePath)
+  }, [pathname, effectivePath])
   
   // Load messages based on locale
   const messages = useMemo(() => {
-    return locale === 'ar' ? arMessages : enMessages
+    if (locale === 'ar') return arMessages
+    if (locale === 'ru') return ruMessages
+    return enMessages
   }, [locale])
   
   // Create translation function
@@ -61,24 +73,28 @@ export default function Footer() {
             <Link
               href={getLocalizedPath('/blog', locale)}
               className="text-gray-600 hover:text-primary-600 transition-colors py-1 md:py-2 px-1 md:px-2 touch-manipulation min-h-[36px] md:min-h-[44px] flex items-center justify-center"
+              suppressHydrationWarning
             >
               {t('navigation.blog')}
             </Link>
             <Link
               href={getLocalizedPath('/faq', locale)}
               className="text-gray-600 hover:text-primary-600 transition-colors py-1 md:py-2 px-1 md:px-2 touch-manipulation min-h-[36px] md:min-h-[44px] flex items-center justify-center"
+              suppressHydrationWarning
             >
               {t('navigation.faq')}
             </Link>
             <Link
               href={getLocalizedPath('/locations', locale)}
               className="text-gray-600 hover:text-primary-600 transition-colors py-1 md:py-2 px-1 md:px-2 touch-manipulation min-h-[36px] md:min-h-[44px] flex items-center justify-center"
+              suppressHydrationWarning
             >
               {t('common.locations')}
             </Link>
             <Link
               href={getLocalizedPath('/partners', locale)}
               className="text-gray-600 hover:text-primary-600 transition-colors py-1 md:py-2 px-1 md:px-2 touch-manipulation min-h-[36px] md:min-h-[44px] flex items-center justify-center"
+              suppressHydrationWarning
             >
               {t('navigation.partners')}
             </Link>
@@ -97,17 +113,17 @@ export default function Footer() {
                 width={180}
                 height={54}
                 className="w-[120px] md:w-[180px] h-auto"
-                style={{ height: 'auto' }}
+                style={{ width: 'auto', height: 'auto' }}
                 priority={false}
                 quality={75}
                 placeholder="blur"
                 blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
               />
             </Link>
-            <p className="text-[10px] md:text-sm mt-0.5 md:mt-1 w-full text-center text-gray-500 footer-copyright">
+            <p className="text-[10px] md:text-sm mt-0.5 md:mt-1 w-full text-center text-gray-500 footer-copyright" suppressHydrationWarning>
               {t('footer.officialDistributor')}
             </p>
-            <p className="text-[10px] md:text-sm mt-1 md:mt-2 w-full text-center text-gray-400 footer-copyright">
+            <p className="text-[10px] md:text-sm mt-1 md:mt-2 w-full text-center text-gray-400 footer-copyright" suppressHydrationWarning>
               {t('footer.copyright')}
             </p>
           </div>

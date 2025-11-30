@@ -6,6 +6,7 @@ import { sanitizeProductDescription, sanitizeHtml } from '@/lib/sanitize'
 import { Sparkles } from 'lucide-react'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getProductTranslations } from '@/data/productTranslations'
+import { getProductTranslationsRu } from '@/data/productTranslationsRu'
 
 interface ProductContentDisplayProps {
   product: Product
@@ -14,15 +15,17 @@ interface ProductContentDisplayProps {
 export default function ProductContentDisplay({ product }: ProductContentDisplayProps) {
   const { t, locale, dir } = useTranslation()
   const arabicTranslations = locale === 'ar' ? getProductTranslations(product.productNumber || product.id) : null
+  const russianTranslations = locale === 'ru' ? getProductTranslationsRu(product.productNumber || product.id) : null
   
-  // Use Arabic translations if available, otherwise fall back to English
-  const description = arabicTranslations?.description || product.description
-  const productDetailsStr = arabicTranslations?.productDetails || product.productDetails
-  const keyFeaturesStr = arabicTranslations?.keyFeatures || product.keyFeatures
-  const benefitsStr = arabicTranslations?.benefits || product.benefits
-  const ingredientsStr = arabicTranslations?.ingredients || product.ingredients
-  const howToUseStr = arabicTranslations?.howToUse || product.howToUse
-  const directionsStr = arabicTranslations?.directions || product.directions
+  // Use translations if available, otherwise fall back to English
+  const translations = arabicTranslations || russianTranslations
+  const description = translations?.description || product.description
+  const productDetailsStr = translations?.productDetails || product.productDetails
+  const keyFeaturesStr = translations?.keyFeatures || product.keyFeatures
+  const benefitsStr = translations?.benefits || product.benefits
+  const ingredientsStr = translations?.ingredients || product.ingredients
+  const howToUseStr = translations?.howToUse || product.howToUse
+  const directionsStr = translations?.directions || product.directions
   
   // Parse JSON fields safely with proper type assertions
   const productDetails = productDetailsStr ? (tryParseJSON(productDetailsStr) as Record<string, string> | string) : null
@@ -30,14 +33,16 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
   const benefits = benefitsStr ? (tryParseJSON(benefitsStr) as string[] | string) : null
   const ingredients = ingredientsStr ? (tryParseJSON(ingredientsStr) as Array<{ name?: string; description?: string; subList?: string[] }> | string) : null
   const howToUse = howToUseStr ? (tryParseJSON(howToUseStr) as string) : null
-  const documentation = getProductDocumentation(product.id)
+  const documentation = getProductDocumentation(product.id, locale)
 
-  // Parse description for kit items - support both English and Arabic
+  // Parse description for kit items - support English, Arabic, and Russian
   const parseKitDescription = (description: string) => {
     const kitIncludesEn = 'Kit includes:'
     const kitIncludesAr = 'يشمل الطقم:'
+    const kitIncludesRu = 'Набор включает:'
     const kitIncludesPattern = description.includes(kitIncludesEn) ? kitIncludesEn : 
-                               description.includes(kitIncludesAr) ? kitIncludesAr : null
+                               description.includes(kitIncludesAr) ? kitIncludesAr :
+                               description.includes(kitIncludesRu) ? kitIncludesRu : null
     
     if (!kitIncludesPattern) {
       return { intro: description, kitItems: [] }
@@ -611,7 +616,7 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
           <div className="space-y-1 lg:space-y-2 text-xs lg:text-sm text-blue-800">
             {Object.entries(productDetails as Record<string, string>).map(([key, value]) => (
               <p key={key}>
-                <strong>{formatKey(key)}:</strong> {String(value)}
+                <strong>{formatKey(key, t)}:</strong> {String(value)}
               </p>
             ))}
           </div>
@@ -768,8 +773,48 @@ function tryParseJSON(jsonString: string): unknown {
   }
 }
 
-// Helper function to format keys (camelCase to Sentence Case)
-function formatKey(key: string): string {
+// Helper function to format keys (camelCase to Sentence Case) with translations
+function formatKey(key: string, t: (key: string) => string): string {
+  // Map of product detail keys to translation keys (handle both camelCase and lowercase)
+  const keyTranslations: Record<string, string> = {
+    'form': 'product.detailForm',
+    'size': 'product.detailSize',
+    'skintype': 'product.detailSkinType',
+    'skinType': 'product.detailSkinType',
+    'skin_type': 'product.detailSkinType',
+    'technology': 'product.detailTechnology',
+    'keybenefits': 'product.detailKeyBenefits',
+    'keyBenefits': 'product.detailKeyBenefits',
+    'key_benefits': 'product.detailKeyBenefits',
+    'usage': 'product.detailUsage',
+    'kitcontents': 'product.detailKitContents',
+    'kitContents': 'product.detailKitContents',
+    'kit_contents': 'product.detailKitContents',
+    'specialfeature': 'product.detailSpecialFeature',
+    'specialFeature': 'product.detailSpecialFeature',
+    'special_feature': 'product.detailSpecialFeature',
+    'origin': 'product.detailOrigin',
+    'protection': 'product.detailProtection',
+    'target': 'product.detailTarget',
+    'application': 'product.detailApplication',
+    'formulation': 'product.detailFormulation',
+    'type': 'product.detailType'
+  }
+  
+  // Normalize key (lowercase) for lookup
+  const normalizedKey = key.toLowerCase()
+  
+  // Check if translation exists for this key
+  const translationKey = keyTranslations[normalizedKey] || keyTranslations[key]
+  if (translationKey) {
+    const translated = t(translationKey)
+    // If translation exists and is not the same as the key, use it
+    if (translated && translated !== translationKey) {
+      return translated
+    }
+  }
+  
+  // Fallback to original formatting
   return key
     .replace(/([A-Z])/g, ' $1')
     .replace(/^./, (str) => str.toUpperCase())

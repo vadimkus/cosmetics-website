@@ -10,6 +10,7 @@ import { useState, useCallback } from 'react'
 import { calculateDiscountedPrice, canUserSeePrices } from '@/lib/discountUtils'
 import { errorLog } from '@/lib/logger'
 import { useTranslation } from '@/hooks/useTranslation'
+import { translateSize } from '@/utils/sizeTranslations'
 
 interface ProductInfoProps {
   product: Product
@@ -28,8 +29,8 @@ export default function ProductInfo({
 }: ProductInfoProps) {
   const { user } = useAuth()
   const router = useRouter()
+  const { t, locale } = useTranslation()
   const { addItem } = useCart()
-  const { t } = useTranslation()
   const { toggleFavorite, isFavorite } = useFavorites()
   const [isAdding, setIsAdding] = useState(false)
 
@@ -104,7 +105,7 @@ export default function ProductInfo({
       <div className="flex items-center gap-4 mt-12 pt-4">
         {(product.size || product.id === '1' || product.id === '41' || product.id === '10' || product.id === '30' || product.id === '29' || product.id === '32' || product.id === '28' || product.id === '31' || product.id === '24' || product.id === '16' || product.id === '25' || product.id === '37') && (
           <div className="text-sm font-medium text-gray-700">
-            {t('product.size')}: {product.id === '1' ? '0.25mm/0.5mm/0.1mm/0.15mm/0.2mm' : product.id === '41' ? '15g' : product.id === '10' ? '180ml/500ml' : product.id === '31' ? '50g/230g' : (product.id === '30' || product.id === '29' || product.id === '32' || product.id === '28') ? '50g/250g' : product.id === '15' ? '200ml/500ml' : product.id === '16' ? '200ml/1000ml' : product.id === '25' ? '20g/100g' : product.id === '24' ? '20g' : product.id === '37' ? '38g x 5ea (5 masks, 1 box)' : product.size}
+            {t('product.size')}: {product.id === '1' ? '0.25mm/0.5mm/0.1mm/0.15mm/0.2mm' : product.id === '41' ? '15g' : product.id === '10' ? '180ml/500ml' : product.id === '31' ? '50g/230g' : (product.id === '30' || product.id === '29' || product.id === '32' || product.id === '28') ? '50g/250g' : product.id === '15' ? '200ml/500ml' : product.id === '16' ? '200ml/1000ml' : product.id === '25' ? '20g/100g' : product.id === '24' ? '20g' : product.id === '37' ? '38g x 5ea (5 masks, 1 box)' : translateSize(product.size, locale, product.category)}
           </div>
         )}
         {canUserSeePrices(user) ? (

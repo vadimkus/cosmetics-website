@@ -615,11 +615,46 @@ export const getProductVideoUrl = (productId: string): string | undefined => {
   return config?.videoUrl
 }
 
-export const getProductDocumentation = (productId: string): Array<{
+// Russian translations for documentation titles
+const documentationTitleTranslations: Record<string, string> = {
+  'Overview of Microneedling': 'Обзор микронидлинга',
+  'EPI TURNOVER BOOSTING PEELING GEL Guide': 'Руководство по EPI TURNOVER BOOSTING PEELING GEL',
+  'MICROBIOME ENERGY INFUSING MIST Guide': 'Руководство по MICROBIOME ENERGY INFUSING MIST',
+  'MOISTURE REPLENISHING HYALURON SERUM Guide': 'Руководство по MOISTURE REPLENISHING HYALURON SERUM',
+  'MULTI VITA RADIANCE SERUM Guide': 'Руководство по MULTI VITA RADIANCE SERUM',
+  'MOISTURE REPLENISHING HYALURON CREAM Guide': 'Руководство по MOISTURE REPLENISHING HYALURON CREAM',
+  'MULTI VITA RADIANCE CREAM Guide': 'Руководство по MULTI VITA RADIANCE CREAM',
+  'EyeCell EYE PEPTIDE GEL PATCH Guide': 'Руководство по EyeCell EYE PEPTIDE GEL PATCH',
+  'EZ CO₂ MASK KIT Guide': 'Руководство по EZ CO₂ MASK KIT',
+  'ULTRA SHIELD SUN CREAM Guide': 'Руководство по ULTRA SHIELD SUN CREAM',
+  'SKIN CARING BLEMISH BALM CUSHION Guide': 'Руководство по SKIN CARING BLEMISH BALM CUSHION',
+  'HR³ MATRIX HAIR TONIC α Guide': 'Руководство по HR³ MATRIX HAIR TONIC α',
+  'HR³ MATRIX HAIR SOLUTION α Guide': 'Руководство по HR³ MATRIX HAIR SOLUTION α',
+  'HR³ MATRIX SCALP PEELING α Guide': 'Руководство по HR³ MATRIX SCALP PEELING α',
+  'Hair-GENTRON Guide': 'Руководство по Hair-GENTRON',
+  'GENO-LED IR II Guide': 'Руководство по GENO-LED IR II',
+  'EyeCell EYE ZONE CARE KIT Guide': 'Руководство по EyeCell EYE ZONE CARE KIT',
+  'BIO-FERMENT AGE DEFYING POWDER MASK Guide': 'Руководство по BIO-FERMENT AGE DEFYING POWDER MASK',
+  'SKIN REBOOT PDRN MASK PACK Guide': 'Руководство по SKIN REBOOT PDRN MASK PACK',
+  'SKIN DEFENDER Product Guide': 'Руководство по продукту SKIN DEFENDER',
+  'INTENSIVE PROBLEM CONTROL TONER': 'Руководство по INTENSIVE PROBLEM CONTROL TONER'
+}
+
+export const getProductDocumentation = (productId: string, locale: string = 'en'): Array<{
   title: string
   url: string
   type: 'pdf' | 'video' | 'link'
 }> => {
   const config = getProductConfig(productId)
-  return config?.documentation || []
+  const docs = config?.documentation || []
+  
+  // Translate titles if locale is Russian
+  if (locale === 'ru') {
+    return docs.map(doc => ({
+      ...doc,
+      title: documentationTitleTranslations[doc.title] || doc.title
+    }))
+  }
+  
+  return docs
 }

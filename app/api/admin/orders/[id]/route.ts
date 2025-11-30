@@ -76,6 +76,7 @@ export async function PUT(
         id: order.id,
         ...(mappedItems ? { items: mappedItems } : {}),
         total: order.total,
+        locale: order.locale || 'en', // Use order's locale, default to English
         ...(order.customerAddress ? { customerAddress: order.customerAddress } : {}),
         ...(order.customerEmirate ? { customerEmirate: order.customerEmirate } : {})
       }

@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ArrowLeft, Phone, Mail, MapPin, FileText, Globe, Instagram } from 'lucide-react'
+import { ArrowLeft, Phone, Mail, MapPin, FileText, Globe, Instagram, Facebook } from 'lucide-react'
 import BreadcrumbSchema from '@/components/BreadcrumbSchema'
 import type { Metadata } from 'next'
 
@@ -121,6 +121,17 @@ export default function ContactPage() {
               <Instagram className="h-5 w-5 md:h-8 md:w-8 text-pink-600 mx-auto mb-1.5 md:mb-4" />
               <h3 className="text-xs md:text-lg font-semibold text-gray-800 mb-0.5 md:mb-2">Instagram</h3>
               <span className="text-[10px] md:text-base text-gray-600">@genosys.uae</span>
+            </a>
+
+            <a 
+              href="https://www.facebook.com/genosys.ae"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-center p-3 md:p-6 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+            >
+              <Facebook className="h-5 w-5 md:h-8 md:w-8 text-blue-600 mx-auto mb-1.5 md:mb-4" />
+              <h3 className="text-xs md:text-lg font-semibold text-gray-800 mb-0.5 md:mb-2">Facebook</h3>
+              <span className="text-[10px] md:text-base text-gray-600">genosys.ae</span>
             </a>
 
             <a 

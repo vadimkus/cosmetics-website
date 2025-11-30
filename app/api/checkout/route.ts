@@ -36,7 +36,8 @@ export async function POST(request: NextRequest) {
       customerName, 
       customerPhone, 
       customerEmirate, 
-      customerAddress 
+      customerAddress,
+      locale 
     } = await request.json()
 
     // Calculate order totals with debugging
@@ -119,7 +120,8 @@ export async function POST(request: NextRequest) {
       shipping,
       vat,
       total,
-      status: 'PENDING'
+      status: 'PENDING',
+      locale: locale || 'en' // Capture locale from request, default to English
     }
 
     // Store the order

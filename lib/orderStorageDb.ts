@@ -27,6 +27,7 @@ export interface OrderData {
   vat: number
   total: number
   status?: string
+  locale?: string // User's preferred language (en or ar)
   sessionId?: string
   createdAt?: string
 }
@@ -50,6 +51,7 @@ export const readOrders = async (): Promise<Order[]> => {
         vat: true,
         total: true,
         status: true,
+        locale: true,
         sessionId: true,
         createdAt: true,
         updatedAt: true,
@@ -143,6 +145,7 @@ export const addOrder = async (orderData: OrderData): Promise<Order> => {
         vat: orderData.vat,
         total: orderData.total,
         status: orderData.status || 'PENDING',
+        locale: orderData.locale || 'en', // Default to English if not provided
         sessionId: orderData.sessionId || null,
         items: {
           create: orderData.items.map(item => ({

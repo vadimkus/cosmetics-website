@@ -63,7 +63,8 @@ export async function POST(request: NextRequest) {
       shipping: shippingCost,
       vat: vatAmount,
       total,
-      status: 'PENDING'
+      status: 'PENDING',
+      locale: locale || 'en' // Capture locale from request, default to English
     }
 
     // Save to database with timeout protection
@@ -93,6 +94,7 @@ export async function POST(request: NextRequest) {
         vat: dbOrder.vat,
         total: dbOrder.total,
         status: dbOrder.status ?? 'PENDING',
+        locale: dbOrder.locale ?? 'en',
         sessionId: dbOrder.sessionId ?? null,
         createdAt: new Date(),
         updatedAt: new Date(),

@@ -87,6 +87,7 @@ model Order {
   vat             Float
   total           Float
   status          String      @default("PENDING")
+  locale          String      @default("en") // User's preferred language (en or ar)
   sessionId       String?
   createdAt       DateTime    @default(now())
   updatedAt       DateTime    @updatedAt

@@ -8,7 +8,20 @@ export function middleware(request: NextRequest) {
   // Redirect /en to root (English is default, no prefix needed)
   if (pathname === '/en' || pathname.startsWith('/en/')) {
     const newPath = pathname === '/en' ? '/' : pathname.replace('/en', '')
-    return NextResponse.redirect(new URL(newPath, request.url))
+    const response = NextResponse.redirect(new URL(newPath, request.url))
+    // Set cookie to 'en' when accessing English version
+    response.cookies.set('NEXT_LOCALE', 'en', { path: '/', maxAge: 31536000, sameSite: 'lax' })
+    return response
+  }
+  
+  // If user visits root path (English homepage), set cookie to 'en' to ensure consistency
+  if (pathname === '/') {
+    const localeCookie = request.cookies.get('NEXT_LOCALE')?.value
+    if (localeCookie !== 'en') {
+      const response = NextResponse.next()
+      response.cookies.set('NEXT_LOCALE', 'en', { path: '/', maxAge: 31536000, sameSite: 'lax' })
+      return response
+    }
   }
   
   // Redirect /ru to /ru (Russian needs prefix)
@@ -53,10 +66,26 @@ export function middleware(request: NextRequest) {
     // Check for user's language preference cookie first (set by language switcher)
     const localeCookie = request.cookies.get('NEXT_LOCALE')?.value
     
+    // Check the referer to see if user is navigating from an English page
+    const referer = request.headers.get('referer') || ''
+    const isFromEnglishPage = referer && !referer.includes('/ar/') && !referer.includes('/ru/') && (referer.endsWith('/') || referer.includes('genosys.ae/') && !referer.includes('/ar') && !referer.includes('/ru'))
+    
     let preferredLocale = defaultLocale
     
+    // If user is navigating from an English page (no locale prefix), keep them in English
+    // This prevents redirecting when clicking links from the English homepage
+    if (isFromEnglishPage && pathname !== '/') {
+      // User is on English page, let them stay in English
+      return NextResponse.next()
+    }
+    
+    // If cookie is set to 'en', don't redirect - let English pages through
+    if (localeCookie === 'en') {
+      return NextResponse.next()
+    }
+    
     // If cookie exists and is valid, use it
-    if (localeCookie && (localeCookie === 'ar' || localeCookie === 'ru' || localeCookie === 'en')) {
+    if (localeCookie && (localeCookie === 'ar' || localeCookie === 'ru')) {
       preferredLocale = localeCookie as typeof defaultLocale
     } else {
       // Fall back to Accept-Language header if no cookie

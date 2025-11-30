@@ -1,8 +1,10 @@
 {
+  "id": "/",
   "name": "Genosys Middle East FZ-LLC - Premium Beauty Products",
   "short_name": "Genosys UAE",
   "description": "Discover our premium collection of cosmetics and beauty products from Genosys Middle East FZ-LLC",
   "start_url": "/",
+  "version": "2.0.0",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#1f2937",
@@ -37,13 +39,13 @@
       "purpose": "any"
     },
     {
-      "src": "/icon-192x192.png",
+      "src": "/icon-192x192.png?v=2",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "/icon-512x512.png",
+      "src": "/icon-512x512.png?v=2",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"

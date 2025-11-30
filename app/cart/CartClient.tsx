@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useCart } from '@/components/CartProvider'
 import { useAuth } from '@/components/AuthProvider'
 import CartItem from '@/components/CartItem'
@@ -18,6 +18,25 @@ export default function CartClient() {
   const { items, getTotalPrice, getTotalItems, selectedEmirate, setSelectedEmirate } = useCart()
   const { user } = useAuth()
   const { t, locale, dir } = useTranslation()
+  const [showUniVideo, setShowUniVideo] = useState(false)
+  const uniVideoRef = useRef<HTMLVideoElement>(null)
+  
+  // Start video after 3 seconds on mobile (for cart with items)
+  useEffect(() => {
+    if (items.length > 0) {
+      const timer = setTimeout(() => {
+        setShowUniVideo(true)
+        if (uniVideoRef.current) {
+          uniVideoRef.current.play().catch(() => {
+            // Auto-play may fail, that's okay
+          })
+        }
+      }, 3000)
+      
+      return () => clearTimeout(timer)
+    }
+    return () => {} // Cleanup function for when condition is false
+  }, [items.length])
   
   // Black Friday countdown state
   const [timeLeft, setTimeLeft] = useState<{ days: number; hours: number; minutes: number; seconds: number } | null>(null)
@@ -136,17 +155,22 @@ export default function CartClient() {
     return (
       <div className="container mx-auto px-4 py-4 md:py-8 lg:py-16" dir={dir}>
         {/* Navigation Breadcrumb */}
-        <nav className={`inline-flex items-baseline gap-1.5 md:gap-2 text-xs md:text-base text-gray-700 mb-6 md:mb-6 lg:mb-8 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`} aria-label="Breadcrumb">
-          <span className="hover:text-primary-600 transition-colors">
-            <Link href={getLocalizedPath('/', locale)}>{t('common.home')}</Link>
-          </span>
-          <span className="text-gray-400">/</span>
-          <span className="hover:text-primary-600 transition-colors">
-            <Link href={getLocalizedPath('/products', locale)}>{t('common.products')}</Link>
-          </span>
-          <span className="text-gray-400">/</span>
-          <span className="text-gray-900 font-semibold">{t('common.cart')}</span>
+        <nav className={`text-xs md:text-base text-gray-600 mb-2 md:mb-4 ${dir === 'rtl' ? 'text-right' : ''}`} aria-label="Breadcrumb">
+          <Link href={getLocalizedPath('/', locale)} className="hover:text-primary-600 transition-colors">{t('common.home')}</Link>
+          <span> / </span>
+          <Link href={getLocalizedPath('/products', locale)} className="hover:text-primary-600 transition-colors">{t('common.products')}</Link>
+          <span> / </span>
+          <span className="text-gray-900 font-medium">{t('common.cart')}</span>
         </nav>
+
+        {/* Back to Home - Mobile only */}
+        <Link 
+          href={getLocalizedPath('/', locale)} 
+          className={`md:hidden inline-flex items-center gap-1 text-xs text-primary-600 hover:text-primary-700 mb-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+        >
+          <ArrowLeft className={`h-3 w-3 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
+          <span>{t('common.backToHome') || 'Back to Home'}</span>
+        </Link>
 
         <div className={`max-w-4xl mx-auto text-center py-8 md:py-16 ${dir === 'rtl' ? 'text-right' : ''}`}>
           <div className="flex flex-col items-center">
@@ -179,31 +203,61 @@ export default function CartClient() {
 
   return (
     <div className="container mx-auto px-4 py-2 md:py-8 lg:py-16" dir={dir}>
-      {/* Navigation Breadcrumb */}
-      <div className={`${dir === 'rtl' ? 'flex justify-end' : ''}`}>
-        <nav className={`inline-flex items-baseline gap-1.5 md:gap-2 text-xs md:text-base text-gray-600 mb-1.5 md:mb-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`} aria-label="Breadcrumb">
-          <span className="hover:text-primary-600 transition-colors">
-            <Link href={getLocalizedPath('/', locale)}>{t('common.home')}</Link>
-          </span>
-          <span>/</span>
-          <span className="hover:text-primary-600 transition-colors">
-            <Link href={getLocalizedPath('/products', locale)}>{t('common.products')}</Link>
-          </span>
-          <span>/</span>
-          <span className="text-gray-900 font-medium">{t('common.cart')}</span>
-        </nav>
-      </div>
+      {/* Mobile-only Uni Image/Video - Only show when cart is empty */}
+      {items.length === 0 && (
+        <div className="md:hidden w-full max-w-xs mx-auto aspect-square bg-gray-100 rounded-lg overflow-hidden relative mb-4">
+          {/* Video behind the image */}
+          {showUniVideo && (
+            <video
+              ref={uniVideoRef}
+              src="/videos/uni_alive.mp4"
+              className="absolute inset-0 w-full h-full object-cover"
+              loop
+              muted
+              playsInline
+              autoPlay
+            />
+          )}
+          {/* Image on top */}
+          <div className="relative w-full h-full">
+            <Image
+              src="/images/avatar/uni.png"
+              alt="Uni"
+              width={640}
+              height={640}
+              className="w-full h-full object-cover"
+              priority
+            />
+          </div>
+        </div>
+      )}
       
-      {/* Back to Products */}
-      <div className={`mb-4 md:mb-8 ${dir === 'rtl' ? 'flex justify-end' : ''}`}>
-        <Link 
-          href={getLocalizedPath('/products', locale)} 
-          className={`inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
-        >
-          <ArrowLeft className={`h-3 w-3 md:h-4 md:w-4 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
-          <span>{t('cart.backToProducts') || 'Back to Products'}</span>
-        </Link>
-      </div>
+      {/* Navigation Breadcrumb */}
+      <nav className={`text-xs md:text-base text-gray-600 mb-2 md:mb-4 ${dir === 'rtl' ? 'text-right' : ''}`} aria-label="Breadcrumb">
+        <Link href={getLocalizedPath('/', locale)} className="hover:text-primary-600 transition-colors">{t('common.home')}</Link>
+        <span> / </span>
+        <Link href={getLocalizedPath('/products', locale)} className="hover:text-primary-600 transition-colors">{t('common.products')}</Link>
+        <span> / </span>
+        <span className="text-gray-900 font-medium">{t('common.cart')}</span>
+      </nav>
+      
+      {/* Back to Home */}
+      <Link 
+        href={getLocalizedPath('/', locale)} 
+        className={`inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 mb-4 md:mb-8 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+      >
+        <ArrowLeft className={`h-3 w-3 md:h-4 md:w-4 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
+        <span>{t('common.backToHome') || 'Back to Home'}</span>
+      </Link>
+      
+      {/* Back to Products - Desktop only */}
+      <Link 
+        href={getLocalizedPath('/products', locale)} 
+        className={`hidden md:inline-flex mb-4 md:mb-8 items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+      >
+        <ArrowLeft className={`h-3 w-3 md:h-4 md:w-4 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
+        <span>{t('cart.backToProducts') || 'Back to Products'}</span>
+      </Link>
 
       <div className="max-w-6xl mx-auto" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
         <div className={`flex flex-col lg:flex-row gap-8 ${dir === 'rtl' ? 'lg:flex-row-reverse' : ''}`} style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>

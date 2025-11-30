@@ -40,58 +40,22 @@ export default function ArabicBlogPostClient({ post }: ArabicBlogPostClientProps
       <div className="container mx-auto px-4 py-8 md:py-16">
         <div className="max-w-4xl mx-auto">
           {/* Navigation Breadcrumb */}
-          <nav className={`flex flex-col gap-2 text-sm md:text-base text-gray-600 mb-8 ${dir === 'rtl' ? 'text-right' : ''}`} aria-label="Breadcrumb">
-            {/* Mobile Breadcrumb */}
-            <div className={`md:hidden flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-              <Link 
-                href={getLocalizedPath('/', locale)}
-                className="hover:text-primary-600 transition-colors flex items-center"
-              >
-                {t('common.home')}
-              </Link>
-              <span className="flex items-center">/</span>
-              <Link 
-                href={getLocalizedPath('/blog', locale)}
-                className="hover:text-primary-600 transition-colors flex items-center"
-              >
-                {t('common.blog')}
-              </Link>
-              <span className="flex items-center">/</span>
-              <span className={`text-gray-900 font-medium flex items-center line-clamp-1 ${dir === 'rtl' ? 'text-right' : ''}`}>
-                {post.title}
-              </span>
-            </div>
-            
-            {/* Mobile Back Button */}
-            <Link 
-              href={getLocalizedPath('/blog', locale)}
-              className={`md:hidden flex items-center gap-2 text-primary-600 hover:text-primary-700 transition-colors ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
-            >
-              <ArrowLeft className={`h-4 w-4 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
-              <span className="font-medium">{t('blog.backToBlog')}</span>
-            </Link>
-            
-            {/* Desktop Breadcrumb */}
-            <div className={`hidden md:flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-              <Link 
-                href={getLocalizedPath('/', locale)}
-                className="hover:text-primary-600 transition-colors flex items-center"
-              >
-                {t('common.home')}
-              </Link>
-              <span className="flex items-center">/</span>
-              <Link 
-                href={getLocalizedPath('/blog', locale)}
-                className="hover:text-primary-600 transition-colors flex items-center"
-              >
-                {t('common.blog')}
-              </Link>
-              <span className="flex items-center">/</span>
-              <span className={`text-gray-900 font-medium flex items-center line-clamp-1 ${dir === 'rtl' ? 'text-right' : ''}`}>
-                {post.title}
-              </span>
-            </div>
+          <nav className={`text-xs md:text-base text-gray-600 mb-2 md:mb-4 ${dir === 'rtl' ? 'text-right' : ''}`} aria-label="Breadcrumb">
+            <Link href={getLocalizedPath('/', locale)} className="hover:text-primary-600 transition-colors">{t('common.home')}</Link>
+            <span> / </span>
+            <Link href={getLocalizedPath('/blog', locale)} className="hover:text-primary-600 transition-colors">{t('common.blog')}</Link>
+            <span> / </span>
+            <span className="text-gray-900 font-medium">{post.title}</span>
           </nav>
+          
+          {/* Back to Home - Mobile only */}
+          <Link 
+            href={getLocalizedPath('/', locale)} 
+            className={`md:hidden inline-flex items-center gap-1 text-xs text-primary-600 hover:text-primary-700 mb-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+          >
+            <ArrowLeft className={`h-3 w-3 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
+            <span>{t('navigation.backToHome') || 'Back to Home'}</span>
+          </Link>
 
           {/* Article Header */}
           <header className={`mb-10 md:mb-12 ${dir === 'rtl' ? 'text-right' : ''}`}>

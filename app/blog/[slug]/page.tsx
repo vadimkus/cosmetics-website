@@ -211,58 +211,22 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         <div className="container mx-auto px-4 py-8 md:py-16">
           <div className="max-w-4xl mx-auto">
           {/* Navigation Breadcrumb */}
-          <nav className="flex flex-col gap-2 text-sm md:text-base text-gray-600 mb-8" aria-label="Breadcrumb">
-            {/* Mobile Breadcrumb */}
-            <div className="md:hidden flex items-center gap-2">
-              <Link 
-                href="/"
-                className="hover:text-primary-600 transition-colors flex items-center"
-              >
-                Home
-              </Link>
-              <span className="flex items-center">/</span>
-              <Link 
-                href="/blog"
-                className="hover:text-primary-600 transition-colors flex items-center"
-              >
-                Blog
-              </Link>
-              <span className="flex items-center">/</span>
-              <span className="text-gray-900 font-medium flex items-center line-clamp-1">
-                {post.title}
-              </span>
-            </div>
-            
-            {/* Mobile Back Button */}
-            <Link 
-              href="/blog"
-              className="md:hidden flex items-center gap-2 text-primary-600 hover:text-primary-700 transition-colors"
-            >
-              <ArrowLeft className="h-4 w-4" />
-              <span className="font-medium">Back to Blog</span>
-            </Link>
-            
-            {/* Desktop Breadcrumb */}
-            <div className="hidden md:flex items-center gap-2">
-              <Link 
-                href="/"
-                className="hover:text-primary-600 transition-colors flex items-center"
-              >
-                Home
-              </Link>
-              <span className="flex items-center">/</span>
-              <Link 
-                href="/blog"
-                className="hover:text-primary-600 transition-colors flex items-center"
-              >
-                Blog
-              </Link>
-              <span className="flex items-center">/</span>
-              <span className="text-gray-900 font-medium flex items-center line-clamp-1">
-                {post.title}
-              </span>
-            </div>
+          <nav className="text-xs md:text-base text-gray-600 mb-2 md:mb-4" aria-label="Breadcrumb">
+            <Link href="/" className="hover:text-primary-600 transition-colors">Home</Link>
+            <span> / </span>
+            <Link href="/blog" className="hover:text-primary-600 transition-colors">Blog</Link>
+            <span> / </span>
+            <span className="text-gray-900 font-medium">{post.title}</span>
           </nav>
+          
+          {/* Back to Home - Mobile only */}
+          <Link 
+            href="/" 
+            className="md:hidden inline-flex items-center gap-1 text-xs text-primary-600 hover:text-primary-700 mb-4"
+          >
+            <ArrowLeft className="h-3 w-3" />
+            <span>Back to Home</span>
+          </Link>
 
           {/* Article Header */}
           <header className="mb-10 md:mb-12">

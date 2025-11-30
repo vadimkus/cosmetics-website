@@ -4,7 +4,7 @@
   "short_name": "Genosys UAE",
   "description": "Discover our premium collection of cosmetics and beauty products from Genosys Middle East FZ-LLC",
   "start_url": "/",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#1f2937",
@@ -21,34 +21,34 @@
       "purpose": "any"
     },
     {
-      "src": "/favicon/favicon.svg",
-      "sizes": "any",
-      "type": "image/svg+xml",
-      "purpose": "any"
-    },
-    {
-      "src": "/favicon/genosys-official-favicon.ico",
-      "sizes": "32x32",
-      "type": "image/x-icon",
-      "purpose": "any"
-    },
-    {
-      "src": "/favicon/genosys-official.ico",
+      "src": "/favicon-16x16.png",
       "sizes": "16x16",
-      "type": "image/x-icon",
+      "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/icon-192x192.png?v=2",
+      "src": "/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-192x192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "/icon-512x512.png?v=2",
+      "src": "/icon-512x512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
     }
   ],
   "screenshots": [
@@ -68,9 +68,9 @@
       "url": "/products",
       "icons": [
         {
-          "src": "/favicon/favicon.svg",
-          "sizes": "any",
-          "type": "image/svg+xml"
+          "src": "/icon-192x192.png",
+          "sizes": "192x192",
+          "type": "image/png"
         }
       ]
     },
@@ -81,9 +81,9 @@
       "url": "/cart",
       "icons": [
         {
-          "src": "/favicon/favicon.svg",
-          "sizes": "any",
-          "type": "image/svg+xml"
+          "src": "/icon-192x192.png",
+          "sizes": "192x192",
+          "type": "image/png"
         }
       ]
     },
@@ -94,9 +94,9 @@
       "url": "/favorites",
       "icons": [
         {
-          "src": "/favicon/favicon.svg",
-          "sizes": "any",
-          "type": "image/svg+xml"
+          "src": "/icon-192x192.png",
+          "sizes": "192x192",
+          "type": "image/png"
         }
       ]
     }

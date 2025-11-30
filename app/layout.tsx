@@ -60,16 +60,17 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: '/favicon/genosys-official-favicon.ico', type: 'image/x-icon', sizes: '32x32' },
-      { url: '/favicon/genosys-official.ico', type: 'image/x-icon', sizes: '16x16' },
-      { url: '/favicon.ico', type: 'image/x-icon', sizes: '32x32' }
+      { url: '/favicon.ico', type: 'image/x-icon', sizes: '16x16 32x32' },
+      { url: '/favicon-16x16.png', type: 'image/png', sizes: '16x16' },
+      { url: '/favicon-32x32.png', type: 'image/png', sizes: '32x32' },
+      { url: '/icon-192x192.png', type: 'image/png', sizes: '192x192' },
+      { url: '/icon-512x512.png', type: 'image/png', sizes: '512x512' }
     ],
     shortcut: [
-      { url: '/favicon/genosys-official-favicon.ico', type: 'image/x-icon' }
+      { url: '/favicon.ico', type: 'image/x-icon' }
     ],
     apple: [
-      { url: '/favicon/genosys-official-favicon.ico', sizes: '32x32' },
-      { url: '/favicon/genosys-official.ico', sizes: '16x16' }
+      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }
     ],
   },
   manifest: '/manifest.json',

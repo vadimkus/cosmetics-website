@@ -54,7 +54,32 @@ export async function PUT(
 
     // Send email notification to customer about status change
     try {
-      const emailResult = await sendOrderStatusUpdate(order, status)
+      // Transform order items for email
+      // getOrderById includes items relation, so we need to type assert or access safely
+      const orderWithItems = order as typeof order & { items?: Array<{ productName: string; quantity: number; price: number; image: string; color?: string | null; size?: string | null }> }
+      const mappedItems = orderWithItems.items ? orderWithItems.items.map(item => {
+        const mappedItem: { productName: string; quantity: number; price: number; image?: string; color?: string; size?: string } = {
+          productName: item.productName,
+          quantity: item.quantity,
+          price: item.price
+        }
+        if (item.image) mappedItem.image = item.image
+        if (item.color) mappedItem.color = item.color
+        if (item.size) mappedItem.size = item.size
+        return mappedItem
+      }) : undefined
+      
+      const emailOrder: Parameters<typeof sendOrderStatusUpdate>[0] = {
+        orderNumber: order.orderNumber,
+        customerName: order.customerName,
+        customerEmail: order.customerEmail,
+        id: order.id,
+        ...(mappedItems ? { items: mappedItems } : {}),
+        total: order.total,
+        ...(order.customerAddress ? { customerAddress: order.customerAddress } : {}),
+        ...(order.customerEmirate ? { customerEmirate: order.customerEmirate } : {})
+      }
+      const emailResult = await sendOrderStatusUpdate(emailOrder, status)
       
       if (emailResult.success) {
         debugLog(`✅ Order status update email sent for order ${id} to ${order.customerEmail}`)

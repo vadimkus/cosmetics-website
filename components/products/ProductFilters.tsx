@@ -272,12 +272,12 @@ export default function ProductFilters({
       {/* Mobile Filter Button */}
       <button
         onClick={() => setIsOpen(true)}
-        className={`md:hidden fixed bottom-20 ${dir === 'rtl' ? 'left-3' : 'right-3'} z-40 bg-primary-600 text-white p-2.5 rounded-full shadow-lg hover:bg-primary-700 transition-colors flex items-center gap-1.5`}
+        className={`md:hidden fixed bottom-20 ${dir === 'rtl' ? 'left-3' : 'right-3'} z-40 bg-primary-600 text-white p-2.5 rounded-full shadow-lg hover:bg-primary-700 transition-colors flex items-center justify-center relative`}
         aria-label={t('products.filters')}
       >
         <Filter className="h-4 w-4" />
         {hasActiveFilters && (
-          <span className="absolute -top-0.5 -right-0.5 bg-red-500 text-white text-[10px] rounded-full w-4 h-4 flex items-center justify-center font-semibold">
+          <span className="absolute -top-0.5 -right-0.5 bg-red-500 text-white text-[10px] rounded-full w-4 h-4 flex items-center justify-center font-semibold leading-none">
             {localFilters.categories.length + (localFilters.minRating > 0 ? 1 : 0) + (localFilters.inStockOnly ? 1 : 0)}
           </span>
         )}

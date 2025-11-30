@@ -1151,6 +1151,49 @@
       "contactSupport": "Contact Support",
       "officialDistributorFooter": "Official Distributor in the UAE",
       "copyright": "© 2025 Genosys Middle East FZ-LLC. All rights reserved."
+    },
+    "statusUpdate": {
+      "subject": "Order Status Update #{orderNumber} - {status} - Genosys Middle East FZ-LLC",
+      "companyName": "Genosys Middle East FZ-LLC",
+      "uae": "United Arab Emirates ❤️",
+      "dear": "Dear {customerName},",
+      "greeting": "Hope you are doing well. Today is the special day!",
+      "orderNumber": "Order Number:",
+      "status": "Status:",
+      "date": "Date:",
+      "orderItems": "Order Items",
+      "qty": "Qty:",
+      "subtotal": "Subtotal:",
+      "vat": "VAT (5%):",
+      "total": "Total:",
+      "vatNote": "*All prices are VAT inclusive (5%)",
+      "contactQuestion": "If you have any questions about your order, please contact us now via",
+      "viewOrderStatus": "You can view your order status on our website:",
+      "officialDistributor": "Genosys Middle East FZ-LLC is the official distributor of GENOSYS professional Korean dermacosmetics in the United Arab Emirates.",
+      "customerService": "Customer Service",
+      "callUs": "Call us:",
+      "emailUs": "Email us:",
+      "hours": "Monday to Sunday 9:00 - 21:00",
+      "businessLocation": "Business Location",
+      "locationMap": "Location Map",
+      "copyright": "© 2026 Genosys Middle East FZ-LLC. All rights reserved.",
+      "statusLabels": {
+        "PROCESSING": "PROCESSING",
+        "CONFIRMED": "CONFIRMED",
+        "PAID": "PAID",
+        "SHIPPED": "SHIPPED",
+        "DELIVERED": "DELIVERED",
+        "CANCELLED": "CANCELLED"
+      },
+      "statusMessages": {
+        "PROCESSING": "Your order is being processed and prepared for shipment.",
+        "CONFIRMED": "Your order has been confirmed and is being prepared.",
+        "PAID": "Your order payment has been confirmed.",
+        "SHIPPED": "Great news! Your order has been shipped and is on its way to you.",
+        "DELIVERED": "We appreciate your placing the order with us! ❤️<br>Order {orderNumber} has been delivered successfully!",
+        "CANCELLED": "Your order has been cancelled as requested.",
+        "default": "Your order status has been updated."
+      }
     }
   },
   "skinRecommendation": {

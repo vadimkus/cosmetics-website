@@ -73,7 +73,7 @@ export const emailTemplates = {
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
         <div style="text-align: center; margin-bottom: 30px;">
           <h1 style="color: #dc2626; margin: 0;">Genosys Middle East FZ-LLC</h1>
-          <p style="color: #666; margin: 5px 0;">Official Genosys distributor in the United Arab Emirates</p>
+          <p style="color: #666; margin: 5px 0;">United Arab Emirates ❤️</p>
         </div>
         
         <div style="background: white; padding: 30px; border-radius: 10px; margin-bottom: 20px; border: 1px solid #e5e7eb;">
@@ -128,7 +128,7 @@ export const emailTemplates = {
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
         <div style="text-align: center; margin-bottom: 30px;">
           <h1 style="color: #dc2626; margin: 0;">Genosys Middle East FZ-LLC</h1>
-          <p style="color: #666; margin: 5px 0;">Official Genosys distributor in the United Arab Emirates</p>
+          <p style="color: #666; margin: 5px 0;">United Arab Emirates ❤️</p>
         </div>
         
         <div style="background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); padding: 30px; border-radius: 10px; margin-bottom: 20px;">
@@ -251,143 +251,217 @@ export const emailTemplates = {
   adminNewOrder: (orderData: AdminNewOrderEmailData) => ({
     subject: `New Order #${orderData.orderNumber} - ${orderData.customerName} - AED ${orderData.total.toFixed(2)}`,
     html: `
-      <div style="font-family: Arial, sans-serif; max-width: 700px; margin: 0 auto; padding: 20px;">
-        <div style="text-align: center; margin-bottom: 30px;">
-          <h1 style="color: #dc2626; margin: 0;">Genosys Middle East FZ-LLC</h1>
-          <p style="color: #666; margin: 5px 0;">New Order Notification</p>
-        </div>
-        
-        <div style="background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%); padding: 30px; border-radius: 10px; margin-bottom: 20px; border-left: 5px solid #dc2626;">
-          <h2 style="color: #dc2626; margin: 0 0 15px 0;">🛒 New Order Received!</h2>
-          <p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 0 0 10px 0;">
-            A new order has been placed and requires your attention.
-          </p>
-        </div>
-        
-        <div style="background: #f9fafb; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
-          <h3 style="color: #dc2626; margin: 0 0 15px 0;">Order Information</h3>
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px;">
-            <div>
-              <p style="margin: 0 0 5px 0; color: #374151;"><strong>Order Number:</strong></p>
-              <p style="margin: 0; color: #dc2626; font-size: 18px; font-weight: bold;">#${orderData.orderNumber}</p>
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>New Order Notification</title>
+      </head>
+      <body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background-color: #f3f4f6; line-height: 1.6;">
+        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #f3f4f6; padding: 20px 0;">
+          <tr>
+            <td align="center" style="padding: 0;">
+              <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="max-width: 600px; background-color: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+                
+                <!-- Header -->
+                <tr>
+                  <td style="background-color: #ffffff; padding: 30px 20px; text-align: center; border-bottom: 1px solid #e5e7eb;">
+                    <h1 style="color: #111827; margin: 0 0 8px 0; font-size: 24px; font-weight: 700;">Genosys Middle East FZ-LLC</h1>
+                    <p style="color: #6b7280; margin: 0; font-size: 14px; font-weight: 500;">New Order Notification</p>
+                  </td>
+                </tr>
+                
+                <!-- Order Number Highlight -->
+                <tr>
+                  <td style="padding: 24px 20px; text-align: center; background-color: #ffffff;">
+                    <div style="display: inline-block; background-color: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px; padding: 12px 24px;">
+                      <p style="margin: 0 0 4px 0; color: #6b7280; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Order Number</p>
+                      <p style="margin: 0; color: #111827; font-size: 28px; font-weight: 700; letter-spacing: 1px;">#${orderData.orderNumber}</p>
             </div>
-            <div>
-              <p style="margin: 0 0 5px 0; color: #374151;"><strong>Order Time:</strong></p>
-              <p style="margin: 0; color: #374151;">${new Date().toLocaleString()}</p>
-            </div>
-            <div>
-              <p style="margin: 0 0 5px 0; color: #374151;"><strong>Customer Name:</strong></p>
-              <p style="margin: 0; color: #374151;">${orderData.customerName}</p>
-            </div>
-            <div>
-              <p style="margin: 0 0 5px 0; color: #374151;"><strong>Customer Email:</strong></p>
-              <p style="margin: 0; color: #374151;">${orderData.customerEmail}</p>
-            </div>
+                  </td>
+                </tr>
+                
+                <!-- Order Information -->
+                <tr>
+                  <td style="padding: 0 20px 20px 20px;">
+                    <div style="background-color: #f9fafb; border-radius: 8px; padding: 20px;">
+                      <h3 style="color: #111827; margin: 0 0 16px 0; font-size: 18px; font-weight: 700; text-align: center;">Order Information</h3>
+                      <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                        <tr>
+                          <td style="padding: 8px 0; text-align: center;">
+                            <p style="margin: 0 0 4px 0; color: #6b7280; font-size: 12px; font-weight: 600; text-transform: uppercase;">Order Time</p>
+                            <p style="margin: 0; color: #111827; font-size: 15px; font-weight: 500;">${new Date().toLocaleString('en-AE', { timeZone: 'Asia/Dubai' })}</p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style="padding: 16px 0; border-top: 1px solid #e5e7eb; border-bottom: 1px solid #e5e7eb;">
+                            <p style="margin: 0 0 4px 0; color: #6b7280; font-size: 12px; font-weight: 600; text-transform: uppercase; text-align: center;">Customer Name</p>
+                            <p style="margin: 0; color: #111827; font-size: 16px; font-weight: 600; text-align: center;">${orderData.customerName}</p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style="padding: 12px 0; text-align: center;">
+                            <p style="margin: 0 0 4px 0; color: #6b7280; font-size: 12px; font-weight: 600; text-transform: uppercase;">Email</p>
+                            <p style="margin: 0;">
+                              <a href="mailto:${orderData.customerEmail}" style="color: #111827; text-decoration: none; font-size: 14px; word-break: break-all;">${orderData.customerEmail}</a>
+                            </p>
+                          </td>
+                        </tr>
             ${orderData.customerPhone ? `
-            <div>
-              <p style="margin: 0 0 5px 0; color: #374151;"><strong>Customer Phone:</strong></p>
-              <p style="margin: 0; color: #374151;">
-                <a href="tel:${orderData.customerPhone.replace(/\s/g, '')}" style="color: #dc2626; text-decoration: none;">${orderData.customerPhone}</a>
-              </p>
-            </div>
+                        <tr>
+                          <td style="padding: 12px 0; text-align: center; border-top: 1px solid #e5e7eb;">
+                            <p style="margin: 0 0 4px 0; color: #6b7280; font-size: 12px; font-weight: 600; text-transform: uppercase;">Phone</p>
+                            <p style="margin: 0;">
+                              <a href="tel:${orderData.customerPhone.replace(/\s/g, '')}" style="color: #111827; text-decoration: none; font-size: 15px; font-weight: 500;">${orderData.customerPhone}</a>
+                            </p>
+                          </td>
+                        </tr>
             ` : ''}
             ${orderData.address ? `
-            <div>
-              <p style="margin: 0 0 5px 0; color: #374151;"><strong>Delivery Address:</strong></p>
-              <p style="margin: 0; color: #374151;">${orderData.address}</p>
-            </div>
+                        <tr>
+                          <td style="padding: 12px 0; text-align: center; border-top: 1px solid #e5e7eb;">
+                            <p style="margin: 0 0 4px 0; color: #6b7280; font-size: 12px; font-weight: 600; text-transform: uppercase;">Delivery Address</p>
+                            <p style="margin: 0; color: #111827; font-size: 14px; line-height: 1.5;">${orderData.address}</p>
+                          </td>
+                        </tr>
             ` : ''}
             ${orderData.emirate ? `
-            <div>
-              <p style="margin: 0 0 5px 0; color: #374151;"><strong>Emirate:</strong></p>
-              <p style="margin: 0; color: #374151;">${orderData.emirate}</p>
-            </div>
+                        <tr>
+                          <td style="padding: 12px 0; text-align: center; border-top: 1px solid #e5e7eb;">
+                            <p style="margin: 0 0 4px 0; color: #6b7280; font-size: 12px; font-weight: 600; text-transform: uppercase;">Emirate</p>
+                            <p style="margin: 0; color: #111827; font-size: 15px; font-weight: 500;">${orderData.emirate}</p>
+                          </td>
+                        </tr>
             ` : ''}
+                      </table>
           </div>
-        </div>
+                  </td>
+                </tr>
         
+                <!-- Order Items -->
         ${orderData.items && orderData.items.length > 0 ? `
-        <div style="background: #ffffff; padding: 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e5e7eb;">
-          <h3 style="color: #dc2626; margin: 0 0 15px 0;">📦 Order Items (${orderData.itemCount} ${orderData.itemCount === 1 ? 'item' : 'items'})</h3>
-          <table style="width: 100%; border-collapse: collapse; margin: 10px 0;">
+                <tr>
+                  <td style="padding: 0 20px 20px 20px;">
+                    <div style="background-color: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 20px; overflow-x: auto;">
+                      <h3 style="color: #111827; margin: 0 0 16px 0; font-size: 18px; font-weight: 700; text-align: center;">Order Items (${orderData.itemCount} ${orderData.itemCount === 1 ? 'item' : 'items'})</h3>
+                      <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="min-width: 100%; border-collapse: collapse;">
             <thead>
-              <tr style="background: #dc2626; color: white;">
-                <th style="padding: 10px; text-align: left; font-size: 16px;">Product</th>
-                <th style="padding: 10px; text-align: center; font-size: 16px;">Qty</th>
-                <th style="padding: 10px; text-align: right; font-size: 16px;">Price</th>
-                <th style="padding: 10px; text-align: right; font-size: 16px;">Total</th>
+                          <tr style="background-color: #f9fafb;">
+                            <th style="padding: 12px 8px; text-align: left; color: #111827; font-size: 13px; font-weight: 600; border-bottom: 1px solid #e5e7eb;">Product</th>
+                            <th style="padding: 12px 8px; text-align: center; color: #111827; font-size: 13px; font-weight: 600; border-bottom: 1px solid #e5e7eb;">Qty</th>
+                            <th style="padding: 12px 8px; text-align: right; color: #111827; font-size: 13px; font-weight: 600; border-bottom: 1px solid #e5e7eb;">Price</th>
+                            <th style="padding: 12px 8px; text-align: right; color: #111827; font-size: 13px; font-weight: 600; border-bottom: 1px solid #e5e7eb;">Total</th>
               </tr>
             </thead>
             <tbody>
               ${orderData.items.map(item => `
-                <tr>
-                  <td style="padding: 10px; border-bottom: 1px solid #eee;">${item.productName}${item.size ? ` (Size: ${item.size})` : ''}${item.color ? ` (Color: ${item.color})` : ''}</td>
-                  <td style="padding: 10px; border-bottom: 1px solid #eee; text-align: center;">${item.quantity}</td>
-                  <td style="padding: 10px; border-bottom: 1px solid #eee; text-align: right;">AED ${item.price.toFixed(2)}</td>
-                  <td style="padding: 10px; border-bottom: 1px solid #eee; text-align: right;">AED ${(item.quantity * item.price).toFixed(2)}</td>
+                            <tr style="border-bottom: 1px solid #e5e7eb;">
+                              <td style="padding: 12px 8px; color: #111827; font-size: 14px;">
+                                ${item.productName}${item.size ? `<br><span style="color: #6b7280; font-size: 12px;">Size: ${item.size}</span>` : ''}${item.color ? `<br><span style="color: #6b7280; font-size: 12px;">Color: ${item.color}</span>` : ''}
+                              </td>
+                              <td style="padding: 12px 8px; text-align: center; color: #111827; font-size: 14px; font-weight: 500;">${item.quantity}</td>
+                              <td style="padding: 12px 8px; text-align: right; color: #111827; font-size: 14px;">AED ${item.price.toFixed(2)}</td>
+                              <td style="padding: 12px 8px; text-align: right; color: #111827; font-size: 14px; font-weight: 600;">AED ${(item.quantity * item.price).toFixed(2)}</td>
                 </tr>
               `).join('')}
             </tbody>
           </table>
         </div>
-        ` : `
-        <div style="background: #fef2f2; padding: 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #fecaca;">
-          <h3 style="color: #dc2626; margin: 0 0 15px 0;">📦 Order Items</h3>
-          <p style="color: #6b7280; margin: 0;">${orderData.itemCount} ${orderData.itemCount === 1 ? 'item' : 'items'} in this order (product details not available)</p>
+                  </td>
+                </tr>
+                ` : `
+                <tr>
+                  <td style="padding: 0 20px 20px 20px;">
+                    <div style="background-color: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px; padding: 20px; text-align: center;">
+                      <h3 style="color: #111827; margin: 0 0 8px 0; font-size: 18px; font-weight: 700;">Order Items</h3>
+                      <p style="color: #6b7280; margin: 0; font-size: 14px;">${orderData.itemCount} ${orderData.itemCount === 1 ? 'item' : 'items'} in this order (product details not available)</p>
         </div>
-        `}
-        
-        <div style="background: #f0f9ff; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
-          <h3 style="color: #dc2626; margin: 0 0 15px 0;">Order Summary</h3>
-          <div style="space-y: 8px;">
+                  </td>
+                </tr>
+                `}
+                
+                <!-- Order Summary -->
+                <tr>
+                  <td style="padding: 0 20px 20px 20px;">
+                    <div style="background-color: #f9fafb; border-radius: 8px; padding: 20px; border: 1px solid #e5e7eb;">
+                      <h3 style="color: #111827; margin: 0 0 16px 0; font-size: 18px; font-weight: 700; text-align: center;">Order Summary</h3>
+                      <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
             ${orderData.subtotal ? `
-            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-              <span style="color: #374151;">Subtotal: </span>
-              <span style="color: #374151;">AED ${orderData.subtotal.toFixed(2)}</span>
-            </div>
+                        <tr>
+                          <td style="padding: 8px 0;">
+                            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                              <tr>
+                                <td style="color: #374151; font-size: 14px;">Subtotal:</td>
+                                <td align="right" style="color: #374151; font-size: 14px; font-weight: 500;">AED ${orderData.subtotal.toFixed(2)}</td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
             ` : ''}
             ${orderData.shipping !== undefined ? `
-            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-              <span style="color: #374151;">Shipping: </span>
-              <span style="color: #374151;">AED ${orderData.shipping.toFixed(2)}</span>
-            </div>
+                        <tr>
+                          <td style="padding: 8px 0; border-top: 1px solid #e5e7eb;">
+                            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                              <tr>
+                                <td style="color: #374151; font-size: 14px;">Shipping:</td>
+                                <td align="right" style="color: #374151; font-size: 14px; font-weight: 500;">AED ${orderData.shipping.toFixed(2)}</td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
             ` : ''}
             ${orderData.vat !== undefined ? `
-            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-              <span style="color: #374151;">VAT: </span>
-              <span style="color: #374151;">AED ${orderData.vat.toFixed(2)}</span>
-            </div>
+                        <tr>
+                          <td style="padding: 8px 0; border-top: 1px solid #e5e7eb;">
+                            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                              <tr>
+                                <td style="color: #374151; font-size: 14px;">VAT (5%):</td>
+                                <td align="right" style="color: #374151; font-size: 14px; font-weight: 500;">AED ${orderData.vat.toFixed(2)}</td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
             ` : ''}
-            <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 18px; color: #dc2626; border-top: 2px solid #dc2626; padding-top: 8px;">
-              <span>Total: </span>
-              <span>AED ${orderData.total.toFixed(2)}</span>
+                        <tr>
+                          <td style="padding: 12px 0 0 0; border-top: 2px solid #111827;">
+                            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                              <tr>
+                                <td style="color: #111827; font-size: 20px; font-weight: 700;">Total:</td>
+                                <td align="right" style="color: #111827; font-size: 20px; font-weight: 700;">AED ${orderData.total.toFixed(2)}</td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+                      </table>
             </div>
-          </div>
-        </div>
+                  </td>
+                </tr>
         
-        
-        <div style="text-align: center; margin: 30px 0;">
+                <!-- CTA Button -->
+                <tr>
+                  <td style="padding: 0 20px 24px 20px; text-align: center;">
           <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://genosys.ae'}/admin" 
-             style="background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%); 
-                    color: white; 
-                    padding: 12px 30px; 
+                       style="display: inline-block; background-color: #111827; 
+                              color: #ffffff; 
+                              padding: 14px 32px; 
                     text-decoration: none; 
-                    border-radius: 6px; 
-                    font-weight: bold; 
-                    display: inline-block;">
+                              border-radius: 8px; 
+                              font-weight: 600; 
+                              font-size: 15px;
+                              transition: all 0.3s ease;">
             View Order in Admin Panel
           </a>
-        </div>
-        
-        <div style="border-top: 1px solid #e5e7eb; padding-top: 20px; text-align: center;">
-          <p style="color: #6b7280; font-size: 14px; margin: 0;">
-            This is an automated notification from Genosys Middle East FZ-LLC
-          </p>
-          <p style="color: #6b7280; font-size: 12px; margin: 10px 0 0 0;">
-            Official Genosys distributor in the United Arab Emirates
-          </p>
-        </div>
-      </div>
+                  </td>
+                </tr>
+                
+              </table>
+            </td>
+          </tr>
+        </table>
+      </body>
+      </html>
     `,
   }),
 
@@ -571,7 +645,7 @@ export const sendEmail = async (to: string, subject: string, html: string) => {
     debugLog('📧 Using Gmail service')
     debugLog('📧 Using Gmail user:', process.env.GMAIL_USER)
     
-    const mailOptions = {
+    const mailOptions: nodemailer.SendMailOptions = {
       from: `"Genosys Middle East FZ-LLC" <${process.env.GMAIL_USER}>`,
       to,
       subject,
@@ -618,10 +692,10 @@ export const sendAdminNewUserNotification = async (userName: string, userEmail: 
   return result
 }
 
-export const sendAdminNewOrderNotification = async (orderData: AdminNewOrderEmailData) => {
+export const sendAdminNewOrderNotification = async (orderData: AdminNewOrderEmailData, recipientEmail?: string) => {
   try {
-    // Use ADMIN_EMAIL, or fallback to GMAIL_USER/EMAIL_USER, or use default
-    const adminEmail = process.env.ADMIN_EMAIL || process.env.GMAIL_USER || process.env.EMAIL_USER || '5856825@gmail.com'
+    // Use provided recipientEmail, or ADMIN_EMAIL, or fallback to GMAIL_USER/EMAIL_USER, or use default
+    const adminEmail = recipientEmail || process.env.ADMIN_EMAIL || process.env.GMAIL_USER || process.env.EMAIL_USER || '5856825@gmail.com'
     
     debugLog(`📧 Sending admin new order notification to: ${adminEmail}`)
     debugLog(`📧 Admin email sources - ADMIN_EMAIL: ${process.env.ADMIN_EMAIL || 'NOT_SET'}, GMAIL_USER: ${process.env.GMAIL_USER || 'NOT_SET'}, EMAIL_USER: ${process.env.EMAIL_USER || 'NOT_SET'}`)
@@ -1017,61 +1091,366 @@ export const generateSupportLinkOrderHTML = (order: OrderHTMLData, locale: strin
   `
 }
 
-export const sendOrderStatusUpdate = async (order: { orderNumber: string; customerName: string; customerEmail: string; id?: string }, newStatus: string): Promise<{ success: boolean; error?: string; messageId?: string }> => {
+export const sendOrderStatusUpdate = async (order: { orderNumber: string; customerName: string; customerEmail: string; id?: string; items?: Array<{ productName: string; quantity: number; price: number; image?: string; color?: string; size?: string }>; total?: number; customerAddress?: string; customerEmirate?: string; locale?: string }, newStatus: string): Promise<{ success: boolean; error?: string; messageId?: string }> => {
   try {
-    const statusMessages: { [key: string]: string } = {
-      'PROCESSING': 'Your order is being processed and prepared for shipment.',
-      'CONFIRMED': 'Your order has been confirmed and is being prepared.',
-      'PAID': 'Your order payment has been confirmed.',
-      'SHIPPED': 'Great news! Your order has been shipped and is on its way to you.',
-      'DELIVERED': 'Your order has been delivered successfully. Thank you for your business!',
-      'CANCELLED': 'Your order has been cancelled as requested.'
+    const locale = order.locale || 'en'
+    
+    // Load translations
+    let t: any
+    try {
+      if (locale === 'ar') {
+        const arMessages = require('@/messages/ar.json')
+        t = arMessages.default?.orderEmail?.statusUpdate || arMessages.orderEmail?.statusUpdate
+      } else {
+        const enMessages = require('@/messages/en.json')
+        t = enMessages.default?.orderEmail?.statusUpdate || enMessages.orderEmail?.statusUpdate
+      }
+    } catch (error) {
+      errorLog('Failed to load translations for order status update:', error)
+      // Fallback to English
+      try {
+        const enMessages = require('@/messages/en.json')
+        t = enMessages.default?.orderEmail?.statusUpdate || enMessages.orderEmail?.statusUpdate
+      } catch (fallbackError) {
+        errorLog('Failed to load fallback translations:', fallbackError)
+        // Hardcoded fallback
+        t = {
+          subject: 'Order Status Update #{orderNumber} - {status} - Genosys Middle East FZ-LLC',
+          companyName: 'Genosys Middle East FZ-LLC',
+          uae: 'United Arab Emirates ❤️',
+          dear: 'Dear {customerName},',
+          greeting: 'Hope you are doing well. Today is the special day!',
+          orderNumber: 'Order Number:',
+          status: 'Status:',
+          date: 'Date:',
+          orderItems: 'Order Items',
+          qty: 'Qty:',
+          subtotal: 'Subtotal:',
+          vat: 'VAT (5%):',
+          total: 'Total:',
+          vatNote: '*All prices are VAT inclusive (5%)',
+          contactQuestion: 'If you have any questions about your order, please contact us now via',
+          viewOrderStatus: 'You can view your order status on our website:',
+          officialDistributor: 'Genosys Middle East FZ-LLC is the official distributor of GENOSYS professional Korean dermacosmetics in the United Arab Emirates.',
+          customerService: 'Customer Service',
+          callUs: 'Call us:',
+          emailUs: 'Email us:',
+          hours: 'Monday to Sunday 9:00 - 21:00',
+          businessLocation: 'Business Location',
+          locationMap: 'Location Map',
+          copyright: '© 2026 Genosys Middle East FZ-LLC. All rights reserved.',
+          statusMessages: {
+            PROCESSING: 'Your order is being processed and prepared for shipment.',
+            CONFIRMED: 'Your order has been confirmed and is being prepared.',
+            PAID: 'Your order payment has been confirmed.',
+            SHIPPED: 'Great news! Your order has been shipped and is on its way to you.',
+            DELIVERED: 'We appreciate your placing the order with us! ❤️<br>Order {orderNumber} has been delivered successfully!',
+            CANCELLED: 'Your order has been cancelled as requested.',
+            default: 'Your order status has been updated.'
+          }
+        }
+      }
     }
     
-    const statusMessage = statusMessages[newStatus.toUpperCase()] || 'Your order status has been updated.'
+    const isRTL = locale === 'ar'
+    const dir = isRTL ? 'rtl' : 'ltr'
+    const textAlign = isRTL ? 'right' : 'left'
+    const dateLocale = locale === 'ar' ? 'ar-AE' : 'en-AE'
     const orderId = order.orderNumber || order.id || 'Unknown'
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://genosys.ae'
+    
+    // Social media icons - use same location as footer logo (Logo folder) for Gmail compatibility
+    // This matches the footer logo approach which loads fine in Gmail without attachments
+    // Images are now deployed to production at /Logo/insta.png, /Logo/wa.png, /Logo/fb.png
+    const instagramIconUrl = `${baseUrl}/Logo/insta.png`
+    const whatsappIconUrl = `${baseUrl}/Logo/wa.png`
+    const facebookIconUrl = `${baseUrl}/Logo/fb.png`
+    
+    // Get status message from translations, with special handling for DELIVERED
+    const statusKey = newStatus.toUpperCase()
+    let statusMessage = t.statusMessages[statusKey] || t.statusMessages.default
+    if (statusKey === 'DELIVERED') {
+      statusMessage = statusMessage.replace('{orderNumber}', orderId)
+    }
+    
+    // Get translated status label for display in email body and subject
+    const translatedStatus = t.statusLabels?.[statusKey] || statusKey
+    
+    // Generate items breakdown HTML if items are available
+    let itemsHTML = ''
+    if (order.items && order.items.length > 0) {
+      const itemsList = order.items.map(item => {
+        // Ensure absolute HTTPS URL for email compatibility
+        // Remove Next.js image optimization parameters and use direct image URLs
+        let imageUrl = item.image || ''
+        const originalImageUrl = imageUrl // Keep for debugging
+        
+        // Process image URL to ensure it's absolute and HTTPS (same pattern as logo)
+        // Logo works: ${baseUrl}/Logo/upLOGO.png
+        // Product images should work: ${baseUrl}/images/CUSHC.png
+        
+        if (imageUrl && imageUrl.trim()) {
+          const trimmedUrl = imageUrl.trim()
+          
+          // If it's a Next.js optimized image URL, extract the original path
+          if (trimmedUrl.includes('_next/image')) {
+            const urlMatch = trimmedUrl.match(/url=([^&]+)/)
+            if (urlMatch && urlMatch[1]) {
+              try {
+                const decodedPath = decodeURIComponent(urlMatch[1])
+                // Remove any query parameters and ensure clean path
+                const parts = decodedPath.split('?')
+                const cleanPath = (parts[0] || '').split('&')[0] || decodedPath
+                // Ensure path starts with /
+                const normalizedPath = cleanPath.startsWith('/') ? cleanPath : '/' + cleanPath
+                imageUrl = `${baseUrl}${normalizedPath}`
+              } catch (e) {
+                debugLog(`❌ Failed to decode Next.js image URL: ${trimmedUrl}`, e)
+                imageUrl = `${baseUrl}/images/genosys-logo.png`
+              }
+            } else {
+              debugLog(`⚠️ Could not extract path from Next.js URL: ${trimmedUrl}`)
+              imageUrl = `${baseUrl}/images/genosys-logo.png`
+            }
+          } 
+          // If it's already an absolute URL (http/https)
+          else if (trimmedUrl.startsWith('http://') || trimmedUrl.startsWith('https://')) {
+            // Remove query parameters for email compatibility
+            const parts = trimmedUrl.split('?')
+            imageUrl = (parts[0] || '').split('&')[0] || trimmedUrl
+            // Ensure HTTPS (but keep localhost as http for development)
+            if (imageUrl.startsWith('http://') && !imageUrl.includes('localhost')) {
+              imageUrl = imageUrl.replace('http://', 'https://')
+            }
+          }
+          // If it's a local/relative path, make it absolute (same as logo: /Logo/upLOGO.png)
+          else {
+            // Remove query parameters and ensure path starts with /
+            const parts = trimmedUrl.split('?')
+            const cleanPath = (parts[0] || '').split('&')[0] || trimmedUrl
+            // Handle both /images/... and images/... formats
+            let normalizedPath = cleanPath
+            if (!normalizedPath.startsWith('/')) {
+              normalizedPath = '/' + normalizedPath
+            }
+            // Ensure it follows the same pattern as logo: /Logo/upLOGO.png -> /images/CUSHC.png
+            imageUrl = `${baseUrl}${normalizedPath}`
+          }
+        } else {
+          // No image provided - use logo as fallback
+          debugLog(`⚠️ No image provided for product: ${item.productName}`)
+          imageUrl = `${baseUrl}/images/genosys-logo.png`
+        }
+        
+        // Final cleanup: ensure no double slashes (except after protocol)
+        imageUrl = imageUrl.replace(/([^:]\/)\/+/g, '$1')
+        
+        // Debug logging with full details
+        debugLog(`📦 Order item image processing: ${item.productName}`)
+        debugLog(`   Original image: "${originalImageUrl}"`)
+        debugLog(`   Base URL: "${baseUrl}"`)
+        debugLog(`   Final URL: "${imageUrl}"`)
+        debugLog(`   Image exists check: Will try to load from ${imageUrl}`)
+        
+        // Additional validation: ensure the URL is properly formatted
+        if (!imageUrl || imageUrl.trim() === '') {
+          errorLog(`❌ Empty image URL for product: ${item.productName}`)
+          imageUrl = `${baseUrl}/images/genosys-logo.png`
+        }
+        
+        // Ensure URL is valid
+        try {
+          new URL(imageUrl)
+        } catch (e) {
+          errorLog(`❌ Invalid image URL constructed: "${imageUrl}" for product: ${item.productName}`)
+          errorLog(`   Original was: "${originalImageUrl}"`)
+          imageUrl = `${baseUrl}/images/genosys-logo.png`
+        }
+        
+        const itemTotal = (item.price * item.quantity).toFixed(2)
+        const variantInfo = [item.size, item.color].filter(Boolean).join(' • ')
+        
+        return `
+          <tr>
+            <td style="padding: 12px 0; border-bottom: 1px solid #e5e7eb;">
+              <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                <tr>
+                  <td width="80" style="${isRTL ? 'padding-left' : 'padding-right'}: 12px; vertical-align: top;">
+                    <img src="${imageUrl}" alt="${item.productName.replace(/"/g, '&quot;')}" width="80" height="80" style="width: 80px; height: 80px; object-fit: cover; border-radius: 6px; display: block; border: 1px solid #e5e7eb; max-width: 80px;" border="0" onerror="this.onerror=null; this.src='${baseUrl}/images/genosys-logo.png';" />
+                  </td>
+                  <td style="vertical-align: top;">
+                    <p style="color: #374151; font-size: 12px; font-weight: 500; margin: 0 0 4px 0; line-height: 1.4;">${item.productName}</p>
+                    ${variantInfo ? `<p style="color: #6b7280; font-size: 12px; margin: 0 0 4px 0;">${variantInfo}</p>` : ''}
+                    <p style="color: #6b7280; font-size: 12px; margin: 0;">Qty: ${item.quantity} × AED ${item.price.toFixed(2)}</p>
+                  </td>
+                  <td style="text-align: ${isRTL ? 'left' : 'right'}; vertical-align: top; ${isRTL ? 'padding-right' : 'padding-left'}: 12px;">
+                    <p style="color: #374151; font-size: 12px; font-weight: 600; margin: 0; white-space: nowrap;">${itemTotal} AED</p>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        `
+      }).join('')
+      
+      // Calculate subtotal from all items
+      const subtotal = order.items.reduce((sum, item) => sum + (item.price * item.quantity), 0)
+      // Calculate VAT (5% of VAT-inclusive amount: VAT = amount * (5/105))
+      const vat = subtotal * (5 / 105)
+      
+      itemsHTML = `
+        <div style="margin: 25px 0;">
+          <h3 style="color: #374151; font-size: 16px; font-weight: 600; margin: 0 0 15px 0; text-align: ${textAlign};">${t.orderItems}</h3>
+          <table cellpadding="0" cellspacing="0" border="0" width="100%" style="background: #f9fafb; border-radius: 8px; padding: 15px;">
+            ${itemsList}
+            ${order.total ? `
+              <tr>
+                <td style="padding-top: 15px; border-top: 2px solid #e5e7eb;">
+                  <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                    <tr>
+                      <td style="text-align: ${isRTL ? 'left' : 'right'};">
+                        <p style="color: #374151; font-size: 12px; margin: 0 0 6px 0;">${t.subtotal} AED ${subtotal.toFixed(2)}</p>
+                        <p style="color: #374151; font-size: 12px; margin: 0 0 6px 0;">${t.vat} AED ${vat.toFixed(2)}</p>
+                        <p style="color: #374151; font-size: 14px; font-weight: 600; margin: 0;">${t.total} AED ${order.total.toFixed(2)}</p>
+                        <p style="color: #6b7280; font-size: 11px; margin: 4px 0 0 0; font-style: italic;">${t.vatNote}</p>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            ` : ''}
+          </table>
+        </div>
+      `
+    }
     
     const html = `
-      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
-        <div style="text-align: center; margin-bottom: 30px;">
-          <h1 style="color: #dc2626; margin: 0;">Genosys Middle East FZ-LLC</h1>
-          <p style="color: #666; margin: 5px 0;">Official Genosys distributor in the United Arab Emirates</p>
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 4px solid #dc2626; background: #ffffff; box-shadow: 0 0 0 2px #ffffff, 0 0 0 6px #dc2626; direction: ${dir};">
+        <div style="text-align: center; margin-bottom: 15px; position: relative;">
+          <h1 style="color: #dc2626; margin: 0;">${t.companyName}</h1>
+          <p style="color: #666; margin: 5px 0 0 0; font-size: 12px; ${isRTL ? 'padding-right' : 'padding-left'}: 3.2em;">${t.uae}</p>
         </div>
         
         <div style="background: white; padding: 30px; border-radius: 10px; margin-bottom: 20px; border: 1px solid #e5e7eb;">
-          <h2 style="color: #dc2626; margin: 0 0 15px 0;">Order Status Update</h2>
-          
-          <p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 0 0 20px 0;">
-            Dear ${order.customerName},
+          <p style="color: #374151; font-size: 14px; line-height: 1.6; margin: 0 0 12px 0; text-align: ${textAlign};">
+            ${t.dear.replace('{customerName}', order.customerName)}
           </p>
           
-          <p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 0 0 20px 0;">
+          <p style="color: #374151; font-size: 14px; line-height: 1.6; margin: 0 0 20px 0; text-align: ${textAlign};">
+            ${t.greeting}
+          </p>
+          
+          <p style="color: #374151; font-size: 14px; line-height: 1.6; margin: 0 0 20px 0; text-align: ${textAlign};">
             ${statusMessage}
           </p>
           
-          <div style="background: #f9fafb; padding: 20px; border-radius: 8px; margin: 20px 0;">
-            <h3 style="color: #dc2626; margin: 0 0 15px 0;">Order Details</h3>
-            <p style="color: #374151; margin: 0 0 10px 0;"><strong>Order Number:</strong> ${orderId}</p>
-            <p style="color: #374151; margin: 0 0 10px 0;"><strong>Status:</strong> <span style="color: #dc2626; font-weight: bold;">${newStatus.toUpperCase()}</span></p>
-            <p style="color: #374151; margin: 0;"><strong>Date:</strong> ${new Date().toLocaleString('en-AE', { timeZone: 'Asia/Dubai' })}</p>
+          <div style="background: #f9fafb; padding: 20px; border-radius: 8px; margin: 12px 0;">
+            <p style="color: #374151; margin: 0 0 10px 0; font-size: 13px; text-align: ${textAlign};"><strong>${t.orderNumber}</strong> ${orderId}</p>
+            <p style="color: #374151; margin: 0 0 10px 0; font-size: 13px; text-align: ${textAlign};"><strong>${t.status}</strong> <span style="color: #dc2626; font-weight: bold;">${translatedStatus}</span></p>
+            <p style="color: #374151; margin: 0; font-size: 13px; text-align: ${textAlign};"><strong>${t.date}</strong> ${new Date().toLocaleString(dateLocale, { timeZone: 'Asia/Dubai' })}</p>
           </div>
           
-          <p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 20px 0 0 0;">
-            If you have any questions about your order, please contact us at <a href="mailto:sales@genosys.ae" style="color: #dc2626;">sales@genosys.ae</a> or call +971 58 548 76 65.
-          </p>
+          ${itemsHTML}
+          
+          <div style="margin: 25px 0 0 0; padding-top: 20px; border-top: 1px solid #e5e7eb;">
+            <p style="color: #374151; font-size: 13px; line-height: 1.6; margin: 0 0 12px 0; text-align: ${textAlign};">
+              ${t.contactQuestion} <a href="https://wa.me/971585487665" style="color: #dc2626; text-decoration: none;">+971 58 548 76 65</a> (WhatsApp).
+            </p>
+            
+            <p style="color: #374151; font-size: 13px; line-height: 1.6; margin: 0; text-align: ${textAlign};">
+              ${t.viewOrderStatus} <a href="https://www.genosys.ae/${locale === 'ar' ? 'ar/' : ''}profile" style="color: #dc2626; text-decoration: none;">www.genosys.ae/${locale === 'ar' ? 'ar/' : ''}profile</a>
+            </p>
+          </div>
         </div>
         
-        <div style="border-top: 1px solid #e5e7eb; padding-top: 20px; text-align: center;">
-          <p style="color: #6b7280; font-size: 14px; margin: 0;">
-            Genosys Middle East FZ-LLC - Official Genosys distributor in the United Arab Emirates
-          </p>
+        <!-- Footer Section -->
+        <div style="border-top: 1px solid #e5e7eb; padding-top: 30px; margin-top: 30px;">
+          <!-- Social Media Icons -->
+          <div style="text-align: center; margin-bottom: 30px;">
+            <div style="border-top: 1px solid #e5e7eb; margin-bottom: 20px;"></div>
+            <table cellpadding="0" cellspacing="0" border="0" align="center" style="margin: 0 auto;">
+              <tr>
+                <td style="padding: 0 12px; text-align: center;">
+                  <a href="https://www.instagram.com/genosys.uae/" style="text-decoration: none; display: inline-block;">
+                    <img src="${instagramIconUrl}" alt="Instagram" width="34" height="34" style="max-width: 34px; height: auto; display: block; margin: 0 auto;" border="0" />
+                    <p style="color: #374151; font-size: 11px; margin: 6px 0 0 0; text-align: center;">Insta</p>
+                  </a>
+                </td>
+                <td style="padding: 0 12px; text-align: center;">
+                  <a href="https://wa.me/971585487665?text=${encodeURIComponent(`Hi! I need help with my order ${orderId}. Can you assist me?`)}" style="text-decoration: none; display: inline-block;">
+                    <img src="${whatsappIconUrl}" alt="WhatsApp" width="34" height="34" style="max-width: 34px; height: auto; display: block; margin: 0 auto;" border="0" />
+                    <p style="color: #374151; font-size: 11px; margin: 6px 0 0 0; text-align: center;">WA</p>
+                  </a>
+                </td>
+                <td style="padding: 0 12px; text-align: center;">
+                  <a href="https://www.facebook.com/genosys.ae" style="text-decoration: none; display: inline-block;">
+                    <img src="${facebookIconUrl}" alt="Facebook" width="34" height="34" style="max-width: 34px; height: auto; display: block; margin: 0 auto;" border="0" />
+                    <p style="color: #374151; font-size: 11px; margin: 6px 0 0 0; text-align: center;">FB</p>
+                  </a>
+                </td>
+              </tr>
+            </table>
+            <div style="border-top: 1px solid #e5e7eb; margin-top: 20px;"></div>
+          </div>
+          
+          <!-- Company Overview -->
+          <div style="text-align: center; margin-bottom: 20px;">
+            <p style="color: #374151; font-size: 13px; line-height: 1.6; margin: 0; text-align: ${textAlign};">
+              ${t.officialDistributor}
+            </p>
+          </div>
+          
+          <!-- Two Column Footer -->
+          <table cellpadding="0" cellspacing="0" border="0" width="100%" style="max-width: 600px; margin: 0 auto;">
+            <tr>
+              <!-- Left Column: Customer Service -->
+              <td width="50%" style="${isRTL ? 'padding-left' : 'padding-right'}: 20px; vertical-align: top;">
+                <p style="color: #374151; font-size: 13px; font-weight: 600; margin: 0 0 8px 0; text-align: ${textAlign};">${t.customerService}</p>
+                <p style="color: #374151; font-size: 12px; line-height: 1.6; margin: 0 0 4px 0; text-align: ${textAlign};">
+                  ${t.callUs} <a href="tel:+971585487665" style="color: #374151; text-decoration: none;">+971 58 548 76 65</a>
+                </p>
+                <p style="color: #374151; font-size: 12px; line-height: 1.6; margin: 0 0 4px 0; text-align: ${textAlign};">
+                  ${t.emailUs} <a href="mailto:sales@genosys.ae" style="color: #374151; text-decoration: none;">sales@genosys.ae</a>
+                </p>
+                <p style="color: #374151; font-size: 12px; line-height: 1.6; margin: 0; text-align: ${textAlign};">
+                  ${t.hours}
+                </p>
+              </td>
+              
+              <!-- Right Column: Business Location -->
+              <td width="50%" style="${isRTL ? 'padding-right' : 'padding-left'}: 20px; vertical-align: top;">
+                <p style="color: #374151; font-size: 13px; font-weight: 600; margin: 0 0 8px 0; text-align: ${textAlign};">${t.businessLocation}</p>
+                <p style="color: #374151; font-size: 12px; line-height: 1.6; margin: 0 0 4px 0; text-align: ${textAlign};">
+                  Cordoba Residence Villa E02
+                </p>
+                <p style="color: #374151; font-size: 12px; line-height: 1.6; margin: 0 0 4px 0; text-align: ${textAlign};">
+                  Dubai, United Arab Emirates
+                </p>
+                <p style="color: #374151; font-size: 12px; line-height: 1.6; margin: 0; text-align: ${textAlign};">
+                  <a href="https://maps.app.goo.gl/ZBxVoXdTNvECFwNw5" style="color: #374151; text-decoration: underline;">${t.locationMap}</a>
+                </p>
+              </td>
+            </tr>
+          </table>
+          
+          <!-- Company Copyright -->
+          <div style="text-align: center; margin-top: 25px; padding-top: 20px; border-top: 1px solid #e5e7eb;">
+            <div style="margin-bottom: 15px;">
+              <img src="${baseUrl}/Logo/upLOGO.png" alt="GENOSYS Logo" width="180" height="54" style="max-width: 180px; height: auto; display: block; margin: 0 auto;" border="0" />
+            </div>
+            <p style="color: #6b7280; font-size: 11px; line-height: 1.5; margin: 0;">
+              ${t.copyright}
+            </p>
+          </div>
         </div>
       </div>
     `
     
-    const subject = `Order Status Update #${orderId} - ${newStatus.toUpperCase()} - Genosys Middle East FZ-LLC`
+    // Use translated status label (already calculated above)
+    const subject = t.subject.replace('{orderNumber}', orderId).replace('{status}', translatedStatus)
     
     debugLog(`📧 Sending order status update email to: ${order.customerEmail}`)
+    // No attachments - using direct URLs like footer logo
     const result = await sendEmail(order.customerEmail, subject, html)
     
     if (!result.success) {
@@ -1089,3 +1468,4 @@ export const sendOrderStatusUpdate = async (order: { orderNumber: string; custom
     return { success: false, error: errorMessage }
   }
 }
+

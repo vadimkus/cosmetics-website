@@ -18,27 +18,62 @@ export async function GET(request: NextRequest) {
     })()
 
     switch (type) {
-      case 'overview':
+      case 'overview': {
         const analyticsData = await getAnalyticsData(days)
-        return NextResponse.json(analyticsData)
+        
+        // Fetch UX metrics
+        const sessions = await prisma.userSession.findMany({
+          where: {
+            ...(startDate ? { startTime: { gte: startDate } } : {})
+          }
+        })
+        
+        const totalSessions = sessions.length
+        const bounceSessions = sessions.filter(s => s.isBounce).length
+        const bounceRate = totalSessions > 0 ? (bounceSessions / totalSessions) * 100 : 0
+        
+        const avgSessionDuration = sessions.length > 0 
+          ? sessions.reduce((sum, s) => sum + (s.duration || 0), 0) / sessions.length 
+          : 0
+        
+        const avgPageViewsPerSession = sessions.length > 0
+          ? sessions.reduce((sum, s) => sum + s.pageViews, 0) / sessions.length
+          : 0
+        
+        // Merge UX metrics into analytics data
+        const analyticsWithUX = {
+          ...analyticsData,
+          uxMetrics: {
+            bounceRate: Math.round(bounceRate * 100) / 100,
+            avgSessionDuration: Math.round(avgSessionDuration),
+            avgPageViewsPerSession: Math.round(avgPageViewsPerSession * 100) / 100
+          }
+        }
+        
+        return NextResponse.json(analyticsWithUX)
+      }
       
-      case 'realtime':
+      case 'realtime': {
         const realTimeVisitors = await getRealTimeVisitors()
         return NextResponse.json({ visitors: realTimeVisitors })
+      }
       
-      case 'timeline':
+      case 'timeline': {
         const timeline = await getUserActivityTimeline(days)
         return NextResponse.json(timeline)
+      }
       
-      case 'countries':
+      case 'countries': {
         const countries = await getTopCountries(days)
         return NextResponse.json(countries)
+      }
       
-      case 'cities':
+      case 'cities': {
         const cities = await getTopCities(days)
         return NextResponse.json(cities)
+      }
       
-      case 'devices':
+      case 'devices': {
         const deviceStats = await prisma.pageView.groupBy({
           by: ['deviceType'],
           where: {
@@ -56,8 +91,9 @@ export async function GET(request: NextRequest) {
           deviceType: d.deviceType || 'Unknown',
           count: d._count.deviceType
         })))
+      }
       
-      case 'browsers':
+      case 'browsers': {
         const browserStats = await prisma.pageView.groupBy({
           by: ['browser'],
           where: {
@@ -81,8 +117,9 @@ export async function GET(request: NextRequest) {
           browser: b.browser || 'Unknown',
           count: b._count.browser
         })))
+      }
       
-      case 'ux-metrics':
+      case 'ux-metrics': {
         const sessions = await prisma.userSession.findMany({
           where: {
             ...(startDate ? { startTime: { gte: startDate } } : {})
@@ -118,8 +155,9 @@ export async function GET(request: NextRequest) {
           totalSessions,
           ordersPlaced: nonCancelledOrders
         })
+      }
       
-      case 'pdf-downloads':
+      case 'pdf-downloads': {
         const pdfDownloads = await prisma.pDFDownload.findMany({
           where: {
             ...(startDate ? { timestamp: { gte: startDate } } : {})
@@ -168,6 +206,7 @@ export async function GET(request: NextRequest) {
           downloadsByBrowser,
           recentDownloads
         })
+      }
       
       default:
         return NextResponse.json({ error: 'Invalid type parameter' }, { status: 400 })

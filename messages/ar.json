@@ -1151,6 +1151,49 @@
       "contactSupport": "اتصل بالدعم",
       "officialDistributorFooter": "الموزع الرسمي في الإمارات",
       "copyright": "© 2025 Genosys Middle East FZ-LLC. جميع الحقوق محفوظة."
+    },
+    "statusUpdate": {
+      "subject": "تحديث حالة الطلب #{orderNumber} - {status} - Genosys Middle East FZ-LLC",
+      "companyName": "Genosys Middle East FZ-LLC",
+      "uae": "الإمارات العربية المتحدة ❤️",
+      "dear": "عزيزي/عزيزتي {customerName}،",
+      "greeting": "نأمل أن تكون بخير. اليوم هو اليوم الخاص!",
+      "orderNumber": "رقم الطلب:",
+      "status": "الحالة:",
+      "date": "التاريخ:",
+      "orderItems": "عناصر الطلب",
+      "qty": "الكمية:",
+      "subtotal": "المجموع الفرعي:",
+      "vat": "ضريبة القيمة المضافة (5%):",
+      "total": "الإجمالي:",
+      "vatNote": "*جميع الأسعار شاملة ضريبة القيمة المضافة (5%)",
+      "contactQuestion": "إذا كان لديك أي أسئلة حول طلبك، يرجى الاتصال بنا الآن عبر",
+      "viewOrderStatus": "يمكنك عرض حالة طلبك على موقعنا:",
+      "officialDistributor": "Genosys Middle East FZ-LLC هو الموزع الرسمي لمنتجات GENOSYS الكورية المهنية للعناية بالبشرة في الإمارات العربية المتحدة.",
+      "customerService": "خدمة العملاء",
+      "callUs": "اتصل بنا:",
+      "emailUs": "راسلنا:",
+      "hours": "من الاثنين إلى الأحد 9:00 - 21:00",
+      "businessLocation": "موقع العمل",
+      "locationMap": "خريطة الموقع",
+      "copyright": "© 2026 Genosys Middle East FZ-LLC. جميع الحقوق محفوظة.",
+      "statusLabels": {
+        "PROCESSING": "قيد المعالجة",
+        "CONFIRMED": "تم التأكيد",
+        "PAID": "تم الدفع",
+        "SHIPPED": "تم الشحن",
+        "DELIVERED": "تم التسليم",
+        "CANCELLED": "تم الإلغاء"
+      },
+      "statusMessages": {
+        "PROCESSING": "جاري معالجة طلبك وإعداده للشحن.",
+        "CONFIRMED": "تم تأكيد طلبك وهو قيد الإعداد.",
+        "PAID": "تم تأكيد دفع طلبك.",
+        "SHIPPED": "أخبار رائعة! تم شحن طلبك وهو في طريقه إليك.",
+        "DELIVERED": "نقدر لك تقديم الطلب معنا! ❤️<br>تم تسليم الطلب {orderNumber} بنجاح!",
+        "CANCELLED": "تم إلغاء طلبك حسب الطلب.",
+        "default": "تم تحديث حالة طلبك."
+      }
     }
   },
   "skinRecommendation": {

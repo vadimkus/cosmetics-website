@@ -447,29 +447,36 @@ export default function AnalyticsDashboard({ onCustomerClick }: AnalyticsDashboa
               <BarChart3 className="h-5 w-5" />
               User Experience Metrics
             </h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
-              <div className="text-center p-4 bg-red-50 rounded-lg border border-red-100">
-                <div className="text-2xl md:text-3xl font-bold text-red-600 mb-1">
-                  {analytics.uxMetrics.bounceRate.toFixed(1)}%
-        </div>
-                <div className="text-sm font-medium text-gray-700">Bounce Rate</div>
-                <div className="text-xs text-gray-500 mt-1">Lower is better</div>
-      </div>
-              <div className="text-center p-4 bg-blue-50 rounded-lg border border-blue-100">
-                <div className="text-2xl md:text-3xl font-bold text-blue-600 mb-1">
-                  {Math.floor(analytics.uxMetrics.avgSessionDuration / 60)}m {analytics.uxMetrics.avgSessionDuration % 60}s
-          </div>
-                <div className="text-sm font-medium text-gray-700">Avg Session Duration</div>
-                <div className="text-xs text-gray-500 mt-1">Time on site</div>
-        </div>
-              <div className="text-center p-4 bg-green-50 rounded-lg border border-green-100">
-                <div className="text-2xl md:text-3xl font-bold text-green-600 mb-1">
-                  {analytics.uxMetrics.avgPageViewsPerSession.toFixed(1)}
-      </div>
-                <div className="text-sm font-medium text-gray-700">Pages per Session</div>
-                <div className="text-xs text-gray-500 mt-1">Engagement metric</div>
+            {analytics.uxMetrics.avgSessionDuration === 0 && analytics.uxMetrics.bounceRate === 0 && analytics.uxMetrics.avgPageViewsPerSession === 0 ? (
+              <div className="text-center py-8">
+                <p className="text-sm text-gray-500">No data available</p>
+                <p className="text-xs text-gray-400 mt-1">Session data will appear once users start browsing</p>
               </div>
-            </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+                <div className="text-center p-4 bg-red-50 rounded-lg border border-red-100">
+                  <div className="text-2xl md:text-3xl font-bold text-red-600 mb-1">
+                    {analytics.uxMetrics.bounceRate.toFixed(1)}%
+                  </div>
+                  <div className="text-sm font-medium text-gray-700">Bounce Rate</div>
+                  <div className="text-xs text-gray-500 mt-1">Lower is better</div>
+                </div>
+                <div className="text-center p-4 bg-blue-50 rounded-lg border border-blue-100">
+                  <div className="text-2xl md:text-3xl font-bold text-blue-600 mb-1">
+                    {Math.floor(analytics.uxMetrics.avgSessionDuration / 60)}m {analytics.uxMetrics.avgSessionDuration % 60}s
+                  </div>
+                  <div className="text-sm font-medium text-gray-700">Avg Session Duration</div>
+                  <div className="text-xs text-gray-500 mt-1">Time on site</div>
+                </div>
+                <div className="text-center p-4 bg-green-50 rounded-lg border border-green-100">
+                  <div className="text-2xl md:text-3xl font-bold text-green-600 mb-1">
+                    {analytics.uxMetrics.avgPageViewsPerSession.toFixed(1)}
+                  </div>
+                  <div className="text-sm font-medium text-gray-700">Pages per Session</div>
+                  <div className="text-xs text-gray-500 mt-1">Engagement metric</div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       )}

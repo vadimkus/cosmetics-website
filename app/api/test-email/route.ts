@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { sendWelcomeEmail, sendOrderConfirmationEmail, sendAdminNewUserNotification, sendAdminNewOrderNotification } from '@/lib/email'
+import { sendWelcomeEmail, sendOrderConfirmationEmail, sendAdminNewUserNotification, sendAdminNewOrderNotification, sendOrderStatusUpdate } from '@/lib/email'
 import { requireAdminAuth } from '@/lib/adminAuth'
 import { requireCsrfToken } from '@/lib/csrf'
 import { errorLog } from '@/lib/logger'
@@ -61,17 +61,64 @@ export async function POST(request: NextRequest) {
       
       case 'admin-order':
         result = await sendAdminNewOrderNotification({
-          orderNumber: 'TEST123456',
-          customerName: 'Test Customer',
+          orderNumber: 'SAMPLE-' + Date.now(),
+          customerName: 'John Doe',
+          customerEmail: 'customer@example.com',
+          customerPhone: '+971 50 123 4567',
+          total: 456.75,
+          itemCount: 3,
+          items: [
+            {
+              productName: 'GENOSYS SKIN CARING BLEMISH BALM CUSHION [SPF 50+ PA++++]',
+              quantity: 2,
+              price: 150.00,
+              image: 'https://genosys.ae/images/product-placeholder.jpg',
+              size: 'Medium',
+              color: 'Beige'
+            },
+            {
+              productName: 'GENOSYS MOISTURE REPLENISHING HYALURON SERUM',
+              quantity: 1,
+              price: 156.75,
+              image: 'https://genosys.ae/images/product-placeholder.jpg'
+            }
+          ],
+          subtotal: 456.75,
+          shipping: 0,
+          vat: 22.84,
+          address: '123 Business Bay, Dubai Marina, Dubai',
+          emirate: 'Dubai'
+        }, testEmail)
+        break
+      
+      case 'order-status':
+        result = await sendOrderStatusUpdate({
+          orderNumber: 'ORD-2024-001',
+          customerName: 'John Doe',
           customerEmail: testEmail,
-          total: 362.25,
-          itemCount: 2
-        })
+          items: [
+            {
+              productName: 'GENOSYS SKIN CARING BLEMISH BALM CUSHION [SPF 50+ PA++++]',
+              quantity: 2,
+              price: 150.00,
+              image: 'https://genosys.ae/images/CUSHC.png',
+              color: 'Beige',
+              size: 'Medium'
+            },
+            {
+              productName: 'GENOSYS MOISTURE REPLENISHING HYALURON SERUM',
+              quantity: 1,
+              price: 156.75,
+              image: 'https://genosys.ae/images/HRS.jpg'
+            }
+          ],
+          total: 456.75
+        }, 'DELIVERED')
         break
       
       default:
         return NextResponse.json(
-          { error: 'Invalid email type. Use: welcome, order, admin-user, or admin-order' },
+          { error: 'Invalid email type. Use: welcome, order, admin-user, admin-order, or order-status' },
           { status: 400 }
         )
     }

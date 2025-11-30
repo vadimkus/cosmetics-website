@@ -1385,7 +1385,7 @@ export default function AdminPage() {
                                         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2">
                                           <button
                                             onClick={() => setSelectedOrder(order)}
-                                            className="text-primary-600 hover:text-primary-900 font-semibold text-xs sm:text-sm"
+                                            className="text-gray-600 hover:text-gray-900 font-semibold text-xs sm:text-sm"
                                           >
                                             View
                                           </button>

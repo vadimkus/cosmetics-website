@@ -4,10 +4,10 @@ import { useState, useEffect } from 'react'
 import { RefreshCw } from 'lucide-react'
 
 interface OrderItem {
-  productName: string
+  name: string
   quantity: number
   price: number
-  image?: string
+  total?: number
   color?: string
   size?: string
 }
@@ -15,13 +15,15 @@ interface OrderItem {
 interface TemplateData {
   orderNumber: string
   customerName: string
-  status: string
+  customerEmail: string
+  customerPhone: string
+  customerAddress: string
+  emirate: string
   items: OrderItem[]
+  subtotal: number
+  shippingCost: number
+  vatAmount: number
   total: number
-}
-
-interface StatusMessage {
-  [key: string]: string
 }
 
 export default function CustomerConfirmationPage() {
@@ -33,281 +35,148 @@ export default function CustomerConfirmationPage() {
   }
 
   const [templateData, setTemplateData] = useState<TemplateData>(() => {
-    const initialBaseUrl = getBaseUrl()
     return {
-      orderNumber: 'ORD-2024-001',
+      orderNumber: 'SUP2511302701',
       customerName: 'John Doe',
-      status: 'DELIVERED',
+      customerEmail: 'customer@example.com',
+      customerPhone: '+971 50 123 4567',
+      customerAddress: '123 Business Bay, Dubai Marina',
+      emirate: 'Dubai',
       items: [
         {
-          productName: 'GENOSYS SKIN CARING BLEMISH BALM CUSHION [SPF 50+ PA++++]',
+          name: 'GENOSYS SKIN CARING BLEMISH BALM CUSHION [SPF 50+ PA++++]',
           quantity: 2,
           price: 150.00,
-          image: `${initialBaseUrl}/images/CUSHC.png`,
+          total: 300.00,
           color: 'Beige',
           size: 'Medium'
         },
         {
-          productName: 'GENOSYS MOISTURE REPLENISHING HYALURON SERUM',
+          name: 'GENOSYS MOISTURE REPLENISHING HYALURON SERUM',
           quantity: 1,
           price: 156.75,
-          image: `${initialBaseUrl}/images/HRS.jpg`
+          total: 156.75
         }
       ],
-      total: 456.75
+      subtotal: 456.75,
+      shippingCost: 45.00,
+      vatAmount: 23.89,
+      total: 525.64
     }
   })
-
-  const [statusMessages, setStatusMessages] = useState<StatusMessage>({
-    'PROCESSING': 'Your order is being processed and prepared for shipment.',
-    'CONFIRMED': 'Your order has been confirmed and is being prepared.',
-    'PAID': 'Your order payment has been confirmed.',
-    'SHIPPED': 'Great news! Your order has been shipped and is on its way to you.',
-    'DELIVERED': 'We appreciate your placing the order with us! ❤️<br>Order {orderNumber} has been delivered successfully!',
-    'CANCELLED': 'Your order has been cancelled as requested.'
-  })
-
-  const fixImageUrl = (imageUrl: string | undefined): string => {
-    const currentBaseUrl = getBaseUrl()
-    
-    if (!imageUrl || !imageUrl.trim()) {
-      return `${currentBaseUrl}/images/genosys-logo.png`
-    }
-    
-    const trimmedUrl = imageUrl.trim()
-    
-    // If it's a Next.js optimized image URL, extract the original path
-    if (trimmedUrl.includes('_next/image')) {
-      const urlMatch = trimmedUrl.match(/url=([^&]+)/)
-      if (urlMatch && urlMatch[1]) {
-        try {
-          const decodedPath = decodeURIComponent(urlMatch[1])
-          const parts = decodedPath.split('?')
-          const cleanPath = (parts[0] || '').split('&')[0] || ''
-          const normalizedPath = cleanPath.startsWith('/') ? cleanPath : '/' + cleanPath
-          return `${currentBaseUrl}${normalizedPath}`
-        } catch (e) {
-          console.error('Failed to decode Next.js image URL:', trimmedUrl, e)
-          return `${currentBaseUrl}/images/genosys-logo.png`
-        }
-      }
-      return `${currentBaseUrl}/images/genosys-logo.png`
-    }
-    
-    // If it's already an absolute URL (http/https), use it directly (same as logo pattern)
-    if (trimmedUrl.startsWith('http://') || trimmedUrl.startsWith('https://')) {
-      // Remove query parameters for clean URL
-      const parts = trimmedUrl.split('?')
-      const cleanUrl = (parts[0] || '').split('&')[0] || trimmedUrl
-      // Keep localhost as http, but convert other http to https
-      if (cleanUrl.startsWith('http://') && !cleanUrl.includes('localhost')) {
-        return cleanUrl.replace('http://', 'https://')
-      }
-      return cleanUrl
-    }
-    
-    // If it's a local/relative path, make it absolute (same as logo: /Logo/upLOGO.png -> /images/CUSHC.png)
-    const parts = trimmedUrl.split('?')
-    const cleanPath = (parts[0] || '').split('&')[0] || trimmedUrl
-    const normalizedPath = cleanPath.startsWith('/') ? cleanPath : '/' + cleanPath
-    return `${currentBaseUrl}${normalizedPath}`
-  }
 
   const generateEmailHTML = () => {
-    const orderId = templateData.orderNumber
-    
-    // Get status message and replace {orderNumber} placeholder if present
-    let statusMessage = statusMessages[templateData.status.toUpperCase()] || 'Your order status has been updated.'
-    statusMessage = statusMessage.replace(/{orderNumber}/g, orderId)
+    const baseUrl = getBaseUrl()
+    const productsUrl = `${baseUrl}/products`
+    const contactUrl = `${baseUrl}/contact`
+    const footerLogoUrl = `${baseUrl}/_next/image?url=%2FLogo%2FFull.png&w=640&q=75`
 
-    // Generate items HTML
-    let itemsHTML = ''
-    if (templateData.items && templateData.items.length > 0) {
-      const itemsList = templateData.items.map(item => {
-        const imageUrl = fixImageUrl(item.image)
-        const fallbackUrl = `${getBaseUrl()}/images/genosys-logo.png`
-        const itemTotal = (item.price * item.quantity).toFixed(2)
-        const variantInfo = [item.size, item.color].filter(Boolean).join(' • ')
-        
-        // Debug logging
-        console.log('Product image processing:', {
-          original: item.image,
-          fixed: imageUrl,
-          productName: item.productName
-        })
-
-        return `
-          <tr>
-            <td style="padding: 12px 0; border-bottom: 1px solid #e5e7eb;">
-              <table cellpadding="0" cellspacing="0" border="0" width="100%">
-                <tr>
-                  <td width="80" style="padding-right: 12px; vertical-align: top;">
-                    <img src="${imageUrl}" alt="${item.productName.replace(/"/g, '&quot;')}" width="80" height="80" style="width: 80px; height: 80px; object-fit: cover; border-radius: 6px; display: block; border: 1px solid #e5e7eb; max-width: 80px;" onerror="console.error('Image failed to load:', '${imageUrl}'); this.onerror=null; this.src='${fallbackUrl}';" />
-                  </td>
-                  <td style="vertical-align: top;">
-                    <p style="color: #374151; font-size: 12px; font-weight: 500; margin: 0 0 4px 0; line-height: 1.4;">${item.productName}</p>
-                    ${variantInfo ? `<p style="color: #6b7280; font-size: 12px; margin: 0 0 4px 0;">${variantInfo}</p>` : ''}
-                    <p style="color: #6b7280; font-size: 12px; margin: 0;">Qty: ${item.quantity} × AED ${item.price.toFixed(2)}</p>
-                  </td>
-                  <td style="text-align: right; vertical-align: top; padding-left: 12px;">
-                    <p style="color: #374151; font-size: 12px; font-weight: 600; margin: 0; white-space: nowrap;">${itemTotal} AED</p>
-                  </td>
+    const itemsHTML = templateData.items.map((item) => `
+      <tr>
+        <td style="padding: 10px; border-bottom: 1px solid #eee; text-align: left;">${item.name || 'Product'}${item.size ? ` (Size: ${item.size})` : ''}${item.color ? ` (Color: ${item.color})` : ''}</td>
+        <td style="padding: 10px; border-bottom: 1px solid #eee; text-align: center;">${item.quantity || 0}</td>
+        <td style="padding: 10px; border-bottom: 1px solid #eee; text-align: right;">AED ${(item.price || 0).toFixed(2)}</td>
+        <td style="padding: 10px; border-bottom: 1px solid #eee; text-align: right;">AED ${(item.total || ((item.price || 0) * (item.quantity || 0))).toFixed(2)}</td>
                 </tr>
-              </table>
-            </td>
-          </tr>
-        `
-      }).join('')
-
-      // Calculate subtotal from all items
-      const subtotal = templateData.items.reduce((sum, item) => sum + (item.price * item.quantity), 0)
-      // Calculate VAT (5% of VAT-inclusive amount: VAT = amount * (5/105))
-      const vat = subtotal * (5 / 105)
-      
-      itemsHTML = `
-        <div style="margin: 25px 0;">
-          <h3 style="color: #374151; font-size: 16px; font-weight: 600; margin: 0 0 15px 0;">Order Items</h3>
-          <table cellpadding="0" cellspacing="0" border="0" width="100%" style="background: #f9fafb; border-radius: 8px; padding: 15px;">
-            ${itemsList}
-            ${templateData.total ? `
-              <tr>
-                <td style="padding-top: 15px; border-top: 2px solid #e5e7eb;">
-                  <table cellpadding="0" cellspacing="0" border="0" width="100%">
-                    <tr>
-                      <td style="text-align: right;">
-                        <p style="color: #374151; font-size: 12px; margin: 0 0 6px 0;">Subtotal: AED ${subtotal.toFixed(2)}</p>
-                        <p style="color: #374151; font-size: 12px; margin: 0 0 6px 0;">VAT (5%): AED ${vat.toFixed(2)}</p>
-                        <p style="color: #374151; font-size: 14px; font-weight: 600; margin: 0;">Total: AED ${templateData.total.toFixed(2)}</p>
-                        <p style="color: #6b7280; font-size: 11px; margin: 4px 0 0 0; font-style: italic;">*All prices are VAT inclusive (5%)</p>
-                      </td>
-                    </tr>
-                  </table>
-                </td>
-              </tr>
-            ` : ''}
-          </table>
-        </div>
-      `
-    }
+    `).join('')
 
     return `
-      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 4px solid #dc2626; background: #ffffff; box-shadow: 0 0 0 2px #ffffff, 0 0 0 6px #dc2626;">
-        <div style="text-align: center; margin-bottom: 15px; position: relative;">
-          <h1 style="color: #dc2626; margin: 0;">Genosys Middle East FZ-LLC</h1>
-          <p style="color: #666; margin: 5px 0 0 0; font-size: 12px; padding-left: 3.2em;">United Arab Emirates ❤️</p>
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: white; font-size: 14px; direction: ltr;">
+        <div style="text-align: center; margin-bottom: 30px;">
+          <h1 style="color: #dc2626; margin: 0; font-size: 14px;">Genosys Middle East FZ-LLC</h1>
+          <p style="color: #666; margin: 5px 0; font-size: 14px;">United Arab Emirates ❤️</p>
         </div>
         
-        <div style="background: white; padding: 30px; border-radius: 10px; margin-bottom: 20px; border: 1px solid #e5e7eb;">
-          <p style="color: #374151; font-size: 14px; line-height: 1.6; margin: 0 0 12px 0;">
-            Dear ${templateData.customerName},
+        <div style="background: white; padding: 30px; border-radius: 10px; margin-bottom: 20px; border: 1px solid #e5e5e5;">
+          <p style="color: #374151; font-size: 14px; line-height: 1.6; margin: 0 0 10px 0; text-align: left;">
+            Dear <strong>${(templateData.customerName || 'Customer').split(' ')[0]}</strong>,
           </p>
-          
-          <p style="color: #374151; font-size: 14px; line-height: 1.6; margin: 0 0 20px 0;">
-            Hope you are doing well. Today is the special day!
+          <p style="color: #374151; font-size: 14px; line-height: 1.6; margin: 0 0 10px 0; text-align: left;">
+            Your order request has been submitted. Our support team will share a secure payment link shortly.
           </p>
-          
-          <p style="color: #374151; font-size: 14px; line-height: 1.6; margin: 0 0 20px 0;">
-            ${statusMessage}
+          <p style="color: #374151; font-size: 14px; line-height: 1.6; margin: 0; text-align: left;">
+            Order Request <span style="color: #dc2626;">#${templateData.orderNumber || 'N/A'}</span>
           </p>
-          
-          <div style="background: #f9fafb; padding: 20px; border-radius: 8px; margin: 12px 0;">
-            <p style="color: #374151; margin: 0 0 10px 0; font-size: 13px;"><strong>Order Number:</strong> ${orderId}</p>
-            <p style="color: #374151; margin: 0 0 10px 0; font-size: 13px;"><strong>Status:</strong> <span style="color: #dc2626; font-weight: bold;">${templateData.status.toUpperCase()}</span></p>
-            <p style="color: #374151; margin: 0; font-size: 13px;"><strong>Date:</strong> ${new Date().toLocaleString('en-AE', { timeZone: 'Asia/Dubai' })}</p>
           </div>
           
-          ${itemsHTML}
-          
-          <div style="margin: 25px 0 0 0; padding-top: 20px; border-top: 1px solid #e5e7eb;">
-            <p style="color: #374151; font-size: 13px; line-height: 1.6; margin: 0 0 12px 0;">
-              If you have any questions about your order, please contact us now via <a href="https://wa.me/971585487665" style="color: #dc2626; text-decoration: none;">+971 58 548 76 65</a> (WhatsApp).
-            </p>
-            
-            <p style="color: #374151; font-size: 13px; line-height: 1.6; margin: 0;">
-              You can view your order status on our website: <a href="https://www.genosys.ae/profile" style="color: #dc2626; text-decoration: none;">www.genosys.ae/profile</a>
-            </p>
-          </div>
+        <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e5e5e5;">
+          <h3 style="color: #dc2626; margin: 0 0 15px 0; font-size: 14px; text-align: left;">Customer Information</h3>
+          <p style="margin: 0 0 8px 0; color: #374151; font-size: 14px; text-align: left;"><strong>Name:</strong> ${templateData.customerName || 'N/A'}</p>
+          <p style="margin: 0 0 8px 0; color: #374151; font-size: 14px; text-align: left;"><strong>Email:</strong> ${templateData.customerEmail || 'N/A'}</p>
+          <p style="margin: 0 0 8px 0; color: #374151; font-size: 14px; text-align: left;"><strong>Phone:</strong> ${templateData.customerPhone || 'N/A'}</p>
+          <p style="margin: 0 0 8px 0; color: #374151; font-size: 14px; text-align: left;"><strong>Address:</strong> ${templateData.customerAddress || 'N/A'}</p>
+          <p style="margin: 0; color: #374151; font-size: 14px; text-align: left;"><strong>Emirate:</strong> ${templateData.emirate || 'N/A'}</p>
         </div>
         
-        <!-- Footer Section -->
-        <div style="border-top: 1px solid #e5e7eb; padding-top: 30px; margin-top: 30px;">
-          <!-- Social Media Icons -->
-          <div style="text-align: center; margin-bottom: 30px;">
-            <div style="border-top: 1px solid #e5e7eb; margin-bottom: 20px;"></div>
-            <table cellpadding="0" cellspacing="0" border="0" align="center" style="margin: 0 auto;">
-              <tr>
-                <td style="padding: 0 12px; text-align: center;">
-                  <a href="https://www.instagram.com/genosys.uae/" style="text-decoration: none; display: inline-block;">
-                    <img src="${getBaseUrl()}/Logo/insta.png" alt="Instagram" width="34" height="34" style="max-width: 34px; height: auto; display: block; margin: 0 auto;" border="0" />
-                    <p style="color: #374151; font-size: 11px; margin: 6px 0 0 0; text-align: center;">Insta</p>
-                  </a>
-                </td>
-                <td style="padding: 0 12px; text-align: center;">
-                  <a href="https://wa.me/971585487665?text=${encodeURIComponent(`Hi! I need help with my order ${orderId}. Can you assist me?`)}" style="text-decoration: none; display: inline-block;">
-                    <img src="${getBaseUrl()}/Logo/wa.png" alt="WhatsApp" width="34" height="34" style="max-width: 34px; height: auto; display: block; margin: 0 auto;" border="0" />
-                    <p style="color: #374151; font-size: 11px; margin: 6px 0 0 0; text-align: center;">WA</p>
-                  </a>
-                </td>
-                <td style="padding: 0 12px; text-align: center;">
-                  <a href="https://www.facebook.com/genosys.ae" style="text-decoration: none; display: inline-block;">
-                    <img src="${getBaseUrl()}/Logo/fb.png" alt="Facebook" width="34" height="34" style="max-width: 34px; height: auto; display: block; margin: 0 auto;" border="0" />
-                    <p style="color: #374151; font-size: 9px; margin: 4px 0 0 0; text-align: center;">FB</p>
-                  </a>
-                </td>
+        <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e5e5e5;">
+          <h3 style="color: #dc2626; margin: 0 0 15px 0; font-size: 14px; text-align: left;">Order Items</h3>
+          <table style="width: 100%; border-collapse: collapse; margin: 10px 0;">
+            <thead>
+              <tr style="background: #dc2626; color: white;">
+                <th style="padding: 10px; text-align: left; font-size: 14px;">Product</th>
+                <th style="padding: 10px; text-align: center; font-size: 14px;">Qty</th>
+                <th style="padding: 10px; text-align: right; font-size: 14px;">Price</th>
+                <th style="padding: 10px; text-align: right; font-size: 14px;">Total</th>
               </tr>
+            </thead>
+            <tbody>
+              ${itemsHTML}
+            </tbody>
             </table>
-            <div style="border-top: 1px solid #e5e7eb; margin-top: 20px;"></div>
+        </div>
+
+        <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e5e5e5;">
+          <h3 style="color: #dc2626; margin: 0 0 15px 0; font-size: 14px; text-align: left;">Order Summary</h3>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 8px; flex-direction: row;">
+            <span style="color: #374151; font-size: 14px;">Subtotal:</span>
+            <span style="color: #374151; font-size: 14px;">AED ${(templateData.subtotal || 0).toFixed(2)}</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 8px; flex-direction: row;">
+            <span style="color: #374151; font-size: 14px;">Shipping to ${templateData.emirate || 'N/A'}:</span>
+            <span style="color: #374151; font-size: 14px;">${(templateData.shippingCost || 0) === 0 ? 'FREE' : `AED ${(templateData.shippingCost || 0).toFixed(2)}`}</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 8px; flex-direction: row;">
+            <span style="color: #374151; font-size: 14px;">VAT (5%):</span>
+            <span style="color: #374151; font-size: 14px;">AED ${(templateData.vatAmount || 0).toFixed(2)}</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 14px; color: #dc2626; border-top: 2px solid #dc2626; padding-top: 8px; flex-direction: row;">
+            <span>Total:</span>
+            <span>AED ${(templateData.total || 0).toFixed(2)}</span>
+          </div>
           </div>
           
-          <!-- Company Overview -->
-          <div style="text-align: center; margin-bottom: 20px;">
-            <p style="color: #374151; font-size: 13px; line-height: 1.6; margin: 0;">
-              Genosys Middle East FZ-LLC is the official distributor of GENOSYS professional Korean dermacosmetics in the United Arab Emirates.
-            </p>
+        
+        <div style="text-align: center; margin: 30px 0;">
+          <a href="${productsUrl}" 
+             style="background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%); 
+                    color: white; 
+                    padding: 12px 30px; 
+                    text-decoration: none; 
+                    border-radius: 6px; 
+                    font-weight: bold; 
+                    display: inline-block; 
+                    margin-right: 10px;">
+            Continue Shopping
+          </a>
+          <a href="${contactUrl}" 
+             style="background: transparent; 
+                    color: #16a34a; 
+                    padding: 12px 30px; 
+                    text-decoration: none; 
+                    border: 2px solid #16a34a; 
+                    border-radius: 6px; 
+                    font-weight: bold; 
+                    display: inline-block;">
+            Contact Support via WhatsApp
+          </a>
+        </div>
+        
+        <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #e5e5e5; color: #000000; font-size: 14px;">
+          <div style="text-align: center; margin-bottom: 15px;">
+            <img src="${footerLogoUrl}" alt="GENOSYS Logo" style="max-width: 200px; height: auto; display: block; margin: 0 auto;" />
           </div>
-          
-          <!-- Two Column Footer -->
-          <table cellpadding="0" cellspacing="0" border="0" width="100%" style="max-width: 600px; margin: 0 auto;">
-            <tr>
-              <!-- Left Column: Customer Service -->
-              <td width="50%" style="padding-right: 20px; vertical-align: top;">
-                <p style="color: #374151; font-size: 13px; font-weight: 600; margin: 0 0 8px 0;">Customer Service</p>
-                <p style="color: #374151; font-size: 12px; line-height: 1.6; margin: 0 0 4px 0;">
-                  Call us: <a href="tel:+971585487665" style="color: #374151; text-decoration: none;">+971 58 548 76 65</a>
-                </p>
-                <p style="color: #374151; font-size: 12px; line-height: 1.6; margin: 0 0 4px 0;">
-                  Email us: <a href="mailto:sales@genosys.ae" style="color: #374151; text-decoration: none;">sales@genosys.ae</a>
-                </p>
-                <p style="color: #374151; font-size: 12px; line-height: 1.6; margin: 0;">
-                  Monday to Sunday 9:00 - 21:00
-                </p>
-              </td>
-              
-              <!-- Right Column: Business Location -->
-              <td width="50%" style="padding-left: 20px; vertical-align: top;">
-                <p style="color: #374151; font-size: 13px; font-weight: 600; margin: 0 0 8px 0;">Business Location</p>
-                <p style="color: #374151; font-size: 12px; line-height: 1.6; margin: 0 0 4px 0;">
-                  Cordoba Residence Villa E02
-                </p>
-                <p style="color: #374151; font-size: 12px; line-height: 1.6; margin: 0 0 4px 0;">
-                  Dubai, United Arab Emirates
-                </p>
-                <p style="color: #374151; font-size: 12px; line-height: 1.6; margin: 0;">
-                  <a href="https://maps.app.goo.gl/ZBxVoXdTNvECFwNw5" style="color: #374151; text-decoration: underline;">Location Map</a>
-                </p>
-              </td>
-            </tr>
-          </table>
-          
-          <!-- Company Copyright -->
-          <div style="text-align: center; margin-top: 25px; padding-top: 20px; border-top: 1px solid #e5e7eb;">
-            <div style="margin-bottom: 15px;">
-              <img src="${getBaseUrl()}/Logo/upLOGO.png" alt="GENOSYS Logo" width="180" height="54" style="max-width: 180px; height: auto; display: block; margin: 0 auto;" border="0" />
-            </div>
-            <p style="color: #6b7280; font-size: 11px; line-height: 1.5; margin: 0;">
-              © 2026 Genosys Middle East FZ-LLC. All rights reserved.
-            </p>
-          </div>
+          <p style="color: #000000; margin: 0;">Official Distributor in the UAE</p>
+          <p style="color: #000000; margin: 0;">© 2026 Genosys Middle East FZ-LLC. All rights reserved.</p>
         </div>
       </div>
     `
@@ -317,22 +186,24 @@ export default function CustomerConfirmationPage() {
 
   useEffect(() => {
     setEmailHTML(generateEmailHTML())
-  }, [templateData, statusMessages])
+  }, [templateData])
 
   const updateItem = (index: number, field: keyof OrderItem, value: string | number) => {
     const newItems = [...templateData.items]
     const currentItem = newItems[index]
-    newItems[index] = { 
-      ...currentItem,
-      [field]: value 
-    } as OrderItem
+    if (currentItem) {
+      newItems[index] = { 
+        ...currentItem, 
+        [field]: value 
+      }
     setTemplateData({ ...templateData, items: newItems })
+    }
   }
 
   const addItem = () => {
     setTemplateData({
       ...templateData,
-      items: [...templateData.items, { productName: '', quantity: 1, price: 0 }]
+      items: [...templateData.items, { name: '', quantity: 1, price: 0 }]
     })
   }
 
@@ -346,7 +217,7 @@ export default function CustomerConfirmationPage() {
   return (
     <div className="min-h-screen bg-gray-100 p-4 md:p-8">
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-3xl font-bold mb-6">Customer Email Template Editor</h1>
+        <h1 className="text-3xl font-bold mb-6">Order Confirmation Email Template (Support Link)</h1>
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Editor Panel */}
@@ -375,19 +246,79 @@ export default function CustomerConfirmationPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-1">Status</label>
-                <select
-                  value={templateData.status}
-                  onChange={(e) => setTemplateData({ ...templateData, status: e.target.value })}
+                <label className="block text-sm font-medium mb-1">Customer Email</label>
+                <input
+                  type="email"
+                  value={templateData.customerEmail}
+                  onChange={(e) => setTemplateData({ ...templateData, customerEmail: e.target.value })}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md"
-                >
-                  <option value="PROCESSING">PROCESSING</option>
-                  <option value="CONFIRMED">CONFIRMED</option>
-                  <option value="PAID">PAID</option>
-                  <option value="SHIPPED">SHIPPED</option>
-                  <option value="DELIVERED">DELIVERED</option>
-                  <option value="CANCELLED">CANCELLED</option>
-                </select>
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium mb-1">Customer Phone</label>
+                <input
+                  type="text"
+                  value={templateData.customerPhone}
+                  onChange={(e) => setTemplateData({ ...templateData, customerPhone: e.target.value })}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium mb-1">Address</label>
+                <input
+                  type="text"
+                  value={templateData.customerAddress}
+                  onChange={(e) => setTemplateData({ ...templateData, customerAddress: e.target.value })}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium mb-1">Emirate</label>
+                <input
+                  type="text"
+                  value={templateData.emirate}
+                  onChange={(e) => setTemplateData({ ...templateData, emirate: e.target.value })}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium mb-1">Subtotal (AED)</label>
+                  <input
+                    type="number"
+                    step="0.01"
+                    value={templateData.subtotal}
+                    onChange={(e) => setTemplateData({ ...templateData, subtotal: parseFloat(e.target.value) || 0 })}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium mb-1">Shipping Cost (AED)</label>
+                  <input
+                    type="number"
+                    step="0.01"
+                    value={templateData.shippingCost}
+                    onChange={(e) => setTemplateData({ ...templateData, shippingCost: parseFloat(e.target.value) || 0 })}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium mb-1">VAT Amount (AED)</label>
+                  <input
+                    type="number"
+                    step="0.01"
+                    value={templateData.vatAmount}
+                    onChange={(e) => setTemplateData({ ...templateData, vatAmount: parseFloat(e.target.value) || 0 })}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                  />
               </div>
 
               <div>
@@ -399,6 +330,7 @@ export default function CustomerConfirmationPage() {
                   onChange={(e) => setTemplateData({ ...templateData, total: parseFloat(e.target.value) || 0 })}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md"
                 />
+                </div>
               </div>
 
               <div>
@@ -427,8 +359,8 @@ export default function CustomerConfirmationPage() {
                         <input
                           type="text"
                           placeholder="Product Name"
-                          value={item.productName}
-                          onChange={(e) => updateItem(index, 'productName', e.target.value)}
+                          value={item.name}
+                          onChange={(e) => updateItem(index, 'name', e.target.value)}
                           className="w-full px-2 py-1 border border-gray-300 rounded text-sm"
                         />
                         <div className="grid grid-cols-2 gap-2">
@@ -448,16 +380,6 @@ export default function CustomerConfirmationPage() {
                             className="px-2 py-1 border border-gray-300 rounded text-sm"
                           />
                         </div>
-                        <input
-                          type="text"
-                          placeholder="Image URL (must be absolute HTTPS URL, e.g., https://genosys.ae/images/product.jpg)"
-                          value={item.image || ''}
-                          onChange={(e) => updateItem(index, 'image', e.target.value)}
-                          className="w-full px-2 py-1 border border-gray-300 rounded text-sm"
-                        />
-                        <p className="text-xs text-gray-500 mt-1">
-                          Note: For Gmail compatibility, images must be publicly accessible HTTPS URLs. Next.js optimized URLs will be automatically converted.
-                        </p>
                         <div className="grid grid-cols-2 gap-2">
                           <input
                             type="text"
@@ -475,23 +397,6 @@ export default function CustomerConfirmationPage() {
                           />
                         </div>
                       </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium mb-2">Status Messages</label>
-                <div className="space-y-2">
-                  {Object.entries(statusMessages).map(([key, value]) => (
-                    <div key={key}>
-                      <label className="block text-xs text-gray-600 mb-1">{key}</label>
-                      <textarea
-                        value={value}
-                        onChange={(e) => setStatusMessages({ ...statusMessages, [key]: e.target.value })}
-                        className="w-full px-2 py-1 border border-gray-300 rounded text-sm"
-                        rows={2}
-                      />
                     </div>
                   ))}
                 </div>
@@ -521,4 +426,3 @@ export default function CustomerConfirmationPage() {
     </div>
   )
 }
-

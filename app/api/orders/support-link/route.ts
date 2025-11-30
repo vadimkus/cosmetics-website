@@ -111,12 +111,12 @@ export async function POST(request: NextRequest) {
 
     // Prepare order HTML data with proper types
     const orderHTMLData: OrderHTMLData = {
-      orderNumber,
-      customerName,
-      customerEmail,
-      customerPhone,
-      customerAddress,
-      emirate,
+      orderNumber: orderNumber || 'N/A',
+      customerName: customerName || 'Customer',
+      customerEmail: customerEmail || 'N/A',
+      customerPhone: customerPhone || 'N/A',
+      customerAddress: customerAddress || 'N/A',
+      emirate: emirate || 'N/A',
       items: items.map((item: { name: string; quantity: number; price: number; total?: number; image?: string; size?: string; color?: string }): OrderHTMLItem => {
         const orderItem: OrderHTMLItem = {
           name: item.name || 'Product',

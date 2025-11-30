@@ -979,21 +979,18 @@ export const generateSupportLinkOrderHTML = (order: OrderHTMLData, locale: strin
 
   const itemsHTML = order.items.map((item) => `
     <tr>
-      <td style="padding: 10px; border-bottom: 1px solid #eee; text-align: ${textAlign};">${item.name}${item.size ? ` (${t.size} ${item.size})` : ''}${item.color ? ` (${t.color} ${item.color})` : ''}</td>
-      <td style="padding: 10px; border-bottom: 1px solid #eee; text-align: center;">${item.quantity}</td>
-      <td style="padding: 10px; border-bottom: 1px solid #eee; text-align: ${isRTL ? 'left' : 'right'};">AED ${item.price.toFixed(2)}</td>
-      <td style="padding: 10px; border-bottom: 1px solid #eee; text-align: ${isRTL ? 'left' : 'right'};">AED ${(item.total || (item.price * item.quantity)).toFixed(2)}</td>
+      <td style="padding: 10px; border-bottom: 1px solid #eee; text-align: ${textAlign};">${item.name || 'Product'}${item.size ? ` (Size: ${item.size})` : ''}${item.color ? ` (Color: ${item.color})` : ''}</td>
+      <td style="padding: 10px; border-bottom: 1px solid #eee; text-align: center;">${item.quantity || 0}</td>
+      <td style="padding: 10px; border-bottom: 1px solid #eee; text-align: ${isRTL ? 'left' : 'right'};">AED ${(item.price || 0).toFixed(2)}</td>
+      <td style="padding: 10px; border-bottom: 1px solid #eee; text-align: ${isRTL ? 'left' : 'right'};">AED ${(item.total || ((item.price || 0) * (item.quantity || 0))).toFixed(2)}</td>
     </tr>
   `).join('')
 
   return `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: white; font-size: 14px; direction: ${dir};">
       <div style="text-align: center; margin-bottom: 30px;">
-        <div style="margin-bottom: 15px;">
-          <img src="https://genosys.ae/_next/image?url=%2Fimages%2Fgenosys-logo.png%3Fv%3D1758554698129&w=828&q=75" alt="GENOSYS Logo" style="max-width: 200px; height: auto;" />
-        </div>
         <h1 style="color: #dc2626; margin: 0; font-size: 14px;">${t.companyName}</h1>
-        <p style="color: #666; margin: 5px 0; font-size: 14px;">${t.officialDistributor}</p>
+        <p style="color: #666; margin: 5px 0; font-size: 14px;">United Arab Emirates ❤️</p>
       </div>
       
       <div style="background: white; padding: 30px; border-radius: 10px; margin-bottom: 20px; border: 1px solid #e5e5e5;">
@@ -1001,20 +998,20 @@ export const generateSupportLinkOrderHTML = (order: OrderHTMLData, locale: strin
           ${(t.dear || 'Dear {customerName},').replace('{customerName}', `<strong>${(order.customerName || 'Customer').split(' ')[0]}</strong>`)}
         </p>
         <p style="color: #374151; font-size: 14px; line-height: 1.6; margin: 0 0 10px 0; text-align: ${textAlign};">
-          ${t.orderSubmitted || 'Your order request has been submitted. Our support team will share a secure payment link for payment.'}
+          ${t.orderSubmitted || 'Your order request has been submitted. Our support team will share a secure payment link shortly.'}
         </p>
         <p style="color: #374151; font-size: 14px; line-height: 1.6; margin: 0; text-align: ${textAlign};">
-          ${(t.orderRequest || 'Order Request #{orderNumber}').replace('#{orderNumber}', order.orderNumber || '').replace('{orderNumber}', order.orderNumber || '')}
+          Order Request <span style="color: #dc2626;">#${order.orderNumber || 'N/A'}</span>
         </p>
       </div>
       
       <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e5e5e5;">
         <h3 style="color: #dc2626; margin: 0 0 15px 0; font-size: 14px; text-align: ${textAlign};">${t.customerInformation}</h3>
-        <p style="margin: 0 0 8px 0; color: #374151; font-size: 14px; text-align: ${textAlign};"><strong>${t.name}</strong> ${order.customerName}</p>
-        <p style="margin: 0 0 8px 0; color: #374151; font-size: 14px; text-align: ${textAlign};"><strong>${t.email}</strong> ${order.customerEmail}</p>
-        <p style="margin: 0 0 8px 0; color: #374151; font-size: 14px; text-align: ${textAlign};"><strong>${t.phone}</strong> ${order.customerPhone}</p>
-        <p style="margin: 0 0 8px 0; color: #374151; font-size: 14px; text-align: ${textAlign};"><strong>${t.address}</strong> ${order.customerAddress}</p>
-        <p style="margin: 0; color: #374151; font-size: 14px; text-align: ${textAlign};"><strong>${t.emirate}</strong> ${order.emirate}</p>
+        <p style="margin: 0 0 8px 0; color: #374151; font-size: 14px; text-align: ${textAlign};"><strong>${t.name || 'Name:'}</strong> ${order.customerName || 'N/A'}</p>
+        <p style="margin: 0 0 8px 0; color: #374151; font-size: 14px; text-align: ${textAlign};"><strong>${t.email || 'Email:'}</strong> ${order.customerEmail || 'N/A'}</p>
+        <p style="margin: 0 0 8px 0; color: #374151; font-size: 14px; text-align: ${textAlign};"><strong>${t.phone || 'Phone:'}</strong> ${order.customerPhone || 'N/A'}</p>
+        <p style="margin: 0 0 8px 0; color: #374151; font-size: 14px; text-align: ${textAlign};"><strong>${t.address || 'Address:'}</strong> ${order.customerAddress || 'N/A'}</p>
+        <p style="margin: 0; color: #374151; font-size: 14px; text-align: ${textAlign};"><strong>${t.emirate || 'Emirate:'}</strong> ${order.emirate || 'N/A'}</p>
       </div>
 
       <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e5e5e5;">
@@ -1022,10 +1019,10 @@ export const generateSupportLinkOrderHTML = (order: OrderHTMLData, locale: strin
         <table style="width: 100%; border-collapse: collapse; margin: 10px 0;">
           <thead>
             <tr style="background: #dc2626; color: white;">
-              <th style="padding: 10px; text-align: ${textAlign}; font-size: 14px;">${t.product}</th>
-              <th style="padding: 10px; text-align: center; font-size: 14px;">${t.qty}</th>
-              <th style="padding: 10px; text-align: ${isRTL ? 'left' : 'right'}; font-size: 14px;">${t.price}</th>
-              <th style="padding: 10px; text-align: ${isRTL ? 'left' : 'right'}; font-size: 14px;">${t.total}</th>
+              <th style="padding: 10px; text-align: ${textAlign}; font-size: 14px;">${t.product || 'Product'}</th>
+              <th style="padding: 10px; text-align: center; font-size: 14px;">${t.qty || 'Qty'}</th>
+              <th style="padding: 10px; text-align: ${isRTL ? 'left' : 'right'}; font-size: 14px;">${t.price || 'Price'}</th>
+              <th style="padding: 10px; text-align: ${isRTL ? 'left' : 'right'}; font-size: 14px;">${t.total || 'Total'}</th>
             </tr>
           </thead>
           <tbody>
@@ -1037,20 +1034,20 @@ export const generateSupportLinkOrderHTML = (order: OrderHTMLData, locale: strin
       <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e5e5e5;">
         <h3 style="color: #dc2626; margin: 0 0 15px 0; font-size: 14px; text-align: ${textAlign};">${t.orderSummary}</h3>
         <div style="display: flex; justify-content: space-between; margin-bottom: 8px; flex-direction: ${isRTL ? 'row-reverse' : 'row'};">
-          <span style="color: #374151; font-size: 14px;">${t.subtotal}</span>
-          <span style="color: #374151; font-size: 14px;">AED ${order.subtotal.toFixed(2)}</span>
+          <span style="color: #374151; font-size: 14px;">${t.subtotal || 'Subtotal:'}</span>
+          <span style="color: #374151; font-size: 14px;">AED ${(order.subtotal || 0).toFixed(2)}</span>
         </div>
         <div style="display: flex; justify-content: space-between; margin-bottom: 8px; flex-direction: ${isRTL ? 'row-reverse' : 'row'};">
-          <span style="color: #374151; font-size: 14px;">${(t.shippingTo || 'Shipping to {emirate}:').replace('{emirate}', order.emirate || '')}</span>
-          <span style="color: #374151; font-size: 14px;">${order.shippingCost === 0 ? (t.free || 'FREE') : `AED ${order.shippingCost.toFixed(2)}`}</span>
+          <span style="color: #374151; font-size: 14px;">Shipping to ${order.emirate || 'N/A'}:</span>
+          <span style="color: #374151; font-size: 14px;">${(order.shippingCost || 0) === 0 ? (t.free || 'FREE') : `AED ${(order.shippingCost || 0).toFixed(2)}`}</span>
         </div>
         <div style="display: flex; justify-content: space-between; margin-bottom: 8px; flex-direction: ${isRTL ? 'row-reverse' : 'row'};">
-          <span style="color: #374151; font-size: 14px;">${t.vat}</span>
-          <span style="color: #374151; font-size: 14px;">AED ${order.vatAmount.toFixed(2)}</span>
+          <span style="color: #374151; font-size: 14px;">${t.vat || 'VAT (5%):'}</span>
+          <span style="color: #374151; font-size: 14px;">AED ${(order.vatAmount || 0).toFixed(2)}</span>
         </div>
         <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 14px; color: #dc2626; border-top: 2px solid #dc2626; padding-top: 8px; flex-direction: ${isRTL ? 'row-reverse' : 'row'};">
-          <span>${t.totalLabel}</span>
-          <span>AED ${order.total.toFixed(2)}</span>
+          <span>${t.totalLabel || 'Total:'}</span>
+          <span>AED ${(order.total || 0).toFixed(2)}</span>
         </div>
       </div>
 
@@ -1069,10 +1066,10 @@ export const generateSupportLinkOrderHTML = (order: OrderHTMLData, locale: strin
         </a>
         <a href="${contactUrl}" 
            style="background: transparent; 
-                  color: #dc2626; 
+                  color: #16a34a; 
                   padding: 12px 30px; 
                   text-decoration: none; 
-                  border: 2px solid #dc2626; 
+                  border: 2px solid #16a34a; 
                   border-radius: 6px; 
                   font-weight: bold; 
                   display: inline-block;">
@@ -1082,10 +1079,10 @@ export const generateSupportLinkOrderHTML = (order: OrderHTMLData, locale: strin
       
       <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #e5e5e5; color: #000000; font-size: 14px;">
         <div style="text-align: center; margin-bottom: 15px;">
-          <img src="https://genosys.ae/_next/image?url=%2FLogo%2FFull.png&w=640&q=75" alt="GENOSYS Logo" style="max-width: 200px; height: auto;" />
+          <img src="https://genosys.ae/_next/image?url=%2FLogo%2FFull.png&w=640&q=75" alt="GENOSYS Logo" style="max-width: 200px; height: auto; display: block; margin: 0 auto;" />
         </div>
         <p style="color: #000000; margin: 0;">${t.officialDistributorFooter || t.officialDistributor}</p>
-        <p style="color: #000000; margin: 0;">${t.copyright}</p>
+        <p style="color: #000000; margin: 0;">© 2026 Genosys Middle East FZ-LLC. All rights reserved.</p>
       </div>
     </div>
   `

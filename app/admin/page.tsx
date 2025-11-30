@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react'
 import Image from 'next/image'
-import { User as UserIcon, Package, Clock, CheckCircle, Truck, X, Trash2, RefreshCw, ArrowLeft, BarChart3, Plus, Edit, Image as ImageIcon, Shield, FileText } from 'lucide-react'
+import { User as UserIcon, Package, Clock, CheckCircle, Truck, X, Trash2, RefreshCw, ArrowLeft, BarChart3, Plus, Edit, Image as ImageIcon, Shield, FileText, ShoppingBag } from 'lucide-react'
 import AdminLogin from '@/components/AdminLogin'
 import AnalyticsDashboard from '@/components/AnalyticsDashboard'
 import CustomerProfile from '@/components/CustomerProfile'
@@ -614,12 +614,13 @@ export default function AdminPage() {
       fetchOrders()
       fetchProducts()
       
-      // Auto-refresh users, orders, and products every 30 seconds to show new registrations/logins
+      // Auto-refresh users and products every 30 seconds to show new registrations/logins
+      // Orders are not auto-refreshed to prevent disruption while managing orders
       const refreshInterval = setInterval(() => {
         // Use refs to get latest values in closure
         if (isAuthenticatedRef.current && adminUserRef.current?.email) {
           fetchUsers()
-          fetchOrders()
+          // fetchOrders() - Removed auto-refresh for orders
           fetchProducts()
         }
       }, 30000) // 30 seconds
@@ -647,6 +648,11 @@ export default function AdminPage() {
       style: 'currency',
       currency: 'AED'
     }).format(amount)
+  }
+
+  // Check if user has placed any orders
+  const userHasOrders = (userEmail: string) => {
+    return orders.some(order => order.customerEmail.toLowerCase() === userEmail.toLowerCase())
   }
 
   // Order Details Component
@@ -1098,12 +1104,18 @@ export default function AdminPage() {
                           )}
                         </div>
                             <div className="flex-1">
-                              <h3 className="font-semibold text-gray-900 flex items-center gap-2">
+                              <h3 className="font-semibold text-gray-900 flex items-center gap-2 flex-wrap">
                                 {user.name}
                                 {user.isAdmin && (
                                   <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-purple-100 text-purple-800">
                                     <Shield className="h-3 w-3 mr-1" />
                                     Admin
+                                  </span>
+                                )}
+                                {userHasOrders(user.email) && (
+                                  <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800">
+                                    <ShoppingBag className="h-3 w-3 mr-1" />
+                                    Ordered
                                   </span>
                                 )}
                               </h3>

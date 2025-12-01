@@ -7,7 +7,7 @@ import { useState, useRef, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { Order, OrderItem } from '@prisma/client'
 import { fetchCsrfToken, getCsrfHeaders, addCsrfToBody } from '@/lib/csrfClient'
-import { errorLog } from '@/lib/logger'
+import { errorLog, debugLog } from '@/lib/logger'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 
@@ -120,8 +120,8 @@ export default function ProfilePageRefactored() {
   // Initialize profile picture and customer number when user loads
   useEffect(() => {
     if (user) {
-      // Debug: Log profile picture to help troubleshoot (always log, not just in dev)
-      console.log('🔍 Profile Page - User data:', {
+      // Debug: Log profile picture to help troubleshoot
+      debugLog('[PROFILE_PAGE] User data:', {
         email: user.email,
         name: user.name,
         profilePicture: user.profilePicture,
@@ -135,8 +135,8 @@ export default function ProfilePageRefactored() {
       fetch('/api/debug/profile-picture')
         .then(res => res.json())
         .then(data => {
-          console.log('🔍 Debug Profile Picture API Response:', JSON.stringify(data, null, 2))
-          console.log('🔍 Profile Picture Details:', {
+          debugLog('[PROFILE_PAGE] Debug Profile Picture API Response:', JSON.stringify(data, null, 2))
+          debugLog('[PROFILE_PAGE] Profile Picture Details:', {
             exists: data.profilePicture?.exists,
             value: data.profilePicture?.value,
             isNull: data.profilePicture?.isNull,
@@ -146,23 +146,23 @@ export default function ProfilePageRefactored() {
             userFromDB: data.userFromDatabase?.profilePicture
           })
           if (data.success && data.profilePicture.exists && !user.profilePicture) {
-            console.log('⚠️ Profile picture exists in DB but not in user object - refreshing...')
-            console.log('⚠️ DB has:', data.profilePicture.value)
-            console.log('⚠️ User object has:', user.profilePicture)
+            debugLog('[PROFILE_PAGE] Profile picture exists in DB but not in user object - refreshing...')
+            debugLog('[PROFILE_PAGE] DB has:', data.profilePicture.value)
+            debugLog('[PROFILE_PAGE] User object has:', user.profilePicture)
             forceRefreshUser().catch(err => {
-              console.error('Error refreshing user:', err)
+              errorLog('[PROFILE_PAGE] Error refreshing user:', err)
             })
           }
         })
         .catch(err => {
-          console.error('Error checking profile picture:', err)
+          errorLog('[PROFILE_PAGE] Error checking profile picture:', err)
         })
       
       // If no profile picture but user is logged in, try to refresh from server
       if (!user.profilePicture) {
-        console.log('⚠️ No profile picture found in user object, attempting to refresh user data...')
+        debugLog('[PROFILE_PAGE] No profile picture found in user object, attempting to refresh user data...')
         forceRefreshUser().catch(err => {
-          console.error('Error refreshing user:', err)
+          errorLog('[PROFILE_PAGE] Error refreshing user:', err)
         })
       }
       
@@ -414,12 +414,12 @@ export default function ProfilePageRefactored() {
 
   // Show loading or nothing while redirecting
   if (!user) {
-    console.log('⚠️ Profile Page - No user found, redirecting to login...')
+    debugLog('[PROFILE_PAGE] No user found, redirecting to login...')
     return null
   }
   
   // Always log user data when profile page renders
-  console.log('✅ Profile Page Rendered - User:', {
+  debugLog('[PROFILE_PAGE] Profile Page Rendered - User:', {
     email: user.email,
     name: user.name,
     profilePicture: user.profilePicture,

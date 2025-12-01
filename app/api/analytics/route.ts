@@ -32,8 +32,19 @@ export async function GET(request: NextRequest) {
         const bounceSessions = sessions.filter(s => s.isBounce).length
         const bounceRate = totalSessions > 0 ? (bounceSessions / totalSessions) * 100 : 0
         
+        // Calculate average session duration (for active sessions, use current time - startTime)
+        const now = new Date()
         const avgSessionDuration = sessions.length > 0 
-          ? sessions.reduce((sum, s) => sum + (s.duration || 0), 0) / sessions.length 
+          ? sessions.reduce((sum, s) => {
+              if (s.duration) {
+                return sum + s.duration
+              } else if (!s.endTime) {
+                // Active session - calculate duration from startTime to now
+                const duration = Math.floor((now.getTime() - s.startTime.getTime()) / 1000)
+                return sum + duration
+              }
+              return sum
+            }, 0) / sessions.length 
           : 0
         
         const avgPageViewsPerSession = sessions.length > 0

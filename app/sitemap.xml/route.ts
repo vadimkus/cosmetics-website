@@ -94,19 +94,54 @@ export async function GET(_request: NextRequest) {
       errorLog('Error fetching products for sitemap:', error)
     }
 
-    // Generate XML sitemap
+    // Generate XML sitemap with multilingual support
     let sitemap = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">`
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">`
 
-    // Add static pages
-    staticPages.forEach(page => {
+    // Helper function to add URL with hreflang tags
+    const addUrlWithHreflang = (url: string, lastmod: string, changefreq: string, priority: string) => {
+      // Handle home page (empty URL)
+      const enUrl = url === '' ? `${baseUrl}/` : `${baseUrl}${url}`
+      const arUrl = url === '' ? `${baseUrl}/ar` : `${baseUrl}/ar${url}`
+      const ruUrl = url === '' ? `${baseUrl}/ru` : `${baseUrl}/ru${url}`
+      
       sitemap += `
   <url>
-    <loc>${baseUrl}${page.url}</loc>
-    <lastmod>${page.lastmod}</lastmod>
-    <changefreq>${page.changefreq}</changefreq>
-    <priority>${page.priority}</priority>
+    <loc>${enUrl}</loc>
+    <lastmod>${lastmod}</lastmod>
+    <changefreq>${changefreq}</changefreq>
+    <priority>${priority}</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="${enUrl}" />
+    <xhtml:link rel="alternate" hreflang="ar" href="${arUrl}" />
+    <xhtml:link rel="alternate" hreflang="ru" href="${ruUrl}" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="${enUrl}" />
+  </url>
+  <url>
+    <loc>${arUrl}</loc>
+    <lastmod>${lastmod}</lastmod>
+    <changefreq>${changefreq}</changefreq>
+    <priority>${priority}</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="${enUrl}" />
+    <xhtml:link rel="alternate" hreflang="ar" href="${arUrl}" />
+    <xhtml:link rel="alternate" hreflang="ru" href="${ruUrl}" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="${enUrl}" />
+  </url>
+  <url>
+    <loc>${ruUrl}</loc>
+    <lastmod>${lastmod}</lastmod>
+    <changefreq>${changefreq}</changefreq>
+    <priority>${priority}</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="${enUrl}" />
+    <xhtml:link rel="alternate" hreflang="ar" href="${arUrl}" />
+    <xhtml:link rel="alternate" hreflang="ru" href="${ruUrl}" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="${enUrl}" />
   </url>`
+    }
+
+    // Add static pages with multilingual support
+    staticPages.forEach(page => {
+      addUrlWithHreflang(page.url, page.lastmod, page.changefreq, page.priority)
     })
 
     // Add optimized URLs (these redirect to the static pages above)
@@ -121,6 +156,7 @@ export async function GET(_request: NextRequest) {
       { url: '/professional-documents', priority: '0.6' }
     ]
 
+    // Add optimized URLs (English only - these are redirect URLs)
     optimizedUrls.forEach(page => {
       sitemap += `
   <url>
@@ -131,27 +167,17 @@ export async function GET(_request: NextRequest) {
   </url>`
     })
 
-    // Add product pages (existing URLs)
+    // Add product pages with multilingual support
     products.forEach(product => {
-      sitemap += `
-  <url>
-    <loc>${baseUrl}/products/${product.id}</loc>
-    <lastmod>${currentDate}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>`
+      const productPath = `/products/${product.id}`
+      addUrlWithHreflang(productPath, currentDate, 'weekly', '0.8')
     })
 
-    // Add location pages
+    // Add location pages with multilingual support
     const locations = ['dubai', 'abu-dhabi', 'sharjah', 'ras-al-khaimah', 'ajman', 'fujairah', 'umm-al-quwain']
     locations.forEach(location => {
-      sitemap += `
-  <url>
-    <loc>${baseUrl}/locations/${location}</loc>
-    <lastmod>${currentDate}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>`
+      const locationPath = `/locations/${location}`
+      addUrlWithHreflang(locationPath, currentDate, 'monthly', '0.6')
     })
 
     // Add blog posts (if table exists)
@@ -176,13 +202,8 @@ export async function GET(_request: NextRequest) {
       
       if (Array.isArray(blogPosts)) {
         blogPosts.forEach((post: { slug: string; updatedAt: Date }) => {
-          sitemap += `
-  <url>
-    <loc>${baseUrl}/blog/${post.slug}</loc>
-    <lastmod>${post.updatedAt.toISOString()}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>`
+          const blogPath = `/blog/${post.slug}`
+          addUrlWithHreflang(blogPath, post.updatedAt.toISOString(), 'weekly', '0.7')
         })
       }
     } catch (error) {

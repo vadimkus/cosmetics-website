@@ -125,7 +125,7 @@ export const emailTemplates = {
   }),
 
   // Order shipped email (based on welcome template design)
-  orderShipped: (orderData: { orderNumber: string; customerName: string; customerEmail: string; items?: Array<{ productName: string; quantity: number; price: number; image?: string }>; total?: number }) => ({
+  orderShipped: (orderData: { orderNumber: string; customerName: string; customerEmail: string; items?: Array<{ productName: string; quantity: number; price: number; image?: string }>; total?: number; customerAddress?: string; customerEmirate?: string }) => ({
     subject: `Order Shipped #${orderData.orderNumber} > Genosys Middle East FZ-LLC`,
     html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 2px solid #dc2626;">
@@ -152,6 +152,22 @@ export const emailTemplates = {
             </p>
             ` : ''}
           </div>
+          
+          ${orderData.customerAddress || orderData.customerEmirate ? `
+          <div style="background: #f9fafb; padding: 18px 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e5e7eb;">
+            <h3 style="color: #374151; margin: 0 0 12px 0; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Delivery info:</h3>
+            ${orderData.customerAddress ? `
+            <p style="color: #6b7280; font-size: 13px; line-height: 1.6; margin: 6px 0;">
+              <span style="color: #9ca3af;">Address:</span> <strong style="color: #374151;">${orderData.customerAddress}</strong>
+            </p>
+            ` : ''}
+            ${orderData.customerEmirate ? `
+            <p style="color: #6b7280; font-size: 13px; line-height: 1.6; margin: 6px 0;">
+              <span style="color: #9ca3af;">Emirate:</span> <strong style="color: #374151;">${orderData.customerEmirate}</strong>
+            </p>
+            ` : ''}
+          </div>
+          ` : ''}
         </div>
         
         <div style="text-align: center; margin: 30px 0;">
@@ -198,6 +214,66 @@ export const emailTemplates = {
           <h2 style="color: #374151; margin: 0 0 15px 0;">${orderData.customerName},</h2>
           <p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 0 0 20px 0;">
             Your order has been received and is being <u>processed.</u>
+          </p>
+          <div style="background: #f9fafb; padding: 18px 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e5e7eb;">
+            <h3 style="color: #374151; margin: 0 0 12px 0; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">
+              <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/profile" style="color: #374151; text-decoration: none;">Order details:</a>
+            </h3>
+            <p style="color: #6b7280; font-size: 13px; line-height: 1.6; margin: 6px 0;">
+              <span style="color: #9ca3af;">Order number:</span> <strong style="color: #374151;">#${orderData.orderNumber}</strong>
+            </p>
+            ${orderData.total ? `
+            <p style="color: #6b7280; font-size: 13px; line-height: 1.6; margin: 6px 0;">
+              <span style="color: #9ca3af;">Total:</span> <strong style="color: #374151;">AED ${orderData.total.toFixed(2)}</strong>
+            </p>
+            ` : ''}
+          </div>
+        </div>
+        
+        <div style="text-align: center; margin: 30px 0;">
+          <a href="https://wa.me/971585487665?text=${encodeURIComponent(`Hi! I need help with my order #${orderData.orderNumber}. Can you assist me?`)}" 
+             style="background: #128C7E; 
+                    color: white; 
+                    padding: 10px 24px; 
+                    text-decoration: none; 
+                    border-radius: 4px; 
+                    font-weight: bold; 
+                    font-size: 14px;
+                    display: inline-block;
+                    letter-spacing: 0.3px;">
+            Contact us: WhatsApp
+          </a>
+        </div>
+        
+        <div style="border-top: 1px solid #e5e7eb; padding-top: 20px; text-align: center;">
+          <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/products" style="display: block; margin: 0 auto 15px; max-width: 170px;">
+            <img src="https://genosys.ae/_next/image?url=%2FLogo%2FupLOGO.png&w=384&q=75" alt="Genosys Logo" style="max-width: 170px; height: auto; margin: 0 auto; display: block;" />
+          </a>
+          <p style="color: #6b7280; font-size: 14px; margin: 8px 0;">
+            Official Distributor in the UAE.
+          </p>
+          <p style="color: #6b7280; font-size: 12px; margin: 8px 0 0;">
+            © 2026 Genosys Middle East FZ-LLC. All rights reserved.
+          </p>
+        </div>
+      </div>
+    `,
+  }),
+
+  // Order delivered email (based on welcome template design)
+  orderDelivered: (orderData: { orderNumber: string; customerName: string; customerEmail: string; items?: Array<{ productName: string; quantity: number; price: number; image?: string }>; total?: number }) => ({
+    subject: `Order Delivered #${orderData.orderNumber} > Genosys Middle East FZ-LLC`,
+    html: `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 2px solid #dc2626;">
+        <div style="text-align: center; margin-bottom: 30px;">
+          <h1 style="color: #dc2626; margin: 0;">Genosys Middle East FZ-LLC</h1>
+          <p style="color: #666; margin: 5px 0;">United Arab Emirates <span style="font-size: 0.8em;">❤️</span></p>
+        </div>
+        
+        <div style="background: white; padding: 30px; border-radius: 10px; margin-bottom: 20px; border: 1px solid #e5e7eb;">
+          <h2 style="color: #374151; margin: 0 0 15px 0;">${orderData.customerName},</h2>
+          <p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 0 0 20px 0;">
+            Your order has been <u>delivered.</u>
           </p>
           <div style="background: #f9fafb; padding: 18px 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e5e7eb;">
             <h3 style="color: #374151; margin: 0 0 12px 0; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">
@@ -791,13 +867,18 @@ export const sendWelcomeEmail = async (userName: string, userEmail: string, pass
   return await sendEmail(userEmail, template.subject, template.html)
 }
 
-export const sendOrderShippedEmail = async (orderData: { orderNumber: string; customerName: string; customerEmail: string; items?: Array<{ productName: string; quantity: number; price: number; image?: string }>; total?: number }) => {
+export const sendOrderShippedEmail = async (orderData: { orderNumber: string; customerName: string; customerEmail: string; items?: Array<{ productName: string; quantity: number; price: number; image?: string }>; total?: number; customerAddress?: string; customerEmirate?: string }) => {
   const template = emailTemplates.orderShipped(orderData)
   return await sendEmail(orderData.customerEmail, template.subject, template.html)
 }
 
 export const sendOrderConfirmedEmail = async (orderData: { orderNumber: string; customerName: string; customerEmail: string; items?: Array<{ productName: string; quantity: number; price: number; image?: string }>; total?: number }) => {
   const template = emailTemplates.orderConfirmed(orderData)
+  return await sendEmail(orderData.customerEmail, template.subject, template.html)
+}
+
+export const sendOrderDeliveredEmail = async (orderData: { orderNumber: string; customerName: string; customerEmail: string; items?: Array<{ productName: string; quantity: number; price: number; image?: string }>; total?: number }) => {
+  const template = emailTemplates.orderDelivered(orderData)
   return await sendEmail(orderData.customerEmail, template.subject, template.html)
 }
 
@@ -1237,7 +1318,9 @@ export const sendOrderStatusUpdate = async (order: { orderNumber: string; custom
           price: item.price,
           ...(item.image ? { image: item.image } : {})
         })) } : {}),
-        ...(order.total ? { total: order.total } : {})
+        ...(order.total ? { total: order.total } : {}),
+        ...(order.customerAddress ? { customerAddress: order.customerAddress } : {}),
+        ...(order.customerEmirate ? { customerEmirate: order.customerEmirate } : {})
       })
       const result = await sendEmail(order.customerEmail, template.subject, template.html)
       
@@ -1273,6 +1356,33 @@ export const sendOrderStatusUpdate = async (order: { orderNumber: string; custom
         return { success: false, error: result.error || 'Unknown error' }
       } else {
         debugLog(`✅ Order confirmed email sent successfully to ${order.customerEmail}`)
+        return result.messageId 
+          ? { success: true, messageId: result.messageId }
+          : { success: true }
+      }
+    }
+    
+    // Use the new order delivered template for DELIVERED status
+    if (statusKey === 'DELIVERED') {
+      const template = emailTemplates.orderDelivered({
+        orderNumber: order.orderNumber || order.id || 'Unknown',
+        customerName: order.customerName,
+        customerEmail: order.customerEmail,
+        ...(order.items ? { items: order.items.map(item => ({
+          productName: item.productName,
+          quantity: item.quantity,
+          price: item.price,
+          ...(item.image ? { image: item.image } : {})
+        })) } : {}),
+        ...(order.total ? { total: order.total } : {})
+      })
+      const result = await sendEmail(order.customerEmail, template.subject, template.html)
+      
+      if (!result.success) {
+        errorLog(`❌ Failed to send order delivered email to ${order.customerEmail}:`, result.error)
+        return { success: false, error: result.error || 'Unknown error' }
+      } else {
+        debugLog(`✅ Order delivered email sent successfully to ${order.customerEmail}`)
         return result.messageId 
           ? { success: true, messageId: result.messageId }
           : { success: true }

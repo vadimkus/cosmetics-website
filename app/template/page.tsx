@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 
-type TemplateType = 'welcome' | 'order-shipped' | 'order-confirmed'
+type TemplateType = 'welcome' | 'order-shipped' | 'order-confirmed' | 'order-delivered'
 
 export default function EmailTemplatePage() {
   const [templateType, setTemplateType] = useState<TemplateType>('order-shipped')
@@ -11,6 +11,8 @@ export default function EmailTemplatePage() {
   const [password, setPassword] = useState('MySecurePassword123!')
   const [orderNumber, setOrderNumber] = useState('ORD-2024-001')
   const [orderTotal, setOrderTotal] = useState('456.75')
+  const [deliveryAddress, setDeliveryAddress] = useState('Dubai Marina, Building 123, Apt 456')
+  const [deliveryEmirate, setDeliveryEmirate] = useState('Dubai')
 
   // Generate welcome email template (same as in lib/email.ts)
   const generateWelcomeEmail = (name: string, email: string, pwd?: string) => {
@@ -74,7 +76,7 @@ export default function EmailTemplatePage() {
   }
 
   // Generate order shipped email template
-  const generateOrderShippedEmail = (name: string, orderNum: string, total: string) => {
+  const generateOrderShippedEmail = (name: string, orderNum: string, total: string, address?: string, emirate?: string) => {
     const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
     const totalNum = parseFloat(total) || 0
     return {
@@ -94,6 +96,86 @@ export default function EmailTemplatePage() {
           <div style="background: #f9fafb; padding: 18px 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e5e7eb;">
             <h3 style="color: #374151; margin: 0 0 12px 0; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">
               <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/profile" style="color: #374151; text-decoration: none;">Order details:</a>
+            </h3>
+            <p style="color: #6b7280; font-size: 13px; line-height: 1.6; margin: 6px 0;">
+              <span style="color: #9ca3af;">Order number:</span> <strong style="color: #374151;">#${orderNum}</strong>
+            </p>
+            ${totalNum > 0 ? `
+            <p style="color: #6b7280; font-size: 13px; line-height: 1.6; margin: 6px 0;">
+              <span style="color: #9ca3af;">Total:</span> <strong style="color: #374151;">AED ${totalNum.toFixed(2)}</strong>
+            </p>
+            ` : ''}
+          </div>
+          
+          ${address || emirate ? `
+          <div style="background: #f9fafb; padding: 18px 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e5e7eb;">
+            <h3 style="color: #374151; margin: 0 0 12px 0; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Delivery info:</h3>
+            ${address ? `
+            <p style="color: #6b7280; font-size: 13px; line-height: 1.6; margin: 6px 0;">
+              <span style="color: #9ca3af;">Address:</span> <strong style="color: #374151;">${address}</strong>
+            </p>
+            ` : ''}
+            ${emirate ? `
+            <p style="color: #6b7280; font-size: 13px; line-height: 1.6; margin: 6px 0;">
+              <span style="color: #9ca3af;">Emirate:</span> <strong style="color: #374151;">${emirate}</strong>
+            </p>
+            ` : ''}
+          </div>
+          ` : ''}
+        </div>
+        
+        <div style="text-align: center; margin: 30px 0;">
+          <a href="https://wa.me/971585487665?text=${encodeURIComponent(`Hi! I need help with my order #${orderNum}. Can you assist me?`)}" 
+             style="background: #128C7E; 
+                    color: white; 
+                    padding: 10px 24px; 
+                    text-decoration: none; 
+                    border-radius: 4px; 
+                    font-weight: bold; 
+                    font-size: 14px;
+                    display: inline-block;
+                    letter-spacing: 0.3px;">
+            Contact us: WhatsApp
+          </a>
+        </div>
+        
+        <div style="border-top: 1px solid #e5e7eb; padding-top: 20px; text-align: center;">
+          <a href="${siteUrl}/products" style="display: block; margin: 0 auto 15px; max-width: 170px;">
+            <img src="https://genosys.ae/_next/image?url=%2FLogo%2FupLOGO.png&w=384&q=75" alt="Genosys Logo" style="max-width: 170px; height: auto; margin: 0 auto; display: block;" />
+          </a>
+          <p style="color: #6b7280; font-size: 14px; margin: 8px 0;">
+            Official Distributor in the UAE.
+          </p>
+          <p style="color: #6b7280; font-size: 12px; margin: 8px 0 0;">
+            © 2026 Genosys Middle East FZ-LLC. All rights reserved.
+          </p>
+        </div>
+      </div>
+    `
+    }
+  }
+
+  // Generate order delivered email template
+  const generateOrderDeliveredEmail = (name: string, orderNum: string, total: string) => {
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
+    const totalNum = parseFloat(total) || 0
+    return {
+      subject: `Order Delivered #${orderNum} > Genosys Middle East FZ-LLC`,
+      html: `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 2px solid #dc2626;">
+        <div style="text-align: center; margin-bottom: 30px;">
+          <h1 style="color: #dc2626; margin: 0;">Genosys Middle East FZ-LLC</h1>
+          <p style="color: #666; margin: 5px 0;">United Arab Emirates <span style="font-size: 0.8em;">❤️</span></p>
+        </div>
+        
+        <div style="background: white; padding: 30px; border-radius: 10px; margin-bottom: 20px; border: 1px solid #e5e7eb;">
+          <h2 style="color: #374151; margin: 0 0 15px 0;">${name},</h2>
+          <p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 0 0 20px 0;">
+            Your order has been <u>delivered.</u>
+          </p>
+          <div style="background: #f9fafb; padding: 18px 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e5e7eb;">
+            <h3 style="color: #374151; margin: 0 0 12px 0; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">
+              <a href="${siteUrl}/profile" style="color: #374151; text-decoration: none;">Order details:</a>
             </h3>
             <p style="color: #6b7280; font-size: 13px; line-height: 1.6; margin: 6px 0;">
               <span style="color: #9ca3af;">Order number:</span> <strong style="color: #374151;">#${orderNum}</strong>
@@ -206,9 +288,11 @@ export default function EmailTemplatePage() {
       case 'welcome':
         return generateWelcomeEmail(userName, userEmail, password)
       case 'order-shipped':
-        return generateOrderShippedEmail(userName, orderNumber, orderTotal)
+        return generateOrderShippedEmail(userName, orderNumber, orderTotal, deliveryAddress, deliveryEmirate)
       case 'order-confirmed':
         return generateOrderConfirmedEmail(userName, orderNumber, orderTotal)
+      case 'order-delivered':
+        return generateOrderDeliveredEmail(userName, orderNumber, orderTotal)
       default:
         return generateOrderShippedEmail(userName, orderNumber, orderTotal)
     }
@@ -224,6 +308,8 @@ export default function EmailTemplatePage() {
         return 'Order Shipped Email'
       case 'order-confirmed':
         return 'Order Confirmed Email'
+      case 'order-delivered':
+        return 'Order Delivered Email'
       default:
         return 'Order Shipped Email'
     }
@@ -264,6 +350,16 @@ export default function EmailTemplatePage() {
                 }`}
               >
                 Order Confirmed
+              </button>
+              <button
+                onClick={() => setTemplateType('order-delivered')}
+                className={`px-4 py-2 rounded-md font-medium transition-colors ${
+                  templateType === 'order-delivered'
+                    ? 'bg-red-600 text-white'
+                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                }`}
+              >
+                Order Delivered
               </button>
               <button
                 onClick={() => setTemplateType('welcome')}
@@ -321,7 +417,7 @@ export default function EmailTemplatePage() {
               </div>
             )}
             
-            {(templateType === 'order-shipped' || templateType === 'order-confirmed') && (
+            {(templateType === 'order-shipped' || templateType === 'order-confirmed' || templateType === 'order-delivered') && (
               <>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -348,6 +444,36 @@ export default function EmailTemplatePage() {
                     placeholder="Enter order total"
                   />
                 </div>
+                
+                {templateType === 'order-shipped' && (
+                  <>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Delivery Address
+                      </label>
+                      <input
+                        type="text"
+                        value={deliveryAddress}
+                        onChange={(e) => setDeliveryAddress(e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
+                        placeholder="Enter delivery address"
+                      />
+                    </div>
+                    
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Emirate
+                      </label>
+                      <input
+                        type="text"
+                        value={deliveryEmirate}
+                        onChange={(e) => setDeliveryEmirate(e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
+                        placeholder="Enter emirate"
+                      />
+                    </div>
+                  </>
+                )}
               </>
             )}
           </div>

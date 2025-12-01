@@ -3,7 +3,7 @@ import { updateUser } from '@/lib/userStorageDb'
 import { errorLog } from '@/lib/logger'
 import { requireCsrfToken } from '@/lib/csrf'
 import { validateUserProfileInput } from '@/lib/validation'
-import { requireBodySizeLimit, getSizeLimitForContentType } from '@/lib/requestSizeLimit'
+import { requireBodySizeLimit, REQUEST_SIZE_LIMITS } from '@/lib/requestSizeLimit'
 
 export async function POST(request: NextRequest) {
   // CSRF protection
@@ -13,7 +13,8 @@ export async function POST(request: NextRequest) {
   }
 
   // Request body size limit check (DoS prevention)
-  const sizeLimit = getSizeLimitForContentType(request)
+  // Use FORM_DATA limit (10MB) for profile updates to allow large profile pictures
+  const sizeLimit = REQUEST_SIZE_LIMITS.FORM_DATA // 10MB to accommodate base64 images
   const sizeCheck = requireBodySizeLimit(request, sizeLimit)
   if (!sizeCheck.valid) {
     return sizeCheck.response!

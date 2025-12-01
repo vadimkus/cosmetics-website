@@ -14,8 +14,8 @@ model User {
   name               String
   password           String?
   phone              String?
-  address            String?
-  profilePicture     String?
+  address            String?   @db.Text
+  profilePicture     String?   @db.Text
   isAdmin            Boolean   @default(false)
   canSeePrices       Boolean   @default(true)
   discountType       String?

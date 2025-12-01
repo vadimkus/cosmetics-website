@@ -146,9 +146,9 @@ export async function POST(request: NextRequest) {
       details: `New user registered: ${name}`
     })
 
-    // Send welcome email to user
+    // Send welcome email to user (include password before hashing)
     try {
-      await sendWelcomeEmail(name, email)
+      await sendWelcomeEmail(name, email, password)
       debugLog('✅ Welcome email sent to:', email)
     } catch (emailError) {
       errorLog('❌ Failed to send welcome email:', emailError)

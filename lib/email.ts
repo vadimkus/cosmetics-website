@@ -67,54 +67,55 @@ transporter.verify((error, _success) => {
 // Email templates
 export const emailTemplates = {
   // Welcome email for new user registration
-  welcomeUser: (userName: string, userEmail: string) => ({
-    subject: 'Welcome to Genosys Middle East FZ-LLC! 🎉',
+  welcomeUser: (userName: string, userEmail: string, password?: string) => ({
+    subject: 'Account details > Genosys Middle East FZ-LLC',
     html: `
-      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 2px solid #dc2626;">
         <div style="text-align: center; margin-bottom: 30px;">
           <h1 style="color: #dc2626; margin: 0;">Genosys Middle East FZ-LLC</h1>
-          <p style="color: #666; margin: 5px 0;">United Arab Emirates ❤️</p>
+          <p style="color: #666; margin: 5px 0;">United Arab Emirates <span style="font-size: 0.8em;">❤️</span></p>
         </div>
         
         <div style="background: white; padding: 30px; border-radius: 10px; margin-bottom: 20px; border: 1px solid #e5e7eb;">
-          <h2 style="color: #dc2626; margin: 0 0 15px 0;">Welcome, ${userName}! 🎉</h2>
+          <h2 style="color: #374151; margin: 0 0 15px 0;">Welcome, ${userName}!</h2>
           <p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 0 0 20px 0;">
-            Thank you for joining the Genosys Middle East FZ-LLC family! As the official Genosys distributor in the United Arab Emirates, we're excited to have you as part of our community.
+            Registration is done. Thank you for joining.
           </p>
-          <p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 0;">
-            Your account has been successfully created with email: <strong>${userEmail}</strong>
-          </p>
-        </div>
-        
-        <div style="background: #f9fafb; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
-          <h3 style="color: #dc2626; margin: 0 0 15px 0;">What's Next?</h3>
-          <ul style="color: #374151; line-height: 1.8; margin: 0; padding-left: 20px;">
-            <li>Browse our premium cosmetics collection</li>
-            <li>Enjoy exclusive member discounts</li>
-            <li>Get early access to new products</li>
-            <li>Receive personalized beauty recommendations</li>
-          </ul>
+          ${password ? `
+          <div style="background: #f9fafb; padding: 18px 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e5e7eb;">
+            <h3 style="color: #374151; margin: 0 0 12px 0; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Account details:</h3>
+            <p style="color: #6b7280; font-size: 13px; line-height: 1.6; margin: 6px 0;">
+              <span style="color: #9ca3af;">login:</span> <strong style="color: #374151;">${userEmail}</strong>
+            </p>
+            <p style="color: #6b7280; font-size: 13px; line-height: 1.6; margin: 6px 0;">
+              <span style="color: #9ca3af;">password:</span> <strong style="color: #374151; font-family: 'Courier New', monospace; letter-spacing: 0.5px;">${password}</strong>
+            </p>
+          </div>
+          ` : ''}
         </div>
         
         <div style="text-align: center; margin: 30px 0;">
           <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/products" 
-             style="background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%); 
+             style="background: #dc2626; 
                     color: white; 
-                    padding: 12px 30px; 
+                    padding: 10px 24px; 
                     text-decoration: none; 
-                    border-radius: 6px; 
+                    border-radius: 4px; 
                     font-weight: bold; 
-                    display: inline-block;">
-            Start Shopping
+                    font-size: 14px;
+                    display: inline-block;
+                    letter-spacing: 0.3px;">
+            Login
           </a>
         </div>
         
         <div style="border-top: 1px solid #e5e7eb; padding-top: 20px; text-align: center;">
-          <p style="color: #6b7280; font-size: 14px; margin: 0;">
-            Need help? Contact us at <a href="mailto:sales@genosys.ae" style="color: #dc2626;">sales@genosys.ae</a>
+          <img src="https://genosys.ae/_next/image?url=%2FLogo%2FupLOGO.png&w=384&q=75" alt="Genosys Logo" style="max-width: 170px; height: auto; margin: 0 auto 15px; display: block;" />
+          <p style="color: #6b7280; font-size: 14px; margin: 8px 0;">
+            Official Distributor in the UAE.
           </p>
-          <p style="color: #6b7280; font-size: 12px; margin: 10px 0 0 0;">
-            Genosys Middle East FZ-LLC - Official Genosys distributor in the United Arab Emirates
+          <p style="color: #6b7280; font-size: 12px; margin: 8px 0 0;">
+            © 2026 Genosys Middle East FZ-LLC. All rights reserved.
           </p>
         </div>
       </div>
@@ -128,7 +129,7 @@ export const emailTemplates = {
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
         <div style="text-align: center; margin-bottom: 30px;">
           <h1 style="color: #dc2626; margin: 0;">Genosys Middle East FZ-LLC</h1>
-          <p style="color: #666; margin: 5px 0;">United Arab Emirates ❤️</p>
+          <p style="color: #666; margin: 5px 0;">United Arab Emirates <span style="font-size: 0.8em;">❤️</span></p>
         </div>
         
         <div style="background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); padding: 30px; border-radius: 10px; margin-bottom: 20px;">
@@ -587,7 +588,7 @@ export const emailTemplates = {
               Dear ${(userName || 'User').split(' ')[0]},
             </p>
             <p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 0 0 20px 0;">
-              Click the button below to reset your Genosys password:
+              Login the button below to reset your Genosys password:
             </p>
             
             <div style="text-align: center; margin: 30px 0;">
@@ -663,8 +664,8 @@ export const sendEmail = async (to: string, subject: string, html: string) => {
 }
 
 // Specific email functions
-export const sendWelcomeEmail = async (userName: string, userEmail: string) => {
-  const template = emailTemplates.welcomeUser(userName, userEmail)
+export const sendWelcomeEmail = async (userName: string, userEmail: string, password?: string) => {
+  const template = emailTemplates.welcomeUser(userName, userEmail, password)
   return await sendEmail(userEmail, template.subject, template.html)
 }
 
@@ -990,7 +991,7 @@ export const generateSupportLinkOrderHTML = (order: OrderHTMLData, locale: strin
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: white; font-size: 14px; direction: ${dir};">
       <div style="text-align: center; margin-bottom: 30px;">
         <h1 style="color: #dc2626; margin: 0; font-size: 14px;">${t.companyName}</h1>
-        <p style="color: #666; margin: 5px 0; font-size: 14px;">United Arab Emirates ❤️</p>
+        <p style="color: #666; margin: 5px 0; font-size: 14px;">United Arab Emirates <span style="font-size: 0.8em;">❤️</span></p>
       </div>
       
       <div style="background: white; padding: 30px; border-radius: 10px; margin-bottom: 20px; border: 1px solid #e5e5e5;">
@@ -1114,7 +1115,7 @@ export const sendOrderStatusUpdate = async (order: { orderNumber: string; custom
         t = {
           subject: 'Order Status Update #{orderNumber} - {status} - Genosys Middle East FZ-LLC',
           companyName: 'Genosys Middle East FZ-LLC',
-          uae: 'United Arab Emirates ❤️',
+          uae: 'United Arab Emirates <span style="font-size: 0.8em;">❤️</span>',
           dear: 'Dear {customerName},',
           greeting: 'Hope you are doing well. Today is the special day!',
           orderNumber: 'Order Number:',

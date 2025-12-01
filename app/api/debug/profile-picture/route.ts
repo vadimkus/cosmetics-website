@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { findUserByEmail } from '@/lib/userStorageDb'
-import { errorLog } from '@/lib/logger'
+import { errorLog, debugLog } from '@/lib/logger'
 
 /**
  * GET /api/debug/profile-picture
@@ -46,7 +46,7 @@ export async function GET(request: NextRequest) {
     }
 
     // Log to server console for debugging
-    console.log('[DEBUG_PROFILE_PICTURE] Database check:', {
+    debugLog('[DEBUG_PROFILE_PICTURE] Database check:', {
       email: user.email,
       profilePictureRaw: user.profilePicture,
       profilePictureType: typeof user.profilePicture,

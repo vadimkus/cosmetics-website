@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { getLocalizedPath, getLocaleFromPath } from '@/lib/i18n'
 import { useMemo } from 'react'
+import { warnLog } from '@/lib/logger'
 import enMessages from '@/messages/en.json'
 import arMessages from '@/messages/ar.json'
 import ruMessages from '@/messages/ru.json'
@@ -48,7 +49,7 @@ export default function Footer() {
       }
       
       if (typeof value !== 'string') {
-        console.warn(`Translation key not found: ${key}`)
+        warnLog(`Translation key not found: ${key}`)
         return key
       }
       

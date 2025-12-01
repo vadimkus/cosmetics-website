@@ -3,19 +3,31 @@ import { debugLog, warnLog } from '@/lib/logger'
 
 import { useEffect } from 'react'
 
+// gtag type is already declared in lib/analytics.ts
+// Using the existing declaration to avoid conflicts
+
+interface WebVitalsMetric {
+  name: string
+  value: number
+  id: string
+  delta?: number
+  rating?: 'good' | 'needs-improvement' | 'poor'
+  navigationType?: string
+}
+
 export default function PerformanceMonitor() {
   useEffect(() => {
     // Only run in production
     if (process.env.NODE_ENV !== 'production') return
 
     // Web Vitals monitoring
-    const reportWebVitals = (metric: any) => {
+    const reportWebVitals = (metric: WebVitalsMetric) => {
       // Send to analytics service (replace with your preferred service)
       debugLog('Web Vital:', metric)
       
       // Example: Send to Google Analytics
-      if (typeof window !== 'undefined' && (window as any).gtag) {
-        (window as any).gtag('event', metric.name, {
+      if (typeof window !== 'undefined' && window.gtag) {
+        window.gtag('event', metric.name, {
           event_category: 'Web Vitals',
           event_label: metric.id,
           value: Math.round(metric.name === 'CLS' ? metric.value * 1000 : metric.value),

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { requireAdminAuth } from '@/lib/adminAuth'
-import { errorLog } from '@/lib/logger'
+import { errorLog, debugLog, infoLog } from '@/lib/logger'
 
 export async function POST(request: NextRequest) {
   try {
@@ -11,7 +11,7 @@ export async function POST(request: NextRequest) {
       return auth.response
     }
 
-    console.log('🔍 Checking if Russian fields exist...')
+    debugLog('🔍 Checking if Russian fields exist...')
     
     // Check if columns already exist by trying to query them
     let fieldsExist = false
@@ -22,10 +22,11 @@ export async function POST(request: NextRequest) {
         LIMIT 1
       `
       fieldsExist = true
-      console.log('✅ Russian fields already exist in database')
-    } catch (error: any) {
-      if (error.message?.includes('column') || error.message?.includes('does not exist')) {
-        console.log('📝 Russian fields do not exist, adding them...')
+      infoLog('✅ Russian fields already exist in database')
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : String(error)
+      if (errorMessage.includes('column') || errorMessage.includes('does not exist')) {
+        debugLog('📝 Russian fields do not exist, adding them...')
         fieldsExist = false
       } else {
         throw error
@@ -33,7 +34,7 @@ export async function POST(request: NextRequest) {
     }
 
     if (!fieldsExist) {
-      console.log('📝 Adding Russian translation fields to blog_posts table...')
+      infoLog('📝 Adding Russian translation fields to blog_posts table...')
       
       // Add Russian fields using raw SQL
       await prisma.$executeRaw`
@@ -43,7 +44,7 @@ export async function POST(request: NextRequest) {
         ADD COLUMN IF NOT EXISTS "contentRu" TEXT
       `
       
-      console.log('✅ Successfully added Russian fields to blog_posts table')
+      infoLog('✅ Successfully added Russian fields to blog_posts table')
       
       // Verify the columns were added
       const columns = await prisma.$queryRaw<Array<{ column_name: string }>>`
@@ -53,7 +54,7 @@ export async function POST(request: NextRequest) {
         AND column_name IN ('titleRu', 'excerptRu', 'contentRu')
       `
       
-      console.log(`✅ Verified: ${columns.length} Russian columns exist`)
+      infoLog(`✅ Verified: ${columns.length} Russian columns exist`)
       
       return NextResponse.json({
         success: true,

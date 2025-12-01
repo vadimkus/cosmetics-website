@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { requireAdminAuth } from '@/lib/adminAuth'
-import { errorLog } from '@/lib/logger'
+import { errorLog, debugLog, infoLog, warnLog } from '@/lib/logger'
 
 // Russian translations for blog posts
 const blogTranslations: Record<string, {
@@ -213,12 +213,12 @@ export async function POST(request: NextRequest) {
     const forceUpdate = force || body?.force === true
     const targetSlug = slugParam || body?.slug || null
 
-    console.log(`🔍 Fetching published blog posts...`)
+    debugLog(`🔍 Fetching published blog posts...`)
     if (targetSlug) {
-      console.log(`   Targeting specific slug: ${targetSlug}`)
+      debugLog(`   Targeting specific slug: ${targetSlug}`)
     }
     if (forceUpdate) {
-      console.log(`   Force update enabled: will update even if already translated`)
+      debugLog(`   Force update enabled: will update even if already translated`)
     }
     
     const whereClause: { published: boolean; slug?: string } = { published: true }
@@ -240,7 +240,7 @@ export async function POST(request: NextRequest) {
       }
     })
 
-    console.log(`📝 Found ${posts.length} published blog post(s)\n`)
+    infoLog(`📝 Found ${posts.length} published blog post(s)\n`)
 
     const results = {
       translated: 0,
@@ -253,14 +253,14 @@ export async function POST(request: NextRequest) {
       const translation = blogTranslations[post.slug]
       
       if (!translation) {
-        console.log(`⚠️  No translation found for: ${post.slug} (${post.title})`)
+        warnLog(`⚠️  No translation found for: ${post.slug} (${post.title})`)
         results.missing++
         continue
       }
 
       // Skip if already translated (unless force update is enabled)
       if (!forceUpdate && post.titleRu && post.excerptRu && post.contentRu) {
-        console.log(`⏭️  Already translated: ${post.title} (use ?force=true to override)`)
+        debugLog(`⏭️  Already translated: ${post.title} (use ?force=true to override)`)
         results.skipped++
         continue
       }
@@ -275,11 +275,11 @@ export async function POST(request: NextRequest) {
           }
         })
         const action = forceUpdate && post.titleRu ? 'Updated' : 'Translated'
-        console.log(`✅ ${action}: ${post.title}`)
+        infoLog(`✅ ${action}: ${post.title}`)
         results.translated++
       } catch (error) {
         const errorMsg = `Failed to translate post ${post.slug}: ${error instanceof Error ? error.message : String(error)}`
-        console.error(`❌ ${errorMsg}`)
+        errorLog(`❌ ${errorMsg}`)
         results.errors.push(errorMsg)
       }
     }

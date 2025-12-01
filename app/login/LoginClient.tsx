@@ -10,11 +10,63 @@ import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 
 export default function LoginClient() {
-  const { user } = useAuth()
+  const { user, forceRefreshUser } = useAuth()
   const [showLoginModal, setShowLoginModal] = useState(false)
   const [isLoginMode, setIsLoginMode] = useState(true)
   const router = useRouter()
   const { t, locale, dir } = useTranslation()
+
+  // Handle Google OAuth callback
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const searchParams = new URLSearchParams(window.location.search)
+      const success = searchParams.get('success')
+      const email = searchParams.get('email')
+      const error = searchParams.get('error')
+
+      if (success === 'google_signin' && email) {
+        // Google sign-in successful - fetch user from session
+        fetch('/api/auth/session')
+          .then(res => res.json())
+          .then(data => {
+            if (data.user) {
+              // User will be set by AuthProvider checking session
+              // Just redirect to products after a short delay
+              setTimeout(() => {
+                router.push(getLocalizedPath('/products', locale))
+              }, 500)
+            } else {
+              // Fallback: try to refresh using email from URL
+              forceRefreshUser().then(() => {
+                router.replace(getLocalizedPath('/login', locale))
+              })
+            }
+          })
+          .catch(() => {
+            // Fallback: try to refresh using email from URL
+            forceRefreshUser().then(() => {
+              router.replace(getLocalizedPath('/login', locale))
+            })
+          })
+      } else if (error) {
+        // Handle errors
+        const errorMessages: Record<string, string> = {
+          rate_limit: t('login.googleRateLimit'),
+          oauth_failed: t('login.googleOAuthFailed'),
+          invalid_request: t('login.googleInvalidRequest'),
+          invalid_state: t('login.googleInvalidState'),
+          token_exchange_failed: t('login.googleTokenExchangeFailed'),
+          token_verification_failed: t('login.googleTokenVerificationFailed'),
+          user_creation_failed: t('login.googleUserCreationFailed'),
+          internal_error: t('login.googleInternalError'),
+        }
+        const errorMessage = errorMessages[error] || t('login.googleGenericError')
+        alert(errorMessage)
+        // Clean up URL
+        router.replace(getLocalizedPath('/login', locale))
+      }
+    }
+  }, [router, locale, forceRefreshUser, t])
 
   useEffect(() => {
     if (user) {

@@ -70,3 +70,4 @@ genosys-nextjs-app/
 # Note: PDF files in public/documents/ are needed for the website
 .env.production
 .env.production.local
+.env.local.backup.*

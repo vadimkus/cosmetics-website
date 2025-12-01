@@ -1,34 +1,10 @@
 import { debugLog, errorLog } from '@/lib/logger'
 import { prisma } from './prisma'
 import { Prisma } from '@prisma/client'
+import type { Product } from '@/types'
 
-export interface Product {
-  id: string
-  productNumber?: string | null
-  name: string
-  price: number
-  description: string
-  image: string
-  images: string | null // JSON array of all images
-  category: string
-  inStock: boolean
-  size?: string | null
-  noDiscount?: boolean
-  isHidden?: boolean
-  // Detailed product content
-  productDetails?: string | null // JSON object with key-value pairs
-  keyFeatures?: string | null // JSON array of features
-  benefits?: string | null // JSON array of benefits
-  ingredients?: string | null // JSON array of ingredients
-  howToUse?: string | null // Usage instructions
-  directions?: string | null // Detailed directions
-  // Skin recommendation fields
-  skinType?: string | null
-  targetConcerns?: string | null // JSON array of concerns
-  usage?: string | null
-  ageGroup?: string | null
-  rating?: number | null // Product rating out of 5
-}
+// Re-export Product type from types/index.ts for convenience
+export type { Product }
 
 /**
  * Check if a product should be hidden

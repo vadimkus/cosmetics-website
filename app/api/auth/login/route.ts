@@ -168,10 +168,30 @@ export async function POST(request: NextRequest) {
 
     // Return user data (without password)
     const { password: _, ...userWithoutPassword } = updatedUser
-    return NextResponse.json({
+    
+    // Set session cookie (for consistency with Google OAuth)
+    const userSessionData = {
+      id: updatedUser.id,
+      email: updatedUser.email,
+      name: updatedUser.name,
+      isAdmin: updatedUser.isAdmin || false,
+      canSeePrices: updatedUser.canSeePrices !== undefined ? updatedUser.canSeePrices : true,
+    }
+    
+    const response = NextResponse.json({
       user: userWithoutPassword,
       message: 'Login successful'
     })
+    
+    response.cookies.set('genosys_session', JSON.stringify(userSessionData), {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: 30 * 24 * 60 * 60, // 30 days
+      path: '/',
+    })
+    
+    return response
 
   } catch (error) {
     errorLog('Login error:', error)

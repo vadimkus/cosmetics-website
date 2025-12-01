@@ -1122,7 +1122,18 @@
     "phoneRequired": "رقم الهاتف مطلوب",
     "addressRequired": "العنوان مطلوب",
     "emirateRequired": "الإمارة مطلوبة",
-    "privacyConsentRequired": "يجب عليك قبول سياسة الخصوصية لإنشاء حساب"
+    "privacyConsentRequired": "يجب عليك قبول سياسة الخصوصية لإنشاء حساب",
+    "signInWithGoogle": "تسجيل الدخول باستخدام Google",
+    "or": "أو",
+    "googleRateLimit": "محاولات تسجيل الدخول عبر Google كثيرة جداً. يرجى المحاولة مرة أخرى لاحقاً.",
+    "googleOAuthFailed": "فشل تسجيل الدخول عبر Google. يرجى المحاولة مرة أخرى.",
+    "googleInvalidRequest": "طلب تسجيل الدخول عبر Google غير صالح. يرجى المحاولة مرة أخرى.",
+    "googleInvalidState": "فشل التحقق الأمني. يرجى المحاولة مرة أخرى.",
+    "googleTokenExchangeFailed": "فشل إكمال تسجيل الدخول عبر Google. يرجى المحاولة مرة أخرى.",
+    "googleTokenVerificationFailed": "فشل التحقق من حساب Google. يرجى المحاولة مرة أخرى.",
+    "googleUserCreationFailed": "فشل إنشاء الحساب. يرجى المحاولة مرة أخرى.",
+    "googleInternalError": "حدث خطأ أثناء تسجيل الدخول عبر Google. يرجى المحاولة مرة أخرى.",
+    "googleGenericError": "فشل تسجيل الدخول عبر Google. يرجى المحاولة مرة أخرى."
   },
   "orderEmail": {
     "cod": {

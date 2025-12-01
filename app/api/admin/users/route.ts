@@ -23,7 +23,13 @@ export async function GET(request: NextRequest) {
     debugLog('📊 Query params:', { search, limit })
     
     // Build where clause - handle search differently for PostgreSQL
-    let whereClause: any = {}
+    let whereClause: {
+      OR?: Array<{
+        email?: { contains: string; mode: 'insensitive' }
+        name?: { contains: string; mode: 'insensitive' }
+        phone?: { contains: string; mode: 'insensitive' }
+      }>
+    } = {}
     
     if (search && search.length > 0) {
       // Use case-insensitive search for PostgreSQL
@@ -115,7 +121,11 @@ export async function GET(request: NextRequest) {
     })
     
     // Always include error details in development, simplified in production
-    const errorResponse: any = {
+    const errorResponse: {
+      error: string
+      message: string
+      details?: { stack?: string; error?: string; message?: string; name?: string }
+    } = {
       error: 'Internal server error',
       message: errorMessage
     }
@@ -123,8 +133,8 @@ export async function GET(request: NextRequest) {
     if (process.env.NODE_ENV === 'development') {
       errorResponse.details = {
         message: errorMessage,
-        stack: errorStack,
-        name: errorName,
+        ...(errorStack && { stack: errorStack }),
+        ...(errorName && { name: errorName }),
         error: String(error)
       }
     }

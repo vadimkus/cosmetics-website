@@ -12,6 +12,7 @@ import { calculateDiscountedPrice, canUserSeePrices } from '@/lib/discountUtils'
 import { errorLog } from '@/lib/logger'
 import { useTranslation } from '@/hooks/useTranslation'
 import { translateSize } from '@/utils/sizeTranslations'
+import { sanitizeHtml } from '@/lib/sanitize'
 
 interface ProductRecommendationProps {
   recommendedProductId: string
@@ -442,7 +443,7 @@ export default function ProductRecommendation({
           <h3 className="text-sm lg:text-lg font-bold text-gray-900" dir={dir} style={{ textAlign: dir === 'rtl' ? 'right' : 'left' }}>{t('product.perfectCombination')}</h3>
         </div>
         
-        <p className="text-gray-700 mb-2 lg:mb-4 text-[10px] lg:text-xs leading-relaxed" dir={dir} style={{ textAlign: dir === 'rtl' ? 'right' : 'left' }} dangerouslySetInnerHTML={{ __html: description.intro }} />
+        <p className="text-gray-700 mb-2 lg:mb-4 text-[10px] lg:text-xs leading-relaxed" dir={dir} style={{ textAlign: dir === 'rtl' ? 'right' : 'left' }} dangerouslySetInnerHTML={{ __html: sanitizeHtml(description.intro || '') }} />
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-2 lg:gap-4">
           {/* Recommended Product Preview */}

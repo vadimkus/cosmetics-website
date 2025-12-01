@@ -1,9 +1,8 @@
 import { errorLog, warnLog, infoLog } from '@/lib/logger'
 /**
  * Comprehensive error handling utilities
+ * Server-side error handling (no React dependencies)
  */
-
-import React from 'react'
 
 export interface AppError extends Error {
   code?: string
@@ -17,7 +16,7 @@ export interface AppError extends Error {
 export class CustomError extends Error implements AppError {
   public code?: string
   public statusCode?: number
-  public context?: Record<string, any>
+  public context?: Record<string, unknown>
   public timestamp: Date
   public userId?: string
   public sessionId?: string
@@ -257,64 +256,5 @@ export const errorHandling = {
     }
 
     throw lastError!
-  }
-}
-
-/**
- * Error boundary helper
- */
-export const withErrorBoundary = <P extends object>(
-  Component: React.ComponentType<P>,
-  fallback?: React.ComponentType<{ error: AppError }>
-) => {
-  return class ErrorBoundaryWrapper extends React.Component<P, { hasError: boolean; error?: AppError }> {
-    constructor(props: P) {
-      super(props)
-      this.state = { hasError: false }
-    }
-
-    static getDerivedStateFromError(error: Error): { hasError: boolean; error: AppError } {
-      const appError = error instanceof CustomError 
-        ? error 
-        : errorHandling.createError(error.message, ErrorType.UNKNOWN, ErrorSeverity.MEDIUM)
-      
-      return { hasError: true, error: appError }
-    }
-
-    override componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-      const appError = error instanceof CustomError 
-        ? error 
-        : errorHandling.createError(
-            error.message, 
-            ErrorType.UNKNOWN, 
-            ErrorSeverity.HIGH,
-            { errorInfo }
-          )
-      
-      errorHandling.logError(appError, ErrorSeverity.HIGH)
-    }
-
-    override render() {
-      if (this.state.hasError && this.state.error) {
-        if (fallback) {
-          return React.createElement(fallback, { error: this.state.error })
-        }
-        
-        return React.createElement('div', {
-          className: "min-h-screen flex items-center justify-center bg-white"
-        }, React.createElement('div', {
-          className: "text-center"
-        }, React.createElement('h1', {
-          className: "text-2xl font-bold text-gray-800 mb-4"
-        }, "Something went wrong"), React.createElement('p', {
-          className: "text-gray-600 mb-6"
-        }, errorHandling.getUserFriendlyMessage(this.state.error)), React.createElement('button', {
-          onClick: () => this.setState({ hasError: false }),
-          className: "bg-primary-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary-700 transition-colors"
-        }, "Try Again")))
-      }
-
-      return React.createElement(Component, this.props)
-    }
   }
 }

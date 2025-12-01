@@ -100,7 +100,25 @@ export async function POST(request: NextRequest) {
   }
 }
 
-function generateInvoiceHTML(data: InvoiceData & { locale: string; translations: any }): string {
+interface InvoiceTranslations {
+  emailSubject?: string
+  emailSubjectSuffix?: string
+  invoice?: string
+  orderNumber?: string
+  date?: string
+  customerDetails?: string
+  items?: string
+  quantity?: string
+  price?: string
+  total?: string
+  subtotal?: string
+  shipping?: string
+  vat?: string
+  grandTotal?: string
+  [key: string]: string | undefined
+}
+
+function generateInvoiceHTML(data: InvoiceData & { locale: string; translations: InvoiceTranslations }): string {
   const {
     orderNumber,
     customerName,

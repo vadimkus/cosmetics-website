@@ -80,11 +80,18 @@ export const readOrders = async (): Promise<Order[]> => {
   }
 }
 
-// Write orders (not needed with database, but keeping for compatibility)
+/**
+ * @deprecated This function is deprecated. Orders are now stored in the database.
+ * Use Prisma directly to create/update orders instead.
+ * This function is kept for backward compatibility but does nothing.
+ * 
+ * To create an order, use: prisma.order.create({ data: {...} })
+ * To update an order, use: prisma.order.update({ where: { id }, data: {...} })
+ */
 export const writeOrders = async (_orders: OrderData[]): Promise<void> => {
-  // This function is not needed with database storage
-  // Keeping for compatibility with existing code
-  warnLog('writeOrders is deprecated with database storage')
+  // This function is deprecated - orders are stored in database via Prisma
+  // Keeping for backward compatibility only
+  warnLog('⚠️ writeOrders is deprecated - orders are now stored in database. Use Prisma directly.')
 }
 
 // Generate order ID

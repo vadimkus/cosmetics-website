@@ -22,7 +22,7 @@ export const enhancedErrorTracking = {
     userAgent?: string
     severity?: 'low' | 'medium' | 'high' | 'critical'
     tags?: Record<string, string>
-    extra?: Record<string, any>
+    extra?: Record<string, unknown>
   }): Promise<void> => {
     // Add breadcrumb before tracking
     await addBreadcrumb(`Error occurred: ${error.message}`, 'error', 'error')

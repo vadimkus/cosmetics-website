@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getAllProducts, getProductsByCategory } from '@/lib/productsDb'
-import { debugLog, errorLog } from '@/lib/logger'
+import { debugLog } from '@/lib/logger'
+import { handleApiError } from '@/lib/apiErrorHandler'
 
 export async function GET(request: NextRequest) {
   try {
@@ -29,21 +30,6 @@ export async function GET(request: NextRequest) {
     
     return response
   } catch (error) {
-    errorLog('❌ Error fetching products:', error)
-    errorLog('❌ Error details:', {
-      message: error instanceof Error ? error.message : 'Unknown error',
-      stack: error instanceof Error ? error.stack : undefined,
-      name: error instanceof Error ? error.name : undefined
-    })
-    
-    // Return a more detailed error response for debugging
-    return NextResponse.json(
-      { 
-        error: 'Failed to fetch products',
-        details: error instanceof Error ? error.message : 'Unknown error',
-        timestamp: new Date().toISOString()
-      },
-      { status: 500 }
-    )
+    return handleApiError(error, 'GET /api/products')
   }
 }

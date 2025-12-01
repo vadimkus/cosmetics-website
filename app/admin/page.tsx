@@ -13,6 +13,7 @@ import { fetchCsrfToken, getCsrfHeaders, addCsrfToBody } from '@/lib/csrfClient'
 import { debugLog, errorLog } from '@/lib/logger'
 import StatusBadge from '@/components/shared/StatusBadge'
 import { safeJsonParse } from '@/lib/utils'
+import type { Product } from '@/types'
 
 // Custom type that includes the items relation
 type OrderWithItems = Order & {
@@ -34,20 +35,6 @@ interface User {
   lastLoginAt?: string | null
   createdAt: string
   updatedAt?: string | null
-}
-
-interface Product {
-  id: string
-  name: string
-  price: number
-  description: string
-  image: string
-  images: string | null // JSON array of all images
-  category: string
-  inStock: boolean
-  size?: string | null
-  createdAt: string
-  updatedAt: string
 }
 
 export default function AdminPage() {
@@ -562,7 +549,7 @@ export default function AdminPage() {
           return
         }
 
-        const session = safeJsonParse<{ authenticatedAt: string; [key: string]: any }>(savedSession, { authenticatedAt: new Date().toISOString() })
+        const session = safeJsonParse<{ authenticatedAt: string; [key: string]: unknown }>(savedSession, { authenticatedAt: new Date().toISOString() })
         
         // Verify session is still valid (check if less than 24 hours old)
         const authenticatedAt = new Date(session.authenticatedAt)
@@ -1543,11 +1530,11 @@ export default function AdminPage() {
                                   </span>
                                 </td>
                                 <td className="px-3 sm:px-6 py-4 whitespace-nowrap text-xs sm:text-sm text-gray-500">
-                                  {new Date(product.createdAt).toLocaleDateString('en-AE', {
+                                  {product.createdAt ? new Date(product.createdAt).toLocaleDateString('en-AE', {
                                     month: 'short',
                                     day: 'numeric',
                                     year: 'numeric'
-                                  })}
+                                  }) : '-'}
                                 </td>
                                 <td className="px-3 sm:px-6 py-4 whitespace-nowrap text-sm font-medium">
                                   <div className="flex space-x-2">

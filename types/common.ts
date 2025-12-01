@@ -39,30 +39,10 @@ export interface User {
   updatedAt: Timestamp
 }
 
-// Product types
-export interface Product {
-  id: ID
-  productNumber?: string
-  name: string
-  description: string
-  price: number
-  category: string
-  image: string
-  images?: string
-  inStock: boolean
-  noDiscount?: boolean
-  isHidden?: boolean
-  // Detailed product content
-  productDetails?: string | null // JSON object with key-value pairs
-  keyFeatures?: string | null // JSON array of features
-  benefits?: string | null // JSON array of benefits
-  ingredients?: string | null // JSON array of ingredients
-  howToUse?: string | null // Usage instructions
-  directions?: string | null // Detailed directions
-  rating?: number | null // Product rating out of 5
-  createdAt: Timestamp
-  updatedAt: Timestamp
-}
+// Product type is now defined in types/index.ts - Single source of truth
+// Import and re-export for backward compatibility
+import type { Product } from './index'
+export type { Product }
 
 // Cart types
 export interface CartItem {

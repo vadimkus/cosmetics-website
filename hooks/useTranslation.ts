@@ -25,10 +25,15 @@ export function useTranslation() {
 
   const t = (key: string, params?: Record<string, string | number>): string => {
     const keys = key.split('.')
-    let value: any = messages
+    let value: unknown = messages
     
     for (const k of keys) {
-      value = value?.[k]
+      if (value && typeof value === 'object' && k in value) {
+        value = (value as Record<string, unknown>)[k]
+      } else {
+        value = undefined
+        break
+      }
     }
     
     if (typeof value !== 'string') {

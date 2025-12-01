@@ -22,6 +22,7 @@ interface User {
 interface AuthContextType {
   user: User | null
   login: (email: string, password: string) => Promise<boolean>
+  loginWithGoogle: () => Promise<void>
   register: (name: string, email: string, password: string, phone: string, address: string, emirate: string, birthday?: string) => Promise<boolean>
   logout: () => void
   refreshUser: () => Promise<void>
@@ -52,22 +53,49 @@ export default function AuthProvider({ children }: AuthProviderProps) {
   useEffect(() => {
     setIsClient(true)
     if (typeof window !== 'undefined') {
-      const savedUser = localStorage.getItem('genosys_user')
-      if (savedUser) {
-        try {
-          setUser(JSON.parse(savedUser))
-        } catch (error) {
-          errorLog('Error parsing saved user:', error)
-          localStorage.removeItem('genosys_user')
-        }
-      }
+      // First, try to get user from session cookie (for Google OAuth or server-set sessions)
+      fetch('/api/auth/session')
+        .then(res => res.json())
+        .then(data => {
+          if (data.user) {
+            setUser(data.user)
+            setIsLoading(false)
+            return
+          }
+          
+          // Fallback to localStorage
+          const savedUser = localStorage.getItem('genosys_user')
+          if (savedUser) {
+            try {
+              setUser(JSON.parse(savedUser))
+            } catch (error) {
+              errorLog('Error parsing saved user:', error)
+              localStorage.removeItem('genosys_user')
+            }
+          }
+          setIsLoading(false)
+        })
+        .catch(() => {
+          // Fallback to localStorage if session check fails
+          const savedUser = localStorage.getItem('genosys_user')
+          if (savedUser) {
+            try {
+              setUser(JSON.parse(savedUser))
+            } catch (error) {
+              errorLog('Error parsing saved user:', error)
+              localStorage.removeItem('genosys_user')
+            }
+          }
+          setIsLoading(false)
+        })
       
       // Fetch CSRF token on mount
       fetchCsrfToken().catch(err => {
         errorLog('Failed to fetch CSRF token:', err)
       })
+    } else {
+      setIsLoading(false)
     }
-    setIsLoading(false)
   }, [])
 
   // Save user to localStorage whenever user changes (only on client)
@@ -349,6 +377,20 @@ export default function AuthProvider({ children }: AuthProviderProps) {
     }
   }, [user])
 
+  const loginWithGoogle = async (): Promise<void> => {
+    try {
+      setIsLoading(true)
+      // Redirect to Google OAuth endpoint
+      if (typeof window !== 'undefined') {
+        window.location.href = '/api/auth/google'
+      }
+    } catch (error) {
+      errorLog('Google login error:', error)
+      alert('Failed to initiate Google Sign-In. Please try again.')
+      setIsLoading(false)
+    }
+  }
+
   const logout = () => {
     setUser(null)
     // Redirect to login page after logout
@@ -360,6 +402,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
   const value = {
     user,
     login,
+    loginWithGoogle,
     register,
     logout,
     refreshUser,
@@ -372,6 +415,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
     <AuthContext.Provider value={!isClient ? {
       user: null,
       login: async () => false,
+      loginWithGoogle: async () => {},
       register: async (_name: string, _email: string, _password: string, _phone: string, _address: string, _emirate: string, _birthday?: string) => false,
       logout: () => {},
       refreshUser: async () => {},

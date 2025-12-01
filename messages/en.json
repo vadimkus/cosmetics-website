@@ -1140,7 +1140,18 @@
     "phoneRequired": "Phone number is required",
     "addressRequired": "Address is required",
     "emirateRequired": "Emirate is required",
-    "privacyConsentRequired": "You must accept the privacy policy to create an account"
+    "privacyConsentRequired": "You must accept the privacy policy to create an account",
+    "signInWithGoogle": "Sign in with Google",
+    "or": "OR",
+    "googleRateLimit": "Too many Google Sign-In attempts. Please try again later.",
+    "googleOAuthFailed": "Google Sign-In failed. Please try again.",
+    "googleInvalidRequest": "Invalid Google Sign-In request. Please try again.",
+    "googleInvalidState": "Security verification failed. Please try again.",
+    "googleTokenExchangeFailed": "Failed to complete Google Sign-In. Please try again.",
+    "googleTokenVerificationFailed": "Failed to verify Google account. Please try again.",
+    "googleUserCreationFailed": "Failed to create account. Please try again.",
+    "googleInternalError": "An error occurred during Google Sign-In. Please try again.",
+    "googleGenericError": "Google Sign-In failed. Please try again."
   },
   "orderEmail": {
     "cod": {

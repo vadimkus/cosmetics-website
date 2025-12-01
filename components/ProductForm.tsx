@@ -3,20 +3,7 @@
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { X, Image as ImageIcon, DollarSign, Tag, FileText, Ruler, Plus } from 'lucide-react'
-
-interface Product {
-  id: string
-  name: string
-  price: number
-  description: string
-  image: string
-  images: string | null // JSON array of all images
-  category: string
-  inStock: boolean
-  size?: string | null
-  createdAt: string
-  updatedAt: string
-}
+import type { Product } from '@/types'
 
 interface ProductFormProps {
   product?: Product | null

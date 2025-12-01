@@ -1065,11 +1065,11 @@
   },
   "login": {
     "title": "Вход",
-    "subtitle": "Войдите в свой профессиональный аккаунт GENOSYS, чтобы просматривать цены и управлять заказами",
+    "subtitle": "Войдите в свой аккаунт GENOSYS, чтобы просматривать цены и управлять заказами",
     "signIn": "Войти",
     "signInToAccount": "Войдите в свой профессиональный аккаунт",
     "dontHaveAccount": "Нет аккаунта?",
-    "createAccount": "Создать профессиональный аккаунт Genosys",
+    "createAccount": "Создать аккаунт Genosys",
     "alreadyLoggedIn": "Уже вошли",
     "loggedInAs": "Вы уже вошли как",
     "continueToProducts": "Перейти к продуктам",
@@ -1155,7 +1155,18 @@
     "phoneRequired": "Номер телефона обязателен",
     "addressRequired": "Адрес обязателен",
     "emirateRequired": "Эмират обязателен",
-    "privacyConsentRequired": "Вы должны принять политику конфиденциальности, чтобы создать аккаунт"
+    "privacyConsentRequired": "Вы должны принять политику конфиденциальности, чтобы создать аккаунт",
+    "signInWithGoogle": "Войти через Google",
+    "or": "ИЛИ",
+    "googleRateLimit": "Слишком много попыток входа через Google. Пожалуйста, попробуйте позже.",
+    "googleOAuthFailed": "Вход через Google не удался. Пожалуйста, попробуйте снова.",
+    "googleInvalidRequest": "Неверный запрос входа через Google. Пожалуйста, попробуйте снова.",
+    "googleInvalidState": "Проверка безопасности не удалась. Пожалуйста, попробуйте снова.",
+    "googleTokenExchangeFailed": "Не удалось завершить вход через Google. Пожалуйста, попробуйте снова.",
+    "googleTokenVerificationFailed": "Не удалось проверить учетную запись Google. Пожалуйста, попробуйте снова.",
+    "googleUserCreationFailed": "Не удалось создать аккаунт. Пожалуйста, попробуйте снова.",
+    "googleInternalError": "Произошла ошибка при входе через Google. Пожалуйста, попробуйте снова.",
+    "googleGenericError": "Вход через Google не удался. Пожалуйста, попробуйте снова."
   },
   "orderEmail": {
     "cod": {

@@ -2,20 +2,7 @@
 
 import dynamic from 'next/dynamic'
 import { Suspense } from 'react'
-
-interface Product {
-  id: string
-  name: string
-  price: number
-  description: string
-  image: string
-  images: string | null // JSON array of all images
-  category: string
-  inStock: boolean
-  size?: string | null
-  createdAt: string
-  updatedAt: string
-}
+import type { Product } from '@/types'
 
 const ProductForm = dynamic(() => import('./ProductForm'), {
   loading: () => (

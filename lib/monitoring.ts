@@ -13,7 +13,7 @@ export interface ErrorContext {
   timestamp?: Date
   severity?: 'low' | 'medium' | 'high' | 'critical'
   tags?: Record<string, string>
-  extra?: Record<string, any>
+  extra?: Record<string, unknown>
 }
 
 export interface PerformanceMetrics {
@@ -76,8 +76,7 @@ class ConsoleMonitoringService extends MonitoringService {
  * Sentry monitoring service (production)
  */
 class SentryMonitoringService extends MonitoringService {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private sentry: any = null
+  private sentry: unknown = null
 
   async init(): Promise<void> {
     if (typeof window !== 'undefined' && process.env.NODE_ENV === 'production') {
@@ -95,52 +94,114 @@ class SentryMonitoringService extends MonitoringService {
   async captureError(error: Error, context?: ErrorContext): Promise<void> {
     if (!this.sentry) return
 
-    this.sentry.captureException(error, {
-      tags: context?.tags,
-      user: context?.userId ? { id: context.userId, email: context.userEmail } : undefined,
-      extra: context?.extra,
+    const sentry = this.sentry as { captureException: (error: Error, options?: any) => void }
+    const options: {
+      tags?: Record<string, string>
+      user?: { id: string; email?: string }
+      extra?: Record<string, unknown>
+      level: string
+    } = {
       level: context?.severity === 'critical' ? 'fatal' : context?.severity || 'error'
-    })
+    }
+    
+    if (context?.tags) {
+      options.tags = context.tags
+    }
+    
+    if (context?.userId) {
+      options.user = {
+        id: context.userId,
+        ...(context.userEmail && { email: context.userEmail })
+      }
+    }
+    
+    if (context?.extra) {
+      options.extra = context.extra
+    }
+    
+    sentry.captureException(error, options)
   }
 
   async captureMessage(message: string, level: 'info' | 'warning' | 'error', context?: ErrorContext): Promise<void> {
     if (!this.sentry) return
 
-    this.sentry.captureMessage(message, level, {
-      tags: context?.tags,
-      user: context?.userId ? { id: context.userId, email: context.userEmail } : undefined,
-      extra: context?.extra
-    })
+    const sentry = this.sentry as { captureMessage: (message: string, level: string, options?: any) => void }
+    const options: {
+      tags?: Record<string, string>
+      user?: { id: string; email?: string }
+      extra?: Record<string, unknown>
+    } = {}
+    
+    if (context?.tags) {
+      options.tags = context.tags
+    }
+    
+    if (context?.userId) {
+      options.user = {
+        id: context.userId,
+        ...(context.userEmail && { email: context.userEmail })
+      }
+    }
+    
+    if (context?.extra) {
+      options.extra = context.extra
+    }
+    
+    sentry.captureMessage(message, level, options)
   }
 
   async capturePerformance(metrics: PerformanceMetrics): Promise<void> {
     if (!this.sentry) return
 
-    this.sentry.addBreadcrumb({
+    const sentry = this.sentry as { addBreadcrumb: (breadcrumb: any) => void }
+    const breadcrumbData: {
+      value: number
+      unit: string
+      tags?: Record<string, string>
+    } = {
+      value: metrics.value,
+      unit: metrics.unit
+    }
+    
+    if (metrics.tags) {
+      breadcrumbData.tags = metrics.tags
+    }
+    
+    sentry.addBreadcrumb({
       message: `Performance: ${metrics.name}`,
       category: 'performance',
-      data: {
-        value: metrics.value,
-        unit: metrics.unit,
-        tags: metrics.tags
-      }
+      data: breadcrumbData
     })
   }
 
   async setUser(userId: string, userEmail?: string, extra?: Record<string, any>): Promise<void> {
     if (!this.sentry) return
 
-    this.sentry.setUser({
-      id: userId,
-      email: userEmail,
-      ...extra
-    })
+    const sentry = this.sentry as { setUser: (user: any) => void }
+    const userData: {
+      id: string
+      email?: string
+      [key: string]: any
+    } = {
+      id: userId
+    }
+    
+    if (userEmail) {
+      userData.email = userEmail
+    }
+    
+    if (extra) {
+      Object.assign(userData, extra)
+    }
+    
+    sentry.setUser(userData)
   }
 
   async addBreadcrumb(message: string, category?: string, level?: 'info' | 'warning' | 'error'): Promise<void> {
     if (!this.sentry) return
 
-    this.sentry.addBreadcrumb({
+    const sentry = this.sentry as { addBreadcrumb: (breadcrumb: any) => void }
+    sentry.addBreadcrumb({
       message,
       category: category || 'default',
       level: level || 'info'
@@ -153,7 +214,7 @@ class SentryMonitoringService extends MonitoringService {
  */
 class LogRocketMonitoringService extends MonitoringService {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private logRocket: any = null
+  private logRocket: unknown = null
 
   async init(): Promise<void> {
     if (typeof window !== 'undefined' && process.env.NODE_ENV === 'production') {
@@ -171,13 +232,15 @@ class LogRocketMonitoringService extends MonitoringService {
   async captureError(error: Error, _context?: ErrorContext): Promise<void> {
     if (!this.logRocket) return
 
-    this.logRocket.captureException(error)
+    const logRocket = this.logRocket as { captureException: (error: Error) => void }
+    logRocket.captureException(error)
   }
 
   async captureMessage(message: string, level: 'info' | 'warning' | 'error', context?: ErrorContext): Promise<void> {
     if (!this.logRocket) return
 
-    this.logRocket.log(message, {
+    const logRocket = this.logRocket as { log: (message: string, options: any) => void }
+    logRocket.log(message, {
       level,
       context
     })
@@ -186,26 +249,48 @@ class LogRocketMonitoringService extends MonitoringService {
   async capturePerformance(metrics: PerformanceMetrics): Promise<void> {
     if (!this.logRocket) return
 
-    this.logRocket.log(`Performance: ${metrics.name}`, {
+    const logRocket = this.logRocket as { log: (message: string, options: any) => void }
+    const logData: {
+      value: number
+      unit: string
+      tags?: Record<string, string>
+    } = {
       value: metrics.value,
-      unit: metrics.unit,
-      tags: metrics.tags
-    })
+      unit: metrics.unit
+    }
+    
+    if (metrics.tags) {
+      logData.tags = metrics.tags
+    }
+    
+    logRocket.log(`Performance: ${metrics.name}`, logData)
   }
 
   async setUser(userId: string, userEmail?: string, extra?: Record<string, any>): Promise<void> {
     if (!this.logRocket) return
 
-    this.logRocket.identify(userId, {
-      email: userEmail,
-      ...extra
-    })
+    const logRocket = this.logRocket as { identify: (userId: string, data: any) => void }
+    const userData: {
+      email?: string
+      [key: string]: any
+    } = {}
+    
+    if (userEmail) {
+      userData.email = userEmail
+    }
+    
+    if (extra) {
+      Object.assign(userData, extra)
+    }
+    
+    logRocket.identify(userId, userData)
   }
 
   async addBreadcrumb(message: string, category?: string, level?: 'info' | 'warning' | 'error'): Promise<void> {
     if (!this.logRocket) return
 
-    this.logRocket.log(`Breadcrumb: ${message}`, {
+    const logRocket = this.logRocket as { log: (message: string, options: any) => void }
+    logRocket.log(`Breadcrumb: ${message}`, {
       category,
       level
     })
@@ -318,7 +403,7 @@ export const trackPerformance = async (metrics: PerformanceMetrics): Promise<voi
 export const setUserContext = async (
   userId: string, 
   userEmail?: string, 
-  extra?: Record<string, any>
+  extra?: Record<string, unknown>
 ): Promise<void> => {
   await monitoring.setUser(userId, userEmail, extra)
 }

@@ -10,17 +10,12 @@ import { useFavorites } from '@/components/FavoritesProvider'
 import { errorLog } from '@/lib/logger'
 import BreadcrumbSchema from '@/components/BreadcrumbSchema'
 import { calculateDiscountedPrice, canUserSeePrices } from '@/lib/discountUtils'
-import { Product } from '@/types'
+import type { Product } from '@/types'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 
-// Extended Product interface for skin recommendations
-interface SkinRecommendationProduct extends Product {
-  skinType?: string | null
-  targetConcerns?: string | null
-  usage?: string | null
-  ageGroup?: string | null
-}
+// Product type from @/types now includes skinType, targetConcerns, usage, and ageGroup fields
+type SkinRecommendationProduct = Product
 
 export default function SkinRecommendationClient() {
   const { t, locale, dir } = useTranslation()

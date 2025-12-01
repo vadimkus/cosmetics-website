@@ -30,7 +30,8 @@ export async function POST(request: NextRequest) {
 
     switch (type) {
       case 'welcome':
-        result = await sendWelcomeEmail('Test User', testEmail)
+        const { userName, password } = await request.json()
+        result = await sendWelcomeEmail(userName || 'Test User', testEmail, password)
         break
       
       case 'order':

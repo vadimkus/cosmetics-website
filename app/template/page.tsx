@@ -2,10 +2,15 @@
 
 import { useState } from 'react'
 
+type TemplateType = 'welcome' | 'order-shipped' | 'order-confirmed'
+
 export default function EmailTemplatePage() {
+  const [templateType, setTemplateType] = useState<TemplateType>('order-shipped')
   const [userName, setUserName] = useState('John Doe')
   const [userEmail, setUserEmail] = useState('user@example.com')
   const [password, setPassword] = useState('MySecurePassword123!')
+  const [orderNumber, setOrderNumber] = useState('ORD-2024-001')
+  const [orderTotal, setOrderTotal] = useState('456.75')
 
   // Generate welcome email template (same as in lib/email.ts)
   const generateWelcomeEmail = (name: string, email: string, pwd?: string) => {
@@ -53,7 +58,9 @@ export default function EmailTemplatePage() {
         </div>
         
         <div style="border-top: 1px solid #e5e7eb; padding-top: 20px; text-align: center;">
-          <img src="https://genosys.ae/_next/image?url=%2FLogo%2FupLOGO.png&w=384&q=75" alt="Genosys Logo" style="max-width: 170px; height: auto; margin: 0 auto 15px; display: block;" />
+          <a href="${siteUrl}/products" style="display: block; margin: 0 auto 15px; max-width: 170px;">
+            <img src="https://genosys.ae/_next/image?url=%2FLogo%2FupLOGO.png&w=384&q=75" alt="Genosys Logo" style="max-width: 170px; height: auto; margin: 0 auto; display: block;" />
+          </a>
           <p style="color: #6b7280; font-size: 14px; margin: 8px 0;">
             Official Distributor in the UAE.
           </p>
@@ -66,58 +73,283 @@ export default function EmailTemplatePage() {
     }
   }
 
-  const template = generateWelcomeEmail(userName, userEmail, password)
+  // Generate order shipped email template
+  const generateOrderShippedEmail = (name: string, orderNum: string, total: string) => {
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
+    const totalNum = parseFloat(total) || 0
+    return {
+      subject: `Order Shipped #${orderNum} > Genosys Middle East FZ-LLC`,
+      html: `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 2px solid #dc2626;">
+        <div style="text-align: center; margin-bottom: 30px;">
+          <h1 style="color: #dc2626; margin: 0;">Genosys Middle East FZ-LLC</h1>
+          <p style="color: #666; margin: 5px 0;">United Arab Emirates <span style="font-size: 0.8em;">❤️</span></p>
+        </div>
+        
+        <div style="background: white; padding: 30px; border-radius: 10px; margin-bottom: 20px; border: 1px solid #e5e7eb;">
+          <h2 style="color: #374151; margin: 0 0 15px 0;">${name},</h2>
+          <p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 0 0 20px 0;">
+            Your order has been <u>shipped.</u>
+          </p>
+          <div style="background: #f9fafb; padding: 18px 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e5e7eb;">
+            <h3 style="color: #374151; margin: 0 0 12px 0; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">
+              <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/profile" style="color: #374151; text-decoration: none;">Order details:</a>
+            </h3>
+            <p style="color: #6b7280; font-size: 13px; line-height: 1.6; margin: 6px 0;">
+              <span style="color: #9ca3af;">Order number:</span> <strong style="color: #374151;">#${orderNum}</strong>
+            </p>
+            ${totalNum > 0 ? `
+            <p style="color: #6b7280; font-size: 13px; line-height: 1.6; margin: 6px 0;">
+              <span style="color: #9ca3af;">Total:</span> <strong style="color: #374151;">AED ${totalNum.toFixed(2)}</strong>
+            </p>
+            ` : ''}
+          </div>
+        </div>
+        
+        <div style="text-align: center; margin: 30px 0;">
+          <a href="https://wa.me/971585487665?text=${encodeURIComponent(`Hi! I need help with my order #${orderNum}. Can you assist me?`)}" 
+             style="background: #128C7E; 
+                    color: white; 
+                    padding: 10px 24px; 
+                    text-decoration: none; 
+                    border-radius: 4px; 
+                    font-weight: bold; 
+                    font-size: 14px;
+                    display: inline-block;
+                    letter-spacing: 0.3px;">
+            Contact us: WhatsApp
+          </a>
+        </div>
+        
+        <div style="border-top: 1px solid #e5e7eb; padding-top: 20px; text-align: center;">
+          <a href="${siteUrl}/products" style="display: block; margin: 0 auto 15px; max-width: 170px;">
+            <img src="https://genosys.ae/_next/image?url=%2FLogo%2FupLOGO.png&w=384&q=75" alt="Genosys Logo" style="max-width: 170px; height: auto; margin: 0 auto; display: block;" />
+          </a>
+          <p style="color: #6b7280; font-size: 14px; margin: 8px 0;">
+            Official Distributor in the UAE.
+          </p>
+          <p style="color: #6b7280; font-size: 12px; margin: 8px 0 0;">
+            © 2026 Genosys Middle East FZ-LLC. All rights reserved.
+          </p>
+        </div>
+      </div>
+    `
+    }
+  }
+
+  // Generate order confirmed email template
+  const generateOrderConfirmedEmail = (name: string, orderNum: string, total: string) => {
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
+    const totalNum = parseFloat(total) || 0
+    return {
+      subject: `Order Confirmed #${orderNum} > Genosys Middle East FZ-LLC`,
+      html: `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 2px solid #dc2626;">
+        <div style="text-align: center; margin-bottom: 30px;">
+          <h1 style="color: #dc2626; margin: 0;">Genosys Middle East FZ-LLC</h1>
+          <p style="color: #666; margin: 5px 0;">United Arab Emirates <span style="font-size: 0.8em;">❤️</span></p>
+        </div>
+        
+        <div style="background: white; padding: 30px; border-radius: 10px; margin-bottom: 20px; border: 1px solid #e5e7eb;">
+          <h2 style="color: #374151; margin: 0 0 15px 0;">${name},</h2>
+          <p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 0 0 20px 0;">
+            Your order has been received and is being <u>processed.</u>
+          </p>
+          <div style="background: #f9fafb; padding: 18px 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e5e7eb;">
+            <h3 style="color: #374151; margin: 0 0 12px 0; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">
+              <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/profile" style="color: #374151; text-decoration: none;">Order details:</a>
+            </h3>
+            <p style="color: #6b7280; font-size: 13px; line-height: 1.6; margin: 6px 0;">
+              <span style="color: #9ca3af;">Order number:</span> <strong style="color: #374151;">#${orderNum}</strong>
+            </p>
+            ${totalNum > 0 ? `
+            <p style="color: #6b7280; font-size: 13px; line-height: 1.6; margin: 6px 0;">
+              <span style="color: #9ca3af;">Total:</span> <strong style="color: #374151;">AED ${totalNum.toFixed(2)}</strong>
+            </p>
+            ` : ''}
+          </div>
+        </div>
+        
+        <div style="text-align: center; margin: 30px 0;">
+          <a href="https://wa.me/971585487665?text=${encodeURIComponent(`Hi! I need help with my order #${orderNum}. Can you assist me?`)}" 
+             style="background: #128C7E; 
+                    color: white; 
+                    padding: 10px 24px; 
+                    text-decoration: none; 
+                    border-radius: 4px; 
+                    font-weight: bold; 
+                    font-size: 14px;
+                    display: inline-block;
+                    letter-spacing: 0.3px;">
+            Contact us: WhatsApp
+          </a>
+        </div>
+        
+        <div style="border-top: 1px solid #e5e7eb; padding-top: 20px; text-align: center;">
+          <a href="${siteUrl}/products" style="display: block; margin: 0 auto 15px; max-width: 170px;">
+            <img src="https://genosys.ae/_next/image?url=%2FLogo%2FupLOGO.png&w=384&q=75" alt="Genosys Logo" style="max-width: 170px; height: auto; margin: 0 auto; display: block;" />
+          </a>
+          <p style="color: #6b7280; font-size: 14px; margin: 8px 0;">
+            Official Distributor in the UAE.
+          </p>
+          <p style="color: #6b7280; font-size: 12px; margin: 8px 0 0;">
+            © 2026 Genosys Middle East FZ-LLC. All rights reserved.
+          </p>
+        </div>
+      </div>
+    `
+    }
+  }
+
+  const getTemplate = () => {
+    switch (templateType) {
+      case 'welcome':
+        return generateWelcomeEmail(userName, userEmail, password)
+      case 'order-shipped':
+        return generateOrderShippedEmail(userName, orderNumber, orderTotal)
+      case 'order-confirmed':
+        return generateOrderConfirmedEmail(userName, orderNumber, orderTotal)
+      default:
+        return generateOrderShippedEmail(userName, orderNumber, orderTotal)
+    }
+  }
+
+  const template = getTemplate()
+
+  const getTemplateName = () => {
+    switch (templateType) {
+      case 'welcome':
+        return 'Welcome Email (Registration Confirmation)'
+      case 'order-shipped':
+        return 'Order Shipped Email'
+      case 'order-confirmed':
+        return 'Order Confirmed Email'
+      default:
+        return 'Order Shipped Email'
+    }
+  }
 
   return (
     <div className="min-h-screen bg-gray-100 py-8 px-4">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="bg-white rounded-lg shadow-md p-6 mb-6">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Email Confirmation Template</h1>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">Email Template Preview</h1>
           <p className="text-gray-600 mb-4">
-            This is the email template that users receive when they register with Genosys
+            Preview and customize email templates for Genosys Middle East FZ-LLC
           </p>
+          
+          {/* Template Type Selector */}
+          <div className="mb-6">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Template Type
+            </label>
+            <div className="flex gap-2">
+              <button
+                onClick={() => setTemplateType('order-shipped')}
+                className={`px-4 py-2 rounded-md font-medium transition-colors ${
+                  templateType === 'order-shipped'
+                    ? 'bg-red-600 text-white'
+                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                }`}
+              >
+                Order Shipped
+              </button>
+              <button
+                onClick={() => setTemplateType('order-confirmed')}
+                className={`px-4 py-2 rounded-md font-medium transition-colors ${
+                  templateType === 'order-confirmed'
+                    ? 'bg-red-600 text-white'
+                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                }`}
+              >
+                Order Confirmed
+              </button>
+              <button
+                onClick={() => setTemplateType('welcome')}
+                className={`px-4 py-2 rounded-md font-medium transition-colors ${
+                  templateType === 'welcome'
+                    ? 'bg-red-600 text-white'
+                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                }`}
+              >
+                Welcome Email
+              </button>
+            </div>
+          </div>
           
           {/* Controls */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                User Name
+                Customer Name
               </label>
               <input
                 type="text"
                 value={userName}
                 onChange={(e) => setUserName(e.target.value)}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
-                placeholder="Enter user name"
+                placeholder="Enter customer name"
               />
             </div>
             
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                User Email
+                Customer Email
               </label>
               <input
                 type="email"
                 value={userEmail}
                 onChange={(e) => setUserEmail(e.target.value)}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
-                placeholder="Enter user email"
+                placeholder="Enter customer email"
               />
             </div>
             
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Password
-              </label>
-              <input
-                type="text"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
-                placeholder="Enter password"
-              />
-            </div>
+            {templateType === 'welcome' && (
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Password
+                </label>
+                <input
+                  type="text"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
+                  placeholder="Enter password"
+                />
+              </div>
+            )}
+            
+            {(templateType === 'order-shipped' || templateType === 'order-confirmed') && (
+              <>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Order Number
+                  </label>
+                  <input
+                    type="text"
+                    value={orderNumber}
+                    onChange={(e) => setOrderNumber(e.target.value)}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
+                    placeholder="Enter order number"
+                  />
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Order Total (AED)
+                  </label>
+                  <input
+                    type="text"
+                    value={orderTotal}
+                    onChange={(e) => setOrderTotal(e.target.value)}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
+                    placeholder="Enter order total"
+                  />
+                </div>
+              </>
+            )}
           </div>
         </div>
 
@@ -161,7 +393,7 @@ export default function EmailTemplatePage() {
             </div>
             <div>
               <span className="font-medium text-gray-700">Template:</span>
-              <span className="ml-2 text-gray-600">Welcome Email (Registration Confirmation)</span>
+              <span className="ml-2 text-gray-600">{getTemplateName()}</span>
             </div>
           </div>
         </div>

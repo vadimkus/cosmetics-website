@@ -25,28 +25,17 @@ export default function LoginClient() {
       const error = searchParams.get('error')
 
       if (success === 'google_signin' && email) {
-        // Google sign-in successful - fetch user from session
-        fetch('/api/auth/session')
-          .then(res => res.json())
-          .then(data => {
-            if (data.user) {
-              // User will be set by AuthProvider checking session
-              // Just redirect to products after a short delay
-              setTimeout(() => {
-                router.push(getLocalizedPath('/products', locale))
-              }, 500)
-            } else {
-              // Fallback: try to refresh using email from URL
-              forceRefreshUser().then(() => {
-                router.replace(getLocalizedPath('/login', locale))
-              })
-            }
+        // Google sign-in successful - force refresh user data to get latest profile picture
+        forceRefreshUser()
+          .then(() => {
+            // Redirect to products after refresh completes
+            setTimeout(() => {
+              router.push(getLocalizedPath('/products', locale))
+            }, 300)
           })
           .catch(() => {
-            // Fallback: try to refresh using email from URL
-            forceRefreshUser().then(() => {
-              router.replace(getLocalizedPath('/login', locale))
-            })
+            // Even if refresh fails, redirect to products (session cookie should work)
+            router.push(getLocalizedPath('/products', locale))
           })
       } else if (error) {
         // Handle errors

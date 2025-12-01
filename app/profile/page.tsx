@@ -120,6 +120,52 @@ export default function ProfilePageRefactored() {
   // Initialize profile picture and customer number when user loads
   useEffect(() => {
     if (user) {
+      // Debug: Log profile picture to help troubleshoot (always log, not just in dev)
+      console.log('🔍 Profile Page - User data:', {
+        email: user.email,
+        name: user.name,
+        profilePicture: user.profilePicture,
+        hasProfilePicture: !!user.profilePicture,
+        profilePictureType: typeof user.profilePicture,
+        profilePictureLength: user.profilePicture?.length || 0,
+        fullUser: user
+      })
+      
+      // Check profile picture via debug endpoint
+      fetch('/api/debug/profile-picture')
+        .then(res => res.json())
+        .then(data => {
+          console.log('🔍 Debug Profile Picture API Response:', JSON.stringify(data, null, 2))
+          console.log('🔍 Profile Picture Details:', {
+            exists: data.profilePicture?.exists,
+            value: data.profilePicture?.value,
+            isNull: data.profilePicture?.isNull,
+            isUndefined: data.profilePicture?.isUndefined,
+            length: data.profilePicture?.length,
+            preview: data.profilePicture?.preview,
+            userFromDB: data.userFromDatabase?.profilePicture
+          })
+          if (data.success && data.profilePicture.exists && !user.profilePicture) {
+            console.log('⚠️ Profile picture exists in DB but not in user object - refreshing...')
+            console.log('⚠️ DB has:', data.profilePicture.value)
+            console.log('⚠️ User object has:', user.profilePicture)
+            forceRefreshUser().catch(err => {
+              console.error('Error refreshing user:', err)
+            })
+          }
+        })
+        .catch(err => {
+          console.error('Error checking profile picture:', err)
+        })
+      
+      // If no profile picture but user is logged in, try to refresh from server
+      if (!user.profilePicture) {
+        console.log('⚠️ No profile picture found in user object, attempting to refresh user data...')
+        forceRefreshUser().catch(err => {
+          console.error('Error refreshing user:', err)
+        })
+      }
+      
       setProfilePicture(user.profilePicture || null)
       setPreviewImage(user.profilePicture || null)
       
@@ -144,6 +190,20 @@ export default function ProfilePageRefactored() {
       }
     }
   }, [user])
+  
+  // Force refresh user data when component mounts (in case profile picture was just set)
+  useEffect(() => {
+    if (user && !user.profilePicture) {
+      // If user is logged in but no profile picture, try refreshing once
+      const timer = setTimeout(() => {
+        forceRefreshUser().catch(err => {
+          errorLog('Error refreshing user for profile picture:', err)
+        })
+      }, 1000)
+      return () => clearTimeout(timer)
+    }
+    return undefined
+  }, [user, forceRefreshUser])
 
   // Fetch user orders
   useEffect(() => {
@@ -291,7 +351,7 @@ export default function ProfilePageRefactored() {
         localStorage.removeItem(LOCAL_STORAGE_KEYS.CUSTOMER_NUMBER(user.id))
         
         // Immediately logout and redirect
-        logout()
+        await logout()
         router.push('/')
         
         // Show success message after redirect
@@ -354,8 +414,18 @@ export default function ProfilePageRefactored() {
 
   // Show loading or nothing while redirecting
   if (!user) {
+    console.log('⚠️ Profile Page - No user found, redirecting to login...')
     return null
   }
+  
+  // Always log user data when profile page renders
+  console.log('✅ Profile Page Rendered - User:', {
+    email: user.email,
+    name: user.name,
+    profilePicture: user.profilePicture,
+    hasProfilePicture: !!user.profilePicture,
+    profilePictureURL: user.profilePicture || 'NO PICTURE'
+  })
 
   return (
     <div className="min-h-screen bg-white">

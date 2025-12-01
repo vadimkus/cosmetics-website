@@ -24,7 +24,7 @@ interface AuthContextType {
   login: (email: string, password: string) => Promise<boolean>
   loginWithGoogle: () => Promise<void>
   register: (name: string, email: string, password: string, phone: string, address: string, emirate: string, birthday?: string) => Promise<boolean>
-  logout: () => void
+  logout: () => Promise<void>
   refreshUser: () => Promise<void>
   forceRefreshUser: () => Promise<void>
   isLoading: boolean
@@ -54,10 +54,12 @@ export default function AuthProvider({ children }: AuthProviderProps) {
     setIsClient(true)
     if (typeof window !== 'undefined') {
       // First, try to get user from session cookie (for Google OAuth or server-set sessions)
+      // This ensures profilePicture from Google is included
       fetch('/api/auth/session')
         .then(res => res.json())
         .then(data => {
           if (data.user) {
+            // Session user includes profilePicture from database
             setUser(data.user)
             setIsLoading(false)
             return
@@ -67,7 +69,27 @@ export default function AuthProvider({ children }: AuthProviderProps) {
           const savedUser = localStorage.getItem('genosys_user')
           if (savedUser) {
             try {
-              setUser(JSON.parse(savedUser))
+              const parsedUser = JSON.parse(savedUser)
+              // If we have a session cookie but no user from session API, 
+              // try refreshing once more (might be a timing issue after Google login)
+              const sessionCookie = document.cookie.split(';').find(c => c.trim().startsWith('genosys_session='))
+              if (sessionCookie && !data.user) {
+                // Session cookie exists but no user returned - try again after a short delay
+                setTimeout(() => {
+                  fetch('/api/auth/session')
+                    .then(res => res.json())
+                    .then(refreshData => {
+                      if (refreshData.user) {
+                        setUser(refreshData.user)
+                      } else {
+                        setUser(parsedUser)
+                      }
+                    })
+                    .catch(() => setUser(parsedUser))
+                }, 500)
+              } else {
+                setUser(parsedUser)
+              }
             } catch (error) {
               errorLog('Error parsing saved user:', error)
               localStorage.removeItem('genosys_user')
@@ -346,27 +368,53 @@ export default function AuthProvider({ children }: AuthProviderProps) {
   }, [user])
 
   const forceRefreshUser = useCallback(async (): Promise<void> => {
-    if (!user) return
-    
     try {
-      // Fetch the latest user data from the server
-      const response = await fetch('/api/auth/refresh', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email: user.email }),
-      })
-
-      if (response.ok) {
-        const data = await response.json()
-        if (data.user) {
-          // Use server data directly without merging with existing data
-          setUser(data.user)
+      // First try to get user from session cookie (works for Google OAuth and regular login)
+      const sessionResponse = await fetch('/api/auth/session')
+      if (sessionResponse.ok) {
+        const sessionData = await sessionResponse.json()
+        if (sessionData.user) {
+          // Debug: Log profile picture (always log for troubleshooting)
+          console.log('🔍 AuthProvider - User from session API:', {
+            email: sessionData.user.email,
+            profilePicture: sessionData.user.profilePicture,
+            hasProfilePicture: !!sessionData.user.profilePicture,
+            profilePictureLength: sessionData.user.profilePicture?.length || 0
+          })
+          // Use session data directly - includes profilePicture from database
+          setUser(sessionData.user)
+          return
         }
-      } else if (response.status === 404) {
-        // User not found - might have been deleted
-        return
+      }
+      
+      // Fallback to refresh endpoint if user email is available
+      if (user?.email) {
+        const response = await fetch('/api/auth/refresh', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email: user.email }),
+        })
+
+        if (response.ok) {
+          const data = await response.json()
+          if (data.user) {
+            // Debug: Log profile picture in development
+            if (process.env.NODE_ENV === 'development') {
+              console.log('AuthProvider - Refreshed user from refresh endpoint:', {
+                email: data.user.email,
+                profilePicture: data.user.profilePicture,
+                hasProfilePicture: !!data.user.profilePicture
+              })
+            }
+            // Use server data directly without merging with existing data
+            setUser(data.user)
+          }
+        } else if (response.status === 404) {
+          // User not found - might have been deleted
+          return
+        }
       }
       // For other errors, silently fail
     } catch (error) {
@@ -391,10 +439,26 @@ export default function AuthProvider({ children }: AuthProviderProps) {
     }
   }
 
-  const logout = () => {
+  const logout = async () => {
+    try {
+      // Clear session cookie on server
+      await fetch('/api/auth/logout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+    } catch (error) {
+      // Even if API call fails, continue with logout
+      errorLog('Error calling logout API:', error)
+    }
+    
+    // Clear local state
     setUser(null)
-    // Redirect to login page after logout
     if (typeof window !== 'undefined') {
+      // Clear localStorage
+      localStorage.removeItem('genosys_user')
+      // Redirect to login page after logout
       window.location.href = '/login'
     }
   }
@@ -417,7 +481,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
       login: async () => false,
       loginWithGoogle: async () => {},
       register: async (_name: string, _email: string, _password: string, _phone: string, _address: string, _emirate: string, _birthday?: string) => false,
-      logout: () => {},
+      logout: async () => {},
       refreshUser: async () => {},
       forceRefreshUser: async () => {},
       isLoading: true

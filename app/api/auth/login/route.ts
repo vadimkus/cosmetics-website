@@ -176,6 +176,7 @@ export async function POST(request: NextRequest) {
       name: updatedUser.name,
       isAdmin: updatedUser.isAdmin || false,
       canSeePrices: updatedUser.canSeePrices !== undefined ? updatedUser.canSeePrices : true,
+      profilePicture: updatedUser.profilePicture || null,
     }
     
     const response = NextResponse.json({

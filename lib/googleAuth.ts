@@ -112,9 +112,72 @@ export async function exchangeCodeForTokens(
 }
 
 /**
- * Verify Google ID token and get user information
+ * Fetch user info from Google using access token
+ * This is more reliable than ID token for getting profile picture
  */
-export async function verifyGoogleIdToken(idToken: string): Promise<{
+export async function fetchGoogleUserInfo(accessToken: string): Promise<{
+  email: string
+  name: string
+  picture?: string
+  sub: string
+} | null> {
+  try {
+    const response = await fetch('https://www.googleapis.com/oauth2/v2/userinfo', {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    })
+
+    if (!response.ok) {
+      errorLog('Failed to fetch user info from Google:', response.status, response.statusText)
+      return null
+    }
+
+    const userInfo = await response.json()
+    
+    debugLog('Google userinfo API response:', {
+      email: userInfo.email,
+      name: userInfo.name,
+      picture: userInfo.picture,
+      hasPicture: !!userInfo.picture,
+      pictureLength: userInfo.picture?.length || 0
+    })
+
+    if (!userInfo.email || !userInfo.name || !userInfo.id) {
+      errorLog('Missing required fields in Google userinfo response')
+      return null
+    }
+
+    const result: {
+      email: string
+      name: string
+      sub: string
+      picture?: string
+    } = {
+      email: userInfo.email,
+      name: userInfo.name,
+      sub: userInfo.id,
+    }
+    
+    if (userInfo.picture) {
+      result.picture = userInfo.picture
+      debugLog('Google picture URL from userinfo API:', userInfo.picture.substring(0, 50) + '...')
+    } else {
+      debugLog('⚠️ No picture in Google userinfo API response')
+    }
+    
+    return result
+  } catch (error) {
+    errorLog('Error fetching user info from Google:', error)
+    return null
+  }
+}
+
+/**
+ * Verify Google ID token and get user information
+ * Falls back to userinfo API if picture is missing from ID token
+ */
+export async function verifyGoogleIdToken(idToken: string, accessToken?: string): Promise<{
   email: string
   name: string
   picture?: string
@@ -144,7 +207,7 @@ export async function verifyGoogleIdToken(idToken: string): Promise<{
 
     const email = payload.email
     const name = payload.name
-    const picture = payload.picture
+    let picture = payload.picture
     const sub = payload.sub
 
     if (!email || !name || !sub) {
@@ -152,7 +215,23 @@ export async function verifyGoogleIdToken(idToken: string): Promise<{
       return null
     }
 
-    debugLog('Google ID token verified successfully:', { email, name })
+    debugLog('Google ID token verified successfully:', { 
+      email, 
+      name, 
+      picture,
+      hasPicture: !!picture,
+      pictureLength: picture?.length || 0
+    })
+
+    // If no picture in ID token, try fetching from userinfo API
+    if (!picture && accessToken) {
+      debugLog('No picture in ID token, fetching from userinfo API...')
+      const userInfo = await fetchGoogleUserInfo(accessToken)
+      if (userInfo?.picture) {
+        picture = userInfo.picture
+        debugLog('Got picture from userinfo API:', picture.substring(0, 50) + '...')
+      }
+    }
 
     const result: {
       email: string
@@ -168,6 +247,9 @@ export async function verifyGoogleIdToken(idToken: string): Promise<{
     // Only include picture if it exists
     if (picture) {
       result.picture = picture
+      debugLog('Google picture URL included:', picture.substring(0, 50) + '...')
+    } else {
+      debugLog('⚠️ No picture available from Google (neither ID token nor userinfo API)')
     }
     
     return result

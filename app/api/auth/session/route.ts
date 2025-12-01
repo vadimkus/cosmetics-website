@@ -36,6 +36,19 @@ export async function GET(request: NextRequest) {
     // Return user data (without password)
     const { password: _, ...userWithoutPassword } = user
     
+    // Debug logging for profile picture (always log for troubleshooting)
+    console.log('[SESSION_API] User profile picture:', {
+      email: user.email,
+      profilePicture: user.profilePicture,
+      profilePictureType: typeof user.profilePicture,
+      isNull: user.profilePicture === null,
+      isUndefined: user.profilePicture === undefined,
+      hasProfilePicture: !!user.profilePicture,
+      profilePictureLength: user.profilePicture?.length || 0,
+      profilePicturePreview: user.profilePicture ? user.profilePicture.substring(0, 50) + '...' : 'N/A',
+      fullUserObject: JSON.stringify(userWithoutPassword, null, 2)
+    })
+    
     return NextResponse.json({ 
       user: userWithoutPassword 
     })

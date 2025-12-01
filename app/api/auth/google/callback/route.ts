@@ -109,8 +109,9 @@ export async function GET(request: NextRequest) {
     }
 
     // Verify ID token and get user info
+    // Pass access token to fetch picture from userinfo API if not in ID token
     debugLog('[GOOGLE_CALLBACK] Verifying ID token...')
-    const googleUser = await verifyGoogleIdToken(tokens.idToken)
+    const googleUser = await verifyGoogleIdToken(tokens.idToken, tokens.accessToken)
     if (!googleUser) {
       errorLog('[GOOGLE_CALLBACK] Failed to verify ID token')
       return NextResponse.redirect(
@@ -118,7 +119,12 @@ export async function GET(request: NextRequest) {
       )
     }
 
-    debugLog('[GOOGLE_CALLBACK] Google user verified:', { email: googleUser.email })
+    debugLog('[GOOGLE_CALLBACK] Google user verified:', { 
+      email: googleUser.email, 
+      name: googleUser.name,
+      picture: googleUser.picture,
+      hasPicture: !!googleUser.picture 
+    })
 
     // Find or create user
     let user = await findUserByEmail(googleUser.email)
@@ -137,7 +143,12 @@ export async function GET(request: NextRequest) {
           isAdmin: false,
           canSeePrices: true,
         })
-        debugLog('[GOOGLE_CALLBACK] New user created:', { id: user.id, email: user.email })
+        debugLog('[GOOGLE_CALLBACK] New user created:', { 
+          id: user.id, 
+          email: user.email,
+          profilePicture: user.profilePicture,
+          hasProfilePicture: !!user.profilePicture
+        })
       } catch (error) {
         errorLog('[GOOGLE_CALLBACK] Error creating user:', error)
         return NextResponse.redirect(
@@ -145,11 +156,31 @@ export async function GET(request: NextRequest) {
         )
       }
     } else {
-      // Existing user - update profile picture if available and not set
-      if (googleUser.picture && !user.profilePicture) {
+      // Existing user - always update profile picture with Google picture if available
+      debugLog('[GOOGLE_CALLBACK] Existing user found:', {
+        id: user.id,
+        email: user.email,
+        currentProfilePicture: user.profilePicture,
+        googlePicture: googleUser.picture,
+        willUpdate: !!googleUser.picture
+      })
+      
+      if (googleUser.picture) {
         debugLog('[GOOGLE_CALLBACK] Updating profile picture for existing user...')
-        await updateUser(user.id, { profilePicture: googleUser.picture })
-        user.profilePicture = googleUser.picture
+        const updateResult = await updateUser(user.id, { profilePicture: googleUser.picture })
+        debugLog('[GOOGLE_CALLBACK] Profile picture update result:', updateResult)
+        
+        // Fetch updated user to verify picture was saved
+        const updatedUser = await findUserByEmail(googleUser.email)
+        if (updatedUser) {
+          user = updatedUser
+          debugLog('[GOOGLE_CALLBACK] User after update:', {
+            profilePicture: user.profilePicture,
+            hasProfilePicture: !!user.profilePicture
+          })
+        }
+      } else {
+        debugLog('[GOOGLE_CALLBACK] No picture provided by Google, skipping update')
       }
 
       // Update last login timestamp
@@ -190,6 +221,7 @@ export async function GET(request: NextRequest) {
       name: user.name,
       isAdmin: user.isAdmin || false,
       canSeePrices: user.canSeePrices !== undefined ? user.canSeePrices : true,
+      profilePicture: user.profilePicture || null,
     }
 
     response.cookies.set('genosys_session', JSON.stringify(userSessionData), {

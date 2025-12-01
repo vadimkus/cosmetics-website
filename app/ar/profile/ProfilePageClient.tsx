@@ -281,7 +281,7 @@ export default function ProfilePageClient() {
         localStorage.removeItem(LOCAL_STORAGE_KEYS.USER)
         localStorage.removeItem(LOCAL_STORAGE_KEYS.CUSTOMER_NUMBER(user.id))
         
-        logout()
+        await logout()
         router.push(getLocalizedPath('/', locale))
         
         setTimeout(() => {

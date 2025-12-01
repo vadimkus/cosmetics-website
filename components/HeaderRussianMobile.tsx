@@ -13,14 +13,18 @@ import { useState, useEffect } from 'react'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 
-export default function HeaderRussianMobile() {
+interface HeaderRussianMobileProps {
+  showMobileMenu: boolean
+  setShowMobileMenu: (show: boolean) => void
+}
+
+export default function HeaderRussianMobile({ showMobileMenu, setShowMobileMenu }: HeaderRussianMobileProps) {
   const { getTotalItems } = useCartStore()
   const { user } = useAuth()
   const { favorites } = useFavorites()
   const { t } = useTranslation()
   const [showLoginModal, setShowLoginModal] = useState(false)
   const [isLoginMode, setIsLoginMode] = useState(true)
-  const [showMobileMenu, setShowMobileMenu] = useState(false)
   const [isClient, setIsClient] = useState(false)
 
   useEffect(() => {
@@ -97,112 +101,6 @@ export default function HeaderRussianMobile() {
         </Link>
       </div>
 
-      {/* Mobile Navigation Menu for Russian */}
-      {showMobileMenu && (
-        <div className="md:hidden bg-white border-t" role="navigation" aria-label="Мобильная навигация">
-          <div className="container mx-auto px-3 py-3">
-            <nav className="grid grid-cols-3 gap-1">
-              <Link 
-                href={`${getLocalizedPath('/', 'ru')}?full=true`} 
-                className="text-gray-700 hover:text-primary-600 hover:bg-gray-50 transition-colors py-2.5 px-3 rounded-lg text-sm font-medium touch-manipulation flex items-center"
-                onClick={() => setShowMobileMenu(false)}
-              >
-                {t('navigation.home')}
-              </Link>
-              <Link 
-                href={getLocalizedPath('/about', 'ru')} 
-                className="text-gray-700 hover:text-primary-600 hover:bg-gray-50 transition-colors py-2.5 px-3 rounded-lg text-sm touch-manipulation flex items-center"
-                onClick={() => setShowMobileMenu(false)}
-              >
-                {t('navigation.about')}
-              </Link>
-              <Link 
-                href={getLocalizedPath('/brand', 'ru')} 
-                className="text-gray-700 hover:text-primary-600 hover:bg-gray-50 transition-colors py-2.5 px-3 rounded-lg text-sm touch-manipulation flex items-center"
-                onClick={() => setShowMobileMenu(false)}
-              >
-                {t('navigation.brand')}
-              </Link>
-              <Link 
-                href={getLocalizedPath('/products', 'ru')} 
-                className="text-gray-700 hover:text-primary-600 hover:bg-gray-50 transition-colors py-2.5 px-3 rounded-lg text-sm touch-manipulation flex items-center"
-                onClick={() => setShowMobileMenu(false)}
-              >
-                {t('navigation.products')}
-              </Link>
-              {isClient && user && (
-                <Link 
-                  href={getLocalizedPath('/training', 'ru')} 
-                  className="text-gray-700 hover:text-primary-600 hover:bg-gray-50 transition-colors py-2.5 px-3 rounded-lg text-sm touch-manipulation flex items-center"
-                  onClick={() => setShowMobileMenu(false)}
-                >
-                  {t('navigation.training')}
-                </Link>
-              )}
-              <Link 
-                href={getLocalizedPath('/contact', 'ru')} 
-                className="text-gray-700 hover:text-primary-600 hover:bg-gray-50 transition-colors py-2.5 px-3 rounded-lg text-sm touch-manipulation flex items-center"
-                onClick={() => setShowMobileMenu(false)}
-              >
-                {t('navigation.contact')}
-              </Link>
-              <Link 
-                href={getLocalizedPath('/delivery', 'ru')}
-                className="text-gray-700 hover:text-primary-600 hover:bg-gray-50 transition-colors py-2.5 px-3 rounded-lg text-sm touch-manipulation flex items-center"
-                onClick={() => setShowMobileMenu(false)}
-              >
-                {t('navigation.delivery')}
-              </Link>
-              <Link 
-                href={getLocalizedPath('/faq', 'ru')}
-                className="text-gray-700 hover:text-primary-600 hover:bg-gray-50 transition-colors py-2.5 px-3 rounded-lg text-sm touch-manipulation flex items-center"
-                onClick={() => setShowMobileMenu(false)}
-              >
-                {t('navigation.faq')}
-              </Link>
-              <Link 
-                href={getLocalizedPath('/blog', 'ru')}
-                className="text-gray-700 hover:text-primary-600 hover:bg-gray-50 transition-colors py-2.5 px-3 rounded-lg text-sm touch-manipulation flex items-center"
-                onClick={() => setShowMobileMenu(false)}
-              >
-                {t('navigation.blog')}
-              </Link>
-              <Link 
-                href={getLocalizedPath('/locations', 'ru')}
-                className="text-gray-700 hover:text-primary-600 hover:bg-gray-50 transition-colors py-2.5 px-3 rounded-lg text-sm touch-manipulation flex items-center"
-                onClick={() => setShowMobileMenu(false)}
-              >
-                {t('navigation.locations')}
-              </Link>
-              <Link 
-                href={getLocalizedPath('/partners', 'ru')}
-                className="text-gray-700 hover:text-primary-600 hover:bg-gray-50 transition-colors py-2.5 px-3 rounded-lg text-sm touch-manipulation flex items-center"
-                onClick={() => setShowMobileMenu(false)}
-              >
-                {t('navigation.partners')}
-              </Link>
-              <div className="text-gray-700 hover:text-primary-600 hover:bg-gray-50 transition-colors py-2.5 px-3 rounded-lg text-sm touch-manipulation flex items-center">
-                <InstallLink 
-                  onClose={() => setShowMobileMenu(false)}
-                  className="w-full text-left text-gray-700 hover:text-primary-600 text-sm"
-                />
-              </div>
-              {isClient && user && (
-                <>
-                  <Link 
-                    href={getLocalizedPath('/profile', 'ru')} 
-                    className="text-gray-700 hover:text-primary-600 hover:bg-gray-50 transition-colors py-2.5 px-3 rounded-lg text-sm touch-manipulation flex items-center"
-                    onClick={() => setShowMobileMenu(false)}
-                  >
-                    {t('common.profile')}
-                  </Link>
-                </>
-              )}
-            </nav>
-          </div>
-        </div>
-      )}
-
       {/* Login Modal */}
       {showLoginModal && (
         <LoginModal 
@@ -213,6 +111,123 @@ export default function HeaderRussianMobile() {
         />
       )}
     </>
+  )
+}
+
+export function HeaderRussianMobileMenu({ showMobileMenu, setShowMobileMenu }: HeaderRussianMobileProps) {
+  const { user } = useAuth()
+  const { t } = useTranslation()
+  const [isClient, setIsClient] = useState(false)
+
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
+
+  if (!showMobileMenu) return null
+
+  return (
+    <div className="md:hidden bg-white border-t" role="navigation" aria-label="Мобильная навигация">
+      <div className="container mx-auto px-3 py-3">
+        <nav className="grid grid-cols-3 gap-1">
+          <Link 
+            href={`${getLocalizedPath('/', 'ru')}?full=true`} 
+            className="text-gray-700 hover:text-primary-600 hover:bg-gray-50 transition-colors py-2.5 px-3 rounded-lg text-sm font-medium touch-manipulation flex items-center"
+            onClick={() => setShowMobileMenu(false)}
+          >
+            {t('navigation.home')}
+          </Link>
+          <Link 
+            href={getLocalizedPath('/about', 'ru')} 
+            className="text-gray-700 hover:text-primary-600 hover:bg-gray-50 transition-colors py-2.5 px-3 rounded-lg text-sm touch-manipulation flex items-center"
+            onClick={() => setShowMobileMenu(false)}
+          >
+            {t('navigation.about')}
+          </Link>
+          <Link 
+            href={getLocalizedPath('/brand', 'ru')} 
+            className="text-gray-700 hover:text-primary-600 hover:bg-gray-50 transition-colors py-2.5 px-3 rounded-lg text-sm touch-manipulation flex items-center"
+            onClick={() => setShowMobileMenu(false)}
+          >
+            {t('navigation.brand')}
+          </Link>
+          <Link 
+            href={getLocalizedPath('/products', 'ru')} 
+            className="text-gray-700 hover:text-primary-600 hover:bg-gray-50 transition-colors py-2.5 px-3 rounded-lg text-sm touch-manipulation flex items-center"
+            onClick={() => setShowMobileMenu(false)}
+          >
+            {t('navigation.products')}
+          </Link>
+          {isClient && user && (
+            <Link 
+              href={getLocalizedPath('/training', 'ru')} 
+              className="text-gray-700 hover:text-primary-600 hover:bg-gray-50 transition-colors py-2.5 px-3 rounded-lg text-sm touch-manipulation flex items-center"
+              onClick={() => setShowMobileMenu(false)}
+            >
+              {t('navigation.training')}
+            </Link>
+          )}
+          <Link 
+            href={getLocalizedPath('/contact', 'ru')} 
+            className="text-gray-700 hover:text-primary-600 hover:bg-gray-50 transition-colors py-2.5 px-3 rounded-lg text-sm touch-manipulation flex items-center"
+            onClick={() => setShowMobileMenu(false)}
+          >
+            {t('navigation.contact')}
+          </Link>
+          <Link 
+            href={getLocalizedPath('/delivery', 'ru')}
+            className="text-gray-700 hover:text-primary-600 hover:bg-gray-50 transition-colors py-2.5 px-3 rounded-lg text-sm touch-manipulation flex items-center"
+            onClick={() => setShowMobileMenu(false)}
+          >
+            {t('navigation.delivery')}
+          </Link>
+          <Link 
+            href={getLocalizedPath('/faq', 'ru')}
+            className="text-gray-700 hover:text-primary-600 hover:bg-gray-50 transition-colors py-2.5 px-3 rounded-lg text-sm touch-manipulation flex items-center"
+            onClick={() => setShowMobileMenu(false)}
+          >
+            {t('navigation.faq')}
+          </Link>
+          <Link 
+            href={getLocalizedPath('/blog', 'ru')}
+            className="text-gray-700 hover:text-primary-600 hover:bg-gray-50 transition-colors py-2.5 px-3 rounded-lg text-sm touch-manipulation flex items-center"
+            onClick={() => setShowMobileMenu(false)}
+          >
+            {t('navigation.blog')}
+          </Link>
+          <Link 
+            href={getLocalizedPath('/locations', 'ru')}
+            className="text-gray-700 hover:text-primary-600 hover:bg-gray-50 transition-colors py-2.5 px-3 rounded-lg text-sm touch-manipulation flex items-center"
+            onClick={() => setShowMobileMenu(false)}
+          >
+            {t('navigation.locations')}
+          </Link>
+          <Link 
+            href={getLocalizedPath('/partners', 'ru')}
+            className="text-gray-700 hover:text-primary-600 hover:bg-gray-50 transition-colors py-2.5 px-3 rounded-lg text-sm touch-manipulation flex items-center"
+            onClick={() => setShowMobileMenu(false)}
+          >
+            {t('navigation.partners')}
+          </Link>
+          <div className="text-gray-700 hover:text-primary-600 hover:bg-gray-50 transition-colors py-2.5 px-3 rounded-lg text-sm touch-manipulation flex items-center">
+            <InstallLink 
+              onClose={() => setShowMobileMenu(false)}
+              className="w-full text-left text-gray-700 hover:text-primary-600 text-sm"
+            />
+          </div>
+          {isClient && user && (
+            <>
+              <Link 
+                href={getLocalizedPath('/profile', 'ru')} 
+                className="text-gray-700 hover:text-primary-600 hover:bg-gray-50 transition-colors py-2.5 px-3 rounded-lg text-sm touch-manipulation flex items-center"
+                onClick={() => setShowMobileMenu(false)}
+              >
+                {t('common.profile')}
+              </Link>
+            </>
+          )}
+        </nav>
+      </div>
+    </div>
   )
 }
 

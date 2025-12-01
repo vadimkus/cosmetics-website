@@ -10,7 +10,7 @@ import { useFavorites } from './FavoritesProvider'
 import LoginModal from './LoginModal'
 import LanguageSwitcher from './LanguageSwitcher'
 import InstallLink from './InstallLink'
-import HeaderRussianMobile from './HeaderRussianMobile'
+import HeaderRussianMobile, { HeaderRussianMobileMenu } from './HeaderRussianMobile'
 import HeaderRussianDesktop from './HeaderRussianDesktop'
 import { useState, useEffect, memo } from 'react'
 import { useTranslation } from '@/hooks/useTranslation'
@@ -58,7 +58,10 @@ const Header = memo(function Header() {
         <div className="flex items-center justify-between py-2 md:py-4 header-main-flex">
           {/* Mobile Icons - Russian Version */}
           {locale === 'ru' && (
-            <HeaderRussianMobile />
+            <HeaderRussianMobile 
+              showMobileMenu={showMobileMenu}
+              setShowMobileMenu={setShowMobileMenu}
+            />
           )}
           
           {/* Mobile Icons - English Version (LTR): hamburger, EN, man, heart, cart */}
@@ -469,7 +472,15 @@ const Header = memo(function Header() {
         </div>
       </div>
 
-      {/* Mobile Navigation Menu - Exclude Russian (handled by HeaderRussianMobile) */}
+      {/* Mobile Navigation Menu - Russian Version */}
+      {locale === 'ru' && (
+        <HeaderRussianMobileMenu 
+          showMobileMenu={showMobileMenu}
+          setShowMobileMenu={setShowMobileMenu}
+        />
+      )}
+
+      {/* Mobile Navigation Menu - Exclude Russian (handled by HeaderRussianMobileMenu) */}
       {showMobileMenu && locale !== 'ru' && (
         <div className="md:hidden bg-white border-t" role="navigation" aria-label="Mobile navigation">
           <div className="container mx-auto px-3 py-3">

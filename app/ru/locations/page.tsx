@@ -126,7 +126,7 @@ export default function RussianLocationsPage() {
           {/* Back to Home */}
           <Link href="/ru" className="inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 mb-4 md:mb-8">
             <ArrowLeft className="h-3 w-3 md:h-4 md:w-4" />
-            <span>Вернуться на главную</span>
+            <span>На главную</span>
           </Link>
 
           {/* Page Header */}

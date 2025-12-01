@@ -3,7 +3,7 @@
 import { useState, useMemo } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { ShoppingCart, Heart, Sparkles, ArrowRight, CheckCircle2, Info, Star } from 'lucide-react'
+import { ShoppingCart, Heart, Sparkles, ArrowRight, ArrowLeft, CheckCircle2, Info, Star } from 'lucide-react'
 import { useCart } from '@/components/CartProvider'
 import { useAuth } from '@/components/AuthProvider'
 import { useFavorites } from '@/components/FavoritesProvider'
@@ -278,47 +278,59 @@ export default function SkinRecommendationClient() {
         ]}
       />
 
+      <div className="container mx-auto px-3 md:px-4 py-4 md:py-16">
+        <div className="max-w-5xl mx-auto">
+          {/* Navigation Breadcrumb */}
+          <nav className={`text-xs md:text-base text-gray-600 mb-2 md:mb-4 ${dir === 'rtl' ? 'text-right' : ''}`} aria-label="Breadcrumb">
+            <Link href={getLocalizedPath('/', locale)} className="hover:text-primary-600 transition-colors">{t('common.home')}</Link>
+            <span> / </span>
+            <span className="text-gray-900 font-medium">{t('skinRecommendation.title')}</span>
+          </nav>
+          
+          {/* Back to Home */}
+          <Link href={getLocalizedPath('/', locale)} className={`inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 mb-4 md:mb-8 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+            <ArrowLeft className={`h-3 w-3 md:h-4 md:w-4 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
+            <span>{t('common.backToHome')}</span>
+          </Link>
+
       {!showResults ? (
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+        <>
           {/* Header */}
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center justify-center w-20 h-20 bg-primary-100 rounded-full mb-6">
-              <Sparkles className="w-10 h-10 text-primary-600" />
-            </div>
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          <div className="text-center mb-6 md:mb-12">
+            <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-2 md:mb-4">
               {t('skinRecommendation.title')}
             </h1>
-            <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
+            <p className="text-sm md:text-lg lg:text-xl text-gray-600 max-w-2xl mx-auto">
               {t('skinRecommendation.subtitle')}
             </p>
           </div>
 
           {/* Progress Indicator */}
-          <div className="mb-8">
+          <div className="mb-4 md:mb-8">
             <div className={`flex items-center justify-between mb-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-              <span className="text-sm font-medium text-gray-700">{t('skinRecommendation.step')} {currentStep} {t('skinRecommendation.of')} 4</span>
-              <span className="text-sm text-gray-500">{Math.round((currentStep / 4) * 100)}% {t('skinRecommendation.complete')}</span>
+              <span className="text-xs md:text-sm font-medium text-gray-700">{t('skinRecommendation.step')} {currentStep} {t('skinRecommendation.of')} 4</span>
+              <span className="text-xs md:text-sm text-gray-500">{Math.round((currentStep / 4) * 100)}% {t('skinRecommendation.complete')}</span>
             </div>
-            <div className="w-full bg-gray-200 rounded-full h-2">
+            <div className="w-full bg-gray-200 rounded-full h-1.5 md:h-2">
               <div 
-                className="bg-primary-600 h-2 rounded-full transition-all duration-300"
+                className="bg-primary-600 h-1.5 md:h-2 rounded-full transition-all duration-300"
                 style={{ width: `${(currentStep / 4) * 100}%` }}
               />
             </div>
           </div>
 
           {/* Form */}
-          <form onSubmit={handleSubmit} className="space-y-8">
+          <form onSubmit={handleSubmit} className="space-y-4 md:space-y-8">
             {/* Step 1: Skin Type */}
-            <div className="bg-white rounded-2xl border border-gray-200 p-6 md:p-8 shadow-sm">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="flex items-center justify-center w-10 h-10 bg-primary-100 rounded-full text-primary-600 font-bold">
+            <div className="bg-white rounded-xl md:rounded-2xl border border-gray-200 p-4 md:p-6 lg:p-8 shadow-sm">
+              <div className="flex items-center gap-2 md:gap-3 mb-4 md:mb-6">
+                <div className="flex items-center justify-center w-8 h-8 md:w-10 md:h-10 bg-primary-100 rounded-full text-primary-600 font-bold text-sm md:text-base">
                   1
                 </div>
-                <h2 className="text-2xl md:text-3xl font-bold text-gray-900">{t('skinRecommendation.whatsYourSkinType')}</h2>
+                <h2 className="text-lg md:text-2xl lg:text-3xl font-bold text-gray-900">{t('skinRecommendation.whatsYourSkinType')}</h2>
               </div>
-              <p className="text-gray-600 mb-6">{t('skinRecommendation.selectBestDescribes')}</p>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <p className="text-xs md:text-base text-gray-600 mb-4 md:mb-6">{t('skinRecommendation.selectBestDescribes')}</p>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
                 {SKIN_TYPES.map((skinType) => (
                   <button
                     key={skinType.value}
@@ -327,22 +339,22 @@ export default function SkinRecommendationClient() {
                       setSelectedSkinType(skinType.value)
                       setCurrentStep(2)
                     }}
-                    className={`p-6 rounded-xl border-2 transition-all duration-200 ${dir === 'rtl' ? 'text-right' : 'text-left'} group ${
+                    className={`p-4 md:p-6 rounded-lg md:rounded-xl border-2 transition-all duration-200 ${dir === 'rtl' ? 'text-right' : 'text-left'} group min-h-[120px] md:min-h-[140px] ${
                       selectedSkinType === skinType.value
                         ? 'border-primary-500 bg-primary-50 shadow-md'
-                        : 'border-gray-200 hover:border-primary-300 hover:bg-gray-50'
+                        : 'border-gray-200 hover:border-primary-300 hover:bg-gray-50 active:bg-gray-50'
                     }`}
                   >
-                    <div className="flex items-center gap-3 mb-3">
-                      <span className="text-3xl">{skinType.icon}</span>
-                      <div className="font-semibold text-lg text-gray-900">{skinType.label}</div>
+                    <div className="flex items-center gap-2 md:gap-3 mb-2 md:mb-3">
+                      <span className="text-2xl md:text-3xl">{skinType.icon}</span>
+                      <div className="font-semibold text-base md:text-lg text-gray-900">{skinType.label}</div>
                     </div>
-                    <p className="text-sm text-gray-600 mb-2">{skinType.description}</p>
+                    <p className="text-xs md:text-sm text-gray-600 mb-2 line-clamp-2">{skinType.description}</p>
                     {selectedSkinType === skinType.value && (
-                      <div className="mt-3 pt-3 border-t border-primary-200">
-                        <div className="flex items-start gap-2">
-                          <Info className="w-4 h-4 text-primary-600 mt-0.5 flex-shrink-0" />
-                          <p className="text-xs text-primary-700">{skinType.tips}</p>
+                      <div className="mt-2 md:mt-3 pt-2 md:pt-3 border-t border-primary-200">
+                        <div className="flex items-start gap-1.5 md:gap-2">
+                          <Info className="w-3.5 h-3.5 md:w-4 md:h-4 text-primary-600 mt-0.5 flex-shrink-0" />
+                          <p className="text-[10px] md:text-xs text-primary-700 leading-relaxed">{skinType.tips}</p>
                         </div>
                       </div>
                     )}
@@ -353,15 +365,15 @@ export default function SkinRecommendationClient() {
 
             {/* Step 2: Age Group */}
             {selectedSkinType && (
-              <div className="bg-white rounded-2xl border border-gray-200 p-6 md:p-8 shadow-sm">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="flex items-center justify-center w-10 h-10 bg-primary-100 rounded-full text-primary-600 font-bold">
+              <div className="bg-white rounded-xl md:rounded-2xl border border-gray-200 p-4 md:p-6 lg:p-8 shadow-sm">
+                <div className="flex items-center gap-2 md:gap-3 mb-4 md:mb-6">
+                  <div className="flex items-center justify-center w-8 h-8 md:w-10 md:h-10 bg-primary-100 rounded-full text-primary-600 font-bold text-sm md:text-base">
                     2
                   </div>
-                  <h2 className="text-2xl md:text-3xl font-bold text-gray-900">{t('skinRecommendation.whatsYourAgeGroup')}</h2>
+                  <h2 className="text-lg md:text-2xl lg:text-3xl font-bold text-gray-900">{t('skinRecommendation.whatsYourAgeGroup')}</h2>
                 </div>
-                <p className="text-gray-600 mb-6">{t('skinRecommendation.helpsRecommendAgeAppropriate')}</p>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <p className="text-xs md:text-base text-gray-600 mb-4 md:mb-6">{t('skinRecommendation.helpsRecommendAgeAppropriate')}</p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
                   {AGE_GROUPS.map((ageGroup) => (
                     <button
                       key={ageGroup.value}
@@ -370,17 +382,17 @@ export default function SkinRecommendationClient() {
                         setSelectedAgeGroup(ageGroup.value)
                         setCurrentStep(3)
                       }}
-                      className={`p-6 rounded-xl border-2 transition-all duration-200 ${dir === 'rtl' ? 'text-right' : 'text-left'} ${
+                      className={`p-4 md:p-6 rounded-lg md:rounded-xl border-2 transition-all duration-200 ${dir === 'rtl' ? 'text-right' : 'text-left'} min-h-[100px] md:min-h-[120px] ${
                         selectedAgeGroup === ageGroup.value
                           ? 'border-primary-500 bg-primary-50 shadow-md'
-                          : 'border-gray-200 hover:border-primary-300 hover:bg-gray-50'
+                          : 'border-gray-200 hover:border-primary-300 hover:bg-gray-50 active:bg-gray-50'
                       }`}
                     >
-                      <div className="flex items-center gap-3 mb-2">
-                        <span className="text-2xl">{ageGroup.icon}</span>
-                        <div className="font-semibold text-lg text-gray-900">{ageGroup.label}</div>
+                      <div className="flex items-center gap-2 md:gap-3 mb-2">
+                        <span className="text-xl md:text-2xl">{ageGroup.icon}</span>
+                        <div className="font-semibold text-base md:text-lg text-gray-900">{ageGroup.label}</div>
                       </div>
-                      <p className="text-sm text-gray-600">{ageGroup.focus}</p>
+                      <p className="text-xs md:text-sm text-gray-600">{ageGroup.focus}</p>
                     </button>
                   ))}
                 </div>
@@ -389,15 +401,15 @@ export default function SkinRecommendationClient() {
 
             {/* Step 3: Target Concerns */}
             {selectedAgeGroup && (
-              <div className="bg-white rounded-2xl border border-gray-200 p-6 md:p-8 shadow-sm">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="flex items-center justify-center w-10 h-10 bg-primary-100 rounded-full text-primary-600 font-bold">
+              <div className="bg-white rounded-xl md:rounded-2xl border border-gray-200 p-4 md:p-6 lg:p-8 shadow-sm">
+                <div className="flex items-center gap-2 md:gap-3 mb-4 md:mb-6">
+                  <div className="flex items-center justify-center w-8 h-8 md:w-10 md:h-10 bg-primary-100 rounded-full text-primary-600 font-bold text-sm md:text-base">
                     3
                   </div>
-                  <h2 className="text-2xl md:text-3xl font-bold text-gray-900">{t('skinRecommendation.whatAreMainConcerns')}</h2>
+                  <h2 className="text-lg md:text-2xl lg:text-3xl font-bold text-gray-900">{t('skinRecommendation.whatAreMainConcerns')}</h2>
                 </div>
-                <p className="text-gray-600 mb-6">{t('skinRecommendation.selectAllThatApply')}</p>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <p className="text-xs md:text-base text-gray-600 mb-4 md:mb-6">{t('skinRecommendation.selectAllThatApply')}</p>
+                <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-2.5 md:gap-4">
                   {TARGET_CONCERNS.map((concern) => (
                     <button
                       key={concern.value}
@@ -406,20 +418,20 @@ export default function SkinRecommendationClient() {
                         handleTargetConcernToggle(concern.value)
                         setCurrentStep(4)
                       }}
-                      className={`p-5 rounded-xl border-2 transition-all duration-200 ${dir === 'rtl' ? 'text-right' : 'text-left'} ${
+                      className={`p-3 md:p-5 rounded-lg md:rounded-xl border-2 transition-all duration-200 ${dir === 'rtl' ? 'text-right' : 'text-left'} min-h-[100px] md:min-h-[120px] ${
                         selectedTargetConcerns.includes(concern.value)
                           ? 'border-primary-500 bg-primary-50 shadow-md'
-                          : 'border-gray-200 hover:border-primary-300 hover:bg-gray-50'
+                          : 'border-gray-200 hover:border-primary-300 hover:bg-gray-50 active:bg-gray-50'
                       }`}
                     >
-                      <div className="flex items-center gap-2 mb-2">
-                        <span className="text-2xl">{concern.icon}</span>
-                        <span className="font-semibold text-base text-gray-900">{concern.label}</span>
+                      <div className="flex items-center gap-1.5 md:gap-2 mb-1.5 md:mb-2">
+                        <span className="text-lg md:text-2xl">{concern.icon}</span>
+                        <span className="font-semibold text-sm md:text-base text-gray-900 leading-tight">{concern.label}</span>
                       </div>
-                      <p className="text-xs text-gray-600 mb-2">{concern.description}</p>
+                      <p className="text-[10px] md:text-xs text-gray-600 mb-1 md:mb-2 line-clamp-2">{concern.description}</p>
                       {selectedTargetConcerns.includes(concern.value) && concern.keyIngredients && (
-                        <div className="mt-2 pt-2 border-t border-primary-200">
-                          <p className="text-xs text-primary-700 font-medium">{t('skinRecommendation.keyIngredients')}: {concern.keyIngredients}</p>
+                        <div className="mt-1.5 md:mt-2 pt-1.5 md:pt-2 border-t border-primary-200">
+                          <p className="text-[10px] md:text-xs text-primary-700 font-medium">{t('skinRecommendation.keyIngredients')}: {concern.keyIngredients}</p>
                         </div>
                       )}
                     </button>
@@ -430,29 +442,29 @@ export default function SkinRecommendationClient() {
 
             {/* Step 4: Usage Time */}
             {selectedTargetConcerns.length > 0 && (
-              <div className="bg-white rounded-2xl border border-gray-200 p-6 md:p-8 shadow-sm">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="flex items-center justify-center w-10 h-10 bg-primary-100 rounded-full text-primary-600 font-bold">
+              <div className="bg-white rounded-xl md:rounded-2xl border border-gray-200 p-4 md:p-6 lg:p-8 shadow-sm">
+                <div className="flex items-center gap-2 md:gap-3 mb-4 md:mb-6">
+                  <div className="flex items-center justify-center w-8 h-8 md:w-10 md:h-10 bg-primary-100 rounded-full text-primary-600 font-bold text-sm md:text-base">
                     4
                   </div>
-                  <h2 className="text-2xl md:text-3xl font-bold text-gray-900">{t('skinRecommendation.whenPreferUseSkincare')}</h2>
+                  <h2 className="text-lg md:text-2xl lg:text-3xl font-bold text-gray-900">{t('skinRecommendation.whenPreferUseSkincare')}</h2>
                 </div>
-                <p className="text-gray-600 mb-6">{t('skinRecommendation.helpsRecommendRoutine')}</p>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <p className="text-xs md:text-base text-gray-600 mb-4 md:mb-6">{t('skinRecommendation.helpsRecommendRoutine')}</p>
+                <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-2.5 md:gap-4">
                   {USAGE_OPTIONS.map((usage) => (
                     <button
                       key={usage.value}
                       type="button"
                       onClick={() => setSelectedUsage(usage.value)}
-                      className={`p-6 rounded-xl border-2 transition-all duration-200 text-center ${
+                      className={`p-4 md:p-6 rounded-lg md:rounded-xl border-2 transition-all duration-200 text-center min-h-[100px] md:min-h-[120px] ${
                         selectedUsage === usage.value
                           ? 'border-primary-500 bg-primary-50 shadow-md'
-                          : 'border-gray-200 hover:border-primary-300 hover:bg-gray-50'
+                          : 'border-gray-200 hover:border-primary-300 hover:bg-gray-50 active:bg-gray-50'
                       }`}
                     >
-                      <div className="text-4xl mb-3">{usage.icon}</div>
-                      <div className="font-semibold text-lg text-gray-900 mb-1">{usage.label}</div>
-                      <p className="text-xs text-gray-600">{usage.description}</p>
+                      <div className="text-2xl md:text-4xl mb-2 md:mb-3">{usage.icon}</div>
+                      <div className="font-semibold text-sm md:text-lg text-gray-900 mb-1">{usage.label}</div>
+                      <p className="text-[10px] md:text-xs text-gray-600">{usage.description}</p>
                     </button>
                   ))}
                 </div>
@@ -461,75 +473,75 @@ export default function SkinRecommendationClient() {
 
             {/* Submit Button */}
             {selectedSkinType && (
-              <div className="text-center pt-4">
+              <div className="text-center pt-2 md:pt-4">
                 <button
                   type="submit"
                   disabled={!selectedSkinType || isLoading}
-                  className="bg-primary-600 hover:bg-primary-700 disabled:bg-gray-400 text-white font-semibold py-4 px-12 rounded-xl transition-all duration-200 transform hover:scale-105 disabled:scale-100 disabled:cursor-not-allowed shadow-lg disabled:shadow-none flex items-center gap-2 mx-auto"
+                  className="bg-primary-600 hover:bg-primary-700 disabled:bg-gray-400 text-white font-semibold py-3 md:py-4 px-6 md:px-12 rounded-lg md:rounded-xl transition-all duration-200 transform hover:scale-105 disabled:scale-100 disabled:cursor-not-allowed shadow-lg disabled:shadow-none flex items-center gap-2 mx-auto text-sm md:text-base min-h-[44px] md:min-h-[52px] touch-manipulation"
                 >
                   {isLoading ? (
                     <>
-                      <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
-                      {t('skinRecommendation.gettingRecommendations')}
+                      <div className="animate-spin rounded-full h-4 w-4 md:h-5 md:w-5 border-b-2 border-white"></div>
+                      <span className="text-xs md:text-base">{t('skinRecommendation.gettingRecommendations')}</span>
                     </>
                   ) : (
                     <>
-                      {t('skinRecommendation.getMyRecommendations')}
-                      <ArrowRight className={`w-5 h-5 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
+                      <span>{t('skinRecommendation.getMyRecommendations')}</span>
+                      <ArrowRight className={`w-4 h-4 md:w-5 md:h-5 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
                     </>
                   )}
                 </button>
                 {!selectedTargetConcerns.length && selectedSkinType && (
-                  <p className="text-sm text-gray-500 mt-4">
+                  <p className="text-xs md:text-sm text-gray-500 mt-3 md:mt-4 px-4">
                     {t('skinRecommendation.tipSelectingConcerns')}
                   </p>
                 )}
               </div>
             )}
           </form>
-        </div>
+        </>
       ) : (
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+        <div className="max-w-7xl mx-auto px-3 md:px-4 sm:px-6 lg:px-8 py-4 md:py-8 lg:py-12">
           {/* Results Header */}
-          <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-full mb-4">
-              <CheckCircle2 className="w-8 h-8 text-green-600" />
+          <div className="text-center mb-6 md:mb-8">
+            <div className="inline-flex items-center justify-center w-12 h-12 md:w-16 md:h-16 bg-green-100 rounded-full mb-3 md:mb-4">
+              <CheckCircle2 className="w-6 h-6 md:w-8 md:h-8 text-green-600" />
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3 md:mb-4">
               {t('skinRecommendation.yourPersonalizedRecommendations')}
             </h1>
             
             {/* Selection Summary */}
-            <div className="bg-white rounded-2xl border border-gray-200 p-6 mb-8 max-w-3xl mx-auto shadow-sm">
-              <h2 className={`text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                <Info className="w-5 h-5 text-primary-600" />
+            <div className="bg-white rounded-xl md:rounded-2xl border border-gray-200 p-4 md:p-6 mb-6 md:mb-8 max-w-3xl mx-auto shadow-sm">
+              <h2 className={`text-base md:text-xl font-semibold text-gray-900 mb-3 md:mb-4 flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                <Info className="w-4 h-4 md:w-5 md:h-5 text-primary-600" />
                 {t('skinRecommendation.yourSkinProfile')}
               </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                <div className="bg-gray-50 rounded-lg p-4">
-                  <div className={`text-sm font-medium text-gray-600 mb-1 ${dir === 'rtl' ? 'text-right' : ''}`}>{t('skinRecommendation.skinType')}</div>
-                  <div className={`text-lg text-primary-600 font-semibold capitalize flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 mb-3 md:mb-4">
+                <div className="bg-gray-50 rounded-lg p-3 md:p-4">
+                  <div className={`text-xs md:text-sm font-medium text-gray-600 mb-1 ${dir === 'rtl' ? 'text-right' : ''}`}>{t('skinRecommendation.skinType')}</div>
+                  <div className={`text-base md:text-lg text-primary-600 font-semibold capitalize flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                     {SKIN_TYPES.find(type => type.value === selectedSkinType)?.icon}
-                    {SKIN_TYPES.find(type => type.value === selectedSkinType)?.label || selectedSkinType}
+                    <span className="text-sm md:text-base">{SKIN_TYPES.find(type => type.value === selectedSkinType)?.label || selectedSkinType}</span>
                   </div>
                 </div>
-                <div className="bg-gray-50 rounded-lg p-4">
-                  <div className={`text-sm font-medium text-gray-600 mb-1 ${dir === 'rtl' ? 'text-right' : ''}`}>{t('skinRecommendation.ageGroup')}</div>
-                  <div className={`text-lg text-primary-600 font-semibold flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                <div className="bg-gray-50 rounded-lg p-3 md:p-4">
+                  <div className={`text-xs md:text-sm font-medium text-gray-600 mb-1 ${dir === 'rtl' ? 'text-right' : ''}`}>{t('skinRecommendation.ageGroup')}</div>
+                  <div className={`text-base md:text-lg text-primary-600 font-semibold flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                     {AGE_GROUPS.find(age => age.value === selectedAgeGroup)?.icon}
-                    {AGE_GROUPS.find(age => age.value === selectedAgeGroup)?.label || t('skinRecommendation.anyAge')}
+                    <span className="text-sm md:text-base">{AGE_GROUPS.find(age => age.value === selectedAgeGroup)?.label || t('skinRecommendation.anyAge')}</span>
                   </div>
                 </div>
               </div>
               
               {selectedTargetConcerns.length > 0 && (
-                <div className="pt-4 border-t border-gray-200">
-                  <div className={`text-sm font-medium text-gray-600 mb-3 ${dir === 'rtl' ? 'text-right' : ''}`}>{t('skinRecommendation.targetConcerns')}</div>
-                  <div className={`flex flex-wrap gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                <div className="pt-3 md:pt-4 border-t border-gray-200">
+                  <div className={`text-xs md:text-sm font-medium text-gray-600 mb-2 md:mb-3 ${dir === 'rtl' ? 'text-right' : ''}`}>{t('skinRecommendation.targetConcerns')}</div>
+                  <div className={`flex flex-wrap gap-1.5 md:gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                     {selectedTargetConcerns.map(concern => {
                       const concernData = TARGET_CONCERNS.find(c => c.value === concern)
                       return (
-                        <span key={concern} className={`bg-primary-100 text-primary-800 px-3 py-1.5 rounded-full text-sm font-medium flex items-center gap-1 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                        <span key={concern} className={`bg-primary-100 text-primary-800 px-2 py-1 md:px-3 md:py-1.5 rounded-full text-xs md:text-sm font-medium flex items-center gap-1 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                           {concernData?.icon} {concernData?.label}
                         </span>
                       )
@@ -539,29 +551,29 @@ export default function SkinRecommendationClient() {
               )}
             </div>
             
-            <p className="text-lg text-gray-600 mb-6">
+            <p className="text-sm md:text-lg text-gray-600 mb-4 md:mb-6 px-2">
               {t('skinRecommendation.weFound')} <span className="font-bold text-primary-600">{recommendations.length}</span> {t('skinRecommendation.productsPerfectFor')} {SKIN_TYPES.find(type => type.value === selectedSkinType)?.label?.toLowerCase() || selectedSkinType} {t('skinRecommendation.skin')}
             </p>
             <button
               onClick={resetForm}
-              className={`text-primary-600 hover:text-primary-700 underline font-medium inline-flex items-center gap-1 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+              className={`text-primary-600 hover:text-primary-700 underline font-medium inline-flex items-center gap-1 text-sm md:text-base min-h-[44px] touch-manipulation ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
             >
               {t('skinRecommendation.startOver')}
-              <ArrowRight className={`w-4 h-4 ${dir === 'rtl' ? '' : 'rotate-180'}`} />
+              <ArrowRight className={`w-3.5 h-3.5 md:w-4 md:h-4 ${dir === 'rtl' ? '' : 'rotate-180'}`} />
             </button>
           </div>
 
           {/* Results by Category */}
           {recommendations.length > 0 ? (
-            <div className="space-y-12">
+            <div className="space-y-6 md:space-y-12">
               {Object.entries(groupedProducts).map(([category, products]) => (
-                <div key={category} className="bg-white rounded-2xl border border-gray-200 p-6 md:p-8 shadow-sm">
-                  <h2 className={`text-2xl md:text-3xl font-bold text-gray-900 mb-6 flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                    <Sparkles className="w-6 h-6 text-primary-600" />
+                <div key={category} className="bg-white rounded-xl md:rounded-2xl border border-gray-200 p-4 md:p-6 lg:p-8 shadow-sm">
+                  <h2 className={`text-lg md:text-2xl lg:text-3xl font-bold text-gray-900 mb-4 md:mb-6 flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                    <Sparkles className="w-5 h-5 md:w-6 md:h-6 text-primary-600" />
                     {category}
-                    <span className="text-lg font-normal text-gray-500">({products.length})</span>
+                    <span className="text-sm md:text-lg font-normal text-gray-500">({products.length})</span>
                   </h2>
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
                     {products.map((product) => {
                       const discountedPrice = calculateDiscountedPrice(product, user)
                       const canSeePrice = canUserSeePrices(user)
@@ -727,6 +739,8 @@ export default function SkinRecommendationClient() {
           )}
         </div>
       )}
+        </div>
+      </div>
     </div>
   )
 }

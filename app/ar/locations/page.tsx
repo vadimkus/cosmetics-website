@@ -4,7 +4,13 @@ import ArabicLocationsPageClient from './ArabicLocationsPageClient'
 export const metadata: Metadata = {
   title: 'مواقع GENOSYS - خدمة جميع إمارات الإمارات | Genosys Middle East FZ-LLC',
   description: 'GENOSYS الشرق الأوسط FZ-LLC يقدم مستحضرات التجميل الكورية المهنية إلى جميع إمارات الإمارات: دبي، أبوظبي، الشارقة، عجمان، رأس الخيمة، الفجيرة، وأم القيوين.',
-  keywords: 'مواقع GENOSYS الإمارات، مستحضرات التجميل الكورية دبي، GENOSYS أبوظبي، GENOSYS الشارقة، توصيل العناية بالبشرة الإمارات',
+  keywords: [
+    'مواقع GENOSYS الإمارات',
+    'مستحضرات التجميل الكورية دبي',
+    'GENOSYS أبوظبي',
+    'GENOSYS الشارقة',
+    'توصيل العناية بالبشرة الإمارات'
+  ],
   robots: {
     index: true,
     follow: true,
@@ -45,6 +51,7 @@ export const metadata: Metadata = {
     languages: {
       'en': 'https://genosys.ae/locations',
       'ar': 'https://genosys.ae/ar/locations',
+      'ru': 'https://genosys.ae/ru/locations',
     },
   },
 }

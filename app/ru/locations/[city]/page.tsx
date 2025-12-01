@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { MapPin, Phone, Mail, Truck, ArrowLeft, Instagram, Globe } from 'lucide-react'
 import BreadcrumbSchema from '@/components/BreadcrumbSchema'
 import type { Metadata } from 'next'
+import { notFound } from 'next/navigation'
 
 const locations: Record<string, {
   name: string
@@ -18,89 +19,99 @@ const locations: Record<string, {
   coordinates?: { lat: number; lng: number }
 }> = {
   dubai: {
-    name: 'Dubai',
-    title: 'GENOSYS Dubai - Korean Dermacosmetics Distributor in Dubai',
-    description: 'GENOSYS Middle East FZ-LLC serves Dubai with professional Korean dermacosmetics and skincare training. Fast delivery across Dubai with free shipping for orders over 1000 AED.',
-    address: 'Cordoba Residence, Villa E02, Dubai, United Arab Emirates',
+    name: 'Дубай',
+    title: 'GENOSYS Дубай - Дистрибьютор корейской дерматокосметики в Дубае',
+    description: 'GENOSYS Middle East FZ-LLC обслуживает Дубай профессиональной корейской дерматокосметикой и обучением уходу за кожей. Быстрая доставка по всему Дубаю с бесплатной доставкой для заказов свыше 1000 дирхамов.',
+    address: 'Cordoba Residence, Villa E02, Дубай, Объединенные Арабские Эмираты',
     phone: '+971 58 548 76 65',
     email: 'sales@genosys.ae',
     instagram: 'https://www.instagram.com/genosys.me',
     website: 'https://genosys.ae',
-    shippingInfo: 'We deliver to all areas of Dubai including Downtown Dubai, Dubai Marina, Jumeirah, Business Bay, and more.',
-    shippingCost: '45 AED (Free for orders over 1000 AED)',
-    deliveryTime: '1-2 hours, same day (Careem)',
+    shippingInfo: 'Мы доставляем во все районы Дубая, включая Downtown Dubai, Dubai Marina, Jumeirah, Business Bay и другие.',
+    shippingCost: '45 дирхамов (Бесплатно для заказов свыше 1000 дирхамов)',
+    deliveryTime: '1-2 часа, в тот же день (Careem)',
     coordinates: { lat: 25.2048, lng: 55.2708 }
   },
   'abu-dhabi': {
-    name: 'Abu Dhabi',
-    title: 'GENOSYS Abu Dhabi - Korean Dermacosmetics Distributor in Abu Dhabi',
-    description: 'GENOSYS Middle East FZ-LLC delivers professional Korean dermacosmetics to Abu Dhabi. Premium skincare products and microneedling devices available with fast delivery.',
-    address: 'Serving all areas of Abu Dhabi',
+    name: 'Абу-Даби',
+    title: 'GENOSYS Абу-Даби - Дистрибьютор корейской дерматокосметики в Абу-Даби',
+    description: 'GENOSYS Middle East FZ-LLC доставляет профессиональную корейскую дерматокосметику в Абу-Даби. Премиальные продукты для ухода за кожей и устройства для микронидлинга доступны с быстрой доставкой.',
+    address: 'Обслуживание всех районов Абу-Даби',
     phone: '+971 58 548 76 65',
     email: 'sales@genosys.ae',
     instagram: 'https://www.instagram.com/genosys.me',
     website: 'https://genosys.ae',
-    shippingInfo: 'We deliver to all areas of Abu Dhabi including Al Khalidiyah, Al Markaziyah, Al Zahiyah, Corniche, and more.',
-    shippingCost: '70 AED (Free for orders over 1000 AED)',
-    deliveryTime: '48 hours via Quiqup',
+    shippingInfo: 'Мы доставляем во все районы Абу-Даби, включая Al Khalidiyah, Al Markaziyah, Al Zahiyah, Corniche и другие.',
+    shippingCost: '70 дирхамов (Бесплатно для заказов свыше 1000 дирхамов)',
+    deliveryTime: '48 часов через Quiqup',
     coordinates: { lat: 24.4539, lng: 54.3773 }
   },
   sharjah: {
-    name: 'Sharjah',
-    title: 'GENOSYS Sharjah - Korean Dermacosmetics Distributor in Sharjah',
-    description: 'GENOSYS Middle East FZ-LLC provides professional Korean dermacosmetics to Sharjah. Quality skincare products and professional training available.',
-    address: 'Serving all areas of Sharjah',
+    name: 'Шарджа',
+    title: 'GENOSYS Шарджа - Дистрибьютор корейской дерматокосметики в Шардже',
+    description: 'GENOSYS Middle East FZ-LLC предоставляет профессиональную корейскую дерматокосметику в Шарджу. Качественные продукты для ухода за кожей и профессиональное обучение доступны.',
+    address: 'Обслуживание всех районов Шарджи',
     phone: '+971 58 548 76 65',
     email: 'sales@genosys.ae',
-    shippingInfo: 'We deliver to all areas of Sharjah including Al Qasimia, Al Nahda, Al Majaz, Al Khan, and more.',
-    shippingCost: '70 AED (Free for orders over 1000 AED)',
-    deliveryTime: '1-2 hours, same day (Careem)',
+    instagram: 'https://www.instagram.com/genosys.me',
+    website: 'https://genosys.ae',
+    shippingInfo: 'Мы доставляем во все районы Шарджи, включая Al Qasimia, Al Nahda, Al Majaz, Al Khan и другие.',
+    shippingCost: '70 дирхамов (Бесплатно для заказов свыше 1000 дирхамов)',
+    deliveryTime: '1-2 часа, в тот же день (Careem)',
     coordinates: { lat: 25.3573, lng: 55.4033 }
   },
   'ras-al-khaimah': {
-    name: 'Ras Al Khaimah',
-    title: 'GENOSYS Ras Al Khaimah - Korean Dermacosmetics Distributor',
-    description: 'GENOSYS Middle East FZ-LLC serves Ras Al Khaimah with professional Korean dermacosmetics. Our office is located in Ras Al Khaimah.',
-    address: 'MBAM0014 Compass Building, Al Shohada Road, AL Hamra Industrial Zone-FZ, Ras Al Khaimah, UAE',
+    name: 'Рас-эль-Хайма',
+    title: 'GENOSYS Рас-эль-Хайма - Дистрибьютор корейской дерматокосметики',
+    description: 'GENOSYS Middle East FZ-LLC обслуживает Рас-эль-Хайму профессиональной корейской дерматокосметикой. Наш офис находится в Рас-эль-Хайме.',
+    address: 'MBAM0014 Compass Building, Al Shohada Road, AL Hamra Industrial Zone-FZ, Рас-эль-Хайма, ОАЭ',
     phone: '+971 58 548 76 65',
     email: 'sales@genosys.ae',
-    shippingInfo: 'We deliver to all areas of Ras Al Khaimah including Al Nakheel, Al Qawasim, Al Hamra, and more.',
-    shippingCost: '70 AED (Free for orders over 1000 AED)',
-    deliveryTime: '48 hours via Quiqup',
+    instagram: 'https://www.instagram.com/genosys.me',
+    website: 'https://genosys.ae',
+    shippingInfo: 'Мы доставляем во все районы Рас-эль-Хаймы, включая Al Nakheel, Al Qawasim, Al Hamra и другие.',
+    shippingCost: '70 дирхамов (Бесплатно для заказов свыше 1000 дирхамов)',
+    deliveryTime: '48 часов через Quiqup',
     coordinates: { lat: 25.7895, lng: 55.9590 }
   },
   ajman: {
-    name: 'Ajman',
-    title: 'GENOSYS Ajman - Korean Dermacosmetics Distributor in Ajman',
-    description: 'GENOSYS Middle East FZ-LLC delivers professional Korean dermacosmetics to Ajman. Premium skincare products available with reliable delivery.',
-    address: 'Serving all areas of Ajman',
+    name: 'Аджман',
+    title: 'GENOSYS Аджман - Дистрибьютор корейской дерматокосметики в Аджмане',
+    description: 'GENOSYS Middle East FZ-LLC доставляет профессиональную корейскую дерматокосметику в Аджман. Премиальные продукты для ухода за кожей доступны с надежной доставкой.',
+    address: 'Обслуживание всех районов Аджмана',
     phone: '+971 58 548 76 65',
     email: 'sales@genosys.ae',
-    shippingInfo: 'We deliver to all areas of Ajman including Al Nuaimiya, Al Jerf, Al Rashidiya, and more.',
-    shippingCost: '70 AED (Free for orders over 1000 AED)',
-    deliveryTime: '48 hours via Quiqup',
+    instagram: 'https://www.instagram.com/genosys.me',
+    website: 'https://genosys.ae',
+    shippingInfo: 'Мы доставляем во все районы Аджмана, включая Al Nuaimiya, Al Jerf, Al Rashidiya и другие.',
+    shippingCost: '70 дирхамов (Бесплатно для заказов свыше 1000 дирхамов)',
+    deliveryTime: '48 часов через Quiqup',
   },
   fujairah: {
-    name: 'Fujairah',
-    title: 'GENOSYS Fujairah - Korean Dermacosmetics Distributor in Fujairah',
-    description: 'GENOSYS Middle East FZ-LLC provides professional Korean dermacosmetics to Fujairah. Quality skincare products delivered across the emirate.',
-    address: 'Serving all areas of Fujairah',
+    name: 'Фуджейра',
+    title: 'GENOSYS Фуджейра - Дистрибьютор корейской дерматокосметики в Фуджейре',
+    description: 'GENOSYS Middle East FZ-LLC предоставляет профессиональную корейскую дерматокосметику в Фуджейру. Качественные продукты для ухода за кожей доставляются по всему эмирату.',
+    address: 'Обслуживание всех районов Фуджейры',
     phone: '+971 58 548 76 65',
     email: 'sales@genosys.ae',
-    shippingInfo: 'We deliver to all areas of Fujairah including Fujairah City, Al Faseel, and surrounding areas.',
-    shippingCost: '70 AED (Free for orders over 1000 AED)',
-    deliveryTime: '48 hours via Quiqup',
+    instagram: 'https://www.instagram.com/genosys.me',
+    website: 'https://genosys.ae',
+    shippingInfo: 'Мы доставляем во все районы Фуджейры, включая Fujairah City, Al Faseel и окружающие районы.',
+    shippingCost: '70 дирхамов (Бесплатно для заказов свыше 1000 дирхамов)',
+    deliveryTime: '48 часов через Quiqup',
   },
   'umm-al-quwain': {
-    name: 'Umm Al Quwain',
-    title: 'GENOSYS Umm Al Quwain - Korean Dermacosmetics Distributor',
-    description: 'GENOSYS Middle East FZ-LLC serves Umm Al Quwain with professional Korean dermacosmetics. Premium skincare products delivered across the emirate.',
-    address: 'Serving all areas of Umm Al Quwain',
+    name: 'Умм-эль-Кайвайн',
+    title: 'GENOSYS Умм-эль-Кайвайн - Дистрибьютор корейской дерматокосметики',
+    description: 'GENOSYS Middle East FZ-LLC обслуживает Умм-эль-Кайвайн профессиональной корейской дерматокосметикой. Премиальные продукты для ухода за кожей доставляются по всему эмирату.',
+    address: 'Обслуживание всех районов Умм-эль-Кайвайна',
     phone: '+971 58 548 76 65',
     email: 'sales@genosys.ae',
-    shippingInfo: 'We deliver to all areas of Umm Al Quwain including Umm Al Quwain City and surrounding areas.',
-    shippingCost: '70 AED (Free for orders over 1000 AED)',
-    deliveryTime: '48 hours via Quiqup',
+    instagram: 'https://www.instagram.com/genosys.me',
+    website: 'https://genosys.ae',
+    shippingInfo: 'Мы доставляем во все районы Умм-эль-Кайвайна, включая Umm Al Quwain City и окружающие районы.',
+    shippingCost: '70 дирхамов (Бесплатно для заказов свыше 1000 дирхамов)',
+    deliveryTime: '48 часов через Quiqup',
   },
 }
 
@@ -114,7 +125,7 @@ export async function generateMetadata({ params }: LocationPageProps): Promise<M
   
   if (!location) {
     return {
-      title: 'Location Not Found | GENOSYS Middle East FZ-LLC',
+      title: 'Локация не найдена | GENOSYS Middle East FZ-LLC',
     }
   }
 
@@ -123,17 +134,14 @@ export async function generateMetadata({ params }: LocationPageProps): Promise<M
     description: location.description,
     keywords: [
       `GENOSYS ${location.name}`,
-      `Korean dermacosmetics ${location.name}`,
-      `professional skincare ${location.name}`,
-      `GENOSYS distributor ${location.name}`
+      `корейская дерматокосметика ${location.name}`,
+      `профессиональный уход за кожей ${location.name}`,
+      `дистрибьютор GENOSYS ${location.name}`
     ],
     openGraph: {
       title: location.title,
       description: location.description,
       type: 'website',
-      url: `https://genosys.ae/locations/${city}`,
-      siteName: 'GENOSYS Middle East FZ-LLC',
-      locale: 'en_AE',
       images: [
         {
           url: '/images/genosys-products.jpg',
@@ -142,17 +150,9 @@ export async function generateMetadata({ params }: LocationPageProps): Promise<M
           alt: `GENOSYS ${location.name}`,
         },
       ],
-    },
-    robots: {
-      index: true,
-      follow: true,
-      googleBot: {
-        index: true,
-        follow: true,
-        'max-video-preview': -1,
-        'max-image-preview': 'large',
-        'max-snippet': -1,
-      },
+      url: `https://genosys.ae/ru/locations/${city}`,
+      siteName: 'GENOSYS Middle East FZ-LLC',
+      locale: 'ru_AE',
     },
     twitter: {
       card: 'summary_large_image',
@@ -163,7 +163,7 @@ export async function generateMetadata({ params }: LocationPageProps): Promise<M
       images: ['/images/genosys-products.jpg'],
     },
     alternates: {
-      canonical: `https://genosys.ae/locations/${city}`,
+      canonical: `https://genosys.ae/ru/locations/${city}`,
       languages: {
         'en': `https://genosys.ae/locations/${city}`,
         'ar': `https://genosys.ae/ar/locations/${city}`,
@@ -179,33 +179,21 @@ export async function generateStaticParams() {
   }))
 }
 
-export default async function LocationPage({ params }: LocationPageProps) {
+export default async function RussianLocationPage({ params }: LocationPageProps) {
   const { city } = await params
   const location = locations[city]
 
   if (!location) {
-    return (
-      <div className="bg-white min-h-screen">
-        <div className="container mx-auto px-4 py-16">
-          <div className="text-center">
-            <h1 className="text-4xl font-bold text-gray-800 mb-4">Location Not Found</h1>
-            <p className="text-gray-600 mb-8">The requested location could not be found.</p>
-            <Link href="/" className="text-primary-600 hover:text-primary-700">
-              Return to Home
-            </Link>
-          </div>
-        </div>
-      </div>
-    )
+    notFound()
   }
 
   return (
     <div className="bg-white min-h-screen">
       <BreadcrumbSchema 
         items={[
-          { name: 'Home', url: '/' },
-          { name: 'Locations', url: '/locations' },
-          { name: location.name, url: `/locations/${city}` }
+          { name: 'Главная', url: '/ru' },
+          { name: 'Локации', url: '/ru/locations' },
+          { name: location.name, url: `/ru/locations/${city}` }
         ]}
       />
       
@@ -230,7 +218,7 @@ export default async function LocationPage({ params }: LocationPageProps) {
               "@type": "City",
               "name": location.name
             },
-            "url": `https://genosys.ae/locations/${city}`
+            "url": `https://genosys.ae/ru/locations/${city}`
           }, null, 2)
         }}
       />
@@ -242,17 +230,17 @@ export default async function LocationPage({ params }: LocationPageProps) {
             {/* Mobile Breadcrumb */}
             <div className="md:hidden flex items-center gap-2">
               <Link 
-                href="/"
+                href="/ru"
                 className="hover:text-primary-600 transition-colors flex items-center"
               >
-                Home
+                Главная
               </Link>
               <span className="flex items-center">/</span>
               <Link 
-                href="/locations"
+                href="/ru/locations"
                 className="hover:text-primary-600 transition-colors flex items-center"
               >
-                Locations
+                Локации
               </Link>
               <span className="flex items-center">/</span>
               <span className="text-gray-900 font-medium flex items-center">
@@ -262,27 +250,27 @@ export default async function LocationPage({ params }: LocationPageProps) {
             
             {/* Mobile Back Button */}
             <Link 
-              href="/locations"
+              href="/ru/locations"
               className="md:hidden flex items-center gap-2 text-primary-600 hover:text-primary-700 transition-colors"
             >
               <ArrowLeft className="h-4 w-4" />
-              <span className="font-medium">Back to Locations</span>
+              <span className="font-medium">Назад к локациям</span>
             </Link>
             
             {/* Desktop Breadcrumb */}
             <div className="hidden md:flex items-center gap-2">
               <Link 
-                href="/"
+                href="/ru"
                 className="hover:text-primary-600 transition-colors flex items-center"
               >
-                Home
+                Главная
               </Link>
               <span className="flex items-center">/</span>
               <Link 
-                href="/locations"
+                href="/ru/locations"
                 className="hover:text-primary-600 transition-colors flex items-center"
               >
-                Locations
+                Локации
               </Link>
               <span className="flex items-center">/</span>
               <span className="text-gray-900 font-medium flex items-center">
@@ -307,11 +295,11 @@ export default async function LocationPage({ params }: LocationPageProps) {
             <div className="bg-gray-50 rounded-lg p-6">
               <h2 className="text-2xl font-semibold text-gray-800 mb-6 flex items-center gap-2">
                 <MapPin className="h-6 w-6 text-primary-600" />
-                Contact Information
+                Контактная информация
               </h2>
               <div className="space-y-4">
                 <div>
-                  <h3 className="font-semibold text-gray-800 mb-2">Address</h3>
+                  <h3 className="font-semibold text-gray-800 mb-2">Адрес</h3>
                   <p className="text-gray-600">{location.address}</p>
                 </div>
                 <div>
@@ -371,19 +359,19 @@ export default async function LocationPage({ params }: LocationPageProps) {
             <div className="bg-gray-50 rounded-lg p-6">
               <h2 className="text-2xl font-semibold text-gray-800 mb-6 flex items-center gap-2">
                 <Truck className="h-6 w-6 text-primary-600" />
-                Shipping Information
+                Информация о доставке
               </h2>
               <div className="space-y-4">
                 <div>
-                  <h3 className="font-semibold text-gray-800 mb-2">Delivery Areas</h3>
+                  <h3 className="font-semibold text-gray-800 mb-2">Районы доставки</h3>
                   <p className="text-gray-600">{location.shippingInfo}</p>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-800 mb-2">Shipping Cost</h3>
+                  <h3 className="font-semibold text-gray-800 mb-2">Стоимость доставки</h3>
                   <p className="text-gray-600">{location.shippingCost}</p>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-800 mb-2">Delivery Time</h3>
+                  <h3 className="font-semibold text-gray-800 mb-2">Время доставки</h3>
                   <p className="text-gray-600">{location.deliveryTime}</p>
                 </div>
               </div>
@@ -399,7 +387,7 @@ export default async function LocationPage({ params }: LocationPageProps) {
                 rel="noopener noreferrer"
                 className="block bg-primary-600 text-white p-4 rounded-lg hover:bg-primary-700 transition-colors text-center font-semibold"
               >
-                View on Google Maps
+                Посмотреть на Google Maps
               </a>
             </div>
           )}
@@ -407,23 +395,23 @@ export default async function LocationPage({ params }: LocationPageProps) {
           {/* Call to Action */}
           <div className="bg-primary-50 rounded-lg p-8 text-center">
             <h2 className="text-2xl font-semibold text-gray-800 mb-4">
-              Ready to Order?
+              Готовы заказать?
             </h2>
             <p className="text-gray-600 mb-6">
-              Browse our complete collection of professional Korean dermacosmetics products.
+              Просмотрите нашу полную коллекцию профессиональной корейской дерматокосметики.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
-                href="/products"
+                href="/ru/products"
                 className="bg-primary-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-primary-700 transition-colors"
               >
-                View Products
+                Посмотреть продукцию
               </Link>
               <Link
-                href="/contact-genosys-uae"
+                href="/ru/contact"
                 className="border border-primary-600 text-primary-600 px-8 py-3 rounded-lg font-semibold hover:bg-primary-50 transition-colors"
               >
-                Contact Us
+                Связаться с нами
               </Link>
             </div>
           </div>

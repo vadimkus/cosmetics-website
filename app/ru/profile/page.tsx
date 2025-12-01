@@ -2,9 +2,9 @@ import type { Metadata } from 'next'
 import ProfilePageClient from '../../ar/profile/ProfilePageClient'
 
 export const metadata: Metadata = {
-  title: 'Профиль | GENOSYS',
-  description: 'Управляйте своим профилем, просматривайте историю заказов и обновляйте личную информацию',
-  keywords: ['Профиль', 'GENOSYS', 'История заказов', 'Настройки', 'Конфиденциальность'],
+  title: 'Профиль - Управление аккаунтом GENOSYS | Genosys Middle East FZ-LLC',
+  description: 'Управляйте своим профилем GENOSYS, просматривайте историю заказов, обновляйте личную информацию и настройки. Доступ к профессиональным ценам и эксклюзивным продуктам корейской дерматокосметики.',
+  keywords: ['Профиль GENOSYS', 'Управление аккаунтом', 'История заказов', 'Настройки профиля', 'Профессиональный аккаунт', 'GENOSYS ОАЭ'],
   robots: {
     index: false,
     follow: true,
@@ -14,17 +14,28 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: 'Профиль | GENOSYS',
-    description: 'Управляйте своим профилем, просматривайте историю заказов и обновляйте личную информацию',
+    title: 'Профиль - Управление аккаунтом GENOSYS',
+    description: 'Управляйте своим профилем GENOSYS, просматривайте историю заказов и обновляйте личную информацию.',
     locale: 'ru_AE',
     type: 'website',
     url: 'https://genosys.ae/ru/profile',
     siteName: 'GENOSYS Middle East FZ-LLC',
+    images: [
+      {
+        url: '/images/genosys-products.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Профиль GENOSYS',
+      },
+    ],
   },
   twitter: {
-    card: 'summary',
-    title: 'Профиль | GENOSYS',
-    description: 'Управляйте своим профилем, просматривайте историю заказов и обновляйте личную информацию',
+    card: 'summary_large_image',
+    site: '@genosys_official',
+    creator: '@genosys_official',
+    title: 'Профиль - Управление аккаунтом GENOSYS',
+    description: 'Управляйте своим профилем GENOSYS, просматривайте историю заказов и обновляйте личную информацию',
+    images: ['/images/genosys-products.jpg'],
   },
   alternates: {
     canonical: 'https://genosys.ae/ru/profile',

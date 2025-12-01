@@ -5,11 +5,20 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = {
   title: 'Login - GENOSYS Professional Korean Dermacosmetics | Genosys Middle East FZ-LLC',
   description: 'Access your GENOSYS professional account. Login to view prices, manage orders, and access exclusive professional Korean dermacosmetics products.',
-  keywords: 'GENOSYS login, Korean dermacosmetics login, professional skincare account, UAE cosmetics login, GENOSYS account access',
+  keywords: [
+    'GENOSYS login',
+    'Korean dermacosmetics login',
+    'professional skincare account',
+    'UAE cosmetics login',
+    'GENOSYS account access'
+  ],
   openGraph: {
     title: 'Login - GENOSYS Professional Korean Dermacosmetics',
     description: 'Access your GENOSYS professional account. Login to view prices and manage orders.',
     type: 'website',
+    url: 'https://genosys.ae/login',
+    siteName: 'GENOSYS Middle East FZ-LLC',
+    locale: 'en_AE',
     images: [
       {
         url: '/images/genosys-products.jpg',
@@ -37,6 +46,11 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: 'https://genosys.ae/login',
+    languages: {
+      'en': 'https://genosys.ae/login',
+      'ar': 'https://genosys.ae/ar/login',
+      'ru': 'https://genosys.ae/ru/login',
+    },
   },
 }
 

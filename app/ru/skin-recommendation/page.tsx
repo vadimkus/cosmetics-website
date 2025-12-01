@@ -20,14 +20,25 @@ export const metadata: Metadata = {
     title: 'Персональные рекомендации для кожи | GENOSYS Professional',
     description: 'Откройте для себя идеальные продукты GENOSYS, специально разработанные для ваших уникальных потребностей кожи.',
     url: 'https://genosys.ae/ru/skin-recommendation',
-    siteName: 'GENOSYS Professional',
+    siteName: 'GENOSYS Middle East FZ-LLC',
     locale: 'ru_AE',
     type: 'website',
+    images: [
+      {
+        url: '/images/genosys-products.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Персонализированные рекомендации по уходу за кожей GENOSYS',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
+    site: '@genosys_official',
+    creator: '@genosys_official',
     title: 'Персональные рекомендации для кожи | GENOSYS Professional',
     description: 'Откройте для себя идеальные продукты GENOSYS, специально разработанные для ваших уникальных потребностей кожи.',
+    images: ['/images/genosys-products.jpg'],
   },
   alternates: {
     canonical: 'https://genosys.ae/ru/skin-recommendation',

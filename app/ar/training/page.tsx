@@ -4,7 +4,13 @@ import ArabicTrainingPageClient from './ArabicTrainingPageClient'
 export const metadata: Metadata = {
   title: 'التدريب المهني - تدريب GENOSYS للعناية بالبشرة | Genosys Middle East FZ-LLC',
   description: 'موارد التدريب المهني لمنتجات العناية بالبشرة GENOSYS. قم بتنزيل وثائق التدريب، ومشاهدة دروس الفيديو، وإتقان التقنيات المهنية لمستحضرات التجميل الكورية.',
-  keywords: 'تدريب GENOSYS، تدريب العناية بالبشرة المهنية، تدريب مستحضرات التجميل الكورية، تدريب الوخز بالإبر الدقيقة، تدريب العناية بالبشرة الإمارات',
+  keywords: [
+    'تدريب GENOSYS',
+    'تدريب العناية بالبشرة المهنية',
+    'تدريب مستحضرات التجميل الكورية',
+    'تدريب الوخز بالإبر الدقيقة',
+    'تدريب العناية بالبشرة الإمارات'
+  ],
   openGraph: {
     title: 'التدريب المهني - تدريب GENOSYS للعناية بالبشرة',
     description: 'موارد التدريب المهني لمنتجات العناية بالبشرة GENOSYS. قم بتنزيل وثائق التدريب، ومشاهدة دروس الفيديو، وإتقان التقنيات المهنية.',
@@ -45,6 +51,7 @@ export const metadata: Metadata = {
     languages: {
       'en': 'https://genosys.ae/training',
       'ar': 'https://genosys.ae/ar/training',
+      'ru': 'https://genosys.ae/ru/training',
     },
   },
 }

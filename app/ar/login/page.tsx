@@ -5,7 +5,13 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = {
   title: 'تسجيل الدخول - مستحضرات التجميل الكورية المهنية GENOSYS | Genosys Middle East FZ-LLC',
   description: 'الوصول إلى حسابك المهني في GENOSYS. سجل الدخول لعرض الأسعار وإدارة الطلبات والوصول إلى منتجات مستحضرات التجميل الكورية المهنية الحصرية.',
-  keywords: 'تسجيل الدخول GENOSYS، تسجيل الدخول لمستحضرات التجميل الكورية، حساب العناية بالبشرة المهنية، تسجيل الدخول لمستحضرات التجميل الإمارات، الوصول إلى حساب GENOSYS',
+  keywords: [
+    'تسجيل الدخول GENOSYS',
+    'تسجيل الدخول لمستحضرات التجميل الكورية',
+    'حساب العناية بالبشرة المهنية',
+    'تسجيل الدخول لمستحضرات التجميل الإمارات',
+    'الوصول إلى حساب GENOSYS'
+  ],
   openGraph: {
     title: 'تسجيل الدخول - مستحضرات التجميل الكورية المهنية GENOSYS',
     description: 'الوصول إلى حسابك المهني في GENOSYS. سجل الدخول لعرض الأسعار وإدارة الطلبات.',
@@ -43,6 +49,7 @@ export const metadata: Metadata = {
     languages: {
       'en': 'https://genosys.ae/login',
       'ar': 'https://genosys.ae/ar/login',
+      'ru': 'https://genosys.ae/ru/login',
     },
   },
 }

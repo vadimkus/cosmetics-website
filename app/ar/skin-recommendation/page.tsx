@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     title: 'توصية البشرة المخصصة | GENOSYS Professional',
     description: 'اكتشف منتجات GENOSYS المثالية المصممة خصيصاً لاحتياجات بشرتك الفريدة.',
     url: 'https://genosys.ae/ar/skin-recommendation',
-    siteName: 'GENOSYS Professional',
+    siteName: 'GENOSYS Middle East FZ-LLC',
     locale: 'ar_AE',
     type: 'website',
   },
@@ -34,6 +34,7 @@ export const metadata: Metadata = {
     languages: {
       'en': 'https://genosys.ae/skin-recommendation',
       'ar': 'https://genosys.ae/ar/skin-recommendation',
+      'ru': 'https://genosys.ae/ru/skin-recommendation',
     },
   },
 }

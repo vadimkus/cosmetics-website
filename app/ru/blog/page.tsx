@@ -46,7 +46,7 @@ export const metadata: Metadata = {
       },
     ],
     url: 'https://genosys.ae/ru/blog',
-    siteName: 'GENOSYS Professional',
+    siteName: 'GENOSYS Middle East FZ-LLC',
     locale: 'ru_AE',
   },
   twitter: {

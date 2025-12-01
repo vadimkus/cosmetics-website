@@ -32,6 +32,8 @@ export const metadata: Metadata = {
     description: 'Shop GENOSYS professional Korean dermacosmetics. Complete collection of microneedling devices, serums, creams, masks & skincare solutions.',
     type: 'website',
     url: 'https://genosys.ae/products',
+    siteName: 'GENOSYS Middle East FZ-LLC',
+    locale: 'en_AE',
     images: [
       {
         url: '/images/genosys-products.jpg',
@@ -51,6 +53,11 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: 'https://genosys.ae/products',
+    languages: {
+      'en': 'https://genosys.ae/products',
+      'ar': 'https://genosys.ae/ar/products',
+      'ru': 'https://genosys.ae/ru/products',
+    },
   },
 }
 

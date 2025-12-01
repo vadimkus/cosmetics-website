@@ -6,7 +6,14 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = {
   title: 'Информация о доставке - Быстрая доставка ОАЭ | Genosys Middle East FZ-LLC',
   description: 'Быстрая и надежная служба доставки по всему ОАЭ. Доставка в течение 1 часа в Дубае, 24-36 часов по всему ОАЭ. Бесплатная доставка при заказе свыше 1,000 дирхамов.',
-  keywords: 'доставка ОАЭ, быстрая доставка Дубай, доставка Careem, доставка QuipQup, бесплатная доставка ОАЭ, доставка корейской косметики',
+  keywords: [
+    'доставка ОАЭ',
+    'быстрая доставка Дубай',
+    'доставка Careem',
+    'доставка QuipQup',
+    'бесплатная доставка ОАЭ',
+    'доставка корейской косметики'
+  ],
   robots: {
     index: true,
     follow: true,
@@ -22,6 +29,9 @@ export const metadata: Metadata = {
     title: 'Информация о доставке - Быстрая доставка ОАЭ',
     description: 'Быстрая и надежная служба доставки по всему ОАЭ. Доставка в течение 1 часа в Дубае, 24-36 часов по всему ОАЭ. Бесплатная доставка при заказе свыше 1,000 дирхамов.',
     type: 'website',
+    url: 'https://genosys.ae/ru/delivery',
+    siteName: 'GENOSYS Middle East FZ-LLC',
+    locale: 'ru_AE',
     images: [
       {
         url: '/images/genosys-products.jpg',
@@ -30,7 +40,6 @@ export const metadata: Metadata = {
         alt: 'Служба доставки GENOSYS ОАЭ',
       },
     ],
-    locale: 'ru_AE',
   },
   twitter: {
     card: 'summary_large_image',

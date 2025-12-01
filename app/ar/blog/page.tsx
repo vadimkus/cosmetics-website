@@ -21,7 +21,14 @@ type BlogPostListItem = {
 export const metadata: Metadata = {
   title: 'مدونة GENOSYS - نصائح العناية بالبشرة الكورية ورؤى الجمال المهنية | Genosys Middle East FZ-LLC',
   description: 'مقالات الخبراء حول العناية بالبشرة الكورية، منتجات العناية بالبشرة المهنية، تقنيات المايكرونيدلينغ، واتجاهات صناعة الجمال في الإمارات. تعلم من محترفي GENOSYS.',
-  keywords: 'مدونة العناية بالبشرة الكورية، نصائح منتجات العناية بالبشرة، دليل المايكرونيدلينغ، العناية بالبشرة المهنية الإمارات، مدونة K-beauty، نصائح العناية بالبشرة',
+  keywords: [
+    'مدونة العناية بالبشرة الكورية',
+    'نصائح منتجات العناية بالبشرة',
+    'دليل المايكرونيدلينغ',
+    'العناية بالبشرة المهنية الإمارات',
+    'مدونة K-beauty',
+    'نصائح العناية بالبشرة'
+  ],
   robots: {
     index: true,
     follow: true,
@@ -46,7 +53,7 @@ export const metadata: Metadata = {
       },
     ],
     url: 'https://genosys.ae/ar/blog',
-    siteName: 'GENOSYS Professional',
+    siteName: 'GENOSYS Middle East FZ-LLC',
     locale: 'ar_AE',
   },
   twitter: {
@@ -62,6 +69,7 @@ export const metadata: Metadata = {
     languages: {
       'en': 'https://genosys.ae/blog',
       'ar': 'https://genosys.ae/ar/blog',
+      'ru': 'https://genosys.ae/ru/blog',
     },
   },
 }

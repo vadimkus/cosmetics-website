@@ -55,6 +55,7 @@ export const metadata: Metadata = {
     languages: {
       'en': 'https://genosys.ae/products',
       'ar': 'https://genosys.ae/ar/products',
+      'ru': 'https://genosys.ae/ru/products',
     },
   },
 }

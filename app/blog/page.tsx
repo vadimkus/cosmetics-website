@@ -21,7 +21,14 @@ type BlogPostListItem = {
 export const metadata: Metadata = {
   title: 'GENOSYS Blog - Korean Skincare Tips & Professional Beauty Insights | Genosys Middle East FZ-LLC',
   description: 'Expert articles on Korean skincare, professional dermacosmetics, microneedling techniques, and beauty industry trends in UAE. Learn from GENOSYS professionals.',
-  keywords: 'Korean skincare blog, dermacosmetics tips, microneedling guide, professional skincare UAE, K-beauty blog, skincare advice',
+  keywords: [
+    'Korean skincare blog',
+    'dermacosmetics tips',
+    'microneedling guide',
+    'professional skincare UAE',
+    'K-beauty blog',
+    'skincare advice'
+  ],
   robots: {
     index: true,
     follow: true,
@@ -37,6 +44,9 @@ export const metadata: Metadata = {
     title: 'GENOSYS Blog - Korean Skincare Tips & Professional Beauty Insights',
     description: 'Expert articles on Korean skincare, professional dermacosmetics, microneedling techniques, and beauty industry trends in UAE.',
     type: 'website',
+    url: 'https://genosys.ae/blog',
+    siteName: 'GENOSYS Middle East FZ-LLC',
+    locale: 'en_AE',
     images: [
       {
         url: '/images/genosys-products.jpg',
@@ -56,6 +66,11 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: 'https://genosys.ae/blog',
+    languages: {
+      'en': 'https://genosys.ae/blog',
+      'ar': 'https://genosys.ae/ar/blog',
+      'ru': 'https://genosys.ae/ru/blog',
+    },
   },
 }
 

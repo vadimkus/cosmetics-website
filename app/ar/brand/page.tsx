@@ -7,7 +7,13 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = {
   title: 'قصة علامة GENOSYS - نظام إعادة ولادة الجينات',
   description: 'اكتشف GENOSYS، أول علامة تجارية مخصصة للوخز بالإبر الدقيقة في العالم. نظام إعادة ولادة الجينات يجمع بين الوخز بالإبر الدقيقة ومستحضرات التجميل المصممة خصيصاً.',
-  keywords: 'GENOSYS، نظام إعادة ولادة الجينات، الوخز بالإبر الدقيقة، مستحضرات التجميل الكورية، العناية بالبشرة المهنية',
+  keywords: [
+    'GENOSYS',
+    'نظام إعادة ولادة الجينات',
+    'الوخز بالإبر الدقيقة',
+    'مستحضرات التجميل الكورية',
+    'العناية بالبشرة المهنية'
+  ],
   robots: {
     index: true,
     follow: true,
@@ -48,6 +54,7 @@ export const metadata: Metadata = {
     languages: {
       'ar': 'https://genosys.ae/ar/brand',
       'en': 'https://genosys.ae/brand',
+      'ru': 'https://genosys.ae/ru/brand',
     },
   },
 }

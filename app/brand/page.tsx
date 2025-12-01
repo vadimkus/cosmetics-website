@@ -12,6 +12,9 @@ export const metadata: Metadata = {
     title: 'GENOSYS Brand Story - Gene Re-Birth System',
     description: 'Discover GENOSYS, the world\'s first microneedling-dedicated brand. Gene Re-Birth System combines microneedling with specially formulated cosmeceuticals.',
     type: 'website',
+    url: 'https://genosys.ae/brand',
+    siteName: 'GENOSYS Middle East FZ-LLC',
+    locale: 'en_AE',
     images: [
       {
         url: '/images/genosys-products.jpg',
@@ -42,6 +45,11 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: 'https://genosys.ae/brand',
+    languages: {
+      'en': 'https://genosys.ae/brand',
+      'ar': 'https://genosys.ae/ar/brand',
+      'ru': 'https://genosys.ae/ru/brand',
+    },
   },
 }
 

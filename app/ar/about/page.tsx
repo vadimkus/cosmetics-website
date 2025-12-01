@@ -4,7 +4,13 @@ import ArabicAboutPageClient from './ArabicAboutPageClient'
 export const metadata: Metadata = {
   title: 'من نحن - GENOSYS Middle East FZ-LLC | الموزع الرسمي لمستحضرات التجميل الكورية المهنية',
   description: 'تعرف على شركة GENOSYS الشرق الأوسط FZ-LLC، الموزع الرسمي لشركة DTSMG Co., Ltd كوريا في الإمارات. مستحضرات التجميل الكورية المهنية مع شهادة بلدية دبي.',
-  keywords: 'GENOSYS الشرق الأوسط، موزع مستحضرات التجميل الكورية، DTSMG كوريا، معتمد من بلدية دبي، موزع مستحضرات التجميل الإمارات',
+  keywords: [
+    'GENOSYS الشرق الأوسط',
+    'موزع مستحضرات التجميل الكورية',
+    'DTSMG كوريا',
+    'معتمد من بلدية دبي',
+    'موزع مستحضرات التجميل الإمارات'
+  ],
   robots: {
     index: true,
     follow: true,
@@ -45,6 +51,7 @@ export const metadata: Metadata = {
     languages: {
       'en': 'https://genosys.ae/about',
       'ar': 'https://genosys.ae/ar/about',
+      'ru': 'https://genosys.ae/ru/about',
     },
   },
 }

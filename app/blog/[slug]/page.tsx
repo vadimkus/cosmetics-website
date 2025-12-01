@@ -116,6 +116,11 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
     },
     alternates: {
       canonical: `https://genosys.ae/blog/${slug}`,
+      languages: {
+        'en': `https://genosys.ae/blog/${slug}`,
+        'ar': `https://genosys.ae/ar/blog/${slug}`,
+        'ru': `https://genosys.ae/ru/blog/${slug}`,
+      },
     },
   }
 }

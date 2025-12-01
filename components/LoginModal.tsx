@@ -373,6 +373,20 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
                           <p>{t('login.privacyPolicyContent1')}</p>
                         </div>
                         <div>
+                          <p className="font-semibold">1.1. {t('login.authenticationMethods')}</p>
+                          <p>{t('login.authenticationMethodsDescription')}</p>
+                        </div>
+                        <div>
+                          <p className="font-semibold">1.2. {t('login.googleAuthentication')}</p>
+                          <p>{t('login.googleAuthenticationDescription')}</p>
+                          <p className="mt-1">{t('login.googleDataShared')}</p>
+                          <p className="mt-1">{t('login.googlePrivacyPolicy')}</p>
+                          <p className="mt-1">{t('login.googleDataUsage')}</p>
+                          <p className="mt-1">{t('login.googleAccountLinking')}</p>
+                          <p className="mt-1">{t('login.googleDataControl')}</p>
+                          <p className="mt-1">{t('login.googleAlternative')}</p>
+                        </div>
+                        <div>
                           <p className="font-semibold">2. {t('login.purposeOfProcessing')}</p>
                           <p>{t('login.purposeDescription')}</p>
                         </div>

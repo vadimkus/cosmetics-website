@@ -4,7 +4,14 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = {
   title: 'الأسئلة الشائعة - الأسئلة المتكررة | GENOSYS Middle East FZ-LLC',
   description: 'الأسئلة المتكررة حول مستحضرات التجميل الكورية GENOSYS، الشحن، الطلبات، المنتجات، والتدريب المهني في الإمارات. احصل على إجابات حول منتجات العناية بالبشرة، التوصيل، والخدمات.',
-  keywords: 'أسئلة GENOSYS الشائعة، أسئلة مستحضرات التجميل الكورية، شحن الإمارات، أسئلة العناية بالبشرة المهنية، دعم GENOSYS، أسئلة العناية بالبشرة الإمارات',
+  keywords: [
+    'أسئلة GENOSYS الشائعة',
+    'أسئلة مستحضرات التجميل الكورية',
+    'شحن الإمارات',
+    'أسئلة العناية بالبشرة المهنية',
+    'دعم GENOSYS',
+    'أسئلة العناية بالبشرة الإمارات'
+  ],
   robots: {
     index: true,
     follow: true,
@@ -45,6 +52,7 @@ export const metadata: Metadata = {
     languages: {
       'en': 'https://genosys.ae/faq',
       'ar': 'https://genosys.ae/ar/faq',
+      'ru': 'https://genosys.ae/ru/faq',
     },
   },
 }

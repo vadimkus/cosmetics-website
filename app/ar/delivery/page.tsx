@@ -6,7 +6,14 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = {
   title: 'معلومات التوصيل - شحن سريع الإمارات | Genosys Middle East FZ-LLC',
   description: 'خدمة توصيل سريعة وموثوقة في جميع أنحاء الإمارات. توصيل خلال ساعة واحدة في دبي، 24-36 ساعة في جميع أنحاء الإمارات. شحن مجاني على الطلبات التي تزيد عن 1,000 درهم.',
-  keywords: 'توصيل الإمارات، شحن سريع دبي، توصيل Careem، توصيل QuipQup، شحن مجاني الإمارات، توصيل مستحضرات التجميل الكورية',
+  keywords: [
+    'توصيل الإمارات',
+    'شحن سريع دبي',
+    'توصيل Careem',
+    'توصيل QuipQup',
+    'شحن مجاني الإمارات',
+    'توصيل مستحضرات التجميل الكورية'
+  ],
   robots: {
     index: true,
     follow: true,
@@ -22,6 +29,9 @@ export const metadata: Metadata = {
     title: 'معلومات التوصيل - شحن سريع الإمارات',
     description: 'خدمة توصيل سريعة وموثوقة في جميع أنحاء الإمارات. توصيل خلال ساعة واحدة في دبي، 24-36 ساعة في جميع أنحاء الإمارات. شحن مجاني على الطلبات التي تزيد عن 1,000 درهم.',
     type: 'website',
+    url: 'https://genosys.ae/ar/delivery',
+    siteName: 'GENOSYS Middle East FZ-LLC',
+    locale: 'ar_AE',
     images: [
       {
         url: '/images/genosys-products.jpg',
@@ -30,7 +40,6 @@ export const metadata: Metadata = {
         alt: 'خدمة توصيل GENOSYS الإمارات',
       },
     ],
-    locale: 'ar_AE',
   },
   twitter: {
     card: 'summary_large_image',
@@ -45,6 +54,7 @@ export const metadata: Metadata = {
     languages: {
       'ar': 'https://genosys.ae/ar/delivery',
       'en': 'https://genosys.ae/delivery',
+      'ru': 'https://genosys.ae/ru/delivery',
     },
   },
 }

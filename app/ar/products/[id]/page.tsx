@@ -110,6 +110,7 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
       languages: {
         'en': `https://genosys.ae/products/${product.id}`,
         'ar': `https://genosys.ae/ar/products/${product.id}`,
+        'ru': `https://genosys.ae/ru/products/${product.id}`,
       },
     },
     other: {

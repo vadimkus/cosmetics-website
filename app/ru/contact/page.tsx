@@ -6,11 +6,20 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = {
   title: 'Свяжитесь с нами - GENOSYS Middle East FZ-LLC | Связь с нами | Genosys.ae',
   description: 'Свяжитесь с GENOSYS Middle East FZ-LLC для профессиональной корейской дерматокосметики. Телефон: +971 58 548 76 65, Email: sales@genosys.ae. Находится в Дубае, ОАЭ.',
-  keywords: 'Связаться с GENOSYS, связь косметики ОАЭ, корейская косметика ОАЭ, дистрибьютор ухода за кожей Дубай, телефон GENOSYS',
+  keywords: [
+    'Связаться с GENOSYS',
+    'связь косметики ОАЭ',
+    'корейская косметика ОАЭ',
+    'дистрибьютор ухода за кожей Дубай',
+    'телефон GENOSYS'
+  ],
   openGraph: {
     title: 'Свяжитесь с нами - GENOSYS Middle East FZ-LLC | Связь с нами',
     description: 'Свяжитесь с GENOSYS Middle East FZ-LLC для профессиональной корейской дерматокосметики. Телефон: +971 58 548 76 65, Email: sales@genosys.ae.',
     type: 'website',
+    url: 'https://genosys.ae/ru/contact',
+    siteName: 'GENOSYS Middle East FZ-LLC',
+    locale: 'ru_AE',
     images: [
       {
         url: '/images/genosys-logo.png',
@@ -19,7 +28,6 @@ export const metadata: Metadata = {
         alt: 'Связь GENOSYS Middle East FZ-LLC',
       },
     ],
-    locale: 'ru_AE',
   },
   robots: {
     index: true,

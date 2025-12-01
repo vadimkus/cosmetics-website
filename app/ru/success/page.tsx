@@ -10,6 +10,9 @@ export const metadata: Metadata = {
     title: 'Заказ успешно оформлен - GENOSYS Professional Korean Dermacosmetics',
     description: 'Ваш заказ профессиональной корейской дерматокосметики GENOSYS успешно оформлен.',
     type: 'website',
+    url: 'https://genosys.ae/ru/success',
+    siteName: 'GENOSYS Middle East FZ-LLC',
+    locale: 'ru_AE',
     images: [
       {
         url: '/images/genosys-products.jpg',

@@ -8,11 +8,20 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = {
   title: 'Professional Training - GENOSYS Skincare Training | Genosys Middle East FZ-LLC',
   description: 'Professional training resources for GENOSYS skincare products. Download training documents, watch video lessons, and master professional techniques for Korean dermacosmetics.',
-  keywords: 'GENOSYS training, professional skincare training, Korean dermacosmetics training, microneedling training, UAE skincare training',
+  keywords: [
+    'GENOSYS training',
+    'professional skincare training',
+    'Korean dermacosmetics training',
+    'microneedling training',
+    'UAE skincare training'
+  ],
   openGraph: {
     title: 'Professional Training - GENOSYS Skincare Training',
     description: 'Professional training resources for GENOSYS skincare products. Download training documents, watch video lessons, and master professional techniques.',
     type: 'website',
+    url: 'https://genosys.ae/training',
+    siteName: 'GENOSYS Middle East FZ-LLC',
+    locale: 'en_AE',
     images: [
       {
         url: '/images/genosys-logo.png',
@@ -43,6 +52,11 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: 'https://genosys.ae/training',
+    languages: {
+      'en': 'https://genosys.ae/training',
+      'ar': 'https://genosys.ae/ar/training',
+      'ru': 'https://genosys.ae/ru/training',
+    },
   },
 }
 

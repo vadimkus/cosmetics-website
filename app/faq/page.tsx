@@ -4,11 +4,21 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = {
   title: 'FAQ - Frequently Asked Questions | GENOSYS Middle East FZ-LLC',
   description: 'Frequently asked questions about GENOSYS Korean dermacosmetics, shipping, orders, products, and professional training in UAE. Get answers about our skincare products, delivery, and services.',
-  keywords: 'GENOSYS FAQ, Korean dermacosmetics questions, UAE shipping, professional skincare FAQ, GENOSYS support, skincare questions UAE',
+  keywords: [
+    'GENOSYS FAQ',
+    'Korean dermacosmetics questions',
+    'UAE shipping',
+    'professional skincare FAQ',
+    'GENOSYS support',
+    'skincare questions UAE'
+  ],
   openGraph: {
     title: 'FAQ - Frequently Asked Questions | GENOSYS Middle East FZ-LLC',
     description: 'Frequently asked questions about GENOSYS Korean dermacosmetics, shipping, orders, products, and professional training in UAE.',
     type: 'website',
+    url: 'https://genosys.ae/faq',
+    siteName: 'GENOSYS Middle East FZ-LLC',
+    locale: 'en_AE',
     images: [
       {
         url: '/images/genosys-products.jpg',
@@ -39,6 +49,11 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: 'https://genosys.ae/faq',
+    languages: {
+      'en': 'https://genosys.ae/faq',
+      'ar': 'https://genosys.ae/ar/faq',
+      'ru': 'https://genosys.ae/ru/faq',
+    },
   },
 }
 

@@ -197,6 +197,36 @@ export default function ProfileContent({
           </div>
 
           <div>
+            <h4 className="font-semibold text-gray-800 mb-2">1.1. Google Authentication (OAuth)</h4>
+            <div className="bg-gray-50 rounded-lg p-4 space-y-2">
+              <p className="text-sm text-gray-700">
+                <strong>Google Sign-In:</strong> You may choose to sign in using your Google account. When you use Google Sign-In, Google shares certain information with us to create and manage your account.
+              </p>
+              <p className="text-sm text-gray-700">
+                <strong>Data Shared:</strong> Google provides us with your email address, full name, and profile picture (if available). We do not receive or store your Google password. Your Google account password remains secure with Google and is never shared with us.
+              </p>
+              <p className="text-sm text-gray-700">
+                <strong>Google Privacy:</strong> By using Google Sign-In, you also agree to Google's Privacy Policy and Terms of Service. Google's authentication is subject to Google's privacy practices, which you can review at{' '}
+                <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="text-primary-600 hover:text-primary-700 underline">
+                  https://policies.google.com/privacy
+                </a>
+              </p>
+              <p className="text-sm text-gray-700">
+                <strong>Data Usage:</strong> We use the information provided by Google solely for account creation, authentication, and service provision. This data is treated with the same level of security and privacy protection as information provided through traditional registration methods.
+              </p>
+              <p className="text-sm text-gray-700">
+                <strong>Account Linking:</strong> If you already have an account registered with the same email address, signing in with Google will link your Google account to your existing account. You can continue to use either authentication method (email/password or Google Sign-In) to access your account.
+              </p>
+              <p className="text-sm text-gray-700">
+                <strong>Control:</strong> You maintain full control over your Google account data. You can revoke our access to your Google account at any time through your Google Account settings. However, revoking access will prevent you from using Google Sign-In until you re-authorize.
+              </p>
+              <p className="text-sm text-gray-700">
+                <strong>Alternative:</strong> You are not required to use Google Sign-In. You may always choose to create an account using email and password instead. Both authentication methods provide the same level of service and data protection.
+              </p>
+            </div>
+          </div>
+
+          <div>
             <h4 className="font-semibold text-gray-800 mb-2">2. How We Use Your Information</h4>
             <div className="bg-gray-50 rounded-lg p-4">
               <ul className="list-disc list-inside space-y-1 text-sm text-gray-700">

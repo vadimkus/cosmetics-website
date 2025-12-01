@@ -22,6 +22,9 @@ export const metadata: Metadata = {
     title: 'Delivery Information - Fast Shipping UAE',
     description: 'Fast and reliable delivery service across the UAE. 1 hour delivery in Dubai, 24-36 hours across UAE. Free shipping on orders above 1,000 AED.',
     type: 'website',
+    url: 'https://genosys.ae/delivery',
+    siteName: 'GENOSYS Middle East FZ-LLC',
+    locale: 'en_AE',
     images: [
       {
         url: '/images/genosys-products.jpg',
@@ -44,6 +47,7 @@ export const metadata: Metadata = {
     languages: {
       'en': 'https://genosys.ae/delivery',
       'ar': 'https://genosys.ae/ar/delivery',
+      'ru': 'https://genosys.ae/ru/delivery',
     },
   },
 }

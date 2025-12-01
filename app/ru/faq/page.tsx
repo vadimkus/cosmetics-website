@@ -2,9 +2,16 @@ import FAQClient from '../../faq/FAQClient'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Часто задаваемые вопросы - FAQ | GENOSYS Middle East FZ-LLC',
-  description: 'Часто задаваемые вопросы о корейской дерматокосметике GENOSYS, доставке, заказах, продуктах и профессиональном обучении в ОАЭ. Получите ответы о продуктах для ухода за кожей, доставке и услугах.',
-  keywords: 'Часто задаваемые вопросы GENOSYS, вопросы корейской косметики, доставка ОАЭ, вопросы профессионального ухода за кожей, поддержка GENOSYS, вопросы ухода за кожей ОАЭ',
+  title: 'FAQ - Часто задаваемые вопросы | GENOSYS Middle East FZ-LLC',
+  description: 'FAQ о корейской дерматокосметике GENOSYS, доставке, заказах, продуктах и профессиональном обучении в ОАЭ. Получите ответы о продуктах для ухода за кожей, доставке и услугах.',
+  keywords: [
+    'FAQ GENOSYS',
+    'вопросы корейской косметики',
+    'доставка ОАЭ',
+    'вопросы профессионального ухода за кожей',
+    'поддержка GENOSYS',
+    'вопросы ухода за кожей ОАЭ'
+  ],
   robots: {
     index: true,
     follow: true,
@@ -17,8 +24,8 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: 'Часто задаваемые вопросы - FAQ | GENOSYS Middle East FZ-LLC',
-    description: 'Часто задаваемые вопросы о корейской дерматокосметике GENOSYS, доставке, заказах, продуктах и профессиональном обучении в ОАЭ.',
+    title: 'FAQ - Часто задаваемые вопросы | GENOSYS Middle East FZ-LLC',
+    description: 'FAQ о корейской дерматокосметике GENOSYS, доставке, заказах, продуктах и профессиональном обучении в ОАЭ.',
     type: 'website',
     images: [
       {
@@ -36,8 +43,8 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     site: '@genosys_official',
     creator: '@genosys_official',
-    title: 'Часто задаваемые вопросы - FAQ | GENOSYS Middle East FZ-LLC',
-    description: 'Часто задаваемые вопросы о корейской дерматокосметике GENOSYS, доставке, заказах и профессиональном обучении в ОАЭ.',
+    title: 'FAQ - Часто задаваемые вопросы | GENOSYS Middle East FZ-LLC',
+    description: 'FAQ о корейской дерматокосметике GENOSYS, доставке, заказах и профессиональном обучении в ОАЭ.',
     images: ['/images/genosys-products.jpg'],
   },
   alternates: {

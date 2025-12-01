@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { sendWelcomeEmail, sendOrderConfirmationEmail, sendAdminNewUserNotification, sendAdminNewOrderNotification, sendOrderStatusUpdate, sendEmail, generateSupportLinkOrderHTML } from '@/lib/email'
+import { sendWelcomeEmail, sendOrderConfirmationEmail, sendAdminNewUserNotification, sendAdminNewOrderNotification, sendOrderStatusUpdate, sendEmail, generateSupportLinkOrderHTML, generateCODOrderHTML } from '@/lib/email'
 import { requireAdminAuth } from '@/lib/adminAuth'
 import { requireCsrfToken } from '@/lib/csrf'
 import { errorLog } from '@/lib/logger'
@@ -116,6 +116,45 @@ export async function POST(request: NextRequest) {
         }, 'DELIVERED')
         break
       
+      case 'cod':
+        const codOrderData = {
+          orderNumber: 'COD2501010001',
+          customerName: 'Vadim Sagatdinov',
+          customerEmail: testEmail,
+          customerPhone: '+971 50 123 4567',
+          customerAddress: 'Dubai Marina, Building 123, Apt 456',
+          emirate: 'Dubai',
+          items: [
+            {
+              name: 'GENOSYS SKIN CARING BLEMISH BALM CUSHION [SPF 50+ PA++++]',
+              quantity: 2,
+              price: 150.00,
+              total: 300.00,
+              size: 'Medium',
+              color: 'Beige'
+            },
+            {
+              name: 'GENOSYS MOISTURE REPLENISHING HYALURON SERUM',
+              quantity: 1,
+              price: 156.75,
+              total: 156.75
+            }
+          ],
+          subtotal: 456.75,
+          shippingCost: 0,
+          vatAmount: 22.84,
+          total: 479.59
+        }
+        
+        // Load translations
+        const codLocale = 'en'
+        const codTranslations = (await import('@/messages/en.json')).default.orderEmail.cod
+        const codHTML = generateCODOrderHTML(codOrderData, codLocale, codTranslations)
+        const codSubject = codTranslations.subject.replace('#{orderNumber}', codOrderData.orderNumber).replace('{orderNumber}', codOrderData.orderNumber)
+        
+        result = await sendEmail(testEmail, codSubject, codHTML)
+        break
+      
       case 'support-link':
         const supportOrderData = {
           orderNumber: 'SUP2511300207',
@@ -159,7 +198,7 @@ export async function POST(request: NextRequest) {
       
       default:
         return NextResponse.json(
-          { error: 'Invalid email type. Use: welcome, order, admin-user, admin-order, order-status, or support-link' },
+          { error: 'Invalid email type. Use: welcome, order, admin-user, admin-order, order-status, cod, or support-link' },
           { status: 400 }
         )
     }

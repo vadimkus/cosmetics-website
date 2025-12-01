@@ -181,7 +181,7 @@ export default function RussianLocationsPage() {
                 Доступна бесплатная доставка
               </h2>
               <p className="text-xs md:text-base text-gray-600 mb-4 md:mb-6 max-w-xl mx-auto">
-                Заказы свыше 1000 дирхамов имеют право на бесплатную доставку по всем эмиратам ОАЭ.
+                Заказы свыше 1000 дирхамов мы доставляем бесплатно по всем эмиратам ОАЭ.
               </p>
               <div className="flex flex-row gap-3 justify-center">
                 <Link

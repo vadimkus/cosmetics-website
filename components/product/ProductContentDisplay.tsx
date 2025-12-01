@@ -798,7 +798,8 @@ function formatKey(key: string, t: (key: string) => string): string {
     'target': 'product.detailTarget',
     'application': 'product.detailApplication',
     'formulation': 'product.detailFormulation',
-    'type': 'product.detailType'
+    'type': 'product.detailType',
+    'system': 'product.detailSystem'
   }
   
   // Normalize key (lowercase) for lookup

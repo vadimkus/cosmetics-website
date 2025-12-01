@@ -40,7 +40,10 @@ export function translateCategory(category: string | null | undefined, locale: s
     'holiday kits': 'holidayKits',
     'holiday': 'holidayKits',
     'beauty boxes': 'beautyBoxes',
-    'beauty box': 'beautyBoxes'
+    'beauty box': 'beautyBoxes',
+    'microneedling': 'microneedling',
+    'pro solution': 'proSolution',
+    'pro-solution': 'proSolution'
   }
   
   // Get the translation key
@@ -51,21 +54,21 @@ export function translateCategory(category: string | null | undefined, locale: s
     return category
   }
   
-  // Get messages based on locale
-  let commonMessages: Record<string, string> | undefined
+  // Get messages based on locale - use products section for category translations
+  let productsMessages: Record<string, string> | undefined
   switch (locale) {
     case 'ar':
-      commonMessages = arMessages.common as Record<string, string>
+      productsMessages = arMessages.products as Record<string, string>
       break
     case 'ru':
-      commonMessages = ruMessages.common as Record<string, string>
+      productsMessages = ruMessages.products as Record<string, string>
       break
     default:
-      commonMessages = enMessages.common as Record<string, string>
+      productsMessages = enMessages.products as Record<string, string>
   }
   
   // Get translated category
-  const translated = commonMessages?.[translationKey]
+  const translated = productsMessages?.[translationKey]
   
   if (translated && typeof translated === 'string') {
     return translated

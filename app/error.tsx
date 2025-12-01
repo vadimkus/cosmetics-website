@@ -3,6 +3,7 @@ import { errorLog } from '@/lib/logger'
 
 import ErrorPage from '@/components/ErrorPage'
 import { useEffect } from 'react'
+import { useTranslation } from '@/hooks/useTranslation'
 
 export default function Error({
   error,
@@ -11,6 +12,8 @@ export default function Error({
   error: Error & { digest?: string }
   reset: () => void
 }) {
+  const { t } = useTranslation()
+  
   useEffect(() => {
     // Log the error to an error reporting service
     errorLog('Application error:', error)
@@ -18,8 +21,8 @@ export default function Error({
 
   return (
     <ErrorPage
-      title="Something went wrong"
-      message="We are notified already via alert mail and will fix it shortly."
+      title={t('common.somethingWentWrong')}
+      message={t('common.errorMessage')}
       error={error.message}
       type="server"
       onRetry={reset}

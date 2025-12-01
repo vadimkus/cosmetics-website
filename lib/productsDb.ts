@@ -53,7 +53,10 @@ export async function getAllProducts(): Promise<Product[]> {
     return products // No need to filter again since we filtered at DB level
   } catch (error) {
     errorLog('Error fetching products from database:', error)
-    throw new Error('Failed to fetch products')
+    const errorMessage = error instanceof Error ? error.message : String(error)
+    const errorStack = error instanceof Error ? error.stack : undefined
+    errorLog('Error details:', { message: errorMessage, stack: errorStack })
+    throw new Error(`Failed to fetch products: ${errorMessage}`)
   }
 }
 

@@ -34,8 +34,10 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
   const [isLoginMode, setIsLoginMode] = useState(true)
   
   // Get translation for description if available
-  const arabicTranslations = locale === 'ar' ? getProductTranslations(product.id) : null
-  const russianTranslations = locale === 'ru' ? getProductTranslationsRu(product.id) : null
+  // Use productNumber for translations (translations are keyed by productNumber, not UUID)
+  const productIdForTranslation = product.productNumber || product.id
+  const arabicTranslations = locale === 'ar' ? getProductTranslations(productIdForTranslation) : null
+  const russianTranslations = locale === 'ru' ? getProductTranslationsRu(productIdForTranslation) : null
   const translations = arabicTranslations || russianTranslations
   const description = translations?.description || product.description
 

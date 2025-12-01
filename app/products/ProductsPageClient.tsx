@@ -2,6 +2,7 @@
 import { debugLog, errorLog } from '@/lib/logger'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { ArrowLeft, Heart } from 'lucide-react'
 import ProductCard from '@/components/ProductCard'
 import ErrorPage from '@/components/ErrorPage'
@@ -343,7 +344,7 @@ export default function ProductsPageClient() {
               <h1 className="text-xl font-bold text-primary-600">Genosys Middle East FZ-LLC</h1>
               <div className="flex items-center justify-center gap-1 mt-1 text-sm text-gray-600">
                 <span className="ml-[70px] flex items-center gap-1">
-                  United Arab Emirates
+                  {t('common.uae')}
                   <Heart 
                     className={`h-3 w-3 text-primary-600 fill-current transition-transform duration-300 ${
                       isHeartBeating ? 'animate-pulse' : ''
@@ -354,9 +355,16 @@ export default function ProductsPageClient() {
               </div>
             </div>
           ) : (
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-2">
-              {t('products.title')}
-            </h1>
+            <div className="flex justify-center mb-3">
+              <Image
+                src="/images/prd_logo.png"
+                alt="GENOSYS Logo"
+                width={200}
+                height={80}
+                className="object-contain"
+                priority
+              />
+            </div>
           )}
           {/* Black Friday Mini Counter */}
           <div className="flex justify-center mb-2">

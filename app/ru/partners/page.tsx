@@ -116,7 +116,7 @@ export default function RussianPartnersPage() {
                   Заинтересованы стать партнером?
                 </h2>
                 <p className="text-xs md:text-base text-gray-600 mb-4 md:mb-6 text-center px-2">
-                  Присоединяйтесь к нашей сети надежных партнеров и помогите нам принести продукты GENOSYS большему количеству клиентов
+                  Присоединяйтесь к нашей сети надежных партнеров GENOSYS.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-2 md:gap-4 justify-center">
                   <Link 
@@ -129,7 +129,7 @@ export default function RussianPartnersPage() {
                     href="/ru/products"
                     className="inline-flex items-center justify-center border-2 border-primary-600 text-primary-600 px-4 md:px-6 py-2.5 md:py-3 rounded-lg text-xs md:text-base font-semibold hover:bg-primary-50 transition-colors min-h-[44px] touch-manipulation"
                   >
-                    Просмотреть продукцию
+                    Посмотреть продукцию
                   </Link>
                 </div>
               </div>

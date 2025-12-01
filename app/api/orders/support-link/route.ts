@@ -144,6 +144,8 @@ export async function POST(request: NextRequest) {
     // Load translations
     const translations = locale === 'ar' 
       ? (await import('@/messages/ar.json')).default.orderEmail.supportLink
+      : locale === 'ru'
+      ? (await import('@/messages/ru.json')).default.orderEmail.supportLink
       : (await import('@/messages/en.json')).default.orderEmail.supportLink
 
     const orderHTML = generateSupportLinkOrderHTML(orderHTMLData, locale, translations)

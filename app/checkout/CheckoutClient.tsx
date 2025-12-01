@@ -21,6 +21,7 @@ export default function CheckoutClient() {
   const [isGeneratingInvoice, setIsGeneratingInvoice] = useState(false)
   const [invoiceEmail, setInvoiceEmail] = useState('')
   const [freeMasks, setFreeMasks] = useState<Array<{ id: string; name: string; price: number; quantity: number; image: string }>>([])
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<string>('cod')
 
   // Fetch CSRF token on mount
   useEffect(() => {
@@ -182,6 +183,23 @@ export default function CheckoutClient() {
     { name: 'Fujairah', shippingCost: 70 },
     { name: 'Umm Al Quwain', shippingCost: 70 }
   ]
+
+  // Function to translate emirate names based on locale
+  const getEmirateDisplayName = (emirateName: string): string => {
+    if (locale === 'ru') {
+      const translations: Record<string, string> = {
+        'Dubai': 'Дубай',
+        'Abu Dhabi': 'Абу-Даби',
+        'Sharjah': 'Шарджа',
+        'Ajman': 'Аджман',
+        'Ras Al Khaimah': 'Рас-эль-Хайма',
+        'Fujairah': 'Фуджейра',
+        'Umm Al Quwain': 'Умм-эль-Кайвайн'
+      }
+      return translations[emirateName] || emirateName
+    }
+    return emirateName
+  }
 
   const selectedEmirateData = emirates.find(e => e.name === selectedEmirate)
   const subtotal = getTotalPrice(user)
@@ -382,7 +400,7 @@ export default function CheckoutClient() {
         
         // Always redirect to success page (emails are non-blocking)
         setIsProcessing(false)
-        router.push(`/success?payment=support-link&order_id=${supportOrderNumber}`)
+        router.push(`${getLocalizedPath('/success', locale)}?payment=support-link&order_id=${supportOrderNumber}`)
         return
       }
 
@@ -491,7 +509,7 @@ export default function CheckoutClient() {
       
       // Always redirect to success page (emails are non-blocking)
       setIsProcessing(false)
-      router.push(`/success?order_id=${codOrderNumber}&payment=cod`)
+      router.push(`${getLocalizedPath('/success', locale)}?order_id=${codOrderNumber}&payment=cod`)
     } catch (error) {
       errorLog('Order processing failed:', error)
       setIsProcessing(false)
@@ -688,7 +706,7 @@ export default function CheckoutClient() {
                     >
                       {emirates.map((emirate) => (
                         <option key={emirate.name} value={emirate.name} style={{ backgroundColor: '#ffffff', color: '#111827' }}>
-                          {emirate.name} - AED {emirate.shippingCost}
+                          {getEmirateDisplayName(emirate.name)} - AED {emirate.shippingCost}
                         </option>
                       ))}
                     </select>
@@ -727,12 +745,13 @@ export default function CheckoutClient() {
                       </div>
                     </label>
                     
-                    <label className={`flex items-start gap-2.5 md:gap-3 p-2.5 md:p-4 border-2 border-primary-400 rounded-lg cursor-pointer hover:bg-primary-50 bg-primary-50/50 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                    <label className={`flex items-start gap-2.5 md:gap-3 p-2.5 md:p-4 rounded-lg cursor-pointer transition-colors ${selectedPaymentMethod === 'cod' ? 'border-2 border-primary-400 hover:bg-primary-50 bg-primary-50/50' : 'border border-gray-300 hover:bg-gray-50'} ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                       <input
                         type="radio"
                         name="payment"
                         value="cod"
-                        defaultChecked
+                        checked={selectedPaymentMethod === 'cod'}
+                        onChange={(e) => setSelectedPaymentMethod(e.target.value)}
                         className="text-primary-600 focus:ring-primary-500 mt-0.5 flex-shrink-0"
                       />
                       <div className={`flex-1 ${dir === 'rtl' ? 'text-right' : ''}`}>
@@ -741,11 +760,13 @@ export default function CheckoutClient() {
                       </div>
                     </label>
 
-                    <label className={`flex items-start gap-2.5 md:gap-3 p-2.5 md:p-4 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                    <label className={`flex items-start gap-2.5 md:gap-3 p-2.5 md:p-4 rounded-lg cursor-pointer transition-colors ${selectedPaymentMethod === 'support-link' ? 'border-2 border-primary-400 hover:bg-primary-50 bg-primary-50/50' : 'border border-gray-300 hover:bg-gray-50'} ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                       <input
                         type="radio"
                         name="payment"
                         value="support-link"
+                        checked={selectedPaymentMethod === 'support-link'}
+                        onChange={(e) => setSelectedPaymentMethod(e.target.value)}
                         className="text-primary-600 focus:ring-primary-500 mt-0.5 flex-shrink-0"
                       />
                       <div className={`flex-1 ${dir === 'rtl' ? 'text-right' : ''}`}>
@@ -763,7 +784,7 @@ export default function CheckoutClient() {
                   </label>
                   <textarea
                     rows={2}
-                    className={`w-full px-2 py-1.5 md:p-3 text-xs md:text-base border border-gray-300 rounded-md md:rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900 ${dir === 'rtl' ? 'text-right' : ''}`}
+                    className={`w-full px-2 py-1.5 md:p-3 text-[0.675rem] md:text-[0.9rem] border border-gray-300 rounded-md md:rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900 ${dir === 'rtl' ? 'text-right' : ''}`}
                     placeholder={t('checkout.orderNotesPlaceholder')}
                     style={{ color: '#111827', backgroundColor: '#ffffff' }}
                   />
@@ -828,7 +849,7 @@ export default function CheckoutClient() {
                                 )}
                                 {pricing.hasDiscount && (
                                   <span className="text-[10px] md:text-xs text-green-600 font-medium">
-                                    ({pricing.discountPercentage}% {t('product.off')}{pricing.isBeautyBox ? ` - ${t('product.bundleDiscount')}` : ''})
+                                    ({pricing.discountPercentage}% {t('product.off')}{pricing.isBeautyBox ? ` - ${t('products.bundleDiscount')}` : ''})
                                   </span>
                                 )}
                               </div>
@@ -852,7 +873,7 @@ export default function CheckoutClient() {
                             </div>
                           </div>
                           <div className={dir === 'rtl' ? 'text-left mr-2 md:mr-3' : 'text-right ml-2 md:ml-3'}>
-                            <div className="text-xs md:text-sm font-semibold text-green-600">
+                            <div className="text-[9px] md:text-xs font-semibold text-green-600">
                               {t('checkout.free')}
                             </div>
                           </div>
@@ -876,20 +897,27 @@ export default function CheckoutClient() {
                 
                 {/* Price Breakdown */}
                 <div className="space-y-2 md:space-y-3 mb-4 md:mb-6">
-                  <div className={`flex justify-between items-center py-1.5 md:py-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                    <span className={`text-[10px] md:text-sm text-gray-600 ${dir === 'rtl' ? 'text-right' : ''}`}>
-                      {t('checkout.subtotal')} ({getTotalItems()} {getTotalItems() === 1 ? t('checkout.item') : t('checkout.items')}{freeMasks.length > 0 ? ` + ${freeMasks.length} ${freeMasks.length === 1 ? t('checkout.freeMask') : t('checkout.freeMasks')}` : ''})
-                    </span>
+                  <div className={`flex justify-between items-start py-1.5 md:py-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                    <div className={`flex flex-col ${dir === 'rtl' ? 'text-right' : ''}`}>
+                      <span className={`text-[10px] md:text-sm text-gray-600 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                        {t('checkout.subtotal')}: ({getTotalItems()} {getTotalItems() === 1 ? t('checkout.item') : t('checkout.items')})
+                      </span>
+                      {freeMasks.length > 0 && (
+                        <span className={`text-[10px] md:text-sm text-gray-600 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                          + {freeMasks.length} {freeMasks.length === 1 ? t('checkout.freeMask') : t('checkout.freeMasks')}
+                        </span>
+                      )}
+                    </div>
                     <span className="text-[10px] md:text-sm font-medium text-gray-900">AED {subtotal.toFixed(2)}</span>
                   </div>
                   
                   <div className={`flex justify-between items-center py-1.5 md:py-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                     <div className={`flex items-center gap-1.5 md:gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                       <Truck className="h-3.5 w-3.5 md:h-4 md:w-4 text-green-600" />
-                      <span className={`text-[10px] md:text-sm text-gray-600 ${dir === 'rtl' ? 'text-right' : ''}`}>{t('checkout.shippingTo')} {selectedEmirate}</span>
+                      <span className={`text-[10px] md:text-sm text-gray-600 ${dir === 'rtl' ? 'text-right' : ''}`}>{t('checkout.shippingTo')} {selectedEmirate ? getEmirateDisplayName(selectedEmirate) : ''}</span>
                     </div>
                     <span className="text-[10px] md:text-sm font-medium text-gray-900">
-                      {shippingCost === 0 ? <span className="text-green-600 font-semibold">{t('checkout.free')}</span> : `AED ${shippingCost}`}
+                      {shippingCost === 0 ? <span className="text-[9px] md:text-xs text-green-600 font-semibold">{t('checkout.free')}</span> : `AED ${shippingCost}`}
                     </span>
                   </div>
                   
@@ -920,7 +948,7 @@ export default function CheckoutClient() {
                   <p className={`text-[10px] md:text-sm text-green-700 ${dir === 'rtl' ? 'text-right' : ''}`}>
                     {selectedEmirate === 'Dubai' 
                       ? t('checkout.deliveryTimeDubai')
-                      : `${t('checkout.deliveryTimeOther')} ${selectedEmirate} ${t('checkout.byQuiqup')}.`}
+                      : `${t('checkout.deliveryTimeOther')} ${selectedEmirate ? getEmirateDisplayName(selectedEmirate) : ''} ${t('checkout.byQuiqup')}.`}
                     {selectedEmirate !== 'Dubai' && (
                       <span className="block mt-1.5 md:mt-2">
                         {t('checkout.trackingNumberWillBeShared')}

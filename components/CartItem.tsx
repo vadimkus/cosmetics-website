@@ -9,6 +9,8 @@ import Link from 'next/link'
 import { calculateDiscountedPrice, canUserSeePrices } from '@/lib/discountUtils'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getProductColorOptions } from '@/utils/productPricing'
+import { translateCategory } from '@/utils/categoryTranslations'
+import { translateSize } from '@/utils/sizeTranslations'
 
 interface CartItemProps {
   item: CartItemType
@@ -17,7 +19,7 @@ interface CartItemProps {
 export default function CartItem({ item }: CartItemProps) {
   const { updateQuantity, removeItem, updateColor } = useCart()
   const { user } = useAuth()
-  const { t, dir } = useTranslation()
+  const { t, dir, locale } = useTranslation()
   const { product, quantity, selectedColor, selectedSize } = item
   
   // Check if this is CHARMING LOOK BEAUTY BOX (productNumber '57')
@@ -69,7 +71,7 @@ export default function CartItem({ item }: CartItemProps) {
           {/* Size below image */}
           {displaySize && (
             <span className="mt-2 text-center text-[10px] md:text-xs font-medium text-blue-700 bg-blue-50 border border-blue-200 rounded px-1 py-0.5">
-              {t('product.size')}: {displaySize}
+              {t('product.size')}: {translateSize(displaySize, locale, product.category)}
             </span>
           )}
         </div>
@@ -77,9 +79,9 @@ export default function CartItem({ item }: CartItemProps) {
         {/* Middle: Product Info */}
         <div className="flex-1 min-w-0">
           <Link href={`/products/${product.id}`}>
-            <h3 className="text-sm md:text-base font-bold text-gray-900 break-words hover:text-primary-600 transition-colors cursor-pointer leading-tight mb-1">{product.name}</h3>
+            <h3 className="text-xs md:text-base font-bold text-gray-900 break-words hover:text-primary-600 transition-colors cursor-pointer leading-tight mb-1">{product.name}</h3>
           </Link>
-          <p className="text-xs md:text-sm text-red-600 mb-2">{product.category}</p>
+          <p className="text-xs md:text-sm text-red-600 mb-2">{translateCategory(product.category, locale)}</p>
           
           {/* Cushion Color Selector for CHARMING LOOK BEAUTY BOX or Cushion Product */}
           {showColorSelector && (

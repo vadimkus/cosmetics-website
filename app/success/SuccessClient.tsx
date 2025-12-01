@@ -76,11 +76,11 @@ function SuccessContent() {
                 ? (t('success.orderRequestSubmitted') || 'Order Request Submitted!')
                 : (t('success.orderSuccess') || 'Order Confirmed!')}
             </h1>
-            <p className="text-sm md:text-lg text-gray-600">
-              {paymentMethod === 'support-link' 
-                ? (t('success.supportLinkMessage') || 'Our support team will share a secure payment link.')
-                : (t('success.orderConfirmedMessage') || 'Your order has been confirmed.')}
-            </p>
+            {paymentMethod !== 'support-link' && (
+              <p className="text-sm md:text-lg text-gray-600">
+                {t('success.orderConfirmedMessage') || 'Your order has been confirmed.'}
+              </p>
+            )}
             {(orderId || paymentMethod === 'support-link') && (
               <div className="mt-3 md:mt-4 inline-block bg-blue-50 text-blue-700 px-3 py-1.5 md:px-4 md:py-2 rounded-full text-xs md:text-sm font-semibold">
                 {t('success.orderNumber') || 'Order'} #{orderId || 'Submitted'}

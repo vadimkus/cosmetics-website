@@ -54,7 +54,7 @@ export default function ErrorPage({
     return (
       <Image
         src="/images/wrong/wrong.png"
-        alt="Error"
+        alt={t('common.errorAlt')}
         width={64}
         height={64}
         className="h-16 w-16"
@@ -91,7 +91,12 @@ export default function ErrorPage({
 
           {/* Message */}
           <p className={`text-gray-600 mb-6 leading-relaxed ${dir === 'rtl' ? 'text-right' : ''}`}>
-            {displayMessage}
+            {displayMessage.split('\n').map((line, index) => (
+              <span key={index}>
+                {line}
+                {index < displayMessage.split('\n').length - 1 && <br />}
+              </span>
+            ))}
           </p>
 
           {/* Error Details (if provided) */}

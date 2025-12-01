@@ -4,6 +4,8 @@ import { Package, RefreshCw } from 'lucide-react'
 import OrderCard from './OrderCard'
 import { OrderWithItems } from '@/types/profile'
 import EmptyState from '@/components/shared/EmptyState'
+import { useTranslation } from '@/hooks/useTranslation'
+import { getLocalizedPath } from '@/lib/i18n'
 
 interface OrderHistorySectionProps {
   orders: OrderWithItems[]
@@ -24,6 +26,7 @@ export default function OrderHistorySection({
   getStatusColor,
   getStatusIcon
 }: OrderHistorySectionProps) {
+  const { t, locale } = useTranslation()
   if (loadingOrders) {
     return (
       <div className="space-y-8">
@@ -32,12 +35,12 @@ export default function OrderHistorySection({
             <div className="p-3 bg-gradient-to-r from-blue-100 to-indigo-100 rounded-xl">
               <Package className="h-6 w-6 text-blue-600" />
             </div>
-            <h2 className="text-2xl font-bold text-gray-800">Order History</h2>
+            <h2 className="text-2xl font-bold text-gray-800">{t('common.orderHistoryTitle')}</h2>
           </div>
           <div className="flex items-center justify-center py-12">
             <div className="flex items-center gap-3 text-gray-600">
               <RefreshCw className="h-5 w-5 animate-spin" />
-              <span>Loading orders...</span>
+              <span>{t('common.loadingOrders')}</span>
             </div>
           </div>
         </div>
@@ -52,17 +55,17 @@ export default function OrderHistorySection({
           <div className="p-3 bg-gradient-to-r from-blue-100 to-indigo-100 rounded-xl">
             <Package className="h-6 w-6 text-blue-600" />
           </div>
-          <h2 className="text-2xl font-bold text-gray-800">Order History</h2>
+          <h2 className="text-2xl font-bold text-gray-800">{t('common.orderHistoryTitle')}</h2>
         </div>
 
         {orders.length === 0 ? (
           <EmptyState
             icon={<Package className="h-12 w-12 text-gray-300" />}
-            title="No orders yet"
-            description="Your order history will appear here once you make your first purchase."
+            title={t('common.noOrdersYetTitle')}
+            description={t('common.noOrdersYetDescription')}
             action={{
-              label: 'Browse Products',
-              href: '/products',
+              label: t('profile.browseProducts'),
+              href: getLocalizedPath('/products', locale),
               onClick: () => {}
             }}
           />

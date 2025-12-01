@@ -22,16 +22,41 @@ if (globalForPrisma.prisma) {
   prismaInstance = globalForPrisma.prisma
   debugLog('✅ Using existing Prisma client from globalThis')
 } else {
-  prismaInstance = new PrismaClient({
-    datasources: {
-      db: {
-        url: databaseUrl
+  // Only initialize server-side
+  if (typeof window === 'undefined') {
+    try {
+      // Check if using Prisma Accelerate (prisma+postgres://) - use accelerateUrl
+      const isAccelerate = databaseUrl.startsWith('prisma+')
+      
+      if (isAccelerate) {
+        // Prisma Accelerate - pass accelerateUrl explicitly
+        prismaInstance = new PrismaClient({
+          accelerateUrl: databaseUrl,
+          log: process.env.NODE_ENV === 'development' ? ['query', 'error', 'warn'] : ['error']
+        })
+        debugLog('✅ Created new Prisma client instance with Prisma Accelerate')
+      } else {
+        // Regular PostgreSQL connection - use adapter
+        const { PrismaPg } = require('@prisma/adapter-pg')
+        const { Pool } = require('pg')
+        const pool = new Pool({ connectionString: databaseUrl })
+        const adapter = new PrismaPg(pool)
+        prismaInstance = new PrismaClient({
+          adapter,
+          log: process.env.NODE_ENV === 'development' ? ['query', 'error', 'warn'] : ['error']
+        })
+        debugLog('✅ Created new Prisma client instance with adapter')
       }
-    },
-    log: process.env.NODE_ENV === 'development' ? ['query', 'error', 'warn'] : ['error']
-  })
+    } catch (error) {
+      errorLog('❌ Failed to initialize Prisma client:', error)
+      errorLog('❌ Error details:', error instanceof Error ? error.message : String(error))
+      throw error
+    }
+  } else {
+    // Fallback for client-side (should never happen, but TypeScript needs this)
+    throw new Error('PrismaClient cannot be initialized on the client side')
+  }
   globalForPrisma.prisma = prismaInstance
-  debugLog('✅ Created new Prisma client instance')
 }
 
 export const prisma = prismaInstance
@@ -63,7 +88,7 @@ try {
 }
 
 // Test the connection (lazy - don't block initialization)
-prisma.$connect().catch((error) => {
+prisma.$connect().catch((error: unknown) => {
   errorLog('Failed to connect to database:', error)
 })
 

@@ -34,7 +34,7 @@ function LanguageSwitcherContent() {
         aria-label="Switch language"
       >
         <span className="text-xs font-medium text-gray-700">
-          {currentLocale === 'ar' ? 'AR' : 'EN'}
+          {currentLocale === 'ar' ? 'AR' : currentLocale === 'ru' ? 'RU' : 'EN'}
         </span>
       </button>
       
@@ -52,6 +52,14 @@ function LanguageSwitcherContent() {
               }`}
             >
               English
+            </button>
+            <button
+              onClick={() => switchLanguage('ru')}
+              className={`w-full text-left px-3 py-2 text-sm hover:bg-gray-50 transition-colors ${
+                currentLocale === 'ru' ? 'bg-primary-50 text-primary-600 font-medium' : ''
+              }`}
+            >
+              Русский
             </button>
             <button
               onClick={() => switchLanguage('ar')}

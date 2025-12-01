@@ -54,6 +54,23 @@ export default function CartClient() {
     { name: 'Umm Al Quwain', shippingCost: 70 }
   ]
 
+  // Function to translate emirate names based on locale
+  const getEmirateDisplayName = (emirateName: string): string => {
+    if (locale === 'ru') {
+      const translations: Record<string, string> = {
+        'Dubai': 'Дубай',
+        'Abu Dhabi': 'Абу-Даби',
+        'Sharjah': 'Шарджа',
+        'Ajman': 'Аджман',
+        'Ras Al Khaimah': 'Рас-эль-Хайма',
+        'Fujairah': 'Фуджейра',
+        'Umm Al Quwain': 'Умм-эль-Кайвайн'
+      }
+      return translations[emirateName] || emirateName
+    }
+    return emirateName
+  }
+
   const selectedEmirateData = emirates.find(e => e.name === selectedEmirate)
   const subtotal = getTotalPrice(user)
   const shippingCost = subtotal >= 1000 ? 0 : (selectedEmirateData?.shippingCost || 45)
@@ -273,11 +290,8 @@ export default function CartClient() {
                 <div className="px-3 md:px-6 pt-4 md:pt-6 pb-3 md:pb-4">
                   <div className={`p-3 md:p-4 bg-gradient-to-r from-purple-50 to-pink-50 border-2 border-purple-400 rounded-lg shadow-sm ${dir === 'rtl' ? 'text-right' : ''}`}>
                     <div className="mb-2 md:mb-3 text-center">
-                      <h3 className="text-base md:text-xl font-bold text-purple-700">
-                        {locale === 'ar' ? 'خصم المجموعة' : locale === 'ru' ? 'Скидка на набор' : 'Bundle Discount'}
-                      </h3>
-                      <p className="text-xs md:text-sm font-semibold text-purple-600">
-                        {locale === 'ar' ? 'خصم 15% على صناديق الجمال' : locale === 'ru' ? '15% скидка на Beauty Box' : '15% OFF on Beauty Boxes'}
+                      <p className="text-sm md:text-lg font-bold text-purple-700">
+                        {t('products.beautyBoxDiscount')}
                       </p>
                     </div>
                     
@@ -291,7 +305,7 @@ export default function CartClient() {
                       <div className="text-purple-400 text-lg md:text-2xl">=</div>
                       <div className="flex flex-col items-center bg-green-50 rounded-lg px-2 md:px-4 py-2 md:py-3 border border-green-300 shadow-sm">
                         <div className="text-lg md:text-2xl font-bold text-green-600 whitespace-nowrap">
-                          {beautyBoxSavings.toFixed(0)} {locale === 'ar' ? 'درهم' : locale === 'ru' ? 'AED' : 'AED'}
+                          {beautyBoxSavings.toFixed(2)} {locale === 'ar' ? 'درهم' : locale === 'ru' ? 'AED' : 'AED'}
                         </div>
                         <div className="text-[10px] md:text-xs text-green-500 font-medium whitespace-nowrap">
                           {locale === 'ar' ? 'وفرت' : locale === 'ru' ? 'СЭКОНОМЛЕНО' : 'SAVED'}
@@ -301,11 +315,7 @@ export default function CartClient() {
 
                     <div className={`mt-2 md:mt-3 pt-2 md:pt-3 border-t border-purple-200 ${dir === 'rtl' ? 'text-right' : ''}`}>
                       <p className={`text-xs md:text-sm font-semibold text-green-700 text-center`}>
-                        {locale === 'ar' 
-                          ? `✅ وفرت ${beautyBoxSavings.toFixed(2)} درهم على صناديق الجمال`
-                          : locale === 'ru'
-                          ? `✅ Вы сэкономили ${beautyBoxSavings.toFixed(2)} AED на Beauty Box`
-                          : `✅ You saved AED ${beautyBoxSavings.toFixed(2)} on Beauty Boxes`}
+                        ✅ {t('products.beautyBoxSavings', { amount: beautyBoxSavings.toFixed(2) })}
                       </p>
                     </div>
                   </div>
@@ -511,7 +521,7 @@ export default function CartClient() {
                   >
                     {emirates.map((emirate) => (
                       <option key={emirate.name} value={emirate.name} style={{ backgroundColor: '#ffffff', color: '#111827' }}>
-                        {emirate.name} - AED {emirate.shippingCost}
+                        {getEmirateDisplayName(emirate.name)} - AED {emirate.shippingCost}
                       </option>
                     ))}
                   </select>
@@ -555,7 +565,7 @@ export default function CartClient() {
                   </div>
                   
                   <div className={`flex justify-between text-xs md:text-base text-gray-600 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                    <span>{t('cart.shippingTo')} {selectedEmirate}</span>
+                    <span>{t('cart.shippingTo')} {selectedEmirate ? getEmirateDisplayName(selectedEmirate) : ''}</span>
                     <span>{user ? (shippingCost === 0 ? <span className="text-green-600 font-semibold">{t('cart.freeDelivery')}</span> : `AED ${shippingCost}`) : t('cart.loginToSeePrice')}</span>
                   </div>
                   

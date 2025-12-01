@@ -15,13 +15,20 @@ if (!databaseUrl) {
 }
 
 // Create a singleton instance of PrismaClient
-export const prisma = globalForPrisma.prisma ?? new PrismaClient({
-  datasources: {
-    db: {
-      url: databaseUrl
-    }
+if (!globalForPrisma.prisma) {
+  if (typeof window === 'undefined') {
+    // Server-side only - use adapter
+    const { PrismaPg } = require('@prisma/adapter-pg')
+    const { Pool } = require('pg')
+    const pool = new Pool({ connectionString: databaseUrl })
+    const adapter = new PrismaPg(pool)
+    globalForPrisma.prisma = new PrismaClient({ adapter })
+  } else {
+    throw new Error('PrismaClient cannot be initialized on the client side')
   }
-})
+}
+
+export const prisma = globalForPrisma.prisma
 
 // In development, store the client on globalThis to prevent multiple instances
 if (process.env.NODE_ENV !== 'production') {

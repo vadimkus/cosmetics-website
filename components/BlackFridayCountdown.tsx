@@ -13,7 +13,7 @@ interface TimeLeft {
 }
 
 export default function BlackFridayCountdown() {
-  const { locale, dir } = useTranslation()
+  const { t, locale, dir } = useTranslation()
   const [timeLeft, setTimeLeft] = useState<TimeLeft | null>(null)
   const [isSaleEnded, setIsSaleEnded] = useState(false)
   const [isSaleActive, setIsSaleActive] = useState(false)
@@ -96,12 +96,14 @@ export default function BlackFridayCountdown() {
           <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-black mb-1.5 sm:mb-2 break-words">
             {locale === 'ar' ? (
               <>عرض الجمعة السوداء — <span className="text-red-500">خصم 20%</span></>
+            ) : locale === 'ru' ? (
+              <>{t('common.blackFriday20Off')}</>
             ) : (
               <>Black Friday <span className="text-red-500">20% OFF</span></>
             )}
           </h3>
           <p className="text-xs sm:text-sm md:text-base text-gray-700 font-semibold break-words">
-            {locale === 'ar' ? '26 نوفمبر — 28 نوفمبر' : 'Nov 26th — Nov 28th'}
+            {locale === 'ar' ? '26 نوفمبر — 28 نوفمبر' : locale === 'ru' ? t('common.nov26to28') : 'Nov 26th — Nov 28th'}
           </p>
         </div>
 
@@ -113,7 +115,7 @@ export default function BlackFridayCountdown() {
               {timeLeft.days.toString().padStart(2, '0')}
             </div>
             <div className="text-[10px] sm:text-xs md:text-sm text-gray-600 mt-0.5 sm:mt-1">
-              {locale === 'ar' ? 'يوم' : 'Days'}
+              {locale === 'ar' ? 'يوم' : locale === 'ru' ? t('common.days') : 'Days'}
             </div>
           </div>
 
@@ -126,7 +128,7 @@ export default function BlackFridayCountdown() {
               {timeLeft.hours.toString().padStart(2, '0')}
             </div>
             <div className="text-[10px] sm:text-xs md:text-sm text-gray-600 mt-0.5 sm:mt-1">
-              {locale === 'ar' ? 'ساعة' : 'Hours'}
+              {locale === 'ar' ? 'ساعة' : locale === 'ru' ? t('common.hours') : 'Hours'}
             </div>
           </div>
 
@@ -139,7 +141,7 @@ export default function BlackFridayCountdown() {
               {timeLeft.minutes.toString().padStart(2, '0')}
             </div>
             <div className="text-[10px] sm:text-xs md:text-sm text-gray-600 mt-0.5 sm:mt-1">
-              {locale === 'ar' ? 'دقيقة' : 'Minutes'}
+              {locale === 'ar' ? 'دقيقة' : locale === 'ru' ? t('common.minutes') : 'Minutes'}
             </div>
           </div>
 
@@ -152,7 +154,7 @@ export default function BlackFridayCountdown() {
               {timeLeft.seconds.toString().padStart(2, '0')}
             </div>
             <div className="text-[10px] sm:text-xs md:text-sm text-gray-600 mt-0.5 sm:mt-1">
-              {locale === 'ar' ? 'ثانية' : 'Seconds'}
+              {locale === 'ar' ? 'ثانية' : locale === 'ru' ? t('common.seconds') : 'Seconds'}
             </div>
           </div>
         </div>
@@ -162,9 +164,13 @@ export default function BlackFridayCountdown() {
           {isSaleActive 
             ? (locale === 'ar' 
                 ? <>العرض جاري! لا يوجد حد أدنى للإنفاق. <Link href={getLocalizedPath('/blog/black-friday-sale-20-off', locale)} className="underline hover:text-red-500 transition-colors">جميع الطلبات مؤهلة.</Link></>
+                : locale === 'ru' 
+                ? <>{t('common.saleIsOn')} <Link href={getLocalizedPath('/blog/black-friday-sale-20-off', locale)} className="underline hover:text-red-500 transition-colors">{t('common.allOrdersQualify')}</Link></>
                 : <>Sale is on! No minimum spend. <Link href={getLocalizedPath('/blog/black-friday-sale-20-off', locale)} className="underline hover:text-red-500 transition-colors">All orders qualify.</Link></>)
             : (locale === 'ar' 
                 ? <>لا يوجد حد أدنى للإنفاق. <Link href={getLocalizedPath('/blog/black-friday-sale-20-off', locale)} className="underline hover:text-red-500 transition-colors">جميع الطلبات مؤهلة.</Link></>
+                : locale === 'ru'
+                ? <>{t('common.noMinimumSpend')} <Link href={getLocalizedPath('/blog/black-friday-sale-20-off', locale)} className="underline hover:text-red-500 transition-colors">{t('common.allOrdersQualify')}</Link></>
                 : <>No minimum spend. <Link href={getLocalizedPath('/blog/black-friday-sale-20-off', locale)} className="underline hover:text-red-500 transition-colors">All orders qualify.</Link></>)}
         </p>
       </div>

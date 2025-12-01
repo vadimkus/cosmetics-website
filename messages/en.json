@@ -30,6 +30,7 @@
     "loadingRecommendation": "Loading recommendation...",
     "loadingOrders": "Loading orders...",
     "error": "Error",
+    "errorAlt": "Error icon",
     "pageNotFound": "Page Not Found",
     "pageNotFoundMessage": "The page you're looking for doesn't exist. It might have been moved, deleted, or you entered the wrong URL.",
     "somethingWentWrong": "Something went wrong",
@@ -149,7 +150,10 @@
     "eyeCare": "Eye care",
     "device": "Device",
     "holidayKits": "Holiday kits",
-    "beautyBoxes": "Beauty Boxes"
+    "beautyBoxes": "Beauty Boxes",
+    "bundleDiscount": "Bundle Discount",
+    "beautyBoxDiscount": "15% OFF on Beauty Boxes",
+    "beautyBoxSavings": "You saved AED {amount} on Beauty Boxes"
   },
   "cart": {
     "title": "Shopping Cart",
@@ -719,6 +723,7 @@
     "detailApplication": "Application",
     "detailFormulation": "Formulation",
     "detailType": "Type",
+    "detailSystem": "System",
     "productDocumentation": "Product Documentation",
     "documentationDescription": "Download the complete product manual and usage guide for professional application.",
     "recommendedSkincareRoutine": "Recommended Skincare Routine",
@@ -766,7 +771,6 @@
     "routinePeelingGelTitle": "EPI Turnover Boosting Peeling Gel",
     "routinePeelingGelDesc": "Use 1-2 times per week to remove dead skin cells and smooth texture. This gentle enzymatic peeling gel reveals brighter, smoother skin without irritation.",
     "routineSoothingBombMaskDescBrightening": "Use 2-3 times per week to complement your routine. It provides intensive hydration and soothes skin while enhancing the brightening effects.",
-    "bundleDiscount": "Bundle Discount",
     "viewPdf": "View PDF",
     "download": "Download",
     "note": "Note:",

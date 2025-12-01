@@ -182,6 +182,8 @@ export async function POST(request: NextRequest) {
     // Load translations
     const translations = locale === 'ar' 
       ? (await import('@/messages/ar.json')).default.orderEmail.cod
+      : locale === 'ru'
+      ? (await import('@/messages/ru.json')).default.orderEmail.cod
       : (await import('@/messages/en.json')).default.orderEmail.cod
 
     const orderHTML = generateCODOrderHTML(orderHTMLData, locale, translations)

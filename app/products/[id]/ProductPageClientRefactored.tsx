@@ -186,21 +186,11 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
             
             {/* Desktop Product Header - Hidden on mobile */}
             <div className="hidden lg:block mb-4">
-              {/* Category Badge & Stock Status */}
+              {/* Category Badge */}
               <div className={`flex items-center justify-center flex-wrap gap-2 mb-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                 <span className="inline-block bg-gradient-to-r from-primary-100 to-primary-50 text-primary-700 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wide">
                   {product.category.split(',').map(cat => translateCategory(cat.trim(), locale)).join(' · ')}
                 </span>
-                {product.inStock ? (
-                  <span className={`inline-flex items-center bg-green-100 text-green-700 px-2.5 py-1 rounded-full text-xs font-medium ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                    <span className={`w-1.5 h-1.5 bg-green-500 rounded-full ${dir === 'rtl' ? 'ml-1.5' : 'mr-1.5'}`}></span>
-                    {t('product.inStock')}
-                  </span>
-                ) : (
-                  <span className="inline-flex items-center bg-red-100 text-red-700 px-2.5 py-1 rounded-full text-xs font-medium">
-                    {t('product.outOfStock')}
-                  </span>
-                )}
               </div>
               
               {/* Product Name */}
@@ -237,7 +227,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
             </div>
             
             {/* Size and Price - Below Image */}
-            <div className="mt-1.5 lg:mt-4 flex justify-center lg:block">
+            <div className="mt-1.5 lg:mt-4 flex justify-center">
               <ProductPriceDisplay 
                 product={product}
                 basePrice={currentPrice()}

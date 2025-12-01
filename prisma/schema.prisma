@@ -1,31 +1,30 @@
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
   // Ensure Prisma client works in serverless environments (Vercel, AWS Lambda, etc.)
   binaryTargets = ["native", "rhel-openssl-3.0.x"]
 }
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
 }
 
 model User {
-  id                  String               @id @default(cuid())
-  email               String               @unique
-  name                String
-  password            String?
-  phone               String?
-  address             String?
-  profilePicture      String?
-  isAdmin             Boolean              @default(false)
-  canSeePrices        Boolean              @default(true)
-  discountType        String?
-  discountPercentage  Float?
-  birthday            String?
-  lastLoginAt         DateTime?
-  createdAt           DateTime             @default(now())
-  updatedAt           DateTime             @updatedAt
-  
+  id                 String    @id @default(cuid())
+  email              String    @unique
+  name               String
+  password           String?
+  phone              String?
+  address            String?
+  profilePicture     String?
+  isAdmin            Boolean   @default(false)
+  canSeePrices       Boolean   @default(true)
+  discountType       String?
+  discountPercentage Float?
+  birthday           String?
+  lastLoginAt        DateTime?
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+
   orders              Order[]
   passwordResetTokens PasswordResetToken[]
   reviews             ProductReview[]
@@ -64,7 +63,7 @@ model Product {
   ageGroup       String? // teen, young-adult, adult, mature
 
   // Rating fields
-  rating Float? @default(5.0) // Product rating out of 5
+  rating  Float?          @default(5.0) // Product rating out of 5
   reviews ProductReview[]
 
   @@index([category]) // Index for faster category filtering
@@ -232,6 +231,10 @@ model BlogPost {
   titleAr       String?       @db.Text
   excerptAr     String?       @db.Text
   contentAr     String?       @db.Text
+  // Russian translations
+  titleRu       String?       @db.Text
+  excerptRu     String?       @db.Text
+  contentRu     String?       @db.Text
 
   @@index([slug])
   @@index([published])
@@ -260,19 +263,19 @@ model BlogComment {
 model ProductReview {
   id        String   @id @default(cuid())
   productId String
-  userId    String   // Required - only registered users can review
-  userName  String   // User's name at time of review
-  userEmail String   // User's email
-  rating    Int      // 1-5 stars
-  title     String?  // Optional review title
+  userId    String // Required - only registered users can review
+  userName  String // User's name at time of review
+  userEmail String // User's email
+  rating    Int // 1-5 stars
+  title     String? // Optional review title
   comment   String   @db.Text // Review text
   approved  Boolean  @default(true) // Auto-approve for registered users
   helpful   Int      @default(0) // Helpful votes count
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  
-  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([productId, userId]) // One review per user per product
   @@index([productId])

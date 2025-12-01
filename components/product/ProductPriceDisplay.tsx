@@ -19,7 +19,7 @@ export default function ProductPriceDisplay({ product, basePrice, user }: Produc
   const { t, locale, dir } = useTranslation()
 
   return (
-    <div className={`w-full flex justify-center lg:justify-start ${dir === 'rtl' ? 'lg:mr-[30%]' : 'lg:ml-[30%]'}`} dir={dir}>
+    <div className="w-full flex justify-center" dir={dir}>
       {canUserSeePrices(user) ? (
         <>
           {(() => {
@@ -27,10 +27,10 @@ export default function ProductPriceDisplay({ product, basePrice, user }: Produc
             const pricing = calculateDiscountedPrice(productWithPrice, user)
             
             return (
-              <div className={`w-full text-center ${dir === 'rtl' ? 'lg:text-right' : 'lg:text-left'}`}>
+              <div className="w-full text-center">
                 {pricing.hasDiscount ? (
                   <div className="w-full">
-                    <div className={`w-full flex items-center justify-center gap-2 md:gap-3 ${dir === 'rtl' ? 'flex-row-reverse lg:justify-end' : 'lg:justify-start'}`}>
+                    <div className={`w-full flex items-center justify-center gap-2 md:gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                       <span className="text-xl md:text-3xl font-bold text-primary-600">
                         {pricing.discountedPrice.toFixed(2)} {dir === 'rtl' ? 'درهم' : 'AED'}
                       </span>
@@ -38,7 +38,7 @@ export default function ProductPriceDisplay({ product, basePrice, user }: Produc
                         {pricing.originalPrice.toFixed(2)} {dir === 'rtl' ? 'درهم' : 'AED'}
                       </span>
                     </div>
-                    <div className={`w-full flex items-center justify-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse lg:justify-end' : 'lg:justify-start'}`}>
+                    <div className={`w-full flex items-center justify-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                       <span className="text-xs md:text-sm text-green-600 font-medium">
                         {pricing.discountPercentage}% {t('product.off')}
                         {pricing.isBeautyBox && ` (${t('product.bundleDiscount')})`}

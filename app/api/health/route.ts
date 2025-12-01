@@ -6,8 +6,8 @@ export async function GET() {
   try {
     debugLog('🏥 Health check: Testing database connection...')
     
-    // Test database connection
-    await prisma.$queryRaw`SELECT 1`
+    // Test database connection - use $connect() instead of $queryRaw for Prisma 7
+    await prisma.$connect()
     debugLog('✅ Database connection successful')
     
     // Test products table

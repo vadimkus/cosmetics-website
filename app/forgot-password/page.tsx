@@ -5,8 +5,12 @@ import Image from 'next/image'
 import { useState } from 'react'
 import { fetchCsrfToken, getCsrfHeaders, addCsrfToBody } from '@/lib/csrfClient'
 import { errorLog } from '@/lib/logger'
+import BreadcrumbSchema from '@/components/BreadcrumbSchema'
+import { useTranslation } from '@/hooks/useTranslation'
+import { getLocalizedPath } from '@/lib/i18n'
 
 export default function ForgotPasswordClient() {
+  const { t, locale } = useTranslation()
   const [email, setEmail] = useState('')
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
@@ -48,6 +52,13 @@ export default function ForgotPasswordClient() {
   if (success) {
     return (
       <div className="container mx-auto px-4 py-8 md:py-16">
+        <BreadcrumbSchema 
+          items={[
+            { name: t('common.home'), url: getLocalizedPath('/', locale) },
+            { name: t('common.login'), url: getLocalizedPath('/login', locale) },
+            { name: t('auth.forgotPassword'), url: getLocalizedPath('/forgot-password', locale) }
+          ]}
+        />
         {/* Navigation Breadcrumb */}
         <nav className="flex items-center gap-2 text-sm md:text-base text-gray-600 mb-8" aria-label="Breadcrumb">
           <Link
@@ -101,6 +112,13 @@ export default function ForgotPasswordClient() {
 
   return (
     <div className="container mx-auto px-4 py-8 md:py-16">
+      <BreadcrumbSchema 
+        items={[
+          { name: 'Home', url: '/' },
+          { name: 'Login', url: '/login' },
+          { name: 'Forgot Password', url: '/forgot-password' }
+        ]}
+      />
       {/* Navigation Breadcrumb */}
       <nav className="flex items-center gap-2 text-sm md:text-base text-gray-600 mb-8" aria-label="Breadcrumb">
         <Link

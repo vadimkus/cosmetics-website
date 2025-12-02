@@ -6,6 +6,7 @@ import { Share2 } from 'lucide-react'
 import { Product } from '@/types'
 import { getProductVideoUrl } from '@/data/productConfig'
 import { useTranslation } from '@/hooks/useTranslation'
+import { errorLog } from '@/lib/logger'
 
 interface ProductImageGalleryProps {
   product: Product
@@ -99,7 +100,7 @@ export default function ProductImageGallery({ product }: ProductImageGalleryProp
       window.open(whatsappUrl, '_blank')
       setShowShareMenu(false)
     } catch (error) {
-      console.error('Error sharing to WhatsApp:', error)
+      errorLog('Error sharing to WhatsApp:', error)
     } finally {
       setTimeout(() => setIsSharing(false), 500)
     }
@@ -115,7 +116,7 @@ export default function ProductImageGallery({ product }: ProductImageGalleryProp
       window.open(telegramUrl, '_blank')
       setShowShareMenu(false)
     } catch (error) {
-      console.error('Error sharing to Telegram:', error)
+      errorLog('Error sharing to Telegram:', error)
     } finally {
       setTimeout(() => setIsSharing(false), 500)
     }
@@ -132,7 +133,7 @@ export default function ProductImageGallery({ product }: ProductImageGalleryProp
       alert(message)
       setShowShareMenu(false)
     } catch (error) {
-      console.error('Failed to copy:', error)
+      errorLog('Failed to copy:', error)
       const { productUrl } = getShareData()
       alert(productUrl)
     } finally {

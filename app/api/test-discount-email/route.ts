@@ -64,12 +64,12 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    console.log(`📧 Sending discount assignment email to: ${email}`)
-    console.log(`👤 Name: ${finalName}`)
-    console.log(`🎁 Discount Type: ${finalDiscountType}`)
-    console.log(`💰 Discount Percentage: ${finalDiscountPercentage}%`)
+    debugLog(`📧 Sending discount assignment email to: ${email}`)
+    debugLog(`👤 Name: ${finalName}`)
+    debugLog(`🎁 Discount Type: ${finalDiscountType}`)
+    debugLog(`💰 Discount Percentage: ${finalDiscountPercentage}%`)
     if (userDiscountPercentage !== null && discountPercentage === undefined) {
-      console.log(`ℹ️  Using user's actual discount from database: ${userDiscountPercentage}%`)
+      debugLog(`ℹ️  Using user's actual discount from database: ${userDiscountPercentage}%`)
     }
 
     const result = await sendDiscountAssignmentEmail({

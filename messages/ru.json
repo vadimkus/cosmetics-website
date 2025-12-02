@@ -66,7 +66,6 @@
     "closeMobileMenu": "Закрыть мобильное меню",
     "openMobileMenu": "Открыть мобильное меню",
     "settings": "Настройки",
-    "errorAlt": "Ошибка",
     "blackFriday": "Черная пятница",
     "blackFriday20Off": "Черная пятница — 20% СКИДКА",
     "nov26to28": "26 ноября — 28 ноября",
@@ -1133,6 +1132,7 @@
     "showPassword": "Показать пароль",
     "hidePassword": "Скрыть пароль",
     "forgotPassword": "Забыли пароль?",
+    "resetPassword": "Сброс пароля",
     "uaePhoneNumber": "Номер телефона ОАЭ",
     "uaePhoneNumberPlaceholder": "Номер телефона ОАЭ * (Обязательно)",
     "uaeAddress": "Адрес в ОАЭ",
@@ -1240,7 +1240,7 @@
       "address": "Адрес:",
       "emirate": "Эмират:",
       "contactSupport": "Связаться со службой поддержки через WhatsApp",
-      "officialDistributor": "Официальный дистрибьютор",
+      "officialDistributor": "Официальный дистрибьютор в ОАЭ",
       "copyright": "© 2025 Genosys Middle East FZ-LLC. Все права защищены."
     },
     "supportLink": {

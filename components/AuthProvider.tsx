@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react'
 import { fetchCsrfToken, getCsrfHeaders, addCsrfToBody } from '@/lib/csrfClient'
-import { errorLog } from '@/lib/logger'
+import { errorLog, debugLog } from '@/lib/logger'
 
 interface User {
   id: string
@@ -375,7 +375,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
         const sessionData = await sessionResponse.json()
         if (sessionData.user) {
           // Debug: Log profile picture (always log for troubleshooting)
-          console.log('🔍 AuthProvider - User from session API:', {
+          debugLog('🔍 AuthProvider - User from session API:', {
             email: sessionData.user.email,
             profilePicture: sessionData.user.profilePicture,
             hasProfilePicture: !!sessionData.user.profilePicture,
@@ -402,7 +402,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
           if (data.user) {
             // Debug: Log profile picture in development
             if (process.env.NODE_ENV === 'development') {
-              console.log('AuthProvider - Refreshed user from refresh endpoint:', {
+              debugLog('AuthProvider - Refreshed user from refresh endpoint:', {
                 email: data.user.email,
                 profilePicture: data.user.profilePicture,
                 hasProfilePicture: !!data.user.profilePicture

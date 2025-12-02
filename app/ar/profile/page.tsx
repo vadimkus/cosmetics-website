@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import ProfilePageClient from './ProfilePageClient'
+import ProfilePageRefactored from '../../profile/page'
 
 export const metadata: Metadata = {
   title: 'الملف الشخصي | GENOSYS',
@@ -36,6 +36,6 @@ export const metadata: Metadata = {
 }
 
 export default function ArabicProfilePage() {
-  return <ProfilePageClient />
+  return <ProfilePageRefactored />
 }
 

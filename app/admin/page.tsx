@@ -5,6 +5,8 @@ import Image from 'next/image'
 import { User as UserIcon, Package, Clock, CheckCircle, Truck, X, Trash2, RefreshCw, ArrowLeft, BarChart3, Plus, Edit, Image as ImageIcon, Shield, FileText, ShoppingBag } from 'lucide-react'
 import AdminLogin from '@/components/AdminLogin'
 import AnalyticsDashboard from '@/components/AnalyticsDashboard'
+import AdvancedReportingDashboard from '@/components/AdvancedReportingDashboard'
+import UserSegmentation from '@/components/UserSegmentation'
 import CustomerProfile from '@/components/CustomerProfile'
 import ProductForm from '@/components/ProductForm'
 import BlogManagement from '@/components/BlogManagement'
@@ -35,6 +37,9 @@ interface User {
   lastLoginAt?: string | null
   createdAt: string
   updatedAt?: string | null
+  orderCount?: number
+  totalSpent?: number
+  lastOrderDate?: string | null
 }
 
 export default function AdminPage() {
@@ -84,7 +89,7 @@ export default function AdminPage() {
     
     return headers as HeadersInit
   }, [adminUser?.email])
-  const [activeTab, setActiveTab] = useState<'analytics' | 'users' | 'orders' | 'products' | 'blog'>('analytics')
+  const [activeTab, setActiveTab] = useState<'analytics' | 'reporting' | 'segmentation' | 'users' | 'orders' | 'products' | 'blog'>('analytics')
   const [selectedOrder, setSelectedOrder] = useState<OrderWithItems | null>(null)
   const [selectedCustomer, setSelectedCustomer] = useState<User | null>(null)
   const [showProductForm, setShowProductForm] = useState(false)
@@ -648,40 +653,42 @@ export default function AdminPage() {
     onBack: () => void
     onUpdateStatus: (orderId: string, status: string) => void
   }) => (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
+    <div className="space-y-4 sm:space-y-6">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
         <button
           onClick={onBack}
-          className="flex items-center gap-2 text-gray-600 hover:text-gray-800"
+          className="flex items-center gap-2 text-gray-600 hover:text-gray-800 active:text-gray-900 text-sm sm:text-base touch-manipulation"
         >
-          <ArrowLeft className="h-4 w-4" />
-          Back to Orders
+          <ArrowLeft className="h-4 w-4 sm:h-5 sm:w-5" />
+          <span className="hidden xs:inline">Back to Orders</span>
+          <span className="xs:hidden">Back</span>
         </button>
-        <div className="text-sm text-gray-500">
+        <div className="text-xs sm:text-sm text-gray-500 break-all">
           Order #{order.id?.slice(-8) || 'N/A'}
         </div>
       </div>
 
-      <div className="bg-white rounded-lg border p-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+      <div className="bg-white rounded-lg border p-4 sm:p-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 mb-4 sm:mb-6">
           <div>
-            <h3 className="text-lg font-semibold mb-4">Customer Information</h3>
-            <div className="space-y-2 text-sm">
-              <div><span className="font-medium">Name:</span> {order.customerName}</div>
-              <div><span className="font-medium">Email:</span> {order.customerEmail}</div>
-              <div><span className="font-medium">Phone:</span> {order.customerPhone}</div>
-              <div><span className="font-medium">Address:</span> {order.customerAddress}</div>
+            <h3 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4">Customer Information</h3>
+            <div className="space-y-2 text-xs sm:text-sm">
+              <div className="break-words"><span className="font-medium">Name:</span> {order.customerName}</div>
+              <div className="break-all"><span className="font-medium">Email:</span> {order.customerEmail}</div>
+              <div className="break-words"><span className="font-medium">Phone:</span> {order.customerPhone}</div>
+              <div className="break-words"><span className="font-medium">Address:</span> {order.customerAddress}</div>
             </div>
           </div>
           <div>
-            <h3 className="text-lg font-semibold mb-4">Order Details</h3>
-            <div className="space-y-2 text-sm">
-              <div><span className="font-medium">Date:</span> {new Date(order.createdAt).toLocaleString()}</div>
-              <div><span className="font-medium">Status:</span> 
+            <h3 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4">Order Details</h3>
+            <div className="space-y-2 text-xs sm:text-sm">
+              <div className="break-words"><span className="font-medium">Date:</span> {new Date(order.createdAt).toLocaleString()}</div>
+              <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+                <span className="font-medium">Status:</span> 
                 <select
                   value={order.status}
                   onChange={(e) => onUpdateStatus(order.id, e.target.value)}
-                  className="ml-2 px-2 py-1 border rounded text-xs"
+                  className="px-3 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 touch-manipulation"
                 >
                   <option value="PENDING">Pending</option>
                   <option value="CONFIRMED">Confirmed</option>
@@ -690,65 +697,65 @@ export default function AdminPage() {
                   <option value="CANCELLED">Cancelled</option>
                 </select>
               </div>
-              <div><span className="font-medium">Total:</span> {formatCurrency(order.total)}</div>
+              <div className="break-words"><span className="font-medium">Total:</span> {formatCurrency(order.total)}</div>
             </div>
           </div>
         </div>
 
-        <h3 className="text-lg font-semibold mb-4">Order Items</h3>
-        <div className="space-y-3 mb-6">
+        <h3 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4">Order Items</h3>
+        <div className="space-y-3 mb-4 sm:mb-6">
           {order.items.map((item) => (
-            <div key={item.id} className="flex items-center justify-between p-3 bg-gray-50 rounded">
-              <div>
-                <div className="font-medium">{item.productName}</div>
-                <div className="text-sm text-gray-600">Quantity: {item.quantity}</div>
+            <div key={item.id} className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 p-3 sm:p-4 bg-gray-50 rounded-lg">
+              <div className="flex-1 min-w-0">
+                <div className="font-medium text-sm sm:text-base break-words">{item.productName}</div>
+                <div className="text-xs sm:text-sm text-gray-600 mt-1">Quantity: {item.quantity}</div>
                 {(item.color || item.size) && (
-                  <div className="flex gap-4 mt-2 text-xs">
+                  <div className="flex flex-wrap gap-2 sm:gap-4 mt-2">
                     {item.color && (
-                      <div className="text-gray-600">
+                      <div className="text-xs text-gray-600">
                         <span className="text-gray-500">Color:</span> <span className="font-semibold text-gray-800 bg-blue-50 px-2 py-0.5 rounded">{item.color}</span>
                       </div>
                     )}
                     {item.size && (
-                      <div className="text-gray-600">
+                      <div className="text-xs text-gray-600">
                         <span className="text-gray-500">Size:</span> <span className="font-semibold text-gray-800 bg-green-50 px-2 py-0.5 rounded">{item.size}</span>
                       </div>
                     )}
                   </div>
                 )}
               </div>
-              <div className="text-right">
-                <div className="font-medium">{formatCurrency(item.price)}</div>
-                <div className="text-sm text-gray-600">each</div>
+              <div className="text-right sm:text-left sm:ml-4">
+                <div className="font-medium text-sm sm:text-base">{formatCurrency(item.price)}</div>
+                <div className="text-xs sm:text-sm text-gray-600">each</div>
               </div>
             </div>
           ))}
         </div>
 
         {/* Order Breakdown */}
-        <div className="bg-gray-50 rounded-lg p-4">
-          <h3 className="text-lg font-semibold mb-4">Order Breakdown</h3>
-          <div className="space-y-2">
+        <div className="bg-gray-50 rounded-lg p-4 sm:p-5">
+          <h3 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4">Order Breakdown</h3>
+          <div className="space-y-2 text-sm sm:text-base">
             <div className="flex justify-between">
               <span className="text-gray-600">Subtotal:</span>
-              <span>{formatCurrency(order.subtotal)}</span>
+              <span className="font-medium">{formatCurrency(order.subtotal)}</span>
             </div>
             {order.discountAmount > 0 && (
               <div className="flex justify-between text-green-600">
                 <span>Discount:</span>
-                <span>-{formatCurrency(order.discountAmount)}</span>
+                <span className="font-medium">-{formatCurrency(order.discountAmount)}</span>
               </div>
             )}
             <div className="flex justify-between">
               <span className="text-gray-600">Shipping:</span>
-              <span>{formatCurrency(order.shipping)}</span>
+              <span className="font-medium">{formatCurrency(order.shipping)}</span>
             </div>
             <div className="flex justify-between">
               <span className="text-gray-600">VAT (5%):</span>
-              <span>{formatCurrency(order.vat)}</span>
+              <span className="font-medium">{formatCurrency(order.vat)}</span>
             </div>
             <hr className="my-2" />
-            <div className="flex justify-between text-lg font-semibold">
+            <div className="flex justify-between text-base sm:text-lg font-semibold">
               <span>Total:</span>
               <span className="text-red-600">{formatCurrency(order.total)}</span>
             </div>
@@ -756,19 +763,19 @@ export default function AdminPage() {
         </div>
 
         {/* Additional Order Information */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
-          <div className="bg-blue-50 rounded-lg p-4">
-            <h4 className="font-semibold text-blue-800 mb-2">Delivery Information</h4>
-            <div className="space-y-1 text-sm">
-              <div><span className="font-medium">Emirate:</span> {order.customerEmirate}</div>
-              <div><span className="font-medium">Address:</span> {order.customerAddress}</div>
-              <div><span className="font-medium">Phone:</span> {order.customerPhone}</div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 mt-4 sm:mt-6">
+          <div className="bg-blue-50 rounded-lg p-3 sm:p-4">
+            <h4 className="text-sm sm:text-base font-semibold text-blue-800 mb-2">Delivery Information</h4>
+            <div className="space-y-1 text-xs sm:text-sm">
+              <div className="break-words"><span className="font-medium">Emirate:</span> {order.customerEmirate}</div>
+              <div className="break-words"><span className="font-medium">Address:</span> {order.customerAddress}</div>
+              <div className="break-words"><span className="font-medium">Phone:</span> {order.customerPhone}</div>
             </div>
           </div>
-          <div className="bg-green-50 rounded-lg p-4">
-            <h4 className="font-semibold text-green-800 mb-2">Order Summary</h4>
-            <div className="space-y-1 text-sm">
-              <div><span className="font-medium">Order Number:</span> {order.orderNumber}</div>
+          <div className="bg-green-50 rounded-lg p-3 sm:p-4">
+            <h4 className="text-sm sm:text-base font-semibold text-green-800 mb-2">Order Summary</h4>
+            <div className="space-y-1 text-xs sm:text-sm">
+              <div className="break-all"><span className="font-medium">Order Number:</span> {order.orderNumber}</div>
               <div><span className="font-medium">Items Count:</span> {order.items.length}</div>
               <div><span className="font-medium">Created:</span> {new Date(order.createdAt).toLocaleDateString()}</div>
               <div><span className="font-medium">Updated:</span> {new Date(order.updatedAt).toLocaleDateString()}</div>
@@ -813,90 +820,140 @@ export default function AdminPage() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8 md:py-16">
+    <div className="container mx-auto px-3 sm:px-4 py-4 sm:py-8 md:py-16">
       <div className="max-w-6xl mx-auto">
-        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6 md:mb-8">
-          <div className="flex flex-col sm:flex-row sm:items-center gap-2">
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800">Admin Dashboard</h1>
+        <div className="flex flex-col gap-3 sm:flex-row sm:justify-between sm:items-center mb-4 sm:mb-6 md:mb-8">
+          <div className="flex flex-col gap-1 sm:flex-row sm:items-center">
+            <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-800">Admin Dashboard</h1>
             {adminUser && (
-              <span className="text-xs sm:text-sm text-gray-600 sm:ml-4">
+              <span className="text-xs sm:text-sm text-gray-600 sm:ml-4 break-all sm:break-normal">
                 ({adminUser.name} - {adminUser.email})
               </span>
             )}
           </div>
           <button
             onClick={handleAdminLogout}
-            className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 text-sm sm:text-base w-full sm:w-auto"
+            className="px-4 py-2.5 bg-red-500 text-white rounded-lg hover:bg-red-600 text-sm sm:text-base w-full sm:w-auto touch-manipulation"
           >
             Logout
           </button>
         </div>
         
         {/* Tab Navigation */}
-        <div className="overflow-x-auto mb-6 -mx-4 px-4 sm:mx-0 sm:px-0">
+        <div className="overflow-x-auto mb-4 sm:mb-6 -mx-3 sm:-mx-4 px-3 sm:px-4 md:mx-0 md:px-0 scrollbar-hide">
           <div className="flex space-x-1 bg-gray-100 p-1 rounded-lg min-w-max sm:min-w-0">
             <button
               onClick={() => setActiveTab('analytics')}
-              className={`flex-shrink-0 py-2 px-2 sm:px-4 rounded-md text-xs sm:text-sm font-medium transition-colors whitespace-nowrap ${
+              className={`flex-shrink-0 py-2.5 px-3 sm:px-4 rounded-md text-xs sm:text-sm font-medium transition-colors whitespace-nowrap touch-manipulation ${
                 activeTab === 'analytics'
                   ? 'bg-white text-gray-900 shadow-sm'
-                  : 'text-gray-500 hover:text-gray-700'
+                  : 'text-gray-500 hover:text-gray-700 active:bg-gray-200'
               }`}
             >
               <BarChart3 className="h-4 w-4 inline sm:mr-2" />
-              <span className="hidden sm:inline">Analytics</span>
+              <span className="hidden xs:inline sm:inline">Analytics</span>
             </button>
             <button
-              onClick={() => setActiveTab('users')}
-              className={`flex-shrink-0 py-2 px-2 sm:px-4 rounded-md text-xs sm:text-sm font-medium transition-colors whitespace-nowrap ${
-                activeTab === 'users'
+              onClick={() => setActiveTab('reporting')}
+              className={`flex-shrink-0 py-2.5 px-3 sm:px-4 rounded-md text-xs sm:text-sm font-medium transition-colors whitespace-nowrap touch-manipulation ${
+                activeTab === 'reporting'
                   ? 'bg-white text-gray-900 shadow-sm'
-                  : 'text-gray-500 hover:text-gray-700'
+                  : 'text-gray-500 hover:text-gray-700 active:bg-gray-200'
+              }`}
+            >
+              <BarChart3 className="h-4 w-4 inline sm:mr-2" />
+              <span className="hidden xs:inline sm:inline">Reporting</span>
+            </button>
+            <button
+              onClick={() => setActiveTab('segmentation')}
+              className={`flex-shrink-0 py-2.5 px-3 sm:px-4 rounded-md text-xs sm:text-sm font-medium transition-colors whitespace-nowrap touch-manipulation ${
+                activeTab === 'segmentation'
+                  ? 'bg-white text-gray-900 shadow-sm'
+                  : 'text-gray-500 hover:text-gray-700 active:bg-gray-200'
               }`}
             >
               <UserIcon className="h-4 w-4 inline sm:mr-2" />
-              <span className="hidden sm:inline">Users</span>
+              <span className="hidden xs:inline sm:inline">Segmentation</span>
+            </button>
+            <button
+              onClick={() => setActiveTab('users')}
+              className={`flex-shrink-0 py-2.5 px-3 sm:px-4 rounded-md text-xs sm:text-sm font-medium transition-colors whitespace-nowrap touch-manipulation ${
+                activeTab === 'users'
+                  ? 'bg-white text-gray-900 shadow-sm'
+                  : 'text-gray-500 hover:text-gray-700 active:bg-gray-200'
+              }`}
+            >
+              <UserIcon className="h-4 w-4 inline sm:mr-2" />
+              <span className="hidden xs:inline sm:inline">Users</span>
             </button>
             <button
               onClick={() => setActiveTab('orders')}
-              className={`flex-shrink-0 py-2 px-2 sm:px-4 rounded-md text-xs sm:text-sm font-medium transition-colors whitespace-nowrap ${
+              className={`flex-shrink-0 py-2.5 px-3 sm:px-4 rounded-md text-xs sm:text-sm font-medium transition-colors whitespace-nowrap touch-manipulation ${
                 activeTab === 'orders'
                   ? 'bg-white text-gray-900 shadow-sm'
-                  : 'text-gray-500 hover:text-gray-700'
+                  : 'text-gray-500 hover:text-gray-700 active:bg-gray-200'
               }`}
             >
               <Package className="h-4 w-4 inline sm:mr-2" />
-              <span className="hidden sm:inline">Orders</span>
+              <span className="hidden xs:inline sm:inline">Orders</span>
             </button>
             <button
               onClick={() => setActiveTab('products')}
-              className={`flex-shrink-0 py-2 px-2 sm:px-4 rounded-md text-xs sm:text-sm font-medium transition-colors whitespace-nowrap ${
+              className={`flex-shrink-0 py-2.5 px-3 sm:px-4 rounded-md text-xs sm:text-sm font-medium transition-colors whitespace-nowrap touch-manipulation ${
                 activeTab === 'products'
                   ? 'bg-white text-gray-900 shadow-sm'
-                  : 'text-gray-500 hover:text-gray-700'
+                  : 'text-gray-500 hover:text-gray-700 active:bg-gray-200'
               }`}
             >
               <ImageIcon className="h-4 w-4 inline sm:mr-2" />
-              <span className="hidden sm:inline">Products</span>
+              <span className="hidden xs:inline sm:inline">Products</span>
             </button>
             <button
               onClick={() => setActiveTab('blog')}
-              className={`flex-shrink-0 py-2 px-2 sm:px-4 rounded-md text-xs sm:text-sm font-medium transition-colors whitespace-nowrap ${
+              className={`flex-shrink-0 py-2.5 px-3 sm:px-4 rounded-md text-xs sm:text-sm font-medium transition-colors whitespace-nowrap touch-manipulation ${
                 activeTab === 'blog'
                   ? 'bg-white text-gray-900 shadow-sm'
-                  : 'text-gray-500 hover:text-gray-700'
+                  : 'text-gray-500 hover:text-gray-700 active:bg-gray-200'
               }`}
             >
               <FileText className="h-4 w-4 inline sm:mr-2" />
-              <span className="hidden sm:inline">Blog</span>
+              <span className="hidden xs:inline sm:inline">Blog</span>
             </button>
           </div>
         </div>
 
-        <div className="bg-white rounded-lg shadow-sm border p-4 sm:p-6 md:p-8">
+        <div className="bg-white rounded-lg shadow-sm border p-3 sm:p-4 md:p-6 lg:p-8">
           {activeTab === 'analytics' && (
             <AnalyticsDashboard 
               onCustomerClick={async (userEmail) => {
+                // Find the customer by email and set as selected
+                const customer = users.find(user => user.email === userEmail)
+                if (customer) {
+                  setSelectedCustomer(customer)
+                  setActiveTab('users') // Switch to users tab to show the profile
+                }
+              }}
+            />
+          )}
+
+          {activeTab === 'reporting' && (
+            <AdvancedReportingDashboard 
+              adminEmail={adminUser?.email}
+              onCustomerClick={async (userEmail) => {
+                // Find the customer by email and set as selected
+                const customer = users.find(user => user.email === userEmail)
+                if (customer) {
+                  setSelectedCustomer(customer)
+                  setActiveTab('users') // Switch to users tab to show the profile
+                }
+              }}
+            />
+          )}
+
+          {activeTab === 'segmentation' && (
+            <UserSegmentation
+              users={users}
+              onUserClick={async (userEmail) => {
                 // Find the customer by email and set as selected
                 const customer = users.find(user => user.email === userEmail)
                 if (customer) {
@@ -924,8 +981,8 @@ export default function AdminPage() {
                 />
               ) : (
             <>
-              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-6 gap-4">
-                <h2 className="text-xl sm:text-2xl font-bold text-gray-800">User Management</h2>
+              <div className="flex flex-col gap-3 sm:flex-row sm:justify-between sm:items-center mb-4 sm:mb-6">
+                <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-800">User Management</h2>
                 <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 w-full sm:w-auto">
                   <input
                     type="text"
@@ -935,12 +992,12 @@ export default function AdminPage() {
                       setUserSearch(e.target.value)
                       fetchUsers(e.target.value)
                     }}
-                    className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent w-full sm:min-w-[250px]"
+                    className="px-4 py-2.5 text-base border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent w-full sm:min-w-[250px] touch-manipulation"
                   />
                   <button
                     onClick={refreshUsers}
                     disabled={usersRefreshing}
-                    className="flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="flex items-center justify-center gap-2 px-4 py-2.5 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base touch-manipulation"
                   >
                     <RefreshCw className={`h-4 w-4 ${usersRefreshing ? 'animate-spin' : ''}`} />
                     {usersRefreshing ? 'Refreshing...' : 'Refresh'}
@@ -949,30 +1006,30 @@ export default function AdminPage() {
               </div>
               
               {/* User Summary */}
-              <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-6 mb-8">
-                  <h3 className="text-xl font-bold text-gray-800 mb-4">User Summary</h3>
-                  <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-                    <div className="bg-gray-50 rounded-lg p-4 border border-gray-100">
-                      <p className="text-sm text-gray-600">Total Users</p>
-                      <p className="text-2xl font-bold text-gray-900">{users.length || 0}</p>
+              <div className="bg-white rounded-xl sm:rounded-2xl shadow-lg border border-gray-200 p-4 sm:p-6 mb-6 sm:mb-8">
+                  <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-3 sm:mb-4">User Summary</h3>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4">
+                    <div className="bg-gray-50 rounded-lg p-3 sm:p-4 border border-gray-100">
+                      <p className="text-xs sm:text-sm text-gray-600">Total Users</p>
+                      <p className="text-xl sm:text-2xl font-bold text-gray-900">{users.length || 0}</p>
                     </div>
-                    <div className="bg-blue-50 rounded-lg p-4 border border-blue-100">
-                      <p className="text-sm text-blue-700 font-medium">Admin Users</p>
-                      <p className="text-2xl font-bold text-blue-800">{users.filter(u => u.isAdmin).length || 0}</p>
+                    <div className="bg-blue-50 rounded-lg p-3 sm:p-4 border border-blue-100">
+                      <p className="text-xs sm:text-sm text-blue-700 font-medium">Admin Users</p>
+                      <p className="text-xl sm:text-2xl font-bold text-blue-800">{users.filter(u => u.isAdmin).length || 0}</p>
                     </div>
-                    <div className="bg-gray-50 rounded-lg p-4 border border-gray-100">
-                      <p className="text-sm text-gray-600">Regular Users</p>
-                      <p className="text-2xl font-bold text-gray-900">{users.filter(u => !u.isAdmin).length || 0}</p>
+                    <div className="bg-gray-50 rounded-lg p-3 sm:p-4 border border-gray-100">
+                      <p className="text-xs sm:text-sm text-gray-600">Regular Users</p>
+                      <p className="text-xl sm:text-2xl font-bold text-gray-900">{users.filter(u => !u.isAdmin).length || 0}</p>
                     </div>
-                    <div className="bg-green-50 rounded-lg p-4 border border-green-100">
-                      <p className="text-sm text-green-700 font-medium">Price Access</p>
-                      <p className="text-2xl font-bold text-green-800">{users.filter(u => u.canSeePrices).length || 0}</p>
+                    <div className="bg-green-50 rounded-lg p-3 sm:p-4 border border-green-100">
+                      <p className="text-xs sm:text-sm text-green-700 font-medium">Price Access</p>
+                      <p className="text-xl sm:text-2xl font-bold text-green-800">{users.filter(u => u.canSeePrices).length || 0}</p>
                     </div>
-                    <div className="bg-gray-50 rounded-lg p-4 border border-gray-100">
-                      <p className="text-sm text-gray-600">With Discount</p>
-                      <p className="text-2xl font-bold text-gray-900">{users.filter(u => u.discountType && u.discountPercentage).length || 0}</p>
+                    <div className="bg-gray-50 rounded-lg p-3 sm:p-4 border border-gray-100">
+                      <p className="text-xs sm:text-sm text-gray-600">With Discount</p>
+                      <p className="text-xl sm:text-2xl font-bold text-gray-900">{users.filter(u => u.discountType && u.discountPercentage).length || 0}</p>
                     </div>
-                    <div className="bg-gray-50 rounded-lg p-4 border border-gray-100 lg:col-span-2">
+                    <div className="bg-gray-50 rounded-lg p-3 sm:p-4 border border-gray-100 sm:col-span-2 lg:col-span-2">
                       <p className="text-sm text-gray-600 mb-2">Recent Logins (Last 7 Days)</p>
                       <div className="space-y-2 max-h-32 overflow-y-auto">
                         {(() => {
@@ -1169,16 +1226,16 @@ export default function AdminPage() {
                           <div className="pt-2 border-t border-gray-200 space-y-2">
                             <button
                               onClick={() => setSelectedCustomer(user)}
-                              className="w-full px-3 py-1 bg-blue-500 text-white rounded text-xs hover:bg-blue-600 flex items-center justify-center gap-1"
+                              className="w-full px-3 py-2 bg-blue-500 text-white rounded-lg text-xs sm:text-sm hover:bg-blue-600 active:bg-blue-700 flex items-center justify-center gap-1.5 touch-manipulation"
                             >
-                              <UserIcon className="h-3 w-3" />
+                              <UserIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                               View Profile
                             </button>
                         <button
                           onClick={() => deleteUser(user.id)}
-                              className="w-full px-3 py-1 bg-red-500 text-white rounded text-xs hover:bg-red-600 flex items-center justify-center gap-1"
+                              className="w-full px-3 py-2 bg-red-500 text-white rounded-lg text-xs sm:text-sm hover:bg-red-600 active:bg-red-700 flex items-center justify-center gap-1.5 touch-manipulation"
                         >
-                          <Trash2 className="h-3 w-3" />
+                          <Trash2 className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                           Delete User
                         </button>
                   </div>
@@ -1193,12 +1250,12 @@ export default function AdminPage() {
 
           {activeTab === 'orders' && (
             <>
-              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-6 gap-4">
-                <h2 className="text-xl sm:text-2xl font-bold text-gray-800">Order Management</h2>
+              <div className="flex flex-col gap-3 sm:flex-row sm:justify-between sm:items-center mb-4 sm:mb-6">
+                <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-800">Order Management</h2>
                 <button
                   onClick={refreshOrders}
                   disabled={ordersRefreshing}
-                  className="flex items-center justify-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base w-full sm:w-auto"
+                  className="flex items-center justify-center gap-2 px-4 py-2.5 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base w-full sm:w-auto touch-manipulation"
                 >
                   <RefreshCw className={`h-4 w-4 ${ordersRefreshing ? 'animate-spin' : ''}`} />
                   {ordersRefreshing ? 'Refreshing...' : 'Refresh'}
@@ -1207,28 +1264,28 @@ export default function AdminPage() {
 
               {/* Order Summary */}
               {!ordersLoading && orders.length > 0 && (
-                <div className="bg-white border border-gray-200 rounded-lg shadow-sm p-6 mb-6">
-                  <h3 className="text-xl font-bold text-gray-800 mb-4">Order Summary</h3>
-                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 sm:gap-4">
-                    <div className="p-4 bg-gray-50 rounded-lg">
-                      <p className="text-sm text-gray-600 mb-1">Total Orders</p>
-                      <p className="text-2xl font-bold text-gray-900">{orders.length}</p>
+                <div className="bg-white border border-gray-200 rounded-lg shadow-sm p-4 sm:p-6 mb-4 sm:mb-6">
+                  <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-3 sm:mb-4">Order Summary</h3>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2 sm:gap-3 md:gap-4">
+                    <div className="p-3 sm:p-4 bg-gray-50 rounded-lg">
+                      <p className="text-xs sm:text-sm text-gray-600 mb-1">Total Orders</p>
+                      <p className="text-xl sm:text-2xl font-bold text-gray-900">{orders.length}</p>
                     </div>
-                    <div className="p-4 bg-blue-50 rounded-lg">
-                      <p className="text-sm text-gray-600 mb-1">Total Revenue</p>
-                      <p className="text-2xl font-bold text-blue-600">{formatCurrency(orders.reduce((sum, order) => sum + order.total, 0))}</p>
+                    <div className="p-3 sm:p-4 bg-blue-50 rounded-lg">
+                      <p className="text-xs sm:text-sm text-gray-600 mb-1">Total Revenue</p>
+                      <p className="text-lg sm:text-xl md:text-2xl font-bold text-blue-600 break-words">{formatCurrency(orders.reduce((sum, order) => sum + order.total, 0))}</p>
                     </div>
-                    <div className="p-4 bg-gray-50 rounded-lg">
-                      <p className="text-sm text-gray-600 mb-1">Total Subtotal</p>
-                      <p className="text-xl font-semibold text-gray-900">{formatCurrency(orders.reduce((sum, order) => sum + (order.subtotal || 0), 0))}</p>
+                    <div className="p-3 sm:p-4 bg-gray-50 rounded-lg">
+                      <p className="text-xs sm:text-sm text-gray-600 mb-1">Total Subtotal</p>
+                      <p className="text-lg sm:text-xl font-semibold text-gray-900 break-words">{formatCurrency(orders.reduce((sum, order) => sum + (order.subtotal || 0), 0))}</p>
                     </div>
-                    <div className="p-4 bg-gray-50 rounded-lg">
-                      <p className="text-sm text-gray-600 mb-1">Total Shipping</p>
-                      <p className="text-xl font-semibold text-gray-900">{formatCurrency(orders.reduce((sum, order) => sum + (order.shipping || 0), 0))}</p>
+                    <div className="p-3 sm:p-4 bg-gray-50 rounded-lg">
+                      <p className="text-xs sm:text-sm text-gray-600 mb-1">Total Shipping</p>
+                      <p className="text-lg sm:text-xl font-semibold text-gray-900 break-words">{formatCurrency(orders.reduce((sum, order) => sum + (order.shipping || 0), 0))}</p>
                     </div>
-                    <div className="p-4 bg-gray-50 rounded-lg">
-                      <p className="text-sm text-gray-600 mb-1">Total VAT</p>
-                      <p className="text-xl font-semibold text-gray-900">{formatCurrency(orders.reduce((sum, order) => sum + (order.vat || 0), 0))}</p>
+                    <div className="p-3 sm:p-4 bg-gray-50 rounded-lg">
+                      <p className="text-xs sm:text-sm text-gray-600 mb-1">Total VAT</p>
+                      <p className="text-lg sm:text-xl font-semibold text-gray-900 break-words">{formatCurrency(orders.reduce((sum, order) => sum + (order.vat || 0), 0))}</p>
                     </div>
                   </div>
                   <div className="mt-4 pt-4 border-t border-gray-200">
@@ -1322,77 +1379,77 @@ export default function AdminPage() {
                           </div>
                         )}
 
-                        <div className="overflow-x-auto -mx-4 sm:mx-0">
+                        <div className="overflow-x-auto -mx-3 sm:-mx-4 md:mx-0 scrollbar-hide">
                           <div className="inline-block min-w-full align-middle">
                             <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
                               <table className="min-w-full divide-y divide-gray-300">
                                 <thead className="bg-gray-50">
                                   <tr>
-                                    <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    <th className="px-2 sm:px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                       <input
                                         type="checkbox"
                                         checked={selectedOrders.length === orders.length && orders.length > 0}
                                         onChange={selectAllOrders}
-                                        className="rounded border-gray-300 text-red-600 focus:ring-red-500"
+                                        className="rounded border-gray-300 text-red-600 focus:ring-red-500 w-4 h-4 touch-manipulation"
                                       />
                                     </th>
-                                    <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Order ID</th>
-                                    <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-                                    <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Customer</th>
-                                    <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
-                                    <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                                    <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Items</th>
-                                    <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total</th>
+                                    <th className="px-2 sm:px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">Order ID</th>
+                                    <th className="px-2 sm:px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">Actions</th>
+                                    <th className="px-2 sm:px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">Customer</th>
+                                    <th className="px-2 sm:px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap hidden sm:table-cell">Date</th>
+                                    <th className="px-2 sm:px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">Status</th>
+                                    <th className="px-2 sm:px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap hidden md:table-cell">Items</th>
+                                    <th className="px-2 sm:px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">Total</th>
                                   </tr>
                                 </thead>
                                 <tbody className="bg-white divide-y divide-gray-200">
                                   {orders.map((order) => (
                                     <tr key={order.id || order.orderNumber} className="hover:bg-gray-50 transition-colors">
-                                      <td className="px-3 sm:px-6 py-4 whitespace-nowrap">
+                                      <td className="px-2 sm:px-3 md:px-6 py-3 sm:py-4 whitespace-nowrap">
                                         <input
                                           type="checkbox"
                                           checked={order.id ? selectedOrders.includes(order.id) : false}
                                           onChange={() => order.id && toggleOrderSelection(order.id)}
-                                          className="rounded border-gray-300 text-red-600 focus:ring-red-500"
+                                          className="rounded border-gray-300 text-red-600 focus:ring-red-500 w-4 h-4 touch-manipulation"
                                           disabled={!order.id}
                                         />
                                       </td>
-                                      <td className="px-3 sm:px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                      <td className="px-2 sm:px-3 md:px-6 py-3 sm:py-4 whitespace-nowrap text-xs sm:text-sm font-medium text-gray-900">
                                         <div className="flex flex-col">
-                                          <span>#{order.id?.slice(-8) || order.orderNumber || 'N/A'}</span>
+                                          <span className="break-all">#{order.id?.slice(-8) || order.orderNumber || 'N/A'}</span>
                                           {order.orderNumber && order.orderNumber !== order.id?.slice(-8) && (
-                                            <span className="text-xs text-gray-500">Order: {order.orderNumber}</span>
+                                            <span className="text-xs text-gray-500 break-all">Order: {order.orderNumber}</span>
                                           )}
                                           {!order.id && (
                                             <span className="text-xs text-red-500">⚠️ No ID</span>
                                           )}
                                         </div>
                                       </td>
-                                      <td className="px-3 sm:px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2">
+                                      <td className="px-2 sm:px-3 md:px-6 py-3 sm:py-4 whitespace-nowrap text-xs sm:text-sm font-medium">
+                                        <div className="flex flex-col gap-1.5 sm:flex-row sm:items-center sm:gap-2">
                                           <button
                                             onClick={() => setSelectedOrder(order)}
-                                            className="text-gray-600 hover:text-gray-900 font-semibold text-xs sm:text-sm"
+                                            className="text-blue-600 hover:text-blue-800 active:text-blue-900 font-semibold text-left touch-manipulation py-1"
                                           >
                                             View
                                           </button>
                                           {order.id && (
                                             <button
                                               onClick={() => deleteOrder(order.id)}
-                                              className="text-red-600 hover:text-red-900 font-semibold flex items-center gap-1 text-xs sm:text-sm"
+                                              className="text-red-600 hover:text-red-800 active:text-red-900 font-semibold flex items-center gap-1 text-left touch-manipulation py-1"
                                               title="Delete Order"
                                             >
-                                              <Trash2 className="h-3 w-3 sm:h-4 sm:w-4" />
+                                              <Trash2 className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                                               <span className="hidden sm:inline">Delete</span>
                                             </button>
                                           )}
                                         </div>
                                       </td>
-                                      <td className="px-3 sm:px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                        {order.customerName}
-                                        <div className="text-xs text-gray-500">{order.customerEmail}</div>
+                                      <td className="px-2 sm:px-3 md:px-6 py-3 sm:py-4 whitespace-nowrap text-xs sm:text-sm text-gray-900">
+                                        <div className="font-medium">{order.customerName}</div>
+                                        <div className="text-xs text-gray-500 break-all">{order.customerEmail}</div>
                                       </td>
-                                      <td className="px-3 sm:px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                      <td className="px-2 sm:px-3 md:px-6 py-3 sm:py-4 whitespace-nowrap text-xs sm:text-sm text-gray-500 hidden sm:table-cell">
                                         {new Date(order.createdAt).toLocaleDateString('en-AE', {
                                           month: 'short',
                                           day: 'numeric',
@@ -1400,17 +1457,17 @@ export default function AdminPage() {
                                           minute: '2-digit'
                                         })}
                                       </td>
-                                      <td className="px-3 sm:px-6 py-4 whitespace-nowrap">
+                                      <td className="px-2 sm:px-3 md:px-6 py-3 sm:py-4 whitespace-nowrap">
                                         <StatusBadge
                                           status={order.status}
                                           icon={getStatusIcon(order.status)}
                                           className="px-2 sm:px-3 py-1 text-xs"
                                         />
                                       </td>
-                                      <td className="px-3 sm:px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                      <td className="px-2 sm:px-3 md:px-6 py-3 sm:py-4 whitespace-nowrap text-xs sm:text-sm text-gray-500 hidden md:table-cell">
                                         {order.items.reduce((sum, item) => sum + item.quantity, 0)} items
                                       </td>
-                                      <td className="px-3 sm:px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                      <td className="px-2 sm:px-3 md:px-6 py-3 sm:py-4 whitespace-nowrap text-xs sm:text-sm font-medium text-gray-900">
                                         {formatCurrency(order.total)}
                                       </td>
                                     </tr>
@@ -1430,10 +1487,10 @@ export default function AdminPage() {
           {activeTab === 'products' && (
             <>
               {/* Products Header */}
-              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-6 gap-4">
+              <div className="flex flex-col gap-3 sm:flex-row sm:justify-between sm:items-start mb-4 sm:mb-6">
                 <div>
-                  <h2 className="text-xl sm:text-2xl font-bold text-gray-900">Product Management</h2>
-                  <p className="text-sm sm:text-base text-gray-600 mt-1">Manage your product catalog, images, and descriptions</p>
+                  <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900">Product Management</h2>
+                  <p className="text-xs sm:text-sm md:text-base text-gray-600 mt-1">Manage your product catalog, images, and descriptions</p>
                 </div>
                 <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
                   <button
@@ -1441,7 +1498,7 @@ export default function AdminPage() {
                       setEditingProduct(null)
                       setShowProductForm(true)
                     }}
-                    className="inline-flex items-center justify-center px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors text-sm sm:text-base w-full sm:w-auto"
+                    className="inline-flex items-center justify-center px-4 py-2.5 bg-primary-600 text-white rounded-lg hover:bg-primary-700 active:bg-primary-800 transition-colors text-sm sm:text-base w-full sm:w-auto touch-manipulation"
                   >
                     <Plus className="h-4 w-4 mr-2" />
                     Add Product
@@ -1449,7 +1506,7 @@ export default function AdminPage() {
                   <button
                     onClick={fetchProducts}
                     disabled={productsRefreshing}
-                    className="inline-flex items-center justify-center px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors disabled:opacity-50 text-sm sm:text-base w-full sm:w-auto"
+                    className="inline-flex items-center justify-center px-4 py-2.5 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 active:bg-gray-300 transition-colors disabled:opacity-50 text-sm sm:text-base w-full sm:w-auto touch-manipulation"
                   >
                     <RefreshCw className={`h-4 w-4 mr-2 ${productsRefreshing ? 'animate-spin' : ''}`} />
                     Refresh
@@ -1478,25 +1535,25 @@ export default function AdminPage() {
                     </button>
                   </div>
                 ) : (
-                  <div className="overflow-x-auto -mx-4 sm:mx-0">
-                    <div className="inline-block min-w-full align-middle">
-                      <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
-                        <table className="min-w-full divide-y divide-gray-300">
-                          <thead className="bg-gray-50">
-                            <tr>
-                              <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Product</th>
-                              <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
-                              <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Price</th>
-                              <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Stock</th>
-                              <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Created</th>
-                              <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-                            </tr>
-                          </thead>
+                        <div className="overflow-x-auto -mx-3 sm:-mx-4 md:mx-0 scrollbar-hide">
+                          <div className="inline-block min-w-full align-middle">
+                            <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
+                              <table className="min-w-full divide-y divide-gray-300">
+                                <thead className="bg-gray-50">
+                                  <tr>
+                                    <th className="px-2 sm:px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">Product</th>
+                                    <th className="px-2 sm:px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap hidden sm:table-cell">Category</th>
+                                    <th className="px-2 sm:px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">Price</th>
+                                    <th className="px-2 sm:px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap hidden md:table-cell">Stock</th>
+                                    <th className="px-2 sm:px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap hidden lg:table-cell">Created</th>
+                                    <th className="px-2 sm:px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">Actions</th>
+                                  </tr>
+                                </thead>
                           <tbody className="bg-white divide-y divide-gray-200">
                             {products.map((product) => (
                               <tr key={product.id} className="hover:bg-gray-50 transition-colors">
-                                <td className="px-3 sm:px-6 py-4 whitespace-nowrap">
-                                  <div className="flex items-center">
+                                <td className="px-2 sm:px-3 md:px-6 py-3 sm:py-4">
+                                  <div className="flex items-center min-w-0">
                                     <div className="flex-shrink-0 h-10 w-10 sm:h-12 sm:w-12">
                                       <Image
                                         src={product.image}
@@ -1506,21 +1563,26 @@ export default function AdminPage() {
                                         className="h-10 w-10 sm:h-12 sm:w-12 rounded-lg object-cover"
                                       />
                                     </div>
-                                    <div className="ml-2 sm:ml-4">
-                                      <div className="text-xs sm:text-sm font-medium text-gray-900">{product.name}</div>
-                                      <div className="text-xs sm:text-sm text-gray-500 truncate max-w-xs hidden sm:block">{product.description}</div>
+                                    <div className="ml-2 sm:ml-4 min-w-0 flex-1">
+                                      <div className="text-xs sm:text-sm font-medium text-gray-900 break-words">{product.name}</div>
+                                      <div className="text-xs text-gray-500 truncate max-w-xs hidden sm:block">{product.description}</div>
+                                      <div className="text-xs text-gray-500 sm:hidden mt-1">
+                                        <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                          {product.category}
+                                        </span>
+                                      </div>
                                     </div>
                                   </div>
                                 </td>
-                                <td className="px-3 sm:px-6 py-4 whitespace-nowrap">
+                                <td className="px-2 sm:px-3 md:px-6 py-3 sm:py-4 whitespace-nowrap hidden sm:table-cell">
                                   <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
                                     {product.category}
                                   </span>
                                 </td>
-                                <td className="px-3 sm:px-6 py-4 whitespace-nowrap text-xs sm:text-sm text-gray-900">
+                                <td className="px-2 sm:px-3 md:px-6 py-3 sm:py-4 whitespace-nowrap text-xs sm:text-sm text-gray-900 font-medium">
                                   {formatCurrency(product.price)}
                                 </td>
-                                <td className="px-3 sm:px-6 py-4 whitespace-nowrap">
+                                <td className="px-2 sm:px-3 md:px-6 py-3 sm:py-4 whitespace-nowrap hidden md:table-cell">
                                   <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
                                     product.inStock 
                                       ? 'bg-green-100 text-green-800' 
@@ -1529,31 +1591,31 @@ export default function AdminPage() {
                                     {product.inStock ? 'In Stock' : 'Out of Stock'}
                                   </span>
                                 </td>
-                                <td className="px-3 sm:px-6 py-4 whitespace-nowrap text-xs sm:text-sm text-gray-500">
+                                <td className="px-2 sm:px-3 md:px-6 py-3 sm:py-4 whitespace-nowrap text-xs sm:text-sm text-gray-500 hidden lg:table-cell">
                                   {product.createdAt ? new Date(product.createdAt).toLocaleDateString('en-AE', {
                                     month: 'short',
                                     day: 'numeric',
                                     year: 'numeric'
                                   }) : '-'}
                                 </td>
-                                <td className="px-3 sm:px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                  <div className="flex space-x-2">
+                                <td className="px-2 sm:px-3 md:px-6 py-3 sm:py-4 whitespace-nowrap text-sm font-medium">
+                                  <div className="flex items-center gap-3 sm:gap-2">
                                     <button
                                       onClick={() => {
                                         setEditingProduct(product)
                                         setShowProductForm(true)
                                       }}
-                                      className="text-primary-600 hover:text-primary-900 transition-colors"
+                                      className="text-primary-600 hover:text-primary-900 active:text-primary-950 transition-colors touch-manipulation p-1"
                                       title="Edit"
                                     >
-                                      <Edit className="h-4 w-4" />
+                                      <Edit className="h-4 w-4 sm:h-5 sm:w-5" />
                                     </button>
                                     <button
                                       onClick={() => deleteProduct(product.id, product.name)}
-                                      className="text-red-600 hover:text-red-900 transition-colors"
+                                      className="text-red-600 hover:text-red-900 active:text-red-950 transition-colors touch-manipulation p-1"
                                       title="Delete"
                                     >
-                                      <Trash2 className="h-4 w-4" />
+                                      <Trash2 className="h-4 w-4 sm:h-5 sm:w-5" />
                                     </button>
                                   </div>
                                 </td>

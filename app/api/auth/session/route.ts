@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { findUserByEmail } from '@/lib/userStorageDb'
-import { errorLog } from '@/lib/logger'
+import { errorLog, debugLog } from '@/lib/logger'
 
 /**
  * GET /api/auth/session
@@ -37,7 +37,7 @@ export async function GET(request: NextRequest) {
     const { password: _, ...userWithoutPassword } = user
     
     // Debug logging for profile picture (always log for troubleshooting)
-    console.log('[SESSION_API] User profile picture:', {
+    debugLog('[SESSION_API] User profile picture:', {
       email: user.email,
       profilePicture: user.profilePicture,
       profilePictureType: typeof user.profilePicture,

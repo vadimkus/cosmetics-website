@@ -6,8 +6,10 @@ import { getLocaleFromPath } from '@/lib/i18n'
 import enMessages from '@/messages/en.json'
 import arMessages from '@/messages/ar.json'
 import ruMessages from '@/messages/ru.json'
+import { warnLog } from '@/lib/logger'
+import type { UseTranslationReturn, Messages } from '@/types/translations'
 
-export function useTranslation() {
+export function useTranslation(): UseTranslationReturn {
   const pathname = usePathname()
   
   // usePathname() can be null during SSR, but Next.js ensures it's available during hydration
@@ -17,13 +19,13 @@ export function useTranslation() {
   const effectivePath = pathname ?? (typeof window !== 'undefined' ? window.location.pathname : '/')
   const locale = getLocaleFromPath(effectivePath)
   
-  const messages = useMemo(() => {
-    if (locale === 'ar') return arMessages
-    if (locale === 'ru') return ruMessages
+  const messages = useMemo((): Messages => {
+    if (locale === 'ar') return arMessages as Messages
+    if (locale === 'ru') return ruMessages as Messages
     return enMessages
   }, [locale])
 
-  const t = (key: string, params?: Record<string, string | number>): string => {
+  const t: UseTranslationReturn['t'] = (key: string, params?: Record<string, string | number>): string => {
     const keys = key.split('.')
     let value: unknown = messages
     
@@ -37,7 +39,7 @@ export function useTranslation() {
     }
     
     if (typeof value !== 'string') {
-      console.warn(`Translation key not found: ${key}`)
+      warnLog(`Translation key not found: ${key}`)
       return key
     }
     

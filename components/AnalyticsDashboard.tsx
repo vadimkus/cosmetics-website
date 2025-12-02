@@ -17,7 +17,7 @@ import {
   BarChart3,
   MapPin,
   Activity,
-  DollarSign,
+  Coins,
   ArrowUpRight,
   ArrowDownRight,
   Filter
@@ -115,13 +115,15 @@ const MetricCard = ({ title, value, icon, trend, subtitle, color = 'blue' }: Met
   )
 }
 
+type ActiveSection = 'overview' | 'traffic' | 'conversions' | 'content'
+
 export default function AnalyticsDashboard({ onCustomerClick }: AnalyticsDashboardProps = {}) {
   const [analytics, setAnalytics] = useState<AnalyticsData | null>(null)
   const [pdfDownloads, setPdfDownloads] = useState<PDFDownloadData | null>(null)
   const [loading, setLoading] = useState(true)
   const [refreshing, setRefreshing] = useState(false)
   const [timeRange, setTimeRange] = useState<'all' | number>(30)
-  const [activeSection, setActiveSection] = useState<'overview' | 'traffic' | 'conversions' | 'content'>('overview')
+  const [activeSection, setActiveSection] = useState<ActiveSection>('overview')
 
   const fetchAnalytics = useCallback(async (isRefresh = false) => {
     try {
@@ -190,7 +192,9 @@ export default function AnalyticsDashboard({ onCustomerClick }: AnalyticsDashboa
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('en-AE', {
       style: 'currency',
-      currency: 'AED'
+      currency: 'AED',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 2
     }).format(amount)
   }
 
@@ -324,7 +328,7 @@ export default function AnalyticsDashboard({ onCustomerClick }: AnalyticsDashboa
           <MetricCard
             title="Total Revenue"
             value={formatCurrency(analytics.totalRevenue)}
-            icon={<DollarSign className="h-5 w-5 md:h-6 md:w-6" />}
+            icon={<Coins className="h-5 w-5 md:h-6 md:w-6" />}
             color="green"
           />
         )}
@@ -347,15 +351,15 @@ export default function AnalyticsDashboard({ onCustomerClick }: AnalyticsDashboa
 
       {/* Section Tabs */}
       <div className="flex flex-wrap gap-2 border-b border-gray-200">
-        {[
-          { id: 'overview', label: 'Overview', icon: BarChart3 },
-          { id: 'traffic', label: 'Traffic', icon: Activity },
-          { id: 'conversions', label: 'Conversions', icon: TrendingUp },
-          { id: 'content', label: 'Content', icon: FileText }
-        ].map(({ id, label, icon: Icon }) => (
+        {([
+          { id: 'overview' as const, label: 'Overview', icon: BarChart3 },
+          { id: 'traffic' as const, label: 'Traffic', icon: Activity },
+          { id: 'conversions' as const, label: 'Conversions', icon: TrendingUp },
+          { id: 'content' as const, label: 'Content', icon: FileText }
+        ] as const).map(({ id, label, icon: Icon }) => (
           <button
             key={id}
-            onClick={() => setActiveSection(id as any)}
+            onClick={() => setActiveSection(id)}
             className={`flex items-center gap-2 px-4 py-2 text-sm font-medium border-b-2 transition-colors ${
               activeSection === id
                 ? 'border-primary-600 text-primary-600'
@@ -484,127 +488,351 @@ export default function AnalyticsDashboard({ onCustomerClick }: AnalyticsDashboa
       {/* Traffic Section */}
       {activeSection === 'traffic' && (
         <div className="space-y-4 md:space-y-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
-        {/* Top Countries */}
-            <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 md:p-6">
-              <h3 className="text-lg md:text-xl font-semibold text-gray-900 mb-4 md:mb-6 flex items-center gap-2">
-                <Globe className="h-5 w-5" />
-                Top Countries
-              </h3>
-          <div className="space-y-3">
-            {analytics.topCountries.length > 0 ? (
-                  analytics.topCountries.slice(0, 8).map((country, index) => {
-                    const maxVisitors = Math.max(...analytics.topCountries.map(c => c.visitors))
-                    return (
-                      <div key={index} className="flex items-center justify-between gap-3">
-                        <div className="flex items-center gap-3 flex-1 min-w-0">
-                          <span className="text-xs font-bold text-gray-400 w-4 flex-shrink-0">
-                            {index + 1}
-                          </span>
-                          <span className="text-sm font-medium text-gray-900 truncate">{country.country}</span>
-                  </div>
-                        <div className="flex items-center gap-2 flex-shrink-0">
-                          <div className="w-20 md:w-24 bg-gray-200 rounded-full h-2">
-                            <div 
-                              className="bg-blue-600 h-2 rounded-full transition-all duration-500"
-                              style={{ width: `${(country.visitors / maxVisitors) * 100}%` }}
-                      ></div>
-                    </div>
-                          <span className="text-sm font-bold text-gray-900 w-10 text-right">{country.visitors}</span>
-                  </div>
-                </div>
-                    )
-                  })
-            ) : (
-                  <div className="text-center py-8">
-                <p className="text-sm text-gray-500">No country data available</p>
-              </div>
-            )}
+          {/* Traffic Overview Metrics */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <MetricCard
+              title="Total Visitors"
+              value={formatNumber(analytics.totalVisitors)}
+              icon={<Users className="h-5 w-5 md:h-6 md:w-6" />}
+              subtitle={`${analytics.uniqueVisitors} unique`}
+              color="blue"
+            />
+            <MetricCard
+              title="Page Views"
+              value={formatNumber(analytics.totalPageViews)}
+              icon={<Eye className="h-5 w-5 md:h-6 md:w-6" />}
+              subtitle={`${(analytics.totalPageViews / Math.max(analytics.totalVisitors, 1)).toFixed(1)} per visitor`}
+              color="green"
+            />
+            <MetricCard
+              title="Bounce Rate"
+              value={`${analytics.uxMetrics.bounceRate.toFixed(1)}%`}
+              icon={<Activity className="h-5 w-5 md:h-6 md:w-6" />}
+              subtitle={analytics.uxMetrics.bounceRate < 40 ? 'Excellent' : analytics.uxMetrics.bounceRate < 60 ? 'Good' : 'Needs improvement'}
+              color={analytics.uxMetrics.bounceRate < 40 ? 'green' : analytics.uxMetrics.bounceRate < 60 ? 'orange' : 'red'}
+            />
+            <MetricCard
+              title="Avg Session"
+              value={`${Math.floor(analytics.uxMetrics.avgSessionDuration / 60)}m ${analytics.uxMetrics.avgSessionDuration % 60}s`}
+              icon={<Clock className="h-5 w-5 md:h-6 md:w-6" />}
+              subtitle={`${analytics.uxMetrics.avgPageViewsPerSession.toFixed(1)} pages/session`}
+              color="purple"
+            />
           </div>
-        </div>
 
-        {/* Top Cities */}
+          {/* Geographic Distribution */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
+            {/* Top Countries - Enhanced */}
             <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 md:p-6">
-              <h3 className="text-lg md:text-xl font-semibold text-gray-900 mb-4 md:mb-6 flex items-center gap-2">
-                <MapPin className="h-5 w-5" />
-                Top Cities
-              </h3>
-              <div className="space-y-3 max-h-96 overflow-y-auto">
-            {analytics.topCities && analytics.topCities.length > 0 ? (
-                  analytics.topCities.slice(0, 10).map((city, index) => {
-                const maxVisitors = Math.max(...analytics.topCities.map(c => c.visitors || 0))
-                return (
-                      <div key={index} className="flex items-center justify-between gap-3 py-2 border-b border-gray-100 last:border-b-0">
-                        <div className="flex items-center gap-3 flex-1 min-w-0">
-                          <span className="text-xs font-bold text-gray-400 w-4 flex-shrink-0">
-                        {index + 1}
-                      </span>
-                          <div className="min-w-0 flex-1">
-                            <span className="text-sm font-medium text-gray-900 block truncate">{city.city}</span>
-                        {city.country && city.country !== 'Unknown' && (
-                              <span className="text-xs text-gray-500">{city.country}</span>
-                        )}
+              <div className="flex items-center justify-between mb-4 md:mb-6">
+                <h3 className="text-lg md:text-xl font-semibold text-gray-900 flex items-center gap-2">
+                  <Globe className="h-5 w-5" />
+                  Top Countries
+                </h3>
+                <span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">
+                  {analytics.topCountries.length} countries
+                </span>
+              </div>
+              <div className="space-y-3">
+                {analytics.topCountries.length > 0 ? (
+                  <>
+                    {analytics.topCountries.slice(0, 10).map((country, index) => {
+                      const maxVisitors = Math.max(...analytics.topCountries.map(c => c.visitors))
+                      const percentage = maxVisitors > 0 ? (country.visitors / maxVisitors) * 100 : 0
+                      const totalVisitors = analytics.totalVisitors
+                      const countryPercentage = totalVisitors > 0 ? (country.visitors / totalVisitors) * 100 : 0
+                      
+                      return (
+                        <div key={index} className="group hover:bg-gray-50 p-2 rounded-lg transition-colors">
+                          <div className="flex items-center justify-between gap-3 mb-1">
+                            <div className="flex items-center gap-3 flex-1 min-w-0">
+                              <span className="text-xs font-bold text-gray-400 w-6 flex-shrink-0 text-center">
+                                {index + 1}
+                              </span>
+                              <span className="text-sm font-semibold text-gray-900 truncate">{country.country}</span>
+                            </div>
+                            <div className="flex items-center gap-3 flex-shrink-0">
+                              <span className="text-xs text-gray-500 hidden sm:inline">{countryPercentage.toFixed(1)}%</span>
+                              <span className="text-sm font-bold text-gray-900 w-12 text-right">{country.visitors}</span>
+                            </div>
                           </div>
-                    </div>
-                        <div className="flex items-center gap-2 flex-shrink-0">
-                          <div className="w-16 md:w-20 bg-gray-200 rounded-full h-2">
-                            <div 
-                              className="bg-green-600 h-2 rounded-full transition-all duration-500"
-                              style={{ width: maxVisitors > 0 ? `${(city.visitors / maxVisitors) * 100}%` : '0%' }}
-                        ></div>
+                          <div className="flex items-center gap-2 mt-2">
+                            <div className="flex-1 bg-gray-200 rounded-full h-2.5 overflow-hidden">
+                              <div 
+                                className="bg-gradient-to-r from-blue-500 to-blue-600 h-2.5 rounded-full transition-all duration-700 ease-out"
+                                style={{ width: `${percentage}%` }}
+                              ></div>
+                            </div>
+                          </div>
+                        </div>
+                      )
+                    })}
+                    {analytics.topCountries.length > 10 && (
+                      <div className="text-center pt-2 border-t border-gray-200">
+                        <p className="text-xs text-gray-500">
+                          +{analytics.topCountries.length - 10} more countries
+                        </p>
                       </div>
-                          <span className="text-sm font-bold text-gray-900 w-8 text-right">{city.visitors || 0}</span>
-                    </div>
-                  </div>
-                )
-              })
-            ) : (
+                    )}
+                  </>
+                ) : (
                   <div className="text-center py-8">
-                <p className="text-sm text-gray-500">No city data available</p>
+                    <Globe className="h-12 w-12 text-gray-300 mx-auto mb-2" />
+                    <p className="text-sm text-gray-500">No country data available</p>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Top Cities - Enhanced */}
+            <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 md:p-6">
+              <div className="flex items-center justify-between mb-4 md:mb-6">
+                <h3 className="text-lg md:text-xl font-semibold text-gray-900 flex items-center gap-2">
+                  <MapPin className="h-5 w-5" />
+                  Top Cities
+                </h3>
+                <span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">
+                  {analytics.topCities?.length || 0} cities
+                </span>
+              </div>
+              <div className="space-y-2 max-h-96 overflow-y-auto">
+                {analytics.topCities && analytics.topCities.length > 0 ? (
+                  <>
+                    {analytics.topCities.slice(0, 15).map((city, index) => {
+                      const maxVisitors = Math.max(...analytics.topCities.map(c => c.visitors || 0))
+                      const percentage = maxVisitors > 0 ? ((city.visitors || 0) / maxVisitors) * 100 : 0
+                      
+                      return (
+                        <div key={index} className="group hover:bg-gray-50 p-2 rounded-lg transition-colors border-b border-gray-50 last:border-b-0">
+                          <div className="flex items-center justify-between gap-3 mb-1">
+                            <div className="flex items-center gap-3 flex-1 min-w-0">
+                              <span className="text-xs font-bold text-gray-400 w-6 flex-shrink-0 text-center">
+                                {index + 1}
+                              </span>
+                              <div className="min-w-0 flex-1">
+                                <span className="text-sm font-semibold text-gray-900 block truncate">{city.city}</span>
+                                {city.country && city.country !== 'Unknown' && (
+                                  <span className="text-xs text-gray-500">{city.country}</span>
+                                )}
+                              </div>
+                            </div>
+                            <span className="text-sm font-bold text-gray-900 w-10 text-right flex-shrink-0">{city.visitors || 0}</span>
+                          </div>
+                          <div className="flex items-center gap-2 mt-2">
+                            <div className="flex-1 bg-gray-200 rounded-full h-2 overflow-hidden">
+                              <div 
+                                className="bg-gradient-to-r from-green-500 to-green-600 h-2 rounded-full transition-all duration-700 ease-out"
+                                style={{ width: `${percentage}%` }}
+                              ></div>
+                            </div>
+                          </div>
+                        </div>
+                      )
+                    })}
+                    {analytics.topCities.length > 15 && (
+                      <div className="text-center pt-2 border-t border-gray-200">
+                        <p className="text-xs text-gray-500">
+                          +{analytics.topCities.length - 15} more cities
+                        </p>
+                      </div>
+                    )}
+                  </>
+                ) : (
+                  <div className="text-center py-8">
+                    <MapPin className="h-12 w-12 text-gray-300 mx-auto mb-2" />
+                    <p className="text-sm text-gray-500">No city data available</p>
                   </div>
                 )}
               </div>
             </div>
           </div>
 
-          {/* Browsers & OS */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
-            <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 md:p-6">
-              <h3 className="text-lg md:text-xl font-semibold text-gray-900 mb-4 md:mb-6">Top Browsers</h3>
-              <div className="space-y-3">
-                {analytics.deviceAnalytics.topBrowsers.slice(0, 8).map((browser, index) => {
-                  const maxCount = Math.max(...analytics.deviceAnalytics.topBrowsers.map(b => b.count))
-                  return (
-                    <div key={index} className="flex items-center justify-between gap-3">
-                      <span className="text-sm font-medium text-gray-700 flex-1 truncate">{browser.browser}</span>
-                      <div className="flex items-center gap-2 flex-shrink-0">
-                        <div className="w-20 md:w-24 bg-gray-200 rounded-full h-2">
+          {/* Device Analytics - Enhanced */}
+          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 md:p-6">
+            <h3 className="text-lg md:text-xl font-semibold text-gray-900 mb-4 md:mb-6 flex items-center gap-2">
+              <Activity className="h-5 w-5" />
+              Device & Platform Analytics
+            </h3>
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+              {/* Device Types */}
+              <div className="space-y-4">
+                <h4 className="text-sm font-semibold text-gray-700 uppercase tracking-wide">Device Types</h4>
+                {deviceStats ? (
+                  <>
+                    <div className="space-y-4">
+                      <div>
+                        <div className="flex items-center justify-between mb-2">
+                          <div className="flex items-center gap-2">
+                            <Smartphone className="h-4 w-4 text-green-600" />
+                            <span className="text-sm font-medium text-gray-700">Mobile</span>
+                          </div>
+                          <div className="text-right">
+                            <span className="text-sm font-bold text-gray-900">{analytics.deviceAnalytics.mobile}</span>
+                            <span className="text-xs text-gray-500 ml-2">({deviceStats.mobile.toFixed(1)}%)</span>
+                          </div>
+                        </div>
+                        <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
                           <div 
-                            className="bg-orange-600 h-2 rounded-full transition-all duration-500"
-                            style={{ width: `${(browser.count / maxCount) * 100}%` }}
+                            className="bg-gradient-to-r from-green-500 to-green-600 h-3 rounded-full transition-all duration-700"
+                            style={{ width: `${deviceStats.mobile}%` }}
                           ></div>
                         </div>
-                        <span className="text-sm font-bold text-gray-900 w-10 text-right">{browser.count}</span>
+                      </div>
+                      <div>
+                        <div className="flex items-center justify-between mb-2">
+                          <div className="flex items-center gap-2">
+                            <Tablet className="h-4 w-4 text-blue-600" />
+                            <span className="text-sm font-medium text-gray-700">Tablet</span>
+                          </div>
+                          <div className="text-right">
+                            <span className="text-sm font-bold text-gray-900">{analytics.deviceAnalytics.tablet}</span>
+                            <span className="text-xs text-gray-500 ml-2">({deviceStats.tablet.toFixed(1)}%)</span>
+                          </div>
+                        </div>
+                        <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
+                          <div 
+                            className="bg-gradient-to-r from-blue-500 to-blue-600 h-3 rounded-full transition-all duration-700"
+                            style={{ width: `${deviceStats.tablet}%` }}
+                          ></div>
+                        </div>
+                      </div>
+                      <div>
+                        <div className="flex items-center justify-between mb-2">
+                          <div className="flex items-center gap-2">
+                            <Monitor className="h-4 w-4 text-purple-600" />
+                            <span className="text-sm font-medium text-gray-700">Desktop</span>
+                          </div>
+                          <div className="text-right">
+                            <span className="text-sm font-bold text-gray-900">{analytics.deviceAnalytics.desktop}</span>
+                            <span className="text-xs text-gray-500 ml-2">({deviceStats.desktop.toFixed(1)}%)</span>
+                          </div>
+                        </div>
+                        <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
+                          <div 
+                            className="bg-gradient-to-r from-purple-500 to-purple-600 h-3 rounded-full transition-all duration-700"
+                            style={{ width: `${deviceStats.desktop}%` }}
+                          ></div>
+                        </div>
                       </div>
                     </div>
-                  )
-                })}
+                  </>
+                ) : (
+                  <p className="text-sm text-gray-500">No device data available</p>
+                )}
               </div>
-            </div>
 
-            {analytics.deviceAnalytics.topOS && analytics.deviceAnalytics.topOS.length > 0 && (
-              <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 md:p-6">
-                <h3 className="text-lg md:text-xl font-semibold text-gray-900 mb-4 md:mb-6">Operating Systems</h3>
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                  {analytics.deviceAnalytics.topOS.map((os, index) => (
-                    <div key={index} className="text-center p-3 bg-gray-50 rounded-lg">
-                      <div className="text-lg md:text-xl font-bold text-gray-900 mb-1">{os.count}</div>
-                      <div className="text-xs md:text-sm text-gray-600 truncate">{os.os}</div>
-                    </div>
-                  ))}
+              {/* Top Browsers */}
+              <div className="space-y-4">
+                <h4 className="text-sm font-semibold text-gray-700 uppercase tracking-wide">Top Browsers</h4>
+                <div className="space-y-3">
+                  {analytics.deviceAnalytics.topBrowsers.slice(0, 6).map((browser, index) => {
+                    const maxCount = Math.max(...analytics.deviceAnalytics.topBrowsers.map(b => b.count))
+                    const percentage = maxCount > 0 ? (browser.count / maxCount) * 100 : 0
+                    const totalBrowsers = analytics.deviceAnalytics.topBrowsers.reduce((sum, b) => sum + b.count, 0)
+                    const browserPercentage = totalBrowsers > 0 ? (browser.count / totalBrowsers) * 100 : 0
+                    
+                    return (
+                      <div key={index} className="group">
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="text-sm font-medium text-gray-700 flex-1 truncate">{browser.browser}</span>
+                          <div className="flex items-center gap-2 flex-shrink-0">
+                            <span className="text-xs text-gray-500 hidden sm:inline">{browserPercentage.toFixed(1)}%</span>
+                            <span className="text-sm font-bold text-gray-900 w-10 text-right">{browser.count}</span>
+                          </div>
+                        </div>
+                        <div className="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
+                          <div 
+                            className="bg-gradient-to-r from-orange-500 to-orange-600 h-2 rounded-full transition-all duration-700"
+                            style={{ width: `${percentage}%` }}
+                          ></div>
+                        </div>
+                      </div>
+                    )
+                  })}
                 </div>
               </div>
-            )}
+
+              {/* Operating Systems */}
+              {analytics.deviceAnalytics.topOS && analytics.deviceAnalytics.topOS.length > 0 && (
+                <div className="space-y-4">
+                  <h4 className="text-sm font-semibold text-gray-700 uppercase tracking-wide">Operating Systems</h4>
+                  <div className="grid grid-cols-2 gap-3">
+                    {analytics.deviceAnalytics.topOS.map((os, index) => {
+                      const totalOS = analytics.deviceAnalytics.topOS.reduce((sum, o) => sum + o.count, 0)
+                      const osPercentage = totalOS > 0 ? (os.count / totalOS) * 100 : 0
+                      
+                      return (
+                        <div key={index} className="text-center p-3 bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg border border-gray-200 hover:shadow-md transition-all">
+                          <div className="text-xl md:text-2xl font-bold text-gray-900 mb-1">{os.count}</div>
+                          <div className="text-xs md:text-sm text-gray-600 truncate mb-1">{os.os}</div>
+                          <div className="text-xs text-gray-500">{osPercentage.toFixed(1)}%</div>
+                        </div>
+                      )
+                    })}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Traffic Quality Metrics */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+            <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl border border-blue-200 p-4 md:p-6">
+              <div className="flex items-center justify-between mb-2">
+                <h4 className="text-sm font-semibold text-blue-900">Engagement Score</h4>
+                <Activity className="h-5 w-5 text-blue-600" />
+              </div>
+              <div className="text-3xl font-bold text-blue-900 mb-1">
+                {analytics.uxMetrics.avgPageViewsPerSession > 0 
+                  ? Math.round((analytics.uxMetrics.avgPageViewsPerSession / 5) * 100)
+                  : 0}%
+              </div>
+              <p className="text-xs text-blue-700">
+                Based on {analytics.uxMetrics.avgPageViewsPerSession.toFixed(1)} pages per session
+              </p>
+            </div>
+
+            <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-xl border border-green-200 p-4 md:p-6">
+              <div className="flex items-center justify-between mb-2">
+                <h4 className="text-sm font-semibold text-green-900">Session Quality</h4>
+                <Clock className="h-5 w-5 text-green-600" />
+              </div>
+              <div className="text-3xl font-bold text-green-900 mb-1">
+                {analytics.uxMetrics.avgSessionDuration > 60 ? 'High' : analytics.uxMetrics.avgSessionDuration > 30 ? 'Medium' : 'Low'}
+              </div>
+              <p className="text-xs text-green-700">
+                Avg {Math.floor(analytics.uxMetrics.avgSessionDuration / 60)}m {analytics.uxMetrics.avgSessionDuration % 60}s per session
+              </p>
+            </div>
+
+            <div className={`bg-gradient-to-br rounded-xl border p-4 md:p-6 ${
+              analytics.uxMetrics.bounceRate < 40 
+                ? 'from-green-50 to-green-100 border-green-200' 
+                : analytics.uxMetrics.bounceRate < 60 
+                ? 'from-yellow-50 to-yellow-100 border-yellow-200'
+                : 'from-red-50 to-red-100 border-red-200'
+            }`}>
+              <div className="flex items-center justify-between mb-2">
+                <h4 className={`text-sm font-semibold ${
+                  analytics.uxMetrics.bounceRate < 40 ? 'text-green-900' : analytics.uxMetrics.bounceRate < 60 ? 'text-yellow-900' : 'text-red-900'
+                }`}>
+                  Bounce Rate
+                </h4>
+                <TrendingUp className={`h-5 w-5 ${
+                  analytics.uxMetrics.bounceRate < 40 ? 'text-green-600' : analytics.uxMetrics.bounceRate < 60 ? 'text-yellow-600' : 'text-red-600'
+                }`} />
+              </div>
+              <div className={`text-3xl font-bold mb-1 ${
+                analytics.uxMetrics.bounceRate < 40 ? 'text-green-900' : analytics.uxMetrics.bounceRate < 60 ? 'text-yellow-900' : 'text-red-900'
+              }`}>
+                {analytics.uxMetrics.bounceRate.toFixed(1)}%
+              </div>
+              <p className={`text-xs ${
+                analytics.uxMetrics.bounceRate < 40 ? 'text-green-700' : analytics.uxMetrics.bounceRate < 60 ? 'text-yellow-700' : 'text-red-700'
+              }`}>
+                {analytics.uxMetrics.bounceRate < 40 ? 'Excellent engagement' : analytics.uxMetrics.bounceRate < 60 ? 'Good engagement' : 'Needs improvement'}
+              </p>
+            </div>
           </div>
         </div>
       )}

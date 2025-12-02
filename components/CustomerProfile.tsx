@@ -354,34 +354,35 @@ export default function CustomerProfile({
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between mb-6">
-        <div className="flex items-center gap-4">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 mb-4 sm:mb-6">
+        <div className="flex items-center gap-2 sm:gap-4 w-full sm:w-auto">
           <button
             onClick={onBack}
-            className="flex items-center gap-2 px-3 py-2 text-gray-600 hover:text-gray-800 hover:bg-gray-100 rounded-lg transition-colors"
+            className="flex items-center gap-2 px-3 py-2 text-gray-600 hover:text-gray-800 active:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors touch-manipulation"
           >
-            <ArrowLeft className="h-4 w-4" />
-            Back to Users
+            <ArrowLeft className="h-4 w-4 sm:h-5 sm:w-5" />
+            <span className="hidden xs:inline">Back to Users</span>
+            <span className="xs:hidden">Back</span>
           </button>
-          <h2 className="text-2xl font-bold text-gray-800">Customer Profile</h2>
+          <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-800">Customer Profile</h2>
         </div>
         <button
           onClick={handleRefresh}
           disabled={refreshing}
-          className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          className="flex items-center justify-center gap-2 px-4 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 active:bg-blue-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base w-full sm:w-auto touch-manipulation"
         >
           <RefreshCw className={`h-4 w-4 ${refreshing ? 'animate-spin' : ''}`} />
           {refreshing ? 'Refreshing...' : 'Refresh'}
         </button>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
         {/* Customer Information */}
         <div className="lg:col-span-1">
-          <div className="bg-white rounded-lg shadow-sm border p-6">
-            <div className="text-center mb-6">
-              <div 
-                className="relative w-24 h-24 rounded-full overflow-hidden bg-gray-200 border-4 border-gray-300 flex items-center justify-center mx-auto mb-4 group cursor-pointer"
+          <div className="bg-white rounded-lg shadow-sm border p-4 sm:p-6">
+            <div className="text-center mb-4 sm:mb-6">
+              <div
+                className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden bg-gray-200 border-4 border-gray-300 flex items-center justify-center mx-auto mb-3 sm:mb-4 group cursor-pointer"
                 onClick={(e) => {
                   e.stopPropagation()
                   debugLog('Avatar clicked - triggering file input')
@@ -532,7 +533,7 @@ export default function CustomerProfile({
                   className="text-xl font-bold text-gray-800 bg-transparent border-b-2 border-blue-500 focus:outline-none focus:border-blue-600 px-1 py-1 w-full"
                 />
               ) : (
-                <h3 className="text-xl font-bold text-gray-800">{customer.name}</h3>
+                <h3 className="text-lg sm:text-xl font-bold text-gray-800 break-words">{customer.name}</h3>
               )}
               <p className="text-gray-600">{customer.email}</p>
               {customer.isAdmin && (
@@ -776,33 +777,33 @@ export default function CustomerProfile({
         {/* Customer Statistics & Order History */}
         <div className="lg:col-span-2 space-y-6">
           {/* Customer Statistics */}
-          <div className="bg-white rounded-lg shadow-sm border p-6">
-            <h3 className="text-lg font-semibold text-gray-800 mb-4">Customer Statistics</h3>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="bg-white rounded-lg shadow-sm border p-4 sm:p-6">
+            <h3 className="text-base sm:text-lg font-semibold text-gray-800 mb-3 sm:mb-4">Customer Statistics</h3>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
               <div className="text-center">
-                <div className="text-2xl font-bold text-blue-600">{customerStats.totalOrders}</div>
-                <div className="text-sm text-gray-600">Total Orders</div>
+                <div className="text-xl sm:text-2xl font-bold text-blue-600">{customerStats.totalOrders}</div>
+                <div className="text-xs sm:text-sm text-gray-600">Total Orders</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-green-600">{formatCurrency(customerStats.totalSpent)}</div>
-                <div className="text-sm text-gray-600">Total Spent</div>
+                <div className="text-lg sm:text-xl md:text-2xl font-bold text-green-600 break-words">{formatCurrency(customerStats.totalSpent)}</div>
+                <div className="text-xs sm:text-sm text-gray-600">Total Spent</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-purple-600">{formatCurrency(customerStats.averageOrderValue)}</div>
-                <div className="text-sm text-gray-600">Avg Order Value</div>
+                <div className="text-lg sm:text-xl md:text-2xl font-bold text-purple-600 break-words">{formatCurrency(customerStats.averageOrderValue)}</div>
+                <div className="text-xs sm:text-sm text-gray-600">Avg Order Value</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-orange-600">{customerStats.favoriteCategory}</div>
-                <div className="text-sm text-gray-600">Favorite Category</div>
+                <div className="text-lg sm:text-xl md:text-2xl font-bold text-orange-600 break-words">{customerStats.favoriteCategory}</div>
+                <div className="text-xs sm:text-sm text-gray-600">Favorite Category</div>
               </div>
             </div>
           </div>
 
           {/* Order History */}
-          <div className="bg-white rounded-lg shadow-sm border p-6">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold text-gray-800">Order History</h3>
-              <span className="text-sm text-gray-500">{orders.length} orders</span>
+          <div className="bg-white rounded-lg shadow-sm border p-4 sm:p-6">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-0 mb-3 sm:mb-4">
+              <h3 className="text-base sm:text-lg font-semibold text-gray-800">Order History</h3>
+              <span className="text-xs sm:text-sm text-gray-500">{orders.length} orders</span>
             </div>
 
             {loading ? (
@@ -816,52 +817,52 @@ export default function CustomerProfile({
                 <p className="text-gray-500">No orders found for this customer</p>
               </div>
             ) : (
-              <div className="space-y-4">
+              <div className="space-y-3 sm:space-y-4">
                 {orders.map((order) => (
-                  <div key={order.id} className="border border-gray-200 rounded-lg p-4 hover:bg-gray-50 transition-colors">
-                    <div className="flex items-center justify-between mb-3">
-                      <div className="flex items-center gap-3">
-                        <Package className="h-5 w-5 text-gray-400" />
-                        <div>
-                          <h4 className="font-medium text-gray-800">Order #{order.orderNumber}</h4>
-                          <p className="text-sm text-gray-500">{formatDate(order.createdAt)}</p>
+                  <div key={order.id} className="border border-gray-200 rounded-lg p-3 sm:p-4 hover:bg-gray-50 transition-colors">
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-3 mb-3">
+                      <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+                        <Package className="h-4 w-4 sm:h-5 sm:w-5 text-gray-400 flex-shrink-0" />
+                        <div className="min-w-0 flex-1">
+                          <h4 className="font-medium text-sm sm:text-base text-gray-800 break-words">Order #{order.orderNumber}</h4>
+                          <p className="text-xs sm:text-sm text-gray-500">{formatDate(order.createdAt)}</p>
                         </div>
                       </div>
-                      <div className="flex items-center gap-3">
+                      <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
                         <StatusBadge
                           status={order.status}
                           className="px-2 py-1 text-xs"
                         />
-                        <span className="font-semibold text-gray-800">{formatCurrency(order.total)}</span>
+                        <span className="font-semibold text-sm sm:text-base text-gray-800 whitespace-nowrap">{formatCurrency(order.total)}</span>
                       </div>
                     </div>
                     
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-4 text-xs sm:text-sm mb-3">
                       <div>
                         <span className="text-gray-500">Items:</span>
                         <span className="ml-1 font-medium">{order.items.length}</span>
                       </div>
                       <div>
                         <span className="text-gray-500">Subtotal:</span>
-                        <span className="ml-1 font-medium">{formatCurrency(order.subtotal)}</span>
+                        <span className="ml-1 font-medium break-words">{formatCurrency(order.subtotal)}</span>
                       </div>
                       <div>
                         <span className="text-gray-500">Discount:</span>
-                        <span className="ml-1 font-medium">{formatCurrency(order.discountAmount)}</span>
+                        <span className="ml-1 font-medium break-words">{formatCurrency(order.discountAmount)}</span>
                       </div>
                       <div>
                         <span className="text-gray-500">Shipping:</span>
-                        <span className="ml-1 font-medium">{formatCurrency(order.shipping)}</span>
+                        <span className="ml-1 font-medium break-words">{formatCurrency(order.shipping)}</span>
                       </div>
                     </div>
 
                     {/* Order Items Preview */}
                     <div className="mt-3 pt-3 border-t border-gray-100">
-                      <div className="flex items-center gap-2 text-sm text-gray-600">
-                        <span>Items:</span>
-                        <div className="flex gap-1">
+                      <div className="flex flex-col sm:flex-row sm:items-center gap-2 text-xs sm:text-sm text-gray-600">
+                        <span className="font-medium">Items:</span>
+                        <div className="flex flex-wrap gap-1.5 sm:gap-1">
                           {order.items.slice(0, 3).map((item, index) => (
-                            <span key={index} className="px-2 py-1 bg-gray-100 rounded text-xs">
+                            <span key={index} className="px-2 py-1 bg-gray-100 rounded text-xs break-words">
                               {item.productName} (×{item.quantity})
                             </span>
                           ))}

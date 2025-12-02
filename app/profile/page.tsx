@@ -10,6 +10,7 @@ import { fetchCsrfToken, getCsrfHeaders, addCsrfToBody } from '@/lib/csrfClient'
 import { errorLog, debugLog } from '@/lib/logger'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
+import BreadcrumbSchema from '@/components/BreadcrumbSchema'
 
 // Import refactored components
 import ProfileHeader from '@/components/profile/ProfileHeader'
@@ -429,6 +430,20 @@ export default function ProfilePageRefactored() {
 
   return (
     <div className="min-h-screen bg-white">
+      <BreadcrumbSchema 
+        items={[
+          { name: t('common.home'), url: getLocalizedPath('/', locale) },
+          { name: t('common.profile'), url: getLocalizedPath('/profile', locale) },
+          ...(activeTab !== 'profile' ? [{ 
+            name: activeTab === 'orders' ? (t('profile.orders') || 'Orders') : 
+                  activeTab === 'settings' ? (t('profile.settings') || 'Settings') :
+                  activeTab === 'downloads' ? (t('profile.downloads') || 'Downloads') :
+                  activeTab === 'privacy' ? (t('profile.privacyPolicy') || 'Privacy') :
+                  String(activeTab).charAt(0).toUpperCase() + String(activeTab).slice(1), 
+            url: getLocalizedPath(`/profile#${activeTab}`, locale) 
+          }] : [])
+        ]}
+      />
       {/* Breadcrumb Navigation */}
       <div className="container mx-auto px-3 md:px-4 pt-4 md:pt-8">
         {/* Navigation Breadcrumb */}

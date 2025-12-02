@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { sendWelcomeEmail } from '@/lib/email'
-import { errorLog } from '@/lib/logger'
+import { errorLog, debugLog } from '@/lib/logger'
 
 /**
  * Simple endpoint to send welcome email for testing
@@ -18,10 +18,10 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    console.log(`📧 Sending welcome email to: ${email}`)
-    console.log(`👤 Name: ${name}`)
+    debugLog(`📧 Sending welcome email to: ${email}`)
+    debugLog(`👤 Name: ${name}`)
     if (password) {
-      console.log(`🔑 Password: ${password}`)
+      debugLog(`🔑 Password: ${password}`)
     }
 
     const result = await sendWelcomeEmail(name, email, password)

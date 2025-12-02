@@ -99,9 +99,38 @@ export async function GET(request: NextRequest) {
     
     debugLog('📊 Found', users.length, 'users' + (search ? ` (search: "${search}")` : ''), `Total: ${totalCount}`)
     
+    // Enhance users with order statistics
+    const usersWithStats = await Promise.all(
+      users.map(async (user) => {
+        const userOrders = await prisma.order.findMany({
+          where: {
+            customerEmail: user.email,
+            status: { not: 'CANCELLED' }
+          },
+          select: {
+            total: true,
+            createdAt: true
+          }
+        })
+        
+        const orderCount = userOrders.length
+        const totalSpent = userOrders.reduce((sum, order) => sum + order.total, 0)
+        const lastOrderDate = userOrders.length > 0
+          ? userOrders.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())[0]?.createdAt || null
+          : null
+        
+        return {
+          ...user,
+          orderCount,
+          totalSpent,
+          lastOrderDate: lastOrderDate?.toISOString() || null
+        }
+      })
+    )
+    
     return NextResponse.json({
       success: true,
-      users: users,
+      users: usersWithStats,
       total: totalCount,
       limit,
       offset,

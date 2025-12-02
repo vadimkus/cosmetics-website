@@ -12,6 +12,7 @@ import type { Locale } from '@/lib/i18n'
 import enMessages from '@/messages/en.json'
 import arMessages from '@/messages/ar.json'
 import ruMessages from '@/messages/ru.json'
+import { debugLog, warnLog } from '@/lib/logger'
 
 interface HeroProps {
   initialLocale?: Locale
@@ -35,7 +36,7 @@ export default function Hero({ initialLocale = 'en', initialDir = 'ltr' }: HeroP
         await video.play()
       } catch (error) {
         // Autoplay was prevented - this is normal, user interaction will be needed
-        console.log('Video autoplay prevented (normal browser behavior)')
+        debugLog('Video autoplay prevented (normal browser behavior)')
       }
     }
     
@@ -74,7 +75,7 @@ export default function Hero({ initialLocale = 'en', initialDir = 'ltr' }: HeroP
       }
       
       if (typeof value !== 'string') {
-        console.warn(`Translation key not found: ${key}`)
+        warnLog(`Translation key not found: ${key}`)
         return key
       }
       
@@ -129,7 +130,7 @@ export default function Hero({ initialLocale = 'en', initialDir = 'ltr' }: HeroP
                   playsInline
                   preload="auto"
                   onError={() => {
-                    console.warn('Video failed to load, showing fallback')
+                    warnLog('Video failed to load, showing fallback')
                     setVideoError(true)
                   }}
                   onLoadedData={() => {
@@ -230,7 +231,7 @@ export default function Hero({ initialLocale = 'en', initialDir = 'ltr' }: HeroP
                   playsInline
                   preload="auto"
                   onError={() => {
-                    console.warn('Video failed to load, showing fallback')
+                    warnLog('Video failed to load, showing fallback')
                     setVideoError(true)
                   }}
                   onLoadedData={() => {

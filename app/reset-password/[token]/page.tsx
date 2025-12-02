@@ -5,8 +5,12 @@ import { useState, useEffect } from 'react'
 import { useRouter, useParams } from 'next/navigation'
 import { fetchCsrfToken, getCsrfHeaders, addCsrfToBody } from '@/lib/csrfClient'
 import { errorLog } from '@/lib/logger'
+import BreadcrumbSchema from '@/components/BreadcrumbSchema'
+import { useTranslation } from '@/hooks/useTranslation'
+import { getLocalizedPath } from '@/lib/i18n'
 
 export default function ResetPasswordClient() {
+  const { t, locale } = useTranslation()
   const params = useParams()
   const router = useRouter()
   const token = params?.token as string | undefined
@@ -155,6 +159,13 @@ export default function ResetPasswordClient() {
   if (!tokenValid) {
     return (
       <div className="container mx-auto px-4 py-8 md:py-16">
+        <BreadcrumbSchema 
+          items={[
+            { name: t('common.home'), url: getLocalizedPath('/', locale) },
+            { name: t('common.login'), url: getLocalizedPath('/login', locale) },
+            { name: t('auth.resetPassword'), url: getLocalizedPath(`/reset-password/${token || ''}`, locale) }
+          ]}
+        />
         {/* Navigation Breadcrumb */}
         <nav className="flex items-center gap-2 text-sm md:text-base text-gray-600 mb-8" aria-label="Breadcrumb">
           <Link
@@ -215,6 +226,13 @@ export default function ResetPasswordClient() {
   if (success) {
     return (
       <div className="container mx-auto px-4 py-8 md:py-16">
+        <BreadcrumbSchema 
+          items={[
+            { name: t('common.home'), url: getLocalizedPath('/', locale) },
+            { name: t('common.login'), url: getLocalizedPath('/login', locale) },
+            { name: t('auth.resetPassword'), url: getLocalizedPath(`/reset-password/${token || ''}`, locale) }
+          ]}
+        />
         {/* Navigation Breadcrumb */}
         <nav className="flex items-center gap-2 text-sm md:text-base text-gray-600 mb-8" aria-label="Breadcrumb">
           <Link
@@ -266,6 +284,13 @@ export default function ResetPasswordClient() {
 
   return (
     <div className="container mx-auto px-4 py-8 md:py-16">
+      <BreadcrumbSchema 
+        items={[
+          { name: 'Home', url: '/' },
+          { name: 'Login', url: '/login' },
+          { name: 'Reset Password', url: `/reset-password/${token || ''}` }
+        ]}
+      />
       {/* Navigation Breadcrumb */}
       <nav className="flex items-center gap-2 text-sm md:text-base text-gray-600 mb-8" aria-label="Breadcrumb">
         <Link

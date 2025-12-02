@@ -3,12 +3,12 @@ import BreadcrumbSchema from '@/components/BreadcrumbSchema'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'My Favorites - GENOSYS Professional Korean Dermacosmetics | Genosys Middle East FZ-LLC',
-  description: 'View your favorite GENOSYS professional Korean dermacosmetics products. Save and organize your preferred skincare products for easy access.',
+  title: 'Favorites - GENOSYS Products | Genosys Middle East FZ-LLC',
+  description: 'View your saved GENOSYS products. Save and organize your preferred skincare products for easy access.',
   keywords: 'GENOSYS favorites, Korean dermacosmetics favorites, professional skincare favorites, saved products, wishlist',
   openGraph: {
-    title: 'My Favorites - GENOSYS Professional Korean Dermacosmetics',
-    description: 'View your favorite GENOSYS professional Korean dermacosmetics products. Save and organize your preferred skincare products.',
+    title: 'Favorites - GENOSYS Products',
+    description: 'View your saved GENOSYS products. Save and organize your preferred skincare products.',
     type: 'website',
     images: [
       {
@@ -31,8 +31,8 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     site: '@genosys_official',
     creator: '@genosys_official',
-    title: 'My Favorites - GENOSYS Professional Korean Dermacosmetics',
-    description: 'View your favorite GENOSYS professional Korean dermacosmetics products.',
+    title: 'Favorites - GENOSYS Products',
+    description: 'View your saved GENOSYS products.',
     images: ['/images/genosys-products.jpg'],
   },
   alternates: {

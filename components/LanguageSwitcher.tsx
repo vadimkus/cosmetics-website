@@ -44,7 +44,7 @@ function LanguageSwitcherContent() {
             className="fixed inset-0 z-10" 
             onClick={() => setIsOpen(false)}
           />
-          <div className="absolute top-full right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-20 min-w-[100px]">
+          <div className="absolute top-full left-0 md:left-auto md:right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-20 min-w-[100px]">
             <button
               onClick={() => switchLanguage('en')}
               className={`w-full text-left px-3 py-2 text-sm hover:bg-gray-50 transition-colors ${

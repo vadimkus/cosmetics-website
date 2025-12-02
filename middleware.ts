@@ -48,7 +48,8 @@ export function middleware(request: NextRequest) {
     '/order-success': '/success',
     '/genosys-official': '/genosys',
     '/offline-mode': '/offline',
-    '/professional-documents': '/documents'
+    '/professional-documents': '/documents',
+    '/proff': '/prof'
   }
 
   // Handle redirects first (before locale handling)

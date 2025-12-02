@@ -139,7 +139,7 @@ export default function ProfileHeader({
                 user.discountType === 'CLINIC' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
               }`}>
                 {user.discountType === 'CLINIC' ? <Building className="h-4 w-4" /> : <Crown className="h-4 w-4" />}
-                {user.discountType === 'CLINIC' ? t('profile.clinicPartner') : t('profile.standard')} {user.discountPercentage}% {t('product.off')}
+                {user.discountType === 'CLINIC' ? `${t('profile.clinicPartner')}:` : t('profile.standard')} {user.discountPercentage}% {t('product.off')}
               </div>
             )}
             <div className="flex items-center gap-2 px-3 py-1 bg-gray-100 text-gray-800 rounded-full text-sm font-medium">

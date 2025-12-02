@@ -397,7 +397,7 @@ export const emailTemplates = {
           <div style="background: #f9fafb; padding: 18px 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e5e7eb;">
             <h3 style="color: #374151; margin: 0 0 12px 0; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; text-align: ${textAlign};">${t.discountDetails}</h3>
             <p style="color: #6b7280; font-size: 13px; line-height: 1.6; margin: 6px 0; text-align: ${textAlign};">
-              <span style="color: #9ca3af;">${t.type}</span> <strong style="color: #374151;">${discountData.discountPercentage < 50 ? 'VIP' : (discountData.discountType === 'CLINIC' ? (locale === 'ru' ? 'Партнер клиники' : locale === 'ar' ? 'شريك العيادة' : 'Clinic Partner') : 'VIP')}</strong>
+              <span style="color: #9ca3af;">${t.type}</span> <strong style="color: #374151;">${discountData.discountPercentage < 50 ? 'VIP' : (discountData.discountType === 'CLINIC' ? (locale === 'ru' ? 'Клиника' : locale === 'ar' ? 'شريك العيادة' : 'Clinic Partner') : 'VIP')}</strong>
             </p>
             <p style="color: #6b7280; font-size: 13px; line-height: 1.6; margin: 6px 0; text-align: ${textAlign};">
               <span style="color: #9ca3af;">${t.discount}</span> <strong style="color: #dc2626; font-size: 16px;">${discountData.discountPercentage}% ${locale === 'ru' ? 'СКИДКА' : locale === 'ar' ? 'خصم' : 'OFF'}</strong>
@@ -596,8 +596,8 @@ export const emailTemplates = {
   },
 
   // Admin notification for new user
-  adminNewUser: (userName: string, userEmail: string, userPhone?: string, userAddress?: string) => ({
-    subject: `New User Registration: ${userName}`,
+  adminNewUser: (userName: string, userEmail: string, userPhone?: string, userAddress?: string, registrationMethod?: string) => ({
+    subject: `New User Registration: ${userName}${registrationMethod ? ` (${registrationMethod})` : ''}`,
     html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
         <h2 style="color: #dc2626;">New User Registration</h2>
@@ -606,6 +606,7 @@ export const emailTemplates = {
           <p><strong>Email:</strong> ${userEmail}</p>
           ${userPhone ? `<p><strong>Phone:</strong> ${userPhone}</p>` : ''}
           ${userAddress ? `<p><strong>Address:</strong> ${userAddress}</p>` : ''}
+          ${registrationMethod ? `<p><strong>Registration Method:</strong> ${registrationMethod}</p>` : ''}
           <p><strong>Registration Time:</strong> ${new Date().toLocaleString()}</p>
         </div>
       </div>
@@ -1058,14 +1059,14 @@ export const sendOrderConfirmationEmail = async (orderData: OrderConfirmationEma
   return await sendEmail(orderData.customerEmail, template.subject, template.html)
 }
 
-export const sendAdminNewUserNotification = async (userName: string, userEmail: string, userPhone?: string, userAddress?: string) => {
+export const sendAdminNewUserNotification = async (userName: string, userEmail: string, userPhone?: string, userAddress?: string, registrationMethod?: string) => {
   // Use ADMIN_EMAIL, or fallback to GMAIL_USER/EMAIL_USER, or use default
   const adminEmail = process.env.ADMIN_EMAIL || process.env.GMAIL_USER || process.env.EMAIL_USER || '5856825@gmail.com'
   
   debugLog(`📧 Sending admin new user notification to: ${adminEmail}`)
   debugLog(`📧 Admin email sources - ADMIN_EMAIL: ${process.env.ADMIN_EMAIL || 'NOT_SET'}, GMAIL_USER: ${process.env.GMAIL_USER || 'NOT_SET'}, EMAIL_USER: ${process.env.EMAIL_USER || 'NOT_SET'}`)
   
-  const template = emailTemplates.adminNewUser(userName, userEmail, userPhone, userAddress)
+  const template = emailTemplates.adminNewUser(userName, userEmail, userPhone, userAddress, registrationMethod)
   const result = await sendEmail(adminEmail, template.subject, template.html)
   
   if (!result.success) {

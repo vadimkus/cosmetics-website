@@ -3,6 +3,7 @@ import { verifyGoogleIdToken } from '@/lib/googleAuth'
 import { findUserByEmail, addUser, updateUser } from '@/lib/userStorageDb'
 import { errorLog, debugLog } from '@/lib/logger'
 import { rateLimitSimple, getClientIdentifierFromNextRequest } from '@/lib/rateLimitSimple'
+import { sendAdminNewUserNotification } from '@/lib/email'
 
 const googleVerifyLimiter = rateLimitSimple({
   windowMs: 15 * 60 * 1000, // 15 minutes
@@ -78,6 +79,26 @@ export async function POST(request: NextRequest) {
           canSeePrices: true,
         })
         debugLog('[GOOGLE_VERIFY] New user created:', { id: user.id, email: user.email })
+
+        // Send admin notification for new Google OAuth user registration
+        try {
+          const adminResult = await sendAdminNewUserNotification(
+            googleUser.name,
+            googleUser.email,
+            undefined, // Phone not available from Google OAuth
+            undefined, // Address not available from Google OAuth
+            'Google OAuth' // Registration method
+          )
+          
+          if (adminResult.success) {
+            debugLog('[GOOGLE_VERIFY] ✅ Admin notification sent for new Google OAuth user:', googleUser.email)
+          } else {
+            errorLog('[GOOGLE_VERIFY] ❌ Failed to send admin notification:', adminResult.error)
+          }
+        } catch (emailError) {
+          errorLog('[GOOGLE_VERIFY] ❌ Exception sending admin notification:', emailError)
+          // Don't fail registration if email fails
+        }
       } catch (error) {
         errorLog('[GOOGLE_VERIFY] Error creating user:', error)
         return NextResponse.json(

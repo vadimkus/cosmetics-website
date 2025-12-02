@@ -3,6 +3,7 @@ import { exchangeCodeForTokens, verifyGoogleIdToken } from '@/lib/googleAuth'
 import { findUserByEmail, addUser, updateUser } from '@/lib/userStorageDb'
 import { errorLog, debugLog } from '@/lib/logger'
 import { rateLimitSimple, getClientIdentifierFromNextRequest } from '@/lib/rateLimitSimple'
+import { sendAdminNewUserNotification } from '@/lib/email'
 
 const googleCallbackLimiter = rateLimitSimple({
   windowMs: 15 * 60 * 1000, // 15 minutes
@@ -149,6 +150,26 @@ export async function GET(request: NextRequest) {
           profilePicture: user.profilePicture,
           hasProfilePicture: !!user.profilePicture
         })
+
+        // Send admin notification for new Google OAuth user registration
+        try {
+          const adminResult = await sendAdminNewUserNotification(
+            googleUser.name,
+            googleUser.email,
+            undefined, // Phone not available from Google OAuth
+            undefined, // Address not available from Google OAuth
+            'Google OAuth' // Registration method
+          )
+          
+          if (adminResult.success) {
+            debugLog('[GOOGLE_CALLBACK] ✅ Admin notification sent for new Google OAuth user:', googleUser.email)
+          } else {
+            errorLog('[GOOGLE_CALLBACK] ❌ Failed to send admin notification:', adminResult.error)
+          }
+        } catch (emailError) {
+          errorLog('[GOOGLE_CALLBACK] ❌ Exception sending admin notification:', emailError)
+          // Don't fail registration if email fails
+        }
       } catch (error) {
         errorLog('[GOOGLE_CALLBACK] Error creating user:', error)
         return NextResponse.redirect(

@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { Shield, Eye, Edit3, Trash2, Download, MessageCircle, ChevronDown, ChevronUp, Lock, Database, Clock, UserCheck } from 'lucide-react'
+import { useTranslation } from '@/hooks/useTranslation'
 
 interface AccordionItemProps {
   title: string
@@ -49,6 +50,8 @@ function AccordionItem({ title, icon, children, defaultOpen = false, badge }: Ac
 }
 
 export default function PrivacySettings() {
+  const { t } = useTranslation()
+  
   return (
     <div className="bg-white/70 backdrop-blur-sm rounded-xl md:rounded-2xl shadow-lg border border-white/20 p-3 md:p-6 lg:p-8">
       {/* Header */}
@@ -57,8 +60,8 @@ export default function PrivacySettings() {
           <Shield className="h-4 w-4 md:h-6 md:w-6 text-blue-600" />
         </div>
         <div>
-          <h2 className="text-lg md:text-2xl font-bold text-gray-800">Privacy Policy</h2>
-          <p className="text-[10px] md:text-xs text-gray-500">Your data, your rights</p>
+          <h2 className="text-lg md:text-2xl font-bold text-gray-800">{t('profile.privacyPolicyHeader')}</h2>
+          <p className="text-[10px] md:text-xs text-gray-500">{t('profile.yourDataYourRights')}</p>
         </div>
       </div>
 
@@ -67,9 +70,9 @@ export default function PrivacySettings() {
         <div className="flex items-start gap-2 md:gap-3">
           <UserCheck className="h-4 w-4 md:h-5 md:w-5 text-blue-600 flex-shrink-0 mt-0.5" />
           <div>
-            <h3 className="text-xs md:text-sm font-semibold text-blue-800 mb-1">Your Privacy Rights</h3>
+            <h3 className="text-xs md:text-sm font-semibold text-blue-800 mb-1">{t('profile.yourPrivacyRights')}</h3>
             <p className="text-[10px] md:text-xs text-blue-700 leading-relaxed">
-              As a GENOSYS MIDDLE EAST FZ-LLC user, you can access, update, or delete your data anytime in compliance with UAE regulations.
+              {t('profile.privacyRightsShort')}
             </p>
           </div>
         </div>
@@ -79,64 +82,64 @@ export default function PrivacySettings() {
       <div className="grid grid-cols-2 gap-2 md:gap-3 mb-4 md:mb-6">
         <div className="bg-blue-50 rounded-lg p-2.5 md:p-4 border border-blue-100">
           <Eye className="h-4 w-4 md:h-5 md:w-5 text-blue-600 mb-1.5 md:mb-2" />
-          <h4 className="text-xs md:text-sm font-semibold text-blue-800">Access</h4>
-          <p className="text-[10px] md:text-xs text-blue-600 mt-0.5">View your data</p>
+          <h4 className="text-xs md:text-sm font-semibold text-blue-800">{t('profile.access')}</h4>
+          <p className="text-[10px] md:text-xs text-blue-600 mt-0.5">{t('profile.viewYourData')}</p>
         </div>
         <div className="bg-green-50 rounded-lg p-2.5 md:p-4 border border-green-100">
           <Edit3 className="h-4 w-4 md:h-5 md:w-5 text-green-600 mb-1.5 md:mb-2" />
-          <h4 className="text-xs md:text-sm font-semibold text-green-800">Update</h4>
-          <p className="text-[10px] md:text-xs text-green-600 mt-0.5">Edit info</p>
+          <h4 className="text-xs md:text-sm font-semibold text-green-800">{t('profile.correction')}</h4>
+          <p className="text-[10px] md:text-xs text-green-600 mt-0.5">{t('profile.editInfo')}</p>
         </div>
         <div className="bg-red-50 rounded-lg p-2.5 md:p-4 border border-red-100">
           <Trash2 className="h-4 w-4 md:h-5 md:w-5 text-red-600 mb-1.5 md:mb-2" />
-          <h4 className="text-xs md:text-sm font-semibold text-red-800">Delete</h4>
-          <p className="text-[10px] md:text-xs text-red-600 mt-0.5">Remove data</p>
+          <h4 className="text-xs md:text-sm font-semibold text-red-800">{t('profile.deletion')}</h4>
+          <p className="text-[10px] md:text-xs text-red-600 mt-0.5">{t('profile.removeData')}</p>
         </div>
         <div className="bg-purple-50 rounded-lg p-2.5 md:p-4 border border-purple-100">
           <Download className="h-4 w-4 md:h-5 md:w-5 text-purple-600 mb-1.5 md:mb-2" />
-          <h4 className="text-xs md:text-sm font-semibold text-purple-800">Export</h4>
-          <p className="text-[10px] md:text-xs text-purple-600 mt-0.5">Download data</p>
+          <h4 className="text-xs md:text-sm font-semibold text-purple-800">{t('profile.portability')}</h4>
+          <p className="text-[10px] md:text-xs text-purple-600 mt-0.5">{t('profile.downloadData')}</p>
         </div>
       </div>
 
       {/* Accordion Sections */}
       <div className="space-y-2 md:space-y-3">
         <AccordionItem 
-          title="Data We Collect" 
+          title={t('profile.dataWeCollect')} 
           icon={<Database className="h-3.5 w-3.5 md:h-4 md:w-4" />}
           defaultOpen={false}
         >
           <ul className="space-y-2 text-xs md:text-sm text-gray-600">
             <li className="flex items-start gap-2">
               <span className="text-blue-500 mt-0.5">•</span>
-              <span><strong className="text-gray-700">Account:</strong> Name, email, phone, address</span>
+              <span><strong className="text-gray-700">{t('profile.accountLabel')}</strong> {t('profile.accountDataShort')}</span>
             </li>
             <li className="flex items-start gap-2">
               <span className="text-blue-500 mt-0.5">•</span>
-              <span><strong className="text-gray-700">Profile:</strong> Birthday, photo, preferences</span>
+              <span><strong className="text-gray-700">{t('profile.profileLabel')}</strong> {t('profile.profileDataShort')}</span>
             </li>
             <li className="flex items-start gap-2">
               <span className="text-blue-500 mt-0.5">•</span>
-              <span><strong className="text-gray-700">Orders:</strong> Purchase history, shipping details</span>
+              <span><strong className="text-gray-700">{t('profile.ordersLabel')}</strong> {t('profile.ordersDataShort')}</span>
             </li>
             <li className="flex items-start gap-2">
               <span className="text-blue-500 mt-0.5">•</span>
-              <span><strong className="text-gray-700">Usage:</strong> IP, cookies, browsing data</span>
+              <span><strong className="text-gray-700">{t('profile.usageLabel')}</strong> {t('profile.usageDataShort')}</span>
             </li>
           </ul>
         </AccordionItem>
 
         <AccordionItem 
-          title="How We Use Data" 
+          title={t('profile.howWeUseData')} 
           icon={<Eye className="h-3.5 w-3.5 md:h-4 md:w-4" />}
         >
           <ul className="space-y-1.5 md:space-y-2 text-xs md:text-sm text-gray-600">
             {[
-              'Process and fulfill orders',
-              'Provide customer support',
-              'Send updates (with consent)',
-              'Improve our services',
-              'Comply with UAE law'
+              t('profile.processAndFulfillOrders'),
+              t('profile.provideCustomerSupport'),
+              t('profile.sendUpdatesWithConsent'),
+              t('profile.improveOurServices'),
+              t('profile.complyWithUaeLaw')
             ].map((item, i) => (
               <li key={i} className="flex items-center gap-2">
                 <span className="text-green-500">✓</span>
@@ -147,39 +150,39 @@ export default function PrivacySettings() {
         </AccordionItem>
 
         <AccordionItem 
-          title="Data Retention" 
+          title={t('profile.dataRetention')} 
           icon={<Clock className="h-3.5 w-3.5 md:h-4 md:w-4" />}
         >
           <div className="space-y-2 text-xs md:text-sm text-gray-600">
-            <p className="text-gray-700 font-medium mb-2">Retention periods per UAE regulations:</p>
+            <p className="text-gray-700 font-medium mb-2">{t('profile.retentionPeriodsPerUaeRegulations')}</p>
             <div className="space-y-1.5">
               <div className="flex justify-between items-center py-1.5 border-b border-gray-100">
-                <span>Account Data</span>
-                <span className="text-gray-500 text-[10px] md:text-xs">Until deletion</span>
+                <span>{t('profile.accountData')}</span>
+                <span className="text-gray-500 text-[10px] md:text-xs">{t('profile.untilDeletion')}</span>
               </div>
               <div className="flex justify-between items-center py-1.5 border-b border-gray-100">
-                <span>Order History</span>
-                <span className="text-gray-500 text-[10px] md:text-xs">Legal compliance</span>
+                <span>{t('profile.orderHistoryRetention')}</span>
+                <span className="text-gray-500 text-[10px] md:text-xs">{t('profile.legalCompliance')}</span>
               </div>
               <div className="flex justify-between items-center py-1.5">
-                <span>After Deletion</span>
-                <span className="text-gray-500 text-[10px] md:text-xs">Permanently removed</span>
+                <span>{t('profile.afterDeletion')}</span>
+                <span className="text-gray-500 text-[10px] md:text-xs">{t('profile.permanentlyRemoved')}</span>
               </div>
             </div>
           </div>
         </AccordionItem>
 
         <AccordionItem 
-          title="Security Measures" 
+          title={t('profile.securityMeasures')} 
           icon={<Lock className="h-3.5 w-3.5 md:h-4 md:w-4" />}
-          badge="Protected"
+          badge={t('profile.protected')}
         >
           <div className="grid grid-cols-2 gap-2 text-xs md:text-sm">
             {[
-              { icon: '🔒', text: 'SSL Encryption' },
-              { icon: '🛡️', text: 'Secure Servers' },
-              { icon: '🔄', text: 'Regular Backups' },
-              { icon: '🔐', text: 'Access Controls' }
+              { icon: '🔒', text: t('profile.sslEncryption') },
+              { icon: '🛡️', text: t('profile.secureServers') },
+              { icon: '🔄', text: t('profile.regularBackups') },
+              { icon: '🔐', text: t('profile.accessControls') }
             ].map((item, i) => (
               <div key={i} className="flex items-center gap-2 bg-gray-50 rounded-md p-2">
                 <span>{item.icon}</span>
@@ -194,7 +197,7 @@ export default function PrivacySettings() {
       <div className="mt-4 md:mt-6 bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-lg md:rounded-xl p-3 md:p-4">
         <div className="flex items-center gap-2 mb-2 md:mb-3">
           <MessageCircle className="h-4 w-4 md:h-5 md:w-5 text-green-600" />
-          <h4 className="text-xs md:text-sm font-semibold text-green-800">Privacy Questions?</h4>
+          <h4 className="text-xs md:text-sm font-semibold text-green-800">{t('profile.privacyQuestions')}</h4>
         </div>
         <div className="flex flex-col sm:flex-row gap-2">
           <a 
@@ -204,7 +207,7 @@ export default function PrivacySettings() {
             <svg className="h-3.5 w-3.5 md:h-4 md:w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
             </svg>
-            Email Us
+            {t('profile.emailUs')}
           </a>
           <a 
             href="https://wa.me/971585487665" 
@@ -213,14 +216,14 @@ export default function PrivacySettings() {
             className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 md:px-4 md:py-2.5 bg-white border border-green-500 text-green-700 rounded-lg hover:bg-green-50 transition-colors text-xs md:text-sm font-medium"
           >
             <MessageCircle className="h-3.5 w-3.5 md:h-4 md:w-4" />
-            WhatsApp
+            {t('common.whatsapp')}
           </a>
         </div>
       </div>
 
       {/* Footer Note */}
       <p className="mt-3 md:mt-4 text-[10px] md:text-xs text-gray-400 text-center">
-        Last updated: November 2025 • GENOSYS MIDDLE EAST FZ-LLC
+        {t('profile.lastUpdated')} November 2025 • GENOSYS MIDDLE EAST FZ-LLC
       </p>
     </div>
   )

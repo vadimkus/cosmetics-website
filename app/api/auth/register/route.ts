@@ -157,7 +157,7 @@ export async function POST(request: NextRequest) {
 
     // Send admin notification
     try {
-      const adminResult = await sendAdminNewUserNotification(name, email, phone, fullAddress)
+      const adminResult = await sendAdminNewUserNotification(name, email, phone, fullAddress, 'Email/Password')
       
       if (adminResult.success) {
         debugLog('✅ Admin notification sent for new user:', email)

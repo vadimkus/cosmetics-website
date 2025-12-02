@@ -43,11 +43,13 @@ export default function HeaderRussianMobile({ showMobileMenu, setShowMobileMenu 
         >
           <Menu className={`h-4 w-4 ${showMobileMenu ? 'text-green-600' : ''}`} aria-hidden="true" />
         </button>
-        <LanguageSwitcher />
+        <div className="ml-2">
+          <LanguageSwitcher />
+        </div>
         {isClient && user ? (
           <Link 
             href={getLocalizedPath('/profile', 'ru')} 
-            className="p-1.5 text-gray-700 hover:text-primary-600 transition-colors flex items-center justify-center"
+            className="p-1.5 text-gray-700 hover:text-primary-600 transition-colors flex items-center justify-center ml-2"
             aria-label={t('common.profile')}
           >
             <User className="h-4 w-4 text-green-600" aria-hidden="true" />
@@ -55,7 +57,7 @@ export default function HeaderRussianMobile({ showMobileMenu, setShowMobileMenu 
         ) : (
           <button 
             onClick={() => setShowLoginModal(true)}
-            className="p-1.5 text-gray-700 hover:text-primary-600 transition-colors flex items-center justify-center"
+            className="p-1.5 text-gray-700 hover:text-primary-600 transition-colors flex items-center justify-center ml-2"
             aria-label={t('common.login')}
           >
             <User className="h-4 w-4" aria-hidden="true" />
@@ -63,7 +65,7 @@ export default function HeaderRussianMobile({ showMobileMenu, setShowMobileMenu 
         )}
         <Link 
           href={getLocalizedPath('/favorites', 'ru')} 
-          className="relative p-1.5 text-gray-700 hover:text-primary-600 transition-colors flex items-center justify-center"
+          className="relative p-1.5 text-gray-700 hover:text-primary-600 transition-colors flex items-center justify-center ml-2"
           aria-label={`${t('common.favorites')} с ${isClient ? favorites.length : 0} товарами`}
         >
           <Heart className={`h-4 w-4 transition-colors ${isClient && favorites.length > 0 ? 'text-red-500' : ''}`} aria-hidden="true" />
@@ -75,7 +77,7 @@ export default function HeaderRussianMobile({ showMobileMenu, setShowMobileMenu 
         </Link>
         <Link 
           href={getLocalizedPath('/cart', 'ru')} 
-          className="relative p-1.5 text-gray-700 hover:text-primary-600 transition-colors flex items-center justify-center"
+          className="relative p-1.5 text-gray-700 hover:text-primary-600 transition-colors flex items-center justify-center ml-2"
           aria-label={`${t('common.cart')} с ${isClient ? getTotalItems() : 0} товарами`}
         >
           <ShoppingCart className={`h-4 w-4 transition-colors ${isClient && getTotalItems() > 0 ? 'text-green-600' : ''}`} aria-hidden="true" />

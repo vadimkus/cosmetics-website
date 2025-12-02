@@ -75,11 +75,13 @@ const Header = memo(function Header() {
               >
                 <Menu className={`h-4 w-4 ${showMobileMenu ? 'text-green-600' : ''}`} aria-hidden="true" />
               </button>
-              <LanguageSwitcher />
+              <div className="ml-2">
+                <LanguageSwitcher />
+              </div>
               {isClient && user ? (
                 <Link 
                   href={getLocalizedPath('/profile', locale)} 
-                  className="p-1.5 text-gray-700 hover:text-primary-600 transition-colors flex items-center justify-center"
+                  className="p-1.5 text-gray-700 hover:text-primary-600 transition-colors flex items-center justify-center ml-2"
                   aria-label={t('common.profile')}
                 >
                   <User className="h-4 w-4 text-green-600" aria-hidden="true" />
@@ -87,7 +89,7 @@ const Header = memo(function Header() {
               ) : (
                 <button 
                   onClick={() => setShowLoginModal(true)}
-                  className="p-1.5 text-gray-700 hover:text-primary-600 transition-colors flex items-center justify-center"
+                  className="p-1.5 text-gray-700 hover:text-primary-600 transition-colors flex items-center justify-center ml-2"
                   aria-label={t('common.login')}
                 >
                   <User className="h-4 w-4" aria-hidden="true" />
@@ -95,7 +97,7 @@ const Header = memo(function Header() {
               )}
               <Link 
                 href={getLocalizedPath('/favorites', locale)} 
-                className="relative p-1.5 text-gray-700 hover:text-primary-600 transition-colors flex items-center justify-center"
+                className="relative p-1.5 text-gray-700 hover:text-primary-600 transition-colors flex items-center justify-center ml-2"
                 aria-label={`${t('common.favorites')} with ${isClient ? favorites.length : 0} items`}
               >
                 <Heart className={`h-4 w-4 transition-colors ${isClient && favorites.length > 0 ? 'text-red-500' : ''}`} aria-hidden="true" />
@@ -107,7 +109,7 @@ const Header = memo(function Header() {
               </Link>
               <Link 
                 href={getLocalizedPath('/cart', locale)} 
-                className="relative p-1.5 text-gray-700 hover:text-primary-600 transition-colors flex items-center justify-center"
+                className="relative p-1.5 text-gray-700 hover:text-primary-600 transition-colors flex items-center justify-center ml-2"
                 aria-label={`${t('common.cart')} with ${isClient ? getTotalItems() : 0} items`}
               >
                 <ShoppingCart className={`h-4 w-4 transition-colors ${isClient && getTotalItems() > 0 ? 'text-green-600' : ''}`} aria-hidden="true" />
@@ -153,7 +155,7 @@ const Header = memo(function Header() {
               </Link>
               <Link 
                 href={getLocalizedPath('/cart', locale)} 
-                className="relative p-1.5 text-gray-700 hover:text-primary-600 transition-colors flex items-center justify-center"
+                className="relative p-1.5 text-gray-700 hover:text-primary-600 transition-colors flex items-center justify-center mr-2"
                 aria-label={`${t('common.cart')} with ${isClient ? getTotalItems() : 0} items`}
               >
                 <ShoppingCart className={`h-4 w-4 transition-colors ${isClient && getTotalItems() > 0 ? 'text-green-600' : ''}`} aria-hidden="true" />
@@ -165,7 +167,7 @@ const Header = memo(function Header() {
               </Link>
               <Link 
                 href={getLocalizedPath('/favorites', locale)} 
-                className="relative p-1.5 text-gray-700 hover:text-primary-600 transition-colors flex items-center justify-center"
+                className="relative p-1.5 text-gray-700 hover:text-primary-600 transition-colors flex items-center justify-center mr-2"
                 aria-label={`${t('common.favorites')} with ${isClient ? favorites.length : 0} items`}
               >
                 <Heart className={`h-4 w-4 transition-colors ${isClient && favorites.length > 0 ? 'text-red-500' : ''}`} aria-hidden="true" />
@@ -178,7 +180,7 @@ const Header = memo(function Header() {
               {isClient && user ? (
                 <Link 
                   href={getLocalizedPath('/profile', locale)} 
-                  className="p-1.5 text-gray-700 hover:text-primary-600 transition-colors flex items-center justify-center"
+                  className="p-1.5 text-gray-700 hover:text-primary-600 transition-colors flex items-center justify-center mr-2"
                   aria-label={t('common.profile')}
                 >
                   <User className="h-4 w-4 text-green-600" aria-hidden="true" />
@@ -186,13 +188,15 @@ const Header = memo(function Header() {
               ) : (
                 <button 
                   onClick={() => setShowLoginModal(true)}
-                  className="p-1.5 text-gray-700 hover:text-primary-600 transition-colors flex items-center justify-center"
+                  className="p-1.5 text-gray-700 hover:text-primary-600 transition-colors flex items-center justify-center mr-2"
                   aria-label={t('common.login')}
                 >
                   <User className="h-4 w-4" aria-hidden="true" />
                 </button>
               )}
-              <LanguageSwitcher />
+              <div className="mr-2">
+                <LanguageSwitcher />
+              </div>
               <button
                 onClick={() => setShowMobileMenu(!showMobileMenu)}
                 className="p-1.5 text-gray-700 hover:text-primary-600 transition-colors flex items-center justify-center"

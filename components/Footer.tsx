@@ -106,7 +106,7 @@ export default function Footer() {
             <Link 
               href={getLocalizedPath('/products', locale)}
               className="mb-1 md:mb-2 hover:opacity-80 transition-opacity"
-              aria-label="Go to products"
+              aria-label={t('navigation.goToProducts')}
             >
               <Image
                 src="/Logo/upLOGO.png"

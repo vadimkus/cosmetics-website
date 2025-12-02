@@ -120,7 +120,7 @@ const Header = memo(function Header() {
               <Link 
                 href={getLocalizedPath('/products', locale)} 
                 className="p-0.5 hover:opacity-80 transition-opacity flex items-center justify-center ml-[10%] md:ml-2"
-                aria-label="Go to products"
+                aria-label={t('navigation.goToProducts')}
               >
                 <Image
                   src="/Logo/upLOGO.png"
@@ -140,7 +140,7 @@ const Header = memo(function Header() {
               <Link 
                 href={getLocalizedPath('/products', locale)} 
                 className="p-0.5 hover:opacity-80 transition-opacity flex items-center justify-center mr-[10%] md:mr-2"
-                aria-label="Go to products"
+                aria-label={t('navigation.goToProducts')}
               >
                 <Image
                   src="/Logo/upLOGO.png"

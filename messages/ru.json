@@ -102,7 +102,8 @@
     "blog": "Блог",
     "locations": "Локации",
     "faq": "FAQ",
-    "backToHome": "На главную"
+    "backToHome": "На главную",
+    "goToProducts": "Перейти к продуктам"
   },
   "products": {
     "title": "GENOSYS",

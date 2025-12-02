@@ -342,16 +342,24 @@ export default function ProductsPageClient() {
           {isMobile ? (
             <div className="mb-2">
               <h1 className="text-xl font-bold text-primary-600">Genosys Middle East FZ-LLC</h1>
-              <div className="flex items-center justify-center gap-1 mt-1 text-sm text-gray-600">
-                <span className="ml-[70px] flex items-center gap-1">
-                  {t('common.uae')}
-                  <Heart 
-                    className={`h-3 w-3 text-primary-600 fill-current transition-transform duration-300 ${
-                      isHeartBeating ? 'animate-pulse' : ''
-                    }`}
-                    style={isHeartBeating ? { animation: 'heartbeat 0.6s ease-in-out' } : {}}
-                  />
-                </span>
+              <div className="flex flex-col items-center mt-1">
+                <div className="flex items-center justify-center gap-1 text-sm text-gray-600">
+                  <span className="ml-[70px] flex items-center gap-1">
+                    <span className="text-base">🇦🇪</span>
+                    {t('common.uae')}
+                    <Heart 
+                      className={`h-3 w-3 text-primary-600 fill-current transition-transform duration-300 ${
+                        isHeartBeating ? 'animate-pulse' : ''
+                      }`}
+                      style={isHeartBeating ? { animation: 'heartbeat 0.6s ease-in-out' } : {}}
+                    />
+                  </span>
+                </div>
+                <div className="flex items-center justify-center text-xs text-gray-500 mt-0.5">
+                  <span className="ml-[calc(70px+1.25rem+0.25rem)]">
+                    {t('common.celebratingEidAlEtihad')}
+                  </span>
+                </div>
               </div>
             </div>
           ) : (

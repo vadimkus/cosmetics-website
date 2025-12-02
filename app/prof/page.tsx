@@ -165,9 +165,9 @@ export default async function ProfPage() {
     {
       name: 'MULTI SUN CREAM',
       volume: '40g',
-      productCost: 102,
+      productCost: 105,
       expensePerProcedure: '0.5g',
-      procedureCost: 1.25,
+      procedureCost: 1.31,
       procedures: 80
     },
     {
@@ -205,6 +205,231 @@ export default async function ProfPage() {
   const totalProductCost = tableProducts.reduce((sum, product) => sum + product.productCost, 0)
   const totalTreatmentCost = tableProducts.reduce((sum, product) => sum + product.procedureCost, 0)
 
+  // Second table products
+  const genosysProducts: TableProduct[] = [
+    {
+      name: 'SKIN DEFENDER LIP & EYE MAKEUP REMOVER',
+      volume: '200 ml',
+      productCost: 145,
+      expensePerProcedure: 0.5,
+      procedureCost: 0.68,
+      procedures: 400
+    },
+    {
+      name: 'SNOW O₂ Cleanser',
+      volume: '500 ml',
+      productCost: 255,
+      expensePerProcedure: 0.5,
+      procedureCost: 0.25,
+      procedures: 1000
+    },
+    {
+      name: 'SNOW BOOSTER',
+      volume: '1000 ml',
+      productCost: 245,
+      expensePerProcedure: 1,
+      procedureCost: 0.24,
+      procedures: 1000
+    },
+    {
+      name: 'Solutions (AWS/SWS/PCS/HES + CTS/CVS)',
+      volume: '2ml * 10 vials',
+      productCost: 290,
+      expensePerProcedure: '1 vial',
+      procedureCost: 29,
+      procedures: 10
+    },
+    {
+      name: 'Standard Manual Roller',
+      volume: '1 pcs',
+      productCost: 115,
+      expensePerProcedure: '1 pcs',
+      procedureCost: 7.66,
+      procedures: 15
+    },
+    {
+      name: 'SOOTHING REPAIR POSTCREAM',
+      volume: '20g',
+      productCost: 102,
+      expensePerProcedure: 0.5,
+      procedureCost: 2.55,
+      procedures: 40
+    },
+    {
+      name: 'MULTI SUN CREAM',
+      volume: '40 g',
+      productCost: 105,
+      expensePerProcedure: '0.5g',
+      procedureCost: 1.31,
+      procedures: 80
+    },
+    {
+      name: 'EZ CO₂ MASK',
+      volume: '20g tube x 5, 12g sheet x 5',
+      productCost: 230,
+      expensePerProcedure: '1 tube+1 sheet',
+      procedureCost: 46,
+      procedures: 5
+    },
+    {
+      name: 'INTENSIVE BLEMISH BALM CREAM',
+      volume: '50 g',
+      productCost: 125,
+      expensePerProcedure: '0.5g',
+      procedureCost: 1.25,
+      procedures: 100
+    },
+    {
+      name: 'HYDRO COOL MODELING MASK',
+      volume: '1000 g',
+      productCost: 300,
+      expensePerProcedure: '30 g',
+      procedureCost: 9,
+      procedures: 34
+    },
+    {
+      name: 'SKIN RENEWAL PEELING SYSTEM (SRS)',
+      volume: '2ml * 10 vials',
+      productCost: 405,
+      expensePerProcedure: '1 vial',
+      procedureCost: 40.5,
+      procedures: 10
+    },
+    {
+      name: 'INTENSIVE HYDRO SOOTHING CREAM (250g)',
+      volume: '250 ml',
+      productCost: 210,
+      expensePerProcedure: 0.5,
+      procedureCost: 0.42,
+      procedures: 500
+    },
+    {
+      name: 'INTENSIVE MULTI FUNCTIONAL CREAM (250g)',
+      volume: '250 ml',
+      productCost: 210,
+      expensePerProcedure: 0.5,
+      procedureCost: 0.42,
+      procedures: 500
+    },
+    {
+      name: 'INTENSIVE PROBLEM CONTROL CREAM (250g)',
+      volume: '250 ml',
+      productCost: 210,
+      expensePerProcedure: 0.5,
+      procedureCost: 0.42,
+      procedures: 500
+    },
+    {
+      name: 'SKIN BARRIER PROTECTING CREAM',
+      volume: '100 g',
+      productCost: 225,
+      expensePerProcedure: 0.5,
+      procedureCost: 1.12,
+      procedures: 200
+    },
+    {
+      name: 'EGF REPAIR OXYMASK CREAM',
+      volume: '50 g',
+      productCost: 145,
+      expensePerProcedure: 0.5,
+      procedureCost: 1.45,
+      procedures: 100
+    },
+    {
+      name: 'PEPTIDE GEL MASK',
+      volume: '39g sheet x 5',
+      productCost: 190,
+      expensePerProcedure: '1 sheet',
+      procedureCost: 38,
+      procedures: 5
+    },
+    {
+      name: 'ND Cell ANTI-WRINKLE CREAM',
+      volume: '50 ml',
+      productCost: 185,
+      expensePerProcedure: '1ml',
+      procedureCost: 3.7,
+      procedures: 50
+    },
+    {
+      name: 'EyeCell EYE CONTOUR CREAM',
+      volume: '20g',
+      productCost: 185,
+      expensePerProcedure: 0.2,
+      procedureCost: 1.85,
+      procedures: 40
+    },
+    {
+      name: 'EyeCell EYE CONTOUR SERUM',
+      volume: '10 ml',
+      productCost: 185,
+      expensePerProcedure: 0.2,
+      procedureCost: 3.7,
+      procedures: 20
+    },
+    {
+      name: 'HR³ MATRIX HAIR SOLUTION α',
+      volume: 'Hair Solution x 8ea',
+      productCost: 370,
+      expensePerProcedure: '1 vial',
+      procedureCost: 46.25,
+      procedures: 8
+    },
+    {
+      name: 'HR³ MATRIX SCALP & HAIR SHAMPOO',
+      volume: '300 ml',
+      productCost: 170,
+      expensePerProcedure: '5ml',
+      procedureCost: 2.83,
+      procedures: 60
+    },
+    {
+      name: 'HR³ MATRIX SCALP PEELING',
+      volume: '100 ml',
+      productCost: 145,
+      expensePerProcedure: '2ml',
+      procedureCost: 2.9,
+      procedures: 50
+    },
+    {
+      name: 'HR³ MATRIX HAIR TONIC',
+      volume: '70 ml',
+      productCost: 145,
+      expensePerProcedure: '2ml',
+      procedureCost: 4.14,
+      procedures: 35
+    },
+    {
+      name: 'HR³ MATRIX HAIR SOLUTION box',
+      volume: '5ml*8pcs',
+      productCost: 370,
+      expensePerProcedure: '1 vial',
+      procedureCost: 46,
+      procedures: 8
+    }
+  ]
+
+  // Match genosys products with database products
+  const genosysProductsWithLinks = genosysProducts.map(tableProduct => {
+    // Special handling for Solutions product with multiple codes
+    const solutionsProducts = findSolutionsProducts(tableProduct.name, dbProducts)
+    if (solutionsProducts) {
+      return {
+        ...tableProduct,
+        productId: null,
+        productIds: solutionsProducts
+      }
+    }
+    
+    // Regular product matching
+    const dbProduct = findMatchingProduct(tableProduct.name, dbProducts)
+    return {
+      ...tableProduct,
+      productId: dbProduct?.id || null,
+      productIds: null
+    }
+  })
+
   return (
     <div className="min-h-screen bg-white py-3 px-2 md:py-8 md:px-6">
       <div className="max-w-7xl mx-auto">
@@ -241,7 +466,7 @@ export default async function ProfPage() {
                 <tbody className="bg-white divide-y divide-gray-200">
                   {productsWithLinks.map((product, index) => (
                     <tr key={index} className="hover:bg-gray-50">
-                      <td className="px-1.5 py-1.5 md:px-2 md:py-2 text-[9px] md:text-xs text-gray-900 font-medium border-r border-gray-200 text-left uppercase">
+                      <td className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-[9px] md:text-xs text-gray-900 font-medium border-r border-gray-200 text-left uppercase">
                         {product.productIds && product.productIds.length > 0 ? (
                           <span>
                             PRO Solutions (
@@ -269,45 +494,45 @@ export default async function ProfPage() {
                           product.name
                         )}
                       </td>
-                      <td className="px-1.5 py-1.5 md:px-2 md:py-2 text-[9px] md:text-xs text-gray-600 border-r border-gray-200 text-center">
+                      <td className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-[9px] md:text-xs text-gray-600 border-r border-gray-200 text-center">
                         {product.volume}
                       </td>
-                      <td className="px-1.5 py-1.5 md:px-2 md:py-2 text-[9px] md:text-xs text-gray-900 border-r border-gray-200 text-center">
+                      <td className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-[9px] md:text-xs text-gray-900 border-r border-gray-200 text-center">
                         {product.productCost.toFixed(2)}
                       </td>
-                      <td className="px-1.5 py-1.5 md:px-2 md:py-2 text-[9px] md:text-xs text-gray-600 border-r border-gray-200 text-center">
+                      <td className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-[9px] md:text-xs text-gray-600 border-r border-gray-200 text-center">
                         {typeof product.expensePerProcedure === 'number' 
                           ? <span className="whitespace-nowrap">{product.expensePerProcedure.toFixed(1)}g</span>
                           : product.expensePerProcedure}
                       </td>
-                      <td className="px-1.5 py-1.5 md:px-2 md:py-2 text-[9px] md:text-xs text-gray-900 font-medium border-r border-gray-200 text-center">
+                      <td className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-[9px] md:text-xs text-gray-900 font-medium border-r border-gray-200 text-center">
                         {product.procedureCost.toFixed(2)}
                       </td>
-                      <td className="px-2 py-2 whitespace-nowrap text-[10px] md:text-xs text-gray-600 text-center">
+                      <td className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-[10px] sm:text-xs md:text-sm text-gray-600 text-center">
                         {product.procedures}
                       </td>
                     </tr>
                   ))}
                   <tr className="bg-primary-50">
-                    <td colSpan={2} className="px-1.5 py-1.5 md:px-2 md:py-2 text-center text-[9px] md:text-xs font-bold text-primary-600 border-r border-gray-200">
+                    <td colSpan={2} className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-center text-[9px] md:text-xs font-bold text-primary-600 border-r border-gray-200">
                       
                     </td>
-                    <td className="px-1.5 py-1.5 md:px-2 md:py-2 text-center text-[9px] md:text-xs font-bold text-primary-600 border-r border-gray-200">
+                    <td className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-center text-[9px] md:text-xs font-bold text-primary-600 border-r border-gray-200">
                       {totalProductCost.toFixed(2)} AED
                     </td>
-                    <td className="px-1.5 py-1.5 md:px-2 md:py-2 text-[9px] md:text-xs text-primary-600 border-r border-gray-200 text-center">
+                    <td className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-[9px] md:text-xs text-primary-600 border-r border-gray-200 text-center">
                       -
                     </td>
-                    <td className="px-1.5 py-1.5 md:px-2 md:py-2 text-center text-[9px] md:text-xs font-bold text-primary-600 border-r border-gray-200">
+                    <td className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-center text-[9px] md:text-xs font-bold text-primary-600 border-r border-gray-200">
                       {totalTreatmentCost.toFixed(2)} AED
                     </td>
-                    <td className="px-1.5 py-1.5 md:px-2 md:py-2 text-center text-[9px] md:text-xs font-bold text-primary-600">
+                    <td className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-center text-[9px] md:text-xs font-bold text-primary-600">
                       
                     </td>
                   </tr>
                   <tr className="bg-gray-50 border-t-2 border-gray-300">
-                    <td colSpan={6} className="px-1.5 py-2 md:px-2 md:py-2.5 text-[9px] md:text-xs text-gray-900">
-                      <div className="space-y-0.5">
+                    <td colSpan={6} className="px-2 py-2.5 sm:px-3 sm:py-3 md:px-4 md:py-3.5 text-[9px] md:text-xs text-gray-900">
+                      <div className="space-y-1">
                         <div>
                           1. Full product set: <span className="font-semibold">{totalProductCost.toFixed(2)} AED</span>
                         </div>
@@ -315,6 +540,114 @@ export default async function ProfPage() {
                           2. One treatment purchase cost: <span className="font-semibold">{totalCost.toFixed(2)}</span>
                         </div>
                       </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <h2 className="text-base md:text-xl font-bold text-primary-600 mb-3 md:mb-4 mt-6 md:mt-8 text-center">
+          Genosys Product Calculation
+        </h2>
+        
+        <div className="overflow-x-auto -mx-2 md:mx-0">
+          <div className="inline-block min-w-full align-middle">
+            <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 rounded-lg border-2 border-gray-300">
+              <table className="min-w-full divide-y divide-gray-300 text-[9px] md:text-xs border-collapse border border-gray-300">
+                <thead className="bg-gray-50">
+                  <tr>
+                    <th className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-left text-[9px] md:text-xs font-semibold text-gray-700 uppercase tracking-wider border-r border-gray-300">
+                      Product Name
+                    </th>
+                    <th className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-center text-[9px] md:text-xs font-semibold text-gray-700 uppercase tracking-wider border-r border-gray-300">
+                      Volume
+                    </th>
+                    <th className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-center text-[9px] md:text-xs font-semibold text-gray-700 uppercase tracking-wider border-r border-gray-300">
+                      Product Cost, AED
+                    </th>
+                    <th className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-center text-[9px] md:text-xs font-semibold text-gray-700 uppercase tracking-wider border-r border-gray-300">
+                      Product per 1 treatment
+                    </th>
+                    <th className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-center text-[9px] md:text-xs font-semibold text-gray-700 uppercase tracking-wider border-r border-gray-300">
+                      1 treatment cost
+                    </th>
+                    <th className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-center text-[9px] md:text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                      Treatments
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="bg-white divide-y divide-gray-200">
+                  {genosysProductsWithLinks.map((product, index) => (
+                    <tr key={index} className="hover:bg-gray-50">
+                      <td className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-[9px] md:text-xs text-gray-900 font-medium border-r border-gray-200 text-left uppercase">
+                        {product.productIds && product.productIds.length > 0 ? (
+                          <span>
+                            PRO Solutions (
+                            {product.productIds.map((p, idx) => (
+                              <span key={p.id}>
+                                {idx > 0 && ' / '}
+                                <Link 
+                                  href={`/products/${p.id}`}
+                                  className="text-gray-900 underline hover:text-gray-700 transition-colors"
+                                >
+                                  {p.code}
+                                </Link>
+                              </span>
+                            ))}
+                            )
+                          </span>
+                        ) : product.productId ? (
+                          <Link 
+                            href={`/products/${product.productId}`}
+                            className="text-gray-900 underline hover:text-gray-700 transition-colors"
+                          >
+                            {product.name}
+                          </Link>
+                        ) : (
+                          product.name
+                        )}
+                      </td>
+                      <td className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-[9px] md:text-xs text-gray-600 border-r border-gray-200 text-center">
+                        {product.volume}
+                      </td>
+                      <td className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-[9px] md:text-xs text-gray-900 border-r border-gray-200 text-center">
+                        {product.productCost.toFixed(2)}
+                      </td>
+                      <td className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-[9px] md:text-xs text-gray-600 border-r border-gray-200 text-center">
+                        {typeof product.expensePerProcedure === 'number' 
+                          ? <span className="whitespace-nowrap">{product.expensePerProcedure.toFixed(1)}g</span>
+                          : product.expensePerProcedure}
+                      </td>
+                      <td className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-[9px] md:text-xs text-gray-900 font-medium border-r border-gray-200 text-center">
+                        {product.procedureCost.toFixed(2)}
+                      </td>
+                      <td className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-[10px] sm:text-xs md:text-sm text-gray-600 text-center">
+                        {product.procedures}
+                      </td>
+                    </tr>
+                  ))}
+                  <tr className="bg-primary-50">
+                    <td colSpan={2} className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-center text-[9px] md:text-xs font-bold text-primary-600 border-r border-gray-200">
+                      
+                    </td>
+                    <td className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-center text-[9px] md:text-xs font-bold text-primary-600 border-r border-gray-200">
+                      
+                    </td>
+                    <td className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-[9px] md:text-xs text-primary-600 border-r border-gray-200 text-center">
+                      -
+                    </td>
+                    <td className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-center text-[9px] md:text-xs font-bold text-primary-600 border-r border-gray-200">
+                      
+                    </td>
+                    <td className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-center text-[9px] md:text-xs font-bold text-primary-600">
+                      
+                    </td>
+                  </tr>
+                  <tr className="bg-gray-50 border-t-2 border-gray-300">
+                    <td colSpan={6} className="px-2 py-2.5 sm:px-3 sm:py-3 md:px-4 md:py-3.5 text-[9px] md:text-xs text-gray-900">
+                      You can calculate any Genosys product cost per 1 treatment.
                     </td>
                   </tr>
                 </tbody>

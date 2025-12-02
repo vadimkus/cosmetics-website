@@ -190,7 +190,10 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
                                 </span>
                               </div>
                               <div className="flex items-center gap-1 mt-1">
-                                <span className="text-[10px] md:text-xs text-green-600 font-medium">15% off</span>
+                                <span className="text-[10px] md:text-xs text-green-600 font-medium">
+                                  {pricing.discountPercentage}% {t('product.off')}
+                                  {pricing.isBeautyBox && ` (${t('products.bundleDiscount')})`}
+                                </span>
                                 <span className="text-[10px] md:text-xs text-gray-500">{t('product.vatIncluded')}</span>
                               </div>
                             </>

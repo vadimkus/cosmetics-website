@@ -583,11 +583,19 @@ export const emailTemplates = {
         </div>
         
         <div style="border-top: 1px solid #e5e7eb; padding-top: 20px; text-align: center;">
+          <div style="text-align: center; margin-bottom: 15px;">
+            <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://genosys.ae'}/products" style="display: block; margin: 0 auto 15px; max-width: 170px;">
+              <img src="https://genosys.ae/_next/image?url=%2FLogo%2FupLOGO.png&w=384&q=75" alt="Genosys Logo" style="max-width: 170px; height: auto; margin: 0 auto; display: block;" />
+            </a>
+          </div>
           <p style="color: #6b7280; font-size: 14px; margin: 0; text-align: ${textAlign};">
             ${t.questions} <a href="mailto:sales@genosys.ae" style="color: #dc2626;">sales@genosys.ae</a>
           </p>
           <p style="color: #6b7280; font-size: 12px; margin: 10px 0 0 0; text-align: ${textAlign};">
             ${t.officialDistributor}
+          </p>
+          <p style="color: #6b7280; font-size: 12px; margin: 10px 0 0 0; text-align: ${textAlign};">
+            ${t.copyright}
           </p>
         </div>
       </div>
@@ -1612,7 +1620,7 @@ export const sendOrderStatusUpdate = async (order: { orderNumber: string; custom
             PROCESSING: 'Your order is being processed and prepared for shipment.',
             CONFIRMED: 'Your order has been confirmed and is being prepared.',
             PAID: 'Your order payment has been confirmed.',
-            SHIPPED: 'Great news! Your order has been shipped and is on its way to you.',
+            SHIPPED: 'Your order has been shipped.',
             DELIVERED: 'We appreciate your placing the order with us! ❤️<br>Order {orderNumber} has been delivered successfully!',
             CANCELLED: 'Your order has been cancelled as requested.',
             default: 'Your order status has been updated.'
@@ -1640,6 +1648,16 @@ export const sendOrderStatusUpdate = async (order: { orderNumber: string; custom
     let statusMessage = t.statusMessages[statusKey] || t.statusMessages.default
     if (statusKey === 'DELIVERED') {
       statusMessage = statusMessage.replace('{orderNumber}', orderId)
+    }
+    // Underline only "shipped" word for SHIPPED status
+    if (statusKey === 'SHIPPED') {
+      if (locale === 'ru') {
+        statusMessage = statusMessage.replace('отправлен', '<span style="text-decoration: underline;">отправлен</span>')
+      } else if (locale === 'ar') {
+        statusMessage = statusMessage.replace('شحن', '<span style="text-decoration: underline;">شحن</span>')
+      } else {
+        statusMessage = statusMessage.replace('shipped', '<span style="text-decoration: underline;">shipped</span>')
+      }
     }
     
     // Get translated status label for display in email body and subject

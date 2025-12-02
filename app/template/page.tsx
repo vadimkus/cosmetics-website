@@ -1,20 +1,66 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
+import enMessages from '@/messages/en.json'
+import arMessages from '@/messages/ar.json'
+import ruMessages from '@/messages/ru.json'
 
-type TemplateType = 'welcome' | 'order-shipped' | 'order-confirmed' | 'order-delivered' | 'discount-assigned'
+type TemplateType = 'welcome' | 'order-shipped' | 'order-confirmed' | 'order-delivered' | 'discount-assigned' | 'cod' | 'support-link'
+type Locale = 'en' | 'ru' | 'ar'
 
 export default function EmailTemplatePage() {
   const [templateType, setTemplateType] = useState<TemplateType>('order-shipped')
+  const [locale, setLocale] = useState<Locale>('en')
   const [userName, setUserName] = useState('John Doe')
   const [userEmail, setUserEmail] = useState('user@example.com')
+  const [userPhone, setUserPhone] = useState('+971 50 123 4567')
   const [password, setPassword] = useState('MySecurePassword123!')
   const [orderNumber, setOrderNumber] = useState('ORD-2024-001')
   const [orderTotal, setOrderTotal] = useState('456.75')
+  const [orderSubtotal, setOrderSubtotal] = useState('400.00')
+  const [orderShipping, setOrderShipping] = useState('0')
+  const [orderVat, setOrderVat] = useState('20.00')
   const [deliveryAddress, setDeliveryAddress] = useState('Dubai Marina, Building 123, Apt 456')
   const [deliveryEmirate, setDeliveryEmirate] = useState('Dubai')
   const [discountType, setDiscountType] = useState<'CLINIC' | 'VIP'>('CLINIC')
   const [discountPercentage, setDiscountPercentage] = useState('15')
+  const [orderItems, setOrderItems] = useState('GENOSYS SKIN CARING BLEMISH BALM CUSHION [SPF 50+ PA++++]')
+
+  // Load translations based on locale
+  const messages = useMemo(() => {
+    if (locale === 'ar') return arMessages
+    if (locale === 'ru') return ruMessages
+    return enMessages
+  }, [locale])
+
+  // Translation function
+  const t = (key: string, params?: Record<string, string | number>): string => {
+    const keys = key.split('.')
+    let value: unknown = messages
+    
+    for (const k of keys) {
+      if (value && typeof value === 'object' && k in value) {
+        value = (value as Record<string, unknown>)[k]
+      } else {
+        value = undefined
+        break
+      }
+    }
+    
+    if (typeof value !== 'string') {
+      return key
+    }
+    
+    if (params) {
+      return Object.entries(params).reduce(
+        (str, [paramKey, paramValue]) => 
+          str.replace(new RegExp(`\\{${paramKey}\\}`, 'g'), String(paramValue)),
+        value
+      )
+    }
+    
+    return value
+  }
 
   // Generate welcome email template (same as in lib/email.ts)
   const generateWelcomeEmail = (name: string, email: string, pwd?: string) => {
@@ -81,45 +127,56 @@ export default function EmailTemplatePage() {
   const generateOrderShippedEmail = (name: string, orderNum: string, total: string, address?: string, emirate?: string) => {
     const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
     const totalNum = parseFloat(total) || 0
+    const isRTL = locale === 'ar'
+    const textAlign = isRTL ? 'right' : 'left'
+    const dir = isRTL ? 'rtl' : 'ltr'
+    
+    // Get shipped message - using a simple translated message with underlined "shipped"
+    const shippedMessage = locale === 'ru' 
+      ? 'Ваш заказ <span style="text-decoration: underline;">отправлен</span>.' 
+      : locale === 'ar' 
+      ? 'تم <span style="text-decoration: underline;">شحن</span> طلبك.' 
+      : 'Your order has been <span style="text-decoration: underline;">shipped</span>.'
+    
     return {
-      subject: `Order Shipped #${orderNum} > Genosys Middle East FZ-LLC`,
+      subject: locale === 'ru' ? `Заказ отправлен #${orderNum} > Genosys Middle East FZ-LLC` : locale === 'ar' ? `تم شحن الطلب #${orderNum} > Genosys Middle East FZ-LLC` : `Order Shipped #${orderNum} > Genosys Middle East FZ-LLC`,
       html: `
-      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 2px solid #dc2626;">
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 2px solid #dc2626; direction: ${dir};">
         <div style="text-align: center; margin-bottom: 30px;">
           <h1 style="color: #dc2626; margin: 0;">Genosys Middle East FZ-LLC</h1>
           <p style="color: #666; margin: 5px 0;">United Arab Emirates <span style="font-size: 0.8em;">❤️</span></p>
         </div>
         
         <div style="background: white; padding: 30px; border-radius: 10px; margin-bottom: 20px; border: 1px solid #e5e7eb;">
-          <h2 style="color: #374151; margin: 0 0 15px 0;">${name},</h2>
-          <p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 0 0 20px 0;">
-            Your order has been <u>shipped.</u>
+          <h2 style="color: #374151; margin: 0 0 15px 0; text-align: ${textAlign};">${name},</h2>
+          <p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 0 0 20px 0; text-align: ${textAlign};">
+            ${shippedMessage}
           </p>
           <div style="background: #f9fafb; padding: 18px 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e5e7eb;">
-            <h3 style="color: #374151; margin: 0 0 12px 0; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">
-              <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/profile" style="color: #374151; text-decoration: none;">Order details:</a>
+            <h3 style="color: #374151; margin: 0 0 12px 0; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; text-align: ${textAlign};">
+              <a href="${siteUrl}/${locale === 'ar' ? 'ar/' : locale === 'ru' ? 'ru/' : ''}profile" style="color: #374151; text-decoration: none;">${t('orderEmail.orderDelivered.orderDetails')}</a>
             </h3>
-            <p style="color: #6b7280; font-size: 13px; line-height: 1.6; margin: 6px 0;">
-              <span style="color: #9ca3af;">Order number:</span> <strong style="color: #374151;">#${orderNum}</strong>
+            <p style="color: #6b7280; font-size: 13px; line-height: 1.6; margin: 6px 0; text-align: ${textAlign};">
+              <span style="color: #9ca3af;">${t('orderEmail.orderDelivered.orderNumber')}</span> <strong style="color: #374151;">#${orderNum}</strong>
             </p>
             ${totalNum > 0 ? `
-            <p style="color: #6b7280; font-size: 13px; line-height: 1.6; margin: 6px 0;">
-              <span style="color: #9ca3af;">Total:</span> <strong style="color: #374151;">AED ${totalNum.toFixed(2)}</strong>
+            <p style="color: #6b7280; font-size: 13px; line-height: 1.6; margin: 6px 0; text-align: ${textAlign};">
+              <span style="color: #9ca3af;">${t('orderEmail.orderDelivered.total')}</span> <strong style="color: #374151;">AED ${totalNum.toFixed(2)}</strong>
             </p>
             ` : ''}
           </div>
           
           ${address || emirate ? `
           <div style="background: #f9fafb; padding: 18px 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e5e7eb;">
-            <h3 style="color: #374151; margin: 0 0 12px 0; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Delivery info:</h3>
+            <h3 style="color: #374151; margin: 0 0 12px 0; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; text-align: ${textAlign};">${t('orderEmail.orderConfirmation.deliveryInformation')}</h3>
             ${address ? `
-            <p style="color: #6b7280; font-size: 13px; line-height: 1.6; margin: 6px 0;">
-              <span style="color: #9ca3af;">Address:</span> <strong style="color: #374151;">${address}</strong>
+            <p style="color: #6b7280; font-size: 13px; line-height: 1.6; margin: 6px 0; text-align: ${textAlign};">
+              <span style="color: #9ca3af;">${t('orderEmail.orderConfirmation.address')}</span> <strong style="color: #374151;">${address}</strong>
             </p>
             ` : ''}
             ${emirate ? `
-            <p style="color: #6b7280; font-size: 13px; line-height: 1.6; margin: 6px 0;">
-              <span style="color: #9ca3af;">Emirate:</span> <strong style="color: #374151;">${emirate}</strong>
+            <p style="color: #6b7280; font-size: 13px; line-height: 1.6; margin: 6px 0; text-align: ${textAlign};">
+              <span style="color: #9ca3af;">${t('orderEmail.orderConfirmation.emirate')}</span> <strong style="color: #374151;">${emirate}</strong>
             </p>
             ` : ''}
           </div>
@@ -137,7 +194,7 @@ export default function EmailTemplatePage() {
                     font-size: 14px;
                     display: inline-block;
                     letter-spacing: 0.3px;">
-            Contact us: WhatsApp
+            ${locale === 'ru' ? 'Свяжитесь с нами: WhatsApp' : locale === 'ar' ? 'اتصل بنا: WhatsApp' : 'Contact us: WhatsApp'}
           </a>
         </div>
         
@@ -146,10 +203,10 @@ export default function EmailTemplatePage() {
             <img src="https://genosys.ae/_next/image?url=%2FLogo%2FupLOGO.png&w=384&q=75" alt="Genosys Logo" style="max-width: 170px; height: auto; margin: 0 auto; display: block;" />
           </a>
           <p style="color: #6b7280; font-size: 14px; margin: 8px 0;">
-            Official Distributor in the UAE.
+            ${t('orderEmail.orderDelivered.officialDistributor')}
           </p>
           <p style="color: #6b7280; font-size: 12px; margin: 8px 0 0;">
-            © 2026 Genosys Middle East FZ-LLC. All rights reserved.
+            ${t('orderEmail.orderDelivered.copyright')}
           </p>
         </div>
       </div>
@@ -165,55 +222,59 @@ export default function EmailTemplatePage() {
     const whatsappIconUrl = `${baseUrl}/Logo/wa.png`
     const facebookIconUrl = `${baseUrl}/Logo/fb.png`
     const totalNum = parseFloat(total) || 0
+    const isRTL = locale === 'ar'
+    const textAlign = isRTL ? 'right' : 'left'
+    const dir = isRTL ? 'rtl' : 'ltr'
+    
     return {
-      subject: `Order Delivered #${orderNum} > Genosys Middle East FZ-LLC`,
+      subject: t('orderEmail.orderDelivered.subject').replace('{orderNumber}', orderNum).replace('#{orderNumber}', orderNum),
       html: `
-      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 2px solid #dc2626;">
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 2px solid #dc2626; direction: ${dir};">
         <div style="text-align: center; margin-bottom: 30px;">
           <h1 style="color: #dc2626; margin: 0;">Genosys Middle East FZ-LLC</h1>
           <p style="color: #666; margin: 5px 0;">United Arab Emirates <span style="font-size: 0.8em;">❤️</span></p>
         </div>
         
         <div style="background: white; padding: 30px; border-radius: 10px; margin-bottom: 20px; border: 1px solid #e5e7eb;">
-          <h2 style="color: #374151; margin: 0 0 15px 0;">${name},</h2>
-          <p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 0 0 20px 0;">
-            Your order has been <u>delivered.</u>
+          <h2 style="color: #374151; margin: 0 0 15px 0; text-align: ${textAlign};">${name},</h2>
+          <p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 0 0 20px 0; text-align: ${textAlign};">
+            ${t('orderEmail.orderDelivered.delivered')}
           </p>
           <div style="background: #f9fafb; padding: 18px 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e5e7eb;">
-            <h3 style="color: #374151; margin: 0 0 12px 0; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">
-              <a href="${siteUrl}/profile" style="color: #374151; text-decoration: none;">Order details:</a>
+            <h3 style="color: #374151; margin: 0 0 12px 0; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; text-align: ${textAlign};">
+              <a href="${siteUrl}/${locale === 'ar' ? 'ar/' : locale === 'ru' ? 'ru/' : ''}profile" style="color: #374151; text-decoration: none;">${t('orderEmail.orderDelivered.orderDetails')}</a>
             </h3>
-            <p style="color: #6b7280; font-size: 13px; line-height: 1.6; margin: 6px 0;">
-              <span style="color: #9ca3af;">Order number:</span> <strong style="color: #374151;">#${orderNum}</strong>
+            <p style="color: #6b7280; font-size: 13px; line-height: 1.6; margin: 6px 0; text-align: ${textAlign};">
+              <span style="color: #9ca3af;">${t('orderEmail.orderDelivered.orderNumber')}</span> <strong style="color: #374151;">#${orderNum}</strong>
             </p>
             ${totalNum > 0 ? `
-            <p style="color: #6b7280; font-size: 13px; line-height: 1.6; margin: 6px 0;">
-              <span style="color: #9ca3af;">Total:</span> <strong style="color: #374151;">AED ${totalNum.toFixed(2)}</strong>
+            <p style="color: #6b7280; font-size: 13px; line-height: 1.6; margin: 6px 0; text-align: ${textAlign};">
+              <span style="color: #9ca3af;">${t('orderEmail.orderDelivered.total')}</span> <strong style="color: #374151;">AED ${totalNum.toFixed(2)}</strong>
             </p>
             ` : ''}
           </div>
         </div>
         
         <div style="text-align: center; margin: 20px 0;">
-          <p style="color: #374151; font-size: 14px; margin: 0 0 12px 0; font-weight: 600;">Follow us</p>
+          <p style="color: #374151; font-size: 14px; margin: 0 0 12px 0; font-weight: 600;">${t('orderEmail.orderDelivered.followUs')}</p>
           <table cellpadding="0" cellspacing="0" border="0" align="center" style="margin: 0 auto;">
             <tr>
               <td style="padding: 0 12px; text-align: center;">
                 <a href="https://www.instagram.com/genosys.uae/" style="text-decoration: none; display: inline-block;">
                   <img src="${instagramIconUrl}" alt="Instagram" width="34" height="34" style="max-width: 34px; height: auto; display: block; margin: 0 auto;" border="0" />
-                  <p style="color: #374151; font-size: 11px; margin: 6px 0 0 0; text-align: center;">Insta</p>
+                  <p style="color: #374151; font-size: 11px; margin: 6px 0 0 0; text-align: center;">${t('orderEmail.orderDelivered.insta')}</p>
                 </a>
               </td>
               <td style="padding: 0 12px; text-align: center;">
                 <a href="https://wa.me/971585487665?text=${encodeURIComponent(`Hi! I need help with my order #${orderNum}. Can you assist me?`)}" style="text-decoration: none; display: inline-block;">
                   <img src="${whatsappIconUrl}" alt="WhatsApp" width="34" height="34" style="max-width: 34px; height: auto; display: block; margin: 0 auto;" border="0" />
-                  <p style="color: #374151; font-size: 11px; margin: 6px 0 0 0; text-align: center;">WhatsApp</p>
+                  <p style="color: #374151; font-size: 11px; margin: 6px 0 0 0; text-align: center;">${t('orderEmail.orderDelivered.whatsApp')}</p>
                 </a>
               </td>
               <td style="padding: 0 12px; text-align: center;">
                 <a href="https://www.facebook.com/genosys.ae" style="text-decoration: none; display: inline-block;">
                   <img src="${facebookIconUrl}" alt="Facebook" width="34" height="34" style="max-width: 34px; height: auto; display: block; margin: 0 auto;" border="0" />
-                  <p style="color: #374151; font-size: 11px; margin: 6px 0 0 0; text-align: center;">FB</p>
+                  <p style="color: #374151; font-size: 11px; margin: 6px 0 0 0; text-align: center;">${t('orderEmail.orderDelivered.fb')}</p>
                 </a>
               </td>
             </tr>
@@ -225,10 +286,10 @@ export default function EmailTemplatePage() {
             <img src="https://genosys.ae/_next/image?url=%2FLogo%2FupLOGO.png&w=384&q=75" alt="Genosys Logo" style="max-width: 170px; height: auto; margin: 0 auto; display: block;" />
           </a>
           <p style="color: #6b7280; font-size: 14px; margin: 8px 0;">
-            Official Distributor in the UAE.
+            ${t('orderEmail.orderDelivered.officialDistributor')}
           </p>
           <p style="color: #6b7280; font-size: 12px; margin: 8px 0 0;">
-            © 2026 Genosys Middle East FZ-LLC. All rights reserved.
+            ${t('orderEmail.orderDelivered.copyright')}
           </p>
         </div>
       </div>
@@ -244,36 +305,44 @@ export default function EmailTemplatePage() {
     const whatsappIconUrl = `${baseUrl}/Logo/wa.png`
     const facebookIconUrl = `${baseUrl}/Logo/fb.png`
     const discountNum = parseFloat(discountPercentage) || 0
+    const isRTL = locale === 'ar'
+    const textAlign = isRTL ? 'right' : 'left'
+    const dir = isRTL ? 'rtl' : 'ltr'
+    
+    // Get discount type display name
+    const discountTypeDisplay = discountNum < 50 ? 'VIP' : (discountType === 'CLINIC' ? (locale === 'ru' ? 'Клиника' : locale === 'ar' ? 'شريك العيادة' : 'Clinic Partner') : 'VIP')
+    const discountOffText = locale === 'ru' ? 'СКИДКА' : locale === 'ar' ? 'خصم' : 'OFF'
+    
     return {
-      subject: 'Special Discount Assigned > Genosys Middle East FZ-LLC',
+      subject: t('orderEmail.discountAssigned.subject'),
       html: `
-      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 2px solid #dc2626;">
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 2px solid #dc2626; direction: ${dir};">
         <div style="text-align: center; margin-bottom: 30px;">
           <h1 style="color: #dc2626; margin: 0;">Genosys Middle East FZ-LLC</h1>
           <p style="color: #666; margin: 5px 0;">United Arab Emirates <span style="font-size: 0.8em;">❤️</span></p>
         </div>
         
         <div style="background: white; padding: 30px; border-radius: 10px; margin-bottom: 20px; border: 1px solid #e5e7eb;">
-          <h2 style="color: #374151; margin: 0 0 15px 0;">${name},</h2>
-          <p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 0 0 20px 0;">
-            This is to inform you that a special discount has been assigned.
+          <h2 style="color: #374151; margin: 0 0 15px 0; text-align: ${textAlign};">${name},</h2>
+          <p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 0 0 20px 0; text-align: ${textAlign};">
+            ${t('orderEmail.discountAssigned.greeting')}
           </p>
           <div style="background: #f9fafb; padding: 18px 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e5e7eb;">
-            <h3 style="color: #374151; margin: 0 0 12px 0; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Discount details:</h3>
-            <p style="color: #6b7280; font-size: 13px; line-height: 1.6; margin: 6px 0;">
-              <span style="color: #9ca3af;">Type:</span> <strong style="color: #374151;">${discountNum < 50 ? 'VIP' : (discountType === 'CLINIC' ? 'Clinic Partner' : 'VIP')}</strong>
+            <h3 style="color: #374151; margin: 0 0 12px 0; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; text-align: ${textAlign};">${t('orderEmail.discountAssigned.discountDetails')}</h3>
+            <p style="color: #6b7280; font-size: 13px; line-height: 1.6; margin: 6px 0; text-align: ${textAlign};">
+              <span style="color: #9ca3af;">${t('orderEmail.discountAssigned.type')}</span> <strong style="color: #374151;">${discountTypeDisplay}</strong>
             </p>
-            <p style="color: #6b7280; font-size: 13px; line-height: 1.6; margin: 6px 0;">
-              <span style="color: #9ca3af;">Discount:</span> <strong style="color: #dc2626; font-size: 16px;">${discountNum}% OFF</strong>
+            <p style="color: #6b7280; font-size: 13px; line-height: 1.6; margin: 6px 0; text-align: ${textAlign};">
+              <span style="color: #9ca3af;">${t('orderEmail.discountAssigned.discount')}</span> <strong style="color: #dc2626; font-size: 16px;">${discountNum}% ${discountOffText}</strong>
             </p>
           </div>
-          <p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 20px 0 0 0;">
-            This discount will be automatically applied to all eligible products when you next login to <a href="https://www.genosys.ae" style="color: #dc2626; text-decoration: none;">www.genosys.ae</a>
+          <p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 20px 0 0 0; text-align: ${textAlign};">
+            ${t('orderEmail.discountAssigned.explanation').replace('www.genosys.ae', '<a href="https://www.genosys.ae" style="color: #dc2626; text-decoration: none;">www.genosys.ae</a>')}
           </p>
         </div>
         
         <div style="text-align: center; margin: 30px 0;">
-          <a href="${siteUrl}/login" 
+          <a href="${siteUrl}/${locale === 'ar' ? 'ar/' : locale === 'ru' ? 'ru/' : ''}login" 
              style="background: #dc2626; 
                     color: white; 
                     padding: 10px 24px; 
@@ -283,30 +352,30 @@ export default function EmailTemplatePage() {
                     font-size: 14px;
                     display: inline-block;
                     letter-spacing: 0.3px;">
-            Login
+            ${t('orderEmail.discountAssigned.loginButton')}
           </a>
         </div>
         
         <div style="text-align: center; margin: 20px 0;">
-          <p style="color: #374151; font-size: 14px; margin: 0 0 12px 0; font-weight: 600;">Follow us</p>
+          <p style="color: #374151; font-size: 14px; margin: 0 0 12px 0; font-weight: 600;">${t('orderEmail.discountAssigned.followUs')}</p>
           <table cellpadding="0" cellspacing="0" border="0" align="center" style="margin: 0 auto;">
             <tr>
               <td style="padding: 0 12px; text-align: center;">
                 <a href="https://www.instagram.com/genosys.uae/" style="text-decoration: none; display: inline-block;">
                   <img src="${instagramIconUrl}" alt="Instagram" width="34" height="34" style="max-width: 34px; height: auto; display: block; margin: 0 auto;" border="0" />
-                  <p style="color: #374151; font-size: 11px; margin: 6px 0 0 0; text-align: center;">Insta</p>
+                  <p style="color: #374151; font-size: 11px; margin: 6px 0 0 0; text-align: center;">${t('orderEmail.discountAssigned.insta')}</p>
                 </a>
               </td>
               <td style="padding: 0 12px; text-align: center;">
                 <a href="https://wa.me/971585487665?text=${encodeURIComponent(`Hi! I have a question about my ${discountNum < 50 ? 'VIP' : (discountType === 'CLINIC' ? 'clinic' : 'VIP')} discount. Can you assist me?`)}" style="text-decoration: none; display: inline-block;">
                   <img src="${whatsappIconUrl}" alt="WhatsApp" width="34" height="34" style="max-width: 34px; height: auto; display: block; margin: 0 auto;" border="0" />
-                  <p style="color: #374151; font-size: 11px; margin: 6px 0 0 0; text-align: center;">WhatsApp</p>
+                  <p style="color: #374151; font-size: 11px; margin: 6px 0 0 0; text-align: center;">${t('orderEmail.discountAssigned.whatsApp')}</p>
                 </a>
               </td>
               <td style="padding: 0 12px; text-align: center;">
                 <a href="https://www.facebook.com/genosys.ae" style="text-decoration: none; display: inline-block;">
                   <img src="${facebookIconUrl}" alt="Facebook" width="34" height="34" style="max-width: 34px; height: auto; display: block; margin: 0 auto;" border="0" />
-                  <p style="color: #374151; font-size: 11px; margin: 6px 0 0 0; text-align: center;">FB</p>
+                  <p style="color: #374151; font-size: 11px; margin: 6px 0 0 0; text-align: center;">${t('orderEmail.discountAssigned.fb')}</p>
                 </a>
               </td>
             </tr>
@@ -318,11 +387,159 @@ export default function EmailTemplatePage() {
             <img src="https://genosys.ae/_next/image?url=%2FLogo%2FupLOGO.png&w=384&q=75" alt="Genosys Logo" style="max-width: 170px; height: auto; margin: 0 auto; display: block;" />
           </a>
           <p style="color: #6b7280; font-size: 14px; margin: 8px 0;">
-            Official Distributor in the UAE.
+            ${t('orderEmail.discountAssigned.officialDistributor')}
           </p>
           <p style="color: #6b7280; font-size: 12px; margin: 8px 0 0;">
-            © 2026 Genosys Middle East FZ-LLC. All rights reserved.
+            ${t('orderEmail.discountAssigned.copyright')}
           </p>
+        </div>
+      </div>
+    `
+    }
+  }
+
+  // Generate COD order email template
+  const generateCODEmail = (name: string, _email: string, phone: string, orderNum: string, _subtotal: string, _shipping: string, _vat: string, _total: string, address: string, emirate: string) => {
+    const isRTL = locale === 'ar'
+    const textAlign = isRTL ? 'right' : 'left'
+    const dir = isRTL ? 'rtl' : 'ltr'
+    
+    const subject = t('orderEmail.cod.subject', { orderNumber: orderNum }).replace('#{orderNumber}', orderNum).replace('{orderNumber}', orderNum)
+    
+    return {
+      subject,
+      html: `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: white; direction: ${dir};">
+        <div style="text-align: center; margin-bottom: 30px; border-bottom: 2px solid #e5e5e5; padding-bottom: 20px;">
+          <h1 style="color: #1f2937; margin: 0; font-size: 28px;">${t('orderEmail.cod.title', { orderNumber: orderNum }).replace('#{orderNumber}', orderNum).replace('{orderNumber}', orderNum)}</h1>
+          <p style="color: #6b7280; margin: 5px 0; font-size: 16px;">${t('orderEmail.cod.dated')} ${new Date().toLocaleDateString(locale === 'ar' ? 'ar-AE' : locale === 'ru' ? 'ru-AE' : 'en-AE', { timeZone: 'Asia/Dubai', year: 'numeric', month: '2-digit', day: '2-digit' })}</p>
+        </div>
+        
+        <div style="background: white; border: 1px solid #e5e7eb; padding: 30px; border-radius: 10px; margin-bottom: 20px;">
+          <p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 0 0 10px 0; text-align: ${textAlign};">
+            ${t('orderEmail.cod.thankYou', { customerName: name.split(' ')[0] || name })}
+          </p>
+          <p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 0 0 10px 0; text-align: ${textAlign};">
+            ${t('orderEmail.cod.orderReceived', { orderNumber: orderNum })}
+          </p>
+          <p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 0; text-align: ${textAlign};">
+            ${t('orderEmail.cod.teamContact')}
+          </p>
+        </div>
+        
+        <div style="background: white; border: 1px solid #e5e5e5; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+          <h3 style="color: #dc2626; margin: 0 0 15px 0; text-align: ${textAlign};">${t('orderEmail.cod.orderItems')}</h3>
+          <p style="color: #374151; margin: 0; text-align: ${textAlign};">${orderItems}</p>
+        </div>
+        
+        <div style="background: white; border: 1px solid #e5e5e5; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+          <h3 style="color: #dc2626; margin: 0 0 15px 0; text-align: ${textAlign};">${t('orderEmail.cod.deliveryInformation')}</h3>
+          <p style="color: #374151; margin: 0 0 10px 0; font-size: 16px; text-align: ${textAlign};"><strong>${t('orderEmail.cod.name')}</strong> ${name}</p>
+          <p style="color: #374151; margin: 0 0 10px 0; font-size: 16px; text-align: ${textAlign};"><strong>${t('orderEmail.cod.phone')}</strong> ${phone}</p>
+          <p style="color: #374151; margin: 0 0 10px 0; font-size: 16px; text-align: ${textAlign};"><strong>${t('orderEmail.cod.address')}</strong> ${address}</p>
+          <p style="color: #374151; margin: 0; font-size: 16px; text-align: ${textAlign};"><strong>${t('orderEmail.cod.emirate')}</strong> ${emirate}</p>
+        </div>
+        
+        <div style="text-align: center; margin: 30px 0;">
+          <a href="https://wa.me/971585487665" 
+             style="background: linear-gradient(135deg, #25D366 0%, #128C7E 100%); 
+                    color: white; 
+                    padding: 12px 30px; 
+                    text-decoration: none; 
+                    border-radius: 6px; 
+                    font-weight: bold; 
+                    display: inline-block;">
+            ${t('orderEmail.cod.contactSupport')}
+          </a>
+        </div>
+        
+        <div style="border-top: 1px solid #e5e7eb; padding-top: 20px; text-align: center; color: #000000; font-size: 14px;">
+          <div style="text-align: center; margin-bottom: 15px;">
+            <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://genosys.ae'}/products" style="display: block; margin: 0 auto 15px; max-width: 170px;">
+              <img src="https://genosys.ae/_next/image?url=%2FLogo%2FupLOGO.png&w=384&q=75" alt="Genosys Logo" style="max-width: 170px; height: auto; margin: 0 auto; display: block;" />
+            </a>
+          </div>
+          <p style="color: #000000; margin: 0;">${t('orderEmail.cod.officialDistributor')}</p>
+          <p style="color: #000000; margin: 0;">${t('orderEmail.cod.copyright')}</p>
+        </div>
+      </div>
+    `
+    }
+  }
+
+  // Generate Support Link order email template
+  const generateSupportLinkEmail = (name: string, email: string, phone: string, orderNum: string, _subtotal: string, _shipping: string, _vat: string, _total: string, address: string, emirate: string) => {
+    const isRTL = locale === 'ar'
+    const textAlign = isRTL ? 'right' : 'left'
+    const dir = isRTL ? 'rtl' : 'ltr'
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
+    
+    const productsUrl = locale === 'ar' ? `${siteUrl}/ar/products` : locale === 'ru' ? `${siteUrl}/ru/products` : `${siteUrl}/products`
+    const contactUrl = locale === 'ar' ? `${siteUrl}/ar/contact` : locale === 'ru' ? `${siteUrl}/ru/contact` : `${siteUrl}/contact`
+    
+    return {
+      subject: t('orderEmail.supportLink.subject', { orderNumber: orderNum }).replace('#{orderNumber}', orderNum).replace('{orderNumber}', orderNum),
+      html: `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: white; font-size: 14px; direction: ${dir};">
+        <div style="text-align: center; margin-bottom: 30px;">
+          <h1 style="color: #dc2626; margin: 0; font-size: 14px;">${t('orderEmail.supportLink.companyName')}</h1>
+          <p style="color: #666; margin: 5px 0; font-size: 14px;">United Arab Emirates <span style="font-size: 0.8em;">❤️</span></p>
+        </div>
+        
+        <div style="background: white; padding: 30px; border-radius: 10px; margin-bottom: 20px; border: 1px solid #e5e5e5;">
+          <p style="color: #374151; font-size: 14px; line-height: 1.6; margin: 0 0 10px 0; text-align: ${textAlign};">
+            ${t('orderEmail.supportLink.dear', { customerName: name.split(' ')[0] || name })}
+          </p>
+          <p style="color: #374151; font-size: 14px; line-height: 1.6; margin: 0 0 10px 0; text-align: ${textAlign};">
+            ${t('orderEmail.supportLink.orderSubmitted')}
+          </p>
+          <p style="color: #374151; font-size: 14px; line-height: 1.6; margin: 0; text-align: ${textAlign};">
+            ${t('orderEmail.supportLink.orderRequest', { orderNumber: orderNum })}
+          </p>
+        </div>
+        
+        <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e5e5e5;">
+          <h3 style="color: #dc2626; margin: 0 0 15px 0; font-size: 14px; text-align: ${textAlign};">${t('orderEmail.supportLink.customerInformation')}</h3>
+          <p style="margin: 0 0 8px 0; color: #374151; font-size: 14px; text-align: ${textAlign};"><strong>${t('orderEmail.supportLink.name')}</strong> ${name}</p>
+          <p style="margin: 0 0 8px 0; color: #374151; font-size: 14px; text-align: ${textAlign};"><strong>${t('orderEmail.supportLink.email')}</strong> ${email}</p>
+          <p style="margin: 0 0 8px 0; color: #374151; font-size: 14px; text-align: ${textAlign};"><strong>${t('orderEmail.supportLink.phone')}</strong> ${phone}</p>
+          <p style="margin: 0 0 8px 0; color: #374151; font-size: 14px; text-align: ${textAlign};"><strong>${t('orderEmail.supportLink.address')}</strong> ${address}</p>
+          <p style="margin: 0; color: #374151; font-size: 14px; text-align: ${textAlign};"><strong>${t('orderEmail.supportLink.emirate')}</strong> ${emirate}</p>
+        </div>
+        
+        <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e5e5e5;">
+          <h3 style="color: #dc2626; margin: 0 0 15px 0; font-size: 14px; text-align: ${textAlign};">${t('orderEmail.supportLink.orderItems')}</h3>
+          <p style="color: #374151; margin: 0; text-align: ${textAlign};">${orderItems}</p>
+        </div>
+        
+        <div style="text-align: center; margin: 30px 0;">
+          <a href="${productsUrl}" 
+             style="background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%); 
+                    color: white; 
+                    padding: 12px 30px; 
+                    text-decoration: none; 
+                    border-radius: 6px; 
+                    font-weight: bold; 
+                    display: inline-block; 
+                    margin-${isRTL ? 'left' : 'right'}: 10px;">
+            ${t('orderEmail.supportLink.continueShopping')}
+          </a>
+          <a href="${contactUrl}" 
+             style="background: transparent; 
+                    color: #16a34a; 
+                    padding: 12px 30px; 
+                    text-decoration: none; 
+                    border: 2px solid #16a34a; 
+                    border-radius: 6px; 
+                    font-weight: bold; 
+                    display: inline-block;">
+            ${t('orderEmail.supportLink.contactSupport')}
+          </a>
+        </div>
+        
+        <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #e5e5e5; color: #000000; font-size: 14px;">
+          <p style="color: #000000; margin: 0;">${t('orderEmail.supportLink.officialDistributorFooter') || t('orderEmail.supportLink.officialDistributor')}</p>
+          <p style="color: #000000; margin: 0;">© 2026 Genosys Middle East FZ-LLC. All rights reserved.</p>
         </div>
       </div>
     `
@@ -333,30 +550,34 @@ export default function EmailTemplatePage() {
   const generateOrderConfirmedEmail = (name: string, orderNum: string, total: string) => {
     const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
     const totalNum = parseFloat(total) || 0
+    const isRTL = locale === 'ar'
+    const textAlign = isRTL ? 'right' : 'left'
+    const dir = isRTL ? 'rtl' : 'ltr'
+    
     return {
-      subject: `Order Confirmed #${orderNum} > Genosys Middle East FZ-LLC`,
+      subject: t('orderEmail.orderConfirmation.subject', { orderNumber: orderNum }).replace('#{orderNumber}', orderNum).replace('{orderNumber}', orderNum),
       html: `
-      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 2px solid #dc2626;">
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 2px solid #dc2626; direction: ${dir};">
         <div style="text-align: center; margin-bottom: 30px;">
           <h1 style="color: #dc2626; margin: 0;">Genosys Middle East FZ-LLC</h1>
           <p style="color: #666; margin: 5px 0;">United Arab Emirates <span style="font-size: 0.8em;">❤️</span></p>
         </div>
         
         <div style="background: white; padding: 30px; border-radius: 10px; margin-bottom: 20px; border: 1px solid #e5e7eb;">
-          <h2 style="color: #374151; margin: 0 0 15px 0;">${name},</h2>
-          <p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 0 0 20px 0;">
-            Your order has been received and is being <u>processed.</u>
+          <h2 style="color: #374151; margin: 0 0 15px 0; text-align: ${textAlign};">${name},</h2>
+          <p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 0 0 20px 0; text-align: ${textAlign};">
+            ${t('orderEmail.orderConfirmation.orderReceived', { orderNumber: orderNum })}
           </p>
           <div style="background: #f9fafb; padding: 18px 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e5e7eb;">
-            <h3 style="color: #374151; margin: 0 0 12px 0; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">
-              <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/profile" style="color: #374151; text-decoration: none;">Order details:</a>
+            <h3 style="color: #374151; margin: 0 0 12px 0; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; text-align: ${textAlign};">
+              <a href="${siteUrl}/${locale === 'ar' ? 'ar/' : locale === 'ru' ? 'ru/' : ''}profile" style="color: #374151; text-decoration: none;">${t('orderEmail.orderConfirmation.orderDetails')}</a>
             </h3>
-            <p style="color: #6b7280; font-size: 13px; line-height: 1.6; margin: 6px 0;">
-              <span style="color: #9ca3af;">Order number:</span> <strong style="color: #374151;">#${orderNum}</strong>
+            <p style="color: #6b7280; font-size: 13px; line-height: 1.6; margin: 6px 0; text-align: ${textAlign};">
+              <span style="color: #9ca3af;">${t('orderEmail.orderDelivered.orderNumber')}</span> <strong style="color: #374151;">#${orderNum}</strong>
             </p>
             ${totalNum > 0 ? `
-            <p style="color: #6b7280; font-size: 13px; line-height: 1.6; margin: 6px 0;">
-              <span style="color: #9ca3af;">Total:</span> <strong style="color: #374151;">AED ${totalNum.toFixed(2)}</strong>
+            <p style="color: #6b7280; font-size: 13px; line-height: 1.6; margin: 6px 0; text-align: ${textAlign};">
+              <span style="color: #9ca3af;">${t('orderEmail.orderDelivered.total')}</span> <strong style="color: #374151;">AED ${totalNum.toFixed(2)}</strong>
             </p>
             ` : ''}
           </div>
@@ -373,7 +594,7 @@ export default function EmailTemplatePage() {
                     font-size: 14px;
                     display: inline-block;
                     letter-spacing: 0.3px;">
-            Contact us: WhatsApp
+            ${locale === 'ru' ? 'Свяжитесь с нами: WhatsApp' : locale === 'ar' ? 'اتصل بنا: WhatsApp' : 'Contact us: WhatsApp'}
           </a>
         </div>
         
@@ -382,10 +603,10 @@ export default function EmailTemplatePage() {
             <img src="https://genosys.ae/_next/image?url=%2FLogo%2FupLOGO.png&w=384&q=75" alt="Genosys Logo" style="max-width: 170px; height: auto; margin: 0 auto; display: block;" />
           </a>
           <p style="color: #6b7280; font-size: 14px; margin: 8px 0;">
-            Official Distributor in the UAE.
+            ${t('orderEmail.orderConfirmation.officialDistributor')}
           </p>
           <p style="color: #6b7280; font-size: 12px; margin: 8px 0 0;">
-            © 2026 Genosys Middle East FZ-LLC. All rights reserved.
+            ${t('orderEmail.orderDelivered.copyright')}
           </p>
         </div>
       </div>
@@ -405,6 +626,10 @@ export default function EmailTemplatePage() {
         return generateOrderDeliveredEmail(userName, orderNumber, orderTotal)
       case 'discount-assigned':
         return generateDiscountAssignedEmail(userName, discountType, discountPercentage)
+      case 'cod':
+        return generateCODEmail(userName, userEmail, userPhone, orderNumber, orderSubtotal, orderShipping, orderVat, orderTotal, deliveryAddress, deliveryEmirate)
+      case 'support-link':
+        return generateSupportLinkEmail(userName, userEmail, userPhone, orderNumber, orderSubtotal, orderShipping, orderVat, orderTotal, deliveryAddress, deliveryEmirate)
       default:
         return generateOrderShippedEmail(userName, orderNumber, orderTotal)
     }
@@ -424,6 +649,10 @@ export default function EmailTemplatePage() {
         return 'Order Delivered Email'
       case 'discount-assigned':
         return 'Discount Assignment Email'
+      case 'cod':
+        return 'COD Order Confirmation Email'
+      case 'support-link':
+        return 'Support Link Order Request Email'
       default:
         return 'Order Shipped Email'
     }
@@ -439,12 +668,51 @@ export default function EmailTemplatePage() {
             Preview and customize email templates for Genosys Middle East FZ-LLC
           </p>
           
+          {/* Language Selector */}
+          <div className="mb-6">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Language / اللغة / Язык
+            </label>
+            <div className="flex gap-2">
+              <button
+                onClick={() => setLocale('en')}
+                className={`px-4 py-2 rounded-md font-medium transition-colors ${
+                  locale === 'en'
+                    ? 'bg-blue-600 text-white'
+                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                }`}
+              >
+                English
+              </button>
+              <button
+                onClick={() => setLocale('ru')}
+                className={`px-4 py-2 rounded-md font-medium transition-colors ${
+                  locale === 'ru'
+                    ? 'bg-blue-600 text-white'
+                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                }`}
+              >
+                Русский
+              </button>
+              <button
+                onClick={() => setLocale('ar')}
+                className={`px-4 py-2 rounded-md font-medium transition-colors ${
+                  locale === 'ar'
+                    ? 'bg-blue-600 text-white'
+                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                }`}
+              >
+                العربية
+              </button>
+            </div>
+          </div>
+
           {/* Template Type Selector */}
           <div className="mb-6">
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Template Type
             </label>
-            <div className="flex gap-2">
+            <div className="flex gap-2 flex-wrap">
               <button
                 onClick={() => setTemplateType('order-shipped')}
                 className={`px-4 py-2 rounded-md font-medium transition-colors ${
@@ -495,6 +763,26 @@ export default function EmailTemplatePage() {
               >
                 Discount Assigned
               </button>
+              <button
+                onClick={() => setTemplateType('cod')}
+                className={`px-4 py-2 rounded-md font-medium transition-colors ${
+                  templateType === 'cod'
+                    ? 'bg-red-600 text-white'
+                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                }`}
+              >
+                COD Order
+              </button>
+              <button
+                onClick={() => setTemplateType('support-link')}
+                className={`px-4 py-2 rounded-md font-medium transition-colors ${
+                  templateType === 'support-link'
+                    ? 'bg-red-600 text-white'
+                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                }`}
+              >
+                Support Link
+              </button>
             </div>
           </div>
           
@@ -541,7 +829,7 @@ export default function EmailTemplatePage() {
               </div>
             )}
             
-            {(templateType === 'order-shipped' || templateType === 'order-confirmed' || templateType === 'order-delivered') && (
+            {(templateType === 'order-shipped' || templateType === 'order-confirmed' || templateType === 'order-delivered' || templateType === 'cod' || templateType === 'support-link') && (
               <>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -568,6 +856,101 @@ export default function EmailTemplatePage() {
                     placeholder="Enter order total"
                   />
                 </div>
+                
+                {(templateType === 'cod' || templateType === 'support-link') && (
+                  <>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Customer Phone
+                      </label>
+                      <input
+                        type="text"
+                        value={userPhone}
+                        onChange={(e) => setUserPhone(e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
+                        placeholder="Enter phone number"
+                      />
+                    </div>
+                    
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Subtotal (AED)
+                      </label>
+                      <input
+                        type="text"
+                        value={orderSubtotal}
+                        onChange={(e) => setOrderSubtotal(e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
+                        placeholder="Enter subtotal"
+                      />
+                    </div>
+                    
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Shipping (AED)
+                      </label>
+                      <input
+                        type="text"
+                        value={orderShipping}
+                        onChange={(e) => setOrderShipping(e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
+                        placeholder="Enter shipping cost"
+                      />
+                    </div>
+                    
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        VAT (AED)
+                      </label>
+                      <input
+                        type="text"
+                        value={orderVat}
+                        onChange={(e) => setOrderVat(e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
+                        placeholder="Enter VAT amount"
+                      />
+                    </div>
+                    
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Order Items
+                      </label>
+                      <input
+                        type="text"
+                        value={orderItems}
+                        onChange={(e) => setOrderItems(e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
+                        placeholder="Enter order items"
+                      />
+                    </div>
+                    
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Delivery Address
+                      </label>
+                      <input
+                        type="text"
+                        value={deliveryAddress}
+                        onChange={(e) => setDeliveryAddress(e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
+                        placeholder="Enter delivery address"
+                      />
+                    </div>
+                    
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Emirate
+                      </label>
+                      <input
+                        type="text"
+                        value={deliveryEmirate}
+                        onChange={(e) => setDeliveryEmirate(e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
+                        placeholder="Enter emirate"
+                      />
+                    </div>
+                  </>
+                )}
                 
                 {templateType === 'order-shipped' && (
                   <>

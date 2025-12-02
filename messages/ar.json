@@ -1226,7 +1226,7 @@
         "PROCESSING": "جاري معالجة طلبك وإعداده للشحن.",
         "CONFIRMED": "تم تأكيد طلبك وهو قيد الإعداد.",
         "PAID": "تم تأكيد دفع طلبك.",
-        "SHIPPED": "أخبار رائعة! تم شحن طلبك وهو في طريقه إليك.",
+        "SHIPPED": "تم شحن طلبك.",
         "DELIVERED": "نقدر لك تقديم الطلب معنا! ❤️<br>تم تسليم الطلب {orderNumber} بنجاح!",
         "CANCELLED": "تم إلغاء طلبك حسب الطلب.",
         "default": "تم تحديث حالة طلبك."
@@ -1239,8 +1239,13 @@
       "type": "النوع:",
       "discount": "الخصم:",
       "discountInfo": "سيتم تطبيق هذا الخصم تلقائياً على جميع المنتجات المؤهلة عند تسجيل الدخول التالي إلى",
+      "explanation": "سيتم تطبيق هذا الخصم تلقائياً على جميع المنتجات المؤهلة عند تسجيل الدخول التالي إلى www.genosys.ae",
       "login": "تسجيل الدخول",
+      "loginButton": "تسجيل الدخول",
       "followUs": "تابعنا",
+      "insta": "إنستغرام",
+      "whatsApp": "واتساب",
+      "fb": "فيسبوك",
       "officialDistributor": "الموزع الرسمي في دولة الإمارات العربية المتحدة.",
       "copyright": "© 2026 Genosys Middle East FZ-LLC. جميع الحقوق محفوظة."
     },
@@ -1251,6 +1256,9 @@
       "orderNumber": "رقم الطلب:",
       "total": "الإجمالي:",
       "followUs": "تابعنا",
+      "insta": "إنستغرام",
+      "whatsApp": "واتساب",
+      "fb": "فيسبوك",
       "officialDistributor": "الموزع الرسمي في دولة الإمارات العربية المتحدة.",
       "copyright": "© 2026 Genosys Middle East FZ-LLC. جميع الحقوق محفوظة."
     },
@@ -1273,7 +1281,8 @@
       "emirate": "الإمارة:",
       "trackOrder": "تتبع طلبك",
       "questions": "أسئلة حول طلبك؟ اتصل بنا على",
-      "officialDistributor": "Genosys Middle East FZ-LLC - الموزع الرسمي لـ Genosys في الإمارات العربية المتحدة"
+      "officialDistributor": "الموزع الرسمي في دولة الإمارات العربية المتحدة.",
+      "copyright": "© 2026 Genosys Middle East FZ-LLC. جميع الحقوق محفوظة."
     }
   },
   "skinRecommendation": {

@@ -48,7 +48,7 @@ function LanguageSwitcherContent() {
             <button
               onClick={() => switchLanguage('en')}
               className={`w-full text-left px-3 py-2 text-sm hover:bg-gray-50 transition-colors ${
-                currentLocale === 'en' ? 'bg-primary-50 text-primary-600 font-medium' : ''
+                currentLocale === 'en' ? 'bg-primary-50 text-primary-600 font-medium' : 'text-gray-900'
               }`}
             >
               English
@@ -56,7 +56,7 @@ function LanguageSwitcherContent() {
             <button
               onClick={() => switchLanguage('ru')}
               className={`w-full text-left px-3 py-2 text-sm hover:bg-gray-50 transition-colors ${
-                currentLocale === 'ru' ? 'bg-primary-50 text-primary-600 font-medium' : ''
+                currentLocale === 'ru' ? 'bg-primary-50 text-primary-600 font-medium' : 'text-gray-900'
               }`}
             >
               Русский
@@ -64,7 +64,7 @@ function LanguageSwitcherContent() {
             <button
               onClick={() => switchLanguage('ar')}
               className={`w-full text-left px-3 py-2 text-sm hover:bg-gray-50 transition-colors ${
-                currentLocale === 'ar' ? 'bg-primary-50 text-primary-600 font-medium' : ''
+                currentLocale === 'ar' ? 'bg-primary-50 text-primary-600 font-medium' : 'text-gray-900'
               }`}
             >
               العربية

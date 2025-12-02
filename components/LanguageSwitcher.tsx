@@ -9,6 +9,7 @@ function LanguageSwitcherContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const currentLocale = getLocaleFromPath(pathname)
+  const isRTL = currentLocale === 'ar'
   const [isOpen, setIsOpen] = useState(false)
 
   const switchLanguage = (locale: Locale) => {
@@ -44,7 +45,11 @@ function LanguageSwitcherContent() {
             className="fixed inset-0 z-10" 
             onClick={() => setIsOpen(false)}
           />
-          <div className="absolute top-full left-0 md:left-auto md:right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-20 min-w-[100px]">
+          <div className={`absolute top-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-20 min-w-[100px] ${
+            isRTL 
+              ? 'right-0 md:right-0' 
+              : 'left-0 md:left-auto md:right-0'
+          }`}>
             <button
               onClick={() => switchLanguage('en')}
               className={`w-full text-left px-3 py-2 text-sm hover:bg-gray-50 transition-colors ${

@@ -6,9 +6,9 @@ import { errorLog } from '@/lib/logger'
 import { enhancedErrorTracking } from '@/lib/errorTracking'
 
 interface MonitoringContextType {
-  trackError: (error: Error, context?: any) => Promise<void>
-  trackMessage: (message: string, level?: 'info' | 'warning' | 'error', context?: any) => Promise<void>
-  setUser: (userId: string, userEmail?: string, extra?: Record<string, any>) => Promise<void>
+  trackError: (error: Error, context?: Record<string, unknown>) => Promise<void>
+  trackMessage: (message: string, level?: 'info' | 'warning' | 'error', context?: Record<string, unknown>) => Promise<void>
+  setUser: (userId: string, userEmail?: string, extra?: Record<string, unknown>) => Promise<void>
   addBreadcrumb: (message: string, category?: string, level?: 'info' | 'warning' | 'error') => Promise<void>
 }
 
@@ -29,7 +29,7 @@ export function MonitoringProvider({ children }: MonitoringProviderProps) {
 
   const contextValue: MonitoringContextType = {
     trackError: enhancedErrorTracking.trackError,
-    trackMessage: async (message: string, level: 'info' | 'warning' | 'error' = 'info', context?: any) => {
+    trackMessage: async (message: string, level: 'info' | 'warning' | 'error' = 'info', context?: Record<string, unknown>) => {
       const { trackMessage } = await import('@/lib/monitoring')
       return trackMessage(message, level, context)
     },
@@ -58,17 +58,17 @@ export function useMonitoring(): MonitoringContextType {
 export function useUserTracking() {
   const { trackMessage, addBreadcrumb } = useMonitoring()
 
-  const trackAction = async (action: string, context?: any) => {
+  const trackAction = async (action: string, context?: Record<string, unknown>) => {
     await addBreadcrumb(`User action: ${action}`, 'user-action', 'info')
     await trackMessage(`User action: ${action}`, 'info', context)
   }
 
-  const trackPageView = async (page: string, context?: any) => {
+  const trackPageView = async (page: string, context?: Record<string, unknown>) => {
     await addBreadcrumb(`Page view: ${page}`, 'navigation', 'info')
     await trackMessage(`Page view: ${page}`, 'info', context)
   }
 
-  const trackError = async (error: Error, context?: any) => {
+  const trackError = async (error: Error, context?: Record<string, unknown>) => {
     await enhancedErrorTracking.trackClientError(error, 'user-interaction', context)
   }
 

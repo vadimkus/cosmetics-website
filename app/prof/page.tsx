@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { getAllProducts } from '@/lib/productsDb'
+import { errorLog } from '@/lib/logger'
 import type { Product } from '@/types'
 
 interface TableProduct {
@@ -94,7 +95,7 @@ export default async function ProfPage() {
   try {
     dbProducts = await getAllProducts()
   } catch (error) {
-    console.error('Error fetching products:', error)
+    errorLog('Error fetching products:', error)
   }
 
   const tableProducts: TableProduct[] = [

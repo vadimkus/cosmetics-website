@@ -631,7 +631,10 @@ export default function AdminPage() {
     })
     
     return undefined
-    // Only depend on the email string, not the whole adminUser object or functions
+    // Note: fetchUsers, fetchOrders, and fetchProducts are stable useCallback hooks
+    // that depend on values already in the dependency array. We use refs inside the
+    // interval callback to avoid stale closures, so we intentionally exclude the
+    // functions from the dependency array to prevent unnecessary effect re-runs.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated, isCheckingSession, adminUser?.email])
 

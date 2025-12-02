@@ -3,6 +3,12 @@
 import { createContext, useContext, ReactNode } from 'react'
 import { useServiceWorker } from '@/hooks/useServiceWorker'
 
+interface CacheStatus {
+  name: string
+  size: number
+  keys: string[]
+}
+
 interface ServiceWorkerContextType {
   isSupported: boolean
   isRegistered: boolean
@@ -12,7 +18,7 @@ interface ServiceWorkerContextType {
   checkForUpdates: () => Promise<void>
   unregister: () => Promise<void>
   clearCaches: () => Promise<void>
-  getCacheStatus: () => Promise<any[]>
+  getCacheStatus: () => Promise<CacheStatus[]>
 }
 
 const ServiceWorkerContext = createContext<ServiceWorkerContextType | null>(null)

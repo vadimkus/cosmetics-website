@@ -36,3 +36,53 @@
     display: none;
   }
 }
+
+/* Custom radio button styling for mobile */
+input[type="radio"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: white;
+  border: 2px solid #d1d5db;
+  border-radius: 50%;
+}
+
+input[type="radio"]:checked {
+  background-color: white;
+  border-color: #dc2626;
+  position: relative;
+}
+
+input[type="radio"]:checked::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #dc2626;
+}
+
+input[type="radio"]:disabled {
+  background-color: #f3f4f6;
+  border-color: #d1d5db;
+  cursor: not-allowed;
+}
+
+/* Ensure white background on html and body to prevent black areas on mobile */
+html {
+  background-color: white;
+}
+
+body {
+  background-color: white;
+}
+
+/* Safe area support for mobile devices */
+@supports (padding: max(0px)) {
+  .safe-area-inset-bottom {
+    padding-bottom: max(3rem, calc(3rem + env(safe-area-inset-bottom, 0px)));
+  }
+}

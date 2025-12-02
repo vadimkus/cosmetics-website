@@ -737,7 +737,7 @@ export default function CheckoutClient() {
                         name="payment"
                         value="stripe-checkout"
                         disabled
-                        className="text-gray-400 mt-0.5 flex-shrink-0"
+                        className="mt-0.5 flex-shrink-0 w-4 h-4"
                       />
                       <div className={`flex-1 ${dir === 'rtl' ? 'text-right' : ''}`}>
                         <div className="font-medium text-gray-500 text-[10px] md:text-base">{t('checkout.stripeCheckout')}</div>
@@ -752,7 +752,7 @@ export default function CheckoutClient() {
                         value="cod"
                         checked={selectedPaymentMethod === 'cod'}
                         onChange={(e) => setSelectedPaymentMethod(e.target.value)}
-                        className="text-primary-600 focus:ring-primary-500 mt-0.5 flex-shrink-0"
+                        className="focus:ring-primary-500 mt-0.5 flex-shrink-0 w-4 h-4"
                       />
                       <div className={`flex-1 ${dir === 'rtl' ? 'text-right' : ''}`}>
                         <div className="font-medium text-gray-900 text-[10px] md:text-base">{t('checkout.cod')}</div>
@@ -767,7 +767,7 @@ export default function CheckoutClient() {
                         value="support-link"
                         checked={selectedPaymentMethod === 'support-link'}
                         onChange={(e) => setSelectedPaymentMethod(e.target.value)}
-                        className="text-primary-600 focus:ring-primary-500 mt-0.5 flex-shrink-0"
+                        className="focus:ring-primary-500 mt-0.5 flex-shrink-0 w-4 h-4"
                       />
                       <div className={`flex-1 ${dir === 'rtl' ? 'text-right' : ''}`}>
                         <div className="font-medium text-gray-900 text-[10px] md:text-base">{t('checkout.generateLinkForPayment')}</div>

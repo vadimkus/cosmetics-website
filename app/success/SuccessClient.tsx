@@ -42,8 +42,8 @@ function SuccessContent() {
   }, [sessionId, paymentMethod, clearCart])
 
   return (
-    <div className="bg-white" dir={dir}>
-      <div className="container mx-auto px-3 md:px-4 py-3 md:py-8 lg:py-16 pb-6 md:pb-16">
+    <div className="bg-white min-h-screen" dir={dir}>
+      <div className="container mx-auto px-3 md:px-4 py-3 md:py-8 lg:py-16 pb-16 md:pb-16" style={{ paddingBottom: 'max(4rem, calc(4rem + env(safe-area-inset-bottom, 0px)))' }}>
         {/* Navigation Breadcrumb */}
         <div className={`${dir === 'rtl' ? 'flex justify-end' : ''}`}>
           <nav className={`text-xs md:text-base text-gray-600 mb-1.5 md:mb-4 ${dir === 'rtl' ? 'text-right' : ''}`} aria-label="Breadcrumb">
@@ -133,7 +133,7 @@ function SuccessContent() {
           </div>
 
           {/* Action Buttons */}
-          <div className="flex flex-col gap-2.5 md:gap-4">
+          <div className="flex flex-col gap-2.5 md:gap-4 mb-4 md:mb-0">
             <Link 
               href={getLocalizedPath('/products', locale)}
               className={`flex items-center justify-center gap-2 bg-primary-600 text-white px-4 py-3 md:px-6 md:py-3.5 rounded-lg text-sm md:text-base font-semibold hover:bg-primary-700 transition-colors shadow-md ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}

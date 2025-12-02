@@ -111,6 +111,7 @@ export default function HeaderRussianDesktop() {
         <div className="flex items-center space-x-4 header-icons">
           {isClient && user ? (
             <>
+              <LanguageSwitcher />
               <Link 
                 href={getLocalizedPath('/profile', 'ru')} 
                 className="p-2 text-gray-700 hover:text-primary-600 transition-colors"
@@ -118,7 +119,6 @@ export default function HeaderRussianDesktop() {
               >
                 <User className="h-6 w-6 text-green-600" aria-hidden="true" />
               </Link>
-              <LanguageSwitcher />
               <button 
                 onClick={logout}
                 className="p-2 text-gray-700 hover:text-primary-600 transition-colors"
@@ -129,6 +129,7 @@ export default function HeaderRussianDesktop() {
             </>
           ) : (
             <>
+              <LanguageSwitcher />
               <button 
                 onClick={() => setShowLoginModal(true)}
                 className="p-2 text-gray-700 hover:text-primary-600 transition-colors flex items-center gap-2 touch-manipulation"
@@ -137,7 +138,6 @@ export default function HeaderRussianDesktop() {
                 <User className="h-5 w-5" aria-hidden="true" />
                 <span className="text-sm font-medium hidden sm:inline">{t('common.login')}</span>
               </button>
-              <LanguageSwitcher />
             </>
           )}
           

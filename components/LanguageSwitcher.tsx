@@ -33,7 +33,7 @@ function LanguageSwitcherContent() {
         className="flex items-center gap-1 px-2 py-1 rounded hover:bg-gray-100 transition-colors"
         aria-label="Switch language"
       >
-        <span className="text-xs font-medium text-gray-700">
+        <span className="text-xs font-medium text-green-600">
           {currentLocale === 'ar' ? 'AR' : currentLocale === 'ru' ? 'RU' : 'EN'}
         </span>
       </button>
@@ -78,7 +78,7 @@ function LanguageSwitcherContent() {
 
 export default function LanguageSwitcher() {
   return (
-    <Suspense fallback={<span className="text-xs font-medium text-gray-700 px-2 py-1">EN</span>}>
+    <Suspense fallback={<span className="text-xs font-medium text-green-600 px-2 py-1">EN</span>}>
       <LanguageSwitcherContent />
     </Suspense>
   )

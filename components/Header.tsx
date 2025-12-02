@@ -279,6 +279,7 @@ const Header = memo(function Header() {
                 <div className="flex items-center space-x-4 header-icons">
                   {isClient && user ? (
                     <>
+                      <LanguageSwitcher />
                       <Link 
                         href={getLocalizedPath('/profile', locale)} 
                         className="p-2 text-gray-700 hover:text-primary-600 transition-colors"
@@ -286,7 +287,6 @@ const Header = memo(function Header() {
                       >
                         <User className="h-6 w-6 text-green-600" aria-hidden="true" />
                       </Link>
-                      <LanguageSwitcher />
                       <button 
                         onClick={logout}
                         className="p-2 text-gray-700 hover:text-primary-600 transition-colors"
@@ -297,6 +297,7 @@ const Header = memo(function Header() {
                     </>
                   ) : (
                     <>
+                      <LanguageSwitcher />
                       <button 
                         onClick={() => setShowLoginModal(true)}
                         className="p-2 text-gray-700 hover:text-primary-600 transition-colors flex items-center gap-2 touch-manipulation"
@@ -305,7 +306,6 @@ const Header = memo(function Header() {
                         <User className="h-5 w-5" aria-hidden="true" />
                         <span className="text-sm font-medium hidden sm:inline">{t('common.login')}</span>
                       </button>
-                      <LanguageSwitcher />
                     </>
                   )}
                   
@@ -373,13 +373,6 @@ const Header = memo(function Header() {
                   
                   {isClient && user ? (
                     <>
-                      <button 
-                        onClick={logout}
-                        className="p-2 text-gray-700 hover:text-primary-600 transition-colors"
-                        aria-label={t('common.logout')}
-                      >
-                        <LogOut className="h-6 w-6" aria-hidden="true" />
-                      </button>
                       <LanguageSwitcher />
                       <Link 
                         href={getLocalizedPath('/profile', locale)} 
@@ -388,6 +381,13 @@ const Header = memo(function Header() {
                       >
                         <User className="h-6 w-6 text-green-600" aria-hidden="true" />
                       </Link>
+                      <button 
+                        onClick={logout}
+                        className="p-2 text-gray-700 hover:text-primary-600 transition-colors"
+                        aria-label={t('common.logout')}
+                      >
+                        <LogOut className="h-6 w-6" aria-hidden="true" />
+                      </button>
                     </>
                   ) : (
                     <>

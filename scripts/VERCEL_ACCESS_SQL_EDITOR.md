@@ -82,3 +82,5 @@ ADD COLUMN IF NOT EXISTS "excerptRu" TEXT,
 ADD COLUMN IF NOT EXISTS "contentRu" TEXT;
 ```
 
+
+

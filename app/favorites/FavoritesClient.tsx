@@ -7,11 +7,25 @@ import { useFavorites } from '@/components/FavoritesProvider'
 import ProductCard from '@/components/ProductCard'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
+import { useEffect, useState } from 'react'
 
 export default function FavoritesClient() {
   const { t, locale, dir } = useTranslation()
   const { favorites } = useFavorites()
   const favoriteProducts = favorites
+  const [isPulsing, setIsPulsing] = useState(false)
+
+  useEffect(() => {
+    // Pulse every 5 seconds
+    const pulseInterval = setInterval(() => {
+      setIsPulsing(true)
+      setTimeout(() => setIsPulsing(false), 500) // Pulse duration
+    }, 5000)
+
+    return () => {
+      clearInterval(pulseInterval)
+    }
+  }, [])
 
   if (favorites.length === 0) {
     return (
@@ -73,11 +87,11 @@ export default function FavoritesClient() {
       <div className="max-w-6xl mx-auto">
         <div className="mb-4 md:mb-8">
           <h1 className="text-xl md:text-3xl font-bold text-gray-900 mb-2 md:mb-4 flex items-center gap-2">
-            <Heart className="h-6 w-6 md:h-8 md:w-8 text-red-500" />
-            My Favorites ({favorites.length})
+            <Heart className={`h-6 w-6 md:h-8 md:w-8 text-red-500 transition-all duration-500 ${isPulsing ? 'animate-pulse scale-110' : ''}`} />
+            {t('favorites.myFavorites')} ({favorites.length})
           </h1>
           <p className="text-xs md:text-base text-gray-600">
-            Your saved GENOSYS professional Korean dermacosmetics products
+            {t('favorites.savedProductsDescription')}
           </p>
         </div>
 
@@ -101,9 +115,9 @@ export default function FavoritesClient() {
                 />
               </div>
               <Heart className="hidden md:block h-16 w-16 text-gray-300 mx-auto mb-4" />
-              <h2 className="text-base md:text-2xl font-bold text-gray-900 mb-1 md:mb-3">No Products Found</h2>
+              <h2 className="text-base md:text-2xl font-bold text-gray-900 mb-1 md:mb-3">{t('favorites.noProductsFound')}</h2>
               <p className="text-[11px] md:text-sm text-gray-500 mb-3 md:mb-6 leading-relaxed">
-                Products may no longer be available.
+                {t('favorites.productsMayNoLongerBeAvailable')}
               </p>
               <Link
                 href={getLocalizedPath('/products', locale)}

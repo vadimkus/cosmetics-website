@@ -233,3 +233,5 @@
 - Only the content values need to be translated
 - Some product names may intentionally remain in English (brand names, technical terms)
 
+
+

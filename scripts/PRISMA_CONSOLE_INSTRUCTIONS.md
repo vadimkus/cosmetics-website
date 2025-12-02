@@ -45,3 +45,5 @@
 If Prisma Console supports migrations, you can use:
 - File: `prisma/migrations/add_russian_blog_columns/migration.sql`
 
+
+

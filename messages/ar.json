@@ -411,7 +411,11 @@
   },
   "favorites": {
     "empty": "لا توجد مفضلات بعد",
-    "browseProducts": "تصفح المنتجات"
+    "browseProducts": "تصفح المنتجات",
+    "myFavorites": "مفضلاتي",
+    "savedProductsDescription": "منتجاتك المحفوظة من مستحضرات التجميل الكورية الاحترافية GENOSYS",
+    "noProductsFound": "لم يتم العثور على منتجات",
+    "productsMayNoLongerBeAvailable": "قد لا تكون المنتجات متاحة بعد الآن."
   },
   "blog": {
     "title": "مدونة GENOSYS",
@@ -1226,6 +1230,49 @@
         "CANCELLED": "تم إلغاء طلبك حسب الطلب.",
         "default": "تم تحديث حالة طلبك."
       }
+    },
+    "discountAssigned": {
+      "subject": "تم تعيين خصم خاص > Genosys Middle East FZ-LLC",
+      "greeting": "نود إعلامك بأنه تم تعيين خصم خاص على حسابك.",
+      "discountDetails": "تفاصيل الخصم:",
+      "type": "النوع:",
+      "discount": "الخصم:",
+      "discountInfo": "سيتم تطبيق هذا الخصم تلقائياً على جميع المنتجات المؤهلة عند تسجيل الدخول التالي إلى",
+      "login": "تسجيل الدخول",
+      "followUs": "تابعنا",
+      "officialDistributor": "الموزع الرسمي في دولة الإمارات العربية المتحدة.",
+      "copyright": "© 2026 Genosys Middle East FZ-LLC. جميع الحقوق محفوظة."
+    },
+    "orderDelivered": {
+      "subject": "تم تسليم الطلب #{orderNumber} > Genosys Middle East FZ-LLC",
+      "delivered": "تم تسليم طلبك.",
+      "orderDetails": "تفاصيل الطلب:",
+      "orderNumber": "رقم الطلب:",
+      "total": "الإجمالي:",
+      "followUs": "تابعنا",
+      "officialDistributor": "الموزع الرسمي في دولة الإمارات العربية المتحدة.",
+      "copyright": "© 2026 Genosys Middle East FZ-LLC. جميع الحقوق محفوظة."
+    },
+    "orderConfirmation": {
+      "subject": "تأكيد الطلب #{orderNumber} - Genosys Middle East FZ-LLC",
+      "orderConfirmed": "تم تأكيد الطلب! ✅",
+      "thankYou": "شكراً لك على طلبك، {customerName}!",
+      "orderReceived": "تم استلام طلبك #{orderNumber} وهو قيد المعالجة.",
+      "teamContact": "سيتواصل فريقنا معك للخطوات التالية عبر الهاتف/البريد/واتساب.",
+      "orderDetails": "تفاصيل الطلب",
+      "qty": "الكمية:",
+      "size": "المقاس:",
+      "color": "اللون:",
+      "subtotal": "المجموع الفرعي:",
+      "shipping": "الشحن:",
+      "vat": "ضريبة القيمة المضافة:",
+      "total": "الإجمالي:",
+      "deliveryInformation": "معلومات التوصيل",
+      "address": "العنوان:",
+      "emirate": "الإمارة:",
+      "trackOrder": "تتبع طلبك",
+      "questions": "أسئلة حول طلبك؟ اتصل بنا على",
+      "officialDistributor": "Genosys Middle East FZ-LLC - الموزع الرسمي لـ Genosys في الإمارات العربية المتحدة"
     }
   },
   "skinRecommendation": {

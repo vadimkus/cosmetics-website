@@ -66,7 +66,7 @@ export default function HeaderRussianMobile({ showMobileMenu, setShowMobileMenu 
           className="relative p-1.5 text-gray-700 hover:text-primary-600 transition-colors flex items-center justify-center"
           aria-label={`${t('common.favorites')} с ${isClient ? favorites.length : 0} товарами`}
         >
-          <Heart className="h-4 w-4" aria-hidden="true" />
+          <Heart className={`h-4 w-4 transition-colors ${isClient && favorites.length > 0 ? 'text-red-500' : ''}`} aria-hidden="true" />
           {isClient && favorites.length > 0 && (
             <span className="absolute top-0 right-0 bg-primary-600 text-white text-[9px] rounded-full h-3.5 w-3.5 flex items-center justify-center header-badge" aria-hidden="true">
               {favorites.length}
@@ -78,7 +78,7 @@ export default function HeaderRussianMobile({ showMobileMenu, setShowMobileMenu 
           className="relative p-1.5 text-gray-700 hover:text-primary-600 transition-colors flex items-center justify-center"
           aria-label={`${t('common.cart')} с ${isClient ? getTotalItems() : 0} товарами`}
         >
-          <ShoppingCart className="h-4 w-4" aria-hidden="true" />
+          <ShoppingCart className={`h-4 w-4 transition-colors ${isClient && getTotalItems() > 0 ? 'text-green-600' : ''}`} aria-hidden="true" />
           {isClient && getTotalItems() > 0 && (
             <span className="absolute top-0 right-0 bg-primary-600 text-white text-[9px] rounded-full h-3.5 w-3.5 flex items-center justify-center header-badge" aria-hidden="true">
               {getTotalItems()}

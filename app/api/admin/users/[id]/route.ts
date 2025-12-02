@@ -6,6 +6,7 @@ import { requireAdminAuth } from '@/lib/adminAuth'
 import { requireCsrfToken } from '@/lib/csrf'
 import { validateUserProfileInput } from '@/lib/validation'
 import { requireBodySizeLimit, getSizeLimitForContentType } from '@/lib/requestSizeLimit'
+import { sendDiscountAssignmentEmail } from '@/lib/email'
 
 export async function PUT(
   request: NextRequest,
@@ -65,6 +66,23 @@ export async function PUT(
       )
     }
 
+    // Get current user data to check if discount is being newly assigned
+    const currentUser = await prisma.user.findUnique({
+      where: { id },
+      select: { email: true, name: true, discountType: true, discountPercentage: true }
+    })
+
+    if (!currentUser) {
+      return NextResponse.json(
+        { error: 'User not found' },
+        { status: 404 }
+      )
+    }
+
+    // Check if discount is being assigned (either newly assigned or changed)
+    const isDiscountBeingAssigned = (discountType !== undefined && discountType !== null && discountPercentage !== undefined && discountPercentage !== null && discountPercentage > 0) &&
+      (currentUser.discountType !== discountType || currentUser.discountPercentage !== discountPercentage)
+
     // Update user in database
     const success = await updateUser(id, updates)
     
@@ -73,6 +91,27 @@ export async function PUT(
         { error: 'User not found' },
         { status: 404 }
       )
+    }
+
+    // Send discount assignment email if discount was assigned
+    if (isDiscountBeingAssigned && discountType && discountPercentage && discountPercentage > 0) {
+      try {
+        const emailResult = await sendDiscountAssignmentEmail({
+          customerName: currentUser.name || 'Valued Customer',
+          customerEmail: currentUser.email,
+          discountType: discountType as 'CLINIC' | 'VIP',
+          discountPercentage: discountPercentage
+        })
+        
+        if (emailResult.success) {
+          debugLog(`✅ Discount assignment email sent successfully to ${currentUser.email}`)
+        } else {
+          errorLog(`❌ Failed to send discount assignment email to ${currentUser.email}:`, emailResult.error)
+        }
+      } catch (emailError) {
+        errorLog('❌ Error sending discount assignment email:', emailError)
+        // Don't fail the update if email fails
+      }
     }
 
     return NextResponse.json({

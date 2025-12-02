@@ -69,3 +69,5 @@ vercel link
 - **Permission errors**: Make sure you're logged in as the project owner/admin
 - **Columns already exist**: The `IF NOT EXISTS` clause will prevent errors
 
+
+

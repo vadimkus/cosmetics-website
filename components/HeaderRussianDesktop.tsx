@@ -146,7 +146,7 @@ export default function HeaderRussianDesktop() {
             className="relative p-2 text-gray-700 hover:text-primary-600 transition-colors touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center"
             aria-label={`${t('common.favorites')} с ${isClient ? favorites.length : 0} товарами`}
           >
-            <Heart className="h-6 w-6" aria-hidden="true" />
+            <Heart className={`h-6 w-6 transition-colors ${isClient && favorites.length > 0 ? 'text-red-500' : ''}`} aria-hidden="true" />
             {isClient && favorites.length > 0 && (
               <span className="absolute -top-1 -right-1 bg-primary-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center header-badge" aria-hidden="true">
                 {favorites.length}
@@ -159,7 +159,7 @@ export default function HeaderRussianDesktop() {
             className="relative p-2 text-gray-700 hover:text-primary-600 transition-colors touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center"
             aria-label={`${t('common.cart')} с ${isClient ? getTotalItems() : 0} товарами`}
           >
-            <ShoppingCart className="h-6 w-6" aria-hidden="true" />
+            <ShoppingCart className={`h-6 w-6 transition-colors ${isClient && getTotalItems() > 0 ? 'text-green-600' : ''}`} aria-hidden="true" />
             {isClient && getTotalItems() > 0 && (
               <span className="absolute -top-1 -right-1 bg-primary-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center header-badge" aria-hidden="true">
                 {getTotalItems()}

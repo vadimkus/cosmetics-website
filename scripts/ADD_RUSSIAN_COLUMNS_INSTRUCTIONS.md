@@ -65,3 +65,5 @@ npx tsx scripts/update-russian-translations.ts
 npx tsx -e "import 'dotenv/config'; import { prisma } from './lib/prisma'; (async () => { const cols = await prisma.\$queryRaw\`SELECT column_name FROM information_schema.columns WHERE table_name = 'blog_posts' AND column_name LIKE '%Ru%'\`; console.log('Russian columns:', cols.length); (cols as any[]).forEach((c: any) => console.log('  -', c.column_name)); await prisma.\$disconnect(); })()"
 ```
 
+
+

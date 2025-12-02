@@ -14,3 +14,5 @@ WHERE table_name = 'blog_posts'
 AND column_name IN ('titleRu', 'excerptRu', 'contentRu')
 ORDER BY column_name;
 
+
+

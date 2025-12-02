@@ -412,7 +412,11 @@
   },
   "favorites": {
     "empty": "No Favorites Yet",
-    "browseProducts": "Browse Products"
+    "browseProducts": "Browse Products",
+    "myFavorites": "My Favorites",
+    "savedProductsDescription": "Your saved GENOSYS professional Korean dermacosmetics products",
+    "noProductsFound": "No Products Found",
+    "productsMayNoLongerBeAvailable": "Products may no longer be available."
   },
   "blog": {
     "title": "GENOSYS Blog",
@@ -1244,6 +1248,49 @@
         "CANCELLED": "Your order has been cancelled as requested.",
         "default": "Your order status has been updated."
       }
+    },
+    "discountAssigned": {
+      "subject": "Special Discount Assigned > Genosys Middle East FZ-LLC",
+      "greeting": "This is to inform you that a special discount has been assigned.",
+      "discountDetails": "Discount details:",
+      "type": "Type:",
+      "discount": "Discount:",
+      "discountInfo": "This discount will be automatically applied to all eligible products when you next login to",
+      "login": "Login",
+      "followUs": "Follow us",
+      "officialDistributor": "Official Distributor in the UAE.",
+      "copyright": "© 2026 Genosys Middle East FZ-LLC. All rights reserved."
+    },
+    "orderDelivered": {
+      "subject": "Order Delivered #{orderNumber} > Genosys Middle East FZ-LLC",
+      "delivered": "Your order has been delivered.",
+      "orderDetails": "Order details:",
+      "orderNumber": "Order number:",
+      "total": "Total:",
+      "followUs": "Follow us",
+      "officialDistributor": "Official Distributor in the UAE.",
+      "copyright": "© 2026 Genosys Middle East FZ-LLC. All rights reserved."
+    },
+    "orderConfirmation": {
+      "subject": "Order Confirmation #{orderNumber} - Genosys Middle East FZ-LLC",
+      "orderConfirmed": "Order Confirmed! ✅",
+      "thankYou": "Thank you for your order, {customerName}!",
+      "orderReceived": "Your order #{orderNumber} has been received and is being processed.",
+      "teamContact": "Our team will be in touch with you for the next steps via phone/mail/whatsapp.",
+      "orderDetails": "Order Details",
+      "qty": "Qty:",
+      "size": "Size:",
+      "color": "Color:",
+      "subtotal": "Subtotal:",
+      "shipping": "Shipping:",
+      "vat": "VAT:",
+      "total": "Total:",
+      "deliveryInformation": "Delivery Information",
+      "address": "Address:",
+      "emirate": "Emirate:",
+      "trackOrder": "Track Your Order",
+      "questions": "Questions about your order? Contact us at",
+      "officialDistributor": "Genosys Middle East FZ-LLC - Official Genosys distributor in the United Arab Emirates"
     }
   },
   "skinRecommendation": {

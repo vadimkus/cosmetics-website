@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { sendWelcomeEmail, sendOrderConfirmationEmail, sendAdminNewUserNotification, sendAdminNewOrderNotification, sendOrderStatusUpdate, sendEmail, generateSupportLinkOrderHTML, generateCODOrderHTML } from '@/lib/email'
+import { sendWelcomeEmail, sendOrderConfirmationEmail, sendAdminNewUserNotification, sendAdminNewOrderNotification, sendOrderStatusUpdate, sendEmail, generateSupportLinkOrderHTML, generateCODOrderHTML, sendDiscountAssignmentEmail } from '@/lib/email'
 import { requireAdminAuth } from '@/lib/adminAuth'
 import { requireCsrfToken } from '@/lib/csrf'
 import { errorLog } from '@/lib/logger'
@@ -197,9 +197,19 @@ export async function POST(request: NextRequest) {
         result = await sendEmail(testEmail, emailSubject, orderHTML)
         break
       
+      case 'discount-assigned':
+        const { discountType, discountPercentage, customerName } = await request.json()
+        result = await sendDiscountAssignmentEmail({
+          customerName: customerName || 'Test Customer',
+          customerEmail: testEmail,
+          discountType: discountType || 'CLINIC',
+          discountPercentage: discountPercentage || 15
+        })
+        break
+      
       default:
         return NextResponse.json(
-          { error: 'Invalid email type. Use: welcome, order, admin-user, admin-order, order-status, cod, or support-link' },
+          { error: 'Invalid email type. Use: welcome, order, admin-user, admin-order, order-status, cod, support-link, or discount-assigned' },
           { status: 400 }
         )
     }

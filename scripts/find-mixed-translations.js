@@ -105,3 +105,5 @@ if (productsWithEnglish.length === 0) {
   console.log(`\nProduct IDs: ${productsWithEnglish.map(p => p.product).join(', ')}`);
 }
 
+
+

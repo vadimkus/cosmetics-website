@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { addOrder, OrderData, OrderItemData } from '@/lib/orderStorageDb'
 import { debugLog, errorLog } from '@/lib/logger'
 import { trackUserAction } from '@/lib/analyticsServer'
-import { sendOrderConfirmedEmail, sendAdminNewOrderNotification } from '@/lib/email'
+import { sendOrderConfirmationEmail, sendAdminNewOrderNotification } from '@/lib/email'
 import { requireCsrfToken } from '@/lib/csrf'
 import { requireBodySizeLimit, getSizeLimitForContentType } from '@/lib/requestSizeLimit'
 import { Product } from '@/types/index'
@@ -152,7 +152,7 @@ export async function POST(request: NextRequest) {
     })
 
     // Send order confirmation email to customer using new template (non-blocking - fire and forget)
-    sendOrderConfirmedEmail({
+    sendOrderConfirmationEmail({
       orderNumber: order.orderNumber,
       customerName: order.customerName,
       customerEmail: order.customerEmail,
@@ -160,9 +160,17 @@ export async function POST(request: NextRequest) {
         productName: item.productName,
         quantity: item.quantity,
         price: item.price,
-        image: item.image
+        image: item.image || '',
+        ...(item.size ? { size: item.size } : {}),
+        ...(item.color ? { color: item.color } : {})
       })),
-      total: order.total
+      subtotal: order.subtotal || 0,
+      shipping: order.shipping || 0,
+      vat: order.vat || 0,
+      total: order.total || 0,
+      address: order.customerAddress || '',
+      emirate: order.customerEmirate || '',
+      locale: order.locale || 'en'
     }).then(() => {
       debugLog('✅ Order confirmation email sent to:', order.customerEmail)
     }).catch((emailError) => {

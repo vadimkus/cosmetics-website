@@ -124,7 +124,7 @@
     "shipping": "Доставка",
     "discount": "Скидка",
     "off": "СКИДКА",
-    "showingAll": "Показано все {count} товаров",
+    "showingAll": "Показано {count} товаров",
     "showing": "Показано {filtered} из {total} товаров",
     "noProductsFound": "Товары не найдены",
     "tryAdjustingFilters": "Попробуйте изменить поиск или фильтры",
@@ -427,7 +427,11 @@
   },
   "favorites": {
     "empty": "Пока нет избранных",
-    "browseProducts": "Посмотреть продукцию"
+    "browseProducts": "Посмотреть продукцию",
+    "myFavorites": "Избранное",
+    "savedProductsDescription": "Сохраненные продукты GENOSYS",
+    "noProductsFound": "Товары не найдены",
+    "productsMayNoLongerBeAvailable": "Товары могут быть больше недоступны."
   },
   "blog": {
     "title": "Блог GENOSYS",
@@ -1259,6 +1263,49 @@
         "CANCELLED": "Ваш заказ отменен по запросу.",
         "default": "Статус вашего заказа обновлен."
       }
+    },
+    "discountAssigned": {
+      "subject": "Назначена специальная скидка > Genosys Middle East FZ-LLC",
+      "greeting": "Сообщаем вам, что на ваш аккаунт назначена специальная скидка.",
+      "discountDetails": "Детали скидки:",
+      "type": "Тип:",
+      "discount": "Скидка:",
+      "discountInfo": "Эта скидка будет автоматически применена ко всем подходящим товарам при следующем входе на",
+      "login": "Войти",
+      "followUs": "Подписывайтесь на нас",
+      "officialDistributor": "Официальный дистрибьютор в ОАЭ.",
+      "copyright": "© 2026 Genosys Middle East FZ-LLC. Все права защищены."
+    },
+    "orderDelivered": {
+      "subject": "Заказ доставлен №{orderNumber} > Genosys Middle East FZ-LLC",
+      "delivered": "Ваш заказ доставлен.",
+      "orderDetails": "Детали заказа:",
+      "orderNumber": "Номер заказа:",
+      "total": "Итого:",
+      "followUs": "Подписывайтесь на нас",
+      "officialDistributor": "Официальный дистрибьютор в ОАЭ.",
+      "copyright": "© 2026 Genosys Middle East FZ-LLC. Все права защищены."
+    },
+    "orderConfirmation": {
+      "subject": "Подтверждение заказа №{orderNumber} - Genosys Middle East FZ-LLC",
+      "orderConfirmed": "Заказ подтвержден! ✅",
+      "thankYou": "Спасибо за ваш заказ, {customerName}!",
+      "orderReceived": "Ваш заказ №{orderNumber} получен и обрабатывается.",
+      "teamContact": "Наша команда свяжется с вами для следующих шагов по телефону/почте/whatsapp.",
+      "orderDetails": "Детали заказа",
+      "qty": "Кол-во:",
+      "size": "Размер:",
+      "color": "Цвет:",
+      "subtotal": "Подытог:",
+      "shipping": "Доставка:",
+      "vat": "НДС:",
+      "total": "Итого:",
+      "deliveryInformation": "Информация о доставке",
+      "address": "Адрес:",
+      "emirate": "Эмират:",
+      "trackOrder": "Отследить заказ",
+      "questions": "Вопросы по заказу? Свяжитесь с нами по",
+      "officialDistributor": "Genosys Middle East FZ-LLC - Официальный дистрибьютор Genosys в Объединенных Арабских Эмиратах"
     }
   },
   "skinRecommendation": {

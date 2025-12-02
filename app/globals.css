@@ -86,3 +86,16 @@ body {
     padding-bottom: max(3rem, calc(3rem + env(safe-area-inset-bottom, 0px)));
   }
 }
+
+/* Smooth page transitions and prevent layout shifts */
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Smooth transitions for direction changes - no transition to prevent jank */
+html[dir="ltr"],
+html[dir="rtl"] {
+  transition: none;
+}

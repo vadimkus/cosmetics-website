@@ -1,7 +1,7 @@
 'use client'
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { useState, Suspense } from 'react'
+import { useState, Suspense, startTransition } from 'react'
 import { getLocaleFromPath, getLocalizedPath, type Locale } from '@/lib/i18n'
 
 function LanguageSwitcherContent() {
@@ -11,8 +11,12 @@ function LanguageSwitcherContent() {
   const currentLocale = getLocaleFromPath(pathname)
   const isRTL = currentLocale === 'ar'
   const [isOpen, setIsOpen] = useState(false)
+  const [isSwitching, setIsSwitching] = useState(false)
 
   const switchLanguage = (locale: Locale) => {
+    setIsOpen(false)
+    setIsSwitching(true)
+    
     const newPath = getLocalizedPath(pathname, locale)
     // Preserve query parameters (like ?full=true)
     const queryString = searchParams.toString()
@@ -21,21 +25,29 @@ function LanguageSwitcherContent() {
     // Store language preference in cookie to override Accept-Language header
     document.cookie = `NEXT_LOCALE=${locale}; path=/; max-age=31536000; SameSite=Lax`
     
-    // Use replace instead of push to avoid adding to history
-    // This ensures the language switch feels more natural
-    router.replace(fullPath)
-    setIsOpen(false)
+    // Use startTransition to make navigation smoother and prevent blocking
+    startTransition(() => {
+      // Use replace instead of push to avoid adding to history
+      // This ensures the language switch feels more natural
+      router.replace(fullPath)
+      
+      // Reset switching state after a short delay to allow navigation to complete
+      setTimeout(() => {
+        setIsSwitching(false)
+      }, 100)
+    })
   }
 
   return (
     <div className="relative">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-1 px-2 py-1 rounded hover:bg-gray-100 transition-colors"
+        disabled={isSwitching}
+        className="flex items-center gap-1 px-2 py-1 rounded hover:bg-gray-100 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
         aria-label="Switch language"
       >
         <span className="text-xs font-medium text-green-600">
-          {currentLocale === 'ar' ? 'AR' : currentLocale === 'ru' ? 'RU' : 'EN'}
+          {isSwitching ? '...' : (currentLocale === 'ar' ? 'AR' : currentLocale === 'ru' ? 'RU' : 'EN')}
         </span>
       </button>
       

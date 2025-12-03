@@ -338,9 +338,9 @@ export default function ProductsPageClient() {
         </Link>
 
         {/* Header */}
-        <div className="text-center mb-6 md:mb-8">
+        <div className="text-center mb-4 md:mb-8">
           {isMobile ? (
-            <div className="mb-2">
+            <div className="mb-1">
               <h1 className="text-xl font-bold text-primary-600">Genosys Middle East FZ-LLC</h1>
               <div className="flex flex-col items-center mt-1">
                 <div className="flex items-center justify-center gap-1 text-sm text-gray-600">
@@ -353,11 +353,6 @@ export default function ProductsPageClient() {
                       }`}
                       style={isHeartBeating ? { animation: 'heartbeat 0.6s ease-in-out' } : {}}
                     />
-                  </span>
-                </div>
-                <div className="flex items-center justify-center text-xs text-gray-500 mt-0.5">
-                  <span className="ml-[calc(70px+1.25rem+0.25rem)]">
-                    {t('common.celebratingEidAlEtihad')}
                   </span>
                 </div>
               </div>

@@ -47,17 +47,18 @@ export function PullToRefresh({ children, onRefresh, disabled = false }: PullToR
     }
   }
 
-  const { isPulling, isRefreshing, pullDistance, pullProgress } = usePullToRefresh({
+  const { isPulling, isRefreshing, pullDistance, pullProgress, isNative } = usePullToRefresh({
     onRefresh: handleRefresh,
     threshold: 80,
-    resistance: 2.5,
     disabled: disabled || !isMobile,
   })
 
-  // Prevent body scroll when pulling
+  // For native iOS, don't interfere with body scroll
   useEffect(() => {
+    if (isNative) return
+
     if (isPulling || isRefreshing) {
-      document.body.style.overflow = 'hidden'
+      document.body.style.overflow = isPulling ? 'hidden' : ''
     } else {
       document.body.style.overflow = ''
     }
@@ -65,36 +66,46 @@ export function PullToRefresh({ children, onRefresh, disabled = false }: PullToR
     return () => {
       document.body.style.overflow = ''
     }
-  }, [isPulling, isRefreshing])
+  }, [isPulling, isRefreshing, isNative])
 
+  // Smooth rotation and scale calculations
   const rotation = pullProgress * 180
   const opacity = Math.min(pullProgress * 1.5, 1)
   const scale = 0.5 + pullProgress * 0.5
 
   return (
     <>
-      {/* Pull to refresh indicator */}
-      {(isPulling || isRefreshing) && (
+      {/* Pull to refresh indicator - only show for custom implementation */}
+      {!isNative && (isPulling || isRefreshing) && (
         <div
           className="fixed top-0 left-0 right-0 z-50 flex items-center justify-center pointer-events-none"
           style={{
-            transform: `translateY(${Math.min(pullDistance, 80)}px)`,
-            transition: isRefreshing ? 'transform 0.3s ease-out' : 'none',
+            transform: `translate3d(0, ${Math.min(pullDistance, 80)}px, 0)`,
+            transition: isRefreshing ? 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)' : 'none',
+            willChange: 'transform',
+            backfaceVisibility: 'hidden',
+            WebkitBackfaceVisibility: 'hidden',
           }}
         >
           <div
             className="flex flex-col items-center justify-center bg-white rounded-full shadow-lg p-4"
             style={{
               opacity,
-              transform: `scale(${scale})`,
-              transition: isRefreshing ? 'opacity 0.3s, transform 0.3s' : 'none',
+              transform: `translate3d(0, 0, 0) scale(${scale})`,
+              transition: isRefreshing ? 'opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)' : 'none',
+              willChange: 'opacity, transform',
+              backfaceVisibility: 'hidden',
+              WebkitBackfaceVisibility: 'hidden',
             }}
           >
             <RefreshCw
               className={`h-6 w-6 text-primary-600 ${isRefreshing ? 'animate-spin' : ''}`}
               style={{
-                transform: `rotate(${rotation}deg)`,
-                transition: isRefreshing ? 'transform 0.3s' : 'none',
+                transform: `translate3d(0, 0, 0) rotate(${rotation}deg)`,
+                transition: isRefreshing ? 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)' : 'none',
+                willChange: 'transform',
+                backfaceVisibility: 'hidden',
+                WebkitBackfaceVisibility: 'hidden',
               }}
             />
             {pullProgress >= 1 && !isRefreshing && (
@@ -111,16 +122,23 @@ export function PullToRefresh({ children, onRefresh, disabled = false }: PullToR
         </div>
       )}
 
-      {/* Content wrapper with pull effect */}
-      <div
-        style={{
-          transform: isPulling ? `translateY(${Math.min(pullDistance, 80)}px)` : 'translateY(0)',
-          transition: isRefreshing ? 'transform 0.3s ease-out' : 'none',
-        }}
-      >
-        {children}
-      </div>
+      {/* Content wrapper with pull effect - only for custom implementation */}
+      {!isNative && (
+        <div
+          style={{
+            transform: isPulling ? `translate3d(0, ${Math.min(pullDistance, 80)}px, 0)` : 'translate3d(0, 0, 0)',
+            transition: isRefreshing || !isPulling ? 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)' : 'none',
+            willChange: isPulling ? 'transform' : 'auto',
+            backfaceVisibility: 'hidden',
+            WebkitBackfaceVisibility: 'hidden',
+          }}
+        >
+          {children}
+        </div>
+      )}
+
+      {/* For native iOS, render children without wrapper */}
+      {isNative && children}
     </>
   )
 }
-

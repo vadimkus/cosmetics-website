@@ -101,17 +101,35 @@ html[dir="rtl"] {
 }
 
 /* Pull to refresh support */
-/* Allow overscroll on mobile for pull-to-refresh gesture */
+/* Enable native pull-to-refresh on iOS PWA */
 @media (max-width: 768px) {
-  body {
-    overscroll-behavior-y: contain;
+  html {
+    overscroll-behavior-y: auto;
     -webkit-overflow-scrolling: touch;
+  }
+  
+  body {
+    overscroll-behavior-y: auto;
+    -webkit-overflow-scrolling: touch;
+    /* Enable native iOS pull-to-refresh */
+    overscroll-behavior: none;
   }
   
   /* Prevent pull-to-refresh on desktop browsers */
   @media (hover: hover) {
-    body {
+    html, body {
       overscroll-behavior-y: auto;
     }
+  }
+  
+  /* Smooth scrolling for better feel */
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  /* GPU acceleration for smooth animations */
+  [style*="transform"] {
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
   }
 }

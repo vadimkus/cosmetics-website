@@ -132,7 +132,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
           {/* Back Link */}
           <Link 
             href={getLocalizedPath('/products', locale)}
-            className={`inline-flex items-center text-gray-500 hover:text-primary-600 active:text-primary-700 transition-colors text-[10px] mb-1 font-medium touch-manipulation ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+            className={`inline-flex items-center text-gray-500 hover:text-primary-600 active:text-primary-700 transition-colors text-[10px] mb-6 font-medium touch-manipulation ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
           >
             <ArrowLeft className={`h-3 w-3 flex-shrink-0 ${dir === 'rtl' ? 'ml-1 rotate-180' : 'mr-1'}`} />
             <span>{t('product.backToProducts')}</span>

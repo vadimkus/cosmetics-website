@@ -5,6 +5,26 @@ import { addOrder, OrderData, OrderItemData } from '@/lib/orderStorageDb'
 import { requireCsrfToken } from '@/lib/csrf'
 import { enhanceOrderItemWithDefaultSize } from '@/lib/orderSizeDefaults'
 
+// Helper function to detect device type from User-Agent
+function detectDeviceType(userAgent: string | null): string {
+  if (!userAgent) return 'Unknown'
+  
+  const ua = userAgent.toLowerCase()
+  
+  // Check for mobile devices
+  if (/mobile|android|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(ua)) {
+    return 'Mobile'
+  }
+  
+  // Check for tablet devices
+  if (/tablet|ipad|playbook|silk/i.test(ua)) {
+    return 'Tablet'
+  }
+  
+  // Default to desktop
+  return 'Desktop'
+}
+
 export async function POST(request: NextRequest) {
   // CSRF protection
   const csrfCheck = await requireCsrfToken(request)
@@ -167,8 +187,13 @@ export async function POST(request: NextRequest) {
       // Don't fail order creation if email fails
     })
 
+    // Detect device type from User-Agent header
+    const userAgent = request.headers.get('user-agent')
+    const deviceType = detectDeviceType(userAgent)
+    
     // Send admin notification for support-link order (non-blocking - fire and forget)
     debugLog('📧 Sending admin notification for support-link order:', orderNumber)
+    debugLog('📧 Device type detected:', deviceType)
     sendAdminNewOrderNotification({
       orderNumber,
       customerName,
@@ -202,7 +227,8 @@ export async function POST(request: NextRequest) {
       shipping: shippingCost,
       vat: vatAmount,
       address: customerAddress,
-      emirate: emirate
+      emirate: emirate,
+      deviceType
     }).then((adminResult) => {
       if (adminResult.success) {
         debugLog('✅ Admin notification sent for support-link order:', orderNumber)

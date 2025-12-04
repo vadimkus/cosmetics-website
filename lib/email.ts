@@ -43,6 +43,7 @@ export interface AdminNewOrderEmailData {
   vat?: number | undefined
   address?: string | undefined
   emirate?: string | undefined
+  deviceType?: string | undefined
 }
 
 // Email configuration
@@ -706,6 +707,14 @@ export const emailTemplates = {
                           <td style="padding: 12px 0; text-align: center; border-top: 1px solid #e5e7eb;">
                             <p style="margin: 0 0 4px 0; color: #6b7280; font-size: 12px; font-weight: 600; text-transform: uppercase;">Emirate</p>
                             <p style="margin: 0; color: #111827; font-size: 15px; font-weight: 500;">${orderData.emirate}</p>
+                          </td>
+                        </tr>
+            ` : ''}
+            ${orderData.deviceType ? `
+                        <tr>
+                          <td style="padding: 12px 0; text-align: center; border-top: 1px solid #e5e7eb;">
+                            <p style="margin: 0 0 4px 0; color: #6b7280; font-size: 12px; font-weight: 600; text-transform: uppercase;">Device Type</p>
+                            <p style="margin: 0; color: #111827; font-size: 15px; font-weight: 500;">${orderData.deviceType}</p>
                           </td>
                         </tr>
             ` : ''}

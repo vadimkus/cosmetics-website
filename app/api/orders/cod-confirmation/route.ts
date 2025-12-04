@@ -5,6 +5,26 @@ import { addOrder, OrderData, OrderItemData } from '@/lib/orderStorageDb'
 import { requireCsrfToken } from '@/lib/csrf'
 import { enhanceOrderItemWithDefaultSize } from '@/lib/orderSizeDefaults'
 
+// Helper function to detect device type from User-Agent
+function detectDeviceType(userAgent: string | null): string {
+  if (!userAgent) return 'Unknown'
+  
+  const ua = userAgent.toLowerCase()
+  
+  // Check for mobile devices
+  if (/mobile|android|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(ua)) {
+    return 'Mobile'
+  }
+  
+  // Check for tablet devices
+  if (/tablet|ipad|playbook|silk/i.test(ua)) {
+    return 'Tablet'
+  }
+  
+  // Default to desktop
+  return 'Desktop'
+}
+
 export async function POST(request: NextRequest) {
   // CSRF protection
   const csrfCheck = await requireCsrfToken(request)
@@ -13,6 +33,10 @@ export async function POST(request: NextRequest) {
   }
 
   try {
+    // Detect device type from User-Agent header
+    const userAgent = request.headers.get('user-agent')
+    const deviceType = detectDeviceType(userAgent)
+    
     const orderData = await request.json()
     const {
       orderNumber,
@@ -263,7 +287,8 @@ export async function POST(request: NextRequest) {
       shipping: shippingCost,
       vat: vatAmount,
       address: (customerAddress && customerAddress.trim()) || undefined,
-      emirate: (emirate && emirate.trim()) || undefined
+      emirate: (emirate && emirate.trim()) || undefined,
+      deviceType
     })
     
     adminNotificationPromise.then((adminResult) => {

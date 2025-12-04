@@ -115,12 +115,12 @@ export function getProductSizeOptions(productId: string): Array<{ value: string;
 /**
  * Get available color options for a product
  */
-export function getProductColorOptions(productId: string): Array<{ value: string; label: string }> {
+export function getProductColorOptions(productId: string): Array<{ value: string; label: string; hex?: string }> {
   if (productId === '41') {
     return [
-      { value: 'Beige', label: 'Beige' },
-      { value: 'Ivory', label: 'Ivory' },
-      { value: 'Camel', label: 'Camel' }
+      { value: 'Beige', label: 'Beige', hex: '#E6D5B8' }, // Beige color - more visible tan
+      { value: 'Ivory', label: 'Ivory', hex: '#F5E6D3' }, // Ivory color - light cream with slight warmth
+      { value: 'Camel', label: 'Camel', hex: '#A67C52' }  // Camel color - darker brownish tan for visibility
     ]
   }
   

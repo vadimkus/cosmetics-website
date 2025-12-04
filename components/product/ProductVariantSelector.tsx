@@ -40,13 +40,26 @@ export default function ProductVariantSelector({
               <button
                 key={color.value}
                 onClick={() => onColorChange(color.value)}
-                className={`px-4 py-2 rounded-lg border-2 transition-all touch-manipulation min-h-[44px] ${
+                className={`flex items-center gap-2 px-3 py-2 rounded-lg border-2 transition-all touch-manipulation min-h-[44px] bg-white ${
                   selectedColor === color.value
-                    ? 'border-primary-600 bg-primary-50 text-primary-700'
+                    ? 'border-primary-600 ring-2 ring-primary-200'
                     : 'border-gray-300 hover:border-gray-400'
                 }`}
               >
-                {color.label}
+                {/* Color swatch */}
+                <div
+                  className="w-6 h-6 rounded-full border-2 border-gray-300 shadow-sm flex-shrink-0"
+                  style={{
+                    backgroundColor: color.hex || '#FFFFFF',
+                    borderColor: selectedColor === color.value ? '#2563eb' : '#d1d5db',
+                  }}
+                />
+                {/* Color label */}
+                <span className={`text-sm font-medium ${
+                  selectedColor === color.value ? 'text-primary-700' : 'text-gray-700'
+                }`}>
+                  {color.label}
+                </span>
               </button>
             ))}
           </div>

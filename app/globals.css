@@ -99,3 +99,19 @@ html[dir="ltr"],
 html[dir="rtl"] {
   transition: none;
 }
+
+/* Pull to refresh support */
+/* Allow overscroll on mobile for pull-to-refresh gesture */
+@media (max-width: 768px) {
+  body {
+    overscroll-behavior-y: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Prevent pull-to-refresh on desktop browsers */
+  @media (hover: hover) {
+    body {
+      overscroll-behavior-y: auto;
+    }
+  }
+}

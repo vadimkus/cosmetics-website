@@ -65,7 +65,10 @@
     "celebratingEidAlEtihad": "Celebrating the 54th Eid Al Etihad",
     "closeMobileMenu": "Close mobile menu",
     "openMobileMenu": "Open mobile menu",
-    "settings": "Settings"
+    "settings": "Settings",
+    "pullToRefresh": "Pull to refresh",
+    "releaseToRefresh": "Release to refresh",
+    "refreshing": "Refreshing..."
   },
   "hero": {
     "title": "Discover Your",

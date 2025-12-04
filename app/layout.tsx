@@ -16,6 +16,7 @@ import AggregateRatingSchema from '@/components/AggregateRatingSchema'
 import ErrorBoundary from '@/components/ErrorBoundary'
 import LocaleWrapper from '@/components/LocaleWrapper'
 import Footer from '@/components/Footer'
+import { PullToRefresh } from '@/components/PullToRefresh'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -241,18 +242,20 @@ export default function RootLayout({
           <FavoritesProvider>
             <CartProvider>
               <ServiceWorkerProvider>
-                <PerformanceMonitor />
-                <UserRefreshWrapper />
-                <PageViewTracker />
-                <LocaleWrapper>
-                  <Header />
-                  <main className="flex-1">
-                    <ErrorBoundary>
-                      {children}
-                    </ErrorBoundary>
-                  </main>
-                </LocaleWrapper>
-                <Footer />
+                <PullToRefresh>
+                  <PerformanceMonitor />
+                  <UserRefreshWrapper />
+                  <PageViewTracker />
+                  <LocaleWrapper>
+                    <Header />
+                    <main className="flex-1">
+                      <ErrorBoundary>
+                        {children}
+                      </ErrorBoundary>
+                    </main>
+                  </LocaleWrapper>
+                  <Footer />
+                </PullToRefresh>
               </ServiceWorkerProvider>
             </CartProvider>
           </FavoritesProvider>

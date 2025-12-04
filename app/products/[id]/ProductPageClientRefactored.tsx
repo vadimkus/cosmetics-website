@@ -1009,9 +1009,14 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
         </div>
       </div>
 
-      {/* Fixed Mobile Footer - Add to Cart */}
-      <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg z-50 safe-area-inset-bottom">
-        <div className="container mx-auto px-3 py-3">
+      {/* Sticky Mobile Footer - Add to Cart */}
+      <div 
+        className="lg:hidden sticky bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg z-50"
+        style={{
+          paddingBottom: `calc(env(safe-area-inset-bottom, 0px) + 3%)`,
+        }}
+      >
+        <div className="container mx-auto px-3 pt-3 pb-1">
           <div className={`flex items-center gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
             {/* Quantity Controls */}
             <div className={`flex items-center border border-gray-300 rounded-lg bg-gray-50 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>

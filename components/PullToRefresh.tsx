@@ -47,7 +47,7 @@ export function PullToRefresh({ children, onRefresh, disabled = false }: PullToR
     }
   }
 
-  const { isPulling, isRefreshing, pullDistance, pullProgress, isNative, isPWA } = usePullToRefresh({
+  const { isPulling, isRefreshing, pullDistance, pullProgress, isPWA } = usePullToRefresh({
     onRefresh: handleRefresh,
     threshold: 80,
     disabled: disabled || !isMobile,
@@ -59,10 +59,8 @@ export function PullToRefresh({ children, onRefresh, disabled = false }: PullToR
     return <>{children}</>
   }
 
-  // For native iOS PWA, don't interfere with body scroll
+  // Prevent body scroll when pulling
   useEffect(() => {
-    if (isNative) return
-
     if (isPulling || isRefreshing) {
       document.body.style.overflow = isPulling ? 'hidden' : ''
     } else {
@@ -72,7 +70,7 @@ export function PullToRefresh({ children, onRefresh, disabled = false }: PullToR
     return () => {
       document.body.style.overflow = ''
     }
-  }, [isPulling, isRefreshing, isNative])
+  }, [isPulling, isRefreshing])
 
   // Smooth rotation and scale calculations
   const rotation = pullProgress * 180
@@ -81,8 +79,8 @@ export function PullToRefresh({ children, onRefresh, disabled = false }: PullToR
 
   return (
     <>
-      {/* Pull to refresh indicator - only show for custom Android PWA implementation */}
-      {!isNative && (isPulling || isRefreshing) && (
+      {/* Pull to refresh indicator - show for all PWA */}
+      {(isPulling || isRefreshing) && (
         <div
           className="fixed top-0 left-0 right-0 z-50 flex items-center justify-center pointer-events-none"
           style={{
@@ -128,23 +126,18 @@ export function PullToRefresh({ children, onRefresh, disabled = false }: PullToR
         </div>
       )}
 
-      {/* Content wrapper with pull effect - only for custom Android PWA implementation */}
-      {!isNative && (
-        <div
-          style={{
-            transform: isPulling ? `translate3d(0, ${Math.min(pullDistance, 80)}px, 0)` : 'translate3d(0, 0, 0)',
-            transition: isRefreshing || !isPulling ? 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)' : 'none',
-            willChange: isPulling ? 'transform' : 'auto',
-            backfaceVisibility: 'hidden',
-            WebkitBackfaceVisibility: 'hidden',
-          }}
-        >
-          {children}
-        </div>
-      )}
-
-      {/* For native iOS PWA, render children without wrapper */}
-      {isNative && children}
+      {/* Content wrapper with pull effect */}
+      <div
+        style={{
+          transform: isPulling ? `translate3d(0, ${Math.min(pullDistance, 80)}px, 0)` : 'translate3d(0, 0, 0)',
+          transition: isRefreshing || !isPulling ? 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)' : 'none',
+          willChange: isPulling ? 'transform' : 'auto',
+          backfaceVisibility: 'hidden',
+          WebkitBackfaceVisibility: 'hidden',
+        }}
+      >
+        {children}
+      </div>
     </>
   )
 }

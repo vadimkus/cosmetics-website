@@ -21,13 +21,6 @@ function isPWA(): boolean {
     (window.navigator as any).standalone === true
 }
 
-// Detect iOS
-function isIOS(): boolean {
-  if (typeof window === 'undefined') return false
-  return /iPad|iPhone|iPod/.test(navigator.userAgent) ||
-    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)
-}
-
 export function usePullToRefresh({
   onRefresh,
   threshold = 80,
@@ -48,12 +41,11 @@ export function usePullToRefresh({
   const lastTime = useRef<number>(0)
 
   const pwa = isPWA()
-  const ios = isIOS()
   
-  // IMPORTANT: Only enable for PWA, and use native for iOS PWA
+  // IMPORTANT: Only enable for PWA mode
   // For regular browsers (iOS Safari, Android Chrome), disable completely
-  const useNative = ios && pwa
-  const shouldEnable = pwa && !disabled // Only enable in PWA mode
+  // iOS PWA doesn't have native pull-to-refresh, so we use custom implementation for all PWA
+  const shouldEnable = pwa && !disabled
 
   const handleRefresh = useCallback(async () => {
     if (state.isRefreshing) return
@@ -65,62 +57,51 @@ export function usePullToRefresh({
     } catch (error) {
       console.error('Pull to refresh error:', error)
     } finally {
-      // Smooth reset animation for custom implementation
-      if (!useNative) {
-        const resetAnimation = () => {
-          if (rafId.current) {
-            cancelAnimationFrame(rafId.current)
-          }
-
-          let currentDistance = state.pullDistance
-          const startTime = performance.now()
-
-          const animate = (currentTime: number) => {
-            const elapsed = currentTime - startTime
-            const duration = 300 // 300ms reset animation
-            const progress = Math.min(elapsed / duration, 1)
-            
-            // Ease-out cubic for smooth deceleration
-            const easeOutCubic = 1 - Math.pow(1 - progress, 3)
-            currentDistance = state.pullDistance * (1 - easeOutCubic)
-
-            setState((prev) => ({
-              ...prev,
-              pullDistance: currentDistance,
-            }))
-
-            if (progress < 1) {
-              rafId.current = requestAnimationFrame(animate)
-            } else {
-              rafId.current = null
-              setState({
-                isPulling: false,
-                isRefreshing: false,
-                pullDistance: 0,
-              })
-              lastPullDistance.current = 0
-              velocity.current = 0
-            }
-          }
-
-          rafId.current = requestAnimationFrame(animate)
+      // Smooth reset animation
+      const resetAnimation = () => {
+        if (rafId.current) {
+          cancelAnimationFrame(rafId.current)
         }
 
-        resetAnimation()
-      } else {
-        // For native iOS PWA, just reset state
-        setTimeout(() => {
-          setState({
-            isPulling: false,
-            isRefreshing: false,
-            pullDistance: 0,
-          })
-        }, 300)
-      }
-    }
-  }, [onRefresh, state.isRefreshing, state.pullDistance, useNative])
+        let currentDistance = state.pullDistance
+        const startTime = performance.now()
 
-  // Smooth distance update with spring physics (for Android PWA)
+        const animate = (currentTime: number) => {
+          const elapsed = currentTime - startTime
+          const duration = 300 // 300ms reset animation
+          const progress = Math.min(elapsed / duration, 1)
+          
+          // Ease-out cubic for smooth deceleration
+          const easeOutCubic = 1 - Math.pow(1 - progress, 3)
+          currentDistance = state.pullDistance * (1 - easeOutCubic)
+
+          setState((prev) => ({
+            ...prev,
+            pullDistance: currentDistance,
+          }))
+
+          if (progress < 1) {
+            rafId.current = requestAnimationFrame(animate)
+          } else {
+            rafId.current = null
+            setState({
+              isPulling: false,
+              isRefreshing: false,
+              pullDistance: 0,
+            })
+            lastPullDistance.current = 0
+            velocity.current = 0
+          }
+        }
+
+        rafId.current = requestAnimationFrame(animate)
+      }
+
+      resetAnimation()
+    }
+  }, [onRefresh, state.isRefreshing, state.pullDistance])
+
+  // Smooth distance update with spring physics
   const updatePullDistance = useCallback((rawDistance: number) => {
     if (rafId.current) {
       cancelAnimationFrame(rafId.current)
@@ -157,8 +138,8 @@ export function usePullToRefresh({
 
   const handleTouchStart = useCallback(
     (e: TouchEvent) => {
-      // Only enable in PWA mode, and skip if using native iOS
-      if (!shouldEnable || disabled || state.isRefreshing || useNative) return
+      // Only enable in PWA mode
+      if (!shouldEnable || disabled || state.isRefreshing) return
 
       const scrollTop = window.pageYOffset || document.documentElement.scrollTop
       if (scrollTop > 0) return
@@ -173,12 +154,12 @@ export function usePullToRefresh({
       lastTime.current = performance.now()
       isDragging.current = true
     },
-    [shouldEnable, disabled, state.isRefreshing, useNative]
+    [shouldEnable, disabled, state.isRefreshing]
   )
 
   const handleTouchMove = useCallback(
     (e: TouchEvent) => {
-      if (!isDragging.current || !shouldEnable || disabled || state.isRefreshing || useNative) return
+      if (!isDragging.current || !shouldEnable || disabled || state.isRefreshing) return
 
       const touch = e.touches[0]
       if (!touch) return
@@ -209,11 +190,11 @@ export function usePullToRefresh({
         }))
       }
     },
-    [shouldEnable, disabled, state.isRefreshing, useNative, updatePullDistance]
+    [shouldEnable, disabled, state.isRefreshing, updatePullDistance]
   )
 
   const handleTouchEnd = useCallback(() => {
-    if (!isDragging.current || !shouldEnable || disabled || useNative) return
+    if (!isDragging.current || !shouldEnable || disabled) return
 
     isDragging.current = false
 
@@ -271,13 +252,13 @@ export function usePullToRefresh({
 
       rafId.current = requestAnimationFrame(animate)
     }
-  }, [shouldEnable, disabled, state.pullDistance, state.isRefreshing, threshold, handleRefresh, useNative])
+  }, [shouldEnable, disabled, state.pullDistance, state.isRefreshing, threshold, handleRefresh])
 
-  // Setup touch listeners ONLY for PWA (Android PWA uses custom, iOS PWA uses native)
+  // Setup touch listeners ONLY for PWA (both iOS and Android PWA use custom implementation)
   useEffect(() => {
-    // Only enable custom implementation for Android PWA
+    // Enable custom implementation for all PWA devices
     // Disable completely for regular browsers
-    if (!shouldEnable || disabled || useNative) return
+    if (!shouldEnable || disabled) return
 
     const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0
     if (!isTouchDevice) return
@@ -294,34 +275,11 @@ export function usePullToRefresh({
         cancelAnimationFrame(rafId.current)
       }
     }
-  }, [handleTouchStart, handleTouchMove, handleTouchEnd, shouldEnable, disabled, useNative])
-
-  // For native iOS PWA, detect native pull-to-refresh
-  useEffect(() => {
-    if (!shouldEnable || disabled || !useNative) return
-
-    // Native iOS pull-to-refresh automatically reloads the page
-    // We can detect when it happens via page visibility or focus events
-    const handleVisibilityChange = () => {
-      if (document.visibilityState === 'visible' && !state.isRefreshing) {
-        // Page became visible - might be after native pull-to-refresh
-        handleRefresh()
-      }
-    }
-
-    document.addEventListener('visibilitychange', handleVisibilityChange)
-    window.addEventListener('focus', handleRefresh)
-    
-    return () => {
-      document.removeEventListener('visibilitychange', handleVisibilityChange)
-      window.removeEventListener('focus', handleRefresh)
-    }
-  }, [shouldEnable, disabled, useNative, handleRefresh, state.isRefreshing])
+  }, [handleTouchStart, handleTouchMove, handleTouchEnd, shouldEnable, disabled])
 
   return {
     ...state,
     pullProgress: Math.min(state.pullDistance / threshold, 1),
-    isNative: useNative,
     isPWA: pwa,
   }
 }

@@ -196,18 +196,14 @@ export default function PhoneSimulatorPage() {
                     </div>
                   </div>
                   {/* Page Content */}
-                  <div className="flex-1 overflow-hidden" style={{ minHeight: 0 }}>
-                    <iframe
-                      src={`http://localhost:3000${currentPath}`}
-                      className="border-0 w-full h-full"
-                      style={{
-                        width: phone.width,
-                        height: '100%',
-                        display: 'block',
-                      }}
-                      title="Mobile Preview"
-                    />
-                  </div>
+                  <iframe
+                    src={`http://localhost:3000${currentPath}`}
+                    className="flex-1 border-0"
+                    style={{
+                      width: phone.width,
+                    }}
+                    title="Mobile Preview"
+                  />
                 </div>
 
                 {/* Home Indicator */}

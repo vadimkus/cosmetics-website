@@ -383,4 +383,3 @@ updateGrowthFactorsRussianTranslation()
 
 
 
-

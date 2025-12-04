@@ -79,10 +79,7 @@
     "orderHistoryTitle": "Заказы",
     "loadingOrders": "Загрузка заказов...",
     "noOrdersYetTitle": "Заказов пока нет",
-    "noOrdersYetDescription": "Ваша история заказов появится здесь после вашего первого заказа.",
-    "pullToRefresh": "Потяните для обновления",
-    "releaseToRefresh": "Отпустите для обновления",
-    "refreshing": "Обновление..."
+    "noOrdersYetDescription": "Ваша история заказов появится здесь после вашего первого заказа."
   },
   "hero": {
     "title": "Откройте для себя",

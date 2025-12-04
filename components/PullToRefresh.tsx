@@ -17,7 +17,7 @@ export function PullToRefresh({ children, onRefresh, disabled = false }: PullToR
   const { checkForUpdates } = useServiceWorkerContext()
   const { t, dir } = useTranslation()
 
-  // Only enable on mobile devices
+  // Only enable on mobile devices (for PWA)
   useEffect(() => {
     const checkMobile = () => {
       const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0
@@ -47,13 +47,19 @@ export function PullToRefresh({ children, onRefresh, disabled = false }: PullToR
     }
   }
 
-  const { isPulling, isRefreshing, pullDistance, pullProgress, isNative } = usePullToRefresh({
+  const { isPulling, isRefreshing, pullDistance, pullProgress, isNative, isPWA } = usePullToRefresh({
     onRefresh: handleRefresh,
     threshold: 80,
     disabled: disabled || !isMobile,
   })
 
-  // For native iOS, don't interfere with body scroll
+  // IMPORTANT: Only enable in PWA mode
+  // For regular browsers, render children without any pull-to-refresh functionality
+  if (!isPWA) {
+    return <>{children}</>
+  }
+
+  // For native iOS PWA, don't interfere with body scroll
   useEffect(() => {
     if (isNative) return
 
@@ -75,7 +81,7 @@ export function PullToRefresh({ children, onRefresh, disabled = false }: PullToR
 
   return (
     <>
-      {/* Pull to refresh indicator - only show for custom implementation */}
+      {/* Pull to refresh indicator - only show for custom Android PWA implementation */}
       {!isNative && (isPulling || isRefreshing) && (
         <div
           className="fixed top-0 left-0 right-0 z-50 flex items-center justify-center pointer-events-none"
@@ -122,7 +128,7 @@ export function PullToRefresh({ children, onRefresh, disabled = false }: PullToR
         </div>
       )}
 
-      {/* Content wrapper with pull effect - only for custom implementation */}
+      {/* Content wrapper with pull effect - only for custom Android PWA implementation */}
       {!isNative && (
         <div
           style={{
@@ -137,7 +143,7 @@ export function PullToRefresh({ children, onRefresh, disabled = false }: PullToR
         </div>
       )}
 
-      {/* For native iOS, render children without wrapper */}
+      {/* For native iOS PWA, render children without wrapper */}
       {isNative && children}
     </>
   )

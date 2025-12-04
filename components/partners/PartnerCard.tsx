@@ -98,11 +98,11 @@ export default function PartnerCard({ partner }: PartnerCardProps) {
         </p>
 
         {/* Contact Info - Compact for mobile */}
-        <div className="[&>*]:mb-[-4px] md:[&>*]:mb-0 md:space-y-3">
+        <div className="space-y-2 md:space-y-3">
           {/* Location */}
-          <div className={`flex items-start gap-1.5 md:gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+          <div className={`flex items-start gap-1.5 md:gap-2 ${dir === 'rtl' ? 'md:flex-row-reverse' : ''}`} dir="ltr">
             <MapPin className={`h-3 w-3 md:h-4 md:w-4 ${theme.icon} flex-shrink-0 mt-0.5`} />
-            <span className="text-[11px] md:text-sm text-gray-700 leading-none md:leading-relaxed flex-1">{partner.location}</span>
+            <span className="text-[11px] md:text-sm text-gray-700 leading-none md:leading-relaxed flex-1 text-left">{partner.location}</span>
           </div>
           {/* Phone */}
           {partner.phone && (

@@ -1,6 +1,6 @@
 'use client'
 
-import { ReactNode, useEffect, useState } from 'react'
+import { ReactNode, useEffect } from 'react'
 import { RefreshCw } from 'lucide-react'
 import { usePullToRefresh } from '@/hooks/usePullToRefresh'
 import { useServiceWorkerContext } from '@/components/ServiceWorkerProvider'
@@ -13,22 +13,8 @@ interface PullToRefreshProps {
 }
 
 export function PullToRefresh({ children, onRefresh, disabled = false }: PullToRefreshProps) {
-  const [isMobile, setIsMobile] = useState(false)
   const { checkForUpdates } = useServiceWorkerContext()
   const { t, dir } = useTranslation()
-
-  // Only enable on mobile devices (for PWA)
-  useEffect(() => {
-    const checkMobile = () => {
-      const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0
-      const isSmallScreen = window.innerWidth <= 768
-      setIsMobile(isTouchDevice && isSmallScreen)
-    }
-
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-    return () => window.removeEventListener('resize', checkMobile)
-  }, [])
 
   const handleRefresh = async () => {
     // Check for service worker updates
@@ -50,7 +36,7 @@ export function PullToRefresh({ children, onRefresh, disabled = false }: PullToR
   const { isPulling, isRefreshing, pullDistance, pullProgress, isPWA } = usePullToRefresh({
     onRefresh: handleRefresh,
     threshold: 80,
-    disabled: disabled || !isMobile,
+    disabled: disabled,
   })
 
   // IMPORTANT: Only enable in PWA mode

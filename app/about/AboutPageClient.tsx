@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
 import Logo from '@/components/Logo'
 import BreadcrumbSchema from '@/components/BreadcrumbSchema'
+import PDFLinkButton from '@/components/PDFLinkButton'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 
@@ -78,8 +79,8 @@ export default function AboutPageClient() {
             <div className="space-y-0.5 md:space-y-2 text-gray-600 text-xs md:text-base">
               <div><span className="font-semibold text-gray-800">{locale === 'ru' ? 'Компания:' : locale === 'ar' ? 'الشركة:' : 'Company:'}</span> {t('about.companyNameValue')}</div>
               <div><span className="font-semibold text-gray-800">{locale === 'ru' ? 'Год:' : locale === 'ar' ? 'السنة:' : 'Year:'}</span> 2019</div>
-              <div><span className="font-semibold text-gray-800">{locale === 'ru' ? 'Лицензия:' : locale === 'ar' ? 'الترخيص:' : 'License:'}</span> <a href="/documents/commercial-license.pdf" download="Genosys-Commercial-License-5023192.pdf" className="text-primary-600 hover:text-primary-700 underline">5023192</a></div>
-              <div><span className="font-semibold text-gray-800">TRN:</span> <a href="/documents/genosys-trn-104229886700003.pdf" download="GENOSYS-TRN-104229886700003.pdf" className="text-primary-600 hover:text-primary-700 underline">104229886700003</a></div>
+              <div><span className="font-semibold text-gray-800">{locale === 'ru' ? 'Лицензия:' : locale === 'ar' ? 'الترخيص:' : 'License:'}</span> <PDFLinkButton href="/documents/commercial-license.pdf" filename="Genosys-Commercial-License-5023192.pdf" download="Genosys-Commercial-License-5023192.pdf" className="text-primary-600 hover:text-primary-700 underline">5023192</PDFLinkButton></div>
+              <div><span className="font-semibold text-gray-800">TRN:</span> <PDFLinkButton href="/documents/genosys-trn-104229886700003.pdf" filename="GENOSYS-TRN-104229886700003.pdf" download="GENOSYS-TRN-104229886700003.pdf" className="text-primary-600 hover:text-primary-700 underline">104229886700003</PDFLinkButton></div>
               <div><span className="font-semibold text-gray-800">{locale === 'ru' ? 'Главный офис:' : locale === 'ar' ? 'المكتب الرئيسي:' : 'Main Office:'}</span> Compass Building, GF, RAK, UAE</div>
               <div><span className="font-semibold text-gray-800">{locale === 'ru' ? 'Офис в Дубае:' : locale === 'ar' ? 'مكتب دبي:' : 'Dubai Office:'}</span> Cordoba Residence, E02, Knowledge Village</div>
             </div>

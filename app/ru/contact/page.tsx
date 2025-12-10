@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { ArrowLeft, Phone, Mail, MapPin, FileText, Globe, Instagram, Facebook } from 'lucide-react'
 import BreadcrumbSchema from '@/components/BreadcrumbSchema'
+import PDFLinkButton from '@/components/PDFLinkButton'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -169,22 +170,24 @@ export default function RussianContactPage() {
                 Продукты сертифицированы в системе Montaji от <a href="https://www.dm.gov.ae/" target="_blank" rel="noopener noreferrer" className="text-primary-600 hover:text-primary-700">Муниципалитета Дубая</a>.
               </p>
               <div className="flex flex-wrap justify-center gap-2 md:gap-4">
-                <a
+                <PDFLinkButton
                   href="/documents/commercial-license.pdf"
+                  filename="Genosys-Commercial-License-5023192.pdf"
                   download="Genosys-Commercial-License-5023192.pdf"
                   className="inline-flex items-center text-primary-600 hover:text-primary-700 font-medium transition-colors text-[10px] md:text-sm touch-manipulation bg-white px-2 py-1 md:px-3 md:py-1.5 rounded-md shadow-sm"
                 >
                   <FileText className="mr-1 h-3 w-3 md:h-4 md:w-4" />
                   Лицензия
-                </a>
-                <a
+                </PDFLinkButton>
+                <PDFLinkButton
                   href="/documents/genosys-trn-104229886700003.pdf"
+                  filename="GENOSYS-TRN-104229886700003.pdf"
                   download="GENOSYS-TRN-104229886700003.pdf"
                   className="inline-flex items-center text-primary-600 hover:text-primary-700 font-medium transition-colors text-[10px] md:text-sm touch-manipulation bg-white px-2 py-1 md:px-3 md:py-1.5 rounded-md shadow-sm"
                 >
                   <FileText className="mr-1 h-3 w-3 md:h-4 md:w-4" />
                   TRN
-                </a>
+                </PDFLinkButton>
                 <a
                   href="https://dnbuae.com/duns-number/"
                   target="_blank"

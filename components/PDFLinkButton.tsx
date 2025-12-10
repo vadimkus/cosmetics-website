@@ -1,0 +1,87 @@
+'use client'
+
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
+import { usePDFTracking } from '@/lib/pdfTracking'
+import { errorLog } from '@/lib/logger'
+import { trackPDFDownload } from '@/lib/analytics'
+
+interface PDFLinkButtonProps {
+  href: string
+  filename: string
+  children: React.ReactNode
+  className?: string
+  download?: string
+}
+
+// Detect if running as PWA (standalone mode)
+function isPWA(): boolean {
+  if (typeof window === 'undefined') return false
+  return window.matchMedia('(display-mode: standalone)').matches ||
+    (window.navigator as any).standalone === true
+}
+
+export default function PDFLinkButton({ 
+  href, 
+  filename, 
+  children, 
+  className = '',
+  download
+}: PDFLinkButtonProps) {
+  const { trackDownload } = usePDFTracking()
+  const [isPWAMode, setIsPWAMode] = useState(false)
+  const router = useRouter()
+
+  useEffect(() => {
+    setIsPWAMode(isPWA())
+  }, [])
+
+  const handleClick = async (e: React.MouseEvent) => {
+    e.preventDefault()
+    
+    // In PWA mode, route to viewer instead of downloading
+    if (isPWAMode) {
+      try {
+        // Track the view
+        await trackDownload(filename)
+        trackPDFDownload(filename)
+        
+        // Route to PDF viewer
+        const encodedUrl = encodeURIComponent(href)
+        const encodedFilename = encodeURIComponent(filename)
+        router.push(`/view-pdf?url=${encodedUrl}&filename=${encodedFilename}`)
+      } catch (error) {
+        errorLog('Error routing to PDF viewer:', error)
+      }
+      return
+    }
+
+    // Regular browser: download or open
+    try {
+      // Track the download
+      await trackDownload(filename)
+      trackPDFDownload(filename)
+      
+      // Create download link
+      const link = document.createElement('a')
+      link.href = href
+      link.download = download || filename
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
+    } catch (error) {
+      errorLog('Error downloading PDF:', error)
+    }
+  }
+
+  return (
+    <a
+      href={href}
+      onClick={handleClick}
+      className={className}
+      download={!isPWAMode ? (download || filename) : undefined}
+    >
+      {children}
+    </a>
+  )
+}

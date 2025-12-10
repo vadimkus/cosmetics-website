@@ -1,7 +1,5 @@
 'use client'
 
-import { useState } from 'react'
-import { X, Download } from 'lucide-react'
 import { usePDFTracking } from '@/lib/pdfTracking'
 import { errorLog } from '@/lib/logger'
 
@@ -12,7 +10,6 @@ interface PDFViewerClientProps {
 
 export default function PDFViewerClient({ filename, pdfUrl }: PDFViewerClientProps) {
   const { trackDownload } = usePDFTracking()
-  const [isDownloading, setIsDownloading] = useState(false)
 
   const handleClose = () => {
     // Use history.back() for better PWA experience - goes back to previous page
@@ -25,69 +22,50 @@ export default function PDFViewerClient({ filename, pdfUrl }: PDFViewerClientPro
   }
 
   const handleDownload = async () => {
-    setIsDownloading(true)
     try {
       // Track the download
       await trackDownload(filename)
-      
-      // Create a temporary link to trigger download
-      const link = document.createElement('a')
-      link.href = pdfUrl
-      link.download = filename
-      document.body.appendChild(link)
-      link.click()
-      document.body.removeChild(link)
     } catch (error) {
-      errorLog('Error downloading PDF:', error)
-    } finally {
-      setIsDownloading(false)
+      errorLog('Error tracking PDF download:', error)
     }
+    // The download will happen via the anchor tag's download attribute
   }
 
   return (
-    <div className="bg-white min-h-screen flex flex-col">
-      {/* Navigation bar with Close and Save buttons */}
-      <nav className="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
-        <div className="container mx-auto px-4 py-3">
-          <div className="flex items-center justify-between">
-            <button
-              onClick={handleClose}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors text-sm font-medium touch-manipulation min-h-[44px]"
-              aria-label="Close PDF viewer"
-            >
-              <X className="h-5 w-5" />
-              Close
-            </button>
-            
-            <h1 className="text-sm md:text-base font-semibold text-gray-900 truncate flex-1 mx-4 text-center">
-              {filename.replace('.pdf', '')}
-            </h1>
-            
-            <a
-              href={pdfUrl}
-              download={filename}
-              onClick={handleDownload}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors text-sm font-medium touch-manipulation min-h-[44px] disabled:opacity-50 disabled:cursor-not-allowed"
-              aria-label="Save PDF"
-            >
-              <Download className="h-4 w-4" />
-              {isDownloading ? 'Saving...' : 'Save'}
-            </a>
-          </div>
-        </div>
+    <div className="bg-gray-100 min-h-screen flex flex-col" style={{ margin: 0, padding: 0, height: '100%', overflow: 'hidden' }}>
+      {/* Navigation bar - Dark bar */}
+      <nav className="bg-gray-800 flex items-center justify-between px-4 h-[60px] text-white font-sans flex-shrink-0">
+        <button
+          onClick={handleClose}
+          className="bg-red-600 border-none text-white px-4 py-2 rounded text-sm cursor-pointer hover:bg-red-700 transition-colors touch-manipulation min-h-[44px]"
+          aria-label="Back"
+        >
+          ⬅ Back
+        </button>
+        
+        <span className="text-sm md:text-base truncate flex-1 mx-4 text-center">
+          {filename.replace('.pdf', '')}
+        </span>
+        
+        <a
+          href={pdfUrl}
+          download={filename}
+          onClick={handleDownload}
+          className="bg-blue-600 border-none text-white px-4 py-2 rounded text-sm cursor-pointer hover:bg-blue-700 transition-colors touch-manipulation min-h-[44px] no-underline inline-flex items-center"
+          aria-label="Save PDF"
+        >
+          ⬇ Save
+        </a>
       </nav>
       
       {/* PDF Container */}
-      <div className="flex-1 flex flex-col overflow-hidden">
-        <div className="flex-1 w-full">
-          <iframe
-            src={`${pdfUrl}#toolbar=1&navpanes=1&scrollbar=1`}
-            className="w-full h-full border-0"
-            title={filename}
-            style={{ minHeight: 'calc(100vh - 80px)' }}
-          />
-        </div>
-      </div>
+      <iframe
+        id="pdf-frame"
+        src={`${pdfUrl}#toolbar=1&navpanes=1&scrollbar=1`}
+        className="w-full border-0 flex-1"
+        style={{ height: 'calc(100% - 60px)' }}
+        title={filename}
+      />
     </div>
   )
 }

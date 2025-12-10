@@ -47,9 +47,8 @@ export default function PDFLinkButton({
         trackPDFDownload(filename)
         
         // Route to PDF viewer
-        const encodedUrl = encodeURIComponent(href)
-        const encodedFilename = encodeURIComponent(filename)
-        router.push(`/view-pdf?url=${encodedUrl}&filename=${encodedFilename}`)
+        const encodedFile = encodeURIComponent(href)
+        router.push(`/pdf-viewer?file=${encodedFile}`)
       } catch (error) {
         errorLog('Error routing to PDF viewer:', error)
       }

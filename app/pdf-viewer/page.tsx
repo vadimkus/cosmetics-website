@@ -10,23 +10,17 @@ function PDFViewerContent() {
   const [filename, setFilename] = useState<string>('document.pdf')
 
   useEffect(() => {
-    // Support both old format (?url=...&filename=...) and new format (?file=...)
     const fileUrl = searchParams.get('file')
-    const url = searchParams.get('url')
-    const name = searchParams.get('filename') || 'document.pdf'
     
     if (fileUrl) {
-      // New format: ?file=...
+      // Decode the URL
       const decodedUrl = decodeURIComponent(fileUrl)
       setPdfUrl(decodedUrl)
+      
+      // Extract filename from URL
       const urlParts = decodedUrl.split('/')
       const lastPart = urlParts[urlParts.length - 1]
       setFilename(lastPart && lastPart.includes('.pdf') ? lastPart : 'document.pdf')
-    } else if (url) {
-      // Old format: ?url=...&filename=...
-      const decodedUrl = decodeURIComponent(url)
-      setPdfUrl(decodedUrl)
-      setFilename(name)
     }
   }, [searchParams])
 
@@ -34,7 +28,7 @@ function PDFViewerContent() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="text-center">
-          <p className="text-gray-600 mb-4">No PDF URL provided</p>
+          <p className="text-gray-600 mb-4">No file specified!</p>
           <button
             onClick={() => window.history.back()}
             className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"

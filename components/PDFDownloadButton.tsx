@@ -40,17 +40,17 @@ export default function PDFDownloadButton({
   const handleClick = async (e: React.MouseEvent) => {
     e.preventDefault()
     
-    // In PWA mode, route to viewer instead of downloading
-    if (isPWAMode && !external) {
+    // In PWA mode, ALWAYS route to viewer (regardless of external flag)
+    // This keeps users within the PWA app
+    if (isPWAMode) {
       try {
         // Track the view
         await trackDownload(filename)
         trackPDFDownload(filename)
         
         // Route to PDF viewer
-        const encodedUrl = encodeURIComponent(href)
-        const encodedFilename = encodeURIComponent(filename)
-        router.push(`/view-pdf?url=${encodedUrl}&filename=${encodedFilename}`)
+        const encodedFile = encodeURIComponent(href)
+        router.push(`/pdf-viewer?file=${encodedFile}`)
       } catch (error) {
         errorLog('Error routing to PDF viewer:', error)
       }

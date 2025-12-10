@@ -185,4 +185,4 @@ fetch('https://yourdomain.com/api/mobile/products', {
   - Verify `isHidden: false` (hidden products excluded)
   - Check database connection
 
-Need help? Check the server logs for detailed error messages with timestamps and performance metrics.
+Need help? Check the server logs for detailed error messages with timestamps and performance metrics.# Mobile API Deployment

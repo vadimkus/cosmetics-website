@@ -4,6 +4,8 @@ import { useState } from 'react'
 import { usePDFTracking } from '@/lib/pdfTracking'
 import { errorLog } from '@/lib/logger'
 import { trackPDFDownload } from '@/lib/analytics'
+import { isPWA } from '@/lib/pwaDetection'
+import PDFModal from './PDFModal'
 
 interface PDFDownloadButtonProps {
   href: string
@@ -22,9 +24,18 @@ export default function PDFDownloadButton({
 }: PDFDownloadButtonProps) {
   const { trackDownload } = usePDFTracking()
   const [isDownloading, setIsDownloading] = useState(false)
+  const [showModal, setShowModal] = useState(false)
+  const isPWAMode = isPWA()
 
   const handleClick = async (e: React.MouseEvent) => {
     e.preventDefault()
+    
+    // In PWA mode, open PDF in modal instead of downloading/opening in new tab
+    if (isPWAMode && !external) {
+      setShowModal(true)
+      return
+    }
+    
     setIsDownloading(true)
     
     try {
@@ -54,12 +65,23 @@ export default function PDFDownloadButton({
   }
 
   return (
-    <button
-      onClick={handleClick}
-      disabled={isDownloading}
-      className={`inline-flex items-center ${className} ${isDownloading ? 'opacity-50 cursor-not-allowed' : ''}`}
-    >
-      {children}
-    </button>
+    <>
+      <button
+        onClick={handleClick}
+        disabled={isDownloading}
+        className={`inline-flex items-center ${className} ${isDownloading ? 'opacity-50 cursor-not-allowed' : ''}`}
+      >
+        {children}
+      </button>
+      
+      {isPWAMode && (
+        <PDFModal
+          isOpen={showModal}
+          onClose={() => setShowModal(false)}
+          pdfUrl={href}
+          filename={filename}
+        />
+      )}
+    </>
   )
 }

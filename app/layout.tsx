@@ -16,6 +16,7 @@ import AggregateRatingSchema from '@/components/AggregateRatingSchema'
 import ErrorBoundary from '@/components/ErrorBoundary'
 import LocaleWrapper from '@/components/LocaleWrapper'
 import Footer from '@/components/Footer'
+import PDFClickHandler from '@/components/PDFClickHandler'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -244,6 +245,7 @@ export default function RootLayout({
                 <PerformanceMonitor />
                 <UserRefreshWrapper />
                 <PageViewTracker />
+                <PDFClickHandler />
                 <LocaleWrapper>
                   <Header />
                   <main className="flex-1">

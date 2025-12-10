@@ -69,6 +69,7 @@ export default function PDFDownloadButton({
       <button
         onClick={handleClick}
         disabled={isDownloading}
+        data-pdf-handled="true"
         className={`inline-flex items-center ${className} ${isDownloading ? 'opacity-50 cursor-not-allowed' : ''}`}
       >
         {children}

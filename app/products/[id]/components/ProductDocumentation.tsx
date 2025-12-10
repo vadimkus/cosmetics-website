@@ -53,6 +53,7 @@ export default function ProductDocumentation({ product }: ProductDocumentationPr
                 rel={doc.type === 'link' ? 'noopener noreferrer' : undefined}
                 download={doc.type === 'pdf' && !isPWAMode ? doc.title : undefined}
                 onClick={(e) => handleDocClick(e, doc)}
+                data-pdf-handled={doc.type === 'pdf' ? 'true' : undefined}
                 className="inline-flex items-center gap-2 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors text-sm font-medium"
               >
                 {doc.type === 'pdf' && (

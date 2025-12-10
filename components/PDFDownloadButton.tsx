@@ -1,6 +1,7 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import { usePDFTracking } from '@/lib/pdfTracking'
 import { errorLog } from '@/lib/logger'
 import { trackPDFDownload } from '@/lib/analytics'
@@ -13,6 +14,13 @@ interface PDFDownloadButtonProps {
   external?: boolean
 }
 
+// Detect if running as PWA (standalone mode)
+function isPWA(): boolean {
+  if (typeof window === 'undefined') return false
+  return window.matchMedia('(display-mode: standalone)').matches ||
+    (window.navigator as any).standalone === true
+}
+
 export default function PDFDownloadButton({ 
   href, 
   filename, 
@@ -22,9 +30,33 @@ export default function PDFDownloadButton({
 }: PDFDownloadButtonProps) {
   const { trackDownload } = usePDFTracking()
   const [isDownloading, setIsDownloading] = useState(false)
+  const [isPWAMode, setIsPWAMode] = useState(false)
+  const router = useRouter()
+
+  useEffect(() => {
+    setIsPWAMode(isPWA())
+  }, [])
 
   const handleClick = async (e: React.MouseEvent) => {
     e.preventDefault()
+    
+    // In PWA mode, route to viewer instead of downloading
+    if (isPWAMode && !external) {
+      try {
+        // Track the view
+        await trackDownload(filename)
+        trackPDFDownload(filename)
+        
+        // Route to PDF viewer
+        const encodedUrl = encodeURIComponent(href)
+        const encodedFilename = encodeURIComponent(filename)
+        router.push(`/view-pdf?url=${encodedUrl}&filename=${encodedFilename}`)
+      } catch (error) {
+        errorLog('Error routing to PDF viewer:', error)
+      }
+      return
+    }
+
     setIsDownloading(true)
     
     try {

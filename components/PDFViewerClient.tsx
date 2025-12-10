@@ -1,8 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { ArrowLeft, Download, ExternalLink } from 'lucide-react'
-import Link from 'next/link'
+import { X, Download } from 'lucide-react'
 import { usePDFTracking } from '@/lib/pdfTracking'
 import { errorLog } from '@/lib/logger'
 
@@ -14,6 +13,16 @@ interface PDFViewerClientProps {
 export default function PDFViewerClient({ filename, pdfUrl }: PDFViewerClientProps) {
   const { trackDownload } = usePDFTracking()
   const [isDownloading, setIsDownloading] = useState(false)
+
+  const handleClose = () => {
+    // Use history.back() for better PWA experience - goes back to previous page
+    if (window.history.length > 1) {
+      window.history.back()
+    } else {
+      // Fallback to home if no history
+      window.location.href = '/'
+    }
+  }
 
   const handleDownload = async () => {
     setIsDownloading(true)
@@ -35,72 +44,48 @@ export default function PDFViewerClient({ filename, pdfUrl }: PDFViewerClientPro
     }
   }
 
-  const handleOpenInNewTab = async () => {
-    try {
-      // Track the download (opening in new tab is also considered a download)
-      await trackDownload(filename)
-      
-      // Open in new tab
-      window.open(pdfUrl, '_blank', 'noopener,noreferrer')
-    } catch (error) {
-      errorLog('Error opening PDF:', error)
-    }
-  }
-
   return (
-    <div className="bg-white min-h-screen">
-      {/* Header with navigation */}
-      <div className="bg-white border-b border-gray-200 sticky top-0 z-10">
-        <div className="container mx-auto px-4 py-4">
+    <div className="bg-white min-h-screen flex flex-col">
+      {/* Navigation bar with Close and Save buttons */}
+      <nav className="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
+        <div className="container mx-auto px-4 py-3">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <Link 
-                href="/"
-                className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
-              >
-                <ArrowLeft className="h-5 w-5" />
-                Back to Home
-              </Link>
-              <div className="h-6 w-px bg-gray-300"></div>
-              <h1 className="text-lg font-semibold text-gray-900 truncate">
-                {filename.replace('.pdf', '')}
-              </h1>
-            </div>
+            <button
+              onClick={handleClose}
+              className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors text-sm font-medium touch-manipulation min-h-[44px]"
+              aria-label="Close PDF viewer"
+            >
+              <X className="h-5 w-5" />
+              Close
+            </button>
             
-            <div className="flex items-center gap-3">
-              <button
-                onClick={handleOpenInNewTab}
-                className="inline-flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-sm font-medium"
-              >
-                <ExternalLink className="h-4 w-4" />
-                Open in New Tab
-              </button>
-              <button
-                onClick={handleDownload}
-                disabled={isDownloading}
-                className="inline-flex items-center gap-2 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                <Download className="h-4 w-4" />
-                {isDownloading ? 'Downloading...' : 'Download'}
-              </button>
-            </div>
+            <h1 className="text-sm md:text-base font-semibold text-gray-900 truncate flex-1 mx-4 text-center">
+              {filename.replace('.pdf', '')}
+            </h1>
+            
+            <a
+              href={pdfUrl}
+              download={filename}
+              onClick={handleDownload}
+              className="inline-flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors text-sm font-medium touch-manipulation min-h-[44px] disabled:opacity-50 disabled:cursor-not-allowed"
+              aria-label="Save PDF"
+            >
+              <Download className="h-4 w-4" />
+              {isDownloading ? 'Saving...' : 'Save'}
+            </a>
           </div>
         </div>
-      </div>
+      </nav>
       
-      {/* PDF Viewer */}
-      <div className="container mx-auto px-4 py-6">
-        <div className="bg-gray-100 rounded-lg overflow-hidden shadow-lg">
+      {/* PDF Container */}
+      <div className="flex-1 flex flex-col overflow-hidden">
+        <div className="flex-1 w-full">
           <iframe
             src={`${pdfUrl}#toolbar=1&navpanes=1&scrollbar=1`}
-            className="w-full h-[calc(100vh-200px)] min-h-[600px]"
+            className="w-full h-full border-0"
             title={filename}
+            style={{ minHeight: 'calc(100vh - 80px)' }}
           />
-        </div>
-        
-        {/* Footer info */}
-        <div className="mt-6 text-center text-sm text-gray-500">
-          <p>If the PDF doesn&apos;t load properly, try opening it in a new tab or downloading it.</p>
         </div>
       </div>
     </div>

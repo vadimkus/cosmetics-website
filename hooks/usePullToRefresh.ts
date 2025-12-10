@@ -21,6 +21,12 @@ function isPWA(): boolean {
     (window.navigator as any).standalone === true
 }
 
+// Detect if running on iOS
+function isIOS(): boolean {
+  if (typeof window === 'undefined') return false
+  return /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream
+}
+
 export function usePullToRefresh({
   onRefresh,
   threshold = 80,
@@ -41,6 +47,7 @@ export function usePullToRefresh({
   const lastTime = useRef<number>(0)
 
   const pwa = isPWA()
+  const ios = isIOS()
   
   // IMPORTANT: Only enable for PWA mode
   // For regular browsers (iOS Safari, Android Chrome), disable completely
@@ -281,5 +288,6 @@ export function usePullToRefresh({
     ...state,
     pullProgress: Math.min(state.pullDistance / threshold, 1),
     isPWA: pwa,
+    isIOS: ios,
   }
 }

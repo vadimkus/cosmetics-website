@@ -61,7 +61,7 @@ export default function HeaderRussianDesktop() {
       </div>
       
       {/* Desktop Navigation */}
-      <nav className="hidden md:flex space-x-8" role="navigation" aria-label="Основная навигация">
+      <nav className="hidden md:flex space-x-4" role="navigation" aria-label="Основная навигация">
         <Link href={getLocalizedPath('/', 'ru')} className="text-gray-700 hover:text-primary-600 transition-colors">
           {t('navigation.home')}
         </Link>
@@ -108,7 +108,7 @@ export default function HeaderRussianDesktop() {
           </a>
         </div>
         
-        <div className="flex items-center space-x-4 header-icons">
+        <div className="flex items-center space-x-2 header-icons">
           {isClient && user ? (
             <>
               <LanguageSwitcher />

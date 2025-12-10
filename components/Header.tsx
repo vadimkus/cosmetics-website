@@ -304,11 +304,10 @@ const Header = memo(function Header() {
                       <LanguageSwitcher />
                       <button 
                         onClick={() => setShowLoginModal(true)}
-                        className="p-2 text-gray-700 hover:text-primary-600 transition-colors flex items-center gap-2 touch-manipulation"
+                        className="p-2 text-gray-700 hover:text-primary-600 transition-colors touch-manipulation"
                         aria-label={t('common.login')}
                       >
                         <User className="h-5 w-5" aria-hidden="true" />
-                        <span className="text-sm font-medium hidden sm:inline">{t('common.login')}</span>
                       </button>
                     </>
                   )}
@@ -398,10 +397,9 @@ const Header = memo(function Header() {
                       <LanguageSwitcher />
                       <button 
                         onClick={() => setShowLoginModal(true)}
-                        className="p-2 text-gray-700 hover:text-primary-600 transition-colors flex items-center gap-2 touch-manipulation"
+                        className="p-2 text-gray-700 hover:text-primary-600 transition-colors touch-manipulation"
                         aria-label={t('common.login')}
                       >
-                        <span className="text-sm font-medium hidden sm:inline">{t('common.login')}</span>
                         <User className="h-5 w-5" aria-hidden="true" />
                       </button>
                     </>

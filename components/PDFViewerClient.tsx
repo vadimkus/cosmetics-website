@@ -1,5 +1,6 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import { usePDFTracking } from '@/lib/pdfTracking'
 import { errorLog } from '@/lib/logger'
 
@@ -8,8 +9,33 @@ interface PDFViewerClientProps {
   pdfUrl: string
 }
 
+// Detect if running on iOS
+function isIOS(): boolean {
+  if (typeof window === 'undefined') return false
+  return /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream
+}
+
 export default function PDFViewerClient({ filename, pdfUrl }: PDFViewerClientProps) {
   const { trackDownload } = usePDFTracking()
+  const [iframeSrc, setIframeSrc] = useState<string>('')
+
+  useEffect(() => {
+    // For iOS devices, use Google Drive viewer to fix scrolling issues
+    if (isIOS()) {
+      // Convert relative URL to absolute URL for Google Drive viewer
+      let fullUrl = pdfUrl
+      if (!pdfUrl.startsWith('http://') && !pdfUrl.startsWith('https://')) {
+        // Relative URL - make it absolute
+        fullUrl = `${window.location.origin}${pdfUrl.startsWith('/') ? '' : '/'}${pdfUrl}`
+      }
+      // Use Google Drive viewer for iOS
+      const googleViewerUrl = `https://docs.google.com/viewer?url=${encodeURIComponent(fullUrl)}&embedded=true`
+      setIframeSrc(googleViewerUrl)
+    } else {
+      // For non-iOS devices, use direct PDF URL
+      setIframeSrc(`${pdfUrl}#toolbar=1&navpanes=1&scrollbar=1`)
+    }
+  }, [pdfUrl])
 
   const handleClose = () => {
     // Use history.back() for better PWA experience - goes back to previous page
@@ -59,13 +85,15 @@ export default function PDFViewerClient({ filename, pdfUrl }: PDFViewerClientPro
       </nav>
       
       {/* PDF Container */}
-      <iframe
-        id="pdf-frame"
-        src={`${pdfUrl}#toolbar=1&navpanes=1&scrollbar=1`}
-        className="w-full border-0 flex-1"
-        style={{ height: 'calc(100% - 60px)' }}
-        title={filename}
-      />
+      {iframeSrc && (
+        <iframe
+          id="pdf-frame"
+          src={iframeSrc}
+          className="w-full border-0 flex-1"
+          style={{ height: 'calc(100% - 60px)' }}
+          title={filename}
+        />
+      )}
     </div>
   )
 }

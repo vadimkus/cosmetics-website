@@ -70,7 +70,7 @@ export async function POST(request: NextRequest) {
       )
     }
     
-    if (result.success) {
+    if (result && result.success) {
       return NextResponse.json({
         success: true,
         message: `Admin ${type} notification test sent successfully`,
@@ -86,7 +86,7 @@ export async function POST(request: NextRequest) {
     } else {
       return NextResponse.json({
         success: false,
-        error: result.error,
+        error: result?.error || 'Unknown error',
         adminEmail,
         environment: {
           ADMIN_EMAIL: process.env.ADMIN_EMAIL || 'NOT_SET',

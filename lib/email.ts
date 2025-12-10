@@ -1028,6 +1028,19 @@ export const sendEmail = async (to: string, subject: string, html: string) => {
     debugLog('📧 Using Gmail service')
     debugLog('📧 Using Gmail user:', process.env.GMAIL_USER)
     
+    // Check if email configuration is set
+    if (!process.env.GMAIL_USER) {
+      const errorMsg = 'GMAIL_USER environment variable is not set'
+      errorLog('❌', errorMsg)
+      return { success: false, error: errorMsg }
+    }
+    
+    if (!process.env.GMAIL_APP_PASSWORD) {
+      const errorMsg = 'GMAIL_APP_PASSWORD environment variable is not set'
+      errorLog('❌', errorMsg)
+      return { success: false, error: errorMsg }
+    }
+    
     const mailOptions: nodemailer.SendMailOptions = {
       from: `"Genosys Middle East FZ-LLC" <${process.env.GMAIL_USER}>`,
       to,
@@ -1035,12 +1048,30 @@ export const sendEmail = async (to: string, subject: string, html: string) => {
       html,
     }
 
+    debugLog('📧 Sending email with options:', {
+      from: mailOptions.from,
+      to: mailOptions.to,
+      subject: mailOptions.subject,
+      hasHtml: !!mailOptions.html
+    })
+
     const result = await transporter.sendMail(mailOptions)
-    debugLog('✅ Email sent successfully:', result.messageId)
+    debugLog('✅ Email sent successfully')
+    debugLog('✅ Message ID:', result.messageId)
+    debugLog('✅ Response:', result.response)
     return { success: true, messageId: result.messageId }
   } catch (error) {
-    errorLog('❌ Error sending email:', error)
-    errorLog('❌ Error details:', error instanceof Error ? error.message : 'Unknown error')
+    errorLog('❌ Error sending email')
+    errorLog('❌ Error type:', error instanceof Error ? error.constructor.name : typeof error)
+    errorLog('❌ Error message:', error instanceof Error ? error.message : 'Unknown error')
+    if (error instanceof Error && error.stack) {
+      errorLog('❌ Error stack:', error.stack)
+    }
+    // Check for specific nodemailer errors
+    if (error && typeof error === 'object' && 'code' in error) {
+      errorLog('❌ Error code:', (error as any).code)
+      errorLog('❌ Error command:', (error as any).command)
+    }
     return { success: false, error: error instanceof Error ? error.message : 'Unknown error' }
   }
 }
@@ -1080,19 +1111,48 @@ export const sendAdminNewUserNotification = async (userName: string, userEmail: 
   // Use ADMIN_EMAIL, or fallback to GMAIL_USER/EMAIL_USER, or use default
   const adminEmail = process.env.ADMIN_EMAIL || process.env.GMAIL_USER || process.env.EMAIL_USER || '5856825@gmail.com'
   
+  debugLog(`📧 ===== ADMIN NEW USER NOTIFICATION =====`)
   debugLog(`📧 Sending admin new user notification to: ${adminEmail}`)
+  debugLog(`📧 User: ${userName} (${userEmail})`)
+  debugLog(`📧 Registration method: ${registrationMethod || 'Unknown'}`)
   debugLog(`📧 Admin email sources - ADMIN_EMAIL: ${process.env.ADMIN_EMAIL || 'NOT_SET'}, GMAIL_USER: ${process.env.GMAIL_USER || 'NOT_SET'}, EMAIL_USER: ${process.env.EMAIL_USER || 'NOT_SET'}`)
+  debugLog(`📧 GMAIL_APP_PASSWORD: ${process.env.GMAIL_APP_PASSWORD ? 'SET' : 'NOT_SET'}`)
   
   const template = emailTemplates.adminNewUser(userName, userEmail, userPhone, userAddress, registrationMethod)
-  const result = await sendEmail(adminEmail, template.subject, template.html)
   
-  if (!result.success) {
-    errorLog(`❌ Failed to send admin new user notification to ${adminEmail}:`, result.error)
-  } else {
-    debugLog(`✅ Admin new user notification sent successfully to ${adminEmail}`)
+  // Try sending with retry logic
+  let result: { success: boolean; messageId?: string; error?: string } | undefined
+  let lastError: string | undefined
+  const maxRetries = 2
+  
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    debugLog(`📧 Attempt ${attempt} of ${maxRetries} to send admin notification`)
+    result = await sendEmail(adminEmail, template.subject, template.html)
+    
+    if (result && result.success) {
+      debugLog(`✅ Admin new user notification sent successfully to ${adminEmail} on attempt ${attempt}`)
+      debugLog(`✅ Message ID: ${result.messageId}`)
+      break
+    } else {
+      lastError = result?.error
+      errorLog(`❌ Attempt ${attempt} failed: ${result?.error || 'Unknown error'}`)
+      if (attempt < maxRetries) {
+        // Wait 1 second before retry
+        await new Promise(resolve => setTimeout(resolve, 1000))
+      }
+    }
   }
   
-  return result
+  if (!result || !result.success) {
+    errorLog(`❌ ===== FAILED TO SEND ADMIN NOTIFICATION AFTER ${maxRetries} ATTEMPTS =====`)
+    errorLog(`❌ Final error: ${lastError || 'Unknown error'}`)
+    errorLog(`❌ User: ${userName} (${userEmail})`)
+    errorLog(`❌ Admin email: ${adminEmail}`)
+  } else {
+    debugLog(`✅ ===== ADMIN NOTIFICATION SENT SUCCESSFULLY =====`)
+  }
+  
+  return result || { success: false, error: lastError || 'Unknown error' }
 }
 
 export const sendAdminNewOrderNotification = async (orderData: AdminNewOrderEmailData, recipientEmail?: string) => {

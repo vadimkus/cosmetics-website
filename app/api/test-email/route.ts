@@ -214,7 +214,7 @@ export async function POST(request: NextRequest) {
         )
     }
 
-    if (result.success && 'messageId' in result) {
+    if (result && result.success && 'messageId' in result) {
       return NextResponse.json({
         success: true,
         message: `${type} email sent successfully to ${testEmail}`,
@@ -222,7 +222,7 @@ export async function POST(request: NextRequest) {
       })
     } else {
       return NextResponse.json(
-        { error: `Failed to send ${type} email: ${result.error}` },
+        { error: `Failed to send ${type} email: ${result?.error || 'Unknown error'}` },
         { status: 500 }
       )
     }

@@ -159,10 +159,10 @@ export async function POST(request: NextRequest) {
     try {
       const adminResult = await sendAdminNewUserNotification(name, email, phone, fullAddress, 'Email/Password')
       
-      if (adminResult.success) {
+      if (adminResult && adminResult.success) {
         debugLog('✅ Admin notification sent for new user:', email)
       } else {
-        errorLog('❌ Failed to send admin notification:', adminResult.error)
+        errorLog('❌ Failed to send admin notification:', adminResult?.error || 'Unknown error')
         errorLog('❌ Admin notification error details:', JSON.stringify(adminResult, null, 2))
       }
     } catch (emailError) {

@@ -4,6 +4,7 @@ import { findUserByEmail, addUser, updateUser } from '@/lib/userStorageDb'
 import { errorLog, debugLog } from '@/lib/logger'
 import { rateLimitSimple, getClientIdentifierFromNextRequest } from '@/lib/rateLimitSimple'
 import { sendAdminNewUserNotification } from '@/lib/email'
+import { trackUserAction } from '@/lib/analyticsServer'
 
 const googleCallbackLimiter = rateLimitSimple({
   windowMs: 15 * 60 * 1000, // 15 minutes
@@ -151,8 +152,22 @@ export async function GET(request: NextRequest) {
           hasProfilePicture: !!user.profilePicture
         })
 
+        // Track user registration
+        try {
+          await trackUserAction({
+            action: 'user_registered',
+            userEmail: googleUser.email,
+            details: `New user registered via Google OAuth: ${googleUser.name}`
+          })
+          debugLog('[GOOGLE_CALLBACK] ✅ User registration tracked')
+        } catch (trackError) {
+          errorLog('[GOOGLE_CALLBACK] ❌ Failed to track user registration:', trackError)
+          // Don't fail registration if tracking fails
+        }
+
         // Send admin notification for new Google OAuth user registration
         try {
+          debugLog('[GOOGLE_CALLBACK] 📧 Attempting to send admin notification...')
           const adminResult = await sendAdminNewUserNotification(
             googleUser.name,
             googleUser.email,
@@ -161,13 +176,19 @@ export async function GET(request: NextRequest) {
             'Google OAuth' // Registration method
           )
           
-          if (adminResult.success) {
-            debugLog('[GOOGLE_CALLBACK] ✅ Admin notification sent for new Google OAuth user:', googleUser.email)
+          if (adminResult && adminResult.success) {
+            debugLog('[GOOGLE_CALLBACK] ✅ Admin notification sent successfully for new Google OAuth user:', googleUser.email)
+            debugLog('[GOOGLE_CALLBACK] ✅ Notification message ID:', adminResult.messageId)
           } else {
-            errorLog('[GOOGLE_CALLBACK] ❌ Failed to send admin notification:', adminResult.error)
+            errorLog('[GOOGLE_CALLBACK] ❌ FAILED to send admin notification')
+            errorLog('[GOOGLE_CALLBACK] ❌ Error:', adminResult?.error || 'Unknown error')
+            errorLog('[GOOGLE_CALLBACK] ❌ Full result:', JSON.stringify(adminResult, null, 2))
           }
         } catch (emailError) {
-          errorLog('[GOOGLE_CALLBACK] ❌ Exception sending admin notification:', emailError)
+          errorLog('[GOOGLE_CALLBACK] ❌ EXCEPTION sending admin notification')
+          errorLog('[GOOGLE_CALLBACK] ❌ Exception type:', emailError instanceof Error ? emailError.constructor.name : typeof emailError)
+          errorLog('[GOOGLE_CALLBACK] ❌ Exception message:', emailError instanceof Error ? emailError.message : String(emailError))
+          errorLog('[GOOGLE_CALLBACK] ❌ Exception stack:', emailError instanceof Error ? emailError.stack : 'No stack trace')
           // Don't fail registration if email fails
         }
       } catch (error) {

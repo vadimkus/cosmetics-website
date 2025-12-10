@@ -53,7 +53,7 @@ export default function ErrorPage({
   const getIcon = () => {
     return (
       <Image
-        src="/images/wrong/wrong.png"
+        src="/images/Wrong/Wrong.png"
         alt={t('common.errorAlt')}
         width={64}
         height={64}

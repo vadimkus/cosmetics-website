@@ -187,7 +187,7 @@ export default function ArabicContactPage() {
                   className="inline-flex items-center text-primary-600 hover:text-primary-700 font-medium transition-colors text-[10px] md:text-sm touch-manipulation bg-white px-2 py-1 md:px-3 md:py-1.5 rounded-md shadow-sm"
                 >
                   <FileText className="ml-1 h-3 w-3 md:h-4 md:w-4" />
-                  D-U-N-S®
+                  D-U-N-S®: 850215607
                 </a>
               </div>
             </div>

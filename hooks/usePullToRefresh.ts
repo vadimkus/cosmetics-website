@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef, useCallback } from 'react'
+import { errorLog } from '@/lib/logger'
 
 interface UsePullToRefreshOptions {
   onRefresh: () => Promise<void> | void
@@ -62,7 +63,7 @@ export function usePullToRefresh({
     try {
       await onRefresh()
     } catch (error) {
-      console.error('Pull to refresh error:', error)
+      errorLog('Pull to refresh error:', error)
     } finally {
       // Smooth reset animation
       const resetAnimation = () => {

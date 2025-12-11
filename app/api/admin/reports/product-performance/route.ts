@@ -20,72 +20,109 @@ export async function GET(request: NextRequest) {
       return date
     })()
 
-    // Get orders with items
-    const orders = await prisma.order.findMany({
+    // Optimize: Use database aggregation for order items with single query
+    const orderItemsAggregation = await prisma.orderItem.groupBy({
+      by: ['productId', 'productName'],
       where: {
-        ...(startDate ? { createdAt: { gte: startDate } } : {}),
-        status: { not: 'CANCELLED' }
+        order: {
+          ...(startDate ? { createdAt: { gte: startDate } } : {}),
+          status: { not: 'CANCELLED' }
+        }
       },
-      include: {
-        items: true
+      _sum: {
+        quantity: true,
+        price: true
+      },
+      _count: {
+        orderId: true
       }
     })
 
-    // Get product views
-    const pageViews = await prisma.pageView.findMany({
+    // Optimize: Use database aggregation for product views with single query
+    const productViewsAggregation = await prisma.pageView.groupBy({
+      by: ['page'],
       where: {
         ...(startDate ? { timestamp: { gte: startDate } } : {}),
         page: { startsWith: '/products/' }
+      },
+      _count: {
+        id: true
       }
     })
 
-    // Calculate product performance
+    // Optimize: Get distinct order counts per product with single query
+    const orderCountsQuery = startDate 
+      ? await prisma.$queryRaw<Array<{
+          productId: string
+          uniqueOrders: number
+        }>>`
+          SELECT 
+            oi."productId",
+            COUNT(DISTINCT oi."orderId") as "uniqueOrders"
+          FROM "OrderItem" oi
+          JOIN "Order" o ON o.id = oi."orderId"
+          WHERE o.status != 'CANCELLED' AND o."createdAt" >= ${startDate}
+          GROUP BY oi."productId"
+        `
+      : await prisma.$queryRaw<Array<{
+          productId: string
+          uniqueOrders: number
+        }>>`
+          SELECT 
+            oi."productId",
+            COUNT(DISTINCT oi."orderId") as "uniqueOrders"
+          FROM "OrderItem" oi
+          JOIN "Order" o ON o.id = oi."orderId"
+          WHERE o.status != 'CANCELLED'
+          GROUP BY oi."productId"
+        `
+
+    const orderCountsMap = new Map(
+      orderCountsQuery.map(item => [item.productId, Number(item.uniqueOrders)])
+    )
+
+    // Process aggregated data efficiently
     const productMap = new Map<string, {
       productName: string
-      category: string
       totalRevenue: number
       totalQuantity: number
-      totalOrders: Set<string>
+      totalOrders: number
       views: number
     }>()
 
-    // Process orders
-    orders.forEach(order => {
-      order.items.forEach(item => {
-        const existing = productMap.get(item.productId) || {
-          productName: item.productName,
-          category: '', // Will be filled from product lookup
-          totalRevenue: 0,
-          totalQuantity: 0,
-          totalOrders: new Set<string>(),
-          views: 0
-        }
-        existing.totalRevenue += item.price * item.quantity
-        existing.totalQuantity += item.quantity
-        existing.totalOrders.add(order.id)
-        productMap.set(item.productId, existing)
+    // Process order items aggregation
+    orderItemsAggregation.forEach(item => {
+      const revenue = (item._sum.price || 0) * (item._sum.quantity || 0)
+      productMap.set(item.productId, {
+        productName: item.productName || 'Unknown',
+        totalRevenue: revenue,
+        totalQuantity: item._sum.quantity || 0,
+        totalOrders: orderCountsMap.get(item.productId) || 0,
+        views: 0
       })
     })
 
-    // Process views
-    pageViews.forEach(view => {
+    // Process views aggregation
+    productViewsAggregation.forEach(view => {
       const productIdMatch = view.page.match(/\/products\/(\d+)/)
       if (productIdMatch && productIdMatch[1]) {
         const productId = productIdMatch[1]
-        const existing = productMap.get(productId) || {
-          productName: '',
-          category: '',
-          totalRevenue: 0,
-          totalQuantity: 0,
-          totalOrders: new Set<string>(),
-          views: 0
+        const existing = productMap.get(productId)
+        if (existing) {
+          existing.views = view._count.id || 0
+        } else {
+          productMap.set(productId, {
+            productName: '',
+            totalRevenue: 0,
+            totalQuantity: 0,
+            totalOrders: 0,
+            views: view._count.id || 0
+          })
         }
-        existing.views += 1
-        productMap.set(productId, existing)
       }
     })
 
-    // Get product details for categories
+    // Optimize: Single query for product details only for products we need
     const productIds = Array.from(productMap.keys())
     const products = await prisma.product.findMany({
       where: {
@@ -101,13 +138,12 @@ export async function GET(request: NextRequest) {
 
     const productDetailsMap = new Map(products.map(p => [p.id, p]))
 
-    // Build performance array
+    // Build optimized performance array
     const performance = Array.from(productMap.entries())
       .map(([productId, data]) => {
         const productDetails = productDetailsMap.get(productId)
-        const totalOrders = data.totalOrders.size
         const averagePrice = data.totalQuantity > 0 ? data.totalRevenue / data.totalQuantity : (productDetails?.price || 0)
-        const conversionRate = data.views > 0 ? (totalOrders / data.views) * 100 : 0
+        const conversionRate = data.views > 0 ? (data.totalOrders / data.views) * 100 : 0
 
         return {
           productId,
@@ -115,7 +151,7 @@ export async function GET(request: NextRequest) {
           category: productDetails?.category || 'Uncategorized',
           totalRevenue: data.totalRevenue,
           totalQuantity: data.totalQuantity,
-          totalOrders,
+          totalOrders: data.totalOrders,
           averagePrice,
           conversionRate,
           views: data.views

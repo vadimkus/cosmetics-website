@@ -81,3 +81,6 @@ psql $DATABASE_URL -f prisma/migrations/add_russian_blog_columns/migration.sql
 
 
 
+
+
+

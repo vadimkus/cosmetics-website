@@ -20,61 +20,127 @@ export async function GET(request: NextRequest) {
       return date
     })()
 
-    // Get orders grouped by period
-    const orders = await prisma.order.findMany({
-      where: {
-        ...(startDate ? { createdAt: { gte: startDate } } : {}),
-        status: { not: 'CANCELLED' }
-      },
-      orderBy: {
-        createdAt: 'asc'
-      }
-    })
-
     // Group by period (daily for < 90 days, weekly for < 365 days, monthly otherwise)
     const periodType = days === null || days >= 365 ? 'monthly' : days >= 90 ? 'weekly' : 'daily'
     
-    const trendsMap = new Map<string, { revenue: number; orders: number }>()
+    // Optimize: Use database aggregation based on period type
+    let trendsQuery: Array<{ period: string; revenue: number; orders: number }>
     
-    orders.forEach(order => {
-      let periodKey: string
-      const date = new Date(order.createdAt)
-      
-      if (periodType === 'daily') {
-        periodKey = date.toISOString().split('T')[0] || date.toISOString().substring(0, 10) // YYYY-MM-DD
-      } else if (periodType === 'weekly') {
-        const weekStart = new Date(date)
-        weekStart.setDate(date.getDate() - date.getDay())
-        periodKey = weekStart.toISOString().substring(0, 10) + ' (Week)'
-      } else {
-        periodKey = date.toISOString().substring(0, 7) // YYYY-MM
-      }
-      
-      const existing = trendsMap.get(periodKey) || { revenue: 0, orders: 0 }
-      existing.revenue += order.total
-      existing.orders += 1
-      trendsMap.set(periodKey, existing)
-    })
+    if (periodType === 'daily') {
+      const dailyQuery = startDate
+        ? await prisma.$queryRaw<Array<{
+            period: string
+            revenue: number
+            orders: number
+          }>>`
+            SELECT 
+              DATE("createdAt") as period,
+              SUM(total) as revenue,
+              COUNT(*) as orders
+            FROM "Order" 
+            WHERE status != 'CANCELLED' AND "createdAt" >= ${startDate}
+            GROUP BY DATE("createdAt")
+            ORDER BY period ASC
+          `
+        : await prisma.$queryRaw<Array<{
+            period: string
+            revenue: number
+            orders: number
+          }>>`
+            SELECT 
+              DATE("createdAt") as period,
+              SUM(total) as revenue,
+              COUNT(*) as orders
+            FROM "Order" 
+            WHERE status != 'CANCELLED'
+            GROUP BY DATE("createdAt")
+            ORDER BY period ASC
+          `
+      trendsQuery = dailyQuery
+    } else if (periodType === 'weekly') {
+      const weeklyQuery = startDate
+        ? await prisma.$queryRaw<Array<{
+            period: string
+            revenue: number
+            orders: number
+          }>>`
+            SELECT 
+              TO_CHAR(DATE_TRUNC('week', "createdAt"), 'YYYY-MM-DD') || ' (Week)' as period,
+              SUM(total) as revenue,
+              COUNT(*) as orders
+            FROM "Order" 
+            WHERE status != 'CANCELLED' AND "createdAt" >= ${startDate}
+            GROUP BY DATE_TRUNC('week', "createdAt")
+            ORDER BY DATE_TRUNC('week', "createdAt") ASC
+          `
+        : await prisma.$queryRaw<Array<{
+            period: string
+            revenue: number
+            orders: number
+          }>>`
+            SELECT 
+              TO_CHAR(DATE_TRUNC('week', "createdAt"), 'YYYY-MM-DD') || ' (Week)' as period,
+              SUM(total) as revenue,
+              COUNT(*) as orders
+            FROM "Order" 
+            WHERE status != 'CANCELLED'
+            GROUP BY DATE_TRUNC('week', "createdAt")
+            ORDER BY DATE_TRUNC('week', "createdAt") ASC
+          `
+      trendsQuery = weeklyQuery
+    } else {
+      const monthlyQuery = startDate
+        ? await prisma.$queryRaw<Array<{
+            period: string
+            revenue: number
+            orders: number
+          }>>`
+            SELECT 
+              TO_CHAR("createdAt", 'YYYY-MM') as period,
+              SUM(total) as revenue,
+              COUNT(*) as orders
+            FROM "Order" 
+            WHERE status != 'CANCELLED' AND "createdAt" >= ${startDate}
+            GROUP BY TO_CHAR("createdAt", 'YYYY-MM')
+            ORDER BY period ASC
+          `
+        : await prisma.$queryRaw<Array<{
+            period: string
+            revenue: number
+            orders: number
+          }>>`
+            SELECT 
+              TO_CHAR("createdAt", 'YYYY-MM') as period,
+              SUM(total) as revenue,
+              COUNT(*) as orders
+            FROM "Order" 
+            WHERE status != 'CANCELLED'
+            GROUP BY TO_CHAR("createdAt", 'YYYY-MM')
+            ORDER BY period ASC
+          `
+      trendsQuery = monthlyQuery
+    }
 
+    // Calculate trends with growth from optimized query results
     const trends: Array<{ period: string; revenue: number; orders: number; averageOrderValue: number; growth: number }> = []
     let previousRevenue = 0
 
-    Array.from(trendsMap.entries())
-      .sort((a, b) => a[0].localeCompare(b[0]))
-      .forEach(([period, data]) => {
-        const averageOrderValue = data.orders > 0 ? data.revenue / data.orders : 0
-        const growth = previousRevenue > 0 ? ((data.revenue - previousRevenue) / previousRevenue) * 100 : 0
-        
-        trends.push({
-          period,
-          revenue: data.revenue,
-          orders: data.orders,
-          averageOrderValue,
-          growth
-        })
-        
-        previousRevenue = data.revenue
+    trendsQuery.forEach((item) => {
+      const revenue = Number(item.revenue)
+      const orders = Number(item.orders)
+      const averageOrderValue = orders > 0 ? revenue / orders : 0
+      const growth = previousRevenue > 0 ? ((revenue - previousRevenue) / previousRevenue) * 100 : 0
+      
+      trends.push({
+        period: item.period,
+        revenue,
+        orders,
+        averageOrderValue,
+        growth
       })
+      
+      previousRevenue = revenue
+    })
 
     return NextResponse.json({ trends })
   } catch (error) {

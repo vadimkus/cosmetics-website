@@ -20,116 +20,212 @@ export async function GET(request: NextRequest) {
       return date
     })()
 
-    // Get all orders
-    const orders = await prisma.order.findMany({
+    // Optimize: Use database aggregation for totals with single query
+    const totalsAggregation = await prisma.order.aggregate({
       where: {
         ...(startDate ? { createdAt: { gte: startDate } } : {}),
         status: { not: 'CANCELLED' }
       },
-      include: {
-        items: true
-      },
-      orderBy: {
-        createdAt: 'desc'
-      }
+      _sum: { total: true },
+      _count: { id: true }
     })
 
-    // Calculate totals
-    const totalRevenue = orders.reduce((sum, order) => sum + order.total, 0)
-    const totalOrders = orders.length
+    const totalRevenue = totalsAggregation._sum.total || 0
+    const totalOrders = totalsAggregation._count.id || 0
     const averageOrderValue = totalOrders > 0 ? totalRevenue / totalOrders : 0
 
-    // Revenue by day
-    const revenueByDayMap = new Map<string, { revenue: number; orders: number }>()
-    orders.forEach(order => {
-      const dateKey = order.createdAt.toISOString().split('T')[0] || order.createdAt.toISOString().substring(0, 10)
-      const existing = revenueByDayMap.get(dateKey) || { revenue: 0, orders: 0 }
-      revenueByDayMap.set(dateKey, {
-        revenue: existing.revenue + order.total,
-        orders: existing.orders + 1
-      })
-    })
-    const revenueByDay = Array.from(revenueByDayMap.entries())
-      .map(([date, data]) => ({ date, ...data }))
-      .sort((a, b) => a.date.localeCompare(b.date))
+    // Optimize: Use database aggregation for revenue by day
+    const revenueByDayQuery = startDate
+      ? await prisma.$queryRaw<Array<{
+          date: string
+          revenue: number
+          orders: number
+        }>>`
+          SELECT 
+            DATE("createdAt") as date,
+            SUM(total) as revenue,
+            COUNT(*) as orders
+          FROM "Order" 
+          WHERE status != 'CANCELLED' AND "createdAt" >= ${startDate}
+          GROUP BY DATE("createdAt")
+          ORDER BY date ASC
+        `
+      : await prisma.$queryRaw<Array<{
+          date: string
+          revenue: number
+          orders: number
+        }>>`
+          SELECT 
+            DATE("createdAt") as date,
+            SUM(total) as revenue,
+            COUNT(*) as orders
+          FROM "Order" 
+          WHERE status != 'CANCELLED'
+          GROUP BY DATE("createdAt")
+          ORDER BY date ASC
+        `
+    
+    const revenueByDay = revenueByDayQuery.map(item => ({
+      date: item.date,
+      revenue: Number(item.revenue),
+      orders: Number(item.orders)
+    }))
 
-    // Revenue by month
-    const revenueByMonthMap = new Map<string, { revenue: number; orders: number }>()
-    orders.forEach(order => {
-      const monthKey = order.createdAt.toISOString().substring(0, 7) // YYYY-MM
-      const existing = revenueByMonthMap.get(monthKey) || { revenue: 0, orders: 0 }
-      revenueByMonthMap.set(monthKey, {
-        revenue: existing.revenue + order.total,
-        orders: existing.orders + 1
-      })
-    })
-    const revenueByMonth = Array.from(revenueByMonthMap.entries())
-      .map(([month, data]) => ({ month, ...data }))
-      .sort((a, b) => a.month.localeCompare(b.month))
+    // Optimize: Use database aggregation for revenue by month
+    const revenueByMonthQuery = startDate
+      ? await prisma.$queryRaw<Array<{
+          month: string
+          revenue: number
+          orders: number
+        }>>`
+          SELECT 
+            TO_CHAR("createdAt", 'YYYY-MM') as month,
+            SUM(total) as revenue,
+            COUNT(*) as orders
+          FROM "Order" 
+          WHERE status != 'CANCELLED' AND "createdAt" >= ${startDate}
+          GROUP BY TO_CHAR("createdAt", 'YYYY-MM')
+          ORDER BY month ASC
+        `
+      : await prisma.$queryRaw<Array<{
+          month: string
+          revenue: number
+          orders: number
+        }>>`
+          SELECT 
+            TO_CHAR("createdAt", 'YYYY-MM') as month,
+            SUM(total) as revenue,
+            COUNT(*) as orders
+          FROM "Order" 
+          WHERE status != 'CANCELLED'
+          GROUP BY TO_CHAR("createdAt", 'YYYY-MM')
+          ORDER BY month ASC
+        `
+    
+    const revenueByMonth = revenueByMonthQuery.map(item => ({
+      month: item.month,
+      revenue: Number(item.revenue),
+      orders: Number(item.orders)
+    }))
 
-    // Revenue by status
-    const revenueByStatusMap = new Map<string, { revenue: number; orders: number }>()
-    orders.forEach(order => {
-      const existing = revenueByStatusMap.get(order.status) || { revenue: 0, orders: 0 }
-      revenueByStatusMap.set(order.status, {
-        revenue: existing.revenue + order.total,
-        orders: existing.orders + 1
-      })
+    // Optimize: Use database aggregation for revenue by status
+    const revenueByStatusQuery = await prisma.order.groupBy({
+      by: ['status'],
+      where: {
+        ...(startDate ? { createdAt: { gte: startDate } } : {}),
+        status: { not: 'CANCELLED' }
+      },
+      _sum: { total: true },
+      _count: { id: true }
     })
-    const revenueByStatus = Array.from(revenueByStatusMap.entries())
-      .map(([status, data]) => ({ status, ...data }))
-      .sort((a, b) => b.revenue - a.revenue)
-
-    // Top products
-    const productMap = new Map<string, { productName: string; revenue: number; quantity: number; orders: Set<string> }>()
-    orders.forEach(order => {
-      order.items.forEach(item => {
-        const existing = productMap.get(item.productId) || {
-          productName: item.productName,
-          revenue: 0,
-          quantity: 0,
-          orders: new Set<string>()
-        }
-        existing.revenue += item.price * item.quantity
-        existing.quantity += item.quantity
-        existing.orders.add(order.id)
-        productMap.set(item.productId, existing)
-      })
-    })
-    const topProducts = Array.from(productMap.entries())
-      .map(([productId, data]) => ({
-        productId,
-        productName: data.productName,
-        revenue: data.revenue,
-        quantity: data.quantity,
-        orders: data.orders.size
+    
+    const revenueByStatus = revenueByStatusQuery
+      .map(item => ({
+        status: item.status,
+        revenue: item._sum.total || 0,
+        orders: item._count.id || 0
       }))
       .sort((a, b) => b.revenue - a.revenue)
-      .slice(0, 20)
 
-    // Top customers
-    const customerMap = new Map<string, { name: string; revenue: number; orders: number; lastOrderDate: string }>()
-    orders.forEach(order => {
-      const existing = customerMap.get(order.customerEmail) || {
-        name: order.customerName,
-        revenue: 0,
-        orders: 0,
-        lastOrderDate: order.createdAt.toISOString()
-      }
-      existing.revenue += order.total
-      existing.orders += 1
-      if (new Date(order.createdAt) > new Date(existing.lastOrderDate)) {
-        existing.lastOrderDate = order.createdAt.toISOString()
-      }
-      customerMap.set(order.customerEmail, existing)
-    })
-    const topCustomers = Array.from(customerMap.entries())
-      .map(([email, data]) => ({
-        email,
-        ...data
-      }))
-      .sort((a, b) => b.revenue - a.revenue)
-      .slice(0, 20)
+    // Optimize: Use database aggregation for top products
+    const topProductsQuery = startDate
+      ? await prisma.$queryRaw<Array<{
+          productId: string
+          productName: string
+          revenue: number
+          quantity: number
+          orders: number
+        }>>`
+          SELECT 
+            oi."productId",
+            oi."productName",
+            SUM(oi.price * oi.quantity) as revenue,
+            SUM(oi.quantity) as quantity,
+            COUNT(DISTINCT oi."orderId") as orders
+          FROM "OrderItem" oi
+          JOIN "Order" o ON o.id = oi."orderId"
+          WHERE o.status != 'CANCELLED' AND o."createdAt" >= ${startDate}
+          GROUP BY oi."productId", oi."productName"
+          ORDER BY revenue DESC
+          LIMIT 20
+        `
+      : await prisma.$queryRaw<Array<{
+          productId: string
+          productName: string
+          revenue: number
+          quantity: number
+          orders: number
+        }>>`
+          SELECT 
+            oi."productId",
+            oi."productName",
+            SUM(oi.price * oi.quantity) as revenue,
+            SUM(oi.quantity) as quantity,
+            COUNT(DISTINCT oi."orderId") as orders
+          FROM "OrderItem" oi
+          JOIN "Order" o ON o.id = oi."orderId"
+          WHERE o.status != 'CANCELLED'
+          GROUP BY oi."productId", oi."productName"
+          ORDER BY revenue DESC
+          LIMIT 20
+        `
+    
+    const topProducts = topProductsQuery.map(item => ({
+      productId: item.productId,
+      productName: item.productName,
+      revenue: Number(item.revenue),
+      quantity: Number(item.quantity),
+      orders: Number(item.orders)
+    }))
+
+    // Optimize: Use database aggregation for top customers
+    const topCustomersQuery = startDate
+      ? await prisma.$queryRaw<Array<{
+          email: string
+          name: string
+          revenue: number
+          orders: number
+          lastOrderDate: string
+        }>>`
+          SELECT 
+            o."customerEmail" as email,
+            o."customerName" as name,
+            SUM(o.total) as revenue,
+            COUNT(*) as orders,
+            MAX(o."createdAt") as "lastOrderDate"
+          FROM "Order" o
+          WHERE o.status != 'CANCELLED' AND o."createdAt" >= ${startDate}
+          GROUP BY o."customerEmail", o."customerName"
+          ORDER BY revenue DESC
+          LIMIT 20
+        `
+      : await prisma.$queryRaw<Array<{
+          email: string
+          name: string
+          revenue: number
+          orders: number
+          lastOrderDate: string
+        }>>`
+          SELECT 
+            o."customerEmail" as email,
+            o."customerName" as name,
+            SUM(o.total) as revenue,
+            COUNT(*) as orders,
+            MAX(o."createdAt") as "lastOrderDate"
+          FROM "Order" o
+          WHERE o.status != 'CANCELLED'
+          GROUP BY o."customerEmail", o."customerName"
+          ORDER BY revenue DESC
+          LIMIT 20
+        `
+    
+    const topCustomers = topCustomersQuery.map(item => ({
+      email: item.email,
+      name: item.name,
+      revenue: Number(item.revenue),
+      orders: Number(item.orders),
+      lastOrderDate: new Date(item.lastOrderDate).toISOString()
+    }))
 
     // Return empty arrays if no orders, but still return the structure
     return NextResponse.json({

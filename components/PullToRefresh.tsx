@@ -5,6 +5,7 @@ import { RefreshCw } from 'lucide-react'
 import { usePullToRefresh } from '@/hooks/usePullToRefresh'
 import { useServiceWorkerContext } from '@/components/ServiceWorkerProvider'
 import { useTranslation } from '@/hooks/useTranslation'
+import { errorLog } from '@/lib/logger'
 
 interface PullToRefreshProps {
   children: ReactNode
@@ -21,7 +22,7 @@ export function PullToRefresh({ children, onRefresh, disabled = false }: PullToR
     try {
       await checkForUpdates()
     } catch (error) {
-      console.error('Failed to check for updates:', error)
+      errorLog('Failed to check for updates:', error)
     }
 
     // Call custom refresh handler if provided

@@ -60,9 +60,9 @@ export function middleware(request: NextRequest) {
   // Don't redirect root path - it's already English (default)
   // Only redirect if path doesn't have locale and is not root
   // Exclude static assets (videos, images, icons, service worker, etc.) from locale routing
-  // Also exclude development/testing routes like /phone
+  // Also exclude development/testing routes like /phone and /pwa-demo
   const staticAssets = ['/manifest.json', '/apple-touch-icon.png', '/favicon.ico', '/favicon-16x16.png', '/favicon-32x32.png', '/icon-192x192.png', '/icon-512x512.png', '/sw.js']
-  const excludedRoutes = ['/phone']
+  const excludedRoutes = ['/phone', '/phone2', '/phone3', '/pwa-demo', '/test-analytics']
   if (pathname !== '/' && !pathnameHasLocale && !pathname.startsWith('/api') && !pathname.startsWith('/_next') && !pathname.startsWith('/videos') && !pathname.startsWith('/images') && !pathname.startsWith('/Logo') && !staticAssets.includes(pathname) && !excludedRoutes.includes(pathname)) {
     // Check for user's language preference cookie first (set by language switcher)
     const localeCookie = request.cookies.get('NEXT_LOCALE')?.value

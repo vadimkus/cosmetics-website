@@ -1,6 +1,7 @@
 import PWAFeaturesDemo from '@/components/PWAFeaturesDemo'
 import ProductShareButton from '@/components/ProductShareButton'
 import ShareButton from '@/components/ShareButton'
+import LocaleDebugger from '@/components/LocaleDebugger'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -124,6 +125,11 @@ export default function PWADemoPage() {
                 <strong>Cart Badge:</strong> Automatically updates when items are added to cart (test by adding products to cart).
               </div>
             </div>
+          </div>
+
+          {/* Locale Debugger */}
+          <div className="md:col-span-2">
+            <LocaleDebugger />
           </div>
 
           {/* Browser Compatibility */}

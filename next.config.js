@@ -65,7 +65,7 @@ const nextConfig = {
     
     // Quality settings optimized for cosmetics product images
     // Higher quality for product photos to showcase details
-    qualities: [70, 80, 90, 95],
+        qualities: [70, 75, 80, 90, 95],
     
     // SVG support with security
     dangerouslyAllowSVG: true,

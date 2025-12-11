@@ -1,10 +1,11 @@
 'use client'
 
 import { useState } from 'react'
-import { Smartphone, Badge, Share2, Download, Zap } from 'lucide-react'
+import { Smartphone, Badge, Share2, Download, Zap, Loader2 } from 'lucide-react'
 import { usePWAInstall } from '@/hooks/usePWAInstall'
 import { useAppBadge } from '@/hooks/useAppBadge'
 import { useWebShare } from '@/hooks/useWebShare'
+import { useClientOnly } from '@/hooks/useClientOnly'
 import { cn } from '@/lib/utils'
 
 interface PWAFeaturesDemoProps {
@@ -12,6 +13,7 @@ interface PWAFeaturesDemoProps {
 }
 
 export default function PWAFeaturesDemo({ className }: PWAFeaturesDemoProps) {
+  const hasMounted = useClientOnly()
   const { isInstallable, isInstalled, showPrompt } = usePWAInstall()
   const { setBadge, clearBadge, isSupported: isBadgeSupported } = useAppBadge()
   const { share, isSupported: isShareSupported } = useWebShare()
@@ -65,7 +67,12 @@ export default function PWAFeaturesDemo({ className }: PWAFeaturesDemoProps) {
               Enhanced app installation experience with custom UI
             </p>
             <div className="flex items-center gap-2">
-              {isInstalled ? (
+              {!hasMounted ? (
+                <div className="flex items-center gap-2 text-gray-500 text-sm">
+                  <Loader2 className="w-3 h-3 animate-spin" />
+                  Checking install status...
+                </div>
+              ) : isInstalled ? (
                 <div className="flex items-center gap-2 text-green-600 text-sm">
                   <div className="w-2 h-2 bg-green-500 rounded-full"></div>
                   App is installed
@@ -100,7 +107,12 @@ export default function PWAFeaturesDemo({ className }: PWAFeaturesDemoProps) {
               Show notification count on app icon (Chrome 81+)
             </p>
             <div className="flex items-center gap-2">
-              {isBadgeSupported ? (
+              {!hasMounted ? (
+                <div className="flex items-center gap-2 text-gray-500 text-sm">
+                  <Loader2 className="w-3 h-3 animate-spin" />
+                  Checking badge support...
+                </div>
+              ) : isBadgeSupported ? (
                 <>
                   <button
                     onClick={handleBadgeTest}
@@ -137,7 +149,12 @@ export default function PWAFeaturesDemo({ className }: PWAFeaturesDemoProps) {
               Native sharing with system share sheet
             </p>
             <div className="flex items-center gap-2">
-              {isShareSupported ? (
+              {!hasMounted ? (
+                <div className="flex items-center gap-2 text-gray-500 text-sm">
+                  <Loader2 className="w-3 h-3 animate-spin" />
+                  Checking share support...
+                </div>
+              ) : isShareSupported ? (
                 <button
                   onClick={handleShareTest}
                   className="px-3 py-1.5 bg-green-500 text-white text-sm rounded-lg hover:bg-green-600 transition-colors flex items-center gap-2"
@@ -172,21 +189,42 @@ export default function PWAFeaturesDemo({ className }: PWAFeaturesDemoProps) {
           </div>
           <div className="flex justify-between">
             <span>Install Prompt:</span>
-            <span className={isInstallable ? 'text-green-600' : 'text-gray-500'}>
-              {isInstallable ? '✓ Ready' : '⊝ Not available'}
-            </span>
+            {!hasMounted ? (
+              <span className="text-gray-400 flex items-center gap-1">
+                <Loader2 className="w-3 h-3 animate-spin" />
+                Checking...
+              </span>
+            ) : (
+              <span className={isInstallable ? 'text-green-600' : 'text-gray-500'}>
+                {isInstallable ? '✓ Ready' : '⊝ Not available'}
+              </span>
+            )}
           </div>
           <div className="flex justify-between">
             <span>App Badge:</span>
-            <span className={isBadgeSupported ? 'text-green-600' : 'text-gray-500'}>
-              {isBadgeSupported ? '✓ Supported' : '⊝ Not supported'}
-            </span>
+            {!hasMounted ? (
+              <span className="text-gray-400 flex items-center gap-1">
+                <Loader2 className="w-3 h-3 animate-spin" />
+                Checking...
+              </span>
+            ) : (
+              <span className={isBadgeSupported ? 'text-green-600' : 'text-gray-500'}>
+                {isBadgeSupported ? '✓ Supported' : '⊝ Not supported'}
+              </span>
+            )}
           </div>
           <div className="flex justify-between">
             <span>Web Share:</span>
-            <span className={isShareSupported ? 'text-green-600' : 'text-gray-500'}>
-              {isShareSupported ? '✓ Supported' : '⊝ Fallback only'}
-            </span>
+            {!hasMounted ? (
+              <span className="text-gray-400 flex items-center gap-1">
+                <Loader2 className="w-3 h-3 animate-spin" />
+                Checking...
+              </span>
+            ) : (
+              <span className={isShareSupported ? 'text-green-600' : 'text-gray-500'}>
+                {isShareSupported ? '✓ Supported' : '⊝ Fallback only'}
+              </span>
+            )}
           </div>
         </div>
       </div>

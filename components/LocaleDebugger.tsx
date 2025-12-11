@@ -1,9 +1,11 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Settings, RefreshCw } from 'lucide-react'
+import { Settings, RefreshCw, Loader2 } from 'lucide-react'
+import { useClientOnly } from '@/hooks/useClientOnly'
 
 export default function LocaleDebugger() {
+  const hasMounted = useClientOnly()
   const [localeInfo, setLocaleInfo] = useState<{
     cookie: string | null
     browserLang: string
@@ -85,10 +87,19 @@ export default function LocaleDebugger() {
     }
   }
 
-  if (!localeInfo) {
+  if (!hasMounted || !localeInfo) {
     return (
-      <div className="bg-white border rounded-lg p-4">
-        <div className="animate-pulse">Loading locale info...</div>
+      <div className="bg-white border rounded-lg p-6 space-y-4">
+        <div className="flex items-center gap-2 mb-4">
+          <Settings className="w-5 h-5 text-gray-600" />
+          <h3 className="font-semibold text-gray-900">Locale Debug Information</h3>
+        </div>
+        <div className="flex items-center justify-center py-8">
+          <div className="flex items-center gap-2 text-gray-500">
+            <Loader2 className="w-5 h-5 animate-spin" />
+            Loading locale information...
+          </div>
+        </div>
       </div>
     )
   }

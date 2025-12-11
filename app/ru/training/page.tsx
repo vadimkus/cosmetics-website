@@ -272,7 +272,6 @@ export default function RussianTrainingPage() {
                   Документация по продукции
                 </h3>
                 <div className="space-y-1.5 md:space-y-2">
-                  {/* Product documentation items - same structure as English version */}
                   <div className="group border border-gray-200 rounded-md md:rounded-lg p-2 md:p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
                     <div className="flex items-center gap-2 md:gap-3">
                       <div className="w-8 h-8 md:w-10 md:h-10 bg-gray-100 rounded-md md:rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
@@ -281,8 +280,7 @@ export default function RussianTrainingPage() {
                             src="/images/RAA.jpg"
                             alt="MULTI VITA RADIANCE CREAM"
                             width={500}
-                            height={300}
-                            className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+                            height={300} className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
                           />
                         </Link>
                       </div>
@@ -306,9 +304,369 @@ export default function RussianTrainingPage() {
                     </div>
                   </div>
                   
-                  {/* Add more product documentation items as needed - following same pattern */}
-                  {/* For brevity, I'll add a few key ones */}
+                  <div className="group border border-gray-200 rounded-md md:rounded-lg p-2 md:p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-2 md:gap-3">
+                      <div className="w-8 h-8 md:w-10 md:h-10 bg-gray-100 rounded-md md:rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+                        <Link href="/ru/products/50">
+                          <Image
+                            src="/images/EYEZ.jpg"
+                            alt="EyeCell EYE ZONE CARE SYSTEM"
+                            width={500}
+                            height={300} className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+                          />
+                        </Link>
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h4 className="text-xs md:text-sm font-semibold text-gray-900 truncate">
+                          EyeCell СИСТЕМА УХОДА ЗА ЗОНОЙ ГЛАЗ
+                        </h4>
+                        <p className="text-[10px] md:text-xs text-gray-400">
+                          1.8 МБ
+                        </p>
+                      </div>
+                      <PDFDownloadButton 
+                        href="/documents/ppt/GENOSYS%20EyeCell%20EYE%20ZONE%20CARE%20SYSTEM.pdf"
+                        filename="Документация по продукции"
+                        external={true}
+                        className="inline-flex items-center px-2 md:px-3 py-1 md:py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-[10px] md:text-xs font-medium flex-shrink-0"
+                      >
+                        <Download className="h-2.5 w-2.5 md:h-3 md:w-3 mr-0.5 md:mr-1" />
+                        PDF
+                      </PDFDownloadButton>
+                    </div>
+                  </div>
                   
+                  {/* EPI TURNOVER BOOSTING PEELING GEL */}
+                  <div className="group border border-gray-200 rounded-md md:rounded-lg p-2 md:p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-2 md:gap-3">
+                      <div className="w-8 h-8 md:w-10 md:h-10 bg-gray-100 rounded-md md:rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+                        <Link href="/ru/products/12">
+                          <Image
+                            src="/images/EPI.jpg"
+                            alt="EPI TURNOVER BOOSTING PEELING GEL"
+                            width={500}
+                            height={300} className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+                          />
+                        </Link>
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h4 className="text-xs md:text-sm font-semibold text-gray-900 truncate">
+                          EPI ПИЛИНГ-ГЕЛЬ УСИЛИВАЮЩИЙ ОБНОВЛЕНИЕ
+                        </h4>
+                        <p className="text-[10px] md:text-xs text-gray-400">
+                          3.8 МБ
+                        </p>
+                      </div>
+                      <PDFDownloadButton 
+                        href="/documents/ppt/GENOSYS%20EPI%20TURNOVER%20BOOSTING%20PEELING%20GEL.pdf"
+                        filename="Документация по продукции"
+                        external={true}
+                        className="inline-flex items-center px-2 md:px-3 py-1 md:py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-[10px] md:text-xs font-medium flex-shrink-0"
+                      >
+                        <Download className="h-2.5 w-2.5 md:h-3 md:w-3 mr-0.5 md:mr-1" />
+                        PDF
+                      </PDFDownloadButton>
+                    </div>
+                  </div>
+                  
+                  {/* MULTI VITA RADIANCE SERUM */}
+                  <div className="group border border-gray-200 rounded-md md:rounded-lg p-2 md:p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-2 md:gap-3">
+                      <div className="w-8 h-8 md:w-10 md:h-10 bg-gray-100 rounded-md md:rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+                        <Link href="/ru/products/21">
+                          <Image
+                            src="/images/RADS.jpg"
+                            alt="MULTI VITA RADIANCE SERUM"
+                            width={500}
+                            height={300} className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+                          />
+                        </Link>
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h4 className="text-xs md:text-sm font-semibold text-gray-900 truncate">
+                          MULTI VITA RADIANCE СЫВОРОТКА
+                        </h4>
+                        <p className="text-[10px] md:text-xs text-gray-400">
+                          1.5 МБ
+                        </p>
+                      </div>
+                      <PDFDownloadButton 
+                        href="/documents/ppt/GENOSYS%20MULTI%20VITA%20RADIANCE%20SERUM.pdf"
+                        filename="Документация по продукции"
+                        external={true}
+                        className="inline-flex items-center px-2 md:px-3 py-1 md:py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-[10px] md:text-xs font-medium flex-shrink-0"
+                      >
+                        <Download className="h-2.5 w-2.5 md:h-3 md:w-3 mr-0.5 md:mr-1" />
+                        PDF
+                      </PDFDownloadButton>
+                    </div>
+                  </div>
+                  
+                  {/* SKIN DEFENDER LIP & EYE MAKEUP REMOVER */}
+                  <div className="group border border-gray-200 rounded-md md:rounded-lg p-2 md:p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-2 md:gap-3">
+                      <div className="w-8 h-8 md:w-10 md:h-10 bg-gray-100 rounded-md md:rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+                        <Link href="/ru/products/11">
+                          <Image
+                            src="/images/DEF.jpg"
+                            alt="SKIN DEFENDER LIP & EYE MAKEUP REMOVER"
+                            width={500}
+                            height={300} className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+                          />
+                        </Link>
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h4 className="text-xs md:text-sm font-semibold text-gray-900 truncate">
+                          SKIN DEFENDER СРЕДСТВО ДЛЯ СНЯТИЯ МАКИЯЖА С ГУБ И ГЛАЗ
+                        </h4>
+                        <p className="text-[10px] md:text-xs text-gray-400">
+                          0.7 МБ
+                        </p>
+                      </div>
+                      <PDFDownloadButton 
+                        href="/documents/ppt/GENOSYS%20SKIN%20DEFENDER%20LIP%20%26%20EYE%20MAKEUP%20REMOVER.pdf"
+                        filename="Документация по продукции"
+                        external={true}
+                        className="inline-flex items-center px-2 md:px-3 py-1 md:py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-[10px] md:text-xs font-medium flex-shrink-0"
+                      >
+                        <Download className="h-2.5 w-2.5 md:h-3 md:w-3 mr-0.5 md:mr-1" />
+                        PDF
+                      </PDFDownloadButton>
+                    </div>
+                  </div>
+                  
+                  {/* MICROBIOME ENERGY INFUSING MIST */}
+                  <div className="group border border-gray-200 rounded-md md:rounded-lg p-2 md:p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-2 md:gap-3">
+                      <div className="w-8 h-8 md:w-10 md:h-10 bg-gray-100 rounded-md md:rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+                        <Link href="/ru/products/14">
+                          <Image
+                            src="/images/mist.jpg"
+                            alt="MICROBIOME ENERGY INFUSING MIST"
+                            width={500}
+                            height={300} className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+                          />
+                        </Link>
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h4 className="text-xs md:text-sm font-semibold text-gray-900 truncate">
+                          MICROBIOME ЭНЕРГЕТИЧЕСКИЙ МИСТ
+                        </h4>
+                        <p className="text-[10px] md:text-xs text-gray-400">
+                          0.8 МБ
+                        </p>
+                      </div>
+                      <PDFDownloadButton 
+                        href="/documents/ppt/GENOSYS%20MICROBIOME%20ENERGY%20INFUSING%20MIST.pdf"
+                        filename="Документация по продукции"
+                        external={true}
+                        className="inline-flex items-center px-2 md:px-3 py-1 md:py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-[10px] md:text-xs font-medium flex-shrink-0"
+                      >
+                        <Download className="h-2.5 w-2.5 md:h-3 md:w-3 mr-0.5 md:mr-1" />
+                        PDF
+                      </PDFDownloadButton>
+                    </div>
+                  </div>
+                  
+                  {/* SKIN RESCUE OVERNIGHT CREAM MASK */}
+                  <div className="group border border-gray-200 rounded-md md:rounded-lg p-2 md:p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-2 md:gap-3">
+                      <div className="w-8 h-8 md:w-10 md:h-10 bg-gray-100 rounded-md md:rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+                        <Link href="/ru/products/34">
+                          <Image
+                            src="/images/SKIN.jpg"
+                            alt="SKIN RESCUE OVERNIGHT CREAM MASK"
+                            width={500}
+                            height={300} className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+                          />
+                        </Link>
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h4 className="text-xs md:text-sm font-semibold text-gray-900 truncate">
+                          SKIN RESCUE НОЧНАЯ КРЕМ-МАСКА
+                        </h4>
+                        <p className="text-[10px] md:text-xs text-gray-400">
+                          1.3 МБ
+                        </p>
+                      </div>
+                      <PDFDownloadButton 
+                        href="/documents/ppt/GENOSYS%20SKIN%20RESCUE%20OVERNIGHT%20CREAM%20MASK.pdf"
+                        filename="Документация по продукции"
+                        external={true}
+                        className="inline-flex items-center px-2 md:px-3 py-1 md:py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-[10px] md:text-xs font-medium flex-shrink-0"
+                      >
+                        <Download className="h-2.5 w-2.5 md:h-3 md:w-3 mr-0.5 md:mr-1" />
+                        PDF
+                      </PDFDownloadButton>
+                    </div>
+                  </div>
+                  
+                  {/* INTENSIVE PROBLEM CONTROL TONER */}
+                  <div className="group border border-gray-200 rounded-md md:rounded-lg p-2 md:p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-2 md:gap-3">
+                      <div className="w-8 h-8 md:w-10 md:h-10 bg-gray-100 rounded-md md:rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+                        <Link href="/ru/products/15">
+                          <Image
+                            src="/images/PRS.jpg"
+                            alt="INTENSIVE PROBLEM CONTROL TONER"
+                            width={500}
+                            height={300} className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+                          />
+                        </Link>
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h4 className="text-xs md:text-sm font-semibold text-gray-900 truncate">
+                          ИНТЕНСИВНЫЙ ТОНИК ДЛЯ КОНТРОЛЯ ПРОБЛЕМ
+                        </h4>
+                        <p className="text-[10px] md:text-xs text-gray-400">
+                          1.0 МБ
+                        </p>
+                      </div>
+                      <PDFDownloadButton 
+                        href="/documents/ppt/GENOSYS%20INTENSIVE%20PROBLEM%20CONTROL%20TONER.pdf"
+                        filename="Документация по продукции"
+                        external={true}
+                        className="inline-flex items-center px-2 md:px-3 py-1 md:py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-[10px] md:text-xs font-medium flex-shrink-0"
+                      >
+                        <Download className="h-2.5 w-2.5 md:h-3 md:w-3 mr-0.5 md:mr-1" />
+                        PDF
+                      </PDFDownloadButton>
+                    </div>
+                  </div>
+                  
+                  {/* ULTRA SHIELD SUN CREAM */}
+                  <div className="group border border-gray-200 rounded-md md:rounded-lg p-2 md:p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-2 md:gap-3">
+                      <div className="w-8 h-8 md:w-10 md:h-10 bg-gray-100 rounded-md md:rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+                        <Link href="/ru/products/39">
+                          <Image
+                            src="/images/SPF50.jpg"
+                            alt="ULTRA SHIELD SUN CREAM"
+                            width={500}
+                            height={300} className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+                          />
+                        </Link>
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h4 className="text-xs md:text-sm font-semibold text-gray-900 truncate">
+                          ULTRA SHIELD СОЛНЦЕЗАЩИТНЫЙ КРЕМ
+                        </h4>
+                        <p className="text-[10px] md:text-xs text-gray-400">
+                          0.6 МБ
+                        </p>
+                      </div>
+                      <PDFDownloadButton 
+                        href="/documents/ppt/GENOSYS%20ULTRA%20SHIELD%20SUN%20CREAM.pdf"
+                        filename="Документация по продукции"
+                        external={true}
+                        className="inline-flex items-center px-2 md:px-3 py-1 md:py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-[10px] md:text-xs font-medium flex-shrink-0"
+                      >
+                        <Download className="h-2.5 w-2.5 md:h-3 md:w-3 mr-0.5 md:mr-1" />
+                        PDF
+                      </PDFDownloadButton>
+                    </div>
+                  </div>
+                  
+                  {/* HR³ MATRIX SCALP SHAMPOO α */}
+                  <div className="group border border-gray-200 rounded-md md:rounded-lg p-2 md:p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-2 md:gap-3">
+                      <div className="w-8 h-8 md:w-10 md:h-10 bg-gray-100 rounded-md md:rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+                        <Link href="/ru/products/44">
+                          <Image
+                            src="/images/Sham.jpg"
+                            alt="HR³ MATRIX SCALP SHAMPOO α"
+                            width={500}
+                            height={300} className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+                          />
+                        </Link>
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h4 className="text-xs md:text-sm font-semibold text-gray-900 truncate">
+                          HR³ MATRIX ШАМПУНЬ ДЛЯ КОЖИ ГОЛОВЫ α
+                        </h4>
+                        <p className="text-[10px] md:text-xs text-gray-400">
+                          2.3 МБ
+                        </p>
+                      </div>
+                      <PDFDownloadButton 
+                        href="/documents/ppt/GENOSYS%20HR3%20MATRIX%20SCALP%20SHAMPOO%20ALPHA.pdf"
+                        filename="Документация по продукции"
+                        external={true}
+                        className="inline-flex items-center px-2 md:px-3 py-1 md:py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-[10px] md:text-xs font-medium flex-shrink-0"
+                      >
+                        <Download className="h-2.5 w-2.5 md:h-3 md:w-3 mr-0.5 md:mr-1" />
+                        PDF
+                      </PDFDownloadButton>
+                    </div>
+                  </div>
+                  
+                  {/* MOISTURE REPLENISHING HYALURON SERUM */}
+                  <div className="group border border-gray-200 rounded-md md:rounded-lg p-2 md:p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-2 md:gap-3">
+                      <div className="w-8 h-8 md:w-10 md:h-10 bg-gray-100 rounded-md md:rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+                        <Link href="/ru/products/18">
+                          <Image
+                            src="/images/HRS.jpg"
+                            alt="MOISTURE REPLENISHING HYALURON SERUM"
+                            width={500}
+                            height={300} className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+                          />
+                        </Link>
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h4 className="text-xs md:text-sm font-semibold text-gray-900 truncate">
+                          УВЛАЖНЯЮЩАЯ ГИАЛУРОНОВАЯ СЫВОРОТКА
+                        </h4>
+                        <p className="text-[10px] md:text-xs text-gray-400">
+                          1.9 МБ
+                        </p>
+                      </div>
+                      <PDFDownloadButton 
+                        href="/documents/ppt/GENOSYS%20MOISTURE%20REPLENISHING%20HYALURON%20SERUM.pdf"
+                        filename="Документация по продукции"
+                        external={true}
+                        className="inline-flex items-center px-2 md:px-3 py-1 md:py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-[10px] md:text-xs font-medium flex-shrink-0"
+                      >
+                        <Download className="h-2.5 w-2.5 md:h-3 md:w-3 mr-0.5 md:mr-1" />
+                        PDF
+                      </PDFDownloadButton>
+                    </div>
+                  </div>
+                  
+                  {/* MOISTURE REPLENISHING HYALURON CREAM */}
+                  <div className="group border border-gray-200 rounded-md md:rounded-lg p-2 md:p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-2 md:gap-3">
+                      <div className="w-8 h-8 md:w-10 md:h-10 bg-gray-100 rounded-md md:rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+                        <Link href="/ru/products/29">
+                          <Image
+                            src="/images/HER.jpg"
+                            alt="MOISTURE REPLENISHING HYALURON CREAM"
+                            width={500}
+                            height={300} className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+                          />
+                        </Link>
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h4 className="text-xs md:text-sm font-semibold text-gray-900 truncate">
+                          УВЛАЖНЯЮЩИЙ ГИАЛУРОНОВЫЙ КРЕМ
+                        </h4>
+                        <p className="text-[10px] md:text-xs text-gray-400">
+                          2.0 МБ
+                        </p>
+                      </div>
+                      <PDFDownloadButton 
+                        href="/documents/ppt/GENOSYS%20MOISTURE%20REPLENISHING%20HYALURON%20CREAM.pdf"
+                        filename="Документация по продукции"
+                        external={true}
+                        className="inline-flex items-center px-2 md:px-3 py-1 md:py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-[10px] md:text-xs font-medium flex-shrink-0"
+                      >
+                        <Download className="h-2.5 w-2.5 md:h-3 md:w-3 mr-0.5 md:mr-1" />
+                        PDF
+                      </PDFDownloadButton>
+                    </div>
+                  </div>
+                  
+                  {/* Microneedle Roller */}
                   <div className="group border border-gray-200 rounded-md md:rounded-lg p-2 md:p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
                     <div className="flex items-center gap-2 md:gap-3">
                       <div className="w-8 h-8 md:w-10 md:h-10 bg-gray-100 rounded-md md:rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
@@ -317,14 +675,13 @@ export default function RussianTrainingPage() {
                             src="/images/genosys-microneedling-devices.jpg"
                             alt="Microneedle Roller"
                             width={500}
-                            height={300}
-                            className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+                            height={300} className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
                           />
                         </Link>
                       </div>
                       <div className="flex-1 min-w-0">
                         <h4 className="text-xs md:text-sm font-semibold text-gray-900 truncate">
-                          Microneedle Roller
+                          Микроиглы Роллер
                         </h4>
                         <p className="text-[10px] md:text-xs text-gray-400">
                           1.5 МБ
@@ -349,7 +706,7 @@ export default function RussianTrainingPage() {
           {/* Training Lessons Section - Video Tutorials */}
           <div className="mt-6 md:mt-16">
             <div className="grid gap-4 md:gap-8">
-              {/* Video lessons - same structure as English version */}
+              {/* Genosys Bodycell Stretch Mark Treatment Lesson */}
               <div className="bg-white rounded-lg shadow-md md:shadow-lg overflow-hidden">
                 <div className="p-3 md:p-6">
                   <h3 className="text-sm md:text-2xl font-bold text-gray-800 mb-2 md:mb-4 text-center">
@@ -360,6 +717,7 @@ export default function RussianTrainingPage() {
                     Это комплексное обучение охватывает правильные методы применения, протоколы безопасности и ожидаемые результаты.
                   </p>
                   
+                  {/* Video Container */}
                   <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
                     <iframe
                       className="absolute top-0 left-0 w-full h-full rounded-lg"
@@ -370,10 +728,329 @@ export default function RussianTrainingPage() {
                       allowFullScreen
                     ></iframe>
                   </div>
+                  
+                  {/* Lesson Details */}
+                  <div className="hidden md:grid mt-6 md:grid-cols-2 gap-6">
+                    <div>
+                      <h4 className="font-semibold text-gray-800 mb-2">Что вы изучите:</h4>
+                      <ul className="text-gray-600 space-y-1">
+                        <li>• Правильные техники применения продукта</li>
+                        <li>• Протоколы безопасности и меры предосторожности</li>
+                        <li>• Продолжительность и частота лечения</li>
+                        <li>• Ожидаемые результаты и временные рамки</li>
+                        <li>• Лучшие практики консультации клиентов</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-800 mb-2">Детали урока:</h4>
+                      <ul className="text-gray-600 space-y-1">
+                        <li>• Продолжительность: 15-20 минут</li>
+                        <li>• Уровень: Профессиональный</li>
+                        <li>• Категория: Процедуры для тела</li>
+                        <li>• Сертификация: Доступна по завершении</li>
+                      </ul>
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              {/* Add more video lessons as needed */}
+              {/* Genosys NDcell Neck & Decollete Treatment Lesson */}
+              <div className="bg-white rounded-lg shadow-md md:shadow-lg overflow-hidden">
+                <div className="p-3 md:p-6">
+                  <h3 className="text-sm md:text-2xl font-bold text-gray-800 mb-2 md:mb-4 text-center">
+                    Лечение шеи и декольте Genosys NDcell
+                  </h3>
+                  <p className="hidden md:block text-gray-600 mb-6">
+                    Освойте специализированные техники лечения деликатной области шеи и декольте с использованием технологии Genosys NDcell. 
+                    Это продвинутое обучение охватывает правильные методы применения, соображения безопасности и достижение оптимальных результатов для этой чувствительной области.
+                  </p>
+                  
+                  {/* Video Container */}
+                  <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
+                    <iframe
+                      className="absolute top-0 left-0 w-full h-full rounded-lg"
+                      src="https://www.youtube.com/embed/m07q2XRt_OM"
+                      title="Обучение лечению шеи и декольте Genosys NDcell"
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowFullScreen
+                    ></iframe>
+                  </div>
+                  
+                  {/* Lesson Details */}
+                  <div className="hidden md:grid mt-6 md:grid-cols-2 gap-6">
+                    <div>
+                      <h4 className="font-semibold text-gray-800 mb-2">Что вы изучите:</h4>
+                      <ul className="text-gray-600 space-y-1">
+                        <li>• Специализированные техники для шеи и декольте</li>
+                        <li>• Правильная работа с чувствительными участками кожи</li>
+                        <li>• Протоколы и время лечения</li>
+                        <li>• Позиционирование и комфорт клиента</li>
+                        <li>• Инструкции по уходу после процедуры</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-800 mb-2">Детали урока:</h4>
+                      <ul className="text-gray-600 space-y-1">
+                        <li>• Продолжительность: 18-22 минуты</li>
+                        <li>• Уровень: Продвинутый профессиональный</li>
+                        <li>• Категория: Специализированные процедуры</li>
+                        <li>• Сертификация: Доступна по завершении</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Genosys EyeCell Treatment Lesson */}
+              <div className="bg-white rounded-lg shadow-md md:shadow-lg overflow-hidden">
+                <div className="p-3 md:p-6">
+                  <h3 className="text-sm md:text-2xl font-bold text-gray-800 mb-2 md:mb-4 text-center">
+                    Процедура Genosys EyeCell
+                  </h3>
+                  <p className="hidden md:block text-gray-600 mb-6">
+                    Изучите точные техники лечения деликатной области глаз с использованием технологии Genosys EyeCell. 
+                    Это специализированное обучение охватывает безопасные методы применения, протоколы комфорта клиента и достижение оптимальных результатов для чувствительной периорбитальной области.
+                  </p>
+                  
+                  {/* Video Container */}
+                  <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
+                    <iframe
+                      className="absolute top-0 left-0 w-full h-full rounded-lg"
+                      src="https://www.youtube.com/embed/xH58EZtykZE"
+                      title="Обучение процедуре Genosys EyeCell"
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowFullScreen
+                    ></iframe>
+                  </div>
+                  
+                  {/* Lesson Details */}
+                  <div className="hidden md:grid mt-6 md:grid-cols-2 gap-6">
+                    <div>
+                      <h4 className="font-semibold text-gray-800 mb-2">Что вы изучите:</h4>
+                      <ul className="text-gray-600 space-y-1">
+                        <li>• Точные техники лечения области глаз</li>
+                        <li>• Протоколы безопасности для чувствительной области глаз</li>
+                        <li>• Позиционирование клиента и защита глаз</li>
+                        <li>• Интенсивность и продолжительность процедуры</li>
+                        <li>• Уход и рекомендации после процедуры</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-800 mb-2">Детали урока:</h4>
+                      <ul className="text-gray-600 space-y-1">
+                        <li>• Продолжительность: 16-20 минут</li>
+                        <li>• Уровень: Продвинутый профессиональный</li>
+                        <li>• Категория: Специализированные процедуры для глаз</li>
+                        <li>• Сертификация: Доступна по завершении</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Genosys HR3 Matrix Treatment Lesson */}
+              <div className="bg-white rounded-lg shadow-md md:shadow-lg overflow-hidden">
+                <div className="p-3 md:p-6">
+                  <h3 className="text-sm md:text-2xl font-bold text-gray-800 mb-2 md:mb-4 text-center">
+                    Процедура Genosys HR3 Matrix
+                  </h3>
+                  <p className="hidden md:block text-gray-600 mb-6">
+                    Освойте продвинутые техники процедуры HR3 Matrix с использованием технологии Genosys. 
+                    Это комплексное обучение охватывает методы применения матрикса, протоколы лечения и достижение оптимальных результатов для омоложения кожи и улучшения матрикса.
+                  </p>
+                  
+                  {/* Video Container */}
+                  <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
+                    <iframe
+                      className="absolute top-0 left-0 w-full h-full rounded-lg"
+                      src="https://www.youtube.com/embed/qQRcEvd3Ks4"
+                      title="Обучение процедуре Genosys HR3 Matrix"
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowFullScreen
+                    ></iframe>
+                  </div>
+                  
+                  {/* Lesson Details */}
+                  <div className="hidden md:grid mt-6 md:grid-cols-2 gap-6">
+                    <div>
+                      <h4 className="font-semibold text-gray-800 mb-2">Что вы изучите:</h4>
+                      <ul className="text-gray-600 space-y-1">
+                        <li>• Техники применения HR3 Matrix</li>
+                        <li>• Протоколы и время лечения</li>
+                        <li>• Подготовка и оценка кожи</li>
+                        <li>• Консультация клиента и ожидания</li>
+                        <li>• Уход и наблюдение после процедуры</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-800 mb-2">Детали урока:</h4>
+                      <ul className="text-gray-600 space-y-1">
+                        <li>• Продолжительность: 20-25 минут</li>
+                        <li>• Уровень: Продвинутый профессиональный</li>
+                        <li>• Категория: Матричные процедуры</li>
+                        <li>• Сертификация: Доступна по завершении</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Facial Treatment Lesson */}
+              <div className="bg-white rounded-lg shadow-md md:shadow-lg overflow-hidden">
+                <div className="p-3 md:p-6">
+                  <h3 className="text-sm md:text-2xl font-bold text-gray-800 mb-2 md:mb-4 text-center">
+                    Процедуры для лица
+                  </h3>
+                  <p className="hidden md:block text-gray-600 mb-6">
+                    Изучите комплексные техники процедур для лица с использованием продуктов и протоколов Genosys. 
+                    Это базовое обучение охватывает полные процедуры для лица, последовательности применения продуктов и достижение оптимальных результатов для различных типов кожи и проблем.
+                  </p>
+                  
+                  {/* Video Container */}
+                  <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
+                    <iframe
+                      className="absolute top-0 left-0 w-full h-full rounded-lg"
+                      src="https://www.youtube.com/embed/hMtodh45sME"
+                      title="Обучение процедурам для лица"
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowFullScreen
+                    ></iframe>
+                  </div>
+                  
+                  {/* Lesson Details */}
+                  <div className="hidden md:grid mt-6 md:grid-cols-2 gap-6">
+                    <div>
+                      <h4 className="font-semibold text-gray-800 mb-2">Что вы изучите:</h4>
+                      <ul className="text-gray-600 space-y-1">
+                        <li>• Полные протоколы процедур для лица</li>
+                        <li>• Последовательности применения продуктов</li>
+                        <li>• Анализ и оценка кожи</li>
+                        <li>• Техники консультации клиента</li>
+                        <li>• Методы персонализации процедур</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-800 mb-2">Детали урока:</h4>
+                      <ul className="text-gray-600 space-y-1">
+                        <li>• Продолжительность: 25-30 минут</li>
+                        <li>• Уровень: Профессиональный</li>
+                        <li>• Категория: Процедуры для лица</li>
+                        <li>• Сертификация: Доступна по завершении</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* How to use Genosys Snow 02 Cleanser Lesson */}
+              <div className="bg-white rounded-lg shadow-md md:shadow-lg overflow-hidden">
+                <div className="p-3 md:p-6">
+                  <h3 className="text-sm md:text-2xl font-bold text-gray-800 mb-2 md:mb-4 text-center">
+                    Как использовать Genosys Snow 02 Cleanser
+                  </h3>
+                  <p className="hidden md:block text-gray-600 mb-6">
+                    Освойте правильные техники эффективного использования Genosys Snow 02 Cleanser. 
+                    Это детальное обучение охватывает правильные методы применения, время и достижение оптимальных результатов очищения для различных типов кожи и состояний.
+                  </p>
+                  
+                  {/* Video Container */}
+                  <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
+                    <iframe
+                      className="absolute top-0 left-0 w-full h-full rounded-lg"
+                      src="https://www.youtube.com/embed/SWY0f2gSzl8"
+                      title="Обучение использованию Genosys Snow 02 Cleanser"
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowFullScreen
+                    ></iframe>
+                  </div>
+                  
+                  {/* Lesson Details */}
+                  <div className="hidden md:grid mt-6 md:grid-cols-2 gap-6">
+                    <div>
+                      <h4 className="font-semibold text-gray-800 mb-2">Что вы изучите:</h4>
+                      <ul className="text-gray-600 space-y-1">
+                        <li>• Правильное применение Snow 02 Cleanser</li>
+                        <li>• Правильное время и продолжительность</li>
+                        <li>• Особенности типов кожи</li>
+                        <li>• Преимущества продукта и результаты</li>
+                        <li>• Интеграция с другими процедурами</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-800 mb-2">Детали урока:</h4>
+                      <ul className="text-gray-600 space-y-1">
+                        <li>• Продолжительность: 12-15 минут</li>
+                        <li>• Уровень: Профессиональный</li>
+                        <li>• Категория: Использование продуктов</li>
+                        <li>• Сертификация: Доступна по завершении</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* GENOSYS HR3 MATRIX Lesson */}
+              <div className="bg-white rounded-lg shadow-md md:shadow-lg overflow-hidden">
+                <div className="p-3 md:p-6">
+                  <h3 className="text-sm md:text-2xl font-bold text-gray-800 mb-2 md:mb-4 text-center">
+                    GENOSYS HR3 MATRIX
+                  </h3>
+                  <p className="hidden md:block text-gray-600 mb-6">
+                    Продвинутое обучение технологии GENOSYS HR3 MATRIX и техникам применения. 
+                    Этот комплексный урок охватывает протоколы матричного лечения, продвинутые методы применения и достижение оптимальных результатов для омоложения кожи и улучшения матрикса.
+                  </p>
+                  
+                  {/* Video Container */}
+                  <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
+                    <iframe
+                      className="absolute top-0 left-0 w-full h-full rounded-lg"
+                      src="https://www.youtube.com/embed/pM8qIUNdORY"
+                      title="Обучение GENOSYS HR3 MATRIX"
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowFullScreen
+                    ></iframe>
+                  </div>
+                  
+                  {/* Lesson Details */}
+                  <div className="hidden md:grid mt-6 md:grid-cols-2 gap-6">
+                    <div>
+                      <h4 className="font-semibold text-gray-800 mb-2">Что вы изучите:</h4>
+                      <ul className="text-gray-600 space-y-1">
+                        <li>• Продвинутые техники HR3 MATRIX</li>
+                        <li>• Протоколы матричного лечения</li>
+                        <li>• Оценка и подготовка кожи</li>
+                        <li>• Методы персонализации лечения</li>
+                        <li>• Стратегии оптимизации результатов</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-800 mb-2">Детали урока:</h4>
+                      <ul className="text-gray-600 space-y-1">
+                        <li>• Продолжительность: 22-28 минут</li>
+                        <li>• Уровень: Продвинутый профессиональный</li>
+                        <li>• Категория: Матричные процедуры</li>
+                        <li>• Сертификация: Доступна по завершении</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Placeholder for future lessons - hidden on mobile */}
+              <div className="hidden md:block bg-gray-50 rounded-lg p-8 text-center">
+                <h3 className="text-xl font-semibold text-gray-600 mb-2">
+                  Скоро появятся новые обучающие уроки
+                </h3>
+                <p className="text-base text-gray-500">
+                  Мы постоянно добавляем новый обучающий контент. Регулярно проверяйте обновления.
+                </p>
+              </div>
             </div>
           </div>
         </div>

@@ -47,49 +47,14 @@ export async function POST(request: NextRequest) {
       itemCount: items.length
     })
 
-    // If Stripe payment is selected, redirect to Stripe API
+    // Stripe payments are handled directly by the client via /api/stripe/create-checkout-session
+    // This route only handles COD payments for backward compatibility
     if (paymentMethod === 'stripe') {
-      debugLog('🔄 Redirecting to Stripe checkout session creation')
-      
-      // Forward request to Stripe checkout session API
-      const stripeApiUrl = new URL('/api/stripe/create-checkout-session', request.url)
-      const stripeResponse = await fetch(stripeApiUrl.toString(), {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Cookie': request.headers.get('Cookie') || '',
-          ...Object.fromEntries(
-            Array.from(request.headers.entries()).filter(([key]) => 
-              key.toLowerCase().startsWith('x-csrf') || key.toLowerCase() === 'user-agent'
-            )
-          )
-        },
-        body: JSON.stringify({
-          items,
-          customerEmail,
-          customerName,
-          customerPhone,
-          customerEmirate,
-          customerAddress,
-          locale
-        })
-      })
-
-      if (!stripeResponse.ok) {
-        const errorData = await stripeResponse.json().catch(() => ({}))
-        errorLog('❌ Stripe checkout session creation failed:', errorData)
-        return NextResponse.json(
-          { error: errorData.error || 'Failed to create payment session' },
-          { status: stripeResponse.status }
-        )
-      }
-
-      const stripeData = await stripeResponse.json()
-      return NextResponse.json({
-        ...stripeData,
-        paymentMethod: 'stripe',
-        requiresRedirect: true
-      })
+      debugLog('⚠️ Stripe payment received at checkout route - should go directly to /api/stripe/create-checkout-session')
+      return NextResponse.json(
+        { error: 'Stripe payments should be processed via /api/stripe/create-checkout-session endpoint' },
+        { status: 400 }
+      )
     }
 
     // Continue with COD processing for backward compatibility

@@ -465,12 +465,29 @@ export default function CheckoutClient() {
           })
 
           if (!response.ok) {
-            const errorData = await response.json().catch(() => ({}))
-            errorLog('❌ Stripe session creation failed:', errorData)
-            throw new Error(errorData.error || 'Failed to create payment session')
+            let errorDetails = `HTTP ${response.status} ${response.statusText}`
+            try {
+              const errorData = await response.json()
+              errorDetails = errorData.error || errorData.message || errorDetails
+              errorLog('❌ Stripe session creation failed:', {
+                status: response.status,
+                statusText: response.statusText,
+                errorData: errorData
+              })
+            } catch (parseError) {
+              const responseText = await response.text().catch(() => 'Unable to read response')
+              errorLog('❌ Stripe session creation failed (parse error):', {
+                status: response.status,
+                statusText: response.statusText,
+                responseText: responseText,
+                parseError: parseError instanceof Error ? parseError.message : 'Parse error'
+              })
+              errorDetails = `${errorDetails} - Response: ${responseText}`
+            }
+            throw new Error(errorDetails)
           }
 
-          const { url, sessionId } = await response.json()
+          const { url } = await response.json()
           
           if (!url) {
             throw new Error('No checkout URL received from Stripe')

@@ -7,7 +7,6 @@ if (!process.env.STRIPE_SECRET_KEY) {
 
 // Initialize Stripe with your secret key
 export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-  apiVersion: '2024-12-18.acacia', // Use latest API version
   typescript: true,
 })
 
@@ -39,6 +38,20 @@ export function aedToFils(aed: number): number {
 // Convert fils to AED
 export function filsToAed(fils: number): number {
   return fils / 100
+}
+
+// Helper function to map Stripe alphanumeric values back to emirate names
+export function mapStripeEmirateValue(stripeValue: string): string {
+  const emirateMapping: Record<string, string> = {
+    'Dubai': 'Dubai',
+    'AbuDhabi': 'Abu Dhabi',
+    'Sharjah': 'Sharjah',
+    'Ajman': 'Ajman',
+    'RasAlKhaimah': 'Ras Al Khaimah',
+    'Fujairah': 'Fujairah',
+    'UmmAlQuwain': 'Umm Al Quwain',
+  }
+  return emirateMapping[stripeValue] || stripeValue
 }
 
 // Validate webhook signature
@@ -79,7 +92,7 @@ export async function createCheckoutSession(params: {
     })
 
     const session = await stripe.checkout.sessions.create({
-      payment_method_types: ['card'],
+      payment_method_types: ['card', 'link'],
       mode: 'payment',
       currency: STRIPE_CONFIG.currency,
       
@@ -120,60 +133,19 @@ export async function createCheckoutSession(params: {
           dropdown: {
             options: [
               { label: 'Dubai', value: 'Dubai' },
-              { label: 'Abu Dhabi', value: 'Abu Dhabi' },
+              { label: 'Abu Dhabi', value: 'AbuDhabi' },
               { label: 'Sharjah', value: 'Sharjah' },
               { label: 'Ajman', value: 'Ajman' },
-              { label: 'Ras Al Khaimah', value: 'Ras Al Khaimah' },
+              { label: 'Ras Al Khaimah', value: 'RasAlKhaimah' },
               { label: 'Fujairah', value: 'Fujairah' },
-              { label: 'Umm Al Quwain', value: 'Umm Al Quwain' },
+              { label: 'Umm Al Quwain', value: 'UmmAlQuwain' },
             ],
           },
         },
       ],
       
-      // Shipping options (calculated based on emirate)
-      shipping_options: [
-        {
-          shipping_rate_data: {
-            type: 'fixed_amount',
-            fixed_amount: {
-              amount: 4500, // 45 AED for Dubai (in fils)
-              currency: STRIPE_CONFIG.currency,
-            },
-            display_name: 'Standard Delivery - Dubai',
-            delivery_estimate: {
-              minimum: {
-                unit: 'business_day',
-                value: 1,
-              },
-              maximum: {
-                unit: 'business_day',
-                value: 3,
-              },
-            },
-          },
-        },
-        {
-          shipping_rate_data: {
-            type: 'fixed_amount',
-            fixed_amount: {
-              amount: 7000, // 70 AED for other emirates (in fils)
-              currency: STRIPE_CONFIG.currency,
-            },
-            display_name: 'Standard Delivery - Other Emirates',
-            delivery_estimate: {
-              minimum: {
-                unit: 'business_day',
-                value: 2,
-              },
-              maximum: {
-                unit: 'business_day',
-                value: 5,
-              },
-            },
-          },
-        },
-      ],
+      // Shipping is handled via line items, not shipping options
+      // This prevents double charging for shipping
       
       // Allow promotion codes
       allow_promotion_codes: true,
@@ -190,7 +162,7 @@ export async function createCheckoutSession(params: {
       phone_number_collection: {
         enabled: true,
       },
-    })
+    } as any)
 
     debugLog('✅ Stripe checkout session created:', {
       sessionId: session.id,
@@ -202,7 +174,12 @@ export async function createCheckoutSession(params: {
     
   } catch (error) {
     errorLog('❌ Failed to create Stripe checkout session:', error)
-    throw new Error('Failed to create payment session')
+    // Log the detailed Stripe error for debugging
+    if (error instanceof Error) {
+      errorLog('❌ Detailed error message:', error.message)
+      errorLog('❌ Error stack:', error.stack)
+    }
+    throw new Error(`Failed to create payment session: ${error instanceof Error ? error.message : 'Unknown error'}`)
   }
 }
 

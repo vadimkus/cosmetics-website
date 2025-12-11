@@ -40,16 +40,24 @@ try {
   // In local development, it's OK to skip database operations if DATABASE_URL is not set
   const isProduction = process.env.NODE_ENV === 'production';
   const isVercel = process.env.VERCEL === '1';
+  const isPostInstall = process.env.npm_lifecycle_event === 'postinstall';
   const requiresDatabase = isProduction || isVercel;
   
   if (!process.env.DATABASE_URL) {
-    if (requiresDatabase) {
+    if (requiresDatabase && !isPostInstall) {
+      // During postinstall on Vercel, environment variables might not be fully available yet
+      // Only fail if this is NOT during postinstall phase
       console.error('❌ DATABASE_URL environment variable is required');
       console.error('   Please set DATABASE_URL in your environment or .env.local file');
       process.exit(1);
     } else {
-      console.log('⚠️  DATABASE_URL not set - skipping database operations (local development)');
-      console.log('   Prisma client will still be generated, but database sync will be skipped');
+      if (isPostInstall && isVercel) {
+        console.log('⚠️  DATABASE_URL not available during postinstall on Vercel (this is normal)');
+        console.log('   Database operations will be handled during the build phase');
+      } else {
+        console.log('⚠️  DATABASE_URL not set - skipping database operations (local development)');
+        console.log('   Prisma client will still be generated, but database sync will be skipped');
+      }
     }
   }
 

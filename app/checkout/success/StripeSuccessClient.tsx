@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { CheckCircle, Package, Mail, ArrowRight, Home, RefreshCw } from 'lucide-react'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
+import { useCartStore } from '@/lib/cartStore'
 
 interface OrderDetails {
   sessionId: string
@@ -37,6 +38,7 @@ export default function StripeSuccessClient() {
   const { t, locale, dir } = useTranslation()
   const searchParams = useSearchParams()
   const sessionId = searchParams.get('session_id')
+  const { clearCart } = useCartStore()
   
   const [orderDetails, setOrderDetails] = useState<OrderDetails | null>(null)
   const [loading, setLoading] = useState(true)
@@ -59,6 +61,12 @@ export default function StripeSuccessClient() {
 
         const data = await response.json()
         setOrderDetails(data)
+
+        // Clear cart if payment was successful
+        if (data.paymentStatus === 'paid') {
+          clearCart()
+          console.log('✅ Cart cleared after successful payment')
+        }
 
         // Track successful payment in Google Analytics
         if (typeof window !== 'undefined' && (window as any).gtag) {
@@ -85,7 +93,7 @@ export default function StripeSuccessClient() {
     }
 
     verifyPayment()
-  }, [sessionId])
+  }, [sessionId, clearCart])
 
   if (loading) {
     return (

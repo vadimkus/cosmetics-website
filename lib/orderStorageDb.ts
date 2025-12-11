@@ -64,6 +64,15 @@ export const readOrders = async (): Promise<Order[]> => {
         status: true,
         locale: true,
         sessionId: true,
+        paymentMethod: true,
+        paymentStatus: true,
+        stripeSessionId: true,
+        stripePaymentIntentId: true,
+        stripeCustomerId: true,
+        paidAt: true,
+        refundedAt: true,
+        refundAmount: true,
+        paymentMetadata: true,
         createdAt: true,
         updatedAt: true,
         items: {
@@ -152,6 +161,15 @@ export const addOrder = async (orderData: OrderData): Promise<Order> => {
         status: orderData.status || 'PENDING',
         locale: orderData.locale || 'en', // Default to English if not provided
         sessionId: orderData.sessionId || null,
+        paymentMethod: orderData.paymentMethod || 'cod',
+        paymentStatus: orderData.paymentStatus || 'pending',
+        stripeSessionId: orderData.stripeSessionId || null,
+        stripePaymentIntentId: orderData.stripePaymentIntentId || null,
+        stripeCustomerId: orderData.stripeCustomerId || null,
+        paidAt: orderData.paidAt || null,
+        refundedAt: orderData.refundedAt || null,
+        refundAmount: orderData.refundAmount || null,
+        paymentMetadata: orderData.paymentMetadata || null,
         items: {
           create: orderData.items.map(item => ({
             productId: item.productId,

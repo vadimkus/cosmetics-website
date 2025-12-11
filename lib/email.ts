@@ -52,8 +52,8 @@ const transporter = nodemailer.createTransport({
   port: 587,
   secure: false, // true for 465, false for other ports
   auth: {
-    user: process.env.GMAIL_USER, // Your Gmail address
-    pass: process.env.GMAIL_APP_PASSWORD, // Gmail App Password (not regular password)
+    user: process.env.EMAIL_USER || process.env.GMAIL_USER, // Your Gmail address
+    pass: process.env.EMAIL_PASSWORD || process.env.GMAIL_APP_PASSWORD, // Gmail App Password (not regular password)
   },
 })
 
@@ -1026,23 +1026,27 @@ export const sendEmail = async (to: string, subject: string, html: string) => {
   try {
     debugLog('📧 Attempting to send email to:', to)
     debugLog('📧 Using Gmail service')
-    debugLog('📧 Using Gmail user:', process.env.GMAIL_USER)
     
-    // Check if email configuration is set
-    if (!process.env.GMAIL_USER) {
-      const errorMsg = 'GMAIL_USER environment variable is not set'
+    // Check if email configuration is set (support both EMAIL_* and GMAIL_* variables)
+    const emailUser = process.env.EMAIL_USER || process.env.GMAIL_USER
+    const emailPassword = process.env.EMAIL_PASSWORD || process.env.GMAIL_APP_PASSWORD
+    
+    debugLog('📧 Using email user:', emailUser)
+    
+    if (!emailUser) {
+      const errorMsg = 'EMAIL_USER or GMAIL_USER environment variable is not set'
       errorLog('❌', errorMsg)
       return { success: false, error: errorMsg }
     }
-    
-    if (!process.env.GMAIL_APP_PASSWORD) {
-      const errorMsg = 'GMAIL_APP_PASSWORD environment variable is not set'
+
+    if (!emailPassword) {
+      const errorMsg = 'EMAIL_PASSWORD or GMAIL_APP_PASSWORD environment variable is not set'
       errorLog('❌', errorMsg)
       return { success: false, error: errorMsg }
     }
     
     const mailOptions: nodemailer.SendMailOptions = {
-      from: `"Genosys Middle East FZ-LLC" <${process.env.GMAIL_USER}>`,
+      from: `"Genosys Middle East FZ-LLC" <${emailUser}>`,
       to,
       subject,
       html,
@@ -1546,6 +1550,206 @@ export const generateSupportLinkOrderHTML = (order: OrderHTMLData, locale: strin
         </div>
         <p style="color: #000000; margin: 0;">${t.officialDistributorFooter || t.officialDistributor}</p>
         <p style="color: #000000; margin: 0;">© 2026 Genosys Middle East FZ-LLC. All rights reserved.</p>
+      </div>
+    </div>
+  `
+}
+
+// Generate Stripe Payment Confirmation Email HTML (based on support-link template)
+export const generateStripePaymentConfirmationHTML = (order: OrderHTMLData, locale: string = 'en', translations?: any): string => {
+  // Load translations with robust fallback
+  let t: any
+  
+  try {
+    if (translations) {
+      t = translations
+    } else {
+      let messages: any
+      if (locale === 'ar') {
+        messages = require('@/messages/ar.json')
+      } else if (locale === 'ru') {
+        messages = require('@/messages/ru.json')
+      } else {
+        messages = require('@/messages/en.json')
+      }
+      
+      // Safely access nested translation object
+      t = messages?.orderEmail?.stripePaymentConfirmation || {}
+    }
+  } catch (error) {
+    console.log('Translation loading failed, using fallbacks:', error)
+    t = {}
+  }
+  
+  // Ensure all required translation keys have fallbacks
+  const fallbacks = {
+    companyName: 'Genosys Middle East FZ-LLC',
+    subject: 'Payment Confirmed - Order #{orderNumber}',
+    officialDistributor: 'Official Genosys distributor in the United Arab Emirates',
+    dear: 'Dear {customerName},',
+    paymentReceived: 'Thank you! Your payment has been successfully received and your order is confirmed.',
+    orderConfirmed: 'Order Confirmed #{orderNumber}',
+    paymentMethod: 'Payment Method: Stripe (Online Payment)',
+        customerInformation: 'Customer Information',
+        name: 'Name:',
+        email: 'Email:',
+        phone: 'Phone:',
+        address: 'Address:',
+        emirate: 'Emirate:',
+        orderItems: 'Order Items',
+        product: 'Product',
+        qty: 'Qty',
+        price: 'Price',
+        total: 'Total',
+        size: 'Size:',
+        color: 'Color:',
+        orderSummary: 'Order Summary',
+        subtotal: 'Subtotal:',
+        shippingTo: 'Shipping to {emirate}:',
+        free: 'FREE',
+        vat: 'VAT (5%):',
+        totalLabel: 'Total Paid:',
+        nextSteps: 'What happens next?',
+        processingOrder: 'We are now processing your order and will ship it within 1-2 business days.',
+        trackingInfo: 'You will receive tracking information once your order ships.',
+        continueShopping: 'Continue Shopping',
+    contactSupport: 'Contact Support',
+    officialDistributorFooter: 'Official Distributor in the UAE',
+    copyright: '© 2026 Genosys Middle East FZ-LLC. All rights reserved.'
+  }
+  
+  // Merge loaded translations with fallbacks
+  t = { ...fallbacks, ...t }
+
+  const isRTL = locale === 'ar'
+  const dir = isRTL ? 'rtl' : 'ltr'
+  const textAlign = isRTL ? 'right' : 'left'
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://genosys.ae'
+  const productsUrl = locale === 'ar' ? `${siteUrl}/ar/products` : locale === 'ru' ? `${siteUrl}/ru/products` : `${siteUrl}/products`
+  const contactUrl = locale === 'ar' ? `${siteUrl}/ar/contact` : locale === 'ru' ? `${siteUrl}/ru/contact` : `${siteUrl}/contact`
+
+  const itemsHTML = order.items.map((item) => `
+    <tr>
+      <td style="padding: 10px; border-bottom: 1px solid #eee; text-align: ${textAlign};">${item.name || 'Product'}${item.size ? ` (Size: ${item.size})` : ''}${item.color ? ` (Color: ${item.color})` : ''}</td>
+      <td style="padding: 10px; border-bottom: 1px solid #eee; text-align: center;">${item.quantity || 0}</td>
+      <td style="padding: 10px; border-bottom: 1px solid #eee; text-align: ${isRTL ? 'left' : 'right'};">AED ${(item.price || 0).toFixed(2)}</td>
+      <td style="padding: 10px; border-bottom: 1px solid #eee; text-align: ${isRTL ? 'left' : 'right'};">AED ${(item.total || ((item.price || 0) * (item.quantity || 0))).toFixed(2)}</td>
+    </tr>
+  `).join('')
+
+  return `
+    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: white; font-size: 14px; direction: ${dir};">
+      <div style="text-align: center; margin-bottom: 30px;">
+        <h1 style="color: #dc2626; margin: 0; font-size: 18px;">${t.companyName}</h1>
+        <p style="color: #666; margin: 5px 0; font-size: 14px;">United Arab Emirates <span style="font-size: 0.8em;">❤️</span></p>
+      </div>
+      
+      <!-- Payment Success Banner -->
+      <div style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); padding: 20px; border-radius: 10px; margin-bottom: 20px; text-align: center;">
+        <h2 style="color: white; margin: 0; font-size: 20px;">✅ ${t.paymentReceived || 'Payment Confirmed!'}</h2>
+      </div>
+      
+      <div style="background: white; padding: 30px; border-radius: 10px; margin-bottom: 20px; border: 1px solid #e5e5e5;">
+        <p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 0 0 15px 0; text-align: ${textAlign};">
+          ${(t.dear || 'Dear {customerName},').replace('{customerName}', `<strong>${(order.customerName || 'Customer').split(' ')[0]}</strong>`)}
+        </p>
+        <p style="color: #374151; font-size: 14px; line-height: 1.6; margin: 0 0 10px 0; text-align: ${textAlign};">
+          ${t.paymentReceived || 'Thank you! Your payment has been successfully received and your order is confirmed.'}
+        </p>
+        <p style="color: #374151; font-size: 14px; line-height: 1.6; margin: 0 0 10px 0; text-align: ${textAlign};">
+          Order Confirmed <span style="color: #dc2626; font-weight: bold;">#${order.orderNumber || 'N/A'}</span>
+        </p>
+        <p style="color: #10b981; font-size: 14px; line-height: 1.6; margin: 0; text-align: ${textAlign}; font-weight: bold;">
+          ${t.paymentMethod || 'Payment Method: Stripe (Online Payment)'}
+        </p>
+      </div>
+      
+      <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e5e5e5;">
+        <h3 style="color: #dc2626; margin: 0 0 15px 0; font-size: 14px; text-align: ${textAlign};">${t.customerInformation}</h3>
+        <p style="margin: 0 0 8px 0; color: #374151; font-size: 14px; text-align: ${textAlign};"><strong>${t.name || 'Name:'}</strong> ${order.customerName || 'N/A'}</p>
+        <p style="margin: 0 0 8px 0; color: #374151; font-size: 14px; text-align: ${textAlign};"><strong>${t.email || 'Email:'}</strong> ${order.customerEmail || 'N/A'}</p>
+        <p style="margin: 0 0 8px 0; color: #374151; font-size: 14px; text-align: ${textAlign};"><strong>${t.phone || 'Phone:'}</strong> ${order.customerPhone || 'N/A'}</p>
+        <p style="margin: 0 0 8px 0; color: #374151; font-size: 14px; text-align: ${textAlign};"><strong>${t.address || 'Address:'}</strong> ${order.customerAddress || 'N/A'}</p>
+        <p style="margin: 0; color: #374151; font-size: 14px; text-align: ${textAlign};"><strong>${t.emirate || 'Emirate:'}</strong> ${order.emirate || 'N/A'}</p>
+      </div>
+
+      <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e5e5e5;">
+        <h3 style="color: #dc2626; margin: 0 0 15px 0; font-size: 14px; text-align: ${textAlign};">${t.orderItems}</h3>
+        <table style="width: 100%; border-collapse: collapse; margin: 10px 0;">
+          <thead>
+            <tr style="background: #dc2626; color: white;">
+              <th style="padding: 10px; text-align: ${textAlign}; font-size: 14px;">${t.product || 'Product'}</th>
+              <th style="padding: 10px; text-align: center; font-size: 14px;">${t.qty || 'Qty'}</th>
+              <th style="padding: 10px; text-align: ${isRTL ? 'left' : 'right'}; font-size: 14px;">${t.price || 'Price'}</th>
+              <th style="padding: 10px; text-align: ${isRTL ? 'left' : 'right'}; font-size: 14px;">${t.total || 'Total'}</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${itemsHTML}
+          </tbody>
+        </table>
+      </div>
+
+      <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e5e5e5;">
+        <h3 style="color: #dc2626; margin: 0 0 15px 0; font-size: 14px; text-align: ${textAlign};">${t.orderSummary}</h3>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 8px; flex-direction: ${isRTL ? 'row-reverse' : 'row'};">
+          <span style="color: #374151; font-size: 14px;">${t.subtotal || 'Subtotal:'}</span>
+          <span style="color: #374151; font-size: 14px;">AED ${(order.subtotal || 0).toFixed(2)}</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 8px; flex-direction: ${isRTL ? 'row-reverse' : 'row'};">
+          <span style="color: #374151; font-size: 14px;">Shipping to ${order.emirate || 'N/A'}:</span>
+          <span style="color: #374151; font-size: 14px;">${(order.shippingCost || 0) === 0 ? (t.free || 'FREE') : `AED ${(order.shippingCost || 0).toFixed(2)}`}</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 8px; flex-direction: ${isRTL ? 'row-reverse' : 'row'};">
+          <span style="color: #374151; font-size: 14px;">${t.vat || 'VAT (5%):'}</span>
+          <span style="color: #374151; font-size: 14px;">AED ${(order.vatAmount || 0).toFixed(2)}</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 16px; color: #10b981; border-top: 2px solid #10b981; padding-top: 8px; flex-direction: ${isRTL ? 'row-reverse' : 'row'};">
+          <span>${t.totalLabel || 'Total Paid:'}</span>
+          <span>AED ${(order.total || 0).toFixed(2)}</span>
+        </div>
+      </div>
+
+      <!-- Next Steps Section -->
+      <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e9ecef;">
+        <h3 style="color: #374151; margin: 0 0 15px 0; font-size: 16px; text-align: ${textAlign};">${t.nextSteps || 'What happens next?'}</h3>
+        <ul style="color: #374151; font-size: 14px; line-height: 1.6; padding-left: ${isRTL ? '0' : '20px'}; padding-right: ${isRTL ? '20px' : '0'}; text-align: ${textAlign};">
+          <li style="margin-bottom: 8px;">${t.processingOrder || 'We are now processing your order and will ship it within 1-2 business days.'}</li>
+          <li>${t.trackingInfo || 'You will receive tracking information once your order ships.'}</li>
+        </ul>
+      </div>
+      
+      <div style="text-align: center; margin: 30px 0;">
+        <a href="${productsUrl}" 
+           style="background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%); 
+                  color: white; 
+                  padding: 12px 30px; 
+                  text-decoration: none; 
+                  border-radius: 6px; 
+                  font-weight: bold; 
+                  display: inline-block; 
+                  margin-${isRTL ? 'left' : 'right'}: 10px;">
+          ${t.continueShopping}
+        </a>
+        <a href="${contactUrl}" 
+           style="background: transparent; 
+                  color: #16a34a; 
+                  padding: 12px 30px; 
+                  text-decoration: none; 
+                  border: 2px solid #16a34a; 
+                  border-radius: 6px; 
+                  font-weight: bold; 
+                  display: inline-block;">
+          ${t.contactSupport}
+        </a>
+      </div>
+      
+      <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #e5e5e5; color: #000000; font-size: 14px;">
+        <div style="text-align: center; margin-bottom: 15px;">
+          <img src="https://genosys.ae/_next/image?url=%2FLogo%2FFull.png&w=640&q=75" alt="GENOSYS Logo" style="max-width: 200px; height: auto; display: block; margin: 0 auto;" />
+        </div>
+        <p style="color: #000000; margin: 0;">${t.officialDistributorFooter || t.officialDistributor}</p>
+        <p style="color: #000000; margin: 0;">${t.copyright}</p>
       </div>
     </div>
   `

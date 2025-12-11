@@ -66,24 +66,129 @@ export async function GET(request: NextRequest) {
         orderStatus = 'FAILED'
     }
 
-    // Update order status if it has changed
+    // Send payment confirmation email for successful payments
+    if (paymentStatus === 'paid') {
+      try {
+        const { sendEmail, generateStripePaymentConfirmationHTML } = await import('@/lib/email')
+        
+        // Get customer details from Stripe session
+        const customerName = session.customer_details?.name || order.customerName || 'Customer'
+        const customerEmail = session.customer_email || order.customerEmail
+        const customerPhone = session.customer_details?.phone || order.customerPhone || 'N/A'
+        
+        // Get delivery info from session custom fields if available
+        let emirate = 'N/A'
+        let address = 'N/A'
+        
+        if (session.custom_fields && session.custom_fields.length > 0) {
+          const emirateField = session.custom_fields.find(field => field.key === 'emirate')
+          const addressField = session.custom_fields.find(field => field.key === 'address')
+          
+          emirate = emirateField?.dropdown?.value || emirate
+          address = addressField?.text?.value || address
+        }
+
+        // Prepare order data for email template
+        const orderData = {
+          orderNumber: order.orderNumber,
+          customerName,
+          customerEmail,
+          customerPhone,
+          customerAddress: address,
+          emirate,
+          items: order.items.map(item => ({
+            name: item.productName,
+            quantity: item.quantity,
+            price: item.price,
+            total: item.price * item.quantity,
+            size: item.size || '',
+            color: item.color || ''
+          })),
+          subtotal: order.total, // Simplified for now
+          shippingCost: 0,
+          vatAmount: 0,
+          total: order.total
+        }
+
+        // Generate email HTML
+        const emailHTML = generateStripePaymentConfirmationHTML(orderData)
+        const subject = `Payment Confirmed - Order #${order.orderNumber}`
+
+        // Send the email
+        const emailResult = await sendEmail(customerEmail, subject, emailHTML)
+        
+        if (emailResult.success) {
+          debugLog('✅ Stripe payment confirmation email sent successfully:', {
+            orderId: order.orderNumber,
+            customerEmail,
+            messageId: emailResult.messageId
+          })
+        } else {
+          errorLog('❌ Failed to send Stripe payment confirmation email:', emailResult.error)
+        }
+      } catch (emailError) {
+        errorLog('❌ Error sending Stripe payment confirmation email:', emailError)
+        // Don't fail the entire request if email fails
+      }
+      
+      // Send admin notification for new paid order
+      try {
+        const { sendAdminNewOrderNotification } = await import('@/lib/email')
+        
+        const adminOrderData = {
+          orderNumber: order.orderNumber,
+          customerName: order.customerName,
+          customerEmail: order.customerEmail,
+          customerPhone: order.customerPhone,
+          total: order.total,
+          itemCount: order.items.length,
+          items: order.items.map(item => ({
+            productName: item.productName,
+            quantity: item.quantity,
+            price: item.price,
+            image: item.image || '',
+            size: item.size || '',
+            color: item.color || ''
+          })),
+          subtotal: order.subtotal,
+          shipping: order.shipping,
+          vat: order.vat,
+          address: order.customerAddress
+        }
+        
+        await sendAdminNewOrderNotification(adminOrderData)
+        debugLog('✅ Admin notification sent for paid order:', order.orderNumber)
+        
+      } catch (adminError) {
+        errorLog('❌ Failed to send admin notification:', adminError)
+      }
+    }
+
+    // Update order status if it has changed (separate from email sending)
     if (order.paymentStatus !== paymentStatus || order.status !== orderStatus) {
-      await prisma.order.update({
-        where: { id: order.id },
-        data: {
-          paymentStatus,
+      try {
+        const updateData = {
+          paymentStatus: paymentStatus,
           status: orderStatus,
-          stripePaymentIntentId: session.payment_intent as string || undefined,
-          paidAt: paymentStatus === 'paid' ? new Date() : undefined,
+          stripePaymentIntentId: session.payment_intent as string || null,
+          paidAt: paymentStatus === 'paid' ? new Date() : null,
           updatedAt: new Date()
         }
-      })
+        
+        await prisma.order.update({
+          where: { id: order.id },
+          data: updateData
+        })
 
-      debugLog('✅ Order status updated:', {
-        orderId: order.orderNumber,
-        paymentStatus,
-        orderStatus
-      })
+        debugLog('✅ Order status updated successfully:', {
+          orderId: order.orderNumber,
+          paymentStatus,
+          orderStatus
+        })
+      } catch (updateError) {
+        errorLog('❌ Failed to update order status:', updateError)
+        // Continue without failing the entire request
+      }
     }
 
     // Return comprehensive payment status
@@ -116,8 +221,8 @@ export async function GET(request: NextRequest) {
           productName: item.productName,
           quantity: item.quantity,
           price: item.price,
-          color: item.color,
-          size: item.size
+          color: item.color || '',
+          size: item.size || ''
         }))
       }
     })

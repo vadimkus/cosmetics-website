@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
   try {
     // Get the raw body for signature verification
     const body = await request.text()
-    const headersList = headers()
+    const headersList = await headers()
     const signature = headersList.get('stripe-signature')
     
     if (!signature) {
@@ -198,8 +198,7 @@ async function handlePaymentIntentSucceeded(paymentIntent: Stripe.PaymentIntent)
           paymentIntentId: paymentIntent.id,
           amount: paymentIntent.amount,
           currency: paymentIntent.currency,
-          paidAt: new Date().toISOString(),
-          charges: paymentIntent.charges?.data.length || 0
+          paidAt: new Date().toISOString()
         }),
         updatedAt: new Date()
       }

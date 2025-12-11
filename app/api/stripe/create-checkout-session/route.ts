@@ -102,29 +102,59 @@ export async function POST(request: NextRequest) {
         price: item.product.price,
         quantity: item.quantity,
         image: item.product.image,
-        color: enhanced.color || undefined,
-        size: enhanced.size || undefined
+        color: enhanced.color || '',
+        size: enhanced.size || ''
       }
     })
 
     // Create Stripe line items
-    const lineItems = items.map((item: CheckoutItem) => ({
-      price_data: {
-        currency: 'aed',
-        product_data: {
-          name: item.product.name,
-          description: item.product.description.substring(0, 300), // Stripe has limits
-          images: [item.product.image],
-          metadata: {
-            product_id: item.product.id,
-            color: item.selectedColor || '',
-            size: item.selectedSize || ''
+    const lineItems = items.map((item: CheckoutItem) => {
+      // Ensure image URL is absolute and valid
+      let imageUrl: string | undefined
+      try {
+        if (item.product.image) {
+          if (item.product.image.startsWith('http')) {
+            // Already absolute URL
+            new URL(item.product.image) // Validate URL
+            imageUrl = item.product.image
+          } else {
+            // Make relative URL absolute
+            const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
+            const fullUrl = `${baseUrl}${item.product.image.startsWith('/') ? '' : '/'}${item.product.image}`
+            new URL(fullUrl) // Validate URL
+            imageUrl = fullUrl
           }
+        }
+      } catch (error) {
+        // If image URL is invalid, don't include it (Stripe will show default)
+        debugLog('⚠️ Invalid image URL for product, skipping:', item.product.name, item.product.image)
+        imageUrl = undefined
+      }
+      
+      const productData: any = {
+        name: item.product.name,
+        description: item.product.description.substring(0, 300), // Stripe has limits
+        metadata: {
+          product_id: item.product.id,
+          color: item.selectedColor || '',
+          size: item.selectedSize || ''
+        }
+      }
+      
+      // Only add images if we have a valid URL
+      if (imageUrl) {
+        productData.images = [imageUrl]
+      }
+      
+      return {
+        price_data: {
+          currency: 'aed',
+          product_data: productData,
+          unit_amount: aedToFils(item.product.price), // Convert AED to fils
         },
-        unit_amount: aedToFils(item.product.price), // Convert AED to fils
-      },
-      quantity: item.quantity,
-    }))
+        quantity: item.quantity,
+      }
+    })
 
     // Add shipping as a line item if applicable
     if (shipping > 0) {
@@ -196,9 +226,19 @@ export async function POST(request: NextRequest) {
     })
 
   } catch (error) {
-    errorLog('❌ Error creating Stripe checkout session:', error)
+    errorLog('❌ Error creating Stripe checkout session:', {
+      message: error instanceof Error ? error.message : 'Unknown error',
+      stack: error instanceof Error ? error.stack : undefined,
+      type: error instanceof Error ? error.constructor.name : typeof error,
+      code: (error as any)?.code,
+      statusCode: (error as any)?.statusCode,
+      requestId: (error as any)?.requestId,
+      param: (error as any)?.param,
+      stripeError: (error as any)?.type || (error as any)?.name || 'Unknown',
+      fullError: error
+    })
     
-    // Return user-friendly error message
+    // Return user-friendly error message with more details for debugging
     if (error instanceof Error && error.message.includes('Invalid API key')) {
       return NextResponse.json(
         { error: 'Payment service configuration error. Please try again later.' },
@@ -206,8 +246,18 @@ export async function POST(request: NextRequest) {
       )
     }
     
+    // Provide more detailed error in development
+    const isDev = process.env.NODE_ENV === 'development'
     return NextResponse.json(
-      { error: 'Failed to create payment session. Please try again.' },
+      { 
+        error: 'Failed to create payment session. Please try again.',
+        details: isDev ? {
+          message: error instanceof Error ? error.message : 'Unknown error',
+          type: error instanceof Error ? error.constructor.name : typeof error,
+          code: (error as any)?.code,
+          param: (error as any)?.param
+        } : undefined
+      },
       { status: 500 }
     )
   }

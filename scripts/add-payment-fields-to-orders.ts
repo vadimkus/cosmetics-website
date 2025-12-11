@@ -7,8 +7,41 @@
 
 import { PrismaClient } from '@prisma/client'
 import { debugLog, errorLog, warnLog } from '../lib/logger'
+import * as dotenv from 'dotenv'
 
-const prisma = new PrismaClient()
+// Load environment variables
+dotenv.config({ path: '.env.local' })
+dotenv.config({ path: '.env' })
+
+// Initialize Prisma client with proper configuration for Prisma 7
+const databaseUrl = process.env.PRISMA_DATABASE_URL || process.env.DATABASE_URL
+
+if (!databaseUrl) {
+  throw new Error('Database URL not found in environment variables')
+}
+
+console.log('🔗 Using database URL:', databaseUrl.includes('prisma+') ? 'Prisma Accelerate' : 'Direct PostgreSQL')
+
+let prisma: PrismaClient
+
+if (databaseUrl.startsWith('prisma+')) {
+  // Using Prisma Accelerate
+  prisma = new PrismaClient({
+    accelerateUrl: databaseUrl,
+    log: ['error', 'warn'],
+  })
+} else {
+  // Using direct PostgreSQL connection with adapter
+  const { PrismaPg } = require('@prisma/adapter-pg')
+  const { Pool } = require('pg')
+  const pool = new Pool({ connectionString: databaseUrl })
+  const adapter = new PrismaPg(pool)
+  
+  prisma = new PrismaClient({
+    adapter,
+    log: ['error', 'warn'],
+  })
+}
 
 async function addPaymentFields() {
   try {
@@ -19,7 +52,7 @@ async function addPaymentFields() {
     
     // First, let's see if the fields already exist by trying to query them
     try {
-      await prisma.$queryRaw`SELECT payment_method FROM orders LIMIT 1`
+      await prisma.$queryRaw`SELECT "paymentMethod" FROM orders LIMIT 1`
       console.log('✅ Payment fields already exist in database')
       return
     } catch (error) {
@@ -27,58 +60,58 @@ async function addPaymentFields() {
     }
     
     // Add the new columns with default values
-    console.log('🔧 Adding payment_method column...')
+    console.log('🔧 Adding paymentMethod column...')
     await prisma.$executeRaw`
       ALTER TABLE orders 
-      ADD COLUMN IF NOT EXISTS payment_method VARCHAR(50) DEFAULT 'cod'
+      ADD COLUMN IF NOT EXISTS "paymentMethod" VARCHAR(50) DEFAULT 'cod'
     `
     
-    console.log('🔧 Adding payment_status column...')
+    console.log('🔧 Adding paymentStatus column...')
     await prisma.$executeRaw`
       ALTER TABLE orders 
-      ADD COLUMN IF NOT EXISTS payment_status VARCHAR(50) DEFAULT 'pending'
+      ADD COLUMN IF NOT EXISTS "paymentStatus" VARCHAR(50) DEFAULT 'pending'
     `
     
-    console.log('🔧 Adding stripe_session_id column...')
+    console.log('🔧 Adding stripeSessionId column...')
     await prisma.$executeRaw`
       ALTER TABLE orders 
-      ADD COLUMN IF NOT EXISTS stripe_session_id VARCHAR(255)
+      ADD COLUMN IF NOT EXISTS "stripeSessionId" VARCHAR(255)
     `
     
-    console.log('🔧 Adding stripe_payment_intent_id column...')
+    console.log('🔧 Adding stripePaymentIntentId column...')
     await prisma.$executeRaw`
       ALTER TABLE orders 
-      ADD COLUMN IF NOT EXISTS stripe_payment_intent_id VARCHAR(255)
+      ADD COLUMN IF NOT EXISTS "stripePaymentIntentId" VARCHAR(255)
     `
     
-    console.log('🔧 Adding stripe_customer_id column...')
+    console.log('🔧 Adding stripeCustomerId column...')
     await prisma.$executeRaw`
       ALTER TABLE orders 
-      ADD COLUMN IF NOT EXISTS stripe_customer_id VARCHAR(255)
+      ADD COLUMN IF NOT EXISTS "stripeCustomerId" VARCHAR(255)
     `
     
-    console.log('🔧 Adding paid_at column...')
+    console.log('🔧 Adding paidAt column...')
     await prisma.$executeRaw`
       ALTER TABLE orders 
-      ADD COLUMN IF NOT EXISTS paid_at TIMESTAMP WITH TIME ZONE
+      ADD COLUMN IF NOT EXISTS "paidAt" TIMESTAMP WITH TIME ZONE
     `
     
-    console.log('🔧 Adding refunded_at column...')
+    console.log('🔧 Adding refundedAt column...')
     await prisma.$executeRaw`
       ALTER TABLE orders 
-      ADD COLUMN IF NOT EXISTS refunded_at TIMESTAMP WITH TIME ZONE
+      ADD COLUMN IF NOT EXISTS "refundedAt" TIMESTAMP WITH TIME ZONE
     `
     
-    console.log('🔧 Adding refund_amount column...')
+    console.log('🔧 Adding refundAmount column...')
     await prisma.$executeRaw`
       ALTER TABLE orders 
-      ADD COLUMN IF NOT EXISTS refund_amount DECIMAL(10,2)
+      ADD COLUMN IF NOT EXISTS "refundAmount" DECIMAL(10,2)
     `
     
-    console.log('🔧 Adding payment_metadata column...')
+    console.log('🔧 Adding paymentMetadata column...')
     await prisma.$executeRaw`
       ALTER TABLE orders 
-      ADD COLUMN IF NOT EXISTS payment_metadata TEXT
+      ADD COLUMN IF NOT EXISTS "paymentMetadata" TEXT
     `
     
     // Create indexes for better performance
@@ -87,37 +120,37 @@ async function addPaymentFields() {
     try {
       await prisma.$executeRaw`
         CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_orders_payment_status 
-        ON orders(payment_status)
+        ON orders("paymentStatus")
       `
     } catch (error) {
       // Index might already exist or be created without CONCURRENTLY
       await prisma.$executeRaw`
         CREATE INDEX IF NOT EXISTS idx_orders_payment_status 
-        ON orders(payment_status)
+        ON orders("paymentStatus")
       `
     }
     
     try {
       await prisma.$executeRaw`
         CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_orders_stripe_session_id 
-        ON orders(stripe_session_id)
+        ON orders("stripeSessionId")
       `
     } catch (error) {
       await prisma.$executeRaw`
         CREATE INDEX IF NOT EXISTS idx_orders_stripe_session_id 
-        ON orders(stripe_session_id)
+        ON orders("stripeSessionId")
       `
     }
     
     try {
       await prisma.$executeRaw`
         CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_orders_stripe_payment_intent_id 
-        ON orders(stripe_payment_intent_id)
+        ON orders("stripePaymentIntentId")
       `
     } catch (error) {
       await prisma.$executeRaw`
         CREATE INDEX IF NOT EXISTS idx_orders_stripe_payment_intent_id 
-        ON orders(stripe_payment_intent_id)
+        ON orders("stripePaymentIntentId")
       `
     }
     
@@ -126,13 +159,13 @@ async function addPaymentFields() {
     const updateResult = await prisma.$executeRaw`
       UPDATE orders 
       SET 
-        payment_method = 'cod',
-        payment_status = CASE 
+        "paymentMethod" = 'cod',
+        "paymentStatus" = CASE 
           WHEN status = 'DELIVERED' THEN 'paid'
           WHEN status = 'CANCELLED' THEN 'cancelled'
           ELSE 'pending'
         END
-      WHERE payment_method IS NULL OR payment_status = 'pending'
+      WHERE "paymentMethod" IS NULL OR "paymentStatus" = 'pending'
     `
     
     console.log(`✅ Updated ${updateResult} existing orders`)
@@ -140,7 +173,7 @@ async function addPaymentFields() {
     // Verify the migration
     console.log('🔍 Verifying migration...')
     const sampleOrder = await prisma.$queryRaw`
-      SELECT payment_method, payment_status, stripe_session_id 
+      SELECT "paymentMethod", "paymentStatus", "stripeSessionId"
       FROM orders 
       LIMIT 1
     `

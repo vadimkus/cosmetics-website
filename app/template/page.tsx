@@ -5,7 +5,7 @@ import enMessages from '@/messages/en.json'
 import arMessages from '@/messages/ar.json'
 import ruMessages from '@/messages/ru.json'
 
-type TemplateType = 'welcome' | 'order-shipped' | 'order-confirmed' | 'order-delivered' | 'discount-assigned' | 'cod' | 'support-link'
+type TemplateType = 'welcome' | 'order-shipped' | 'order-confirmed' | 'order-delivered' | 'discount-assigned' | 'cod' | 'support-link' | 'stripe-payment-confirmation'
 type Locale = 'en' | 'ru' | 'ar'
 
 export default function EmailTemplatePage() {
@@ -546,6 +546,114 @@ export default function EmailTemplatePage() {
     }
   }
 
+  // Generate Stripe Payment Confirmation email template
+  const generateStripePaymentConfirmationEmail = (name: string, email: string, phone: string, orderNum: string, _subtotal: string, _shipping: string, _vat: string, total: string, address: string, emirate: string) => {
+    const isRTL = locale === 'ar'
+    const textAlign = isRTL ? 'right' : 'left'
+    const dir = isRTL ? 'rtl' : 'ltr'
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
+    const totalNum = parseFloat(total) || 0
+
+    const productsUrl = locale === 'ar' ? `${siteUrl}/ar/products` : locale === 'ru' ? `${siteUrl}/ru/products` : `${siteUrl}/products`
+    const contactUrl = locale === 'ar' ? `${siteUrl}/ar/contact` : locale === 'ru' ? `${siteUrl}/ru/contact` : `${siteUrl}/contact`
+
+    return {
+      subject: `Payment Confirmed - Order #${orderNum}`,
+      html: `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: white; font-size: 14px; direction: ${dir};">
+        <div style="text-align: center; margin-bottom: 30px;">
+          <h1 style="color: #dc2626; margin: 0; font-size: 18px;">Genosys Middle East FZ-LLC</h1>
+          <p style="color: #666; margin: 5px 0; font-size: 14px;">United Arab Emirates <span style="font-size: 0.8em;">❤️</span></p>
+        </div>
+        
+        <!-- Payment Success Banner -->
+        <div style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); padding: 20px; border-radius: 10px; margin-bottom: 20px; text-align: center;">
+          <h2 style="color: white; margin: 0; font-size: 20px;">✅ Payment Confirmed!</h2>
+        </div>
+        
+        <div style="background: white; padding: 30px; border-radius: 10px; margin-bottom: 20px; border: 1px solid #e5e5e5;">
+          <p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 0 0 15px 0; text-align: ${textAlign};">
+            Dear <strong>${name.split(' ')[0] || name}</strong>,
+          </p>
+          <p style="color: #374151; font-size: 14px; line-height: 1.6; margin: 0 0 10px 0; text-align: ${textAlign};">
+            Thank you! Your payment has been successfully received and your order is confirmed.
+          </p>
+          <p style="color: #374151; font-size: 14px; line-height: 1.6; margin: 0 0 10px 0; text-align: ${textAlign};">
+            Order Confirmed <span style="color: #dc2626; font-weight: bold;">#${orderNum}</span>
+          </p>
+          <p style="color: #10b981; font-size: 14px; line-height: 1.6; margin: 0; text-align: ${textAlign}; font-weight: bold;">
+            Payment Method: Stripe (Online Payment)
+          </p>
+        </div>
+        
+        <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e5e5e5;">
+          <h3 style="color: #dc2626; margin: 0 0 15px 0; font-size: 14px; text-align: ${textAlign};">Customer Information</h3>
+          <p style="margin: 0 0 8px 0; color: #374151; font-size: 14px; text-align: ${textAlign};"><strong>Name:</strong> ${name}</p>
+          <p style="margin: 0 0 8px 0; color: #374151; font-size: 14px; text-align: ${textAlign};"><strong>Email:</strong> ${email}</p>
+          <p style="margin: 0 0 8px 0; color: #374151; font-size: 14px; text-align: ${textAlign};"><strong>Phone:</strong> ${phone}</p>
+          <p style="margin: 0 0 8px 0; color: #374151; font-size: 14px; text-align: ${textAlign};"><strong>Address:</strong> ${address}</p>
+          <p style="margin: 0; color: #374151; font-size: 14px; text-align: ${textAlign};"><strong>Emirate:</strong> ${emirate}</p>
+        </div>
+
+        <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e5e5e5;">
+          <h3 style="color: #dc2626; margin: 0 0 15px 0; font-size: 14px; text-align: ${textAlign};">Order Items</h3>
+          <p style="color: #374151; margin: 0; text-align: ${textAlign};">${orderItems}</p>
+        </div>
+        
+        <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e5e5e5;">
+          <h3 style="color: #dc2626; margin: 0 0 15px 0; font-size: 14px; text-align: ${textAlign};">Order Summary</h3>
+          <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 16px; color: #10b981; border-top: 2px solid #10b981; padding-top: 8px; flex-direction: ${isRTL ? 'row-reverse' : 'row'};">
+            <span>Total Paid:</span>
+            <span>AED ${totalNum.toFixed(2)}</span>
+          </div>
+        </div>
+
+        <!-- Next Steps Section -->
+        <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e9ecef;">
+          <h3 style="color: #374151; margin: 0 0 15px 0; font-size: 16px; text-align: ${textAlign};">What happens next?</h3>
+          <ul style="color: #374151; font-size: 14px; line-height: 1.6; padding-left: ${isRTL ? '0' : '20px'}; padding-right: ${isRTL ? '20px' : '0'}; text-align: ${textAlign};">
+            <li style="margin-bottom: 8px;">We are now processing your order and will ship it within 1-2 business days.</li>
+            <li>You will receive tracking information once your order ships.</li>
+          </ul>
+        </div>
+        
+        <div style="text-align: center; margin: 30px 0;">
+          <a href="${productsUrl}" 
+             style="background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%); 
+                    color: white; 
+                    padding: 12px 30px; 
+                    text-decoration: none; 
+                    border-radius: 6px; 
+                    font-weight: bold; 
+                    display: inline-block; 
+                    margin-${isRTL ? 'left' : 'right'}: 10px;">
+            Continue Shopping
+          </a>
+          <a href="${contactUrl}" 
+             style="background: transparent; 
+                    color: #16a34a; 
+                    padding: 12px 30px; 
+                    text-decoration: none; 
+                    border: 2px solid #16a34a; 
+                    border-radius: 6px; 
+                    font-weight: bold; 
+                    display: inline-block;">
+            Contact Support
+          </a>
+        </div>
+        
+        <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #e5e5e5; color: #000000; font-size: 14px;">
+          <div style="text-align: center; margin-bottom: 15px;">
+            <img src="https://genosys.ae/_next/image?url=%2FLogo%2FFull.png&w=640&q=75" alt="GENOSYS Logo" style="max-width: 200px; height: auto; display: block; margin: 0 auto;" />
+          </div>
+          <p style="color: #000000; margin: 0;">Official Distributor in the UAE</p>
+          <p style="color: #000000; margin: 0;">© 2026 Genosys Middle East FZ-LLC. All rights reserved.</p>
+        </div>
+      </div>
+    `
+    }
+  }
+
   // Generate order confirmed email template
   const generateOrderConfirmedEmail = (name: string, orderNum: string, total: string) => {
     const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
@@ -630,6 +738,8 @@ export default function EmailTemplatePage() {
         return generateCODEmail(userName, userEmail, userPhone, orderNumber, orderSubtotal, orderShipping, orderVat, orderTotal, deliveryAddress, deliveryEmirate)
       case 'support-link':
         return generateSupportLinkEmail(userName, userEmail, userPhone, orderNumber, orderSubtotal, orderShipping, orderVat, orderTotal, deliveryAddress, deliveryEmirate)
+      case 'stripe-payment-confirmation':
+        return generateStripePaymentConfirmationEmail(userName, userEmail, userPhone, orderNumber, orderSubtotal, orderShipping, orderVat, orderTotal, deliveryAddress, deliveryEmirate)
       default:
         return generateOrderShippedEmail(userName, orderNumber, orderTotal)
     }
@@ -653,6 +763,8 @@ export default function EmailTemplatePage() {
         return 'COD Order Confirmation Email'
       case 'support-link':
         return 'Support Link Order Request Email'
+      case 'stripe-payment-confirmation':
+        return 'Stripe Payment Confirmation Email'
       default:
         return 'Order Shipped Email'
     }
@@ -782,6 +894,16 @@ export default function EmailTemplatePage() {
                 }`}
               >
                 Support Link
+              </button>
+              <button
+                onClick={() => setTemplateType('stripe-payment-confirmation')}
+                className={`px-4 py-2 rounded-md font-medium transition-colors ${
+                  templateType === 'stripe-payment-confirmation'
+                    ? 'bg-red-600 text-white'
+                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                }`}
+              >
+                Stripe Payment Confirmation
               </button>
             </div>
           </div>

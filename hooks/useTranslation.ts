@@ -20,8 +20,8 @@ export function useTranslation(): UseTranslationReturn {
   const locale = getLocaleFromPath(effectivePath)
   
   const messages = useMemo((): Messages => {
-    if (locale === 'ar') return arMessages as Messages
-    if (locale === 'ru') return ruMessages as Messages
+    if (locale === 'ar') return arMessages as any
+    if (locale === 'ru') return ruMessages as any
     return enMessages
   }, [locale])
 

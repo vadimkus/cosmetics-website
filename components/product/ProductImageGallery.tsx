@@ -7,6 +7,7 @@ import { Product } from '@/types'
 import { getProductVideoUrl } from '@/data/productConfig'
 import { useTranslation } from '@/hooks/useTranslation'
 import { errorLog } from '@/lib/logger'
+import { useProductShare } from '@/hooks/useWebShare'
 
 interface ProductImageGalleryProps {
   product: Product
@@ -23,6 +24,7 @@ export default function ProductImageGallery({ product }: ProductImageGalleryProp
   const shareButtonRef = useRef<HTMLButtonElement>(null)
   const videoUrl = getProductVideoUrl(product.id)
   const { t, dir } = useTranslation()
+  const { shareProduct, isSupported: isWebShareSupported } = useProductShare()
   
   // Check if this is the Holiday Kit
   const isHolidayKit = product.id === 'cmhf1a6p400000xfa0iu3bw42' || product.productNumber === '54' || product.category === 'kits'
@@ -141,7 +143,28 @@ export default function ProductImageGallery({ product }: ProductImageGalleryProp
     }
   }
 
-  // Toggle share menu and calculate position
+  // Handle native Web Share API first, then fallback to manual sharing
+  const handleShare = async () => {
+    if (isWebShareSupported) {
+      setIsSharing(true)
+      try {
+        const success = await shareProduct(product)
+        if (success) {
+          // Successfully shared, no need to show manual options
+          return
+        }
+      } catch (error) {
+        errorLog('Web share failed, showing manual options:', error)
+      } finally {
+        setIsSharing(false)
+      }
+    }
+    
+    // Fallback to manual sharing menu
+    toggleShareMenu()
+  }
+
+  // Toggle share menu and calculate position (for fallback)
   const toggleShareMenu = () => {
     if (!showShareMenu && shareButtonRef.current) {
       const rect = shareButtonRef.current.getBoundingClientRect()
@@ -174,13 +197,18 @@ export default function ProductImageGallery({ product }: ProductImageGalleryProp
         {/* Share Button */}
         <button
           ref={shareButtonRef}
-          onClick={toggleShareMenu}
-          className={`absolute bottom-2 md:bottom-3 ${dir === 'rtl' ? 'right-2 md:right-3' : 'left-2 md:left-3'} z-30 flex items-center justify-center w-[15px] h-[15px] md:w-[22px] md:h-[22px] bg-white/95 backdrop-blur-sm hover:bg-white rounded-full border border-white/50 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 active:scale-95 ${showShareMenu ? 'bg-white shadow-xl ring-2 ring-primary-500/20' : ''}`}
+          onClick={handleShare}
+          disabled={isSharing}
+          className={`absolute bottom-2 md:bottom-3 ${dir === 'rtl' ? 'right-2 md:right-3' : 'left-2 md:left-3'} z-30 flex items-center justify-center w-[15px] h-[15px] md:w-[22px] md:h-[22px] bg-white/95 backdrop-blur-sm hover:bg-white rounded-full border border-white/50 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 active:scale-95 disabled:opacity-50 ${showShareMenu ? 'bg-white shadow-xl ring-2 ring-primary-500/20' : ''}`}
           aria-label={t('common.share')}
           title={t('common.share')}
           aria-expanded={showShareMenu}
         >
-          <Share2 className={`h-[11px] w-[11px] md:h-[17px] md:w-[17px] text-gray-800 transition-colors duration-300 ${showShareMenu ? 'text-primary-600' : ''} ${dir === 'rtl' ? 'scale-x-[-1]' : ''}`} />
+          {isSharing ? (
+            <div className="h-[8px] w-[8px] md:h-[12px] md:w-[12px] border border-gray-800 border-t-transparent rounded-full animate-spin" />
+          ) : (
+            <Share2 className={`h-[11px] w-[11px] md:h-[17px] md:w-[17px] text-gray-800 transition-colors duration-300 ${showShareMenu ? 'text-primary-600' : ''} ${dir === 'rtl' ? 'scale-x-[-1]' : ''}`} />
+          )}
         </button>
         {product.id === '3' && selectedImage === 2 && videoUrl ? (
           <iframe

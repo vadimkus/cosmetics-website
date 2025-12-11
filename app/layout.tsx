@@ -17,6 +17,7 @@ import ErrorBoundary from '@/components/ErrorBoundary'
 import LocaleWrapper from '@/components/LocaleWrapper'
 import Footer from '@/components/Footer'
 import { PullToRefresh } from '@/components/PullToRefresh'
+import PWAInstallPrompt from '@/components/PWAInstallPrompt'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -256,6 +257,7 @@ export default function RootLayout({
                   </main>
                 </LocaleWrapper>
                 <Footer />
+                <PWAInstallPrompt variant="banner" showDelay={60} />
               </ServiceWorkerProvider>
             </CartProvider>
           </FavoritesProvider>

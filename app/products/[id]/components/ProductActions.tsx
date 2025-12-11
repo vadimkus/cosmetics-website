@@ -3,6 +3,7 @@
 import { Product } from '@/types'
 import { useProductActions } from '@/hooks/useProductActions'
 import { ShoppingCart, Heart, Minus, Plus } from 'lucide-react'
+import ProductShareButton from '@/components/ProductShareButton'
 
 interface ProductActionsProps {
   product: Product
@@ -56,26 +57,37 @@ export default function ProductActions({
       </div>
 
       {/* Action Buttons */}
-      <div className="flex gap-3">
-        <button
-          onClick={handleAddToCartClick}
-          disabled={isAdding}
-          className="flex-1 bg-primary-600 text-white px-6 py-3 rounded-lg hover:bg-primary-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-        >
-          <ShoppingCart className="h-5 w-5" />
-          {isAdding ? 'Adding...' : 'Add to Cart'}
-        </button>
+      <div className="space-y-3">
+        <div className="flex gap-3">
+          <button
+            onClick={handleAddToCartClick}
+            disabled={isAdding}
+            className="flex-1 bg-primary-600 text-white px-6 py-3 rounded-lg hover:bg-primary-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+          >
+            <ShoppingCart className="h-5 w-5" />
+            {isAdding ? 'Adding...' : 'Add to Cart'}
+          </button>
+          
+          <button
+            onClick={onToggleFavorite}
+            className={`p-3 rounded-lg border-2 transition-colors ${
+              isFavorite
+                ? 'border-red-500 bg-red-50 text-red-600'
+                : 'border-gray-300 hover:border-gray-400 text-gray-600'
+            }`}
+          >
+            <Heart className={`h-5 w-5 ${isFavorite ? 'fill-current' : ''}`} />
+          </button>
+        </div>
         
-        <button
-          onClick={onToggleFavorite}
-          className={`p-3 rounded-lg border-2 transition-colors ${
-            isFavorite
-              ? 'border-red-500 bg-red-50 text-red-600'
-              : 'border-gray-300 hover:border-gray-400 text-gray-600'
-          }`}
-        >
-          <Heart className={`h-5 w-5 ${isFavorite ? 'fill-current' : ''}`} />
-        </button>
+        {/* Share Button */}
+        <ProductShareButton
+          product={product}
+          variant="button"
+          size="md"
+          className="w-full"
+          showPrice={true}
+        />
       </div>
     </div>
   )

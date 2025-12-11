@@ -33,7 +33,7 @@ function writeToFile(level: string, ...args: unknown[]): void {
     const logLine = `[${timestamp}] [${level}] ${message}\n`
     
     fs.appendFileSync(LOG_FILE, logLine, { encoding: 'utf8' })
-  } catch (error) {
+  } catch (_error) {
     // Silently fail if file writing fails (e.g., in client-side rendering)
   }
 }

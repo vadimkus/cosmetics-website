@@ -79,7 +79,7 @@ async function getBlogPosts(): Promise<BlogPostListItem[]> {
         AND column_name IN ('titleRu', 'excerptRu')
       `
       hasRussianColumns = columns.length >= 2
-    } catch (e) {
+      } catch (_e) {
       // If we can't check, assume they don't exist
       hasRussianColumns = false
     }

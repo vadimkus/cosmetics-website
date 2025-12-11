@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { ArrowLeft, ChevronDown, ChevronUp } from 'lucide-react'
 import BreadcrumbSchema from '@/components/BreadcrumbSchema'
-import { useState, useMemo } from 'react'
+import { useState } from 'react'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { sanitizeHtml } from '@/lib/sanitize'
@@ -144,6 +144,7 @@ export default function FAQClient() {
           <div className="space-y-2 md:space-y-4 mb-6 md:mb-12">
             {faqs.map((faq, index) => {
               const isOpen = openIndex === index
+              const sanitizedAnswer = sanitizeHtml(faq.answer)
               return (
                 <div 
                   key={index} 
@@ -172,7 +173,7 @@ export default function FAQClient() {
                       {isOpen ? (
                         <ChevronUp className="h-4 w-4 md:h-5 md:w-5 text-primary-600 transition-transform" />
                       ) : (
-                        <ChevronDown className="h-4 w-4 md:h-5 md:w-5 text-gray-400 group-hover:text-primary-600 transition-transform" />
+                        <ChevronDown className="h-4 w-4 md:h-5 md:w-5 text-gray-400 group-hover:text-primary-600 transition-colors" />
                       )}
                     </div>
                   </button>
@@ -185,7 +186,7 @@ export default function FAQClient() {
                       <div className={`border-${dir === 'rtl' ? 'r' : 'l'}-2 border-primary-200 ${dir === 'rtl' ? 'pr-3 md:pr-6' : 'pl-3 md:pl-6'}`}>
                         <div 
                           className="text-xs md:text-base text-gray-600 leading-relaxed prose prose-sm max-w-none"
-                          dangerouslySetInnerHTML={{ __html: useMemo(() => sanitizeHtml(faq.answer), [faq.answer]) }}
+                          dangerouslySetInnerHTML={{ __html: sanitizedAnswer }}
                         />
                       </div>
                     </div>

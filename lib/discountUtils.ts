@@ -37,7 +37,7 @@ export function calculateDiscountedPrice(product: Product, user: User | null): D
   let discountPercentage = 0
   let hasDiscount = false
   let isBlackFriday = false
-  let isBeautyBox = false
+    const isBeautyBox = false
 
   // Beauty box products excluded from Black Friday discounts specifically
   const BLACK_FRIDAY_EXCLUDED_PRODUCT_NUMBERS = ['55', '56', '57', '58', '59']

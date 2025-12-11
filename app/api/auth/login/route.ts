@@ -167,7 +167,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Return user data (without password)
-    const { password: _, ...userWithoutPassword } = updatedUser
+    const { password: __, ...userWithoutPassword } = updatedUser
     
     // Set session cookie (for consistency with Google OAuth)
     const userSessionData = {

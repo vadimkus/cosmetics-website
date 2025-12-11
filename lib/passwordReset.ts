@@ -127,7 +127,7 @@ export async function verifyPasswordResetToken(
             k => !k.startsWith('$') && !k.startsWith('_') && typeof prisma[k as keyof typeof prisma] === 'object'
           )
           errorLog('❌ Available Prisma models:', availableModels.join(', '))
-        } catch (e) {
+        } catch (_e) {
           errorLog('❌ Could not list available models')
         }
         return {

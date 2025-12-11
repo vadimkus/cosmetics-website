@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Image from 'next/image'
 import { Package, Plus, RefreshCw, Edit, Eye, ImageIcon } from 'lucide-react'
 import type { Product } from '@/types'
 import Link from 'next/link'
@@ -130,10 +131,12 @@ export default function AdminProductsManager({
                             <div className="flex items-center">
                               <div className="flex-shrink-0 h-12 w-12">
                                 {product.image ? (
-                                  <img
+                                  <Image
                                     className="h-12 w-12 rounded-lg object-cover"
                                     src={product.image}
                                     alt={product.name}
+                                    width={48}
+                                    height={48}
                                   />
                                 ) : (
                                   <div className="h-12 w-12 rounded-lg bg-gray-200 flex items-center justify-center">

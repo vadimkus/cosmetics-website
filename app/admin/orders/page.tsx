@@ -44,7 +44,7 @@ export default function AdminOrdersPage() {
         const parsed = JSON.parse(session)
         return parsed.email || null
       }
-    } catch (e) {
+      } catch (_e) {
       return null
     }
     return null

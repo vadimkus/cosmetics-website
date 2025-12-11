@@ -34,7 +34,7 @@ export async function PUT(
     const { id } = await params
     const updates = await request.json()
     debugLog('Admin user update request:', { id, updates })
-    const { canSeePrices, discountType, discountPercentage, name: _name, email: _email, phone: _phone, address: _address, birthday: _birthday, profilePicture: _profilePicture } = updates
+    const { canSeePrices, discountType, discountPercentage, name: __name, email: __email, phone: __phone, address: __address, birthday: __birthday, profilePicture: __profilePicture } = updates
 
     if (canSeePrices !== undefined && typeof canSeePrices !== 'boolean') {
       return NextResponse.json(

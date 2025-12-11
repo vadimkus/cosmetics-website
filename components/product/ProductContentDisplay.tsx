@@ -198,7 +198,7 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
     // Extract key information
     let mainDescription = ''
     let keyIngredients: string[] = []
-    let benefits: string[] = []
+    const benefits: string[] = []
     
     for (let i = 0; i < lines.length; i++) {
       const line = lines[i]?.trim()
@@ -767,7 +767,7 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
 function tryParseJSON(jsonString: string): unknown {
   try {
     return JSON.parse(jsonString)
-  } catch (error) {
+        } catch (_error) {
     // If it's not valid JSON, return the original string
     return jsonString
   }

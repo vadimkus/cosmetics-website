@@ -20,7 +20,7 @@ export async function GET(request: NextRequest) {
     let sessionData
     try {
       sessionData = JSON.parse(sessionCookie.value)
-    } catch (error) {
+    } catch (_error) {
       return NextResponse.json({ 
         error: 'Invalid session cookie',
         loggedIn: false 
@@ -78,11 +78,11 @@ export async function GET(request: NextRequest) {
         profilePicture: user.profilePicture
       }
     })
-  } catch (error) {
-    errorLog('Debug profile picture error:', error)
+  } catch (_error) {
+    errorLog('Debug profile picture error:', _error)
     return NextResponse.json({ 
       error: 'Internal server error',
-      details: error instanceof Error ? error.message : 'Unknown error'
+      details: _error instanceof Error ? _error.message : 'Unknown error'
     }, { status: 500 })
   }
 }

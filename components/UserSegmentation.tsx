@@ -117,7 +117,7 @@ export default function UserSegmentation({ users, onUserClick, onSegmentUsers: _
   const [segmentName, setSegmentName] = useState('')
   const [segmentDescription, setSegmentDescription] = useState('')
   const [filters, setFilters] = useState<SegmentFilter[]>([])
-  const [_loading, setLoading] = useState(false)
+  const [__loading, setLoading] = useState(false)
 
   // Fetch saved segments
   const fetchSegments = useCallback(async () => {

@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
+import Image from 'next/image'
 import { Search, X } from 'lucide-react'
 import { Product } from '@/types'
 import { useTranslation } from '@/hooks/useTranslation'
@@ -90,10 +91,12 @@ export default function ProductSearch({ products, onSearchChange, searchQuery }:
               className="w-full px-4 py-3 text-left hover:bg-gray-50 transition-colors border-b border-gray-100 last:border-b-0 touch-manipulation min-h-[44px]"
             >
               <div className="flex items-center gap-3">
-                <img
+                <Image
                   src={product.image}
                   alt={`${product.name} - GENOSYS Korean ${product.category || 'dermacosmetics'} product`}
                   className="w-10 h-10 object-cover rounded"
+                  width={40}
+                  height={40}
                 />
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-medium text-gray-900 truncate">{product.name}</p>

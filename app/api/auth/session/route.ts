@@ -34,7 +34,7 @@ export async function GET(request: NextRequest) {
     }
 
     // Return user data (without password)
-    const { password: _, ...userWithoutPassword } = user
+    const { password: __, ...userWithoutPassword } = user
     
     // Debug logging for profile picture (always log for troubleshooting)
     debugLog('[SESSION_API] User profile picture:', {

@@ -1760,8 +1760,8 @@ export const sendOrderStatusUpdate = async (order: { orderNumber: string; custom
                 // Ensure path starts with /
                 const normalizedPath = cleanPath.startsWith('/') ? cleanPath : '/' + cleanPath
                 imageUrl = `${baseUrl}${normalizedPath}`
-              } catch (e) {
-                debugLog(`❌ Failed to decode Next.js image URL: ${trimmedUrl}`, e)
+              } catch (_e) {
+                debugLog(`❌ Failed to decode Next.js image URL: ${trimmedUrl}`, _e)
                 imageUrl = `${baseUrl}/images/genosys-logo.png`
               }
             } else {
@@ -1817,7 +1817,7 @@ export const sendOrderStatusUpdate = async (order: { orderNumber: string; custom
         // Ensure URL is valid
         try {
           new URL(imageUrl)
-        } catch (e) {
+        } catch (_e) {
           errorLog(`❌ Invalid image URL constructed: "${imageUrl}" for product: ${item.productName}`)
           errorLog(`   Original was: "${originalImageUrl}"`)
           imageUrl = `${baseUrl}/images/genosys-logo.png`

@@ -42,13 +42,9 @@ export function PullToRefresh({ children, onRefresh, disabled = false }: PullToR
 
   // IMPORTANT: Only enable in PWA mode
   // For regular browsers, render children without any pull-to-refresh functionality
-  if (!isPWA) {
-    return <>{children}</>
-  }
-
   // Prevent body scroll when pulling
   useEffect(() => {
-    if (isPulling || isRefreshing) {
+    if (isPWA && (isPulling || isRefreshing)) {
       document.body.style.overflow = isPulling ? 'hidden' : ''
     } else {
       document.body.style.overflow = ''
@@ -57,7 +53,11 @@ export function PullToRefresh({ children, onRefresh, disabled = false }: PullToR
     return () => {
       document.body.style.overflow = ''
     }
-  }, [isPulling, isRefreshing])
+  }, [isPWA, isPulling, isRefreshing])
+
+  if (!isPWA) {
+    return <>{children}</>
+  }
 
   // Smooth rotation and scale calculations
   const rotation = pullProgress * 180

@@ -160,11 +160,11 @@ export default function AuthProvider({ children }: AuthProviderProps) {
                     const recentActions = parsedActions.slice(-20)
                     localStorage.setItem(actionsKey, JSON.stringify(recentActions))
                   }
-                } catch (e) {
+                } catch (_e) {
                   localStorage.removeItem(actionsKey)
                 }
               }
-            } catch (e) {
+            } catch (_e) {
               // Ignore errors when cleaning up
             }
 

@@ -56,7 +56,7 @@ export async function DELETE(
   }
 
   try {
-    const { id: _id } = await params
+    const { id: __id } = await params
 
     // For now, return success (can be extended to delete from database)
     return NextResponse.json({

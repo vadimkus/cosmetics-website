@@ -37,7 +37,7 @@ export async function POST(request: NextRequest) {
             const sessionData = JSON.parse(sessionCookie.value)
             userEmail = sessionData.email || null
           }
-        } catch (error) {
+        } catch (_error) {
           // Ignore parsing errors
         }
       }

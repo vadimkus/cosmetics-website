@@ -9,6 +9,7 @@ import { useFavorites } from './FavoritesProvider'
 import LoginModal from './LoginModal'
 import LanguageSwitcher from './LanguageSwitcher'
 import InstallLink from './InstallLink'
+import { AnimationToggle } from './AnimationToggle'
 import { useState, useEffect } from 'react'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
@@ -87,6 +88,7 @@ export default function HeaderRussianMobile({ showMobileMenu, setShowMobileMenu 
             </span>
           )}
         </Link>
+        <AnimationToggle size="sm" className="md:hidden" />
         <Link 
           href={getLocalizedPath('/products', 'ru')} 
           className="p-0.5 hover:opacity-80 transition-opacity flex items-center justify-center ml-[10%] md:ml-2"

@@ -4,6 +4,8 @@ import { debugLog, errorLog } from '@/lib/logger'
 import Link from 'next/link'
 import Image from 'next/image'
 import { ArrowLeft, Heart } from 'lucide-react'
+import { motion } from 'framer-motion'
+import { useAnimationStore } from '@/lib/animationStore'
 import ProductCard from '@/components/ProductCard'
 import ErrorPage from '@/components/ErrorPage'
 import LoadingSpinner from '@/components/LoadingSpinner'
@@ -49,6 +51,7 @@ export default function ProductsPageClient() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const { t, locale } = useTranslation()
+  const { enabled: animationsEnabled } = useAnimationStore()
   
   const [products, setProducts] = useState<Product[]>([])
   const [loading, setLoading] = useState(true)
@@ -468,11 +471,41 @@ export default function ProductsPageClient() {
 
             {/* Products Grid */}
             {filteredAndSortedProducts.length > 0 ? (
-              <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-2 sm:gap-4 md:gap-6">
+              <motion.div 
+                className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-2 sm:gap-4 md:gap-6"
+                initial={animationsEnabled ? "hidden" : {}}
+                animate={animationsEnabled ? "show" : {}}
+                variants={animationsEnabled ? {
+                  hidden: { opacity: 0 },
+                  show: {
+                    opacity: 1,
+                    transition: {
+                      staggerChildren: 0.08,
+                      delayChildren: 0.1
+                    }
+                  }
+                } : {}}
+              >
                 {filteredAndSortedProducts.map((product) => (
-                  <ProductCard key={product.id} product={product} />
+                  <motion.div
+                    key={product.id}
+                    variants={animationsEnabled ? {
+                      hidden: { opacity: 0, y: 30, scale: 0.9 },
+                      show: { 
+                        opacity: 1, 
+                        y: 0, 
+                        scale: 1,
+                        transition: { 
+                          duration: 0.4,
+                          ease: "easeOut"
+                        }
+                      }
+                    } : {}}
+                  >
+                    <ProductCard product={product} />
+                  </motion.div>
                 ))}
-              </div>
+              </motion.div>
             ) : (
               <div className="text-center py-12">
                 <p className="text-gray-600 text-lg mb-2">{t('products.noProductsFound')}</p>

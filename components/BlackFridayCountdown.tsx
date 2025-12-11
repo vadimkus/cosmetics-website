@@ -89,7 +89,7 @@ export default function BlackFridayCountdown() {
   }
 
   return (
-    <div className={`mt-6 md:mt-8 max-w-2xl mx-auto px-2 sm:px-4 ${dir === 'rtl' ? 'text-right' : ''}`}>
+    <div className={`mt-3 md:mt-4 max-w-2xl mx-auto px-2 sm:px-4 ${dir === 'rtl' ? 'text-right' : ''}`}>
       <div className="bg-white border-2 border-gray-300 rounded-xl p-3 sm:p-4 md:p-6 shadow-lg">
         {/* Title */}
         <div className="text-center mb-3 sm:mb-4">

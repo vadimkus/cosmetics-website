@@ -8,10 +8,13 @@ import ProductCard from '@/components/ProductCard'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { useEffect, useState } from 'react'
+import { motion } from 'framer-motion'
+import { useAnimationStore } from '@/lib/animationStore'
 
 export default function FavoritesClient() {
   const { t, locale, dir } = useTranslation()
   const { favorites } = useFavorites()
+  const { enabled: animationsEnabled } = useAnimationStore()
   const favoriteProducts = favorites
   const [isPulsing, setIsPulsing] = useState(false)
 
@@ -46,14 +49,77 @@ export default function FavoritesClient() {
         <div className="max-w-md mx-auto text-center py-6 md:py-16">
           <div className="bg-white rounded-xl p-4 md:p-8">
             {/* Mobile: Custom image, Desktop: Custom image */}
-            <div className="mb-2 md:mb-4">
-              <Image
-                src="/images/avatar/uni.png"
-                alt="No favorites"
-                width={210}
-                height={210}
+            <div className="mb-2 md:mb-4 relative">
+              <motion.div
+                animate={animationsEnabled ? {
+                  y: [0, -8, 0],
+                  scale: [1, 1.02, 1],
+                  rotate: [0, 1, -1, 0]
+                } : {}}
+                transition={animationsEnabled ? {
+                  duration: 4,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  times: [0, 0.5, 1]
+                } : {}}
                 className="mx-auto"
-              />
+              >
+                <Image
+                  src="/images/avatar/uni.png"
+                  alt="No favorites"
+                  width={210}
+                  height={210}
+                  className="mx-auto"
+                />
+              </motion.div>
+              
+              {/* Floating particles around Uni - same as cart */}
+              {animationsEnabled && (
+                <>
+                  <motion.div
+                    className="absolute top-4 right-4 w-2 h-2 bg-red-400 rounded-full opacity-60"
+                    animate={{
+                      y: [0, -20, 0],
+                      x: [0, 10, 0],
+                      opacity: [0.6, 1, 0.6]
+                    }}
+                    transition={{
+                      duration: 3,
+                      repeat: Infinity,
+                      delay: 0.5,
+                      ease: "easeInOut"
+                    }}
+                  />
+                  <motion.div
+                    className="absolute top-8 left-6 w-1.5 h-1.5 bg-red-300 rounded-full opacity-50"
+                    animate={{
+                      y: [0, -15, 0],
+                      x: [0, -8, 0],
+                      opacity: [0.5, 0.8, 0.5]
+                    }}
+                    transition={{
+                      duration: 2.5,
+                      repeat: Infinity,
+                      delay: 1,
+                      ease: "easeInOut"
+                    }}
+                  />
+                  <motion.div
+                    className="absolute bottom-6 right-8 w-1 h-1 bg-red-500 rounded-full opacity-70"
+                    animate={{
+                      y: [0, -12, 0],
+                      x: [0, 6, 0],
+                      opacity: [0.7, 1, 0.7]
+                    }}
+                    transition={{
+                      duration: 2.8,
+                      repeat: Infinity,
+                      delay: 1.5,
+                      ease: "easeInOut"
+                    }}
+                  />
+                </>
+              )}
             </div>
             <h1 className="text-base md:text-2xl font-bold text-gray-900 mb-3 md:mb-6">{t('favorites.empty') || 'No Favorites Yet'}</h1>
             <Link
@@ -105,14 +171,45 @@ export default function FavoritesClient() {
           <div className="max-w-md mx-auto text-center py-6 md:py-16">
             <div className="bg-gray-50 rounded-xl p-4 md:p-8">
               {/* Mobile: Custom image, Desktop: Heart icon */}
-              <div className="md:hidden mb-2">
-                <Image
-                  src="/images/avatar/uni.png"
-                  alt="No products"
-                  width={60}
-                  height={60}
-                  className="mx-auto"
-                />
+              <div className="md:hidden mb-2 relative">
+                <motion.div
+                  animate={animationsEnabled ? {
+                    rotate: [0, 5, -5, 0],
+                    scale: [1, 1.1, 1]
+                  } : {}}
+                  transition={animationsEnabled ? {
+                    duration: 4,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  } : {}}
+                  className="mx-auto relative"
+                >
+                  <Image
+                    src="/images/avatar/uni.png"
+                    alt="No products"
+                    width={60}
+                    height={60}
+                    className="mx-auto"
+                  />
+                  
+                  {/* Small sparkle effect */}
+                  {animationsEnabled && (
+                    <motion.div
+                      className="absolute -top-1 -right-1 w-2 h-2 bg-yellow-400 rounded-full"
+                      animate={{
+                        scale: [0, 1, 0],
+                        rotate: [0, 180, 360],
+                        opacity: [0, 1, 0]
+                      }}
+                      transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        delay: 1,
+                        ease: "easeInOut"
+                      }}
+                    />
+                  )}
+                </motion.div>
               </div>
               <Heart className="hidden md:block h-16 w-16 text-gray-300 mx-auto mb-4" />
               <h2 className="text-base md:text-2xl font-bold text-gray-900 mb-1 md:mb-3">{t('favorites.noProductsFound')}</h2>

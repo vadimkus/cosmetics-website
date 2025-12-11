@@ -4,6 +4,8 @@ import { useState, useEffect, useRef } from 'react'
 import { useCart } from '@/components/CartProvider'
 import { useAuth } from '@/components/AuthProvider'
 import CartItem from '@/components/CartItem'
+import { motion, AnimatePresence } from 'framer-motion'
+import { useAnimationStore } from '@/lib/animationStore'
 import FreeMaskPromotion from '@/components/FreeMaskPromotion'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -18,6 +20,7 @@ export default function CartClient() {
   const { items, getTotalPrice, getTotalItems, selectedEmirate, setSelectedEmirate } = useCart()
   const { user } = useAuth()
   const { t, locale, dir } = useTranslation()
+  const { enabled: animationsEnabled } = useAnimationStore()
   const [showUniVideo, setShowUniVideo] = useState(false)
   const uniVideoRef = useRef<HTMLVideoElement>(null)
   
@@ -191,15 +194,77 @@ export default function CartClient() {
 
         <div className={`max-w-4xl mx-auto text-center py-8 md:py-16 ${dir === 'rtl' ? 'text-right' : ''}`}>
           <div className="flex flex-col items-center">
-            <div className="mb-6 md:mb-4">
-              <Image
-                src="/images/avatar/uni.png"
-                alt="Empty cart"
-                width={200}
-                height={200}
-                className="w-auto h-auto max-w-[200px] md:max-w-[250px]"
-                priority
-              />
+            <div className="mb-6 md:mb-4 relative">
+              <motion.div
+                animate={animationsEnabled ? {
+                  y: [0, -8, 0],
+                  scale: [1, 1.02, 1],
+                  rotate: [0, 1, -1, 0]
+                } : {}}
+                transition={animationsEnabled ? {
+                  duration: 4,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  times: [0, 0.5, 1]
+                } : {}}
+              >
+                <Image
+                  src="/images/avatar/uni.png"
+                  alt="Empty cart"
+                  width={200}
+                  height={200}
+                  className="w-auto h-auto max-w-[200px] md:max-w-[250px]"
+                  priority
+                />
+              </motion.div>
+              
+              {/* Floating particles around Uni */}
+              {animationsEnabled && (
+                <>
+                  <motion.div
+                    className="absolute top-4 right-4 w-2 h-2 bg-primary-400 rounded-full opacity-60"
+                    animate={{
+                      y: [0, -20, 0],
+                      x: [0, 10, 0],
+                      opacity: [0.6, 1, 0.6]
+                    }}
+                    transition={{
+                      duration: 3,
+                      repeat: Infinity,
+                      delay: 0.5,
+                      ease: "easeInOut"
+                    }}
+                  />
+                  <motion.div
+                    className="absolute top-8 left-6 w-1.5 h-1.5 bg-primary-300 rounded-full opacity-50"
+                    animate={{
+                      y: [0, -15, 0],
+                      x: [0, -8, 0],
+                      opacity: [0.5, 0.8, 0.5]
+                    }}
+                    transition={{
+                      duration: 2.5,
+                      repeat: Infinity,
+                      delay: 1,
+                      ease: "easeInOut"
+                    }}
+                  />
+                  <motion.div
+                    className="absolute bottom-6 right-8 w-1 h-1 bg-primary-500 rounded-full opacity-70"
+                    animate={{
+                      y: [0, -12, 0],
+                      x: [0, 6, 0],
+                      opacity: [0.7, 1, 0.7]
+                    }}
+                    transition={{
+                      duration: 2.8,
+                      repeat: Infinity,
+                      delay: 1.5,
+                      ease: "easeInOut"
+                    }}
+                  />
+                </>
+              )}
             </div>
             <h1 className={`text-2xl md:text-3xl font-bold text-gray-900 mb-3 md:mb-4 ${dir === 'rtl' ? 'text-right' : ''}`}>{t('cart.empty')}</h1>
             <p className={`hidden md:block text-gray-600 text-lg mb-8 ${dir === 'rtl' ? 'text-right' : ''}`}>
@@ -236,15 +301,45 @@ export default function CartClient() {
             />
           )}
           {/* Image on top */}
-          <div className="relative w-full h-full">
-            <Image
-              src="/images/avatar/uni.png"
-              alt="Uni"
-              width={640}
-              height={640}
-              className="w-full h-full object-cover"
-              priority
-            />
+          <div className="relative w-full h-full overflow-hidden">
+            <motion.div
+              className="w-full h-full"
+              animate={animationsEnabled ? {
+                scale: [1, 1.05, 1],
+                rotate: [0, 0.5, -0.5, 0]
+              } : {}}
+              transition={animationsEnabled ? {
+                duration: 6,
+                repeat: Infinity,
+                ease: "easeInOut"
+              } : {}}
+            >
+              <Image
+                src="/images/avatar/uni.png"
+                alt="Uni"
+                width={640}
+                height={640}
+                className="w-full h-full object-cover"
+                priority
+              />
+            </motion.div>
+            
+            {/* Animated glow effect around Uni */}
+            {animationsEnabled && (
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-primary-100/20 via-transparent to-primary-100/20"
+                animate={{
+                  x: [-100, 100],
+                  opacity: [0, 0.5, 0]
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: 2
+                }}
+              />
+            )}
           </div>
         </div>
       )}
@@ -279,10 +374,12 @@ export default function CartClient() {
                 </h1>
               </div>
               
-              <div className="divide-y divide-gray-200" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
-                {items.map((item) => (
-                  <CartItem key={`${item.product.id}-${item.quantity}`} item={item} />
-                ))}
+              <div className="space-y-4" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+                <AnimatePresence mode="popLayout">
+                  {items.map((item) => (
+                    <CartItem key={`${item.product.id}-${item.selectedColor || 'default'}-${item.selectedSize || 'default'}`} item={item} />
+                  ))}
+                </AnimatePresence>
               </div>
 
               {/* Bundle Discount Block - Shows when beauty boxes in cart */}

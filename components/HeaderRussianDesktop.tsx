@@ -7,6 +7,7 @@ import { useAuth } from './AuthProvider'
 import { useFavorites } from './FavoritesProvider'
 import LanguageSwitcher from './LanguageSwitcher'
 import LoginModal from './LoginModal'
+import { AnimationToggle } from './AnimationToggle'
 import { useState, useEffect } from 'react'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
@@ -165,6 +166,7 @@ export default function HeaderRussianDesktop() {
               </span>
             )}
           </Link>
+          <AnimationToggle size="lg" className="hidden lg:flex" />
         </div>
       </div>
 

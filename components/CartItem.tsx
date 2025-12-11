@@ -6,6 +6,8 @@ import { useAuth } from './AuthProvider'
 import { Minus, Plus, Trash2, Lock } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { motion } from 'framer-motion'
+import { useAnimationStore } from '@/lib/animationStore'
 import { calculateDiscountedPrice, canUserSeePrices } from '@/lib/discountUtils'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getProductColorOptions } from '@/utils/productPricing'
@@ -51,8 +53,27 @@ export default function CartItem({ item }: CartItemProps) {
     updateColor(product.id, newColor, selectedColor, selectedSize)
   }
 
+  const { enabled: animationsEnabled } = useAnimationStore()
+
   return (
-    <div className="bg-white rounded-lg shadow-sm border p-3 md:p-4">
+    <motion.div 
+      layout
+      initial={animationsEnabled ? { opacity: 0, y: 20, scale: 0.9 } : {}}
+      animate={animationsEnabled ? { opacity: 1, y: 0, scale: 1 } : {}}
+      exit={animationsEnabled ? { 
+        opacity: 0, 
+        y: -20, 
+        x: -100, 
+        scale: 0.9,
+        transition: { duration: 0.3, ease: "easeOut" }
+      } : {}}
+      transition={animationsEnabled ? { 
+        duration: 0.4, 
+        ease: "easeOut",
+        layout: { duration: 0.3 }
+      } : {}}
+      className="bg-white rounded-lg shadow-sm border p-3 md:p-4"
+    >
       <div className={`flex items-start gap-3 md:gap-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
         {/* Left: Product Image + Size */}
         <div className="flex flex-col flex-shrink-0">
@@ -171,30 +192,51 @@ export default function CartItem({ item }: CartItemProps) {
         {/* Right: Quantity Controls + Delete */}
         <div className="flex flex-col items-center gap-1 md:gap-2 flex-shrink-0">
           <div className="flex items-center border rounded-lg">
-            <button
+            <motion.button
               onClick={() => handleQuantityChange(quantity - 1)}
+              whileTap={animationsEnabled ? { scale: 0.9 } : {}}
+              whileHover={animationsEnabled && quantity > 1 ? { scale: 1.05, backgroundColor: '#f3f4f6' } : {}}
+              transition={animationsEnabled ? { duration: 0.1 } : {}}
               className="p-2 md:p-2.5 hover:bg-gray-100 transition-colors touch-manipulation flex items-center justify-center text-gray-700 hover:text-gray-900"
               disabled={quantity <= 1}
             >
               <Minus className="h-4 w-4 md:h-5 md:w-5" />
-            </button>
-            <span className="px-3 md:px-4 py-2 md:py-2.5 font-medium text-sm md:text-base text-black text-center min-w-[36px] md:min-w-[40px]">{quantity}</span>
-            <button
+            </motion.button>
+            <motion.span 
+              key={quantity}
+              initial={animationsEnabled ? { scale: 1.2, color: '#059669' } : {}}
+              animate={animationsEnabled ? { scale: 1, color: '#000000' } : {}}
+              transition={animationsEnabled ? { duration: 0.3 } : {}}
+              className="px-3 md:px-4 py-2 md:py-2.5 font-medium text-sm md:text-base text-black text-center min-w-[36px] md:min-w-[40px]"
+            >
+              {quantity}
+            </motion.span>
+            <motion.button
               onClick={() => handleQuantityChange(quantity + 1)}
+              whileTap={animationsEnabled ? { scale: 0.9 } : {}}
+              whileHover={animationsEnabled ? { scale: 1.05, backgroundColor: '#f3f4f6' } : {}}
+              transition={animationsEnabled ? { duration: 0.1 } : {}}
               className="p-2 md:p-2.5 hover:bg-gray-100 transition-colors touch-manipulation flex items-center justify-center text-gray-700 hover:text-gray-900"
             >
               <Plus className="h-4 w-4 md:h-5 md:w-5" />
-            </button>
+            </motion.button>
           </div>
           
-          <button
+          <motion.button
             onClick={handleRemove}
+            whileTap={animationsEnabled ? { scale: 0.9 } : {}}
+            whileHover={animationsEnabled ? { 
+              scale: 1.1, 
+              backgroundColor: '#fef2f2', 
+              color: '#dc2626' 
+            } : {}}
+            transition={animationsEnabled ? { duration: 0.2 } : {}}
             className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors touch-manipulation ml-3 md:ml-0 -mt-1 md:mt-0"
           >
             <Trash2 className="h-4 w-4 md:h-5 md:w-5" />
-          </button>
+          </motion.button>
         </div>
       </div>
-    </div>
+    </motion.div>
   )
 }

@@ -3,11 +3,12 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { ArrowRight } from 'lucide-react'
+import { motion } from 'framer-motion'
+import { useAnimationStore } from '@/lib/animationStore'
 import { useAuth } from './AuthProvider'
 import LoginModal from './LoginModal'
 import { useState, useMemo, useRef, useEffect } from 'react'
 import { getLocalizedPath } from '@/lib/i18n'
-import BlackFridayCountdown from './BlackFridayCountdown'
 import type { Locale } from '@/lib/i18n'
 import enMessages from '@/messages/en.json'
 import arMessages from '@/messages/ar.json'
@@ -21,6 +22,7 @@ interface HeroProps {
 
 export default function Hero({ initialLocale = 'en', initialDir = 'ltr' }: HeroProps = {}) {
   const { user } = useAuth()
+  const { enabled: animationsEnabled } = useAnimationStore()
   const [showLoginModal, setShowLoginModal] = useState(false)
   const [isLoginMode, setIsLoginMode] = useState(true)
   const [videoError, setVideoError] = useState(false)
@@ -105,17 +107,34 @@ export default function Hero({ initialLocale = 'en', initialDir = 'ltr' }: HeroP
   const subtitleText = useMemo(() => t('hero.subtitle'), [t])
   
   return (
-    <section className="bg-gradient-to-b from-white to-gray-50 min-h-[calc(100vh-64px)] md:min-h-0 md:pt-12 md:pb-20" dir={dir}>
+    <section className="min-h-[calc(100vh-64px)] md:min-h-0 md:pt-12 md:pb-12 flex-1" dir={dir}>
       <div className="container mx-auto px-3 md:px-4">
         {/* Mobile Layout */}
         <div className="md:hidden flex flex-col">
           {/* Title - Above video */}
-          <div className="text-center pt-4 pb-3">
-            <h1 className="text-xl font-bold text-gray-800 leading-tight">
+          <motion.div 
+            className="text-center pt-4 pb-3"
+            initial={animationsEnabled ? { opacity: 0, y: 30 } : {}}
+            animate={animationsEnabled ? { opacity: 1, y: 0 } : {}}
+            transition={animationsEnabled ? { duration: 0.6, ease: "easeOut" } : {}}
+          >
+            <motion.h1 
+              className="text-xl font-bold text-gray-800 leading-tight"
+              initial={animationsEnabled ? { opacity: 0, y: 20 } : {}}
+              animate={animationsEnabled ? { opacity: 1, y: 0 } : {}}
+              transition={animationsEnabled ? { duration: 0.6, delay: 0.2, ease: "easeOut" } : {}}
+            >
               {titleText}
-              <span className="text-primary-600"> {titleHighlightText}</span>
-            </h1>
-          </div>
+              <motion.span 
+                className="text-primary-600"
+                initial={animationsEnabled ? { opacity: 0, scale: 0.8 } : {}}
+                animate={animationsEnabled ? { opacity: 1, scale: 1 } : {}}
+                transition={animationsEnabled ? { duration: 0.6, delay: 0.4, ease: "easeOut" } : {}}
+              >
+                {" "}{titleHighlightText}
+              </motion.span>
+            </motion.h1>
+          </motion.div>
           
           {/* Video - Full width on mobile, hero style */}
           <div className="relative -mx-3 mb-4">
@@ -182,44 +201,56 @@ export default function Hero({ initialLocale = 'en', initialDir = 'ltr' }: HeroP
             {/* CTA Buttons */}
             <div className="flex flex-col gap-2.5 mb-4">
               {user ? (
-                <Link 
-                  href={productsPath}
-                  className="bg-primary-600 text-white px-5 py-3 rounded-xl font-semibold hover:bg-primary-700 transition-all flex items-center justify-center text-sm shadow-lg shadow-primary-600/25 active:scale-[0.98]"
+                <motion.div
+                  whileHover={animationsEnabled ? { scale: 1.02, y: -2 } : {}}
+                  whileTap={animationsEnabled ? { scale: 0.98 } : {}}
+                  transition={animationsEnabled ? { duration: 0.2 } : {}}
                 >
-                  {orderNowText}
-                  <ArrowRight className={`${dir === 'rtl' ? 'mr-2 rotate-180' : 'ml-2'} h-4 w-4`} />
-                </Link>
+                  <Link 
+                    href={productsPath}
+                    className="bg-primary-600 text-white px-5 py-3 rounded-xl font-semibold hover:bg-primary-700 transition-all flex items-center justify-center text-sm shadow-lg shadow-primary-600/25 block"
+                  >
+                    {orderNowText}
+                    <ArrowRight className={`${dir === 'rtl' ? 'mr-2 rotate-180' : 'ml-2'} h-4 w-4`} />
+                  </Link>
+                </motion.div>
               ) : (
-                <button
+                <motion.button
                   onClick={() => setShowLoginModal(true)}
-                  className="bg-primary-600 text-white px-5 py-3 rounded-xl font-semibold hover:bg-primary-700 transition-all flex items-center justify-center text-sm shadow-lg shadow-primary-600/25 active:scale-[0.98]"
+                  whileHover={animationsEnabled ? { scale: 1.02, y: -2 } : {}}
+                  whileTap={animationsEnabled ? { scale: 0.98 } : {}}
+                  transition={animationsEnabled ? { duration: 0.2 } : {}}
+                  className="bg-primary-600 text-white px-5 py-3 rounded-xl font-semibold hover:bg-primary-700 transition-all flex items-center justify-center text-sm shadow-lg shadow-primary-600/25"
                 >
                   {loginText}
                   <ArrowRight className={`${dir === 'rtl' ? 'mr-2 rotate-180' : 'ml-2'} h-4 w-4`} />
-                </button>
+                </motion.button>
               )}
-              <Link 
-                href={aboutPath}
-                className="border-2 border-primary-600 text-primary-600 px-5 py-2.5 rounded-xl font-semibold hover:bg-primary-50 transition-all flex items-center justify-center text-sm active:scale-[0.98]"
+              <motion.div
+                whileHover={animationsEnabled ? { scale: 1.02, y: -1 } : {}}
+                whileTap={animationsEnabled ? { scale: 0.98 } : {}}
+                transition={animationsEnabled ? { duration: 0.2 } : {}}
               >
-                {learnMoreText}
-              </Link>
+                <Link 
+                  href={aboutPath}
+                  className="border-2 border-primary-600 text-primary-600 px-5 py-2.5 rounded-xl font-semibold hover:bg-primary-50 transition-all flex items-center justify-center text-sm block"
+                >
+                  {learnMoreText}
+                </Link>
+              </motion.div>
             </div>
-
-            {/* Black Friday Countdown Timer */}
-            <BlackFridayCountdown />
           </div>
         </div>
 
         {/* Desktop Layout */}
         <div className="hidden md:block text-center">
-          <h1 className="text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-800 mb-6">
+          <h1 className="text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-800 mb-4">
             {titleText}
             <span className="text-primary-600"> {titleHighlightText}</span>
           </h1>
           
           {/* Video */}
-          <div className="mb-8">
+          <div className="mb-4">
             <div className="aspect-video w-full max-w-4xl mx-auto rounded-xl overflow-hidden shadow-2xl bg-gray-100">
               {!videoError ? (
                 <video 
@@ -258,7 +289,7 @@ export default function Hero({ initialLocale = 'en', initialDir = 'ltr' }: HeroP
             </div>
           </div>
           
-          <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-600 mb-6 max-w-2xl mx-auto">
             {subtitleText}
           </p>
           <div className={`flex gap-4 justify-center items-center ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
@@ -286,9 +317,6 @@ export default function Hero({ initialLocale = 'en', initialDir = 'ltr' }: HeroP
               {learnMoreText}
             </Link>
           </div>
-
-          {/* Black Friday Countdown Timer */}
-          <BlackFridayCountdown />
         </div>
       </div>
       

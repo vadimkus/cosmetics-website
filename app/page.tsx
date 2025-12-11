@@ -68,7 +68,7 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <MobileRedirect to="/products">
-      <div className="bg-white" dir="ltr">
+      <div className="bg-gradient-to-b from-white to-gray-50 flex-1 flex flex-col" dir="ltr">
         <BreadcrumbSchema 
           items={[
             { name: 'Home', url: '/' }

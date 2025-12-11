@@ -18,6 +18,7 @@ import LocaleWrapper from '@/components/LocaleWrapper'
 import Footer from '@/components/Footer'
 import { PullToRefresh } from '@/components/PullToRefresh'
 import PWAInstallPrompt from '@/components/PWAInstallPrompt'
+import PageTransition from '@/components/PageTransition'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -251,7 +252,9 @@ export default function RootLayout({
                   <main className="flex-1">
                     <ErrorBoundary>
                       <PullToRefresh>
-                        {children}
+                        <PageTransition>
+                          {children}
+                        </PageTransition>
                       </PullToRefresh>
                     </ErrorBoundary>
                   </main>

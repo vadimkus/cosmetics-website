@@ -10,6 +10,7 @@ import { useFavorites } from './FavoritesProvider'
 import LoginModal from './LoginModal'
 import LanguageSwitcher from './LanguageSwitcher'
 import InstallLink from './InstallLink'
+import { AnimationToggle } from './AnimationToggle'
 import HeaderRussianMobile, { HeaderRussianMobileMenu } from './HeaderRussianMobile'
 import HeaderRussianDesktop from './HeaderRussianDesktop'
 import { useState, useEffect, memo } from 'react'
@@ -119,6 +120,7 @@ const Header = memo(function Header() {
                   </span>
                 )}
               </Link>
+              <AnimationToggle size="sm" className="md:hidden" />
               <Link 
                 href={getLocalizedPath('/products', locale)} 
                 className="p-0.5 hover:opacity-80 transition-opacity flex items-center justify-center ml-[10%] md:ml-2"
@@ -165,6 +167,7 @@ const Header = memo(function Header() {
                   </span>
                 )}
               </Link>
+              <AnimationToggle size="sm" className="md:hidden mr-2" />
               <Link 
                 href={getLocalizedPath('/favorites', locale)} 
                 className="relative p-1.5 text-gray-700 hover:text-primary-600 transition-colors flex items-center justify-center mr-2"
@@ -337,6 +340,7 @@ const Header = memo(function Header() {
                       </span>
                     )}
                   </Link>
+                  <AnimationToggle size="lg" className="hidden lg:flex" />
                 </div>
               </div>
             </>
@@ -360,6 +364,7 @@ const Header = memo(function Header() {
                       </span>
                     )}
                   </Link>
+                  <AnimationToggle size="lg" className="hidden lg:flex" />
                   
                   <Link 
                     href={getLocalizedPath('/favorites', locale)} 

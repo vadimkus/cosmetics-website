@@ -8,6 +8,8 @@ import { ShoppingCart, Heart, Lock, User } from 'lucide-react'
 import { useState, memo, useCallback } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import { motion } from 'framer-motion'
+import { useAnimationStore } from '@/lib/animationStore'
 import LoginModal from './LoginModal'
 import { calculateDiscountedPrice, canUserSeePrices } from '@/lib/discountUtils'
 import { debugLog, errorLog } from '@/lib/logger'
@@ -63,16 +65,38 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
     setShowLoginModal(true)
   }, [])
 
+  const { enabled: animationsEnabled } = useAnimationStore()
+
+  const MotionWrapper = animationsEnabled ? motion.div : 'div'
+  const animationProps = animationsEnabled ? {
+    whileHover: { 
+      y: -8,
+      boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
+    },
+    whileTap: { scale: 0.98 },
+    initial: { opacity: 0, y: 20 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.3 }
+  } : {}
+
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow flex flex-col h-full">
-      <div className="relative">
+    <MotionWrapper 
+      {...animationProps}
+      className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow flex flex-col h-full"
+    >
+      <div className="relative overflow-hidden">
         <Link href={productPath} className="block">
-          <Image
-            src={product.image}
-            alt={`${product.name} - GENOSYS Korean ${product.category || 'dermacosmetics'} professional skincare product UAE`}
-            width={300}
-            height={300}
-            className="w-full h-24 sm:h-32 md:h-40 lg:h-48 object-cover cursor-pointer hover:scale-105 transition-transform"
+          <motion.div
+            whileHover={animationsEnabled ? { scale: 1.1 } : {}}
+            transition={animationsEnabled ? { duration: 0.4, ease: "easeOut" } : {}}
+            className="overflow-hidden"
+          >
+            <Image
+              src={product.image}
+              alt={`${product.name} - GENOSYS Korean ${product.category || 'dermacosmetics'} professional skincare product UAE`}
+              width={300}
+              height={300}
+              className="w-full h-24 sm:h-32 md:h-40 lg:h-48 object-cover cursor-pointer"
             placeholder="blur"
             blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
             priority={false}
@@ -85,14 +109,19 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
               debugLog('Image loaded successfully:', product.image)
             }}
           />
+          </motion.div>
         </Link>
-        <button 
+        <motion.button 
           onClick={handleFavorite}
           onTouchStart={(e: React.TouchEvent<HTMLButtonElement>) => {
             e.preventDefault()
             handleFavorite(e)
           }}
           disabled={isTogglingFavorite}
+          whileHover={animationsEnabled ? { scale: 1.1 } : {}}
+          whileTap={animationsEnabled ? { scale: 0.9 } : {}}
+          animate={animationsEnabled && isTogglingFavorite ? { scale: [1, 1.2, 1] } : {}}
+          transition={animationsEnabled ? { duration: 0.2 } : {}}
           className={`absolute top-2 right-2 p-2 bg-white rounded-full shadow-md hover:bg-gray-50 transition-colors touch-manipulation z-20 min-h-[44px] min-w-[44px] flex items-center justify-center ${
             isTogglingFavorite ? 'opacity-50' : ''
           }`}
@@ -100,15 +129,20 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
           aria-label={isFavorite(product.id) ? t('product.removeFromFavorites') : t('product.addToFavorites')}
           style={{ touchAction: 'manipulation' }}
         >
-          <Heart 
-            className={`h-4 w-4 transition-colors ${
-              isFavorite(product.id) 
-                ? 'text-red-500 fill-current' 
-                : 'text-gray-600 hover:text-red-500'
-            }`}
-            aria-hidden="true"
-          />
-        </button>
+          <motion.div
+            animate={animationsEnabled && isFavorite(product.id) ? { scale: [1, 1.3, 1] } : {}}
+            transition={animationsEnabled ? { duration: 0.3 } : {}}
+          >
+            <Heart 
+              className={`h-4 w-4 transition-colors ${
+                isFavorite(product.id) 
+                  ? 'text-red-500 fill-current' 
+                  : 'text-gray-600 hover:text-red-500'
+              }`}
+              aria-hidden="true"
+            />
+          </motion.div>
+        </motion.button>
         {!product.inStock && (
           <div className={`absolute top-2 ${locale === 'ar' ? 'left-2' : 'right-2'} z-30`}>
             <span className="inline-flex items-center px-3 py-1.5 rounded-md bg-red-600 text-white font-bold text-xs md:text-sm shadow-lg uppercase tracking-wide">
@@ -229,18 +263,25 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
         {/* Button Section - Always at the end */}
         <div className="mt-auto">
           {!user ? (
-            <button
+            <motion.button
               onClick={handleLoginClick}
+              whileHover={animationsEnabled ? { scale: 1.02 } : {}}
+              whileTap={animationsEnabled ? { scale: 0.98 } : {}}
+              transition={animationsEnabled ? { duration: 0.2 } : {}}
               className={`flex items-center justify-center gap-1.5 md:gap-2 px-2 md:px-3 py-1.5 md:py-2 rounded-lg font-medium transition-colors touch-manipulation w-full bg-primary-600 text-white hover:bg-primary-700 min-h-[36px] md:min-h-[40px] text-[10px] md:text-xs`}
               aria-label={t('product.loginToSeePrice')}
             >
               <User className="h-3 w-3 md:h-3.5 md:w-3.5" aria-hidden="true" />
               <span>{t('product.loginToSeePrice')}</span>
-            </button>
+            </motion.button>
           ) : (
-            <button
+            <motion.button
               onClick={handleAddToCart}
               disabled={!product.inStock || isAdding}
+              whileHover={animationsEnabled && product.inStock && !isAdding ? { scale: 1.02 } : {}}
+              whileTap={animationsEnabled && product.inStock && !isAdding ? { scale: 0.98 } : {}}
+              animate={animationsEnabled && isAdding ? { scale: [1, 0.95, 1] } : {}}
+              transition={animationsEnabled ? { duration: 0.2 } : {}}
               aria-label={isAdding ? t('product.adding') : t('product.addToCart')}
               className={`flex items-center justify-center gap-1.5 md:gap-2 px-2 md:px-3 py-1.5 md:py-2.5 rounded-lg font-medium transition-colors touch-manipulation w-full min-h-[36px] md:min-h-[40px] text-[10px] md:text-xs ${
                 product.inStock && !isAdding
@@ -252,7 +293,7 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
               <span>
                 {isAdding ? t('product.adding') : t('product.addToCart')}
               </span>
-            </button>
+            </motion.button>
           )}
         </div>
       </div>
@@ -266,7 +307,7 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
           setIsLoginMode={setIsLoginMode}
         />
       )}
-    </div>
+    </MotionWrapper>
   )
 })
 

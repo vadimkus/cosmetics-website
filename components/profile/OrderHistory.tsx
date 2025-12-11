@@ -7,6 +7,8 @@ import StatusBadge from '@/components/shared/StatusBadge'
 import EmptyState from '@/components/shared/EmptyState'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
+import { motion } from 'framer-motion'
+import { useAnimationStore } from '@/lib/animationStore'
 
 // Custom type that includes the items relation
 type OrderWithItems = Order & {
@@ -21,6 +23,7 @@ interface OrderHistoryProps {
 
 export default function OrderHistory({ orders, loadingOrders, onCancelOrder }: OrderHistoryProps) {
   const { t, locale, dir } = useTranslation()
+  const { enabled: animationsEnabled } = useAnimationStore()
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat(locale === 'ar' ? 'ar-AE' : 'en-AE', {
       style: 'currency',
@@ -101,14 +104,68 @@ export default function OrderHistory({ orders, loadingOrders, onCancelOrder }: O
       ) : orders.length === 0 ? (
         <EmptyState
           icon={
-            <Image
-              src="/images/avatar/uni.png"
-              alt="No orders"
-              width={120}
-              height={120}
-              className="mx-auto w-auto h-auto max-w-[108px] md:max-w-[120px]"
-              priority
-            />
+            <div className="relative">
+              <motion.div
+                animate={animationsEnabled ? {
+                  y: [0, -10, 0],
+                  rotate: [0, 3, -3, 0],
+                  scale: [1, 1.05, 1]
+                } : {}}
+                transition={animationsEnabled ? {
+                  duration: 4.5,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                } : {}}
+                className="relative"
+              >
+                <Image
+                  src="/images/avatar/uni.png"
+                  alt="No orders"
+                  width={120}
+                  height={120}
+                  className="mx-auto w-auto h-auto max-w-[108px] md:max-w-[120px]"
+                  priority
+                />
+                
+                {/* Shopping bag floating around Uni */}
+                {animationsEnabled && (
+                  <>
+                    <motion.div
+                      className="absolute -top-2 -right-2"
+                      animate={{
+                        y: [0, -8, 0],
+                        x: [0, 4, 0],
+                        rotate: [0, 10, 0]
+                      }}
+                      transition={{
+                        duration: 2.8,
+                        repeat: Infinity,
+                        delay: 0.3,
+                        ease: "easeInOut"
+                      }}
+                    >
+                      <ShoppingBag className="w-5 h-5 text-primary-400 opacity-60" />
+                    </motion.div>
+                    <motion.div
+                      className="absolute top-2 -left-3"
+                      animate={{
+                        y: [0, -6, 0],
+                        x: [0, -3, 0],
+                        rotate: [0, -8, 0]
+                      }}
+                      transition={{
+                        duration: 3.2,
+                        repeat: Infinity,
+                        delay: 1,
+                        ease: "easeInOut"
+                      }}
+                    >
+                      <Package className="w-4 h-4 text-primary-300 opacity-50" />
+                    </motion.div>
+                  </>
+                )}
+              </motion.div>
+            </div>
           }
           title={t('profile.noOrdersYet')}
           action={{

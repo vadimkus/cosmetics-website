@@ -88,12 +88,27 @@ model Order {
   status          String      @default("PENDING")
   locale          String      @default("en") // User's preferred language (en or ar)
   sessionId       String?
+  
+  // Payment-related fields
+  paymentMethod   String      @default("cod") // cod, stripe, bank_transfer
+  paymentStatus   String      @default("pending") // pending, processing, paid, failed, refunded, cancelled
+  stripeSessionId String?     // Stripe checkout session ID
+  stripePaymentIntentId String? // Stripe payment intent ID
+  stripeCustomerId String?    // Stripe customer ID for future payments
+  paidAt          DateTime?   // When payment was completed
+  refundedAt      DateTime?   // When refund was processed
+  refundAmount    Float?      // Amount refunded (can be partial)
+  paymentMetadata String?     @db.Text // JSON metadata from payment provider
+  
   createdAt       DateTime    @default(now())
   updatedAt       DateTime    @updatedAt
   items           OrderItem[]
   customer        User        @relation(fields: [customerEmail], references: [email])
 
   @@index([customerEmail]) // Index for faster order lookups by email
+  @@index([paymentStatus]) // Index for payment status queries
+  @@index([stripeSessionId]) // Index for Stripe session lookups
+  @@index([stripePaymentIntentId]) // Index for payment intent lookups
   @@map("orders")
 }
 

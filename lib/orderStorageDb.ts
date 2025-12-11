@@ -30,6 +30,17 @@ export interface OrderData {
   locale?: string // User's preferred language (en or ar)
   sessionId?: string
   createdAt?: string
+  
+  // Payment-related fields
+  paymentMethod?: string // cod, stripe, bank_transfer
+  paymentStatus?: string // pending, processing, paid, failed, refunded, cancelled
+  stripeSessionId?: string // Stripe checkout session ID
+  stripePaymentIntentId?: string // Stripe payment intent ID
+  stripeCustomerId?: string // Stripe customer ID for future payments
+  paidAt?: Date // When payment was completed
+  refundedAt?: Date // When refund was processed
+  refundAmount?: number // Amount refunded (can be partial)
+  paymentMetadata?: string // JSON metadata from payment provider
 }
 
 // Read all orders

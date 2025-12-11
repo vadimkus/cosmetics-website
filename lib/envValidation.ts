@@ -10,6 +10,11 @@ interface EnvConfig {
   ADMIN_EMAIL?: string
   ADMIN_PASSWORD?: string
   NODE_ENV: string
+  // Stripe configuration
+  STRIPE_SECRET_KEY?: string
+  STRIPE_PUBLISHABLE_KEY?: string
+  STRIPE_WEBHOOK_SECRET?: string
+  NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY?: string
 }
 
 function validateEnvironment(): EnvConfig {
@@ -21,7 +26,12 @@ function validateEnvironment(): EnvConfig {
   const optionalVars = {
     PRISMA_DATABASE_URL: process.env.PRISMA_DATABASE_URL,
     ADMIN_EMAIL: process.env.ADMIN_EMAIL,
-    ADMIN_PASSWORD: process.env.ADMIN_PASSWORD
+    ADMIN_PASSWORD: process.env.ADMIN_PASSWORD,
+    // Stripe configuration
+    STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
+    STRIPE_PUBLISHABLE_KEY: process.env.STRIPE_PUBLISHABLE_KEY,
+    STRIPE_WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET,
+    NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
   }
 
   // Check required variables
@@ -67,6 +77,15 @@ function validateEnvironment(): EnvConfig {
         'Admin user will be created with default credentials. Please change them immediately!'
       )
     }
+    
+    // Warn about missing Stripe configuration in production
+    if (!optionalVars.STRIPE_SECRET_KEY || !optionalVars.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY) {
+      warnLog(
+        '⚠️  WARNING: Stripe configuration incomplete in production.\n' +
+        'STRIPE_SECRET_KEY and NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY are required for payment processing.\n' +
+        'Stripe payments will be disabled until these are configured.'
+      )
+    }
   }
 
   return {
@@ -84,7 +103,11 @@ export const {
   PRISMA_DATABASE_URL,
   ADMIN_EMAIL,
   ADMIN_PASSWORD,
-  NODE_ENV
+  NODE_ENV,
+  STRIPE_SECRET_KEY,
+  STRIPE_PUBLISHABLE_KEY,
+  STRIPE_WEBHOOK_SECRET,
+  NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
 } = env
 
 // Export validation function for testing

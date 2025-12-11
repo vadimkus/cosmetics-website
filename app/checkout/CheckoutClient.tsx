@@ -294,8 +294,8 @@ export default function CheckoutClient() {
       const customerEmail = (formData.get('email') as string) || user?.email || ''
       const customerPhone = (formData.get('phone') as string) || user?.phone || ''
 
-      // Only allow Cash on Delivery or Support Link
-      if (paymentMethod !== 'cod' && paymentMethod !== 'support-link') {
+      // Allow COD, Stripe, and Support Link
+      if (!['cod', 'stripe', 'support-link'].includes(paymentMethod)) {
         setIsProcessing(false)
         return
       }
@@ -402,6 +402,92 @@ export default function CheckoutClient() {
         setIsProcessing(false)
         router.push(`${getLocalizedPath('/success', locale)}?payment=support-link&order_id=${supportOrderNumber}`)
         return
+      }
+
+      // Handle Stripe payment
+      if (paymentMethod === 'stripe') {
+        try {
+          debugLog('💳 Processing Stripe payment')
+          
+          // Prepare items for Stripe checkout
+          const itemsWithFreeMasks = [
+            ...items.map(item => {
+              const pricing = calculateDiscountedPrice(item.product, user)
+              const itemSize = (item.selectedSize && item.selectedSize.trim()) || (item.product.size && item.product.size.trim()) || undefined
+              const itemColor = (item.selectedColor && item.selectedColor.trim()) || undefined
+              return {
+                product: {
+                  ...item.product,
+                  price: pricing.discountedPrice // Use discounted price for Stripe
+                },
+                quantity: item.quantity,
+                selectedColor: itemColor,
+                selectedSize: itemSize
+              }
+            }),
+            ...freeMasks.map(mask => ({
+              product: {
+                id: mask.id,
+                name: mask.name + ' (FREE)',
+                price: 0,
+                description: 'Free gift with your order',
+                image: mask.image,
+                category: 'free-gift'
+              },
+              quantity: mask.quantity,
+              selectedColor: undefined,
+              selectedSize: undefined
+            }))
+          ]
+
+          // Ensure CSRF token is available
+          const csrfToken = await fetchCsrfToken()
+          if (!csrfToken) {
+            alert(t('checkout.securityError'))
+            setIsProcessing(false)
+            return
+          }
+
+          debugLog('🔄 Creating Stripe checkout session...')
+          
+          const response = await fetch('/api/stripe/create-checkout-session', {
+            method: 'POST',
+            headers: getCsrfHeaders(),
+            body: JSON.stringify(addCsrfToBody({
+              items: itemsWithFreeMasks,
+              customerEmail: customerEmail,
+              customerName: user?.name || 'Customer',
+              customerPhone: customerPhone,
+              customerEmirate: selectedEmirate,
+              customerAddress: customerAddress,
+              locale: locale
+            }))
+          })
+
+          if (!response.ok) {
+            const errorData = await response.json().catch(() => ({}))
+            errorLog('❌ Stripe session creation failed:', errorData)
+            throw new Error(errorData.error || 'Failed to create payment session')
+          }
+
+          const { url, sessionId } = await response.json()
+          
+          if (!url) {
+            throw new Error('No checkout URL received from Stripe')
+          }
+
+          debugLog('✅ Stripe session created, redirecting to:', url)
+          
+          // Redirect to Stripe Checkout
+          window.location.href = url
+          return
+
+        } catch (error) {
+          errorLog('❌ Stripe payment error:', error)
+          alert(error instanceof Error ? error.message : 'Payment processing failed. Please try again.')
+          setIsProcessing(false)
+          return
+        }
       }
 
       // For Cash on Delivery, proceed with normal flow
@@ -731,17 +817,24 @@ export default function CheckoutClient() {
                   </div>
                   
                   <div className="space-y-2 md:space-y-3">
-                    <label className={`flex items-start gap-2.5 md:gap-3 p-2.5 md:p-4 border border-gray-300 rounded-lg cursor-not-allowed opacity-50 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                    <label className={`flex items-start gap-2.5 md:gap-3 p-2.5 md:p-4 rounded-lg cursor-pointer transition-colors ${selectedPaymentMethod === 'stripe' ? 'border-2 border-primary-400 hover:bg-primary-50 bg-primary-50/50' : 'border border-gray-300 hover:bg-gray-50'} ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                       <input
                         type="radio"
                         name="payment"
-                        value="stripe-checkout"
-                        disabled
-                        className="mt-0.5 flex-shrink-0 w-4 h-4"
+                        value="stripe"
+                        checked={selectedPaymentMethod === 'stripe'}
+                        onChange={(e) => setSelectedPaymentMethod(e.target.value)}
+                        className="focus:ring-primary-500 mt-0.5 flex-shrink-0 w-4 h-4"
                       />
                       <div className={`flex-1 ${dir === 'rtl' ? 'text-right' : ''}`}>
-                        <div className="font-medium text-gray-500 text-[10px] md:text-base">{t('checkout.stripeCheckout')}</div>
-                        <div className="text-[9px] md:text-sm text-gray-400">{t('checkout.comingSoon')}</div>
+                        <div className="font-medium text-gray-900 text-[10px] md:text-base flex items-center">
+                          <CreditCard className="w-3 h-3 md:w-4 md:h-4 mr-1.5 text-primary-600" />
+                          {t('checkout.stripeCheckout')}
+                        </div>
+                        <div className="text-[9px] md:text-sm text-gray-600">{t('checkout.secureCardPayment')}</div>
+                        <div className="text-[8px] md:text-xs text-gray-500 mt-1">
+                          {t('checkout.supportedCards')}: Visa, Mastercard, American Express
+                        </div>
                       </div>
                     </label>
                     

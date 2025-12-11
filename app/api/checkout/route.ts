@@ -37,8 +37,62 @@ export async function POST(request: NextRequest) {
       customerPhone, 
       customerEmirate, 
       customerAddress,
-      locale 
+      locale,
+      paymentMethod = 'cod' // Default to COD for backward compatibility
     } = await request.json()
+
+    debugLog('🔄 Processing checkout request:', {
+      paymentMethod,
+      customerEmail,
+      itemCount: items.length
+    })
+
+    // If Stripe payment is selected, redirect to Stripe API
+    if (paymentMethod === 'stripe') {
+      debugLog('🔄 Redirecting to Stripe checkout session creation')
+      
+      // Forward request to Stripe checkout session API
+      const stripeApiUrl = new URL('/api/stripe/create-checkout-session', request.url)
+      const stripeResponse = await fetch(stripeApiUrl.toString(), {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Cookie': request.headers.get('Cookie') || '',
+          ...Object.fromEntries(
+            Array.from(request.headers.entries()).filter(([key]) => 
+              key.toLowerCase().startsWith('x-csrf') || key.toLowerCase() === 'user-agent'
+            )
+          )
+        },
+        body: JSON.stringify({
+          items,
+          customerEmail,
+          customerName,
+          customerPhone,
+          customerEmirate,
+          customerAddress,
+          locale
+        })
+      })
+
+      if (!stripeResponse.ok) {
+        const errorData = await stripeResponse.json().catch(() => ({}))
+        errorLog('❌ Stripe checkout session creation failed:', errorData)
+        return NextResponse.json(
+          { error: errorData.error || 'Failed to create payment session' },
+          { status: stripeResponse.status }
+        )
+      }
+
+      const stripeData = await stripeResponse.json()
+      return NextResponse.json({
+        ...stripeData,
+        paymentMethod: 'stripe',
+        requiresRedirect: true
+      })
+    }
+
+    // Continue with COD processing for backward compatibility
 
     // Calculate order totals with debugging
     debugLog('🔍 Order calculation debug:')
@@ -121,6 +175,8 @@ export async function POST(request: NextRequest) {
       vat,
       total,
       status: 'PENDING',
+      paymentMethod: paymentMethod || 'cod',
+      paymentStatus: 'pending',
       locale: locale || 'en' // Capture locale from request, default to English
     }
 

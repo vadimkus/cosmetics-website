@@ -14,6 +14,7 @@
     "db:generate": "prisma generate",
     "db:migrate-password-reset": "node scripts/migrate-password-reset-table.js",
     "db:add-payment-fields": "npx tsx scripts/add-payment-fields-to-orders.ts",
+    "translate:products": "npx tsx scripts/translate-products-to-russian.ts",
     "deploy:setup": "node scripts/deploy-setup.js",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -21,6 +22,7 @@
     "test:ci": "jest --ci --coverage --watchAll=false"
   },
   "dependencies": {
+    "@google-cloud/translate": "^9.3.0",
     "@prisma/adapter-pg": "^7.0.1",
     "@prisma/client": "^7.0.1",
     "@react-oauth/google": "^0.12.2",

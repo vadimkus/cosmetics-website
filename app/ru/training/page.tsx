@@ -666,6 +666,336 @@ export default function RussianTrainingPage() {
                     </div>
                   </div>
                   
+                  {/* SKIN CARING BLEMISH BALM CUSHION */}
+                  <div className="group border border-gray-200 rounded-md md:rounded-lg p-2 md:p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-2 md:gap-3">
+                      <div className="w-8 h-8 md:w-10 md:h-10 bg-gray-100 rounded-md md:rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+                        <Link href="/ru/products/41">
+                          <Image
+                            src="/images/BBC.jpg"
+                            alt="SKIN CARING BLEMISH BALM CUSHION"
+                            width={500}
+                            height={300} className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+                          />
+                        </Link>
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h4 className="text-xs md:text-sm font-semibold text-gray-900 truncate">
+                          SKIN CARING ПОДУШКА ДЛЯ УСТРАНЕНИЯ НЕДОСТАТКОВ
+                        </h4>
+                        <p className="text-[10px] md:text-xs text-gray-400">
+                          1.2 МБ
+                        </p>
+                      </div>
+                      <PDFDownloadButton 
+                        href="/documents/ppt/GENOSYS%20SKIN%20CARING%20BLEMISH%20BALM%20CUSHION.pdf"
+                        filename="Документация по продукции"
+                        external={true}
+                        className="inline-flex items-center px-2 md:px-3 py-1 md:py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-[10px] md:text-xs font-medium flex-shrink-0"
+                      >
+                        <Download className="h-2.5 w-2.5 md:h-3 md:w-3 mr-0.5 md:mr-1" />
+                        PDF
+                      </PDFDownloadButton>
+                    </div>
+                  </div>
+                  
+                  {/* EyeCell EYE PEPTIDE GEL PATCH */}
+                  <div className="group border border-gray-200 rounded-md md:rounded-lg p-2 md:p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-2 md:gap-3">
+                      <div className="w-8 h-8 md:w-10 md:h-10 bg-gray-100 rounded-md md:rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+                        <Link href="/ru/products/33">
+                          <Image
+                            src="/images/Patch.jpg"
+                            alt="EyeCell EYE PEPTIDE GEL PATCH"
+                            width={500}
+                            height={300} className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+                          />
+                        </Link>
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h4 className="text-xs md:text-sm font-semibold text-gray-900 truncate">
+                          EyeCell ПЕПТИДНЫЕ ГЕЛЕВЫЕ ПАТЧИ ДЛЯ ГЛАЗ
+                        </h4>
+                        <p className="text-[10px] md:text-xs text-gray-400">
+                          1.4 МБ
+                        </p>
+                      </div>
+                      <PDFDownloadButton 
+                        href="/documents/ppt/GENOSYS%20EyeCell%20EYE%20PEPTIDE%20GEL%20PATCH.pdf"
+                        filename="Документация по продукции"
+                        external={true}
+                        className="inline-flex items-center px-2 md:px-3 py-1 md:py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-[10px] md:text-xs font-medium flex-shrink-0"
+                      >
+                        <Download className="h-2.5 w-2.5 md:h-3 md:w-3 mr-0.5 md:mr-1" />
+                        PDF
+                      </PDFDownloadButton>
+                    </div>
+                  </div>
+                  
+                  {/* BIO-FERMENT AGE DEFYING POWDER MASK */}
+                  <div className="group border border-gray-200 rounded-md md:rounded-lg p-2 md:p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-2 md:gap-3">
+                      <div className="w-8 h-8 md:w-10 md:h-10 bg-gray-100 rounded-md md:rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+                        <Link href="/ru/products/51">
+                          <Image
+                            src="/images/BFAD.png"
+                            alt="BIO-FERMENT AGE DEFYING POWDER MASK"
+                            width={500}
+                            height={300} className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+                          />
+                        </Link>
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h4 className="text-xs md:text-sm font-semibold text-gray-900 truncate">
+                          BIO-FERMENT ОМОЛАЖИВАЮЩАЯ ПОРОШКОВАЯ МАСКА
+                        </h4>
+                        <p className="text-[10px] md:text-xs text-gray-400">
+                          2.1 МБ
+                        </p>
+                      </div>
+                      <PDFDownloadButton 
+                        href="/documents/ppt/GENOSYS%20BIO-FERMENT%20AGE%20DEFYING%20POWDER%20MASK.pdf"
+                        filename="Документация по продукции"
+                        external={true}
+                        className="inline-flex items-center px-2 md:px-3 py-1 md:py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-[10px] md:text-xs font-medium flex-shrink-0"
+                      >
+                        <Download className="h-2.5 w-2.5 md:h-3 md:w-3 mr-0.5 md:mr-1" />
+                        PDF
+                      </PDFDownloadButton>
+                    </div>
+                  </div>
+                  
+                  {/* HAIR GENTRON */}
+                  <div className="group border border-gray-200 rounded-md md:rounded-lg p-2 md:p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-2 md:gap-3">
+                      <div className="w-8 h-8 md:w-10 md:h-10 bg-gray-100 rounded-md md:rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+                        <Link href="/ru/products/48">
+                          <Image
+                            src="/images/gen.jpg"
+                            alt="HAIR GENTRON"
+                            width={500}
+                            height={300} className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+                          />
+                        </Link>
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h4 className="text-xs md:text-sm font-semibold text-gray-900 truncate">
+                          HAIR GENTRON
+                        </h4>
+                        <p className="text-[10px] md:text-xs text-gray-400">
+                          1.8 МБ
+                        </p>
+                      </div>
+                      <PDFDownloadButton 
+                        href="/documents/ppt/HAIR%20GENTRON.pdf"
+                        filename="Документация по продукции"
+                        external={true}
+                        className="inline-flex items-center px-2 md:px-3 py-1 md:py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-[10px] md:text-xs font-medium flex-shrink-0"
+                      >
+                        <Download className="h-2.5 w-2.5 md:h-3 md:w-3 mr-0.5 md:mr-1" />
+                        PDF
+                      </PDFDownloadButton>
+                    </div>
+                  </div>
+                  
+                  {/* HR³ MATRIX HAIR SOLUTION α */}
+                  <div className="group border border-gray-200 rounded-md md:rounded-lg p-2 md:p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-2 md:gap-3">
+                      <div className="w-8 h-8 md:w-10 md:h-10 bg-gray-100 rounded-md md:rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+                        <Link href="/ru/products/45">
+                          <Image
+                            src="/images/HHR.jpg"
+                            alt="HR³ MATRIX HAIR SOLUTION α"
+                            width={500}
+                            height={300} className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+                          />
+                        </Link>
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h4 className="text-xs md:text-sm font-semibold text-gray-900 truncate">
+                          HR³ MATRIX РЕШЕНИЕ ДЛЯ ВОЛОС α
+                        </h4>
+                        <p className="text-[10px] md:text-xs text-gray-400">
+                          2.3 МБ
+                        </p>
+                      </div>
+                      <PDFDownloadButton 
+                        href="/documents/ppt/GENOSYS%20HR3%20MATRIX%20HAIR%20SOLUTION%20ALPHA.pdf"
+                        filename="Документация по продукции"
+                        external={true}
+                        className="inline-flex items-center px-2 md:px-3 py-1 md:py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-[10px] md:text-xs font-medium flex-shrink-0"
+                      >
+                        <Download className="h-2.5 w-2.5 md:h-3 md:w-3 mr-0.5 md:mr-1" />
+                        PDF
+                      </PDFDownloadButton>
+                    </div>
+                  </div>
+                  
+                  {/* HR³ MATRIX HAIR TONIC α */}
+                  <div className="group border border-gray-200 rounded-md md:rounded-lg p-2 md:p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-2 md:gap-3">
+                      <div className="w-8 h-8 md:w-10 md:h-10 bg-gray-100 rounded-md md:rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+                        <Link href="/ru/products/43">
+                          <Image
+                            src="/images/HT.jpg"
+                            alt="HR³ MATRIX HAIR TONIC α"
+                            width={500}
+                            height={300} className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+                          />
+                        </Link>
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h4 className="text-xs md:text-sm font-semibold text-gray-900 truncate">
+                          HR³ MATRIX ТОНИК ДЛЯ ВОЛОС α
+                        </h4>
+                        <p className="text-[10px] md:text-xs text-gray-400">
+                          1.9 МБ
+                        </p>
+                      </div>
+                      <PDFDownloadButton 
+                        href="/documents/ppt/GENOSYS%20HR3%20MATRIX%20HAIR%20TONIC%20ALPHA.pdf"
+                        filename="Документация по продукции"
+                        external={true}
+                        className="inline-flex items-center px-2 md:px-3 py-1 md:py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-[10px] md:text-xs font-medium flex-shrink-0"
+                      >
+                        <Download className="h-2.5 w-2.5 md:h-3 md:w-3 mr-0.5 md:mr-1" />
+                        PDF
+                      </PDFDownloadButton>
+                    </div>
+                  </div>
+                  
+                  {/* HR³ MATRIX SCALP PEELING α */}
+                  <div className="group border border-gray-200 rounded-md md:rounded-lg p-2 md:p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-2 md:gap-3">
+                      <div className="w-8 h-8 md:w-10 md:h-10 bg-gray-100 rounded-md md:rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+                        <Link href="/ru/products/46">
+                          <Image
+                            src="/images/scal.jpg"
+                            alt="HR³ MATRIX SCALP PEELING α"
+                            width={500}
+                            height={300} className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+                          />
+                        </Link>
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h4 className="text-xs md:text-sm font-semibold text-gray-900 truncate">
+                          HR³ MATRIX ПИЛИНГ ДЛЯ КОЖИ ГОЛОВЫ α
+                        </h4>
+                        <p className="text-[10px] md:text-xs text-gray-400">
+                          2.1 МБ
+                        </p>
+                      </div>
+                      <PDFDownloadButton 
+                        href="/documents/ppt/GENOSYS%20HR3%20MATRIX%20SCALP%20PEELING%20ALPHA.pdf"
+                        filename="Документация по продукции"
+                        external={true}
+                        className="inline-flex items-center px-2 md:px-3 py-1 md:py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-[10px] md:text-xs font-medium flex-shrink-0"
+                      >
+                        <Download className="h-2.5 w-2.5 md:h-3 md:w-3 mr-0.5 md:mr-1" />
+                        PDF
+                      </PDFDownloadButton>
+                    </div>
+                  </div>
+                  
+                  {/* GENO-LED IR II */}
+                  <div className="group border border-gray-200 rounded-md md:rounded-lg p-2 md:p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-2 md:gap-3">
+                      <div className="w-8 h-8 md:w-10 md:h-10 bg-gray-100 rounded-md md:rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+                        <Link href="/ru/products/49">
+                          <Image
+                            src="/images/LEDD.jpg"
+                            alt="GENO-LED IR II"
+                            width={500}
+                            height={300} className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+                          />
+                        </Link>
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h4 className="text-xs md:text-sm font-semibold text-gray-900 truncate">
+                          GENO-LED IR II
+                        </h4>
+                        <p className="text-[10px] md:text-xs text-gray-400">
+                          4.6 МБ
+                        </p>
+                      </div>
+                      <PDFDownloadButton 
+                        href="/documents/ppt/GENO-LED%20IR%20II_2025.pdf"
+                        filename="Документация по продукции"
+                        external={true}
+                        className="inline-flex items-center px-2 md:px-3 py-1 md:py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-[10px] md:text-xs font-medium flex-shrink-0"
+                      >
+                        <Download className="h-2.5 w-2.5 md:h-3 md:w-3 mr-0.5 md:mr-1" />
+                        PDF
+                      </PDFDownloadButton>
+                    </div>
+                  </div>
+                  
+                  {/* SKIN REBOOT PDRN MASK PACK */}
+                  <div className="group border border-gray-200 rounded-md md:rounded-lg p-2 md:p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-2 md:gap-3">
+                      <div className="w-8 h-8 md:w-10 md:h-10 bg-gray-100 rounded-md md:rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+                        <Link href="/ru/products/52">
+                          <Image
+                            src="/images/PDRN.png"
+                            alt="SKIN REBOOT PDRN MASK PACK"
+                            width={500}
+                            height={300} className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+                          />
+                        </Link>
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h4 className="text-xs md:text-sm font-semibold text-gray-900 truncate">
+                          SKIN REBOOT МАСКА PDRN
+                        </h4>
+                        <p className="text-[10px] md:text-xs text-gray-400">
+                          1.2 МБ
+                        </p>
+                      </div>
+                      <PDFDownloadButton 
+                        href="/documents/ppt/GENOSYS%20SKIN%20REBOOT%20PDRN%20MASK%20PACK.pdf"
+                        filename="Документация по продукции"
+                        external={true}
+                        className="inline-flex items-center px-2 md:px-3 py-1 md:py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-[10px] md:text-xs font-medium flex-shrink-0"
+                      >
+                        <Download className="h-2.5 w-2.5 md:h-3 md:w-3 mr-0.5 md:mr-1" />
+                        PDF
+                      </PDFDownloadButton>
+                    </div>
+                  </div>
+                  
+                  {/* EZ CO₂ MASK KIT */}
+                  <div className="group border border-gray-200 rounded-md md:rounded-lg p-2 md:p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-2 md:gap-3">
+                      <div className="w-8 h-8 md:w-10 md:h-10 bg-gray-100 rounded-md md:rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+                        <Link href="/ru/products/38">
+                          <Image
+                            src="/images/EZE.jpg"
+                            alt="EZ CO₂ MASK KIT"
+                            width={500}
+                            height={300} className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+                          />
+                        </Link>
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h4 className="text-xs md:text-sm font-semibold text-gray-900 truncate">
+                          EZ CO₂ НАБОР МАСОК
+                        </h4>
+                        <p className="text-[10px] md:text-xs text-gray-400">
+                          0.5 МБ
+                        </p>
+                      </div>
+                      <PDFDownloadButton 
+                        href="/documents/ppt/Genosys%20Ez%20Co2%20Mask.pdf"
+                        filename="Документация по продукции"
+                        external={true}
+                        className="inline-flex items-center px-2 md:px-3 py-1 md:py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-[10px] md:text-xs font-medium flex-shrink-0"
+                      >
+                        <Download className="h-2.5 w-2.5 md:h-3 md:w-3 mr-0.5 md:mr-1" />
+                        PDF
+                      </PDFDownloadButton>
+                    </div>
+                  </div>
+                  
                   {/* Microneedle Roller */}
                   <div className="group border border-gray-200 rounded-md md:rounded-lg p-2 md:p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
                     <div className="flex items-center gap-2 md:gap-3">

@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react'
 import Image from 'next/image'
-import { User as UserIcon, Package, Clock, CheckCircle, Truck, X, Trash2, RefreshCw, ArrowLeft, BarChart3, Plus, Edit, Image as ImageIcon, Shield, FileText, ShoppingBag } from 'lucide-react'
+import { ArrowLeft, RefreshCw } from 'lucide-react'
 import AdminLogin from '@/components/AdminLogin'
 import AnalyticsDashboard from '@/components/AnalyticsDashboard'
 import AdvancedReportingDashboard from '@/components/AdvancedReportingDashboard'
@@ -10,6 +10,10 @@ import UserSegmentation from '@/components/UserSegmentation'
 import CustomerProfile from '@/components/CustomerProfile'
 import ProductForm from '@/components/ProductForm'
 import BlogManagement from '@/components/BlogManagement'
+import AdminTabNavigation from '@/components/admin/AdminTabNavigation'
+import AdminUsersManager from '@/components/admin/AdminUsersManager'
+import AdminOrdersManager from '@/components/admin/AdminOrdersManager'
+import AdminProductsManager from '@/components/admin/AdminProductsManager'
 import { Order, OrderItem } from '@prisma/client'
 import { fetchCsrfToken, getCsrfHeaders, addCsrfToBody } from '@/lib/csrfClient'
 import { debugLog, errorLog } from '@/lib/logger'
@@ -331,6 +335,74 @@ export default function AdminPage() {
     setOrdersRefreshing(true)
     await fetchOrders()
     setOrdersRefreshing(false)
+  }
+
+  const refreshProducts = async () => {
+    setProductsRefreshing(true)
+    await fetchProducts()
+    setProductsRefreshing(false)
+  }
+
+  // Handler for selecting a customer from users manager
+  const handleSelectCustomer = (user: User) => {
+    setSelectedCustomer(user)
+  }
+
+  // Handler for selecting an order from orders manager
+  const handleSelectOrder = (order: OrderWithItems) => {
+    setSelectedOrder(order)
+  }
+
+  // Handler for selecting multiple orders
+  const handleSelectOrders = (orderIds: string[]) => {
+    setSelectedOrders(orderIds)
+  }
+
+  // Handler for deleting selected orders
+  const handleDeleteOrders = async () => {
+    if (selectedOrders.length === 0) return
+
+    const confirmMessage = `Are you sure you want to delete ${selectedOrders.length} order${selectedOrders.length === 1 ? '' : 's'}? This action cannot be undone.`
+    
+    if (!confirm(confirmMessage)) {
+      return
+    }
+
+    setIsDeletingOrders(true)
+    try {
+      // Delete orders one by one
+      for (const orderId of selectedOrders) {
+        const response = await fetch(`/api/admin/orders/${orderId}`, {
+          method: 'DELETE',
+          headers: getAdminHeaders()
+        })
+
+        if (!response.ok) {
+          throw new Error(`Failed to delete order ${orderId}: ${response.status}`)
+        }
+      }
+
+      // Clear selection and refresh orders
+      setSelectedOrders([])
+      await fetchOrders()
+    } catch (error) {
+      errorLog('Error deleting orders:', error)
+      alert('Failed to delete some orders. Please try again.')
+    } finally {
+      setIsDeletingOrders(false)
+    }
+  }
+
+  // Handler for showing product form
+  const handleShowProductForm = () => {
+    setEditingProduct(null)
+    setShowProductForm(true)
+  }
+
+  // Handler for editing a product
+  const handleEditProduct = (product: Product) => {
+    setEditingProduct(product)
+    setShowProductForm(true)
   }
 
   const updateUser = async (userId: string, updates: Partial<User>) => {
@@ -843,87 +915,13 @@ export default function AdminPage() {
         </div>
         
         {/* Tab Navigation */}
-        <div className="overflow-x-auto mb-4 sm:mb-6 -mx-3 sm:-mx-4 px-3 sm:px-4 md:mx-0 md:px-0 scrollbar-hide">
-          <div className="flex space-x-1 bg-gray-100 p-1 rounded-lg min-w-max sm:min-w-0">
-            <button
-              onClick={() => setActiveTab('analytics')}
-              className={`flex-shrink-0 py-2.5 px-3 sm:px-4 rounded-md text-xs sm:text-sm font-medium transition-colors whitespace-nowrap touch-manipulation ${
-                activeTab === 'analytics'
-                  ? 'bg-white text-gray-900 shadow-sm'
-                  : 'text-gray-500 hover:text-gray-700 active:bg-gray-200'
-              }`}
-            >
-              <BarChart3 className="h-4 w-4 inline sm:mr-2" />
-              <span className="hidden xs:inline sm:inline">Analytics</span>
-            </button>
-            <button
-              onClick={() => setActiveTab('reporting')}
-              className={`flex-shrink-0 py-2.5 px-3 sm:px-4 rounded-md text-xs sm:text-sm font-medium transition-colors whitespace-nowrap touch-manipulation ${
-                activeTab === 'reporting'
-                  ? 'bg-white text-gray-900 shadow-sm'
-                  : 'text-gray-500 hover:text-gray-700 active:bg-gray-200'
-              }`}
-            >
-              <BarChart3 className="h-4 w-4 inline sm:mr-2" />
-              <span className="hidden xs:inline sm:inline">Reporting</span>
-            </button>
-            <button
-              onClick={() => setActiveTab('segmentation')}
-              className={`flex-shrink-0 py-2.5 px-3 sm:px-4 rounded-md text-xs sm:text-sm font-medium transition-colors whitespace-nowrap touch-manipulation ${
-                activeTab === 'segmentation'
-                  ? 'bg-white text-gray-900 shadow-sm'
-                  : 'text-gray-500 hover:text-gray-700 active:bg-gray-200'
-              }`}
-            >
-              <UserIcon className="h-4 w-4 inline sm:mr-2" />
-              <span className="hidden xs:inline sm:inline">Segmentation</span>
-            </button>
-            <button
-              onClick={() => setActiveTab('users')}
-              className={`flex-shrink-0 py-2.5 px-3 sm:px-4 rounded-md text-xs sm:text-sm font-medium transition-colors whitespace-nowrap touch-manipulation ${
-                activeTab === 'users'
-                  ? 'bg-white text-gray-900 shadow-sm'
-                  : 'text-gray-500 hover:text-gray-700 active:bg-gray-200'
-              }`}
-            >
-              <UserIcon className="h-4 w-4 inline sm:mr-2" />
-              <span className="hidden xs:inline sm:inline">Users</span>
-            </button>
-            <button
-              onClick={() => setActiveTab('orders')}
-              className={`flex-shrink-0 py-2.5 px-3 sm:px-4 rounded-md text-xs sm:text-sm font-medium transition-colors whitespace-nowrap touch-manipulation ${
-                activeTab === 'orders'
-                  ? 'bg-white text-gray-900 shadow-sm'
-                  : 'text-gray-500 hover:text-gray-700 active:bg-gray-200'
-              }`}
-            >
-              <Package className="h-4 w-4 inline sm:mr-2" />
-              <span className="hidden xs:inline sm:inline">Orders</span>
-            </button>
-            <button
-              onClick={() => setActiveTab('products')}
-              className={`flex-shrink-0 py-2.5 px-3 sm:px-4 rounded-md text-xs sm:text-sm font-medium transition-colors whitespace-nowrap touch-manipulation ${
-                activeTab === 'products'
-                  ? 'bg-white text-gray-900 shadow-sm'
-                  : 'text-gray-500 hover:text-gray-700 active:bg-gray-200'
-              }`}
-            >
-              <ImageIcon className="h-4 w-4 inline sm:mr-2" />
-              <span className="hidden xs:inline sm:inline">Products</span>
-            </button>
-            <button
-              onClick={() => setActiveTab('blog')}
-              className={`flex-shrink-0 py-2.5 px-3 sm:px-4 rounded-md text-xs sm:text-sm font-medium transition-colors whitespace-nowrap touch-manipulation ${
-                activeTab === 'blog'
-                  ? 'bg-white text-gray-900 shadow-sm'
-                  : 'text-gray-500 hover:text-gray-700 active:bg-gray-200'
-              }`}
-            >
-              <FileText className="h-4 w-4 inline sm:mr-2" />
-              <span className="hidden xs:inline sm:inline">Blog</span>
-            </button>
-          </div>
-        </div>
+        <AdminTabNavigation
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+          userCount={users.length}
+          orderCount={orders.length}
+          productCount={products.length}
+        />
 
         <div className="bg-white rounded-lg shadow-sm border p-3 sm:p-4 md:p-6 lg:p-8">
           {activeTab === 'analytics' && (
@@ -983,274 +981,22 @@ export default function AdminPage() {
                   }}
                 />
               ) : (
-            <>
-              <div className="flex flex-col gap-3 sm:flex-row sm:justify-between sm:items-center mb-4 sm:mb-6">
-                <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-800">User Management</h2>
-                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 w-full sm:w-auto">
-                  <input
-                    type="text"
-                    placeholder="Search by email, name, or phone..."
-                    value={userSearch}
-                    onChange={(e) => {
-                      setUserSearch(e.target.value)
-                      fetchUsers(e.target.value)
-                    }}
-                    className="px-4 py-2.5 text-base border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent w-full sm:min-w-[250px] touch-manipulation"
-                  />
-                  <button
-                    onClick={refreshUsers}
-                    disabled={usersRefreshing}
-                    className="flex items-center justify-center gap-2 px-4 py-2.5 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base touch-manipulation"
-                  >
-                    <RefreshCw className={`h-4 w-4 ${usersRefreshing ? 'animate-spin' : ''}`} />
-                    {usersRefreshing ? 'Refreshing...' : 'Refresh'}
-                  </button>
-                </div>
-              </div>
-              
-              {/* User Summary */}
-              <div className="bg-white rounded-xl sm:rounded-2xl shadow-lg border border-gray-200 p-4 sm:p-6 mb-6 sm:mb-8">
-                  <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-3 sm:mb-4">User Summary</h3>
-                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4">
-                    <div className="bg-gray-50 rounded-lg p-3 sm:p-4 border border-gray-100">
-                      <p className="text-xs sm:text-sm text-gray-600">Total Users</p>
-                      <p className="text-xl sm:text-2xl font-bold text-gray-900">{users.length || 0}</p>
-                    </div>
-                    <div className="bg-blue-50 rounded-lg p-3 sm:p-4 border border-blue-100">
-                      <p className="text-xs sm:text-sm text-blue-700 font-medium">Admin Users</p>
-                      <p className="text-xl sm:text-2xl font-bold text-blue-800">{users.filter(u => u.isAdmin).length || 0}</p>
-                    </div>
-                    <div className="bg-gray-50 rounded-lg p-3 sm:p-4 border border-gray-100">
-                      <p className="text-xs sm:text-sm text-gray-600">Regular Users</p>
-                      <p className="text-xl sm:text-2xl font-bold text-gray-900">{users.filter(u => !u.isAdmin).length || 0}</p>
-                    </div>
-                    <div className="bg-green-50 rounded-lg p-3 sm:p-4 border border-green-100">
-                      <p className="text-xs sm:text-sm text-green-700 font-medium">Price Access</p>
-                      <p className="text-xl sm:text-2xl font-bold text-green-800">{users.filter(u => u.canSeePrices).length || 0}</p>
-                    </div>
-                    <div className="bg-gray-50 rounded-lg p-3 sm:p-4 border border-gray-100">
-                      <p className="text-xs sm:text-sm text-gray-600">With Discount</p>
-                      <p className="text-xl sm:text-2xl font-bold text-gray-900">{users.filter(u => u.discountType && u.discountPercentage).length || 0}</p>
-                    </div>
-                    <div className="bg-gray-50 rounded-lg p-3 sm:p-4 border border-gray-100 sm:col-span-2 lg:col-span-2">
-                      <p className="text-sm text-gray-600 mb-2">Recent Logins (Last 7 Days)</p>
-                      <div className="space-y-2 max-h-32 overflow-y-auto">
-                        {(() => {
-                          // Calculate 7 days ago in UTC to avoid timezone issues
-                          const now = new Date()
-                          const sevenDaysAgo = new Date(now.getTime() - (7 * 24 * 60 * 60 * 1000))
-                          
-                          const recentLogins = users
-                            .filter(u => {
-                              if (!u.lastLoginAt) return false
-                              // Parse lastLoginAt as UTC ISO string
-                              const lastLogin = new Date(u.lastLoginAt)
-                              // Check if login is within the last 7 days
-                              return lastLogin >= sevenDaysAgo && lastLogin <= now
-                            })
-                            .sort((a, b) => {
-                              if (!a.lastLoginAt || !b.lastLoginAt) return 0
-                              const dateA = new Date(a.lastLoginAt).getTime()
-                              const dateB = new Date(b.lastLoginAt).getTime()
-                              return dateB - dateA // Most recent first
-                            })
-                            .slice(0, 5) // Show top 5 most recent
-                          
-                          const totalRecentLogins = users.filter(u => {
-                            if (!u.lastLoginAt) return false
-                            const lastLogin = new Date(u.lastLoginAt)
-                            return lastLogin >= sevenDaysAgo && lastLogin <= now
-                          }).length
-                          
-                          if (recentLogins.length === 0) {
-                            return <p className="text-sm text-gray-500">No recent logins</p>
-                          }
-                          
-                          return (
-                            <>
-                              <p className="text-2xl font-bold text-gray-900 mb-2">
-                                {totalRecentLogins} total
-                              </p>
-                              {recentLogins.map(user => (
-                                <div key={user.id} className="flex items-center justify-between text-xs border-b border-gray-200 pb-1">
-                                  <span className="font-medium text-gray-900 truncate flex-1">{user.name}</span>
-                                  <span className="text-gray-500 ml-2 flex-shrink-0">
-                                    {user.lastLoginAt && new Date(user.lastLoginAt).toLocaleDateString('en-AE', {
-                                      timeZone: 'Asia/Dubai',
-                                      month: 'short',
-                                      day: 'numeric',
-                                      year: new Date(user.lastLoginAt).getFullYear() !== new Date().getFullYear() ? 'numeric' : undefined,
-                                      hour: '2-digit',
-                                      minute: '2-digit'
-                                    })}
-                                  </span>
-                                </div>
-                              ))}
-                            </>
-                          )
-                        })()}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {loading ? (
-                      Array.from({ length: 6 }).map((_, index) => (
-                        <div key={index} className="bg-gray-50 rounded-lg p-4 border animate-pulse">
-                          <div className="flex items-center space-x-3 mb-3">
-                            <div className="h-10 w-10 bg-gray-300 rounded-full"></div>
-                            <div className="flex-1">
-                              <div className="h-4 bg-gray-300 rounded mb-2"></div>
-                              <div className="h-3 bg-gray-300 rounded w-3/4"></div>
-                            </div>
-                          </div>
-                          <div className="space-y-2">
-                            <div className="h-3 bg-gray-300 rounded"></div>
-                            <div className="h-3 bg-gray-300 rounded w-5/6"></div>
-                          </div>
-                        </div>
-                      ))
-            ) : users.length === 0 ? (
-              <div className="col-span-full text-center py-12">
-                <p className="text-gray-500 text-lg">No users found</p>
-                <p className="text-gray-400 text-sm mt-2">Try clearing the search or refresh the page</p>
-              </div>
-            ) : (
-              users.map((user) => (
-                <div key={user.id} className="bg-gray-50 rounded-lg p-4 border">
-                          <div className="flex items-center space-x-3 mb-3">
-                            <div 
-                              className="h-10 w-10 rounded-full bg-primary-100 flex items-center justify-center cursor-pointer hover:bg-primary-200 transition-colors"
-                              onClick={() => setSelectedCustomer(user)}
-                            >
-                          {user.profilePicture ? (
-                                <Image
-                              src={user.profilePicture}
-                              alt={user.name}
-                                  width={40}
-                                  height={40}
-                                  className="w-10 h-10 rounded-full object-cover"
-                                />
-                              ) : user.isAdmin ? (
-                                <Image
-                                  src="/favicon/genosys-logo.png"
-                                  alt="Admin"
-                                  width={40}
-                                  height={40}
-                                  className="w-10 h-10 rounded-full object-cover"
-                            />
-                          ) : (
-                                <Image
-                                  src="/images/avatar/avatar.png"
-                                  alt={user.name}
-                                  width={40}
-                                  height={40}
-                                  className="w-10 h-10 rounded-full object-cover"
-                                />
-                          )}
-                        </div>
-                            <div className="flex-1">
-                              <h3 className="font-semibold text-gray-900 flex items-center gap-2 flex-wrap">
-                                {user.name}
-                                {user.isAdmin && (
-                                  <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-purple-100 text-purple-800">
-                                    <Shield className="h-3 w-3 mr-1" />
-                                    Admin
-                                  </span>
-                                )}
-                                {userHasOrders(user.email) && (
-                                  <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800">
-                                    <ShoppingBag className="h-3 w-3 mr-1" />
-                                    Ordered
-                                  </span>
-                                )}
-                              </h3>
-                              <p className="text-sm text-gray-600">{user.email}</p>
-                      </div>
-                        </div>
-                        
-                          <div className="space-y-2 text-sm text-gray-600">
-                            <div className="flex justify-between">
-                              <span>Phone:</span>
-                              <span className="font-medium">{user.phone || 'Not provided'}</span>
-                        </div>
-                            <div className="flex justify-between">
-                              <span>Address:</span>
-                              <span className="font-medium text-right max-w-[150px] truncate" title={user.address || 'Not provided'}>
-                                {user.address || 'Not provided'}
-                              </span>
-                      </div>
-                            <div className="flex justify-between">
-                              <span>Birthday:</span>
-                              <span className="font-medium">
-                                {user.birthday ? new Date(user.birthday).toLocaleDateString('en-AE') : 'Not provided'}
-                              </span>
-                    </div>
-                            <div className="flex justify-between">
-                              <span>Joined:</span>
-                              <span className="font-medium">
-                                {new Date(user.createdAt).toLocaleDateString('en-AE', {
-                                  month: 'short',
-                                  day: 'numeric',
-                                  year: 'numeric'
-                                })}
-                        </span>
-                      </div>
-                            <div className="flex justify-between">
-                              <span>Last Login:</span>
-                              <span className="font-medium">
-                                {user.lastLoginAt ? new Date(user.lastLoginAt).toLocaleDateString('en-AE', {
-                                  month: 'short',
-                                  day: 'numeric',
-                                  year: 'numeric',
-                                  hour: '2-digit',
-                                  minute: '2-digit'
-                                }) : 'Never'}
-                            </span>
-                          </div>
-                            <div className="flex justify-between">
-                              <span>Can See Prices:</span>
-                              <span className={`font-medium ${user.canSeePrices ? 'text-green-600' : 'text-red-600'}`}>
-                                {user.canSeePrices ? 'Yes' : 'No'}
-                            </span>
-                          </div>
-                            {user.discountType && user.discountPercentage && (
-                              <div className="flex justify-between">
-                                <span>Discount:</span>
-                                <span className="font-medium text-green-600">
-                                  {user.discountPercentage}% {user.discountType}
-                                </span>
-                          </div>
-                        )}
-                      </div>
-
-                          {/* Action Buttons */}
-                          <div className="pt-2 border-t border-gray-200 space-y-2">
-                            <button
-                              onClick={() => setSelectedCustomer(user)}
-                              className="w-full px-3 py-2 bg-blue-500 text-white rounded-lg text-xs sm:text-sm hover:bg-blue-600 active:bg-blue-700 flex items-center justify-center gap-1.5 touch-manipulation"
-                            >
-                              <UserIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
-                              View Profile
-                            </button>
-                        <button
-                          onClick={() => deleteUser(user.id)}
-                              className="w-full px-3 py-2 bg-red-500 text-white rounded-lg text-xs sm:text-sm hover:bg-red-600 active:bg-red-700 flex items-center justify-center gap-1.5 touch-manipulation"
-                        >
-                          <Trash2 className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
-                          Delete User
-                        </button>
-                  </div>
-                </div>
-              ))
-            )}
-          </div>
-            </>
+                <AdminUsersManager
+                  users={users}
+                  userSearch={userSearch}
+                  setUserSearch={setUserSearch}
+                  usersRefreshing={usersRefreshing}
+                  onRefreshUsers={refreshUsers}
+                  onSelectCustomer={handleSelectCustomer}
+                  getAdminHeaders={getAdminHeaders}
+                />
               )}
             </>
           )}
 
+          {activeTab === 'segmentation' && (
+            <UserSegmentation />
+          )}
           {activeTab === 'orders' && (
             <>
               <div className="flex flex-col gap-3 sm:flex-row sm:justify-between sm:items-center mb-4 sm:mb-6">
@@ -1336,316 +1082,63 @@ export default function AdminPage() {
                   }}
                 />
               ) : (
-                <div className="bg-white rounded-lg border">
-                  {ordersLoading ? (
-                    <div className="flex items-center justify-center py-12">
-                      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600"></div>
-                      <span className="ml-2 text-gray-600">Loading orders...</span>
-                    </div>
-                  ) : orders.length === 0 ? (
-                      <div className="text-center py-12">
-                        <div className="bg-gray-100 rounded-full w-24 h-24 flex items-center justify-center mx-auto mb-4">
-                          <Package className="h-12 w-12 text-gray-300" />
-                        </div>
-                        <h3 className="text-xl font-semibold mb-2">No orders yet</h3>
-                        <p className="text-gray-400">Orders will appear here when customers make purchases.</p>
-                      </div>
-                    ) : (
-                      <div>
-                        {/* Bulk Actions */}
-                        {selectedOrders.length > 0 && (
-                          <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-4">
-                            <div className="flex items-center justify-between flex-wrap gap-3">
-                              <div className="flex items-center gap-3">
-                                <span className="text-sm font-medium text-red-800">
-                                  {selectedOrders.length} order{selectedOrders.length > 1 ? 's' : ''} selected
-                                </span>
-                              </div>
-                              <button
-                                onClick={deleteSelectedOrders}
-                                disabled={isDeletingOrders}
-                                className="inline-flex items-center gap-2 px-4 py-2 bg-red-600 text-white text-sm rounded-lg hover:bg-red-700 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed w-full sm:w-auto"
-                              >
-                                {isDeletingOrders ? (
-                                  <>
-                                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
-                                    Deleting...
-                                  </>
-                                ) : (
-                                  <>
-                                    <Trash2 className="h-4 w-4" />
-                                    Delete Selected
-                                  </>
-                                )}
-                              </button>
-                            </div>
-                          </div>
-                        )}
-
-                        <div className="overflow-x-auto -mx-3 sm:-mx-4 md:mx-0 scrollbar-hide">
-                          <div className="inline-block min-w-full align-middle">
-                            <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
-                              <table className="min-w-full divide-y divide-gray-300">
-                                <thead className="bg-gray-50">
-                                  <tr>
-                                    <th className="px-2 sm:px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                      <input
-                                        type="checkbox"
-                                        checked={selectedOrders.length === orders.length && orders.length > 0}
-                                        onChange={selectAllOrders}
-                                        className="rounded border-gray-300 text-red-600 focus:ring-red-500 w-4 h-4 touch-manipulation"
-                                      />
-                                    </th>
-                                    <th className="px-2 sm:px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">Order ID</th>
-                                    <th className="px-2 sm:px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">Actions</th>
-                                    <th className="px-2 sm:px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">Customer</th>
-                                    <th className="px-2 sm:px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap hidden sm:table-cell">Date</th>
-                                    <th className="px-2 sm:px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">Status</th>
-                                    <th className="px-2 sm:px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap hidden md:table-cell">Items</th>
-                                    <th className="px-2 sm:px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">Total</th>
-                                  </tr>
-                                </thead>
-                                <tbody className="bg-white divide-y divide-gray-200">
-                                  {orders.map((order) => (
-                                    <tr key={order.id || order.orderNumber} className="hover:bg-gray-50 transition-colors">
-                                      <td className="px-2 sm:px-3 md:px-6 py-3 sm:py-4 whitespace-nowrap">
-                                        <input
-                                          type="checkbox"
-                                          checked={order.id ? selectedOrders.includes(order.id) : false}
-                                          onChange={() => order.id && toggleOrderSelection(order.id)}
-                                          className="rounded border-gray-300 text-red-600 focus:ring-red-500 w-4 h-4 touch-manipulation"
-                                          disabled={!order.id}
-                                        />
-                                      </td>
-                                      <td className="px-2 sm:px-3 md:px-6 py-3 sm:py-4 whitespace-nowrap text-xs sm:text-sm font-medium text-gray-900">
-                                        <div className="flex flex-col">
-                                          <span className="break-all">#{order.id?.slice(-8) || order.orderNumber || 'N/A'}</span>
-                                          {order.orderNumber && order.orderNumber !== order.id?.slice(-8) && (
-                                            <span className="text-xs text-gray-500 break-all">Order: {order.orderNumber}</span>
-                                          )}
-                                          {!order.id && (
-                                            <span className="text-xs text-red-500">⚠️ No ID</span>
-                                          )}
-                                        </div>
-                                      </td>
-                                      <td className="px-2 sm:px-3 md:px-6 py-3 sm:py-4 whitespace-nowrap text-xs sm:text-sm font-medium">
-                                        <div className="flex flex-col gap-1.5 sm:flex-row sm:items-center sm:gap-2">
-                                          <button
-                                            onClick={() => setSelectedOrder(order)}
-                                            className="text-blue-600 hover:text-blue-800 active:text-blue-900 font-semibold text-left touch-manipulation py-1"
-                                          >
-                                            View
-                                          </button>
-                                          {order.id && (
-                                            <button
-                                              onClick={() => deleteOrder(order.id)}
-                                              className="text-red-600 hover:text-red-800 active:text-red-900 font-semibold flex items-center gap-1 text-left touch-manipulation py-1"
-                                              title="Delete Order"
-                                            >
-                                              <Trash2 className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
-                                              <span className="hidden sm:inline">Delete</span>
-                                            </button>
-                                          )}
-                                        </div>
-                                      </td>
-                                      <td className="px-2 sm:px-3 md:px-6 py-3 sm:py-4 whitespace-nowrap text-xs sm:text-sm text-gray-900">
-                                        <div className="font-medium">{order.customerName}</div>
-                                        <div className="text-xs text-gray-500 break-all">{order.customerEmail}</div>
-                                      </td>
-                                      <td className="px-2 sm:px-3 md:px-6 py-3 sm:py-4 whitespace-nowrap text-xs sm:text-sm text-gray-500 hidden sm:table-cell">
-                                        {new Date(order.createdAt).toLocaleDateString('en-AE', {
-                                          month: 'short',
-                                          day: 'numeric',
-                                          hour: '2-digit',
-                                          minute: '2-digit'
-                                        })}
-                                      </td>
-                                      <td className="px-2 sm:px-3 md:px-6 py-3 sm:py-4 whitespace-nowrap">
-                                        <StatusBadge
-                                          status={order.status}
-                                          icon={getStatusIcon(order.status)}
-                                          className="px-2 sm:px-3 py-1 text-xs"
-                                        />
-                                      </td>
-                                      <td className="px-2 sm:px-3 md:px-6 py-3 sm:py-4 whitespace-nowrap text-xs sm:text-sm text-gray-500 hidden md:table-cell">
-                                        {order.items.reduce((sum, item) => sum + item.quantity, 0)} items
-                                      </td>
-                                      <td className="px-2 sm:px-3 md:px-6 py-3 sm:py-4 whitespace-nowrap text-xs sm:text-sm font-medium text-gray-900">
-                                        {formatCurrency(order.total)}
-                                      </td>
-                                    </tr>
-                                  ))}
-                                </tbody>
-                              </table>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                )}
-              </>
-            )}
-
-          {activeTab === 'products' && (
-            <>
-              {/* Products Header */}
-              <div className="flex flex-col gap-3 sm:flex-row sm:justify-between sm:items-start mb-4 sm:mb-6">
-                <div>
-                  <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900">Product Management</h2>
-                  <p className="text-xs sm:text-sm md:text-base text-gray-600 mt-1">Manage your product catalog, images, and descriptions</p>
-                </div>
-                <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
-                  <button
-                    onClick={() => {
-                      setEditingProduct(null)
-                      setShowProductForm(true)
-                    }}
-                    className="inline-flex items-center justify-center px-4 py-2.5 bg-primary-600 text-white rounded-lg hover:bg-primary-700 active:bg-primary-800 transition-colors text-sm sm:text-base w-full sm:w-auto touch-manipulation"
-                  >
-                    <Plus className="h-4 w-4 mr-2" />
-                    Add Product
-                  </button>
-                  <button
-                    onClick={fetchProducts}
-                    disabled={productsRefreshing}
-                    className="inline-flex items-center justify-center px-4 py-2.5 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 active:bg-gray-300 transition-colors disabled:opacity-50 text-sm sm:text-base w-full sm:w-auto touch-manipulation"
-                  >
-                    <RefreshCw className={`h-4 w-4 mr-2 ${productsRefreshing ? 'animate-spin' : ''}`} />
-                    Refresh
-                  </button>
-                </div>
-              </div>
-
-              {/* Products List */}
-              <div className="bg-white rounded-lg border">
-                {products.length === 0 ? (
-                  <div className="text-center py-12">
-                    <div className="bg-gray-100 rounded-full w-24 h-24 flex items-center justify-center mx-auto mb-4">
-                      <ImageIcon className="h-12 w-12 text-gray-300" />
-                    </div>
-                    <h3 className="text-xl font-semibold mb-2">No products yet</h3>
-                    <p className="text-gray-400 mb-4">Add your first product to get started.</p>
-                    <button
-                      onClick={() => {
-                        setEditingProduct(null)
-                        setShowProductForm(true)
-                      }}
-                      className="inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
-                    >
-                      <Plus className="h-4 w-4 mr-2" />
-                      Add Product
-                    </button>
-                  </div>
-                ) : (
-                        <div className="overflow-x-auto -mx-3 sm:-mx-4 md:mx-0 scrollbar-hide">
-                          <div className="inline-block min-w-full align-middle">
-                            <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
-                              <table className="min-w-full divide-y divide-gray-300">
-                                <thead className="bg-gray-50">
-                                  <tr>
-                                    <th className="px-2 sm:px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">Product</th>
-                                    <th className="px-2 sm:px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap hidden sm:table-cell">Category</th>
-                                    <th className="px-2 sm:px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">Price</th>
-                                    <th className="px-2 sm:px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap hidden md:table-cell">Stock</th>
-                                    <th className="px-2 sm:px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap hidden lg:table-cell">Created</th>
-                                    <th className="px-2 sm:px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">Actions</th>
-                                  </tr>
-                                </thead>
-                          <tbody className="bg-white divide-y divide-gray-200">
-                            {products.map((product) => (
-                              <tr key={product.id} className="hover:bg-gray-50 transition-colors">
-                                <td className="px-2 sm:px-3 md:px-6 py-3 sm:py-4">
-                                  <div className="flex items-center min-w-0">
-                                    <div className="flex-shrink-0 h-10 w-10 sm:h-12 sm:w-12">
-                                      <Image
-                                        src={product.image}
-                                        alt={product.name}
-                                        width={48}
-                                        height={48}
-                                        className="h-10 w-10 sm:h-12 sm:w-12 rounded-lg object-cover"
-                                      />
-                                    </div>
-                                    <div className="ml-2 sm:ml-4 min-w-0 flex-1">
-                                      <div className="text-xs sm:text-sm font-medium text-gray-900 break-words">{product.name}</div>
-                                      <div className="text-xs text-gray-500 truncate max-w-xs hidden sm:block">{product.description}</div>
-                                      <div className="text-xs text-gray-500 sm:hidden mt-1">
-                                        <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                                          {product.category}
-                                        </span>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </td>
-                                <td className="px-2 sm:px-3 md:px-6 py-3 sm:py-4 whitespace-nowrap hidden sm:table-cell">
-                                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                                    {product.category}
-                                  </span>
-                                </td>
-                                <td className="px-2 sm:px-3 md:px-6 py-3 sm:py-4 whitespace-nowrap text-xs sm:text-sm text-gray-900 font-medium">
-                                  {formatCurrency(product.price)}
-                                </td>
-                                <td className="px-2 sm:px-3 md:px-6 py-3 sm:py-4 whitespace-nowrap hidden md:table-cell">
-                                  <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                                    product.inStock 
-                                      ? 'bg-green-100 text-green-800' 
-                                      : 'bg-red-100 text-red-800'
-                                  }`}>
-                                    {product.inStock ? 'In Stock' : 'Out of Stock'}
-                                  </span>
-                                </td>
-                                <td className="px-2 sm:px-3 md:px-6 py-3 sm:py-4 whitespace-nowrap text-xs sm:text-sm text-gray-500 hidden lg:table-cell">
-                                  {product.createdAt ? new Date(product.createdAt).toLocaleDateString('en-AE', {
-                                    month: 'short',
-                                    day: 'numeric',
-                                    year: 'numeric'
-                                  }) : '-'}
-                                </td>
-                                <td className="px-2 sm:px-3 md:px-6 py-3 sm:py-4 whitespace-nowrap text-sm font-medium">
-                                  <div className="flex items-center gap-3 sm:gap-2">
-                                    <button
-                                      onClick={() => {
-                                        setEditingProduct(product)
-                                        setShowProductForm(true)
-                                      }}
-                                      className="text-primary-600 hover:text-primary-900 active:text-primary-950 transition-colors touch-manipulation p-1"
-                                      title="Edit"
-                                    >
-                                      <Edit className="h-4 w-4 sm:h-5 sm:w-5" />
-                                    </button>
-                                    <button
-                                      onClick={() => deleteProduct(product.id, product.name)}
-                                      className="text-red-600 hover:text-red-900 active:text-red-950 transition-colors touch-manipulation p-1"
-                                      title="Delete"
-                                    >
-                                      <Trash2 className="h-4 w-4 sm:h-5 sm:w-5" />
-                                    </button>
-                                  </div>
-                                </td>
-                              </tr>
-                            ))}
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              {/* Product Form Modal */}
-              {showProductForm && (
-                <ProductForm
-                  product={editingProduct}
-                  onSave={saveProduct}
-                  onCancel={() => {
-                    setShowProductForm(false)
-                    setEditingProduct(null)
-                  }}
+                <AdminOrdersManager
+                  orders={orders}
+                  ordersLoading={ordersLoading}
+                  ordersRefreshing={ordersRefreshing}
+                  selectedOrders={selectedOrders}
+                  isDeletingOrders={isDeletingOrders}
+                  onRefreshOrders={refreshOrders}
+                  onSelectOrder={handleSelectOrder}
+                  onSelectOrders={handleSelectOrders}
+                  onDeleteOrders={handleDeleteOrders}
+                  getAdminHeaders={getAdminHeaders}
                 />
               )}
             </>
           )}
 
+          {activeTab === 'products' && (
+            <>
+              {showProductForm ? (
+                <ProductForm
+                  onCancel={() => {
+                    setShowProductForm(false)
+                    setEditingProduct(null)
+                  }}
+                  onSuccess={() => {
+                    setShowProductForm(false)
+                    setEditingProduct(null)
+                    fetchProducts()
+                  }}
+                  editingProduct={editingProduct}
+                  getAdminHeaders={getAdminHeaders}
+                />
+              ) : (
+                <AdminProductsManager
+                  products={products}
+                  productsRefreshing={productsRefreshing}
+                  onRefreshProducts={refreshProducts}
+                  onShowProductForm={handleShowProductForm}
+                  onEditProduct={handleEditProduct}
+                />
+              )}
+            </>
+          )}
+
+          {activeTab === 'reporting' && (
+            <AdvancedReportingDashboard 
+              onCustomerClick={async (userEmail) => {
+                // Find the customer by email and set as selected
+                const customer = users.find(user => user.email === userEmail)
+                if (customer) {
+                  setSelectedCustomer(customer)
+                  setActiveTab('users') // Switch to users tab to show the profile
+                }
+              }}
+              adminEmail={adminUser?.email || ''}
+            />
+          )}
           {activeTab === 'blog' && (
             <BlogManagement adminEmail={adminUser?.email || ''} />
           )}

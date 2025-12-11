@@ -259,7 +259,7 @@
     "paymentInformation": "Информация об оплате",
     "payment": "Оплата",
     "paymentDescription": "Вы можете оплатить заказ наличными курьеру или попросить нас создать ссылку для оплаты. Мы предоставим безопасную ссылку для оплаты через Stripe.",
-    "stripeCheckout": "Stripe Checkout",
+    "stripeCheckout": "Оплата Stripe",
     "comingSoon": "Скоро - мы интегрируем позже",
     "payWhenDelivered": "При получении заказа",
     "generateLinkForPayment": "Создать ссылку для оплаты",
@@ -297,7 +297,14 @@
     "sendByEmail": "Отправить",
     "invoiceSent": "✓ Счет отправлен!",
     "failedTryAgain": "✗ Ошибка, попробуйте снова",
-    "securityError": "Ошибка безопасности: Не удалось проверить запрос. Пожалуйста, обновите страницу и попробуйте снова."
+    "securityError": "Ошибка безопасности: Не удалось проверить запрос. Пожалуйста, обновите страницу и попробуйте снова.",
+    "secureCardPayment": "Безопасная оплата картой через Stripe",
+    "supportedCards": "Поддерживаемые карты",
+    "verifyingPayment": "Проверка платежа...",
+    "pleaseWait": "Пожалуйста, подождите, пока мы подтверждаем ваш платеж",
+    "verificationFailed": "Ошибка проверки платежа",
+    "verificationError": "Не удалось проверить статус вашего платежа. Пожалуйста, свяжитесь с поддержкой.",
+    "paymentSuccessful": "Платеж успешен!"
   },
   "invoice": {
     "title": "НАЛОГОВЫЙ СЧЕТ",
@@ -1109,7 +1116,7 @@
     "freeShipping": "Бесплатная доставка",
     "onOrdersOver1000": "На заказы свыше 1 000 AED",
     "securePayment": "Безопасная оплата",
-    "stripeCheckout": "Stripe checkout",
+    "stripeCheckout": "Оплата Stripe",
     "uaeTaxPayer": "5% налогоплательщик ОАЭ",
     "supportingLocalEconomy": "Поддержка местной экономики"
   },

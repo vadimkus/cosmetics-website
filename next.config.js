@@ -49,20 +49,36 @@ const nextConfig = {
         pathname: '/avatar/**',
       },
     ],
-    // Optimize images with modern formats - AVIF first (better compression), then WebP fallback
+    // Advanced image optimization with AVIF and WebP
     formats: ['image/avif', 'image/webp'],
-    // Enable image optimization
     unoptimized: false,
     loader: 'default',
-    // Image optimization settings
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
-    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-    // Minimum quality for AVIF (better compression than WebP)
-    minimumCacheTTL: 60,
-    // Image quality options
-    qualities: [75, 85, 90],
+    
+    // Enhanced device sizes for better responsive images
+    deviceSizes: [640, 750, 828, 1080, 1200, 1536, 1920, 2048, 3840],
+    
+    // Extended image sizes for thumbnails and small images
+    imageSizes: [16, 32, 48, 64, 96, 128, 192, 256, 384, 512],
+    
+    // Longer cache TTL for better performance (24 hours)
+    minimumCacheTTL: 86400,
+    
+    // Quality settings optimized for cosmetics product images
+    // Higher quality for product photos to showcase details
+    qualities: [70, 80, 90, 95],
+    
+    // SVG support with security
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+    
+    // Additional optimization settings for Next.js 16
+    contentDispositionType: 'inline',
+    
+    // Enable progressive loading for large images
+    progressive: true,
+    
+    // Optimize for both LCP and visual quality
+    priority: true,
   },
   
   // Enhanced compiler options

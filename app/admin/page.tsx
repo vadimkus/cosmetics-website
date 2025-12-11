@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useEffect, useCallback, useRef } from 'react'
-import Image from 'next/image'
 import { ArrowLeft, RefreshCw } from 'lucide-react'
 import AdminLogin from '@/components/AdminLogin'
 import AnalyticsDashboard from '@/components/AnalyticsDashboard'
@@ -17,7 +16,6 @@ import AdminProductsManager from '@/components/admin/AdminProductsManager'
 import { Order, OrderItem } from '@prisma/client'
 import { fetchCsrfToken, getCsrfHeaders, addCsrfToBody } from '@/lib/csrfClient'
 import { debugLog, errorLog } from '@/lib/logger'
-import StatusBadge from '@/components/shared/StatusBadge'
 import { safeJsonParse } from '@/lib/utils'
 import type { Product } from '@/types'
 
@@ -50,7 +48,7 @@ export default function AdminPage() {
   const [users, setUsers] = useState<User[]>([])
   const [orders, setOrders] = useState<OrderWithItems[]>([])
   const [products, setProducts] = useState<Product[]>([])
-  const [loading, setLoading] = useState(true)
+  const [, setLoading] = useState(true)
   const [ordersLoading, setOrdersLoading] = useState(false)
   const [usersRefreshing, setUsersRefreshing] = useState(false)
   const [ordersRefreshing, setOrdersRefreshing] = useState(false)
@@ -186,74 +184,7 @@ export default function AdminPage() {
     }
   }, [getAdminHeaders])
 
-  const saveProduct = async (productData: Partial<Product>) => {
-    try {
-      // Ensure CSRF token is available
-      const csrfToken = await fetchCsrfToken()
-      if (!csrfToken) {
-        alert('Security error: Could not verify request. Please refresh the page and try again.')
-        return false
-      }
 
-      const url = editingProduct ? `/api/admin/products/${editingProduct.id}` : '/api/admin/products'
-      const method = editingProduct ? 'PUT' : 'POST'
-      
-      const response = await fetch(url, {
-        method,
-        headers: getAdminHeaders(),
-        body: JSON.stringify(addCsrfToBody(productData))
-      })
-      
-      if (response.ok) {
-        await fetchProducts() // Refresh products list
-        setShowProductForm(false)
-        setEditingProduct(null)
-        return true
-      } else {
-        const errorData = await response.json()
-        errorLog('Product save failed:', errorData)
-        alert(`Failed to save product: ${errorData.error || 'Unknown error'}`)
-        return false
-      }
-    } catch (error) {
-      errorLog('Error saving product:', error)
-      alert('Failed to save product')
-      return false
-    }
-  }
-
-  const deleteProduct = async (productId: string, productName: string) => {
-    if (!confirm(`Are you sure you want to delete product "${productName}"? This action cannot be undone.`)) {
-      return
-    }
-
-    try {
-      // Ensure CSRF token is available
-      const csrfToken = await fetchCsrfToken()
-      if (!csrfToken) {
-        alert('Security error: Could not verify request. Please refresh the page and try again.')
-        return
-      }
-
-      const response = await fetch(`/api/admin/products/${productId}`, {
-        method: 'DELETE',
-        headers: getAdminHeaders(),
-        body: JSON.stringify(addCsrfToBody({}))
-      })
-      
-      if (response.ok) {
-        await fetchProducts() // Refresh products list
-        alert('Product deleted successfully')
-      } else {
-        const errorData = await response.json()
-        errorLog('Delete failed:', errorData)
-        alert(`Failed to delete product: ${errorData.error || 'Unknown error'}`)
-      }
-    } catch (error) {
-      errorLog('Error deleting product:', error)
-      alert('Failed to delete product')
-    }
-  }
 
   const fetchOrders = useCallback(async () => {
     // Don't fetch if not authenticated or adminUser not set
@@ -467,100 +398,6 @@ export default function AdminPage() {
     }
   }
 
-  const deleteOrder = async (orderId: string) => {
-    if (!orderId) {
-      alert('Error: Order ID is missing. Please refresh the page and try again.')
-      return
-    }
-
-    // Confirm deletion
-    if (!confirm(`Are you sure you want to delete this order? This action cannot be undone.`)) {
-      return
-    }
-
-    try {
-      // Ensure CSRF token is available
-      const csrfToken = await fetchCsrfToken()
-      if (!csrfToken) {
-        alert('Security error: Could not verify request. Please refresh the page and try again.')
-        return
-      }
-
-      debugLog(`🗑️ Attempting to delete order with ID: ${orderId}`)
-      
-      const response = await fetch(`/api/admin/orders/${orderId}`, {
-        method: 'DELETE',
-        headers: getAdminHeaders(),
-        body: JSON.stringify(addCsrfToBody({}))
-      })
-      
-      const responseData = await response.json()
-      
-      if (response.ok) {
-        debugLog(`✅ Order deleted successfully: ${orderId}`)
-        setOrders(orders.filter(order => order.id && order.id !== orderId))
-        alert('Order deleted successfully!')
-      } else {
-        const errorMessage = responseData.error || responseData.message || 'Unknown error'
-        errorLog(`❌ Failed to delete order: ${errorMessage}`)
-        errorLog(`❌ Response status: ${response.status}`)
-        errorLog(`❌ Full response:`, JSON.stringify(responseData, null, 2))
-        alert(`Failed to delete order: ${errorMessage}\n\nStatus: ${response.status}\n\nPlease check the console for more details.`)
-      }
-    } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : String(error)
-      errorLog('❌ Error deleting order:', error)
-      alert(`Error deleting order: ${errorMessage}\n\nPlease check the console for more details.`)
-    }
-  }
-
-  const deleteSelectedOrders = async () => {
-    if (selectedOrders.length === 0) return
-
-    setIsDeletingOrders(true)
-    try {
-      // Ensure CSRF token is available
-      const csrfToken = await fetchCsrfToken()
-      if (!csrfToken) {
-        alert('Security error: Could not verify request. Please refresh the page and try again.')
-        setIsDeletingOrders(false)
-        return
-      }
-
-      const deletePromises = selectedOrders.map(orderId => 
-        fetch(`/api/admin/orders/${orderId}`, { 
-          method: 'DELETE',
-          headers: getAdminHeaders(),
-          body: JSON.stringify(addCsrfToBody({}))
-        })
-      )
-      
-      await Promise.all(deletePromises)
-      setOrders(orders.filter(order => order.id && !selectedOrders.includes(order.id)))
-      setSelectedOrders([])
-    } catch (error) {
-      errorLog('Error deleting orders:', error)
-    } finally {
-      setIsDeletingOrders(false)
-    }
-  }
-
-  const toggleOrderSelection = (orderId: string) => {
-    if (!orderId) return
-    setSelectedOrders(prev => 
-      prev.includes(orderId) 
-        ? prev.filter(id => id !== orderId)
-        : [...prev, orderId]
-    )
-  }
-
-  const selectAllOrders = () => {
-    if (selectedOrders.length === orders.length) {
-      setSelectedOrders([])
-    } else {
-      setSelectedOrders(orders.filter(order => order.id).map(order => order.id))
-    }
-  }
 
   const handleAdminLogin = async (email: string, password: string): Promise<boolean> => {
     try {
@@ -717,10 +554,6 @@ export default function AdminPage() {
     }).format(amount)
   }
 
-  // Check if user has placed any orders
-  const userHasOrders = (userEmail: string) => {
-    return orders.some(order => order.customerEmail.toLowerCase() === userEmail.toLowerCase())
-  }
 
   // Order Details Component
   const OrderDetails = ({ order, onBack, onUpdateStatus }: {
@@ -862,22 +695,6 @@ export default function AdminPage() {
   )
 
 
-  const getStatusIcon = (status: string) => {
-    switch (status.toLowerCase()) {
-      case 'pending':
-        return <Clock className="h-4 w-4" />
-      case 'confirmed':
-        return <CheckCircle className="h-4 w-4" />
-      case 'shipped':
-        return <Truck className="h-4 w-4" />
-      case 'delivered':
-        return <Package className="h-4 w-4" />
-      case 'cancelled':
-        return <X className="h-4 w-4" />
-      default:
-        return <Clock className="h-4 w-4" />
-    }
-  }
 
   if (isCheckingSession) {
     return (
@@ -995,7 +812,16 @@ export default function AdminPage() {
           )}
 
           {activeTab === 'segmentation' && (
-            <UserSegmentation />
+            <UserSegmentation 
+              users={users}
+              onUserClick={async (userEmail) => {
+                const customer = users.find(user => user.email === userEmail)
+                if (customer) {
+                  setSelectedCustomer(customer)
+                  setActiveTab('users')
+                }
+              }}
+            />
           )}
           {activeTab === 'orders' && (
             <>
@@ -1102,17 +928,45 @@ export default function AdminPage() {
             <>
               {showProductForm ? (
                 <ProductForm
+                  product={editingProduct}
                   onCancel={() => {
                     setShowProductForm(false)
                     setEditingProduct(null)
                   }}
-                  onSuccess={() => {
-                    setShowProductForm(false)
-                    setEditingProduct(null)
-                    fetchProducts()
+                  onSave={async (productData: Partial<Product>) => {
+                    try {
+                      const csrfToken = await fetchCsrfToken()
+                      if (!csrfToken) {
+                        alert('Security error: Could not verify request. Please refresh the page and try again.')
+                        return false
+                      }
+
+                      const url = editingProduct ? `/api/admin/products/${editingProduct.id}` : '/api/admin/products'
+                      const method = editingProduct ? 'PUT' : 'POST'
+                      
+                      const response = await fetch(url, {
+                        method,
+                        headers: getAdminHeaders(),
+                        body: JSON.stringify(addCsrfToBody(productData))
+                      })
+                      
+                      if (response.ok) {
+                        await fetchProducts()
+                        setShowProductForm(false)
+                        setEditingProduct(null)
+                        return true
+                      } else {
+                        const errorData = await response.json()
+                        errorLog('Product save failed:', errorData)
+                        alert(`Failed to save product: ${errorData.error || 'Unknown error'}`)
+                        return false
+                      }
+                    } catch (error) {
+                      errorLog('Error saving product:', error)
+                      alert('Failed to save product')
+                      return false
+                    }
                   }}
-                  editingProduct={editingProduct}
-                  getAdminHeaders={getAdminHeaders}
                 />
               ) : (
                 <AdminProductsManager

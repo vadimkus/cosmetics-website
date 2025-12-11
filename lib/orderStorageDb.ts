@@ -1,4 +1,4 @@
-import { debugLog, errorLog, warnLog } from '@/lib/logger'
+import { debugLog, errorLog } from '@/lib/logger'
 import { prisma } from './database'
 import { Order } from '@prisma/client'
 

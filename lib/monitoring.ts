@@ -213,7 +213,6 @@ class SentryMonitoringService extends MonitoringService {
  * LogRocket monitoring service (production)
  */
 class LogRocketMonitoringService extends MonitoringService {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private logRocket: unknown = null
 
   async init(): Promise<void> {

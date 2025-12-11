@@ -1,6 +1,7 @@
 import { getAllProducts } from '@/lib/productsDb'
 import Link from 'next/link'
 import { Product } from '@/types'
+import { errorLog } from '@/lib/logger'
 
 interface TableProduct {
   name: string
@@ -49,7 +50,7 @@ export default async function ProfessionalPage() {
   try {
     dbProducts = await getAllProducts()
   } catch (error) {
-    console.error('Error fetching products:', error)
+    errorLog('Error fetching products:', error)
   }
   
   const tableProducts: TableProduct[] = [
@@ -241,6 +242,9 @@ export default async function ProfessionalPage() {
     </div>
   )
 }
+
+
+
 
 
 

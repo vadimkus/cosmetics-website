@@ -51,8 +51,13 @@ export const imageOptimization = {
     }
     
     const sizeEntries = Object.entries(defaultBreakpoints)
+    
+    if (sizeEntries.length === 0) {
+      return '100vw'
+    }
+    
     const mediaQueries = sizeEntries.slice(0, -1).map(([media, size]) => `${media} ${size}`)
-    const defaultSize = sizeEntries[sizeEntries.length - 1][1]
+    const defaultSize = sizeEntries[sizeEntries.length - 1]?.[1] || '100vw'
     
     return [...mediaQueries, defaultSize].join(', ')
   },
@@ -283,7 +288,7 @@ export const productImageOptimization = {
    * Get optimized product image with fallbacks
    */
   getProductImage: (
-    product: { id: string; image: string; images?: string; name: string },
+    product: { id: string; image: string; images?: string; name?: string },
     variant: 'gallery' | 'card' | 'thumbnail' | 'mobile' = 'card'
   ): string => {
     let imageSrc = product.image
@@ -330,7 +335,7 @@ export const productImageOptimization = {
   /**
    * Preload critical product images
    */
-  preloadCriticalImages: async (products: Array<{ id: string; image: string; images?: string }>) => {
+  preloadCriticalImages: async (products: Array<{ id: string; image: string; images?: string; name?: string }>) => {
     // Preload first 3 product images for better perceived performance
     const criticalProducts = products.slice(0, 3)
     

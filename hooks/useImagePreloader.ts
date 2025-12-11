@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useCallback, useRef } from 'react'
+import { useCallback, useRef } from 'react'
 import { imageOptimization, productImageOptimization } from '@/lib/imageOptimization'
 import { debugLog, warnLog } from '@/lib/logger'
 

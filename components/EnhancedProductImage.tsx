@@ -47,7 +47,7 @@ export default function EnhancedProductImage({
   const [isHovered, setIsHovered] = useState(false)
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const imageRef = useRef<HTMLDivElement>(null)
-  const hoverTimeoutRef = useRef<NodeJS.Timeout>()
+  const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   // Get all product images with optimization
   const productImages = productImageOptimization.getAllProductImages(product)
@@ -218,7 +218,7 @@ export default function EnhancedProductImage({
 
       {/* Main Image */}
       <Image
-        src={currentImageVariants[variant] || currentImageVariants.original}
+        src={currentImageVariants?.[variant] || currentImageVariants?.original || product.image || '/images/placeholder.png'}
         alt={`${product.name} - GENOSYS Korean dermacosmetics product image`}
         {...(fill 
           ? { fill: true } 

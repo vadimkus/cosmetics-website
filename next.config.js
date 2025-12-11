@@ -73,12 +73,6 @@ const nextConfig = {
     
     // Additional optimization settings for Next.js 16
     contentDispositionType: 'inline',
-    
-    // Enable progressive loading for large images
-    progressive: true,
-    
-    // Optimize for both LCP and visual quality
-    priority: true,
   },
   
   // Enhanced compiler options

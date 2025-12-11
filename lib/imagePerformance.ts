@@ -154,7 +154,7 @@ class ImagePerformanceMonitor {
    */
   private detectImageFormat(url: string): string {
     const match = url.match(/\.(jpg|jpeg|png|webp|avif|gif|svg)/i)
-    return match ? match[1].toLowerCase() : 'unknown'
+    return match && match[1] ? match[1].toLowerCase() : 'unknown'
   }
 
   /**
@@ -248,6 +248,8 @@ class ImagePerformanceMonitor {
       formatDistribution[m.format] = (formatDistribution[m.format] || 0) + 1
     })
 
+    const lcpImage = this.metrics.find(m => m.lcp)
+    
     return {
       totalImages: this.metrics.length,
       avgLoadTime: totalLoadTime / this.metrics.length,
@@ -256,7 +258,7 @@ class ImagePerformanceMonitor {
       formatDistribution,
       slowImages: this.metrics.filter(m => m.loadTime > this.thresholds.loadTimeWarning),
       largeImages: this.metrics.filter(m => m.size > this.thresholds.sizeWarning),
-      lcpImage: this.metrics.find(m => m.lcp)
+      ...(lcpImage && { lcpImage })
     }
   }
 

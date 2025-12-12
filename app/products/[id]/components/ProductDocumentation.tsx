@@ -37,7 +37,8 @@ export default function ProductDocumentation({ product }: ProductDocumentationPr
     // In PWA mode, route to viewer instead of downloading
     if (isPWAMode) {
       const encodedFile = encodeURIComponent(url)
-      router.push(`/pdf-viewer?file=${encodedFile}`)
+      const localePrefix = locale === 'en' ? '' : `/${locale}`
+      router.push(`${localePrefix}/pdf-viewer?file=${encodedFile}`)
     } else {
       // Regular browser: download or open
       const link = document.createElement('a')

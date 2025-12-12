@@ -1,4 +1,6 @@
 
+'use client'
+
 import Link from 'next/link'
 import { Product } from '@/types'
 import { getProductDocumentation } from '@/data/productConfig'
@@ -631,17 +633,19 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
             {t('product.documentationDescription')}
           </p>
           <div className="flex gap-2 lg:gap-3" dir={dir} style={{ flexDirection: dir === 'rtl' ? 'row-reverse' : 'row' }}>
-            <a
-              href={documentation[0]?.url || '#'}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 lg:gap-2 px-2 lg:px-4 py-1.5 lg:py-2 text-xs lg:text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium min-h-[44px] min-w-[44px]"
+            <button
+              onClick={() => {
+                const localePrefix = locale === 'en' ? '' : `/${locale}`
+                const pdfUrl = `${window.location.origin}${localePrefix}/pdf-viewer?file=${encodeURIComponent(documentation[0]?.url || '')}`
+                window.open(pdfUrl, '_blank', 'noopener,noreferrer')
+              }}
+              className="inline-flex items-center gap-1 lg:gap-2 px-2 lg:px-4 py-1.5 lg:py-2 text-xs lg:text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium min-h-[44px] min-w-[44px] cursor-pointer"
             >
               <svg className="h-3 w-3 lg:h-4 lg:w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
               </svg>
               {t('product.viewPdf')}
-            </a>
+            </button>
             <a
               href={documentation[0]?.url || '#'}
               download={documentation[0]?.title || 'documentation'}

@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import { usePDFTracking } from '@/lib/pdfTracking'
 import { errorLog } from '@/lib/logger'
 import { trackPDFDownload } from '@/lib/analytics'
+import { useTranslation } from '@/hooks/useTranslation'
 
 interface PDFLinkButtonProps {
   href: string
@@ -31,6 +32,7 @@ export default function PDFLinkButton({
   const { trackDownload } = usePDFTracking()
   const [isPWAMode, setIsPWAMode] = useState(false)
   const router = useRouter()
+  const { locale } = useTranslation()
 
   useEffect(() => {
     setIsPWAMode(isPWA())
@@ -46,9 +48,10 @@ export default function PDFLinkButton({
         await trackDownload(filename)
         trackPDFDownload(filename)
         
-        // Route to PDF viewer
+        // Route to PDF viewer with locale support
         const encodedFile = encodeURIComponent(href)
-        router.push(`/pdf-viewer?file=${encodedFile}`)
+        const localePrefix = locale === 'en' ? '' : `/${locale}`
+        router.push(`${localePrefix}/pdf-viewer?file=${encodedFile}`)
       } catch (error) {
         errorLog('Error routing to PDF viewer:', error)
       }

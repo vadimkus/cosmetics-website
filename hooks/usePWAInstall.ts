@@ -3,6 +3,17 @@
 import { useState, useEffect, useCallback } from 'react'
 import { debugLog } from '@/lib/logger'
 
+// Detect if device is mobile
+function isMobileDevice(): boolean {
+  if (typeof window === 'undefined') return false
+  
+  const userAgent = navigator.userAgent || navigator.vendor || (window as any).opera
+  const mobileRegex = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i
+  const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0
+  
+  return mobileRegex.test(userAgent) || (isTouchDevice && window.innerWidth <= 1024)
+}
+
 interface BeforeInstallPromptEvent extends Event {
   readonly platforms: string[]
   readonly userChoice: Promise<{
@@ -38,13 +49,21 @@ export const usePWAInstall = (): UsePWAInstallReturn => {
   }, [])
 
   useEffect(() => {
+    // Only enable PWA on mobile devices
+    if (!isMobileDevice()) {
+      debugLog('PWA disabled on desktop device')
+      setInstallPrompt(null)
+      setIsInstalled(false)
+      return
+    }
+
     // Check initial installation status
     setIsInstalled(checkIfInstalled())
 
     // Listen for beforeinstallprompt event
     const handleBeforeInstallPrompt = (e: Event) => {
       const event = e as BeforeInstallPromptEvent
-      debugLog('PWA install prompt available')
+      debugLog('PWA install prompt available on mobile device')
       
       // Prevent the mini-infobar from appearing on mobile
       e.preventDefault()
@@ -112,9 +131,9 @@ export const usePWAInstall = (): UsePWAInstallReturn => {
   }, [])
 
   return {
-    isInstallable: !!installPrompt && !isInstalled,
-    isInstalled,
-    isSupported: typeof window !== 'undefined' && 'serviceWorker' in navigator,
+    isInstallable: !!installPrompt && !isInstalled && isMobileDevice(),
+    isInstalled: isInstalled && isMobileDevice(),
+    isSupported: typeof window !== 'undefined' && 'serviceWorker' in navigator && isMobileDevice(),
     showPrompt,
     dismissPrompt,
     installOutcome

@@ -5,6 +5,16 @@ import { Download, X, Smartphone, Zap, Wifi } from 'lucide-react'
 import { usePWAInstall } from '@/hooks/usePWAInstall'
 import { cn } from '@/lib/utils'
 
+// Detect if device is mobile
+function isMobileDevice(): boolean {
+  if (typeof window === 'undefined') return false
+  
+  const userAgent = navigator.userAgent || navigator.vendor || (window as any).opera
+  const mobileRegex = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i
+  
+  return mobileRegex.test(userAgent)
+}
+
 interface PWAInstallPromptProps {
   className?: string
   variant?: 'banner' | 'modal' | 'card'
@@ -19,6 +29,11 @@ export default function PWAInstallPrompt({
   const { isInstallable, showPrompt, dismissPrompt } = usePWAInstall()
   const [isVisible, setIsVisible] = useState(false)
   const [isInstalling, setIsInstalling] = useState(false)
+
+  // Don't show PWA prompt on desktop
+  if (!isMobileDevice()) {
+    return null
+  }
 
   useEffect(() => {
     if (!isInstallable) return

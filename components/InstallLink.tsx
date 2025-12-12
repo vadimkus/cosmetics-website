@@ -21,6 +21,14 @@ export default function InstallLink({ onClose, className = '' }: InstallLinkProp
   const { t, dir } = useTranslation()
 
   useEffect(() => {
+    // Only enable PWA functionality on mobile devices
+    const userAgent = navigator.userAgent || navigator.vendor || (window as any).opera
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent)
+    
+    if (!isMobile) {
+      return // Skip PWA setup on desktop
+    }
+
     // Check if app is already installed
     if (window.matchMedia('(display-mode: standalone)').matches) {
       setIsInstalled(true)

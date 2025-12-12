@@ -15,9 +15,16 @@ interface PDFDownloadButtonProps {
   external?: boolean
 }
 
-// Detect if running as PWA (standalone mode)
+// Detect if running as PWA (standalone mode) AND on mobile
 function isPWA(): boolean {
   if (typeof window === 'undefined') return false
+  
+  // Only consider PWA mode on mobile devices
+  const userAgent = navigator.userAgent || navigator.vendor || (window as any).opera
+  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent)
+  
+  if (!isMobile) return false
+  
   return window.matchMedia('(display-mode: standalone)').matches ||
     (window.navigator as any).standalone === true
 }

@@ -84,8 +84,11 @@ export async function getProductsByCategory(category: string): Promise<Product[]
 
 export async function addProduct(productData: Omit<Product, 'id'>): Promise<Product> {
   try {
+    // Exclude variants from the data (it's a relation, not a direct field)
+    const { variants, ...dataWithoutVariants } = productData
+    
     const product = await prisma.product.create({
-      data: productData
+      data: dataWithoutVariants
     })
     return product
   } catch (error) {
@@ -96,9 +99,12 @@ export async function addProduct(productData: Omit<Product, 'id'>): Promise<Prod
 
 export async function updateProduct(id: string, updates: Partial<Product>): Promise<Product> {
   try {
+    // Exclude variants from the updates (it's a relation, not a direct field)
+    const { variants, ...updatesWithoutVariants } = updates
+    
     const product = await prisma.product.update({
       where: { id },
-      data: updates
+      data: updatesWithoutVariants
     })
     return product
   } catch (error) {

@@ -3,6 +3,7 @@ import { validateMobileAuth, extractTokenFromHeader } from '@/lib/jwt'
 import { findUserByEmail } from '@/lib/userStorageDb'
 import { debugLog, errorLog } from '@/lib/logger'
 import { prisma } from '@/lib/database'
+import { sendOrderConfirmationEmail, sendAdminNewOrderNotification } from '@/lib/email'
 
 /**
  * Mobile Orders Endpoint
@@ -385,6 +386,79 @@ export async function POST(request: NextRequest) {
       include: {
         items: true
       }
+    })
+
+    // Send order confirmation email to customer (non-blocking - fire and forget)
+    sendOrderConfirmationEmail({
+      orderNumber: order.orderNumber,
+      customerName: order.customerName,
+      customerEmail: order.customerEmail,
+      items: order.items.map(item => ({
+        productName: item.productName,
+        quantity: item.quantity,
+        price: item.price,
+        image: item.image || '',
+        ...(item.size ? { size: item.size } : {}),
+        ...(item.color ? { color: item.color } : {})
+      })),
+      subtotal: order.subtotal,
+      shipping: order.shipping,
+      vat: order.vat,
+      total: order.total,
+      address: order.customerAddress,
+      emirate: order.customerEmirate,
+      locale: order.locale || 'en'
+    }).then(() => {
+      debugLog('[MOBILE_ORDERS] ✅ Order confirmation email sent to:', order.customerEmail)
+    }).catch((emailError) => {
+      errorLog('[MOBILE_ORDERS] ❌ Failed to send order confirmation email:', emailError)
+      // Don't fail order creation if email fails
+    })
+
+    // Send admin notification for new order (non-blocking - fire and forget)
+    sendAdminNewOrderNotification({
+      orderNumber: order.orderNumber,
+      customerName: order.customerName,
+      customerEmail: order.customerEmail,
+      customerPhone: order.customerPhone,
+      total: order.total,
+      itemCount: order.items.length,
+      items: order.items.map(item => {
+        const emailItem: {
+          productName: string
+          quantity: number
+          price: number
+          image: string
+          size?: string
+          color?: string
+        } = {
+          productName: item.productName,
+          quantity: item.quantity,
+          price: item.price,
+          image: item.image || ''
+        }
+        if (item.size) {
+          emailItem.size = item.size
+        }
+        if (item.color) {
+          emailItem.color = item.color
+        }
+        return emailItem
+      }),
+      subtotal: order.subtotal,
+      shipping: order.shipping,
+      vat: order.vat,
+      address: order.customerAddress,
+      emirate: order.customerEmirate
+    }).then((adminResult) => {
+      if (adminResult.success) {
+        debugLog('[MOBILE_ORDERS] ✅ Admin notification sent for new order:', order.orderNumber)
+      } else {
+        errorLog('[MOBILE_ORDERS] ❌ Failed to send admin notification:', adminResult.error)
+      }
+    }).catch((emailError) => {
+      errorLog('[MOBILE_ORDERS] ❌ Exception sending admin notification:', emailError)
+      // Don't fail order creation if email fails
     })
 
     // Format response

@@ -65,6 +65,7 @@ export interface EnhancedProductData {
   name: string
   description: string
   image: string
+  images?: string | null          // Additional product images (JSON array)
   category: string
   stock: boolean
   rating: number
@@ -92,6 +93,70 @@ export interface EnhancedProductData {
   hasVariants: boolean
   isNewProduct: boolean
   isBestSeller: boolean
+  
+  // Product Specifications (for mobile app detail pages)
+  size?: string | null            // Product size (e.g., "50ml", "100g")
+  skinType?: string | null        // Skin type suitability (dry, oily, combination, etc.)
+  formulation?: string | null     // Product formulation type
+  keyBenefits?: string | null     // Key benefits (JSON array)
+  origin?: string | null          // Country of origin
+  
+  // Detailed product content
+  productDetails?: string | null  // JSON object with key-value pairs for product specs
+  keyFeatures?: string | null     // JSON array of features with title and description
+  benefits?: string | null        // JSON array of benefits
+  ingredients?: string | null     // JSON array of ingredients with name and description
+  howToUse?: string | null        // Step-by-step usage instructions
+  directions?: string | null      // Detailed directions for use
+  
+  // Skin recommendation fields
+  targetConcerns?: string | null  // JSON array of concerns like ["anti-aging", "acne", "hydration"]
+  usage?: string | null           // morning, evening, all-day, morning-evening
+  ageGroup?: string | null        // teen, young-adult, adult, mature
+}
+
+/**
+ * Derive formulation type from product category or description
+ */
+function deriveFormulation(product: Product): string | null {
+  const category = product.category.toLowerCase()
+  const description = product.description.toLowerCase()
+  
+  // Determine formulation based on category and keywords
+  if (category.includes('serum') || description.includes('serum')) return 'Serum'
+  if (category.includes('cream') || description.includes('cream')) return 'Cream'
+  if (category.includes('cleanser') || description.includes('cleanser')) return 'Cleanser'
+  if (category.includes('toner') || description.includes('toner')) return 'Toner'
+  if (category.includes('mask') || description.includes('mask')) return 'Mask'
+  if (category.includes('gel') || description.includes('gel')) return 'Gel'
+  if (category.includes('oil') || description.includes('oil')) return 'Oil'
+  if (category.includes('mist') || description.includes('mist')) return 'Mist'
+  if (category.includes('peeling') || description.includes('peeling')) return 'Peeling Gel'
+  if (category.includes('cushion') || description.includes('cushion')) return 'Cushion'
+  if (category.includes('sun') || description.includes('sunscreen') || description.includes('spf')) return 'Sunscreen'
+  
+  return null
+}
+
+/**
+ * Derive product origin from description or default to South Korea
+ */
+function deriveOrigin(product: Product): string {
+  const description = product.description.toLowerCase()
+  
+  // Check for explicit origin mentions
+  if (description.includes('manufactured in south korea') || 
+      description.includes('made in korea') ||
+      description.includes('korean')) {
+    return 'South Korea'
+  }
+  
+  if (description.includes('manufactured in uae') || description.includes('made in uae')) {
+    return 'UAE'
+  }
+  
+  // Default to South Korea for GENOSYS products (K-beauty brand)
+  return 'South Korea'
 }
 
 /**
@@ -334,6 +399,7 @@ export function generateEnhancedProductData(
     name: product.name,
     description: product.description,
     image: product.image,
+    images: product.images ?? null,
     category: product.category,
     stock: product.inStock,
     rating: product.rating || 5.0,
@@ -356,7 +422,27 @@ export function generateEnhancedProductData(
     // Additional data
     hasVariants: variants.length > 1 || colorVariants.length > 0,
     isNewProduct,
-    isBestSeller
+    isBestSeller,
+    
+    // Product Specifications (for mobile app detail pages)
+    size: product.size ?? null,
+    skinType: product.skinType ?? null,
+    formulation: deriveFormulation(product),
+    keyBenefits: product.benefits || product.keyFeatures || null, // Use benefits or keyFeatures
+    origin: deriveOrigin(product),
+    
+    // Detailed product content
+    productDetails: product.productDetails ?? null,
+    keyFeatures: product.keyFeatures ?? null,
+    benefits: product.benefits ?? null,
+    ingredients: product.ingredients ?? null,
+    howToUse: product.howToUse ?? null,
+    directions: product.directions ?? null,
+    
+    // Skin recommendation fields
+    targetConcerns: product.targetConcerns ?? null,
+    usage: product.usage ?? null,
+    ageGroup: product.ageGroup ?? null
   }
   
   debugLog('✅ Enhanced product data generated:', { 

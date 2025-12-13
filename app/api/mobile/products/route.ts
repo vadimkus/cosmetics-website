@@ -95,13 +95,26 @@ export async function GET(request: NextRequest) {
         price: true,
         description: true,
         image: true,
+        images: true,
         category: true,
         inStock: true,
         rating: true,
         size: true,
         noDiscount: true,  // Needed for discount calculations
         createdAt: true,   // Needed for "new" badge logic
-        updatedAt: true
+        updatedAt: true,
+        // Product specifications for mobile app
+        skinType: true,
+        targetConcerns: true,
+        usage: true,
+        ageGroup: true,
+        // Detailed product content
+        productDetails: true,
+        keyFeatures: true,
+        benefits: true,
+        ingredients: true,
+        howToUse: true,
+        directions: true
       },
       orderBy: [
         { category: 'asc' },

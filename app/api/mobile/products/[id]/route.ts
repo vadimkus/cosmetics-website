@@ -110,7 +110,12 @@ export async function GET(
         noDiscount: true,
         createdAt: true,
         updatedAt: true,
-        // Additional fields for mobile
+        // Product specifications for mobile app detail pages
+        skinType: true,
+        targetConcerns: true,
+        usage: true,
+        ageGroup: true,
+        // Detailed product content
         productDetails: true,
         keyFeatures: true,
         benefits: true,

@@ -1,0 +1,388 @@
+import { NextRequest, NextResponse } from 'next/server'
+import { prisma } from '@/lib/prisma'
+import { errorLog, debugLog } from '@/lib/logger'
+import Stripe from 'stripe'
+
+/**
+ * MOBILE STRIPE CHECKOUT ENDPOINT
+ * POST /api/mobile/checkout/stripe
+ * 
+ * Creates a Stripe Checkout Session for mobile app card payments
+ * Returns paymentUrl for the app to open in browser
+ * 
+ * Authentication: Requires x-api-key header matching MOBILE_APP_KEY
+ * Optional: x-user-id header for user context
+ */
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+  apiVersion: '2025-09-30.clover'
+})
+
+// Shipping costs per emirate (AED)
+const SHIPPING_COSTS: Record<string, number> = {
+  'Dubai': 0,
+  'Abu Dhabi': 25,
+  'Sharjah': 25,
+  'Ajman': 25,
+  'Umm Al Quwain': 25,
+  'Ras Al Khaimah': 25,
+  'Fujairah': 25,
+  'Other': 25
+}
+
+const UAE_VAT_RATE = 0.05 // 5% VAT
+
+interface CheckoutItem {
+  id: string
+  name: string
+  price: number
+  quantity: number
+  image: string
+  size: string | undefined
+  color: string | undefined
+}
+
+interface CheckoutRequest {
+  orderNumber: string
+  customer: {
+    name: string
+    email: string
+    phone: string
+    address: string
+  }
+  emirate: string
+  items: CheckoutItem[]
+  shippingCost?: number
+  vatAmount?: number
+  subtotal?: number
+  total?: number
+  orderNotes?: string
+}
+
+export async function POST(request: NextRequest) {
+  const startTime = Date.now()
+  
+  try {
+    // Security: Validate API Key
+    const apiKey = request.headers.get('x-api-key')
+    const expectedKey = process.env.MOBILE_APP_KEY
+    
+    if (!expectedKey) {
+      errorLog('[MOBILE_STRIPE] MOBILE_APP_KEY not configured')
+      return NextResponse.json(
+        { success: false, error: 'API service unavailable' },
+        { status: 503 }
+      )
+    }
+    
+    if (!apiKey || apiKey !== expectedKey) {
+      debugLog('[MOBILE_STRIPE] Unauthorized access attempt')
+      return NextResponse.json(
+        { success: false, error: 'Unauthorized - Invalid or missing API key' },
+        { status: 401 }
+      )
+    }
+
+    // Validate Stripe configuration
+    if (!process.env.STRIPE_SECRET_KEY) {
+      errorLog('[MOBILE_STRIPE] Stripe secret key not configured')
+      return NextResponse.json(
+        { success: false, error: 'Payment service unavailable' },
+        { status: 503 }
+      )
+    }
+
+    // Parse request body
+    const body: CheckoutRequest = await request.json()
+    const { orderNumber, customer, emirate, items, orderNotes } = body
+
+    // Validate required fields
+    if (!orderNumber || !customer?.email || !customer?.name || !emirate || !items?.length) {
+      return NextResponse.json(
+        { success: false, error: 'Missing required fields' },
+        { status: 400 }
+      )
+    }
+
+    debugLog('[MOBILE_STRIPE] Processing checkout:', {
+      orderNumber,
+      customerEmail: customer.email,
+      itemCount: items.length,
+      emirate
+    })
+
+    // SERVER-SIDE CALCULATION: Recompute totals (authoritative)
+    let serverSubtotal = 0
+    const validatedItems: CheckoutItem[] = []
+
+    for (const item of items) {
+      // Verify product exists and get current price
+      const product = await prisma.product.findFirst({
+        where: {
+          OR: [
+            { id: item.id },
+            { productNumber: item.id }
+          ],
+          isHidden: false
+        }
+      })
+
+      if (!product) {
+        errorLog(`[MOBILE_STRIPE] Product not found: ${item.id}`)
+        return NextResponse.json(
+          { success: false, error: `Product not found: ${item.name}` },
+          { status: 400 }
+        )
+      }
+
+      // Use server-side price (authoritative)
+      const itemPrice = product.price
+      const itemSubtotal = itemPrice * item.quantity
+      serverSubtotal += itemSubtotal
+
+      validatedItems.push({
+        id: product.id,
+        name: product.name,
+        price: itemPrice,
+        quantity: item.quantity,
+        image: item.image || product.image,
+        size: item.size,
+        color: item.color
+      })
+    }
+
+    // Calculate shipping (server-authoritative)
+    const serverShipping: number = SHIPPING_COSTS[emirate] || SHIPPING_COSTS['Other'] || 25
+
+    // Calculate VAT (5% on subtotal + shipping)
+    const serverVatAmount: number = (serverSubtotal + serverShipping) * UAE_VAT_RATE
+
+    // Calculate total
+    const serverTotal: number = serverSubtotal + serverShipping + serverVatAmount
+
+    debugLog('[MOBILE_STRIPE] Server-calculated totals:', {
+      subtotal: serverSubtotal,
+      shipping: serverShipping,
+      vat: serverVatAmount,
+      total: serverTotal
+    })
+
+    // Create or update order in database (PENDING status)
+    const existingOrder = await prisma.order.findFirst({
+      where: { orderNumber }
+    })
+
+    let order
+    if (existingOrder) {
+      // Update existing order
+      order = await prisma.order.update({
+        where: { id: existingOrder.id },
+        data: {
+          customerName: customer.name,
+          customerEmail: customer.email,
+          customerPhone: customer.phone,
+          customerAddress: customer.address,
+          customerEmirate: emirate,
+          subtotal: serverSubtotal,
+          shipping: serverShipping,
+          vat: serverVatAmount,
+          total: serverTotal,
+          status: 'PENDING',
+          paymentMethod: 'stripe',
+          paymentStatus: 'pending',
+          updatedAt: new Date()
+        }
+      })
+
+      // Update order items
+      await prisma.orderItem.deleteMany({
+        where: { orderId: order.id }
+      })
+    } else {
+      // Create new order
+      order = await prisma.order.create({
+        data: {
+          orderNumber,
+          customerName: customer.name,
+          customerEmail: customer.email,
+          customerPhone: customer.phone,
+          customerAddress: customer.address,
+          customerEmirate: emirate,
+          subtotal: serverSubtotal,
+          shipping: serverShipping,
+          vat: serverVatAmount,
+          total: serverTotal,
+          status: 'PENDING',
+          paymentMethod: 'stripe',
+          paymentStatus: 'pending',
+          locale: 'en'
+        }
+      })
+    }
+
+    // Create order items
+    for (const item of validatedItems) {
+      await prisma.orderItem.create({
+        data: {
+          orderId: order.id,
+          productId: item.id,
+          productName: item.name,
+          price: item.price,
+          quantity: item.quantity,
+          image: item.image,
+          size: item.size || null,
+          color: item.color || null
+        }
+      })
+    }
+
+    debugLog('[MOBILE_STRIPE] Order persisted:', order.id)
+
+    // Create Stripe line items
+    const lineItems: Stripe.Checkout.SessionCreateParams.LineItem[] = validatedItems.map(item => ({
+      price_data: {
+        currency: 'aed',
+        unit_amount: Math.round(item.price * 100), // Convert AED to fils
+        product_data: {
+          name: item.name + (item.size ? ` (${item.size})` : '') + (item.color ? ` - ${item.color}` : ''),
+          images: item.image.startsWith('http') ? [item.image] : [`https://genosys.ae${item.image}`],
+          metadata: {
+            product_id: item.id,
+            size: item.size || '',
+            color: item.color || ''
+          }
+        }
+      },
+      quantity: item.quantity
+    }))
+
+    // Add shipping as line item (if not free)
+    if (serverShipping > 0) {
+      lineItems.push({
+        price_data: {
+          currency: 'aed',
+          unit_amount: Math.round(serverShipping * 100), // Convert to fils
+          product_data: {
+            name: `Shipping to ${emirate}`,
+            description: 'Standard delivery'
+          }
+        },
+        quantity: 1
+      })
+    }
+
+    // Add VAT as line item
+    lineItems.push({
+      price_data: {
+        currency: 'aed',
+        unit_amount: Math.round(serverVatAmount * 100), // Convert to fils
+        product_data: {
+          name: 'UAE VAT (5%)',
+          description: 'Value Added Tax'
+        }
+      },
+      quantity: 1
+    })
+
+    // Create Stripe Checkout Session
+    const successUrl = `${process.env.NEXT_PUBLIC_BASE_URL || 'https://genosys.ae'}/pay/success?orderNumber=${orderNumber}`
+    const cancelUrl = `${process.env.NEXT_PUBLIC_BASE_URL || 'https://genosys.ae'}/pay/cancel?orderNumber=${orderNumber}`
+
+    const session = await stripe.checkout.sessions.create({
+      mode: 'payment',
+      line_items: lineItems,
+      customer_email: customer.email,
+      metadata: {
+        orderNumber,
+        orderId: order.id,
+        customerName: customer.name,
+        customerPhone: customer.phone,
+        customerEmirate: emirate,
+        orderNotes: orderNotes || '',
+        source: 'mobile_app'
+      },
+      success_url: successUrl,
+      cancel_url: cancelUrl,
+      payment_method_types: ['card'],
+      expires_at: Math.floor(Date.now() / 1000) + (30 * 60) // 30 minutes
+    })
+
+    // Update order with Stripe session ID
+    await prisma.order.update({
+      where: { id: order.id },
+      data: {
+        stripeSessionId: session.id,
+        paymentMetadata: JSON.stringify({
+          sessionUrl: session.url,
+          expiresAt: session.expires_at,
+          createdAt: new Date().toISOString()
+        })
+      }
+    })
+
+    const duration = Date.now() - startTime
+    debugLog(`[MOBILE_STRIPE] Success: Session created in ${duration}ms`, {
+      orderNumber,
+      sessionId: session.id
+    })
+
+    // Return payment URL for mobile app to open
+    return NextResponse.json({
+      success: true,
+      paymentUrl: session.url,
+      sessionId: session.id,
+      orderNumber,
+      expiresAt: session.expires_at,
+      meta: {
+        processingTime: `${duration}ms`,
+        validatedTotals: {
+          subtotal: serverSubtotal,
+          shipping: serverShipping,
+          vat: serverVatAmount,
+          total: serverTotal
+        }
+      }
+    })
+
+  } catch (error) {
+    const duration = Date.now() - startTime
+    errorLog('[MOBILE_STRIPE] Error creating checkout session:', {
+      error: error instanceof Error ? error.message : 'Unknown error',
+      duration: `${duration}ms`,
+      stack: error instanceof Error ? error.stack : undefined
+    })
+
+    return NextResponse.json(
+      {
+        success: false,
+        error: 'Failed to create payment session',
+        details: error instanceof Error ? error.message : 'Unknown error'
+      },
+      { status: 500 }
+    )
+  }
+}
+
+/**
+ * Handle unsupported HTTP methods
+ */
+export async function GET() {
+  return NextResponse.json(
+    { success: false, error: 'Method not allowed. Use POST to create checkout session.' },
+    { status: 405 }
+  )
+}
+
+export async function PUT() {
+  return NextResponse.json(
+    { success: false, error: 'Method not allowed' },
+    { status: 405 }
+  )
+}
+
+export async function DELETE() {
+  return NextResponse.json(
+    { success: false, error: 'Method not allowed' },
+    { status: 405 }
+  )
+}

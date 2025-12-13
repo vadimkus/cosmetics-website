@@ -330,6 +330,30 @@ export function generateProductVariants(
   user: ApiUser | User | null = null
 ): ProductVariant[] {
   const variants: ProductVariant[] = []
+  
+  // PRIORITY 1: Use database variants if available
+  if (product.variants && product.variants.length > 0) {
+    product.variants.forEach((dbVariant) => {
+      // Calculate pricing with user discounts applied
+      const pricing = calculateProductPricing(
+        { ...product, price: dbVariant.price }, 
+        user, 
+        dbVariant.size || undefined
+      )
+      
+      variants.push({
+        size: dbVariant.size || undefined,
+        color: dbVariant.color || undefined,
+        price: pricing.displayPrice,
+        isDefault: dbVariant.isDefault,
+        available: dbVariant.available && product.inStock
+      })
+    })
+    
+    return variants
+  }
+  
+  // FALLBACK: Use config file variants (for backward compatibility)
   const sizes = getProductSizes(product.id)
   
   if (sizes.length === 0) {

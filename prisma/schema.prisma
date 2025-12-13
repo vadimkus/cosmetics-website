@@ -66,10 +66,40 @@ model Product {
   rating  Float?          @default(5.0) // Product rating out of 5
   reviews ProductReview[]
 
+  // Product variants (sizes, colors with individual pricing)
+  variants ProductVariant[]
+
   @@index([category]) // Index for faster category filtering
   @@index([isHidden]) // Index for filtering hidden products
   @@index([noDiscount]) // Index for discount exclusion queries
   @@map("products")
+}
+
+model ProductVariant {
+  id        String   @id @default(cuid())
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  // Variant attributes
+  size      String? // Size variant (e.g., "50ml", "100ml", "500ml")
+  color     String? // Color variant (e.g., "Beige", "Ivory", "Natural")
+  
+  // Pricing and availability
+  price     Float // Variant-specific price
+  available Boolean  @default(true) // Is this variant in stock?
+  isDefault Boolean  @default(false) // Default variant to display
+  
+  // Stock management (optional for future)
+  stockQuantity Int? // Track inventory per variant
+  sku           String? // SKU for inventory management
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([productId, size, color]) // One variant per product per size/color combo
+  @@index([productId])
+  @@index([available])
+  @@map("product_variants")
 }
 
 model Order {

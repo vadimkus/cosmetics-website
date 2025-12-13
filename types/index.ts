@@ -4,6 +4,17 @@ import { User } from '@/types/user'
  * Comprehensive Product interface - Single source of truth for Product type
  * This type matches the Prisma Product model and includes all product fields
  */
+export interface ProductVariant {
+  id: string
+  productId?: string
+  size: string | null
+  color: string | null
+  price: number
+  available: boolean
+  isDefault: boolean
+  stockQuantity?: number | null
+}
+
 export interface Product {
   id: string
   productNumber?: string | null
@@ -31,6 +42,8 @@ export interface Product {
   ageGroup?: string | null // teen, young-adult, adult, mature
   // Rating fields
   rating?: number | null // Product rating out of 5
+  // Product variants (optional, loaded from database)
+  variants?: ProductVariant[]
   // Timestamps (optional, may not be present in all contexts)
   createdAt?: Date | string
   updatedAt?: Date | string

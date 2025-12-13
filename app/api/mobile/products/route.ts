@@ -114,7 +114,23 @@ export async function GET(request: NextRequest) {
         benefits: true,
         ingredients: true,
         howToUse: true,
-        directions: true
+        directions: true,
+        // Product variants (sizes/colors with pricing)
+        variants: {
+          select: {
+            id: true,
+            size: true,
+            color: true,
+            price: true,
+            available: true,
+            isDefault: true,
+            stockQuantity: true
+          },
+          orderBy: [
+            { isDefault: 'desc' },  // Default variant first
+            { price: 'asc' }        // Then by price ascending
+          ]
+        }
       },
       orderBy: [
         { category: 'asc' },

@@ -42,19 +42,19 @@ export async function GET(request: NextRequest) {
     
     debugLog('[MOBILE_API_SHIPPING] Authenticated request - returning shipping rates')
 
-    // Shipping rates configuration
+    // Shipping rates configuration - matches website rates
     const shippingData = {
       currency: 'AED',
       vatRate: 0.05,
       freeShippingThreshold: 1000,
       emirates: [
-        { name: 'Dubai', shippingCost: 0 },
-        { name: 'Abu Dhabi', shippingCost: 25 },
-        { name: 'Sharjah', shippingCost: 15 },
-        { name: 'Ajman', shippingCost: 20 },
-        { name: 'Ras Al Khaimah', shippingCost: 45 },
-        { name: 'Fujairah', shippingCost: 50 },
-        { name: 'Umm Al Quwain', shippingCost: 30 }
+        { name: 'Dubai', shippingCost: 45 },
+        { name: 'Abu Dhabi', shippingCost: 70 },
+        { name: 'Sharjah', shippingCost: 70 },
+        { name: 'Ajman', shippingCost: 70 },
+        { name: 'Ras Al Khaimah', shippingCost: 70 },
+        { name: 'Fujairah', shippingCost: 70 },
+        { name: 'Umm Al Quwain', shippingCost: 70 }
       ],
       lastUpdated: '2025-12-13T00:00:00.000Z'
     }

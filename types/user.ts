@@ -13,3 +13,13 @@ export interface User {
   createdAt: string
   updatedAt?: string | null
 }
+
+// Minimal user type for API pricing calculations
+export interface ApiUser {
+  id: string
+  email: string
+  name: string
+  discountType?: string | null
+  discountPercentage?: number | null
+  canSeePrices?: boolean
+}

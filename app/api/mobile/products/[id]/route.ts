@@ -1,27 +1,21 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { errorLog, debugLog } from '@/lib/logger'
-import { generateBatchEnhancedProductData } from '@/lib/pricingEngine'
+import { generateEnhancedProductData } from '@/lib/pricingEngine'
 import { ApiUser } from '@/types/user'
 
 /**
- * ENHANCED Mobile API Endpoint for Products - DATABASE-DRIVEN ARCHITECTURE
- * GET /api/mobile/products
+ * ENHANCED Mobile API Endpoint for Individual Product
+ * GET /api/mobile/products/[id]
  * 
  * Authentication: Requires x-api-key header matching MOBILE_APP_KEY
  * Returns: Complete calculated product data with pricing, variants, badges, and VAT
- * 
- * ✅ FEATURES:
- * - Server-calculated pricing with discounts
- * - Dynamic badge generation
- * - Size/color variants with pricing
- * - UAE VAT calculation (5%)
- * - User-specific pricing (if authenticated)
- * - Beauty Box bundle pricing
- * - Black Friday discounts
  */
 
-export async function GET(request: NextRequest) {
+export async function GET(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
   const startTime = Date.now()
   
   try {
@@ -55,10 +49,20 @@ export async function GET(request: NextRequest) {
         { status: 401 }
       )
     }
-    
-    debugLog('[MOBILE_API] Authenticated request - fetching enhanced products')
 
-    // Optional: Get user context for personalized pricing (if user ID provided)
+    const { id } = await params
+    
+    if (!id) {
+      return NextResponse.json(
+        { 
+          success: false, 
+          error: 'Product ID is required' 
+        },
+        { status: 400 }
+      )
+    }
+
+    // Optional: Get user context for personalized pricing
     const userId = request.headers.get('x-user-id')
     let user: ApiUser | null = null
     
@@ -78,15 +82,18 @@ export async function GET(request: NextRequest) {
         debugLog(`[MOBILE_API] User context loaded: ${user?.email || 'not found'}`)
       } catch (error) {
         debugLog('[MOBILE_API] Failed to load user context:', error)
-        // Continue without user context
       }
     }
     
-    // Query products from database with all required fields for enhancement
+    // Query product from database with all required fields
     const dbStartTime = Date.now()
-    const products = await prisma.product.findMany({
+    const product = await prisma.product.findFirst({
       where: {
-        isHidden: false  // Exclude hidden products from mobile app
+        OR: [
+          { id },
+          { productNumber: id }
+        ],
+        isHidden: false
       },
       select: {
         id: true,
@@ -95,39 +102,52 @@ export async function GET(request: NextRequest) {
         price: true,
         description: true,
         image: true,
+        images: true,
         category: true,
         inStock: true,
         rating: true,
         size: true,
-        noDiscount: true,  // Needed for discount calculations
-        createdAt: true,   // Needed for "new" badge logic
-        updatedAt: true
-      },
-      orderBy: [
-        { category: 'asc' },
-        { name: 'asc' }
-      ]
+        noDiscount: true,
+        createdAt: true,
+        updatedAt: true,
+        // Additional fields for mobile
+        productDetails: true,
+        keyFeatures: true,
+        benefits: true,
+        ingredients: true,
+        howToUse: true,
+        directions: true
+      }
     })
     
     const dbDuration = Date.now() - dbStartTime
-    debugLog(`[MOBILE_API] Database query completed: ${products.length} products in ${dbDuration}ms`)
+    debugLog(`[MOBILE_API] Database query completed in ${dbDuration}ms`)
+    
+    if (!product) {
+      return NextResponse.json(
+        { 
+          success: false, 
+          error: 'Product not found' 
+        },
+        { status: 404 }
+      )
+    }
     
     // Generate enhanced product data with complete calculations
     const enhancementStartTime = Date.now()
-    const enhancedProducts = generateBatchEnhancedProductData(products, user)
+    const enhancedProduct = generateEnhancedProductData(product, user)
     const enhancementDuration = Date.now() - enhancementStartTime
     
-    debugLog(`[MOBILE_API] Product enhancement completed: ${enhancedProducts.length} products in ${enhancementDuration}ms`)
+    debugLog(`[MOBILE_API] Product enhancement completed in ${enhancementDuration}ms`)
     
     const totalDuration = Date.now() - startTime
-    debugLog(`[MOBILE_API] SUCCESS: Enhanced ${enhancedProducts.length} products in ${totalDuration}ms`)
+    debugLog(`[MOBILE_API] SUCCESS: Enhanced product ${id} in ${totalDuration}ms`)
     
-    // Return enhanced JSON response matching mobile app requirements
+    // Return enhanced JSON response
     return NextResponse.json({
       success: true,
-      data: enhancedProducts,
+      data: enhancedProduct,
       meta: {
-        count: enhancedProducts.length,
         timestamp: new Date().toISOString(),
         processingTime: `${totalDuration}ms`,
         userContext: user ? 'authenticated' : 'anonymous',
@@ -138,15 +158,15 @@ export async function GET(request: NextRequest) {
           'color_variants',
           'uae_vat_included',
           'user_discounts',
-          'beauty_box_bundles'
+          'beauty_box_bundles',
+          'product_details'
         ]
       }
     })
     
   } catch (error) {
-    // Error Handling: Don't leak database details
     const duration = Date.now() - startTime
-    errorLog('[MOBILE_API] Database error:', {
+    errorLog('[MOBILE_API] Error fetching product:', {
       error: error instanceof Error ? error.message : 'Unknown error',
       duration: `${duration}ms`,
       stack: error instanceof Error ? error.stack : undefined
@@ -155,7 +175,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json(
       { 
         success: false, 
-        error: 'Internal server error - Unable to fetch products' 
+        error: 'Internal server error - Unable to fetch product' 
       },
       { status: 500 }
     )
@@ -185,3 +205,4 @@ export async function DELETE() {
     { status: 405 }
   )
 }
+

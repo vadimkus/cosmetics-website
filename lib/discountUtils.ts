@@ -1,4 +1,4 @@
-import { User } from '@/types/user'
+import { User, ApiUser } from '@/types/user'
 import { Product } from '@/types'
 import { isBlackFridaySaleActive, BLACK_FRIDAY_DISCOUNT_PERCENTAGE } from './blackFridayUtils'
 
@@ -30,7 +30,7 @@ const BEAUTY_BOX_DISCOUNT_PERCENTAGE = 15
  * @param user - The user with discount settings
  * @returns DiscountedPrice object with pricing details
  */
-export function calculateDiscountedPrice(product: Product, user: User | null): DiscountedPrice {
+export function calculateDiscountedPrice(product: Product, user: ApiUser | User | null): DiscountedPrice {
   const originalPrice = product.price
   let discountedPrice = originalPrice
   let discountAmount = 0
@@ -107,7 +107,7 @@ export function calculateDiscountedPrice(product: Product, user: User | null): D
  * @param user - The user with discount settings
  * @returns The price to display (discounted if applicable)
  */
-export function getDisplayPrice(product: Product, user: User | null): number {
+export function getDisplayPrice(product: Product, user: ApiUser | User | null): number {
   const { discountedPrice } = calculateDiscountedPrice(product, user)
   return discountedPrice
 }
@@ -117,6 +117,6 @@ export function getDisplayPrice(product: Product, user: User | null): number {
  * @param user - The user to check
  * @returns boolean indicating if user can see prices
  */
-export function canUserSeePrices(user: User | null): boolean {
+export function canUserSeePrices(user: ApiUser | User | null): boolean {
   return user ? (user.canSeePrices ?? false) : false
 }

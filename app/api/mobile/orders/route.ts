@@ -8,11 +8,11 @@ import { sendOrderConfirmationEmail, sendAdminNewOrderNotification } from '@/lib
 /**
  * Mobile Orders Endpoint
  * 
- * GET /api/mobile/orders - Get user's orders with pagination
+ * GET /api/mobile/orders - Get user's orders
  * GET /api/mobile/orders?orderId=xxx - Get specific order details
  * 
  * Headers Required:
- * - x-api-key: Mobile app API key
+ * - x-api-key: genosys_secure_mobile_2025_v1
  * - Authorization: Bearer <jwt_token>
  * 
  * Query Parameters:
@@ -20,6 +20,21 @@ import { sendOrderConfirmationEmail, sendAdminNewOrderNotification } from '@/lib
  * - page: Page number (default: 1)
  * - limit: Items per page (default: 10, max: 50)
  * - status: Filter by order status (optional)
+ * 
+ * Response Format:
+ * {
+ *   "success": true,
+ *   "data": [
+ *     {
+ *       "id": "...",
+ *       "orderNumber": "...",
+ *       "status": "...",
+ *       "total": 0,
+ *       "createdAt": "...",
+ *       "items": [...]
+ *     }
+ *   ]
+ * }
  */
 
 export async function GET(request: NextRequest) {
@@ -150,23 +165,18 @@ export async function GET(request: NextRequest) {
       whereClause.status = status
     }
 
-    // Get orders and total count
-    const [orders, totalCount] = await Promise.all([
-      prisma.order.findMany({
-        where: whereClause,
-        include: {
-          items: true
-        },
-        orderBy: {
-          createdAt: 'desc'
-        },
-        skip,
-        take: limit
-      }),
-      prisma.order.count({
-        where: whereClause
-      })
-    ])
+    // Get orders
+    const orders = await prisma.order.findMany({
+      where: whereClause,
+      include: {
+        items: true
+      },
+      orderBy: {
+        createdAt: 'desc'
+      },
+      skip,
+      take: limit
+    })
 
     // Format orders data for mobile app
     const formattedOrders = orders.map(order => ({
@@ -202,25 +212,12 @@ export async function GET(request: NextRequest) {
       }))
     }))
 
-    const totalPages = Math.ceil(totalCount / limit)
-    const hasNextPage = page < totalPages
-    const hasPreviousPage = page > 1
-
     debugLog('[MOBILE_ORDERS] Get orders completed', Date.now() - startTime, 'ms')
     
+    // Return simplified response format for mobile app
     return NextResponse.json({
       success: true,
-      data: {
-        orders: formattedOrders,
-        pagination: {
-          currentPage: page,
-          totalPages,
-          totalCount,
-          limit,
-          hasNextPage,
-          hasPreviousPage
-        }
-      }
+      data: formattedOrders
     })
 
   } catch (error) {

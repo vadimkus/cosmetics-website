@@ -338,12 +338,12 @@ export function generateProductVariants(
       const pricing = calculateProductPricing(
         { ...product, price: dbVariant.price }, 
         user, 
-        dbVariant.size || undefined
+        dbVariant.size ?? undefined
       )
       
       variants.push({
-        size: dbVariant.size || undefined,
-        color: dbVariant.color || undefined,
+        ...(dbVariant.size && { size: dbVariant.size }),
+        ...(dbVariant.color && { color: dbVariant.color }),
         price: pricing.displayPrice,
         isDefault: dbVariant.isDefault,
         available: dbVariant.available && product.inStock

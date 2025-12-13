@@ -18,8 +18,41 @@
 
 import { PrismaClient } from '@prisma/client'
 import { PRODUCT_CONFIG } from '../data/productConfig'
+import * as dotenv from 'dotenv'
 
-const prisma = new PrismaClient()
+// Load environment variables
+dotenv.config({ path: '.env.local' })
+
+// Initialize Prisma Client with proper Prisma 7 configuration
+function initializePrisma() {
+  const databaseUrl = process.env.DATABASE_URL || 
+                     process.env.PRISMA_DATABASE_URL || 
+                     process.env.POSTGRES_URL
+  
+  if (!databaseUrl) {
+    throw new Error('No database URL found')
+  }
+  
+  const isAccelerate = databaseUrl.startsWith('prisma+')
+  
+  if (isAccelerate) {
+    return new PrismaClient({
+      accelerateUrl: databaseUrl,
+      log: ['error']
+    })
+  } else {
+    const { PrismaPg } = require('@prisma/adapter-pg')
+    const { Pool } = require('pg')
+    const pool = new Pool({ connectionString: databaseUrl })
+    const adapter = new PrismaPg(pool)
+    return new PrismaClient({
+      adapter,
+      log: ['error']
+    })
+  }
+}
+
+const prisma = initializePrisma()
 
 interface VariantToCreate {
   productId: string

@@ -332,8 +332,12 @@ export function generateProductVariants(
   const variants: ProductVariant[] = []
   
   // PRIORITY 1: Use database variants if available
-  if (product.variants && product.variants.length > 0) {
-    product.variants.forEach((dbVariant) => {
+  // IMPORTANT: ignore DB variants that have no size/color.
+  // Those "default" records should not affect pricing or trigger UI selectors.
+  const realDbVariants = product.variants?.filter(v => (v as any)?.size || (v as any)?.color) || []
+
+  if (realDbVariants.length > 0) {
+    realDbVariants.forEach((dbVariant) => {
       // IMPORTANT:
       // When database variants exist, dbVariant.price must be the source of truth.
       // Do NOT pass selectedSize/selectedColor to calculateProductPricing here,
@@ -395,7 +399,9 @@ export function generateEnhancedProductData(
   // Calculate pricing for base product.
   // If DB variants exist, use the DEFAULT DB variant as the product-level price source,
   // so list views and detail headers reflect the same pricing as the default selection.
-  const defaultDbVariant = product.variants?.find(v => v.isDefault) || product.variants?.[0]
+  // IMPORTANT: only treat variants with size/color as "real" variants for pricing source.
+  const realDbVariants = product.variants?.filter(v => (v as any)?.size || (v as any)?.color) || []
+  const defaultDbVariant = realDbVariants.find(v => v.isDefault) || realDbVariants[0]
   const pricingSourceProduct = defaultDbVariant
     ? ({ ...product, price: defaultDbVariant.price } as Product)
     : product
@@ -446,7 +452,8 @@ export function generateEnhancedProductData(
     discountLabel: pricingData.discountLabel,
     
     // Variants
-    variants: variants.filter(v => v.size !== 'default'), // Only include actual size variants
+    // Only include real variants (size/color). Exclude generated 'default' and exclude size-less DB variants.
+    variants: variants.filter(v => (v as any)?.size || (v as any)?.color),
     colorVariants,
     
     // Dynamic badges

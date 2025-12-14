@@ -265,7 +265,6 @@ export async function POST(request: NextRequest) {
           customerName: existing.customerName || '',
           customerPhone: existing.customerPhone || '',
           customerEmirate: emirateFromOrder,
-          orderNotes: String(existing.orderNotes || ''),
           source: 'mobile_app',
           resume: 'true',
         },

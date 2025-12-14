@@ -6,6 +6,9 @@ import { generateBatchEnhancedProductData } from '@/lib/pricingEngine'
 import { prisma } from '@/lib/prisma'
 import { ApiUser } from '@/types/user'
 
+// Force revalidation every 60 seconds
+export const revalidate = 60
+
 export async function GET(request: NextRequest) {
   try {
     debugLog('📦 Fetching enhanced products from DATABASE')
@@ -65,9 +68,9 @@ export async function GET(request: NextRequest) {
       })
       
       // Add caching headers (shorter cache for enhanced data)
-      response.headers.set('Cache-Control', 'public, s-maxage=1800, stale-while-revalidate=3600')
-      response.headers.set('CDN-Cache-Control', 'public, s-maxage=1800')
-      response.headers.set('Vercel-CDN-Cache-Control', 'public, s-maxage=1800')
+      response.headers.set('Cache-Control', 'public, s-maxage=60, stale-while-revalidate=120')
+      response.headers.set('CDN-Cache-Control', 'public, s-maxage=60')
+      response.headers.set('Vercel-CDN-Cache-Control', 'public, s-maxage=60')
       
       return response
     }
@@ -76,9 +79,9 @@ export async function GET(request: NextRequest) {
     const response = NextResponse.json(products)
     
     // Add caching headers for better performance
-    response.headers.set('Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=86400')
-    response.headers.set('CDN-Cache-Control', 'public, s-maxage=3600')
-    response.headers.set('Vercel-CDN-Cache-Control', 'public, s-maxage=3600')
+    response.headers.set('Cache-Control', 'public, s-maxage=60, stale-while-revalidate=120')
+    response.headers.set('CDN-Cache-Control', 'public, s-maxage=60')
+    response.headers.set('Vercel-CDN-Cache-Control', 'public, s-maxage=60')
     
     return response
   } catch (error) {

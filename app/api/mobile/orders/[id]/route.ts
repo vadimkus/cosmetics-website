@@ -117,18 +117,24 @@ export async function DELETE(
       )
     }
 
-    // Business Rule: Only allow deletion of pending/unpaid orders
-    const isDeletable = 
-      (order.status === 'pending' || order.status === 'PENDING') && 
-      (order.paymentStatus === 'unpaid' || order.paymentStatus === 'UNPAID')
+    // Business Rule:
+    // Allow deletion for PENDING orders that are not paid.
+    // Stripe orders typically have paymentStatus = "pending" until paid, so include that as deletable.
+    const status = String(order.status || '').toUpperCase()
+    const paymentStatus = String(order.paymentStatus || '').toUpperCase()
+    const isPendingStatus = status === 'PENDING'
+    const isPaidPayment = paymentStatus === 'PAID' || paymentStatus === 'CONFIRMED'
+    const isDeletable = isPendingStatus && !isPaidPayment
 
     if (!isDeletable) {
-      const reason = order.paymentStatus === 'paid' || order.paymentStatus === 'PAID'
+      const reason = isPaidPayment
         ? 'Cannot delete paid orders'
-        : order.status === 'shipped' || order.status === 'SHIPPED'
+        : status === 'SHIPPED'
         ? 'Cannot delete shipped orders'
-        : order.status === 'delivered' || order.status === 'DELIVERED'
+        : status === 'DELIVERED'
         ? 'Cannot delete delivered orders'
+        : status === 'DELETED'
+        ? 'Order already deleted'
         : 'Cannot delete this order'
 
       debugLog('[MOBILE_ORDERS_DELETE] Order cannot be deleted', {

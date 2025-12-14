@@ -74,15 +74,25 @@ export async function POST(
       )
     }
 
-    const isDeletable =
-      (order.status === 'pending' || order.status === 'PENDING') &&
-      (order.paymentStatus === 'unpaid' || order.paymentStatus === 'UNPAID')
+    // Allow deletion for PENDING orders that are not paid.
+    // Stripe orders often have paymentStatus = "pending" until paid.
+    const status = String(order.status || '').toUpperCase()
+    const paymentStatus = String(order.paymentStatus || '').toUpperCase()
+    const isPendingStatus = status === 'PENDING'
+    const isPaidPayment = paymentStatus === 'PAID' || paymentStatus === 'CONFIRMED'
+    const isDeletable = isPendingStatus && !isPaidPayment
 
     if (!isDeletable) {
-      return NextResponse.json(
-        { success: false, error: 'Cannot delete this order' },
-        { status: 400 }
-      )
+      const reason = isPaidPayment
+        ? 'Cannot delete paid orders'
+        : status === 'SHIPPED'
+        ? 'Cannot delete shipped orders'
+        : status === 'DELIVERED'
+        ? 'Cannot delete delivered orders'
+        : status === 'DELETED'
+        ? 'Order already deleted'
+        : 'Cannot delete this order'
+      return NextResponse.json({ success: false, error: reason }, { status: 400 })
     }
 
     await prisma.order.update({

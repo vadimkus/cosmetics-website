@@ -452,8 +452,11 @@ export function generateEnhancedProductData(
     discountLabel: pricingData.discountLabel,
     
     // Variants
-    // Only include real variants (size/color). Exclude generated 'default' and exclude size-less DB variants.
-    variants: variants.filter(v => (v as any)?.size || (v as any)?.color),
+    // Only include real variants (size/color).
+    // Exclude generated 'default' and exclude size-less DB variants.
+    variants: variants.filter(v =>
+      (v as any)?.color || ((v as any)?.size && (v as any).size !== 'default')
+    ),
     colorVariants,
     
     // Dynamic badges

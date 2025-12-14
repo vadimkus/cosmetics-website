@@ -36,8 +36,12 @@ model Product {
   id            String   @id @default(cuid())
   productNumber String?  @unique
   name          String
+  nameRu        String?  @db.Text
+  nameAr        String?  @db.Text
   price         Float
   description   String   @db.Text
+  descriptionRu String?  @db.Text
+  descriptionAr String?  @db.Text
   image         String
   category      String
   inStock       Boolean  @default(true)

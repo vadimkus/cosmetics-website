@@ -51,6 +51,9 @@ export async function GET(
     }
 
     const { id } = await params
+
+    // Optional: locale hint for localized fields (en/ru/ar)
+    const locale = (request.headers.get('x-locale') || request.nextUrl.searchParams.get('locale') || 'en').toLowerCase()
     
     if (!id) {
       return NextResponse.json(
@@ -99,8 +102,12 @@ export async function GET(
         id: true,
         productNumber: true,
         name: true,
+        nameRu: true,
+        nameAr: true,
         price: true,
         description: true,
+        descriptionRu: true,
+        descriptionAr: true,
         image: true,
         images: true,
         category: true,
@@ -157,6 +164,22 @@ export async function GET(
     // Generate enhanced product data with complete calculations
     const enhancementStartTime = Date.now()
     const enhancedProduct = generateEnhancedProductData(product, user)
+    // Attach locale-specific display fields WITHOUT changing the canonical `name`.
+    const wantAr = locale.startsWith('ar')
+    const wantRu = locale.startsWith('ru')
+    const localizedName =
+      (wantAr ? (product as any).nameAr : wantRu ? (product as any).nameRu : null) ||
+      (enhancedProduct as any)?.name ||
+      ''
+    const localizedDescription =
+      (wantAr ? (product as any).descriptionAr : wantRu ? (product as any).descriptionRu : null) ||
+      (enhancedProduct as any)?.description ||
+      ''
+    const enhancedProductWithLocale = {
+      ...(enhancedProduct as any),
+      localizedName,
+      localizedDescription,
+    }
     const enhancementDuration = Date.now() - enhancementStartTime
     
     debugLog(`[MOBILE_API] Product enhancement completed in ${enhancementDuration}ms`)
@@ -167,7 +190,7 @@ export async function GET(
     // Return enhanced JSON response with cache-control headers
     return NextResponse.json({
       success: true,
-      data: enhancedProduct,
+      data: enhancedProductWithLocale,
       meta: {
         timestamp: new Date().toISOString(),
         processingTime: `${totalDuration}ms`,

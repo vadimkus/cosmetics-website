@@ -58,6 +58,9 @@ export async function GET(request: NextRequest) {
     
     debugLog('[MOBILE_API] Authenticated request - fetching enhanced products')
 
+    // Optional: locale hint for localized fields (en/ru/ar)
+    const locale = (request.headers.get('x-locale') || request.nextUrl.searchParams.get('locale') || 'en').toLowerCase()
+
     // Optional: Get user context for personalized pricing (if user ID provided)
     const userId = request.headers.get('x-user-id')
     let user: ApiUser | null = null
@@ -92,8 +95,12 @@ export async function GET(request: NextRequest) {
         id: true,
         productNumber: true,
         name: true,
+        nameRu: true,
+        nameAr: true,
         price: true,
         description: true,
+        descriptionRu: true,
+        descriptionAr: true,
         image: true,
         images: true,
         category: true,
@@ -143,10 +150,42 @@ export async function GET(request: NextRequest) {
     
     // Generate enhanced product data with complete calculations
     const enhancementStartTime = Date.now()
-    const enhancedProducts = generateBatchEnhancedProductData(products, user)
+    const enhancedProductsRaw = generateBatchEnhancedProductData(products, user)
     const enhancementDuration = Date.now() - enhancementStartTime
     
-    debugLog(`[MOBILE_API] Product enhancement completed: ${enhancedProducts.length} products in ${enhancementDuration}ms`)
+    debugLog(`[MOBILE_API] Product enhancement completed: ${enhancedProductsRaw.length} products in ${enhancementDuration}ms`)
+
+    // Attach locale-specific display fields WITHOUT changing the canonical `name` used for business logic.
+    const translationById = new Map(
+      products.map((p) => [
+        p.id,
+        {
+          nameRu: (p as any).nameRu,
+          nameAr: (p as any).nameAr,
+          descriptionRu: (p as any).descriptionRu,
+          descriptionAr: (p as any).descriptionAr,
+        },
+      ])
+    )
+
+    const enhancedProducts = enhancedProductsRaw.map((p: any) => {
+      const tr = translationById.get(String(p?.id || '')) || {}
+      const wantAr = locale.startsWith('ar')
+      const wantRu = locale.startsWith('ru')
+      const localizedName =
+        (wantAr ? tr.nameAr : wantRu ? tr.nameRu : null) ||
+        p?.name ||
+        ''
+      const localizedDescription =
+        (wantAr ? tr.descriptionAr : wantRu ? tr.descriptionRu : null) ||
+        p?.description ||
+        ''
+      return {
+        ...p,
+        localizedName,
+        localizedDescription,
+      }
+    })
     
     const totalDuration = Date.now() - startTime
     debugLog(`[MOBILE_API] SUCCESS: Enhanced ${enhancedProducts.length} products in ${totalDuration}ms`)

@@ -148,7 +148,7 @@ export const products: Product[] = [
   {
     id: '15',
     name: 'INTENSIVE PROBLEM CONTROL TONER',
-    price: 130,
+    price: 260,
     description: '200ml (Homecare) / 500ml (Professional). Anti-blemish toner for acne-prone skin. It helps remove excess oil and sebum for blemish-prone skin while adding quick hydration to skin with patented Anti Sebum P complex, zinc PCA, tea tree extract and panthenol. Key ingredients: Anti Sebum P, Tea Tree Extract, Tea Tree Leaf Oil, Rosmarinus Officinalis (Rosemary) Leaf Extract, Zinc PCA, Tannic Acid, Salicylic Acid (BHA), SNOW ICE. Dermatologically tested. Efficacy test on improving excessive sebum production.',
     image: '/images/PRS.jpg',
     images: null,

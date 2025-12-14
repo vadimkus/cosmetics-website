@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { errorLog, debugLog } from '@/lib/logger'
 import Stripe from 'stripe'
+import { validateMobileAuth, extractTokenFromHeader } from '@/lib/jwt'
+import { findUserByEmail } from '@/lib/userStorageDb'
 
 /**
  * MOBILE STRIPE CHECKOUT ENDPOINT
@@ -31,6 +33,7 @@ const SHIPPING_COSTS: Record<string, number> = {
 }
 
 const UAE_VAT_RATE = 0.05 // 5% VAT
+const FREE_SHIPPING_THRESHOLD_AED = 1000
 
 interface CheckoutItem {
   id: string
@@ -44,6 +47,8 @@ interface CheckoutItem {
 
 interface CheckoutRequest {
   orderNumber: string
+  orderId?: string
+  resume?: boolean
   customer: {
     name: string
     email: string
@@ -95,6 +100,207 @@ export async function POST(request: NextRequest) {
     // Parse request body
     const body: CheckoutRequest = await request.json()
     const { orderNumber, customer, emirate, items, orderNotes } = body
+
+    // Resume payment flow for an existing order (pending/unpaid).
+    // This is used by the mobile app "Pay now" on pending orders.
+    if (body?.resume === true) {
+      const authHeader = request.headers.get('Authorization')
+      const token = extractTokenFromHeader(authHeader)
+      const authValidation = validateMobileAuth(apiKey, token)
+
+      if (!authValidation.valid) {
+        return NextResponse.json(
+          { success: false, error: authValidation.error },
+          { status: authValidation.status || 500 }
+        )
+      }
+
+      if (!authValidation.payload) {
+        return NextResponse.json(
+          { success: false, error: 'Authentication token required' },
+          { status: 401 }
+        )
+      }
+
+      const user = await findUserByEmail(authValidation.payload.email)
+      if (!user) {
+        return NextResponse.json(
+          { success: false, error: 'User not found' },
+          { status: 404 }
+        )
+      }
+
+      const resumeOrderId = String(body?.orderId || '').trim()
+      const resumeOrderNumber = String(body?.orderNumber || '').trim()
+
+      if (!resumeOrderId && !resumeOrderNumber) {
+        return NextResponse.json(
+          { success: false, error: 'Missing orderId or orderNumber' },
+          { status: 400 }
+        )
+      }
+
+      const existing = await prisma.order.findFirst({
+        where: {
+          ...(resumeOrderId ? { id: resumeOrderId } : {}),
+          ...(resumeOrderNumber ? { orderNumber: resumeOrderNumber } : {}),
+          customerEmail: user.email,
+        },
+        include: { items: true },
+      })
+
+      if (!existing) {
+        return NextResponse.json(
+          { success: false, error: 'Order not found' },
+          { status: 404 }
+        )
+      }
+
+      const status = String(existing.status || '').toUpperCase()
+      const paymentStatus = String(existing.paymentStatus || '').toUpperCase()
+
+      if (status === 'DELETED') {
+        return NextResponse.json(
+          { success: false, error: 'Order was deleted' },
+          { status: 400 }
+        )
+      }
+
+      if (paymentStatus === 'PAID') {
+        return NextResponse.json(
+          { success: false, error: 'Order is already paid' },
+          { status: 400 }
+        )
+      }
+
+      if (status !== 'PENDING') {
+        return NextResponse.json(
+          { success: false, error: 'Order is not pending' },
+          { status: 400 }
+        )
+      }
+
+      // If there's an existing Stripe session, try to reuse it if still open.
+      if (existing.stripeSessionId) {
+        try {
+          const s = await stripe.checkout.sessions.retrieve(existing.stripeSessionId)
+          if (s?.url) {
+            return NextResponse.json({
+              success: true,
+              orderId: existing.id,
+              orderNumber: existing.orderNumber,
+              paymentUrl: s.url,
+              reused: true,
+            })
+          }
+        } catch (e) {
+          // ignore and create a new session
+          debugLog('[MOBILE_STRIPE_RESUME] Failed to reuse stripe session, will create new', {
+            orderId: existing.id,
+          })
+        }
+      }
+
+      // Recompute totals server-side from stored order items.
+      // NOTE: Order item prices are already server-authoritative at time of order creation.
+      const serverSubtotal = existing.items.reduce((sum, it) => sum + (Number(it.price) || 0) * (Number(it.quantity) || 0), 0)
+      const emirateFromOrder = String(existing.customerEmirate || emirate || 'Other')
+      const serverShipping = serverSubtotal >= FREE_SHIPPING_THRESHOLD_AED ? 0 : (SHIPPING_COSTS[emirateFromOrder] || SHIPPING_COSTS['Other'] || 25)
+      const serverVatAmount = (serverSubtotal + serverShipping) * UAE_VAT_RATE
+      const serverTotal = serverSubtotal + serverShipping + serverVatAmount
+
+      const lineItems: Stripe.Checkout.SessionCreateParams.LineItem[] = existing.items.map((it: any) => ({
+        price_data: {
+          currency: 'aed',
+          unit_amount: Math.round((Number(it.price) || 0) * 100),
+          product_data: {
+            name: String(it.productName || 'Item') + (it.size ? ` (${it.size})` : '') + (it.color ? ` - ${it.color}` : ''),
+            ...(it.image ? { images: String(it.image).startsWith('http') ? [it.image] : [`https://genosys.ae${it.image}`] } : {}),
+            metadata: {
+              product_id: String(it.productId || ''),
+              size: String(it.size || ''),
+              color: String(it.color || ''),
+            },
+          },
+        },
+        quantity: Number(it.quantity) || 1,
+      }))
+
+      if (serverShipping > 0) {
+        lineItems.push({
+          price_data: {
+            currency: 'aed',
+            unit_amount: Math.round(serverShipping * 100),
+            product_data: {
+              name: `Shipping to ${emirateFromOrder}`,
+              description: 'Standard delivery',
+            },
+          },
+          quantity: 1,
+        })
+      }
+
+      lineItems.push({
+        price_data: {
+          currency: 'aed',
+          unit_amount: Math.round(serverVatAmount * 100),
+          product_data: {
+            name: 'UAE VAT (5%)',
+            description: 'Value Added Tax',
+          },
+        },
+        quantity: 1,
+      })
+
+      const successUrl = `${process.env.NEXT_PUBLIC_BASE_URL || 'https://genosys.ae'}/pay/success?orderNumber=${existing.orderNumber}`
+      const cancelUrl = `${process.env.NEXT_PUBLIC_BASE_URL || 'https://genosys.ae'}/pay/cancel?orderNumber=${existing.orderNumber}`
+
+      const session = await stripe.checkout.sessions.create({
+        mode: 'payment',
+        line_items: lineItems,
+        customer_email: existing.customerEmail,
+        metadata: {
+          orderNumber: existing.orderNumber,
+          orderId: existing.id,
+          customerName: existing.customerName || '',
+          customerPhone: existing.customerPhone || '',
+          customerEmirate: emirateFromOrder,
+          orderNotes: String(existing.orderNotes || ''),
+          source: 'mobile_app',
+          resume: 'true',
+        },
+        success_url: successUrl,
+        cancel_url: cancelUrl,
+        payment_method_types: ['card'],
+        expires_at: Math.floor(Date.now() / 1000) + (30 * 60),
+      })
+
+      await prisma.order.update({
+        where: { id: existing.id },
+        data: {
+          stripeSessionId: session.id,
+          subtotal: serverSubtotal,
+          shipping: serverShipping,
+          vat: serverVatAmount,
+          total: serverTotal,
+          paymentMetadata: JSON.stringify({
+            sessionUrl: session.url,
+            expiresAt: session.expires_at,
+            createdAt: new Date().toISOString(),
+            resumedAt: new Date().toISOString(),
+          }),
+          updatedAt: new Date(),
+        },
+      })
+
+      return NextResponse.json({
+        success: true,
+        orderId: existing.id,
+        orderNumber: existing.orderNumber,
+        paymentUrl: session.url,
+        reused: false,
+      })
+    }
 
     // Validate required fields
     if (!orderNumber || !customer?.email || !customer?.name || !emirate || !items?.length) {
@@ -151,8 +357,11 @@ export async function POST(request: NextRequest) {
       })
     }
 
-    // Calculate shipping (server-authoritative)
-    const serverShipping: number = SHIPPING_COSTS[emirate] || SHIPPING_COSTS['Other'] || 25
+    // Calculate shipping (server-authoritative) with free-shipping threshold
+    const serverShipping: number =
+      serverSubtotal >= FREE_SHIPPING_THRESHOLD_AED
+        ? 0
+        : (SHIPPING_COSTS[emirate] || SHIPPING_COSTS['Other'] || 25)
 
     // Calculate VAT (5% on subtotal + shipping)
     const serverVatAmount: number = (serverSubtotal + serverShipping) * UAE_VAT_RATE

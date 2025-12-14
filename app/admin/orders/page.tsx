@@ -81,7 +81,7 @@ export default function AdminOrdersPage() {
         const data = await response.json()
         // Defensive: hide DELETED orders even if backend includes them.
         const list = Array.isArray(data.orders) ? data.orders : []
-        setOrders(list.filter((o) => String(o?.status || '').toUpperCase() !== 'DELETED'))
+        setOrders(list.filter((o: Partial<Order>) => String(o?.status || '').toUpperCase() !== 'DELETED') as Order[])
       }
     } catch (error) {
       errorLog('Error fetching orders:', error)

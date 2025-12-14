@@ -151,7 +151,7 @@ export async function GET(request: NextRequest) {
     const totalDuration = Date.now() - startTime
     debugLog(`[MOBILE_API] SUCCESS: Enhanced ${enhancedProducts.length} products in ${totalDuration}ms`)
     
-    // Return enhanced JSON response matching mobile app requirements
+    // Return enhanced JSON response matching mobile app requirements with cache-control headers
     return NextResponse.json({
       success: true,
       data: enhancedProducts,
@@ -169,6 +169,12 @@ export async function GET(request: NextRequest) {
           'user_discounts',
           'beauty_box_bundles'
         ]
+      }
+    }, {
+      headers: {
+        'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0',
+        'Pragma': 'no-cache',
+        'Expires': '0'
       }
     })
     

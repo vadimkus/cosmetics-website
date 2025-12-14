@@ -334,11 +334,13 @@ export function generateProductVariants(
   // PRIORITY 1: Use database variants if available
   if (product.variants && product.variants.length > 0) {
     product.variants.forEach((dbVariant) => {
-      // Calculate pricing with user discounts applied
+      // IMPORTANT:
+      // When database variants exist, dbVariant.price must be the source of truth.
+      // Do NOT pass selectedSize/selectedColor to calculateProductPricing here,
+      // otherwise it may override dbVariant.price using PRODUCT_CONFIG mappings.
       const pricing = calculateProductPricing(
-        { ...product, price: dbVariant.price }, 
-        user, 
-        dbVariant.size ?? undefined
+        { ...product, price: dbVariant.price },
+        user
       )
       
       variants.push({
@@ -390,8 +392,15 @@ export function generateEnhancedProductData(
 ): EnhancedProductData {
   debugLog('🚀 Generating enhanced product data:', { productId: product.id, userId: user?.id })
   
-  // Calculate pricing for base product
-  const pricingData = calculateProductPricing(product, user)
+  // Calculate pricing for base product.
+  // If DB variants exist, use the DEFAULT DB variant as the product-level price source,
+  // so list views and detail headers reflect the same pricing as the default selection.
+  const defaultDbVariant = product.variants?.find(v => v.isDefault) || product.variants?.[0]
+  const pricingSourceProduct = defaultDbVariant
+    ? ({ ...product, price: defaultDbVariant.price } as Product)
+    : product
+
+  const pricingData = calculateProductPricing(pricingSourceProduct, user)
   
   // Generate variants with pricing
   const variants = generateProductVariants(product, user)

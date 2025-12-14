@@ -121,7 +121,23 @@ export async function GET(
         benefits: true,
         ingredients: true,
         howToUse: true,
-        directions: true
+        directions: true,
+        // Product variants (sizes/colors with pricing) - required for DB-driven variant pricing
+        variants: {
+          select: {
+            id: true,
+            size: true,
+            color: true,
+            price: true,
+            available: true,
+            isDefault: true,
+            stockQuantity: true
+          },
+          orderBy: [
+            { isDefault: 'desc' }, // Default variant first
+            { price: 'asc' }       // Then by price ascending
+          ]
+        }
       }
     })
     
@@ -148,7 +164,7 @@ export async function GET(
     const totalDuration = Date.now() - startTime
     debugLog(`[MOBILE_API] SUCCESS: Enhanced product ${id} in ${totalDuration}ms`)
     
-    // Return enhanced JSON response
+    // Return enhanced JSON response with cache-control headers
     return NextResponse.json({
       success: true,
       data: enhancedProduct,
@@ -166,6 +182,12 @@ export async function GET(
           'beauty_box_bundles',
           'product_details'
         ]
+      }
+    }, {
+      headers: {
+        'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0',
+        'Pragma': 'no-cache',
+        'Expires': '0'
       }
     })
     

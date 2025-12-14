@@ -64,3 +64,11 @@ If Prisma Console supports migrations, you can use:
 
 
 
+
+
+
+
+
+
+
+

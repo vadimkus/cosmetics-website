@@ -156,20 +156,30 @@ export async function GET(request: NextRequest) {
     debugLog(`[MOBILE_API] Product enhancement completed: ${enhancedProductsRaw.length} products in ${enhancementDuration}ms`)
 
     // Attach locale-specific display fields WITHOUT changing the canonical `name` used for business logic.
-    const translationById = new Map(
+    const translationById = new Map<string, {
+      nameRu: string | null
+      nameAr: string | null
+      descriptionRu: string | null
+      descriptionAr: string | null
+    }>(
       products.map((p) => [
         p.id,
         {
-          nameRu: (p as any).nameRu,
-          nameAr: (p as any).nameAr,
-          descriptionRu: (p as any).descriptionRu,
-          descriptionAr: (p as any).descriptionAr,
+          nameRu: (p as any).nameRu || null,
+          nameAr: (p as any).nameAr || null,
+          descriptionRu: (p as any).descriptionRu || null,
+          descriptionAr: (p as any).descriptionAr || null,
         },
       ])
     )
 
     const enhancedProducts = enhancedProductsRaw.map((p: any) => {
-      const tr = translationById.get(String(p?.id || '')) || {}
+      const tr = translationById.get(String(p?.id || '')) || {
+        nameRu: null,
+        nameAr: null,
+        descriptionRu: null,
+        descriptionAr: null
+      }
       const wantAr = locale.startsWith('ar')
       const wantRu = locale.startsWith('ru')
       const localizedName =

@@ -39,6 +39,12 @@ export default function AdminOrdersManager({
 }: AdminOrdersManagerProps) {
   const [updatingStatus, setUpdatingStatus] = useState<string | null>(null)
 
+  const getDisplayOrderNumber = (order: OrderWithItems) => {
+    const n = String((order as any)?.orderNumber || '').trim()
+    if (n) return n
+    return String(order.id).slice(-8)
+  }
+
   const handleStatusUpdate = useCallback(async (orderId: string, newStatus: string) => {
     setUpdatingStatus(orderId)
     try {
@@ -170,7 +176,10 @@ export default function AdminOrdersManager({
                           />
                         </td>
                         <td className="px-2 sm:px-3 md:px-6 py-4 whitespace-nowrap">
-                          <div className="text-sm font-medium text-gray-900">#{order.id.slice(-8)}</div>
+                          <div className="text-sm font-medium text-gray-900">#{getDisplayOrderNumber(order)}</div>
+                          {String(order.id).slice(-8) !== getDisplayOrderNumber(order) && (
+                            <div className="text-xs text-gray-400">ID #{String(order.id).slice(-8)}</div>
+                          )}
                           <div className="text-sm text-gray-500">{new Date(order.createdAt).toLocaleDateString()}</div>
                         </td>
                         <td className="px-2 sm:px-3 md:px-6 py-4 whitespace-nowrap hidden sm:table-cell">

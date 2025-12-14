@@ -25,13 +25,14 @@ export async function GET(request: NextRequest) {
       const allOrdersForCustomer = await getOrdersByEmail(trimmedEmail, 1000, 0)
       debugLog(`📊 Admin orders API: getOrdersByEmail returned ${allOrdersForCustomer.length} orders`)
       
-      // Filter out cancelled orders
+      // Filter out cancelled + deleted orders
       orders = allOrdersForCustomer.filter(order => {
-        const isNotCancelled = order.status !== 'CANCELLED'
-        if (!isNotCancelled) {
-          debugLog(`📊 Filtered out cancelled order: ${order.orderNumber} (status: ${order.status})`)
+        const status = String(order.status || '').toUpperCase()
+        const keep = status !== 'CANCELLED' && status !== 'DELETED'
+        if (!keep) {
+          debugLog(`📊 Filtered out order: ${order.orderNumber} (status: ${order.status})`)
         }
-        return isNotCancelled
+        return keep
       })
       
       debugLog(`📊 Admin orders API: Found ${orders.length} non-cancelled orders for customer ${trimmedEmail}`)
@@ -48,7 +49,7 @@ export async function GET(request: NextRequest) {
         })
       }
     } else {
-      // Get all orders from storage, excluding cancelled orders
+      // Get all orders from storage, excluding cancelled + deleted orders
       debugLog('📊 Admin orders API: Calling readOrders()...')
       const allOrders = await readOrders()
       debugLog(`📊 Admin orders API: readOrders returned ${allOrders.length} total orders`)
@@ -64,8 +65,11 @@ export async function GET(request: NextRequest) {
         }
       }
       
-      orders = allOrders.filter(order => order.status !== 'CANCELLED')
-      debugLog(`📊 Admin orders API: Returning ${orders.length} non-cancelled orders`)
+      orders = allOrders.filter(order => {
+        const status = String(order.status || '').toUpperCase()
+        return status !== 'CANCELLED' && status !== 'DELETED'
+      })
+      debugLog(`📊 Admin orders API: Returning ${orders.length} non-cancelled/non-deleted orders`)
     }
     
     // Serialize orders to ensure dates are properly converted to strings

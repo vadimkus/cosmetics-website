@@ -13,11 +13,20 @@
  *   npx tsx scripts/sync-product-prices-from-products-ts.ts          # dry-run (prints mismatches)
  *   npx tsx scripts/sync-product-prices-from-products-ts.ts --apply  # apply updates
  */
+
+// Load environment variables FIRST before importing anything that uses them
 import * as dotenv from 'dotenv'
 import * as path from 'path'
 
-dotenv.config({ path: path.resolve(process.cwd(), '.env.local') })
+// Try .env.local first, then .env
+const envLocalPath = path.resolve(process.cwd(), '.env.local')
+const envPath = path.resolve(process.cwd(), '.env')
+dotenv.config({ path: envLocalPath })
+if (!process.env.DATABASE_URL && !process.env.PRISMA_DATABASE_URL) {
+  dotenv.config({ path: envPath })
+}
 
+// Now import modules that depend on env vars
 import { prisma } from '../lib/prisma'
 import { products as canonicalProducts } from '../lib/products'
 

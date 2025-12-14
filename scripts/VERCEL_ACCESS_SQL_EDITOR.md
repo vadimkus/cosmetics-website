@@ -112,3 +112,4 @@ ADD COLUMN IF NOT EXISTS "contentRu" TEXT;
 
 
 
+

@@ -86,10 +86,15 @@ export async function GET(request: NextRequest) {
 
     const response = NextResponse.redirect(authUrl.toString())
     const domain = getCookieDomainForRequest(request)
+    // IMPORTANT: Apple uses `response_mode=form_post` by default, which is a cross-site POST.
+    // Cookies with SameSite=Lax are NOT sent on cross-site POST requests, so state/nonce would be missing.
+    // In production we must use SameSite=None; Secure to allow the callback POST to include cookies.
+    const isProd = process.env.NODE_ENV === 'production'
+    const sameSite = isProd ? 'none' : 'lax'
     response.cookies.set('apple-oauth-state', state, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
+      sameSite,
       maxAge: 600,
       path: '/',
       ...(domain ? { domain } : {}),
@@ -97,7 +102,7 @@ export async function GET(request: NextRequest) {
     response.cookies.set('apple-oauth-nonce', nonce, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
+      sameSite,
       maxAge: 600,
       path: '/',
       ...(domain ? { domain } : {}),

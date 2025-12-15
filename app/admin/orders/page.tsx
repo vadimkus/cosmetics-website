@@ -261,21 +261,21 @@ export default function AdminOrdersPage() {
                     <h4 className="text-sm font-semibold text-gray-700 mb-2">Order Items:</h4>
                     <div className="space-y-2">
                       {order.items.map((item) => (
-                        <div key={item.id} className="text-xs bg-white p-2 rounded border border-gray-100">
-                          <div className="font-medium text-gray-800">{item.productName}</div>
-                          <div className="text-gray-600 mt-1">
+                        <div key={item.id} className="text-xs bg-gray-50 p-3 rounded border border-gray-200">
+                          <div className="font-medium text-gray-900">{item.productName}</div>
+                          <div className="text-gray-700 mt-1">
                             Qty: {item.quantity} × {formatCurrency(item.price)} = {formatCurrency(item.price * item.quantity)}
                           </div>
                           {(item.color || item.size) && (
                             <div className="flex gap-3 mt-2 text-xs">
                               {item.color && (
-                                <div className="text-gray-600">
-                                  <span className="text-gray-500">Color:</span> <span className="font-semibold text-gray-800 bg-blue-50 px-2 py-0.5 rounded">{item.color}</span>
+                                <div className="text-gray-700">
+                                  <span className="text-gray-600">Color:</span> <span className="font-semibold text-gray-900 bg-blue-50 px-2 py-0.5 rounded">{item.color}</span>
                                 </div>
                               )}
                               {item.size && (
-                                <div className="text-gray-600">
-                                  <span className="text-gray-500">Size:</span> <span className="font-semibold text-gray-800 bg-green-50 px-2 py-0.5 rounded">{item.size}</span>
+                                <div className="text-gray-700">
+                                  <span className="text-gray-600">Size:</span> <span className="font-semibold text-gray-900 bg-green-50 px-2 py-0.5 rounded">{item.size}</span>
                                 </div>
                               )}
                             </div>

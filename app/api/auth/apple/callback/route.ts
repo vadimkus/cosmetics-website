@@ -101,12 +101,18 @@ async function handleAppleCallback(request: NextRequest, params: {
     const redirectUri = getAppleWebRedirectUri(normalizedOrigin)
 
     // Exchange code for tokens (server-to-server)
-    const tokenResponse = await exchangeAppleCodeForTokens({
-      code,
-      origin: normalizedOrigin,
-      redirectUri,
-      clientId,
-    })
+    let tokenResponse: any
+    try {
+      tokenResponse = await exchangeAppleCodeForTokens({
+        code,
+        origin: normalizedOrigin,
+        redirectUri,
+        clientId,
+      })
+    } catch (e) {
+      errorLog('[APPLE_CALLBACK] Token exchange failed:', e)
+      return NextResponse.redirect(new URL('/login?error=apple_token_exchange_failed', normalizedOrigin))
+    }
 
     const idToken = String(tokenResponse?.id_token || idTokenFromPost || '')
     if (!idToken) {
@@ -114,7 +120,14 @@ async function handleAppleCallback(request: NextRequest, params: {
     }
 
     // Verify id_token signature + claims
-    const { claims } = await verifyAppleIdentityToken(idToken, { audience: clientId })
+    let claims: any
+    try {
+      const verified = await verifyAppleIdentityToken(idToken, { audience: clientId })
+      claims = verified?.claims
+    } catch (e) {
+      errorLog('[APPLE_CALLBACK] id_token verification failed:', e)
+      return NextResponse.redirect(new URL('/login?error=apple_token_verification_failed', normalizedOrigin))
+    }
 
     // Optional nonce check
     const nonce = request.cookies.get('apple-oauth-nonce')?.value
@@ -142,29 +155,70 @@ async function handleAppleCallback(request: NextRequest, params: {
 
     // Find or create/link user
     let user = await findUserByAppleSub(appleSub)
+
+    // If not found by appleSub, try linking by email (common for existing accounts).
     if (!user && emailRaw) {
       const byEmail = await findUserByEmail(email)
       if (byEmail) {
-        // Link account
-        await updateUser(byEmail.id, { appleSub })
-        user = await findUserByEmail(email)
+        // If email user already linked to another appleSub, prefer the appleSub record (if any),
+        // otherwise keep the existing account and avoid throwing.
+        if (byEmail.appleSub && String(byEmail.appleSub) !== appleSub) {
+          const bySub = await findUserByAppleSub(appleSub)
+          if (bySub) user = bySub
+          else user = byEmail
+        } else {
+          // Link account (guard against unique constraint errors)
+          try {
+            await updateUser(byEmail.id, { appleSub })
+          } catch (e) {
+            errorLog('[APPLE_CALLBACK] Failed to link appleSub to existing email user:', e)
+          }
+          user = (await findUserByAppleSub(appleSub)) || (await findUserByEmail(email)) || byEmail
+        }
       }
     }
+
+    // If still no user, create a new one. Handle duplicates gracefully (common on retries / private relay).
     if (!user) {
-      user = await addUser({
-        name: fullName,
-        email,
-        appleSub,
-        password: null,
-        profilePicture: null,
-        phone: null,
-        address: null,
-        isAdmin: false,
-        canSeePrices: true,
-        lastLoginAt: new Date().toISOString(),
-      })
+      try {
+        user = await addUser({
+          name: fullName,
+          email,
+          appleSub,
+          password: null,
+          profilePicture: null,
+          phone: null,
+          address: null,
+          isAdmin: false,
+          canSeePrices: true,
+          lastLoginAt: new Date().toISOString(),
+        })
+      } catch (e) {
+        errorLog('[APPLE_CALLBACK] User create failed, attempting recovery:', e)
+        user =
+          (await findUserByAppleSub(appleSub)) ||
+          (emailRaw ? await findUserByEmail(email) : null)
+
+        if (!user) {
+          return NextResponse.redirect(new URL('/login?error=apple_user_creation_failed', normalizedOrigin))
+        }
+
+        // Best-effort: ensure appleSub is linked
+        if (!user.appleSub) {
+          try {
+            await updateUser(user.id, { appleSub })
+          } catch (linkErr) {
+            errorLog('[APPLE_CALLBACK] Recovery link appleSub failed:', linkErr)
+          }
+        }
+      }
     } else {
-      await updateUser(user.id, { lastLoginAt: new Date().toISOString() })
+      try {
+        await updateUser(user.id, { lastLoginAt: new Date().toISOString() })
+      } catch (e) {
+        errorLog('[APPLE_CALLBACK] Failed to update lastLoginAt:', e)
+        // don't fail login
+      }
     }
 
     const redirectPath = getLocaleRedirectPath(request)

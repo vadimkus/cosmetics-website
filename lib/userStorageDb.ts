@@ -114,7 +114,7 @@ export const findUserByEmail = async (email: string): Promise<User | null> => {
       try {
         const rows = await prisma.$queryRaw<User[]>`
           SELECT * FROM "users"
-          WHERE LOWER("email") = LOWER(${normalizedEmail})
+          WHERE LOWER(TRIM("email")) = LOWER(TRIM(${normalizedEmail}))
           ORDER BY "createdAt" DESC
           LIMIT 1
         `

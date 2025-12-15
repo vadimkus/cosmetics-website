@@ -6,6 +6,7 @@ import { addOrder, OrderData, OrderItemData } from '@/lib/orderStorageDb'
 import { enhanceOrderItemWithDefaultSize } from '@/lib/orderSizeDefaults'
 import { debugLog, errorLog } from '@/lib/logger'
 import { Product } from '@/types/index'
+import { generateUniqueOrderNumber } from '@/lib/orderNumber'
 
 interface CheckoutItem {
   product: Product
@@ -85,8 +86,8 @@ export async function POST(request: NextRequest) {
     const total = subtotal - discountAmount + shipping
     const vat = Math.round(((subtotal + shipping) / 1.05) * 0.05 * 100) / 100
 
-    // Generate order ID
-    const orderId = (Math.floor(Math.random() * 900000000) + 100000000).toString()
+    // Generate canonical order number (Card + Website)
+    const orderId = await generateUniqueOrderNumber({ channel: 'W', payment: 'CARD' })
 
     // Create order items for database
     const orderItems: OrderItemData[] = items.map((item: CheckoutItem) => {

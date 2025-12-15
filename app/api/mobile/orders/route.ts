@@ -4,6 +4,7 @@ import { findUserByEmail } from '@/lib/userStorageDb'
 import { debugLog, errorLog } from '@/lib/logger'
 import { prisma } from '@/lib/database'
 import { sendOrderConfirmationEmail, sendAdminNewOrderNotification } from '@/lib/email'
+import { generateUniqueOrderNumber } from '@/lib/orderNumber'
 
 /**
  * Mobile Orders Endpoint
@@ -368,8 +369,10 @@ export async function POST(request: NextRequest) {
     const vat = orderData.vat || (subtotal - discountAmount + shipping) * 0.05 // 5% VAT
     const total = subtotal - discountAmount + shipping + vat
 
-    // Generate order number
-    const orderNumber = `ORD-${Date.now()}-${Math.random().toString(36).substr(2, 4).toUpperCase()}`
+    // Generate canonical order number (Mobile)
+    const paymentMethodRaw = String(orderData?.paymentMethod || '').toLowerCase()
+    const payment = paymentMethodRaw === 'cod' ? 'COD' : 'CARD'
+    const orderNumber = await generateUniqueOrderNumber({ channel: 'M', payment })
 
     // Create order
     const order = await prisma.order.create({

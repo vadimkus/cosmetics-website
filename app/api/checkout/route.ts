@@ -7,6 +7,7 @@ import { requireCsrfToken } from '@/lib/csrf'
 import { requireBodySizeLimit, getSizeLimitForContentType } from '@/lib/requestSizeLimit'
 import { Product } from '@/types/index'
 import { enhanceOrderItemWithDefaultSize } from '@/lib/orderSizeDefaults'
+import { generateUniqueOrderNumber } from '@/lib/orderNumber'
 
 interface CheckoutItem {
   product: Product
@@ -102,8 +103,8 @@ export async function POST(request: NextRequest) {
     debugLog('VAT amount (calculated from inclusive prices):', vat)
     debugLog('Final total:', total)
 
-    // Generate order ID - shorter numeric format
-    const orderId = (Math.floor(Math.random() * 900000000) + 100000000).toString()
+    // Generate canonical order number (COD + Website)
+    const orderId = await generateUniqueOrderNumber({ channel: 'W', payment: 'COD' })
 
     // Create order items
     const orderItems: OrderItemData[] = items.map((item: CheckoutItem) => {

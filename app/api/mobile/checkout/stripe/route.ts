@@ -4,6 +4,7 @@ import { errorLog, debugLog } from '@/lib/logger'
 import Stripe from 'stripe'
 import { validateMobileAuth, extractTokenFromHeader } from '@/lib/jwt'
 import { findUserByEmail } from '@/lib/userStorageDb'
+import { generateUniqueOrderNumber } from '@/lib/orderNumber'
 
 /**
  * MOBILE STRIPE CHECKOUT ENDPOINT
@@ -99,7 +100,14 @@ export async function POST(request: NextRequest) {
 
     // Parse request body
     const body: CheckoutRequest = await request.json()
-    const { orderNumber, customer, emirate, items, orderNotes } = body
+    const { orderNumber: clientOrderNumber, customer, emirate, items, orderNotes } = body
+
+    // Prefer a canonical server order number. If client already provides one in the new canonical format,
+    // keep it for idempotency; otherwise generate a fresh one.
+    const isCanonicalMobileCard = (s: string) => /^GENCardM\\d{10}$/.test(String(s || ''))
+    const orderNumber = isCanonicalMobileCard(clientOrderNumber)
+      ? String(clientOrderNumber)
+      : await generateUniqueOrderNumber({ channel: 'M', payment: 'CARD' })
 
     // Resume payment flow for an existing order (pending/unpaid).
     // This is used by the mobile app "Pay now" on pending orders.

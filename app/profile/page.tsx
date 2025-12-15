@@ -297,9 +297,9 @@ export default function ProfilePageRefactored() {
       if (response.ok) {
         const updatedUser = { ...user, ...editData, profilePicture }
         localStorage.setItem(LOCAL_STORAGE_KEYS.USER, JSON.stringify(updatedUser))
-        setUser(updatedUser)
         setIsEditing(false)
         alert('Profile updated successfully!')
+        forceRefreshUser()
       } else {
         errorLog('Failed to update profile:', response.status, responseData)
         // Check for validation errors array first

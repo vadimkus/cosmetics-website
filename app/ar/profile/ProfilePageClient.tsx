@@ -230,9 +230,9 @@ export default function ProfilePageClient() {
       if (response.ok) {
         const updatedUser = { ...user, ...editData, profilePicture }
         localStorage.setItem(LOCAL_STORAGE_KEYS.USER, JSON.stringify(updatedUser))
-        setUser(updatedUser)
         setIsEditing(false)
         alert(t('profile.profileUpdatedSuccessfully'))
+        forceRefreshUser()
       } else {
         errorLog('Failed to update profile:', responseData)
         // Check for validation errors array first

@@ -42,25 +42,48 @@ async function fetchAppleJwks(): Promise<AppleJwks> {
   // Cache for 6 hours
   if (jwksCache && now - jwksCacheAt < 6 * 60 * 60 * 1000) return jwksCache
 
-  const res = await fetch('https://appleid.apple.com/auth/keys', { method: 'GET' })
-  if (!res.ok) {
-    const txt = await res.text().catch(() => '')
-    throw new Error(`Failed to fetch Apple JWKS (${res.status}): ${String(txt).slice(0, 120)}`)
+  const url = 'https://appleid.apple.com/auth/keys'
+  const tryFetch = async () => {
+    const res = await fetch(url, { method: 'GET' })
+    if (!res.ok) {
+      const txt = await res.text().catch(() => '')
+      throw new Error(`Failed to fetch Apple JWKS (${res.status}): ${String(txt).slice(0, 120)}`)
+    }
+    return (await res.json()) as AppleJwks
   }
-  const json = (await res.json()) as AppleJwks
+
+  // One retry to avoid transient network failures in serverless.
+  const json = await tryFetch().catch(async (e) => {
+    // small backoff
+    await new Promise((r) => setTimeout(r, 150))
+    return await tryFetch().catch(() => {
+      throw e
+    })
+  })
   jwksCache = json
   jwksCacheAt = now
   return json
 }
 
 function publicKeyFromJwk(jwk: AppleJwk): crypto.KeyObject {
-  // Apple provides x5c; easiest is to convert cert to PEM and extract public key.
+  // Preferred: Apple provides x5c; easiest is to convert cert to PEM and extract public key.
   const cert = jwk?.x5c?.[0]
-  if (!cert) {
-    throw new Error('Apple JWKS key missing x5c certificate')
+  if (cert) {
+    const pem = `-----BEGIN CERTIFICATE-----\n${cert}\n-----END CERTIFICATE-----`
+    return crypto.createPublicKey(pem)
   }
-  const pem = `-----BEGIN CERTIFICATE-----\n${cert}\n-----END CERTIFICATE-----`
-  return crypto.createPublicKey(pem)
+
+  // Fallback: build key directly from JWK (Node supports format:'jwk').
+  // This also covers cases where Apple omits x5c and only provides n/e.
+  if (jwk?.kty && jwk?.n && jwk?.e) {
+    try {
+      return crypto.createPublicKey({ key: jwk as any, format: 'jwk' })
+    } catch {
+      // fall through to error below
+    }
+  }
+
+  throw new Error('Apple JWKS key missing x5c certificate and could not construct JWK public key')
 }
 
 export async function verifyAppleIdentityToken(identityToken: string, options: { audience: string }) {
@@ -86,6 +109,8 @@ export async function verifyAppleIdentityToken(identityToken: string, options: {
   if (!jwk) throw new Error(`Apple JWKS key not found for kid=${kid}`)
 
   const key = publicKeyFromJwk(jwk)
+  // Apple uses RS256 for Sign in with Apple id_tokens.
+  // Use RSA-SHA256 verify for RS256 signatures.
   const ok = crypto.verify('RSA-SHA256', data, key, signature)
   if (!ok) throw new Error('Invalid Apple identityToken signature')
 

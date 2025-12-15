@@ -15,7 +15,7 @@ interface LoginModalProps {
 }
 
 export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMode }: LoginModalProps) {
-  const { login, register, loginWithGoogle, isLoading } = useAuth()
+  const { login, register, loginWithGoogle, loginWithApple, isLoading } = useAuth()
   const { t, locale, dir } = useTranslation()
   const [formData, setFormData] = useState({
     name: '',
@@ -218,6 +218,22 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
               />
             </svg>
             <span className="text-xs md:text-sm">{t('login.signInWithGoogle')}</span>
+          </button>
+
+          {/* Apple Sign-In Button */}
+          <button
+            type="button"
+            onClick={() => loginWithApple()}
+            disabled={isLoading}
+            className={`w-full flex items-center justify-center gap-2 md:gap-3 bg-black text-white ${isLoginMode ? 'py-2.5 md:py-3' : 'py-2'} rounded-lg font-semibold hover:bg-black/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-sm ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+          >
+            <svg className="h-4 w-4 md:h-5 md:w-5" viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                fill="currentColor"
+                d="M16.365 1.43c0 1.14-.416 2.204-1.234 3.132-.99 1.125-2.555 1.993-3.965 1.88-.168-1.287.45-2.61 1.177-3.46.802-.94 2.31-1.64 4.022-1.552zm3.385 17.47c-.76 1.78-1.123 2.57-2.1 4.15-1.364 2.19-3.29 4.92-5.676 4.94-2.12.02-2.667-1.37-5.546-1.36-2.88.01-3.48 1.38-5.6 1.36-2.386-.02-4.208-2.51-5.57-4.7C-1.51 19.34-2.9 12.34.74 7.87c1.81-2.22 4.18-3.52 6.41-3.52 2.27 0 3.7 1.39 5.56 1.39 1.81 0 2.91-1.39 5.54-1.39 1.99 0 4.1 1.09 5.9 2.97-4.96 2.72-4.16 9.79.57 11.58z"
+              />
+            </svg>
+            <span className="text-xs md:text-sm">{t('login.signInWithApple')}</span>
           </button>
 
           {/* Divider */}

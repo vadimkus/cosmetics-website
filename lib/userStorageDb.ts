@@ -6,6 +6,7 @@ export interface UserData {
   id?: string
   name: string
   email: string
+  appleSub?: string | null
   password?: string | null
   phone?: string | null
   address?: string | null
@@ -55,6 +56,7 @@ export const addUser = async (userData: UserData): Promise<User> => {
     const baseData = {
       name: userData.name,
       email: userData.email,
+      appleSub: userData.appleSub || null,
       phone: userData.phone || null,
       address: userData.address || null,
       profilePicture: userData.profilePicture || null,
@@ -113,6 +115,19 @@ export const findUserById = async (id: string): Promise<User | null> => {
   }
 }
 
+// Find user by Apple sub
+export const findUserByAppleSub = async (appleSub: string): Promise<User | null> => {
+  try {
+    if (!appleSub) return null
+    return await prisma.user.findUnique({
+      where: { appleSub }
+    })
+  } catch (error) {
+    errorLog('Error finding user by Apple sub:', error)
+    return null
+  }
+}
+
 // Update user
 export const updateUser = async (userId: string, updates: Partial<UserData>): Promise<boolean> => {
   try {
@@ -158,6 +173,9 @@ export const updateUser = async (userId: string, updates: Partial<UserData>): Pr
     // Only include fields that are explicitly provided and not undefined
     if (updates.name !== undefined) updateData.name = updates.name
     if (updates.email !== undefined) updateData.email = updates.email
+    if (updates.appleSub !== undefined) {
+      updateData.appleSub = updates.appleSub === '' ? null : updates.appleSub
+    }
     if (updates.phone !== undefined) {
       updateData.phone = updates.phone === '' ? null : updates.phone
     }

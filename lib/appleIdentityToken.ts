@@ -21,6 +21,7 @@ export type AppleIdentityClaims = {
   email?: string
   email_verified?: string | boolean
   is_private_email?: string | boolean
+  nonce?: string
 }
 
 let jwksCache: AppleJwks | null = null
@@ -32,7 +33,7 @@ function base64UrlToBuffer(input: string): Buffer {
   return Buffer.from(b64, 'base64')
 }
 
-function decodeJsonPart(part: string): any {
+function decodeJsonPart(part: string): unknown {
   return JSON.parse(base64UrlToBuffer(part).toString('utf8'))
 }
 
@@ -72,7 +73,7 @@ export async function verifyAppleIdentityToken(identityToken: string, options: {
     throw new Error('Invalid identityToken format')
   }
 
-  const header = decodeJsonPart(parts[0])
+  const header = decodeJsonPart(parts[0]) as { kid?: string } | null
   const claims = decodeJsonPart(parts[1]) as AppleIdentityClaims
   const signature = base64UrlToBuffer(parts[2])
   const data = Buffer.from(`${parts[0]}.${parts[1]}`)

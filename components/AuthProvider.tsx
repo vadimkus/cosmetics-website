@@ -23,6 +23,7 @@ interface AuthContextType {
   user: User | null
   login: (email: string, password: string) => Promise<boolean>
   loginWithGoogle: () => Promise<void>
+  loginWithApple: () => Promise<void>
   register: (name: string, email: string, password: string, phone: string, address: string, emirate: string, birthday?: string) => Promise<boolean>
   logout: () => Promise<void>
   refreshUser: () => Promise<void>
@@ -160,11 +161,11 @@ export default function AuthProvider({ children }: AuthProviderProps) {
                     const recentActions = parsedActions.slice(-20)
                     localStorage.setItem(actionsKey, JSON.stringify(recentActions))
                   }
-                } catch (_e) {
+                } catch {
                   localStorage.removeItem(actionsKey)
                 }
               }
-            } catch (_e) {
+            } catch {
               // Ignore errors when cleaning up
             }
 
@@ -439,6 +440,19 @@ export default function AuthProvider({ children }: AuthProviderProps) {
     }
   }
 
+  const loginWithApple = async (): Promise<void> => {
+    try {
+      setIsLoading(true)
+      if (typeof window !== 'undefined') {
+        window.location.href = '/api/auth/apple'
+      }
+    } catch (error) {
+      errorLog('Apple login error:', error)
+      alert('Failed to initiate Apple Sign-In. Please try again.')
+      setIsLoading(false)
+    }
+  }
+
   const logout = async () => {
     try {
       // Clear session cookie on server
@@ -467,6 +481,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
     user,
     login,
     loginWithGoogle,
+    loginWithApple,
     register,
     logout,
     refreshUser,
@@ -480,6 +495,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
       user: null,
       login: async () => false,
       loginWithGoogle: async () => {},
+      loginWithApple: async () => {},
       register: async (_name: string, _email: string, _password: string, _phone: string, _address: string, _emirate: string, _birthday?: string) => false,
       logout: async () => {},
       refreshUser: async () => {},

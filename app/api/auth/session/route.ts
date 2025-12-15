@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { findUserByEmail } from '@/lib/userStorageDb'
+import { findUserByEmail, findUserById } from '@/lib/userStorageDb'
 import { errorLog, debugLog } from '@/lib/logger'
 
 /**
@@ -22,12 +22,14 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ user: null })
     }
 
-    if (!sessionData.email) {
+    if (!sessionData.email && !sessionData.id) {
       return NextResponse.json({ user: null })
     }
 
-    // Fetch latest user data from database
-    const user = await findUserByEmail(sessionData.email)
+    // Fetch latest user data from database (prefer id if present)
+    const user = sessionData.id
+      ? await findUserById(sessionData.id)
+      : await findUserByEmail(sessionData.email)
     
     if (!user) {
       return NextResponse.json({ user: null })

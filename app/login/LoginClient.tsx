@@ -40,6 +40,14 @@ export default function LoginClient() {
       } else if (error) {
         // Handle errors
         const errorMessages: Record<string, string> = {
+          apple_rate_limit: t('login.appleRateLimit'),
+          apple_not_configured: t('login.appleNotConfigured'),
+          apple_oauth_failed: t('login.appleOAuthFailed'),
+          apple_invalid_request: t('login.appleInvalidRequest'),
+          apple_invalid_state: t('login.appleInvalidState'),
+          apple_invalid_nonce: t('login.appleInvalidNonce'),
+          apple_token_missing: t('login.appleTokenMissing'),
+          apple_internal_error: t('login.appleInternalError'),
           rate_limit: t('login.googleRateLimit'),
           oauth_failed: t('login.googleOAuthFailed'),
           invalid_request: t('login.googleInvalidRequest'),

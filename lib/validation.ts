@@ -106,6 +106,12 @@ export function validateBase64Image(
     return { valid: false, error: 'Profile picture must be a string' }
   }
   
+  // If it's a regular URL (existing profile picture from DB), skip validation
+  // Only validate if it's a new base64 upload
+  if (dataUrl.startsWith('http://') || dataUrl.startsWith('https://') || dataUrl.startsWith('/')) {
+    return { valid: true } // Existing URL, no validation needed
+  }
+  
   // Check base64 data URL format: data:image/<type>;base64,<data>
   const base64Regex = /^data:image\/(jpeg|jpg|png|gif|webp);base64,/
   if (!base64Regex.test(dataUrl)) {

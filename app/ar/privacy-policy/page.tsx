@@ -339,7 +339,7 @@ export default function PrivacyPolicyPageArabic() {
                     </div>
                   </div>
                   <p className="text-sm text-gray-600 mt-4">
-                    نهدف إلى الرد على جميع الاستفسارات المتعلقة بالخصوصية في غضون 5 أيام عمل.
+                    نهدف إلى الرد على جميع الاستفسارات المتعلقة بالخصوصية في غضون يوم عمل واحد.
                   </p>
                 </div>
               </div>

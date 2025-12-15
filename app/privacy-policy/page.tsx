@@ -339,7 +339,7 @@ export default function PrivacyPolicyPage() {
                     </div>
                   </div>
                   <p className="text-sm text-gray-600 mt-4">
-                    We aim to respond to all privacy-related inquiries within 5 business days.
+                    We aim to respond to all privacy-related inquiries within 1 business day.
                   </p>
                 </div>
               </div>

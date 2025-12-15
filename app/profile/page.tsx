@@ -302,7 +302,11 @@ export default function ProfilePageRefactored() {
         window.location.reload()
       } else {
         errorLog('Failed to update profile:', response.status, responseData)
-        const errorMessage = responseData?.error || responseData?.message || `Server error (${response.status})`
+        // Check for validation errors array first
+        let errorMessage = responseData?.error || responseData?.message || `Server error (${response.status})`
+        if (responseData?.errors && Array.isArray(responseData.errors) && responseData.errors.length > 0) {
+          errorMessage = responseData.errors.join('\n')
+        }
         alert(`Failed to update profile: ${errorMessage}`)
       }
     } catch (error) {

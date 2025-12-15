@@ -235,7 +235,12 @@ export default function ProfilePageClient() {
         window.location.reload()
       } else {
         errorLog('Failed to update profile:', responseData)
-        alert(`${t('profile.failedToUpdateProfile')}: ${responseData.error || t('profile.unknownError')}`)
+        // Check for validation errors array first
+        let errorMessage = responseData.error || t('profile.unknownError')
+        if (responseData?.errors && Array.isArray(responseData.errors) && responseData.errors.length > 0) {
+          errorMessage = responseData.errors.join('\n')
+        }
+        alert(`${t('profile.failedToUpdateProfile')}: ${errorMessage}`)
       }
     } catch (error) {
       handleApiError(error, t('profile.errorUpdatingProfile'))

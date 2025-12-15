@@ -17,7 +17,24 @@ function normalizeOrigin(origin: string): string {
   } else {
     normalized = normalized.replace('http://', 'https://')
   }
+  // Normalize www → apex domain to avoid cookie/redirect_uri mismatches.
+  try {
+    const u = new URL(normalized)
+    if (u.hostname.startsWith('www.')) {
+      u.hostname = u.hostname.replace(/^www\./, '')
+      normalized = u.origin
+    }
+  } catch {
+    // ignore
+  }
   return normalized
+}
+
+function getCookieDomainForRequest(request: NextRequest): string | undefined {
+  const host = request.headers.get('host') || ''
+  // Allow sharing state/nonce between www and apex in production.
+  if (host === 'genosys.ae' || host.endsWith('.genosys.ae')) return '.genosys.ae'
+  return undefined
 }
 
 /**
@@ -68,12 +85,14 @@ export async function GET(request: NextRequest) {
     authUrl.searchParams.set('nonce', nonce)
 
     const response = NextResponse.redirect(authUrl.toString())
+    const domain = getCookieDomainForRequest(request)
     response.cookies.set('apple-oauth-state', state, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
       maxAge: 600,
       path: '/',
+      ...(domain ? { domain } : {}),
     })
     response.cookies.set('apple-oauth-nonce', nonce, {
       httpOnly: true,
@@ -81,6 +100,7 @@ export async function GET(request: NextRequest) {
       sameSite: 'lax',
       maxAge: 600,
       path: '/',
+      ...(domain ? { domain } : {}),
     })
 
     debugLog('[APPLE_AUTH] Redirecting to Apple', Date.now() - startTime, 'ms')

@@ -18,6 +18,16 @@ function normalizeOrigin(origin: string): string {
   } else {
     normalized = normalized.replace('http://', 'https://')
   }
+  // Normalize www → apex domain to avoid cookie/redirect_uri mismatches.
+  try {
+    const u = new URL(normalized)
+    if (u.hostname.startsWith('www.')) {
+      u.hostname = u.hostname.replace(/^www\./, '')
+      normalized = u.origin
+    }
+  } catch {
+    // ignore
+  }
   return normalized
 }
 
@@ -36,7 +46,13 @@ function getLocaleRedirectPath(request: NextRequest) {
  * POST /api/auth/apple/callback
  * Handles Apple OAuth callback (response_mode=form_post).
  */
-export async function POST(request: NextRequest) {
+async function handleAppleCallback(request: NextRequest, params: {
+  code: string
+  state: string
+  idTokenFromPost?: string
+  userJson?: string
+  oauthError?: string
+}) {
   const startTime = Date.now()
   debugLog('[APPLE_CALLBACK] Request started')
 
@@ -56,12 +72,11 @@ export async function POST(request: NextRequest) {
       return NextResponse.redirect(new URL('/login?error=apple_rate_limit', normalizedOrigin))
     }
 
-    const form = await request.formData()
-    const code = String(form.get('code') || '')
-    const state = String(form.get('state') || '')
-    const idTokenFromPost = String(form.get('id_token') || '')
-    const userJson = String(form.get('user') || '')
-    const oauthError = String(form.get('error') || '')
+    const code = String(params.code || '')
+    const state = String(params.state || '')
+    const idTokenFromPost = String(params.idTokenFromPost || '')
+    const userJson = String(params.userJson || '')
+    const oauthError = String(params.oauthError || '')
 
     if (oauthError) {
       errorLog('[APPLE_CALLBACK] OAuth error:', oauthError)
@@ -184,8 +199,41 @@ export async function POST(request: NextRequest) {
   }
 }
 
-export async function GET() {
-  return NextResponse.json({ error: 'Method not allowed' }, { status: 405 })
+export async function POST(request: NextRequest) {
+  const form = await request.formData()
+  return handleAppleCallback(request, {
+    code: String(form.get('code') || ''),
+    state: String(form.get('state') || ''),
+    idTokenFromPost: String(form.get('id_token') || ''),
+    userJson: String(form.get('user') || ''),
+    oauthError: String(form.get('error') || ''),
+  })
+}
+
+/**
+ * Some Apple flows can return to the callback using GET (response_mode=query).
+ * Handle GET as well to avoid HTTP 405 pages.
+ */
+export async function GET(request: NextRequest) {
+  const sp = request.nextUrl.searchParams
+  const code = String(sp.get('code') || '')
+  const state = String(sp.get('state') || '')
+  const oauthError = String(sp.get('error') || '')
+
+  // If this isn't an OAuth callback, just bounce to login.
+  if (!code || !state) {
+    const normalizedOrigin = normalizeOrigin(request.nextUrl.origin)
+    return NextResponse.redirect(new URL('/login?error=apple_invalid_request', normalizedOrigin))
+  }
+
+  return handleAppleCallback(request, {
+    code,
+    state,
+    oauthError,
+    // Apple typically won't include these in query mode; we can still exchange code for tokens.
+    idTokenFromPost: String(sp.get('id_token') || ''),
+    userJson: String(sp.get('user') || ''),
+  })
 }
 
 

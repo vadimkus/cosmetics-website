@@ -18,9 +18,12 @@ export async function GET(request: NextRequest) {
       )
     }
 
-    // Get orders for the specific user with pagination, excluding cancelled orders
+    // Get orders for the specific user with pagination, excluding cancelled and deleted orders
     const allOrders = await getOrdersByEmail(email, limit, offset)
-    const orders = allOrders.filter(order => order.status !== 'CANCELLED')
+    const orders = allOrders.filter(order => {
+      const status = String(order.status || '').toUpperCase()
+      return status !== 'CANCELLED' && status !== 'DELETED'
+    })
     const totalCount = await getOrdersCountByEmail(email)
     
     return NextResponse.json({ 

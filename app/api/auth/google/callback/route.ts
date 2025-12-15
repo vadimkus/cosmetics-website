@@ -8,7 +8,7 @@ import { trackUserAction } from '@/lib/analyticsServer'
 
 const googleCallbackLimiter = rateLimitSimple({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 60,
+  max: 20, // 20 attempts per window
 })
 
 /**
@@ -129,27 +129,15 @@ export async function GET(request: NextRequest) {
     })
 
     // Find or create user
-    const googleEmail = String(googleUser.email || '').trim()
-    if (!googleEmail) {
-      errorLog('[GOOGLE_CALLBACK] Missing email from Google token')
-      return NextResponse.redirect(new URL('/login?error=internal_error', normalizedOrigin))
-    }
-
-    const googleNameRaw = String(googleUser.name || '').trim()
-    const googleName =
-      googleNameRaw ||
-      googleEmail.split('@')[0] ||
-      'Genosys Customer'
-
-    let user = await findUserByEmail(googleEmail)
+    let user = await findUserByEmail(googleUser.email)
 
     if (!user) {
       // Create new user with Google data
       debugLog('[GOOGLE_CALLBACK] Creating new user...')
       try {
         user = await addUser({
-          name: googleName,
-          email: googleEmail,
+          name: googleUser.name,
+          email: googleUser.email,
           password: null, // No password for Google-authenticated users
           profilePicture: googleUser.picture || null,
           phone: null,
@@ -204,18 +192,10 @@ export async function GET(request: NextRequest) {
           // Don't fail registration if email fails
         }
       } catch (error) {
-        // Recovery path: creation can fail for multiple reasons (unique constraint, missing fields, etc.)
-        // Try to fetch the user and proceed if it exists; otherwise show a specific error code.
-        const maybeCode = (error as any)?.code
-        const maybeMessage = (error as any)?.message
-        errorLog('[GOOGLE_CALLBACK] Error creating user:', { code: maybeCode, message: maybeMessage })
-
-        const existing = await findUserByEmail(googleEmail)
-        if (existing) {
-          user = existing
-        } else {
-          return NextResponse.redirect(new URL('/login?error=user_creation_failed', normalizedOrigin))
-        }
+        errorLog('[GOOGLE_CALLBACK] Error creating user:', error)
+        return NextResponse.redirect(
+          new URL('/login?error=user_creation_failed', normalizedOrigin)
+        )
       }
     } else {
       // Existing user - always update profile picture with Google picture if available
@@ -233,7 +213,7 @@ export async function GET(request: NextRequest) {
         debugLog('[GOOGLE_CALLBACK] Profile picture update result:', updateResult)
         
         // Fetch updated user to verify picture was saved
-        const updatedUser = await findUserByEmail(googleEmail)
+        const updatedUser = await findUserByEmail(googleUser.email)
         if (updatedUser) {
           user = updatedUser
           debugLog('[GOOGLE_CALLBACK] User after update:', {

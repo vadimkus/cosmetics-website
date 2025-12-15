@@ -10,7 +10,6 @@ export interface UserData {
   phone?: string | null
   address?: string | null
   profilePicture?: string | null
-  locale?: string | null
   isAdmin?: boolean
   canSeePrices?: boolean
   discountType?: string | null
@@ -31,7 +30,6 @@ export const getAllUsers = async (limit: number = 100, offset: number = 0) => {
         phone: true,
         address: true,
         profilePicture: true,
-        locale: true,
         isAdmin: true,
         canSeePrices: true,
         discountType: true,
@@ -54,14 +52,12 @@ export const getAllUsers = async (limit: number = 100, offset: number = 0) => {
 // Add a new user
 export const addUser = async (userData: UserData): Promise<User> => {
   try {
-    const normalizedEmail = (userData.email || '').trim().toLowerCase()
     const baseData = {
       name: userData.name,
-      email: normalizedEmail,
+      email: userData.email,
       phone: userData.phone || null,
       address: userData.address || null,
       profilePicture: userData.profilePicture || null,
-      locale: userData.locale || 'en',
       isAdmin: userData.isAdmin || false,
       canSeePrices: userData.canSeePrices !== undefined ? userData.canSeePrices : true,
       discountType: userData.discountType || null,
@@ -86,69 +82,14 @@ export const addUser = async (userData: UserData): Promise<User> => {
 // Find user by email
 export const findUserByEmail = async (email: string): Promise<User | null> => {
   try {
-    const original = (email || '').trim()
-    if (!original) {
-      return null
-    }
-    const normalized = original.toLowerCase()
-
     // Add timeout to prevent hanging
     const timeoutPromise = new Promise<User | null>((_, reject) => {
       setTimeout(() => reject(new Error('Database query timeout')), 10000) // 10 second timeout
     })
     
-    // DB-agnostic approach:
-    // 1) Try exact matches (fast path, works everywhere)
-    // 2) Try case-insensitive lookup (best-effort; may be unsupported on some providers)
-    // 3) Fallback to raw SQL LOWER(email)=LOWER(?) for providers that don't support Prisma 'mode'
-    const queryPromise = (async () => {
-      const byNormalized = await prisma.user.findUnique({ where: { email: normalized } })
-      if (byNormalized) return byNormalized
-
-      if (original !== normalized) {
-        const byOriginal = await prisma.user.findUnique({ where: { email: original } })
-        if (byOriginal) return byOriginal
-      }
-
-      // Best-effort Prisma case-insensitive
-      try {
-        const byInsensitive = await prisma.user.findFirst({
-          where: { email: { equals: original, mode: 'insensitive' } }
-        })
-        if (byInsensitive) return byInsensitive
-      } catch (e) {
-        // Some DB providers don't support 'mode'. We'll fall back to raw SQL below.
-        debugLog('findUserByEmail: case-insensitive mode unsupported, falling back to raw SQL')
-      }
-
-      // Raw SQL fallback (covers Postgres/SQLite; MySQL usually works with unquoted identifiers)
-      // We try a couple of table-name quoting variants to be resilient.
-      const attempts: Array<() => Promise<User | null>> = [
-        async () => {
-          const rows = await prisma.$queryRaw<User[]>(
-            Prisma.sql`SELECT * FROM "User" WHERE LOWER(email) = LOWER(${original}) LIMIT 1`
-          )
-          return rows?.[0] || null
-        },
-        async () => {
-          const rows = await prisma.$queryRaw<User[]>(
-            Prisma.sql`SELECT * FROM User WHERE LOWER(email) = LOWER(${original}) LIMIT 1`
-          )
-          return rows?.[0] || null
-        },
-      ]
-
-      for (const attempt of attempts) {
-        try {
-          const u = await attempt()
-          if (u) return u
-        } catch {
-          // try next variant
-        }
-      }
-
-      return null
-    })()
+    const queryPromise = prisma.user.findUnique({
+      where: { email }
+    })
     
     return await Promise.race([queryPromise, timeoutPromise])
   } catch (error) {
@@ -228,9 +169,6 @@ export const updateUser = async (userId: string, updates: Partial<UserData>): Pr
     }
     if (updates.profilePicture !== undefined) {
       updateData.profilePicture = updates.profilePicture === '' ? null : updates.profilePicture
-    }
-    if (updates.locale !== undefined) {
-      updateData.locale = updates.locale === '' || updates.locale === null ? 'en' : updates.locale
     }
     if (updates.isAdmin !== undefined) updateData.isAdmin = updates.isAdmin
     if (updates.canSeePrices !== undefined) updateData.canSeePrices = updates.canSeePrices

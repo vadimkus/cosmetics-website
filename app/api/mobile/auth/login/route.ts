@@ -69,10 +69,9 @@ export async function POST(request: NextRequest) {
 
     // Parse request body
     const { email, password } = await request.json()
-    const normalizedEmail = String(email || '').trim()
 
     // Validate required fields
-    if (!normalizedEmail || !password) {
+    if (!email || !password) {
       return NextResponse.json(
         { 
           success: false, 
@@ -83,7 +82,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Find user in database
-    const user = await findUserByEmail(normalizedEmail)
+    const user = await findUserByEmail(email)
     if (!user) {
       return NextResponse.json(
         { 

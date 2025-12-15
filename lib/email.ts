@@ -993,18 +993,6 @@ export const emailTemplates = {
             <p style="color: #6b7280; font-size: 12px; line-height: 1.6; margin: 5px 0; word-break: break-all;">
               ${resetUrl}
             </p>
-
-            <div style="background: #f3f4f6; border-left: 4px solid #111827; padding: 15px; margin: 18px 0 0; border-radius: 4px;">
-              <p style="color: #111827; font-size: 14px; margin: 0 0 8px 0; font-weight: 600;">
-                Using the Genosys mobile app?
-              </p>
-              <p style="color: #374151; font-size: 14px; margin: 0 0 10px 0;">
-                Open <strong>Forgot Password</strong> in the app and paste this reset code:
-              </p>
-              <div style="font-family: 'Courier New', monospace; font-size: 12px; background: white; border: 1px solid #e5e7eb; padding: 10px; border-radius: 6px; word-break: break-all; color: #111827;">
-                ${resetToken}
-              </div>
-            </div>
             
             <div style="background: #fef3c7; border-left: 4px solid #f59e0b; padding: 15px; margin: 25px 0; border-radius: 4px;">
               <p style="color: #92400e; font-size: 14px; margin: 0; font-weight: 600;">

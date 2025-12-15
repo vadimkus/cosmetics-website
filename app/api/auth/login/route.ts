@@ -71,10 +71,9 @@ export async function POST(request: NextRequest) {
 
     debugLog('[LOGIN] Parsing request body...')
     const { email, password } = await request.json()
-    const normalizedEmail = String(email || '').trim()
-    debugLog('[LOGIN] Email:', normalizedEmail, Date.now() - startTime, 'ms')
+    debugLog('[LOGIN] Email:', email, Date.now() - startTime, 'ms')
 
-    if (!normalizedEmail || !password) {
+    if (!email || !password) {
       return NextResponse.json(
         { error: 'Email and password are required' },
         { status: 400 }
@@ -82,9 +81,9 @@ export async function POST(request: NextRequest) {
     }
 
     // Find user in database
-    debugLog('[LOGIN] Searching for user:', normalizedEmail, Date.now() - startTime, 'ms')
+    debugLog('[LOGIN] Searching for user:', email, Date.now() - startTime, 'ms')
     const dbStart = Date.now()
-    const user = await findUserByEmail(normalizedEmail)
+    const user = await findUserByEmail(email)
     debugLog('[LOGIN] Database query completed', Date.now() - dbStart, 'ms', 'User found:', !!user)
     
     if (!user) {

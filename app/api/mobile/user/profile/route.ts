@@ -76,7 +76,6 @@ export async function GET(request: NextRequest) {
         phone: userProfile.phone,
         address: userProfile.address,
         profilePicture: userProfile.profilePicture,
-        locale: (userProfile as any).locale,
         birthday: userProfile.birthday,
         canSeePrices: userProfile.canSeePrices,
         discountType: userProfile.discountType,

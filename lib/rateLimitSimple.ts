@@ -103,19 +103,9 @@ export function rateLimitSimple(options: RateLimitOptions) {
 
 // Helper function to get client identifier from NextRequest
 export function getClientIdentifierFromNextRequest(request: NextRequest): string {
-  const cfIp = request.headers.get('cf-connecting-ip')
   const forwarded = request.headers.get('x-forwarded-for')
-  const vercelForwarded = request.headers.get('x-vercel-forwarded-for')
   const realIp = request.headers.get('x-real-ip')
-  const trueClientIp = request.headers.get('true-client-ip')
-
-  const ip =
-    (cfIp && cfIp.trim()) ||
-    (forwarded?.split(',')[0]?.trim()) ||
-    (vercelForwarded?.split(',')[0]?.trim()) ||
-    (trueClientIp && trueClientIp.trim()) ||
-    (realIp && realIp.trim()) ||
-    'unknown'
+  const ip = forwarded?.split(',')[0] || realIp || 'unknown'
   
   // Add user agent to make identifier more unique
   const userAgent = request.headers.get('user-agent') || 'unknown'

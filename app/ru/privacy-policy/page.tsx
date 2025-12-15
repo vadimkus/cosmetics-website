@@ -349,7 +349,7 @@ export default function PrivacyPolicyPageRussian() {
           {/* Footer Note */}
           <div className="mt-8 text-center text-sm text-gray-500">
             <p>Эта Политика конфиденциальности вступает в силу с 14 декабря 2024 года</p>
-            <p className="mt-2">© 2024 GENOSYS Middle East FZ-LLC. Все права защищены.</p>
+            <p className="mt-2">© 2026 GENOSYS Middle East FZ-LLC. Все права защищены.</p>
           </div>
         </div>
       </div>

@@ -349,7 +349,7 @@ export default function PrivacyPolicyPageArabic() {
           {/* Footer Note */}
           <div className="mt-8 text-center text-sm text-gray-500">
             <p>تسري سياسة الخصوصية هذه اعتباراً من 14 ديسمبر 2024</p>
-            <p className="mt-2">© 2024 GENOSYS Middle East FZ-LLC. جميع الحقوق محفوظة.</p>
+            <p className="mt-2">© 2026 GENOSYS Middle East FZ-LLC. جميع الحقوق محفوظة.</p>
           </div>
         </div>
       </div>

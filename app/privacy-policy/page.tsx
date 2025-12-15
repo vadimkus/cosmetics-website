@@ -349,7 +349,7 @@ export default function PrivacyPolicyPage() {
           {/* Footer Note */}
           <div className="mt-8 text-center text-sm text-gray-500">
             <p>This Privacy Policy is effective as of December 14, 2024</p>
-            <p className="mt-2">© 2024 GENOSYS Middle East FZ-LLC. All rights reserved.</p>
+            <p className="mt-2">© 2026 GENOSYS Middle East FZ-LLC. All rights reserved.</p>
           </div>
         </div>
       </div>

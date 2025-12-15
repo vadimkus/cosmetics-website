@@ -54,9 +54,10 @@ export const getAllUsers = async (limit: number = 100, offset: number = 0) => {
 // Add a new user
 export const addUser = async (userData: UserData): Promise<User> => {
   try {
+    const normalizedEmail = (userData.email || '').trim().toLowerCase()
     const baseData = {
       name: userData.name,
-      email: userData.email,
+      email: normalizedEmail,
       phone: userData.phone || null,
       address: userData.address || null,
       profilePicture: userData.profilePicture || null,
@@ -85,13 +86,18 @@ export const addUser = async (userData: UserData): Promise<User> => {
 // Find user by email
 export const findUserByEmail = async (email: string): Promise<User | null> => {
   try {
+    const normalizedEmail = (email || '').trim()
+    if (!normalizedEmail) {
+      return null
+    }
     // Add timeout to prevent hanging
     const timeoutPromise = new Promise<User | null>((_, reject) => {
       setTimeout(() => reject(new Error('Database query timeout')), 10000) // 10 second timeout
     })
     
-    const queryPromise = prisma.user.findUnique({
-      where: { email }
+    // Case-insensitive lookup to match typical login UX and avoid whitespace/casing issues
+    const queryPromise = prisma.user.findFirst({
+      where: { email: { equals: normalizedEmail, mode: 'insensitive' } }
     })
     
     return await Promise.race([queryPromise, timeoutPromise])

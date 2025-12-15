@@ -3,6 +3,67 @@ import { prisma } from '@/lib/prisma'
 import { errorLog, debugLog } from '@/lib/logger'
 import { generateEnhancedProductData } from '@/lib/pricingEngine'
 import { ApiUser } from '@/types/user'
+import { getProductTranslations } from '@/data/productTranslations'
+import { getProductTranslationsRu } from '@/data/productTranslationsRu'
+
+function getRecommendedProductId(currentIdRaw: unknown): string | null {
+  const idStr = String(currentIdRaw || '').trim()
+  if (!idStr) return null
+  const map: Record<string, string> = {
+    '22': '32',
+    '32': '22',
+    '20': '30',
+    '30': '20',
+    '21': '31',
+    '31': '21',
+    '49': '37',
+    '37': '49',
+    '4': '1',
+    '5': '1',
+    '6': '1',
+    '7': '1',
+    '8': '1',
+    '9': '1',
+    '15': '30',
+    '19': '27',
+    '18': '29',
+    '29': '18',
+    '10': '16',
+    '25': '38',
+    '33': '17',
+    '17': '24',
+    '24': '17',
+    '44': '43',
+    '43': '44',
+    '45': '43',
+    '46': '44',
+  }
+  return map[idStr] || null
+}
+
+function extractNoteFromProductDetails(productDetails: unknown): string | null {
+  if (!productDetails) return null
+  if (typeof productDetails === 'string') {
+    try {
+      const parsed = JSON.parse(productDetails)
+      return extractNoteFromProductDetails(parsed)
+    } catch {
+      return null
+    }
+  }
+  if (typeof productDetails !== 'object') return null
+  const obj = productDetails as Record<string, unknown>
+  const keys = Object.keys(obj || {})
+  const wanted = new Set(['note', 'notes', 'warning', 'caution'])
+  for (const k of keys) {
+    if (wanted.has(String(k).trim().toLowerCase())) {
+      const v = obj[k]
+      const txt = typeof v === 'string' ? v.trim() : ''
+      if (txt) return txt
+    }
+  }
+  return null
+}
 
 /**
  * ENHANCED Mobile API Endpoint for Individual Product
@@ -167,11 +228,18 @@ export async function GET(
     // Attach locale-specific display fields WITHOUT changing the canonical `name`.
     const wantAr = locale.startsWith('ar')
     const wantRu = locale.startsWith('ru')
+    const productIdForTranslation = String((product as any)?.productNumber || (product as any)?.id || '').trim()
+    const fileTranslations = wantAr
+      ? getProductTranslations(productIdForTranslation)
+      : wantRu
+        ? getProductTranslationsRu(productIdForTranslation)
+        : null
     const localizedName =
       (wantAr ? (product as any).nameAr : wantRu ? (product as any).nameRu : null) ||
       (enhancedProduct as any)?.name ||
       ''
     const localizedDescription =
+      (fileTranslations?.description) ||
       (wantAr ? (product as any).descriptionAr : wantRu ? (product as any).descriptionRu : null) ||
       (enhancedProduct as any)?.description ||
       ''
@@ -179,6 +247,15 @@ export async function GET(
       ...(enhancedProduct as any),
       localizedName,
       localizedDescription,
+      // Localize rich content fields using the same translation maps as the website.
+      productDetails: fileTranslations?.productDetails || (enhancedProduct as any)?.productDetails,
+      keyFeatures: fileTranslations?.keyFeatures || (enhancedProduct as any)?.keyFeatures,
+      benefits: fileTranslations?.benefits || (enhancedProduct as any)?.benefits,
+      ingredients: fileTranslations?.ingredients || (enhancedProduct as any)?.ingredients,
+      howToUse: fileTranslations?.howToUse || (enhancedProduct as any)?.howToUse,
+      directions: fileTranslations?.directions || (enhancedProduct as any)?.directions,
+      recommendedProductId: getRecommendedProductId((product as any)?.productNumber || (product as any)?.id),
+      note: extractNoteFromProductDetails((product as any)?.productDetails),
     }
     const enhancementDuration = Date.now() - enhancementStartTime
     

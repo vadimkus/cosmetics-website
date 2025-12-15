@@ -3,6 +3,8 @@ import { prisma } from '@/lib/prisma'
 import { errorLog, debugLog } from '@/lib/logger'
 import { generateBatchEnhancedProductData } from '@/lib/pricingEngine'
 import { ApiUser } from '@/types/user'
+import { getProductTranslations } from '@/data/productTranslations'
+import { getProductTranslationsRu } from '@/data/productTranslationsRu'
 
 function getRecommendedProductId(currentIdRaw: unknown): string | null {
   const idStr = String(currentIdRaw || '').trim()
@@ -258,11 +260,18 @@ export async function GET(request: NextRequest) {
       }
       const wantAr = locale.startsWith('ar')
       const wantRu = locale.startsWith('ru')
+      const productIdForTranslation = String(p?.productNumber || p?.id || '').trim()
+      const fileTranslations = wantAr
+        ? getProductTranslations(productIdForTranslation)
+        : wantRu
+          ? getProductTranslationsRu(productIdForTranslation)
+          : null
       const localizedName =
         (wantAr ? tr.nameAr : wantRu ? tr.nameRu : null) ||
         p?.name ||
         ''
       const localizedDescription =
+        (fileTranslations?.description) ||
         (wantAr ? tr.descriptionAr : wantRu ? tr.descriptionRu : null) ||
         p?.description ||
         ''
@@ -271,6 +280,13 @@ export async function GET(request: NextRequest) {
         ...p,
         localizedName,
         localizedDescription,
+        // Localize rich content fields using the same translation maps as the website.
+        productDetails: fileTranslations?.productDetails || p?.productDetails,
+        keyFeatures: fileTranslations?.keyFeatures || p?.keyFeatures,
+        benefits: fileTranslations?.benefits || p?.benefits,
+        ingredients: fileTranslations?.ingredients || p?.ingredients,
+        howToUse: fileTranslations?.howToUse || p?.howToUse,
+        directions: fileTranslations?.directions || p?.directions,
         recommendedProductId: extras.recommendedProductId,
         note: extras.note,
       }

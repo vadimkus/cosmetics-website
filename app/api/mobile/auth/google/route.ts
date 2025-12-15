@@ -96,10 +96,11 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    debugLog('[MOBILE_AUTH] Google user verified:', { email: googleUser.email })
+    const normalizedEmail = String(googleUser.email || '').trim().toLowerCase()
+    debugLog('[MOBILE_AUTH] Google user verified:', { email: normalizedEmail })
 
     // Find existing user or create new one
-    let user = await findUserByEmail(googleUser.email)
+    let user = await findUserByEmail(normalizedEmail)
     let isNewUser = false
 
     if (!user) {
@@ -110,7 +111,7 @@ export async function POST(request: NextRequest) {
       try {
         user = await addUser({
           name: googleUser.name,
-          email: googleUser.email,
+          email: normalizedEmail,
           password: null, // No password for Google-authenticated users
           profilePicture: googleUser.picture || null,
           phone: null,
@@ -129,7 +130,7 @@ export async function POST(request: NextRequest) {
         try {
           await trackUserAction({
             action: 'mobile_user_registered',
-            userEmail: googleUser.email,
+            userEmail: normalizedEmail,
             details: `New mobile user registered via Google OAuth: ${googleUser.name}`
           })
           debugLog('[MOBILE_AUTH] ✅ User registration tracked')
@@ -142,14 +143,14 @@ export async function POST(request: NextRequest) {
         try {
           const adminResult = await sendAdminNewUserNotification(
             googleUser.name,
-            googleUser.email,
+            normalizedEmail,
             undefined, // Phone not available from Google OAuth
             undefined, // Address not available from Google OAuth
             'Mobile App - Google OAuth' // Registration method
           )
           
           if (adminResult?.success) {
-            debugLog('[MOBILE_AUTH] ✅ Admin notification sent for new Google OAuth user:', googleUser.email)
+            debugLog('[MOBILE_AUTH] ✅ Admin notification sent for new Google OAuth user:', normalizedEmail)
           } else {
             errorLog('[MOBILE_AUTH] ❌ Failed to send admin notification:', adminResult?.error || 'Unknown error')
           }
@@ -160,13 +161,20 @@ export async function POST(request: NextRequest) {
 
       } catch (error) {
         errorLog('[MOBILE_AUTH] Error creating user from Google OAuth:', error)
-        return NextResponse.json(
-          { 
-            success: false, 
-            error: 'Failed to create user account' 
-          },
-          { status: 500 }
-        )
+        // Race-safe fallback: if the user was created in a concurrent request, recover by fetching.
+        const existing = await findUserByEmail(normalizedEmail)
+        if (existing) {
+          user = existing
+          isNewUser = false
+        } else {
+          return NextResponse.json(
+            { 
+              success: false, 
+              error: 'Failed to create user account' 
+            },
+            { status: 500 }
+          )
+        }
       }
     } else {
       // Existing user - update profile picture if available and not set

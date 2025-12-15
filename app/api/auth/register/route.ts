@@ -24,8 +24,9 @@ export async function POST(request: NextRequest) {
 
   try {
     const { name, email, password, phone, address, emirate, birthday } = await request.json()
+    const normalizedEmail = String(email || '').trim().toLowerCase()
 
-    if (!name || !email || !password || !phone || !address || !emirate) {
+    if (!name || !normalizedEmail || !password || !phone || !address || !emirate) {
       return NextResponse.json(
         { error: 'Name, email, password, phone, address and emirate are required' },
         { status: 400 }
@@ -48,7 +49,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const emailValidation = validateLength(email, INPUT_LIMITS.USER_EMAIL, 'Email')
+    const emailValidation = validateLength(normalizedEmail, INPUT_LIMITS.USER_EMAIL, 'Email')
     if (!emailValidation.valid) {
       return NextResponse.json(
         { error: emailValidation.error },
@@ -93,7 +94,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Check if user already exists
-    const existingUser = await findUserByEmail(email)
+    const existingUser = await findUserByEmail(normalizedEmail)
     if (existingUser) {
       return NextResponse.json(
         { error: 'User with this email already exists' },
@@ -110,7 +111,7 @@ export async function POST(request: NextRequest) {
     
     const newUser = {
       name,
-      email,
+      email: normalizedEmail,
       password: hashedPassword, // Store hashed password
       phone: phone, // Phone is now required
       address: fullAddress, // Address and emirate are now required
@@ -123,14 +124,27 @@ export async function POST(request: NextRequest) {
     }
 
     // Store user in database
-    const createdUser = await addUser(newUser)
+    let createdUser: Awaited<ReturnType<typeof addUser>>
+    try {
+      createdUser = await addUser(newUser)
+    } catch (e: unknown) {
+      // Race-safe: if another request created the user after our existence check, return a friendly error.
+      const code =
+        typeof e === 'object' && e && 'code' in e
+          ? String((e as { code?: unknown }).code || '')
+          : ''
+      if (code === 'P2002') {
+        return NextResponse.json({ error: 'User with this email already exists' }, { status: 400 })
+      }
+      throw e
+    }
 
     // Set lastLoginAt on registration (treat registration as first login)
     // This ensures new users appear in the "Recent Logins" section
     try {
       await updateUser(createdUser.id, { lastLoginAt: new Date().toISOString() })
       // Refresh createdUser with updated lastLoginAt
-      const refreshedUser = await findUserByEmail(email)
+      const refreshedUser = await findUserByEmail(normalizedEmail)
       if (refreshedUser) {
         Object.assign(createdUser, refreshedUser)
       }
@@ -142,14 +156,14 @@ export async function POST(request: NextRequest) {
     // Track user registration
     await trackUserAction({
       action: 'user_registered',
-      userEmail: email,
+      userEmail: normalizedEmail,
       details: `New user registered: ${name}`
     })
 
     // Send welcome email to user (include password before hashing)
     try {
-      await sendWelcomeEmail(name, email, password)
-      debugLog('✅ Welcome email sent to:', email)
+      await sendWelcomeEmail(name, normalizedEmail, password)
+      debugLog('✅ Welcome email sent to:', normalizedEmail)
     } catch (emailError) {
       errorLog('❌ Failed to send welcome email:', emailError)
       // Don't fail registration if email fails
@@ -157,10 +171,10 @@ export async function POST(request: NextRequest) {
 
     // Send admin notification
     try {
-      const adminResult = await sendAdminNewUserNotification(name, email, phone, fullAddress, 'Email/Password')
+      const adminResult = await sendAdminNewUserNotification(name, normalizedEmail, phone, fullAddress, 'Email/Password')
       
       if (adminResult && adminResult.success) {
-        debugLog('✅ Admin notification sent for new user:', email)
+        debugLog('✅ Admin notification sent for new user:', normalizedEmail)
       } else {
         errorLog('❌ Failed to send admin notification:', adminResult?.error || 'Unknown error')
         errorLog('❌ Admin notification error details:', JSON.stringify(adminResult, null, 2))

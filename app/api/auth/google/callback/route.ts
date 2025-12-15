@@ -129,7 +129,8 @@ export async function GET(request: NextRequest) {
     })
 
     // Find or create user
-    let user = await findUserByEmail(googleUser.email)
+    const normalizedEmail = String(googleUser.email || '').trim().toLowerCase()
+    let user = await findUserByEmail(normalizedEmail)
 
     if (!user) {
       // Create new user with Google data
@@ -137,7 +138,7 @@ export async function GET(request: NextRequest) {
       try {
         user = await addUser({
           name: googleUser.name,
-          email: googleUser.email,
+          email: normalizedEmail,
           password: null, // No password for Google-authenticated users
           profilePicture: googleUser.picture || null,
           phone: null,
@@ -192,10 +193,16 @@ export async function GET(request: NextRequest) {
           // Don't fail registration if email fails
         }
       } catch (error) {
+        // If user creation fails (race condition / constraint), try to find the user and proceed.
         errorLog('[GOOGLE_CALLBACK] Error creating user:', error)
-        return NextResponse.redirect(
-          new URL('/login?error=user_creation_failed', normalizedOrigin)
-        )
+        const existing = await findUserByEmail(normalizedEmail)
+        if (existing) {
+          user = existing
+        } else {
+          return NextResponse.redirect(
+            new URL('/login?error=user_creation_failed', normalizedOrigin)
+          )
+        }
       }
     } else {
       // Existing user - always update profile picture with Google picture if available
@@ -213,7 +220,7 @@ export async function GET(request: NextRequest) {
         debugLog('[GOOGLE_CALLBACK] Profile picture update result:', updateResult)
         
         // Fetch updated user to verify picture was saved
-        const updatedUser = await findUserByEmail(googleUser.email)
+        const updatedUser = await findUserByEmail(normalizedEmail)
         if (updatedUser) {
           user = updatedUser
           debugLog('[GOOGLE_CALLBACK] User after update:', {

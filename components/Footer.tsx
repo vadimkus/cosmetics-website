@@ -99,6 +99,13 @@ export default function Footer() {
             >
               {t('navigation.partners')}
             </Link>
+            <Link
+              href={getLocalizedPath('/privacy-policy', locale)}
+              className="text-gray-600 hover:text-primary-600 transition-colors py-1 md:py-2 px-1 md:px-2 touch-manipulation min-h-[36px] md:min-h-[44px] flex items-center justify-center"
+              suppressHydrationWarning
+            >
+              {t('navigation.privacyPolicy')}
+            </Link>
           </div>
 
           {/* Logo and Copyright */}

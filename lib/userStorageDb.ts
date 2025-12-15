@@ -86,19 +86,28 @@ export const addUser = async (userData: UserData): Promise<User> => {
 // Find user by email
 export const findUserByEmail = async (email: string): Promise<User | null> => {
   try {
-    const normalizedEmail = (email || '').trim()
-    if (!normalizedEmail) {
+    const original = (email || '').trim()
+    if (!original) {
       return null
     }
+    const normalized = original.toLowerCase()
+
     // Add timeout to prevent hanging
     const timeoutPromise = new Promise<User | null>((_, reject) => {
       setTimeout(() => reject(new Error('Database query timeout')), 10000) // 10 second timeout
     })
     
-    // Case-insensitive lookup to match typical login UX and avoid whitespace/casing issues
-    const queryPromise = prisma.user.findFirst({
-      where: { email: { equals: normalizedEmail, mode: 'insensitive' } }
-    })
+    // DB-agnostic approach:
+    // - Prefer normalized lowercase (matches addUser behavior)
+    // - Fall back to the original string for legacy records
+    const queryPromise = (async () => {
+      const byNormalized = await prisma.user.findUnique({ where: { email: normalized } })
+      if (byNormalized) return byNormalized
+      if (original !== normalized) {
+        return await prisma.user.findUnique({ where: { email: original } })
+      }
+      return null
+    })()
     
     return await Promise.race([queryPromise, timeoutPromise])
   } catch (error) {

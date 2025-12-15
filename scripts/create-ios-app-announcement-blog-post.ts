@@ -544,7 +544,7 @@ async function createIOSAppAnnouncementBlogPost() {
   </div>
 </div>`
 
-    const featuredImage = '/images/genosys-products.jpg'
+    const featuredImage = '/images/ios.png'
     const authorName = 'GENOSYS Team'
     const publishedAt = new Date('2024-12-14T18:30:00Z') // Today's date
     const tags = JSON.stringify(['iOS App', 'Mobile Shopping', 'Apple Pay', 'Technology', 'News', 'Announcement'])

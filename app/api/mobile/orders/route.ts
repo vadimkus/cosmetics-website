@@ -312,7 +312,18 @@ export async function POST(request: NextRequest) {
     const validatedItems = []
 
     for (const item of orderData.items) {
-      if (!item.productId || !item.quantity || !item.price) {
+      const productId = String(item?.productId || '').trim()
+      const quantity = Number(item?.quantity)
+      const price = Number(item?.price)
+
+      // NOTE: promo items can have price = 0, so we must NOT use truthy checks.
+      if (
+        !productId ||
+        !Number.isFinite(quantity) ||
+        quantity <= 0 ||
+        !Number.isFinite(price) ||
+        price < 0
+      ) {
         return NextResponse.json(
           { 
             success: false, 
@@ -324,7 +335,7 @@ export async function POST(request: NextRequest) {
 
       // Verify product exists
       const product = await prisma.product.findUnique({
-        where: { id: item.productId }
+        where: { id: productId }
       })
 
       if (!product) {
@@ -337,14 +348,14 @@ export async function POST(request: NextRequest) {
         )
       }
 
-      const itemTotal = item.price * item.quantity
+      const itemTotal = price * quantity
       subtotal += itemTotal
 
       validatedItems.push({
-        productId: item.productId,
-        productName: item.productName || product.name,
-        price: item.price,
-        quantity: item.quantity,
+        productId,
+        productName: item.productName || item.name || product.name,
+        price,
+        quantity,
         image: item.image || product.image,
         color: item.color || null,
         size: item.size || null

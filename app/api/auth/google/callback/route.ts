@@ -130,6 +130,17 @@ export async function GET(request: NextRequest) {
 
     // Find or create user
     const googleEmail = String(googleUser.email || '').trim()
+    if (!googleEmail) {
+      errorLog('[GOOGLE_CALLBACK] Missing email from Google token')
+      return NextResponse.redirect(new URL('/login?error=internal_error', normalizedOrigin))
+    }
+
+    const googleNameRaw = String(googleUser.name || '').trim()
+    const googleName =
+      googleNameRaw ||
+      googleEmail.split('@')[0] ||
+      'Genosys Customer'
+
     let user = await findUserByEmail(googleEmail)
 
     if (!user) {
@@ -137,7 +148,7 @@ export async function GET(request: NextRequest) {
       debugLog('[GOOGLE_CALLBACK] Creating new user...')
       try {
         user = await addUser({
-          name: googleUser.name,
+          name: googleName,
           email: googleEmail,
           password: null, // No password for Google-authenticated users
           profilePicture: googleUser.picture || null,
@@ -193,19 +204,16 @@ export async function GET(request: NextRequest) {
           // Don't fail registration if email fails
         }
       } catch (error) {
-        // If user already exists (email unique constraint), fetch and continue instead of failing.
+        // Recovery path: creation can fail for multiple reasons (unique constraint, missing fields, etc.)
+        // Try to fetch the user and proceed if it exists; otherwise show a specific error code.
         const maybeCode = (error as any)?.code
-        if (maybeCode === 'P2002') {
-          errorLog('[GOOGLE_CALLBACK] User creation hit unique constraint, fetching existing user:', googleEmail)
-          const existing = await findUserByEmail(googleEmail)
-          if (existing) {
-            user = existing
-          } else {
-            errorLog('[GOOGLE_CALLBACK] Unique constraint but user still not found:', googleEmail)
-            return NextResponse.redirect(new URL('/login?error=user_creation_failed', normalizedOrigin))
-          }
+        const maybeMessage = (error as any)?.message
+        errorLog('[GOOGLE_CALLBACK] Error creating user:', { code: maybeCode, message: maybeMessage })
+
+        const existing = await findUserByEmail(googleEmail)
+        if (existing) {
+          user = existing
         } else {
-          errorLog('[GOOGLE_CALLBACK] Error creating user:', error)
           return NextResponse.redirect(new URL('/login?error=user_creation_failed', normalizedOrigin))
         }
       }

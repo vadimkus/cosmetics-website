@@ -222,7 +222,10 @@ async function handleAppleCallback(request: NextRequest, params: {
     }
 
     const redirectPath = getLocaleRedirectPath(request)
-    const response = NextResponse.redirect(new URL(redirectPath, normalizedOrigin))
+    // IMPORTANT: This callback is typically a cross-site POST (response_mode=form_post).
+    // NextResponse.redirect defaults to 307 which preserves the method, causing a POST to /products → 405.
+    // Use 303 See Other to force a GET on the redirected page.
+    const response = NextResponse.redirect(new URL(redirectPath, normalizedOrigin), 303)
 
     // Clear oauth cookies
     response.cookies.delete('apple-oauth-state')

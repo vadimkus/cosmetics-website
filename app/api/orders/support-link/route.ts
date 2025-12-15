@@ -4,6 +4,7 @@ import { debugLog, errorLog } from '@/lib/logger'
 import { addOrder, OrderData, OrderItemData } from '@/lib/orderStorageDb'
 import { requireCsrfToken } from '@/lib/csrf'
 import { enhanceOrderItemWithDefaultSize } from '@/lib/orderSizeDefaults'
+import { generateUniqueOrderNumber } from '@/lib/orderNumber'
 
 // Helper function to detect device type from User-Agent
 function detectDeviceType(userAgent: string | null): string {
@@ -45,9 +46,16 @@ export async function POST(request: NextRequest) {
       shippingCost,
       vatAmount,
       total,
-      orderNumber,
+      orderNumber: clientOrderNumber,
       locale = 'en'
     } = orderData
+
+    // Canonicalize order number for pay-by-link (website card flow).
+    // Keep an already-canonical order number for idempotency; otherwise generate.
+    const isCanonicalWebCard = (s: string) => /^GENCardW\\d{10}$/.test(String(s || ''))
+    const orderNumber = isCanonicalWebCard(clientOrderNumber)
+      ? String(clientOrderNumber)
+      : await generateUniqueOrderNumber({ channel: 'W', payment: 'CARD' })
 
     // Save order to database
     const orderItems: OrderItemData[] = items.map((item: { id?: string; name: string; price: number; quantity: number; image?: string; color?: string; size?: string }) => {
@@ -84,6 +92,8 @@ export async function POST(request: NextRequest) {
       vat: vatAmount,
       total,
       status: 'PENDING',
+      paymentMethod: 'support_link',
+      paymentStatus: 'pending',
       locale: locale || 'en' // Capture locale from request, default to English
     }
 
@@ -256,7 +266,7 @@ export async function POST(request: NextRequest) {
       success: true, 
       message: 'Support link order request sent successfully',
       orderId: savedOrder?.id || 'pending',
-      orderNumber: orderNumber
+      orderNumber
     })
 
   } catch (error) {

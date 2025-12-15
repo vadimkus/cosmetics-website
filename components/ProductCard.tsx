@@ -82,7 +82,7 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
   return (
     <MotionWrapper 
       {...animationProps}
-      className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow flex flex-col h-full"
+      className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow flex flex-col"
     >
       <div className="relative overflow-hidden">
         <Link href={productPath} className="block">
@@ -152,7 +152,7 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
         )}
       </div>
       
-      <div className="p-3 md:p-4 flex flex-col h-full">
+      <div className="p-3 md:p-4 flex flex-col">
         <div className="mb-2">
           <span className="text-xs md:text-sm text-primary-600 font-medium">{translateCategory(product.category, locale)}</span>
         </div>
@@ -261,7 +261,7 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
         </div>
         
         {/* Button Section - Always at the end */}
-        <div className="mt-auto">
+        <div className="mt-2">
           {!user ? (
             <motion.button
               onClick={handleLoginClick}

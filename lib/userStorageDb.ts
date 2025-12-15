@@ -10,6 +10,7 @@ export interface UserData {
   phone?: string | null
   address?: string | null
   profilePicture?: string | null
+  locale?: string | null
   isAdmin?: boolean
   canSeePrices?: boolean
   discountType?: string | null
@@ -30,6 +31,7 @@ export const getAllUsers = async (limit: number = 100, offset: number = 0) => {
         phone: true,
         address: true,
         profilePicture: true,
+        locale: true,
         isAdmin: true,
         canSeePrices: true,
         discountType: true,
@@ -58,6 +60,7 @@ export const addUser = async (userData: UserData): Promise<User> => {
       phone: userData.phone || null,
       address: userData.address || null,
       profilePicture: userData.profilePicture || null,
+      locale: userData.locale || 'en',
       isAdmin: userData.isAdmin || false,
       canSeePrices: userData.canSeePrices !== undefined ? userData.canSeePrices : true,
       discountType: userData.discountType || null,
@@ -169,6 +172,9 @@ export const updateUser = async (userId: string, updates: Partial<UserData>): Pr
     }
     if (updates.profilePicture !== undefined) {
       updateData.profilePicture = updates.profilePicture === '' ? null : updates.profilePicture
+    }
+    if (updates.locale !== undefined) {
+      updateData.locale = updates.locale === '' || updates.locale === null ? 'en' : updates.locale
     }
     if (updates.isAdmin !== undefined) updateData.isAdmin = updates.isAdmin
     if (updates.canSeePrices !== undefined) updateData.canSeePrices = updates.canSeePrices

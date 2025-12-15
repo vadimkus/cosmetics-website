@@ -312,11 +312,24 @@ export async function POST(request: NextRequest) {
     const validatedItems = []
 
     for (const item of orderData.items) {
-      if (!item.productId || !item.quantity || !item.price) {
+      const productId = String(item?.productId || '').trim()
+      const quantity = Number(item?.quantity)
+      const price = Number(item?.price)
+
+      // NOTE:
+      // - `price` may legitimately be 0 for promotion/free items, so we must NOT use falsy checks.
+      // - Quantity must be > 0.
+      if (
+        !productId ||
+        !Number.isFinite(quantity) ||
+        quantity <= 0 ||
+        !Number.isFinite(price) ||
+        price < 0
+      ) {
         return NextResponse.json(
-          { 
-            success: false, 
-            error: 'Each item must have productId, quantity, and price' 
+          {
+            success: false,
+            error: 'Each item must have productId, quantity, and price',
           },
           { status: 400 }
         )
@@ -337,14 +350,14 @@ export async function POST(request: NextRequest) {
         )
       }
 
-      const itemTotal = item.price * item.quantity
+      const itemTotal = price * quantity
       subtotal += itemTotal
 
       validatedItems.push({
-        productId: item.productId,
+        productId,
         productName: item.productName || product.name,
-        price: item.price,
-        quantity: item.quantity,
+        price,
+        quantity,
         image: item.image || product.image,
         color: item.color || null,
         size: item.size || null

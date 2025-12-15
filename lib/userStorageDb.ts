@@ -98,14 +98,55 @@ export const findUserByEmail = async (email: string): Promise<User | null> => {
     })
     
     // DB-agnostic approach:
-    // - Prefer normalized lowercase (matches addUser behavior)
-    // - Fall back to the original string for legacy records
+    // 1) Try exact matches (fast path, works everywhere)
+    // 2) Try case-insensitive lookup (best-effort; may be unsupported on some providers)
+    // 3) Fallback to raw SQL LOWER(email)=LOWER(?) for providers that don't support Prisma 'mode'
     const queryPromise = (async () => {
       const byNormalized = await prisma.user.findUnique({ where: { email: normalized } })
       if (byNormalized) return byNormalized
+
       if (original !== normalized) {
-        return await prisma.user.findUnique({ where: { email: original } })
+        const byOriginal = await prisma.user.findUnique({ where: { email: original } })
+        if (byOriginal) return byOriginal
       }
+
+      // Best-effort Prisma case-insensitive
+      try {
+        const byInsensitive = await prisma.user.findFirst({
+          where: { email: { equals: original, mode: 'insensitive' } }
+        })
+        if (byInsensitive) return byInsensitive
+      } catch (e) {
+        // Some DB providers don't support 'mode'. We'll fall back to raw SQL below.
+        debugLog('findUserByEmail: case-insensitive mode unsupported, falling back to raw SQL')
+      }
+
+      // Raw SQL fallback (covers Postgres/SQLite; MySQL usually works with unquoted identifiers)
+      // We try a couple of table-name quoting variants to be resilient.
+      const attempts: Array<() => Promise<User | null>> = [
+        async () => {
+          const rows = await prisma.$queryRaw<User[]>(
+            Prisma.sql`SELECT * FROM "User" WHERE LOWER(email) = LOWER(${original}) LIMIT 1`
+          )
+          return rows?.[0] || null
+        },
+        async () => {
+          const rows = await prisma.$queryRaw<User[]>(
+            Prisma.sql`SELECT * FROM User WHERE LOWER(email) = LOWER(${original}) LIMIT 1`
+          )
+          return rows?.[0] || null
+        },
+      ]
+
+      for (const attempt of attempts) {
+        try {
+          const u = await attempt()
+          if (u) return u
+        } catch {
+          // try next variant
+        }
+      }
+
       return null
     })()
     

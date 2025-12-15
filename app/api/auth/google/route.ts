@@ -3,10 +3,12 @@ import { getGoogleAuthUrl } from '@/lib/googleAuth'
 import { generateCsrfToken } from '@/lib/csrf'
 import { errorLog, debugLog } from '@/lib/logger'
 import { rateLimitSimple, getClientIdentifierFromNextRequest } from '@/lib/rateLimitSimple'
+import crypto from 'crypto'
 
 const googleAuthLimiter = rateLimitSimple({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 10, // 10 attempts per window
+  // OAuth initiation can be hit multiple times by retries/prefetch; keep this lenient.
+  max: 60,
 })
 
 /**
@@ -27,13 +29,20 @@ export async function GET(request: NextRequest) {
       clientIdentifier = 'unknown'
     }
 
+    // If IP is not available (can happen behind some proxies), use a cookie-based identifier
+    // so we don't accidentally rate-limit all users into the same "unknown" bucket.
+    if (clientIdentifier.startsWith('unknown-')) {
+      const existing = request.cookies.get('google-oauth-rlid')?.value
+      const rlid = existing || crypto.randomBytes(16).toString('hex')
+      const ua = request.headers.get('user-agent') || 'unknown'
+      clientIdentifier = `cookie-${rlid}-${Buffer.from(ua).toString('base64').slice(0, 10)}`
+    }
+
     const rateLimitResult = await googleAuthLimiter(clientIdentifier)
     if (!rateLimitResult || !rateLimitResult.success) {
       debugLog('[GOOGLE_AUTH] Rate limit exceeded')
-      return NextResponse.json(
-        { error: rateLimitResult?.message || 'Rate limit exceeded' },
-        { status: 429 }
-      )
+      // Redirect back to login with a friendly message (better than showing raw JSON).
+      return NextResponse.redirect(new URL('/login?error=rate_limit', request.nextUrl.origin))
     }
 
     // Get the redirect URI from the request
@@ -76,6 +85,20 @@ export async function GET(request: NextRequest) {
 
     // Store state in cookie for verification in callback
     const response = NextResponse.redirect(authUrl)
+    // Persist cookie-based RL id if we had to fall back to it
+    if (clientIdentifier.startsWith('cookie-')) {
+      const current = request.cookies.get('google-oauth-rlid')?.value
+      if (!current) {
+        const cookieId = clientIdentifier.split('-')[1] || crypto.randomBytes(16).toString('hex')
+        response.cookies.set('google-oauth-rlid', cookieId, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === 'production',
+          sameSite: 'lax',
+          maxAge: 30 * 24 * 60 * 60, // 30 days
+          path: '/',
+        })
+      }
+    }
     response.cookies.set('google-oauth-state', state, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',

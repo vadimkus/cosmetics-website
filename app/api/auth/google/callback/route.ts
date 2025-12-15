@@ -8,7 +8,7 @@ import { trackUserAction } from '@/lib/analyticsServer'
 
 const googleCallbackLimiter = rateLimitSimple({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 20, // 20 attempts per window
+  max: 60,
 })
 
 /**
@@ -129,7 +129,8 @@ export async function GET(request: NextRequest) {
     })
 
     // Find or create user
-    let user = await findUserByEmail(googleUser.email)
+    const googleEmail = String(googleUser.email || '').trim()
+    let user = await findUserByEmail(googleEmail)
 
     if (!user) {
       // Create new user with Google data
@@ -137,7 +138,7 @@ export async function GET(request: NextRequest) {
       try {
         user = await addUser({
           name: googleUser.name,
-          email: googleUser.email,
+          email: googleEmail,
           password: null, // No password for Google-authenticated users
           profilePicture: googleUser.picture || null,
           phone: null,
@@ -192,10 +193,21 @@ export async function GET(request: NextRequest) {
           // Don't fail registration if email fails
         }
       } catch (error) {
-        errorLog('[GOOGLE_CALLBACK] Error creating user:', error)
-        return NextResponse.redirect(
-          new URL('/login?error=user_creation_failed', normalizedOrigin)
-        )
+        // If user already exists (email unique constraint), fetch and continue instead of failing.
+        const maybeCode = (error as any)?.code
+        if (maybeCode === 'P2002') {
+          errorLog('[GOOGLE_CALLBACK] User creation hit unique constraint, fetching existing user:', googleEmail)
+          const existing = await findUserByEmail(googleEmail)
+          if (existing) {
+            user = existing
+          } else {
+            errorLog('[GOOGLE_CALLBACK] Unique constraint but user still not found:', googleEmail)
+            return NextResponse.redirect(new URL('/login?error=user_creation_failed', normalizedOrigin))
+          }
+        } else {
+          errorLog('[GOOGLE_CALLBACK] Error creating user:', error)
+          return NextResponse.redirect(new URL('/login?error=user_creation_failed', normalizedOrigin))
+        }
       }
     } else {
       // Existing user - always update profile picture with Google picture if available
@@ -213,7 +225,7 @@ export async function GET(request: NextRequest) {
         debugLog('[GOOGLE_CALLBACK] Profile picture update result:', updateResult)
         
         // Fetch updated user to verify picture was saved
-        const updatedUser = await findUserByEmail(googleUser.email)
+        const updatedUser = await findUserByEmail(googleEmail)
         if (updatedUser) {
           user = updatedUser
           debugLog('[GOOGLE_CALLBACK] User after update:', {

@@ -103,10 +103,11 @@ export default function PrivacyPolicyPageArabic() {
 
                 <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mt-6">
                   <h3 className="font-bold text-gray-900 mb-2">1.1. طرق المصادقة</h3>
-                  <p className="mb-2">نقدم طريقتين آمنتين للمصادقة:</p>
+                  <p className="mb-2">نقدم ثلاث طرق آمنة للمصادقة:</p>
                   <ul className="list-disc list-inside space-y-1 mr-4">
                     <li><strong>مصادقة البريد الإلكتروني/كلمة المرور:</strong> يتم تشفير كلمة المرور الخاصة بك وتخزينها بشكل آمن</li>
                     <li><strong>Google OAuth 2.0:</strong> تسجيل الدخول باستخدام حساب Google الخاص بك للوصول الأسرع والأكثر أماناً</li>
+                    <li><strong>تسجيل الدخول باستخدام Apple:</strong> استخدم Apple ID الخاص بك للمصادقة الآمنة على أجهزة iOS</li>
                   </ul>
                 </div>
 
@@ -126,6 +127,24 @@ export default function PrivacyPolicyPageArabic() {
                   </p>
                   <p className="mt-2 text-sm">
                     يتم استخدام بيانات Google الخاصة بك فقط للمصادقة على الحساب وإنشاء الملف الشخصي. لا نشارك معلومات Google الخاصة بك مع أطراف ثالثة أبداً. يمكنك إلغاء ربط حساب Google الخاص بك في أي وقت من إعدادات ملفك الشخصي.
+                  </p>
+                </div>
+
+                <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mt-4">
+                  <h3 className="font-bold text-gray-900 mb-2">1.3. تسجيل الدخول باستخدام Apple</h3>
+                  <p className="mb-2">عندما تستخدم تسجيل الدخول باستخدام Apple، نقوم بجمع:</p>
+                  <ul className="list-disc list-inside space-y-1 mr-4">
+                    <li>عنوان بريدك الإلكتروني في Apple ID (أو بريد إلكتروني خاص إذا اخترت إخفاء بريدك الإلكتروني)</li>
+                    <li>اسمك الكامل من Apple ID الخاص بك (إذا تم توفيره)</li>
+                  </ul>
+                  <p className="mt-3 text-sm">
+                    <strong>مهم:</strong> لا نقوم بتخزين كلمة مرور Apple ID الخاصة بك. تتم معالجة المصادقة بشكل آمن بواسطة Apple. يوفر تسجيل الدخول باستخدام Apple من Apple ميزات خصوصية إضافية، بما في ذلك خيار إخفاء عنوان بريدك الإلكتروني باستخدام خدمة ترحيل البريد الإلكتروني الخاصة من Apple. يمكنك مراجعة سياسة الخصوصية الخاصة بـ Apple على{' '}
+                    <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener noreferrer" className="text-primary-600 hover:underline">
+                      https://www.apple.com/legal/privacy/
+                    </a>
+                  </p>
+                  <p className="mt-2 text-sm">
+                    يتم استخدام بيانات Apple ID الخاصة بك فقط للمصادقة على الحساب وإنشاء الملف الشخصي. لا نشارك معلومات Apple الخاصة بك مع أطراف ثالثة أبداً. يمكنك إدارة إعدادات تسجيل الدخول باستخدام Apple مباشرةً من خلال إعدادات حساب Apple ID الخاص بك أو إلغاء ربط حساب Apple الخاص بك من إعدادات ملفك الشخصي.
                   </p>
                 </div>
               </div>

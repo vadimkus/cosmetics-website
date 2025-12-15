@@ -103,10 +103,11 @@ export default function PrivacyPolicyPage() {
 
                 <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mt-6">
                   <h3 className="font-bold text-gray-900 mb-2">1.1. Authentication Methods</h3>
-                  <p className="mb-2">We offer two secure authentication methods:</p>
+                  <p className="mb-2">We offer three secure authentication methods:</p>
                   <ul className="list-disc list-inside space-y-1 ml-4">
                     <li><strong>Email/Password Authentication:</strong> Your password is encrypted and securely stored</li>
                     <li><strong>Google OAuth 2.0:</strong> Sign in with your Google account for faster, more secure access</li>
+                    <li><strong>Sign in with Apple:</strong> Use your Apple ID for secure authentication on iOS devices</li>
                   </ul>
                 </div>
 
@@ -126,6 +127,24 @@ export default function PrivacyPolicyPage() {
                   </p>
                   <p className="mt-2 text-sm">
                     Your Google data is used solely for account authentication and profile creation. We never share your Google information with third parties. You can unlink your Google account at any time from your profile settings.
+                  </p>
+                </div>
+
+                <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mt-4">
+                  <h3 className="font-bold text-gray-900 mb-2">1.3. Sign in with Apple</h3>
+                  <p className="mb-2">When you use Sign in with Apple, we collect:</p>
+                  <ul className="list-disc list-inside space-y-1 ml-4">
+                    <li>Your Apple ID email address (or private relay email if you choose to hide your email)</li>
+                    <li>Your full name from your Apple ID (if provided)</li>
+                  </ul>
+                  <p className="mt-3 text-sm">
+                    <strong>Important:</strong> We do not store your Apple ID password. Authentication is handled securely by Apple. Apple's Sign in with Apple provides additional privacy features, including the option to hide your email address using Apple's private email relay service. You can review Apple's Privacy Policy at{' '}
+                    <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener noreferrer" className="text-primary-600 hover:underline">
+                      https://www.apple.com/legal/privacy/
+                    </a>
+                  </p>
+                  <p className="mt-2 text-sm">
+                    Your Apple ID data is used solely for account authentication and profile creation. We never share your Apple information with third parties. You can manage your Sign in with Apple settings directly through your Apple ID account settings or unlink your Apple account from your profile settings.
                   </p>
                 </div>
               </div>

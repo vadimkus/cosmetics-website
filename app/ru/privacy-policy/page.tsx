@@ -103,10 +103,11 @@ export default function PrivacyPolicyPageRussian() {
 
                 <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mt-6">
                   <h3 className="font-bold text-gray-900 mb-2">1.1. Методы аутентификации</h3>
-                  <p className="mb-2">Мы предлагаем два безопасных метода аутентификации:</p>
+                  <p className="mb-2">Мы предлагаем три безопасных метода аутентификации:</p>
                   <ul className="list-disc list-inside space-y-1 ml-4">
                     <li><strong>Аутентификация Email/Пароль:</strong> Ваш пароль зашифрован и надёжно хранится</li>
                     <li><strong>Google OAuth 2.0:</strong> Войдите с помощью своей учётной записи Google для более быстрого и безопасного доступа</li>
+                    <li><strong>Вход через Apple:</strong> Используйте свой Apple ID для безопасной аутентификации на устройствах iOS</li>
                   </ul>
                 </div>
 
@@ -126,6 +127,24 @@ export default function PrivacyPolicyPageRussian() {
                   </p>
                   <p className="mt-2 text-sm">
                     Ваши данные Google используются исключительно для аутентификации учётной записи и создания профиля. Мы никогда не передаём вашу информацию Google третьим лицам. Вы можете отвязать свою учётную запись Google в любое время в настройках профиля.
+                  </p>
+                </div>
+
+                <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mt-4">
+                  <h3 className="font-bold text-gray-900 mb-2">1.3. Вход через Apple</h3>
+                  <p className="mb-2">Когда вы используете Вход через Apple, мы собираем:</p>
+                  <ul className="list-disc list-inside space-y-1 ml-4">
+                    <li>Адрес электронной почты вашего Apple ID (или приватный email, если вы выбрали скрыть свою почту)</li>
+                    <li>Ваше полное имя из вашего Apple ID (если предоставлено)</li>
+                  </ul>
+                  <p className="mt-3 text-sm">
+                    <strong>Важно:</strong> Мы не храним ваш пароль Apple ID. Аутентификация обрабатывается безопасно Apple. Вход через Apple предоставляет дополнительные функции конфиденциальности, включая возможность скрыть ваш адрес электронной почты с помощью сервиса приватной почтовой ретрансляции Apple. Вы можете ознакомиться с Политикой конфиденциальности Apple на{' '}
+                    <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener noreferrer" className="text-primary-600 hover:underline">
+                      https://www.apple.com/legal/privacy/
+                    </a>
+                  </p>
+                  <p className="mt-2 text-sm">
+                    Ваши данные Apple ID используются исключительно для аутентификации учётной записи и создания профиля. Мы никогда не передаём вашу информацию Apple третьим лицам. Вы можете управлять настройками Входа через Apple непосредственно через настройки вашей учётной записи Apple ID или отвязать свою учётную запись Apple в настройках профиля.
                   </p>
                 </div>
               </div>

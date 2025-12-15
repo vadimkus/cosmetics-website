@@ -4,6 +4,66 @@ import { errorLog, debugLog } from '@/lib/logger'
 import { generateBatchEnhancedProductData } from '@/lib/pricingEngine'
 import { ApiUser } from '@/types/user'
 
+function getRecommendedProductId(currentIdRaw: unknown): string | null {
+  const idStr = String(currentIdRaw || '').trim()
+  if (!idStr) return null
+  const map: Record<string, string> = {
+    '22': '32',
+    '32': '22',
+    '20': '30',
+    '30': '20',
+    '21': '31',
+    '31': '21',
+    '49': '37',
+    '37': '49',
+    '4': '1',
+    '5': '1',
+    '6': '1',
+    '7': '1',
+    '8': '1',
+    '9': '1',
+    '15': '30',
+    '19': '27',
+    '18': '29',
+    '29': '18',
+    '10': '16',
+    '25': '38',
+    '33': '17',
+    '17': '24',
+    '24': '17',
+    '44': '43',
+    '43': '44',
+    '45': '43',
+    '46': '44',
+  }
+  return map[idStr] || null
+}
+
+function extractNoteFromProductDetails(productDetails: unknown): string | null {
+  if (!productDetails) return null
+  if (typeof productDetails === 'string') {
+    // Sometimes stored as JSON string
+    try {
+      const parsed = JSON.parse(productDetails)
+      return extractNoteFromProductDetails(parsed)
+    } catch {
+      return null
+    }
+  }
+  if (typeof productDetails !== 'object') return null
+  const obj = productDetails as Record<string, unknown>
+  const keys = Object.keys(obj || {})
+  const wanted = new Set(['note', 'notes', 'warning', 'caution'])
+  for (const k of keys) {
+    if (wanted.has(String(k).trim().toLowerCase())) {
+      const v = obj[k]
+      const txt = typeof v === 'string' ? v.trim() : ''
+      if (txt) return txt
+    }
+  }
+  return null
+}
+
 /**
  * ENHANCED Mobile API Endpoint for Products - DATABASE-DRIVEN ARCHITECTURE
  * GET /api/mobile/products
@@ -173,6 +233,22 @@ export async function GET(request: NextRequest) {
       ])
     )
 
+    // Precompute extra contract fields (mobile-friendly):
+    // - recommendedProductId: for "Perfect Combination" block (backend-driven)
+    // - note: dedicated field extracted from productDetails (avoids overloading directions)
+    const extrasById = new Map<string, { recommendedProductId: string | null; note: string | null }>(
+      products.map((dbp: any) => {
+        const currentId = String(dbp?.productNumber || dbp?.id || '')
+        return [
+          String(dbp?.id || ''),
+          {
+            recommendedProductId: getRecommendedProductId(currentId),
+            note: extractNoteFromProductDetails(dbp?.productDetails),
+          },
+        ]
+      })
+    )
+
     const enhancedProducts = enhancedProductsRaw.map((p: any) => {
       const tr = translationById.get(String(p?.id || '')) || {
         nameRu: null,
@@ -190,10 +266,13 @@ export async function GET(request: NextRequest) {
         (wantAr ? tr.descriptionAr : wantRu ? tr.descriptionRu : null) ||
         p?.description ||
         ''
+      const extras = extrasById.get(String(p?.id || '')) || { recommendedProductId: null, note: null }
       return {
         ...p,
         localizedName,
         localizedDescription,
+        recommendedProductId: extras.recommendedProductId,
+        note: extras.note,
       }
     })
     

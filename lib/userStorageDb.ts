@@ -12,6 +12,8 @@ export interface UserData {
   address?: string | null
   profilePicture?: string | null
   gender?: string | null
+  billingAddress?: string | null
+  vatNumber?: string | null
   isAdmin?: boolean
   canSeePrices?: boolean
   discountType?: string | null
@@ -35,6 +37,8 @@ export const getAllUsers = async (limit: number = 100, offset: number = 0) => {
         address: true,
         profilePicture: true,
         gender: true,
+        billingAddress: true,
+        vatNumber: true,
         isAdmin: true,
         canSeePrices: true,
         discountType: true,
@@ -70,6 +74,8 @@ export const addUser = async (userData: UserData): Promise<User> => {
       discountPercentage: userData.discountPercentage || null,
       birthday: userData.birthday || null,
       gender: userData.gender || null,
+      billingAddress: userData.billingAddress || null,
+      vatNumber: userData.vatNumber || null,
     }
     
     const createData = {
@@ -216,6 +222,12 @@ export const updateUser = async (userId: string, updates: Partial<UserData>): Pr
     if (updates.address !== undefined) {
       updateData.address = updates.address === '' ? null : updates.address
     }
+    if (updates.billingAddress !== undefined) {
+      ;(updateData as any).billingAddress = updates.billingAddress === '' ? null : updates.billingAddress
+    }
+    if (updates.vatNumber !== undefined) {
+      ;(updateData as any).vatNumber = updates.vatNumber === '' ? null : updates.vatNumber
+    }
     if (updates.gender !== undefined) {
       updateData.gender = updates.gender === '' ? null : updates.gender
     }
@@ -297,6 +309,8 @@ export const anonymizeUser = async (userId: string): Promise<boolean> => {
         address: null,
         profilePicture: null,
         gender: null,
+        billingAddress: null,
+        vatNumber: null,
         birthday: null,
         discountType: null,
         discountPercentage: null,

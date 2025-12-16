@@ -282,6 +282,36 @@ export const deleteUser = async (userId: string): Promise<boolean> => {
   }
 }
 
+// Anonymize user (account deletion that preserves orders and referential integrity)
+export const anonymizeUser = async (userId: string): Promise<boolean> => {
+  try {
+    const deletedEmail = `deleted+${userId}@genosys.local`
+    await prisma.user.update({
+      where: { id: userId },
+      data: {
+        email: deletedEmail,
+        appleSub: null,
+        name: 'Deleted User',
+        password: null,
+        phone: null,
+        address: null,
+        profilePicture: null,
+        gender: null,
+        birthday: null,
+        discountType: null,
+        discountPercentage: null,
+        lastLoginAt: null,
+        isAdmin: false,
+        canSeePrices: true,
+      }
+    })
+    return true
+  } catch (error) {
+    errorLog('Error anonymizing user:', error)
+    return false
+  }
+}
+
 // Clean up duplicate users by email (keep the most recent one)
 export const cleanupDuplicateUsers = async (): Promise<void> => {
   try {

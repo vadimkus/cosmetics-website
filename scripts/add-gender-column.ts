@@ -69,3 +69,4 @@ addGenderColumn()
     console.error('\n💥 Migration failed:', error)
     process.exit(1)
   })
+

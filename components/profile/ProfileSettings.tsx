@@ -1,7 +1,9 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Bell, Shield, Eye, Lock, Key, AlertTriangle } from 'lucide-react'
+import { fetchCsrfToken, getCsrfHeaders } from '@/lib/csrfClient'
+import { useAuth } from '@/components/AuthProvider'
 
 interface ProfileSettingsProps {
   user: {
@@ -14,6 +16,7 @@ interface ProfileSettingsProps {
 }
 
 export default function ProfileSettings({ user: _user }: ProfileSettingsProps) {
+  const { logout } = useAuth()
   const [notifications, setNotifications] = useState({
     email: true,
     sms: false,
@@ -28,6 +31,12 @@ export default function ProfileSettings({ user: _user }: ProfileSettingsProps) {
   })
 
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
+  const [isDeleting, setIsDeleting] = useState(false)
+
+  // Ensure CSRF cookie exists for state-changing requests
+  useEffect(() => {
+    fetchCsrfToken().catch(() => {})
+  }, [])
 
   const handleNotificationChange = (key: string, value: boolean) => {
     setNotifications(prev => ({ ...prev, [key]: value }))
@@ -35,6 +44,36 @@ export default function ProfileSettings({ user: _user }: ProfileSettingsProps) {
 
   const handlePrivacyChange = (key: string, value: string | boolean) => {
     setPrivacy(prev => ({ ...prev, [key]: value }))
+  }
+
+  const handleDeleteAccount = async () => {
+    setIsDeleting(true)
+    try {
+      const csrfToken = await fetchCsrfToken()
+      if (!csrfToken) {
+        alert('Security error: Could not verify request. Please refresh and try again.')
+        return
+      }
+
+      const response = await fetch('/api/profile/delete', {
+        method: 'DELETE',
+        headers: getCsrfHeaders(),
+        credentials: 'include',
+      })
+
+      if (response.ok) {
+        alert('Your account has been deleted. You will be signed out now.')
+        await logout()
+      } else {
+        const data = await response.json().catch(() => null)
+        alert((data && data.error) || 'Failed to delete account. Please try again.')
+      }
+    } catch (e) {
+      alert('Error deleting account. Please try again.')
+    } finally {
+      setIsDeleting(false)
+      setShowDeleteConfirm(false)
+    }
   }
 
   return (
@@ -209,7 +248,7 @@ export default function ProfileSettings({ user: _user }: ProfileSettingsProps) {
             <div className="flex items-center justify-between">
               <div>
                 <p className="font-medium text-red-900">Delete Account</p>
-                <p className="text-sm text-red-600">Permanently delete your account and all associated data</p>
+                <p className="text-sm text-red-600">Remove personal data and disable your account (orders are preserved)</p>
               </div>
               <button
                 onClick={() => setShowDeleteConfirm(true)}
@@ -231,7 +270,7 @@ export default function ProfileSettings({ user: _user }: ProfileSettingsProps) {
               <h3 className="text-lg font-semibold text-gray-900">Delete Account</h3>
             </div>
             <p className="text-gray-600 mb-6">
-              Are you sure you want to delete your account? This action cannot be undone and will permanently remove all your data.
+              Are you sure you want to delete your account? This removes your personal data and disables the account. Orders are preserved for legal/operational reasons.
             </p>
             <div className="flex gap-3">
               <button
@@ -241,13 +280,11 @@ export default function ProfileSettings({ user: _user }: ProfileSettingsProps) {
                 Cancel
               </button>
               <button
-                onClick={() => {
-                  // Handle account deletion
-                  setShowDeleteConfirm(false)
-                }}
-                className="flex-1 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
+                onClick={handleDeleteAccount}
+                disabled={isDeleting}
+                className="flex-1 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
               >
-                Delete Account
+                {isDeleting ? 'Deleting...' : 'Delete Account'}
               </button>
             </div>
           </div>

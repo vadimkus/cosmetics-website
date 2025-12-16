@@ -31,13 +31,13 @@ export const getAnalyticsData = async (days: number | null = 30) => {
     prisma.order.count({
       where: { 
         ...(startDate ? { createdAt: { gte: startDate } } : {}),
-        status: { not: 'CANCELLED' }
+        status: { notIn: ['CANCELLED', 'DELETED'] }
       }
     }),
     prisma.order.aggregate({
       where: { 
         ...(startDate ? { createdAt: { gte: startDate } } : {}),
-        status: { not: 'CANCELLED' }
+        status: { notIn: ['CANCELLED', 'DELETED'] }
       },
       _sum: { total: true }
     }),

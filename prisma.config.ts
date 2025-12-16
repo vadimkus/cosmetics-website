@@ -1,21 +1,38 @@
 import { defineConfig } from 'prisma/config'
 
-const datasourceUrl =
-  process.env.DATABASE_URL ||
-  process.env.PRISMA_DATABASE_URL ||
-  process.env.POSTGRES_URL
+/**
+ * Prisma 7 config for migrations.
+ *
+ * IMPORTANT:
+ * - `prisma migrate deploy` must connect to the **direct database** (`postgres://...`)
+ * - Prisma Accelerate (`prisma+postgres://...`) is for runtime client, not migrations.
+ *
+ * Vercel env recommendation:
+ * - `POSTGRES_URL` (or `DATABASE_URL`): direct postgres connection string
+ * - `PRISMA_DATABASE_URL`: Prisma Accelerate URL (optional, for runtime PrismaClient)
+ */
 
-if (!datasourceUrl) {
+const isAccelerateUrl = (url: string) => String(url || '').startsWith('prisma+postgres://')
+
+const directUrlFromEnv =
+  process.env.DATABASE_URL ||
+  process.env.POSTGRES_URL ||
+  (process.env.PRISMA_DATABASE_URL && !isAccelerateUrl(process.env.PRISMA_DATABASE_URL)
+    ? process.env.PRISMA_DATABASE_URL
+    : undefined)
+
+if (!directUrlFromEnv) {
   throw new Error(
-    'Missing database connection string. Set DATABASE_URL (recommended) ' +
-      'or PRISMA_DATABASE_URL or POSTGRES_URL in the environment.'
+    'Missing DIRECT database connection string for migrations. ' +
+      'Set DATABASE_URL or POSTGRES_URL to a postgres://... URL. ' +
+      'Do NOT use a prisma+postgres://... (Accelerate) URL for migrate deploy.'
   )
 }
 
 export default defineConfig({
   schema: 'prisma/schema.prisma',
   datasource: {
-    url: datasourceUrl,
+    url: directUrlFromEnv,
   },
 })
 

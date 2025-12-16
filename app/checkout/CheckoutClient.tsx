@@ -508,13 +508,13 @@ export default function CheckoutClient() {
       }
 
       // For Cash on Delivery, proceed with normal flow
-              // Generate professional order number for COD
+              // Generate canonical order number for website COD: CODW + YYMMDD + 4-digit sequence
               const now = new Date()
               const year = now.getFullYear().toString().slice(-2)
               const month = (now.getMonth() + 1).toString().padStart(2, '0')
               const day = now.getDate().toString().padStart(2, '0')
               const sequence = Math.floor(Math.random() * 10000).toString().padStart(4, '0')
-              const codOrderNumber = `COD${year}${month}${day}${sequence}`
+              const codOrderNumber = `CODW${year}${month}${day}${sequence}`
       
       // Send COD order confirmation email
       try {

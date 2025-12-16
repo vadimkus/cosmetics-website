@@ -76,6 +76,7 @@ export async function GET(request: NextRequest) {
         phone: userProfile.phone,
         address: userProfile.address,
         profilePicture: userProfile.profilePicture,
+        gender: (userProfile as any).gender,
         birthday: userProfile.birthday,
         canSeePrices: userProfile.canSeePrices,
         discountType: userProfile.discountType,
@@ -150,7 +151,7 @@ export async function PUT(request: NextRequest) {
     const updates = await request.json()
     
     // Validate and sanitize updates
-    const allowedFields = ['name', 'phone', 'address', 'birthday', 'profilePicture']
+    const allowedFields = ['name', 'phone', 'address', 'birthday', 'profilePicture', 'gender']
     const sanitizedUpdates: any = {}
     
     for (const field of allowedFields) {
@@ -199,6 +200,30 @@ export async function PUT(request: NextRequest) {
         )
       }
       sanitizedUpdates.address = sanitizedUpdates.address.trim()
+    }
+
+    // Validate gender if provided
+    if (sanitizedUpdates.gender !== undefined && sanitizedUpdates.gender !== null && sanitizedUpdates.gender !== '') {
+      if (typeof sanitizedUpdates.gender !== 'string') {
+        return NextResponse.json(
+          {
+            success: false,
+            error: 'Gender must be a string'
+          },
+          { status: 400 }
+        )
+      }
+      const g = sanitizedUpdates.gender.trim()
+      if (g.length > 64) {
+        return NextResponse.json(
+          {
+            success: false,
+            error: 'Gender is too long'
+          },
+          { status: 400 }
+        )
+      }
+      sanitizedUpdates.gender = g
     }
 
     // Validate birthday if provided
@@ -276,6 +301,7 @@ export async function PUT(request: NextRequest) {
         phone: userProfile.phone,
         address: userProfile.address,
         profilePicture: userProfile.profilePicture,
+        gender: (userProfile as any).gender,
         birthday: userProfile.birthday,
         canSeePrices: userProfile.canSeePrices,
         discountType: userProfile.discountType,

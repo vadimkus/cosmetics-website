@@ -7,10 +7,12 @@ import ruMessages from '@/messages/ru.json'
 
 type TemplateType = 'welcome' | 'order-shipped' | 'order-confirmed' | 'order-delivered' | 'discount-assigned' | 'cod' | 'support-link' | 'stripe-payment-confirmation'
 type Locale = 'en' | 'ru' | 'ar'
+type DesignVariant = 'current' | 'v2-minimal'
 
 export default function EmailTemplatePage() {
   const [templateType, setTemplateType] = useState<TemplateType>('order-shipped')
   const [locale, setLocale] = useState<Locale>('en')
+  const [designVariant, setDesignVariant] = useState<DesignVariant>('current')
   const [userName, setUserName] = useState('John Doe')
   const [userEmail, setUserEmail] = useState('user@example.com')
   const [userPhone, setUserPhone] = useState('+971 50 123 4567')
@@ -60,6 +62,322 @@ export default function EmailTemplatePage() {
     }
     
     return value
+  }
+
+  const tf = (key: string, fallback: string, params?: Record<string, string | number>) => {
+    const v = t(key, params)
+    return v === key ? fallback : v
+  }
+
+  const getBaseUrl = () => process.env.NEXT_PUBLIC_SITE_URL || 'https://genosys.ae'
+  const getLocalePrefix = () => (locale === 'ar' ? 'ar/' : locale === 'ru' ? 'ru/' : '')
+  const WHATSAPP_NUMBER = '971585487665'
+
+  const formatAed = (value: string | number) => {
+    const n = typeof value === 'string' ? parseFloat(value) : value
+    if (!Number.isFinite(n)) return ''
+    return `AED ${n.toFixed(2)}`
+  }
+
+  const buildV2Shell = (opts: {
+    subject: string
+    heading: string
+    greetingLine: string
+    bodyLine?: string
+    primaryCta?: { label: string; href: string }
+    secondaryCta?: { label: string; href: string }
+    detailsRows?: Array<{ label: string; value: string }>
+    extraBlockHtml?: string
+  }) => {
+    const baseUrl = getBaseUrl()
+    const dir = locale === 'ar' ? 'rtl' : 'ltr'
+    const textAlign = locale === 'ar' ? 'right' : 'left'
+    const prefix = getLocalePrefix()
+    const logoUrl = `${baseUrl}/_next/image?url=%2FLogo%2FupLOGO.png&w=384&q=75`
+    const instaIconUrl = `${baseUrl}/Logo/insta.png`
+    const whatsappIconUrl = `${baseUrl}/Logo/wa.png`
+    const facebookIconUrl = `${baseUrl}/Logo/fb.png`
+
+    const uaeLine = tf('orderEmail.statusUpdate.uae', 'United Arab Emirates ❤️')
+    const officialDistributor = tf('orderEmail.orderDelivered.officialDistributor', 'Official Distributor in the UAE.')
+    const copyright = tf('orderEmail.orderDelivered.copyright', '© 2026 Genosys Middle East FZ-LLC. All rights reserved.')
+
+    const followUs = tf('orderEmail.orderDelivered.followUs', 'Follow us')
+    const instaLabel = tf('orderEmail.orderDelivered.insta', 'Insta')
+    const waLabel = tf('orderEmail.orderDelivered.whatsApp', 'WhatsApp')
+    const fbLabel = tf('orderEmail.orderDelivered.fb', 'FB')
+
+    const detailsHtml = (opts.detailsRows && opts.detailsRows.length > 0)
+      ? `
+        <div style="background: #f9fafb; padding: 18px 20px; border-radius: 12px; margin-top: 18px; border: 1px solid #e5e7eb;">
+          <h3 style="color: #111827; margin: 0 0 10px 0; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; text-align: ${textAlign};">
+            ${tf('orderEmail.orderDelivered.orderDetails', 'Order details:')}
+          </h3>
+          ${opts.detailsRows
+            .map(
+              (r) => `
+                <p style="color: #6b7280; font-size: 13px; line-height: 1.6; margin: 6px 0; text-align: ${textAlign};">
+                  <span style="color: #9ca3af;">${r.label}</span> <strong style="color: #111827;">${r.value}</strong>
+                </p>
+              `
+            )
+            .join('')}
+        </div>
+      `
+      : ''
+
+    const ctas = `
+      <div style="text-align: center; margin: 22px 0 0 0;">
+        ${opts.primaryCta ? `
+          <a href="${opts.primaryCta.href}"
+             style="background: #dc2626; color: #ffffff; padding: 12px 22px; text-decoration: none; border-radius: 10px; font-weight: 700; font-size: 14px; display: inline-block;">
+            ${opts.primaryCta.label}
+          </a>
+        ` : ''}
+        ${opts.secondaryCta ? `
+          <div style="margin-top: 10px;">
+            <a href="${opts.secondaryCta.href}"
+               style="background: #128C7E; color: #ffffff; padding: 12px 22px; text-decoration: none; border-radius: 10px; font-weight: 700; font-size: 14px; display: inline-block;">
+              ${opts.secondaryCta.label}
+            </a>
+          </div>
+        ` : ''}
+      </div>
+    `
+
+    return {
+      subject: opts.subject,
+      html: `
+        <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; background: #f3f4f6; padding: 24px 12px; direction: ${dir};">
+          <div style="max-width: 600px; margin: 0 auto;">
+            <div style="text-align: center; margin-bottom: 16px;">
+              <div style="font-size: 20px; font-weight: 800; color: #dc2626; letter-spacing: -0.2px;">Genosys Middle East FZ-LLC</div>
+              <div style="font-size: 13px; color: #6b7280; margin-top: 6px;">${uaeLine}</div>
+            </div>
+
+            <div style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 16px; padding: 22px 20px;">
+              <div style="text-align: ${textAlign};">
+                <div style="display: inline-block; padding: 6px 10px; border-radius: 999px; background: #fef2f2; color: #991b1b; font-size: 12px; font-weight: 700; margin-bottom: 12px;">
+                  ${opts.heading}
+                </div>
+              </div>
+
+              <h2 style="color: #111827; margin: 0 0 10px 0; font-size: 18px; font-weight: 800; text-align: ${textAlign};">
+                ${opts.greetingLine}
+              </h2>
+
+              ${opts.bodyLine ? `
+                <p style="color: #374151; font-size: 15px; line-height: 1.65; margin: 0 0 0 0; text-align: ${textAlign};">
+                  ${opts.bodyLine}
+                </p>
+              ` : ''}
+
+              ${detailsHtml}
+
+              ${opts.extraBlockHtml || ''}
+
+              ${ctas}
+            </div>
+
+            <div style="text-align: center; margin: 18px 0 0 0;">
+              <p style="color: #111827; font-size: 13px; margin: 0 0 10px 0; font-weight: 700;">${followUs}</p>
+              <table cellpadding="0" cellspacing="0" border="0" align="center" style="margin: 0 auto;">
+                <tr>
+                  <td style="padding: 0 12px; text-align: center;">
+                    <a href="https://www.instagram.com/genosys.uae/" style="text-decoration: none; display: inline-block;">
+                      <img src="${instaIconUrl}" alt="Instagram" width="32" height="32" style="max-width: 32px; height: auto; display: block; margin: 0 auto;" border="0" />
+                      <p style="color: #374151; font-size: 11px; margin: 6px 0 0 0; text-align: center;">${instaLabel}</p>
+                    </a>
+                  </td>
+                  <td style="padding: 0 12px; text-align: center;">
+                    <a href="https://wa.me/${WHATSAPP_NUMBER}" style="text-decoration: none; display: inline-block;">
+                      <img src="${whatsappIconUrl}" alt="WhatsApp" width="32" height="32" style="max-width: 32px; height: auto; display: block; margin: 0 auto;" border="0" />
+                      <p style="color: #374151; font-size: 11px; margin: 6px 0 0 0; text-align: center;">${waLabel}</p>
+                    </a>
+                  </td>
+                  <td style="padding: 0 12px; text-align: center;">
+                    <a href="https://www.facebook.com/genosys.ae" style="text-decoration: none; display: inline-block;">
+                      <img src="${facebookIconUrl}" alt="Facebook" width="32" height="32" style="max-width: 32px; height: auto; display: block; margin: 0 auto;" border="0" />
+                      <p style="color: #374151; font-size: 11px; margin: 6px 0 0 0; text-align: center;">${fbLabel}</p>
+                    </a>
+                  </td>
+                </tr>
+              </table>
+            </div>
+
+            <div style="border-top: 1px solid #e5e7eb; padding-top: 16px; text-align: center; margin-top: 16px;">
+              <a href="${baseUrl}/${prefix}products" style="display: block; margin: 0 auto 12px; max-width: 170px;">
+                <img src="${logoUrl}" alt="Genosys Logo" style="max-width: 170px; height: auto; margin: 0 auto; display: block;" />
+              </a>
+              <p style="color: #6b7280; font-size: 13px; margin: 6px 0;">${officialDistributor}</p>
+              <p style="color: #6b7280; font-size: 12px; margin: 6px 0 0 0;">${copyright}</p>
+            </div>
+          </div>
+        </div>
+      `
+    }
+  }
+
+  const getV2Template = () => {
+    const baseUrl = getBaseUrl()
+    const prefix = getLocalePrefix()
+
+    const orderRows = [
+      { label: tf('orderEmail.orderDelivered.orderNumber', 'Order number:'), value: `#${orderNumber}` },
+      ...(orderTotal ? [{ label: tf('orderEmail.orderDelivered.total', 'Total:'), value: formatAed(orderTotal) }] : [])
+    ]
+
+    const supportHref = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
+      locale === 'ru'
+        ? `Здравствуйте! Нужна помощь по заказу #${orderNumber}.`
+        : locale === 'ar'
+          ? `مرحباً! أحتاج مساعدة بخصوص طلبي #${orderNumber}.`
+          : `Hi! I need help with my order #${orderNumber}.`
+    )}`
+
+    switch (templateType) {
+      case 'order-delivered':
+        return buildV2Shell({
+          subject: tf('orderEmail.orderDelivered.subject', `Order Delivered #${orderNumber} > Genosys Middle East FZ-LLC`, { orderNumber }),
+          heading: tf('orderEmail.orderDelivered.subject', `Order Delivered #${orderNumber}`, { orderNumber }).split(' > ')[0],
+          greetingLine: tf('orderEmail.supportLink.dear', `Dear ${userName},`, { customerName: userName }),
+          bodyLine: tf('orderEmail.orderDelivered.delivered', 'Your order has been delivered.'),
+          detailsRows: orderRows,
+          primaryCta: { label: tf('orderEmail.orderConfirmation.trackOrder', 'View your order'), href: `${baseUrl}/${prefix}profile` },
+          secondaryCta: { label: tf('orderEmail.orderConfirmation.questions', 'Contact Support via WhatsApp'), href: supportHref }
+        })
+
+      case 'order-confirmed':
+        return buildV2Shell({
+          subject: tf('orderEmail.orderConfirmation.subject', `Order Confirmed #${orderNumber} > Genosys Middle East FZ-LLC`, { orderNumber }),
+          heading: tf('orderEmail.orderConfirmation.orderConfirmed', 'Order confirmed'),
+          greetingLine: tf('orderEmail.orderConfirmation.thankYou', `Thank you for your order, ${userName}!`, { customerName: userName }),
+          bodyLine: tf('orderEmail.orderConfirmation.orderReceived', `Your order #${orderNumber} has been received and is being processed.`, { orderNumber }),
+          detailsRows: orderRows,
+          primaryCta: { label: tf('orderEmail.orderConfirmation.trackOrder', 'Track your order'), href: `${baseUrl}/${prefix}profile` },
+          secondaryCta: { label: tf('orderEmail.orderConfirmation.questions', 'Contact Support via WhatsApp'), href: supportHref }
+        })
+
+      case 'order-shipped':
+        return buildV2Shell({
+          subject: `${locale === 'ru'
+            ? `Заказ отправлен #${orderNumber} > Genosys Middle East FZ-LLC`
+            : locale === 'ar'
+              ? `تم شحن الطلب #${orderNumber} > Genosys Middle East FZ-LLC`
+              : `Order Shipped #${orderNumber} > Genosys Middle East FZ-LLC`}`,
+          heading: locale === 'ru' ? 'Заказ отправлен' : locale === 'ar' ? 'تم شحن الطلب' : 'Order shipped',
+          greetingLine: tf('orderEmail.supportLink.dear', `Dear ${userName},`, { customerName: userName }),
+          bodyLine: tf('orderEmail.statusUpdate.statusMessages.SHIPPED', 'Your order has been shipped.'),
+          detailsRows: orderRows,
+          primaryCta: { label: tf('orderEmail.orderConfirmation.trackOrder', 'Track your order'), href: `${baseUrl}/${prefix}profile` },
+          secondaryCta: { label: tf('orderEmail.orderConfirmation.questions', 'Contact Support via WhatsApp'), href: supportHref }
+        })
+
+      case 'welcome':
+        return buildV2Shell({
+          subject: locale === 'ru'
+            ? 'Данные аккаунта > Genosys Middle East FZ-LLC'
+            : locale === 'ar'
+              ? 'تفاصيل الحساب > Genosys Middle East FZ-LLC'
+              : 'Account details > Genosys Middle East FZ-LLC',
+          heading: locale === 'ru' ? 'Добро пожаловать' : locale === 'ar' ? 'مرحباً' : 'Welcome',
+          greetingLine: locale === 'ru' ? `Здравствуйте, ${userName}!` : locale === 'ar' ? `مرحباً ${userName}!` : `Welcome, ${userName}!`,
+          bodyLine: locale === 'ru'
+            ? 'Ваш аккаунт готов. Вы можете войти и начать покупки.'
+            : locale === 'ar'
+              ? 'حسابك جاهز. يمكنك تسجيل الدخول وبدء التسوق.'
+              : 'Your account is ready. You can sign in and start shopping.',
+          primaryCta: { label: locale === 'ru' ? 'Войти' : locale === 'ar' ? 'تسجيل الدخول' : 'Sign in', href: `${baseUrl}/${prefix}login` },
+          secondaryCta: { label: locale === 'ru' ? 'Связаться в WhatsApp' : locale === 'ar' ? 'تواصل عبر واتساب' : 'WhatsApp support', href: `https://wa.me/${WHATSAPP_NUMBER}` },
+          extraBlockHtml: password ? `
+            <div style="background: #f9fafb; padding: 18px 20px; border-radius: 12px; margin-top: 18px; border: 1px solid #e5e7eb; text-align: ${locale === 'ar' ? 'right' : 'left'};">
+              <p style="color: #6b7280; font-size: 12px; margin: 0 0 8px 0; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px;">
+                ${locale === 'ru' ? 'Данные для входа' : locale === 'ar' ? 'بيانات تسجيل الدخول' : 'Sign-in details'}
+              </p>
+              <p style="color: #6b7280; font-size: 13px; margin: 6px 0;">
+                <span style="color: #9ca3af;">${locale === 'ru' ? 'Email:' : locale === 'ar' ? 'البريد الإلكتروني:' : 'Email:'}</span>
+                <strong style="color: #111827;">${userEmail}</strong>
+              </p>
+              <p style="color: #6b7280; font-size: 13px; margin: 6px 0;">
+                <span style="color: #9ca3af;">${locale === 'ru' ? 'Пароль:' : locale === 'ar' ? 'كلمة المرور:' : 'Password:'}</span>
+                <strong style="color: #111827; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Courier New', monospace;">${password}</strong>
+              </p>
+            </div>
+          ` : undefined
+        })
+
+      case 'discount-assigned': {
+        const pct = parseFloat(discountPercentage) || 0
+        return buildV2Shell({
+          subject: tf('orderEmail.discountAssigned.subject', 'Special Discount Assigned > Genosys Middle East FZ-LLC'),
+          heading: locale === 'ru' ? 'Скидка' : locale === 'ar' ? 'خصم' : 'Discount',
+          greetingLine: tf('orderEmail.supportLink.dear', `Dear ${userName},`, { customerName: userName }),
+          bodyLine: tf('orderEmail.discountAssigned.greeting', 'A special discount has been assigned to your account.'),
+          detailsRows: [
+            { label: tf('orderEmail.discountAssigned.type', 'Type:'), value: discountType },
+            { label: tf('orderEmail.discountAssigned.discount', 'Discount:'), value: `${pct}%` }
+          ],
+          primaryCta: { label: tf('orderEmail.discountAssigned.loginButton', 'Login'), href: `${baseUrl}/${prefix}login` },
+          secondaryCta: { label: tf('orderEmail.orderConfirmation.questions', 'Contact Support via WhatsApp'), href: `https://wa.me/${WHATSAPP_NUMBER}` }
+        })
+      }
+
+      case 'cod':
+        return buildV2Shell({
+          subject: tf('orderEmail.cod.subject', `Order Confirmation #${orderNumber} > Genosys Middle East FZ-LLC`, { orderNumber }),
+          heading: tf('orderEmail.cod.cod', 'Cash on Delivery'),
+          greetingLine: tf('orderEmail.cod.thankYou', `Thank you for your order, ${userName}!`, { customerName: userName }),
+          bodyLine: tf('orderEmail.cod.orderReceived', `Your order #${orderNumber} has been received and is being processed. You will pay via Cash on Delivery when your order arrives.`, { orderNumber }),
+          detailsRows: [
+            { label: tf('orderEmail.cod.orderRequest', 'Order'), value: `#${orderNumber}` },
+            ...(orderTotal ? [{ label: tf('orderEmail.cod.totalLabel', 'Total:'), value: formatAed(orderTotal) }] : []),
+            { label: tf('orderEmail.cod.emirate', 'Emirate:'), value: deliveryEmirate || '' }
+          ].filter(r => r.value),
+          primaryCta: { label: tf('orderEmail.supportLink.continueShopping', 'Continue Shopping'), href: `${baseUrl}/${prefix}products` },
+          secondaryCta: { label: tf('orderEmail.cod.contactSupport', 'Contact Support via WhatsApp'), href: supportHref }
+        })
+
+      case 'support-link':
+        return buildV2Shell({
+          subject: tf('orderEmail.supportLink.subject', `Order Request Submitted #${orderNumber} > Genosys Middle East FZ-LLC`, { orderNumber }),
+          heading: locale === 'ru' ? 'Заявка принята' : locale === 'ar' ? 'تم استلام الطلب' : 'Request received',
+          greetingLine: tf('orderEmail.supportLink.dear', `Dear ${userName},`, { customerName: userName }),
+          bodyLine: tf('orderEmail.supportLink.orderSubmitted', 'Your order request has been submitted. Our support team will share a secure payment link shortly.'),
+          detailsRows: [
+            { label: tf('orderEmail.supportLink.orderRequest', 'Order Request'), value: `#${orderNumber}` },
+            ...(orderTotal ? [{ label: tf('orderEmail.orderDelivered.total', 'Total:'), value: formatAed(orderTotal) }] : []),
+            { label: tf('orderEmail.supportLink.emirate', 'Emirate:'), value: deliveryEmirate || '' }
+          ].filter(r => r.value),
+          primaryCta: { label: tf('orderEmail.supportLink.continueShopping', 'Continue Shopping'), href: `${baseUrl}/${prefix}products` },
+          secondaryCta: { label: tf('orderEmail.supportLink.contactSupport', 'Contact Support via WhatsApp'), href: supportHref }
+        })
+
+      case 'stripe-payment-confirmation':
+        return buildV2Shell({
+          subject: tf('orderEmail.stripePaymentConfirmation.orderConfirmed', `Order Confirmed #${orderNumber} > Genosys Middle East FZ-LLC`, { orderNumber }),
+          heading: locale === 'ru' ? 'Оплата получена' : locale === 'ar' ? 'تم تأكيد الدفع' : 'Payment confirmed',
+          greetingLine: tf('orderEmail.supportLink.dear', `Dear ${userName},`, { customerName: userName }),
+          bodyLine: locale === 'ru'
+            ? `Мы получили оплату по заказу #${orderNumber}. Спасибо!`
+            : locale === 'ar'
+              ? `تم استلام الدفع للطلب #${orderNumber}. شكراً لك!`
+              : `We’ve received your payment for order #${orderNumber}. Thank you!`,
+          detailsRows: orderRows,
+          primaryCta: { label: tf('orderEmail.orderConfirmation.trackOrder', 'View your order'), href: `${baseUrl}/${prefix}profile` },
+          secondaryCta: { label: tf('orderEmail.orderConfirmation.questions', 'Contact Support via WhatsApp'), href: supportHref }
+        })
+
+      default:
+        return buildV2Shell({
+          subject: `Order Update #${orderNumber} > Genosys Middle East FZ-LLC`,
+          heading: 'Order update',
+          greetingLine: `Dear ${userName},`,
+          bodyLine: 'Your order has been updated.',
+          detailsRows: orderRows,
+          primaryCta: { label: 'View your order', href: `${baseUrl}/${prefix}profile` },
+          secondaryCta: { label: 'Contact Support via WhatsApp', href: supportHref }
+        })
+    }
   }
 
   // Generate welcome email template (same as in lib/email.ts)
@@ -723,6 +1041,9 @@ export default function EmailTemplatePage() {
   }
 
   const getTemplate = () => {
+    if (designVariant === 'v2-minimal') {
+      return getV2Template()
+    }
     switch (templateType) {
       case 'welcome':
         return generateWelcomeEmail(userName, userEmail, password)
@@ -816,6 +1137,38 @@ export default function EmailTemplatePage() {
               >
                 العربية
               </button>
+            </div>
+          </div>
+
+          {/* Design Variant */}
+          <div className="mb-6">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Design
+            </label>
+            <div className="flex gap-2 flex-wrap">
+              <button
+                onClick={() => setDesignVariant('current')}
+                className={`px-4 py-2 rounded-md font-medium transition-colors ${
+                  designVariant === 'current'
+                    ? 'bg-gray-900 text-white'
+                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                }`}
+              >
+                Current
+              </button>
+              <button
+                onClick={() => setDesignVariant('v2-minimal')}
+                className={`px-4 py-2 rounded-md font-medium transition-colors ${
+                  designVariant === 'v2-minimal'
+                    ? 'bg-emerald-600 text-white'
+                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                }`}
+              >
+                V2 Minimal (recommended)
+              </button>
+              <div className="text-sm text-gray-500 flex items-center">
+                Uses the “Order Delivered” style as the base and unifies wording/layout across all templates.
+              </div>
             </div>
           </div>
 

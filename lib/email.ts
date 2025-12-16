@@ -970,7 +970,7 @@ export const emailTemplates = {
               Dear ${(userName || 'User').split(' ')[0]},
             </p>
             <p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 0 0 20px 0;">
-              Login the button below to reset your Genosys password:
+              Click the button below to reset your Genosys password:
             </p>
             
             <div style="text-align: center; margin: 30px 0;">

@@ -11,6 +11,7 @@ export interface UserData {
   phone?: string | null
   address?: string | null
   profilePicture?: string | null
+  gender?: string | null
   isAdmin?: boolean
   canSeePrices?: boolean
   discountType?: string | null
@@ -33,6 +34,7 @@ export const getAllUsers = async (limit: number = 100, offset: number = 0) => {
         phone: true,
         address: true,
         profilePicture: true,
+        gender: true,
         isAdmin: true,
         canSeePrices: true,
         discountType: true,
@@ -67,6 +69,7 @@ export const addUser = async (userData: UserData): Promise<User> => {
       discountType: userData.discountType || null,
       discountPercentage: userData.discountPercentage || null,
       birthday: userData.birthday || null,
+      gender: userData.gender || null,
     }
     
     const createData = {
@@ -213,6 +216,9 @@ export const updateUser = async (userId: string, updates: Partial<UserData>): Pr
     if (updates.address !== undefined) {
       updateData.address = updates.address === '' ? null : updates.address
     }
+    if (updates.gender !== undefined) {
+      updateData.gender = updates.gender === '' ? null : updates.gender
+    }
     if (updates.birthday !== undefined) {
       updateData.birthday = updates.birthday === '' ? null : updates.birthday
     }
@@ -336,6 +342,7 @@ export const findOrCreateUser = async (email: string, userData: Partial<UserData
       if (userData.phone !== undefined) updateData.phone = userData.phone
       if (userData.address !== undefined) updateData.address = userData.address
       if (userData.profilePicture !== undefined) updateData.profilePicture = userData.profilePicture
+      if (userData.gender !== undefined) updateData.gender = userData.gender
       if (userData.canSeePrices !== undefined) updateData.canSeePrices = userData.canSeePrices
       if (userData.discountType !== undefined) updateData.discountType = userData.discountType
       if (userData.discountPercentage !== undefined) updateData.discountPercentage = userData.discountPercentage

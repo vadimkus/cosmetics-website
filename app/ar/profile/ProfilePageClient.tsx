@@ -280,19 +280,16 @@ export default function ProfilePageClient() {
       const response = await fetch('/api/profile/delete', {
         method: 'DELETE',
         headers: getCsrfHeaders(),
-        body: JSON.stringify(addCsrfToBody({ userId: user.id })),
+        // Body not needed (server determines user from session); CSRF is sent via header.
+        credentials: 'include',
       })
 
       if (response.ok) {
         localStorage.removeItem(LOCAL_STORAGE_KEYS.USER)
         localStorage.removeItem(LOCAL_STORAGE_KEYS.CUSTOMER_NUMBER(user.id))
         
+        alert(t('profile.accountDeletedSuccessfully'))
         await logout()
-        router.push(getLocalizedPath('/', locale))
-        
-        setTimeout(() => {
-          alert(t('profile.accountDeletedSuccessfully'))
-        }, 100)
       } else {
         const data = await response.json()
         alert(data.error || t('profile.failedToDeleteAccount'))
@@ -517,6 +514,9 @@ export default function ProfilePageClient() {
                   <li>• {t('profile.yourCustomerNumber')} (#{customerNumber})</li>
                   <li>• {t('profile.allSavedPreferencesAndData')}</li>
                 </ul>
+                <p className="text-red-800 text-sm mt-3">
+                  {t('profile.ordersPreservedNote')}
+                </p>
               </div>
             </div>
             

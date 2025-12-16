@@ -348,21 +348,16 @@ export default function ProfilePageRefactored() {
       const response = await fetch('/api/profile/delete', {
         method: 'DELETE',
         headers: getCsrfHeaders(),
-        body: JSON.stringify(addCsrfToBody({ userId: user.id })),
+        // Body not needed (server determines user from session); CSRF is sent via header.
+        credentials: 'include',
       })
 
       if (response.ok) {
         localStorage.removeItem(LOCAL_STORAGE_KEYS.USER)
         localStorage.removeItem(LOCAL_STORAGE_KEYS.CUSTOMER_NUMBER(user.id))
         
-        // Immediately logout and redirect
+        alert('Your account has been deleted. You will be signed out now.')
         await logout()
-        router.push('/')
-        
-        // Show success message after redirect
-        setTimeout(() => {
-          alert('Your account has been successfully deleted.')
-        }, 100)
       } else {
         const data = await response.json()
         alert(data.error || 'Failed to delete account. Please try again.')
@@ -621,13 +616,16 @@ export default function ProfilePageRefactored() {
                 Are you sure you want to delete your account? This action cannot be undone.
               </p>
               <div className="bg-red-50 border border-red-200 rounded-xl p-4">
-                <p className="text-red-800 font-medium mb-2">This will permanently delete:</p>
+                <p className="text-red-800 font-medium mb-2">This will remove your personal data and disable your account:</p>
                 <ul className="text-red-700 text-sm space-y-1">
                   <li>• Your profile and personal information</li>
-                  <li>• All order history</li>
+                  <li>• Login access to this account</li>
                   <li>• Your customer number (#{customerNumber})</li>
                   <li>• All saved preferences and data</li>
                 </ul>
+                <p className="text-red-800 text-sm mt-3">
+                  Note: Orders are preserved for legal/operational reasons, but will no longer be tied to your personal details.
+                </p>
               </div>
             </div>
             

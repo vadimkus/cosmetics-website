@@ -291,21 +291,24 @@ export default function EmailTemplatePage() {
               : 'Your account is ready. You can sign in and start shopping.',
           primaryCta: { label: locale === 'ru' ? 'Войти' : locale === 'ar' ? 'تسجيل الدخول' : 'Sign in', href: `${baseUrl}/${prefix}login` },
           secondaryCta: { label: locale === 'ru' ? 'Связаться в WhatsApp' : locale === 'ar' ? 'تواصل عبر واتساب' : 'WhatsApp support', href: `https://wa.me/${WHATSAPP_NUMBER}` },
-          extraBlockHtml: password ? `
-            <div style="background: #f9fafb; padding: 18px 20px; border-radius: 12px; margin-top: 18px; border: 1px solid #e5e7eb; text-align: ${locale === 'ar' ? 'right' : 'left'};">
-              <p style="color: #6b7280; font-size: 12px; margin: 0 0 8px 0; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px;">
-                ${locale === 'ru' ? 'Данные для входа' : locale === 'ar' ? 'بيانات تسجيل الدخول' : 'Sign-in details'}
-              </p>
-              <p style="color: #6b7280; font-size: 13px; margin: 6px 0;">
-                <span style="color: #9ca3af;">${locale === 'ru' ? 'Email:' : locale === 'ar' ? 'البريد الإلكتروني:' : 'Email:'}</span>
-                <strong style="color: #111827;">${userEmail}</strong>
-              </p>
-              <p style="color: #6b7280; font-size: 13px; margin: 6px 0;">
-                <span style="color: #9ca3af;">${locale === 'ru' ? 'Пароль:' : locale === 'ar' ? 'كلمة المرور:' : 'Password:'}</span>
-                <strong style="color: #111827; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Courier New', monospace;">${password}</strong>
-              </p>
-            </div>
-          ` : undefined
+          ...(password ? {
+            // exactOptionalPropertyTypes: only include optional props when defined
+            extraBlockHtml: `
+              <div style="background: #f9fafb; padding: 18px 20px; border-radius: 12px; margin-top: 18px; border: 1px solid #e5e7eb; text-align: ${locale === 'ar' ? 'right' : 'left'};">
+                <p style="color: #6b7280; font-size: 12px; margin: 0 0 8px 0; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px;">
+                  ${locale === 'ru' ? 'Данные для входа' : locale === 'ar' ? 'بيانات تسجيل الدخول' : 'Sign-in details'}
+                </p>
+                <p style="color: #6b7280; font-size: 13px; margin: 6px 0;">
+                  <span style="color: #9ca3af;">${locale === 'ru' ? 'Email:' : locale === 'ar' ? 'البريد الإلكتروني:' : 'Email:'}</span>
+                  <strong style="color: #111827;">${userEmail}</strong>
+                </p>
+                <p style="color: #6b7280; font-size: 13px; margin: 6px 0;">
+                  <span style="color: #9ca3af;">${locale === 'ru' ? 'Пароль:' : locale === 'ar' ? 'كلمة المرور:' : 'Password:'}</span>
+                  <strong style="color: #111827; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Courier New', monospace;">${password}</strong>
+                </p>
+              </div>
+            `
+          } : {})
         })
 
       case 'discount-assigned': {

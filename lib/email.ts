@@ -30,6 +30,7 @@ export interface AdminNewOrderEmailData {
   customerPhone?: string | undefined
   total: number
   itemCount: number
+  orderNotes?: string | undefined
   items?: Array<{
     productName: string
     quantity: number
@@ -699,6 +700,14 @@ export const emailTemplates = {
                           <td style="padding: 12px 0; text-align: center; border-top: 1px solid #e5e7eb;">
                             <p style="margin: 0 0 4px 0; color: #6b7280; font-size: 12px; font-weight: 600; text-transform: uppercase;">Delivery Address</p>
                             <p style="margin: 0; color: #111827; font-size: 14px; line-height: 1.5;">${orderData.address}</p>
+                          </td>
+                        </tr>
+            ` : ''}
+            ${orderData.orderNotes ? `
+                        <tr>
+                          <td style="padding: 12px 0; text-align: center; border-top: 1px solid #e5e7eb;">
+                            <p style="margin: 0 0 4px 0; color: #6b7280; font-size: 12px; font-weight: 600; text-transform: uppercase;">Order Notes</p>
+                            <p style="margin: 0; color: #111827; font-size: 14px; line-height: 1.5; white-space: pre-wrap;">${String(orderData.orderNotes).replace(/</g, '&lt;').replace(/>/g, '&gt;')}</p>
                           </td>
                         </tr>
             ` : ''}

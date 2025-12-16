@@ -118,6 +118,7 @@ model Order {
   customerPhone   String
   customerEmirate String
   customerAddress String
+  orderNotes      String?     @db.Text
   subtotal        Float
   discountAmount  Float       @default(0)
   shipping        Float       @default(0)

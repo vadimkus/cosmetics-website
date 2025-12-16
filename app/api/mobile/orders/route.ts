@@ -121,6 +121,7 @@ export async function GET(request: NextRequest) {
         status: order.status,
         paymentMethod: order.paymentMethod,
         paymentStatus: order.paymentStatus,
+        orderNotes: (order as any).orderNotes || '',
         subtotal: order.subtotal,
         discountAmount: order.discountAmount,
         shipping: order.shipping,
@@ -186,6 +187,7 @@ export async function GET(request: NextRequest) {
       status: order.status,
       paymentMethod: order.paymentMethod,
       paymentStatus: order.paymentStatus,
+      orderNotes: (order as any).orderNotes || '',
       subtotal: order.subtotal,
       discountAmount: order.discountAmount,
       shipping: order.shipping,
@@ -375,6 +377,7 @@ export async function POST(request: NextRequest) {
     const orderNumber = await generateUniqueOrderNumber({ channel: 'M', payment })
 
     // Create order
+    const orderNotes = typeof (orderData as any)?.orderNotes === 'string' ? (orderData as any).orderNotes.trim() : ''
     const order = await prisma.order.create({
       data: {
         orderNumber,
@@ -383,6 +386,7 @@ export async function POST(request: NextRequest) {
         customerPhone: orderData.customerPhone,
         customerEmirate: orderData.customerEmirate,
         customerAddress: orderData.customerAddress,
+        orderNotes: orderNotes || null,
         subtotal,
         discountAmount,
         shipping,
@@ -434,6 +438,7 @@ export async function POST(request: NextRequest) {
       customerPhone: order.customerPhone,
       total: order.total,
       itemCount: order.items.length,
+      orderNotes: orderNotes || undefined,
       items: order.items.map(item => {
         const emailItem: {
           productName: string

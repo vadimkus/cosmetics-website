@@ -122,7 +122,7 @@ export default function AnalyticsDashboard({ onCustomerClick }: AnalyticsDashboa
   const [pdfDownloads, setPdfDownloads] = useState<PDFDownloadData | null>(null)
   const [loading, setLoading] = useState(true)
   const [refreshing, setRefreshing] = useState(false)
-  const [timeRange, setTimeRange] = useState<'all' | number>(30)
+  const [timeRange, setTimeRange] = useState<'all' | number>('all')
   const [activeSection, setActiveSection] = useState<ActiveSection>('overview')
 
   const fetchAnalytics = useCallback(async (isRefresh = false) => {

@@ -56,6 +56,7 @@ export const readOrders = async (): Promise<Order[]> => {
         customerPhone: true,
         customerEmirate: true,
         customerAddress: true,
+        orderNotes: true,
         subtotal: true,
         discountAmount: true,
         shipping: true,

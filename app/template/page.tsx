@@ -239,7 +239,9 @@ export default function EmailTemplatePage() {
       case 'order-delivered':
         return buildV2Shell({
           subject: tf('orderEmail.orderDelivered.subject', `Order Delivered #${orderNumber} > Genosys Middle East FZ-LLC`, { orderNumber }),
-          heading: tf('orderEmail.orderDelivered.subject', `Order Delivered #${orderNumber}`, { orderNumber }).split(' > ')[0],
+          // noUncheckedIndexedAccess: split()[0] can be undefined, so provide a safe fallback
+          heading: (tf('orderEmail.orderDelivered.subject', `Order Delivered #${orderNumber}`, { orderNumber }).split(' > ')[0]
+            ?? tf('orderEmail.orderDelivered.subject', `Order Delivered #${orderNumber}`, { orderNumber })),
           greetingLine: tf('orderEmail.supportLink.dear', `Dear ${userName},`, { customerName: userName }),
           bodyLine: tf('orderEmail.orderDelivered.delivered', 'Your order has been delivered.'),
           detailsRows: orderRows,

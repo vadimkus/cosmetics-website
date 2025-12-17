@@ -97,6 +97,10 @@ export async function POST(request: NextRequest) {
     }
 
     const normalizedEmail = String(googleUser.email || '').trim().toLowerCase()
+    const normalizedName =
+      String(googleUser.name || '').trim() ||
+      (normalizedEmail ? normalizedEmail.split('@')[0] : '') ||
+      'User'
     debugLog('[MOBILE_AUTH] Google user verified:', { email: normalizedEmail })
 
     // Find existing user or create new one
@@ -110,7 +114,7 @@ export async function POST(request: NextRequest) {
       
       try {
         user = await addUser({
-          name: googleUser.name,
+          name: normalizedName,
           email: normalizedEmail,
           password: null, // No password for Google-authenticated users
           profilePicture: googleUser.picture || null,

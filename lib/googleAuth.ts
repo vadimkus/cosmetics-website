@@ -39,16 +39,13 @@ if (!GOOGLE_CLIENT_ID || !GOOGLE_CLIENT_SECRET) {
  * Create and configure Google OAuth2 client
  */
 export function getGoogleOAuthClient(): OAuth2Client | null {
-  if (!GOOGLE_CLIENT_ID || !GOOGLE_CLIENT_SECRET) {
+  // NOTE: For ID token verification we do NOT need a client secret.
+  // Keep the warning for misconfigured OAuth flows, but allow token verification to work.
+  if (!GOOGLE_CLIENT_ID) {
     return null
   }
 
-  return new OAuth2Client(
-    GOOGLE_CLIENT_ID,
-    GOOGLE_CLIENT_SECRET,
-    // Redirect URI will be set dynamically based on the request
-    undefined
-  )
+  return new OAuth2Client(GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET || undefined, undefined)
 }
 
 /**
@@ -214,12 +211,10 @@ export async function verifyGoogleIdToken(idToken: string, accessToken?: string)
       errorLog('Google OAuth audiences not configured (set GOOGLE_CLIENT_ID or GOOGLE_ALLOWED_AUDIENCES)')
       return null
     }
-    
-    const ticket = await client.verifyIdToken({
-      idToken,
-      // google-auth-library supports passing a string or array of strings for audience.
-      audience: GOOGLE_ALLOWED_AUDIENCES.length === 1 ? GOOGLE_ALLOWED_AUDIENCES[0] : GOOGLE_ALLOWED_AUDIENCES,
-    })
+
+    // Verify signature/exp using Google's certs, then validate audience ourselves.
+    // This avoids brittle audience handling differences across library versions.
+    const ticket = await client.verifyIdToken({ idToken })
 
     const payload = ticket.getPayload()
     if (!payload) {
@@ -227,12 +222,26 @@ export async function verifyGoogleIdToken(idToken: string, accessToken?: string)
       return null
     }
 
+    // Audience check
+    const aud = String((payload as any)?.aud || '')
+    if (!aud || !GOOGLE_ALLOWED_AUDIENCES.includes(aud)) {
+      errorLog('Google ID token audience mismatch', {
+        aud,
+        allowed: GOOGLE_ALLOWED_AUDIENCES,
+      })
+      return null
+    }
+
     const email = payload.email
-    const name = payload.name
+    const name =
+      payload.name ||
+      [payload.given_name, payload.family_name].filter(Boolean).join(' ').trim() ||
+      (email ? String(email).split('@')[0] : '') ||
+      'User'
     let picture = payload.picture
     const sub = payload.sub
 
-    if (!email || !name || !sub) {
+    if (!email || !sub) {
       errorLog('Missing required fields in Google ID token payload')
       return null
     }
@@ -244,7 +253,7 @@ export async function verifyGoogleIdToken(idToken: string, accessToken?: string)
       hasPicture: !!picture,
       pictureLength: picture?.length || 0,
       // Helpful when diagnosing mismatched client IDs in production.
-      aud: (payload as any)?.aud,
+      aud,
     })
 
     // If no picture in ID token, try fetching from userinfo API

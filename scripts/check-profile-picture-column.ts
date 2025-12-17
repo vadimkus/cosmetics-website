@@ -76,3 +76,4 @@ checkProfilePictureColumn()
     process.exit(1)
   })
 
+

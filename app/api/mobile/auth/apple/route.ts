@@ -39,7 +39,9 @@ export async function POST(request: NextRequest) {
     const identityToken = String(body?.identityToken || '')
     const fullName = String(body?.fullName || '').trim()
 
-    const appleAudience = process.env.APPLE_CLIENT_ID || process.env.APPLE_BUNDLE_ID || 'com.genosys.mobile'
+    // IMPORTANT: audience must match the iOS bundle id used in the native app (TestFlight/production).
+    // Fallback to the new bundle id to avoid "setup not completed" / token verification issues when env is missing.
+    const appleAudience = process.env.APPLE_CLIENT_ID || process.env.APPLE_BUNDLE_ID || 'ae.genosys.app'
     const { claims } = await verifyAppleIdentityToken(identityToken, { audience: appleAudience })
 
     const email = String(claims.email || '').trim().toLowerCase()

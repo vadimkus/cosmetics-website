@@ -96,3 +96,4 @@ fixProductNames()
     process.exit(1)
   })
 
+

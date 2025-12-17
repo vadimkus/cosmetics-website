@@ -8,6 +8,27 @@ import { errorLog, debugLog } from '@/lib/logger'
 
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID
 const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET
+// Allow multiple audiences for ID token verification (e.g., web + iOS + Android client IDs).
+// Comma-separated list is supported.
+const GOOGLE_ALLOWED_AUDIENCES_RAW =
+  process.env.GOOGLE_ALLOWED_AUDIENCES ||
+  [
+    process.env.GOOGLE_CLIENT_ID,
+    process.env.GOOGLE_WEB_CLIENT_ID,
+    process.env.GOOGLE_IOS_CLIENT_ID,
+    process.env.GOOGLE_ANDROID_CLIENT_ID,
+  ]
+    .filter(Boolean)
+    .join(',')
+
+const GOOGLE_ALLOWED_AUDIENCES = Array.from(
+  new Set(
+    String(GOOGLE_ALLOWED_AUDIENCES_RAW || '')
+      .split(',')
+      .map((s) => s.trim())
+      .filter(Boolean)
+  )
+)
 
 if (!GOOGLE_CLIENT_ID || !GOOGLE_CLIENT_SECRET) {
   errorLog('⚠️  WARNING: Google OAuth credentials not configured. Google Sign-In will not work.')
@@ -189,14 +210,15 @@ export async function verifyGoogleIdToken(idToken: string, accessToken?: string)
   }
 
   try {
-    if (!GOOGLE_CLIENT_ID) {
-      errorLog('GOOGLE_CLIENT_ID not configured')
+    if (!GOOGLE_ALLOWED_AUDIENCES.length) {
+      errorLog('Google OAuth audiences not configured (set GOOGLE_CLIENT_ID or GOOGLE_ALLOWED_AUDIENCES)')
       return null
     }
     
     const ticket = await client.verifyIdToken({
       idToken,
-      audience: GOOGLE_CLIENT_ID,
+      // google-auth-library supports passing a string or array of strings for audience.
+      audience: GOOGLE_ALLOWED_AUDIENCES.length === 1 ? GOOGLE_ALLOWED_AUDIENCES[0] : GOOGLE_ALLOWED_AUDIENCES,
     })
 
     const payload = ticket.getPayload()
@@ -220,7 +242,9 @@ export async function verifyGoogleIdToken(idToken: string, accessToken?: string)
       name, 
       picture,
       hasPicture: !!picture,
-      pictureLength: picture?.length || 0
+      pictureLength: picture?.length || 0,
+      // Helpful when diagnosing mismatched client IDs in production.
+      aud: (payload as any)?.aud,
     })
 
     // If no picture in ID token, try fetching from userinfo API

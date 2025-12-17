@@ -20,6 +20,7 @@ model User {
   gender             String?
   billingAddress     String?   @db.Text
   vatNumber          String?   @db.Text
+  expoPushToken      String?   @db.Text
   isAdmin            Boolean   @default(false)
   canSeePrices       Boolean   @default(true)
   discountType       String?

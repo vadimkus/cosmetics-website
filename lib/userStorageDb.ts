@@ -14,6 +14,7 @@ export interface UserData {
   gender?: string | null
   billingAddress?: string | null
   vatNumber?: string | null
+  expoPushToken?: string | null
   isAdmin?: boolean
   canSeePrices?: boolean
   discountType?: string | null
@@ -29,6 +30,8 @@ const normalizeEmail = (email: string): string => String(email || '').trim().toL
 export const getAllUsers = async (limit: number = 100, offset: number = 0) => {
   try {
     return await prisma.user.findMany({
+      // NOTE: Prisma client types in CI/Vercel may lag schema changes until prisma generate runs.
+      // Cast to any to avoid build-time type failures when new optional columns are introduced.
       select: {
         id: true,
         email: true,
@@ -39,6 +42,7 @@ export const getAllUsers = async (limit: number = 100, offset: number = 0) => {
         gender: true,
         billingAddress: true,
         vatNumber: true,
+        expoPushToken: true,
         isAdmin: true,
         canSeePrices: true,
         discountType: true,
@@ -47,7 +51,7 @@ export const getAllUsers = async (limit: number = 100, offset: number = 0) => {
         lastLoginAt: true,
         createdAt: true,
         updatedAt: true
-      },
+      } as any,
       orderBy: { createdAt: 'desc' },
       take: limit,
       skip: offset
@@ -76,6 +80,7 @@ export const addUser = async (userData: UserData): Promise<User> => {
       gender: userData.gender || null,
       billingAddress: userData.billingAddress || null,
       vatNumber: userData.vatNumber || null,
+      expoPushToken: userData.expoPushToken || null,
     }
     
     const createData = {
@@ -228,6 +233,9 @@ export const updateUser = async (userId: string, updates: Partial<UserData>): Pr
     if (updates.vatNumber !== undefined) {
       ;(updateData as any).vatNumber = updates.vatNumber === '' ? null : updates.vatNumber
     }
+    if (updates.expoPushToken !== undefined) {
+      ;(updateData as any).expoPushToken = updates.expoPushToken === '' ? null : updates.expoPushToken
+    }
     if (updates.gender !== undefined) {
       updateData.gender = updates.gender === '' ? null : updates.gender
     }
@@ -311,13 +319,14 @@ export const anonymizeUser = async (userId: string): Promise<boolean> => {
         gender: null,
         billingAddress: null,
         vatNumber: null,
+        expoPushToken: null,
         birthday: null,
         discountType: null,
         discountPercentage: null,
         lastLoginAt: null,
         isAdmin: false,
         canSeePrices: true,
-      }
+      } as any
     })
     return true
   } catch (error) {

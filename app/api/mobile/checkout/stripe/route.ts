@@ -5,6 +5,7 @@ import Stripe from 'stripe'
 import { validateMobileAuth, extractTokenFromHeader } from '@/lib/jwt'
 import { findUserByEmail } from '@/lib/userStorageDb'
 import { generateUniqueOrderNumber } from '@/lib/orderNumber'
+import { calculateMobileShipping, calculateVatIncluded } from '@/lib/mobileCheckoutConfig'
 
 /**
  * MOBILE STRIPE CHECKOUT ENDPOINT
@@ -21,20 +22,8 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: '2025-09-30.clover'
 })
 
-// Shipping costs per emirate (AED)
-const SHIPPING_COSTS: Record<string, number> = {
-  'Dubai': 0,
-  'Abu Dhabi': 25,
-  'Sharjah': 25,
-  'Ajman': 25,
-  'Umm Al Quwain': 25,
-  'Ras Al Khaimah': 25,
-  'Fujairah': 25,
-  'Other': 25
-}
-
-const UAE_VAT_RATE = 0.05 // 5% VAT
-const FREE_SHIPPING_THRESHOLD_AED = 1000
+// NOTE: Shipping/VAT logic MUST match the mobile UI + /api/mobile/shipping-rates.
+// We treat VAT as INCLUDED in subtotal/shipping/total for mobile.
 
 interface CheckoutItem {
   id: string
@@ -212,10 +201,10 @@ export async function POST(request: NextRequest) {
       // Recompute totals server-side from stored order items.
       // NOTE: Order item prices are already server-authoritative at time of order creation.
       const serverSubtotal = existing.items.reduce((sum, it) => sum + (Number(it.price) || 0) * (Number(it.quantity) || 0), 0)
-      const emirateFromOrder = String(existing.customerEmirate || emirate || 'Other')
-      const serverShipping = serverSubtotal >= FREE_SHIPPING_THRESHOLD_AED ? 0 : (SHIPPING_COSTS[emirateFromOrder] || SHIPPING_COSTS['Other'] || 25)
-      const serverVatAmount = (serverSubtotal + serverShipping) * UAE_VAT_RATE
-      const serverTotal = serverSubtotal + serverShipping + serverVatAmount
+      const emirateFromOrder = String(existing.customerEmirate || emirate || 'Dubai')
+      const serverShipping = calculateMobileShipping(serverSubtotal, emirateFromOrder)
+      const serverTotal = serverSubtotal + serverShipping
+      const serverVatAmount = calculateVatIncluded(serverTotal)
 
       const lineItems: Stripe.Checkout.SessionCreateParams.LineItem[] = existing.items.map((it: any) => ({
         price_data: {
@@ -247,18 +236,6 @@ export async function POST(request: NextRequest) {
           quantity: 1,
         })
       }
-
-      lineItems.push({
-        price_data: {
-          currency: 'aed',
-          unit_amount: Math.round(serverVatAmount * 100),
-          product_data: {
-            name: 'UAE VAT (5%)',
-            description: 'Value Added Tax',
-          },
-        },
-        quantity: 1,
-      })
 
       const successUrl = `${process.env.NEXT_PUBLIC_BASE_URL || 'https://genosys.ae'}/pay/success?orderNumber=${existing.orderNumber}`
       const cancelUrl = `${process.env.NEXT_PUBLIC_BASE_URL || 'https://genosys.ae'}/pay/cancel?orderNumber=${existing.orderNumber}`
@@ -317,6 +294,27 @@ export async function POST(request: NextRequest) {
       )
     }
 
+    // Require authenticated user for accurate discounts/pricing, and ensure it matches the customer email.
+    const authHeader = request.headers.get('Authorization')
+    const token = extractTokenFromHeader(authHeader)
+    const authValidation = validateMobileAuth(apiKey, token)
+    if (!authValidation.valid) {
+      return NextResponse.json(
+        { success: false, error: authValidation.error },
+        { status: authValidation.status || 500 }
+      )
+    }
+    if (!authValidation.payload) {
+      return NextResponse.json({ success: false, error: 'Authentication token required' }, { status: 401 })
+    }
+    const user = await findUserByEmail(authValidation.payload.email)
+    if (!user) {
+      return NextResponse.json({ success: false, error: 'User not found' }, { status: 404 })
+    }
+    if (String(user.email || '').trim().toLowerCase() !== String(customer.email || '').trim().toLowerCase()) {
+      return NextResponse.json({ success: false, error: 'Customer email does not match authenticated user' }, { status: 403 })
+    }
+
     debugLog('[MOBILE_STRIPE] Processing checkout:', {
       orderNumber,
       customerEmail: customer.email,
@@ -324,8 +322,9 @@ export async function POST(request: NextRequest) {
       emirate
     })
 
-    // SERVER-SIDE CALCULATION: Recompute totals (authoritative)
+    // SERVER-SIDE CALCULATION: Recompute totals (authoritative, MUST match mobile UI)
     let serverSubtotal = 0
+    let discountAmount = 0
     const validatedItems: CheckoutItem[] = []
 
     for (const item of items) {
@@ -348,36 +347,54 @@ export async function POST(request: NextRequest) {
         )
       }
 
-      // Use server-side price (authoritative)
-      const itemPrice = product.price
-      const itemSubtotal = itemPrice * item.quantity
+      // Variant price support (size/color). Use product price if no matching variant.
+      const wantedSize = item.size ? String(item.size).trim() : null
+      const wantedColor = item.color ? String(item.color).trim() : null
+      const variant = (wantedSize || wantedColor)
+        ? await prisma.productVariant.findFirst({
+            where: {
+              productId: product.id,
+              ...(wantedSize ? { size: wantedSize } : {}),
+              ...(wantedColor ? { color: wantedColor } : {}),
+              available: true,
+            },
+          })
+        : null
+
+      const baseUnit = Number(variant?.price ?? product.price)
+      const qty = Number(item.quantity) || 0
+
+      // Apply user discount unless product is excluded
+      const pct = Number(user.discountPercentage)
+      const hasUserDiscount = Number.isFinite(pct) && pct > 0 && pct < 100
+      const excluded = product.noDiscount === true
+      const discountedUnit = (!excluded && hasUserDiscount) ? (baseUnit * (1 - pct / 100)) : baseUnit
+      const unitPrice = Number(discountedUnit)
+      const itemSubtotal = unitPrice * qty
       serverSubtotal += itemSubtotal
+
+      if (!excluded && hasUserDiscount) {
+        discountAmount += (baseUnit - unitPrice) * qty
+      }
 
       validatedItems.push({
         id: product.id,
         name: product.name,
-        price: itemPrice,
-        quantity: item.quantity,
+        price: unitPrice,
+        quantity: qty,
         image: item.image || product.image,
         size: item.size,
         color: item.color
       })
     }
 
-    // Calculate shipping (server-authoritative) with free-shipping threshold
-    const serverShipping: number =
-      serverSubtotal >= FREE_SHIPPING_THRESHOLD_AED
-        ? 0
-        : (SHIPPING_COSTS[emirate] || SHIPPING_COSTS['Other'] || 25)
-
-    // Calculate VAT (5% on subtotal + shipping)
-    const serverVatAmount: number = (serverSubtotal + serverShipping) * UAE_VAT_RATE
-
-    // Calculate total
-    const serverTotal: number = serverSubtotal + serverShipping + serverVatAmount
+    const serverShipping: number = calculateMobileShipping(serverSubtotal, emirate)
+    const serverTotal: number = serverSubtotal + serverShipping
+    const serverVatAmount: number = calculateVatIncluded(serverTotal)
 
     debugLog('[MOBILE_STRIPE] Server-calculated totals:', {
       subtotal: serverSubtotal,
+      discountAmount,
       shipping: serverShipping,
       vat: serverVatAmount,
       total: serverTotal
@@ -401,6 +418,7 @@ export async function POST(request: NextRequest) {
           customerEmirate: emirate,
           orderNotes: orderNotes ? String(orderNotes).trim() : null,
           subtotal: serverSubtotal,
+          discountAmount: discountAmount,
           shipping: serverShipping,
           vat: serverVatAmount,
           total: serverTotal,
@@ -427,6 +445,7 @@ export async function POST(request: NextRequest) {
           customerEmirate: emirate,
           orderNotes: orderNotes ? String(orderNotes).trim() : null,
           subtotal: serverSubtotal,
+          discountAmount: discountAmount,
           shipping: serverShipping,
           vat: serverVatAmount,
           total: serverTotal,
@@ -488,19 +507,6 @@ export async function POST(request: NextRequest) {
         quantity: 1
       })
     }
-
-    // Add VAT as line item
-    lineItems.push({
-      price_data: {
-        currency: 'aed',
-        unit_amount: Math.round(serverVatAmount * 100), // Convert to fils
-        product_data: {
-          name: 'UAE VAT (5%)',
-          description: 'Value Added Tax'
-        }
-      },
-      quantity: 1
-    })
 
     // Create Stripe Checkout Session
     const successUrl = `${process.env.NEXT_PUBLIC_BASE_URL || 'https://genosys.ae'}/pay/success?orderNumber=${orderNumber}`

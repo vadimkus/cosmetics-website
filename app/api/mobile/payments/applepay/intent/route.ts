@@ -3,6 +3,9 @@ import { prisma } from '@/lib/prisma'
 import { errorLog, debugLog } from '@/lib/logger'
 import Stripe from 'stripe'
 import { generateUniqueOrderNumber } from '@/lib/orderNumber'
+import { validateMobileAuth, extractTokenFromHeader } from '@/lib/jwt'
+import { findUserByEmail } from '@/lib/userStorageDb'
+import { calculateMobileShipping, calculateVatIncluded } from '@/lib/mobileCheckoutConfig'
 
 /**
  * MOBILE APPLE PAY (STRIPE PAYMENT INTENT) ENDPOINT
@@ -18,20 +21,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: '2025-09-30.clover',
 })
 
-// Shipping costs per emirate (AED)
-const SHIPPING_COSTS: Record<string, number> = {
-  Dubai: 0,
-  'Abu Dhabi': 25,
-  Sharjah: 25,
-  Ajman: 25,
-  'Umm Al Quwain': 25,
-  'Ras Al Khaimah': 25,
-  Fujairah: 25,
-  Other: 25,
-}
-
-const UAE_VAT_RATE = 0.05 // 5% VAT
-const FREE_SHIPPING_THRESHOLD_AED = 1000
+// NOTE: Shipping/VAT config must match `/api/mobile/shipping-rates` and the mobile UI.
 
 interface CheckoutItem {
   id: string
@@ -98,6 +88,27 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: false, error: 'Missing required fields' }, { status: 400 })
     }
 
+    // Require user token (discounts + user-specific pricing) and ensure it matches the customer email.
+    const authHeader = request.headers.get('Authorization')
+    const token = extractTokenFromHeader(authHeader)
+    const authValidation = validateMobileAuth(apiKey, token)
+    if (!authValidation.valid) {
+      return NextResponse.json(
+        { success: false, error: authValidation.error },
+        { status: authValidation.status || 500 }
+      )
+    }
+    if (!authValidation.payload) {
+      return NextResponse.json({ success: false, error: 'Authentication token required' }, { status: 401 })
+    }
+    const user = await findUserByEmail(authValidation.payload.email)
+    if (!user) {
+      return NextResponse.json({ success: false, error: 'User not found' }, { status: 404 })
+    }
+    if (String(user.email || '').trim().toLowerCase() !== String(customer.email || '').trim().toLowerCase()) {
+      return NextResponse.json({ success: false, error: 'Customer email does not match authenticated user' }, { status: 403 })
+    }
+
     debugLog('[MOBILE_APPLEPAY] Processing intent:', {
       orderNumber,
       customerEmail: customer.email,
@@ -105,8 +116,9 @@ export async function POST(request: NextRequest) {
       emirate,
     })
 
-    // SERVER-SIDE CALCULATION: Recompute totals (authoritative, matching /mobile/checkout/stripe)
+    // SERVER-SIDE CALCULATION: Recompute totals (authoritative, MUST match mobile UI)
     let serverSubtotal = 0
+    let discountAmount = 0
     const validatedItems: CheckoutItem[] = []
 
     for (const item of items) {
@@ -125,25 +137,50 @@ export async function POST(request: NextRequest) {
         )
       }
 
-      const itemPrice = product.price
-      const itemSubtotal = itemPrice * item.quantity
+      // Variant price support (size/color). Use product price if no matching variant.
+      const wantedSize = item.size ? String(item.size).trim() : null
+      const wantedColor = item.color ? String(item.color).trim() : null
+      const variant = (wantedSize || wantedColor)
+        ? await prisma.productVariant.findFirst({
+            where: {
+              productId: product.id,
+              ...(wantedSize ? { size: wantedSize } : {}),
+              ...(wantedColor ? { color: wantedColor } : {}),
+              available: true,
+            },
+          })
+        : null
+
+      const baseUnit = Number(variant?.price ?? product.price)
+      const qty = Number(item.quantity) || 0
+
+      // Apply user discount unless product is excluded
+      const pct = Number(user.discountPercentage)
+      const hasUserDiscount = Number.isFinite(pct) && pct > 0 && pct < 100
+      const excluded = product.noDiscount === true
+      const discountedUnit = (!excluded && hasUserDiscount) ? (baseUnit * (1 - pct / 100)) : baseUnit
+      const unitPrice = Number(discountedUnit)
+      const itemSubtotal = unitPrice * qty
       serverSubtotal += itemSubtotal
+
+      if (!excluded && hasUserDiscount) {
+        discountAmount += (baseUnit - unitPrice) * qty
+      }
 
       validatedItems.push({
         id: product.id,
         name: product.name,
-        price: itemPrice,
-        quantity: item.quantity,
+        price: unitPrice,
+        quantity: qty,
         image: item.image || product.image,
         size: item.size,
         color: item.color,
       })
     }
 
-    const serverShipping: number =
-      serverSubtotal >= FREE_SHIPPING_THRESHOLD_AED ? 0 : (SHIPPING_COSTS[emirate] || SHIPPING_COSTS.Other || 25)
-    const serverVatAmount: number = (serverSubtotal + serverShipping) * UAE_VAT_RATE
-    const serverTotal: number = serverSubtotal + serverShipping + serverVatAmount
+    const serverShipping: number = calculateMobileShipping(serverSubtotal, emirate)
+    const serverTotal: number = serverSubtotal + serverShipping
+    const serverVatAmount: number = calculateVatIncluded(serverTotal)
 
     // Create or update order in database (PENDING status)
     const existingOrder = await prisma.order.findFirst({ where: { orderNumber } })
@@ -160,6 +197,7 @@ export async function POST(request: NextRequest) {
           customerEmirate: emirate,
           orderNotes: orderNotes ? String(orderNotes).trim() : null,
           subtotal: serverSubtotal,
+          discountAmount: discountAmount,
           shipping: serverShipping,
           vat: serverVatAmount,
           total: serverTotal,
@@ -183,6 +221,7 @@ export async function POST(request: NextRequest) {
           customerEmirate: emirate,
           orderNotes: orderNotes ? String(orderNotes).trim() : null,
           subtotal: serverSubtotal,
+          discountAmount: discountAmount,
           shipping: serverShipping,
           vat: serverVatAmount,
           total: serverTotal,
@@ -282,6 +321,7 @@ export async function POST(request: NextRequest) {
         processingTime: `${duration}ms`,
         validatedTotals: {
           subtotal: serverSubtotal,
+          discountAmount,
           shipping: serverShipping,
           vat: serverVatAmount,
           total: serverTotal,

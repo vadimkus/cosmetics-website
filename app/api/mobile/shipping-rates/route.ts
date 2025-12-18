@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { errorLog, debugLog } from '@/lib/logger'
+import { MOBILE_CHECKOUT_CONFIG } from '@/lib/mobileCheckoutConfig'
 
 /**
  * Mobile API Endpoint for Shipping Rates
@@ -42,22 +43,8 @@ export async function GET(request: NextRequest) {
     
     debugLog('[MOBILE_API_SHIPPING] Authenticated request - returning shipping rates')
 
-    // Shipping rates configuration - matches website rates
-    const shippingData = {
-      currency: 'AED',
-      vatRate: 0.05,
-      freeShippingThreshold: 1000,
-      emirates: [
-        { name: 'Dubai', shippingCost: 45 },
-        { name: 'Abu Dhabi', shippingCost: 70 },
-        { name: 'Sharjah', shippingCost: 70 },
-        { name: 'Ajman', shippingCost: 70 },
-        { name: 'Ras Al Khaimah', shippingCost: 70 },
-        { name: 'Fujairah', shippingCost: 70 },
-        { name: 'Umm Al Quwain', shippingCost: 70 }
-      ],
-      lastUpdated: '2025-12-13T00:00:00.000Z'
-    }
+    // Shipping rates configuration - shared with checkout endpoints
+    const shippingData = MOBILE_CHECKOUT_CONFIG
     
     const totalDuration = Date.now() - startTime
     debugLog(`[MOBILE_API_SHIPPING] SUCCESS: Returned shipping rates in ${totalDuration}ms`)

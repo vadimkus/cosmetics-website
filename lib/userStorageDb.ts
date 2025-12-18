@@ -7,6 +7,7 @@ export interface UserData {
   name: string
   email: string
   appleSub?: string | null
+  contactEmail?: string | null
   password?: string | null
   phone?: string | null
   address?: string | null
@@ -220,6 +221,9 @@ export const updateUser = async (userId: string, updates: Partial<UserData>): Pr
     if (updates.email !== undefined) updateData.email = updates.email
     if (updates.appleSub !== undefined) {
       updateData.appleSub = updates.appleSub === '' ? null : updates.appleSub
+    }
+    if (updates.contactEmail !== undefined) {
+      updateData.contactEmail = updates.contactEmail === '' ? null : updates.contactEmail
     }
     if (updates.phone !== undefined) {
       updateData.phone = updates.phone === '' ? null : updates.phone

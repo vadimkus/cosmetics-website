@@ -129,13 +129,17 @@ export async function POST(request: NextRequest) {
             const okExpiry = !promoRow.expiresAt || promoRow.expiresAt > now
             const okUses = promoRow.maxUses == null || promoRow.usedCount < promoRow.maxUses
             if (okExpiry && okUses) {
+              const maxUsesGuard =
+                promoRow.maxUses == null
+                  ? []
+                  : [{ usedCount: { lt: promoRow.maxUses } }]
               const updated = await tx.promoCode.updateMany({
                 where: {
                   id: promoRow.id,
                   isActive: true,
                   AND: [
                     { OR: [{ expiresAt: null }, { expiresAt: { gt: now } }] },
-                    { OR: [{ maxUses: null }, { usedCount: { lt: promoRow.maxUses ?? Number.MAX_SAFE_INTEGER } }] },
+                    ...maxUsesGuard,
                   ],
                 },
                 data: { usedCount: { increment: 1 } },

@@ -192,18 +192,22 @@ async function handleAppleCallback(request: NextRequest, params: {
             let discountType: string | null = null
             let discountPercentage: number | null = null
 
-            const promo = await tx.promoCode.findUnique({ where: { code: promoFromCookie } })
+            const promo = await (tx as any).promoCode.findUnique({ where: { code: promoFromCookie } })
             if (promo?.isActive) {
               const okExpiry = !promo.expiresAt || promo.expiresAt > now
               const okUses = promo.maxUses == null || promo.usedCount < promo.maxUses
               if (okExpiry && okUses) {
-                const updated = await tx.promoCode.updateMany({
+                const maxUsesGuard =
+                  promo.maxUses == null
+                    ? []
+                    : [{ usedCount: { lt: promo.maxUses } }]
+                const updated = await (tx as any).promoCode.updateMany({
                   where: {
                     id: promo.id,
                     isActive: true,
                     AND: [
                       { OR: [{ expiresAt: null }, { expiresAt: { gt: now } }] },
-                      { OR: [{ maxUses: null }, { usedCount: { lt: promo.maxUses ?? Number.MAX_SAFE_INTEGER } }] },
+                      ...maxUsesGuard,
                     ],
                   },
                   data: { usedCount: { increment: 1 } },
@@ -281,18 +285,22 @@ async function handleAppleCallback(request: NextRequest, params: {
         const hasNoDiscount = !(user as any)?.discountPercentage && !(user as any)?.discountType
         if (promoFromCookie && hasNoDiscount && Number.isFinite(ageMs) && ageMs >= 0 && ageMs <= 10 * 60 * 1000) {
           await prisma.$transaction(async (tx) => {
-            const promo = await tx.promoCode.findUnique({ where: { code: promoFromCookie } })
+            const promo = await (tx as any).promoCode.findUnique({ where: { code: promoFromCookie } })
             if (!promo?.isActive) return
             const okExpiry = !promo.expiresAt || promo.expiresAt > now
             const okUses = promo.maxUses == null || promo.usedCount < promo.maxUses
             if (!okExpiry || !okUses) return
-            const updated = await tx.promoCode.updateMany({
+            const maxUsesGuard =
+              promo.maxUses == null
+                ? []
+                : [{ usedCount: { lt: promo.maxUses } }]
+            const updated = await (tx as any).promoCode.updateMany({
               where: {
                 id: promo.id,
                 isActive: true,
                 AND: [
                   { OR: [{ expiresAt: null }, { expiresAt: { gt: now } }] },
-                  { OR: [{ maxUses: null }, { usedCount: { lt: promo.maxUses ?? Number.MAX_SAFE_INTEGER } }] },
+                  ...maxUsesGuard,
                 ],
               },
               data: { usedCount: { increment: 1 } },

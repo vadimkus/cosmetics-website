@@ -69,10 +69,16 @@ export default function AdminUsersManager({
     }
   }, [getAdminHeaders, onRefreshUsers])
 
-  const filteredUsers = users.filter(user =>
-    user.name.toLowerCase().includes(userSearch.toLowerCase()) ||
-    user.email.toLowerCase().includes(userSearch.toLowerCase())
-  )
+  const filteredUsers = users.filter(user => {
+    // Filter out deleted users
+    if (user.name === 'Deleted User' || user.email.includes('deleted+')) {
+      return false
+    }
+    
+    // Apply search filter
+    return user.name.toLowerCase().includes(userSearch.toLowerCase()) ||
+      user.email.toLowerCase().includes(userSearch.toLowerCase())
+  })
 
   return (
     <div className="space-y-6">
@@ -86,6 +92,16 @@ export default function AdminUsersManager({
             <div>
               <h2 className="text-xl font-bold text-gray-900">Users</h2>
               <p className="text-sm text-gray-500">Manage registered users</p>
+              <div className="flex items-center gap-3 mt-2 text-xs">
+                <div className="flex items-center gap-1">
+                  <div className="w-4 h-4 bg-green-50 border border-green-200 rounded"></div>
+                  <span className="text-gray-600">Has orders</span>
+                </div>
+                <div className="flex items-center gap-1">
+                  <div className="w-4 h-4 bg-white border border-gray-200 rounded"></div>
+                  <span className="text-gray-600">No orders</span>
+                </div>
+              </div>
             </div>
           </div>
           <div className="flex flex-col sm:flex-row gap-3">
@@ -138,8 +154,15 @@ export default function AdminUsersManager({
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
-                    {filteredUsers.map((user) => (
-                      <tr key={user.id} className="hover:bg-gray-50">
+                    {filteredUsers.map((user) => {
+                      // Determine if user has orders
+                      const hasOrders = (user.orderCount || 0) > 0
+                      
+                      return (
+                        <tr 
+                          key={user.id} 
+                          className={`hover:bg-gray-50 ${hasOrders ? 'bg-green-50' : ''}`}
+                        >
                         <td className="px-2 sm:px-3 md:px-6 py-4 whitespace-nowrap">
                           <div className="flex items-center">
                             <div className="flex-shrink-0 h-10 w-10">
@@ -210,7 +233,8 @@ export default function AdminUsersManager({
                           </div>
                         </td>
                       </tr>
-                    ))}
+                      )
+                    })}
                   </tbody>
                 </table>
               </div>

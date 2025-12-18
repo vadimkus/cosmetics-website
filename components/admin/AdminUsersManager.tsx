@@ -43,6 +43,14 @@ export default function AdminUsersManager({
 }: AdminUsersManagerProps) {
   const [deletingUser, setDeletingUser] = useState<string | null>(null)
 
+  // Format currency in AED
+  const formatCurrency = (amount: number) => {
+    return new Intl.NumberFormat('en-AE', {
+      style: 'currency',
+      currency: 'AED'
+    }).format(amount)
+  }
+
   const handleDeleteUser = useCallback(async (userId: string, userEmail: string) => {
     if (!confirm(`Are you sure you want to delete user ${userEmail}? This action cannot be undone.`)) {
       return
@@ -190,7 +198,7 @@ export default function AdminUsersManager({
                           <div>
                             <div>{user.orderCount || 0} orders</div>
                             <div className="text-xs text-gray-400">
-                              ${(user.totalSpent || 0).toFixed(2)} total
+                              {formatCurrency(user.totalSpent || 0)} total
                             </div>
                           </div>
                         </td>

@@ -29,7 +29,10 @@ export default function AdminProductsManager({
   )
 
   const formatPrice = (price: number) => {
-    return `$${price.toFixed(2)}`
+    return new Intl.NumberFormat('en-AE', {
+      style: 'currency',
+      currency: 'AED'
+    }).format(price)
   }
 
   const getStockStatus = (product: Product) => {

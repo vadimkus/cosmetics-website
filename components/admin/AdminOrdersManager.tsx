@@ -39,6 +39,14 @@ export default function AdminOrdersManager({
 }: AdminOrdersManagerProps) {
   const [updatingStatus, setUpdatingStatus] = useState<string | null>(null)
 
+  // Format currency in AED
+  const formatCurrency = (amount: number) => {
+    return new Intl.NumberFormat('en-AE', {
+      style: 'currency',
+      currency: 'AED'
+    }).format(amount)
+  }
+
   const getDisplayOrderNumber = (order: OrderWithItems) => {
     const n = String((order as any)?.orderNumber || '').trim()
     if (n) return n
@@ -190,7 +198,7 @@ export default function AdminOrdersManager({
                           <StatusBadge status={order.status} />
                         </td>
                         <td className="px-2 sm:px-3 md:px-6 py-4 whitespace-nowrap text-sm text-gray-900 hidden md:table-cell">
-                          ${order.total.toFixed(2)}
+                          {formatCurrency(order.total)}
                         </td>
                         <td className="px-2 sm:px-3 md:px-6 py-4 whitespace-nowrap text-sm font-medium">
                           <div className="flex items-center space-x-2">

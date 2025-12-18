@@ -72,6 +72,7 @@ export async function GET(request: NextRequest) {
       data: {
         id: userProfile.id,
         email: userProfile.email,
+        contactEmail: (userProfile as any).contactEmail ?? null,
         name: userProfile.name,
         phone: userProfile.phone,
         address: userProfile.address,
@@ -151,7 +152,7 @@ export async function PUT(request: NextRequest) {
     const updates = await request.json()
     
     // Validate and sanitize updates
-    const allowedFields = ['name', 'phone', 'address', 'birthday', 'profilePicture', 'gender']
+    const allowedFields = ['name', 'phone', 'address', 'birthday', 'profilePicture', 'gender', 'contactEmail']
     const sanitizedUpdates: any = {}
     
     for (const field of allowedFields) {
@@ -250,6 +251,45 @@ export async function PUT(request: NextRequest) {
       }
     }
 
+    // Validate contactEmail if provided
+    if (sanitizedUpdates.contactEmail !== undefined) {
+      const raw = sanitizedUpdates.contactEmail
+      if (raw === null || raw === '') {
+        sanitizedUpdates.contactEmail = null
+      } else if (typeof raw !== 'string') {
+        return NextResponse.json(
+          {
+            success: false,
+            error: 'Contact email must be a string'
+          },
+          { status: 400 }
+        )
+      } else {
+        const v = raw.trim()
+        if (v.length === 0) {
+          sanitizedUpdates.contactEmail = null
+        } else if (v.length < 3 || v.length > 255) {
+          return NextResponse.json(
+            {
+              success: false,
+              error: 'Contact email must be between 3 and 255 characters'
+            },
+            { status: 400 }
+          )
+        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) {
+          return NextResponse.json(
+            {
+              success: false,
+              error: 'Contact email must be a valid email address'
+            },
+            { status: 400 }
+          )
+        } else {
+          sanitizedUpdates.contactEmail = v
+        }
+      }
+    }
+
     // Check if there are any updates to apply
     if (Object.keys(sanitizedUpdates).length === 0) {
       return NextResponse.json(
@@ -297,6 +337,7 @@ export async function PUT(request: NextRequest) {
       data: {
         id: userProfile.id,
         email: userProfile.email,
+        contactEmail: (userProfile as any).contactEmail ?? null,
         name: userProfile.name,
         phone: userProfile.phone,
         address: userProfile.address,

@@ -7,6 +7,9 @@ import { enhanceOrderItemWithDefaultSize } from '@/lib/orderSizeDefaults'
 import { debugLog, errorLog } from '@/lib/logger'
 import { Product } from '@/types/index'
 import { generateUniqueOrderNumber } from '@/lib/orderNumber'
+import { getPreferredEmail } from '@/lib/emailHelpers'
+import { findUserByEmail } from '@/lib/userStorageDb'
+import { calculateMobileShipping, calculateVatIncluded } from '@/lib/mobileCheckoutConfig'
 
 interface CheckoutItem {
   product: Product
@@ -62,29 +65,29 @@ export async function POST(request: NextRequest) {
       )
     }
 
+    // Fetch user to check for contactEmail (for Apple Private Relay users)
+    const user = await findUserByEmail(customerEmail)
+    const emailToUse = user ? getPreferredEmail(user) : customerEmail
+
+    debugLog('📧 Email routing for Stripe:', {
+      customerEmail,
+      hasUser: !!user,
+      hasContactEmail: !!(user?.contactEmail),
+      emailToUse,
+      isAppleRelay: customerEmail.includes('@privaterelay.appleid.com')
+    })
+
     // Calculate order totals
     const subtotal = items.reduce((total: number, item: CheckoutItem) => {
       return total + (item.product.price * item.quantity)
     }, 0)
 
-    // Calculate shipping based on emirate
-    const emirates = [
-      { name: 'Dubai', shippingCost: 45 },
-      { name: 'Abu Dhabi', shippingCost: 70 },
-      { name: 'Sharjah', shippingCost: 70 },
-      { name: 'Ajman', shippingCost: 70 },
-      { name: 'Ras Al Khaimah', shippingCost: 70 },
-      { name: 'Fujairah', shippingCost: 70 },
-      { name: 'Umm Al Quwain', shippingCost: 70 }
-    ]
-    
-    const selectedEmirateData = emirates.find(e => e.name === customerEmirate)
-    const baseShippingCost = selectedEmirateData?.shippingCost || 45
-    const shipping = subtotal >= 1000 ? 0 : baseShippingCost
+    // Use shared mobile checkout config for consistency
+    const shipping = calculateMobileShipping(subtotal, customerEmirate)
     
     const discountAmount = 0
     const total = subtotal - discountAmount + shipping
-    const vat = Math.round(((subtotal + shipping) / 1.05) * 0.05 * 100) / 100
+    const vat = calculateVatIncluded(total)
 
     // Generate canonical order number (Card + Website)
     const orderId = await generateUniqueOrderNumber({ channel: 'W', payment: 'CARD' })
@@ -172,10 +175,10 @@ export async function POST(request: NextRequest) {
       })
     }
 
-    // Create Stripe checkout session
+    // Create Stripe checkout session (use preferred email)
     const session = await createCheckoutSession({
       lineItems,
-      customerEmail,
+      customerEmail: emailToUse, // Use preferred email for Stripe
       customerName,
       customerPhone,
       shippingAddress: {

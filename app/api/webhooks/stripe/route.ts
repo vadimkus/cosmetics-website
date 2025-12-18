@@ -5,6 +5,8 @@ import { prisma } from '@/lib/database'
 import { sendOrderConfirmationEmail, sendAdminNewOrderNotification } from '@/lib/email'
 import { trackUserAction } from '@/lib/analyticsServer'
 import { debugLog, errorLog, warnLog } from '@/lib/logger'
+import { getPreferredEmail } from '@/lib/emailHelpers'
+import { findUserByEmail } from '@/lib/userStorageDb'
 import Stripe from 'stripe'
 
 // Disable body parsing for webhooks
@@ -275,11 +277,24 @@ async function handlePaymentIntentFailed(paymentIntent: Stripe.PaymentIntent) {
 
 async function sendConfirmationEmails(order: any) {
   try {
+    // Fetch user to get preferred email (for Apple Private Relay users with contactEmail)
+    const user = await findUserByEmail(order.customerEmail)
+    const emailToUse = user ? getPreferredEmail(user) : order.customerEmail
+
+    debugLog('📧 Sending Stripe confirmation emails:', {
+      orderNumber: order.orderNumber,
+      customerEmail: order.customerEmail,
+      hasUser: !!user,
+      hasContactEmail: !!(user?.contactEmail),
+      emailToUse,
+      isAppleRelay: order.customerEmail.includes('@privaterelay.appleid.com')
+    })
+
     // Send customer confirmation email
     await sendOrderConfirmationEmail({
       orderNumber: order.orderNumber,
       customerName: order.customerName,
-      customerEmail: order.customerEmail,
+      customerEmail: emailToUse, // Use preferred email
       items: order.items.map((item: any) => ({
         productName: item.productName,
         quantity: item.quantity,

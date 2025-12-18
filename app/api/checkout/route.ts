@@ -8,6 +8,9 @@ import { requireBodySizeLimit, getSizeLimitForContentType } from '@/lib/requestS
 import { Product } from '@/types/index'
 import { enhanceOrderItemWithDefaultSize } from '@/lib/orderSizeDefaults'
 import { generateUniqueOrderNumber } from '@/lib/orderNumber'
+import { getPreferredEmail } from '@/lib/emailHelpers'
+import { findUserByEmail } from '@/lib/userStorageDb'
+import { calculateMobileShipping, calculateVatIncluded } from '@/lib/mobileCheckoutConfig'
 
 interface CheckoutItem {
   product: Product
@@ -60,6 +63,18 @@ export async function POST(request: NextRequest) {
 
     // Continue with COD processing for backward compatibility
 
+    // Fetch user to check for contactEmail (for Apple Private Relay users)
+    const user = await findUserByEmail(customerEmail)
+    const emailToUse = user ? getPreferredEmail(user) : customerEmail
+
+    debugLog('📧 Email routing:', {
+      customerEmail,
+      hasUser: !!user,
+      hasContactEmail: !!(user?.contactEmail),
+      emailToUse,
+      isAppleRelay: customerEmail.includes('@privaterelay.appleid.com')
+    })
+
     // Calculate order totals with debugging
     debugLog('🔍 Order calculation debug:')
     debugLog('Items received:', JSON.stringify(items, null, 2))
@@ -72,30 +87,15 @@ export async function POST(request: NextRequest) {
     
     debugLog('Subtotal calculated:', subtotal)
     
-    // Calculate shipping (free for orders above 1000 AED)
-    const emirates = [
-      { name: 'Dubai', shippingCost: 45 },
-      { name: 'Abu Dhabi', shippingCost: 70 },
-      { name: 'Sharjah', shippingCost: 70 },
-      { name: 'Ajman', shippingCost: 70 },
-      { name: 'Ras Al Khaimah', shippingCost: 70 },
-      { name: 'Fujairah', shippingCost: 70 },
-      { name: 'Umm Al Quwain', shippingCost: 70 }
-    ]
-    
-    const selectedEmirateData = emirates.find(e => e.name === customerEmirate)
-    const baseShippingCost = selectedEmirateData?.shippingCost || 45
-    const shipping = subtotal >= 1000 ? 0 : baseShippingCost
+    // Use shared mobile checkout config for consistency
+    const shipping = calculateMobileShipping(subtotal, customerEmirate)
     
     debugLog('Emirate:', customerEmirate)
-    debugLog('Base shipping cost:', baseShippingCost)
     debugLog('Final shipping:', shipping)
     
     const discountAmount = 0 // You can add discount logic here if needed
     const total = subtotal - discountAmount + shipping
-    // Calculate VAT amount from VAT-inclusive prices
-    // VAT = (VAT-inclusive amount / 1.05) * 0.05
-    const vat = Math.round(((subtotal + shipping) / 1.05) * 0.05 * 100) / 100
+    const vat = calculateVatIncluded(total)
 
     debugLog('Discount amount:', discountAmount)
     debugLog('Subtotal (VAT included):', subtotal)
@@ -177,7 +177,7 @@ export async function POST(request: NextRequest) {
     sendOrderConfirmationEmail({
       orderNumber: order.orderNumber,
       customerName: order.customerName,
-      customerEmail: order.customerEmail,
+      customerEmail: emailToUse, // Use preferred email (contactEmail if set, else regular email)
       items: order.items.map(item => ({
         productName: item.productName,
         quantity: item.quantity,
@@ -194,7 +194,7 @@ export async function POST(request: NextRequest) {
       emirate: order.customerEmirate || '',
       locale: order.locale || 'en'
     }).then(() => {
-      debugLog('✅ Order confirmation email sent to:', order.customerEmail)
+      debugLog('✅ Order confirmation email sent to:', emailToUse)
     }).catch((emailError) => {
       errorLog('❌ Failed to send order confirmation email:', emailError)
       // Don't fail order creation if email fails

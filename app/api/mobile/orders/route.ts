@@ -6,6 +6,7 @@ import { prisma } from '@/lib/database'
 import { sendOrderConfirmationEmail, sendAdminNewOrderNotification } from '@/lib/email'
 import { generateUniqueOrderNumber } from '@/lib/orderNumber'
 import { getPreferredEmail } from '@/lib/emailHelpers'
+import { calculateMobileShipping, calculateVatIncluded } from '@/lib/mobileCheckoutConfig'
 
 /**
  * Mobile Orders Endpoint
@@ -311,22 +312,24 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Validate each item and calculate totals
+    // Validate each item and calculate totals (server-authoritative; MUST match mobile UI)
     let subtotal = 0
+    let discountAmount = 0
     const validatedItems = []
 
     for (const item of orderData.items) {
       const productId = String(item?.productId || '').trim()
       const quantity = Number(item?.quantity)
-      const price = Number(item?.price)
 
       // NOTE: promo items can have price = 0, so we must NOT use truthy checks.
       if (
         !productId ||
         !Number.isFinite(quantity) ||
         quantity <= 0 ||
-        !Number.isFinite(price) ||
-        price < 0
+        // Keep legacy validation: price must be provided (used by old clients),
+        // but it is NOT trusted for calculations anymore.
+        !Number.isFinite(Number(item?.price)) ||
+        Number(item?.price) < 0
       ) {
         return NextResponse.json(
           { 
@@ -352,13 +355,45 @@ export async function POST(request: NextRequest) {
         )
       }
 
-      const itemTotal = price * quantity
+      const wantedSize = item.size ? String(item.size).trim() : null
+      const wantedColor = item.color ? String(item.color).trim() : null
+      const isPromo =
+        item?.isPromotionItem === true ||
+        String(item?.selectedSize || '').trim() === '__PROMO__' ||
+        String(item?.size || '').trim() === '__PROMO__'
+
+      const variant = (!isPromo && (wantedSize || wantedColor))
+        ? await prisma.productVariant.findFirst({
+            where: {
+              productId: product.id,
+              ...(wantedSize ? { size: wantedSize } : {}),
+              ...(wantedColor ? { color: wantedColor } : {}),
+              available: true,
+            },
+          })
+        : null
+
+      const baseUnit = isPromo ? 0 : Number(variant?.price ?? product.price)
+      const pct = Number((user as any)?.discountPercentage)
+      const hasUserDiscount = Number.isFinite(pct) && pct > 0 && pct < 100
+      const excluded = product.noDiscount === true
+      const discountedUnit =
+        (!isPromo && !excluded && hasUserDiscount)
+          ? baseUnit * (1 - pct / 100)
+          : baseUnit
+
+      const unitPrice = Number(discountedUnit)
+      const itemTotal = unitPrice * quantity
       subtotal += itemTotal
+
+      if (!isPromo && !excluded && hasUserDiscount) {
+        discountAmount += (baseUnit - unitPrice) * quantity
+      }
 
       validatedItems.push({
         productId,
         productName: item.productName || item.name || product.name,
-        price,
+        price: unitPrice,
         quantity,
         image: item.image || product.image,
         color: item.color || null,
@@ -366,11 +401,11 @@ export async function POST(request: NextRequest) {
       })
     }
 
-    // Calculate order totals
-    const discountAmount = orderData.discountAmount || 0
-    const shipping = orderData.shipping || 0
-    const vat = orderData.vat || (subtotal - discountAmount + shipping) * 0.05 // 5% VAT
-    const total = subtotal - discountAmount + shipping + vat
+    // Calculate order totals (must match mobile UI: VAT INCLUDED; shipping from shared rates)
+    const emirate = String(orderData.customerEmirate || 'Dubai')
+    const shipping = calculateMobileShipping(subtotal, emirate)
+    const total = subtotal + shipping
+    const vat = calculateVatIncluded(total)
 
     // Generate canonical order number (Mobile)
     const paymentMethodRaw = String(orderData?.paymentMethod || '').toLowerCase()

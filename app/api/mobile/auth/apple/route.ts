@@ -55,10 +55,8 @@ export async function POST(request: NextRequest) {
 
     let user = await findUserByEmail(email)
     const nowIso = new Date().toISOString()
-    let isNewUser = false
 
     if (!user) {
-      isNewUser = true
       const nameFromEmail = email.split('@')[0] || 'User'
       const created = await addUser({
         name: fullName || nameFromEmail,

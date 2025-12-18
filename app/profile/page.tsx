@@ -170,12 +170,15 @@ export default function ProfilePageRefactored() {
       setProfilePicture(user.profilePicture || null)
       setPreviewImage(user.profilePicture || null)
       
-      setEditData({
-        name: user.name || '',
-        phone: user.phone || '',
-        address: user.address || '',
-        birthday: user.birthday || ''
-      })
+      // Only update editData if NOT currently editing (prevents overwriting user input)
+      if (!isEditing) {
+        setEditData({
+          name: user.name || '',
+          phone: user.phone || '',
+          address: user.address || '',
+          birthday: user.birthday || ''
+        })
+      }
       
       const savedCustomerNumber = localStorage.getItem(LOCAL_STORAGE_KEYS.CUSTOMER_NUMBER(user.id))
       if (savedCustomerNumber) {
@@ -190,7 +193,7 @@ export default function ProfilePageRefactored() {
         setCustomerNumber(newCustomerNumber)
       }
     }
-  }, [user])
+  }, [user, isEditing, forceRefreshUser])
   
   // Force refresh user data when component mounts (in case profile picture was just set)
   useEffect(() => {

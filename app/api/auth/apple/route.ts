@@ -74,6 +74,7 @@ export async function GET(request: NextRequest) {
 
     const state = generateCsrfToken()
     const nonce = generateCsrfToken()
+    const promo = String(request.nextUrl.searchParams.get('promo') || '').trim().toUpperCase()
 
     const authUrl = new URL('https://appleid.apple.com/auth/authorize')
     authUrl.searchParams.set('response_type', 'code id_token')
@@ -107,6 +108,17 @@ export async function GET(request: NextRequest) {
       path: '/',
       ...(domain ? { domain } : {}),
     })
+
+    if (promo) {
+      response.cookies.set('apple-oauth-promo', promo, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite,
+        maxAge: 600,
+        path: '/',
+        ...(domain ? { domain } : {}),
+      })
+    }
 
     debugLog('[APPLE_AUTH] Redirecting to Apple', Date.now() - startTime, 'ms')
     return response

@@ -431,7 +431,9 @@ export default function AuthProvider({ children }: AuthProviderProps) {
       setIsLoading(true)
       // Redirect to Google OAuth endpoint
       if (typeof window !== 'undefined') {
-        window.location.href = '/api/auth/google'
+        const sp = new URLSearchParams(window.location.search || '')
+        const promo = String(sp.get('promo') || '').trim()
+        window.location.href = promo ? `/api/auth/google?promo=${encodeURIComponent(promo)}` : '/api/auth/google'
       }
     } catch (error) {
       errorLog('Google login error:', error)
@@ -444,7 +446,9 @@ export default function AuthProvider({ children }: AuthProviderProps) {
     try {
       setIsLoading(true)
       if (typeof window !== 'undefined') {
-        window.location.href = '/api/auth/apple'
+        const sp = new URLSearchParams(window.location.search || '')
+        const promo = String(sp.get('promo') || '').trim()
+        window.location.href = promo ? `/api/auth/apple?promo=${encodeURIComponent(promo)}` : '/api/auth/apple'
       }
     } catch (error) {
       errorLog('Apple login error:', error)

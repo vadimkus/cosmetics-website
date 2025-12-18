@@ -4,6 +4,7 @@ import { debugLog, errorLog } from '@/lib/logger'
 import { exchangeAppleCodeForTokens, getAppleWebClientId, getAppleWebRedirectUri } from '@/lib/appleWebAuth'
 import { verifyAppleIdentityToken } from '@/lib/appleIdentityToken'
 import { addUser, findUserByAppleSub, findUserByEmail, updateUser } from '@/lib/userStorageDb'
+import { prisma } from '@/lib/database'
 
 const appleCallbackLimiter = rateLimitSimple({
   windowMs: 15 * 60 * 1000,
@@ -59,6 +60,7 @@ async function handleAppleCallback(request: NextRequest, params: {
   const normalizedOrigin = normalizeOrigin(request.nextUrl.origin)
 
   try {
+    const now = new Date()
     let clientIdentifier: string
     try {
       clientIdentifier = getClientIdentifierFromNextRequest(request)
@@ -92,6 +94,8 @@ async function handleAppleCallback(request: NextRequest, params: {
     if (!storedState || storedState !== state) {
       return NextResponse.redirect(new URL('/login?error=apple_invalid_state', normalizedOrigin))
     }
+
+    const promoFromCookie = String(request.cookies.get('apple-oauth-promo')?.value || '').trim().toUpperCase()
 
     const clientId = getAppleWebClientId()
     if (!clientId) {
@@ -181,18 +185,67 @@ async function handleAppleCallback(request: NextRequest, params: {
     // If still no user, create a new one. Handle duplicates gracefully (common on retries / private relay).
     if (!user) {
       try {
-        user = await addUser({
-          name: fullName,
-          email,
-          appleSub,
-          password: null,
-          profilePicture: null,
-          phone: null,
-          address: null,
-          isAdmin: false,
-          canSeePrices: true,
-          lastLoginAt: new Date().toISOString(),
-        })
+        // Apply promo code at account creation time (if provided from /login?promo=...).
+        // Use transaction so usedCount increments only if user is created.
+        if (promoFromCookie) {
+          user = await prisma.$transaction(async (tx) => {
+            let discountType: string | null = null
+            let discountPercentage: number | null = null
+
+            const promo = await tx.promoCode.findUnique({ where: { code: promoFromCookie } })
+            if (promo?.isActive) {
+              const okExpiry = !promo.expiresAt || promo.expiresAt > now
+              const okUses = promo.maxUses == null || promo.usedCount < promo.maxUses
+              if (okExpiry && okUses) {
+                const updated = await tx.promoCode.updateMany({
+                  where: {
+                    id: promo.id,
+                    isActive: true,
+                    AND: [
+                      { OR: [{ expiresAt: null }, { expiresAt: { gt: now } }] },
+                      { OR: [{ maxUses: null }, { usedCount: { lt: promo.maxUses ?? Number.MAX_SAFE_INTEGER } }] },
+                    ],
+                  },
+                  data: { usedCount: { increment: 1 } },
+                })
+                if (updated.count === 1) {
+                  discountType = promo.discountType
+                  discountPercentage = promo.discountPercent
+                }
+              }
+            }
+
+            return await tx.user.create({
+              data: {
+                name: fullName,
+                email,
+                appleSub,
+                password: null,
+                profilePicture: null,
+                phone: null,
+                address: null,
+                isAdmin: false,
+                canSeePrices: true,
+                discountType,
+                discountPercentage,
+                lastLoginAt: now,
+              } as any,
+            })
+          })
+        } else {
+          user = await addUser({
+            name: fullName,
+            email,
+            appleSub,
+            password: null,
+            profilePicture: null,
+            phone: null,
+            address: null,
+            isAdmin: false,
+            canSeePrices: true,
+            lastLoginAt: new Date().toISOString(),
+          })
+        }
       } catch (e) {
         errorLog('[APPLE_CALLBACK] User create failed, attempting recovery:', e)
         user =
@@ -219,6 +272,41 @@ async function handleAppleCallback(request: NextRequest, params: {
         errorLog('[APPLE_CALLBACK] Failed to update lastLoginAt:', e)
         // don't fail login
       }
+
+      // SAFE FALLBACK: if promo is present and the account was JUST created (bug window),
+      // and no discount is set yet, apply promo once.
+      try {
+        const createdAt = (user as any)?.createdAt ? new Date((user as any).createdAt) : null
+        const ageMs = createdAt ? (now.getTime() - createdAt.getTime()) : Number.POSITIVE_INFINITY
+        const hasNoDiscount = !(user as any)?.discountPercentage && !(user as any)?.discountType
+        if (promoFromCookie && hasNoDiscount && Number.isFinite(ageMs) && ageMs >= 0 && ageMs <= 10 * 60 * 1000) {
+          await prisma.$transaction(async (tx) => {
+            const promo = await tx.promoCode.findUnique({ where: { code: promoFromCookie } })
+            if (!promo?.isActive) return
+            const okExpiry = !promo.expiresAt || promo.expiresAt > now
+            const okUses = promo.maxUses == null || promo.usedCount < promo.maxUses
+            if (!okExpiry || !okUses) return
+            const updated = await tx.promoCode.updateMany({
+              where: {
+                id: promo.id,
+                isActive: true,
+                AND: [
+                  { OR: [{ expiresAt: null }, { expiresAt: { gt: now } }] },
+                  { OR: [{ maxUses: null }, { usedCount: { lt: promo.maxUses ?? Number.MAX_SAFE_INTEGER } }] },
+                ],
+              },
+              data: { usedCount: { increment: 1 } },
+            })
+            if (updated.count !== 1) return
+            await tx.user.update({
+              where: { id: user!.id },
+              data: { discountType: promo.discountType, discountPercentage: promo.discountPercent } as any,
+            })
+          })
+        }
+      } catch (e) {
+        errorLog('[APPLE_CALLBACK] Failed to apply promo fallback:', e)
+      }
     }
 
     const redirectPath = getLocaleRedirectPath(request)
@@ -230,6 +318,7 @@ async function handleAppleCallback(request: NextRequest, params: {
     // Clear oauth cookies
     response.cookies.delete('apple-oauth-state')
     response.cookies.delete('apple-oauth-nonce')
+    response.cookies.delete('apple-oauth-promo')
 
     // Set session cookie (same format as Google)
     const userSessionData = {

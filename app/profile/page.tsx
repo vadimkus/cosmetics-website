@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { ArrowLeft, User, Package, Settings, Download, Shield, Trash2, X, RefreshCw, Edit3 } from 'lucide-react'
+import { ArrowLeft, User, Package, Settings, Download, Shield, Trash2, X, RefreshCw, Edit3, CheckCircle, XCircle, AlertCircle } from 'lucide-react'
 import { useAuth } from '@/components/AuthProvider'
 import { useState, useRef, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
@@ -46,6 +46,14 @@ type EditData = {
   birthday: string
 }
 
+// Toast notification type
+type ToastType = 'success' | 'error' | 'warning'
+type Toast = {
+  id: number
+  message: string
+  type: ToastType
+}
+
 // Helper function for error messages
 const getErrorMessage = (error: unknown): string => {
   if (error instanceof Error) {
@@ -55,12 +63,6 @@ const getErrorMessage = (error: unknown): string => {
     return error
   }
   return 'An unknown error occurred'
-}
-
-// Helper function for API error handling
-const handleApiError = (error: unknown, defaultMessage: string): void => {
-  errorLog(defaultMessage, error)
-  alert(`${defaultMessage}: ${getErrorMessage(error)}`)
 }
 
 export default function ProfilePageRefactored() {
@@ -86,6 +88,32 @@ export default function ProfilePageRefactored() {
   const [activeTab, setActiveTab] = useState<ActiveTab>('profile')
   const [isRefreshing, setIsRefreshing] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
+
+  // Toast notification state
+  const [toasts, setToasts] = useState<Toast[]>([])
+  const toastIdCounter = useRef(0)
+
+  // Add toast notification
+  const showToast = (message: string, type: ToastType = 'success') => {
+    const id = toastIdCounter.current++
+    setToasts(prev => [...prev, { id, message, type }])
+    
+    // Auto-remove after 4 seconds
+    setTimeout(() => {
+      setToasts(prev => prev.filter(toast => toast.id !== id))
+    }, 4000)
+  }
+
+  // Remove toast manually
+  const removeToast = (id: number) => {
+    setToasts(prev => prev.filter(toast => toast.id !== id))
+  }
+
+  // Helper function for API error handling
+  const handleApiError = (error: unknown, defaultMessage: string): void => {
+    errorLog(defaultMessage, error)
+    showToast(`${defaultMessage}: ${getErrorMessage(error)}`, 'error')
+  }
 
   // Fetch CSRF token on mount
   useEffect(() => {
@@ -237,12 +265,12 @@ export default function ProfilePageRefactored() {
     const file = event.target.files?.[0]
     if (file) {
       if (!file.type.startsWith('image/')) {
-        alert('Please select an image file')
+        showToast('Please select an image file', 'error')
         return
       }
       
       if (file.size > MAX_IMAGE_SIZE) {
-        alert(`Image size should be less than ${MAX_IMAGE_SIZE / (1024 * 1024)}MB`)
+        showToast(`Image size should be less than ${MAX_IMAGE_SIZE / (1024 * 1024)}MB`, 'error')
         return
       }
 
@@ -267,14 +295,14 @@ export default function ProfilePageRefactored() {
   const handleSave = async () => {
     try {
       if (!user?.id) {
-        alert('User ID not found. Please try logging out and back in.')
+        showToast('User ID not found. Please try logging out and back in.', 'error')
         return
       }
 
       // Ensure CSRF token is available
       const csrfToken = await fetchCsrfToken()
       if (!csrfToken) {
-        alert('Security error: Could not verify request. Please refresh the page and try again.')
+        showToast('Security error: Could not verify request. Please refresh the page and try again.', 'error')
         return
       }
 
@@ -301,7 +329,7 @@ export default function ProfilePageRefactored() {
         const updatedUser = { ...user, ...editData, profilePicture }
         localStorage.setItem(LOCAL_STORAGE_KEYS.USER, JSON.stringify(updatedUser))
         setIsEditing(false)
-        alert('Profile updated successfully!')
+        showToast('Profile updated successfully', 'success')
         forceRefreshUser()
       } else {
         errorLog('Failed to update profile:', response.status, responseData)
@@ -310,7 +338,7 @@ export default function ProfilePageRefactored() {
         if (responseData?.errors && Array.isArray(responseData.errors) && responseData.errors.length > 0) {
           errorMessage = responseData.errors.join('\n')
         }
-        alert(`Failed to update profile: ${errorMessage}`)
+        showToast(`Failed to update profile: ${errorMessage}`, 'error')
       }
     } catch (error) {
       handleApiError(error, 'Error updating profile')
@@ -343,7 +371,7 @@ export default function ProfilePageRefactored() {
       // Ensure CSRF token is available
       const csrfToken = await fetchCsrfToken()
       if (!csrfToken) {
-        alert('Security error: Could not verify request. Please refresh the page and try again.')
+        showToast('Security error: Could not verify request. Please refresh the page and try again.', 'error')
         setIsDeleting(false)
         return
       }
@@ -359,11 +387,14 @@ export default function ProfilePageRefactored() {
         localStorage.removeItem(LOCAL_STORAGE_KEYS.USER)
         localStorage.removeItem(LOCAL_STORAGE_KEYS.CUSTOMER_NUMBER(user.id))
         
-        alert('Your account has been deleted. You will be signed out now.')
-        await logout()
+        showToast('Your account has been deleted. Signing out...', 'success')
+        // Small delay before logout to show the message
+        setTimeout(async () => {
+          await logout()
+        }, 1500)
       } else {
         const data = await response.json()
-        alert(data.error || 'Failed to delete account. Please try again.')
+        showToast(data.error || 'Failed to delete account. Please try again.', 'error')
       }
     } catch (error) {
       handleApiError(error, 'Error deleting account')
@@ -385,7 +416,7 @@ export default function ProfilePageRefactored() {
       // Ensure CSRF token is available
       const csrfToken = await fetchCsrfToken()
       if (!csrfToken) {
-        alert('Security error: Could not verify request. Please refresh the page and try again.')
+        showToast('Security error: Could not verify request. Please refresh the page and try again.', 'error')
         setShowCancelOrderConfirm(false)
         setOrderToCancel(null)
         return
@@ -402,10 +433,10 @@ export default function ProfilePageRefactored() {
         setOrders(orders.filter(order => order.id !== orderToCancel))
         setShowCancelOrderConfirm(false)
         setOrderToCancel(null)
-        alert('Order cancelled and removed successfully')
+        showToast('Order cancelled successfully', 'success')
       } else {
         const errorData = await response.json()
-        alert(`Failed to cancel order: ${errorData.error || 'Unknown error'}`)
+        showToast(`Failed to cancel order: ${errorData.error || 'Unknown error'}`, 'error')
       }
     } catch (error) {
       handleApiError(error, 'Failed to cancel order')
@@ -697,6 +728,39 @@ export default function ProfilePageRefactored() {
           </div>
         </div>
       )}
+
+      {/* Toast Notifications */}
+      <div className="fixed top-4 right-4 z-50 space-y-2 max-w-sm">
+        {toasts.map((toast) => (
+          <div
+            key={toast.id}
+            className={`flex items-start gap-3 p-4 rounded-xl shadow-lg backdrop-blur-sm transition-all duration-300 animate-slide-in ${
+              toast.type === 'success' ? 'bg-green-50/95 border border-green-200' :
+              toast.type === 'error' ? 'bg-red-50/95 border border-red-200' :
+              'bg-yellow-50/95 border border-yellow-200'
+            }`}
+          >
+            {toast.type === 'success' && <CheckCircle className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />}
+            {toast.type === 'error' && <XCircle className="h-5 w-5 text-red-600 flex-shrink-0 mt-0.5" />}
+            {toast.type === 'warning' && <AlertCircle className="h-5 w-5 text-yellow-600 flex-shrink-0 mt-0.5" />}
+            
+            <p className={`text-sm flex-1 ${
+              toast.type === 'success' ? 'text-green-800' :
+              toast.type === 'error' ? 'text-red-800' :
+              'text-yellow-800'
+            }`}>
+              {toast.message}
+            </p>
+            
+            <button
+              onClick={() => removeToast(toast.id)}
+              className="text-gray-400 hover:text-gray-600 transition-colors flex-shrink-0"
+            >
+              <X className="h-4 w-4" />
+            </button>
+          </div>
+        ))}
+      </div>
     </div>
   )
 }

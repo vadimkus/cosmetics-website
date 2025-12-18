@@ -44,6 +44,7 @@ type EditData = {
   phone: string
   address: string
   birthday: string
+  contactEmail: string
 }
 
 // Helper function for error messages
@@ -72,7 +73,8 @@ export default function ProfilePageClient() {
     name: user?.name || '',
     phone: user?.phone || '',
     address: user?.address || '',
-    birthday: user?.birthday || ''
+    birthday: user?.birthday || '',
+    contactEmail: user?.contactEmail || ''
   })
   const [profilePicture, setProfilePicture] = useState<string | null>(null)
   const [previewImage, setPreviewImage] = useState<string | null>(null)
@@ -127,7 +129,8 @@ export default function ProfilePageClient() {
         name: user.name || '',
         phone: user.phone || '',
         address: user.address || '',
-        birthday: user.birthday || ''
+        birthday: user.birthday || '',
+        contactEmail: user.contactEmail || ''
       })
       
       const savedCustomerNumber = localStorage.getItem(LOCAL_STORAGE_KEYS.CUSTOMER_NUMBER(user.id))
@@ -254,7 +257,8 @@ export default function ProfilePageClient() {
       name: user.name,
       phone: user.phone || '',
       address: user.address || '',
-      birthday: user.birthday || ''
+      birthday: user.birthday || '',
+      contactEmail: user.contactEmail || ''
     })
     setProfilePicture(user?.profilePicture || null)
     setPreviewImage(user?.profilePicture || null)

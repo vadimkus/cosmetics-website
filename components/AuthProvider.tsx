@@ -24,7 +24,7 @@ interface AuthContextType {
   login: (email: string, password: string) => Promise<boolean>
   loginWithGoogle: () => Promise<void>
   loginWithApple: () => Promise<void>
-  register: (name: string, email: string, password: string, phone: string, address: string, emirate: string, birthday?: string) => Promise<boolean>
+  register: (name: string, email: string, password: string, phone: string, address: string, emirate: string, birthday?: string, promoCode?: string) => Promise<boolean>
   logout: () => Promise<void>
   refreshUser: () => Promise<void>
   forceRefreshUser: () => Promise<void>
@@ -282,7 +282,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
     }
   }
 
-  const register = async (name: string, email: string, password: string, phone: string, address: string, emirate: string, birthday?: string): Promise<boolean> => {
+  const register = async (name: string, email: string, password: string, phone: string, address: string, emirate: string, birthday?: string, promoCode?: string): Promise<boolean> => {
     try {
       setIsLoading(true)
       
@@ -296,7 +296,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
       const response = await fetch('/api/auth/register', {
         method: 'POST',
         headers: getCsrfHeaders(),
-        body: JSON.stringify(addCsrfToBody({ name, email, password, phone, address, emirate, birthday: birthday || '' })),
+        body: JSON.stringify(addCsrfToBody({ name, email, password, phone, address, emirate, birthday: birthday || '', promoCode: promoCode || '' })),
       })
 
       const data = await response.json()

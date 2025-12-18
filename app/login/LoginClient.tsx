@@ -13,6 +13,7 @@ export default function LoginClient() {
   const { user, forceRefreshUser } = useAuth()
   const [showLoginModal, setShowLoginModal] = useState(false)
   const [isLoginMode, setIsLoginMode] = useState(true)
+  const [promoCode, setPromoCode] = useState<string>('')
   const router = useRouter()
   const { t, locale, dir } = useTranslation()
 
@@ -23,6 +24,8 @@ export default function LoginClient() {
       const success = searchParams.get('success')
       const email = searchParams.get('email')
       const error = searchParams.get('error')
+      const promo = searchParams.get('promo')
+      const path = String(window.location.pathname || '')
 
       if (success === 'google_signin' && email) {
         // Google sign-in successful - force refresh user data to get latest profile picture
@@ -61,6 +64,13 @@ export default function LoginClient() {
         alert(errorMessage)
         // Clean up URL
         router.replace(getLocalizedPath('/login', locale))
+      } else if (promo || path.endsWith('/signup')) {
+        // Open the modal directly in signup mode when coming from QR links:
+        // - /signup?promo=CODE
+        // - /login?promo=CODE
+        setPromoCode(String(promo || '').trim())
+        setIsLoginMode(false)
+        setShowLoginModal(true)
       }
     }
   }, [router, locale, forceRefreshUser, t])
@@ -161,6 +171,7 @@ export default function LoginClient() {
           onClose={() => setShowLoginModal(false)}
           isLoginMode={isLoginMode}
           setIsLoginMode={setIsLoginMode}
+          promoCode={promoCode}
         />
       )}
     </div>

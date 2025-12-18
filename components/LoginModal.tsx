@@ -12,9 +12,10 @@ interface LoginModalProps {
   onClose: () => void
   isLoginMode: boolean
   setIsLoginMode: (mode: boolean) => void
+  promoCode?: string
 }
 
-export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMode }: LoginModalProps) {
+export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMode, promoCode }: LoginModalProps) {
   const { login, register, loginWithGoogle, loginWithApple, isLoading } = useAuth()
   const { t, locale, dir } = useTranslation()
   const [formData, setFormData] = useState({
@@ -30,6 +31,7 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
   const [error, setError] = useState('')
   const [showPrivacyPolicy, setShowPrivacyPolicy] = useState(false)
   const [privacyConsent, setPrivacyConsent] = useState(false)
+  const normalizedPromo = String(promoCode || '').trim().toUpperCase()
   const modalRef = useRef<HTMLDivElement>(null)
   const firstInputRef = useRef<HTMLInputElement>(null)
   const lastInputRef = useRef<HTMLInputElement>(null)
@@ -136,7 +138,7 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
         return
       }
 
-      const success = await register(formData.name, formData.email, formData.password, formData.phone, formData.address, formData.emirate, formData.birthday)
+      const success = await register(formData.name, formData.email, formData.password, formData.phone, formData.address, formData.emirate, formData.birthday, normalizedPromo || '')
       if (success) {
         onClose()
         setFormData({ name: '', email: '', password: '', phone: '', address: '', emirate: '', birthday: '' })
@@ -247,6 +249,13 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
           </div>
 
           <form onSubmit={handleSubmit} className={`${isLoginMode ? 'space-y-3 md:space-y-4' : 'space-y-2 md:space-y-3'}`}>
+            {/* Promo banner (when opening via /signup?promo=XXXX) */}
+            {!isLoginMode && normalizedPromo ? (
+              <div className={`bg-green-50 border border-green-200 text-green-700 px-3 py-2 rounded-lg text-xs md:text-sm ${dir === 'rtl' ? 'text-right' : ''}`}>
+                <div className="font-semibold">Promo applied</div>
+                <div className="opacity-90">{normalizedPromo}</div>
+              </div>
+            ) : null}
             {!isLoginMode && (
               <div>
                 <label htmlFor="name" className="sr-only">{t('login.fullName')}</label>

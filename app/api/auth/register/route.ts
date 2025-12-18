@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { addUser, findUserByEmail, updateUser } from '@/lib/userStorageDb'
+import { findUserByEmail } from '@/lib/userStorageDb'
+import { prisma } from '@/lib/database'
 import { debugLog, errorLog } from '@/lib/logger'
 import { trackUserAction } from '@/lib/analyticsServer'
 import { sendWelcomeEmail, sendAdminNewUserNotification } from '@/lib/email'
@@ -7,6 +8,8 @@ import bcrypt from 'bcryptjs'
 import { requireCsrfToken } from '@/lib/csrf'
 import { validateLength, INPUT_LIMITS } from '@/lib/validation'
 import { requireBodySizeLimit, getSizeLimitForContentType } from '@/lib/requestSizeLimit'
+
+const normalizePromo = (promo: unknown) => String(promo || '').trim().toUpperCase()
 
 export async function POST(request: NextRequest) {
   // CSRF protection
@@ -23,8 +26,9 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    const { name, email, password, phone, address, emirate, birthday } = await request.json()
+    const { name, email, password, phone, address, emirate, birthday, promoCode } = await request.json()
     const normalizedEmail = String(email || '').trim().toLowerCase()
+    const promo = normalizePromo(promoCode)
 
     if (!name || !normalizedEmail || !password || !phone || !address || !emirate) {
       return NextResponse.json(
@@ -109,26 +113,60 @@ export async function POST(request: NextRequest) {
     // Store address with emirate: "address, Emirate"
     const fullAddress = `${address}, ${emirate}`
     
-    const newUser = {
-      name,
-      email: normalizedEmail,
-      password: hashedPassword, // Store hashed password
-      phone: phone, // Phone is now required
-      address: fullAddress, // Address and emirate are now required
-      profilePicture: '',
-      isAdmin: false,
-      canSeePrices: true,
-      discountType: null,
-      discountPercentage: null,
-      birthday: birthday || null // Birthday is optional
-    }
+    // Create user + apply promo atomically (so usedCount increments only if user creation succeeds)
+    const now = new Date()
+    let promoApplied: { code: string; discountPercent: number; discountType: string } | null = null
 
-    // Store user in database
-    let createdUser: Awaited<ReturnType<typeof addUser>>
+    let createdUser: any = null
     try {
-      createdUser = await addUser(newUser)
+      createdUser = await prisma.$transaction(async (tx) => {
+        let discountType: string | null = null
+        let discountPercentage: number | null = null
+
+        if (promo) {
+          const promoRow = await tx.promoCode.findUnique({ where: { code: promo } })
+          if (promoRow?.isActive) {
+            const okExpiry = !promoRow.expiresAt || promoRow.expiresAt > now
+            const okUses = promoRow.maxUses == null || promoRow.usedCount < promoRow.maxUses
+            if (okExpiry && okUses) {
+              const updated = await tx.promoCode.updateMany({
+                where: {
+                  id: promoRow.id,
+                  isActive: true,
+                  AND: [
+                    { OR: [{ expiresAt: null }, { expiresAt: { gt: now } }] },
+                    { OR: [{ maxUses: null }, { usedCount: { lt: promoRow.maxUses ?? Number.MAX_SAFE_INTEGER } }] },
+                  ],
+                },
+                data: { usedCount: { increment: 1 } },
+              })
+              if (updated.count === 1) {
+                discountType = promoRow.discountType
+                discountPercentage = promoRow.discountPercent
+                promoApplied = { code: promoRow.code, discountPercent: promoRow.discountPercent, discountType: promoRow.discountType }
+              }
+            }
+          }
+        }
+
+        return await tx.user.create({
+          data: {
+            name,
+            email: normalizedEmail,
+            password: hashedPassword,
+            phone,
+            address: fullAddress,
+            profilePicture: '',
+            isAdmin: false,
+            canSeePrices: true,
+            discountType,
+            discountPercentage,
+            birthday: birthday || null,
+            lastLoginAt: now,
+          } as any,
+        })
+      })
     } catch (e: unknown) {
-      // Race-safe: if another request created the user after our existence check, return a friendly error.
       const code =
         typeof e === 'object' && e && 'code' in e
           ? String((e as { code?: unknown }).code || '')
@@ -137,20 +175,6 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ error: 'User with this email already exists' }, { status: 400 })
       }
       throw e
-    }
-
-    // Set lastLoginAt on registration (treat registration as first login)
-    // This ensures new users appear in the "Recent Logins" section
-    try {
-      await updateUser(createdUser.id, { lastLoginAt: new Date().toISOString() })
-      // Refresh createdUser with updated lastLoginAt
-      const refreshedUser = await findUserByEmail(normalizedEmail)
-      if (refreshedUser) {
-        Object.assign(createdUser, refreshedUser)
-      }
-    } catch (error) {
-      errorLog('Error updating lastLoginAt on registration:', error)
-      // Don't fail registration if timestamp update fails
     }
 
     // Track user registration
@@ -189,7 +213,8 @@ export async function POST(request: NextRequest) {
     const { password: __, ...userWithoutPassword } = createdUser
     return NextResponse.json({
       success: true,
-      user: userWithoutPassword
+      user: userWithoutPassword,
+      promoApplied
     })
   } catch (error) {
     errorLog('Registration error:', error)

@@ -160,43 +160,48 @@ export default function ProfilePageRefactored() {
         fullUser: user
       })
       
-      // Check profile picture via debug endpoint
-      fetch('/api/debug/profile-picture')
-        .then(res => res.json())
-        .then(data => {
-          debugLog('[PROFILE_PAGE] Debug Profile Picture API Response:', JSON.stringify(data, null, 2))
-          debugLog('[PROFILE_PAGE] Profile Picture Details:', {
-            exists: data.profilePicture?.exists,
-            value: data.profilePicture?.value,
-            isNull: data.profilePicture?.isNull,
-            isUndefined: data.profilePicture?.isUndefined,
-            length: data.profilePicture?.length,
-            preview: data.profilePicture?.preview,
-            userFromDB: data.userFromDatabase?.profilePicture
-          })
-          if (data.success && data.profilePicture.exists && !user.profilePicture) {
-            debugLog('[PROFILE_PAGE] Profile picture exists in DB but not in user object - refreshing...')
-            debugLog('[PROFILE_PAGE] DB has:', data.profilePicture.value)
-            debugLog('[PROFILE_PAGE] User object has:', user.profilePicture)
-            forceRefreshUser().catch(err => {
-              errorLog('[PROFILE_PAGE] Error refreshing user:', err)
+      // Check profile picture via debug endpoint (only if NOT editing to avoid disruption)
+      if (!isEditing) {
+        fetch('/api/debug/profile-picture')
+          .then(res => res.json())
+          .then(data => {
+            debugLog('[PROFILE_PAGE] Debug Profile Picture API Response:', JSON.stringify(data, null, 2))
+            debugLog('[PROFILE_PAGE] Profile Picture Details:', {
+              exists: data.profilePicture?.exists,
+              value: data.profilePicture?.value,
+              isNull: data.profilePicture?.isNull,
+              isUndefined: data.profilePicture?.isUndefined,
+              length: data.profilePicture?.length,
+              preview: data.profilePicture?.preview,
+              userFromDB: data.userFromDatabase?.profilePicture
             })
-          }
-        })
-        .catch(err => {
-          errorLog('[PROFILE_PAGE] Error checking profile picture:', err)
-        })
+            if (data.success && data.profilePicture.exists && !user.profilePicture && !isEditing) {
+              debugLog('[PROFILE_PAGE] Profile picture exists in DB but not in user object - refreshing...')
+              debugLog('[PROFILE_PAGE] DB has:', data.profilePicture.value)
+              debugLog('[PROFILE_PAGE] User object has:', user.profilePicture)
+              forceRefreshUser().catch(err => {
+                errorLog('[PROFILE_PAGE] Error refreshing user:', err)
+              })
+            }
+          })
+          .catch(err => {
+            errorLog('[PROFILE_PAGE] Error checking profile picture:', err)
+          })
+      }
       
       // If no profile picture but user is logged in, try to refresh from server
-      if (!user.profilePicture) {
+      if (!user.profilePicture && !isEditing) {
         debugLog('[PROFILE_PAGE] No profile picture found in user object, attempting to refresh user data...')
         forceRefreshUser().catch(err => {
           errorLog('[PROFILE_PAGE] Error refreshing user:', err)
         })
       }
       
-      setProfilePicture(user.profilePicture || null)
-      setPreviewImage(user.profilePicture || null)
+      // Only update profile picture and preview if NOT currently editing (prevents overwriting user's new selection)
+      if (!isEditing) {
+        setProfilePicture(user.profilePicture || null)
+        setPreviewImage(user.profilePicture || null)
+      }
       
       // Only update editData if NOT currently editing (prevents overwriting user input)
       if (!isEditing) {

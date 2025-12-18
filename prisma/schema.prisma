@@ -340,3 +340,23 @@ model ProductReview {
   @@index([rating])
   @@map("product_reviews")
 }
+
+model PromoCode {
+  id              String    @id @default(cuid())
+  code            String    @unique // Promo code (e.g., "WELCOME20", "QR20")
+  discountType    String    // Type identifier (e.g., "QR_SIGNUP", "REFERRAL", "EVENT")
+  discountPercent Float     // Discount percentage (e.g., 20.0 for 20%)
+  isActive        Boolean   @default(true) // Can be used?
+  expiresAt       DateTime? // Optional expiration date
+  maxUses         Int?      // Maximum number of uses (null = unlimited)
+  usedCount       Int       @default(0) // How many times used
+  description     String?   @db.Text // Description of promo (for admin reference)
+  createdBy       String?   // Admin user who created it
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  @@index([code])
+  @@index([isActive])
+  @@index([expiresAt])
+  @@map("promo_codes")
+}

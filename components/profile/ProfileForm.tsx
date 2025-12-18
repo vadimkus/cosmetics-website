@@ -87,9 +87,9 @@ export default function ProfileForm({
             )}
           </div>
 
-          {/* Contact Email (for Apple Private Relay users) */}
+          {/* Contact Email (for Apple Private Relay users) - Full Width */}
           {isApplePrivateRelay && (
-            <div className="space-y-1 md:space-y-2">
+            <div className="space-y-1 md:space-y-2 md:col-span-2">
               <label className="text-xs md:text-sm font-medium text-gray-700 flex items-center gap-2">
                 <Mail className="h-4 w-4 text-green-600" />
                 Contact Email
@@ -113,9 +113,9 @@ export default function ProfileForm({
                 </div>
               )}
               {!isEditing && !user.contactEmail && (
-                <div className="flex items-start gap-2 p-2 bg-yellow-50 border border-yellow-200 rounded-lg">
+                <div className="flex items-start gap-2 p-2 md:p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
                   <AlertCircle className="h-4 w-4 text-yellow-600 flex-shrink-0 mt-0.5" />
-                  <p className="text-xs text-yellow-800">
+                  <p className="text-xs md:text-sm text-yellow-800">
                     Add your real email to receive order updates and notifications.
                   </p>
                 </div>

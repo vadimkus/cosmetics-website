@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { User, Shield, Eye, Lock, CheckCircle, X, MessageCircle, Zap, Clock, Gift, Sparkles, Heart } from 'lucide-react'
+import { User, Shield, Eye, Lock, CheckCircle, X, MessageCircle, Zap, Clock, Gift, Sparkles, Heart, Mail, AlertCircle } from 'lucide-react'
 import { User as UserType } from '@/types/user'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
@@ -14,8 +14,9 @@ interface ProfileFormProps {
     phone: string
     address: string
     birthday: string
+    contactEmail: string
   }
-  onEditDataChange: (data: { name: string; phone: string; address: string; birthday: string }) => void
+  onEditDataChange: (data: { name: string; phone: string; address: string; birthday: string; contactEmail: string }) => void
   onSave: () => void
   onCancel: () => void
 }
@@ -35,6 +36,9 @@ export default function ProfileForm({
       [field]: value
     })
   }
+
+  // Check if user signed in with Apple Private Relay
+  const isApplePrivateRelay = user.email.includes('@privaterelay.appleid.com')
 
   return (
     <div className="space-y-3 md:space-y-8">
@@ -73,7 +77,51 @@ export default function ProfileForm({
             <div className="px-3 md:px-4 py-2 md:py-3 bg-gray-50 rounded-lg md:rounded-xl border border-gray-100">
               <p className="text-sm md:text-base text-gray-800 break-all">{user.email}</p>
             </div>
+            {isApplePrivateRelay && (
+              <div className="flex items-start gap-2 p-2 md:p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                <Shield className="h-4 w-4 text-blue-600 flex-shrink-0 mt-0.5" />
+                <p className="text-xs text-blue-800">
+                  <strong>Apple Private Relay:</strong> This email is private. Add a contact email below to receive notifications.
+                </p>
+              </div>
+            )}
           </div>
+
+          {/* Contact Email (for Apple Private Relay users) */}
+          {isApplePrivateRelay && (
+            <div className="space-y-1 md:space-y-2">
+              <label className="text-xs md:text-sm font-medium text-gray-700 flex items-center gap-2">
+                <Mail className="h-4 w-4 text-green-600" />
+                Contact Email
+                <span className="text-xs text-gray-500">(optional)</span>
+              </label>
+              {isEditing ? (
+                <input
+                  type="email"
+                  value={editData.contactEmail}
+                  onChange={(e) => handleInputChange('contactEmail', e.target.value)}
+                  placeholder="your.real.email@example.com"
+                  className="w-full px-3 md:px-4 py-2 md:py-3 text-sm md:text-base border border-gray-200 rounded-lg md:rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent bg-white"
+                />
+              ) : (
+                <div className="px-3 md:px-4 py-2 md:py-3 bg-gray-50 rounded-lg md:rounded-xl border border-gray-100">
+                  <p className="text-sm md:text-base text-gray-800">
+                    {user.contactEmail || (
+                      <span className="text-gray-500 italic">Not provided</span>
+                    )}
+                  </p>
+                </div>
+              )}
+              {!isEditing && !user.contactEmail && (
+                <div className="flex items-start gap-2 p-2 bg-yellow-50 border border-yellow-200 rounded-lg">
+                  <AlertCircle className="h-4 w-4 text-yellow-600 flex-shrink-0 mt-0.5" />
+                  <p className="text-xs text-yellow-800">
+                    Add your real email to receive order updates and notifications.
+                  </p>
+                </div>
+              )}
+            </div>
+          )}
 
           {/* Phone */}
           <div className="space-y-1 md:space-y-2">

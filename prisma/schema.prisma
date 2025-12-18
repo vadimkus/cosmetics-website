@@ -11,6 +11,7 @@ datasource db {
 model User {
   id                 String    @id @default(cuid())
   email              String    @unique
+  contactEmail       String?   // Optional: For Apple Private Relay users to provide real email
   appleSub           String?   @unique
   name               String
   password           String?

@@ -44,6 +44,7 @@ type EditData = {
   phone: string
   address: string
   birthday: string
+  contactEmail: string
 }
 
 // Toast notification type
@@ -74,7 +75,8 @@ export default function ProfilePageRefactored() {
     name: user?.name || '',
     phone: user?.phone || '',
     address: user?.address || '',
-    birthday: user?.birthday || ''
+    birthday: user?.birthday || '',
+    contactEmail: user?.contactEmail || ''
   })
   const [profilePicture, setProfilePicture] = useState<string | null>(null)
   const [previewImage, setPreviewImage] = useState<string | null>(null)
@@ -209,7 +211,8 @@ export default function ProfilePageRefactored() {
           name: user.name || '',
           phone: user.phone || '',
           address: user.address || '',
-          birthday: user.birthday || ''
+          birthday: user.birthday || '',
+          contactEmail: user.contactEmail || ''
         })
       }
       
@@ -357,7 +360,8 @@ export default function ProfilePageRefactored() {
       name: user.name,
       phone: user.phone || '',
       address: user.address || '',
-      birthday: user.birthday || ''
+      birthday: user.birthday || '',
+      contactEmail: user.contactEmail || ''
     })
     setProfilePicture(user?.profilePicture || null)
     setPreviewImage(user?.profilePicture || null)

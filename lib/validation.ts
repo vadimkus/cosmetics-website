@@ -235,6 +235,7 @@ export function validateProductInput(input: {
 export function validateUserProfileInput(input: {
   name?: string
   email?: string
+  contactEmail?: string | null
   phone?: string | null
   address?: string | null
   birthday?: string | null
@@ -258,6 +259,18 @@ export function validateUserProfileInput(input: {
     const emailValidation = validateLength(input.email, INPUT_LIMITS.USER_EMAIL, 'Email')
     if (!emailValidation.valid) {
       errors.push(emailValidation.error!)
+    }
+  }
+  
+  // Validate contact email
+  if (input.contactEmail !== undefined && input.contactEmail !== null && input.contactEmail.trim() !== '') {
+    const contactEmailValidation = validateLength(input.contactEmail, INPUT_LIMITS.USER_EMAIL, 'Contact Email')
+    if (!contactEmailValidation.valid) {
+      errors.push(contactEmailValidation.error!)
+    }
+    // Basic email format check
+    if (input.contactEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.contactEmail)) {
+      errors.push('Contact email must be a valid email address')
     }
   }
   

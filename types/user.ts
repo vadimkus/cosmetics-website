@@ -2,6 +2,7 @@ export interface User {
   id: string
   name: string
   email: string
+  contactEmail?: string | null
   phone?: string | null
   address?: string | null
   profilePicture?: string | null

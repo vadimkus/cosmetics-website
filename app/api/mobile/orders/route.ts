@@ -5,6 +5,7 @@ import { debugLog, errorLog } from '@/lib/logger'
 import { prisma } from '@/lib/database'
 import { sendOrderConfirmationEmail, sendAdminNewOrderNotification } from '@/lib/email'
 import { generateUniqueOrderNumber } from '@/lib/orderNumber'
+import { getPreferredEmail } from '@/lib/emailHelpers'
 
 /**
  * Mobile Orders Endpoint
@@ -378,10 +379,14 @@ export async function POST(request: NextRequest) {
 
     // Create order
     const orderNotes = typeof (orderData as any)?.orderNotes === 'string' ? (orderData as any).orderNotes.trim() : ''
+    
+    // Use contact email if provided (for Apple Private Relay users), otherwise regular email
+    const preferredEmail = getPreferredEmail(user)
+    
     const order = await prisma.order.create({
       data: {
         orderNumber,
-        customerEmail: user.email,
+        customerEmail: preferredEmail,  // Use preferred email for notifications
         customerName: orderData.customerName,
         customerPhone: orderData.customerPhone,
         customerEmirate: orderData.customerEmirate,

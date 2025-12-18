@@ -7,6 +7,7 @@ import { errorLog, debugLog } from '@/lib/logger'
 interface User {
   id: string
   email: string
+  contactEmail?: string
   name: string
   phone?: string
   address?: string

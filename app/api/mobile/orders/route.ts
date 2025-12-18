@@ -429,13 +429,21 @@ export async function POST(request: NextRequest) {
     // Create order
     const orderNotes = typeof (orderData as any)?.orderNotes === 'string' ? (orderData as any).orderNotes.trim() : ''
     
-    // Use contact email if provided (for Apple Private Relay users), otherwise regular email
+    // Get preferred email for sending notifications (contactEmail if set, else regular email)
     const preferredEmail = getPreferredEmail(user)
+    
+    debugLog('[MOBILE_ORDERS] Email routing:', {
+      userLoginEmail: user.email,
+      userContactEmail: user.contactEmail || null,
+      preferredEmailForNotifications: preferredEmail,
+      willStoreInDB: user.email,
+      willSendEmailTo: preferredEmail
+    })
     
     const order = await prisma.order.create({
       data: {
         orderNumber,
-        customerEmail: preferredEmail,  // Use preferred email for notifications
+        customerEmail: user.email,  // Store original login email for order tracking
         customerName: orderData.customerName,
         customerPhone: orderData.customerPhone,
         customerEmirate: orderData.customerEmirate,
@@ -461,7 +469,7 @@ export async function POST(request: NextRequest) {
     sendOrderConfirmationEmail({
       orderNumber: order.orderNumber,
       customerName: order.customerName,
-      customerEmail: order.customerEmail,
+      customerEmail: preferredEmail,  // Send to preferred email (contactEmail if set)
       items: order.items.map(item => ({
         productName: item.productName,
         quantity: item.quantity,
@@ -488,7 +496,7 @@ export async function POST(request: NextRequest) {
     sendAdminNewOrderNotification({
       orderNumber: order.orderNumber,
       customerName: order.customerName,
-      customerEmail: order.customerEmail,
+      customerEmail: user.email,  // Send user's login email to admin (not contactEmail)
       customerPhone: order.customerPhone,
       total: order.total,
       itemCount: order.items.length,

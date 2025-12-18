@@ -155,7 +155,18 @@ async function handleAppleCallback(request: NextRequest, params: {
     } catch {
       // ignore
     }
-    if (!fullName) fullName = email.split('@')[0] || 'User'
+    
+    // Fallback name logic:
+    // 1. If no name from Apple, use a user-friendly default instead of the obfuscated email prefix
+    // 2. For private relay emails (privaterelay.appleid.com), use "Apple User" as default
+    // 3. For regular emails, extract the prefix (but this is still not ideal)
+    if (!fullName) {
+      if (email.includes('@privaterelay.appleid.com')) {
+        fullName = 'Apple User'
+      } else {
+        fullName = email.split('@')[0] || 'Apple User'
+      }
+    }
 
     // Find or create/link user
     let user = await findUserByAppleSub(appleSub)

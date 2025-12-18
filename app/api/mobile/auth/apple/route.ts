@@ -4,6 +4,7 @@ import { debugLog, errorLog } from '@/lib/logger'
 import { findUserByEmail, addUser, updateUser } from '@/lib/userStorageDb'
 import { generateMobileToken } from '@/lib/jwt'
 import { verifyAppleIdentityToken } from '@/lib/appleIdentityToken'
+import { sendAdminNewUserNotification } from '@/lib/email'
 
 /**
  * Mobile Apple Sign-In Endpoint
@@ -54,8 +55,10 @@ export async function POST(request: NextRequest) {
 
     let user = await findUserByEmail(email)
     const nowIso = new Date().toISOString()
+    let isNewUser = false
 
     if (!user) {
+      isNewUser = true
       const nameFromEmail = email.split('@')[0] || 'User'
       const created = await addUser({
         name: fullName || nameFromEmail,
@@ -72,6 +75,21 @@ export async function POST(request: NextRequest) {
         lastLoginAt: nowIso,
       })
       user = created
+
+      // Send admin notification for new user registration via Apple Sign-In
+      try {
+        await sendAdminNewUserNotification(
+          fullName || nameFromEmail,
+          email,
+          undefined, // phone
+          undefined, // address
+          'Apple Sign-In (Mobile App)'
+        )
+        debugLog(`[MOBILE_AUTH] Admin notification sent for new Apple Sign-In user: ${email}`)
+      } catch (emailError) {
+        // Don't fail the registration if email fails
+        errorLog('[MOBILE_AUTH] Failed to send admin notification for new Apple user:', emailError)
+      }
     } else {
       // Update last login timestamp
       try {

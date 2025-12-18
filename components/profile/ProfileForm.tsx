@@ -37,8 +37,10 @@ export default function ProfileForm({
     })
   }
 
-  // Check if user signed in with Apple Private Relay
-  const isApplePrivateRelay = user.email.includes('@privaterelay.appleid.com')
+  // Check if user signed in with Apple Private Relay or has a deleted/anonymized account
+  const isApplePrivateRelay = user.email.includes('@privaterelay.appleid.com') || user.email.includes('@genosys.local')
+  // Also check if user originally used Apple (deleted accounts start with "deleted+")
+  const isDeletedAppleAccount = user.email.startsWith('deleted+') && user.email.includes('@genosys.local')
 
   return (
     <div className="space-y-3 md:space-y-8">
@@ -77,7 +79,7 @@ export default function ProfileForm({
             <div className="px-3 md:px-4 py-2 md:py-3 bg-gray-50 rounded-lg md:rounded-xl border border-gray-100">
               <p className="text-sm md:text-base text-gray-800 break-all">{user.email}</p>
             </div>
-            {isApplePrivateRelay && (
+            {user.email.includes('@privaterelay.appleid.com') && (
               <div className="flex items-start gap-2 p-2 md:p-3 bg-blue-50 border border-blue-200 rounded-lg">
                 <Shield className="h-4 w-4 text-blue-600 flex-shrink-0 mt-0.5" />
                 <p className="text-xs text-blue-800">
@@ -85,9 +87,17 @@ export default function ProfileForm({
                 </p>
               </div>
             )}
+            {isDeletedAppleAccount && (
+              <div className="flex items-start gap-2 p-2 md:p-3 bg-orange-50 border border-orange-200 rounded-lg">
+                <AlertCircle className="h-4 w-4 text-orange-600 flex-shrink-0 mt-0.5" />
+                <p className="text-xs text-orange-800">
+                  <strong>Account Status:</strong> This account email is anonymized. Please add a contact email below to receive notifications.
+                </p>
+              </div>
+            )}
           </div>
 
-          {/* Contact Email (for Apple Private Relay users) - Full Width */}
+          {/* Contact Email (for Apple Private Relay users and anonymized accounts) - Full Width */}
           {isApplePrivateRelay && (
             <div className="space-y-1 md:space-y-2 md:col-span-2">
               <label className="text-xs md:text-sm font-medium text-gray-700 flex items-center gap-2">

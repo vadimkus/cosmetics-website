@@ -8,6 +8,18 @@ import { generateUniqueOrderNumber } from '@/lib/orderNumber'
 import { getPreferredEmail } from '@/lib/emailHelpers'
 import { calculateMobileShipping, calculateVatIncluded } from '@/lib/mobileCheckoutConfig'
 
+const extractPaymentFlow = (order: any): string | null => {
+  const raw = order?.paymentMetadata ?? order?.payment_metadata ?? null
+  if (!raw) return null
+  try {
+    const obj = typeof raw === 'string' ? JSON.parse(raw) : raw
+    const flow = String(obj?.paymentFlow || obj?.payment_flow || '').trim().toLowerCase()
+    return flow || null
+  } catch {
+    return null
+  }
+}
+
 /**
  * Mobile Orders Endpoint
  * 
@@ -137,6 +149,7 @@ export async function GET(request: NextRequest) {
         createdAt: order.createdAt.toISOString(),
         updatedAt: order.updatedAt.toISOString(),
         paidAt: order.paidAt?.toISOString() || null,
+        paymentFlow: extractPaymentFlow(order),
         items: order.items.map(item => ({
           id: item.id,
           productId: item.productId,
@@ -189,6 +202,7 @@ export async function GET(request: NextRequest) {
       status: order.status,
       paymentMethod: order.paymentMethod,
       paymentStatus: order.paymentStatus,
+      paymentFlow: extractPaymentFlow(order),
       orderNotes: (order as any).orderNotes || '',
       subtotal: order.subtotal,
       discountAmount: order.discountAmount,

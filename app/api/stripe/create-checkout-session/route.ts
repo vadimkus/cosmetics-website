@@ -18,6 +18,17 @@ interface CheckoutItem {
   selectedSize?: string
 }
 
+interface StripeProductData {
+  name: string
+  description: string
+  metadata: {
+    product_id: string
+    color: string
+    size: string
+  }
+  images?: string[]
+}
+
 export async function POST(request: NextRequest) {
   // CSRF protection
   const csrfCheck = await requireCsrfToken(request)
@@ -135,7 +146,7 @@ export async function POST(request: NextRequest) {
         imageUrl = undefined
       }
       
-      const productData: any = {
+      const productData: StripeProductData = {
         name: item.product.name,
         description: item.product.description.substring(0, 300), // Stripe has limits
         metadata: {

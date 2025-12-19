@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { Share2, Check, Copy, MessageCircle, Send, Instagram } from 'lucide-react'
 import { useWebShare } from '@/hooks/useWebShare'
 import { cn } from '@/lib/utils'
+import { errorLog } from '@/lib/logger'
 
 interface ShareButtonProps {
   title: string
@@ -53,7 +54,7 @@ export default function ShareButton({
       setShowFallbackMenu(false)
       setTimeout(() => setShowSuccess(false), 2000)
     } catch (error) {
-      console.error('Failed to copy to clipboard:', error)
+      errorLog('Failed to copy to clipboard:', error)
     }
   }
 

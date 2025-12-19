@@ -5,6 +5,7 @@ import { Share2, Check } from 'lucide-react'
 import { useProductShare } from '@/hooks/useWebShare'
 import ShareButton from './ShareButton'
 import { cn } from '@/lib/utils'
+import { errorLog } from '@/lib/logger'
 
 interface Product {
   id: string
@@ -139,7 +140,7 @@ export function EnhancedProductShare({
         // Handle success (could show toast, etc.)
       }
     } catch (error) {
-      console.error('Failed to share with image:', error)
+      errorLog('Failed to share with image:', error)
       // Fallback to text sharing
       await shareProduct(product)
     }

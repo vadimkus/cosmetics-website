@@ -7,6 +7,7 @@ import { CheckCircle, Package, Mail, ArrowRight, Home, RefreshCw } from 'lucide-
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { useCartStore } from '@/lib/cartStore'
+import { debugLog, errorLog } from '@/lib/logger'
 
 interface OrderDetails {
   sessionId: string
@@ -65,7 +66,7 @@ export default function StripeSuccessClient() {
         // Clear cart if payment was successful
         if (data.paymentStatus === 'paid') {
           clearCart()
-          console.log('✅ Cart cleared after successful payment')
+          debugLog('✅ Cart cleared after successful payment')
         }
 
         // Track successful payment in Google Analytics
@@ -85,7 +86,7 @@ export default function StripeSuccessClient() {
         }
 
       } catch (error) {
-        console.error('Payment verification error:', error)
+        errorLog('Payment verification error:', error)
         setError('Failed to verify payment status')
       } finally {
         setLoading(false)

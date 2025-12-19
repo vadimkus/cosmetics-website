@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { Download, X, Smartphone, Zap, Wifi } from 'lucide-react'
 import { usePWAInstall } from '@/hooks/usePWAInstall'
 import { cn } from '@/lib/utils'
+import { errorLog } from '@/lib/logger'
 
 // Detect if device is mobile
 function isMobileDevice(): boolean {
@@ -54,7 +55,7 @@ export default function PWAInstallPrompt({
         setIsVisible(false)
       }
     } catch (error) {
-      console.error('Install failed:', error)
+      errorLog('Install failed:', error)
     } finally {
       setIsInstalling(false)
     }

@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { CheckCircle, Package, ArrowRight } from 'lucide-react'
+import { errorLog } from '@/lib/logger'
 
 export default function PaymentSuccessPage() {
   const searchParams = useSearchParams()
@@ -21,7 +22,7 @@ export default function PaymentSuccessPage() {
             setOrderDetails(data.orders[0])
           }
         })
-        .catch(err => console.error('Failed to fetch order:', err))
+        .catch(err => errorLog('Failed to fetch order:', err))
         .finally(() => setLoading(false))
     } else {
       setLoading(false)

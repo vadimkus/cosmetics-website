@@ -7,6 +7,7 @@ import { sendOrderConfirmationEmail, sendAdminNewOrderNotification } from '@/lib
 import { generateUniqueOrderNumber } from '@/lib/orderNumber'
 import { getPreferredEmail } from '@/lib/emailHelpers'
 import { calculateMobileShipping, calculateVatIncluded } from '@/lib/mobileCheckoutConfig'
+import { isUserDiscountExcludedProduct } from '@/lib/mobileDiscountRules'
 
 const extractPaymentFlow = (order: any): string | null => {
   const raw = order?.paymentMetadata ?? order?.payment_metadata ?? null
@@ -374,7 +375,9 @@ export async function POST(request: NextRequest) {
       const isPromo =
         item?.isPromotionItem === true ||
         String(item?.selectedSize || '').trim() === '__PROMO__' ||
-        String(item?.size || '').trim() === '__PROMO__'
+        String(item?.size || '').trim() === '__PROMO__' ||
+        // Client may send promo items with price 0 but without the flag; treat as promo.
+        Number(item?.price) === 0
 
       const variant = (!isPromo && (wantedSize || wantedColor))
         ? await prisma.productVariant.findFirst({
@@ -390,7 +393,7 @@ export async function POST(request: NextRequest) {
       const baseUnit = isPromo ? 0 : Number(variant?.price ?? product.price)
       const pct = Number((user as any)?.discountPercentage)
       const hasUserDiscount = Number.isFinite(pct) && pct > 0 && pct < 100
-      const excluded = product.noDiscount === true
+      const excluded = isUserDiscountExcludedProduct(product)
       const discountedUnit =
         (!isPromo && !excluded && hasUserDiscount)
           ? baseUnit * (1 - pct / 100)
@@ -411,7 +414,8 @@ export async function POST(request: NextRequest) {
         quantity,
         image: item.image || product.image,
         color: item.color || null,
-        size: item.size || null
+        // Preserve a stable promo marker so mobile UI can reliably show "FREE"
+        size: isPromo ? '__PROMO__' : (item.size || null)
       })
     }
 
@@ -434,7 +438,7 @@ export async function POST(request: NextRequest) {
     
     debugLog('[MOBILE_ORDERS] Email routing:', {
       userLoginEmail: user.email,
-      userContactEmail: user.contactEmail || null,
+      userContactEmail: (user as any).contactEmail || null,
       preferredEmailForNotifications: preferredEmail,
       willStoreInDB: user.email,
       willSendEmailTo: preferredEmail

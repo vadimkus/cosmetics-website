@@ -6,6 +6,7 @@ import { validateMobileAuth, extractTokenFromHeader } from '@/lib/jwt'
 import { findUserByEmail } from '@/lib/userStorageDb'
 import { generateUniqueOrderNumber } from '@/lib/orderNumber'
 import { calculateMobileShipping, calculateVatIncluded } from '@/lib/mobileCheckoutConfig'
+import { isUserDiscountExcludedProduct } from '@/lib/mobileDiscountRules'
 
 /**
  * MOBILE STRIPE CHECKOUT ENDPOINT
@@ -361,19 +362,26 @@ export async function POST(request: NextRequest) {
           })
         : null
 
-      const baseUnit = Number(variant?.price ?? product.price)
+      const isPromo =
+        (item as any)?.isPromotionItem === true ||
+        String((item as any)?.selectedSize || '').trim() === '__PROMO__' ||
+        String((item as any)?.size || '').trim() === '__PROMO__' ||
+        // Client can send promo items with price 0 but without the flag; treat as promo.
+        Number((item as any)?.price) === 0
+
+      const baseUnit = isPromo ? 0 : Number(variant?.price ?? product.price)
       const qty = Number(item.quantity) || 0
 
       // Apply user discount unless product is excluded
       const pct = Number(user.discountPercentage)
       const hasUserDiscount = Number.isFinite(pct) && pct > 0 && pct < 100
-      const excluded = product.noDiscount === true
-      const discountedUnit = (!excluded && hasUserDiscount) ? (baseUnit * (1 - pct / 100)) : baseUnit
+      const excluded = isPromo ? true : isUserDiscountExcludedProduct(product)
+      const discountedUnit = (!isPromo && !excluded && hasUserDiscount) ? (baseUnit * (1 - pct / 100)) : baseUnit
       const unitPrice = Number(discountedUnit)
       const itemSubtotal = unitPrice * qty
       serverSubtotal += itemSubtotal
 
-      if (!excluded && hasUserDiscount) {
+      if (!isPromo && !excluded && hasUserDiscount) {
         discountAmount += (baseUnit - unitPrice) * qty
       }
 
@@ -383,7 +391,8 @@ export async function POST(request: NextRequest) {
         price: unitPrice,
         quantity: qty,
         image: item.image || product.image,
-        size: item.size,
+        // Preserve a stable promo marker so mobile UI can reliably show "FREE"
+        size: isPromo ? '__PROMO__' : item.size,
         color: item.color
       })
     }

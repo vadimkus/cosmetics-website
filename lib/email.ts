@@ -275,7 +275,7 @@ export const emailTemplates = {
       } else {
         t = require('@/messages/en.json').orderEmail.orderDelivered
       }
-    } catch {
+    } catch (error) {
       t = require('@/messages/en.json').orderEmail.orderDelivered
     }
     
@@ -370,7 +370,7 @@ export const emailTemplates = {
       } else {
         t = require('@/messages/en.json').orderEmail.discountAssigned
       }
-    } catch {
+    } catch (error) {
       t = require('@/messages/en.json').orderEmail.discountAssigned
     }
     
@@ -479,7 +479,7 @@ export const emailTemplates = {
       } else {
         t = require('@/messages/en.json').orderEmail.orderConfirmation
       }
-    } catch {
+    } catch (error) {
       t = require('@/messages/en.json').orderEmail.orderConfirmation
     }
     
@@ -1073,7 +1073,7 @@ export const sendEmail = async (to: string, subject: string, html: string) => {
     debugLog('✅ Message ID:', result.messageId)
     debugLog('✅ Response:', result.response)
     return { success: true, messageId: result.messageId }
-  } catch {
+  } catch (error) {
     errorLog('❌ Error sending email')
     errorLog('❌ Error type:', error instanceof Error ? error.constructor.name : typeof error)
     errorLog('❌ Error message:', error instanceof Error ? error.message : 'Unknown error')
@@ -1198,7 +1198,7 @@ export const sendAdminNewOrderNotification = async (orderData: AdminNewOrderEmai
     }
     
     return result
-  } catch {
+  } catch (error) {
     errorLog(`❌ EXCEPTION in sendAdminNewOrderNotification:`)
     errorLog(`❌ Error:`, error)
     errorLog(`❌ Order number:`, orderData.orderNumber)
@@ -1265,7 +1265,7 @@ export const generateCODOrderHTML = (order: OrderHTMLData, locale: string = 'en'
       } else {
         t = require('@/messages/en.json').orderEmail.cod
       }
-    } catch {
+    } catch (error) {
       // Fallback to English if translations fail to load
       t = {
         title: `Order Confirmation #${order.orderNumber}`,
@@ -1411,7 +1411,7 @@ export const generateSupportLinkOrderHTML = (order: OrderHTMLData, locale: strin
       } else {
         t = require('@/messages/en.json').orderEmail.supportLink
       }
-    } catch {
+    } catch (error) {
       // Fallback to English
       t = {
         companyName: 'Genosys Middle East FZ-LLC',
@@ -1585,7 +1585,7 @@ export const generateStripePaymentConfirmationHTML = (order: OrderHTMLData, loca
       // Safely access nested translation object
       t = messages?.orderEmail?.stripePaymentConfirmation || {}
     }
-  } catch {
+  } catch (error) {
     console.log('Translation loading failed, using fallbacks:', error)
     t = {}
   }
@@ -1864,7 +1864,7 @@ export const sendOrderStatusUpdate = async (order: { orderNumber: string; custom
         const enMessages = require('@/messages/en.json')
         t = enMessages.default?.orderEmail?.statusUpdate || enMessages.orderEmail?.statusUpdate
       }
-    } catch {
+    } catch (error) {
       errorLog('Failed to load translations for order status update:', error)
       // Fallback to English
       try {
@@ -1973,7 +1973,7 @@ export const sendOrderStatusUpdate = async (order: { orderNumber: string; custom
                 // Ensure path starts with /
                 const normalizedPath = cleanPath.startsWith('/') ? cleanPath : '/' + cleanPath
                 imageUrl = `${baseUrl}${normalizedPath}`
-              } catch {
+              } catch (error) {
                 debugLog(`❌ Failed to decode Next.js image URL: ${trimmedUrl}`, _e)
                 imageUrl = `${baseUrl}/images/genosys-logo.png`
               }
@@ -2030,7 +2030,7 @@ export const sendOrderStatusUpdate = async (order: { orderNumber: string; custom
         // Ensure URL is valid
         try {
           new URL(imageUrl)
-        } catch {
+        } catch (error) {
           errorLog(`❌ Invalid image URL constructed: "${imageUrl}" for product: ${item.productName}`)
           errorLog(`   Original was: "${originalImageUrl}"`)
           imageUrl = `${baseUrl}/images/genosys-logo.png`
@@ -2231,7 +2231,7 @@ export const sendOrderStatusUpdate = async (order: { orderNumber: string; custom
         ? { success: true, messageId: result.messageId }
         : { success: true }
     }
-  } catch {
+  } catch (error) {
     errorLog('Error sending order status update email:', error)
     const errorMessage = error instanceof Error ? error.message : 'Unknown error'
     return { success: false, error: errorMessage }

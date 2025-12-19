@@ -52,7 +52,7 @@ export async function POST(request: NextRequest) {
         tokenCount,
         action: 'none'
       })
-    } catch {
+    } catch (error) {
       const errorMessage = error instanceof Error ? error.message : String(error)
       
       // If table doesn't exist, try to create it
@@ -97,7 +97,7 @@ export async function POST(request: NextRequest) {
       // Other database errors
       throw error
     }
-  } catch {
+  } catch (error) {
     errorLog('[MIGRATION] Migration error:', error)
     const errorMessage = error instanceof Error ? error.message : 'Unknown error'
     

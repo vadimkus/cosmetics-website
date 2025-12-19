@@ -326,7 +326,7 @@ export async function POST(request: NextRequest) {
       orderNumber: orderNumber
     })
 
-  } catch {
+  } catch (error) {
     errorLog('Error sending COD order confirmation:', error)
     return NextResponse.json(
       { error: 'Failed to send COD order confirmation', details: error instanceof Error ? error.message : String(error) },

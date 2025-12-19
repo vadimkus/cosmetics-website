@@ -51,15 +51,15 @@ export async function POST(request: NextRequest) {
     let clientIdentifier = 'unknown'
     try {
       clientIdentifier = getClientIdentifierFromNextRequest(request)
-    } catch {
-      errorLog('[MOBILE_FORGOT_PASSWORD] Rate limit identifier error:', e)
+    } catch (error) {
+      errorLog('[MOBILE_FORGOT_PASSWORD] Rate limit identifier error:', error)
     }
 
     let rateLimitResult
     try {
       rateLimitResult = await forgotPasswordLimiter(clientIdentifier)
-    } catch {
-      errorLog('[MOBILE_FORGOT_PASSWORD] Rate limiting error:', e)
+    } catch (error) {
+      errorLog('[MOBILE_FORGOT_PASSWORD] Rate limiting error:', error)
       return NextResponse.json(
         { success: false, error: 'Rate limiting service unavailable. Please try again later.' },
         { status: 503 }
@@ -94,8 +94,8 @@ export async function POST(request: NextRequest) {
         if (!emailResult.success) {
           errorLog('[MOBILE_FORGOT_PASSWORD] Failed to send reset email:', emailResult.error)
         }
-      } catch {
-        errorLog('[MOBILE_FORGOT_PASSWORD] Error processing reset:', e)
+      } catch (error) {
+        errorLog('[MOBILE_FORGOT_PASSWORD] Error processing reset:', error)
       }
     }
 
@@ -104,7 +104,7 @@ export async function POST(request: NextRequest) {
       success: true,
       message: 'If an account with that email exists, a password reset link has been sent.'
     })
-  } catch {
+  } catch (error) {
     errorLog('[MOBILE_FORGOT_PASSWORD] Error:', error)
     return NextResponse.json(
       { success: false, error: 'An error occurred. Please try again later.' },

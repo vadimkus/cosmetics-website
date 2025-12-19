@@ -90,7 +90,7 @@ export async function GET(_request: NextRequest) {
     let products: Product[] = []
     try {
       products = await getAllProducts()
-    } catch {
+    } catch (error) {
       errorLog('Error fetching products for sitemap:', error)
     }
 
@@ -206,7 +206,7 @@ export async function GET(_request: NextRequest) {
           addUrlWithHreflang(blogPath, post.updatedAt.toISOString(), 'weekly', '0.7')
         })
       }
-    } catch {
+    } catch (error) {
       // Table might not exist yet - that's okay, sitemap will still work
       errorLog('Error fetching blog posts for sitemap (table may not exist yet):', error)
     }
@@ -221,7 +221,7 @@ export async function GET(_request: NextRequest) {
         'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=86400',
       },
     })
-  } catch {
+  } catch (error) {
     errorLog('Error generating sitemap:', error)
     return new NextResponse('Error generating sitemap', { status: 500 })
   }

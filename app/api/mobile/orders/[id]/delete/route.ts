@@ -107,7 +107,7 @@ export async function POST(
     })
 
     return NextResponse.json({ success: true, message: 'Order deleted successfully' })
-  } catch {
+  } catch (error) {
     errorLog('[MOBILE_ORDERS_DELETE_POST] Delete order error:', error)
     return NextResponse.json({ success: false, error: 'Internal server error' }, { status: 500 })
   }

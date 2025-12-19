@@ -25,7 +25,7 @@ export default function ManualNotificationPage() {
         const parsed = JSON.parse(session)
         return parsed.email || null
       }
-      } catch {
+      } catch (error) {
       return null
     }
     return null
@@ -86,7 +86,7 @@ export default function ManualNotificationPage() {
       } else {
         setResult({ success: false, message: data.error })
       }
-      } catch {
+      } catch (error) {
       setResult({ success: false, message: 'Network error. Please try again.' })
     } finally {
       setLoading(false)

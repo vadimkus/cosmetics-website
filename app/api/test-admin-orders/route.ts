@@ -28,7 +28,7 @@ export async function GET(request: NextRequest) {
         total: order.total
       }))
     })
-  } catch {
+  } catch (error) {
     errorLog('Error in test admin orders API:', error)
     return NextResponse.json(
       { success: false, error: 'Failed to fetch orders', details: error instanceof Error ? error.message : String(error) },

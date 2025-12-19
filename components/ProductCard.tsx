@@ -102,8 +102,8 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
             priority={false}
             quality={85}
             sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
-            onError={(e) => {
-              errorLog('Image failed to load:', product.image, e)
+            onError={() => {
+              errorLog('Image failed to load:', product.image)
             }}
             onLoad={() => {
               debugLog('Image loaded successfully:', product.image)

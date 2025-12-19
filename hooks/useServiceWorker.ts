@@ -60,7 +60,7 @@ export function useServiceWorker() {
           }
         })
 
-      } catch {
+      } catch (error) {
         errorLog('Service Worker registration failed:', error)
         setState(prev => ({
           ...prev,
@@ -90,7 +90,7 @@ export function useServiceWorker() {
     if (state.registration) {
       try {
         await state.registration.update()
-      } catch {
+      } catch (error) {
         errorLog('Failed to check for updates:', error)
       }
     }
@@ -106,7 +106,7 @@ export function useServiceWorker() {
           isRegistered: false,
           registration: null,
         }))
-      } catch {
+      } catch (error) {
         errorLog('Failed to unregister service worker:', error)
       }
     }
@@ -120,7 +120,7 @@ export function useServiceWorker() {
         cacheNames.map(cacheName => caches.delete(cacheName))
       )
       debugLog('All caches cleared')
-    } catch {
+    } catch (error) {
       errorLog('Failed to clear caches:', error)
     }
   }
@@ -141,7 +141,7 @@ export function useServiceWorker() {
         })
       )
       return cacheStatus
-    } catch {
+    } catch (error) {
       errorLog('Failed to get cache status:', error)
       return []
     }

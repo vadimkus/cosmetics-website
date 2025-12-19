@@ -20,7 +20,7 @@ export async function DELETE(request: NextRequest) {
     let sessionData: any = null
     try {
       sessionData = JSON.parse(sessionCookie.value)
-    } catch {
+    } catch (error) {
       return NextResponse.json({ error: 'Invalid session' }, { status: 401 })
     }
 
@@ -55,7 +55,7 @@ export async function DELETE(request: NextRequest) {
       path: '/',
     })
     return response
-  } catch {
+  } catch (error) {
     errorLog('Account deletion error:', error)
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
   }

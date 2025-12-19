@@ -96,7 +96,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
               } else {
                 setUser(parsedUser)
               }
-            } catch {
+            } catch (error) {
               errorLog('Error parsing saved user:', error)
               localStorage.removeItem('genosys_user')
             }
@@ -109,7 +109,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
           if (savedUser) {
             try {
               setUser(JSON.parse(savedUser))
-            } catch {
+            } catch (error) {
               errorLog('Error parsing saved user:', error)
               localStorage.removeItem('genosys_user')
             }
@@ -149,7 +149,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
         } else {
           localStorage.removeItem('genosys_user')
         }
-      } catch {
+      } catch (error) {
         // Handle quota exceeded or other storage errors
         if (error instanceof Error && error.name === 'QuotaExceededError') {
           errorLog('localStorage quota exceeded, clearing old data...')
@@ -166,11 +166,11 @@ export default function AuthProvider({ children }: AuthProviderProps) {
                     const recentActions = parsedActions.slice(-20)
                     localStorage.setItem(actionsKey, JSON.stringify(recentActions))
                   }
-                } catch {
+                } catch (error) {
                   localStorage.removeItem(actionsKey)
                 }
               }
-            } catch {
+            } catch (error) {
               // Ignore errors when cleaning up
             }
 
@@ -240,7 +240,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
           body: JSON.stringify(addCsrfToBody({ email, password })),
           signal: controller.signal
         })
-      } catch {
+      } catch (error) {
         clearTimeout(timeoutId)
         if (error instanceof Error && error.name === 'AbortError') {
           showToast(t('auth.loginTimeout'), 'error')
@@ -270,7 +270,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
             if (parsedExistingUser.email === data.user.email) {
               mergedUser = { ...data.user, ...parsedExistingUser }
             }
-          } catch {
+          } catch (error) {
             errorLog('Error parsing existing user data:', error)
           }
         }
@@ -278,7 +278,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
 
       setUser(mergedUser)
       return true
-    } catch {
+    } catch (error) {
       errorLog('Login error:', error)
       showToast(t('auth.loginFailedConnection'), 'error')
       return false
@@ -313,7 +313,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
 
       setUser(data.user)
       return true
-    } catch {
+    } catch (error) {
       errorLog('Registration error:', error)
       showToast('Registration failed. Please check your connection and try again.', 'error')
       return false
@@ -361,7 +361,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
         return
       }
       // For other errors, silently fail to avoid breaking the app
-    } catch {
+    } catch (error) {
       // Only log actual network errors, not 404s
       if (error instanceof TypeError && error.message.includes('fetch')) {
         // Network error - don't log in production to reduce noise
@@ -423,7 +423,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
         }
       }
       // For other errors, silently fail
-    } catch {
+    } catch (error) {
       // Only log actual network errors in development
       if (process.env.NODE_ENV === 'development' && error instanceof TypeError && error.message.includes('fetch')) {
         errorLog('❌ Error force refreshing user data:', error)
@@ -440,7 +440,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
         const promo = String(sp.get('promo') || '').trim()
         window.location.href = promo ? `/api/auth/google?promo=${encodeURIComponent(promo)}` : '/api/auth/google'
       }
-    } catch {
+    } catch (error) {
       errorLog('Google login error:', error)
       showToast(t('auth.googleSignInFailed'), 'error')
       setIsLoading(false)
@@ -455,7 +455,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
         const promo = String(sp.get('promo') || '').trim()
         window.location.href = promo ? `/api/auth/apple?promo=${encodeURIComponent(promo)}` : '/api/auth/apple'
       }
-    } catch {
+    } catch (error) {
       errorLog('Apple login error:', error)
       showToast(t('auth.appleSignInFailed'), 'error')
       setIsLoading(false)
@@ -471,7 +471,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
           'Content-Type': 'application/json',
         },
       })
-    } catch {
+    } catch (error) {
       // Even if API call fails, continue with logout
       errorLog('Error calling logout API:', error)
     }

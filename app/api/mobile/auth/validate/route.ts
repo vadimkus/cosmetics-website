@@ -115,7 +115,7 @@ export async function GET(request: NextRequest) {
       message: 'Token is valid'
     })
 
-  } catch {
+  } catch (error) {
     const duration = Date.now() - startTime
     errorLog('[MOBILE_AUTH] Token validation error:', {
       error: error instanceof Error ? error.message : 'Unknown error',

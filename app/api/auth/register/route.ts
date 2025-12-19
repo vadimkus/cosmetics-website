@@ -178,7 +178,7 @@ export async function POST(request: NextRequest) {
       if (code === 'P2002') {
         return NextResponse.json({ error: 'User with this email already exists' }, { status: 400 })
       }
-      throw e
+      throw error
     }
 
     // Track user registration
@@ -220,7 +220,7 @@ export async function POST(request: NextRequest) {
       user: userWithoutPassword,
       promoApplied
     })
-  } catch {
+  } catch (error) {
     errorLog('Registration error:', error)
     return NextResponse.json(
       { error: 'Internal server error' },

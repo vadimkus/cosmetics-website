@@ -126,9 +126,9 @@ export async function POST(request: NextRequest) {
           debugLog('[LOGIN] Plaintext password does not match')
         }
       }
-    } catch {
+    } catch (error) {
       passwordMatches = false
-      errorLog('[LOGIN] Password verification error:', e)
+      errorLog('[LOGIN] Password verification error:', error)
     }
 
     if (!passwordMatches) {
@@ -161,7 +161,7 @@ export async function POST(request: NextRequest) {
       if (refreshedUser) {
         updatedUser = refreshedUser
       }
-    } catch {
+    } catch (error) {
       errorLog('Error updating last login timestamp:', error)
       // Don't fail login if timestamp update fails
     }
@@ -194,7 +194,7 @@ export async function POST(request: NextRequest) {
     
     return response
 
-  } catch {
+  } catch (error) {
     errorLog('Login error:', error)
     return NextResponse.json(
       { error: 'Internal server error' },

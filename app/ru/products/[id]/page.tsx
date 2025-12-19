@@ -19,7 +19,7 @@ async function getProduct(id: string): Promise<Product | null> {
       }
     }
     return product
-  } catch {
+  } catch (error) {
     errorLog('Error fetching product:', error)
     return null
   }

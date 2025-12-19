@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
     let event: Stripe.Event
     try {
       event = validateWebhookSignature(body, signature, process.env.STRIPE_WEBHOOK_SECRET)
-    } catch {
+    } catch (error) {
       errorLog('❌ Webhook signature verification failed:', error)
       return NextResponse.json(
         { error: 'Invalid signature' },
@@ -84,7 +84,7 @@ export async function POST(request: NextRequest) {
     // Return success response to Stripe
     return NextResponse.json({ received: true })
 
-  } catch {
+  } catch (error) {
     errorLog('❌ Webhook processing error:', error)
     return NextResponse.json(
       { error: 'Webhook processing failed' },
@@ -161,7 +161,7 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) 
       })
     }
 
-  } catch {
+  } catch (error) {
     errorLog('❌ Error handling checkout.session.completed:', error)
   }
 }
@@ -214,7 +214,7 @@ async function handlePaymentIntentSucceeded(paymentIntent: Stripe.PaymentIntent)
     // Send confirmation emails if not already sent
     await sendConfirmationEmails(order)
 
-  } catch {
+  } catch (error) {
     errorLog('❌ Error handling payment_intent.succeeded:', error)
   }
 }
@@ -270,7 +270,7 @@ async function handlePaymentIntentFailed(paymentIntent: Stripe.PaymentIntent) {
       errorLog('❌ Failed to track payment failure:', err)
     })
 
-  } catch {
+  } catch (error) {
     errorLog('❌ Error handling payment_intent.payment_failed:', error)
   }
 }
@@ -339,7 +339,7 @@ async function sendConfirmationEmails(order: any) {
 
     debugLog('✅ Admin notification sent for order:', order.orderNumber)
 
-  } catch {
+  } catch (error) {
     errorLog('❌ Error sending confirmation emails:', error)
     // Don't throw - email failures shouldn't fail the webhook
   }

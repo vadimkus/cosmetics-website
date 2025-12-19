@@ -36,7 +36,7 @@ export default function Hero({ initialLocale = 'en', initialDir = 'ltr' }: HeroP
       
       try {
         await video.play()
-      } catch {
+      } catch (error) {
         // Autoplay was prevented - this is normal, user interaction will be needed
         debugLog('Video autoplay prevented (normal browser behavior)')
       }

@@ -45,7 +45,7 @@ export async function GET(request: NextRequest) {
         updatedAt: post.updatedAt.toISOString(),
       })),
     })
-  } catch {
+  } catch (error) {
     errorLog('Error fetching blog posts:', error)
     return NextResponse.json(
       { error: 'Internal server error' },
@@ -94,7 +94,7 @@ export async function POST(request: NextRequest) {
         updatedAt: post.updatedAt.toISOString(),
       },
     })
-  } catch {
+  } catch (error) {
     errorLog('Error creating blog post:', error)
     
     // Handle unique constraint violation

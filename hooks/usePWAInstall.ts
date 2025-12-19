@@ -119,7 +119,7 @@ export const usePWAInstall = (): UsePWAInstallReturn => {
       }
       
       return false
-    } catch {
+    } catch (error) {
       debugLog('Error showing install prompt:', error)
       return false
     }

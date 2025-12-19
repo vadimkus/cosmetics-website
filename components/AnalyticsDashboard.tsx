@@ -159,7 +159,7 @@ export default function AnalyticsDashboard({ onCustomerClick }: AnalyticsDashboa
         const pdfDownloadsData = await pdfDownloadsRes.json()
         setPdfDownloads(pdfDownloadsData)
       }
-    } catch {
+    } catch (error) {
       errorLog('Error fetching analytics:', error)
     } finally {
       setLoading(false)

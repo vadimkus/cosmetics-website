@@ -49,7 +49,7 @@ class OfflineStorage {
       
       localStorage.setItem(this.CART_KEY, JSON.stringify(cart))
       this.addOfflineAction('add_to_cart', { productId, quantity })
-    } catch {
+    } catch (error) {
       errorLog('Failed to add to offline cart:', error)
     }
   }
@@ -60,7 +60,7 @@ class OfflineStorage {
       const filteredCart = cart.filter(item => item.productId !== productId)
       localStorage.setItem(this.CART_KEY, JSON.stringify(filteredCart))
       this.addOfflineAction('remove_from_cart', { productId })
-    } catch {
+    } catch (error) {
       errorLog('Failed to remove from offline cart:', error)
     }
   }
@@ -69,7 +69,7 @@ class OfflineStorage {
     try {
       const cart = localStorage.getItem(this.CART_KEY)
       return cart ? JSON.parse(cart) : []
-    } catch {
+    } catch (error) {
       errorLog('Failed to get offline cart:', error)
       return []
     }
@@ -78,7 +78,7 @@ class OfflineStorage {
   clearOfflineCart(): void {
     try {
       localStorage.removeItem(this.CART_KEY)
-    } catch {
+    } catch (error) {
       errorLog('Failed to clear offline cart:', error)
     }
   }
@@ -95,7 +95,7 @@ class OfflineStorage {
         localStorage.setItem(this.FAVORITES_KEY, JSON.stringify(favorites))
         this.addOfflineAction('add_favorite', { productId })
       }
-    } catch {
+    } catch (error) {
       errorLog('Failed to add to offline favorites:', error)
     }
   }
@@ -106,7 +106,7 @@ class OfflineStorage {
       const filteredFavorites = favorites.filter(fav => fav.productId !== productId)
       localStorage.setItem(this.FAVORITES_KEY, JSON.stringify(filteredFavorites))
       this.addOfflineAction('remove_favorite', { productId })
-    } catch {
+    } catch (error) {
       errorLog('Failed to remove from offline favorites:', error)
     }
   }
@@ -115,7 +115,7 @@ class OfflineStorage {
     try {
       const favorites = localStorage.getItem(this.FAVORITES_KEY)
       return favorites ? JSON.parse(favorites) : []
-    } catch {
+    } catch (error) {
       errorLog('Failed to get offline favorites:', error)
       return []
     }
@@ -129,7 +129,7 @@ class OfflineStorage {
   clearOfflineFavorites(): void {
     try {
       localStorage.removeItem(this.FAVORITES_KEY)
-    } catch {
+    } catch (error) {
       errorLog('Failed to clear offline favorites:', error)
     }
   }
@@ -151,7 +151,7 @@ class OfflineStorage {
       }
       
       localStorage.setItem(this.ACTIONS_KEY, JSON.stringify(actions))
-    } catch {
+    } catch (error) {
       errorLog('Failed to add offline action:', error)
     }
   }
@@ -160,7 +160,7 @@ class OfflineStorage {
     try {
       const actions = localStorage.getItem(this.ACTIONS_KEY)
       return actions ? JSON.parse(actions) : []
-    } catch {
+    } catch (error) {
       errorLog('Failed to get offline actions:', error)
       return []
     }
@@ -178,7 +178,7 @@ class OfflineStorage {
       })
       
       localStorage.setItem(this.ACTIONS_KEY, JSON.stringify(allActions))
-    } catch {
+    } catch (error) {
       errorLog('Failed to mark actions as synced:', error)
     }
   }
@@ -193,7 +193,7 @@ class OfflineStorage {
       const actions = this.getOfflineActions()
       const unsyncedActions = actions.filter(action => !action.synced)
       localStorage.setItem(this.ACTIONS_KEY, JSON.stringify(unsyncedActions))
-    } catch {
+    } catch (error) {
       errorLog('Failed to clear synced actions:', error)
     }
   }
@@ -229,7 +229,7 @@ class OfflineStorage {
       this.markActionsAsSynced(unsyncedActions)
       
       return true
-    } catch {
+    } catch (error) {
       errorLog('Failed to sync with server:', error)
       return false
     }
@@ -272,7 +272,7 @@ class OfflineStorage {
     this.clearOfflineFavorites()
     try {
       localStorage.removeItem(this.ACTIONS_KEY)
-    } catch {
+    } catch (error) {
       errorLog('Failed to clear offline actions:', error)
     }
   }

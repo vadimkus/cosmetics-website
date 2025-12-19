@@ -57,7 +57,7 @@ async function fetchAppleJwks(): Promise<AppleJwks> {
     // small backoff
     await new Promise((r) => setTimeout(r, 150))
     return await tryFetch().catch(() => {
-      throw e
+      throw error
     })
   })
   jwksCache = json
@@ -78,7 +78,7 @@ function publicKeyFromJwk(jwk: AppleJwk): crypto.KeyObject {
   if (jwk?.kty && jwk?.n && jwk?.e) {
     try {
       return crypto.createPublicKey({ key: jwk as any, format: 'jwk' })
-    } catch {
+    } catch (error) {
       // fall through to error below
     }
   }

@@ -227,7 +227,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-  } catch {
+  } catch (error) {
     errorLog('Test email error:', error)
     return NextResponse.json(
       { error: 'Internal server error' },

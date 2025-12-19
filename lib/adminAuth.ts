@@ -47,7 +47,7 @@ export async function verifyAdminAuth(request: NextRequest): Promise<{
       },
       error: null
     }
-  } catch {
+  } catch (error) {
     errorLog('Admin auth verification error:', error)
     return {
       user: null,

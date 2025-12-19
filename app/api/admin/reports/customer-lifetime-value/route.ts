@@ -106,7 +106,7 @@ export async function GET(request: NextRequest) {
       .slice(0, 100) // Top 100 customers
 
     return NextResponse.json({ customers })
-  } catch {
+  } catch (error) {
     errorLog('Error fetching customer lifetime value:', error)
     return NextResponse.json(
       { error: 'Failed to fetch customer lifetime value' },

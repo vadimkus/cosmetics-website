@@ -50,7 +50,7 @@ export async function GET(
               canSeePrices: true
             }
           })
-        } catch {
+        } catch (error) {
           debugLog('Failed to load user context:', error)
         }
       }
@@ -84,7 +84,7 @@ export async function GET(
     response.headers.set('Expires', '0')
     
     return response
-  } catch {
+  } catch (error) {
     errorLog('Error fetching product:', error)
     return NextResponse.json(
       { error: 'Failed to fetch product' },

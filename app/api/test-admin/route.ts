@@ -100,7 +100,7 @@ export async function POST(request: NextRequest) {
         isAdmin: true
       }
     })
-  } catch {
+  } catch (error) {
     errorLog('❌ Test admin API error:', error)
     return NextResponse.json(
       { error: 'Internal server error', details: error instanceof Error ? error.message : 'Unknown error' },

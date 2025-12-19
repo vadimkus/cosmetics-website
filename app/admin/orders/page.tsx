@@ -70,7 +70,7 @@ export default function AdminOrdersPage() {
         const parsed = JSON.parse(session)
         return parsed.email || null
       }
-      } catch {
+      } catch (error) {
       return null
     }
     return null
@@ -105,13 +105,13 @@ export default function AdminOrdersPage() {
       })
       if (response.ok) {
         const data = await response.json()
-        // Defensive: hide DELETED orders even if backend includes them.
-        const list = Array.isArray(data.orders) ? data.orders : []
-        setOrders(list.filter((o: Partial<Order>) => String(o?.status || '').toUpperCase() !== 'DELETED') as Order[])
-      }
-    } catch {
-      errorLog('Error fetching orders:', error)
-    } finally {
+      // Defensive: hide DELETED orders even if backend includes them.
+      const list = Array.isArray(data.orders) ? data.orders : []
+      setOrders(list.filter((o: Partial<Order>) => String(o?.status || '').toUpperCase() !== 'DELETED') as Order[])
+    }
+  } catch (error) {
+    errorLog('Error fetching orders:', error)
+  } finally {
       setLoading(false)
     }
   }, [getAdminHeaders])
@@ -135,14 +135,14 @@ export default function AdminOrdersPage() {
       const result = await response.json()
       
       if (result.success) {
-        showToast('Admin notification sent successfully!', 'success')
-      } else {
-        showToast('Failed to send notification: ' + result.error, 'error')
-      }
-    } catch {
-      errorLog('Error resending notification:', error)
-      showToast('Error sending notification', 'error')
-    } finally {
+      showToast('Admin notification sent successfully!', 'success')
+    } else {
+      showToast('Failed to send notification: ' + result.error, 'error')
+    }
+  } catch (error) {
+    errorLog('Error resending notification:', error)
+    showToast('Error sending notification', 'error')
+  } finally {
       setResending(null)
     }
   }

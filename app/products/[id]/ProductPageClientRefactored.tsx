@@ -79,7 +79,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
         : product
       
       await addItem(productToAdd, quantity, colorToPass, sizeToPass)
-    } catch {
+    } catch (error) {
       errorLog('Error adding to cart:', error)
     }
   }, [user, product, selectedSize, selectedColor, addItem, router, locale])

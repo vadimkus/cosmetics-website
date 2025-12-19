@@ -118,7 +118,7 @@ export default function CustomerProfile({
         const parsed = JSON.parse(session)
         return parsed.email || null
       }
-    } catch {
+    } catch (error) {
       return null
     }
     return null
@@ -165,7 +165,7 @@ export default function CustomerProfile({
         errorLog('API returned success: false', data)
         setOrders([])
       }
-    } catch {
+    } catch (error) {
       errorLog('Error fetching customer orders:', error)
       setOrders([])
     } finally {
@@ -200,7 +200,7 @@ export default function CustomerProfile({
       })
       setDiscountEditing(false)
       alert('Discount updated successfully!')
-    } catch {
+    } catch (error) {
       errorLog('Error updating discount:', error)
       alert('Failed to update discount')
     } finally {
@@ -228,7 +228,7 @@ export default function CustomerProfile({
       })
       debugLog('Customer update completed')
       setEditing(false)
-    } catch {
+    } catch (error) {
       errorLog('Error updating customer:', error)
     }
   }
@@ -293,7 +293,7 @@ export default function CustomerProfile({
         setEditData(prev => ({ ...prev, profilePicture: result }))
       }
       reader.readAsDataURL(file)
-    } catch {
+    } catch (error) {
       errorLog('Error uploading image:', error)
       alert('Error uploading image')
     } finally {
@@ -309,7 +309,7 @@ export default function CustomerProfile({
     setRefreshing(true)
     try {
       await fetchCustomerOrders()
-    } catch {
+    } catch (error) {
       errorLog('Error refreshing customer data:', error)
     } finally {
       setRefreshing(false)

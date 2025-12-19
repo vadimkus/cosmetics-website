@@ -26,7 +26,7 @@ export async function GET(request: NextRequest) {
     response.headers.set('Cache-Control', 'public, s-maxage=1800, stale-while-revalidate=3600')
     
     return response
-  } catch {
+  } catch (error) {
     errorLog('Error fetching skin recommendations:', error)
     return NextResponse.json(
       { error: 'Failed to fetch skin recommendations' },
@@ -52,7 +52,7 @@ export async function POST(request: NextRequest) {
     debugLog('✅ Found', products.length, 'recommended products')
     
     return NextResponse.json(products)
-  } catch {
+  } catch (error) {
     errorLog('Error fetching skin recommendations:', error)
     return NextResponse.json(
       { error: 'Failed to fetch skin recommendations' },

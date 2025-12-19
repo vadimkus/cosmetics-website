@@ -35,7 +35,7 @@ export async function PUT(
         try {
           JSON.parse(tags)
           tagsValue = tags
-        } catch {
+        } catch (error) {
           tagsValue = JSON.stringify([tags])
         }
       }
@@ -65,7 +65,7 @@ export async function PUT(
         updatedAt: post.updatedAt.toISOString(),
       },
     })
-  } catch {
+  } catch (error) {
     errorLog('Error updating blog post:', error)
     
     // Handle unique constraint violation
@@ -111,7 +111,7 @@ export async function DELETE(
       success: true,
       message: 'Post deleted successfully',
     })
-  } catch {
+  } catch (error) {
     errorLog('Error deleting blog post:', error)
     
     // Handle not found

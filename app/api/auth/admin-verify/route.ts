@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
         isAdmin: true
       }
     })
-  } catch {
+  } catch (error) {
     errorLog('Admin session verification error:', error)
     return NextResponse.json(
       { error: 'Internal server error' },

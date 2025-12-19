@@ -86,7 +86,7 @@ export async function GET(request: NextRequest) {
       data: wishlist
     })
 
-  } catch {
+  } catch (error) {
     errorLog('[MOBILE_WISHLIST] Get wishlist error:', error)
     return NextResponse.json(
       { 
@@ -210,7 +210,7 @@ export async function POST(request: NextRequest) {
       data: newItem
     }, { status: 201 })
 
-  } catch {
+  } catch (error) {
     errorLog('[MOBILE_WISHLIST] Add to wishlist error:', error)
     return NextResponse.json(
       { 
@@ -310,7 +310,7 @@ export async function DELETE(request: NextRequest) {
       message: 'Product removed from wishlist'
     })
 
-  } catch {
+  } catch (error) {
     errorLog('[MOBILE_WISHLIST] Remove from wishlist error:', error)
     return NextResponse.json(
       { 

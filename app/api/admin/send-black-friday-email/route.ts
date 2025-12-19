@@ -89,7 +89,7 @@ export async function POST(request: NextRequest) {
 
           // Small delay to avoid rate limiting
           await new Promise(resolve => setTimeout(resolve, 100))
-        } catch {
+        } catch (error) {
           results.failed++
           const errorMessage = error instanceof Error ? error.message : 'Unknown error'
           results.errors.push({ email: user.email, error: errorMessage })
@@ -109,7 +109,7 @@ export async function POST(request: NextRequest) {
       { status: 400 }
     )
 
-  } catch {
+  } catch (error) {
     errorLog('❌ Error in Black Friday email campaign:', error)
     return NextResponse.json(
       { success: false, error: 'Internal server error' },

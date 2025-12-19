@@ -136,7 +136,7 @@ export async function GET(request: NextRequest) {
       offset,
       hasMore: offset + users.length < totalCount
     })
-  } catch {
+  } catch (error) {
     errorLog('❌ Error fetching users:', error)
     const errorMessage = error instanceof Error ? error.message : 'Unknown error'
     const errorStack = error instanceof Error ? error.stack : undefined

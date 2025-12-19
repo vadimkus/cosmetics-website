@@ -30,7 +30,7 @@ export async function POST(
       success: true,
       message: 'Order cancelled successfully'
     })
-  } catch {
+  } catch (error) {
     errorLog('Error cancelling order:', error)
     return NextResponse.json(
       { success: false, error: 'Failed to cancel order' },

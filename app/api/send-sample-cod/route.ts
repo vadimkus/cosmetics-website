@@ -57,7 +57,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-  } catch {
+  } catch (error) {
     errorLog('Error sending sample COD email:', error)
     return NextResponse.json(
       { error: 'Internal server error' },

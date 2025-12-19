@@ -105,7 +105,7 @@ export default function ProfilePageClient() {
     setIsRefreshing(true)
     try {
       await forceRefreshUser()
-    } catch {
+    } catch (error) {
       errorLog('Error refreshing user data:', error)
     } finally {
       setTimeout(() => {
@@ -164,7 +164,7 @@ export default function ProfilePageClient() {
         } else {
           errorLog('Failed to fetch orders:', response.statusText)
         }
-      } catch {
+      } catch (error) {
         errorLog('Error fetching orders:', error)
       } finally {
         setLoadingOrders(false)
@@ -247,7 +247,7 @@ export default function ProfilePageClient() {
         }
         showToast(`${t('profile.failedToUpdateProfile')}: ${errorMessage}`, 'error')
       }
-    } catch {
+    } catch (error) {
       handleApiError(error, t('profile.errorUpdatingProfile'), showToast)
     }
   }
@@ -300,7 +300,7 @@ export default function ProfilePageClient() {
         const data = await response.json()
         showToast(data.error || t('profile.failedToDeleteAccount'), 'error')
       }
-    } catch {
+    } catch (error) {
       handleApiError(error, t('profile.errorDeletingAccount'), showToast)
     } finally {
       setIsDeleting(false)
@@ -341,7 +341,7 @@ export default function ProfilePageClient() {
         const errorData = await response.json()
         showToast(`${t('profile.failedToCancelOrder')}: ${errorData.error || t('profile.unknownError')}`, 'error')
       }
-    } catch {
+    } catch (error) {
       handleApiError(error, t('profile.failedToCancelOrder'), showToast)
     } finally {
       setShowCancelOrderConfirm(false)

@@ -53,7 +53,7 @@ export default function ShareButton({
       setShowSuccess(true)
       setShowFallbackMenu(false)
       setTimeout(() => setShowSuccess(false), 2000)
-    } catch {
+    } catch (error) {
       errorLog('Failed to copy to clipboard:', error)
     }
   }

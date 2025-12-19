@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
       success: true, 
       user: userWithoutPassword 
     })
-  } catch {
+  } catch (error) {
     // Only log actual errors, not expected 404s
     if (error instanceof SyntaxError) {
       return NextResponse.json({ error: 'Invalid request body' }, { status: 400 })

@@ -85,7 +85,7 @@ export default function StripeSuccessClient() {
           })
         }
 
-      } catch {
+      } catch (error) {
         errorLog('Payment verification error:', error)
         setError('Failed to verify payment status')
       } finally {

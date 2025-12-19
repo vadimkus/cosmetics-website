@@ -47,7 +47,7 @@ function extractNoteFromProductDetails(productDetails: unknown): string | null {
     try {
       const parsed = JSON.parse(productDetails)
       return extractNoteFromProductDetails(parsed)
-    } catch {
+    } catch (error) {
       return null
     }
   }
@@ -144,7 +144,7 @@ export async function GET(
           }
         })
         debugLog(`[MOBILE_API] User context loaded: ${user?.email || 'not found'}`)
-      } catch {
+      } catch (error) {
         debugLog('[MOBILE_API] Failed to load user context:', error)
       }
     }
@@ -291,7 +291,7 @@ export async function GET(
       }
     })
     
-  } catch {
+  } catch (error) {
     const duration = Date.now() - startTime
     errorLog('[MOBILE_API] Error fetching product:', {
       error: error instanceof Error ? error.message : 'Unknown error',

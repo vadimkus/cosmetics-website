@@ -56,7 +56,7 @@ function validateEnvironment(): EnvConfig {
   }
   try {
     new URL(databaseUrl)
-  } catch {
+  } catch (error) {
     throw new Error('Invalid DATABASE_URL format. Must be a valid URL.')
   }
 
@@ -64,7 +64,7 @@ function validateEnvironment(): EnvConfig {
   if (optionalVars.PRISMA_DATABASE_URL) {
     try {
       new URL(optionalVars.PRISMA_DATABASE_URL)
-    } catch {
+    } catch (error) {
       throw new Error('Invalid PRISMA_DATABASE_URL format. Must be a valid URL.')
     }
   }

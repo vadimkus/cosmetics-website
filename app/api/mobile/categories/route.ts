@@ -87,7 +87,7 @@ export async function GET(request: NextRequest) {
       }
     })
     
-  } catch {
+  } catch (error) {
     const duration = Date.now() - startTime
     errorLog('[MOBILE_API_CATEGORIES] Database error:', {
       error: error instanceof Error ? error.message : 'Unknown error',

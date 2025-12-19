@@ -187,7 +187,7 @@ export const retry = async <T>(
 ): Promise<T> => {
   try {
     return await fn()
-  } catch {
+  } catch (error) {
     if (retries > 0) {
       await sleep(delay)
       return retry(fn, retries - 1, delay * 2)
@@ -202,7 +202,7 @@ export const retry = async <T>(
 export const safeJsonParse = <T>(json: string, fallback: T): T => {
   try {
     return JSON.parse(json)
-  } catch {
+  } catch (error) {
     return fallback
   }
 }
@@ -213,7 +213,7 @@ export const safeJsonParse = <T>(json: string, fallback: T): T => {
 export const safeJsonStringify = (obj: any, fallback: string = '{}'): string => {
   try {
     return JSON.stringify(obj)
-  } catch {
+  } catch (error) {
     return fallback
   }
 }

@@ -48,7 +48,7 @@ function extractNoteFromProductDetails(productDetails: unknown): string | null {
     try {
       const parsed = JSON.parse(productDetails)
       return extractNoteFromProductDetails(parsed)
-    } catch {
+    } catch (error) {
       return null
     }
   }
@@ -141,7 +141,7 @@ export async function GET(request: NextRequest) {
           }
         })
         debugLog(`[MOBILE_API] User context loaded: ${user?.email || 'not found'}`)
-      } catch {
+      } catch (error) {
         debugLog('[MOBILE_API] Failed to load user context:', error)
         // Continue without user context
       }
@@ -322,7 +322,7 @@ export async function GET(request: NextRequest) {
       }
     })
     
-  } catch {
+  } catch (error) {
     // Error Handling: Don't leak database details
     const duration = Date.now() - startTime
     errorLog('[MOBILE_API] Database error:', {

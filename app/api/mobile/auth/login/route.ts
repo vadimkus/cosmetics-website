@@ -51,7 +51,7 @@ export async function POST(request: NextRequest) {
     let clientIdentifier: string
     try {
       clientIdentifier = getClientIdentifierFromNextRequest(request)
-    } catch {
+    } catch (error) {
       errorLog('[MOBILE_AUTH] Rate limit identifier error:', error)
       clientIdentifier = 'unknown'
     }
@@ -131,7 +131,7 @@ export async function POST(request: NextRequest) {
     // Update last login timestamp
     try {
       await updateUser(user.id, { lastLoginAt: new Date().toISOString() })
-    } catch {
+    } catch (error) {
       errorLog('Error updating last login timestamp:', error)
       // Don't fail login if timestamp update fails
     }
@@ -158,7 +158,7 @@ export async function POST(request: NextRequest) {
       message: 'Login successful'
     })
 
-  } catch {
+  } catch (error) {
     const duration = Date.now() - startTime
     errorLog('[MOBILE_AUTH] Login error:', {
       error: error instanceof Error ? error.message : 'Unknown error',

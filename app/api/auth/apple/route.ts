@@ -24,7 +24,7 @@ function normalizeOrigin(origin: string): string {
       u.hostname = u.hostname.replace(/^www\./, '')
       normalized = u.origin
     }
-  } catch {
+  } catch (error) {
     // ignore
   }
   return normalized
@@ -54,8 +54,8 @@ export async function GET(request: NextRequest) {
     let clientIdentifier: string
     try {
       clientIdentifier = getClientIdentifierFromNextRequest(request)
-    } catch {
-      errorLog('[APPLE_AUTH] Rate limit identifier error:', e)
+    } catch (error) {
+      errorLog('[APPLE_AUTH] Rate limit identifier error:', error)
       clientIdentifier = 'unknown'
     }
 
@@ -122,7 +122,7 @@ export async function GET(request: NextRequest) {
 
     debugLog('[APPLE_AUTH] Redirecting to Apple', Date.now() - startTime, 'ms')
     return response
-  } catch {
+  } catch (error) {
     errorLog('[APPLE_AUTH] Error:', error)
     return NextResponse.redirect(new URL('/login?error=apple_internal_error', request.nextUrl.origin))
   }

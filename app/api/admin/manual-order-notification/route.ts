@@ -92,7 +92,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-  } catch {
+  } catch (error) {
     errorLog('Error sending manual order notification:', error)
     return NextResponse.json(
       { error: 'Failed to send notification' },

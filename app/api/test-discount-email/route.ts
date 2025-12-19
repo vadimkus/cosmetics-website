@@ -92,7 +92,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-  } catch {
+  } catch (error) {
     errorLog('Send discount test email error:', error)
     return NextResponse.json(
       { error: 'Internal server error' },

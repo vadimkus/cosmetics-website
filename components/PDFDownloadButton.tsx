@@ -61,7 +61,7 @@ export default function PDFDownloadButton({
         const encodedFile = encodeURIComponent(href)
         const localePrefix = locale === 'en' ? '' : `/${locale}`
         router.push(`${localePrefix}/pdf-viewer?file=${encodedFile}`)
-      } catch {
+      } catch (error) {
         errorLog('Error routing to PDF viewer:', error)
       }
       return
@@ -88,7 +88,7 @@ export default function PDFDownloadButton({
         link.click()
         document.body.removeChild(link)
       }
-    } catch {
+    } catch (error) {
       errorLog('Error downloading PDF:', error)
     } finally {
       setIsDownloading(false)

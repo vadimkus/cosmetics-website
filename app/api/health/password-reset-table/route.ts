@@ -19,7 +19,7 @@ export async function GET(_request: NextRequest) {
       tokenCount,
       message: 'Password reset table is ready'
     })
-  } catch {
+  } catch (error) {
     const errorMessage = error instanceof Error ? error.message : String(error)
     
     // Check if it's a "table doesn't exist" error

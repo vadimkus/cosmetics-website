@@ -69,7 +69,7 @@ export default function AdminUsersManager({
 
       // Refresh users list
       await onRefreshUsers()
-    } catch {
+    } catch (error) {
       errorLog('Error deleting user:', error)
       alert('Failed to delete user. Please try again.')
     } finally {

@@ -95,7 +95,7 @@ export async function GET(request: NextRequest) {
       }
     })
     
-  } catch {
+  } catch (error) {
     return NextResponse.json({
       success: false,
       error: 'Test failed',
@@ -174,7 +174,7 @@ export async function POST(request: NextRequest) {
       }
     })
     
-  } catch {
+  } catch (error) {
     return NextResponse.json({
       success: false,
       error: 'Batch test failed',

@@ -88,7 +88,7 @@ export async function PUT(
     }
 
     return NextResponse.json({ success: true, review: updatedReview })
-  } catch {
+  } catch (error) {
     errorLog('Error updating review:', error)
     return NextResponse.json(
       { error: 'Failed to update review' },
@@ -167,7 +167,7 @@ export async function DELETE(
     })
 
     return NextResponse.json({ success: true })
-  } catch {
+  } catch (error) {
     errorLog('Error deleting review:', error)
     return NextResponse.json(
       { error: 'Failed to delete review' },

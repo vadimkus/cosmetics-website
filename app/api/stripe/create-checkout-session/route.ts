@@ -140,7 +140,7 @@ export async function POST(request: NextRequest) {
             imageUrl = fullUrl
           }
         }
-      } catch {
+      } catch (error) {
         // If image URL is invalid, don't include it (Stripe will show default)
         debugLog('⚠️ Invalid image URL for product, skipping:', item.product.name, item.product.image)
         imageUrl = undefined
@@ -240,7 +240,7 @@ export async function POST(request: NextRequest) {
       message: 'Checkout session created successfully'
     })
 
-  } catch {
+  } catch (error) {
     errorLog('❌ Error creating Stripe checkout session:', {
       message: error instanceof Error ? error.message : 'Unknown error',
       stack: error instanceof Error ? error.stack : undefined,

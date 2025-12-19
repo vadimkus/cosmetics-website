@@ -67,7 +67,7 @@ export async function GET(
       averageRating: ratingStats._avg.rating || null,
       reviewCount: ratingStats._count.rating || 0
     })
-  } catch {
+  } catch (error) {
     errorLog('Error fetching reviews:', error)
     return NextResponse.json(
       { error: 'Failed to fetch reviews' },
@@ -201,7 +201,7 @@ export async function POST(
         createdAt: review.createdAt
       }
     })
-  } catch {
+  } catch (error) {
     errorLog('Error creating review:', error)
     return NextResponse.json(
       { error: 'Failed to create review' },

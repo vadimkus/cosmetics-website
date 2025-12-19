@@ -197,7 +197,7 @@ export default function SkinRecommendationClient() {
       setRecommendations(products)
       setShowResults(true)
       window.scrollTo({ top: 0, behavior: 'smooth' })
-    } catch {
+    } catch (error) {
       errorLog('Error fetching recommendations:', error)
       alert(t('skinRecommendation.failedToLoadRecommendations'))
     } finally {
@@ -242,7 +242,7 @@ export default function SkinRecommendationClient() {
     if (!product.targetConcerns) return []
     try {
       return JSON.parse(product.targetConcerns)
-    } catch {
+    } catch (error) {
       return []
     }
   }

@@ -93,7 +93,7 @@ export const readOrders = async (): Promise<Order[]> => {
     })
     debugLog(`✅ readOrders: Found ${orders.length} orders`)
     return orders
-  } catch {
+  } catch (error) {
     errorLog('❌ Error reading orders:', error)
     errorLog('❌ Error details:', error instanceof Error ? error.message : String(error))
     errorLog('❌ Error stack:', error instanceof Error ? error.stack : 'No stack')
@@ -113,7 +113,7 @@ export const generateOrderId = async (): Promise<string> => {
     const day = now.getDate().toString().padStart(2, '0')
     const sequence = orderNumber.toString().padStart(4, '0')
     return `GEN${year}${month}${day}${sequence}`
-  } catch {
+  } catch (error) {
     errorLog('Error generating order ID:', error)
     const now = new Date()
     const year = now.getFullYear().toString().slice(-2)
@@ -188,7 +188,7 @@ export const addOrder = async (orderData: OrderData): Promise<Order> => {
         customer: true
       }
     })
-  } catch {
+  } catch (error) {
     errorLog('Error creating order:', error)
     throw error
   }
@@ -205,7 +205,7 @@ export const updateOrderStatus = async (orderId: string, status: string): Promis
       }
     })
     return true
-  } catch {
+  } catch (error) {
     errorLog('Error updating order status:', error)
     return false
   }
@@ -221,7 +221,7 @@ export const getOrderById = async (orderId: string): Promise<Order | null> => {
         customer: true
       }
     })
-  } catch {
+  } catch (error) {
     errorLog('Error finding order by ID:', error)
     return null
   }
@@ -278,7 +278,7 @@ export const getOrdersByEmail = async (email: string, limit: number = 50, offset
     }
     
     return orders
-  } catch {
+  } catch (error) {
     errorLog('Error finding orders by email:', error)
     return []
   }
@@ -309,7 +309,7 @@ export const getOrdersCountByEmail = async (email: string): Promise<number> => {
     }
     
     return count
-  } catch {
+  } catch (error) {
     errorLog('Error counting orders by email:', error)
     return 0
   }
@@ -322,7 +322,7 @@ export const deleteOrder = async (orderId: string): Promise<boolean> => {
       where: { id: orderId }
     })
     return true
-  } catch {
+  } catch (error) {
     errorLog('Error deleting order:', error)
     return false
   }
@@ -338,7 +338,7 @@ export const getOrderByOrderNumber = async (orderNumber: string): Promise<Order 
         customer: true
       }
     })
-  } catch {
+  } catch (error) {
     errorLog('Error finding order by order number:', error)
     return null
   }

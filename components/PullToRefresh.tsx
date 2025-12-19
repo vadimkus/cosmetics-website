@@ -21,7 +21,7 @@ export function PullToRefresh({ children, onRefresh, disabled = false }: PullToR
     // Check for service worker updates
     try {
       await checkForUpdates()
-    } catch {
+    } catch (error) {
       errorLog('Failed to check for updates:', error)
     }
 

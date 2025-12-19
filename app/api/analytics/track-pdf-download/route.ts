@@ -49,7 +49,7 @@ export async function POST(request: NextRequest) {
       downloadId: pdfDownload.id 
     })
 
-  } catch {
+  } catch (error) {
     errorLog('Error tracking PDF download:', error)
     return NextResponse.json(
       { error: 'Failed to track PDF download' },

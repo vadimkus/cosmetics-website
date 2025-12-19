@@ -29,7 +29,7 @@ export default function ProductsListSchema({ products, category }: ProductsListS
             const parsedImages = JSON.parse(product.images)
             images = Array.isArray(parsedImages) && parsedImages.length > 0 ? parsedImages : [product.image]
           }
-        } catch {
+        } catch (error) {
           warnLog('Error parsing images for product:', product.id, error)
           images = [product.image]
         }

@@ -19,7 +19,7 @@ export function useAnalytics() {
           userEmail: user?.email
         })
       })
-    } catch {
+    } catch (error) {
       errorLog('Error tracking page view:', error)
     }
   }, [user])
@@ -39,7 +39,7 @@ export function useAnalytics() {
           userEmail: user?.email
         })
       })
-    } catch {
+    } catch (error) {
       errorLog('Error tracking action:', error)
     }
   }, [user])

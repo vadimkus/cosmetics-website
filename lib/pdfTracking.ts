@@ -16,7 +16,7 @@ export async function trackPDFDownload(data: PDFDownloadData): Promise<void> {
       },
       body: JSON.stringify(data),
     })
-  } catch {
+  } catch (error) {
     errorLog('Error tracking PDF download:', error)
     // Don't throw error to avoid breaking the download
   }

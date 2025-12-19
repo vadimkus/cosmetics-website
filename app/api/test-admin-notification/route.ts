@@ -96,7 +96,7 @@ export async function POST(request: NextRequest) {
         }
       }, { status: 500 })
     }
-  } catch {
+  } catch (error) {
     errorLog('Test admin notification error:', error)
     return NextResponse.json(
       { 

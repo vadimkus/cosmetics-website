@@ -119,10 +119,10 @@ export async function POST(request: NextRequest) {
               updatedAt: new Date(),
             },
           })
-        } catch {
+        } catch (error) {
           errorLog('[MOBILE_APPLEPAY_STATUS] Failed to update order status (non-fatal)', {
             orderId: order.id,
-            error: e instanceof Error ? e.message : String(e || ''),
+            error: error instanceof Error ? error.message : String(error || ''),
           })
         }
       }
@@ -137,7 +137,7 @@ export async function POST(request: NextRequest) {
       orderId: order?.id || null,
       orderNumber: order?.orderNumber || null,
     })
-  } catch {
+  } catch (error) {
     errorLog('[MOBILE_APPLEPAY_STATUS] Error:', error instanceof Error ? error.message : error)
     return NextResponse.json(
       { success: false, error: 'Failed to retrieve payment status' },

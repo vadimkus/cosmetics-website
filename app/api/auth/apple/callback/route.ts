@@ -26,7 +26,7 @@ function normalizeOrigin(origin: string): string {
       u.hostname = u.hostname.replace(/^www\./, '')
       normalized = u.origin
     }
-  } catch {
+  } catch (error) {
     // ignore
   }
   return normalized
@@ -64,8 +64,8 @@ async function handleAppleCallback(request: NextRequest, params: {
     let clientIdentifier: string
     try {
       clientIdentifier = getClientIdentifierFromNextRequest(request)
-    } catch {
-      errorLog('[APPLE_CALLBACK] Rate limit identifier error:', e)
+    } catch (error) {
+      errorLog('[APPLE_CALLBACK] Rate limit identifier error:', error)
       clientIdentifier = 'unknown'
     }
 
@@ -113,8 +113,8 @@ async function handleAppleCallback(request: NextRequest, params: {
         redirectUri,
         clientId,
       })
-    } catch {
-      errorLog('[APPLE_CALLBACK] Token exchange failed:', e)
+    } catch (error) {
+      errorLog('[APPLE_CALLBACK] Token exchange failed:', error)
       return NextResponse.redirect(new URL('/login?error=apple_token_exchange_failed', normalizedOrigin))
     }
 
@@ -128,8 +128,8 @@ async function handleAppleCallback(request: NextRequest, params: {
     try {
       const verified = await verifyAppleIdentityToken(idToken, { audience: clientId })
       claims = verified?.claims
-    } catch {
-      errorLog('[APPLE_CALLBACK] id_token verification failed:', e)
+    } catch (error) {
+      errorLog('[APPLE_CALLBACK] id_token verification failed:', error)
       return NextResponse.redirect(new URL('/login?error=apple_token_verification_failed', normalizedOrigin))
     }
 
@@ -152,7 +152,7 @@ async function handleAppleCallback(request: NextRequest, params: {
         const family = parsed?.name?.lastName || ''
         fullName = [given, family].filter(Boolean).join(' ').trim()
       }
-    } catch {
+    } catch (error) {
       // ignore
     }
     
@@ -185,8 +185,8 @@ async function handleAppleCallback(request: NextRequest, params: {
           // Link account (guard against unique constraint errors)
           try {
             await updateUser(byEmail.id, { appleSub })
-          } catch {
-            errorLog('[APPLE_CALLBACK] Failed to link appleSub to existing email user:', e)
+          } catch (error) {
+            errorLog('[APPLE_CALLBACK] Failed to link appleSub to existing email user:', error)
           }
           user = (await findUserByAppleSub(appleSub)) || (await findUserByEmail(email)) || byEmail
         }
@@ -261,8 +261,8 @@ async function handleAppleCallback(request: NextRequest, params: {
             lastLoginAt: new Date().toISOString(),
           })
         }
-      } catch {
-        errorLog('[APPLE_CALLBACK] User create failed, attempting recovery:', e)
+      } catch (error) {
+        errorLog('[APPLE_CALLBACK] User create failed, attempting recovery:', error)
         user =
           (await findUserByAppleSub(appleSub)) ||
           (emailRaw ? await findUserByEmail(email) : null)
@@ -283,8 +283,8 @@ async function handleAppleCallback(request: NextRequest, params: {
     } else {
       try {
         await updateUser(user.id, { lastLoginAt: new Date().toISOString() })
-      } catch {
-        errorLog('[APPLE_CALLBACK] Failed to update lastLoginAt:', e)
+      } catch (error) {
+        errorLog('[APPLE_CALLBACK] Failed to update lastLoginAt:', error)
         // don't fail login
       }
 
@@ -323,8 +323,8 @@ async function handleAppleCallback(request: NextRequest, params: {
             })
           })
         }
-      } catch {
-        errorLog('[APPLE_CALLBACK] Failed to apply promo fallback:', e)
+      } catch (error) {
+        errorLog('[APPLE_CALLBACK] Failed to apply promo fallback:', error)
       }
     }
 
@@ -358,7 +358,7 @@ async function handleAppleCallback(request: NextRequest, params: {
 
     debugLog('[APPLE_CALLBACK] Success', Date.now() - startTime, 'ms')
     return response
-  } catch {
+  } catch (error) {
     errorLog('[APPLE_CALLBACK] Error:', error)
     return NextResponse.redirect(new URL('/login?error=apple_internal_error', normalizedOrigin))
   }

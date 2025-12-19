@@ -37,7 +37,7 @@ export async function POST(request: NextRequest) {
             const sessionData = JSON.parse(sessionCookie.value)
             userEmail = sessionData.email || null
           }
-        } catch {
+        } catch (error) {
           // Ignore parsing errors
         }
       }
@@ -93,7 +93,7 @@ export async function POST(request: NextRequest) {
     }
 
     return NextResponse.json({ success: true })
-  } catch {
+  } catch (error) {
     errorLog('Error tracking analytics:', error)
     return NextResponse.json(
       { error: 'Failed to track analytics' },

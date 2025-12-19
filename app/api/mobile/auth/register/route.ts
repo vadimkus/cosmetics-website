@@ -60,7 +60,7 @@ export async function POST(request: NextRequest) {
     let clientIdentifier: string
     try {
       clientIdentifier = getClientIdentifierFromNextRequest(request)
-    } catch {
+    } catch (error) {
       errorLog('[MOBILE_AUTH] Rate limit identifier error:', error)
       clientIdentifier = 'unknown'
     }
@@ -235,7 +235,7 @@ export async function POST(request: NextRequest) {
         userEmail: email,
         details: `New mobile user registered: ${name}`
       })
-    } catch {
+    } catch (error) {
       errorLog('Error tracking user registration:', error)
       // Don't fail registration if tracking fails
     }
@@ -244,7 +244,7 @@ export async function POST(request: NextRequest) {
     try {
       await sendWelcomeEmail(name, email, password)
       debugLog('✅ Welcome email sent to:', email)
-    } catch {
+    } catch (error) {
       errorLog('❌ Failed to send welcome email:', error)
       // Don't fail registration if email fails
     }
@@ -258,7 +258,7 @@ export async function POST(request: NextRequest) {
       } else {
         errorLog('❌ Failed to send admin notification:', adminResult?.error || 'Unknown error')
       }
-    } catch {
+    } catch (error) {
       errorLog('❌ Exception sending admin notification:', error)
       // Don't fail registration if email fails
     }
@@ -286,7 +286,7 @@ export async function POST(request: NextRequest) {
       promoApplied,
     })
 
-  } catch {
+  } catch (error) {
     const duration = Date.now() - startTime
     errorLog('[MOBILE_AUTH] Registration error:', {
       error: error instanceof Error ? error.message : 'Unknown error',

@@ -85,7 +85,7 @@ export async function GET(request: NextRequest) {
     })
 
     return response
-  } catch {
+  } catch (error) {
     errorLog('[GOOGLE_AUTH] Error:', error)
     return NextResponse.json(
       { error: 'Failed to initiate Google Sign-In. Please try again.' },

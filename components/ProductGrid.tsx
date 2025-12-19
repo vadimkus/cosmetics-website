@@ -26,7 +26,7 @@ const ProductGrid = memo(function ProductGrid({ category }: ProductGridProps) {
         }
         const data = await response.json()
         setProducts(data)
-      } catch {
+      } catch (error) {
         errorLog('Error fetching products:', error)
         setProducts([])
       } finally {

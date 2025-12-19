@@ -123,7 +123,7 @@ async function getBlogPosts(): Promise<BlogPostListItem[]> {
       },
     }) || []
     return posts
-  } catch {
+  } catch (error) {
     errorLog('Error fetching blog posts:', error)
     return []
   }

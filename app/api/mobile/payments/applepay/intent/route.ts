@@ -265,7 +265,7 @@ export async function POST(request: NextRequest) {
             meta: { processingTime: `${duration}ms` },
           })
         }
-      } catch {
+      } catch (error) {
         // ignore and create a new PaymentIntent
       }
     }
@@ -328,7 +328,7 @@ export async function POST(request: NextRequest) {
         },
       },
     })
-  } catch {
+  } catch (error) {
     const duration = Date.now() - startTime
     errorLog('[MOBILE_APPLEPAY] Error creating payment intent:', {
       error: error instanceof Error ? error.message : 'Unknown error',

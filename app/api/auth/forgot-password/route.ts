@@ -116,7 +116,7 @@ export async function POST(request: NextRequest) {
           errorLog('[FORGOT-PASSWORD] Failed to send email:', emailResult.error)
           // Still return success to user (don't reveal email failure)
         }
-      } catch {
+      } catch (error) {
         errorLog('[FORGOT-PASSWORD] Error processing password reset:', error)
         // Still return success to user (don't reveal internal errors)
       }
@@ -131,7 +131,7 @@ export async function POST(request: NextRequest) {
       message: 'If an account with that email exists, a password reset link has been sent.'
     })
 
-  } catch {
+  } catch (error) {
     errorLog('[FORGOT-PASSWORD] Error:', error)
     // Return generic error message
     return NextResponse.json(

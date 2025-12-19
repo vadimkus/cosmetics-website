@@ -128,7 +128,7 @@ export default function UserSegmentation({ users, onUserClick, onSegmentUsers: _
         const data = await response.json()
         setSegments(data.segments || [])
       }
-    } catch {
+    } catch (error) {
       errorLog('Error fetching segments:', error)
     } finally {
       setLoading(false)
@@ -292,7 +292,7 @@ export default function UserSegmentation({ users, onUserClick, onSegmentUsers: _
         const error = await response.json()
         alert(`Failed to save segment: ${error.error || 'Unknown error'}`)
       }
-    } catch {
+    } catch (error) {
       errorLog('Error saving segment:', error)
       alert('Failed to save segment')
     }
@@ -314,7 +314,7 @@ export default function UserSegmentation({ users, onUserClick, onSegmentUsers: _
       } else {
         alert('Failed to delete segment')
       }
-    } catch {
+    } catch (error) {
       errorLog('Error deleting segment:', error)
       alert('Failed to delete segment')
     }

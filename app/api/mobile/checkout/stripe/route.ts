@@ -190,7 +190,7 @@ export async function POST(request: NextRequest) {
               reused: true,
             })
           }
-        } catch {
+        } catch (error) {
           // ignore and create a new session
           debugLog('[MOBILE_STRIPE_RESUME] Failed to reuse stripe session, will create new', {
             orderId: existing.id,
@@ -568,7 +568,7 @@ export async function POST(request: NextRequest) {
       }
     })
 
-  } catch {
+  } catch (error) {
     const duration = Date.now() - startTime
     errorLog('[MOBILE_STRIPE] Error creating checkout session:', {
       error: error instanceof Error ? error.message : 'Unknown error',

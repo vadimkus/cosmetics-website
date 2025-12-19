@@ -82,7 +82,7 @@ export async function POST(request: NextRequest) {
         createdAt: comment.createdAt.toISOString(),
       },
     })
-  } catch {
+  } catch (error) {
     errorLog('Error creating blog comment:', error)
     return NextResponse.json(
       { error: 'Internal server error' },
@@ -126,7 +126,7 @@ export async function GET(request: NextRequest) {
         createdAt: comment.createdAt.toISOString(),
       })),
     })
-  } catch {
+  } catch (error) {
     errorLog('Error fetching blog comments:', error)
     return NextResponse.json(
       { error: 'Internal server error' },

@@ -27,7 +27,7 @@ export async function getAllProducts(): Promise<Product[]> {
       }
     })
     return products // No need to filter again since we filtered at DB level
-  } catch {
+  } catch (error) {
     errorLog('Error fetching products from database:', error)
     const errorMessage = error instanceof Error ? error.message : String(error)
     const errorStack = error instanceof Error ? error.stack : undefined
@@ -56,7 +56,7 @@ export async function getProductById(id: string): Promise<Product | null> {
     }
     
     return product
-  } catch {
+  } catch (error) {
     errorLog('Error fetching product by ID:', error)
     throw new Error('Failed to fetch product')
   }
@@ -76,7 +76,7 @@ export async function getProductsByCategory(category: string): Promise<Product[]
       }
     })
     return products // No need to filter again since we filtered at DB level
-  } catch {
+  } catch (error) {
     errorLog('Error fetching products by category:', error)
     throw new Error('Failed to fetch products by category')
   }
@@ -91,7 +91,7 @@ export async function addProduct(productData: Omit<Product, 'id'>): Promise<Prod
       data: dataWithoutVariants
     })
     return product
-  } catch {
+  } catch (error) {
     errorLog('Error adding product:', error)
     throw new Error('Failed to add product')
   }
@@ -107,7 +107,7 @@ export async function updateProduct(id: string, updates: Partial<Product>): Prom
       data: updatesWithoutVariants
     })
     return product
-  } catch {
+  } catch (error) {
     errorLog('Error updating product:', error)
     throw new Error('Failed to update product')
   }
@@ -119,7 +119,7 @@ export async function deleteProduct(id: string): Promise<boolean> {
       where: { id }
     })
     return true
-  } catch {
+  } catch (error) {
     errorLog('Error deleting product:', error)
     return false
   }
@@ -141,7 +141,7 @@ export async function searchProducts(query: string): Promise<Product[]> {
       }
     })
     return products // No need to filter again since we filtered at DB level
-  } catch {
+  } catch (error) {
     errorLog('Error searching products:', error)
     throw new Error('Failed to search products')
   }
@@ -257,7 +257,7 @@ export async function getSkinRecommendations(filters: {
     }
     
     return products
-  } catch {
+  } catch (error) {
     errorLog('Error fetching skin recommendations:', error)
     throw new Error('Failed to fetch skin recommendations')
   }

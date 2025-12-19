@@ -79,7 +79,7 @@ async function getBlogPosts(): Promise<BlogPostListItem[]> {
         AND column_name IN ('titleRu', 'excerptRu')
       `
       hasRussianColumns = columns.length >= 2
-      } catch {
+      } catch (error) {
       // If we can't check, assume they don't exist
       hasRussianColumns = false
     }
@@ -140,7 +140,7 @@ async function getBlogPosts(): Promise<BlogPostListItem[]> {
         excerptRu: null,
       }))
     }
-  } catch {
+  } catch (error) {
     errorLog('Error fetching blog posts:', error)
     return []
   }

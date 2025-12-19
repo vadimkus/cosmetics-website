@@ -206,7 +206,7 @@ export async function POST(request: NextRequest) {
     let body: { force?: boolean; slug?: string } | null = null
     try {
       body = await request.json().catch(() => null)
-    } catch {
+    } catch (error) {
       // Body is optional
     }
 
@@ -277,7 +277,7 @@ export async function POST(request: NextRequest) {
         const action = forceUpdate && post.titleRu ? 'Updated' : 'Translated'
         infoLog(`✅ ${action}: ${post.title}`)
         results.translated++
-      } catch {
+      } catch (error) {
         const errorMsg = `Failed to translate post ${post.slug}: ${error instanceof Error ? error.message : String(error)}`
         errorLog(`❌ ${errorMsg}`)
         results.errors.push(errorMsg)
@@ -291,7 +291,7 @@ export async function POST(request: NextRequest) {
       forceUpdate,
       targetSlug: targetSlug || 'all'
     })
-  } catch {
+  } catch (error) {
     errorLog('Failed to translate blog posts:', error)
     return NextResponse.json(
       { error: 'Internal server error', details: error instanceof Error ? error.message : String(error) },

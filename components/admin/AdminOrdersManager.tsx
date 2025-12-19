@@ -94,7 +94,7 @@ export default function AdminOrdersManager({
 
       showToast(`Order status updated to ${newStatus}`, 'success')
       await onRefreshOrders()
-    } catch {
+    } catch (error) {
       errorLog('Error updating order status:', error)
       showToast('Failed to update order status. Please try again.', 'error')
     } finally {

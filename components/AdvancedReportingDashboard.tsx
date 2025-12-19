@@ -146,7 +146,7 @@ export default function AdvancedReportingDashboard({ onCustomerClick, adminEmail
         errorLog('Error fetching sales report:', { status: response.status, error: errorData })
         setSalesReport(null)
       }
-    } catch {
+    } catch (error) {
       errorLog('Error fetching sales report:', error)
       setSalesReport(null)
     }
@@ -170,7 +170,7 @@ export default function AdvancedReportingDashboard({ onCustomerClick, adminEmail
         errorLog('Error fetching revenue trends:', { status: response.status })
         setRevenueTrends([])
       }
-    } catch {
+    } catch (error) {
       errorLog('Error fetching revenue trends:', error)
       setRevenueTrends([])
     }
@@ -194,7 +194,7 @@ export default function AdvancedReportingDashboard({ onCustomerClick, adminEmail
         errorLog('Error fetching product performance:', { status: response.status })
         setProductPerformance([])
       }
-    } catch {
+    } catch (error) {
       errorLog('Error fetching product performance:', error)
       setProductPerformance([])
     }
@@ -218,7 +218,7 @@ export default function AdvancedReportingDashboard({ onCustomerClick, adminEmail
         errorLog('Error fetching customer lifetime value:', { status: response.status })
         setCustomerLifetimeValue([])
       }
-    } catch {
+    } catch (error) {
       errorLog('Error fetching customer lifetime value:', error)
       setCustomerLifetimeValue([])
     }
@@ -238,7 +238,7 @@ export default function AdvancedReportingDashboard({ onCustomerClick, adminEmail
         fetchProductPerformance(),
         fetchCustomerLifetimeValue()
       ])
-    } catch {
+    } catch (error) {
       errorLog('Error fetching reports:', error)
     } finally {
       setLoading(false)

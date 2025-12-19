@@ -107,9 +107,9 @@ export async function exchangeAppleCodeForTokens(params: {
       throw new Error(msg)
     }
     return json
-  } catch {
-    errorLog('[APPLE_WEB_AUTH] Token exchange error:', e)
-    throw e
+  } catch (error) {
+    errorLog('[APPLE_WEB_AUTH] Token exchange error:', error)
+    throw error
   }
 }
 

@@ -300,7 +300,7 @@ export const productImageOptimization = {
         if (Array.isArray(parsedImages) && parsedImages.length > 0) {
           imageSrc = parsedImages[0]
         }
-      } catch {
+      } catch (error) {
         // Fall back to product.image
       }
     }
@@ -322,7 +322,7 @@ export const productImageOptimization = {
       try {
         const parsedImages = JSON.parse(product.images)
         images = Array.isArray(parsedImages) ? parsedImages : [product.image]
-      } catch {
+      } catch (error) {
         // Fall back to single image
       }
     }
@@ -347,7 +347,7 @@ export const productImageOptimization = {
     try {
       await Promise.all(preloadPromises)
       debugLog('Critical product images preloaded')
-    } catch {
+    } catch (error) {
       warnLog('Some critical images failed to preload:', error)
     }
   }

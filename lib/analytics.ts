@@ -56,7 +56,7 @@ export const trackPageViewToDatabase = async (data: {
     });
     
     debugLog('✅ Page view stored in database:', data.page);
-  } catch {
+  } catch (error) {
     errorLog('❌ Error storing page view:', error);
   }
 };
@@ -241,7 +241,7 @@ export const trackUserSession = async (data: {
       
       debugLog('✅ New session created:', data.sessionId, 'ID:', newSession.id);
     }
-  } catch {
+  } catch (error) {
     errorLog('❌ Error tracking session:', error);
     if (error instanceof Error) {
       errorLog('Error details:', error.message, error.stack);

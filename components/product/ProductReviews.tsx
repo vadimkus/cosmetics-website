@@ -56,7 +56,7 @@ export default function ProductReviews({ productId }: ProductReviewsProps) {
         setAverageRating(data.averageRating)
         setReviewCount(data.reviewCount)
       }
-    } catch {
+    } catch (error) {
       errorLog('Error fetching reviews:', error)
     } finally {
       setLoading(false)
@@ -114,7 +114,7 @@ export default function ProductReviews({ productId }: ProductReviewsProps) {
       setShowForm(false)
       setEditingReview(null)
       await fetchReviews()
-    } catch {
+    } catch (error) {
       errorLog('Error submitting review:', error)
       alert(error instanceof Error ? error.message : t('product.failedToSubmitReview'))
     } finally {
@@ -147,7 +147,7 @@ export default function ProductReviews({ productId }: ProductReviewsProps) {
       }
 
       await fetchReviews()
-    } catch {
+    } catch (error) {
       errorLog('Error deleting review:', error)
       alert(error instanceof Error ? error.message : t('product.failedToDeleteReview'))
     }

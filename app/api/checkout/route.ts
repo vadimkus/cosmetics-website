@@ -254,7 +254,7 @@ export async function POST(request: NextRequest) {
       message: 'Order created successfully'
     })
 
-  } catch {
+  } catch (error) {
     errorLog('Error creating checkout session:', error)
     errorLog('Error details:', error instanceof Error ? error.message : 'Unknown error')
     errorLog('Error stack:', error instanceof Error ? error.stack : 'No stack trace')

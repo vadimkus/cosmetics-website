@@ -55,7 +55,7 @@ export function generateMobileToken(user: {
       .digest('base64url')
     
     return `${data}.${signature}`
-  } catch {
+  } catch (error) {
     errorLog('Error generating mobile token:', error)
     throw new Error('Failed to generate authentication token')
   }
@@ -98,7 +98,7 @@ export function verifyMobileToken(token: string): TokenPayload | null {
     }
 
     return payload
-  } catch {
+  } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Unknown error'
     debugLog('Error verifying mobile token:', errorMessage)
     return null

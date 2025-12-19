@@ -39,7 +39,7 @@ export const useWebShare = (): UseWebShareReturn => {
       await navigator.share(data)
       debugLog('Content shared successfully', data)
       return true
-    } catch {
+    } catch (error) {
       // User cancelled or sharing failed
       if ((error as Error).name === 'AbortError') {
         debugLog('User cancelled sharing')

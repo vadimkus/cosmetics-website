@@ -71,10 +71,20 @@ try {
     throw generateError;
   }
 
-  // Verify PasswordResetToken model exists in generated client
-  // Only verify if DATABASE_URL is available (to avoid connection errors)
-  // Note: This verification is non-blocking - build will continue even if it fails
-  if (process.env.DATABASE_URL) {
+  // Verify PasswordResetToken model exists in generated client.
+  // Note: This verification is non-blocking - build will continue even if it fails.
+  //
+  // IMPORTANT: When using Prisma Accelerate (prisma+postgres://...), PrismaClient construction during build-time
+  // scripts can fail unless you use a DIRECT postgres:// URL with the pg adapter.
+  const isAccelerateUrl = (url) => String(url || '').startsWith('prisma+postgres://');
+  const directVerifyUrl =
+    process.env.DATABASE_URL ||
+    process.env.POSTGRES_URL ||
+    (process.env.PRISMA_DATABASE_URL && !isAccelerateUrl(process.env.PRISMA_DATABASE_URL)
+      ? process.env.PRISMA_DATABASE_URL
+      : '');
+
+  if (directVerifyUrl) {
     console.log('🔍 Verifying PasswordResetToken model...');
     try {
       // Clear require cache to ensure we get the fresh client
@@ -87,23 +97,29 @@ try {
       }
       
       const { PrismaClient } = require('@prisma/client');
+      const { PrismaPg } = require('@prisma/adapter-pg');
+      const { Pool } = require('pg');
       
       // Check if PrismaClient is properly exported
       if (!PrismaClient) {
         throw new Error('PrismaClient is not exported from @prisma/client');
       }
       
-      const testClient = new PrismaClient();
+      const pool = new Pool({ connectionString: directVerifyUrl });
+      const adapter = new PrismaPg(pool);
+      const testClient = new PrismaClient({ adapter });
       
       // Check if PasswordResetToken model exists
       if (!testClient.passwordResetToken) {
         console.warn('⚠️  PasswordResetToken model NOT FOUND in Prisma client');
         console.warn('   Available models:', Object.keys(testClient).filter(k => !k.startsWith('$') && !k.startsWith('_')).join(', '));
         testClient.$disconnect().catch(() => {});
+        pool.end().catch(() => {});
       } else {
         console.log('✅ PasswordResetToken model verified in Prisma client');
         console.log('✅ Password reset feature is properly configured');
         testClient.$disconnect().catch(() => {});
+        pool.end().catch(() => {});
       }
     } catch (verifyError) {
       // In Vercel builds, Prisma client verification might fail due to environment
@@ -114,7 +130,11 @@ try {
       // Don't throw error - allow build to continue
     }
   } else {
-    console.log('⏭️  Skipping Prisma client verification (DATABASE_URL not available)');
+    if (process.env.PRISMA_DATABASE_URL && isAccelerateUrl(process.env.PRISMA_DATABASE_URL)) {
+      console.log('⏭️  Skipping Prisma client verification (PRISMA_DATABASE_URL is Prisma Accelerate; direct postgres URL required)');
+    } else {
+      console.log('⏭️  Skipping Prisma client verification (no direct DATABASE_URL/POSTGRES_URL available)');
+    }
   }
 
   // Attempt database push to ensure schema is synced

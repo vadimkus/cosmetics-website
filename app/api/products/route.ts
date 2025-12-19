@@ -12,7 +12,9 @@ export const revalidate = 60
 export async function GET(request: NextRequest) {
   try {
     debugLog('📦 Fetching enhanced products from DATABASE')
-    const { searchParams } = new URL(request.url)
+    // NOTE: Using request.url makes the route "dynamic" and can break static optimization during builds.
+    // nextUrl is the supported way to read query params in Next.js route handlers.
+    const searchParams = request.nextUrl.searchParams
     const category = searchParams.get('category')
     const enhanced = searchParams.get('enhanced') === 'true' // Optional enhancement
     const userId = searchParams.get('userId') // Optional user context

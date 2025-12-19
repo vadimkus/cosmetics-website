@@ -21,7 +21,7 @@ interface CheckoutItem {
 interface StripeProductData {
   name: string
   description: string
-  metadata: {
+  metadata?: {
     product_id: string
     color: string
     size: string

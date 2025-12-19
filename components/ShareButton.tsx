@@ -71,9 +71,9 @@ export default function ShareButton({
   }
 
   const shareViaInstagram = () => {
-    // Instagram doesn't have direct web sharing, so copy link and show instructions
+    // Instagram doesn't have direct web sharing, so copy link and show success message
     copyToClipboard()
-    alert('Link copied! You can now paste it in Instagram.')
+    // Success is already shown by copyToClipboard's setShowSuccess
   }
 
   const sizeClasses = {

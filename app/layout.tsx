@@ -4,6 +4,7 @@ import Script from 'next/script'
 import './globals.css'
 import { CartProvider } from '@/components/CartProvider'
 import AuthProvider from '@/components/AuthProvider'
+import { ToastProvider } from '@/components/ToastProvider'
 import FavoritesProvider from '@/components/FavoritesProvider'
 import Header from '@/components/Header'
 import UserRefreshWrapper from '@/components/UserRefreshWrapper'
@@ -240,31 +241,33 @@ export default function RootLayout({
         <OrganizationSchema />
         <LocalBusinessSchema />
         <AggregateRatingSchema />
-        <AuthProvider>
-          <FavoritesProvider>
-            <CartProvider>
-              <ServiceWorkerProvider>
-                <PerformanceMonitor />
-                <UserRefreshWrapper />
-                <PageViewTracker />
-                <LocaleWrapper>
-                  <Header />
-                  <main className="flex-1">
-                    <ErrorBoundary>
-                      <PullToRefresh>
-                        <PageTransition>
-                          {children}
-                        </PageTransition>
-                      </PullToRefresh>
-                    </ErrorBoundary>
-                  </main>
-                </LocaleWrapper>
-                <Footer />
-                <PWAInstallPrompt variant="banner" showDelay={60} />
-              </ServiceWorkerProvider>
-            </CartProvider>
-          </FavoritesProvider>
-        </AuthProvider>
+        <ToastProvider>
+          <AuthProvider>
+            <FavoritesProvider>
+              <CartProvider>
+                <ServiceWorkerProvider>
+                  <PerformanceMonitor />
+                  <UserRefreshWrapper />
+                  <PageViewTracker />
+                  <LocaleWrapper>
+                    <Header />
+                    <main className="flex-1">
+                      <ErrorBoundary>
+                        <PullToRefresh>
+                          <PageTransition>
+                            {children}
+                          </PageTransition>
+                        </PullToRefresh>
+                      </ErrorBoundary>
+                    </main>
+                  </LocaleWrapper>
+                  <Footer />
+                  <PWAInstallPrompt variant="banner" showDelay={60} />
+                </ServiceWorkerProvider>
+              </CartProvider>
+            </FavoritesProvider>
+          </AuthProvider>
+        </ToastProvider>
       </body>
     </html>
   )

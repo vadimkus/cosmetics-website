@@ -3,6 +3,7 @@
 import { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react'
 import { fetchCsrfToken, getCsrfHeaders, addCsrfToBody } from '@/lib/csrfClient'
 import { errorLog, debugLog } from '@/lib/logger'
+import { useToast } from '@/components/ToastProvider'
 
 interface User {
   id: string
@@ -49,6 +50,7 @@ interface AuthProviderProps {
 export default function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User | null>(null)
   const [isLoading, setIsLoading] = useState(true)
+  const { showToast } = useToast()
   const [isClient, setIsClient] = useState(false)
 
   // Ensure we're on the client side before accessing localStorage
@@ -219,7 +221,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
       // Ensure CSRF token is available
       const csrfToken = await fetchCsrfToken()
       if (!csrfToken) {
-        alert('Security error: Could not verify request. Please refresh the page and try again.')
+        showToast('Security error: Could not verify request. Please refresh the page and try again.', 'error')
         setIsLoading(false)
         return false
       }
@@ -239,7 +241,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
       } catch (error) {
         clearTimeout(timeoutId)
         if (error instanceof Error && error.name === 'AbortError') {
-          alert('Login request timed out. Please check your connection and try again.')
+          showToast('Login request timed out. Please check your connection and try again.', 'error')
         } else {
           throw error
         }
@@ -250,7 +252,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
       const data = await response.json()
 
       if (!response.ok) {
-        alert(data.error || 'Login failed. Please try again.')
+        showToast(data.error || 'Login failed. Please try again.', 'error')
         return false
       }
 
@@ -276,7 +278,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
       return true
     } catch (error) {
       errorLog('Login error:', error)
-      alert('Login failed. Please check your connection and try again.')
+      showToast('Login failed. Please check your connection and try again.', 'error')
       return false
     } finally {
       setIsLoading(false)
@@ -290,7 +292,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
       // Ensure CSRF token is available
       const csrfToken = await fetchCsrfToken()
       if (!csrfToken) {
-        alert('Security error: Could not verify request. Please refresh the page and try again.')
+        showToast('Security error: Could not verify request. Please refresh the page and try again.', 'error')
         return false
       }
 
@@ -303,7 +305,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
       const data = await response.json()
 
       if (!response.ok) {
-        alert(data.error || 'Registration failed. Please try again.')
+        showToast(data.error || 'Registration failed. Please try again.', 'error')
         return false
       }
 
@@ -311,7 +313,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
       return true
     } catch (error) {
       errorLog('Registration error:', error)
-      alert('Registration failed. Please check your connection and try again.')
+      showToast('Registration failed. Please check your connection and try again.', 'error')
       return false
     } finally {
       setIsLoading(false)
@@ -438,7 +440,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
       }
     } catch (error) {
       errorLog('Google login error:', error)
-      alert('Failed to initiate Google Sign-In. Please try again.')
+      showToast('Failed to initiate Google Sign-In. Please try again.', 'error')
       setIsLoading(false)
     }
   }
@@ -453,7 +455,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
       }
     } catch (error) {
       errorLog('Apple login error:', error)
-      alert('Failed to initiate Apple Sign-In. Please try again.')
+      showToast('Failed to initiate Apple Sign-In. Please try again.', 'error')
       setIsLoading(false)
     }
   }

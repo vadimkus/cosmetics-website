@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { ArrowLeft, User, Package, Settings, Download, Shield, Trash2, X, RefreshCw, Edit3 } from 'lucide-react'
 import { useAuth } from '@/components/AuthProvider'
+import { useToast } from '@/components/ToastProvider'
 import { useState, useRef, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { Order, OrderItem } from '@prisma/client'
@@ -59,14 +60,15 @@ const getErrorMessage = (error: unknown): string => {
 }
 
 // Helper function for API error handling
-const handleApiError = (error: unknown, defaultMessage: string): void => {
+const handleApiError = (error: unknown, defaultMessage: string, showToast: (msg: string, type: 'error') => void): void => {
   errorLog(defaultMessage, error)
-  alert(`${defaultMessage}: ${getErrorMessage(error)}`)
+  showToast(`${defaultMessage}: ${getErrorMessage(error)}`, 'error')
 }
 
 export default function ProfilePageClient() {
   const { t, locale, dir } = useTranslation()
   const { user, logout, forceRefreshUser } = useAuth()
+  const { showToast } = useToast()
   const router = useRouter()
   const [isEditing, setIsEditing] = useState(false)
   const [editData, setEditData] = useState<EditData>({
@@ -176,12 +178,12 @@ export default function ProfilePageClient() {
     const file = event.target.files?.[0]
     if (file) {
       if (!file.type.startsWith('image/')) {
-        alert(t('profile.pleaseSelectImageFile'))
+        showToast(t('profile.pleaseSelectImageFile'), 'warning')
         return
       }
       
       if (file.size > MAX_IMAGE_SIZE) {
-        alert(`${t('profile.imageSizeShouldBeLessThan')} ${MAX_IMAGE_SIZE / (1024 * 1024)} ${t('profile.mb')}`)
+        showToast(`${t('profile.imageSizeShouldBeLessThan')} ${MAX_IMAGE_SIZE / (1024 * 1024)} ${t('profile.mb')}`, 'warning')
         return
       }
 
@@ -206,13 +208,13 @@ export default function ProfilePageClient() {
   const handleSave = async () => {
     try {
       if (!user?.id) {
-        alert(t('profile.userIdNotFound'))
+        showToast(t('profile.userIdNotFound'), 'error')
         return
       }
 
       const csrfToken = await fetchCsrfToken()
       if (!csrfToken) {
-        alert(t('profile.securityError'))
+        showToast(t('profile.securityError'), 'error')
         return
       }
 
@@ -234,7 +236,7 @@ export default function ProfilePageClient() {
         const updatedUser = { ...user, ...editData, profilePicture }
         localStorage.setItem(LOCAL_STORAGE_KEYS.USER, JSON.stringify(updatedUser))
         setIsEditing(false)
-        alert(t('profile.profileUpdatedSuccessfully'))
+        showToast(t('profile.profileUpdatedSuccessfully'), 'success')
         forceRefreshUser()
       } else {
         errorLog('Failed to update profile:', responseData)
@@ -243,10 +245,10 @@ export default function ProfilePageClient() {
         if (responseData?.errors && Array.isArray(responseData.errors) && responseData.errors.length > 0) {
           errorMessage = responseData.errors.join('\n')
         }
-        alert(`${t('profile.failedToUpdateProfile')}: ${errorMessage}`)
+        showToast(`${t('profile.failedToUpdateProfile')}: ${errorMessage}`, 'error')
       }
     } catch (error) {
-      handleApiError(error, t('profile.errorUpdatingProfile'))
+      handleApiError(error, t('profile.errorUpdatingProfile'), showToast)
     }
   }
 
@@ -276,7 +278,7 @@ export default function ProfilePageClient() {
     try {
       const csrfToken = await fetchCsrfToken()
       if (!csrfToken) {
-        alert(t('profile.securityError'))
+        showToast(t('profile.securityError'), 'error')
         setIsDeleting(false)
         return
       }
@@ -292,14 +294,14 @@ export default function ProfilePageClient() {
         localStorage.removeItem(LOCAL_STORAGE_KEYS.USER)
         localStorage.removeItem(LOCAL_STORAGE_KEYS.CUSTOMER_NUMBER(user.id))
         
-        alert(t('profile.accountDeletedSuccessfully'))
+        showToast(t('profile.accountDeletedSuccessfully'), 'success')
         await logout()
       } else {
         const data = await response.json()
-        alert(data.error || t('profile.failedToDeleteAccount'))
+        showToast(data.error || t('profile.failedToDeleteAccount'), 'error')
       }
     } catch (error) {
-      handleApiError(error, t('profile.errorDeletingAccount'))
+      handleApiError(error, t('profile.errorDeletingAccount'), showToast)
     } finally {
       setIsDeleting(false)
       setShowDeleteConfirm(false)
@@ -317,7 +319,7 @@ export default function ProfilePageClient() {
     try {
       const csrfToken = await fetchCsrfToken()
       if (!csrfToken) {
-        alert(t('profile.securityError'))
+        showToast(t('profile.securityError'), 'error')
         setShowCancelOrderConfirm(false)
         setOrderToCancel(null)
         return
@@ -334,13 +336,13 @@ export default function ProfilePageClient() {
         setOrders(orders.filter(order => order.id !== orderToCancel))
         setShowCancelOrderConfirm(false)
         setOrderToCancel(null)
-        alert(t('profile.orderCancelledAndRemovedSuccessfully'))
+        showToast(t('profile.orderCancelledAndRemovedSuccessfully'), 'success')
       } else {
         const errorData = await response.json()
-        alert(`${t('profile.failedToCancelOrder')}: ${errorData.error || t('profile.unknownError')}`)
+        showToast(`${t('profile.failedToCancelOrder')}: ${errorData.error || t('profile.unknownError')}`, 'error')
       }
     } catch (error) {
-      handleApiError(error, t('profile.failedToCancelOrder'))
+      handleApiError(error, t('profile.failedToCancelOrder'), showToast)
     } finally {
       setShowCancelOrderConfirm(false)
       setOrderToCancel(null)

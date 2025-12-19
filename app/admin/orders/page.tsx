@@ -1,7 +1,7 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
-import { RefreshCw, Mail } from 'lucide-react'
+import { useState, useEffect, useCallback, useRef } from 'react'
+import { RefreshCw, Mail, AlertCircle, Check, X as XIcon } from 'lucide-react'
 import { fetchCsrfToken, getCsrfHeaders, addCsrfToBody } from '@/lib/csrfClient'
 import { errorLog } from '@/lib/logger'
 
@@ -30,10 +30,36 @@ interface Order {
   items?: OrderItem[]
 }
 
+// Toast notification types
+type ToastType = 'success' | 'error' | 'warning'
+type Toast = {
+  id: number
+  message: string
+  type: ToastType
+}
+
 export default function AdminOrdersPage() {
   const [orders, setOrders] = useState<Order[]>([])
   const [loading, setLoading] = useState(true)
   const [resending, setResending] = useState<string | null>(null)
+  const [toasts, setToasts] = useState<Toast[]>([])
+  const toastIdCounter = useRef(0)
+
+  // Add toast notification
+  const showToast = (message: string, type: ToastType = 'success') => {
+    const id = toastIdCounter.current++
+    setToasts(prev => [...prev, { id, message, type }])
+    
+    // Auto-remove after 4 seconds
+    setTimeout(() => {
+      setToasts(prev => prev.filter(toast => toast.id !== id))
+    }, 4000)
+  }
+
+  // Remove toast manually
+  const removeToast = (id: number) => {
+    setToasts(prev => prev.filter(toast => toast.id !== id))
+  }
 
   // Helper to get admin email from session
   const getAdminEmail = (): string | null => {
@@ -95,7 +121,7 @@ export default function AdminOrdersPage() {
       // Ensure CSRF token is available
       const csrfToken = await fetchCsrfToken()
       if (!csrfToken) {
-        alert('Security error: Could not verify request. Please refresh the page and try again.')
+        showToast('Security error: Could not verify request. Please refresh the page and try again.', 'error')
         return
       }
 
@@ -109,13 +135,13 @@ export default function AdminOrdersPage() {
       const result = await response.json()
       
       if (result.success) {
-        alert('Admin notification sent successfully!')
+        showToast('Admin notification sent successfully!', 'success')
       } else {
-        alert('Failed to send notification: ' + result.error)
+        showToast('Failed to send notification: ' + result.error, 'error')
       }
     } catch (error) {
       errorLog('Error resending notification:', error)
-      alert('Error sending notification')
+      showToast('Error sending notification', 'error')
     } finally {
       setResending(null)
     }
@@ -312,6 +338,39 @@ export default function AdminOrdersPage() {
           ))}
         </div>
       )}
+
+      {/* Toast Notifications */}
+      <div className="fixed top-4 right-4 z-50 space-y-2 max-w-sm">
+        {toasts.map((toast) => (
+          <div
+            key={toast.id}
+            className={`flex items-start gap-3 p-4 rounded-xl shadow-lg backdrop-blur-sm transition-all duration-300 animate-slide-in ${
+              toast.type === 'success' ? 'bg-green-50/95 border border-green-200' :
+              toast.type === 'error' ? 'bg-red-50/95 border border-red-200' :
+              'bg-yellow-50/95 border border-yellow-200'
+            }`}
+          >
+            {toast.type === 'success' && <Check className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />}
+            {toast.type === 'error' && <XIcon className="h-5 w-5 text-red-600 flex-shrink-0 mt-0.5" />}
+            {toast.type === 'warning' && <AlertCircle className="h-5 w-5 text-yellow-600 flex-shrink-0 mt-0.5" />}
+            
+            <p className={`text-sm flex-1 ${
+              toast.type === 'success' ? 'text-green-800' :
+              toast.type === 'error' ? 'text-red-800' :
+              'text-yellow-800'
+            }`}>
+              {toast.message}
+            </p>
+            
+            <button
+              onClick={() => removeToast(toast.id)}
+              className="text-gray-400 hover:text-gray-600 transition-colors flex-shrink-0"
+            >
+              <XIcon className="h-4 w-4" />
+            </button>
+          </div>
+        ))}
+      </div>
     </div>
   )
 }

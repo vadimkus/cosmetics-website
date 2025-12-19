@@ -67,9 +67,9 @@ export async function GET(request: NextRequest) {
       
       orders = allOrders.filter(order => {
         const status = String(order.status || '').toUpperCase()
-        return status !== 'CANCELLED' && status !== 'DELETED'
+        return status !== 'DELETED'
       })
-      debugLog(`📊 Admin orders API: Returning ${orders.length} non-cancelled/non-deleted orders`)
+      debugLog(`📊 Admin orders API: Returning ${orders.length} non-deleted orders (including cancelled)`)
     }
     
     // Serialize orders to ensure dates are properly converted to strings

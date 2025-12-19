@@ -71,7 +71,7 @@ export default function AdminUsersManager({
       await onRefreshUsers()
     } catch (error) {
       errorLog('Error deleting user:', error)
-      alert('Failed to delete user. Please try again.')
+      // This will be handled by parent component's error handling
     } finally {
       setDeletingUser(null)
     }

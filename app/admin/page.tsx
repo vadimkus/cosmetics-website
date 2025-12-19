@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useCallback, useRef } from 'react'
-import { ArrowLeft, RefreshCw } from 'lucide-react'
+import { ArrowLeft, RefreshCw, Check, X as XIcon, AlertCircle } from 'lucide-react'
 import AdminLogin from '@/components/AdminLogin'
 import AnalyticsDashboard from '@/components/AnalyticsDashboard'
 import AdvancedReportingDashboard from '@/components/AdvancedReportingDashboard'
@@ -44,6 +44,14 @@ interface User {
   lastOrderDate?: string | null
 }
 
+// Toast notification types
+type ToastType = 'success' | 'error' | 'warning'
+type Toast = {
+  id: number
+  message: string
+  type: ToastType
+}
+
 export default function AdminPage() {
   const [users, setUsers] = useState<User[]>([])
   const [orders, setOrders] = useState<OrderWithItems[]>([])
@@ -57,6 +65,26 @@ export default function AdminPage() {
   const [isCheckingSession, setIsCheckingSession] = useState(true)
   const [adminUser, setAdminUser] = useState<{ email: string; name: string } | null>(null)
   const [userSearch, setUserSearch] = useState('')
+  
+  // Toast state
+  const [toasts, setToasts] = useState<Toast[]>([])
+  const toastIdCounter = useRef(0)
+  
+  // Add toast notification
+  const showToast = useCallback((message: string, type: ToastType = 'success') => {
+    const id = toastIdCounter.current++
+    setToasts(prev => [...prev, { id, message, type }])
+    
+    // Auto-remove after 4 seconds
+    setTimeout(() => {
+      setToasts(prev => prev.filter(toast => toast.id !== id))
+    }, 4000)
+  }, [])
+
+  // Remove toast manually
+  const removeToast = useCallback((id: number) => {
+    setToasts(prev => prev.filter(toast => toast.id !== id))
+  }, [])
   
   // Refs to track latest values for interval closure
   const adminUserRef = useRef(adminUser)
@@ -132,11 +160,11 @@ export default function AdminPage() {
           debugLog('Error response text:', errorText)
           try {
             errorData = JSON.parse(errorText)
-          } catch (error) {
+          } catch {
             errorData = { error: errorText, raw: errorText }
           }
-        } catch (parseError) {
-          errorData = { error: 'Failed to parse error response', parseError }
+        } catch {
+          errorData = { error: 'Failed to parse error response' }
         }
         errorLog('Failed to fetch users:', {
           status: response.status,
@@ -247,7 +275,7 @@ export default function AdminPage() {
       errorLog('Error fetching orders:', error)
       if (error instanceof Error && error.name === 'AbortError') {
         errorLog('Request timed out after 10 seconds')
-        alert('Request timed out. Please check your connection and try again.')
+        showToast('Request timed out. Please check your connection and try again.', 'error')
       }
       setOrders([])
       setOrdersLoading(false)
@@ -341,7 +369,7 @@ export default function AdminPage() {
       // Ensure CSRF token is available
       const csrfToken = await fetchCsrfToken()
       if (!csrfToken) {
-        alert('Security error: Could not verify request. Please refresh the page and try again.')
+        showToast('Security error: Could not verify request. Please refresh the page and try again.', 'error')
         return false
       }
 
@@ -896,14 +924,14 @@ export default function AdminPage() {
                           order.id && order.id === orderId ? { ...order, status } : order
                         ))
                         setSelectedOrder(selectedOrder ? { ...selectedOrder, status } : null)
-                        alert('Order status updated successfully!')
+                        showToast('Order status updated successfully!', 'success')
                       } else {
                         const errorData = await response.json()
-                        alert(`Failed to update order status: ${errorData.error || 'Unknown error'}`)
+                        showToast(`Failed to update order status: ${errorData.error || 'Unknown error'}`, 'error')
                       }
                     } catch (error) {
                       errorLog('Error updating order status:', error)
-                      alert('Failed to update order status')
+                      showToast('Failed to update order status', 'error')
                     }
                   }}
                 />
@@ -958,12 +986,12 @@ export default function AdminPage() {
                       } else {
                         const errorData = await response.json()
                         errorLog('Product save failed:', errorData)
-                        alert(`Failed to save product: ${errorData.error || 'Unknown error'}`)
+                        showToast(`Failed to save product: ${errorData.error || 'Unknown error'}`, 'error')
                         return false
                       }
                     } catch (error) {
                       errorLog('Error saving product:', error)
-                      alert('Failed to save product')
+                      showToast('Failed to save product', 'error')
                       return false
                     }
                   }}
@@ -997,6 +1025,39 @@ export default function AdminPage() {
             <BlogManagement adminEmail={adminUser?.email || ''} />
           )}
         </div>
+      </div>
+
+      {/* Toast Notifications */}
+      <div className="fixed top-4 right-4 z-50 space-y-2 max-w-sm">
+        {toasts.map((toast) => (
+          <div
+            key={toast.id}
+            className={`flex items-start gap-3 p-4 rounded-xl shadow-lg backdrop-blur-sm transition-all duration-300 animate-slide-in ${
+              toast.type === 'success' ? 'bg-green-50/95 border border-green-200' :
+              toast.type === 'error' ? 'bg-red-50/95 border border-red-200' :
+              'bg-yellow-50/95 border border-yellow-200'
+            }`}
+          >
+            {toast.type === 'success' && <Check className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />}
+            {toast.type === 'error' && <XIcon className="h-5 w-5 text-red-600 flex-shrink-0 mt-0.5" />}
+            {toast.type === 'warning' && <AlertCircle className="h-5 w-5 text-yellow-600 flex-shrink-0 mt-0.5" />}
+            
+            <p className={`text-sm flex-1 ${
+              toast.type === 'success' ? 'text-green-800' :
+              toast.type === 'error' ? 'text-red-800' :
+              'text-yellow-800'
+            }`}>
+              {toast.message}
+            </p>
+            
+            <button
+              onClick={() => removeToast(toast.id)}
+              className="text-gray-400 hover:text-gray-600 transition-colors flex-shrink-0"
+            >
+              <XIcon className="h-4 w-4" />
+            </button>
+          </div>
+        ))}
       </div>
     </div>
   )

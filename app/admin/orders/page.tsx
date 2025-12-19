@@ -70,7 +70,7 @@ export default function AdminOrdersPage() {
         const parsed = JSON.parse(session)
         return parsed.email || null
       }
-      } catch (error) {
+      } catch {
       return null
     }
     return null

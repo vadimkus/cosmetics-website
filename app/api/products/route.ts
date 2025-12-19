@@ -8,6 +8,9 @@ import { ApiUser } from '@/types/user'
 
 // Force revalidation every 60 seconds
 export const revalidate = 60
+// This route depends on request-specific data (query params) and must be dynamic.
+export const dynamic = 'force-dynamic'
+export const runtime = 'nodejs'
 
 export async function GET(request: NextRequest) {
   try {

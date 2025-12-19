@@ -49,7 +49,7 @@ export default async function ProfessionalPage() {
   let dbProducts: Product[] = []
   try {
     dbProducts = await getAllProducts()
-  } catch {
+  } catch (error) {
     errorLog('Error fetching products:', error)
   }
   

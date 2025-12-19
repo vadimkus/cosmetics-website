@@ -30,13 +30,11 @@ export default function PWAInstallPrompt({
   const { isInstallable, showPrompt, dismissPrompt } = usePWAInstall()
   const [isVisible, setIsVisible] = useState(false)
   const [isInstalling, setIsInstalling] = useState(false)
-
-  // Don't show PWA prompt on desktop
-  if (!isMobileDevice()) {
-    return null
-  }
+  const isMobile = isMobileDevice()
 
   useEffect(() => {
+    // Don't show PWA prompt on desktop
+    if (!isMobile) return
     if (!isInstallable) return
 
     // Show prompt after delay
@@ -45,7 +43,7 @@ export default function PWAInstallPrompt({
     }, showDelay * 1000)
 
     return () => clearTimeout(timer)
-  }, [isInstallable, showDelay])
+  }, [isMobile, isInstallable, showDelay])
 
   const handleInstall = async () => {
     setIsInstalling(true)
@@ -54,7 +52,7 @@ export default function PWAInstallPrompt({
       if (success) {
         setIsVisible(false)
       }
-    } catch {
+    } catch (error: any) {
       errorLog('Install failed:', error)
     } finally {
       setIsInstalling(false)
@@ -66,7 +64,7 @@ export default function PWAInstallPrompt({
     dismissPrompt()
   }
 
-  if (!isInstallable || !isVisible) {
+  if (!isMobile || !isInstallable || !isVisible) {
     return null
   }
 

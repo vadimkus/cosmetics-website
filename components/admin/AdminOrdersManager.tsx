@@ -1,7 +1,7 @@
 'use client'
 
-import { useState, useCallback } from 'react'
-import { Package, RefreshCw, Eye, Truck, CheckCircle, X, Trash2 } from 'lucide-react'
+import { useState, useCallback, useRef } from 'react'
+import { Package, RefreshCw, Eye, Truck, CheckCircle, X as XIcon, Trash2, AlertCircle, Check } from 'lucide-react'
 import { Order, OrderItem } from '@prisma/client'
 import { errorLog } from '@/lib/logger'
 import StatusBadge from '@/components/shared/StatusBadge'
@@ -25,6 +25,14 @@ interface AdminOrdersManagerProps {
   getAdminHeaders: (additionalHeaders?: Record<string, string>) => HeadersInit
 }
 
+// Toast notification types
+type ToastType = 'success' | 'error' | 'warning'
+type Toast = {
+  id: number
+  message: string
+  type: ToastType
+}
+
 export default function AdminOrdersManager({
   orders,
   ordersLoading,
@@ -38,6 +46,24 @@ export default function AdminOrdersManager({
   getAdminHeaders
 }: AdminOrdersManagerProps) {
   const [updatingStatus, setUpdatingStatus] = useState<string | null>(null)
+  const [toasts, setToasts] = useState<Toast[]>([])
+  const toastIdCounter = useRef(0)
+
+  // Add toast notification
+  const showToast = (message: string, type: ToastType = 'success') => {
+    const id = toastIdCounter.current++
+    setToasts(prev => [...prev, { id, message, type }])
+    
+    // Auto-remove after 4 seconds
+    setTimeout(() => {
+      setToasts(prev => prev.filter(toast => toast.id !== id))
+    }, 4000)
+  }
+
+  // Remove toast manually
+  const removeToast = (id: number) => {
+    setToasts(prev => prev.filter(toast => toast.id !== id))
+  }
 
   // Format currency in AED
   const formatCurrency = (amount: number) => {
@@ -66,10 +92,11 @@ export default function AdminOrdersManager({
         throw new Error(`Failed to update order status: ${response.status}`)
       }
 
+      showToast(`Order status updated to ${newStatus}`, 'success')
       await onRefreshOrders()
     } catch (error) {
       errorLog('Error updating order status:', error)
-      alert('Failed to update order status. Please try again.')
+      showToast('Failed to update order status. Please try again.', 'error')
     } finally {
       setUpdatingStatus(null)
     }
@@ -236,7 +263,7 @@ export default function AdminOrdersManager({
                                 className="text-red-600 hover:text-red-900 transition-colors disabled:opacity-50 touch-manipulation p-1"
                                 title="Cancel Order"
                               >
-                                <X className="h-4 w-4" />
+                                <XIcon className="h-4 w-4" />
                               </button>
                             )}
                           </div>
@@ -249,6 +276,39 @@ export default function AdminOrdersManager({
             </div>
           </div>
         )}
+      </div>
+
+      {/* Toast Notifications */}
+      <div className="fixed top-4 right-4 z-50 space-y-2 max-w-sm">
+        {toasts.map((toast) => (
+          <div
+            key={toast.id}
+            className={`flex items-start gap-3 p-4 rounded-xl shadow-lg backdrop-blur-sm transition-all duration-300 animate-slide-in ${
+              toast.type === 'success' ? 'bg-green-50/95 border border-green-200' :
+              toast.type === 'error' ? 'bg-red-50/95 border border-red-200' :
+              'bg-yellow-50/95 border border-yellow-200'
+            }`}
+          >
+            {toast.type === 'success' && <Check className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />}
+            {toast.type === 'error' && <XIcon className="h-5 w-5 text-red-600 flex-shrink-0 mt-0.5" />}
+            {toast.type === 'warning' && <AlertCircle className="h-5 w-5 text-yellow-600 flex-shrink-0 mt-0.5" />}
+            
+            <p className={`text-sm flex-1 ${
+              toast.type === 'success' ? 'text-green-800' :
+              toast.type === 'error' ? 'text-red-800' :
+              'text-yellow-800'
+            }`}>
+              {toast.message}
+            </p>
+            
+            <button
+              onClick={() => removeToast(toast.id)}
+              className="text-gray-400 hover:text-gray-600 transition-colors flex-shrink-0"
+            >
+              <XIcon className="h-4 w-4" />
+            </button>
+          </div>
+        ))}
       </div>
     </div>
   )

@@ -4,6 +4,7 @@ import { createContext, useContext, useState, useEffect, useCallback, ReactNode 
 import { fetchCsrfToken, getCsrfHeaders, addCsrfToBody } from '@/lib/csrfClient'
 import { errorLog, debugLog } from '@/lib/logger'
 import { useToast } from '@/components/ToastProvider'
+import { useTranslation } from '@/hooks/useTranslation'
 
 interface User {
   id: string
@@ -51,6 +52,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const { showToast } = useToast()
+  const { t } = useTranslation()
   const [isClient, setIsClient] = useState(false)
 
   // Ensure we're on the client side before accessing localStorage
@@ -221,7 +223,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
       // Ensure CSRF token is available
       const csrfToken = await fetchCsrfToken()
       if (!csrfToken) {
-        showToast('Security error: Could not verify request. Please refresh the page and try again.', 'error')
+        showToast(t('auth.securityErrorCsrf'), 'error')
         setIsLoading(false)
         return false
       }
@@ -241,7 +243,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
       } catch (error) {
         clearTimeout(timeoutId)
         if (error instanceof Error && error.name === 'AbortError') {
-          showToast('Login request timed out. Please check your connection and try again.', 'error')
+          showToast(t('auth.loginTimeout'), 'error')
         } else {
           throw error
         }
@@ -252,7 +254,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
       const data = await response.json()
 
       if (!response.ok) {
-        showToast(data.error || 'Login failed. Please try again.', 'error')
+        showToast(data.error || t('auth.loginFailed'), 'error')
         return false
       }
 
@@ -278,7 +280,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
       return true
     } catch (error) {
       errorLog('Login error:', error)
-      showToast('Login failed. Please check your connection and try again.', 'error')
+      showToast(t('auth.loginFailedConnection'), 'error')
       return false
     } finally {
       setIsLoading(false)
@@ -305,7 +307,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
       const data = await response.json()
 
       if (!response.ok) {
-        showToast(data.error || 'Registration failed. Please try again.', 'error')
+        showToast(data.error || t('auth.registerFailed'), 'error')
         return false
       }
 
@@ -440,7 +442,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
       }
     } catch (error) {
       errorLog('Google login error:', error)
-      showToast('Failed to initiate Google Sign-In. Please try again.', 'error')
+      showToast(t('auth.googleSignInFailed'), 'error')
       setIsLoading(false)
     }
   }
@@ -455,7 +457,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
       }
     } catch (error) {
       errorLog('Apple login error:', error)
-      showToast('Failed to initiate Apple Sign-In. Please try again.', 'error')
+      showToast(t('auth.appleSignInFailed'), 'error')
       setIsLoading(false)
     }
   }

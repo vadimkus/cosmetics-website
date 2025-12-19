@@ -1292,6 +1292,16 @@
     "googleInternalError": "An error occurred during Google Sign-In. Please try again.",
     "googleGenericError": "Google Sign-In failed. Please try again."
   },
+  "auth": {
+    "securityErrorCsrf": "Security error: Could not verify request. Please refresh the page and try again.",
+    "loginTimeout": "Login request timed out. Please check your connection and try again.",
+    "loginFailed": "Login failed. Please try again.",
+    "loginFailedConnection": "Login failed. Please check your connection and try again.",
+    "registerFailed": "Registration failed. Please try again.",
+    "registerFailedConnection": "Registration failed. Please check your connection and try again.",
+    "googleSignInFailed": "Failed to initiate Google Sign-In. Please try again.",
+    "appleSignInFailed": "Failed to initiate Apple Sign-In. Please try again."
+  },
   "orderEmail": {
     "cod": {
       "subject": "Order Confirmation #{orderNumber} - GENOSYS Professional",

@@ -87,7 +87,7 @@ async function updateBioFermentRussian() {
     console.log(`✅ Successfully updated Russian translation for: ${post.title}`)
     console.log(`   New titleRu: ${translation.titleRu.substring(0, 60)}...`)
     
-  } catch (error) {
+  } catch {
     console.error('❌ Failed to update Russian translation:', error)
     throw error
   } finally {

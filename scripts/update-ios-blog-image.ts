@@ -31,7 +31,7 @@ async function updateIOSBlogPostImage() {
     console.log(`🌐 View at: https://genosys.ae/blog/${slug}`)
     console.log(`🖼️ Featured Image: /images/ios.png`)
 
-  } catch (error) {
+  } catch {
     errorLog('❌ Error updating blog post image:', error)
     throw error
   } finally {

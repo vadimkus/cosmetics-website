@@ -106,7 +106,7 @@ async function syncDatabasePrices(dryRun: boolean = true) {
             
             console.log(`✅ Updated ${mismatch.name}: ${mismatch.databasePrice} → ${mismatch.canonicalPrice} AED`)
             updateCount++
-          } catch (error) {
+          } catch {
             console.error(`❌ Failed to update ${mismatch.name}:`, error)
           }
         }
@@ -126,7 +126,7 @@ async function syncDatabasePrices(dryRun: boolean = true) {
       notInDb.forEach(product => console.log(`  - ${product}`))
     }
 
-  } catch (error) {
+  } catch {
     console.error('\n❌ Error:', error)
     throw error
   } finally {

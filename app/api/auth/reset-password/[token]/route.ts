@@ -48,7 +48,7 @@ export async function GET(
       message: 'Token is valid'
     })
 
-  } catch (error) {
+  } catch {
     errorLog('[RESET-PASSWORD-VERIFY] Error:', error)
     return NextResponse.json(
       { error: 'An error occurred while verifying token' },
@@ -150,7 +150,7 @@ export async function POST(
       message: 'Password has been reset successfully'
     })
 
-  } catch (error) {
+  } catch {
     errorLog('[RESET-PASSWORD] Error:', error)
     return NextResponse.json(
       { error: 'An error occurred while resetting password' },

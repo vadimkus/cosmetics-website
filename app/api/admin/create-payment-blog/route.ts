@@ -167,7 +167,7 @@ export async function POST(_request: NextRequest) {
       }
     })
 
-  } catch (error) {
+  } catch {
     errorLog('Error creating payment blog post:', error)
     return NextResponse.json(
       { 

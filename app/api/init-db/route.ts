@@ -10,7 +10,7 @@ export async function POST(_request: NextRequest) {
       success: true,
       message: `Database is active. Products in DB: ${existingProducts}`
     })
-  } catch (error) {
+  } catch {
     errorLog('Error checking database status:', error)
     return NextResponse.json(
       { 
@@ -37,7 +37,7 @@ export async function GET(_request: NextRequest) {
         orders: orderCount
       }
     })
-  } catch (error) {
+  } catch {
     errorLog('Error checking database status:', error)
     return NextResponse.json(
       { 

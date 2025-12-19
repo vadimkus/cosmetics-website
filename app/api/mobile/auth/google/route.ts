@@ -53,7 +53,7 @@ export async function POST(request: NextRequest) {
     let clientIdentifier: string
     try {
       clientIdentifier = getClientIdentifierFromNextRequest(request)
-    } catch (error) {
+    } catch {
       errorLog('[MOBILE_AUTH] Rate limit identifier error:', error)
       clientIdentifier = 'unknown'
     }
@@ -158,12 +158,12 @@ export async function POST(request: NextRequest) {
           } else {
             errorLog('[MOBILE_AUTH] ❌ Failed to send admin notification:', adminResult?.error || 'Unknown error')
           }
-        } catch (error) {
+        } catch {
           errorLog('[MOBILE_AUTH] ❌ Exception sending admin notification:', error)
           // Don't fail registration if email fails
         }
 
-      } catch (error) {
+      } catch {
         errorLog('[MOBILE_AUTH] Error creating user from Google OAuth:', error)
         // Race-safe fallback: if the user was created in a concurrent request, recover by fetching.
         const existing = await findUserByEmail(normalizedEmail)
@@ -187,7 +187,7 @@ export async function POST(request: NextRequest) {
         try {
           await updateUser(user.id, { profilePicture: googleUser.picture })
           user.profilePicture = googleUser.picture
-        } catch (error) {
+        } catch {
           errorLog('[MOBILE_AUTH] Error updating profile picture:', error)
           // Don't fail login if profile picture update fails
         }
@@ -196,7 +196,7 @@ export async function POST(request: NextRequest) {
       // Update last login timestamp
       try {
         await updateUser(user.id, { lastLoginAt: new Date().toISOString() })
-      } catch (error) {
+      } catch {
         errorLog('[MOBILE_AUTH] Error updating last login timestamp:', error)
         // Don't fail login if timestamp update fails
       }
@@ -225,7 +225,7 @@ export async function POST(request: NextRequest) {
       message: isNewUser ? 'Account created successfully' : 'Login successful'
     })
 
-  } catch (error) {
+  } catch {
     const duration = Date.now() - startTime
     errorLog('[MOBILE_AUTH] Google OAuth error:', {
       error: error instanceof Error ? error.message : 'Unknown error',

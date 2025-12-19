@@ -80,7 +80,7 @@ async function getBlogPost(slug: string): Promise<BlogPostWithComments | null> {
     }
 
     return post
-      } catch (_error) {
+      } catch {
     errorLog('Error fetching blog post:', _error)
     return null
   }
@@ -142,7 +142,7 @@ export async function generateStaticParams() {
       select: { slug: true },
     }) || []
     return posts.map((post: { slug: string }) => ({ slug: post.slug }))
-      } catch (_error) {
+      } catch {
     return []
   }
 }

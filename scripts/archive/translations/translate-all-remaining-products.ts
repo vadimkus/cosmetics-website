@@ -178,7 +178,7 @@ async function main() {
     console.log('   3. Review and refine all translations')
     console.log('   4. Test on website')
     
-  } catch (error) {
+  } catch {
     console.error('Error:', error)
     process.exit(1)
   }

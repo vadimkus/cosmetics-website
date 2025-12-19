@@ -144,7 +144,7 @@ export async function GET(
           }
         })
         debugLog(`[MOBILE_API] User context loaded: ${user?.email || 'not found'}`)
-      } catch (error) {
+      } catch {
         debugLog('[MOBILE_API] Failed to load user context:', error)
       }
     }
@@ -291,7 +291,7 @@ export async function GET(
       }
     })
     
-  } catch (error) {
+  } catch {
     const duration = Date.now() - startTime
     errorLog('[MOBILE_API] Error fetching product:', {
       error: error instanceof Error ? error.message : 'Unknown error',

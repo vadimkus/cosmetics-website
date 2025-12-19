@@ -246,7 +246,7 @@ async function debugProductPricing() {
 
     console.log('\n✅ Debug complete!')
 
-  } catch (error) {
+  } catch {
     console.error('❌ Error during debugging:', error)
     throw error
   } finally {

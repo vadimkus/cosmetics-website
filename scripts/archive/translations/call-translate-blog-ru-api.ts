@@ -109,7 +109,7 @@ async function callTranslateAPI(options: ScriptOptions) {
     console.log(`   Force Update: ${data.forceUpdate}`)
     console.log(`   Target Slug: ${data.targetSlug}`)
 
-  } catch (error) {
+  } catch {
     console.error('❌ Failed to call API:', error instanceof Error ? error.message : String(error))
     process.exit(1)
   }

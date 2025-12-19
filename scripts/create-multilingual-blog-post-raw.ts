@@ -321,7 +321,7 @@ async function createMultilingualAnnouncementBlogPost() {
       } else {
         console.log('📝 Translation columns not found, will create post with English only')
       }
-    } catch (error) {
+    } catch {
       console.log('📝 Could not check for translation columns, will create post with English only')
     }
 
@@ -419,7 +419,7 @@ async function createMultilingualAnnouncementBlogPost() {
       console.error('⚠️ Warning: Post was not found after creation/update')
     }
     
-  } catch (error) {
+  } catch {
     console.error('❌ Failed to create blog post:', error)
     throw error
   } finally {

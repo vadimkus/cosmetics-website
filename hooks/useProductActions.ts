@@ -54,7 +54,7 @@ export const useProductActions = (): UseProductActionsReturn => {
         : product
       
       await addItem(productToAdd, quantity, selectedColor, selectedSize)
-    } catch (error) {
+    } catch {
       errorLog('Error adding to cart:', error)
     } finally {
       setIsAdding(false)

@@ -62,7 +62,7 @@ export function validateWebhookSignature(
 ): Stripe.Event {
   try {
     return stripe.webhooks.constructEvent(payload, signature, secret)
-  } catch (error) {
+  } catch {
     errorLog('Webhook signature verification failed:', error)
     throw new Error('Invalid webhook signature')
   }
@@ -172,7 +172,7 @@ export async function createCheckoutSession(params: {
 
     return session
     
-  } catch (error) {
+  } catch {
     errorLog('❌ Failed to create Stripe checkout session:', error)
     // Log the detailed Stripe error for debugging
     if (error instanceof Error) {
@@ -187,7 +187,7 @@ export async function createCheckoutSession(params: {
 export async function getPaymentIntent(paymentIntentId: string): Promise<Stripe.PaymentIntent> {
   try {
     return await stripe.paymentIntents.retrieve(paymentIntentId)
-  } catch (error) {
+  } catch {
     errorLog('❌ Failed to retrieve payment intent:', error)
     throw new Error('Failed to retrieve payment details')
   }
@@ -199,7 +199,7 @@ export async function getCheckoutSession(sessionId: string): Promise<Stripe.Chec
     return await stripe.checkout.sessions.retrieve(sessionId, {
       expand: ['line_items', 'payment_intent']
     })
-  } catch (error) {
+  } catch {
     errorLog('❌ Failed to retrieve checkout session:', error)
     throw new Error('Failed to retrieve session details')
   }
@@ -217,7 +217,7 @@ export async function createRefund(paymentIntentId: string, amount?: number): Pr
     }
     
     return await stripe.refunds.create(refundParams)
-  } catch (error) {
+  } catch {
     errorLog('❌ Failed to create refund:', error)
     throw new Error('Failed to process refund')
   }

@@ -94,7 +94,7 @@ export default async function ProfPage() {
   let dbProducts: Product[] = []
   try {
     dbProducts = await getAllProducts()
-  } catch (error) {
+  } catch {
     errorLog('Error fetching products:', error)
   }
 

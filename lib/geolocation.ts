@@ -36,7 +36,7 @@ export async function getCountryFromIP(ipAddress: string): Promise<string | null
     }
 
     return data.country_name || null
-  } catch (error) {
+  } catch {
     errorLog(`Error getting geolocation for IP ${ipAddress}:`, error)
     return null
   }
@@ -92,7 +92,7 @@ export async function getGeolocationData(ipAddress: string): Promise<Geolocation
       city: data.city || 'Unknown',
       region: data.region || 'Unknown'
     }
-  } catch (error) {
+  } catch {
     errorLog(`Error getting geolocation data for IP ${ipAddress}:`, error)
     return null
   }

@@ -227,7 +227,7 @@ export async function GET(request: NextRequest) {
       }
     })
 
-  } catch (error) {
+  } catch {
     errorLog('❌ Error checking payment status:', error)
     
     if (error instanceof Error && error.message.includes('No such checkout session')) {
@@ -267,7 +267,7 @@ export async function POST(request: NextRequest) {
     
     return await GET(getRequest)
     
-  } catch (error) {
+  } catch {
     errorLog('❌ Error in payment status POST:', error)
     return NextResponse.json(
       { error: 'Failed to verify session' },

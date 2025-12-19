@@ -49,7 +49,7 @@ async function addRussianFields() {
     console.log(`✅ Verified: ${columns.length} Russian columns exist`)
     columns.forEach(col => console.log(`   - ${col.column_name}`))
     
-  } catch (error) {
+  } catch {
     console.error('❌ Failed to add Russian fields:', error)
     throw error
   } finally {

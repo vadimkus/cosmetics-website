@@ -131,7 +131,7 @@ export default function ProfilePageRefactored() {
     setIsRefreshing(true)
     try {
       await forceRefreshUser()
-    } catch (error) {
+    } catch {
       errorLog('Error refreshing user data:', error)
     } finally {
       // Add a small delay to show the animation
@@ -259,7 +259,7 @@ export default function ProfilePageRefactored() {
         } else {
           errorLog('Failed to fetch orders:', response.statusText)
         }
-      } catch (error) {
+      } catch {
         errorLog('Error fetching orders:', error)
       } finally {
         setLoadingOrders(false)
@@ -348,7 +348,7 @@ export default function ProfilePageRefactored() {
         }
         showToast(`Failed to update profile: ${errorMessage}`, 'error')
       }
-    } catch (error) {
+    } catch {
       handleApiError(error, 'Error updating profile')
     }
   }
@@ -405,7 +405,7 @@ export default function ProfilePageRefactored() {
         const data = await response.json()
         showToast(data.error || 'Failed to delete account. Please try again.', 'error')
       }
-    } catch (error) {
+    } catch {
       handleApiError(error, 'Error deleting account')
     } finally {
       setIsDeleting(false)
@@ -447,7 +447,7 @@ export default function ProfilePageRefactored() {
         const errorData = await response.json()
         showToast(`Failed to cancel order: ${errorData.error || 'Unknown error'}`, 'error')
       }
-    } catch (error) {
+    } catch {
       handleApiError(error, 'Failed to cancel order')
     } finally {
       setShowCancelOrderConfirm(false)

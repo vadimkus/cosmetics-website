@@ -34,7 +34,7 @@ async function applyMigration() {
       prisma = new PrismaClient({
         adapter,
       })
-    } catch (error) {
+    } catch {
       prisma = new PrismaClient({
         datasources: {
           db: {
@@ -113,7 +113,7 @@ async function applyMigration() {
       console.log(`   ⚠️  Only ${columns.length} columns found (expected 3)`)
     }
     
-  } catch (error) {
+  } catch {
     console.error('❌ Migration failed:', error)
     throw error
   } finally {

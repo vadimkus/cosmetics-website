@@ -33,7 +33,7 @@ export function useOrderHistory(user: User | null) {
         const ordersData = await response.json()
         setOrders(ordersData)
       }
-    } catch (error) {
+    } catch {
       errorLog('Error fetching orders:', error)
     } finally {
       setLoadingOrders(false)
@@ -56,7 +56,7 @@ export function useOrderHistory(user: User | null) {
           )
         )
       }
-    } catch (error) {
+    } catch {
       errorLog('Error cancelling order:', error)
     }
   }

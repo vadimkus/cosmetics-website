@@ -68,7 +68,7 @@ export async function DELETE(request: NextRequest) {
       success: true,
       message: 'Account deleted',
     })
-  } catch (error) {
+  } catch {
     const duration = Date.now() - startTime
     errorLog('[MOBILE_USER] Account deletion error:', {
       error: error instanceof Error ? error.message : 'Unknown error',

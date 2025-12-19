@@ -139,7 +139,7 @@ export function EnhancedProductShare({
       if (success) {
         // Handle success (could show toast, etc.)
       }
-    } catch (error) {
+    } catch {
       errorLog('Failed to share with image:', error)
       // Fallback to text sharing
       await shareProduct(product)

@@ -79,7 +79,7 @@ export async function POST(request: NextRequest) {
       imageUrl: dataUrl,
       message: 'Profile picture uploaded successfully'
     })
-  } catch (error) {
+  } catch {
     errorLog('[MOBILE_PROFILE_PIC] Upload error:', error)
     return NextResponse.json({ success: false, error: 'Internal server error' }, { status: 500 })
   }

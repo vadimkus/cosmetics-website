@@ -54,7 +54,7 @@ export async function GET(request: NextRequest) {
     let clientIdentifier: string
     try {
       clientIdentifier = getClientIdentifierFromNextRequest(request)
-    } catch (e) {
+    } catch {
       errorLog('[APPLE_AUTH] Rate limit identifier error:', e)
       clientIdentifier = 'unknown'
     }
@@ -122,7 +122,7 @@ export async function GET(request: NextRequest) {
 
     debugLog('[APPLE_AUTH] Redirecting to Apple', Date.now() - startTime, 'ms')
     return response
-  } catch (error) {
+  } catch {
     errorLog('[APPLE_AUTH] Error:', error)
     return NextResponse.redirect(new URL('/login?error=apple_internal_error', request.nextUrl.origin))
   }

@@ -160,7 +160,7 @@ async function main() {
     console.log(`   🎯 Total variants created: ${variantsCreated}`)
     console.log('\n✨ Backfill completed successfully!')
     
-  } catch (error) {
+  } catch {
     console.error('❌ Error during backfill:', error)
     throw error
   } finally {

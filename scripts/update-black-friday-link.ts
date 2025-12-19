@@ -41,7 +41,7 @@ async function updateBlackFridayLink() {
 
     debugLog('✅ Added link to website URL')
     debugLog(`   Added clickable link to www.genosys.ae`)
-  } catch (error) {
+  } catch {
     errorLog('❌ Failed to add link:', error)
     throw error
   } finally {

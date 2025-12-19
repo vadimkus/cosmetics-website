@@ -89,7 +89,7 @@ export async function GET(request: NextRequest) {
       }
     })
 
-  } catch (error) {
+  } catch {
     errorLog('[MOBILE_PROFILE] Get profile error:', error)
     return NextResponse.json(
       { 
@@ -354,7 +354,7 @@ export async function PUT(request: NextRequest) {
       }
     })
 
-  } catch (error) {
+  } catch {
     errorLog('[MOBILE_PROFILE] Update profile error:', error)
     return NextResponse.json(
       { 

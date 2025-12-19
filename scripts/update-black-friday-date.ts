@@ -39,7 +39,7 @@ async function updateBlackFridayDate() {
 
     debugLog('✅ Updated Black Friday sale dates')
     debugLog(`   Changed to "Nov 26th — Nov 28th"`)
-  } catch (error) {
+  } catch {
     errorLog('❌ Failed to update Black Friday dates:', error)
     throw error
   } finally {

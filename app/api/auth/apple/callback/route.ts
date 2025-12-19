@@ -64,7 +64,7 @@ async function handleAppleCallback(request: NextRequest, params: {
     let clientIdentifier: string
     try {
       clientIdentifier = getClientIdentifierFromNextRequest(request)
-    } catch (e) {
+    } catch {
       errorLog('[APPLE_CALLBACK] Rate limit identifier error:', e)
       clientIdentifier = 'unknown'
     }
@@ -113,7 +113,7 @@ async function handleAppleCallback(request: NextRequest, params: {
         redirectUri,
         clientId,
       })
-    } catch (e) {
+    } catch {
       errorLog('[APPLE_CALLBACK] Token exchange failed:', e)
       return NextResponse.redirect(new URL('/login?error=apple_token_exchange_failed', normalizedOrigin))
     }
@@ -128,7 +128,7 @@ async function handleAppleCallback(request: NextRequest, params: {
     try {
       const verified = await verifyAppleIdentityToken(idToken, { audience: clientId })
       claims = verified?.claims
-    } catch (e) {
+    } catch {
       errorLog('[APPLE_CALLBACK] id_token verification failed:', e)
       return NextResponse.redirect(new URL('/login?error=apple_token_verification_failed', normalizedOrigin))
     }
@@ -185,7 +185,7 @@ async function handleAppleCallback(request: NextRequest, params: {
           // Link account (guard against unique constraint errors)
           try {
             await updateUser(byEmail.id, { appleSub })
-          } catch (e) {
+          } catch {
             errorLog('[APPLE_CALLBACK] Failed to link appleSub to existing email user:', e)
           }
           user = (await findUserByAppleSub(appleSub)) || (await findUserByEmail(email)) || byEmail
@@ -261,7 +261,7 @@ async function handleAppleCallback(request: NextRequest, params: {
             lastLoginAt: new Date().toISOString(),
           })
         }
-      } catch (e) {
+      } catch {
         errorLog('[APPLE_CALLBACK] User create failed, attempting recovery:', e)
         user =
           (await findUserByAppleSub(appleSub)) ||
@@ -283,7 +283,7 @@ async function handleAppleCallback(request: NextRequest, params: {
     } else {
       try {
         await updateUser(user.id, { lastLoginAt: new Date().toISOString() })
-      } catch (e) {
+      } catch {
         errorLog('[APPLE_CALLBACK] Failed to update lastLoginAt:', e)
         // don't fail login
       }
@@ -323,7 +323,7 @@ async function handleAppleCallback(request: NextRequest, params: {
             })
           })
         }
-      } catch (e) {
+      } catch {
         errorLog('[APPLE_CALLBACK] Failed to apply promo fallback:', e)
       }
     }
@@ -358,7 +358,7 @@ async function handleAppleCallback(request: NextRequest, params: {
 
     debugLog('[APPLE_CALLBACK] Success', Date.now() - startTime, 'ms')
     return response
-  } catch (error) {
+  } catch {
     errorLog('[APPLE_CALLBACK] Error:', error)
     return NextResponse.redirect(new URL('/login?error=apple_internal_error', normalizedOrigin))
   }

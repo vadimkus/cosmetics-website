@@ -41,7 +41,7 @@ export default function ProductRecommendation({
             setRecommendedProduct(product)
           }
         }
-      } catch (error) {
+      } catch {
         errorLog('Error fetching recommended product:', error)
       } finally {
         setLoading(false)
@@ -65,7 +65,7 @@ export default function ProductRecommendation({
         await addItem(recommendedProduct, 1)
         // Note: Current product should be added separately by user
       }
-    } catch (error) {
+    } catch {
       errorLog('Error adding products to cart:', error)
     }
   }

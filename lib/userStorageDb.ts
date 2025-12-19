@@ -57,7 +57,7 @@ export const getAllUsers = async (limit: number = 100, offset: number = 0) => {
       take: limit,
       skip: offset
     })
-  } catch (error) {
+  } catch {
     errorLog('Error fetching users:', error)
     return []
   }
@@ -92,7 +92,7 @@ export const addUser = async (userData: UserData): Promise<User> => {
     return await prisma.user.create({
       data: createData
     })
-  } catch (error) {
+  } catch {
     errorLog('Error creating user:', error)
     throw error
   }
@@ -140,7 +140,7 @@ export const findUserByEmail = async (email: string): Promise<User | null> => {
     })()
 
     return await Promise.race([queryPromise, timeoutPromise])
-  } catch (error) {
+  } catch {
     errorLog('Error finding user by email:', error)
     if (error instanceof Error && error.message === 'Database query timeout') {
       errorLog('⚠️ Database query timed out for email:', email)
@@ -155,7 +155,7 @@ export const findUserById = async (id: string): Promise<User | null> => {
     return await prisma.user.findUnique({
       where: { id }
     })
-  } catch (error) {
+  } catch {
     errorLog('Error finding user by ID:', error)
     return null
   }
@@ -168,7 +168,7 @@ export const findUserByAppleSub = async (appleSub: string): Promise<User | null>
     return await prisma.user.findUnique({
       where: { appleSub }
     })
-  } catch (error) {
+  } catch {
     errorLog('Error finding user by Apple sub:', error)
     return null
   }
@@ -285,7 +285,7 @@ export const updateUser = async (userId: string, updates: Partial<UserData>): Pr
     
     debugLog('User update result:', result)
     return true
-  } catch (error) {
+  } catch {
     errorLog('Error updating user:', error)
     errorLog('Update data:', updates)
     errorLog('User ID:', userId)
@@ -300,7 +300,7 @@ export const deleteUser = async (userId: string): Promise<boolean> => {
       where: { id: userId }
     })
     return true
-  } catch (error) {
+  } catch {
     errorLog('Error deleting user:', error)
     return false
   }
@@ -333,7 +333,7 @@ export const anonymizeUser = async (userId: string): Promise<boolean> => {
       } as any
     })
     return true
-  } catch (error) {
+  } catch {
     errorLog('Error anonymizing user:', error)
     return false
   }
@@ -368,7 +368,7 @@ export const cleanupDuplicateUsers = async (): Promise<void> => {
     }
     
     debugLog(`Cleaned up ${usersToDelete.length} duplicate users`)
-  } catch (error) {
+  } catch {
     errorLog('Error cleaning up duplicate users:', error)
   }
 }
@@ -412,7 +412,7 @@ export const findOrCreateUser = async (email: string, userData: Partial<UserData
     }
     
     return user
-  } catch (error) {
+  } catch {
     errorLog('Error finding or creating user:', error)
     throw error
   }

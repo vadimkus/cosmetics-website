@@ -82,7 +82,7 @@ export async function POST(request: NextRequest) {
       timestamp: new Date().toISOString()
     })
 
-  } catch (error) {
+  } catch {
     const duration = Date.now() - startTime
     errorLog('[MOBILE_AUTH] Logout error:', {
       error: error instanceof Error ? error.message : 'Unknown error',

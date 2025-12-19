@@ -29,7 +29,7 @@ if (isAccelerateUrl) {
       adapter,
       log: process.env.NODE_ENV === 'development' ? ['query', 'error', 'warn'] : ['error']
     })
-  } catch (error) {
+  } catch {
     console.error('❌ Failed to initialize Prisma client with adapter:', error)
     throw error
   }
@@ -257,13 +257,13 @@ async function translateBlogPosts() {
           }
         })
         console.log(`✅ Translated: ${post.title}`)
-      } catch (error) {
+      } catch {
         console.error(`❌ Failed to translate post ${post.slug}:`, error)
       }
     }
 
     console.log('✅ Blog posts translation completed!')
-  } catch (error) {
+  } catch {
     console.error('❌ Failed to translate blog posts:', error)
     throw error
   } finally {

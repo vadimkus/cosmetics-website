@@ -176,7 +176,7 @@ async function main() {
       console.log('  npx tsx scripts/fix-price-conflicts.ts --apply')
     }
 
-  } catch (error) {
+  } catch {
     console.error('❌ Error:', error)
     throw error
   } finally {

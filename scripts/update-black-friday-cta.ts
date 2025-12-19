@@ -46,7 +46,7 @@ async function updateBlackFridayCTA() {
 
     debugLog('✅ Updated Black Friday CTA section styling')
     debugLog(`   Changed from bright red to softer red/pink background`)
-  } catch (error) {
+  } catch {
     errorLog('❌ Failed to update Black Friday CTA:', error)
     throw error
   } finally {

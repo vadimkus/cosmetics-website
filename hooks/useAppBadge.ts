@@ -30,7 +30,7 @@ export const useAppBadge = (): UseAppBadgeReturn => {
         ;(navigator as any).setAppBadge(count)
         debugLog(`App badge set to: ${count}`)
       }
-    } catch (error) {
+    } catch {
       warnLog('Failed to set app badge:', error)
     }
   }, [isSupported])
@@ -44,7 +44,7 @@ export const useAppBadge = (): UseAppBadgeReturn => {
     try {
       ;(navigator as any).clearAppBadge()
       debugLog('App badge cleared')
-    } catch (error) {
+    } catch {
       warnLog('Failed to clear app badge:', error)
     }
   }, [isSupported])

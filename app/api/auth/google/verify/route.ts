@@ -120,7 +120,7 @@ export async function POST(request: NextRequest) {
           errorLog('[GOOGLE_VERIFY] ❌ Exception stack:', emailError instanceof Error ? emailError.stack : 'No stack trace')
           // Don't fail registration if email fails
         }
-      } catch (error) {
+      } catch {
         errorLog('[GOOGLE_VERIFY] Error creating user:', error)
         return NextResponse.json(
           { error: 'Failed to create user account' },
@@ -157,7 +157,7 @@ export async function POST(request: NextRequest) {
 
     debugLog('[GOOGLE_VERIFY] Success', Date.now() - startTime, 'ms')
     return NextResponse.json({ user: userData })
-  } catch (error) {
+  } catch {
     errorLog('[GOOGLE_VERIFY] Error:', error)
     return NextResponse.json(
       { error: 'Internal server error' },

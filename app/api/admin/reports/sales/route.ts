@@ -238,7 +238,7 @@ export async function GET(request: NextRequest) {
       topProducts: topProducts || [],
       topCustomers: topCustomers || []
     })
-  } catch (error) {
+  } catch {
     errorLog('Error fetching sales report:', error)
     return NextResponse.json(
       { error: 'Failed to fetch sales report' },

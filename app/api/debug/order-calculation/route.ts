@@ -103,7 +103,7 @@ export async function POST(request: NextRequest) {
       message: 'Order calculation debug completed'
     })
 
-  } catch (error) {
+  } catch {
     errorLog('Error in order calculation debug:', error)
     return NextResponse.json(
       { error: 'Failed to calculate order' },

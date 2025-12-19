@@ -82,7 +82,7 @@ export async function GET(request: NextRequest) {
       }
     })
     
-  } catch (error) {
+  } catch {
     return NextResponse.json({
       success: false,
       error: 'Test endpoint error',

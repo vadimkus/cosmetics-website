@@ -20,7 +20,7 @@ export async function GET() {
       products: productCount,
       timestamp: new Date().toISOString()
     })
-  } catch (error) {
+  } catch {
     errorLog('❌ Health check failed:', error)
     
     return NextResponse.json({

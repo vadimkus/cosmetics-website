@@ -51,7 +51,7 @@ export default function PDFViewerClient({ filename, pdfUrl }: PDFViewerClientPro
     try {
       // Track the download
       await trackDownload(filename)
-    } catch (error) {
+    } catch {
       errorLog('Error tracking PDF download:', error)
     }
     // The download will happen via the anchor tag's download attribute

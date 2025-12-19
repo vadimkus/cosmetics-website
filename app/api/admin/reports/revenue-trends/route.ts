@@ -143,7 +143,7 @@ export async function GET(request: NextRequest) {
     })
 
     return NextResponse.json({ trends })
-  } catch (error) {
+  } catch {
     errorLog('Error fetching revenue trends:', error)
     return NextResponse.json(
       { error: 'Failed to fetch revenue trends' },

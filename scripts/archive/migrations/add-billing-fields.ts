@@ -101,7 +101,7 @@ async function addBillingFields() {
 
     await pool.end()
     process.exit(0)
-  } catch (error) {
+  } catch {
     console.error('❌ Error adding billing fields:', error)
     await pool.end()
     process.exit(1)

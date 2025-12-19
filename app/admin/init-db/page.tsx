@@ -22,7 +22,7 @@ export default function InitDbPage() {
       } else {
         setStatus(`❌ Error: ${data.error}`)
       }
-    } catch (error) {
+    } catch {
       setStatus(`❌ Error: ${error}`)
     } finally {
       setLoading(false)
@@ -45,7 +45,7 @@ export default function InitDbPage() {
       } else {
         setStatus(`❌ Error: ${data.error}`)
       }
-    } catch (error) {
+    } catch {
       setStatus(`❌ Error: ${error}`)
     } finally {
       setLoading(false)

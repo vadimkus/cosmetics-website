@@ -67,7 +67,7 @@ async function addLocalizationColumns() {
       console.log(`  - ${row.column_name}: ${row.data_type}`)
     })
 
-  } catch (error) {
+  } catch {
     console.error('❌ Migration failed:', error)
     throw error
   } finally {

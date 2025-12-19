@@ -86,7 +86,7 @@ export async function GET(request: NextRequest) {
       data: wishlist
     })
 
-  } catch (error) {
+  } catch {
     errorLog('[MOBILE_WISHLIST] Get wishlist error:', error)
     return NextResponse.json(
       { 
@@ -175,7 +175,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Get user's current wishlist
-    let wishlist = userWishlists.get(user.id) || []
+    const wishlist = userWishlists.get(user.id) || []
 
     // Check if item already in wishlist
     const existingItem = wishlist.find(item => item.productId === productId)
@@ -210,7 +210,7 @@ export async function POST(request: NextRequest) {
       data: newItem
     }, { status: 201 })
 
-  } catch (error) {
+  } catch {
     errorLog('[MOBILE_WISHLIST] Add to wishlist error:', error)
     return NextResponse.json(
       { 
@@ -310,7 +310,7 @@ export async function DELETE(request: NextRequest) {
       message: 'Product removed from wishlist'
     })
 
-  } catch (error) {
+  } catch {
     errorLog('[MOBILE_WISHLIST] Remove from wishlist error:', error)
     return NextResponse.json(
       { 

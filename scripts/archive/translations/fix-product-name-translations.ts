@@ -78,7 +78,7 @@ async function fixProductNames() {
 
     console.log('\n✅ All product names fixed!')
 
-  } catch (error) {
+  } catch {
     console.error('❌ Error:', error)
     throw error
   } finally {

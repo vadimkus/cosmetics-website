@@ -217,13 +217,13 @@ async function translateBlogPosts() {
           }
         })
         debugLog(`✅ Translated: ${post.title}`)
-      } catch (error) {
+      } catch {
         errorLog(`❌ Failed to translate post ${post.slug}:`, error)
       }
     }
 
     debugLog('✅ All blog posts translated successfully!')
-  } catch (error) {
+  } catch {
     errorLog('❌ Failed to translate blog posts:', error)
     throw error
   } finally {

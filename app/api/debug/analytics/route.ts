@@ -112,7 +112,7 @@ export async function GET(request: NextRequest) {
       message: 'Analytics debug completed'
     })
 
-  } catch (error) {
+  } catch {
     errorLog('Analytics debug error:', error)
     return NextResponse.json(
       { 

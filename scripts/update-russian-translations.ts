@@ -121,7 +121,7 @@ async function updateRussianTranslations() {
         console.log('   Or run: npx prisma db push')
         return
       }
-    } catch (error) {
+    } catch {
       console.log('❌ Could not check for Russian columns')
       return
     }
@@ -167,7 +167,7 @@ async function updateRussianTranslations() {
       console.log('🎉 Blog post now has all three language versions!')
     }
     
-  } catch (error) {
+  } catch {
     console.error('❌ Failed to update Russian translations:', error)
     throw error
   } finally {

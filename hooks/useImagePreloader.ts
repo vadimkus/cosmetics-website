@@ -54,7 +54,7 @@ export const useImagePreloader = (options: UseImagePreloaderOptions = {}) => {
         await imageOptimization.preloadImage(imageUrl, priority)
         preloadedRef.current.add(imageUrl)
         debugLog(`Successfully preloaded: ${imageUrl}`)
-      } catch (error) {
+      } catch {
         warnLog(`Failed to preload: ${imageUrl}`, error)
       } finally {
         preloadingRef.current.delete(imageUrl)
@@ -111,7 +111,7 @@ export const useImagePreloader = (options: UseImagePreloaderOptions = {}) => {
 
     try {
       await productImageOptimization.preloadCriticalImages(products)
-    } catch (error) {
+    } catch {
       warnLog('Critical image preload failed:', error)
     }
   }, [enabled])

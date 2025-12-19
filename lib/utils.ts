@@ -187,7 +187,7 @@ export const retry = async <T>(
 ): Promise<T> => {
   try {
     return await fn()
-  } catch (error) {
+  } catch {
     if (retries > 0) {
       await sleep(delay)
       return retry(fn, retries - 1, delay * 2)

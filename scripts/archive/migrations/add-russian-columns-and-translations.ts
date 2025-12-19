@@ -18,7 +18,7 @@ async function addRussianColumnsAndTranslations() {
       if (hasRussianColumns) {
         console.log('✅ Russian columns already exist')
       }
-    } catch (error) {
+    } catch {
       hasRussianColumns = false
     }
     
@@ -197,7 +197,7 @@ async function addRussianColumnsAndTranslations() {
     console.log(`   Posts with Russian translations: ${withRussian}`)
     console.log(`   Posts without Russian: ${allPosts.length - withRussian}`)
     
-  } catch (error) {
+  } catch {
     console.error('❌ Failed:', error)
     throw error
   } finally {

@@ -220,7 +220,7 @@ export async function POST(request: NextRequest) {
       user: userWithoutPassword,
       promoApplied
     })
-  } catch (error) {
+  } catch {
     errorLog('Registration error:', error)
     return NextResponse.json(
       { error: 'Internal server error' },

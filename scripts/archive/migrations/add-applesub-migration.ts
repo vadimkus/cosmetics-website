@@ -58,7 +58,7 @@ async function addAppleSubColumn() {
     
     console.log('\n🎉 Migration completed successfully!')
     
-  } catch (error) {
+  } catch {
     console.error('❌ Migration failed:', error)
     throw error
   } finally {

@@ -67,7 +67,7 @@ async function addOrderNotesColumn() {
 
     await pool.end()
     process.exit(0)
-  } catch (error) {
+  } catch {
     console.error('❌ Error adding orderNotes column:', error)
     await pool.end()
     process.exit(1)

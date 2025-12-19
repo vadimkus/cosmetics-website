@@ -55,7 +55,7 @@ async function addPaymentFields() {
       await prisma.$queryRaw`SELECT "paymentMethod" FROM orders LIMIT 1`
       console.log('✅ Payment fields already exist in database')
       return
-    } catch (error) {
+    } catch {
       console.log('📝 Payment fields do not exist yet, proceeding with migration...')
     }
     
@@ -122,7 +122,7 @@ async function addPaymentFields() {
         CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_orders_payment_status 
         ON orders("paymentStatus")
       `
-    } catch (error) {
+    } catch {
       // Index might already exist or be created without CONCURRENTLY
       await prisma.$executeRaw`
         CREATE INDEX IF NOT EXISTS idx_orders_payment_status 
@@ -135,7 +135,7 @@ async function addPaymentFields() {
         CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_orders_stripe_session_id 
         ON orders("stripeSessionId")
       `
-    } catch (error) {
+    } catch {
       await prisma.$executeRaw`
         CREATE INDEX IF NOT EXISTS idx_orders_stripe_session_id 
         ON orders("stripeSessionId")
@@ -147,7 +147,7 @@ async function addPaymentFields() {
         CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_orders_stripe_payment_intent_id 
         ON orders("stripePaymentIntentId")
       `
-    } catch (error) {
+    } catch {
       await prisma.$executeRaw`
         CREATE INDEX IF NOT EXISTS idx_orders_stripe_payment_intent_id 
         ON orders("stripePaymentIntentId")
@@ -191,7 +191,7 @@ async function addPaymentFields() {
     await execAsync('npx prisma generate')
     console.log('✅ Prisma client regenerated')
     
-  } catch (error) {
+  } catch {
     errorLog('❌ Migration failed:', error)
     console.error('Migration error details:', error)
     throw error

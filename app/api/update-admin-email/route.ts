@@ -43,7 +43,7 @@ export async function POST(request: NextRequest) {
       )
     }
     
-  } catch (error) {
+  } catch {
     errorLog('Error testing admin email:', error)
     return NextResponse.json(
       { error: 'Failed to test admin email configuration' },

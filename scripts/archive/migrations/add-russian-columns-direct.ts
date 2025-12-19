@@ -35,7 +35,7 @@ async function addRussianColumnsDirect() {
       prisma = new PrismaClient({
         adapter,
       })
-    } catch (error) {
+    } catch {
       // Fallback to regular Prisma client
       prisma = new PrismaClient({
         datasources: {
@@ -131,7 +131,7 @@ async function addRussianColumnsDirect() {
       }
     }
     
-  } catch (error) {
+  } catch {
     console.error('❌ Failed:', error)
     throw error
   } finally {

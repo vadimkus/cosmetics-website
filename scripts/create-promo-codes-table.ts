@@ -134,7 +134,7 @@ async function createPromoCodesTable() {
     console.log('   • https://genosys.ae/signup?promo=WELCOME20')
     console.log('   • https://genosys.ae/signup?promo=QR20')
 
-  } catch (error) {
+  } catch {
     console.error('❌ Error creating promo codes table:', error)
     throw error
   } finally {

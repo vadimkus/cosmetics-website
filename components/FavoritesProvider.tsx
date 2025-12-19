@@ -37,7 +37,7 @@ export default function FavoritesProvider({ children }: FavoritesProviderProps) 
     if (savedFavorites) {
       try {
         setFavorites(JSON.parse(savedFavorites))
-      } catch (error) {
+      } catch {
         errorLog('Error parsing saved favorites:', error)
         localStorage.removeItem('genosys_favorites')
       }

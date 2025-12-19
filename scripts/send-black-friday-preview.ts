@@ -22,7 +22,7 @@ async function sendPreview() {
       console.error('❌ Failed to send preview email:', result.error)
       process.exit(1)
     }
-  } catch (error) {
+  } catch {
     errorLog('❌ Error sending preview email:', error)
     console.error('❌ Error:', error instanceof Error ? error.message : 'Unknown error')
     process.exit(1)

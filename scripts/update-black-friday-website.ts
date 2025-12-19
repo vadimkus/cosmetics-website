@@ -41,7 +41,7 @@ async function updateBlackFridayWebsite() {
 
     debugLog('✅ Updated Black Friday website text')
     debugLog(`   Changed to "Order directly through our official website: www.genosys.ae"`)
-  } catch (error) {
+  } catch {
     errorLog('❌ Failed to update Black Friday website text:', error)
     throw error
   } finally {

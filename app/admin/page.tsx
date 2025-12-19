@@ -159,7 +159,7 @@ export default function AdminPage() {
         errorLog('Invalid users response:', data)
         setUsers([])
       }
-    } catch (error) {
+    } catch {
       errorLog('Error fetching users:', error)
       setUsers([])
     } finally {
@@ -177,7 +177,7 @@ export default function AdminPage() {
       if (data.success) {
         setProducts(data.products)
       }
-    } catch (error) {
+    } catch {
       errorLog('Error fetching products:', error)
     } finally {
       setProductsRefreshing(false)
@@ -243,7 +243,7 @@ export default function AdminPage() {
         errorLog('Failed to fetch orders:', data.error)
         setOrders([])
       }
-    } catch (error) {
+    } catch {
       errorLog('Error fetching orders:', error)
       if (error instanceof Error && error.name === 'AbortError') {
         errorLog('Request timed out after 10 seconds')
@@ -316,7 +316,7 @@ export default function AdminPage() {
       // Clear selection and refresh orders
       setSelectedOrders([])
       await fetchOrders()
-    } catch (error) {
+    } catch {
       errorLog('Error deleting orders:', error)
       alert('Failed to delete some orders. Please try again.')
     } finally {
@@ -365,7 +365,7 @@ export default function AdminPage() {
         alert(`Failed to update user: ${errorData.error || 'Unknown error'}`)
         return false
       }
-    } catch (error) {
+    } catch {
       errorLog('Error updating user:', error)
       alert('Failed to update user')
       return false
@@ -393,7 +393,7 @@ export default function AdminPage() {
         const errorData = await response.json()
         errorLog(`Failed to delete user: ${errorData.error || 'Unknown error'}`)
       }
-    } catch (error) {
+    } catch {
       errorLog('Error deleting user:', error)
     }
   }
@@ -429,7 +429,7 @@ export default function AdminPage() {
         errorLog('Admin login failed:', data.error)
         return false
       }
-    } catch (error) {
+    } catch {
       errorLog('Admin login error:', error)
       return false
     }
@@ -494,7 +494,7 @@ export default function AdminPage() {
           // Invalid session, clear it
           localStorage.removeItem('admin_session')
         }
-      } catch (error) {
+      } catch {
         errorLog('Error checking admin session:', error)
         localStorage.removeItem('admin_session')
       } finally {
@@ -901,7 +901,7 @@ export default function AdminPage() {
                         const errorData = await response.json()
                         alert(`Failed to update order status: ${errorData.error || 'Unknown error'}`)
                       }
-                    } catch (error) {
+                    } catch {
                       errorLog('Error updating order status:', error)
                       alert('Failed to update order status')
                     }
@@ -961,7 +961,7 @@ export default function AdminPage() {
                         alert(`Failed to save product: ${errorData.error || 'Unknown error'}`)
                         return false
                       }
-                    } catch (error) {
+                    } catch {
                       errorLog('Error saving product:', error)
                       alert('Failed to save product')
                       return false

@@ -347,7 +347,7 @@ export const productImageOptimization = {
     try {
       await Promise.all(preloadPromises)
       debugLog('Critical product images preloaded')
-    } catch (error) {
+    } catch {
       warnLog('Some critical images failed to preload:', error)
     }
   }

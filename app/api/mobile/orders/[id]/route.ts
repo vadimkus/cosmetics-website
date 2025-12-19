@@ -175,7 +175,7 @@ export async function DELETE(
       message: 'Order deleted successfully'
     })
 
-  } catch (error) {
+  } catch {
     errorLog('[MOBILE_ORDERS_DELETE] Delete order error:', error)
     return NextResponse.json(
       { 
@@ -307,7 +307,7 @@ export async function GET(
       data: formattedOrder
     })
 
-  } catch (error) {
+  } catch {
     errorLog('[MOBILE_ORDERS_GET] Get order error:', error)
     return NextResponse.json(
       { 

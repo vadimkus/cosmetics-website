@@ -328,7 +328,7 @@ export async function POST(request: NextRequest) {
         },
       },
     })
-  } catch (error) {
+  } catch {
     const duration = Date.now() - startTime
     errorLog('[MOBILE_APPLEPAY] Error creating payment intent:', {
       error: error instanceof Error ? error.message : 'Unknown error',

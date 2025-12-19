@@ -37,7 +37,7 @@ export async function PUT(
       success: true,
       segment
     })
-  } catch (error) {
+  } catch {
     errorLog('Error updating segment:', error)
     return NextResponse.json(
       { error: 'Failed to update segment' },
@@ -63,7 +63,7 @@ export async function DELETE(
       success: true,
       message: 'Segment deleted'
     })
-  } catch (error) {
+  } catch {
     errorLog('Error deleting segment:', error)
     return NextResponse.json(
       { error: 'Failed to delete segment' },

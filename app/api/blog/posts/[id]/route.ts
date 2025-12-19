@@ -65,7 +65,7 @@ export async function PUT(
         updatedAt: post.updatedAt.toISOString(),
       },
     })
-  } catch (error) {
+  } catch {
     errorLog('Error updating blog post:', error)
     
     // Handle unique constraint violation
@@ -111,7 +111,7 @@ export async function DELETE(
       success: true,
       message: 'Post deleted successfully',
     })
-  } catch (error) {
+  } catch {
     errorLog('Error deleting blog post:', error)
     
     // Handle not found

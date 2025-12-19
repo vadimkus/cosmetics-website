@@ -260,7 +260,7 @@ async function addBlogPost() {
     console.log('🎉 Blog post is now live in all three languages!')
     
     return post
-  } catch (error) {
+  } catch {
     console.error('❌ Error creating blog post:', error)
     throw error
   }

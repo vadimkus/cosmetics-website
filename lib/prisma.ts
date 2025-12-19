@@ -47,7 +47,7 @@ if (globalForPrisma.prisma) {
         })
         debugLog('✅ Created new Prisma client instance with adapter')
       }
-    } catch (error) {
+    } catch {
       errorLog('❌ Failed to initialize Prisma client:', error)
       errorLog('❌ Error details:', error instanceof Error ? error.message : String(error))
       throw error

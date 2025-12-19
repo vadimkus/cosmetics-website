@@ -23,7 +23,7 @@ async function deleteBlogPost() {
     })
 
     console.log(`✅ Successfully deleted blog post: ${post.title}`)
-  } catch (error) {
+  } catch {
     console.error('❌ Error deleting blog post:', error)
     throw error
   } finally {

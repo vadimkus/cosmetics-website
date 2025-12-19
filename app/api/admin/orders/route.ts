@@ -99,7 +99,7 @@ export async function GET(request: NextRequest) {
       success: true,
       orders: serializedOrders
     })
-  } catch (error) {
+  } catch {
     errorLog('Error fetching orders:', error)
     return NextResponse.json(
       { success: false, error: 'Failed to fetch orders' },

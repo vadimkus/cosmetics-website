@@ -36,7 +36,7 @@ async function translateText(text: string, targetLanguage: 'ru' | 'ar'): Promise
   try {
     const [translation] = await translate.translate(text, targetLanguage)
     return translation
-  } catch (error) {
+  } catch {
     console.error(`❌ Translation error for "${text.substring(0, 50)}...":`, error)
     return text // Return original text if translation fails
   }
@@ -176,7 +176,7 @@ async function populateTranslations() {
     console.log(`  Products with Russian description: ${stats.desc_ru_count}`)
     console.log(`  Products with Arabic description: ${stats.desc_ar_count}`)
 
-  } catch (error) {
+  } catch {
     console.error('❌ Translation population failed:', error)
     throw error
   } finally {

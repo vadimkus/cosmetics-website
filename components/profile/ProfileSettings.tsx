@@ -68,7 +68,7 @@ export default function ProfileSettings({ user: _user }: ProfileSettingsProps) {
         const data = await response.json().catch(() => null)
         alert((data && data.error) || 'Failed to delete account. Please try again.')
       }
-    } catch (e) {
+    } catch {
       alert('Error deleting account. Please try again.')
     } finally {
       setIsDeleting(false)

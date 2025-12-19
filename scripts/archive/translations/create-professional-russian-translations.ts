@@ -206,7 +206,7 @@ export function getProductTranslationsRu(productId: string): ProductTranslation 
     console.log('   2. Replace [ТРЕБУЕТСЯ ПРОФЕССИОНАЛЬНЫЙ ПЕРЕВОД: ...] placeholders with professional Russian translations')
     console.log('   3. Consider using a professional translation service for accuracy')
     
-  } catch (error) {
+  } catch {
     console.error('Error:', error)
     process.exit(1)
   }

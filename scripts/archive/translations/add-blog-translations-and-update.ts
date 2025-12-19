@@ -17,7 +17,7 @@ async function addTranslationsAndUpdatePost() {
         AND column_name IN ('titleAr', 'excerptAr', 'contentAr')
       `
       hasArabicColumns = arabicCols.length === 3
-    } catch (error) {
+    } catch {
       hasArabicColumns = false
     }
     
@@ -31,7 +31,7 @@ async function addTranslationsAndUpdatePost() {
         AND column_name IN ('titleRu', 'excerptRu', 'contentRu')
       `
       hasRussianColumns = russianCols.length === 3
-    } catch (error) {
+    } catch {
       hasRussianColumns = false
     }
     
@@ -82,7 +82,7 @@ async function addTranslationsAndUpdatePost() {
         AND column_name IN ('titleRu', 'excerptRu', 'contentRu')
       `
       hasRussianColumns = russianColsCheck.length === 3
-    } catch (error) {
+    } catch {
       hasRussianColumns = false
     }
     
@@ -340,7 +340,7 @@ async function addTranslationsAndUpdatePost() {
       }
     }
     
-  } catch (error) {
+  } catch {
     console.error('❌ Failed to add translations:', error)
     throw error
   } finally {

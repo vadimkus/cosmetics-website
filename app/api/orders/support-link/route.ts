@@ -270,7 +270,7 @@ export async function POST(request: NextRequest) {
       orderNumber
     })
 
-  } catch (error) {
+  } catch {
     errorLog('Error sending support link order request:', error)
     return NextResponse.json(
       { error: 'Failed to send support link order request', details: error instanceof Error ? error.message : String(error) },

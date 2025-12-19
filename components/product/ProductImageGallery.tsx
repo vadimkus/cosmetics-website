@@ -101,7 +101,7 @@ export default function ProductImageGallery({ product }: ProductImageGalleryProp
       const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(`${shareText} ${productUrl}`)}`
       window.open(whatsappUrl, '_blank')
       setShowShareMenu(false)
-    } catch (error) {
+    } catch {
       errorLog('Error sharing to WhatsApp:', error)
     } finally {
       setTimeout(() => setIsSharing(false), 500)
@@ -117,7 +117,7 @@ export default function ProductImageGallery({ product }: ProductImageGalleryProp
       const telegramUrl = `https://t.me/share/url?url=${encodeURIComponent(productUrl)}&text=${encodeURIComponent(shareText)}`
       window.open(telegramUrl, '_blank')
       setShowShareMenu(false)
-    } catch (error) {
+    } catch {
       errorLog('Error sharing to Telegram:', error)
     } finally {
       setTimeout(() => setIsSharing(false), 500)
@@ -134,7 +134,7 @@ export default function ProductImageGallery({ product }: ProductImageGalleryProp
       const message = dir === 'rtl' ? 'تم نسخ الرابط! يمكنك لصقه في Instagram' : 'Link copied! You can paste it in Instagram'
       alert(message)
       setShowShareMenu(false)
-    } catch (error) {
+    } catch {
       errorLog('Failed to copy:', error)
       const { productUrl } = getShareData()
       alert(productUrl)
@@ -153,7 +153,7 @@ export default function ProductImageGallery({ product }: ProductImageGalleryProp
           // Successfully shared, no need to show manual options
           return
         }
-      } catch (error) {
+      } catch {
         errorLog('Web share failed, showing manual options:', error)
       } finally {
         setIsSharing(false)

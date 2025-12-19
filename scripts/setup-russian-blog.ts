@@ -41,7 +41,7 @@ if (isAccelerateUrl) {
       adapter,
       log: ['error']
     })
-  } catch (error) {
+  } catch {
     console.error('❌ Failed to initialize Prisma client with adapter:', error)
     process.exit(1)
   }
@@ -326,7 +326,7 @@ async function setupRussianBlog() {
         })
         console.log(`   ✅ Translated: ${post.title}`)
         translated++
-      } catch (error) {
+      } catch {
         console.error(`   ❌ Failed to translate ${post.slug}:`, error)
       }
     }
@@ -337,7 +337,7 @@ async function setupRussianBlog() {
     console.log(`   ⚠️  Missing translations: ${missing}`)
     console.log('\n✅ Russian blog setup completed successfully!')
 
-  } catch (error) {
+  } catch {
     console.error('\n❌ Failed to setup Russian blog:', error)
     throw error
   } finally {

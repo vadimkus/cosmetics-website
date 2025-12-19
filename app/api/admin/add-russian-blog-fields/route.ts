@@ -68,7 +68,7 @@ export async function POST(request: NextRequest) {
         columnsAdded: ['titleRu', 'excerptRu', 'contentRu']
       })
     }
-  } catch (error) {
+  } catch {
     errorLog('Failed to add Russian fields:', error)
     return NextResponse.json(
       { 

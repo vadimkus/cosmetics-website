@@ -141,7 +141,7 @@ export async function GET(request: NextRequest) {
           }
         })
         debugLog(`[MOBILE_API] User context loaded: ${user?.email || 'not found'}`)
-      } catch (error) {
+      } catch {
         debugLog('[MOBILE_API] Failed to load user context:', error)
         // Continue without user context
       }
@@ -322,7 +322,7 @@ export async function GET(request: NextRequest) {
       }
     })
     
-  } catch (error) {
+  } catch {
     // Error Handling: Don't leak database details
     const duration = Date.now() - startTime
     errorLog('[MOBILE_API] Database error:', {

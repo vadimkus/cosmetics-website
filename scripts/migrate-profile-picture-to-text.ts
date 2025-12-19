@@ -48,7 +48,7 @@ async function migrateColumnToText(tableName: string, columnName: string): Promi
       console.log('   Manual migration may be required')
       return false
     }
-  } catch (error) {
+  } catch {
     console.error(`❌ Migration failed for ${columnName}:`, error)
     return false
   }
@@ -70,7 +70,7 @@ async function migrateUserColumns() {
       console.log('\n⚠️  Some migrations may have failed - check logs above')
     }
     
-  } catch (error) {
+  } catch {
     console.error('❌ Migration failed:', error)
     throw error
   } finally {

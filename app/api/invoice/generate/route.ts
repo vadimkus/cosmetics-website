@@ -91,7 +91,7 @@ export async function POST(request: NextRequest) {
       message: 'Invoice generated and sent successfully' 
     })
 
-  } catch (error) {
+  } catch {
     errorLog('Error generating invoice:', error)
     return NextResponse.json(
       { success: false, message: 'Failed to generate invoice' },

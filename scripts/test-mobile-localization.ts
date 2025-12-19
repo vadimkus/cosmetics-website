@@ -60,7 +60,7 @@ async function testLocalization() {
         console.log(`   ⚠️  Localization may not be working (using fallback)`)
       }
 
-    } catch (error) {
+    } catch {
       console.error(`❌ Test failed for ${locale}:`, error)
     }
   }

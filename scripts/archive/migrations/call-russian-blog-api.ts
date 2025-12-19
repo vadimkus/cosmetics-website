@@ -34,7 +34,7 @@ async function callAPI(endpoint: string, adminEmail?: string) {
     }
 
     return data
-  } catch (error) {
+  } catch {
     throw error
   }
 }
@@ -88,7 +88,7 @@ async function setupRussianBlog() {
     }
 
     console.log('\n✅ Russian blog setup completed successfully!')
-  } catch (error) {
+  } catch {
     console.error('\n💥 Fatal error:', error)
     process.exit(1)
   }

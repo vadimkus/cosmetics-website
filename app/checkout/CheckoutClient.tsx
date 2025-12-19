@@ -135,7 +135,7 @@ export default function CheckoutClient() {
       } else {
         throw new Error('Failed to generate invoice')
       }
-    } catch (error) {
+    } catch {
       errorLog('Error generating invoice:', error)
       // Show subtle error notification instead of alert
       const button = document.querySelector('button[type="button"]') as HTMLButtonElement
@@ -250,7 +250,7 @@ export default function CheckoutClient() {
           image: collagenProduct.image
         })
       }
-    } catch (error) {
+    } catch {
       errorLog('Error fetching free mask products:', error)
       // Continue without free masks if fetch fails
     }
@@ -394,7 +394,7 @@ export default function CheckoutClient() {
               errorLog('Error sending support-link order request:', fetchError)
             }
           }
-        } catch (error) {
+        } catch {
           errorLog('Error in support-link order processing:', error)
         }
         
@@ -499,7 +499,7 @@ export default function CheckoutClient() {
           window.location.href = url
           return
 
-        } catch (error) {
+        } catch {
           errorLog('❌ Stripe payment error:', error)
           alert(error instanceof Error ? error.message : 'Payment processing failed. Please try again.')
           setIsProcessing(false)
@@ -606,14 +606,14 @@ export default function CheckoutClient() {
             errorLog('❌ Error sending COD confirmation request:', fetchError)
           }
         }
-      } catch (error) {
+      } catch {
         errorLog('Error in COD order processing:', error)
       }
       
       // Always redirect to success page (emails are non-blocking)
       setIsProcessing(false)
       router.push(`${getLocalizedPath('/success', locale)}?order_id=${codOrderNumber}&payment=cod`)
-    } catch (error) {
+    } catch {
       errorLog('Order processing failed:', error)
       setIsProcessing(false)
     }

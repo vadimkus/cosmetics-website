@@ -69,7 +69,7 @@ export function usePullToRefresh({
     
     try {
       await onRefresh()
-    } catch (error) {
+    } catch {
       errorLog('Pull to refresh error:', error)
     } finally {
       // Smooth reset animation

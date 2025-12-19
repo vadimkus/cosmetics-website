@@ -30,7 +30,7 @@ export async function GET(request: NextRequest) {
       success: true,
       data: { expoPushToken: (user as any).expoPushToken ?? null },
     })
-  } catch (e) {
+  } catch {
     errorLog('[MOBILE_PUSH_TOKEN] GET error:', e)
     return NextResponse.json({ success: false, error: 'Internal server error' }, { status: 500 })
   }
@@ -60,7 +60,7 @@ export async function PUT(request: NextRequest) {
 
     debugLog('[MOBILE_PUSH_TOKEN] PUT ok', { ms: Date.now() - startTime })
     return NextResponse.json({ success: true, data: { expoPushToken } })
-  } catch (e) {
+  } catch {
     errorLog('[MOBILE_PUSH_TOKEN] PUT error:', e)
     return NextResponse.json({ success: false, error: 'Internal server error' }, { status: 500 })
   }
@@ -81,7 +81,7 @@ export async function DELETE(request: NextRequest) {
     if (!ok) return NextResponse.json({ success: false, error: 'Failed to clear push token' }, { status: 500 })
 
     return NextResponse.json({ success: true })
-  } catch (e) {
+  } catch {
     errorLog('[MOBILE_PUSH_TOKEN] DELETE error:', e)
     return NextResponse.json({ success: false, error: 'Internal server error' }, { status: 500 })
   }

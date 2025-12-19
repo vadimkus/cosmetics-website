@@ -14,7 +14,7 @@ export async function GET(_request: NextRequest) {
       },
       resolved: adminEmail || 'NO_EMAIL_CONFIGURED'
     })
-  } catch (_error) {
+  } catch {
     return NextResponse.json(
       { error: 'Failed to check admin email configuration' },
       { status: 500 }

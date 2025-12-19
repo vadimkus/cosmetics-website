@@ -59,7 +59,7 @@ export async function POST(request: NextRequest) {
           action: 'Run database migration manually or redeploy'
         }, { status: 400 })
       }
-    } catch (error) {
+    } catch {
       errorLog('[MIGRATE-PASSWORD-RESET] Error checking table:', error)
       
       const errorMessage = error instanceof Error ? error.message : 'Unknown error'
@@ -69,7 +69,7 @@ export async function POST(request: NextRequest) {
         message: 'Please check database connection and run: npx prisma db push'
       }, { status: 500 })
     }
-  } catch (error) {
+  } catch {
     errorLog('[MIGRATE-PASSWORD-RESET] Fatal error:', error)
     return NextResponse.json(
       { error: 'Migration check failed' },

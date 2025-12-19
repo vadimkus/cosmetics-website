@@ -85,7 +85,7 @@ class SentryMonitoringService extends MonitoringService {
         const Sentry = await import('@sentry/nextjs')
         this.sentry = Sentry
         debugLog('🔍 Sentry monitoring initialized')
-      } catch (error) {
+      } catch {
         warnLog('Sentry not available:', error)
       }
     }
@@ -222,7 +222,7 @@ class LogRocketMonitoringService extends MonitoringService {
         const LogRocket = await import('logrocket')
         this.logRocket = LogRocket.default
         debugLog('🔍 LogRocket monitoring initialized')
-      } catch (error) {
+      } catch {
         warnLog('LogRocket not available:', error)
       }
     }

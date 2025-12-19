@@ -35,7 +35,7 @@ async function getCsrfToken(): Promise<{ token: string; cookie: string } | null>
       token: data.token,
       cookie: cookieValue || data.token
     }
-  } catch (error) {
+  } catch {
     console.error('❌ Exception getting CSRF token:', error)
     return null
   }
@@ -123,7 +123,7 @@ async function createTestOrder(
       console.error(`   Status: ${response.status}`)
       console.error(`   Error:`, result.error || result)
     }
-  } catch (error) {
+  } catch {
     console.error(`❌ Exception creating ${type} order:`)
     console.error(`   Error:`, error instanceof Error ? error.message : String(error))
   }

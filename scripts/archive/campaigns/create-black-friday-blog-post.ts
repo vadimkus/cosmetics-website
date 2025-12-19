@@ -103,7 +103,7 @@ async function createBlackFridayBlogPost() {
       debugLog(`   Published: ${post.published}`)
       debugLog(`   Published At: ${post.publishedAt}`)
     }
-  } catch (error) {
+  } catch {
     errorLog('❌ Failed to create blog post:', error)
     throw error
   }

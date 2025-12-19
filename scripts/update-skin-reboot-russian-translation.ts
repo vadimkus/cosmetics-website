@@ -213,7 +213,7 @@ async function updateSkinRebootRussianTranslation() {
     debugLog(`   Title: ${titleRu}`)
     debugLog(`   Excerpt length: ${excerptRu.length}`)
     debugLog(`   Content length: ${contentRu.length}`)
-  } catch (error) {
+  } catch {
     errorLog('❌ Failed to update Russian translation:', error)
     throw error
   } finally {

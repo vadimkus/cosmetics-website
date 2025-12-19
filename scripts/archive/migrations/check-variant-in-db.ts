@@ -63,7 +63,7 @@ async function checkVariant() {
     `
     console.log(JSON.stringify(rawVariants, null, 2))
 
-  } catch (error) {
+  } catch {
     console.error('Error:', error)
   } finally {
     await prisma.$disconnect()

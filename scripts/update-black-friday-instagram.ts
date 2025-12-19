@@ -41,7 +41,7 @@ async function updateBlackFridayInstagram() {
 
     debugLog('✅ Added Instagram handle')
     debugLog(`   Added @Genosys.UAE with link`)
-  } catch (error) {
+  } catch {
     errorLog('❌ Failed to add Instagram handle:', error)
     throw error
   } finally {

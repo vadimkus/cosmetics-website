@@ -87,7 +87,7 @@ export function rateLimitSimple(options: RateLimitOptions) {
         count: rateLimitEntry.count,
         resetTime: rateLimitEntry.resetTime.getTime()
       }
-    } catch (error) {
+    } catch {
       errorLog('Rate limiting error:', error)
       // Fail closed - reject request if rate limiting fails
       // This is more secure than allowing requests through when rate limiting is down

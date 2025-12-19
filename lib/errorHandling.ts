@@ -238,7 +238,7 @@ export const errorHandling = {
     for (let attempt = 1; attempt <= maxRetries; attempt++) {
       try {
         return await operation()
-      } catch (error) {
+      } catch {
         lastError = error as Error
         
         if (attempt === maxRetries) {

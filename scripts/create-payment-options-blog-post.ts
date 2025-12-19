@@ -238,7 +238,7 @@ async function createBlogPost() {
     console.log('Arabic URL:', `${baseUrl}/ar/blog/${result.post.slug}`)
     
     return true
-  } catch (error) {
+  } catch {
     console.error('Error creating blog post:', error)
     return false
   }

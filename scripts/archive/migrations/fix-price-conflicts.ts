@@ -114,7 +114,7 @@ async function fixPriceConflicts(dryRun: boolean = true) {
       })
       successCount++
       console.log(`✅ ${update.name}: ${update.oldPrice} → ${update.newPrice}`)
-    } catch (error) {
+    } catch {
       failCount++
       console.error(`❌ ${update.name}: Failed -`, error)
     }
@@ -134,7 +134,7 @@ async function main() {
 
   try {
     await fixPriceConflicts(!applyChanges)
-  } catch (error) {
+  } catch {
     console.error('❌ Error:', error)
     throw error
   } finally {

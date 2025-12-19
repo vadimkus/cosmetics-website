@@ -222,7 +222,7 @@ export async function GET(request: NextRequest) {
       default:
         return NextResponse.json({ error: 'Invalid type parameter' }, { status: 400 })
     }
-  } catch (error) {
+  } catch {
     errorLog('Error fetching analytics:', error)
     return NextResponse.json(
       { error: 'Failed to fetch analytics data' },

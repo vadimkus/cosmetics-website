@@ -57,7 +57,7 @@ async function changePassword() {
     console.log(`  Email: ${email}`)
     console.log(`  Password: ${newPassword}`)
 
-  } catch (error) {
+  } catch {
     console.error('❌ Error changing password:', error)
     throw error
   }

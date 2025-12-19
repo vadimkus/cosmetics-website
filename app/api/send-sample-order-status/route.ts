@@ -46,7 +46,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-  } catch (error) {
+  } catch {
     errorLog('Error sending sample order status email:', error)
     return NextResponse.json(
       { error: 'Internal server error' },

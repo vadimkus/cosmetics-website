@@ -28,7 +28,7 @@ async function fixMirorDescription() {
     console.log('4. GENOSYS MIROR' + mirorSection)
     
     return updatedProduct
-  } catch (error) {
+  } catch {
     console.error('❌ Error:', error)
     throw error
   }

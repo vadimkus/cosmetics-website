@@ -21,7 +21,7 @@ export async function DELETE(request: NextRequest) {
       success: true,
       message: 'Account deleted successfully'
     })
-  } catch (error) {
+  } catch {
     errorLog('Account deletion error:', error)
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
   }

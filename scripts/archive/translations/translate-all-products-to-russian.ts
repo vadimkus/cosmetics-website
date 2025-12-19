@@ -148,7 +148,7 @@ async function main() {
       if (match) {
         try {
           existingTranslations = eval(`(${match[1]})`)
-        } catch (e) {
+        } catch {
           console.log('Could not parse existing translations, starting fresh')
         }
       }
@@ -173,7 +173,7 @@ async function main() {
     console.log('⚠️  NOTE: This script creates the structure.')
     console.log('⚠️  Professional translations need to be added manually or via translation API.')
     
-  } catch (error) {
+  } catch {
     console.error('Error:', error)
     process.exit(1)
   }

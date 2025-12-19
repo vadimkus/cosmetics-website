@@ -123,7 +123,7 @@ export async function exchangeCodeForTokens(
     }
     
     return result
-  } catch (error) {
+  } catch {
     errorLog('Error exchanging code for tokens:', error)
     return null
   }
@@ -185,7 +185,7 @@ export async function fetchGoogleUserInfo(accessToken: string): Promise<{
     }
     
     return result
-  } catch (error) {
+  } catch {
     errorLog('Error fetching user info from Google:', error)
     return null
   }
@@ -286,7 +286,7 @@ export async function verifyGoogleIdToken(idToken: string, accessToken?: string)
     }
     
     return result
-  } catch (error) {
+  } catch {
     errorLog('Error verifying Google ID token:', error)
     return null
   }

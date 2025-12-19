@@ -143,7 +143,7 @@ export function withErrorHandling<T extends (...args: unknown[]) => Promise<Next
   return (async (...args: Parameters<T>) => {
     try {
       return await handler(...args)
-    } catch (error) {
+    } catch {
       return handleApiError(error, context)
     }
   }) as T

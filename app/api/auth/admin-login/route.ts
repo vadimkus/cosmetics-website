@@ -99,7 +99,7 @@ export async function POST(request: NextRequest) {
     // Update last login timestamp
     try {
       await updateUser(user.id, { lastLoginAt: new Date().toISOString() })
-    } catch (error) {
+    } catch {
       errorLog('Error updating admin last login timestamp:', error)
       // Don't fail login if timestamp update fails
     }
@@ -113,7 +113,7 @@ export async function POST(request: NextRequest) {
         isAdmin: true
       }
     })
-  } catch (error) {
+  } catch {
     errorLog('Admin login error:', error)
     errorLog('Error details:', {
       message: error instanceof Error ? error.message : 'Unknown error',

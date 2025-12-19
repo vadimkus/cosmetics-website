@@ -71,7 +71,7 @@ export default function ProductInfo({
         : product
       
       await addItem(productToAdd, quantity, undefined, sizeToPass)
-    } catch (error) {
+    } catch {
       errorLog('Error adding to cart:', error)
     } finally {
       setIsAdding(false)

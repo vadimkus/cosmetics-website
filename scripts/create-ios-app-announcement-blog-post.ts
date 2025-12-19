@@ -578,7 +578,7 @@ async function createIOSAppAnnouncementBlogPost() {
     console.log(`🌐 View (AR): https://genosys.ae/ar/blog/${slug}`)
     console.log(`🌐 View (RU): https://genosys.ae/ru/blog/${slug}`)
 
-  } catch (error) {
+  } catch {
     errorLog('❌ Error creating blog post:', error)
     throw error
   } finally {

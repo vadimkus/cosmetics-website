@@ -55,7 +55,7 @@ export async function GET(request: NextRequest) {
       data: shippingData
     })
     
-  } catch (error) {
+  } catch {
     // Error Handling: Don't leak internal details
     const duration = Date.now() - startTime
     errorLog('[MOBILE_API_SHIPPING] Error:', {

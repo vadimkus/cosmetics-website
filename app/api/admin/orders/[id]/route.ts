@@ -98,7 +98,7 @@ export async function PUT(
       success: true,
       message: 'Order status updated successfully'
     })
-  } catch (error) {
+  } catch {
     errorLog('Error updating order status:', error)
     return NextResponse.json(
       { success: false, error: 'Failed to update order status' },
@@ -212,7 +212,7 @@ export async function DELETE(
       success: true,
       message: 'Order deleted successfully'
     })
-  } catch (error) {
+  } catch {
     errorLog('Error deleting order:', error)
     return NextResponse.json(
       { success: false, error: 'Failed to delete order' },

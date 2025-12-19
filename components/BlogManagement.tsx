@@ -70,7 +70,7 @@ export default function BlogManagement({ adminEmail }: BlogManagementProps) {
       } else {
         errorLog('Failed to fetch blog posts')
       }
-    } catch (error) {
+    } catch {
       errorLog('Error fetching blog posts:', error)
     } finally {
       setLoading(false)
@@ -177,7 +177,7 @@ export default function BlogManagement({ adminEmail }: BlogManagementProps) {
         const error = await response.json()
         setErrors({ submit: error.error || 'Failed to save post' })
       }
-    } catch (error) {
+    } catch {
       errorLog('Error saving blog post:', error)
       setErrors({ submit: 'An error occurred while saving' })
     } finally {
@@ -215,7 +215,7 @@ export default function BlogManagement({ adminEmail }: BlogManagementProps) {
       } else {
         alert('Failed to delete post')
       }
-    } catch (error) {
+    } catch {
       errorLog('Error deleting blog post:', error)
       alert('An error occurred while deleting')
     }
@@ -245,7 +245,7 @@ export default function BlogManagement({ adminEmail }: BlogManagementProps) {
         const error = await response.json()
         alert(error.error || 'Failed to update post')
       }
-    } catch (error) {
+    } catch {
       errorLog('Error updating post:', error)
       alert('An error occurred')
     }

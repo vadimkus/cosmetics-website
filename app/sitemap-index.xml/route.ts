@@ -21,7 +21,7 @@ export async function GET(_request: NextRequest) {
         'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=86400',
       },
     })
-  } catch (error) {
+  } catch {
     errorLog('Error generating sitemap index:', error)
     return new NextResponse('Error generating sitemap index', { status: 500 })
   }

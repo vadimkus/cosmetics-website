@@ -84,7 +84,7 @@ export async function POST(request: NextRequest) {
           messageId: result.success && 'messageId' in result ? result.messageId : undefined,
           error: result.success ? undefined : result.error
         })
-      } catch (error) {
+      } catch {
         results.push({
           orderNumber: order.orderNumber,
           success: false,
@@ -99,7 +99,7 @@ export async function POST(request: NextRequest) {
       results
     })
 
-  } catch (error) {
+  } catch {
     errorLog('Error resending order notifications:', error)
     return NextResponse.json(
       { error: 'Failed to resend notifications' },
@@ -140,7 +140,7 @@ export async function GET(request: NextRequest) {
       }))
     })
 
-  } catch (error) {
+  } catch {
     errorLog('Error fetching orders:', error)
     return NextResponse.json(
       { error: 'Failed to fetch orders' },

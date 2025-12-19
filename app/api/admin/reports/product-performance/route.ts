@@ -161,7 +161,7 @@ export async function GET(request: NextRequest) {
       .sort((a, b) => b.totalRevenue - a.totalRevenue)
 
     return NextResponse.json({ products: performance })
-  } catch (error) {
+  } catch {
     errorLog('Error fetching product performance:', error)
     return NextResponse.json(
       { error: 'Failed to fetch product performance' },

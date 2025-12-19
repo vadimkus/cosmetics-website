@@ -303,7 +303,7 @@ export const withApiErrorTracking = (
   return async (req: any, res: any) => {
     try {
       return await handler(req, res)
-    } catch (error) {
+    } catch {
       await enhancedErrorTracking.trackApiError(
         req.url || 'unknown',
         req.method || 'unknown',

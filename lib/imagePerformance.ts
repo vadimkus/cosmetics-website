@@ -97,7 +97,7 @@ class ImagePerformanceMonitor {
     try {
       lcpObserver.observe({ entryTypes: ['largest-contentful-paint'] })
       this.observers.push(lcpObserver)
-    } catch (error) {
+    } catch {
       warnLog('LCP observer not supported:', error)
     }
   }
@@ -120,7 +120,7 @@ class ImagePerformanceMonitor {
     try {
       fcpObserver.observe({ entryTypes: ['paint'] })
       this.observers.push(fcpObserver)
-    } catch (error) {
+    } catch {
       warnLog('FCP observer not supported:', error)
     }
   }

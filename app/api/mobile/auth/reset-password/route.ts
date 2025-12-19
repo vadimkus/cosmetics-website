@@ -51,14 +51,14 @@ export async function POST(request: NextRequest) {
     let clientIdentifier = 'unknown'
     try {
       clientIdentifier = getClientIdentifierFromNextRequest(request)
-    } catch (e) {
+    } catch {
       errorLog('[MOBILE_RESET_PASSWORD] Rate limit identifier error:', e)
     }
 
     let rateLimitResult
     try {
       rateLimitResult = await resetPasswordLimiter(clientIdentifier)
-    } catch (e) {
+    } catch {
       errorLog('[MOBILE_RESET_PASSWORD] Rate limiting error:', e)
       return NextResponse.json(
         { success: false, error: 'Rate limiting service unavailable. Please try again later.' },
@@ -102,7 +102,7 @@ export async function POST(request: NextRequest) {
 
     debugLog('[MOBILE_RESET_PASSWORD] Completed', Date.now() - startTime, 'ms')
     return NextResponse.json({ success: true, message: 'Password has been reset successfully' })
-  } catch (error) {
+  } catch {
     errorLog('[MOBILE_RESET_PASSWORD] Error:', error)
     return NextResponse.json(
       { success: false, error: 'An error occurred while resetting password' },

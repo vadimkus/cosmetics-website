@@ -17,7 +17,7 @@ export async function GET(request: NextRequest) {
     let sessionData
     try {
       sessionData = JSON.parse(sessionCookie.value)
-    } catch (error) {
+    } catch {
       errorLog('Error parsing session cookie:', error)
       return NextResponse.json({ user: null })
     }
@@ -54,7 +54,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ 
       user: userWithoutPassword 
     })
-  } catch (error) {
+  } catch {
     errorLog('Session check error:', error)
     return NextResponse.json({ user: null })
   }

@@ -21,7 +21,7 @@ export async function ensurePasswordResetTable(): Promise<{
       tableExists: true,
       message: 'Password reset table is ready'
     }
-  } catch (error) {
+  } catch {
     const errorMessage = error instanceof Error ? error.message : String(error)
     
     // Check if it's a "table doesn't exist" error

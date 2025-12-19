@@ -73,7 +73,7 @@ async function main() {
     console.log('✅ Migration applied successfully!')
     console.log('✨ ProductVariant table created!')
     
-  } catch (error) {
+  } catch {
     if (error instanceof Error && error.message.includes('already exists')) {
       console.log('ℹ️  Table already exists, skipping migration.')
     } else {

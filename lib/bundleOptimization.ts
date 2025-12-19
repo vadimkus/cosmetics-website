@@ -47,7 +47,7 @@ export const dynamicImport = {
     for (let attempt = 1; attempt <= maxRetries; attempt++) {
       try {
         return await importFunc()
-      } catch (error) {
+      } catch {
         lastError = error as Error
         
         if (attempt === maxRetries) {

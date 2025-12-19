@@ -27,7 +27,7 @@ async function checkProductDescription(productId: string) {
     console.log(`\n📏 Description Length: ${product.description.length} characters`)
     
     return product
-  } catch (error) {
+  } catch {
     console.error(`❌ Error:`, error)
     throw error
   }

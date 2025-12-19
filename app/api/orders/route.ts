@@ -31,7 +31,7 @@ export async function GET(request: NextRequest) {
       totalCount,
       hasMore: offset + limit < totalCount
     })
-  } catch (error) {
+  } catch {
     errorLog('Error fetching orders:', error)
     return NextResponse.json(
       { error: 'Failed to fetch orders' },

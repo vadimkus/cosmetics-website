@@ -239,7 +239,7 @@ export async function GET(request: NextRequest) {
       data: formattedOrders
     })
 
-  } catch (error) {
+  } catch {
     errorLog('[MOBILE_ORDERS] Get orders error:', error)
     return NextResponse.json(
       { 
@@ -577,7 +577,7 @@ export async function POST(request: NextRequest) {
       data: formattedOrder
     }, { status: 201 })
 
-  } catch (error) {
+  } catch {
     errorLog('[MOBILE_ORDERS] Create order error:', error)
     return NextResponse.json(
       { 

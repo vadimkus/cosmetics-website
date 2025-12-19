@@ -124,7 +124,7 @@ async function translateToRussian(text: string): Promise<string> {
       
       return translatedText
       
-    } catch (error) {
+    } catch {
       errorLog(`❌ Translation attempt ${attempt} failed:`, error)
       
       if (attempt === TRANSLATION_CONFIG.maxRetries) {
@@ -226,7 +226,7 @@ async function translateJSONString(jsonStr: string | null): Promise<string | nul
     }
     
     return jsonStr
-  } catch (e) {
+  } catch {
     console.error('Error parsing JSON:', e)
     return jsonStr
   }
@@ -346,7 +346,7 @@ async function main() {
           debugLog(`📊 Progress: ${i + 1}/${products.length} (${((i + 1) / products.length * 100).toFixed(1)}%) - Rate: ${rate.toFixed(1)}/sec - ETA: ${Math.round(eta)}sec`)
         }
         
-      } catch (error) {
+      } catch {
         errorLog(`${progress} ❌ Error translating product ${productId}:`, error)
         errorCount++
         
@@ -469,7 +469,7 @@ export function getTranslationStats() {
       warnLog('   Current translations use fallback method with limited quality.')
     }
     
-  } catch (error) {
+  } catch {
     errorLog('💥 Fatal error:', error)
     process.exit(1)
   } finally {

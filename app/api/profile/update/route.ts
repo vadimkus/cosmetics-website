@@ -53,7 +53,7 @@ export async function POST(request: NextRequest) {
       success: true,
       message: 'Profile updated successfully'
     })
-  } catch (error) {
+  } catch {
     errorLog('Error updating user profile:', error)
     return NextResponse.json(
       { error: 'Internal server error' },

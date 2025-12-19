@@ -137,7 +137,7 @@ async function syncPrices(mismatches: PriceMismatch[], dryRun: boolean = true) {
           }
         })
         console.log(`  ✅ Updated successfully`)
-      } catch (error) {
+      } catch {
         console.error(`  ❌ Failed to update:`, error)
       }
     }
@@ -173,7 +173,7 @@ async function main() {
       })
     }
 
-  } catch (error) {
+  } catch {
     console.error('❌ Error:', error)
     throw error
   } finally {

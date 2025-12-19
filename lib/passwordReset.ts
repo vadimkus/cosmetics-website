@@ -127,7 +127,7 @@ export async function verifyPasswordResetToken(
             k => !k.startsWith('$') && !k.startsWith('_') && typeof prisma[k as keyof typeof prisma] === 'object'
           )
           errorLog('❌ Available Prisma models:', availableModels.join(', '))
-        } catch (_e) {
+        } catch {
           errorLog('❌ Could not list available models')
         }
         return {
@@ -186,7 +186,7 @@ export async function verifyPasswordResetToken(
       valid: false,
       error: 'Invalid or expired token'
     }
-  } catch (error) {
+  } catch {
     errorLog('Error verifying password reset token:', error)
     // Provide more specific error information
     const errorMessage = error instanceof Error ? error.message : 'Unknown error'
@@ -232,7 +232,7 @@ export async function markTokenAsUsed(tokenId: string): Promise<void> {
       data: { used: true }
     })
     debugLog('✅ Token marked as used:', tokenId)
-  } catch (error) {
+  } catch {
     errorLog('Error marking token as used:', error)
     throw error
   }
@@ -254,7 +254,7 @@ export async function invalidateUserTokens(userId: string): Promise<void> {
       }
     })
     debugLog(`✅ Invalidated ${result.count} tokens for user:`, userId)
-  } catch (error) {
+  } catch {
     errorLog('Error invalidating user tokens:', error)
     throw error
   }
@@ -276,7 +276,7 @@ export async function cleanupExpiredTokens(): Promise<number> {
     })
     debugLog(`🧹 Cleaned up ${result.count} expired/used tokens`)
     return result.count
-  } catch (error) {
+  } catch {
     errorLog('Error cleaning up expired tokens:', error)
     return 0
   }
@@ -310,7 +310,7 @@ export async function createPasswordResetToken(userId: string): Promise<string> 
     
     debugLog('✅ Password reset token created for user:', userId)
     return plainToken
-  } catch (error) {
+  } catch {
     errorLog('Error creating password reset token:', error)
     throw error
   }

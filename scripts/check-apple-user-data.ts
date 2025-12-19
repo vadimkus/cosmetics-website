@@ -70,7 +70,7 @@ async function checkUserData() {
       console.log(`✅ User profile is complete`)
     }
 
-  } catch (error) {
+  } catch {
     console.error('❌ Error checking user:', error)
     throw error
   }

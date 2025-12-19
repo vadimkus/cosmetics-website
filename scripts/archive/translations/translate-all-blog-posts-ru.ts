@@ -243,7 +243,7 @@ async function translateAllBlogPosts() {
         })
         console.log(`✅ Translated: ${post.title}`)
         translated++
-      } catch (error) {
+      } catch {
         console.error(`❌ Failed to translate post ${post.slug}:`, error)
       }
     }
@@ -253,7 +253,7 @@ async function translateAllBlogPosts() {
     console.log(`   ⏭️  Skipped (already translated): ${skipped}`)
     console.log(`   ⚠️  Missing translations: ${missing}`)
     console.log(`\n✅ Blog posts translation completed!`)
-  } catch (error) {
+  } catch {
     console.error('❌ Failed to translate blog posts:', error)
     throw error
   } finally {

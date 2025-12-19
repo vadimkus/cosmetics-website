@@ -145,7 +145,7 @@ async function checkAndFixVariantPrices(dryRun: boolean = true) {
             })
             
             console.log(`✅ Fixed ${fix.productName} - ${fix.size || fix.color || 'default'}: AED ${fix.currentPrice} → AED ${fix.expectedPrice}`)
-          } catch (error) {
+          } catch {
             console.error(`❌ Failed to fix ${fix.productName} - ${fix.size || fix.color || 'default'}:`, error)
           }
         }
@@ -159,7 +159,7 @@ async function checkAndFixVariantPrices(dryRun: boolean = true) {
       console.log('\n✅ All variant prices are correct!')
     }
 
-  } catch (error) {
+  } catch {
     console.error('❌ Error:', error)
     throw error
   } finally {

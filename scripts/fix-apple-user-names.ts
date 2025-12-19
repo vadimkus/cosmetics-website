@@ -86,7 +86,7 @@ async function fixAppleUserNames() {
     console.log('\n🎉 All Apple Sign-In users updated!')
     console.log('\nℹ️  Users can now edit their name to their real name in the profile page.')
 
-  } catch (error) {
+  } catch {
     console.error('❌ Error updating users:', error)
     throw error
   }

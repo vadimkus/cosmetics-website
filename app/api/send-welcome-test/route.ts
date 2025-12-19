@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-  } catch (error) {
+  } catch {
     errorLog('Send welcome test error:', error)
     return NextResponse.json(
       { error: 'Internal server error' },

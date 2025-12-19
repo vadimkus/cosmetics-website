@@ -366,7 +366,7 @@ async function createMultilingualAnnouncementBlogPost() {
       errorLog(`   Error message: ${createError.message}`)
       throw createError
     }
-  } catch (error) {
+  } catch {
     errorLog('❌ Failed to create blog post:', error)
     throw error
   }

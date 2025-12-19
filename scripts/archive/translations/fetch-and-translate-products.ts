@@ -75,7 +75,7 @@ function translateJSONContent(jsonStr: string | null): string | null {
     }
     
     return jsonStr
-  } catch (e) {
+  } catch {
     console.error('Error parsing JSON:', e)
     return jsonStr
   }
@@ -91,7 +91,7 @@ async function fetchProductsFromAPI(): Promise<Product[]> {
     }
     const products = await response.json()
     return products
-  } catch (error) {
+  } catch {
     console.error('Error fetching products from API:', error)
     throw error
   }
@@ -155,7 +155,7 @@ async function main() {
       
       try {
         translations[productId] = await translateProduct(product)
-      } catch (error) {
+      } catch {
         console.error(`Error translating product ${productId}:`, error)
       }
     }
@@ -207,7 +207,7 @@ export function getProductTranslationsRu(productId: string): ProductTranslation 
     console.log(`✓ Processed ${Object.keys(translations).length} products`)
     console.log('\n⚠️  NOTE: Translations are placeholders. Replace [TRANSLATE: ...] with actual Russian translations.')
     
-  } catch (error) {
+  } catch {
     console.error('Error:', error)
     process.exit(1)
   }

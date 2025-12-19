@@ -48,7 +48,7 @@ export async function GET(request: NextRequest) {
               canSeePrices: true
             }
           })
-        } catch (error) {
+        } catch {
           debugLog('Failed to load user context:', error)
         }
       }
@@ -84,7 +84,7 @@ export async function GET(request: NextRequest) {
     response.headers.set('Vercel-CDN-Cache-Control', 'public, s-maxage=60')
     
     return response
-  } catch (error) {
+  } catch {
     return handleApiError(error, 'GET /api/products')
   }
 }

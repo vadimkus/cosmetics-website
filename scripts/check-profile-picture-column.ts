@@ -57,7 +57,7 @@ async function checkProfilePictureColumn() {
       }
     }
     
-  } catch (error) {
+  } catch {
     console.error('❌ Error checking/adding profilePicture column:', error)
     throw error
   } finally {

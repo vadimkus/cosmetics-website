@@ -36,7 +36,7 @@ export async function GET(request: NextRequest) {
     const vatNumber = (user as any).vatNumber ?? null
 
     return NextResponse.json({ success: true, data: { billingAddress, vatNumber } })
-  } catch (e) {
+  } catch {
     errorLog('[MOBILE_BILLING] GET error:', e)
     return NextResponse.json({ success: false, error: 'Internal server error' }, { status: 500 })
   }
@@ -86,7 +86,7 @@ export async function PUT(request: NextRequest) {
 
     debugLog('[MOBILE_BILLING] PUT completed', Date.now() - startTime, 'ms')
     return NextResponse.json({ success: true, data: updates })
-  } catch (e) {
+  } catch {
     errorLog('[MOBILE_BILLING] PUT error:', e)
     return NextResponse.json({ success: false, error: 'Internal server error' }, { status: 500 })
   }

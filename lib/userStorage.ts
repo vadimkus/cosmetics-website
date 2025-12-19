@@ -64,7 +64,7 @@ export const readUsers = (): User[] => {
     
     const data = fs.readFileSync(USERS_FILE, 'utf8')
     return JSON.parse(data)
-  } catch (error) {
+  } catch {
     errorLog('Error reading users:', error)
     return []
   }
@@ -75,7 +75,7 @@ export const writeUsers = (users: User[]): void => {
   try {
     ensureDataDirectory()
     fs.writeFileSync(USERS_FILE, JSON.stringify(users, null, 2))
-  } catch (error) {
+  } catch {
     errorLog('Error writing users:', error)
   }
 }

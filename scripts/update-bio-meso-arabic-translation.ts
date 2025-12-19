@@ -245,7 +245,7 @@ async function updateBioMesoArabicTranslation() {
     debugLog(`   Title: ${titleAr}`)
     debugLog(`   Excerpt length: ${excerptAr.length}`)
     debugLog(`   Content length: ${contentAr.length}`)
-  } catch (error) {
+  } catch {
     errorLog('❌ Failed to update Arabic translation:', error)
     throw error
   } finally {

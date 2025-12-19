@@ -192,7 +192,7 @@ export async function GET(request: NextRequest) {
           errorLog('[GOOGLE_CALLBACK] ❌ Exception stack:', emailError instanceof Error ? emailError.stack : 'No stack trace')
           // Don't fail registration if email fails
         }
-      } catch (error) {
+      } catch {
         // If user creation fails (race condition / constraint), try to find the user and proceed.
         errorLog('[GOOGLE_CALLBACK] Error creating user:', error)
         const existing = await findUserByEmail(normalizedEmail)
@@ -283,7 +283,7 @@ export async function GET(request: NextRequest) {
 
     debugLog('[GOOGLE_CALLBACK] Success', Date.now() - startTime, 'ms')
     return response
-  } catch (error) {
+  } catch {
     errorLog('[GOOGLE_CALLBACK] Error:', error)
     const normalizedOrigin = normalizeOrigin(request.nextUrl.origin)
     return NextResponse.redirect(

@@ -34,7 +34,7 @@ export default function PageViewTracker() {
           })
         })
         debugLog('✅ Page view tracked in both Google Analytics and database:', page)
-      } catch (error) {
+      } catch {
         errorLog('Error tracking page view:', error)
       }
     }

@@ -261,7 +261,7 @@ export function getProductTranslationsRu(productId: string): ProductTranslation 
     console.log(`✓ Translated ${Object.keys(translations).length} products`)
     console.log('\n⚠️  NOTE: Translations are basic. For production, use a proper translation service or manual review.')
     
-  } catch (error) {
+  } catch {
     console.error('Error:', error)
     process.exit(1)
   }

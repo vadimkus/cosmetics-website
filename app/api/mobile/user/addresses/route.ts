@@ -83,7 +83,7 @@ export async function GET(request: NextRequest) {
       data: addresses
     })
 
-  } catch (error) {
+  } catch {
     errorLog('[MOBILE_ADDRESSES] Get addresses error:', error)
     return NextResponse.json(
       { 
@@ -184,7 +184,7 @@ export async function POST(request: NextRequest) {
       }
     }, { status: 201 })
 
-  } catch (error) {
+  } catch {
     errorLog('[MOBILE_ADDRESSES] Add/update address error:', error)
     return NextResponse.json(
       { 
@@ -263,7 +263,7 @@ export async function DELETE(request: NextRequest) {
       message: 'Address deleted successfully'
     })
 
-  } catch (error) {
+  } catch {
     errorLog('[MOBILE_ADDRESSES] Delete address error:', error)
     return NextResponse.json(
       { 

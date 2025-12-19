@@ -92,7 +92,7 @@ export async function POST(request: NextRequest) {
       // Update last login timestamp
       try {
         await updateUser(user.id, { lastLoginAt: nowIso })
-      } catch (e) {
+      } catch {
         errorLog('[MOBILE_AUTH] Apple login: failed to update lastLoginAt', e)
       }
     }
@@ -115,7 +115,7 @@ export async function POST(request: NextRequest) {
       token,
       message: 'Login successful',
     })
-  } catch (error) {
+  } catch {
     const duration = Date.now() - startTime
     errorLog('[MOBILE_AUTH] Apple login error:', {
       error: error instanceof Error ? error.message : 'Unknown error',

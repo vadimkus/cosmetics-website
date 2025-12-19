@@ -14,7 +14,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({
       segments: []
     })
-  } catch (error) {
+  } catch {
     errorLog('Error fetching segments:', error)
     return NextResponse.json(
       { error: 'Failed to fetch segments' },
@@ -55,7 +55,7 @@ export async function POST(request: NextRequest) {
       success: true,
       segment
     })
-  } catch (error) {
+  } catch {
     errorLog('Error creating segment:', error)
     return NextResponse.json(
       { error: 'Failed to create segment' },

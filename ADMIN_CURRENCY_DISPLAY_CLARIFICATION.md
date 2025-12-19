@@ -103,3 +103,4 @@ If you're seeing USD, it's likely:
 3. Misunderstanding of Stripe's display vs actual currency
 
 **Recommendation:** Clear browser cache and refresh admin page.
+

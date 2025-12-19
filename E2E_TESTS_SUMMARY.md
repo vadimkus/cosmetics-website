@@ -317,3 +317,4 @@ jobs:
 All tests are production-ready and follow Playwright best practices. They test real user workflows and specifically verify that the recent UX improvements (toast notifications instead of alert popups) are working correctly.
 
 To execute and get individual test reports, please start the dev server and run the tests as documented above.
+

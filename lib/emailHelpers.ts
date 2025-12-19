@@ -24,3 +24,4 @@ export function getPreferredEmail(user: { email: string; contactEmail?: string |
 export function isApplePrivateRelayEmail(email: string): boolean {
   return email.includes('@privaterelay.appleid.com')
 }
+

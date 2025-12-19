@@ -139,3 +139,4 @@ test.describe('Authentication Flow', () => {
     await expect(loginButtonAfterLogout).toBeVisible({ timeout: 5000 })
   })
 })
+

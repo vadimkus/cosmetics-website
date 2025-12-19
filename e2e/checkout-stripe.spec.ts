@@ -145,3 +145,4 @@ test.describe('Stripe Checkout Flow', () => {
     console.log('✅ Cart Calculations: PASSED')
   })
 })
+

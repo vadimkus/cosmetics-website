@@ -194,3 +194,4 @@ test.describe('Profile Management', () => {
     console.log('✅ Profile Display: PASSED')
   })
 })
+

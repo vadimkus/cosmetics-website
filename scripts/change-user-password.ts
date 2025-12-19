@@ -73,3 +73,4 @@ changePassword()
     console.error('\n❌ Script failed:', error)
     process.exit(1)
   })
+

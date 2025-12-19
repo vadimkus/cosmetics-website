@@ -92,3 +92,4 @@ echo ""
 
 # Exit with error if any tests failed
 [[ $PASSED -eq $TOTAL ]] && exit 0 || exit 1
+

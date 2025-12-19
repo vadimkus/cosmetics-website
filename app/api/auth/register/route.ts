@@ -170,10 +170,10 @@ export async function POST(request: NextRequest) {
           } as any,
         })
       })
-    } catch (e: unknown) {
+    } catch (error: unknown) {
       const code =
-        typeof e === 'object' && e && 'code' in e
-          ? String((e as { code?: unknown }).code || '')
+        typeof error === 'object' && error && 'code' in error
+          ? String((error as { code?: unknown }).code || '')
           : ''
       if (code === 'P2002') {
         return NextResponse.json({ error: 'User with this email already exists' }, { status: 400 })

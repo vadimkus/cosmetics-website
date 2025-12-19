@@ -53,7 +53,7 @@ async function fetchAppleJwks(): Promise<AppleJwks> {
   }
 
   // One retry to avoid transient network failures in serverless.
-  const json = await tryFetch().catch(async (e) => {
+  const json = await tryFetch().catch(async (error) => {
     // small backoff
     await new Promise((r) => setTimeout(r, 150))
     return await tryFetch().catch(() => {

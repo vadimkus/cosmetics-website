@@ -1974,7 +1974,7 @@ export const sendOrderStatusUpdate = async (order: { orderNumber: string; custom
                 const normalizedPath = cleanPath.startsWith('/') ? cleanPath : '/' + cleanPath
                 imageUrl = `${baseUrl}${normalizedPath}`
               } catch (error) {
-                debugLog(`❌ Failed to decode Next.js image URL: ${trimmedUrl}`, _e)
+                debugLog(`❌ Failed to decode Next.js image URL: ${trimmedUrl}`, error)
                 imageUrl = `${baseUrl}/images/genosys-logo.png`
               }
             } else {

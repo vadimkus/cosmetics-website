@@ -243,6 +243,23 @@ export async function POST(request: NextRequest) {
     // Parse request body
     const body = await request.json()
 
+    // Action: set default address (used by mobile "Set as default")
+    if (body?.action === 'setDefault' && body?.id) {
+      const id = String(body.id || '').trim()
+      if (!id) {
+        return NextResponse.json({ success: false, error: 'id is required' }, { status: 400 })
+      }
+      await prisma.address.updateMany({
+        where: { userId: user.id, isDefault: true },
+        data: { isDefault: false }
+      })
+      await prisma.address.update({
+        where: { id },
+        data: { isDefault: true }
+      })
+      return NextResponse.json({ success: true, data: { ok: true } })
+    }
+
     // Support both new structured format and legacy format
     let addressData: {
       type: string
@@ -373,15 +390,15 @@ export async function POST(request: NextRequest) {
       data: {
         userId: user.id,
         type: addressData.type,
-        label: addressData.label,
+        label: addressData.label ?? null,
         name: addressData.name.trim(),
         phone: addressData.phone.trim(),
         addressLine1: addressData.addressLine1.trim(),
-        addressLine2: addressData.addressLine2?.trim(),
+        addressLine2: addressData.addressLine2?.trim() ?? null,
         city: addressData.city.trim(),
         emirate: addressData.emirate.trim(),
         country: addressData.country,
-        isDefault: addressData.isDefault
+        isDefault: addressData.isDefault ?? false
       }
     })
 
@@ -414,6 +431,136 @@ export async function POST(request: NextRequest) {
       },
       { status: 500 }
     )
+  }
+}
+
+export async function PUT(request: NextRequest) {
+  const startTime = Date.now()
+  debugLog('[MOBILE_ADDRESSES] Update address request started')
+
+  try {
+    const apiKey = request.headers.get('x-api-key')
+    const authHeader = request.headers.get('Authorization')
+    const token = extractTokenFromHeader(authHeader)
+
+    const authValidation = validateMobileAuth(apiKey, token)
+    if (!authValidation.valid) {
+      return NextResponse.json({ success: false, error: authValidation.error }, { status: authValidation.status || 500 })
+    }
+    if (!authValidation.payload) {
+      return NextResponse.json({ success: false, error: 'Authentication token required' }, { status: 401 })
+    }
+
+    const tokenPayload = authValidation.payload
+    const user = await findUserByEmail(tokenPayload.email)
+    if (!user) {
+      return NextResponse.json({ success: false, error: 'User not found' }, { status: 404 })
+    }
+
+    const body = await request.json()
+    const id = String(body?.id || '').trim()
+    if (!id) {
+      return NextResponse.json({ success: false, error: 'id is required' }, { status: 400 })
+    }
+
+    // Reuse the same parsing as POST by accepting legacy or structured payloads
+    // If client sends legacy, `addressLine1` will be derived.
+    const tmpRequest = {
+      ...body,
+      // allow clients that still send `address` instead of `addressLine1`
+      addressLine1: body?.addressLine1 || body?.address || ''
+    }
+
+    const type = String(tmpRequest.type || 'home').trim().toLowerCase()
+    const validTypes = ['home', 'work', 'other']
+    if (!validTypes.includes(type)) {
+      return NextResponse.json({ success: false, error: `type must be one of: ${validTypes.join(', ')}` }, { status: 400 })
+    }
+
+    const addressLine1 = String(tmpRequest.addressLine1 || '').trim()
+    const name = String(tmpRequest.name || user.name || '').trim()
+    const phone = String(tmpRequest.phone || user.phone || '').trim()
+    const city = String(tmpRequest.city || '').trim()
+    const emirate = String(tmpRequest.emirate || '').trim()
+    const country = String(tmpRequest.country || 'United Arab Emirates').trim() || 'United Arab Emirates'
+    const label = tmpRequest.label ? String(tmpRequest.label).trim() : null
+    const addressLine2 = tmpRequest.addressLine2 ? String(tmpRequest.addressLine2).trim() : null
+    const isDefault = tmpRequest.isDefault === true
+
+    if (!addressLine1) return NextResponse.json({ success: false, error: 'addressLine1 is required' }, { status: 400 })
+    if (!name) return NextResponse.json({ success: false, error: 'name is required' }, { status: 400 })
+    if (!phone) return NextResponse.json({ success: false, error: 'phone is required' }, { status: 400 })
+    if (!city) return NextResponse.json({ success: false, error: 'city is required' }, { status: 400 })
+    if (!emirate) return NextResponse.json({ success: false, error: 'emirate is required' }, { status: 400 })
+
+    if (isDefault) {
+      await prisma.address.updateMany({
+        where: { userId: user.id, isDefault: true },
+        data: { isDefault: false }
+      })
+    }
+
+    const updated = await prisma.address.update({
+      where: { id },
+      data: {
+        type,
+        label,
+        name,
+        phone,
+        addressLine1,
+        addressLine2,
+        city,
+        emirate,
+        country,
+        isDefault
+      }
+    })
+
+    debugLog('[MOBILE_ADDRESSES] Update address completed', Date.now() - startTime, 'ms')
+    return NextResponse.json({ success: true, data: updated })
+  } catch (error) {
+    errorLog('[MOBILE_ADDRESSES] Update address error:', error)
+    return NextResponse.json({ success: false, error: 'Internal server error' }, { status: 500 })
+  }
+}
+
+export async function DELETE(request: NextRequest) {
+  const startTime = Date.now()
+  debugLog('[MOBILE_ADDRESSES] Delete address request started')
+
+  try {
+    const apiKey = request.headers.get('x-api-key')
+    const authHeader = request.headers.get('Authorization')
+    const token = extractTokenFromHeader(authHeader)
+
+    const authValidation = validateMobileAuth(apiKey, token)
+    if (!authValidation.valid) {
+      return NextResponse.json({ success: false, error: authValidation.error }, { status: authValidation.status || 500 })
+    }
+    if (!authValidation.payload) {
+      return NextResponse.json({ success: false, error: 'Authentication token required' }, { status: 401 })
+    }
+
+    const tokenPayload = authValidation.payload
+    const user = await findUserByEmail(tokenPayload.email)
+    if (!user) {
+      return NextResponse.json({ success: false, error: 'User not found' }, { status: 404 })
+    }
+
+    const id = request.nextUrl.searchParams.get('id')
+    if (id) {
+      await prisma.address.delete({ where: { id: String(id) } })
+      debugLog('[MOBILE_ADDRESSES] Delete address completed', Date.now() - startTime, 'ms')
+      return NextResponse.json({ success: true, data: { ok: true } })
+    }
+
+    // If no id provided, clear all addresses (legacy behavior)
+    await prisma.address.deleteMany({ where: { userId: user.id } })
+    debugLog('[MOBILE_ADDRESSES] Delete addresses completed', Date.now() - startTime, 'ms')
+    return NextResponse.json({ success: true, data: { ok: true } })
+  } catch (error) {
+    errorLog('[MOBILE_ADDRESSES] Delete address error:', error)
+    return NextResponse.json({ success: false, error: 'Internal server error' }, { status: 500 })
   }
 }
 

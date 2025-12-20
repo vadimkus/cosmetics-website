@@ -5,6 +5,9 @@ import { requireCsrfToken } from '@/lib/csrf'
 import { errorLog } from '@/lib/logger'
 import { sanitizeHtml } from '@/lib/sanitizeHtml'
 
+export const runtime = 'nodejs'
+export const dynamic = 'force-dynamic'
+
 export async function GET(request: NextRequest) {
   const auth = await requireAdminAuth(request)
   if (!auth.authorized) return auth.response

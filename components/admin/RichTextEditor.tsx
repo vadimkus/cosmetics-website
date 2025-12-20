@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef, useEffect } from 'react'
-import { Bold, Italic, Underline, Palette, Highlighter, AlignLeft, AlignCenter, AlignRight } from 'lucide-react'
+import { Bold, Italic, Underline, Palette, Highlighter, AlignLeft, AlignCenter, AlignRight, Eraser } from 'lucide-react'
 
 const placeholderStyle = `
   [contenteditable][data-placeholder]:empty:before {
@@ -38,6 +38,24 @@ export default function RichTextEditor({ value, onChange, placeholder, dir = 'lt
     if (editorRef.current) {
       onChange(editorRef.current.innerHTML)
     }
+  }
+
+  const escapeHtml = (s: string) =>
+    s
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;')
+
+  const clearFormatting = () => {
+    if (!editorRef.current) return
+    // Convert to plain text, keep line breaks, and remove all bold/italic/heading formatting.
+    const text = String(editorRef.current.innerText || '').replace(/\r\n/g, '\n')
+    const html = escapeHtml(text).replace(/\n/g, '<br />')
+    editorRef.current.innerHTML = html
+    editorRef.current.focus()
+    updateContent()
   }
 
   const handleInput = () => {
@@ -96,6 +114,14 @@ export default function RichTextEditor({ value, onChange, placeholder, dir = 'lt
           title="Underline"
         >
           <Underline className="h-4 w-4" />
+        </button>
+        <button
+          type="button"
+          onClick={clearFormatting}
+          className="p-2 rounded hover:bg-gray-200 transition-colors"
+          title="Clear formatting"
+        >
+          <Eraser className="h-4 w-4" />
         </button>
         <div className="w-px h-6 bg-gray-300 mx-1" />
         <button

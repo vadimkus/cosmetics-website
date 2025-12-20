@@ -4,6 +4,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Megaphone, Save, PlusCircle, RefreshCw, CheckCircle2 } from 'lucide-react'
 import { addCsrfToBody } from '@/lib/csrfClient'
+import RichTextEditor from './RichTextEditor'
 
 type Promotion = {
   id: string
@@ -176,32 +177,32 @@ export default function AdminPromotionsManager({
 
           <div className="grid grid-cols-1 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-800 mb-1">Text (EN) *</label>
-              <textarea
+              <label className="block text-sm font-medium text-gray-800 mb-1">
+                Text (EN) * <span className="text-xs text-gray-500 font-normal">(Rich text with formatting)</span>
+              </label>
+              <RichTextEditor
                 value={form.textEn}
-                onChange={(e) => setForm((p) => ({ ...p, textEn: e.target.value }))}
-                rows={4}
-                className="w-full rounded-lg border px-3 py-2 bg-white"
+                onChange={(value) => setForm((p) => ({ ...p, textEn: value }))}
                 placeholder="English promotion message…"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-800 mb-1">Text (RU)</label>
-              <textarea
-                value={form.textRu}
-                onChange={(e) => setForm((p) => ({ ...p, textRu: e.target.value }))}
-                rows={4}
-                className="w-full rounded-lg border px-3 py-2 bg-white"
+              <label className="block text-sm font-medium text-gray-800 mb-1">
+                Text (RU) <span className="text-xs text-gray-500 font-normal">(Rich text with formatting)</span>
+              </label>
+              <RichTextEditor
+                value={form.textRu || ''}
+                onChange={(value) => setForm((p) => ({ ...p, textRu: value }))}
                 placeholder="Русский текст…"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-800 mb-1">Text (AR)</label>
-              <textarea
-                value={form.textAr}
-                onChange={(e) => setForm((p) => ({ ...p, textAr: e.target.value }))}
-                rows={4}
-                className="w-full rounded-lg border px-3 py-2 bg-white"
+              <label className="block text-sm font-medium text-gray-800 mb-1">
+                Text (AR) <span className="text-xs text-gray-500 font-normal">(Rich text with formatting)</span>
+              </label>
+              <RichTextEditor
+                value={form.textAr || ''}
+                onChange={(value) => setForm((p) => ({ ...p, textAr: value }))}
                 placeholder="النص العربي…"
                 dir="rtl"
               />

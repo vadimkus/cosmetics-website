@@ -3,6 +3,7 @@ import { prisma } from '@/lib/prisma'
 import { requireAdminAuth } from '@/lib/adminAuth'
 import { requireCsrfToken } from '@/lib/csrf'
 import { errorLog } from '@/lib/logger'
+import { sanitizeHtml } from '@/lib/sanitizeHtml'
 
 export async function PUT(request: NextRequest, context: { params: Promise<{ id: string }> }) {
   const auth = await requireAdminAuth(request)
@@ -16,9 +17,9 @@ export async function PUT(request: NextRequest, context: { params: Promise<{ id:
     const body = await request.json()
 
     const updates: any = {}
-    if (body?.textEn !== undefined) updates.textEn = String(body.textEn || '').trim()
-    if (body?.textRu !== undefined) updates.textRu = body.textRu == null ? null : String(body.textRu).trim()
-    if (body?.textAr !== undefined) updates.textAr = body.textAr == null ? null : String(body.textAr).trim()
+    if (body?.textEn !== undefined) updates.textEn = sanitizeHtml(String(body.textEn || '').trim())
+    if (body?.textRu !== undefined) updates.textRu = body.textRu == null ? null : sanitizeHtml(String(body.textRu).trim())
+    if (body?.textAr !== undefined) updates.textAr = body.textAr == null ? null : sanitizeHtml(String(body.textAr).trim())
     if (body?.date !== undefined) {
       const d = new Date(String(body.date))
       if (Number.isNaN(d.getTime())) {

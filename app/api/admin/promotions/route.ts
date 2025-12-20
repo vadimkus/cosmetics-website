@@ -3,6 +3,7 @@ import { prisma } from '@/lib/prisma'
 import { requireAdminAuth } from '@/lib/adminAuth'
 import { requireCsrfToken } from '@/lib/csrf'
 import { errorLog } from '@/lib/logger'
+import { sanitizeHtml } from '@/lib/sanitizeHtml'
 
 export async function GET(request: NextRequest) {
   const auth = await requireAdminAuth(request)
@@ -28,9 +29,9 @@ export async function POST(request: NextRequest) {
 
   try {
     const body = await request.json()
-    const textEn = String(body?.textEn || '').trim()
-    const textRu = body?.textRu != null ? String(body.textRu).trim() : null
-    const textAr = body?.textAr != null ? String(body.textAr).trim() : null
+    const textEn = sanitizeHtml(String(body?.textEn || '').trim())
+    const textRu = body?.textRu != null ? sanitizeHtml(String(body.textRu).trim()) : null
+    const textAr = body?.textAr != null ? sanitizeHtml(String(body.textAr).trim()) : null
     const isActive = body?.isActive === false ? false : true
 
     if (!textEn) {

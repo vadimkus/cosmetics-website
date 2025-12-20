@@ -3,10 +3,22 @@ import { prisma } from '@/lib/prisma'
 import { requireAdminAuth } from '@/lib/adminAuth'
 import { requireCsrfToken } from '@/lib/csrf'
 import { errorLog } from '@/lib/logger'
-import { sanitizeHtml } from '@/lib/sanitizeHtml'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
+
+function basicSanitizeHtml(input: unknown): string {
+  const s = String(input ?? '').trim()
+  if (!s) return ''
+  // Keep formatting tags, but remove obvious XSS vectors.
+  let out = s
+  out = out.replace(/<script[\s\S]*?>[\s\S]*?<\/script>/gi, '')
+  out = out.replace(/\son\w+="[^"]*"/gi, '')
+  out = out.replace(/\son\w+='[^']*'/gi, '')
+  out = out.replace(/javascript:/gi, '')
+  out = out.replace(/data:text\/html/gi, '')
+  return out.trim()
+}
 
 export async function GET(request: NextRequest) {
   const auth = await requireAdminAuth(request)
@@ -56,9 +68,9 @@ export async function POST(request: NextRequest) {
 
   try {
     const body = await request.json()
-    const textEn = sanitizeHtml(String(body?.textEn || '').trim())
-    const textRu = body?.textRu != null ? sanitizeHtml(String(body.textRu).trim()) : null
-    const textAr = body?.textAr != null ? sanitizeHtml(String(body.textAr).trim()) : null
+    const textEn = basicSanitizeHtml(body?.textEn)
+    const textRu = body?.textRu != null ? basicSanitizeHtml(body.textRu) : null
+    const textAr = body?.textAr != null ? basicSanitizeHtml(body.textAr) : null
     const isActive = body?.isActive === false ? false : true
 
     if (!textEn) {

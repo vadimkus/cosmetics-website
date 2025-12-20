@@ -3,10 +3,21 @@ import { prisma } from '@/lib/prisma'
 import { requireAdminAuth } from '@/lib/adminAuth'
 import { requireCsrfToken } from '@/lib/csrf'
 import { errorLog } from '@/lib/logger'
-import { sanitizeHtml } from '@/lib/sanitizeHtml'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
+
+function basicSanitizeHtml(input: unknown): string {
+  const s = String(input ?? '').trim()
+  if (!s) return ''
+  let out = s
+  out = out.replace(/<script[\s\S]*?>[\s\S]*?<\/script>/gi, '')
+  out = out.replace(/\son\w+="[^"]*"/gi, '')
+  out = out.replace(/\son\w+='[^']*'/gi, '')
+  out = out.replace(/javascript:/gi, '')
+  out = out.replace(/data:text\/html/gi, '')
+  return out.trim()
+}
 
 export async function PUT(request: NextRequest, context: { params: Promise<{ id: string }> }) {
   const auth = await requireAdminAuth(request)
@@ -20,9 +31,9 @@ export async function PUT(request: NextRequest, context: { params: Promise<{ id:
     const body = await request.json()
 
     const updates: any = {}
-    if (body?.textEn !== undefined) updates.textEn = sanitizeHtml(String(body.textEn || '').trim())
-    if (body?.textRu !== undefined) updates.textRu = body.textRu == null ? null : sanitizeHtml(String(body.textRu).trim())
-    if (body?.textAr !== undefined) updates.textAr = body.textAr == null ? null : sanitizeHtml(String(body.textAr).trim())
+    if (body?.textEn !== undefined) updates.textEn = basicSanitizeHtml(body.textEn)
+    if (body?.textRu !== undefined) updates.textRu = body.textRu == null ? null : basicSanitizeHtml(body.textRu)
+    if (body?.textAr !== undefined) updates.textAr = body.textAr == null ? null : basicSanitizeHtml(body.textAr)
     if (body?.date !== undefined) {
       const d = new Date(String(body.date))
       if (Number.isNaN(d.getTime())) {

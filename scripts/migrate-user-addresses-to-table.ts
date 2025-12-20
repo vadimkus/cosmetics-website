@@ -11,43 +11,31 @@
  */
 
 import { PrismaClient } from '@prisma/client'
-import postgres from 'postgres'
+import { Pool } from 'pg'
 import { PrismaPg } from '@prisma/adapter-pg'
 
-// Get database connection
+// Get database connection - use direct URL for migrations (not Accelerate)
 const connectionString = 
-  process.env.PRISMA_DATABASE_URL?.startsWith('prisma+postgres://') 
-    ? process.env.POSTGRES_URL || process.env.DATABASE_URL
-    : process.env.PRISMA_DATABASE_URL || process.env.POSTGRES_URL || process.env.DATABASE_URL
+  process.env.POSTGRES_URL || 
+  process.env.DATABASE_URL ||
+  (process.env.PRISMA_DATABASE_URL?.startsWith('prisma+postgres://') 
+    ? null 
+    : process.env.PRISMA_DATABASE_URL)
 
 if (!connectionString) {
-  console.error('❌ DATABASE_URL or POSTGRES_URL environment variable is required')
+  console.error('❌ POSTGRES_URL or DATABASE_URL environment variable is required')
+  console.error('   Note: Use direct postgres:// URL, not prisma+postgres:// (Accelerate)')
   process.exit(1)
 }
 
-const isAccelerate = connectionString.startsWith('prisma+postgres://')
+// Always use direct connection for migrations (not Accelerate)
+const pool = new Pool({ connectionString })
+const adapter = new PrismaPg(pool)
 
-let adapter: PrismaPg | undefined
-if (!isAccelerate) {
-  const sql = postgres(connectionString)
-  adapter = new PrismaPg(sql)
-}
-
-const prismaConfig: {
-  adapter?: PrismaPg
-  accelerateUrl?: string
-  log?: ('error' | 'warn')[]
-} = {
+const prisma = new PrismaClient({
+  adapter,
   log: ['error', 'warn'],
-}
-
-if (isAccelerate && connectionString) {
-  prismaConfig.accelerateUrl = connectionString
-} else if (adapter) {
-  prismaConfig.adapter = adapter
-}
-
-const prisma = new PrismaClient(prismaConfig)
+})
 
 // Helper to parse legacy address format
 function parseLegacyAddress(addressString: string | null): {

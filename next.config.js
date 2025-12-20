@@ -14,7 +14,10 @@ const nextConfig = {
   
   // Server-side packages that shouldn't be bundled (fixes jsdom version warning)
   // Prisma client must be external in serverless environments to access generated client
-  serverExternalPackages: ['jsdom', 'isomorphic-dompurify', '@prisma/client', 'prisma', '@prisma/adapter-pg', 'pg'],
+  // Avoid bundling heavy server-only dependencies.
+  // NOTE: `isomorphic-dompurify` currently breaks on Vercel/Next 16 Turbopack SSR due to ESM/CJS conflicts.
+  // We keep sanitization dependency-free in `lib/sanitizeHtml.ts`.
+  serverExternalPackages: ['jsdom', '@prisma/client', 'prisma', '@prisma/adapter-pg', 'pg'],
   
   images: {
     remotePatterns: [

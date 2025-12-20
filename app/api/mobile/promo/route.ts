@@ -1,11 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { errorLog, debugLog } from '@/lib/logger'
+import { jsonError } from '@/lib/jsonError'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
 
-function pickLocalizedText(promo: any, locale: string): string {
+type PromotionText = { textEn?: string | null; textRu?: string | null; textAr?: string | null }
+
+function pickLocalizedText(promo: PromotionText, locale: string): string {
   const l = String(locale || 'en').toLowerCase()
   const en = String(promo?.textEn || '').trim()
   const ru = String(promo?.textRu || '').trim()
@@ -50,8 +53,10 @@ export async function GET(request: NextRequest) {
       },
     })
   } catch (error: unknown) {
+    // Keep mobile response JSON-only even on unexpected failures.
+    // Note: preserve the prior error message string for compatibility.
     errorLog('[MOBILE_PROMO] GET error:', error)
-    return NextResponse.json({ success: false, error: 'Failed to fetch promotion' }, { status: 500 })
+    return jsonError('MOBILE_PROMO GET', error, 500)
   }
 }
 

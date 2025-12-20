@@ -1,11 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
-import { errorLog } from '@/lib/logger'
+import { jsonError } from '@/lib/jsonError'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
 
-function pickLocalizedText(promo: any, locale: string): string {
+type PromotionText = { textEn?: string | null; textRu?: string | null; textAr?: string | null }
+
+function pickLocalizedText(promo: PromotionText, locale: string): string {
   const l = String(locale || 'en').toLowerCase()
   const en = String(promo?.textEn || '').trim()
   const ru = String(promo?.textRu || '').trim()
@@ -40,8 +42,7 @@ export async function GET(request: NextRequest) {
       headers: { 'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300' }
     })
   } catch (error: unknown) {
-    errorLog('[PROMO_PUBLIC] GET error:', error)
-    return NextResponse.json({ success: false, error: 'Failed to fetch promotion' }, { status: 500 })
+    return jsonError('PROMO_PUBLIC GET', error, 500)
   }
 }
 

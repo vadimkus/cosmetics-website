@@ -3,6 +3,7 @@ import { prisma } from '@/lib/prisma'
 import { requireAdminAuth } from '@/lib/adminAuth'
 import { requireCsrfToken } from '@/lib/csrf'
 import { errorLog } from '@/lib/logger'
+import type { Prisma } from '@prisma/client'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -30,7 +31,7 @@ export async function PUT(request: NextRequest, context: { params: Promise<{ id:
     const { id } = await context.params
     const body = await request.json()
 
-    const updates: any = {}
+    const updates: Prisma.PromotionUpdateInput = {}
     if (body?.textEn !== undefined) updates.textEn = basicSanitizeHtml(body.textEn)
     if (body?.textRu !== undefined) updates.textRu = body.textRu == null ? null : basicSanitizeHtml(body.textRu)
     if (body?.textAr !== undefined) updates.textAr = body.textAr == null ? null : basicSanitizeHtml(body.textAr)

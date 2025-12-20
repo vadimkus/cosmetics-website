@@ -1,8 +1,8 @@
 'use client'
 
-import { BarChart3, FileText, Users, Package, ShoppingBag, Filter } from 'lucide-react'
+import { BarChart3, FileText, Users, Package, ShoppingBag, Filter, Megaphone } from 'lucide-react'
 
-type AdminTab = 'analytics' | 'reporting' | 'segmentation' | 'users' | 'orders' | 'products' | 'blog'
+type AdminTab = 'analytics' | 'reporting' | 'segmentation' | 'users' | 'orders' | 'products' | 'promo' | 'blog'
 
 interface AdminTabNavigationProps {
   activeTab: AdminTab
@@ -61,6 +61,13 @@ export default function AdminTabNavigation({
       icon: Package, 
       description: 'Product catalog',
       count: productCount
+    },
+    { 
+      id: 'promo' as AdminTab, 
+      label: 'Promo', 
+      icon: Megaphone, 
+      description: 'Promotions shown to users',
+      count: undefined
     },
     { 
       id: 'blog' as AdminTab, 

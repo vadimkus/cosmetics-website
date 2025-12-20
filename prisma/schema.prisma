@@ -61,6 +61,22 @@ model Address {
   @@map("addresses")
 }
 
+// Promotions / announcements shown to users in the app/website.
+// Minimal spec: date + text (localized).
+model Promotion {
+  id      String   @id @default(cuid())
+  date    DateTime @default(now())
+  textEn  String   @db.Text
+  textRu  String?  @db.Text
+  textAr  String?  @db.Text
+  isActive Boolean @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([isActive, date])
+  @@map("promotions")
+}
+
 model Product {
   id            String   @id @default(cuid())
   productNumber String?  @unique

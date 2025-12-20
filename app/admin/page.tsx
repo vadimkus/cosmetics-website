@@ -13,6 +13,7 @@ import AdminTabNavigation from '@/components/admin/AdminTabNavigation'
 import AdminUsersManager from '@/components/admin/AdminUsersManager'
 import AdminOrdersManager from '@/components/admin/AdminOrdersManager'
 import AdminProductsManager from '@/components/admin/AdminProductsManager'
+import AdminPromotionsManager from '@/components/admin/AdminPromotionsManager'
 import { Order, OrderItem } from '@prisma/client'
 import { fetchCsrfToken, getCsrfHeaders, addCsrfToBody } from '@/lib/csrfClient'
 import { debugLog, errorLog } from '@/lib/logger'
@@ -119,7 +120,7 @@ export default function AdminPage() {
     
     return headers as HeadersInit
   }, [adminUser?.email])
-  const [activeTab, setActiveTab] = useState<'analytics' | 'reporting' | 'segmentation' | 'users' | 'orders' | 'products' | 'blog'>('analytics')
+  const [activeTab, setActiveTab] = useState<'analytics' | 'reporting' | 'segmentation' | 'users' | 'orders' | 'products' | 'promo' | 'blog'>('analytics')
   const [selectedOrder, setSelectedOrder] = useState<OrderWithItems | null>(null)
   const [selectedCustomer, setSelectedCustomer] = useState<User | null>(null)
   const [showProductForm, setShowProductForm] = useState(false)
@@ -1006,6 +1007,13 @@ export default function AdminPage() {
                 />
               )}
             </>
+          )}
+          
+          {activeTab === 'promo' && (
+            <AdminPromotionsManager
+              getAdminHeaders={getAdminHeaders}
+              showToast={showToast}
+            />
           )}
 
           {activeTab === 'reporting' && (

@@ -16,7 +16,7 @@ model User {
   name               String
   password           String?
   phone              String?
-  address            String?   @db.Text
+  address            String?   @db.Text // Legacy field - kept for backward compatibility
   profilePicture     String?   @db.Text
   gender             String?
   billingAddress     String?   @db.Text
@@ -34,8 +34,31 @@ model User {
   orders              Order[]
   passwordResetTokens PasswordResetToken[]
   reviews             ProductReview[]
+  addresses          Address[] // Multiple addresses support
 
   @@map("users")
+}
+
+model Address {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type        String   // home | work | other
+  label       String?  // Optional display label (e.g., "My Home", "Office")
+  name        String   // Recipient full name
+  phone       String   // Phone number
+  addressLine1 String  // Street/building
+  addressLine2 String? // Apt/unit (optional)
+  city        String   // City
+  emirate     String   // Emirate (UAE)
+  country     String   @default("United Arab Emirates") // Default to UAE
+  isDefault   Boolean  @default(false) // Only one address per user can be default
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([userId])
+  @@index([userId, isDefault])
+  @@map("addresses")
 }
 
 model Product {

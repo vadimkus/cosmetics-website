@@ -1,5 +1,7 @@
 import { debugLog, errorLog } from '@/lib/logger'
 import nodemailer from 'nodemailer'
+import { findUserByEmail } from '@/lib/userStorageDb'
+import { getPreferredEmail } from '@/lib/emailHelpers'
 
 // TypeScript interfaces for email data
 export interface OrderConfirmationEmailData {
@@ -1182,7 +1184,20 @@ export const sendAdminNewOrderNotification = async (orderData: AdminNewOrderEmai
       itemCount: orderData.itemCount
     }, null, 2))
     
-    const template = emailTemplates.adminNewOrder(orderData)
+    let customerEmailForAdmin = String(orderData.customerEmail || '').trim()
+    try {
+      if (customerEmailForAdmin) {
+        const user = await findUserByEmail(customerEmailForAdmin)
+        if (user) {
+          customerEmailForAdmin = getPreferredEmail(user)
+        }
+      }
+    } catch {
+      // Ignore lookup failures; fall back to provided email
+    }
+
+    const adminOrderData = { ...orderData, customerEmail: customerEmailForAdmin }
+    const template = emailTemplates.adminNewOrder(adminOrderData)
     debugLog(`📧 Admin email template generated, subject: ${template.subject}`)
     
     const result = await sendEmail(adminEmail, template.subject, template.html)

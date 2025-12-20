@@ -283,7 +283,7 @@ async function sendConfirmationEmails(order: any) {
 
     debugLog('📧 Sending Stripe confirmation emails:', {
       orderNumber: order.orderNumber,
-      customerEmail: order.customerEmail,
+      customerEmail: emailToUse,
       hasUser: !!user,
       hasContactEmail: !!(user?.contactEmail),
       emailToUse,
@@ -318,7 +318,7 @@ async function sendConfirmationEmails(order: any) {
     await sendAdminNewOrderNotification({
       orderNumber: order.orderNumber,
       customerName: order.customerName,
-      customerEmail: order.customerEmail,
+      customerEmail: emailToUse,
       customerPhone: order.customerPhone,
       total: order.total,
       itemCount: order.items.length,

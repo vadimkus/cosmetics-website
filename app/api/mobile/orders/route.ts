@@ -500,7 +500,7 @@ export async function POST(request: NextRequest) {
     sendAdminNewOrderNotification({
       orderNumber: order.orderNumber,
       customerName: order.customerName,
-      customerEmail: user.email,  // Send user's login email to admin (not contactEmail)
+      customerEmail: preferredEmail,  // Send preferred (real) email to admin
       customerPhone: order.customerPhone,
       total: order.total,
       itemCount: order.items.length,

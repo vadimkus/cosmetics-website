@@ -204,7 +204,7 @@ export async function POST(request: NextRequest) {
     sendAdminNewOrderNotification({
       orderNumber: order.orderNumber,
       customerName: order.customerName,
-      customerEmail: order.customerEmail,
+      customerEmail: emailToUse,
       customerPhone: customerPhone,
       total: order.total,
       itemCount: order.items.length,

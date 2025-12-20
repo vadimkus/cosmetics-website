@@ -24,7 +24,7 @@ This migration adds support for multiple addresses per user, replacing the singl
 All routes support:
 - New structured format with individual fields
 - Legacy format (GENOSYS_ADDR_V1: prefix or plain string)
-- Automatic migration of legacy data on GET requests
+- Backward-compatible reads from `User.address` when the user has no `Address` rows yet
 
 ### 3. Database Migration
 - Created migration SQL: `prisma/migrations/20251219180000_add_address_table/migration.sql`

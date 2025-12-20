@@ -49,7 +49,21 @@ export async function PUT(request: NextRequest, context: { params: Promise<{ id:
     return NextResponse.json({ success: true, promotion: updated })
   } catch (error: unknown) {
     errorLog('[ADMIN_PROMOTIONS] PUT error:', error)
-    return NextResponse.json({ success: false, error: 'Failed to update promotion' }, { status: 500 })
+    
+    const errorMessage = error instanceof Error ? error.message : String(error)
+    if (errorMessage.includes('does not exist') || errorMessage.includes('Unknown table') || errorMessage.includes('promotions')) {
+      errorLog('[ADMIN_PROMOTIONS] Database table not found. Migration required.')
+      return NextResponse.json({ 
+        success: false, 
+        error: 'Promotions table not found. Please run database migration: npx prisma db push' 
+      }, { status: 500 })
+    }
+    
+    return NextResponse.json({ 
+      success: false, 
+      error: 'Failed to update promotion',
+      details: process.env.NODE_ENV === 'development' ? errorMessage : undefined
+    }, { status: 500 })
   }
 }
 
@@ -66,7 +80,21 @@ export async function DELETE(request: NextRequest, context: { params: Promise<{ 
     return NextResponse.json({ success: true })
   } catch (error: unknown) {
     errorLog('[ADMIN_PROMOTIONS] DELETE error:', error)
-    return NextResponse.json({ success: false, error: 'Failed to delete promotion' }, { status: 500 })
+    
+    const errorMessage = error instanceof Error ? error.message : String(error)
+    if (errorMessage.includes('does not exist') || errorMessage.includes('Unknown table') || errorMessage.includes('promotions')) {
+      errorLog('[ADMIN_PROMOTIONS] Database table not found. Migration required.')
+      return NextResponse.json({ 
+        success: false, 
+        error: 'Promotions table not found. Please run database migration: npx prisma db push' 
+      }, { status: 500 })
+    }
+    
+    return NextResponse.json({ 
+      success: false, 
+      error: 'Failed to delete promotion',
+      details: process.env.NODE_ENV === 'development' ? errorMessage : undefined
+    }, { status: 500 })
   }
 }
 

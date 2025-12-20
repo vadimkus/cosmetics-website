@@ -35,22 +35,56 @@ export default function AdminPromotionsManager({
     isActive: true,
   })
 
+  const parseJsonResponse = useCallback(async (res: Response) => {
+    const contentType = res.headers.get('content-type') || ''
+    const raw = await res.text().catch(() => '')
+    let json: any = null
+    let isJson = false
+    try {
+      json = raw ? JSON.parse(raw) : null
+      isJson = true
+    } catch {
+      isJson = false
+    }
+    return { contentType, raw, json, isJson }
+  }, [])
+
   const load = useCallback(async () => {
     setLoading(true)
     try {
       const res = await fetch('/api/admin/promotions', { headers: getAdminHeaders() })
-      const body = await res.json()
+
+      const parsed = await parseJsonResponse(res)
+      if (!parsed.isJson) {
+        console.error('Non-JSON response from /api/admin/promotions:', {
+          status: res.status,
+          statusText: res.statusText,
+          contentType: parsed.contentType,
+          preview: String(parsed.raw || '').substring(0, 200),
+        })
+        if (res.status === 404) {
+          showToast('Promotions API endpoint not found. Please redeploy.', 'error')
+        } else if (res.status === 401 || res.status === 403) {
+          showToast('Authentication failed. Please log in again.', 'error')
+        } else {
+          showToast(`Server returned invalid response (${res.status}).`, 'error')
+        }
+        return
+      }
+
+      const body = parsed.json
       if (!res.ok || !body?.success) {
         showToast(body?.error || 'Failed to load promotions', 'error')
         return
       }
       setPromotions(Array.isArray(body.promotions) ? body.promotions : [])
     } catch (e: any) {
+      console.error('Error loading promotions:', e)
       showToast(e?.message || 'Failed to load promotions', 'error')
     } finally {
       setLoading(false)
     }
-  }, [getAdminHeaders, showToast])
+  }, [getAdminHeaders, parseJsonResponse, showToast])
 
   useEffect(() => {
     load()
@@ -88,7 +122,20 @@ export default function AdminPromotionsManager({
         headers: getAdminHeaders(),
         body: JSON.stringify(payload),
       })
-      const body = await res.json()
+
+      const parsed = await parseJsonResponse(res)
+      if (!parsed.isJson) {
+        console.error('Non-JSON response from PUT /api/admin/promotions:', {
+          status: res.status,
+          statusText: res.statusText,
+          contentType: parsed.contentType,
+          preview: String(parsed.raw || '').substring(0, 200),
+        })
+        showToast('Server returned invalid response. Please check authentication.', 'error')
+        return
+      }
+
+      const body = parsed.json
       if (!res.ok || !body?.success) {
         showToast(body?.error || 'Failed to save promotion', 'error')
         return
@@ -100,7 +147,7 @@ export default function AdminPromotionsManager({
     } finally {
       setSaving(false)
     }
-  }, [activePromotion, form, getAdminHeaders, load, showToast])
+  }, [activePromotion, form, getAdminHeaders, load, parseJsonResponse, showToast])
 
   const handleCreateNew = useCallback(async () => {
     const textEn = String(form.textEn || '').trim()
@@ -122,7 +169,20 @@ export default function AdminPromotionsManager({
         headers: getAdminHeaders(),
         body: JSON.stringify(payload),
       })
-      const body = await res.json()
+
+      const parsed = await parseJsonResponse(res)
+      if (!parsed.isJson) {
+        console.error('Non-JSON response from POST /api/admin/promotions:', {
+          status: res.status,
+          statusText: res.statusText,
+          contentType: parsed.contentType,
+          preview: String(parsed.raw || '').substring(0, 200),
+        })
+        showToast('Server returned invalid response. Please check authentication.', 'error')
+        return
+      }
+
+      const body = parsed.json
       if (!res.ok || !body?.success) {
         showToast(body?.error || 'Failed to create promotion', 'error')
         return
@@ -134,7 +194,7 @@ export default function AdminPromotionsManager({
     } finally {
       setSaving(false)
     }
-  }, [form, getAdminHeaders, load, showToast])
+  }, [form, getAdminHeaders, load, parseJsonResponse, showToast])
 
   const hasAny = promotions.length > 0
 

@@ -10,13 +10,37 @@ export async function GET(request: NextRequest) {
   if (!auth.authorized) return auth.response
 
   try {
+    // Verify Promotion model exists in Prisma client
+    if (!('promotion' in prisma)) {
+      errorLog('[ADMIN_PROMOTIONS] Promotion model not found in Prisma client')
+      return NextResponse.json({ 
+        success: false, 
+        error: 'Promotion model not available. Please regenerate Prisma client: npx prisma generate' 
+      }, { status: 500 })
+    }
+
     const promotions = await prisma.promotion.findMany({
       orderBy: [{ isActive: 'desc' }, { date: 'desc' }],
     })
     return NextResponse.json({ success: true, promotions })
   } catch (error: unknown) {
     errorLog('[ADMIN_PROMOTIONS] GET error:', error)
-    return NextResponse.json({ success: false, error: 'Failed to fetch promotions' }, { status: 500 })
+    
+    // Check if it's a table not found error
+    const errorMessage = error instanceof Error ? error.message : String(error)
+    if (errorMessage.includes('does not exist') || errorMessage.includes('Unknown table') || errorMessage.includes('promotions')) {
+      errorLog('[ADMIN_PROMOTIONS] Database table not found. Migration required.')
+      return NextResponse.json({ 
+        success: false, 
+        error: 'Promotions table not found. Please run database migration: npx prisma db push' 
+      }, { status: 500 })
+    }
+    
+    return NextResponse.json({ 
+      success: false, 
+      error: 'Failed to fetch promotions',
+      details: process.env.NODE_ENV === 'development' ? errorMessage : undefined
+    }, { status: 500 })
   }
 }
 
@@ -62,7 +86,22 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ success: true, promotion: created }, { status: 201 })
   } catch (error: unknown) {
     errorLog('[ADMIN_PROMOTIONS] POST error:', error)
-    return NextResponse.json({ success: false, error: 'Failed to create promotion' }, { status: 500 })
+    
+    // Check if it's a table not found error
+    const errorMessage = error instanceof Error ? error.message : String(error)
+    if (errorMessage.includes('does not exist') || errorMessage.includes('Unknown table') || errorMessage.includes('promotions')) {
+      errorLog('[ADMIN_PROMOTIONS] Database table not found. Migration required.')
+      return NextResponse.json({ 
+        success: false, 
+        error: 'Promotions table not found. Please run database migration: npx prisma db push' 
+      }, { status: 500 })
+    }
+    
+    return NextResponse.json({ 
+      success: false, 
+      error: 'Failed to create promotion',
+      details: process.env.NODE_ENV === 'development' ? errorMessage : undefined
+    }, { status: 500 })
   }
 }
 

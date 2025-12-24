@@ -145,12 +145,38 @@ export async function POST(request: NextRequest) {
 
         // Send admin notification for new Google OAuth user registration
         try {
+          // Get client information
+          const userAgent = request.headers.get('user-agent') || 'Unknown'
+          const forwarded = request.headers.get('x-forwarded-for')
+          const ipAddress = (forwarded ? forwarded.split(',')[0] : request.headers.get('x-real-ip')) || 'Unknown'
+          
+          // Import device detection and geolocation utilities
+          const { parseUserAgent } = await import('@/lib/deviceDetection')
+          const { getGeolocationData } = await import('@/lib/geolocation')
+          
+          // Parse device information
+          const deviceInfo = parseUserAgent(userAgent)
+          
+          // Get geolocation data
+          const geoData = await getGeolocationData(ipAddress)
+          
+          // Build additionalInfo object, only including defined values
+          const additionalInfo: any = {}
+          if (ipAddress) additionalInfo.ipAddress = ipAddress
+          if (geoData?.country) additionalInfo.country = geoData.country
+          if (geoData?.city) additionalInfo.city = geoData.city
+          additionalInfo.deviceType = deviceInfo.deviceType as string
+          if (deviceInfo.deviceModel) additionalInfo.deviceModel = deviceInfo.deviceModel
+          if (deviceInfo.os) additionalInfo.os = deviceInfo.os
+          if (deviceInfo.browser) additionalInfo.browser = deviceInfo.browser
+          
           const adminResult = await sendAdminNewUserNotification(
             googleUser.name,
             normalizedEmail,
             undefined, // Phone not available from Google OAuth
             undefined, // Address not available from Google OAuth
-            'Mobile App - Google OAuth' // Registration method
+            'Mobile App - Google OAuth', // Registration method
+            additionalInfo
           )
           
           if (adminResult?.success) {

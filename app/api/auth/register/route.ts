@@ -8,6 +8,8 @@ import bcrypt from 'bcryptjs'
 import { requireCsrfToken } from '@/lib/csrf'
 import { validateLength, INPUT_LIMITS } from '@/lib/validation'
 import { requireBodySizeLimit, getSizeLimitForContentType } from '@/lib/requestSizeLimit'
+import { parseUserAgent } from '@/lib/deviceDetection'
+import { getGeolocationData } from '@/lib/geolocation'
 
 const normalizePromo = (promo: unknown) => String(promo || '').trim().toUpperCase()
 
@@ -199,7 +201,49 @@ export async function POST(request: NextRequest) {
 
     // Send admin notification
     try {
-      const adminResult = await sendAdminNewUserNotification(name, normalizedEmail, phone, fullAddress, 'Email/Password')
+      // Extract device and location information
+      const userAgent = request.headers.get('user-agent') || 'Unknown'
+      const ipAddress = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
+                        request.headers.get('x-real-ip') ||
+                        'Unknown'
+      
+      // Parse device information
+      const deviceInfo = parseUserAgent(userAgent)
+      
+      // Get geolocation data
+      const geoData = await getGeolocationData(ipAddress)
+      
+      // Calculate age from birthday if available
+      let age: number | undefined
+      if (birthday) {
+        const birthDate = new Date(birthday)
+        const today = new Date()
+        age = today.getFullYear() - birthDate.getFullYear()
+        const monthDiff = today.getMonth() - birthDate.getMonth()
+        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+          age--
+        }
+      }
+      
+      // Build additionalInfo object, only including defined values
+      const additionalInfo: any = {}
+      if (ipAddress) additionalInfo.ipAddress = ipAddress
+      if (geoData?.country) additionalInfo.country = geoData.country
+      if (geoData?.city) additionalInfo.city = geoData.city
+      additionalInfo.deviceType = deviceInfo.deviceType as string
+      if (deviceInfo.deviceModel) additionalInfo.deviceModel = deviceInfo.deviceModel
+      if (deviceInfo.os) additionalInfo.os = deviceInfo.os
+      if (deviceInfo.browser) additionalInfo.browser = deviceInfo.browser
+      if (age) additionalInfo.age = age
+      
+      const adminResult = await sendAdminNewUserNotification(
+        name, 
+        normalizedEmail, 
+        phone, 
+        fullAddress, 
+        'Email/Password',
+        additionalInfo
+      )
       
       if (adminResult && adminResult.success) {
         debugLog('✅ Admin notification sent for new user:', normalizedEmail)

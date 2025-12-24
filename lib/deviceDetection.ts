@@ -4,8 +4,69 @@ export interface DeviceInfo {
   deviceType: 'mobile' | 'tablet' | 'desktop'
   browser: string
   os: string
+  deviceModel?: string
   screenWidth?: number
   screenHeight?: number
+}
+
+// Extract device model from user agent
+export function extractDeviceModel(userAgent: string): string | undefined {
+  const ua = userAgent
+  
+  // iPhone models
+  if (/iPhone/.test(ua)) {
+    const match = ua.match(/iPhone\s?(\d+,\d+|\w+)/)
+    if (match) return `iPhone ${match[1]}`
+    return 'iPhone'
+  }
+  
+  // iPad models
+  if (/iPad/.test(ua)) {
+    const match = ua.match(/iPad\s?(\d+,\d+|\w+)/)
+    if (match) return `iPad ${match[1]}`
+    return 'iPad'
+  }
+  
+  // Samsung devices
+  if (/SM-/.test(ua)) {
+    const match = ua.match(/SM-([A-Z0-9]+)/)
+    if (match) return `Samsung ${match[1]}`
+  }
+  
+  // Google Pixel
+  if (/Pixel/.test(ua)) {
+    const match = ua.match(/Pixel\s?(\d+\s?\w*)/)
+    if (match) return `Google Pixel ${match[1]}`
+    return 'Google Pixel'
+  }
+  
+  // Huawei
+  if (/Huawei|HUAWEI/.test(ua)) {
+    const match = ua.match(/(?:Huawei|HUAWEI)\s?([A-Z0-9-]+)/)
+    if (match) return `Huawei ${match[1]}`
+    return 'Huawei'
+  }
+  
+  // Xiaomi
+  if (/Mi\s|Redmi/.test(ua)) {
+    const match = ua.match(/(Mi|Redmi)\s?([A-Z0-9\s]+)/)
+    if (match) return `Xiaomi ${match[1]} ${match[2]}`
+  }
+  
+  // OnePlus
+  if (/OnePlus/.test(ua)) {
+    const match = ua.match(/OnePlus\s?([A-Z0-9]+)/)
+    if (match) return `OnePlus ${match[1]}`
+    return 'OnePlus'
+  }
+  
+  // Generic Android
+  if (/Android/.test(ua)) {
+    const match = ua.match(/;\s?([^;)]+)\s?Build/)
+    if (match?.[1]) return match[1].trim()
+  }
+  
+  return undefined
 }
 
 // Parse user agent to detect device type, browser, and OS
@@ -51,10 +112,14 @@ export function parseUserAgent(userAgent: string): DeviceInfo {
     os = 'iOS'
   }
   
+  // Extract device model
+  const deviceModel = extractDeviceModel(userAgent)
+  
   return {
     deviceType,
     browser,
-    os
+    os,
+    ...(deviceModel ? { deviceModel } : {})
   }
 }
 

@@ -8,6 +8,8 @@ import { trackUserAction } from '@/lib/analyticsServer'
 import { sendWelcomeEmail, sendAdminNewUserNotification } from '@/lib/email'
 import { validateLength, INPUT_LIMITS } from '@/lib/validation'
 import bcrypt from 'bcryptjs'
+import { parseUserAgent } from '@/lib/deviceDetection'
+import { getGeolocationData } from '@/lib/geolocation'
 
 // Rate limiting for mobile registration
 const mobileRegisterLimiter = rateLimitSimple({
@@ -77,7 +79,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Parse request body
-    const { name, email, password, phone, address, emirate, birthday, promoCode } = await request.json()
+    const { name, email, password, phone, address, emirate, birthday, gender, promoCode } = await request.json()
     const promo = String(promoCode || '').trim().toUpperCase()
 
     // Validate required fields
@@ -251,7 +253,50 @@ export async function POST(request: NextRequest) {
 
     // Send admin notification
     try {
-      const adminResult = await sendAdminNewUserNotification(name, email, phone, fullAddress, 'Mobile App')
+      // Extract device and location information
+      const userAgent = request.headers.get('user-agent') || 'Unknown'
+      const ipAddress = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
+                        request.headers.get('x-real-ip') ||
+                        'Unknown'
+      
+      // Parse device information
+      const deviceInfo = parseUserAgent(userAgent)
+      
+      // Get geolocation data
+      const geoData = await getGeolocationData(ipAddress)
+      
+      // Calculate age from birthday if available
+      let age: number | undefined
+      if (birthday) {
+        const birthDate = new Date(birthday)
+        const today = new Date()
+        age = today.getFullYear() - birthDate.getFullYear()
+        const monthDiff = today.getMonth() - birthDate.getMonth()
+        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+          age--
+        }
+      }
+      
+      // Build additionalInfo object, only including defined values
+      const additionalInfo: any = {}
+      if (ipAddress) additionalInfo.ipAddress = ipAddress
+      if (geoData?.country) additionalInfo.country = geoData.country
+      if (geoData?.city) additionalInfo.city = geoData.city
+      additionalInfo.deviceType = deviceInfo.deviceType as string
+      if (deviceInfo.deviceModel) additionalInfo.deviceModel = deviceInfo.deviceModel
+      if (deviceInfo.os) additionalInfo.os = deviceInfo.os
+      if (deviceInfo.browser) additionalInfo.browser = deviceInfo.browser
+      if (age) additionalInfo.age = age
+      if (gender) additionalInfo.gender = String(gender)
+      
+      const adminResult = await sendAdminNewUserNotification(
+        name, 
+        email, 
+        phone, 
+        fullAddress, 
+        'Mobile App',
+        additionalInfo
+      )
       
       if (adminResult?.success) {
         debugLog('✅ Admin notification sent for new mobile user:', email)

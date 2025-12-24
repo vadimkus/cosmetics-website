@@ -608,20 +608,201 @@ export const emailTemplates = {
   },
 
   // Admin notification for new user
-  adminNewUser: (userName: string, userEmail: string, userPhone?: string, userAddress?: string, registrationMethod?: string) => ({
+  adminNewUser: (
+    userName: string, 
+    userEmail: string, 
+    userPhone?: string, 
+    userAddress?: string, 
+    registrationMethod?: string,
+    additionalInfo?: {
+      ipAddress?: string
+      country?: string
+      city?: string
+      deviceType?: string
+      deviceModel?: string
+      os?: string
+      browser?: string
+      age?: number
+      gender?: string
+    }
+  ) => ({
     subject: `New User Registration: ${userName}${registrationMethod ? ` (${registrationMethod})` : ''}`,
     html: `
-      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
-        <h2 style="color: #dc2626;">New User Registration</h2>
-        <div style="background: #f9fafb; padding: 20px; border-radius: 8px;">
-          <p><strong>Name:</strong> ${userName}</p>
-          <p><strong>Email:</strong> ${userEmail}</p>
-          ${userPhone ? `<p><strong>Phone:</strong> ${userPhone}</p>` : ''}
-          ${userAddress ? `<p><strong>Address:</strong> ${userAddress}</p>` : ''}
-          ${registrationMethod ? `<p><strong>Registration Method:</strong> ${registrationMethod}</p>` : ''}
-          <p><strong>Registration Time:</strong> ${new Date().toLocaleString()}</p>
-        </div>
-      </div>
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>New User Registration</title>
+      </head>
+      <body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background-color: #f3f4f6;">
+        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #f3f4f6; padding: 20px 0;">
+          <tr>
+            <td align="center">
+              <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="max-width: 600px; background-color: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+                
+                <!-- Header -->
+                <tr>
+                  <td style="background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%); padding: 30px 20px; text-align: center;">
+                    <h1 style="color: #ffffff; margin: 0 0 8px 0; font-size: 24px; font-weight: 700;">🎉 New User Registration</h1>
+                    <p style="color: rgba(255, 255, 255, 0.9); margin: 0; font-size: 14px;">Genosys Middle East FZ-LLC</p>
+                  </td>
+                </tr>
+                
+                <!-- User Information -->
+                <tr>
+                  <td style="padding: 30px 20px;">
+                    <h2 style="color: #111827; margin: 0 0 20px 0; font-size: 18px; font-weight: 700; border-bottom: 2px solid #e5e7eb; padding-bottom: 10px;">👤 User Information</h2>
+                    
+                    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                      <tr>
+                        <td style="padding: 12px 0; border-bottom: 1px solid #f3f4f6;">
+                          <p style="margin: 0; color: #6b7280; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Name</p>
+                          <p style="margin: 4px 0 0 0; color: #111827; font-size: 16px; font-weight: 600;">${userName}</p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="padding: 12px 0; border-bottom: 1px solid #f3f4f6;">
+                          <p style="margin: 0; color: #6b7280; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Email</p>
+                          <p style="margin: 4px 0 0 0;"><a href="mailto:${userEmail}" style="color: #dc2626; text-decoration: none; font-size: 15px;">${userEmail}</a></p>
+                        </td>
+                      </tr>
+                      ${userPhone ? `
+                      <tr>
+                        <td style="padding: 12px 0; border-bottom: 1px solid #f3f4f6;">
+                          <p style="margin: 0; color: #6b7280; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Phone</p>
+                          <p style="margin: 4px 0 0 0;"><a href="tel:${userPhone.replace(/\s/g, '')}" style="color: #111827; text-decoration: none; font-size: 15px;">${userPhone}</a></p>
+                        </td>
+                      </tr>
+                      ` : ''}
+                      ${userAddress ? `
+                      <tr>
+                        <td style="padding: 12px 0; border-bottom: 1px solid #f3f4f6;">
+                          <p style="margin: 0; color: #6b7280; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Address</p>
+                          <p style="margin: 4px 0 0 0; color: #111827; font-size: 14px; line-height: 1.5;">${userAddress}</p>
+                        </td>
+                      </tr>
+                      ` : ''}
+                      ${additionalInfo?.age ? `
+                      <tr>
+                        <td style="padding: 12px 0; border-bottom: 1px solid #f3f4f6;">
+                          <p style="margin: 0; color: #6b7280; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Age</p>
+                          <p style="margin: 4px 0 0 0; color: #111827; font-size: 15px;">${additionalInfo.age} years old</p>
+                        </td>
+                      </tr>
+                      ` : ''}
+                      ${additionalInfo?.gender ? `
+                      <tr>
+                        <td style="padding: 12px 0; border-bottom: 1px solid #f3f4f6;">
+                          <p style="margin: 0; color: #6b7280; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Gender</p>
+                          <p style="margin: 4px 0 0 0; color: #111827; font-size: 15px;">${additionalInfo.gender}</p>
+                        </td>
+                      </tr>
+                      ` : ''}
+                      <tr>
+                        <td style="padding: 12px 0; border-bottom: 1px solid #f3f4f6;">
+                          <p style="margin: 0; color: #6b7280; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Registration Method</p>
+                          <p style="margin: 4px 0 0 0;">
+                            <span style="display: inline-block; background-color: ${
+                              registrationMethod === 'Google OAuth' ? '#4285f4' :
+                              registrationMethod === 'Apple Sign In' ? '#000000' :
+                              '#dc2626'
+                            }; color: #ffffff; padding: 4px 12px; border-radius: 6px; font-size: 13px; font-weight: 600;">
+                              ${registrationMethod === 'Google OAuth' ? '🔵 ' : registrationMethod === 'Apple Sign In' ? '🍎 ' : '📧 '}${registrationMethod || 'Email/Password'}
+                            </span>
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="padding: 12px 0;">
+                          <p style="margin: 0; color: #6b7280; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Registration Time</p>
+                          <p style="margin: 4px 0 0 0; color: #111827; font-size: 15px;">🕐 ${new Date().toLocaleString('en-AE', { timeZone: 'Asia/Dubai', dateStyle: 'full', timeStyle: 'medium' })}</p>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                
+                ${additionalInfo && (additionalInfo.ipAddress || additionalInfo.deviceType) ? `
+                <!-- Technical Information -->
+                <tr>
+                  <td style="padding: 0 20px 30px 20px;">
+                    <h2 style="color: #111827; margin: 0 0 20px 0; font-size: 18px; font-weight: 700; border-bottom: 2px solid #e5e7eb; padding-bottom: 10px;">💻 Device & Location</h2>
+                    
+                    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                      ${additionalInfo.ipAddress ? `
+                      <tr>
+                        <td style="padding: 12px 0; border-bottom: 1px solid #f3f4f6;">
+                          <p style="margin: 0; color: #6b7280; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">IP Address</p>
+                          <p style="margin: 4px 0 0 0; color: #111827; font-size: 14px; font-family: 'Courier New', monospace;">${additionalInfo.ipAddress}</p>
+                        </td>
+                      </tr>
+                      ` : ''}
+                      ${additionalInfo.country || additionalInfo.city ? `
+                      <tr>
+                        <td style="padding: 12px 0; border-bottom: 1px solid #f3f4f6;">
+                          <p style="margin: 0; color: #6b7280; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Location</p>
+                          <p style="margin: 4px 0 0 0; color: #111827; font-size: 15px;">
+                            📍 ${additionalInfo.city ? `${additionalInfo.city}, ` : ''}${additionalInfo.country || 'Unknown'}
+                          </p>
+                        </td>
+                      </tr>
+                      ` : ''}
+                      ${additionalInfo.deviceType ? `
+                      <tr>
+                        <td style="padding: 12px 0; border-bottom: 1px solid #f3f4f6;">
+                          <p style="margin: 0; color: #6b7280; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Device Type</p>
+                          <p style="margin: 4px 0 0 0; color: #111827; font-size: 15px;">
+                            ${additionalInfo.deviceType === 'mobile' ? '📱' : additionalInfo.deviceType === 'tablet' ? '📲' : '💻'} ${additionalInfo.deviceType.charAt(0).toUpperCase() + additionalInfo.deviceType.slice(1)}
+                          </p>
+                        </td>
+                      </tr>
+                      ` : ''}
+                      ${additionalInfo.deviceModel ? `
+                      <tr>
+                        <td style="padding: 12px 0; border-bottom: 1px solid #f3f4f6;">
+                          <p style="margin: 0; color: #6b7280; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Device Model</p>
+                          <p style="margin: 4px 0 0 0; color: #111827; font-size: 14px;">${additionalInfo.deviceModel}</p>
+                        </td>
+                      </tr>
+                      ` : ''}
+                      ${additionalInfo.os ? `
+                      <tr>
+                        <td style="padding: 12px 0; border-bottom: 1px solid #f3f4f6;">
+                          <p style="margin: 0; color: #6b7280; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Operating System</p>
+                          <p style="margin: 4px 0 0 0; color: #111827; font-size: 14px;">${additionalInfo.os}</p>
+                        </td>
+                      </tr>
+                      ` : ''}
+                      ${additionalInfo.browser ? `
+                      <tr>
+                        <td style="padding: 12px 0;">
+                          <p style="margin: 0; color: #6b7280; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Browser</p>
+                          <p style="margin: 4px 0 0 0; color: #111827; font-size: 14px;">${additionalInfo.browser}</p>
+                        </td>
+                      </tr>
+                      ` : ''}
+                    </table>
+                  </td>
+                </tr>
+                ` : ''}
+                
+                <!-- Footer -->
+                <tr>
+                  <td style="background-color: #f9fafb; padding: 20px; text-align: center; border-top: 1px solid #e5e7eb;">
+                    <p style="margin: 0; color: #6b7280; font-size: 12px; line-height: 1.6;">
+                      This is an automated notification from your Genosys registration system.<br>
+                      <a href="https://genosysme.com" style="color: #dc2626; text-decoration: none; font-weight: 600;">genosysme.com</a>
+                    </p>
+                  </td>
+                </tr>
+                
+              </table>
+            </td>
+          </tr>
+        </table>
+      </body>
+      </html>
     `,
   }),
 
@@ -1122,7 +1303,24 @@ export const sendOrderConfirmationEmail = async (orderData: OrderConfirmationEma
   return await sendEmail(orderData.customerEmail, template.subject, template.html)
 }
 
-export const sendAdminNewUserNotification = async (userName: string, userEmail: string, userPhone?: string, userAddress?: string, registrationMethod?: string) => {
+export const sendAdminNewUserNotification = async (
+  userName: string, 
+  userEmail: string, 
+  userPhone?: string, 
+  userAddress?: string, 
+  registrationMethod?: string,
+  additionalInfo?: {
+    ipAddress?: string
+    country?: string
+    city?: string
+    deviceType?: string
+    deviceModel?: string
+    os?: string
+    browser?: string
+    age?: number
+    gender?: string
+  }
+) => {
   // Use ADMIN_EMAIL, or fallback to GMAIL_USER/EMAIL_USER, or use default
   const adminEmail = process.env.ADMIN_EMAIL || process.env.GMAIL_USER || process.env.EMAIL_USER || '5856825@gmail.com'
   
@@ -1130,10 +1328,11 @@ export const sendAdminNewUserNotification = async (userName: string, userEmail: 
   debugLog(`📧 Sending admin new user notification to: ${adminEmail}`)
   debugLog(`📧 User: ${userName} (${userEmail})`)
   debugLog(`📧 Registration method: ${registrationMethod || 'Unknown'}`)
+  debugLog(`📧 Additional info:`, additionalInfo)
   debugLog(`📧 Admin email sources - ADMIN_EMAIL: ${process.env.ADMIN_EMAIL || 'NOT_SET'}, GMAIL_USER: ${process.env.GMAIL_USER || 'NOT_SET'}, EMAIL_USER: ${process.env.EMAIL_USER || 'NOT_SET'}`)
   debugLog(`📧 GMAIL_APP_PASSWORD: ${process.env.GMAIL_APP_PASSWORD ? 'SET' : 'NOT_SET'}`)
   
-  const template = emailTemplates.adminNewUser(userName, userEmail, userPhone, userAddress, registrationMethod)
+  const template = emailTemplates.adminNewUser(userName, userEmail, userPhone, userAddress, registrationMethod, additionalInfo)
   
   // Try sending with retry logic
   let result: { success: boolean; messageId?: string; error?: string } | undefined

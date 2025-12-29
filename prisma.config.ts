@@ -6,6 +6,7 @@ import { defineConfig } from 'prisma/config'
  * IMPORTANT:
  * - `prisma migrate deploy` must connect to the **direct database** (`postgres://...`)
  * - Prisma Accelerate (`prisma+postgres://...`) is for runtime client, not migrations.
+ * - `prisma generate` does NOT need a database connection (only the schema file)
  *
  * Vercel env recommendation:
  * - `POSTGRES_URL` (or `DATABASE_URL`): direct postgres connection string
@@ -21,7 +22,12 @@ const directUrlFromEnv =
     ? process.env.PRISMA_DATABASE_URL
     : undefined)
 
-if (!directUrlFromEnv) {
+// Check if we're running a command that requires database connection
+// `prisma generate` does NOT need a database URL - only migrations do
+const commandArgs = process.argv.join(' ')
+const isMigrationCommand = commandArgs.includes('migrate') || commandArgs.includes('db push')
+
+if (!directUrlFromEnv && isMigrationCommand) {
   throw new Error(
     'Missing DIRECT database connection string for migrations. ' +
       'Set DATABASE_URL or POSTGRES_URL to a postgres://... URL. ' +
@@ -31,9 +37,12 @@ if (!directUrlFromEnv) {
 
 export default defineConfig({
   schema: 'prisma/schema.prisma',
-  datasource: {
-    url: directUrlFromEnv,
-  },
+  // Only set datasource URL if available (required for migrations, optional for generate)
+  ...(directUrlFromEnv && {
+    datasource: {
+      url: directUrlFromEnv,
+    },
+  }),
 })
 
 

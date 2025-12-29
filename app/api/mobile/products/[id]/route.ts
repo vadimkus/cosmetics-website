@@ -6,6 +6,53 @@ import { ApiUser } from '@/types/user'
 import { getProductTranslations } from '@/data/productTranslations'
 import { getProductTranslationsRu } from '@/data/productTranslationsRu'
 
+/**
+ * Database product type - matches Prisma query select fields
+ */
+interface DbProduct {
+  id: string
+  productNumber: string | null
+  name: string
+  nameRu: string | null
+  nameAr: string | null
+  price: number
+  description: string
+  descriptionRu: string | null
+  descriptionAr: string | null
+  image: string
+  images: string | null
+  category: string
+  inStock: boolean
+  rating: number | null
+  size: string | null
+  noDiscount: boolean
+  createdAt: Date
+  updatedAt: Date
+  skinType: string | null
+  targetConcerns: string | null
+  usage: string | null
+  ageGroup: string | null
+  productDetails: string | null
+  keyFeatures: string | null
+  benefits: string | null
+  ingredients: string | null
+  howToUse: string | null
+  directions: string | null
+  variants: {
+    id: string
+    size: string | null
+    color: string | null
+    price: number
+    available: boolean
+    isDefault: boolean
+    stockQuantity: number | null
+  }[]
+}
+
+// Note: LocalizedEnhancedProduct type is inferred to avoid exactOptionalPropertyTypes issues.
+// The response shape extends EnhancedProductData with: localizedName, localizedDescription,
+// recommendedProductId, note, and localized content fields.
+
 function getRecommendedProductId(currentIdRaw: unknown): string | null {
   const idStr = String(currentIdRaw || '').trim()
   if (!idStr) return null
@@ -222,40 +269,43 @@ export async function GET(
       )
     }
     
+    // Type the product for type-safe access
+    const typedProduct = product as DbProduct
+    
     // Generate enhanced product data with complete calculations
     const enhancementStartTime = Date.now()
     const enhancedProduct = generateEnhancedProductData(product, user)
     // Attach locale-specific display fields WITHOUT changing the canonical `name`.
     const wantAr = locale.startsWith('ar')
     const wantRu = locale.startsWith('ru')
-    const productIdForTranslation = String((product as any)?.productNumber || (product as any)?.id || '').trim()
+    const productIdForTranslation = String(typedProduct.productNumber || typedProduct.id || '').trim()
     const fileTranslations = wantAr
       ? getProductTranslations(productIdForTranslation)
       : wantRu
         ? getProductTranslationsRu(productIdForTranslation)
         : null
     const localizedName =
-      (wantAr ? (product as any).nameAr : wantRu ? (product as any).nameRu : null) ||
-      (enhancedProduct as any)?.name ||
+      (wantAr ? typedProduct.nameAr : wantRu ? typedProduct.nameRu : null) ||
+      enhancedProduct.name ||
       ''
     const localizedDescription =
       (fileTranslations?.description) ||
-      (wantAr ? (product as any).descriptionAr : wantRu ? (product as any).descriptionRu : null) ||
-      (enhancedProduct as any)?.description ||
+      (wantAr ? typedProduct.descriptionAr : wantRu ? typedProduct.descriptionRu : null) ||
+      enhancedProduct.description ||
       ''
     const enhancedProductWithLocale = {
-      ...(enhancedProduct as any),
+      ...enhancedProduct,
       localizedName,
       localizedDescription,
       // Localize rich content fields using the same translation maps as the website.
-      productDetails: fileTranslations?.productDetails || (enhancedProduct as any)?.productDetails,
-      keyFeatures: fileTranslations?.keyFeatures || (enhancedProduct as any)?.keyFeatures,
-      benefits: fileTranslations?.benefits || (enhancedProduct as any)?.benefits,
-      ingredients: fileTranslations?.ingredients || (enhancedProduct as any)?.ingredients,
-      howToUse: fileTranslations?.howToUse || (enhancedProduct as any)?.howToUse,
-      directions: fileTranslations?.directions || (enhancedProduct as any)?.directions,
-      recommendedProductId: getRecommendedProductId((product as any)?.productNumber || (product as any)?.id),
-      note: extractNoteFromProductDetails((product as any)?.productDetails),
+      productDetails: fileTranslations?.productDetails ?? enhancedProduct.productDetails,
+      keyFeatures: fileTranslations?.keyFeatures ?? enhancedProduct.keyFeatures,
+      benefits: fileTranslations?.benefits ?? enhancedProduct.benefits,
+      ingredients: fileTranslations?.ingredients ?? enhancedProduct.ingredients,
+      howToUse: fileTranslations?.howToUse ?? enhancedProduct.howToUse,
+      directions: fileTranslations?.directions ?? enhancedProduct.directions,
+      recommendedProductId: getRecommendedProductId(typedProduct.productNumber || typedProduct.id),
+      note: extractNoteFromProductDetails(typedProduct.productDetails),
     }
     const enhancementDuration = Date.now() - enhancementStartTime
     

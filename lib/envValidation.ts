@@ -10,6 +10,9 @@ interface EnvConfig {
   ADMIN_EMAIL?: string
   ADMIN_PASSWORD?: string
   NODE_ENV: string
+  // Mobile API configuration
+  MOBILE_APP_KEY?: string
+  JWT_SECRET?: string
   // Stripe configuration
   STRIPE_SECRET_KEY?: string
   STRIPE_PUBLISHABLE_KEY?: string
@@ -27,6 +30,9 @@ function validateEnvironment(): EnvConfig {
     PRISMA_DATABASE_URL: process.env.PRISMA_DATABASE_URL,
     ADMIN_EMAIL: process.env.ADMIN_EMAIL,
     ADMIN_PASSWORD: process.env.ADMIN_PASSWORD,
+    // Mobile API configuration
+    MOBILE_APP_KEY: process.env.MOBILE_APP_KEY,
+    JWT_SECRET: process.env.JWT_SECRET,
     // Stripe configuration
     STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
     STRIPE_PUBLISHABLE_KEY: process.env.STRIPE_PUBLISHABLE_KEY,
@@ -78,6 +84,27 @@ function validateEnvironment(): EnvConfig {
       )
     }
     
+    // Warn about missing Mobile API configuration in production
+    if (!optionalVars.MOBILE_APP_KEY) {
+      warnLog(
+        '⚠️  WARNING: MOBILE_APP_KEY not set in production.\n' +
+        'Mobile API will reject all requests until this is configured.'
+      )
+    }
+    
+    // JWT_SECRET is critical in production - handled in lib/jwt.ts with hard fail
+    if (!optionalVars.JWT_SECRET) {
+      warnLog(
+        '⚠️  WARNING: JWT_SECRET not set in production.\n' +
+        'This is CRITICAL for security. Mobile authentication will fail.'
+      )
+    } else if (optionalVars.JWT_SECRET.length < 32) {
+      warnLog(
+        '⚠️  WARNING: JWT_SECRET should be at least 32 characters for security.\n' +
+        'Current length: ' + optionalVars.JWT_SECRET.length
+      )
+    }
+    
     // Warn about missing Stripe configuration in production
     if (!optionalVars.STRIPE_SECRET_KEY || !optionalVars.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY) {
       warnLog(
@@ -104,6 +131,8 @@ export const {
   ADMIN_EMAIL,
   ADMIN_PASSWORD,
   NODE_ENV,
+  MOBILE_APP_KEY,
+  JWT_SECRET,
   STRIPE_SECRET_KEY,
   STRIPE_PUBLISHABLE_KEY,
   STRIPE_WEBHOOK_SECRET,

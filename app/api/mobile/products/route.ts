@@ -1,10 +1,59 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { errorLog, debugLog } from '@/lib/logger'
-import { generateBatchEnhancedProductData } from '@/lib/pricingEngine'
+import { generateBatchEnhancedProductData, EnhancedProductData } from '@/lib/pricingEngine'
 import { ApiUser } from '@/types/user'
 import { getProductTranslations } from '@/data/productTranslations'
 import { getProductTranslationsRu } from '@/data/productTranslationsRu'
+
+/**
+ * Database product type - matches Prisma query select fields
+ * Used for type-safe database operations
+ */
+interface DbProduct {
+  id: string
+  productNumber: string | null
+  name: string
+  nameRu: string | null
+  nameAr: string | null
+  price: number
+  description: string
+  descriptionRu: string | null
+  descriptionAr: string | null
+  image: string
+  images: string | null
+  category: string
+  inStock: boolean
+  rating: number | null
+  size: string | null
+  noDiscount: boolean
+  createdAt: Date
+  updatedAt: Date
+  skinType: string | null
+  targetConcerns: string | null
+  usage: string | null
+  ageGroup: string | null
+  productDetails: string | null
+  keyFeatures: string | null
+  benefits: string | null
+  ingredients: string | null
+  howToUse: string | null
+  directions: string | null
+  variants: {
+    id: string
+    size: string | null
+    color: string | null
+    price: number
+    available: boolean
+    isDefault: boolean
+    stockQuantity: number | null
+  }[]
+}
+
+// Note: LocalizedEnhancedProduct type is inferred from the map function to avoid
+// exactOptionalPropertyTypes issues with undefined values from file translations.
+// The response shape extends EnhancedProductData with: localizedName, localizedDescription,
+// recommendedProductId, note, and localized content fields.
 
 function getRecommendedProductId(currentIdRaw: unknown): string | null {
   const idStr = String(currentIdRaw || '').trim()
@@ -217,6 +266,9 @@ export async function GET(request: NextRequest) {
     
     debugLog(`[MOBILE_API] Product enhancement completed: ${enhancedProductsRaw.length} products in ${enhancementDuration}ms`)
 
+    // Type the products as DbProduct for type-safe access
+    const typedProducts = products as DbProduct[]
+    
     // Attach locale-specific display fields WITHOUT changing the canonical `name` used for business logic.
     const translationById = new Map<string, {
       nameRu: string | null
@@ -224,13 +276,13 @@ export async function GET(request: NextRequest) {
       descriptionRu: string | null
       descriptionAr: string | null
     }>(
-      products.map((p) => [
+      typedProducts.map((p) => [
         p.id,
         {
-          nameRu: (p as any).nameRu || null,
-          nameAr: (p as any).nameAr || null,
-          descriptionRu: (p as any).descriptionRu || null,
-          descriptionAr: (p as any).descriptionAr || null,
+          nameRu: p.nameRu || null,
+          nameAr: p.nameAr || null,
+          descriptionRu: p.descriptionRu || null,
+          descriptionAr: p.descriptionAr || null,
         },
       ])
     )
@@ -239,20 +291,22 @@ export async function GET(request: NextRequest) {
     // - recommendedProductId: for "Perfect Combination" block (backend-driven)
     // - note: dedicated field extracted from productDetails (avoids overloading directions)
     const extrasById = new Map<string, { recommendedProductId: string | null; note: string | null }>(
-      products.map((dbp: any) => {
-        const currentId = String(dbp?.productNumber || dbp?.id || '')
+      typedProducts.map((dbp) => {
+        const currentId = String(dbp.productNumber || dbp.id || '')
         return [
-          String(dbp?.id || ''),
+          String(dbp.id || ''),
           {
             recommendedProductId: getRecommendedProductId(currentId),
-            note: extractNoteFromProductDetails(dbp?.productDetails),
+            note: extractNoteFromProductDetails(dbp.productDetails),
           },
         ]
       })
     )
 
-    const enhancedProducts = enhancedProductsRaw.map((p: any) => {
-      const tr = translationById.get(String(p?.id || '')) || {
+    // Map enhanced products with localization
+    const enhancedProducts = enhancedProductsRaw.map((p) => {
+      const productId = String(p.id || '')
+      const tr = translationById.get(productId) || {
         nameRu: null,
         nameAr: null,
         descriptionRu: null,
@@ -260,7 +314,9 @@ export async function GET(request: NextRequest) {
       }
       const wantAr = locale.startsWith('ar')
       const wantRu = locale.startsWith('ru')
-      const productIdForTranslation = String(p?.productNumber || p?.id || '').trim()
+      // Access productNumber from enhanced data - it's passed through from the original product
+      const productNumber = (p as EnhancedProductData & { productNumber?: string | null }).productNumber
+      const productIdForTranslation = String(productNumber || p.id || '').trim()
       const fileTranslations = wantAr
         ? getProductTranslations(productIdForTranslation)
         : wantRu
@@ -268,25 +324,25 @@ export async function GET(request: NextRequest) {
           : null
       const localizedName =
         (wantAr ? tr.nameAr : wantRu ? tr.nameRu : null) ||
-        p?.name ||
+        p.name ||
         ''
       const localizedDescription =
         (fileTranslations?.description) ||
         (wantAr ? tr.descriptionAr : wantRu ? tr.descriptionRu : null) ||
-        p?.description ||
+        p.description ||
         ''
-      const extras = extrasById.get(String(p?.id || '')) || { recommendedProductId: null, note: null }
+      const extras = extrasById.get(productId) || { recommendedProductId: null, note: null }
       return {
         ...p,
         localizedName,
         localizedDescription,
         // Localize rich content fields using the same translation maps as the website.
-        productDetails: fileTranslations?.productDetails || p?.productDetails,
-        keyFeatures: fileTranslations?.keyFeatures || p?.keyFeatures,
-        benefits: fileTranslations?.benefits || p?.benefits,
-        ingredients: fileTranslations?.ingredients || p?.ingredients,
-        howToUse: fileTranslations?.howToUse || p?.howToUse,
-        directions: fileTranslations?.directions || p?.directions,
+        productDetails: fileTranslations?.productDetails ?? p.productDetails,
+        keyFeatures: fileTranslations?.keyFeatures ?? p.keyFeatures,
+        benefits: fileTranslations?.benefits ?? p.benefits,
+        ingredients: fileTranslations?.ingredients ?? p.ingredients,
+        howToUse: fileTranslations?.howToUse ?? p.howToUse,
+        directions: fileTranslations?.directions ?? p.directions,
         recommendedProductId: extras.recommendedProductId,
         note: extras.note,
       }

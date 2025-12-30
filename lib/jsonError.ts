@@ -15,3 +15,4 @@ export function jsonError(scope: string, error: unknown, status = 500) {
 }
 
 
+

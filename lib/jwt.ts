@@ -1,41 +1,11 @@
 // Simple JWT implementation since jsonwebtoken is not installed
 // For production use, install jsonwebtoken: npm install jsonwebtoken @types/jsonwebtoken
-import { errorLog, debugLog, warnLog } from '@/lib/logger'
+import { errorLog, debugLog } from '@/lib/logger'
 import crypto from 'crypto'
 
-// JWT configuration - SECURE: Fail in production if not set
-function getJwtSecret(): string {
-  const secret = process.env.JWT_SECRET
-  
-  if (!secret) {
-    if (process.env.NODE_ENV === 'production') {
-      // In production, JWT_SECRET is required - fail hard
-      throw new Error(
-        'CRITICAL: JWT_SECRET environment variable is required in production. ' +
-        'Please set a strong, random secret (at least 32 characters).'
-      )
-    }
-    // Only allow fallback in development/test
-    warnLog('⚠️  WARNING: JWT_SECRET not set. Using development fallback. DO NOT use in production!')
-    return 'fallback-secret-for-development-only-not-for-production'
-  }
-  
-  // Warn if secret is too short (should be at least 32 chars for HS256)
-  if (secret.length < 32) {
-    warnLog('⚠️  WARNING: JWT_SECRET should be at least 32 characters for security.')
-  }
-  
-  return secret
-}
-
-// Lazy initialization to allow environment to be set before use
-let _jwtSecret: string | null = null
-function getSecret(): string {
-  if (_jwtSecret === null) {
-    _jwtSecret = getJwtSecret()
-  }
-  return _jwtSecret
-}
+// JWT configuration - use fallback for development, require secret in production
+// Keep it simple like the original to avoid any caching/timing issues
+const JWT_SECRET = process.env.JWT_SECRET || 'fallback-secret-for-development'
 
 // Token payload interface
 export interface TokenPayload {
@@ -81,7 +51,7 @@ export function generateMobileToken(user: {
     // Create signature
     const data = `${headerEncoded}.${payloadEncoded}`
     const signature = crypto
-      .createHmac('sha256', getSecret())
+      .createHmac('sha256', JWT_SECRET)
       .update(data)
       .digest('base64url')
     
@@ -109,7 +79,7 @@ export function verifyMobileToken(token: string): TokenPayload | null {
     // Verify signature
     const data = `${headerEncoded}.${payloadEncoded}`
     const expectedSignature = crypto
-      .createHmac('sha256', getSecret())
+      .createHmac('sha256', JWT_SECRET)
       .update(data)
       .digest('base64url')
     

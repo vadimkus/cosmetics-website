@@ -4,9 +4,9 @@
   "short_name": "Genosys UAE",
   "description": "Discover our premium collection of cosmetics and beauty products from Genosys Middle East FZ-LLC",
   "start_url": "/",
-  "version": "3.0.0",
-  "display": "browser",
-  "display_override": ["browser", "minimal-ui"],
+  "version": "3.1.0",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui", "browser"],
   "background_color": "#ffffff",
   "theme_color": "#1f2937",
   "orientation": "portrait-primary",
@@ -108,7 +108,7 @@
       "url": "https://genosys.ae"
     }
   ],
-  "prefer_related_applications": true,
+  "prefer_related_applications": false,
   "edge_side_panel": {
     "preferred_width": 400
   },

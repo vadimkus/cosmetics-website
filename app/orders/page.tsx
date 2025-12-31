@@ -266,23 +266,39 @@ export default function OrdersPage() {
             ))}
           </div>
         ) : orders.length === 0 ? (
-          // Empty state
-          <div className="flex flex-col items-center justify-center py-16 px-4">
-            <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mb-6">
-              <ShoppingBag className="h-10 w-10 text-gray-400" />
+          // Empty state - styled like favorites page
+          <div className="max-w-md mx-auto text-center py-8 md:py-16 px-4">
+            <div className="bg-gray-50 rounded-2xl p-6 md:p-8">
+              {/* Unicorn illustration */}
+              <div className="mb-4">
+                <Image
+                  src="/images/avatar/uni.png"
+                  alt="No orders"
+                  width={80}
+                  height={80}
+                  className="mx-auto"
+                />
+              </div>
+              
+              <h2 className="text-lg md:text-2xl font-bold text-gray-900 mb-2">
+                {locale === 'ar' ? 'لا توجد طلبات بعد' : locale === 'ru' ? 'Заказов пока нет' : 'No orders yet'}
+              </h2>
+              <p className="text-sm md:text-base text-gray-500 mb-6">
+                {locale === 'ar' 
+                  ? 'عندما تقوم بإجراء طلبات، ستظهر هنا' 
+                  : locale === 'ru' 
+                    ? 'Когда вы сделаете заказы, они появятся здесь' 
+                    : 'When you place orders, they will appear here'}
+              </p>
+              
+              <Link
+                href={getLocalizedPath('/products', locale)}
+                className={`inline-flex items-center justify-center gap-2 bg-red-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-red-700 active:bg-red-800 transition-colors shadow-lg shadow-red-200 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+              >
+                <ShoppingBag className="w-5 h-5" />
+                {locale === 'ar' ? 'تصفح المنتجات' : locale === 'ru' ? 'Смотреть товары' : 'Browse Products'}
+              </Link>
             </div>
-            <h2 className="text-xl font-semibold text-gray-900 mb-2">
-              {t('orders.noOrders') || 'No orders yet'}
-            </h2>
-            <p className="text-gray-500 text-center mb-6 max-w-xs">
-              {t('orders.noOrdersDescription') || 'When you place orders, they will appear here.'}
-            </p>
-            <Link
-              href={getLocalizedPath('/products', locale)}
-              className="bg-red-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-red-700 transition-colors"
-            >
-              {t('navigation.products') || 'Browse Products'}
-            </Link>
           </div>
         ) : (
           // Orders list

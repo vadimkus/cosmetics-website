@@ -13,6 +13,7 @@ import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import BreadcrumbSchema from '@/components/BreadcrumbSchema'
 import { usePWAMode } from '@/hooks/usePWAMode'
+import PWABackHeader from '@/components/PWABackHeader'
 
 // Custom type that includes the items relation
 type OrderWithItems = Order & {
@@ -201,6 +202,12 @@ export default function OrdersPage() {
           { name: t('common.home'), url: getLocalizedPath('/', locale) },
           { name: t('navigation.orders') || 'Orders', url: getLocalizedPath('/orders', locale) }
         ]}
+      />
+      
+      {/* PWA Back Header */}
+      <PWABackHeader 
+        title={t('navigation.orders') || 'My Orders'}
+        icon={<Package className="w-5 h-5 text-red-600" />}
       />
       
       {/* Page Header - Only show on non-PWA (PWA has its own header) */}

@@ -1,8 +1,9 @@
 'use client'
 
 import Link from 'next/link'
-import { ArrowLeft, ChevronDown, ChevronUp } from 'lucide-react'
+import { ArrowLeft, ChevronDown, ChevronUp, HelpCircle } from 'lucide-react'
 import BreadcrumbSchema from '@/components/BreadcrumbSchema'
+import PWABackHeader from '@/components/PWABackHeader'
 import { useState } from 'react'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
@@ -94,6 +95,12 @@ export default function FAQClient() {
           { name: t('common.home'), url: getLocalizedPath('/', locale) },
           { name: t('faq.title'), url: getLocalizedPath('/faq', locale) }
         ]}
+      />
+      
+      {/* PWA Back Header */}
+      <PWABackHeader 
+        title={t('faq.title') || 'FAQ'}
+        icon={<HelpCircle className="w-5 h-5 text-red-600" />}
       />
       
       {/* FAQPage Schema */}

@@ -88,7 +88,7 @@ Everything you need for the perfect shopping experience:
 To celebrate our iOS app launch, we're offering **exclusive deals for app users**:
 
 ### 🎉 **Launch Week Bonuses:**
-1. **15% OFF** your first order through the app (Code: `IOSLAUNCH`)
+1. **15% OFF** your first order through the app (Code: IOSLAUNCH)
 2. **Free shipping** on all orders over 500 AED (usually 1,000 AED)
 3. **Double loyalty points** on all app purchases
 4. **Early access** to new product launches
@@ -358,24 +358,18 @@ We'd love to hear from you! Drop a comment below or reach out:
 };
 
 // Create blog post as a script
-const script = `
-// Blog Post: GENOSYS iOS App Launch Announcement
-// This script creates the blog post announcing the successful launch
-
-const blogPost = ${JSON.stringify(blogPost, null, 2)};
-
-console.log('Blog post created successfully!');
-console.log('Title:', blogPost.title);
-console.log('Slug:', blogPost.slug);
-console.log('Published:', blogPost.published);
-console.log('Featured:', blogPost.featured);
-console.log('Image:', blogPost.image);
-
-// To add this to your blog system, import it into your blog management system
-// or add it to your database/CMS
-
-module.exports = blogPost;
-`;
+const script = '// Blog Post: GENOSYS iOS App Launch Announcement\n' +
+'// This script creates the blog post announcing the successful launch\n\n' +
+'const blogPost = ' + JSON.stringify(blogPost, null, 2) + ';\n\n' +
+'console.log(\'Blog post created successfully!\');\n' +
+'console.log(\'Title:\', blogPost.title);\n' +
+'console.log(\'Slug:\', blogPost.slug);\n' +
+'console.log(\'Published:\', blogPost.published);\n' +
+'console.log(\'Featured:\', blogPost.featured);\n' +
+'console.log(\'Image:\', blogPost.image);\n\n' +
+'// To add this to your blog system, import it into your blog management system\n' +
+'// or add it to your database/CMS\n\n' +
+'module.exports = blogPost;\n';
 
 // Write the script file
 const outputPath = path.join(__dirname, '../data/blog-post-ios-launch.js');

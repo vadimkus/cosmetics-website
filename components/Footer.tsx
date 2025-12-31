@@ -67,15 +67,15 @@ export default function Footer() {
     return path === '/contact' || path === '/ar/contact' || path.startsWith('/contact')
   }, [pathname])
 
-  // Check if we're on cart page - hide footer in PWA mode (we have sticky nav)
-  const isCartPage = useMemo(() => {
+  // Check if we're on cart or checkout page - hide footer in PWA mode (we have sticky nav)
+  const isCartOrCheckoutPage = useMemo(() => {
     if (!pathname) return false
     const path = pathname.toLowerCase()
-    return path.includes('/cart')
+    return path.includes('/cart') || path.includes('/checkout')
   }, [pathname])
 
-  // Hide footer on cart page in PWA mode - sticky footer nav is enough
-  if (isClient && isPWA && isCartPage) {
+  // Hide footer on cart/checkout page in PWA mode - sticky footer nav is enough
+  if (isClient && isPWA && isCartOrCheckoutPage) {
     return null
   }
 

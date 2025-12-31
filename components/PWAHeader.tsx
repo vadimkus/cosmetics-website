@@ -209,183 +209,148 @@ export default function PWAHeader() {
           
           {/* Menu Content - Slide from top */}
           <div 
-            className={`relative bg-white rounded-b-2xl shadow-2xl max-h-[75vh] overflow-y-auto ${isRTL ? 'text-right' : 'text-left'}`}
+            className={`relative bg-white rounded-b-2xl shadow-2xl max-h-[70vh] overflow-y-auto ${isRTL ? 'text-right' : 'text-left'}`}
             dir={dir}
             style={{ 
               animation: 'slideDown 0.2s ease-out',
             }}
           >
-            {/* User Section */}
-            {user && (
-              <div className={`px-5 py-4 bg-gradient-to-r from-red-50 to-red-100 border-b border-red-100 ${isRTL ? 'text-right' : ''}`}>
-                <div className={`flex items-center gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
-                  <div className="w-12 h-12 rounded-full bg-red-600 flex items-center justify-center text-white font-bold text-lg shadow-md">
-                    {userInitial.toUpperCase()}
-                  </div>
-                  <div className="flex-1">
-                    <p className="font-semibold text-gray-900">{user.name || user.email?.split('@')[0]}</p>
-                    <p className="text-xs text-gray-500">{user.email}</p>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* Navigation Links */}
-            <nav className="px-3 py-3">
-              {/* Main Navigation */}
-              <div className="space-y-1">
+            {/* 2-Column Navigation Grid */}
+            <nav className="p-4">
+              <div className="grid grid-cols-2 gap-x-4 gap-y-2">
+                {/* Column 1 */}
                 <Link 
                   href={getLocalizedPath('/products', locale)} 
-                  className={`flex items-center gap-3 px-4 py-3 rounded-xl text-gray-800 hover:bg-gray-100 active:bg-gray-200 transition-colors ${isRTL ? 'flex-row-reverse' : ''}`}
+                  className={`py-2.5 text-gray-800 hover:text-red-600 transition-colors text-sm font-medium ${isRTL ? 'text-right' : ''}`}
                   onClick={() => setShowMobileMenu(false)}
                 >
-                  <span className="text-lg">🛍️</span>
-                  <span className="font-medium">{t('navigation.products')}</span>
+                  {t('navigation.products')}
                 </Link>
                 
                 <Link 
                   href={getLocalizedPath('/orders', locale)} 
-                  className={`flex items-center gap-3 px-4 py-3 rounded-xl text-gray-800 hover:bg-gray-100 active:bg-gray-200 transition-colors ${isRTL ? 'flex-row-reverse' : ''}`}
+                  className={`py-2.5 text-gray-800 hover:text-red-600 transition-colors text-sm font-medium ${isRTL ? 'text-right' : ''}`}
                   onClick={() => setShowMobileMenu(false)}
                 >
-                  <span className="text-lg">📦</span>
-                  <span className="font-medium">{t('navigation.orders') || 'My Orders'}</span>
+                  {t('navigation.orders') || 'Orders'}
                 </Link>
 
                 <Link 
                   href={getLocalizedPath('/favorites', locale)} 
-                  className={`flex items-center gap-3 px-4 py-3 rounded-xl text-gray-800 hover:bg-gray-100 active:bg-gray-200 transition-colors ${isRTL ? 'flex-row-reverse' : ''}`}
+                  className={`py-2.5 text-gray-800 hover:text-red-600 transition-colors text-sm font-medium ${isRTL ? 'text-right' : ''}`}
                   onClick={() => setShowMobileMenu(false)}
                 >
-                  <span className="text-lg">❤️</span>
-                  <span className="font-medium">{t('navigation.favorites') || 'Favorites'}</span>
+                  {t('navigation.favorites') || 'Favorites'}
                   {favoritesCount > 0 && (
-                    <span className="ml-auto bg-red-500 text-white text-xs px-2 py-0.5 rounded-full">{favoritesCount}</span>
+                    <span className={`${isRTL ? 'mr-1' : 'ml-1'} bg-red-500 text-white text-xs px-1.5 py-0.5 rounded-full`}>{favoritesCount}</span>
                   )}
                 </Link>
-              </div>
 
-              {/* Divider */}
-              <div className="h-px bg-gray-200 my-3 mx-2" />
-
-              {/* Secondary Navigation */}
-              <div className="space-y-1">
                 <Link 
-                  href={`${getLocalizedPath('/', locale)}?full=true`} 
-                  className={`flex items-center gap-3 px-4 py-2.5 rounded-xl text-gray-600 hover:bg-gray-100 active:bg-gray-200 transition-colors ${isRTL ? 'flex-row-reverse' : ''}`}
+                  href={getLocalizedPath('/profile', locale)} 
+                  className={`py-2.5 text-gray-800 hover:text-red-600 transition-colors text-sm font-medium ${isRTL ? 'text-right' : ''}`}
                   onClick={() => setShowMobileMenu(false)}
                 >
-                  <span className="text-base">🏠</span>
-                  <span className="text-sm">{t('navigation.home')}</span>
+                  {t('common.profile')}
+                </Link>
+
+                {/* Divider spanning full width */}
+                <div className="col-span-2 h-px bg-gray-200 my-2" />
+
+                <Link 
+                  href={`${getLocalizedPath('/', locale)}?full=true`} 
+                  className={`py-2 text-gray-600 hover:text-red-600 transition-colors text-sm ${isRTL ? 'text-right' : ''}`}
+                  onClick={() => setShowMobileMenu(false)}
+                >
+                  {t('navigation.home')}
                 </Link>
 
                 <Link 
                   href={getLocalizedPath('/about', locale)} 
-                  className={`flex items-center gap-3 px-4 py-2.5 rounded-xl text-gray-600 hover:bg-gray-100 active:bg-gray-200 transition-colors ${isRTL ? 'flex-row-reverse' : ''}`}
+                  className={`py-2 text-gray-600 hover:text-red-600 transition-colors text-sm ${isRTL ? 'text-right' : ''}`}
                   onClick={() => setShowMobileMenu(false)}
                 >
-                  <span className="text-base">ℹ️</span>
-                  <span className="text-sm">{t('navigation.about')}</span>
+                  {t('navigation.about')}
                 </Link>
 
                 <Link 
                   href={getLocalizedPath('/brand', locale)} 
-                  className={`flex items-center gap-3 px-4 py-2.5 rounded-xl text-gray-600 hover:bg-gray-100 active:bg-gray-200 transition-colors ${isRTL ? 'flex-row-reverse' : ''}`}
+                  className={`py-2 text-gray-600 hover:text-red-600 transition-colors text-sm ${isRTL ? 'text-right' : ''}`}
                   onClick={() => setShowMobileMenu(false)}
                 >
-                  <span className="text-base">✨</span>
-                  <span className="text-sm">{t('navigation.brand')}</span>
+                  {t('navigation.brand')}
                 </Link>
 
                 <Link 
                   href={getLocalizedPath('/delivery', locale)} 
-                  className={`flex items-center gap-3 px-4 py-2.5 rounded-xl text-gray-600 hover:bg-gray-100 active:bg-gray-200 transition-colors ${isRTL ? 'flex-row-reverse' : ''}`}
+                  className={`py-2 text-gray-600 hover:text-red-600 transition-colors text-sm ${isRTL ? 'text-right' : ''}`}
                   onClick={() => setShowMobileMenu(false)}
                 >
-                  <span className="text-base">🚚</span>
-                  <span className="text-sm">{t('navigation.delivery')}</span>
+                  {t('navigation.delivery')}
                 </Link>
 
                 <Link 
                   href={getLocalizedPath('/contact', locale)} 
-                  className={`flex items-center gap-3 px-4 py-2.5 rounded-xl text-gray-600 hover:bg-gray-100 active:bg-gray-200 transition-colors ${isRTL ? 'flex-row-reverse' : ''}`}
+                  className={`py-2 text-gray-600 hover:text-red-600 transition-colors text-sm ${isRTL ? 'text-right' : ''}`}
                   onClick={() => setShowMobileMenu(false)}
                 >
-                  <span className="text-base">📞</span>
-                  <span className="text-sm">{t('navigation.contact')}</span>
+                  {t('navigation.contact')}
                 </Link>
 
                 <Link 
                   href={getLocalizedPath('/faq', locale)} 
-                  className={`flex items-center gap-3 px-4 py-2.5 rounded-xl text-gray-600 hover:bg-gray-100 active:bg-gray-200 transition-colors ${isRTL ? 'flex-row-reverse' : ''}`}
+                  className={`py-2 text-gray-600 hover:text-red-600 transition-colors text-sm ${isRTL ? 'text-right' : ''}`}
                   onClick={() => setShowMobileMenu(false)}
                 >
-                  <span className="text-base">❓</span>
-                  <span className="text-sm">{t('navigation.faq')}</span>
+                  {t('navigation.faq')}
                 </Link>
 
                 <Link 
                   href={getLocalizedPath('/locations', locale)} 
-                  className={`flex items-center gap-3 px-4 py-2.5 rounded-xl text-gray-600 hover:bg-gray-100 active:bg-gray-200 transition-colors ${isRTL ? 'flex-row-reverse' : ''}`}
+                  className={`py-2 text-gray-600 hover:text-red-600 transition-colors text-sm ${isRTL ? 'text-right' : ''}`}
                   onClick={() => setShowMobileMenu(false)}
                 >
-                  <span className="text-base">📍</span>
-                  <span className="text-sm">{t('navigation.locations')}</span>
+                  {t('common.locations')}
                 </Link>
 
                 {user && (
                   <Link 
                     href={getLocalizedPath('/training', locale)} 
-                    className={`flex items-center gap-3 px-4 py-2.5 rounded-xl text-gray-600 hover:bg-gray-100 active:bg-gray-200 transition-colors ${isRTL ? 'flex-row-reverse' : ''}`}
+                    className={`py-2 text-gray-600 hover:text-red-600 transition-colors text-sm ${isRTL ? 'text-right' : ''}`}
                     onClick={() => setShowMobileMenu(false)}
                   >
-                    <span className="text-base">🎓</span>
-                    <span className="text-sm">{t('navigation.training')}</span>
+                    {t('navigation.training')}
                   </Link>
                 )}
-              </div>
 
-              {/* Divider */}
-              <div className="h-px bg-gray-200 my-3 mx-2" />
+                {/* Divider spanning full width */}
+                <div className="col-span-2 h-px bg-gray-200 my-2" />
 
-              {/* Account Actions */}
-              <div className="space-y-1">
+                {/* Account Actions */}
                 {user ? (
-                  <>
-                    <Link 
-                      href={getLocalizedPath('/profile', locale)} 
-                      className={`flex items-center gap-3 px-4 py-2.5 rounded-xl text-gray-600 hover:bg-gray-100 active:bg-gray-200 transition-colors ${isRTL ? 'flex-row-reverse' : ''}`}
-                      onClick={() => setShowMobileMenu(false)}
-                    >
-                      <span className="text-base">👤</span>
-                      <span className="text-sm">{t('common.profile')}</span>
-                    </Link>
-                    <button
-                      onClick={() => {
-                        logout()
-                        setShowMobileMenu(false)
-                      }}
-                      className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-red-600 hover:bg-red-50 active:bg-red-100 transition-colors ${isRTL ? 'flex-row-reverse text-right' : 'text-left'}`}
-                    >
-                      <span className="text-base">🚪</span>
-                      <span className="text-sm font-medium">{t('common.logout')}</span>
-                    </button>
-                  </>
+                  <button
+                    onClick={() => {
+                      logout()
+                      setShowMobileMenu(false)
+                    }}
+                    className={`col-span-2 py-2.5 text-red-600 hover:text-red-700 transition-colors text-sm font-medium ${isRTL ? 'text-right' : 'text-left'}`}
+                  >
+                    {t('common.logout')}
+                  </button>
                 ) : (
                   <Link 
                     href={getLocalizedPath('/login', locale)} 
-                    className={`flex items-center gap-3 px-4 py-3 rounded-xl bg-red-600 text-white hover:bg-red-700 active:bg-red-800 transition-colors ${isRTL ? 'flex-row-reverse' : ''}`}
+                    className={`col-span-2 py-2.5 text-red-600 hover:text-red-700 transition-colors text-sm font-medium ${isRTL ? 'text-right' : ''}`}
                     onClick={() => setShowMobileMenu(false)}
                   >
-                    <span className="text-base">🔐</span>
-                    <span className="font-medium">{t('common.login')}</span>
+                    {t('common.login')}
                   </Link>
                 )}
               </div>
             </nav>
 
             {/* Bottom Safe Area */}
-            <div className="h-4" />
+            <div className="h-2" />
           </div>
         </div>
       )}

@@ -4,7 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { ArrowLeft, Package, X, Clock, CheckCircle, Truck, XCircle, RefreshCw, ShoppingBag, ChevronDown } from 'lucide-react'
 import { useAuth } from '@/components/AuthProvider'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Order, OrderItem } from '@prisma/client'
 import { fetchCsrfToken, getCsrfHeaders, addCsrfToBody } from '@/lib/csrfClient'
@@ -95,6 +95,9 @@ export default function OrdersPage() {
   const [orderToCancel, setOrderToCancel] = useState<string | null>(null)
   const [refreshing, setRefreshing] = useState(false)
   const [expandedOrders, setExpandedOrders] = useState<Set<string>>(new Set())
+  const [showWhatsAppHelp, setShowWhatsAppHelp] = useState<string | null>(null)
+  const longPressTimerRef = useRef<NodeJS.Timeout | null>(null)
+  const isLongPressRef = useRef(false)
 
   const isRTL = dir === 'rtl'
   const fromProfile = searchParams?.get('from') === 'profile'
@@ -183,6 +186,40 @@ export default function OrdersPage() {
   const formatCurrency = (amount: number) => {
     return `${amount.toFixed(2)} AED`
   }
+
+  // WhatsApp long-press handlers
+  const handleWhatsAppPressStart = useCallback((orderNumber: string) => {
+    isLongPressRef.current = false
+    longPressTimerRef.current = setTimeout(() => {
+      isLongPressRef.current = true
+      // Open WhatsApp with order number in message
+      const message = locale === 'ar' 
+        ? `مرحباً، لدي استفسار حول الطلب رقم ${orderNumber}`
+        : locale === 'ru'
+          ? `Здравствуйте, у меня вопрос по заказу ${orderNumber}`
+          : `Hi, I have a question about order ${orderNumber}`
+      const whatsappUrl = `https://wa.me/971585487665?text=${encodeURIComponent(message)}`
+      window.open(whatsappUrl, '_blank')
+    }, 500) // 500ms for long press
+  }, [locale])
+
+  const handleWhatsAppPressEnd = useCallback((orderNumber: string) => {
+    if (longPressTimerRef.current) {
+      clearTimeout(longPressTimerRef.current)
+      longPressTimerRef.current = null
+    }
+    // If it wasn't a long press, show the help popup
+    if (!isLongPressRef.current) {
+      setShowWhatsAppHelp(orderNumber)
+    }
+  }, [])
+
+  const handleWhatsAppPressCancel = useCallback(() => {
+    if (longPressTimerRef.current) {
+      clearTimeout(longPressTimerRef.current)
+      longPressTimerRef.current = null
+    }
+  }, [])
 
   // Loading state - wait for auth to finish loading before showing content
   if (!isClient || authLoading || !user) {
@@ -363,7 +400,30 @@ export default function OrdersPage() {
                         {formatDate(order.createdAt)}
                       </p>
                     </div>
-                    <StatusBadge status={order.status} locale={locale} />
+                    <div className={`flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
+                      <StatusBadge status={order.status} locale={locale} />
+                      {/* WhatsApp Support Icon */}
+                      {isPWA && (
+                        <button
+                          onTouchStart={() => handleWhatsAppPressStart(order.orderNumber)}
+                          onTouchEnd={() => handleWhatsAppPressEnd(order.orderNumber)}
+                          onTouchCancel={handleWhatsAppPressCancel}
+                          onMouseDown={() => handleWhatsAppPressStart(order.orderNumber)}
+                          onMouseUp={() => handleWhatsAppPressEnd(order.orderNumber)}
+                          onMouseLeave={handleWhatsAppPressCancel}
+                          className="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center active:bg-green-600 transition-colors touch-manipulation"
+                          aria-label="Contact support about this order"
+                        >
+                          <svg 
+                            className="w-4 h-4 text-white" 
+                            fill="currentColor" 
+                            viewBox="0 0 24 24"
+                          >
+                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                          </svg>
+                        </button>
+                      )}
+                    </div>
                   </div>
                 </div>
 
@@ -612,6 +672,69 @@ export default function OrdersPage() {
               >
                 {t('common.yes') || 'Yes, Cancel'}
               </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* WhatsApp Help Popup */}
+      {showWhatsAppHelp && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-sm w-full p-6">
+            <div className="flex flex-col items-center text-center">
+              {/* WhatsApp Icon */}
+              <div className="w-16 h-16 rounded-full bg-green-500 flex items-center justify-center mb-4">
+                <svg 
+                  className="w-8 h-8 text-white" 
+                  fill="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                </svg>
+              </div>
+
+              {/* Title */}
+              <h3 className={`text-lg font-bold text-gray-900 mb-2 ${isRTL ? 'text-right' : ''}`}>
+                {locale === 'ar' ? 'دعم واتساب' : locale === 'ru' ? 'Поддержка WhatsApp' : 'WhatsApp Support'}
+              </h3>
+
+              {/* Message */}
+              <p className={`text-gray-600 mb-2 ${isRTL ? 'text-right' : ''}`}>
+                {locale === 'ar' 
+                  ? 'اضغط مطولاً للتواصل مع الدعم حول هذا الطلب'
+                  : locale === 'ru'
+                    ? 'Удерживайте для связи с поддержкой по этому заказу'
+                    : 'Long press to chat with support about this order'}
+              </p>
+
+              {/* Order number */}
+              <p className="text-sm text-gray-500 mb-5">
+                {locale === 'ar' ? 'رقم الطلب:' : locale === 'ru' ? 'Номер заказа:' : 'Order:'} <span className="font-semibold text-gray-900">{showWhatsAppHelp}</span>
+              </p>
+
+              {/* Buttons */}
+              <div className="flex gap-3 w-full">
+                <button
+                  onClick={() => setShowWhatsAppHelp(null)}
+                  className="flex-1 bg-gray-100 text-gray-700 py-3 px-4 rounded-xl font-medium hover:bg-gray-200 transition-colors"
+                >
+                  {locale === 'ar' ? 'فهمت' : locale === 'ru' ? 'Понятно' : 'Got it'}
+                </button>
+                <button
+                  onClick={() => {
+                    const message = locale === 'ar' 
+                      ? `مرحباً، لدي استفسار حول الطلب رقم ${showWhatsAppHelp}`
+                      : locale === 'ru'
+                        ? `Здравствуйте, у меня вопрос по заказу ${showWhatsAppHelp}`
+                        : `Hi, I have a question about order ${showWhatsAppHelp}`
+                    window.open(`https://wa.me/971585487665?text=${encodeURIComponent(message)}`, '_blank')
+                    setShowWhatsAppHelp(null)
+                  }}
+                  className="flex-1 bg-green-500 text-white py-3 px-4 rounded-xl font-medium hover:bg-green-600 transition-colors"
+                >
+                  {locale === 'ar' ? 'افتح واتساب' : locale === 'ru' ? 'Открыть WhatsApp' : 'Open WhatsApp'}
+                </button>
+              </div>
             </div>
           </div>
         </div>

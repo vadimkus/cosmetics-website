@@ -206,12 +206,16 @@ export default function PWAProfilePage() {
         <span className="text-base font-semibold text-gray-900">
           {t('pwaProfile.account')}
         </span>
-        {/* Profile Icon */}
+        {/* Profile Icon with green dot */}
         <div className="min-w-[80px] flex justify-end">
-          <div className="w-8 h-8 rounded-full bg-red-600 flex items-center justify-center">
-            <span className="text-sm font-semibold text-white">
-              {userInitial.toUpperCase()}
-            </span>
+          <div className="relative">
+            <div className="w-8 h-8 rounded-full bg-red-600 flex items-center justify-center">
+              <span className="text-sm font-semibold text-white">
+                {userInitial.toUpperCase()}
+              </span>
+            </div>
+            {/* Green online dot */}
+            <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 rounded-full border-2 border-white" />
           </div>
         </div>
       </div>

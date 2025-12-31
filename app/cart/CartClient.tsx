@@ -196,38 +196,46 @@ export default function CartClient() {
             <span className="text-base font-semibold text-gray-900">
               {t('pwaProfile.bag') || 'Bag'}
             </span>
-            {/* Profile Icon */}
+            {/* Profile Icon with green dot */}
             <button 
               onClick={() => router.push(getLocalizedPath('/profile', locale))}
               className="min-w-[80px] flex justify-end"
             >
-              <div className="w-8 h-8 rounded-full bg-red-600 flex items-center justify-center">
-                <span className="text-sm font-semibold text-white">
-                  {user?.name?.charAt(0)?.toUpperCase() || 'U'}
-                </span>
+              <div className="relative">
+                <div className="w-8 h-8 rounded-full bg-red-600 flex items-center justify-center">
+                  <span className="text-sm font-semibold text-white">
+                    {user?.name?.charAt(0)?.toUpperCase() || 'U'}
+                  </span>
+                </div>
+                {/* Green online dot */}
+                <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 rounded-full border-2 border-white" />
               </div>
             </button>
           </div>
         )}
         
         <div className="container mx-auto px-4 py-4 md:py-8 lg:py-16" dir={dir}>
-          {/* Navigation Breadcrumb */}
-          <nav className={`text-xs md:text-base text-gray-600 mb-2 md:mb-4 ${dir === 'rtl' ? 'text-right' : ''}`} aria-label="Breadcrumb">
-            <Link href={getLocalizedPath('/', locale)} className="hover:text-primary-600 transition-colors">{t('common.home')}</Link>
-            <span> / </span>
-            <Link href={getLocalizedPath('/products', locale)} className="hover:text-primary-600 transition-colors">{t('common.products')}</Link>
-            <span> / </span>
-            <span className="text-gray-900 font-medium">{t('common.cart')}</span>
-        </nav>
+          {/* Navigation Breadcrumb - Hide in PWA mode */}
+          {!isPWA && (
+            <nav className={`text-xs md:text-base text-gray-600 mb-2 md:mb-4 ${dir === 'rtl' ? 'text-right' : ''}`} aria-label="Breadcrumb">
+              <Link href={getLocalizedPath('/', locale)} className="hover:text-primary-600 transition-colors">{t('common.home')}</Link>
+              <span> / </span>
+              <Link href={getLocalizedPath('/products', locale)} className="hover:text-primary-600 transition-colors">{t('common.products')}</Link>
+              <span> / </span>
+              <span className="text-gray-900 font-medium">{t('common.cart')}</span>
+            </nav>
+          )}
 
-        {/* Back to Products */}
-        <Link 
-          href={getLocalizedPath('/products', locale)} 
-          className={`inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 mb-4 md:mb-8 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
-        >
-          <ArrowLeft className={`h-3 w-3 md:h-4 md:w-4 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
-          <span>{t('cart.backToProducts') || 'Back to Products'}</span>
-        </Link>
+          {/* Back to Products - Hide in PWA mode */}
+          {!isPWA && (
+            <Link 
+              href={getLocalizedPath('/products', locale)} 
+              className={`inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 mb-4 md:mb-8 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+            >
+              <ArrowLeft className={`h-3 w-3 md:h-4 md:w-4 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
+              <span>{t('cart.backToProducts') || 'Back to Products'}</span>
+            </Link>
+          )}
 
         <div className={`max-w-4xl mx-auto text-center py-8 md:py-16 ${dir === 'rtl' ? 'text-right' : ''}`}>
           <div className="flex flex-col items-center">
@@ -340,15 +348,19 @@ export default function CartClient() {
           <span className="text-base font-semibold text-gray-900">
             {t('pwaProfile.bag') || 'Bag'}
           </span>
-          {/* Profile Icon */}
+          {/* Profile Icon with green dot */}
           <button 
             onClick={() => router.push(getLocalizedPath('/profile', locale))}
             className="min-w-[80px] flex justify-end"
           >
-            <div className="w-8 h-8 rounded-full bg-red-600 flex items-center justify-center">
-              <span className="text-sm font-semibold text-white">
-                {user?.name?.charAt(0)?.toUpperCase() || 'U'}
-              </span>
+            <div className="relative">
+              <div className="w-8 h-8 rounded-full bg-red-600 flex items-center justify-center">
+                <span className="text-sm font-semibold text-white">
+                  {user?.name?.charAt(0)?.toUpperCase() || 'U'}
+                </span>
+              </div>
+              {/* Green online dot */}
+              <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 rounded-full border-2 border-white" />
             </div>
           </button>
         </div>

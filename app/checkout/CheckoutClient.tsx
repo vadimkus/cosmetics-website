@@ -905,10 +905,10 @@ export default function CheckoutClient() {
                             </div>
                             <div className="flex-1">
                               <div className="font-semibold text-gray-900 text-sm">
-                                {t('checkout.stripeCheckout') || 'Pay Online'}
+                                {locale === 'ar' ? 'الدفع الإلكتروني' : locale === 'ru' ? 'Онлайн оплата' : 'Online Payment'}
                               </div>
                               <div className="text-xs text-gray-500 mt-0.5">
-                                Apple Pay, Visa, Mastercard, Amex
+                                Apple Pay, Visa, Mastercard
                               </div>
                             </div>
                             <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
@@ -978,7 +978,7 @@ export default function CheckoutClient() {
                     {/* Security Note */}
                     <div className={`flex items-center gap-2 text-xs text-gray-500 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                       <Lock className="w-3.5 h-3.5 flex-shrink-0" />
-                      <span>{t('checkout.securePayment') || 'Your payment information is secure and encrypted'}</span>
+                      <span>{locale === 'ar' ? 'معلومات الدفع الخاصة بك آمنة ومشفرة' : locale === 'ru' ? 'Ваши платежные данные защищены и зашифрованы' : 'Your payment information is secure and encrypted'}</span>
                     </div>
                   </div>
                 ) : (

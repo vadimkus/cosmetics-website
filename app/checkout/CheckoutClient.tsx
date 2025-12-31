@@ -902,20 +902,20 @@ export default function CheckoutClient() {
                     </h2>
                     
                     {/* Payment Toggle Buttons - 3 Horizontal Buttons */}
-                    <div className="bg-gray-100 p-1 rounded-xl">
-                      <div className={`flex gap-1 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                    <div className="bg-gray-100 p-1.5 rounded-2xl">
+                      <div className={`flex gap-1.5 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                         {/* Cash on Delivery */}
                         <button
                           type="button"
                           onClick={() => setSelectedPaymentMethod('cod')}
-                          className={`flex-1 py-3 px-2 rounded-lg font-medium text-xs transition-all touch-manipulation ${
+                          className={`flex-1 py-3.5 px-2 rounded-xl font-semibold text-xs transition-all touch-manipulation ${
                             selectedPaymentMethod === 'cod'
-                              ? 'bg-white text-gray-900 shadow-md'
-                              : 'text-gray-500 hover:text-gray-700'
+                              ? 'bg-red-600 text-white shadow-lg'
+                              : 'bg-white text-gray-600 hover:bg-gray-50'
                           }`}
                         >
-                          <div className="flex flex-col items-center gap-1">
-                            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <div className="flex flex-col items-center gap-1.5">
+                            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
                             </svg>
                             <span>{locale === 'ar' ? 'عند الاستلام' : locale === 'ru' ? 'Наличные' : 'Cash'}</span>
@@ -927,14 +927,14 @@ export default function CheckoutClient() {
                         <button
                           type="button"
                           onClick={() => setSelectedPaymentMethod('stripe')}
-                          className={`flex-1 py-3 px-2 rounded-lg font-medium text-xs transition-all touch-manipulation ${
+                          className={`flex-1 py-3.5 px-2 rounded-xl font-semibold text-xs transition-all touch-manipulation ${
                             selectedPaymentMethod === 'stripe'
-                              ? 'bg-white text-gray-900 shadow-md'
-                              : 'text-gray-500 hover:text-gray-700'
+                              ? 'bg-red-600 text-white shadow-lg'
+                              : 'bg-white text-gray-600 hover:bg-gray-50'
                           }`}
                         >
-                          <div className="flex flex-col items-center gap-1">
-                            <CreditCard className="w-5 h-5" />
+                          <div className="flex flex-col items-center gap-1.5">
+                            <CreditCard className="w-6 h-6" />
                             <span>{locale === 'ar' ? 'أونلاين' : locale === 'ru' ? 'Онлайн' : 'Online'}</span>
                           </div>
                         </button>
@@ -943,14 +943,14 @@ export default function CheckoutClient() {
                         <button
                           type="button"
                           onClick={() => setSelectedPaymentMethod('support-link')}
-                          className={`flex-1 py-3 px-2 rounded-lg font-medium text-xs transition-all touch-manipulation ${
+                          className={`flex-1 py-3.5 px-2 rounded-xl font-semibold text-xs transition-all touch-manipulation ${
                             selectedPaymentMethod === 'support-link'
-                              ? 'bg-white text-gray-900 shadow-md'
-                              : 'text-gray-500 hover:text-gray-700'
+                              ? 'bg-red-600 text-white shadow-lg'
+                              : 'bg-white text-gray-600 hover:bg-gray-50'
                           }`}
                         >
-                          <div className="flex flex-col items-center gap-1">
-                            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <div className="flex flex-col items-center gap-1.5">
+                            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
                             </svg>
                             <span>{locale === 'ar' ? 'رابط دفع' : locale === 'ru' ? 'Ссылка' : 'Link'}</span>

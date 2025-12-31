@@ -703,6 +703,24 @@ export default function CheckoutClient() {
       </div>
 
       <div className="max-w-6xl mx-auto">
+        {/* Order Number - PWA Only (Above Form) */}
+        {isPWAClient && isPWA && (
+          <button
+            type="button"
+            onClick={() => setOrderSummaryExpanded(!orderSummaryExpanded)}
+            className="w-full mb-3 bg-gradient-to-r from-primary-600 to-primary-700 px-4 py-3 rounded-xl cursor-pointer shadow-md"
+          >
+            <div className={`flex justify-between items-center ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+              <div className="text-sm font-mono font-bold text-white">
+                {t('checkout.orderNumber') || 'Order #'} {orderNumber}
+              </div>
+              <ChevronDown 
+                className={`w-5 h-5 text-white transition-transform duration-200 ${orderSummaryExpanded ? 'rotate-180' : ''}`} 
+              />
+            </div>
+          </button>
+        )}
+
         <div className={`flex flex-col lg:flex-row gap-4 md:gap-8 ${dir === 'rtl' ? 'lg:flex-row-reverse' : ''}`}>
           {/* Checkout Form */}
           <div className="lg:w-2/3">
@@ -988,22 +1006,43 @@ export default function CheckoutClient() {
 
                 {/* PWA Delivery Info - Below Complete Order button */}
                 {isPWAClient && isPWA && (
-                  <div className="mt-4 p-3 bg-green-50 border border-green-200 rounded-xl">
-                    <div className={`flex items-center gap-2 text-green-800 mb-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                      <Truck className="h-5 w-5" />
-                      <span className="font-semibold text-sm">{t('checkout.deliveryInformation') || 'Delivery Information'}</span>
+                  <>
+                    <div className="mt-4 p-3 bg-green-50 border border-green-200 rounded-xl">
+                      <div className={`flex items-center gap-2 text-green-800 mb-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                        <Truck className="h-5 w-5" />
+                        <span className="font-semibold text-sm">{t('checkout.deliveryInformation') || 'Delivery Information'}</span>
+                      </div>
+                      <p className={`text-xs text-green-700 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                        {selectedEmirate === 'Dubai' 
+                          ? (t('checkout.deliveryTimeDubai') || 'Delivery within 24-48 hours in Dubai')
+                          : `${t('checkout.deliveryTimeOther') || 'Delivery within 2-3 business days to'} ${selectedEmirate ? getEmirateDisplayName(selectedEmirate) : ''} ${t('checkout.byQuiqup') || 'via Quiqup'}.`}
+                        {selectedEmirate !== 'Dubai' && (
+                          <span className="block mt-1.5">
+                            {t('checkout.trackingNumberWillBeShared') || 'Tracking number will be shared via WhatsApp/Email.'}
+                          </span>
+                        )}
+                      </p>
                     </div>
-                    <p className={`text-xs text-green-700 ${dir === 'rtl' ? 'text-right' : ''}`}>
-                      {selectedEmirate === 'Dubai' 
-                        ? (t('checkout.deliveryTimeDubai') || 'Delivery within 24-48 hours in Dubai')
-                        : `${t('checkout.deliveryTimeOther') || 'Delivery within 2-3 business days to'} ${selectedEmirate ? getEmirateDisplayName(selectedEmirate) : ''} ${t('checkout.byQuiqup') || 'via Quiqup'}.`}
-                      {selectedEmirate !== 'Dubai' && (
-                        <span className="block mt-1.5">
-                          {t('checkout.trackingNumberWillBeShared') || 'Tracking number will be shared via WhatsApp/Email.'}
-                        </span>
-                      )}
-                    </p>
-                  </div>
+
+                    {/* PWA Need Help - Below Delivery Info */}
+                    <div className="mt-3 p-3 bg-blue-50 border border-blue-200 rounded-xl">
+                      <div className={`flex items-center gap-2 text-blue-800 mb-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                        <MessageCircle className="h-5 w-5" />
+                        <span className="font-semibold text-sm">{t('checkout.needHelp') || 'Need Help?'}</span>
+                      </div>
+                      <p className={`text-xs text-blue-700 mb-3 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                        {t('checkout.haveQuestions') || 'Have questions about your order?'}
+                      </p>
+                      <button
+                        type="button"
+                        onClick={contactWhatsApp}
+                        className={`w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-green-600 text-white rounded-lg hover:bg-green-700 active:bg-green-800 transition-colors font-medium text-sm ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+                      >
+                        <MessageCircle className="h-4 w-4" />
+                        {t('checkout.contactSupportViaWhatsApp') || 'Contact via WhatsApp'}
+                      </button>
+                    </div>
+                  </>
                 )}
               </form>
             </div>
@@ -1012,23 +1051,8 @@ export default function CheckoutClient() {
           {/* Order Summary */}
           <div className="lg:w-1/3">
             <div className="bg-white rounded-lg md:rounded-xl shadow-md md:shadow-lg border border-gray-100 sticky top-4 order-summary-container" style={{ overflow: 'hidden', overflowY: 'hidden', overflowX: 'hidden' }}>
-              {/* Header - Collapsible in PWA */}
-              {isPWAClient && isPWA ? (
-                <button
-                  type="button"
-                  onClick={() => setOrderSummaryExpanded(!orderSummaryExpanded)}
-                  className="w-full bg-gradient-to-r from-primary-600 to-primary-700 px-3 py-3 cursor-pointer"
-                >
-                  <div className={`flex justify-between items-center ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                    <div className="text-sm font-mono font-bold text-white">
-                      {t('checkout.orderNumber') || 'Order #'} {orderNumber}
-                    </div>
-                    <ChevronDown 
-                      className={`w-5 h-5 text-white transition-transform duration-200 ${orderSummaryExpanded ? 'rotate-180' : ''}`} 
-                    />
-                  </div>
-                </button>
-              ) : (
+              {/* Header - Hidden in PWA (moved to top of page), shown on desktop */}
+              {!(isPWAClient && isPWA) && (
                 <div className="bg-gradient-to-r from-primary-600 to-primary-700 px-3 md:px-6 py-3 md:py-4">
                   <div className={`flex justify-between items-center ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                     <div className={dir === 'rtl' ? 'text-left' : 'text-right'}>
@@ -1174,23 +1198,25 @@ export default function CheckoutClient() {
                   </div>
                 )}
 
-                {/* WhatsApp Support */}
-                <div className="p-2.5 md:p-4 bg-blue-50 border border-blue-200 rounded-lg mb-3 md:mb-4">
-                  <div className={`flex items-center gap-1.5 md:gap-2 text-blue-800 mb-1.5 md:mb-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                    <MessageCircle className="h-4 w-4 md:h-5 md:w-5" />
-                    <span className="font-semibold text-xs md:text-base">{t('checkout.needHelp')}</span>
+                {/* WhatsApp Support - Hidden in PWA (shown below Delivery Info instead) */}
+                {!(isPWAClient && isPWA) && (
+                  <div className="p-2.5 md:p-4 bg-blue-50 border border-blue-200 rounded-lg mb-3 md:mb-4">
+                    <div className={`flex items-center gap-1.5 md:gap-2 text-blue-800 mb-1.5 md:mb-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                      <MessageCircle className="h-4 w-4 md:h-5 md:w-5" />
+                      <span className="font-semibold text-xs md:text-base">{t('checkout.needHelp')}</span>
+                    </div>
+                    <p className={`text-[10px] md:text-sm text-blue-700 mb-2 md:mb-3 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                      {t('checkout.haveQuestions')}
+                    </p>
+                    <button
+                      onClick={contactWhatsApp}
+                      className={`w-full flex items-center justify-center gap-1.5 md:gap-2 px-3 md:px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium text-xs md:text-sm ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+                    >
+                      <MessageCircle className="h-3.5 w-3.5 md:h-4 md:w-4" />
+                      {t('checkout.contactSupportViaWhatsApp')}
+                    </button>
                   </div>
-                  <p className={`text-[10px] md:text-sm text-blue-700 mb-2 md:mb-3 ${dir === 'rtl' ? 'text-right' : ''}`}>
-                    {t('checkout.haveQuestions')}
-                  </p>
-                  <button
-                    onClick={contactWhatsApp}
-                    className={`w-full flex items-center justify-center gap-1.5 md:gap-2 px-3 md:px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium text-xs md:text-sm ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
-                  >
-                    <MessageCircle className="h-3.5 w-3.5 md:h-4 md:w-4" />
-                    {t('checkout.contactSupportViaWhatsApp')}
-                  </button>
-                </div>
+                )}
 
                 {/* Generate Invoice */}
                 <div className="p-2.5 md:p-4 bg-white border border-red-200 rounded-lg">

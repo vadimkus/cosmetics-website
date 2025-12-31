@@ -6,12 +6,14 @@ import { usePathname } from 'next/navigation'
 import { getLocalizedPath, getLocaleFromPath } from '@/lib/i18n'
 import { useMemo } from 'react'
 import { warnLog } from '@/lib/logger'
+import { usePWAMode } from '@/hooks/usePWAMode'
 import enMessages from '@/messages/en.json'
 import arMessages from '@/messages/ar.json'
 import ruMessages from '@/messages/ru.json'
 
 export default function Footer() {
   const pathname = usePathname()
+  const { isPWA, isClient } = usePWAMode()
   
   // Get locale from pathname - handle null consistently
   // During SSR, pathname might be null, so we default to '/' which gives 'en'
@@ -64,6 +66,18 @@ export default function Footer() {
     const path = pathname.toLowerCase()
     return path === '/contact' || path === '/ar/contact' || path.startsWith('/contact')
   }, [pathname])
+
+  // Check if we're on cart page - hide footer in PWA mode (we have sticky nav)
+  const isCartPage = useMemo(() => {
+    if (!pathname) return false
+    const path = pathname.toLowerCase()
+    return path.includes('/cart')
+  }, [pathname])
+
+  // Hide footer on cart page in PWA mode - sticky footer nav is enough
+  if (isClient && isPWA && isCartPage) {
+    return null
+  }
 
   return (
     <footer role="contentinfo" className={`bg-white border-t border-gray-200 ${isContactPage ? 'pt-0 pb-4 md:pb-8' : 'py-4 md:py-8'}`} suppressHydrationWarning>

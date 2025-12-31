@@ -347,7 +347,7 @@ export default function ProductsPageClient() {
         )}
 
         {/* Header - Hide mobile text in PWA mode */}
-        <div className="text-center mb-4 md:mb-8">
+        <div className={`text-center ${isPWA && isMobile ? 'mb-2' : 'mb-4 md:mb-8'}`}>
           {isMobile && !isPWA ? (
             <div className="mb-1">
               <h1 className="text-xl font-bold text-primary-600">Genosys Middle East FZ-LLC</h1>
@@ -378,10 +378,12 @@ export default function ProductsPageClient() {
               />
             </div>
           ) : null}
-          {/* Black Friday Mini Counter */}
-          <div className="flex justify-center mb-2">
-            <BlackFridayMini />
-          </div>
+          {/* Black Friday Mini Counter - hide in PWA mobile for closer search */}
+          {!(isPWA && isMobile) && (
+            <div className="flex justify-center mb-2">
+              <BlackFridayMini />
+            </div>
+          )}
           <p className="hidden md:block text-lg text-gray-600 max-w-2xl mx-auto">
             {t('products.subtitle')}
           </p>

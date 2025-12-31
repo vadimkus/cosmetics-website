@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { ArrowLeft, ChevronDown, ChevronUp } from 'lucide-react'
 import BreadcrumbSchema from '@/components/BreadcrumbSchema'
-import PWABackHeader from '@/components/PWABackHeader'
+import PWAPageWrapper from '@/components/PWAPageWrapper'
 import { useState } from 'react'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
@@ -93,17 +93,16 @@ export default function FAQClient() {
   const showPWAMode = isClient && isPWA
   
   return (
-    <div className={`bg-gradient-to-b from-gray-50 to-white min-h-screen ${showPWAMode ? 'pb-32' : ''}`} dir={dir}>
+    <PWAPageWrapper 
+      title={locale === 'ar' ? 'الأسئلة الشائعة' : locale === 'ru' ? 'Помощь' : 'Help & Support'}
+      defaultBackPath="/profile"
+    >
+    <div className={`bg-gradient-to-b from-gray-50 to-white min-h-screen ${showPWAMode ? '' : ''}`} dir={dir}>
       <BreadcrumbSchema 
         items={[
           { name: t('common.home'), url: getLocalizedPath('/', locale) },
           { name: t('faq.title'), url: getLocalizedPath('/faq', locale) }
         ]}
-      />
-      
-      {/* PWA Back Header */}
-      <PWABackHeader 
-        title={t('faq.title') || 'FAQ'}
       />
       
       {/* FAQPage Schema */}
@@ -240,6 +239,7 @@ export default function FAQClient() {
         </div>
       </div>
     </div>
+    </PWAPageWrapper>
   )
 }
 

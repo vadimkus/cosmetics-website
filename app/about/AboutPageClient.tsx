@@ -7,7 +7,7 @@ import BreadcrumbSchema from '@/components/BreadcrumbSchema'
 import PDFLinkButton from '@/components/PDFLinkButton'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
-import PWABackHeader from '@/components/PWABackHeader'
+import PWAPageWrapper from '@/components/PWAPageWrapper'
 import { usePWAMode } from '@/hooks/usePWAMode'
 
 export default function AboutPageClient() {
@@ -16,13 +16,11 @@ export default function AboutPageClient() {
   const showPWAMode = isClient && isPWA
   
   return (
-    <>
-      {/* PWA Back Header */}
-      <PWABackHeader 
-        title={t('common.about') || 'About'}
-      />
-      
-      <div className={`bg-white min-h-screen ${showPWAMode ? 'pb-32' : ''}`} dir={dir}>
+    <PWAPageWrapper 
+      title={locale === 'ar' ? 'حول جينوسيس' : locale === 'ru' ? 'О Genosys' : 'About Genosys'}
+      defaultBackPath="/profile"
+    >
+      <div className={`bg-white min-h-screen ${showPWAMode ? '' : ''}`} dir={dir}>
         <BreadcrumbSchema 
         items={[
           { name: t('common.home'), url: getLocalizedPath('/', locale) },
@@ -147,7 +145,7 @@ export default function AboutPageClient() {
       </div>
       </div>
     </div>
-    </>
+    </PWAPageWrapper>
   )
 }
 

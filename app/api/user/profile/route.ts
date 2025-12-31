@@ -21,8 +21,8 @@ async function getUserFromSession(): Promise<{ email: string; userId: string } |
       return null
     }
     
-    // Parse session cookie (format: base64 encoded JSON)
-    const sessionData = JSON.parse(Buffer.from(sessionCookie.value, 'base64').toString('utf-8'))
+    // Parse session cookie (stored as plain JSON)
+    const sessionData = JSON.parse(sessionCookie.value)
     
     if (!sessionData?.user?.email) {
       return null

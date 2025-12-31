@@ -73,7 +73,9 @@
     "openMobileMenu": "Open mobile menu",
     "settings": "Settings",
     "contactSupport": "Contact Support",
-    "whatsappSupport": "WhatsApp Support"
+    "whatsappSupport": "WhatsApp Support",
+    "yes": "Yes",
+    "no": "No"
   },
   "hero": {
     "title": "Discover Your",
@@ -1549,5 +1551,19 @@
     "home": "Home",
     "orders": "Orders",
     "bag": "Bag"
+  },
+  "orders": {
+    "orderNumber": "Order",
+    "viewDetails": "View Details",
+    "cancel": "Cancel",
+    "cancelOrder": "Cancel Order?",
+    "cancelWarning": "This cannot be undone",
+    "noOrders": "No orders yet",
+    "noOrdersDescription": "Your order history will appear here once you place your first order.",
+    "browseProducts": "Browse Products",
+    "status": "Status",
+    "total": "Total",
+    "items": "items",
+    "date": "Date"
   }
 }

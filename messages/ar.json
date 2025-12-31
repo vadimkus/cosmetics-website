@@ -70,7 +70,9 @@
     "openMobileMenu": "فتح القائمة",
     "settings": "الإعدادات",
     "contactSupport": "اتصل بالدعم",
-    "whatsappSupport": "دعم واتساب"
+    "whatsappSupport": "دعم واتساب",
+    "yes": "نعم",
+    "no": "لا"
   },
   "hero": {
     "title": "اكتشف",
@@ -1504,6 +1506,20 @@
     "home": "الرئيسية",
     "orders": "الطلبات",
     "bag": "السلة"
+  },
+  "orders": {
+    "orderNumber": "طلب",
+    "viewDetails": "عرض التفاصيل",
+    "cancel": "إلغاء",
+    "cancelOrder": "إلغاء الطلب؟",
+    "cancelWarning": "لا يمكن التراجع عن هذا",
+    "noOrders": "لا توجد طلبات بعد",
+    "noOrdersDescription": "سيظهر سجل طلباتك هنا بمجرد تقديم طلبك الأول.",
+    "browseProducts": "تصفح المنتجات",
+    "status": "الحالة",
+    "total": "الإجمالي",
+    "items": "منتجات",
+    "date": "التاريخ"
   }
 }
 

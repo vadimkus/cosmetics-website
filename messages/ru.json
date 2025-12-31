@@ -71,6 +71,8 @@
     "settings": "Настройки",
     "contactSupport": "Связаться с поддержкой",
     "whatsappSupport": "Поддержка WhatsApp",
+    "yes": "Да",
+    "no": "Нет",
     "blackFriday": "Черная пятница",
     "blackFriday20Off": "Черная пятница — 20% СКИДКА",
     "nov26to28": "26 ноября — 28 ноября",
@@ -1529,5 +1531,19 @@
     "home": "Главная",
     "orders": "Заказы",
     "bag": "Корзина"
+  },
+  "orders": {
+    "orderNumber": "Заказ",
+    "viewDetails": "Подробнее",
+    "cancel": "Отменить",
+    "cancelOrder": "Отменить заказ?",
+    "cancelWarning": "Это действие нельзя отменить",
+    "noOrders": "Заказов пока нет",
+    "noOrdersDescription": "История заказов появится здесь после оформления первого заказа.",
+    "browseProducts": "Посмотреть товары",
+    "status": "Статус",
+    "total": "Итого",
+    "items": "товаров",
+    "date": "Дата"
   }
 }

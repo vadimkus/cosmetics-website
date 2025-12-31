@@ -19,54 +19,60 @@ type OrderWithItems = Order & {
   items: OrderItem[]
 }
 
+// Status translations
+const statusLabels: Record<string, Record<string, string>> = {
+  pending: { en: 'Pending', ar: 'قيد الانتظار', ru: 'В ожидании' },
+  processing: { en: 'Processing', ar: 'قيد المعالجة', ru: 'В обработке' },
+  shipped: { en: 'Shipped', ar: 'تم الشحن', ru: 'Отправлено' },
+  delivered: { en: 'Delivered', ar: 'تم التوصيل', ru: 'Доставлено' },
+  cancelled: { en: 'Cancelled', ar: 'ملغاة', ru: 'Отменено' },
+}
+
 // Status badge component
-function StatusBadge({ status }: { status: string }) {
+function StatusBadge({ status, locale = 'en' }: { status: string; locale?: string }) {
+  const statusKey = status.toLowerCase()
+  const label = statusLabels[statusKey]?.[locale] || statusLabels[statusKey]?.en || status
+
   const defaultConfig = { 
     icon: <Clock className="w-3.5 h-3.5" />, 
     bg: 'bg-gray-50', 
-    text: 'text-gray-700',
-    label: status
+    text: 'text-gray-700'
   }
 
-  const statusConfig: Record<string, { icon: React.ReactNode; bg: string; text: string; label: string }> = {
+  const statusConfig: Record<string, { icon: React.ReactNode; bg: string; text: string }> = {
     pending: { 
       icon: <Clock className="w-3.5 h-3.5" />, 
       bg: 'bg-amber-50', 
-      text: 'text-amber-700',
-      label: 'Pending'
+      text: 'text-amber-700'
     },
     processing: { 
       icon: <RefreshCw className="w-3.5 h-3.5" />, 
       bg: 'bg-blue-50', 
-      text: 'text-blue-700',
-      label: 'Processing'
+      text: 'text-blue-700'
     },
     shipped: { 
       icon: <Truck className="w-3.5 h-3.5" />, 
       bg: 'bg-indigo-50', 
-      text: 'text-indigo-700',
-      label: 'Shipped'
+      text: 'text-indigo-700'
     },
     delivered: { 
       icon: <CheckCircle className="w-3.5 h-3.5" />, 
       bg: 'bg-green-50', 
-      text: 'text-green-700',
-      label: 'Delivered'
+      text: 'text-green-700'
     },
     cancelled: { 
       icon: <XCircle className="w-3.5 h-3.5" />, 
       bg: 'bg-red-50', 
-      text: 'text-red-700',
-      label: 'Cancelled'
+      text: 'text-red-700'
     },
   }
 
-  const config = statusConfig[status.toLowerCase()] || defaultConfig
+  const config = statusConfig[statusKey] || defaultConfig
   
   return (
     <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium ${config.bg} ${config.text}`}>
       {config.icon}
-      {config.label}
+      {label}
     </span>
   )
 }
@@ -319,7 +325,7 @@ export default function OrdersPage() {
                         {formatDate(order.createdAt)}
                       </p>
                     </div>
-                    <StatusBadge status={order.status} />
+                    <StatusBadge status={order.status} locale={locale} />
                   </div>
                 </div>
 

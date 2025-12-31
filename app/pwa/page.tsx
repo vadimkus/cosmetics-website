@@ -125,7 +125,12 @@ export default function PWAInstallPage() {
   ]
 
   const steps = selectedDevice === 'ios' ? iosSteps : androidSteps
-  const currentStepData = steps[currentStep - 1]
+  const currentStepData = steps[currentStep - 1] ?? {
+    title: '',
+    desc: '',
+    icon: <Chrome className="w-8 h-8" />,
+    image: ''
+  }
 
   // Already installed view
   if (isInstalled) {

@@ -319,8 +319,8 @@ export default function OrdersPage() {
                 <div className={`px-4 py-3 bg-gray-50 border-b border-gray-100 ${isRTL ? 'text-right' : ''}`}>
                   <div className={`flex items-center justify-between ${isRTL ? 'flex-row-reverse' : ''}`}>
                     <div>
-                      <p className="text-xs text-gray-500 mb-0.5">
-                        {t('orders.orderNumber') || 'Order'} #{order.id.slice(-8).toUpperCase()}
+                      <p className="text-sm font-semibold text-gray-900 mb-0.5">
+                        {order.orderNumber}
                       </p>
                       <p className="text-xs text-gray-400">
                         {formatDate(order.createdAt)}

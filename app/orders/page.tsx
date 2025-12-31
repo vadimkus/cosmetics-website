@@ -401,50 +401,125 @@ export default function OrdersPage() {
                   </button>
 
                   {/* Expanded Order Details */}
-                  <div className={`overflow-hidden transition-all duration-200 ${expandedOrders.has(order.id) ? 'max-h-[500px] mt-4' : 'max-h-0'}`}>
-                    <div className="border-t border-gray-100 pt-4 space-y-3">
-                      {order.items.map((item, idx) => (
-                        <div 
-                          key={idx}
-                          className={`flex items-center gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}
-                        >
-                          <div className="w-14 h-14 rounded-lg bg-gray-100 overflow-hidden flex-shrink-0">
-                            {item.image ? (
-                              <Image
-                                src={item.image}
-                                alt={item.productName}
-                                width={56}
-                                height={56}
-                                className="w-full h-full object-cover"
-                              />
-                            ) : (
-                              <div className="w-full h-full flex items-center justify-center">
-                                <Package className="w-6 h-6 text-gray-400" />
-                              </div>
-                            )}
-                          </div>
-                          <div className={`flex-1 min-w-0 ${isRTL ? 'text-right' : ''}`}>
-                            <p className="text-sm font-medium text-gray-900 truncate">{item.productName}</p>
-                            <p className="text-xs text-gray-500">
-                              {locale === 'ar' ? 'الكمية' : locale === 'ru' ? 'Кол-во' : 'Qty'}: {item.quantity}
-                              {item.size && ` • ${item.size}`}
+                  <div className={`overflow-hidden transition-all duration-200 ${expandedOrders.has(order.id) ? 'max-h-[800px] mt-4' : 'max-h-0'}`}>
+                    <div className="border-t border-gray-100 pt-4 space-y-4">
+                      
+                      {/* Items List - Text Only */}
+                      <div className="space-y-2">
+                        <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
+                          {locale === 'ar' ? 'المنتجات' : locale === 'ru' ? 'Товары' : 'Items'}
+                        </p>
+                        {order.items.map((item, idx) => (
+                          <div 
+                            key={idx}
+                            className={`flex justify-between items-start gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}
+                          >
+                            <div className={`flex-1 min-w-0 ${isRTL ? 'text-right' : ''}`}>
+                              <p className="text-sm text-gray-900">{item.productName}</p>
+                              <p className="text-xs text-gray-500">
+                                {locale === 'ar' ? 'الكمية' : locale === 'ru' ? 'Кол-во' : 'Qty'}: {item.quantity}
+                                {item.size && ` • ${item.size}`}
+                                {item.color && ` • ${item.color}`}
+                              </p>
+                            </div>
+                            <p className={`text-sm text-gray-900 flex-shrink-0`}>
+                              {formatCurrency(Number(item.price) * item.quantity)}
                             </p>
                           </div>
-                          <p className={`text-sm font-semibold text-gray-900 ${isRTL ? 'text-left' : 'text-right'}`}>
-                            {formatCurrency(Number(item.price) * item.quantity)}
-                          </p>
+                        ))}
+                      </div>
+
+                      {/* Order Summary */}
+                      <div className="bg-gray-50 rounded-xl p-3 space-y-2">
+                        <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
+                          {locale === 'ar' ? 'ملخص الطلب' : locale === 'ru' ? 'Сумма заказа' : 'Order Summary'}
+                        </p>
+                        
+                        {/* Subtotal */}
+                        <div className={`flex justify-between text-sm ${isRTL ? 'flex-row-reverse' : ''}`}>
+                          <span className="text-gray-600">
+                            {locale === 'ar' ? 'المجموع الفرعي' : locale === 'ru' ? 'Подытог' : 'Subtotal'}
+                          </span>
+                          <span className="text-gray-900">{formatCurrency(Number(order.subtotal))}</span>
                         </div>
-                      ))}
-                      
-                      {/* Order Total */}
-                      <div className={`flex justify-between items-center pt-3 border-t border-gray-100 ${isRTL ? 'flex-row-reverse' : ''}`}>
-                        <span className="text-sm font-medium text-gray-600">
-                          {locale === 'ar' ? 'الإجمالي' : locale === 'ru' ? 'Итого' : 'Total'}
+
+                        {/* Discount - only show if there's a discount */}
+                        {Number(order.discountAmount) > 0 && (
+                          <div className={`flex justify-between text-sm ${isRTL ? 'flex-row-reverse' : ''}`}>
+                            <span className="text-green-600">
+                              {locale === 'ar' ? 'الخصم' : locale === 'ru' ? 'Скидка' : 'Discount'}
+                            </span>
+                            <span className="text-green-600">-{formatCurrency(Number(order.discountAmount))}</span>
+                          </div>
+                        )}
+
+                        {/* Shipping */}
+                        <div className={`flex justify-between text-sm ${isRTL ? 'flex-row-reverse' : ''}`}>
+                          <span className="text-gray-600">
+                            {locale === 'ar' ? 'الشحن' : locale === 'ru' ? 'Доставка' : 'Shipping'}
+                          </span>
+                          <span className={Number(order.shipping) === 0 ? 'text-green-600 font-medium' : 'text-gray-900'}>
+                            {Number(order.shipping) === 0 
+                              ? (locale === 'ar' ? 'مجاني' : locale === 'ru' ? 'Бесплатно' : 'FREE')
+                              : formatCurrency(Number(order.shipping))
+                            }
+                          </span>
+                        </div>
+
+                        {/* VAT */}
+                        <div className={`flex justify-between text-sm ${isRTL ? 'flex-row-reverse' : ''}`}>
+                          <span className="text-gray-600">
+                            {locale === 'ar' ? 'ضريبة القيمة المضافة (5%)' : locale === 'ru' ? 'НДС (5%)' : 'VAT (5%)'}
+                          </span>
+                          <span className="text-gray-900">{formatCurrency(Number(order.vat))}</span>
+                        </div>
+
+                        {/* Total */}
+                        <div className={`flex justify-between pt-2 border-t border-gray-200 ${isRTL ? 'flex-row-reverse' : ''}`}>
+                          <span className="text-sm font-semibold text-gray-900">
+                            {locale === 'ar' ? 'الإجمالي' : locale === 'ru' ? 'Итого' : 'Total'}
+                          </span>
+                          <span className="text-base font-bold text-gray-900">{formatCurrency(Number(order.total))}</span>
+                        </div>
+                      </div>
+
+                      {/* Delivery Information */}
+                      <div className="space-y-2">
+                        <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
+                          {locale === 'ar' ? 'معلومات التوصيل' : locale === 'ru' ? 'Информация о доставке' : 'Delivery Information'}
+                        </p>
+                        <div className={`text-sm space-y-1 ${isRTL ? 'text-right' : ''}`}>
+                          <p className="text-gray-900 font-medium">{order.customerName}</p>
+                          <p className="text-gray-600">{order.customerPhone}</p>
+                          <p className="text-gray-600">{order.customerAddress}</p>
+                          <p className="text-gray-600">{order.customerEmirate}</p>
+                        </div>
+                      </div>
+
+                      {/* Payment Method */}
+                      <div className={`flex justify-between items-center text-sm ${isRTL ? 'flex-row-reverse' : ''}`}>
+                        <span className="text-gray-500">
+                          {locale === 'ar' ? 'طريقة الدفع' : locale === 'ru' ? 'Способ оплаты' : 'Payment'}
                         </span>
-                        <span className="text-base font-bold text-gray-900">
-                          {formatCurrency(Number(order.total))}
+                        <span className="text-gray-900 font-medium">
+                          {order.paymentMethod === 'cod' 
+                            ? (locale === 'ar' ? 'الدفع عند الاستلام' : locale === 'ru' ? 'При получении' : 'Cash on Delivery')
+                            : order.paymentMethod === 'stripe'
+                            ? (locale === 'ar' ? 'بطاقة/Apple Pay' : locale === 'ru' ? 'Карта/Apple Pay' : 'Card/Apple Pay')
+                            : (locale === 'ar' ? 'رابط الدفع' : locale === 'ru' ? 'Ссылка на оплату' : 'Payment Link')
+                          }
                         </span>
                       </div>
+
+                      {/* Order Notes - if any */}
+                      {order.orderNotes && (
+                        <div className="space-y-1">
+                          <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
+                            {locale === 'ar' ? 'ملاحظات' : locale === 'ru' ? 'Примечания' : 'Notes'}
+                          </p>
+                          <p className={`text-sm text-gray-600 ${isRTL ? 'text-right' : ''}`}>{order.orderNotes}</p>
+                        </div>
+                      )}
                     </div>
                   </div>
 

@@ -189,30 +189,23 @@ export default function PWAProfilePage() {
   }
 
   return (
-    <div className="min-h-screen bg-white pb-32">
-      {/* Header */}
-      <div className={`flex items-center px-5 py-4 border-b border-gray-200 ${isRTL ? 'flex-row-reverse' : ''}`}>
+    <div className="min-h-screen bg-gray-50 pb-32">
+      {/* Simple Navigation Header */}
+      <div className={`flex items-center justify-between px-5 py-4 bg-white ${isRTL ? 'flex-row-reverse' : ''}`}>
         <button 
           onClick={() => router.push(getLocalizedPath('/products', locale))}
-          className={`flex items-center gap-1.5 min-w-[100px] ${isRTL ? 'flex-row-reverse' : ''}`}
+          className={`flex items-center gap-1 ${isRTL ? 'flex-row-reverse' : ''}`}
         >
-          {isRTL ? (
-            <svg className="w-6 h-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-            </svg>
-          ) : (
-            <svg className="w-6 h-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-            </svg>
-          )}
-          <span className="text-sm font-semibold text-red-600">
+          <svg className={`w-5 h-5 text-red-600 ${isRTL ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          </svg>
+          <span className="text-base text-red-600">
             {t('pwaProfile.home')}
           </span>
         </button>
-        <h1 className="flex-1 text-center text-lg font-semibold text-gray-900">
+        <span className="text-base font-semibold text-gray-900">
           {t('pwaProfile.account')}
-        </h1>
-        <div className="min-w-[100px]" />
+        </span>
       </div>
 
       <div className="overflow-y-auto">

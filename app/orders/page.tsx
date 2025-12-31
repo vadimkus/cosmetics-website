@@ -13,7 +13,6 @@ import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import BreadcrumbSchema from '@/components/BreadcrumbSchema'
 import { usePWAMode } from '@/hooks/usePWAMode'
-import PWABackHeader from '@/components/PWABackHeader'
 
 // Custom type that includes the items relation
 type OrderWithItems = Order & {
@@ -196,7 +195,7 @@ export default function OrdersPage() {
   }
 
   return (
-    <div className={`min-h-screen bg-white ${isPWA ? 'pb-32' : ''}`}>
+    <div className={`min-h-screen ${isPWA ? 'bg-gray-50 pb-32' : 'bg-white'}`}>
       <BreadcrumbSchema 
         items={[
           { name: t('common.home'), url: getLocalizedPath('/', locale) },
@@ -204,11 +203,25 @@ export default function OrdersPage() {
         ]}
       />
       
-      {/* PWA Back Header */}
-      <PWABackHeader 
-        title={t('navigation.orders') || 'My Orders'}
-        icon={<Package className="w-5 h-5 text-red-600" />}
-      />
+      {/* PWA Simple Navigation Header */}
+      {isPWA && (
+        <div className={`flex items-center justify-between px-5 py-4 bg-white ${isRTL ? 'flex-row-reverse' : ''}`}>
+          <button 
+            onClick={() => router.push(getLocalizedPath('/products', locale))}
+            className={`flex items-center gap-1 ${isRTL ? 'flex-row-reverse' : ''}`}
+          >
+            <svg className={`w-5 h-5 text-red-600 ${isRTL ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+            <span className="text-base text-red-600">
+              {t('pwaProfile.home') || 'Home'}
+            </span>
+          </button>
+          <span className="text-base font-semibold text-gray-900">
+            {t('navigation.orders') || 'Orders'}
+          </span>
+        </div>
+      )}
       
       {/* Page Header - Only show on non-PWA (PWA has its own header) */}
       {!isPWA && (

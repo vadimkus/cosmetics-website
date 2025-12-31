@@ -14,13 +14,17 @@ import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { isBlackFridaySaleActive } from '@/lib/blackFridayUtils'
 import { calculateDiscountedPrice } from '@/lib/discountUtils'
-import PWABackHeader from '@/components/PWABackHeader'
+import { usePWAMode } from '@/hooks/usePWAMode'
+import { useRouter } from 'next/navigation'
 
 
 export default function CartClient() {
   const { items, getTotalPrice, getTotalItems, selectedEmirate, setSelectedEmirate } = useCart()
   const { user } = useAuth()
   const { t, locale, dir } = useTranslation()
+  const { isPWA } = usePWAMode()
+  const router = useRouter()
+  const isRTL = dir === 'rtl'
   const { enabled: animationsEnabled } = useAnimationStore()
   const [showUniVideo, setShowUniVideo] = useState(false)
   const uniVideoRef = useRef<HTMLVideoElement>(null)
@@ -174,12 +178,26 @@ export default function CartClient() {
 
   if (items.length === 0) {
     return (
-      <>
-        {/* PWA Back Header */}
-        <PWABackHeader 
-          title={t('common.cart') || 'Bag'}
-          icon={<ShoppingBag className="w-5 h-5 text-red-600" />}
-        />
+      <div className={isPWA ? 'min-h-screen bg-gray-50 pb-32' : ''}>
+        {/* PWA Simple Navigation Header */}
+        {isPWA && (
+          <div className={`flex items-center justify-between px-5 py-4 bg-white ${isRTL ? 'flex-row-reverse' : ''}`}>
+            <button 
+              onClick={() => router.push(getLocalizedPath('/products', locale))}
+              className={`flex items-center gap-1 ${isRTL ? 'flex-row-reverse' : ''}`}
+            >
+              <svg className={`w-5 h-5 text-red-600 ${isRTL ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+              <span className="text-base text-red-600">
+                {t('pwaProfile.home') || 'Home'}
+              </span>
+            </button>
+            <span className="text-base font-semibold text-gray-900">
+              {t('navigation.bag') || 'Bag'}
+            </span>
+          </div>
+        )}
         
         <div className="container mx-auto px-4 py-4 md:py-8 lg:py-16" dir={dir}>
           {/* Navigation Breadcrumb */}
@@ -288,17 +306,31 @@ export default function CartClient() {
           </div>
         </div>
       </div>
-      </>
+      </div>
     )
   }
 
   return (
-    <>
-      {/* PWA Back Header */}
-      <PWABackHeader 
-        title={t('common.cart') || 'Bag'}
-        icon={<ShoppingBag className="w-5 h-5 text-red-600" />}
-      />
+    <div className={isPWA ? 'min-h-screen bg-gray-50 pb-32' : ''}>
+      {/* PWA Simple Navigation Header */}
+      {isPWA && (
+        <div className={`flex items-center justify-between px-5 py-4 bg-white ${isRTL ? 'flex-row-reverse' : ''}`}>
+          <button 
+            onClick={() => router.push(getLocalizedPath('/products', locale))}
+            className={`flex items-center gap-1 ${isRTL ? 'flex-row-reverse' : ''}`}
+          >
+            <svg className={`w-5 h-5 text-red-600 ${isRTL ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+            <span className="text-base text-red-600">
+              {t('pwaProfile.home') || 'Home'}
+            </span>
+          </button>
+          <span className="text-base font-semibold text-gray-900">
+            {t('navigation.bag') || 'Bag'}
+          </span>
+        </div>
+      )}
       
       <div className="container mx-auto px-4 py-2 md:py-8 lg:py-16" dir={dir}>
       {/* Mobile-only Uni Image/Video - Only show when cart is empty */}
@@ -794,6 +826,6 @@ export default function CartClient() {
         </div>
       </div>
     </div>
-    </>
+    </div>
   )
 }

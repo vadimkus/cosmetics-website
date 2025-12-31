@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" fill="none">
+  <!-- Background -->
+  <rect width="800" height="400" fill="url(#gradient1)" rx="20"/>
+  
+  <!-- Title -->
+  <text x="400" y="50" text-anchor="middle" font-family="system-ui" font-size="28" font-weight="bold" fill="#fff">PWA Benefits</text>
+  
+  <!-- Benefit Cards -->
+  <!-- Card 1 - Offline -->
+  <g transform="translate(50, 80)">
+    <rect width="160" height="140" rx="15" fill="#fff" fill-opacity="0.95"/>
+    <circle cx="80" cy="45" r="25" fill="#dc2626"/>
+    <text x="80" y="52" text-anchor="middle" font-size="24" fill="#fff">📴</text>
+    <text x="80" y="95" text-anchor="middle" font-family="system-ui" font-size="13" font-weight="600" fill="#333">Offline Access</text>
+    <text x="80" y="115" text-anchor="middle" font-family="system-ui" font-size="10" fill="#666">Works without</text>
+    <text x="80" y="128" text-anchor="middle" font-family="system-ui" font-size="10" fill="#666">internet</text>
+  </g>
+  
+  <!-- Card 2 - Fast -->
+  <g transform="translate(230, 80)">
+    <rect width="160" height="140" rx="15" fill="#fff" fill-opacity="0.95"/>
+    <circle cx="80" cy="45" r="25" fill="#22c55e"/>
+    <text x="80" y="52" text-anchor="middle" font-size="24" fill="#fff">⚡</text>
+    <text x="80" y="95" text-anchor="middle" font-family="system-ui" font-size="13" font-weight="600" fill="#333">Lightning Fast</text>
+    <text x="80" y="115" text-anchor="middle" font-family="system-ui" font-size="10" fill="#666">Instant loading</text>
+    <text x="80" y="128" text-anchor="middle" font-family="system-ui" font-size="10" fill="#666">& performance</text>
+  </g>
+  
+  <!-- Card 3 - Home Screen -->
+  <g transform="translate(410, 80)">
+    <rect width="160" height="140" rx="15" fill="#fff" fill-opacity="0.95"/>
+    <circle cx="80" cy="45" r="25" fill="#3b82f6"/>
+    <text x="80" y="52" text-anchor="middle" font-size="24" fill="#fff">🏠</text>
+    <text x="80" y="95" text-anchor="middle" font-family="system-ui" font-size="13" font-weight="600" fill="#333">Home Screen</text>
+    <text x="80" y="115" text-anchor="middle" font-family="system-ui" font-size="10" fill="#666">Quick access</text>
+    <text x="80" y="128" text-anchor="middle" font-family="system-ui" font-size="10" fill="#666">like native app</text>
+  </g>
+  
+  <!-- Card 4 - Notifications -->
+  <g transform="translate(590, 80)">
+    <rect width="160" height="140" rx="15" fill="#fff" fill-opacity="0.95"/>
+    <circle cx="80" cy="45" r="25" fill="#f59e0b"/>
+    <text x="80" y="52" text-anchor="middle" font-size="24" fill="#fff">🔔</text>
+    <text x="80" y="95" text-anchor="middle" font-family="system-ui" font-size="13" font-weight="600" fill="#333">Notifications</text>
+    <text x="80" y="115" text-anchor="middle" font-family="system-ui" font-size="10" fill="#666">Stay updated</text>
+    <text x="80" y="128" text-anchor="middle" font-family="system-ui" font-size="10" fill="#666">on orders</text>
+  </g>
+  
+  <!-- Bottom Row -->
+  <!-- Card 5 - No Download -->
+  <g transform="translate(140, 240)">
+    <rect width="160" height="140" rx="15" fill="#fff" fill-opacity="0.95"/>
+    <circle cx="80" cy="45" r="25" fill="#8b5cf6"/>
+    <text x="80" y="52" text-anchor="middle" font-size="24" fill="#fff">📲</text>
+    <text x="80" y="95" text-anchor="middle" font-family="system-ui" font-size="13" font-weight="600" fill="#333">No App Store</text>
+    <text x="80" y="115" text-anchor="middle" font-family="system-ui" font-size="10" fill="#666">Install directly</text>
+    <text x="80" y="128" text-anchor="middle" font-family="system-ui" font-size="10" fill="#666">from browser</text>
+  </g>
+  
+  <!-- Card 6 - Full Screen -->
+  <g transform="translate(320, 240)">
+    <rect width="160" height="140" rx="15" fill="#fff" fill-opacity="0.95"/>
+    <circle cx="80" cy="45" r="25" fill="#ec4899"/>
+    <text x="80" y="52" text-anchor="middle" font-size="24" fill="#fff">📱</text>
+    <text x="80" y="95" text-anchor="middle" font-family="system-ui" font-size="13" font-weight="600" fill="#333">Full Screen</text>
+    <text x="80" y="115" text-anchor="middle" font-family="system-ui" font-size="10" fill="#666">Immersive</text>
+    <text x="80" y="128" text-anchor="middle" font-family="system-ui" font-size="10" fill="#666">experience</text>
+  </g>
+  
+  <!-- Card 7 - Secure -->
+  <g transform="translate(500, 240)">
+    <rect width="160" height="140" rx="15" fill="#fff" fill-opacity="0.95"/>
+    <circle cx="80" cy="45" r="25" fill="#14b8a6"/>
+    <text x="80" y="52" text-anchor="middle" font-size="24" fill="#fff">🔒</text>
+    <text x="80" y="95" text-anchor="middle" font-family="system-ui" font-size="13" font-weight="600" fill="#333">Secure HTTPS</text>
+    <text x="80" y="115" text-anchor="middle" font-family="system-ui" font-size="10" fill="#666">Safe & encrypted</text>
+    <text x="80" y="128" text-anchor="middle" font-family="system-ui" font-size="10" fill="#666">connection</text>
+  </g>
+  
+  <defs>
+    <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#dc2626"/>
+      <stop offset="100%" style="stop-color:#991b1b"/>
+    </linearGradient>
+  </defs>
+</svg>
+

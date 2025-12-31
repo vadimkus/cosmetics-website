@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" fill="none">
+  <!-- Background -->
+  <rect width="800" height="450" fill="#f8fafc" rx="20"/>
+  
+  <!-- Title -->
+  <text x="400" y="45" text-anchor="middle" font-family="system-ui" font-size="26" font-weight="bold" fill="#1e293b">PWA vs Native App vs Website</text>
+  
+  <!-- Headers -->
+  <text x="210" y="90" text-anchor="middle" font-family="system-ui" font-size="16" font-weight="600" fill="#dc2626">PWA</text>
+  <text x="400" y="90" text-anchor="middle" font-family="system-ui" font-size="16" font-weight="600" fill="#3b82f6">Native App</text>
+  <text x="590" y="90" text-anchor="middle" font-family="system-ui" font-size="16" font-weight="600" fill="#6b7280">Website</text>
+  
+  <!-- Feature Labels -->
+  <g font-family="system-ui" font-size="12" fill="#475569">
+    <text x="50" y="135">Installation</text>
+    <text x="50" y="175">Offline Access</text>
+    <text x="50" y="215">Push Notifications</text>
+    <text x="50" y="255">App Store</text>
+    <text x="50" y="295">Updates</text>
+    <text x="50" y="335">Performance</text>
+    <text x="50" y="375">Development Cost</text>
+    <text x="50" y="415">Cross-Platform</text>
+  </g>
+  
+  <!-- PWA Column -->
+  <g transform="translate(210, 0)">
+    <circle cy="130" r="10" fill="#22c55e"/>
+    <text y="135" text-anchor="middle" fill="#fff" font-size="14">✓</text>
+    <circle cy="170" r="10" fill="#22c55e"/>
+    <text y="175" text-anchor="middle" fill="#fff" font-size="14">✓</text>
+    <circle cy="210" r="10" fill="#22c55e"/>
+    <text y="215" text-anchor="middle" fill="#fff" font-size="14">✓</text>
+    <circle cy="250" r="10" fill="#22c55e"/>
+    <text x="0" y="255" text-anchor="middle" font-family="system-ui" font-size="10" fill="#22c55e">Not Required</text>
+    <circle cy="290" r="10" fill="#22c55e"/>
+    <text x="0" y="295" text-anchor="middle" font-family="system-ui" font-size="10" fill="#22c55e">Automatic</text>
+    <circle cy="330" r="10" fill="#22c55e"/>
+    <text y="335" text-anchor="middle" fill="#fff" font-size="14">✓</text>
+    <circle cy="370" r="10" fill="#22c55e"/>
+    <text x="0" y="375" text-anchor="middle" font-family="system-ui" font-size="10" fill="#22c55e">Low</text>
+    <circle cy="410" r="10" fill="#22c55e"/>
+    <text y="415" text-anchor="middle" fill="#fff" font-size="14">✓</text>
+  </g>
+  
+  <!-- Native App Column -->
+  <g transform="translate(400, 0)">
+    <circle cy="130" r="10" fill="#22c55e"/>
+    <text y="135" text-anchor="middle" fill="#fff" font-size="14">✓</text>
+    <circle cy="170" r="10" fill="#22c55e"/>
+    <text y="175" text-anchor="middle" fill="#fff" font-size="14">✓</text>
+    <circle cy="210" r="10" fill="#22c55e"/>
+    <text y="215" text-anchor="middle" fill="#fff" font-size="14">✓</text>
+    <circle cy="250" r="10" fill="#f59e0b"/>
+    <text x="0" y="255" text-anchor="middle" font-family="system-ui" font-size="10" fill="#f59e0b">Required</text>
+    <circle cy="290" r="10" fill="#f59e0b"/>
+    <text x="0" y="295" text-anchor="middle" font-family="system-ui" font-size="10" fill="#f59e0b">Manual</text>
+    <circle cy="330" r="10" fill="#22c55e"/>
+    <text y="335" text-anchor="middle" fill="#fff" font-size="14">✓</text>
+    <circle cy="370" r="10" fill="#ef4444"/>
+    <text x="0" y="375" text-anchor="middle" font-family="system-ui" font-size="10" fill="#ef4444">High</text>
+    <circle cy="410" r="10" fill="#ef4444"/>
+    <text y="415" text-anchor="middle" fill="#fff" font-size="14">✗</text>
+  </g>
+  
+  <!-- Website Column -->
+  <g transform="translate(590, 0)">
+    <circle cy="130" r="10" fill="#ef4444"/>
+    <text y="135" text-anchor="middle" fill="#fff" font-size="14">✗</text>
+    <circle cy="170" r="10" fill="#ef4444"/>
+    <text y="175" text-anchor="middle" fill="#fff" font-size="14">✗</text>
+    <circle cy="210" r="10" fill="#ef4444"/>
+    <text y="215" text-anchor="middle" fill="#fff" font-size="14">✗</text>
+    <circle cy="250" r="10" fill="#22c55e"/>
+    <text x="0" y="255" text-anchor="middle" font-family="system-ui" font-size="10" fill="#22c55e">Not Required</text>
+    <circle cy="290" r="10" fill="#22c55e"/>
+    <text x="0" y="295" text-anchor="middle" font-family="system-ui" font-size="10" fill="#22c55e">Automatic</text>
+    <circle cy="330" r="10" fill="#f59e0b"/>
+    <text x="0" y="335" text-anchor="middle" font-family="system-ui" font-size="10" fill="#f59e0b">Varies</text>
+    <circle cy="370" r="10" fill="#22c55e"/>
+    <text x="0" y="375" text-anchor="middle" font-family="system-ui" font-size="10" fill="#22c55e">Low</text>
+    <circle cy="410" r="10" fill="#22c55e"/>
+    <text y="415" text-anchor="middle" fill="#fff" font-size="14">✓</text>
+  </g>
+  
+  <!-- Legend -->
+  <g transform="translate(680, 130)">
+    <circle cx="0" cy="0" r="8" fill="#22c55e"/>
+    <text x="15" y="4" font-family="system-ui" font-size="10" fill="#475569">Best</text>
+    <circle cx="0" cy="25" r="8" fill="#f59e0b"/>
+    <text x="15" y="29" font-family="system-ui" font-size="10" fill="#475569">Limited</text>
+    <circle cx="0" cy="50" r="8" fill="#ef4444"/>
+    <text x="15" y="54" font-family="system-ui" font-size="10" fill="#475569">None</text>
+  </g>
+</svg>
+

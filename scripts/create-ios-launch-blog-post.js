@@ -83,18 +83,16 @@ Everything you need for the perfect shopping experience:
 
 ---
 
-## 🎁 Launch Week Special Offers
+## 🎁 Special Launch Benefits
 
-To celebrate our iOS app launch, we're offering **exclusive deals for app users**:
+To celebrate our iOS app launch, we're offering **exclusive benefits for app users**:
 
-### 🎉 **Launch Week Bonuses:**
-1. **15% OFF** your first order through the app (Code: IOSLAUNCH)
-2. **Free shipping** on all orders over 500 AED (usually 1,000 AED)
-3. **Double loyalty points** on all app purchases
-4. **Early access** to new product launches
-5. **Exclusive app-only products** and bundles
-
-**Offer valid until January 7th, 2026**
+### 🎉 **App User Benefits:**
+1. **Free shipping** on all orders over 500 AED (usually 1,000 AED)
+2. **Double loyalty points** on all app purchases
+3. **Early access** to new product launches
+4. **Exclusive app-only products** and bundles
+5. **Priority customer support**
 
 ---
 
@@ -307,10 +305,6 @@ We promised you an incredible iOS app, and we delivered. Now it's your turn to e
 Thank you for your patience, your excitement, and your continued support. We can't wait to see how the app transforms your skincare shopping experience!
 
 🛍️ **Happy shopping, and welcome to the future!** 🎉
-
----
-
-**P.S.** Don't forget to use code **IOSLAUNCH** for 15% off your first app order! Offer ends January 7th, 2026.
 
 ---
 

@@ -3,14 +3,21 @@
  * Provides offline functionality and caching strategies
  */
 
-const CACHE_NAME = 'genosys-cache-v53'
-const STATIC_CACHE = 'genosys-static-v53'
-const DYNAMIC_CACHE = 'genosys-dynamic-v53'
-const IMAGE_CACHE = 'genosys-images-v53'
+const CACHE_NAME = 'genosys-cache-v54'
+const STATIC_CACHE = 'genosys-static-v54'
+const DYNAMIC_CACHE = 'genosys-dynamic-v54'
+const IMAGE_CACHE = 'genosys-images-v54'
 
-// Assets to cache immediately
+// IndexedDB configuration for offline data storage
+const DB_NAME = 'genosys-offline-db'
+const DB_VERSION = 1
+const CART_STORE = 'cart'
+const FAVORITES_STORE = 'favorites'
+
+// Assets to cache immediately (including offline page)
 const STATIC_ASSETS = [
   '/',
+  '/offline',  // Critical: offline fallback page
   '/products',
   '/about',
   '/contact',
@@ -292,15 +299,72 @@ async function syncFavoritesData() {
   }
 }
 
-// Helper functions for local storage
-async function getStoredCartData() {
-  // This would integrate with your cart storage
-  return JSON.parse(localStorage.getItem('cart') || '[]')
+// IndexedDB helper - open database connection
+function openDatabase() {
+  return new Promise((resolve, reject) => {
+    const request = indexedDB.open(DB_NAME, DB_VERSION)
+    
+    request.onerror = () => {
+      console.error('Failed to open IndexedDB:', request.error)
+      reject(request.error)
+    }
+    
+    request.onsuccess = () => {
+      resolve(request.result)
+    }
+    
+    request.onupgradeneeded = (event) => {
+      const db = event.target.result
+      
+      // Create cart store if it doesn't exist
+      if (!db.objectStoreNames.contains(CART_STORE)) {
+        db.createObjectStore(CART_STORE, { keyPath: 'id' })
+      }
+      
+      // Create favorites store if it doesn't exist
+      if (!db.objectStoreNames.contains(FAVORITES_STORE)) {
+        db.createObjectStore(FAVORITES_STORE, { keyPath: 'id' })
+      }
+    }
+  })
 }
 
+// Helper function to get data from IndexedDB store
+async function getStoreData(storeName) {
+  try {
+    const db = await openDatabase()
+    return new Promise((resolve, reject) => {
+      const transaction = db.transaction(storeName, 'readonly')
+      const store = transaction.objectStore(storeName)
+      const request = store.getAll()
+      
+      request.onerror = () => {
+        console.error(`Failed to get ${storeName} data:`, request.error)
+        reject(request.error)
+      }
+      
+      request.onsuccess = () => {
+        resolve(request.result || [])
+      }
+      
+      transaction.oncomplete = () => {
+        db.close()
+      }
+    })
+  } catch (error) {
+    console.error(`Error accessing ${storeName}:`, error)
+    return []
+  }
+}
+
+// Get cart data from IndexedDB (not localStorage - which is unavailable in SW)
+async function getStoredCartData() {
+  return getStoreData(CART_STORE)
+}
+
+// Get favorites data from IndexedDB (not localStorage - which is unavailable in SW)
 async function getStoredFavoritesData() {
-  // This would integrate with your favorites storage
-  return JSON.parse(localStorage.getItem('favorites') || '[]')
+  return getStoreData(FAVORITES_STORE)
 }
 
 // Push notification handling

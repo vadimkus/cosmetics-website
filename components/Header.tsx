@@ -16,12 +16,14 @@ import HeaderRussianDesktop from './HeaderRussianDesktop'
 import { useState, useEffect, memo } from 'react'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
+import { usePWAMode } from '@/hooks/usePWAMode'
 
 const Header = memo(function Header() {
   const { getTotalItems } = useCartStore()
   const { user, logout } = useAuth()
   const { favorites } = useFavorites()
   const { t, locale } = useTranslation()
+  const { isPWA } = usePWAMode()
   const [showLoginModal, setShowLoginModal] = useState(false)
   const [isLoginMode, setIsLoginMode] = useState(true)
   const [showMobileMenu, setShowMobileMenu] = useState(false)
@@ -108,18 +110,21 @@ const Header = memo(function Header() {
                   </span>
                 )}
               </Link>
-              <Link 
-                href={getLocalizedPath('/cart', locale)} 
-                className="relative p-1.5 text-gray-700 hover:text-primary-600 transition-colors flex items-center justify-center ml-2"
-                aria-label={`${t('common.cart')} with ${isClient ? getTotalItems() : 0} items`}
-              >
-                <ShoppingCart className={`h-4 w-4 transition-colors ${isClient && getTotalItems() > 0 ? 'text-green-600' : ''}`} aria-hidden="true" />
-                {isClient && getTotalItems() > 0 && (
-                  <span className="absolute top-0 right-0 bg-primary-600 text-white text-[9px] rounded-full h-3.5 w-3.5 flex items-center justify-center header-badge" aria-hidden="true">
-                    {getTotalItems()}
-                  </span>
-                )}
-              </Link>
+              {/* Hide cart icon on mobile in PWA mode (using footer nav instead) */}
+              {!isPWA && (
+                <Link 
+                  href={getLocalizedPath('/cart', locale)} 
+                  className="relative p-1.5 text-gray-700 hover:text-primary-600 transition-colors flex items-center justify-center ml-2"
+                  aria-label={`${t('common.cart')} with ${isClient ? getTotalItems() : 0} items`}
+                >
+                  <ShoppingCart className={`h-4 w-4 transition-colors ${isClient && getTotalItems() > 0 ? 'text-green-600' : ''}`} aria-hidden="true" />
+                  {isClient && getTotalItems() > 0 && (
+                    <span className="absolute top-0 right-0 bg-primary-600 text-white text-[9px] rounded-full h-3.5 w-3.5 flex items-center justify-center header-badge" aria-hidden="true">
+                      {getTotalItems()}
+                    </span>
+                  )}
+                </Link>
+              )}
               <AnimationToggle size="sm" className="md:hidden" />
               <Link 
                 href={getLocalizedPath('/products', locale)} 
@@ -155,18 +160,21 @@ const Header = memo(function Header() {
                   style={{ width: 'auto', height: 'auto' }}
                 />
               </Link>
-              <Link 
-                href={getLocalizedPath('/cart', locale)} 
-                className="relative p-1.5 text-gray-700 hover:text-primary-600 transition-colors flex items-center justify-center mr-2"
-                aria-label={`${t('common.cart')} with ${isClient ? getTotalItems() : 0} items`}
-              >
-                <ShoppingCart className={`h-4 w-4 transition-colors ${isClient && getTotalItems() > 0 ? 'text-green-600' : ''}`} aria-hidden="true" />
-                {isClient && getTotalItems() > 0 && (
-                  <span className="absolute top-0 right-0 bg-primary-600 text-white text-[9px] rounded-full h-3.5 w-3.5 flex items-center justify-center header-badge" aria-hidden="true">
-                    {getTotalItems()}
-                  </span>
-                )}
-              </Link>
+              {/* Hide cart icon on mobile in PWA mode (using footer nav instead) */}
+              {!isPWA && (
+                <Link 
+                  href={getLocalizedPath('/cart', locale)} 
+                  className="relative p-1.5 text-gray-700 hover:text-primary-600 transition-colors flex items-center justify-center mr-2"
+                  aria-label={`${t('common.cart')} with ${isClient ? getTotalItems() : 0} items`}
+                >
+                  <ShoppingCart className={`h-4 w-4 transition-colors ${isClient && getTotalItems() > 0 ? 'text-green-600' : ''}`} aria-hidden="true" />
+                  {isClient && getTotalItems() > 0 && (
+                    <span className="absolute top-0 right-0 bg-primary-600 text-white text-[9px] rounded-full h-3.5 w-3.5 flex items-center justify-center header-badge" aria-hidden="true">
+                      {getTotalItems()}
+                    </span>
+                  )}
+                </Link>
+              )}
               <AnimationToggle size="sm" className="md:hidden mr-2" />
               <Link 
                 href={getLocalizedPath('/favorites', locale)} 

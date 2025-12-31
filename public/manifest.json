@@ -4,7 +4,7 @@
   "short_name": "Genosys UAE",
   "description": "Discover our premium collection of cosmetics and beauty products from Genosys Middle East FZ-LLC",
   "start_url": "/",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "display": "standalone",
   "display_override": ["standalone", "minimal-ui", "browser"],
   "background_color": "#ffffff",
@@ -37,19 +37,31 @@
       "src": "/icon-192x192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
     },
     {
       "src": "/icon-512x512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
     },
     {
       "src": "/apple-touch-icon.png",
       "sizes": "180x180",
       "type": "image/png",
       "purpose": "any"
+    },
+    {
+      "src": "/icon-192x192-maskable.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icon-512x512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ],
   "screenshots": [
@@ -59,6 +71,13 @@
       "type": "image/jpeg",
       "form_factor": "wide",
       "label": "Genosys Products Showcase"
+    },
+    {
+      "src": "/images/screenshot-mobile.png",
+      "sizes": "750x1334",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Genosys Mobile Shopping Experience"
     }
   ],
   "shortcuts": [
@@ -114,5 +133,14 @@
   },
   "launch_handler": {
     "client_mode": "navigate-existing"
+  },
+  "share_target": {
+    "action": "/share",
+    "method": "GET",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
   }
 }

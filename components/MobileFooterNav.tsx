@@ -105,6 +105,14 @@ export default function MobileFooterNav() {
   // Get locale from pathname
   const locale = useMemo(() => getLocaleFromPath(pathname || '/'), [pathname])
   
+  // Check if we're on a product detail page (has /products/ followed by an ID)
+  const isProductDetailPage = useMemo(() => {
+    if (!pathname) return false
+    // Match /products/[id] or /[locale]/products/[id] but NOT just /products
+    const productDetailPattern = /\/products\/[a-zA-Z0-9_-]+$/
+    return productDetailPattern.test(pathname)
+  }, [pathname])
+
   // Determine active tab
   const activeTab = useMemo(() => {
     if (!pathname) return 'home'
@@ -120,8 +128,8 @@ export default function MobileFooterNav() {
   const cartCount = isClient ? getTotalItems() : 0
   const hasItemsInCart = cartCount > 0
   
-  // Only render in PWA mode on mobile
-  if (!isClient || !isPWA) {
+  // Only render in PWA mode on mobile, hide on product detail pages (they have their own action footer)
+  if (!isClient || !isPWA || isProductDetailPage) {
     return null
   }
   

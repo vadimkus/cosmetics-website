@@ -10,6 +10,7 @@ import BreadcrumbSchema from '@/components/BreadcrumbSchema'
 import ProductImageGallery from '@/components/product/ProductImageGallery'
 import ProductInfo from '@/components/product/ProductInfo'
 import ProductDescription from '@/components/product/ProductDescription'
+import ProductActionFooter from '@/components/ProductActionFooter'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 
@@ -66,6 +67,13 @@ export default function ProductPageClientOptimized({ product }: ProductPageClien
 
         <ProductDescription product={product} />
       </div>
+
+      {/* PWA Product Action Footer */}
+      <ProductActionFooter 
+        product={product}
+        selectedSize={selectedSize}
+        locale={locale}
+      />
     </>
   )
 }

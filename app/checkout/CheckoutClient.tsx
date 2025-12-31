@@ -751,21 +751,21 @@ export default function CheckoutClient() {
                 {/* Totals */}
                 <div className="border-t border-gray-100 pt-3 space-y-1.5">
                   <div className={`flex justify-between text-sm ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                    <span className="text-gray-600">{t('checkout.subtotal') || 'Subtotal'}</span>
+                    <span className="text-gray-600">{locale === 'ar' ? 'المجموع الفرعي' : locale === 'ru' ? 'Подытог' : 'Subtotal'}</span>
                     <span className="text-gray-900">AED {subtotal.toFixed(2)}</span>
                   </div>
                   <div className={`flex justify-between text-sm ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                    <span className="text-gray-600">{t('checkout.shipping') || 'Shipping'}</span>
+                    <span className="text-gray-600">{locale === 'ar' ? 'الشحن' : locale === 'ru' ? 'Доставка' : 'Shipping'}</span>
                     <span className={shippingCost === 0 ? 'text-green-600 font-medium' : 'text-gray-900'}>
                       {shippingCost === 0 ? (locale === 'ar' ? 'مجاني' : locale === 'ru' ? 'Бесплатно' : 'FREE') : `AED ${shippingCost}`}
                     </span>
                   </div>
                   <div className={`flex justify-between text-sm ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                    <span className="text-gray-600">{t('checkout.vat') || 'VAT (5%)'}</span>
+                    <span className="text-gray-600">{locale === 'ar' ? 'ضريبة القيمة المضافة (5%)' : locale === 'ru' ? 'НДС (5%)' : 'VAT (5%)'}</span>
                     <span className="text-gray-900">AED {vatAmount.toFixed(2)}</span>
                   </div>
                   <div className={`flex justify-between text-base font-bold pt-2 border-t border-gray-200 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                    <span className="text-gray-900">{t('checkout.total') || 'Total'}</span>
+                    <span className="text-gray-900">{locale === 'ar' ? 'الإجمالي' : locale === 'ru' ? 'Итого' : 'Total'}</span>
                     <span className="text-primary-600">AED {total.toFixed(2)}</span>
                   </div>
                 </div>

@@ -67,15 +67,8 @@ export default function Footer() {
     return path === '/contact' || path === '/ar/contact' || path.startsWith('/contact')
   }, [pathname])
 
-  // Check if we're on the About page - the only page that keeps footer in PWA mode
-  const isAboutPage = useMemo(() => {
-    if (!pathname) return false
-    const path = pathname.toLowerCase()
-    return path === '/about' || path === '/en/about' || path === '/ar/about' || path === '/ru/about' || path.endsWith('/about')
-  }, [pathname])
-
-  // In PWA mode, hide footer on ALL pages EXCEPT About page - sticky footer nav is enough
-  if (isClient && isPWA && !isAboutPage) {
+  // In PWA mode, hide footer on ALL pages - sticky footer nav is enough
+  if (isClient && isPWA) {
     return null
   }
 

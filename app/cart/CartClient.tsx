@@ -178,7 +178,7 @@ export default function CartClient() {
 
   if (items.length === 0) {
     return (
-      <div className={isPWA ? 'min-h-screen bg-gray-50 pb-32' : ''}>
+      <div className={isPWA ? 'min-h-screen bg-white pb-32' : ''}>
         {/* PWA Simple Navigation Header */}
         {isPWA && (
           <div className={`flex items-center justify-between px-5 py-4 bg-white ${isRTL ? 'flex-row-reverse' : ''}`}>
@@ -194,7 +194,7 @@ export default function CartClient() {
               </span>
             </button>
             <span className="text-base font-semibold text-gray-900">
-              {t('navigation.bag') || 'Bag'}
+              {t('pwaProfile.bag') || 'Bag'}
             </span>
           </div>
         )}
@@ -222,12 +222,12 @@ export default function CartClient() {
           <div className="flex flex-col items-center">
             <div className="mb-6 md:mb-4 relative">
               <motion.div
-                animate={animationsEnabled ? {
+                animate={animationsEnabled && !isPWA ? {
                   y: [0, -8, 0],
                   scale: [1, 1.02, 1],
                   rotate: [0, 1, -1, 0]
                 } : {}}
-                transition={animationsEnabled ? {
+                transition={animationsEnabled && !isPWA ? {
                   duration: 4,
                   repeat: Infinity,
                   ease: "easeInOut",
@@ -311,7 +311,7 @@ export default function CartClient() {
   }
 
   return (
-    <div className={isPWA ? 'min-h-screen bg-gray-50 pb-32' : ''}>
+    <div className={isPWA ? 'min-h-screen bg-white pb-32' : ''}>
       {/* PWA Simple Navigation Header */}
       {isPWA && (
         <div className={`flex items-center justify-between px-5 py-4 bg-white ${isRTL ? 'flex-row-reverse' : ''}`}>
@@ -327,7 +327,7 @@ export default function CartClient() {
             </span>
           </button>
           <span className="text-base font-semibold text-gray-900">
-            {t('navigation.bag') || 'Bag'}
+            {t('pwaProfile.bag') || 'Bag'}
           </span>
         </div>
       )}

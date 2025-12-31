@@ -1,0 +1,401 @@
+'use client'
+
+import { useState, useEffect, useCallback } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
+import Image from 'next/image'
+import { User, Camera, Mail, Calendar, ChevronDown, ArrowLeft, X, AlertTriangle } from 'lucide-react'
+import { useAuth } from '@/components/AuthProvider'
+import { useTranslation } from '@/hooks/useTranslation'
+import { getLocalizedPath } from '@/lib/i18n'
+import { usePWAMode } from '@/hooks/usePWAMode'
+
+const GENDER_VALUES = {
+  MALE: 'male',
+  FEMALE: 'female',
+  OTHER: 'other',
+  NA: 'na',
+}
+
+export default function EditProfilePage() {
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const { user } = useAuth()
+  const { locale, dir } = useTranslation()
+  const { isPWA } = usePWAMode()
+  const isRTL = dir === 'rtl'
+  
+  const fromPage = searchParams?.get('from')
+
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    contactEmail: '',
+    phone: '',
+    birthday: '',
+    gender: GENDER_VALUES.NA,
+  })
+  const [isSaving, setIsSaving] = useState(false)
+  const [showGenderModal, setShowGenderModal] = useState(false)
+  const [initialSnapshot, setInitialSnapshot] = useState<typeof formData | null>(null)
+
+  // Gender options with translations
+  const genderOptions = [
+    { value: GENDER_VALUES.MALE, label: locale === 'ar' ? 'ذكر' : locale === 'ru' ? 'Мужской' : 'Male' },
+    { value: GENDER_VALUES.FEMALE, label: locale === 'ar' ? 'أنثى' : locale === 'ru' ? 'Женский' : 'Female' },
+    { value: GENDER_VALUES.OTHER, label: locale === 'ar' ? 'آخر' : locale === 'ru' ? 'Другой' : 'Other' },
+    { value: GENDER_VALUES.NA, label: locale === 'ar' ? 'أفضل عدم القول' : locale === 'ru' ? 'Предпочитаю не говорить' : 'Prefer not to say' },
+  ]
+
+  const getGenderLabel = (value: string) => {
+    const option = genderOptions.find(o => o.value === value)
+    const defaultOption = genderOptions.find(o => o.value === GENDER_VALUES.NA)
+    return option?.label || defaultOption?.label || 'Prefer not to say'
+  }
+
+  // Populate form with user data
+  useEffect(() => {
+    if (user) {
+      const nameParts = user.name ? user.name.split(' ') : ['', '']
+      const authEmail = String(user.email || '').trim()
+      const isAppleRelay = authEmail.includes('@privaterelay.appleid.com')
+      const derivedContactEmail = String(user.contactEmail || '').trim() || (!isAppleRelay ? authEmail : '')
+
+      const nextForm = {
+        firstName: nameParts[0] || '',
+        lastName: nameParts.slice(1).join(' ') || '',
+        email: authEmail,
+        contactEmail: derivedContactEmail,
+        phone: user.phone || '',
+        birthday: user.birthday || '',
+        gender: (user as any).gender || GENDER_VALUES.NA,
+      }
+      setFormData(nextForm)
+      setInitialSnapshot(nextForm)
+    }
+  }, [user])
+
+  const isDirty = useCallback(() => {
+    if (!initialSnapshot) return false
+    try {
+      return JSON.stringify(formData) !== JSON.stringify(initialSnapshot)
+    } catch {
+      return true
+    }
+  }, [formData, initialSnapshot])
+
+  const updateField = (field: keyof typeof formData, value: string) => {
+    setFormData(prev => ({ ...prev, [field]: value }))
+  }
+
+  const handleSave = async () => {
+    if (!formData.firstName.trim() || !formData.lastName.trim() || !formData.contactEmail.trim() || !formData.phone.trim()) {
+      alert(locale === 'ar' ? 'يرجى ملء جميع الحقول المطلوبة' : locale === 'ru' ? 'Пожалуйста, заполните все обязательные поля' : 'Please fill in all required fields')
+      return
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(formData.contactEmail)) {
+      alert(locale === 'ar' ? 'يرجى إدخال بريد إلكتروني صحيح' : locale === 'ru' ? 'Пожалуйста, введите действительный email' : 'Please enter a valid email address')
+      return
+    }
+
+    try {
+      setIsSaving(true)
+      const profileData = {
+        name: `${formData.firstName.trim()} ${formData.lastName.trim()}`,
+        phone: formData.phone.trim(),
+        birthday: formData.birthday,
+        gender: formData.gender,
+        contactEmail: formData.contactEmail.trim(),
+      }
+
+      const response = await fetch('/api/user/profile', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(profileData),
+      })
+      
+      if (response.ok) {
+        setInitialSnapshot(formData)
+        alert(locale === 'ar' ? 'تم حفظ الملف الشخصي بنجاح' : locale === 'ru' ? 'Профиль успешно сохранен' : 'Profile saved successfully')
+      } else {
+        const data = await response.json()
+        alert(data?.error || (locale === 'ar' ? 'فشل التحديث' : locale === 'ru' ? 'Ошибка обновления' : 'Update failed'))
+      }
+    } catch (error) {
+      alert(locale === 'ar' ? 'حدث خطأ' : locale === 'ru' ? 'Произошла ошибка' : 'An error occurred')
+    } finally {
+      setIsSaving(false)
+    }
+  }
+
+  const handleBack = () => {
+    if (fromPage === 'profile') {
+      router.push(getLocalizedPath('/profile', locale))
+    } else {
+      router.back()
+    }
+  }
+
+  // Translations
+  const translations = {
+    title: locale === 'ar' ? 'المعلومات الشخصية' : locale === 'ru' ? 'Личная информация' : 'Personal Information',
+    back: locale === 'ar' ? 'الحساب' : locale === 'ru' ? 'Аккаунт' : 'Account',
+    save: locale === 'ar' ? 'حفظ' : locale === 'ru' ? 'Сохранить' : 'Save',
+    saving: locale === 'ar' ? 'جارٍ الحفظ...' : locale === 'ru' ? 'Сохранение...' : 'Saving...',
+    profilePicture: locale === 'ar' ? 'صورة الملف الشخصي' : locale === 'ru' ? 'Фото профиля' : 'Profile Picture',
+    tapToChange: locale === 'ar' ? 'اضغط لتغيير الصورة' : locale === 'ru' ? 'Нажмите для изменения' : 'Tap to change photo',
+    personalInfo: locale === 'ar' ? 'المعلومات الشخصية' : locale === 'ru' ? 'Личные данные' : 'Personal Information',
+    firstName: locale === 'ar' ? 'الاسم الأول' : locale === 'ru' ? 'Имя' : 'First Name',
+    lastName: locale === 'ar' ? 'اسم العائلة' : locale === 'ru' ? 'Фамилия' : 'Last Name',
+    email: locale === 'ar' ? 'البريد الإلكتروني' : locale === 'ru' ? 'Email' : 'Email Address',
+    contactEmail: locale === 'ar' ? 'بريد التواصل' : locale === 'ru' ? 'Контактный email' : 'Contact Email',
+    contactEmailHint: locale === 'ar' ? 'يستخدم للإشعارات وتحديثات الطلبات' : locale === 'ru' ? 'Для уведомлений и обновлений заказов' : 'Used for notifications and order updates',
+    phone: locale === 'ar' ? 'رقم الهاتف' : locale === 'ru' ? 'Телефон' : 'Phone Number',
+    additionalInfo: locale === 'ar' ? 'معلومات إضافية' : locale === 'ru' ? 'Дополнительная информация' : 'Additional Information',
+    dateOfBirth: locale === 'ar' ? 'تاريخ الميلاد' : locale === 'ru' ? 'Дата рождения' : 'Date of Birth',
+    selectDate: locale === 'ar' ? 'اختر التاريخ' : locale === 'ru' ? 'Выберите дату' : 'Select date',
+    gender: locale === 'ar' ? 'الجنس' : locale === 'ru' ? 'Пол' : 'Gender',
+    selectGender: locale === 'ar' ? 'اختر الجنس' : locale === 'ru' ? 'Выберите пол' : 'Select gender',
+    required: '*',
+    privacyNote: locale === 'ar' ? 'معلوماتك محمية ولن تتم مشاركتها' : locale === 'ru' ? 'Ваша информация защищена и не будет передана' : 'Your information is protected and will not be shared',
+  }
+
+  if (!user) {
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <p className="text-gray-500">{locale === 'ar' ? 'يرجى تسجيل الدخول' : locale === 'ru' ? 'Пожалуйста, войдите' : 'Please sign in'}</p>
+      </div>
+    )
+  }
+
+  return (
+    <div className={`min-h-screen bg-white ${isPWA ? 'pb-32' : ''}`} dir={dir}>
+      {/* Header */}
+      <div className={`flex items-center justify-between px-5 py-4 border-b border-gray-200 ${isRTL ? 'flex-row-reverse' : ''}`}>
+        <button 
+          onClick={handleBack}
+          className={`flex items-center gap-1.5 ${isRTL ? 'flex-row-reverse' : ''}`}
+        >
+          <ArrowLeft className={`w-6 h-6 text-red-600 ${isRTL ? 'rotate-180' : ''}`} />
+          <span className="text-sm font-semibold text-red-600">{translations.back}</span>
+        </button>
+        <h1 className="text-lg font-semibold text-gray-900">{translations.title}</h1>
+        <button 
+          onClick={handleSave}
+          disabled={isSaving || !isDirty()}
+          className={`text-sm font-semibold ${isSaving || !isDirty() ? 'text-gray-400' : 'text-red-600'}`}
+        >
+          {isSaving ? translations.saving : translations.save}
+        </button>
+      </div>
+
+      {/* Content */}
+      <div className="overflow-y-auto">
+        {/* Profile Picture Section */}
+        <div className="py-6 border-b border-gray-100">
+          <div className={`px-5 flex items-center gap-3 mb-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
+            <div className="w-8 h-8 rounded-full bg-red-50 border border-red-200 flex items-center justify-center">
+              <Camera className="w-4 h-4 text-red-600" />
+            </div>
+            <h2 className={`text-lg font-bold text-gray-900 ${isRTL ? 'text-right' : ''}`}>{translations.profilePicture}</h2>
+          </div>
+          <div className="flex flex-col items-center py-4 mx-5 bg-gray-50 rounded-xl">
+            <div className="relative mb-3">
+              {user.profilePicture ? (
+                <Image 
+                  src={user.profilePicture} 
+                  alt="Profile" 
+                  width={100} 
+                  height={100} 
+                  className="w-24 h-24 rounded-full object-cover"
+                />
+              ) : (
+                <div className="w-24 h-24 rounded-full bg-gray-200 flex items-center justify-center">
+                  <User className="w-10 h-10 text-gray-400" />
+                </div>
+              )}
+              <div className="absolute bottom-1 right-1 w-7 h-7 rounded-full bg-red-600 flex items-center justify-center border-2 border-white">
+                <Camera className="w-3.5 h-3.5 text-white" />
+              </div>
+            </div>
+            <span className="text-sm text-red-600 font-medium">{translations.tapToChange}</span>
+          </div>
+        </div>
+
+        {/* Personal Information Section */}
+        <div className="py-6 border-b border-gray-100">
+          <div className={`px-5 flex items-center gap-3 mb-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
+            <div className="w-8 h-8 rounded-full bg-red-50 border border-red-200 flex items-center justify-center">
+              <User className="w-4 h-4 text-red-600" />
+            </div>
+            <h2 className={`text-lg font-bold text-gray-900 ${isRTL ? 'text-right' : ''}`}>{translations.personalInfo}</h2>
+          </div>
+          <div className="mx-5 bg-gray-50 rounded-xl overflow-hidden">
+            {/* First Name */}
+            <div className="px-4 py-3 border-b border-gray-200">
+              <label className={`text-sm font-medium text-gray-900 mb-1 block ${isRTL ? 'text-right' : ''}`}>
+                {translations.firstName}<span className="text-red-600"> {translations.required}</span>
+              </label>
+              <input
+                type="text"
+                value={formData.firstName}
+                onChange={(e) => updateField('firstName', e.target.value)}
+                className={`w-full text-base text-gray-900 bg-transparent outline-none ${isRTL ? 'text-right' : ''}`}
+                placeholder={translations.firstName}
+              />
+            </div>
+            {/* Last Name */}
+            <div className="px-4 py-3 border-b border-gray-200">
+              <label className={`text-sm font-medium text-gray-900 mb-1 block ${isRTL ? 'text-right' : ''}`}>
+                {translations.lastName}<span className="text-red-600"> {translations.required}</span>
+              </label>
+              <input
+                type="text"
+                value={formData.lastName}
+                onChange={(e) => updateField('lastName', e.target.value)}
+                className={`w-full text-base text-gray-900 bg-transparent outline-none ${isRTL ? 'text-right' : ''}`}
+                placeholder={translations.lastName}
+              />
+            </div>
+            {/* Email (read-only) */}
+            <div className="px-4 py-3 border-b border-gray-200 opacity-75">
+              <label className={`text-sm font-medium text-gray-900 mb-1 block ${isRTL ? 'text-right' : ''}`}>
+                {translations.email}<span className="text-red-600"> {translations.required}</span>
+              </label>
+              <input
+                type="email"
+                value={formData.email}
+                readOnly
+                className="w-full text-base text-gray-500 bg-transparent outline-none"
+                dir="ltr"
+              />
+            </div>
+            {/* Contact Email */}
+            <div className="px-4 py-3 border-b border-gray-200">
+              <label className={`text-sm font-medium text-gray-900 mb-1 block ${isRTL ? 'text-right' : ''}`}>
+                {translations.contactEmail}<span className="text-red-600"> {translations.required}</span>
+              </label>
+              <input
+                type="email"
+                value={formData.contactEmail}
+                onChange={(e) => updateField('contactEmail', e.target.value)}
+                className="w-full text-base text-gray-900 bg-transparent outline-none"
+                placeholder={translations.contactEmail}
+                dir="ltr"
+              />
+              <p className={`text-xs text-amber-700 mt-2 bg-amber-50 px-3 py-2 rounded-lg ${isRTL ? 'text-right' : ''}`}>
+                <Mail className="w-3 h-3 inline mr-1" />
+                {translations.contactEmailHint}
+              </p>
+            </div>
+            {/* Phone */}
+            <div className="px-4 py-3">
+              <label className={`text-sm font-medium text-gray-900 mb-1 block ${isRTL ? 'text-right' : ''}`}>
+                {translations.phone}<span className="text-red-600"> {translations.required}</span>
+              </label>
+              <input
+                type="tel"
+                value={formData.phone}
+                onChange={(e) => updateField('phone', e.target.value)}
+                className="w-full text-base text-gray-900 bg-transparent outline-none"
+                placeholder="+971 XX XXX XXXX"
+                dir="ltr"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Additional Information Section */}
+        <div className="py-6 border-b border-gray-100">
+          <div className={`px-5 flex items-center gap-3 mb-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
+            <div className="w-8 h-8 rounded-full bg-red-50 border border-red-200 flex items-center justify-center">
+              <Calendar className="w-4 h-4 text-red-600" />
+            </div>
+            <h2 className={`text-lg font-bold text-gray-900 ${isRTL ? 'text-right' : ''}`}>{translations.additionalInfo}</h2>
+          </div>
+          <div className="mx-5 bg-gray-50 rounded-xl overflow-hidden">
+            {/* Date of Birth */}
+            <div className="px-4 py-3 border-b border-gray-200">
+              <label className={`text-sm font-medium text-gray-900 mb-1 block ${isRTL ? 'text-right' : ''}`}>
+                {translations.dateOfBirth}
+              </label>
+              <div className={`flex items-center justify-between ${isRTL ? 'flex-row-reverse' : ''}`}>
+                <input
+                  type="date"
+                  value={formData.birthday}
+                  onChange={(e) => updateField('birthday', e.target.value)}
+                  className={`flex-1 text-base text-gray-900 bg-transparent outline-none ${isRTL ? 'text-right' : ''}`}
+                />
+              </div>
+            </div>
+            {/* Gender */}
+            <div className="px-4 py-3">
+              <label className={`text-sm font-medium text-gray-900 mb-1 block ${isRTL ? 'text-right' : ''}`}>
+                {translations.gender}
+              </label>
+              <button
+                onClick={() => setShowGenderModal(true)}
+                className={`w-full flex items-center justify-between ${isRTL ? 'flex-row-reverse' : ''}`}
+              >
+                <span className="text-base text-gray-900">{getGenderLabel(formData.gender)}</span>
+                <ChevronDown className="w-5 h-5 text-gray-400" />
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Privacy Note */}
+        <div className="px-5 py-6">
+          <div className={`flex items-start gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
+            <AlertTriangle className="w-4 h-4 text-gray-400 mt-0.5 flex-shrink-0" />
+            <p className={`text-sm text-gray-500 text-center flex-1 ${isRTL ? 'text-right' : ''}`}>
+              {translations.privacyNote}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Gender Modal */}
+      {showGenderModal && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-5">
+          <div className="bg-white rounded-2xl w-full max-w-sm overflow-hidden">
+            <div className={`flex items-center justify-between p-5 border-b border-gray-100 ${isRTL ? 'flex-row-reverse' : ''}`}>
+              <h3 className="text-lg font-semibold text-gray-900">{translations.selectGender}</h3>
+              <button onClick={() => setShowGenderModal(false)}>
+                <X className="w-6 h-6 text-gray-500" />
+              </button>
+            </div>
+            <div className="py-2">
+              {genderOptions.map((option) => (
+                <button
+                  key={option.value}
+                  onClick={() => {
+                    updateField('gender', option.value)
+                    setShowGenderModal(false)
+                  }}
+                  className={`w-full px-5 py-4 flex items-center justify-between border-b border-gray-50 ${
+                    formData.gender === option.value ? 'bg-red-50' : ''
+                  } ${isRTL ? 'flex-row-reverse' : ''}`}
+                >
+                  <span className={`text-base ${formData.gender === option.value ? 'text-red-600 font-medium' : 'text-gray-900'}`}>
+                    {option.label}
+                  </span>
+                  {formData.gender === option.value && (
+                    <div className="w-5 h-5 rounded-full bg-red-600 flex items-center justify-center">
+                      <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                  )}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
+

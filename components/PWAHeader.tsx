@@ -36,9 +36,12 @@ export default function PWAHeader() {
   const isOnProfilePage = pathname?.includes('/profile')
   
   // Check if we're on pages that have their own simple header
+  // Include product detail pages (has /products/ followed by an ID)
+  const isProductDetailPage = pathname ? /\/products\/[a-zA-Z0-9_-]+$/.test(pathname) : false
   const isOnSimpleHeaderPage = pathname?.includes('/profile') || 
                                 pathname?.includes('/cart') || 
-                                pathname?.includes('/orders')
+                                pathname?.includes('/orders') ||
+                                isProductDetailPage
   
   // Handle profile button click - with debounce to prevent rapid clicks
   const handleProfileClick = useCallback(() => {

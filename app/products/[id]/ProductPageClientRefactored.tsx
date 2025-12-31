@@ -23,6 +23,7 @@ import TrustBadges from '@/components/product/TrustBadges'
 import ProductRecommendation from '@/components/product/ProductRecommendation'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
+import { usePWAMode } from '@/hooks/usePWAMode'
 import { translateSize } from '@/utils/sizeTranslations'
 import { translateCategory } from '@/utils/categoryTranslations'
 import { 
@@ -43,6 +44,8 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
   const { toggleFavorite, isFavorite } = useFavorites()
   const { user } = useAuth()
   const { t, locale, dir } = useTranslation()
+  const { isPWA } = usePWAMode()
+  const isRTL = dir === 'rtl'
   
   // Variant state
   const sizeOptions = getProductSizeOptions(product.id)
@@ -126,17 +129,53 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
         ]}
       />
 
-      <div className="container mx-auto px-3 md:px-4 py-1 lg:py-8 lg:py-16">
-        {/* Mobile Header - Product Name & Back Button */}
-        <div className="lg:hidden mb-1.5">
-          {/* Back Link */}
-          <Link 
-            href={getLocalizedPath('/products', locale)}
-            className={`inline-flex items-center text-gray-500 hover:text-primary-600 active:text-primary-700 transition-colors text-[10px] mb-6 font-medium touch-manipulation ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+      {/* PWA Simple Navigation Header */}
+      {isPWA && (
+        <div className={`flex items-center justify-between px-5 py-4 bg-white border-b border-gray-100 ${isRTL ? 'flex-row-reverse' : ''}`}>
+          <button 
+            onClick={() => router.push(getLocalizedPath('/products', locale))}
+            className={`flex items-center gap-1 min-w-[80px] ${isRTL ? 'flex-row-reverse' : ''}`}
           >
-            <ArrowLeft className={`h-3 w-3 flex-shrink-0 ${dir === 'rtl' ? 'ml-1 rotate-180' : 'mr-1'}`} />
-            <span>{t('product.backToProducts')}</span>
-          </Link>
+            <svg className={`w-5 h-5 text-red-600 ${isRTL ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+            <span className="text-base text-red-600">
+              {t('navigation.products') || 'Products'}
+            </span>
+          </button>
+          <span className="text-base font-semibold text-gray-900 text-center flex-1 truncate px-2">
+            {product.name}
+          </span>
+          {/* Profile Icon with green dot */}
+          <button 
+            onClick={() => router.push(getLocalizedPath('/profile', locale))}
+            className="min-w-[80px] flex justify-end"
+          >
+            <div className="relative">
+              <div className="w-8 h-8 rounded-full bg-red-600 flex items-center justify-center">
+                <span className="text-sm font-semibold text-white">
+                  {user?.name?.charAt(0)?.toUpperCase() || 'U'}
+                </span>
+              </div>
+              {/* Green online dot */}
+              <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 rounded-full border-2 border-white" />
+            </div>
+          </button>
+        </div>
+      )}
+
+      <div className="container mx-auto px-3 md:px-4 py-1 lg:py-8 lg:py-16">
+        {/* Mobile Header - Product Name & Back Button (hide in PWA mode) */}
+        {!isPWA && (
+          <div className="lg:hidden mb-1.5">
+            {/* Back Link */}
+            <Link 
+              href={getLocalizedPath('/products', locale)}
+              className={`inline-flex items-center text-gray-500 hover:text-primary-600 active:text-primary-700 transition-colors text-[10px] mb-6 font-medium touch-manipulation ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+            >
+              <ArrowLeft className={`h-3 w-3 flex-shrink-0 ${dir === 'rtl' ? 'ml-1 rotate-180' : 'mr-1'}`} />
+              <span>{t('product.backToProducts')}</span>
+            </Link>
           
           {/* Product Name - Centered */}
           <h1 className="text-sm lg:text-base md:text-lg font-bold text-gray-900 leading-tight text-center mb-0.5">
@@ -166,7 +205,8 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
               {(product.rating || 5.0).toFixed(1)}
             </span>
           </div>
-        </div>
+          </div>
+        )}
 
         {/* Desktop Back Button */}
         <div className={`hidden lg:flex items-center mb-6 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 500" fill="none">
+  <!-- iPhone Frame -->
+  <rect x="10" y="10" width="260" height="480" rx="40" fill="#1a1a1a" stroke="#333" stroke-width="2"/>
+  <rect x="20" y="20" width="240" height="460" rx="35" fill="#fff"/>
+  
+  <!-- Notch -->
+  <rect x="90" y="20" width="100" height="30" rx="15" fill="#1a1a1a"/>
+  
+  <!-- Safari URL Bar -->
+  <rect x="35" y="70" width="210" height="36" rx="10" fill="#f5f5f5" stroke="#e0e0e0"/>
+  <text x="140" y="93" text-anchor="middle" font-family="system-ui" font-size="12" fill="#666">genosys.ae</text>
+  
+  <!-- Safari Icon -->
+  <circle cx="60" cy="88" r="12" fill="#007AFF"/>
+  <text x="60" y="93" text-anchor="middle" font-family="system-ui" font-size="14" fill="#fff">S</text>
+  
+  <!-- Content Area -->
+  <rect x="35" y="120" width="210" height="300" rx="15" fill="#fef2f2"/>
+  
+  <!-- Genosys Logo Placeholder -->
+  <rect x="90" y="140" width="100" height="40" rx="8" fill="#dc2626"/>
+  <text x="140" y="165" text-anchor="middle" font-family="system-ui" font-size="14" font-weight="bold" fill="#fff">GENOSYS</text>
+  
+  <!-- Arrow pointing to Safari -->
+  <path d="M140 50 L140 65" stroke="#dc2626" stroke-width="3" stroke-linecap="round" marker-end="url(#arrow)"/>
+  
+  <!-- Instruction Text -->
+  <text x="140" y="460" text-anchor="middle" font-family="system-ui" font-size="11" fill="#666">Open in Safari browser</text>
+  
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+</svg>
+

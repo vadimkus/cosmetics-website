@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 500" fill="none">
+  <!-- Android Phone Frame -->
+  <rect x="10" y="10" width="260" height="480" rx="30" fill="#1a1a1a" stroke="#333" stroke-width="2"/>
+  <rect x="18" y="18" width="244" height="464" rx="25" fill="#fff"/>
+  
+  <!-- Status Bar -->
+  <rect x="18" y="18" width="244" height="28" fill="#22c55e"/>
+  <text x="30" y="36" font-family="system-ui" font-size="10" fill="#fff">9:41</text>
+  <text x="230" y="36" font-family="system-ui" font-size="10" fill="#fff">⚡ 85%</text>
+  
+  <!-- Chrome Tab Bar -->
+  <rect x="18" y="46" width="244" height="50" fill="#f5f5f5"/>
+  
+  <!-- Tab -->
+  <rect x="25" y="52" width="140" height="38" rx="8" fill="#fff" stroke="#e0e0e0"/>
+  <text x="95" y="75" text-anchor="middle" font-family="system-ui" font-size="10" fill="#333">Genosys</text>
+  
+  <!-- Three-dot menu (highlighted) -->
+  <g transform="translate(240, 71)">
+    <circle r="20" fill="#22c55e" opacity="0.2"/>
+    <circle cy="-8" r="2.5" fill="#333"/>
+    <circle r="2.5" fill="#333"/>
+    <circle cy="8" r="2.5" fill="#333"/>
+  </g>
+  
+  <!-- Pulsing indicator -->
+  <circle cx="240" cy="71" r="25" fill="none" stroke="#22c55e" stroke-width="2" stroke-dasharray="5,5"/>
+  
+  <!-- Arrow pointing to menu -->
+  <path d="M200 71 L220 71" stroke="#22c55e" stroke-width="3" stroke-linecap="round"/>
+  <polygon points="225,71 215,66 215,76" fill="#22c55e"/>
+  
+  <!-- Blurred content -->
+  <rect x="25" y="100" width="230" height="350" rx="15" fill="#f9fafb" opacity="0.7"/>
+  
+  <!-- Instruction box -->
+  <rect x="40" y="200" width="200" height="80" rx="15" fill="#fff" stroke="#22c55e" stroke-width="2"/>
+  <text x="140" y="235" text-anchor="middle" font-family="system-ui" font-size="13" fill="#333" font-weight="600">Tap the three-dot menu</text>
+  <text x="140" y="255" text-anchor="middle" font-family="system-ui" font-size="11" fill="#666">in the top right corner</text>
+</svg>
+

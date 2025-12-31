@@ -135,7 +135,7 @@ export default function PWAHeader() {
               )}
             </div>
             
-            {/* Animation Toggle (third - 2 horizontal bars) */}
+            {/* Animation Toggle (two vertical bars) */}
             <AnimationToggle size="sm" className="text-gray-800" />
           </div>
           
@@ -145,9 +145,9 @@ export default function PWAHeader() {
               <Image
                 src="/Logo/upLOGO.png"
                 alt="GENOSYS"
-                width={169}
-                height={49}
-                className="h-9 w-auto"
+                width={260}
+                height={75}
+                className="h-[50px] w-auto"
                 priority
               />
             </Link>

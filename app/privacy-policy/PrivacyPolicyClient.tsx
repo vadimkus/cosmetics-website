@@ -261,7 +261,6 @@ export default function PrivacyPolicyClient() {
     return (
       <PWAPageWrapper 
         title={translations.title}
-        icon={<Shield className="w-5 h-5 text-red-600" />}
       >
         {content}
       </PWAPageWrapper>

@@ -1,26 +1,28 @@
 'use client'
 
 import Link from 'next/link'
-import { ArrowLeft, Info } from 'lucide-react'
+import { ArrowLeft } from 'lucide-react'
 import Logo from '@/components/Logo'
 import BreadcrumbSchema from '@/components/BreadcrumbSchema'
 import PDFLinkButton from '@/components/PDFLinkButton'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import PWABackHeader from '@/components/PWABackHeader'
+import { usePWAMode } from '@/hooks/usePWAMode'
 
 export default function AboutPageClient() {
   const { t, locale, dir } = useTranslation()
+  const { isPWA, isClient } = usePWAMode()
+  const showPWAMode = isClient && isPWA
   
   return (
     <>
       {/* PWA Back Header */}
       <PWABackHeader 
         title={t('common.about') || 'About'}
-        icon={<Info className="w-5 h-5 text-red-600" />}
       />
       
-      <div className="bg-white min-h-screen" dir={dir}>
+      <div className={`bg-white min-h-screen ${showPWAMode ? 'pb-32' : ''}`} dir={dir}>
         <BreadcrumbSchema 
         items={[
           { name: t('common.home'), url: getLocalizedPath('/', locale) },
@@ -30,18 +32,22 @@ export default function AboutPageClient() {
       <div className="container mx-auto px-3 md:px-4 py-4 md:py-16">
       <div className="max-w-4xl mx-auto">
 
-        {/* Navigation Breadcrumb */}
-        <nav className={`text-xs md:text-base text-gray-600 mb-2 md:mb-4 ${dir === 'rtl' ? 'text-right' : ''}`} aria-label="Breadcrumb">
-          <Link href={getLocalizedPath('/', locale)} className="hover:text-primary-600 transition-colors">{t('common.home')}</Link>
-          <span> / </span>
-          <span className="text-gray-900 font-medium">{t('common.about')}</span>
-        </nav>
+        {/* Navigation Breadcrumb - hide in PWA */}
+        {!showPWAMode && (
+          <nav className={`text-xs md:text-base text-gray-600 mb-2 md:mb-4 ${dir === 'rtl' ? 'text-right' : ''}`} aria-label="Breadcrumb">
+            <Link href={getLocalizedPath('/', locale)} className="hover:text-primary-600 transition-colors">{t('common.home')}</Link>
+            <span> / </span>
+            <span className="text-gray-900 font-medium">{t('common.about')}</span>
+          </nav>
+        )}
         
-        {/* Back to Home */}
-        <Link href={getLocalizedPath('/', locale)} className={`inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 mb-4 md:mb-8 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-          <ArrowLeft className={`h-3 w-3 md:h-4 md:w-4 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
-          <span>{t('common.backToHome')}</span>
-        </Link>
+        {/* Back to Home - hide in PWA */}
+        {!showPWAMode && (
+          <Link href={getLocalizedPath('/', locale)} className={`inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 mb-4 md:mb-8 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+            <ArrowLeft className={`h-3 w-3 md:h-4 md:w-4 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
+            <span>{t('common.backToHome')}</span>
+          </Link>
+        )}
 
         {/* Header - Compact on mobile */}
         <div className="text-center mb-6 md:mb-12">

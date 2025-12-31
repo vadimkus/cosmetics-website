@@ -1,16 +1,18 @@
 'use client'
 
 import Link from 'next/link'
-import { ArrowLeft, ChevronDown, ChevronUp, HelpCircle } from 'lucide-react'
+import { ArrowLeft, ChevronDown, ChevronUp } from 'lucide-react'
 import BreadcrumbSchema from '@/components/BreadcrumbSchema'
 import PWABackHeader from '@/components/PWABackHeader'
 import { useState } from 'react'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { sanitizeHtml } from '@/lib/sanitize'
+import { usePWAMode } from '@/hooks/usePWAMode'
 
 export default function FAQClient() {
   const { t, locale, dir } = useTranslation()
+  const { isPWA, isClient } = usePWAMode()
   const [openIndex, setOpenIndex] = useState<number | null>(null)
 
   const faqs = [
@@ -88,8 +90,10 @@ export default function FAQClient() {
     setOpenIndex(openIndex === index ? null : index)
   }
 
+  const showPWAMode = isClient && isPWA
+  
   return (
-    <div className="bg-gradient-to-b from-gray-50 to-white min-h-screen" dir={dir}>
+    <div className={`bg-gradient-to-b from-gray-50 to-white min-h-screen ${showPWAMode ? 'pb-32' : ''}`} dir={dir}>
       <BreadcrumbSchema 
         items={[
           { name: t('common.home'), url: getLocalizedPath('/', locale) },
@@ -100,7 +104,6 @@ export default function FAQClient() {
       {/* PWA Back Header */}
       <PWABackHeader 
         title={t('faq.title') || 'FAQ'}
-        icon={<HelpCircle className="w-5 h-5 text-red-600" />}
       />
       
       {/* FAQPage Schema */}
@@ -124,18 +127,22 @@ export default function FAQClient() {
       
       <div className="container mx-auto px-3 md:px-4 py-4 md:py-16">
         <div className="max-w-4xl mx-auto">
-          {/* Navigation Breadcrumb */}
-          <nav className="text-xs md:text-base text-gray-600 mb-2 md:mb-4" aria-label="Breadcrumb">
-            <Link href={getLocalizedPath('/', locale)} className="hover:text-primary-600 transition-colors">{t('common.home')}</Link>
-            <span> / </span>
-            <span className="text-gray-900 font-medium">{t('faq.title')}</span>
-          </nav>
+          {/* Navigation Breadcrumb - hide in PWA */}
+          {!showPWAMode && (
+            <nav className="text-xs md:text-base text-gray-600 mb-2 md:mb-4" aria-label="Breadcrumb">
+              <Link href={getLocalizedPath('/', locale)} className="hover:text-primary-600 transition-colors">{t('common.home')}</Link>
+              <span> / </span>
+              <span className="text-gray-900 font-medium">{t('faq.title')}</span>
+            </nav>
+          )}
           
-          {/* Back to Home */}
-          <Link href={getLocalizedPath('/', locale)} className="inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 mb-4 md:mb-8">
-            <ArrowLeft className={`h-3 w-3 md:h-4 md:w-4 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
-            <span>{t('common.backToHome')}</span>
-          </Link>
+          {/* Back to Home - hide in PWA */}
+          {!showPWAMode && (
+            <Link href={getLocalizedPath('/', locale)} className="inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 mb-4 md:mb-8">
+              <ArrowLeft className={`h-3 w-3 md:h-4 md:w-4 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
+              <span>{t('common.backToHome')}</span>
+            </Link>
+          )}
 
           {/* Page Header */}
           <div className="text-center mb-6 md:mb-12">

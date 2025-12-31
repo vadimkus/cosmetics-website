@@ -343,7 +343,6 @@ export default function TermsClient() {
     return (
       <PWAPageWrapper 
         title={translations.title}
-        icon={<FileText className="w-5 h-5 text-red-600" />}
       >
         {content}
       </PWAPageWrapper>

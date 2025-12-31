@@ -15,7 +15,7 @@ import { getLocalizedPath } from '@/lib/i18n'
 import { isBlackFridaySaleActive } from '@/lib/blackFridayUtils'
 import { calculateDiscountedPrice } from '@/lib/discountUtils'
 import { usePWAMode } from '@/hooks/usePWAMode'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 
 
 export default function CartClient() {
@@ -24,7 +24,9 @@ export default function CartClient() {
   const { t, locale, dir } = useTranslation()
   const { isPWA } = usePWAMode()
   const router = useRouter()
+  const searchParams = useSearchParams()
   const isRTL = dir === 'rtl'
+  const fromProfile = searchParams?.get('from') === 'profile'
   const { enabled: animationsEnabled } = useAnimationStore()
   const [showUniVideo, setShowUniVideo] = useState(false)
   const uniVideoRef = useRef<HTMLVideoElement>(null)
@@ -183,14 +185,14 @@ export default function CartClient() {
         {isPWA && (
           <div className={`flex items-center justify-between px-5 py-4 bg-white ${isRTL ? 'flex-row-reverse' : ''}`}>
             <button 
-              onClick={() => router.push(getLocalizedPath('/products', locale))}
+              onClick={() => router.push(getLocalizedPath(fromProfile ? '/profile' : '/products', locale))}
               className={`flex items-center gap-1 min-w-[80px] ${isRTL ? 'flex-row-reverse' : ''}`}
             >
               <svg className={`w-5 h-5 text-red-600 ${isRTL ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
               <span className="text-base text-red-600">
-                {t('pwaProfile.home') || 'Home'}
+                {fromProfile ? (t('pwaProfile.account') || 'Account') : (t('pwaProfile.home') || 'Home')}
               </span>
             </button>
             <span className="text-base font-semibold text-gray-900">
@@ -335,14 +337,14 @@ export default function CartClient() {
       {isPWA && (
         <div className={`flex items-center justify-between px-5 py-4 bg-white ${isRTL ? 'flex-row-reverse' : ''}`}>
           <button 
-            onClick={() => router.push(getLocalizedPath('/products', locale))}
+            onClick={() => router.push(getLocalizedPath(fromProfile ? '/profile' : '/products', locale))}
             className={`flex items-center gap-1 min-w-[80px] ${isRTL ? 'flex-row-reverse' : ''}`}
           >
             <svg className={`w-5 h-5 text-red-600 ${isRTL ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
             <span className="text-base text-red-600">
-              {t('pwaProfile.home') || 'Home'}
+              {fromProfile ? (t('pwaProfile.account') || 'Account') : (t('pwaProfile.home') || 'Home')}
             </span>
           </button>
           <span className="text-base font-semibold text-gray-900">

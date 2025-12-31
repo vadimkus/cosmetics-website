@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { ArrowLeft, Package, X, Clock, CheckCircle, Truck, XCircle, RefreshCw, ShoppingBag, ChevronDown } from 'lucide-react'
 import { useAuth } from '@/components/AuthProvider'
 import { useState, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { Order, OrderItem } from '@prisma/client'
 import { fetchCsrfToken, getCsrfHeaders, addCsrfToBody } from '@/lib/csrfClient'
 import { errorLog } from '@/lib/logger'
@@ -87,6 +87,7 @@ export default function OrdersPage() {
   const { t, locale, dir } = useTranslation()
   const { user, isLoading: authLoading } = useAuth()
   const router = useRouter()
+  const searchParams = useSearchParams()
   const { isPWA, isClient } = usePWAMode()
   const [orders, setOrders] = useState<OrderWithItems[]>([])
   const [loadingOrders, setLoadingOrders] = useState(true)
@@ -96,6 +97,7 @@ export default function OrdersPage() {
   const [expandedOrders, setExpandedOrders] = useState<Set<string>>(new Set())
 
   const isRTL = dir === 'rtl'
+  const fromProfile = searchParams?.get('from') === 'profile'
 
   // Redirect to login if not authenticated - wait for auth to finish loading first
   useEffect(() => {
@@ -207,14 +209,14 @@ export default function OrdersPage() {
       {isPWA && (
         <div className={`flex items-center justify-between px-5 py-4 bg-white ${isRTL ? 'flex-row-reverse' : ''}`}>
           <button 
-            onClick={() => router.push(getLocalizedPath('/products', locale))}
+            onClick={() => router.push(getLocalizedPath(fromProfile ? '/profile' : '/products', locale))}
             className={`flex items-center gap-1 min-w-[80px] ${isRTL ? 'flex-row-reverse' : ''}`}
           >
             <svg className={`w-5 h-5 text-red-600 ${isRTL ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
             <span className="text-base text-red-600">
-              {t('pwaProfile.home') || 'Home'}
+              {fromProfile ? (t('pwaProfile.account') || 'Account') : (t('pwaProfile.home') || 'Home')}
             </span>
           </button>
           <span className="text-base font-semibold text-gray-900">

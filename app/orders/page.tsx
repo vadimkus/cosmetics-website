@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { ArrowLeft, Package, X, Clock, CheckCircle, Truck, XCircle, RefreshCw, ShoppingBag } from 'lucide-react'
+import { ArrowLeft, Package, X, Clock, CheckCircle, Truck, XCircle, RefreshCw, ShoppingBag, ChevronDown } from 'lucide-react'
 import { useAuth } from '@/components/AuthProvider'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
@@ -93,6 +93,7 @@ export default function OrdersPage() {
   const [showCancelConfirm, setShowCancelConfirm] = useState(false)
   const [orderToCancel, setOrderToCancel] = useState<string | null>(null)
   const [refreshing, setRefreshing] = useState(false)
+  const [expandedOrders, setExpandedOrders] = useState<Set<string>>(new Set())
 
   const isRTL = dir === 'rtl'
 
@@ -329,72 +330,135 @@ export default function OrdersPage() {
                   </div>
                 </div>
 
-                {/* Order Items Preview */}
+                {/* Order Summary - Expandable */}
                 <div className="p-4">
-                  <div className={`flex gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
-                    {/* Product Images */}
-                    <div className="flex -space-x-2">
-                      {order.items.slice(0, 3).map((item, idx) => (
+                  {/* Clickable Header */}
+                  <button
+                    onClick={() => {
+                      const newExpanded = new Set(expandedOrders)
+                      if (newExpanded.has(order.id)) {
+                        newExpanded.delete(order.id)
+                      } else {
+                        newExpanded.add(order.id)
+                      }
+                      setExpandedOrders(newExpanded)
+                    }}
+                    className={`w-full flex items-center justify-between ${isRTL ? 'flex-row-reverse' : ''}`}
+                  >
+                    <div className={`flex gap-3 flex-1 ${isRTL ? 'flex-row-reverse' : ''}`}>
+                      {/* Product Images */}
+                      <div className={`flex ${isRTL ? 'space-x-reverse -space-x-2' : '-space-x-2'}`}>
+                        {order.items.slice(0, 3).map((item, idx) => (
+                          <div 
+                            key={idx}
+                            className="w-12 h-12 rounded-lg bg-gray-100 border-2 border-white overflow-hidden flex-shrink-0"
+                            style={{ zIndex: 3 - idx }}
+                          >
+                            {item.image ? (
+                              <Image
+                                src={item.image}
+                                alt={item.productName}
+                                width={48}
+                                height={48}
+                                className="w-full h-full object-cover"
+                              />
+                            ) : (
+                              <div className="w-full h-full flex items-center justify-center">
+                                <Package className="w-5 h-5 text-gray-400" />
+                              </div>
+                            )}
+                          </div>
+                        ))}
+                        {order.items.length > 3 && (
+                          <div 
+                            className="w-12 h-12 rounded-lg bg-gray-200 border-2 border-white flex items-center justify-center flex-shrink-0"
+                            style={{ zIndex: 0 }}
+                          >
+                            <span className="text-xs font-medium text-gray-600">
+                              +{order.items.length - 3}
+                            </span>
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Order Summary */}
+                      <div className={`flex-1 min-w-0 ${isRTL ? 'text-right' : 'text-left'}`}>
+                        <p className="text-sm font-medium text-gray-900 truncate">
+                          {order.items.length} {order.items.length === 1 
+                            ? (locale === 'ar' ? 'منتج' : locale === 'ru' ? 'товар' : 'item')
+                            : (locale === 'ar' ? 'منتجات' : locale === 'ru' ? 'товаров' : 'items')}
+                        </p>
+                        <p className="text-lg font-bold text-gray-900 mt-1">
+                          {formatCurrency(Number(order.total))}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Chevron */}
+                    <ChevronDown 
+                      className={`w-5 h-5 text-gray-400 transition-transform duration-200 flex-shrink-0 ${isRTL ? 'mr-2' : 'ml-2'} ${expandedOrders.has(order.id) ? 'rotate-180' : ''}`}
+                    />
+                  </button>
+
+                  {/* Expanded Order Details */}
+                  <div className={`overflow-hidden transition-all duration-200 ${expandedOrders.has(order.id) ? 'max-h-[500px] mt-4' : 'max-h-0'}`}>
+                    <div className="border-t border-gray-100 pt-4 space-y-3">
+                      {order.items.map((item, idx) => (
                         <div 
                           key={idx}
-                          className="w-12 h-12 rounded-lg bg-gray-100 border-2 border-white overflow-hidden flex-shrink-0"
-                          style={{ zIndex: 3 - idx }}
+                          className={`flex items-center gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}
                         >
-                          {item.image ? (
-                            <Image
-                              src={item.image}
-                              alt={item.productName}
-                              width={48}
-                              height={48}
-                              className="w-full h-full object-cover"
-                            />
-                          ) : (
-                            <div className="w-full h-full flex items-center justify-center">
-                              <Package className="w-5 h-5 text-gray-400" />
-                            </div>
-                          )}
+                          <div className="w-14 h-14 rounded-lg bg-gray-100 overflow-hidden flex-shrink-0">
+                            {item.image ? (
+                              <Image
+                                src={item.image}
+                                alt={item.productName}
+                                width={56}
+                                height={56}
+                                className="w-full h-full object-cover"
+                              />
+                            ) : (
+                              <div className="w-full h-full flex items-center justify-center">
+                                <Package className="w-6 h-6 text-gray-400" />
+                              </div>
+                            )}
+                          </div>
+                          <div className={`flex-1 min-w-0 ${isRTL ? 'text-right' : ''}`}>
+                            <p className="text-sm font-medium text-gray-900 truncate">{item.productName}</p>
+                            <p className="text-xs text-gray-500">
+                              {locale === 'ar' ? 'الكمية' : locale === 'ru' ? 'Кол-во' : 'Qty'}: {item.quantity}
+                              {item.size && ` • ${item.size}`}
+                            </p>
+                          </div>
+                          <p className={`text-sm font-semibold text-gray-900 ${isRTL ? 'text-left' : 'text-right'}`}>
+                            {formatCurrency(Number(item.price) * item.quantity)}
+                          </p>
                         </div>
                       ))}
-                      {order.items.length > 3 && (
-                        <div 
-                          className="w-12 h-12 rounded-lg bg-gray-200 border-2 border-white flex items-center justify-center flex-shrink-0"
-                          style={{ zIndex: 0 }}
-                        >
-                          <span className="text-xs font-medium text-gray-600">
-                            +{order.items.length - 3}
-                          </span>
-                        </div>
-                      )}
-                    </div>
-
-                    {/* Order Summary */}
-                    <div className={`flex-1 min-w-0 ${isRTL ? 'text-right' : ''}`}>
-                      <p className="text-sm font-medium text-gray-900 truncate">
-                        {order.items.length} {order.items.length === 1 ? 'item' : 'items'}
-                      </p>
-                      <p className="text-lg font-bold text-gray-900 mt-1">
-                        {formatCurrency(Number(order.total))}
-                      </p>
+                      
+                      {/* Order Total */}
+                      <div className={`flex justify-between items-center pt-3 border-t border-gray-100 ${isRTL ? 'flex-row-reverse' : ''}`}>
+                        <span className="text-sm font-medium text-gray-600">
+                          {locale === 'ar' ? 'الإجمالي' : locale === 'ru' ? 'Итого' : 'Total'}
+                        </span>
+                        <span className="text-base font-bold text-gray-900">
+                          {formatCurrency(Number(order.total))}
+                        </span>
+                      </div>
                     </div>
                   </div>
 
-                  {/* Action Buttons */}
-                  <div className={`flex gap-2 mt-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
-                    <Link
-                      href={getLocalizedPath(`/orders/${order.id}`, locale)}
-                      className="flex-1 bg-gray-100 text-gray-700 py-2.5 px-4 rounded-xl text-sm font-medium text-center hover:bg-gray-200 transition-colors"
-                    >
-                      {t('orders.viewDetails') || 'View Details'}
-                    </Link>
-                    {order.status === 'pending' && (
+                  {/* Cancel Button - Only for pending orders */}
+                  {order.status === 'pending' && (
+                    <div className={`mt-4 pt-4 border-t border-gray-100 ${isRTL ? 'text-right' : ''}`}>
                       <button
                         onClick={() => handleCancelOrderClick(order.id)}
-                        className="px-4 py-2.5 text-red-600 hover:bg-red-50 rounded-xl text-sm font-medium transition-colors"
+                        className="text-red-600 hover:text-red-700 text-sm font-medium transition-colors"
                       >
-                        {t('orders.cancel') || 'Cancel'}
+                        {t('orders.cancel') || 'Cancel Order'}
                       </button>
-                    )}
-                  </div>
+                    </div>
+                  )}
                 </div>
               </div>
             ))}

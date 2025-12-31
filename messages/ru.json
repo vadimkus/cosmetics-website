@@ -1577,6 +1577,7 @@
     "signingOut": "Выход...",
     "signOutConfirm": "Вы уверены, что хотите выйти?",
     "version": "Версия",
-    "genosysMobile": "Genosys Mobile"
+    "genosysMobile": "Genosys Mobile",
+    "notifications": "Уведомления"
   }
 }

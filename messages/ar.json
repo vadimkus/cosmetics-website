@@ -1552,7 +1552,8 @@
     "signingOut": "جارٍ تسجيل الخروج...",
     "signOutConfirm": "هل أنت متأكد أنك تريد تسجيل الخروج؟",
     "version": "الإصدار",
-    "genosysMobile": "Genosys Mobile"
+    "genosysMobile": "Genosys Mobile",
+    "notifications": "الإشعارات"
   }
 }
 

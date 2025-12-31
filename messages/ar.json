@@ -1521,6 +1521,38 @@
     "total": "الإجمالي",
     "items": "منتجات",
     "date": "التاريخ"
+  },
+  "pwaProfile": {
+    "home": "الرئيسية",
+    "account": "الحساب",
+    "viewAndEdit": "عرض وتعديل",
+    "discount": "خصم",
+    "orders": "الطلبات",
+    "purchases": "مشتريات",
+    "bag": "السلة",
+    "items": "عناصر",
+    "empty": "فارغة",
+    "accountSection": "الحساب",
+    "personalInformation": "المعلومات الشخصية",
+    "addresses": "العناوين",
+    "paymentAndBilling": "الدفع والفواتير",
+    "privacyAndSecurity": "الخصوصية والأمان",
+    "faceId": "Face ID",
+    "emailNotifications": "إشعارات البريد",
+    "emailNotificationsSubtitle": "تلقي التحديثات عبر البريد",
+    "pushNotifications": "إشعارات الدفع",
+    "privacyPolicy": "سياسة الخصوصية",
+    "termsAndConditions": "الشروط والأحكام",
+    "general": "عام",
+    "language": "اللغة",
+    "helpAndSupport": "المساعدة والدعم",
+    "contactUs": "اتصل بنا",
+    "aboutGenosys": "حول Genosys",
+    "signOut": "تسجيل الخروج",
+    "signingOut": "جارٍ تسجيل الخروج...",
+    "signOutConfirm": "هل أنت متأكد أنك تريد تسجيل الخروج؟",
+    "version": "الإصدار",
+    "genosysMobile": "Genosys Mobile"
   }
 }
 

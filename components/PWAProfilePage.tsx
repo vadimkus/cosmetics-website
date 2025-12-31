@@ -124,7 +124,7 @@ function SwitchItem({
 export default function PWAProfilePage() {
   const { user, logout, isLoading: authLoading } = useAuth()
   const { getTotalItems } = useCartStore()
-  const { locale, dir } = useTranslation()
+  const { t, locale, dir } = useTranslation()
   const router = useRouter()
   
   const [ordersCount, setOrdersCount] = useState(0)
@@ -157,11 +157,7 @@ export default function PWAProfilePage() {
   const handleSignOut = async () => {
     if (isLoggingOut) return
     
-    const confirmed = window.confirm(
-      locale === 'ar' ? 'هل أنت متأكد أنك تريد تسجيل الخروج؟' :
-      locale === 'ru' ? 'Вы уверены, что хотите выйти?' :
-      'Are you sure you want to sign out?'
-    )
+    const confirmed = window.confirm(t('pwaProfile.signOutConfirm'))
     
     if (confirmed) {
       setIsLoggingOut(true)
@@ -210,11 +206,11 @@ export default function PWAProfilePage() {
             </svg>
           )}
           <span className="text-sm font-semibold text-red-600">
-            {locale === 'ar' ? 'الرئيسية' : locale === 'ru' ? 'Главная' : 'Home'}
+            {t('pwaProfile.home')}
           </span>
         </button>
         <h1 className="flex-1 text-center text-lg font-semibold text-gray-900">
-          {locale === 'ar' ? 'الحساب' : locale === 'ru' ? 'Аккаунт' : 'Account'}
+          {t('pwaProfile.account')}
         </h1>
         <div className="min-w-[100px]" />
       </div>
@@ -252,7 +248,7 @@ export default function PWAProfilePage() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
                   </svg>
                   <span className="text-xs font-bold">
-                    {locale === 'ar' ? `خصم: ${discountPercentage}%` : locale === 'ru' ? `Скидка: ${discountPercentage}%` : `Discount: ${discountPercentage}%`}
+                    {t('pwaProfile.discount')}: {discountPercentage}%
                   </span>
                 </div>
               )}
@@ -271,7 +267,7 @@ export default function PWAProfilePage() {
                 onClick={() => router.push(getLocalizedPath('/profile', locale) + '?edit=true')}
                 className="mt-3 text-[17px] text-blue-500"
               >
-                {locale === 'ar' ? 'عرض وتعديل' : locale === 'ru' ? 'Просмотр и редактирование' : 'View & Edit'}
+                {t('pwaProfile.viewAndEdit')}
               </button>
             </div>
 
@@ -301,10 +297,10 @@ export default function PWAProfilePage() {
                 </svg>
               </div>
               <p className="text-[17px] font-semibold text-gray-900">
-                {locale === 'ar' ? 'الطلبات' : locale === 'ru' ? 'Заказы' : 'Orders'}
+                {t('pwaProfile.orders')}
               </p>
               <p className="text-[15px] text-gray-500">
-                {locale === 'ar' ? `${ordersCount} مشتريات` : locale === 'ru' ? `${ordersCount} покупок` : `${ordersCount} purchases`}
+                {ordersCount} {t('pwaProfile.purchases')}
               </p>
             </button>
 
@@ -319,12 +315,12 @@ export default function PWAProfilePage() {
                 </svg>
               </div>
               <p className="text-[17px] font-semibold text-gray-900">
-                {locale === 'ar' ? 'السلة' : locale === 'ru' ? 'Корзина' : 'Bag'}
+                {t('pwaProfile.bag')}
               </p>
               <p className="text-[15px] text-gray-500">
                 {cartCount > 0 
-                  ? (locale === 'ar' ? `${cartCount} عناصر` : locale === 'ru' ? `${cartCount} товаров` : `${cartCount} items`)
-                  : (locale === 'ar' ? 'فارغة' : locale === 'ru' ? 'Пусто' : 'Empty')
+                  ? `${cartCount} ${t('pwaProfile.items')}`
+                  : t('pwaProfile.empty')
                 }
               </p>
             </button>
@@ -334,24 +330,24 @@ export default function PWAProfilePage() {
         {/* Account Section */}
         <div className="py-4">
           <h3 className={`text-[22px] font-bold text-gray-900 mb-2 px-5 ${isRTL ? 'text-right' : ''}`}>
-            {locale === 'ar' ? 'الحساب' : locale === 'ru' ? 'Аккаунт' : 'Account'}
+            {t('pwaProfile.accountSection')}
           </h3>
           <div className="mx-5 bg-white rounded-xl overflow-hidden">
             <ProfileItem
               icon={<svg className="w-5 h-5 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>}
-              title={locale === 'ar' ? 'المعلومات الشخصية' : locale === 'ru' ? 'Личная информация' : 'Personal Information'}
+              title={t('pwaProfile.personalInformation')}
               onClick={() => router.push(getLocalizedPath('/profile', locale) + '?edit=true')}
               isRTL={isRTL}
             />
             <ProfileItem
               icon={<svg className="w-5 h-5 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>}
-              title={locale === 'ar' ? 'العناوين' : locale === 'ru' ? 'Адреса' : 'Addresses'}
+              title={t('pwaProfile.addresses')}
               onClick={() => router.push(getLocalizedPath('/profile', locale) + '?tab=settings')}
               isRTL={isRTL}
             />
             <ProfileItem
               icon={<svg className="w-5 h-5 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" /></svg>}
-              title={locale === 'ar' ? 'الدفع والفواتير' : locale === 'ru' ? 'Оплата и счета' : 'Payment & Billing'}
+              title={t('pwaProfile.paymentAndBilling')}
               onClick={() => router.push(getLocalizedPath('/profile', locale) + '?tab=settings')}
               isLast
               isRTL={isRTL}
@@ -362,40 +358,40 @@ export default function PWAProfilePage() {
         {/* Privacy & Security Section */}
         <div className="py-4">
           <h3 className={`text-[22px] font-bold text-gray-900 mb-2 px-5 ${isRTL ? 'text-right' : ''}`}>
-            {locale === 'ar' ? 'الخصوصية والأمان' : locale === 'ru' ? 'Конфиденциальность' : 'Privacy & Security'}
+            {t('pwaProfile.privacyAndSecurity')}
           </h3>
           <div className="mx-5 bg-white rounded-xl overflow-hidden">
             <SwitchItem
               icon={<svg className="w-5 h-5 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>}
-              title="Face ID"
+              title={t('pwaProfile.faceId')}
               value={faceIdEnabled}
               onChange={setFaceIdEnabled}
               isRTL={isRTL}
             />
             <SwitchItem
               icon={<svg className="w-5 h-5 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>}
-              title={locale === 'ar' ? 'إشعارات البريد' : locale === 'ru' ? 'Email уведомления' : 'Email Notifications'}
-              subtitle={locale === 'ar' ? 'تلقي التحديثات عبر البريد' : locale === 'ru' ? 'Получать обновления по email' : 'Receive updates via email'}
+              title={t('pwaProfile.emailNotifications')}
+              subtitle={t('pwaProfile.emailNotificationsSubtitle')}
               value={emailNotifications}
               onChange={setEmailNotifications}
               isRTL={isRTL}
             />
             <SwitchItem
               icon={<svg className="w-5 h-5 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" /></svg>}
-              title={locale === 'ar' ? 'إشعارات الدفع' : locale === 'ru' ? 'Push уведомления' : 'Push Notifications'}
+              title={t('pwaProfile.pushNotifications')}
               value={pushNotifications}
               onChange={setPushNotifications}
               isRTL={isRTL}
             />
             <ProfileItem
               icon={<svg className="w-5 h-5 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>}
-              title={locale === 'ar' ? 'سياسة الخصوصية' : locale === 'ru' ? 'Политика конфиденциальности' : 'Privacy Policy'}
+              title={t('pwaProfile.privacyPolicy')}
               onClick={() => router.push(getLocalizedPath('/privacy-policy', locale))}
               isRTL={isRTL}
             />
             <ProfileItem
               icon={<svg className="w-5 h-5 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>}
-              title={locale === 'ar' ? 'الشروط والأحكام' : locale === 'ru' ? 'Условия использования' : 'Terms & Conditions'}
+              title={t('pwaProfile.termsAndConditions')}
               onClick={() => router.push(getLocalizedPath('/privacy-policy', locale))}
               isLast
               isRTL={isRTL}
@@ -406,31 +402,31 @@ export default function PWAProfilePage() {
         {/* General Section */}
         <div className="py-4">
           <h3 className={`text-[22px] font-bold text-gray-900 mb-2 px-5 ${isRTL ? 'text-right' : ''}`}>
-            {locale === 'ar' ? 'عام' : locale === 'ru' ? 'Общие' : 'General'}
+            {t('pwaProfile.general')}
           </h3>
           <div className="mx-5 bg-white rounded-xl overflow-hidden">
             <ProfileItem
               icon={<svg className="w-5 h-5 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" /></svg>}
-              title={locale === 'ar' ? 'اللغة' : locale === 'ru' ? 'Язык' : 'Language'}
+              title={t('pwaProfile.language')}
               subtitle={languageDisplay}
               onClick={() => {/* Language picker */}}
               isRTL={isRTL}
             />
             <ProfileItem
               icon={<svg className="w-5 h-5 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>}
-              title={locale === 'ar' ? 'المساعدة والدعم' : locale === 'ru' ? 'Помощь и поддержка' : 'Help & Support'}
+              title={t('pwaProfile.helpAndSupport')}
               onClick={() => router.push(getLocalizedPath('/faq', locale))}
               isRTL={isRTL}
             />
             <ProfileItem
               icon={<svg className="w-5 h-5 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>}
-              title={locale === 'ar' ? 'اتصل بنا' : locale === 'ru' ? 'Связаться с нами' : 'Contact Us'}
+              title={t('pwaProfile.contactUs')}
               onClick={() => router.push(getLocalizedPath('/contact', locale))}
               isRTL={isRTL}
             />
             <ProfileItem
               icon={<svg className="w-5 h-5 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>}
-              title={locale === 'ar' ? 'حول Genosys' : locale === 'ru' ? 'О Genosys' : 'About Genosys'}
+              title={t('pwaProfile.aboutGenosys')}
               onClick={() => router.push(getLocalizedPath('/about', locale))}
               isLast
               isRTL={isRTL}
@@ -445,18 +441,15 @@ export default function PWAProfilePage() {
             disabled={isLoggingOut}
             className={`w-full bg-gray-100 text-red-600 py-3.5 rounded-xl text-[17px] font-normal transition-colors ${isLoggingOut ? 'opacity-50' : 'active:bg-gray-200'}`}
           >
-            {isLoggingOut 
-              ? (locale === 'ar' ? 'جارٍ تسجيل الخروج...' : locale === 'ru' ? 'Выход...' : 'Signing Out...')
-              : (locale === 'ar' ? 'تسجيل الخروج' : locale === 'ru' ? 'Выйти' : 'Sign Out')
-            }
+            {isLoggingOut ? t('pwaProfile.signingOut') : t('pwaProfile.signOut')}
           </button>
         </div>
 
         {/* Footer */}
         <div className="text-center py-8 pb-24">
-          <p className="text-[15px] text-gray-500">Genosys Mobile</p>
+          <p className="text-[15px] text-gray-500">{t('pwaProfile.genosysMobile')}</p>
           <p className="text-[13px] text-gray-300 mt-1">
-            {locale === 'ar' ? 'الإصدار 1.0.0' : locale === 'ru' ? 'Версия 1.0.0' : 'Version 1.0.0'}
+            {t('pwaProfile.version')} 1.0.0
           </p>
         </div>
       </div>

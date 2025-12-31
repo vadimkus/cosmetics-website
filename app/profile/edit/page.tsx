@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Image from 'next/image'
-import { User, Camera, Mail, Calendar, ChevronDown, ArrowLeft, X, AlertTriangle } from 'lucide-react'
+import { User, Camera, Mail, Calendar, ChevronDown, ArrowLeft, X, AlertTriangle, Trash2 } from 'lucide-react'
 import { useAuth } from '@/components/AuthProvider'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
@@ -37,6 +37,8 @@ export default function EditProfilePage() {
   })
   const [isSaving, setIsSaving] = useState(false)
   const [showGenderModal, setShowGenderModal] = useState(false)
+  const [showDeleteModal, setShowDeleteModal] = useState(false)
+  const [isDeleting, setIsDeleting] = useState(false)
   const [initialSnapshot, setInitialSnapshot] = useState<typeof formData | null>(null)
 
   // Gender options with translations
@@ -138,6 +140,30 @@ export default function EditProfilePage() {
     }
   }
 
+  const handleDeleteAccount = async () => {
+    try {
+      setIsDeleting(true)
+      const response = await fetch('/api/profile/delete', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+      })
+      
+      if (response.ok) {
+        setShowDeleteModal(false)
+        alert(locale === 'ar' ? 'تم حذف حسابك بنجاح.' : locale === 'ru' ? 'Ваш аккаунт успешно удален.' : 'Your account has been deleted successfully.')
+        // Redirect to login page
+        router.push(getLocalizedPath('/login', locale))
+      } else {
+        const data = await response.json()
+        alert(data?.error || (locale === 'ar' ? 'فشل حذف الحساب. يرجى المحاولة مرة أخرى.' : locale === 'ru' ? 'Не удалось удалить аккаунт. Попробуйте ещё раз.' : 'Failed to delete account. Please try again.'))
+      }
+    } catch (error) {
+      alert(locale === 'ar' ? 'حدث خطأ أثناء حذف الحساب.' : locale === 'ru' ? 'Произошла ошибка при удалении аккаунта.' : 'An error occurred while deleting your account.')
+    } finally {
+      setIsDeleting(false)
+    }
+  }
+
   // Translations
   const translations = {
     title: locale === 'ar' ? 'المعلومات الشخصية' : locale === 'ru' ? 'Личная информация' : 'Personal Information',
@@ -160,6 +186,17 @@ export default function EditProfilePage() {
     selectGender: locale === 'ar' ? 'اختر الجنس' : locale === 'ru' ? 'Выберите пол' : 'Select gender',
     required: '*',
     privacyNote: locale === 'ar' ? 'معلوماتك محمية ولن تتم مشاركتها' : locale === 'ru' ? 'Ваша информация защищена и не будет передана' : 'Your information is protected and will not be shared',
+    // Delete account translations
+    deleteAccount: locale === 'ar' ? 'حذف الحساب' : locale === 'ru' ? 'Удалить аккаунт' : 'Delete Account',
+    deleteAccountTitle: locale === 'ar' ? 'حذف الحساب؟' : locale === 'ru' ? 'Удалить аккаунт?' : 'Delete Account?',
+    deleteAccountMessage: locale === 'ar' 
+      ? 'سيتم حذف حسابك من التطبيق. قد تفقد الوصول إلى السجل والبيانات المحفوظة. لا يمكن التراجع عن هذا الإجراء.'
+      : locale === 'ru' 
+        ? 'Аккаунт будет удалён из приложения. Вы можете потерять доступ к истории и сохранённым данным. Это действие нельзя отменить.'
+        : 'This will delete your account from the app. You may lose access to your order history and saved data. This action cannot be undone.',
+    deleteAccountConfirm: locale === 'ar' ? 'حذف' : locale === 'ru' ? 'Удалить' : 'Delete',
+    cancel: locale === 'ar' ? 'إلغاء' : locale === 'ru' ? 'Отмена' : 'Cancel',
+    deleting: locale === 'ar' ? 'جارٍ الحذف...' : locale === 'ru' ? 'Удаление...' : 'Deleting...',
   }
 
   if (!user) {
@@ -355,6 +392,17 @@ export default function EditProfilePage() {
             </p>
           </div>
         </div>
+
+        {/* Delete Account Section */}
+        <div className="px-5 pb-8">
+          <button
+            onClick={() => setShowDeleteModal(true)}
+            className={`w-full flex items-center justify-center gap-2 py-4 rounded-xl border-2 border-red-200 bg-red-50 text-red-600 font-semibold ${isRTL ? 'flex-row-reverse' : ''}`}
+          >
+            <Trash2 className="w-5 h-5" />
+            <span>{translations.deleteAccount}</span>
+          </button>
+        </div>
       </div>
 
       {/* Gender Modal */}
@@ -391,6 +439,54 @@ export default function EditProfilePage() {
                   )}
                 </button>
               ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Delete Account Confirmation Modal */}
+      {showDeleteModal && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-5">
+          <div className="bg-white rounded-2xl w-full max-w-sm overflow-hidden">
+            <div className="p-6">
+              {/* Warning Icon */}
+              <div className="flex justify-center mb-4">
+                <div className="w-16 h-16 rounded-full bg-red-100 flex items-center justify-center">
+                  <Trash2 className="w-8 h-8 text-red-600" />
+                </div>
+              </div>
+              
+              {/* Title */}
+              <h3 className={`text-xl font-bold text-gray-900 text-center mb-3 ${isRTL ? 'text-right' : ''}`}>
+                {translations.deleteAccountTitle}
+              </h3>
+              
+              {/* Message */}
+              <p className={`text-gray-600 text-center mb-6 leading-relaxed ${isRTL ? 'text-right' : ''}`}>
+                {translations.deleteAccountMessage}
+              </p>
+              
+              {/* Buttons */}
+              <div className="space-y-3">
+                <button
+                  onClick={handleDeleteAccount}
+                  disabled={isDeleting}
+                  className={`w-full py-3.5 rounded-xl font-semibold transition-colors ${
+                    isDeleting 
+                      ? 'bg-gray-300 text-gray-500 cursor-not-allowed' 
+                      : 'bg-red-600 text-white active:bg-red-700'
+                  }`}
+                >
+                  {isDeleting ? translations.deleting : translations.deleteAccountConfirm}
+                </button>
+                <button
+                  onClick={() => setShowDeleteModal(false)}
+                  disabled={isDeleting}
+                  className="w-full py-3.5 rounded-xl font-semibold bg-gray-100 text-gray-700 active:bg-gray-200 transition-colors"
+                >
+                  {translations.cancel}
+                </button>
+              </div>
             </div>
           </div>
         </div>

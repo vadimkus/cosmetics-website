@@ -11,12 +11,14 @@ import { errorLog, debugLog } from '@/lib/logger'
 import { fetchCsrfToken, getCsrfHeaders, addCsrfToBody } from '@/lib/csrfClient'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
+import { usePWAMode } from '@/hooks/usePWAMode'
 
 export default function CheckoutClient() {
   const { items, getTotalPrice, getTotalItems, selectedEmirate, setSelectedEmirate } = useCart()
   const { user } = useAuth()
   const router = useRouter()
   const { t, locale, dir } = useTranslation()
+  const { isPWA, isClient: isPWAClient } = usePWAMode()
   const [isProcessing, setIsProcessing] = useState(false)
   const [isGeneratingInvoice, setIsGeneratingInvoice] = useState(false)
   const [invoiceEmail, setInvoiceEmail] = useState('')
@@ -816,76 +818,237 @@ export default function CheckoutClient() {
                   </div>
                 </div>
 
-                {/* Payment Information */}
-                <div className="space-y-3 md:space-y-4">
-                  <h2 className={`text-base md:text-lg font-semibold text-gray-900 flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                    <CreditCard className="h-4 w-4 md:h-5 md:w-5 text-green-600" />
-                    {t('checkout.paymentInformation')}
-                  </h2>
-                  
-                  <div className="p-3 md:p-4 bg-blue-50 border border-blue-200 rounded-lg">
-                    <div className={`flex items-center gap-2 text-blue-800 mb-1.5 md:mb-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                      <Building className="h-4 w-4 md:h-5 md:w-5" />
-                      <span className="font-semibold text-sm md:text-base">{t('checkout.payment')}</span>
-                    </div>
-                    <p className={`text-xs md:text-sm text-blue-700 ${dir === 'rtl' ? 'text-right' : ''}`}>
-                      {t('checkout.paymentDescription')}
-                    </p>
-                  </div>
-                  
-                  <div className="space-y-2 md:space-y-3">
-                    <label className={`flex items-start gap-2.5 md:gap-3 p-2.5 md:p-4 rounded-lg cursor-pointer transition-colors ${selectedPaymentMethod === 'stripe' ? 'border-2 border-primary-400 hover:bg-primary-50 bg-primary-50/50' : 'border border-gray-300 hover:bg-gray-50'} ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                      <input
-                        type="radio"
-                        name="payment"
-                        value="stripe"
-                        checked={selectedPaymentMethod === 'stripe'}
-                        onChange={(e) => setSelectedPaymentMethod(e.target.value)}
-                        className="focus:ring-primary-500 mt-0.5 flex-shrink-0 w-4 h-4"
-                      />
-                      <div className={`flex-1 ${dir === 'rtl' ? 'text-right' : ''}`}>
-                        <div className="font-medium text-gray-900 text-[10px] md:text-base flex items-center">
-                          <CreditCard className="w-3 h-3 md:w-4 md:h-4 mr-1.5 text-primary-600" />
-                          {t('checkout.stripeCheckout')}
-                        </div>
-                        <div className="text-[9px] md:text-sm text-gray-600">{t('checkout.secureCardPayment')}</div>
-                        <div className="text-[8px] md:text-xs text-gray-500 mt-1">
-                          {t('checkout.supportedCards')}: Visa, Mastercard, American Express
-                        </div>
-                      </div>
-                    </label>
+                {/* Payment Information - PWA Version */}
+                {isPWAClient && isPWA ? (
+                  <div className="space-y-4">
+                    <h2 className={`text-base font-semibold text-gray-900 flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                      <CreditCard className="h-5 w-5 text-red-600" />
+                      {t('checkout.paymentInformation') || 'Payment Method'}
+                    </h2>
                     
-                    <label className={`flex items-start gap-2.5 md:gap-3 p-2.5 md:p-4 rounded-lg cursor-pointer transition-colors ${selectedPaymentMethod === 'cod' ? 'border-2 border-primary-400 hover:bg-primary-50 bg-primary-50/50' : 'border border-gray-300 hover:bg-gray-50'} ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                      <input
-                        type="radio"
-                        name="payment"
-                        value="cod"
-                        checked={selectedPaymentMethod === 'cod'}
-                        onChange={(e) => setSelectedPaymentMethod(e.target.value)}
-                        className="focus:ring-primary-500 mt-0.5 flex-shrink-0 w-4 h-4"
-                      />
-                      <div className={`flex-1 ${dir === 'rtl' ? 'text-right' : ''}`}>
-                        <div className="font-medium text-gray-900 text-[10px] md:text-base">{t('checkout.cod')}</div>
-                        <div className="text-[9px] md:text-sm text-gray-600">{t('checkout.payWhenDelivered')}</div>
-                      </div>
-                    </label>
+                    {/* Payment Methods Grid for PWA */}
+                    <div className="space-y-3">
+                      {/* Option 1: Cash on Delivery */}
+                      <label 
+                        className={`block relative overflow-hidden rounded-xl cursor-pointer transition-all ${
+                          selectedPaymentMethod === 'cod' 
+                            ? 'ring-2 ring-red-500 bg-red-50' 
+                            : 'bg-white border border-gray-200 hover:border-gray-300'
+                        }`}
+                      >
+                        <input
+                          type="radio"
+                          name="payment"
+                          value="cod"
+                          checked={selectedPaymentMethod === 'cod'}
+                          onChange={(e) => setSelectedPaymentMethod(e.target.value)}
+                          className="sr-only"
+                        />
+                        <div className={`p-4 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                          <div className={`flex items-center gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                            <div className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${
+                              selectedPaymentMethod === 'cod' ? 'bg-red-600' : 'bg-gray-100'
+                            }`}>
+                              <svg className={`w-5 h-5 ${selectedPaymentMethod === 'cod' ? 'text-white' : 'text-gray-500'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
+                              </svg>
+                            </div>
+                            <div className="flex-1">
+                              <div className="font-semibold text-gray-900 text-sm">
+                                {t('checkout.cod') || 'Cash on Delivery'}
+                              </div>
+                              <div className="text-xs text-gray-500 mt-0.5">
+                                {t('checkout.payWhenDelivered') || 'Pay when your order arrives'}
+                              </div>
+                            </div>
+                            <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                              selectedPaymentMethod === 'cod' 
+                                ? 'border-red-600 bg-red-600' 
+                                : 'border-gray-300'
+                            }`}>
+                              {selectedPaymentMethod === 'cod' && (
+                                <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                </svg>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      </label>
 
-                    <label className={`flex items-start gap-2.5 md:gap-3 p-2.5 md:p-4 rounded-lg cursor-pointer transition-colors ${selectedPaymentMethod === 'support-link' ? 'border-2 border-primary-400 hover:bg-primary-50 bg-primary-50/50' : 'border border-gray-300 hover:bg-gray-50'} ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                      <input
-                        type="radio"
-                        name="payment"
-                        value="support-link"
-                        checked={selectedPaymentMethod === 'support-link'}
-                        onChange={(e) => setSelectedPaymentMethod(e.target.value)}
-                        className="focus:ring-primary-500 mt-0.5 flex-shrink-0 w-4 h-4"
-                      />
-                      <div className={`flex-1 ${dir === 'rtl' ? 'text-right' : ''}`}>
-                        <div className="font-medium text-gray-900 text-[10px] md:text-base">{t('checkout.generateLinkForPayment')}</div>
-                        <div className="text-[9px] md:text-sm text-gray-600">{t('checkout.supportTeamWillShareLink')}</div>
-                      </div>
-                    </label>
+                      {/* Option 2: Apple Pay / Card */}
+                      <label 
+                        className={`block relative overflow-hidden rounded-xl cursor-pointer transition-all ${
+                          selectedPaymentMethod === 'stripe' 
+                            ? 'ring-2 ring-red-500 bg-red-50' 
+                            : 'bg-white border border-gray-200 hover:border-gray-300'
+                        }`}
+                      >
+                        <input
+                          type="radio"
+                          name="payment"
+                          value="stripe"
+                          checked={selectedPaymentMethod === 'stripe'}
+                          onChange={(e) => setSelectedPaymentMethod(e.target.value)}
+                          className="sr-only"
+                        />
+                        <div className={`p-4 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                          <div className={`flex items-center gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                            <div className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${
+                              selectedPaymentMethod === 'stripe' ? 'bg-red-600' : 'bg-gray-100'
+                            }`}>
+                              <CreditCard className={`w-5 h-5 ${selectedPaymentMethod === 'stripe' ? 'text-white' : 'text-gray-500'}`} />
+                            </div>
+                            <div className="flex-1">
+                              <div className="font-semibold text-gray-900 text-sm">
+                                {t('checkout.stripeCheckout') || 'Pay Online'}
+                              </div>
+                              <div className="text-xs text-gray-500 mt-0.5">
+                                Apple Pay, Visa, Mastercard, Amex
+                              </div>
+                            </div>
+                            <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                              selectedPaymentMethod === 'stripe' 
+                                ? 'border-red-600 bg-red-600' 
+                                : 'border-gray-300'
+                            }`}>
+                              {selectedPaymentMethod === 'stripe' && (
+                                <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                </svg>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      </label>
+
+                      {/* Option 3: Request Payment Link */}
+                      <label 
+                        className={`block relative overflow-hidden rounded-xl cursor-pointer transition-all ${
+                          selectedPaymentMethod === 'support-link' 
+                            ? 'ring-2 ring-red-500 bg-red-50' 
+                            : 'bg-white border border-gray-200 hover:border-gray-300'
+                        }`}
+                      >
+                        <input
+                          type="radio"
+                          name="payment"
+                          value="support-link"
+                          checked={selectedPaymentMethod === 'support-link'}
+                          onChange={(e) => setSelectedPaymentMethod(e.target.value)}
+                          className="sr-only"
+                        />
+                        <div className={`p-4 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                          <div className={`flex items-center gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                            <div className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${
+                              selectedPaymentMethod === 'support-link' ? 'bg-red-600' : 'bg-gray-100'
+                            }`}>
+                              <svg className={`w-5 h-5 ${selectedPaymentMethod === 'support-link' ? 'text-white' : 'text-gray-500'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                              </svg>
+                            </div>
+                            <div className="flex-1">
+                              <div className="font-semibold text-gray-900 text-sm">
+                                {t('checkout.generateLinkForPayment') || 'Request Payment Link'}
+                              </div>
+                              <div className="text-xs text-gray-500 mt-0.5">
+                                {t('checkout.supportTeamWillShareLink') || 'We\'ll send you a secure payment link'}
+                              </div>
+                            </div>
+                            <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                              selectedPaymentMethod === 'support-link' 
+                                ? 'border-red-600 bg-red-600' 
+                                : 'border-gray-300'
+                            }`}>
+                              {selectedPaymentMethod === 'support-link' && (
+                                <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                </svg>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      </label>
+                    </div>
+
+                    {/* Security Note */}
+                    <div className={`flex items-center gap-2 text-xs text-gray-500 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                      <Lock className="w-3.5 h-3.5 flex-shrink-0" />
+                      <span>{t('checkout.securePayment') || 'Your payment information is secure and encrypted'}</span>
+                    </div>
                   </div>
-                </div>
+                ) : (
+                  /* Payment Information - Desktop/Mobile Browser Version */
+                  <div className="space-y-3 md:space-y-4">
+                    <h2 className={`text-base md:text-lg font-semibold text-gray-900 flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                      <CreditCard className="h-4 w-4 md:h-5 md:w-5 text-green-600" />
+                      {t('checkout.paymentInformation')}
+                    </h2>
+                    
+                    <div className="p-3 md:p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                      <div className={`flex items-center gap-2 text-blue-800 mb-1.5 md:mb-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                        <Building className="h-4 w-4 md:h-5 md:w-5" />
+                        <span className="font-semibold text-sm md:text-base">{t('checkout.payment')}</span>
+                      </div>
+                      <p className={`text-xs md:text-sm text-blue-700 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                        {t('checkout.paymentDescription')}
+                      </p>
+                    </div>
+                    
+                    <div className="space-y-2 md:space-y-3">
+                      <label className={`flex items-start gap-2.5 md:gap-3 p-2.5 md:p-4 rounded-lg cursor-pointer transition-colors ${selectedPaymentMethod === 'stripe' ? 'border-2 border-primary-400 hover:bg-primary-50 bg-primary-50/50' : 'border border-gray-300 hover:bg-gray-50'} ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                        <input
+                          type="radio"
+                          name="payment"
+                          value="stripe"
+                          checked={selectedPaymentMethod === 'stripe'}
+                          onChange={(e) => setSelectedPaymentMethod(e.target.value)}
+                          className="focus:ring-primary-500 mt-0.5 flex-shrink-0 w-4 h-4"
+                        />
+                        <div className={`flex-1 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                          <div className="font-medium text-gray-900 text-[10px] md:text-base flex items-center">
+                            <CreditCard className="w-3 h-3 md:w-4 md:h-4 mr-1.5 text-primary-600" />
+                            {t('checkout.stripeCheckout')}
+                          </div>
+                          <div className="text-[9px] md:text-sm text-gray-600">{t('checkout.secureCardPayment')}</div>
+                          <div className="text-[8px] md:text-xs text-gray-500 mt-1">
+                            {t('checkout.supportedCards')}: Visa, Mastercard, American Express
+                          </div>
+                        </div>
+                      </label>
+                      
+                      <label className={`flex items-start gap-2.5 md:gap-3 p-2.5 md:p-4 rounded-lg cursor-pointer transition-colors ${selectedPaymentMethod === 'cod' ? 'border-2 border-primary-400 hover:bg-primary-50 bg-primary-50/50' : 'border border-gray-300 hover:bg-gray-50'} ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                        <input
+                          type="radio"
+                          name="payment"
+                          value="cod"
+                          checked={selectedPaymentMethod === 'cod'}
+                          onChange={(e) => setSelectedPaymentMethod(e.target.value)}
+                          className="focus:ring-primary-500 mt-0.5 flex-shrink-0 w-4 h-4"
+                        />
+                        <div className={`flex-1 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                          <div className="font-medium text-gray-900 text-[10px] md:text-base">{t('checkout.cod')}</div>
+                          <div className="text-[9px] md:text-sm text-gray-600">{t('checkout.payWhenDelivered')}</div>
+                        </div>
+                      </label>
+
+                      <label className={`flex items-start gap-2.5 md:gap-3 p-2.5 md:p-4 rounded-lg cursor-pointer transition-colors ${selectedPaymentMethod === 'support-link' ? 'border-2 border-primary-400 hover:bg-primary-50 bg-primary-50/50' : 'border border-gray-300 hover:bg-gray-50'} ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                        <input
+                          type="radio"
+                          name="payment"
+                          value="support-link"
+                          checked={selectedPaymentMethod === 'support-link'}
+                          onChange={(e) => setSelectedPaymentMethod(e.target.value)}
+                          className="focus:ring-primary-500 mt-0.5 flex-shrink-0 w-4 h-4"
+                        />
+                        <div className={`flex-1 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                          <div className="font-medium text-gray-900 text-[10px] md:text-base">{t('checkout.generateLinkForPayment')}</div>
+                          <div className="text-[9px] md:text-sm text-gray-600">{t('checkout.supportTeamWillShareLink')}</div>
+                        </div>
+                      </label>
+                    </div>
+                  </div>
+                )}
 
                 {/* Order Notes */}
                 <div>

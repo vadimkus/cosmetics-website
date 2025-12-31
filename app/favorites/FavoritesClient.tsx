@@ -10,15 +10,23 @@ import { getLocalizedPath } from '@/lib/i18n'
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { useAnimationStore } from '@/lib/animationStore'
+import { usePWAMode } from '@/hooks/usePWAMode'
 
 export default function FavoritesClient() {
   const { t, locale, dir } = useTranslation()
   const { favorites } = useFavorites()
   const { enabled: animationsEnabled } = useAnimationStore()
+  const { isPWA, isClient } = usePWAMode()
   const favoriteProducts = favorites
   const [isPulsing, setIsPulsing] = useState(false)
 
+  // Disable animations in PWA mode
+  const shouldAnimate = animationsEnabled && !(isClient && isPWA)
+
   useEffect(() => {
+    // Don't pulse in PWA mode
+    if (isClient && isPWA) return
+    
     // Pulse every 5 seconds
     const pulseInterval = setInterval(() => {
       setIsPulsing(true)
@@ -28,7 +36,7 @@ export default function FavoritesClient() {
     return () => {
       clearInterval(pulseInterval)
     }
-  }, [])
+  }, [isClient, isPWA])
 
   if (favorites.length === 0) {
     return (
@@ -51,12 +59,12 @@ export default function FavoritesClient() {
             {/* Mobile: Custom image, Desktop: Custom image */}
             <div className="mb-2 md:mb-4 relative">
               <motion.div
-                animate={animationsEnabled ? {
+                animate={shouldAnimate ? {
                   y: [0, -8, 0],
                   scale: [1, 1.02, 1],
                   rotate: [0, 1, -1, 0]
                 } : {}}
-                transition={animationsEnabled ? {
+                transition={shouldAnimate ? {
                   duration: 4,
                   repeat: Infinity,
                   ease: "easeInOut",
@@ -74,7 +82,7 @@ export default function FavoritesClient() {
               </motion.div>
               
               {/* Floating particles around Uni - same as cart */}
-              {animationsEnabled && (
+              {shouldAnimate && (
                 <>
                   <motion.div
                     className="absolute top-4 right-4 w-2 h-2 bg-red-400 rounded-full opacity-60"
@@ -153,7 +161,7 @@ export default function FavoritesClient() {
       <div className="max-w-6xl mx-auto">
         <div className="mb-4 md:mb-8">
           <h1 className="text-xl md:text-3xl font-bold text-gray-900 mb-2 md:mb-4 flex items-center gap-2">
-            <Heart className={`h-6 w-6 md:h-8 md:w-8 text-red-500 transition-all duration-500 ${isPulsing ? 'animate-pulse scale-110' : ''}`} />
+            <Heart className={`h-6 w-6 md:h-8 md:w-8 text-red-500 transition-all duration-500 ${isPulsing && shouldAnimate ? 'animate-pulse scale-110' : ''}`} />
             {t('favorites.myFavorites')} ({favorites.length})
           </h1>
           <p className="text-xs md:text-base text-gray-600">
@@ -173,11 +181,11 @@ export default function FavoritesClient() {
               {/* Mobile: Custom image, Desktop: Heart icon */}
               <div className="md:hidden mb-2 relative">
                 <motion.div
-                  animate={animationsEnabled ? {
+                  animate={shouldAnimate ? {
                     rotate: [0, 5, -5, 0],
                     scale: [1, 1.1, 1]
                   } : {}}
-                  transition={animationsEnabled ? {
+                  transition={shouldAnimate ? {
                     duration: 4,
                     repeat: Infinity,
                     ease: "easeInOut"
@@ -193,7 +201,7 @@ export default function FavoritesClient() {
                   />
                   
                   {/* Small sparkle effect */}
-                  {animationsEnabled && (
+                  {shouldAnimate && (
                     <motion.div
                       className="absolute -top-1 -right-1 w-2 h-2 bg-yellow-400 rounded-full"
                       animate={{

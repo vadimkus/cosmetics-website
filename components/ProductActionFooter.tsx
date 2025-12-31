@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { Product } from '@/types'
 import { useCartStore } from '@/lib/cartStore'
@@ -60,11 +60,27 @@ export default function ProductActionFooter({
   locale = 'en'
 }: ProductActionFooterProps) {
   const typedLocale = locale as 'en' | 'ar' | 'ru'
-  const { isPWA, isClient } = usePWAMode()
+  const { isPWA: isPWAFromHook, isClient } = usePWAMode()
   const { addItem, getTotalItems } = useCartStore()
   const { isFavorite: checkIsFavorite, toggleFavorite } = useFavorites()
   const [quantity, setQuantity] = useState(1)
   const [isAdding, setIsAdding] = useState(false)
+  const [isPWADirect, setIsPWADirect] = useState(false)
+
+  // Direct PWA check as fallback for iOS - runs on mount
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const nav = navigator as Navigator & { standalone?: boolean }
+      const isStandalone = window.matchMedia('(display-mode: standalone)').matches
+      const isIOSStandalone = nav.standalone === true
+      if (isStandalone || isIOSStandalone) {
+        setIsPWADirect(true)
+      }
+    }
+  }, [])
+
+  // Use either detection method
+  const isPWA = isPWAFromHook || isPWADirect
 
   const isFavorite = checkIsFavorite(product.id)
   const cartCount = isClient ? getTotalItems() : 0

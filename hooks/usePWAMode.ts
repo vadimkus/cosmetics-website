@@ -9,6 +9,8 @@ import { useEffect, useState } from 'react'
  * - display-mode: standalone (Android, Desktop PWA)
  * - navigator.standalone (iOS Safari PWA)
  * - display-mode: fullscreen
+ * - minimal-ui mode (some browsers)
+ * - iOS detection via window properties
  */
 export function usePWAMode() {
   const [isPWA, setIsPWA] = useState(false)
@@ -21,13 +23,41 @@ export function usePWAMode() {
       // Check display-mode: standalone (Android, Desktop)
       const isStandalone = window.matchMedia('(display-mode: standalone)').matches
       
-      // Check iOS Safari standalone mode
-      const isIOSStandalone = (navigator as Navigator & { standalone?: boolean }).standalone === true
+      // Check iOS Safari standalone mode - this is the primary iOS detection
+      const nav = navigator as Navigator & { standalone?: boolean }
+      const isIOSStandalone = nav.standalone === true
       
       // Check if launched from home screen (some browsers)
       const isFullscreen = window.matchMedia('(display-mode: fullscreen)').matches
       
-      return isStandalone || isIOSStandalone || isFullscreen
+      // Check minimal-ui mode
+      const isMinimalUI = window.matchMedia('(display-mode: minimal-ui)').matches
+      
+      // Additional iOS PWA detection - check if running in iOS standalone via URL bar absence
+      // On iOS PWA, the window.innerHeight is closer to screen.height
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as Window & { MSStream?: unknown }).MSStream
+      const hasNoURLBar = isIOS && (window.innerHeight / screen.height > 0.85)
+      
+      // Check if launched from home screen via referrer (some PWAs set this)
+      const isLaunchedFromHomeScreen = document.referrer === '' && !document.hidden
+      
+      const result = isStandalone || isIOSStandalone || isFullscreen || isMinimalUI || (isIOS && hasNoURLBar && isLaunchedFromHomeScreen)
+      
+      // Debug logging (remove in production)
+      if (typeof window !== 'undefined' && window.location.hostname === 'localhost') {
+        console.log('PWA Detection:', {
+          isStandalone,
+          isIOSStandalone,
+          isFullscreen,
+          isMinimalUI,
+          isIOS,
+          hasNoURLBar,
+          navStandalone: nav.standalone,
+          result
+        })
+      }
+      
+      return result
     }
     
     setIsPWA(checkPWAMode())
@@ -35,7 +65,8 @@ export function usePWAMode() {
     // Listen for display mode changes
     const mediaQuery = window.matchMedia('(display-mode: standalone)')
     const handleChange = (e: MediaQueryListEvent) => {
-      setIsPWA(e.matches || (navigator as Navigator & { standalone?: boolean }).standalone === true)
+      const nav = navigator as Navigator & { standalone?: boolean }
+      setIsPWA(e.matches || nav.standalone === true)
     }
     
     mediaQuery.addEventListener('change', handleChange)

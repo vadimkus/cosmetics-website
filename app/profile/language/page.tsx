@@ -52,8 +52,11 @@ export default function LanguagePage() {
     setSaving(true)
     try {
       // Navigate to the same page but with new locale
-      const newPath = `/${newLocale}/profile/language?from=profile`
-      router.push(newPath)
+      // Use getLocalizedPath to handle EN (no prefix) vs AR/RU (with prefix)
+      const basePath = getLocalizedPath('/profile/language', newLocale as 'en' | 'ar' | 'ru')
+      const newPath = `${basePath}?from=profile`
+      // Use replace instead of push to avoid history issues when switching languages
+      router.replace(newPath)
     } finally {
       setSaving(false)
     }

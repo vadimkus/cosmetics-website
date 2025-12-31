@@ -10,6 +10,9 @@ import { notFound } from 'next/navigation'
 import { errorLog } from '@/lib/logger'
 import { sanitizeHtml } from '@/lib/sanitize'
 
+// Revalidate blog post every 60 seconds to show updates quickly
+export const revalidate = 60
+
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>
 }

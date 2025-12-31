@@ -16,6 +16,11 @@ const ALLOWED_TAGS = new Set([
   'ul', 'ol', 'li',
   'a', 'span', 'div',
   'blockquote', 'pre', 'code',
+  // Extended tags for blog content
+  'img', 'figure', 'figcaption',
+  'table', 'thead', 'tbody', 'tfoot', 'tr', 'th', 'td',
+  'hr', 'time', 'article', 'section', 'header', 'footer', 'nav', 'aside',
+  'dl', 'dt', 'dd', 'sub', 'sup', 'mark', 'abbr', 'cite', 'dfn', 'kbd', 'samp', 'var',
 ])
 
 function stripDangerousContent(input: string): string {
@@ -40,9 +45,23 @@ function sanitizeTagAttributes(tagName: string, attrs: string): string {
     allowedAttrs.add('target')
     allowedAttrs.add('rel')
   }
-  if (t === 'span' || t === 'div') {
-    // Allow inline color styling from editor; strip everything else.
+  if (t === 'span' || t === 'div' || t === 'td' || t === 'th' || t === 'table' || t === 'tr') {
+    // Allow inline styling for formatting
     allowedAttrs.add('style')
+  }
+  if (t === 'img') {
+    allowedAttrs.add('src')
+    allowedAttrs.add('alt')
+    allowedAttrs.add('width')
+    allowedAttrs.add('height')
+    allowedAttrs.add('loading')
+  }
+  if (t === 'td' || t === 'th') {
+    allowedAttrs.add('colspan')
+    allowedAttrs.add('rowspan')
+  }
+  if (t === 'time') {
+    allowedAttrs.add('datetime')
   }
 
   const attrMatches = attrs.match(/([a-zA-Z:-]+)\s*=\s*(".*?"|'.*?')/g) || []
@@ -51,10 +70,10 @@ function sanitizeTagAttributes(tagName: string, attrs: string): string {
     const keyMatch = raw.match(/^([a-zA-Z:-]+)\s*=/)
     const key = (keyMatch?.[1] || '').toLowerCase()
     if (!key || !allowedAttrs.has(key)) continue
-    if (key === 'href') {
-      const v = raw.replace(/^href\s*=\s*/i, '').trim()
+    if (key === 'href' || key === 'src') {
+      const v = raw.replace(/^(href|src)\s*=\s*/i, '').trim()
       const unq = v.replace(/^['"]|['"]$/g, '')
-      // Only allow http(s), mailto, tel, or relative links
+      // Only allow http(s), mailto, tel, or relative links/paths
       if (!/^(https?:|mailto:|tel:|\/)/i.test(unq)) continue
     }
     if (key === 'style') {

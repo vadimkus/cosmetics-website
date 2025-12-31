@@ -1105,12 +1105,12 @@ export default function CheckoutClient() {
 
                     {/* PWA Need Help - Below Delivery Info */}
                     <div className="mt-3 p-3 bg-blue-50 border border-blue-200 rounded-xl">
-                      <div className={`flex items-center gap-2 text-blue-800 mb-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                        <MessageCircle className="h-5 w-5" />
-                        <span className="font-semibold text-sm">{t('checkout.needHelp') || 'Need Help?'}</span>
-                      </div>
                       <p className={`text-xs text-blue-700 mb-3 ${dir === 'rtl' ? 'text-right' : ''}`}>
-                        {t('checkout.haveQuestions') || 'Have questions about your order?'}
+                        {locale === 'ar' 
+                          ? 'تواصل مع فريق الدعم لدينا عبر واتساب للمساعدة الفورية.'
+                          : locale === 'ru'
+                          ? 'Свяжитесь с нашей службой поддержки через WhatsApp для мгновенной помощи.'
+                          : 'Contact our support team via WhatsApp for instant assistance.'}
                       </p>
                       <button
                         type="button"

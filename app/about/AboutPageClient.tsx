@@ -1,19 +1,27 @@
 'use client'
 
 import Link from 'next/link'
-import { ArrowLeft } from 'lucide-react'
+import { ArrowLeft, Info } from 'lucide-react'
 import Logo from '@/components/Logo'
 import BreadcrumbSchema from '@/components/BreadcrumbSchema'
 import PDFLinkButton from '@/components/PDFLinkButton'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
+import PWABackHeader from '@/components/PWABackHeader'
 
 export default function AboutPageClient() {
   const { t, locale, dir } = useTranslation()
   
   return (
-    <div className="bg-white min-h-screen" dir={dir}>
-      <BreadcrumbSchema 
+    <>
+      {/* PWA Back Header */}
+      <PWABackHeader 
+        title={t('common.about') || 'About'}
+        icon={<Info className="w-5 h-5 text-red-600" />}
+      />
+      
+      <div className="bg-white min-h-screen" dir={dir}>
+        <BreadcrumbSchema 
         items={[
           { name: t('common.home'), url: getLocalizedPath('/', locale) },
           { name: t('common.about'), url: getLocalizedPath('/about', locale) }
@@ -133,6 +141,7 @@ export default function AboutPageClient() {
       </div>
       </div>
     </div>
+    </>
   )
 }
 

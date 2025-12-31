@@ -14,6 +14,7 @@ import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { isBlackFridaySaleActive } from '@/lib/blackFridayUtils'
 import { calculateDiscountedPrice } from '@/lib/discountUtils'
+import PWABackHeader from '@/components/PWABackHeader'
 
 
 export default function CartClient() {
@@ -173,14 +174,21 @@ export default function CartClient() {
 
   if (items.length === 0) {
     return (
-      <div className="container mx-auto px-4 py-4 md:py-8 lg:py-16" dir={dir}>
-        {/* Navigation Breadcrumb */}
-        <nav className={`text-xs md:text-base text-gray-600 mb-2 md:mb-4 ${dir === 'rtl' ? 'text-right' : ''}`} aria-label="Breadcrumb">
-          <Link href={getLocalizedPath('/', locale)} className="hover:text-primary-600 transition-colors">{t('common.home')}</Link>
-          <span> / </span>
-          <Link href={getLocalizedPath('/products', locale)} className="hover:text-primary-600 transition-colors">{t('common.products')}</Link>
-          <span> / </span>
-          <span className="text-gray-900 font-medium">{t('common.cart')}</span>
+      <>
+        {/* PWA Back Header */}
+        <PWABackHeader 
+          title={t('common.cart') || 'Bag'}
+          icon={<ShoppingBag className="w-5 h-5 text-red-600" />}
+        />
+        
+        <div className="container mx-auto px-4 py-4 md:py-8 lg:py-16" dir={dir}>
+          {/* Navigation Breadcrumb */}
+          <nav className={`text-xs md:text-base text-gray-600 mb-2 md:mb-4 ${dir === 'rtl' ? 'text-right' : ''}`} aria-label="Breadcrumb">
+            <Link href={getLocalizedPath('/', locale)} className="hover:text-primary-600 transition-colors">{t('common.home')}</Link>
+            <span> / </span>
+            <Link href={getLocalizedPath('/products', locale)} className="hover:text-primary-600 transition-colors">{t('common.products')}</Link>
+            <span> / </span>
+            <span className="text-gray-900 font-medium">{t('common.cart')}</span>
         </nav>
 
         {/* Back to Products */}
@@ -280,11 +288,19 @@ export default function CartClient() {
           </div>
         </div>
       </div>
+      </>
     )
   }
 
   return (
-    <div className="container mx-auto px-4 py-2 md:py-8 lg:py-16" dir={dir}>
+    <>
+      {/* PWA Back Header */}
+      <PWABackHeader 
+        title={t('common.cart') || 'Bag'}
+        icon={<ShoppingBag className="w-5 h-5 text-red-600" />}
+      />
+      
+      <div className="container mx-auto px-4 py-2 md:py-8 lg:py-16" dir={dir}>
       {/* Mobile-only Uni Image/Video - Only show when cart is empty */}
       {items.length === 0 && (
         <div className="md:hidden w-full max-w-xs mx-auto aspect-square bg-gray-100 rounded-lg overflow-hidden relative mb-4">
@@ -778,5 +794,6 @@ export default function CartClient() {
         </div>
       </div>
     </div>
+    </>
   )
 }

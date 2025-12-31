@@ -416,7 +416,7 @@ export default function PWAProfilePage() {
               icon={<svg className="w-5 h-5 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" /></svg>}
               title={t('pwaProfile.language')}
               subtitle={languageDisplay}
-              onClick={() => {/* Language picker */}}
+              onClick={() => router.push(getLocalizedPath('/profile/language', locale) + '?from=profile')}
               isRTL={isRTL}
             />
             <ProfileItem
@@ -453,7 +453,7 @@ export default function PWAProfilePage() {
         </div>
 
         {/* Footer */}
-        <div className="text-center py-8 pb-24">
+        <div className="text-center py-4 pb-4">
           <p className="text-[15px] text-gray-500">{t('pwaProfile.genosysMobile')}</p>
           <p className="text-[13px] text-gray-300 mt-1">
             {t('pwaProfile.version')} 1.0.0

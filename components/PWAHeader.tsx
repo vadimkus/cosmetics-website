@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { useState, useEffect } from 'react'
+import { useRouter, usePathname } from 'next/navigation'
 import { Menu, Heart, ChevronDown, X } from 'lucide-react'
 import { useAuth } from './AuthProvider'
 import { useFavorites } from './FavoritesProvider'
@@ -26,13 +27,29 @@ export default function PWAHeader() {
   const { favorites } = useFavorites()
   const { t, locale, dir } = useTranslation()
   const { isPWA, isClient } = usePWAMode()
+  const router = useRouter()
+  const pathname = usePathname()
   const [showLangMenu, setShowLangMenu] = useState(false)
   const [showMobileMenu, setShowMobileMenu] = useState(false)
+  
+  // Check if we're on profile page
+  const isOnProfilePage = pathname?.includes('/profile')
+  
+  // Handle profile button click - toggle behavior
+  const handleProfileClick = () => {
+    if (isOnProfilePage) {
+      // Go back to previous page
+      router.back()
+    } else {
+      // Navigate to profile
+      router.push(getLocalizedPath('/profile', locale))
+    }
+  }
   
   // Close menu on route change
   useEffect(() => {
     setShowMobileMenu(false)
-  }, [])
+  }, [pathname])
   
   // Only render in PWA mode on mobile
   if (!isClient || !isPWA) {
@@ -151,13 +168,14 @@ export default function PWAHeader() {
             </Link>
           </div>
           
-          {/* Right Side: User Avatar */}
-          <Link 
-            href={getLocalizedPath('/profile', locale)}
-            className="flex items-center"
+          {/* Right Side: User Avatar - Toggle behavior */}
+          <button 
+            onClick={handleProfileClick}
+            className="flex items-center p-1 -m-1 touch-manipulation active:scale-95 transition-transform"
+            aria-label={isOnProfilePage ? 'Go back' : 'Open profile'}
           >
             {user ? (
-              <div className="relative w-8 h-8 rounded-full bg-red-600 flex items-center justify-center">
+              <div className={`relative w-9 h-9 rounded-full flex items-center justify-center transition-colors ${isOnProfilePage ? 'bg-gray-600' : 'bg-red-600'}`}>
                 <span className="text-white text-sm font-semibold">
                   {userInitial.toUpperCase()}
                 </span>
@@ -165,13 +183,13 @@ export default function PWAHeader() {
                 <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-500 rounded-full border-2 border-white" />
               </div>
             ) : (
-              <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center">
-                <svg className="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <div className={`w-9 h-9 rounded-full flex items-center justify-center transition-colors ${isOnProfilePage ? 'bg-gray-200' : 'bg-gray-100'}`}>
+                <svg className="w-5 h-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                 </svg>
               </div>
             )}
-          </Link>
+          </button>
         </div>
         
         {/* Subtitle */}

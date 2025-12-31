@@ -3,7 +3,7 @@
   "name": "جينوسيس الشرق الأوسط - منتجات التجميل الكورية الاحترافية",
   "short_name": "جينوسيس الإمارات",
   "description": "اكتشفي مجموعتنا المميزة من مستحضرات التجميل الكورية الاحترافية من جينوسيس الشرق الأوسط",
-  "start_url": "/ar",
+  "start_url": "./",
   "version": "3.2.0",
   "display": "standalone",
   "display_override": ["standalone", "minimal-ui", "browser"],

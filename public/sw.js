@@ -3,10 +3,10 @@
  * Provides offline functionality and caching strategies
  */
 
-const CACHE_NAME = 'genosys-cache-v54'
-const STATIC_CACHE = 'genosys-static-v54'
-const DYNAMIC_CACHE = 'genosys-dynamic-v54'
-const IMAGE_CACHE = 'genosys-images-v54'
+const CACHE_NAME = 'genosys-cache-v55'
+const STATIC_CACHE = 'genosys-static-v55'
+const DYNAMIC_CACHE = 'genosys-dynamic-v55'
+const IMAGE_CACHE = 'genosys-images-v55'
 
 // IndexedDB configuration for offline data storage
 const DB_NAME = 'genosys-offline-db'
@@ -256,11 +256,16 @@ async function handleStaticRequest(request) {
 
 // Handle page requests with network-first strategy
 async function handlePageRequest(request) {
+  // For navigation requests (page refresh, direct URL access), always try network first
+  // This ensures users always see the correct page on refresh
+  const isNavigation = request.mode === 'navigate'
+  
   try {
     const networkResponse = await fetch(request)
     
     // Only cache full responses (200 status), not partial responses (206)
-    if (networkResponse.ok && networkResponse.status === 200) {
+    // Don't cache navigation requests - let browser handle history
+    if (networkResponse.ok && networkResponse.status === 200 && !isNavigation) {
       const cache = await caches.open(DYNAMIC_CACHE)
       cache.put(request, networkResponse.clone())
     }
@@ -268,16 +273,26 @@ async function handlePageRequest(request) {
     return networkResponse
   } catch (error) {
     console.log('Network failed, trying cache for page request')
+    
+    // For navigation, only use cache as last resort
+    if (isNavigation) {
+      const cache = await caches.open(DYNAMIC_CACHE)
+      const cachedResponse = await cache.match(request)
+      
+      if (cachedResponse) {
+        return cachedResponse
+      }
+      
+      // Return offline page
+      return caches.match('/offline')
+    }
+    
+    // For non-navigation, try cache
     const cache = await caches.open(DYNAMIC_CACHE)
     const cachedResponse = await cache.match(request)
     
     if (cachedResponse) {
       return cachedResponse
-    }
-    
-    // Return offline page for navigation requests
-    if (request.mode === 'navigate') {
-      return caches.match('/offline')
     }
     
     return new Response('Page not available offline', { status: 404 })

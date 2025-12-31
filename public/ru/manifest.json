@@ -3,7 +3,7 @@
   "name": "GENOSYS Ближний Восток - Профессиональная корейская косметика",
   "short_name": "GENOSYS ОАЭ",
   "description": "Откройте для себя нашу премиальную коллекцию профессиональной корейской дермакосметики от GENOSYS Ближний Восток",
-  "start_url": "/ru",
+  "start_url": "./",
   "version": "3.2.0",
   "display": "standalone",
   "display_override": ["standalone", "minimal-ui", "browser"],

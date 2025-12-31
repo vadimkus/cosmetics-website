@@ -184,7 +184,7 @@ export default function CartClient() {
           <div className={`flex items-center justify-between px-5 py-4 bg-white ${isRTL ? 'flex-row-reverse' : ''}`}>
             <button 
               onClick={() => router.push(getLocalizedPath('/products', locale))}
-              className={`flex items-center gap-1 ${isRTL ? 'flex-row-reverse' : ''}`}
+              className={`flex items-center gap-1 min-w-[80px] ${isRTL ? 'flex-row-reverse' : ''}`}
             >
               <svg className={`w-5 h-5 text-red-600 ${isRTL ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -196,6 +196,17 @@ export default function CartClient() {
             <span className="text-base font-semibold text-gray-900">
               {t('pwaProfile.bag') || 'Bag'}
             </span>
+            {/* Profile Icon */}
+            <button 
+              onClick={() => router.push(getLocalizedPath('/profile', locale))}
+              className="min-w-[80px] flex justify-end"
+            >
+              <div className="w-8 h-8 rounded-full bg-red-600 flex items-center justify-center">
+                <span className="text-sm font-semibold text-white">
+                  {user?.name?.charAt(0)?.toUpperCase() || 'U'}
+                </span>
+              </div>
+            </button>
           </div>
         )}
         
@@ -317,7 +328,7 @@ export default function CartClient() {
         <div className={`flex items-center justify-between px-5 py-4 bg-white ${isRTL ? 'flex-row-reverse' : ''}`}>
           <button 
             onClick={() => router.push(getLocalizedPath('/products', locale))}
-            className={`flex items-center gap-1 ${isRTL ? 'flex-row-reverse' : ''}`}
+            className={`flex items-center gap-1 min-w-[80px] ${isRTL ? 'flex-row-reverse' : ''}`}
           >
             <svg className={`w-5 h-5 text-red-600 ${isRTL ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -329,6 +340,17 @@ export default function CartClient() {
           <span className="text-base font-semibold text-gray-900">
             {t('pwaProfile.bag') || 'Bag'}
           </span>
+          {/* Profile Icon */}
+          <button 
+            onClick={() => router.push(getLocalizedPath('/profile', locale))}
+            className="min-w-[80px] flex justify-end"
+          >
+            <div className="w-8 h-8 rounded-full bg-red-600 flex items-center justify-center">
+              <span className="text-sm font-semibold text-white">
+                {user?.name?.charAt(0)?.toUpperCase() || 'U'}
+              </span>
+            </div>
+          </button>
         </div>
       )}
       

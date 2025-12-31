@@ -35,6 +35,11 @@ export default function PWAHeader() {
   // Check if we're on profile page
   const isOnProfilePage = pathname?.includes('/profile')
   
+  // Check if we're on pages that have their own simple header
+  const isOnSimpleHeaderPage = pathname?.includes('/profile') || 
+                                pathname?.includes('/cart') || 
+                                pathname?.includes('/orders')
+  
   // Handle profile button click - with debounce to prevent rapid clicks
   const handleProfileClick = useCallback(() => {
     // Debounce: prevent clicks within 500ms of each other
@@ -72,7 +77,8 @@ export default function PWAHeader() {
   }, [pathname])
   
   // Only render in PWA mode on mobile
-  if (!isClient || !isPWA) {
+  // Hide on pages that have their own simple header (profile, cart, orders)
+  if (!isClient || !isPWA || isOnSimpleHeaderPage) {
     return null
   }
   

@@ -194,7 +194,7 @@ export default function PWAProfilePage() {
       <div className={`flex items-center justify-between px-5 py-4 bg-white ${isRTL ? 'flex-row-reverse' : ''}`}>
         <button 
           onClick={() => router.push(getLocalizedPath('/products', locale))}
-          className={`flex items-center gap-1 ${isRTL ? 'flex-row-reverse' : ''}`}
+          className={`flex items-center gap-1 min-w-[80px] ${isRTL ? 'flex-row-reverse' : ''}`}
         >
           <svg className={`w-5 h-5 text-red-600 ${isRTL ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -206,6 +206,14 @@ export default function PWAProfilePage() {
         <span className="text-base font-semibold text-gray-900">
           {t('pwaProfile.account')}
         </span>
+        {/* Profile Icon */}
+        <div className="min-w-[80px] flex justify-end">
+          <div className="w-8 h-8 rounded-full bg-red-600 flex items-center justify-center">
+            <span className="text-sm font-semibold text-white">
+              {userInitial.toUpperCase()}
+            </span>
+          </div>
+        </div>
       </div>
 
       <div className="overflow-y-auto">

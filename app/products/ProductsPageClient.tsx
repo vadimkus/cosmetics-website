@@ -20,6 +20,7 @@ import BreadcrumbSchema from '@/components/BreadcrumbSchema'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
+import { usePWAMode } from '@/hooks/usePWAMode'
 
 const getCategories = (t: (key: string) => string): Array<{ id: string; name: string }> => [
   { id: 'all', name: t('products.allProducts') },
@@ -52,6 +53,7 @@ export default function ProductsPageClient() {
   const searchParams = useSearchParams()
   const { t, locale } = useTranslation()
   const { enabled: animationsEnabled } = useAnimationStore()
+  const { isPWA } = usePWAMode()
   
   const [products, setProducts] = useState<Product[]>([])
   const [loading, setLoading] = useState(true)
@@ -317,32 +319,36 @@ export default function ProductsPageClient() {
         ]}
       />
       <div className="container mx-auto px-4 py-4 md:py-8 lg:py-16">
-        {/* Navigation Breadcrumb */}
-        <nav className="text-xs md:text-base text-gray-600 mb-2 md:mb-4 products-breadcrumb" aria-label="Breadcrumb">
+        {/* Navigation Breadcrumb - Hide in PWA mode */}
+        {!isPWA && (
+          <nav className="text-xs md:text-base text-gray-600 mb-2 md:mb-4 products-breadcrumb" aria-label="Breadcrumb">
+            <Link 
+              href={getLocalizedPath('/', locale)}
+              className="hover:text-primary-600 transition-colors"
+            >
+              {t('navigation.home')}
+            </Link>
+            <span> / </span>
+            <span className="text-gray-900 font-medium">
+              {t('navigation.products')}
+            </span>
+          </nav>
+        )}
+        
+        {/* Back to Home - Desktop only, hide in PWA */}
+        {!isPWA && (
           <Link 
             href={getLocalizedPath('/', locale)}
-            className="hover:text-primary-600 transition-colors"
+            className="hidden md:inline-flex items-center gap-1 text-sm text-primary-600 hover:text-primary-700 mb-8"
           >
-            {t('navigation.home')}
+            <ArrowLeft className="h-4 w-4" />
+            <span>{t('navigation.backToHome')}</span>
           </Link>
-          <span> / </span>
-          <span className="text-gray-900 font-medium">
-            {t('navigation.products')}
-          </span>
-        </nav>
-        
-        {/* Back to Home - Desktop only */}
-        <Link 
-          href={getLocalizedPath('/', locale)}
-          className="hidden md:inline-flex items-center gap-1 text-sm text-primary-600 hover:text-primary-700 mb-8"
-        >
-          <ArrowLeft className="h-4 w-4" />
-          <span>{t('navigation.backToHome')}</span>
-        </Link>
+        )}
 
-        {/* Header */}
+        {/* Header - Hide mobile text in PWA mode */}
         <div className="text-center mb-4 md:mb-8">
-          {isMobile ? (
+          {isMobile && !isPWA ? (
             <div className="mb-1">
               <h1 className="text-xl font-bold text-primary-600">Genosys Middle East FZ-LLC</h1>
               <div className="flex flex-col items-center mt-1">
@@ -360,7 +366,7 @@ export default function ProductsPageClient() {
                 </div>
               </div>
             </div>
-          ) : (
+          ) : !isMobile ? (
             <div className="flex justify-center mb-3">
               <Image
                 src="/images/prd_logo.png"
@@ -371,7 +377,7 @@ export default function ProductsPageClient() {
                 priority
               />
             </div>
-          )}
+          ) : null}
           {/* Black Friday Mini Counter */}
           <div className="flex justify-center mb-2">
             <BlackFridayMini />

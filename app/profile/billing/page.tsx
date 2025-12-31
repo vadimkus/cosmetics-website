@@ -12,7 +12,6 @@ export default function BillingPage() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const { user } = useAuth()
-  const token = (user as any)?.token || ''
   const { locale, dir } = useTranslation()
   const { isPWA } = usePWAMode()
   const isRTL = dir === 'rtl'
@@ -27,16 +26,12 @@ export default function BillingPage() {
   // Fetch billing data
   useEffect(() => {
     const fetchBilling = async () => {
-      if (!token) {
+      if (!user) {
         setLoading(false)
         return
       }
       try {
-        const response = await fetch('/api/user/billing', {
-          headers: {
-            'Authorization': `Bearer ${token}`,
-          },
-        })
+        const response = await fetch('/api/user/billing')
         if (response.ok) {
           const data = await response.json()
           setBillingAddress(data?.billingAddress || '')
@@ -49,7 +44,7 @@ export default function BillingPage() {
       }
     }
     fetchBilling()
-  }, [token])
+  }, [user])
 
   const handleBack = () => {
     if (fromPage === 'profile') {
@@ -60,14 +55,13 @@ export default function BillingPage() {
   }
 
   const handleSave = async () => {
-    if (!token || saving) return
+    if (!user || saving) return
     setSaving(true)
     try {
       const response = await fetch('/api/user/billing', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
         },
         body: JSON.stringify({
           billingAddress: billingAddress.trim() || null,

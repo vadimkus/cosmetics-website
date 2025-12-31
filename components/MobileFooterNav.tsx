@@ -62,7 +62,7 @@ export default function MobileFooterNav() {
     },
     {
       key: 'orders',
-      href: getLocalizedPath('/profile', locale),
+      href: getLocalizedPath('/orders', locale),
       icon: Package,
       label: t('navigation.orders') || 'Orders',
     },

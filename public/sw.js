@@ -3,9 +3,9 @@
  * Provides offline functionality and caching strategies
  */
 
-const CACHE_NAME = 'genosys-cache-v55'
-const STATIC_CACHE = 'genosys-static-v55'
-const DYNAMIC_CACHE = 'genosys-dynamic-v55'
+const CACHE_NAME = 'genosys-cache-v56'
+const STATIC_CACHE = 'genosys-static-v56'
+const DYNAMIC_CACHE = 'genosys-dynamic-v56'
 const IMAGE_CACHE = 'genosys-images-v55'
 
 // IndexedDB configuration for offline data storage

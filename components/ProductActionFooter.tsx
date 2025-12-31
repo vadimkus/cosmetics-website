@@ -107,18 +107,19 @@ export default function ProductActionFooter({
   return (
     <>
       {/* Spacer to prevent content from being hidden behind fixed footer */}
-      <div className="h-[200px] md:hidden" aria-hidden="true" />
+      <div className="h-[220px] md:hidden" aria-hidden="true" />
       
       {/* Product Action Footer - PWA Only */}
       <div 
-        className="fixed bottom-0 left-0 right-0 z-50 bg-white md:hidden"
+        className="fixed bottom-0 left-0 right-0 z-[9999] bg-white md:hidden"
         style={{ 
-          borderTop: '1px solid rgba(0, 0, 0, 0.1)',
-          boxShadow: '0 -4px 12px rgba(0, 0, 0, 0.1)'
+          borderTop: '1px solid #e5e5e5',
+          boxShadow: '0 -4px 20px rgba(0, 0, 0, 0.15)',
+          paddingBottom: 'env(safe-area-inset-bottom, 0px)'
         }}
       >
         {/* Product Actions Row */}
-        <div className="px-4 pt-3 pb-2">
+        <div className="px-4 pt-3 pb-3 bg-white">
           <div className="flex items-center gap-3">
             {/* Quantity Controls */}
             <div className="flex items-center bg-gray-100 rounded-xl overflow-hidden">
@@ -177,16 +178,16 @@ export default function ProductActionFooter({
         </div>
 
         {/* Divider */}
-        <div className="h-px bg-gray-200 mx-4" />
+        <div className="h-[1px] bg-gray-200" />
 
-        {/* Navigation Tabs */}
-        <div className="flex items-center justify-around h-[65px]">
+        {/* Navigation Tabs - Same as MobileFooterNav */}
+        <div className="flex items-center justify-around h-[70px] bg-gray-50/80">
           {/* Home Tab */}
           <Link
             href={getLocalizedPath('/products', typedLocale)}
             className={`flex flex-col items-center justify-center flex-1 h-full px-2 transition-colors touch-manipulation ${inactiveColor}`}
           >
-            <HomeIcon className="w-6 h-6" />
+            <HomeIcon className="w-7 h-7" />
             <span className="text-[11px] mt-1 font-medium">
               {locale === 'ar' ? 'الرئيسية' : locale === 'ru' ? 'Главная' : 'Home'}
             </span>
@@ -197,7 +198,7 @@ export default function ProductActionFooter({
             href={getLocalizedPath('/orders', typedLocale)}
             className={`flex flex-col items-center justify-center flex-1 h-full px-2 transition-colors touch-manipulation ${inactiveColor}`}
           >
-            <ListIcon className="w-6 h-6" />
+            <ListIcon className="w-7 h-7" />
             <span className="text-[11px] mt-1 font-medium">
               {locale === 'ar' ? 'الطلبات' : locale === 'ru' ? 'Заказы' : 'Orders'}
             </span>
@@ -209,9 +210,9 @@ export default function ProductActionFooter({
             className={`flex flex-col items-center justify-center flex-1 h-full px-2 transition-colors touch-manipulation ${hasItemsInCart ? greenColor : inactiveColor}`}
           >
             <div className="relative">
-              <BagIcon filled={hasItemsInCart} className="w-6 h-6" />
+              <BagIcon filled={hasItemsInCart} className="w-7 h-7" />
               {hasItemsInCart && (
-                <span className="absolute -top-1 -right-2 bg-[#dc2626] text-white text-[9px] font-semibold rounded-full min-w-[16px] h-[16px] flex items-center justify-center border-2 border-white">
+                <span className="absolute -top-1 -right-2 bg-[#dc2626] text-white text-[10px] font-semibold rounded-full min-w-[18px] h-[18px] flex items-center justify-center border-2 border-white">
                   {cartCount > 99 ? '99+' : cartCount}
                 </span>
               )}
@@ -221,9 +222,6 @@ export default function ProductActionFooter({
             </span>
           </Link>
         </div>
-
-        {/* Safe area spacer for devices with home indicator */}
-        <div style={{ height: 'env(safe-area-inset-bottom, 0px)' }} />
       </div>
     </>
   )

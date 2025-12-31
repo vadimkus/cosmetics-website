@@ -24,6 +24,7 @@ import ServiceWorkerUpdateNotification from '@/components/ServiceWorkerUpdateNot
 import StorageQuotaMonitor from '@/components/StorageQuotaMonitor'
 import AppleSplashScreens from '@/components/AppleSplashScreens'
 import LocaleManifest from '@/components/LocaleManifest'
+import MobileFooterNav from '@/components/MobileFooterNav'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -269,6 +270,7 @@ export default function RootLayout({
                     </main>
                   </LocaleWrapper>
                   <Footer />
+                  <MobileFooterNav />
                   <PWAInstallPrompt variant="banner" showDelay={60} />
                   <ServiceWorkerUpdateNotification />
                   <StorageQuotaMonitor />

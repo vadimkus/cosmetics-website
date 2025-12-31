@@ -97,7 +97,8 @@
     "locations": "Locations",
     "faq": "FAQ",
     "backToHome": "Back to Home",
-    "goToProducts": "Go to products"
+    "goToProducts": "Go to products",
+    "orders": "Orders"
   },
   "products": {
     "title": "GENOSYS Products",

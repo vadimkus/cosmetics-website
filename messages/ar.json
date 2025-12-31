@@ -94,7 +94,8 @@
     "locations": "المواقع",
     "faq": "الأسئلة الشائعة",
     "backToHome": "العودة للرئيسية",
-    "goToProducts": "انتقل إلى المنتجات"
+    "goToProducts": "انتقل إلى المنتجات",
+    "orders": "الطلبات"
   },
   "products": {
     "title": "منتجات GENOSYS",

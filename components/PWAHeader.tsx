@@ -128,9 +128,9 @@ export default function PWAHeader() {
               <Image
                 src="/Logo/upLOGO.png"
                 alt="GENOSYS"
-                width={130}
-                height={38}
-                className="h-7 w-auto"
+                width={169}
+                height={49}
+                className="h-9 w-auto"
                 priority
               />
             </Link>
@@ -177,7 +177,7 @@ export default function PWAHeader() {
         {/* Subtitle */}
         <div className="text-center pb-1.5">
           <p className="text-[10px] text-gray-500 tracking-wide font-medium">
-            {t('shop.subtitle') || 'Premium Skincare & Beauty'}
+            {locale === 'ar' ? 'العناية بالبشرة الفاخرة والجمال' : locale === 'ru' ? 'Премиальный уход за кожей и красота' : 'Premium Skincare & Beauty'}
           </p>
         </div>
       </header>

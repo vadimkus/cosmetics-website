@@ -100,7 +100,8 @@
     "faq": "FAQ",
     "backToHome": "Back to Home",
     "goToProducts": "Go to products",
-    "orders": "Orders"
+    "orders": "Orders",
+    "favorites": "Favorites"
   },
   "products": {
     "title": "GENOSYS Products",

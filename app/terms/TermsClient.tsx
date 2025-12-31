@@ -1,12 +1,13 @@
 'use client'
 
 import Link from 'next/link'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { ArrowLeft, FileText, Mail, Phone, MapPin } from 'lucide-react'
 import BreadcrumbSchema from '@/components/BreadcrumbSchema'
-import PWAPageWrapper from '@/components/PWAPageWrapper'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { usePWAMode } from '@/hooks/usePWAMode'
+import { useAuth } from '@/components/AuthProvider'
 
 interface SectionProps {
   title: string
@@ -26,7 +27,12 @@ function Section({ title, children, isRTL }: SectionProps) {
 export default function TermsClient() {
   const { locale, dir } = useTranslation()
   const { isPWA, isClient } = usePWAMode()
+  const { user } = useAuth()
+  const router = useRouter()
+  const searchParams = useSearchParams()
   const isRTL = dir === 'rtl'
+  const fromProfile = searchParams?.get('from') === 'profile'
+  const userInitial = user?.name?.charAt(0) || user?.email?.charAt(0) || 'U'
   
   // Date translations
   const lastUpdated = locale === 'ar' ? '11 ديسمبر 2025' : locale === 'ru' ? '11 декабря 2025' : 'December 11, 2025'
@@ -147,10 +153,147 @@ export default function TermsClient() {
     whatsappLabel: locale === 'ar' ? 'واتساب' : locale === 'ru' ? 'WhatsApp' : 'WhatsApp',
     addressLabel: locale === 'ar' ? 'العنوان' : locale === 'ru' ? 'Адрес' : 'Address',
     addressValue: locale === 'ar' ? 'دبي، الإمارات العربية المتحدة' : locale === 'ru' ? 'Дубай, ОАЭ' : 'Dubai, UAE',
+    back: locale === 'ar' ? 'الحساب' : locale === 'ru' ? 'Аккаунт' : 'Account',
   }
 
-  const content = (
-    <div className={`min-h-screen bg-white ${isPWA ? 'pb-32' : ''}`} dir={dir}>
+  const handleBack = () => {
+    if (fromProfile) {
+      router.push(getLocalizedPath('/profile', locale))
+    } else {
+      router.push(getLocalizedPath('/products', locale))
+    }
+  }
+
+  // PWA Mode - Light header only
+  if (isClient && isPWA) {
+    return (
+      <div className="min-h-screen bg-gray-50 pb-32" dir={dir}>
+        {/* PWA Light Header */}
+        <div className={`flex items-center justify-between px-5 py-4 bg-white border-b border-gray-200 ${isRTL ? 'flex-row-reverse' : ''}`}>
+          <button 
+            onClick={handleBack}
+            className={`flex items-center gap-1 min-w-[80px] ${isRTL ? 'flex-row-reverse' : ''}`}
+          >
+            <ArrowLeft className={`w-5 h-5 text-red-600 ${isRTL ? 'rotate-180' : ''}`} />
+            <span className="text-base text-red-600">
+              {translations.back}
+            </span>
+          </button>
+          <span className="text-base font-semibold text-gray-900">
+            {translations.title}
+          </span>
+          {/* Profile Icon with green dot */}
+          <button 
+            onClick={() => router.push(getLocalizedPath('/profile', locale))}
+            className="min-w-[80px] flex justify-end"
+          >
+            <div className="relative">
+              <div className="w-8 h-8 rounded-full bg-red-600 flex items-center justify-center">
+                <span className="text-sm font-semibold text-white">
+                  {userInitial.toUpperCase()}
+                </span>
+              </div>
+              <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 rounded-full border-2 border-white" />
+            </div>
+          </button>
+        </div>
+
+        {/* Content */}
+        <div className="px-5 py-6">
+          <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
+            {/* Last Updated */}
+            <p className={`text-sm text-gray-500 mb-4 ${isRTL ? 'text-right' : ''}`}>
+              {translations.lastUpdatedLabel} {lastUpdated}
+            </p>
+            
+            {/* Agreement Section */}
+            <div className="mb-4">
+              <h2 className={`text-lg font-bold text-gray-900 mb-2 ${isRTL ? 'text-right' : ''}`}>{translations.agreementTitle}</h2>
+              <p className={`text-sm text-gray-700 leading-relaxed ${isRTL ? 'text-right' : ''}`}>{translations.agreementText}</p>
+            </div>
+
+            {/* Use License Section */}
+            <div className="mb-4">
+              <h2 className={`text-lg font-bold text-gray-900 mb-2 ${isRTL ? 'text-right' : ''}`}>{translations.useLicenseTitle}</h2>
+              <p className={`text-sm text-gray-700 mb-2 ${isRTL ? 'text-right' : ''}`}>{translations.useLicenseText}</p>
+              <ul className={`list-disc list-inside text-sm text-gray-700 space-y-1 ${isRTL ? 'text-right' : ''}`}>
+                <li>{translations.useLicenseB1}</li>
+                <li>{translations.useLicenseB2}</li>
+                <li>{translations.useLicenseB3}</li>
+                <li>{translations.useLicenseB4}</li>
+              </ul>
+            </div>
+
+            {/* Account Terms Section */}
+            <div className="mb-4">
+              <h2 className={`text-lg font-bold text-gray-900 mb-2 ${isRTL ? 'text-right' : ''}`}>{translations.accountTitle}</h2>
+              <p className={`text-sm text-gray-700 mb-2 ${isRTL ? 'text-right' : ''}`}>{translations.accountText}</p>
+              <ul className={`list-disc list-inside text-sm text-gray-700 space-y-1 ${isRTL ? 'text-right' : ''}`}>
+                <li>{translations.accountB1}</li>
+                <li>{translations.accountB2}</li>
+                <li>{translations.accountB3}</li>
+                <li>{translations.accountB4}</li>
+              </ul>
+            </div>
+
+            {/* Products Section */}
+            <div className="mb-4">
+              <h2 className={`text-lg font-bold text-gray-900 mb-2 ${isRTL ? 'text-right' : ''}`}>{translations.productsTitle}</h2>
+              <p className={`text-sm text-gray-700 mb-2 ${isRTL ? 'text-right' : ''}`}>{translations.productsText}</p>
+              <ul className={`list-disc list-inside text-sm text-gray-700 space-y-1 ${isRTL ? 'text-right' : ''}`}>
+                <li>{translations.productsB1}</li>
+                <li>{translations.productsB2}</li>
+                <li>{translations.productsB3}</li>
+                <li>{translations.productsB4}</li>
+              </ul>
+            </div>
+
+            {/* Orders Section */}
+            <div className="mb-4">
+              <h2 className={`text-lg font-bold text-gray-900 mb-2 ${isRTL ? 'text-right' : ''}`}>{translations.ordersTitle}</h2>
+              <p className={`text-sm text-gray-700 mb-2 ${isRTL ? 'text-right' : ''}`}>{translations.ordersText}</p>
+              <ul className={`list-disc list-inside text-sm text-gray-700 space-y-1 ${isRTL ? 'text-right' : ''}`}>
+                <li>{translations.ordersB1}</li>
+                <li>{translations.ordersB2}</li>
+                <li>{translations.ordersB3}</li>
+                <li>{translations.ordersB4}</li>
+                <li>{translations.ordersB5}</li>
+              </ul>
+            </div>
+
+            {/* Governing Law Section */}
+            <div className="mb-4">
+              <h2 className={`text-lg font-bold text-gray-900 mb-2 ${isRTL ? 'text-right' : ''}`}>{translations.governingLawTitle}</h2>
+              <p className={`text-sm text-gray-700 leading-relaxed ${isRTL ? 'text-right' : ''}`}>{translations.governingLawText}</p>
+            </div>
+
+            {/* Contact Section */}
+            <div>
+              <h2 className={`text-lg font-bold text-gray-900 mb-2 ${isRTL ? 'text-right' : ''}`}>{translations.contactTitle}</h2>
+              <p className={`text-sm text-gray-700 mb-2 ${isRTL ? 'text-right' : ''}`}>{translations.contactText}</p>
+              <div className={`flex flex-col gap-2 text-sm ${isRTL ? 'items-end' : ''}`}>
+                <a href="mailto:info@genosys.ae" className="text-red-600 flex items-center gap-2">
+                  <Mail className="w-4 h-4" /> info@genosys.ae
+                </a>
+                <a href="tel:+971585487665" className="text-red-600 flex items-center gap-2">
+                  <Phone className="w-4 h-4" /> +971 58 548 7665
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Footer */}
+          <div className="text-center mt-4 text-sm text-gray-400">
+            <p>© 2025 GENOSYS Middle East FZ-LLC</p>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  // Non-PWA Mode - Full page
+  return (
+    <div className="min-h-screen bg-white" dir={dir}>
       <BreadcrumbSchema
         items={[
           { name: translations.home, url: getLocalizedPath('/', locale) },
@@ -159,16 +302,14 @@ export default function TermsClient() {
       />
 
       <div className="container mx-auto px-4 py-8 md:py-12 max-w-4xl">
-        {/* Back Button - Hide in PWA mode */}
-        {!isPWA && (
-          <Link 
-            href={getLocalizedPath('/', locale)}
-            className={`inline-flex items-center gap-2 text-primary-600 hover:text-primary-700 mb-6 transition-colors group ${isRTL ? 'flex-row-reverse' : ''}`}
-          >
-            <ArrowLeft className={`w-4 h-4 group-hover:-translate-x-1 transition-transform ${isRTL ? 'rotate-180' : ''}`} />
-            <span>{translations.backToHome}</span>
-          </Link>
-        )}
+        {/* Back Button */}
+        <Link 
+          href={getLocalizedPath('/', locale)}
+          className={`inline-flex items-center gap-2 text-primary-600 hover:text-primary-700 mb-6 transition-colors group ${isRTL ? 'flex-row-reverse' : ''}`}
+        >
+          <ArrowLeft className={`w-4 h-4 group-hover:-translate-x-1 transition-transform ${isRTL ? 'rotate-180' : ''}`} />
+          <span>{translations.backToHome}</span>
+        </Link>
 
         {/* Header */}
         <div className={`flex items-center gap-4 mb-6 ${isRTL ? 'flex-row-reverse' : ''}`}>
@@ -337,18 +478,5 @@ export default function TermsClient() {
       </div>
     </div>
   )
-
-  // Wrap with PWAPageWrapper when in PWA mode
-  if (isClient && isPWA) {
-    return (
-      <PWAPageWrapper 
-        title={translations.title}
-      >
-        {content}
-      </PWAPageWrapper>
-    )
-  }
-
-  return content
 }
 

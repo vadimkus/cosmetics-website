@@ -1,17 +1,23 @@
 'use client'
 
 import Link from 'next/link'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { ArrowLeft, Shield, Mail, Phone, ExternalLink } from 'lucide-react'
 import BreadcrumbSchema from '@/components/BreadcrumbSchema'
-import PWAPageWrapper from '@/components/PWAPageWrapper'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { usePWAMode } from '@/hooks/usePWAMode'
+import { useAuth } from '@/components/AuthProvider'
 
 export default function PrivacyPolicyClient() {
   const { locale, dir } = useTranslation()
   const { isPWA, isClient } = usePWAMode()
+  const { user } = useAuth()
+  const router = useRouter()
+  const searchParams = useSearchParams()
   const isRTL = dir === 'rtl'
+  const fromProfile = searchParams?.get('from') === 'profile'
+  const userInitial = user?.name?.charAt(0) || user?.email?.charAt(0) || 'U'
   
   // Date translations
   const lastUpdated = locale === 'ar' ? '13 ديسمبر 2025' : locale === 'ru' ? '13 декабря 2025' : 'December 13, 2025'
@@ -75,10 +81,116 @@ export default function PrivacyPolicyClient() {
     
     backToHome: locale === 'ar' ? 'الرجوع للرئيسية' : locale === 'ru' ? 'Вернуться на главную' : 'Back to Home',
     home: locale === 'ar' ? 'الرئيسية' : locale === 'ru' ? 'Главная' : 'Home',
+    back: locale === 'ar' ? 'الحساب' : locale === 'ru' ? 'Аккаунт' : 'Account',
   }
 
-  const content = (
-    <div className={`min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 ${isPWA ? 'pb-32' : ''}`} dir={dir}>
+  const handleBack = () => {
+    if (fromProfile) {
+      router.push(getLocalizedPath('/profile', locale))
+    } else {
+      router.push(getLocalizedPath('/products', locale))
+    }
+  }
+
+  // PWA Mode - Light header only
+  if (isClient && isPWA) {
+    return (
+      <div className="min-h-screen bg-gray-50 pb-32" dir={dir}>
+        {/* PWA Light Header */}
+        <div className={`flex items-center justify-between px-5 py-4 bg-white border-b border-gray-200 ${isRTL ? 'flex-row-reverse' : ''}`}>
+          <button 
+            onClick={handleBack}
+            className={`flex items-center gap-1 min-w-[80px] ${isRTL ? 'flex-row-reverse' : ''}`}
+          >
+            <ArrowLeft className={`w-5 h-5 text-red-600 ${isRTL ? 'rotate-180' : ''}`} />
+            <span className="text-base text-red-600">
+              {translations.back}
+            </span>
+          </button>
+          <span className="text-base font-semibold text-gray-900">
+            {translations.title}
+          </span>
+          {/* Profile Icon with green dot */}
+          <button 
+            onClick={() => router.push(getLocalizedPath('/profile', locale))}
+            className="min-w-[80px] flex justify-end"
+          >
+            <div className="relative">
+              <div className="w-8 h-8 rounded-full bg-red-600 flex items-center justify-center">
+                <span className="text-sm font-semibold text-white">
+                  {userInitial.toUpperCase()}
+                </span>
+              </div>
+              <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 rounded-full border-2 border-white" />
+            </div>
+          </button>
+        </div>
+
+        {/* Content */}
+        <div className="px-5 py-6">
+          <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
+            {/* Last Updated */}
+            <p className={`text-sm text-gray-500 mb-4 ${isRTL ? 'text-right' : ''}`}>
+              {translations.lastUpdatedLabel} {lastUpdated}
+            </p>
+            
+            {/* Rights Section */}
+            <div className={`bg-red-50 p-4 rounded-xl border-l-4 border-red-600 mb-4 ${isRTL ? 'border-l-0 border-r-4' : ''}`}>
+              <h2 className={`text-lg font-bold text-red-700 mb-2 ${isRTL ? 'text-right' : ''}`}>{translations.rightsTitle}</h2>
+              <p className={`text-sm text-gray-700 leading-relaxed ${isRTL ? 'text-right' : ''}`}>{translations.rightsText}</p>
+            </div>
+
+            {/* Personal Info Section */}
+            <div className="mb-4">
+              <h2 className={`text-lg font-bold text-gray-900 mb-2 ${isRTL ? 'text-right' : ''}`}>{translations.personalInfoTitle}</h2>
+              <ul className={`space-y-1 text-sm text-gray-700 ${isRTL ? 'text-right' : ''}`}>
+                <li><strong>{translations.accountLabel}</strong> {translations.accountText}</li>
+                <li><strong>{translations.profileLabel}</strong> {translations.profileText}</li>
+                <li><strong>{translations.orderLabel}</strong> {translations.orderText}</li>
+                <li><strong>{translations.usageLabel}</strong> {translations.usageText}</li>
+              </ul>
+            </div>
+
+            {/* Google Auth Section */}
+            <div className="mb-4">
+              <h2 className={`text-lg font-bold text-gray-900 mb-2 ${isRTL ? 'text-right' : ''}`}>{translations.googleTitle}</h2>
+              <p className={`text-sm text-gray-700 mb-1 ${isRTL ? 'text-right' : ''}`}><strong>{translations.googleSignInLabel}</strong> {translations.googleSignInText}</p>
+              <p className={`text-sm text-gray-700 ${isRTL ? 'text-right' : ''}`}><strong>{translations.googleDataLabel}</strong> {translations.googleDataText}</p>
+            </div>
+
+            {/* Apple Auth Section */}
+            <div className="mb-4">
+              <h2 className={`text-lg font-bold text-gray-900 mb-2 ${isRTL ? 'text-right' : ''}`}>{translations.appleTitle}</h2>
+              <p className={`text-sm text-gray-700 ${isRTL ? 'text-right' : ''}`}><strong>{translations.appleSignInLabel}</strong> {translations.appleSignInText}</p>
+            </div>
+
+            {/* Contact Section */}
+            <div>
+              <h2 className={`text-lg font-bold text-gray-900 mb-2 ${isRTL ? 'text-right' : ''}`}>{translations.contactTitle}</h2>
+              <p className={`text-sm text-gray-700 mb-2 ${isRTL ? 'text-right' : ''}`}>{translations.contactText}</p>
+              <div className={`flex flex-col gap-2 text-sm ${isRTL ? 'items-end' : ''}`}>
+                <a href="mailto:info@genosys.ae" className="text-red-600 flex items-center gap-2">
+                  <Mail className="w-4 h-4" /> info@genosys.ae
+                </a>
+                <a href="tel:+971585487665" className="text-red-600 flex items-center gap-2">
+                  <Phone className="w-4 h-4" /> +971 58 548 7665
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Footer */}
+          <div className="text-center mt-4 text-sm text-gray-400">
+            <p>© 2025 GENOSYS Middle East FZ-LLC</p>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  // Non-PWA Mode - Full page with decorative elements
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50" dir={dir}>
       <BreadcrumbSchema
         items={[
           { name: translations.home, url: getLocalizedPath('/', locale) },
@@ -87,16 +199,14 @@ export default function PrivacyPolicyClient() {
       />
 
       <div className="container mx-auto px-4 py-8 md:py-12 max-w-5xl">
-        {/* Back Button - Hide in PWA mode */}
-        {!isPWA && (
-          <Link 
-            href={getLocalizedPath('/', locale)}
-            className={`inline-flex items-center gap-2 text-primary-600 hover:text-primary-700 mb-6 transition-colors group ${isRTL ? 'flex-row-reverse' : ''}`}
-          >
-            <ArrowLeft className={`w-4 h-4 group-hover:-translate-x-1 transition-transform ${isRTL ? 'rotate-180' : ''}`} />
-            <span>{translations.backToHome}</span>
-          </Link>
-        )}
+        {/* Back Button */}
+        <Link 
+          href={getLocalizedPath('/', locale)}
+          className={`inline-flex items-center gap-2 text-primary-600 hover:text-primary-700 mb-6 transition-colors group ${isRTL ? 'flex-row-reverse' : ''}`}
+        >
+          <ArrowLeft className={`w-4 h-4 group-hover:-translate-x-1 transition-transform ${isRTL ? 'rotate-180' : ''}`} />
+          <span>{translations.backToHome}</span>
+        </Link>
 
         {/* Header */}
         <div className="bg-white rounded-2xl shadow-lg p-8 md:p-12 mb-8">
@@ -255,18 +365,5 @@ export default function PrivacyPolicyClient() {
       </div>
     </div>
   )
-
-  // Wrap with PWAPageWrapper when in PWA mode
-  if (isClient && isPWA) {
-    return (
-      <PWAPageWrapper 
-        title={translations.title}
-      >
-        {content}
-      </PWAPageWrapper>
-    )
-  }
-
-  return content
 }
 

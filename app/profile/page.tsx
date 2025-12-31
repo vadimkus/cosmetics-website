@@ -11,6 +11,8 @@ import { errorLog, debugLog } from '@/lib/logger'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import BreadcrumbSchema from '@/components/BreadcrumbSchema'
+import { usePWAMode } from '@/hooks/usePWAMode'
+import PWAProfilePage from '@/components/PWAProfilePage'
 
 // Import refactored components
 import ProfileHeader from '@/components/profile/ProfileHeader'
@@ -70,6 +72,7 @@ export default function ProfilePageRefactored() {
   const { t, locale, dir } = useTranslation()
   const { user, logout, forceRefreshUser, isLoading: authLoading } = useAuth()
   const router = useRouter()
+  const { isPWA, isClient } = usePWAMode()
   const [isEditing, setIsEditing] = useState(false)
   const [editData, setEditData] = useState<EditData>({
     name: user?.name || '',
@@ -469,6 +472,11 @@ export default function ProfilePageRefactored() {
     hasProfilePicture: !!user.profilePicture,
     profilePictureURL: user.profilePicture || 'NO PICTURE'
   })
+
+  // Render PWA-specific profile page when in PWA mode
+  if (isClient && isPWA) {
+    return <PWAProfilePage />
+  }
 
   return (
     <div className="min-h-screen bg-white">

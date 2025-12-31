@@ -107,13 +107,12 @@ export default function ProductActionFooter({
   return (
     <>
       {/* Spacer to prevent content from being hidden behind fixed footer */}
-      <div className="h-[180px] md:hidden" aria-hidden="true" />
+      <div className="h-[200px] md:hidden" aria-hidden="true" />
       
       {/* Product Action Footer - PWA Only */}
       <div 
         className="fixed bottom-0 left-0 right-0 z-50 bg-white md:hidden"
         style={{ 
-          paddingBottom: 'env(safe-area-inset-bottom, 0px)',
           borderTop: '1px solid rgba(0, 0, 0, 0.1)',
           boxShadow: '0 -4px 12px rgba(0, 0, 0, 0.1)'
         }}
@@ -178,17 +177,17 @@ export default function ProductActionFooter({
         </div>
 
         {/* Divider */}
-        <div className="h-px bg-gray-100 mx-4" />
+        <div className="h-px bg-gray-200 mx-4" />
 
         {/* Navigation Tabs */}
-        <div className="flex items-center justify-around h-[60px]">
+        <div className="flex items-center justify-around h-[65px]">
           {/* Home Tab */}
           <Link
             href={getLocalizedPath('/products', typedLocale)}
             className={`flex flex-col items-center justify-center flex-1 h-full px-2 transition-colors touch-manipulation ${inactiveColor}`}
           >
             <HomeIcon className="w-6 h-6" />
-            <span className="text-[10px] mt-0.5 font-medium">
+            <span className="text-[11px] mt-1 font-medium">
               {locale === 'ar' ? 'الرئيسية' : locale === 'ru' ? 'Главная' : 'Home'}
             </span>
           </Link>
@@ -199,7 +198,7 @@ export default function ProductActionFooter({
             className={`flex flex-col items-center justify-center flex-1 h-full px-2 transition-colors touch-manipulation ${inactiveColor}`}
           >
             <ListIcon className="w-6 h-6" />
-            <span className="text-[10px] mt-0.5 font-medium">
+            <span className="text-[11px] mt-1 font-medium">
               {locale === 'ar' ? 'الطلبات' : locale === 'ru' ? 'Заказы' : 'Orders'}
             </span>
           </Link>
@@ -217,11 +216,14 @@ export default function ProductActionFooter({
                 </span>
               )}
             </div>
-            <span className="text-[10px] mt-0.5 font-medium">
+            <span className="text-[11px] mt-1 font-medium">
               {locale === 'ar' ? 'السلة' : locale === 'ru' ? 'Корзина' : 'Bag'}
             </span>
           </Link>
         </div>
+
+        {/* Safe area spacer for devices with home indicator */}
+        <div style={{ height: 'env(safe-area-inset-bottom, 0px)' }} />
       </div>
     </>
   )

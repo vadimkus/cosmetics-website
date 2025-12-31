@@ -41,6 +41,11 @@ export default function PWAHeader() {
   const isOnSimpleHeaderPage = pathname?.includes('/profile') || 
                                 pathname?.includes('/cart') || 
                                 pathname?.includes('/orders') ||
+                                pathname?.includes('/privacy-policy') ||
+                                pathname?.includes('/terms') ||
+                                pathname?.includes('/faq') ||
+                                pathname?.includes('/contact') ||
+                                pathname?.includes('/about') ||
                                 isProductDetailPage
   
   // Handle profile button click - with debounce to prevent rapid clicks

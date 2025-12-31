@@ -17,6 +17,7 @@ import { useState, useEffect, memo } from 'react'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { usePWAMode } from '@/hooks/usePWAMode'
+import { usePathname } from 'next/navigation'
 
 const Header = memo(function Header() {
   const { getTotalItems } = useCartStore()
@@ -24,14 +25,29 @@ const Header = memo(function Header() {
   const { favorites } = useFavorites()
   const { t, locale } = useTranslation()
   const { isPWA, isClient: isPWAClient } = usePWAMode()
+  const pathname = usePathname()
   const [showLoginModal, setShowLoginModal] = useState(false)
   const [isLoginMode, setIsLoginMode] = useState(true)
   const [showMobileMenu, setShowMobileMenu] = useState(false)
   const [isClient, setIsClient] = useState(false)
   const [isHeartBeating, setIsHeartBeating] = useState(false)
   
-  // In PWA mode, we use the PWAHeader for mobile
+  // Check if we're on pages that have their own simple/light header in PWA mode
+  const isProductDetailPage = pathname ? /\/products\/[a-zA-Z0-9_-]+$/.test(pathname) : false
+  const isOnPWALightHeaderPage = pathname?.includes('/profile') || 
+                                  pathname?.includes('/cart') || 
+                                  pathname?.includes('/orders') ||
+                                  pathname?.includes('/privacy-policy') ||
+                                  pathname?.includes('/terms') ||
+                                  pathname?.includes('/faq') ||
+                                  pathname?.includes('/contact') ||
+                                  pathname?.includes('/about') ||
+                                  isProductDetailPage
+  
+  // In PWA mode, hide header completely on pages with their own light header
+  // On other pages, just switch to PWAHeader for mobile
   const showPWAMobileHeader = isPWAClient && isPWA
+  const hidePWAHeader = isPWAClient && isPWA && isOnPWALightHeaderPage
 
   useEffect(() => {
     setIsClient(true)
@@ -58,6 +74,11 @@ const Header = memo(function Header() {
     return () => clearInterval(interval)
   }, [isClient])
 
+  // Hide header completely on PWA pages with their own light header
+  if (hidePWAHeader) {
+    return null
+  }
+  
   return (
     <header className={`sticky top-0 z-50 bg-white shadow-sm border-b ${showPWAMobileHeader ? 'hidden md:block' : ''}`} suppressHydrationWarning>
       <div className="container mx-auto px-4">

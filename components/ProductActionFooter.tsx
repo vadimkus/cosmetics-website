@@ -1,11 +1,50 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
 import { Product } from '@/types'
 import { useCartStore } from '@/lib/cartStore'
 import { useFavorites } from '@/components/FavoritesProvider'
 import { usePWAMode } from '@/hooks/usePWAMode'
+import { getLocalizedPath } from '@/lib/i18n'
 import { Minus, Plus, Heart, ShoppingCart } from 'lucide-react'
+
+// Navigation Icons
+const HomeIcon = ({ className }: { className?: string }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
+    <path d="M3 9.5L12 2l9 7.5V20a2 2 0 01-2 2H5a2 2 0 01-2-2V9.5z"/>
+    <path d="M9 22V12h6v10"/>
+  </svg>
+)
+
+const ListIcon = ({ className }: { className?: string }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
+    <line x1="8" y1="6" x2="21" y2="6"/>
+    <line x1="8" y1="12" x2="21" y2="12"/>
+    <line x1="8" y1="18" x2="21" y2="18"/>
+    <line x1="3" y1="6" x2="3.01" y2="6"/>
+    <line x1="3" y1="12" x2="3.01" y2="12"/>
+    <line x1="3" y1="18" x2="3.01" y2="18"/>
+  </svg>
+)
+
+const BagIcon = ({ filled, className }: { filled?: boolean; className?: string }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className={className} fill={filled ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth={filled ? 0 : 1.5} strokeLinecap="round" strokeLinejoin="round">
+    {filled ? (
+      <>
+        <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4H6z"/>
+        <path d="M3 6h18" stroke="white" strokeWidth="1.5"/>
+        <path d="M16 10a4 4 0 01-8 0" stroke="white" strokeWidth="1.5" fill="none"/>
+      </>
+    ) : (
+      <>
+        <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4H6z"/>
+        <line x1="3" y1="6" x2="21" y2="6"/>
+        <path d="M16 10a4 4 0 01-8 0"/>
+      </>
+    )}
+  </svg>
+)
 
 interface ProductActionFooterProps {
   product: Product
@@ -20,13 +59,16 @@ export default function ProductActionFooter({
   selectedColor,
   locale = 'en'
 }: ProductActionFooterProps) {
+  const typedLocale = locale as 'en' | 'ar' | 'ru'
   const { isPWA, isClient } = usePWAMode()
-  const { addItem } = useCartStore()
+  const { addItem, getTotalItems } = useCartStore()
   const { isFavorite: checkIsFavorite, toggleFavorite } = useFavorites()
   const [quantity, setQuantity] = useState(1)
   const [isAdding, setIsAdding] = useState(false)
 
   const isFavorite = checkIsFavorite(product.id)
+  const cartCount = isClient ? getTotalItems() : 0
+  const hasItemsInCart = cartCount > 0
 
   const incrementQuantity = () => {
     if (quantity < 99) setQuantity(q => q + 1)
@@ -58,10 +100,14 @@ export default function ProductActionFooter({
     return null
   }
 
+  // Colors matching mobile app
+  const inactiveColor = 'text-[#8E8E93]'
+  const greenColor = 'text-[#10b981]'
+
   return (
     <>
       {/* Spacer to prevent content from being hidden behind fixed footer */}
-      <div className="h-[140px] md:hidden" aria-hidden="true" />
+      <div className="h-[180px] md:hidden" aria-hidden="true" />
       
       {/* Product Action Footer - PWA Only */}
       <div 
@@ -72,8 +118,8 @@ export default function ProductActionFooter({
           boxShadow: '0 -4px 12px rgba(0, 0, 0, 0.1)'
         }}
       >
-        <div className="p-4">
-          {/* Quantity + Actions Row */}
+        {/* Product Actions Row */}
+        <div className="px-4 pt-3 pb-2">
           <div className="flex items-center gap-3">
             {/* Quantity Controls */}
             <div className="flex items-center bg-gray-100 rounded-xl overflow-hidden">
@@ -102,7 +148,7 @@ export default function ProductActionFooter({
             <button
               onClick={handleAddToCart}
               disabled={isAdding}
-              className="flex-1 bg-red-600 text-white h-12 rounded-xl font-semibold flex items-center justify-center gap-2 hover:bg-red-700 active:bg-red-800 disabled:opacity-70 disabled:cursor-not-allowed transition-colors touch-manipulation"
+              className="flex-1 bg-red-600 text-white h-11 rounded-xl font-semibold flex items-center justify-center gap-2 hover:bg-red-700 active:bg-red-800 disabled:opacity-70 disabled:cursor-not-allowed transition-colors touch-manipulation"
             >
               <ShoppingCart className="w-5 h-5" />
               <span>
@@ -116,7 +162,7 @@ export default function ProductActionFooter({
             {/* Favorites Button */}
             <button
               onClick={handleToggleFavorite}
-              className={`w-12 h-12 rounded-xl flex items-center justify-center transition-colors touch-manipulation ${
+              className={`w-11 h-11 rounded-xl flex items-center justify-center transition-colors touch-manipulation ${
                 isFavorite
                   ? 'bg-red-100 text-red-600'
                   : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
@@ -126,9 +172,55 @@ export default function ProductActionFooter({
                 : (locale === 'ar' ? 'إضافة للمفضلة' : locale === 'ru' ? 'Добавить в избранное' : 'Add to favorites')
               }
             >
-              <Heart className={`w-6 h-6 ${isFavorite ? 'fill-current' : ''}`} />
+              <Heart className={`w-5 h-5 ${isFavorite ? 'fill-current' : ''}`} />
             </button>
           </div>
+        </div>
+
+        {/* Divider */}
+        <div className="h-px bg-gray-100 mx-4" />
+
+        {/* Navigation Tabs */}
+        <div className="flex items-center justify-around h-[60px]">
+          {/* Home Tab */}
+          <Link
+            href={getLocalizedPath('/products', typedLocale)}
+            className={`flex flex-col items-center justify-center flex-1 h-full px-2 transition-colors touch-manipulation ${inactiveColor}`}
+          >
+            <HomeIcon className="w-6 h-6" />
+            <span className="text-[10px] mt-0.5 font-medium">
+              {locale === 'ar' ? 'الرئيسية' : locale === 'ru' ? 'Главная' : 'Home'}
+            </span>
+          </Link>
+
+          {/* Orders Tab */}
+          <Link
+            href={getLocalizedPath('/orders', typedLocale)}
+            className={`flex flex-col items-center justify-center flex-1 h-full px-2 transition-colors touch-manipulation ${inactiveColor}`}
+          >
+            <ListIcon className="w-6 h-6" />
+            <span className="text-[10px] mt-0.5 font-medium">
+              {locale === 'ar' ? 'الطلبات' : locale === 'ru' ? 'Заказы' : 'Orders'}
+            </span>
+          </Link>
+
+          {/* Bag Tab */}
+          <Link
+            href={getLocalizedPath('/cart', typedLocale)}
+            className={`flex flex-col items-center justify-center flex-1 h-full px-2 transition-colors touch-manipulation ${hasItemsInCart ? greenColor : inactiveColor}`}
+          >
+            <div className="relative">
+              <BagIcon filled={hasItemsInCart} className="w-6 h-6" />
+              {hasItemsInCart && (
+                <span className="absolute -top-1 -right-2 bg-[#dc2626] text-white text-[9px] font-semibold rounded-full min-w-[16px] h-[16px] flex items-center justify-center border-2 border-white">
+                  {cartCount > 99 ? '99+' : cartCount}
+                </span>
+              )}
+            </div>
+            <span className="text-[10px] mt-0.5 font-medium">
+              {locale === 'ar' ? 'السلة' : locale === 'ru' ? 'Корзина' : 'Bag'}
+            </span>
+          </Link>
         </div>
       </div>
     </>

@@ -189,7 +189,7 @@ export default function PWAProfilePage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 pb-32">
+    <div className="min-h-screen bg-gray-50 pb-20">
       {/* Simple Navigation Header */}
       <div className={`flex items-center justify-between px-5 py-4 bg-white ${isRTL ? 'flex-row-reverse' : ''}`}>
         <button 
@@ -453,9 +453,9 @@ export default function PWAProfilePage() {
         </div>
 
         {/* Footer */}
-        <div className="text-center py-4 pb-4">
+        <div className="text-center py-2">
           <p className="text-[15px] text-gray-500">{t('pwaProfile.genosysMobile')}</p>
-          <p className="text-[13px] text-gray-300 mt-1">
+          <p className="text-[13px] text-gray-300 mt-0.5">
             {t('pwaProfile.version')} 1.0.0
           </p>
         </div>

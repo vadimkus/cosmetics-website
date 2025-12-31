@@ -14,3 +14,4 @@ export default function CertificateGeneratorPage() {
   return <CertificateGeneratorClient />
 }
 
+

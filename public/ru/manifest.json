@@ -1,9 +1,9 @@
 {
-  "id": "/",
-  "name": "Genosys Middle East FZ-LLC - Premium Beauty Products",
-  "short_name": "Genosys UAE",
-  "description": "Discover our premium collection of cosmetics and beauty products from Genosys Middle East FZ-LLC",
-  "start_url": "/",
+  "id": "/ru",
+  "name": "GENOSYS Ближний Восток - Профессиональная корейская косметика",
+  "short_name": "GENOSYS ОАЭ",
+  "description": "Откройте для себя нашу премиальную коллекцию профессиональной корейской дермакосметики от GENOSYS Ближний Восток",
+  "start_url": "/ru",
   "version": "3.2.0",
   "display": "standalone",
   "display_override": ["standalone", "minimal-ui", "browser"],
@@ -11,7 +11,7 @@
   "theme_color": "#1f2937",
   "orientation": "portrait-primary",
   "scope": "/",
-  "lang": "en",
+  "lang": "ru",
   "dir": "ltr",
   "categories": ["beauty", "cosmetics", "shopping", "lifestyle"],
   "icons": [
@@ -70,22 +70,22 @@
       "sizes": "1280x720",
       "type": "image/jpeg",
       "form_factor": "wide",
-      "label": "Genosys Products Showcase"
+      "label": "Витрина продуктов GENOSYS"
     },
     {
       "src": "/images/screenshot-mobile.png",
       "sizes": "750x1334",
       "type": "image/png",
       "form_factor": "narrow",
-      "label": "Genosys Mobile Shopping Experience"
+      "label": "Мобильный шопинг GENOSYS"
     }
   ],
   "shortcuts": [
     {
-      "name": "Browse Products",
-      "short_name": "Products",
-      "description": "Browse our premium beauty products",
-      "url": "/products",
+      "name": "Каталог продукции",
+      "short_name": "Продукты",
+      "description": "Просмотрите нашу коллекцию премиальной косметики",
+      "url": "/ru/products",
       "icons": [
         {
           "src": "/shortcuts/shortcut-products.png",
@@ -96,10 +96,10 @@
       ]
     },
     {
-      "name": "Shopping Cart",
-      "short_name": "Cart",
-      "description": "View your shopping cart",
-      "url": "/cart",
+      "name": "Корзина",
+      "short_name": "Корзина",
+      "description": "Просмотр корзины покупок",
+      "url": "/ru/cart",
       "icons": [
         {
           "src": "/shortcuts/shortcut-cart.png",
@@ -110,10 +110,10 @@
       ]
     },
     {
-      "name": "Favorites",
-      "short_name": "Favorites",
-      "description": "View your favorite products",
-      "url": "/favorites",
+      "name": "Избранное",
+      "short_name": "Избранное",
+      "description": "Просмотр избранных товаров",
+      "url": "/ru/favorites",
       "icons": [
         {
           "src": "/shortcuts/shortcut-favorites.png",
@@ -124,10 +124,10 @@
       ]
     },
     {
-      "name": "Search Products",
-      "short_name": "Search",
-      "description": "Search for products",
-      "url": "/products?search=",
+      "name": "Поиск",
+      "short_name": "Поиск",
+      "description": "Поиск товаров",
+      "url": "/ru/products?search=",
       "icons": [
         {
           "src": "/shortcuts/shortcut-search.png",
@@ -141,7 +141,7 @@
   "related_applications": [
     {
       "platform": "web",
-      "url": "https://genosys.ae"
+      "url": "https://genosys.ae/ru"
     }
   ],
   "prefer_related_applications": false,
@@ -161,3 +161,4 @@
     }
   }
 }
+

@@ -20,6 +20,10 @@ import Footer from '@/components/Footer'
 import { PullToRefresh } from '@/components/PullToRefresh'
 import PWAInstallPrompt from '@/components/PWAInstallPrompt'
 import PageTransition from '@/components/PageTransition'
+import ServiceWorkerUpdateNotification from '@/components/ServiceWorkerUpdateNotification'
+import StorageQuotaMonitor from '@/components/StorageQuotaMonitor'
+import AppleSplashScreens from '@/components/AppleSplashScreens'
+import LocaleManifest from '@/components/LocaleManifest'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -149,6 +153,8 @@ export default function RootLayout({
   return (
     <html lang="en" dir="ltr" suppressHydrationWarning>
       <head>
+        {/* iOS Splash Screens for PWA */}
+        <AppleSplashScreens />
         {/* Set locale and direction IMMEDIATELY - This script MUST run before any React code */}
         {/* Using blocking script tag (not Next.js Script) to ensure it runs synchronously */}
         {/* This script runs synchronously and blocks rendering until it completes */}
@@ -238,6 +244,7 @@ export default function RootLayout({
         </Script>
       </head>
       <body className={`${inter.className} flex flex-col min-h-screen`} suppressHydrationWarning>
+        <LocaleManifest />
         <OrganizationSchema />
         <LocalBusinessSchema />
         <AggregateRatingSchema />
@@ -263,6 +270,8 @@ export default function RootLayout({
                   </LocaleWrapper>
                   <Footer />
                   <PWAInstallPrompt variant="banner" showDelay={60} />
+                  <ServiceWorkerUpdateNotification />
+                  <StorageQuotaMonitor />
                 </ServiceWorkerProvider>
               </CartProvider>
             </FavoritesProvider>

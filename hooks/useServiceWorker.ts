@@ -1,7 +1,7 @@
 'use client'
 import { debugLog, errorLog } from '@/lib/logger'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 
 interface ServiceWorkerState {
   isSupported: boolean
@@ -11,14 +11,99 @@ interface ServiceWorkerState {
   error: string | null
 }
 
+// Helper to defer execution until browser is idle
+const deferUntilIdle = (callback: () => void): number | NodeJS.Timeout => {
+  if ('requestIdleCallback' in window) {
+    return (window as typeof window & { requestIdleCallback: (cb: () => void, opts?: { timeout: number }) => number }).requestIdleCallback(callback, { timeout: 2000 })
+  }
+  // Fallback for Safari and older browsers
+  return setTimeout(callback, 1000)
+}
+
+const cancelIdleCallback = (id: number | NodeJS.Timeout) => {
+  if ('cancelIdleCallback' in window) {
+    (window as typeof window & { cancelIdleCallback: (id: number) => void }).cancelIdleCallback(id as number)
+  } else {
+    clearTimeout(id as NodeJS.Timeout)
+  }
+}
+
+/**
+ * Register periodic background sync if supported
+ * 
+ * Periodic Background Sync allows the PWA to periodically sync content
+ * in the background, even when the app is not open. This is useful for:
+ * - Keeping products up to date
+ * - Refreshing promotional content
+ * - Pre-caching new content
+ * 
+ * Browser heuristics determine actual sync frequency based on:
+ * - Site engagement level
+ * - Network conditions
+ * - Battery status
+ * - User preferences
+ */
+async function registerPeriodicSync(registration: ServiceWorkerRegistration) {
+  // Check if periodic sync is supported
+  if (!('periodicSync' in registration)) {
+    debugLog('Periodic Background Sync not supported')
+    return
+  }
+
+  try {
+    // Check permission status
+    const status = await navigator.permissions.query({
+      name: 'periodic-background-sync' as PermissionName,
+    })
+
+    if (status.state !== 'granted') {
+      debugLog('Periodic Background Sync permission not granted:', status.state)
+      return
+    }
+
+    // Type assertion for periodic sync
+    const periodicSyncManager = (registration as ServiceWorkerRegistration & {
+      periodicSync: {
+        register: (tag: string, options: { minInterval: number }) => Promise<void>
+        getTags: () => Promise<string[]>
+      }
+    }).periodicSync
+
+    // Check if already registered
+    const tags = await periodicSyncManager.getTags()
+    
+    // Register content sync (every 12 hours minimum)
+    if (!tags.includes('content-sync')) {
+      await periodicSyncManager.register('content-sync', {
+        minInterval: 12 * 60 * 60 * 1000 // 12 hours
+      })
+      debugLog('✅ Registered periodic sync: content-sync (12h interval)')
+    }
+
+    // Register products update (every 24 hours minimum)
+    if (!tags.includes('products-update')) {
+      await periodicSyncManager.register('products-update', {
+        minInterval: 24 * 60 * 60 * 1000 // 24 hours
+      })
+      debugLog('✅ Registered periodic sync: products-update (24h interval)')
+    }
+
+  } catch (error) {
+    // Periodic sync may fail due to lack of engagement or other browser heuristics
+    debugLog('Periodic Background Sync registration failed (this is normal for new installs):', error)
+  }
+}
+
 export function useServiceWorker() {
   const [state, setState] = useState<ServiceWorkerState>({
     isSupported: false,
     isRegistered: false,
-    isOnline: navigator.onLine,
+    isOnline: typeof navigator !== 'undefined' ? navigator.onLine : true,
     registration: null,
     error: null,
   })
+  
+  const idleCallbackRef = useRef<number | NodeJS.Timeout | null>(null)
 
   useEffect(() => {
     // Check if service workers are supported
@@ -51,14 +136,18 @@ export function useServiceWorker() {
           if (newWorker) {
             newWorker.addEventListener('statechange', () => {
               if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                // New content is available, prompt user to refresh
-                if (confirm('New version available! Refresh to update?')) {
-                  window.location.reload()
-                }
+                // New content is available, dispatch custom event
+                debugLog('New service worker installed, dispatching update event')
+                window.dispatchEvent(new CustomEvent('sw-update-available', {
+                  detail: { registration }
+                }))
               }
             })
           }
         })
+
+        // Register periodic background sync (if supported)
+        await registerPeriodicSync(registration)
 
       } catch (error) {
         errorLog('Service Worker registration failed:', error)
@@ -69,6 +158,15 @@ export function useServiceWorker() {
       }
     }
 
+    // Deferred registration - wait for page load, then idle time
+    const deferredRegister = () => {
+      debugLog('Deferring service worker registration until idle...')
+      idleCallbackRef.current = deferUntilIdle(() => {
+        debugLog('Browser idle, registering service worker...')
+        registerSW()
+      })
+    }
+
     // Handle online/offline events
     const handleOnline = () => setState(prev => ({ ...prev, isOnline: true }))
     const handleOffline = () => setState(prev => ({ ...prev, isOnline: false }))
@@ -76,12 +174,35 @@ export function useServiceWorker() {
     window.addEventListener('online', handleOnline)
     window.addEventListener('offline', handleOffline)
 
-    // Register service worker
-    registerSW()
+    // Wait for window.load before deferring registration
+    // This ensures we don't impact FCP/LCP metrics
+    if (document.readyState === 'complete') {
+      // Page already loaded, defer registration
+      deferredRegister()
+    } else {
+      // Wait for page to fully load
+      const handleLoad = () => {
+        debugLog('Page loaded, scheduling deferred SW registration...')
+        deferredRegister()
+      }
+      window.addEventListener('load', handleLoad)
+      
+      return () => {
+        window.removeEventListener('online', handleOnline)
+        window.removeEventListener('offline', handleOffline)
+        window.removeEventListener('load', handleLoad)
+        if (idleCallbackRef.current) {
+          cancelIdleCallback(idleCallbackRef.current)
+        }
+      }
+    }
 
     return () => {
       window.removeEventListener('online', handleOnline)
       window.removeEventListener('offline', handleOffline)
+      if (idleCallbackRef.current) {
+        cancelIdleCallback(idleCallbackRef.current)
+      }
     }
   }, [])
 

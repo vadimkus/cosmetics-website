@@ -59,3 +59,4 @@ export default async function CertificatePage({ params }: Props) {
   return <CertificateClient {...certificateData} />
 }
 
+

@@ -1,9 +1,9 @@
 {
-  "id": "/",
-  "name": "Genosys Middle East FZ-LLC - Premium Beauty Products",
-  "short_name": "Genosys UAE",
-  "description": "Discover our premium collection of cosmetics and beauty products from Genosys Middle East FZ-LLC",
-  "start_url": "/",
+  "id": "/ar",
+  "name": "جينوسيس الشرق الأوسط - منتجات التجميل الكورية الاحترافية",
+  "short_name": "جينوسيس الإمارات",
+  "description": "اكتشفي مجموعتنا المميزة من مستحضرات التجميل الكورية الاحترافية من جينوسيس الشرق الأوسط",
+  "start_url": "/ar",
   "version": "3.2.0",
   "display": "standalone",
   "display_override": ["standalone", "minimal-ui", "browser"],
@@ -11,8 +11,8 @@
   "theme_color": "#1f2937",
   "orientation": "portrait-primary",
   "scope": "/",
-  "lang": "en",
-  "dir": "ltr",
+  "lang": "ar",
+  "dir": "rtl",
   "categories": ["beauty", "cosmetics", "shopping", "lifestyle"],
   "icons": [
     {
@@ -70,22 +70,22 @@
       "sizes": "1280x720",
       "type": "image/jpeg",
       "form_factor": "wide",
-      "label": "Genosys Products Showcase"
+      "label": "عرض منتجات جينوسيس"
     },
     {
       "src": "/images/screenshot-mobile.png",
       "sizes": "750x1334",
       "type": "image/png",
       "form_factor": "narrow",
-      "label": "Genosys Mobile Shopping Experience"
+      "label": "تجربة التسوق عبر الهاتف"
     }
   ],
   "shortcuts": [
     {
-      "name": "Browse Products",
-      "short_name": "Products",
-      "description": "Browse our premium beauty products",
-      "url": "/products",
+      "name": "تصفح المنتجات",
+      "short_name": "المنتجات",
+      "description": "تصفحي مجموعتنا من منتجات التجميل الفاخرة",
+      "url": "/ar/products",
       "icons": [
         {
           "src": "/shortcuts/shortcut-products.png",
@@ -96,10 +96,10 @@
       ]
     },
     {
-      "name": "Shopping Cart",
-      "short_name": "Cart",
-      "description": "View your shopping cart",
-      "url": "/cart",
+      "name": "سلة التسوق",
+      "short_name": "السلة",
+      "description": "عرض سلة التسوق الخاصة بك",
+      "url": "/ar/cart",
       "icons": [
         {
           "src": "/shortcuts/shortcut-cart.png",
@@ -110,10 +110,10 @@
       ]
     },
     {
-      "name": "Favorites",
-      "short_name": "Favorites",
-      "description": "View your favorite products",
-      "url": "/favorites",
+      "name": "المفضلة",
+      "short_name": "المفضلة",
+      "description": "عرض منتجاتك المفضلة",
+      "url": "/ar/favorites",
       "icons": [
         {
           "src": "/shortcuts/shortcut-favorites.png",
@@ -124,10 +124,10 @@
       ]
     },
     {
-      "name": "Search Products",
-      "short_name": "Search",
-      "description": "Search for products",
-      "url": "/products?search=",
+      "name": "بحث",
+      "short_name": "بحث",
+      "description": "البحث عن المنتجات",
+      "url": "/ar/products?search=",
       "icons": [
         {
           "src": "/shortcuts/shortcut-search.png",
@@ -141,7 +141,7 @@
   "related_applications": [
     {
       "platform": "web",
-      "url": "https://genosys.ae"
+      "url": "https://genosys.ae/ar"
     }
   ],
   "prefer_related_applications": false,
@@ -161,3 +161,4 @@
     }
   }
 }
+

@@ -4,6 +4,9 @@ import { errorLog } from '@/lib/logger'
 import BreadcrumbSchema from '@/components/BreadcrumbSchema'
 import RussianBlogPageClient from './RussianBlogPageClient'
 
+// Revalidate blog list every 60 seconds to show new posts quickly
+export const revalidate = 60
+
 type BlogPostListItem = {
   id: string
   title: string

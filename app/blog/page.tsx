@@ -18,6 +18,9 @@ type BlogPostListItem = {
   createdAt: Date
 }
 
+// Revalidate blog list every 60 seconds to show new posts quickly
+export const revalidate = 60
+
 export const metadata: Metadata = {
   title: 'GENOSYS Blog - Korean Skincare Tips & Professional Beauty Insights | Genosys Middle East FZ-LLC',
   description: 'Expert articles on Korean skincare, professional dermacosmetics, microneedling techniques, and beauty industry trends in UAE. Learn from GENOSYS professionals.',

@@ -58,9 +58,23 @@ export default function PWAHeader() {
         dir={dir}
       >
         <div className={`flex items-center justify-between h-14 px-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
-          {/* Left Side: Language + Animation Toggle + Menu */}
+          {/* Left Side: Hamburger + Language + Animation Toggle */}
           <div className={`flex items-center gap-1.5 ${isRTL ? 'flex-row-reverse' : ''}`}>
-            {/* Language Switcher */}
+            {/* Hamburger Menu (first) */}
+            <button
+              onClick={() => setShowMobileMenu(!showMobileMenu)}
+              className="p-1.5 text-gray-700 hover:text-gray-900"
+              aria-label={showMobileMenu ? t('common.closeMobileMenu') : t('common.openMobileMenu')}
+              aria-expanded={showMobileMenu}
+            >
+              {showMobileMenu ? (
+                <X className="w-5 h-5 text-green-600" />
+              ) : (
+                <Menu className="w-5 h-5" />
+              )}
+            </button>
+            
+            {/* Language Switcher (second) */}
             <div className="relative">
               <button
                 onClick={() => setShowLangMenu(!showLangMenu)}
@@ -104,22 +118,8 @@ export default function PWAHeader() {
               )}
             </div>
             
-            {/* Animation Toggle */}
+            {/* Animation Toggle (third - 2 horizontal bars) */}
             <AnimationToggle size="sm" className="text-gray-800" />
-            
-            {/* Hamburger Menu */}
-            <button
-              onClick={() => setShowMobileMenu(!showMobileMenu)}
-              className="p-1.5 text-gray-700 hover:text-gray-900"
-              aria-label={showMobileMenu ? t('common.closeMobileMenu') : t('common.openMobileMenu')}
-              aria-expanded={showMobileMenu}
-            >
-              {showMobileMenu ? (
-                <X className="w-5 h-5 text-green-600" />
-              ) : (
-                <Menu className="w-5 h-5" />
-              )}
-            </button>
           </div>
           
           {/* Center: Logo + Heart */}

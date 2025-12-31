@@ -4,7 +4,7 @@ import { useCart } from '@/components/CartProvider'
 import { useAuth } from '@/components/AuthProvider'
 import { useState, useEffect, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
-import { ArrowLeft, CreditCard, Lock, MapPin, Truck, MessageCircle, Mail, Building } from 'lucide-react'
+import { ArrowLeft, CreditCard, Lock, MapPin, Truck, MessageCircle, Mail, Building, ChevronRight } from 'lucide-react'
 import Link from 'next/link'
 import { calculateDiscountedPrice } from '@/lib/discountUtils'
 import { errorLog, debugLog } from '@/lib/logger'
@@ -24,6 +24,7 @@ export default function CheckoutClient() {
   const [invoiceEmail, setInvoiceEmail] = useState('')
   const [freeMasks, setFreeMasks] = useState<Array<{ id: string; name: string; price: number; quantity: number; image: string }>>([])
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<string>('cod')
+  const [orderSummaryExpanded, setOrderSummaryExpanded] = useState(false) // Collapsed by default for PWA
 
   // Fetch CSRF token on mount
   useEffect(() => {
@@ -799,23 +800,26 @@ export default function CheckoutClient() {
                     />
                   </div>
                   
-                  <div>
-                    <label className={`block text-[10px] md:text-sm font-medium text-gray-700 mb-0.5 md:mb-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
-                      {t('checkout.deliveryLocation')} *
-                    </label>
-                    <select
-                      value={selectedEmirate}
-                      onChange={(e) => setSelectedEmirate(e.target.value)}
-                      className={`w-full px-2 py-1.5 md:p-3 text-xs md:text-base border border-gray-300 rounded-md md:rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900 ${dir === 'rtl' ? 'text-right' : ''}`}
-                      style={{ color: '#111827' }}
-                    >
-                      {emirates.map((emirate) => (
-                        <option key={emirate.name} value={emirate.name} style={{ backgroundColor: '#ffffff', color: '#111827' }}>
-                          {getEmirateDisplayName(emirate.name)} - AED {emirate.shippingCost}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
+                  {/* Delivery Location - Hidden in PWA (already selected on cart page) */}
+                  {!(isPWAClient && isPWA) && (
+                    <div>
+                      <label className={`block text-[10px] md:text-sm font-medium text-gray-700 mb-0.5 md:mb-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                        {t('checkout.deliveryLocation')} *
+                      </label>
+                      <select
+                        value={selectedEmirate}
+                        onChange={(e) => setSelectedEmirate(e.target.value)}
+                        className={`w-full px-2 py-1.5 md:p-3 text-xs md:text-base border border-gray-300 rounded-md md:rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900 ${dir === 'rtl' ? 'text-right' : ''}`}
+                        style={{ color: '#111827' }}
+                      >
+                        {emirates.map((emirate) => (
+                          <option key={emirate.name} value={emirate.name} style={{ backgroundColor: '#ffffff', color: '#111827' }}>
+                            {getEmirateDisplayName(emirate.name)} - AED {emirate.shippingCost}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  )}
                 </div>
 
                 {/* Payment Information - PWA Version */}
@@ -1081,6 +1085,26 @@ export default function CheckoutClient() {
                     </>
                   )}
                 </button>
+
+                {/* PWA Delivery Info - Below Complete Order button */}
+                {isPWAClient && isPWA && (
+                  <div className="mt-4 p-3 bg-green-50 border border-green-200 rounded-xl">
+                    <div className={`flex items-center gap-2 text-green-800 mb-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                      <Truck className="h-5 w-5" />
+                      <span className="font-semibold text-sm">{t('checkout.deliveryInformation') || 'Delivery Information'}</span>
+                    </div>
+                    <p className={`text-xs text-green-700 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                      {selectedEmirate === 'Dubai' 
+                        ? (t('checkout.deliveryTimeDubai') || 'Delivery within 24-48 hours in Dubai')
+                        : `${t('checkout.deliveryTimeOther') || 'Delivery within 2-3 business days to'} ${selectedEmirate ? getEmirateDisplayName(selectedEmirate) : ''} ${t('checkout.byQuiqup') || 'via Quiqup'}.`}
+                      {selectedEmirate !== 'Dubai' && (
+                        <span className="block mt-1.5">
+                          {t('checkout.trackingNumberWillBeShared') || 'Tracking number will be shared via WhatsApp/Email.'}
+                        </span>
+                      )}
+                    </p>
+                  </div>
+                )}
               </form>
             </div>
           </div>
@@ -1088,16 +1112,34 @@ export default function CheckoutClient() {
           {/* Order Summary */}
           <div className="lg:w-1/3">
             <div className="bg-white rounded-lg md:rounded-xl shadow-md md:shadow-lg border border-gray-100 sticky top-4 order-summary-container" style={{ overflow: 'hidden', overflowY: 'hidden', overflowX: 'hidden' }}>
-              {/* Header */}
-              <div className="bg-gradient-to-r from-primary-600 to-primary-700 px-3 md:px-6 py-3 md:py-4">
-                <div className={`flex justify-between items-center ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                  <div className={dir === 'rtl' ? 'text-left' : 'text-right'}>
-                    <div className="text-sm md:text-lg font-mono font-bold text-white">{t('checkout.orderNumber')} {orderNumber}</div>
+              {/* Header - Collapsible in PWA */}
+              {isPWAClient && isPWA ? (
+                <button
+                  type="button"
+                  onClick={() => setOrderSummaryExpanded(!orderSummaryExpanded)}
+                  className="w-full bg-gradient-to-r from-primary-600 to-primary-700 px-3 py-3 cursor-pointer"
+                >
+                  <div className={`flex justify-between items-center ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                    <div className="text-sm font-mono font-bold text-white">
+                      {t('checkout.orderNumber') || 'Order #'} {orderNumber}
+                    </div>
+                    <ChevronRight 
+                      className={`w-5 h-5 text-white transition-transform duration-200 ${orderSummaryExpanded ? 'rotate-90' : ''}`} 
+                    />
+                  </div>
+                </button>
+              ) : (
+                <div className="bg-gradient-to-r from-primary-600 to-primary-700 px-3 md:px-6 py-3 md:py-4">
+                  <div className={`flex justify-between items-center ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                    <div className={dir === 'rtl' ? 'text-left' : 'text-right'}>
+                      <div className="text-sm md:text-lg font-mono font-bold text-white">{t('checkout.orderNumber')} {orderNumber}</div>
+                    </div>
                   </div>
                 </div>
-              </div>
+              )}
 
-              <div className="p-3 md:p-6">
+              {/* Content - Collapsible in PWA */}
+              <div className={`p-3 md:p-6 ${isPWAClient && isPWA && !orderSummaryExpanded ? 'hidden' : ''}`}>
                 {/* Items List */}
                 <div className="mb-4 md:mb-6">
                   <h3 className={`text-xs md:text-sm font-semibold text-gray-700 mb-3 md:mb-4 uppercase tracking-wide ${dir === 'rtl' ? 'text-right' : ''}`}>{t('checkout.itemsLabel')}</h3>
@@ -1212,23 +1254,25 @@ export default function CheckoutClient() {
                 </div>
 
 
-                {/* Delivery Info */}
-                <div className="p-2.5 md:p-4 bg-green-50 border border-green-200 rounded-lg mb-3 md:mb-4">
-                  <div className={`flex items-center gap-1.5 md:gap-2 text-green-800 mb-1.5 md:mb-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                    <Truck className="h-4 w-4 md:h-5 md:w-5" />
-                    <span className="font-semibold text-xs md:text-base">{t('checkout.deliveryInformation')}</span>
+                {/* Delivery Info - Hidden in PWA (shown below Complete Order button instead) */}
+                {!(isPWAClient && isPWA) && (
+                  <div className="p-2.5 md:p-4 bg-green-50 border border-green-200 rounded-lg mb-3 md:mb-4">
+                    <div className={`flex items-center gap-1.5 md:gap-2 text-green-800 mb-1.5 md:mb-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                      <Truck className="h-4 w-4 md:h-5 md:w-5" />
+                      <span className="font-semibold text-xs md:text-base">{t('checkout.deliveryInformation')}</span>
+                    </div>
+                    <p className={`text-[10px] md:text-sm text-green-700 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                      {selectedEmirate === 'Dubai' 
+                        ? t('checkout.deliveryTimeDubai')
+                        : `${t('checkout.deliveryTimeOther')} ${selectedEmirate ? getEmirateDisplayName(selectedEmirate) : ''} ${t('checkout.byQuiqup')}.`}
+                      {selectedEmirate !== 'Dubai' && (
+                        <span className="block mt-1.5 md:mt-2">
+                          {t('checkout.trackingNumberWillBeShared')}
+                        </span>
+                      )}
+                    </p>
                   </div>
-                  <p className={`text-[10px] md:text-sm text-green-700 ${dir === 'rtl' ? 'text-right' : ''}`}>
-                    {selectedEmirate === 'Dubai' 
-                      ? t('checkout.deliveryTimeDubai')
-                      : `${t('checkout.deliveryTimeOther')} ${selectedEmirate ? getEmirateDisplayName(selectedEmirate) : ''} ${t('checkout.byQuiqup')}.`}
-                    {selectedEmirate !== 'Dubai' && (
-                      <span className="block mt-1.5 md:mt-2">
-                        {t('checkout.trackingNumberWillBeShared')}
-                      </span>
-                    )}
-                  </p>
-                </div>
+                )}
 
                 {/* WhatsApp Support */}
                 <div className="p-2.5 md:p-4 bg-blue-50 border border-blue-200 rounded-lg mb-3 md:mb-4">

@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 import { Menu, Heart, ChevronDown, X } from 'lucide-react'
 import { useAuth } from './AuthProvider'
@@ -29,24 +29,46 @@ export default function PWAHeader() {
   const pathname = usePathname()
   const [showLangMenu, setShowLangMenu] = useState(false)
   const [showMobileMenu, setShowMobileMenu] = useState(false)
+  const [isNavigating, setIsNavigating] = useState(false)
+  const lastClickTime = useRef(0)
   
   // Check if we're on profile page
   const isOnProfilePage = pathname?.includes('/profile')
   
-  // Handle profile button click - toggle behavior
-  const handleProfileClick = () => {
+  // Handle profile button click - with debounce to prevent rapid clicks
+  const handleProfileClick = useCallback(() => {
+    // Debounce: prevent clicks within 500ms of each other
+    const now = Date.now()
+    if (now - lastClickTime.current < 500) {
+      return
+    }
+    lastClickTime.current = now
+    
+    // Prevent navigation while already navigating
+    if (isNavigating) {
+      return
+    }
+    
+    setIsNavigating(true)
+    
     if (isOnProfilePage) {
-      // Go back to previous page
-      router.back()
+      // Navigate to products page (more reliable than router.back())
+      router.push(getLocalizedPath('/products', locale))
     } else {
       // Navigate to profile
       router.push(getLocalizedPath('/profile', locale))
     }
-  }
+    
+    // Reset navigating state after a delay
+    setTimeout(() => {
+      setIsNavigating(false)
+    }, 600)
+  }, [isOnProfilePage, isNavigating, router, locale])
   
-  // Close menu on route change
+  // Close menu on route change and reset navigating state
   useEffect(() => {
     setShowMobileMenu(false)
+    setIsNavigating(false)
   }, [pathname])
   
   // Only render in PWA mode on mobile
@@ -166,7 +188,9 @@ export default function PWAHeader() {
           {/* Right Side: User Avatar - Toggle behavior */}
           <button 
             onClick={handleProfileClick}
-            className="flex items-center p-1 -m-1 touch-manipulation active:scale-95 transition-transform"
+            disabled={isNavigating}
+            className={`flex items-center p-1 -m-1 touch-manipulation transition-all ${isNavigating ? 'opacity-50 scale-95' : 'active:scale-95'}`}
+            style={{ WebkitTapHighlightColor: 'transparent' }}
             aria-label={isOnProfilePage ? 'Go back' : 'Open profile'}
           >
             {user ? (

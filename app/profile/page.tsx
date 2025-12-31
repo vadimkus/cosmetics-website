@@ -68,7 +68,7 @@ const getErrorMessage = (error: unknown): string => {
 
 export default function ProfilePageRefactored() {
   const { t, locale, dir } = useTranslation()
-  const { user, logout, forceRefreshUser } = useAuth()
+  const { user, logout, forceRefreshUser, isLoading: authLoading } = useAuth()
   const router = useRouter()
   const [isEditing, setIsEditing] = useState(false)
   const [editData, setEditData] = useState<EditData>({
@@ -141,12 +141,12 @@ export default function ProfilePageRefactored() {
     }
   }
 
-  // Redirect to login page if user is not logged in
+  // Redirect to login page if user is not logged in - wait for auth to finish loading first
   useEffect(() => {
-    if (!user) {
+    if (!authLoading && !user) {
       router.push('/login')
     }
-  }, [user, router])
+  }, [user, authLoading, router])
 
   // Initialize profile picture and customer number when user loads
   useEffect(() => {

@@ -15,7 +15,7 @@ import { usePWAMode } from '@/hooks/usePWAMode'
 
 export default function CheckoutClient() {
   const { items, getTotalPrice, getTotalItems, selectedEmirate, setSelectedEmirate } = useCart()
-  const { user } = useAuth()
+  const { user, isLoading: authLoading } = useAuth()
   const router = useRouter()
   const { t, locale, dir } = useTranslation()
   const { isPWA, isClient: isPWAClient } = usePWAMode()
@@ -279,12 +279,12 @@ export default function CheckoutClient() {
     }
   }, [items.length, router, locale])
 
-  // Redirect if user is not logged in
+  // Redirect if user is not logged in - wait for auth to finish loading first
   useEffect(() => {
-    if (!user) {
+    if (!authLoading && !user) {
       router.push(getLocalizedPath('/login', locale))
     }
-  }, [user, router, locale])
+  }, [user, authLoading, router, locale])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()

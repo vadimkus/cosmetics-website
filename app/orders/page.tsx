@@ -79,7 +79,7 @@ function StatusBadge({ status }: { status: string }) {
  */
 export default function OrdersPage() {
   const { t, locale, dir } = useTranslation()
-  const { user } = useAuth()
+  const { user, isLoading: authLoading } = useAuth()
   const router = useRouter()
   const { isPWA, isClient } = usePWAMode()
   const [orders, setOrders] = useState<OrderWithItems[]>([])
@@ -90,12 +90,12 @@ export default function OrdersPage() {
 
   const isRTL = dir === 'rtl'
 
-  // Redirect to login if not authenticated
+  // Redirect to login if not authenticated - wait for auth to finish loading first
   useEffect(() => {
-    if (isClient && !user) {
+    if (isClient && !authLoading && !user) {
       router.push(getLocalizedPath('/login', locale))
     }
-  }, [user, router, locale, isClient])
+  }, [user, authLoading, router, locale, isClient])
 
   // Fetch CSRF token
   useEffect(() => {
@@ -175,13 +175,13 @@ export default function OrdersPage() {
     return `${amount.toFixed(2)} AED`
   }
 
-  // Loading state
-  if (!isClient || !user) {
+  // Loading state - wait for auth to finish loading before showing content
+  if (!isClient || authLoading || !user) {
     return (
       <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="flex flex-col items-center gap-3">
           <div className="animate-spin rounded-full h-10 w-10 border-2 border-gray-200 border-t-red-600"></div>
-          <p className="text-sm text-gray-500">Loading...</p>
+          <p className="text-sm text-gray-500">{authLoading ? 'Loading...' : 'Checking authentication...'}</p>
         </div>
       </div>
     )

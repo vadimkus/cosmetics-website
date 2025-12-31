@@ -1544,5 +1544,10 @@
     "outOfStock": "Out of Stock",
     "loginToSeePrice": "Login to see price",
     "addToCart": "Add to Cart"
+  },
+  "tabs": {
+    "home": "Home",
+    "orders": "Orders",
+    "bag": "Bag"
   }
 }

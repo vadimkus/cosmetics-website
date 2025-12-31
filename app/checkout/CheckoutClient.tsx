@@ -4,7 +4,7 @@ import { useCart } from '@/components/CartProvider'
 import { useAuth } from '@/components/AuthProvider'
 import { useState, useEffect, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
-import { ArrowLeft, CreditCard, Lock, MapPin, Truck, MessageCircle, Mail, Building, ChevronRight } from 'lucide-react'
+import { ArrowLeft, CreditCard, Lock, MapPin, Truck, MessageCircle, Mail, Building, ChevronDown } from 'lucide-react'
 import Link from 'next/link'
 import { calculateDiscountedPrice } from '@/lib/discountUtils'
 import { errorLog, debugLog } from '@/lib/logger'
@@ -830,155 +830,55 @@ export default function CheckoutClient() {
                       {t('checkout.paymentInformation') || 'Payment Method'}
                     </h2>
                     
-                    {/* Payment Methods Grid for PWA */}
-                    <div className="space-y-3">
-                      {/* Option 1: Cash on Delivery */}
-                      <label 
-                        className={`block relative overflow-hidden rounded-xl cursor-pointer transition-all ${
-                          selectedPaymentMethod === 'cod' 
-                            ? 'ring-2 ring-red-500 bg-red-50' 
-                            : 'bg-white border border-gray-200 hover:border-gray-300'
+                    {/* Payment Toggle Buttons - Simple Side by Side */}
+                    <div className={`flex gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                      {/* Cash on Delivery */}
+                      <button
+                        type="button"
+                        onClick={() => setSelectedPaymentMethod('cod')}
+                        className={`flex-1 py-4 px-3 rounded-xl font-semibold text-sm transition-all touch-manipulation active:scale-[0.98] ${
+                          selectedPaymentMethod === 'cod'
+                            ? 'bg-red-600 text-white shadow-lg shadow-red-200'
+                            : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                         }`}
                       >
-                        <input
-                          type="radio"
-                          name="payment"
-                          value="cod"
-                          checked={selectedPaymentMethod === 'cod'}
-                          onChange={(e) => setSelectedPaymentMethod(e.target.value)}
-                          className="sr-only"
-                        />
-                        <div className={`p-4 ${dir === 'rtl' ? 'text-right' : ''}`}>
-                          <div className={`flex items-center gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                            <div className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${
-                              selectedPaymentMethod === 'cod' ? 'bg-red-600' : 'bg-gray-100'
-                            }`}>
-                              <svg className={`w-5 h-5 ${selectedPaymentMethod === 'cod' ? 'text-white' : 'text-gray-500'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
-                              </svg>
-                            </div>
-                            <div className="flex-1">
-                              <div className="font-semibold text-gray-900 text-sm">
-                                {t('checkout.cod') || 'Cash on Delivery'}
-                              </div>
-                              <div className="text-xs text-gray-500 mt-0.5">
-                                {t('checkout.payWhenDelivered') || 'Pay when your order arrives'}
-                              </div>
-                            </div>
-                            <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
-                              selectedPaymentMethod === 'cod' 
-                                ? 'border-red-600 bg-red-600' 
-                                : 'border-gray-300'
-                            }`}>
-                              {selectedPaymentMethod === 'cod' && (
-                                <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                                </svg>
-                              )}
-                            </div>
-                          </div>
+                        <div className="flex flex-col items-center gap-1">
+                          <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
+                          </svg>
+                          <span>{locale === 'ar' ? 'الدفع عند الاستلام' : locale === 'ru' ? 'Наличными' : 'Cash on Delivery'}</span>
                         </div>
-                      </label>
+                      </button>
+                      <input type="hidden" name="payment" value={selectedPaymentMethod} />
 
-                      {/* Option 2: Apple Pay / Card */}
-                      <label 
-                        className={`block relative overflow-hidden rounded-xl cursor-pointer transition-all ${
-                          selectedPaymentMethod === 'stripe' 
-                            ? 'ring-2 ring-red-500 bg-red-50' 
-                            : 'bg-white border border-gray-200 hover:border-gray-300'
+                      {/* Online Payment */}
+                      <button
+                        type="button"
+                        onClick={() => setSelectedPaymentMethod('stripe')}
+                        className={`flex-1 py-4 px-3 rounded-xl font-semibold text-sm transition-all touch-manipulation active:scale-[0.98] ${
+                          selectedPaymentMethod === 'stripe'
+                            ? 'bg-red-600 text-white shadow-lg shadow-red-200'
+                            : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                         }`}
                       >
-                        <input
-                          type="radio"
-                          name="payment"
-                          value="stripe"
-                          checked={selectedPaymentMethod === 'stripe'}
-                          onChange={(e) => setSelectedPaymentMethod(e.target.value)}
-                          className="sr-only"
-                        />
-                        <div className={`p-4 ${dir === 'rtl' ? 'text-right' : ''}`}>
-                          <div className={`flex items-center gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                            <div className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${
-                              selectedPaymentMethod === 'stripe' ? 'bg-red-600' : 'bg-gray-100'
-                            }`}>
-                              <CreditCard className={`w-5 h-5 ${selectedPaymentMethod === 'stripe' ? 'text-white' : 'text-gray-500'}`} />
-                            </div>
-                            <div className="flex-1">
-                              <div className="font-semibold text-gray-900 text-sm">
-                                {locale === 'ar' ? 'الدفع الإلكتروني' : locale === 'ru' ? 'Онлайн оплата' : 'Online Payment'}
-                              </div>
-                              <div className="text-xs text-gray-500 mt-0.5">
-                                Apple Pay, Visa, Mastercard
-                              </div>
-                            </div>
-                            <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
-                              selectedPaymentMethod === 'stripe' 
-                                ? 'border-red-600 bg-red-600' 
-                                : 'border-gray-300'
-                            }`}>
-                              {selectedPaymentMethod === 'stripe' && (
-                                <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                                </svg>
-                              )}
-                            </div>
-                          </div>
+                        <div className="flex flex-col items-center gap-1">
+                          <CreditCard className="w-6 h-6" />
+                          <span>{locale === 'ar' ? 'الدفع الإلكتروني' : locale === 'ru' ? 'Онлайн оплата' : 'Online Payment'}</span>
                         </div>
-                      </label>
-
-                      {/* Option 3: Request Payment Link */}
-                      <label 
-                        className={`block relative overflow-hidden rounded-xl cursor-pointer transition-all ${
-                          selectedPaymentMethod === 'support-link' 
-                            ? 'ring-2 ring-red-500 bg-red-50' 
-                            : 'bg-white border border-gray-200 hover:border-gray-300'
-                        }`}
-                      >
-                        <input
-                          type="radio"
-                          name="payment"
-                          value="support-link"
-                          checked={selectedPaymentMethod === 'support-link'}
-                          onChange={(e) => setSelectedPaymentMethod(e.target.value)}
-                          className="sr-only"
-                        />
-                        <div className={`p-4 ${dir === 'rtl' ? 'text-right' : ''}`}>
-                          <div className={`flex items-center gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                            <div className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${
-                              selectedPaymentMethod === 'support-link' ? 'bg-red-600' : 'bg-gray-100'
-                            }`}>
-                              <svg className={`w-5 h-5 ${selectedPaymentMethod === 'support-link' ? 'text-white' : 'text-gray-500'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
-                              </svg>
-                            </div>
-                            <div className="flex-1">
-                              <div className="font-semibold text-gray-900 text-sm">
-                                {t('checkout.generateLinkForPayment') || 'Request Payment Link'}
-                              </div>
-                              <div className="text-xs text-gray-500 mt-0.5">
-                                {t('checkout.supportTeamWillShareLink') || 'We\'ll send you a secure payment link'}
-                              </div>
-                            </div>
-                            <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
-                              selectedPaymentMethod === 'support-link' 
-                                ? 'border-red-600 bg-red-600' 
-                                : 'border-gray-300'
-                            }`}>
-                              {selectedPaymentMethod === 'support-link' && (
-                                <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                                </svg>
-                              )}
-                            </div>
-                          </div>
-                        </div>
-                      </label>
+                      </button>
                     </div>
 
+                    {/* Card types hint - only show when online payment selected */}
+                    {selectedPaymentMethod === 'stripe' && (
+                      <div className="text-center text-xs text-gray-500">
+                        Apple Pay, Visa, Mastercard
+                      </div>
+                    )}
+
                     {/* Security Note */}
-                    <div className={`flex items-center gap-2 text-xs text-gray-500 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                      <Lock className="w-3.5 h-3.5 flex-shrink-0" />
-                      <span>{locale === 'ar' ? 'معلومات الدفع الخاصة بك آمنة ومشفرة' : locale === 'ru' ? 'Ваши платежные данные защищены и зашифрованы' : 'Your payment information is secure and encrypted'}</span>
+                    <div className={`flex items-center justify-center gap-2 text-xs text-gray-400 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                      <Lock className="w-3.5 h-3.5" />
+                      <span>{locale === 'ar' ? 'دفع آمن ومشفر' : locale === 'ru' ? 'Безопасная оплата' : 'Secure & encrypted'}</span>
                     </div>
                   </div>
                 ) : (
@@ -1123,8 +1023,8 @@ export default function CheckoutClient() {
                     <div className="text-sm font-mono font-bold text-white">
                       {t('checkout.orderNumber') || 'Order #'} {orderNumber}
                     </div>
-                    <ChevronRight 
-                      className={`w-5 h-5 text-white transition-transform duration-200 ${orderSummaryExpanded ? 'rotate-90' : ''}`} 
+                    <ChevronDown 
+                      className={`w-5 h-5 text-white transition-transform duration-200 ${orderSummaryExpanded ? 'rotate-180' : ''}`} 
                     />
                   </div>
                 </button>

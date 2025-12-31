@@ -223,7 +223,7 @@ export default function PWAProfilePage() {
       <div className="overflow-y-auto">
         {/* Profile Card */}
         <div className="px-5 py-6">
-          <div className={`bg-white rounded-2xl p-5 shadow-sm border border-gray-100 flex items-center gap-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
+          <div className={`relative bg-white rounded-2xl p-5 shadow-sm border border-gray-100 flex items-center gap-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
             {/* Avatar Section */}
             <div className="flex flex-col items-center">
               <div className="relative">
@@ -269,18 +269,20 @@ export default function PWAProfilePage() {
                 <p className="text-sm text-gray-400 mt-1">{user.phone}</p>
               )}
               <button 
-                onClick={() => router.push(getLocalizedPath('/profile', locale) + '?edit=true')}
+                onClick={() => router.push(getLocalizedPath('/profile/edit', locale) + '?from=profile')}
                 className="mt-3 text-[17px] text-blue-500"
               >
                 {t('pwaProfile.viewAndEdit')}
               </button>
             </div>
 
-            {/* Promo Icon */}
+            {/* Notification/Promo Icon - Bottom right corner of card */}
             <button 
-              onClick={() => {/* Open promo page */}}
-              className={`absolute ${isRTL ? 'left-8' : 'right-8'} bottom-8 w-8 h-8 rounded-full bg-red-50 border border-red-200 flex items-center justify-center`}
+              onClick={() => router.push(getLocalizedPath('/profile/promo', locale) + '?from=profile')}
+              className={`absolute ${isRTL ? 'left-3' : 'right-3'} bottom-3 w-8 h-8 rounded-full bg-red-50 border border-red-200 flex items-center justify-center active:bg-red-100 transition-colors`}
+              aria-label={t('pwaProfile.notifications') || 'Notifications'}
             >
+              {/* Megaphone/Notification icon */}
               <svg className="w-4 h-4 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
               </svg>

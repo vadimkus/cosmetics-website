@@ -25,6 +25,7 @@ import StorageQuotaMonitor from '@/components/StorageQuotaMonitor'
 import AppleSplashScreens from '@/components/AppleSplashScreens'
 import LocaleManifest from '@/components/LocaleManifest'
 import MobileFooterNav from '@/components/MobileFooterNav'
+import PWAHeader from '@/components/PWAHeader'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -258,6 +259,7 @@ export default function RootLayout({
                   <UserRefreshWrapper />
                   <PageViewTracker />
                   <LocaleWrapper>
+                    <PWAHeader />
                     <Header />
                     <main className="flex-1">
                       <ErrorBoundary>

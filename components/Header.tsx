@@ -23,12 +23,15 @@ const Header = memo(function Header() {
   const { user, logout } = useAuth()
   const { favorites } = useFavorites()
   const { t, locale } = useTranslation()
-  const { isPWA } = usePWAMode()
+  const { isPWA, isClient: isPWAClient } = usePWAMode()
   const [showLoginModal, setShowLoginModal] = useState(false)
   const [isLoginMode, setIsLoginMode] = useState(true)
   const [showMobileMenu, setShowMobileMenu] = useState(false)
   const [isClient, setIsClient] = useState(false)
   const [isHeartBeating, setIsHeartBeating] = useState(false)
+  
+  // In PWA mode, we use the PWAHeader for mobile
+  const showPWAMobileHeader = isPWAClient && isPWA
 
   useEffect(() => {
     setIsClient(true)
@@ -59,16 +62,16 @@ const Header = memo(function Header() {
     <header className="sticky top-0 z-50 bg-white shadow-sm border-b" suppressHydrationWarning>
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between py-2 md:py-4 header-main-flex">
-          {/* Mobile Icons - Russian Version */}
-          {locale === 'ru' && (
+          {/* Mobile Icons - Russian Version (hidden in PWA mode) */}
+          {locale === 'ru' && !showPWAMobileHeader && (
             <HeaderRussianMobile 
               showMobileMenu={showMobileMenu}
               setShowMobileMenu={setShowMobileMenu}
             />
           )}
           
-          {/* Mobile Icons - English Version (LTR): hamburger, EN, man, heart, cart */}
-          {locale !== 'ar' && locale !== 'ru' && (
+          {/* Mobile Icons - English Version (LTR): hamburger, EN, man, heart, cart (hidden in PWA mode) */}
+          {locale !== 'ar' && locale !== 'ru' && !showPWAMobileHeader && (
             <div className="md:hidden flex items-center gap-0.5 header-icons">
               <button
                 onClick={() => setShowMobileMenu(!showMobileMenu)}
@@ -143,8 +146,8 @@ const Header = memo(function Header() {
             </div>
           )}
 
-          {/* Mobile Icons - Arabic Version (RTL): cart, heart, man, AR, hamburger - positioned on right */}
-          {locale === 'ar' && (
+          {/* Mobile Icons - Arabic Version (RTL): cart, heart, man, AR, hamburger - positioned on right (hidden in PWA mode) */}
+          {locale === 'ar' && !showPWAMobileHeader && (
             <div className="md:hidden flex items-center gap-0.5 header-icons ml-auto">
               <Link 
                 href={getLocalizedPath('/products', locale)} 

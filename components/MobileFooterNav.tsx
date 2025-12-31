@@ -132,8 +132,8 @@ export default function MobileFooterNav() {
   
   return (
     <>
-      {/* Spacer to prevent content from being hidden behind fixed footer (20% bigger) */}
-      <div className="h-[106px] md:hidden" aria-hidden="true" />
+      {/* Spacer to prevent content from being hidden behind fixed footer */}
+      <div className="h-[117px] md:hidden" aria-hidden="true" />
       
       {/* Mobile Footer Navigation - PWA Only */}
       <nav 
@@ -147,7 +147,7 @@ export default function MobileFooterNav() {
         role="navigation"
         aria-label="Mobile navigation"
       >
-        <div className="flex items-center justify-around h-[68px] pt-2">
+        <div className="flex items-center justify-around h-[75px] pt-2">
           {/* Home Tab */}
           <Link
             href={getLocalizedPath('/products', locale)}
@@ -158,7 +158,7 @@ export default function MobileFooterNav() {
           >
             <HomeIcon 
               filled={activeTab === 'home'} 
-              className="w-7 h-7"
+              className="w-8 h-8"
             />
             <span className={`text-xs mt-1 font-medium`}>
               {t('tabs.home') || 'Home'}
@@ -175,7 +175,7 @@ export default function MobileFooterNav() {
           >
             <ListIcon 
               filled={activeTab === 'orders'} 
-              className="w-7 h-7"
+              className="w-8 h-8"
             />
             <span className={`text-xs mt-1 font-medium`}>
               {t('tabs.orders') || 'Orders'}
@@ -197,7 +197,7 @@ export default function MobileFooterNav() {
             <div className="relative">
               <BagIcon 
                 filled={activeTab === 'bag' || hasItemsInCart} 
-                className="w-7 h-7"
+                className="w-8 h-8"
               />
               {/* Badge for cart count */}
               {hasItemsInCart && (

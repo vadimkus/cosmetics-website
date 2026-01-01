@@ -26,6 +26,7 @@ import AppleSplashScreens from '@/components/AppleSplashScreens'
 import LocaleManifest from '@/components/LocaleManifest'
 import MobileFooterNav from '@/components/MobileFooterNav'
 import PWAHeader from '@/components/PWAHeader'
+import PWASplashScreen from '@/components/PWASplashScreen'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -252,33 +253,35 @@ export default function RootLayout({
         <AggregateRatingSchema />
         <ToastProvider>
           <AuthProvider>
-            <FavoritesProvider>
-              <CartProvider>
-                <ServiceWorkerProvider>
-                  <PerformanceMonitor />
-                  <UserRefreshWrapper />
-                  <PageViewTracker />
-                  <LocaleWrapper>
-                    <PWAHeader />
-                    <Header />
-                    <main className="flex-1">
-                      <ErrorBoundary>
-                        <PullToRefresh>
-                          <PageTransition>
-                            {children}
-                          </PageTransition>
-                        </PullToRefresh>
-                      </ErrorBoundary>
-                    </main>
-                  </LocaleWrapper>
-                  <Footer />
-                  <MobileFooterNav />
-                  <PWAInstallPrompt variant="banner" showDelay={60} />
-                  <ServiceWorkerUpdateNotification />
-                  <StorageQuotaMonitor />
-                </ServiceWorkerProvider>
-              </CartProvider>
-            </FavoritesProvider>
+            <PWASplashScreen>
+              <FavoritesProvider>
+                <CartProvider>
+                  <ServiceWorkerProvider>
+                    <PerformanceMonitor />
+                    <UserRefreshWrapper />
+                    <PageViewTracker />
+                    <LocaleWrapper>
+                      <PWAHeader />
+                      <Header />
+                      <main className="flex-1">
+                        <ErrorBoundary>
+                          <PullToRefresh>
+                            <PageTransition>
+                              {children}
+                            </PageTransition>
+                          </PullToRefresh>
+                        </ErrorBoundary>
+                      </main>
+                    </LocaleWrapper>
+                    <Footer />
+                    <MobileFooterNav />
+                    <PWAInstallPrompt variant="banner" showDelay={60} />
+                    <ServiceWorkerUpdateNotification />
+                    <StorageQuotaMonitor />
+                  </ServiceWorkerProvider>
+                </CartProvider>
+              </FavoritesProvider>
+            </PWASplashScreen>
           </AuthProvider>
         </ToastProvider>
       </body>

@@ -235,7 +235,8 @@ export default function PWALoginPage() {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder={t('authScreen.fullNamePlaceholder')}
-                className={`w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all ${isRTL ? 'text-right' : ''}`}
+                className={`w-full px-4 py-3 bg-white text-gray-900 border border-gray-200 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all placeholder:text-gray-400 ${isRTL ? 'text-right' : ''}`}
+                style={{ WebkitTextFillColor: '#111827', opacity: 1 }}
                 dir={dir}
               />
             </div>
@@ -251,7 +252,8 @@ export default function PWALoginPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder={t('authScreen.emailPlaceholder')}
-              className={`w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all ${isRTL ? 'text-right' : ''}`}
+              className={`w-full px-4 py-3 bg-white text-gray-900 border border-gray-200 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all placeholder:text-gray-400 ${isRTL ? 'text-right' : ''}`}
+              style={{ WebkitTextFillColor: '#111827', opacity: 1 }}
               dir="ltr"
             />
           </div>
@@ -267,7 +269,8 @@ export default function PWALoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder={t('authScreen.passwordPlaceholder')}
-                className={`w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all ${isRTL ? 'text-right pr-4 pl-12' : 'pr-12'}`}
+                className={`w-full px-4 py-3 bg-white text-gray-900 border border-gray-200 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all placeholder:text-gray-400 ${isRTL ? 'text-right pr-4 pl-12' : 'pr-12'}`}
+                style={{ WebkitTextFillColor: '#111827', opacity: 1 }}
                 dir="ltr"
               />
               <button

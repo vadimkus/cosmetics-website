@@ -482,6 +482,9 @@ export default function AuthProvider({ children }: AuthProviderProps) {
       // Clear localStorage
       localStorage.removeItem('genosys_user')
       
+      // Clear PWA splash flag so auth check runs when PWA is reopened
+      sessionStorage.removeItem('pwa_splash_shown')
+      
       // Redirect to specified URL or default login page
       // Check if in PWA mode for appropriate login page
       const isPWA = window.matchMedia('(display-mode: standalone)').matches ||

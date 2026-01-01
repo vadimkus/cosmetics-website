@@ -225,6 +225,10 @@ export default function PWAProfilePage() {
     if (confirmed) {
       setIsLoggingOut(true)
       try {
+        // Clear splash screen flag so auth check runs when PWA is reopened
+        if (typeof window !== 'undefined') {
+          sessionStorage.removeItem('pwa_splash_shown')
+        }
         // AuthProvider handles redirect to appropriate login page (PWA or regular)
         await logout()
       } catch (error) {

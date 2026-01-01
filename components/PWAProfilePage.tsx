@@ -131,10 +131,7 @@ export default function PWAProfilePage() {
   const [emailNotifications, setEmailNotifications] = useState(true)
   const [pushNotifications, setPushNotifications] = useState(false)
   const [pushSupported, setPushSupported] = useState(false)
-  const [faceIdEnabled, setFaceIdEnabled] = useState(false)
-  const [faceIdSupported] = useState(false) // Face ID not available in PWA
   const [isLoggingOut, setIsLoggingOut] = useState(false)
-  const [showFaceIdInfo, setShowFaceIdInfo] = useState(false)
   
   const isRTL = dir === 'rtl'
   const cartCount = getTotalItems()
@@ -216,15 +213,6 @@ export default function PWAProfilePage() {
       } catch (error) {
         console.error('Push unsubscribe error:', error)
       }
-    }
-  }
-  
-  // Handle Face ID toggle - show info modal
-  const handleFaceIdToggle = (enabled: boolean) => {
-    if (enabled) {
-      setShowFaceIdInfo(true)
-    } else {
-      setFaceIdEnabled(false)
     }
   }
   
@@ -444,15 +432,6 @@ export default function PWAProfilePage() {
           </h3>
           <div className="mx-5 bg-white rounded-xl overflow-hidden">
             <SwitchItem
-              icon={<svg className="w-5 h-5 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>}
-              title={t('pwaProfile.faceId')}
-              subtitle={!faceIdSupported ? (t('pwaProfile.faceIdNotAvailable') || 'Available in iOS App') : undefined}
-              value={faceIdEnabled}
-              onChange={handleFaceIdToggle}
-              disabled={!faceIdSupported}
-              isRTL={isRTL}
-            />
-            <SwitchItem
               icon={<svg className="w-5 h-5 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>}
               title={t('pwaProfile.emailNotifications')}
               subtitle={t('pwaProfile.emailNotificationsSubtitle')}
@@ -540,45 +519,6 @@ export default function PWAProfilePage() {
         </div>
       </div>
 
-      {/* Face ID Info Modal */}
-      {showFaceIdInfo && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
-          <div className="bg-white rounded-2xl p-6 max-w-sm w-full">
-            <div className="text-center mb-4">
-              <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                {t('pwaProfile.faceIdTitle') || 'Face ID / Touch ID'}
-              </h3>
-              <p className="text-gray-600 text-sm leading-relaxed">
-                {t('pwaProfile.faceIdDescription') || 'Biometric authentication (Face ID / Touch ID) is not available in web browsers for security reasons.'}
-              </p>
-              <p className="text-gray-600 text-sm leading-relaxed mt-3">
-                {t('pwaProfile.faceIdNativeApp') || 'For Face ID authentication, please download our native iOS app from the App Store.'}
-              </p>
-            </div>
-            <div className="space-y-2">
-              <a
-                href="https://apps.apple.com/app/genosys-uae"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block w-full bg-black text-white py-3 rounded-xl text-center font-medium"
-              >
-                {t('pwaProfile.downloadiOSApp') || 'Download iOS App'}
-              </a>
-              <button
-                onClick={() => setShowFaceIdInfo(false)}
-                className="block w-full bg-gray-100 text-gray-700 py-3 rounded-xl text-center font-medium"
-              >
-                {t('common.close') || 'Close'}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   )
 }

@@ -1,17 +1,22 @@
 'use client'
 
-import { useSearchParams } from 'next/navigation'
+import { useSearchParams, useRouter } from 'next/navigation'
 import { useCart } from '@/components/CartProvider'
 import { useEffect, Suspense } from 'react'
 import Link from 'next/link'
-import { ShoppingBag, ArrowLeft, MessageCircle } from 'lucide-react'
+import { ShoppingBag, ArrowLeft, MessageCircle, ChevronLeft } from 'lucide-react'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
+import { usePWAMode } from '@/hooks/usePWAMode'
+import { useAuth } from '@/components/AuthProvider'
 
 function SuccessContent() {
   const searchParams = useSearchParams()
+  const router = useRouter()
   const { clearCart } = useCart()
   const { t, locale, dir } = useTranslation()
+  const { isPWA, isClient: isPWAClient } = usePWAMode()
+  const { user } = useAuth()
   const sessionId = searchParams.get('session_id')
   const orderId = searchParams.get('order_id')
   const paymentMethod = searchParams.get('payment')
@@ -43,30 +48,66 @@ function SuccessContent() {
 
   return (
     <div className="bg-white min-h-screen" dir={dir}>
-      <div className="container mx-auto px-3 md:px-4 py-3 md:py-8 lg:py-16 pb-16 md:pb-16" style={{ paddingBottom: 'max(4rem, calc(4rem + env(safe-area-inset-bottom, 0px)))' }}>
-        {/* Navigation Breadcrumb */}
-        <div className={`${dir === 'rtl' ? 'flex justify-end' : ''}`}>
-          <nav className={`text-xs md:text-base text-gray-600 mb-1.5 md:mb-4 ${dir === 'rtl' ? 'text-right' : ''}`} aria-label="Breadcrumb">
-            <Link href={getLocalizedPath('/', locale)} className="hover:text-primary-600 transition-colors">
-              {t('common.home')}
-            </Link>
-            <span> / </span>
-            <span className="text-gray-900 font-medium">
+      {/* PWA Light Header */}
+      {isPWAClient && isPWA && (
+        <div className="sticky top-0 z-40 bg-white border-b border-gray-100 px-4 py-3 safe-area-top">
+          <div className={`flex items-center justify-between ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+            {/* Back Button */}
+            <button
+              onClick={() => router.push(getLocalizedPath('/products', locale))}
+              className={`flex items-center gap-1 text-gray-700 hover:text-gray-900 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+            >
+              <ChevronLeft className={`w-5 h-5 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
+              <span className="text-sm font-medium">{t('common.home')}</span>
+            </button>
+            
+            {/* Page Title */}
+            <h1 className="text-base font-semibold text-gray-900">
               {t('success.title') || 'Success'}
-            </span>
-          </nav>
+            </h1>
+            
+            {/* Profile Icon */}
+            <Link
+              href={getLocalizedPath('/profile', locale)}
+              className="relative"
+            >
+              <div className="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center text-white text-sm font-semibold">
+                {user?.name?.charAt(0).toUpperCase() || 'G'}
+              </div>
+              <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-500 rounded-full border-2 border-white" />
+            </Link>
+          </div>
         </div>
+      )}
+
+      <div className="container mx-auto px-3 md:px-4 py-3 md:py-8 lg:py-16 pb-16 md:pb-16" style={{ paddingBottom: 'max(4rem, calc(4rem + env(safe-area-inset-bottom, 0px)))' }}>
+        {/* Navigation Breadcrumb - Hide in PWA */}
+        {!(isPWAClient && isPWA) && (
+          <div className={`${dir === 'rtl' ? 'flex justify-end' : ''}`}>
+            <nav className={`text-xs md:text-base text-gray-600 mb-1.5 md:mb-4 ${dir === 'rtl' ? 'text-right' : ''}`} aria-label="Breadcrumb">
+              <Link href={getLocalizedPath('/', locale)} className="hover:text-primary-600 transition-colors">
+                {t('common.home')}
+              </Link>
+              <span> / </span>
+              <span className="text-gray-900 font-medium">
+                {t('success.title') || 'Success'}
+              </span>
+            </nav>
+          </div>
+        )}
         
-        {/* Back to Products */}
-        <div className={`mb-4 md:mb-8 ${dir === 'rtl' ? 'flex justify-end' : ''}`}>
-          <Link 
-            href={getLocalizedPath('/products', locale)} 
-            className={`inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
-          >
-            <ArrowLeft className={`h-3 w-3 md:h-4 md:w-4 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
-            <span>{t('success.backToProducts') || 'Back to Products'}</span>
-          </Link>
-        </div>
+        {/* Back to Products - Hide in PWA */}
+        {!(isPWAClient && isPWA) && (
+          <div className={`mb-4 md:mb-8 ${dir === 'rtl' ? 'flex justify-end' : ''}`}>
+            <Link 
+              href={getLocalizedPath('/products', locale)} 
+              className={`inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+            >
+              <ArrowLeft className={`h-3 w-3 md:h-4 md:w-4 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
+              <span>{t('success.backToProducts') || 'Back to Products'}</span>
+            </Link>
+          </div>
+        )}
 
         <div className="max-w-2xl mx-auto">
           {/* Success Header */}
@@ -145,7 +186,7 @@ function SuccessContent() {
               href={`https://wa.me/971585487665?text=Hi! I need help with my order ${orderId || 'request'}. Can you assist me?`}
               target="_blank"
               rel="noopener noreferrer"
-              className={`flex items-center justify-center gap-2 border-2 border-green-500 text-green-600 px-4 py-2.5 md:px-6 md:py-3 rounded-lg text-sm md:text-base font-semibold hover:bg-green-50 transition-colors ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+              className={`flex items-center justify-center gap-2 bg-green-500 text-white px-4 py-2.5 md:px-6 md:py-3 rounded-lg text-sm md:text-base font-semibold hover:bg-green-600 transition-colors shadow-md ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
             >
               <MessageCircle className="h-4 w-4 md:h-5 md:w-5" />
               {t('success.contactWhatsApp') || 'Contact Support via WhatsApp'}

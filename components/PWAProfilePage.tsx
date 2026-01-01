@@ -225,8 +225,8 @@ export default function PWAProfilePage() {
     if (confirmed) {
       setIsLoggingOut(true)
       try {
+        // AuthProvider handles redirect to appropriate login page (PWA or regular)
         await logout()
-        router.push(getLocalizedPath('/login', locale))
       } catch (error) {
         console.error('Logout error:', error)
       } finally {

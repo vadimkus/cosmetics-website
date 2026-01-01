@@ -28,7 +28,7 @@ interface AuthContextType {
   loginWithGoogle: () => Promise<void>
   loginWithApple: () => Promise<void>
   register: (name: string, email: string, password: string, phone: string, address: string, emirate: string, birthday?: string, promoCode?: string) => Promise<boolean>
-  logout: () => Promise<void>
+  logout: (redirectUrl?: string) => Promise<void>
   refreshUser: () => Promise<void>
   forceRefreshUser: () => Promise<void>
   isLoading: boolean
@@ -462,7 +462,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
     }
   }
 
-  const logout = async () => {
+  const logout = async (redirectUrl?: string) => {
     try {
       // Clear session cookie on server
       await fetch('/api/auth/logout', {
@@ -481,8 +481,19 @@ export default function AuthProvider({ children }: AuthProviderProps) {
     if (typeof window !== 'undefined') {
       // Clear localStorage
       localStorage.removeItem('genosys_user')
-      // Redirect to login page after logout
-      window.location.href = '/login'
+      
+      // Redirect to specified URL or default login page
+      // Check if in PWA mode for appropriate login page
+      const isPWA = window.matchMedia('(display-mode: standalone)').matches ||
+                    (window.navigator as any).standalone === true
+      
+      if (redirectUrl) {
+        window.location.href = redirectUrl
+      } else if (isPWA) {
+        window.location.href = '/pwa-login'
+      } else {
+        window.location.href = '/login'
+      }
     }
   }
 
@@ -506,7 +517,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
       loginWithGoogle: async () => {},
       loginWithApple: async () => {},
       register: async (_name: string, _email: string, _password: string, _phone: string, _address: string, _emirate: string, _birthday?: string) => false,
-      logout: async () => {},
+      logout: async (_redirectUrl?: string) => {},
       refreshUser: async () => {},
       forceRefreshUser: async () => {},
       isLoading: true

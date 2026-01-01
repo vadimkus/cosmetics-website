@@ -340,7 +340,7 @@ const Header = memo(function Header() {
                         <User className="h-6 w-6 text-green-600" aria-hidden="true" />
                       </Link>
                       <button 
-                        onClick={logout}
+                        onClick={() => logout()}
                         className="p-2 text-gray-700 hover:text-primary-600 transition-colors"
                         aria-label={t('common.logout')}
                       >
@@ -435,7 +435,7 @@ const Header = memo(function Header() {
                         <User className="h-6 w-6 text-green-600" aria-hidden="true" />
                       </Link>
                       <button 
-                        onClick={logout}
+                        onClick={() => logout()}
                         className="p-2 text-gray-700 hover:text-primary-600 transition-colors"
                         aria-label={t('common.logout')}
                       >

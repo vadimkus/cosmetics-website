@@ -14,7 +14,7 @@ const MINIMUM_DISPLAY_MS = 800 // Minimum time to show splash screen
  * 
  * Only displays in PWA/standalone mode on initial load.
  * Shows while auth and initial data loads in background.
- * Redirects to PWA login page for unauthenticated users on protected routes.
+ * Redirects ALL unauthenticated users to PWA login page (PWA requires login).
  * Matches mobile app design exactly.
  */
 export default function PWASplashScreen({ children }: { children: React.ReactNode }) {
@@ -49,18 +49,21 @@ export default function PWASplashScreen({ children }: { children: React.ReactNod
   }, [isPWA, hasShownSplash])
 
   // Hide splash when both min time has passed AND auth is loaded
-  // Also redirect to PWA login if not authenticated on protected routes
+  // Redirect to PWA login if not authenticated (PWA requires login to use)
   useEffect(() => {
     if (!isPWA || hasShownSplash) return undefined
 
     if (minTimeElapsed && !authLoading) {
-      // Check if current page needs auth
       const normalizedPath = pathname?.replace(/^\/(ar|ru)/, '') || '/'
       
-      // If user is not logged in and on a protected page, redirect to PWA login
-      const isProtectedPage = ['/profile', '/checkout', '/orders', '/cart'].some(p => normalizedPath.startsWith(p))
+      // Don't redirect if already on login page or public auth pages
+      const isAuthPage = normalizedPath.includes('/pwa-login') || 
+                         normalizedPath.includes('/login') ||
+                         normalizedPath.includes('/signup') ||
+                         normalizedPath.includes('/forgot-password')
       
-      if (!user && isProtectedPage) {
+      // PWA requires login - redirect all unauthenticated users to login
+      if (!user && !isAuthPage) {
         // Redirect to PWA login
         const locale = pathname?.startsWith('/ar') ? 'ar' : pathname?.startsWith('/ru') ? 'ru' : 'en'
         const loginPath = locale === 'en' ? '/pwa-login' : `/${locale}/pwa-login`

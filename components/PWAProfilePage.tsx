@@ -186,10 +186,12 @@ export default function PWAProfilePage() {
           setPushNotifications(true)
           // Register for push notifications
           const registration = await navigator.serviceWorker.ready
-          const subscription = await registration.pushManager.subscribe({
+          const vapidKey = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY
+          const subscribeOptions: PushSubscriptionOptionsInit = {
             userVisibleOnly: true,
-            applicationServerKey: process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY
-          })
+            ...(vapidKey && { applicationServerKey: vapidKey })
+          }
+          const subscription = await registration.pushManager.subscribe(subscribeOptions)
           console.log('Push subscription:', subscription)
           // Here you would typically send the subscription to your server
         } else {

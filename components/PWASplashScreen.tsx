@@ -9,19 +9,6 @@ import { useAuth } from './AuthProvider'
 const COMPANY_NAME = 'Genosys Middle East FZ-LLC'
 const MINIMUM_DISPLAY_MS = 800 // Minimum time to show splash screen
 
-// Pages that don't require login in PWA
-const PUBLIC_PWA_PAGES = [
-  '/products',
-  '/pwa-login',
-  '/privacy-policy',
-  '/terms',
-  '/about',
-  '/contact',
-  '/faq',
-  '/pwa',
-  '/blog'
-]
-
 /**
  * PWA Splash Screen - Shows branded loading screen when PWA starts
  * 
@@ -67,14 +54,10 @@ export default function PWASplashScreen({ children }: { children: React.ReactNod
     if (!isPWA || hasShownSplash) return undefined
 
     if (minTimeElapsed && !authLoading) {
-      // Check if current page is public or needs auth
+      // Check if current page needs auth
       const normalizedPath = pathname?.replace(/^\/(ar|ru)/, '') || '/'
-      const isPublicPage = PUBLIC_PWA_PAGES.some(p => normalizedPath.startsWith(p)) || 
-                          normalizedPath === '/' ||
-                          normalizedPath.startsWith('/product/')
       
       // If user is not logged in and on a protected page, redirect to PWA login
-      // But only redirect from truly protected pages (profile, checkout, orders)
       const isProtectedPage = ['/profile', '/checkout', '/orders', '/cart'].some(p => normalizedPath.startsWith(p))
       
       if (!user && isProtectedPage) {

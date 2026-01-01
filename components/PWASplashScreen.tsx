@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { useRouter, usePathname } from 'next/navigation'
 import Image from 'next/image'
 import { usePWAMode } from '@/hooks/usePWAMode'
 import { useAuth } from './AuthProvider'
@@ -8,16 +9,32 @@ import { useAuth } from './AuthProvider'
 const COMPANY_NAME = 'Genosys Middle East FZ-LLC'
 const MINIMUM_DISPLAY_MS = 800 // Minimum time to show splash screen
 
+// Pages that don't require login in PWA
+const PUBLIC_PWA_PAGES = [
+  '/products',
+  '/pwa-login',
+  '/privacy-policy',
+  '/terms',
+  '/about',
+  '/contact',
+  '/faq',
+  '/pwa',
+  '/blog'
+]
+
 /**
  * PWA Splash Screen - Shows branded loading screen when PWA starts
  * 
  * Only displays in PWA/standalone mode on initial load.
  * Shows while auth and initial data loads in background.
+ * Redirects to PWA login page for unauthenticated users on protected routes.
  * Matches mobile app design exactly.
  */
 export default function PWASplashScreen({ children }: { children: React.ReactNode }) {
   const { isPWA, isClient } = usePWAMode()
-  const { isLoading: authLoading } = useAuth()
+  const { isLoading: authLoading, user } = useAuth()
+  const router = useRouter()
+  const pathname = usePathname()
   const [showSplash, setShowSplash] = useState(true)
   const [hasShownSplash, setHasShownSplash] = useState(false)
   const [minTimeElapsed, setMinTimeElapsed] = useState(false)
@@ -45,10 +62,35 @@ export default function PWASplashScreen({ children }: { children: React.ReactNod
   }, [isPWA, hasShownSplash])
 
   // Hide splash when both min time has passed AND auth is loaded
+  // Also redirect to PWA login if not authenticated on protected routes
   useEffect(() => {
     if (!isPWA || hasShownSplash) return undefined
 
     if (minTimeElapsed && !authLoading) {
+      // Check if current page is public or needs auth
+      const normalizedPath = pathname?.replace(/^\/(ar|ru)/, '') || '/'
+      const isPublicPage = PUBLIC_PWA_PAGES.some(p => normalizedPath.startsWith(p)) || 
+                          normalizedPath === '/' ||
+                          normalizedPath.startsWith('/product/')
+      
+      // If user is not logged in and on a protected page, redirect to PWA login
+      // But only redirect from truly protected pages (profile, checkout, orders)
+      const isProtectedPage = ['/profile', '/checkout', '/orders', '/cart'].some(p => normalizedPath.startsWith(p))
+      
+      if (!user && isProtectedPage) {
+        // Redirect to PWA login
+        const locale = pathname?.startsWith('/ar') ? 'ar' : pathname?.startsWith('/ru') ? 'ru' : 'en'
+        const loginPath = locale === 'en' ? '/pwa-login' : `/${locale}/pwa-login`
+        router.replace(loginPath)
+        
+        // Still hide splash after redirect
+        setShowSplash(false)
+        if (typeof window !== 'undefined') {
+          sessionStorage.setItem('pwa_splash_shown', 'true')
+        }
+        return undefined
+      }
+
       // Small delay for smooth transition
       const hideTimer = setTimeout(() => {
         setShowSplash(false)
@@ -62,7 +104,7 @@ export default function PWASplashScreen({ children }: { children: React.ReactNod
     }
     
     return undefined
-  }, [isPWA, hasShownSplash, minTimeElapsed, authLoading])
+  }, [isPWA, hasShownSplash, minTimeElapsed, authLoading, user, pathname, router])
 
   // Don't show splash for non-PWA or if already shown this session
   if (!isClient || !isPWA || hasShownSplash || !showSplash) {

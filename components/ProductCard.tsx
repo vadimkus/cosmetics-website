@@ -19,6 +19,8 @@ import { getProductTranslationsRu } from '@/data/productTranslationsRu'
 import { getLocalizedPath } from '@/lib/i18n'
 import { translateSize } from '@/utils/sizeTranslations'
 import { translateCategory } from '@/utils/categoryTranslations'
+import { usePWAMode } from '@/hooks/usePWAMode'
+import { useRouter } from 'next/navigation'
 
 interface ProductCardProps {
   product: Product
@@ -29,6 +31,8 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
   const { toggleFavorite, isFavorite } = useFavorites()
   const { user } = useAuth()
   const { t, locale } = useTranslation()
+  const { isPWA } = usePWAMode()
+  const router = useRouter()
   const productPath = getLocalizedPath(`/products/${product.productNumber || product.id}`, locale)
   const [isAdding, setIsAdding] = useState(false)
   const [isTogglingFavorite, setIsTogglingFavorite] = useState(false)
@@ -62,8 +66,13 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
   const handleLoginClick = useCallback((e: React.MouseEvent) => {
     e.preventDefault()
     e.stopPropagation()
-    setShowLoginModal(true)
-  }, [])
+    if (isPWA) {
+      const loginPath = locale === 'en' ? '/pwa-login' : `/${locale}/pwa-login`
+      router.push(loginPath)
+    } else {
+      setShowLoginModal(true)
+    }
+  }, [isPWA, locale, router])
 
   const { enabled: animationsEnabled } = useAnimationStore()
 

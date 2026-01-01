@@ -7,13 +7,15 @@ import { motion } from 'framer-motion'
 import { useAnimationStore } from '@/lib/animationStore'
 import { useAuth } from './AuthProvider'
 import LoginModal from './LoginModal'
-import { useState, useMemo, useRef, useEffect } from 'react'
+import { useState, useMemo, useRef, useEffect, useCallback } from 'react'
 import { getLocalizedPath } from '@/lib/i18n'
 import type { Locale } from '@/lib/i18n'
 import enMessages from '@/messages/en.json'
 import arMessages from '@/messages/ar.json'
 import ruMessages from '@/messages/ru.json'
 import { debugLog, warnLog } from '@/lib/logger'
+import { usePWAMode } from '@/hooks/usePWAMode'
+import { useRouter } from 'next/navigation'
 
 interface HeroProps {
   initialLocale?: Locale
@@ -23,11 +25,23 @@ interface HeroProps {
 export default function Hero({ initialLocale = 'en', initialDir = 'ltr' }: HeroProps = {}) {
   const { user } = useAuth()
   const { enabled: animationsEnabled } = useAnimationStore()
+  const { isPWA } = usePWAMode()
+  const router = useRouter()
   const [showLoginModal, setShowLoginModal] = useState(false)
   const [isLoginMode, setIsLoginMode] = useState(true)
   const [videoError, setVideoError] = useState(false)
   const mobileVideoRef = useRef<HTMLVideoElement>(null)
   const desktopVideoRef = useRef<HTMLVideoElement>(null)
+
+  // Handle login click - redirect to PWA login page if in PWA mode
+  const handleLoginClick = useCallback(() => {
+    if (isPWA) {
+      const loginPath = initialLocale === 'en' ? '/pwa-login' : `/${initialLocale}/pwa-login`
+      router.push(loginPath)
+    } else {
+      setShowLoginModal(true)
+    }
+  }, [isPWA, initialLocale, router])
   
   // Try to play video programmatically after load
   useEffect(() => {
@@ -216,7 +230,7 @@ export default function Hero({ initialLocale = 'en', initialDir = 'ltr' }: HeroP
                 </motion.div>
               ) : (
                 <motion.button
-                  onClick={() => setShowLoginModal(true)}
+                  onClick={handleLoginClick}
                   whileHover={animationsEnabled ? { scale: 1.02, y: -2 } : {}}
                   whileTap={animationsEnabled ? { scale: 0.98 } : {}}
                   transition={animationsEnabled ? { duration: 0.2 } : {}}
@@ -303,7 +317,7 @@ export default function Hero({ initialLocale = 'en', initialDir = 'ltr' }: HeroP
               </Link>
             ) : (
               <button
-                onClick={() => setShowLoginModal(true)}
+                onClick={handleLoginClick}
                 className="bg-primary-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-primary-700 transition-colors flex items-center text-lg"
               >
                 {loginText}

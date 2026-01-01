@@ -65,6 +65,9 @@ export function usePullToRefresh({
   const handleRefresh = useCallback(async () => {
     if (state.isRefreshing) return
 
+    // Capture current pull distance before starting refresh
+    const capturedPullDistance = state.pullDistance
+    
     setState((prev) => ({ ...prev, isRefreshing: true }))
     
     try {
@@ -72,47 +75,43 @@ export function usePullToRefresh({
     } catch (error) {
       errorLog('Pull to refresh error:', error)
     } finally {
-      // Smooth reset animation
-      const resetAnimation = () => {
-        if (rafId.current) {
-          cancelAnimationFrame(rafId.current)
-        }
+      // Smooth reset animation using captured distance
+      if (rafId.current) {
+        cancelAnimationFrame(rafId.current)
+      }
 
-        let currentDistance = state.pullDistance
-        const startTime = performance.now()
+      const startDistance = capturedPullDistance
+      const startTime = performance.now()
+      const duration = 300 // 300ms reset animation
 
-        const animate = (currentTime: number) => {
-          const elapsed = currentTime - startTime
-          const duration = 300 // 300ms reset animation
-          const progress = Math.min(elapsed / duration, 1)
-          
-          // Ease-out cubic for smooth deceleration
-          const easeOutCubic = 1 - Math.pow(1 - progress, 3)
-          currentDistance = state.pullDistance * (1 - easeOutCubic)
+      const animate = (currentTime: number) => {
+        const elapsed = currentTime - startTime
+        const progress = Math.min(elapsed / duration, 1)
+        
+        // Ease-out cubic for smooth deceleration
+        const easeOutCubic = 1 - Math.pow(1 - progress, 3)
+        const currentDistance = startDistance * (1 - easeOutCubic)
 
+        if (progress < 1) {
           setState((prev) => ({
             ...prev,
             pullDistance: currentDistance,
           }))
-
-          if (progress < 1) {
-            rafId.current = requestAnimationFrame(animate)
-          } else {
-            rafId.current = null
-            setState({
-              isPulling: false,
-              isRefreshing: false,
-              pullDistance: 0,
-            })
-            lastPullDistance.current = 0
-            velocity.current = 0
-          }
+          rafId.current = requestAnimationFrame(animate)
+        } else {
+          // Animation complete - fully reset state
+          rafId.current = null
+          setState({
+            isPulling: false,
+            isRefreshing: false,
+            pullDistance: 0,
+          })
+          lastPullDistance.current = 0
+          velocity.current = 0
         }
-
-        rafId.current = requestAnimationFrame(animate)
       }
 
-      resetAnimation()
+      rafId.current = requestAnimationFrame(animate)
     }
   }, [onRefresh, state.isRefreshing, state.pullDistance])
 

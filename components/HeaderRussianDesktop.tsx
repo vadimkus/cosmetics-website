@@ -11,16 +11,30 @@ import { AnimationToggle } from './AnimationToggle'
 import { useState, useEffect } from 'react'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
+import { usePWAMode } from '@/hooks/usePWAMode'
+import { useRouter } from 'next/navigation'
 
 export default function HeaderRussianDesktop() {
   const { getTotalItems } = useCartStore()
   const { user, logout } = useAuth()
   const { favorites } = useFavorites()
-  const { t } = useTranslation()
+  const { t, locale } = useTranslation()
+  const { isPWA } = usePWAMode()
+  const router = useRouter()
   const [isClient, setIsClient] = useState(false)
   const [isHeartBeating, setIsHeartBeating] = useState(false)
   const [showLoginModal, setShowLoginModal] = useState(false)
   const [isLoginMode, setIsLoginMode] = useState(true)
+
+  // Handle login click - redirect to PWA login page if in PWA mode
+  const handleLoginClick = () => {
+    if (isPWA) {
+      const loginPath = locale === 'en' ? '/pwa-login' : `/${locale}/pwa-login`
+      router.push(loginPath)
+    } else {
+      setShowLoginModal(true)
+    }
+  }
 
   useEffect(() => {
     setIsClient(true)
@@ -132,7 +146,7 @@ export default function HeaderRussianDesktop() {
             <>
               <LanguageSwitcher />
               <button 
-                onClick={() => setShowLoginModal(true)}
+                onClick={handleLoginClick}
                 className="p-2 text-gray-700 hover:text-primary-600 transition-colors touch-manipulation"
                 aria-label={t('common.login')}
               >

@@ -13,6 +13,8 @@ import { AnimationToggle } from './AnimationToggle'
 import { useState, useEffect } from 'react'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
+import { usePWAMode } from '@/hooks/usePWAMode'
+import { useRouter } from 'next/navigation'
 
 interface HeaderRussianMobileProps {
   showMobileMenu: boolean
@@ -23,7 +25,9 @@ export default function HeaderRussianMobile({ showMobileMenu, setShowMobileMenu 
   const { getTotalItems } = useCartStore()
   const { user } = useAuth()
   const { favorites } = useFavorites()
-  const { t } = useTranslation()
+  const { t, locale } = useTranslation()
+  const { isPWA } = usePWAMode()
+  const router = useRouter()
   const [showLoginModal, setShowLoginModal] = useState(false)
   const [isLoginMode, setIsLoginMode] = useState(true)
   const [isClient, setIsClient] = useState(false)
@@ -31,6 +35,16 @@ export default function HeaderRussianMobile({ showMobileMenu, setShowMobileMenu 
   useEffect(() => {
     setIsClient(true)
   }, [])
+
+  // Handle login click - redirect to PWA login page if in PWA mode
+  const handleLoginClick = () => {
+    if (isPWA) {
+      const loginPath = locale === 'en' ? '/pwa-login' : `/${locale}/pwa-login`
+      router.push(loginPath)
+    } else {
+      setShowLoginModal(true)
+    }
+  }
 
   return (
     <>
@@ -57,7 +71,7 @@ export default function HeaderRussianMobile({ showMobileMenu, setShowMobileMenu 
           </Link>
         ) : (
           <button 
-            onClick={() => setShowLoginModal(true)}
+            onClick={handleLoginClick}
             className="p-1.5 text-gray-700 hover:text-primary-600 transition-colors flex items-center justify-center ml-2"
             aria-label={t('common.login')}
           >

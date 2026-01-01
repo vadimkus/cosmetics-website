@@ -17,7 +17,7 @@ import { useState, useEffect, memo } from 'react'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { usePWAMode } from '@/hooks/usePWAMode'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 
 const Header = memo(function Header() {
   const { getTotalItems } = useCartStore()
@@ -26,11 +26,22 @@ const Header = memo(function Header() {
   const { t, locale } = useTranslation()
   const { isPWA, isClient: isPWAClient } = usePWAMode()
   const pathname = usePathname()
+  const router = useRouter()
   const [showLoginModal, setShowLoginModal] = useState(false)
   const [isLoginMode, setIsLoginMode] = useState(true)
   const [showMobileMenu, setShowMobileMenu] = useState(false)
   const [isClient, setIsClient] = useState(false)
   const [isHeartBeating, setIsHeartBeating] = useState(false)
+
+  // Handle login click - redirect to PWA login page if in PWA mode
+  const handleLoginClick = () => {
+    if (isPWA) {
+      const loginPath = locale === 'en' ? '/pwa-login' : `/${locale}/pwa-login`
+      router.push(loginPath)
+    } else {
+      setShowLoginModal(true)
+    }
+  }
   
   // Check if we're on pages that have their own simple/light header in PWA mode
   const isProductDetailPage = pathname ? /\/products\/[a-zA-Z0-9_-]+$/.test(pathname) : false
@@ -116,7 +127,7 @@ const Header = memo(function Header() {
                 </Link>
               ) : (
                 <button 
-                  onClick={() => setShowLoginModal(true)}
+                  onClick={handleLoginClick}
                   className="p-1.5 text-gray-700 hover:text-primary-600 transition-colors flex items-center justify-center ml-2"
                   aria-label={t('common.login')}
                 >
@@ -223,7 +234,7 @@ const Header = memo(function Header() {
                 </Link>
               ) : (
                 <button 
-                  onClick={() => setShowLoginModal(true)}
+                  onClick={handleLoginClick}
                   className="p-1.5 text-gray-700 hover:text-primary-600 transition-colors flex items-center justify-center mr-2"
                   aria-label={t('common.login')}
                 >
@@ -339,7 +350,7 @@ const Header = memo(function Header() {
                     <>
                       <LanguageSwitcher />
                       <button 
-                        onClick={() => setShowLoginModal(true)}
+                        onClick={handleLoginClick}
                         className="p-2 text-gray-700 hover:text-primary-600 transition-colors touch-manipulation"
                         aria-label={t('common.login')}
                       >
@@ -434,7 +445,7 @@ const Header = memo(function Header() {
                     <>
                       <LanguageSwitcher />
                       <button 
-                        onClick={() => setShowLoginModal(true)}
+                        onClick={handleLoginClick}
                         className="p-2 text-gray-700 hover:text-primary-600 transition-colors touch-manipulation"
                         aria-label={t('common.login')}
                       >

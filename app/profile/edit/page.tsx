@@ -168,6 +168,7 @@ export default function EditProfilePage() {
       const response = await fetch('/api/user/profile', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify(profileData),
       })
       

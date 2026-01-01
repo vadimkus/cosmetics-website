@@ -333,12 +333,7 @@ export default function PWAProfilePage() {
               </h2>
               <p className="text-base text-gray-500 mt-0.5">{displayEmail}</p>
               {user?.phone && (
-                <button 
-                  onClick={() => router.push(getLocalizedPath('/profile/edit', locale) + '?from=profile')}
-                  className="text-sm text-gray-400 mt-1 text-left active:text-blue-500"
-                >
-                  {user.phone}
-                </button>
+                <p className="text-sm text-gray-400 mt-1">{user.phone}</p>
               )}
               <button 
                 onClick={() => router.push(getLocalizedPath('/profile/edit', locale) + '?from=profile')}

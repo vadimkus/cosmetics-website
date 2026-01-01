@@ -112,6 +112,12 @@ export default function MobileFooterNav() {
     const productDetailPattern = /\/products\/[a-zA-Z0-9_-]+$/
     return productDetailPattern.test(pathname)
   }, [pathname])
+  
+  // Check if we're on the PWA login page
+  const isLoginPage = useMemo(() => {
+    if (!pathname) return false
+    return pathname.includes('/pwa-login')
+  }, [pathname])
 
   // Determine active tab
   const activeTab = useMemo(() => {
@@ -128,8 +134,8 @@ export default function MobileFooterNav() {
   const cartCount = isClient ? getTotalItems() : 0
   const hasItemsInCart = cartCount > 0
   
-  // Only render in PWA mode on mobile, hide on product detail pages (they have their own action footer)
-  if (!isClient || !isPWA || isProductDetailPage) {
+  // Only render in PWA mode on mobile, hide on product detail pages and login page
+  if (!isClient || !isPWA || isProductDetailPage || isLoginPage) {
     return null
   }
   

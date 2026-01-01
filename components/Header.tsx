@@ -54,6 +54,7 @@ const Header = memo(function Header() {
                                   pathname?.includes('/faq') ||
                                   pathname?.includes('/contact') ||
                                   pathname?.includes('/about') ||
+                                  pathname?.includes('/pwa-login') ||
                                   isProductDetailPage
   
   // In PWA mode, hide header completely on pages with their own light header

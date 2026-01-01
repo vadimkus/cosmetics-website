@@ -47,6 +47,7 @@ export default function PWAHeader() {
                                 pathname?.includes('/faq') ||
                                 pathname?.includes('/contact') ||
                                 pathname?.includes('/about') ||
+                                pathname?.includes('/pwa-login') ||
                                 isProductDetailPage
   
   // Handle profile button click - with debounce to prevent rapid clicks

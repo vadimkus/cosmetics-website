@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import { usePathname } from 'next/navigation'
 import { useAnimationStore } from '@/lib/animationStore'
+import { usePWAMode } from '@/hooks/usePWAMode'
 import { ReactNode } from 'react'
 
 const pageVariants = {
@@ -30,9 +31,10 @@ interface PageTransitionProps {
 export default function PageTransition({ children }: PageTransitionProps) {
   const pathname = usePathname()
   const { enabled: animationsEnabled } = useAnimationStore()
+  const { isPWA } = usePWAMode()
   
-  // If animations are disabled, render children directly
-  if (!animationsEnabled) {
+  // Disable animations in PWA mode for better performance, or if user disabled them
+  if (isPWA || !animationsEnabled) {
     return <>{children}</>
   }
   

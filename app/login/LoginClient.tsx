@@ -11,7 +11,8 @@ import { getLocalizedPath } from '@/lib/i18n'
 
 export default function LoginClient() {
   const { user, forceRefreshUser } = useAuth()
-  const [showLoginModal, setShowLoginModal] = useState(false)
+  // Show login modal automatically when page loads (no extra click needed)
+  const [showLoginModal, setShowLoginModal] = useState(true)
   const [isLoginMode, setIsLoginMode] = useState(true)
   const [promoCode, setPromoCode] = useState<string>('')
   const router = useRouter()

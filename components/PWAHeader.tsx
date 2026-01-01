@@ -40,6 +40,7 @@ export default function PWAHeader() {
   const isProductDetailPage = pathname ? /\/products\/[a-zA-Z0-9_-]+$/.test(pathname) : false
   const isOnSimpleHeaderPage = pathname?.includes('/profile') || 
                                 pathname?.includes('/cart') || 
+                                pathname?.includes('/checkout') ||
                                 pathname?.includes('/orders') ||
                                 pathname?.includes('/privacy-policy') ||
                                 pathname?.includes('/terms') ||

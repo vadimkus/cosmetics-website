@@ -458,7 +458,7 @@ export default function CartClient() {
               <div className="p-3 md:p-6 border-b border-gray-200">
                 <h1 className={`text-lg md:text-2xl font-bold text-gray-900 flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
                   <ShoppingBag className="h-5 w-5 md:h-6 md:w-6 text-green-600" />
-                  <span className="text-sm md:text-base lg:text-lg">{t('cart.shoppingCart')}</span> <span className="text-sm md:text-base lg:text-lg">{getTotalItems()} {getTotalItems() === 1 ? t('cart.item') : t('cart.items')}</span>
+                  <span className="text-sm md:text-base lg:text-lg">{isPWA ? (t('cart.shoppingBag') || 'Shopping Bag:') : t('cart.shoppingCart')}</span> <span className="text-sm md:text-base lg:text-lg">{getTotalItems()} {getTotalItems() === 1 ? t('cart.item') : t('cart.items')}</span>
                 </h1>
               </div>
               

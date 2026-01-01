@@ -36,6 +36,7 @@ const Header = memo(function Header() {
   const isProductDetailPage = pathname ? /\/products\/[a-zA-Z0-9_-]+$/.test(pathname) : false
   const isOnPWALightHeaderPage = pathname?.includes('/profile') || 
                                   pathname?.includes('/cart') || 
+                                  pathname?.includes('/checkout') ||
                                   pathname?.includes('/orders') ||
                                   pathname?.includes('/privacy-policy') ||
                                   pathname?.includes('/terms') ||

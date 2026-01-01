@@ -70,21 +70,22 @@ export function PullToRefresh({ children, onRefresh, disabled = false }: PullToR
     disabled: disabled,
   })
   
-  // Effective refreshing state - respect force hide
-  const effectiveIsRefreshing = isRefreshing && !forceHideIndicator
+  // When forceHideIndicator is true, hide everything regardless of hook state
+  // This ensures indicator never gets stuck due to state sync issues with router.refresh()
+  const showIndicator = !forceHideIndicator && (isPulling || isRefreshing)
   
-  // Reset forceHideIndicator when refresh cycle ends
+  // Reset forceHideIndicator when both isPulling and isRefreshing are false (new cycle)
   useEffect(() => {
-    if (!isRefreshing && forceHideIndicator) {
+    if (!isPulling && !isRefreshing && forceHideIndicator) {
       setForceHideIndicator(false)
     }
-  }, [isRefreshing, forceHideIndicator])
+  }, [isPulling, isRefreshing, forceHideIndicator])
 
   // IMPORTANT: Only enable in PWA mode
   // For regular browsers, render children without any pull-to-refresh functionality
   // Prevent body scroll when pulling
   useEffect(() => {
-    if (isPWA && (isPulling || effectiveIsRefreshing)) {
+    if (isPWA && showIndicator) {
       document.body.style.overflow = isPulling ? 'hidden' : ''
     } else {
       document.body.style.overflow = ''
@@ -93,7 +94,7 @@ export function PullToRefresh({ children, onRefresh, disabled = false }: PullToR
     return () => {
       document.body.style.overflow = ''
     }
-  }, [isPWA, isPulling, effectiveIsRefreshing])
+  }, [isPWA, isPulling, showIndicator])
 
   if (!isPWA) {
     return <>{children}</>
@@ -107,12 +108,12 @@ export function PullToRefresh({ children, onRefresh, disabled = false }: PullToR
   return (
     <>
       {/* Pull to refresh indicator - show for all PWA */}
-      {(isPulling || effectiveIsRefreshing) && (
+      {showIndicator && (
         <div
           className="fixed top-0 left-0 right-0 z-50 flex items-center justify-center pointer-events-none"
           style={{
             transform: `translate3d(0, ${Math.min(pullDistance, 80)}px, 0)`,
-            transition: effectiveIsRefreshing ? 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)' : 'none',
+            transition: isRefreshing ? 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)' : 'none',
             willChange: 'transform',
             backfaceVisibility: 'hidden',
             WebkitBackfaceVisibility: 'hidden',
@@ -123,28 +124,28 @@ export function PullToRefresh({ children, onRefresh, disabled = false }: PullToR
             style={{
               opacity,
               transform: `translate3d(0, 0, 0) scale(${scale})`,
-              transition: effectiveIsRefreshing ? 'opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)' : 'none',
+              transition: isRefreshing ? 'opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)' : 'none',
               willChange: 'opacity, transform',
               backfaceVisibility: 'hidden',
               WebkitBackfaceVisibility: 'hidden',
             }}
           >
             <RefreshCw
-              className={`h-6 w-6 text-primary-600 ${effectiveIsRefreshing ? 'animate-spin' : ''}`}
+              className={`h-6 w-6 text-primary-600 ${isRefreshing ? 'animate-spin' : ''}`}
               style={{
                 transform: `translate3d(0, 0, 0) rotate(${rotation}deg)`,
-                transition: effectiveIsRefreshing ? 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)' : 'none',
+                transition: isRefreshing ? 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)' : 'none',
                 willChange: 'transform',
                 backfaceVisibility: 'hidden',
                 WebkitBackfaceVisibility: 'hidden',
               }}
             />
-            {pullProgress >= 1 && !effectiveIsRefreshing && (
+            {pullProgress >= 1 && !isRefreshing && (
               <span className="text-xs text-gray-600 mt-1 whitespace-nowrap" dir={dir}>
                 {t('common.releaseToRefresh')}
               </span>
             )}
-            {effectiveIsRefreshing && (
+            {isRefreshing && (
               <span className="text-xs text-gray-600 mt-1 whitespace-nowrap" dir={dir}>
                 {t('common.refreshing')}
               </span>
@@ -153,12 +154,12 @@ export function PullToRefresh({ children, onRefresh, disabled = false }: PullToR
         </div>
       )}
 
-      {/* Content wrapper with pull effect */}
+      {/* Content wrapper with pull effect - also respect forceHideIndicator */}
       <div
         style={{
-          transform: isPulling ? `translate3d(0, ${Math.min(pullDistance, 80)}px, 0)` : 'translate3d(0, 0, 0)',
-          transition: effectiveIsRefreshing || !isPulling ? 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)' : 'none',
-          willChange: isPulling ? 'transform' : 'auto',
+          transform: showIndicator && isPulling ? `translate3d(0, ${Math.min(pullDistance, 80)}px, 0)` : 'translate3d(0, 0, 0)',
+          transition: isRefreshing || !isPulling || forceHideIndicator ? 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)' : 'none',
+          willChange: isPulling && !forceHideIndicator ? 'transform' : 'auto',
           backfaceVisibility: 'hidden',
           WebkitBackfaceVisibility: 'hidden',
         }}

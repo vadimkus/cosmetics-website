@@ -70,7 +70,7 @@ function ProfileItem({
 interface SwitchItemProps {
   icon: React.ReactNode
   title: string
-  subtitle?: string
+  subtitle?: string | undefined
   value: boolean
   onChange: (value: boolean) => void
   disabled?: boolean

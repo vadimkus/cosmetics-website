@@ -60,22 +60,23 @@ export default function PWALoginPage() {
 
     try {
       if (isLoginMode) {
-        const result = await login(email, password)
-        if (result.success) {
+        const success = await login(email, password)
+        if (success) {
           router.replace(getLocalizedPath('/products', locale))
         } else {
-          setError(result.error || t('login.invalidCredentials'))
+          setError(t('authScreen.invalidCredentials'))
         }
       } else {
         if (!name) {
           setError(t('login.fillAllFields'))
           return
         }
-        const result = await register(name, email, password)
-        if (result.success) {
+        // Register requires more parameters - use defaults for PWA simplified flow
+        const success = await register(name, email, password, '', '', '', '')
+        if (success) {
           router.replace(getLocalizedPath('/products', locale))
         } else {
-          setError(result.error || t('login.registrationFailed'))
+          setError(t('authScreen.registrationFailed'))
         }
       }
     } catch (err) {

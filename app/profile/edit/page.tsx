@@ -1,8 +1,7 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
-import Image from 'next/image'
 import { User, Camera, Mail, Calendar, ChevronDown, ArrowLeft, X, AlertTriangle, Trash2 } from 'lucide-react'
 import { useAuth } from '@/components/AuthProvider'
 import { useTranslation } from '@/hooks/useTranslation'
@@ -40,6 +39,9 @@ export default function EditProfilePage() {
   const [showDeleteModal, setShowDeleteModal] = useState(false)
   const [isDeleting, setIsDeleting] = useState(false)
   const [initialSnapshot, setInitialSnapshot] = useState<typeof formData | null>(null)
+  const [profilePicture, setProfilePicture] = useState<string | null>(null)
+  const [isUploadingPhoto, setIsUploadingPhoto] = useState(false)
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
   // Gender options with translations
   const genderOptions = [
@@ -74,17 +76,63 @@ export default function EditProfilePage() {
       }
       setFormData(nextForm)
       setInitialSnapshot(nextForm)
+      setProfilePicture(user.profilePicture || null)
     }
   }, [user])
+
+  // Handle profile photo selection
+  const handlePhotoClick = () => {
+    fileInputRef.current?.click()
+  }
+
+  const handlePhotoChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+
+    // Validate file type
+    if (!file.type.startsWith('image/')) {
+      alert(locale === 'ar' ? 'يرجى اختيار صورة صالحة' : locale === 'ru' ? 'Пожалуйста, выберите изображение' : 'Please select a valid image')
+      return
+    }
+
+    // Validate file size (max 2MB for base64 storage)
+    if (file.size > 2 * 1024 * 1024) {
+      alert(locale === 'ar' ? 'حجم الصورة كبير جداً (الحد الأقصى 2 ميجابايت)' : locale === 'ru' ? 'Изображение слишком большое (макс. 2 МБ)' : 'Image is too large (max 2MB)')
+      return
+    }
+
+    setIsUploadingPhoto(true)
+
+    try {
+      // Convert to base64
+      const reader = new FileReader()
+      reader.onloadend = () => {
+        const base64 = reader.result as string
+        setProfilePicture(base64)
+        setIsUploadingPhoto(false)
+      }
+      reader.readAsDataURL(file)
+    } catch (error) {
+      console.error('Error reading photo:', error)
+      setIsUploadingPhoto(false)
+    }
+
+    // Reset input
+    e.target.value = ''
+  }
 
   const isDirty = useCallback(() => {
     if (!initialSnapshot) return false
     try {
-      return JSON.stringify(formData) !== JSON.stringify(initialSnapshot)
+      // Check form data changes
+      const formChanged = JSON.stringify(formData) !== JSON.stringify(initialSnapshot)
+      // Check profile picture changes
+      const pictureChanged = profilePicture !== (user?.profilePicture || null)
+      return formChanged || pictureChanged
     } catch {
       return true
     }
-  }, [formData, initialSnapshot])
+  }, [formData, initialSnapshot, profilePicture, user?.profilePicture])
 
   const updateField = (field: keyof typeof formData, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }))
@@ -104,12 +152,17 @@ export default function EditProfilePage() {
 
     try {
       setIsSaving(true)
-      const profileData = {
+      const profileData: Record<string, unknown> = {
         name: `${formData.firstName.trim()} ${formData.lastName.trim()}`,
         phone: formData.phone.trim(),
         birthday: formData.birthday,
         gender: formData.gender,
         contactEmail: formData.contactEmail.trim(),
+      }
+      
+      // Include profile picture if it was changed
+      if (profilePicture !== (user?.profilePicture || null)) {
+        profileData.profilePicture = profilePicture
       }
 
       const response = await fetch('/api/user/profile', {
@@ -238,14 +291,29 @@ export default function EditProfilePage() {
             </div>
             <h2 className={`text-lg font-bold text-gray-900 ${isRTL ? 'text-right' : ''}`}>{translations.profilePicture}</h2>
           </div>
-          <div className="flex flex-col items-center py-4 mx-5 bg-gray-50 rounded-xl">
+          {/* Hidden file input */}
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="image/*"
+            onChange={handlePhotoChange}
+            className="hidden"
+          />
+          <button
+            onClick={handlePhotoClick}
+            disabled={isUploadingPhoto}
+            className="w-full flex flex-col items-center py-4 mx-5 bg-gray-50 rounded-xl active:bg-gray-100 transition-colors disabled:opacity-50"
+            style={{ width: 'calc(100% - 40px)', marginLeft: '20px', marginRight: '20px' }}
+          >
             <div className="relative mb-3">
-              {user.profilePicture ? (
-                <Image 
-                  src={user.profilePicture} 
+              {isUploadingPhoto ? (
+                <div className="w-24 h-24 rounded-full bg-gray-200 flex items-center justify-center">
+                  <div className="w-8 h-8 border-2 border-gray-300 border-t-red-600 rounded-full animate-spin" />
+                </div>
+              ) : profilePicture ? (
+                <img 
+                  src={profilePicture} 
                   alt="Profile" 
-                  width={100} 
-                  height={100} 
                   className="w-24 h-24 rounded-full object-cover"
                 />
               ) : (
@@ -257,8 +325,12 @@ export default function EditProfilePage() {
                 <Camera className="w-3.5 h-3.5 text-white" />
               </div>
             </div>
-            <span className="text-sm text-red-600 font-medium">{translations.tapToChange}</span>
-          </div>
+            <span className="text-sm text-red-600 font-medium">
+              {isUploadingPhoto 
+                ? (locale === 'ar' ? 'جارٍ الرفع...' : locale === 'ru' ? 'Загрузка...' : 'Uploading...') 
+                : translations.tapToChange}
+            </span>
+          </button>
         </div>
 
         {/* Personal Information Section */}

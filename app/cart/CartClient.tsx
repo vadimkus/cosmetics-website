@@ -428,23 +428,27 @@ export default function CartClient() {
         </div>
       )}
       
-      {/* Navigation Breadcrumb */}
-      <nav className={`text-xs md:text-base text-gray-600 mb-2 md:mb-4 ${dir === 'rtl' ? 'text-right' : ''}`} aria-label="Breadcrumb">
-        <Link href={getLocalizedPath('/', locale)} className="hover:text-primary-600 transition-colors">{t('common.home')}</Link>
-        <span> / </span>
-        <Link href={getLocalizedPath('/products', locale)} className="hover:text-primary-600 transition-colors">{t('common.products')}</Link>
-        <span> / </span>
-        <span className="text-gray-900 font-medium">{t('common.cart')}</span>
-      </nav>
+      {/* Navigation Breadcrumb - Hide in PWA mode */}
+      {!isPWA && (
+        <nav className={`text-xs md:text-base text-gray-600 mb-2 md:mb-4 ${dir === 'rtl' ? 'text-right' : ''}`} aria-label="Breadcrumb">
+          <Link href={getLocalizedPath('/', locale)} className="hover:text-primary-600 transition-colors">{t('common.home')}</Link>
+          <span> / </span>
+          <Link href={getLocalizedPath('/products', locale)} className="hover:text-primary-600 transition-colors">{t('common.products')}</Link>
+          <span> / </span>
+          <span className="text-gray-900 font-medium">{t('common.cart')}</span>
+        </nav>
+      )}
       
-      {/* Back to Products */}
-      <Link 
-        href={getLocalizedPath('/products', locale)} 
-        className={`inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 mb-4 md:mb-8 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
-      >
-        <ArrowLeft className={`h-3 w-3 md:h-4 md:w-4 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
-        <span>{t('cart.backToProducts') || 'Back to Products'}</span>
-      </Link>
+      {/* Back to Products - Hide in PWA mode */}
+      {!isPWA && (
+        <Link 
+          href={getLocalizedPath('/products', locale)} 
+          className={`inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 mb-4 md:mb-8 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+        >
+          <ArrowLeft className={`h-3 w-3 md:h-4 md:w-4 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
+          <span>{t('cart.backToProducts') || 'Back to Products'}</span>
+        </Link>
+      )}
 
       <div className="max-w-6xl mx-auto" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
         <div className={`flex flex-col lg:flex-row gap-8 ${dir === 'rtl' ? 'lg:flex-row-reverse' : ''}`} style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>

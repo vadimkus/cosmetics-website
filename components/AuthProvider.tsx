@@ -482,8 +482,10 @@ export default function AuthProvider({ children }: AuthProviderProps) {
       // Clear localStorage
       localStorage.removeItem('genosys_user')
       
-      // Clear PWA splash flag so auth check runs when PWA is reopened
+      // Clear ALL PWA-related sessionStorage flags
+      // This is critical for iOS PWA which may persist sessionStorage across restarts
       sessionStorage.removeItem('pwa_splash_shown')
+      sessionStorage.clear() // Nuclear option - clear everything
       
       // Redirect to specified URL or default login page
       // Check if in PWA mode for appropriate login page

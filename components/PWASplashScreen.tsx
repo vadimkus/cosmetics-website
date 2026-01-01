@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 import Image from 'next/image'
 import { usePWAMode } from '@/hooks/usePWAMode'
@@ -25,6 +25,9 @@ export default function PWASplashScreen({ children }: { children: React.ReactNod
   const [showSplash, setShowSplash] = useState(true)
   const [hasShownSplash, setHasShownSplash] = useState(false)
   const [minTimeElapsed, setMinTimeElapsed] = useState(false)
+  
+  // Track if auth check has been done this render cycle
+  const authCheckDone = useRef(false)
 
   // Track if we've already shown splash in this session
   useEffect(() => {
@@ -92,16 +95,20 @@ export default function PWASplashScreen({ children }: { children: React.ReactNod
     return undefined
   }, [isPWA, hasShownSplash, minTimeElapsed, authLoading, user, pathname, router])
 
-  // IMPORTANT: Always check auth state in PWA mode, even after splash was shown
-  // This handles the case when user closes PWA and reopens it while logged out
+  // CRITICAL FIX: Aggressive auth check that runs EVERY time auth state changes
+  // This handles iOS PWA where sessionStorage persists across app restarts
+  // even after logout clears it (iOS suspends/resumes PWA without clearing sessionStorage)
   useEffect(() => {
-    // Only run this check when:
-    // 1. We're in PWA mode
-    // 2. Splash has already been shown (so main redirect logic won't run)
-    // 3. Auth is done loading
-    // 4. User is not logged in
-    if (!isPWA || !hasShownSplash || authLoading || user) return
-
+    // Skip if not in PWA mode or if auth is still loading
+    if (!isPWA || !isClient || authLoading) return
+    
+    // Skip if user is authenticated
+    if (user) {
+      authCheckDone.current = true
+      return
+    }
+    
+    // User is NOT authenticated - check if we need to redirect
     const normalizedPath = pathname?.replace(/^\/(ar|ru)/, '') || '/'
     
     // Don't redirect if already on auth pages
@@ -111,12 +118,18 @@ export default function PWASplashScreen({ children }: { children: React.ReactNod
                        normalizedPath.includes('/forgot-password')
     
     if (!isAuthPage) {
-      // Redirect to PWA login
+      // Not authenticated and not on auth page - redirect to login
       const locale = pathname?.startsWith('/ar') ? 'ar' : pathname?.startsWith('/ru') ? 'ru' : 'en'
       const loginPath = locale === 'en' ? '/pwa-login' : `/${locale}/pwa-login`
-      router.replace(loginPath)
+      
+      // Use a small timeout to avoid React state update issues
+      setTimeout(() => {
+        router.replace(loginPath)
+      }, 50)
     }
-  }, [isPWA, hasShownSplash, authLoading, user, pathname, router])
+    
+    authCheckDone.current = true
+  }, [isPWA, isClient, authLoading, user, pathname, router])
 
   // Don't show splash for non-PWA or if already shown this session
   if (!isClient || !isPWA || hasShownSplash || !showSplash) {

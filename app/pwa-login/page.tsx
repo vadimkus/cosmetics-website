@@ -26,6 +26,14 @@ export default function PWALoginPage() {
   const [error, setError] = useState('')
   const [showLangDropdown, setShowLangDropdown] = useState(false)
 
+  // Clear splash flag when login page mounts (ensures clean state)
+  // This is a safeguard for iOS PWA where sessionStorage can persist
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      sessionStorage.removeItem('pwa_splash_shown')
+    }
+  }, [])
+
   // Redirect if already logged in
   useEffect(() => {
     if (user) {

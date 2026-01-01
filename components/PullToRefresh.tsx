@@ -1,6 +1,6 @@
 'use client'
 
-import { ReactNode, useEffect, useState, useCallback, useRef } from 'react'
+import { ReactNode, useEffect, useCallback } from 'react'
 import { RefreshCw } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { usePullToRefresh } from '@/hooks/usePullToRefresh'
@@ -19,19 +19,7 @@ export function PullToRefresh({ children, onRefresh, disabled = false }: PullToR
   const { t, dir } = useTranslation()
   const router = useRouter()
   
-  // Local state to handle forced refresh indicator hide
-  const [forceHideIndicator, setForceHideIndicator] = useState(false)
-  const refreshTimeoutRef = useRef<NodeJS.Timeout | null>(null)
-
   const handleRefresh = useCallback(async () => {
-    // Reset force hide state
-    setForceHideIndicator(false)
-    
-    // Clear any existing timeout
-    if (refreshTimeoutRef.current) {
-      clearTimeout(refreshTimeoutRef.current)
-    }
-    
     // Check for service worker updates
     try {
       await checkForUpdates()
@@ -47,22 +35,7 @@ export function PullToRefresh({ children, onRefresh, disabled = false }: PullToR
       // This preserves React state and auth context, preventing flash of login page
       router.refresh()
     }
-    
-    // Force hide the indicator after a maximum time
-    // This ensures the indicator never gets stuck
-    refreshTimeoutRef.current = setTimeout(() => {
-      setForceHideIndicator(true)
-    }, 800)
   }, [checkForUpdates, onRefresh, router])
-  
-  // Cleanup timeout on unmount
-  useEffect(() => {
-    return () => {
-      if (refreshTimeoutRef.current) {
-        clearTimeout(refreshTimeoutRef.current)
-      }
-    }
-  }, [])
 
   const { isPulling, isRefreshing, pullDistance, pullProgress, isPWA } = usePullToRefresh({
     onRefresh: handleRefresh,
@@ -70,16 +43,7 @@ export function PullToRefresh({ children, onRefresh, disabled = false }: PullToR
     disabled: disabled,
   })
   
-  // When forceHideIndicator is true, hide everything regardless of hook state
-  // This ensures indicator never gets stuck due to state sync issues with router.refresh()
-  const showIndicator = !forceHideIndicator && (isPulling || isRefreshing)
-  
-  // Reset forceHideIndicator when both isPulling and isRefreshing are false (new cycle)
-  useEffect(() => {
-    if (!isPulling && !isRefreshing && forceHideIndicator) {
-      setForceHideIndicator(false)
-    }
-  }, [isPulling, isRefreshing, forceHideIndicator])
+  const showIndicator = isPulling || isRefreshing
 
   // IMPORTANT: Only enable in PWA mode
   // For regular browsers, render children without any pull-to-refresh functionality
@@ -154,12 +118,12 @@ export function PullToRefresh({ children, onRefresh, disabled = false }: PullToR
         </div>
       )}
 
-      {/* Content wrapper with pull effect - also respect forceHideIndicator */}
+      {/* Content wrapper with pull effect */}
       <div
         style={{
           transform: showIndicator && isPulling ? `translate3d(0, ${Math.min(pullDistance, 80)}px, 0)` : 'translate3d(0, 0, 0)',
-          transition: isRefreshing || !isPulling || forceHideIndicator ? 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)' : 'none',
-          willChange: isPulling && !forceHideIndicator ? 'transform' : 'auto',
+          transition: isRefreshing || !isPulling ? 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)' : 'none',
+          willChange: isPulling ? 'transform' : 'auto',
           backfaceVisibility: 'hidden',
           WebkitBackfaceVisibility: 'hidden',
         }}

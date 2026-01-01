@@ -46,7 +46,7 @@ export default function PWASplashScreen({ children }: { children: React.ReactNod
 
   // Hide splash when both min time has passed AND auth is loaded
   useEffect(() => {
-    if (!isPWA || hasShownSplash) return
+    if (!isPWA || hasShownSplash) return undefined
 
     if (minTimeElapsed && !authLoading) {
       // Small delay for smooth transition
@@ -60,6 +60,8 @@ export default function PWASplashScreen({ children }: { children: React.ReactNod
 
       return () => clearTimeout(hideTimer)
     }
+    
+    return undefined
   }, [isPWA, hasShownSplash, minTimeElapsed, authLoading])
 
   // Don't show splash for non-PWA or if already shown this session

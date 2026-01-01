@@ -1257,7 +1257,8 @@
     "fillAllFields": "يرجى ملء جميع الحقول",
     "invalidEmail": "يرجى إدخال بريد إلكتروني صحيح",
     "loginFailed": "فشل تسجيل الدخول",
-    "registrationFailed": "فشل التسجيل"
+    "registrationFailed": "فشل التسجيل",
+    "invalidCredentials": "بريد إلكتروني أو كلمة مرور غير صحيحة"
   },
   "orderEmail": {
     "cod": {

@@ -1327,7 +1327,8 @@
     "fillAllFields": "Please fill in all fields",
     "invalidEmail": "Please enter a valid email address",
     "loginFailed": "Login failed",
-    "registrationFailed": "Registration failed"
+    "registrationFailed": "Registration failed",
+    "invalidCredentials": "Invalid email or password"
   },
   "auth": {
     "securityErrorCsrf": "Security error: Could not verify request. Please refresh the page and try again.",

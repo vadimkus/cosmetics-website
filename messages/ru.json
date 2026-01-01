@@ -1282,7 +1282,8 @@
     "fillAllFields": "Пожалуйста, заполните все поля",
     "invalidEmail": "Введите корректный email",
     "loginFailed": "Ошибка входа",
-    "registrationFailed": "Ошибка регистрации"
+    "registrationFailed": "Ошибка регистрации",
+    "invalidCredentials": "Неверный email или пароль"
   },
   "orderEmail": {
     "cod": {

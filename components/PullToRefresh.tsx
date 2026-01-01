@@ -2,6 +2,7 @@
 
 import { ReactNode, useEffect } from 'react'
 import { RefreshCw } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 import { usePullToRefresh } from '@/hooks/usePullToRefresh'
 import { useServiceWorkerContext } from '@/components/ServiceWorkerProvider'
 import { useTranslation } from '@/hooks/useTranslation'
@@ -16,6 +17,7 @@ interface PullToRefreshProps {
 export function PullToRefresh({ children, onRefresh, disabled = false }: PullToRefreshProps) {
   const { checkForUpdates } = useServiceWorkerContext()
   const { t, dir } = useTranslation()
+  const router = useRouter()
 
   const handleRefresh = async () => {
     // Check for service worker updates
@@ -29,8 +31,9 @@ export function PullToRefresh({ children, onRefresh, disabled = false }: PullToR
     if (onRefresh) {
       await onRefresh()
     } else {
-      // Default: reload the page
-      window.location.reload()
+      // Use Next.js router.refresh() instead of full page reload
+      // This preserves React state and auth context, preventing flash of login page
+      router.refresh()
     }
   }
 

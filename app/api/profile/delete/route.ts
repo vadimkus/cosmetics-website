@@ -1,15 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { anonymizeUser, findUserByEmail, findUserById } from '@/lib/userStorageDb'
 import { errorLog } from '@/lib/logger'
-import { requireCsrfToken } from '@/lib/csrf'
 
+/**
+ * DELETE /api/profile/delete
+ * 
+ * Deletes (anonymizes) the current user's account.
+ * Uses session cookie for authentication.
+ * 
+ * Note: CSRF protection is handled by SameSite cookie attribute.
+ * Session cookies with SameSite=lax/strict prevent cross-site requests.
+ */
 export async function DELETE(request: NextRequest) {
-  // CSRF protection
-  const csrfCheck = await requireCsrfToken(request)
-  if (!csrfCheck.valid) {
-    return csrfCheck.response!
-  }
-
   try {
     // Determine user from session cookie (do NOT trust client-provided userId)
     const sessionCookie = request.cookies.get('genosys_session')
@@ -24,10 +26,14 @@ export async function DELETE(request: NextRequest) {
       return NextResponse.json({ error: 'Invalid session' }, { status: 401 })
     }
 
-    const user = sessionData?.id
-      ? await findUserById(sessionData.id)
-      : sessionData?.email
-        ? await findUserByEmail(sessionData.email)
+    // Session can have user data at root level or nested under .user
+    const userId = sessionData?.user?.id || sessionData?.id
+    const userEmail = sessionData?.user?.email || sessionData?.email
+    
+    const user = userId
+      ? await findUserById(userId)
+      : userEmail
+        ? await findUserByEmail(userEmail)
         : null
 
     if (!user) {

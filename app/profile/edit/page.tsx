@@ -194,12 +194,39 @@ export default function EditProfilePage() {
     }
   }
 
+  // Helper to get CSRF token from cookie
+  const getCsrfToken = (): string | null => {
+    if (typeof document === 'undefined') return null
+    const cookies = document.cookie.split(';')
+    for (const cookie of cookies) {
+      const [name, value] = cookie.trim().split('=')
+      if (name === 'csrf-token' && value) {
+        return decodeURIComponent(value)
+      }
+    }
+    return null
+  }
+
   const handleDeleteAccount = async () => {
     try {
       setIsDeleting(true)
+      
+      // Get CSRF token from cookie
+      const csrfToken = getCsrfToken()
+      
+      const headers: Record<string, string> = { 
+        'Content-Type': 'application/json',
+      }
+      
+      // Add CSRF token if available
+      if (csrfToken) {
+        headers['X-CSRF-Token'] = csrfToken
+      }
+      
       const response = await fetch('/api/profile/delete', {
         method: 'DELETE',
-        headers: { 'Content-Type': 'application/json' },
+        headers,
+        credentials: 'include',
       })
       
       if (response.ok) {

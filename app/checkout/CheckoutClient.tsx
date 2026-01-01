@@ -1011,11 +1011,13 @@ export default function CheckoutClient() {
                       )}
                     </div>
 
-                    {/* Security Note */}
-                    <div className={`flex items-center justify-center gap-2 text-xs text-gray-400 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                      <Lock className="w-3.5 h-3.5" />
-                      <span>{locale === 'ar' ? 'دفع آمن ومشفر' : locale === 'ru' ? 'Безопасная оплата' : 'Secure & encrypted'}</span>
-                    </div>
+                    {/* Security Note - Only show for online/link payments, not cash */}
+                    {selectedPaymentMethod !== 'cod' && (
+                      <div className={`flex items-center justify-center gap-2 text-xs text-gray-400 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                        <Lock className="w-3.5 h-3.5" />
+                        <span>{locale === 'ar' ? 'دفع آمن ومشفر' : locale === 'ru' ? 'Безопасная оплата' : 'Secure & encrypted'}</span>
+                      </div>
+                    )}
                   </div>
                 ) : (
                   /* Payment Information - Desktop/Mobile Browser Version */

@@ -4,7 +4,7 @@ import { useCart } from '@/components/CartProvider'
 import { useAuth } from '@/components/AuthProvider'
 import { useState, useEffect, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
-import { ArrowLeft, CreditCard, Lock, MapPin, Truck, MessageCircle, Mail, Building, ChevronDown } from 'lucide-react'
+import { ArrowLeft, CreditCard, Lock, MapPin, Truck, MessageCircle, Mail, Building, ChevronDown, User } from 'lucide-react'
 import Link from 'next/link'
 import { calculateDiscountedPrice } from '@/lib/discountUtils'
 import { errorLog, debugLog } from '@/lib/logger'
@@ -672,35 +672,67 @@ export default function CheckoutClient() {
 
   return (
     <div className="container mx-auto px-4 py-2 md:py-8 lg:py-16" dir={dir}>
-      {/* Navigation Breadcrumb */}
-      <div className={`${dir === 'rtl' ? 'flex justify-end' : ''}`}>
-        <nav className={`inline-flex items-baseline gap-1.5 md:gap-2 text-xs md:text-base text-gray-600 mb-1.5 md:mb-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`} aria-label="Breadcrumb">
-          <span className="hover:text-primary-600 transition-colors">
-            <Link href={getLocalizedPath('/', locale)}>{t('checkout.home')}</Link>
-          </span>
-          <span>/</span>
-          <span className="hover:text-primary-600 transition-colors">
-            <Link href={getLocalizedPath('/products', locale)}>{t('checkout.products')}</Link>
-          </span>
-          <span>/</span>
-          <span className="hover:text-primary-600 transition-colors">
-            <Link href={getLocalizedPath('/cart', locale)}>{t('checkout.cart')}</Link>
-          </span>
-          <span>/</span>
-          <span className="text-gray-900 font-medium">{t('checkout.checkout')}</span>
-        </nav>
-      </div>
+      {/* PWA Light Header */}
+      {isPWAClient && isPWA && (
+        <div className={`flex items-center justify-between py-3 mb-4 border-b border-gray-100 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+          {/* Back to Bag */}
+          <Link 
+            href={getLocalizedPath('/cart', locale)}
+            className={`flex items-center gap-1.5 text-gray-600 hover:text-gray-900 transition-colors ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+          >
+            <ArrowLeft className={`h-5 w-5 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
+            <span className="text-sm font-medium">{t('common.bag') || 'Bag'}</span>
+          </Link>
+          
+          {/* Page Title */}
+          <h1 className="text-lg font-semibold text-gray-900">
+            {t('checkout.checkout')}
+          </h1>
+          
+          {/* Profile Icon */}
+          <Link 
+            href={getLocalizedPath('/profile', locale)}
+            className="relative p-1"
+          >
+            <User className="h-6 w-6 text-gray-600" />
+            <span className="absolute bottom-0.5 right-0.5 w-2.5 h-2.5 bg-green-500 rounded-full border-2 border-white"></span>
+          </Link>
+        </div>
+      )}
+
+      {/* Navigation Breadcrumb - Hide in PWA mode */}
+      {!(isPWAClient && isPWA) && (
+        <div className={`${dir === 'rtl' ? 'flex justify-end' : ''}`}>
+          <nav className={`inline-flex items-baseline gap-1.5 md:gap-2 text-xs md:text-base text-gray-600 mb-1.5 md:mb-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`} aria-label="Breadcrumb">
+            <span className="hover:text-primary-600 transition-colors">
+              <Link href={getLocalizedPath('/', locale)}>{t('checkout.home')}</Link>
+            </span>
+            <span>/</span>
+            <span className="hover:text-primary-600 transition-colors">
+              <Link href={getLocalizedPath('/products', locale)}>{t('checkout.products')}</Link>
+            </span>
+            <span>/</span>
+            <span className="hover:text-primary-600 transition-colors">
+              <Link href={getLocalizedPath('/cart', locale)}>{t('checkout.cart')}</Link>
+            </span>
+            <span>/</span>
+            <span className="text-gray-900 font-medium">{t('checkout.checkout')}</span>
+          </nav>
+        </div>
+      )}
       
-      {/* Back to Cart */}
-      <div className={`mb-4 md:mb-8 ${dir === 'rtl' ? 'flex justify-end' : ''}`}>
-        <Link 
-          href={getLocalizedPath('/cart', locale)} 
-          className={`inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
-        >
-          <ArrowLeft className={`h-3 w-3 md:h-4 md:w-4 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
-          <span>{t('checkout.backToCart')}</span>
-        </Link>
-      </div>
+      {/* Back to Cart - Hide in PWA mode */}
+      {!(isPWAClient && isPWA) && (
+        <div className={`mb-4 md:mb-8 ${dir === 'rtl' ? 'flex justify-end' : ''}`}>
+          <Link 
+            href={getLocalizedPath('/cart', locale)} 
+            className={`inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+          >
+            <ArrowLeft className={`h-3 w-3 md:h-4 md:w-4 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
+            <span>{t('checkout.backToCart')}</span>
+          </Link>
+        </div>
+      )}
 
       <div className="max-w-6xl mx-auto">
         {/* Order Number & Summary - PWA Only (Above Form) */}

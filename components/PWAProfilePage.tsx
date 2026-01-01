@@ -130,8 +130,11 @@ export default function PWAProfilePage() {
   const [ordersCount, setOrdersCount] = useState(0)
   const [emailNotifications, setEmailNotifications] = useState(true)
   const [pushNotifications, setPushNotifications] = useState(false)
+  const [pushSupported, setPushSupported] = useState(false)
   const [faceIdEnabled, setFaceIdEnabled] = useState(false)
+  const [faceIdSupported] = useState(false) // Face ID not available in PWA
   const [isLoggingOut, setIsLoggingOut] = useState(false)
+  const [showFaceIdInfo, setShowFaceIdInfo] = useState(false)
   
   const isRTL = dir === 'rtl'
   const cartCount = getTotalItems()
@@ -152,6 +155,76 @@ export default function PWAProfilePage() {
     }
     fetchOrdersCount()
   }, [user?.email])
+  
+  // Check push notification support and permission
+  useEffect(() => {
+    const checkPushSupport = async () => {
+      // Check if push notifications are supported
+      const supported = 'Notification' in window && 'serviceWorker' in navigator && 'PushManager' in window
+      setPushSupported(supported)
+      
+      if (supported) {
+        // Check current permission status
+        const permission = Notification.permission
+        setPushNotifications(permission === 'granted')
+      }
+    }
+    checkPushSupport()
+  }, [])
+  
+  // Handle push notification toggle
+  const handlePushToggle = async (enabled: boolean) => {
+    if (!pushSupported) {
+      alert(t('pwaProfile.pushNotSupported') || 'Push notifications are not supported on this device/browser.')
+      return
+    }
+    
+    if (enabled) {
+      try {
+        const permission = await Notification.requestPermission()
+        if (permission === 'granted') {
+          setPushNotifications(true)
+          // Register for push notifications
+          const registration = await navigator.serviceWorker.ready
+          const subscription = await registration.pushManager.subscribe({
+            userVisibleOnly: true,
+            applicationServerKey: process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY
+          })
+          console.log('Push subscription:', subscription)
+          // Here you would typically send the subscription to your server
+        } else {
+          setPushNotifications(false)
+          if (permission === 'denied') {
+            alert(t('pwaProfile.pushDenied') || 'Push notifications were denied. Please enable them in your browser settings.')
+          }
+        }
+      } catch (error) {
+        console.error('Push subscription error:', error)
+        setPushNotifications(false)
+      }
+    } else {
+      setPushNotifications(false)
+      // Optionally unsubscribe from push
+      try {
+        const registration = await navigator.serviceWorker.ready
+        const subscription = await registration.pushManager.getSubscription()
+        if (subscription) {
+          await subscription.unsubscribe()
+        }
+      } catch (error) {
+        console.error('Push unsubscribe error:', error)
+      }
+    }
+  }
+  
+  // Handle Face ID toggle - show info modal
+  const handleFaceIdToggle = (enabled: boolean) => {
+    if (enabled) {
+      setShowFaceIdInfo(true)
+    } else {
+      setFaceIdEnabled(false)
+    }
+  }
   
   // Handle sign out
   const handleSignOut = async () => {
@@ -371,8 +444,10 @@ export default function PWAProfilePage() {
             <SwitchItem
               icon={<svg className="w-5 h-5 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>}
               title={t('pwaProfile.faceId')}
+              subtitle={!faceIdSupported ? (t('pwaProfile.faceIdNotAvailable') || 'Available in iOS App') : undefined}
               value={faceIdEnabled}
-              onChange={setFaceIdEnabled}
+              onChange={handleFaceIdToggle}
+              disabled={!faceIdSupported}
               isRTL={isRTL}
             />
             <SwitchItem
@@ -386,8 +461,10 @@ export default function PWAProfilePage() {
             <SwitchItem
               icon={<svg className="w-5 h-5 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" /></svg>}
               title={t('pwaProfile.pushNotifications')}
+              subtitle={!pushSupported ? (t('pwaProfile.pushNotSupported') || 'Not supported') : (pushNotifications ? (t('pwaProfile.pushEnabled') || 'Enabled') : (t('pwaProfile.pushDisabled') || 'Tap to enable'))}
               value={pushNotifications}
-              onChange={setPushNotifications}
+              onChange={handlePushToggle}
+              disabled={!pushSupported}
               isRTL={isRTL}
             />
             <ProfileItem
@@ -460,6 +537,46 @@ export default function PWAProfilePage() {
           </p>
         </div>
       </div>
+
+      {/* Face ID Info Modal */}
+      {showFaceIdInfo && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
+          <div className="bg-white rounded-2xl p-6 max-w-sm w-full">
+            <div className="text-center mb-4">
+              <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg className="w-8 h-8 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                {t('pwaProfile.faceIdTitle') || 'Face ID / Touch ID'}
+              </h3>
+              <p className="text-gray-600 text-sm leading-relaxed">
+                {t('pwaProfile.faceIdDescription') || 'Biometric authentication (Face ID / Touch ID) is not available in web browsers for security reasons.'}
+              </p>
+              <p className="text-gray-600 text-sm leading-relaxed mt-3">
+                {t('pwaProfile.faceIdNativeApp') || 'For Face ID authentication, please download our native iOS app from the App Store.'}
+              </p>
+            </div>
+            <div className="space-y-2">
+              <a
+                href="https://apps.apple.com/app/genosys-uae"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block w-full bg-black text-white py-3 rounded-xl text-center font-medium"
+              >
+                {t('pwaProfile.downloadiOSApp') || 'Download iOS App'}
+              </a>
+              <button
+                onClick={() => setShowFaceIdInfo(false)}
+                className="block w-full bg-gray-100 text-gray-700 py-3 rounded-xl text-center font-medium"
+              >
+                {t('common.close') || 'Close'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

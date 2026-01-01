@@ -34,6 +34,10 @@ export function PullToRefresh({ children, onRefresh, disabled = false }: PullToR
       // Use Next.js router.refresh() instead of full page reload
       // This preserves React state and auth context, preventing flash of login page
       router.refresh()
+      
+      // router.refresh() returns immediately, so add a small delay
+      // to allow the refresh to complete and show the animation properly
+      await new Promise(resolve => setTimeout(resolve, 500))
     }
   }
 

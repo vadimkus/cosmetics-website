@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef, useCallback } from 'react'
+import { usePathname } from 'next/navigation'
 import { errorLog } from '@/lib/logger'
 
 interface UsePullToRefreshOptions {
@@ -29,6 +30,12 @@ function isPWA(): boolean {
     (window.navigator as any).standalone === true
 }
 
+// Pages where pull-to-refresh should be disabled
+function shouldDisableOnPage(pathname: string | null): boolean {
+  if (!pathname) return false
+  return pathname.includes('/pdf-viewer')
+}
+
 // Detect if running on iOS
 function isIOS(): boolean {
   if (typeof window === 'undefined') return false
@@ -40,6 +47,7 @@ export function usePullToRefresh({
   threshold = 80,
   disabled = false,
 }: UsePullToRefreshOptions) {
+  const pathname = usePathname()
   const [state, setState] = useState<PullToRefreshState>({
     isPulling: false,
     isRefreshing: false,
@@ -56,11 +64,13 @@ export function usePullToRefresh({
 
   const pwa = isPWA()
   const ios = isIOS()
+  const disabledOnPage = shouldDisableOnPage(pathname)
   
   // IMPORTANT: Only enable for PWA mode
   // For regular browsers (iOS Safari, Android Chrome), disable completely
   // iOS PWA doesn't have native pull-to-refresh, so we use custom implementation for all PWA
-  const shouldEnable = pwa && !disabled
+  // Also disable on specific pages like PDF viewer
+  const shouldEnable = pwa && !disabled && !disabledOnPage
 
   const handleRefresh = useCallback(async () => {
     if (state.isRefreshing) return

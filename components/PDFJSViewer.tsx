@@ -2,6 +2,8 @@
 
 import { useState, useCallback, useEffect, useRef } from 'react'
 import { Document, Page, pdfjs } from 'react-pdf'
+import 'react-pdf/dist/Page/AnnotationLayer.css'
+import 'react-pdf/dist/Page/TextLayer.css'
 import { 
   ChevronLeft, 
   ChevronRight, 
@@ -16,8 +18,8 @@ import {
 import { usePDFTracking } from '@/lib/pdfTracking'
 import { errorLog } from '@/lib/logger'
 
-// Configure PDF.js worker
-pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`
+// Configure PDF.js worker - use cdnjs for better reliability
+pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.mjs`
 
 interface PDFJSViewerProps {
   pdfUrl: string
@@ -86,6 +88,7 @@ export default function PDFJSViewer({ pdfUrl, filename, onClose }: PDFJSViewerPr
 
   // Document loaded callback
   const onDocumentLoadSuccess = useCallback(({ numPages }: { numPages: number }) => {
+    console.log('PDF loaded successfully, pages:', numPages)
     setNumPages(numPages)
     setIsLoading(false)
     setError(null)
@@ -93,9 +96,21 @@ export default function PDFJSViewer({ pdfUrl, filename, onClose }: PDFJSViewerPr
 
   // Document load error callback
   const onDocumentLoadError = useCallback((err: Error) => {
+    console.error('PDF load error:', err)
     errorLog('PDF load error:', err)
     setIsLoading(false)
     setError('Failed to load PDF. The file may be unavailable or corrupted.')
+  }, [])
+  
+  // Page render success callback
+  const onPageRenderSuccess = useCallback(() => {
+    console.log('PDF page rendered successfully')
+  }, [])
+  
+  // Page render error callback  
+  const onPageRenderError = useCallback((err: Error) => {
+    console.error('PDF page render error:', err)
+    errorLog('PDF page render error:', err)
   }, [])
 
   // Navigation functions
@@ -318,11 +333,13 @@ export default function PDFJSViewer({ pdfUrl, filename, onClose }: PDFJSViewerPr
             pageNumber={pageNumber}
             scale={scale}
             rotate={rotation}
-            {...(containerWidth > 0 ? { width: containerWidth - 16 } : {})}
+            {...(containerWidth > 0 ? { width: containerWidth - 32 } : {})}
             renderTextLayer={false}
             renderAnnotationLayer={false}
             className="shadow-2xl mx-auto"
             loading={null}
+            onRenderSuccess={onPageRenderSuccess}
+            onRenderError={onPageRenderError}
           />
         </Document>
       </div>

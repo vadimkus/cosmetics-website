@@ -190,20 +190,36 @@ export default function PWAProfilePage() {
     
     if (enabled) {
       try {
+        // First request permission
         const permission = await Notification.requestPermission()
+        console.log('[PUSH] Permission result:', permission)
+        
         if (permission === 'granted') {
-          // Register for push notifications
+          // Wait for service worker
+          console.log('[PUSH] Waiting for service worker...')
           const registration = await navigator.serviceWorker.ready
-          const vapidKey = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY
+          console.log('[PUSH] Service worker ready')
           
+          // Get VAPID key
+          const vapidKey = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY
+          console.log('[PUSH] VAPID key present:', !!vapidKey)
+          
+          if (!vapidKey) {
+            throw new Error('Push notifications not configured (missing VAPID key)')
+          }
+          
+          // Subscribe to push
           const subscribeOptions = {
             userVisibleOnly: true,
-            applicationServerKey: vapidKey ? urlBase64ToUint8Array(vapidKey) : undefined
+            applicationServerKey: urlBase64ToUint8Array(vapidKey)
           }
+          
+          console.log('[PUSH] Subscribing to push manager...')
           const subscription = await registration.pushManager.subscribe(subscribeOptions as PushSubscriptionOptionsInit)
-          console.log('Push subscription:', subscription)
+          console.log('[PUSH] Got subscription:', subscription.endpoint.substring(0, 50))
           
           // Send subscription to server
+          console.log('[PUSH] Saving to server...')
           const response = await fetch('/api/push/subscribe', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -212,9 +228,11 @@ export default function PWAProfilePage() {
           })
           
           const data = await response.json()
+          console.log('[PUSH] Server response:', data)
+          
           if (data.success) {
             setPushNotifications(true)
-            console.log('Push subscription saved to server')
+            console.log('[PUSH] Subscription saved successfully!')
           } else {
             throw new Error(data.error || 'Failed to save subscription')
           }
@@ -224,10 +242,19 @@ export default function PWAProfilePage() {
             alert(t('pwaProfile.pushDenied') || 'Push notifications were denied. Please enable them in your browser settings.')
           }
         }
-      } catch (error) {
-        console.error('Push subscription error:', error)
+      } catch (error: any) {
+        console.error('[PUSH] Error:', error)
         setPushNotifications(false)
-        alert('Failed to enable notifications. Please try again.')
+        
+        // Show more specific error message
+        const errorMessage = error?.message || 'Unknown error'
+        if (errorMessage.includes('VAPID')) {
+          alert('Push notifications are not configured. Please contact support.')
+        } else if (errorMessage.includes('Authentication')) {
+          alert('Please log in again to enable notifications.')
+        } else {
+          alert(`Failed to enable notifications: ${errorMessage}`)
+        }
       }
     } else {
       // Unsubscribe from push

@@ -236,9 +236,17 @@ export default function PWAHeader() {
           {/* Right Side: User Avatar - Toggle behavior */}
           <button 
             onClick={handleProfileClick}
-            disabled={isNavigating}
-            className={`flex items-center p-1 -m-1 touch-manipulation transition-all ${isNavigating ? 'opacity-50 scale-95' : 'active:scale-95'}`}
-            style={{ WebkitTapHighlightColor: 'transparent' }}
+            onTouchEnd={(e) => {
+              // Prevent ghost clicks on touch devices
+              e.preventDefault()
+              if (isReady && !isNavigating) handleProfileClick()
+            }}
+            disabled={isNavigating || !isReady}
+            className={`flex items-center p-2.5 -m-1 touch-manipulation transition-all select-none ${isNavigating ? 'opacity-50 scale-95' : 'active:scale-95'}`}
+            style={{ 
+              WebkitTapHighlightColor: 'transparent',
+              touchAction: 'manipulation'
+            }}
             aria-label={isOnProfilePage ? 'Go back' : 'Open profile'}
           >
             {user ? (

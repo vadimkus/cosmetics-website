@@ -123,6 +123,25 @@ export default function PWASubscribersPage() {
     }
   }, [isCheckingAuth, adminSession?.email, loadSubscribers])
 
+  // Group subscribers by user to get unique users
+  const uniqueUsers = subscribers.reduce((acc, sub) => {
+    const userId = sub.user?.id || sub.userId
+    if (!acc.find(u => (u.user?.id || u.userId) === userId)) {
+      acc.push(sub)
+    }
+    return acc
+  }, [] as PWASubscriber[])
+
+  // Get subscription count for a user
+  const getSubscriptionCount = (userId: string) => {
+    return subscribers.filter(s => (s.user?.id || s.userId) === userId).length
+  }
+
+  // Get all subscriptions for a user
+  const getUserSubscriptions = (userId: string) => {
+    return subscribers.filter(s => (s.user?.id || s.userId) === userId)
+  }
+
   // Delete a subscription
   const handleDelete = async (subscriptionId: string, endpoint: string) => {
     if (!confirm('Are you sure you want to remove this PWA subscription? The user will need to re-enable push notifications.')) {
@@ -203,13 +222,26 @@ export default function PWASubscribersPage() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Stats Card */}
         <div className="bg-white rounded-xl border border-gray-200 p-6 mb-6">
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-xl bg-blue-100 flex items-center justify-center">
-              <Users className="w-6 h-6 text-blue-600" />
+          <div className="flex items-center gap-6">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-xl bg-blue-100 flex items-center justify-center">
+                <Users className="w-6 h-6 text-blue-600" />
+              </div>
+              <div>
+                <p className="text-3xl font-bold text-gray-900">{uniqueUsers.length}</p>
+                <p className="text-sm text-gray-500">Unique users</p>
+              </div>
             </div>
-            <div>
-              <p className="text-3xl font-bold text-gray-900">{subscribers.length}</p>
-              <p className="text-sm text-gray-500">Active PWA subscribers</p>
+            <div className="border-l border-gray-200 pl-6">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-xl bg-green-100 flex items-center justify-center">
+                  <Smartphone className="w-6 h-6 text-green-600" />
+                </div>
+                <div>
+                  <p className="text-3xl font-bold text-gray-900">{subscribers.length}</p>
+                  <p className="text-sm text-gray-500">Total subscriptions</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -251,65 +283,84 @@ export default function PWASubscribersPage() {
           </div>
         )}
 
-        {/* Subscribers List */}
-        {!loading && subscribers.length > 0 && (
+        {/* Subscribers List - Grouped by User */}
+        {!loading && uniqueUsers.length > 0 && (
           <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
             <div className="px-6 py-4 border-b border-gray-200 bg-gray-50">
-              <h3 className="font-semibold text-gray-900">All Subscribers</h3>
+              <h3 className="font-semibold text-gray-900">All Subscribers (grouped by user)</h3>
             </div>
             <div className="divide-y divide-gray-100">
-              {subscribers.map((sub) => (
-                <div key={sub.id} className="p-4 hover:bg-gray-50 transition-colors">
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="flex-1 min-w-0">
-                      {/* User Info */}
-                      <div className="flex items-center gap-3 mb-2">
-                        <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
-                          <span className="text-blue-600 font-semibold">
-                            {sub.user?.name?.charAt(0) || sub.user?.email?.charAt(0) || '?'}
-                          </span>
+              {uniqueUsers.map((sub) => {
+                const userId = sub.user?.id || sub.userId
+                const subCount = getSubscriptionCount(userId)
+                const userSubs = getUserSubscriptions(userId)
+                
+                return (
+                  <div key={userId} className="p-4 hover:bg-gray-50 transition-colors">
+                    <div className="flex items-start justify-between gap-4">
+                      <div className="flex-1 min-w-0">
+                        {/* User Info */}
+                        <div className="flex items-center gap-3 mb-2">
+                          <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
+                            <span className="text-blue-600 font-semibold">
+                              {sub.user?.name?.charAt(0) || sub.user?.email?.charAt(0) || '?'}
+                            </span>
+                          </div>
+                          <div className="min-w-0">
+                            <div className="flex items-center gap-2">
+                              <p className="font-medium text-gray-900 truncate">
+                                {sub.user?.name || 'Unknown User'}
+                              </p>
+                              {subCount > 1 && (
+                                <span className="px-2 py-0.5 bg-blue-100 text-blue-700 text-xs font-medium rounded-full">
+                                  {subCount} devices
+                                </span>
+                              )}
+                            </div>
+                            <div className="flex items-center gap-1 text-sm text-gray-500">
+                              <Mail className="w-3.5 h-3.5" />
+                              <span className="truncate">{sub.user?.email || sub.userId}</span>
+                            </div>
+                          </div>
                         </div>
-                        <div className="min-w-0">
-                          <p className="font-medium text-gray-900 truncate">
-                            {sub.user?.name || 'Unknown User'}
-                          </p>
-                          <div className="flex items-center gap-1 text-sm text-gray-500">
-                            <Mail className="w-3.5 h-3.5" />
-                            <span className="truncate">{sub.user?.email || sub.userId}</span>
+
+                        {/* Details */}
+                        <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-gray-500 ml-13">
+                          {sub.user?.phone && (
+                            <div className="flex items-center gap-1">
+                              <Phone className="w-3.5 h-3.5" />
+                              <span>{sub.user.phone}</span>
+                            </div>
+                          )}
+                          <div className="flex items-center gap-1">
+                            <Smartphone className="w-3.5 h-3.5" />
+                            <span>{userSubs.map(s => getDeviceInfo(s.userAgent)).filter((v, i, a) => a.indexOf(v) === i).join(', ')}</span>
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <Calendar className="w-3.5 h-3.5" />
+                            <span>First subscribed {formatDate(userSubs.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime())[0]?.createdAt || sub.createdAt)}</span>
                           </div>
                         </div>
                       </div>
 
-                      {/* Details */}
-                      <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-gray-500 ml-13">
-                        {sub.user?.phone && (
-                          <div className="flex items-center gap-1">
-                            <Phone className="w-3.5 h-3.5" />
-                            <span>{sub.user.phone}</span>
-                          </div>
-                        )}
-                        <div className="flex items-center gap-1">
-                          <Smartphone className="w-3.5 h-3.5" />
-                          <span>{getDeviceInfo(sub.userAgent)}</span>
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <Calendar className="w-3.5 h-3.5" />
-                          <span>Subscribed {formatDate(sub.createdAt)}</span>
-                        </div>
+                      {/* Actions - Delete all subscriptions for this user */}
+                      <div className="flex items-center gap-2">
+                        {userSubs.map((userSub, idx) => (
+                          <button
+                            key={userSub.id}
+                            onClick={() => handleDelete(userSub.id, userSub.endpoint)}
+                            className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                            title={`Remove ${getDeviceInfo(userSub.userAgent)} subscription`}
+                          >
+                            <Trash2 className="w-4 h-4" />
+                            {subCount > 1 && <span className="sr-only">Device {idx + 1}</span>}
+                          </button>
+                        ))}
                       </div>
                     </div>
-
-                    {/* Actions */}
-                    <button
-                      onClick={() => handleDelete(sub.id, sub.endpoint)}
-                      className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
-                      title="Remove subscription"
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </button>
                   </div>
-                </div>
-              ))}
+                )
+              })}
             </div>
           </div>
         )}

@@ -484,12 +484,16 @@ export default function AdminPromotionsManager({
               <p className="text-sm text-gray-600">
                 Send push notifications to all PWA users. They will see it on their device and in Announcements.
               </p>
-              {/* Active PWA subscribers count */}
+              {/* Active PWA subscribers count - clickable */}
               <div className="flex items-center gap-2 mt-2">
-                <div className="flex items-center gap-1.5 px-2.5 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">
+                <a 
+                  href="/admin/pwa-subscribers"
+                  className="flex items-center gap-1.5 px-2.5 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium hover:bg-blue-200 transition-colors cursor-pointer"
+                >
                   <Users className="h-3.5 w-3.5" />
                   <span>{pwaSubscribersCount} active PWA {pwaSubscribersCount === 1 ? 'subscriber' : 'subscribers'}</span>
-                </div>
+                  <span className="text-blue-500">→</span>
+                </a>
               </div>
             </div>
           </div>

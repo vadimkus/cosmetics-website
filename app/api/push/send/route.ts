@@ -182,13 +182,14 @@ export async function POST(request: NextRequest) {
 /**
  * GET /api/push/send
  * 
- * Get list of sent notifications (admin only)
+ * Get list of sent notifications and subscriber count (admin only)
  */
 export async function GET(request: NextRequest) {
   const auth = await requireAdminAuth(request)
   if (!auth.authorized) return auth.response
 
   try {
+    // Get notifications
     const notifications = await prisma.pWANotification.findMany({
       orderBy: { sentAt: 'desc' },
       take: 50,
@@ -199,8 +200,12 @@ export async function GET(request: NextRequest) {
       }
     })
 
+    // Get total active subscribers count
+    const subscribersCount = await prisma.pushSubscription.count()
+
     return NextResponse.json({
       success: true,
+      subscribersCount,
       notifications: notifications.map(n => ({
         ...n,
         readCount: n._count.reads

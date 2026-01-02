@@ -21,31 +21,70 @@ interface PWASubscriber {
   } | null
 }
 
+interface AdminSession {
+  email: string
+  name?: string
+}
+
 export default function PWASubscribersPage() {
   const router = useRouter()
   const [loading, setLoading] = useState(true)
   const [subscribers, setSubscribers] = useState<PWASubscriber[]>([])
   const [error, setError] = useState<string | null>(null)
+  const [adminSession, setAdminSession] = useState<AdminSession | null>(null)
+  const [isCheckingAuth, setIsCheckingAuth] = useState(true)
 
-  // Get admin headers
-  const getAdminHeaders = useCallback(() => {
+  // Check admin session on mount
+  useEffect(() => {
+    const checkSession = () => {
+      if (typeof window !== 'undefined') {
+        const sessionStr = localStorage.getItem('admin_session')
+        if (sessionStr) {
+          try {
+            const session = JSON.parse(sessionStr)
+            if (session?.email) {
+              setAdminSession(session)
+            }
+          } catch {
+            // Invalid session
+          }
+        }
+      }
+      setIsCheckingAuth(false)
+    }
+    
+    checkSession()
+  }, [])
+
+  // Get admin headers with CSRF and admin email
+  const getAdminHeaders = useCallback((): Record<string, string> => {
     const headers: Record<string, string> = {
       'Content-Type': 'application/json',
     }
     
-    // Get admin token from localStorage
+    // Add CSRF token if available
     if (typeof window !== 'undefined') {
-      const adminToken = localStorage.getItem('admin_token')
-      if (adminToken) {
-        headers['Authorization'] = `Bearer ${adminToken}`
+      const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content')
+      if (csrfToken) {
+        headers['X-CSRF-Token'] = csrfToken
       }
     }
     
+    if (adminSession?.email) {
+      headers['X-Admin-Email'] = adminSession.email
+    }
+    
     return headers
-  }, [])
+  }, [adminSession?.email])
 
   // Load subscribers
   const loadSubscribers = useCallback(async () => {
+    if (!adminSession?.email) {
+      setError('Please log in to admin first.')
+      setLoading(false)
+      return
+    }
+    
     setLoading(true)
     setError(null)
     
@@ -72,11 +111,17 @@ export default function PWASubscribersPage() {
     } finally {
       setLoading(false)
     }
-  }, [getAdminHeaders])
+  }, [getAdminHeaders, adminSession?.email])
 
+  // Load when admin session is ready
   useEffect(() => {
-    loadSubscribers()
-  }, [loadSubscribers])
+    if (!isCheckingAuth && adminSession?.email) {
+      loadSubscribers()
+    } else if (!isCheckingAuth && !adminSession?.email) {
+      setError('Please log in to admin first.')
+      setLoading(false)
+    }
+  }, [isCheckingAuth, adminSession?.email, loadSubscribers])
 
   // Delete a subscription
   const handleDelete = async (subscriptionId: string, endpoint: string) => {
@@ -172,7 +217,15 @@ export default function PWASubscribersPage() {
         {/* Error State */}
         {error && (
           <div className="bg-red-50 border border-red-200 rounded-xl p-4 mb-6">
-            <p className="text-red-700">{error}</p>
+            <p className="text-red-700 mb-3">{error}</p>
+            {!adminSession?.email && (
+              <button
+                onClick={() => router.push('/admin')}
+                className="px-4 py-2 bg-red-600 text-white rounded-lg text-sm font-medium hover:bg-red-700 transition-colors"
+              >
+                Go to Admin Login
+              </button>
+            )}
           </div>
         )}
 

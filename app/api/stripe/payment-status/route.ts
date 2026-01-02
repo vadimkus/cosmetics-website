@@ -66,8 +66,14 @@ export async function GET(request: NextRequest) {
         orderStatus = 'FAILED'
     }
 
-    // Send payment confirmation email for successful payments
-    if (paymentStatus === 'paid') {
+    // ONLY send emails if the order status is actually changing to 'paid' (first time)
+    // This prevents duplicate emails when the payment status endpoint is called multiple times
+    const isStatusChangingToPaid = paymentStatus === 'paid' && order.paymentStatus !== 'paid'
+    
+    // Send payment confirmation email for successful payments (only on first confirmation)
+    if (isStatusChangingToPaid) {
+      debugLog('📧 Order status changing to paid, sending emails for:', order.orderNumber)
+      
       try {
         const { sendEmail, generateStripePaymentConfirmationHTML } = await import('@/lib/email')
         
@@ -131,7 +137,7 @@ export async function GET(request: NextRequest) {
         // Don't fail the entire request if email fails
       }
       
-      // Send admin notification for new paid order
+      // Send admin notification for new paid order (only on first confirmation)
       try {
         const { sendAdminNewOrderNotification } = await import('@/lib/email')
         
@@ -162,6 +168,8 @@ export async function GET(request: NextRequest) {
       } catch (adminError) {
         errorLog('❌ Failed to send admin notification:', adminError)
       }
+    } else if (paymentStatus === 'paid') {
+      debugLog('ℹ️ Order already marked as paid, skipping duplicate emails for:', order.orderNumber)
     }
 
     // Update order status if it has changed (separate from email sending)

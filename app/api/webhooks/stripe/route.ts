@@ -147,8 +147,12 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) 
       status: updateData.status
     })
 
-    // If payment is complete, send confirmation emails
-    if (session.payment_status === 'paid') {
+    // If payment is complete and order wasn't already marked as paid, send confirmation emails
+    // This prevents duplicate emails if Stripe retries the webhook
+    const wasAlreadyPaid = order.paymentStatus === 'paid'
+    
+    if (session.payment_status === 'paid' && !wasAlreadyPaid) {
+      debugLog('📧 Order newly paid, sending confirmation emails:', order.orderNumber)
       await sendConfirmationEmails(order)
       
       // Track successful order completion
@@ -159,6 +163,8 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) 
       }).catch(err => {
         errorLog('❌ Failed to track order completion:', err)
       })
+    } else if (wasAlreadyPaid) {
+      debugLog('ℹ️ Order already marked as paid, skipping duplicate emails:', order.orderNumber)
     }
 
   } catch (error) {

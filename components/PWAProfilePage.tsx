@@ -128,6 +128,7 @@ export default function PWAProfilePage() {
   const router = useRouter()
   
   const [ordersCount, setOrdersCount] = useState(0)
+  const [unreadNotifications, setUnreadNotifications] = useState(0)
   const [emailNotifications, setEmailNotifications] = useState(true)
   const [pushNotifications, setPushNotifications] = useState(false)
   const [pushSupported, setPushSupported] = useState(false)
@@ -152,6 +153,25 @@ export default function PWAProfilePage() {
     }
     fetchOrdersCount()
   }, [user?.email])
+
+  // Fetch unread notifications count
+  useEffect(() => {
+    const fetchUnreadCount = async () => {
+      if (!user) return
+      try {
+        const response = await fetch('/api/push/mark-read', {
+          credentials: 'include'
+        })
+        if (response.ok) {
+          const data = await response.json()
+          setUnreadNotifications(data.unreadCount || 0)
+        }
+      } catch (error) {
+        console.error('Error fetching unread notifications:', error)
+      }
+    }
+    fetchUnreadCount()
+  }, [user])
   
   // Check push notification support and permission
   useEffect(() => {
@@ -417,6 +437,12 @@ export default function PWAProfilePage() {
               <svg className="w-4 h-4 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
               </svg>
+              {/* Unread count badge */}
+              {unreadNotifications > 0 && (
+                <span className="absolute -top-1 -right-1 min-w-[18px] h-[18px] bg-red-600 text-white text-[10px] font-bold rounded-full flex items-center justify-center border-2 border-white px-1">
+                  {unreadNotifications > 99 ? '99+' : unreadNotifications}
+                </span>
+              )}
             </button>
           </div>
         </div>

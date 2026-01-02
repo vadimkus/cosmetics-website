@@ -30,7 +30,9 @@ export default function PWAHeader() {
   const [showLangMenu, setShowLangMenu] = useState(false)
   const [showMobileMenu, setShowMobileMenu] = useState(false)
   const [isNavigating, setIsNavigating] = useState(false)
+  const [isReady, setIsReady] = useState(false)
   const lastClickTime = useRef(0)
+  const menuButtonRef = useRef<HTMLButtonElement>(null)
   
   // Check if we're on profile page
   const isOnProfilePage = pathname?.includes('/profile')
@@ -89,6 +91,22 @@ export default function PWAHeader() {
     setIsNavigating(false)
   }, [pathname])
   
+  // Mark component as ready after a small delay (allows hydration to complete)
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsReady(true)
+    }, 100)
+    return () => clearTimeout(timer)
+  }, [])
+  
+  // Toggle mobile menu with debounce
+  const toggleMobileMenu = useCallback(() => {
+    const now = Date.now()
+    if (now - lastClickTime.current < 200) return // Prevent double-taps
+    lastClickTime.current = now
+    setShowMobileMenu(prev => !prev)
+  }, [])
+  
   // Only render in PWA mode on mobile
   // Hide on pages that have their own simple header (profile, cart, orders)
   if (!isClient || !isPWA || isOnSimpleHeaderPage) {
@@ -118,10 +136,21 @@ export default function PWAHeader() {
           <div className={`flex items-center gap-1.5 ${isRTL ? 'flex-row-reverse' : ''}`}>
             {/* Hamburger Menu (first) */}
             <button
-              onClick={() => setShowMobileMenu(!showMobileMenu)}
-              className="p-1.5 text-gray-700 hover:text-gray-900"
+              ref={menuButtonRef}
+              onClick={toggleMobileMenu}
+              onTouchEnd={(e) => {
+                // Prevent ghost clicks on touch devices
+                e.preventDefault()
+                if (isReady) toggleMobileMenu()
+              }}
+              className="p-2.5 -m-1 text-gray-700 hover:text-gray-900 active:bg-gray-100 rounded-lg touch-manipulation select-none"
+              style={{ 
+                WebkitTapHighlightColor: 'transparent',
+                touchAction: 'manipulation'
+              }}
               aria-label={showMobileMenu ? t('common.closeMobileMenu') : t('common.openMobileMenu')}
               aria-expanded={showMobileMenu}
+              disabled={!isReady}
             >
               {showMobileMenu ? (
                 <X className="w-5 h-5 text-green-600" />

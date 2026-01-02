@@ -52,9 +52,15 @@ export default function PDFJSViewer({ pdfUrl, filename, onClose }: PDFJSViewerPr
       }
     }
     
+    // Initial update with slight delay to ensure DOM is ready
+    const timeoutId = setTimeout(updateWidth, 100)
     updateWidth()
+    
     window.addEventListener('resize', updateWidth)
-    return () => window.removeEventListener('resize', updateWidth)
+    return () => {
+      clearTimeout(timeoutId)
+      window.removeEventListener('resize', updateWidth)
+    }
   }, [])
 
   // Auto-hide controls after inactivity
@@ -221,9 +227,6 @@ export default function PDFJSViewer({ pdfUrl, filename, onClose }: PDFJSViewerPr
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [goToPrevPage, goToNextPage, zoomIn, zoomOut, handleClose])
 
-  // Calculate page width based on container
-  const pageWidth = containerWidth > 0 ? Math.min(containerWidth - 32, 800) : undefined
-
   return (
     <div 
       className="fixed inset-0 z-[9999] bg-gray-900 flex flex-col"
@@ -265,9 +268,10 @@ export default function PDFJSViewer({ pdfUrl, filename, onClose }: PDFJSViewerPr
       </div>
 
       {/* PDF Content */}
-      <div className="flex-1 overflow-auto flex items-start justify-center pt-16 pb-24">
+      <div className="flex-1 overflow-auto flex items-start justify-center pt-16 pb-32">
+        {/* Loading overlay - only show when document is loading */}
         {isLoading && (
-          <div className="absolute inset-0 flex items-center justify-center bg-gray-900">
+          <div className="absolute inset-0 z-20 flex items-center justify-center bg-gray-900">
             <div className="text-center text-white">
               <Loader2 className="w-12 h-12 animate-spin mx-auto mb-4 text-red-500" />
               <p className="text-sm">Loading PDF...</p>
@@ -275,8 +279,9 @@ export default function PDFJSViewer({ pdfUrl, filename, onClose }: PDFJSViewerPr
           </div>
         )}
 
+        {/* Error state */}
         {error && (
-          <div className="absolute inset-0 flex items-center justify-center bg-gray-900 p-6">
+          <div className="absolute inset-0 z-20 flex items-center justify-center bg-gray-900 p-6">
             <div className="text-center text-white max-w-md">
               <div className="w-16 h-16 bg-red-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
                 <X className="w-8 h-8 text-red-500" />
@@ -301,6 +306,7 @@ export default function PDFJSViewer({ pdfUrl, filename, onClose }: PDFJSViewerPr
           </div>
         )}
 
+        {/* PDF Document */}
         <Document
           file={pdfUrl}
           onLoadSuccess={onDocumentLoadSuccess}
@@ -312,15 +318,11 @@ export default function PDFJSViewer({ pdfUrl, filename, onClose }: PDFJSViewerPr
             pageNumber={pageNumber}
             scale={scale}
             rotate={rotation}
-            {...(pageWidth ? { width: pageWidth } : {})}
+            {...(containerWidth > 0 ? { width: containerWidth - 16 } : {})}
             renderTextLayer={false}
             renderAnnotationLayer={false}
-            className="shadow-2xl"
-            loading={
-              <div className="flex items-center justify-center p-8">
-                <Loader2 className="w-8 h-8 animate-spin text-white" />
-              </div>
-            }
+            className="shadow-2xl mx-auto"
+            loading={null}
           />
         </Document>
       </div>

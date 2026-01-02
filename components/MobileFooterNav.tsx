@@ -118,6 +118,12 @@ export default function MobileFooterNav() {
     if (!pathname) return false
     return pathname.includes('/pwa-login')
   }, [pathname])
+  
+  // Check if we're on the PDF viewer page (should hide footer for fullscreen viewing)
+  const isPDFViewerPage = useMemo(() => {
+    if (!pathname) return false
+    return pathname.includes('/pdf-viewer')
+  }, [pathname])
 
   // Determine active tab
   const activeTab = useMemo(() => {
@@ -134,8 +140,8 @@ export default function MobileFooterNav() {
   const cartCount = isClient ? getTotalItems() : 0
   const hasItemsInCart = cartCount > 0
   
-  // Only render in PWA mode on mobile, hide on product detail pages and login page
-  if (!isClient || !isPWA || isProductDetailPage || isLoginPage) {
+  // Only render in PWA mode on mobile, hide on product detail pages, login page, and PDF viewer
+  if (!isClient || !isPWA || isProductDetailPage || isLoginPage || isPDFViewerPage) {
     return null
   }
   

@@ -2,7 +2,7 @@
 'use client'
 
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { Megaphone, Save, PlusCircle, RefreshCw, CheckCircle2, Bell, Send, Users, Eye } from 'lucide-react'
+import { Megaphone, Save, PlusCircle, RefreshCw, CheckCircle2, Bell, Send, Users, Eye, Trash2 } from 'lucide-react'
 import { addCsrfToBody } from '@/lib/csrfClient'
 import RichTextEditor from './RichTextEditor'
 
@@ -325,6 +325,31 @@ export default function AdminPromotionsManager({
     showToast('Form filled from active promotion. Review and send!', 'success')
   }, [activePromotion, showToast])
 
+  // Delete push notification
+  const handleDeleteNotification = useCallback(async (id: string) => {
+    if (!confirm('Are you sure you want to delete this notification?')) return
+    
+    try {
+      const payload = addCsrfToBody({})
+      const res = await fetch(`/api/push/send/${id}`, {
+        method: 'DELETE',
+        headers: getAdminHeaders(),
+        body: JSON.stringify(payload)
+      })
+      
+      const data = await res.json()
+      if (!res.ok || !data.success) {
+        showToast(data.error || 'Failed to delete notification', 'error')
+        return
+      }
+      
+      showToast('Notification deleted', 'success')
+      await loadNotifications()
+    } catch (e: any) {
+      showToast(e?.message || 'Failed to delete notification', 'error')
+    }
+  }, [getAdminHeaders, loadNotifications, showToast])
+
   return (
     <div className="max-w-3xl">
       <div className="flex items-start justify-between gap-3 mb-6">
@@ -582,7 +607,7 @@ export default function AdminPromotionsManager({
           <div className="mt-6">
             <h3 className="text-sm font-semibold text-gray-800 mb-3">Recent Notifications</h3>
             <div className="space-y-2">
-              {notifications.slice(0, 5).map(n => (
+              {notifications.slice(0, 10).map(n => (
                 <div 
                   key={n.id} 
                   className="flex items-center justify-between bg-white border rounded-lg p-3"
@@ -594,15 +619,22 @@ export default function AdminPromotionsManager({
                       {new Date(n.sentAt).toLocaleString()}
                     </div>
                   </div>
-                  <div className="flex items-center gap-4 ml-4 text-sm">
-                    <div className="flex items-center gap-1 text-blue-600">
+                  <div className="flex items-center gap-3 ml-4 text-sm">
+                    <div className="flex items-center gap-1 text-blue-600" title="Sent to">
                       <Users className="h-4 w-4" />
                       <span>{n.totalSent}</span>
                     </div>
-                    <div className="flex items-center gap-1 text-emerald-600">
+                    <div className="flex items-center gap-1 text-emerald-600" title="Read by">
                       <Eye className="h-4 w-4" />
                       <span>{n.readCount}</span>
                     </div>
+                    <button
+                      onClick={() => handleDeleteNotification(n.id)}
+                      className="p-1.5 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-md transition-colors"
+                      title="Delete notification"
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </button>
                   </div>
                 </div>
               ))}

@@ -20,9 +20,17 @@ export default function PDFViewerClient({ filename, pdfUrl }: PDFViewerClientPro
   const [isClient, setIsClient] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [viewportHeight, setViewportHeight] = useState(0)
 
   useEffect(() => {
     setIsClient(true)
+    // Use actual viewport height for mobile
+    const updateHeight = () => {
+      setViewportHeight(window.innerHeight)
+    }
+    updateHeight()
+    window.addEventListener('resize', updateHeight)
+    return () => window.removeEventListener('resize', updateHeight)
   }, [])
 
   const handleClose = useCallback(() => {
@@ -81,10 +89,20 @@ export default function PDFViewerClient({ filename, pdfUrl }: PDFViewerClientPro
     iframeSrc = `${pdfUrl}#toolbar=1&navpanes=1&scrollbar=1&view=FitH`
   }
 
+  // Calculate content height (viewport minus header)
+  const headerHeight = 56
+  const contentHeight = viewportHeight - headerHeight
+
   return (
-    <div className="fixed inset-0 z-[9999] bg-gray-900 flex flex-col">
+    <div 
+      className="fixed inset-0 z-[9999] bg-gray-900"
+      style={{ height: viewportHeight > 0 ? `${viewportHeight}px` : '100vh' }}
+    >
       {/* Top toolbar */}
-      <div className="bg-gray-800 flex items-center justify-between px-4 h-[56px] text-white flex-shrink-0 safe-area-top">
+      <div 
+        className="bg-gray-800 flex items-center justify-between px-4 text-white"
+        style={{ height: `${headerHeight}px`, paddingTop: 'env(safe-area-inset-top, 0px)' }}
+      >
         <button
           onClick={handleClose}
           className="p-2 rounded-full hover:bg-white/20 active:bg-white/30 transition-colors"
@@ -106,8 +124,15 @@ export default function PDFViewerClient({ filename, pdfUrl }: PDFViewerClientPro
         </button>
       </div>
 
-      {/* PDF Content */}
-      <div className="flex-1 relative bg-white">
+      {/* PDF Content - use absolute positioning for reliable full-height */}
+      <div 
+        className="absolute left-0 right-0 bg-white overflow-hidden"
+        style={{ 
+          top: `${headerHeight}px`, 
+          bottom: 0,
+          height: contentHeight > 0 ? `${contentHeight}px` : `calc(100vh - ${headerHeight}px)`
+        }}
+      >
         {/* Loading overlay */}
         {isLoading && (
           <div className="absolute inset-0 z-10 flex items-center justify-center bg-white">
@@ -146,10 +171,15 @@ export default function PDFViewerClient({ filename, pdfUrl }: PDFViewerClientPro
           </div>
         )}
 
-        {/* PDF iframe */}
+        {/* PDF iframe - explicit dimensions */}
         <iframe
           src={iframeSrc}
-          className="w-full h-full border-0"
+          className="border-0"
+          style={{ 
+            width: '100%', 
+            height: '100%',
+            display: 'block'
+          }}
           title={filename}
           onLoad={handleIframeLoad}
           onError={handleIframeError}
@@ -157,9 +187,6 @@ export default function PDFViewerClient({ filename, pdfUrl }: PDFViewerClientPro
           sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
         />
       </div>
-
-      {/* Bottom safe area for notched phones */}
-      <div className="bg-gray-800 h-safe-area-bottom flex-shrink-0" />
     </div>
   )
 }

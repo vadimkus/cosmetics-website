@@ -1,12 +1,11 @@
 'use client'
 
-import { usePathname } from 'next/navigation'
-import Link from 'next/link'
+import { usePathname, useRouter } from 'next/navigation'
 import { useCartStore } from '@/lib/cartStore'
 import { getLocalizedPath, getLocaleFromPath } from '@/lib/i18n'
 import { useTranslation } from '@/hooks/useTranslation'
 import { usePWAMode } from '@/hooks/usePWAMode'
-import { useMemo } from 'react'
+import { useMemo, useState, useEffect, useRef, useCallback } from 'react'
 
 /**
  * Mobile Footer Navigation - PWA Only
@@ -98,12 +97,36 @@ const BagIcon = ({ filled, className }: { filled?: boolean; className?: string }
 
 export default function MobileFooterNav() {
   const pathname = usePathname()
+  const router = useRouter()
   const { getTotalItems } = useCartStore()
   const { t, dir } = useTranslation()
   const { isPWA, isClient } = usePWAMode()
+  const [isReady, setIsReady] = useState(false)
+  const [isNavigating, setIsNavigating] = useState(false)
+  const lastClickTime = useRef(0)
+  
+  // Mark component as ready after hydration
+  useEffect(() => {
+    const timer = setTimeout(() => setIsReady(true), 100)
+    return () => clearTimeout(timer)
+  }, [])
+  
+  // Reset navigation state on route change
+  useEffect(() => {
+    setIsNavigating(false)
+  }, [pathname])
   
   // Get locale from pathname
   const locale = useMemo(() => getLocaleFromPath(pathname || '/'), [pathname])
+  
+  // Navigation handler with debounce
+  const handleNavigation = useCallback((path: string) => {
+    const now = Date.now()
+    if (now - lastClickTime.current < 300 || isNavigating || !isReady) return
+    lastClickTime.current = now
+    setIsNavigating(true)
+    router.push(path)
+  }, [router, isNavigating, isReady])
   
   // Check if we're on a product detail page (has /products/ followed by an ID)
   const isProductDetailPage = useMemo(() => {
@@ -169,11 +192,20 @@ export default function MobileFooterNav() {
       >
         <div className="flex items-center justify-around h-[75px] pt-2">
           {/* Home Tab */}
-          <Link
-            href={getLocalizedPath('/products', locale)}
-            className={`flex flex-col items-center justify-center flex-1 h-full px-2 transition-colors touch-manipulation ${
+          <button
+            onClick={() => handleNavigation(getLocalizedPath('/products', locale))}
+            onTouchEnd={(e) => {
+              e.preventDefault()
+              handleNavigation(getLocalizedPath('/products', locale))
+            }}
+            disabled={!isReady || isNavigating}
+            className={`flex flex-col items-center justify-center flex-1 h-full px-2 transition-colors touch-manipulation select-none ${
               activeTab === 'home' ? activeColor : inactiveColor
-            }`}
+            } ${isNavigating ? 'opacity-70' : ''}`}
+            style={{ 
+              WebkitTapHighlightColor: 'transparent',
+              touchAction: 'manipulation'
+            }}
             aria-current={activeTab === 'home' ? 'page' : undefined}
           >
             <HomeIcon 
@@ -183,14 +215,23 @@ export default function MobileFooterNav() {
             <span className={`text-xs mt-1 font-medium`}>
               {t('tabs.home') || 'Home'}
             </span>
-          </Link>
+          </button>
 
           {/* Orders Tab */}
-          <Link
-            href={getLocalizedPath('/orders', locale)}
-            className={`flex flex-col items-center justify-center flex-1 h-full px-2 transition-colors touch-manipulation ${
+          <button
+            onClick={() => handleNavigation(getLocalizedPath('/orders', locale))}
+            onTouchEnd={(e) => {
+              e.preventDefault()
+              handleNavigation(getLocalizedPath('/orders', locale))
+            }}
+            disabled={!isReady || isNavigating}
+            className={`flex flex-col items-center justify-center flex-1 h-full px-2 transition-colors touch-manipulation select-none ${
               activeTab === 'orders' ? activeColor : inactiveColor
-            }`}
+            } ${isNavigating ? 'opacity-70' : ''}`}
+            style={{ 
+              WebkitTapHighlightColor: 'transparent',
+              touchAction: 'manipulation'
+            }}
             aria-current={activeTab === 'orders' ? 'page' : undefined}
           >
             <ListIcon 
@@ -200,18 +241,27 @@ export default function MobileFooterNav() {
             <span className={`text-xs mt-1 font-medium`}>
               {t('tabs.orders') || 'Orders'}
             </span>
-          </Link>
+          </button>
 
           {/* Bag Tab */}
-          <Link
-            href={getLocalizedPath('/cart', locale)}
-            className={`flex flex-col items-center justify-center flex-1 h-full px-2 transition-colors touch-manipulation ${
+          <button
+            onClick={() => handleNavigation(getLocalizedPath('/cart', locale))}
+            onTouchEnd={(e) => {
+              e.preventDefault()
+              handleNavigation(getLocalizedPath('/cart', locale))
+            }}
+            disabled={!isReady || isNavigating}
+            className={`flex flex-col items-center justify-center flex-1 h-full px-2 transition-colors touch-manipulation select-none ${
               hasItemsInCart 
                 ? greenColor 
                 : activeTab === 'bag' 
                   ? activeColor 
                   : inactiveColor
-            }`}
+            } ${isNavigating ? 'opacity-70' : ''}`}
+            style={{ 
+              WebkitTapHighlightColor: 'transparent',
+              touchAction: 'manipulation'
+            }}
             aria-current={activeTab === 'bag' ? 'page' : undefined}
           >
             <div className="relative">
@@ -232,7 +282,7 @@ export default function MobileFooterNav() {
             <span className={`text-xs mt-1 font-medium`}>
               {t('tabs.bag') || 'Bag'}
             </span>
-          </Link>
+          </button>
         </div>
       </nav>
     </>

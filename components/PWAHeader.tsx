@@ -163,7 +163,16 @@ export default function PWAHeader() {
             <div className="relative">
               <button
                 onClick={() => setShowLangMenu(!showLangMenu)}
-                className="flex items-center gap-0.5 text-green-600 font-semibold text-sm px-1 py-0.5"
+                onTouchEnd={(e) => {
+                  e.preventDefault()
+                  if (isReady) setShowLangMenu(prev => !prev)
+                }}
+                disabled={!isReady}
+                className="flex items-center gap-0.5 text-green-600 font-semibold text-sm px-2 py-1.5 touch-manipulation select-none active:bg-green-50 rounded-md transition-colors"
+                style={{ 
+                  WebkitTapHighlightColor: 'transparent',
+                  touchAction: 'manipulation'
+                }}
               >
                 <span>{locale.toUpperCase()}</span>
                 <ChevronDown className={`w-3.5 h-3.5 transition-transform ${showLangMenu ? 'rotate-180' : ''}`} />

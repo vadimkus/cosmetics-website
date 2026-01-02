@@ -2,7 +2,7 @@
 'use client'
 
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { Megaphone, Save, PlusCircle, RefreshCw, CheckCircle2 } from 'lucide-react'
+import { Megaphone, Save, PlusCircle, RefreshCw, CheckCircle2, Bell, Send, Users, Eye } from 'lucide-react'
 import { addCsrfToBody } from '@/lib/csrfClient'
 import RichTextEditor from './RichTextEditor'
 
@@ -13,6 +13,20 @@ type Promotion = {
   textRu?: string | null
   textAr?: string | null
   isActive: boolean
+}
+
+type PWANotification = {
+  id: string
+  title: string
+  titleRu?: string | null
+  titleAr?: string | null
+  body: string
+  bodyRu?: string | null
+  bodyAr?: string | null
+  url?: string | null
+  sentAt: string
+  totalSent: number
+  readCount: number
 }
 
 export default function AdminPromotionsManager({
@@ -33,6 +47,20 @@ export default function AdminPromotionsManager({
     textRu: '',
     textAr: '',
     isActive: true,
+  })
+
+  // Push notification state
+  const [pushLoading, setPushLoading] = useState(false)
+  const [sendingPush, setSendingPush] = useState(false)
+  const [notifications, setNotifications] = useState<PWANotification[]>([])
+  const [pushForm, setPushForm] = useState({
+    title: '',
+    titleRu: '',
+    titleAr: '',
+    body: '',
+    bodyRu: '',
+    bodyAr: '',
+    url: '/profile/promo'
   })
 
   const parseJsonResponse = useCallback(async (res: Response) => {
@@ -198,6 +226,105 @@ export default function AdminPromotionsManager({
 
   const hasAny = promotions.length > 0
 
+  // Load push notifications
+  const loadNotifications = useCallback(async () => {
+    setPushLoading(true)
+    try {
+      const res = await fetch('/api/push/send', { headers: getAdminHeaders() })
+      const data = await res.json()
+      if (data.success && Array.isArray(data.notifications)) {
+        setNotifications(data.notifications)
+      }
+    } catch (e: any) {
+      console.error('Error loading notifications:', e)
+    } finally {
+      setPushLoading(false)
+    }
+  }, [getAdminHeaders])
+
+  // Load notifications on mount
+  useEffect(() => {
+    loadNotifications()
+  }, [loadNotifications])
+
+  // Send push notification
+  const handleSendPush = useCallback(async () => {
+    const title = String(pushForm.title || '').trim()
+    const body = String(pushForm.body || '').trim()
+    
+    if (!title || !body) {
+      showToast('Title and message body are required', 'warning')
+      return
+    }
+
+    setSendingPush(true)
+    try {
+      const payload = addCsrfToBody({
+        title,
+        titleRu: pushForm.titleRu?.trim() || null,
+        titleAr: pushForm.titleAr?.trim() || null,
+        body,
+        bodyRu: pushForm.bodyRu?.trim() || null,
+        bodyAr: pushForm.bodyAr?.trim() || null,
+        url: pushForm.url?.trim() || '/profile/promo'
+      })
+
+      const res = await fetch('/api/push/send', {
+        method: 'POST',
+        headers: getAdminHeaders(),
+        body: JSON.stringify(payload)
+      })
+
+      const data = await res.json()
+      if (!res.ok || !data.success) {
+        showToast(data.error || 'Failed to send notification', 'error')
+        return
+      }
+
+      showToast(`Push sent to ${data.stats?.success || 0} PWA users!`, 'success')
+      
+      // Clear form and refresh list
+      setPushForm({
+        title: '',
+        titleRu: '',
+        titleAr: '',
+        body: '',
+        bodyRu: '',
+        bodyAr: '',
+        url: '/profile/promo'
+      })
+      await loadNotifications()
+    } catch (e: any) {
+      showToast(e?.message || 'Failed to send notification', 'error')
+    } finally {
+      setSendingPush(false)
+    }
+  }, [pushForm, getAdminHeaders, loadNotifications, showToast])
+
+  // Quick send from active promotion
+  const handleQuickSendFromPromo = useCallback(() => {
+    if (!activePromotion) return
+    
+    // Extract text content from HTML (simple approach)
+    const stripHtml = (html: string) => {
+      const tmp = document.createElement('div')
+      tmp.innerHTML = html
+      return tmp.textContent || tmp.innerText || ''
+    }
+    
+    setPushForm({
+      title: 'Latest News & Offers',
+      titleRu: 'Новости и предложения',
+      titleAr: 'آخر الأخبار والعروض',
+      body: stripHtml(activePromotion.textEn).substring(0, 200),
+      bodyRu: activePromotion.textRu ? stripHtml(activePromotion.textRu).substring(0, 200) : '',
+      bodyAr: activePromotion.textAr ? stripHtml(activePromotion.textAr).substring(0, 200) : '',
+      url: '/profile/promo'
+    })
+    
+    showToast('Form filled from active promotion. Review and send!', 'success')
+  }, [activePromotion, showToast])
+
   return (
     <div className="max-w-3xl">
       <div className="flex items-start justify-between gap-3 mb-6">
@@ -312,6 +439,176 @@ export default function AdminPromotionsManager({
             </div>
           )}
         </div>
+      </div>
+
+      {/* PWA Push Notifications Section */}
+      <div className="mt-10 pt-10 border-t border-gray-200">
+        <div className="flex items-start justify-between gap-3 mb-6">
+          <div className="flex items-start gap-3">
+            <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center">
+              <Bell className="h-5 w-5 text-blue-600" />
+            </div>
+            <div>
+              <h2 className="text-xl font-bold text-gray-900">PWA Push Notifications</h2>
+              <p className="text-sm text-gray-600">
+                Send push notifications to all PWA users. They will see it on their device and in Announcements.
+              </p>
+            </div>
+          </div>
+          <button
+            onClick={loadNotifications}
+            disabled={pushLoading}
+            className="inline-flex items-center gap-2 px-3 py-2 rounded-lg border bg-white text-sm hover:bg-gray-50 disabled:opacity-50"
+          >
+            <RefreshCw className={`h-4 w-4 ${pushLoading ? 'animate-spin' : ''}`} />
+            Refresh
+          </button>
+        </div>
+
+        <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 sm:p-6">
+          <div className="flex flex-col gap-4">
+            {/* Quick fill from promo button */}
+            {activePromotion && (
+              <button
+                onClick={handleQuickSendFromPromo}
+                className="self-start inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-blue-100 text-blue-700 text-sm hover:bg-blue-200 transition-colors"
+              >
+                <Megaphone className="h-4 w-4" />
+                Fill from Active Promotion
+              </button>
+            )}
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-800 mb-1">Title (EN) *</label>
+                <input
+                  type="text"
+                  value={pushForm.title}
+                  onChange={(e) => setPushForm(p => ({ ...p, title: e.target.value }))}
+                  placeholder="Notification title..."
+                  className="w-full rounded-lg border px-3 py-2 bg-white"
+                  maxLength={100}
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-800 mb-1">Title (RU)</label>
+                <input
+                  type="text"
+                  value={pushForm.titleRu}
+                  onChange={(e) => setPushForm(p => ({ ...p, titleRu: e.target.value }))}
+                  placeholder="Заголовок..."
+                  className="w-full rounded-lg border px-3 py-2 bg-white"
+                  maxLength={100}
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-800 mb-1">Title (AR)</label>
+                <input
+                  type="text"
+                  value={pushForm.titleAr}
+                  onChange={(e) => setPushForm(p => ({ ...p, titleAr: e.target.value }))}
+                  placeholder="العنوان..."
+                  className="w-full rounded-lg border px-3 py-2 bg-white"
+                  dir="rtl"
+                  maxLength={100}
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-800 mb-1">Message (EN) *</label>
+                <textarea
+                  value={pushForm.body}
+                  onChange={(e) => setPushForm(p => ({ ...p, body: e.target.value }))}
+                  placeholder="Notification message..."
+                  className="w-full rounded-lg border px-3 py-2 bg-white resize-none"
+                  rows={3}
+                  maxLength={300}
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-800 mb-1">Message (RU)</label>
+                <textarea
+                  value={pushForm.bodyRu}
+                  onChange={(e) => setPushForm(p => ({ ...p, bodyRu: e.target.value }))}
+                  placeholder="Сообщение..."
+                  className="w-full rounded-lg border px-3 py-2 bg-white resize-none"
+                  rows={3}
+                  maxLength={300}
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-800 mb-1">Message (AR)</label>
+                <textarea
+                  value={pushForm.bodyAr}
+                  onChange={(e) => setPushForm(p => ({ ...p, bodyAr: e.target.value }))}
+                  placeholder="الرسالة..."
+                  className="w-full rounded-lg border px-3 py-2 bg-white resize-none"
+                  dir="rtl"
+                  rows={3}
+                  maxLength={300}
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-800 mb-1">Click URL (optional)</label>
+              <input
+                type="text"
+                value={pushForm.url}
+                onChange={(e) => setPushForm(p => ({ ...p, url: e.target.value }))}
+                placeholder="/profile/promo"
+                className="w-full max-w-md rounded-lg border px-3 py-2 bg-white"
+              />
+              <p className="text-xs text-gray-500 mt-1">Where users go when they click the notification</p>
+            </div>
+
+            <div className="flex justify-end">
+              <button
+                onClick={handleSendPush}
+                disabled={sendingPush || !pushForm.title.trim() || !pushForm.body.trim()}
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              >
+                <Send className="h-4 w-4" />
+                {sendingPush ? 'Sending...' : 'Send Push Notification'}
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Recent Notifications */}
+        {notifications.length > 0 && (
+          <div className="mt-6">
+            <h3 className="text-sm font-semibold text-gray-800 mb-3">Recent Notifications</h3>
+            <div className="space-y-2">
+              {notifications.slice(0, 5).map(n => (
+                <div 
+                  key={n.id} 
+                  className="flex items-center justify-between bg-white border rounded-lg p-3"
+                >
+                  <div className="flex-1 min-w-0">
+                    <div className="font-medium text-gray-900 truncate">{n.title}</div>
+                    <div className="text-sm text-gray-500 truncate">{n.body.substring(0, 80)}...</div>
+                    <div className="text-xs text-gray-400 mt-1">
+                      {new Date(n.sentAt).toLocaleString()}
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-4 ml-4 text-sm">
+                    <div className="flex items-center gap-1 text-blue-600">
+                      <Users className="h-4 w-4" />
+                      <span>{n.totalSent}</span>
+                    </div>
+                    <div className="flex items-center gap-1 text-emerald-600">
+                      <Eye className="h-4 w-4" />
+                      <span>{n.readCount}</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   )

@@ -400,3 +400,55 @@ model PromoCode {
   @@index([expiresAt])
   @@map("promo_codes")
 }
+
+// PWA Web Push Subscriptions - stores push subscription details for each user
+model PushSubscription {
+  id           String   @id @default(cuid())
+  userId       String   // User who subscribed
+  endpoint     String   @unique @db.Text // Push service endpoint URL
+  p256dh       String   @db.Text // Public key for encryption
+  auth         String   // Authentication secret
+  userAgent    String?  @db.Text // Browser/device info
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([userId])
+  @@map("push_subscriptions")
+}
+
+// PWA Notifications - sent from admin to PWA users
+model PWANotification {
+  id          String   @id @default(cuid())
+  promotionId String?  // Optional link to promotion (for reusing promo content)
+  title       String   // Notification title
+  titleRu     String?  // Russian title
+  titleAr     String?  // Arabic title
+  body        String   @db.Text // Notification body
+  bodyRu      String?  @db.Text // Russian body
+  bodyAr      String?  @db.Text // Arabic body
+  url         String?  // URL to open when notification is clicked
+  sentAt      DateTime @default(now())
+  sentBy      String?  // Admin email who sent it
+  totalSent   Int      @default(0) // Number of push notifications sent
+  createdAt   DateTime @default(now())
+  
+  reads NotificationRead[]
+
+  @@index([sentAt])
+  @@map("pwa_notifications")
+}
+
+// Track which users have read which notifications (for badge counting)
+model NotificationRead {
+  id             String   @id @default(cuid())
+  notificationId String
+  userId         String
+  readAt         DateTime @default(now())
+  
+  notification   PWANotification @relation(fields: [notificationId], references: [id], onDelete: Cascade)
+
+  @@unique([notificationId, userId]) // One read record per user per notification
+  @@index([userId])
+  @@index([notificationId])
+  @@map("notification_reads")
+}

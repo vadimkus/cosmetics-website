@@ -169,6 +169,18 @@ export default function PWAProfilePage() {
     checkPushSupport()
   }, [])
   
+  // Helper function to convert VAPID public key
+  const urlBase64ToUint8Array = (base64String: string): Uint8Array => {
+    const padding = '='.repeat((4 - base64String.length % 4) % 4)
+    const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/')
+    const rawData = window.atob(base64)
+    const outputArray = new Uint8Array(rawData.length)
+    for (let i = 0; i < rawData.length; ++i) {
+      outputArray[i] = rawData.charCodeAt(i)
+    }
+    return outputArray
+  }
+
   // Handle push notification toggle
   const handlePushToggle = async (enabled: boolean) => {
     if (!pushSupported) {
@@ -180,17 +192,32 @@ export default function PWAProfilePage() {
       try {
         const permission = await Notification.requestPermission()
         if (permission === 'granted') {
-          setPushNotifications(true)
           // Register for push notifications
           const registration = await navigator.serviceWorker.ready
           const vapidKey = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY
-          const subscribeOptions: PushSubscriptionOptionsInit = {
+          
+          const subscribeOptions = {
             userVisibleOnly: true,
-            ...(vapidKey && { applicationServerKey: vapidKey })
+            applicationServerKey: vapidKey ? urlBase64ToUint8Array(vapidKey) : undefined
           }
-          const subscription = await registration.pushManager.subscribe(subscribeOptions)
+          const subscription = await registration.pushManager.subscribe(subscribeOptions as PushSubscriptionOptionsInit)
           console.log('Push subscription:', subscription)
-          // Here you would typically send the subscription to your server
+          
+          // Send subscription to server
+          const response = await fetch('/api/push/subscribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ subscription: subscription.toJSON() }),
+            credentials: 'include'
+          })
+          
+          const data = await response.json()
+          if (data.success) {
+            setPushNotifications(true)
+            console.log('Push subscription saved to server')
+          } else {
+            throw new Error(data.error || 'Failed to save subscription')
+          }
         } else {
           setPushNotifications(false)
           if (permission === 'denied') {
@@ -200,16 +227,26 @@ export default function PWAProfilePage() {
       } catch (error) {
         console.error('Push subscription error:', error)
         setPushNotifications(false)
+        alert('Failed to enable notifications. Please try again.')
       }
     } else {
-      setPushNotifications(false)
-      // Optionally unsubscribe from push
+      // Unsubscribe from push
       try {
         const registration = await navigator.serviceWorker.ready
         const subscription = await registration.pushManager.getSubscription()
         if (subscription) {
+          // Remove from server first
+          await fetch('/api/push/subscribe', {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ endpoint: subscription.endpoint }),
+            credentials: 'include'
+          })
+          
+          // Then unsubscribe locally
           await subscription.unsubscribe()
         }
+        setPushNotifications(false)
       } catch (error) {
         console.error('Push unsubscribe error:', error)
       }

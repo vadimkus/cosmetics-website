@@ -532,19 +532,46 @@ async function getStoredFavoritesData() {
 self.addEventListener('push', (event) => {
   console.log('Push notification received:', event)
   
-  const options = {
-    body: event.data ? event.data.text() : 'New update available',
+  let payload = {
+    title: 'Genosys Cosmetics',
+    body: 'New update available',
+    url: '/profile/promo',
     icon: '/favicon/genosys-logo.png',
     badge: '/favicon/genosys-logo.png',
+    notificationId: null
+  }
+  
+  // Try to parse JSON payload from server
+  if (event.data) {
+    try {
+      const data = event.data.json()
+      payload = {
+        ...payload,
+        ...data
+      }
+    } catch (e) {
+      // Fallback to text if not JSON
+      payload.body = event.data.text()
+    }
+  }
+  
+  const options = {
+    body: payload.body,
+    icon: payload.icon || '/favicon/genosys-logo.png',
+    badge: payload.badge || '/favicon/genosys-logo.png',
     vibrate: [100, 50, 100],
+    tag: payload.notificationId || 'genosys-notification', // Prevents duplicate notifications
+    renotify: true,
+    requireInteraction: false,
     data: {
-      dateOfArrival: Date.now(),
-      primaryKey: 1
+      url: payload.url || '/profile/promo',
+      notificationId: payload.notificationId,
+      dateOfArrival: Date.now()
     },
     actions: [
       {
-        action: 'explore',
-        title: 'View Products',
+        action: 'view',
+        title: 'View',
         icon: '/favicon/genosys-logo.png'
       },
       {
@@ -556,9 +583,35 @@ self.addEventListener('push', (event) => {
   }
   
   event.waitUntil(
-    self.registration.showNotification('Genosys Cosmetics', options)
+    Promise.all([
+      self.registration.showNotification(payload.title, options),
+      // Update app badge if supported
+      updateBadge()
+    ])
   )
 })
+
+// Update app badge count
+async function updateBadge() {
+  if ('setAppBadge' in navigator) {
+    try {
+      // Try to fetch unread count from server
+      const response = await fetch('/api/push/mark-read', { 
+        credentials: 'include' 
+      })
+      const data = await response.json()
+      
+      if (data.unreadCount > 0) {
+        await navigator.setAppBadge(data.unreadCount)
+      } else {
+        await navigator.clearAppBadge()
+      }
+    } catch (e) {
+      // Fallback: just set badge to 1 for new notification
+      await navigator.setAppBadge(1)
+    }
+  }
+}
 
 // Notification click handling
 self.addEventListener('notificationclick', (event) => {
@@ -566,11 +619,30 @@ self.addEventListener('notificationclick', (event) => {
   
   event.notification.close()
   
-  if (event.action === 'explore') {
-    event.waitUntil(
-      clients.openWindow('/products')
-    )
+  const url = event.notification.data?.url || '/profile/promo'
+  
+  // Handle action clicks
+  if (event.action === 'close') {
+    return // Just close, don't navigate
   }
+  
+  // Open the app to the specified URL
+  event.waitUntil(
+    clients.matchAll({ type: 'window', includeUncontrolled: true })
+      .then((windowClients) => {
+        // Check if there's already a window open
+        for (let client of windowClients) {
+          if (client.url.includes(self.location.origin) && 'focus' in client) {
+            client.navigate(url)
+            return client.focus()
+          }
+        }
+        // No existing window, open a new one
+        if (clients.openWindow) {
+          return clients.openWindow(url)
+        }
+      })
+  )
 })
 
 // ============================================================================

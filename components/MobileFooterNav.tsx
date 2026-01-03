@@ -193,13 +193,10 @@ export default function MobileFooterNav() {
         <div className="flex items-center justify-around h-[75px] pt-2">
           {/* Home Tab */}
           <button
+            type="button"
             onClick={() => handleNavigation(getLocalizedPath('/products', locale))}
-            onTouchEnd={(e) => {
-              e.preventDefault()
-              handleNavigation(getLocalizedPath('/products', locale))
-            }}
             disabled={!isReady || isNavigating}
-            className={`flex flex-col items-center justify-center flex-1 h-full px-2 transition-colors touch-manipulation select-none ${
+            className={`flex flex-col items-center justify-center flex-1 h-full px-2 transition-colors select-none active:scale-95 ${
               activeTab === 'home' ? activeColor : inactiveColor
             } ${isNavigating ? 'opacity-70' : ''}`}
             style={{ 
@@ -219,13 +216,10 @@ export default function MobileFooterNav() {
 
           {/* Orders Tab */}
           <button
+            type="button"
             onClick={() => handleNavigation(getLocalizedPath('/orders', locale))}
-            onTouchEnd={(e) => {
-              e.preventDefault()
-              handleNavigation(getLocalizedPath('/orders', locale))
-            }}
             disabled={!isReady || isNavigating}
-            className={`flex flex-col items-center justify-center flex-1 h-full px-2 transition-colors touch-manipulation select-none ${
+            className={`flex flex-col items-center justify-center flex-1 h-full px-2 transition-colors select-none active:scale-95 ${
               activeTab === 'orders' ? activeColor : inactiveColor
             } ${isNavigating ? 'opacity-70' : ''}`}
             style={{ 
@@ -245,13 +239,10 @@ export default function MobileFooterNav() {
 
           {/* Bag Tab */}
           <button
+            type="button"
             onClick={() => handleNavigation(getLocalizedPath('/cart', locale))}
-            onTouchEnd={(e) => {
-              e.preventDefault()
-              handleNavigation(getLocalizedPath('/cart', locale))
-            }}
             disabled={!isReady || isNavigating}
-            className={`flex flex-col items-center justify-center flex-1 h-full px-2 transition-colors touch-manipulation select-none ${
+            className={`flex flex-col items-center justify-center flex-1 h-full px-2 transition-colors select-none active:scale-95 ${
               hasItemsInCart 
                 ? greenColor 
                 : activeTab === 'bag' 

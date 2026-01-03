@@ -13,7 +13,7 @@ import ProductSearch from '@/components/products/ProductSearch'
 import ProductFilters from '@/components/products/ProductFilters'
 import ProductSort, { SortOption } from '@/components/products/ProductSort'
 import BlackFridayMini from '@/components/BlackFridayMini'
-import { useState, useMemo, useCallback, useEffect } from 'react'
+import { useState, useMemo, useCallback, useEffect, useRef } from 'react'
 import { Product } from '@/types'
 import ProductsListSchema from '@/components/ProductsListSchema'
 import BreadcrumbSchema from '@/components/BreadcrumbSchema'
@@ -161,23 +161,40 @@ export default function ProductsPageClient() {
     fetchProducts()
   }, [])
 
-  // Update URL when filters/search/sort change
+  // Debounce timer ref to prevent URL updates from interrupting touch events
+  const urlUpdateTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+  
+  // Update URL when filters/search/sort change - debounced to not interrupt touch events
   useEffect(() => {
-    const params = new URLSearchParams()
-    
-    if (searchQuery) params.set('search', searchQuery)
-    if (sortBy !== 'name-asc') params.set('sort', sortBy)
-    if (filters.categories.length > 0) params.set('categories', filters.categories.join(','))
-    if (products.length > 0 && (filters.priceRange[0] !== Math.min(...products.map(p => p.price)) || filters.priceRange[1] !== Math.max(...products.map(p => p.price)))) {
-      params.set('priceMin', filters.priceRange[0].toString())
-      params.set('priceMax', filters.priceRange[1].toString())
+    // Clear any pending URL update
+    if (urlUpdateTimeoutRef.current) {
+      clearTimeout(urlUpdateTimeoutRef.current)
     }
-    if (filters.minRating > 0) params.set('rating', filters.minRating.toString())
-    if (filters.inStockOnly) params.set('inStock', 'true')
     
-    const basePath = getLocalizedPath('/products', locale)
-    const newUrl = params.toString() ? `${basePath}?${params.toString()}` : basePath
-    router.replace(newUrl, { scroll: false })
+    // Debounce URL update by 300ms to prevent interrupting touch interactions
+    urlUpdateTimeoutRef.current = setTimeout(() => {
+      const params = new URLSearchParams()
+      
+      if (searchQuery) params.set('search', searchQuery)
+      if (sortBy !== 'name-asc') params.set('sort', sortBy)
+      if (filters.categories.length > 0) params.set('categories', filters.categories.join(','))
+      if (products.length > 0 && (filters.priceRange[0] !== Math.min(...products.map(p => p.price)) || filters.priceRange[1] !== Math.max(...products.map(p => p.price)))) {
+        params.set('priceMin', filters.priceRange[0].toString())
+        params.set('priceMax', filters.priceRange[1].toString())
+      }
+      if (filters.minRating > 0) params.set('rating', filters.minRating.toString())
+      if (filters.inStockOnly) params.set('inStock', 'true')
+      
+      const basePath = getLocalizedPath('/products', locale)
+      const newUrl = params.toString() ? `${basePath}?${params.toString()}` : basePath
+      router.replace(newUrl, { scroll: false })
+    }, 300)
+    
+    return () => {
+      if (urlUpdateTimeoutRef.current) {
+        clearTimeout(urlUpdateTimeoutRef.current)
+      }
+    }
   }, [searchQuery, sortBy, filters, router, products, locale])
 
   // Filter and sort products
@@ -404,27 +421,36 @@ export default function ProductsPageClient() {
               return (
                 <button
                   key={category.id}
+                  type="button"
                   onClick={() => {
+                    // Use functional update for stable state updates
                     if (category.id === 'all') {
-                      handleFiltersChange({
-                        ...filters,
+                      setFilters(prev => ({
+                        ...prev,
                         categories: []
-                      })
+                      }))
                     } else {
-                      const newCategories = isActive
-                        ? filters.categories.filter(c => c !== category.id)
-                        : [...filters.categories.filter(c => c !== 'all'), category.id]
-                      handleFiltersChange({
-                        ...filters,
-                        categories: newCategories
+                      setFilters(prev => {
+                        const wasActive = prev.categories.includes(category.id)
+                        const newCategories = wasActive
+                          ? prev.categories.filter(c => c !== category.id)
+                          : [...prev.categories.filter(c => c !== 'all'), category.id]
+                        return {
+                          ...prev,
+                          categories: newCategories
+                        }
                       })
                     }
                   }}
-                  className={`px-3 py-1.5 rounded-full text-xs font-medium whitespace-nowrap touch-manipulation min-h-[32px] flex items-center transition-colors ${
+                  className={`px-3 py-1.5 rounded-full text-xs font-medium whitespace-nowrap min-h-[44px] min-w-[48px] flex items-center justify-center select-none transition-all duration-150 active:scale-95 ${
                     isActive
-                      ? 'bg-primary-600 text-white'
-                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                      ? 'bg-primary-600 text-white shadow-sm'
+                      : 'bg-gray-100 text-gray-700 active:bg-gray-300'
                   }`}
+                  style={{ 
+                    touchAction: 'manipulation',
+                    WebkitTapHighlightColor: 'transparent'
+                  }}
                 >
                   {category.name}
                 </button>

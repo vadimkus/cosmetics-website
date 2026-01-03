@@ -134,7 +134,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
         <div className={`flex items-center justify-between px-5 py-4 bg-white border-b border-gray-100 ${isRTL ? 'flex-row-reverse' : ''}`}>
           <button 
             onClick={() => router.push(getLocalizedPath('/products', locale))}
-            className={`flex items-center gap-1 min-w-[80px] ${isRTL ? 'flex-row-reverse' : ''}`}
+            className={`flex items-center gap-1 ${isRTL ? 'flex-row-reverse' : ''}`}
           >
             <svg className={`w-5 h-5 text-red-600 ${isRTL ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -143,13 +143,9 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
               {t('navigation.products') || 'Products'}
             </span>
           </button>
-          <span className="text-base font-semibold text-gray-900 text-center flex-1 truncate px-2">
-            {product.name}
-          </span>
           {/* Profile Icon with green dot */}
           <button 
             onClick={() => router.push(getLocalizedPath('/profile', locale))}
-            className="min-w-[80px] flex justify-end"
           >
             <div className="relative">
               <div className="w-8 h-8 rounded-full bg-red-600 flex items-center justify-center">
@@ -260,6 +256,15 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
                 )}
               </div>
             </div>
+
+            {/* PWA Product Name - Above Image */}
+            {isPWA && (
+              <div className="lg:hidden mb-2 px-1">
+                <h1 className="text-lg font-bold text-gray-900 leading-tight">
+                  {product.name}
+                </h1>
+              </div>
+            )}
 
             {/* Image Gallery */}
             <div>

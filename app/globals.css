@@ -49,6 +49,23 @@
   -webkit-tap-highlight-color: transparent;
 }
 
+/* PWA button fix - ensure immediate touch response */
+@media (hover: none) and (pointer: coarse) {
+  button, 
+  [role="button"],
+  a {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Ensure buttons respond immediately without 300ms delay */
+  button:active,
+  [role="button"]:active {
+    transform: scale(0.97);
+    transition: transform 0.1s ease-out;
+  }
+}
+
 /* Better text selection on mobile */
 @media (max-width: 640px) {
   * {

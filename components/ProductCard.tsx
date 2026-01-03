@@ -94,64 +94,83 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
       className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow flex flex-col"
     >
       <div className="relative overflow-hidden">
-        <Link href={productPath} className="block">
-          <motion.div
-            whileHover={animationsEnabled ? { scale: 1.1 } : {}}
-            transition={animationsEnabled ? { duration: 0.4, ease: "easeOut" } : {}}
-            className="overflow-hidden"
+        {/* Product Image - Use button for PWA, Link for web */}
+        {isPWA ? (
+          <button
+            type="button"
+            onClick={() => router.push(productPath)}
+            className="block w-full text-left"
+            style={{ touchAction: 'manipulation' }}
           >
-            <Image
-              src={product.image}
-              alt={`${product.name} - GENOSYS Korean ${product.category || 'dermacosmetics'} professional skincare product UAE`}
-              width={300}
-              height={300}
-              className="w-full h-24 sm:h-32 md:h-40 lg:h-48 object-cover cursor-pointer"
-            placeholder="blur"
-            blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
-            priority={false}
-            quality={85}
-            sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
-            onError={() => {
-              errorLog('Image failed to load:', product.image)
-            }}
-            onLoad={() => {
-              debugLog('Image loaded successfully:', product.image)
-            }}
-          />
-          </motion.div>
-        </Link>
-        <motion.button 
+            <div className="overflow-hidden">
+              <Image
+                src={product.image}
+                alt={`${product.name} - GENOSYS Korean ${product.category || 'dermacosmetics'} professional skincare product UAE`}
+                width={300}
+                height={300}
+                className="w-full h-24 sm:h-32 md:h-40 lg:h-48 object-cover cursor-pointer"
+                placeholder="blur"
+                blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
+                priority={false}
+                quality={85}
+                sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                onError={() => {
+                  errorLog('Image failed to load:', product.image)
+                }}
+                onLoad={() => {
+                  debugLog('Image loaded successfully:', product.image)
+                }}
+              />
+            </div>
+          </button>
+        ) : (
+          <Link href={productPath} className="block">
+            <motion.div
+              whileHover={animationsEnabled ? { scale: 1.1 } : {}}
+              transition={animationsEnabled ? { duration: 0.4, ease: "easeOut" } : {}}
+              className="overflow-hidden"
+            >
+              <Image
+                src={product.image}
+                alt={`${product.name} - GENOSYS Korean ${product.category || 'dermacosmetics'} professional skincare product UAE`}
+                width={300}
+                height={300}
+                className="w-full h-24 sm:h-32 md:h-40 lg:h-48 object-cover cursor-pointer"
+                placeholder="blur"
+                blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
+                priority={false}
+                quality={85}
+                sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                onError={() => {
+                  errorLog('Image failed to load:', product.image)
+                }}
+                onLoad={() => {
+                  debugLog('Image loaded successfully:', product.image)
+                }}
+              />
+            </motion.div>
+          </Link>
+        )}
+        <button 
+          type="button"
           onClick={handleFavorite}
-          onTouchStart={(e: React.TouchEvent<HTMLButtonElement>) => {
-            e.preventDefault()
-            handleFavorite(e)
-          }}
           disabled={isTogglingFavorite}
-          whileHover={animationsEnabled ? { scale: 1.1 } : {}}
-          whileTap={animationsEnabled ? { scale: 0.9 } : {}}
-          animate={animationsEnabled && isTogglingFavorite ? { scale: [1, 1.2, 1] } : {}}
-          transition={animationsEnabled ? { duration: 0.2 } : {}}
-          className={`absolute top-2 right-2 p-2 bg-white rounded-full shadow-md hover:bg-gray-50 transition-colors touch-manipulation z-20 min-h-[44px] min-w-[44px] flex items-center justify-center ${
+          className={`absolute top-2 right-2 p-2 bg-white rounded-full shadow-md hover:bg-gray-50 transition-colors z-20 min-h-[44px] min-w-[44px] flex items-center justify-center active:scale-95 ${
             isTogglingFavorite ? 'opacity-50' : ''
           }`}
           title={isFavorite(product.id) ? t('product.removeFromFavorites') : t('product.addToFavorites')}
           aria-label={isFavorite(product.id) ? t('product.removeFromFavorites') : t('product.addToFavorites')}
-          style={{ touchAction: 'manipulation' }}
+          style={{ touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}
         >
-          <motion.div
-            animate={animationsEnabled && isFavorite(product.id) ? { scale: [1, 1.3, 1] } : {}}
-            transition={animationsEnabled ? { duration: 0.3 } : {}}
-          >
-            <Heart 
-              className={`h-4 w-4 transition-colors ${
-                isFavorite(product.id) 
-                  ? 'text-red-500 fill-current' 
-                  : 'text-gray-600 hover:text-red-500'
-              }`}
-              aria-hidden="true"
-            />
-          </motion.div>
-        </motion.button>
+          <Heart 
+            className={`h-4 w-4 transition-colors ${
+              isFavorite(product.id) 
+                ? 'text-red-500 fill-current' 
+                : 'text-gray-600 hover:text-red-500'
+            }`}
+            aria-hidden="true"
+          />
+        </button>
         {!product.inStock && (
           <div className={`absolute top-2 ${locale === 'ar' ? 'left-2' : 'right-2'} z-30`}>
             <span className="inline-flex items-center px-3 py-1.5 rounded-md bg-red-600 text-white font-bold text-xs md:text-sm shadow-lg uppercase tracking-wide">
@@ -167,11 +186,24 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
         </div>
         
         <div className="mb-2">
-          <Link href={productPath}>
-            <h3 className="text-sm md:text-lg font-semibold text-gray-800 line-clamp-2 hover:text-primary-600 transition-colors cursor-pointer">
-              {product.name}
-            </h3>
-          </Link>
+          {isPWA ? (
+            <button 
+              type="button"
+              onClick={() => router.push(productPath)}
+              className="text-left w-full"
+              style={{ touchAction: 'manipulation' }}
+            >
+              <h3 className="text-sm md:text-lg font-semibold text-gray-800 line-clamp-2 hover:text-primary-600 transition-colors cursor-pointer">
+                {product.name}
+              </h3>
+            </button>
+          ) : (
+            <Link href={productPath}>
+              <h3 className="text-sm md:text-lg font-semibold text-gray-800 line-clamp-2 hover:text-primary-600 transition-colors cursor-pointer">
+                {product.name}
+              </h3>
+            </Link>
+          )}
         </div>
         
         {/* Size and Stock Row */}

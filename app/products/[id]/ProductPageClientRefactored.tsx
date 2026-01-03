@@ -268,7 +268,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
             {/* PWA Product Name - Above Image */}
             {isPWA && (
               <div className="lg:hidden mb-2 px-1">
-                <h1 className="text-lg font-bold text-gray-900 leading-tight">
+                <h1 className="text-lg font-bold text-gray-900 leading-tight text-center">
                   {product.name}
                 </h1>
               </div>
@@ -1051,10 +1051,12 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
               </div>
             )}
 
-            {/* Trust Badges - Mobile only */}
-            <div className="lg:hidden mt-3">
-              <TrustBadges />
-            </div>
+            {/* Trust Badges - Mobile only, hidden in PWA */}
+            {!isPWA && (
+              <div className="lg:hidden mt-3">
+                <TrustBadges />
+              </div>
+            )}
 
             {/* Product Reviews */}
             <ProductReviews productId={product.id} />

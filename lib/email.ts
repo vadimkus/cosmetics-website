@@ -71,538 +71,673 @@ transporter.verify((error, _success) => {
 
 // Email templates
 export const emailTemplates = {
-  // Welcome email for new user registration
+  // Welcome email for new user registration - Apple style
   welcomeUser: (userName: string, userEmail: string, password?: string) => ({
-    subject: 'Account details > Genosys Middle East FZ-LLC',
+    subject: 'Welcome to GENOSYS',
     html: `
-      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 2px solid #dc2626;">
-        <div style="text-align: center; margin-bottom: 30px;">
-          <h1 style="color: #dc2626; margin: 0;">Genosys Middle East FZ-LLC</h1>
-          <p style="color: #666; margin: 5px 0;">United Arab Emirates <span style="font-size: 0.8em;">❤️</span></p>
-        </div>
-        
-        <div style="background: white; padding: 30px; border-radius: 10px; margin-bottom: 20px; border: 1px solid #e5e7eb;">
-          <h2 style="color: #374151; margin: 0 0 15px 0;">Welcome, ${userName}!</h2>
-          <p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 0 0 20px 0;">
-            Registration is done. Thank you for joining.
-          </p>
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Welcome to GENOSYS</title>
+      </head>
+      <body style="margin: 0; padding: 0; background-color: #ffffff; -webkit-font-smoothing: antialiased;">
+        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #ffffff;">
+          <tr>
+            <td align="center" style="padding: 40px 20px;">
+              <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="max-width: 580px;">
+                
+                <!-- Logo -->
+                <tr>
+                  <td style="text-align: center; padding-bottom: 48px;">
+                    <img src="https://genosys.ae/_next/image?url=%2FLogo%2FFull.png&w=640&q=75" alt="GENOSYS" style="height: 32px; width: auto;" />
+                  </td>
+                </tr>
+                
+                <!-- Main Heading -->
+                <tr>
+                  <td style="text-align: center; padding-bottom: 12px;">
+                    <h1 style="margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif; font-size: 32px; font-weight: 600; color: #1d1d1f; letter-spacing: -0.02em;">
+                      Welcome, ${userName.split(' ')[0]}
+                    </h1>
+                  </td>
+                </tr>
+                
+                <!-- Subheading -->
+                <tr>
+                  <td style="text-align: center; padding-bottom: 40px;">
+                    <p style="margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 17px; color: #86868b; letter-spacing: -0.01em;">
+                      Your account has been created successfully.
+                    </p>
+                  </td>
+                </tr>
+                
           ${password ? `
-          <div style="background: #f9fafb; padding: 18px 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e5e7eb;">
-            <h3 style="color: #374151; margin: 0 0 12px 0; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Account details:</h3>
-            <p style="color: #6b7280; font-size: 13px; line-height: 1.6; margin: 6px 0;">
-              <span style="color: #9ca3af;">login:</span> <strong style="color: #374151;">${userEmail}</strong>
-            </p>
-            <p style="color: #6b7280; font-size: 13px; line-height: 1.6; margin: 6px 0;">
-              <span style="color: #9ca3af;">password:</span> <strong style="color: #374151; font-family: 'Courier New', monospace; letter-spacing: 0.5px;">${password}</strong>
-            </p>
+                <!-- Account Details Card -->
+                <tr>
+                  <td style="padding-bottom: 32px;">
+                    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #f5f5f7; border-radius: 12px;">
+                      <tr>
+                        <td style="padding: 24px;">
+                          <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 13px; font-weight: 600; color: #86868b; text-transform: uppercase; letter-spacing: 0.02em; margin-bottom: 16px;">Account Details</div>
+                          <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 15px; color: #1d1d1f; line-height: 1.6;">
+                            <div style="margin-bottom: 8px;">
+                              <span style="color: #86868b;">Email:</span> <strong>${userEmail}</strong>
           </div>
-          ` : ''}
+                            <div>
+                              <span style="color: #86868b;">Password:</span> <strong style="font-family: 'SF Mono', SFMono-Regular, Menlo, Monaco, Consolas, monospace; letter-spacing: 0.5px;">${password}</strong>
         </div>
-        
-        <div style="text-align: center; margin: 30px 0;">
-          <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/products" 
-             style="background: #dc2626; 
-                    color: white; 
-                    padding: 10px 24px; 
-                    text-decoration: none; 
-                    border-radius: 4px; 
-                    font-weight: bold; 
-                    font-size: 14px;
-                    display: inline-block;
-                    letter-spacing: 0.3px;">
-            Login
-          </a>
         </div>
-        
-        <div style="border-top: 1px solid #e5e7eb; padding-top: 20px; text-align: center;">
-          <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/products" style="display: block; margin: 0 auto 15px; max-width: 170px;">
-            <img src="https://genosys.ae/_next/image?url=%2FLogo%2FupLOGO.png&w=384&q=75" alt="Genosys Logo" style="max-width: 170px; height: auto; margin: 0 auto; display: block;" />
-          </a>
-          <p style="color: #6b7280; font-size: 14px; margin: 8px 0;">
-            Official Distributor in the UAE.
-          </p>
-          <p style="color: #6b7280; font-size: 12px; margin: 8px 0 0;">
-            © 2026 Genosys Middle East FZ-LLC. All rights reserved.
-          </p>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                ` : ''}
+                
+                <!-- CTA Button -->
+                <tr>
+                  <td style="text-align: center; padding-bottom: 48px;">
+                    <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://genosys.ae'}/products" style="display: inline-block; background-color: #0071e3; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 17px; font-weight: 500; text-decoration: none; padding: 12px 24px; border-radius: 980px; letter-spacing: -0.01em;">
+                      Start Shopping
+                    </a>
+                  </td>
+                </tr>
+                
+                <!-- Footer -->
+                <tr>
+                  <td style="text-align: center; padding-top: 32px; border-top: 1px solid #d2d2d7;">
+                    <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 12px; color: #86868b; line-height: 1.6;">
+                      Genosys Middle East FZ-LLC<br>
+                      Official Distributor in the UAE<br><br>
+                      © 2026 All rights reserved.
         </div>
-      </div>
+                  </td>
+                </tr>
+                
+              </table>
+            </td>
+          </tr>
+        </table>
+      </body>
+      </html>
     `,
   }),
 
-  // Order shipped email (based on welcome template design)
+  // Order shipped email - Apple style
   orderShipped: (orderData: { orderNumber: string; customerName: string; customerEmail: string; items?: Array<{ productName: string; quantity: number; price: number; image?: string }>; total?: number; customerAddress?: string; customerEmirate?: string }) => ({
-    subject: `Order Shipped #${orderData.orderNumber} > Genosys Middle East FZ-LLC`,
+    subject: `Your Order Has Shipped`,
     html: `
-      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 2px solid #dc2626;">
-        <div style="text-align: center; margin-bottom: 30px;">
-          <h1 style="color: #dc2626; margin: 0;">Genosys Middle East FZ-LLC</h1>
-          <p style="color: #666; margin: 5px 0;">United Arab Emirates <span style="font-size: 0.8em;">❤️</span></p>
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Order Shipped</title>
+      </head>
+      <body style="margin: 0; padding: 0; background-color: #ffffff; -webkit-font-smoothing: antialiased;">
+        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #ffffff;">
+          <tr>
+            <td align="center" style="padding: 40px 20px;">
+              <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="max-width: 580px;">
+                
+                <!-- Logo -->
+                <tr>
+                  <td style="text-align: center; padding-bottom: 48px;">
+                    <img src="https://genosys.ae/_next/image?url=%2FLogo%2FFull.png&w=640&q=75" alt="GENOSYS" style="height: 32px; width: auto;" />
+                  </td>
+                </tr>
+                
+                <!-- Status Icon -->
+                <tr>
+                  <td style="text-align: center; padding-bottom: 24px;">
+                    <div style="display: inline-block; width: 64px; height: 64px; background-color: #34c759; border-radius: 50%; line-height: 64px; font-size: 32px;">
+                      📦
         </div>
-        
-        <div style="background: white; padding: 30px; border-radius: 10px; margin-bottom: 20px; border: 1px solid #e5e7eb;">
-          <h2 style="color: #374151; margin: 0 0 15px 0;">${orderData.customerName},</h2>
-          <p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 0 0 20px 0;">
-            Your order has been <u>shipped.</u>
-          </p>
-          <div style="background: #f9fafb; padding: 18px 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e5e7eb;">
-            <h3 style="color: #374151; margin: 0 0 12px 0; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">
-              <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/profile" style="color: #374151; text-decoration: none;">Order details:</a>
-            </h3>
-            <p style="color: #6b7280; font-size: 13px; line-height: 1.6; margin: 6px 0;">
-              <span style="color: #9ca3af;">Order number:</span> <strong style="color: #374151;">#${orderData.orderNumber}</strong>
-            </p>
+                  </td>
+                </tr>
+                
+                <!-- Main Heading -->
+                <tr>
+                  <td style="text-align: center; padding-bottom: 12px;">
+                    <h1 style="margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif; font-size: 28px; font-weight: 600; color: #1d1d1f; letter-spacing: -0.02em;">
+                      Your Order Has Shipped
+                    </h1>
+                  </td>
+                </tr>
+                
+                <!-- Order Number -->
+                <tr>
+                  <td style="text-align: center; padding-bottom: 32px;">
+                    <span style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 17px; color: #86868b;">
+                      #${orderData.orderNumber}
+                    </span>
+                  </td>
+                </tr>
+                
+                <!-- Message -->
+                <tr>
+                  <td style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 17px; line-height: 1.5; color: #1d1d1f; text-align: center; padding-bottom: 32px;">
+                    Hi ${orderData.customerName.split(' ')[0]}, your order is on its way and will arrive soon.
+                  </td>
+                </tr>
+                
             ${orderData.total ? `
-            <p style="color: #6b7280; font-size: 13px; line-height: 1.6; margin: 6px 0;">
-              <span style="color: #9ca3af;">Total:</span> <strong style="color: #374151;">AED ${orderData.total.toFixed(2)}</strong>
-            </p>
+                <!-- Order Total -->
+                <tr>
+                  <td style="text-align: center; padding-bottom: 32px;">
+                    <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 15px; color: #86868b;">Order Total</div>
+                    <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif; font-size: 24px; font-weight: 600; color: #1d1d1f; margin-top: 4px;">AED ${orderData.total.toFixed(2)}</div>
+                  </td>
+                </tr>
             ` : ''}
-          </div>
           
           ${orderData.customerAddress || orderData.customerEmirate ? `
-          <div style="background: #f9fafb; padding: 18px 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e5e7eb;">
-            <h3 style="color: #374151; margin: 0 0 12px 0; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Delivery info:</h3>
-            ${orderData.customerAddress ? `
-            <p style="color: #6b7280; font-size: 13px; line-height: 1.6; margin: 6px 0;">
-              <span style="color: #9ca3af;">Address:</span> <strong style="color: #374151;">${orderData.customerAddress}</strong>
-            </p>
-            ` : ''}
-            ${orderData.customerEmirate ? `
-            <p style="color: #6b7280; font-size: 13px; line-height: 1.6; margin: 6px 0;">
-              <span style="color: #9ca3af;">Emirate:</span> <strong style="color: #374151;">${orderData.customerEmirate}</strong>
-            </p>
-            ` : ''}
+                <!-- Delivery Info -->
+                <tr>
+                  <td style="padding-bottom: 32px;">
+                    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #f5f5f7; border-radius: 12px;">
+                      <tr>
+                        <td style="padding: 24px;">
+                          <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 13px; font-weight: 600; color: #86868b; text-transform: uppercase; letter-spacing: 0.02em; margin-bottom: 12px;">Delivering To</div>
+                          <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 15px; color: #1d1d1f; line-height: 1.5;">
+                            ${orderData.customerAddress || ''}${orderData.customerAddress && orderData.customerEmirate ? '<br>' : ''}${orderData.customerEmirate ? `${orderData.customerEmirate}, UAE` : ''}
           </div>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
           ` : ''}
+                
+                <!-- CTA Button -->
+                <tr>
+                  <td style="text-align: center; padding-bottom: 48px;">
+                    <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://genosys.ae'}/profile" style="display: inline-block; background-color: #0071e3; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 17px; font-weight: 500; text-decoration: none; padding: 12px 24px; border-radius: 980px;">
+                      View Order
+                    </a>
+                  </td>
+                </tr>
+                
+                <!-- Footer -->
+                <tr>
+                  <td style="text-align: center; padding-top: 32px; border-top: 1px solid #d2d2d7;">
+                    <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 12px; color: #86868b; line-height: 1.6;">
+                      Genosys Middle East FZ-LLC<br>
+                      Official Distributor in the UAE<br><br>
+                      © 2026 All rights reserved.
         </div>
-        
-        <div style="text-align: center; margin: 30px 0;">
-          <a href="https://wa.me/971585487665?text=${encodeURIComponent(`Hi! I need help with my order #${orderData.orderNumber}. Can you assist me?`)}" 
-             style="background: #128C7E; 
-                    color: white; 
-                    padding: 10px 24px; 
-                    text-decoration: none; 
-                    border-radius: 4px; 
-                    font-weight: bold; 
-                    font-size: 14px;
-                    display: inline-block;
-                    letter-spacing: 0.3px;">
-            Contact us: WhatsApp
-          </a>
-        </div>
-        
-        <div style="border-top: 1px solid #e5e7eb; padding-top: 20px; text-align: center;">
-          <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/products" style="display: block; margin: 0 auto 15px; max-width: 170px;">
-            <img src="https://genosys.ae/_next/image?url=%2FLogo%2FupLOGO.png&w=384&q=75" alt="Genosys Logo" style="max-width: 170px; height: auto; margin: 0 auto; display: block;" />
-          </a>
-          <p style="color: #6b7280; font-size: 14px; margin: 8px 0;">
-            Official Distributor in the UAE.
-          </p>
-          <p style="color: #6b7280; font-size: 12px; margin: 8px 0 0;">
-            © 2026 Genosys Middle East FZ-LLC. All rights reserved.
-          </p>
-        </div>
-      </div>
+                  </td>
+                </tr>
+                
+              </table>
+            </td>
+          </tr>
+        </table>
+      </body>
+      </html>
     `,
   }),
 
-  // Order confirmed email (based on welcome template design)
+  // Order confirmed email - Apple style
   orderConfirmed: (orderData: { orderNumber: string; customerName: string; customerEmail: string; items?: Array<{ productName: string; quantity: number; price: number; image?: string }>; total?: number }) => ({
-    subject: `Order Confirmed #${orderData.orderNumber} > Genosys Middle East FZ-LLC`,
+    subject: `Order Confirmed`,
     html: `
-      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 2px solid #dc2626;">
-        <div style="text-align: center; margin-bottom: 30px;">
-          <h1 style="color: #dc2626; margin: 0;">Genosys Middle East FZ-LLC</h1>
-          <p style="color: #666; margin: 5px 0;">United Arab Emirates <span style="font-size: 0.8em;">❤️</span></p>
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Order Confirmed</title>
+      </head>
+      <body style="margin: 0; padding: 0; background-color: #ffffff; -webkit-font-smoothing: antialiased;">
+        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #ffffff;">
+          <tr>
+            <td align="center" style="padding: 40px 20px;">
+              <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="max-width: 580px;">
+                
+                <!-- Logo -->
+                <tr>
+                  <td style="text-align: center; padding-bottom: 48px;">
+                    <img src="https://genosys.ae/_next/image?url=%2FLogo%2FFull.png&w=640&q=75" alt="GENOSYS" style="height: 32px; width: auto;" />
+                  </td>
+                </tr>
+                
+                <!-- Status Icon -->
+                <tr>
+                  <td style="text-align: center; padding-bottom: 24px;">
+                    <div style="display: inline-block; width: 64px; height: 64px; background-color: #0071e3; border-radius: 50%; line-height: 64px; font-size: 32px;">
+                      ✓
         </div>
-        
-        <div style="background: white; padding: 30px; border-radius: 10px; margin-bottom: 20px; border: 1px solid #e5e7eb;">
-          <h2 style="color: #374151; margin: 0 0 15px 0;">${orderData.customerName},</h2>
-          <p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 0 0 20px 0;">
-            Your order has been received and is being <u>processed.</u>
-          </p>
-          <div style="background: #f9fafb; padding: 18px 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e5e7eb;">
-            <h3 style="color: #374151; margin: 0 0 12px 0; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">
-              <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/profile" style="color: #374151; text-decoration: none;">Order details:</a>
-            </h3>
-            <p style="color: #6b7280; font-size: 13px; line-height: 1.6; margin: 6px 0;">
-              <span style="color: #9ca3af;">Order number:</span> <strong style="color: #374151;">#${orderData.orderNumber}</strong>
-            </p>
+                  </td>
+                </tr>
+                
+                <!-- Main Heading -->
+                <tr>
+                  <td style="text-align: center; padding-bottom: 12px;">
+                    <h1 style="margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif; font-size: 28px; font-weight: 600; color: #1d1d1f; letter-spacing: -0.02em;">
+                      Order Confirmed
+                    </h1>
+                  </td>
+                </tr>
+                
+                <!-- Order Number -->
+                <tr>
+                  <td style="text-align: center; padding-bottom: 32px;">
+                    <span style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 17px; color: #86868b;">
+                      #${orderData.orderNumber}
+                    </span>
+                  </td>
+                </tr>
+                
+                <!-- Message -->
+                <tr>
+                  <td style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 17px; line-height: 1.5; color: #1d1d1f; text-align: center; padding-bottom: 32px;">
+                    Hi ${orderData.customerName.split(' ')[0]}, we've received your order and it's being processed.
+                  </td>
+                </tr>
+                
             ${orderData.total ? `
-            <p style="color: #6b7280; font-size: 13px; line-height: 1.6; margin: 6px 0;">
-              <span style="color: #9ca3af;">Total:</span> <strong style="color: #374151;">AED ${orderData.total.toFixed(2)}</strong>
-            </p>
+                <!-- Order Total -->
+                <tr>
+                  <td style="text-align: center; padding-bottom: 32px;">
+                    <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 15px; color: #86868b;">Order Total</div>
+                    <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif; font-size: 24px; font-weight: 600; color: #1d1d1f; margin-top: 4px;">AED ${orderData.total.toFixed(2)}</div>
+                  </td>
+                </tr>
             ` : ''}
-          </div>
+                
+                <!-- CTA Button -->
+                <tr>
+                  <td style="text-align: center; padding-bottom: 48px;">
+                    <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://genosys.ae'}/profile" style="display: inline-block; background-color: #0071e3; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 17px; font-weight: 500; text-decoration: none; padding: 12px 24px; border-radius: 980px;">
+                      View Order
+                    </a>
+                  </td>
+                </tr>
+                
+                <!-- Footer -->
+                <tr>
+                  <td style="text-align: center; padding-top: 32px; border-top: 1px solid #d2d2d7;">
+                    <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 12px; color: #86868b; line-height: 1.6;">
+                      Genosys Middle East FZ-LLC<br>
+                      Official Distributor in the UAE<br><br>
+                      © 2026 All rights reserved.
         </div>
-        
-        <div style="text-align: center; margin: 30px 0;">
-          <a href="https://wa.me/971585487665?text=${encodeURIComponent(`Hi! I need help with my order #${orderData.orderNumber}. Can you assist me?`)}" 
-             style="background: #128C7E; 
-                    color: white; 
-                    padding: 10px 24px; 
-                    text-decoration: none; 
-                    border-radius: 4px; 
-                    font-weight: bold; 
-                    font-size: 14px;
-                    display: inline-block;
-                    letter-spacing: 0.3px;">
-            Contact us: WhatsApp
-          </a>
-        </div>
-        
-        <div style="border-top: 1px solid #e5e7eb; padding-top: 20px; text-align: center;">
-          <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/products" style="display: block; margin: 0 auto 15px; max-width: 170px;">
-            <img src="https://genosys.ae/_next/image?url=%2FLogo%2FupLOGO.png&w=384&q=75" alt="Genosys Logo" style="max-width: 170px; height: auto; margin: 0 auto; display: block;" />
-          </a>
-          <p style="color: #6b7280; font-size: 14px; margin: 8px 0;">
-            Official Distributor in the UAE.
-          </p>
-          <p style="color: #6b7280; font-size: 12px; margin: 8px 0 0;">
-            © 2026 Genosys Middle East FZ-LLC. All rights reserved.
-          </p>
-        </div>
-      </div>
+                  </td>
+                </tr>
+                
+              </table>
+            </td>
+          </tr>
+        </table>
+      </body>
+      </html>
     `,
   }),
 
-  // Order delivered email (based on welcome template design)
+  // Order delivered email - Apple style
   orderDelivered: (orderData: { orderNumber: string; customerName: string; customerEmail: string; items?: Array<{ productName: string; quantity: number; price: number; image?: string }>; total?: number; locale?: string }) => {
-    const locale = orderData.locale || 'en'
-    let t: any
-    try {
-      if (locale === 'ar') {
-        t = require('@/messages/ar.json').orderEmail.orderDelivered
-      } else if (locale === 'ru') {
-        t = require('@/messages/ru.json').orderEmail.orderDelivered
-      } else {
-        t = require('@/messages/en.json').orderEmail.orderDelivered
-      }
-    } catch (error) {
-      t = require('@/messages/en.json').orderEmail.orderDelivered
-    }
-    
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://genosys.ae'
-    const instagramIconUrl = `${baseUrl}/Logo/insta.png`
-    const whatsappIconUrl = `${baseUrl}/Logo/wa.png`
-    const facebookIconUrl = `${baseUrl}/Logo/fb.png`
-    const isRTL = locale === 'ar'
-    const textAlign = isRTL ? 'right' : 'left'
-    const dir = isRTL ? 'rtl' : 'ltr'
-    
     return {
-    subject: t.subject.replace('{orderNumber}', orderData.orderNumber).replace('#{orderNumber}', orderData.orderNumber),
+    subject: `Your Order Has Been Delivered`,
     html: `
-      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 2px solid #dc2626; direction: ${dir};">
-        <div style="text-align: center; margin-bottom: 30px;">
-          <h1 style="color: #dc2626; margin: 0;">Genosys Middle East FZ-LLC</h1>
-          <p style="color: #666; margin: 5px 0;">United Arab Emirates <span style="font-size: 0.8em;">❤️</span></p>
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Order Delivered</title>
+      </head>
+      <body style="margin: 0; padding: 0; background-color: #ffffff; -webkit-font-smoothing: antialiased;">
+        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #ffffff;">
+          <tr>
+            <td align="center" style="padding: 40px 20px;">
+              <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="max-width: 580px;">
+                
+                <!-- Logo -->
+                <tr>
+                  <td style="text-align: center; padding-bottom: 48px;">
+                    <img src="https://genosys.ae/_next/image?url=%2FLogo%2FFull.png&w=640&q=75" alt="GENOSYS" style="height: 32px; width: auto;" />
+                  </td>
+                </tr>
+                
+                <!-- Status Icon -->
+                <tr>
+                  <td style="text-align: center; padding-bottom: 24px;">
+                    <div style="display: inline-block; width: 64px; height: 64px; background-color: #34c759; border-radius: 50%; line-height: 64px; font-size: 32px;">
+                      ✓
         </div>
-        
-        <div style="background: white; padding: 30px; border-radius: 10px; margin-bottom: 20px; border: 1px solid #e5e7eb;">
-          <h2 style="color: #374151; margin: 0 0 15px 0; text-align: ${textAlign};">${orderData.customerName},</h2>
-          <p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 0 0 20px 0; text-align: ${textAlign};">
-            ${t.delivered}
-          </p>
-          <div style="background: #f9fafb; padding: 18px 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e5e7eb;">
-            <h3 style="color: #374151; margin: 0 0 12px 0; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; text-align: ${textAlign};">
-              <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/${locale === 'ar' ? 'ar/' : locale === 'ru' ? 'ru/' : ''}profile" style="color: #374151; text-decoration: none;">${t.orderDetails}</a>
-            </h3>
-            <p style="color: #6b7280; font-size: 13px; line-height: 1.6; margin: 6px 0; text-align: ${textAlign};">
-              <span style="color: #9ca3af;">${t.orderNumber}</span> <strong style="color: #374151;">#${orderData.orderNumber}</strong>
-            </p>
+                  </td>
+                </tr>
+                
+                <!-- Main Heading -->
+                <tr>
+                  <td style="text-align: center; padding-bottom: 12px;">
+                    <h1 style="margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif; font-size: 28px; font-weight: 600; color: #1d1d1f; letter-spacing: -0.02em;">
+                      Delivered
+                    </h1>
+                  </td>
+                </tr>
+                
+                <!-- Order Number -->
+                <tr>
+                  <td style="text-align: center; padding-bottom: 32px;">
+                    <span style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 17px; color: #86868b;">
+                      Order #${orderData.orderNumber}
+                    </span>
+                  </td>
+                </tr>
+                
+                <!-- Message -->
+                <tr>
+                  <td style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 17px; line-height: 1.5; color: #1d1d1f; text-align: center; padding-bottom: 32px;">
+                    Hi ${orderData.customerName.split(' ')[0]}, your order has been delivered. We hope you love your products!
+                  </td>
+                </tr>
+                
             ${orderData.total ? `
-            <p style="color: #6b7280; font-size: 13px; line-height: 1.6; margin: 6px 0; text-align: ${textAlign};">
-              <span style="color: #9ca3af;">${t.total}</span> <strong style="color: #374151;">AED ${orderData.total.toFixed(2)}</strong>
-            </p>
+                <!-- Order Total -->
+                <tr>
+                  <td style="text-align: center; padding-bottom: 32px;">
+                    <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 15px; color: #86868b;">Order Total</div>
+                    <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif; font-size: 24px; font-weight: 600; color: #1d1d1f; margin-top: 4px;">AED ${orderData.total.toFixed(2)}</div>
+                  </td>
+                </tr>
             ` : ''}
-          </div>
-        </div>
-        
-        <div style="text-align: center; margin: 20px 0;">
-          <p style="color: #374151; font-size: 14px; margin: 0 0 12px 0; font-weight: 600;">${t.followUs}</p>
-          <table cellpadding="0" cellspacing="0" border="0" align="center" style="margin: 0 auto;">
-            <tr>
-              <td style="padding: 0 12px; text-align: center;">
-                <a href="https://www.instagram.com/genosys.uae/" style="text-decoration: none; display: inline-block;">
-                  <img src="${instagramIconUrl}" alt="Instagram" width="34" height="34" style="max-width: 34px; height: auto; display: block; margin: 0 auto;" border="0" />
-                  <p style="color: #374151; font-size: 11px; margin: 6px 0 0 0; text-align: center;">Insta</p>
+                
+                <!-- CTA Button -->
+                <tr>
+                  <td style="text-align: center; padding-bottom: 48px;">
+                    <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://genosys.ae'}/products" style="display: inline-block; background-color: #0071e3; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 17px; font-weight: 500; text-decoration: none; padding: 12px 24px; border-radius: 980px;">
+                      Shop Again
                 </a>
               </td>
-              <td style="padding: 0 12px; text-align: center;">
-                <a href="https://wa.me/971585487665?text=${encodeURIComponent(`Hi! I need help with my order #${orderData.orderNumber}. Can you assist me?`)}" style="text-decoration: none; display: inline-block;">
-                  <img src="${whatsappIconUrl}" alt="WhatsApp" width="34" height="34" style="max-width: 34px; height: auto; display: block; margin: 0 auto;" border="0" />
-                  <p style="color: #374151; font-size: 11px; margin: 6px 0 0 0; text-align: center;">WhatsApp</p>
-                </a>
+                </tr>
+                
+                <!-- Footer -->
+                <tr>
+                  <td style="text-align: center; padding-top: 32px; border-top: 1px solid #d2d2d7;">
+                    <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 12px; color: #86868b; line-height: 1.6;">
+                      Genosys Middle East FZ-LLC<br>
+                      Official Distributor in the UAE<br><br>
+                      © 2026 All rights reserved.
+                    </div>
               </td>
-              <td style="padding: 0 12px; text-align: center;">
-                <a href="https://www.facebook.com/genosys.ae" style="text-decoration: none; display: inline-block;">
-                  <img src="${facebookIconUrl}" alt="Facebook" width="34" height="34" style="max-width: 34px; height: auto; display: block; margin: 0 auto;" border="0" />
-                  <p style="color: #374151; font-size: 11px; margin: 6px 0 0 0; text-align: center;">FB</p>
-                </a>
+                </tr>
+                
+              </table>
               </td>
             </tr>
           </table>
-        </div>
-        
-        <div style="border-top: 1px solid #e5e7eb; padding-top: 20px; text-align: center;">
-          <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/products" style="display: block; margin: 0 auto 15px; max-width: 170px;">
-            <img src="https://genosys.ae/_next/image?url=%2FLogo%2FupLOGO.png&w=384&q=75" alt="Genosys Logo" style="max-width: 170px; height: auto; margin: 0 auto; display: block;" />
-          </a>
-          <p style="color: #6b7280; font-size: 14px; margin: 8px 0;">
-            ${t.officialDistributor}
-          </p>
-          <p style="color: #6b7280; font-size: 12px; margin: 8px 0 0;">
-            ${t.copyright}
-          </p>
-        </div>
-      </div>
+      </body>
+      </html>
     `
     }
   },
 
-  // Discount assignment email (based on order shipped template design)
+  // Discount assignment email - Apple style
   discountAssigned: (discountData: { customerName: string; customerEmail: string; discountType: 'CLINIC' | 'VIP'; discountPercentage: number; locale?: string }) => {
-    const locale = discountData.locale || 'en'
-    let t: any
-    try {
-      if (locale === 'ar') {
-        t = require('@/messages/ar.json').orderEmail.discountAssigned
-      } else if (locale === 'ru') {
-        t = require('@/messages/ru.json').orderEmail.discountAssigned
-      } else {
-        t = require('@/messages/en.json').orderEmail.discountAssigned
-      }
-    } catch (error) {
-      t = require('@/messages/en.json').orderEmail.discountAssigned
-    }
-    
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://genosys.ae'
-    const instagramIconUrl = `${baseUrl}/Logo/insta.png`
-    const whatsappIconUrl = `${baseUrl}/Logo/wa.png`
-    const facebookIconUrl = `${baseUrl}/Logo/fb.png`
-    const isRTL = locale === 'ar'
-    const textAlign = isRTL ? 'right' : 'left'
-    const dir = isRTL ? 'rtl' : 'ltr'
+    const discountLabel = discountData.discountPercentage < 50 ? 'VIP' : (discountData.discountType === 'CLINIC' ? 'Clinic Partner' : 'VIP')
     
     return {
-    subject: t.subject,
+    subject: `Your ${discountLabel} Discount is Active`,
     html: `
-      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 2px solid #dc2626; direction: ${dir};">
-        <div style="text-align: center; margin-bottom: 30px;">
-          <h1 style="color: #dc2626; margin: 0;">Genosys Middle East FZ-LLC</h1>
-          <p style="color: #666; margin: 5px 0;">United Arab Emirates <span style="font-size: 0.8em;">❤️</span></p>
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Discount Activated</title>
+      </head>
+      <body style="margin: 0; padding: 0; background-color: #ffffff; -webkit-font-smoothing: antialiased;">
+        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #ffffff;">
+          <tr>
+            <td align="center" style="padding: 40px 20px;">
+              <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="max-width: 580px;">
+                
+                <!-- Logo -->
+                <tr>
+                  <td style="text-align: center; padding-bottom: 48px;">
+                    <img src="https://genosys.ae/_next/image?url=%2FLogo%2FFull.png&w=640&q=75" alt="GENOSYS" style="height: 32px; width: auto;" />
+                  </td>
+                </tr>
+                
+                <!-- Discount Badge -->
+                <tr>
+                  <td style="text-align: center; padding-bottom: 24px;">
+                    <div style="display: inline-block; background: linear-gradient(135deg, #5e5ce6 0%, #bf5af2 100%); color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif; font-size: 48px; font-weight: 700; padding: 24px 40px; border-radius: 16px; letter-spacing: -0.02em;">
+                      ${discountData.discountPercentage}% OFF
         </div>
-        
-        <div style="background: white; padding: 30px; border-radius: 10px; margin-bottom: 20px; border: 1px solid #e5e7eb;">
-          <h2 style="color: #374151; margin: 0 0 15px 0; text-align: ${textAlign};">${discountData.customerName},</h2>
-          <p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 0 0 20px 0; text-align: ${textAlign};">
-            ${t.greeting}
-          </p>
-          <div style="background: #f9fafb; padding: 18px 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e5e7eb;">
-            <h3 style="color: #374151; margin: 0 0 12px 0; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; text-align: ${textAlign};">${t.discountDetails}</h3>
-            <p style="color: #6b7280; font-size: 13px; line-height: 1.6; margin: 6px 0; text-align: ${textAlign};">
-              <span style="color: #9ca3af;">${t.type}</span> <strong style="color: #374151;">${discountData.discountPercentage < 50 ? 'VIP' : (discountData.discountType === 'CLINIC' ? (locale === 'ru' ? 'Клиника' : locale === 'ar' ? 'شريك العيادة' : 'Clinic Partner') : 'VIP')}</strong>
-            </p>
-            <p style="color: #6b7280; font-size: 13px; line-height: 1.6; margin: 6px 0; text-align: ${textAlign};">
-              <span style="color: #9ca3af;">${t.discount}</span> <strong style="color: #dc2626; font-size: 16px;">${discountData.discountPercentage}% ${locale === 'ru' ? 'СКИДКА' : locale === 'ar' ? 'خصم' : 'OFF'}</strong>
-            </p>
-          </div>
-          <p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 20px 0 0 0; text-align: ${textAlign};">
-            ${t.discountInfo} <a href="https://www.genosys.ae" style="color: #dc2626; text-decoration: none;">www.genosys.ae</a>
-          </p>
-        </div>
-        
-        <div style="text-align: center; margin: 30px 0;">
-          <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/${locale === 'ar' ? 'ar/' : locale === 'ru' ? 'ru/' : ''}login" 
-             style="background: #dc2626; 
-                    color: white; 
-                    padding: 10px 24px; 
-                    text-decoration: none; 
-                    border-radius: 4px; 
-                    font-weight: bold; 
-                    font-size: 14px;
-                    display: inline-block;
-                    letter-spacing: 0.3px;">
-            ${t.login}
-          </a>
-        </div>
-        
-        <div style="text-align: center; margin: 20px 0;">
-          <p style="color: #374151; font-size: 14px; margin: 0 0 12px 0; font-weight: 600;">${t.followUs}</p>
-          <table cellpadding="0" cellspacing="0" border="0" align="center" style="margin: 0 auto;">
-            <tr>
-              <td style="padding: 0 12px; text-align: center;">
-                <a href="https://www.instagram.com/genosys.uae/" style="text-decoration: none; display: inline-block;">
-                  <img src="${instagramIconUrl}" alt="Instagram" width="34" height="34" style="max-width: 34px; height: auto; display: block; margin: 0 auto;" border="0" />
-                  <p style="color: #374151; font-size: 11px; margin: 6px 0 0 0; text-align: center;">Insta</p>
-                </a>
+                  </td>
+                </tr>
+                
+                <!-- Main Heading -->
+                <tr>
+                  <td style="text-align: center; padding-bottom: 12px;">
+                    <h1 style="margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif; font-size: 28px; font-weight: 600; color: #1d1d1f; letter-spacing: -0.02em;">
+                      ${discountLabel} Status Activated
+                    </h1>
               </td>
-              <td style="padding: 0 12px; text-align: center;">
-                <a href="https://wa.me/971585487665?text=${encodeURIComponent(`Hi! I have a question about my ${discountData.discountPercentage < 50 ? 'VIP' : (discountData.discountType === 'CLINIC' ? 'clinic' : 'VIP')} discount. Can you assist me?`)}" style="text-decoration: none; display: inline-block;">
-                  <img src="${whatsappIconUrl}" alt="WhatsApp" width="34" height="34" style="max-width: 34px; height: auto; display: block; margin: 0 auto;" border="0" />
-                  <p style="color: #374151; font-size: 11px; margin: 6px 0 0 0; text-align: center;">WhatsApp</p>
-                </a>
+                </tr>
+                
+                <!-- Message -->
+                <tr>
+                  <td style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 17px; line-height: 1.5; color: #1d1d1f; text-align: center; padding-bottom: 32px;">
+                    Hi ${discountData.customerName.split(' ')[0]}, your ${discountLabel} discount is now active on your account. Enjoy ${discountData.discountPercentage}% off on all products.
               </td>
-              <td style="padding: 0 12px; text-align: center;">
-                <a href="https://www.facebook.com/genosys.ae" style="text-decoration: none; display: inline-block;">
-                  <img src="${facebookIconUrl}" alt="Facebook" width="34" height="34" style="max-width: 34px; height: auto; display: block; margin: 0 auto;" border="0" />
-                  <p style="color: #374151; font-size: 11px; margin: 6px 0 0 0; text-align: center;">FB</p>
-                </a>
+                </tr>
+                
+                <!-- Info Card -->
+                <tr>
+                  <td style="padding-bottom: 32px;">
+                    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #f5f5f7; border-radius: 12px;">
+                      <tr>
+                        <td style="padding: 24px;">
+                          <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 13px; font-weight: 600; color: #86868b; text-transform: uppercase; letter-spacing: 0.02em; margin-bottom: 12px;">How It Works</div>
+                          <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 15px; color: #1d1d1f; line-height: 1.6;">
+                            Your discount is automatically applied at checkout when you're logged in. No code needed.
+                          </div>
               </td>
             </tr>
           </table>
+                  </td>
+                </tr>
+                
+                <!-- CTA Button -->
+                <tr>
+                  <td style="text-align: center; padding-bottom: 48px;">
+                    <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://genosys.ae'}/products" style="display: inline-block; background-color: #0071e3; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 17px; font-weight: 500; text-decoration: none; padding: 12px 24px; border-radius: 980px;">
+                      Start Shopping
+                    </a>
+                  </td>
+                </tr>
+                
+                <!-- Footer -->
+                <tr>
+                  <td style="text-align: center; padding-top: 32px; border-top: 1px solid #d2d2d7;">
+                    <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 12px; color: #86868b; line-height: 1.6;">
+                      Genosys Middle East FZ-LLC<br>
+                      Official Distributor in the UAE<br><br>
+                      © 2026 All rights reserved.
         </div>
-        
-        <div style="border-top: 1px solid #e5e7eb; padding-top: 20px; text-align: center;">
-          <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/products" style="display: block; margin: 0 auto 15px; max-width: 170px;">
-            <img src="https://genosys.ae/_next/image?url=%2FLogo%2FupLOGO.png&w=384&q=75" alt="Genosys Logo" style="max-width: 170px; height: auto; margin: 0 auto; display: block;" />
-          </a>
-          <p style="color: #6b7280; font-size: 14px; margin: 8px 0;">
-            ${t.officialDistributor}
-          </p>
-          <p style="color: #6b7280; font-size: 12px; margin: 8px 0 0;">
-            ${t.copyright}
-          </p>
-        </div>
-      </div>
+                  </td>
+                </tr>
+                
+              </table>
+            </td>
+          </tr>
+        </table>
+      </body>
+      </html>
     `
     }
   },
 
-  // Order confirmation email
+  // Order confirmation email - Apple style
   orderConfirmation: (orderData: OrderConfirmationEmailData) => {
-    const locale = orderData.locale || 'en'
-    let t: any
-    try {
-      if (locale === 'ar') {
-        t = require('@/messages/ar.json').orderEmail.orderConfirmation
-      } else if (locale === 'ru') {
-        t = require('@/messages/ru.json').orderEmail.orderConfirmation
-      } else {
-        t = require('@/messages/en.json').orderEmail.orderConfirmation
-      }
-    } catch (error) {
-      t = require('@/messages/en.json').orderEmail.orderConfirmation
-    }
-    
-    const isRTL = locale === 'ar'
+    const isRTL = orderData.locale === 'ar'
     const textAlign = isRTL ? 'right' : 'left'
-    const dir = isRTL ? 'rtl' : 'ltr'
-    const flexDirection = isRTL ? 'row-reverse' : 'row'
+    
+    // Generate items HTML
+    const itemsHTML = orderData.items.map(item => `
+      <tr>
+        <td style="padding: 16px 0; border-bottom: 1px solid #f5f5f7; vertical-align: top;">
+          <div style="font-size: 15px; font-weight: 500; color: #1d1d1f; letter-spacing: -0.01em; text-align: ${textAlign};">${item.productName}</div>
+          ${item.size || item.color ? `<div style="font-size: 13px; color: #86868b; margin-top: 4px; text-align: ${textAlign};">${item.size ? `Size: ${item.size}` : ''}${item.size && item.color ? ' · ' : ''}${item.color ? `Color: ${item.color}` : ''}</div>` : ''}
+        </td>
+        <td style="padding: 16px 12px; border-bottom: 1px solid #f5f5f7; text-align: center; font-size: 15px; color: #1d1d1f; vertical-align: top;">×${item.quantity}</td>
+        <td style="padding: 16px 0; border-bottom: 1px solid #f5f5f7; text-align: ${isRTL ? 'left' : 'right'}; font-size: 15px; color: #1d1d1f; font-weight: 500; vertical-align: top;">AED ${(item.price * item.quantity).toFixed(2)}</td>
+      </tr>
+    `).join('')
     
     return {
-    subject: t.subject.replace('{orderNumber}', orderData.orderNumber).replace('#{orderNumber}', orderData.orderNumber),
+    subject: `Order Confirmation #${orderData.orderNumber}`,
     html: `
-      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; direction: ${dir};">
-        <div style="text-align: center; margin-bottom: 30px;">
-          <h1 style="color: #dc2626; margin: 0;">Genosys Middle East FZ-LLC</h1>
-          <p style="color: #666; margin: 5px 0;">United Arab Emirates <span style="font-size: 0.8em;">❤️</span></p>
+      <!DOCTYPE html>
+      <html lang="${orderData.locale || 'en'}" dir="${isRTL ? 'rtl' : 'ltr'}">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Order Confirmation</title>
+      </head>
+      <body style="margin: 0; padding: 0; background-color: #ffffff; -webkit-font-smoothing: antialiased;">
+        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #ffffff;">
+          <tr>
+            <td align="center" style="padding: 40px 20px;">
+              <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="max-width: 580px;">
+                
+                <!-- Logo -->
+                <tr>
+                  <td style="text-align: center; padding-bottom: 48px;">
+                    <img src="https://genosys.ae/_next/image?url=%2FLogo%2FFull.png&w=640&q=75" alt="GENOSYS" style="height: 32px; width: auto;" />
+                  </td>
+                </tr>
+                
+                <!-- Status Icon -->
+                <tr>
+                  <td style="text-align: center; padding-bottom: 24px;">
+                    <div style="display: inline-block; width: 64px; height: 64px; background-color: #34c759; border-radius: 50%; line-height: 64px; font-size: 32px; color: #ffffff;">
+                      ✓
         </div>
-        
-        <div style="background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); padding: 30px; border-radius: 10px; margin-bottom: 20px;">
-          <h2 style="color: #16a34a; margin: 0 0 15px 0; text-align: ${textAlign};">${t.orderConfirmed}</h2>
-          <p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 0 0 10px 0; text-align: ${textAlign};">
-            ${t.thankYou.replace('{customerName}', `<strong>${orderData.customerName}</strong>`)}
-          </p>
-          <p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 0 0 10px 0; text-align: ${textAlign};">
-            ${t.orderReceived.replace('{orderNumber}', `<strong>#${orderData.orderNumber}</strong>`).replace('#{orderNumber}', `<strong>#${orderData.orderNumber}</strong>`)}
-          </p>
-          <p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 0; text-align: ${textAlign};">
-            ${t.teamContact}
-          </p>
+                  </td>
+                </tr>
+                
+                <!-- Main Heading -->
+                <tr>
+                  <td style="text-align: center; padding-bottom: 12px;">
+                    <h1 style="margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif; font-size: 32px; font-weight: 600; color: #1d1d1f; letter-spacing: -0.02em;">
+                      Order Confirmed
+                    </h1>
+                  </td>
+                </tr>
+                
+                <!-- Order Number -->
+                <tr>
+                  <td style="text-align: center; padding-bottom: 40px;">
+                    <span style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 17px; color: #86868b;">
+                      #${orderData.orderNumber}
+                    </span>
+                  </td>
+                </tr>
+                
+                <!-- Greeting -->
+                <tr>
+                  <td style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 17px; line-height: 1.5; color: #1d1d1f; text-align: ${textAlign}; padding-bottom: 24px;">
+                    Hi ${orderData.customerName.split(' ')[0]},<br><br>
+                    Thank you for your order. We're preparing it now and will notify you when it ships.
+                  </td>
+                </tr>
+                
+                <!-- Divider -->
+                <tr>
+                  <td style="padding: 8px 0 32px 0;">
+                    <div style="height: 1px; background-color: #d2d2d7;"></div>
+                  </td>
+                </tr>
+                
+                <!-- Items -->
+                <tr>
+                  <td>
+                    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                      ${itemsHTML}
+                    </table>
+                  </td>
+                </tr>
+                
+                <!-- Summary -->
+                <tr>
+                  <td style="padding-top: 24px;">
+                    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif;">
+                      <tr>
+                        <td style="padding: 8px 0; font-size: 15px; color: #86868b; text-align: ${textAlign};">Subtotal</td>
+                        <td style="padding: 8px 0; font-size: 15px; color: #1d1d1f; text-align: ${isRTL ? 'left' : 'right'};">AED ${orderData.subtotal.toFixed(2)}</td>
+                      </tr>
+                      <tr>
+                        <td style="padding: 8px 0; font-size: 15px; color: #86868b; text-align: ${textAlign};">Shipping</td>
+                        <td style="padding: 8px 0; font-size: 15px; color: #1d1d1f; text-align: ${isRTL ? 'left' : 'right'};">${orderData.shipping === 0 ? 'Free' : `AED ${orderData.shipping.toFixed(2)}`}</td>
+                      </tr>
+                      <tr>
+                        <td style="padding: 8px 0; font-size: 15px; color: #86868b; text-align: ${textAlign};">VAT (5%)</td>
+                        <td style="padding: 8px 0; font-size: 15px; color: #1d1d1f; text-align: ${isRTL ? 'left' : 'right'};">AED ${orderData.vat.toFixed(2)}</td>
+                      </tr>
+                      <tr>
+                        <td colspan="2" style="padding: 16px 0 8px 0;">
+                          <div style="height: 1px; background-color: #d2d2d7;"></div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="padding: 8px 0; font-size: 17px; font-weight: 600; color: #1d1d1f; text-align: ${textAlign};">Total</td>
+                        <td style="padding: 8px 0; font-size: 17px; font-weight: 600; color: #1d1d1f; text-align: ${isRTL ? 'left' : 'right'};">AED ${orderData.total.toFixed(2)}</td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                
+                <!-- Delivery Info -->
+                <tr>
+                  <td style="padding-top: 40px;">
+                    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #f5f5f7; border-radius: 12px;">
+                      <tr>
+                        <td style="padding: 24px;">
+                          <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 13px; font-weight: 600; color: #86868b; text-transform: uppercase; letter-spacing: 0.02em; margin-bottom: 12px; text-align: ${textAlign};">Delivery Details</div>
+                          <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 15px; color: #1d1d1f; line-height: 1.5; text-align: ${textAlign};">
+                            ${orderData.customerName}<br>
+                            ${orderData.address}<br>
+                            ${orderData.emirate}, UAE
         </div>
-        
-        <div style="background: #f9fafb; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
-          <h3 style="color: #dc2626; margin: 0 0 15px 0; text-align: ${textAlign};">${t.orderDetails}</h3>
-          <div style="margin-bottom: 20px;">
-            ${orderData.items.map(item => {
-              // Construct image URL - handle both absolute and relative paths
-              let imageUrl = ''
-              if (item.image) {
-                if (item.image.startsWith('http://') || item.image.startsWith('https://')) {
-                  imageUrl = item.image // Already absolute
-                } else if (item.image.startsWith('//')) {
-                  imageUrl = `https:${item.image}` // Protocol-relative
-                } else {
-                  // Relative path - prepend domain
-                  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://genosys.ae'
-                  imageUrl = `${baseUrl}${item.image.startsWith('/') ? item.image : '/' + item.image}`
-                }
-              }
-              
-              return `
-              <div style="display: flex; align-items: center; padding: 10px 0; border-bottom: 1px solid #e5e7eb; flex-direction: ${flexDirection};">
-                ${imageUrl ? `
-                <img src="${imageUrl}" alt="${item.productName}" width="60" height="60" border="0" style="display: block; width: 60px; height: 60px; object-fit: cover; border-radius: 6px; ${isRTL ? 'margin-left' : 'margin-right'}: 15px;" />
-                ` : `<div style="width: 60px; height: 60px; background: #f3f4f6; border-radius: 6px; ${isRTL ? 'margin-left' : 'margin-right'}: 15px; display: flex; align-items: center; justify-content: center; color: #9ca3af; font-size: 24px;">📦</div>`}
-                <div style="flex: 1;">
-                  <h4 style="margin: 0 0 5px 0; color: #374151; font-size: 14px; text-align: ${textAlign};">${item.productName}</h4>
-                  <p style="margin: 0; color: #6b7280; font-size: 12px; text-align: ${textAlign};">${t.qty} ${item.quantity}${item.size ? ` | ${t.size} ${item.size}` : ''}${item.color ? ` | ${t.color} ${item.color}` : ''}</p>
-                </div>
-                <div style="text-align: ${isRTL ? 'left' : 'right'};">
-                  <p style="margin: 0; color: #dc2626; font-weight: bold;">AED ${(item.price * item.quantity).toFixed(2)}</p>
-                </div>
-              </div>
-            `
-            }).join('')}
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                
+                <!-- CTA Button -->
+                <tr>
+                  <td style="text-align: center; padding-top: 40px;">
+                    <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://genosys.ae'}/profile" style="display: inline-block; background-color: #0071e3; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 17px; font-weight: 500; text-decoration: none; padding: 12px 24px; border-radius: 980px;">
+                      View Order
+                    </a>
+                  </td>
+                </tr>
+                
+                <!-- Footer -->
+                <tr>
+                  <td style="padding-top: 64px; text-align: center;">
+                    <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 12px; color: #86868b; line-height: 1.6;">
+                      Genosys Middle East FZ-LLC<br>
+                      Official Distributor in the UAE<br><br>
+                      © 2026 All rights reserved.
           </div>
-          
-          <div style="border-top: 1px solid #e5e7eb; padding-top: 15px;">
-            <div style="display: flex; justify-content: space-between; margin-bottom: 8px; flex-direction: ${flexDirection};">
-              <span style="color: #374151;">${t.subtotal}</span>
-              <span style="color: #374151;">AED ${orderData.subtotal.toFixed(2)}</span>
-            </div>
-            <div style="display: flex; justify-content: space-between; margin-bottom: 8px; flex-direction: ${flexDirection};">
-              <span style="color: #374151;">${t.shipping}</span>
-              <span style="color: #374151;">AED ${orderData.shipping.toFixed(2)}</span>
-            </div>
-            <div style="display: flex; justify-content: space-between; margin-bottom: 8px; flex-direction: ${flexDirection};">
-              <span style="color: #374151;">${t.vat}</span>
-              <span style="color: #374151;">AED ${orderData.vat.toFixed(2)}</span>
-            </div>
-            <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 18px; color: #dc2626; border-top: 2px solid #dc2626; padding-top: 8px; flex-direction: ${flexDirection};">
-              <span>${t.total}</span>
-              <span>AED ${orderData.total.toFixed(2)}</span>
-            </div>
-          </div>
-        </div>
-        
-        <div style="background: #fef3c7; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
-          <h3 style="color: #92400e; margin: 0 0 15px 0; text-align: ${textAlign};">${t.deliveryInformation}</h3>
-          <p style="color: #374151; margin: 0 0 10px 0; text-align: ${textAlign};"><strong>${t.address}</strong> ${orderData.address}</p>
-          <p style="color: #374151; margin: 0; text-align: ${textAlign};"><strong>${t.emirate}</strong> ${orderData.emirate}</p>
-        </div>
-        
-        <div style="text-align: center; margin: 30px 0;">
-          <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/${locale === 'ar' ? 'ar/' : locale === 'ru' ? 'ru/' : ''}profile" 
-             style="background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%); 
-                    color: white; 
-                    padding: 12px 30px; 
-                    text-decoration: none; 
-                    border-radius: 6px; 
-                    font-weight: bold; 
-                    display: inline-block;">
-            ${t.trackOrder}
-          </a>
-        </div>
-        
-        <div style="border-top: 1px solid #e5e7eb; padding-top: 20px; text-align: center;">
-          <div style="text-align: center; margin-bottom: 15px;">
-            <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://genosys.ae'}/products" style="display: block; margin: 0 auto 15px; max-width: 170px;">
-              <img src="https://genosys.ae/_next/image?url=%2FLogo%2FupLOGO.png&w=384&q=75" alt="Genosys Logo" style="max-width: 170px; height: auto; margin: 0 auto; display: block;" />
-            </a>
-          </div>
-          <p style="color: #6b7280; font-size: 14px; margin: 0; text-align: ${textAlign};">
-            ${t.questions} <a href="mailto:sales@genosys.ae" style="color: #dc2626;">sales@genosys.ae</a>
-          </p>
-          <p style="color: #6b7280; font-size: 12px; margin: 10px 0 0 0; text-align: ${textAlign};">
-            ${t.officialDistributor}
-          </p>
-          <p style="color: #6b7280; font-size: 12px; margin: 10px 0 0 0; text-align: ${textAlign};">
-            ${t.copyright}
-          </p>
-        </div>
-      </div>
+                  </td>
+                </tr>
+                
+              </table>
+            </td>
+          </tr>
+        </table>
+      </body>
+      </html>
     `
     }
   },
@@ -1141,69 +1276,106 @@ export const emailTemplates = {
     `
   }),
 
+  // Password reset email - Apple style
   passwordReset: (userName: string, resetToken: string) => {
     const resetUrl = `${process.env.NEXT_PUBLIC_SITE_URL || 'https://genosys.ae'}/reset-password/${resetToken}`
     return {
-      subject: 'Reset Your Password - Genosys Middle East FZ-LLC',
+      subject: 'Reset Your Password',
       html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
-          <div style="text-align: center; margin-bottom: 30px;">
-            <h1 style="color: #dc2626; margin: 0;">Genosys Middle East FZ-LLC</h1>
-            <p style="color: #666; margin: 5px 0;">Official Genosys distributor in the United Arab Emirates</p>
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Reset Your Password</title>
+        </head>
+        <body style="margin: 0; padding: 0; background-color: #ffffff; -webkit-font-smoothing: antialiased;">
+          <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #ffffff;">
+            <tr>
+              <td align="center" style="padding: 40px 20px;">
+                <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="max-width: 580px;">
+                  
+                  <!-- Logo -->
+                  <tr>
+                    <td style="text-align: center; padding-bottom: 48px;">
+                      <img src="https://genosys.ae/_next/image?url=%2FLogo%2FFull.png&w=640&q=75" alt="GENOSYS" style="height: 32px; width: auto;" />
+                    </td>
+                  </tr>
+                  
+                  <!-- Lock Icon -->
+                  <tr>
+                    <td style="text-align: center; padding-bottom: 24px;">
+                      <div style="display: inline-block; width: 64px; height: 64px; background-color: #f5f5f7; border-radius: 50%; line-height: 64px; font-size: 32px;">
+                        🔐
           </div>
-          
-          <div style="background: white; padding: 30px; border-radius: 10px; margin-bottom: 20px; border: 1px solid #e5e7eb;">
-            <h2 style="color: #dc2626; margin: 0 0 15px 0;">Password Reset Request</h2>
-            <p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 0 0 20px 0;">
-              Dear ${(userName || 'User').split(' ')[0]},
-            </p>
-            <p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 0 0 20px 0;">
-              Click the button below to reset your Genosys password:
-            </p>
-            
-            <div style="text-align: center; margin: 30px 0;">
-              <a href="${resetUrl}" 
-                 style="background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%); 
-                        color: white; 
-                        padding: 14px 32px; 
-                        text-decoration: none; 
-                        border-radius: 6px; 
-                        font-weight: bold; 
-                        display: inline-block;
-                        font-size: 16px;">
+                    </td>
+                  </tr>
+                  
+                  <!-- Main Heading -->
+                  <tr>
+                    <td style="text-align: center; padding-bottom: 12px;">
+                      <h1 style="margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif; font-size: 28px; font-weight: 600; color: #1d1d1f; letter-spacing: -0.02em;">
+                        Reset Your Password
+                      </h1>
+                    </td>
+                  </tr>
+                  
+                  <!-- Message -->
+                  <tr>
+                    <td style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 17px; line-height: 1.5; color: #1d1d1f; text-align: center; padding-bottom: 32px;">
+                      Hi ${(userName || 'there').split(' ')[0]}, we received a request to reset your password. Click the button below to create a new one.
+                    </td>
+                  </tr>
+                  
+                  <!-- CTA Button -->
+                  <tr>
+                    <td style="text-align: center; padding-bottom: 32px;">
+                      <a href="${resetUrl}" style="display: inline-block; background-color: #0071e3; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 17px; font-weight: 500; text-decoration: none; padding: 12px 24px; border-radius: 980px;">
                 Reset Password
               </a>
+                    </td>
+                  </tr>
+                  
+                  <!-- Expiry Notice -->
+                  <tr>
+                    <td style="padding-bottom: 32px;">
+                      <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #f5f5f7; border-radius: 12px;">
+                        <tr>
+                          <td style="padding: 20px; text-align: center;">
+                            <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 15px; color: #1d1d1f;">
+                              ⏱ This link expires in <strong>30 minutes</strong>
             </div>
-            
-            <p style="color: #6b7280; font-size: 14px; line-height: 1.6; margin: 20px 0 0 0;">
-              Or copy and paste this link into your browser:
-            </p>
-            <p style="color: #6b7280; font-size: 12px; line-height: 1.6; margin: 5px 0; word-break: break-all;">
-              ${resetUrl}
-            </p>
-            
-            <div style="background: #fef3c7; border-left: 4px solid #f59e0b; padding: 15px; margin: 25px 0; border-radius: 4px;">
-              <p style="color: #92400e; font-size: 14px; margin: 0; font-weight: 600;">
-                ⏰ This link will expire in 30 minutes.
-              </p>
-            </div>
-            
-            <div style="background: #fee2e2; border-left: 4px solid #ef4444; padding: 15px; margin: 25px 0; border-radius: 4px;">
-              <p style="color: #991b1b; font-size: 14px; margin: 0;">
-                <strong>Security Notice:</strong> If you didn't request this password reset, please ignore this email. Never share this link with anyone. GENOSYS will never ask for your password.
-              </p>
-            </div>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                  
+                  <!-- Security Notice -->
+                  <tr>
+                    <td style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 13px; color: #86868b; text-align: center; padding-bottom: 32px; line-height: 1.6;">
+                      If you didn't request this, you can safely ignore this email.<br>
+                      Your password will remain unchanged.
+                    </td>
+                  </tr>
+                  
+                  <!-- Footer -->
+                  <tr>
+                    <td style="text-align: center; padding-top: 32px; border-top: 1px solid #d2d2d7;">
+                      <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 12px; color: #86868b; line-height: 1.6;">
+                        Genosys Middle East FZ-LLC<br>
+                        Official Distributor in the UAE<br><br>
+                        © 2026 All rights reserved.
           </div>
-          
-          <div style="border-top: 1px solid #e5e7eb; padding-top: 20px; text-align: center;">
-            <p style="color: #6b7280; font-size: 14px; margin: 0;">
-              Need help? Contact us at <a href="mailto:sales@genosys.ae" style="color: #dc2626;">sales@genosys.ae</a>
-            </p>
-            <p style="color: #6b7280; font-size: 12px; margin: 10px 0 0 0;">
-              Genosys Middle East FZ-LLC - Official Genosys distributor in the United Arab Emirates
-            </p>
-          </div>
-        </div>
+                    </td>
+                  </tr>
+                  
+                </table>
+              </td>
+            </tr>
+          </table>
+        </body>
+        </html>
       `,
     }
   },
@@ -1461,516 +1633,526 @@ export interface OrderHTMLData {
   total: number
 }
 
-// Order HTML template generation functions
-export const generateCODOrderHTML = (order: OrderHTMLData, locale: string = 'en', translations?: any): string => {
-  // Load translations if not provided
-  let t: any
-  if (translations) {
-    t = translations
-  } else {
-    // Fallback: load translations synchronously (not ideal, but works)
-    try {
-      if (locale === 'ar') {
-        t = require('@/messages/ar.json').orderEmail.cod
-      } else {
-        t = require('@/messages/en.json').orderEmail.cod
-      }
-    } catch (error) {
-      // Fallback to English if translations fail to load
-      t = {
-        title: `Order Confirmation #${order.orderNumber}`,
-        dated: 'dated:',
-        thankYou: `Thank you for your order, {customerName}!`,
-        orderReceived: `Your order #${order.orderNumber} has been received and is being processed. You will pay via Cash on Delivery when your order arrives.`,
-        teamContact: 'Our team will be in touch with you for the next steps via phone/mail/whatsapp.',
-        orderItems: 'Order Items',
-        product: 'Product',
-        qty: 'Qty',
-        price: 'Price',
-        total: 'Total',
-        size: 'Size:',
-        color: 'Color:',
-        subtotal: 'Subtotal:',
-        shippingTo: `Shipping to {emirate}:`,
-        free: 'FREE',
-        vat: 'VAT (5%):',
-        totalLabel: 'Total:',
-        deliveryInformation: 'Delivery Information',
-        name: 'Name:',
-        phone: 'Phone:',
-        address: 'Address:',
-        emirate: 'Emirate:',
-        contactSupport: 'Contact Support via WhatsApp',
-        officialDistributor: 'Official Distributor in the UAE',
-        copyright: '© 2025 Genosys Middle East FZ-LLC. All rights reserved.'
-      }
-    }
-  }
-
+// Order HTML template generation functions - Apple style
+export const generateCODOrderHTML = (order: OrderHTMLData, locale: string = 'en', _translations?: any): string => {
   const isRTL = locale === 'ar'
-  const dir = isRTL ? 'rtl' : 'ltr'
   const textAlign = isRTL ? 'right' : 'left'
-  const dateLocale = locale === 'ar' ? 'ar-AE' : 'en-AE'
+
+  // Generate items HTML
+  const itemsHTML = order.items.map(item => `
+    <tr>
+      <td style="padding: 16px 0; border-bottom: 1px solid #f5f5f7; vertical-align: top;">
+        <div style="font-size: 15px; font-weight: 500; color: #1d1d1f; letter-spacing: -0.01em; text-align: ${textAlign};">${item.name}</div>
+        ${item.size || item.color ? `<div style="font-size: 13px; color: #86868b; margin-top: 4px; text-align: ${textAlign};">${item.size ? `Size: ${item.size}` : ''}${item.size && item.color ? ' · ' : ''}${item.color ? `Color: ${item.color}` : ''}</div>` : ''}
+      </td>
+      <td style="padding: 16px 12px; border-bottom: 1px solid #f5f5f7; text-align: center; font-size: 15px; color: #1d1d1f; vertical-align: top;">×${item.quantity}</td>
+      <td style="padding: 16px 0; border-bottom: 1px solid #f5f5f7; text-align: ${isRTL ? 'left' : 'right'}; font-size: 15px; color: #1d1d1f; font-weight: 500; vertical-align: top;">AED ${(item.price * item.quantity).toFixed(2)}</td>
+    </tr>
+  `).join('')
 
   return `
-    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: white; direction: ${dir};">
-      <div style="text-align: center; margin-bottom: 30px; border-bottom: 2px solid #e5e5e5; padding-bottom: 20px;">
-        <div style="margin-bottom: 15px;">
-          <img src="https://genosys.ae/_next/image?url=%2Fimages%2Fgenosys-logo.png%3Fv%3D1758554698129&w=828&q=75" alt="GENOSYS Logo" style="max-width: 200px; height: auto;" />
-        </div>
-        <h1 style="color: #1f2937; margin: 0; font-size: 28px;">${(t.title || `Order Confirmation #${order.orderNumber}`).replace('#{orderNumber}', order.orderNumber || '').replace('{orderNumber}', order.orderNumber || '')}</h1>
-        <p style="color: #6b7280; margin: 5px 0; font-size: 16px;">${t.dated || 'dated:'} ${new Date().toLocaleDateString(dateLocale, { timeZone: 'Asia/Dubai', year: 'numeric', month: '2-digit', day: '2-digit' })}</p>
-      </div>
-      
-      <div style="background: white; border: 1px solid #e5e7eb; padding: 30px; border-radius: 10px; margin-bottom: 20px;">
-        <p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 0 0 10px 0; text-align: ${textAlign};">
-          ${(t.thankYou || `Thank you for your order, {customerName}!`).replace('{customerName}', `<strong>${(order.customerName || 'Customer').split(' ')[0]}</strong>`)}
-        </p>
-        <p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 0 0 10px 0; text-align: ${textAlign};">
-          ${(t.orderReceived || `Your order #${order.orderNumber} has been received and is being processed. You will pay via Cash on Delivery when your order arrives.`).replace('#{orderNumber}', order.orderNumber || '').replace('{orderNumber}', order.orderNumber || '')}
-        </p>
-        <p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 0; text-align: ${textAlign};">
-          ${t.teamContact}
-        </p>
-      </div>
-      
-      <div style="background: white; border: 1px solid #e5e7eb; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
-        <h3 style="color: #dc2626; margin: 0 0 15px 0; text-align: ${textAlign};">${t.orderItems}</h3>
-        <table style="width: 100%; border-collapse: collapse; margin: 10px 0;">
-          <thead>
-            <tr style="background: #dc2626; color: white;">
-              <th style="padding: 10px; text-align: ${textAlign}; font-size: 16px;">${t.product}</th>
-              <th style="padding: 10px; text-align: center; font-size: 16px;">${t.qty}</th>
-              <th style="padding: 10px; text-align: ${isRTL ? 'left' : 'right'}; font-size: 16px;">${t.price}</th>
-              <th style="padding: 10px; text-align: ${isRTL ? 'left' : 'right'}; font-size: 16px;">${t.total}</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${order.items.map((item) => `
+    <!DOCTYPE html>
+    <html lang="${locale}" dir="${isRTL ? 'rtl' : 'ltr'}">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Order Confirmation</title>
+    </head>
+    <body style="margin: 0; padding: 0; background-color: #ffffff; -webkit-font-smoothing: antialiased;">
+      <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #ffffff;">
+        <tr>
+          <td align="center" style="padding: 40px 20px;">
+            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="max-width: 580px;">
+              
+              <!-- Logo -->
               <tr>
-                <td style="padding: 10px; border-bottom: 1px solid #eee; text-align: ${textAlign};">${item.name}${item.size ? ` (${t.size} ${item.size})` : ''}${item.color ? ` (${t.color} ${item.color})` : ''}</td>
-                <td style="padding: 10px; border-bottom: 1px solid #eee; text-align: center;">${item.quantity}</td>
-                <td style="padding: 10px; border-bottom: 1px solid #eee; text-align: ${isRTL ? 'left' : 'right'};">AED ${item.price.toFixed(2)}</td>
-                <td style="padding: 10px; border-bottom: 1px solid #eee; text-align: ${isRTL ? 'left' : 'right'};">AED ${(item.price * item.quantity).toFixed(2)}</td>
+                <td style="text-align: center; padding-bottom: 48px;">
+                  <img src="https://genosys.ae/_next/image?url=%2FLogo%2FFull.png&w=640&q=75" alt="GENOSYS" style="height: 32px; width: auto;" />
+                </td>
               </tr>
-            `).join('')}
-          </tbody>
+              
+              <!-- Status Icon -->
+              <tr>
+                <td style="text-align: center; padding-bottom: 24px;">
+                  <div style="display: inline-block; width: 64px; height: 64px; background-color: #34c759; border-radius: 50%; line-height: 64px; font-size: 32px; color: #ffffff;">
+                    ✓
+        </div>
+                </td>
+              </tr>
+              
+              <!-- Main Heading -->
+              <tr>
+                <td style="text-align: center; padding-bottom: 12px;">
+                  <h1 style="margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif; font-size: 32px; font-weight: 600; color: #1d1d1f; letter-spacing: -0.02em;">
+                    Order Confirmed
+                  </h1>
+                </td>
+              </tr>
+              
+              <!-- Order Number -->
+              <tr>
+                <td style="text-align: center; padding-bottom: 40px;">
+                  <span style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 17px; color: #86868b;">
+                    #${order.orderNumber}
+                  </span>
+                </td>
+              </tr>
+              
+              <!-- Greeting -->
+              <tr>
+                <td style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 17px; line-height: 1.5; color: #1d1d1f; text-align: ${textAlign}; padding-bottom: 24px;">
+                  Hi ${(order.customerName || 'Customer').split(' ')[0]},<br><br>
+                  Thank you for your order. You'll pay via Cash on Delivery when your order arrives. We'll notify you when it ships.
+                </td>
+              </tr>
+              
+              <!-- COD Badge -->
+              <tr>
+                <td style="padding-bottom: 32px;">
+                  <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #fff3cd; border-radius: 12px;">
+                    <tr>
+                      <td style="padding: 16px 24px; text-align: center;">
+                        <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 15px; color: #856404; font-weight: 500;">
+                          💵 Payment: Cash on Delivery
+      </div>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+              
+              <!-- Divider -->
+              <tr>
+                <td style="padding: 8px 0 32px 0;">
+                  <div style="height: 1px; background-color: #d2d2d7;"></div>
+                </td>
+            </tr>
+              
+              <!-- Items -->
+              <tr>
+                <td>
+                  <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                    ${itemsHTML}
+                  </table>
+                </td>
+              </tr>
+              
+              <!-- Summary -->
+              <tr>
+                <td style="padding-top: 24px;">
+                  <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif;">
+                    <tr>
+                      <td style="padding: 8px 0; font-size: 15px; color: #86868b; text-align: ${textAlign};">Subtotal</td>
+                      <td style="padding: 8px 0; font-size: 15px; color: #1d1d1f; text-align: ${isRTL ? 'left' : 'right'};">AED ${order.subtotal.toFixed(2)}</td>
+                    </tr>
+                    <tr>
+                      <td style="padding: 8px 0; font-size: 15px; color: #86868b; text-align: ${textAlign};">Shipping</td>
+                      <td style="padding: 8px 0; font-size: 15px; color: #1d1d1f; text-align: ${isRTL ? 'left' : 'right'};">${order.shippingCost === 0 ? 'Free' : `AED ${order.shippingCost.toFixed(2)}`}</td>
+                    </tr>
+                    <tr>
+                      <td style="padding: 8px 0; font-size: 15px; color: #86868b; text-align: ${textAlign};">VAT (5%)</td>
+                      <td style="padding: 8px 0; font-size: 15px; color: #1d1d1f; text-align: ${isRTL ? 'left' : 'right'};">AED ${order.vatAmount.toFixed(2)}</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2" style="padding: 16px 0 8px 0;">
+                        <div style="height: 1px; background-color: #d2d2d7;"></div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="padding: 8px 0; font-size: 17px; font-weight: 600; color: #1d1d1f; text-align: ${textAlign};">Total Due</td>
+                      <td style="padding: 8px 0; font-size: 17px; font-weight: 600; color: #1d1d1f; text-align: ${isRTL ? 'left' : 'right'};">AED ${order.total.toFixed(2)}</td>
+                    </tr>
         </table>
-        
-        <div style="border-top: 1px solid #e5e7eb; padding-top: 20px;">
-          <div style="display: flex; justify-content: space-between; margin-bottom: 12px; padding: 8px 0; flex-direction: ${isRTL ? 'row-reverse' : 'row'};">
-            <span style="color: #374151; font-size: 16px;">${t.subtotal}</span>
-            <span style="color: #374151; font-size: 16px; font-weight: 500;">AED ${order.subtotal.toFixed(2)}</span>
+                </td>
+              </tr>
+              
+              <!-- Delivery Info -->
+              <tr>
+                <td style="padding-top: 40px;">
+                  <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #f5f5f7; border-radius: 12px;">
+                    <tr>
+                      <td style="padding: 24px;">
+                        <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 13px; font-weight: 600; color: #86868b; text-transform: uppercase; letter-spacing: 0.02em; margin-bottom: 12px; text-align: ${textAlign};">Delivery Details</div>
+                        <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 15px; color: #1d1d1f; line-height: 1.5; text-align: ${textAlign};">
+                          ${order.customerName}<br>
+                          ${order.customerAddress}<br>
+                          ${order.emirate}, UAE<br>
+                          ${order.customerPhone}
           </div>
-          <div style="display: flex; justify-content: space-between; margin-bottom: 12px; padding: 8px 0; flex-direction: ${isRTL ? 'row-reverse' : 'row'};">
-            <span style="color: #374151; font-size: 16px;">${(t.shippingTo || `Shipping to {emirate}:`).replace('{emirate}', order.emirate || '')}</span>
-            <span style="color: #374151; font-size: 16px; font-weight: 500;">${order.shippingCost === 0 ? (t.free || 'FREE') : `AED ${order.shippingCost.toFixed(2)}`}</span>
-          </div>
-          <div style="display: flex; justify-content: space-between; margin-bottom: 12px; padding: 8px 0; flex-direction: ${isRTL ? 'row-reverse' : 'row'};">
-            <span style="color: #374151; font-size: 16px;">${t.vat}</span>
-            <span style="color: #374151; font-size: 16px; font-weight: 500;">AED ${order.vatAmount.toFixed(2)}</span>
-          </div>
-          <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 18px; color: #dc2626; border-top: 2px solid #dc2626; padding-top: 15px; margin-top: 15px; background: #f9fafb; padding: 15px; border-radius: 6px; flex-direction: ${isRTL ? 'row-reverse' : 'row'};">
-            <span>${t.totalLabel}</span>
-            <span>AED ${order.total.toFixed(2)}</span>
-          </div>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+              
+              <!-- CTA Button -->
+              <tr>
+                <td style="text-align: center; padding-top: 40px;">
+                  <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://genosys.ae'}/profile" style="display: inline-block; background-color: #0071e3; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 17px; font-weight: 500; text-decoration: none; padding: 12px 24px; border-radius: 980px;">
+                    View Order
+                  </a>
+                </td>
+              </tr>
+              
+              <!-- Footer -->
+              <tr>
+                <td style="padding-top: 64px; text-align: center;">
+                  <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 12px; color: #86868b; line-height: 1.6;">
+                    Genosys Middle East FZ-LLC<br>
+                    Official Distributor in the UAE<br><br>
+                    © 2026 All rights reserved.
         </div>
-      </div>
-      
-      <div style="background: white; border: 1px solid #e5e7eb; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
-        <h3 style="color: #dc2626; margin: 0 0 15px 0; text-align: ${textAlign};">${t.deliveryInformation}</h3>
-        <p style="color: #374151; margin: 0 0 10px 0; font-size: 16px; text-align: ${textAlign};"><strong>${t.name}</strong> ${order.customerName}</p>
-        <p style="color: #374151; margin: 0 0 10px 0; font-size: 16px; text-align: ${textAlign};"><strong>${t.phone}</strong> ${order.customerPhone}</p>
-        <p style="color: #374151; margin: 0 0 10px 0; font-size: 16px; text-align: ${textAlign};"><strong>${t.address}</strong> ${order.customerAddress}</p>
-        <p style="color: #374151; margin: 0; font-size: 16px; text-align: ${textAlign};"><strong>${t.emirate}</strong> ${order.emirate}</p>
-      </div>
-      
-      <div style="text-align: center; margin: 30px 0;">
-        <a href="https://wa.me/971585487665?text=${encodeURIComponent(locale === 'ar' ? `مرحباً! أحتاج مساعدة بخصوص طلبي ${order.orderNumber}. هل يمكنك مساعدتي؟` : `Hi! I need help with my order ${order.orderNumber}. Can you assist me?`)}" 
-           style="background: linear-gradient(135deg, #25D366 0%, #128C7E 100%); 
-                  color: white; 
-                  padding: 12px 30px; 
-                  text-decoration: none; 
-                  border-radius: 6px; 
-                  font-weight: bold; 
-                  display: inline-block;">
-          ${t.contactSupport}
-        </a>
-      </div>
-      
-      <div style="border-top: 1px solid #e5e7eb; padding-top: 20px; text-align: center; color: #000000; font-size: 14px;">
-        <div style="text-align: center; margin-bottom: 15px;">
-          <img src="https://genosys.ae/_next/image?url=%2FLogo%2FFull.png&w=640&q=75" alt="GENOSYS Logo" style="max-width: 200px; height: auto;" />
-        </div>
-        <p style="color: #000000; margin: 0;">${t.officialDistributor}</p>
-        <p style="color: #000000; margin: 0;">${t.copyright}</p>
-      </div>
-    </div>
+                </td>
+              </tr>
+              
+            </table>
+          </td>
+        </tr>
+      </table>
+    </body>
+    </html>
   `
 }
 
-export const generateSupportLinkOrderHTML = (order: OrderHTMLData, locale: string = 'en', translations?: any): string => {
-  // Load translations if not provided
-  let t: any
-  if (translations) {
-    t = translations
-  } else {
-    try {
-      if (locale === 'ar') {
-        t = require('@/messages/ar.json').orderEmail.supportLink
-      } else {
-        t = require('@/messages/en.json').orderEmail.supportLink
-      }
-    } catch (error) {
-      // Fallback to English
-      t = {
-        companyName: 'Genosys Middle East FZ-LLC',
-        officialDistributor: 'Official Genosys distributor in the United Arab Emirates',
-        dear: 'Dear {customerName},',
-        orderSubmitted: 'Your order request has been submitted. Our support team will share a secure payment link for payment.',
-        orderRequest: 'Order Request #{orderNumber}',
-        customerInformation: 'Customer Information',
-        name: 'Name:',
-        email: 'Email:',
-        phone: 'Phone:',
-        address: 'Address:',
-        emirate: 'Emirate:',
-        orderItems: 'Order Items',
-        product: 'Product',
-        qty: 'Qty',
-        price: 'Price',
-        total: 'Total',
-        size: 'Size:',
-        color: 'Color:',
-        orderSummary: 'Order Summary',
-        subtotal: 'Subtotal:',
-        shippingTo: 'Shipping to {emirate}:',
-        free: 'FREE',
-        vat: 'VAT (5%):',
-        totalLabel: 'Total:',
-        continueShopping: 'Continue Shopping',
-        contactSupport: 'Contact Support',
-        officialDistributorFooter: 'Official Distributor in the UAE',
-        copyright: '© 2025 Genosys Middle East FZ-LLC. All rights reserved.'
-      }
-    }
-  }
-
+export const generateSupportLinkOrderHTML = (order: OrderHTMLData, locale: string = 'en', _translations?: any): string => {
+  // Apple-style minimalist template - uses hardcoded English text for clean design
   const isRTL = locale === 'ar'
   const dir = isRTL ? 'rtl' : 'ltr'
   const textAlign = isRTL ? 'right' : 'left'
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://genosys.ae'
   const productsUrl = locale === 'ar' ? `${siteUrl}/ar/products` : `${siteUrl}/products`
-  const contactUrl = locale === 'ar' ? `${siteUrl}/ar/contact` : `${siteUrl}/contact`
 
+  // Apple-style minimalist item rows
   const itemsHTML = order.items.map((item) => `
     <tr>
-      <td style="padding: 10px; border-bottom: 1px solid #eee; text-align: ${textAlign};">${item.name || 'Product'}${item.size ? ` (Size: ${item.size})` : ''}${item.color ? ` (Color: ${item.color})` : ''}</td>
-      <td style="padding: 10px; border-bottom: 1px solid #eee; text-align: center;">${item.quantity || 0}</td>
-      <td style="padding: 10px; border-bottom: 1px solid #eee; text-align: ${isRTL ? 'left' : 'right'};">AED ${(item.price || 0).toFixed(2)}</td>
-      <td style="padding: 10px; border-bottom: 1px solid #eee; text-align: ${isRTL ? 'left' : 'right'};">AED ${(item.total || ((item.price || 0) * (item.quantity || 0))).toFixed(2)}</td>
+      <td style="padding: 16px 0; border-bottom: 1px solid #f5f5f7; vertical-align: top;">
+        <div style="font-size: 15px; font-weight: 500; color: #1d1d1f; letter-spacing: -0.01em; text-align: ${textAlign};">${item.name || 'Product'}</div>
+        ${item.size || item.color ? `<div style="font-size: 13px; color: #86868b; margin-top: 4px; text-align: ${textAlign};">${item.size ? `Size: ${item.size}` : ''}${item.size && item.color ? ' · ' : ''}${item.color ? `Color: ${item.color}` : ''}</div>` : ''}
+      </td>
+      <td style="padding: 16px 12px; border-bottom: 1px solid #f5f5f7; text-align: center; font-size: 15px; color: #1d1d1f; vertical-align: top;">×${item.quantity || 0}</td>
+      <td style="padding: 16px 0; border-bottom: 1px solid #f5f5f7; text-align: ${isRTL ? 'left' : 'right'}; font-size: 15px; color: #1d1d1f; font-weight: 500; vertical-align: top;">AED ${(item.total || ((item.price || 0) * (item.quantity || 0))).toFixed(2)}</td>
     </tr>
   `).join('')
 
   return `
-    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: white; font-size: 14px; direction: ${dir};">
-      <div style="text-align: center; margin-bottom: 30px;">
-        <h1 style="color: #dc2626; margin: 0; font-size: 14px;">${t.companyName}</h1>
-        <p style="color: #666; margin: 5px 0; font-size: 14px;">United Arab Emirates <span style="font-size: 0.8em;">❤️</span></p>
-      </div>
-      
-      <div style="background: white; padding: 30px; border-radius: 10px; margin-bottom: 20px; border: 1px solid #e5e5e5;">
-        <p style="color: #374151; font-size: 14px; line-height: 1.6; margin: 0 0 10px 0; text-align: ${textAlign};">
-          ${(t.dear || 'Dear {customerName},').replace('{customerName}', `<strong>${(order.customerName || 'Customer').split(' ')[0]}</strong>`)}
-        </p>
-        <p style="color: #374151; font-size: 14px; line-height: 1.6; margin: 0 0 10px 0; text-align: ${textAlign};">
-          ${t.orderSubmitted || 'Your order request has been submitted. Our support team will share a secure payment link shortly.'}
-        </p>
-        <p style="color: #374151; font-size: 14px; line-height: 1.6; margin: 0; text-align: ${textAlign};">
-          Order Request <span style="color: #dc2626;">#${order.orderNumber || 'N/A'}</span>
-        </p>
-      </div>
-      
-      <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e5e5e5;">
-        <h3 style="color: #dc2626; margin: 0 0 15px 0; font-size: 14px; text-align: ${textAlign};">${t.customerInformation}</h3>
-        <p style="margin: 0 0 8px 0; color: #374151; font-size: 14px; text-align: ${textAlign};"><strong>${t.name || 'Name:'}</strong> ${order.customerName || 'N/A'}</p>
-        <p style="margin: 0 0 8px 0; color: #374151; font-size: 14px; text-align: ${textAlign};"><strong>${t.email || 'Email:'}</strong> ${order.customerEmail || 'N/A'}</p>
-        <p style="margin: 0 0 8px 0; color: #374151; font-size: 14px; text-align: ${textAlign};"><strong>${t.phone || 'Phone:'}</strong> ${order.customerPhone || 'N/A'}</p>
-        <p style="margin: 0 0 8px 0; color: #374151; font-size: 14px; text-align: ${textAlign};"><strong>${t.address || 'Address:'}</strong> ${order.customerAddress || 'N/A'}</p>
-        <p style="margin: 0; color: #374151; font-size: 14px; text-align: ${textAlign};"><strong>${t.emirate || 'Emirate:'}</strong> ${order.emirate || 'N/A'}</p>
-      </div>
-
-      <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e5e5e5;">
-        <h3 style="color: #dc2626; margin: 0 0 15px 0; font-size: 14px; text-align: ${textAlign};">${t.orderItems}</h3>
-        <table style="width: 100%; border-collapse: collapse; margin: 10px 0;">
-          <thead>
-            <tr style="background: #dc2626; color: white;">
-              <th style="padding: 10px; text-align: ${textAlign}; font-size: 14px;">${t.product || 'Product'}</th>
-              <th style="padding: 10px; text-align: center; font-size: 14px;">${t.qty || 'Qty'}</th>
-              <th style="padding: 10px; text-align: ${isRTL ? 'left' : 'right'}; font-size: 14px;">${t.price || 'Price'}</th>
-              <th style="padding: 10px; text-align: ${isRTL ? 'left' : 'right'}; font-size: 14px;">${t.total || 'Total'}</th>
+    <!DOCTYPE html>
+    <html lang="${locale}" dir="${dir}">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Order Request Submitted</title>
+    </head>
+    <body style="margin: 0; padding: 0; background-color: #ffffff; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;">
+      <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #ffffff;">
+        <tr>
+          <td align="center" style="padding: 40px 20px;">
+            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="max-width: 580px;">
+              
+              <!-- Logo -->
+              <tr>
+                <td style="text-align: center; padding-bottom: 48px;">
+                  <img src="https://genosys.ae/_next/image?url=%2FLogo%2FFull.png&w=640&q=75" alt="GENOSYS" style="height: 32px; width: auto;" />
+                </td>
+              </tr>
+              
+              <!-- Main Heading -->
+              <tr>
+                <td style="text-align: center; padding-bottom: 12px;">
+                  <h1 style="margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif; font-size: 32px; font-weight: 600; color: #1d1d1f; letter-spacing: -0.02em; line-height: 1.1;">
+                    Order Request Submitted
+                  </h1>
+                </td>
+              </tr>
+              
+              <!-- Order Number -->
+              <tr>
+                <td style="text-align: center; padding-bottom: 40px;">
+                  <span style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 17px; color: #86868b; letter-spacing: -0.01em;">
+                    #${order.orderNumber || 'N/A'}
+                  </span>
+                </td>
             </tr>
-          </thead>
-          <tbody>
+              
+              <!-- Greeting -->
+              <tr>
+                <td style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 17px; line-height: 1.5; color: #1d1d1f; text-align: ${textAlign}; padding-bottom: 24px; letter-spacing: -0.01em;">
+                  Hi ${(order.customerName || 'Customer').split(' ')[0]},<br><br>
+                  Thank you for your order. Our team will review your request and send you a secure payment link shortly.
+                </td>
+              </tr>
+              
+              <!-- Divider -->
+              <tr>
+                <td style="padding: 8px 0 32px 0;">
+                  <div style="height: 1px; background-color: #d2d2d7;"></div>
+                </td>
+              </tr>
+              
+              <!-- Items Section -->
+              <tr>
+                <td>
+                  <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
             ${itemsHTML}
-          </tbody>
         </table>
-      </div>
-
-      <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e5e5e5;">
-        <h3 style="color: #dc2626; margin: 0 0 15px 0; font-size: 14px; text-align: ${textAlign};">${t.orderSummary}</h3>
-        <div style="display: flex; justify-content: space-between; margin-bottom: 8px; flex-direction: ${isRTL ? 'row-reverse' : 'row'};">
-          <span style="color: #374151; font-size: 14px;">${t.subtotal || 'Subtotal:'}</span>
-          <span style="color: #374151; font-size: 14px;">AED ${(order.subtotal || 0).toFixed(2)}</span>
+                </td>
+              </tr>
+              
+              <!-- Summary -->
+              <tr>
+                <td style="padding-top: 24px;">
+                  <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif;">
+                    <tr>
+                      <td style="padding: 8px 0; font-size: 15px; color: #86868b; text-align: ${textAlign};">Subtotal</td>
+                      <td style="padding: 8px 0; font-size: 15px; color: #1d1d1f; text-align: ${isRTL ? 'left' : 'right'};">AED ${(order.subtotal || 0).toFixed(2)}</td>
+                    </tr>
+                    <tr>
+                      <td style="padding: 8px 0; font-size: 15px; color: #86868b; text-align: ${textAlign};">Shipping</td>
+                      <td style="padding: 8px 0; font-size: 15px; color: #1d1d1f; text-align: ${isRTL ? 'left' : 'right'};">${(order.shippingCost || 0) === 0 ? 'Free' : `AED ${(order.shippingCost || 0).toFixed(2)}`}</td>
+                    </tr>
+                    <tr>
+                      <td style="padding: 8px 0; font-size: 15px; color: #86868b; text-align: ${textAlign};">VAT (5%)</td>
+                      <td style="padding: 8px 0; font-size: 15px; color: #1d1d1f; text-align: ${isRTL ? 'left' : 'right'};">AED ${(order.vatAmount || 0).toFixed(2)}</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2" style="padding: 16px 0 8px 0;">
+                        <div style="height: 1px; background-color: #d2d2d7;"></div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="padding: 8px 0; font-size: 17px; font-weight: 600; color: #1d1d1f; text-align: ${textAlign}; letter-spacing: -0.01em;">Total</td>
+                      <td style="padding: 8px 0; font-size: 17px; font-weight: 600; color: #1d1d1f; text-align: ${isRTL ? 'left' : 'right'}; letter-spacing: -0.01em;">AED ${(order.total || 0).toFixed(2)}</td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+              
+              <!-- Delivery Info -->
+              <tr>
+                <td style="padding-top: 40px;">
+                  <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #f5f5f7; border-radius: 12px;">
+                    <tr>
+                      <td style="padding: 24px;">
+                        <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 13px; font-weight: 600; color: #86868b; text-transform: uppercase; letter-spacing: 0.02em; margin-bottom: 12px; text-align: ${textAlign};">Delivery Details</div>
+                        <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 15px; color: #1d1d1f; line-height: 1.5; text-align: ${textAlign};">
+                          ${order.customerName || 'N/A'}<br>
+                          ${order.customerAddress || 'N/A'}<br>
+                          ${order.emirate || 'N/A'}, UAE<br>
+                          ${order.customerPhone || ''}
         </div>
-        <div style="display: flex; justify-content: space-between; margin-bottom: 8px; flex-direction: ${isRTL ? 'row-reverse' : 'row'};">
-          <span style="color: #374151; font-size: 14px;">Shipping to ${order.emirate || 'N/A'}:</span>
-          <span style="color: #374151; font-size: 14px;">${(order.shippingCost || 0) === 0 ? (t.free || 'FREE') : `AED ${(order.shippingCost || 0).toFixed(2)}`}</span>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+              
+              <!-- CTA Button -->
+              <tr>
+                <td style="padding-top: 40px; text-align: center;">
+                  <a href="${productsUrl}" style="display: inline-block; background-color: #0071e3; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 17px; font-weight: 500; text-decoration: none; padding: 12px 24px; border-radius: 980px; letter-spacing: -0.01em;">
+                    Continue Shopping
+                  </a>
+                </td>
+              </tr>
+              
+              <!-- Footer -->
+              <tr>
+                <td style="padding-top: 64px; text-align: center;">
+                  <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 12px; color: #86868b; line-height: 1.6;">
+                    Genosys Middle East FZ-LLC<br>
+                    Official Distributor in the UAE<br><br>
+                    © 2026 All rights reserved.
         </div>
-        <div style="display: flex; justify-content: space-between; margin-bottom: 8px; flex-direction: ${isRTL ? 'row-reverse' : 'row'};">
-          <span style="color: #374151; font-size: 14px;">${t.vat || 'VAT (5%):'}</span>
-          <span style="color: #374151; font-size: 14px;">AED ${(order.vatAmount || 0).toFixed(2)}</span>
-        </div>
-        <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 14px; color: #dc2626; border-top: 2px solid #dc2626; padding-top: 8px; flex-direction: ${isRTL ? 'row-reverse' : 'row'};">
-          <span>${t.totalLabel || 'Total:'}</span>
-          <span>AED ${(order.total || 0).toFixed(2)}</span>
-        </div>
-      </div>
-
-      
-      <div style="text-align: center; margin: 30px 0;">
-        <a href="${productsUrl}" 
-           style="background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%); 
-                  color: white; 
-                  padding: 12px 30px; 
-                  text-decoration: none; 
-                  border-radius: 6px; 
-                  font-weight: bold; 
-                  display: inline-block; 
-                  margin-${isRTL ? 'left' : 'right'}: 10px;">
-          ${t.continueShopping}
-        </a>
-        <a href="${contactUrl}" 
-           style="background: transparent; 
-                  color: #16a34a; 
-                  padding: 12px 30px; 
-                  text-decoration: none; 
-                  border: 2px solid #16a34a; 
-                  border-radius: 6px; 
-                  font-weight: bold; 
-                  display: inline-block;">
-          ${t.contactSupport}
-        </a>
-      </div>
-      
-      <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #e5e5e5; color: #000000; font-size: 14px;">
-        <div style="text-align: center; margin-bottom: 15px;">
-          <img src="https://genosys.ae/_next/image?url=%2FLogo%2FFull.png&w=640&q=75" alt="GENOSYS Logo" style="max-width: 200px; height: auto; display: block; margin: 0 auto;" />
-        </div>
-        <p style="color: #000000; margin: 0;">${t.officialDistributorFooter || t.officialDistributor}</p>
-        <p style="color: #000000; margin: 0;">© 2026 Genosys Middle East FZ-LLC. All rights reserved.</p>
-      </div>
-    </div>
+                </td>
+              </tr>
+              
+            </table>
+          </td>
+        </tr>
+      </table>
+    </body>
+    </html>
   `
 }
 
-// Generate Stripe Payment Confirmation Email HTML (based on support-link template)
-export const generateStripePaymentConfirmationHTML = (order: OrderHTMLData, locale: string = 'en', translations?: any): string => {
-  // Load translations with robust fallback
-  let t: any
-  
-  try {
-    if (translations) {
-      t = translations
-    } else {
-      let messages: any
-      if (locale === 'ar') {
-        messages = require('@/messages/ar.json')
-      } else if (locale === 'ru') {
-        messages = require('@/messages/ru.json')
-      } else {
-        messages = require('@/messages/en.json')
-      }
-      
-      // Safely access nested translation object
-      t = messages?.orderEmail?.stripePaymentConfirmation || {}
-    }
-  } catch (error) {
-    console.log('Translation loading failed, using fallbacks:', error)
-    t = {}
-  }
-  
-  // Ensure all required translation keys have fallbacks
-  const fallbacks = {
-    companyName: 'Genosys Middle East FZ-LLC',
-    subject: 'Payment Confirmed - Order #{orderNumber}',
-    officialDistributor: 'Official Genosys distributor in the United Arab Emirates',
-    dear: 'Dear {customerName},',
-    paymentReceived: 'Thank you! Your payment has been successfully received and your order is confirmed.',
-    orderConfirmed: 'Order Confirmed #{orderNumber}',
-    paymentMethod: 'Payment Method: Stripe (Online Payment)',
-        customerInformation: 'Customer Information',
-        name: 'Name:',
-        email: 'Email:',
-        phone: 'Phone:',
-        address: 'Address:',
-        emirate: 'Emirate:',
-        orderItems: 'Order Items',
-        product: 'Product',
-        qty: 'Qty',
-        price: 'Price',
-        total: 'Total',
-        size: 'Size:',
-        color: 'Color:',
-        orderSummary: 'Order Summary',
-        subtotal: 'Subtotal:',
-        shippingTo: 'Shipping to {emirate}:',
-        free: 'FREE',
-        vat: 'VAT (5%):',
-        totalLabel: 'Total Paid:',
-        nextSteps: 'What happens next?',
-        processingOrder: 'We are now processing your order and will ship it within 1-2 business days.',
-        trackingInfo: 'You will receive tracking information once your order ships.',
-        continueShopping: 'Continue Shopping',
-    contactSupport: 'Contact Support',
-    officialDistributorFooter: 'Official Distributor in the UAE',
-    copyright: '© 2026 Genosys Middle East FZ-LLC. All rights reserved.'
-  }
-  
-  // Merge loaded translations with fallbacks
-  t = { ...fallbacks, ...t }
-
+// Generate Stripe Payment Confirmation Email HTML - Apple style
+export const generateStripePaymentConfirmationHTML = (order: OrderHTMLData, locale: string = 'en', _translations?: any): string => {
   const isRTL = locale === 'ar'
-  const dir = isRTL ? 'rtl' : 'ltr'
   const textAlign = isRTL ? 'right' : 'left'
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://genosys.ae'
-  const productsUrl = locale === 'ar' ? `${siteUrl}/ar/products` : locale === 'ru' ? `${siteUrl}/ru/products` : `${siteUrl}/products`
-  const contactUrl = locale === 'ar' ? `${siteUrl}/ar/contact` : locale === 'ru' ? `${siteUrl}/ru/contact` : `${siteUrl}/contact`
 
-  const itemsHTML = order.items.map((item) => `
+  // Generate items HTML
+  const itemsHTML = order.items.map(item => `
     <tr>
-      <td style="padding: 10px; border-bottom: 1px solid #eee; text-align: ${textAlign};">${item.name || 'Product'}${item.size ? ` (Size: ${item.size})` : ''}${item.color ? ` (Color: ${item.color})` : ''}</td>
-      <td style="padding: 10px; border-bottom: 1px solid #eee; text-align: center;">${item.quantity || 0}</td>
-      <td style="padding: 10px; border-bottom: 1px solid #eee; text-align: ${isRTL ? 'left' : 'right'};">AED ${(item.price || 0).toFixed(2)}</td>
-      <td style="padding: 10px; border-bottom: 1px solid #eee; text-align: ${isRTL ? 'left' : 'right'};">AED ${(item.total || ((item.price || 0) * (item.quantity || 0))).toFixed(2)}</td>
+      <td style="padding: 16px 0; border-bottom: 1px solid #f5f5f7; vertical-align: top;">
+        <div style="font-size: 15px; font-weight: 500; color: #1d1d1f; letter-spacing: -0.01em; text-align: ${textAlign};">${item.name || 'Product'}</div>
+        ${item.size || item.color ? `<div style="font-size: 13px; color: #86868b; margin-top: 4px; text-align: ${textAlign};">${item.size ? `Size: ${item.size}` : ''}${item.size && item.color ? ' · ' : ''}${item.color ? `Color: ${item.color}` : ''}</div>` : ''}
+      </td>
+      <td style="padding: 16px 12px; border-bottom: 1px solid #f5f5f7; text-align: center; font-size: 15px; color: #1d1d1f; vertical-align: top;">×${item.quantity || 0}</td>
+      <td style="padding: 16px 0; border-bottom: 1px solid #f5f5f7; text-align: ${isRTL ? 'left' : 'right'}; font-size: 15px; color: #1d1d1f; font-weight: 500; vertical-align: top;">AED ${((item.price || 0) * (item.quantity || 0)).toFixed(2)}</td>
     </tr>
   `).join('')
 
   return `
-    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: white; font-size: 14px; direction: ${dir};">
-      <div style="text-align: center; margin-bottom: 30px;">
-        <h1 style="color: #dc2626; margin: 0; font-size: 18px;">${t.companyName}</h1>
-        <p style="color: #666; margin: 5px 0; font-size: 14px;">United Arab Emirates <span style="font-size: 0.8em;">❤️</span></p>
+    <!DOCTYPE html>
+    <html lang="${locale}" dir="${isRTL ? 'rtl' : 'ltr'}">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Payment Confirmed</title>
+    </head>
+    <body style="margin: 0; padding: 0; background-color: #ffffff; -webkit-font-smoothing: antialiased;">
+      <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #ffffff;">
+        <tr>
+          <td align="center" style="padding: 40px 20px;">
+            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="max-width: 580px;">
+              
+              <!-- Logo -->
+              <tr>
+                <td style="text-align: center; padding-bottom: 48px;">
+                  <img src="https://genosys.ae/_next/image?url=%2FLogo%2FFull.png&w=640&q=75" alt="GENOSYS" style="height: 32px; width: auto;" />
+                </td>
+              </tr>
+              
+              <!-- Status Icon -->
+              <tr>
+                <td style="text-align: center; padding-bottom: 24px;">
+                  <div style="display: inline-block; width: 64px; height: 64px; background-color: #34c759; border-radius: 50%; line-height: 64px; font-size: 32px; color: #ffffff;">
+                    ✓
       </div>
-      
-      <!-- Payment Success Banner -->
-      <div style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); padding: 20px; border-radius: 10px; margin-bottom: 20px; text-align: center;">
-        <h2 style="color: white; margin: 0; font-size: 20px;">✅ ${t.paymentReceived || 'Payment Confirmed!'}</h2>
+                </td>
+              </tr>
+              
+              <!-- Main Heading -->
+              <tr>
+                <td style="text-align: center; padding-bottom: 12px;">
+                  <h1 style="margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif; font-size: 32px; font-weight: 600; color: #1d1d1f; letter-spacing: -0.02em;">
+                    Payment Confirmed
+                  </h1>
+                </td>
+              </tr>
+              
+              <!-- Order Number -->
+              <tr>
+                <td style="text-align: center; padding-bottom: 40px;">
+                  <span style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 17px; color: #86868b;">
+                    #${order.orderNumber || 'N/A'}
+                  </span>
+                </td>
+              </tr>
+              
+              <!-- Greeting -->
+              <tr>
+                <td style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 17px; line-height: 1.5; color: #1d1d1f; text-align: ${textAlign}; padding-bottom: 24px;">
+                  Hi ${(order.customerName || 'Customer').split(' ')[0]},<br><br>
+                  Your payment was successful. We're preparing your order now and will notify you when it ships.
+                </td>
+              </tr>
+              
+              <!-- Payment Badge -->
+              <tr>
+                <td style="padding-bottom: 32px;">
+                  <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #d1fae5; border-radius: 12px;">
+                    <tr>
+                      <td style="padding: 16px 24px; text-align: center;">
+                        <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 15px; color: #065f46; font-weight: 500;">
+                          💳 Paid via Stripe
       </div>
-      
-      <div style="background: white; padding: 30px; border-radius: 10px; margin-bottom: 20px; border: 1px solid #e5e5e5;">
-        <p style="color: #374151; font-size: 16px; line-height: 1.6; margin: 0 0 15px 0; text-align: ${textAlign};">
-          ${(t.dear || 'Dear {customerName},').replace('{customerName}', `<strong>${(order.customerName || 'Customer').split(' ')[0]}</strong>`)}
-        </p>
-        <p style="color: #374151; font-size: 14px; line-height: 1.6; margin: 0 0 10px 0; text-align: ${textAlign};">
-          ${t.paymentReceived || 'Thank you! Your payment has been successfully received and your order is confirmed.'}
-        </p>
-        <p style="color: #374151; font-size: 14px; line-height: 1.6; margin: 0 0 10px 0; text-align: ${textAlign};">
-          Order Confirmed <span style="color: #dc2626; font-weight: bold;">#${order.orderNumber || 'N/A'}</span>
-        </p>
-        <p style="color: #10b981; font-size: 14px; line-height: 1.6; margin: 0; text-align: ${textAlign}; font-weight: bold;">
-          ${t.paymentMethod || 'Payment Method: Stripe (Online Payment)'}
-        </p>
-      </div>
-      
-      <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e5e5e5;">
-        <h3 style="color: #dc2626; margin: 0 0 15px 0; font-size: 14px; text-align: ${textAlign};">${t.customerInformation}</h3>
-        <p style="margin: 0 0 8px 0; color: #374151; font-size: 14px; text-align: ${textAlign};"><strong>${t.name || 'Name:'}</strong> ${order.customerName || 'N/A'}</p>
-        <p style="margin: 0 0 8px 0; color: #374151; font-size: 14px; text-align: ${textAlign};"><strong>${t.email || 'Email:'}</strong> ${order.customerEmail || 'N/A'}</p>
-        <p style="margin: 0 0 8px 0; color: #374151; font-size: 14px; text-align: ${textAlign};"><strong>${t.phone || 'Phone:'}</strong> ${order.customerPhone || 'N/A'}</p>
-        <p style="margin: 0 0 8px 0; color: #374151; font-size: 14px; text-align: ${textAlign};"><strong>${t.address || 'Address:'}</strong> ${order.customerAddress || 'N/A'}</p>
-        <p style="margin: 0; color: #374151; font-size: 14px; text-align: ${textAlign};"><strong>${t.emirate || 'Emirate:'}</strong> ${order.emirate || 'N/A'}</p>
-      </div>
-
-      <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e5e5e5;">
-        <h3 style="color: #dc2626; margin: 0 0 15px 0; font-size: 14px; text-align: ${textAlign};">${t.orderItems}</h3>
-        <table style="width: 100%; border-collapse: collapse; margin: 10px 0;">
-          <thead>
-            <tr style="background: #dc2626; color: white;">
-              <th style="padding: 10px; text-align: ${textAlign}; font-size: 14px;">${t.product || 'Product'}</th>
-              <th style="padding: 10px; text-align: center; font-size: 14px;">${t.qty || 'Qty'}</th>
-              <th style="padding: 10px; text-align: ${isRTL ? 'left' : 'right'}; font-size: 14px;">${t.price || 'Price'}</th>
-              <th style="padding: 10px; text-align: ${isRTL ? 'left' : 'right'}; font-size: 14px;">${t.total || 'Total'}</th>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+              
+              <!-- Divider -->
+              <tr>
+                <td style="padding: 8px 0 32px 0;">
+                  <div style="height: 1px; background-color: #d2d2d7;"></div>
+                </td>
             </tr>
-          </thead>
-          <tbody>
+              
+              <!-- Items -->
+              <tr>
+                <td>
+                  <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
             ${itemsHTML}
-          </tbody>
         </table>
+                </td>
+              </tr>
+              
+              <!-- Summary -->
+              <tr>
+                <td style="padding-top: 24px;">
+                  <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif;">
+                    <tr>
+                      <td style="padding: 8px 0; font-size: 15px; color: #86868b; text-align: ${textAlign};">Subtotal</td>
+                      <td style="padding: 8px 0; font-size: 15px; color: #1d1d1f; text-align: ${isRTL ? 'left' : 'right'};">AED ${(order.subtotal || 0).toFixed(2)}</td>
+                    </tr>
+                    <tr>
+                      <td style="padding: 8px 0; font-size: 15px; color: #86868b; text-align: ${textAlign};">Shipping</td>
+                      <td style="padding: 8px 0; font-size: 15px; color: #1d1d1f; text-align: ${isRTL ? 'left' : 'right'};">${(order.shippingCost || 0) === 0 ? 'Free' : `AED ${(order.shippingCost || 0).toFixed(2)}`}</td>
+                    </tr>
+                    <tr>
+                      <td style="padding: 8px 0; font-size: 15px; color: #86868b; text-align: ${textAlign};">VAT (5%)</td>
+                      <td style="padding: 8px 0; font-size: 15px; color: #1d1d1f; text-align: ${isRTL ? 'left' : 'right'};">AED ${(order.vatAmount || 0).toFixed(2)}</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2" style="padding: 16px 0 8px 0;">
+                        <div style="height: 1px; background-color: #d2d2d7;"></div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="padding: 8px 0; font-size: 17px; font-weight: 600; color: #1d1d1f; text-align: ${textAlign};">Total Paid</td>
+                      <td style="padding: 8px 0; font-size: 17px; font-weight: 600; color: #1d1d1f; text-align: ${isRTL ? 'left' : 'right'};">AED ${(order.total || 0).toFixed(2)}</td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+              
+              <!-- Delivery Info -->
+              <tr>
+                <td style="padding-top: 40px;">
+                  <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #f5f5f7; border-radius: 12px;">
+                    <tr>
+                      <td style="padding: 24px;">
+                        <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 13px; font-weight: 600; color: #86868b; text-transform: uppercase; letter-spacing: 0.02em; margin-bottom: 12px; text-align: ${textAlign};">Delivery Details</div>
+                        <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 15px; color: #1d1d1f; line-height: 1.5; text-align: ${textAlign};">
+                          ${order.customerName || 'N/A'}<br>
+                          ${order.customerAddress || 'N/A'}<br>
+                          ${order.emirate || 'N/A'}, UAE<br>
+                          ${order.customerPhone || ''}
       </div>
-
-      <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e5e5e5;">
-        <h3 style="color: #dc2626; margin: 0 0 15px 0; font-size: 14px; text-align: ${textAlign};">${t.orderSummary}</h3>
-        <div style="display: flex; justify-content: space-between; margin-bottom: 8px; flex-direction: ${isRTL ? 'row-reverse' : 'row'};">
-          <span style="color: #374151; font-size: 14px;">${t.subtotal || 'Subtotal:'}</span>
-          <span style="color: #374151; font-size: 14px;">AED ${(order.subtotal || 0).toFixed(2)}</span>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+              
+              <!-- CTA Button -->
+              <tr>
+                <td style="text-align: center; padding-top: 40px;">
+                  <a href="${siteUrl}/profile" style="display: inline-block; background-color: #0071e3; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 17px; font-weight: 500; text-decoration: none; padding: 12px 24px; border-radius: 980px;">
+                    View Order
+                  </a>
+                </td>
+              </tr>
+              
+              <!-- Footer -->
+              <tr>
+                <td style="padding-top: 64px; text-align: center;">
+                  <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 12px; color: #86868b; line-height: 1.6;">
+                    Genosys Middle East FZ-LLC<br>
+                    Official Distributor in the UAE<br><br>
+                    © 2026 All rights reserved.
         </div>
-        <div style="display: flex; justify-content: space-between; margin-bottom: 8px; flex-direction: ${isRTL ? 'row-reverse' : 'row'};">
-          <span style="color: #374151; font-size: 14px;">Shipping to ${order.emirate || 'N/A'}:</span>
-          <span style="color: #374151; font-size: 14px;">${(order.shippingCost || 0) === 0 ? (t.free || 'FREE') : `AED ${(order.shippingCost || 0).toFixed(2)}`}</span>
-        </div>
-        <div style="display: flex; justify-content: space-between; margin-bottom: 8px; flex-direction: ${isRTL ? 'row-reverse' : 'row'};">
-          <span style="color: #374151; font-size: 14px;">${t.vat || 'VAT (5%):'}</span>
-          <span style="color: #374151; font-size: 14px;">AED ${(order.vatAmount || 0).toFixed(2)}</span>
-        </div>
-        <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 16px; color: #10b981; border-top: 2px solid #10b981; padding-top: 8px; flex-direction: ${isRTL ? 'row-reverse' : 'row'};">
-          <span>${t.totalLabel || 'Total Paid:'}</span>
-          <span>AED ${(order.total || 0).toFixed(2)}</span>
-        </div>
-      </div>
-
-      <!-- Next Steps Section -->
-      <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e9ecef;">
-        <h3 style="color: #374151; margin: 0 0 15px 0; font-size: 16px; text-align: ${textAlign};">${t.nextSteps || 'What happens next?'}</h3>
-        <ul style="color: #374151; font-size: 14px; line-height: 1.6; padding-left: ${isRTL ? '0' : '20px'}; padding-right: ${isRTL ? '20px' : '0'}; text-align: ${textAlign};">
-          <li style="margin-bottom: 8px;">${t.processingOrder || 'We are now processing your order and will ship it within 1-2 business days.'}</li>
-          <li>${t.trackingInfo || 'You will receive tracking information once your order ships.'}</li>
-        </ul>
-      </div>
-      
-      <div style="text-align: center; margin: 30px 0;">
-        <a href="${productsUrl}" 
-           style="background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%); 
-                  color: white; 
-                  padding: 12px 30px; 
-                  text-decoration: none; 
-                  border-radius: 6px; 
-                  font-weight: bold; 
-                  display: inline-block; 
-                  margin-${isRTL ? 'left' : 'right'}: 10px;">
-          ${t.continueShopping}
-        </a>
-        <a href="${contactUrl}" 
-           style="background: transparent; 
-                  color: #16a34a; 
-                  padding: 12px 30px; 
-                  text-decoration: none; 
-                  border: 2px solid #16a34a; 
-                  border-radius: 6px; 
-                  font-weight: bold; 
-                  display: inline-block;">
-          ${t.contactSupport}
-        </a>
-      </div>
-      
-      <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #e5e5e5; color: #000000; font-size: 14px;">
-        <div style="text-align: center; margin-bottom: 15px;">
-          <img src="https://genosys.ae/_next/image?url=%2FLogo%2FFull.png&w=640&q=75" alt="GENOSYS Logo" style="max-width: 200px; height: auto; display: block; margin: 0 auto;" />
-        </div>
-        <p style="color: #000000; margin: 0;">${t.officialDistributorFooter || t.officialDistributor}</p>
-        <p style="color: #000000; margin: 0;">${t.copyright}</p>
-      </div>
-    </div>
+                </td>
+              </tr>
+              
+            </table>
+          </td>
+        </tr>
+      </table>
+    </body>
+    </html>
   `
 }
 

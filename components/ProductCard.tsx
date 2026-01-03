@@ -96,14 +96,26 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
       className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow flex flex-col"
     >
       <div className="relative overflow-hidden">
-        {/* Product Image - Use Link for both PWA and web, but simplified for PWA */}
+        {/* Product Image - Use direct navigation for PWA, Link for web */}
         {isPWA ? (
-          <Link 
-            href={productPath} 
-            className="block w-full"
-            style={{ touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}
+          <div 
+            role="button"
+            tabIndex={0}
+            onClick={() => router.push(productPath)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault()
+                router.push(productPath)
+              }
+            }}
+            className="block w-full cursor-pointer active:opacity-80 transition-opacity"
+            style={{ 
+              touchAction: 'manipulation', 
+              WebkitTapHighlightColor: 'transparent',
+              userSelect: 'none'
+            }}
           >
-            <div className="overflow-hidden">
+            <div className="overflow-hidden pointer-events-none">
               <Image
                 src={product.image}
                 alt={`${product.name} - GENOSYS Korean ${product.category || 'dermacosmetics'} professional skincare product UAE`}
@@ -123,7 +135,7 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
                 }}
               />
             </div>
-          </Link>
+          </div>
         ) : (
           <Link href={productPath} className="block">
             <motion.div
@@ -187,14 +199,35 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
         </div>
         
         <div className="mb-2">
-          <Link 
-            href={productPath}
-            style={isPWA ? { touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' } : undefined}
-          >
-            <h3 className="text-sm md:text-lg font-semibold text-gray-800 line-clamp-2 hover:text-primary-600 transition-colors cursor-pointer">
-              {product.name}
-            </h3>
-          </Link>
+          {isPWA ? (
+            <div
+              role="button"
+              tabIndex={0}
+              onClick={() => router.push(productPath)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault()
+                  router.push(productPath)
+                }
+              }}
+              className="cursor-pointer active:opacity-70 transition-opacity"
+              style={{ 
+                touchAction: 'manipulation', 
+                WebkitTapHighlightColor: 'transparent',
+                userSelect: 'none'
+              }}
+            >
+              <h3 className="text-sm md:text-lg font-semibold text-gray-800 line-clamp-2 hover:text-primary-600 transition-colors">
+                {product.name}
+              </h3>
+            </div>
+          ) : (
+            <Link href={productPath}>
+              <h3 className="text-sm md:text-lg font-semibold text-gray-800 line-clamp-2 hover:text-primary-600 transition-colors cursor-pointer">
+                {product.name}
+              </h3>
+            </Link>
+          )}
         </div>
         
         {/* Size and Stock Row */}

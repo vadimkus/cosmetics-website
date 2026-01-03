@@ -505,41 +505,52 @@ export default function ProductsPageClient() {
 
             {/* Products Grid */}
             {filteredAndSortedProducts.length > 0 ? (
-              <motion.div 
-                className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-2 sm:gap-4 md:gap-6"
-                initial={animationsEnabled ? "hidden" : {}}
-                animate={animationsEnabled ? "show" : {}}
-                variants={animationsEnabled ? {
-                  hidden: { opacity: 0 },
-                  show: {
-                    opacity: 1,
-                    transition: {
-                      staggerChildren: 0.08,
-                      delayChildren: 0.1
-                    }
-                  }
-                } : {}}
-              >
-                {filteredAndSortedProducts.map((product) => (
-                  <motion.div
-                    key={product.id}
-                    variants={animationsEnabled ? {
-                      hidden: { opacity: 0, y: 30, scale: 0.9 },
-                      show: { 
-                        opacity: 1, 
-                        y: 0, 
-                        scale: 1,
-                        transition: { 
-                          duration: 0.4,
-                          ease: "easeOut"
-                        }
+              // Disable motion wrapper animations in PWA mode to prevent touch event interference
+              isPWA ? (
+                <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-2 sm:gap-4 md:gap-6">
+                  {filteredAndSortedProducts.map((product) => (
+                    <div key={product.id}>
+                      <ProductCard product={product} />
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <motion.div 
+                  className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-2 sm:gap-4 md:gap-6"
+                  initial={animationsEnabled ? "hidden" : {}}
+                  animate={animationsEnabled ? "show" : {}}
+                  variants={animationsEnabled ? {
+                    hidden: { opacity: 0 },
+                    show: {
+                      opacity: 1,
+                      transition: {
+                        staggerChildren: 0.08,
+                        delayChildren: 0.1
                       }
-                    } : {}}
-                  >
-                    <ProductCard product={product} />
-                  </motion.div>
-                ))}
-              </motion.div>
+                    }
+                  } : {}}
+                >
+                  {filteredAndSortedProducts.map((product) => (
+                    <motion.div
+                      key={product.id}
+                      variants={animationsEnabled ? {
+                        hidden: { opacity: 0, y: 30, scale: 0.9 },
+                        show: { 
+                          opacity: 1, 
+                          y: 0, 
+                          scale: 1,
+                          transition: { 
+                            duration: 0.4,
+                            ease: "easeOut"
+                          }
+                        }
+                      } : {}}
+                    >
+                      <ProductCard product={product} />
+                    </motion.div>
+                  ))}
+                </motion.div>
+              )
             ) : (
               <div className="text-center py-12">
                 <p className="text-gray-600 text-lg mb-2">{t('products.noProductsFound')}</p>

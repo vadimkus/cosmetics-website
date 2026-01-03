@@ -643,7 +643,7 @@ export const emailTemplates = {
                 
                 <!-- Header -->
                 <tr>
-                  <td style="background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%); padding: 30px 20px; text-align: center;">
+                  <td style="background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%); padding: 30px 20px; text-align: center;">
                     <h1 style="color: #ffffff; margin: 0 0 8px 0; font-size: 24px; font-weight: 700;">🎉 New User Registration</h1>
                     <p style="color: rgba(255, 255, 255, 0.9); margin: 0; font-size: 14px;">Genosys Middle East FZ-LLC</p>
                   </td>
@@ -790,10 +790,6 @@ export const emailTemplates = {
                 <!-- Footer -->
                 <tr>
                   <td style="background-color: #f9fafb; padding: 20px; text-align: center; border-top: 1px solid #e5e7eb;">
-                    <p style="margin: 0; color: #6b7280; font-size: 12px; line-height: 1.6;">
-                      This is an automated notification from your Genosys registration system.<br>
-                      <a href="https://genosysme.com" style="color: #dc2626; text-decoration: none; font-weight: 600;">genosysme.com</a>
-                    </p>
                   </td>
                 </tr>
                 

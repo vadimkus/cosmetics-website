@@ -323,7 +323,7 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
               whileTap={animationsEnabled && product.inStock && !isAdding ? { scale: 0.98 } : {}}
               animate={animationsEnabled && isAdding ? { scale: [1, 0.95, 1] } : {}}
               transition={animationsEnabled ? { duration: 0.2 } : {}}
-              aria-label={isAdding ? t('product.adding') : t('product.addToCart')}
+              aria-label={isAdding ? t('product.adding') : (isPWA ? t('product.addToBag') : t('product.addToCart'))}
               className={`flex items-center justify-center gap-1.5 md:gap-2 px-2 md:px-3 py-1.5 md:py-2.5 rounded-lg font-medium transition-colors touch-manipulation w-full min-h-[36px] md:min-h-[40px] text-[10px] md:text-xs ${
                 product.inStock && !isAdding
                   ? 'bg-primary-600 text-white hover:bg-primary-700'
@@ -332,7 +332,7 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
             >
               <ShoppingCart className="h-3 w-3 md:h-3.5 md:w-3.5" aria-hidden="true" />
               <span>
-                {isAdding ? t('product.adding') : t('product.addToCart')}
+                {isAdding ? t('product.adding') : (isPWA ? t('product.addToBag') : t('product.addToCart'))}
               </span>
             </motion.button>
           )}

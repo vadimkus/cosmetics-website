@@ -76,8 +76,10 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
 
   const { enabled: animationsEnabled } = useAnimationStore()
 
-  const MotionWrapper = animationsEnabled ? motion.div : 'div'
-  const animationProps = animationsEnabled ? {
+  // Disable framer-motion animations in PWA mode to prevent touch event interference
+  const useAnimations = animationsEnabled && !isPWA
+  const MotionWrapper = useAnimations ? motion.div : 'div'
+  const animationProps = useAnimations ? {
     whileHover: { 
       y: -8,
       boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
@@ -304,37 +306,34 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
         {/* Button Section - Always at the end */}
         <div className="mt-2">
           {!user ? (
-            <motion.button
+            <button
+              type="button"
               onClick={handleLoginClick}
-              whileHover={animationsEnabled ? { scale: 1.02 } : {}}
-              whileTap={animationsEnabled ? { scale: 0.98 } : {}}
-              transition={animationsEnabled ? { duration: 0.2 } : {}}
-              className={`flex items-center justify-center gap-1.5 md:gap-2 px-2 md:px-3 py-1.5 md:py-2 rounded-lg font-medium transition-colors touch-manipulation w-full bg-primary-600 text-white hover:bg-primary-700 min-h-[36px] md:min-h-[40px] text-[10px] md:text-xs`}
+              className={`flex items-center justify-center gap-1.5 md:gap-2 px-2 md:px-3 py-1.5 md:py-2 rounded-lg font-medium transition-colors w-full bg-primary-600 text-white hover:bg-primary-700 min-h-[36px] md:min-h-[40px] text-[10px] md:text-xs active:scale-[0.98]`}
               aria-label={t('product.loginToSeePrice')}
+              style={{ touchAction: 'manipulation' }}
             >
               <User className="h-3 w-3 md:h-3.5 md:w-3.5" aria-hidden="true" />
               <span>{t('product.loginToSeePrice')}</span>
-            </motion.button>
+            </button>
           ) : (
-            <motion.button
+            <button
+              type="button"
               onClick={handleAddToCart}
               disabled={!product.inStock || isAdding}
-              whileHover={animationsEnabled && product.inStock && !isAdding ? { scale: 1.02 } : {}}
-              whileTap={animationsEnabled && product.inStock && !isAdding ? { scale: 0.98 } : {}}
-              animate={animationsEnabled && isAdding ? { scale: [1, 0.95, 1] } : {}}
-              transition={animationsEnabled ? { duration: 0.2 } : {}}
               aria-label={isAdding ? t('product.adding') : (isPWA ? t('product.addToBag') : t('product.addToCart'))}
-              className={`flex items-center justify-center gap-1.5 md:gap-2 px-2 md:px-3 py-1.5 md:py-2.5 rounded-lg font-medium transition-colors touch-manipulation w-full min-h-[36px] md:min-h-[40px] text-[10px] md:text-xs ${
+              className={`flex items-center justify-center gap-1.5 md:gap-2 px-2 md:px-3 py-1.5 md:py-2.5 rounded-lg font-medium transition-colors w-full min-h-[36px] md:min-h-[40px] text-[10px] md:text-xs active:scale-[0.98] ${
                 product.inStock && !isAdding
                   ? 'bg-primary-600 text-white hover:bg-primary-700'
                   : 'bg-gray-300 text-gray-500 cursor-not-allowed'
               }`}
+              style={{ touchAction: 'manipulation' }}
             >
               <ShoppingCart className="h-3 w-3 md:h-3.5 md:w-3.5" aria-hidden="true" />
               <span>
                 {isAdding ? t('product.adding') : (isPWA ? t('product.addToBag') : t('product.addToCart'))}
               </span>
-            </motion.button>
+            </button>
           )}
         </div>
       </div>

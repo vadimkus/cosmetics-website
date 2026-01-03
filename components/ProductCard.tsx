@@ -96,13 +96,12 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
       className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow flex flex-col"
     >
       <div className="relative overflow-hidden">
-        {/* Product Image - Use button for PWA, Link for web */}
+        {/* Product Image - Use Link for both PWA and web, but simplified for PWA */}
         {isPWA ? (
-          <button
-            type="button"
-            onClick={() => router.push(productPath)}
-            className="block w-full text-left"
-            style={{ touchAction: 'manipulation' }}
+          <Link 
+            href={productPath} 
+            className="block w-full"
+            style={{ touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}
           >
             <div className="overflow-hidden">
               <Image
@@ -110,7 +109,7 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
                 alt={`${product.name} - GENOSYS Korean ${product.category || 'dermacosmetics'} professional skincare product UAE`}
                 width={300}
                 height={300}
-                className="w-full h-24 sm:h-32 md:h-40 lg:h-48 object-cover cursor-pointer"
+                className="w-full h-24 sm:h-32 md:h-40 lg:h-48 object-cover"
                 placeholder="blur"
                 blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
                 priority={false}
@@ -124,7 +123,7 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
                 }}
               />
             </div>
-          </button>
+          </Link>
         ) : (
           <Link href={productPath} className="block">
             <motion.div
@@ -188,24 +187,14 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
         </div>
         
         <div className="mb-2">
-          {isPWA ? (
-            <button 
-              type="button"
-              onClick={() => router.push(productPath)}
-              className="text-left w-full"
-              style={{ touchAction: 'manipulation' }}
-            >
-              <h3 className="text-sm md:text-lg font-semibold text-gray-800 line-clamp-2 hover:text-primary-600 transition-colors cursor-pointer">
-                {product.name}
-              </h3>
-            </button>
-          ) : (
-            <Link href={productPath}>
-              <h3 className="text-sm md:text-lg font-semibold text-gray-800 line-clamp-2 hover:text-primary-600 transition-colors cursor-pointer">
-                {product.name}
-              </h3>
-            </Link>
-          )}
+          <Link 
+            href={productPath}
+            style={isPWA ? { touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' } : undefined}
+          >
+            <h3 className="text-sm md:text-lg font-semibold text-gray-800 line-clamp-2 hover:text-primary-600 transition-colors cursor-pointer">
+              {product.name}
+            </h3>
+          </Link>
         </div>
         
         {/* Size and Stock Row */}

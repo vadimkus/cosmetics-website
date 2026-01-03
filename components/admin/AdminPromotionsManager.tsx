@@ -3,7 +3,7 @@
 
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Megaphone, Save, PlusCircle, RefreshCw, CheckCircle2, Bell, Send, Users, Eye, Trash2 } from 'lucide-react'
-import { addCsrfToBody } from '@/lib/csrfClient'
+import { addCsrfToBody, fetchCsrfToken } from '@/lib/csrfClient'
 import RichTextEditor from './RichTextEditor'
 
 type Promotion = {
@@ -265,6 +265,9 @@ export default function AdminPromotionsManager({
 
     setSendingPush(true)
     try {
+      // Ensure CSRF token is fresh before POST request
+      await fetchCsrfToken()
+      
       const payload = addCsrfToBody({
         title,
         titleRu: pushForm.titleRu?.trim() || null,
@@ -278,7 +281,8 @@ export default function AdminPromotionsManager({
       const res = await fetch('/api/push/send', {
         method: 'POST',
         headers: getAdminHeaders(),
-        body: JSON.stringify(payload)
+        body: JSON.stringify(payload),
+        credentials: 'include'
       })
 
       const data = await res.json()
@@ -336,11 +340,15 @@ export default function AdminPromotionsManager({
     if (!confirm('Are you sure you want to delete this notification?')) return
     
     try {
+      // Ensure CSRF token is fresh before DELETE request
+      await fetchCsrfToken()
+      
       const payload = addCsrfToBody({})
       const res = await fetch(`/api/push/send/${id}`, {
         method: 'DELETE',
         headers: getAdminHeaders(),
-        body: JSON.stringify(payload)
+        body: JSON.stringify(payload),
+        credentials: 'include' // Ensure cookies are sent with the request
       })
       
       const data = await res.json()

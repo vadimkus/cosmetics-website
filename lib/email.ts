@@ -2310,12 +2310,7 @@ export const sendOrderStatusUpdate = async (order: { orderNumber: string; custom
     const orderId = order.orderNumber || order.id || 'Unknown'
     const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://genosys.ae'
     
-    // Social media icons - use same location as footer logo (Logo folder) for Gmail compatibility
-    // This matches the footer logo approach which loads fine in Gmail without attachments
-    // Images are now deployed to production at /Logo/insta.png, /Logo/wa.png, /Logo/fb.png
-    const instagramIconUrl = `${baseUrl}/Logo/insta.png`
-    const whatsappIconUrl = `${baseUrl}/Logo/wa.png`
-    const facebookIconUrl = `${baseUrl}/Logo/fb.png`
+    // Social media icons removed - using simplified Apple-style footer
     
     // Get status message from translations, with special handling for DELIVERED
     // Note: SHIPPED status is handled above with the new template
@@ -2337,274 +2332,185 @@ export const sendOrderStatusUpdate = async (order: { orderNumber: string; custom
     // Get translated status label for display in email body and subject
     const translatedStatus = t.statusLabels?.[statusKey] || statusKey
     
-    // Generate items breakdown HTML if items are available
-    let itemsHTML = ''
+    // Status-specific styling for Apple design
+    const statusStyles: Record<string, { icon: string; color: string; bgColor: string }> = {
+      PROCESSING: { icon: '⏳', color: '#ff9500', bgColor: '#fff7ed' },
+      CONFIRMED: { icon: '✓', color: '#34c759', bgColor: '#f0fdf4' },
+      PAID: { icon: '💳', color: '#34c759', bgColor: '#d1fae5' },
+      SHIPPED: { icon: '📦', color: '#0071e3', bgColor: '#eff6ff' },
+      DELIVERED: { icon: '✓', color: '#34c759', bgColor: '#f0fdf4' },
+      CANCELLED: { icon: '✕', color: '#ff3b30', bgColor: '#fef2f2' },
+      default: { icon: 'ℹ', color: '#86868b', bgColor: '#f5f5f7' }
+    }
+    const style = statusStyles[statusKey] || statusStyles['default']!
+    
+    // Generate Apple-style items HTML if items are available
+    let appleItemsHTML = ''
     if (order.items && order.items.length > 0) {
-      const itemsList = order.items.map(item => {
-        // Ensure absolute HTTPS URL for email compatibility
-        // Remove Next.js image optimization parameters and use direct image URLs
-        let imageUrl = item.image || ''
-        const originalImageUrl = imageUrl // Keep for debugging
-        
-        // Process image URL to ensure it's absolute and HTTPS (same pattern as logo)
-        // Logo works: ${baseUrl}/Logo/upLOGO.png
-        // Product images should work: ${baseUrl}/images/CUSHC.png
-        
-        if (imageUrl && imageUrl.trim()) {
-          const trimmedUrl = imageUrl.trim()
-          
-          // If it's a Next.js optimized image URL, extract the original path
-          if (trimmedUrl.includes('_next/image')) {
-            const urlMatch = trimmedUrl.match(/url=([^&]+)/)
-            if (urlMatch && urlMatch[1]) {
-              try {
-                const decodedPath = decodeURIComponent(urlMatch[1])
-                // Remove any query parameters and ensure clean path
-                const parts = decodedPath.split('?')
-                const cleanPath = (parts[0] || '').split('&')[0] || decodedPath
-                // Ensure path starts with /
-                const normalizedPath = cleanPath.startsWith('/') ? cleanPath : '/' + cleanPath
-                imageUrl = `${baseUrl}${normalizedPath}`
-              } catch (error) {
-                debugLog(`❌ Failed to decode Next.js image URL: ${trimmedUrl}`, error)
-                imageUrl = `${baseUrl}/images/genosys-logo.png`
-              }
-            } else {
-              debugLog(`⚠️ Could not extract path from Next.js URL: ${trimmedUrl}`)
-              imageUrl = `${baseUrl}/images/genosys-logo.png`
-            }
-          } 
-          // If it's already an absolute URL (http/https)
-          else if (trimmedUrl.startsWith('http://') || trimmedUrl.startsWith('https://')) {
-            // Remove query parameters for email compatibility
-            const parts = trimmedUrl.split('?')
-            imageUrl = (parts[0] || '').split('&')[0] || trimmedUrl
-            // Ensure HTTPS (but keep localhost as http for development)
-            if (imageUrl.startsWith('http://') && !imageUrl.includes('localhost')) {
-              imageUrl = imageUrl.replace('http://', 'https://')
-            }
-          }
-          // If it's a local/relative path, make it absolute (same as logo: /Logo/upLOGO.png)
-          else {
-            // Remove query parameters and ensure path starts with /
-            const parts = trimmedUrl.split('?')
-            const cleanPath = (parts[0] || '').split('&')[0] || trimmedUrl
-            // Handle both /images/... and images/... formats
-            let normalizedPath = cleanPath
-            if (!normalizedPath.startsWith('/')) {
-              normalizedPath = '/' + normalizedPath
-            }
-            // Ensure it follows the same pattern as logo: /Logo/upLOGO.png -> /images/CUSHC.png
-            imageUrl = `${baseUrl}${normalizedPath}`
-          }
-        } else {
-          // No image provided - use logo as fallback
-          debugLog(`⚠️ No image provided for product: ${item.productName}`)
-          imageUrl = `${baseUrl}/images/genosys-logo.png`
-        }
-        
-        // Final cleanup: ensure no double slashes (except after protocol)
-        imageUrl = imageUrl.replace(/([^:]\/)\/+/g, '$1')
-        
-        // Debug logging with full details
-        debugLog(`📦 Order item image processing: ${item.productName}`)
-        debugLog(`   Original image: "${originalImageUrl}"`)
-        debugLog(`   Base URL: "${baseUrl}"`)
-        debugLog(`   Final URL: "${imageUrl}"`)
-        debugLog(`   Image exists check: Will try to load from ${imageUrl}`)
-        
-        // Additional validation: ensure the URL is properly formatted
-        if (!imageUrl || imageUrl.trim() === '') {
-          errorLog(`❌ Empty image URL for product: ${item.productName}`)
-          imageUrl = `${baseUrl}/images/genosys-logo.png`
-        }
-        
-        // Ensure URL is valid
-        try {
-          new URL(imageUrl)
-        } catch (error) {
-          errorLog(`❌ Invalid image URL constructed: "${imageUrl}" for product: ${item.productName}`)
-          errorLog(`   Original was: "${originalImageUrl}"`)
-          imageUrl = `${baseUrl}/images/genosys-logo.png`
-        }
-        
-        const itemTotal = (item.price * item.quantity).toFixed(2)
-        const variantInfo = [item.size, item.color].filter(Boolean).join(' • ')
-        
+      const itemRows = order.items.map(item => {
         return `
           <tr>
-            <td style="padding: 12px 0; border-bottom: 1px solid #e5e7eb;">
-              <table cellpadding="0" cellspacing="0" border="0" width="100%">
-                <tr>
-                  <td width="80" style="${isRTL ? 'padding-left' : 'padding-right'}: 12px; vertical-align: top;">
-                    <img src="${imageUrl}" alt="${item.productName.replace(/"/g, '&quot;')}" width="80" height="80" style="width: 80px; height: 80px; object-fit: cover; border-radius: 6px; display: block; border: 1px solid #e5e7eb; max-width: 80px;" border="0" onerror="this.onerror=null; this.src='${baseUrl}/images/genosys-logo.png';" />
+            <td style="padding: 16px 0; border-bottom: 1px solid #f5f5f7; vertical-align: top;">
+              <div style="font-size: 15px; font-weight: 500; color: #1d1d1f; letter-spacing: -0.01em; text-align: ${textAlign};">${item.productName}</div>
+              ${item.size || item.color ? `<div style="font-size: 13px; color: #86868b; margin-top: 4px; text-align: ${textAlign};">${item.size ? `Size: ${item.size}` : ''}${item.size && item.color ? ' · ' : ''}${item.color ? `Color: ${item.color}` : ''}</div>` : ''}
                   </td>
-                  <td style="vertical-align: top;">
-                    <p style="color: #374151; font-size: 12px; font-weight: 500; margin: 0 0 4px 0; line-height: 1.4;">${item.productName}</p>
-                    ${variantInfo ? `<p style="color: #6b7280; font-size: 12px; margin: 0 0 4px 0;">${variantInfo}</p>` : ''}
-                    <p style="color: #6b7280; font-size: 12px; margin: 0;">Qty: ${item.quantity} × AED ${item.price.toFixed(2)}</p>
-                  </td>
-                  <td style="text-align: ${isRTL ? 'left' : 'right'}; vertical-align: top; ${isRTL ? 'padding-right' : 'padding-left'}: 12px;">
-                    <p style="color: #374151; font-size: 12px; font-weight: 600; margin: 0; white-space: nowrap;">${itemTotal} AED</p>
-                  </td>
-                </tr>
-              </table>
-            </td>
+            <td style="padding: 16px 12px; border-bottom: 1px solid #f5f5f7; text-align: center; font-size: 15px; color: #1d1d1f; vertical-align: top;">×${item.quantity}</td>
+            <td style="padding: 16px 0; border-bottom: 1px solid #f5f5f7; text-align: ${isRTL ? 'left' : 'right'}; font-size: 15px; color: #1d1d1f; font-weight: 500; vertical-align: top;">AED ${(item.price * item.quantity).toFixed(2)}</td>
           </tr>
         `
       }).join('')
       
-      // Calculate subtotal from all items
       const subtotal = order.items.reduce((sum, item) => sum + (item.price * item.quantity), 0)
-      // Calculate VAT (5% of VAT-inclusive amount: VAT = amount * (5/105))
       const vat = subtotal * (5 / 105)
       
-      itemsHTML = `
-        <div style="margin: 25px 0;">
-          <h3 style="color: #374151; font-size: 16px; font-weight: 600; margin: 0 0 15px 0; text-align: ${textAlign};">${t.orderItems}</h3>
-          <table cellpadding="0" cellspacing="0" border="0" width="100%" style="background: #f9fafb; border-radius: 8px; padding: 15px;">
-            ${itemsList}
+      appleItemsHTML = `
+        <!-- Items Section -->
+        <tr>
+          <td style="padding: 8px 0 32px 0;">
+            <div style="height: 1px; background-color: #d2d2d7;"></div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+              ${itemRows}
+            </table>
+          </td>
+        </tr>
             ${order.total ? `
               <tr>
-                <td style="padding-top: 15px; border-top: 2px solid #e5e7eb;">
-                  <table cellpadding="0" cellspacing="0" border="0" width="100%">
-                    <tr>
-                      <td style="text-align: ${isRTL ? 'left' : 'right'};">
-                        <p style="color: #374151; font-size: 12px; margin: 0 0 6px 0;">${t.subtotal} AED ${subtotal.toFixed(2)}</p>
-                        <p style="color: #374151; font-size: 12px; margin: 0 0 6px 0;">${t.vat} AED ${vat.toFixed(2)}</p>
-                        <p style="color: #374151; font-size: 14px; font-weight: 600; margin: 0;">${t.total} AED ${order.total.toFixed(2)}</p>
-                        <p style="color: #6b7280; font-size: 11px; margin: 4px 0 0 0; font-style: italic;">${t.vatNote}</p>
+          <td style="padding-top: 24px;">
+            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif;">
+              <tr>
+                <td style="padding: 8px 0; font-size: 15px; color: #86868b; text-align: ${textAlign};">Subtotal</td>
+                <td style="padding: 8px 0; font-size: 15px; color: #1d1d1f; text-align: ${isRTL ? 'left' : 'right'};">AED ${subtotal.toFixed(2)}</td>
+              </tr>
+              <tr>
+                <td style="padding: 8px 0; font-size: 15px; color: #86868b; text-align: ${textAlign};">VAT (5%)</td>
+                <td style="padding: 8px 0; font-size: 15px; color: #1d1d1f; text-align: ${isRTL ? 'left' : 'right'};">AED ${vat.toFixed(2)}</td>
+              </tr>
+              <tr>
+                <td colspan="2" style="padding: 16px 0 8px 0;">
+                  <div style="height: 1px; background-color: #d2d2d7;"></div>
                       </td>
+                    </tr>
+              <tr>
+                <td style="padding: 8px 0; font-size: 17px; font-weight: 600; color: #1d1d1f; text-align: ${textAlign};">Total</td>
+                <td style="padding: 8px 0; font-size: 17px; font-weight: 600; color: #1d1d1f; text-align: ${isRTL ? 'left' : 'right'};">AED ${order.total.toFixed(2)}</td>
                     </tr>
                   </table>
                 </td>
               </tr>
             ` : ''}
-          </table>
-        </div>
       `
     }
     
     const html = `
-      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 4px solid #dc2626; background: #ffffff; box-shadow: 0 0 0 2px #ffffff, 0 0 0 6px #dc2626; direction: ${dir};">
-        <div style="text-align: center; margin-bottom: 15px; position: relative;">
-          <h1 style="color: #dc2626; margin: 0;">${t.companyName}</h1>
-          <p style="color: #666; margin: 5px 0 0 0; font-size: 12px; ${isRTL ? 'padding-right' : 'padding-left'}: 3.2em;">${t.uae}</p>
-        </div>
-        
-        <div style="background: white; padding: 30px; border-radius: 10px; margin-bottom: 20px; border: 1px solid #e5e7eb;">
-          <p style="color: #374151; font-size: 14px; line-height: 1.6; margin: 0 0 12px 0; text-align: ${textAlign};">
-            ${t.dear.replace('{customerName}', order.customerName)}
-          </p>
-          
-          <p style="color: #374151; font-size: 14px; line-height: 1.6; margin: 0 0 20px 0; text-align: ${textAlign};">
-            ${t.greeting}
-          </p>
-          
-          <p style="color: #374151; font-size: 14px; line-height: 1.6; margin: 0 0 20px 0; text-align: ${textAlign};">
-            ${statusMessage}
-          </p>
-          
-          <div style="background: #f9fafb; padding: 20px; border-radius: 8px; margin: 12px 0;">
-            <p style="color: #374151; margin: 0 0 10px 0; font-size: 13px; text-align: ${textAlign};"><strong>${t.orderNumber}</strong> ${orderId}</p>
-            <p style="color: #374151; margin: 0 0 10px 0; font-size: 13px; text-align: ${textAlign};"><strong>${t.status}</strong> <span style="color: #dc2626; font-weight: bold;">${translatedStatus}</span></p>
-            <p style="color: #374151; margin: 0; font-size: 13px; text-align: ${textAlign};"><strong>${t.date}</strong> ${new Date().toLocaleString(dateLocale, { timeZone: 'Asia/Dubai' })}</p>
+      <!DOCTYPE html>
+      <html lang="${locale}" dir="${dir}">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Order Status Update</title>
+      </head>
+      <body style="margin: 0; padding: 0; background-color: #ffffff; -webkit-font-smoothing: antialiased;">
+        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #ffffff;">
+          <tr>
+            <td align="center" style="padding: 40px 20px;">
+              <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="max-width: 580px;">
+                
+                <!-- Logo -->
+                <tr>
+                  <td style="text-align: center; padding-bottom: 48px;">
+                    <img src="https://genosys.ae/_next/image?url=%2FLogo%2FFull.png&w=640&q=75" alt="GENOSYS" style="height: 32px; width: auto;" />
+                  </td>
+                </tr>
+                
+                <!-- Status Icon -->
+                <tr>
+                  <td style="text-align: center; padding-bottom: 24px;">
+                    <div style="display: inline-block; width: 64px; height: 64px; background-color: ${style.color}; border-radius: 50%; line-height: 64px; font-size: 32px; color: #ffffff;">
+                      ${style.icon}
           </div>
-          
-          ${itemsHTML}
-          
-          <div style="margin: 25px 0 0 0; padding-top: 20px; border-top: 1px solid #e5e7eb;">
-            <p style="color: #374151; font-size: 13px; line-height: 1.6; margin: 0 0 12px 0; text-align: ${textAlign};">
-              ${t.contactQuestion} <a href="https://wa.me/971585487665" style="color: #dc2626; text-decoration: none;">+971 58 548 76 65</a> (WhatsApp).
-            </p>
-            
-            <p style="color: #374151; font-size: 13px; line-height: 1.6; margin: 0; text-align: ${textAlign};">
-              ${t.viewOrderStatus} <a href="https://www.genosys.ae/${locale === 'ar' ? 'ar/' : ''}profile" style="color: #dc2626; text-decoration: none;">www.genosys.ae/${locale === 'ar' ? 'ar/' : ''}profile</a>
-            </p>
-          </div>
-        </div>
-        
-        <!-- Footer Section -->
-        <div style="border-top: 1px solid #e5e7eb; padding-top: 30px; margin-top: 30px;">
-          <!-- Social Media Icons -->
-          <div style="text-align: center; margin-bottom: 30px;">
-            <div style="border-top: 1px solid #e5e7eb; margin-bottom: 20px;"></div>
-            <table cellpadding="0" cellspacing="0" border="0" align="center" style="margin: 0 auto;">
-              <tr>
-                <td style="padding: 0 12px; text-align: center;">
-                  <a href="https://www.instagram.com/genosys.uae/" style="text-decoration: none; display: inline-block;">
-                    <img src="${instagramIconUrl}" alt="Instagram" width="34" height="34" style="max-width: 34px; height: auto; display: block; margin: 0 auto;" border="0" />
-                    <p style="color: #374151; font-size: 11px; margin: 6px 0 0 0; text-align: center;">Insta</p>
-                  </a>
+                  </td>
+                </tr>
+                
+                <!-- Main Heading -->
+                <tr>
+                  <td style="text-align: center; padding-bottom: 12px;">
+                    <h1 style="margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif; font-size: 28px; font-weight: 600; color: #1d1d1f; letter-spacing: -0.02em;">
+                      Order ${translatedStatus}
+                    </h1>
                 </td>
-                <td style="padding: 0 12px; text-align: center;">
-                  <a href="https://wa.me/971585487665?text=${encodeURIComponent(`Hi! I need help with my order ${orderId}. Can you assist me?`)}" style="text-decoration: none; display: inline-block;">
-                    <img src="${whatsappIconUrl}" alt="WhatsApp" width="34" height="34" style="max-width: 34px; height: auto; display: block; margin: 0 auto;" border="0" />
-                    <p style="color: #374151; font-size: 11px; margin: 6px 0 0 0; text-align: center;">WA</p>
-                  </a>
+                </tr>
+                
+                <!-- Order Number -->
+                <tr>
+                  <td style="text-align: center; padding-bottom: 40px;">
+                    <span style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 17px; color: #86868b;">
+                      #${orderId}
+                    </span>
                 </td>
-                <td style="padding: 0 12px; text-align: center;">
-                  <a href="https://www.facebook.com/genosys.ae" style="text-decoration: none; display: inline-block;">
-                    <img src="${facebookIconUrl}" alt="Facebook" width="34" height="34" style="max-width: 34px; height: auto; display: block; margin: 0 auto;" border="0" />
-                    <p style="color: #374151; font-size: 11px; margin: 6px 0 0 0; text-align: center;">FB</p>
+                </tr>
+                
+                <!-- Greeting -->
+                <tr>
+                  <td style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 17px; line-height: 1.5; color: #1d1d1f; text-align: ${textAlign}; padding-bottom: 24px;">
+                    Hi ${order.customerName.split(' ')[0]},<br><br>
+                    ${statusMessage}
+                </td>
+                </tr>
+                
+                <!-- Status Badge -->
+                <tr>
+                  <td style="padding-bottom: 32px;">
+                    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: ${style.bgColor}; border-radius: 12px;">
+                      <tr>
+                        <td style="padding: 20px 24px;">
+                          <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                            <tr>
+                              <td style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 13px; color: #86868b; text-align: ${textAlign};">Status</td>
+                              <td style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 15px; color: ${style.color}; font-weight: 600; text-align: ${isRTL ? 'left' : 'right'};">${translatedStatus}</td>
+                            </tr>
+                            <tr>
+                              <td style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 13px; color: #86868b; padding-top: 12px; text-align: ${textAlign};">Updated</td>
+                              <td style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 15px; color: #1d1d1f; padding-top: 12px; text-align: ${isRTL ? 'left' : 'right'};">${new Date().toLocaleDateString(dateLocale, { timeZone: 'Asia/Dubai', day: 'numeric', month: 'short', year: 'numeric' })}</td>
+              </tr>
+            </table>
+                </td>
+                      </tr>
+                    </table>
+                </td>
+                </tr>
+                
+                ${appleItemsHTML}
+                
+                <!-- CTA Button -->
+                <tr>
+                  <td style="text-align: center; padding-top: 40px;">
+                    <a href="${baseUrl}/${locale === 'ar' ? 'ar/' : ''}profile" style="display: inline-block; background-color: #0071e3; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 17px; font-weight: 500; text-decoration: none; padding: 12px 24px; border-radius: 980px;">
+                      View Order
                   </a>
                 </td>
               </tr>
-            </table>
-            <div style="border-top: 1px solid #e5e7eb; margin-top: 20px;"></div>
-          </div>
-          
-          <!-- Company Overview -->
-          <div style="text-align: center; margin-bottom: 20px;">
-            <p style="color: #374151; font-size: 13px; line-height: 1.6; margin: 0; text-align: ${textAlign};">
-              ${t.officialDistributor}
-            </p>
-          </div>
-          
-          <!-- Two Column Footer -->
-          <table cellpadding="0" cellspacing="0" border="0" width="100%" style="max-width: 600px; margin: 0 auto;">
-            <tr>
-              <!-- Left Column: Customer Service -->
-              <td width="50%" style="${isRTL ? 'padding-left' : 'padding-right'}: 20px; vertical-align: top;">
-                <p style="color: #374151; font-size: 13px; font-weight: 600; margin: 0 0 8px 0; text-align: ${textAlign};">${t.customerService}</p>
-                <p style="color: #374151; font-size: 12px; line-height: 1.6; margin: 0 0 4px 0; text-align: ${textAlign};">
-                  ${t.callUs} <a href="tel:+971585487665" style="color: #374151; text-decoration: none;">+971 58 548 76 65</a>
-                </p>
-                <p style="color: #374151; font-size: 12px; line-height: 1.6; margin: 0 0 4px 0; text-align: ${textAlign};">
-                  ${t.emailUs} <a href="mailto:sales@genosys.ae" style="color: #374151; text-decoration: none;">sales@genosys.ae</a>
-                </p>
-                <p style="color: #374151; font-size: 12px; line-height: 1.6; margin: 0; text-align: ${textAlign};">
-                  ${t.hours}
-                </p>
+                
+                <!-- Footer -->
+                <tr>
+                  <td style="padding-top: 64px; text-align: center;">
+                    <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 12px; color: #86868b; line-height: 1.6;">
+                      Genosys Middle East FZ-LLC<br>
+                      Official Distributor in the UAE<br><br>
+                      © 2026 All rights reserved.
+                    </div>
               </td>
-              
-              <!-- Right Column: Business Location -->
-              <td width="50%" style="${isRTL ? 'padding-right' : 'padding-left'}: 20px; vertical-align: top;">
-                <p style="color: #374151; font-size: 13px; font-weight: 600; margin: 0 0 8px 0; text-align: ${textAlign};">${t.businessLocation}</p>
-                <p style="color: #374151; font-size: 12px; line-height: 1.6; margin: 0 0 4px 0; text-align: ${textAlign};">
-                  Cordoba Residence Villa E02
-                </p>
-                <p style="color: #374151; font-size: 12px; line-height: 1.6; margin: 0 0 4px 0; text-align: ${textAlign};">
-                  Dubai, United Arab Emirates
-                </p>
-                <p style="color: #374151; font-size: 12px; line-height: 1.6; margin: 0; text-align: ${textAlign};">
-                  <a href="https://maps.app.goo.gl/ZBxVoXdTNvECFwNw5" style="color: #374151; text-decoration: underline;">${t.locationMap}</a>
-                </p>
+            </tr>
+                
+              </table>
               </td>
             </tr>
           </table>
-          
-          <!-- Company Copyright -->
-          <div style="text-align: center; margin-top: 25px; padding-top: 20px; border-top: 1px solid #e5e7eb;">
-            <div style="margin-bottom: 15px;">
-              <img src="${baseUrl}/Logo/upLOGO.png" alt="GENOSYS Logo" width="180" height="54" style="max-width: 180px; height: auto; display: block; margin: 0 auto;" border="0" />
-            </div>
-            <p style="color: #6b7280; font-size: 11px; line-height: 1.5; margin: 0;">
-              ${t.copyright}
-            </p>
-          </div>
-        </div>
-      </div>
+      </body>
+      </html>
     `
     
     // Use translated status label (already calculated above)

@@ -6,7 +6,7 @@ import { useCart } from '@/components/CartProvider'
 import { useFavorites } from '@/components/FavoritesProvider'
 import { useAuth } from '@/components/AuthProvider'
 import ErrorPage from '@/components/ErrorPage'
-import { ArrowLeft, Sparkles, Star, Minus, Plus, ShoppingCart, Heart } from 'lucide-react'
+import { ArrowLeft, Sparkles, Star, Minus, Plus, ShoppingCart, Heart, Check } from 'lucide-react'
 import Link from 'next/link'
 import { useState, useCallback } from 'react'
 import { Product } from '@/types'
@@ -56,6 +56,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
   // Mobile footer state
   const [mobileQuantity, setMobileQuantity] = useState(1)
   const [isAddingMobile, setIsAddingMobile] = useState(false)
+  const [isAddedMobile, setIsAddedMobile] = useState(false)
   
   // Calculate current price based on selected variant
   const currentPrice = useCallback(() => {
@@ -101,7 +102,14 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
     setIsAddingMobile(true)
     try {
       await handleAddToCart(mobileQuantity)
-    } finally {
+      // Show success state
+      setIsAddingMobile(false)
+      setIsAddedMobile(true)
+      // Reset after 2 seconds
+      setTimeout(() => {
+        setIsAddedMobile(false)
+      }, 2000)
+    } catch {
       setIsAddingMobile(false)
     }
   }, [handleAddToCart, mobileQuantity])
@@ -1087,15 +1095,27 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
             {/* Add to Cart Button */}
             <button
               onClick={handleMobileAddToCart}
-              disabled={isAddingMobile || !user || !product.inStock}
-              className={`flex-1 py-3 rounded-lg font-semibold transition-colors flex items-center justify-center gap-2 touch-manipulation min-h-[44px] ${
-                !product.inStock || !user || isAddingMobile
-                  ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                  : 'bg-primary-600 text-white hover:bg-primary-700 active:bg-primary-800'
+              disabled={isAddingMobile || isAddedMobile || !user || !product.inStock}
+              className={`flex-1 py-3 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2 touch-manipulation min-h-[44px] ${
+                isAddedMobile
+                  ? 'bg-green-500 text-white'
+                  : !product.inStock || !user || isAddingMobile
+                    ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                    : 'bg-primary-600 text-white hover:bg-primary-700 active:bg-primary-800'
               }`}
+              style={{ touchAction: 'manipulation' }}
             >
-              <ShoppingCart className={`h-5 w-5 flex-shrink-0 ${dir === 'rtl' ? 'order-last' : ''}`} />
-              <span className="text-sm sm:text-base">{!product.inStock ? t('product.outOfStock') : isAddingMobile ? t('product.adding') : t('product.addToCart')}</span>
+              {isAddedMobile ? (
+                <>
+                  <Check className={`h-5 w-5 flex-shrink-0 ${dir === 'rtl' ? 'order-last' : ''}`} />
+                  <span className="text-sm sm:text-base">{t('product.addedToBag') || 'Added to Bag!'}</span>
+                </>
+              ) : (
+                <>
+                  <ShoppingCart className={`h-5 w-5 flex-shrink-0 ${dir === 'rtl' ? 'order-last' : ''}`} />
+                  <span className="text-sm sm:text-base">{!product.inStock ? t('product.outOfStock') : isAddingMobile ? t('product.adding') : t('product.addToCart')}</span>
+                </>
+              )}
             </button>
 
             {/* Favorite Button */}

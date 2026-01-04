@@ -885,15 +885,42 @@ export function SkinAnalysisCamera({
             
             {/* Face Guide Overlay */}
             {(cameraState === 'ready' || cameraState === 'countdown') && (
-              <div className="absolute inset-0 flex items-center justify-center pointer-events-none" style={{ paddingBottom: '180px' }}>
-                {/* Darkened corners */}
-                <div className="absolute inset-0 bg-black/40" style={{
-                  maskImage: 'radial-gradient(ellipse 140px 180px at 50% 40%, transparent 98%, black 100%)',
-                  WebkitMaskImage: 'radial-gradient(ellipse 140px 180px at 50% 40%, transparent 98%, black 100%)',
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                {/* Darkened corners - responsive mask size */}
+                <div className="absolute inset-0 bg-black/40 hidden md:block" style={{
+                  maskImage: 'radial-gradient(ellipse 120px 155px at 50% 50%, transparent 98%, black 100%)',
+                  WebkitMaskImage: 'radial-gradient(ellipse 120px 155px at 50% 50%, transparent 98%, black 100%)',
+                }} />
+                {/* Mobile mask - larger oval, adjusted position for PWA nav bar */}
+                <div className="absolute inset-0 bg-black/40 md:hidden" style={{
+                  maskImage: 'radial-gradient(ellipse 130px 170px at 50% 40%, transparent 98%, black 100%)',
+                  WebkitMaskImage: 'radial-gradient(ellipse 130px 170px at 50% 40%, transparent 98%, black 100%)',
                 }} />
                 
-                {/* Face oval guide */}
-                <div className="w-[280px] h-[360px] relative">
+                {/* Face oval guide - responsive sizing */}
+                {/* Desktop: smaller, centered */}
+                <div className="hidden md:block w-[240px] h-[310px] relative">
+                  <div className="absolute inset-0 border-2 border-white/60 rounded-[50%]" />
+                  <div className="absolute inset-2 border border-white/30 rounded-[50%]" />
+                  
+                  {/* Corner markers */}
+                  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-6 h-1 bg-white rounded-full" />
+                  <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-1 bg-white rounded-full" />
+                  <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-white rounded-full" />
+                  <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-white rounded-full" />
+                  
+                  {/* Countdown display */}
+                  {cameraState === 'countdown' && countdown !== null && (
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <span className="text-7xl font-bold text-white animate-pulse drop-shadow-lg">
+                        {countdown}
+                      </span>
+                    </div>
+                  )}
+                </div>
+                
+                {/* Mobile: larger oval, positioned higher for PWA nav bar */}
+                <div className="md:hidden w-[260px] h-[340px] relative -mt-32">
                   <div className="absolute inset-0 border-2 border-white/60 rounded-[50%]" />
                   <div className="absolute inset-2 border border-white/30 rounded-[50%]" />
                   
@@ -1226,7 +1253,7 @@ export function SkinAnalysisCamera({
 
       {/* Bottom Controls */}
       {!capturedImage && cameraState === 'ready' && (
-        <div className="px-4 pt-4 pb-8 mb-16 bg-gradient-to-t from-black via-black/95 to-transparent">
+        <div className="px-4 pt-4 pb-8 mb-16 md:mb-4 bg-gradient-to-t from-black via-black/95 to-transparent">
           {/* Capture Button - Put first for visibility */}
           <div className="flex items-center justify-center gap-6 mb-4">
             {/* Switch Camera */}

@@ -21,6 +21,7 @@ import { translateSize } from '@/utils/sizeTranslations'
 import { translateCategory } from '@/utils/categoryTranslations'
 import { usePWAMode } from '@/hooks/usePWAMode'
 import { useRouter } from 'next/navigation'
+import { useHapticFeedback } from '@/hooks/useHapticFeedback'
 
 interface ProductCardProps {
   product: Product
@@ -33,6 +34,7 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
   const { t, locale } = useTranslation()
   const { isPWA } = usePWAMode()
   const router = useRouter()
+  const haptic = useHapticFeedback()
   const productPath = getLocalizedPath(`/products/${product.productNumber || product.id}`, locale)
   const [isAdding, setIsAdding] = useState(false)
   const [isTogglingFavorite, setIsTogglingFavorite] = useState(false)
@@ -48,15 +50,17 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
   const description = translations?.description || product.description
 
   const handleAddToCart = useCallback(async () => {
+    haptic.success() // Haptic feedback on add to cart
     setIsAdding(true)
     addItem(product, 1, '', '')
     // Simulate a brief loading state
     setTimeout(() => setIsAdding(false), 500)
-  }, [addItem, product])
+  }, [addItem, product, haptic])
 
   const handleFavorite = useCallback(async (e?: React.MouseEvent | React.TouchEvent) => {
     e?.preventDefault()
     e?.stopPropagation()
+    haptic.double() // Haptic feedback on favorite toggle (like double-tap)
     setIsTogglingFavorite(true)
     toggleFavorite(product)
     // Brief delay for visual feedback

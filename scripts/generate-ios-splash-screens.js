@@ -163,3 +163,4 @@ async function generateAllSplashScreens() {
 // Run the generator
 generateAllSplashScreens().catch(console.error);
 
+

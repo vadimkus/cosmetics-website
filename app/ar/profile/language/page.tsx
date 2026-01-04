@@ -14,3 +14,4 @@ export default function ArabicLanguagePage() {
   return <LanguagePage />
 }
 
+

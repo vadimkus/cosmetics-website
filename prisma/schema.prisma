@@ -452,3 +452,55 @@ model NotificationRead {
   @@index([notificationId])
   @@map("notification_reads")
 }
+
+// Skin Analysis - stores user skin analysis results with photos
+model SkinAnalysis {
+  id                String   @id @default(cuid())
+  userId            String?  // Optional - can be used by guests
+  
+  // Captured image (stored as base64 data URL or cloud storage URL)
+  imageUrl          String?  @db.Text
+  
+  // Primary results
+  skinType          String   // dry, oily, combination, normal, sensitive
+  confidence        Int      // 0-100
+  
+  // Detailed metrics (0-100)
+  oilinessLevel     Int
+  hydrationLevel    Int
+  rednessLevel      Int
+  textureScore      Int      // smoothness
+  evennessScore     Int      // color uniformity
+  tZoneOiliness     Int
+  cheekHydration    Int
+  
+  // Skin characteristics
+  skinTone          String   // fair, light, medium, tan, deep
+  undertone         String   // warm, cool, neutral
+  poreVisibility    String   // minimal, moderate, visible
+  estimatedSkinAge  Int
+  
+  // Detected concerns (JSON array)
+  concerns          String   @db.Text // JSON array: ["hydration", "anti-aging", ...]
+  
+  // Generated recommendations (JSON array)
+  recommendations   String   @db.Text // JSON array of strings
+  
+  // Age group derived from analysis
+  ageGroup          String?  // teen, young-adult, adult, mature
+  
+  // Analysis quality
+  lightingQuality   String   // poor, fair, good, excellent
+  
+  // Metadata
+  deviceInfo        String?  @db.Text // User agent / device info
+  locale            String?  // Language used during analysis
+  
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@index([userId])
+  @@index([createdAt])
+  @@index([skinType])
+  @@map("skin_analyses")
+}

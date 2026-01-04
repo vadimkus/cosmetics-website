@@ -8,6 +8,7 @@ import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { cn } from '@/lib/utils'
 import { Product } from '@/types'
+import { useHapticFeedback } from '@/hooks/useHapticFeedback'
 
 interface OrderItem {
   productId?: string | null
@@ -45,6 +46,7 @@ export function QuickReorderButton({
   const { locale, dir } = useTranslation()
   const { addItem } = useCart()
   const router = useRouter()
+  const haptic = useHapticFeedback()
   const [status, setStatus] = useState<ReorderStatus>('idle')
   const [result, setResult] = useState<ReorderResult | null>(null)
   const isRTL = dir === 'rtl'
@@ -123,13 +125,16 @@ export function QuickReorderButton({
       // Set result
       setResult({ added: addedCount, failed: failedCount, failedItems })
 
-      // Determine status
+      // Determine status and trigger haptic feedback
       if (addedCount === 0 && failedCount > 0) {
         setStatus('error')
+        haptic.error()
       } else if (failedCount > 0) {
         setStatus('partial')
+        haptic.warning()
       } else {
         setStatus('success')
+        haptic.success()
       }
 
       // Reset after delay
@@ -140,6 +145,7 @@ export function QuickReorderButton({
 
     } catch {
       setStatus('error')
+      haptic.error()
       setTimeout(() => {
         setStatus('idle')
         setResult(null)

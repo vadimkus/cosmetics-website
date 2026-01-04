@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { ArrowLeft, User, Package, Settings, Download, Shield, Trash2, X, RefreshCw, Edit3, CheckCircle, XCircle, AlertCircle } from 'lucide-react'
+import { ArrowLeft, User, Package, Settings, Download, Shield, Trash2, X, RefreshCw, Edit3, CheckCircle, XCircle, AlertCircle, Sparkles } from 'lucide-react'
 import { useAuth } from '@/components/AuthProvider'
 import { useState, useRef, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
@@ -13,6 +13,7 @@ import { getLocalizedPath } from '@/lib/i18n'
 import BreadcrumbSchema from '@/components/BreadcrumbSchema'
 import { usePWAMode } from '@/hooks/usePWAMode'
 import PWAProfilePage from '@/components/PWAProfilePage'
+import { SkinAnalysisCamera, SkinAnalysisResult } from '@/components/SkinAnalysisCamera'
 
 // Import refactored components
 import ProfileHeader from '@/components/profile/ProfileHeader'
@@ -97,6 +98,9 @@ export default function ProfilePageRefactored() {
   // Toast notification state
   const [toasts, setToasts] = useState<Toast[]>([])
   const toastIdCounter = useRef(0)
+  
+  // Skin analysis modal state
+  const [showSkinAnalysis, setShowSkinAnalysis] = useState(false)
 
   // Add toast notification
   const showToast = (message: string, type: ToastType = 'success') => {
@@ -613,14 +617,45 @@ export default function ProfilePageRefactored() {
 
           {/* Tab Content */}
           {activeTab === 'profile' && (
-            <ProfileForm
-              user={user}
-              isEditing={isEditing}
-              editData={editData}
-              onEditDataChange={setEditData}
-              onSave={handleSave}
-              onCancel={handleCancel}
-            />
+            <>
+              <ProfileForm
+                user={user}
+                isEditing={isEditing}
+                editData={editData}
+                onEditDataChange={setEditData}
+                onSave={handleSave}
+                onCancel={handleCancel}
+              />
+              
+              {/* AI Skin Analysis Section */}
+              <div className="mt-4 md:mt-8 bg-gradient-to-br from-pink-50 via-red-50 to-orange-50 rounded-xl md:rounded-2xl shadow-sm md:shadow-lg border border-pink-100 p-4 md:p-6 lg:p-8">
+                <div className={`flex items-center gap-3 mb-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                  <div className="p-2 md:p-3 bg-gradient-to-r from-pink-200 to-red-200 rounded-lg md:rounded-xl">
+                    <Sparkles className="h-5 w-5 md:h-6 md:w-6 text-red-600" />
+                  </div>
+                  <div className={dir === 'rtl' ? 'text-right' : ''}>
+                    <h2 className="text-base md:text-xl font-bold text-gray-800">
+                      {locale === 'ar' ? 'تحليل البشرة بالذكاء الاصطناعي' : locale === 'ru' ? 'AI Анализ кожи' : 'AI Skin Analysis'}
+                    </h2>
+                    <p className="text-xs md:text-sm text-gray-600">
+                      {locale === 'ar' ? 'اكتشف نوع بشرتك واحصل على توصيات مخصصة' : locale === 'ru' ? 'Узнайте тип кожи и получите персональные рекомендации' : 'Discover your skin type and get personalized recommendations'}
+                    </p>
+                  </div>
+                </div>
+                
+                <button
+                  onClick={() => setShowSkinAnalysis(true)}
+                  className={`w-full flex items-center justify-center gap-2 bg-gradient-to-r from-red-600 to-pink-600 hover:from-red-700 hover:to-pink-700 text-white py-3 md:py-4 px-6 rounded-xl font-semibold text-sm md:text-base transition-all duration-200 shadow-lg shadow-red-500/25 hover:shadow-red-500/40 active:scale-[0.98] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+                >
+                  <Sparkles className="h-5 w-5" />
+                  {locale === 'ar' ? 'ابدأ تحليل البشرة' : locale === 'ru' ? 'Начать анализ кожи' : 'Start Skin Analysis'}
+                </button>
+                
+                <p className="text-xs text-gray-500 text-center mt-3">
+                  {locale === 'ar' ? 'يتطلب الوصول إلى الكاميرا • يعمل بشكل أفضل في الإضاءة الطبيعية' : locale === 'ru' ? 'Требуется доступ к камере • Лучше работает при естественном освещении' : 'Requires camera access • Works best in natural lighting'}
+                </p>
+              </div>
+            </>
           )}
 
           {activeTab === 'orders' && (
@@ -778,6 +813,24 @@ export default function ProfilePageRefactored() {
           </div>
         ))}
       </div>
+
+      {/* AI Skin Analysis Modal */}
+      {showSkinAnalysis && (
+        <SkinAnalysisCamera
+          onAnalysisComplete={(result: SkinAnalysisResult) => {
+            setShowSkinAnalysis(false)
+            showToast(
+              locale === 'ar' ? `تم تحليل بشرتك: ${result.skinType}` :
+              locale === 'ru' ? `Анализ завершен: ${result.skinType}` :
+              `Skin analysis complete: ${result.skinType}`,
+              'success'
+            )
+            // Navigate to skin recommendation page with results
+            router.push(getLocalizedPath('/skin-recommendation', locale) + `?skinType=${result.skinType}&concerns=${result.concerns.join(',')}`)
+          }}
+          onClose={() => setShowSkinAnalysis(false)}
+        />
+      )}
     </div>
   )
 }

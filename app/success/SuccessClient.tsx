@@ -9,6 +9,7 @@ import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { usePWAMode } from '@/hooks/usePWAMode'
 import { useAuth } from '@/components/AuthProvider'
+import { useHapticFeedback } from '@/hooks/useHapticFeedback'
 
 function SuccessContent() {
   const searchParams = useSearchParams()
@@ -17,9 +18,15 @@ function SuccessContent() {
   const { t, locale, dir } = useTranslation()
   const { isPWA, isClient: isPWAClient } = usePWAMode()
   const { user } = useAuth()
+  const haptic = useHapticFeedback()
   const sessionId = searchParams.get('session_id')
   const orderId = searchParams.get('order_id')
   const paymentMethod = searchParams.get('payment')
+
+  // Trigger celebration haptic on order success
+  useEffect(() => {
+    haptic.celebration()
+  }, [haptic])
 
   useEffect(() => {
     // Clear the cart after successful payment

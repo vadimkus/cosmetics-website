@@ -299,3 +299,4 @@ Full announcement: https://genosys.ae/blog/genosys-ios-app-launched-2026
 *Document Version: 1.0*  
 *Last Updated: December 31, 2025*
 
+

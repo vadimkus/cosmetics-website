@@ -8,6 +8,7 @@ import { useCartStore } from '@/lib/cartStore'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { ChevronRight, ChevronLeft } from 'lucide-react'
+import { SkinAnalysisCamera, SkinAnalysisResult } from './SkinAnalysisCamera'
 
 /**
  * PWA Profile Page - Matches mobile app design exactly
@@ -133,6 +134,8 @@ export default function PWAProfilePage() {
   const [pushNotifications, setPushNotifications] = useState(false)
   const [pushSupported, setPushSupported] = useState(false)
   const [isLoggingOut, setIsLoggingOut] = useState(false)
+  const [showSkinAnalysis, setShowSkinAnalysis] = useState(false)
+  const [lastSkinAnalysis, setLastSkinAnalysis] = useState<SkinAnalysisResult | null>(null)
   
   const isRTL = dir === 'rtl'
   const cartCount = getTotalItems()
@@ -300,6 +303,14 @@ export default function PWAProfilePage() {
     }
   }
   
+  // Handle skin analysis completion
+  const handleSkinAnalysisComplete = (result: SkinAnalysisResult) => {
+    setLastSkinAnalysis(result)
+    setShowSkinAnalysis(false)
+    // Optionally navigate to recommendations
+    router.push(getLocalizedPath('/skin-recommendation', locale) + `?skinType=${result.skinType}&concerns=${result.concerns.join(',')}`)
+  }
+
   // Handle sign out
   const handleSignOut = async () => {
     if (isLoggingOut) return
@@ -564,6 +575,18 @@ export default function PWAProfilePage() {
             {t('pwaProfile.general')}
           </h3>
           <div className="mx-5 bg-white rounded-xl overflow-hidden">
+            {/* AI Skin Analysis - Premium Feature */}
+            <ProfileItem
+              icon={
+                <svg className="w-5 h-5 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                </svg>
+              }
+              title={locale === 'ar' ? 'تحليل البشرة بالذكاء الاصطناعي' : locale === 'ru' ? 'AI Анализ кожи' : 'AI Skin Analysis'}
+              subtitle={locale === 'ar' ? 'اكتشف نوع بشرتك' : locale === 'ru' ? 'Узнайте тип кожи' : 'Discover your skin type'}
+              onClick={() => setShowSkinAnalysis(true)}
+              isRTL={isRTL}
+            />
             <ProfileItem
               icon={<svg className="w-5 h-5 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" /></svg>}
               title={t('pwaProfile.language')}
@@ -612,6 +635,14 @@ export default function PWAProfilePage() {
           </p>
         </div>
       </div>
+
+      {/* AI Skin Analysis Camera Modal */}
+      {showSkinAnalysis && (
+        <SkinAnalysisCamera
+          onAnalysisComplete={handleSkinAnalysisComplete}
+          onClose={() => setShowSkinAnalysis(false)}
+        />
+      )}
 
     </div>
   )

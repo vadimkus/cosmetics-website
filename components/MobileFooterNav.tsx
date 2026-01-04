@@ -6,6 +6,7 @@ import { getLocalizedPath, getLocaleFromPath } from '@/lib/i18n'
 import { useTranslation } from '@/hooks/useTranslation'
 import { usePWAMode } from '@/hooks/usePWAMode'
 import { useMemo, useState, useEffect, useRef, useCallback } from 'react'
+import { useHapticFeedback } from '@/hooks/useHapticFeedback'
 
 /**
  * Mobile Footer Navigation - PWA Only
@@ -101,6 +102,7 @@ export default function MobileFooterNav() {
   const { getTotalItems } = useCartStore()
   const { t, dir } = useTranslation()
   const { isPWA, isClient } = usePWAMode()
+  const haptic = useHapticFeedback()
   const [isReady, setIsReady] = useState(false)
   const [isNavigating, setIsNavigating] = useState(false)
   const lastClickTime = useRef(0)
@@ -119,14 +121,15 @@ export default function MobileFooterNav() {
   // Get locale from pathname
   const locale = useMemo(() => getLocaleFromPath(pathname || '/'), [pathname])
   
-  // Navigation handler with debounce
+  // Navigation handler with debounce and haptic feedback
   const handleNavigation = useCallback((path: string) => {
     const now = Date.now()
     if (now - lastClickTime.current < 300 || isNavigating || !isReady) return
     lastClickTime.current = now
+    haptic.light() // Haptic feedback on navigation tap
     setIsNavigating(true)
     router.push(path)
-  }, [router, isNavigating, isReady])
+  }, [router, isNavigating, isReady, haptic])
   
   // Check if we're on a product detail page (has /products/ followed by an ID)
   const isProductDetailPage = useMemo(() => {

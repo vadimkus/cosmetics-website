@@ -3,7 +3,9 @@
 import { useState, useMemo } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { ShoppingCart, Heart, Sparkles, ArrowRight, ArrowLeft, CheckCircle2, Info, Star } from 'lucide-react'
+import { ShoppingCart, Heart, Sparkles, ArrowRight, ArrowLeft, CheckCircle2, Info, Star, Camera, Scan } from 'lucide-react'
+import { SkinAnalysisCamera, SkinAnalysisResult } from '@/components/SkinAnalysisCamera'
+import { usePWAMode } from '@/hooks/usePWAMode'
 import { useCart } from '@/components/CartProvider'
 import { useAuth } from '@/components/AuthProvider'
 import { useFavorites } from '@/components/FavoritesProvider'
@@ -22,6 +24,7 @@ export default function SkinRecommendationClient() {
   const { user } = useAuth()
   const { addItem } = useCart()
   const { toggleFavorite, isFavorite } = useFavorites()
+  const { isPWA } = usePWAMode()
   
   const [selectedSkinType, setSelectedSkinType] = useState('')
   const [selectedAgeGroup, setSelectedAgeGroup] = useState('')
@@ -31,6 +34,33 @@ export default function SkinRecommendationClient() {
   const [isLoading, setIsLoading] = useState(false)
   const [showResults, setShowResults] = useState(false)
   const [currentStep, setCurrentStep] = useState(1)
+  
+  // Camera analysis state
+  const [showCamera, setShowCamera] = useState(false)
+  const [cameraResult, setCameraResult] = useState<SkinAnalysisResult | null>(null)
+
+  // Handle camera analysis completion
+  const handleCameraAnalysisComplete = (result: SkinAnalysisResult) => {
+    setCameraResult(result)
+    setShowCamera(false)
+    
+    // Auto-fill form based on camera analysis
+    setSelectedSkinType(result.skinType)
+    setSelectedTargetConcerns(result.concerns)
+    
+    // Estimate age group from skin characteristics
+    if (result.concerns.includes('anti-aging')) {
+      setSelectedAgeGroup('mature')
+    } else if (result.concerns.includes('acne-blemishes')) {
+      setSelectedAgeGroup('teen')
+    } else if (result.hydrationLevel < 50) {
+      setSelectedAgeGroup('adult')
+    } else {
+      setSelectedAgeGroup('young-adult')
+    }
+    
+    setCurrentStep(4)
+  }
 
   // Get translated data arrays
   const SKIN_TYPES = [
@@ -288,6 +318,14 @@ export default function SkinRecommendationClient() {
             <span>{t('common.backToHome')}</span>
           </Link>
 
+      {/* Camera Modal */}
+      {showCamera && (
+        <SkinAnalysisCamera
+          onAnalysisComplete={handleCameraAnalysisComplete}
+          onClose={() => setShowCamera(false)}
+        />
+      )}
+
       {!showResults ? (
         <>
           {/* Header */}
@@ -299,6 +337,66 @@ export default function SkinRecommendationClient() {
               {t('skinRecommendation.subtitle')}
             </p>
           </div>
+
+          {/* Camera Analysis Option - Available on all platforms */}
+          <div className="mb-6 md:mb-10">
+              <div className="bg-gradient-to-br from-primary-50 to-primary-100 rounded-2xl p-5 md:p-6 border border-primary-200">
+                <div className={`flex items-center gap-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                  <div className="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-primary-600 flex items-center justify-center flex-shrink-0 shadow-lg shadow-primary-200">
+                    <Scan className="w-7 h-7 md:w-8 md:h-8 text-white" />
+                  </div>
+                  <div className={`flex-1 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                    <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-1">
+                      {locale === 'ar' ? 'تحليل البشرة بالكاميرا' : locale === 'ru' ? 'Анализ кожи камерой' : 'AI Skin Analysis'}
+                    </h3>
+                    <p className="text-sm text-gray-600">
+                      {locale === 'ar' ? 'التقط صورة سيلفي وسنحلل بشرتك' : locale === 'ru' ? 'Сделайте селфи, и мы проанализируем вашу кожу' : 'Take a selfie and we\'ll analyze your skin'}
+                    </p>
+                  </div>
+                </div>
+                
+                {/* Camera Analysis Result Banner */}
+                {cameraResult && (
+                  <div className={`mt-4 pt-4 border-t border-primary-200 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                    <div className={`flex items-center gap-2 text-sm text-primary-700 mb-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                      <CheckCircle2 className="w-4 h-4" />
+                      <span className="font-medium">
+                        {locale === 'ar' ? 'تم تحليل بشرتك' : locale === 'ru' ? 'Ваша кожа проанализирована' : 'Your skin has been analyzed'}
+                      </span>
+                    </div>
+                    <div className={`flex items-center gap-3 flex-wrap ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                      <span className="bg-white px-3 py-1.5 rounded-full text-sm font-medium text-gray-900 shadow-sm">
+                        {SKIN_TYPES.find(st => st.value === cameraResult.skinType)?.icon}{' '}
+                        {SKIN_TYPES.find(st => st.value === cameraResult.skinType)?.label}
+                      </span>
+                      <span className="text-xs text-gray-500">
+                        {cameraResult.confidence}% {locale === 'ar' ? 'ثقة' : locale === 'ru' ? 'уверенность' : 'confidence'}
+                      </span>
+                    </div>
+                  </div>
+                )}
+
+                <button
+                  onClick={() => setShowCamera(true)}
+                  className={`mt-4 w-full flex items-center justify-center gap-2 bg-primary-600 hover:bg-primary-700 text-white font-semibold py-3.5 px-6 rounded-xl transition-all active:scale-[0.98] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+                >
+                  <Camera className="w-5 h-5" />
+                  {cameraResult 
+                    ? (locale === 'ar' ? 'إعادة التحليل' : locale === 'ru' ? 'Повторить анализ' : 'Analyze Again')
+                    : (locale === 'ar' ? 'ابدأ تحليل البشرة' : locale === 'ru' ? 'Начать анализ' : 'Start Skin Analysis')
+                  }
+                </button>
+              </div>
+
+              {/* Divider */}
+              <div className={`flex items-center gap-4 my-6 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                <div className="flex-1 border-t border-gray-200" />
+                <span className="text-sm text-gray-400 font-medium">
+                  {locale === 'ar' ? 'أو' : locale === 'ru' ? 'или' : 'or answer manually'}
+                </span>
+                <div className="flex-1 border-t border-gray-200" />
+              </div>
+            </div>
 
           {/* Progress Indicator */}
           <div className="mb-4 md:mb-8">

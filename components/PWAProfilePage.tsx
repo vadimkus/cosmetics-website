@@ -135,7 +135,9 @@ export default function PWAProfilePage() {
   const [pushSupported, setPushSupported] = useState(false)
   const [isLoggingOut, setIsLoggingOut] = useState(false)
   const [showSkinAnalysis, setShowSkinAnalysis] = useState(false)
-  const [lastSkinAnalysis, setLastSkinAnalysis] = useState<SkinAnalysisResult | null>(null)
+  const [skinAnalysisCount, setSkinAnalysisCount] = useState(0)
+  const [lastSkinType, setLastSkinType] = useState<string | null>(null)
+  const [showAnalysisSuccess, setShowAnalysisSuccess] = useState(false)
   
   const isRTL = dir === 'rtl'
   const cartCount = getTotalItems()
@@ -174,6 +176,28 @@ export default function PWAProfilePage() {
       }
     }
     fetchUnreadCount()
+  }, [user])
+  
+  // Fetch skin analysis history
+  useEffect(() => {
+    const fetchSkinAnalysisHistory = async () => {
+      if (!user) return
+      try {
+        const response = await fetch('/api/skin-analysis?limit=1', {
+          credentials: 'include'
+        })
+        if (response.ok) {
+          const data = await response.json()
+          setSkinAnalysisCount(data.total || 0)
+          if (data.analyses && data.analyses.length > 0) {
+            setLastSkinType(data.analyses[0].skinType)
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching skin analysis history:', error)
+      }
+    }
+    fetchSkinAnalysisHistory()
   }, [user])
   
   // Check push notification support and permission
@@ -305,10 +329,18 @@ export default function PWAProfilePage() {
   
   // Handle skin analysis completion
   const handleSkinAnalysisComplete = (result: SkinAnalysisResult) => {
-    setLastSkinAnalysis(result)
+    setLastSkinType(result.skinType)
+    setSkinAnalysisCount(prev => prev + 1)
     setShowSkinAnalysis(false)
-    // Optionally navigate to recommendations
-    router.push(getLocalizedPath('/skin-recommendation', locale) + `?skinType=${result.skinType}&concerns=${result.concerns.join(',')}`)
+    
+    // Show success message
+    setShowAnalysisSuccess(true)
+    setTimeout(() => setShowAnalysisSuccess(false), 3000)
+    
+    // Navigate to recommendations with results
+    setTimeout(() => {
+      router.push(getLocalizedPath('/skin-recommendation', locale) + `?skinType=${result.skinType}&concerns=${result.concerns.join(',')}&fromAnalysis=true`)
+    }, 500)
   }
 
   // Handle sign out
@@ -578,12 +610,23 @@ export default function PWAProfilePage() {
             {/* AI Skin Analysis - Premium Feature */}
             <ProfileItem
               icon={
-                <svg className="w-5 h-5 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                </svg>
+                <div className="relative">
+                  <svg className="w-5 h-5 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                  </svg>
+                  {skinAnalysisCount > 0 && (
+                    <span className="absolute -top-1 -right-1 min-w-[14px] h-[14px] bg-red-600 text-white text-[9px] font-bold rounded-full flex items-center justify-center">
+                      {skinAnalysisCount > 9 ? '9+' : skinAnalysisCount}
+                    </span>
+                  )}
+                </div>
               }
               title={locale === 'ar' ? 'تحليل البشرة بالذكاء الاصطناعي' : locale === 'ru' ? 'AI Анализ кожи' : 'AI Skin Analysis'}
-              subtitle={locale === 'ar' ? 'اكتشف نوع بشرتك' : locale === 'ru' ? 'Узнайте тип кожи' : 'Discover your skin type'}
+              subtitle={
+                lastSkinType 
+                  ? (locale === 'ar' ? `آخر نتيجة: ${lastSkinType}` : locale === 'ru' ? `Последний: ${lastSkinType}` : `Last: ${lastSkinType} skin`)
+                  : (locale === 'ar' ? 'اكتشف نوع بشرتك' : locale === 'ru' ? 'Узнайте тип кожи' : 'Discover your skin type')
+              }
               onClick={() => setShowSkinAnalysis(true)}
               isRTL={isRTL}
             />
@@ -642,6 +685,27 @@ export default function PWAProfilePage() {
           onAnalysisComplete={handleSkinAnalysisComplete}
           onClose={() => setShowSkinAnalysis(false)}
         />
+      )}
+
+      {/* Analysis Success Toast */}
+      {showAnalysisSuccess && (
+        <div className="fixed bottom-24 left-4 right-4 z-50 animate-slide-up">
+          <div className={`bg-green-600 text-white px-4 py-3 rounded-xl shadow-lg flex items-center gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
+            <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+            <div className={`flex-1 ${isRTL ? 'text-right' : ''}`}>
+              <p className="font-semibold text-sm">
+                {locale === 'ar' ? 'تم تحليل بشرتك بنجاح!' : locale === 'ru' ? 'Анализ кожи завершен!' : 'Skin Analysis Complete!'}
+              </p>
+              <p className="text-xs text-white/80">
+                {locale === 'ar' ? 'جارٍ تحميل التوصيات...' : locale === 'ru' ? 'Загрузка рекомендаций...' : 'Loading recommendations...'}
+              </p>
+            </div>
+          </div>
+        </div>
       )}
 
     </div>

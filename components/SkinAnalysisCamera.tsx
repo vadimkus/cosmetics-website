@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useRef, useCallback, useEffect } from 'react'
+import { createPortal } from 'react-dom'
 import { Camera, X, RefreshCw, Check, Sparkles, AlertCircle, Loader2, Sun, Moon, Eye, Droplets, Flame, Target, Clock, Info } from 'lucide-react'
 import { useTranslation } from '@/hooks/useTranslation'
 import { useHapticFeedback } from '@/hooks/useHapticFeedback'
@@ -845,11 +846,28 @@ export function SkinAnalysisCamera({
     return t.step5
   }
 
-  return (
+  // State for portal mounting
+  const [mounted, setMounted] = useState(false)
+  
+  useEffect(() => {
+    setMounted(true)
+    return () => setMounted(false)
+  }, [])
+
+  // Camera UI content
+  const cameraContent = (
     <div className={cn(
-      'fixed inset-0 z-[100] bg-black flex flex-col',
+      'fixed inset-0 z-[9999] bg-black flex flex-col',
       className
-    )}>
+    )}
+    style={{ 
+      top: 0, 
+      left: 0, 
+      right: 0, 
+      bottom: 0,
+      position: 'fixed',
+    }}
+    >
       {/* Header - with safe area padding for PWA notch */}
       <div 
         className="flex items-center justify-between px-4 py-3 bg-gradient-to-b from-black/90 to-transparent relative z-10 flex-shrink-0"
@@ -1252,6 +1270,11 @@ export function SkinAnalysisCamera({
       )}
     </div>
   )
+
+  // Use portal to render at document body level - ensures proper z-index above all other content
+  if (!mounted) return null
+  
+  return createPortal(cameraContent, document.body)
 }
 
 // Metric Card Component

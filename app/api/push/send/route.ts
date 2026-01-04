@@ -20,7 +20,16 @@ interface PushPayload {
   url?: string
   icon?: string
   badge?: string
+  image?: string
   notificationId?: string
+  // Rich notification features
+  type?: 'promotion' | 'order-status' | 'cart-reminder' | 'price-drop' | 'back-in-stock' | 'general'
+  actions?: Array<{
+    action: string
+    title: string
+    icon?: string
+  }>
+  data?: Record<string, unknown>
 }
 
 /**
@@ -92,14 +101,63 @@ export async function POST(request: NextRequest) {
       title
     })
 
-    // Prepare push payload
+    // Determine notification type
+    const notificationType = body.type || 'promotion'
+
+    // Define actions based on notification type
+    const actionsByType: Record<string, PushPayload['actions']> = {
+      'promotion': [
+        { action: 'view', title: 'View Offer', icon: '/icons/gift.png' },
+        { action: 'shop', title: 'Shop Now', icon: '/icons/cart.png' }
+      ],
+      'order-status': [
+        { action: 'track', title: 'Track Order', icon: '/icons/track.png' },
+        { action: 'view', title: 'View Details', icon: '/icons/order.png' }
+      ],
+      'cart-reminder': [
+        { action: 'checkout', title: 'Complete Purchase', icon: '/icons/checkout.png' },
+        { action: 'view-cart', title: 'View Cart', icon: '/icons/cart.png' }
+      ],
+      'price-drop': [
+        { action: 'buy-now', title: 'Buy Now', icon: '/icons/sale.png' },
+        { action: 'view', title: 'View Product', icon: '/icons/product.png' }
+      ],
+      'back-in-stock': [
+        { action: 'buy-now', title: 'Add to Cart', icon: '/icons/cart.png' },
+        { action: 'view', title: 'View Product', icon: '/icons/product.png' }
+      ],
+      'general': [
+        { action: 'view', title: 'View', icon: '/icons/view.png' },
+        { action: 'dismiss', title: 'Dismiss', icon: '/icons/close.png' }
+      ]
+    }
+
+    // Get actions for this notification type (with fallback to general)
+    const notificationActions = actionsByType[notificationType] ?? actionsByType['general'] ?? []
+
+    // Prepare push payload with rich notification features
     const pushPayload: PushPayload = {
       title,
       body: messageBody,
       url: url || '/profile/promo',
       icon: '/favicon/genosys-logo.png',
       badge: '/favicon/genosys-logo.png',
-      notificationId: notification.id
+      notificationId: notification.id,
+      type: notificationType,
+      actions: notificationActions,
+      data: {
+        notificationId: notification.id,
+        type: notificationType,
+        url: url || '/profile/promo',
+        orderId: body.orderId,
+        productId: body.productId,
+        timestamp: Date.now()
+      }
+    }
+
+    // Add image if provided
+    if (body.image) {
+      pushPayload.image = body.image
     }
 
     // Send push notifications to all subscribers

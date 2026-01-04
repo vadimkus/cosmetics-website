@@ -13,6 +13,7 @@ import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import BreadcrumbSchema from '@/components/BreadcrumbSchema'
 import { usePWAMode } from '@/hooks/usePWAMode'
+import { QuickReorderButton } from '@/components/QuickReorderButton'
 
 // Custom type that includes the items relation
 type OrderWithItems = Order & {
@@ -402,6 +403,25 @@ export default function OrdersPage() {
                     </div>
                     <div className={`flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
                       <StatusBadge status={order.status} locale={locale} />
+                      
+                      {/* Quick Reorder Icon - for delivered/shipped orders */}
+                      {['delivered', 'shipped'].includes(order.status.toLowerCase()) && (
+                        <QuickReorderButton
+                          orderItems={order.items.map(item => ({
+                            productId: item.productId,
+                            productName: item.productName,
+                            quantity: item.quantity,
+                            price: item.price,
+                            image: item.image,
+                            size: item.size,
+                            color: item.color,
+                          }))}
+                          orderNumber={order.orderNumber}
+                          variant="icon"
+                          showToCart={false}
+                        />
+                      )}
+                      
                       {/* WhatsApp Support Icon */}
                       {isPWA && (
                         <button
@@ -620,17 +640,38 @@ export default function OrdersPage() {
                     </div>
                   </div>
 
-                  {/* Cancel Button - Only for pending orders */}
-                  {order.status === 'pending' && (
-                    <div className={`mt-4 pt-4 border-t border-gray-100 ${isRTL ? 'text-right' : ''}`}>
-                      <button
-                        onClick={() => handleCancelOrderClick(order.id)}
-                        className="text-red-600 hover:text-red-700 text-sm font-medium transition-colors"
-                      >
-                        {t('orders.cancel') || 'Cancel Order'}
-                      </button>
+                  {/* Action Buttons */}
+                  <div className={`mt-4 pt-4 border-t border-gray-100 ${isRTL ? 'text-right' : ''}`}>
+                    <div className={`flex gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
+                      {/* Quick Reorder - for completed orders */}
+                      {['delivered', 'shipped'].includes(order.status.toLowerCase()) && (
+                        <QuickReorderButton
+                          orderItems={order.items.map(item => ({
+                            productId: item.productId,
+                            productName: item.productName,
+                            quantity: item.quantity,
+                            price: item.price,
+                            image: item.image,
+                            size: item.size,
+                            color: item.color,
+                          }))}
+                          orderNumber={order.orderNumber}
+                          variant="link"
+                          showToCart={true}
+                        />
+                      )}
+                      
+                      {/* Cancel Button - Only for pending orders */}
+                      {order.status === 'pending' && (
+                        <button
+                          onClick={() => handleCancelOrderClick(order.id)}
+                          className="text-red-600 hover:text-red-700 text-sm font-medium transition-colors"
+                        >
+                          {t('orders.cancel') || 'Cancel Order'}
+                        </button>
+                      )}
                     </div>
-                  )}
+                  </div>
                 </div>
               </div>
             ))}

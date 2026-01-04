@@ -307,8 +307,99 @@ self.addEventListener('sync', (event) => {
     event.waitUntil(syncCartData())
   } else if (event.tag === 'favorites-sync') {
     event.waitUntil(syncFavoritesData())
+  } else if (event.tag === 'sync-queue') {
+    event.waitUntil(processSyncQueue())
   }
 })
+
+// Process the generic sync queue from IndexedDB
+async function processSyncQueue() {
+  console.log('📤 Processing background sync queue...')
+  
+  const SYNC_DB_NAME = 'genosys-sync-queue'
+  const SYNC_STORE_NAME = 'pending-operations'
+  
+  try {
+    // Open the sync database
+    const db = await new Promise((resolve, reject) => {
+      const request = indexedDB.open(SYNC_DB_NAME, 1)
+      request.onerror = () => reject(request.error)
+      request.onsuccess = () => resolve(request.result)
+    })
+    
+    // Get all pending operations
+    const operations = await new Promise((resolve, reject) => {
+      const transaction = db.transaction(SYNC_STORE_NAME, 'readonly')
+      const store = transaction.objectStore(SYNC_STORE_NAME)
+      const index = store.index('status')
+      const request = index.getAll(IDBKeyRange.only('pending'))
+      request.onerror = () => reject(request.error)
+      request.onsuccess = () => resolve(request.result || [])
+    })
+    
+    console.log(`Found ${operations.length} pending operations`)
+    
+    // Process each operation
+    for (const op of operations) {
+      try {
+        const response = await fetch(op.url, {
+          method: op.method,
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Background-Sync': 'true',
+            ...op.headers
+          },
+          body: op.body,
+          credentials: 'include'
+        })
+        
+        if (response.ok) {
+          // Remove successful operation
+          const deleteTx = db.transaction(SYNC_STORE_NAME, 'readwrite')
+          const deleteStore = deleteTx.objectStore(SYNC_STORE_NAME)
+          deleteStore.delete(op.id)
+          console.log(`✅ Sync completed: ${op.type}`)
+          
+          // Notify any open clients
+          const clients = await self.clients.matchAll({ type: 'window' })
+          clients.forEach(client => {
+            client.postMessage({
+              type: 'SYNC_COMPLETE',
+              operation: op
+            })
+          })
+        } else {
+          throw new Error(`HTTP ${response.status}`)
+        }
+      } catch (error) {
+        console.warn(`❌ Sync failed for ${op.type}:`, error.message)
+        
+        // Update retry count
+        const updateTx = db.transaction(SYNC_STORE_NAME, 'readwrite')
+        const updateStore = updateTx.objectStore(SYNC_STORE_NAME)
+        const getReq = updateStore.get(op.id)
+        getReq.onsuccess = () => {
+          const operation = getReq.result
+          if (operation) {
+            operation.retryCount = (operation.retryCount || 0) + 1
+            if (operation.retryCount >= (operation.maxRetries || 3)) {
+              operation.status = 'failed'
+              operation.error = error.message
+            }
+            updateStore.put(operation)
+          }
+        }
+      }
+    }
+    
+    db.close()
+    console.log('📥 Background sync queue processing complete')
+    
+  } catch (error) {
+    console.error('Failed to process sync queue:', error)
+    throw error // Re-throw to trigger retry
+  }
+}
 
 /**
  * Periodic Background Sync
@@ -528,9 +619,9 @@ async function getStoredFavoritesData() {
   return getStoreData(FAVORITES_STORE)
 }
 
-// Push notification handling
+// Push notification handling - Rich Notifications with Action Buttons
 self.addEventListener('push', (event) => {
-  console.log('Push notification received:', event)
+  console.log('📬 Push notification received:', event)
   
   let payload = {
     title: 'Genosys Cosmetics',
@@ -538,7 +629,11 @@ self.addEventListener('push', (event) => {
     url: '/profile/promo',
     icon: '/favicon/genosys-logo.png',
     badge: '/favicon/genosys-logo.png',
-    notificationId: null
+    image: null,
+    notificationId: null,
+    type: 'general',
+    actions: null,
+    data: null
   }
   
   // Try to parse JSON payload from server
@@ -554,42 +649,102 @@ self.addEventListener('push', (event) => {
       payload.body = event.data.text()
     }
   }
-  
+
+  // Build notification options
   const options = {
     body: payload.body,
     icon: payload.icon || '/favicon/genosys-logo.png',
     badge: payload.badge || '/favicon/genosys-logo.png',
-    vibrate: [100, 50, 100],
-    tag: payload.notificationId || 'genosys-notification', // Prevents duplicate notifications
+    vibrate: getVibrationPattern(payload.type),
+    tag: payload.notificationId || `genosys-${Date.now()}`,
     renotify: true,
-    requireInteraction: false,
+    requireInteraction: shouldRequireInteraction(payload.type),
+    silent: false,
     data: {
       url: payload.url || '/profile/promo',
       notificationId: payload.notificationId,
-      dateOfArrival: Date.now()
-    },
-    actions: [
-      {
-        action: 'view',
-        title: 'View',
-        icon: '/favicon/genosys-logo.png'
-      },
-      {
-        action: 'close',
-        title: 'Close',
-        icon: '/favicon/genosys-logo.png'
-      }
-    ]
+      type: payload.type,
+      dateOfArrival: Date.now(),
+      ...payload.data
+    }
   }
+
+  // Add image for rich notifications (promotional, product updates)
+  if (payload.image) {
+    options.image = payload.image
+  }
+
+  // Add action buttons based on notification type
+  if (payload.actions && payload.actions.length > 0) {
+    options.actions = payload.actions.map(action => ({
+      action: action.action,
+      title: action.title,
+      icon: action.icon || '/favicon/genosys-logo.png'
+    }))
+  } else {
+    // Default actions based on type
+    options.actions = getDefaultActions(payload.type)
+  }
+  
+  console.log('📬 Showing notification:', payload.title, options)
   
   event.waitUntil(
     Promise.all([
       self.registration.showNotification(payload.title, options),
-      // Update app badge if supported
       updateBadge()
     ])
   )
 })
+
+// Get vibration pattern based on notification type
+function getVibrationPattern(type) {
+  const patterns = {
+    'order-status': [100, 50, 100, 50, 100], // Three quick buzzes for important
+    'promotion': [200, 100, 200], // Two longer buzzes
+    'cart-reminder': [100, 50, 100], // Gentle reminder
+    'price-drop': [150, 50, 150, 50, 150], // Exciting - three medium buzzes
+    'back-in-stock': [200, 100, 200], // Good news - two buzzes
+    'general': [100, 50, 100] // Default
+  }
+  return patterns[type] || patterns['general']
+}
+
+// Determine if notification should require interaction
+function shouldRequireInteraction(type) {
+  // Order status and cart reminders should stay until dismissed
+  return ['order-status', 'cart-reminder'].includes(type)
+}
+
+// Get default action buttons based on notification type
+function getDefaultActions(type) {
+  const actionSets = {
+    'promotion': [
+      { action: 'view-offer', title: '🎁 View Offer' },
+      { action: 'shop-now', title: '🛒 Shop Now' }
+    ],
+    'order-status': [
+      { action: 'track-order', title: '📍 Track Order' },
+      { action: 'view-details', title: '📋 View Details' }
+    ],
+    'cart-reminder': [
+      { action: 'checkout', title: '✨ Complete Purchase' },
+      { action: 'view-cart', title: '🛒 View Cart' }
+    ],
+    'price-drop': [
+      { action: 'buy-now', title: '💰 Buy Now' },
+      { action: 'view-product', title: '👁️ View Product' }
+    ],
+    'back-in-stock': [
+      { action: 'add-to-cart', title: '🛒 Add to Cart' },
+      { action: 'view-product', title: '👁️ View Product' }
+    ],
+    'general': [
+      { action: 'view', title: '👁️ View' },
+      { action: 'dismiss', title: '✕ Dismiss' }
+    ]
+  }
+  return actionSets[type] || actionSets['general']
+}
 
 // Update app badge count
 async function updateBadge() {
@@ -613,36 +768,85 @@ async function updateBadge() {
   }
 }
 
-// Notification click handling
+// Notification click handling - with action button support
 self.addEventListener('notificationclick', (event) => {
-  console.log('Notification clicked:', event)
+  console.log('📬 Notification clicked:', event.action || 'main', event)
   
   event.notification.close()
   
-  const url = event.notification.data?.url || '/profile/promo'
+  const notificationData = event.notification.data || {}
+  const action = event.action
+  const notificationType = notificationData.type || 'general'
   
-  // Handle action clicks
-  if (event.action === 'close') {
-    return // Just close, don't navigate
+  // Handle dismiss action
+  if (action === 'dismiss' || action === 'close') {
+    console.log('Notification dismissed')
+    return
   }
   
-  // Open the app to the specified URL
+  // Determine target URL based on action and notification type
+  let targetUrl = notificationData.url || '/profile/promo'
+  
+  // Map actions to URLs
+  const actionUrls = {
+    // Promotion actions
+    'view-offer': '/profile/promo',
+    'shop-now': '/products',
+    
+    // Order status actions
+    'track-order': notificationData.orderId ? `/orders?track=${notificationData.orderId}` : '/orders',
+    'view-details': notificationData.orderId ? `/orders` : '/orders',
+    
+    // Cart actions
+    'checkout': '/checkout',
+    'view-cart': '/cart',
+    
+    // Product actions
+    'buy-now': notificationData.productId ? `/products/${notificationData.productId}` : '/products',
+    'view-product': notificationData.productId ? `/products/${notificationData.productId}` : '/products',
+    'add-to-cart': notificationData.productId ? `/products/${notificationData.productId}?action=add-to-cart` : '/products',
+    
+    // General actions
+    'view': targetUrl
+  }
+  
+  // Use action-specific URL if available
+  if (action && actionUrls[action]) {
+    targetUrl = actionUrls[action]
+  }
+  
+  console.log('📬 Navigating to:', targetUrl)
+  
+  // Open the app to the target URL
   event.waitUntil(
     clients.matchAll({ type: 'window', includeUncontrolled: true })
       .then((windowClients) => {
         // Check if there's already a window open
         for (let client of windowClients) {
           if (client.url.includes(self.location.origin) && 'focus' in client) {
-            client.navigate(url)
+            // Post message to update badge count
+            client.postMessage({
+              type: 'NOTIFICATION_CLICKED',
+              notificationId: notificationData.notificationId,
+              action: action,
+              targetUrl: targetUrl
+            })
+            client.navigate(targetUrl)
             return client.focus()
           }
         }
         // No existing window, open a new one
         if (clients.openWindow) {
-          return clients.openWindow(url)
+          return clients.openWindow(targetUrl)
         }
       })
   )
+})
+
+// Handle notification close (user swiped away)
+self.addEventListener('notificationclose', (event) => {
+  console.log('📬 Notification closed/dismissed')
+  // Could track analytics here
 })
 
 // ============================================================================

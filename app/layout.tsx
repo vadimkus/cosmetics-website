@@ -27,6 +27,7 @@ import LocaleManifest from '@/components/LocaleManifest'
 import MobileFooterNav from '@/components/MobileFooterNav'
 import PWAHeader from '@/components/PWAHeader'
 import PWASplashScreen from '@/components/PWASplashScreen'
+import { SyncStatusIndicator } from '@/components/SyncStatusIndicator'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -278,6 +279,7 @@ export default function RootLayout({
                     <PWAInstallPrompt variant="banner" showDelay={60} />
                     <ServiceWorkerUpdateNotification />
                     <StorageQuotaMonitor />
+                    <SyncStatusIndicator />
                   </ServiceWorkerProvider>
                 </CartProvider>
               </FavoritesProvider>

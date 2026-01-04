@@ -1,6 +1,5 @@
 import { debugLog, errorLog } from '@/lib/logger'
 import { prisma } from './prisma'
-import { Prisma } from '@prisma/client'
 import type { Product } from '@/types'
 
 // Re-export Product type from types/index.ts for convenience

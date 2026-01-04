@@ -879,223 +879,205 @@ export default function SkinRecommendationClient() {
           </form>
         </>
       ) : (
-        <div className="max-w-7xl mx-auto px-3 md:px-4 sm:px-6 lg:px-8 py-4 md:py-8 lg:py-12">
-          {/* Results Header */}
-          <div className="text-center mb-6 md:mb-8">
-            <div className="inline-flex items-center justify-center w-12 h-12 md:w-16 md:h-16 bg-green-100 rounded-full mb-3 md:mb-4">
-              <CheckCircle2 className="w-6 h-6 md:w-8 md:h-8 text-green-600" />
-            </div>
-            <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3 md:mb-4">
-              {t('skinRecommendation.yourPersonalizedRecommendations')}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-16">
+          {/* Results Header - Apple Style */}
+          <div className="text-center mb-12 md:mb-20">
+            <h1 className="text-3xl md:text-5xl lg:text-6xl font-semibold text-gray-900 tracking-tight mb-4 md:mb-6">
+              {locale === 'ar' ? 'اخترنا لك' : locale === 'ru' ? 'Подобрано для вас' : 'Curated for You'}
             </h1>
+            <p className="text-lg md:text-xl text-gray-500 max-w-2xl mx-auto font-light leading-relaxed">
+              {locale === 'ar' 
+                ? 'منتجات مختارة بعناية بناءً على تحليل بشرتك الشخصي'
+                : locale === 'ru'
+                ? 'Продукты, подобранные на основе анализа вашей кожи'
+                : 'Products carefully selected based on your personal skin analysis'
+              }
+            </p>
             
-            {/* Selection Summary */}
-            <div className="bg-white rounded-xl md:rounded-2xl border border-gray-200 p-4 md:p-6 mb-6 md:mb-8 max-w-3xl mx-auto shadow-sm">
-              <h2 className={`text-base md:text-xl font-semibold text-gray-900 mb-3 md:mb-4 flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                <Info className="w-4 h-4 md:w-5 md:h-5 text-primary-600" />
-                {t('skinRecommendation.yourSkinProfile')}
-              </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 mb-3 md:mb-4">
-                <div className="bg-gray-50 rounded-lg p-3 md:p-4">
-                  <div className={`text-xs md:text-sm font-medium text-gray-600 mb-1 ${dir === 'rtl' ? 'text-right' : ''}`}>{t('skinRecommendation.skinType')}</div>
-                  <div className={`text-base md:text-lg text-primary-600 font-semibold capitalize flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                    {SKIN_TYPES.find(type => type.value === selectedSkinType)?.icon}
-                    <span className="text-sm md:text-base">{SKIN_TYPES.find(type => type.value === selectedSkinType)?.label || selectedSkinType}</span>
-                  </div>
-                </div>
-                <div className="bg-gray-50 rounded-lg p-3 md:p-4">
-                  <div className={`text-xs md:text-sm font-medium text-gray-600 mb-1 ${dir === 'rtl' ? 'text-right' : ''}`}>{t('skinRecommendation.ageGroup')}</div>
-                  <div className={`text-base md:text-lg text-primary-600 font-semibold flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                    {AGE_GROUPS.find(age => age.value === selectedAgeGroup)?.icon}
-                    <span className="text-sm md:text-base">{AGE_GROUPS.find(age => age.value === selectedAgeGroup)?.label || t('skinRecommendation.anyAge')}</span>
-                  </div>
-                </div>
-              </div>
-              
-              {selectedTargetConcerns.length > 0 && (
-                <div className="pt-3 md:pt-4 border-t border-gray-200">
-                  <div className={`text-xs md:text-sm font-medium text-gray-600 mb-2 md:mb-3 ${dir === 'rtl' ? 'text-right' : ''}`}>{t('skinRecommendation.targetConcerns')}</div>
-                  <div className={`flex flex-wrap gap-1.5 md:gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                    {selectedTargetConcerns.map(concern => {
-                      const concernData = TARGET_CONCERNS.find(c => c.value === concern)
-                      return (
-                        <span key={concern} className={`bg-primary-100 text-primary-800 px-2 py-1 md:px-3 md:py-1.5 rounded-full text-xs md:text-sm font-medium flex items-center gap-1 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                          {concernData?.icon} {concernData?.label}
-                        </span>
-                      )
-                    })}
-                  </div>
-                </div>
+            {/* Skin Profile Pills - Minimal */}
+            <div className={`flex flex-wrap items-center justify-center gap-3 mt-8 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+              <span className="inline-flex items-center gap-2 bg-gray-100 text-gray-800 px-4 py-2 rounded-full text-sm font-medium">
+                {SKIN_TYPES.find(type => type.value === selectedSkinType)?.icon}
+                {SKIN_TYPES.find(type => type.value === selectedSkinType)?.label || selectedSkinType}
+              </span>
+              {selectedTargetConcerns.slice(0, 3).map(concern => {
+                const concernData = TARGET_CONCERNS.find(c => c.value === concern)
+                return concernData ? (
+                  <span key={concern} className="inline-flex items-center gap-1.5 bg-primary-50 text-primary-700 px-4 py-2 rounded-full text-sm font-medium">
+                    {concernData.icon} {concernData.label}
+                  </span>
+                ) : null
+              })}
+              {selectedTargetConcerns.length > 3 && (
+                <span className="text-sm text-gray-400">
+                  +{selectedTargetConcerns.length - 3} {locale === 'ar' ? 'أخرى' : locale === 'ru' ? 'ещё' : 'more'}
+                </span>
               )}
             </div>
+          </div>
             
-            <p className="text-sm md:text-lg text-gray-600 mb-4 md:mb-6 px-2">
-              {t('skinRecommendation.weFound')} <span className="font-bold text-primary-600">{recommendations.length}</span> {t('skinRecommendation.productsPerfectFor')} {SKIN_TYPES.find(type => type.value === selectedSkinType)?.label?.toLowerCase() || selectedSkinType} {t('skinRecommendation.skin')}
+            <p className="text-lg md:text-xl text-gray-600 mb-6 md:mb-8 font-light">
+              {locale === 'ar' 
+                ? `وجدنا ${recommendations.length} منتج مثالي لبشرتك`
+                : locale === 'ru'
+                ? `Мы нашли ${recommendations.length} продуктов для вашей кожи`
+                : `We found ${recommendations.length} products perfect for your skin`
+              }
             </p>
             <button
               onClick={resetForm}
-              className={`text-primary-600 hover:text-primary-700 underline font-medium inline-flex items-center gap-1 text-sm md:text-base min-h-[44px] touch-manipulation ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+              className={`inline-flex items-center gap-2 text-primary-600 hover:text-primary-700 font-medium text-sm md:text-base transition-colors ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
             >
-              {t('skinRecommendation.startOver')}
-              <ArrowRight className={`w-3.5 h-3.5 md:w-4 md:h-4 ${dir === 'rtl' ? '' : 'rotate-180'}`} />
+              <ArrowLeft className={`w-4 h-4 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
+              {locale === 'ar' ? 'تحليل جديد' : locale === 'ru' ? 'Новый анализ' : 'New Analysis'}
             </button>
           </div>
 
-          {/* Results by Category */}
+          {/* Results by Category - Apple-like Clean Design */}
           {recommendations.length > 0 ? (
-            <div className="space-y-6 md:space-y-12">
+            <div className="space-y-12 md:space-y-20">
               {Object.entries(groupedProducts).map(([category, products]) => (
-                <div key={category} className="bg-white rounded-xl md:rounded-2xl border border-gray-200 p-4 md:p-6 lg:p-8 shadow-sm">
-                  <h2 className={`text-lg md:text-2xl lg:text-3xl font-bold text-gray-900 mb-4 md:mb-6 flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                    <Sparkles className="w-5 h-5 md:w-6 md:h-6 text-primary-600" />
-                    {category}
-                    <span className="text-sm md:text-lg font-normal text-gray-500">({products.length})</span>
-                  </h2>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+                <section key={category}>
+                  {/* Category Header - Apple Style */}
+                  <div className="mb-8 md:mb-12">
+                    <h2 className={`text-2xl md:text-4xl font-semibold text-gray-900 tracking-tight ${dir === 'rtl' ? 'text-right' : ''}`}>
+                      {category}
+                    </h2>
+                    <p className={`text-gray-500 mt-2 text-base md:text-lg ${dir === 'rtl' ? 'text-right' : ''}`}>
+                      {products.length} {locale === 'ar' ? 'منتج مختار لك' : locale === 'ru' ? 'товаров подобрано для вас' : 'products curated for you'}
+                    </p>
+                  </div>
+                  
+                  {/* Product Grid - Clean Apple Cards */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
                     {products.map((product) => {
                       const discountedPrice = calculateDiscountedPrice(product, user)
                       const canSeePrice = canUserSeePrices(user)
-                      const productConcerns = getProductConcerns(product)
                       
                       return (
-                        <div
+                        <article
                           key={product.id}
-                          className="bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-lg transition-all duration-300 group"
+                          className="group relative bg-white rounded-3xl overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-gray-200/50"
                         >
-                          <Link href={getLocalizedPath(`/products/${product.id}`, locale)}>
-                            <div className="relative aspect-square bg-gray-100">
+                          {/* Product Image */}
+                          <Link href={getLocalizedPath(`/products/${product.id}`, locale)} className="block">
+                            <div className="relative aspect-square bg-gradient-to-br from-gray-50 to-gray-100 overflow-hidden">
                               <Image
                                 src={product.image}
                                 alt={product.name}
                                 fill
-                                className="object-cover group-hover:scale-105 transition-transform duration-300"
-                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                               />
+                              
+                              {/* Subtle Gradient Overlay */}
+                              <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                              
+                              {/* Favorite Button - Minimal */}
                               <button
                                 onClick={(e) => {
                                   e.preventDefault()
                                   e.stopPropagation()
                                   toggleFavorite(product)
                                 }}
-                                className={`absolute top-3 ${dir === 'rtl' ? 'left-3' : 'right-3'} p-2 bg-white/90 backdrop-blur-sm rounded-full hover:bg-white transition-colors z-10`}
+                                className={`absolute top-4 ${dir === 'rtl' ? 'left-4' : 'right-4'} w-10 h-10 flex items-center justify-center bg-white/80 backdrop-blur-md rounded-full shadow-sm hover:bg-white hover:shadow-md transition-all duration-300 z-10`}
                               >
                                 <Heart
-                                  className={`w-5 h-5 ${
+                                  className={`w-5 h-5 transition-colors ${
                                     isFavorite(product.id)
-                                      ? 'text-red-500 fill-current'
-                                      : 'text-gray-400'
+                                      ? 'text-primary-600 fill-primary-600'
+                                      : 'text-gray-400 group-hover:text-gray-600'
                                   }`}
                                 />
                               </button>
-                              {product.rating && (
-                                <div className="absolute bottom-3 left-3 bg-white/90 backdrop-blur-sm rounded-full px-2 py-1 flex items-center gap-1">
-                                  <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                                  <span className="text-xs font-semibold text-gray-900">
-                                    {product.rating.toFixed(1)}
-                                  </span>
+                              
+                              {/* Rating Badge - Subtle */}
+                              {product.rating && product.rating >= 4.5 && (
+                                <div className={`absolute bottom-4 ${dir === 'rtl' ? 'right-4' : 'left-4'} flex items-center gap-1.5 bg-white/90 backdrop-blur-md px-3 py-1.5 rounded-full shadow-sm`}>
+                                  <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+                                  <span className="text-xs font-medium text-gray-900">{product.rating.toFixed(1)}</span>
+                                </div>
+                              )}
+                              
+                              {/* Discount Badge */}
+                              {discountedPrice.hasDiscount && (
+                                <div className={`absolute top-4 ${dir === 'rtl' ? 'right-4' : 'left-4'} bg-primary-600 text-white text-xs font-semibold px-3 py-1.5 rounded-full shadow-lg`}>
+                                  {Math.round(((product.price - discountedPrice.discountedPrice) / product.price) * 100)}% OFF
                                 </div>
                               )}
                             </div>
                           </Link>
                           
-                          <div className="p-5">
-                            <Link href={getLocalizedPath(`/products/${product.id}`, locale)}>
-                              <h3 className={`font-bold text-lg text-gray-900 mb-2 line-clamp-2 hover:text-primary-600 transition-colors ${dir === 'rtl' ? 'text-right' : ''}`}>
+                          {/* Product Info - Spacious & Clean */}
+                          <div className="p-5 md:p-6">
+                            <Link href={getLocalizedPath(`/products/${product.id}`, locale)} className="block">
+                              <h3 className={`font-semibold text-gray-900 text-lg leading-snug mb-2 line-clamp-2 group-hover:text-primary-600 transition-colors duration-300 ${dir === 'rtl' ? 'text-right' : ''}`}>
                                 {product.name}
                               </h3>
                             </Link>
                             
-                            {/* Recommendation Reason */}
-                            <div className="mb-3">
-                              <p className={`text-xs text-primary-700 bg-primary-50 rounded-lg px-2 py-1.5 line-clamp-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
-                                {getRecommendationReason(product)}
-                              </p>
-                            </div>
-                            
-                            {/* Product Concerns */}
-                            {productConcerns.length > 0 && (
-                              <div className={`flex flex-wrap gap-1 mb-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                                {productConcerns.slice(0, 3).map(concern => {
-                                  const concernData = TARGET_CONCERNS.find(tc => tc.value === concern)
-                                  return concernData ? (
-                                    <span key={concern} className={`text-xs bg-gray-100 text-gray-700 px-2 py-0.5 rounded flex items-center gap-1 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                                      {concernData.icon} {concernData.label}
-                                    </span>
-                                  ) : null
-                                })}
-                              </div>
-                            )}
-                            
-                            {/* Usage Badge */}
-                            {product.usage && (
-                              <div className="mb-3">
-                                <span className={`text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full font-medium flex items-center gap-1 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                                  {USAGE_OPTIONS.find(u => u.value === product.usage)?.icon} {USAGE_OPTIONS.find(u => u.value === product.usage)?.label || product.usage}
-                                </span>
-                              </div>
-                            )}
-                            
-                            <p className={`text-gray-600 text-sm mb-4 line-clamp-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                            {/* Subtle Description */}
+                            <p className={`text-gray-500 text-sm leading-relaxed mb-4 line-clamp-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
                               {product.description}
                             </p>
                             
-                            <div className={`flex items-center justify-between mb-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                            {/* Price Section - Clean */}
+                            <div className={`flex items-end justify-between mb-5 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                               {canSeePrice ? (
                                 <div>
                                   {discountedPrice.hasDiscount ? (
-                                    <>
-                                      <div className="text-2xl font-bold text-primary-600">
-                                        AED {discountedPrice.discountedPrice.toFixed(2)}
-                                      </div>
-                                      <div className="text-sm text-gray-500 line-through">
-                                        AED {product.price.toFixed(2)}
-                                      </div>
-                                    </>
-                                  ) : (
-                                    <div className="text-2xl font-bold text-primary-600">
-                                      AED {product.price.toFixed(2)}
+                                    <div className={`flex items-baseline gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                                      <span className="text-2xl font-semibold text-gray-900">
+                                        AED {discountedPrice.discountedPrice.toFixed(0)}
+                                      </span>
+                                      <span className="text-sm text-gray-400 line-through">
+                                        {product.price.toFixed(0)}
+                                      </span>
                                     </div>
+                                  ) : (
+                                    <span className="text-2xl font-semibold text-gray-900">
+                                      AED {product.price.toFixed(0)}
+                                    </span>
                                   )}
                                 </div>
                               ) : (
-                                <div className="text-lg font-semibold text-gray-600">
-                                  {t('skinRecommendation.loginToSeePrice')}
-                                </div>
-                              )}
-                              {product.inStock ? (
-                                <span className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full font-medium">
-                                  {t('skinRecommendation.inStock')}
+                                <span className="text-sm text-gray-500">
+                                  {locale === 'ar' ? 'سجل لعرض السعر' : locale === 'ru' ? 'Войдите для цены' : 'Sign in for price'}
                                 </span>
-                              ) : (
-                                <span className="text-xs bg-red-100 text-red-800 px-2 py-1 rounded-full font-medium">
-                                  {t('skinRecommendation.outOfStock')}
+                              )}
+                              
+                              {/* Stock Indicator - Minimal */}
+                              {!product.inStock && (
+                                <span className="text-xs font-medium text-gray-400">
+                                  {locale === 'ar' ? 'غير متوفر' : locale === 'ru' ? 'Нет в наличии' : 'Out of stock'}
                                 </span>
                               )}
                             </div>
                             
+                            {/* Add to Cart - Apple Button Style */}
                             <button
                               onClick={() => handleAddToCart(product)}
                               disabled={!product.inStock}
-                              className={`w-full bg-primary-600 hover:bg-primary-700 disabled:bg-gray-400 text-white font-semibold py-3 px-4 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 disabled:cursor-not-allowed ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+                              className={`w-full bg-primary-600 hover:bg-primary-700 disabled:bg-gray-200 disabled:text-gray-400 text-white font-medium py-3.5 px-6 rounded-full transition-all duration-300 flex items-center justify-center gap-2 active:scale-[0.98] disabled:cursor-not-allowed shadow-sm hover:shadow-md ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
                             >
-                              <ShoppingCart className="w-5 h-5" />
-                              {t('skinRecommendation.addToCart')}
+                              <ShoppingCart className="w-4 h-4" />
+                              <span>{locale === 'ar' ? 'أضف للسلة' : locale === 'ru' ? 'В корзину' : 'Add to Bag'}</span>
                             </button>
                           </div>
-                        </div>
+                        </article>
                       )
                     })}
                   </div>
-                </div>
+                </section>
               ))}
             </div>
           ) : (
-            <div className="text-center py-16 bg-white rounded-2xl border border-gray-200">
-              <div className="text-gray-400 mb-4">
-                <CheckCircle2 className="w-20 h-20 mx-auto" />
+            <div className="text-center py-20">
+              <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-gray-100 flex items-center justify-center">
+                <Sparkles className="w-10 h-10 text-gray-300" />
               </div>
-              <h3 className="text-2xl font-semibold text-gray-900 mb-2">{t('skinRecommendation.noProductsFound')}</h3>
-              <p className={`text-gray-600 mb-8 max-w-md mx-auto ${dir === 'rtl' ? 'text-right' : ''}`}>
+              <h3 className="text-2xl font-semibold text-gray-900 mb-3">{t('skinRecommendation.noProductsFound')}</h3>
+              <p className={`text-gray-500 mb-8 max-w-md mx-auto ${dir === 'rtl' ? 'text-right' : 'text-center'}`}>
                 {t('skinRecommendation.couldntFindProducts')}
               </p>
               <div className={`flex flex-col sm:flex-row gap-4 justify-center ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>

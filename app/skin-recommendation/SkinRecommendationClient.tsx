@@ -490,9 +490,9 @@ export default function SkinRecommendationClient() {
                       {locale === 'ar' ? 'توحيد اللون' : locale === 'ru' ? 'Ровность тона' : 'Evenness'}
                     </span>
                   </div>
-                  <p className="text-2xl font-bold text-green-700">{cameraResult.evennessScore}%</p>
+                  <p className="text-2xl font-bold text-green-700">{cameraResult.evenness}%</p>
                   <div className="h-2 bg-green-100 rounded-full mt-2 overflow-hidden">
-                    <div className="h-full bg-green-500 rounded-full" style={{ width: `${cameraResult.evennessScore}%` }} />
+                    <div className="h-full bg-green-500 rounded-full" style={{ width: `${cameraResult.evenness}%` }} />
                   </div>
                 </div>
 

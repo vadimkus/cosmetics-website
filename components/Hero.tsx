@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, Sparkles } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { useAnimationStore } from '@/lib/animationStore'
 import { useAuth } from './AuthProvider'
@@ -111,6 +111,7 @@ export default function Hero({ initialLocale = 'en', initialDir = 'ltr' }: HeroP
   // Memoize localized paths to ensure stable href values (prevents hydration mismatch)
   const productsPath = useMemo(() => getLocalizedPath('/products', locale), [locale])
   const aboutPath = useMemo(() => getLocalizedPath('/about', locale), [locale])
+  const skinAnalysisPath = useMemo(() => getLocalizedPath('/skin-recommendation', locale), [locale])
   
   // Memoize translation strings to ensure stable content
   const orderNowText = useMemo(() => t('hero.orderNow'), [t])
@@ -253,6 +254,24 @@ export default function Hero({ initialLocale = 'en', initialDir = 'ltr' }: HeroP
                 </Link>
               </motion.div>
             </div>
+            
+            {/* AI Skin Analysis Link */}
+            <motion.div
+              initial={animationsEnabled ? { opacity: 0, y: 10 } : {}}
+              animate={animationsEnabled ? { opacity: 1, y: 0 } : {}}
+              transition={animationsEnabled ? { duration: 0.5, delay: 0.3 } : {}}
+              className="mt-4"
+            >
+              <Link 
+                href={skinAnalysisPath}
+                className="inline-flex items-center gap-2 text-primary-600 hover:text-primary-700 transition-colors group"
+              >
+                <Sparkles className="w-4 h-4 group-hover:scale-110 transition-transform" />
+                <span className="text-sm font-medium underline underline-offset-2 decoration-primary-300 hover:decoration-primary-500">
+                  {locale === 'ar' ? 'تحليل البشرة بالذكاء الاصطناعي' : locale === 'ru' ? 'AI Анализ кожи' : 'AI Skin Analysis'}
+                </span>
+              </Link>
+            </motion.div>
           </div>
         </div>
 
@@ -329,6 +348,19 @@ export default function Hero({ initialLocale = 'en', initialDir = 'ltr' }: HeroP
               className="border border-primary-600 text-primary-600 px-8 py-4 rounded-lg font-semibold hover:bg-primary-50 transition-colors flex items-center text-lg"
             >
               {learnMoreText}
+            </Link>
+          </div>
+          
+          {/* AI Skin Analysis Link */}
+          <div className="mt-6">
+            <Link 
+              href={skinAnalysisPath}
+              className="inline-flex items-center gap-2 text-primary-600 hover:text-primary-700 transition-colors group"
+            >
+              <Sparkles className="w-5 h-5 group-hover:scale-110 transition-transform" />
+              <span className="text-base font-medium underline underline-offset-4 decoration-primary-300 hover:decoration-primary-500">
+                {locale === 'ar' ? 'تحليل البشرة بالذكاء الاصطناعي' : locale === 'ru' ? 'AI Анализ кожи' : 'AI Skin Analysis'}
+              </span>
             </Link>
           </div>
         </div>

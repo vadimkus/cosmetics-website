@@ -849,7 +849,7 @@ export function SkinAnalysisCamera({
 
   return (
     <div className={cn(
-      'fixed inset-0 z-50 bg-black flex flex-col',
+      'fixed inset-0 z-[100] bg-black flex flex-col',
       className
     )}>
       {/* Header */}
@@ -893,10 +893,10 @@ export function SkinAnalysisCamera({
                 }} />
                 
                 {/* Darkened overlay with oval cutout - Mobile/PWA */}
-                {/* Position at 42% from top to account for bottom controls + PWA nav */}
+                {/* Position at 50% from top - centered closer to capture button */}
                 <div className="absolute inset-0 bg-black/40 md:hidden pointer-events-none" style={{
-                  maskImage: 'radial-gradient(ellipse 120px 160px at 50% 42%, transparent 98%, black 100%)',
-                  WebkitMaskImage: 'radial-gradient(ellipse 120px 160px at 50% 42%, transparent 98%, black 100%)',
+                  maskImage: 'radial-gradient(ellipse 120px 160px at 50% 50%, transparent 98%, black 100%)',
+                  WebkitMaskImage: 'radial-gradient(ellipse 120px 160px at 50% 50%, transparent 98%, black 100%)',
                 }} />
                 
                 {/* Face oval guide - Desktop */}
@@ -923,8 +923,8 @@ export function SkinAnalysisCamera({
                 </div>
                 
                 {/* Face oval guide - Mobile/PWA */}
-                {/* Use absolute positioning with top offset to center in visible area */}
-                <div className="md:hidden absolute inset-x-0 pointer-events-none" style={{ top: 'calc(42% - 160px)' }}>
+                {/* Use absolute positioning - centered at 50% closer to capture button */}
+                <div className="md:hidden absolute inset-x-0 pointer-events-none" style={{ top: 'calc(50% - 160px)' }}>
                   <div className="w-[240px] h-[320px] mx-auto relative">
                     <div className="absolute inset-0 border-2 border-white/70 rounded-[50%]" />
                     <div className="absolute inset-2 border border-white/30 rounded-[50%]" />

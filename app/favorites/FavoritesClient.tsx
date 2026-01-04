@@ -11,14 +11,22 @@ import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { useAnimationStore } from '@/lib/animationStore'
 import { usePWAMode } from '@/hooks/usePWAMode'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { useAuth } from '@/components/AuthProvider'
 
 export default function FavoritesClient() {
   const { t, locale, dir } = useTranslation()
   const { favorites } = useFavorites()
   const { enabled: animationsEnabled } = useAnimationStore()
   const { isPWA, isClient } = usePWAMode()
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const { user } = useAuth()
   const favoriteProducts = favorites
   const [isPulsing, setIsPulsing] = useState(false)
+
+  const isRTL = dir === 'rtl'
+  const fromProfile = searchParams?.get('from') === 'profile'
 
   // Disable animations in PWA mode
   const shouldAnimate = animationsEnabled && !(isClient && isPWA)
@@ -40,21 +48,62 @@ export default function FavoritesClient() {
 
   if (favorites.length === 0) {
     return (
-      <div className="container mx-auto px-3 md:px-4 py-4 md:py-16" dir={dir}>
-        {/* Navigation Breadcrumb */}
-        <nav className={`text-xs md:text-base text-gray-600 mb-2 md:mb-4 ${dir === 'rtl' ? 'text-right' : ''}`} aria-label="Breadcrumb">
-          <Link href={getLocalizedPath('/', locale)} className="hover:text-primary-600 transition-colors">{t('common.home')}</Link>
-          <span> / </span>
-          <span className="text-gray-900 font-medium">{t('common.favorites')}</span>
-        </nav>
+      <div className={`${isPWA ? 'min-h-screen bg-gray-50 pb-32' : ''}`} dir={dir}>
+        {/* PWA Simple Navigation Header */}
+        {isPWA && (
+          <div className={`flex items-center justify-between px-5 py-4 bg-white ${isRTL ? 'flex-row-reverse' : ''}`}>
+            <button 
+              onClick={() => router.push(getLocalizedPath(fromProfile ? '/profile' : '/products', locale))}
+              className={`flex items-center gap-1 min-w-[80px] ${isRTL ? 'flex-row-reverse' : ''}`}
+            >
+              <svg className={`w-5 h-5 text-red-600 ${isRTL ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+              <span className="text-base text-red-600">
+                {fromProfile ? (locale === 'ar' ? 'الحساب' : locale === 'ru' ? 'Аккаунт' : 'Account') : (locale === 'ar' ? 'المنتجات' : locale === 'ru' ? 'Продукты' : 'Products')}
+              </span>
+            </button>
+            <span className="text-base font-semibold text-gray-900">
+              {t('common.favorites') || 'Favorites'}
+            </span>
+            {/* Profile Icon with green dot */}
+            <button 
+              onClick={() => router.push(getLocalizedPath('/profile', locale))}
+              className="min-w-[80px] flex justify-end"
+            >
+              <div className="relative">
+                <div className="w-8 h-8 rounded-full bg-red-600 flex items-center justify-center">
+                  <span className="text-sm font-semibold text-white">
+                    {user?.name?.charAt(0)?.toUpperCase() || 'G'}
+                  </span>
+                </div>
+                {user && (
+                  <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 rounded-full border-2 border-white" />
+                )}
+              </div>
+            </button>
+          </div>
+        )}
         
-        {/* Back to Home */}
-        <Link href={getLocalizedPath('/', locale)} className={`inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 mb-4 md:mb-8 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-          <ArrowLeft className={`h-3 w-3 md:h-4 md:w-4 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
-          <span>{t('common.backToHome')}</span>
-        </Link>
+        <div className="container mx-auto px-3 md:px-4 py-4 md:py-16">
+          {/* Navigation Breadcrumb - Hide in PWA */}
+          {!isPWA && (
+            <nav className={`text-xs md:text-base text-gray-600 mb-2 md:mb-4 ${dir === 'rtl' ? 'text-right' : ''}`} aria-label="Breadcrumb">
+              <Link href={getLocalizedPath('/', locale)} className="hover:text-primary-600 transition-colors">{t('common.home')}</Link>
+              <span> / </span>
+              <span className="text-gray-900 font-medium">{t('common.favorites')}</span>
+            </nav>
+          )}
+          
+          {/* Back to Home - Hide in PWA */}
+          {!isPWA && (
+            <Link href={getLocalizedPath('/', locale)} className={`inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 mb-4 md:mb-8 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+              <ArrowLeft className={`h-3 w-3 md:h-4 md:w-4 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
+              <span>{t('common.backToHome')}</span>
+            </Link>
+          )}
 
-        <div className="max-w-md mx-auto text-center py-6 md:py-16">
+          <div className="max-w-md mx-auto text-center py-6 md:py-16">
           <div className="bg-white rounded-xl p-4 md:p-8">
             {/* Mobile: Custom image, Desktop: Custom image */}
             <div className="mb-2 md:mb-4 relative">
@@ -139,35 +188,99 @@ export default function FavoritesClient() {
             </Link>
           </div>
         </div>
+        </div>
       </div>
     )
   }
 
   return (
-    <div className="container mx-auto px-3 md:px-4 py-4 md:py-16" dir={dir}>
-      {/* Navigation Breadcrumb */}
-      <nav className={`text-xs md:text-base text-gray-600 mb-2 md:mb-4 ${dir === 'rtl' ? 'text-right' : ''}`} aria-label="Breadcrumb">
-        <Link href={getLocalizedPath('/', locale)} className="hover:text-primary-600 transition-colors">{t('common.home')}</Link>
-        <span> / </span>
-        <span className="text-gray-900 font-medium">{t('common.favorites')}</span>
-      </nav>
-      
-      {/* Back to Home */}
-      <Link href={getLocalizedPath('/', locale)} className={`inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 mb-4 md:mb-8 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-        <ArrowLeft className={`h-3 w-3 md:h-4 md:w-4 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
-        <span>{t('common.backToHome')}</span>
-      </Link>
-
-      <div className="max-w-6xl mx-auto">
-        <div className="mb-4 md:mb-8">
-          <h1 className="text-xl md:text-3xl font-bold text-gray-900 mb-2 md:mb-4 flex items-center gap-2">
-            <Heart className={`h-6 w-6 md:h-8 md:w-8 text-red-500 transition-all duration-500 ${isPulsing && shouldAnimate ? 'animate-pulse scale-110' : ''}`} />
-            {t('favorites.myFavorites')} ({favorites.length})
-          </h1>
-          <p className="text-xs md:text-base text-gray-600">
-            {t('favorites.savedProductsDescription')}
-          </p>
+    <div className={`${isPWA ? 'min-h-screen bg-gray-50 pb-32' : ''}`} dir={dir}>
+      {/* PWA Simple Navigation Header */}
+      {isPWA && (
+        <div className={`flex items-center justify-between px-5 py-4 bg-white ${isRTL ? 'flex-row-reverse' : ''}`}>
+          <button 
+            onClick={() => router.push(getLocalizedPath(fromProfile ? '/profile' : '/products', locale))}
+            className={`flex items-center gap-1 min-w-[80px] ${isRTL ? 'flex-row-reverse' : ''}`}
+          >
+            <svg className={`w-5 h-5 text-red-600 ${isRTL ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+            <span className="text-base text-red-600">
+              {fromProfile ? (locale === 'ar' ? 'الحساب' : locale === 'ru' ? 'Аккаунт' : 'Account') : (locale === 'ar' ? 'المنتجات' : locale === 'ru' ? 'Продукты' : 'Products')}
+            </span>
+          </button>
+          <span className="text-base font-semibold text-gray-900">
+            {t('common.favorites') || 'Favorites'}
+          </span>
+          {/* Profile Icon with green dot */}
+          <button 
+            onClick={() => router.push(getLocalizedPath('/profile', locale))}
+            className="min-w-[80px] flex justify-end"
+          >
+            <div className="relative">
+              <div className="w-8 h-8 rounded-full bg-red-600 flex items-center justify-center">
+                <span className="text-sm font-semibold text-white">
+                  {user?.name?.charAt(0)?.toUpperCase() || 'G'}
+                </span>
+              </div>
+              {user && (
+                <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 rounded-full border-2 border-white" />
+              )}
+            </div>
+          </button>
         </div>
+      )}
+      
+      <div className="container mx-auto px-3 md:px-4 py-4 md:py-16">
+        {/* Navigation Breadcrumb - Hide in PWA */}
+        {!isPWA && (
+          <nav className={`text-xs md:text-base text-gray-600 mb-2 md:mb-4 ${dir === 'rtl' ? 'text-right' : ''}`} aria-label="Breadcrumb">
+            <Link href={getLocalizedPath('/', locale)} className="hover:text-primary-600 transition-colors">{t('common.home')}</Link>
+            <span> / </span>
+            <span className="text-gray-900 font-medium">{t('common.favorites')}</span>
+          </nav>
+        )}
+        
+        {/* Back to Home - Hide in PWA */}
+        {!isPWA && (
+          <Link href={getLocalizedPath('/', locale)} className={`inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 mb-4 md:mb-8 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+            <ArrowLeft className={`h-3 w-3 md:h-4 md:w-4 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
+            <span>{t('common.backToHome')}</span>
+          </Link>
+        )}
+
+        <div className="max-w-6xl mx-auto">
+          {/* PWA Title Section */}
+          {isPWA && (
+            <div className="px-0 pt-2 pb-4">
+              <div className={`flex items-center gap-2.5 ${isRTL ? 'flex-row-reverse' : ''}`}>
+                <div className="w-10 h-10 bg-red-50 rounded-xl flex items-center justify-center">
+                  <Heart className="h-5 w-5 text-red-600" />
+                </div>
+                <div>
+                  <h1 className="text-xl font-bold text-gray-900">
+                    {t('favorites.myFavorites') || 'My Favorites'}
+                  </h1>
+                  <p className="text-xs text-gray-500">
+                    {favorites.length} {favorites.length === 1 ? 'item' : 'items'}
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Desktop Title */}
+          {!isPWA && (
+            <div className="mb-4 md:mb-8">
+              <h1 className="text-xl md:text-3xl font-bold text-gray-900 mb-2 md:mb-4 flex items-center gap-2">
+                <Heart className={`h-6 w-6 md:h-8 md:w-8 text-red-500 transition-all duration-500 ${isPulsing && shouldAnimate ? 'animate-pulse scale-110' : ''}`} />
+                {t('favorites.myFavorites')} ({favorites.length})
+              </h1>
+              <p className="text-xs md:text-base text-gray-600">
+                {t('favorites.savedProductsDescription')}
+              </p>
+            </div>
+          )}
 
         {favoriteProducts.length > 0 ? (
           <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 md:gap-6">
@@ -234,6 +347,7 @@ export default function FavoritesClient() {
             </div>
           </div>
         )}
+        </div>
       </div>
     </div>
   )

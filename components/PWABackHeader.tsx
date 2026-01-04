@@ -52,7 +52,7 @@ export default function PWABackHeader({
   
   const backLabel = fromProfile 
     ? (locale === 'ar' ? 'الحساب' : locale === 'ru' ? 'Аккаунт' : 'Account')
-    : (locale === 'ar' ? 'الرئيسية' : locale === 'ru' ? 'Главная' : 'Home')
+    : (locale === 'ar' ? 'المنتجات' : locale === 'ru' ? 'Товары' : 'Products')
   
   return (
     <div className={`flex items-center justify-between px-5 py-4 bg-white border-b border-gray-100 ${isRTL ? 'flex-row-reverse' : ''}`}>

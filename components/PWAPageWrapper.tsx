@@ -50,7 +50,7 @@ export default function PWAPageWrapper({
   
   const backLabel = fromProfile 
     ? (locale === 'ar' ? 'الحساب' : locale === 'ru' ? 'Аккаунт' : 'Account')
-    : (locale === 'ar' ? 'الرئيسية' : locale === 'ru' ? 'Главная' : 'Home')
+    : (locale === 'ar' ? 'المنتجات' : locale === 'ru' ? 'Товары' : 'Products')
   
   // Show header only in PWA mode
   if (!isClient || !isPWA) {

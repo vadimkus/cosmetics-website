@@ -18,7 +18,7 @@ export default function AboutPageClient() {
   return (
     <PWAPageWrapper 
       title={locale === 'ar' ? 'حول جينوسيس' : locale === 'ru' ? 'О Genosys' : 'About Genosys'}
-      defaultBackPath="/profile"
+      defaultBackPath="/products"
     >
       <div className={`bg-white min-h-screen ${showPWAMode ? '' : ''}`} dir={dir}>
         <BreadcrumbSchema 

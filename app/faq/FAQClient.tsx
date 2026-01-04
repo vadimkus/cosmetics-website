@@ -95,7 +95,7 @@ export default function FAQClient() {
   return (
     <PWAPageWrapper 
       title={locale === 'ar' ? 'الأسئلة الشائعة' : locale === 'ru' ? 'Помощь' : 'Help & Support'}
-      defaultBackPath="/profile"
+      defaultBackPath="/products"
     >
     <div className={`bg-gradient-to-b from-gray-50 to-white min-h-screen ${showPWAMode ? '' : ''}`} dir={dir}>
       <BreadcrumbSchema 

@@ -77,9 +77,34 @@ export default function SkinRecommendationClient() {
           errorLog('Error parsing stored analysis:', e)
         }
       } else if (concerns) {
-        // Fallback to URL params only
+        // Fallback to URL params only - create minimal result from URL data
+        const concernsArray = concerns.split(',').filter(Boolean)
         setSelectedSkinType(skinType)
-        setSelectedTargetConcerns(concerns.split(','))
+        setSelectedTargetConcerns(concernsArray)
+        
+        // Create a minimal cameraResult from URL params with estimated defaults
+        const fallbackResult: SkinAnalysisResult = {
+          skinType: skinType as SkinAnalysisResult['skinType'],
+          confidence: 75,
+          concerns: concernsArray,
+          recommendations: [],
+          ageGroup: concernsArray.includes('anti-aging') ? 'mature' : 'adult',
+          oilinessLevel: skinType === 'oily' ? 70 : skinType === 'dry' ? 30 : 50,
+          hydrationLevel: skinType === 'dry' ? 35 : skinType === 'oily' ? 60 : 55,
+          rednessLevel: concernsArray.includes('sensitivity') ? 45 : 20,
+          skinTone: 'medium',
+          undertone: 'neutral',
+          textureScore: concernsArray.includes('anti-aging') ? 55 : 70,
+          poreVisibility: skinType === 'oily' ? 'visible' : 'moderate',
+          evenness: concernsArray.includes('brightening') ? 55 : 70,
+          tZoneOiliness: skinType === 'oily' || skinType === 'combination' ? 65 : 40,
+          cheekHydration: skinType === 'dry' ? 35 : 55,
+          estimatedSkinAge: concernsArray.includes('anti-aging') ? 42 : 32,
+          lightingQuality: 'good'
+        }
+        
+        setCameraResult(fallbackResult)
+        setSelectedAgeGroup(fallbackResult.ageGroup || 'adult')
         setShowAnalysisReport(true)
       }
     }

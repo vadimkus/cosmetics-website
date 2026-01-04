@@ -5,7 +5,6 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { ShoppingCart, Heart, Sparkles, ArrowRight, ArrowLeft, CheckCircle2, Info, Star, Camera, Scan } from 'lucide-react'
 import { SkinAnalysisCamera, SkinAnalysisResult } from '@/components/SkinAnalysisCamera'
-import { usePWAMode } from '@/hooks/usePWAMode'
 import { useCart } from '@/components/CartProvider'
 import { useAuth } from '@/components/AuthProvider'
 import { useFavorites } from '@/components/FavoritesProvider'
@@ -24,7 +23,6 @@ export default function SkinRecommendationClient() {
   const { user } = useAuth()
   const { addItem } = useCart()
   const { toggleFavorite, isFavorite } = useFavorites()
-  const { isPWA } = usePWAMode()
   
   const [selectedSkinType, setSelectedSkinType] = useState('')
   const [selectedAgeGroup, setSelectedAgeGroup] = useState('')

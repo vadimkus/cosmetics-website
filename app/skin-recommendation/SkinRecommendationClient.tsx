@@ -347,33 +347,6 @@ export default function SkinRecommendationClient() {
     return groups
   }, [recommendations])
 
-  // Parse target concerns from product
-  const getProductConcerns = (product: SkinRecommendationProduct): string[] => {
-    if (!product.targetConcerns) return []
-    try {
-      return JSON.parse(product.targetConcerns)
-    } catch (error) {
-      return []
-    }
-  }
-
-  // Get why product is recommended
-  const getRecommendationReason = (product: SkinRecommendationProduct): string => {
-    const reasons: string[] = []
-    if (product.skinType === selectedSkinType) {
-      reasons.push(`${t('skinRecommendation.perfectFor')} ${SKIN_TYPES.find(st => st.value === selectedSkinType)?.label.toLowerCase()}`)
-    }
-    const concerns = getProductConcerns(product)
-    const matchedConcerns = concerns.filter(c => selectedTargetConcerns.includes(c))
-    if (matchedConcerns.length > 0) {
-      reasons.push(`${t('skinRecommendation.targets')}: ${matchedConcerns.map(c => TARGET_CONCERNS.find(tc => tc.value === c)?.label).join(', ')}`)
-    }
-    if (product.ageGroup === selectedAgeGroup) {
-      reasons.push(`${t('skinRecommendation.idealFor')} ${AGE_GROUPS.find(a => a.value === selectedAgeGroup)?.label.toLowerCase()}`)
-    }
-    return reasons.join(' • ') || t('skinRecommendation.recommendedForSkinProfile')
-  }
-
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white" dir={dir}>
       <BreadcrumbSchema 
@@ -914,7 +887,6 @@ export default function SkinRecommendationClient() {
                 </span>
               )}
             </div>
-          </div>
             
             <p className="text-lg md:text-xl text-gray-600 mb-6 md:mb-8 font-light">
               {locale === 'ar' 

@@ -155,14 +155,117 @@ const SKIN_TYPE_COMPATIBILITY: Record<string, string[]> = {
   'sensitive': ['sensitive', 'dry', 'normal']
 }
 
-// Score weights for recommendation ranking
+// GENOSYS Product-to-Concern mapping based on actual product formulations
+// This provides sharp, accurate recommendations based on product capabilities
+const GENOSYS_PRODUCT_CONCERNS: Record<string, string[]> = {
+  // Cleansers
+  'SNOW O₂ CLEANSER': ['hydration', 'brightening', 'sensitivity'],
+  'SKIN DEFENDER LIP & EYE MAKEUP REMOVER': ['eye-care', 'sensitivity'],
+  
+  // Peelings
+  'EPI TURNOVER BOOSTING PEELING GEL': ['brightening', 'anti-aging', 'pore-care'],
+  'SKIN RENEWAL PEELING SYSTEM': ['brightening', 'anti-aging', 'pore-care'],
+  
+  // Toners/Mists
+  'MICROBIOME ENERGY INFUSING MIST': ['hydration', 'sensitivity'],
+  'INTENSIVE PROBLEM CONTROL TONER': ['acne-blemishes', 'pore-care'],
+  'SNOW BOOSTER': ['hydration', 'sensitivity'],
+  
+  // Serums
+  'EyeCell EYE CONTOUR SERUM': ['eye-care', 'anti-aging', 'brightening'],
+  'MOISTURE REPLENISHING HYALURON SERUM': ['hydration'],
+  'ALL FOR SENSITIVE SERUM': ['sensitivity', 'hydration'],
+  'PROBLEM CONTROL SERUM': ['acne-blemishes', 'pore-care'],
+  'MULTI VITA RADIANCE SERUM': ['brightening', 'anti-aging'],
+  'MULTI FUNCTIONAL ANTI-WRINKLE SERUM': ['anti-aging'],
+  
+  // Creams
+  'ND Cell ANTI-WRINKLE CREAM': ['anti-aging'],
+  'EyeCell EYE CONTOUR CREAM': ['eye-care', 'anti-aging', 'brightening'],
+  'SOOTHING REPAIR POSTCREAM': ['sensitivity', 'hydration'],
+  'EGF REPAIR OXYMASK CREAM': ['sensitivity', 'anti-aging'],
+  'SKIN BARRIER PROTECTING CREAM': ['sensitivity', 'hydration'],
+  'INTENSIVE HYDRO SOOTHING CREAM': ['hydration', 'sensitivity'],
+  'MOISTURE REPLENISHING HYALURON CREAM': ['hydration'],
+  'INTENSIVE PROBLEM CONTROL CREAM': ['acne-blemishes', 'pore-care'],
+  'MULTI VITA RADIANCE CREAM': ['brightening', 'anti-aging'],
+  'MULTI FUNCTIONAL ANTI-WRINKLE CREAM': ['anti-aging'],
+  
+  // Eye Care
+  'EyeCell EYE PEPTIDE GEL PATCH': ['eye-care', 'anti-aging', 'hydration'],
+  'EyeCell EYE ZONE CARE KIT': ['eye-care', 'anti-aging', 'brightening'],
+  
+  // Masks
+  'SKIN RESCUE OVERNIGHT CREAM MASK': ['hydration', 'anti-aging', 'sensitivity'],
+  'HYDRO COOL MODELING MASK': ['hydration', 'sensitivity'],
+  'SOOTHING BOMB SEA ALGAE MASK': ['hydration', 'sensitivity'],
+  'PEPTIDE GEL MASK': ['hydration', 'sensitivity', 'anti-aging'],
+  'EZ CO₂ MASK KIT': ['brightening', 'anti-aging', 'pore-care'],
+  'BIO-FERMENT AGE DEFYING POWDER MASK': ['anti-aging', 'brightening'],
+  'SKIN REBOOT PDRN MASK PACK': ['anti-aging', 'hydration'],
+  
+  // Sun Protection
+  'ULTRA SHIELD SUN CREAM': ['sensitivity'],
+  'MULTI SUN CREAM': ['sensitivity'],
+  
+  // BB Cushion
+  'SKIN CARING BLEMISH BALM CUSHION': ['sensitivity', 'brightening'],
+  'INTENSIVE BLEMISH BALM CREAM': ['sensitivity', 'brightening'],
+  
+  // PRO Solutions (for microneedling - higher tier recommendations)
+  'POWER SOLUTION HES': ['hydration', 'anti-aging'],
+  'POWER SOLUTION CVS': ['hydration', 'sensitivity'],
+  'POWER SOLUTION CTS': ['anti-aging'],
+  'POWER SOLUTION PCS': ['acne-blemishes', 'pore-care'],
+  'POWER SOLUTION SWS': ['brightening'],
+  'POWER SOLUTION AWS': ['anti-aging'],
+  
+  // Devices (recommend for severe concerns only)
+  'Microneedle Roller': ['anti-aging', 'acne-blemishes'],
+  'Needle Pen-K': ['anti-aging', 'acne-blemishes'],
+  'GENO-LED IR II': ['anti-aging', 'acne-blemishes', 'sensitivity'],
+}
+
+// GENOSYS Product-to-SkinType mapping
+const GENOSYS_PRODUCT_SKIN_TYPES: Record<string, string[]> = {
+  // For DRY skin
+  'MOISTURE REPLENISHING HYALURON SERUM': ['dry', 'normal'],
+  'MOISTURE REPLENISHING HYALURON CREAM': ['dry', 'normal'],
+  'SKIN BARRIER PROTECTING CREAM': ['dry', 'sensitive'],
+  'INTENSIVE HYDRO SOOTHING CREAM': ['dry', 'normal', 'sensitive'],
+  
+  // For OILY/COMBINATION skin
+  'INTENSIVE PROBLEM CONTROL TONER': ['oily', 'combination'],
+  'PROBLEM CONTROL SERUM': ['oily', 'combination'],
+  'INTENSIVE PROBLEM CONTROL CREAM': ['oily', 'combination'],
+  'POWER SOLUTION PCS': ['oily', 'combination'],
+  
+  // For SENSITIVE skin
+  'ALL FOR SENSITIVE SERUM': ['sensitive', 'dry'],
+  'SOOTHING REPAIR POSTCREAM': ['sensitive'],
+  'SKIN BARRIER PROTECTING CREAM': ['sensitive', 'dry'],
+  'SOOTHING BOMB SEA ALGAE MASK': ['sensitive'],
+  
+  // Universal products (all skin types)
+  'SNOW O₂ CLEANSER': ['all'],
+  'SNOW BOOSTER': ['all'],
+  'MICROBIOME ENERGY INFUSING MIST': ['all'],
+  'MULTI VITA RADIANCE SERUM': ['all'],
+  'MULTI VITA RADIANCE CREAM': ['all'],
+  'MULTI FUNCTIONAL ANTI-WRINKLE SERUM': ['all'],
+  'MULTI FUNCTIONAL ANTI-WRINKLE CREAM': ['all'],
+  'PEPTIDE GEL MASK': ['all'],
+}
+
+// Score weights for recommendation ranking - adjusted for sharper recommendations
 const SCORE_WEIGHTS = {
-  exactSkinType: 30,        // Exact skin type match
+  exactSkinType: 40,        // Exact skin type match (increased)
   compatibleSkinType: 15,   // Compatible skin type
-  concernMatch: 20,         // Per matching concern
+  concernMatch: 35,         // Per matching concern (increased significantly)
   ageGroupMatch: 10,        // Age group match
   highRating: 5,            // Products with 4.5+ rating
-  universal: 5              // Products marked as suitable for all skin types
+  universal: 10,            // Products marked as suitable for all skin types
+  genosysMapping: 50,       // Bonus for products in our curated mapping
 }
 
 interface ScoredProduct extends Product {
@@ -257,13 +360,36 @@ export async function getSkinRecommendations(filters: {
     
     debugLog('📋 Enhanced concerns:', enhancedConcerns)
     
-    // Score each product
+    // Score each product using our curated GENOSYS mappings + database fields
     const scoredProducts: ScoredProduct[] = allProducts.map(product => {
       let score = 0
       const matchedConcerns: string[] = []
       
-      // 1. Skin type scoring
-      if (skinType && product.skinType) {
+      // Check if product is in our curated GENOSYS mapping (highest priority)
+      const curatedConcerns = GENOSYS_PRODUCT_CONCERNS[product.name]
+      const curatedSkinTypes = GENOSYS_PRODUCT_SKIN_TYPES[product.name]
+      
+      // 1. GENOSYS Curated Concerns Matching (highest weight)
+      if (curatedConcerns && enhancedConcerns.length > 0) {
+        for (const concern of enhancedConcerns) {
+          if (curatedConcerns.includes(concern)) {
+            score += SCORE_WEIGHTS.genosysMapping
+            if (!matchedConcerns.includes(concern)) {
+              matchedConcerns.push(concern)
+            }
+          }
+        }
+      }
+      
+      // 2. GENOSYS Curated Skin Type Matching
+      if (curatedSkinTypes && skinType) {
+        if (curatedSkinTypes.includes(skinType) || curatedSkinTypes.includes('all')) {
+          score += SCORE_WEIGHTS.exactSkinType
+        }
+      }
+      
+      // 3. Database skin type scoring (fallback for products not in curated list)
+      if (!curatedSkinTypes && skinType && product.skinType) {
         if (product.skinType === skinType) {
           score += SCORE_WEIGHTS.exactSkinType
         } else if (SKIN_TYPE_COMPATIBILITY[skinType]?.includes(product.skinType)) {
@@ -276,14 +402,16 @@ export async function getSkinRecommendations(filters: {
         score += SCORE_WEIGHTS.universal
       }
       
-      // 2. Target concerns scoring - most important factor
-      if (enhancedConcerns.length > 0 && product.targetConcerns) {
+      // 4. Database target concerns scoring (additional matching)
+      if (!curatedConcerns && enhancedConcerns.length > 0 && product.targetConcerns) {
         try {
           const productConcerns = JSON.parse(product.targetConcerns) as string[]
           for (const concern of enhancedConcerns) {
             if (productConcerns.includes(concern)) {
               score += SCORE_WEIGHTS.concernMatch
-              matchedConcerns.push(concern)
+              if (!matchedConcerns.includes(concern)) {
+                matchedConcerns.push(concern)
+              }
             }
           }
         } catch {
@@ -292,22 +420,60 @@ export async function getSkinRecommendations(filters: {
           for (const concern of enhancedConcerns) {
             if (productConcerns.includes(concern)) {
               score += SCORE_WEIGHTS.concernMatch
-              matchedConcerns.push(concern)
+              if (!matchedConcerns.includes(concern)) {
+                matchedConcerns.push(concern)
+              }
             }
           }
         }
       }
       
-      // 3. Age group scoring
+      // 5. Age group scoring
       if (ageGroup && product.ageGroup) {
         if (product.ageGroup === ageGroup || product.ageGroup === 'all') {
           score += SCORE_WEIGHTS.ageGroupMatch
         }
       }
       
-      // 4. Rating bonus
+      // 6. Rating bonus
       if (product.rating && product.rating >= 4.5) {
         score += SCORE_WEIGHTS.highRating
+      }
+      
+      // 7. Category-based bonuses for concern matching
+      // Anti-aging concerns should prioritize serums and creams
+      if (enhancedConcerns.includes('anti-aging')) {
+        if (product.category === 'Serum' || product.category === 'Cream') {
+          score += 15
+        }
+      }
+      
+      // Hydration concerns should prioritize serums, creams, and masks
+      if (enhancedConcerns.includes('hydration')) {
+        if (product.category === 'Serum' || product.category === 'Cream' || product.category === 'Mask') {
+          score += 15
+        }
+      }
+      
+      // Acne concerns should prioritize toners and serums
+      if (enhancedConcerns.includes('acne-blemishes') || enhancedConcerns.includes('pore-care')) {
+        if (product.category === 'Toner/Mist' || product.category === 'Serum') {
+          score += 15
+        }
+      }
+      
+      // Eye care should heavily prioritize Eye care category
+      if (enhancedConcerns.includes('eye-care')) {
+        if (product.category === 'Eye care') {
+          score += 30
+        }
+      }
+      
+      // Brightening should prioritize serums and masks
+      if (enhancedConcerns.includes('brightening')) {
+        if (product.category === 'Serum' || product.category === 'Mask' || product.category === 'Peeling') {
+          score += 15
+        }
       }
       
       return {

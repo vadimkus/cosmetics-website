@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useRef, useCallback, useEffect } from 'react'
-import { Camera, X, RefreshCw, Check, Sparkles, AlertCircle, Loader2, Sun, Moon, Eye, Droplets, Flame, Target, Clock, Info, ShieldCheck } from 'lucide-react'
+import { Camera, X, RefreshCw, Check, Sparkles, AlertCircle, Loader2, Sun, Moon, Eye, Droplets, Flame, Target, Clock, Info } from 'lucide-react'
 import { useTranslation } from '@/hooks/useTranslation'
 import { useHapticFeedback } from '@/hooks/useHapticFeedback'
 import { cn } from '@/lib/utils'
@@ -59,7 +59,6 @@ export function SkinAnalysisCamera({
   const [lightingWarning, setLightingWarning] = useState<string | null>(null)
   const [showDetails, setShowDetails] = useState(false)
   const [isSaving, setIsSaving] = useState(false)
-  const [savePhoto, setSavePhoto] = useState(true) // Option to save photo
 
   // Translations
   const t = {
@@ -806,7 +805,6 @@ export function SkinAnalysisCamera({
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          imageUrl: savePhoto ? capturedImage : null, // Only save if user opted in
           skinType: analysisResult.skinType,
           confidence: analysisResult.confidence,
           oilinessLevel: analysisResult.oilinessLevel,
@@ -1167,59 +1165,6 @@ export function SkinAnalysisCamera({
                       </div>
                     </div>
                   )}
-
-                  {/* Save Photo Toggle with Privacy Notice */}
-                  <div className="bg-white/5 rounded-xl mb-4 overflow-hidden">
-                    <button
-                      onClick={() => setSavePhoto(!savePhoto)}
-                      className="w-full flex items-center justify-between hover:bg-white/5 text-white/80 px-4 py-3 transition-colors"
-                    >
-                      <div className="flex items-center gap-3">
-                        <div className={cn(
-                          'w-8 h-8 rounded-full flex items-center justify-center transition-colors',
-                          savePhoto ? 'bg-primary-600/20' : 'bg-white/10'
-                        )}>
-                          {savePhoto ? (
-                            <Camera className="w-4 h-4 text-primary-400" />
-                          ) : (
-                            <ShieldCheck className="w-4 h-4 text-green-400" />
-                          )}
-                        </div>
-                        <div className="text-left">
-                          <span className="text-sm font-medium block">
-                            {locale === 'ar' ? 'حفظ الصورة للسجل' : locale === 'ru' ? 'Сохранить фото' : 'Save photo to history'}
-                          </span>
-                          <span className="text-xs text-white/50">
-                            {savePhoto 
-                              ? (locale === 'ar' ? 'سيتم حفظ صورتك' : locale === 'ru' ? 'Фото будет сохранено' : 'Your photo will be stored')
-                              : (locale === 'ar' ? 'البيانات فقط' : locale === 'ru' ? 'Только данные' : 'Only analysis data saved')
-                            }
-                          </span>
-                        </div>
-                      </div>
-                      <div className={cn(
-                        'w-11 h-6 rounded-full transition-colors flex items-center px-0.5',
-                        savePhoto ? 'bg-primary-600' : 'bg-white/20'
-                      )}>
-                        <div className={cn(
-                          'w-5 h-5 rounded-full bg-white shadow transition-transform',
-                          savePhoto ? 'translate-x-5' : 'translate-x-0'
-                        )} />
-                      </div>
-                    </button>
-                    {/* Privacy note */}
-                    <div className="px-4 pb-3 flex items-start gap-2 text-white/40">
-                      <Info className="w-3.5 h-3.5 mt-0.5 flex-shrink-0" />
-                      <p className="text-[10px] leading-tight">
-                        {locale === 'ar' 
-                          ? 'صورتك آمنة ومخزنة بشكل مشفر. يمكنك حذفها في أي وقت من سجل التحليلات.'
-                          : locale === 'ru' 
-                            ? 'Ваше фото защищено и хранится в зашифрованном виде. Вы можете удалить его в любое время.'
-                            : 'Your photo is securely encrypted. You can delete it anytime from your analysis history.'
-                        }
-                      </p>
-                    </div>
-                  </div>
 
                   {/* Action Buttons */}
                   <div className="flex gap-3">

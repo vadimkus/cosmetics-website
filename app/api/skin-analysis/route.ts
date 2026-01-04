@@ -37,7 +37,6 @@ export async function POST(request: NextRequest) {
     
     const body = await request.json()
     const {
-      imageUrl,
       skinType,
       confidence,
       oilinessLevel,
@@ -69,11 +68,10 @@ export async function POST(request: NextRequest) {
     // Get device info from user agent
     const userAgent = request.headers.get('user-agent') || null
 
-    // Create skin analysis record
+    // Create skin analysis record (no photo saved for privacy)
     const skinAnalysis = await prisma.skinAnalysis.create({
       data: {
         userId,
-        imageUrl: imageUrl || null, // Can be base64 or cloud URL
         skinType,
         confidence: Math.round(confidence),
         oilinessLevel: Math.round(oilinessLevel || 0),
@@ -148,7 +146,7 @@ export async function GET(request: NextRequest) {
         concerns: true,
         ageGroup: true,
         createdAt: true,
-        // Don't return imageUrl by default (large base64)
+        // imageUrl not stored (privacy - photos are not saved)
       },
     })
 

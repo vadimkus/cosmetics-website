@@ -231,7 +231,6 @@ const GENOSYS_PRODUCT_SKIN_TYPES: Record<string, string[]> = {
   // For DRY skin
   'MOISTURE REPLENISHING HYALURON SERUM': ['dry', 'normal'],
   'MOISTURE REPLENISHING HYALURON CREAM': ['dry', 'normal'],
-  'SKIN BARRIER PROTECTING CREAM': ['dry', 'sensitive'],
   'INTENSIVE HYDRO SOOTHING CREAM': ['dry', 'normal', 'sensitive'],
   
   // For OILY/COMBINATION skin
@@ -240,7 +239,7 @@ const GENOSYS_PRODUCT_SKIN_TYPES: Record<string, string[]> = {
   'INTENSIVE PROBLEM CONTROL CREAM': ['oily', 'combination'],
   'POWER SOLUTION PCS': ['oily', 'combination'],
   
-  // For SENSITIVE skin
+  // For SENSITIVE/DRY skin (combined)
   'ALL FOR SENSITIVE SERUM': ['sensitive', 'dry'],
   'SOOTHING REPAIR POSTCREAM': ['sensitive'],
   'SKIN BARRIER PROTECTING CREAM': ['sensitive', 'dry'],

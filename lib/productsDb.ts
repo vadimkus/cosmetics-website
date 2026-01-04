@@ -202,7 +202,7 @@ export async function getSkinRecommendations(filters: {
     }
     
     // Fetch ALL products with skin data for scoring
-    // EXCLUDE hair products from face skin analysis recommendations
+    // EXCLUDE hair/scalp products from face skin analysis recommendations
     const allProducts = await prisma.product.findMany({
       where: {
         inStock: true,
@@ -211,16 +211,20 @@ export async function getSkinRecommendations(filters: {
           { skinType: { not: null } },
           { targetConcerns: { not: null } }
         ],
-        // Exclude hair care products - these are for face skin analysis
-        NOT: {
-          OR: [
-            { targetConcerns: { contains: 'hair' } },
-            { category: { contains: 'Hair' } },
-            { category: { contains: 'hair' } },
-            { name: { contains: 'Hair' } },
-            { name: { contains: 'Scalp' } }
-          ]
-        }
+        // Exclude hair/scalp care products - these are for face skin analysis only
+        AND: [
+          { NOT: { targetConcerns: { contains: 'hair' } } },
+          { NOT: { category: { contains: 'Hair' } } },
+          { NOT: { category: { contains: 'hair' } } },
+          { NOT: { category: { contains: 'Scalp' } } },
+          { NOT: { category: { contains: 'scalp' } } },
+          { NOT: { name: { contains: 'Hair ' } } },       // "Hair " with space to avoid matching "Chair" etc
+          { NOT: { name: { contains: ' Hair' } } },       // " Hair" with space
+          { NOT: { name: { contains: 'Scalp' } } },
+          { NOT: { name: { contains: 'Shampoo' } } },
+          { NOT: { name: { contains: 'Hair Tonic' } } },
+          { NOT: { name: { contains: 'Scalp Peeling' } } },
+        ]
       }
     })
     

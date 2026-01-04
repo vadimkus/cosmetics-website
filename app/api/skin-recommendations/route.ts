@@ -7,23 +7,31 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url)
     const skinType = searchParams.get('skinType')
     const ageGroup = searchParams.get('ageGroup')
-    const targetConcerns = searchParams.get('targetConcerns')?.split(',') || []
+    const targetConcerns = searchParams.get('targetConcerns')?.split(',').filter(Boolean) || []
     
-    debugLog('🔍 Fetching skin recommendations:', { skinType, ageGroup, targetConcerns })
+    // New: analysis metrics for smarter recommendations
+    const oilinessLevel = searchParams.get('oilinessLevel') ? parseInt(searchParams.get('oilinessLevel')!) : undefined
+    const hydrationLevel = searchParams.get('hydrationLevel') ? parseInt(searchParams.get('hydrationLevel')!) : undefined
+    const rednessLevel = searchParams.get('rednessLevel') ? parseInt(searchParams.get('rednessLevel')!) : undefined
     
-    // Use the proper skin recommendations function that handles hair products correctly
+    debugLog('🔍 Fetching skin recommendations:', { skinType, ageGroup, targetConcerns, oilinessLevel, hydrationLevel, rednessLevel })
+    
+    // Use the scoring-based recommendations function
     const products = await getSkinRecommendations({
       ...(skinType && { skinType }),
       ...(ageGroup && { ageGroup }),
-      ...(targetConcerns.length > 0 && { targetConcerns })
+      ...(targetConcerns.length > 0 && { targetConcerns }),
+      ...(oilinessLevel !== undefined && { oilinessLevel }),
+      ...(hydrationLevel !== undefined && { hydrationLevel }),
+      ...(rednessLevel !== undefined && { rednessLevel })
     })
     
-    debugLog('✅ Found', products.length, 'recommended products')
+    debugLog('✅ Found', products.length, 'recommended products (scored & ranked)')
     
     const response = NextResponse.json(products)
     
-    // Add caching headers
-    response.headers.set('Cache-Control', 'public, s-maxage=1800, stale-while-revalidate=3600')
+    // Add caching headers (shorter cache for personalized results)
+    response.headers.set('Cache-Control', 'private, max-age=300')
     
     return response
   } catch (error) {
@@ -38,18 +46,21 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { skinType, ageGroup, targetConcerns } = body
+    const { skinType, ageGroup, targetConcerns, oilinessLevel, hydrationLevel, rednessLevel } = body
     
-    debugLog('🔍 Fetching skin recommendations via POST:', { skinType, ageGroup, targetConcerns })
+    debugLog('🔍 Fetching skin recommendations via POST:', { skinType, ageGroup, targetConcerns, oilinessLevel, hydrationLevel, rednessLevel })
     
-    // Use the proper skin recommendations function that handles hair products correctly
+    // Use the scoring-based recommendations function
     const products = await getSkinRecommendations({
       ...(skinType && { skinType }),
       ...(ageGroup && { ageGroup }),
-      ...(targetConcerns && targetConcerns.length > 0 && { targetConcerns })
+      ...(targetConcerns && targetConcerns.length > 0 && { targetConcerns }),
+      ...(oilinessLevel !== undefined && { oilinessLevel }),
+      ...(hydrationLevel !== undefined && { hydrationLevel }),
+      ...(rednessLevel !== undefined && { rednessLevel })
     })
     
-    debugLog('✅ Found', products.length, 'recommended products')
+    debugLog('✅ Found', products.length, 'recommended products (scored & ranked)')
     
     return NextResponse.json(products)
   } catch (error) {

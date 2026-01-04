@@ -147,116 +147,194 @@ export async function searchProducts(query: string): Promise<Product[]> {
   }
 }
 
+// Skin type compatibility matrix - which skin types work well together
+const SKIN_TYPE_COMPATIBILITY: Record<string, string[]> = {
+  'dry': ['dry', 'normal', 'sensitive'],
+  'oily': ['oily', 'combination', 'normal'],
+  'combination': ['combination', 'oily', 'normal', 'dry'],
+  'normal': ['normal', 'dry', 'oily', 'combination', 'sensitive'],
+  'sensitive': ['sensitive', 'dry', 'normal']
+}
+
+// Score weights for recommendation ranking
+const SCORE_WEIGHTS = {
+  exactSkinType: 30,        // Exact skin type match
+  compatibleSkinType: 15,   // Compatible skin type
+  concernMatch: 20,         // Per matching concern
+  ageGroupMatch: 10,        // Age group match
+  highRating: 5,            // Products with 4.5+ rating
+  universal: 5              // Products marked as suitable for all skin types
+}
+
+interface ScoredProduct extends Product {
+  _score: number
+  _matchedConcerns: string[]
+}
+
 export async function getSkinRecommendations(filters: {
   skinType?: string
   ageGroup?: string
   targetConcerns?: string[]
+  // New: analysis metrics for smarter recommendations
+  oilinessLevel?: number
+  hydrationLevel?: number
+  rednessLevel?: number
 }): Promise<Product[]> {
   try {
-    const { skinType, ageGroup, targetConcerns } = filters
+    const { skinType, ageGroup, targetConcerns, oilinessLevel, hydrationLevel, rednessLevel } = filters
     
-    debugLog('🔍 Fetching skin recommendations with filters:', { skinType, ageGroup, targetConcerns })
+    debugLog('🔍 Fetching skin recommendations with filters:', { skinType, ageGroup, targetConcerns, oilinessLevel, hydrationLevel, rednessLevel })
     
-    // Special handling for hair products - return them regardless of other filters
+    // Special handling for hair products
     if (targetConcerns && targetConcerns.includes('hair')) {
       debugLog('🔍 Hair category selected - returning hair products')
       
       const hairProducts = await prisma.product.findMany({
         where: {
           inStock: true,
-          isHidden: false, // Filter at database level
-          targetConcerns: {
-            contains: 'hair'
-          }
+          isHidden: false,
+          targetConcerns: { contains: 'hair' }
         },
-        orderBy: {
-          name: 'asc'
-        }
+        orderBy: { rating: 'desc' }
       })
       
       debugLog(`✅ Returning ${hairProducts.length} hair products`)
-      return hairProducts // No need to filter again since we filtered at DB level
+      return hairProducts
     }
     
-    // Build where clause for database query with proper typing
-    // Using Prisma.ProductWhereInput ensures type safety while allowing dynamic field assignment
-    const whereClause: Prisma.ProductWhereInput = {
-      inStock: true,
-      isHidden: false, // Filter hidden products at database level
-      skinType: { not: null } // Only products with skin type data
-    }
-    
-    // Add skin type filter
-    if (skinType) {
-      whereClause.skinType = skinType
-    }
-    
-    // Add age group filter
-    if (ageGroup) {
-      whereClause.ageGroup = ageGroup
-    }
-    
-    // Add target concerns filter
-    if (targetConcerns && targetConcerns.length > 0) {
-      // Create OR conditions for each target concern
-      whereClause.OR = targetConcerns.map(concern => ({
-        targetConcerns: {
-          contains: concern
-        }
-      }))
-    }
-    
-    debugLog('🔍 Database query where clause:', JSON.stringify(whereClause, null, 2))
-    
-    // Query products from database
-    const products = await prisma.product.findMany({
-      where: whereClause,
-      orderBy: {
-        name: 'asc'
+    // Fetch ALL products with skin data for scoring
+    const allProducts = await prisma.product.findMany({
+      where: {
+        inStock: true,
+        isHidden: false,
+        OR: [
+          { skinType: { not: null } },
+          { targetConcerns: { not: null } }
+        ]
       }
     })
     
-    debugLog(`✅ Found ${products.length} products matching criteria`)
+    debugLog(`📦 Found ${allProducts.length} products to score`)
     
-    // If no products found with exact matches, try more flexible matching
-    if (products.length === 0) {
-      debugLog('🔄 No exact matches found, trying flexible matching...')
+    // Enhanced concerns based on analysis metrics
+    const enhancedConcerns = [...(targetConcerns || [])]
+    
+    // Auto-add concerns based on analysis metrics
+    if (oilinessLevel !== undefined) {
+      if (oilinessLevel > 70 && !enhancedConcerns.includes('pore-care')) {
+        enhancedConcerns.push('pore-care')
+      }
+      if (oilinessLevel < 30 && !enhancedConcerns.includes('hydration')) {
+        enhancedConcerns.push('hydration')
+      }
+    }
+    
+    if (hydrationLevel !== undefined && hydrationLevel < 40) {
+      if (!enhancedConcerns.includes('hydration')) {
+        enhancedConcerns.push('hydration')
+      }
+    }
+    
+    if (rednessLevel !== undefined && rednessLevel > 50) {
+      if (!enhancedConcerns.includes('sensitivity')) {
+        enhancedConcerns.push('sensitivity')
+      }
+    }
+    
+    debugLog('📋 Enhanced concerns:', enhancedConcerns)
+    
+    // Score each product
+    const scoredProducts: ScoredProduct[] = allProducts.map(product => {
+      let score = 0
+      const matchedConcerns: string[] = []
       
-      // Try without age group filter
-      if (ageGroup) {
-        const flexibleWhere: Prisma.ProductWhereInput = { ...whereClause }
-        delete flexibleWhere.ageGroup
-        
-        const flexibleProducts = await prisma.product.findMany({
-          where: flexibleWhere,
-          orderBy: {
-            name: 'asc'
-          }
-        })
-        
-        if (flexibleProducts.length > 0) {
-          debugLog(`✅ Found ${flexibleProducts.length} products with flexible matching`)
-          return flexibleProducts // Already filtered at DB level
+      // 1. Skin type scoring
+      if (skinType && product.skinType) {
+        if (product.skinType === skinType) {
+          score += SCORE_WEIGHTS.exactSkinType
+        } else if (SKIN_TYPE_COMPATIBILITY[skinType]?.includes(product.skinType)) {
+          score += SCORE_WEIGHTS.compatibleSkinType
         }
       }
       
-      // If still no products, return all products with skin type data
-      debugLog('🔄 No flexible matches found, returning all products with skin data')
-      const allProductsWithSkinData = await prisma.product.findMany({
-        where: {
-          inStock: true,
-          isHidden: false, // Filter at database level
-          skinType: { not: null }
-        },
-        orderBy: {
-          name: 'asc'
-        }
-      })
+      // Universal products (work for all skin types)
+      if (product.skinType === 'all' || product.skinType === 'universal') {
+        score += SCORE_WEIGHTS.universal
+      }
       
-      return allProductsWithSkinData // Already filtered at DB level
+      // 2. Target concerns scoring - most important factor
+      if (enhancedConcerns.length > 0 && product.targetConcerns) {
+        try {
+          const productConcerns = JSON.parse(product.targetConcerns) as string[]
+          for (const concern of enhancedConcerns) {
+            if (productConcerns.includes(concern)) {
+              score += SCORE_WEIGHTS.concernMatch
+              matchedConcerns.push(concern)
+            }
+          }
+        } catch {
+          // If targetConcerns is a comma-separated string
+          const productConcerns = product.targetConcerns.split(',').map(c => c.trim())
+          for (const concern of enhancedConcerns) {
+            if (productConcerns.includes(concern)) {
+              score += SCORE_WEIGHTS.concernMatch
+              matchedConcerns.push(concern)
+            }
+          }
+        }
+      }
+      
+      // 3. Age group scoring
+      if (ageGroup && product.ageGroup) {
+        if (product.ageGroup === ageGroup || product.ageGroup === 'all') {
+          score += SCORE_WEIGHTS.ageGroupMatch
+        }
+      }
+      
+      // 4. Rating bonus
+      if (product.rating && product.rating >= 4.5) {
+        score += SCORE_WEIGHTS.highRating
+      }
+      
+      return {
+        ...product,
+        _score: score,
+        _matchedConcerns: matchedConcerns
+      }
+    })
+    
+    // Filter products with score > 0 and sort by score (highest first)
+    const recommendedProducts = scoredProducts
+      .filter(p => p._score > 0)
+      .sort((a, b) => {
+        // Primary: score
+        if (b._score !== a._score) return b._score - a._score
+        // Secondary: number of matched concerns
+        if (b._matchedConcerns.length !== a._matchedConcerns.length) {
+          return b._matchedConcerns.length - a._matchedConcerns.length
+        }
+        // Tertiary: rating
+        return (b.rating || 0) - (a.rating || 0)
+      })
+    
+    debugLog(`✅ Found ${recommendedProducts.length} scored products`)
+    debugLog('🏆 Top 5 products:', recommendedProducts.slice(0, 5).map(p => ({
+      name: p.name,
+      score: p._score,
+      matchedConcerns: p._matchedConcerns,
+      skinType: p.skinType
+    })))
+    
+    // If no products with score > 0, return top-rated products as fallback
+    if (recommendedProducts.length === 0) {
+      debugLog('🔄 No scored matches, returning top-rated products')
+      return allProducts
+        .sort((a, b) => (b.rating || 0) - (a.rating || 0))
+        .slice(0, 20)
     }
     
-    return products
+    // Remove internal scoring fields before returning
+    return recommendedProducts.map(({ _score, _matchedConcerns, ...product }) => product)
   } catch (error) {
     errorLog('Error fetching skin recommendations:', error)
     throw new Error('Failed to fetch skin recommendations')

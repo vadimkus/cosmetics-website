@@ -264,6 +264,13 @@ export default function SkinRecommendationClient() {
       if (selectedTargetConcerns.length > 0) {
         params.append('targetConcerns', selectedTargetConcerns.join(','))
       }
+      
+      // Pass analysis metrics for smarter recommendations
+      if (cameraResult) {
+        params.append('oilinessLevel', cameraResult.oilinessLevel.toString())
+        params.append('hydrationLevel', cameraResult.hydrationLevel.toString())
+        params.append('rednessLevel', cameraResult.rednessLevel.toString())
+      }
 
       const response = await fetch(`/api/skin-recommendations?${params.toString()}`)
       if (!response.ok) {
@@ -273,6 +280,7 @@ export default function SkinRecommendationClient() {
       
       setRecommendations(products)
       setShowResults(true)
+      setShowAnalysisReport(false) // Hide report when showing products
       window.scrollTo({ top: 0, behavior: 'smooth' })
     } catch (error) {
       errorLog('Error fetching recommendations:', error)
@@ -528,20 +536,50 @@ export default function SkinRecommendationClient() {
           {/* Get Recommendations Button */}
           <div className="text-center">
             <button
-              onClick={() => {
-                setShowAnalysisReport(false)
-                setCurrentStep(4)
-                // Auto-submit to get recommendations
-                setTimeout(() => {
-                  const form = document.querySelector('form')
-                  if (form) form.requestSubmit()
-                }, 100)
+              onClick={async () => {
+                setIsLoading(true)
+                try {
+                  const params = new URLSearchParams()
+                  if (selectedSkinType) params.append('skinType', selectedSkinType)
+                  if (selectedAgeGroup) params.append('ageGroup', selectedAgeGroup)
+                  if (selectedTargetConcerns.length > 0) {
+                    params.append('targetConcerns', selectedTargetConcerns.join(','))
+                  }
+                  // Pass analysis metrics for smarter recommendations
+                  if (cameraResult) {
+                    params.append('oilinessLevel', cameraResult.oilinessLevel.toString())
+                    params.append('hydrationLevel', cameraResult.hydrationLevel.toString())
+                    params.append('rednessLevel', cameraResult.rednessLevel.toString())
+                  }
+                  
+                  const response = await fetch(`/api/skin-recommendations?${params.toString()}`)
+                  if (!response.ok) throw new Error('Failed to fetch')
+                  const products = await response.json()
+                  
+                  setRecommendations(products)
+                  setShowResults(true)
+                  setShowAnalysisReport(false)
+                  window.scrollTo({ top: 0, behavior: 'smooth' })
+                } catch (error) {
+                  errorLog('Error fetching recommendations:', error)
+                  alert(t('skinRecommendation.failedToLoadRecommendations'))
+                } finally {
+                  setIsLoading(false)
+                }
               }}
-              className={`inline-flex items-center gap-2 bg-primary-600 hover:bg-primary-700 text-white font-semibold px-8 py-4 rounded-xl transition-all shadow-lg shadow-primary-200 active:scale-[0.98] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+              disabled={isLoading}
+              className={`inline-flex items-center gap-2 bg-primary-600 hover:bg-primary-700 text-white font-semibold px-8 py-4 rounded-xl transition-all shadow-lg shadow-primary-200 active:scale-[0.98] disabled:opacity-50 disabled:cursor-wait ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
             >
-              <Sparkles className="w-5 h-5" />
-              {locale === 'ar' ? 'عرض المنتجات الموصى بها' : locale === 'ru' ? 'Показать рекомендации' : 'View Recommended Products'}
-              <ArrowRight className={`w-5 h-5 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
+              {isLoading ? (
+                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+              ) : (
+                <Sparkles className="w-5 h-5" />
+              )}
+              {isLoading 
+                ? (locale === 'ar' ? 'جاري التحميل...' : locale === 'ru' ? 'Загрузка...' : 'Loading...')
+                : (locale === 'ar' ? 'عرض المنتجات الموصى بها' : locale === 'ru' ? 'Показать рекомендации' : 'View Recommended Products')
+              }
+              {!isLoading && <ArrowRight className={`w-5 h-5 ${dir === 'rtl' ? 'rotate-180' : ''}`} />}
             </button>
             <p className="text-gray-500 text-sm mt-3">
               {locale === 'ar' ? 'منتجات GENOSYS المناسبة لنوع بشرتك' : locale === 'ru' ? 'Продукты GENOSYS для вашего типа кожи' : 'GENOSYS products tailored for your skin type'}

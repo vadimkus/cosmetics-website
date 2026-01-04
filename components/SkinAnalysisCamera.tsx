@@ -851,7 +851,13 @@ export function SkinAnalysisCamera({
   
   useEffect(() => {
     setMounted(true)
-    return () => setMounted(false)
+    // Add class to body to hide PWA footer nav
+    document.body.classList.add('fullscreen-modal-open')
+    return () => {
+      setMounted(false)
+      // Remove class when unmounting
+      document.body.classList.remove('fullscreen-modal-open')
+    }
   }, [])
 
   // Camera UI content

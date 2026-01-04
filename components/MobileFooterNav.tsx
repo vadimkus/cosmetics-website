@@ -151,6 +151,32 @@ export default function MobileFooterNav() {
     return pathname.includes('/pdf-viewer')
   }, [pathname])
 
+  // Check if a fullscreen modal is open (e.g., camera)
+  const [isFullscreenModalOpen, setIsFullscreenModalOpen] = useState(false)
+  
+  useEffect(() => {
+    // Check if fullscreen modal class is on body
+    const checkModal = () => {
+      setIsFullscreenModalOpen(document.body.classList.contains('fullscreen-modal-open'))
+    }
+    
+    // Initial check
+    checkModal()
+    
+    // Use MutationObserver to watch for class changes on body
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.attributeName === 'class') {
+          checkModal()
+        }
+      })
+    })
+    
+    observer.observe(document.body, { attributes: true })
+    
+    return () => observer.disconnect()
+  }, [])
+
   // Determine active tab
   const activeTab = useMemo(() => {
     if (!pathname) return 'home'
@@ -166,8 +192,8 @@ export default function MobileFooterNav() {
   const cartCount = isClient ? getTotalItems() : 0
   const hasItemsInCart = cartCount > 0
   
-  // Only render in PWA mode on mobile, hide on product detail pages, login page, and PDF viewer
-  if (!isClient || !isPWA || isProductDetailPage || isLoginPage || isPDFViewerPage) {
+  // Only render in PWA mode on mobile, hide on product detail pages, login page, PDF viewer, and fullscreen modals
+  if (!isClient || !isPWA || isProductDetailPage || isLoginPage || isPDFViewerPage || isFullscreenModalOpen) {
     return null
   }
   

@@ -135,7 +135,6 @@ export default function PWAProfilePage() {
   const [pushSupported, setPushSupported] = useState(false)
   const [isLoggingOut, setIsLoggingOut] = useState(false)
   const [showSkinAnalysis, setShowSkinAnalysis] = useState(false)
-  const [skinAnalysisCount, setSkinAnalysisCount] = useState(0)
   const [lastSkinType, setLastSkinType] = useState<string | null>(null)
   const [showAnalysisSuccess, setShowAnalysisSuccess] = useState(false)
   
@@ -188,7 +187,6 @@ export default function PWAProfilePage() {
         })
         if (response.ok) {
           const data = await response.json()
-          setSkinAnalysisCount(data.total || 0)
           if (data.analyses && data.analyses.length > 0) {
             setLastSkinType(data.analyses[0].skinType)
           }
@@ -344,7 +342,6 @@ export default function PWAProfilePage() {
   // Handle skin analysis completion
   const handleSkinAnalysisComplete = (result: SkinAnalysisResult) => {
     setLastSkinType(result.skinType)
-    setSkinAnalysisCount(prev => prev + 1)
     setShowSkinAnalysis(false)
     
     // Show success message
@@ -629,16 +626,9 @@ export default function PWAProfilePage() {
             {/* AI Skin Analysis - Premium Feature */}
             <ProfileItem
               icon={
-                <div className="relative">
-                  <svg className="w-5 h-5 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                  </svg>
-                  {skinAnalysisCount > 0 && (
-                    <span className="absolute -top-1 -right-1 min-w-[14px] h-[14px] bg-red-600 text-white text-[9px] font-bold rounded-full flex items-center justify-center">
-                      {skinAnalysisCount > 9 ? '9+' : skinAnalysisCount}
-                    </span>
-                  )}
-                </div>
+                <svg className="w-5 h-5 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                </svg>
               }
               title={locale === 'ar' ? 'تحليل البشرة بالذكاء الاصطناعي' : locale === 'ru' ? 'AI Анализ кожи' : 'AI Skin Analysis'}
               subtitle={

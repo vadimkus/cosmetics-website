@@ -200,7 +200,7 @@ export default function PWAProfilePage() {
     fetchSkinAnalysisHistory()
   }, [user])
   
-  // Check push notification support and permission
+  // Check push notification support, permission, AND active subscription
   useEffect(() => {
     const checkPushSupport = async () => {
       // Check if push notifications are supported
@@ -210,7 +210,21 @@ export default function PWAProfilePage() {
       if (supported) {
         // Check current permission status
         const permission = Notification.permission
-        setPushNotifications(permission === 'granted')
+        
+        if (permission === 'granted') {
+          // Also verify there's an active subscription
+          try {
+            const registration = await navigator.serviceWorker.ready
+            const subscription = await registration.pushManager.getSubscription()
+            // Only show as enabled if both permission granted AND subscription exists
+            setPushNotifications(!!subscription)
+          } catch (error) {
+            console.error('[PUSH] Error checking subscription:', error)
+            setPushNotifications(false)
+          }
+        } else {
+          setPushNotifications(false)
+        }
       }
     }
     checkPushSupport()

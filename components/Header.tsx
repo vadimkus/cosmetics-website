@@ -60,6 +60,7 @@ const Header = memo(function Header() {
                                   pathname?.includes('/brand') ||
                                   pathname?.includes('/favorites') ||
                                   pathname?.includes('/locations') ||
+                                  pathname?.includes('/skin-recommendation') ||
                                   isProductDetailPage
   
   // In PWA mode, hide header completely on pages with their own light header

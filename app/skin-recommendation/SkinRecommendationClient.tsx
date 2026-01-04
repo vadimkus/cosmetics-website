@@ -3,12 +3,13 @@
 import { useState, useMemo, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { useSearchParams } from 'next/navigation'
+import { useSearchParams, useRouter } from 'next/navigation'
 import { ShoppingCart, Heart, Sparkles, ArrowRight, ArrowLeft, CheckCircle2, Info, Star, Camera, Scan, Droplets, Target, Flame, Eye, Palette, Clock } from 'lucide-react'
 import { SkinAnalysisCamera, SkinAnalysisResult } from '@/components/SkinAnalysisCamera'
 import { useCart } from '@/components/CartProvider'
 import { useAuth } from '@/components/AuthProvider'
 import { useFavorites } from '@/components/FavoritesProvider'
+import { usePWAMode } from '@/hooks/usePWAMode'
 import { errorLog } from '@/lib/logger'
 import BreadcrumbSchema from '@/components/BreadcrumbSchema'
 import { calculateDiscountedPrice, canUserSeePrices } from '@/lib/discountUtils'
@@ -24,7 +25,9 @@ export default function SkinRecommendationClient() {
   const { user } = useAuth()
   const { addItem } = useCart()
   const { toggleFavorite, isFavorite } = useFavorites()
+  const { isPWA, isClient } = usePWAMode()
   const searchParams = useSearchParams()
+  const router = useRouter()
   
   const [selectedSkinType, setSelectedSkinType] = useState('')
   const [selectedAgeGroup, setSelectedAgeGroup] = useState('')
@@ -347,8 +350,10 @@ export default function SkinRecommendationClient() {
     return groups
   }, [recommendations])
 
+  const isRTL = dir === 'rtl'
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white" dir={dir}>
+    <div className={`min-h-screen bg-gradient-to-b from-gray-50 to-white ${isPWA ? 'pb-32' : ''}`} dir={dir}>
       <BreadcrumbSchema 
         items={[
           { name: t('common.home'), url: getLocalizedPath('/', locale) },
@@ -356,20 +361,59 @@ export default function SkinRecommendationClient() {
         ]}
       />
 
-      <div className="container mx-auto px-3 md:px-4 py-4 md:py-16">
+      {/* PWA Simple Navigation Header */}
+      {isPWA && isClient && (
+        <div className={`flex items-center justify-between px-5 py-4 bg-white border-b border-gray-100 ${isRTL ? 'flex-row-reverse' : ''}`}>
+          <button 
+            onClick={() => router.push(getLocalizedPath('/profile', locale))}
+            className={`flex items-center gap-1 min-w-[80px] ${isRTL ? 'flex-row-reverse' : ''}`}
+          >
+            <svg className={`w-5 h-5 text-red-600 ${isRTL ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+            <span className="text-base text-red-600">
+              {t('pwaProfile.account') || 'Account'}
+            </span>
+          </button>
+          <span className="text-base font-semibold text-gray-900">
+            {locale === 'ar' ? 'تحليل البشرة' : locale === 'ru' ? 'Анализ кожи' : 'Skin Analysis'}
+          </span>
+          {/* Profile Icon with green dot */}
+          <button 
+            onClick={() => router.push(getLocalizedPath('/profile', locale))}
+            className="min-w-[80px] flex justify-end"
+          >
+            <div className="relative">
+              <div className="w-8 h-8 rounded-full bg-red-600 flex items-center justify-center">
+                <span className="text-sm font-semibold text-white">
+                  {user?.name?.charAt(0)?.toUpperCase() || 'U'}
+                </span>
+              </div>
+              {/* Green online dot */}
+              <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 rounded-full border-2 border-white" />
+            </div>
+          </button>
+        </div>
+      )}
+
+      <div className={`container mx-auto px-3 md:px-4 ${isPWA ? 'py-4' : 'py-4 md:py-16'}`}>
         <div className="max-w-5xl mx-auto">
-          {/* Navigation Breadcrumb */}
-          <nav className={`text-xs md:text-base text-gray-600 mb-2 md:mb-4 ${dir === 'rtl' ? 'text-right' : ''}`} aria-label="Breadcrumb">
-            <Link href={getLocalizedPath('/', locale)} className="hover:text-primary-600 transition-colors">{t('common.home')}</Link>
-            <span> / </span>
-            <span className="text-gray-900 font-medium">{t('skinRecommendation.title')}</span>
-          </nav>
+          {/* Navigation Breadcrumb - Hide in PWA */}
+          {!isPWA && (
+            <nav className={`text-xs md:text-base text-gray-600 mb-2 md:mb-4 ${dir === 'rtl' ? 'text-right' : ''}`} aria-label="Breadcrumb">
+              <Link href={getLocalizedPath('/', locale)} className="hover:text-primary-600 transition-colors">{t('common.home')}</Link>
+              <span> / </span>
+              <span className="text-gray-900 font-medium">{t('skinRecommendation.title')}</span>
+            </nav>
+          )}
           
-          {/* Back to Home */}
-          <Link href={getLocalizedPath('/', locale)} className={`inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 mb-4 md:mb-8 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-            <ArrowLeft className={`h-3 w-3 md:h-4 md:w-4 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
-            <span>{t('common.backToHome')}</span>
-          </Link>
+          {/* Back to Home - Hide in PWA */}
+          {!isPWA && (
+            <Link href={getLocalizedPath('/', locale)} className={`inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 mb-4 md:mb-8 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+              <ArrowLeft className={`h-3 w-3 md:h-4 md:w-4 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
+              <span>{t('common.backToHome')}</span>
+            </Link>
+          )}
 
       {/* Camera Modal */}
       {showCamera && (

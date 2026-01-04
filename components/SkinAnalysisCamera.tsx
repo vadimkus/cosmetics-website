@@ -885,11 +885,11 @@ export function SkinAnalysisCamera({
             
             {/* Face Guide Overlay */}
             {(cameraState === 'ready' || cameraState === 'countdown') && (
-              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none" style={{ paddingBottom: '180px' }}>
                 {/* Darkened corners */}
                 <div className="absolute inset-0 bg-black/40" style={{
-                  maskImage: 'radial-gradient(ellipse 140px 180px at center, transparent 98%, black 100%)',
-                  WebkitMaskImage: 'radial-gradient(ellipse 140px 180px at center, transparent 98%, black 100%)',
+                  maskImage: 'radial-gradient(ellipse 140px 180px at 50% 40%, transparent 98%, black 100%)',
+                  WebkitMaskImage: 'radial-gradient(ellipse 140px 180px at 50% 40%, transparent 98%, black 100%)',
                 }} />
                 
                 {/* Face oval guide */}
@@ -1226,25 +1226,9 @@ export function SkinAnalysisCamera({
 
       {/* Bottom Controls */}
       {!capturedImage && cameraState === 'ready' && (
-        <div className="px-4 py-5 bg-gradient-to-t from-black/90 to-transparent safe-area-bottom">
-          {/* Tips */}
-          <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 mb-5 text-white/50 text-xs">
-            <span className="flex items-center gap-1">
-              <Eye className="w-3 h-3" />
-              {t.positionFace}
-            </span>
-            <span className="flex items-center gap-1">
-              <Sun className="w-3 h-3" />
-              {t.goodLighting}
-            </span>
-            <span className="flex items-center gap-1">
-              <Moon className="w-3 h-3" />
-              {t.noMakeup}
-            </span>
-          </div>
-
-          {/* Capture Button */}
-          <div className="flex items-center justify-center gap-6">
+        <div className="px-4 pt-4 pb-8 mb-16 bg-gradient-to-t from-black via-black/95 to-transparent">
+          {/* Capture Button - Put first for visibility */}
+          <div className="flex items-center justify-center gap-6 mb-4">
             {/* Switch Camera */}
             <button
               onClick={switchCamera}
@@ -1263,6 +1247,22 @@ export function SkinAnalysisCamera({
 
             {/* Placeholder for symmetry */}
             <div className="w-12 h-12" />
+          </div>
+
+          {/* Tips */}
+          <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 text-white/50 text-xs">
+            <span className="flex items-center gap-1">
+              <Eye className="w-3 h-3" />
+              {t.positionFace}
+            </span>
+            <span className="flex items-center gap-1">
+              <Sun className="w-3 h-3" />
+              {t.goodLighting}
+            </span>
+            <span className="flex items-center gap-1">
+              <Moon className="w-3 h-3" />
+              {t.noMakeup}
+            </span>
           </div>
         </div>
       )}

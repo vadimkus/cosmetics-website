@@ -1,13 +1,39 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/database'
 import { debugLog, errorLog } from '@/lib/logger'
-import { getServerSession } from 'next-auth'
-import { authOptions } from '@/lib/auth'
+import { findUserById, findUserByEmail } from '@/lib/userStorageDb'
+
+// Helper to get user from session cookie
+async function getUserFromSession(request: NextRequest) {
+  const sessionCookie = request.cookies.get('genosys_session')
+  
+  if (!sessionCookie) {
+    return null
+  }
+
+  try {
+    const sessionData = JSON.parse(sessionCookie.value)
+    
+    if (!sessionData.email && !sessionData.id) {
+      return null
+    }
+
+    // Fetch user from database
+    const user = sessionData.id
+      ? await findUserById(sessionData.id)
+      : await findUserByEmail(sessionData.email)
+    
+    return user
+  } catch (error) {
+    errorLog('Error parsing session:', error)
+    return null
+  }
+}
 
 export async function POST(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions)
-    const userId = session?.user?.id || null
+    const user = await getUserFromSession(request)
+    const userId = user?.id || null
     
     const body = await request.json()
     const {
@@ -41,7 +67,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Get device info from user agent
-    const userAgent = request.headers.get('user-agent') || undefined
+    const userAgent = request.headers.get('user-agent') || null
 
     // Create skin analysis record
     const skinAnalysis = await prisma.skinAnalysis.create({
@@ -89,9 +115,9 @@ export async function POST(request: NextRequest) {
 // GET - Fetch user's skin analysis history
 export async function GET(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions)
+    const user = await getUserFromSession(request)
     
-    if (!session?.user?.id) {
+    if (!user?.id) {
       return NextResponse.json(
         { error: 'Authentication required' },
         { status: 401 }
@@ -103,7 +129,7 @@ export async function GET(request: NextRequest) {
     const offset = parseInt(searchParams.get('offset') || '0')
 
     const analyses = await prisma.skinAnalysis.findMany({
-      where: { userId: session.user.id },
+      where: { userId: user.id },
       orderBy: { createdAt: 'desc' },
       take: limit,
       skip: offset,
@@ -133,7 +159,7 @@ export async function GET(request: NextRequest) {
     }))
 
     const total = await prisma.skinAnalysis.count({
-      where: { userId: session.user.id },
+      where: { userId: user.id },
     })
 
     return NextResponse.json({

@@ -16,6 +16,45 @@ const defaultCategories = [
   'PRO Solution', 'Scalp/Hair', 'Cushion BB', 'Sun', 'Cream', 'Toner/Mist', 'Cleanser'
 ]
 
+// Skin recommendation options
+const SKIN_TYPES = [
+  { value: '', label: 'Not specified' },
+  { value: 'dry', label: 'Dry' },
+  { value: 'oily', label: 'Oily' },
+  { value: 'combination', label: 'Combination' },
+  { value: 'normal', label: 'Normal' },
+  { value: 'sensitive', label: 'Sensitive' },
+  { value: 'all', label: 'All Skin Types' }
+]
+
+const TARGET_CONCERNS = [
+  { value: 'anti-aging', label: 'Anti-Aging' },
+  { value: 'acne-blemishes', label: 'Acne & Blemishes' },
+  { value: 'hydration', label: 'Hydration' },
+  { value: 'brightening', label: 'Brightening' },
+  { value: 'sensitivity', label: 'Sensitivity' },
+  { value: 'pore-care', label: 'Pore Care' },
+  { value: 'eye-care', label: 'Eye Care' },
+  { value: 'hair', label: 'Hair Care' }
+]
+
+const AGE_GROUPS = [
+  { value: '', label: 'Not specified' },
+  { value: 'teen', label: 'Teen (13-19)' },
+  { value: 'young-adult', label: 'Young Adult (20-35)' },
+  { value: 'adult', label: 'Adult (36-50)' },
+  { value: 'mature', label: 'Mature (50+)' },
+  { value: 'all', label: 'All Ages' }
+]
+
+const USAGE_OPTIONS = [
+  { value: '', label: 'Not specified' },
+  { value: 'morning', label: 'Morning' },
+  { value: 'evening', label: 'Evening' },
+  { value: 'all-day', label: 'All Day' },
+  { value: 'morning-evening', label: 'Morning & Evening' }
+]
+
 export default function ProductForm({ product, onSave, onCancel }: ProductFormProps) {
   const [formData, setFormData] = useState<Partial<Product>>({
     name: '',
@@ -26,7 +65,12 @@ export default function ProductForm({ product, onSave, onCancel }: ProductFormPr
     category: defaultCategories[0] || '',
     inStock: true,
     size: '',
+    skinType: '',
+    targetConcerns: '[]',
+    usage: '',
+    ageGroup: '',
   })
+  const [selectedConcerns, setSelectedConcerns] = useState<string[]>([])
   const [imagePreviews, setImagePreviews] = useState<string[]>([])
   const [uploadingImage, setUploadingImage] = useState(false)
   const [errors, setErrors] = useState<Record<string, string>>({})
@@ -46,7 +90,23 @@ export default function ProductForm({ product, onSave, onCancel }: ProductFormPr
         category: product.category,
         inStock: product.inStock,
         size: product.size || '',
+        skinType: product.skinType || '',
+        targetConcerns: product.targetConcerns || '[]',
+        usage: product.usage || '',
+        ageGroup: product.ageGroup || '',
       })
+      
+      // Parse target concerns
+      if (product.targetConcerns) {
+        try {
+          const concerns = JSON.parse(product.targetConcerns)
+          setSelectedConcerns(Array.isArray(concerns) ? concerns : [])
+        } catch {
+          setSelectedConcerns([])
+        }
+      } else {
+        setSelectedConcerns([])
+      }
       
       // Parse images if they exist
       if (product.images) {
@@ -69,11 +129,30 @@ export default function ProductForm({ product, onSave, onCancel }: ProductFormPr
         category: defaultCategories[0] || '',
         inStock: true,
         size: '',
+        skinType: '',
+        targetConcerns: '[]',
+        usage: '',
+        ageGroup: '',
       })
       setImagePreviews([])
+      setSelectedConcerns([])
     }
     setErrors({})
   }, [product])
+
+  const handleConcernToggle = (concern: string) => {
+    setSelectedConcerns(prev => {
+      const newConcerns = prev.includes(concern)
+        ? prev.filter(c => c !== concern)
+        : [...prev, concern]
+      // Update formData with JSON string
+      setFormData(prevData => ({
+        ...prevData,
+        targetConcerns: JSON.stringify(newConcerns)
+      }))
+      return newConcerns
+    })
+  }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target
@@ -318,6 +397,83 @@ export default function ProductForm({ product, onSave, onCancel }: ProductFormPr
                   className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
                 />
                 <label htmlFor="inStock" className="ml-2 block text-sm text-gray-900">In Stock</label>
+              </div>
+
+              {/* Skin Recommendation Section */}
+              <div className="col-span-2 pt-4 border-t border-gray-200">
+                <h3 className="text-lg font-medium text-gray-900 mb-4">🎯 Skin Recommendation Settings</h3>
+                <p className="text-sm text-gray-500 mb-4">Configure these fields for AI-powered product recommendations based on skin analysis.</p>
+                
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  {/* Skin Type */}
+                  <div>
+                    <label htmlFor="skinType" className="block text-sm font-medium text-gray-700 mb-1">Skin Type</label>
+                    <select
+                      id="skinType"
+                      name="skinType"
+                      value={formData.skinType || ''}
+                      onChange={handleChange}
+                      className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
+                    >
+                      {SKIN_TYPES.map(type => (
+                        <option key={type.value} value={type.value}>{type.label}</option>
+                      ))}
+                    </select>
+                  </div>
+
+                  {/* Age Group */}
+                  <div>
+                    <label htmlFor="ageGroup" className="block text-sm font-medium text-gray-700 mb-1">Age Group</label>
+                    <select
+                      id="ageGroup"
+                      name="ageGroup"
+                      value={formData.ageGroup || ''}
+                      onChange={handleChange}
+                      className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
+                    >
+                      {AGE_GROUPS.map(group => (
+                        <option key={group.value} value={group.value}>{group.label}</option>
+                      ))}
+                    </select>
+                  </div>
+
+                  {/* Usage Time */}
+                  <div>
+                    <label htmlFor="usage" className="block text-sm font-medium text-gray-700 mb-1">Usage Time</label>
+                    <select
+                      id="usage"
+                      name="usage"
+                      value={formData.usage || ''}
+                      onChange={handleChange}
+                      className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
+                    >
+                      {USAGE_OPTIONS.map(opt => (
+                        <option key={opt.value} value={opt.value}>{opt.label}</option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+
+                {/* Target Concerns - Multi-select */}
+                <div className="mt-4">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Target Concerns (select all that apply)</label>
+                  <div className="flex flex-wrap gap-2">
+                    {TARGET_CONCERNS.map(concern => (
+                      <button
+                        key={concern.value}
+                        type="button"
+                        onClick={() => handleConcernToggle(concern.value)}
+                        className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
+                          selectedConcerns.includes(concern.value)
+                            ? 'bg-primary-600 text-white'
+                            : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                        }`}
+                      >
+                        {selectedConcerns.includes(concern.value) ? '✓ ' : ''}{concern.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
 

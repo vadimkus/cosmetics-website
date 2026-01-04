@@ -202,6 +202,7 @@ export async function getSkinRecommendations(filters: {
     }
     
     // Fetch ALL products with skin data for scoring
+    // EXCLUDE hair products from face skin analysis recommendations
     const allProducts = await prisma.product.findMany({
       where: {
         inStock: true,
@@ -209,7 +210,17 @@ export async function getSkinRecommendations(filters: {
         OR: [
           { skinType: { not: null } },
           { targetConcerns: { not: null } }
-        ]
+        ],
+        // Exclude hair care products - these are for face skin analysis
+        NOT: {
+          OR: [
+            { targetConcerns: { contains: 'hair' } },
+            { category: { contains: 'Hair' } },
+            { category: { contains: 'hair' } },
+            { name: { contains: 'Hair' } },
+            { name: { contains: 'Scalp' } }
+          ]
+        }
       }
     })
     

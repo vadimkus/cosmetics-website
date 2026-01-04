@@ -850,8 +850,11 @@ export function SkinAnalysisCamera({
       'fixed inset-0 z-[100] bg-black flex flex-col',
       className
     )}>
-      {/* Header */}
-      <div className="flex items-center justify-between px-4 py-3 bg-gradient-to-b from-black/90 to-transparent safe-area-top relative z-10">
+      {/* Header - with safe area padding for PWA notch */}
+      <div 
+        className="flex items-center justify-between px-4 py-3 bg-gradient-to-b from-black/90 to-transparent relative z-10 flex-shrink-0"
+        style={{ paddingTop: 'max(12px, env(safe-area-inset-top, 12px))' }}
+      >
         <button
           onClick={onClose}
           className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center active:scale-95 transition-transform"
@@ -891,10 +894,10 @@ export function SkinAnalysisCamera({
                 }} />
                 
                 {/* Darkened overlay with oval cutout - Mobile/PWA */}
-                {/* Position at 50% from top - centered closer to capture button */}
+                {/* Position at 45% from top for better centering in camera view */}
                 <div className="absolute inset-0 bg-black/40 md:hidden pointer-events-none" style={{
-                  maskImage: 'radial-gradient(ellipse 120px 160px at 50% 50%, transparent 98%, black 100%)',
-                  WebkitMaskImage: 'radial-gradient(ellipse 120px 160px at 50% 50%, transparent 98%, black 100%)',
+                  maskImage: 'radial-gradient(ellipse 120px 160px at 50% 45%, transparent 98%, black 100%)',
+                  WebkitMaskImage: 'radial-gradient(ellipse 120px 160px at 50% 45%, transparent 98%, black 100%)',
                 }} />
                 
                 {/* Face oval guide - Desktop */}
@@ -921,9 +924,9 @@ export function SkinAnalysisCamera({
                 </div>
                 
                 {/* Face oval guide - Mobile/PWA */}
-                {/* Use absolute positioning - centered at 50% closer to capture button */}
-                <div className="md:hidden absolute inset-x-0 pointer-events-none" style={{ top: 'calc(50% - 160px)' }}>
-                  <div className="w-[240px] h-[320px] mx-auto relative">
+                {/* Use flexbox to center oval in the camera view area */}
+                <div className="md:hidden absolute inset-0 flex items-center justify-center pointer-events-none" style={{ paddingBottom: '15%' }}>
+                  <div className="w-[240px] h-[320px] relative">
                     <div className="absolute inset-0 border-2 border-white/70 rounded-[50%]" />
                     <div className="absolute inset-2 border border-white/30 rounded-[50%]" />
                     
@@ -1204,7 +1207,10 @@ export function SkinAnalysisCamera({
 
       {/* Bottom Controls */}
       {!capturedImage && cameraState === 'ready' && (
-        <div className="px-4 pt-4 pb-8 mb-16 md:mb-4 bg-gradient-to-t from-black via-black/95 to-transparent">
+        <div 
+          className="px-4 pt-4 bg-gradient-to-t from-black via-black/95 to-transparent flex-shrink-0"
+          style={{ paddingBottom: 'max(32px, env(safe-area-inset-bottom, 32px))' }}
+        >
           {/* Capture Button - Put first for visibility */}
           <div className="flex items-center justify-center gap-6 mb-4">
             {/* Switch Camera */}

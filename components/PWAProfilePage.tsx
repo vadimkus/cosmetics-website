@@ -337,6 +337,11 @@ export default function PWAProfilePage() {
     setShowAnalysisSuccess(true)
     setTimeout(() => setShowAnalysisSuccess(false), 3000)
     
+    // Store full analysis result in sessionStorage for the recommendation page
+    if (typeof window !== 'undefined') {
+      sessionStorage.setItem('skinAnalysisResult', JSON.stringify(result))
+    }
+    
     // Navigate to recommendations with results
     setTimeout(() => {
       router.push(getLocalizedPath('/skin-recommendation', locale) + `?skinType=${result.skinType}&concerns=${result.concerns.join(',')}&fromAnalysis=true`)

@@ -1,9 +1,10 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { ShoppingCart, Heart, Sparkles, ArrowRight, ArrowLeft, CheckCircle2, Info, Star, Camera, Scan } from 'lucide-react'
+import { useSearchParams } from 'next/navigation'
+import { ShoppingCart, Heart, Sparkles, ArrowRight, ArrowLeft, CheckCircle2, Info, Star, Camera, Scan, Droplets, Target, Flame, Eye, Palette, Clock } from 'lucide-react'
 import { SkinAnalysisCamera, SkinAnalysisResult } from '@/components/SkinAnalysisCamera'
 import { useCart } from '@/components/CartProvider'
 import { useAuth } from '@/components/AuthProvider'
@@ -23,6 +24,7 @@ export default function SkinRecommendationClient() {
   const { user } = useAuth()
   const { addItem } = useCart()
   const { toggleFavorite, isFavorite } = useFavorites()
+  const searchParams = useSearchParams()
   
   const [selectedSkinType, setSelectedSkinType] = useState('')
   const [selectedAgeGroup, setSelectedAgeGroup] = useState('')
@@ -36,6 +38,52 @@ export default function SkinRecommendationClient() {
   // Camera analysis state
   const [showCamera, setShowCamera] = useState(false)
   const [cameraResult, setCameraResult] = useState<SkinAnalysisResult | null>(null)
+  const [showAnalysisReport, setShowAnalysisReport] = useState(false)
+
+  // Load analysis data from URL params and sessionStorage
+  useEffect(() => {
+    const fromAnalysis = searchParams.get('fromAnalysis')
+    const skinType = searchParams.get('skinType')
+    const concerns = searchParams.get('concerns')
+    
+    if (fromAnalysis === 'true' && skinType) {
+      // Try to load full analysis from sessionStorage
+      const storedAnalysis = typeof window !== 'undefined' 
+        ? sessionStorage.getItem('skinAnalysisResult') 
+        : null
+      
+      if (storedAnalysis) {
+        try {
+          const analysisData = JSON.parse(storedAnalysis) as SkinAnalysisResult
+          setCameraResult(analysisData)
+          setSelectedSkinType(analysisData.skinType)
+          setSelectedTargetConcerns(analysisData.concerns)
+          
+          // Estimate age group
+          if (analysisData.concerns.includes('anti-aging')) {
+            setSelectedAgeGroup('mature')
+          } else if (analysisData.concerns.includes('acne-blemishes')) {
+            setSelectedAgeGroup('teen')
+          } else if (analysisData.hydrationLevel < 50) {
+            setSelectedAgeGroup('adult')
+          } else {
+            setSelectedAgeGroup('young-adult')
+          }
+          
+          setShowAnalysisReport(true)
+          // Clear sessionStorage after loading
+          sessionStorage.removeItem('skinAnalysisResult')
+        } catch (e) {
+          errorLog('Error parsing stored analysis:', e)
+        }
+      } else if (concerns) {
+        // Fallback to URL params only
+        setSelectedSkinType(skinType)
+        setSelectedTargetConcerns(concerns.split(','))
+        setShowAnalysisReport(true)
+      }
+    }
+  }, [searchParams])
 
   // Handle camera analysis completion
   const handleCameraAnalysisComplete = (result: SkinAnalysisResult) => {
@@ -57,7 +105,8 @@ export default function SkinRecommendationClient() {
       setSelectedAgeGroup('young-adult')
     }
     
-    setCurrentStep(4)
+    // Show analysis report
+    setShowAnalysisReport(true)
   }
 
   // Get translated data arrays
@@ -324,7 +373,182 @@ export default function SkinRecommendationClient() {
         />
       )}
 
-      {!showResults ? (
+      {/* Analysis Report - Shown when coming from camera analysis */}
+      {showAnalysisReport && cameraResult && !showResults ? (
+        <div className="mb-8">
+          {/* Report Header */}
+          <div className="text-center mb-6">
+            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-primary-500 to-primary-600 mb-4 shadow-lg shadow-primary-200">
+              <Sparkles className="w-8 h-8 text-white" />
+            </div>
+            <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
+              {locale === 'ar' ? 'تقرير تحليل بشرتك' : locale === 'ru' ? 'Отчёт анализа кожи' : 'Your Skin Analysis Report'}
+            </h1>
+            <p className="text-gray-600">
+              {locale === 'ar' ? 'نتائج تحليل بشرتك بالذكاء الاصطناعي' : locale === 'ru' ? 'Результаты AI-анализа вашей кожи' : 'AI-powered skin analysis results'}
+            </p>
+          </div>
+
+          {/* Main Results Card */}
+          <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden mb-6">
+            {/* Skin Type Header */}
+            <div className="bg-gradient-to-r from-primary-500 to-primary-600 px-6 py-5 text-white">
+              <div className={`flex items-center justify-between ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                <div>
+                  <p className="text-primary-100 text-sm mb-1">
+                    {locale === 'ar' ? 'نوع بشرتك' : locale === 'ru' ? 'Тип вашей кожи' : 'Your Skin Type'}
+                  </p>
+                  <p className="text-2xl md:text-3xl font-bold">
+                    {SKIN_TYPES.find(st => st.value === cameraResult.skinType)?.icon}{' '}
+                    {SKIN_TYPES.find(st => st.value === cameraResult.skinType)?.label || cameraResult.skinType}
+                  </p>
+                </div>
+                <div className="text-right">
+                  <p className="text-primary-100 text-sm mb-1">
+                    {locale === 'ar' ? 'دقة التحليل' : locale === 'ru' ? 'Точность' : 'Confidence'}
+                  </p>
+                  <p className="text-2xl font-bold">{cameraResult.confidence}%</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Metrics Grid */}
+            <div className="p-6">
+              <h3 className={`text-lg font-semibold text-gray-900 mb-4 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                {locale === 'ar' ? 'مقاييس البشرة' : locale === 'ru' ? 'Показатели кожи' : 'Skin Metrics'}
+              </h3>
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                {/* Oiliness */}
+                <div className="bg-amber-50 rounded-xl p-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Droplets className="w-5 h-5 text-amber-600" />
+                    <span className="text-sm font-medium text-amber-800">
+                      {locale === 'ar' ? 'الدهنية' : locale === 'ru' ? 'Жирность' : 'Oiliness'}
+                    </span>
+                  </div>
+                  <p className="text-2xl font-bold text-amber-700">{cameraResult.oilinessLevel}%</p>
+                  <div className="h-2 bg-amber-100 rounded-full mt-2 overflow-hidden">
+                    <div className="h-full bg-amber-500 rounded-full" style={{ width: `${cameraResult.oilinessLevel}%` }} />
+                  </div>
+                </div>
+
+                {/* Hydration */}
+                <div className="bg-blue-50 rounded-xl p-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Target className="w-5 h-5 text-blue-600" />
+                    <span className="text-sm font-medium text-blue-800">
+                      {locale === 'ar' ? 'الترطيب' : locale === 'ru' ? 'Увлажнение' : 'Hydration'}
+                    </span>
+                  </div>
+                  <p className="text-2xl font-bold text-blue-700">{cameraResult.hydrationLevel}%</p>
+                  <div className="h-2 bg-blue-100 rounded-full mt-2 overflow-hidden">
+                    <div className="h-full bg-blue-500 rounded-full" style={{ width: `${cameraResult.hydrationLevel}%` }} />
+                  </div>
+                </div>
+
+                {/* Redness */}
+                <div className="bg-red-50 rounded-xl p-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Flame className="w-5 h-5 text-red-600" />
+                    <span className="text-sm font-medium text-red-800">
+                      {locale === 'ar' ? 'الاحمرار' : locale === 'ru' ? 'Покраснение' : 'Redness'}
+                    </span>
+                  </div>
+                  <p className="text-2xl font-bold text-red-700">{cameraResult.rednessLevel}%</p>
+                  <div className="h-2 bg-red-100 rounded-full mt-2 overflow-hidden">
+                    <div className="h-full bg-red-500 rounded-full" style={{ width: `${cameraResult.rednessLevel}%` }} />
+                  </div>
+                </div>
+
+                {/* Texture */}
+                <div className="bg-purple-50 rounded-xl p-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Eye className="w-5 h-5 text-purple-600" />
+                    <span className="text-sm font-medium text-purple-800">
+                      {locale === 'ar' ? 'نعومة البشرة' : locale === 'ru' ? 'Текстура' : 'Texture'}
+                    </span>
+                  </div>
+                  <p className="text-2xl font-bold text-purple-700">{cameraResult.textureScore}%</p>
+                  <div className="h-2 bg-purple-100 rounded-full mt-2 overflow-hidden">
+                    <div className="h-full bg-purple-500 rounded-full" style={{ width: `${cameraResult.textureScore}%` }} />
+                  </div>
+                </div>
+
+                {/* Evenness */}
+                <div className="bg-green-50 rounded-xl p-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Palette className="w-5 h-5 text-green-600" />
+                    <span className="text-sm font-medium text-green-800">
+                      {locale === 'ar' ? 'توحيد اللون' : locale === 'ru' ? 'Ровность тона' : 'Evenness'}
+                    </span>
+                  </div>
+                  <p className="text-2xl font-bold text-green-700">{cameraResult.evennessScore}%</p>
+                  <div className="h-2 bg-green-100 rounded-full mt-2 overflow-hidden">
+                    <div className="h-full bg-green-500 rounded-full" style={{ width: `${cameraResult.evennessScore}%` }} />
+                  </div>
+                </div>
+
+                {/* Skin Age */}
+                <div className="bg-pink-50 rounded-xl p-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Clock className="w-5 h-5 text-pink-600" />
+                    <span className="text-sm font-medium text-pink-800">
+                      {locale === 'ar' ? 'عمر البشرة' : locale === 'ru' ? 'Возраст кожи' : 'Skin Age'}
+                    </span>
+                  </div>
+                  <p className="text-2xl font-bold text-pink-700">~{cameraResult.estimatedSkinAge}</p>
+                  <p className="text-xs text-pink-600 mt-1">
+                    {locale === 'ar' ? 'تقديري' : locale === 'ru' ? 'примерно' : 'estimated'}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Concerns */}
+            {cameraResult.concerns.length > 0 && (
+              <div className="px-6 pb-6">
+                <h3 className={`text-lg font-semibold text-gray-900 mb-3 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                  {locale === 'ar' ? 'مخاوف البشرة المكتشفة' : locale === 'ru' ? 'Выявленные проблемы' : 'Detected Skin Concerns'}
+                </h3>
+                <div className="flex flex-wrap gap-2">
+                  {cameraResult.concerns.map((concern) => (
+                    <span 
+                      key={concern}
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-primary-100 text-primary-700 rounded-full text-sm font-medium"
+                    >
+                      <CheckCircle2 className="w-4 h-4" />
+                      {TARGET_CONCERNS.find(tc => tc.value === concern)?.label || concern}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Get Recommendations Button */}
+          <div className="text-center">
+            <button
+              onClick={() => {
+                setShowAnalysisReport(false)
+                setCurrentStep(4)
+                // Auto-submit to get recommendations
+                setTimeout(() => {
+                  const form = document.querySelector('form')
+                  if (form) form.requestSubmit()
+                }, 100)
+              }}
+              className={`inline-flex items-center gap-2 bg-primary-600 hover:bg-primary-700 text-white font-semibold px-8 py-4 rounded-xl transition-all shadow-lg shadow-primary-200 active:scale-[0.98] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+            >
+              <Sparkles className="w-5 h-5" />
+              {locale === 'ar' ? 'عرض المنتجات الموصى بها' : locale === 'ru' ? 'Показать рекомендации' : 'View Recommended Products'}
+              <ArrowRight className={`w-5 h-5 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
+            </button>
+            <p className="text-gray-500 text-sm mt-3">
+              {locale === 'ar' ? 'منتجات GENOSYS المناسبة لنوع بشرتك' : locale === 'ru' ? 'Продукты GENOSYS для вашего типа кожи' : 'GENOSYS products tailored for your skin type'}
+            </p>
+          </div>
+        </div>
+      ) : !showResults ? (
         <>
           {/* Header */}
           <div className="text-center mb-6 md:mb-12">

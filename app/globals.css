@@ -175,6 +175,22 @@ html[dir="rtl"] {
   padding-top: env(safe-area-inset-top, 0px);
 }
 
+/* Hide main header in PWA standalone mode on pages with their own light headers */
+@media all and (display-mode: standalone) {
+  body:has([data-pwa-light-header-page]) header.main-header {
+    display: none !important;
+  }
+}
+
+/* iOS Safari standalone mode */
+@supports (-webkit-touch-callout: none) {
+  @media (hover: none) and (pointer: coarse) {
+    body:has([data-pwa-light-header-page]) header.main-header {
+      display: none !important;
+    }
+  }
+}
+
 /* PDF document styling */
 .pdf-document {
   display: flex;

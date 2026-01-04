@@ -353,7 +353,7 @@ export default function SkinRecommendationClient() {
   const isRTL = dir === 'rtl'
 
   return (
-    <div className={`min-h-screen bg-gradient-to-b from-gray-50 to-white ${isPWA ? 'pb-32' : ''}`} dir={dir}>
+    <div className={`min-h-screen bg-gradient-to-b from-gray-50 to-white ${isPWA ? 'pb-32' : ''}`} dir={dir} data-pwa-light-header-page>
       <BreadcrumbSchema 
         items={[
           { name: t('common.home'), url: getLocalizedPath('/', locale) },

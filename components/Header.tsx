@@ -99,7 +99,7 @@ const Header = memo(function Header() {
   }
   
   return (
-    <header className={`sticky top-0 z-50 bg-white shadow-sm border-b ${showPWAMobileHeader ? 'hidden md:block' : ''}`} suppressHydrationWarning>
+    <header className={`main-header sticky top-0 z-50 bg-white shadow-sm border-b ${showPWAMobileHeader ? 'hidden md:block' : ''}`} suppressHydrationWarning>
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between py-2 md:py-4 header-main-flex">
           {/* Mobile Icons - Russian Version (hidden in PWA mode) */}

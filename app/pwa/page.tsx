@@ -309,31 +309,31 @@ export default function PWAInstallPage() {
             </div>
 
             {/* Step Content */}
-            <div className="p-6">
-              {/* Step Icon & Title */}
-              <div className={`flex items-start gap-4 mb-6 ${isRTL ? 'flex-row-reverse' : ''}`}>
-                <div className={`w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0 ${
+            <div className="p-4 md:p-6">
+              {/* Step Icon & Title - Stack on mobile, row on desktop */}
+              <div className={`flex flex-col md:flex-row md:items-start gap-3 md:gap-4 mb-4 md:mb-6 ${isRTL ? 'md:flex-row-reverse' : ''}`}>
+                <div className={`w-12 h-12 md:w-14 md:h-14 rounded-xl md:rounded-2xl flex items-center justify-center flex-shrink-0 mx-auto md:mx-0 ${
                   selectedDevice === 'ios' 
                     ? 'bg-gradient-to-br from-gray-800 to-gray-900 text-white' 
                     : 'bg-gradient-to-br from-green-500 to-green-600 text-white'
                 }`}>
                   {currentStepData.icon}
                 </div>
-                <div className={isRTL ? 'text-right' : ''}>
-                  <h3 className="text-xl font-bold text-gray-900 mb-1">{currentStepData.title}</h3>
-                  <p className="text-gray-600">{currentStepData.desc}</p>
+                <div className={`text-center md:text-left ${isRTL ? 'md:text-right' : ''}`}>
+                  <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-1">{currentStepData.title}</h3>
+                  <p className="text-sm md:text-base text-gray-600">{currentStepData.desc}</p>
                 </div>
               </div>
 
               {/* Screenshot/Illustration */}
-              <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl p-3 mb-6 border border-gray-200">
-                <div className="max-h-[320px] mx-auto flex items-center justify-center overflow-hidden">
+              <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl md:rounded-2xl p-2 md:p-3 mb-4 md:mb-6 border border-gray-200">
+                <div className="max-h-[260px] md:max-h-[320px] mx-auto flex items-center justify-center overflow-hidden">
                   <Image
                     src={currentStepData.image}
                     alt={currentStepData.title}
                     width={200}
                     height={360}
-                    className="w-auto h-auto max-h-[300px] object-contain drop-shadow-lg"
+                    className="w-auto h-auto max-h-[240px] md:max-h-[300px] object-contain drop-shadow-lg"
                     priority
                   />
                 </div>
@@ -351,13 +351,13 @@ export default function PWAInstallPage() {
               )}
 
               {/* Navigation Buttons */}
-              <div className={`flex gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
+              <div className={`flex gap-2 md:gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
                 {currentStep > 1 && (
                   <button
                     onClick={() => setCurrentStep((currentStep - 1) as Step)}
-                    className={`flex-1 bg-gray-100 text-gray-700 py-4 rounded-xl font-semibold hover:bg-gray-200 transition-colors flex items-center justify-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}
+                    className={`flex-1 bg-gray-100 text-gray-700 py-3 md:py-4 rounded-xl font-semibold hover:bg-gray-200 transition-colors flex items-center justify-center gap-2 text-sm md:text-base ${isRTL ? 'flex-row-reverse' : ''}`}
                   >
-                    <ArrowLeft className={`w-5 h-5 ${isRTL ? 'rotate-180' : ''}`} />
+                    <ArrowLeft className={`w-4 h-4 md:w-5 md:h-5 ${isRTL ? 'rotate-180' : ''}`} />
                     {t.previous}
                   </button>
                 )}
@@ -369,17 +369,17 @@ export default function PWAInstallPage() {
                       selectedDevice === 'ios' 
                         ? 'bg-gradient-to-r from-gray-800 to-gray-900' 
                         : 'bg-gradient-to-r from-green-500 to-green-600'
-                    } text-white py-4 rounded-xl font-semibold hover:opacity-90 transition-all flex items-center justify-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}
+                    } text-white py-3 md:py-4 rounded-xl font-semibold hover:opacity-90 transition-all flex items-center justify-center gap-2 text-sm md:text-base ${isRTL ? 'flex-row-reverse' : ''}`}
                   >
                     {t.next}
-                    <ArrowRight className={`w-5 h-5 ${isRTL ? 'rotate-180' : ''}`} />
+                    <ArrowRight className={`w-4 h-4 md:w-5 md:h-5 ${isRTL ? 'rotate-180' : ''}`} />
                   </button>
                 ) : (
                   <Link
                     href={getLocalizedPath('/products', locale)}
-                    className="flex-1 bg-red-600 text-white py-4 rounded-xl font-semibold hover:bg-red-700 transition-colors flex items-center justify-center gap-2"
+                    className="flex-1 bg-red-600 text-white py-3 md:py-4 rounded-xl font-semibold hover:bg-red-700 transition-colors flex items-center justify-center gap-2 text-sm md:text-base"
                   >
-                    <Check className="w-5 h-5" />
+                    <Check className="w-4 h-4 md:w-5 md:h-5" />
                     {t.done} {t.startShopping}
                   </Link>
                 )}

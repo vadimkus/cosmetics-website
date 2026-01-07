@@ -582,7 +582,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     documentation: [
       {
         title: 'BIO MESO PDRN EXPERT AMPOULE 60000 Guide',
-        url: '/documents/PPT/GENOSYS_BIO_MESO_PDRN_EXPERT_AMPOULE_60000.pdf',
+        url: '/documents/ppt/GENOSYS_BIO_MESO_PDRN_EXPERT_AMPOULE_60000.pdf',
         type: 'pdf'
       }
     ]

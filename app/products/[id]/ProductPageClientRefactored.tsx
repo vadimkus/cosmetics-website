@@ -6,7 +6,7 @@ import { useCart } from '@/components/CartProvider'
 import { useFavorites } from '@/components/FavoritesProvider'
 import { useAuth } from '@/components/AuthProvider'
 import ErrorPage from '@/components/ErrorPage'
-import { ArrowLeft, Sparkles, Star, Minus, Plus, ShoppingCart, Heart, Check } from 'lucide-react'
+import { ArrowLeft, Sparkles, Star, Minus, Plus, ShoppingCart, Heart, Check, MessageCircle } from 'lucide-react'
 import Link from 'next/link'
 import { useState, useCallback } from 'react'
 import { Product } from '@/types'
@@ -1064,7 +1064,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
         </div>
       </div>
 
-      {/* Sticky Mobile Footer - Add to Cart */}
+      {/* Sticky Mobile Footer - Add to Cart or Request Quote */}
       <div 
         className="lg:hidden sticky bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg z-50"
         style={{
@@ -1073,52 +1073,67 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
       >
         <div className="container mx-auto px-3 pt-3 pb-1">
           <div className={`flex items-center gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-            {/* Quantity Controls */}
-            <div className={`flex items-center border border-gray-300 rounded-lg bg-gray-50 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-              <button
-                onClick={() => setMobileQuantity(prev => prev > 1 ? prev - 1 : 1)}
-                className="p-2.5 hover:bg-gray-100 active:bg-gray-200 transition-colors touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center"
-                aria-label={t('product.decreaseQuantity')}
-              >
-                <Minus className="h-4 w-4 text-gray-600" />
-              </button>
-              <span className="px-3 py-1.5 text-center min-w-[2.5rem] font-semibold text-gray-900">
-                {mobileQuantity}
-              </span>
-              <button
-                onClick={() => setMobileQuantity(prev => prev + 1)}
-                className="p-2.5 hover:bg-gray-100 active:bg-gray-200 transition-colors touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center"
-                aria-label={t('product.increaseQuantity')}
-              >
-                <Plus className="h-4 w-4 text-gray-600" />
-              </button>
-            </div>
+            {/* Quantity Controls - Hide for price on request products */}
+            {!product.isPriceOnRequest && (
+              <div className={`flex items-center border border-gray-300 rounded-lg bg-gray-50 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                <button
+                  onClick={() => setMobileQuantity(prev => prev > 1 ? prev - 1 : 1)}
+                  className="p-2.5 hover:bg-gray-100 active:bg-gray-200 transition-colors touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center"
+                  aria-label={t('product.decreaseQuantity')}
+                >
+                  <Minus className="h-4 w-4 text-gray-600" />
+                </button>
+                <span className="px-3 py-1.5 text-center min-w-[2.5rem] font-semibold text-gray-900">
+                  {mobileQuantity}
+                </span>
+                <button
+                  onClick={() => setMobileQuantity(prev => prev + 1)}
+                  className="p-2.5 hover:bg-gray-100 active:bg-gray-200 transition-colors touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center"
+                  aria-label={t('product.increaseQuantity')}
+                >
+                  <Plus className="h-4 w-4 text-gray-600" />
+                </button>
+              </div>
+            )}
 
-            {/* Add to Cart Button */}
-            <button
-              onClick={handleMobileAddToCart}
-              disabled={isAddingMobile || isAddedMobile || !user || !product.inStock}
-              className={`flex-1 py-3 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2 touch-manipulation min-h-[44px] ${
-                isAddedMobile
-                  ? 'bg-green-500 text-white'
-                  : !product.inStock || !user || isAddingMobile
-                    ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                    : 'bg-primary-600 text-white hover:bg-primary-700 active:bg-primary-800'
-              }`}
-              style={{ touchAction: 'manipulation' }}
-            >
-              {isAddedMobile ? (
-                <>
-                  <Check className={`h-5 w-5 flex-shrink-0 ${dir === 'rtl' ? 'order-last' : ''}`} />
-                  <span className="text-sm sm:text-base">{t('product.addedToBag') || 'Added to Bag!'}</span>
-                </>
-              ) : (
-                <>
-                  <ShoppingCart className={`h-5 w-5 flex-shrink-0 ${dir === 'rtl' ? 'order-last' : ''}`} />
-                  <span className="text-sm sm:text-base">{!product.inStock ? t('product.outOfStock') : isAddingMobile ? t('product.adding') : t('product.addToCart')}</span>
-                </>
-              )}
-            </button>
+            {/* Add to Cart Button or Request Quote */}
+            {product.isPriceOnRequest ? (
+              <a
+                href={`https://wa.me/971509096498?text=${encodeURIComponent(`Hi, I'm interested in ${product.name}. Could you please provide pricing information?`)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 py-3 rounded-lg font-semibold bg-green-500 text-white hover:bg-green-600 active:bg-green-700 flex items-center justify-center gap-2 touch-manipulation min-h-[44px]"
+                style={{ touchAction: 'manipulation' }}
+              >
+                <MessageCircle className={`h-5 w-5 flex-shrink-0 ${dir === 'rtl' ? 'order-last' : ''}`} />
+                <span className="text-sm sm:text-base">{t('products.requestQuote') || 'Request Quote'}</span>
+              </a>
+            ) : (
+              <button
+                onClick={handleMobileAddToCart}
+                disabled={isAddingMobile || isAddedMobile || !user || !product.inStock}
+                className={`flex-1 py-3 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2 touch-manipulation min-h-[44px] ${
+                  isAddedMobile
+                    ? 'bg-green-500 text-white'
+                    : !product.inStock || !user || isAddingMobile
+                      ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                      : 'bg-primary-600 text-white hover:bg-primary-700 active:bg-primary-800'
+                }`}
+                style={{ touchAction: 'manipulation' }}
+              >
+                {isAddedMobile ? (
+                  <>
+                    <Check className={`h-5 w-5 flex-shrink-0 ${dir === 'rtl' ? 'order-last' : ''}`} />
+                    <span className="text-sm sm:text-base">{t('product.addedToBag') || 'Added to Bag!'}</span>
+                  </>
+                ) : (
+                  <>
+                    <ShoppingCart className={`h-5 w-5 flex-shrink-0 ${dir === 'rtl' ? 'order-last' : ''}`} />
+                    <span className="text-sm sm:text-base">{!product.inStock ? t('product.outOfStock') : isAddingMobile ? t('product.adding') : t('product.addToCart')}</span>
+                  </>
+                )}
+              </button>
+            )}
 
             {/* Favorite Button */}
             <button

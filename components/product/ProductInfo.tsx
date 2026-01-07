@@ -327,13 +327,15 @@ export default function ProductInfo({
       {/* Action Buttons */}
       <div className="flex gap-4 mt-8">
         {product.isPriceOnRequest ? (
-          <Link
-            href={getLocalizedPath('/contact', locale)}
-            className="flex-1 bg-amber-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-amber-600 transition-colors flex items-center justify-center gap-2"
+          <a
+            href={`https://wa.me/971509096498?text=${encodeURIComponent(`Hi, I'm interested in ${product.name}. Could you please provide pricing information?`)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex-1 bg-green-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-600 transition-colors flex items-center justify-center gap-2"
           >
             <MessageCircle className="h-5 w-5" aria-hidden="true" />
             {t('products.requestQuote')}
-          </Link>
+          </a>
         ) : (
           <button
             onClick={handleAddToCart}

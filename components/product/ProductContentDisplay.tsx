@@ -35,7 +35,7 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
   const benefits = benefitsStr ? (tryParseJSON(benefitsStr) as string[] | string) : null
   const ingredients = ingredientsStr ? (tryParseJSON(ingredientsStr) as Array<{ name?: string; description?: string; subList?: string[] }> | string) : null
   const howToUse = howToUseStr ? (tryParseJSON(howToUseStr) as string) : null
-  const documentation = getProductDocumentation(product.id, locale)
+  const documentation = getProductDocumentation(product.productNumber || product.id, locale)
 
   // Parse description for kit items - support English, Arabic, and Russian
   const parseKitDescription = (description: string) => {

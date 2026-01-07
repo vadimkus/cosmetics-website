@@ -175,7 +175,7 @@ export default function ProductImageGallery({
             onClick={(e) => e.stopPropagation()}
           >
             <Image
-              src={productImages[lightboxIndex]}
+              src={productImages[lightboxIndex] || product.image}
               alt={`${product.name} - Full size view ${lightboxIndex + 1}`}
               width={1200}
               height={1200}

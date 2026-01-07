@@ -3,8 +3,6 @@
 import { useAuth } from '@/components/AuthProvider'
 import { useRouter } from 'next/navigation'
 import { Star, ShoppingCart, Minus, Plus, Heart, Lock, MessageCircle, AlertTriangle } from 'lucide-react'
-import Link from 'next/link'
-import { getLocalizedPath } from '@/lib/i18n'
 import { Product } from '@/types'
 import { useCart } from '@/components/CartProvider'
 import { useFavorites } from '@/components/FavoritesProvider'

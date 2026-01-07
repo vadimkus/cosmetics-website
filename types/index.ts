@@ -28,6 +28,8 @@ export interface Product {
   size?: string | null
   noDiscount?: boolean
   isHidden?: boolean
+  isPriceOnRequest?: boolean // Professional products with price on request
+  disclaimer?: string | null // Product disclaimer
   // Detailed product content
   productDetails?: string | null // JSON object with key-value pairs
   keyFeatures?: string | null // JSON array of features

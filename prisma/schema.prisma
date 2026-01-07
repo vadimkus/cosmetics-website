@@ -96,6 +96,8 @@ model Product {
   images        String?
   noDiscount    Boolean  @default(false) // Exclude from discount calculations
   isHidden      Boolean  @default(false) // Hide product from public listings
+  isPriceOnRequest Boolean @default(false) // Professional products with price available on request only
+  disclaimer    String?  @db.Text // Product disclaimer (e.g., "For professional/clinic use only")
 
   // Detailed product content fields
   productDetails String? @db.Text // JSON object with key-value pairs for product specs

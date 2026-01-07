@@ -4,7 +4,7 @@ import { Product } from '@/types'
 import { useCart } from './CartProvider'
 import { useFavorites } from './FavoritesProvider'
 import { useAuth } from './AuthProvider'
-import { ShoppingCart, Heart, Lock, User } from 'lucide-react'
+import { ShoppingCart, Heart, Lock, User, MessageCircle } from 'lucide-react'
 import { useState, memo, useCallback } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -257,7 +257,12 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
         {/* Price Section - Above Button */}
         <div className="mb-3">
           <div className="flex items-center justify-between mb-2">
-            {canUserSeePrices(user) ? (
+            {product.isPriceOnRequest ? (
+              <div className="flex items-center gap-1 text-amber-600">
+                <MessageCircle className="h-3 w-3 md:h-4 md:w-4" />
+                <span className="text-xs md:text-sm font-semibold">{t('products.priceOnRequest')}</span>
+              </div>
+            ) : canUserSeePrices(user) ? (
               <div className="flex-1">
                 {(() => {
                   const pricing = calculateDiscountedPrice(product, user)
@@ -331,7 +336,16 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
         
         {/* Button Section - Always at the end */}
         <div className="mt-2">
-          {!user ? (
+          {product.isPriceOnRequest ? (
+            <Link
+              href={getLocalizedPath('/contact', locale)}
+              className="flex items-center justify-center gap-1.5 md:gap-2 px-2 md:px-3 py-1.5 md:py-2 rounded-lg font-medium transition-colors w-full bg-amber-500 text-white hover:bg-amber-600 min-h-[36px] md:min-h-[40px] text-[10px] md:text-xs active:scale-[0.98]"
+              style={{ touchAction: 'manipulation' }}
+            >
+              <MessageCircle className="h-3 w-3 md:h-3.5 md:w-3.5" aria-hidden="true" />
+              <span>{t('products.requestQuote')}</span>
+            </Link>
+          ) : !user ? (
             <button
               type="button"
               onClick={handleLoginClick}

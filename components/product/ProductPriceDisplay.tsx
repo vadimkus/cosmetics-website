@@ -2,7 +2,7 @@
 
 import { Product } from '@/types'
 import { User } from '@/types/user'
-import { Lock } from 'lucide-react'
+import { Lock, MessageCircle } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { calculateDiscountedPrice, canUserSeePrices } from '@/lib/discountUtils'
 import { useTranslation } from '@/hooks/useTranslation'
@@ -17,6 +17,19 @@ interface ProductPriceDisplayProps {
 export default function ProductPriceDisplay({ product, basePrice, user }: ProductPriceDisplayProps) {
   const router = useRouter()
   const { t, locale, dir } = useTranslation()
+
+  // Handle price on request products
+  if (product.isPriceOnRequest) {
+    return (
+      <div className="w-full flex flex-col items-center justify-center" dir={dir}>
+        <div className={`flex items-center gap-2 text-amber-600 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+          <MessageCircle className="h-5 w-5" />
+          <span className="text-lg md:text-xl font-semibold">{t('products.priceOnRequest')}</span>
+        </div>
+        <span className="text-xs md:text-sm text-gray-500 mt-1">{t('products.contactForPricing')}</span>
+      </div>
+    )
+  }
 
   return (
     <div className="w-full flex justify-center" dir={dir}>

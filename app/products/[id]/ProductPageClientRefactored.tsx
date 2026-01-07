@@ -310,7 +310,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
                 onToggleFavorite={handleToggleFavorite}
                 isFavorite={isFavorite(product.id)}
                 inStock={product.inStock}
-                isPriceOnRequest={product.isPriceOnRequest}
+                isPriceOnRequest={product.isPriceOnRequest ?? false}
                 productName={product.name}
               />
             </div>

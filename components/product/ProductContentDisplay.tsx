@@ -757,9 +757,10 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
       {/* Directions / Note */}
       {directionsStr && (
         <div className="bg-green-50 border border-green-200 rounded-lg p-2 lg:p-4">
-          <p className="text-green-800 text-xs lg:text-sm" dir={dir} style={{ textAlign: dir === 'rtl' ? 'right' : 'left' }}>
-            <strong>{t('product.note')}</strong> {directionsStr}
-          </p>
+          <div className="text-green-800 text-xs lg:text-sm" dir={dir} style={{ textAlign: dir === 'rtl' ? 'right' : 'left' }}>
+            <strong>{t('product.note')}</strong>
+            <div className="mt-2 whitespace-pre-line">{directionsStr}</div>
+          </div>
         </div>
       )}
 

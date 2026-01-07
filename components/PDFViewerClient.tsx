@@ -183,8 +183,7 @@ export default function PDFViewerClient({ filename, pdfUrl }: PDFViewerClientPro
           title={filename}
           onLoad={handleIframeLoad}
           onError={handleIframeError}
-          allow="autoplay"
-          sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+          allow="autoplay; fullscreen"
         />
       </div>
     </div>

@@ -37,7 +37,7 @@ export default function ProductActions({
   // WhatsApp request quote
   const handleRequestQuote = () => {
     const message = encodeURIComponent(`Hi, I'm interested in ${product.name}. Could you please provide pricing information?`)
-    window.open(`https://wa.me/971509096498?text=${message}`, '_blank')
+    window.open(`https://wa.me/971585487665?text=${message}`, '_blank')
   }
 
   return (

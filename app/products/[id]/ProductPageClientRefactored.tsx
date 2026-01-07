@@ -1101,7 +1101,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
             {/* Add to Cart Button or Request Quote */}
             {product.isPriceOnRequest ? (
               <a
-                href={`https://wa.me/971509096498?text=${encodeURIComponent(`Hi, I'm interested in ${product.name}. Could you please provide pricing information?`)}`}
+                href={`https://wa.me/971585487665?text=${encodeURIComponent(`Hi, I'm interested in ${product.name}. Could you please provide pricing information?`)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex-1 py-3 rounded-lg font-semibold bg-green-500 text-white hover:bg-green-600 active:bg-green-700 flex items-center justify-center gap-2 touch-manipulation min-h-[44px]"

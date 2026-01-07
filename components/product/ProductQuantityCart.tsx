@@ -46,7 +46,7 @@ export default function ProductQuantityCart({
       <div className="space-y-3 md:space-y-4" dir={dir}>
         <div className={`flex gap-2 md:gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
           <a
-            href={`https://wa.me/971509096498?text=${encodeURIComponent(`Hi, I'm interested in ${productName}. Could you please provide pricing information?`)}`}
+            href={`https://wa.me/971585487665?text=${encodeURIComponent(`Hi, I'm interested in ${productName}. Could you please provide pricing information?`)}`}
             target="_blank"
             rel="noopener noreferrer"
             className="flex-1 px-4 md:px-6 py-2.5 md:py-3 rounded-lg text-sm md:text-base font-medium transition-colors flex items-center justify-center gap-2 touch-manipulation bg-green-500 text-white hover:bg-green-600"

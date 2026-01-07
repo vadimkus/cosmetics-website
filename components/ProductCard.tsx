@@ -338,7 +338,7 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
         <div className="mt-2">
           {product.isPriceOnRequest ? (
             <a
-              href={`https://wa.me/971509096498?text=${encodeURIComponent(`Hi, I'm interested in ${product.name}. Could you please provide pricing information?`)}`}
+              href={`https://wa.me/971585487665?text=${encodeURIComponent(`Hi, I'm interested in ${product.name}. Could you please provide pricing information?`)}`}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center justify-center gap-1.5 md:gap-2 px-2 md:px-3 py-1.5 md:py-2 rounded-lg font-medium transition-colors w-full bg-green-500 text-white hover:bg-green-600 min-h-[36px] md:min-h-[40px] text-[10px] md:text-xs active:scale-[0.98]"

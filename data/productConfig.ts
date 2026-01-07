@@ -573,6 +573,19 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
       { value: '200ml', label: '200ml', available: true },
       { value: '1000ml', label: '1000ml', available: true }
     ]
+  },
+  '60': {
+    id: '60',
+    pricing: {
+      basePrice: 0
+    },
+    documentation: [
+      {
+        title: 'BIO MESO PDRN EXPERT AMPOULE 60000 Guide',
+        url: '/documents/PPT/GENOSYS_BIO_MESO_PDRN_EXPERT_AMPOULE_60000.pdf',
+        type: 'pdf'
+      }
+    ]
   }
 }
 
@@ -637,7 +650,8 @@ const documentationTitleTranslations: Record<string, string> = {
   'BIO-FERMENT AGE DEFYING POWDER MASK Guide': 'Руководство по BIO-FERMENT AGE DEFYING POWDER MASK',
   'SKIN REBOOT PDRN MASK PACK Guide': 'Руководство по SKIN REBOOT PDRN MASK PACK',
   'SKIN DEFENDER Product Guide': 'Руководство по продукту SKIN DEFENDER',
-  'INTENSIVE PROBLEM CONTROL TONER': 'Руководство по INTENSIVE PROBLEM CONTROL TONER'
+  'INTENSIVE PROBLEM CONTROL TONER': 'Руководство по INTENSIVE PROBLEM CONTROL TONER',
+  'BIO MESO PDRN EXPERT AMPOULE 60000 Guide': 'Руководство по BIO MESO PDRN EXPERT AMPOULE 60000'
 }
 
 export const getProductDocumentation = (productId: string, locale: string = 'en'): Array<{

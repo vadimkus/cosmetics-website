@@ -1,7 +1,7 @@
 'use client'
 
 import { User } from '@/types/user'
-import { ShoppingCart, Heart, Minus, Plus } from 'lucide-react'
+import { ShoppingCart, Heart, Minus, Plus, MessageCircle } from 'lucide-react'
 import { useState } from 'react'
 import { useTranslation } from '@/hooks/useTranslation'
 
@@ -11,6 +11,8 @@ interface ProductQuantityCartProps {
   onToggleFavorite: () => void
   isFavorite: boolean
   inStock?: boolean
+  isPriceOnRequest?: boolean
+  productName?: string
 }
 
 export default function ProductQuantityCart({
@@ -18,7 +20,9 @@ export default function ProductQuantityCart({
   onAddToCart,
   onToggleFavorite,
   isFavorite,
-  inStock = true
+  inStock = true,
+  isPriceOnRequest = false,
+  productName = ''
 }: ProductQuantityCartProps) {
   const { t, dir } = useTranslation()
   const [quantity, setQuantity] = useState(1)
@@ -34,6 +38,38 @@ export default function ProductQuantityCart({
     } finally {
       setIsAdding(false)
     }
+  }
+
+  // For price on request products, show only the request quote button
+  if (isPriceOnRequest) {
+    return (
+      <div className="space-y-3 md:space-y-4" dir={dir}>
+        <div className={`flex gap-2 md:gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+          <a
+            href={`https://wa.me/971509096498?text=${encodeURIComponent(`Hi, I'm interested in ${productName}. Could you please provide pricing information?`)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex-1 px-4 md:px-6 py-2.5 md:py-3 rounded-lg text-sm md:text-base font-medium transition-colors flex items-center justify-center gap-2 touch-manipulation bg-green-500 text-white hover:bg-green-600"
+          >
+            <MessageCircle className="h-4 w-4 md:h-5 md:w-5" />
+            {t('products.requestQuote') || 'Request Quote'}
+          </a>
+          
+          <button
+            onClick={onToggleFavorite}
+            disabled={!user}
+            className={`px-4 md:px-6 py-2.5 md:py-3 rounded-lg font-medium transition-colors border-2 touch-manipulation flex items-center justify-center ${
+              isFavorite
+                ? 'bg-red-50 border-red-500 text-red-600 hover:bg-red-100'
+                : 'border-gray-300 text-gray-700 hover:border-gray-400 hover:bg-gray-50'
+            } disabled:opacity-50 disabled:cursor-not-allowed`}
+            aria-label={isFavorite ? t('product.removeFromFavorites') : t('product.addToFavorites')}
+          >
+            <Heart className={`h-4 w-4 md:h-5 md:w-5 ${isFavorite ? 'fill-current' : ''}`} />
+          </button>
+        </div>
+      </div>
+    )
   }
 
   return (

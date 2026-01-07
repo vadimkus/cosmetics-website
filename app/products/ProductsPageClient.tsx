@@ -37,6 +37,7 @@ const getCategories = (t: (key: string) => string): Array<{ id: string; name: st
   { id: 'scalp-hair', name: t('products.scalpHair') },
   { id: 'eye-care', name: t('products.eyeCare') },
   { id: 'device', name: t('products.device') },
+  { id: 'bio-meso', name: t('products.bioMeso') },
   { id: 'kits', name: t('products.holidayKits') },
   { id: 'beauty-boxes', name: t('products.beautyBoxes') }
 ]
@@ -219,6 +220,7 @@ export default function ProductsPageClient() {
         'cushion-bb': 'Cushion BB',
         'scalp-hair': 'Scalp/Hair',
         'eye-care': 'Eye care',
+        'bio-meso': 'Bio Meso',
         'kits': 'kits',
         'beauty-boxes': 'Beauty Boxes'
       }

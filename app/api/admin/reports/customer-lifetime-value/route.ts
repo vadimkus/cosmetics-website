@@ -20,11 +20,14 @@ export async function GET(request: NextRequest) {
       return date
     })()
 
-    // Get all orders (or filtered by date)
+    // Get only completed orders (PAID, SHIPPED, DELIVERED)
+    // Exclude PENDING, CANCELLED, and any other incomplete statuses
+    const completedStatuses = ['PAID', 'SHIPPED', 'DELIVERED']
+    
     const orders = await prisma.order.findMany({
       where: {
         ...(startDate ? { createdAt: { gte: startDate } } : {}),
-        status: { not: 'CANCELLED' }
+        status: { in: completedStatuses }
       },
       include: {
         customer: {

@@ -1131,7 +1131,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
                 ) : (
                   <>
                     <ShoppingCart className={`h-5 w-5 flex-shrink-0 ${dir === 'rtl' ? 'order-last' : ''}`} />
-                    <span className="text-sm sm:text-base">{!product.inStock ? t('product.outOfStock') : isAddingMobile ? t('product.adding') : t('product.addToCart')}</span>
+                    <span className="text-sm sm:text-base">{!product.inStock ? t('product.outOfStock') : isAddingMobile ? t('product.adding') : isPWA ? t('product.addToBag') : t('product.addToCart')}</span>
                   </>
                 )}
               </button>

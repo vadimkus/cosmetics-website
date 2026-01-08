@@ -1143,25 +1143,6 @@ export default function CheckoutClient() {
                         )}
                       </p>
                     </div>
-
-                    {/* PWA Need Help - Below Delivery Info */}
-                    <div className="mt-3 p-3 bg-blue-50 border border-blue-200 rounded-xl">
-                      <p className={`text-xs text-blue-700 mb-3 ${dir === 'rtl' ? 'text-right' : ''}`}>
-                        {locale === 'ar' 
-                          ? 'تواصل مع فريق الدعم لدينا عبر واتساب للمساعدة الفورية.'
-                          : locale === 'ru'
-                          ? 'Свяжитесь с нашей службой поддержки через WhatsApp для мгновенной помощи.'
-                          : 'Contact our support team via WhatsApp for instant assistance.'}
-                      </p>
-                      <button
-                        type="button"
-                        onClick={contactWhatsApp}
-                        className={`w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-green-600 text-white rounded-lg hover:bg-green-700 active:bg-green-800 transition-colors font-medium text-sm ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
-                      >
-                        <MessageCircle className="h-4 w-4" />
-                        {t('checkout.contactSupportViaWhatsApp') || 'Contact via WhatsApp'}
-                      </button>
-                    </div>
                   </>
                 )}
               </form>

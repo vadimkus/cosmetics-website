@@ -22,6 +22,7 @@ import {
   ArrowDownRight,
   Filter
 } from 'lucide-react'
+import SalesChartModal from './admin/SalesChartModal'
 
 interface AnalyticsData {
   totalVisitors: number
@@ -79,9 +80,10 @@ interface MetricCardProps {
   }
   subtitle?: string
   color?: 'blue' | 'green' | 'purple' | 'orange' | 'red' | 'indigo'
+  onClick?: () => void
 }
 
-const MetricCard = ({ title, value, icon, trend, subtitle, color = 'blue' }: MetricCardProps) => {
+const MetricCard = ({ title, value, icon, trend, subtitle, color = 'blue', onClick }: MetricCardProps) => {
   const colorClasses = {
     blue: 'bg-blue-50 text-blue-600 border-blue-200',
     green: 'bg-green-50 text-green-600 border-green-200',
@@ -92,7 +94,13 @@ const MetricCard = ({ title, value, icon, trend, subtitle, color = 'blue' }: Met
   }
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 md:p-6 hover:shadow-md transition-shadow">
+    <div 
+      className={`bg-white rounded-xl shadow-sm border border-gray-200 p-4 md:p-6 hover:shadow-md transition-shadow ${onClick ? 'cursor-pointer hover:border-purple-300' : ''}`}
+      onClick={onClick}
+      role={onClick ? 'button' : undefined}
+      tabIndex={onClick ? 0 : undefined}
+      onKeyDown={onClick ? (e) => e.key === 'Enter' && onClick() : undefined}
+    >
       <div className="flex items-start justify-between mb-3">
         <div className={`p-2.5 md:p-3 rounded-lg border ${colorClasses[color]}`}>
           {icon}
@@ -124,6 +132,7 @@ export default function AnalyticsDashboard({ onCustomerClick }: AnalyticsDashboa
   const [refreshing, setRefreshing] = useState(false)
   const [timeRange, setTimeRange] = useState<'all' | number>('all')
   const [activeSection, setActiveSection] = useState<ActiveSection>('overview')
+  const [showSalesChart, setShowSalesChart] = useState(false)
 
   const fetchAnalytics = useCallback(async (isRefresh = false) => {
     try {
@@ -304,8 +313,9 @@ export default function AnalyticsDashboard({ onCustomerClick }: AnalyticsDashboa
           title="Orders"
           value={analytics.ordersPlaced}
           icon={<ShoppingCart className="h-5 w-5 md:h-6 md:w-6" />}
-          subtitle={analytics.totalRevenue ? formatCurrency(analytics.totalRevenue) : 'Revenue data'}
+          subtitle={analytics.totalRevenue ? `${formatCurrency(analytics.totalRevenue)} • Click for details` : 'Click for monthly breakdown'}
           color="purple"
+          onClick={() => setShowSalesChart(true)}
         />
         <MetricCard
           title="Conversion Rate"
@@ -1008,6 +1018,12 @@ export default function AnalyticsDashboard({ onCustomerClick }: AnalyticsDashboa
             )}
           </div>
         )}
+
+      {/* Sales Chart Modal */}
+      <SalesChartModal 
+        isOpen={showSalesChart} 
+        onClose={() => setShowSalesChart(false)} 
+      />
     </div>
   )
 }

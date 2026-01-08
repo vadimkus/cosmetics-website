@@ -123,8 +123,11 @@ export async function GET(request: NextRequest) {
     }
 
     const searchParams = request.nextUrl.searchParams
-    const limit = parseInt(searchParams.get('limit') || '10')
-    const offset = parseInt(searchParams.get('offset') || '0')
+    const limitParam = parseInt(searchParams.get('limit') || '10', 10)
+    const offsetParam = parseInt(searchParams.get('offset') || '0', 10)
+    // Validate parsed values and apply safe defaults
+    const limit = Number.isNaN(limitParam) ? 10 : Math.min(Math.max(limitParam, 1), 100)
+    const offset = Number.isNaN(offsetParam) ? 0 : Math.max(offsetParam, 0)
 
     const analyses = await prisma.skinAnalysis.findMany({
       where: { userId: user.id },

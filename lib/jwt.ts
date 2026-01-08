@@ -1,11 +1,27 @@
 // Simple JWT implementation since jsonwebtoken is not installed
 // For production use, install jsonwebtoken: npm install jsonwebtoken @types/jsonwebtoken
-import { errorLog, debugLog } from '@/lib/logger'
+import { errorLog, debugLog, warnLog } from '@/lib/logger'
 import crypto from 'crypto'
 
-// JWT configuration - use fallback for development, require secret in production
-// Keep it simple like the original to avoid any caching/timing issues
-const JWT_SECRET = process.env.JWT_SECRET || 'fallback-secret-for-development'
+// JWT configuration - require secret in production, use fallback only for development
+const JWT_SECRET = (() => {
+  const secret = process.env.JWT_SECRET
+  
+  if (!secret) {
+    if (process.env.NODE_ENV === 'production') {
+      // In production, throw an error if JWT_SECRET is not set
+      throw new Error(
+        'CRITICAL SECURITY ERROR: JWT_SECRET environment variable is not set in production. ' +
+        'Please set a strong, random JWT_SECRET value.'
+      )
+    }
+    // In development, warn and use fallback
+    warnLog('⚠️ JWT_SECRET not set - using insecure fallback. Set JWT_SECRET for production.')
+    return 'fallback-secret-for-development-only'
+  }
+  
+  return secret
+})()
 
 // Token payload interface
 export interface TokenPayload {

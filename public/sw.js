@@ -3,10 +3,13 @@
  * Provides offline functionality and caching strategies
  */
 
-const CACHE_NAME = 'genosys-cache-v57'
-const STATIC_CACHE = 'genosys-static-v57'
-const DYNAMIC_CACHE = 'genosys-dynamic-v57'
-const IMAGE_CACHE = 'genosys-images-v55'
+const CACHE_NAME = 'genosys-cache-v58'
+const STATIC_CACHE = 'genosys-static-v58'
+const DYNAMIC_CACHE = 'genosys-dynamic-v58'
+const IMAGE_CACHE = 'genosys-images-v56'
+const PRODUCTS_CACHE = 'genosys-products-v1'
+const API_CACHE = 'genosys-api-v1'
+const PAGE_CACHE = 'genosys-pages-v1'
 
 // IndexedDB configuration for offline data storage
 const DB_NAME = 'genosys-offline-db'
@@ -32,12 +35,24 @@ const STATIC_ASSETS = [
   // Add critical CSS and JS files
 ]
 
+// API routes to cache for offline product viewing
+const PRODUCTS_API_ROUTES = [
+  '/api/products',
+]
+
 // API routes to cache
 const API_ROUTES = [
   '/api/products',
   '/api/auth/login',
   '/api/auth/register',
 ]
+
+// Product catalog configuration
+const PRODUCT_CACHE_CONFIG = {
+  maxProducts: 50,           // Maximum number of products to cache
+  maxProductImages: 100,     // Maximum number of product images to cache
+  refreshInterval: 30 * 60 * 1000,  // Refresh every 30 minutes when online
+}
 
 // Image patterns to cache
 const IMAGE_PATTERNS = [
@@ -92,9 +107,11 @@ self.addEventListener('install', (event) => {
   )
 })
 
-// Activate event - clean up old caches and check quota
+// Activate event - clean up old caches, check quota, and pre-cache products
 self.addEventListener('activate', (event) => {
   console.log('Service Worker activating...')
+  
+  const currentCaches = [STATIC_CACHE, DYNAMIC_CACHE, IMAGE_CACHE, PRODUCTS_CACHE, API_CACHE, PAGE_CACHE]
   
   event.waitUntil(
     Promise.all([
@@ -103,9 +120,7 @@ self.addEventListener('activate', (event) => {
         .then((cacheNames) => {
           return Promise.all(
             cacheNames.map((cacheName) => {
-              if (cacheName !== STATIC_CACHE && 
-                  cacheName !== DYNAMIC_CACHE && 
-                  cacheName !== IMAGE_CACHE) {
+              if (!currentCaches.includes(cacheName)) {
                 console.log('Deleting old cache:', cacheName)
                 return caches.delete(cacheName)
               }
@@ -113,7 +128,9 @@ self.addEventListener('activate', (event) => {
           )
         }),
       // Check storage quota
-      checkStorageQuota()
+      checkStorageQuota(),
+      // Pre-cache product catalog for offline viewing
+      cacheProductCatalog()
     ])
     .then(() => {
       console.log('Service Worker activated')
@@ -195,8 +212,20 @@ async function handleImageRequest(request) {
   }
 }
 
-// Handle API requests with network-first strategy
+// Check if this is a products API request
+function isProductsAPIRequest(request) {
+  const url = new URL(request.url)
+  return url.pathname === '/api/products' || url.pathname.startsWith('/api/products/')
+}
+
+// Handle API requests with appropriate caching strategy
 async function handleAPIRequest(request) {
+  // Use stale-while-revalidate for products API (better offline experience)
+  if (isProductsAPIRequest(request)) {
+    return handleProductsAPIRequest(request)
+  }
+  
+  // Network-first for other API requests
   try {
     const networkResponse = await fetch(request)
     
@@ -228,6 +257,65 @@ async function handleAPIRequest(request) {
       }
     )
   }
+}
+
+// Handle products API with stale-while-revalidate strategy
+// This provides instant offline access while updating in background
+async function handleProductsAPIRequest(request) {
+  const cache = await caches.open(PRODUCTS_CACHE)
+  const cachedResponse = await cache.match(request)
+  
+  // Create a promise for the network request
+  const networkPromise = fetch(request)
+    .then(async (networkResponse) => {
+      if (networkResponse.ok && networkResponse.status === 200) {
+        // Clone before caching
+        const responseToCache = networkResponse.clone()
+        await cache.put(request, responseToCache)
+        console.log('✅ Products cache updated from network')
+        
+        // Also cache product images in the background
+        try {
+          const products = await networkResponse.clone().json()
+          const productList = Array.isArray(products) ? products : (products.data || products.products || [])
+          cacheProductImages(productList)
+        } catch (e) {
+          console.warn('Could not parse products for image caching:', e)
+        }
+      }
+      return networkResponse
+    })
+    .catch((error) => {
+      console.log('Network request failed for products:', error.message)
+      return null
+    })
+  
+  // If we have a cached response, return it immediately
+  if (cachedResponse) {
+    console.log('📦 Serving products from cache (stale-while-revalidate)')
+    // Update cache in background (don't await)
+    networkPromise.catch(() => {})
+    return cachedResponse
+  }
+  
+  // No cache, wait for network
+  const networkResponse = await networkPromise
+  if (networkResponse) {
+    return networkResponse
+  }
+  
+  // Both cache and network failed
+  return new Response(
+    JSON.stringify({ 
+      error: 'Offline', 
+      message: 'Products are not available offline. Please check your connection.',
+      offline: true
+    }),
+    { 
+      status: 503,
+      headers: { 'Content-Type': 'application/json' }
+    }
+  )
 }
 
 // Handle static asset requests with cache-first strategy
@@ -299,6 +387,160 @@ async function handlePageRequest(request) {
   }
 }
 
+// ============================================================================
+// PRODUCT CATALOG OFFLINE CACHING
+// ============================================================================
+
+/**
+ * Pre-cache the product catalog for offline viewing
+ * Called on service worker activation and periodically
+ */
+async function cacheProductCatalog() {
+  console.log('🛍️ Pre-caching product catalog for offline viewing...')
+  
+  try {
+    const cache = await caches.open(PRODUCTS_CACHE)
+    
+    // Fetch all products
+    const response = await fetch('/api/products', {
+      headers: { 'X-Cache-Warmup': 'true' }
+    })
+    
+    if (!response.ok) {
+      console.warn('Failed to fetch products for caching:', response.status)
+      return false
+    }
+    
+    // Cache the products API response
+    await cache.put('/api/products', response.clone())
+    
+    // Parse products and cache their images
+    const products = await response.json()
+    const productList = Array.isArray(products) ? products : (products.data || products.products || [])
+    
+    console.log(`📦 Caching ${productList.length} products for offline viewing`)
+    
+    // Cache product images
+    await cacheProductImages(productList)
+    
+    // Cache individual product pages (top products only to save space)
+    const topProducts = productList.slice(0, PRODUCT_CACHE_CONFIG.maxProducts)
+    const pageCache = await caches.open(PAGE_CACHE)
+    
+    for (const product of topProducts) {
+      if (product.id) {
+        try {
+          const pageResponse = await fetch(`/products/${product.id}`, {
+            headers: { 'X-Cache-Warmup': 'true' }
+          })
+          if (pageResponse.ok) {
+            await pageCache.put(`/products/${product.id}`, pageResponse)
+          }
+        } catch (e) {
+          // Skip individual failures silently
+        }
+      }
+    }
+    
+    console.log('✅ Product catalog cached for offline viewing')
+    return true
+  } catch (error) {
+    console.error('❌ Failed to cache product catalog:', error)
+    return false
+  }
+}
+
+/**
+ * Cache product images for offline viewing
+ * @param {Array} products - Array of product objects
+ */
+async function cacheProductImages(products) {
+  if (!products || !Array.isArray(products)) return
+  
+  const imageCache = await caches.open(IMAGE_CACHE)
+  const imagesToCache = []
+  
+  // Collect unique image URLs
+  for (const product of products.slice(0, PRODUCT_CACHE_CONFIG.maxProductImages)) {
+    if (product.image) {
+      imagesToCache.push(product.image)
+    }
+    // Also cache additional images if available
+    if (product.images && Array.isArray(product.images)) {
+      product.images.slice(0, 3).forEach(img => {
+        if (img && !imagesToCache.includes(img)) {
+          imagesToCache.push(img)
+        }
+      })
+    }
+  }
+  
+  console.log(`🖼️ Caching ${imagesToCache.length} product images...`)
+  
+  // Cache images in parallel (with limit)
+  const batchSize = 5
+  for (let i = 0; i < imagesToCache.length; i += batchSize) {
+    const batch = imagesToCache.slice(i, i + batchSize)
+    await Promise.all(
+      batch.map(async (imageUrl) => {
+        try {
+          const cachedImage = await imageCache.match(imageUrl)
+          if (!cachedImage) {
+            const imageResponse = await fetch(imageUrl)
+            if (imageResponse.ok) {
+              await imageCache.put(imageUrl, imageResponse)
+            }
+          }
+        } catch (e) {
+          // Skip failed images silently
+        }
+      })
+    )
+  }
+  
+  console.log('✅ Product images cached')
+}
+
+/**
+ * Refresh product cache when online
+ * Called by message handler or periodic sync
+ */
+async function refreshProductCache() {
+  console.log('🔄 Refreshing product cache...')
+  
+  try {
+    const success = await cacheProductCatalog()
+    
+    // Notify clients about cache update
+    if (success) {
+      const clients = await self.clients.matchAll({ type: 'window' })
+      clients.forEach(client => {
+        client.postMessage({
+          type: 'PRODUCTS_CACHE_UPDATED',
+          timestamp: Date.now()
+        })
+      })
+    }
+    
+    return success
+  } catch (error) {
+    console.error('Failed to refresh product cache:', error)
+    return false
+  }
+}
+
+// Handle message for product cache operations
+self.addEventListener('message', (event) => {
+  if (event.data && event.data.type === 'REFRESH_PRODUCTS_CACHE') {
+    console.log('Product cache refresh requested...')
+    refreshProductCache().then(success => {
+      if (event.ports && event.ports[0]) {
+        event.ports[0].postMessage({ success })
+      }
+    })
+  }
+})
+
 // Background sync for offline actions
 self.addEventListener('sync', (event) => {
   console.log('Background sync triggered:', event.tag)
@@ -309,6 +551,8 @@ self.addEventListener('sync', (event) => {
     event.waitUntil(syncFavoritesData())
   } else if (event.tag === 'sync-queue') {
     event.waitUntil(processSyncQueue())
+  } else if (event.tag === 'products-sync') {
+    event.waitUntil(refreshProductCache())
   }
 })
 
@@ -936,7 +1180,7 @@ async function cleanupOldCaches() {
     console.log('🧹 Starting cache cleanup...')
     
     const cacheNames = await caches.keys()
-    const currentCaches = [STATIC_CACHE, DYNAMIC_CACHE, IMAGE_CACHE]
+    const currentCaches = [STATIC_CACHE, DYNAMIC_CACHE, IMAGE_CACHE, PRODUCTS_CACHE, API_CACHE, PAGE_CACHE]
     
     // Delete old/unused caches
     let deletedCount = 0
@@ -953,6 +1197,9 @@ async function cleanupOldCaches() {
     
     // Trim dynamic cache if too large
     await trimCache(DYNAMIC_CACHE, MAX_DYNAMIC_CACHE_SIZE)
+    
+    // Trim products page cache if too large
+    await trimCache(PAGE_CACHE, PRODUCT_CACHE_CONFIG.maxProducts)
     
     console.log(`✅ Cache cleanup complete. Deleted ${deletedCount} old caches.`)
     

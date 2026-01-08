@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { findUserByEmail, updateUser } from '@/lib/userStorageDb'
-import { errorLog } from '@/lib/logger'
+import { errorLog, debugLog } from '@/lib/logger'
 import bcrypt from 'bcryptjs'
 import { rateLimitSimple, getClientIdentifierFromNextRequest } from '@/lib/rateLimitSimple'
+import { generateAdminSessionToken } from '@/lib/adminAuth'
 
 const adminLoginLimiter = rateLimitSimple({
   windowMs: 15 * 60 * 1000, // 15 minutes
@@ -104,7 +105,12 @@ export async function POST(request: NextRequest) {
       // Don't fail login if timestamp update fails
     }
 
-    return NextResponse.json({
+    // Generate signed admin session token
+    const sessionToken = generateAdminSessionToken(user.email)
+    debugLog('✅ Admin session token generated for:', user.email)
+
+    // Create response with session token cookie
+    const response = NextResponse.json({
       success: true,
       user: {
         id: user.id,
@@ -113,6 +119,17 @@ export async function POST(request: NextRequest) {
         isAdmin: true
       }
     })
+
+    // Set secure session cookie (24 hours expiry)
+    response.cookies.set('admin-session', sessionToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: 24 * 60 * 60, // 24 hours
+      path: '/'
+    })
+
+    return response
   } catch (error) {
     errorLog('Admin login error:', error)
     errorLog('Error details:', {

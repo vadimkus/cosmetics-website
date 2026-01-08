@@ -10,9 +10,15 @@ export async function GET(request: NextRequest) {
     const targetConcerns = searchParams.get('targetConcerns')?.split(',').filter(Boolean) || []
     
     // New: analysis metrics for smarter recommendations
-    const oilinessLevel = searchParams.get('oilinessLevel') ? parseInt(searchParams.get('oilinessLevel')!) : undefined
-    const hydrationLevel = searchParams.get('hydrationLevel') ? parseInt(searchParams.get('hydrationLevel')!) : undefined
-    const rednessLevel = searchParams.get('rednessLevel') ? parseInt(searchParams.get('rednessLevel')!) : undefined
+    // Parse and validate numeric parameters with safe defaults
+    const parseLevel = (value: string | null): number | undefined => {
+      if (!value) return undefined
+      const parsed = parseInt(value, 10)
+      return Number.isNaN(parsed) ? undefined : Math.min(Math.max(parsed, 0), 100)
+    }
+    const oilinessLevel = parseLevel(searchParams.get('oilinessLevel'))
+    const hydrationLevel = parseLevel(searchParams.get('hydrationLevel'))
+    const rednessLevel = parseLevel(searchParams.get('rednessLevel'))
     
     debugLog('🔍 Fetching skin recommendations:', { skinType, ageGroup, targetConcerns, oilinessLevel, hydrationLevel, rednessLevel })
     

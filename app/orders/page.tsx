@@ -350,14 +350,14 @@ export default function OrdersPage() {
         ) : orders.length === 0 ? (
           // Empty state - styled like favorites page
           <div className="max-w-md mx-auto text-center py-8 md:py-16 px-4">
-            <div className="bg-gray-50 rounded-2xl p-6 md:p-8">
+            <div className="bg-white rounded-2xl p-6 md:p-8">
               {/* Unicorn illustration */}
               <div className="mb-4">
                 <Image
                   src="/images/avatar/uni.png"
                   alt="No orders"
-                  width={80}
-                  height={80}
+                  width={160}
+                  height={160}
                   className="mx-auto"
                 />
               </div>

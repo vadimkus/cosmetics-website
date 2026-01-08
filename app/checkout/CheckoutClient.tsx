@@ -674,14 +674,14 @@ export default function CheckoutClient() {
     <div className="container mx-auto px-4 py-2 md:py-8 lg:py-16" dir={dir}>
       {/* PWA Light Header */}
       {isPWAClient && isPWA && (
-        <div className={`flex items-center justify-between py-3 mb-4 border-b border-gray-100 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+        <div className={`flex items-center justify-between px-1 py-4 mb-4 border-b border-gray-100 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
           {/* Back to Bag */}
           <Link 
             href={getLocalizedPath('/cart', locale)}
-            className={`flex items-center gap-1.5 text-gray-600 hover:text-gray-900 transition-colors ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+            className={`flex items-center gap-1 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
           >
-            <ArrowLeft className={`h-5 w-5 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
-            <span className="text-sm font-medium">{t('common.bag') || 'Bag'}</span>
+            <ArrowLeft className={`w-5 h-5 text-red-600 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
+            <span className="text-base text-red-600">{t('common.bag') || 'Bag'}</span>
           </Link>
           
           {/* Page Title */}

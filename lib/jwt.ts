@@ -3,8 +3,10 @@
 import { errorLog, debugLog, warnLog } from '@/lib/logger'
 import crypto from 'crypto'
 
-// JWT configuration - require secret in production, use fallback only for development
-const JWT_SECRET = (() => {
+// JWT configuration - checked at runtime to avoid build-time errors
+let _jwtSecretWarned = false
+
+function getJwtSecret(): string {
   const secret = process.env.JWT_SECRET
   
   if (!secret) {
@@ -15,13 +17,16 @@ const JWT_SECRET = (() => {
         'Please set a strong, random JWT_SECRET value.'
       )
     }
-    // In development, warn and use fallback
-    warnLog('⚠️ JWT_SECRET not set - using insecure fallback. Set JWT_SECRET for production.')
+    // In development, warn once and use fallback
+    if (!_jwtSecretWarned) {
+      warnLog('⚠️ JWT_SECRET not set - using insecure fallback. Set JWT_SECRET for production.')
+      _jwtSecretWarned = true
+    }
     return 'fallback-secret-for-development-only'
   }
   
   return secret
-})()
+}
 
 // Token payload interface
 export interface TokenPayload {
@@ -67,7 +72,7 @@ export function generateMobileToken(user: {
     // Create signature
     const data = `${headerEncoded}.${payloadEncoded}`
     const signature = crypto
-      .createHmac('sha256', JWT_SECRET)
+      .createHmac('sha256', getJwtSecret())
       .update(data)
       .digest('base64url')
     
@@ -95,7 +100,7 @@ export function verifyMobileToken(token: string): TokenPayload | null {
     // Verify signature
     const data = `${headerEncoded}.${payloadEncoded}`
     const expectedSignature = crypto
-      .createHmac('sha256', JWT_SECRET)
+      .createHmac('sha256', getJwtSecret())
       .update(data)
       .digest('base64url')
     

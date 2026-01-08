@@ -22,6 +22,7 @@ import { translateCategory } from '@/utils/categoryTranslations'
 import { usePWAMode } from '@/hooks/usePWAMode'
 import { useRouter } from 'next/navigation'
 import { useHapticFeedback } from '@/hooks/useHapticFeedback'
+import { usePrefetchProduct } from '@/hooks/usePrefetch'
 
 interface ProductCardProps {
   product: Product
@@ -35,7 +36,10 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
   const { isPWA } = usePWAMode()
   const router = useRouter()
   const haptic = useHapticFeedback()
-  const productPath = getLocalizedPath(`/products/${product.productNumber || product.id}`, locale)
+  const { getProductPrefetchProps } = usePrefetchProduct()
+  const productId = product.productNumber || product.id
+  const productPath = getLocalizedPath(`/products/${productId}`, locale)
+  const prefetchProps = !isPWA ? getProductPrefetchProps(productId, locale) : {}
   const [isAdding, setIsAdding] = useState(false)
   const [isTogglingFavorite, setIsTogglingFavorite] = useState(false)
   const [showLoginModal, setShowLoginModal] = useState(false)
@@ -141,7 +145,7 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
             </div>
           </div>
         ) : (
-          <Link href={productPath} className="block">
+          <Link href={productPath} className="block" {...prefetchProps}>
             <motion.div
               whileHover={animationsEnabled ? { scale: 1.1 } : {}}
               transition={animationsEnabled ? { duration: 0.4, ease: "easeOut" } : {}}
@@ -226,7 +230,7 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
               </h3>
             </div>
           ) : (
-            <Link href={productPath}>
+            <Link href={productPath} {...prefetchProps}>
               <h3 className="text-sm md:text-lg font-semibold text-gray-800 line-clamp-2 hover:text-primary-600 transition-colors cursor-pointer">
                 {product.name}
               </h3>

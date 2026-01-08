@@ -204,3 +204,53 @@ html[dir="rtl"] {
   user-select: none;
   -webkit-user-select: none;
 }
+
+/* View Transitions API - Smooth page transitions for supported browsers */
+@supports (view-transition-name: none) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 200ms;
+    animation-timing-function: ease-in-out;
+  }
+
+  ::view-transition-old(root) {
+    animation-name: fade-out;
+  }
+
+  ::view-transition-new(root) {
+    animation-name: fade-in;
+  }
+
+  @keyframes fade-out {
+    from { opacity: 1; }
+    to { opacity: 0; }
+  }
+
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  /* Product card transitions */
+  .product-card {
+    view-transition-name: product-card;
+  }
+
+  ::view-transition-old(product-card),
+  ::view-transition-new(product-card) {
+    animation-duration: 250ms;
+    animation-timing-function: ease-out;
+  }
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  @supports (view-transition-name: none) {
+    ::view-transition-old(root),
+    ::view-transition-new(root),
+    ::view-transition-old(product-card),
+    ::view-transition-new(product-card) {
+      animation-duration: 0ms;
+    }
+  }
+}

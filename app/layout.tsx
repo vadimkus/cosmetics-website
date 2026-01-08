@@ -28,6 +28,7 @@ import MobileFooterNav from '@/components/MobileFooterNav'
 import PWAHeader from '@/components/PWAHeader'
 import PWASplashScreen from '@/components/PWASplashScreen'
 import { SyncStatusIndicator } from '@/components/SyncStatusIndicator'
+import NetworkStatus from '@/components/NetworkStatus'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -157,6 +158,12 @@ export default function RootLayout({
   return (
     <html lang="en" dir="ltr" suppressHydrationWarning>
       <head>
+        {/* Preconnect to external domains for faster resource loading */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+        <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+        
         {/* iOS Splash Screens for PWA */}
         <AppleSplashScreens />
         {/* Set locale and direction IMMEDIATELY - This script MUST run before any React code */}
@@ -280,6 +287,7 @@ export default function RootLayout({
                     <ServiceWorkerUpdateNotification />
                     <StorageQuotaMonitor />
                     <SyncStatusIndicator />
+                    <NetworkStatus />
                   </ServiceWorkerProvider>
                 </CartProvider>
               </FavoritesProvider>

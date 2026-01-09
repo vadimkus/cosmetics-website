@@ -74,7 +74,7 @@ export async function POST(request: NextRequest) {
 
     // Parse request body
     debugLog('[FORGOT-PASSWORD] Parsing request body...')
-    const { email } = await request.json()
+    const { email, locale = 'en' } = await request.json()
     
     if (!email || typeof email !== 'string') {
       return NextResponse.json(
@@ -108,7 +108,7 @@ export async function POST(request: NextRequest) {
         
         // Send password reset email
         debugLog('[FORGOT-PASSWORD] Sending reset email...')
-        const emailResult = await sendPasswordResetEmail(user.email, user.name, plainToken)
+        const emailResult = await sendPasswordResetEmail(user.email, user.name, plainToken, locale)
         
         if (emailResult.success) {
           debugLog('[FORGOT-PASSWORD] Password reset email sent successfully')

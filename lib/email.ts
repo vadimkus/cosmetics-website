@@ -1333,17 +1333,41 @@ export const emailTemplates = {
   }),
 
   // Password reset email - Apple style
-  passwordReset: (userName: string, resetToken: string) => {
-    const resetUrl = `${process.env.NEXT_PUBLIC_SITE_URL || 'https://genosys.ae'}/reset-password/${resetToken}`
+  passwordReset: (userName: string, resetToken: string, locale: string = 'en') => {
+    const t = loadEmailTranslations(locale, 'passwordReset')
+    const { dir, textAlign } = getLocaleSettings(locale)
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://genosys.ae'
+    const resetUrl = `${siteUrl}/reset-password/${resetToken}`
+    const firstName = (userName || 'there').split(' ')[0]
+    
+    // Localized text
+    const headingText = locale === 'ru' ? 'Сброс пароля' : locale === 'ar' ? 'إعادة تعيين كلمة المرور' : 'Reset Your Password'
+    const messageText = locale === 'ru' 
+      ? `Здравствуйте, ${firstName}, мы получили запрос на сброс вашего пароля. Нажмите кнопку ниже, чтобы создать новый пароль.`
+      : locale === 'ar'
+      ? `مرحباً ${firstName}، تلقينا طلباً لإعادة تعيين كلمة المرور الخاصة بك. انقر على الزر أدناه لإنشاء كلمة مرور جديدة.`
+      : `Hi ${firstName}, we received a request to reset your password. Click the button below to create a new one.`
+    const buttonText = t.resetButton || (locale === 'ru' ? 'Сбросить пароль' : locale === 'ar' ? 'إعادة تعيين كلمة المرور' : 'Reset Password')
+    const expiryText = locale === 'ru' 
+      ? '⏱ Эта ссылка действительна <strong>30 минут</strong>'
+      : locale === 'ar'
+      ? '⏱ تنتهي صلاحية هذا الرابط خلال <strong>30 دقيقة</strong>'
+      : '⏱ This link expires in <strong>30 minutes</strong>'
+    const securityText = locale === 'ru'
+      ? 'Если вы не запрашивали сброс пароля, просто проигнорируйте это письмо.<br>Ваш пароль останется без изменений.'
+      : locale === 'ar'
+      ? 'إذا لم تطلب هذا، يمكنك تجاهل هذا البريد الإلكتروني بأمان.<br>ستبقى كلمة المرور الخاصة بك دون تغيير.'
+      : "If you didn't request this, you can safely ignore this email.<br>Your password will remain unchanged."
+    
     return {
-      subject: 'Reset Your Password',
+      subject: t.subject || headingText,
       html: `
         <!DOCTYPE html>
-        <html lang="en">
+        <html lang="${locale}" dir="${dir}">
         <head>
           <meta charset="UTF-8">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <title>Reset Your Password</title>
+          <title>${headingText}</title>
         </head>
         <body style="margin: 0; padding: 0; background-color: #ffffff; -webkit-font-smoothing: antialiased;">
           <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #ffffff;">
@@ -1371,15 +1395,15 @@ export const emailTemplates = {
                   <tr>
                     <td style="text-align: center; padding-bottom: 12px;">
                       <h1 style="margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif; font-size: 28px; font-weight: 600; color: #1d1d1f; letter-spacing: -0.02em;">
-                        Reset Your Password
+                        ${headingText}
                       </h1>
                     </td>
                   </tr>
                   
                   <!-- Message -->
                   <tr>
-                    <td style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 17px; line-height: 1.5; color: #1d1d1f; text-align: center; padding-bottom: 32px;">
-                      Hi ${(userName || 'there').split(' ')[0]}, we received a request to reset your password. Click the button below to create a new one.
+                    <td style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 17px; line-height: 1.5; color: #1d1d1f; text-align: ${textAlign}; padding-bottom: 32px;">
+                      ${messageText}
                     </td>
                   </tr>
                   
@@ -1387,7 +1411,7 @@ export const emailTemplates = {
                   <tr>
                     <td style="text-align: center; padding-bottom: 32px;">
                       <a href="${resetUrl}" style="display: inline-block; background-color: #0071e3; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 17px; font-weight: 500; text-decoration: none; padding: 12px 24px; border-radius: 980px;">
-                Reset Password
+                ${buttonText}
               </a>
                     </td>
                   </tr>
@@ -1399,7 +1423,7 @@ export const emailTemplates = {
                         <tr>
                           <td style="padding: 20px; text-align: center;">
                             <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 15px; color: #1d1d1f;">
-                              ⏱ This link expires in <strong>30 minutes</strong>
+                              ${expiryText}
             </div>
                           </td>
                         </tr>
@@ -1409,9 +1433,8 @@ export const emailTemplates = {
                   
                   <!-- Security Notice -->
                   <tr>
-                    <td style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 13px; color: #86868b; text-align: center; padding-bottom: 32px; line-height: 1.6;">
-                      If you didn't request this, you can safely ignore this email.<br>
-                      Your password will remain unchanged.
+                    <td style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 13px; color: #86868b; text-align: ${textAlign}; padding-bottom: 32px; line-height: 1.6;">
+                      ${securityText}
                     </td>
                   </tr>
                   
@@ -1420,8 +1443,8 @@ export const emailTemplates = {
                     <td style="text-align: center; padding-top: 32px; border-top: 1px solid #d2d2d7;">
                       <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 12px; color: #86868b; line-height: 1.6;">
                         Genosys Middle East FZ-LLC<br>
-                        Official Distributor in the UAE<br><br>
-                        © 2026 All rights reserved.
+                        ${t.officialDistributor || 'Official Distributor in the UAE'}<br><br>
+                        ${t.copyright || '© 2026 All rights reserved.'}
           </div>
                     </td>
                   </tr>
@@ -1645,9 +1668,9 @@ export const sendAdminNewOrderNotification = async (orderData: AdminNewOrderEmai
   }
 }
 
-export const sendPasswordResetEmail = async (userEmail: string, userName: string, resetToken: string) => {
-  const template = emailTemplates.passwordReset(userName, resetToken)
-  debugLog(`📧 Sending password reset email to: ${userEmail}`)
+export const sendPasswordResetEmail = async (userEmail: string, userName: string, resetToken: string, locale: string = 'en') => {
+  const template = emailTemplates.passwordReset(userName, resetToken, locale)
+  debugLog(`📧 Sending password reset email to: ${userEmail} (locale: ${locale})`)
   return await sendEmail(userEmail, template.subject, template.html)
 }
 

@@ -73,7 +73,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const { email } = await request.json()
+    const { email, locale = 'en' } = await request.json()
     if (!email || typeof email !== 'string') {
       return NextResponse.json({ success: false, error: 'Email is required' }, { status: 400 })
     }
@@ -90,7 +90,7 @@ export async function POST(request: NextRequest) {
     if (user) {
       try {
         const plainToken = await createPasswordResetToken(user.id)
-        const emailResult = await sendPasswordResetEmail(user.email, user.name, plainToken)
+        const emailResult = await sendPasswordResetEmail(user.email, user.name, plainToken, locale)
         if (!emailResult.success) {
           errorLog('[MOBILE_FORGOT_PASSWORD] Failed to send reset email:', emailResult.error)
         }

@@ -539,4 +539,14 @@ export const products: Product[] = [
     inStock: true,
     size: '30 sheets',
   },
+  {
+    id: '53',
+    name: 'SCALP BRUSH',
+    price: 50,
+    description: 'The Genosys Hair Brush (also referred to as the Genosys Scalp Brush or part of their scalp/hair microneedling line) is a specialized tool from the Korean brand GENOSYS, designed primarily for scalp care, stimulation, and supporting hair health. It complements their microneedling science by promoting better circulation, exfoliation, and product absorption on the scalp. The Scalp Brush serves as a gentler, non-invasive option for daily or preparatory scalp massage. It\'s often used in wet or dry modes to cleanse, invigorate the scalp, and prepare it for deeper treatments like microneedling stamps or the HR³ MATRIX hair solutions. Key Features: Ergonomic brush with soft, flexible bristles optimized for scalp use without causing irritation. Dual Use - Wet use: Apply shampoo, then gently massage in circular motions to deeply cleanse, remove buildup, and stimulate blood flow. Dry use: On clean, dry hair/scalp for invigorating massage to boost circulation and relax the scalp. Integration with GENOSYS Line: Pairs excellently with anti-hair loss products (HR³ MATRIX Clinical Hair Tonic, Scalp Peeling, Hair Solution α) to enhance nutrient delivery and overall scalp health. Benefits: Improves blood circulation to nourish follicles, helps reduce dandruff, excess sebum, and buildup, stimulates scalp for healthier hair growth environment, prepares the scalp for microneedling treatments to address thinning, loss, or weak roots, supports regeneration when combined with professional kits like HR³ MATRIX. Manufactured in South Korea.',
+    image: '/images/Second/brush.jpg',
+    images: null,
+    category: 'Scalp/Hair',
+    inStock: true,
+  },
 ]

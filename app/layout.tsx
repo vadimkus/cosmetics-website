@@ -29,11 +29,12 @@ import PWAHeader from '@/components/PWAHeader'
 import PWASplashScreen from '@/components/PWASplashScreen'
 import { SyncStatusIndicator } from '@/components/SyncStatusIndicator'
 import NetworkStatus from '@/components/NetworkStatus'
+import { getSiteUrl } from '@/lib/siteConfig'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://genosys.ae'),
+  metadataBase: getSiteUrl(),
   title: 'GENOSYS Middle East FZ-LLC - Professional Korean Dermacosmetics & Microneedling Devices UAE',
   description: 'Official distributor of GENOSYS Korean dermacosmetics in UAE. Professional microneedling devices, skincare products, and beauty treatments. Free shipping over 1000 AED. Licensed practitioners only.',
   keywords: [

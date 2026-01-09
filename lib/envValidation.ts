@@ -18,6 +18,15 @@ interface EnvConfig {
   STRIPE_PUBLISHABLE_KEY?: string
   STRIPE_WEBHOOK_SECRET?: string
   NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY?: string
+  // OAuth configuration
+  GOOGLE_CLIENT_ID?: string
+  GOOGLE_CLIENT_SECRET?: string
+  APPLE_CLIENT_ID?: string
+  APPLE_TEAM_ID?: string
+  APPLE_KEY_ID?: string
+  APPLE_PRIVATE_KEY?: string
+  // Site configuration
+  NEXT_PUBLIC_SITE_URL?: string
 }
 
 function validateEnvironment(): EnvConfig {
@@ -37,7 +46,16 @@ function validateEnvironment(): EnvConfig {
     STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
     STRIPE_PUBLISHABLE_KEY: process.env.STRIPE_PUBLISHABLE_KEY,
     STRIPE_WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET,
-    NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+    NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,
+    // OAuth configuration
+    GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
+    GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
+    APPLE_CLIENT_ID: process.env.APPLE_CLIENT_ID,
+    APPLE_TEAM_ID: process.env.APPLE_TEAM_ID,
+    APPLE_KEY_ID: process.env.APPLE_KEY_ID,
+    APPLE_PRIVATE_KEY: process.env.APPLE_PRIVATE_KEY,
+    // Site configuration
+    NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL
   }
 
   // Check required variables
@@ -113,6 +131,33 @@ function validateEnvironment(): EnvConfig {
         'Stripe payments will be disabled until these are configured.'
       )
     }
+
+    // Warn about missing Google OAuth configuration
+    if (!optionalVars.GOOGLE_CLIENT_ID || !optionalVars.GOOGLE_CLIENT_SECRET) {
+      warnLog(
+        '⚠️  WARNING: Google OAuth configuration incomplete in production.\n' +
+        'GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET are required for Google Sign-In.\n' +
+        'Google authentication will be disabled until these are configured.'
+      )
+    }
+
+    // Warn about missing Apple OAuth configuration
+    if (!optionalVars.APPLE_CLIENT_ID || !optionalVars.APPLE_TEAM_ID || 
+        !optionalVars.APPLE_KEY_ID || !optionalVars.APPLE_PRIVATE_KEY) {
+      warnLog(
+        '⚠️  WARNING: Apple OAuth configuration incomplete in production.\n' +
+        'APPLE_CLIENT_ID, APPLE_TEAM_ID, APPLE_KEY_ID, and APPLE_PRIVATE_KEY are required for Apple Sign-In.\n' +
+        'Apple authentication will be disabled until these are configured.'
+      )
+    }
+
+    // Warn about missing site URL
+    if (!optionalVars.NEXT_PUBLIC_SITE_URL) {
+      warnLog(
+        '⚠️  WARNING: NEXT_PUBLIC_SITE_URL not set in production.\n' +
+        'Falling back to https://genosys.ae. Set this variable for correct URL generation.'
+      )
+    }
   }
 
   return {
@@ -136,8 +181,24 @@ export const {
   STRIPE_SECRET_KEY,
   STRIPE_PUBLISHABLE_KEY,
   STRIPE_WEBHOOK_SECRET,
-  NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+  NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,
+  GOOGLE_CLIENT_ID,
+  GOOGLE_CLIENT_SECRET,
+  APPLE_CLIENT_ID,
+  APPLE_TEAM_ID,
+  APPLE_KEY_ID,
+  APPLE_PRIVATE_KEY,
+  NEXT_PUBLIC_SITE_URL
 } = env
+
+// Helper to check if OAuth providers are configured
+export function isGoogleOAuthConfigured(): boolean {
+  return !!(GOOGLE_CLIENT_ID && GOOGLE_CLIENT_SECRET)
+}
+
+export function isAppleOAuthConfigured(): boolean {
+  return !!(APPLE_CLIENT_ID && APPLE_TEAM_ID && APPLE_KEY_ID && APPLE_PRIVATE_KEY)
+}
 
 // Export validation function for testing
 export { validateEnvironment }

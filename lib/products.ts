@@ -442,7 +442,7 @@ export const products: Product[] = [
     price: 290,
     description: '70ml. Functional tonic that improves the conditions of hair loss. It is a functional tonic approved as a \'functional product that improves the symptoms of hair loss\' by KFDA. It improves the scalp environment that causes hair loss and cools down the scalp heat, giving the sense of freshness to the scalp. Key ingredients: Copper Tripeptide-1, Ascorbic Acid (Vitamin C), Sophora Japonica Extract, Caffeine, Panthenol, Menthol, Acorus Calamus Root Extract, MultiEx BSASM™. Dermatologically tested. KFDA approved as a functional product for improving hair loss symptoms. Efficacy test on improving hair loss.',
     image: '/images/HT.jpg',
-    images: null,
+    images: '["/images/Second/tonicc.jpg"]',
     category: 'Scalp/Hair',
     inStock: true,
   },

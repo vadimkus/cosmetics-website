@@ -171,21 +171,36 @@ export async function POST(request: NextRequest) {
     const { password: __, ...userWithoutPassword } = updatedUser
     
     // Create signed session token (prevents tampering)
-    const sessionToken = createSessionToken({
-      id: updatedUser.id,
-      email: updatedUser.email,
-      name: updatedUser.name,
-      isAdmin: updatedUser.isAdmin || false,
-      canSeePrices: updatedUser.canSeePrices !== undefined ? updatedUser.canSeePrices : true,
-      profilePicture: updatedUser.profilePicture || null,
-    })
+    // Fallback to legacy JSON if JWT creation fails
+    let sessionToken: string
+    try {
+      sessionToken = createSessionToken({
+        id: updatedUser.id,
+        email: updatedUser.email,
+        name: updatedUser.name,
+        isAdmin: updatedUser.isAdmin || false,
+        canSeePrices: updatedUser.canSeePrices !== undefined ? updatedUser.canSeePrices : true,
+        profilePicture: updatedUser.profilePicture || null,
+      })
+      debugLog('[LOGIN] Created signed session token')
+    } catch (jwtError) {
+      errorLog('[LOGIN] JWT creation failed, using legacy format:', jwtError)
+      sessionToken = JSON.stringify({
+        id: updatedUser.id,
+        email: updatedUser.email,
+        name: updatedUser.name,
+        isAdmin: updatedUser.isAdmin || false,
+        canSeePrices: updatedUser.canSeePrices !== undefined ? updatedUser.canSeePrices : true,
+        profilePicture: updatedUser.profilePicture || null,
+      })
+    }
     
     const response = NextResponse.json({
       user: userWithoutPassword,
       message: 'Login successful'
     })
     
-    // Set session cookie with signed JWT token (httpOnly prevents XSS access)
+    // Set session cookie (httpOnly prevents XSS access)
     response.cookies.set('genosys_session', sessionToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',

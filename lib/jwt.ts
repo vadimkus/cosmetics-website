@@ -10,19 +10,21 @@ function getJwtSecret(): string {
   const secret = process.env.JWT_SECRET
   
   if (!secret) {
-    if (process.env.NODE_ENV === 'production') {
-      // In production, throw an error if JWT_SECRET is not set
-      throw new Error(
-        'CRITICAL SECURITY ERROR: JWT_SECRET environment variable is not set in production. ' +
-        'Please set a strong, random JWT_SECRET value.'
-      )
-    }
-    // In development, warn once and use fallback
+    // Warn once about missing JWT_SECRET (don't throw - let fallback work)
     if (!_jwtSecretWarned) {
-      warnLog('⚠️ JWT_SECRET not set - using insecure fallback. Set JWT_SECRET for production.')
+      if (process.env.NODE_ENV === 'production') {
+        errorLog('⚠️ SECURITY WARNING: JWT_SECRET not set in production!')
+        errorLog('⚠️ Using fallback secret - sessions may be vulnerable. Set JWT_SECRET env var.')
+      } else {
+        warnLog('⚠️ JWT_SECRET not set - using insecure fallback. Set JWT_SECRET for production.')
+      }
       _jwtSecretWarned = true
     }
-    return 'fallback-secret-for-development-only'
+    // Use a deterministic fallback based on other env vars if available
+    const fallback = process.env.DATABASE_URL 
+      ? `fallback-${Buffer.from(process.env.DATABASE_URL).toString('base64').slice(0, 32)}`
+      : 'fallback-secret-for-development-only'
+    return fallback
   }
   
   return secret

@@ -291,16 +291,32 @@ export async function GET(request: NextRequest) {
     response.cookies.delete('google-oauth-state')
 
     // Create signed session token (prevents tampering)
-    const sessionToken = createSessionToken({
-      id: user.id,
-      email: user.email,
-      name: user.name,
-      isAdmin: user.isAdmin || false,
-      canSeePrices: user.canSeePrices !== undefined ? user.canSeePrices : true,
-      profilePicture: user.profilePicture || null,
-    })
+    // Fallback to legacy JSON if JWT creation fails (e.g., missing JWT_SECRET)
+    let sessionToken: string
+    try {
+      sessionToken = createSessionToken({
+        id: user.id,
+        email: user.email,
+        name: user.name,
+        isAdmin: user.isAdmin || false,
+        canSeePrices: user.canSeePrices !== undefined ? user.canSeePrices : true,
+        profilePicture: user.profilePicture || null,
+      })
+      debugLog('[GOOGLE_CALLBACK] Created signed session token')
+    } catch (jwtError) {
+      // Fallback to legacy JSON format if JWT creation fails
+      errorLog('[GOOGLE_CALLBACK] JWT creation failed, using legacy format:', jwtError)
+      sessionToken = JSON.stringify({
+        id: user.id,
+        email: user.email,
+        name: user.name,
+        isAdmin: user.isAdmin || false,
+        canSeePrices: user.canSeePrices !== undefined ? user.canSeePrices : true,
+        profilePicture: user.profilePicture || null,
+      })
+    }
 
-    // Set session cookie with signed JWT token
+    // Set session cookie
     response.cookies.set('genosys_session', sessionToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',

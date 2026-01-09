@@ -48,6 +48,21 @@ export async function GET(request: NextRequest) {
   debugLog('[GOOGLE_CALLBACK] Original origin:', request.nextUrl.origin)
   debugLog('[GOOGLE_CALLBACK] Normalized origin:', normalizedOrigin)
 
+  // Check if request came from PWA
+  const isFromPWA = request.cookies.get('oauth-from-pwa')?.value === 'true'
+  const loginPath = isFromPWA ? '/pwa-login' : '/login'
+
+  // Helper function to create error redirect and clean up cookies
+  const createErrorRedirect = (errorCode: string) => {
+    const response = NextResponse.redirect(
+      new URL(`${loginPath}?error=${errorCode}`, normalizedOrigin)
+    )
+    // Clean up OAuth cookies
+    response.cookies.delete('google-oauth-state')
+    response.cookies.delete('oauth-from-pwa')
+    return response
+  }
+
   try {
     // Apply rate limiting
     let clientIdentifier: string
@@ -61,9 +76,7 @@ export async function GET(request: NextRequest) {
     const rateLimitResult = await googleCallbackLimiter(clientIdentifier)
     if (!rateLimitResult || !rateLimitResult.success) {
       debugLog('[GOOGLE_CALLBACK] Rate limit exceeded')
-      return NextResponse.redirect(
-        new URL('/login?error=rate_limit', normalizedOrigin)
-      )
+      return createErrorRedirect('rate_limit')
     }
 
     // Get authorization code and state from query parameters
@@ -75,26 +88,20 @@ export async function GET(request: NextRequest) {
     // Handle OAuth errors
     if (error) {
       errorLog('[GOOGLE_CALLBACK] OAuth error:', error)
-      return NextResponse.redirect(
-        new URL('/login?error=oauth_failed', normalizedOrigin)
-      )
+      return createErrorRedirect('oauth_failed')
     }
 
     // Verify required parameters
     if (!code || !state) {
       errorLog('[GOOGLE_CALLBACK] Missing code or state parameter')
-      return NextResponse.redirect(
-        new URL('/login?error=invalid_request', normalizedOrigin)
-      )
+      return createErrorRedirect('invalid_request')
     }
 
     // Verify state (CSRF protection)
     const storedState = request.cookies.get('google-oauth-state')?.value
     if (!storedState || storedState !== state) {
       errorLog('[GOOGLE_CALLBACK] Invalid state parameter')
-      return NextResponse.redirect(
-        new URL('/login?error=invalid_state', normalizedOrigin)
-      )
+      return createErrorRedirect('invalid_state')
     }
 
     // Get redirect URI (must match exactly what was sent to Google)
@@ -106,9 +113,7 @@ export async function GET(request: NextRequest) {
     const tokens = await exchangeCodeForTokens(code, redirectUri)
     if (!tokens) {
       errorLog('[GOOGLE_CALLBACK] Failed to exchange code for tokens')
-      return NextResponse.redirect(
-        new URL('/login?error=token_exchange_failed', normalizedOrigin)
-      )
+      return createErrorRedirect('token_exchange_failed')
     }
 
     // Verify ID token and get user info
@@ -117,9 +122,7 @@ export async function GET(request: NextRequest) {
     const googleUser = await verifyGoogleIdToken(tokens.idToken, tokens.accessToken)
     if (!googleUser) {
       errorLog('[GOOGLE_CALLBACK] Failed to verify ID token')
-      return NextResponse.redirect(
-        new URL('/login?error=token_verification_failed', normalizedOrigin)
-      )
+      return createErrorRedirect('token_verification_failed')
     }
 
     debugLog('[GOOGLE_CALLBACK] Google user verified:', { 
@@ -227,9 +230,7 @@ export async function GET(request: NextRequest) {
         if (existing) {
           user = existing
         } else {
-          return NextResponse.redirect(
-            new URL('/login?error=user_creation_failed', normalizedOrigin)
-          )
+          return createErrorRedirect('user_creation_failed')
         }
       }
     } else {
@@ -284,11 +285,12 @@ export async function GET(request: NextRequest) {
     
     debugLog('[GOOGLE_CALLBACK] Redirecting to:', redirectPath)
     
-    // Clear the state cookie and redirect directly to products
+    // Clear OAuth cookies and redirect directly to products
     const response = NextResponse.redirect(
       new URL(redirectPath, normalizedOrigin)
     )
     response.cookies.delete('google-oauth-state')
+    response.cookies.delete('oauth-from-pwa')
 
     // Create signed session token (prevents tampering)
     // Fallback to legacy JSON if JWT creation fails (e.g., missing JWT_SECRET)
@@ -329,10 +331,15 @@ export async function GET(request: NextRequest) {
     return response
   } catch (error) {
     errorLog('[GOOGLE_CALLBACK] Error:', error)
-    const normalizedOrigin = normalizeOrigin(request.nextUrl.origin)
-    return NextResponse.redirect(
-      new URL('/login?error=internal_error', normalizedOrigin)
+    // Check if request came from PWA for error redirect
+    const isPWA = request.cookies.get('oauth-from-pwa')?.value === 'true'
+    const errorLoginPath = isPWA ? '/pwa-login' : '/login'
+    const response = NextResponse.redirect(
+      new URL(`${errorLoginPath}?error=internal_error`, normalizeOrigin(request.nextUrl.origin))
     )
+    response.cookies.delete('google-oauth-state')
+    response.cookies.delete('oauth-from-pwa')
+    return response
   }
 }
 

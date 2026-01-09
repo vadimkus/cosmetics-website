@@ -7,6 +7,7 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
+import { usePWAMode } from '@/hooks/usePWAMode'
 
 export default function LoginClient() {
   const { user, login, register, loginWithGoogle, loginWithApple, isLoading, forceRefreshUser } = useAuth()
@@ -14,6 +15,7 @@ export default function LoginClient() {
   const [promoCode, setPromoCode] = useState<string>('')
   const router = useRouter()
   const { t, locale, dir } = useTranslation()
+  const { isPWA, isClient: isPWAClient } = usePWAMode()
   
   // Form state
   const [formData, setFormData] = useState({
@@ -30,6 +32,16 @@ export default function LoginClient() {
   const [showPrivacyPolicy, setShowPrivacyPolicy] = useState(false)
   const [privacyConsent, setPrivacyConsent] = useState(false)
   const normalizedPromo = String(promoCode || '').trim().toUpperCase()
+
+  // Redirect PWA users to clean PWA login page
+  useEffect(() => {
+    if (isPWAClient && isPWA) {
+      // Preserve query params when redirecting
+      const searchParams = typeof window !== 'undefined' ? window.location.search : ''
+      const pwaLoginPath = locale === 'en' ? '/pwa-login' : `/${locale}/pwa-login`
+      router.replace(pwaLoginPath + searchParams)
+    }
+  }, [isPWA, isPWAClient, router, locale])
 
   // Handle Google OAuth callback
   useEffect(() => {

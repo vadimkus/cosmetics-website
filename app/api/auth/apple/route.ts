@@ -59,14 +59,18 @@ export async function GET(request: NextRequest) {
       clientIdentifier = 'unknown'
     }
 
+    // Check if request is from PWA
+    const fromPWA = request.nextUrl.searchParams.get('from_pwa') === 'true'
+    const loginPath = fromPWA ? '/pwa-login' : '/login'
+
     const rateLimitResult = await appleAuthLimiter(clientIdentifier)
     if (!rateLimitResult || !rateLimitResult.success) {
-      return NextResponse.redirect(new URL('/login?error=apple_rate_limit', request.nextUrl.origin))
+      return NextResponse.redirect(new URL(`${loginPath}?error=apple_rate_limit`, request.nextUrl.origin))
     }
 
     const clientId = getAppleWebClientId()
     if (!clientId) {
-      return NextResponse.redirect(new URL('/login?error=apple_not_configured', request.nextUrl.origin))
+      return NextResponse.redirect(new URL(`${loginPath}?error=apple_not_configured`, request.nextUrl.origin))
     }
 
     const origin = normalizeOrigin(request.nextUrl.origin)
@@ -120,11 +124,26 @@ export async function GET(request: NextRequest) {
       })
     }
 
+    // Store PWA flag for callback redirect
+    if (fromPWA) {
+      response.cookies.set('oauth-from-pwa', 'true', {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite,
+        maxAge: 600,
+        path: '/',
+        ...(domain ? { domain } : {}),
+      })
+    }
+
     debugLog('[APPLE_AUTH] Redirecting to Apple', Date.now() - startTime, 'ms')
     return response
   } catch (error) {
     errorLog('[APPLE_AUTH] Error:', error)
-    return NextResponse.redirect(new URL('/login?error=apple_internal_error', request.nextUrl.origin))
+    // PWA check for error redirect
+    const isPWA = request.nextUrl.searchParams.get('from_pwa') === 'true'
+    const errorPath = isPWA ? '/pwa-login' : '/login'
+    return NextResponse.redirect(new URL(`${errorPath}?error=apple_internal_error`, request.nextUrl.origin))
   }
 }
 

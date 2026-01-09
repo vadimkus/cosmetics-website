@@ -74,6 +74,9 @@ export async function GET(request: NextRequest) {
 
     debugLog('[GOOGLE_AUTH] Generated auth URL', Date.now() - startTime, 'ms')
 
+    // Check if request is from PWA
+    const fromPWA = request.nextUrl.searchParams.get('from_pwa') === 'true'
+
     // Store state in cookie for verification in callback
     const response = NextResponse.redirect(authUrl)
     response.cookies.set('google-oauth-state', state, {
@@ -83,6 +86,17 @@ export async function GET(request: NextRequest) {
       maxAge: 600, // 10 minutes
       path: '/',
     })
+
+    // Store PWA flag for callback redirect
+    if (fromPWA) {
+      response.cookies.set('oauth-from-pwa', 'true', {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'lax',
+        maxAge: 600, // 10 minutes
+        path: '/',
+      })
+    }
 
     return response
   } catch (error) {

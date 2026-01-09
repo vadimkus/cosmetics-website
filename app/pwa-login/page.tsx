@@ -34,6 +34,30 @@ export default function PWALoginPage() {
     }
   }, [])
 
+  // Handle OAuth error query params
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const searchParams = new URLSearchParams(window.location.search)
+      const errorParam = searchParams.get('error')
+      
+      if (errorParam) {
+        const errorMessages: Record<string, string> = {
+          apple_rate_limit: t('login.appleRateLimit'),
+          apple_not_configured: t('login.appleNotConfigured'),
+          apple_oauth_failed: t('login.appleOAuthFailed'),
+          rate_limit: t('login.googleRateLimit'),
+          oauth_failed: t('login.googleOAuthFailed'),
+          internal_error: t('login.googleInternalError'),
+        }
+        const errorMessage = errorMessages[errorParam] || t('login.googleGenericError')
+        setError(errorMessage)
+        // Clean up URL
+        const cleanPath = locale === 'en' ? '/pwa-login' : `/${locale}/pwa-login`
+        router.replace(cleanPath)
+      }
+    }
+  }, [locale, router, t])
+
   // Redirect if already logged in
   useEffect(() => {
     if (user) {

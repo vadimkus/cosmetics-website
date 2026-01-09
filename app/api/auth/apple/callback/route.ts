@@ -59,6 +59,24 @@ async function handleAppleCallback(request: NextRequest, params: {
   debugLog('[APPLE_CALLBACK] Request started')
 
   const normalizedOrigin = normalizeOrigin(request.nextUrl.origin)
+  
+  // Check if request came from PWA
+  const isFromPWA = request.cookies.get('oauth-from-pwa')?.value === 'true'
+  const loginPath = isFromPWA ? '/pwa-login' : '/login'
+
+  // Helper function to create error redirect and clean up cookies
+  const createErrorRedirect = (errorCode: string) => {
+    const response = NextResponse.redirect(
+      new URL(`${loginPath}?error=${errorCode}`, normalizedOrigin),
+      303 // Use 303 to force GET on redirect
+    )
+    // Clean up OAuth cookies
+    response.cookies.delete('apple-oauth-state')
+    response.cookies.delete('apple-oauth-nonce')
+    response.cookies.delete('apple-oauth-promo')
+    response.cookies.delete('oauth-from-pwa')
+    return response
+  }
 
   try {
     const now = new Date()
@@ -72,7 +90,7 @@ async function handleAppleCallback(request: NextRequest, params: {
 
     const rateLimitResult = await appleCallbackLimiter(clientIdentifier)
     if (!rateLimitResult || !rateLimitResult.success) {
-      return NextResponse.redirect(new URL('/login?error=apple_rate_limit', normalizedOrigin))
+      return createErrorRedirect('apple_rate_limit')
     }
 
     const code = String(params.code || '')
@@ -83,24 +101,24 @@ async function handleAppleCallback(request: NextRequest, params: {
 
     if (oauthError) {
       errorLog('[APPLE_CALLBACK] OAuth error:', oauthError)
-      return NextResponse.redirect(new URL('/login?error=apple_oauth_failed', normalizedOrigin))
+      return createErrorRedirect('apple_oauth_failed')
     }
 
     if (!code || !state) {
-      return NextResponse.redirect(new URL('/login?error=apple_invalid_request', normalizedOrigin))
+      return createErrorRedirect('apple_invalid_request')
     }
 
     // Verify state
     const storedState = request.cookies.get('apple-oauth-state')?.value
     if (!storedState || storedState !== state) {
-      return NextResponse.redirect(new URL('/login?error=apple_invalid_state', normalizedOrigin))
+      return createErrorRedirect('apple_invalid_state')
     }
 
     const promoFromCookie = String(request.cookies.get('apple-oauth-promo')?.value || '').trim().toUpperCase()
 
     const clientId = getAppleWebClientId()
     if (!clientId) {
-      return NextResponse.redirect(new URL('/login?error=apple_not_configured', normalizedOrigin))
+      return createErrorRedirect('apple_not_configured')
     }
 
     const redirectUri = getAppleWebRedirectUri(normalizedOrigin)
@@ -116,12 +134,12 @@ async function handleAppleCallback(request: NextRequest, params: {
       })
     } catch (error) {
       errorLog('[APPLE_CALLBACK] Token exchange failed:', error)
-      return NextResponse.redirect(new URL('/login?error=apple_token_exchange_failed', normalizedOrigin))
+      return createErrorRedirect('apple_token_exchange_failed')
     }
 
     const idToken = String(tokenResponse?.id_token || idTokenFromPost || '')
     if (!idToken) {
-      return NextResponse.redirect(new URL('/login?error=apple_token_missing', normalizedOrigin))
+      return createErrorRedirect('apple_token_missing')
     }
 
     // Verify id_token signature + claims
@@ -131,13 +149,13 @@ async function handleAppleCallback(request: NextRequest, params: {
       claims = verified?.claims
     } catch (error) {
       errorLog('[APPLE_CALLBACK] id_token verification failed:', error)
-      return NextResponse.redirect(new URL('/login?error=apple_token_verification_failed', normalizedOrigin))
+      return createErrorRedirect('apple_token_verification_failed')
     }
 
     // Optional nonce check
     const nonce = request.cookies.get('apple-oauth-nonce')?.value
     if (nonce && claims.nonce && String(claims.nonce) !== String(nonce)) {
-      return NextResponse.redirect(new URL('/login?error=apple_invalid_nonce', normalizedOrigin))
+      return createErrorRedirect('apple_invalid_nonce')
     }
 
     const appleSub = String(claims.sub || '').trim()
@@ -269,7 +287,7 @@ async function handleAppleCallback(request: NextRequest, params: {
           (emailRaw ? await findUserByEmail(email) : null)
 
         if (!user) {
-          return NextResponse.redirect(new URL('/login?error=apple_user_creation_failed', normalizedOrigin))
+          return createErrorRedirect('apple_user_creation_failed')
         }
 
         // Best-effort: ensure appleSub is linked
@@ -339,6 +357,7 @@ async function handleAppleCallback(request: NextRequest, params: {
     response.cookies.delete('apple-oauth-state')
     response.cookies.delete('apple-oauth-nonce')
     response.cookies.delete('apple-oauth-promo')
+    response.cookies.delete('oauth-from-pwa')
 
     // Create signed session token (prevents tampering)
     // Fallback to legacy JSON if JWT creation fails
@@ -378,7 +397,18 @@ async function handleAppleCallback(request: NextRequest, params: {
     return response
   } catch (error) {
     errorLog('[APPLE_CALLBACK] Error:', error)
-    return NextResponse.redirect(new URL('/login?error=apple_internal_error', normalizedOrigin))
+    // Check if request came from PWA for error redirect
+    const isPWA = request.cookies.get('oauth-from-pwa')?.value === 'true'
+    const errorLoginPath = isPWA ? '/pwa-login' : '/login'
+    const errorResponse = NextResponse.redirect(
+      new URL(`${errorLoginPath}?error=apple_internal_error`, normalizedOrigin),
+      303
+    )
+    errorResponse.cookies.delete('apple-oauth-state')
+    errorResponse.cookies.delete('apple-oauth-nonce')
+    errorResponse.cookies.delete('apple-oauth-promo')
+    errorResponse.cookies.delete('oauth-from-pwa')
+    return errorResponse
   }
 }
 
@@ -406,7 +436,11 @@ export async function GET(request: NextRequest) {
   // If this isn't an OAuth callback, just bounce to login.
   if (!code || !state) {
     const normalizedOrigin = normalizeOrigin(request.nextUrl.origin)
-    return NextResponse.redirect(new URL('/login?error=apple_invalid_request', normalizedOrigin))
+    const isFromPWA = request.cookies.get('oauth-from-pwa')?.value === 'true'
+    const loginPath = isFromPWA ? '/pwa-login' : '/login'
+    const response = NextResponse.redirect(new URL(`${loginPath}?error=apple_invalid_request`, normalizedOrigin))
+    response.cookies.delete('oauth-from-pwa')
+    return response
   }
 
   return handleAppleCallback(request, {

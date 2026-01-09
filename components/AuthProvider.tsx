@@ -438,7 +438,14 @@ export default function AuthProvider({ children }: AuthProviderProps) {
       if (typeof window !== 'undefined') {
         const sp = new URLSearchParams(window.location.search || '')
         const promo = String(sp.get('promo') || '').trim()
-        window.location.href = promo ? `/api/auth/google?promo=${encodeURIComponent(promo)}` : '/api/auth/google'
+        // Detect PWA mode to pass flag for proper error redirect
+        const isPWA = window.matchMedia('(display-mode: standalone)').matches ||
+                      (window.navigator as any).standalone === true
+        const params = new URLSearchParams()
+        if (promo) params.set('promo', promo)
+        if (isPWA) params.set('from_pwa', 'true')
+        const queryString = params.toString()
+        window.location.href = queryString ? `/api/auth/google?${queryString}` : '/api/auth/google'
       }
     } catch (error) {
       errorLog('Google login error:', error)
@@ -453,7 +460,14 @@ export default function AuthProvider({ children }: AuthProviderProps) {
       if (typeof window !== 'undefined') {
         const sp = new URLSearchParams(window.location.search || '')
         const promo = String(sp.get('promo') || '').trim()
-        window.location.href = promo ? `/api/auth/apple?promo=${encodeURIComponent(promo)}` : '/api/auth/apple'
+        // Detect PWA mode to pass flag for proper error redirect
+        const isPWA = window.matchMedia('(display-mode: standalone)').matches ||
+                      (window.navigator as any).standalone === true
+        const params = new URLSearchParams()
+        if (promo) params.set('promo', promo)
+        if (isPWA) params.set('from_pwa', 'true')
+        const queryString = params.toString()
+        window.location.href = queryString ? `/api/auth/apple?${queryString}` : '/api/auth/apple'
       }
     } catch (error) {
       errorLog('Apple login error:', error)

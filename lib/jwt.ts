@@ -294,10 +294,12 @@ export function verifySessionToken(token: string): SessionPayload | null {
       .digest('base64url')
     
     // Use timing-safe comparison to prevent timing attacks
-    if (!crypto.timingSafeEqual(
-      Buffer.from(signature),
-      Buffer.from(expectedSignature)
-    )) {
+    // First check lengths match (timingSafeEqual requires same length buffers)
+    const signatureBuffer = Buffer.from(signature)
+    const expectedBuffer = Buffer.from(expectedSignature)
+    
+    if (signatureBuffer.length !== expectedBuffer.length || 
+        !crypto.timingSafeEqual(signatureBuffer, expectedBuffer)) {
       debugLog('Invalid session token signature - possible tampering detected')
       return null
     }

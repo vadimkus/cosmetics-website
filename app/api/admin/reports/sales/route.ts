@@ -45,7 +45,7 @@ export async function GET(request: NextRequest) {
             DATE("createdAt") as date,
             SUM(total) as revenue,
             COUNT(*) as orders
-          FROM "Order" 
+          FROM "orders" 
           WHERE status != 'CANCELLED' AND "createdAt" >= ${startDate}
           GROUP BY DATE("createdAt")
           ORDER BY date ASC
@@ -59,7 +59,7 @@ export async function GET(request: NextRequest) {
             DATE("createdAt") as date,
             SUM(total) as revenue,
             COUNT(*) as orders
-          FROM "Order" 
+          FROM "orders" 
           WHERE status != 'CANCELLED'
           GROUP BY DATE("createdAt")
           ORDER BY date ASC
@@ -82,7 +82,7 @@ export async function GET(request: NextRequest) {
             TO_CHAR("createdAt", 'YYYY-MM') as month,
             SUM(total) as revenue,
             COUNT(*) as orders
-          FROM "Order" 
+          FROM "orders" 
           WHERE status != 'CANCELLED' AND "createdAt" >= ${startDate}
           GROUP BY TO_CHAR("createdAt", 'YYYY-MM')
           ORDER BY month ASC
@@ -96,7 +96,7 @@ export async function GET(request: NextRequest) {
             TO_CHAR("createdAt", 'YYYY-MM') as month,
             SUM(total) as revenue,
             COUNT(*) as orders
-          FROM "Order" 
+          FROM "orders" 
           WHERE status != 'CANCELLED'
           GROUP BY TO_CHAR("createdAt", 'YYYY-MM')
           ORDER BY month ASC
@@ -142,8 +142,8 @@ export async function GET(request: NextRequest) {
             SUM(oi.price * oi.quantity) as revenue,
             SUM(oi.quantity) as quantity,
             COUNT(DISTINCT oi."orderId") as orders
-          FROM "OrderItem" oi
-          JOIN "Order" o ON o.id = oi."orderId"
+          FROM "order_items" oi
+          JOIN "orders" o ON o.id = oi."orderId"
           WHERE o.status != 'CANCELLED' AND o."createdAt" >= ${startDate}
           GROUP BY oi."productId", oi."productName"
           ORDER BY revenue DESC
@@ -162,8 +162,8 @@ export async function GET(request: NextRequest) {
             SUM(oi.price * oi.quantity) as revenue,
             SUM(oi.quantity) as quantity,
             COUNT(DISTINCT oi."orderId") as orders
-          FROM "OrderItem" oi
-          JOIN "Order" o ON o.id = oi."orderId"
+          FROM "order_items" oi
+          JOIN "orders" o ON o.id = oi."orderId"
           WHERE o.status != 'CANCELLED'
           GROUP BY oi."productId", oi."productName"
           ORDER BY revenue DESC
@@ -193,7 +193,7 @@ export async function GET(request: NextRequest) {
             SUM(o.total) as revenue,
             COUNT(*) as orders,
             MAX(o."createdAt") as "lastOrderDate"
-          FROM "Order" o
+          FROM "orders" o
           WHERE o.status != 'CANCELLED' AND o."createdAt" >= ${startDate}
           GROUP BY o."customerEmail", o."customerName"
           ORDER BY revenue DESC
@@ -212,7 +212,7 @@ export async function GET(request: NextRequest) {
             SUM(o.total) as revenue,
             COUNT(*) as orders,
             MAX(o."createdAt") as "lastOrderDate"
-          FROM "Order" o
+          FROM "orders" o
           WHERE o.status != 'CANCELLED'
           GROUP BY o."customerEmail", o."customerName"
           ORDER BY revenue DESC

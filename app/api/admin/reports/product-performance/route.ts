@@ -59,8 +59,8 @@ export async function GET(request: NextRequest) {
           SELECT 
             oi."productId",
             COUNT(DISTINCT oi."orderId") as "uniqueOrders"
-          FROM "OrderItem" oi
-          JOIN "Order" o ON o.id = oi."orderId"
+          FROM "order_items" oi
+          JOIN "orders" o ON o.id = oi."orderId"
           WHERE o.status != 'CANCELLED' AND o."createdAt" >= ${startDate}
           GROUP BY oi."productId"
         `
@@ -71,8 +71,8 @@ export async function GET(request: NextRequest) {
           SELECT 
             oi."productId",
             COUNT(DISTINCT oi."orderId") as "uniqueOrders"
-          FROM "OrderItem" oi
-          JOIN "Order" o ON o.id = oi."orderId"
+          FROM "order_items" oi
+          JOIN "orders" o ON o.id = oi."orderId"
           WHERE o.status != 'CANCELLED'
           GROUP BY oi."productId"
         `

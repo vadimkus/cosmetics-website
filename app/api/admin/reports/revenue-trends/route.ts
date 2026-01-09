@@ -37,7 +37,7 @@ export async function GET(request: NextRequest) {
               DATE("createdAt") as period,
               SUM(total) as revenue,
               COUNT(*) as orders
-            FROM "Order" 
+            FROM "orders" 
             WHERE status != 'CANCELLED' AND "createdAt" >= ${startDate}
             GROUP BY DATE("createdAt")
             ORDER BY period ASC
@@ -51,7 +51,7 @@ export async function GET(request: NextRequest) {
               DATE("createdAt") as period,
               SUM(total) as revenue,
               COUNT(*) as orders
-            FROM "Order" 
+            FROM "orders" 
             WHERE status != 'CANCELLED'
             GROUP BY DATE("createdAt")
             ORDER BY period ASC
@@ -68,7 +68,7 @@ export async function GET(request: NextRequest) {
               TO_CHAR(DATE_TRUNC('week', "createdAt"), 'YYYY-MM-DD') || ' (Week)' as period,
               SUM(total) as revenue,
               COUNT(*) as orders
-            FROM "Order" 
+            FROM "orders" 
             WHERE status != 'CANCELLED' AND "createdAt" >= ${startDate}
             GROUP BY DATE_TRUNC('week', "createdAt")
             ORDER BY DATE_TRUNC('week', "createdAt") ASC
@@ -82,7 +82,7 @@ export async function GET(request: NextRequest) {
               TO_CHAR(DATE_TRUNC('week', "createdAt"), 'YYYY-MM-DD') || ' (Week)' as period,
               SUM(total) as revenue,
               COUNT(*) as orders
-            FROM "Order" 
+            FROM "orders" 
             WHERE status != 'CANCELLED'
             GROUP BY DATE_TRUNC('week', "createdAt")
             ORDER BY DATE_TRUNC('week', "createdAt") ASC
@@ -99,7 +99,7 @@ export async function GET(request: NextRequest) {
               TO_CHAR("createdAt", 'YYYY-MM') as period,
               SUM(total) as revenue,
               COUNT(*) as orders
-            FROM "Order" 
+            FROM "orders" 
             WHERE status != 'CANCELLED' AND "createdAt" >= ${startDate}
             GROUP BY TO_CHAR("createdAt", 'YYYY-MM')
             ORDER BY period ASC
@@ -113,7 +113,7 @@ export async function GET(request: NextRequest) {
               TO_CHAR("createdAt", 'YYYY-MM') as period,
               SUM(total) as revenue,
               COUNT(*) as orders
-            FROM "Order" 
+            FROM "orders" 
             WHERE status != 'CANCELLED'
             GROUP BY TO_CHAR("createdAt", 'YYYY-MM')
             ORDER BY period ASC

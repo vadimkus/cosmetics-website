@@ -1691,18 +1691,32 @@ export interface OrderHTMLData {
 
 // Order HTML template generation functions - Apple style
 export const generateCODOrderHTML = (order: OrderHTMLData, locale: string = 'en', _translations?: any): string => {
+  const t = loadEmailTranslations(locale, 'cod')
   const isRTL = locale === 'ar'
   const textAlign = isRTL ? 'right' : 'left'
+  const textAlignReverse = isRTL ? 'left' : 'right'
+  const firstName = (order.customerName || 'Customer').split(' ')[0]
+  
+  // Localized labels
+  const sizeLabel = t.size || 'Size:'
+  const colorLabel = t.color || 'Color:'
+  const orderConfirmedText = locale === 'ru' ? 'Заказ подтвержден' : locale === 'ar' ? 'تم تأكيد الطلب' : 'Order Confirmed'
+  const codPaymentText = locale === 'ru' ? '💵 Оплата: При получении' : locale === 'ar' ? '💵 الدفع: عند الاستلام' : '💵 Payment: Cash on Delivery'
+  const greetingText = locale === 'ru' 
+    ? `Здравствуйте, ${firstName},<br><br>Спасибо за ваш заказ. Вы оплатите заказ наличными при получении. Мы уведомим вас, когда он будет отправлен.`
+    : locale === 'ar'
+    ? `مرحباً ${firstName}،<br><br>شكراً لطلبك. ستدفع نقداً عند الاستلام عند وصول طلبك. سنخبرك عندما يتم شحنه.`
+    : `Hi ${firstName},<br><br>Thank you for your order. You'll pay via Cash on Delivery when your order arrives. We'll notify you when it ships.`
 
   // Generate items HTML
   const itemsHTML = order.items.map(item => `
     <tr>
       <td style="padding: 16px 0; border-bottom: 1px solid #f5f5f7; vertical-align: top;">
         <div style="font-size: 15px; font-weight: 500; color: #1d1d1f; letter-spacing: -0.01em; text-align: ${textAlign};">${item.name}</div>
-        ${item.size || item.color ? `<div style="font-size: 13px; color: #86868b; margin-top: 4px; text-align: ${textAlign};">${item.size ? `Size: ${item.size}` : ''}${item.size && item.color ? ' · ' : ''}${item.color ? `Color: ${item.color}` : ''}</div>` : ''}
+        ${item.size || item.color ? `<div style="font-size: 13px; color: #86868b; margin-top: 4px; text-align: ${textAlign};">${item.size ? `${sizeLabel} ${item.size}` : ''}${item.size && item.color ? ' · ' : ''}${item.color ? `${colorLabel} ${item.color}` : ''}</div>` : ''}
       </td>
       <td style="padding: 16px 12px; border-bottom: 1px solid #f5f5f7; text-align: center; font-size: 15px; color: #1d1d1f; vertical-align: top;">×${item.quantity}</td>
-      <td style="padding: 16px 0; border-bottom: 1px solid #f5f5f7; text-align: ${isRTL ? 'left' : 'right'}; font-size: 15px; color: #1d1d1f; font-weight: 500; vertical-align: top;">AED ${(item.price * item.quantity).toFixed(2)}</td>
+      <td style="padding: 16px 0; border-bottom: 1px solid #f5f5f7; text-align: ${textAlignReverse}; font-size: 15px; color: #1d1d1f; font-weight: 500; vertical-align: top;">AED ${(item.price * item.quantity).toFixed(2)}</td>
     </tr>
   `).join('')
 
@@ -1712,7 +1726,7 @@ export const generateCODOrderHTML = (order: OrderHTMLData, locale: string = 'en'
     <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Order Confirmation</title>
+      <title>${orderConfirmedText}</title>
     </head>
     <body style="margin: 0; padding: 0; background-color: #ffffff; -webkit-font-smoothing: antialiased;">
       <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #ffffff;">
@@ -1740,7 +1754,7 @@ export const generateCODOrderHTML = (order: OrderHTMLData, locale: string = 'en'
               <tr>
                 <td style="text-align: center; padding-bottom: 12px;">
                   <h1 style="margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif; font-size: 32px; font-weight: 600; color: #1d1d1f; letter-spacing: -0.02em;">
-                    Order Confirmed
+                    ${orderConfirmedText}
                   </h1>
                 </td>
               </tr>
@@ -1757,8 +1771,7 @@ export const generateCODOrderHTML = (order: OrderHTMLData, locale: string = 'en'
               <!-- Greeting -->
               <tr>
                 <td style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 17px; line-height: 1.5; color: #1d1d1f; text-align: ${textAlign}; padding-bottom: 24px;">
-                  Hi ${(order.customerName || 'Customer').split(' ')[0]},<br><br>
-                  Thank you for your order. You'll pay via Cash on Delivery when your order arrives. We'll notify you when it ships.
+                  ${greetingText}
                 </td>
               </tr>
               
@@ -1769,7 +1782,7 @@ export const generateCODOrderHTML = (order: OrderHTMLData, locale: string = 'en'
                     <tr>
                       <td style="padding: 16px 24px; text-align: center;">
                         <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 15px; color: #856404; font-weight: 500;">
-                          💵 Payment: Cash on Delivery
+                          ${codPaymentText}
       </div>
                       </td>
                     </tr>
@@ -1798,16 +1811,16 @@ export const generateCODOrderHTML = (order: OrderHTMLData, locale: string = 'en'
                 <td style="padding-top: 24px;">
                   <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif;">
                     <tr>
-                      <td style="padding: 8px 0; font-size: 15px; color: #86868b; text-align: ${textAlign};">Subtotal</td>
-                      <td style="padding: 8px 0; font-size: 15px; color: #1d1d1f; text-align: ${isRTL ? 'left' : 'right'};">AED ${order.subtotal.toFixed(2)}</td>
+                      <td style="padding: 8px 0; font-size: 15px; color: #86868b; text-align: ${textAlign};">${t.subtotal || 'Subtotal'}</td>
+                      <td style="padding: 8px 0; font-size: 15px; color: #1d1d1f; text-align: ${textAlignReverse};">AED ${order.subtotal.toFixed(2)}</td>
                     </tr>
                     <tr>
-                      <td style="padding: 8px 0; font-size: 15px; color: #86868b; text-align: ${textAlign};">Shipping</td>
-                      <td style="padding: 8px 0; font-size: 15px; color: #1d1d1f; text-align: ${isRTL ? 'left' : 'right'};">${order.shippingCost === 0 ? 'Free' : `AED ${order.shippingCost.toFixed(2)}`}</td>
+                      <td style="padding: 8px 0; font-size: 15px; color: #86868b; text-align: ${textAlign};">${(t.shippingTo || 'Shipping to {emirate}').replace('{emirate}', order.emirate)}</td>
+                      <td style="padding: 8px 0; font-size: 15px; color: #1d1d1f; text-align: ${textAlignReverse};">${order.shippingCost === 0 ? (t.free || 'FREE') : `AED ${order.shippingCost.toFixed(2)}`}</td>
                     </tr>
                     <tr>
-                      <td style="padding: 8px 0; font-size: 15px; color: #86868b; text-align: ${textAlign};">VAT (5%)</td>
-                      <td style="padding: 8px 0; font-size: 15px; color: #1d1d1f; text-align: ${isRTL ? 'left' : 'right'};">AED ${order.vatAmount.toFixed(2)}</td>
+                      <td style="padding: 8px 0; font-size: 15px; color: #86868b; text-align: ${textAlign};">${t.vat || 'VAT (5%)'}</td>
+                      <td style="padding: 8px 0; font-size: 15px; color: #1d1d1f; text-align: ${textAlignReverse};">AED ${order.vatAmount.toFixed(2)}</td>
                     </tr>
                     <tr>
                       <td colspan="2" style="padding: 16px 0 8px 0;">
@@ -1815,8 +1828,8 @@ export const generateCODOrderHTML = (order: OrderHTMLData, locale: string = 'en'
                       </td>
                     </tr>
                     <tr>
-                      <td style="padding: 8px 0; font-size: 17px; font-weight: 600; color: #1d1d1f; text-align: ${textAlign};">Total Due</td>
-                      <td style="padding: 8px 0; font-size: 17px; font-weight: 600; color: #1d1d1f; text-align: ${isRTL ? 'left' : 'right'};">AED ${order.total.toFixed(2)}</td>
+                      <td style="padding: 8px 0; font-size: 17px; font-weight: 600; color: #1d1d1f; text-align: ${textAlign};">${t.totalLabel || 'Total:'}</td>
+                      <td style="padding: 8px 0; font-size: 17px; font-weight: 600; color: #1d1d1f; text-align: ${textAlignReverse};">AED ${order.total.toFixed(2)}</td>
                     </tr>
         </table>
                 </td>
@@ -1828,11 +1841,11 @@ export const generateCODOrderHTML = (order: OrderHTMLData, locale: string = 'en'
                   <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #f5f5f7; border-radius: 12px;">
                     <tr>
                       <td style="padding: 24px;">
-                        <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 13px; font-weight: 600; color: #86868b; text-transform: uppercase; letter-spacing: 0.02em; margin-bottom: 12px; text-align: ${textAlign};">Delivery Details</div>
+                        <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 13px; font-weight: 600; color: #86868b; text-transform: uppercase; letter-spacing: 0.02em; margin-bottom: 12px; text-align: ${textAlign};">${t.deliveryInformation || 'Delivery'}</div>
                         <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 15px; color: #1d1d1f; line-height: 1.5; text-align: ${textAlign};">
                           ${order.customerName}<br>
                           ${order.customerAddress}<br>
-                          ${order.emirate}, UAE<br>
+                          ${order.emirate}, ${locale === 'ar' ? 'الإمارات' : locale === 'ru' ? 'ОАЭ' : 'UAE'}<br>
                           ${order.customerPhone}
           </div>
                       </td>
@@ -1844,8 +1857,8 @@ export const generateCODOrderHTML = (order: OrderHTMLData, locale: string = 'en'
               <!-- CTA Button -->
               <tr>
                 <td style="text-align: center; padding-top: 40px;">
-                  <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://genosys.ae'}/profile" style="display: inline-block; background-color: #0071e3; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 17px; font-weight: 500; text-decoration: none; padding: 12px 24px; border-radius: 980px;">
-                    View Order
+                  <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://genosys.ae'}/${locale === 'en' ? '' : locale + '/'}profile" style="display: inline-block; background-color: #0071e3; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 17px; font-weight: 500; text-decoration: none; padding: 12px 24px; border-radius: 980px;">
+                    ${locale === 'ru' ? 'Посмотреть заказ' : locale === 'ar' ? 'عرض الطلب' : 'View Order'}
                   </a>
                 </td>
               </tr>
@@ -1855,8 +1868,8 @@ export const generateCODOrderHTML = (order: OrderHTMLData, locale: string = 'en'
                 <td style="padding-top: 64px; text-align: center;">
                   <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 12px; color: #86868b; line-height: 1.6;">
                     Genosys Middle East FZ-LLC<br>
-                    Official Distributor in the UAE<br><br>
-                    © 2026 All rights reserved.
+                    ${t.officialDistributor || 'Official Distributor in the UAE'}<br><br>
+                    ${t.copyright || '© 2025 Genosys Middle East FZ-LLC. All rights reserved.'}
         </div>
                 </td>
               </tr>

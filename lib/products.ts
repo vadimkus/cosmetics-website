@@ -472,7 +472,7 @@ export const products: Product[] = [
     price: 290,
     description: '100ml. Scalp peeling product with deep cleansing and heat cooling effects. It is a scalp peeling product which gives the deep cleansing effect for the scalp and refreshes the scalp with cooling effect. Key ingredients: Copper Tripeptide-1, Serenoa Serrulata Fruit Extract (Saw Palmetto), Salicylic Acid, Menthol, Black Complex, Camellia Sinensis Leaf Extract. Dermatologically tested.',
     image: '/images/scal.jpg',
-    images: null,
+    images: '["/images/Second/pp.jpg"]',
     category: 'Scalp/Hair',
     inStock: true,
   },

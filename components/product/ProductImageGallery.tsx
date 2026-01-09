@@ -47,15 +47,22 @@ export default function ProductImageGallery({ product }: ProductImageGalleryProp
   }, [isHolidayKit])
 
   const getProductImages = () => {
+    // Always start with the main image
+    const mainImage = product.image
+    
     if (product.images) {
       try {
         const parsedImages = JSON.parse(product.images)
-        return Array.isArray(parsedImages) ? parsedImages : [product.image]
-      } catch (error) {
-        return [product.image]
+        if (Array.isArray(parsedImages) && parsedImages.length > 0) {
+          // Combine main image with additional images, avoiding duplicates
+          const allImages = [mainImage, ...parsedImages.filter((img: string) => img !== mainImage)]
+          return allImages
+        }
+      } catch {
+        // If parsing fails, just return the main image
       }
     }
-    return [product.image]
+    return [mainImage]
   }
 
   const productImages = getProductImages()

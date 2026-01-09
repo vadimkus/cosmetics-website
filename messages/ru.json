@@ -1475,6 +1475,29 @@
       "questions": "Вопросы по заказу? Свяжитесь с нами по",
       "officialDistributor": "Официальный дистрибьютор в ОАЭ.",
       "copyright": "© 2026 Genosys Middle East FZ-LLC. Все права защищены."
+    },
+    "welcome": {
+      "subject": "Добро пожаловать в GENOSYS",
+      "greeting": "Добро пожаловать, {firstName}",
+      "accountCreated": "Ваша учетная запись успешно создана.",
+      "accountDetails": "Данные аккаунта",
+      "email": "Электронная почта:",
+      "password": "Пароль:",
+      "startShopping": "Начать покупки",
+      "needHelp": "Нужна помощь? Свяжитесь с нами через WhatsApp.",
+      "officialDistributor": "Официальный дистрибьютор в ОАЭ",
+      "copyright": "© 2026 Genosys Middle East FZ-LLC. Все права защищены."
+    },
+    "passwordReset": {
+      "subject": "Сброс пароля - GENOSYS",
+      "greeting": "Здравствуйте, {firstName},",
+      "resetRequested": "Мы получили запрос на сброс вашего пароля.",
+      "clickToReset": "Нажмите кнопку ниже, чтобы сбросить пароль:",
+      "resetButton": "Сбросить пароль",
+      "linkExpires": "Эта ссылка действительна в течение 1 часа.",
+      "ignoreMessage": "Если вы не запрашивали сброс, просто проигнорируйте это письмо.",
+      "officialDistributor": "Официальный дистрибьютор в ОАЭ",
+      "copyright": "© 2026 Genosys Middle East FZ-LLC. Все права защищены."
     }
   },
   "skinRecommendation": {

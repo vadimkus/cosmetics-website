@@ -28,7 +28,7 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    const { name, email, password, phone, address, emirate, birthday, promoCode } = await request.json()
+    const { name, email, password, phone, address, emirate, birthday, promoCode, locale = 'en' } = await request.json()
     const normalizedEmail = String(email || '').trim().toLowerCase()
     const promo = normalizePromo(promoCode)
 
@@ -192,7 +192,7 @@ export async function POST(request: NextRequest) {
 
     // Send welcome email to user (include password before hashing)
     try {
-      await sendWelcomeEmail(name, normalizedEmail, password)
+      await sendWelcomeEmail(name, normalizedEmail, password, locale)
       debugLog('✅ Welcome email sent to:', normalizedEmail)
     } catch (emailError) {
       errorLog('❌ Failed to send welcome email:', emailError)

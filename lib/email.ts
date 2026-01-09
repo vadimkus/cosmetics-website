@@ -3,6 +3,54 @@ import nodemailer from 'nodemailer'
 import { findUserByEmail } from '@/lib/userStorageDb'
 import { getPreferredEmail } from '@/lib/emailHelpers'
 
+// Email translation types
+type EmailTranslationSection = 'cod' | 'supportLink' | 'stripePaymentConfirmation' | 'statusUpdate' | 'welcome' | 'passwordReset' | 'discountAssigned'
+
+/**
+ * Load email translations for a given locale and section
+ */
+function loadEmailTranslations(locale: string, section: EmailTranslationSection): Record<string, any> {
+  try {
+    let messages: any
+    if (locale === 'ar') {
+      messages = require('@/messages/ar.json')
+    } else if (locale === 'ru') {
+      messages = require('@/messages/ru.json')
+    } else {
+      messages = require('@/messages/en.json')
+    }
+    
+    const translations = messages.default?.orderEmail?.[section] || messages.orderEmail?.[section]
+    if (translations) {
+      return translations
+    }
+  } catch (error) {
+    errorLog(`Failed to load ${section} translations for locale ${locale}:`, error)
+  }
+  
+  // Fallback to English
+  try {
+    const enMessages = require('@/messages/en.json')
+    return enMessages.default?.orderEmail?.[section] || enMessages.orderEmail?.[section] || {}
+  } catch {
+    return {}
+  }
+}
+
+/**
+ * Get RTL and text alignment settings for a locale
+ */
+export function getLocaleSettings(locale: string) {
+  const isRTL = locale === 'ar'
+  return {
+    isRTL,
+    dir: isRTL ? 'rtl' : 'ltr',
+    textAlign: isRTL ? 'right' : 'left',
+    textAlignReverse: isRTL ? 'left' : 'right',
+    dateLocale: locale === 'ar' ? 'ar-AE' : locale === 'ru' ? 'ru-RU' : 'en-AE'
+  }
+}
+
 // TypeScript interfaces for email data
 export interface OrderConfirmationEmailData {
   orderNumber: string
@@ -72,15 +120,22 @@ transporter.verify((error, _success) => {
 // Email templates
 export const emailTemplates = {
   // Welcome email for new user registration - Apple style
-  welcomeUser: (userName: string, userEmail: string, password?: string) => ({
-    subject: 'Welcome to GENOSYS',
+  welcomeUser: (userName: string, userEmail: string, password?: string, locale: string = 'en') => {
+    const t = loadEmailTranslations(locale, 'welcome')
+    const { dir, textAlign } = getLocaleSettings(locale)
+    const firstName = userName.split(' ')[0]
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://genosys.ae'
+    const productsUrl = locale === 'en' ? `${siteUrl}/products` : `${siteUrl}/${locale}/products`
+    
+    return {
+    subject: t.subject || 'Welcome to GENOSYS',
     html: `
       <!DOCTYPE html>
-      <html lang="en">
+      <html lang="${locale}" dir="${dir}">
       <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Welcome to GENOSYS</title>
+        <title>${t.subject || 'Welcome to GENOSYS'}</title>
       </head>
       <body style="margin: 0; padding: 0; background-color: #ffffff; -webkit-font-smoothing: antialiased;">
         <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #ffffff;">
@@ -99,7 +154,7 @@ export const emailTemplates = {
                 <tr>
                   <td style="text-align: center; padding-bottom: 12px;">
                     <h1 style="margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif; font-size: 32px; font-weight: 600; color: #1d1d1f; letter-spacing: -0.02em;">
-                      Welcome, ${userName.split(' ')[0]}
+                      ${(t.greeting || 'Welcome, {firstName}').replace('{firstName}', firstName)}
                     </h1>
                   </td>
                 </tr>
@@ -108,7 +163,7 @@ export const emailTemplates = {
                 <tr>
                   <td style="text-align: center; padding-bottom: 40px;">
                     <p style="margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 17px; color: #86868b; letter-spacing: -0.01em;">
-                      Your account has been created successfully.
+                      ${t.accountCreated || 'Your account has been created successfully.'}
                     </p>
                   </td>
                 </tr>
@@ -120,13 +175,13 @@ export const emailTemplates = {
                     <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #f5f5f7; border-radius: 12px;">
                       <tr>
                         <td style="padding: 24px;">
-                          <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 13px; font-weight: 600; color: #86868b; text-transform: uppercase; letter-spacing: 0.02em; margin-bottom: 16px;">Account Details</div>
-                          <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 15px; color: #1d1d1f; line-height: 1.6;">
+                          <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 13px; font-weight: 600; color: #86868b; text-transform: uppercase; letter-spacing: 0.02em; margin-bottom: 16px; text-align: ${textAlign};">${t.accountDetails || 'Account Details'}</div>
+                          <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 15px; color: #1d1d1f; line-height: 1.6; text-align: ${textAlign};">
                             <div style="margin-bottom: 8px;">
-                              <span style="color: #86868b;">Email:</span> <strong>${userEmail}</strong>
+                              <span style="color: #86868b;">${t.email || 'Email:'}</span> <strong>${userEmail}</strong>
           </div>
                             <div>
-                              <span style="color: #86868b;">Password:</span> <strong style="font-family: 'SF Mono', SFMono-Regular, Menlo, Monaco, Consolas, monospace; letter-spacing: 0.5px;">${password}</strong>
+                              <span style="color: #86868b;">${t.password || 'Password:'}</span> <strong style="font-family: 'SF Mono', SFMono-Regular, Menlo, Monaco, Consolas, monospace; letter-spacing: 0.5px;">${password}</strong>
         </div>
         </div>
                         </td>
@@ -139,8 +194,8 @@ export const emailTemplates = {
                 <!-- CTA Button -->
                 <tr>
                   <td style="text-align: center; padding-bottom: 48px;">
-                    <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://genosys.ae'}/products" style="display: inline-block; background-color: #0071e3; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 17px; font-weight: 500; text-decoration: none; padding: 12px 24px; border-radius: 980px; letter-spacing: -0.01em;">
-                      Start Shopping
+                    <a href="${productsUrl}" style="display: inline-block; background-color: #0071e3; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 17px; font-weight: 500; text-decoration: none; padding: 12px 24px; border-radius: 980px; letter-spacing: -0.01em;">
+                      ${t.startShopping || 'Start Shopping'}
                     </a>
                   </td>
                 </tr>
@@ -150,8 +205,8 @@ export const emailTemplates = {
                   <td style="text-align: center; padding-top: 32px; border-top: 1px solid #d2d2d7;">
                     <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 12px; color: #86868b; line-height: 1.6;">
                       Genosys Middle East FZ-LLC<br>
-                      Official Distributor in the UAE<br><br>
-                      © 2026 All rights reserved.
+                      ${t.officialDistributor || 'Official Distributor in the UAE'}<br><br>
+                      ${t.copyright || '© 2026 All rights reserved.'}
         </div>
                   </td>
                 </tr>
@@ -162,8 +217,9 @@ export const emailTemplates = {
         </table>
       </body>
       </html>
-    `,
-  }),
+    `
+    }
+  },
 
   // Order shipped email - Apple style
   orderShipped: (orderData: { orderNumber: string; customerName: string; customerEmail: string; items?: Array<{ productName: string; quantity: number; price: number; image?: string }>; total?: number; customerAddress?: string; customerEmirate?: string }) => ({
@@ -1441,8 +1497,8 @@ export const sendEmail = async (to: string, subject: string, html: string) => {
 }
 
 // Specific email functions
-export const sendWelcomeEmail = async (userName: string, userEmail: string, password?: string) => {
-  const template = emailTemplates.welcomeUser(userName, userEmail, password)
+export const sendWelcomeEmail = async (userName: string, userEmail: string, password?: string, locale: string = 'en') => {
+  const template = emailTemplates.welcomeUser(userName, userEmail, password, locale)
   return await sendEmail(userEmail, template.subject, template.html)
 }
 
@@ -2246,18 +2302,12 @@ export const sendOrderStatusUpdate = async (order: { orderNumber: string; custom
     
     const locale = order.locale || 'en'
     
-    // Load translations
-    let t: any
-    try {
-      if (locale === 'ar') {
-        const arMessages = require('@/messages/ar.json')
-        t = arMessages.default?.orderEmail?.statusUpdate || arMessages.orderEmail?.statusUpdate
-      } else {
-        const enMessages = require('@/messages/en.json')
-        t = enMessages.default?.orderEmail?.statusUpdate || enMessages.orderEmail?.statusUpdate
-      }
-    } catch (error) {
-      errorLog('Failed to load translations for order status update:', error)
+    // Load translations using helper function
+    let t: any = loadEmailTranslations(locale, 'statusUpdate')
+    
+    // If translations are empty, use hardcoded fallback
+    if (!t || Object.keys(t).length === 0) {
+      errorLog('Failed to load translations for order status update, using fallback')
       // Fallback to English
       try {
         const enMessages = require('@/messages/en.json')

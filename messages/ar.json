@@ -1450,6 +1450,29 @@
       "questions": "أسئلة حول طلبك؟ اتصل بنا على",
       "officialDistributor": "الموزع الرسمي في دولة الإمارات العربية المتحدة.",
       "copyright": "© 2026 Genosys Middle East FZ-LLC. جميع الحقوق محفوظة."
+    },
+    "welcome": {
+      "subject": "مرحباً بك في GENOSYS",
+      "greeting": "مرحباً، {firstName}",
+      "accountCreated": "تم إنشاء حسابك بنجاح.",
+      "accountDetails": "تفاصيل الحساب",
+      "email": "البريد الإلكتروني:",
+      "password": "كلمة المرور:",
+      "startShopping": "ابدأ التسوق",
+      "needHelp": "تحتاج مساعدة؟ تواصل معنا عبر واتساب.",
+      "officialDistributor": "الموزع الرسمي في الإمارات",
+      "copyright": "© 2026 Genosys Middle East FZ-LLC. جميع الحقوق محفوظة."
+    },
+    "passwordReset": {
+      "subject": "إعادة تعيين كلمة المرور - GENOSYS",
+      "greeting": "مرحباً {firstName}،",
+      "resetRequested": "تلقينا طلباً لإعادة تعيين كلمة المرور الخاصة بك.",
+      "clickToReset": "انقر على الزر أدناه لإعادة تعيين كلمة المرور:",
+      "resetButton": "إعادة تعيين كلمة المرور",
+      "linkExpires": "هذا الرابط صالح لمدة ساعة واحدة.",
+      "ignoreMessage": "إذا لم تطلب هذا، يمكنك تجاهل هذا البريد الإلكتروني بأمان.",
+      "officialDistributor": "الموزع الرسمي في الإمارات",
+      "copyright": "© 2026 Genosys Middle East FZ-LLC. جميع الحقوق محفوظة."
     }
   },
   "skinRecommendation": {

@@ -79,7 +79,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Parse request body
-    const { name, email, password, phone, address, emirate, birthday, gender, promoCode } = await request.json()
+    const { name, email, password, phone, address, emirate, birthday, gender, promoCode, locale = 'en' } = await request.json()
     const promo = String(promoCode || '').trim().toUpperCase()
 
     // Validate required fields
@@ -244,7 +244,7 @@ export async function POST(request: NextRequest) {
 
     // Send welcome email
     try {
-      await sendWelcomeEmail(name, email, password)
+      await sendWelcomeEmail(name, email, password, locale)
       debugLog('✅ Welcome email sent to:', email)
     } catch (error) {
       errorLog('❌ Failed to send welcome email:', error)

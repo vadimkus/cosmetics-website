@@ -1,10 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { findUserByEmail, findUserById } from '@/lib/userStorageDb'
 import { errorLog, debugLog } from '@/lib/logger'
+import { verifySessionToken } from '@/lib/jwt'
 
 /**
  * GET /api/auth/session
  * Returns the current user from the session cookie (set after Google OAuth or regular login)
+ * Now supports signed JWT tokens for tamper protection
  */
 export async function GET(request: NextRequest) {
   try {
@@ -14,11 +16,11 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ user: null })
     }
 
-    let sessionData
-    try {
-      sessionData = JSON.parse(sessionCookie.value)
-    } catch (error) {
-      errorLog('Error parsing session cookie:', error)
+    // Verify and decode the session token (handles both JWT and legacy JSON format)
+    const sessionData = verifySessionToken(sessionCookie.value)
+    
+    if (!sessionData) {
+      debugLog('Invalid or expired session token')
       return NextResponse.json({ user: null })
     }
 

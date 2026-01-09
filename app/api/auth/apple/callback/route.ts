@@ -5,6 +5,7 @@ import { exchangeAppleCodeForTokens, getAppleWebClientId, getAppleWebRedirectUri
 import { verifyAppleIdentityToken } from '@/lib/appleIdentityToken'
 import { addUser, findUserByAppleSub, findUserByEmail, updateUser } from '@/lib/userStorageDb'
 import { prisma } from '@/lib/database'
+import { createSessionToken } from '@/lib/jwt'
 
 const appleCallbackLimiter = rateLimitSimple({
   windowMs: 15 * 60 * 1000,
@@ -339,16 +340,18 @@ async function handleAppleCallback(request: NextRequest, params: {
     response.cookies.delete('apple-oauth-nonce')
     response.cookies.delete('apple-oauth-promo')
 
-    // Set session cookie (same format as Google)
-    const userSessionData = {
+    // Create signed session token (prevents tampering)
+    const sessionToken = createSessionToken({
       id: user.id,
       email: user.email,
       name: user.name,
       isAdmin: user.isAdmin || false,
       canSeePrices: user.canSeePrices !== undefined ? user.canSeePrices : true,
       profilePicture: user.profilePicture || null,
-    }
-    response.cookies.set('genosys_session', JSON.stringify(userSessionData), {
+    })
+    
+    // Set session cookie with signed JWT token
+    response.cookies.set('genosys_session', sessionToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',

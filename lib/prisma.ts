@@ -29,23 +29,46 @@ if (globalForPrisma.prisma) {
       const isAccelerate = databaseUrl.startsWith('prisma+')
       
       if (isAccelerate) {
-        // Prisma Accelerate - pass accelerateUrl explicitly
+        // Prisma Accelerate - includes built-in connection pooling and caching
+        // No manual pool configuration needed - Accelerate handles this
         prismaInstance = new PrismaClient({
           accelerateUrl: databaseUrl,
           log: process.env.NODE_ENV === 'development' ? ['query', 'error', 'warn'] : ['error']
         })
         debugLog('✅ Created new Prisma client instance with Prisma Accelerate')
+        debugLog('   Connection pooling: Managed by Prisma Accelerate')
       } else {
-        // Regular PostgreSQL connection - use adapter
+        // Regular PostgreSQL connection - use adapter with proper pooling
         const { PrismaPg } = require('@prisma/adapter-pg')
         const { Pool } = require('pg')
-        const pool = new Pool({ connectionString: databaseUrl })
+        
+        // Pool configuration optimized for serverless environments (Vercel)
+        // These settings help prevent connection exhaustion and timeouts
+        const pool = new Pool({ 
+          connectionString: databaseUrl,
+          // Connection pool settings for serverless
+          max: 5, // Maximum connections in the pool (serverless needs fewer)
+          min: 0, // Minimum connections (0 allows full scale-down)
+          idleTimeoutMillis: 10000, // Close idle connections after 10s (serverless functions have short lifespans)
+          connectionTimeoutMillis: 5000, // Fail fast if can't connect in 5s
+          maxUses: 7500, // Recycle connections after 7500 uses (prevents stale connections)
+          // SSL configuration for Vercel Postgres
+          ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
+        })
+        
+        // Handle pool errors gracefully
+        pool.on('error', (err: Error) => {
+          errorLog('❌ Unexpected error on idle PostgreSQL client:', err.message)
+        })
+        
         const adapter = new PrismaPg(pool)
         prismaInstance = new PrismaClient({
           adapter,
           log: process.env.NODE_ENV === 'development' ? ['query', 'error', 'warn'] : ['error']
         })
-        debugLog('✅ Created new Prisma client instance with adapter')
+        
+        debugLog('✅ Created new Prisma client instance with connection pooling')
+        debugLog(`   Pool config: max=${5}, min=${0}, idleTimeout=${10000}ms`)
       }
     } catch (error) {
       errorLog('❌ Failed to initialize Prisma client:', error)
@@ -94,3 +117,42 @@ prisma.$connect().catch((error: unknown) => {
 
 // Set max listeners to prevent memory leak warning
 process.setMaxListeners(15)
+
+// Graceful shutdown handlers for serverless environments
+// These ensure connections are properly closed when the process terminates
+if (typeof process !== 'undefined') {
+  const gracefulShutdown = async () => {
+    debugLog('🔄 Gracefully disconnecting Prisma client...')
+    await prisma.$disconnect()
+    debugLog('✅ Prisma client disconnected')
+  }
+
+  // Handle various termination signals
+  process.on('SIGINT', gracefulShutdown)
+  process.on('SIGTERM', gracefulShutdown)
+  process.on('beforeExit', gracefulShutdown)
+}
+
+/**
+ * Get connection pool statistics (for monitoring)
+ * Only available for non-Accelerate connections
+ */
+export async function getPoolStats(): Promise<{
+  totalCount: number
+  idleCount: number
+  waitingCount: number
+} | null> {
+  try {
+    const pool = (globalForPrisma as any).pgPool
+    if (pool) {
+      return {
+        totalCount: pool.totalCount || 0,
+        idleCount: pool.idleCount || 0,
+        waitingCount: pool.waitingCount || 0
+      }
+    }
+    return null
+  } catch {
+    return null
+  }
+}

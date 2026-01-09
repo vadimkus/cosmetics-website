@@ -5,6 +5,7 @@ import { errorLog, debugLog } from '@/lib/logger'
 import { rateLimitSimple, getClientIdentifierFromNextRequest } from '@/lib/rateLimitSimple'
 import { sendAdminNewUserNotification } from '@/lib/email'
 import { trackUserAction } from '@/lib/analyticsServer'
+import { createSessionToken } from '@/lib/jwt'
 
 const googleCallbackLimiter = rateLimitSimple({
   windowMs: 15 * 60 * 1000, // 15 minutes
@@ -289,18 +290,18 @@ export async function GET(request: NextRequest) {
     )
     response.cookies.delete('google-oauth-state')
 
-    // Set user session cookie (similar to regular login)
-    // Store minimal user data in a secure cookie
-    const userSessionData = {
+    // Create signed session token (prevents tampering)
+    const sessionToken = createSessionToken({
       id: user.id,
       email: user.email,
       name: user.name,
       isAdmin: user.isAdmin || false,
       canSeePrices: user.canSeePrices !== undefined ? user.canSeePrices : true,
       profilePicture: user.profilePicture || null,
-    }
+    })
 
-    response.cookies.set('genosys_session', JSON.stringify(userSessionData), {
+    // Set session cookie with signed JWT token
+    response.cookies.set('genosys_session', sessionToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',

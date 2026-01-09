@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 import { findUserByEmail, updateUser } from '@/lib/userStorageDb'
 import { debugLog, errorLog } from '@/lib/logger'
+import { verifySessionToken } from '@/lib/jwt'
 
 /**
  * Web User Profile Endpoint (Session-based auth)
@@ -9,7 +10,7 @@ import { debugLog, errorLog } from '@/lib/logger'
  * GET /api/user/profile - Get user profile
  * PUT /api/user/profile - Update user profile
  * 
- * Uses session cookie for authentication
+ * Uses session cookie for authentication (signed JWT tokens)
  */
 
 async function getUserFromSession(): Promise<{ email: string; userId: string } | null> {
@@ -21,16 +22,16 @@ async function getUserFromSession(): Promise<{ email: string; userId: string } |
       return null
     }
     
-    // Parse session cookie (stored as plain JSON)
-    const sessionData = JSON.parse(sessionCookie.value)
+    // Verify and decode session token (handles both JWT and legacy JSON format)
+    const sessionData = verifySessionToken(sessionCookie.value)
     
-    if (!sessionData?.user?.email) {
+    if (!sessionData?.email) {
       return null
     }
     
     return {
-      email: sessionData.user.email,
-      userId: sessionData.user.id
+      email: sessionData.email,
+      userId: sessionData.id
     }
   } catch (error) {
     errorLog('[USER_PROFILE] Session parse error:', error)

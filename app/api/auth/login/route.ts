@@ -4,6 +4,7 @@ import { findUserByEmail, updateUser } from '@/lib/userStorageDb'
 import { requireCsrfToken } from '@/lib/csrf'
 import { requireBodySizeLimit, getSizeLimitForContentType } from '@/lib/requestSizeLimit'
 import { debugLog, errorLog, warnLog } from '@/lib/logger'
+import { createSessionToken } from '@/lib/jwt'
 import bcrypt from 'bcryptjs'
 
 const loginLimiter = rateLimitSimple({
@@ -169,22 +170,23 @@ export async function POST(request: NextRequest) {
     // Return user data (without password)
     const { password: __, ...userWithoutPassword } = updatedUser
     
-    // Set session cookie (for consistency with Google OAuth)
-    const userSessionData = {
+    // Create signed session token (prevents tampering)
+    const sessionToken = createSessionToken({
       id: updatedUser.id,
       email: updatedUser.email,
       name: updatedUser.name,
       isAdmin: updatedUser.isAdmin || false,
       canSeePrices: updatedUser.canSeePrices !== undefined ? updatedUser.canSeePrices : true,
       profilePicture: updatedUser.profilePicture || null,
-    }
+    })
     
     const response = NextResponse.json({
       user: userWithoutPassword,
       message: 'Login successful'
     })
     
-    response.cookies.set('genosys_session', JSON.stringify(userSessionData), {
+    // Set session cookie with signed JWT token (httpOnly prevents XSS access)
+    response.cookies.set('genosys_session', sessionToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',

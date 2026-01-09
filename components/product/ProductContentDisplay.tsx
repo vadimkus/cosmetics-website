@@ -625,6 +625,38 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
         </div>
       )}
 
+      {/* Available Colors - Only for BB Cushion (product 41) */}
+      {(product.id === '41' || product.productNumber === '41') && (
+        <div className="bg-rose-50 border border-rose-200 rounded-lg p-2 lg:p-4 mb-2 lg:mb-4">
+          <h3 className="font-semibold text-rose-800 mb-1.5 lg:mb-3 text-xs lg:text-sm" dir={dir} style={{ textAlign: dir === 'rtl' ? 'right' : 'left' }}>
+            {locale === 'ar' ? 'الألوان المتوفرة' : locale === 'ru' ? 'Доступные цвета' : 'Available Colors'}
+          </h3>
+          <div className="space-y-2 lg:space-y-3 text-xs lg:text-sm text-rose-800">
+            <div className="flex items-start gap-2">
+              <span className="w-4 h-4 lg:w-5 lg:h-5 rounded-full bg-[#D4A574] border border-rose-300 flex-shrink-0 mt-0.5"></span>
+              <div>
+                <strong>{locale === 'ar' ? 'بيج' : locale === 'ru' ? 'Бежевый' : 'Beige'}:</strong>{' '}
+                {locale === 'ar' ? 'لون عالمي يتكيف مع جميع درجات البشرة' : locale === 'ru' ? 'Универсальный оттенок, адаптирующийся к любому тону кожи' : 'Universal shade that adapts to all skin tones'}
+              </div>
+            </div>
+            <div className="flex items-start gap-2">
+              <span className="w-4 h-4 lg:w-5 lg:h-5 rounded-full bg-[#FFFAF0] border border-rose-300 flex-shrink-0 mt-0.5"></span>
+              <div>
+                <strong>{locale === 'ar' ? 'عاجي' : locale === 'ru' ? 'Слоновая кость' : 'Ivory'}:</strong>{' '}
+                {locale === 'ar' ? 'لون فاتح جداً للبشرة الفاتحة' : locale === 'ru' ? 'Очень светлый тон для светлой кожи' : 'A very light tone for fair skin'}
+              </div>
+            </div>
+            <div className="flex items-start gap-2">
+              <span className="w-4 h-4 lg:w-5 lg:h-5 rounded-full bg-[#C19A6B] border border-rose-300 flex-shrink-0 mt-0.5"></span>
+              <div>
+                <strong>{locale === 'ar' ? 'كاميل' : locale === 'ru' ? 'Кэмел' : 'Camel'}:</strong>{' '}
+                {locale === 'ar' ? 'للحصول على مظهر سمرة خفيفة رائعة' : locale === 'ru' ? 'Для красивого легкого загорелого оттенка' : 'For gorgeous light tan expression'}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Product Documentation Section - ALWAYS right after Product Details */}
       {documentation && documentation.length > 0 && (
         <div className="bg-blue-50 border border-blue-200 rounded-lg p-2 lg:p-4">

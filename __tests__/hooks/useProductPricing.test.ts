@@ -12,7 +12,7 @@ jest.mock('@/data/productConfig', () => ({
     { value: 'Beige', label: 'Beige', hex: '#F5F5DC' },
     { value: 'Natural', label: 'Natural', hex: '#F5DEB3' }
   ]),
-  getProductPrice: jest.fn((id, size, color) => {
+  getProductPrice: jest.fn((_id, size, color) => {
     if (size === '100g') return 150
     if (color === 'Natural') return 120
     return 100

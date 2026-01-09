@@ -16,7 +16,7 @@ import {
   Loader2
 } from 'lucide-react'
 import { usePDFTracking } from '@/lib/pdfTracking'
-import { errorLog } from '@/lib/logger'
+import { debugLog, errorLog } from '@/lib/logger'
 
 // Configure PDF.js worker - use cdnjs for better reliability
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.mjs`
@@ -88,7 +88,7 @@ export default function PDFJSViewer({ pdfUrl, filename, onClose }: PDFJSViewerPr
 
   // Document loaded callback
   const onDocumentLoadSuccess = useCallback(({ numPages }: { numPages: number }) => {
-    console.log('PDF loaded successfully, pages:', numPages)
+    debugLog('PDF loaded successfully, pages:', numPages)
     setNumPages(numPages)
     setIsLoading(false)
     setError(null)
@@ -104,7 +104,7 @@ export default function PDFJSViewer({ pdfUrl, filename, onClose }: PDFJSViewerPr
   
   // Page render success callback
   const onPageRenderSuccess = useCallback(() => {
-    console.log('PDF page rendered successfully')
+    debugLog('PDF page rendered successfully')
   }, [])
   
   // Page render error callback  

@@ -224,6 +224,9 @@
     "qualifyForOneFreeMask": "You qualify for 1 Free Mask!",
     "freeMasksAutoAdded": "Free masks will be automatically added to your order at checkout",
     "selectCushionColor": "Select Cushion Color:",
+    "decreaseQuantity": "Decrease quantity",
+    "increaseQuantity": "Increase quantity",
+    "removeItem": "Remove item from cart",
     "selectedColor": "Selected"
   },
   "checkout": {

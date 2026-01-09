@@ -199,6 +199,7 @@ export default function CartItem({ item }: CartItemProps) {
               transition={animationsEnabled ? { duration: 0.1 } : {}}
               className="p-2 md:p-2.5 hover:bg-gray-100 transition-colors touch-manipulation flex items-center justify-center text-gray-700 hover:text-gray-900"
               disabled={quantity <= 1}
+              aria-label={t('cart.decreaseQuantity')}
             >
               <Minus className="h-4 w-4 md:h-5 md:w-5" />
             </motion.button>
@@ -217,6 +218,7 @@ export default function CartItem({ item }: CartItemProps) {
               whileHover={animationsEnabled ? { scale: 1.05, backgroundColor: '#f3f4f6' } : {}}
               transition={animationsEnabled ? { duration: 0.1 } : {}}
               className="p-2 md:p-2.5 hover:bg-gray-100 transition-colors touch-manipulation flex items-center justify-center text-gray-700 hover:text-gray-900"
+              aria-label={t('cart.increaseQuantity')}
             >
               <Plus className="h-4 w-4 md:h-5 md:w-5" />
             </motion.button>
@@ -232,6 +234,7 @@ export default function CartItem({ item }: CartItemProps) {
             } : {}}
             transition={animationsEnabled ? { duration: 0.2 } : {}}
             className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors touch-manipulation ml-3 md:ml-0 -mt-1 md:mt-0"
+            aria-label={t('cart.removeItem')}
           >
             <Trash2 className="h-4 w-4 md:h-5 md:w-5" />
           </motion.button>

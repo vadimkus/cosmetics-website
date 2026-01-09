@@ -235,6 +235,9 @@
     "qualifyForOneFreeMask": "Вы имеете право на 1 бесплатную маску!",
     "freeMasksAutoAdded": "Бесплатные маски будут автоматически добавлены к вашему заказу при оформлении",
     "selectCushionColor": "Выберите цвет кушона:",
+    "decreaseQuantity": "Уменьшить количество",
+    "increaseQuantity": "Увеличить количество",
+    "removeItem": "Удалить из корзины",
     "selectedColor": "Выбрано"
   },
   "checkout": {

@@ -221,6 +221,9 @@
     "qualifyForOneFreeMask": "أنت مؤهل للحصول على قناع مجاني واحد!",
     "freeMasksAutoAdded": "سيتم إضافة الأقنعة المجانية تلقائياً إلى طلبك عند الدفع",
     "selectCushionColor": "اختر لون الكوشن:",
+    "decreaseQuantity": "تقليل الكمية",
+    "increaseQuantity": "زيادة الكمية",
+    "removeItem": "إزالة من السلة",
     "selectedColor": "المحدد"
   },
   "checkout": {

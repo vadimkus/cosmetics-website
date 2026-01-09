@@ -9,6 +9,7 @@ import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { ChevronRight, ChevronLeft } from 'lucide-react'
 import { SkinAnalysisCamera, SkinAnalysisResult } from './SkinAnalysisCamera'
+import { debugLog } from '@/lib/logger'
 
 /**
  * PWA Profile Page - Matches mobile app design exactly
@@ -251,17 +252,17 @@ export default function PWAProfilePage() {
       try {
         // First request permission
         const permission = await Notification.requestPermission()
-        console.log('[PUSH] Permission result:', permission)
+        debugLog('[PUSH] Permission result:', permission)
         
         if (permission === 'granted') {
           // Wait for service worker
-          console.log('[PUSH] Waiting for service worker...')
+          debugLog('[PUSH] Waiting for service worker...')
           const registration = await navigator.serviceWorker.ready
-          console.log('[PUSH] Service worker ready')
+          debugLog('[PUSH] Service worker ready')
           
           // Get VAPID key
           const vapidKey = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY
-          console.log('[PUSH] VAPID key present:', !!vapidKey)
+          debugLog('[PUSH] VAPID key present:', !!vapidKey)
           
           if (!vapidKey) {
             throw new Error('Push notifications not configured (missing VAPID key)')
@@ -273,12 +274,12 @@ export default function PWAProfilePage() {
             applicationServerKey: urlBase64ToUint8Array(vapidKey)
           }
           
-          console.log('[PUSH] Subscribing to push manager...')
+          debugLog('[PUSH] Subscribing to push manager...')
           const subscription = await registration.pushManager.subscribe(subscribeOptions as PushSubscriptionOptionsInit)
-          console.log('[PUSH] Got subscription:', subscription.endpoint.substring(0, 50))
+          debugLog('[PUSH] Got subscription:', subscription.endpoint.substring(0, 50))
           
           // Send subscription to server
-          console.log('[PUSH] Saving to server...')
+          debugLog('[PUSH] Saving to server...')
           const response = await fetch('/api/push/subscribe', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -287,11 +288,11 @@ export default function PWAProfilePage() {
           })
           
           const data = await response.json()
-          console.log('[PUSH] Server response:', data)
+          debugLog('[PUSH] Server response:', data)
           
           if (data.success) {
             setPushNotifications(true)
-            console.log('[PUSH] Subscription saved successfully!')
+            debugLog('[PUSH] Subscription saved successfully!')
           } else {
             throw new Error(data.error || 'Failed to save subscription')
           }

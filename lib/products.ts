@@ -462,7 +462,7 @@ export const products: Product[] = [
     price: 740,
     description: '4ml. Premium anti-hair loss ampoule for microneedling treatment. It is the premium anti-hair loss product supplying nutrients that fight against the factors causing hair loss. Special applicator with microneedles promotes nutrition delivery into scalp and helps build the right environment for healthy scalp. Components: Professional Kit - HAIR SOLUTION α 4ml(8ea), Dropper(2ea). Homecare Kit - HAIR SOLUTION α 4ml(8ea), microneedle applicator(1ea), Cleansing Brush(1ea), Disinfecting(1ea). Key ingredients: sh-Polypeptide-9 (VEGF), sh-Polypeptide-7 (HGH), sh-Oligopeptide-1 (EGF), sh-Polypeptide-71 (VIP), Copper Tripeptide-1, Serenoa Serrulata Fruit Extract (Saw Palmetto), Biosaccharide Gum-4, Panthenol, Menthol, Black Complex, Brassica Oleracea Italica (Broccoli) Extract. Dermatologically tested. Research papers on the improvement of hair loss.',
     image: '/images/HHR.jpg',
-    images: null,
+    images: ['/images/Second/hs.jpg'],
     category: 'Scalp/Hair',
     inStock: true,
   },

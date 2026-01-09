@@ -448,7 +448,7 @@ export const products: Product[] = [
   },
   {
     id: '44',
-    name: 'HR³ MATRIX SCALP SHAMPOO α',
+    name: 'HR³ MATRIX MEDI SCALP SHAMPOO α',
     price: 340,
     description: '300ml. Functional shampoo that improves the conditions of hair loss. It is a functional shampoo approved as a \'functional product that improves the symptoms of hair loss\' by KFDA. It cools down scalp heat and helps control excess sebum on the scalp, making scalp and hair healthy. Key ingredients: Patented Viscum Album Extract, Patented HP-DCC Complex, Saccharomyces Cerevisiae Extract, Acorus Calamus Root Extract, Piroctone Olamine, Biotin, Salicylic Acid, Menthol. Dermatologically tested. KFDA approved as a functional product for improving hair loss symptoms.',
     image: '/images/Second/Sham.jpg',

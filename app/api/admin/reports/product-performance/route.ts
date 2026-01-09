@@ -21,12 +21,13 @@ export async function GET(request: NextRequest) {
     })()
 
     // Optimize: Use database aggregation for order items with single query
+    // Only count DELIVERED orders for accurate sales reporting
     const orderItemsAggregation = await prisma.orderItem.groupBy({
       by: ['productId', 'productName'],
       where: {
         order: {
           ...(startDate ? { createdAt: { gte: startDate } } : {}),
-          status: { not: 'CANCELLED' }
+          status: 'DELIVERED'
         }
       },
       _sum: {
@@ -51,6 +52,7 @@ export async function GET(request: NextRequest) {
     })
 
     // Optimize: Get distinct order counts per product with single query
+    // Only count DELIVERED orders for accurate sales reporting
     const orderCountsQuery = startDate 
       ? await prisma.$queryRaw<Array<{
           productId: string
@@ -61,7 +63,7 @@ export async function GET(request: NextRequest) {
             COUNT(DISTINCT oi."orderId") as "uniqueOrders"
           FROM "order_items" oi
           JOIN "orders" o ON o.id = oi."orderId"
-          WHERE o.status != 'CANCELLED' AND o."createdAt" >= ${startDate}
+          WHERE o.status = 'DELIVERED' AND o."createdAt" >= ${startDate}
           GROUP BY oi."productId"
         `
       : await prisma.$queryRaw<Array<{
@@ -73,7 +75,7 @@ export async function GET(request: NextRequest) {
             COUNT(DISTINCT oi."orderId") as "uniqueOrders"
           FROM "order_items" oi
           JOIN "orders" o ON o.id = oi."orderId"
-          WHERE o.status != 'CANCELLED'
+          WHERE o.status = 'DELIVERED'
           GROUP BY oi."productId"
         `
 

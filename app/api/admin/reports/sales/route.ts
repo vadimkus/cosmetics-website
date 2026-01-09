@@ -21,10 +21,11 @@ export async function GET(request: NextRequest) {
     })()
 
     // Optimize: Use database aggregation for totals with single query
+    // Only count DELIVERED orders for accurate sales reporting
     const totalsAggregation = await prisma.order.aggregate({
       where: {
         ...(startDate ? { createdAt: { gte: startDate } } : {}),
-        status: { not: 'CANCELLED' }
+        status: 'DELIVERED'
       },
       _sum: { total: true },
       _count: { id: true }
@@ -35,6 +36,7 @@ export async function GET(request: NextRequest) {
     const averageOrderValue = totalOrders > 0 ? totalRevenue / totalOrders : 0
 
     // Optimize: Use database aggregation for revenue by day
+    // Only count DELIVERED orders for accurate sales reporting
     const revenueByDayQuery = startDate
       ? await prisma.$queryRaw<Array<{
           date: string
@@ -46,7 +48,7 @@ export async function GET(request: NextRequest) {
             SUM(total) as revenue,
             COUNT(*) as orders
           FROM "orders" 
-          WHERE status != 'CANCELLED' AND "createdAt" >= ${startDate}
+          WHERE status = 'DELIVERED' AND "createdAt" >= ${startDate}
           GROUP BY DATE("createdAt")
           ORDER BY date ASC
         `
@@ -60,7 +62,7 @@ export async function GET(request: NextRequest) {
             SUM(total) as revenue,
             COUNT(*) as orders
           FROM "orders" 
-          WHERE status != 'CANCELLED'
+          WHERE status = 'DELIVERED'
           GROUP BY DATE("createdAt")
           ORDER BY date ASC
         `
@@ -72,6 +74,7 @@ export async function GET(request: NextRequest) {
     }))
 
     // Optimize: Use database aggregation for revenue by month
+    // Only count DELIVERED orders for accurate sales reporting
     const revenueByMonthQuery = startDate
       ? await prisma.$queryRaw<Array<{
           month: string
@@ -83,7 +86,7 @@ export async function GET(request: NextRequest) {
             SUM(total) as revenue,
             COUNT(*) as orders
           FROM "orders" 
-          WHERE status != 'CANCELLED' AND "createdAt" >= ${startDate}
+          WHERE status = 'DELIVERED' AND "createdAt" >= ${startDate}
           GROUP BY TO_CHAR("createdAt", 'YYYY-MM')
           ORDER BY month ASC
         `
@@ -97,7 +100,7 @@ export async function GET(request: NextRequest) {
             SUM(total) as revenue,
             COUNT(*) as orders
           FROM "orders" 
-          WHERE status != 'CANCELLED'
+          WHERE status = 'DELIVERED'
           GROUP BY TO_CHAR("createdAt", 'YYYY-MM')
           ORDER BY month ASC
         `
@@ -109,11 +112,12 @@ export async function GET(request: NextRequest) {
     }))
 
     // Optimize: Use database aggregation for revenue by status
+    // Only count DELIVERED orders for accurate sales reporting
     const revenueByStatusQuery = await prisma.order.groupBy({
       by: ['status'],
       where: {
         ...(startDate ? { createdAt: { gte: startDate } } : {}),
-        status: { not: 'CANCELLED' }
+        status: 'DELIVERED'
       },
       _sum: { total: true },
       _count: { id: true }
@@ -128,6 +132,7 @@ export async function GET(request: NextRequest) {
       .sort((a, b) => b.revenue - a.revenue)
 
     // Optimize: Use database aggregation for top products
+    // Only count DELIVERED orders for accurate sales reporting
     const topProductsQuery = startDate
       ? await prisma.$queryRaw<Array<{
           productId: string
@@ -144,7 +149,7 @@ export async function GET(request: NextRequest) {
             COUNT(DISTINCT oi."orderId") as orders
           FROM "order_items" oi
           JOIN "orders" o ON o.id = oi."orderId"
-          WHERE o.status != 'CANCELLED' AND o."createdAt" >= ${startDate}
+          WHERE o.status = 'DELIVERED' AND o."createdAt" >= ${startDate}
           GROUP BY oi."productId", oi."productName"
           ORDER BY revenue DESC
           LIMIT 20
@@ -164,7 +169,7 @@ export async function GET(request: NextRequest) {
             COUNT(DISTINCT oi."orderId") as orders
           FROM "order_items" oi
           JOIN "orders" o ON o.id = oi."orderId"
-          WHERE o.status != 'CANCELLED'
+          WHERE o.status = 'DELIVERED'
           GROUP BY oi."productId", oi."productName"
           ORDER BY revenue DESC
           LIMIT 20
@@ -179,6 +184,7 @@ export async function GET(request: NextRequest) {
     }))
 
     // Optimize: Use database aggregation for top customers
+    // Only count DELIVERED orders for accurate sales reporting
     const topCustomersQuery = startDate
       ? await prisma.$queryRaw<Array<{
           email: string
@@ -194,7 +200,7 @@ export async function GET(request: NextRequest) {
             COUNT(*) as orders,
             MAX(o."createdAt") as "lastOrderDate"
           FROM "orders" o
-          WHERE o.status != 'CANCELLED' AND o."createdAt" >= ${startDate}
+          WHERE o.status = 'DELIVERED' AND o."createdAt" >= ${startDate}
           GROUP BY o."customerEmail", o."customerName"
           ORDER BY revenue DESC
           LIMIT 20
@@ -213,7 +219,7 @@ export async function GET(request: NextRequest) {
             COUNT(*) as orders,
             MAX(o."createdAt") as "lastOrderDate"
           FROM "orders" o
-          WHERE o.status != 'CANCELLED'
+          WHERE o.status = 'DELIVERED'
           GROUP BY o."customerEmail", o."customerName"
           ORDER BY revenue DESC
           LIMIT 20

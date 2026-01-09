@@ -24,6 +24,7 @@ export async function GET(request: NextRequest) {
     const periodType = days === null || days >= 365 ? 'monthly' : days >= 90 ? 'weekly' : 'daily'
     
     // Optimize: Use database aggregation based on period type
+    // Only count DELIVERED orders for accurate sales reporting
     let trendsQuery: Array<{ period: string; revenue: number; orders: number }>
     
     if (periodType === 'daily') {
@@ -38,7 +39,7 @@ export async function GET(request: NextRequest) {
               SUM(total) as revenue,
               COUNT(*) as orders
             FROM "orders" 
-            WHERE status != 'CANCELLED' AND "createdAt" >= ${startDate}
+            WHERE status = 'DELIVERED' AND "createdAt" >= ${startDate}
             GROUP BY DATE("createdAt")
             ORDER BY period ASC
           `
@@ -52,7 +53,7 @@ export async function GET(request: NextRequest) {
               SUM(total) as revenue,
               COUNT(*) as orders
             FROM "orders" 
-            WHERE status != 'CANCELLED'
+            WHERE status = 'DELIVERED'
             GROUP BY DATE("createdAt")
             ORDER BY period ASC
           `
@@ -69,7 +70,7 @@ export async function GET(request: NextRequest) {
               SUM(total) as revenue,
               COUNT(*) as orders
             FROM "orders" 
-            WHERE status != 'CANCELLED' AND "createdAt" >= ${startDate}
+            WHERE status = 'DELIVERED' AND "createdAt" >= ${startDate}
             GROUP BY DATE_TRUNC('week', "createdAt")
             ORDER BY DATE_TRUNC('week', "createdAt") ASC
           `
@@ -83,7 +84,7 @@ export async function GET(request: NextRequest) {
               SUM(total) as revenue,
               COUNT(*) as orders
             FROM "orders" 
-            WHERE status != 'CANCELLED'
+            WHERE status = 'DELIVERED'
             GROUP BY DATE_TRUNC('week', "createdAt")
             ORDER BY DATE_TRUNC('week', "createdAt") ASC
           `
@@ -100,7 +101,7 @@ export async function GET(request: NextRequest) {
               SUM(total) as revenue,
               COUNT(*) as orders
             FROM "orders" 
-            WHERE status != 'CANCELLED' AND "createdAt" >= ${startDate}
+            WHERE status = 'DELIVERED' AND "createdAt" >= ${startDate}
             GROUP BY TO_CHAR("createdAt", 'YYYY-MM')
             ORDER BY period ASC
           `
@@ -114,7 +115,7 @@ export async function GET(request: NextRequest) {
               SUM(total) as revenue,
               COUNT(*) as orders
             FROM "orders" 
-            WHERE status != 'CANCELLED'
+            WHERE status = 'DELIVERED'
             GROUP BY TO_CHAR("createdAt", 'YYYY-MM')
             ORDER BY period ASC
           `

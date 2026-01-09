@@ -310,9 +310,9 @@ async function handleAppleCallback(request: NextRequest, params: {
       // SAFE FALLBACK: if promo is present and the account was JUST created (bug window),
       // and no discount is set yet, apply promo once.
       try {
-        const createdAt = (user as any)?.createdAt ? new Date((user as any).createdAt) : null
+        const createdAt = user?.createdAt ? new Date(user.createdAt) : null
         const ageMs = createdAt ? (now.getTime() - createdAt.getTime()) : Number.POSITIVE_INFINITY
-        const hasNoDiscount = !(user as any)?.discountPercentage && !(user as any)?.discountType
+        const hasNoDiscount = !user?.discountPercentage && !user?.discountType
         if (promoFromCookie && hasNoDiscount && Number.isFinite(ageMs) && ageMs >= 0 && ageMs <= 10 * 60 * 1000) {
           await prisma.$transaction(async (tx) => {
             const promo = await (tx as any).promoCode.findUnique({ where: { code: promoFromCookie } })

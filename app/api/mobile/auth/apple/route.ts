@@ -105,7 +105,7 @@ export async function POST(request: NextRequest) {
       canSeePrices: user.canSeePrices !== false,
     })
 
-    const { password: __, ...userWithoutPassword } = user as any
+    const { password: __, ...userWithoutPassword } = user
     const duration = Date.now() - startTime
     debugLog(`[MOBILE_AUTH] Apple login successful for ${email} in ${duration}ms`)
 

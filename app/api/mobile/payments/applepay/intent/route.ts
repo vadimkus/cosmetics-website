@@ -30,8 +30,11 @@ interface CheckoutItem {
   price: number
   quantity: number
   image: string
-  size: string | undefined
-  color: string | undefined
+  size?: string | undefined
+  color?: string | undefined
+  selectedSize?: string | undefined
+  selectedColor?: string | undefined
+  isPromotionItem?: boolean | undefined
 }
 
 interface ApplePayIntentRequest {
@@ -153,11 +156,11 @@ export async function POST(request: NextRequest) {
         : null
 
       const isPromo =
-        (item as any)?.isPromotionItem === true ||
-        String((item as any)?.selectedSize || '').trim() === '__PROMO__' ||
-        String((item as any)?.size || '').trim() === '__PROMO__' ||
+        item.isPromotionItem === true ||
+        String(item.selectedSize || '').trim() === '__PROMO__' ||
+        String(item.size || '').trim() === '__PROMO__' ||
         // Client can send promo items with price 0 but without the flag; treat as promo.
-        Number((item as any)?.price) === 0
+        Number(item.price) === 0
 
       const baseUnit = isPromo ? 0 : Number(variant?.price ?? product.price)
       const qty = Number(item.quantity) || 0

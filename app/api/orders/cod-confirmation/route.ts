@@ -136,7 +136,7 @@ export async function POST(request: NextRequest) {
         customerPhone: dbOrder.customerPhone,
         customerEmirate: dbOrder.customerEmirate,
         customerAddress: dbOrder.customerAddress,
-        orderNotes: (dbOrder as any).orderNotes ?? null,
+        orderNotes: dbOrder.orderNotes ?? null,
         subtotal: dbOrder.subtotal,
         discountAmount: dbOrder.discountAmount ?? 0,
         shipping: dbOrder.shipping ?? 0,

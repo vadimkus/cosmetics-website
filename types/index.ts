@@ -1,5 +1,69 @@
 import { User } from '@/types/user'
 
+// Re-export user types for convenience
+export type { User, ApiUser, UserWithStats, StripeError } from '@/types/user'
+
+/**
+ * Order item from cart for checkout
+ */
+export interface CheckoutCartItem {
+  productId: string
+  productName?: string
+  quantity: number
+  price?: number
+  selectedSize?: string
+  selectedColor?: string
+  size?: string
+  color?: string
+  isPromotionItem?: boolean
+}
+
+/**
+ * Order with all fields from Prisma schema
+ */
+export interface OrderWithDetails {
+  id: string
+  orderNumber: string
+  customerEmail: string
+  customerName: string
+  customerPhone: string
+  customerEmirate: string
+  customerAddress: string
+  orderNotes?: string | null
+  subtotal: number
+  discountAmount: number
+  shipping: number
+  vat: number
+  total: number
+  status: string
+  locale: string
+  sessionId?: string | null
+  paymentMethod: string
+  paymentStatus: string
+  stripeSessionId?: string | null
+  stripePaymentIntentId?: string | null
+  stripeCustomerId?: string | null
+  paidAt?: Date | null
+  refundedAt?: Date | null
+  refundAmount?: number | null
+  paymentMetadata?: string | null
+  createdAt: Date | string
+  updatedAt: Date | string
+  items?: OrderItemDetails[]
+}
+
+export interface OrderItemDetails {
+  id: string
+  orderId: string
+  productId: string
+  productName: string
+  price: number
+  quantity: number
+  image: string
+  color?: string | null
+  size?: string | null
+}
+
 /**
  * Comprehensive Product interface - Single source of truth for Product type
  * This type matches the Prisma Product model and includes all product fields

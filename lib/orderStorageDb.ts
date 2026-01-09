@@ -20,6 +20,7 @@ export interface OrderData {
   customerPhone: string
   customerEmirate: string
   customerAddress: string
+  orderNotes?: string | null // Optional order notes from customer
   items: OrderItemData[]
   subtotal: number
   discountAmount?: number

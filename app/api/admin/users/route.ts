@@ -99,34 +99,46 @@ export async function GET(request: NextRequest) {
     
     debugLog('📊 Found', users.length, 'users' + (search ? ` (search: "${search}")` : ''), `Total: ${totalCount}`)
     
-    // Enhance users with order statistics
-    const usersWithStats = await Promise.all(
-      users.map(async (user) => {
-        const userOrders = await prisma.order.findMany({
-          where: {
-            customerEmail: user.email,
-            status: { not: 'CANCELLED' }
-          },
-          select: {
-            total: true,
-            createdAt: true
-          }
-        })
-        
-        const orderCount = userOrders.length
-        const totalSpent = userOrders.reduce((sum, order) => sum + order.total, 0)
-        const lastOrderDate = userOrders.length > 0
-          ? userOrders.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())[0]?.createdAt || null
-          : null
-        
-        return {
-          ...user,
-          orderCount,
-          totalSpent,
-          lastOrderDate: lastOrderDate?.toISOString() || null
+    // Enhance users with order statistics using a single aggregation query (fixes N+1 problem)
+    const userEmails = users.map(u => u.email)
+    
+    // Get all order stats in one query using raw SQL for efficiency
+    const orderStats = userEmails.length > 0 ? await prisma.$queryRaw<Array<{
+      customerEmail: string
+      orderCount: bigint
+      totalSpent: number
+      lastOrderDate: Date | null
+    }>>`
+      SELECT 
+        "customerEmail",
+        COUNT(*) as "orderCount",
+        COALESCE(SUM(total), 0) as "totalSpent",
+        MAX("createdAt") as "lastOrderDate"
+      FROM "orders"
+      WHERE "customerEmail" = ANY(${userEmails})
+        AND status != 'CANCELLED'
+      GROUP BY "customerEmail"
+    ` : []
+    
+    // Create a map for quick lookup
+    const statsMap = new Map(
+      orderStats.map(stat => [
+        stat.customerEmail,
+        {
+          orderCount: Number(stat.orderCount),
+          totalSpent: Number(stat.totalSpent),
+          lastOrderDate: stat.lastOrderDate?.toISOString() || null
         }
-      })
+      ])
     )
+    
+    // Map stats to users (default to 0 if no orders)
+    const usersWithStats = users.map(user => ({
+      ...user,
+      orderCount: statsMap.get(user.email)?.orderCount ?? 0,
+      totalSpent: statsMap.get(user.email)?.totalSpent ?? 0,
+      lastOrderDate: statsMap.get(user.email)?.lastOrderDate ?? null
+    }))
     
     return NextResponse.json({
       success: true,

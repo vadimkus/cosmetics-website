@@ -136,7 +136,7 @@ export async function GET(request: NextRequest) {
         status: order.status,
         paymentMethod: order.paymentMethod,
         paymentStatus: order.paymentStatus,
-        orderNotes: (order as any).orderNotes || '',
+        orderNotes: order.orderNotes || '',
         subtotal: order.subtotal,
         discountAmount: order.discountAmount,
         shipping: order.shipping,
@@ -204,7 +204,7 @@ export async function GET(request: NextRequest) {
       paymentMethod: order.paymentMethod,
       paymentStatus: order.paymentStatus,
       paymentFlow: extractPaymentFlow(order),
-      orderNotes: (order as any).orderNotes || '',
+      orderNotes: order.orderNotes || '',
       subtotal: order.subtotal,
       discountAmount: order.discountAmount,
       shipping: order.shipping,
@@ -391,7 +391,7 @@ export async function POST(request: NextRequest) {
         : null
 
       const baseUnit = isPromo ? 0 : Number(variant?.price ?? product.price)
-      const pct = Number((user as any)?.discountPercentage)
+      const pct = Number(user?.discountPercentage)
       const hasUserDiscount = Number.isFinite(pct) && pct > 0 && pct < 100
       const excluded = isUserDiscountExcludedProduct(product)
       const discountedUnit =
@@ -431,14 +431,14 @@ export async function POST(request: NextRequest) {
     const orderNumber = await generateUniqueOrderNumber({ channel: 'M', payment })
 
     // Create order
-    const orderNotes = typeof (orderData as any)?.orderNotes === 'string' ? (orderData as any).orderNotes.trim() : ''
+    const orderNotes = typeof orderData?.orderNotes === 'string' ? orderData.orderNotes.trim() : ''
     
     // Get preferred email for sending notifications (contactEmail if set, else regular email)
     const preferredEmail = getPreferredEmail(user)
     
     debugLog('[MOBILE_ORDERS] Email routing:', {
       userLoginEmail: user.email,
-      userContactEmail: (user as any).contactEmail || null,
+      userContactEmail: user.contactEmail || null,
       preferredEmailForNotifications: preferredEmail,
       willStoreInDB: user.email,
       willSendEmailTo: preferredEmail

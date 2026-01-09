@@ -28,7 +28,7 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json({
       success: true,
-      data: { expoPushToken: (user as any).expoPushToken ?? null },
+      data: { expoPushToken: user.expoPushToken ?? null },
     })
   } catch (error) {
     errorLog('[MOBILE_PUSH_TOKEN] GET error:', error)

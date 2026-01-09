@@ -271,7 +271,7 @@ export async function GET(
       status: order.status,
       paymentMethod: order.paymentMethod,
       paymentStatus: order.paymentStatus,
-      orderNotes: (order as any).orderNotes || '',
+      orderNotes: order.orderNotes || '',
       subtotal: order.subtotal,
       discountAmount: order.discountAmount,
       shipping: order.shipping,

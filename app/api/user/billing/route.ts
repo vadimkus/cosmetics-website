@@ -62,8 +62,8 @@ export async function GET(_request: NextRequest) {
     }
 
     // Get billing fields
-    const billingAddress = (user as any).billingAddress ?? null
-    const vatNumber = (user as any).vatNumber ?? null
+    const billingAddress = user.billingAddress ?? null
+    const vatNumber = user.vatNumber ?? null
     
     debugLog('[USER_BILLING] Get billing completed', Date.now() - startTime, 'ms')
     

@@ -241,15 +241,31 @@ export async function POST(request: NextRequest) {
     })
 
   } catch (error) {
+    // Type guard for Stripe-like errors with additional properties
+    interface StripeErrorLike extends Error {
+      code?: string
+      statusCode?: number
+      requestId?: string
+      param?: string
+      type?: string
+    }
+    
+    const isStripeError = (err: unknown): err is StripeErrorLike => {
+      return err instanceof Error && ('type' in err || 'code' in err)
+    }
+    
+    // Extract error details safely
+    const stripeErr = isStripeError(error) ? error : null
+    
     errorLog('❌ Error creating Stripe checkout session:', {
       message: error instanceof Error ? error.message : 'Unknown error',
       stack: error instanceof Error ? error.stack : undefined,
       type: error instanceof Error ? error.constructor.name : typeof error,
-      code: (error as any)?.code,
-      statusCode: (error as any)?.statusCode,
-      requestId: (error as any)?.requestId,
-      param: (error as any)?.param,
-      stripeError: (error as any)?.type || (error as any)?.name || 'Unknown',
+      code: stripeErr?.code,
+      statusCode: stripeErr?.statusCode,
+      requestId: stripeErr?.requestId,
+      param: stripeErr?.param,
+      stripeError: stripeErr?.type || (error instanceof Error ? error.name : 'Unknown'),
       fullError: error
     })
     
@@ -269,8 +285,8 @@ export async function POST(request: NextRequest) {
         details: isDev ? {
           message: error instanceof Error ? error.message : 'Unknown error',
           type: error instanceof Error ? error.constructor.name : typeof error,
-          code: (error as any)?.code,
-          param: (error as any)?.param
+          code: stripeErr?.code,
+          param: stripeErr?.param
         } : undefined
       },
       { status: 500 }

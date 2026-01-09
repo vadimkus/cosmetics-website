@@ -32,8 +32,8 @@ export async function GET(request: NextRequest) {
     }
 
     // NOTE: requires DB columns: users.billingAddress (TEXT), users.vatNumber (TEXT)
-    const billingAddress = (user as any).billingAddress ?? null
-    const vatNumber = (user as any).vatNumber ?? null
+    const billingAddress = user.billingAddress ?? null
+    const vatNumber = user.vatNumber ?? null
 
     return NextResponse.json({ success: true, data: { billingAddress, vatNumber } })
   } catch (error) {

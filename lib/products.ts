@@ -541,7 +541,7 @@ export const products: Product[] = [
   },
   {
     id: '61',
-    name: 'SCALP BRUSH',
+    name: 'HR³ MATRIX SCALP BRUSH',
     price: 50,
     description: '1 pc. Specialized scalp care brush for daily massage and treatment preparation. It is a gentle, non-invasive scalp brush designed primarily for scalp care, stimulation, and supporting hair health. The Scalp Brush promotes better circulation, exfoliation, and product absorption on the scalp. Features: Ergonomic design with soft, flexible silicone bristles optimized for scalp use without causing irritation. Dual Use - Wet use: Apply shampoo, then gently massage in circular motions to deeply cleanse, remove buildup, and stimulate blood flow. Dry use: On clean, dry hair/scalp for invigorating massage to boost circulation and relax the scalp. Integration with HR³ MATRIX Line: Pairs excellently with HR³ MATRIX Clinical Hair Tonic, Scalp Peeling, and Hair Solution α to enhance nutrient delivery and overall scalp health. Benefits: Improves blood circulation to nourish follicles, helps reduce dandruff and excess sebum, stimulates scalp for healthier hair growth environment, prepares scalp for microneedling treatments. Manufactured in South Korea.',
     image: '/images/Second/brush.jpg',

@@ -6,6 +6,7 @@ import { ArrowLeft, Megaphone, Loader2, RefreshCw, Bell, Check, CheckCheck } fro
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { useAuth } from '@/components/AuthProvider'
+import { errorLog } from '@/lib/logger'
 
 interface Promo {
   id: string
@@ -48,7 +49,7 @@ export default function PromoPage() {
         setPromo(null)
       }
     } catch (error) {
-      console.error('Failed to fetch promo:', error)
+      errorLog('Failed to fetch promo:', error)
       setPromo(null)
     } finally {
       if (showLoading) setLoading(false)
@@ -70,12 +71,12 @@ export default function PromoPage() {
         setUnreadCount(data.unreadCount || 0)
         
         // Clear badge when viewing notifications
-        if ('clearAppBadge' in navigator) {
-          (navigator as any).clearAppBadge().catch(() => {})
+        if ('clearAppBadge' in navigator && typeof (navigator as Navigator & { clearAppBadge?: () => Promise<void> }).clearAppBadge === 'function') {
+          (navigator as Navigator & { clearAppBadge: () => Promise<void> }).clearAppBadge().catch(() => {})
         }
       }
     } catch (error) {
-      console.error('Failed to fetch notifications:', error)
+      errorLog('Failed to fetch notifications:', error)
     }
   }, [user, locale])
 
@@ -91,7 +92,7 @@ export default function PromoPage() {
       // Refresh notifications
       await fetchNotifications()
     } catch (error) {
-      console.error('Failed to mark as read:', error)
+      errorLog('Failed to mark as read:', error)
     }
   }, [fetchNotifications])
 

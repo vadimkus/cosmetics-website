@@ -4,6 +4,7 @@ import { useEffect, useState, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import { ArrowLeft, RefreshCw, Users, Smartphone, Mail, Phone, Calendar, Trash2 } from 'lucide-react'
 import { addCsrfToBody } from '@/lib/csrfClient'
+import { errorLog } from '@/lib/logger'
 
 interface PWASubscriber {
   id: string
@@ -105,9 +106,10 @@ export default function PWASubscribersPage() {
       }
       
       setSubscribers(data.subscribers || [])
-    } catch (e: any) {
-      console.error('Error loading subscribers:', e)
-      setError(e?.message || 'Failed to load subscribers')
+    } catch (e: unknown) {
+      const err = e as Error
+      errorLog('Error loading subscribers:', err)
+      setError(err?.message || 'Failed to load subscribers')
     } finally {
       setLoading(false)
     }
@@ -160,7 +162,7 @@ export default function PWASubscribersPage() {
         setSubscribers(prev => prev.filter(s => s.id !== subscriptionId))
       }
     } catch (e) {
-      console.error('Error deleting subscription:', e)
+      errorLog('Error deleting subscription:', e)
     }
   }
 

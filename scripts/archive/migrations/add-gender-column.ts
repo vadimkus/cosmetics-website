@@ -51,7 +51,7 @@ async function addGenderColumn() {
       console.error('❌ Column verification failed')
     }
     
-  } catch {
+  } catch (error) {
     console.error('❌ Error adding gender column:', error)
     throw error
   } finally {
@@ -69,6 +69,8 @@ addGenderColumn()
     console.error('\n💥 Migration failed:', error)
     process.exit(1)
   })
+
+
 
 
 

@@ -6,6 +6,28 @@ import { verifyAppleIdentityToken } from '@/lib/appleIdentityToken'
 import { addUser, findUserByAppleSub, findUserByEmail, updateUser } from '@/lib/userStorageDb'
 import { prisma } from '@/lib/database'
 import { createSessionToken } from '@/lib/jwt'
+import { Prisma } from '@prisma/client'
+
+// Types for Apple OAuth responses
+interface AppleTokenResponse {
+  id_token?: string
+  access_token?: string
+  refresh_token?: string
+  token_type?: string
+  expires_in?: number
+}
+
+interface AppleIdTokenClaims {
+  sub: string
+  email?: string
+  email_verified?: boolean
+  is_private_email?: boolean
+  nonce?: string
+  aud?: string
+  iss?: string
+  exp?: number
+  iat?: number
+}
 
 const appleCallbackLimiter = rateLimitSimple({
   windowMs: 15 * 60 * 1000,
@@ -124,7 +146,7 @@ async function handleAppleCallback(request: NextRequest, params: {
     const redirectUri = getAppleWebRedirectUri(normalizedOrigin)
 
     // Exchange code for tokens (server-to-server)
-    let tokenResponse: any
+    let tokenResponse: AppleTokenResponse | null = null
     try {
       tokenResponse = await exchangeAppleCodeForTokens({
         code,
@@ -143,10 +165,10 @@ async function handleAppleCallback(request: NextRequest, params: {
     }
 
     // Verify id_token signature + claims
-    let claims: any
+    let claims: AppleIdTokenClaims | undefined
     try {
       const verified = await verifyAppleIdentityToken(idToken, { audience: clientId })
-      claims = verified?.claims
+      claims = verified?.claims as AppleIdTokenClaims | undefined
     } catch (error) {
       errorLog('[APPLE_CALLBACK] id_token verification failed:', error)
       return createErrorRedirect('apple_token_verification_failed')
@@ -154,8 +176,12 @@ async function handleAppleCallback(request: NextRequest, params: {
 
     // Optional nonce check
     const nonce = request.cookies.get('apple-oauth-nonce')?.value
-    if (nonce && claims.nonce && String(claims.nonce) !== String(nonce)) {
+    if (nonce && claims?.nonce && String(claims.nonce) !== String(nonce)) {
       return createErrorRedirect('apple_invalid_nonce')
+    }
+
+    if (!claims) {
+      return createErrorRedirect('apple_token_verification_failed')
     }
 
     const appleSub = String(claims.sub || '').trim()
@@ -222,7 +248,7 @@ async function handleAppleCallback(request: NextRequest, params: {
             let discountType: string | null = null
             let discountPercentage: number | null = null
 
-            const promo = await (tx as any).promoCode.findUnique({ where: { code: promoFromCookie } })
+            const promo = await tx.promoCode.findUnique({ where: { code: promoFromCookie } })
             if (promo?.isActive) {
               const okExpiry = !promo.expiresAt || promo.expiresAt > now
               const okUses = promo.maxUses == null || promo.usedCount < promo.maxUses
@@ -231,7 +257,7 @@ async function handleAppleCallback(request: NextRequest, params: {
                   promo.maxUses == null
                     ? []
                     : [{ usedCount: { lt: promo.maxUses } }]
-                const updated = await (tx as any).promoCode.updateMany({
+                const updated = await tx.promoCode.updateMany({
                   where: {
                     id: promo.id,
                     isActive: true,
@@ -263,7 +289,7 @@ async function handleAppleCallback(request: NextRequest, params: {
                 discountType,
                 discountPercentage,
                 lastLoginAt: now,
-              } as any,
+              } as Prisma.UserCreateInput,
             })
           })
         } else {
@@ -315,7 +341,7 @@ async function handleAppleCallback(request: NextRequest, params: {
         const hasNoDiscount = !user?.discountPercentage && !user?.discountType
         if (promoFromCookie && hasNoDiscount && Number.isFinite(ageMs) && ageMs >= 0 && ageMs <= 10 * 60 * 1000) {
           await prisma.$transaction(async (tx) => {
-            const promo = await (tx as any).promoCode.findUnique({ where: { code: promoFromCookie } })
+            const promo = await tx.promoCode.findUnique({ where: { code: promoFromCookie } })
             if (!promo?.isActive) return
             const okExpiry = !promo.expiresAt || promo.expiresAt > now
             const okUses = promo.maxUses == null || promo.usedCount < promo.maxUses
@@ -324,7 +350,7 @@ async function handleAppleCallback(request: NextRequest, params: {
               promo.maxUses == null
                 ? []
                 : [{ usedCount: { lt: promo.maxUses } }]
-            const updated = await (tx as any).promoCode.updateMany({
+            const updated = await tx.promoCode.updateMany({
               where: {
                 id: promo.id,
                 isActive: true,
@@ -338,7 +364,7 @@ async function handleAppleCallback(request: NextRequest, params: {
             if (updated.count !== 1) return
             await tx.user.update({
               where: { id: user!.id },
-              data: { discountType: promo.discountType, discountPercentage: promo.discountPercent } as any,
+              data: { discountType: promo.discountType, discountPercentage: promo.discountPercent },
             })
           })
         }

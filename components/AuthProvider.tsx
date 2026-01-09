@@ -6,6 +6,12 @@ import { errorLog, debugLog } from '@/lib/logger'
 import { useToast } from '@/components/ToastProvider'
 import { useTranslation } from '@/hooks/useTranslation'
 
+// Type extension for iOS Safari PWA detection
+// Safari adds a non-standard 'standalone' property to navigator
+interface NavigatorStandalone extends Navigator {
+  standalone?: boolean
+}
+
 interface User {
   id: string
   email: string
@@ -440,7 +446,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
         const promo = String(sp.get('promo') || '').trim()
         // Detect PWA mode to pass flag for proper error redirect
         const isPWA = window.matchMedia('(display-mode: standalone)').matches ||
-                      (window.navigator as any).standalone === true
+                      (window.navigator as NavigatorStandalone).standalone === true
         const params = new URLSearchParams()
         if (promo) params.set('promo', promo)
         if (isPWA) params.set('from_pwa', 'true')
@@ -462,7 +468,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
         const promo = String(sp.get('promo') || '').trim()
         // Detect PWA mode to pass flag for proper error redirect
         const isPWA = window.matchMedia('(display-mode: standalone)').matches ||
-                      (window.navigator as any).standalone === true
+                      (window.navigator as NavigatorStandalone).standalone === true
         const params = new URLSearchParams()
         if (promo) params.set('promo', promo)
         if (isPWA) params.set('from_pwa', 'true')
@@ -504,7 +510,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
       // Redirect to specified URL or default login page
       // Check if in PWA mode for appropriate login page
       const isPWA = window.matchMedia('(display-mode: standalone)').matches ||
-                    (window.navigator as any).standalone === true
+                    (window.navigator as NavigatorStandalone).standalone === true
       
       if (redirectUrl) {
         window.location.href = redirectUrl

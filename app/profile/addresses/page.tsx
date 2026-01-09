@@ -7,6 +7,7 @@ import { useAuth } from '@/components/AuthProvider'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { usePWAMode } from '@/hooks/usePWAMode'
+import { errorLog } from '@/lib/logger'
 
 interface Address {
   id: string
@@ -46,7 +47,7 @@ export default function AddressesPage() {
         setAddresses(data.addresses)
       }
     } catch (error) {
-      console.error('Failed to fetch addresses:', error)
+      errorLog('Failed to fetch addresses:', error)
     } finally {
       setLoading(false)
     }
@@ -90,7 +91,7 @@ export default function AddressesPage() {
         setShowOptionsFor(null)
       }
     } catch (error) {
-      console.error('Failed to delete address:', error)
+      errorLog('Failed to delete address:', error)
     } finally {
       setDeletingId(null)
     }
@@ -113,7 +114,7 @@ export default function AddressesPage() {
         setShowOptionsFor(null)
       }
     } catch (error) {
-      console.error('Failed to set default:', error)
+      errorLog('Failed to set default:', error)
     } finally {
       setSettingDefaultId(null)
     }

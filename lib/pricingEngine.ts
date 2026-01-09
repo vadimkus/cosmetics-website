@@ -334,7 +334,7 @@ export function generateProductVariants(
   // PRIORITY 1: Use database variants if available
   // IMPORTANT: ignore DB variants that have no size/color.
   // Those "default" records should not affect pricing or trigger UI selectors.
-  const realDbVariants = product.variants?.filter(v => (v as any)?.size || (v as any)?.color) || []
+  const realDbVariants = product.variants?.filter(v => v.size || v.color) || []
 
   if (realDbVariants.length > 0) {
     realDbVariants.forEach((dbVariant) => {
@@ -400,7 +400,7 @@ export function generateEnhancedProductData(
   // If DB variants exist, use the DEFAULT DB variant as the product-level price source,
   // so list views and detail headers reflect the same pricing as the default selection.
   // IMPORTANT: only treat variants with size/color as "real" variants for pricing source.
-  const realDbVariants = product.variants?.filter(v => (v as any)?.size || (v as any)?.color) || []
+  const realDbVariants = product.variants?.filter(v => v.size || v.color) || []
   const defaultDbVariant = realDbVariants.find(v => v.isDefault) || realDbVariants[0]
   const pricingSourceProduct = defaultDbVariant
     ? ({ ...product, price: defaultDbVariant.price } as Product)
@@ -455,7 +455,7 @@ export function generateEnhancedProductData(
     // Only include real variants (size/color).
     // Exclude generated 'default' and exclude size-less DB variants.
     variants: variants.filter(v =>
-      (v as any)?.color || ((v as any)?.size && (v as any).size !== 'default')
+      v.color || (v.size && v.size !== 'default')
     ),
     colorVariants,
     

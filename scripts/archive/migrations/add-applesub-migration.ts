@@ -58,7 +58,7 @@ async function addAppleSubColumn() {
     
     console.log('\n🎉 Migration completed successfully!')
     
-  } catch {
+  } catch (error) {
     console.error('❌ Migration failed:', error)
     throw error
   } finally {
@@ -68,6 +68,8 @@ async function addAppleSubColumn() {
 }
 
 addAppleSubColumn()
+
+
 
 
 

@@ -130,7 +130,7 @@ async function syncTranslations() {
     console.log(`  Products with Russian description: ${stats.desc_ru_count}`)
     console.log(`  Products with Arabic description: ${stats.desc_ar_count}`)
 
-  } catch {
+  } catch (error) {
     console.error('❌ Sync failed:', error)
     throw error
   } finally {
@@ -147,6 +147,8 @@ syncTranslations()
     console.error('\n💥 Error:', error)
     process.exit(1)
   })
+
+
 
 
 

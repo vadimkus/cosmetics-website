@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { sendCertificateEmail } from '@/lib/certificate-email'
+import { errorLog } from '@/lib/logger'
 
 /**
  * API endpoint to send a gift certificate via email
@@ -100,7 +101,7 @@ export async function POST(request: Request) {
       certificateUrl,
     })
   } catch (error) {
-    console.error('Error sending certificate email:', error)
+    errorLog('Error sending certificate email:', error)
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }

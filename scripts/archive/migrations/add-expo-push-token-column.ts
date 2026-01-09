@@ -74,7 +74,7 @@ async function addExpoPushTokenColumn() {
 
     await pool.end()
     process.exit(0)
-  } catch {
+  } catch (error) {
     console.error('❌ Error adding expoPushToken column:', error)
     await pool.end()
     process.exit(1)
@@ -82,5 +82,7 @@ async function addExpoPushTokenColumn() {
 }
 
 addExpoPushTokenColumn()
+
+
 
 

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { sendWelcomeEmail } from '@/lib/email'
 import { errorLog, debugLog } from '@/lib/logger'
+import { requireDevelopment } from '@/lib/apiErrorHandler'
 
 /**
  * Simple endpoint to send welcome email for testing
@@ -8,6 +9,10 @@ import { errorLog, debugLog } from '@/lib/logger'
  * Body: { email: string, name?: string, password?: string }
  */
 export async function POST(request: NextRequest) {
+  // Development-only route
+  const devCheck = requireDevelopment()
+  if (devCheck) return devCheck
+
   try {
     const { email, name = 'John Doe', password } = await request.json()
 

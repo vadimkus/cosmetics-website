@@ -1,6 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { requireDevelopment } from '@/lib/apiErrorHandler'
 
 export async function GET(_request: NextRequest) {
+  // Development-only route
+  const devCheck = requireDevelopment()
+  if (devCheck) return devCheck
+
   try {
     const adminEmail = process.env.ADMIN_EMAIL || process.env.GMAIL_USER || process.env.EMAIL_USER
     

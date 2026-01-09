@@ -1,12 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { findUserByEmail } from '@/lib/userStorageDb'
 import { errorLog, debugLog } from '@/lib/logger'
+import { requireDevelopment } from '@/lib/apiErrorHandler'
 
 /**
  * GET /api/debug/profile-picture
  * Debug endpoint to check profile picture status for the current user
  */
 export async function GET(request: NextRequest) {
+  // Development-only route
+  const devCheck = requireDevelopment()
+  if (devCheck) return devCheck
+
   try {
     const sessionCookie = request.cookies.get('genosys_session')
     

@@ -149,3 +149,26 @@ export function withErrorHandling<T extends (...args: unknown[]) => Promise<Next
   }) as T
 }
 
+/**
+ * Check if the current environment is development
+ * Use this to gate test/debug routes
+ * @returns true if running in development mode
+ */
+export function isDevelopmentOnly(): boolean {
+  return process.env.NODE_ENV === 'development'
+}
+
+/**
+ * Guard for development-only API routes
+ * Returns a 404 response in production to hide debug endpoints
+ * @returns NextResponse with 404 if in production, null if in development
+ */
+export function requireDevelopment(): NextResponse | null {
+  if (process.env.NODE_ENV !== 'development') {
+    return NextResponse.json(
+      { error: 'Not Found' },
+      { status: 404 }
+    )
+  }
+  return null
+}

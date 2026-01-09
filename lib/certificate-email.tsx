@@ -3,6 +3,8 @@
  * This can be used with nodemailer or your email service
  */
 
+import { SITE_URL } from '@/lib/siteConfig'
+
 interface CertificateEmailProps {
   recipientName?: string
   recipientEmail: string
@@ -39,7 +41,7 @@ export function generateCertificateEmail({
     
     <!-- Header with gradient -->
     <div style="background: linear-gradient(135deg, #f43f5e 0%, #ec4899 100%); padding: 40px 20px; text-align: center;">
-      <img src="https://www.genosys.ae/Logo/BIGLogo-high.png" alt="GENOSYS" style="max-width: 200px; height: auto; margin-bottom: 20px;">
+      <img src="${SITE_URL}/Logo/BIGLogo-high.png" alt="GENOSYS" style="max-width: 200px; height: auto; margin-bottom: 20px;">
       <h1 style="color: white; margin: 0; font-size: 28px; font-weight: 300; text-shadow: 0 2px 4px rgba(0,0,0,0.1);">
         🎁 You've Received a Gift Certificate!
       </h1>
@@ -102,7 +104,7 @@ export function generateCertificateEmail({
           🎯 How to Redeem
         </h3>
         <ol style="color: #047857; margin: 0; padding-left: 20px; font-size: 14px; line-height: 1.8;">
-          <li>Visit <a href="https://www.genosys.ae" style="color: #059669; text-decoration: none; font-weight: 600;">www.genosys.ae</a></li>
+          <li>Visit <a href="${SITE_URL}" style="color: #059669; text-decoration: none; font-weight: 600;">${SITE_URL.replace('https://', '')}</a></li>
           <li>Choose your favorite products</li>
           <li>Enter your certificate code at checkout</li>
           <li>The amount will be deducted from your order total</li>
@@ -144,8 +146,8 @@ export function generateCertificateEmail({
         </a>
       </div>
       <div style="margin-bottom: 20px;">
-        <a href="https://www.genosys.ae" style="color: #f9fafb; text-decoration: none; font-size: 14px;">
-          🌐 www.genosys.ae
+        <a href="${SITE_URL}" style="color: #f9fafb; text-decoration: none; font-size: 14px;">
+          🌐 ${SITE_URL.replace('https://', '')}
         </a>
       </div>
       <p style="color: #9ca3af; font-size: 12px; margin: 15px 0 0 0; font-style: italic;">

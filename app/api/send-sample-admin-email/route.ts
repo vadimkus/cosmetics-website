@@ -1,8 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { sendAdminNewOrderNotification } from '@/lib/email'
 import { errorLog } from '@/lib/logger'
+import { requireDevelopment } from '@/lib/apiErrorHandler'
 
 export async function POST(request: NextRequest) {
+  // Development-only route
+  const devCheck = requireDevelopment()
+  if (devCheck) return devCheck
+
   try {
     const { email } = await request.json()
     

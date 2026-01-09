@@ -1,8 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { readOrders } from '@/lib/orderStorageDb'
 import { debugLog, errorLog } from '@/lib/logger'
+import { requireDevelopment } from '@/lib/apiErrorHandler'
 
 export async function GET(request: NextRequest) {
+  // Development-only route
+  const devCheck = requireDevelopment()
+  if (devCheck) return devCheck
+
   try {
     // Get admin email from headers
     const adminEmail = request.headers.get('x-admin-email')

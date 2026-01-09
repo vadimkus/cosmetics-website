@@ -1,10 +1,28 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Megaphone, Save, PlusCircle, RefreshCw, CheckCircle2, Bell, Send, Users, Eye, Trash2 } from 'lucide-react'
 import { addCsrfToBody, fetchCsrfToken } from '@/lib/csrfClient'
 import RichTextEditor from './RichTextEditor'
+
+// Type for parsed JSON response
+interface ParsedResponse {
+  contentType: string
+  raw: string
+  json: ApiResponse | null
+  isJson: boolean
+}
+
+// Generic API response type
+interface ApiResponse {
+  success?: boolean
+  error?: string
+  promotions?: Promotion[]
+  notifications?: PWANotification[]
+  subscribersCount?: number
+  stats?: { success?: number }
+  [key: string]: unknown
+}
 
 type Promotion = {
   id: string
@@ -64,10 +82,10 @@ export default function AdminPromotionsManager({
     url: '/profile/promo'
   })
 
-  const parseJsonResponse = useCallback(async (res: Response) => {
+  const parseJsonResponse = useCallback(async (res: Response): Promise<ParsedResponse> => {
     const contentType = res.headers.get('content-type') || ''
     const raw = await res.text().catch(() => '')
-    let json: any = null
+    let json: ApiResponse | null = null
     let isJson = false
     try {
       json = raw ? JSON.parse(raw) : null
@@ -107,9 +125,10 @@ export default function AdminPromotionsManager({
         return
       }
       setPromotions(Array.isArray(body.promotions) ? body.promotions : [])
-    } catch (e: any) {
-      console.error('Error loading promotions:', e)
-      showToast(e?.message || 'Failed to load promotions', 'error')
+    } catch (e: unknown) {
+      const err = e as Error
+      console.error('Error loading promotions:', err)
+      showToast(err?.message || 'Failed to load promotions', 'error')
     } finally {
       setLoading(false)
     }
@@ -171,8 +190,9 @@ export default function AdminPromotionsManager({
       }
       showToast('Promotion saved', 'success')
       await load()
-    } catch (e: any) {
-      showToast(e?.message || 'Failed to save promotion', 'error')
+    } catch (e: unknown) {
+      const err = e as Error
+      showToast(err?.message || 'Failed to save promotion', 'error')
     } finally {
       setSaving(false)
     }
@@ -218,8 +238,9 @@ export default function AdminPromotionsManager({
       }
       showToast('Promotion created', 'success')
       await load()
-    } catch (e: any) {
-      showToast(e?.message || 'Failed to create promotion', 'error')
+    } catch (e: unknown) {
+      const err = e as Error
+      showToast(err?.message || 'Failed to create promotion', 'error')
     } finally {
       setSaving(false)
     }
@@ -241,7 +262,7 @@ export default function AdminPromotionsManager({
           setPwaSubscribersCount(data.subscribersCount)
         }
       }
-    } catch (e: any) {
+    } catch (e: unknown) {
       console.error('Error loading notifications:', e)
     } finally {
       setPushLoading(false)
@@ -304,8 +325,9 @@ export default function AdminPromotionsManager({
         url: '/profile/promo'
       })
       await loadNotifications()
-    } catch (e: any) {
-      showToast(e?.message || 'Failed to send notification', 'error')
+    } catch (e: unknown) {
+      const err = e as Error
+      showToast(err?.message || 'Failed to send notification', 'error')
     } finally {
       setSendingPush(false)
     }
@@ -359,8 +381,9 @@ export default function AdminPromotionsManager({
       
       showToast('Notification deleted', 'success')
       await loadNotifications()
-    } catch (e: any) {
-      showToast(e?.message || 'Failed to delete notification', 'error')
+    } catch (e: unknown) {
+      const err = e as Error
+      showToast(err?.message || 'Failed to delete notification', 'error')
     }
   }, [getAdminHeaders, loadNotifications, showToast])
 

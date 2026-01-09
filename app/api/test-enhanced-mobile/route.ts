@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { generateEnhancedProductData } from '@/lib/pricingEngine'
 import { debugLog } from '@/lib/logger'
+import { requireDevelopment } from '@/lib/apiErrorHandler'
 
 /**
  * TEST ENDPOINT: Enhanced Mobile API Product Data
@@ -12,6 +13,10 @@ import { debugLog } from '@/lib/logger'
  */
 
 export async function GET(request: NextRequest) {
+  // Development-only route
+  const devCheck = requireDevelopment()
+  if (devCheck) return devCheck
+
   try {
     const { searchParams } = new URL(request.url)
     const productId = searchParams.get('productId') || '1' // Default to Microneedle Roller

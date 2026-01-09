@@ -1,7 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { requireAdminAuth } from '@/lib/adminAuth'
+import { requireDevelopment } from '@/lib/apiErrorHandler'
 
 export async function GET(request: NextRequest) {
+  // Development-only route
+  const devCheck = requireDevelopment()
+  if (devCheck) return devCheck
+
   // Require admin authentication
   const auth = await requireAdminAuth(request)
   if (!auth.authorized) {

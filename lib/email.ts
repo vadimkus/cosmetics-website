@@ -2,6 +2,10 @@ import { debugLog, errorLog } from '@/lib/logger'
 import nodemailer from 'nodemailer'
 import { findUserByEmail } from '@/lib/userStorageDb'
 import { getPreferredEmail } from '@/lib/emailHelpers'
+import { SITE_URL } from '@/lib/siteConfig'
+
+// Logo URL using site URL configuration
+const LOGO_URL = `${SITE_URL}/_next/image?url=%2FLogo%2FFull.png&w=640&q=75`
 
 // Email translation types
 type EmailTranslationSection = 'cod' | 'supportLink' | 'stripePaymentConfirmation' | 'statusUpdate' | 'welcome' | 'passwordReset' | 'discountAssigned'
@@ -124,7 +128,7 @@ export const emailTemplates = {
     const t = loadEmailTranslations(locale, 'welcome')
     const { dir, textAlign } = getLocaleSettings(locale)
     const firstName = userName.split(' ')[0]
-    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://genosys.ae'
+    const siteUrl = SITE_URL
     const productsUrl = locale === 'en' ? `${siteUrl}/products` : `${siteUrl}/${locale}/products`
     
     return {
@@ -146,7 +150,7 @@ export const emailTemplates = {
                 <!-- Logo -->
                 <tr>
                   <td style="text-align: center; padding-bottom: 48px;">
-                    <img src="https://genosys.ae/_next/image?url=%2FLogo%2FFull.png&w=640&q=75" alt="GENOSYS" style="height: 32px; width: auto;" />
+                    <img src="${LOGO_URL}" alt="GENOSYS" style="height: 32px; width: auto;" />
                   </td>
                 </tr>
                 
@@ -241,7 +245,7 @@ export const emailTemplates = {
                 <!-- Logo -->
                 <tr>
                   <td style="text-align: center; padding-bottom: 48px;">
-                    <img src="https://genosys.ae/_next/image?url=%2FLogo%2FFull.png&w=640&q=75" alt="GENOSYS" style="height: 32px; width: auto;" />
+                    <img src="${LOGO_URL}" alt="GENOSYS" style="height: 32px; width: auto;" />
                   </td>
                 </tr>
                 
@@ -310,7 +314,7 @@ export const emailTemplates = {
                 <!-- CTA Button -->
                 <tr>
                   <td style="text-align: center; padding-bottom: 48px;">
-                    <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://genosys.ae'}/profile" style="display: inline-block; background-color: #0071e3; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 17px; font-weight: 500; text-decoration: none; padding: 12px 24px; border-radius: 980px;">
+                    <a href="${SITE_URL}/profile" style="display: inline-block; background-color: #0071e3; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 17px; font-weight: 500; text-decoration: none; padding: 12px 24px; border-radius: 980px;">
                       View Order
                     </a>
                   </td>
@@ -356,7 +360,7 @@ export const emailTemplates = {
                 <!-- Logo -->
                 <tr>
                   <td style="text-align: center; padding-bottom: 48px;">
-                    <img src="https://genosys.ae/_next/image?url=%2FLogo%2FFull.png&w=640&q=75" alt="GENOSYS" style="height: 32px; width: auto;" />
+                    <img src="${LOGO_URL}" alt="GENOSYS" style="height: 32px; width: auto;" />
                   </td>
                 </tr>
                 
@@ -407,7 +411,7 @@ export const emailTemplates = {
                 <!-- CTA Button -->
                 <tr>
                   <td style="text-align: center; padding-bottom: 48px;">
-                    <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://genosys.ae'}/profile" style="display: inline-block; background-color: #0071e3; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 17px; font-weight: 500; text-decoration: none; padding: 12px 24px; border-radius: 980px;">
+                    <a href="${SITE_URL}/profile" style="display: inline-block; background-color: #0071e3; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 17px; font-weight: 500; text-decoration: none; padding: 12px 24px; border-radius: 980px;">
                       View Order
                     </a>
                   </td>
@@ -454,7 +458,7 @@ export const emailTemplates = {
                 <!-- Logo -->
                 <tr>
                   <td style="text-align: center; padding-bottom: 48px;">
-                    <img src="https://genosys.ae/_next/image?url=%2FLogo%2FFull.png&w=640&q=75" alt="GENOSYS" style="height: 32px; width: auto;" />
+                    <img src="${LOGO_URL}" alt="GENOSYS" style="height: 32px; width: auto;" />
                   </td>
                 </tr>
                 
@@ -505,7 +509,7 @@ export const emailTemplates = {
                 <!-- CTA Button -->
                 <tr>
                   <td style="text-align: center; padding-bottom: 48px;">
-                    <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://genosys.ae'}/products" style="display: inline-block; background-color: #0071e3; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 17px; font-weight: 500; text-decoration: none; padding: 12px 24px; border-radius: 980px;">
+                    <a href="${SITE_URL}/products" style="display: inline-block; background-color: #0071e3; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 17px; font-weight: 500; text-decoration: none; padding: 12px 24px; border-radius: 980px;">
                       Shop Again
                 </a>
               </td>
@@ -555,7 +559,7 @@ export const emailTemplates = {
                 <!-- Logo -->
                 <tr>
                   <td style="text-align: center; padding-bottom: 48px;">
-                    <img src="https://genosys.ae/_next/image?url=%2FLogo%2FFull.png&w=640&q=75" alt="GENOSYS" style="height: 32px; width: auto;" />
+                    <img src="${LOGO_URL}" alt="GENOSYS" style="height: 32px; width: auto;" />
                   </td>
                 </tr>
                 
@@ -603,7 +607,7 @@ export const emailTemplates = {
                 <!-- CTA Button -->
                 <tr>
                   <td style="text-align: center; padding-bottom: 48px;">
-                    <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://genosys.ae'}/products" style="display: inline-block; background-color: #0071e3; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 17px; font-weight: 500; text-decoration: none; padding: 12px 24px; border-radius: 980px;">
+                    <a href="${SITE_URL}/products" style="display: inline-block; background-color: #0071e3; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 17px; font-weight: 500; text-decoration: none; padding: 12px 24px; border-radius: 980px;">
                       Start Shopping
                     </a>
                   </td>
@@ -666,7 +670,7 @@ export const emailTemplates = {
                 <!-- Logo -->
                 <tr>
                   <td style="text-align: center; padding-bottom: 48px;">
-                    <img src="https://genosys.ae/_next/image?url=%2FLogo%2FFull.png&w=640&q=75" alt="GENOSYS" style="height: 32px; width: auto;" />
+                    <img src="${LOGO_URL}" alt="GENOSYS" style="height: 32px; width: auto;" />
                   </td>
                 </tr>
                 
@@ -771,7 +775,7 @@ export const emailTemplates = {
                 <!-- CTA Button -->
                 <tr>
                   <td style="text-align: center; padding-top: 40px;">
-                    <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://genosys.ae'}/profile" style="display: inline-block; background-color: #0071e3; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 17px; font-weight: 500; text-decoration: none; padding: 12px 24px; border-radius: 980px;">
+                    <a href="${SITE_URL}/profile" style="display: inline-block; background-color: #0071e3; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 17px; font-weight: 500; text-decoration: none; padding: 12px 24px; border-radius: 980px;">
                       View Order
                     </a>
                   </td>
@@ -1204,7 +1208,7 @@ export const emailTemplates = {
                 <!-- CTA Button -->
                 <tr>
                   <td style="padding: 0 20px 24px 20px; text-align: center;">
-          <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://genosys.ae'}/admin" 
+          <a href="${SITE_URL}/admin" 
                        style="display: inline-block; background-color: #111827; 
                               color: #ffffff; 
                               padding: 14px 32px; 
@@ -1234,7 +1238,7 @@ export const emailTemplates = {
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #ffffff;">
         <div style="text-align: center; margin-bottom: 30px;">
           <div style="margin-bottom: 20px;">
-            <img src="https://genosys.ae/Logo/Full.png" 
+            <img src="${SITE_URL}/Logo/Full.png" 
                  alt="Genosys Middle East FZ-LLC" 
                  width="200" 
                  height="auto"
@@ -1291,7 +1295,7 @@ export const emailTemplates = {
         </div>
         
         <div style="text-align: center; margin: 30px 0;">
-          <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://genosys.ae'}/products" 
+          <a href="${SITE_URL}/products" 
              style="background: #1f2937; 
                     color: white; 
                     padding: 15px 40px; 
@@ -1315,7 +1319,7 @@ export const emailTemplates = {
         
         <div style="border-top: 1px solid #e5e7eb; padding-top: 20px; text-align: center;">
           <div style="margin-bottom: 20px;">
-            <img src="https://genosys.ae/Logo/Full.png" 
+            <img src="${SITE_URL}/Logo/Full.png" 
                  alt="Genosys Middle East FZ-LLC" 
                  width="200" 
                  height="auto"
@@ -1336,7 +1340,7 @@ export const emailTemplates = {
   passwordReset: (userName: string, resetToken: string, locale: string = 'en') => {
     const t = loadEmailTranslations(locale, 'passwordReset')
     const { dir, textAlign } = getLocaleSettings(locale)
-    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://genosys.ae'
+    const siteUrl = SITE_URL
     const resetUrl = `${siteUrl}/reset-password/${resetToken}`
     const firstName = (userName || 'there').split(' ')[0]
     
@@ -1378,7 +1382,7 @@ export const emailTemplates = {
                   <!-- Logo -->
                   <tr>
                     <td style="text-align: center; padding-bottom: 48px;">
-                      <img src="https://genosys.ae/_next/image?url=%2FLogo%2FFull.png&w=640&q=75" alt="GENOSYS" style="height: 32px; width: auto;" />
+                      <img src="${LOGO_URL}" alt="GENOSYS" style="height: 32px; width: auto;" />
                     </td>
                   </tr>
                   
@@ -1760,7 +1764,7 @@ export const generateCODOrderHTML = (order: OrderHTMLData, locale: string = 'en'
               <!-- Logo -->
               <tr>
                 <td style="text-align: center; padding-bottom: 48px;">
-                  <img src="https://genosys.ae/_next/image?url=%2FLogo%2FFull.png&w=640&q=75" alt="GENOSYS" style="height: 32px; width: auto;" />
+                  <img src="${LOGO_URL}" alt="GENOSYS" style="height: 32px; width: auto;" />
                 </td>
               </tr>
               
@@ -1880,7 +1884,7 @@ export const generateCODOrderHTML = (order: OrderHTMLData, locale: string = 'en'
               <!-- CTA Button -->
               <tr>
                 <td style="text-align: center; padding-top: 40px;">
-                  <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://genosys.ae'}/${locale === 'en' ? '' : locale + '/'}profile" style="display: inline-block; background-color: #0071e3; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 17px; font-weight: 500; text-decoration: none; padding: 12px 24px; border-radius: 980px;">
+                  <a href="${SITE_URL}/${locale === 'en' ? '' : locale + '/'}profile" style="display: inline-block; background-color: #0071e3; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 17px; font-weight: 500; text-decoration: none; padding: 12px 24px; border-radius: 980px;">
                     ${locale === 'ru' ? 'Посмотреть заказ' : locale === 'ar' ? 'عرض الطلب' : 'View Order'}
                   </a>
                 </td>
@@ -1911,7 +1915,7 @@ export const generateSupportLinkOrderHTML = (order: OrderHTMLData, locale: strin
   const isRTL = locale === 'ar'
   const dir = isRTL ? 'rtl' : 'ltr'
   const textAlign = isRTL ? 'right' : 'left'
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://genosys.ae'
+  const siteUrl = SITE_URL
   const productsUrl = locale === 'ar' ? `${siteUrl}/ar/products` : `${siteUrl}/products`
 
   // Apple-style minimalist item rows
@@ -1943,7 +1947,7 @@ export const generateSupportLinkOrderHTML = (order: OrderHTMLData, locale: strin
               <!-- Logo -->
               <tr>
                 <td style="text-align: center; padding-bottom: 48px;">
-                  <img src="https://genosys.ae/_next/image?url=%2FLogo%2FFull.png&w=640&q=75" alt="GENOSYS" style="height: 32px; width: auto;" />
+                  <img src="${LOGO_URL}" alt="GENOSYS" style="height: 32px; width: auto;" />
                 </td>
               </tr>
               
@@ -2070,7 +2074,7 @@ export const generateSupportLinkOrderHTML = (order: OrderHTMLData, locale: strin
 export const generateStripePaymentConfirmationHTML = (order: OrderHTMLData, locale: string = 'en', _translations?: any): string => {
   const isRTL = locale === 'ar'
   const textAlign = isRTL ? 'right' : 'left'
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://genosys.ae'
+  const siteUrl = SITE_URL
 
   // Generate items HTML
   const itemsHTML = order.items.map(item => `
@@ -2101,7 +2105,7 @@ export const generateStripePaymentConfirmationHTML = (order: OrderHTMLData, loca
               <!-- Logo -->
               <tr>
                 <td style="text-align: center; padding-bottom: 48px;">
-                  <img src="https://genosys.ae/_next/image?url=%2FLogo%2FFull.png&w=640&q=75" alt="GENOSYS" style="height: 32px; width: auto;" />
+                  <img src="${LOGO_URL}" alt="GENOSYS" style="height: 32px; width: auto;" />
                 </td>
               </tr>
               
@@ -2394,7 +2398,7 @@ export const sendOrderStatusUpdate = async (order: { orderNumber: string; custom
     const textAlign = isRTL ? 'right' : 'left'
     const dateLocale = locale === 'ar' ? 'ar-AE' : 'en-AE'
     const orderId = order.orderNumber || order.id || 'Unknown'
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://genosys.ae'
+    const baseUrl = SITE_URL
     
     // Social media icons removed - using simplified Apple-style footer
     
@@ -2508,7 +2512,7 @@ export const sendOrderStatusUpdate = async (order: { orderNumber: string; custom
                 <!-- Logo -->
                 <tr>
                   <td style="text-align: center; padding-bottom: 48px;">
-                    <img src="https://genosys.ae/_next/image?url=%2FLogo%2FFull.png&w=640&q=75" alt="GENOSYS" style="height: 32px; width: auto;" />
+                    <img src="${LOGO_URL}" alt="GENOSYS" style="height: 32px; width: auto;" />
                   </td>
                 </tr>
                 

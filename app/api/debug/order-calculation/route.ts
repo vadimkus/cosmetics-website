@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { requireAdminAuth } from '@/lib/adminAuth'
 import { debugLog, errorLog } from '@/lib/logger'
 import { requireCsrfToken } from '@/lib/csrf'
+import { requireDevelopment } from '@/lib/apiErrorHandler'
 import { Product } from '@/types/index'
 
 interface DebugCheckoutItem {
@@ -10,6 +11,10 @@ interface DebugCheckoutItem {
 }
 
 export async function POST(request: NextRequest) {
+  // Development-only route
+  const devCheck = requireDevelopment()
+  if (devCheck) return devCheck
+
   // Require admin authentication and CSRF protection
   const auth = await requireAdminAuth(request)
   if (!auth.authorized) {

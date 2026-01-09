@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { sendDiscountAssignmentEmail } from '@/lib/email'
 import { errorLog, debugLog } from '@/lib/logger'
 import { prisma } from '@/lib/prisma'
+import { requireDevelopment } from '@/lib/apiErrorHandler'
 
 /**
  * Simple test endpoint to send discount assignment email
@@ -10,6 +11,10 @@ import { prisma } from '@/lib/prisma'
  * If discountType/discountPercentage are not provided, fetches from user's database record
  */
 export async function POST(request: NextRequest) {
+  // Development-only route
+  const devCheck = requireDevelopment()
+  if (devCheck) return devCheck
+
   try {
     const { email, name, discountType, discountPercentage } = await request.json()
 

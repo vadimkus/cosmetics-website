@@ -3,6 +3,7 @@ import { sendAdminNewOrderNotification, sendAdminNewUserNotification } from '@/l
 import { requireAdminAuth } from '@/lib/adminAuth'
 import { requireCsrfToken } from '@/lib/csrf'
 import { debugLog, errorLog } from '@/lib/logger'
+import { requireDevelopment } from '@/lib/apiErrorHandler'
 
 /**
  * Test endpoint to verify admin email notifications are working
@@ -10,6 +11,10 @@ import { debugLog, errorLog } from '@/lib/logger'
  * Requires admin authentication and CSRF token
  */
 export async function POST(request: NextRequest) {
+  // Development-only route
+  const devCheck = requireDevelopment()
+  if (devCheck) return devCheck
+
   // Require admin authentication
   const auth = await requireAdminAuth(request)
   if (!auth.authorized) {

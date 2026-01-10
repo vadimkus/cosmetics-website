@@ -77,7 +77,9 @@ export default function ProfileForm({
           <div className="space-y-1 md:space-y-2">
             <label className="text-xs md:text-sm font-medium text-gray-700">{t('profile.email')}</label>
             <div className="px-3 md:px-4 py-2 md:py-3 bg-gray-50 rounded-lg md:rounded-xl border border-gray-100">
-              <p className="text-sm md:text-base text-gray-800 break-all">{user.email}</p>
+              <p className="text-sm md:text-base text-gray-800 break-all">
+                {isApplePrivateRelay ? t('profile.hidden') : user.email}
+              </p>
             </div>
             {user.email.includes('@privaterelay.appleid.com') && (
               <div className="flex items-start gap-2 p-2 md:p-3 bg-blue-50 border border-blue-200 rounded-lg">

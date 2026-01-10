@@ -633,6 +633,7 @@
     "address": "Address",
     "enterYourAddress": "Enter your address",
     "notProvided": "Not provided",
+    "hidden": "Hidden",
     "saveChanges": "Save Changes",
     "priceAccess": "Price Access",
     "allowed": "Allowed",

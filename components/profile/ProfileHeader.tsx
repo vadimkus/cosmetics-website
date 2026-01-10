@@ -25,6 +25,15 @@ export default function ProfileHeader({
   fileInputRef
 }: ProfileHeaderProps) {
   const { t, locale } = useTranslation()
+  
+  // Check if user logged in with Apple (private relay or anonymized email)
+  const isAppleLogin = user.email.includes('@privaterelay.appleid.com') || user.email.includes('@genosys.local')
+  
+  // Display email logic: for Apple users, show contactEmail or "Logged in with Apple"
+  const displayEmail = isAppleLogin 
+    ? (user.contactEmail || 'Logged in with Apple')
+    : user.email
+    
   return (
     <div className="bg-white rounded-xl md:rounded-2xl shadow-sm md:shadow-xl border border-gray-100 p-3 md:p-6 lg:p-8 mb-3 md:mb-6 lg:mb-8">
       {/* Mobile Layout */}
@@ -55,7 +64,7 @@ export default function ProfileHeader({
           {/* Name & Email */}
           <div className="flex-1 min-w-0">
             <h1 className="text-base font-bold text-gray-900 truncate">{user.name}</h1>
-            <p className="text-xs text-gray-500 truncate">{user.email}</p>
+            <p className="text-xs text-gray-500 truncate">{displayEmail}</p>
             {customerNumber > 0 && (
               <div className="inline-flex items-center gap-1 px-2 py-0.5 bg-primary-600 text-white rounded-full mt-1">
                 <Sparkles className="h-2.5 w-2.5" />
@@ -118,7 +127,7 @@ export default function ProfileHeader({
         {/* Profile Info */}
         <div className="flex-1 text-center lg:text-left">
           <h1 className="text-3xl lg:text-4xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent mb-2">{user.name}</h1>
-          <p className="text-gray-600 text-base lg:text-lg break-words">{user.email}</p>
+          <p className="text-gray-600 text-base lg:text-lg break-words">{displayEmail}</p>
           {customerNumber > 0 && (
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-full shadow-lg mt-2">
               <Sparkles className="h-4 w-4" />

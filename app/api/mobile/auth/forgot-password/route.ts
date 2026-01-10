@@ -5,6 +5,7 @@ import { debugLog, errorLog } from '@/lib/logger'
 import { findUserByEmail } from '@/lib/userStorageDb'
 import { createPasswordResetToken } from '@/lib/passwordReset'
 import { sendPasswordResetEmail } from '@/lib/email'
+import { getPreferredEmail, isApplePrivateRelayEmail } from '@/lib/emailHelpers'
 import { validateMobileAuth } from '@/lib/jwt'
 
 // Rate limiter for password reset requests (20 requests per hour per IP)
@@ -89,10 +90,18 @@ export async function POST(request: NextRequest) {
     // Always return success (prevent email enumeration)
     if (user) {
       try {
-        const plainToken = await createPasswordResetToken(user.id)
-        const emailResult = await sendPasswordResetEmail(user.email, user.name, plainToken, locale)
-        if (!emailResult.success) {
-          errorLog('[MOBILE_FORGOT_PASSWORD] Failed to send reset email:', emailResult.error)
+        // Get the preferred email (contact email if available)
+        const emailToUse = getPreferredEmail(user)
+        
+        // Skip sending to Apple Private Relay emails
+        if (isApplePrivateRelayEmail(emailToUse)) {
+          debugLog('[MOBILE_FORGOT_PASSWORD] Skipping email for Apple Private Relay user:', emailToUse)
+        } else {
+          const plainToken = await createPasswordResetToken(user.id)
+          const emailResult = await sendPasswordResetEmail(emailToUse, user.name, plainToken, locale)
+          if (!emailResult.success) {
+            errorLog('[MOBILE_FORGOT_PASSWORD] Failed to send reset email:', emailResult.error)
+          }
         }
       } catch (error) {
         errorLog('[MOBILE_FORGOT_PASSWORD] Error processing reset:', error)

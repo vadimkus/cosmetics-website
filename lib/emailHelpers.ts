@@ -19,10 +19,27 @@ export function getPreferredEmail(user: { email: string; contactEmail?: string |
 }
 
 /**
- * Check if a user is using Apple Private Relay
+ * Check if an email is an Apple Private Relay or anonymized Apple email
+ * These emails cannot reliably receive mail and should be skipped
  */
 export function isApplePrivateRelayEmail(email: string): boolean {
-  return email.includes('@privaterelay.appleid.com')
+  if (!email) return false
+  const lower = email.toLowerCase()
+  return (
+    lower.includes('@privaterelay.appleid.com') ||
+    lower.includes('@genosys.local') ||
+    lower.startsWith('apple+') ||
+    lower.startsWith('deleted+')
+  )
+}
+
+/**
+ * Check if we should skip sending email to this address
+ * Returns true for Apple Private Relay emails that don't have a contact email alternative
+ */
+export function shouldSkipEmail(user: { email: string; contactEmail?: string | null }): boolean {
+  const emailToUse = getPreferredEmail(user)
+  return isApplePrivateRelayEmail(emailToUse)
 }
 
 

@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import { updateOrderStatus, getOrderById, deleteOrder } from '@/lib/orderStorageDb'
 import { debugLog, errorLog } from '@/lib/logger'
 import { sendOrderStatusUpdate } from '@/lib/email'
+import { getPreferredEmail, isApplePrivateRelayEmail } from '@/lib/emailHelpers'
+import { findUserByEmail } from '@/lib/userStorageDb'
 import { prisma } from '@/lib/prisma'
 import { requireAdminAuth } from '@/lib/adminAuth'
 import { requireCsrfToken } from '@/lib/csrf'
@@ -54,39 +56,48 @@ export async function PUT(
 
     // Send email notification to customer about status change
     try {
-      // Transform order items for email
-      // getOrderById includes items relation, so we need to type assert or access safely
-      const orderWithItems = order as typeof order & { items?: Array<{ productName: string; quantity: number; price: number; image: string; color?: string | null; size?: string | null }> }
-      const mappedItems = orderWithItems.items ? orderWithItems.items.map(item => {
-        const mappedItem: { productName: string; quantity: number; price: number; image?: string; color?: string; size?: string } = {
-          productName: item.productName,
-          quantity: item.quantity,
-          price: item.price
-        }
-        if (item.image) mappedItem.image = item.image
-        if (item.color) mappedItem.color = item.color
-        if (item.size) mappedItem.size = item.size
-        return mappedItem
-      }) : undefined
+      // Find user to get preferred email (contact email if available)
+      const user = await findUserByEmail(order.customerEmail)
+      const emailToUse = user ? getPreferredEmail(user) : order.customerEmail
       
-      const emailOrder: Parameters<typeof sendOrderStatusUpdate>[0] = {
-        orderNumber: order.orderNumber,
-        customerName: order.customerName,
-        customerEmail: order.customerEmail,
-        id: order.id,
-        ...(mappedItems ? { items: mappedItems } : {}),
-        total: order.total,
-        locale: order.locale || 'en', // Use order's locale, default to English
-        ...(order.customerAddress ? { customerAddress: order.customerAddress } : {}),
-        ...(order.customerEmirate ? { customerEmirate: order.customerEmirate } : {})
-      }
-      const emailResult = await sendOrderStatusUpdate(emailOrder, status)
-      
-      if (emailResult.success) {
-        debugLog(`✅ Order status update email sent for order ${id} to ${order.customerEmail}`)
+      // Skip sending to Apple Private Relay emails
+      if (isApplePrivateRelayEmail(emailToUse)) {
+        debugLog(`⏭️ Skipping order status email for Apple Private Relay user: ${emailToUse}`)
       } else {
-        errorLog(`❌ Failed to send order status update email:`, emailResult.error)
-        errorLog(`❌ Email error details:`, JSON.stringify(emailResult, null, 2))
+        // Transform order items for email
+        // getOrderById includes items relation, so we need to type assert or access safely
+        const orderWithItems = order as typeof order & { items?: Array<{ productName: string; quantity: number; price: number; image: string; color?: string | null; size?: string | null }> }
+        const mappedItems = orderWithItems.items ? orderWithItems.items.map(item => {
+          const mappedItem: { productName: string; quantity: number; price: number; image?: string; color?: string; size?: string } = {
+            productName: item.productName,
+            quantity: item.quantity,
+            price: item.price
+          }
+          if (item.image) mappedItem.image = item.image
+          if (item.color) mappedItem.color = item.color
+          if (item.size) mappedItem.size = item.size
+          return mappedItem
+        }) : undefined
+        
+        const emailOrder: Parameters<typeof sendOrderStatusUpdate>[0] = {
+          orderNumber: order.orderNumber,
+          customerName: order.customerName,
+          customerEmail: emailToUse,
+          id: order.id,
+          ...(mappedItems ? { items: mappedItems } : {}),
+          total: order.total,
+          locale: order.locale || 'en', // Use order's locale, default to English
+          ...(order.customerAddress ? { customerAddress: order.customerAddress } : {}),
+          ...(order.customerEmirate ? { customerEmirate: order.customerEmirate } : {})
+        }
+        const emailResult = await sendOrderStatusUpdate(emailOrder, status)
+        
+        if (emailResult.success) {
+          debugLog(`✅ Order status update email sent for order ${id} to ${emailToUse}`)
+        } else {
+          errorLog(`❌ Failed to send order status update email:`, emailResult.error)
+          errorLog(`❌ Email error details:`, JSON.stringify(emailResult, null, 2))
+        }
       }
     } catch (emailError) {
       errorLog('❌ Exception sending order status update email:', emailError)

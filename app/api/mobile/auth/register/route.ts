@@ -7,6 +7,7 @@ import { rateLimitSimple, getClientIdentifierFromNextRequest } from '@/lib/rateL
 import { debugLog, errorLog } from '@/lib/logger'
 import { trackUserAction } from '@/lib/analyticsServer'
 import { sendWelcomeEmail, sendAdminNewUserNotification } from '@/lib/email'
+import { isApplePrivateRelayEmail } from '@/lib/emailHelpers'
 import { validateLength, INPUT_LIMITS } from '@/lib/validation'
 import bcrypt from 'bcryptjs'
 import { parseUserAgent } from '@/lib/deviceDetection'
@@ -242,13 +243,17 @@ export async function POST(request: NextRequest) {
       // Don't fail registration if tracking fails
     }
 
-    // Send welcome email
-    try {
-      await sendWelcomeEmail(name, email, password, locale)
-      debugLog('✅ Welcome email sent to:', email)
-    } catch (error) {
-      errorLog('❌ Failed to send welcome email:', error)
-      // Don't fail registration if email fails
+    // Send welcome email (skip Apple Private Relay emails)
+    if (isApplePrivateRelayEmail(email)) {
+      debugLog('⏭️ Skipping welcome email for Apple Private Relay user:', email)
+    } else {
+      try {
+        await sendWelcomeEmail(name, email, password, locale)
+        debugLog('✅ Welcome email sent to:', email)
+      } catch (error) {
+        errorLog('❌ Failed to send welcome email:', error)
+        // Don't fail registration if email fails
+      }
     }
 
     // Send admin notification

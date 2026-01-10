@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { sendEmail } from '@/lib/email'
-import { errorLog } from '@/lib/logger'
+import { debugLog, errorLog } from '@/lib/logger'
 import { requireCsrfToken } from '@/lib/csrf'
+import { getPreferredEmail, isApplePrivateRelayEmail } from '@/lib/emailHelpers'
+import { findUserByEmail } from '@/lib/userStorageDb'
 
 interface InvoiceItem {
   id?: string
@@ -73,11 +75,24 @@ export async function POST(request: NextRequest) {
       translations
     })
 
+    // Find user to get preferred email (contact email if available)
+    const user = await findUserByEmail(customerEmail)
+    const emailToUse = user ? getPreferredEmail(user) : customerEmail
+    
+    // Skip sending to Apple Private Relay emails
+    if (isApplePrivateRelayEmail(emailToUse)) {
+      debugLog(`⏭️ Skipping invoice email for Apple Private Relay user: ${emailToUse}`)
+      return NextResponse.json({ 
+        success: false, 
+        message: 'Cannot send invoice to Apple Private Relay email. Please add a contact email in your profile.' 
+      }, { status: 400 })
+    }
+
     // Send email with invoice
     const emailSubject = (translations?.emailSubject || 'Invoice') + ` ${orderNumber} - ${translations?.emailSubjectSuffix || 'GENOSYS Professional'}`
     
     const result = await sendEmail(
-      customerEmail,
+      emailToUse,
       emailSubject,
       invoiceHtml
     )

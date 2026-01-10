@@ -5,6 +5,7 @@ import { prisma } from '@/lib/database'
 import { debugLog, errorLog } from '@/lib/logger'
 import { trackUserAction } from '@/lib/analyticsServer'
 import { sendWelcomeEmail, sendAdminNewUserNotification } from '@/lib/email'
+import { isApplePrivateRelayEmail } from '@/lib/emailHelpers'
 import bcrypt from 'bcryptjs'
 import { requireCsrfToken } from '@/lib/csrf'
 import { validateLength, INPUT_LIMITS } from '@/lib/validation'
@@ -190,13 +191,17 @@ export async function POST(request: NextRequest) {
       details: `New user registered: ${name}`
     })
 
-    // Send welcome email to user (include password before hashing)
-    try {
-      await sendWelcomeEmail(name, normalizedEmail, password, locale)
-      debugLog('✅ Welcome email sent to:', normalizedEmail)
-    } catch (emailError) {
-      errorLog('❌ Failed to send welcome email:', emailError)
-      // Don't fail registration if email fails
+    // Send welcome email to user (skip Apple Private Relay emails)
+    if (isApplePrivateRelayEmail(normalizedEmail)) {
+      debugLog('⏭️ Skipping welcome email for Apple Private Relay user:', normalizedEmail)
+    } else {
+      try {
+        await sendWelcomeEmail(name, normalizedEmail, password, locale)
+        debugLog('✅ Welcome email sent to:', normalizedEmail)
+      } catch (emailError) {
+        errorLog('❌ Failed to send welcome email:', emailError)
+        // Don't fail registration if email fails
+      }
     }
 
     // Send admin notification

@@ -6,6 +6,7 @@ import { requireBodySizeLimit, getSizeLimitForContentType } from '@/lib/requestS
 import { debugLog, errorLog } from '@/lib/logger'
 import { createPasswordResetToken } from '@/lib/passwordReset'
 import { sendPasswordResetEmail } from '@/lib/email'
+import { getPreferredEmail, isApplePrivateRelayEmail } from '@/lib/emailHelpers'
 
 // Rate limiter for password reset requests (20 requests per hour per IP)
 const forgotPasswordLimiter = rateLimitSimple({
@@ -101,20 +102,29 @@ export async function POST(request: NextRequest) {
     // But only send email if user actually exists
     if (user) {
       try {
-        debugLog('[FORGOT-PASSWORD] User found, creating reset token...')
+        // Get the preferred email (contact email if available)
+        const emailToUse = getPreferredEmail(user)
         
-        // Create password reset token
-        const plainToken = await createPasswordResetToken(user.id)
-        
-        // Send password reset email
-        debugLog('[FORGOT-PASSWORD] Sending reset email...')
-        const emailResult = await sendPasswordResetEmail(user.email, user.name, plainToken, locale)
-        
-        if (emailResult.success) {
-          debugLog('[FORGOT-PASSWORD] Password reset email sent successfully')
+        // Skip sending to Apple Private Relay emails
+        if (isApplePrivateRelayEmail(emailToUse)) {
+          debugLog('[FORGOT-PASSWORD] Skipping email for Apple Private Relay user:', emailToUse)
+          // Still return success to prevent email enumeration
         } else {
-          errorLog('[FORGOT-PASSWORD] Failed to send email:', emailResult.error)
-          // Still return success to user (don't reveal email failure)
+          debugLog('[FORGOT-PASSWORD] User found, creating reset token...')
+          
+          // Create password reset token
+          const plainToken = await createPasswordResetToken(user.id)
+          
+          // Send password reset email to preferred email
+          debugLog('[FORGOT-PASSWORD] Sending reset email to:', emailToUse)
+          const emailResult = await sendPasswordResetEmail(emailToUse, user.name, plainToken, locale)
+          
+          if (emailResult.success) {
+            debugLog('[FORGOT-PASSWORD] Password reset email sent successfully')
+          } else {
+            errorLog('[FORGOT-PASSWORD] Failed to send email:', emailResult.error)
+            // Still return success to user (don't reveal email failure)
+          }
         }
       } catch (error) {
         errorLog('[FORGOT-PASSWORD] Error processing password reset:', error)

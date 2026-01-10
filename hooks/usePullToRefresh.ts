@@ -4,6 +4,17 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 import { usePathname } from 'next/navigation'
 import { errorLog } from '@/lib/logger'
 
+// Browser-specific type extensions
+interface WindowWithOpera extends Window {
+  opera?: string
+  MSStream?: unknown
+}
+
+// iOS Safari specific navigator property (standalone mode)
+interface NavigatorStandalone {
+  standalone?: boolean
+}
+
 interface UsePullToRefreshOptions {
   onRefresh: () => Promise<void> | void
   threshold?: number
@@ -21,13 +32,16 @@ function isPWA(): boolean {
   if (typeof window === 'undefined') return false
   
   // Only consider PWA mode on mobile devices
-  const userAgent = navigator.userAgent || navigator.vendor || (window as any).opera
+  const win = window as WindowWithOpera
+  const userAgent = navigator.userAgent || navigator.vendor || win.opera || ''
   const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent)
   
   if (!isMobile) return false
   
+  // Check for iOS standalone mode
+  const navStandalone = navigator as Navigator & NavigatorStandalone
   return window.matchMedia('(display-mode: standalone)').matches ||
-    (window.navigator as any).standalone === true
+    navStandalone.standalone === true
 }
 
 // Pages where pull-to-refresh should be disabled
@@ -39,7 +53,8 @@ function shouldDisableOnPage(pathname: string | null): boolean {
 // Detect if running on iOS
 function isIOS(): boolean {
   if (typeof window === 'undefined') return false
-  return /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream
+  const win = window as WindowWithOpera
+  return /iPad|iPhone|iPod/.test(navigator.userAgent) && !win.MSStream
 }
 
 export function usePullToRefresh({

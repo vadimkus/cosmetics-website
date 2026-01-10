@@ -1515,9 +1515,15 @@ export const sendEmail = async (to: string, subject: string, html: string) => {
       errorLog('❌ Error stack:', error.stack)
     }
     // Check for specific nodemailer errors
+    // NodemailerError has code and command properties
+    interface NodemailerError {
+      code?: string
+      command?: string
+    }
     if (error && typeof error === 'object' && 'code' in error) {
-      errorLog('❌ Error code:', (error as any).code)
-      errorLog('❌ Error command:', (error as any).command)
+      const smtpError = error as NodemailerError
+      errorLog('❌ Error code:', smtpError.code)
+      errorLog('❌ Error command:', smtpError.command)
     }
     return { success: false, error: error instanceof Error ? error.message : 'Unknown error' }
   }

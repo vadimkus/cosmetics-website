@@ -1,9 +1,14 @@
 import { errorLog, debugLog } from '@/lib/logger'
 import { PrismaClient } from '@prisma/client'
+import type { Pool } from 'pg'
 
-const globalForPrisma = globalThis as unknown as {
+// Extended global type for Prisma singleton and pg pool reference
+interface GlobalWithPrisma {
   prisma: PrismaClient | undefined
+  pgPool?: Pool
 }
+
+const globalForPrisma = globalThis as unknown as GlobalWithPrisma
 
 // Ensure DATABASE_URL is set
 const databaseUrl = process.env.PRISMA_DATABASE_URL || process.env.DATABASE_URL
@@ -87,17 +92,22 @@ export const prisma = prismaInstance
 // Verify PasswordResetToken model is available at initialization
 // This helps catch issues early in serverless environments
 try {
-  if (!('passwordResetToken' in prisma)) {
+  // Runtime check for passwordResetToken model
+  const hasPasswordResetToken = 'passwordResetToken' in prisma
+  // Cast through unknown for runtime inspection
+  const prismaObj = prisma as unknown as Record<string, unknown>
+  
+  if (!hasPasswordResetToken) {
     errorLog('❌ CRITICAL: PasswordResetToken model not found in Prisma client at initialization')
     errorLog('❌ This WILL cause password reset feature to fail')
-    const availableModels = Object.keys(prisma).filter(k => !k.startsWith('$') && !k.startsWith('_'))
+    const availableModels = Object.keys(prismaObj).filter(k => !k.startsWith('$') && !k.startsWith('_'))
     errorLog('❌ Available Prisma models:', availableModels.join(', '))
     errorLog('❌ Prisma client type:', typeof prisma)
-    errorLog('❌ Prisma client constructor:', (prisma as any).constructor?.name)
+    errorLog('❌ Prisma client constructor:', prisma.constructor?.name)
   } else {
     debugLog('✅ PasswordResetToken model verified in Prisma client at initialization')
     // Try to access it to ensure it's actually callable
-    if (typeof (prisma as any).passwordResetToken !== 'object') {
+    if (typeof prismaObj.passwordResetToken !== 'object') {
       errorLog('❌ CRITICAL: passwordResetToken exists but is not an object')
     } else {
       debugLog('✅ PasswordResetToken model is properly initialized and callable')
@@ -143,7 +153,7 @@ export async function getPoolStats(): Promise<{
   waitingCount: number
 } | null> {
   try {
-    const pool = (globalForPrisma as any).pgPool
+    const pool = globalForPrisma.pgPool
     if (pool) {
       return {
         totalCount: pool.totalCount || 0,

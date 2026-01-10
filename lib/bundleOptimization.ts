@@ -252,23 +252,36 @@ export const performanceMonitoring = {
       }).observe({ entryTypes: ['largest-contentful-paint'] })
 
       // Track First Input Delay (FID)
+      // PerformanceEventTiming extends PerformanceEntry with processingStart
+      interface PerformanceEventTiming extends PerformanceEntry {
+        processingStart: number
+      }
+      
       new PerformanceObserver((list) => {
         const entries = list.getEntries()
         entries.forEach((entry) => {
           if (entry.entryType === 'first-input' && 'processingStart' in entry) {
-            debugLog('FID:', (entry as any).processingStart - entry.startTime)
+            const eventEntry = entry as PerformanceEventTiming
+            debugLog('FID:', eventEntry.processingStart - entry.startTime)
           }
         })
       }).observe({ entryTypes: ['first-input'] })
 
       // Track Cumulative Layout Shift (CLS)
+      // LayoutShift extends PerformanceEntry with hadRecentInput and value
+      interface LayoutShiftEntry extends PerformanceEntry {
+        hadRecentInput: boolean
+        value: number
+      }
+      
       let clsValue = 0
       new PerformanceObserver((list) => {
         const entries = list.getEntries()
         entries.forEach((entry) => {
           if (entry.entryType === 'layout-shift' && 'hadRecentInput' in entry && 'value' in entry) {
-            if (!(entry as any).hadRecentInput) {
-              clsValue += (entry as any).value
+            const layoutEntry = entry as LayoutShiftEntry
+            if (!layoutEntry.hadRecentInput) {
+              clsValue += layoutEntry.value
             }
           }
         })

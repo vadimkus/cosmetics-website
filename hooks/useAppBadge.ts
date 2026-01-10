@@ -3,19 +3,28 @@
 import { useEffect, useCallback } from 'react'
 import { debugLog, warnLog } from '@/lib/logger'
 
+// Extend Navigator interface for App Badge API (experimental)
+interface NavigatorWithBadge extends Navigator {
+  setAppBadge: (contents?: number) => Promise<void>
+  clearAppBadge: () => Promise<void>
+}
+
 interface UseAppBadgeReturn {
   setBadge: (count: number) => void
   clearBadge: () => void
   isSupported: boolean
 }
 
+// Type guard to check if navigator supports App Badge API
+function hasAppBadgeSupport(nav: Navigator): nav is NavigatorWithBadge {
+  return 'setAppBadge' in nav && 'clearAppBadge' in nav
+}
+
 export const useAppBadge = (): UseAppBadgeReturn => {
-  const isSupported = typeof navigator !== 'undefined' && 
-    'setAppBadge' in navigator && 
-    'clearAppBadge' in navigator
+  const isSupported = typeof navigator !== 'undefined' && hasAppBadgeSupport(navigator)
 
   const setBadge = useCallback((count: number) => {
-    if (!isSupported) {
+    if (!isSupported || !hasAppBadgeSupport(navigator)) {
       debugLog('App Badge API not supported')
       return
     }
@@ -23,11 +32,11 @@ export const useAppBadge = (): UseAppBadgeReturn => {
     try {
       if (count <= 0) {
         // Clear badge if count is 0 or negative
-        ;(navigator as any).clearAppBadge()
+        navigator.clearAppBadge()
         debugLog('App badge cleared')
       } else {
         // Set badge with count
-        ;(navigator as any).setAppBadge(count)
+        navigator.setAppBadge(count)
         debugLog(`App badge set to: ${count}`)
       }
     } catch (error) {
@@ -36,13 +45,13 @@ export const useAppBadge = (): UseAppBadgeReturn => {
   }, [isSupported])
 
   const clearBadge = useCallback(() => {
-    if (!isSupported) {
+    if (!isSupported || !hasAppBadgeSupport(navigator)) {
       debugLog('App Badge API not supported')
       return
     }
 
     try {
-      ;(navigator as any).clearAppBadge()
+      navigator.clearAppBadge()
       debugLog('App badge cleared')
     } catch (error) {
       warnLog('Failed to clear app badge:', error)

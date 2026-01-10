@@ -4,6 +4,8 @@ import { debugLog, errorLog } from '@/lib/logger'
 import { addOrder, OrderData, OrderItemData } from '@/lib/orderStorageDb'
 import { requireCsrfToken } from '@/lib/csrf'
 import { enhanceOrderItemWithDefaultSize } from '@/lib/orderSizeDefaults'
+import { getPreferredEmail } from '@/lib/emailHelpers'
+import { findUserByEmail } from '@/lib/userStorageDb'
 
 // Helper function to detect device type from User-Agent
 function detectDeviceType(userAgent: string | null): string {
@@ -222,27 +224,39 @@ export async function POST(request: NextRequest) {
 
     const orderHTML = generateCODOrderHTML(orderHTMLData, locale, translations)
 
+    // Fetch user to check for contactEmail (for Apple Private Relay users)
+    const user = await findUserByEmail(customerEmail)
+    const emailToUse = user ? getPreferredEmail(user) : customerEmail
+
+    debugLog('📧 COD Email routing:', {
+      customerEmail,
+      hasUser: !!user,
+      hasContactEmail: !!(user?.contactEmail),
+      emailToUse,
+      isAppleRelay: customerEmail.includes('@privaterelay.appleid.com') || customerEmail.includes('@genosys.local')
+    })
+
     // Send email to customer (non-blocking - fire and forget)
     const emailSubject = (translations?.subject || `Order Confirmation #${orderNumber} - GENOSYS Professional`).replace('#{orderNumber}', orderNumber).replace('{orderNumber}', orderNumber)
     
-    debugLog('📧 Attempting to send COD confirmation email to customer:', customerEmail)
+    debugLog('📧 Attempting to send COD confirmation email to customer:', emailToUse)
     debugLog('📧 Email subject:', emailSubject)
     
     sendEmail(
-      customerEmail.trim(),
+      emailToUse.trim(),
       emailSubject,
       orderHTML
     ).then((result) => {
       if (result.success) {
-        debugLog('✅ COD order confirmation email sent successfully to:', customerEmail)
+        debugLog('✅ COD order confirmation email sent successfully to:', emailToUse)
         debugLog('✅ Message ID:', result.messageId || 'N/A')
       } else {
-        errorLog('❌ FAILED to send COD order confirmation email to:', customerEmail)
+        errorLog('❌ FAILED to send COD order confirmation email to:', emailToUse)
         errorLog('❌ Error:', result.error)
         errorLog('❌ Order number:', orderNumber)
       }
     }).catch((emailError) => {
-      errorLog('❌ EXCEPTION sending COD order confirmation email to:', customerEmail)
+      errorLog('❌ EXCEPTION sending COD order confirmation email to:', emailToUse)
       errorLog('❌ Exception:', emailError)
       errorLog('❌ Order number:', orderNumber)
       errorLog('❌ Stack:', emailError instanceof Error ? emailError.stack : 'No stack')
@@ -254,7 +268,7 @@ export async function POST(request: NextRequest) {
     debugLog('📧 Order data:', JSON.stringify({
       orderNumber,
       customerName,
-      customerEmail,
+      customerEmail: emailToUse,
       customerPhone,
       total,
       itemCount: orderItems.length,
@@ -267,7 +281,7 @@ export async function POST(request: NextRequest) {
     const adminNotificationPromise = sendAdminNewOrderNotification({
       orderNumber,
       customerName,
-      customerEmail,
+      customerEmail: emailToUse,
       customerPhone,
       total,
       itemCount: orderItems.length,

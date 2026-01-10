@@ -7,6 +7,7 @@ import { addUser, findUserByAppleSub, findUserByEmail, updateUser } from '@/lib/
 import { prisma } from '@/lib/database'
 import { createSessionToken } from '@/lib/jwt'
 import { Prisma } from '@prisma/client'
+import { sendAdminNewUserNotification } from '@/lib/email'
 
 // Types for Apple OAuth responses
 interface AppleTokenResponse {
@@ -239,6 +240,7 @@ async function handleAppleCallback(request: NextRequest, params: {
     }
 
     // If still no user, create a new one. Handle duplicates gracefully (common on retries / private relay).
+    let isNewUser = false
     if (!user) {
       try {
         // Apply promo code at account creation time (if provided from /login?promo=...).
@@ -292,6 +294,7 @@ async function handleAppleCallback(request: NextRequest, params: {
               } as Prisma.UserCreateInput,
             })
           })
+          isNewUser = true
         } else {
           user = await addUser({
             name: fullName,
@@ -305,6 +308,7 @@ async function handleAppleCallback(request: NextRequest, params: {
             canSeePrices: true,
             lastLoginAt: new Date().toISOString(),
           })
+          isNewUser = true
         }
       } catch (error) {
         errorLog('[APPLE_CALLBACK] User create failed, attempting recovery:', error)
@@ -370,6 +374,31 @@ async function handleAppleCallback(request: NextRequest, params: {
         }
       } catch (error) {
         errorLog('[APPLE_CALLBACK] Failed to apply promo fallback:', error)
+      }
+    }
+
+    // Send admin notification for new Apple Sign-In user (non-blocking)
+    if (isNewUser && user) {
+      try {
+        debugLog('[APPLE_CALLBACK] 📧 Attempting to send admin notification for new Apple user...')
+        const adminResult = await sendAdminNewUserNotification(
+          user.name,
+          user.email,
+          undefined, // phone
+          undefined, // address
+          'Apple Sign-In (Web)'
+        )
+        
+        if (adminResult && adminResult.success) {
+          debugLog('[APPLE_CALLBACK] ✅ Admin notification sent successfully for new Apple user:', user.email)
+          debugLog('[APPLE_CALLBACK] ✅ Notification message ID:', adminResult.messageId)
+        } else {
+          errorLog('[APPLE_CALLBACK] ❌ FAILED to send admin notification')
+          errorLog('[APPLE_CALLBACK] ❌ Error:', adminResult?.error || 'Unknown error')
+        }
+      } catch (emailError) {
+        errorLog('[APPLE_CALLBACK] ❌ EXCEPTION sending admin notification:', emailError)
+        // Don't fail registration if email fails
       }
     }
 

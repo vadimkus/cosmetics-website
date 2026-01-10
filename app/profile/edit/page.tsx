@@ -8,6 +8,7 @@ import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { usePWAMode } from '@/hooks/usePWAMode'
 import { errorLog } from '@/lib/logger'
+import { isApplePrivateRelayEmail } from '@/lib/emailHelpers'
 
 const GENDER_VALUES = {
   MALE: 'male',
@@ -267,6 +268,7 @@ export default function EditProfilePage() {
     gender: locale === 'ar' ? 'الجنس' : locale === 'ru' ? 'Пол' : 'Gender',
     selectGender: locale === 'ar' ? 'اختر الجنس' : locale === 'ru' ? 'Выберите пол' : 'Select gender',
     required: '*',
+    hidden: locale === 'ar' ? 'مخفي' : locale === 'ru' ? 'Скрыто' : 'Hidden',
     privacyNote: locale === 'ar' ? 'معلوماتك محمية ولن تتم مشاركتها' : locale === 'ru' ? 'Ваша информация защищена и не будет передана' : 'Your information is protected and will not be shared',
     // Delete account translations
     deleteAccount: locale === 'ar' ? 'حذف الحساب' : locale === 'ru' ? 'Удалить аккаунт' : 'Delete Account',
@@ -403,8 +405,8 @@ export default function EditProfilePage() {
                 {translations.email}<span className="text-red-600"> {translations.required}</span>
               </label>
               <input
-                type="email"
-                value={formData.email}
+                type="text"
+                value={isApplePrivateRelayEmail(formData.email) ? translations.hidden : formData.email}
                 readOnly
                 className="w-full text-base text-gray-500 bg-transparent outline-none"
                 dir="ltr"

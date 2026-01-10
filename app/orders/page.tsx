@@ -235,7 +235,7 @@ export default function OrdersPage() {
   }
 
   return (
-    <div className={`min-h-screen ${isPWA ? 'bg-gray-50 pb-32' : 'bg-white'}`}>
+    <div className={`min-h-screen bg-white ${isPWA ? 'pb-32' : ''}`}>
       <BreadcrumbSchema 
         items={[
           { name: t('common.home'), url: getLocalizedPath('/', locale) },

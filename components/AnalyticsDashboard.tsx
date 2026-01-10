@@ -310,7 +310,7 @@ export default function AnalyticsDashboard({ onCustomerClick }: AnalyticsDashboa
           color="green"
         />
         <MetricCard
-          title="Orders"
+          title="Delivered Orders"
           value={analytics.ordersPlaced}
           icon={<ShoppingCart className="h-5 w-5 md:h-6 md:w-6" />}
           subtitle={analytics.totalRevenue ? `${formatCurrency(analytics.totalRevenue)} • Click for details` : 'Click for monthly breakdown'}
@@ -321,7 +321,7 @@ export default function AnalyticsDashboard({ onCustomerClick }: AnalyticsDashboa
           title="Conversion Rate"
           value={`${analytics.conversionRate.toFixed(1)}%`}
           icon={<TrendingUp className="h-5 w-5 md:h-6 md:w-6" />}
-          subtitle={`${analytics.ordersPlaced} orders from ${analytics.totalVisitors} visitors`}
+          subtitle={`${analytics.ordersPlaced} delivered from ${analytics.totalVisitors} visitors`}
           color="orange"
         />
             </div>
@@ -872,7 +872,7 @@ export default function AnalyticsDashboard({ onCustomerClick }: AnalyticsDashboa
                   </div>
                 </div>
                 <div className="flex justify-between mt-2 text-xs text-gray-500">
-                  <span>{analytics.ordersPlaced} orders</span>
+                  <span>{analytics.ordersPlaced} delivered</span>
                   <span>{analytics.totalVisitors} visitors</span>
                 </div>
               </div>

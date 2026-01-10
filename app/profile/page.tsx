@@ -462,7 +462,14 @@ export default function ProfilePageRefactored() {
     }
   }
 
-  // Show loading or nothing while redirecting
+  // Render PWA-specific profile page when in PWA mode
+  // IMPORTANT: This check must happen BEFORE the user check below
+  // because PWAProfilePage has its own loading state and user handling
+  if (isClient && isPWA) {
+    return <PWAProfilePage />
+  }
+
+  // Show loading or nothing while redirecting (only for non-PWA)
   if (!user) {
     debugLog('[PROFILE_PAGE] No user found, redirecting to login...')
     return null
@@ -476,11 +483,6 @@ export default function ProfilePageRefactored() {
     hasProfilePicture: !!user.profilePicture,
     profilePictureURL: user.profilePicture || 'NO PICTURE'
   })
-
-  // Render PWA-specific profile page when in PWA mode
-  if (isClient && isPWA) {
-    return <PWAProfilePage />
-  }
 
   return (
     <div className="min-h-screen bg-white">

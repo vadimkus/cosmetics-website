@@ -168,11 +168,18 @@ export default function CheckoutClient() {
   const { firstName, lastName } = getUserName()
 
   // Pre-fill invoice email from user profile
+  // For Apple login users, prefer contactEmail since Apple private relay emails don't work
   useEffect(() => {
-    if (user?.email) {
-      setInvoiceEmail(user.email)
+    if (user) {
+      if (user.appleSub && user.contactEmail) {
+        // Apple login user with a contact email set - use it for invoice
+        setInvoiceEmail(user.contactEmail)
+      } else if (user.email) {
+        // Regular login or Apple user without contact email
+        setInvoiceEmail(user.email)
+      }
     }
-  }, [user?.email])
+  }, [user])
 
 
 

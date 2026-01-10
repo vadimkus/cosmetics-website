@@ -16,6 +16,7 @@ interface User {
   id: string
   email: string
   contactEmail?: string
+  appleSub?: string | null  // Apple Sign-In user identifier
   name: string
   phone?: string
   address?: string

@@ -91,7 +91,7 @@ export default function ProfileForm({
               <div className="flex items-start gap-2 p-2 md:p-3 bg-orange-50 border border-orange-200 rounded-lg">
                 <AlertCircle className="h-4 w-4 text-orange-600 flex-shrink-0 mt-0.5" />
                 <p className="text-xs text-orange-800">
-                  <strong>Account Status:</strong> This account email is anonymized. Please add a contact email below to receive notifications.
+                  Logged in with Apple. Please add a contact email below to receive notifications.
                 </p>
               </div>
             )}

@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { Gift, Copy, ExternalLink, RefreshCw, Check } from 'lucide-react'
+import { errorLog } from '@/lib/logger'
 
 interface GeneratedCertificate {
   code: string
@@ -45,7 +46,7 @@ export default function CertificateGeneratorClient() {
       setCopied(true)
       setTimeout(() => setCopied(false), 2000)
     } catch (err) {
-      console.error('Failed to copy:', err)
+      errorLog('Failed to copy:', err)
     }
   }
 

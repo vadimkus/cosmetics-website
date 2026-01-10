@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { Prisma } from '@prisma/client'
 import { findUserByEmail } from '@/lib/userStorageDb'
 import { prisma } from '@/lib/database'
 import { generateMobileToken, validateMobileAuth } from '@/lib/jwt'
@@ -212,22 +213,21 @@ export async function POST(request: NextRequest) {
         }
       }
 
-      return await tx.user.create({
-        data: {
-          name,
-          email,
-          password: hashedPassword,
-          phone,
-          address: fullAddress,
-          profilePicture: null,
-          isAdmin: false,
-          canSeePrices: true,
-          discountType,
-          discountPercentage,
-          birthday: birthday || null,
-          lastLoginAt: now,
-        } as any,
-      })
+      const userData: Prisma.UserCreateInput = {
+        name,
+        email,
+        password: hashedPassword,
+        phone,
+        address: fullAddress,
+        profilePicture: null,
+        isAdmin: false,
+        canSeePrices: true,
+        discountType,
+        discountPercentage,
+        birthday: birthday || null,
+        lastLoginAt: now,
+      }
+      return await tx.user.create({ data: userData })
     })
 
     // Track user registration

@@ -7,6 +7,7 @@ import { useAuth } from '@/components/AuthProvider'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { usePWAMode } from '@/hooks/usePWAMode'
+import { errorLog } from '@/lib/logger'
 
 const GENDER_VALUES = {
   MALE: 'male',
@@ -72,7 +73,7 @@ export default function EditProfilePage() {
         contactEmail: derivedContactEmail,
         phone: user.phone || '',
         birthday: user.birthday || '',
-        gender: (user as any).gender || GENDER_VALUES.NA,
+        gender: user.gender || GENDER_VALUES.NA,
       }
       setFormData(nextForm)
       setInitialSnapshot(nextForm)
@@ -113,7 +114,7 @@ export default function EditProfilePage() {
       }
       reader.readAsDataURL(file)
     } catch (error) {
-      console.error('Error reading photo:', error)
+      errorLog('Error reading photo:', error)
       setIsUploadingPhoto(false)
     }
 

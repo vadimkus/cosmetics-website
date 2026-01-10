@@ -21,6 +21,7 @@ interface User {
   phone?: string
   address?: string
   birthday?: string
+  gender?: string | null
   profilePicture?: string
   createdAt: string
   isAdmin?: boolean

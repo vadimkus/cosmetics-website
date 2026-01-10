@@ -4,6 +4,7 @@ import { useSearchParams } from 'next/navigation'
 import { Suspense, useEffect, useState } from 'react'
 import Link from 'next/link'
 import { Share2, ExternalLink, Copy, Check, Home } from 'lucide-react'
+import { errorLog } from '@/lib/logger'
 
 function ShareContent() {
   const searchParams = useSearchParams()
@@ -22,7 +23,7 @@ function ShareContent() {
       setCopied(true)
       setTimeout(() => setCopied(false), 2000)
     } catch (err) {
-      console.error('Failed to copy:', err)
+      errorLog('Failed to copy:', err)
     }
   }
 

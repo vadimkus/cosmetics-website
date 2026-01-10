@@ -9,6 +9,14 @@ import { getLocalizedPath } from '@/lib/i18n'
 import { useCartStore } from '@/lib/cartStore'
 import { debugLog, errorLog } from '@/lib/logger'
 
+// Helper to safely call gtag (avoids type conflicts with global Window declarations)
+function trackGtagEvent(eventName: string, params: Record<string, unknown>) {
+  const gtag = (window as { gtag?: (...args: unknown[]) => void }).gtag
+  if (gtag) {
+    gtag('event', eventName, params)
+  }
+}
+
 interface OrderDetails {
   sessionId: string
   orderId: string
@@ -60,7 +68,7 @@ export default function StripeSuccessClient() {
           throw new Error('Failed to verify payment')
         }
 
-        const data = await response.json()
+        const data: OrderDetails = await response.json()
         setOrderDetails(data)
 
         // Clear cart if payment was successful
@@ -70,12 +78,12 @@ export default function StripeSuccessClient() {
         }
 
         // Track successful payment in Google Analytics
-        if (typeof window !== 'undefined' && (window as any).gtag) {
-          ;(window as any).gtag('event', 'purchase', {
+        if (typeof window !== 'undefined') {
+          trackGtagEvent('purchase', {
             transaction_id: data.order.orderNumber,
             value: data.order.total,
             currency: 'AED',
-            items: data.order.items.map((item: any, index: number) => ({
+            items: data.order.items.map((item, index) => ({
               item_id: `item-${index}`,
               item_name: item.productName,
               category: 'Cosmetics',

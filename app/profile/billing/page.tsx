@@ -7,6 +7,7 @@ import { useAuth } from '@/components/AuthProvider'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { usePWAMode } from '@/hooks/usePWAMode'
+import { errorLog } from '@/lib/logger'
 
 export default function BillingPage() {
   const router = useRouter()
@@ -38,7 +39,7 @@ export default function BillingPage() {
           setVatNumber(data?.vatNumber || '')
         }
       } catch (error) {
-        console.error('Error fetching billing:', error)
+        errorLog('Error fetching billing:', error)
       } finally {
         setLoading(false)
       }

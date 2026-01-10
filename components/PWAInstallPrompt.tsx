@@ -6,11 +6,17 @@ import { usePWAInstall } from '@/hooks/usePWAInstall'
 import { cn } from '@/lib/utils'
 import { errorLog } from '@/lib/logger'
 
+// Extended Window interface for Opera detection
+interface WindowWithOpera extends Window {
+  opera?: string
+}
+
 // Detect if device is mobile
 function isMobileDevice(): boolean {
   if (typeof window === 'undefined') return false
   
-  const userAgent = navigator.userAgent || navigator.vendor || (window as any).opera
+  const windowWithOpera = window as WindowWithOpera
+  const userAgent = navigator.userAgent || navigator.vendor || windowWithOpera.opera || ''
   const mobileRegex = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i
   
   return mobileRegex.test(userAgent)

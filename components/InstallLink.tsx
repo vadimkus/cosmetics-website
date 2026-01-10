@@ -9,6 +9,11 @@ interface BeforeInstallPromptEvent extends Event {
   userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>
 }
 
+// Extended Window interface for Opera detection
+interface WindowWithOpera extends Window {
+  opera?: string
+}
+
 interface InstallLinkProps {
   onClose?: () => void
   className?: string
@@ -22,7 +27,8 @@ export default function InstallLink({ onClose, className = '' }: InstallLinkProp
 
   useEffect(() => {
     // Only enable PWA functionality on mobile devices
-    const userAgent = navigator.userAgent || navigator.vendor || (window as any).opera
+    const windowWithOpera = window as WindowWithOpera
+    const userAgent = navigator.userAgent || navigator.vendor || windowWithOpera.opera || ''
     const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent)
     
     if (!isMobile) {

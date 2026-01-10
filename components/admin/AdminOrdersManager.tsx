@@ -74,7 +74,7 @@ export default function AdminOrdersManager({
   }
 
   const getDisplayOrderNumber = (order: OrderWithItems) => {
-    const n = String((order as any)?.orderNumber || '').trim()
+    const n = String(order.orderNumber || '').trim()
     if (n) return n
     return String(order.id).slice(-8)
   }

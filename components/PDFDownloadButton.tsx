@@ -7,6 +7,16 @@ import { errorLog } from '@/lib/logger'
 import { trackPDFDownload } from '@/lib/analytics'
 import { useTranslation } from '@/hooks/useTranslation'
 
+// Extended Navigator interface for iOS standalone detection
+interface NavigatorStandalone extends Navigator {
+  standalone?: boolean
+}
+
+// Extended Window interface for Opera detection
+interface WindowWithOpera extends Window {
+  opera?: string
+}
+
 interface PDFDownloadButtonProps {
   href: string
   filename: string
@@ -20,13 +30,15 @@ function isPWA(): boolean {
   if (typeof window === 'undefined') return false
   
   // Only consider PWA mode on mobile devices
-  const userAgent = navigator.userAgent || navigator.vendor || (window as any).opera
+  const windowWithOpera = window as WindowWithOpera
+  const userAgent = navigator.userAgent || navigator.vendor || windowWithOpera.opera || ''
   const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent)
   
   if (!isMobile) return false
   
+  const navigatorWithStandalone = window.navigator as NavigatorStandalone
   return window.matchMedia('(display-mode: standalone)').matches ||
-    (window.navigator as any).standalone === true
+    navigatorWithStandalone.standalone === true
 }
 
 export default function PDFDownloadButton({ 

@@ -103,7 +103,7 @@ export default function ProfileForm({
               <label className="text-xs md:text-sm font-medium text-gray-700 flex items-center gap-2">
                 <Mail className="h-4 w-4 text-green-600" />
                 Contact Email
-                <span className="text-xs text-gray-500">(optional)</span>
+                <span className="text-xs text-gray-500">(for order confirmation)</span>
               </label>
               {isEditing ? (
                 <input

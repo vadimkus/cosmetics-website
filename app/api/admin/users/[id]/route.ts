@@ -7,6 +7,7 @@ import { requireCsrfToken } from '@/lib/csrf'
 import { validateUserProfileInput } from '@/lib/validation'
 import { requireBodySizeLimit, getSizeLimitForContentType } from '@/lib/requestSizeLimit'
 import { sendDiscountAssignmentEmail } from '@/lib/email'
+import { getPreferredEmail, isApplePrivateRelayEmail } from '@/lib/emailHelpers'
 
 export async function PUT(
   request: NextRequest,
@@ -69,7 +70,7 @@ export async function PUT(
     // Get current user data to check if discount is being newly assigned
     const currentUser = await prisma.user.findUnique({
       where: { id },
-      select: { email: true, name: true, discountType: true, discountPercentage: true }
+      select: { email: true, name: true, discountType: true, discountPercentage: true, contactEmail: true }
     })
 
     if (!currentUser) {
@@ -95,22 +96,30 @@ export async function PUT(
 
     // Send discount assignment email if discount was assigned
     if (isDiscountBeingAssigned && discountType && discountPercentage && discountPercentage > 0) {
-      try {
-        const emailResult = await sendDiscountAssignmentEmail({
-          customerName: currentUser.name || 'Valued Customer',
-          customerEmail: currentUser.email,
-          discountType: discountType as 'CLINIC' | 'VIP',
-          discountPercentage: discountPercentage
-        })
-        
-        if (emailResult.success) {
-          debugLog(`✅ Discount assignment email sent successfully to ${currentUser.email}`)
-        } else {
-          errorLog(`❌ Failed to send discount assignment email to ${currentUser.email}:`, emailResult.error)
+      // Get the preferred email (contactEmail if available, otherwise primary email)
+      const emailToUse = getPreferredEmail(currentUser)
+      
+      // Skip sending to Apple Private Relay emails if no contact email is provided
+      if (isApplePrivateRelayEmail(currentUser.email) && !currentUser.contactEmail) {
+        debugLog(`⏭️ Skipping discount email for Apple Private Relay user without contact email: ${currentUser.email}`)
+      } else {
+        try {
+          const emailResult = await sendDiscountAssignmentEmail({
+            customerName: currentUser.name || 'Valued Customer',
+            customerEmail: emailToUse,
+            discountType: discountType as 'CLINIC' | 'VIP',
+            discountPercentage: discountPercentage
+          })
+          
+          if (emailResult.success) {
+            debugLog(`✅ Discount assignment email sent successfully to ${emailToUse}`)
+          } else {
+            errorLog(`❌ Failed to send discount assignment email to ${emailToUse}:`, emailResult.error)
+          }
+        } catch (emailError) {
+          errorLog('❌ Error sending discount assignment email:', emailError)
+          // Don't fail the update if email fails
         }
-      } catch (emailError) {
-        errorLog('❌ Error sending discount assignment email:', emailError)
-        // Don't fail the update if email fails
       }
     }
 

@@ -4,7 +4,7 @@ import { useCart } from '@/components/CartProvider'
 import { useAuth } from '@/components/AuthProvider'
 import { useState, useEffect, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
-import { ArrowLeft, CreditCard, Lock, MapPin, Truck, MessageCircle, Mail, Building, ChevronDown } from 'lucide-react'
+import { ArrowLeft, CreditCard, Lock, MapPin, Truck, MessageCircle, Building, ChevronDown } from 'lucide-react'
 import Link from 'next/link'
 import { calculateDiscountedPrice } from '@/lib/discountUtils'
 import { errorLog, debugLog } from '@/lib/logger'
@@ -20,8 +20,6 @@ export default function CheckoutClient() {
   const { t, locale, dir } = useTranslation()
   const { isPWA, isClient: isPWAClient } = usePWAMode()
   const [isProcessing, setIsProcessing] = useState(false)
-  const [isGeneratingInvoice, setIsGeneratingInvoice] = useState(false)
-  const [invoiceEmail, setInvoiceEmail] = useState('')
   const [freeMasks, setFreeMasks] = useState<Array<{ id: string; name: string; price: number; quantity: number; image: string }>>([])
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<string>('cod')
   const [orderSummaryExpanded, setOrderSummaryExpanded] = useState(false) // Collapsed by default for PWA
@@ -50,112 +48,6 @@ export default function CheckoutClient() {
     window.open(whatsappUrl, '_blank')
   }
 
-  // Generate and send invoice function
-  const generateAndSendInvoice = async () => {
-    if (!invoiceEmail) {
-      // Show subtle notification instead of alert
-      const emailInput = document.querySelector('input[type="email"]') as HTMLInputElement
-      if (emailInput) {
-        emailInput.focus()
-        emailInput.style.borderColor = '#ef4444'
-        setTimeout(() => {
-          emailInput.style.borderColor = ''
-        }, 3000)
-      }
-      return
-    }
-
-    setIsGeneratingInvoice(true)
-    
-    try {
-      // Get free masks based on subtotal
-      const freeMasks = await getFreeMasks(subtotal)
-
-      // Combine regular items with free masks
-      const allItems = [
-        ...items.map(item => {
-          const pricing = calculateDiscountedPrice(item.product, user)
-          return {
-            id: item.product.id,
-            name: item.product.name,
-            image: item.product.image,
-            price: pricing.discountedPrice,
-            quantity: item.quantity,
-            total: pricing.discountedPrice * item.quantity
-          }
-        }),
-        ...freeMasks.map(mask => ({
-          id: mask.id,
-          name: mask.name + ' (FREE)',
-          image: mask.image,
-          price: 0,
-          quantity: mask.quantity,
-          total: 0
-        }))
-      ]
-
-      const invoiceData = {
-        orderNumber,
-        customerEmail: invoiceEmail,
-        customerName: user?.name || 'Customer',
-        customerPhone: user?.phone || '',
-        customerAddress: user?.address || '',
-        emirate: selectedEmirate,
-        items: allItems,
-        subtotal,
-        shippingCost,
-        vatAmount,
-        total,
-        locale
-      }
-
-      // Ensure CSRF token is available
-      const csrfToken = await fetchCsrfToken()
-      if (!csrfToken) {
-        alert(t('checkout.securityError'))
-        setIsGeneratingInvoice(false)
-        return
-      }
-
-      const response = await fetch('/api/invoice/generate', {
-        method: 'POST',
-        headers: getCsrfHeaders(),
-        body: JSON.stringify(addCsrfToBody(invoiceData)),
-      })
-
-      if (response.ok) {
-        // Show subtle success notification instead of alert
-        const button = document.querySelector('button[type="button"]') as HTMLButtonElement
-        if (button) {
-          const originalText = button.textContent
-          button.textContent = t('checkout.invoiceSent')
-          button.style.backgroundColor = '#10b981'
-          setTimeout(() => {
-            button.textContent = originalText
-            button.style.backgroundColor = ''
-          }, 2000)
-        }
-      } else {
-        throw new Error('Failed to generate invoice')
-      }
-    } catch (error) {
-      errorLog('Error generating invoice:', error)
-      // Show subtle error notification instead of alert
-      const button = document.querySelector('button[type="button"]') as HTMLButtonElement
-      if (button) {
-        const originalText = button.textContent
-        button.textContent = t('checkout.failedTryAgain')
-        button.style.backgroundColor = '#ef4444'
-        setTimeout(() => {
-          button.textContent = originalText
-          button.style.backgroundColor = ''
-        }, 2000)
-      }
-    } finally {
-      setIsGeneratingInvoice(false)
-    }
-  }
-
   // Helper function to split user name
   const getUserName = () => {
     if (!user?.name) return { firstName: '', lastName: '' }
@@ -166,20 +58,6 @@ export default function CheckoutClient() {
   }
 
   const { firstName, lastName } = getUserName()
-
-  // Pre-fill invoice email from user profile
-  // For Apple login users, prefer contactEmail since Apple private relay emails don't work
-  useEffect(() => {
-    if (user) {
-      if (user.appleSub && user.contactEmail) {
-        // Apple login user with a contact email set - use it for invoice
-        setInvoiceEmail(user.contactEmail)
-      } else if (user.email) {
-        // Regular login or Apple user without contact email
-        setInvoiceEmail(user.email)
-      }
-    }
-  }, [user])
 
 
 
@@ -1326,39 +1204,6 @@ export default function CheckoutClient() {
                   </div>
                 )}
 
-                {/* Generate Invoice */}
-                <div className="p-2.5 md:p-4 bg-white border border-red-200 rounded-lg">
-                  <div className={`flex items-center gap-1.5 md:gap-2 text-black mb-1.5 md:mb-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                    <Mail className="h-4 w-4 md:h-5 md:w-5" />
-                    <span className="font-semibold text-xs md:text-base">{t('checkout.invoice')}</span>
-                  </div>
-                  <p className={`text-[10px] md:text-sm text-black mb-2 md:mb-3 ${dir === 'rtl' ? 'text-right' : ''}`}>
-                    {t('checkout.generateInvoiceDescription')}
-                  </p>
-                  <div className="mb-2 md:mb-3">
-                    <label htmlFor="invoice-email" className={`block text-[10px] md:text-sm font-medium text-black mb-0.5 md:mb-1 ${dir === 'rtl' ? 'text-right' : ''}`}>
-                      {t('checkout.emailAddressLabel')}
-                    </label>
-                    <input
-                      type="email"
-                      id="invoice-email"
-                      value={invoiceEmail}
-                      onChange={(e) => setInvoiceEmail(e.target.value)}
-                      className={`w-full px-2 py-1.5 border border-gray-300 rounded-md md:rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 text-xs md:text-sm bg-white text-gray-900 ${dir === 'rtl' ? 'text-right' : ''}`}
-                      placeholder={t('checkout.enterEmailAddressPlaceholder')}
-                      required
-                      style={{ color: '#111827', backgroundColor: '#ffffff' }}
-                    />
-                  </div>
-                  <button
-                    onClick={generateAndSendInvoice}
-                    disabled={isGeneratingInvoice || items.length === 0}
-                    className={`w-full flex items-center justify-center gap-1.5 md:gap-2 px-3 md:px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors font-medium text-xs md:text-sm disabled:bg-gray-400 disabled:cursor-not-allowed ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
-                  >
-                    <Mail className="h-3.5 w-3.5 md:h-4 md:w-4" />
-                    {isGeneratingInvoice ? t('checkout.generating') : t('checkout.sendByEmail')}
-                  </button>
-                </div>
               </div>
             </div>
           </div>

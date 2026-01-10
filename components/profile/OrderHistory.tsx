@@ -1,7 +1,8 @@
 'use client'
 
 import Image from 'next/image'
-import { Package, ShoppingBag, Calendar, X, CreditCard, Truck, CheckCircle, Clock, Fish } from 'lucide-react'
+import { useState } from 'react'
+import { Package, ShoppingBag, Calendar, X, CreditCard, Truck, CheckCircle, Clock, Fish, FileText, Loader2 } from 'lucide-react'
 import { Order, OrderItem } from '@prisma/client'
 import StatusBadge from '@/components/shared/StatusBadge'
 import EmptyState from '@/components/shared/EmptyState'
@@ -9,6 +10,9 @@ import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { motion } from 'framer-motion'
 import { useAnimationStore } from '@/lib/animationStore'
+import { fetchCsrfToken, getCsrfHeaders, addCsrfToBody } from '@/lib/csrfClient'
+import { useAuth } from '@/components/AuthProvider'
+import { errorLog } from '@/lib/logger'
 
 // Custom type that includes the items relation
 type OrderWithItems = Order & {
@@ -24,6 +28,76 @@ interface OrderHistoryProps {
 export default function OrderHistory({ orders, loadingOrders, onCancelOrder }: OrderHistoryProps) {
   const { t, locale, dir } = useTranslation()
   const { enabled: animationsEnabled } = useAnimationStore()
+  const { user } = useAuth()
+  const [generatingInvoiceId, setGeneratingInvoiceId] = useState<string | null>(null)
+  const [invoiceSuccess, setInvoiceSuccess] = useState<string | null>(null)
+  const [invoiceError, setInvoiceError] = useState<string | null>(null)
+
+  // Generate and send invoice for a completed order
+  const generateInvoice = async (order: OrderWithItems) => {
+    // Determine the email to send to
+    // For Apple users, prefer contactEmail
+    let customerEmail = order.customerEmail
+    if (user?.appleSub && user?.contactEmail) {
+      customerEmail = user.contactEmail
+    }
+
+    setGeneratingInvoiceId(order.id)
+    setInvoiceSuccess(null)
+    setInvoiceError(null)
+
+    try {
+      // Ensure CSRF token is available
+      const csrfToken = await fetchCsrfToken()
+      if (!csrfToken) {
+        setInvoiceError(order.id)
+        setGeneratingInvoiceId(null)
+        return
+      }
+
+      const invoiceData = {
+        orderNumber: order.orderNumber,
+        customerEmail: customerEmail,
+        customerName: order.customerName,
+        customerPhone: order.customerPhone,
+        customerAddress: order.customerAddress,
+        emirate: order.customerEmirate,
+        items: order.items.map(item => ({
+          id: item.productId,
+          name: item.productName,
+          image: item.image,
+          price: item.price,
+          quantity: item.quantity,
+          total: item.price * item.quantity
+        })),
+        subtotal: order.subtotal,
+        shippingCost: order.shipping,
+        vatAmount: order.vat,
+        total: order.total,
+        locale: order.locale || locale
+      }
+
+      const response = await fetch('/api/invoice/generate', {
+        method: 'POST',
+        headers: getCsrfHeaders(),
+        body: JSON.stringify(addCsrfToBody(invoiceData)),
+      })
+
+      if (response.ok) {
+        setInvoiceSuccess(order.id)
+        setTimeout(() => setInvoiceSuccess(null), 3000)
+      } else {
+        throw new Error('Failed to generate invoice')
+      }
+    } catch (error) {
+      errorLog('Error generating invoice:', error)
+      setInvoiceError(order.id)
+      setTimeout(() => setInvoiceError(null), 3000)
+    } finally {
+      setGeneratingInvoiceId(null)
+    }
+  }
+
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat(locale === 'ar' ? 'ar-AE' : 'en-AE', {
       style: 'currency',
@@ -276,7 +350,7 @@ export default function OrderHistory({ orders, loadingOrders, onCancelOrder }: O
                 </div>
 
                 {/* Order Actions */}
-                <div className="flex flex-col md:flex-row items-start md:items-center justify-between pt-3 md:pt-4 border-t border-gray-200 gap-2 md:gap-0">
+                <div className="flex flex-col md:flex-row items-start md:items-center justify-between pt-3 md:pt-4 border-t border-gray-200 gap-2 md:gap-3">
                   <div className={`flex items-center gap-1.5 md:gap-2 text-xs md:text-sm text-gray-600 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                     <Calendar className="h-3.5 w-3.5 md:h-4 md:w-4" />
                     <span>{t('profile.orderedOn')} {new Date(order.createdAt).toLocaleDateString(locale === 'ar' ? 'ar-AE' : 'en-AE', { 
@@ -285,15 +359,54 @@ export default function OrderHistory({ orders, loadingOrders, onCancelOrder }: O
                       day: 'numeric'
                     })}</span>
                   </div>
-                  {(order.status === 'pending' || order.status === 'paid') && (
-                    <button
-                      onClick={() => onCancelOrder(order.id)}
-                      className={`inline-flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-1.5 md:py-2 bg-red-50 text-red-700 text-xs md:text-sm rounded-lg hover:bg-red-100 transition-colors font-medium border border-red-200 min-h-[36px] md:min-h-[44px] touch-manipulation ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
-                    >
-                      <X className="h-3.5 w-3.5 md:h-4 md:w-4" />
-                      {t('profile.cancelOrder')}
-                    </button>
-                  )}
+                  <div className="flex items-center gap-2">
+                    {/* Invoice button for delivered orders */}
+                    {order.status.toLowerCase() === 'delivered' && (
+                      <button
+                        onClick={() => generateInvoice(order)}
+                        disabled={generatingInvoiceId === order.id}
+                        className={`inline-flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-1.5 md:py-2 text-xs md:text-sm rounded-lg transition-colors font-medium min-h-[36px] md:min-h-[44px] touch-manipulation ${
+                          invoiceSuccess === order.id 
+                            ? 'bg-green-100 text-green-700 border border-green-200'
+                            : invoiceError === order.id
+                            ? 'bg-red-100 text-red-700 border border-red-200'
+                            : 'bg-blue-50 text-blue-700 hover:bg-blue-100 border border-blue-200'
+                        } ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+                      >
+                        {generatingInvoiceId === order.id ? (
+                          <>
+                            <Loader2 className="h-3.5 w-3.5 md:h-4 md:w-4 animate-spin" />
+                            {t('profile.generating')}
+                          </>
+                        ) : invoiceSuccess === order.id ? (
+                          <>
+                            <CheckCircle className="h-3.5 w-3.5 md:h-4 md:w-4" />
+                            {t('profile.invoiceSent')}
+                          </>
+                        ) : invoiceError === order.id ? (
+                          <>
+                            <X className="h-3.5 w-3.5 md:h-4 md:w-4" />
+                            {t('profile.invoiceFailed')}
+                          </>
+                        ) : (
+                          <>
+                            <FileText className="h-3.5 w-3.5 md:h-4 md:w-4" />
+                            {t('profile.getInvoice')}
+                          </>
+                        )}
+                      </button>
+                    )}
+                    {/* Cancel button for pending/paid orders */}
+                    {(order.status === 'pending' || order.status === 'paid') && (
+                      <button
+                        onClick={() => onCancelOrder(order.id)}
+                        className={`inline-flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-1.5 md:py-2 bg-red-50 text-red-700 text-xs md:text-sm rounded-lg hover:bg-red-100 transition-colors font-medium border border-red-200 min-h-[36px] md:min-h-[44px] touch-manipulation ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+                      >
+                        <X className="h-3.5 w-3.5 md:h-4 md:w-4" />
+                        {t('profile.cancelOrder')}
+                      </button>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>

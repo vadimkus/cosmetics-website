@@ -5,6 +5,7 @@ import { trackUserAction } from '@/lib/analyticsServer'
 import { getGeolocationData } from '@/lib/geolocation'
 import { parseUserAgent } from '@/lib/deviceDetection'
 import { randomBytes } from 'crypto'
+import { verifySessionToken } from '@/lib/jwt'
 
 export async function POST(request: NextRequest) {
   try {
@@ -34,8 +35,9 @@ export async function POST(request: NextRequest) {
         try {
           const sessionCookie = request.cookies.get('genosys_session')
           if (sessionCookie) {
-            const sessionData = JSON.parse(sessionCookie.value)
-            userEmail = sessionData.email || null
+            // Use verifySessionToken which handles both JWT and legacy JSON formats
+            const sessionData = verifySessionToken(sessionCookie.value)
+            userEmail = sessionData?.email || null
           }
         } catch (error) {
           // Ignore parsing errors

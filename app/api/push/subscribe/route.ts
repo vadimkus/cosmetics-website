@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/database'
 import { debugLog, errorLog } from '@/lib/logger'
 import { findUserByEmail, findUserById } from '@/lib/userStorageDb'
+import { verifySessionToken } from '@/lib/jwt'
 
 // Helper to get user from session cookie
 async function getUserFromSession(request: NextRequest) {
@@ -12,9 +13,10 @@ async function getUserFromSession(request: NextRequest) {
   }
 
   try {
-    const sessionData = JSON.parse(sessionCookie.value)
+    // Use verifySessionToken which handles both JWT and legacy JSON formats
+    const sessionData = verifySessionToken(sessionCookie.value)
     
-    if (!sessionData.email && !sessionData.id) {
+    if (!sessionData || (!sessionData.email && !sessionData.id)) {
       return null
     }
 

@@ -3,6 +3,7 @@ import { prisma } from '@/lib/prisma'
 import { findUserByEmail, findUserById } from '@/lib/userStorageDb'
 import { errorLog, debugLog } from '@/lib/logger'
 import { handleApiError, handleUnauthorizedError, handleValidationError } from '@/lib/apiErrorHandler'
+import { verifySessionToken } from '@/lib/jwt'
 
 // Helper to get user from session cookie
 async function getUserFromSession(request: NextRequest) {
@@ -13,9 +14,10 @@ async function getUserFromSession(request: NextRequest) {
   }
 
   try {
-    const sessionData = JSON.parse(sessionCookie.value)
+    // Use verifySessionToken which handles both JWT and legacy JSON formats
+    const sessionData = verifySessionToken(sessionCookie.value)
     
-    if (!sessionData.email && !sessionData.id) {
+    if (!sessionData || (!sessionData.email && !sessionData.id)) {
       return null
     }
 

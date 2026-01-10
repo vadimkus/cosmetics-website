@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { findUserByEmail } from '@/lib/userStorageDb'
 import { errorLog, debugLog } from '@/lib/logger'
 import { requireDevelopment } from '@/lib/apiErrorHandler'
+import { verifySessionToken } from '@/lib/jwt'
 
 /**
  * GET /api/debug/profile-picture
@@ -22,10 +23,9 @@ export async function GET(request: NextRequest) {
       })
     }
 
-    let sessionData
-    try {
-      sessionData = JSON.parse(sessionCookie.value)
-    } catch (error) {
+    // Use verifySessionToken which handles both JWT and legacy JSON formats
+    const sessionData = verifySessionToken(sessionCookie.value)
+    if (!sessionData) {
       return NextResponse.json({ 
         error: 'Invalid session cookie',
         loggedIn: false 

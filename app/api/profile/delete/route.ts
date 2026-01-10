@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { anonymizeUser, findUserByEmail, findUserById } from '@/lib/userStorageDb'
 import { errorLog } from '@/lib/logger'
+import { verifySessionToken } from '@/lib/jwt'
 
 /**
  * DELETE /api/profile/delete
@@ -19,16 +20,15 @@ export async function DELETE(request: NextRequest) {
       return NextResponse.json({ error: 'Not authenticated' }, { status: 401 })
     }
 
-    let sessionData: any = null
-    try {
-      sessionData = JSON.parse(sessionCookie.value)
-    } catch (error) {
+    // Use verifySessionToken which handles both JWT and legacy JSON formats
+    const sessionData = verifySessionToken(sessionCookie.value)
+    if (!sessionData) {
       return NextResponse.json({ error: 'Invalid session' }, { status: 401 })
     }
 
-    // Session can have user data at root level or nested under .user
-    const userId = sessionData?.user?.id || sessionData?.id
-    const userEmail = sessionData?.user?.email || sessionData?.email
+    // Session data is flat (id, email directly on sessionData)
+    const userId = sessionData.id
+    const userEmail = sessionData.email
     
     const user = userId
       ? await findUserById(userId)

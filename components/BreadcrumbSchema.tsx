@@ -9,8 +9,10 @@ interface BreadcrumbSchemaProps {
   items: BreadcrumbItem[]
 }
 
+import { SITE_URL } from '@/lib/siteConfig'
+
 export default function BreadcrumbSchema({ items }: BreadcrumbSchemaProps) {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://genosys.ae'
+  const baseUrl = SITE_URL
   
   const schema = {
     "@context": "https://schema.org",

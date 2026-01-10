@@ -3,6 +3,19 @@
 import { useEffect, useState, useCallback, useRef } from 'react'
 import { debugLog, errorLog, warnLog } from '@/lib/logger'
 
+// Background Sync API types (experimental)
+interface SyncManager {
+  register(tag: string): Promise<void>
+}
+
+interface ServiceWorkerRegistrationWithSync extends ServiceWorkerRegistration {
+  sync?: SyncManager
+}
+
+interface ServiceWorkerContainerWithSync extends ServiceWorkerContainer {
+  sync?: unknown
+}
+
 // IndexedDB configuration
 const SYNC_DB_NAME = 'genosys-sync-queue'
 const SYNC_DB_VERSION = 1
@@ -170,11 +183,14 @@ export function useBackgroundSync(): UseBackgroundSyncReturn {
         await updatePendingCount()
 
         // Try to register background sync if supported
-        if ('serviceWorker' in navigator && 'sync' in (navigator.serviceWorker as any)) {
+        const swContainer = navigator.serviceWorker as ServiceWorkerContainerWithSync
+        if ('serviceWorker' in navigator && 'sync' in swContainer) {
           try {
-            const registration = await navigator.serviceWorker.ready
-            await (registration as any).sync.register('sync-queue')
-            debugLog('📡 Background sync registered')
+            const registration = await navigator.serviceWorker.ready as ServiceWorkerRegistrationWithSync
+            if (registration.sync) {
+              await registration.sync.register('sync-queue')
+              debugLog('📡 Background sync registered')
+            }
           } catch (err) {
             warnLog('Background sync registration failed:', err)
           }

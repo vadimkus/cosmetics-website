@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { findUserByEmail, findUserById } from '@/lib/userStorageDb'
 import { errorLog, debugLog } from '@/lib/logger'
+import { handleApiError, handleUnauthorizedError, handleValidationError } from '@/lib/apiErrorHandler'
 
 // Helper to get user from session cookie
 async function getUserFromSession(request: NextRequest) {
@@ -35,7 +36,7 @@ export async function GET(request: NextRequest) {
     const user = await getUserFromSession(request)
     
     if (!user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+      return handleUnauthorizedError()
     }
 
     const addresses = await prisma.address.findMany({
@@ -50,8 +51,7 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json({ addresses })
   } catch (error) {
-    errorLog('Error fetching addresses:', error)
-    return NextResponse.json({ error: 'Failed to fetch addresses' }, { status: 500 })
+    return handleApiError(error, 'ADDRESSES_GET')
   }
 }
 
@@ -61,7 +61,7 @@ export async function POST(request: NextRequest) {
     const user = await getUserFromSession(request)
     
     if (!user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+      return handleUnauthorizedError()
     }
 
     const body = await request.json()
@@ -69,7 +69,13 @@ export async function POST(request: NextRequest) {
 
     // Validation
     if (!name || !phone || !addressLine1 || !city || !emirate) {
-      return NextResponse.json({ error: 'Missing required fields' }, { status: 400 })
+      const errors: Record<string, string[]> = {}
+      if (!name) errors.name = ['Name is required']
+      if (!phone) errors.phone = ['Phone is required']
+      if (!addressLine1) errors.addressLine1 = ['Address line 1 is required']
+      if (!city) errors.city = ['City is required']
+      if (!emirate) errors.emirate = ['Emirate is required']
+      return handleValidationError(errors)
     }
 
     // If this address is set as default, unset all other defaults
@@ -99,7 +105,6 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ address, success: true })
   } catch (error) {
-    errorLog('Error creating address:', error)
-    return NextResponse.json({ error: 'Failed to create address' }, { status: 500 })
+    return handleApiError(error, 'ADDRESSES_POST')
   }
 }

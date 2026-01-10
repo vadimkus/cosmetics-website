@@ -1,4 +1,4 @@
-import crypto from 'crypto'
+import crypto, { JsonWebKey as CryptoJsonWebKey } from 'crypto'
 
 type AppleJwk = {
   kty: string
@@ -9,6 +9,7 @@ type AppleJwk = {
   e?: string
   x5c?: string[]
 }
+
 
 type AppleJwks = { keys: AppleJwk[] }
 
@@ -75,9 +76,11 @@ function publicKeyFromJwk(jwk: AppleJwk): crypto.KeyObject {
 
   // Fallback: build key directly from JWK (Node supports format:'jwk').
   // This also covers cases where Apple omits x5c and only provides n/e.
-  if (jwk?.kty && jwk?.n && jwk?.e) {
+  if (jwk?.kty === 'RSA' && jwk?.n && jwk?.e) {
     try {
-      return crypto.createPublicKey({ key: jwk as any, format: 'jwk' })
+      // Use Node.js crypto's JsonWebKey type with proper index signature
+      const rsaJwk: CryptoJsonWebKey = { kty: 'RSA', n: jwk.n, e: jwk.e }
+      return crypto.createPublicKey({ key: rsaJwk, format: 'jwk' })
     } catch (error) {
       // fall through to error below
     }

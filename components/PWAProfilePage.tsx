@@ -10,6 +10,7 @@ import { getLocalizedPath } from '@/lib/i18n'
 import { ChevronRight, ChevronLeft } from 'lucide-react'
 import { SkinAnalysisCamera, SkinAnalysisResult } from './SkinAnalysisCamera'
 import { debugLog } from '@/lib/logger'
+import { VAPID_PUBLIC_KEY } from '@/lib/siteConfig'
 
 /**
  * PWA Profile Page - Matches mobile app design exactly
@@ -260,8 +261,8 @@ export default function PWAProfilePage() {
           const registration = await navigator.serviceWorker.ready
           debugLog('[PUSH] Service worker ready')
           
-          // Get VAPID key
-          const vapidKey = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY
+          // Get VAPID key from centralized config
+          const vapidKey = VAPID_PUBLIC_KEY
           debugLog('[PUSH] VAPID key present:', !!vapidKey)
           
           if (!vapidKey) {

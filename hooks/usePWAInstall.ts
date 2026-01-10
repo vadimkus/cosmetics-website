@@ -3,11 +3,21 @@
 import { useState, useEffect, useCallback } from 'react'
 import { debugLog } from '@/lib/logger'
 
+// Extended window interface for Opera browser
+interface WindowWithOpera extends Window {
+  opera?: string
+}
+
+// Extended navigator interface for iOS standalone mode
+interface NavigatorStandalone extends Navigator {
+  standalone?: boolean
+}
+
 // Detect if device is mobile
 function isMobileDevice(): boolean {
   if (typeof window === 'undefined') return false
   
-  const userAgent = navigator.userAgent || navigator.vendor || (window as any).opera
+  const userAgent = navigator.userAgent || navigator.vendor || (window as WindowWithOpera).opera || ''
   const mobileRegex = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i
   const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0
   
@@ -42,7 +52,7 @@ export const usePWAInstall = (): UsePWAInstallReturn => {
     if (typeof window === 'undefined') return false
     
     const isStandalone = window.matchMedia('(display-mode: standalone)').matches ||
-                        (window.navigator as any).standalone === true ||
+                        (window.navigator as NavigatorStandalone).standalone === true ||
                         document.referrer.includes('android-app://')
     
     return isStandalone

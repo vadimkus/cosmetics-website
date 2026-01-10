@@ -7,6 +7,7 @@ import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { useAuth } from '@/components/AuthProvider'
 import { errorLog } from '@/lib/logger'
+import { sanitizeHtml } from '@/lib/sanitizeHtml'
 
 interface Promo {
   id: string
@@ -271,7 +272,7 @@ export default function PromoPage() {
               </p>
               <div 
                 className="prose prose-sm max-w-none text-gray-700"
-                dangerouslySetInnerHTML={{ __html: promo.text }}
+                dangerouslySetInnerHTML={{ __html: sanitizeHtml(promo.text) }}
               />
             </div>
           ) : !loading && (

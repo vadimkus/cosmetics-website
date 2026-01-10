@@ -12,16 +12,16 @@ export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
 
 // Stripe configuration constants
 export const STRIPE_CONFIG = {
-  currency: 'aed', // UAE Dirham
+  currency: 'aed' as const, // UAE Dirham
   automatic_tax: false, // We calculate VAT manually
-  billing_address_collection: 'required',
+  billing_address_collection: 'required' as Stripe.Checkout.SessionCreateParams.BillingAddressCollection,
   shipping_address_collection: {
-    allowed_countries: ['AE'], // UAE only
+    allowed_countries: ['AE'] as Stripe.Checkout.SessionCreateParams.ShippingAddressCollection.AllowedCountry[], // UAE only
   },
   // Success and cancel URLs (will be set dynamically)
   success_url: `${process.env.NEXT_PUBLIC_BASE_URL || 'https://genosys.ae'}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
   cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL || 'https://genosys.ae'}/checkout/cancelled`,
-} as const
+}
 
 // VAT calculation helper (VAT is included in prices)
 export function calculateVATFromInclusive(amount: number): number {
@@ -155,14 +155,14 @@ export async function createCheckoutSession(params: {
         enabled: STRIPE_CONFIG.automatic_tax,
       },
       
-      // Locale support
-      locale: params.locale === 'ar' ? 'ar' : 'en',
+      // Locale support - cast to Stripe's Locale type
+      locale: (params.locale === 'ar' ? 'ar' : 'en') as Stripe.Checkout.SessionCreateParams.Locale,
       
       // Phone number collection
       phone_number_collection: {
         enabled: true,
       },
-    } as any)
+    })
 
     debugLog('✅ Stripe checkout session created:', {
       sessionId: session.id,

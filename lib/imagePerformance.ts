@@ -5,6 +5,15 @@
 
 import { debugLog, warnLog } from '@/lib/logger'
 
+// Extended PerformanceEntry interface for LCP entries
+interface LargestContentfulPaintEntry extends PerformanceEntry {
+  element?: Element | null
+  loadTime?: number
+  renderTime?: number
+  size?: number
+  url?: string
+}
+
 interface ImageMetrics {
   url: string
   loadTime: number
@@ -161,9 +170,9 @@ class ImagePerformanceMonitor {
    * Mark image as LCP element
    */
   private markLCPImage(lcpEntry: PerformanceEntry): void {
-    const lcpElement = (lcpEntry as any).element
+    const lcpElement = (lcpEntry as LargestContentfulPaintEntry).element
     if (lcpElement && lcpElement.tagName === 'IMG') {
-      const imageUrl = lcpElement.src
+      const imageUrl = (lcpElement as HTMLImageElement).src
       const metric = this.metrics.find(m => m.url === imageUrl)
       if (metric) {
         metric.lcp = true

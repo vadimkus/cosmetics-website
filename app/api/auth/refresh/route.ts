@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { findUserByEmail } from '@/lib/userStorageDb'
-import { errorLog } from '@/lib/logger'
+import { handleApiError, handleValidationError, handleNotFoundError } from '@/lib/apiErrorHandler'
 
 export async function POST(request: NextRequest) {
   try {
@@ -8,14 +8,14 @@ export async function POST(request: NextRequest) {
     const { email } = body
     
     if (!email || typeof email !== 'string') {
-      return NextResponse.json({ error: 'Email is required' }, { status: 400 })
+      return handleValidationError({ email: ['Email is required'] })
     }
 
     const user = await findUserByEmail(email)
     
     if (!user) {
       // User not found - return 404 but don't log as error (can happen during development)
-      return NextResponse.json({ error: 'User not found' }, { status: 404 })
+      return handleNotFoundError('User')
     }
 
     // Return user data without password
@@ -26,11 +26,10 @@ export async function POST(request: NextRequest) {
       user: userWithoutPassword 
     })
   } catch (error) {
-    // Only log actual errors, not expected 404s
+    // Handle JSON parse errors specifically
     if (error instanceof SyntaxError) {
-      return NextResponse.json({ error: 'Invalid request body' }, { status: 400 })
+      return handleValidationError({ body: ['Invalid request body'] })
     }
-    errorLog('❌ User refresh error:', error)
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
+    return handleApiError(error, 'AUTH_REFRESH')
   }
 }

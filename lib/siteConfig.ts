@@ -29,3 +29,6 @@ export const SOCIAL_LINKS = {
   phone: '+971507319498',
   email: 'info@genosys.ae'
 }
+
+// Push notifications VAPID key
+export const VAPID_PUBLIC_KEY = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY || ''

@@ -1,5 +1,7 @@
 'use client'
 
+import { SITE_URL } from '@/lib/siteConfig'
+
 interface AggregateRatingSchemaProps {
   ratingValue?: number
   reviewCount?: number
@@ -20,7 +22,7 @@ export default function AggregateRatingSchema({
   worstRating = 1,
   reviews = []
 }: AggregateRatingSchemaProps) {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://genosys.ae'
+  const baseUrl = SITE_URL
   
   // Default reviews if none provided
   const defaultReviews = [

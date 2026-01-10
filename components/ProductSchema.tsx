@@ -1,6 +1,7 @@
 'use client'
 
 import { Product } from '@/types'
+import { SITE_URL } from '@/lib/siteConfig'
 
 interface ProductSchemaProps {
   product: Product
@@ -15,7 +16,7 @@ export default function ProductSchema({ product }: ProductSchemaProps) {
     "@type": "Product",
     "name": product.name,
     "description": product.description,
-    "image": displayImages.map((img: string) => `${process.env.NEXT_PUBLIC_BASE_URL || 'https://genosys.ae'}${img}`),
+    "image": displayImages.map((img: string) => `${SITE_URL}${img}`),
     "brand": {
       "@type": "Brand",
       "name": "GENOSYS",
@@ -46,7 +47,7 @@ export default function ProductSchema({ product }: ProductSchemaProps) {
           "email": "sales@genosys.ae"
         }
       },
-      "url": `${process.env.NEXT_PUBLIC_BASE_URL || 'https://genosys.ae'}/products/${product.id}`,
+      "url": `${SITE_URL}/products/${product.id}`,
       "shippingDetails": {
         "@type": "OfferShippingDetails",
         "shippingRate": {
@@ -149,7 +150,7 @@ export default function ProductSchema({ product }: ProductSchemaProps) {
     ],
     "sku": product.id,
     "mpn": product.productNumber || product.id,
-    "url": `${process.env.NEXT_PUBLIC_BASE_URL || 'https://genosys.ae'}/products/${product.id}`
+    "url": `${SITE_URL}/products/${product.id}`
   }
 
   return (

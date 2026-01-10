@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { findUserByEmail, findUserById } from '@/lib/userStorageDb'
-import { errorLog, debugLog } from '@/lib/logger'
+import { debugLog, errorLog } from '@/lib/logger'
+import { handleApiError, handleUnauthorizedError, handleNotFoundError } from '@/lib/apiErrorHandler'
 
 // Helper to get user from session cookie
 async function getUserFromSession(request: NextRequest) {
@@ -39,7 +40,7 @@ export async function GET(
     const user = await getUserFromSession(request)
     
     if (!user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+      return handleUnauthorizedError()
     }
 
     const address = await prisma.address.findFirst({
@@ -47,13 +48,12 @@ export async function GET(
     })
 
     if (!address) {
-      return NextResponse.json({ error: 'Address not found' }, { status: 404 })
+      return handleNotFoundError('Address')
     }
 
     return NextResponse.json({ address })
   } catch (error) {
-    errorLog('Error fetching address:', error)
-    return NextResponse.json({ error: 'Failed to fetch address' }, { status: 500 })
+    return handleApiError(error, 'ADDRESS_GET')
   }
 }
 
@@ -67,7 +67,7 @@ export async function PUT(
     const user = await getUserFromSession(request)
     
     if (!user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+      return handleUnauthorizedError()
     }
 
     // Verify the address belongs to the user
@@ -76,7 +76,7 @@ export async function PUT(
     })
 
     if (!existingAddress) {
-      return NextResponse.json({ error: 'Address not found' }, { status: 404 })
+      return handleNotFoundError('Address')
     }
 
     const body = await request.json()
@@ -109,8 +109,7 @@ export async function PUT(
 
     return NextResponse.json({ address, success: true })
   } catch (error) {
-    errorLog('Error updating address:', error)
-    return NextResponse.json({ error: 'Failed to update address' }, { status: 500 })
+    return handleApiError(error, 'ADDRESS_PUT')
   }
 }
 
@@ -124,7 +123,7 @@ export async function DELETE(
     const user = await getUserFromSession(request)
     
     if (!user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+      return handleUnauthorizedError()
     }
 
     // Verify the address belongs to the user
@@ -133,7 +132,7 @@ export async function DELETE(
     })
 
     if (!existingAddress) {
-      return NextResponse.json({ error: 'Address not found' }, { status: 404 })
+      return handleNotFoundError('Address')
     }
 
     await prisma.address.delete({
@@ -144,7 +143,6 @@ export async function DELETE(
 
     return NextResponse.json({ success: true })
   } catch (error) {
-    errorLog('Error deleting address:', error)
-    return NextResponse.json({ error: 'Failed to delete address' }, { status: 500 })
+    return handleApiError(error, 'ADDRESS_DELETE')
   }
 }

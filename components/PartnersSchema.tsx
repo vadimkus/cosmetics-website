@@ -14,8 +14,10 @@ function extractCity(location: string): string {
   return 'Dubai'
 }
 
+import { SITE_URL } from '@/lib/siteConfig'
+
 export default function PartnersSchema() {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://genosys.ae'
+  const baseUrl = SITE_URL
   
   const schema = {
     "@context": "https://schema.org",

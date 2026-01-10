@@ -1,20 +1,20 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { deleteUser } from '@/lib/userStorageDb'
-import { errorLog } from '@/lib/logger'
+import { handleApiError, handleValidationError, handleNotFoundError } from '@/lib/apiErrorHandler'
 
 export async function DELETE(request: NextRequest) {
   try {
     const { userId } = await request.json()
 
     if (!userId) {
-      return NextResponse.json({ error: 'User ID is required' }, { status: 400 })
+      return handleValidationError({ userId: ['User ID is required'] })
     }
 
     // Delete user from database
     const success = await deleteUser(userId)
     
     if (!success) {
-      return NextResponse.json({ error: 'User not found' }, { status: 404 })
+      return handleNotFoundError('User')
     }
 
     return NextResponse.json({
@@ -22,7 +22,6 @@ export async function DELETE(request: NextRequest) {
       message: 'Account deleted successfully'
     })
   } catch (error) {
-    errorLog('Account deletion error:', error)
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
+    return handleApiError(error, 'PROFILE_DELETE')
   }
 }

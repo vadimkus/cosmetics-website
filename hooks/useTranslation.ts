@@ -20,8 +20,10 @@ export function useTranslation(): UseTranslationReturn {
   const locale = getLocaleFromPath(effectivePath)
   
   const messages = useMemo((): Messages => {
-    if (locale === 'ar') return arMessages as any
-    if (locale === 'ru') return ruMessages as any
+    // Messages from JSON files have the same structure as Messages type
+    // Using type assertion since JSON imports may have subtle type differences
+    if (locale === 'ar') return arMessages as unknown as Messages
+    if (locale === 'ru') return ruMessages as unknown as Messages
     return enMessages
   }, [locale])
 

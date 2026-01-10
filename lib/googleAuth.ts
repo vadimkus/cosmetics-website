@@ -222,8 +222,9 @@ export async function verifyGoogleIdToken(idToken: string, accessToken?: string)
       return null
     }
 
-    // Audience check
-    const aud = String((payload as any)?.aud || '')
+    // Audience check - payload.aud can be string or string[]
+    const audValue = payload.aud
+    const aud = Array.isArray(audValue) ? audValue[0] : String(audValue || '')
     if (!aud || !GOOGLE_ALLOWED_AUDIENCES.includes(aud)) {
       errorLog('Google ID token audience mismatch', {
         aud,

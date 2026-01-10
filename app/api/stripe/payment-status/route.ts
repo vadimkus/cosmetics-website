@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getCheckoutSession } from '@/lib/stripe'
 import { prisma } from '@/lib/database'
 import { debugLog, errorLog } from '@/lib/logger'
+import { getPreferredEmail } from '@/lib/emailHelpers'
+import { findUserByEmail } from '@/lib/userStorageDb'
 
 export async function GET(request: NextRequest) {
   try {
@@ -79,8 +81,20 @@ export async function GET(request: NextRequest) {
         
         // Get customer details from Stripe session
         const customerName = session.customer_details?.name || order.customerName || 'Customer'
-        const customerEmail = session.customer_email || order.customerEmail
+        const customerEmailRaw = session.customer_email || order.customerEmail
         const customerPhone = session.customer_details?.phone || order.customerPhone || 'N/A'
+        
+        // Fetch user to check for contactEmail (for Apple Private Relay users)
+        const user = await findUserByEmail(customerEmailRaw)
+        const customerEmail = user ? getPreferredEmail(user) : customerEmailRaw
+        
+        debugLog('📧 Stripe payment email routing:', {
+          customerEmailRaw,
+          hasUser: !!user,
+          hasContactEmail: !!(user?.contactEmail),
+          customerEmail,
+          isAppleRelay: customerEmailRaw.includes('@privaterelay.appleid.com') || customerEmailRaw.includes('@genosys.local')
+        })
         
         // Get delivery info from session custom fields if available
         let emirate = 'N/A'

@@ -5,6 +5,8 @@ import { addOrder, OrderData, OrderItemData } from '@/lib/orderStorageDb'
 import { requireCsrfToken } from '@/lib/csrf'
 import { enhanceOrderItemWithDefaultSize } from '@/lib/orderSizeDefaults'
 import { generateUniqueOrderNumber } from '@/lib/orderNumber'
+import { getPreferredEmail } from '@/lib/emailHelpers'
+import { findUserByEmail } from '@/lib/userStorageDb'
 
 // Helper function to detect device type from User-Agent
 function detectDeviceType(userAgent: string | null): string {
@@ -190,15 +192,27 @@ export async function POST(request: NextRequest) {
 
     const orderHTML = generateSupportLinkOrderHTML(orderHTMLData, locale, translations)
 
+    // Fetch user to check for contactEmail (for Apple Private Relay users)
+    const user = await findUserByEmail(customerEmail)
+    const emailToUse = user ? getPreferredEmail(user) : customerEmail
+
+    debugLog('📧 Support-link Email routing:', {
+      customerEmail,
+      hasUser: !!user,
+      hasContactEmail: !!(user?.contactEmail),
+      emailToUse,
+      isAppleRelay: customerEmail.includes('@privaterelay.appleid.com') || customerEmail.includes('@genosys.local')
+    })
+
     // Send email to customer (non-blocking - fire and forget)
     const emailSubject = (translations?.subject || `Order Request Submitted #${orderNumber} - GENOSYS Professional`).replace('#{orderNumber}', orderNumber).replace('{orderNumber}', orderNumber)
     sendEmail(
-      customerEmail,
+      emailToUse,
       emailSubject,
       orderHTML
     ).then((result) => {
       if (result.success) {
-        debugLog('✅ Support-link order confirmation email sent to:', customerEmail)
+        debugLog('✅ Support-link order confirmation email sent to:', emailToUse)
       } else {
         errorLog('❌ Failed to send support-link order confirmation email:', result.error)
       }
@@ -217,7 +231,7 @@ export async function POST(request: NextRequest) {
     sendAdminNewOrderNotification({
       orderNumber,
       customerName,
-      customerEmail,
+      customerEmail: emailToUse,
       customerPhone,
       total,
       itemCount: items.length,

@@ -314,7 +314,7 @@ export const emailTemplates = {
                 <!-- CTA Button -->
                 <tr>
                   <td style="text-align: center; padding-bottom: 48px;">
-                    <a href="${SITE_URL}/profile" style="display: inline-block; background-color: #0071e3; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 17px; font-weight: 500; text-decoration: none; padding: 12px 24px; border-radius: 980px;">
+                    <a href="${SITE_URL}/track/${orderData.orderNumber}" style="display: inline-block; background-color: #0071e3; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 17px; font-weight: 500; text-decoration: none; padding: 12px 24px; border-radius: 980px;">
                       View Order
                     </a>
                   </td>
@@ -411,7 +411,7 @@ export const emailTemplates = {
                 <!-- CTA Button -->
                 <tr>
                   <td style="text-align: center; padding-bottom: 48px;">
-                    <a href="${SITE_URL}/profile" style="display: inline-block; background-color: #0071e3; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 17px; font-weight: 500; text-decoration: none; padding: 12px 24px; border-radius: 980px;">
+                    <a href="${SITE_URL}/track/${orderData.orderNumber}" style="display: inline-block; background-color: #0071e3; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 17px; font-weight: 500; text-decoration: none; padding: 12px 24px; border-radius: 980px;">
                       View Order
                     </a>
                   </td>
@@ -775,7 +775,7 @@ export const emailTemplates = {
                 <!-- CTA Button -->
                 <tr>
                   <td style="text-align: center; padding-top: 40px;">
-                    <a href="${SITE_URL}/profile" style="display: inline-block; background-color: #0071e3; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 17px; font-weight: 500; text-decoration: none; padding: 12px 24px; border-radius: 980px;">
+                    <a href="${SITE_URL}/track/${orderData.orderNumber}" style="display: inline-block; background-color: #0071e3; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 17px; font-weight: 500; text-decoration: none; padding: 12px 24px; border-radius: 980px;">
                       View Order
                     </a>
                   </td>
@@ -1890,7 +1890,7 @@ export const generateCODOrderHTML = (order: OrderHTMLData, locale: string = 'en'
               <!-- CTA Button -->
               <tr>
                 <td style="text-align: center; padding-top: 40px;">
-                  <a href="${SITE_URL}/${locale === 'en' ? '' : locale + '/'}profile" style="display: inline-block; background-color: #0071e3; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 17px; font-weight: 500; text-decoration: none; padding: 12px 24px; border-radius: 980px;">
+                  <a href="${SITE_URL}/track/${order.orderNumber}" style="display: inline-block; background-color: #0071e3; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 17px; font-weight: 500; text-decoration: none; padding: 12px 24px; border-radius: 980px;">
                     ${locale === 'ru' ? 'Посмотреть заказ' : locale === 'ar' ? 'عرض الطلب' : 'View Order'}
                   </a>
                 </td>
@@ -2232,7 +2232,7 @@ export const generateStripePaymentConfirmationHTML = (order: OrderHTMLData, loca
               <!-- CTA Button -->
               <tr>
                 <td style="text-align: center; padding-top: 40px;">
-                  <a href="${siteUrl}/profile" style="display: inline-block; background-color: #0071e3; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 17px; font-weight: 500; text-decoration: none; padding: 12px 24px; border-radius: 980px;">
+                  <a href="${siteUrl}/track/${order.orderNumber}" style="display: inline-block; background-color: #0071e3; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 17px; font-weight: 500; text-decoration: none; padding: 12px 24px; border-radius: 980px;">
                     View Order
                   </a>
                 </td>
@@ -2584,7 +2584,7 @@ export const sendOrderStatusUpdate = async (order: { orderNumber: string; custom
                 <!-- CTA Button -->
                 <tr>
                   <td style="text-align: center; padding-top: 40px;">
-                    <a href="${baseUrl}/${locale === 'ar' ? 'ar/' : ''}profile" style="display: inline-block; background-color: #0071e3; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 17px; font-weight: 500; text-decoration: none; padding: 12px 24px; border-radius: 980px;">
+                    <a href="${baseUrl}/track/${order.orderNumber}" style="display: inline-block; background-color: #0071e3; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 17px; font-weight: 500; text-decoration: none; padding: 12px 24px; border-radius: 980px;">
                       View Order
                   </a>
                 </td>

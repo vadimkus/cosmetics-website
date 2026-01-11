@@ -51,7 +51,8 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     id: '9',
     pricing: {
       basePrice: 550
-    }
+    },
+    images: ['/images/AWS.jpg', '/images/Second/aws1.jpg', '/images/Second/aws2.jpg']
   },
   '1': {
     id: '1',

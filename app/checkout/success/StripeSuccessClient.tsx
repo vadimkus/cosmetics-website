@@ -8,6 +8,7 @@ import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { useCartStore } from '@/lib/cartStore'
 import { debugLog, errorLog } from '@/lib/logger'
+import ConfettiCelebration from '@/components/ConfettiCelebration'
 
 // Helper to safely call gtag (avoids type conflicts with global Window declarations)
 function trackGtagEvent(eventName: string, params: Record<string, unknown>) {
@@ -52,6 +53,7 @@ export default function StripeSuccessClient() {
   const [orderDetails, setOrderDetails] = useState<OrderDetails | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [showConfetti, setShowConfetti] = useState(false)
 
   useEffect(() => {
     async function verifyPayment() {
@@ -75,6 +77,12 @@ export default function StripeSuccessClient() {
         if (data.paymentStatus === 'paid') {
           clearCart()
           debugLog('✅ Cart cleared after successful payment')
+          
+          // Trigger confetti celebration
+          setShowConfetti(true)
+          setTimeout(() => {
+            setShowConfetti(false)
+          }, 4000)
         }
 
         // Track successful payment in Google Analytics
@@ -156,6 +164,14 @@ export default function StripeSuccessClient() {
 
   return (
     <div className="min-h-screen py-12" dir={dir}>
+      {/* Confetti Celebration */}
+      <ConfettiCelebration 
+        trigger={showConfetti}
+        duration={3000}
+        particleCount={60}
+        colors={['#dc2626', '#ffffff', '#fbbf24', '#f97316', '#10b981']}
+      />
+
       <div className="container mx-auto px-4 max-w-4xl">
         {/* Success Header */}
         <div className="text-center mb-8">

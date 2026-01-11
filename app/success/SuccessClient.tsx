@@ -2,7 +2,7 @@
 
 import { useSearchParams, useRouter } from 'next/navigation'
 import { useCart } from '@/components/CartProvider'
-import { useEffect, Suspense } from 'react'
+import { useEffect, Suspense, useState } from 'react'
 import Link from 'next/link'
 import { ShoppingBag, ArrowLeft, MessageCircle, ChevronLeft } from 'lucide-react'
 import { useTranslation } from '@/hooks/useTranslation'
@@ -10,6 +10,7 @@ import { getLocalizedPath } from '@/lib/i18n'
 import { usePWAMode } from '@/hooks/usePWAMode'
 import { useAuth } from '@/components/AuthProvider'
 import { useHapticFeedback } from '@/hooks/useHapticFeedback'
+import ConfettiCelebration from '@/components/ConfettiCelebration'
 
 function SuccessContent() {
   const searchParams = useSearchParams()
@@ -22,11 +23,31 @@ function SuccessContent() {
   const sessionId = searchParams.get('session_id')
   const orderId = searchParams.get('order_id')
   const paymentMethod = searchParams.get('payment')
+  const [showConfetti, setShowConfetti] = useState(false)
 
   // Trigger celebration haptic on order success
   useEffect(() => {
     haptic.celebration()
   }, [haptic])
+
+  // Trigger confetti animation on order success
+  useEffect(() => {
+    // Trigger confetti for all successful orders (COD, support-link, and payment gateway)
+    let timer: NodeJS.Timeout | undefined
+    
+    if (paymentMethod === 'cod' || paymentMethod === 'support-link' || sessionId) {
+      setShowConfetti(true)
+      
+      // Reset after animation completes
+      timer = setTimeout(() => {
+        setShowConfetti(false)
+      }, 4000)
+    }
+    
+    return () => {
+      if (timer) clearTimeout(timer)
+    }
+  }, [paymentMethod, sessionId])
 
   useEffect(() => {
     // Clear the cart after successful payment
@@ -55,6 +76,14 @@ function SuccessContent() {
 
   return (
     <div className="bg-white min-h-screen" dir={dir}>
+      {/* Confetti Celebration */}
+      <ConfettiCelebration 
+        trigger={showConfetti}
+        duration={3000}
+        particleCount={60}
+        colors={['#dc2626', '#ffffff', '#fbbf24', '#f97316', '#10b981']}
+      />
+
       {/* PWA Light Header */}
       {isPWAClient && isPWA && (
         <div className="sticky top-0 z-40 bg-white border-b border-gray-100 px-4 py-3 safe-area-top">

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confetti Test Helper</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #dc2626;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+        }
+        .test-links {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .test-link {
+            display: block;
+            padding: 15px 25px;
+            background: #dc2626;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        .test-link:hover {
+            background: #b91c1c;
+        }
+        .test-link.secondary {
+            background: #10b981;
+        }
+        .test-link.secondary:hover {
+            background: #059669;
+        }
+        .test-link.tertiary {
+            background: #f97316;
+        }
+        .test-link.tertiary:hover {
+            background: #ea580c;
+        }
+        .info {
+            background: #eff6ff;
+            border: 1px solid #3b82f6;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+        .info h3 {
+            margin-top: 0;
+            color: #1e40af;
+        }
+        .info ul {
+            margin-bottom: 0;
+        }
+        code {
+            background: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-card">
+        <h1>🎉 Confetti Test Helper</h1>
+        <p class="subtitle">Click the links below to test confetti animations on different success pages</p>
+        
+        <div class="test-links">
+            <a href="/success?payment=cod&order_id=TEST-COD-001" class="test-link">
+                💰 Test COD Order Success
+            </a>
+            
+            <a href="/success?payment=support-link&order_id=TEST-SUPPORT-001" class="test-link secondary">
+                📞 Test Support Link Order Success
+            </a>
+            
+            <a href="/success?session_id=test_session_123&order_id=TEST-GATEWAY-001" class="test-link tertiary">
+                💳 Test Payment Gateway Success
+            </a>
+        </div>
+
+        <div class="info">
+            <h3>✅ What to Check</h3>
+            <ul>
+                <li>Confetti appears immediately when page loads</li>
+                <li>Animation lasts ~3 seconds</li>
+                <li>Particles come from top center, left, and right</li>
+                <li>Colors match brand (red, white, gold, orange, green)</li>
+                <li>Confetti doesn't block buttons or links</li>
+                <li>Animation performs smoothly (60fps)</li>
+                <li>Works on mobile/PWA without lag</li>
+                <li>Haptic feedback triggers on mobile</li>
+            </ul>
+        </div>
+
+        <div class="info" style="background: #fef3c7; border-color: #f59e0b;">
+            <h3>🔧 Quick Customization</h3>
+            <p>To modify confetti behavior, edit <code>components/ConfettiCelebration.tsx</code></p>
+            <ul>
+                <li><strong>Duration:</strong> Change <code>duration</code> prop (default: 3000ms)</li>
+                <li><strong>Colors:</strong> Modify <code>colors</code> array</li>
+                <li><strong>Density:</strong> Adjust <code>particleCount</code> prop (default: 60)</li>
+                <li><strong>Spread:</strong> Change <code>spread</code> prop (default: 70)</li>
+            </ul>
+        </div>
+
+        <div class="info" style="background: #fee2e2; border-color: #dc2626;">
+            <h3>🔄 Rollback Instructions</h3>
+            <p>If you need to remove the confetti feature:</p>
+            <pre style="background: white; padding: 10px; border-radius: 5px; overflow-x: auto;"><code>npm uninstall canvas-confetti @types/canvas-confetti
+rm components/ConfettiCelebration.tsx
+git checkout HEAD -- app/success/SuccessClient.tsx
+git checkout HEAD -- app/checkout/success/StripeSuccessClient.tsx</code></pre>
+        </div>
+    </div>
+
+    <div class="test-card" style="background: #f0fdf4; border: 2px solid #10b981;">
+        <h2 style="color: #10b981; margin-top: 0;">📱 Mobile/PWA Testing</h2>
+        <p>To test on mobile device or PWA:</p>
+        <ol>
+            <li>Open this page on your mobile device</li>
+            <li>Or open the app in PWA mode</li>
+            <li>Click any test link above</li>
+            <li>Verify smooth animation and haptic feedback</li>
+        </ol>
+    </div>
+
+    <script>
+        // Add current timestamp to URLs to bypass cache
+        document.addEventListener('DOMContentLoaded', () => {
+            const links = document.querySelectorAll('.test-link');
+            links.forEach(link => {
+                const href = link.getAttribute('href');
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const timestamp = Date.now();
+                    window.location.href = `${href}&t=${timestamp}`;
+                });
+            });
+        });
+    </script>
+</body>
+</html>

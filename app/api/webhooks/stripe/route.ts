@@ -116,11 +116,17 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) 
       return
     }
 
-    // Update order status
-    const updateData: any = {
+    // Update order status - build the update object dynamically to handle optional fields
+    const updateData: {
+      paymentStatus: string
+      status: string
+      stripePaymentIntentId?: string
+      paymentMetadata: string
+      updatedAt: Date
+      paidAt?: Date
+    } = {
       paymentStatus: session.payment_status === 'paid' ? 'paid' : 'processing',
       status: session.payment_status === 'paid' ? 'CONFIRMED' : 'PROCESSING',
-      stripePaymentIntentId: session.payment_intent as string || undefined,
       paymentMetadata: JSON.stringify({
         sessionId: session.id,
         paymentIntentId: session.payment_intent,
@@ -130,6 +136,11 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) 
         completedAt: new Date(session.created * 1000).toISOString()
       }),
       updatedAt: new Date()
+    }
+
+    // Only set stripePaymentIntentId if it exists
+    if (session.payment_intent) {
+      updateData.stripePaymentIntentId = session.payment_intent as string
     }
 
     if (session.payment_status === 'paid') {
@@ -281,7 +292,33 @@ async function handlePaymentIntentFailed(paymentIntent: Stripe.PaymentIntent) {
   }
 }
 
-async function sendConfirmationEmails(order: any) {
+interface OrderItem {
+  productName: string
+  quantity: number
+  price: number
+  image?: string | null
+  size?: string | null
+  color?: string | null
+}
+
+interface OrderWithItems {
+  id: string
+  orderNumber: string
+  customerName: string
+  customerEmail: string
+  customerPhone?: string | null | undefined
+  customerAddress?: string | null | undefined
+  customerEmirate?: string | null | undefined
+  subtotal?: number | null | undefined
+  shipping?: number | null | undefined
+  vat?: number | null | undefined
+  total: number
+  locale?: string | null | undefined
+  paymentStatus?: string | null | undefined
+  items: OrderItem[]
+}
+
+async function sendConfirmationEmails(order: OrderWithItems) {
   try {
     // Fetch user to get preferred email (for Apple Private Relay users with contactEmail)
     const user = await findUserByEmail(order.customerEmail)
@@ -301,7 +338,7 @@ async function sendConfirmationEmails(order: any) {
       orderNumber: order.orderNumber,
       customerName: order.customerName,
       customerEmail: emailToUse, // Use preferred email
-      items: order.items.map((item: any) => ({
+      items: order.items.map((item) => ({
         productName: item.productName,
         quantity: item.quantity,
         price: item.price,
@@ -325,10 +362,10 @@ async function sendConfirmationEmails(order: any) {
       orderNumber: order.orderNumber,
       customerName: order.customerName,
       customerEmail: emailToUse,
-      customerPhone: order.customerPhone,
+      customerPhone: order.customerPhone ?? undefined,
       total: order.total,
       itemCount: order.items.length,
-      items: order.items.map((item: any) => ({
+      items: order.items.map((item) => ({
         productName: item.productName,
         quantity: item.quantity,
         price: item.price,
@@ -336,11 +373,11 @@ async function sendConfirmationEmails(order: any) {
         ...(item.size ? { size: item.size } : {}),
         ...(item.color ? { color: item.color } : {})
       })),
-      subtotal: order.subtotal,
-      shipping: order.shipping,
-      vat: order.vat,
-      address: order.customerAddress,
-      emirate: order.customerEmirate
+      subtotal: order.subtotal ?? undefined,
+      shipping: order.shipping ?? undefined,
+      vat: order.vat ?? undefined,
+      address: order.customerAddress ?? undefined,
+      emirate: order.customerEmirate ?? undefined
     })
 
     debugLog('✅ Admin notification sent for order:', order.orderNumber)

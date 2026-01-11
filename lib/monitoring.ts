@@ -24,6 +24,34 @@ export interface PerformanceMetrics {
   timestamp?: Date
 }
 
+// Type definitions for external monitoring SDKs
+interface SentryCaptureOptions {
+  tags?: Record<string, string>
+  user?: { id: string; email?: string }
+  extra?: Record<string, unknown>
+  level?: string
+}
+
+interface SentryBreadcrumb {
+  message: string
+  category?: string
+  level?: string
+  data?: Record<string, unknown>
+}
+
+interface SentrySDK {
+  captureException: (error: Error, options?: SentryCaptureOptions) => void
+  captureMessage: (message: string, level: string, options?: SentryCaptureOptions) => void
+  addBreadcrumb: (breadcrumb: SentryBreadcrumb) => void
+  setUser: (user: { id: string; email?: string } & Record<string, unknown>) => void
+}
+
+interface LogRocketSDK {
+  captureException: (error: Error) => void
+  log: (message: string, data?: Record<string, unknown>) => void
+  identify: (userId: string, userData?: Record<string, unknown>) => void
+}
+
 /**
  * Base monitoring service interface
  */
@@ -32,7 +60,7 @@ abstract class MonitoringService {
   abstract captureError(error: Error, context?: ErrorContext): Promise<void>
   abstract captureMessage(message: string, level: 'info' | 'warning' | 'error', context?: ErrorContext): Promise<void>
   abstract capturePerformance(metrics: PerformanceMetrics): Promise<void>
-  abstract setUser(userId: string, userEmail?: string, extra?: Record<string, any>): Promise<void>
+  abstract setUser(userId: string, userEmail?: string, extra?: Record<string, unknown>): Promise<void>
   abstract addBreadcrumb(message: string, category?: string, level?: 'info' | 'warning' | 'error'): Promise<void>
 }
 
@@ -63,7 +91,7 @@ class ConsoleMonitoringService extends MonitoringService {
     debugLog(`📊 Performance: ${metrics.name} = ${metrics.value}${metrics.unit}`, metrics.tags || '')
   }
 
-  async setUser(userId: string, userEmail?: string, extra?: Record<string, any>): Promise<void> {
+  async setUser(userId: string, userEmail?: string, extra?: Record<string, unknown>): Promise<void> {
     debugLog(`👤 User set: ${userId} (${userEmail})`, extra || '')
   }
 
@@ -94,13 +122,8 @@ class SentryMonitoringService extends MonitoringService {
   async captureError(error: Error, context?: ErrorContext): Promise<void> {
     if (!this.sentry) return
 
-    const sentry = this.sentry as { captureException: (error: Error, options?: any) => void }
-    const options: {
-      tags?: Record<string, string>
-      user?: { id: string; email?: string }
-      extra?: Record<string, unknown>
-      level: string
-    } = {
+    const sentry = this.sentry as SentrySDK
+    const options: SentryCaptureOptions = {
       level: context?.severity === 'critical' ? 'fatal' : context?.severity || 'error'
     }
     
@@ -125,12 +148,8 @@ class SentryMonitoringService extends MonitoringService {
   async captureMessage(message: string, level: 'info' | 'warning' | 'error', context?: ErrorContext): Promise<void> {
     if (!this.sentry) return
 
-    const sentry = this.sentry as { captureMessage: (message: string, level: string, options?: any) => void }
-    const options: {
-      tags?: Record<string, string>
-      user?: { id: string; email?: string }
-      extra?: Record<string, unknown>
-    } = {}
+    const sentry = this.sentry as SentrySDK
+    const options: SentryCaptureOptions = {}
     
     if (context?.tags) {
       options.tags = context.tags
@@ -153,12 +172,8 @@ class SentryMonitoringService extends MonitoringService {
   async capturePerformance(metrics: PerformanceMetrics): Promise<void> {
     if (!this.sentry) return
 
-    const sentry = this.sentry as { addBreadcrumb: (breadcrumb: any) => void }
-    const breadcrumbData: {
-      value: number
-      unit: string
-      tags?: Record<string, string>
-    } = {
+    const sentry = this.sentry as SentrySDK
+    const breadcrumbData: Record<string, unknown> = {
       value: metrics.value,
       unit: metrics.unit
     }
@@ -174,15 +189,11 @@ class SentryMonitoringService extends MonitoringService {
     })
   }
 
-  async setUser(userId: string, userEmail?: string, extra?: Record<string, any>): Promise<void> {
+  async setUser(userId: string, userEmail?: string, extra?: Record<string, unknown>): Promise<void> {
     if (!this.sentry) return
 
-    const sentry = this.sentry as { setUser: (user: any) => void }
-    const userData: {
-      id: string
-      email?: string
-      [key: string]: any
-    } = {
+    const sentry = this.sentry as SentrySDK
+    const userData: { id: string; email?: string } & Record<string, unknown> = {
       id: userId
     }
     
@@ -200,7 +211,7 @@ class SentryMonitoringService extends MonitoringService {
   async addBreadcrumb(message: string, category?: string, level?: 'info' | 'warning' | 'error'): Promise<void> {
     if (!this.sentry) return
 
-    const sentry = this.sentry as { addBreadcrumb: (breadcrumb: any) => void }
+    const sentry = this.sentry as SentrySDK
     sentry.addBreadcrumb({
       message,
       category: category || 'default',
@@ -231,14 +242,14 @@ class LogRocketMonitoringService extends MonitoringService {
   async captureError(error: Error, _context?: ErrorContext): Promise<void> {
     if (!this.logRocket) return
 
-    const logRocket = this.logRocket as { captureException: (error: Error) => void }
+    const logRocket = this.logRocket as LogRocketSDK
     logRocket.captureException(error)
   }
 
   async captureMessage(message: string, level: 'info' | 'warning' | 'error', context?: ErrorContext): Promise<void> {
     if (!this.logRocket) return
 
-    const logRocket = this.logRocket as { log: (message: string, options: any) => void }
+    const logRocket = this.logRocket as LogRocketSDK
     logRocket.log(message, {
       level,
       context
@@ -248,12 +259,8 @@ class LogRocketMonitoringService extends MonitoringService {
   async capturePerformance(metrics: PerformanceMetrics): Promise<void> {
     if (!this.logRocket) return
 
-    const logRocket = this.logRocket as { log: (message: string, options: any) => void }
-    const logData: {
-      value: number
-      unit: string
-      tags?: Record<string, string>
-    } = {
+    const logRocket = this.logRocket as LogRocketSDK
+    const logData: Record<string, unknown> = {
       value: metrics.value,
       unit: metrics.unit
     }
@@ -265,14 +272,11 @@ class LogRocketMonitoringService extends MonitoringService {
     logRocket.log(`Performance: ${metrics.name}`, logData)
   }
 
-  async setUser(userId: string, userEmail?: string, extra?: Record<string, any>): Promise<void> {
+  async setUser(userId: string, userEmail?: string, extra?: Record<string, unknown>): Promise<void> {
     if (!this.logRocket) return
 
-    const logRocket = this.logRocket as { identify: (userId: string, data: any) => void }
-    const userData: {
-      email?: string
-      [key: string]: any
-    } = {}
+    const logRocket = this.logRocket as LogRocketSDK
+    const userData: Record<string, unknown> = {}
     
     if (userEmail) {
       userData.email = userEmail
@@ -288,7 +292,7 @@ class LogRocketMonitoringService extends MonitoringService {
   async addBreadcrumb(message: string, category?: string, level?: 'info' | 'warning' | 'error'): Promise<void> {
     if (!this.logRocket) return
 
-    const logRocket = this.logRocket as { log: (message: string, options: any) => void }
+    const logRocket = this.logRocket as LogRocketSDK
     logRocket.log(`Breadcrumb: ${message}`, {
       category,
       level
@@ -342,7 +346,7 @@ class MonitoringManager {
     ))
   }
 
-  async setUser(userId: string, userEmail?: string, extra?: Record<string, any>): Promise<void> {
+  async setUser(userId: string, userEmail?: string, extra?: Record<string, unknown>): Promise<void> {
     await this.init()
     await Promise.all(this.services.map(service => 
       service.setUser(userId, userEmail, extra).catch(warnLog)

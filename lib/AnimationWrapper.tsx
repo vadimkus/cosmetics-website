@@ -1,18 +1,25 @@
 'use client'
-import { motion } from 'framer-motion'
+import { motion, TargetAndTransition, VariantLabels, Transition, Variants } from 'framer-motion'
 import { useAnimationStore } from '@/lib/animationStore'
-import { ReactNode } from 'react'
+import { ReactNode, CSSProperties } from 'react'
 
+type AnimationTarget = TargetAndTransition | VariantLabels
+
+// Props interface - keeping it simple to avoid HTMLAttributes/MotionProps conflicts
 interface AnimationWrapperProps {
   children: ReactNode
   className?: string
-  whileHover?: any
-  whileTap?: any
-  initial?: any
-  animate?: any
-  transition?: any
-  variants?: any
-  [key: string]: any
+  style?: CSSProperties
+  id?: string
+  whileHover?: AnimationTarget
+  whileTap?: AnimationTarget
+  initial?: AnimationTarget | boolean
+  animate?: AnimationTarget
+  transition?: Transition
+  variants?: Variants
+  onClick?: () => void
+  onMouseEnter?: () => void
+  onMouseLeave?: () => void
 }
 
 /**
@@ -32,30 +39,54 @@ export const AnimationWrapper = ({
   animate, 
   transition, 
   variants,
-  ...props 
+  className,
+  style,
+  id,
+  onClick,
+  onMouseEnter,
+  onMouseLeave
 }: AnimationWrapperProps) => {
   const { enabled: animationsEnabled } = useAnimationStore()
   
+  // Build div props conditionally to avoid passing undefined to strict types
+  const divProps: Record<string, unknown> = {}
+  if (className !== undefined) divProps.className = className
+  if (style !== undefined) divProps.style = style
+  if (id !== undefined) divProps.id = id
+  if (onClick !== undefined) divProps.onClick = onClick
+  if (onMouseEnter !== undefined) divProps.onMouseEnter = onMouseEnter
+  if (onMouseLeave !== undefined) divProps.onMouseLeave = onMouseLeave
+  
   // If animations are disabled, render as a regular div
   if (!animationsEnabled) {
-    return <div {...props}>{children}</div>
+    return <div {...divProps}>{children}</div>
   }
   
   // If animations are enabled, render as motion.div with all animation props
-  const animationProps = {
-    ...(whileHover && { whileHover }),
-    ...(whileTap && { whileTap }),
-    ...(initial && { initial }),
-    ...(animate && { animate }),
-    ...(transition && { transition }),
-    ...(variants && { variants }),
-  }
+  // Build props object conditionally to avoid passing undefined to strict types
+  const motionAnimProps: Record<string, unknown> = {}
+  if (whileHover !== undefined) motionAnimProps.whileHover = whileHover
+  if (whileTap !== undefined) motionAnimProps.whileTap = whileTap
+  if (initial !== undefined) motionAnimProps.initial = initial
+  if (animate !== undefined) motionAnimProps.animate = animate
+  if (transition !== undefined) motionAnimProps.transition = transition
+  if (variants !== undefined) motionAnimProps.variants = variants
   
   return (
-    <motion.div {...props} {...animationProps}>
+    <motion.div {...divProps} {...motionAnimProps}>
       {children}
     </motion.div>
   )
+}
+
+// Animation config type for the hook
+interface AnimationConfig {
+  whileHover?: AnimationTarget
+  whileTap?: AnimationTarget
+  initial?: AnimationTarget | boolean
+  animate?: AnimationTarget
+  transition?: Transition
+  variants?: Variants
 }
 
 /**
@@ -71,7 +102,7 @@ export const AnimationWrapper = ({
 export const useAnimationPreferences = () => {
   const { enabled } = useAnimationStore()
   
-  const getAnimationProps = (animationConfig: any) => {
+  const getAnimationProps = <T extends AnimationConfig>(animationConfig: T): T | Record<string, never> => {
     return enabled ? animationConfig : {}
   }
   

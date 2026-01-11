@@ -1,8 +1,9 @@
 'use client'
 
 import Image from 'next/image'
+import Link from 'next/link'
 import { useState } from 'react'
-import { Package, ShoppingBag, Calendar, X, CreditCard, Truck, CheckCircle, Clock, Fish, FileText, Loader2 } from 'lucide-react'
+import { Package, ShoppingBag, Calendar, X, CreditCard, Truck, CheckCircle, Clock, Fish, FileText, Loader2, MapPin } from 'lucide-react'
 import { Order, OrderItem } from '@prisma/client'
 import StatusBadge from '@/components/shared/StatusBadge'
 import EmptyState from '@/components/shared/EmptyState'
@@ -360,6 +361,14 @@ export default function OrderHistory({ orders, loadingOrders, onCancelOrder }: O
                     })}</span>
                   </div>
                   <div className="flex items-center gap-2">
+                    {/* Track Order link */}
+                    <Link
+                      href={`/track/${order.orderNumber || order.id}`}
+                      className={`inline-flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-1.5 md:py-2 bg-primary-50 text-primary-700 text-xs md:text-sm rounded-lg hover:bg-primary-100 transition-colors font-medium border border-primary-200 min-h-[36px] md:min-h-[44px] touch-manipulation ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+                    >
+                      <MapPin className="h-3.5 w-3.5 md:h-4 md:w-4" />
+                      {locale === 'ar' ? 'تتبع الطلب' : locale === 'ru' ? 'Отследить' : 'Track Order'}
+                    </Link>
                     {/* Invoice button for delivered orders */}
                     {order.status.toLowerCase() === 'delivered' && (
                       <button

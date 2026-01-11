@@ -4,7 +4,7 @@ import { useState, useMemo, useEffect, useCallback } from 'react'
 import Image from 'next/image'
 import { X, ChevronLeft, ChevronRight, ZoomIn } from 'lucide-react'
 import { Product } from '@/types'
-import { getProductVideoUrl } from '@/data/productConfig'
+import { getProductVideoUrl, getProductImages as getConfigImages } from '@/data/productConfig'
 import { useTranslation } from '@/hooks/useTranslation'
 
 interface ProductImageGalleryProps {
@@ -50,6 +50,13 @@ export default function ProductImageGallery({ product }: ProductImageGalleryProp
     // Always start with the main image
     const mainImage = product.image
     
+    // First check productConfig for images (takes priority)
+    const configImages = getConfigImages(product.id)
+    if (configImages.length > 0) {
+      return configImages
+    }
+    
+    // Then check product.images JSON field
     if (product.images) {
       try {
         const parsedImages = JSON.parse(product.images)

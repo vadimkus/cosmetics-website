@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { ArrowLeft, Package, X, Clock, CheckCircle, Truck, XCircle, RefreshCw, ShoppingBag, ChevronDown } from 'lucide-react'
+import { ArrowLeft, Package, X, Clock, CheckCircle, Truck, XCircle, RefreshCw, ShoppingBag, ChevronDown, MapPin } from 'lucide-react'
 import { useAuth } from '@/components/AuthProvider'
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
@@ -643,6 +643,15 @@ export default function OrdersPage() {
                   {/* Action Buttons */}
                   <div className={`mt-4 pt-4 border-t border-gray-100 ${isRTL ? 'text-right' : ''}`}>
                     <div className={`flex gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
+                      {/* Track Order Link */}
+                      <Link
+                        href={`/track/${order.orderNumber}`}
+                        className={`inline-flex items-center gap-1.5 text-primary-600 hover:text-primary-700 text-sm font-medium transition-colors ${isRTL ? 'flex-row-reverse' : ''}`}
+                      >
+                        <MapPin className="w-4 h-4" />
+                        {locale === 'ar' ? 'تتبع الطلب' : locale === 'ru' ? 'Отследить' : 'Track Order'}
+                      </Link>
+                      
                       {/* Quick Reorder - for completed orders */}
                       {['delivered', 'shipped'].includes(order.status.toLowerCase()) && (
                         <QuickReorderButton

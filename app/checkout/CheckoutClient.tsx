@@ -795,16 +795,16 @@ export default function CheckoutClient() {
                     />
                   </div>
                   
-                  {/* Delivery Location - Hidden in PWA (already selected on cart page) */}
+                  {/* Delivery Location - Hidden in PWA and on desktop (already selected on cart page) */}
                   {!(isPWAClient && isPWA) && (
-                    <div>
-                      <label className={`block text-[10px] md:text-sm font-medium text-gray-700 mb-0.5 md:mb-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                    <div className="md:hidden">
+                      <label className={`block text-[10px] font-medium text-gray-700 mb-0.5 ${dir === 'rtl' ? 'text-right' : ''}`}>
                         {t('checkout.deliveryLocation')} *
                       </label>
                       <select
                         value={selectedEmirate}
                         onChange={(e) => setSelectedEmirate(e.target.value)}
-                        className={`w-full px-2 py-1.5 md:p-3 text-xs md:text-base border border-gray-300 rounded-md md:rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900 ${dir === 'rtl' ? 'text-right' : ''}`}
+                        className={`w-full px-2 py-1.5 text-xs border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900 ${dir === 'rtl' ? 'text-right' : ''}`}
                         style={{ color: '#111827' }}
                       >
                         {emirates.map((emirate) => (

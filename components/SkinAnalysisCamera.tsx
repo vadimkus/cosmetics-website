@@ -2,7 +2,7 @@
 
 import { useState, useRef, useCallback, useEffect } from 'react'
 import { createPortal } from 'react-dom'
-import { Camera, X, RefreshCw, Check, Sparkles, AlertCircle, Loader2, Sun, Moon, Eye, Droplets, Flame, Target, Clock, Info } from 'lucide-react'
+import { Camera, X, RefreshCw, Check, Sparkles, AlertCircle, Loader2, Sun, Moon, Eye, Droplets, Flame, Target, Clock, Info, Download, Share2, MessageCircle } from 'lucide-react'
 import { useTranslation } from '@/hooks/useTranslation'
 import { useHapticFeedback } from '@/hooks/useHapticFeedback'
 import { cn } from '@/lib/utils'
@@ -60,6 +60,7 @@ export function SkinAnalysisCamera({
   const [lightingWarning, setLightingWarning] = useState<string | null>(null)
   const [showDetails, setShowDetails] = useState(false)
   const [isSaving, setIsSaving] = useState(false)
+  const [isGeneratingPDF, setIsGeneratingPDF] = useState(false)
 
   // Translations
   const t = {
@@ -99,6 +100,16 @@ export function SkinAnalysisCamera({
     step3: locale === 'ar' ? 'قياس مستويات الترطيب...' : locale === 'ru' ? 'Измерение увлажнения...' : 'Measuring hydration levels...',
     step4: locale === 'ar' ? 'تحديد نوع البشرة...' : locale === 'ru' ? 'Определение типа кожи...' : 'Determining skin type...',
     step5: locale === 'ar' ? 'إنشاء التوصيات...' : locale === 'ru' ? 'Создание рекомендаций...' : 'Generating recommendations...',
+    // Share & Download
+    shareReport: locale === 'ar' ? 'مشاركة التقرير' : locale === 'ru' ? 'Поделиться' : 'Share Report',
+    downloadPDF: locale === 'ar' ? 'تحميل PDF' : locale === 'ru' ? 'Скачать PDF' : 'Download PDF',
+    shareViaWhatsApp: locale === 'ar' ? 'مشاركة عبر واتساب' : locale === 'ru' ? 'Поделиться в WhatsApp' : 'Share via WhatsApp',
+    generatingPDF: locale === 'ar' ? 'جاري إنشاء التقرير...' : locale === 'ru' ? 'Создание отчёта...' : 'Generating report...',
+    whatsappShareText: locale === 'ar' 
+      ? '🧬 تقرير تحليل البشرة من GENOSYS\n\n📊 نوع البشرة: {skinType}\n💧 الترطيب: {hydration}%\n🔥 الاحمرار: {redness}%\n✨ الدقة: {confidence}%\n\n🔗 احصل على تحليلك من: https://genosys.ae'
+      : locale === 'ru' 
+        ? '🧬 Отчёт анализа кожи GENOSYS\n\n📊 Тип кожи: {skinType}\n💧 Увлажнение: {hydration}%\n🔥 Покраснение: {redness}%\n✨ Точность: {confidence}%\n\n🔗 Получите свой анализ: https://genosys.ae'
+        : '🧬 GENOSYS Skin Analysis Report\n\n📊 Skin Type: {skinType}\n💧 Hydration: {hydration}%\n🔥 Redness: {redness}%\n✨ Accuracy: {confidence}%\n\n🔗 Get your analysis at: https://genosys.ae',
   }
 
   // Skin type labels with descriptions
@@ -838,6 +849,118 @@ export function SkinAnalysisCamera({
     }
   }
 
+  // Generate and download PDF report
+  const handleDownloadPDF = async () => {
+    if (!analysisResult) return
+    
+    setIsGeneratingPDF(true)
+    haptic.light()
+    
+    try {
+      const response = await fetch('/api/skin-analysis/report', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          skinType: analysisResult.skinType,
+          confidence: analysisResult.confidence,
+          oilinessLevel: analysisResult.oilinessLevel,
+          hydrationLevel: analysisResult.hydrationLevel,
+          rednessLevel: analysisResult.rednessLevel,
+          skinTone: analysisResult.skinTone,
+          undertone: analysisResult.undertone,
+          textureScore: analysisResult.textureScore,
+          poreVisibility: analysisResult.poreVisibility,
+          evenness: analysisResult.evenness,
+          tZoneOiliness: analysisResult.tZoneOiliness,
+          cheekHydration: analysisResult.cheekHydration,
+          estimatedSkinAge: analysisResult.estimatedSkinAge,
+          concerns: analysisResult.concerns,
+          recommendations: analysisResult.recommendations,
+          locale,
+        }),
+      })
+      
+      if (!response.ok) throw new Error('Failed to generate report')
+      
+      const { html } = await response.json()
+      
+      // Open HTML in new window for printing/saving as PDF
+      const printWindow = window.open('', '_blank')
+      if (printWindow) {
+        printWindow.document.write(html)
+        printWindow.document.close()
+        
+        // Wait for content to load then trigger print
+        printWindow.onload = () => {
+          setTimeout(() => {
+            printWindow.print()
+          }, 500)
+        }
+      }
+      
+      haptic.success()
+    } catch (error) {
+      console.error('Error generating PDF:', error)
+      haptic.error()
+    } finally {
+      setIsGeneratingPDF(false)
+    }
+  }
+
+  // Share via WhatsApp
+  const handleShareWhatsApp = () => {
+    if (!analysisResult) return
+    
+    haptic.light()
+    
+    const skinTypeLabel = skinTypeData[analysisResult.skinType]?.label[locale] || analysisResult.skinType
+    
+    const message = t.whatsappShareText
+      .replace('{skinType}', skinTypeLabel)
+      .replace('{hydration}', String(analysisResult.hydrationLevel))
+      .replace('{redness}', String(analysisResult.rednessLevel))
+      .replace('{confidence}', String(analysisResult.confidence))
+    
+    const encodedMessage = encodeURIComponent(message)
+    const whatsappUrl = `https://wa.me/?text=${encodedMessage}`
+    
+    window.open(whatsappUrl, '_blank')
+  }
+
+  // Native share (if supported)
+  const handleNativeShare = async () => {
+    if (!analysisResult) return
+    
+    haptic.light()
+    
+    const skinTypeLabel = skinTypeData[analysisResult.skinType]?.label[locale] || analysisResult.skinType
+    
+    const shareText = t.whatsappShareText
+      .replace('{skinType}', skinTypeLabel)
+      .replace('{hydration}', String(analysisResult.hydrationLevel))
+      .replace('{redness}', String(analysisResult.rednessLevel))
+      .replace('{confidence}', String(analysisResult.confidence))
+    
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: locale === 'ar' ? 'تقرير تحليل البشرة' : locale === 'ru' ? 'Отчёт анализа кожи' : 'Skin Analysis Report',
+          text: shareText,
+          url: 'https://genosys.ae',
+        })
+        haptic.success()
+      } catch (error) {
+        // User cancelled or error
+        if ((error as Error).name !== 'AbortError') {
+          console.error('Share failed:', error)
+        }
+      }
+    } else {
+      // Fallback to WhatsApp
+      handleShareWhatsApp()
+    }
+  }
+
   const getAnalysisStepText = () => {
     if (analysisProgress <= 20) return t.step1
     if (analysisProgress <= 40) return t.step2
@@ -1192,6 +1315,45 @@ export function SkinAnalysisCamera({
                       </div>
                     </div>
                   )}
+
+                  {/* Share & Download Buttons */}
+                  <div className="flex gap-2 mb-3">
+                    {/* Download PDF */}
+                    <button
+                      onClick={handleDownloadPDF}
+                      disabled={isGeneratingPDF || isSaving}
+                      className="flex-1 flex items-center justify-center gap-2 bg-gradient-to-r from-blue-500/20 to-purple-500/20 hover:from-blue-500/30 hover:to-purple-500/30 border border-white/10 disabled:opacity-50 text-white py-3 rounded-xl font-medium transition-all active:scale-[0.98]"
+                    >
+                      {isGeneratingPDF ? (
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                      ) : (
+                        <Download className="w-4 h-4" />
+                      )}
+                      <span className="text-sm">
+                        {isGeneratingPDF ? t.generatingPDF : t.downloadPDF}
+                      </span>
+                    </button>
+                    
+                    {/* Share via WhatsApp */}
+                    <button
+                      onClick={handleShareWhatsApp}
+                      disabled={isSaving}
+                      className="flex-1 flex items-center justify-center gap-2 bg-gradient-to-r from-green-500/20 to-green-600/20 hover:from-green-500/30 hover:to-green-600/30 border border-white/10 disabled:opacity-50 text-white py-3 rounded-xl font-medium transition-all active:scale-[0.98]"
+                    >
+                      <MessageCircle className="w-4 h-4" />
+                      <span className="text-sm">{t.shareViaWhatsApp}</span>
+                    </button>
+                    
+                    {/* Native Share (if supported) */}
+                    <button
+                      onClick={handleNativeShare}
+                      disabled={isSaving}
+                      className="flex items-center justify-center bg-white/10 hover:bg-white/15 border border-white/10 disabled:opacity-50 text-white p-3 rounded-xl transition-all active:scale-[0.98]"
+                      title={t.shareReport}
+                    >
+                      <Share2 className="w-4 h-4" />
+                    </button>
+                  </div>
 
                   {/* Action Buttons */}
                   <div className="flex gap-3">

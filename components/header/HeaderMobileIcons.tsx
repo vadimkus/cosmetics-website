@@ -2,9 +2,8 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { ShoppingCart, Heart, User, Menu } from 'lucide-react'
+import { ShoppingCart, Heart, Menu } from 'lucide-react'
 import { useCartStore } from '@/lib/cartStore'
-import { useAuth } from '@/components/AuthProvider'
 import { useFavorites } from '@/components/FavoritesProvider'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
 import { AnimationToggle } from '@/components/AnimationToggle'
@@ -17,12 +16,12 @@ interface HeaderMobileIconsProps {
   isPWA: boolean
   showMobileMenu: boolean
   setShowMobileMenu: (show: boolean) => void
-  handleLoginClick: () => void
 }
 
 /**
  * Shared mobile icons component for header
  * Handles both LTR (English) and RTL (Arabic) layouts
+ * Note: User icon removed - accessible via hamburger menu
  */
 export default function HeaderMobileIcons({
   isRTL,
@@ -30,10 +29,8 @@ export default function HeaderMobileIcons({
   isPWA,
   showMobileMenu,
   setShowMobileMenu,
-  handleLoginClick
 }: HeaderMobileIconsProps) {
   const { getTotalItems } = useCartStore()
-  const { user } = useAuth()
   const { favorites } = useFavorites()
   const { t, locale } = useTranslation()
 
@@ -60,26 +57,6 @@ export default function HeaderMobileIcons({
     <div key="lang" className={spacingClass}>
       <LanguageSwitcher />
     </div>
-  )
-
-  const userIcon = isClient && user ? (
-    <Link 
-      key="user"
-      href={getLocalizedPath('/profile', locale)} 
-      className={`${iconBtnClass} ${spacingClass}`}
-      aria-label={t('common.profile')}
-    >
-      <User className="h-4 w-4 text-green-600" aria-hidden="true" />
-    </Link>
-  ) : (
-    <button 
-      key="user"
-      onClick={handleLoginClick}
-      className={`${iconBtnClass} ${spacingClass}`}
-      aria-label={t('common.login')}
-    >
-      <User className="h-4 w-4" aria-hidden="true" />
-    </button>
   )
 
   const heartIcon = (

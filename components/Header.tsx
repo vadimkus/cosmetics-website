@@ -117,7 +117,6 @@ const Header = memo(function Header() {
               isPWA={isPWA}
               showMobileMenu={showMobileMenu}
               setShowMobileMenu={setShowMobileMenu}
-              handleLoginClick={handleLoginClick}
             />
           )}
           

@@ -6,15 +6,12 @@ import { ShoppingCart, Heart, Menu } from 'lucide-react'
 import { useCartStore } from '@/lib/cartStore'
 import { useAuth } from './AuthProvider'
 import { useFavorites } from './FavoritesProvider'
-import LoginModal from './LoginModal'
 import LanguageSwitcher from './LanguageSwitcher'
 import InstallLink from './InstallLink'
 import { AnimationToggle } from './AnimationToggle'
 import { useState, useEffect } from 'react'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
-import { usePWAMode } from '@/hooks/usePWAMode'
-import { useRouter } from 'next/navigation'
 
 interface HeaderRussianMobileProps {
   showMobileMenu: boolean
@@ -23,28 +20,13 @@ interface HeaderRussianMobileProps {
 
 export default function HeaderRussianMobile({ showMobileMenu, setShowMobileMenu }: HeaderRussianMobileProps) {
   const { getTotalItems } = useCartStore()
-  const { user } = useAuth()
   const { favorites } = useFavorites()
-  const { t, locale } = useTranslation()
-  const { isPWA } = usePWAMode()
-  const router = useRouter()
-  const [showLoginModal, setShowLoginModal] = useState(false)
-  const [isLoginMode, setIsLoginMode] = useState(true)
+  const { t } = useTranslation()
   const [isClient, setIsClient] = useState(false)
 
   useEffect(() => {
     setIsClient(true)
   }, [])
-
-  // Handle login click - redirect to PWA login page if in PWA mode
-  const handleLoginClick = () => {
-    if (isPWA) {
-      const loginPath = locale === 'en' ? '/pwa-login' : `/${locale}/pwa-login`
-      router.push(loginPath)
-    } else {
-      setShowLoginModal(true)
-    }
-  }
 
   return (
     <>
@@ -102,16 +84,6 @@ export default function HeaderRussianMobile({ showMobileMenu, setShowMobileMenu 
           />
         </Link>
       </div>
-
-      {/* Login Modal */}
-      {showLoginModal && (
-        <LoginModal 
-          isOpen={showLoginModal}
-          onClose={() => setShowLoginModal(false)}
-          isLoginMode={isLoginMode}
-          setIsLoginMode={setIsLoginMode}
-        />
-      )}
     </>
   )
 }

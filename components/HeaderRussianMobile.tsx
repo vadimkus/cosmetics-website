@@ -49,6 +49,7 @@ export default function HeaderRussianMobile({ showMobileMenu, setShowMobileMenu 
   return (
     <>
       {/* Mobile Header for Russian */}
+      {/* Note: User icon removed from mobile - accessible via hamburger menu */}
       <div className="md:hidden flex items-center gap-0.5 header-icons">
         <button
           onClick={() => setShowMobileMenu(!showMobileMenu)}
@@ -61,23 +62,6 @@ export default function HeaderRussianMobile({ showMobileMenu, setShowMobileMenu 
         <div className="ml-2">
           <LanguageSwitcher />
         </div>
-        {isClient && user ? (
-          <Link 
-            href={getLocalizedPath('/profile', 'ru')} 
-            className="p-1.5 text-gray-700 hover:text-primary-600 transition-colors flex items-center justify-center ml-2"
-            aria-label={t('common.profile')}
-          >
-            <User className="h-4 w-4 text-green-600" aria-hidden="true" />
-          </Link>
-        ) : (
-          <button 
-            onClick={handleLoginClick}
-            className="p-1.5 text-gray-700 hover:text-primary-600 transition-colors flex items-center justify-center ml-2"
-            aria-label={t('common.login')}
-          >
-            <User className="h-4 w-4" aria-hidden="true" />
-          </button>
-        )}
         <Link 
           href={getLocalizedPath('/favorites', 'ru')} 
           className="relative p-1.5 text-gray-700 hover:text-primary-600 transition-colors flex items-center justify-center ml-2"

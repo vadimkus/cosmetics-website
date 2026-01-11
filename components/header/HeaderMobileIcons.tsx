@@ -137,27 +137,26 @@ export default function HeaderMobileIcons({
   )
 
   // Render icons in correct order based on direction
+  // Note: User icon removed from mobile - accessible via hamburger menu
   if (isRTL) {
-    // RTL: logo, cart, animation, heart, user, lang, menu (reversed order visually)
+    // RTL: logo, cart, animation, heart, lang, menu (reversed order visually)
     return (
       <div className="md:hidden flex items-center gap-0.5 header-icons ml-auto">
         {logo}
         {cartIcon}
         {animationToggle}
         {heartIcon}
-        {userIcon}
         {languageSwitcher}
         {menuButton}
       </div>
     )
   }
 
-  // LTR: menu, lang, user, heart, cart, animation, logo
+  // LTR: menu, lang, heart, cart, animation, logo
   return (
     <div className="md:hidden flex items-center gap-0.5 header-icons">
       {menuButton}
       {languageSwitcher}
-      {userIcon}
       {heartIcon}
       {cartIcon}
       {animationToggle}

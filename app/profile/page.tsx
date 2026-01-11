@@ -268,7 +268,13 @@ export default function ProfilePageRefactored() {
       
       setLoadingOrders(true)
       try {
-        const response = await fetch(`/api/orders?email=${encodeURIComponent(user.email)}`)
+        // Build URL with both auth email and contact email for better matching
+        let url = `/api/orders?email=${encodeURIComponent(user.email)}`
+        if (user.contactEmail && user.contactEmail.trim()) {
+          url += `&contactEmail=${encodeURIComponent(user.contactEmail.trim())}`
+        }
+        
+        const response = await fetch(url)
         if (response.ok) {
           const data = await response.json()
           setOrders(data.orders || [])

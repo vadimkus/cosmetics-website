@@ -206,13 +206,13 @@ function generateStatusTimeline(order: {
 }
 
 /**
- * Calculate estimated delivery date
+ * Calculate estimated delivery - hours for Dubai, days for other emirates
  */
 function calculateEstimatedDelivery(
   status: string,
   createdAt: Date,
   emirate: string
-): { min: Date; max: Date } | null {
+): { min: Date; max: Date; type: 'hours' | 'days'; minHours?: number; maxHours?: number; minDays?: number; maxDays?: number } | null {
   // If already delivered or cancelled, no estimate needed
   if (status === 'DELIVERED' || status === 'CANCELLED') {
     return null
@@ -220,22 +220,47 @@ function calculateEstimatedDelivery(
 
   const now = new Date()
   const orderDate = new Date(createdAt)
+  const isDubai = emirate.toLowerCase() === 'dubai'
 
-  // Base delivery days (business days)
+  // Dubai: 1-2 hours delivery
+  if (isDubai) {
+    // If order is shipped or out for delivery, show 30min-1hr
+    if (status === 'SHIPPED' || status === 'OUT_FOR_DELIVERY') {
+      const minDate = new Date(now.getTime() + 30 * 60 * 1000) // 30 minutes
+      const maxDate = new Date(now.getTime() + 60 * 60 * 1000) // 1 hour
+      return { 
+        min: minDate, 
+        max: maxDate, 
+        type: 'hours',
+        minHours: 0.5,
+        maxHours: 1
+      }
+    }
+    
+    // For pending/confirmed/processing orders, show 1-2 hours from order time
+    const minDate = new Date(Math.max(now.getTime(), orderDate.getTime()) + 60 * 60 * 1000) // 1 hour
+    const maxDate = new Date(Math.max(now.getTime(), orderDate.getTime()) + 2 * 60 * 60 * 1000) // 2 hours
+    return { 
+      min: minDate, 
+      max: maxDate, 
+      type: 'hours',
+      minHours: 1,
+      maxHours: 2
+    }
+  }
+
+  // Other emirates: Days-based delivery
   let minDays = 1
   let maxDays = 3
 
   // Adjust based on emirate
-  if (emirate.toLowerCase() === 'dubai') {
+  if (['abu dhabi', 'sharjah', 'ajman'].includes(emirate.toLowerCase())) {
+    minDays = 1
+    maxDays = 2 // 24-36 hours = 1-2 days
+  } else {
+    // Remote emirates (RAK, Fujairah, UAQ)
     minDays = 1
     maxDays = 2
-  } else if (['abu dhabi', 'sharjah', 'ajman'].includes(emirate.toLowerCase())) {
-    minDays = 1
-    maxDays = 3
-  } else {
-    // Other emirates
-    minDays = 2
-    maxDays = 4
   }
 
   // Adjust based on current status
@@ -265,5 +290,11 @@ function calculateEstimatedDelivery(
     }
   }
 
-  return { min: minDate, max: maxDate }
+  return { 
+    min: minDate, 
+    max: maxDate, 
+    type: 'days',
+    minDays,
+    maxDays
+  }
 }

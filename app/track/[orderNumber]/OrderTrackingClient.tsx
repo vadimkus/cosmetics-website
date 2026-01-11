@@ -25,7 +25,15 @@ interface TrackingData {
     completed: boolean
     current: boolean
   }>
-  estimatedDelivery: { min: string; max: string } | null
+  estimatedDelivery: { 
+    min: string
+    max: string
+    type: 'hours' | 'days'
+    minHours?: number
+    maxHours?: number
+    minDays?: number
+    maxDays?: number
+  } | null
   items: Array<{
     name: string
     quantity: number
@@ -233,9 +241,27 @@ export default function OrderTrackingClient({ orderNumber }: OrderTrackingClient
                 <MapPin className="w-4 h-4" />
                 <span className="font-medium">Estimated Delivery to {trackingData.emirate}:</span>
                 <span>
-                  {new Date(trackingData.estimatedDelivery.min).toLocaleDateString('en-AE', { weekday: 'short', month: 'short', day: 'numeric' })}
-                  {trackingData.estimatedDelivery.min !== trackingData.estimatedDelivery.max && (
-                    <> - {new Date(trackingData.estimatedDelivery.max).toLocaleDateString('en-AE', { weekday: 'short', month: 'short', day: 'numeric' })}</>
+                  {trackingData.estimatedDelivery.type === 'hours' ? (
+                    // Dubai: Show hours-based delivery (e.g., "1-2 hours")
+                    <>
+                      {trackingData.estimatedDelivery.minHours === trackingData.estimatedDelivery.maxHours ? (
+                        <span className="text-green-600 font-semibold">
+                          {trackingData.estimatedDelivery.minHours === 0.5 ? '30 minutes' : `${trackingData.estimatedDelivery.minHours} hour${trackingData.estimatedDelivery.minHours !== 1 ? 's' : ''}`}
+                        </span>
+                      ) : (
+                        <span className="text-green-600 font-semibold">
+                          {trackingData.estimatedDelivery.minHours === 0.5 ? '30 min' : `${trackingData.estimatedDelivery.minHours}`}-{trackingData.estimatedDelivery.maxHours} hours
+                        </span>
+                      )}
+                    </>
+                  ) : (
+                    // Other emirates: Show date-based delivery
+                    <>
+                      {new Date(trackingData.estimatedDelivery.min).toLocaleDateString('en-AE', { weekday: 'short', month: 'short', day: 'numeric' })}
+                      {trackingData.estimatedDelivery.min !== trackingData.estimatedDelivery.max && (
+                        <> - {new Date(trackingData.estimatedDelivery.max).toLocaleDateString('en-AE', { weekday: 'short', month: 'short', day: 'numeric' })}</>
+                      )}
+                    </>
                   )}
                 </span>
               </div>

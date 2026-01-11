@@ -1041,7 +1041,7 @@ export default function CheckoutClient() {
                       </div>
                       <p className={`text-xs text-green-700 ${dir === 'rtl' ? 'text-right' : ''}`}>
                         {selectedEmirate === 'Dubai' 
-                          ? (t('checkout.deliveryTimeDubai') || 'Delivery within 24-48 hours in Dubai')
+                          ? (t('checkout.deliveryTimeDubai') || 'Your order will be delivered by Careem within 1-2 hours.')
                           : `${t('checkout.deliveryTimeOther') || 'Delivery within 2-3 business days to'} ${selectedEmirate ? getEmirateDisplayName(selectedEmirate) : ''} ${t('checkout.byQuiqup') || 'via Quiqup'}.`}
                         {selectedEmirate !== 'Dubai' && (
                           <span className="block mt-1.5">

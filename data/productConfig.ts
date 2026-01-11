@@ -353,6 +353,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     pricing: {
       basePrice: 850
     },
+    images: ['/images/EZE.jpg', '/images/Second/ez.jpg'],
     documentation: [
       {
         title: 'EZ CO₂ MASK KIT Guide',

@@ -112,37 +112,15 @@ export async function createCheckoutSession(params: {
       success_url: STRIPE_CONFIG.success_url,
       cancel_url: STRIPE_CONFIG.cancel_url,
       
-      // Metadata for webhook processing
+      // Metadata for webhook processing (includes emirate from our checkout page)
       metadata: {
         orderNumber: params.orderNumber,
         customerName: params.customerName,
         customerPhone: params.customerPhone,
         customerEmail: params.customerEmail,
+        customerEmirate: params.shippingAddress.city, // Emirate already collected on checkout
         locale: params.locale,
       },
-      
-      // Custom fields for additional info
-      custom_fields: [
-        {
-          key: 'emirate',
-          label: {
-            type: 'custom',
-            custom: 'Emirate',
-          },
-          type: 'dropdown',
-          dropdown: {
-            options: [
-              { label: 'Dubai', value: 'Dubai' },
-              { label: 'Abu Dhabi', value: 'AbuDhabi' },
-              { label: 'Sharjah', value: 'Sharjah' },
-              { label: 'Ajman', value: 'Ajman' },
-              { label: 'Ras Al Khaimah', value: 'RasAlKhaimah' },
-              { label: 'Fujairah', value: 'Fujairah' },
-              { label: 'Umm Al Quwain', value: 'UmmAlQuwain' },
-            ],
-          },
-        },
-      ],
       
       // Shipping is handled via line items, not shipping options
       // This prevents double charging for shipping

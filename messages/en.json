@@ -319,6 +319,7 @@
     "securityError": "Security error: Could not verify request. Please refresh the page and try again.",
     "secureCardPayment": "Secure card payment via Stripe",
     "supportedCards": "Supported cards",
+    "payOnlineWith": "Pay online with",
     "verifyingPayment": "Verifying Payment...",
     "pleaseWait": "Please wait while we confirm your payment",
     "verificationFailed": "Payment Verification Failed",

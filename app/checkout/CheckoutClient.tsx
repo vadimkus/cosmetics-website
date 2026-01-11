@@ -830,7 +830,7 @@ export default function CheckoutClient() {
                       </div>
                       <button
                         type="button"
-                        onClick={() => router.push(getLocalizedPath('/bag', locale))}
+                        onClick={() => router.push(getLocalizedPath('/cart', locale))}
                         className="text-[10px] md:text-xs text-red-600 hover:text-red-700 font-medium underline"
                       >
                         {t('common.change') || 'Change'}

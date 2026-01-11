@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { ShoppingCart, Heart, User, Menu } from 'lucide-react'
+import { ShoppingCart, Heart, Menu } from 'lucide-react'
 import { useCartStore } from '@/lib/cartStore'
 import { useAuth } from './AuthProvider'
 import { useFavorites } from './FavoritesProvider'

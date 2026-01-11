@@ -14,7 +14,7 @@ import { getLocalizedPath } from '@/lib/i18n'
 import { usePWAMode } from '@/hooks/usePWAMode'
 
 export default function CheckoutClient() {
-  const { items, getTotalPrice, getTotalItems, selectedEmirate, setSelectedEmirate } = useCart()
+  const { items, getTotalPrice, getTotalItems, selectedEmirate } = useCart()
   const { user, isLoading: authLoading } = useAuth()
   const router = useRouter()
   const { t, locale, dir } = useTranslation()
@@ -816,26 +816,27 @@ export default function CheckoutClient() {
                     />
                   </div>
                   
-                  {/* Delivery Location - Hidden in PWA and on desktop (already selected on cart page) */}
-                  {!(isPWAClient && isPWA) && (
-                    <div className="md:hidden">
-                      <label className={`block text-[10px] font-medium text-gray-700 mb-0.5 ${dir === 'rtl' ? 'text-right' : ''}`}>
-                        {t('checkout.deliveryLocation')} *
-                      </label>
-                      <select
-                        value={selectedEmirate}
-                        onChange={(e) => setSelectedEmirate(e.target.value)}
-                        className={`w-full px-2 py-1.5 text-xs border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900 ${dir === 'rtl' ? 'text-right' : ''}`}
-                        style={{ color: '#111827' }}
+                  {/* Delivery Location - Display only (change on cart/bag page) */}
+                  <div>
+                    <label className={`block text-[10px] md:text-sm font-medium text-gray-700 mb-0.5 md:mb-1 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                      {t('checkout.deliveryLocation')} *
+                    </label>
+                    <div className={`flex items-center justify-between w-full px-2 py-1.5 md:px-3 md:py-2.5 text-xs md:text-base border border-gray-200 rounded-md md:rounded-lg bg-gray-50 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                      <div className={`flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                        <MapPin className="h-3.5 w-3.5 md:h-4 md:w-4 text-red-600" />
+                        <span className="font-medium text-gray-900">
+                          {selectedEmirate ? getEmirateDisplayName(selectedEmirate) : 'Dubai'}
+                        </span>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => router.push(getLocalizedPath('/bag', locale))}
+                        className="text-[10px] md:text-xs text-red-600 hover:text-red-700 font-medium underline"
                       >
-                        {emirates.map((emirate) => (
-                          <option key={emirate.name} value={emirate.name} style={{ backgroundColor: '#ffffff', color: '#111827' }}>
-                            {getEmirateDisplayName(emirate.name)} - AED {emirate.shippingCost}
-                          </option>
-                        ))}
-                      </select>
+                        {t('common.change') || 'Change'}
+                      </button>
                     </div>
-                  )}
+                  </div>
                 </div>
 
                 {/* Payment Information - PWA Version */}

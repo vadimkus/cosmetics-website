@@ -911,7 +911,7 @@ export default function CheckoutClient() {
                         <span>{locale === 'ar' ? 'ادفع نقداً عند استلام طلبك' : locale === 'ru' ? 'Оплата наличными при получении' : 'Pay cash when your order arrives'}</span>
                       )}
                       {selectedPaymentMethod === 'stripe' && (
-                        <span>Apple Pay, Visa, Mastercard</span>
+                        <span>Visa, Mastercard, Apple Pay, Google Pay</span>
                       )}
                       {selectedPaymentMethod === 'support-link' && (
                         <span>{locale === 'ar' ? 'سنرسل لك رابط دفع آمن' : locale === 'ru' ? 'Мы отправим вам ссылку для оплаты' : 'We\'ll send you a secure payment link'}</span>
@@ -961,7 +961,7 @@ export default function CheckoutClient() {
                           </div>
                           <div className="text-[9px] md:text-sm text-gray-600">{t('checkout.secureCardPayment')}</div>
                           <div className="text-[8px] md:text-xs text-gray-500 mt-1">
-                            {t('checkout.supportedCards')}: Visa, Mastercard, American Express
+                            {t('checkout.payOnlineWith') || 'Pay online with'}: Visa, Mastercard, Apple Pay, Google Pay.
                           </div>
                         </div>
                       </label>

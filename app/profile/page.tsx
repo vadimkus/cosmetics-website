@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { ArrowLeft, User, Package, Settings, Download, Shield, Trash2, X, RefreshCw, Edit3, CheckCircle, XCircle, AlertCircle, Sparkles } from 'lucide-react'
 import { useAuth } from '@/components/AuthProvider'
 import { useState, useRef, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { Order, OrderItem } from '@prisma/client'
 import { fetchCsrfToken, getCsrfHeaders, addCsrfToBody } from '@/lib/csrfClient'
 import { errorLog, debugLog } from '@/lib/logger'
@@ -73,6 +73,7 @@ export default function ProfilePageRefactored() {
   const { t, locale, dir } = useTranslation()
   const { user, logout, forceRefreshUser, isLoading: authLoading } = useAuth()
   const router = useRouter()
+  const searchParams = useSearchParams()
   const { isPWA, isClient } = usePWAMode()
   const [isEditing, setIsEditing] = useState(false)
   const [editData, setEditData] = useState<EditData>({
@@ -101,6 +102,14 @@ export default function ProfilePageRefactored() {
   
   // Skin analysis modal state
   const [showSkinAnalysis, setShowSkinAnalysis] = useState(false)
+
+  // Read tab from URL query parameter
+  useEffect(() => {
+    const tab = searchParams.get('tab')
+    if (tab && ['profile', 'orders', 'settings', 'downloads', 'privacy'].includes(tab)) {
+      setActiveTab(tab as ActiveTab)
+    }
+  }, [searchParams])
 
   // Add toast notification
   const showToast = (message: string, type: ToastType = 'success') => {

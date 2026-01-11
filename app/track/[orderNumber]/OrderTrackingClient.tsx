@@ -186,11 +186,11 @@ export default function OrderTrackingClient({ orderNumber }: OrderTrackingClient
         {/* Header */}
         <div className="mb-6">
           <Link 
-            href="/"
+            href="/profile?tab=orders"
             className="inline-flex items-center text-gray-600 hover:text-primary-600 transition-colors mb-4"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
-            Back to Store
+            Back to Orders
           </Link>
           <div className="flex items-center justify-between">
             <h1 className="text-2xl font-bold text-gray-900">Order Tracking</h1>

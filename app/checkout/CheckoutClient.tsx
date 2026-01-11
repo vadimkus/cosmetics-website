@@ -59,7 +59,28 @@ export default function CheckoutClient() {
 
   const { firstName, lastName } = getUserName()
 
+  // Get the correct email for checkout
+  // For Apple Sign In users: use contactEmail if set, otherwise leave empty (mandatory)
+  // For regular users: use contactEmail or fall back to auth email
+  const getCheckoutEmail = () => {
+    if (!user) return ''
+    const authEmail = (user.email || '').trim()
+    const contactEmail = (user.contactEmail || '').trim()
+    const isAppleRelay = authEmail.includes('@privaterelay.appleid.com') || authEmail.includes('@genosys.local')
+    
+    if (contactEmail) {
+      // User has set a contact email - always use it
+      return contactEmail
+    } else if (isAppleRelay) {
+      // Apple user without contact email - leave empty (mandatory to fill)
+      return ''
+    } else {
+      // Regular user - use auth email
+      return authEmail
+    }
+  }
 
+  const checkoutEmail = getCheckoutEmail()
 
   // Emirates list with shipping costs
   const emirates = [
@@ -757,7 +778,7 @@ export default function CheckoutClient() {
                         name="email"
                         type="email"
                         required
-                        defaultValue={user?.email || ''}
+                        defaultValue={checkoutEmail}
                         className={`w-full px-2 py-1.5 md:p-3 text-xs md:text-base border border-gray-300 rounded-md md:rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900 ${dir === 'rtl' ? 'text-right' : ''}`}
                         placeholder={t('checkout.enterEmailAddress')}
                         style={{ color: '#111827', backgroundColor: '#ffffff' }}

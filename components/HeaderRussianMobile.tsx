@@ -8,7 +8,6 @@ import { useAuth } from './AuthProvider'
 import { useFavorites } from './FavoritesProvider'
 import LanguageSwitcher from './LanguageSwitcher'
 import InstallLink from './InstallLink'
-import { AnimationToggle } from './AnimationToggle'
 import { useState, useEffect } from 'react'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
@@ -68,7 +67,13 @@ export default function HeaderRussianMobile({ showMobileMenu, setShowMobileMenu 
             </span>
           )}
         </Link>
-        <AnimationToggle size="sm" className="md:hidden" />
+        <Link
+          href={getLocalizedPath('/skin-recommendation', 'ru')}
+          className="p-1.5 text-primary-600 hover:text-primary-700 transition-colors flex items-center justify-center ml-2 font-semibold text-xs"
+          aria-label="ИИ анализ кожи"
+        >
+          AI
+        </Link>
         <Link 
           href={getLocalizedPath('/products', 'ru')} 
           className="p-0.5 hover:opacity-80 transition-opacity flex items-center justify-center ml-[10%] md:ml-2"

@@ -6,7 +6,6 @@ import { ShoppingCart, Heart, Menu } from 'lucide-react'
 import { useCartStore } from '@/lib/cartStore'
 import { useFavorites } from '@/components/FavoritesProvider'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
-import { AnimationToggle } from '@/components/AnimationToggle'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 
@@ -91,8 +90,15 @@ export default function HeaderMobileIcons({
     </Link>
   ) : null
 
-  const animationToggle = (
-    <AnimationToggle key="anim" size="sm" className={`md:hidden ${isRTL ? 'mr-2' : ''}`} />
+  const aiLink = (
+    <Link
+      key="ai"
+      href={getLocalizedPath('/skin-recommendation', locale)}
+      className={`${iconBtnClass} ${spacingClass} font-semibold text-xs`}
+      aria-label={t('navigation.aiSkinAnalysis') || 'AI Skin Analysis'}
+    >
+      <span className="text-primary-600 hover:text-primary-700">AI</span>
+    </Link>
   )
 
   const logo = (
@@ -116,12 +122,12 @@ export default function HeaderMobileIcons({
   // Render icons in correct order based on direction
   // Note: User icon removed from mobile - accessible via hamburger menu
   if (isRTL) {
-    // RTL: logo, cart, animation, heart, lang, menu (reversed order visually)
+    // RTL: logo, cart, AI, heart, lang, menu (reversed order visually)
     return (
       <div className="md:hidden flex items-center gap-0.5 header-icons ml-auto">
         {logo}
         {cartIcon}
-        {animationToggle}
+        {aiLink}
         {heartIcon}
         {languageSwitcher}
         {menuButton}
@@ -129,14 +135,14 @@ export default function HeaderMobileIcons({
     )
   }
 
-  // LTR: menu, lang, heart, cart, animation, logo
+  // LTR: menu, lang, heart, cart, AI, logo
   return (
     <div className="md:hidden flex items-center gap-0.5 header-icons">
       {menuButton}
       {languageSwitcher}
       {heartIcon}
       {cartIcon}
-      {animationToggle}
+      {aiLink}
       {logo}
     </div>
   )

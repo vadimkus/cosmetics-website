@@ -94,10 +94,10 @@ export default function HeaderMobileIcons({
     <Link
       key="ai"
       href={getLocalizedPath('/skin-recommendation', locale)}
-      className={`${iconBtnClass} ${spacingClass} font-semibold text-xs`}
+      className={`px-2 py-1 rounded hover:bg-gray-100 transition-colors ${spacingClass}`}
       aria-label={t('navigation.aiSkinAnalysis') || 'AI Skin Analysis'}
     >
-      <span className="text-primary-600 hover:text-primary-700">AI</span>
+      <span className="text-xs font-medium text-green-600">AI</span>
     </Link>
   )
 

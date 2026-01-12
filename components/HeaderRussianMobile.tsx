@@ -69,10 +69,10 @@ export default function HeaderRussianMobile({ showMobileMenu, setShowMobileMenu 
         </Link>
         <Link
           href={getLocalizedPath('/skin-recommendation', 'ru')}
-          className="p-1.5 text-primary-600 hover:text-primary-700 transition-colors flex items-center justify-center ml-2 font-semibold text-xs"
+          className="px-2 py-1 rounded hover:bg-gray-100 transition-colors ml-2"
           aria-label="ИИ анализ кожи"
         >
-          AI
+          <span className="text-xs font-medium text-green-600">AI</span>
         </Link>
         <Link 
           href={getLocalizedPath('/products', 'ru')} 

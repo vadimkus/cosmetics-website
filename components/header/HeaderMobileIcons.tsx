@@ -97,7 +97,7 @@ export default function HeaderMobileIcons({
       className={`px-2 py-1 rounded hover:bg-gray-100 transition-colors ${spacingClass}`}
       aria-label={t('navigation.aiSkinAnalysis') || 'AI Skin Analysis'}
     >
-      <span className="text-xs font-medium text-green-600">AI</span>
+      <span className="text-sm font-bold text-red-600">AI</span>
     </Link>
   )
 

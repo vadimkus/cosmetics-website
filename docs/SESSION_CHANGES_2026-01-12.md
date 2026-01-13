@@ -255,6 +255,8 @@ const aiLink = (
 | `app/track/[orderNumber]/OrderTrackingClient.tsx` | UI layout fix |
 | `components/header/HeaderMobileIcons.tsx` | Added AI link, removed animation toggle |
 | `components/HeaderRussianMobile.tsx` | Added AI link, removed animation toggle |
+| `components/MobileWebFooterNav.tsx` | **NEW** - Sticky footer for mobile web |
+| `app/layout.tsx` | Added MobileWebFooterNav to layout |
 
 ---
 
@@ -268,6 +270,8 @@ const aiLink = (
 6. `Replace animation toggle with AI link in mobile header`
 7. `Match AI link text size with language switcher in mobile header`
 8. `Increase AI text size and change to red in mobile header`
+9. `Add comprehensive session documentation for Jan 12, 2026 changes`
+10. `Add sticky footer for mobile web with scroll-expand behavior`
 
 ---
 
@@ -294,7 +298,62 @@ const aiLink = (
 - [x] Order tracking page displays Contact Support correctly
 - [x] Stripe webhooks function correctly
 - [x] Monitoring services work as expected
+- [x] Mobile web sticky footer appears on mobile browsers
+- [x] Footer expands when scrolling up
+- [x] Footer collapses when scrolling down
+- [x] Footer hidden on PWA mode (uses existing MobileFooterNav)
+
+---
+
+## Additional Changes - Session Update
+
+### 3. Mobile Web Sticky Footer Navigation
+
+**File Created**: `components/MobileWebFooterNav.tsx`
+
+**Purpose**: Sticky footer navigation for mobile web browsers (not PWA mode).
+
+**Features**:
+- Fixed position at the bottom of the screen
+- **Scroll-responsive behavior**:
+  - Normal height (70px) when idle or scrolling down
+  - Expands to larger height (90px) when scrolling up
+  - Icons and text scale proportionally
+  - Auto-collapses after 2 seconds of inactivity
+- Three navigation tabs: Home, Orders, Bag
+- Cart count badge with green highlight when items present
+- Smooth transitions (300ms duration)
+- RTL support for Arabic locale
+- Hidden on:
+  - PWA mode (uses separate `MobileFooterNav`)
+  - Desktop screens (md breakpoint and above)
+  - Product detail pages
+  - Checkout pages
+  - PDF viewer
+
+**Technical Implementation**:
+```typescript
+// Scroll detection
+const handleScroll = () => {
+  const scrollDelta = lastScrollY.current - currentScrollY
+  
+  // Scrolling up - expand
+  if (scrollDelta > 10) {
+    setIsExpanded(true)
+    // Auto-collapse after 2 seconds
+  }
+  // Scrolling down - collapse
+  else if (scrollDelta < -10) {
+    setIsExpanded(false)
+  }
+}
+```
+
+**Layout Integration**:
+- Added to `app/layout.tsx` alongside existing `MobileFooterNav`
+- Each footer handles its own visibility logic based on PWA detection
 
 ---
 
 *Documentation generated: January 12, 2026*
+*Updated: January 13, 2026*

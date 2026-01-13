@@ -25,6 +25,22 @@ export default function AddAddressPage() {
   const { locale, dir } = useTranslation()
   const { isPWA } = usePWAMode()
   const isRTL = dir === 'rtl'
+  const [isMobileWeb, setIsMobileWeb] = useState(false)
+  
+  // Detect mobile web (non-PWA mobile)
+  useEffect(() => {
+    const checkMobile = () => {
+      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) && window.innerWidth < 768
+      const isPWAMode = window.matchMedia('(display-mode: standalone)').matches || 
+                        (window.navigator as Navigator & { standalone?: boolean }).standalone === true
+      setIsMobileWeb(isMobile && !isPWAMode)
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+  
+  const isAppLikeMode = isPWA || isMobileWeb
 
   const editId = searchParams?.get('edit')
   const isEditing = !!editId
@@ -200,7 +216,7 @@ export default function AddAddressPage() {
   }
 
   return (
-    <div className={`min-h-screen bg-white ${isPWA ? 'pb-32' : ''}`} dir={dir}>
+    <div className={`min-h-screen bg-white ${isAppLikeMode ? 'pb-32' : ''}`} dir={dir}>
       {/* Header */}
       <div className={`flex items-center justify-between px-5 py-4 border-b border-gray-200 sticky top-0 bg-white z-10 ${isRTL ? 'flex-row-reverse' : ''}`}>
         <button onClick={handleCancel} className="text-base text-red-600 font-medium">

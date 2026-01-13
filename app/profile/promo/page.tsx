@@ -6,6 +6,7 @@ import { ArrowLeft, Megaphone, Loader2, RefreshCw, Bell, Check, CheckCheck } fro
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { useAuth } from '@/components/AuthProvider'
+import { usePWAMode } from '@/hooks/usePWAMode'
 import { errorLog } from '@/lib/logger'
 import { sanitizeHtml } from '@/lib/sanitizeHtml'
 
@@ -29,7 +30,24 @@ export default function PromoPage() {
   const searchParams = useSearchParams()
   const { locale, dir } = useTranslation()
   const { user } = useAuth()
+  const { isPWA } = usePWAMode()
   const isRTL = dir === 'rtl'
+  const [isMobileWeb, setIsMobileWeb] = useState(false)
+  
+  // Detect mobile web (non-PWA mobile)
+  useEffect(() => {
+    const checkMobile = () => {
+      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) && window.innerWidth < 768
+      const isPWAMode = window.matchMedia('(display-mode: standalone)').matches || 
+                        (window.navigator as Navigator & { standalone?: boolean }).standalone === true
+      setIsMobileWeb(isMobile && !isPWAMode)
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+  
+  const isAppLikeMode = isPWA || isMobileWeb
   
   const fromPage = searchParams?.get('from')
 
@@ -156,7 +174,7 @@ export default function PromoPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className={`min-h-screen bg-gray-50 ${isAppLikeMode ? 'pb-32' : ''}`}>
       {/* Simple Header */}
       <div 
         className="bg-white border-b border-gray-200 sticky top-0 z-10"

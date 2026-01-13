@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { ArrowLeft, Check, Globe } from 'lucide-react'
 import { useAuth } from '@/components/AuthProvider'
@@ -15,6 +15,22 @@ export default function LanguagePage() {
   const { locale, dir } = useTranslation()
   const { isPWA } = usePWAMode()
   const isRTL = dir === 'rtl'
+  const [isMobileWeb, setIsMobileWeb] = useState(false)
+  
+  // Detect mobile web (non-PWA mobile)
+  useEffect(() => {
+    const checkMobile = () => {
+      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) && window.innerWidth < 768
+      const isPWAMode = window.matchMedia('(display-mode: standalone)').matches || 
+                        (window.navigator as Navigator & { standalone?: boolean }).standalone === true
+      setIsMobileWeb(isMobile && !isPWAMode)
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+  
+  const isAppLikeMode = isPWA || isMobileWeb
 
   const fromPage = searchParams?.get('from')
 
@@ -65,7 +81,7 @@ export default function LanguagePage() {
   const userInitial = user?.name?.charAt(0) || user?.email?.charAt(0) || 'U'
 
   return (
-    <div className={`min-h-screen bg-gray-50 ${isPWA ? 'pb-32' : ''}`} dir={dir}>
+    <div className={`min-h-screen bg-gray-50 ${isAppLikeMode ? 'pb-32' : ''}`} dir={dir}>
       {/* Header */}
       <div className={`flex items-center justify-between px-5 py-4 bg-white border-b border-gray-200 ${isRTL ? 'flex-row-reverse' : ''}`}>
         <button 

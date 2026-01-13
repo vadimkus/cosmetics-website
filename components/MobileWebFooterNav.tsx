@@ -12,8 +12,8 @@ import { useMemo, useState, useEffect, useRef, useCallback } from 'react'
  * 
  * Features:
  * - Sticky footer with Home, Orders, Bag tabs
- * - Expands when user scrolls up
- * - Collapses to normal size when scrolling down
+ * - Icons scale up when user scrolls up (no height change)
+ * - Icons scale back when scrolling down
  * 
  * Matches the native mobile app design
  */
@@ -141,7 +141,7 @@ export default function MobileWebFooterNav() {
       const currentScrollY = window.scrollY
       const scrollDelta = lastScrollY.current - currentScrollY
       
-      // Scrolling up (negative delta means going up)
+      // Scrolling up (positive delta means going up)
       if (scrollDelta > 10) {
         setIsExpanded(true)
         
@@ -221,50 +221,43 @@ export default function MobileWebFooterNav() {
   const inactiveColor = 'text-[#8E8E93]' // gray
   const greenColor = 'text-[#10b981]' // green when items exist
   
-  // Dynamic heights
-  const normalHeight = 70
-  const expandedHeight = 90
-  const currentHeight = isExpanded ? expandedHeight : normalHeight
-  const iconSize = isExpanded ? 'w-9 h-9' : 'w-7 h-7'
-  const textSize = isExpanded ? 'text-sm' : 'text-xs'
+  // Fixed footer height - NEVER changes
+  const footerHeight = 70
   
-  // Fixed spacer height - always use expanded height + safe area buffer
-  // This prevents content overlap when footer expands
-  const spacerHeight = expandedHeight + 44 // 90px footer + 44px buffer for safe area
+  // Scale factor for icons when expanded (using CSS transform, no layout change)
+  const iconScale = isExpanded ? 'scale-110' : 'scale-100'
   
   return (
     <>
       {/* Spacer to prevent content from being hidden behind fixed footer */}
       <div 
         className="md:hidden" 
-        style={{ height: `${spacerHeight}px` }}
+        style={{ height: `${footerHeight + 44}px` }} // 70px footer + 44px safe area buffer
         aria-hidden="true" 
       />
       
-      {/* Mobile Web Footer Navigation */}
+      {/* Mobile Web Footer Navigation - Fixed height, icons scale on scroll */}
       <nav 
-        className="fixed bottom-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm md:hidden transition-all duration-300 ease-out"
+        className="fixed bottom-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm md:hidden"
         style={{ 
           paddingBottom: 'env(safe-area-inset-bottom, 0px)',
           borderTop: '0.5px solid rgba(0, 0, 0, 0.1)',
           boxShadow: isExpanded 
             ? '0 -4px 16px rgba(0, 0, 0, 0.15)' 
             : '0 -2px 8px rgba(0, 0, 0, 0.1)',
-          height: `${currentHeight}px`
+          height: `${footerHeight}px` // Fixed height - never changes
         }}
         dir={dir}
         role="navigation"
         aria-label="Mobile navigation"
       >
-        <div 
-          className="flex items-center justify-around h-full px-2 transition-all duration-300"
-        >
+        <div className="flex items-center justify-around h-full px-2">
           {/* Home Tab */}
           <button
             type="button"
             onClick={() => handleNavigation(getLocalizedPath('/products', locale))}
             disabled={!isReady || isNavigating}
-            className={`flex flex-col items-center justify-center flex-1 h-full px-2 transition-all duration-300 select-none active:scale-95 ${
+            className={`flex flex-col items-center justify-center flex-1 h-full px-2 select-none active:scale-95 ${
               activeTab === 'home' ? activeColor : inactiveColor
             } ${isNavigating ? 'opacity-70' : ''}`}
             style={{ 
@@ -273,11 +266,13 @@ export default function MobileWebFooterNav() {
             }}
             aria-current={activeTab === 'home' ? 'page' : undefined}
           >
-            <HomeIcon 
-              filled={activeTab === 'home'} 
-              className={`${iconSize} transition-all duration-300`}
-            />
-            <span className={`${textSize} mt-1 font-medium transition-all duration-300`}>
+            <div className={`transition-transform duration-200 ease-out ${iconScale}`}>
+              <HomeIcon 
+                filled={activeTab === 'home'} 
+                className="w-7 h-7"
+              />
+            </div>
+            <span className="text-xs mt-1 font-medium">
               {t('tabs.home') || 'Home'}
             </span>
           </button>
@@ -287,7 +282,7 @@ export default function MobileWebFooterNav() {
             type="button"
             onClick={() => handleNavigation(getLocalizedPath('/orders', locale))}
             disabled={!isReady || isNavigating}
-            className={`flex flex-col items-center justify-center flex-1 h-full px-2 transition-all duration-300 select-none active:scale-95 ${
+            className={`flex flex-col items-center justify-center flex-1 h-full px-2 select-none active:scale-95 ${
               activeTab === 'orders' ? activeColor : inactiveColor
             } ${isNavigating ? 'opacity-70' : ''}`}
             style={{ 
@@ -296,11 +291,13 @@ export default function MobileWebFooterNav() {
             }}
             aria-current={activeTab === 'orders' ? 'page' : undefined}
           >
-            <ListIcon 
-              filled={activeTab === 'orders'} 
-              className={`${iconSize} transition-all duration-300`}
-            />
-            <span className={`${textSize} mt-1 font-medium transition-all duration-300`}>
+            <div className={`transition-transform duration-200 ease-out ${iconScale}`}>
+              <ListIcon 
+                filled={activeTab === 'orders'} 
+                className="w-7 h-7"
+              />
+            </div>
+            <span className="text-xs mt-1 font-medium">
               {t('tabs.orders') || 'Orders'}
             </span>
           </button>
@@ -310,7 +307,7 @@ export default function MobileWebFooterNav() {
             type="button"
             onClick={() => handleNavigation(getLocalizedPath('/cart', locale))}
             disabled={!isReady || isNavigating}
-            className={`flex flex-col items-center justify-center flex-1 h-full px-2 transition-all duration-300 select-none active:scale-95 ${
+            className={`flex flex-col items-center justify-center flex-1 h-full px-2 select-none active:scale-95 ${
               hasItemsInCart 
                 ? greenColor 
                 : activeTab === 'bag' 
@@ -323,24 +320,22 @@ export default function MobileWebFooterNav() {
             }}
             aria-current={activeTab === 'bag' ? 'page' : undefined}
           >
-            <div className="relative">
+            <div className={`relative transition-transform duration-200 ease-out ${iconScale}`}>
               <BagIcon 
                 filled={activeTab === 'bag' || hasItemsInCart} 
-                className={`${iconSize} transition-all duration-300`}
+                className="w-7 h-7"
               />
               {/* Badge for cart count */}
               {hasItemsInCart && (
                 <span 
-                  className={`absolute -top-1.5 -right-2.5 bg-[#dc2626] text-white font-semibold rounded-full flex items-center justify-center border-2 border-white transition-all duration-300 ${
-                    isExpanded ? 'text-xs min-w-[20px] h-[20px]' : 'text-[10px] min-w-[18px] h-[18px]'
-                  }`}
+                  className="absolute -top-1.5 -right-2.5 bg-[#dc2626] text-white text-[10px] font-semibold rounded-full min-w-[18px] h-[18px] flex items-center justify-center border-2 border-white"
                   aria-label={`${cartCount} items in cart`}
                 >
                   {cartCount > 99 ? '99+' : cartCount}
                 </span>
               )}
             </div>
-            <span className={`${textSize} mt-1 font-medium transition-all duration-300`}>
+            <span className="text-xs mt-1 font-medium">
               {t('tabs.bag') || 'Bag'}
             </span>
           </button>

@@ -6,11 +6,12 @@ import { Star, ShoppingCart, Minus, Plus, Heart, Lock, MessageCircle, AlertTrian
 import { Product } from '@/types'
 import { useCart } from '@/components/CartProvider'
 import { useFavorites } from '@/components/FavoritesProvider'
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import { calculateDiscountedPrice, canUserSeePrices } from '@/lib/discountUtils'
 import { errorLog } from '@/lib/logger'
 import { useTranslation } from '@/hooks/useTranslation'
 import { translateSize } from '@/utils/sizeTranslations'
+import { usePWAMode } from '@/hooks/usePWAMode'
 
 interface ProductInfoProps {
   product: Product
@@ -30,9 +31,22 @@ export default function ProductInfo({
   const { user } = useAuth()
   const router = useRouter()
   const { t, locale } = useTranslation()
+  const { isPWA } = usePWAMode()
   const { addItem } = useCart()
   const { toggleFavorite, isFavorite } = useFavorites()
   const [isAdding, setIsAdding] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
+  
+  // Detect mobile for "Add to Bag" text
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768)
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+  
+  // Use "Add to Bag" for PWA and mobile web
+  const useBagText = isPWA || isMobile
 
   const getPriceForSize = useCallback((size: string) => {
     if (product.id === '1') {
@@ -351,7 +365,7 @@ export default function ProductInfo({
             ) : (
               <>
                 <ShoppingCart className="h-5 w-5" aria-hidden="true" />
-                {t('product.addToCart')}
+                {useBagText ? t('product.addToBag') : t('product.addToCart')}
               </>
             )}
           </button>

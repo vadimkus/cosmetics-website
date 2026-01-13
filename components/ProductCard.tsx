@@ -5,7 +5,7 @@ import { useCart } from './CartProvider'
 import { useFavorites } from './FavoritesProvider'
 import { useAuth } from './AuthProvider'
 import { ShoppingCart, Heart, Lock, User, MessageCircle } from 'lucide-react'
-import { useState, memo, useCallback } from 'react'
+import { useState, memo, useCallback, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
@@ -44,6 +44,18 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
   const [isTogglingFavorite, setIsTogglingFavorite] = useState(false)
   const [showLoginModal, setShowLoginModal] = useState(false)
   const [isLoginMode, setIsLoginMode] = useState(true)
+  const [isMobile, setIsMobile] = useState(false)
+  
+  // Detect mobile for "Add to Bag" text
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768)
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+  
+  // Use "Add to Bag" for PWA and mobile web
+  const useBagText = isPWA || isMobile
   
   // Get translation for description if available
   // Use productNumber for translations (translations are keyed by productNumber, not UUID)
@@ -367,7 +379,7 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
               type="button"
               onClick={handleAddToCart}
               disabled={!product.inStock || isAdding}
-              aria-label={isAdding ? t('product.adding') : (isPWA ? t('product.addToBag') : t('product.addToCart'))}
+              aria-label={isAdding ? t('product.adding') : (useBagText ? t('product.addToBag') : t('product.addToCart'))}
               className={`flex items-center justify-center gap-1.5 md:gap-2 px-2 md:px-3 py-1.5 md:py-2.5 rounded-lg font-medium transition-colors w-full min-h-[36px] md:min-h-[40px] text-[10px] md:text-xs active:scale-[0.98] ${
                 product.inStock && !isAdding
                   ? 'bg-primary-600 text-white hover:bg-primary-700'
@@ -377,7 +389,7 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
             >
               <ShoppingCart className="h-3 w-3 md:h-3.5 md:w-3.5" aria-hidden="true" />
               <span>
-                {isAdding ? t('product.adding') : (isPWA ? t('product.addToBag') : t('product.addToCart'))}
+                {isAdding ? t('product.adding') : (useBagText ? t('product.addToBag') : t('product.addToCart'))}
               </span>
             </button>
           )}

@@ -13,6 +13,7 @@ import { errorLog } from '@/lib/logger'
 import { useTranslation } from '@/hooks/useTranslation'
 import { translateSize } from '@/utils/sizeTranslations'
 import { sanitizeHtml } from '@/lib/sanitize'
+import { usePWAMode } from '@/hooks/usePWAMode'
 
 interface ProductRecommendationProps {
   recommendedProductId: string
@@ -25,10 +26,23 @@ export default function ProductRecommendation({
 }: ProductRecommendationProps) {
   const [recommendedProduct, setRecommendedProduct] = useState<Product | null>(null)
   const [loading, setLoading] = useState(true)
+  const [isMobile, setIsMobile] = useState(false)
   const { addItem } = useCart()
   const { user } = useAuth()
   const router = useRouter()
   const { t, dir, locale } = useTranslation()
+  const { isPWA } = usePWAMode()
+  
+  // Detect mobile for "Add to Bag" text
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768)
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+  
+  // Use "Add to Bag" for PWA and mobile web
+  const useBagText = isPWA || isMobile
 
   useEffect(() => {
     async function fetchRecommendedProduct() {
@@ -520,7 +534,7 @@ export default function ProductRecommendation({
                 style={{ flexDirection: dir === 'rtl' ? 'row-reverse' : 'row' }}
               >
                 <ShoppingCart className="h-2.5 w-2.5 lg:h-3 lg:w-3 flex-shrink-0" />
-                {t('product.addToCart')}
+                {useBagText ? t('product.addToBag') : t('product.addToCart')}
               </button>
             )}
           </div>

@@ -2,8 +2,9 @@
 
 import { User } from '@/types/user'
 import { ShoppingCart, Heart, Minus, Plus, MessageCircle } from 'lucide-react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useTranslation } from '@/hooks/useTranslation'
+import { usePWAMode } from '@/hooks/usePWAMode'
 
 interface ProductQuantityCartProps {
   user: User | null
@@ -25,8 +26,21 @@ export default function ProductQuantityCart({
   productName = ''
 }: ProductQuantityCartProps) {
   const { t, dir } = useTranslation()
+  const { isPWA } = usePWAMode()
   const [quantity, setQuantity] = useState(1)
   const [isAdding, setIsAdding] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
+  
+  // Detect mobile for "Add to Bag" text
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768)
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+  
+  // Use "Add to Bag" for PWA and mobile web
+  const useBagText = isPWA || isMobile
 
   const handleIncrease = () => setQuantity(prev => prev + 1)
   const handleDecrease = () => setQuantity(prev => (prev > 1 ? prev - 1 : 1))
@@ -110,7 +124,7 @@ export default function ProductQuantityCart({
           }`}
         >
           <ShoppingCart className="h-4 w-4 md:h-5 md:w-5" />
-          {!inStock ? t('product.outOfStock') : isAdding ? t('product.adding') : t('product.addToCart')}
+          {!inStock ? t('product.outOfStock') : isAdding ? t('product.adding') : (useBagText ? t('product.addToBag') : t('product.addToCart'))}
         </button>
         
         <button

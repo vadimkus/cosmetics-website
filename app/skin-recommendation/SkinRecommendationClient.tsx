@@ -28,6 +28,21 @@ export default function SkinRecommendationClient() {
   const { isPWA, isClient } = usePWAMode()
   const searchParams = useSearchParams()
   const router = useRouter()
+  const [isMobileWeb, setIsMobileWeb] = useState(false)
+  
+  // Detect mobile web (non-PWA mobile)
+  useEffect(() => {
+    const checkMobileWeb = () => {
+      const isMobile = window.innerWidth < 768
+      setIsMobileWeb(isMobile && !isPWA)
+    }
+    checkMobileWeb()
+    window.addEventListener('resize', checkMobileWeb)
+    return () => window.removeEventListener('resize', checkMobileWeb)
+  }, [isPWA])
+  
+  // App-like mode: PWA or mobile web
+  const isAppLikeMode = (isPWA && isClient) || isMobileWeb
   
   const [selectedSkinType, setSelectedSkinType] = useState('')
   const [selectedAgeGroup, setSelectedAgeGroup] = useState('')
@@ -353,7 +368,7 @@ export default function SkinRecommendationClient() {
   const isRTL = dir === 'rtl'
 
   return (
-    <div className={`min-h-screen bg-gradient-to-b from-gray-50 to-white ${isPWA ? 'pb-32' : ''}`} dir={dir} data-pwa-light-header-page>
+    <div className={`min-h-screen bg-gradient-to-b from-gray-50 to-white ${isAppLikeMode ? 'pb-32' : ''}`} dir={dir} data-pwa-light-header-page>
       <BreadcrumbSchema 
         items={[
           { name: t('common.home'), url: getLocalizedPath('/', locale) },
@@ -361,18 +376,18 @@ export default function SkinRecommendationClient() {
         ]}
       />
 
-      {/* PWA Simple Navigation Header */}
-      {isPWA && isClient && (
+      {/* PWA/Mobile Web Simple Navigation Header */}
+      {isAppLikeMode && (
         <div className={`flex items-center justify-between px-5 py-4 bg-white border-b border-gray-100 ${isRTL ? 'flex-row-reverse' : ''}`}>
           <button 
-            onClick={() => router.push(getLocalizedPath('/profile', locale))}
+            onClick={() => router.push(getLocalizedPath('/products', locale))}
             className={`flex items-center gap-1 min-w-[80px] ${isRTL ? 'flex-row-reverse' : ''}`}
           >
             <svg className={`w-5 h-5 text-red-600 ${isRTL ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
             <span className="text-base text-red-600">
-              {t('pwaProfile.account') || 'Account'}
+              {t('common.home') || 'Home'}
             </span>
           </button>
           <span className="text-base font-semibold text-gray-900">
@@ -396,10 +411,10 @@ export default function SkinRecommendationClient() {
         </div>
       )}
 
-      <div className={`container mx-auto px-3 md:px-4 ${isPWA ? 'py-4' : 'py-4 md:py-16'}`}>
+      <div className={`container mx-auto px-3 md:px-4 ${isAppLikeMode ? 'py-4' : 'py-4 md:py-16'}`}>
         <div className="max-w-5xl mx-auto">
-          {/* Navigation Breadcrumb - Hide in PWA */}
-          {!isPWA && (
+          {/* Navigation Breadcrumb - Hide in PWA/Mobile Web */}
+          {!isAppLikeMode && (
             <nav className={`text-xs md:text-base text-gray-600 mb-2 md:mb-4 ${dir === 'rtl' ? 'text-right' : ''}`} aria-label="Breadcrumb">
               <Link href={getLocalizedPath('/', locale)} className="hover:text-primary-600 transition-colors">{t('common.home')}</Link>
               <span> / </span>
@@ -407,8 +422,8 @@ export default function SkinRecommendationClient() {
             </nav>
           )}
           
-          {/* Back to Home - Hide in PWA */}
-          {!isPWA && (
+          {/* Back to Home - Hide in PWA/Mobile Web */}
+          {!isAppLikeMode && (
             <Link href={getLocalizedPath('/', locale)} className={`inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 mb-4 md:mb-8 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
               <ArrowLeft className={`h-3 w-3 md:h-4 md:w-4 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
               <span>{t('common.backToHome')}</span>

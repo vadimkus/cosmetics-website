@@ -14,6 +14,13 @@ import { usePWAMode } from '@/hooks/usePWAMode'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useAuth } from '@/components/AuthProvider'
 
+// Mobile device detection
+function isMobileDevice(): boolean {
+  if (typeof window === 'undefined') return false
+  const ua = navigator.userAgent || ''
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua) || window.innerWidth < 768
+}
+
 export default function FavoritesClient() {
   const { t, locale, dir } = useTranslation()
   const { favorites } = useFavorites()
@@ -24,9 +31,21 @@ export default function FavoritesClient() {
   const { user } = useAuth()
   const favoriteProducts = favorites
   const [isPulsing, setIsPulsing] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
 
   const isRTL = dir === 'rtl'
   const fromProfile = searchParams?.get('from') === 'profile'
+  
+  // Mobile web detection
+  useEffect(() => {
+    setIsMobile(isMobileDevice())
+    const handleResize = () => setIsMobile(isMobileDevice())
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+  
+  // App-like mode: PWA or mobile web
+  const isAppLikeMode = isPWA || (isClient && isMobile && !isPWA)
 
   // Disable animations in PWA mode
   const shouldAnimate = animationsEnabled && !(isClient && isPWA)
@@ -48,9 +67,9 @@ export default function FavoritesClient() {
 
   if (favorites.length === 0) {
     return (
-      <div className={`${isPWA ? 'min-h-screen bg-gray-50 pb-32' : ''}`} dir={dir}>
-        {/* PWA Simple Navigation Header */}
-        {isPWA && (
+      <div className={`${isAppLikeMode ? 'min-h-screen bg-gray-50 pb-32' : ''}`} dir={dir}>
+        {/* PWA/Mobile Web Simple Navigation Header */}
+        {isAppLikeMode && (
           <div className={`flex items-center justify-between px-5 py-4 bg-white ${isRTL ? 'flex-row-reverse' : ''}`}>
             <button 
               onClick={() => router.push(getLocalizedPath(fromProfile ? '/profile' : '/products', locale))}
@@ -86,8 +105,8 @@ export default function FavoritesClient() {
         )}
         
         <div className="container mx-auto px-3 md:px-4 py-4 md:py-16">
-          {/* Navigation Breadcrumb - Hide in PWA */}
-          {!isPWA && (
+          {/* Navigation Breadcrumb - Hide in PWA/Mobile Web */}
+          {!isAppLikeMode && (
             <nav className={`text-xs md:text-base text-gray-600 mb-2 md:mb-4 ${dir === 'rtl' ? 'text-right' : ''}`} aria-label="Breadcrumb">
               <Link href={getLocalizedPath('/', locale)} className="hover:text-primary-600 transition-colors">{t('common.home')}</Link>
               <span> / </span>
@@ -95,8 +114,8 @@ export default function FavoritesClient() {
             </nav>
           )}
           
-          {/* Back to Home - Hide in PWA */}
-          {!isPWA && (
+          {/* Back to Home - Hide in PWA/Mobile Web */}
+          {!isAppLikeMode && (
             <Link href={getLocalizedPath('/', locale)} className={`inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 mb-4 md:mb-8 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
               <ArrowLeft className={`h-3 w-3 md:h-4 md:w-4 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
               <span>{t('common.backToHome')}</span>
@@ -194,9 +213,9 @@ export default function FavoritesClient() {
   }
 
   return (
-    <div className={`${isPWA ? 'min-h-screen bg-gray-50 pb-32' : ''}`} dir={dir}>
-      {/* PWA Simple Navigation Header */}
-      {isPWA && (
+    <div className={`${isAppLikeMode ? 'min-h-screen bg-gray-50 pb-32' : ''}`} dir={dir}>
+      {/* PWA/Mobile Web Simple Navigation Header */}
+      {isAppLikeMode && (
         <div className={`flex items-center justify-between px-5 py-4 bg-white ${isRTL ? 'flex-row-reverse' : ''}`}>
           <button 
             onClick={() => router.push(getLocalizedPath(fromProfile ? '/profile' : '/products', locale))}
@@ -232,8 +251,8 @@ export default function FavoritesClient() {
       )}
       
       <div className="container mx-auto px-3 md:px-4 py-4 md:py-16">
-        {/* Navigation Breadcrumb - Hide in PWA */}
-        {!isPWA && (
+        {/* Navigation Breadcrumb - Hide in PWA/Mobile Web */}
+        {!isAppLikeMode && (
           <nav className={`text-xs md:text-base text-gray-600 mb-2 md:mb-4 ${dir === 'rtl' ? 'text-right' : ''}`} aria-label="Breadcrumb">
             <Link href={getLocalizedPath('/', locale)} className="hover:text-primary-600 transition-colors">{t('common.home')}</Link>
             <span> / </span>
@@ -241,8 +260,8 @@ export default function FavoritesClient() {
           </nav>
         )}
         
-        {/* Back to Home - Hide in PWA */}
-        {!isPWA && (
+        {/* Back to Home - Hide in PWA/Mobile Web */}
+        {!isAppLikeMode && (
           <Link href={getLocalizedPath('/', locale)} className={`inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 mb-4 md:mb-8 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
             <ArrowLeft className={`h-3 w-3 md:h-4 md:w-4 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
             <span>{t('common.backToHome')}</span>
@@ -250,8 +269,8 @@ export default function FavoritesClient() {
         )}
 
         <div className="max-w-6xl mx-auto">
-          {/* PWA Title Section */}
-          {isPWA && (
+          {/* PWA/Mobile Web Title Section */}
+          {isAppLikeMode && (
             <div className="px-0 pt-2 pb-4">
               <div className={`flex items-center gap-2.5 ${isRTL ? 'flex-row-reverse' : ''}`}>
                 <div className="w-10 h-10 bg-red-50 rounded-xl flex items-center justify-center">
@@ -269,8 +288,8 @@ export default function FavoritesClient() {
             </div>
           )}
 
-          {/* Desktop Title */}
-          {!isPWA && (
+          {/* Desktop Title - Hide in PWA/Mobile Web */}
+          {!isAppLikeMode && (
             <div className="mb-4 md:mb-8">
               <h1 className="text-xl md:text-3xl font-bold text-gray-900 mb-2 md:mb-4 flex items-center gap-2">
                 <Heart className={`h-6 w-6 md:h-8 md:w-8 text-red-500 transition-all duration-500 ${isPulsing && shouldAnimate ? 'animate-pulse scale-110' : ''}`} />

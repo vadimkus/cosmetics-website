@@ -2,8 +2,7 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { ShoppingCart, Heart, Menu } from 'lucide-react'
-import { useCartStore } from '@/lib/cartStore'
+import { Heart, Menu } from 'lucide-react'
 import { useAuth } from './AuthProvider'
 import { useFavorites } from './FavoritesProvider'
 import LanguageSwitcher from './LanguageSwitcher'
@@ -18,7 +17,6 @@ interface HeaderRussianMobileProps {
 }
 
 export default function HeaderRussianMobile({ showMobileMenu, setShowMobileMenu }: HeaderRussianMobileProps) {
-  const { getTotalItems } = useCartStore()
   const { favorites } = useFavorites()
   const { t } = useTranslation()
   const [isClient, setIsClient] = useState(false)
@@ -52,18 +50,6 @@ export default function HeaderRussianMobile({ showMobileMenu, setShowMobileMenu 
           {isClient && favorites.length > 0 && (
             <span className="absolute top-0 right-0 bg-primary-600 text-white text-[9px] rounded-full h-3.5 w-3.5 flex items-center justify-center header-badge" aria-hidden="true">
               {favorites.length}
-            </span>
-          )}
-        </Link>
-        <Link 
-          href={getLocalizedPath('/cart', 'ru')} 
-          className="relative p-1.5 text-gray-700 hover:text-primary-600 transition-colors flex items-center justify-center ml-2"
-          aria-label={`${t('common.cart')} с ${isClient ? getTotalItems() : 0} товарами`}
-        >
-          <ShoppingCart className={`h-4 w-4 transition-colors ${isClient && getTotalItems() > 0 ? 'text-green-600' : ''}`} aria-hidden="true" />
-          {isClient && getTotalItems() > 0 && (
-            <span className="absolute top-0 right-0 bg-primary-600 text-white text-[9px] rounded-full h-3.5 w-3.5 flex items-center justify-center header-badge" aria-hidden="true">
-              {getTotalItems()}
             </span>
           )}
         </Link>

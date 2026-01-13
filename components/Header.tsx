@@ -114,7 +114,6 @@ const Header = memo(function Header() {
             <HeaderMobileIcons
               isRTL={isRTL}
               isClient={isClient}
-              isPWA={isPWA}
               showMobileMenu={showMobileMenu}
               setShowMobileMenu={setShowMobileMenu}
             />

@@ -255,46 +255,9 @@ html[dir="rtl"] {
   }
 }
 
-/* Mobile footer navigation - rendered via portal directly to body */
-#mobile-footer-nav,
-.mobile-footer-nav {
-  position: fixed !important;
-  bottom: 0 !important;
-  left: 0 !important;
-  right: 0 !important;
-  width: 100% !important;
-  height: 70px !important;
-  min-height: 70px !important;
-  max-height: 70px !important;
-  background: #ffffff !important;
-  background-color: #ffffff !important;
-  border-top: 1px solid #e5e7eb !important;
-  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15) !important;
-  z-index: 2147483647 !important; /* Max 32-bit integer */
-  padding-bottom: env(safe-area-inset-bottom, 0px) !important;
-  overflow: visible !important;
-  pointer-events: auto !important;
-  visibility: visible !important;
-  opacity: 1 !important;
-  display: block !important;
-}
-
-/* Hide on desktop */
+/* Mobile footer - hide on desktop only (styles are inline in component) */
 @media (min-width: 768px) {
-  #mobile-footer-nav,
-  .mobile-footer-nav {
+  nav[aria-label="Mobile navigation"] {
     display: none !important;
-    visibility: hidden !important;
-  }
-}
-
-/* Body padding when footer is present */
-body.has-mobile-footer {
-  padding-bottom: 120px !important; /* Extra large padding to ensure no overlap */
-}
-
-@media (max-width: 767px) {
-  body.has-mobile-footer {
-    padding-bottom: 120px !important;
   }
 }

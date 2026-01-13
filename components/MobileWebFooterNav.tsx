@@ -9,13 +9,13 @@ import { usePWAMode } from '@/hooks/usePWAMode'
 import { useMemo, useState, useEffect, useRef, useCallback } from 'react'
 
 /**
- * Mobile Web Footer Navigation - Mobile Browser Only (Not PWA)
- * Uses React Portal to render directly to body for proper stacking
+ * Mobile Web Footer Navigation
+ * Uses inline styles only for Chrome iOS compatibility
  */
 
-// Custom SVG Icons
-const HomeIcon = ({ filled, className }: { filled?: boolean; className?: string }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className={className}
+const HomeIcon = ({ filled, color }: { filled?: boolean; color: string }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" 
+    style={{ width: 28, height: 28, color }}
     fill={filled ? 'currentColor' : 'none'} stroke="currentColor" 
     strokeWidth={filled ? 0 : 1.5} strokeLinecap="round" strokeLinejoin="round">
     {filled ? (
@@ -26,8 +26,9 @@ const HomeIcon = ({ filled, className }: { filled?: boolean; className?: string 
   </svg>
 )
 
-const ListIcon = ({ filled, className }: { filled?: boolean; className?: string }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className={className}
+const ListIcon = ({ filled, color }: { filled?: boolean; color: string }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+    style={{ width: 28, height: 28, color }}
     fill="none" stroke="currentColor" strokeWidth={filled ? 2.5 : 1.5} 
     strokeLinecap="round" strokeLinejoin="round">
     <line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/>
@@ -36,8 +37,9 @@ const ListIcon = ({ filled, className }: { filled?: boolean; className?: string 
   </svg>
 )
 
-const BagIcon = ({ filled, className }: { filled?: boolean; className?: string }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className={className}
+const BagIcon = ({ filled, color }: { filled?: boolean; color: string }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+    style={{ width: 28, height: 28, color }}
     fill={filled ? 'currentColor' : 'none'} stroke="currentColor" 
     strokeWidth={filled ? 0 : 1.5} strokeLinecap="round" strokeLinejoin="round">
     {filled ? (
@@ -53,9 +55,48 @@ const BagIcon = ({ filled, className }: { filled?: boolean; className?: string }
 
 function isMobileDevice(): boolean {
   if (typeof window === 'undefined') return false
-  const userAgent = navigator.userAgent || ''
-  const mobileRegex = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i
-  return mobileRegex.test(userAgent) || window.innerWidth <= 768
+  const ua = navigator.userAgent || ''
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua) || window.innerWidth <= 768
+}
+
+// Fixed styles - all inline to avoid CSS specificity issues
+const FOOTER_STYLES: React.CSSProperties = {
+  position: 'fixed',
+  bottom: 0,
+  left: 0,
+  right: 0,
+  width: '100%',
+  height: 70,
+  minHeight: 70,
+  maxHeight: 70,
+  backgroundColor: '#ffffff',
+  background: '#ffffff',
+  borderTop: '1px solid #e5e7eb',
+  boxShadow: '0 -4px 20px rgba(0, 0, 0, 0.15)',
+  zIndex: 2147483647,
+  paddingBottom: 'env(safe-area-inset-bottom, 0px)',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-around',
+  overflow: 'hidden',
+  WebkitTransform: 'translate3d(0,0,0)',
+  transform: 'translate3d(0,0,0)',
+}
+
+const BUTTON_STYLES: React.CSSProperties = {
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+  flex: 1,
+  height: '100%',
+  padding: '8px',
+  background: 'transparent',
+  backgroundColor: 'transparent',
+  border: 'none',
+  cursor: 'pointer',
+  WebkitTapHighlightColor: 'transparent',
+  touchAction: 'manipulation',
 }
 
 export default function MobileWebFooterNav() {
@@ -73,29 +114,24 @@ export default function MobileWebFooterNav() {
   useEffect(() => {
     setMounted(true)
     setIsMobile(isMobileDevice())
-    
     const handleResize = () => setIsMobile(isMobileDevice())
     window.addEventListener('resize', handleResize)
-    
-    // Add class to body
-    if (isMobileDevice() && !isPWA) {
-      document.body.classList.add('has-mobile-footer')
-    }
-    
-    return () => {
-      window.removeEventListener('resize', handleResize)
-      document.body.classList.remove('has-mobile-footer')
-    }
-  }, [isPWA])
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+  
+  // Add body padding
+  useEffect(() => {
+    if (!isClient || isPWA || !isMobile) return
+    document.body.style.paddingBottom = '120px'
+    return () => { document.body.style.paddingBottom = '' }
+  }, [isClient, isPWA, isMobile])
   
   useEffect(() => {
     const timer = setTimeout(() => setIsReady(true), 100)
     return () => clearTimeout(timer)
   }, [])
   
-  useEffect(() => {
-    setIsNavigating(false)
-  }, [pathname])
+  useEffect(() => { setIsNavigating(false) }, [pathname])
   
   const locale = useMemo(() => getLocaleFromPath(pathname || '/'), [pathname])
   
@@ -107,97 +143,66 @@ export default function MobileWebFooterNav() {
     router.push(path)
   }, [router, isNavigating, isReady])
   
-  const shouldHideFooter = useMemo(() => {
+  const shouldHide = useMemo(() => {
     if (!pathname) return false
-    const productDetailPattern = /\/products\/[a-zA-Z0-9_-]+$/
-    return productDetailPattern.test(pathname) || 
-           pathname.includes('/checkout') ||
-           pathname.includes('/pdf-viewer') ||
-           pathname.includes('/pwa-login')
+    return /\/products\/[a-zA-Z0-9_-]+$/.test(pathname) || 
+           pathname.includes('/checkout') || pathname.includes('/pdf-viewer') || pathname.includes('/pwa-login')
   }, [pathname])
 
   const activeTab = useMemo(() => {
     if (!pathname) return 'home'
-    const path = pathname.toLowerCase()
-    if (path.includes('/cart') || path.includes('/checkout')) return 'bag'
-    if (path.includes('/orders')) return 'orders'
-    if (path.includes('/products') || path === '/' || path === '/en' || path === '/ar' || path === '/ru') return 'home'
+    const p = pathname.toLowerCase()
+    if (p.includes('/cart') || p.includes('/checkout')) return 'bag'
+    if (p.includes('/orders')) return 'orders'
     return 'home'
   }, [pathname])
   
   const cartCount = isClient ? getTotalItems() : 0
-  const hasItemsInCart = cartCount > 0
+  const hasItems = cartCount > 0
   
-  // Don't render conditions
-  if (!isClient || !mounted || isPWA || !isMobile || shouldHideFooter) {
-    return null
+  if (!isClient || !mounted || isPWA || !isMobile || shouldHide) return null
+  
+  const RED = '#dc2626'
+  const GRAY = '#8E8E93'
+  const GREEN = '#10b981'
+  
+  const getColor = (tab: string) => {
+    if (tab === 'bag' && hasItems) return GREEN
+    if (activeTab === tab) return RED
+    return GRAY
   }
-  
-  const activeColor = 'text-[#dc2626]'
-  const inactiveColor = 'text-[#8E8E93]'
-  const greenColor = 'text-[#10b981]'
-  
-  const footerContent = (
-    <nav 
-      id="mobile-footer-nav"
-      className="mobile-footer-nav"
-      dir={dir}
-      role="navigation"
-      aria-label="Mobile navigation"
-    >
-      <div className="flex items-center justify-around h-full px-2 bg-white">
-        <button
-          type="button"
-          onClick={() => handleNavigation(getLocalizedPath('/products', locale))}
-          disabled={!isReady || isNavigating}
-          className={`flex flex-col items-center justify-center flex-1 h-full px-2 select-none active:scale-95 bg-white ${
-            activeTab === 'home' ? activeColor : inactiveColor
-          } ${isNavigating ? 'opacity-70' : ''}`}
-          style={{ WebkitTapHighlightColor: 'transparent', touchAction: 'manipulation' }}
-          aria-current={activeTab === 'home' ? 'page' : undefined}
-        >
-          <HomeIcon filled={activeTab === 'home'} className="w-7 h-7"/>
-          <span className="text-xs mt-1 font-medium">{t('tabs.home') || 'Home'}</span>
-        </button>
 
-        <button
-          type="button"
-          onClick={() => handleNavigation(getLocalizedPath('/orders', locale))}
-          disabled={!isReady || isNavigating}
-          className={`flex flex-col items-center justify-center flex-1 h-full px-2 select-none active:scale-95 bg-white ${
-            activeTab === 'orders' ? activeColor : inactiveColor
-          } ${isNavigating ? 'opacity-70' : ''}`}
-          style={{ WebkitTapHighlightColor: 'transparent', touchAction: 'manipulation' }}
-          aria-current={activeTab === 'orders' ? 'page' : undefined}
-        >
-          <ListIcon filled={activeTab === 'orders'} className="w-7 h-7"/>
-          <span className="text-xs mt-1 font-medium">{t('tabs.orders') || 'Orders'}</span>
-        </button>
+  const footer = (
+    <nav style={FOOTER_STYLES} dir={dir} role="navigation" aria-label="Mobile navigation">
+      <button style={BUTTON_STYLES} onClick={() => handleNavigation(getLocalizedPath('/products', locale))} disabled={!isReady || isNavigating}>
+        <HomeIcon filled={activeTab === 'home'} color={getColor('home')} />
+        <span style={{ fontSize: 12, marginTop: 4, fontWeight: 500, color: getColor('home') }}>{t('tabs.home') || 'Home'}</span>
+      </button>
 
-        <button
-          type="button"
-          onClick={() => handleNavigation(getLocalizedPath('/cart', locale))}
-          disabled={!isReady || isNavigating}
-          className={`flex flex-col items-center justify-center flex-1 h-full px-2 select-none active:scale-95 bg-white ${
-            hasItemsInCart ? greenColor : activeTab === 'bag' ? activeColor : inactiveColor
-          } ${isNavigating ? 'opacity-70' : ''}`}
-          style={{ WebkitTapHighlightColor: 'transparent', touchAction: 'manipulation' }}
-          aria-current={activeTab === 'bag' ? 'page' : undefined}
-        >
-          <div className="relative">
-            <BagIcon filled={activeTab === 'bag' || hasItemsInCart} className="w-7 h-7"/>
-            {hasItemsInCart && (
-              <span className="absolute -top-1.5 -right-2.5 bg-[#dc2626] text-white text-[10px] font-semibold rounded-full min-w-[18px] h-[18px] flex items-center justify-center border-2 border-white">
-                {cartCount > 99 ? '99+' : cartCount}
-              </span>
-            )}
-          </div>
-          <span className="text-xs mt-1 font-medium">{t('tabs.bag') || 'Bag'}</span>
-        </button>
-      </div>
+      <button style={BUTTON_STYLES} onClick={() => handleNavigation(getLocalizedPath('/orders', locale))} disabled={!isReady || isNavigating}>
+        <ListIcon filled={activeTab === 'orders'} color={getColor('orders')} />
+        <span style={{ fontSize: 12, marginTop: 4, fontWeight: 500, color: getColor('orders') }}>{t('tabs.orders') || 'Orders'}</span>
+      </button>
+
+      <button style={BUTTON_STYLES} onClick={() => handleNavigation(getLocalizedPath('/cart', locale))} disabled={!isReady || isNavigating}>
+        <div style={{ position: 'relative' }}>
+          <BagIcon filled={activeTab === 'bag' || hasItems} color={getColor('bag')} />
+          {hasItems && (
+            <span style={{
+              position: 'absolute', top: -6, right: -10,
+              backgroundColor: RED, color: 'white', fontSize: 10, fontWeight: 600,
+              borderRadius: '50%', minWidth: 18, height: 18,
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              border: '2px solid white'
+            }}>
+              {cartCount > 99 ? '99+' : cartCount}
+            </span>
+          )}
+        </div>
+        <span style={{ fontSize: 12, marginTop: 4, fontWeight: 500, color: getColor('bag') }}>{t('tabs.bag') || 'Bag'}</span>
+      </button>
     </nav>
   )
 
-  // Use portal to render directly to body for proper z-index stacking
-  return createPortal(footerContent, document.body)
+  return createPortal(footer, document.body)
 }

@@ -24,6 +24,21 @@ function SuccessContent() {
   const orderId = searchParams.get('order_id')
   const paymentMethod = searchParams.get('payment')
   const [showConfetti, setShowConfetti] = useState(false)
+  const [isMobileWeb, setIsMobileWeb] = useState(false)
+  
+  // Detect mobile web (non-PWA mobile)
+  useEffect(() => {
+    const checkMobileWeb = () => {
+      const isMobile = window.innerWidth < 768
+      setIsMobileWeb(isMobile && !isPWA)
+    }
+    checkMobileWeb()
+    window.addEventListener('resize', checkMobileWeb)
+    return () => window.removeEventListener('resize', checkMobileWeb)
+  }, [isPWA])
+  
+  // App-like mode: PWA or mobile web
+  const isAppLikeMode = (isPWAClient && isPWA) || isMobileWeb
 
   // Trigger celebration haptic on order success
   useEffect(() => {
@@ -84,8 +99,8 @@ function SuccessContent() {
         colors={['#dc2626', '#ffffff', '#fbbf24', '#f97316', '#10b981']}
       />
 
-      {/* PWA Light Header */}
-      {isPWAClient && isPWA && (
+      {/* PWA/Mobile Web Light Header */}
+      {isAppLikeMode && (
         <div className="sticky top-0 z-40 bg-white border-b border-gray-100 px-4 py-3 safe-area-top">
           <div className={`flex items-center justify-between ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
             {/* Back Button */}
@@ -117,8 +132,8 @@ function SuccessContent() {
       )}
 
       <div className="container mx-auto px-3 md:px-4 py-3 md:py-8 lg:py-16 pb-16 md:pb-16" style={{ paddingBottom: 'max(4rem, calc(4rem + env(safe-area-inset-bottom, 0px)))' }}>
-        {/* Navigation Breadcrumb - Hide in PWA */}
-        {!(isPWAClient && isPWA) && (
+        {/* Navigation Breadcrumb - Hide in PWA/Mobile Web */}
+        {!isAppLikeMode && (
           <div className={`${dir === 'rtl' ? 'flex justify-end' : ''}`}>
             <nav className={`text-xs md:text-base text-gray-600 mb-1.5 md:mb-4 ${dir === 'rtl' ? 'text-right' : ''}`} aria-label="Breadcrumb">
               <Link href={getLocalizedPath('/', locale)} className="hover:text-primary-600 transition-colors">
@@ -132,8 +147,8 @@ function SuccessContent() {
           </div>
         )}
         
-        {/* Back to Products - Hide in PWA */}
-        {!(isPWAClient && isPWA) && (
+        {/* Back to Products - Hide in PWA/Mobile Web */}
+        {!isAppLikeMode && (
           <div className={`mb-4 md:mb-8 ${dir === 'rtl' ? 'flex justify-end' : ''}`}>
             <Link 
               href={getLocalizedPath('/products', locale)} 

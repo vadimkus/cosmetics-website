@@ -322,7 +322,7 @@
     "vat": "ضريبة القيمة المضافة (5%):",
     "totalLabel": "الإجمالي:",
     "officialDistributor": "الموزع الرسمي في الإمارات",
-    "copyright": "© 2025 شركة GENOSYS الشرق الأوسط FZ-LLC. جميع الحقوق محفوظة.",
+    "copyright": "© 2026 شركة GENOSYS الشرق الأوسط FZ-LLC. جميع الحقوق محفوظة.",
     "emailSubject": "فاتورة",
     "emailSubjectSuffix": "GENOSYS المهنية",
     "na": "غير متوفر"
@@ -1307,7 +1307,7 @@
       "emirate": "الإمارة:",
       "contactSupport": "اتصل بالدعم عبر واتساب",
       "officialDistributor": "الموزع الرسمي في الإمارات",
-      "copyright": "© 2025 Genosys Middle East FZ-LLC. جميع الحقوق محفوظة."
+      "copyright": "© 2026 Genosys Middle East FZ-LLC. جميع الحقوق محفوظة."
     },
     "supportLink": {
       "subject": "تم إرسال طلب الطلب #{orderNumber} - GENOSYS المهني",
@@ -1327,7 +1327,7 @@
       "continueShopping": "متابعة التسوق",
       "contactSupport": "اتصل بالدعم عبر واتساب",
       "officialDistributorFooter": "الموزع الرسمي في الإمارات",
-      "copyright": "© 2025 Genosys Middle East FZ-LLC. جميع الحقوق محفوظة."
+      "copyright": "© 2026 Genosys Middle East FZ-LLC. جميع الحقوق محفوظة."
     },
     "stripePaymentConfirmation": {
       "subject": "تم تأكيد الدفع - الطلب #{orderNumber}",

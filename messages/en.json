@@ -366,7 +366,7 @@
     "vat": "VAT (5%):",
     "totalLabel": "Total:",
     "officialDistributor": "Official Distributor in the UAE",
-    "copyright": "© 2025 Genosys Middle East FZ-LLC. All rights reserved.",
+    "copyright": "© 2026 Genosys Middle East FZ-LLC. All rights reserved.",
     "emailSubject": "Invoice",
     "emailSubjectSuffix": "GENOSYS Professional",
     "na": "N/A"
@@ -1386,7 +1386,7 @@
       "emirate": "Emirate:",
       "contactSupport": "Contact Support via WhatsApp",
       "officialDistributor": "Official Distributor in the UAE",
-      "copyright": "© 2025 Genosys Middle East FZ-LLC. All rights reserved."
+      "copyright": "© 2026 Genosys Middle East FZ-LLC. All rights reserved."
     },
     "supportLink": {
       "subject": "Order Request Submitted #{orderNumber} - GENOSYS Professional",
@@ -1406,7 +1406,7 @@
       "continueShopping": "Continue Shopping",
       "contactSupport": "Contact Support via WhatsApp",
       "officialDistributorFooter": "Official Distributor in the UAE",
-      "copyright": "© 2025 Genosys Middle East FZ-LLC. All rights reserved."
+      "copyright": "© 2026 Genosys Middle East FZ-LLC. All rights reserved."
     },
     "statusUpdate": {
       "subject": "Order Status Update #{orderNumber} - {status} - Genosys Middle East FZ-LLC",

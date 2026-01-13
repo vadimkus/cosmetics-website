@@ -1902,7 +1902,7 @@ export const generateCODOrderHTML = (order: OrderHTMLData, locale: string = 'en'
                   <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 12px; color: #86868b; line-height: 1.6;">
                     Genosys Middle East FZ-LLC<br>
                     ${t.officialDistributor || 'Official Distributor in the UAE'}<br><br>
-                    ${t.copyright || '© 2025 Genosys Middle East FZ-LLC. All rights reserved.'}
+                    ${t.copyright || `© ${new Date().getFullYear()} Genosys Middle East FZ-LLC. All rights reserved.`}
         </div>
                 </td>
               </tr>

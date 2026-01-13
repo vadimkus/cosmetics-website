@@ -342,7 +342,7 @@
     "vat": "НДС (5%):",
     "totalLabel": "Итого:",
     "officialDistributor": "Официальный дистрибьютор",
-    "copyright": "© 2025 Genosys Middle East FZ-LLC. Все права защищены.",
+    "copyright": "© 2026 Genosys Middle East FZ-LLC. Все права защищены.",
     "emailSubject": "Счет",
     "emailSubjectSuffix": "GENOSYS Professional",
     "na": "Н/Д"
@@ -1331,7 +1331,7 @@
       "emirate": "Эмират:",
       "contactSupport": "Связаться со службой поддержки через WhatsApp",
       "officialDistributor": "Официальный дистрибьютор в ОАЭ",
-      "copyright": "© 2025 Genosys Middle East FZ-LLC. Все права защищены."
+      "copyright": "© 2026 Genosys Middle East FZ-LLC. Все права защищены."
     },
     "supportLink": {
       "subject": "Запрос на заказ отправлен №{orderNumber} - GENOSYS Professional",
@@ -1351,7 +1351,7 @@
       "continueShopping": "Продолжить покупки",
       "contactSupport": "Связаться со службой поддержки через WhatsApp",
       "officialDistributorFooter": "Официальный дистрибьютор",
-      "copyright": "© 2025 Genosys Middle East FZ-LLC. Все права защищены."
+      "copyright": "© 2026 Genosys Middle East FZ-LLC. Все права защищены."
     },
     "stripePaymentConfirmation": {
       "subject": "Подтверждение оплаты - Заказ №{orderNumber}",

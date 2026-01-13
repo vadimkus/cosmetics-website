@@ -15,7 +15,7 @@ import { useMemo, useState, useEffect, useRef, useCallback } from 'react'
 
 const HomeIcon = ({ filled, color }: { filled?: boolean; color: string }) => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" 
-    style={{ width: 28, height: 28, color }}
+    style={{ width: 28, height: 28, color, transition: 'none' }}
     fill={filled ? 'currentColor' : 'none'} stroke="currentColor" 
     strokeWidth={filled ? 0 : 1.5} strokeLinecap="round" strokeLinejoin="round">
     {filled ? (
@@ -28,7 +28,7 @@ const HomeIcon = ({ filled, color }: { filled?: boolean; color: string }) => (
 
 const ListIcon = ({ filled, color }: { filled?: boolean; color: string }) => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-    style={{ width: 28, height: 28, color }}
+    style={{ width: 28, height: 28, color, transition: 'none' }}
     fill="none" stroke="currentColor" strokeWidth={filled ? 2.5 : 1.5} 
     strokeLinecap="round" strokeLinejoin="round">
     <line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/>
@@ -39,7 +39,7 @@ const ListIcon = ({ filled, color }: { filled?: boolean; color: string }) => (
 
 const BagIcon = ({ filled, color }: { filled?: boolean; color: string }) => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-    style={{ width: 28, height: 28, color }}
+    style={{ width: 28, height: 28, color, transition: 'none' }}
     fill={filled ? 'currentColor' : 'none'} stroke="currentColor" 
     strokeWidth={filled ? 0 : 1.5} strokeLinecap="round" strokeLinejoin="round">
     {filled ? (
@@ -59,7 +59,7 @@ function isMobileDevice(): boolean {
   return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua) || window.innerWidth <= 768
 }
 
-// Fixed styles - all inline to avoid CSS specificity issues
+// Fixed styles - simple and stable for Chrome iOS
 const FOOTER_STYLES: React.CSSProperties = {
   position: 'fixed',
   bottom: 0,
@@ -67,10 +67,7 @@ const FOOTER_STYLES: React.CSSProperties = {
   right: 0,
   width: '100%',
   height: 70,
-  minHeight: 70,
-  maxHeight: 70,
   backgroundColor: '#ffffff',
-  background: '#ffffff',
   borderTop: '1px solid #e5e7eb',
   boxShadow: '0 -4px 20px rgba(0, 0, 0, 0.15)',
   zIndex: 2147483647,
@@ -78,9 +75,10 @@ const FOOTER_STYLES: React.CSSProperties = {
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-around',
-  overflow: 'hidden',
-  WebkitTransform: 'translate3d(0,0,0)',
-  transform: 'translate3d(0,0,0)',
+  transition: 'none',
+  WebkitTransition: 'none',
+  animation: 'none',
+  WebkitAnimation: 'none',
 }
 
 const BUTTON_STYLES: React.CSSProperties = {
@@ -97,6 +95,8 @@ const BUTTON_STYLES: React.CSSProperties = {
   cursor: 'pointer',
   WebkitTapHighlightColor: 'transparent',
   touchAction: 'manipulation',
+  transition: 'none', // Prevent any animation
+  WebkitTransition: 'none',
 }
 
 export default function MobileWebFooterNav() {

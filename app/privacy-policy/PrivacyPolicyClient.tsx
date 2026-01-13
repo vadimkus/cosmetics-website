@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
+import { useState, useEffect } from 'react'
 import { ArrowLeft, Shield, Mail, Phone, ExternalLink } from 'lucide-react'
 import BreadcrumbSchema from '@/components/BreadcrumbSchema'
 import { useTranslation } from '@/hooks/useTranslation'
@@ -18,9 +19,24 @@ export default function PrivacyPolicyClient() {
   const isRTL = dir === 'rtl'
   const fromProfile = searchParams?.get('from') === 'profile'
   const userInitial = user?.name?.charAt(0) || user?.email?.charAt(0) || 'U'
+  const [isMobileWeb, setIsMobileWeb] = useState(false)
+  
+  // Detect mobile web (non-PWA mobile)
+  useEffect(() => {
+    const checkMobileWeb = () => {
+      const isMobile = window.innerWidth < 768
+      setIsMobileWeb(isMobile && !isPWA)
+    }
+    checkMobileWeb()
+    window.addEventListener('resize', checkMobileWeb)
+    return () => window.removeEventListener('resize', checkMobileWeb)
+  }, [isPWA])
+  
+  // App-like mode: PWA or mobile web
+  const isAppLikeMode = (isClient && isPWA) || isMobileWeb
   
   // Date translations
-  const lastUpdated = locale === 'ar' ? '13 ديسمبر 2025' : locale === 'ru' ? '13 декабря 2025' : 'December 13, 2025'
+  const lastUpdated = locale === 'ar' ? '13 يناير 2026' : locale === 'ru' ? '13 января 2026' : 'January 13, 2026'
   
   // Section translations
   const translations = {
@@ -92,11 +108,11 @@ export default function PrivacyPolicyClient() {
     }
   }
 
-  // PWA Mode - Light header only
-  if (isClient && isPWA) {
+  // PWA/Mobile Web Mode - Light header only
+  if (isAppLikeMode) {
     return (
       <div className="min-h-screen bg-gray-50 pb-32" dir={dir}>
-        {/* PWA Light Header */}
+        {/* PWA/Mobile Web Light Header */}
         <div className={`flex items-center justify-between px-5 py-4 bg-white border-b border-gray-200 ${isRTL ? 'flex-row-reverse' : ''}`}>
           <button 
             onClick={handleBack}
@@ -181,7 +197,7 @@ export default function PrivacyPolicyClient() {
 
           {/* Footer */}
           <div className="text-center mt-4 text-sm text-gray-400">
-            <p>© 2025 GENOSYS Middle East FZ-LLC</p>
+            <p>© 2026 GENOSYS Middle East FZ-LLC</p>
           </div>
         </div>
       </div>
@@ -360,7 +376,7 @@ export default function PrivacyPolicyClient() {
 
         {/* Footer Note */}
         <div className={`mt-8 text-center text-sm text-gray-500 ${isRTL ? 'text-center' : ''}`}>
-          <p>© 2025 GENOSYS Middle East FZ-LLC. {locale === 'ar' ? 'جميع الحقوق محفوظة.' : locale === 'ru' ? 'Все права защищены.' : 'All rights reserved.'}</p>
+          <p>© 2026 GENOSYS Middle East FZ-LLC. {locale === 'ar' ? 'جميع الحقوق محفوظة.' : locale === 'ru' ? 'Все права защищены.' : 'All rights reserved.'}</p>
         </div>
       </div>
     </div>

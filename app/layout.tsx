@@ -25,6 +25,7 @@ import StorageQuotaMonitor from '@/components/StorageQuotaMonitor'
 import AppleSplashScreens from '@/components/AppleSplashScreens'
 import LocaleManifest from '@/components/LocaleManifest'
 import MobileFooterNav from '@/components/MobileFooterNav'
+import MobileWebFooterNav from '@/components/MobileWebFooterNav'
 import PWAHeader from '@/components/PWAHeader'
 import PWASplashScreen from '@/components/PWASplashScreen'
 import { SyncStatusIndicator } from '@/components/SyncStatusIndicator'
@@ -284,6 +285,7 @@ export default function RootLayout({
                     </LocaleWrapper>
                     <Footer />
                     <MobileFooterNav />
+                    <MobileWebFooterNav />
                     <PWAInstallPrompt variant="banner" showDelay={60} />
                     <ServiceWorkerUpdateNotification />
                     <StorageQuotaMonitor />

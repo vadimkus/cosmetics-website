@@ -98,9 +98,10 @@ if (!isClient || isPWA || !isMobile || shouldHideFooter) {
 // Hide on specific pages
 const shouldHideFooter = 
   /\/products\/[a-zA-Z0-9_-]+$/.test(pathname) ||  // Product detail
-  pathname.includes('/checkout') ||
   pathname.includes('/pdf-viewer') ||
   pathname.includes('/pwa-login')
+
+// Note: Checkout page now shows the sticky footer (updated Jan 13, 2026)
 ```
 
 ## Related Changes

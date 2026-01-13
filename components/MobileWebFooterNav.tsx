@@ -1,7 +1,6 @@
 'use client'
 
 import { usePathname, useRouter } from 'next/navigation'
-import { createPortal } from 'react-dom'
 import { useCartStore } from '@/lib/cartStore'
 import { getLocalizedPath, getLocaleFromPath } from '@/lib/i18n'
 import { useTranslation } from '@/hooks/useTranslation'
@@ -10,13 +9,12 @@ import { useMemo, useState, useEffect, useRef, useCallback } from 'react'
 
 /**
  * Mobile Web Footer Navigation
- * Uses inline styles only for Chrome iOS compatibility
+ * Uses position: sticky for Chrome iOS compatibility
  */
 
 const HomeIcon = ({ filled, color }: { filled?: boolean; color: string }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" 
-    style={{ width: 28, height: 28, color, transition: 'none' }}
-    fill={filled ? 'currentColor' : 'none'} stroke="currentColor" 
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28"
+    fill={filled ? color : 'none'} stroke={color} 
     strokeWidth={filled ? 0 : 1.5} strokeLinecap="round" strokeLinejoin="round">
     {filled ? (
       <path d="M3 9.5L12 2l9 7.5V20a2 2 0 01-2 2H5a2 2 0 01-2-2V9.5z"/>
@@ -27,9 +25,8 @@ const HomeIcon = ({ filled, color }: { filled?: boolean; color: string }) => (
 )
 
 const ListIcon = ({ filled, color }: { filled?: boolean; color: string }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-    style={{ width: 28, height: 28, color, transition: 'none' }}
-    fill="none" stroke="currentColor" strokeWidth={filled ? 2.5 : 1.5} 
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28"
+    fill="none" stroke={color} strokeWidth={filled ? 2.5 : 1.5} 
     strokeLinecap="round" strokeLinejoin="round">
     <line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/>
     <line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/>
@@ -38,17 +35,21 @@ const ListIcon = ({ filled, color }: { filled?: boolean; color: string }) => (
 )
 
 const BagIcon = ({ filled, color }: { filled?: boolean; color: string }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-    style={{ width: 28, height: 28, color, transition: 'none' }}
-    fill={filled ? 'currentColor' : 'none'} stroke="currentColor" 
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28"
+    fill={filled ? color : 'none'} stroke={color} 
     strokeWidth={filled ? 0 : 1.5} strokeLinecap="round" strokeLinejoin="round">
     {filled ? (
-      <><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4H6z"/>
-      <path d="M3 6h18" stroke="white" strokeWidth="1.5"/>
-      <path d="M16 10a4 4 0 01-8 0" stroke="white" strokeWidth="1.5" fill="none"/></>
+      <>
+        <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4H6z"/>
+        <path d="M3 6h18" stroke="#fff" strokeWidth="1.5"/>
+        <path d="M16 10a4 4 0 01-8 0" stroke="#fff" strokeWidth="1.5" fill="none"/>
+      </>
     ) : (
-      <><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4H6z"/>
-      <line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></>
+      <>
+        <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4H6z"/>
+        <line x1="3" y1="6" x2="21" y2="6"/>
+        <path d="M16 10a4 4 0 01-8 0"/>
+      </>
     )}
   </svg>
 )
@@ -57,46 +58,6 @@ function isMobileDevice(): boolean {
   if (typeof window === 'undefined') return false
   const ua = navigator.userAgent || ''
   return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua) || window.innerWidth <= 768
-}
-
-// Fixed styles - simple and stable for Chrome iOS
-const FOOTER_STYLES: React.CSSProperties = {
-  position: 'fixed',
-  bottom: 0,
-  left: 0,
-  right: 0,
-  width: '100%',
-  height: 70,
-  backgroundColor: '#ffffff',
-  borderTop: '1px solid #e5e7eb',
-  boxShadow: '0 -4px 20px rgba(0, 0, 0, 0.15)',
-  zIndex: 2147483647,
-  paddingBottom: 'env(safe-area-inset-bottom, 0px)',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'space-around',
-  transition: 'none',
-  WebkitTransition: 'none',
-  animation: 'none',
-  WebkitAnimation: 'none',
-}
-
-const BUTTON_STYLES: React.CSSProperties = {
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  justifyContent: 'center',
-  flex: 1,
-  height: '100%',
-  padding: '8px',
-  background: 'transparent',
-  backgroundColor: 'transparent',
-  border: 'none',
-  cursor: 'pointer',
-  WebkitTapHighlightColor: 'transparent',
-  touchAction: 'manipulation',
-  transition: 'none', // Prevent any animation
-  WebkitTransition: 'none',
 }
 
 export default function MobileWebFooterNav() {
@@ -108,23 +69,14 @@ export default function MobileWebFooterNav() {
   const [isReady, setIsReady] = useState(false)
   const [isNavigating, setIsNavigating] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
-  const [mounted, setMounted] = useState(false)
   const lastClickTime = useRef(0)
   
   useEffect(() => {
-    setMounted(true)
     setIsMobile(isMobileDevice())
     const handleResize = () => setIsMobile(isMobileDevice())
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
   }, [])
-  
-  // Add body padding
-  useEffect(() => {
-    if (!isClient || isPWA || !isMobile) return
-    document.body.style.paddingBottom = '120px'
-    return () => { document.body.style.paddingBottom = '' }
-  }, [isClient, isPWA, isMobile])
   
   useEffect(() => {
     const timer = setTimeout(() => setIsReady(true), 100)
@@ -160,7 +112,7 @@ export default function MobileWebFooterNav() {
   const cartCount = isClient ? getTotalItems() : 0
   const hasItems = cartCount > 0
   
-  if (!isClient || !mounted || isPWA || !isMobile || shouldHide) return null
+  if (!isClient || isPWA || !isMobile || shouldHide) return null
   
   const RED = '#dc2626'
   const GRAY = '#8E8E93'
@@ -172,37 +124,84 @@ export default function MobileWebFooterNav() {
     return GRAY
   }
 
-  const footer = (
-    <nav style={FOOTER_STYLES} dir={dir} role="navigation" aria-label="Mobile navigation">
-      <button style={BUTTON_STYLES} onClick={() => handleNavigation(getLocalizedPath('/products', locale))} disabled={!isReady || isNavigating}>
+  const buttonStyle: React.CSSProperties = {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flex: 1,
+    height: '100%',
+    padding: 8,
+    background: 'none',
+    border: 'none',
+    cursor: 'pointer',
+  }
+
+  return (
+    <div 
+      style={{
+        position: 'sticky',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        width: '100%',
+        height: 80,
+        backgroundColor: '#fff',
+        borderTop: '1px solid #e5e7eb',
+        boxShadow: '0 -4px 20px rgba(0,0,0,0.1)',
+        zIndex: 9999,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-around',
+        paddingBottom: 10,
+        marginTop: 'auto',
+      }}
+      dir={dir}
+      role="navigation"
+      aria-label="Mobile navigation"
+    >
+      <button style={buttonStyle} onClick={() => handleNavigation(getLocalizedPath('/products', locale))}>
         <HomeIcon filled={activeTab === 'home'} color={getColor('home')} />
-        <span style={{ fontSize: 12, marginTop: 4, fontWeight: 500, color: getColor('home') }}>{t('tabs.home') || 'Home'}</span>
+        <span style={{ fontSize: 12, marginTop: 4, fontWeight: 500, color: getColor('home') }}>
+          {t('tabs.home') || 'Home'}
+        </span>
       </button>
 
-      <button style={BUTTON_STYLES} onClick={() => handleNavigation(getLocalizedPath('/orders', locale))} disabled={!isReady || isNavigating}>
+      <button style={buttonStyle} onClick={() => handleNavigation(getLocalizedPath('/orders', locale))}>
         <ListIcon filled={activeTab === 'orders'} color={getColor('orders')} />
-        <span style={{ fontSize: 12, marginTop: 4, fontWeight: 500, color: getColor('orders') }}>{t('tabs.orders') || 'Orders'}</span>
+        <span style={{ fontSize: 12, marginTop: 4, fontWeight: 500, color: getColor('orders') }}>
+          {t('tabs.orders') || 'Orders'}
+        </span>
       </button>
 
-      <button style={BUTTON_STYLES} onClick={() => handleNavigation(getLocalizedPath('/cart', locale))} disabled={!isReady || isNavigating}>
+      <button style={buttonStyle} onClick={() => handleNavigation(getLocalizedPath('/cart', locale))}>
         <div style={{ position: 'relative' }}>
           <BagIcon filled={activeTab === 'bag' || hasItems} color={getColor('bag')} />
           {hasItems && (
             <span style={{
-              position: 'absolute', top: -6, right: -10,
-              backgroundColor: RED, color: 'white', fontSize: 10, fontWeight: 600,
-              borderRadius: '50%', minWidth: 18, height: 18,
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              border: '2px solid white'
+              position: 'absolute',
+              top: -6,
+              right: -10,
+              backgroundColor: RED,
+              color: '#fff',
+              fontSize: 10,
+              fontWeight: 600,
+              borderRadius: '50%',
+              minWidth: 18,
+              height: 18,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              border: '2px solid #fff',
             }}>
               {cartCount > 99 ? '99+' : cartCount}
             </span>
           )}
         </div>
-        <span style={{ fontSize: 12, marginTop: 4, fontWeight: 500, color: getColor('bag') }}>{t('tabs.bag') || 'Bag'}</span>
+        <span style={{ fontSize: 12, marginTop: 4, fontWeight: 500, color: getColor('bag') }}>
+          {t('tabs.bag') || 'Bag'}
+        </span>
       </button>
-    </nav>
+    </div>
   )
-
-  return createPortal(footer, document.body)
 }

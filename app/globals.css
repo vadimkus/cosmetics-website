@@ -255,9 +255,24 @@ html[dir="rtl"] {
   }
 }
 
-/* Mobile footer - hide on desktop only (styles are inline in component) */
+/* Mobile footer - hide on desktop */
 @media (min-width: 768px) {
-  nav[aria-label="Mobile navigation"] {
+  div[aria-label="Mobile navigation"] {
     display: none !important;
+  }
+}
+
+/* Make body flex container for sticky footer on mobile */
+@media (max-width: 767px) {
+  body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+  
+  body > main,
+  main.flex-1 {
+    flex: 1 0 auto;
   }
 }

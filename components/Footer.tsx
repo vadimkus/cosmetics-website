@@ -4,16 +4,37 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { getLocalizedPath, getLocaleFromPath } from '@/lib/i18n'
-import { useMemo } from 'react'
+import { useMemo, useState, useEffect } from 'react'
 import { warnLog } from '@/lib/logger'
 import { usePWAMode } from '@/hooks/usePWAMode'
 import enMessages from '@/messages/en.json'
 import arMessages from '@/messages/ar.json'
 import ruMessages from '@/messages/ru.json'
 
+// Detect mobile device
+function isMobileDevice(): boolean {
+  if (typeof window === 'undefined') return false
+  const userAgent = navigator.userAgent || ''
+  const mobileRegex = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i
+  return mobileRegex.test(userAgent) || window.innerWidth <= 768
+}
+
 export default function Footer() {
   const pathname = usePathname()
   const { isPWA, isClient } = usePWAMode()
+  const [isMobile, setIsMobile] = useState(false)
+  
+  // Check if mobile device
+  useEffect(() => {
+    setIsMobile(isMobileDevice())
+    
+    const handleResize = () => {
+      setIsMobile(isMobileDevice())
+    }
+    
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
   
   // Get locale from pathname - handle null consistently
   // During SSR, pathname might be null, so we default to '/' which gives 'en'
@@ -67,8 +88,8 @@ export default function Footer() {
     return path === '/contact' || path === '/ar/contact' || path.startsWith('/contact')
   }, [pathname])
 
-  // In PWA mode, hide footer on ALL pages - sticky footer nav is enough
-  if (isClient && isPWA) {
+  // Hide footer on mobile (sticky footer nav handles it) and in PWA mode
+  if (isClient && (isPWA || isMobile)) {
     return null
   }
 

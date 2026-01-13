@@ -189,14 +189,20 @@ export default function MobileWebFooterNav() {
         aria-hidden="true" 
       />
       
-      {/* Mobile Web Footer Navigation - Fixed height, icons scale on scroll */}
+      {/* Mobile Web Footer Navigation - Fixed height, solid background for Chrome compatibility */}
       <nav 
-        className="fixed bottom-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm md:hidden overflow-hidden"
+        className="fixed bottom-0 left-0 right-0 z-[9999] bg-white md:hidden"
         style={{ 
           paddingBottom: 'env(safe-area-inset-bottom, 0px)',
-          borderTop: '0.5px solid rgba(0, 0, 0, 0.1)',
-          boxShadow: '0 -2px 8px rgba(0, 0, 0, 0.1)',
-          height: `${footerHeight}px` // Fixed height - never changes
+          borderTop: '1px solid #e5e7eb',
+          boxShadow: '0 -2px 10px rgba(0, 0, 0, 0.08)',
+          height: `${footerHeight}px`,
+          // Chrome fix: force GPU layer and proper stacking
+          transform: 'translate3d(0, 0, 0)',
+          WebkitTransform: 'translate3d(0, 0, 0)',
+          backfaceVisibility: 'hidden',
+          WebkitBackfaceVisibility: 'hidden',
+          isolation: 'isolate'
         }}
         dir={dir}
         role="navigation"

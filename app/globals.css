@@ -255,34 +255,46 @@ html[dir="rtl"] {
   }
 }
 
-/* Mobile sticky footer navigation */
+/* Mobile footer navigation - rendered via portal directly to body */
+#mobile-footer-nav,
 .mobile-footer-nav {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 70px;
-  background-color: #ffffff;
-  border-top: 1px solid #e5e7eb;
-  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.08);
-  z-index: 2147483647; /* Maximum z-index value */
-  padding-bottom: env(safe-area-inset-bottom, 0px);
+  position: fixed !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  height: 70px !important;
+  min-height: 70px !important;
+  max-height: 70px !important;
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  border-top: 1px solid #e5e7eb !important;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15) !important;
+  z-index: 2147483647 !important; /* Max 32-bit integer */
+  padding-bottom: env(safe-area-inset-bottom, 0px) !important;
+  overflow: visible !important;
+  pointer-events: auto !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  display: block !important;
 }
 
 /* Hide on desktop */
 @media (min-width: 768px) {
+  #mobile-footer-nav,
   .mobile-footer-nav {
     display: none !important;
+    visibility: hidden !important;
   }
 }
 
-/* Add padding to body when mobile footer is present */
+/* Body padding when footer is present */
 body.has-mobile-footer {
-  padding-bottom: calc(70px + env(safe-area-inset-bottom, 20px)) !important;
+  padding-bottom: 120px !important; /* Extra large padding to ensure no overlap */
 }
 
-/* Ensure main content has lower z-index */
-body.has-mobile-footer main {
-  position: relative;
-  z-index: 1;
+@media (max-width: 767px) {
+  body.has-mobile-footer {
+    padding-bottom: 120px !important;
+  }
 }

@@ -253,10 +253,13 @@ const aiLink = (
 | `lib/AnimationWrapper.tsx` | Removed `any` types |
 | `app/api/webhooks/stripe/route.ts` | Removed `any` types |
 | `app/track/[orderNumber]/OrderTrackingClient.tsx` | UI layout fix |
-| `components/header/HeaderMobileIcons.tsx` | Added AI link, removed animation toggle |
-| `components/HeaderRussianMobile.tsx` | Added AI link, removed animation toggle |
-| `components/MobileWebFooterNav.tsx` | **NEW** - Sticky footer for mobile web |
+| `components/header/HeaderMobileIcons.tsx` | Added AI link, removed cart icon |
+| `components/HeaderRussianMobile.tsx` | Added AI link, removed cart icon |
+| `components/Header.tsx` | Removed isPWA prop from HeaderMobileIcons |
+| `components/MobileWebFooterNav.tsx` | **NEW** - Sticky footer (position:sticky) |
+| `components/Footer.tsx` | Hidden on mobile devices |
 | `app/layout.tsx` | Added MobileWebFooterNav to layout |
+| `app/globals.css` | Flex container for sticky footer |
 
 ---
 
@@ -272,6 +275,17 @@ const aiLink = (
 8. `Increase AI text size and change to red in mobile header`
 9. `Add comprehensive session documentation for Jan 12, 2026 changes`
 10. `Add sticky footer for mobile web with scroll-expand behavior`
+11. `Fix mobile footer spacer height to prevent content overlap`
+12. `Fix footer overlap: use fixed height with CSS transform for icon scaling`
+13. `Simplify mobile footer: remove scroll animation, fix overlap issue`
+14. `Remove bag/cart icon from mobile header (now in footer)`
+15. `Fix mobile: hide desktop footer, fix Chrome sticky footer overlap`
+16. `Fix Chrome sticky footer overlap: aggressive z-index, contain, GPU layer`
+17. `Simplify mobile footer: CSS-only approach with max z-index and body padding`
+18. `Fix Chrome footer: use React Portal + aggressive CSS with !important`
+19. `Chrome iOS fix: 100% inline styles, no CSS classes, direct body padding`
+20. `Fix Chrome iOS: remove transforms, disable all transitions/animations on footer`
+21. `Chrome iOS: switch from position:fixed to position:sticky footer` ✅ **WORKING**
 
 ---
 
@@ -299,30 +313,32 @@ const aiLink = (
 - [x] Stripe webhooks function correctly
 - [x] Monitoring services work as expected
 - [x] Mobile web sticky footer appears on mobile browsers
-- [x] Footer expands when scrolling up
-- [x] Footer collapses when scrolling down
 - [x] Footer hidden on PWA mode (uses existing MobileFooterNav)
+- [x] Desktop footer hidden on mobile
+- [x] Cart icon removed from mobile header
+- [x] **Chrome iOS**: Footer works correctly during address bar animation
+- [x] **Safari iOS**: Footer works correctly
+- [x] Footer navigation (Home, Orders, Bag) works correctly
+- [x] Cart badge shows item count
 
 ---
 
-## Additional Changes - Session Update
+## Additional Changes - Session Update (January 13, 2026)
 
 ### 3. Mobile Web Sticky Footer Navigation
 
-**File Created**: `components/MobileWebFooterNav.tsx`
+**File**: `components/MobileWebFooterNav.tsx`
 
-**Purpose**: Sticky footer navigation for mobile web browsers (not PWA mode).
+**Purpose**: App-like sticky footer navigation for mobile web browsers (not PWA mode).
+
+#### Final Implementation (Chrome iOS Compatible)
+
+After extensive testing and debugging, the final solution uses `position: sticky` instead of `position: fixed` to avoid Chrome iOS viewport issues.
 
 **Features**:
-- Fixed position at the bottom of the screen
-- **Scroll-responsive behavior**:
-  - Normal height (70px) when idle or scrolling down
-  - Expands to larger height (90px) when scrolling up
-  - Icons and text scale proportionally
-  - Auto-collapses after 2 seconds of inactivity
+- **Position sticky** footer at bottom of page
 - Three navigation tabs: Home, Orders, Bag
 - Cart count badge with green highlight when items present
-- Smooth transitions (300ms duration)
 - RTL support for Arabic locale
 - Hidden on:
   - PWA mode (uses separate `MobileFooterNav`)
@@ -333,27 +349,82 @@ const aiLink = (
 
 **Technical Implementation**:
 ```typescript
-// Scroll detection
-const handleScroll = () => {
-  const scrollDelta = lastScrollY.current - currentScrollY
-  
-  // Scrolling up - expand
-  if (scrollDelta > 10) {
-    setIsExpanded(true)
-    // Auto-collapse after 2 seconds
+// Sticky footer - Chrome iOS compatible
+<div 
+  style={{
+    position: 'sticky',
+    bottom: 0,
+    width: '100%',
+    height: 80,
+    backgroundColor: '#fff',
+    marginTop: 'auto', // Push to bottom of flex container
+  }}
+>
+  {/* Navigation buttons */}
+</div>
+```
+
+**CSS (globals.css)**:
+```css
+/* Make body flex container for sticky footer on mobile */
+@media (max-width: 767px) {
+  body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    min-height: 100dvh; /* Dynamic viewport height */
   }
-  // Scrolling down - collapse
-  else if (scrollDelta < -10) {
-    setIsExpanded(false)
+  
+  main.flex-1 {
+    flex: 1 0 auto;
   }
 }
 ```
 
-**Layout Integration**:
-- Added to `app/layout.tsx` alongside existing `MobileFooterNav`
-- Each footer handles its own visibility logic based on PWA detection
+#### Chrome iOS Issue & Solution
+
+**Problem**: When using `position: fixed`, Chrome iOS would cause visual glitches during address bar show/hide animation. Elements would "slowly change" and overlap during scroll.
+
+**Root Cause**: Chrome iOS changes viewport height when the address bar animates. `position: fixed` elements are positioned relative to the viewport, causing them to move during this animation.
+
+**Failed Attempts**:
+- ❌ High z-index (2147483647)
+- ❌ `transform: translate3d(0,0,0)` for GPU compositing
+- ❌ `contain: layout style paint`
+- ❌ `will-change: transform`
+- ❌ React Portal to render directly to body
+- ❌ `!important` on all CSS properties
+- ❌ `transition: none` and `animation: none`
+
+**Solution**: Use `position: sticky` instead of `position: fixed`
+- `sticky` positions relative to scroll container, not viewport
+- Not affected by Chrome's address bar animation
+- Requires body to be a flex container with `min-height: 100dvh`
+
+### 4. Desktop Footer Hidden on Mobile
+
+**File**: `components/Footer.tsx`
+
+**Change**: Desktop footer is now hidden on mobile devices to avoid duplication with the sticky footer navigation.
+
+```typescript
+// Hide footer on mobile (sticky footer nav handles it) and in PWA mode
+if (isClient && (isPWA || isMobile)) {
+  return null
+}
+```
+
+### 5. Cart Icon Removed from Mobile Header
+
+**Files Modified**:
+- `components/header/HeaderMobileIcons.tsx`
+- `components/HeaderRussianMobile.tsx`
+
+**Change**: Removed shopping cart icon from mobile header since it's now available in the sticky footer navigation.
+
+**Mobile header now shows** (LTR): Menu → Lang → ❤️ → AI → Logo
 
 ---
 
 *Documentation generated: January 12, 2026*
-*Updated: January 13, 2026*
+*Updated: January 13, 2026 - Chrome iOS fix documented*

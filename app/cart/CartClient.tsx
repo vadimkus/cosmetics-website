@@ -30,6 +30,21 @@ export default function CartClient() {
   const { enabled: animationsEnabled } = useAnimationStore()
   const [showUniVideo, setShowUniVideo] = useState(false)
   const uniVideoRef = useRef<HTMLVideoElement>(null)
+  const [isMobileWeb, setIsMobileWeb] = useState(false)
+  
+  // Detect mobile web (non-PWA mobile)
+  useEffect(() => {
+    const checkMobileWeb = () => {
+      const isMobile = window.innerWidth < 768
+      setIsMobileWeb(isMobile && !isPWA)
+    }
+    checkMobileWeb()
+    window.addEventListener('resize', checkMobileWeb)
+    return () => window.removeEventListener('resize', checkMobileWeb)
+  }, [isPWA])
+  
+  // Combined flag for PWA or mobile web
+  const isAppLikeMode = isPWA || isMobileWeb
   
   // Start video after 3 seconds on mobile (for cart with items)
   useEffect(() => {
@@ -180,9 +195,9 @@ export default function CartClient() {
 
   if (items.length === 0) {
     return (
-      <div className={isPWA ? 'min-h-screen bg-white pb-32' : ''}>
-        {/* PWA Simple Navigation Header */}
-        {isPWA && (
+      <div className={isAppLikeMode ? 'min-h-screen bg-white pb-32' : ''}>
+        {/* PWA / Mobile Web Simple Navigation Header */}
+        {isAppLikeMode && (
           <div className={`flex items-center justify-between px-5 py-4 bg-white ${isRTL ? 'flex-row-reverse' : ''}`}>
             <button 
               onClick={() => router.push(getLocalizedPath(fromProfile ? '/profile' : '/products', locale))}
@@ -217,8 +232,8 @@ export default function CartClient() {
         )}
         
         <div className="container mx-auto px-4 py-4 md:py-8 lg:py-16" dir={dir}>
-          {/* Navigation Breadcrumb - Hide in PWA mode */}
-          {!isPWA && (
+          {/* Navigation Breadcrumb - Hide in PWA mode and mobile web */}
+          {!isAppLikeMode && (
             <nav className={`text-xs md:text-base text-gray-600 mb-2 md:mb-4 ${dir === 'rtl' ? 'text-right' : ''}`} aria-label="Breadcrumb">
               <Link href={getLocalizedPath('/', locale)} className="hover:text-primary-600 transition-colors">{t('common.home')}</Link>
               <span> / </span>
@@ -228,8 +243,8 @@ export default function CartClient() {
             </nav>
           )}
 
-          {/* Back to Products - Hide in PWA mode */}
-          {!isPWA && (
+          {/* Back to Products - Hide in PWA mode and mobile web */}
+          {!isAppLikeMode && (
             <Link 
               href={getLocalizedPath('/products', locale)} 
               className={`inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 mb-4 md:mb-8 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
@@ -243,12 +258,12 @@ export default function CartClient() {
           <div className="flex flex-col items-center">
             <div className="mb-6 md:mb-4 relative">
               <motion.div
-                animate={animationsEnabled && !isPWA ? {
+                animate={animationsEnabled && !isAppLikeMode ? {
                   y: [0, -8, 0],
                   scale: [1, 1.02, 1],
                   rotate: [0, 1, -1, 0]
                 } : {}}
-                transition={animationsEnabled && !isPWA ? {
+                transition={animationsEnabled && !isAppLikeMode ? {
                   duration: 4,
                   repeat: Infinity,
                   ease: "easeInOut",
@@ -332,9 +347,9 @@ export default function CartClient() {
   }
 
   return (
-    <div className={isPWA ? 'min-h-screen bg-white pb-32' : ''}>
-      {/* PWA Simple Navigation Header */}
-      {isPWA && (
+    <div className={isAppLikeMode ? 'min-h-screen bg-white pb-32' : ''}>
+      {/* PWA / Mobile Web Simple Navigation Header */}
+      {isAppLikeMode && (
         <div className={`flex items-center justify-between px-5 py-4 bg-white ${isRTL ? 'flex-row-reverse' : ''}`}>
           <button 
             onClick={() => router.push(getLocalizedPath(fromProfile ? '/profile' : '/products', locale))}
@@ -428,8 +443,8 @@ export default function CartClient() {
         </div>
       )}
       
-      {/* Navigation Breadcrumb - Hide in PWA mode */}
-      {!isPWA && (
+      {/* Navigation Breadcrumb - Hide in PWA mode and mobile web */}
+      {!isAppLikeMode && (
         <nav className={`text-xs md:text-base text-gray-600 mb-2 md:mb-4 ${dir === 'rtl' ? 'text-right' : ''}`} aria-label="Breadcrumb">
           <Link href={getLocalizedPath('/', locale)} className="hover:text-primary-600 transition-colors">{t('common.home')}</Link>
           <span> / </span>
@@ -439,8 +454,8 @@ export default function CartClient() {
         </nav>
       )}
       
-      {/* Back to Products - Hide in PWA mode */}
-      {!isPWA && (
+      {/* Back to Products - Hide in PWA mode and mobile web */}
+      {!isAppLikeMode && (
         <Link 
           href={getLocalizedPath('/products', locale)} 
           className={`inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 mb-4 md:mb-8 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
@@ -458,7 +473,7 @@ export default function CartClient() {
               <div className="p-3 md:p-6 border-b border-gray-200">
                 <h1 className={`text-lg md:text-2xl font-bold text-gray-900 flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
                   <ShoppingBag className="h-5 w-5 md:h-6 md:w-6 text-green-600" />
-                  <span className="text-sm md:text-base lg:text-lg">{isPWA ? (t('cart.shoppingBag') || 'Shopping Bag:') : t('cart.shoppingCart')}</span> <span className="text-sm md:text-base lg:text-lg">{getTotalItems()} {getTotalItems() === 1 ? t('cart.item') : t('cart.items')}</span>
+                  <span className="text-sm md:text-base lg:text-lg">{isAppLikeMode ? (t('cart.shoppingBag') || 'Shopping Bag:') : t('cart.shoppingCart')}</span> <span className="text-sm md:text-base lg:text-lg">{getTotalItems()} {getTotalItems() === 1 ? t('cart.item') : t('cart.items')}</span>
                 </h1>
               </div>
               

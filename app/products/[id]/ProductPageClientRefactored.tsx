@@ -8,7 +8,7 @@ import { useAuth } from '@/components/AuthProvider'
 import ErrorPage from '@/components/ErrorPage'
 import { ArrowLeft, Sparkles, Star, Minus, Plus, ShoppingCart, Heart, Check, MessageCircle } from 'lucide-react'
 import Link from 'next/link'
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import { Product } from '@/types'
 import ProductSchema from '@/components/ProductSchema'
 import BreadcrumbSchema from '@/components/BreadcrumbSchema'
@@ -46,6 +46,21 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
   const { t, locale, dir } = useTranslation()
   const { isPWA } = usePWAMode()
   const isRTL = dir === 'rtl'
+  const [isMobileWeb, setIsMobileWeb] = useState(false)
+  
+  // Detect mobile web (non-PWA mobile)
+  useEffect(() => {
+    const checkMobileWeb = () => {
+      const isMobile = window.innerWidth < 768
+      setIsMobileWeb(isMobile && !isPWA)
+    }
+    checkMobileWeb()
+    window.addEventListener('resize', checkMobileWeb)
+    return () => window.removeEventListener('resize', checkMobileWeb)
+  }, [isPWA])
+  
+  // Combined flag for PWA or mobile web
+  const isAppLikeMode = isPWA || isMobileWeb
   
   // Variant state
   const sizeOptions = getProductSizeOptions(product.id)
@@ -137,8 +152,8 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
         ]}
       />
 
-      {/* PWA Simple Navigation Header */}
-      {isPWA && (
+      {/* PWA / Mobile Web Simple Navigation Header */}
+      {isAppLikeMode && (
         <div className={`flex items-center justify-between px-5 py-4 bg-white border-b border-gray-100 ${isRTL ? 'flex-row-reverse' : ''}`}>
           <button 
             onClick={() => router.push(getLocalizedPath('/products', locale))}
@@ -169,8 +184,8 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
       )}
 
       <div className="container mx-auto px-3 md:px-4 py-1 lg:py-8 lg:py-16">
-        {/* Mobile Header - Product Name & Back Button (hide in PWA mode) */}
-        {!isPWA && (
+        {/* Mobile Header - Product Name & Back Button (hide in PWA and mobile web mode) */}
+        {!isAppLikeMode && (
           <div className="lg:hidden mb-1.5">
             {/* Back Link */}
             <Link 

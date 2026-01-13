@@ -27,6 +27,7 @@ import LocaleManifest from '@/components/LocaleManifest'
 import MobileFooterNav from '@/components/MobileFooterNav'
 import MobileWebFooterNav from '@/components/MobileWebFooterNav'
 import PWAHeader from '@/components/PWAHeader'
+import MobileWebHeader from '@/components/MobileWebHeader'
 import PWASplashScreen from '@/components/PWASplashScreen'
 import { SyncStatusIndicator } from '@/components/SyncStatusIndicator'
 import NetworkStatus from '@/components/NetworkStatus'
@@ -272,6 +273,7 @@ export default function RootLayout({
                     <PageViewTracker />
                     <LocaleWrapper>
                       <PWAHeader />
+                      <MobileWebHeader />
                       <Header />
                       <main className="flex-1">
                         <ErrorBoundary>

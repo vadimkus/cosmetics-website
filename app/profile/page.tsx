@@ -75,7 +75,19 @@ export default function ProfilePageRefactored() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const { isPWA, isClient } = usePWAMode()
+  const [isMobileWeb, setIsMobileWeb] = useState(false)
   const [isEditing, setIsEditing] = useState(false)
+  
+  // Detect mobile web (non-PWA mobile)
+  useEffect(() => {
+    const checkMobileWeb = () => {
+      const isMobile = window.innerWidth < 768
+      setIsMobileWeb(isMobile && !isPWA)
+    }
+    checkMobileWeb()
+    window.addEventListener('resize', checkMobileWeb)
+    return () => window.removeEventListener('resize', checkMobileWeb)
+  }, [isPWA])
   const [editData, setEditData] = useState<EditData>({
     name: user?.name || '',
     phone: user?.phone || '',
@@ -477,10 +489,10 @@ export default function ProfilePageRefactored() {
     }
   }
 
-  // Render PWA-specific profile page when in PWA mode
+  // Render PWA-specific profile page when in PWA mode or mobile web
   // IMPORTANT: This check must happen BEFORE the user check below
   // because PWAProfilePage has its own loading state and user handling
-  if (isClient && isPWA) {
+  if (isClient && (isPWA || isMobileWeb)) {
     return <PWAProfilePage />
   }
 

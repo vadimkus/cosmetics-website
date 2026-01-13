@@ -20,6 +20,18 @@ export default function CheckoutClient() {
   const { t, locale, dir } = useTranslation()
   const { isPWA, isClient: isPWAClient } = usePWAMode()
   const [isProcessing, setIsProcessing] = useState(false)
+  const [isMobileWeb, setIsMobileWeb] = useState(false)
+  
+  // Detect mobile web (non-PWA mobile)
+  useEffect(() => {
+    const checkMobileWeb = () => {
+      const isMobile = window.innerWidth < 768
+      setIsMobileWeb(isMobile && !isPWA)
+    }
+    checkMobileWeb()
+    window.addEventListener('resize', checkMobileWeb)
+    return () => window.removeEventListener('resize', checkMobileWeb)
+  }, [isPWA])
   const [freeMasks, setFreeMasks] = useState<Array<{ id: string; name: string; price: number; quantity: number; image: string }>>([])
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<string>('cod')
   const [orderSummaryExpanded, setOrderSummaryExpanded] = useState(false) // Collapsed by default for PWA
@@ -578,8 +590,8 @@ export default function CheckoutClient() {
 
   return (
     <div className="container mx-auto px-4 py-2 md:py-8 lg:py-16" dir={dir}>
-      {/* PWA Light Header */}
-      {isPWAClient && isPWA && (
+      {/* PWA / Mobile Web Light Header */}
+      {(isPWAClient && isPWA) || isMobileWeb ? (
         <div className={`flex items-center justify-between px-1 py-4 mb-4 border-b border-gray-100 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
           {/* Back to Bag */}
           <Link 
@@ -611,10 +623,10 @@ export default function CheckoutClient() {
             </div>
           </button>
         </div>
-      )}
+      ) : null}
 
-      {/* Navigation Breadcrumb - Hide in PWA mode */}
-      {!(isPWAClient && isPWA) && (
+      {/* Navigation Breadcrumb - Hide in PWA mode and mobile web */}
+      {!(isPWAClient && isPWA) && !isMobileWeb && (
         <div className={`${dir === 'rtl' ? 'flex justify-end' : ''}`}>
           <nav className={`inline-flex items-baseline gap-1.5 md:gap-2 text-xs md:text-base text-gray-600 mb-1.5 md:mb-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`} aria-label="Breadcrumb">
             <span className="hover:text-primary-600 transition-colors">
@@ -634,8 +646,8 @@ export default function CheckoutClient() {
         </div>
       )}
       
-      {/* Back to Cart - Hide in PWA mode */}
-      {!(isPWAClient && isPWA) && (
+      {/* Back to Cart - Hide in PWA mode and mobile web */}
+      {!(isPWAClient && isPWA) && !isMobileWeb && (
         <div className={`mb-4 md:mb-8 ${dir === 'rtl' ? 'flex justify-end' : ''}`}>
           <Link 
             href={getLocalizedPath('/cart', locale)} 
@@ -648,8 +660,8 @@ export default function CheckoutClient() {
       )}
 
       <div className="max-w-6xl mx-auto">
-        {/* Order Number & Summary - PWA Only (Above Form) */}
-        {isPWAClient && isPWA && (
+        {/* Order Number & Summary - PWA and Mobile Web (Above Form) */}
+        {((isPWAClient && isPWA) || isMobileWeb) && (
           <div className="mb-3">
             {/* Order Header Button */}
             <button

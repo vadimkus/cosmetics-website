@@ -99,9 +99,24 @@ export default function OrdersPage() {
   const [showWhatsAppHelp, setShowWhatsAppHelp] = useState<string | null>(null)
   const longPressTimerRef = useRef<NodeJS.Timeout | null>(null)
   const isLongPressRef = useRef(false)
+  const [isMobileWeb, setIsMobileWeb] = useState(false)
 
   const isRTL = dir === 'rtl'
   const fromProfile = searchParams?.get('from') === 'profile'
+  
+  // Detect mobile web (non-PWA mobile)
+  useEffect(() => {
+    const checkMobileWeb = () => {
+      const isMobile = window.innerWidth < 768
+      setIsMobileWeb(isMobile && !isPWA)
+    }
+    checkMobileWeb()
+    window.addEventListener('resize', checkMobileWeb)
+    return () => window.removeEventListener('resize', checkMobileWeb)
+  }, [isPWA])
+  
+  // Combined flag for PWA or mobile web
+  const isAppLikeMode = isPWA || isMobileWeb
 
   // Redirect to login if not authenticated - wait for auth to finish loading first
   useEffect(() => {
@@ -242,7 +257,7 @@ export default function OrdersPage() {
   }
 
   return (
-    <div className={`min-h-screen bg-white ${isPWA ? 'pb-32' : ''}`}>
+    <div className={`min-h-screen bg-white ${isAppLikeMode ? 'pb-32' : ''}`}>
       <BreadcrumbSchema 
         items={[
           { name: t('common.home'), url: getLocalizedPath('/', locale) },
@@ -250,8 +265,8 @@ export default function OrdersPage() {
         ]}
       />
       
-      {/* PWA Simple Navigation Header */}
-      {isPWA && (
+      {/* PWA / Mobile Web Simple Navigation Header */}
+      {isAppLikeMode && (
         <div className={`flex items-center justify-between px-5 py-4 bg-white ${isRTL ? 'flex-row-reverse' : ''}`}>
           <button 
             onClick={() => router.push(getLocalizedPath(fromProfile ? '/profile' : '/products', locale))}
@@ -285,8 +300,8 @@ export default function OrdersPage() {
         </div>
       )}
       
-      {/* Page Header - Only show on non-PWA (PWA has its own header) */}
-      {!isPWA && (
+      {/* Page Header - Only show on desktop (PWA and mobile web have their own header) */}
+      {!isAppLikeMode && (
         <div className="bg-white border-b border-gray-100 sticky top-0 z-10">
           <div className="container mx-auto px-4 py-4">
             <div className={`flex items-center justify-between ${isRTL ? 'flex-row-reverse' : ''}`}>
@@ -309,8 +324,8 @@ export default function OrdersPage() {
         </div>
       )}
 
-      {/* PWA Title Section */}
-      {isPWA && (
+      {/* PWA / Mobile Web Title Section */}
+      {isAppLikeMode && (
         <div className="px-4 pt-4 pb-2">
           <div className={`flex items-center justify-between ${isRTL ? 'flex-row-reverse' : ''}`}>
             <div className={`flex items-center gap-2.5 ${isRTL ? 'flex-row-reverse' : ''}`}>
@@ -339,7 +354,7 @@ export default function OrdersPage() {
       )}
 
       {/* Orders Content */}
-      <div className={`${isPWA ? 'px-4 py-2' : 'container mx-auto px-4 py-6'}`}>
+      <div className={`${isAppLikeMode ? 'px-4 py-2' : 'container mx-auto px-4 py-6'}`}>
         {loadingOrders ? (
           // Loading skeleton
           <div className="space-y-4">
@@ -430,7 +445,7 @@ export default function OrdersPage() {
                       )}
                       
                       {/* WhatsApp Support Icon */}
-                      {isPWA && (
+                      {isAppLikeMode && (
                         <button
                           onTouchStart={() => handleWhatsAppPressStart(order.orderNumber)}
                           onTouchEnd={() => handleWhatsAppPressEnd(order.orderNumber)}

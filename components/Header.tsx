@@ -45,9 +45,9 @@ const Header = memo(function Header() {
     }
   }
   
-  // Check if we're on pages that have their own simple/light header in PWA mode
+  // Check if we're on pages that have their own simple/light header in PWA mode or Mobile Web mode
   const isProductDetailPage = pathname ? /\/products\/[a-zA-Z0-9_-]+$/.test(pathname) : false
-  const isOnPWALightHeaderPage = pathname?.includes('/profile') || 
+  const isOnSimpleHeaderPage = pathname?.includes('/profile') || 
                                   pathname?.includes('/cart') || 
                                   pathname?.includes('/checkout') ||
                                   pathname?.includes('/orders') ||
@@ -67,7 +67,7 @@ const Header = memo(function Header() {
   
   // In PWA mode, hide header completely on pages with their own light header
   const showPWAMobileHeader = isPWAClient && isPWA
-  const hidePWAHeader = isPWAClient && isPWA && isOnPWALightHeaderPage
+  const hidePWAHeader = isPWAClient && isPWA && isOnSimpleHeaderPage
 
   useEffect(() => {
     setIsClient(true)
@@ -95,7 +95,7 @@ const Header = memo(function Header() {
   
   return (
     <header 
-      className={`main-header sticky top-0 z-50 bg-white shadow-sm border-b ${showPWAMobileHeader ? 'hidden md:block' : ''}`} 
+      className="main-header sticky top-0 z-50 bg-white shadow-sm border-b hidden md:block"
       suppressHydrationWarning
     >
       <div className="container mx-auto px-4">

@@ -103,7 +103,8 @@
     "backToHome": "Back to Home",
     "goToProducts": "Go to products",
     "orders": "Orders",
-    "favorites": "Favorites"
+    "favorites": "Favorites",
+    "aiSkinAnalysis": "AI Skin Analysis"
   },
   "products": {
     "title": "GENOSYS Products",

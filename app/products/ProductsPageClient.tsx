@@ -3,7 +3,7 @@ import { debugLog, errorLog } from '@/lib/logger'
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { ArrowLeft, Heart } from 'lucide-react'
+import { ArrowLeft } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { useAnimationStore } from '@/lib/animationStore'
 import ProductCard from '@/components/ProductCard'
@@ -72,8 +72,6 @@ export default function ProductsPageClient() {
     inStockOnly: false
   })
   
-  // Heart animation state for mobile header
-  const [isHeartBeating, setIsHeartBeating] = useState(false)
   const [isMobile, setIsMobile] = useState(true) // Default to mobile for SSR, will update on client
   
   // Check if mobile on mount and window resize
@@ -86,21 +84,6 @@ export default function ProductsPageClient() {
     window.addEventListener('resize', checkMobile)
     
     return () => window.removeEventListener('resize', checkMobile)
-  }, [])
-  
-  // Heart beat animation effect
-  useEffect(() => {
-    const startHeartbeat = () => {
-      setIsHeartBeating(true)
-      setTimeout(() => {
-        setIsHeartBeating(false)
-      }, 600)
-    }
-
-    startHeartbeat()
-    const interval = setInterval(startHeartbeat, 16000)
-
-    return () => clearInterval(interval)
   }, [])
 
   // Fetch products from API
@@ -338,8 +321,8 @@ export default function ProductsPageClient() {
         ]}
       />
       <div className="container mx-auto px-4 py-4 md:py-8 lg:py-16">
-        {/* Navigation Breadcrumb - Hide in PWA mode */}
-        {!isPWA && (
+        {/* Navigation Breadcrumb - Hide in PWA mode and mobile web */}
+        {!isPWA && !isMobile && (
           <nav className="text-xs md:text-base text-gray-600 mb-2 md:mb-4 products-breadcrumb" aria-label="Breadcrumb">
             <Link 
               href={getLocalizedPath('/', locale)}
@@ -365,27 +348,10 @@ export default function ProductsPageClient() {
           </Link>
         )}
 
-        {/* Header - Hide mobile text in PWA mode */}
-        <div className={`text-center ${isPWA && isMobile ? 'mb-2' : 'mb-4 md:mb-8'}`}>
-          {isMobile && !isPWA ? (
-            <div className="mb-1">
-              <h1 className="text-xl font-bold text-primary-600">Genosys Middle East FZ-LLC</h1>
-              <div className="flex flex-col items-center mt-1">
-                <div className="flex items-center justify-center gap-1 text-sm text-gray-600">
-                  <span className="ml-[70px] flex items-center gap-1">
-                    <span className="text-base">🇦🇪</span>
-                    {t('common.uae')}
-                    <Heart 
-                      className={`h-3 w-3 text-primary-600 fill-current transition-transform duration-300 ${
-                        isHeartBeating ? 'animate-pulse' : ''
-                      }`}
-                      style={isHeartBeating ? { animation: 'heartbeat 0.6s ease-in-out' } : {}}
-                    />
-                  </span>
-                </div>
-              </div>
-            </div>
-          ) : !isMobile ? (
+        {/* Header - Show logo on desktop only, hide company text on mobile web */}
+        <div className={`text-center ${isMobile ? 'mb-2' : 'mb-4 md:mb-8'}`}>
+          {/* Desktop only: show logo */}
+          {!isMobile && (
             <div className="flex justify-center mb-3">
               <Image
                 src="/images/prd_logo.png"
@@ -396,9 +362,9 @@ export default function ProductsPageClient() {
                 priority
               />
             </div>
-          ) : null}
-          {/* Black Friday Mini Counter - hide in PWA mobile for closer search */}
-          {!(isPWA && isMobile) && (
+          )}
+          {/* Black Friday Mini Counter - hide on mobile */}
+          {!isMobile && (
             <div className="flex justify-center mb-2">
               <BlackFridayMini />
             </div>

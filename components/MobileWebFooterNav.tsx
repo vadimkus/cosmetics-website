@@ -10,11 +10,7 @@ import { useMemo, useState, useEffect, useRef, useCallback } from 'react'
 /**
  * Mobile Web Footer Navigation - Mobile Browser Only (Not PWA)
  * 
- * Features:
- * - Fixed sticky footer with Home, Orders, Bag tabs
- * - Fixed height (70px) - no dynamic changes
- * 
- * Matches the native mobile app design
+ * Simple fixed footer with Home, Orders, Bag tabs
  */
 
 // Custom SVG Icons
@@ -106,6 +102,18 @@ export default function MobileWebFooterNav() {
   const [isMobile, setIsMobile] = useState(false)
   const lastClickTime = useRef(0)
   
+  // Add padding to body when footer is visible (Chrome fix)
+  useEffect(() => {
+    if (!isClient || isPWA || !isMobile) return
+    
+    // Add class to body for CSS to handle padding
+    document.body.classList.add('has-mobile-footer')
+    
+    return () => {
+      document.body.classList.remove('has-mobile-footer')
+    }
+  }, [isClient, isPWA, isMobile])
+  
   // Check if mobile device
   useEffect(() => {
     setIsMobile(isMobileDevice())
@@ -144,7 +152,6 @@ export default function MobileWebFooterNav() {
   // Check if we're on specific pages where footer should be hidden
   const shouldHideFooter = useMemo(() => {
     if (!pathname) return false
-    // Hide on product detail pages, checkout, PDF viewer
     const productDetailPattern = /\/products\/[a-zA-Z0-9_-]+$/
     return productDetailPattern.test(pathname) || 
            pathname.includes('/checkout') ||
@@ -173,135 +180,102 @@ export default function MobileWebFooterNav() {
   }
   
   // Colors matching mobile app
-  const activeColor = 'text-[#dc2626]' // red
-  const inactiveColor = 'text-[#8E8E93]' // gray
-  const greenColor = 'text-[#10b981]' // green when items exist
-  
-  // Fixed footer height - NEVER changes
-  const footerHeight = 70
+  const activeColor = 'text-[#dc2626]'
+  const inactiveColor = 'text-[#8E8E93]'
+  const greenColor = 'text-[#10b981]'
   
   return (
-    <>
-      {/* Spacer to prevent content from being hidden behind fixed footer */}
-      <div 
-        className="md:hidden" 
-        style={{ height: `${footerHeight + 44}px` }} // 70px footer + 44px safe area buffer
-        aria-hidden="true" 
-      />
-      
-      {/* Mobile Web Footer Navigation - Chrome-safe fixed footer */}
-      <nav 
-        className="md:hidden"
-        style={{ 
-          position: 'fixed',
-          bottom: 0,
-          left: 0,
-          right: 0,
-          zIndex: 999999,
-          backgroundColor: '#ffffff',
-          paddingBottom: 'env(safe-area-inset-bottom, 0px)',
-          borderTop: '1px solid #e5e7eb',
-          boxShadow: '0 -2px 10px rgba(0, 0, 0, 0.08)',
-          height: `${footerHeight}px`,
-          // Chrome fix: force new compositing layer
-          transform: 'translateZ(0)',
-          WebkitTransform: 'translateZ(0)',
-          willChange: 'transform',
-          contain: 'layout style paint',
-          isolation: 'isolate',
-          // Prevent any transparency issues
-          opacity: 1,
-        }}
-        dir={dir}
-        role="navigation"
-        aria-label="Mobile navigation"
-      >
-        <div className="flex items-center justify-around h-full px-2">
-          {/* Home Tab */}
-          <button
-            type="button"
-            onClick={() => handleNavigation(getLocalizedPath('/products', locale))}
-            disabled={!isReady || isNavigating}
-            className={`flex flex-col items-center justify-center flex-1 h-full px-2 select-none active:scale-95 ${
-              activeTab === 'home' ? activeColor : inactiveColor
-            } ${isNavigating ? 'opacity-70' : ''}`}
-            style={{ 
-              WebkitTapHighlightColor: 'transparent',
-              touchAction: 'manipulation'
-            }}
-            aria-current={activeTab === 'home' ? 'page' : undefined}
-          >
-            <HomeIcon 
-              filled={activeTab === 'home'} 
+    <nav 
+      id="mobile-footer-nav"
+      className="mobile-footer-nav"
+      dir={dir}
+      role="navigation"
+      aria-label="Mobile navigation"
+    >
+      <div className="flex items-center justify-around h-full px-2 bg-white">
+        {/* Home Tab */}
+        <button
+          type="button"
+          onClick={() => handleNavigation(getLocalizedPath('/products', locale))}
+          disabled={!isReady || isNavigating}
+          className={`flex flex-col items-center justify-center flex-1 h-full px-2 select-none active:scale-95 ${
+            activeTab === 'home' ? activeColor : inactiveColor
+          } ${isNavigating ? 'opacity-70' : ''}`}
+          style={{ 
+            WebkitTapHighlightColor: 'transparent',
+            touchAction: 'manipulation'
+          }}
+          aria-current={activeTab === 'home' ? 'page' : undefined}
+        >
+          <HomeIcon 
+            filled={activeTab === 'home'} 
+            className="w-7 h-7"
+          />
+          <span className="text-xs mt-1 font-medium">
+            {t('tabs.home') || 'Home'}
+          </span>
+        </button>
+
+        {/* Orders Tab */}
+        <button
+          type="button"
+          onClick={() => handleNavigation(getLocalizedPath('/orders', locale))}
+          disabled={!isReady || isNavigating}
+          className={`flex flex-col items-center justify-center flex-1 h-full px-2 select-none active:scale-95 ${
+            activeTab === 'orders' ? activeColor : inactiveColor
+          } ${isNavigating ? 'opacity-70' : ''}`}
+          style={{ 
+            WebkitTapHighlightColor: 'transparent',
+            touchAction: 'manipulation'
+          }}
+          aria-current={activeTab === 'orders' ? 'page' : undefined}
+        >
+          <ListIcon 
+            filled={activeTab === 'orders'} 
+            className="w-7 h-7"
+          />
+          <span className="text-xs mt-1 font-medium">
+            {t('tabs.orders') || 'Orders'}
+          </span>
+        </button>
+
+        {/* Bag Tab */}
+        <button
+          type="button"
+          onClick={() => handleNavigation(getLocalizedPath('/cart', locale))}
+          disabled={!isReady || isNavigating}
+          className={`flex flex-col items-center justify-center flex-1 h-full px-2 select-none active:scale-95 ${
+            hasItemsInCart 
+              ? greenColor 
+              : activeTab === 'bag' 
+                ? activeColor 
+                : inactiveColor
+          } ${isNavigating ? 'opacity-70' : ''}`}
+          style={{ 
+            WebkitTapHighlightColor: 'transparent',
+            touchAction: 'manipulation'
+          }}
+          aria-current={activeTab === 'bag' ? 'page' : undefined}
+        >
+          <div className="relative">
+            <BagIcon 
+              filled={activeTab === 'bag' || hasItemsInCart} 
               className="w-7 h-7"
             />
-            <span className="text-xs mt-1 font-medium">
-              {t('tabs.home') || 'Home'}
-            </span>
-          </button>
-
-          {/* Orders Tab */}
-          <button
-            type="button"
-            onClick={() => handleNavigation(getLocalizedPath('/orders', locale))}
-            disabled={!isReady || isNavigating}
-            className={`flex flex-col items-center justify-center flex-1 h-full px-2 select-none active:scale-95 ${
-              activeTab === 'orders' ? activeColor : inactiveColor
-            } ${isNavigating ? 'opacity-70' : ''}`}
-            style={{ 
-              WebkitTapHighlightColor: 'transparent',
-              touchAction: 'manipulation'
-            }}
-            aria-current={activeTab === 'orders' ? 'page' : undefined}
-          >
-            <ListIcon 
-              filled={activeTab === 'orders'} 
-              className="w-7 h-7"
-            />
-            <span className="text-xs mt-1 font-medium">
-              {t('tabs.orders') || 'Orders'}
-            </span>
-          </button>
-
-          {/* Bag Tab */}
-          <button
-            type="button"
-            onClick={() => handleNavigation(getLocalizedPath('/cart', locale))}
-            disabled={!isReady || isNavigating}
-            className={`flex flex-col items-center justify-center flex-1 h-full px-2 select-none active:scale-95 ${
-              hasItemsInCart 
-                ? greenColor 
-                : activeTab === 'bag' 
-                  ? activeColor 
-                  : inactiveColor
-            } ${isNavigating ? 'opacity-70' : ''}`}
-            style={{ 
-              WebkitTapHighlightColor: 'transparent',
-              touchAction: 'manipulation'
-            }}
-            aria-current={activeTab === 'bag' ? 'page' : undefined}
-          >
-            <div className="relative">
-              <BagIcon 
-                filled={activeTab === 'bag' || hasItemsInCart} 
-                className="w-7 h-7"
-              />
-              {/* Badge for cart count */}
-              {hasItemsInCart && (
-                <span 
-                  className="absolute -top-1.5 -right-2.5 bg-[#dc2626] text-white text-[10px] font-semibold rounded-full min-w-[18px] h-[18px] flex items-center justify-center border-2 border-white"
-                  aria-label={`${cartCount} items in cart`}
-                >
-                  {cartCount > 99 ? '99+' : cartCount}
-                </span>
-              )}
-            </div>
-            <span className="text-xs mt-1 font-medium">
-              {t('tabs.bag') || 'Bag'}
-            </span>
-          </button>
-        </div>
-      </nav>
-    </>
+            {hasItemsInCart && (
+              <span 
+                className="absolute -top-1.5 -right-2.5 bg-[#dc2626] text-white text-[10px] font-semibold rounded-full min-w-[18px] h-[18px] flex items-center justify-center border-2 border-white"
+                aria-label={`${cartCount} items in cart`}
+              >
+                {cartCount > 99 ? '99+' : cartCount}
+              </span>
+            )}
+          </div>
+          <span className="text-xs mt-1 font-medium">
+            {t('tabs.bag') || 'Bag'}
+          </span>
+        </button>
+      </div>
+    </nav>
   )
 }

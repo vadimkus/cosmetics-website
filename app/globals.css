@@ -255,32 +255,34 @@ html[dir="rtl"] {
   }
 }
 
-/* Mobile sticky footer - Chrome fix for scroll overlap */
-@media (max-width: 767px) {
-  /* Ensure main content doesn't overlap footer */
-  main {
-    position: relative;
-    z-index: 1;
+/* Mobile sticky footer navigation */
+.mobile-footer-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 70px;
+  background-color: #ffffff;
+  border-top: 1px solid #e5e7eb;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.08);
+  z-index: 2147483647; /* Maximum z-index value */
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* Hide on desktop */
+@media (min-width: 768px) {
+  .mobile-footer-nav {
+    display: none !important;
   }
-  
-  /* Force mobile footer to always stay on top in Chrome */
-  nav[aria-label="Mobile navigation"] {
-    position: fixed !important;
-    bottom: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    z-index: 999999 !important;
-    transform: translateZ(0) !important;
-    -webkit-transform: translateZ(0) !important;
-    will-change: transform;
-    contain: layout style paint;
-    background-color: #ffffff !important;
-    /* Exclude from view transitions to prevent glitches */
-    view-transition-name: none !important;
-  }
-  
-  /* Ensure body content stays below footer */
-  body {
-    padding-bottom: env(safe-area-inset-bottom, 0px);
-  }
+}
+
+/* Add padding to body when mobile footer is present */
+body.has-mobile-footer {
+  padding-bottom: calc(70px + env(safe-area-inset-bottom, 20px)) !important;
+}
+
+/* Ensure main content has lower z-index */
+body.has-mobile-footer main {
+  position: relative;
+  z-index: 1;
 }

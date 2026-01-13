@@ -98,7 +98,7 @@ export default function MobileWebFooterNav() {
   const shouldHide = useMemo(() => {
     if (!pathname) return false
     return /\/products\/[a-zA-Z0-9_-]+$/.test(pathname) || 
-           pathname.includes('/checkout') || pathname.includes('/pdf-viewer') || pathname.includes('/pwa-login')
+           pathname.includes('/pdf-viewer') || pathname.includes('/pwa-login')
   }, [pathname])
 
   const activeTab = useMemo(() => {

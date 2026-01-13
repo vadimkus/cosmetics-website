@@ -1068,8 +1068,8 @@ export default function CheckoutClient() {
             </div>
           </div>
 
-          {/* Order Summary */}
-          <div className="lg:w-1/3">
+          {/* Order Summary - Hidden on Mobile Web (already shown in chevron above) */}
+          <div className={`lg:w-1/3 ${isMobileWeb ? 'hidden' : ''}`}>
             <div className="bg-white rounded-lg md:rounded-xl shadow-md md:shadow-lg border border-gray-100 sticky top-4 order-summary-container" style={{ overflow: 'hidden', overflowY: 'hidden', overflowX: 'hidden' }}>
               {/* Header - Hidden in PWA (moved to top of page), shown on desktop */}
               {!(isPWAClient && isPWA) && (

@@ -228,12 +228,16 @@ export default function MobileWebFooterNav() {
   const iconSize = isExpanded ? 'w-9 h-9' : 'w-7 h-7'
   const textSize = isExpanded ? 'text-sm' : 'text-xs'
   
+  // Fixed spacer height - always use expanded height + safe area buffer
+  // This prevents content overlap when footer expands
+  const spacerHeight = expandedHeight + 44 // 90px footer + 44px buffer for safe area
+  
   return (
     <>
       {/* Spacer to prevent content from being hidden behind fixed footer */}
       <div 
-        className="md:hidden transition-all duration-300" 
-        style={{ height: `${currentHeight + 20}px` }}
+        className="md:hidden" 
+        style={{ height: `${spacerHeight}px` }}
         aria-hidden="true" 
       />
       

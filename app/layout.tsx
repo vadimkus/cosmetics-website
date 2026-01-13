@@ -273,7 +273,7 @@ export default function RootLayout({
                     <LocaleWrapper>
                       <PWAHeader />
                       <Header />
-                      <main className="flex-1">
+                      <main className="flex-1 relative z-[1]">
                         <ErrorBoundary>
                           <PullToRefresh>
                             <PageTransition>

@@ -189,20 +189,28 @@ export default function MobileWebFooterNav() {
         aria-hidden="true" 
       />
       
-      {/* Mobile Web Footer Navigation - Fixed height, solid background for Chrome compatibility */}
+      {/* Mobile Web Footer Navigation - Chrome-safe fixed footer */}
       <nav 
-        className="fixed bottom-0 left-0 right-0 z-[9999] bg-white md:hidden"
+        className="md:hidden"
         style={{ 
+          position: 'fixed',
+          bottom: 0,
+          left: 0,
+          right: 0,
+          zIndex: 999999,
+          backgroundColor: '#ffffff',
           paddingBottom: 'env(safe-area-inset-bottom, 0px)',
           borderTop: '1px solid #e5e7eb',
           boxShadow: '0 -2px 10px rgba(0, 0, 0, 0.08)',
           height: `${footerHeight}px`,
-          // Chrome fix: force GPU layer and proper stacking
-          transform: 'translate3d(0, 0, 0)',
-          WebkitTransform: 'translate3d(0, 0, 0)',
-          backfaceVisibility: 'hidden',
-          WebkitBackfaceVisibility: 'hidden',
-          isolation: 'isolate'
+          // Chrome fix: force new compositing layer
+          transform: 'translateZ(0)',
+          WebkitTransform: 'translateZ(0)',
+          willChange: 'transform',
+          contain: 'layout style paint',
+          isolation: 'isolate',
+          // Prevent any transparency issues
+          opacity: 1,
         }}
         dir={dir}
         role="navigation"

@@ -11,9 +11,8 @@ import { useMemo, useState, useEffect, useRef, useCallback } from 'react'
  * Mobile Web Footer Navigation - Mobile Browser Only (Not PWA)
  * 
  * Features:
- * - Sticky footer with Home, Orders, Bag tabs
- * - Icons scale up when user scrolls up (no height change)
- * - Icons scale back when scrolling down
+ * - Fixed sticky footer with Home, Orders, Bag tabs
+ * - Fixed height (70px) - no dynamic changes
  * 
  * Matches the native mobile app design
  */
@@ -104,11 +103,8 @@ export default function MobileWebFooterNav() {
   const { isPWA, isClient } = usePWAMode()
   const [isReady, setIsReady] = useState(false)
   const [isNavigating, setIsNavigating] = useState(false)
-  const [isExpanded, setIsExpanded] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
   const lastClickTime = useRef(0)
-  const lastScrollY = useRef(0)
-  const scrollTimeout = useRef<NodeJS.Timeout | null>(null)
   
   // Check if mobile device
   useEffect(() => {
@@ -132,46 +128,6 @@ export default function MobileWebFooterNav() {
   useEffect(() => {
     setIsNavigating(false)
   }, [pathname])
-  
-  // Scroll detection for expand/collapse behavior
-  useEffect(() => {
-    if (!isClient || isPWA || !isMobile) return
-    
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY
-      const scrollDelta = lastScrollY.current - currentScrollY
-      
-      // Scrolling up (positive delta means going up)
-      if (scrollDelta > 10) {
-        setIsExpanded(true)
-        
-        // Auto-collapse after 2 seconds of no scrolling
-        if (scrollTimeout.current) {
-          clearTimeout(scrollTimeout.current)
-        }
-        scrollTimeout.current = setTimeout(() => {
-          setIsExpanded(false)
-        }, 2000)
-      }
-      // Scrolling down - collapse immediately
-      else if (scrollDelta < -10) {
-        setIsExpanded(false)
-        if (scrollTimeout.current) {
-          clearTimeout(scrollTimeout.current)
-        }
-      }
-      
-      lastScrollY.current = currentScrollY
-    }
-    
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => {
-      window.removeEventListener('scroll', handleScroll)
-      if (scrollTimeout.current) {
-        clearTimeout(scrollTimeout.current)
-      }
-    }
-  }, [isClient, isPWA, isMobile])
   
   // Get locale from pathname
   const locale = useMemo(() => getLocaleFromPath(pathname || '/'), [pathname])
@@ -224,9 +180,6 @@ export default function MobileWebFooterNav() {
   // Fixed footer height - NEVER changes
   const footerHeight = 70
   
-  // Scale factor for icons when expanded (using CSS transform, no layout change)
-  const iconScale = isExpanded ? 'scale-110' : 'scale-100'
-  
   return (
     <>
       {/* Spacer to prevent content from being hidden behind fixed footer */}
@@ -238,13 +191,11 @@ export default function MobileWebFooterNav() {
       
       {/* Mobile Web Footer Navigation - Fixed height, icons scale on scroll */}
       <nav 
-        className="fixed bottom-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm md:hidden"
+        className="fixed bottom-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm md:hidden overflow-hidden"
         style={{ 
           paddingBottom: 'env(safe-area-inset-bottom, 0px)',
           borderTop: '0.5px solid rgba(0, 0, 0, 0.1)',
-          boxShadow: isExpanded 
-            ? '0 -4px 16px rgba(0, 0, 0, 0.15)' 
-            : '0 -2px 8px rgba(0, 0, 0, 0.1)',
+          boxShadow: '0 -2px 8px rgba(0, 0, 0, 0.1)',
           height: `${footerHeight}px` // Fixed height - never changes
         }}
         dir={dir}
@@ -266,12 +217,10 @@ export default function MobileWebFooterNav() {
             }}
             aria-current={activeTab === 'home' ? 'page' : undefined}
           >
-            <div className={`transition-transform duration-200 ease-out ${iconScale}`}>
-              <HomeIcon 
-                filled={activeTab === 'home'} 
-                className="w-7 h-7"
-              />
-            </div>
+            <HomeIcon 
+              filled={activeTab === 'home'} 
+              className="w-7 h-7"
+            />
             <span className="text-xs mt-1 font-medium">
               {t('tabs.home') || 'Home'}
             </span>
@@ -291,12 +240,10 @@ export default function MobileWebFooterNav() {
             }}
             aria-current={activeTab === 'orders' ? 'page' : undefined}
           >
-            <div className={`transition-transform duration-200 ease-out ${iconScale}`}>
-              <ListIcon 
-                filled={activeTab === 'orders'} 
-                className="w-7 h-7"
-              />
-            </div>
+            <ListIcon 
+              filled={activeTab === 'orders'} 
+              className="w-7 h-7"
+            />
             <span className="text-xs mt-1 font-medium">
               {t('tabs.orders') || 'Orders'}
             </span>
@@ -320,7 +267,7 @@ export default function MobileWebFooterNav() {
             }}
             aria-current={activeTab === 'bag' ? 'page' : undefined}
           >
-            <div className={`relative transition-transform duration-200 ease-out ${iconScale}`}>
+            <div className="relative">
               <BagIcon 
                 filled={activeTab === 'bag' || hasItemsInCart} 
                 className="w-7 h-7"

@@ -7,6 +7,7 @@ import { findUserByEmail } from '@/lib/userStorageDb'
 import { prisma } from '@/lib/prisma'
 import { requireAdminAuth } from '@/lib/adminAuth'
 import { requireCsrfToken } from '@/lib/csrf'
+import { isTwilioConfigured } from '@/lib/twilio'
 
 export async function PUT(
   request: NextRequest,
@@ -103,6 +104,36 @@ export async function PUT(
       errorLog('❌ Exception sending order status update email:', emailError)
       errorLog('❌ Exception details:', emailError instanceof Error ? emailError.message : String(emailError))
       // Don't fail the status update if email fails
+    }
+
+    // Send WhatsApp notification (non-blocking)
+    if (isTwilioConfigured() && order.customerPhone) {
+      try {
+        const whatsappResponse = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL || 'https://genosys.ae'}/api/whatsapp/order-status`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-api-key': process.env.INTERNAL_API_KEY || ''
+          },
+          body: JSON.stringify({
+            orderId: id,
+            orderNumber: order.orderNumber,
+            status
+          })
+        })
+        
+        const whatsappResult = await whatsappResponse.json()
+        if (whatsappResult.success) {
+          debugLog(`✅ WhatsApp notification sent for order ${id}`)
+        } else if (whatsappResult.skipped) {
+          debugLog(`⏭️ WhatsApp notification skipped: ${whatsappResult.reason}`)
+        } else {
+          errorLog(`❌ WhatsApp notification failed:`, whatsappResult.error)
+        }
+      } catch (whatsappError) {
+        errorLog('❌ Exception sending WhatsApp notification:', whatsappError)
+        // Don't fail the status update if WhatsApp fails
+      }
     }
 
     return NextResponse.json({ 

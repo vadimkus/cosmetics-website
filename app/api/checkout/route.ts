@@ -11,6 +11,7 @@ import { generateUniqueOrderNumber } from '@/lib/orderNumber'
 import { getPreferredEmail } from '@/lib/emailHelpers'
 import { findUserByEmail } from '@/lib/userStorageDb'
 import { calculateMobileShipping, calculateVatIncluded } from '@/lib/mobileCheckoutConfig'
+import { sendWhatsAppOrderConfirmation, isTwilioConfigured } from '@/lib/twilio'
 
 interface CheckoutItem {
   product: Product
@@ -247,6 +248,28 @@ export async function POST(request: NextRequest) {
       errorLog('❌ Exception details:', emailError instanceof Error ? emailError.message : String(emailError))
       // Don't fail order creation if email fails
     })
+
+    // Send WhatsApp order confirmation (non-blocking - fire and forget)
+    if (isTwilioConfigured() && customerPhone) {
+      sendWhatsAppOrderConfirmation(customerPhone, {
+        customerName: order.customerName,
+        orderNumber: order.orderNumber,
+        total: order.total,
+        itemCount: order.items.length,
+        locale: order.locale
+      }).then((whatsappResult) => {
+        if (whatsappResult.success) {
+          debugLog('✅ WhatsApp order confirmation sent to:', customerPhone)
+        } else if (whatsappResult.skipped) {
+          debugLog('⏭️ WhatsApp notification skipped:', whatsappResult.reason)
+        } else {
+          errorLog('❌ Failed to send WhatsApp notification:', whatsappResult.error)
+        }
+      }).catch((whatsappError) => {
+        errorLog('❌ Exception sending WhatsApp notification:', whatsappError)
+        // Don't fail order creation if WhatsApp fails
+      })
+    }
 
     // Return success response immediately (emails are sent asynchronously)
     return NextResponse.json({ 

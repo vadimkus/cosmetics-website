@@ -3,7 +3,11 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 import { Package, Truck, CheckCircle, XCircle, Clock, ArrowLeft, RefreshCw, CreditCard, MapPin } from 'lucide-react'
+import { usePWAMode } from '@/hooks/usePWAMode'
+import { useTranslation } from '@/hooks/useTranslation'
+import { getLocalizedPath } from '@/lib/i18n'
 
 interface TrackingData {
   orderNumber: string
@@ -51,6 +55,27 @@ export default function OrderTrackingClient({ orderNumber }: OrderTrackingClient
   const [trackingData, setTrackingData] = useState<TrackingData | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const { isPWA, isClient } = usePWAMode()
+  const { t, locale, dir } = useTranslation()
+  const router = useRouter()
+  const isRTL = dir === 'rtl'
+  const [isMobileWeb, setIsMobileWeb] = useState(false)
+  
+  useEffect(() => {
+    if (isClient) {
+      setIsMobileWeb(window.innerWidth < 768 && !isPWA)
+    }
+  }, [isClient, isPWA])
+  
+  const isAppLikeMode = (isClient && isPWA) || isMobileWeb
+  
+  const handleBack = () => {
+    router.push(getLocalizedPath('/profile?tab=orders', locale))
+  }
+  
+  const handleProfileClick = () => {
+    router.push(getLocalizedPath('/profile', locale))
+  }
 
   const fetchTrackingData = async () => {
     setLoading(true)
@@ -189,28 +214,61 @@ export default function OrderTrackingClient({ orderNumber }: OrderTrackingClient
   const statusDisplay = getStatusDisplay(trackingData.status)
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8 px-4">
-      <div className="max-w-3xl mx-auto">
-        {/* Header */}
-        <div className="mb-6">
-          <Link 
-            href="/profile?tab=orders"
-            className="inline-flex items-center text-gray-600 hover:text-primary-600 transition-colors mb-4"
+    <div className={`min-h-screen bg-gray-50 ${isAppLikeMode ? 'pb-32' : ''}`} dir={dir}>
+      {/* Mobile Header */}
+      {isAppLikeMode && (
+        <div className={`sticky top-0 z-40 flex items-center justify-between px-5 py-4 bg-white border-b border-gray-100 ${isRTL ? 'flex-row-reverse' : ''}`}>
+          <button
+            onClick={handleBack}
+            className={`flex items-center gap-1 min-w-[80px] ${isRTL ? 'flex-row-reverse' : ''}`}
           >
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            Back to Orders
-          </Link>
-          <div className="flex items-center justify-between">
-            <h1 className="text-2xl font-bold text-gray-900">Order Tracking</h1>
-            <button
-              onClick={fetchTrackingData}
-              className="p-2 text-gray-500 hover:text-primary-600 transition-colors"
-              title="Refresh"
-            >
-              <RefreshCw className="w-5 h-5" />
-            </button>
-          </div>
+            <ArrowLeft className={`w-5 h-5 text-red-600 ${isRTL ? 'rotate-180' : ''}`} />
+            <span className="text-base text-red-600">
+              {t('orders.title')}
+            </span>
+          </button>
+          <span className="text-base font-semibold text-gray-900">
+            {t('orders.trackOrder')}
+          </span>
+          <button
+            onClick={handleProfileClick}
+            className="min-w-[80px] flex justify-end"
+          >
+            <div className="relative">
+              <div className="w-8 h-8 rounded-full bg-red-600 flex items-center justify-center">
+                <span className="text-sm font-semibold text-white">
+                  {trackingData?.customerFirstName?.charAt(0) || 'U'}
+                </span>
+              </div>
+              <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 rounded-full border-2 border-white" />
+            </div>
+          </button>
         </div>
+      )}
+      
+      <div className={`max-w-3xl mx-auto ${isAppLikeMode ? 'px-4 py-4' : 'py-8 px-4'}`}>
+        {/* Desktop Header - hide on mobile */}
+        {!isAppLikeMode && (
+          <div className="mb-6">
+            <Link 
+              href="/profile?tab=orders"
+              className="inline-flex items-center text-gray-600 hover:text-primary-600 transition-colors mb-4"
+            >
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Back to Orders
+            </Link>
+            <div className="flex items-center justify-between">
+              <h1 className="text-2xl font-bold text-gray-900">Order Tracking</h1>
+              <button
+                onClick={fetchTrackingData}
+                className="p-2 text-gray-500 hover:text-primary-600 transition-colors"
+                title="Refresh"
+              >
+                <RefreshCw className="w-5 h-5" />
+              </button>
+            </div>
+          </div>
+        )}
 
         {/* Status Card */}
         <div className={`rounded-xl p-6 mb-6 ${statusDisplay.bgColor}`}>

@@ -1,5 +1,6 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
 import Logo from '@/components/Logo'
@@ -13,14 +14,22 @@ import { usePWAMode } from '@/hooks/usePWAMode'
 export default function AboutPageClient() {
   const { t, locale, dir } = useTranslation()
   const { isPWA, isClient } = usePWAMode()
-  const showPWAMode = isClient && isPWA
+  const [isMobileWeb, setIsMobileWeb] = useState(false)
+  
+  useEffect(() => {
+    if (isClient) {
+      setIsMobileWeb(window.innerWidth < 768 && !isPWA)
+    }
+  }, [isClient, isPWA])
+  
+  const isAppLikeMode = (isClient && isPWA) || isMobileWeb
   
   return (
     <PWAPageWrapper 
       title={locale === 'ar' ? 'حول جينوسيس' : locale === 'ru' ? 'О Genosys' : 'About Genosys'}
       defaultBackPath="/products"
     >
-      <div className={`bg-white min-h-screen ${showPWAMode ? '' : ''}`} dir={dir}>
+      <div className={`bg-white min-h-screen ${isAppLikeMode ? 'pb-32' : ''}`} dir={dir}>
         <BreadcrumbSchema 
         items={[
           { name: t('common.home'), url: getLocalizedPath('/', locale) },
@@ -30,8 +39,8 @@ export default function AboutPageClient() {
       <div className="container mx-auto px-3 md:px-4 py-4 md:py-16">
       <div className="max-w-4xl mx-auto">
 
-        {/* Navigation Breadcrumb - hide in PWA */}
-        {!showPWAMode && (
+        {/* Navigation Breadcrumb - hide in PWA and mobile web */}
+        {!isAppLikeMode && (
           <nav className={`text-xs md:text-base text-gray-600 mb-2 md:mb-4 ${dir === 'rtl' ? 'text-right' : ''}`} aria-label="Breadcrumb">
             <Link href={getLocalizedPath('/', locale)} className="hover:text-primary-600 transition-colors">{t('common.home')}</Link>
             <span> / </span>
@@ -39,8 +48,8 @@ export default function AboutPageClient() {
           </nav>
         )}
         
-        {/* Back to Home - hide in PWA */}
-        {!showPWAMode && (
+        {/* Back to Home - hide in PWA and mobile web */}
+        {!isAppLikeMode && (
           <Link href={getLocalizedPath('/', locale)} className={`inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 mb-4 md:mb-8 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
             <ArrowLeft className={`h-3 w-3 md:h-4 md:w-4 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
             <span>{t('common.backToHome')}</span>

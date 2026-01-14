@@ -1,10 +1,10 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { ArrowLeft, ChevronDown, ChevronUp } from 'lucide-react'
 import BreadcrumbSchema from '@/components/BreadcrumbSchema'
 import PWAPageWrapper from '@/components/PWAPageWrapper'
-import { useState } from 'react'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { sanitizeHtml } from '@/lib/sanitize'
@@ -14,6 +14,13 @@ export default function FAQClient() {
   const { t, locale, dir } = useTranslation()
   const { isPWA, isClient } = usePWAMode()
   const [openIndex, setOpenIndex] = useState<number | null>(null)
+  const [isMobileWeb, setIsMobileWeb] = useState(false)
+  
+  useEffect(() => {
+    if (isClient) {
+      setIsMobileWeb(window.innerWidth < 768 && !isPWA)
+    }
+  }, [isClient, isPWA])
 
   const faqs = [
     {
@@ -90,14 +97,14 @@ export default function FAQClient() {
     setOpenIndex(openIndex === index ? null : index)
   }
 
-  const showPWAMode = isClient && isPWA
+  const isAppLikeMode = (isClient && isPWA) || isMobileWeb
   
   return (
     <PWAPageWrapper 
       title={locale === 'ar' ? 'الأسئلة الشائعة' : locale === 'ru' ? 'Помощь' : 'Help & Support'}
       defaultBackPath="/products"
     >
-    <div className={`bg-gradient-to-b from-gray-50 to-white min-h-screen ${showPWAMode ? '' : ''}`} dir={dir}>
+    <div className={`bg-gradient-to-b from-gray-50 to-white min-h-screen ${isAppLikeMode ? 'pb-32' : ''}`} dir={dir}>
       <BreadcrumbSchema 
         items={[
           { name: t('common.home'), url: getLocalizedPath('/', locale) },
@@ -126,8 +133,8 @@ export default function FAQClient() {
       
       <div className="container mx-auto px-3 md:px-4 py-4 md:py-16">
         <div className="max-w-4xl mx-auto">
-          {/* Navigation Breadcrumb - hide in PWA */}
-          {!showPWAMode && (
+          {/* Navigation Breadcrumb - hide in PWA and mobile web */}
+          {!isAppLikeMode && (
             <nav className="text-xs md:text-base text-gray-600 mb-2 md:mb-4" aria-label="Breadcrumb">
               <Link href={getLocalizedPath('/', locale)} className="hover:text-primary-600 transition-colors">{t('common.home')}</Link>
               <span> / </span>
@@ -135,8 +142,8 @@ export default function FAQClient() {
             </nav>
           )}
           
-          {/* Back to Home - hide in PWA */}
-          {!showPWAMode && (
+          {/* Back to Home - hide in PWA and mobile web */}
+          {!isAppLikeMode && (
             <Link href={getLocalizedPath('/', locale)} className="inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 mb-4 md:mb-8">
               <ArrowLeft className={`h-3 w-3 md:h-4 md:w-4 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
               <span>{t('common.backToHome')}</span>

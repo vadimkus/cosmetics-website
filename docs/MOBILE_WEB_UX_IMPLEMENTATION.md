@@ -103,6 +103,7 @@ Individual pages display a simplified header with:
 | Locations | `app/locations/LocationsPageClient.tsx` | "Locations" |
 | Blog | `app/blog/BlogPageClient.tsx` | "Blog" |
 | Partners | `app/partners/PartnersPageClient.tsx` | "Partners" |
+| Order Tracking | `app/track/[orderNumber]/OrderTrackingClient.tsx` | "Track Order" |
 
 ### 5. Profile Subpages
 
@@ -253,8 +254,10 @@ app/
 ├── partners/
 │   ├── page.tsx                # Server component with schema
 │   └── PartnersPageClient.tsx  # Client component with mobile header
+├── track/[orderNumber]/
+│   └── OrderTrackingClient.tsx # Order tracking with mobile header
 └── products/[id]/
-    └── ProductPageClientRefactored.tsx  # Simple header added
+    └── ProductPageClientRefactored.tsx  # Simple header, product name above image
 ```
 
 ## CSS Requirements
@@ -320,6 +323,7 @@ app/
 - [x] Cart has back button and title
 - [x] Orders list has back button and title
 - [x] Product detail has back button and product name
+- [x] Product detail shows product name above image on mobile
 - [x] Favorites has header and white background
 - [x] Success page has header
 - [x] AI Skin Recommendation has header

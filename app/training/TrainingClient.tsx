@@ -1,5 +1,6 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { ArrowLeft, Download, FileText, Play, ChevronLeft } from 'lucide-react'
@@ -134,6 +135,22 @@ export default function TrainingClient() {
   const { user } = useAuth()
   const router = useRouter()
   const isRTL = dir === 'rtl'
+  const [isMobileWeb, setIsMobileWeb] = useState(false)
+  
+  // Detect mobile web (non-PWA mobile)
+  useEffect(() => {
+    const checkMobile = () => {
+      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) && window.innerWidth < 768
+      const isPWAMode = window.matchMedia('(display-mode: standalone)').matches || 
+                        (window.navigator as Navigator & { standalone?: boolean }).standalone === true
+      setIsMobileWeb(isMobile && !isPWAMode)
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+  
+  const isAppLikeMode = (isPWA && isClient) || isMobileWeb
 
   // User initial for profile icon
   const userInitial = user?.name?.charAt(0) || user?.email?.charAt(0) || 'G'
@@ -151,9 +168,9 @@ export default function TrainingClient() {
   }
 
   return (
-    <div className={`bg-white min-h-screen ${isPWA ? 'pb-24' : ''}`}>
-      {/* PWA Light Header */}
-      {isPWA && isClient && (
+    <div className={`bg-white min-h-screen ${isAppLikeMode ? 'pb-24' : ''}`}>
+      {/* PWA / Mobile Web Light Header */}
+      {isAppLikeMode && (
         <div className="sticky top-0 z-50 bg-white border-b border-gray-100 px-4 py-3">
           <div className="flex items-center justify-between">
             {/* Back button */}
@@ -187,8 +204,8 @@ export default function TrainingClient() {
 
       <div className="container mx-auto px-3 md:px-4 py-4 md:py-16">
         <div className="max-w-4xl mx-auto">
-          {/* Non-PWA Navigation */}
-          {!isPWA && (
+          {/* Non-PWA/Mobile Navigation */}
+          {!isAppLikeMode && (
             <>
               <nav className="text-xs md:text-base text-gray-600 mb-2 md:mb-4" aria-label="Breadcrumb">
                 <Link href="/" className="hover:text-primary-600 transition-colors">Home</Link>

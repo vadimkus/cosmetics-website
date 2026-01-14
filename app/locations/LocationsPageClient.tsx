@@ -1,5 +1,6 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { MapPin, ArrowLeft } from 'lucide-react'
 import { useTranslation } from '@/hooks/useTranslation'
@@ -80,9 +81,24 @@ export default function LocationsPageClient() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const { user } = useAuth()
+  const [isMobileWeb, setIsMobileWeb] = useState(false)
+  
+  // Detect mobile web (non-PWA mobile)
+  useEffect(() => {
+    const checkMobile = () => {
+      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) && window.innerWidth < 768
+      const isPWAMode = window.matchMedia('(display-mode: standalone)').matches || 
+                        (window.navigator as Navigator & { standalone?: boolean }).standalone === true
+      setIsMobileWeb(isMobile && !isPWAMode)
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   const isRTL = dir === 'rtl'
   const fromProfile = searchParams?.get('from') === 'profile'
+  const isAppLikeMode = isPWA || isMobileWeb
 
   const getLocationName = (location: typeof locations[0]) => {
     if (locale === 'ar') return location.nameAr
@@ -91,9 +107,9 @@ export default function LocationsPageClient() {
   }
 
   return (
-    <div className={`bg-gradient-to-b from-gray-50 to-white min-h-screen ${isPWA ? 'pb-32' : ''}`}>
-      {/* PWA Simple Navigation Header */}
-      {isPWA && (
+    <div className={`bg-gradient-to-b from-gray-50 to-white min-h-screen ${isAppLikeMode ? 'pb-32' : ''}`}>
+      {/* PWA / Mobile Web Simple Navigation Header */}
+      {isAppLikeMode && (
         <div className={`flex items-center justify-between px-5 py-4 bg-white ${isRTL ? 'flex-row-reverse' : ''}`}>
           <button 
             onClick={() => router.push(getLocalizedPath(fromProfile ? '/profile' : '/products', locale))}
@@ -130,8 +146,8 @@ export default function LocationsPageClient() {
       
       <div className="container mx-auto px-3 md:px-4 py-4 md:py-16">
         <div className="max-w-6xl mx-auto">
-          {/* Navigation Breadcrumb - Hide in PWA */}
-          {!isPWA && (
+          {/* Navigation Breadcrumb - Hide in PWA and mobile web */}
+          {!isAppLikeMode && (
             <nav className="text-xs md:text-base text-gray-600 mb-2 md:mb-4" aria-label="Breadcrumb">
               <Link href={getLocalizedPath('/', locale)} className="hover:text-primary-600 transition-colors">
                 {t('common.home') || 'Home'}
@@ -143,8 +159,8 @@ export default function LocationsPageClient() {
             </nav>
           )}
           
-          {/* Back to Home - Hide in PWA */}
-          {!isPWA && (
+          {/* Back to Home - Hide in PWA and mobile web */}
+          {!isAppLikeMode && (
             <Link href={getLocalizedPath('/', locale)} className={`inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 mb-4 md:mb-8 ${isRTL ? 'flex-row-reverse' : ''}`}>
               <ArrowLeft className={`h-3 w-3 md:h-4 md:w-4 ${isRTL ? 'rotate-180' : ''}`} />
               <span>{t('common.backToHome') || 'Back to Home'}</span>
@@ -153,7 +169,7 @@ export default function LocationsPageClient() {
 
           {/* Page Header */}
           <div className="text-center mb-6 md:mb-12">
-            {!isPWA && (
+            {!isAppLikeMode && (
               <div className="hidden md:inline-flex items-center justify-center w-16 h-16 bg-primary-100 rounded-full mb-6">
                 <MapPin className="h-8 w-8 text-primary-600" />
               </div>

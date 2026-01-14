@@ -2,15 +2,15 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
-import { ArrowLeft } from 'lucide-react'
+import { ArrowLeft, Handshake } from 'lucide-react'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { usePWAMode } from '@/hooks/usePWAMode'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useAuth } from '@/components/AuthProvider'
+import PartnersList from '@/components/partners/PartnersList'
 
-export default function BrandPageClient() {
+export default function PartnersPageClient() {
   const { t, locale, dir } = useTranslation()
   const { isPWA } = usePWAMode()
   const router = useRouter()
@@ -39,7 +39,7 @@ export default function BrandPageClient() {
     <div className={`bg-white min-h-screen ${isAppLikeMode ? 'pb-32' : ''}`}>
       {/* PWA / Mobile Web Simple Navigation Header */}
       {isAppLikeMode && (
-        <div className={`flex items-center justify-between px-5 py-4 bg-white ${isRTL ? 'flex-row-reverse' : ''}`}>
+        <div className={`flex items-center justify-between px-5 py-4 bg-white border-b border-gray-100 ${isRTL ? 'flex-row-reverse' : ''}`}>
           <button 
             onClick={() => router.push(getLocalizedPath(fromProfile ? '/profile' : '/products', locale))}
             className={`flex items-center gap-1 min-w-[80px] ${isRTL ? 'flex-row-reverse' : ''}`}
@@ -52,7 +52,7 @@ export default function BrandPageClient() {
             </span>
           </button>
           <span className="text-base font-semibold text-gray-900">
-            {locale === 'ar' ? 'العلامة التجارية' : locale === 'ru' ? 'Бренд' : 'Brand'}
+            {locale === 'ar' ? 'الشركاء' : locale === 'ru' ? 'Партнёры' : 'Partners'}
           </span>
           {/* Profile Icon with green dot */}
           <button 
@@ -74,7 +74,7 @@ export default function BrandPageClient() {
       )}
 
       <div className="container mx-auto px-3 md:px-4 py-4 md:py-16">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           {/* Navigation Breadcrumb - Hide in PWA and mobile web */}
           {!isAppLikeMode && (
             <nav className="text-xs md:text-base text-gray-600 mb-2 md:mb-4" aria-label="Breadcrumb">
@@ -83,7 +83,7 @@ export default function BrandPageClient() {
               </Link>
               <span> / </span>
               <span className="text-gray-900 font-medium">
-                {locale === 'ar' ? 'العلامة التجارية' : locale === 'ru' ? 'Бренд' : 'Brand'}
+                {locale === 'ar' ? 'الشركاء' : locale === 'ru' ? 'Партнёры' : 'Partners'}
               </span>
             </nav>
           )}
@@ -95,74 +95,60 @@ export default function BrandPageClient() {
               <span>{t('common.backToHome') || 'Back to Home'}</span>
             </Link>
           )}
+
+          {/* Header */}
+          <div className="text-center mb-4 md:mb-8">
+            <div className={`inline-flex items-center justify-center gap-2 mb-2 md:mb-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
+              <div className="p-2 md:p-3 bg-gradient-to-r from-red-100 to-pink-100 rounded-lg md:rounded-xl">
+                <Handshake className="h-4 w-4 md:h-6 md:w-6 text-red-600" />
+              </div>
+              <h1 className="text-xl md:text-3xl font-bold text-gray-800">
+                {locale === 'ar' ? 'شركاؤنا' : locale === 'ru' ? 'Наши партнёры' : 'Our Partners'}
+              </h1>
+            </div>
+            <p className="text-xs md:text-base text-gray-600 px-2">
+              {locale === 'ar' 
+                ? 'بناء شراكات قوية مع Genosys في جميع أنحاء الإمارات'
+                : locale === 'ru'
+                  ? 'Развиваем партнёрство Genosys по всем ОАЭ'
+                  : 'Building strong Genosys partnerships across United Arab Emirates'}
+            </p>
+          </div>
           
-          <div className="text-center mb-6 md:mb-12">
-            <h1 className="text-xl md:text-5xl font-bold text-gray-800 mb-3 md:mb-6">
-              Genosys Gene Re-Birth System
-            </h1>
-            <p className="text-xs md:text-xl text-gray-600 max-w-2xl mx-auto mb-4 md:mb-8 leading-relaxed">
-              GENOSYS is the world&apos;s first microneedling-dedicated brand born by combining microneedling with the cosmeceuticals specially formulated for microneedling treatment to optimize the skin care effects.
-            </p>
-            
-            {/* Video Section */}
-            <div className="max-w-4xl mx-auto mb-4 md:mb-8">
-              <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
-                <iframe
-                  className="absolute top-0 left-0 w-full h-full rounded-lg shadow-lg"
-                  src="https://www.youtube.com/embed/4L9xZc7wAjI"
-                  title="Genosys Gene Re-Birth System"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowFullScreen
-                ></iframe>
-              </div>
-            </div>
-            
-          </div>
+          {/* Partners List */}
+          <PartnersList />
 
-          <div className="bg-white rounded-lg shadow-sm border p-3 md:p-8 mb-4 md:mb-8">
-            <p className="text-gray-600 leading-relaxed text-xs md:text-lg text-center mb-4 md:mb-8">
-              With skin-friendly formulations and powerful active ingredients, GENOSYS homecare/professional lines not only provide long-lasting, visible results but also boosts the effectiveness of professional treatments.
-            </p>
-            
-            {/* Video Section */}
-            <div className="max-w-4xl mx-auto">
-              <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
-                <iframe
-                  className="absolute top-0 left-0 w-full h-full rounded-lg shadow-lg"
-                  src="https://www.youtube.com/embed/v-i6CHJfWIg?autoplay=1&loop=1&playlist=v-i6CHJfWIg&mute=1&controls=0&showinfo=0&rel=0&modestbranding=1"
-                  title="GENOSYS Professional Treatment"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                ></iframe>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-lg shadow-sm border p-3 md:p-8">
-            <div className="text-center">
-              <div className="mt-3 md:mt-6">
-                <Image
-                  src="/Logo/Full.png"
-                  alt="GENOSYS Gene Re-Birth System - Professional Korean Dermacosmetics Brand Logo"
-                  width={200}
-                  height={100}
-                  className="mx-auto scale-75 md:scale-100"
-                />
-              </div>
-              <div className="mt-3 md:mt-6">
-                <Image
-                  src="/images/genosys-products.jpg"
-                  alt="GENOSYS Professional Korean Dermacosmetics Skincare Products Collection - Microneedling Devices and Skincare Solutions"
-                  width={800}
-                  height={600}
-                  className="rounded-lg shadow-md mx-auto"
-                  priority
-                />
-              </div>
-              <p className="text-gray-500 text-[10px] md:text-base mt-2 md:mt-4">
-                GENOSYS Professional Skincare Line - Dermatologically Tested Products.
+          {/* Call to Action */}
+          <div className="mt-6 md:mt-12">
+            <div className="bg-gradient-to-r from-primary-50 to-red-50 rounded-lg md:rounded-xl p-4 md:p-8 border border-red-100">
+              <h2 className="text-base md:text-2xl font-bold text-gray-800 mb-2 md:mb-4 text-center">
+                {locale === 'ar' 
+                  ? 'هل تريد أن تصبح شريكًا؟'
+                  : locale === 'ru'
+                    ? 'Хотите стать партнёром?'
+                    : 'Interested in Becoming a Partner?'}
+              </h2>
+              <p className="text-xs md:text-base text-gray-600 mb-4 md:mb-6 text-center px-2">
+                {locale === 'ar'
+                  ? 'انضم إلى شبكة شركائنا الموثوقين وساعدنا في تقديم منتجات GENOSYS لمزيد من العملاء'
+                  : locale === 'ru'
+                    ? 'Присоединяйтесь к нашей сети партнёров и помогите нам доставить продукты GENOSYS большему числу клиентов'
+                    : 'Join our network of trusted partners and help us bring GENOSYS products to more customers'}
               </p>
+              <div className={`flex flex-col sm:flex-row gap-2 md:gap-4 justify-center ${isRTL ? 'sm:flex-row-reverse' : ''}`}>
+                <Link 
+                  href={getLocalizedPath('/contact', locale)}
+                  className="inline-flex items-center justify-center bg-primary-600 text-white px-4 md:px-6 py-2.5 md:py-3 rounded-lg text-xs md:text-base font-semibold hover:bg-primary-700 transition-colors min-h-[44px] touch-manipulation"
+                >
+                  {t('common.contact') || 'Contact Us'}
+                </Link>
+                <Link 
+                  href={getLocalizedPath('/products', locale)}
+                  className="inline-flex items-center justify-center border-2 border-primary-600 text-primary-600 px-4 md:px-6 py-2.5 md:py-3 rounded-lg text-xs md:text-base font-semibold hover:bg-primary-50 transition-colors min-h-[44px] touch-manipulation"
+                >
+                  {t('common.products') || 'View Products'}
+                </Link>
+              </div>
             </div>
           </div>
         </div>
@@ -170,4 +156,3 @@ export default function BrandPageClient() {
     </div>
   )
 }
-

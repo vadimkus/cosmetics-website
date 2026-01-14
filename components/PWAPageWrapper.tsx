@@ -1,5 +1,6 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
 import { useRouter } from 'next/navigation'
@@ -15,9 +16,9 @@ interface PWAPageWrapperProps {
 }
 
 /**
- * PWA Page Wrapper - Wraps pages with back navigation header in PWA mode
+ * PWA Page Wrapper - Wraps pages with back navigation header in PWA mode and mobile web
  * 
- * Shows a back header at the top when in PWA mode:
+ * Shows a back header at the top when in PWA mode or mobile web:
  * - Left: < Account (back button)
  * - Center: Page title
  * - Right: Profile icon with green online dot
@@ -32,9 +33,24 @@ export default function PWAPageWrapper({
   const { user } = useAuth()
   const router = useRouter()
   const searchParams = useSearchParams()
+  const [isMobileWeb, setIsMobileWeb] = useState(false)
+  
+  // Detect mobile web (non-PWA mobile)
+  useEffect(() => {
+    const checkMobile = () => {
+      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) && window.innerWidth < 768
+      const isPWAMode = window.matchMedia('(display-mode: standalone)').matches || 
+                        (window.navigator as Navigator & { standalone?: boolean }).standalone === true
+      setIsMobileWeb(isMobile && !isPWAMode)
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
   
   const isRTL = dir === 'rtl'
   const fromProfile = searchParams?.get('from') === 'profile'
+  const isAppLikeMode = (isClient && isPWA) || isMobileWeb
   
   const handleBack = () => {
     if (fromProfile) {
@@ -52,8 +68,8 @@ export default function PWAPageWrapper({
     ? (locale === 'ar' ? 'الحساب' : locale === 'ru' ? 'Аккаунт' : 'Account')
     : (locale === 'ar' ? 'المنتجات' : locale === 'ru' ? 'Товары' : 'Products')
   
-  // Show header only in PWA mode
-  if (!isClient || !isPWA) {
+  // Show header in PWA mode or mobile web
+  if (!isAppLikeMode) {
     return <>{children}</>
   }
   

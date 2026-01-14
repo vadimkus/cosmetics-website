@@ -1,10 +1,8 @@
-import Link from 'next/link'
-import Image from 'next/image'
-import { Calendar, User, ArrowRight, ArrowLeft, Eye } from 'lucide-react'
 import BreadcrumbSchema from '@/components/BreadcrumbSchema'
 import type { Metadata } from 'next'
 import { prisma } from '@/lib/prisma'
 import { errorLog } from '@/lib/logger'
+import BlogPageClient from './BlogPageClient'
 
 type BlogPostListItem = {
   id: string
@@ -132,7 +130,7 @@ export default async function BlogPage() {
   const posts = await getBlogPosts()
 
   return (
-    <div className="bg-white min-h-screen">
+    <>
       <BreadcrumbSchema 
         items={[
           { name: 'Home', url: '/' },
@@ -158,107 +156,9 @@ export default async function BlogPage() {
           }, null, 2)
         }}
       />
-
-      <div className="container mx-auto px-3 md:px-4 py-4 md:py-16">
-        <div className="max-w-6xl mx-auto">
-          {/* Navigation Breadcrumb */}
-          <nav className="text-xs md:text-base text-gray-600 mb-2 md:mb-4" aria-label="Breadcrumb">
-            <Link href="/" className="hover:text-primary-600 transition-colors">Home</Link>
-            <span> / </span>
-            <span className="text-gray-900 font-medium">Blog</span>
-          </nav>
-          
-          {/* Back to Home */}
-          <Link href="/" className="inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 mb-4 md:mb-8">
-            <ArrowLeft className="h-3 w-3 md:h-4 md:w-4" />
-            <span>Back to Home</span>
-          </Link>
-
-          {/* Page Header */}
-          <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
-              GENOSYS Blog
-            </h1>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Expert insights on Korean skincare, professional dermacosmetics, and beauty industry trends
-            </p>
-          </div>
-
-          {/* Blog Posts Grid */}
-          {posts.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {posts.map((post: { id: string; slug: string; title: string; excerpt: string | null; featuredImage: string | null; authorName: string | null; publishedAt: Date | null; views: number; createdAt: Date }) => (
-                <Link
-                  key={post.id}
-                  href={`/blog/${post.slug}`}
-                  className="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition-shadow"
-                >
-                  {post.featuredImage && (
-                    <div className="relative h-48 w-full">
-                      <Image
-                        src={post.featuredImage}
-                        alt={`${post.title} - GENOSYS Korean Skincare Blog Article`}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                  )}
-                  <div className="p-6">
-                    <h2 className="text-xl font-semibold text-gray-800 mb-3 line-clamp-2">
-                      {post.title}
-                    </h2>
-                    {post.excerpt && (
-                      <p className="text-gray-600 mb-4 line-clamp-3">
-                        {post.excerpt}
-                      </p>
-                    )}
-                    <div className="flex items-center gap-4 text-sm text-gray-500 flex-wrap">
-                      {post.authorName && (
-                        <div className="flex items-center gap-1">
-                          <User className="h-4 w-4 text-green-600" />
-                          <span>{post.authorName}</span>
-                        </div>
-                      )}
-                      {post.publishedAt && (
-                        <div className="flex items-center gap-1">
-                          <Calendar className="h-4 w-4" />
-                          <span>
-                            {new Date(post.publishedAt).toLocaleDateString('en-AE', {
-                              year: 'numeric',
-                              month: 'long',
-                              day: 'numeric'
-                            })}
-                          </span>
-                        </div>
-                      )}
-                      {post.views > 0 && (
-                        <div className="flex items-center gap-1">
-                          <Eye className="h-4 w-4" />
-                          <span>{post.views} {post.views === 1 ? 'view' : 'views'}</span>
-                        </div>
-                      )}
-                    </div>
-                    <div className="mt-4 flex items-center text-primary-600 font-semibold">
-                      Read More
-                      <ArrowRight className="ml-2 h-4 w-4" />
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          ) : (
-            <div className="text-center py-16">
-              <p className="text-gray-600 text-lg mb-4">
-                No blog posts available yet.
-              </p>
-              <p className="text-gray-500">
-                Check back soon for expert skincare tips and insights!
-              </p>
-            </div>
-          )}
-        </div>
-      </div>
-    </div>
+      
+      <BlogPageClient posts={posts} />
+    </>
   )
 }
 

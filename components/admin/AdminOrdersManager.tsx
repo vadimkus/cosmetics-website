@@ -216,6 +216,8 @@ export default function AdminOrdersManager({
                             <div className="text-xs text-gray-400">ID #{String(order.id).slice(-8)}</div>
                           )}
                           <div className="text-sm text-gray-500">{new Date(order.createdAt).toLocaleDateString()}</div>
+                          {/* Customer name - visible on mobile only (Customer column is hidden on mobile) */}
+                          <div className="text-xs text-blue-600 font-medium mt-0.5 sm:hidden">{order.customerName}</div>
                         </td>
                         <td className="px-2 sm:px-3 md:px-6 py-4 whitespace-nowrap hidden sm:table-cell">
                           <div className="text-sm font-medium text-gray-900">{order.customerName}</div>

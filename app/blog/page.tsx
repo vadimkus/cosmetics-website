@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { prisma } from '@/lib/prisma'
 import { errorLog } from '@/lib/logger'
 import BlogPageClient from './BlogPageClient'
+import { unstable_cache } from 'next/cache'
 
 type BlogPostListItem = {
   id: string
@@ -75,56 +76,61 @@ export const metadata: Metadata = {
   },
 }
 
-async function getBlogPosts(): Promise<BlogPostListItem[]> {
-  try {
-    // Type-safe Prisma query with fallback for type checking
-    type PrismaClientWithBlogPost = typeof prisma & {
-      blogPost?: {
-        findMany: (args: {
-          where: { published: boolean }
-          orderBy: { publishedAt: 'desc' }
-          take: number
-          select: {
-            id: true
-            title: true
-            slug: true
-            excerpt: true
-            featuredImage: true
-            authorName: true
-            publishedAt: true
-            views: true
-            createdAt: true
-          }
-        }) => Promise<BlogPostListItem[]>
+// Cached blog posts fetch - revalidates every 60 seconds
+const getBlogPosts = unstable_cache(
+  async (): Promise<BlogPostListItem[]> => {
+    try {
+      // Type-safe Prisma query with fallback for type checking
+      type PrismaClientWithBlogPost = typeof prisma & {
+        blogPost?: {
+          findMany: (args: {
+            where: { published: boolean }
+            orderBy: { publishedAt: 'desc' }
+            take: number
+            select: {
+              id: true
+              title: true
+              slug: true
+              excerpt: true
+              featuredImage: true
+              authorName: true
+              publishedAt: true
+              views: true
+              createdAt: true
+            }
+          }) => Promise<BlogPostListItem[]>
+        }
       }
+      const typedPrisma = prisma as PrismaClientWithBlogPost
+      const posts = await typedPrisma.blogPost?.findMany({
+        where: {
+          published: true,
+        },
+        orderBy: {
+          publishedAt: 'desc',
+        },
+        take: 20,
+        select: {
+          id: true,
+          title: true,
+          slug: true,
+          excerpt: true,
+          featuredImage: true,
+          authorName: true,
+          publishedAt: true,
+          views: true,
+          createdAt: true,
+        },
+      }) || []
+      return posts
+    } catch (error) {
+      errorLog('Error fetching blog posts:', error)
+      return []
     }
-    const typedPrisma = prisma as PrismaClientWithBlogPost
-    const posts = await typedPrisma.blogPost?.findMany({
-      where: {
-        published: true,
-      },
-      orderBy: {
-        publishedAt: 'desc',
-      },
-      take: 20,
-      select: {
-        id: true,
-        title: true,
-        slug: true,
-        excerpt: true,
-        featuredImage: true,
-        authorName: true,
-        publishedAt: true,
-        views: true,
-        createdAt: true,
-      },
-    }) || []
-    return posts
-  } catch (error) {
-    errorLog('Error fetching blog posts:', error)
-    return []
-  }
-}
+  },
+  ['blog-posts'],
+  { revalidate: 60, tags: ['blog'] }
+)
 
 export default async function BlogPage() {
   const posts = await getBlogPosts()

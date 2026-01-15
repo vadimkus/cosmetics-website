@@ -7,9 +7,14 @@ const nextConfig = {
   // Production optimizations
   productionBrowserSourceMaps: false,
   
+  // React Compiler for automatic optimization (Next.js 16+)
+  reactCompiler: true,
+  
   // Optimize package imports (Next.js 16)
   experimental: {
     optimizePackageImports: ['lucide-react'],
+    // View Transitions API for smooth page navigation
+    viewTransition: true,
   },
   
   // Server-side packages that shouldn't be bundled (fixes jsdom version warning)

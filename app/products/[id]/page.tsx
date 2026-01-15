@@ -5,27 +5,33 @@ import type { Metadata } from 'next'
 import { getProductById } from '@/lib/productsDb'
 import { errorLog } from '@/lib/logger'
 import { safeJsonParse } from '@/lib/utils'
+import { unstable_cache } from 'next/cache'
 
 interface ProductPageProps {
   params: Promise<{ id: string }>
 }
 
-async function getProduct(id: string): Promise<Product | null> {
-  try {
-    // Use direct database access for better reliability
-    const product = await getProductById(id)
-    if (product) {
-      // Ensure noDiscount is explicitly set to prevent serialization issues
-      if (product.noDiscount === undefined) {
-        product.noDiscount = false
+// Cached product fetch - revalidates every 60 seconds
+const getProduct = (id: string) => unstable_cache(
+  async (): Promise<Product | null> => {
+    try {
+      // Use direct database access for better reliability
+      const product = await getProductById(id)
+      if (product) {
+        // Ensure noDiscount is explicitly set to prevent serialization issues
+        if (product.noDiscount === undefined) {
+          product.noDiscount = false
+        }
       }
+      return product
+    } catch (error) {
+      errorLog('Error fetching product:', error)
+      return null
     }
-    return product
-  } catch (error) {
-    errorLog('Error fetching product:', error)
-    return null
-  }
-}
+  },
+  [`product-${id}`],
+  { revalidate: 60, tags: ['products', `product-${id}`] }
+)()
 
 export async function generateMetadata({ params }: ProductPageProps): Promise<Metadata> {
   const { id } = await params

@@ -296,10 +296,11 @@ export async function getSkinRecommendations(filters: {
           isHidden: false,
           targetConcerns: { contains: 'hair' }
         },
-        orderBy: { rating: 'desc' }
+        orderBy: { rating: 'desc' },
+        take: 5 // Limit to 5 products
       })
       
-      debugLog(`✅ Returning ${hairProducts.length} hair products`)
+      debugLog(`✅ Returning ${hairProducts.length} hair products (max 5)`)
       return hairProducts
     }
     
@@ -506,14 +507,16 @@ export async function getSkinRecommendations(filters: {
     
     // If no products with score > 0, return top-rated products as fallback
     if (recommendedProducts.length === 0) {
-      debugLog('🔄 No scored matches, returning top-rated products')
+      debugLog('🔄 No scored matches, returning top-rated products (max 5)')
       return allProducts
         .sort((a, b) => (b.rating || 0) - (a.rating || 0))
-        .slice(0, 20)
+        .slice(0, 5) // Limit to 5 products
     }
     
-    // Remove internal scoring fields before returning
-    return recommendedProducts.map(({ _score, _matchedConcerns, ...product }) => product)
+    // Remove internal scoring fields before returning - limit to 5 best matches
+    const topProducts = recommendedProducts.slice(0, 5)
+    debugLog(`📦 Returning ${topProducts.length} recommended products`)
+    return topProducts.map(({ _score, _matchedConcerns, ...product }) => product)
   } catch (error) {
     errorLog('Error fetching skin recommendations:', error)
     throw new Error('Failed to fetch skin recommendations')

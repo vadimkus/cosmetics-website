@@ -135,15 +135,19 @@ export default function CheckoutCancelledClient() {
               {t('common.continueShopping')}
             </Link>
             
-            {!isMobile && <span className="hidden sm:inline text-gray-300">|</span>}
-            
-            <Link
-              href={getLocalizedPath('/', locale)}
-              className={`inline-flex items-center justify-center px-4 py-2 text-gray-600 hover:text-gray-900 transition-colors ${isRTL ? 'flex-row-reverse' : ''}`}
-            >
-              <Home className={`w-4 h-4 ${isRTL ? 'ml-1' : 'mr-1'}`} />
-              {t('common.backHome')}
-            </Link>
+            {/* Back to Home - hide on mobile (header has navigation) */}
+            {!isMobile && (
+              <>
+                <span className="hidden sm:inline text-gray-300">|</span>
+                <Link
+                  href={getLocalizedPath('/', locale)}
+                  className={`inline-flex items-center justify-center px-4 py-2 text-gray-600 hover:text-gray-900 transition-colors ${isRTL ? 'flex-row-reverse' : ''}`}
+                >
+                  <Home className={`w-4 h-4 ${isRTL ? 'ml-1' : 'mr-1'}`} />
+                  {t('common.backHome')}
+                </Link>
+              </>
+            )}
           </div>
         </div>
 

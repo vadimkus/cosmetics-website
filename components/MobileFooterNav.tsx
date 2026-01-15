@@ -99,7 +99,7 @@ const BagIcon = ({ filled, className }: { filled?: boolean; className?: string }
 export default function MobileFooterNav() {
   const pathname = usePathname()
   const router = useRouter()
-  const { getTotalItems } = useCartStore()
+  // Using useCartStore.getState() directly for cart count subscription
   const { t, dir } = useTranslation()
   const { isPWA, isClient } = usePWAMode()
   const haptic = useHapticFeedback()
@@ -116,17 +116,27 @@ export default function MobileFooterNav() {
   
   // Subscribe to cart store changes to update badge count reactively
   useEffect(() => {
-    // Initial count
-    setCartCount(getTotalItems())
-    
-    // Subscribe to store changes
-    const unsubscribe = useCartStore.subscribe((state) => {
+    // Function to update cart count
+    const updateCount = () => {
+      const state = useCartStore.getState()
       const newCount = state.items.reduce((total, item) => total + item.quantity, 0)
       setCartCount(newCount)
-    })
+    }
     
-    return () => unsubscribe()
-  }, [getTotalItems])
+    // Initial count (may be 0 if not hydrated yet)
+    updateCount()
+    
+    // Subscribe to store changes (handles both hydration and updates)
+    const unsubscribe = useCartStore.subscribe(updateCount)
+    
+    // Also check after a short delay for hydration
+    const timer = setTimeout(updateCount, 100)
+    
+    return () => {
+      unsubscribe()
+      clearTimeout(timer)
+    }
+  }, [])
   
   // Reset navigation state on route change
   useEffect(() => {

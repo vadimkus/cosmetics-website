@@ -4,8 +4,9 @@ import { useState, useMemo, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useSearchParams, useRouter } from 'next/navigation'
-import { ShoppingCart, Heart, Sparkles, ArrowRight, ArrowLeft, CheckCircle2, Info, Star, Camera, Scan, Droplets, Target, Flame, Eye, Palette, Clock } from 'lucide-react'
+import { ShoppingCart, Heart, Sparkles, ArrowRight, ArrowLeft, CheckCircle2, Info, Star, Camera, Scan, Droplets, Target, Flame, Eye, Palette, Clock, Zap, Video } from 'lucide-react'
 import { SkinAnalysisCamera, SkinAnalysisResult } from '@/components/SkinAnalysisCamera'
+import { ARSkinAnalysisCamera } from '@/components/ar'
 import { useCart } from '@/components/CartProvider'
 import { useAuth } from '@/components/AuthProvider'
 import { useFavorites } from '@/components/FavoritesProvider'
@@ -55,6 +56,8 @@ export default function SkinRecommendationClient() {
   
   // Camera analysis state
   const [showCamera, setShowCamera] = useState(false)
+  const [showARCamera, setShowARCamera] = useState(false) // New AR mode
+  const [analysisMode, setAnalysisMode] = useState<'photo' | 'live'>('photo') // Toggle between modes
   const [cameraResult, setCameraResult] = useState<SkinAnalysisResult | null>(null)
   const [showAnalysisReport, setShowAnalysisReport] = useState(false)
 
@@ -432,11 +435,19 @@ export default function SkinRecommendationClient() {
             </Link>
           )}
 
-      {/* Camera Modal */}
+      {/* Camera Modal - Photo Mode */}
       {showCamera && (
         <SkinAnalysisCamera
           onAnalysisComplete={handleCameraAnalysisComplete}
           onClose={() => setShowCamera(false)}
+        />
+      )}
+
+      {/* AR Camera Modal - Live Analysis Mode */}
+      {showARCamera && (
+        <ARSkinAnalysisCamera
+          onAnalysisComplete={handleCameraAnalysisComplete}
+          onClose={() => setShowARCamera(false)}
         />
       )}
 
@@ -673,6 +684,60 @@ export default function SkinRecommendationClient() {
                     </p>
                   </div>
                 </div>
+
+                {/* Analysis Mode Toggle - Photo vs Live AR */}
+                <div className="mt-4 mb-4">
+                  <div className="bg-white/50 rounded-xl p-1 flex gap-1">
+                    <button
+                      onClick={() => setAnalysisMode('photo')}
+                      className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg text-sm font-medium transition-all ${
+                        analysisMode === 'photo'
+                          ? 'bg-white text-primary-700 shadow-sm'
+                          : 'text-gray-600 hover:text-gray-800'
+                      } ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+                    >
+                      <Camera className="w-4 h-4" />
+                      {locale === 'ar' ? 'صورة' : locale === 'ru' ? 'Фото' : 'Photo'}
+                    </button>
+                    <button
+                      onClick={() => setAnalysisMode('live')}
+                      className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg text-sm font-medium transition-all ${
+                        analysisMode === 'live'
+                          ? 'bg-white text-primary-700 shadow-sm'
+                          : 'text-gray-600 hover:text-gray-800'
+                      } ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+                    >
+                      <Zap className="w-4 h-4" />
+                      {locale === 'ar' ? 'مباشر AR' : locale === 'ru' ? 'Live AR' : 'Live AR'}
+                      <span className="bg-gradient-to-r from-primary-500 to-primary-600 text-white text-[10px] px-1.5 py-0.5 rounded-full font-bold">
+                        NEW
+                      </span>
+                    </button>
+                  </div>
+                </div>
+
+                {/* Mode Description */}
+                <div className={`text-xs text-gray-500 mb-4 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                  {analysisMode === 'photo' ? (
+                    <span className="flex items-center gap-1.5">
+                      <Camera className="w-3.5 h-3.5" />
+                      {locale === 'ar' 
+                        ? 'التقط صورة سيلفي لتحليل بشرتك بدقة عالية'
+                        : locale === 'ru'
+                          ? 'Сделайте селфи для детального анализа кожи'
+                          : 'Capture a selfie for detailed skin analysis'}
+                    </span>
+                  ) : (
+                    <span className="flex items-center gap-1.5">
+                      <Video className="w-3.5 h-3.5" />
+                      {locale === 'ar'
+                        ? 'تحليل مباشر بالواقع المعزز مع تراكبات على الوجه'
+                        : locale === 'ru'
+                          ? 'Живой AR анализ с наложениями на лицо'
+                          : 'Real-time AR analysis with face zone overlays'}
+                    </span>
+                  )}
+                </div>
                 
                 {/* Camera Analysis Result Banner */}
                 {cameraResult && (
@@ -696,13 +761,25 @@ export default function SkinRecommendationClient() {
                 )}
 
                 <button
-                  onClick={() => setShowCamera(true)}
+                  onClick={() => {
+                    if (analysisMode === 'photo') {
+                      setShowCamera(true)
+                    } else {
+                      setShowARCamera(true)
+                    }
+                  }}
                   className={`mt-4 w-full flex items-center justify-center gap-2 bg-primary-600 hover:bg-primary-700 text-white font-semibold py-3.5 px-6 rounded-xl transition-all active:scale-[0.98] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
                 >
-                  <Camera className="w-5 h-5" />
+                  {analysisMode === 'photo' ? (
+                    <Camera className="w-5 h-5" />
+                  ) : (
+                    <Zap className="w-5 h-5" />
+                  )}
                   {cameraResult 
                     ? (locale === 'ar' ? 'إعادة التحليل' : locale === 'ru' ? 'Повторить анализ' : 'Analyze Again')
-                    : (locale === 'ar' ? 'ابدأ تحليل البشرة' : locale === 'ru' ? 'Начать анализ' : 'Start Skin Analysis')
+                    : analysisMode === 'photo'
+                      ? (locale === 'ar' ? 'ابدأ تحليل البشرة' : locale === 'ru' ? 'Начать анализ' : 'Start Skin Analysis')
+                      : (locale === 'ar' ? 'ابدأ التحليل المباشر' : locale === 'ru' ? 'Начать Live анализ' : 'Start Live Analysis')
                   }
                 </button>
               </div>

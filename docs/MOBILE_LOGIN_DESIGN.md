@@ -172,6 +172,9 @@ Or access from a mobile device directly.
 8. `ec1507e6` - Hide mobile footer nav on skin-recommendation page
 9. `1c1c2887` - Add Blog to mobile menu and full-screen blog experience
 10. `07196370` - Remove duplicate heart icon from mobile login page
+11. `b99757e3` - Document all mobile full-screen experience updates
+12. `781789b8` - Fix profile icon to show grey when logged out (7 files)
+13. `44516065` - Hide 'Back to Home' on mobile payment cancelled page
 
 ---
 

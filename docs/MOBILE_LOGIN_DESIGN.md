@@ -122,7 +122,33 @@ The mobile login screen fully supports RTL (Right-to-Left) layout for Arabic:
 
 - `app/pwa-login/page.tsx` - Separate PWA-specific login (redirects PWA users)
 - `hooks/usePWAMode.ts` - PWA detection hook
+- `hooks/useIsMobile.ts` - Mobile detection hook
 - `lib/i18n.ts` - Localization utilities including `getLocalizedPath`
+- `components/MobileWebHeader.tsx` - Mobile web header (hidden on login)
+- `components/MobileWebFooterNav.tsx` - Mobile footer nav (hidden on login)
+
+## Header/Footer Hiding Logic
+
+The mobile header and footer are hidden on auth-related pages to provide a clean, full-screen experience:
+
+### MobileWebHeader.tsx
+Hides on these paths:
+- `/login`, `/ru/login`, `/ar/login`
+- `/signup`
+- `/forgot-password`
+- `/reset-password`
+- `/pwa-login`
+- And various other pages with custom headers
+
+### MobileWebFooterNav.tsx
+Hides on these paths:
+- `/login` (all locales)
+- `/signup`
+- `/forgot-password`
+- `/reset-password`
+- `/pwa-login`
+- Product detail pages
+- PDF viewer
 
 ## Testing
 
@@ -140,6 +166,8 @@ Or access from a mobile device directly.
 2. `f950cc87` - Fix TypeScript error: use correct locale type for handleLanguageChange
 3. `3aaac467` - Add documentation for mobile login screen design
 4. `3f88da15` - Improve payment cancelled page for mobile
+5. `7ac096f9` - Update documentation with payment cancelled page changes
+6. `f0ff9d03` - Hide mobile header and footer on login/auth pages
 
 ---
 

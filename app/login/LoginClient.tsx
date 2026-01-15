@@ -134,7 +134,7 @@ export default function LoginClient() {
     setShowPrivacyPolicy(false)
   }
 
-  const handleLanguageChange = (newLocale: string) => {
+  const handleLanguageChange = (newLocale: 'en' | 'ar' | 'ru') => {
     setShowLangDropdown(false)
     router.push(getLocalizedPath('/login', newLocale))
   }

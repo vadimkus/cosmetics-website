@@ -10,8 +10,8 @@ interface AnimationState {
 export const useAnimationStore = create<AnimationState>()(
   persist(
     (set) => ({
-      enabled: true, // Default: animations on
-      toggleAnimation: () => set((state) => ({ enabled: !state.enabled })),
+      enabled: true, // Always on - animations are permanently enabled
+      toggleAnimation: () => set(() => ({ enabled: true })), // No-op: keep always enabled
     }),
     {
       name: 'animation-preference', // localStorage key

@@ -6,7 +6,6 @@ import { useCartStore } from '@/lib/cartStore'
 import { useAuth } from '@/components/AuthProvider'
 import { useFavorites } from '@/components/FavoritesProvider'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
-import { AnimationToggle } from '@/components/AnimationToggle'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 
@@ -73,9 +72,6 @@ export default function HeaderDesktopIcons({
         </Link>
       )}
 
-      {/* Animation toggle - in RTL position */}
-      {isRTL && <AnimationToggle size="lg" className="hidden lg:flex" />}
-
       {/* Favorites */}
       <Link 
         href={getLocalizedPath('/favorites', locale)} 
@@ -138,8 +134,6 @@ export default function HeaderDesktopIcons({
         </Link>
       )}
 
-      {/* Animation toggle - in LTR position */}
-      {!isRTL && <AnimationToggle size="lg" className="hidden lg:flex" />}
     </div>
   )
 

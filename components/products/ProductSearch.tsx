@@ -2,9 +2,10 @@
 
 import { useState, useRef, useEffect } from 'react'
 import Image from 'next/image'
-import { Search, X } from 'lucide-react'
+import { Search, X, Mic, MicOff } from 'lucide-react'
 import { Product } from '@/types'
 import { useTranslation } from '@/hooks/useTranslation'
+import { useVoiceSearch } from '@/hooks/useVoiceSearch'
 
 interface ProductSearchProps {
   products: Product[]
@@ -13,10 +14,45 @@ interface ProductSearchProps {
 }
 
 export default function ProductSearch({ products, onSearchChange, searchQuery }: ProductSearchProps) {
-  const { t, dir } = useTranslation()
+  const { t, dir, locale } = useTranslation()
   const [isFocused, setIsFocused] = useState(false)
   const [suggestions, setSuggestions] = useState<Product[]>([])
   const searchRef = useRef<HTMLDivElement>(null)
+  const inputRef = useRef<HTMLInputElement>(null)
+
+  // Map locale to speech recognition language
+  const getSpeechLanguage = (loc: string) => {
+    const languageMap: Record<string, string> = {
+      'en': 'en-US',
+      'ru': 'ru-RU',
+      'ar': 'ar-AE'
+    }
+    return languageMap[loc] || 'en-US'
+  }
+
+  const { 
+    isListening, 
+    status, 
+    transcript, 
+    error, 
+    isSupported,
+    toggleListening,
+    stopListening
+  } = useVoiceSearch({
+    language: getSpeechLanguage(locale),
+    onResult: (result) => {
+      onSearchChange(result)
+      // Focus the input after voice search
+      inputRef.current?.focus()
+    }
+  })
+
+  // Update search with interim transcript
+  useEffect(() => {
+    if (isListening && transcript) {
+      onSearchChange(transcript)
+    }
+  }, [transcript, isListening, onSearchChange])
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -32,6 +68,11 @@ export default function ProductSearch({ products, onSearchChange, searchQuery }:
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const query = e.target.value
     onSearchChange(query)
+
+    // Stop voice search if user starts typing
+    if (isListening) {
+      stopListening()
+    }
 
     if (query.length > 0) {
       // Generate suggestions based on product names and categories
@@ -56,6 +97,18 @@ export default function ProductSearch({ products, onSearchChange, searchQuery }:
   const clearSearch = () => {
     onSearchChange('')
     setSuggestions([])
+    if (isListening) {
+      stopListening()
+    }
+  }
+
+  const handleVoiceClick = () => {
+    toggleListening()
+    if (!isListening) {
+      // Clear any existing search when starting voice search
+      // to show the user we're ready for voice input
+      setIsFocused(true)
+    }
   }
 
   return (
@@ -63,13 +116,37 @@ export default function ProductSearch({ products, onSearchChange, searchQuery }:
       <div className="relative">
         <Search className={`absolute ${dir === 'rtl' ? 'right-4' : 'left-4'} top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400`} />
         <input
+          ref={inputRef}
           type="text"
-          placeholder={t('products.searchPlaceholder')}
+          placeholder={isListening ? t('voiceSearch.listening') : t('products.searchPlaceholder')}
           value={searchQuery}
           onChange={handleInputChange}
           onFocus={() => setIsFocused(true)}
-          className={`w-full ${dir === 'rtl' ? 'pr-12 pl-12' : 'pl-12 pr-12'} py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm md:text-base text-gray-900 bg-white placeholder:text-gray-400`}
+          className={`w-full ${dir === 'rtl' ? 'pr-12 pl-24' : 'pl-12 pr-24'} py-3 border ${isListening ? 'border-red-400 ring-2 ring-red-200' : 'border-gray-300'} rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm md:text-base text-gray-900 bg-white placeholder:text-gray-400 transition-all duration-200`}
+          aria-label={t('products.searchPlaceholder')}
         />
+        
+        {/* Voice Search Button */}
+        {isSupported && (
+          <button
+            onClick={handleVoiceClick}
+            className={`absolute ${dir === 'rtl' ? 'left-12' : 'right-12'} top-1/2 transform -translate-y-1/2 p-2 touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full transition-all duration-200 ${
+              isListening 
+                ? 'text-red-500 bg-red-50 animate-pulse' 
+                : 'text-gray-400 hover:text-gray-600 hover:bg-gray-100'
+            }`}
+            aria-label={isListening ? t('voiceSearch.stopListening') : t('voiceSearch.startListening')}
+            title={isListening ? t('voiceSearch.stopListening') : t('voiceSearch.startListening')}
+          >
+            {isListening ? (
+              <MicOff className="h-5 w-5" />
+            ) : (
+              <Mic className="h-5 w-5" />
+            )}
+          </button>
+        )}
+
+        {/* Clear Button */}
         {searchQuery && (
           <button
             onClick={clearSearch}
@@ -81,8 +158,26 @@ export default function ProductSearch({ products, onSearchChange, searchQuery }:
         )}
       </div>
 
+      {/* Voice Search Status Indicator */}
+      {isListening && (
+        <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 flex items-center gap-2 text-sm text-red-500">
+          <span className="relative flex h-3 w-3">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+          </span>
+          {t('voiceSearch.listening')}...
+        </div>
+      )}
+
+      {/* Voice Search Error */}
+      {status === 'error' && error && (
+        <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-sm text-red-500 whitespace-nowrap">
+          {error}
+        </div>
+      )}
+
       {/* Suggestions Dropdown */}
-      {isFocused && suggestions.length > 0 && (
+      {isFocused && suggestions.length > 0 && !isListening && (
         <div className="absolute z-50 w-full mt-2 bg-white border border-gray-200 rounded-lg shadow-lg max-h-64 overflow-y-auto">
           {suggestions.map((product) => (
             <button
@@ -110,4 +205,3 @@ export default function ProductSearch({ products, onSearchChange, searchQuery }:
     </div>
   )
 }
-

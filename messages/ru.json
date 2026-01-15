@@ -368,6 +368,18 @@
     "contactWhatsApp": "Связаться с нами по WhatsApp",
     "sessionId": "ID сессии"
   },
+  "voiceSearch": {
+    "startListening": "Начать голосовой поиск",
+    "stopListening": "Остановить голосовой поиск",
+    "listening": "Слушаю",
+    "processing": "Обработка",
+    "unsupported": "Голосовой поиск не поддерживается в вашем браузере",
+    "microphoneDenied": "Доступ к микрофону запрещен. Пожалуйста, разрешите доступ к микрофону.",
+    "noSpeech": "Речь не обнаружена. Попробуйте еще раз.",
+    "noMicrophone": "Микрофон не найден. Пожалуйста, подключите микрофон.",
+    "networkError": "Ошибка сети. Проверьте подключение к интернету.",
+    "error": "Ошибка распознавания голоса"
+  },
   "footer": {
     "officialDistributor": "Официальный дистрибьютор в ОАЭ",
     "copyright": "© 2026 Genosys Middle East FZ-LLC. Все права защищены."
@@ -1611,6 +1623,9 @@
     "bag": "Корзина"
   },
   "orders": {
+    "title": "Заказы",
+    "trackOrder": "Отследить заказ",
+    "orderNotFound": "Заказ не найден",
     "orderNumber": "Заказ",
     "viewDetails": "Подробнее",
     "cancel": "Отменить",

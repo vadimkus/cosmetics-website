@@ -7,7 +7,7 @@ export default function TrustBadges() {
   const { t, dir } = useTranslation()
   
   return (
-    <div className={`grid grid-cols-3 gap-3 py-4 border-y border-gray-200 ${dir === 'rtl' ? 'text-right' : ''}`} dir={dir}>
+    <div className={`hidden md:grid grid-cols-3 gap-3 py-4 border-y border-gray-200 ${dir === 'rtl' ? 'text-right' : ''}`} dir={dir}>
       <div className="text-center">
         <Truck className="h-6 w-6 mx-auto text-green-600 mb-1" />
         <p className="text-xs font-medium text-gray-700">{t('trustBadges.freeShipping')}</p>

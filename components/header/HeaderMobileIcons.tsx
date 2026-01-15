@@ -85,7 +85,7 @@ export default function HeaderMobileIcons({
     <Link 
       key="logo"
       href={getLocalizedPath('/products', locale)} 
-      className={`p-0.5 hover:opacity-80 transition-opacity flex items-center justify-center ${isRTL ? 'mr-[10%] md:mr-2' : 'ml-[10%] md:ml-2'}`}
+      className={`p-0.5 hover:opacity-80 transition-opacity flex items-center justify-center ${isRTL ? 'mr-[2%] md:mr-2' : 'ml-[2%] md:ml-2'}`}
       aria-label={t('navigation.goToProducts')}
     >
       <Image

@@ -348,6 +348,18 @@
     "contactWhatsApp": "تواصل مع الدعم عبر واتساب",
     "sessionId": "معرف الجلسة"
   },
+  "voiceSearch": {
+    "startListening": "بدء البحث الصوتي",
+    "stopListening": "إيقاف البحث الصوتي",
+    "listening": "جارٍ الاستماع",
+    "processing": "جارٍ المعالجة",
+    "unsupported": "البحث الصوتي غير مدعوم في متصفحك",
+    "microphoneDenied": "تم رفض الوصول إلى الميكروفون. يرجى السماح بالوصول إلى الميكروفون.",
+    "noSpeech": "لم يتم اكتشاف أي كلام. حاول مرة أخرى.",
+    "noMicrophone": "لم يتم العثور على ميكروفون. يرجى توصيل ميكروفون.",
+    "networkError": "خطأ في الشبكة. تحقق من اتصالك بالإنترنت.",
+    "error": "خطأ في التعرف على الصوت"
+  },
   "footer": {
     "officialDistributor": "الموزع الرسمي في الإمارات",
     "copyright": "© 2026 شركة GENOSYS الشرق الأوسط FZ-LLC. جميع الحقوق محفوظة."
@@ -1587,6 +1599,9 @@
     "bag": "السلة"
   },
   "orders": {
+    "title": "الطلبات",
+    "trackOrder": "تتبع الطلب",
+    "orderNotFound": "الطلب غير موجود",
     "orderNumber": "طلب",
     "viewDetails": "عرض التفاصيل",
     "cancel": "إلغاء",

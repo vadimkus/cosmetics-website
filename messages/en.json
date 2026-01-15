@@ -392,6 +392,18 @@
     "contactWhatsApp": "Contact Support via WhatsApp",
     "sessionId": "Session ID"
   },
+  "voiceSearch": {
+    "startListening": "Start voice search",
+    "stopListening": "Stop voice search",
+    "listening": "Listening",
+    "processing": "Processing",
+    "unsupported": "Voice search is not supported in your browser",
+    "microphoneDenied": "Microphone access denied. Please allow microphone access.",
+    "noSpeech": "No speech detected. Please try again.",
+    "noMicrophone": "No microphone found. Please connect a microphone.",
+    "networkError": "Network error. Please check your connection.",
+    "error": "Voice recognition error"
+  },
   "footer": {
       "officialDistributor": "Official Distributor in the UAE",
       "copyright": "© 2026 Genosys Middle East FZ-LLC. All rights reserved."
@@ -1631,6 +1643,9 @@
     "bag": "Bag"
   },
   "orders": {
+    "title": "Orders",
+    "trackOrder": "Track Order",
+    "orderNotFound": "Order Not Found",
     "orderNumber": "Order",
     "viewDetails": "View Details",
     "cancel": "Cancel",

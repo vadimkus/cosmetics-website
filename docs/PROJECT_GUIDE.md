@@ -31,9 +31,12 @@ cosmetics-website/
 │   ├── orders/            # Order history
 │   ├── products/          # Product catalog
 │   ├── profile/           # User profile
+│   ├── skin-recommendation/ # AI Skin Analysis
 │   ├── ar/                # Arabic locale routes
 │   └── ru/                # Russian locale routes
 ├── components/            # Reusable React components
+│   ├── ar/               # AR/3D components (TensorFlow, Three.js)
+│   └── ...               # Other components
 ├── hooks/                 # Custom React hooks
 ├── lib/                   # Utility libraries
 ├── messages/              # i18n translation files (en.json, ar.json, ru.json)
@@ -187,6 +190,110 @@ The `MobileWebHeader` hides on pages listed in `isOnSimpleHeaderPage`:
 | `useCartStore()` | Zustand cart state | `lib/cartStore.ts` |
 | `useFavorites()` | Favorites/wishlist state | `components/FavoritesProvider.tsx` |
 
+### Cart Store Subscription Pattern
+
+The cart uses Zustand with persist middleware. **Important:** For reactive updates (like badge counts), subscribe to the store:
+
+```tsx
+const [cartCount, setCartCount] = useState(0)
+
+useEffect(() => {
+  // Function to update cart count
+  const updateCount = () => {
+    const state = useCartStore.getState()
+    const newCount = state.items.reduce((total, item) => total + item.quantity, 0)
+    setCartCount(newCount)
+  }
+  
+  // Initial count
+  updateCount()
+  
+  // Subscribe to store changes (handles both hydration and updates)
+  const unsubscribe = useCartStore.subscribe(updateCount)
+  
+  // Also check after short delay for localStorage hydration
+  const timer = setTimeout(updateCount, 100)
+  
+  return () => {
+    unsubscribe()
+    clearTimeout(timer)
+  }
+}, [])
+```
+
+**Why this pattern?**
+- Zustand persist loads from localStorage asynchronously
+- `getTotalItems()` may return 0 on initial render before hydration
+- Subscription ensures updates trigger re-renders
+
+---
+
+## AR Components
+
+### Overview
+
+AR features are located in `components/ar/`:
+
+| Component | Description | Status |
+|-----------|-------------|--------|
+| `ARSkinAnalysisCamera` | Real-time skin analysis with face overlays | ✅ Active |
+| `Product3DViewer` | 3D product visualization | 🔜 Stage 2 |
+
+### ARSkinAnalysisCamera
+
+Live skin analysis using TensorFlow.js and camera feed.
+
+**Features:**
+- Real-time face zone detection
+- Live metrics (oiliness, hydration, redness)
+- Stability detection for accurate readings
+- Lighting quality indicator
+
+**Usage in Skin Recommendation:**
+
+```tsx
+import { ARSkinAnalysisCamera } from '@/components/ar'
+
+// Toggle between modes
+const [analysisMode, setAnalysisMode] = useState<'photo' | 'live'>('photo')
+const [showARCamera, setShowARCamera] = useState(false)
+
+// Render
+{showARCamera && (
+  <ARSkinAnalysisCamera
+    onAnalysisComplete={handleAnalysisComplete}
+    onClose={() => setShowARCamera(false)}
+  />
+)}
+```
+
+### Product3DViewer (Stage 2)
+
+Foundation for Three.js 3D product visualization.
+
+**Current (Preview):**
+- CSS 3D transforms on product images
+- Drag-to-rotate, zoom controls
+- WebXR AR detection
+
+**Planned (Stage 2):**
+- GLTF/GLB 3D model loading
+- Full Three.js rendering
+- WebXR AR product placement
+
+### AR Dependencies
+
+```json
+{
+  "@tensorflow/tfjs": "ML framework",
+  "@mediapipe/face_mesh": "Face detection",
+  "three": "3D rendering (Stage 2)",
+  "@types/three": "TypeScript types"
+}
+```
+
+**Documentation:** See `docs/AR_SKIN_ANALYSIS_ENHANCEMENT.md` for detailed implementation notes.
+
 ---
 
 ## Common Patterns
@@ -284,17 +391,46 @@ npm run lint         # Run linter
 |------|-------------|
 | `app/layout.tsx` | Root layout with providers |
 | `components/MobileWebHeader.tsx` | Mobile hamburger menu header |
-| `components/MobileWebFooterNav.tsx` | Mobile bottom navigation |
+| `components/MobileWebFooterNav.tsx` | Mobile bottom navigation (with cart badge) |
+| `components/MobileFooterNav.tsx` | PWA bottom navigation (with cart badge) |
 | `app/login/LoginClient.tsx` | Login page with mobile-specific design |
 | `hooks/useTranslation.ts` | Translation hook |
 | `lib/i18n.ts` | Localization utilities |
+| `lib/cartStore.ts` | Zustand cart store with persist |
 | `messages/*.json` | Translation strings |
+| `components/ar/ARSkinAnalysisCamera.tsx` | Live AR skin analysis |
+| `components/ar/Product3DViewer.tsx` | 3D product viewer (Stage 2) |
+| `components/SkinAnalysisCamera.tsx` | Photo-based skin analysis |
+| `app/skin-recommendation/SkinRecommendationClient.tsx` | Skin analysis page |
+| `docs/AR_SKIN_ANALYSIS_ENHANCEMENT.md` | AR feature documentation |
 
 ---
 
 ## Recent Changes Log
 
-### January 15, 2026
+### January 15, 2026 (Session 2)
+
+1. **AR-Enhanced Skin Analysis**
+   - Added Live AR analysis mode with real-time face tracking
+   - Photo/Live AR toggle in skin recommendation page
+   - Face zone overlays (forehead, nose, cheeks, chin)
+   - Live metrics: oiliness, hydration, redness
+   - Stability detection for accurate readings
+   - Files: `components/ar/ARSkinAnalysisCamera.tsx`, `app/skin-recommendation/SkinRecommendationClient.tsx`
+
+2. **3D Product Viewer Foundation (Stage 2)**
+   - Prepared Three.js infrastructure for 3D product visualization
+   - CSS 3D transforms as current preview
+   - WebXR AR detection for compatible devices
+   - Files: `components/ar/Product3DViewer.tsx`, `components/ar/index.ts`
+
+3. **Mobile Cart Badge Fix**
+   - Fixed bag icon not showing item count on mobile
+   - Improved Zustand persist hydration handling
+   - Added store subscription for reactive updates
+   - Files: `components/MobileWebFooterNav.tsx`, `components/MobileFooterNav.tsx`
+
+### January 15, 2026 (Session 1)
 
 1. **Clean Mobile Login Screen**
    - Full-screen login without header/footer on mobile

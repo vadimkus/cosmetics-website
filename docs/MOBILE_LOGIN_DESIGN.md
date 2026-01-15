@@ -138,3 +138,81 @@ Or access from a mobile device directly.
 
 1. `f785c9e5` - Add clean full-screen login design for mobile web users
 2. `f950cc87` - Fix TypeScript error: use correct locale type for handleLanguageChange
+3. `3aaac467` - Add documentation for mobile login screen design
+4. `3f88da15` - Improve payment cancelled page for mobile
+
+---
+
+# Payment Cancelled Page - Mobile Improvements
+
+## Overview
+
+The payment cancelled page (`/checkout/cancelled`) now has a clean mobile design with proper header navigation.
+
+## Changes Made
+
+### File: `app/checkout/cancelled/CheckoutCancelledClient.tsx`
+
+1. **Mobile Header Added**
+   - Back button linking to Cart
+   - Page title "Payment Cancelled"
+   - Profile icon with green online indicator
+   - Sticky header with border
+
+2. **Removed Duplicates**
+   - Removed duplicate "Contact Support" text link
+   - Consolidated WhatsApp support into single button
+
+3. **Improved Layout**
+   - Responsive icon and text sizes for mobile
+   - Rounded buttons with proper padding
+   - Clean WhatsApp button with icon
+
+## Mobile Layout
+
+```
+┌─────────────────────────────────┐
+│ ← Cart    Payment Cancelled  👤 │  ← Sticky header
+├─────────────────────────────────┤
+│                                 │
+│            ⊗                    │  ← Red X icon
+│     Payment Cancelled           │
+│  No charges were made...        │
+│                                 │
+│  ┌─────────────────────────┐   │
+│  │     What happened?       │   │
+│  │  • You chose to cancel   │   │
+│  │  • Items still saved     │   │
+│  │  • No charges made       │   │
+│  └─────────────────────────┘   │
+│                                 │
+│  ┌─────────────────────────┐   │
+│  │ Alternative Options      │   │
+│  │ 💳 Try different card    │   │
+│  │ 🚚 Cash on Delivery      │   │
+│  │ 💬 Contact support       │   │
+│  └─────────────────────────┘   │
+│                                 │
+│  ┌─────────────────────────┐   │
+│  │    🛒 Review Cart        │   │  ← Red button
+│  └─────────────────────────┘   │
+│  ┌─────────────────────────┐   │
+│  │  ← Try Checkout Again    │   │  ← Green button
+│  └─────────────────────────┘   │
+│                                 │
+│      Continue Shopping          │
+│        🏠 Back to Home          │
+│                                 │
+│  ┌─────────────────────────┐   │
+│  │    Need Help?            │   │
+│  │  [📱 WhatsApp Support]   │   │  ← Green pill button
+│  └─────────────────────────┘   │
+└─────────────────────────────────┘
+```
+
+## Features
+
+- **RTL Support**: Full Arabic layout support
+- **Localized Messages**: WhatsApp messages in EN/AR/RU
+- **Responsive**: Different sizes for mobile vs desktop
+- **No Footer Nav**: Navigation is in header on mobile

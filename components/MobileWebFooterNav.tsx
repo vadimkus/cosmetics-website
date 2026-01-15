@@ -102,6 +102,7 @@ export default function MobileWebFooterNav() {
     return /\/products\/[a-zA-Z0-9_-]+$/.test(pathname) || 
            pathname.includes('/pdf-viewer') || 
            pathname.includes('/pwa-login') ||
+           pathname.includes('/skin-recommendation') ||
            isLoginPage ||
            isAuthPage
   }, [pathname])

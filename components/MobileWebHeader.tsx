@@ -70,6 +70,7 @@ export default function MobileWebHeader() {
                                 pathname?.includes('/favorites') ||
                                 pathname?.includes('/locations') ||
                                 pathname?.includes('/skin-recommendation') ||
+                                pathname?.includes('/blog') ||
                                 pathname?.includes('/signup') ||
                                 pathname?.includes('/forgot-password') ||
                                 pathname?.includes('/reset-password') ||
@@ -419,6 +420,14 @@ export default function MobileWebHeader() {
                   onClick={() => setShowMobileMenu(false)}
                 >
                   {t('common.locations')}
+                </Link>
+                
+                <Link 
+                  href={getLocalizedPath('/blog', locale)} 
+                  className={`py-2 text-gray-600 hover:text-red-600 transition-colors text-sm ${isRTL ? 'text-right' : ''}`}
+                  onClick={() => setShowMobileMenu(false)}
+                >
+                  {locale === 'ar' ? 'المدونة' : locale === 'ru' ? 'Блог' : 'Blog'}
                 </Link>
                 
                 <Link 

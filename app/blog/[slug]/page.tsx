@@ -4,6 +4,7 @@ import { Calendar, User, ArrowLeft } from 'lucide-react'
 import BreadcrumbSchema from '@/components/BreadcrumbSchema'
 import BlogComments from '@/components/blog/BlogComments'
 import BlackFridayCountdown from '@/components/BlackFridayCountdown'
+import BlogPostClient from './BlogPostClient'
 import type { Metadata } from 'next'
 import { prisma } from '@/lib/prisma'
 import { notFound } from 'next/navigation'
@@ -174,48 +175,49 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   content = sanitizeHtml(content)
 
   return (
-    <div className="bg-white min-h-screen">
-      <BreadcrumbSchema 
-        items={[
-          { name: 'Home', url: '/' },
-          { name: 'Blog', url: '/blog' },
-          { name: post.title, url: `/blog/${post.slug}` }
-        ]}
-      />
-      
-      {/* Article Schema */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "BlogPosting",
-            "headline": post.title,
-            "description": post.excerpt || post.content.substring(0, 160),
-            "image": post.featuredImage || "https://genosys.ae/images/genosys-products.jpg",
-            "datePublished": post.publishedAt?.toISOString(),
-            "dateModified": post.updatedAt.toISOString(),
-            "author": {
-              "@type": "Person",
-              "name": post.authorName || "GENOSYS Team"
-            },
-            "publisher": {
-              "@type": "Organization",
-              "name": "GENOSYS Middle East FZ-LLC",
-              "logo": {
-                "@type": "ImageObject",
-                "url": "https://genosys.ae/images/genosys-logo.png"
+    <BlogPostClient>
+      <div className="bg-white min-h-screen">
+        <BreadcrumbSchema 
+          items={[
+            { name: 'Home', url: '/' },
+            { name: 'Blog', url: '/blog' },
+            { name: post.title, url: `/blog/${post.slug}` }
+          ]}
+        />
+        
+        {/* Article Schema */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "BlogPosting",
+              "headline": post.title,
+              "description": post.excerpt || post.content.substring(0, 160),
+              "image": post.featuredImage || "https://genosys.ae/images/genosys-products.jpg",
+              "datePublished": post.publishedAt?.toISOString(),
+              "dateModified": post.updatedAt.toISOString(),
+              "author": {
+                "@type": "Person",
+                "name": post.authorName || "GENOSYS Team"
+              },
+              "publisher": {
+                "@type": "Organization",
+                "name": "GENOSYS Middle East FZ-LLC",
+                "logo": {
+                  "@type": "ImageObject",
+                  "url": "https://genosys.ae/images/genosys-logo.png"
+                }
+              },
+              "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": `https://genosys.ae/blog/${post.slug}`
               }
-            },
-            "mainEntityOfPage": {
-              "@type": "WebPage",
-              "@id": `https://genosys.ae/blog/${post.slug}`
-            }
-          }, null, 2)
-        }}
-      />
+            }, null, 2)
+          }}
+        />
 
-      <article className="bg-gradient-to-b from-gray-50 to-white min-h-screen">
+        <article className="bg-gradient-to-b from-gray-50 to-white min-h-screen">
         <div className="container mx-auto px-4 py-8 md:py-16">
           <div className="max-w-4xl mx-auto">
           {/* Navigation Breadcrumb */}
@@ -319,9 +321,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             />
           </div>
           </div>
-        </div>
-      </article>
-    </div>
+          </div>
+        </article>
+      </div>
+    </BlogPostClient>
   )
 }
 

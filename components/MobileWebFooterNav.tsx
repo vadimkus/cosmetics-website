@@ -103,6 +103,7 @@ export default function MobileWebFooterNav() {
            pathname.includes('/pdf-viewer') || 
            pathname.includes('/pwa-login') ||
            pathname.includes('/skin-recommendation') ||
+           pathname.includes('/blog') ||
            isLoginPage ||
            isAuthPage
   }, [pathname])

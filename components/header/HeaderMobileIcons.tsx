@@ -58,7 +58,7 @@ export default function HeaderMobileIcons({
     <Link 
       key="heart"
       href={getLocalizedPath('/favorites', locale)} 
-      className={`relative ${iconBtnClass} ${spacingClass}`}
+      className={`relative ${iconBtnClass}`}
       aria-label={`${t('common.favorites')} with ${isClient ? favorites.length : 0} items`}
     >
       <Heart className={`h-4 w-4 transition-colors ${isClient && favorites.length > 0 ? 'text-red-500' : ''}`} aria-hidden="true" />
@@ -74,7 +74,7 @@ export default function HeaderMobileIcons({
     <Link
       key="ai"
       href={getLocalizedPath('/skin-recommendation', locale)}
-      className={`px-2 py-1 rounded hover:bg-gray-100 transition-colors ${spacingClass}`}
+      className="px-2 py-1 rounded hover:bg-gray-100 transition-colors"
       aria-label={t('navigation.aiSkinAnalysis') || 'AI Skin Analysis'}
     >
       <span className="text-sm font-bold text-red-600">AI</span>
@@ -85,7 +85,7 @@ export default function HeaderMobileIcons({
     <Link 
       key="logo"
       href={getLocalizedPath('/products', locale)} 
-      className={`p-0.5 hover:opacity-80 transition-opacity flex items-center justify-center ${isRTL ? 'mr-[2%] md:mr-2' : 'ml-[2%] md:ml-2'}`}
+      className="p-0.5 hover:opacity-80 transition-opacity flex items-center justify-center"
       aria-label={t('navigation.goToProducts')}
     >
       <Image
@@ -101,27 +101,45 @@ export default function HeaderMobileIcons({
 
   // Render icons in correct order based on direction
   // Note: User icon and cart icon removed from mobile - cart is in footer
+  // Layout: left icons | center (logo + heart) | right icons
   if (isRTL) {
-    // RTL: logo, AI, heart, lang, menu (reversed order visually)
     return (
-      <div className="md:hidden flex items-center gap-0.5 header-icons ml-auto">
-        {logo}
-        {aiLink}
-        {heartIcon}
-        {languageSwitcher}
-        {menuButton}
+      <div className="md:hidden flex items-center justify-between w-full header-icons">
+        {/* Right side in RTL (menu, lang) */}
+        <div className="flex items-center gap-0.5">
+          {menuButton}
+          {languageSwitcher}
+        </div>
+        {/* Center (logo + heart) */}
+        <div className="flex items-center gap-1 absolute left-1/2 -translate-x-1/2">
+          {heartIcon}
+          {logo}
+        </div>
+        {/* Left side in RTL (AI) */}
+        <div className="flex items-center">
+          {aiLink}
+        </div>
       </div>
     )
   }
 
-  // LTR: menu, lang, heart, AI, logo
+  // LTR layout
   return (
-    <div className="md:hidden flex items-center gap-0.5 header-icons">
-      {menuButton}
-      {languageSwitcher}
-      {heartIcon}
-      {aiLink}
-      {logo}
+    <div className="md:hidden flex items-center justify-between w-full header-icons">
+      {/* Left side (menu, lang) */}
+      <div className="flex items-center gap-0.5">
+        {menuButton}
+        {languageSwitcher}
+      </div>
+      {/* Center (logo + heart) */}
+      <div className="flex items-center gap-1 absolute left-1/2 -translate-x-1/2">
+        {logo}
+        {heartIcon}
+      </div>
+      {/* Right side (AI) */}
+      <div className="flex items-center">
+        {aiLink}
+      </div>
     </div>
   )
 }

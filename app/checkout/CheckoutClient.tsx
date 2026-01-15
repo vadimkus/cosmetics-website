@@ -607,19 +607,21 @@ export default function CheckoutClient() {
             {t('checkout.checkout')}
           </h1>
           
-          {/* Profile Icon with green dot */}
+          {/* Profile Icon - green dot only when logged in */}
           <button 
             onClick={() => router.push(getLocalizedPath('/profile', locale))}
             className="min-w-[44px] flex justify-end"
           >
             <div className="relative">
-              <div className="w-8 h-8 rounded-full bg-red-600 flex items-center justify-center">
+              <div className={`w-8 h-8 rounded-full flex items-center justify-center ${user ? 'bg-red-600' : 'bg-gray-400'}`}>
                 <span className="text-sm font-semibold text-white">
-                  {user?.name?.charAt(0)?.toUpperCase() || 'U'}
+                  {user?.name?.charAt(0)?.toUpperCase() || 'G'}
                 </span>
               </div>
-              {/* Green online dot */}
-              <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 rounded-full border-2 border-white" />
+              {/* Green online dot - only when logged in */}
+              {user && (
+                <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 rounded-full border-2 border-white" />
+              )}
             </div>
           </button>
         </div>

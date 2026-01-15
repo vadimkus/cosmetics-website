@@ -237,10 +237,13 @@ export default function OrderTrackingClient({ orderNumber }: OrderTrackingClient
             <div className="relative">
               <div className="w-8 h-8 rounded-full bg-red-600 flex items-center justify-center">
                 <span className="text-sm font-semibold text-white">
-                  {trackingData?.customerFirstName?.charAt(0) || 'U'}
+                  {trackingData?.customerFirstName?.charAt(0) || 'G'}
                 </span>
               </div>
-              <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 rounded-full border-2 border-white" />
+              {/* Green online dot - only when tracking data exists (implies logged in order) */}
+              {trackingData && (
+                <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 rounded-full border-2 border-white" />
+              )}
             </div>
           </button>
         </div>

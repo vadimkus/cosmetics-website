@@ -69,6 +69,7 @@ export default function MobileWebFooterNav() {
   const [isReady, setIsReady] = useState(false)
   const [isNavigating, setIsNavigating] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
+  const [cartCount, setCartCount] = useState(0) // Track cart count with state for reactivity
   const lastClickTime = useRef(0)
   
   useEffect(() => {
@@ -77,6 +78,20 @@ export default function MobileWebFooterNav() {
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
   }, [])
+  
+  // Subscribe to cart store changes to update badge count reactively
+  useEffect(() => {
+    // Initial count
+    setCartCount(getTotalItems())
+    
+    // Subscribe to store changes
+    const unsubscribe = useCartStore.subscribe((state) => {
+      const newCount = state.items.reduce((total, item) => total + item.quantity, 0)
+      setCartCount(newCount)
+    })
+    
+    return () => unsubscribe()
+  }, [getTotalItems])
   
   useEffect(() => {
     const timer = setTimeout(() => setIsReady(true), 100)
@@ -116,7 +131,7 @@ export default function MobileWebFooterNav() {
     return 'home'
   }, [pathname])
   
-  const cartCount = isClient ? getTotalItems() : 0
+  // cartCount is now managed by useState with subscription above
   const hasItems = cartCount > 0
   
   if (!isClient || isPWA || !isMobile || shouldHide) return null

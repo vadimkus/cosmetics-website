@@ -215,6 +215,18 @@ export default function PWAHeader() {
                 </>
               )}
             </div>
+            
+            {/* AI Skin Analysis Link */}
+            <Link
+              href={getLocalizedPath('/skin-recommendation', locale)}
+              className="text-red-600 font-bold text-sm px-2 py-1.5 touch-manipulation select-none active:bg-red-50 rounded-md transition-colors"
+              style={{ 
+                WebkitTapHighlightColor: 'transparent',
+                touchAction: 'manipulation'
+              }}
+            >
+              AI
+            </Link>
           </div>
           
           {/* Center: Logo + Heart */}
@@ -345,6 +357,14 @@ export default function PWAHeader() {
                   onClick={() => setShowMobileMenu(false)}
                 >
                   {t('common.profile')}
+                </Link>
+
+                <Link 
+                  href={getLocalizedPath('/skin-recommendation', locale)} 
+                  className={`py-2.5 text-red-600 hover:text-red-700 transition-colors text-sm font-medium ${isRTL ? 'text-right' : ''}`}
+                  onClick={() => setShowMobileMenu(false)}
+                >
+                  🤖 {t('navigation.aiSkinAnalysis')}
                 </Link>
 
                 {/* Divider spanning full width */}

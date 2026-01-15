@@ -105,6 +105,7 @@ export default function MobileFooterNav() {
   const haptic = useHapticFeedback()
   const [isReady, setIsReady] = useState(false)
   const [isNavigating, setIsNavigating] = useState(false)
+  const [cartCount, setCartCount] = useState(0) // Track cart count with state for reactivity
   const lastClickTime = useRef(0)
   
   // Mark component as ready after hydration
@@ -112,6 +113,20 @@ export default function MobileFooterNav() {
     const timer = setTimeout(() => setIsReady(true), 100)
     return () => clearTimeout(timer)
   }, [])
+  
+  // Subscribe to cart store changes to update badge count reactively
+  useEffect(() => {
+    // Initial count
+    setCartCount(getTotalItems())
+    
+    // Subscribe to store changes
+    const unsubscribe = useCartStore.subscribe((state) => {
+      const newCount = state.items.reduce((total, item) => total + item.quantity, 0)
+      setCartCount(newCount)
+    })
+    
+    return () => unsubscribe()
+  }, [getTotalItems])
   
   // Reset navigation state on route change
   useEffect(() => {
@@ -189,7 +204,7 @@ export default function MobileFooterNav() {
     return 'home'
   }, [pathname])
   
-  const cartCount = isClient ? getTotalItems() : 0
+  // cartCount is now managed by useState with subscription above
   const hasItemsInCart = cartCount > 0
   
   // Only render in PWA mode on mobile, hide on product detail pages, login page, PDF viewer, and fullscreen modals

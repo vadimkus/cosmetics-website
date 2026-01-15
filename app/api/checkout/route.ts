@@ -235,7 +235,9 @@ export async function POST(request: NextRequest) {
       shipping: order.shipping,
       vat: order.vat,
       address: order.customerAddress,
-      emirate: order.customerEmirate
+      emirate: order.customerEmirate,
+      paymentStatus: 'COD',
+      paymentMethod: 'Cash on Delivery'
     }).then((adminResult) => {
       if (adminResult.success) {
         debugLog('✅ Admin notification sent for new order:', order.orderNumber)

@@ -315,6 +315,7 @@ interface OrderWithItems {
   total: number
   locale?: string | null | undefined
   paymentStatus?: string | null | undefined
+  paymentMethod?: string | null | undefined
   items: OrderItem[]
 }
 
@@ -377,7 +378,9 @@ async function sendConfirmationEmails(order: OrderWithItems) {
       shipping: order.shipping ?? undefined,
       vat: order.vat ?? undefined,
       address: order.customerAddress ?? undefined,
-      emirate: order.customerEmirate ?? undefined
+      emirate: order.customerEmirate ?? undefined,
+      paymentStatus: 'PAID',
+      paymentMethod: order.paymentMethod ?? 'Stripe'
     })
 
     debugLog('✅ Admin notification sent for order:', order.orderNumber)

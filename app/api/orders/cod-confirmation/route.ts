@@ -312,7 +312,9 @@ export async function POST(request: NextRequest) {
       vat: vatAmount,
       address: (customerAddress && customerAddress.trim()) || undefined,
       emirate: (emirate && emirate.trim()) || undefined,
-      deviceType
+      deviceType,
+      paymentStatus: 'COD',
+      paymentMethod: 'Cash on Delivery'
     })
     
     adminNotificationPromise.then((adminResult) => {

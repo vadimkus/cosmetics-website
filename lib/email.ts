@@ -99,6 +99,8 @@ export interface AdminNewOrderEmailData {
   address?: string | undefined
   emirate?: string | undefined
   deviceType?: string | undefined
+  paymentMethod?: string | undefined
+  paymentStatus?: 'PAID' | 'PENDING' | 'COD' | undefined
 }
 
 // Email configuration
@@ -999,7 +1001,7 @@ export const emailTemplates = {
 
   // Admin notification for new order
   adminNewOrder: (orderData: AdminNewOrderEmailData) => ({
-    subject: `New Order #${orderData.orderNumber} - ${orderData.customerName} - AED ${orderData.total.toFixed(2)}`,
+    subject: `${orderData.paymentStatus === 'PAID' ? 'New Paid Order' : 'New Order'} #${orderData.orderNumber} - ${orderData.customerName} - AED ${orderData.total.toFixed(2)}`,
     html: `
       <!DOCTYPE html>
       <html lang="en">
@@ -1032,6 +1034,21 @@ export const emailTemplates = {
             </div>
                   </td>
                 </tr>
+                
+                <!-- Payment Status -->
+                ${orderData.paymentStatus ? `
+                <tr>
+                  <td style="padding: 0 20px 20px 20px; text-align: center;">
+                    <div style="display: inline-block; background-color: ${orderData.paymentStatus === 'PAID' ? '#dcfce7' : orderData.paymentStatus === 'COD' ? '#fef3c7' : '#fee2e2'}; border: 1px solid ${orderData.paymentStatus === 'PAID' ? '#86efac' : orderData.paymentStatus === 'COD' ? '#fcd34d' : '#fca5a5'}; border-radius: 8px; padding: 12px 24px;">
+                      <p style="margin: 0 0 4px 0; color: #6b7280; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Payment Status</p>
+                      <p style="margin: 0; color: ${orderData.paymentStatus === 'PAID' ? '#16a34a' : orderData.paymentStatus === 'COD' ? '#d97706' : '#dc2626'}; font-size: 18px; font-weight: 700;">
+                        ${orderData.paymentStatus === 'PAID' ? '✅ PAID' : orderData.paymentStatus === 'COD' ? '💵 Cash on Delivery' : '⏳ Pending'}
+                      </p>
+                      ${orderData.paymentMethod ? `<p style="margin: 4px 0 0 0; color: #6b7280; font-size: 14px;">via ${orderData.paymentMethod}</p>` : ''}
+                    </div>
+                  </td>
+                </tr>
+                ` : ''}
                 
                 <!-- Order Information -->
                 <tr>

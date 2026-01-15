@@ -135,6 +135,7 @@ export default function SkinRecommendationClient() {
   const handleCameraAnalysisComplete = (result: SkinAnalysisResult) => {
     setCameraResult(result)
     setShowCamera(false)
+    setShowARCamera(false) // Also close AR camera
     
     // Auto-fill form based on camera analysis
     setSelectedSkinType(result.skinType)

@@ -168,6 +168,10 @@ Or access from a mobile device directly.
 4. `3f88da15` - Improve payment cancelled page for mobile
 5. `7ac096f9` - Update documentation with payment cancelled page changes
 6. `f0ff9d03` - Hide mobile header and footer on login/auth pages
+7. `8318e25b` - Document header/footer hiding logic for auth pages
+8. `ec1507e6` - Hide mobile footer nav on skin-recommendation page
+9. `1c1c2887` - Add Blog to mobile menu and full-screen blog experience
+10. `07196370` - Remove duplicate heart icon from mobile login page
 
 ---
 
@@ -244,3 +248,184 @@ The payment cancelled page (`/checkout/cancelled`) now has a clean mobile design
 - **Localized Messages**: WhatsApp messages in EN/AR/RU
 - **Responsive**: Different sizes for mobile vs desktop
 - **No Footer Nav**: Navigation is in header on mobile
+
+---
+
+# Skin Analysis Page - Mobile Full-Screen Experience
+
+## Overview
+
+The AI Skin Analysis page (`/skin-recommendation`) now displays as a clean full-screen experience on mobile without the footer navigation.
+
+## Changes Made
+
+### File: `components/MobileWebFooterNav.tsx`
+- Added `/skin-recommendation` to the `shouldHide` paths
+- Footer nav (Home, Orders, Bag) is hidden on this page
+
+## Result
+The page has its own dedicated header and full-screen questionnaire experience without bottom navigation interference.
+
+---
+
+# Blog Pages - Mobile Full-Screen Experience
+
+## Overview
+
+Blog pages now have a clean, app-like experience on mobile with dedicated headers and no footer navigation.
+
+## Changes Made
+
+### 1. `components/MobileWebHeader.tsx`
+- Added Blog link to hamburger menu (between Locations and AI Skin Analysis)
+- Added `/blog` to pages that hide the default header (blog has its own)
+
+### 2. `components/MobileWebFooterNav.tsx`
+- Added `/blog` to `shouldHide` paths
+- Footer nav hidden on all blog pages
+
+### 3. `app/blog/BlogPageClient.tsx` (Existing)
+- Already had mobile header implementation with:
+  - "< Products" back button
+  - "Blog" title
+  - Profile icon with green online indicator
+
+### 4. `app/blog/[slug]/BlogPostClient.tsx` (New File)
+- Client wrapper component for individual blog posts
+- Adds mobile header with:
+  - "< Blog" back button (returns to blog list)
+  - "Article" title
+  - Profile icon with green online indicator
+- Detects mobile web vs PWA vs desktop
+- Full RTL support
+
+### 5. `app/blog/[slug]/page.tsx`
+- Wrapped content with `BlogPostClient` component
+
+## Blog Mobile Layout
+
+### Blog List (`/blog`)
+```
+┌─────────────────────────────────┐
+│ ← Products     Blog          👤 │  ← Mobile header
+├─────────────────────────────────┤
+│                                 │
+│        GENOSYS Blog             │
+│    Expert insights on...        │
+│                                 │
+│  ┌─────────────────────────┐   │
+│  │ [Image]                  │   │
+│  │ Article Title            │   │
+│  │ Excerpt text...          │   │
+│  │ 👤 Author  📅 Date       │   │
+│  │ Read More →              │   │
+│  └─────────────────────────┘   │
+│                                 │
+│  ┌─────────────────────────┐   │
+│  │ [Image]                  │   │
+│  │ Another Article...       │   │
+│  └─────────────────────────┘   │
+│                                 │
+└─────────────────────────────────┘
+```
+
+### Blog Post (`/blog/[slug]`)
+```
+┌─────────────────────────────────┐
+│ ← Blog       Article         👤 │  ← Mobile header
+├─────────────────────────────────┤
+│                                 │
+│  Home / Blog / Article Title    │
+│                                 │
+│  [Featured Image]               │
+│                                 │
+│  Article Title                  │
+│  👤 Author  📅 Date  👁 Views   │
+│                                 │
+│  Article content here...        │
+│                                 │
+│  ─────────────────────────────  │
+│                                 │
+│  Comments (3)                   │
+│  ...                            │
+│                                 │
+└─────────────────────────────────┘
+```
+
+## Hamburger Menu Update
+
+Blog link added to mobile navigation menu:
+
+```
+┌─────────────────────────────────┐
+│  Products          Orders       │
+│  Favorites         Profile      │
+│  ───────────────────────────── │
+│  Home              About        │
+│  Brand             Delivery     │
+│  Contact           FAQ          │
+│  Locations         Blog    ← NEW│
+│  AI Skin Analysis (red)         │
+│  ───────────────────────────── │
+│  Login / Logout                 │
+└─────────────────────────────────┘
+```
+
+---
+
+# Mobile Login - Heart Icon Fix
+
+## Issue
+The mobile login page displayed two heart icons next to "United Arab Emirates":
+1. Heart emoji (❤️) from translation text
+2. Heart icon component from code
+
+## Fix
+Removed the duplicate `<Heart>` component from `app/login/LoginClient.tsx`.
+
+### Before
+```jsx
+<span className="text-gray-600 text-sm">{t('login.unitedArabEmirates')}</span>
+<Heart className="w-3.5 h-3.5 text-red-500 fill-red-500" />
+```
+
+### After
+```jsx
+<span className="text-gray-600 text-sm">{t('login.unitedArabEmirates')}</span>
+```
+
+The translation already contains the heart emoji, so only one heart is now displayed.
+
+---
+
+# Summary of All Pages with Full-Screen Mobile Experience
+
+| Page | Header | Footer Hidden | Notes |
+|------|--------|---------------|-------|
+| `/login` | Clean (no header) | Yes | Language selector, logo, form only |
+| `/signup` | Clean (no header) | Yes | Same as login |
+| `/forgot-password` | Clean (no header) | Yes | Same as login |
+| `/reset-password` | Clean (no header) | Yes | Same as login |
+| `/pwa-login` | Clean (no header) | Yes | PWA-specific login |
+| `/skin-recommendation` | Custom header | Yes | AI Skin Analysis page |
+| `/blog` | Custom header | Yes | Blog list page |
+| `/blog/[slug]` | Custom header | Yes | Individual blog posts |
+| `/checkout/cancelled` | Custom header | Yes | Payment cancelled page |
+| `/products/[slug]` | Custom header | Yes | Product detail pages |
+| `/pdf-viewer` | N/A | Yes | PDF viewer |
+| `/profile` | Custom header | No | Profile page |
+| `/cart` | Custom header | No | Cart page |
+| `/orders` | Custom header | No | Orders page |
+| `/favorites` | Custom header | No | Favorites page |
+
+## Files Modified Summary
+
+| File | Changes |
+|------|---------|
+| `components/MobileWebHeader.tsx` | Added Blog link, hide on blog/auth pages |
+| `components/MobileWebFooterNav.tsx` | Hide on login, auth, blog, skin-recommendation pages |
+| `app/login/LoginClient.tsx` | Clean mobile design, removed duplicate heart |
+| `app/blog/[slug]/BlogPostClient.tsx` | New mobile header wrapper |
+| `app/blog/[slug]/page.tsx` | Wrapped with BlogPostClient |
+| `app/checkout/cancelled/CheckoutCancelledClient.tsx` | Mobile header, consolidated support |
+| `hooks/useIsMobile.ts` | Mobile detection hook |

@@ -9,6 +9,7 @@ import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { ChevronRight, ChevronLeft } from 'lucide-react'
 import { SkinAnalysisCamera, SkinAnalysisResult } from './SkinAnalysisCamera'
+import { ARSkinAnalysisCamera } from './ar'
 import { debugLog } from '@/lib/logger'
 import { VAPID_PUBLIC_KEY } from '@/lib/siteConfig'
 
@@ -137,6 +138,7 @@ export default function PWAProfilePage() {
   const [pushSupported, setPushSupported] = useState(false)
   const [isLoggingOut, setIsLoggingOut] = useState(false)
   const [showSkinAnalysis, setShowSkinAnalysis] = useState(false)
+  const [showARSkinAnalysis, setShowARSkinAnalysis] = useState(false)
   const [lastSkinType, setLastSkinType] = useState<string | null>(null)
   const [showAnalysisSuccess, setShowAnalysisSuccess] = useState(false)
   
@@ -364,6 +366,26 @@ export default function PWAProfilePage() {
     // Navigate to recommendations with results
     setTimeout(() => {
       router.push(getLocalizedPath('/skin-recommendation', locale) + `?skinType=${result.skinType}&concerns=${result.concerns.join(',')}&fromAnalysis=true`)
+    }, 500)
+  }
+  
+  // Handle AR skin analysis completion
+  const handleARSkinAnalysisComplete = (result: SkinAnalysisResult) => {
+    setLastSkinType(result.skinType)
+    setShowARSkinAnalysis(false)
+    
+    // Show success message
+    setShowAnalysisSuccess(true)
+    setTimeout(() => setShowAnalysisSuccess(false), 3000)
+    
+    // Store full analysis result in sessionStorage for the recommendation page
+    if (typeof window !== 'undefined') {
+      sessionStorage.setItem('skinAnalysisResult', JSON.stringify(result))
+    }
+    
+    // Navigate to recommendations with results
+    setTimeout(() => {
+      router.push(getLocalizedPath('/skin-recommendation', locale) + `?skinType=${result.skinType}&concerns=${result.concerns.join(',')}&fromAnalysis=true&mode=ar`)
     }, 500)
   }
 
@@ -647,6 +669,18 @@ export default function PWAProfilePage() {
               onClick={() => setShowSkinAnalysis(true)}
               isRTL={isRTL}
             />
+            {/* AR Skin Analysis - Live Real-time Analysis */}
+            <ProfileItem
+              icon={
+                <svg className="w-5 h-5 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                </svg>
+              }
+              title={locale === 'ar' ? 'تحليل AR المباشر' : locale === 'ru' ? 'AR Анализ в реальном времени' : 'Live AR Analysis'}
+              subtitle={locale === 'ar' ? 'تحليل فوري بالواقع المعزز' : locale === 'ru' ? 'Мгновенный анализ с AR' : 'Real-time augmented reality'}
+              onClick={() => setShowARSkinAnalysis(true)}
+              isRTL={isRTL}
+            />
             <ProfileItem
               icon={<svg className="w-5 h-5 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" /></svg>}
               title={t('pwaProfile.language')}
@@ -701,6 +735,14 @@ export default function PWAProfilePage() {
         <SkinAnalysisCamera
           onAnalysisComplete={handleSkinAnalysisComplete}
           onClose={() => setShowSkinAnalysis(false)}
+        />
+      )}
+
+      {/* AR Skin Analysis Camera Modal */}
+      {showARSkinAnalysis && (
+        <ARSkinAnalysisCamera
+          onAnalysisComplete={handleARSkinAnalysisComplete}
+          onClose={() => setShowARSkinAnalysis(false)}
         />
       )}
 

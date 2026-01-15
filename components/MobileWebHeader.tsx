@@ -74,6 +74,7 @@ export default function MobileWebHeader() {
                                 pathname?.includes('/signup') ||
                                 pathname?.includes('/forgot-password') ||
                                 pathname?.includes('/reset-password') ||
+                                pathname?.includes('/track') ||
                                 isLoginPage ||
                                 isProductDetailPage
   

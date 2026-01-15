@@ -172,10 +172,40 @@ export default function OrderTrackingClient({ orderNumber }: OrderTrackingClient
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading tracking information...</p>
+      <div className={`min-h-screen bg-gray-50 ${isMobileWeb ? 'pb-32' : ''}`} dir={dir}>
+        {/* Mobile Header for Loading State */}
+        {isMobileWeb && (
+          <div className={`sticky top-0 z-40 flex items-center justify-between px-5 py-4 bg-white border-b border-gray-100 ${isRTL ? 'flex-row-reverse' : ''}`}>
+            <button
+              onClick={() => router.push(getLocalizedPath('/profile?tab=orders', locale))}
+              className={`flex items-center gap-1 min-w-[80px] ${isRTL ? 'flex-row-reverse' : ''}`}
+            >
+              <ArrowLeft className={`w-5 h-5 text-red-600 ${isRTL ? 'rotate-180' : ''}`} />
+              <span className="text-base text-red-600">
+                {t('orders.title')}
+              </span>
+            </button>
+            <span className="text-base font-semibold text-gray-900">
+              {t('orders.trackOrder')}
+            </span>
+            <button
+              onClick={handleProfileClick}
+              className="min-w-[80px] flex justify-end"
+            >
+              <div className="relative">
+                <div className="w-8 h-8 rounded-full bg-gray-400 flex items-center justify-center">
+                  <span className="text-sm font-semibold text-white">G</span>
+                </div>
+              </div>
+            </button>
+          </div>
+        )}
+        
+        <div className={`flex items-center justify-center p-4 ${isMobileWeb ? 'min-h-[calc(100vh-180px)]' : 'min-h-screen'}`}>
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto mb-4"></div>
+            <p className="text-gray-600">{t('common.loading') || 'Loading tracking information...'}</p>
+          </div>
         </div>
       </div>
     )
@@ -183,26 +213,56 @@ export default function OrderTrackingClient({ orderNumber }: OrderTrackingClient
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-        <div className="bg-white rounded-lg shadow-lg p-8 max-w-md w-full text-center">
-          <XCircle className="w-16 h-16 text-red-500 mx-auto mb-4" />
-          <h1 className="text-xl font-semibold text-gray-900 mb-2">Order Not Found</h1>
-          <p className="text-gray-600 mb-6">{error}</p>
-          <div className="space-y-3">
+      <div className={`min-h-screen bg-gray-50 ${isMobileWeb ? 'pb-32' : ''}`} dir={dir}>
+        {/* Mobile Header for Error State */}
+        {isMobileWeb && (
+          <div className={`sticky top-0 z-40 flex items-center justify-between px-5 py-4 bg-white border-b border-gray-100 ${isRTL ? 'flex-row-reverse' : ''}`}>
             <button
-              onClick={fetchTrackingData}
-              className="w-full py-2 px-4 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors flex items-center justify-center gap-2"
+              onClick={() => router.push(getLocalizedPath('/profile?tab=orders', locale))}
+              className={`flex items-center gap-1 min-w-[80px] ${isRTL ? 'flex-row-reverse' : ''}`}
             >
-              <RefreshCw className="w-4 h-4" />
-              Try Again
+              <ArrowLeft className={`w-5 h-5 text-red-600 ${isRTL ? 'rotate-180' : ''}`} />
+              <span className="text-base text-red-600">
+                {t('orders.title')}
+              </span>
             </button>
-            <Link
-              href="/"
-              className="w-full py-2 px-4 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors flex items-center justify-center gap-2"
+            <span className="text-base font-semibold text-gray-900">
+              {t('orders.trackOrder')}
+            </span>
+            <button
+              onClick={handleProfileClick}
+              className="min-w-[80px] flex justify-end"
             >
-              <ArrowLeft className="w-4 h-4" />
-              Back to Home
-            </Link>
+              <div className="relative">
+                <div className="w-8 h-8 rounded-full bg-gray-400 flex items-center justify-center">
+                  <span className="text-sm font-semibold text-white">G</span>
+                </div>
+              </div>
+            </button>
+          </div>
+        )}
+        
+        <div className={`flex items-center justify-center p-4 ${isMobileWeb ? 'min-h-[calc(100vh-180px)]' : 'min-h-screen'}`}>
+          <div className="bg-white rounded-lg shadow-lg p-8 max-w-md w-full text-center">
+            <XCircle className="w-16 h-16 text-red-500 mx-auto mb-4" />
+            <h1 className="text-xl font-semibold text-gray-900 mb-2">{t('orders.orderNotFound') || 'Order Not Found'}</h1>
+            <p className="text-gray-600 mb-6">{error}</p>
+            <div className="space-y-3">
+              <button
+                onClick={fetchTrackingData}
+                className={`w-full py-2 px-4 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors flex items-center justify-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}
+              >
+                <RefreshCw className="w-4 h-4" />
+                {t('common.tryAgain') || 'Try Again'}
+              </button>
+              <Link
+                href={getLocalizedPath('/', locale)}
+                className={`w-full py-2 px-4 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors flex items-center justify-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}
+              >
+                <ArrowLeft className={`w-4 h-4 ${isRTL ? 'rotate-180' : ''}`} />
+                {t('common.backHome') || 'Back to Home'}
+              </Link>
+            </div>
           </div>
         </div>
       </div>

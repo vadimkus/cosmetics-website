@@ -123,7 +123,77 @@ TWILIO_TEMPLATE_ORDER_CANCELLED=HXxxxxxxxxx
 
 ---
 
-## 4. Documentation Updates
+## 4. Admin Email Notification Enhancement
+
+### Payment Status in Admin Emails
+**Files**: `lib/email.ts`, `lib/email/legacy.ts`
+
+Enhanced admin order notification emails to clearly show payment status.
+
+#### Subject Line Changes
+
+| Order Type | Before | After |
+|------------|--------|-------|
+| Stripe/Card/Apple Pay | `New Order #GEN...` | `New Paid Order #GEN...` |
+| Cash on Delivery | `New Order #GEN...` | `New Order #GEN...` |
+
+#### Email Body - Payment Status Badge
+
+Added a color-coded payment status section after the order number:
+
+| Status | Color | Display |
+|--------|-------|---------|
+| **Paid (Stripe)** | 🟢 Green background | ✅ PAID via Stripe |
+| **Cash on Delivery** | 🟡 Yellow background | 💵 Cash on Delivery |
+| **Pending** | 🔴 Red background | ⏳ Pending |
+
+#### Interface Update
+
+Added to `AdminNewOrderEmailData`:
+```typescript
+paymentMethod?: string | undefined  // e.g., "Stripe", "Cash on Delivery"
+paymentStatus?: 'PAID' | 'PENDING' | 'COD' | undefined
+```
+
+#### Files Updated for Payment Info
+
+| File | Payment Status | Payment Method |
+|------|---------------|----------------|
+| `app/api/webhooks/stripe/route.ts` | `PAID` | `Stripe` |
+| `app/api/checkout/route.ts` | `COD` | `Cash on Delivery` |
+| `app/api/orders/cod-confirmation/route.ts` | `COD` | `Cash on Delivery` |
+| `app/api/orders/support-link/route.ts` | `COD` | `Support Link (COD)` |
+
+---
+
+## 5. Twilio WhatsApp Setup Completed
+
+### Environment Variables Added
+
+The following were added to `.env.local`:
+
+```env
+TWILIO_ACCOUNT_SID=ACxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+TWILIO_AUTH_TOKEN=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+TWILIO_WHATSAPP_NUMBER=+14155238886
+INTERNAL_API_KEY=<configured>
+```
+
+### Sandbox Connected
+
+- Phone +971585487665 joined sandbox with code `join daughter-able`
+- Test message successfully sent and received
+- Integration verified working
+
+### Twilio Package Installed
+
+```bash
+npm install twilio
+```
+
+---
+
+## 6. Documentation Updates
 
 | Document | Changes |
 |----------|---------|
@@ -146,7 +216,14 @@ TWILIO_TEMPLATE_ORDER_CANCELLED=HXxxxxxxxxx
 - [x] Customer name visible in orders list on mobile
 - [x] Order management functions work
 
-### WhatsApp Integration (Requires Twilio Account)
+### Admin Email Notifications
+- [x] Paid orders show "New Paid Order" in subject
+- [x] Payment status badge displays in email body
+- [x] Payment method shown (Stripe, Cash on Delivery)
+- [x] COD orders show yellow badge
+- [x] Stripe orders show green badge
+
+### WhatsApp Integration (Sandbox Testing)
 - [ ] Order confirmation sent on COD order
 - [ ] Status updates sent when admin changes status
 - [ ] Fallback messages work when templates not configured
@@ -179,6 +256,14 @@ TWILIO_TEMPLATE_ORDER_CANCELLED=HXxxxxxxxxx
 - `app/api/checkout/route.ts` (modified)
 - `app/api/admin/orders/[id]/route.ts` (modified)
 
+### Admin Email Notifications
+- `lib/email.ts` (added paymentStatus, paymentMethod to interface and template)
+- `lib/email/legacy.ts` (same updates)
+- `app/api/webhooks/stripe/route.ts` (pass PAID status)
+- `app/api/checkout/route.ts` (pass COD status)
+- `app/api/orders/cod-confirmation/route.ts` (pass COD status)
+- `app/api/orders/support-link/route.ts` (pass COD status)
+
 ### Documentation
 - `docs/MOBILE_WEB_UX_IMPLEMENTATION.md`
 - `docs/TWILIO_WHATSAPP_INTEGRATION.md` (NEW)
@@ -188,11 +273,25 @@ TWILIO_TEMPLATE_ORDER_CANCELLED=HXxxxxxxxxx
 
 ## Next Steps
 
-1. **Twilio Account Setup**: User to create Twilio account and configure WhatsApp Business API
-2. **Template Approval**: Submit message templates to WhatsApp for approval
-3. **Production Testing**: Test WhatsApp notifications with real orders
-4. **User Preferences**: Consider adding opt-in/opt-out for WhatsApp notifications
+1. ~~**Twilio Account Setup**~~: ✅ Completed - Sandbox working
+2. **Facebook Business Verification**: Register GENOSYS Middle East FZ-LLC on Meta Business
+3. **WhatsApp Business API**: Apply for production WhatsApp sender
+4. **Template Approval**: Submit message templates to WhatsApp for approval
+5. **Production Testing**: Test WhatsApp notifications with real orders
+6. **User Preferences**: Consider adding opt-in/opt-out for WhatsApp notifications
+
+---
+
+## Summary Statistics
+
+| Category | Count |
+|----------|-------|
+| Files Created | 4 |
+| Files Modified | 18 |
+| New API Endpoints | 2 |
+| Build Status | ✅ Passing |
 
 ---
 
 *Session completed: January 14, 2026*
+*Last updated: January 15, 2026*

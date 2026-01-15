@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { ArrowLeft, Eye, EyeOff, Gift, ChevronDown, Heart } from 'lucide-react'
+import { ArrowLeft, Eye, EyeOff, Gift, ChevronDown } from 'lucide-react'
 import { useAuth } from '@/components/AuthProvider'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
@@ -194,7 +194,6 @@ export default function LoginClient() {
           <div className={`flex items-center gap-2 mt-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
             <span className="text-base">🇦🇪</span>
             <span className="text-gray-600 text-sm">{t('login.unitedArabEmirates')}</span>
-            <Heart className="w-3.5 h-3.5 text-red-500 fill-red-500" />
           </div>
         </div>
 

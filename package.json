@@ -2,6 +2,9 @@
   "name": "cosmetics-website",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=22.0.0"
+  },
   "scripts": {
     "dev": "next dev -H 0.0.0.0",
     "build": "npx prisma generate && node scripts/deploy-setup.js && node scripts/generate-sw-version.js && next build",

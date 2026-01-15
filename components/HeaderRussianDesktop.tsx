@@ -7,7 +7,6 @@ import { useAuth } from './AuthProvider'
 import { useFavorites } from './FavoritesProvider'
 import LanguageSwitcher from './LanguageSwitcher'
 import LoginModal from './LoginModal'
-import { AnimationToggle } from './AnimationToggle'
 import { useState, useEffect } from 'react'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
@@ -15,7 +14,9 @@ import { usePWAMode } from '@/hooks/usePWAMode'
 import { useRouter } from 'next/navigation'
 
 export default function HeaderRussianDesktop() {
-  const { getTotalItems } = useCartStore()
+  // Use selector pattern for better reactivity with Zustand persist
+  const cartItems = useCartStore((state) => state.items)
+  const cartCount = cartItems.reduce((total, item) => total + item.quantity, 0)
   const { user, logout } = useAuth()
   const { favorites } = useFavorites()
   const { t, locale } = useTranslation()
@@ -171,16 +172,15 @@ export default function HeaderRussianDesktop() {
           <Link 
             href={getLocalizedPath('/cart', 'ru')} 
             className="relative p-2 text-gray-700 hover:text-primary-600 transition-colors touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center"
-            aria-label={`${t('common.cart')} с ${isClient ? getTotalItems() : 0} товарами`}
+            aria-label={`${t('common.cart')} с ${isClient ? cartCount : 0} товарами`}
           >
-            <ShoppingCart className={`h-6 w-6 transition-colors ${isClient && getTotalItems() > 0 ? 'text-green-600' : ''}`} aria-hidden="true" />
-            {isClient && getTotalItems() > 0 && (
+            <ShoppingCart className={`h-6 w-6 transition-colors ${isClient && cartCount > 0 ? 'text-green-600' : ''}`} aria-hidden="true" />
+            {isClient && cartCount > 0 && (
               <span className="absolute -top-1 -right-1 bg-primary-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center header-badge" aria-hidden="true">
-                {getTotalItems()}
+                {cartCount}
               </span>
             )}
           </Link>
-          <AnimationToggle size="lg" className="hidden lg:flex" />
         </div>
       </div>
 

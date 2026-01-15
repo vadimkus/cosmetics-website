@@ -24,7 +24,9 @@ export default function HeaderDesktopIcons({
   isClient,
   handleLoginClick
 }: HeaderDesktopIconsProps) {
-  const { getTotalItems } = useCartStore()
+  // Use selector pattern for better reactivity with Zustand persist
+  const cartItems = useCartStore((state) => state.items)
+  const cartCount = cartItems.reduce((total, item) => total + item.quantity, 0)
   const { user, logout } = useAuth()
   const { favorites } = useFavorites()
   const { t, locale } = useTranslation()
@@ -61,12 +63,12 @@ export default function HeaderDesktopIcons({
         <Link 
           href={getLocalizedPath('/cart', locale)} 
           className="relative p-2 text-gray-700 hover:text-primary-600 transition-colors touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center"
-          aria-label={`${t('common.cart')} with ${isClient ? getTotalItems() : 0} items`}
+          aria-label={`${t('common.cart')} with ${isClient ? cartCount : 0} items`}
         >
-          <ShoppingCart className={`h-6 w-6 transition-colors ${isClient && getTotalItems() > 0 ? 'text-green-600' : ''}`} aria-hidden="true" />
-          {isClient && getTotalItems() > 0 && (
+          <ShoppingCart className={`h-6 w-6 transition-colors ${isClient && cartCount > 0 ? 'text-green-600' : ''}`} aria-hidden="true" />
+          {isClient && cartCount > 0 && (
             <span className={`absolute ${badgePosition} bg-primary-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center header-badge`} aria-hidden="true">
-              {getTotalItems()}
+              {cartCount}
             </span>
           )}
         </Link>
@@ -123,12 +125,12 @@ export default function HeaderDesktopIcons({
         <Link 
           href={getLocalizedPath('/cart', locale)} 
           className="relative p-2 text-gray-700 hover:text-primary-600 transition-colors touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center"
-          aria-label={`${t('common.cart')} with ${isClient ? getTotalItems() : 0} items`}
+          aria-label={`${t('common.cart')} with ${isClient ? cartCount : 0} items`}
         >
-          <ShoppingCart className={`h-6 w-6 transition-colors ${isClient && getTotalItems() > 0 ? 'text-green-600' : ''}`} aria-hidden="true" />
-          {isClient && getTotalItems() > 0 && (
+          <ShoppingCart className={`h-6 w-6 transition-colors ${isClient && cartCount > 0 ? 'text-green-600' : ''}`} aria-hidden="true" />
+          {isClient && cartCount > 0 && (
             <span className={`absolute ${badgePosition} bg-primary-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center header-badge`} aria-hidden="true">
-              {getTotalItems()}
+              {cartCount}
             </span>
           )}
         </Link>

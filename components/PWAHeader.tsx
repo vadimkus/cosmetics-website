@@ -323,7 +323,7 @@ export default function PWAHeader() {
             {/* 2-Column Navigation Grid */}
             <nav className="p-4">
               <div className="grid grid-cols-2 gap-x-4 gap-y-2">
-                {/* Column 1 */}
+                {/* Primary Navigation */}
                 <Link 
                   href={getLocalizedPath('/products', locale)} 
                   className={`py-2.5 text-gray-800 hover:text-red-600 transition-colors text-sm font-medium ${isRTL ? 'text-right' : ''}`}
@@ -359,19 +359,12 @@ export default function PWAHeader() {
                   {t('common.profile')}
                 </Link>
 
-                <Link 
-                  href={getLocalizedPath('/skin-recommendation', locale)} 
-                  className={`py-2.5 text-red-600 hover:text-red-700 transition-colors text-sm font-medium ${isRTL ? 'text-right' : ''}`}
-                  onClick={() => setShowMobileMenu(false)}
-                >
-                  🤖 {t('navigation.aiSkinAnalysis')}
-                </Link>
-
                 {/* Divider spanning full width */}
                 <div className="col-span-2 h-px bg-gray-200 my-2" />
 
+                {/* Secondary Navigation */}
                 <Link 
-                  href={`${getLocalizedPath('/', locale)}?full=true`} 
+                  href={getLocalizedPath('/', locale)} 
                   className={`py-2 text-gray-600 hover:text-red-600 transition-colors text-sm ${isRTL ? 'text-right' : ''}`}
                   onClick={() => setShowMobileMenu(false)}
                 >
@@ -424,6 +417,22 @@ export default function PWAHeader() {
                   onClick={() => setShowMobileMenu(false)}
                 >
                   {t('common.locations')}
+                </Link>
+                
+                <Link 
+                  href={getLocalizedPath('/blog', locale)} 
+                  className={`py-2 text-gray-600 hover:text-red-600 transition-colors text-sm ${isRTL ? 'text-right' : ''}`}
+                  onClick={() => setShowMobileMenu(false)}
+                >
+                  {locale === 'ar' ? 'المدونة' : locale === 'ru' ? 'Блог' : 'Blog'}
+                </Link>
+                
+                <Link 
+                  href={getLocalizedPath('/skin-recommendation', locale)} 
+                  className={`py-2 text-red-600 hover:text-red-700 transition-colors text-sm font-medium ${isRTL ? 'text-right' : ''}`}
+                  onClick={() => setShowMobileMenu(false)}
+                >
+                  {t('navigation.aiSkinAnalysis') || 'AI Skin Analysis'}
                 </Link>
 
                 {user && (

@@ -1,13 +1,15 @@
 'use client'
 
 import Link from 'next/link'
-import { ArrowLeft, Eye, EyeOff, Gift } from 'lucide-react'
+import Image from 'next/image'
+import { ArrowLeft, Eye, EyeOff, Gift, ChevronDown, Heart } from 'lucide-react'
 import { useAuth } from '@/components/AuthProvider'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { usePWAMode } from '@/hooks/usePWAMode'
+import { useIsMobile } from '@/hooks/useIsMobile'
 
 export default function LoginClient() {
   const { user, login, register, loginWithGoogle, loginWithApple, isLoading, forceRefreshUser } = useAuth()
@@ -16,6 +18,8 @@ export default function LoginClient() {
   const router = useRouter()
   const { t, locale, dir } = useTranslation()
   const { isPWA, isClient: isPWAClient } = usePWAMode()
+  const { isMobile, isClient: isMobileClient } = useIsMobile()
+  const isRTL = dir === 'rtl'
   
   // Form state
   const [formData, setFormData] = useState({
@@ -31,6 +35,7 @@ export default function LoginClient() {
   const [error, setError] = useState('')
   const [showPrivacyPolicy, setShowPrivacyPolicy] = useState(false)
   const [privacyConsent, setPrivacyConsent] = useState(false)
+  const [showLangDropdown, setShowLangDropdown] = useState(false)
   const normalizedPromo = String(promoCode || '').trim().toUpperCase()
 
   // Redirect PWA users to clean PWA login page
@@ -127,6 +132,262 @@ export default function LoginClient() {
     setFormData({ name: '', email: '', password: '', phone: '', address: '', emirate: '', birthday: '' })
     setPrivacyConsent(false)
     setShowPrivacyPolicy(false)
+  }
+
+  const handleLanguageChange = (newLocale: string) => {
+    setShowLangDropdown(false)
+    router.push(getLocalizedPath('/login', newLocale))
+  }
+
+  const currentLangCode = locale === 'ar' ? 'AR' : locale === 'ru' ? 'RU' : 'EN'
+
+  // Clean mobile login UI
+  if (isMobileClient && isMobile && !user) {
+    return (
+      <div className={`min-h-screen bg-white flex flex-col ${isRTL ? 'rtl' : 'ltr'}`} dir={dir}>
+        {/* Language Selector */}
+        <div className={`pt-12 px-6 ${isRTL ? 'text-right' : 'text-left'}`}>
+          <div className="relative inline-block">
+            <button
+              onClick={() => setShowLangDropdown(!showLangDropdown)}
+              className="flex items-center gap-1 text-green-600 font-semibold text-sm"
+            >
+              {currentLangCode}
+              <ChevronDown className="w-4 h-4" />
+            </button>
+            
+            {showLangDropdown && (
+              <div className={`absolute top-full mt-1 bg-white shadow-lg rounded-lg border overflow-hidden z-50 min-w-[80px] ${isRTL ? 'right-0' : 'left-0'}`}>
+                <button
+                  onClick={() => handleLanguageChange('en')}
+                  className={`w-full px-4 py-2.5 text-sm hover:bg-gray-50 text-left ${locale === 'en' ? 'bg-red-50 text-red-600 font-semibold' : 'text-gray-700'}`}
+                >
+                  English
+                </button>
+                <button
+                  onClick={() => handleLanguageChange('ru')}
+                  className={`w-full px-4 py-2.5 text-sm hover:bg-gray-50 text-left ${locale === 'ru' ? 'bg-red-50 text-red-600 font-semibold' : 'text-gray-700'}`}
+                >
+                  Русский
+                </button>
+                <button
+                  onClick={() => handleLanguageChange('ar')}
+                  className={`w-full px-4 py-2.5 text-sm hover:bg-gray-50 text-left ${locale === 'ar' ? 'bg-red-50 text-red-600 font-semibold' : 'text-gray-700'}`}
+                >
+                  العربية
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Logo and Header */}
+        <div className="flex flex-col items-center mt-6 mb-8 px-6">
+          <Image
+            src="/Logo/Full.png"
+            alt="Genosys"
+            width={180}
+            height={60}
+            priority
+            className="w-[180px] h-auto"
+          />
+          <div className={`flex items-center gap-2 mt-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
+            <span className="text-base">🇦🇪</span>
+            <span className="text-gray-600 text-sm">{t('login.unitedArabEmirates')}</span>
+            <Heart className="w-3.5 h-3.5 text-red-500 fill-red-500" />
+          </div>
+        </div>
+
+        {/* Content */}
+        <div className="flex-1 px-6 pb-8">
+          {/* Social Login Buttons - Toggle Style */}
+          <div className={`flex gap-3 mb-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
+            {/* Google Button */}
+            <button
+              onClick={() => {
+                if (!privacyConsent) {
+                  setError(t('login.privacyConsentRequired'))
+                  return
+                }
+                loginWithGoogle()
+              }}
+              disabled={isLoading}
+              className={`flex-1 flex items-center justify-center gap-2 py-3.5 px-4 border border-gray-200 rounded-xl bg-white ${!privacyConsent ? 'opacity-50' : 'hover:bg-gray-50'} transition-colors ${isRTL ? 'flex-row-reverse' : ''}`}
+            >
+              <span className="text-lg font-bold text-red-500">G</span>
+              <span className="text-gray-700 font-medium text-sm">{t('authScreen.googleShort') || 'Google'}</span>
+            </button>
+
+            {/* Apple Button */}
+            <button
+              onClick={() => {
+                if (!privacyConsent) {
+                  setError(t('login.privacyConsentRequired'))
+                  return
+                }
+                loginWithApple()
+              }}
+              disabled={isLoading}
+              className={`flex-1 flex items-center justify-center gap-2 py-3.5 px-4 bg-gray-500 text-white rounded-xl ${!privacyConsent ? 'opacity-50' : 'hover:bg-gray-600'} transition-colors ${isRTL ? 'flex-row-reverse' : ''}`}
+            >
+              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
+              </svg>
+              <span className="font-medium text-sm">{t('authScreen.appleShort') || 'Apple'}</span>
+            </button>
+          </div>
+
+          {/* Divider */}
+          <div className="flex items-center gap-4 mb-5">
+            <div className="flex-1 h-px bg-gray-200" />
+            <span className="text-gray-400 text-sm lowercase">{t('login.or')}</span>
+            <div className="flex-1 h-px bg-gray-200" />
+          </div>
+
+          {/* Error Message */}
+          {error && (
+            <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-xl text-red-600 text-sm text-center">
+              {error}
+            </div>
+          )}
+
+          {/* Form */}
+          <form onSubmit={handleSubmit} className="space-y-4">
+            {/* Name field (only for registration) */}
+            {!isLoginMode && (
+              <div>
+                <label className={`block text-sm font-medium text-gray-700 mb-1.5 ${isRTL ? 'text-right' : ''}`}>
+                  {t('login.fullNamePlaceholder')}
+                </label>
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  placeholder={t('login.fullNamePlaceholder')}
+                  className={`w-full px-4 py-3.5 bg-white text-gray-900 border border-gray-200 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all placeholder:text-gray-400 ${isRTL ? 'text-right' : ''}`}
+                  required={!isLoginMode}
+                  dir={dir}
+                />
+              </div>
+            )}
+
+            {/* Email */}
+            <div>
+              <label className={`block text-sm font-medium text-gray-700 mb-1.5 ${isRTL ? 'text-right' : ''}`}>
+                {t('authScreen.emailLabel') || 'Email'}
+              </label>
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleInputChange}
+                placeholder={t('authScreen.emailPlaceholder') || 'Enter your email'}
+                className={`w-full px-4 py-3.5 bg-white text-gray-900 border border-gray-200 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all placeholder:text-gray-400 ${isRTL ? 'text-right' : ''}`}
+                required
+                dir="ltr"
+              />
+            </div>
+
+            {/* Password */}
+            <div>
+              <label className={`block text-sm font-medium text-gray-700 mb-1.5 ${isRTL ? 'text-right' : ''}`}>
+                {t('authScreen.passwordLabel') || 'Password'}
+              </label>
+              <div className="relative">
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  name="password"
+                  value={formData.password}
+                  onChange={handleInputChange}
+                  placeholder={t('authScreen.passwordPlaceholder') || 'Enter your password'}
+                  className={`w-full px-4 py-3.5 bg-white text-gray-900 border border-gray-200 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all placeholder:text-gray-400 ${isRTL ? 'text-right pr-4 pl-12' : 'pr-12'}`}
+                  required
+                  dir="ltr"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className={`absolute top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 ${isRTL ? 'left-4' : 'right-4'}`}
+                >
+                  {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                </button>
+              </div>
+            </div>
+
+            {/* Privacy Consent */}
+            <div className={`flex items-start gap-3 py-1 ${isRTL ? 'flex-row-reverse' : ''}`}>
+              <button
+                type="button"
+                onClick={() => setPrivacyConsent(!privacyConsent)}
+                className={`w-5 h-5 mt-0.5 flex-shrink-0 border-2 rounded flex items-center justify-center transition-colors ${
+                  privacyConsent ? 'bg-red-600 border-red-600 text-white' : 'border-gray-300 bg-white'
+                }`}
+              >
+                {privacyConsent && (
+                  <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                  </svg>
+                )}
+              </button>
+              <p className={`text-[13px] text-gray-500 flex-1 leading-tight ${isRTL ? 'text-right' : ''}`}>
+                {t('authScreen.privacyConsentPrefix') || 'I agree to the'}{' '}
+                <Link 
+                  href={getLocalizedPath('/privacy-policy', locale)} 
+                  className="text-red-600 underline font-medium"
+                >
+                  {t('authScreen.privacyPolicyLink') || 'Privacy Policy'}
+                </Link>{' '}
+                {t('authScreen.privacyConsentSuffix') || 'and consent to the collection and use of my personal information as described.'}
+              </p>
+            </div>
+
+            {/* Submit Button */}
+            <button
+              type="submit"
+              disabled={isLoading || !privacyConsent}
+              className={`w-full py-4 font-semibold rounded-xl transition-colors ${
+                privacyConsent 
+                  ? 'bg-red-600 text-white hover:bg-red-700' 
+                  : 'bg-gray-100 text-gray-400 cursor-not-allowed'
+              } disabled:opacity-70`}
+            >
+              {isLoading ? (
+                <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mx-auto" />
+              ) : (
+                isLoginMode ? t('authScreen.signIn') || 'Sign In' : t('authScreen.createAccount') || 'Sign Up'
+              )}
+            </button>
+          </form>
+
+          {/* Forgot Password (only in login mode) */}
+          {isLoginMode && (
+            <div className="text-center mt-4">
+              <Link
+                href={getLocalizedPath('/forgot-password', locale)}
+                className="text-red-600 text-sm font-medium"
+              >
+                {t('login.forgotPassword')}
+              </Link>
+            </div>
+          )}
+
+          {/* Toggle Login/Register */}
+          <div className={`text-center mt-6 flex items-center justify-center gap-1 ${isRTL ? 'flex-row-reverse' : ''}`}>
+            <span className="text-gray-500 text-sm">
+              {isLoginMode ? t('authScreen.dontHaveAccount') || "Don't have an account?" : t('authScreen.alreadyHaveAccount') || 'Already have an account?'}
+            </span>
+            <button
+              type="button"
+              onClick={toggleMode}
+              className="text-red-600 font-semibold text-sm"
+            >
+              {isLoginMode ? t('authScreen.signUp') || 'Sign Up' : t('authScreen.signIn') || 'Sign In'}
+            </button>
+          </div>
+        </div>
+      </div>
+    )
   }
 
   if (user) {

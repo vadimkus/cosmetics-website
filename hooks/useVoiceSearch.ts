@@ -67,6 +67,16 @@ export function useVoiceSearch(options: UseVoiceSearchOptions = {}): UseVoiceSea
   
   const recognitionRef = useRef<SpeechRecognition | null>(null)
   const timeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const isListeningRef = useRef(false)
+  
+  // Store callbacks in refs to avoid recreating recognition
+  const onResultRef = useRef(onResult)
+  const onErrorRef = useRef(onError)
+  
+  useEffect(() => {
+    onResultRef.current = onResult
+    onErrorRef.current = onError
+  }, [onResult, onError])
 
   // Check for browser support
   useEffect(() => {
@@ -78,7 +88,7 @@ export function useVoiceSearch(options: UseVoiceSearchOptions = {}): UseVoiceSea
     }
   }, [])
 
-  // Initialize speech recognition
+  // Initialize speech recognition once
   useEffect(() => {
     const SpeechRecognitionAPI = window.SpeechRecognition || window.webkitSpeechRecognition
     
@@ -90,6 +100,7 @@ export function useVoiceSearch(options: UseVoiceSearchOptions = {}): UseVoiceSea
     recognition.lang = language
 
     recognition.onstart = () => {
+      isListeningRef.current = true
       setIsListening(true)
       setStatus('listening')
       setError(null)
@@ -109,12 +120,13 @@ export function useVoiceSearch(options: UseVoiceSearchOptions = {}): UseVoiceSea
       // If the result is final, process it
       if (latestResult.isFinal) {
         setStatus('processing')
-        onResult?.(transcriptText.trim())
+        onResultRef.current?.(transcriptText.trim())
         
         // Auto-stop after final result
         setTimeout(() => {
           setStatus('idle')
           setIsListening(false)
+          isListeningRef.current = false
         }, 500)
       }
     }
@@ -136,9 +148,10 @@ export function useVoiceSearch(options: UseVoiceSearchOptions = {}): UseVoiceSea
           errorMessage = 'Network error. Please check your connection.'
           break
         case 'aborted':
-          // User aborted, not an error
+          // User aborted, not an error - just reset state
           setStatus('idle')
           setIsListening(false)
+          isListeningRef.current = false
           return
         default:
           errorMessage = `Voice recognition error: ${event.error}`
@@ -147,12 +160,16 @@ export function useVoiceSearch(options: UseVoiceSearchOptions = {}): UseVoiceSea
       setError(errorMessage)
       setStatus('error')
       setIsListening(false)
-      onError?.(errorMessage)
+      isListeningRef.current = false
+      onErrorRef.current?.(errorMessage)
     }
 
     recognition.onend = () => {
-      setIsListening(false)
-      if (status === 'listening') {
+      // Only reset if we're still supposed to be listening
+      // This prevents issues on mobile where onend fires immediately
+      if (isListeningRef.current) {
+        setIsListening(false)
+        isListeningRef.current = false
         setStatus('idle')
       }
       
@@ -167,43 +184,152 @@ export function useVoiceSearch(options: UseVoiceSearchOptions = {}): UseVoiceSea
 
     return () => {
       if (recognitionRef.current) {
-        recognitionRef.current.abort()
+        try {
+          recognitionRef.current.abort()
+        } catch {
+          // Ignore abort errors
+        }
       }
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current)
       }
     }
-  }, [language, onResult, onError, status])
+  }, [language]) // Only recreate when language changes
 
   const startListening = useCallback(() => {
-    if (!recognitionRef.current || !isSupported) {
+    if (!isSupported) {
       setError('Voice search is not supported in your browser')
       setStatus('unsupported')
       return
     }
 
+    // Create a fresh recognition instance for mobile compatibility
+    const SpeechRecognitionAPI = window.SpeechRecognition || window.webkitSpeechRecognition
+    if (!SpeechRecognitionAPI) {
+      setError('Voice search is not supported in your browser')
+      setStatus('unsupported')
+      return
+    }
+
+    // Abort any existing recognition
+    if (recognitionRef.current) {
+      try {
+        recognitionRef.current.abort()
+      } catch {
+        // Ignore
+      }
+    }
+
+    // Create fresh instance for each start (required for mobile)
+    const recognition = new SpeechRecognitionAPI()
+    recognition.continuous = false
+    recognition.interimResults = true
+    recognition.lang = language
+
+    recognition.onstart = () => {
+      isListeningRef.current = true
+      setIsListening(true)
+      setStatus('listening')
+      setError(null)
+      setTranscript('')
+    }
+
+    recognition.onresult = (event: SpeechRecognitionEvent) => {
+      const results = event.results
+      const latestResult = results[results.length - 1]
+      
+      if (!latestResult || !latestResult[0]) return
+      
+      const transcriptText = latestResult[0].transcript
+      setTranscript(transcriptText)
+
+      if (latestResult.isFinal) {
+        setStatus('processing')
+        onResultRef.current?.(transcriptText.trim())
+        
+        setTimeout(() => {
+          setStatus('idle')
+          setIsListening(false)
+          isListeningRef.current = false
+        }, 500)
+      }
+    }
+
+    recognition.onerror = (event: SpeechRecognitionErrorEvent) => {
+      let errorMessage = 'Voice recognition error'
+      
+      switch (event.error) {
+        case 'not-allowed':
+          errorMessage = 'Microphone access denied'
+          break
+        case 'no-speech':
+          errorMessage = 'No speech detected'
+          break
+        case 'audio-capture':
+          errorMessage = 'No microphone found'
+          break
+        case 'network':
+          errorMessage = 'Network error'
+          break
+        case 'aborted':
+          setStatus('idle')
+          setIsListening(false)
+          isListeningRef.current = false
+          return
+        default:
+          errorMessage = `Error: ${event.error}`
+      }
+
+      setError(errorMessage)
+      setStatus('error')
+      setIsListening(false)
+      isListeningRef.current = false
+      onErrorRef.current?.(errorMessage)
+    }
+
+    recognition.onend = () => {
+      if (isListeningRef.current) {
+        setIsListening(false)
+        isListeningRef.current = false
+        setStatus('idle')
+      }
+      
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current)
+        timeoutRef.current = null
+      }
+    }
+
+    recognitionRef.current = recognition
     setError(null)
     
     try {
-      recognitionRef.current.start()
+      recognition.start()
       
-      // Auto-stop after 10 seconds to prevent infinite listening
+      // Auto-stop after 10 seconds
       timeoutRef.current = setTimeout(() => {
-        if (recognitionRef.current && isListening) {
-          recognitionRef.current.stop()
+        if (recognitionRef.current && isListeningRef.current) {
+          try {
+            recognitionRef.current.stop()
+          } catch {
+            // Ignore
+          }
         }
       }, 10000)
     } catch (err) {
-      // Recognition might already be running
-      if (err instanceof Error && err.message.includes('already started')) {
-        recognitionRef.current.stop()
-      }
+      console.error('Voice recognition start error:', err)
+      setError('Failed to start voice recognition')
+      setStatus('error')
     }
-  }, [isSupported, isListening])
+  }, [isSupported, language])
 
   const stopListening = useCallback(() => {
     if (recognitionRef.current) {
-      recognitionRef.current.stop()
+      try {
+        recognitionRef.current.stop()
+      } catch {
+        // Ignore stop errors
+      }
     }
     
     if (timeoutRef.current) {
@@ -211,6 +337,7 @@ export function useVoiceSearch(options: UseVoiceSearchOptions = {}): UseVoiceSea
       timeoutRef.current = null
     }
     
+    isListeningRef.current = false
     setIsListening(false)
     setStatus('idle')
   }, [])

@@ -36,7 +36,7 @@ export default function ProductSearch({ products, onSearchChange, searchQuery }:
     transcript, 
     error, 
     isSupported,
-    toggleListening,
+    startListening,
     stopListening
   } = useVoiceSearch({
     language: getSpeechLanguage(locale),
@@ -102,12 +102,17 @@ export default function ProductSearch({ products, onSearchChange, searchQuery }:
     }
   }
 
-  const handleVoiceClick = () => {
-    toggleListening()
+  const handleVoiceClick = (e: React.MouseEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    
     if (!isListening) {
-      // Clear any existing search when starting voice search
-      // to show the user we're ready for voice input
+      // Start listening
       setIsFocused(true)
+      startListening()
+    } else {
+      // Stop listening
+      stopListening()
     }
   }
 
@@ -129,11 +134,12 @@ export default function ProductSearch({ products, onSearchChange, searchQuery }:
         {/* Voice Search Button */}
         {isSupported && (
           <button
+            type="button"
             onClick={handleVoiceClick}
-            className={`absolute ${dir === 'rtl' ? 'left-12' : 'right-12'} top-1/2 transform -translate-y-1/2 p-2 touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full transition-all duration-200 ${
+            className={`absolute ${dir === 'rtl' ? 'left-12' : 'right-12'} top-1/2 transform -translate-y-1/2 p-2 touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full transition-all duration-200 select-none ${
               isListening 
                 ? 'text-red-500 bg-red-50 animate-pulse' 
-                : 'text-gray-400 hover:text-gray-600 hover:bg-gray-100'
+                : 'text-gray-400 hover:text-gray-600 hover:bg-gray-100 active:bg-gray-200'
             }`}
             aria-label={isListening ? t('voiceSearch.stopListening') : t('voiceSearch.startListening')}
             title={isListening ? t('voiceSearch.stopListening') : t('voiceSearch.startListening')}

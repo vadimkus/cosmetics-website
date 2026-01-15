@@ -49,8 +49,9 @@ export default function MobileWebHeader() {
   // Check if we're on profile page
   const isOnProfilePage = pathname?.includes('/profile')
   
-  // Check if we're on pages that have their own simple header
+  // Check if we're on pages that have their own simple header or clean design
   const isProductDetailPage = pathname ? /\/products\/[a-zA-Z0-9_-]+$/.test(pathname) : false
+  const isLoginPage = pathname === '/login' || pathname === '/ru/login' || pathname === '/ar/login' || pathname?.endsWith('/login')
   const isOnSimpleHeaderPage = pathname?.includes('/profile') || 
                                 pathname?.includes('/cart') || 
                                 pathname?.includes('/checkout') ||
@@ -69,6 +70,10 @@ export default function MobileWebHeader() {
                                 pathname?.includes('/favorites') ||
                                 pathname?.includes('/locations') ||
                                 pathname?.includes('/skin-recommendation') ||
+                                pathname?.includes('/signup') ||
+                                pathname?.includes('/forgot-password') ||
+                                pathname?.includes('/reset-password') ||
+                                isLoginPage ||
                                 isProductDetailPage
   
   // Handle profile button click - with debounce to prevent rapid clicks

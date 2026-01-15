@@ -97,8 +97,13 @@ export default function MobileWebFooterNav() {
   
   const shouldHide = useMemo(() => {
     if (!pathname) return false
+    const isLoginPage = pathname === '/login' || pathname === '/ru/login' || pathname === '/ar/login' || pathname.endsWith('/login')
+    const isAuthPage = pathname.includes('/signup') || pathname.includes('/forgot-password') || pathname.includes('/reset-password')
     return /\/products\/[a-zA-Z0-9_-]+$/.test(pathname) || 
-           pathname.includes('/pdf-viewer') || pathname.includes('/pwa-login')
+           pathname.includes('/pdf-viewer') || 
+           pathname.includes('/pwa-login') ||
+           isLoginPage ||
+           isAuthPage
   }, [pathname])
 
   const activeTab = useMemo(() => {

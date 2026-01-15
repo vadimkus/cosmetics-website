@@ -2601,9 +2601,15 @@ export const sendOrderStatusUpdate = async (order: { orderNumber: string; custom
                 <!-- CTA Button -->
                 <tr>
                   <td style="text-align: center; padding-top: 40px;">
+                    ${statusKey === 'CANCELLED' ? `
+                    <a href="${baseUrl}/${locale === 'ar' ? 'ar/' : locale === 'ru' ? 'ru/' : ''}products" style="display: inline-block; background-color: #0071e3; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 17px; font-weight: 500; text-decoration: none; padding: 12px 24px; border-radius: 980px;">
+                      ${locale === 'ru' ? 'Продолжить покупки' : locale === 'ar' ? 'متابعة التسوق' : 'Continue Shopping'}
+                    </a>
+                    ` : `
                     <a href="${baseUrl}/track/${order.orderNumber}" style="display: inline-block; background-color: #0071e3; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 17px; font-weight: 500; text-decoration: none; padding: 12px 24px; border-radius: 980px;">
-                      View Order
-                  </a>
+                      ${locale === 'ru' ? 'Посмотреть заказ' : locale === 'ar' ? 'عرض الطلب' : 'View Order'}
+                    </a>
+                    `}
                 </td>
               </tr>
                 

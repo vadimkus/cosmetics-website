@@ -1,5 +1,6 @@
 import CartClient from './CartClient'
 import BreadcrumbSchema from '@/components/BreadcrumbSchema'
+import { CartErrorBoundary } from '@/components/error-boundaries'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -50,7 +51,9 @@ export default function CartPage() {
           { name: 'Cart', url: '/cart' }
         ]}
       />
-      <CartClient />
+      <CartErrorBoundary>
+        <CartClient />
+      </CartErrorBoundary>
     </div>
   )
 }

@@ -1,9 +1,12 @@
 import BreadcrumbSchema from '@/components/BreadcrumbSchema'
+import { BlogErrorBoundary } from '@/components/error-boundaries'
 import type { Metadata } from 'next'
 import { prisma } from '@/lib/prisma'
 import { errorLog } from '@/lib/logger'
 import BlogPageClient from './BlogPageClient'
 import { unstable_cache } from 'next/cache'
+import { Suspense } from 'react'
+import BlogLoading from './loading'
 
 type BlogPostListItem = {
   id: string
@@ -163,7 +166,11 @@ export default async function BlogPage() {
         }}
       />
       
-      <BlogPageClient posts={posts} />
+      <BlogErrorBoundary>
+        <Suspense fallback={<BlogLoading />}>
+          <BlogPageClient posts={posts} />
+        </Suspense>
+      </BlogErrorBoundary>
     </>
   )
 }

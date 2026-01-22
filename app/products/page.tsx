@@ -3,6 +3,7 @@ import { Suspense } from 'react'
 import { unstable_cache } from 'next/cache'
 import ProductsPageClient from './ProductsPageClient'
 import BreadcrumbSchema from '@/components/BreadcrumbSchema'
+import { ProductsErrorBoundary } from '@/components/error-boundaries'
 import { getAllProducts } from '@/lib/productsDb'
 import type { Product } from '@/types'
 import ProductsLoading from './loading'
@@ -96,9 +97,11 @@ export default async function ProductsPage() {
           { name: 'Products', url: '/products' }
         ]}
       />
-      <Suspense fallback={<ProductsLoading />}>
-        <ProductsPageClient initialProducts={products} />
-      </Suspense>
+      <ProductsErrorBoundary>
+        <Suspense fallback={<ProductsLoading />}>
+          <ProductsPageClient initialProducts={products} />
+        </Suspense>
+      </ProductsErrorBoundary>
     </>
   )
 }

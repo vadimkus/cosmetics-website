@@ -1,5 +1,6 @@
 import CheckoutClient from './CheckoutClient'
 import BreadcrumbSchema from '@/components/BreadcrumbSchema'
+import { CheckoutErrorBoundary } from '@/components/error-boundaries'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -51,7 +52,9 @@ export default function CheckoutPage() {
           { name: 'Checkout', url: '/checkout' }
         ]}
       />
-      <CheckoutClient />
+      <CheckoutErrorBoundary>
+        <CheckoutClient />
+      </CheckoutErrorBoundary>
     </div>
   )
 }

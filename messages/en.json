@@ -90,6 +90,21 @@
     "switchToDark": "Switch to dark mode",
     "selectTheme": "Select theme"
   },
+  "accessibility": {
+    "skipToContent": "Skip to main content",
+    "loading": "Loading",
+    "close": "Close",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "expandSection": "Expand section",
+    "collapseSection": "Collapse section",
+    "required": "Required field",
+    "optional": "Optional",
+    "error": "Error",
+    "success": "Success",
+    "warning": "Warning",
+    "info": "Information"
+  },
   "hero": {
     "title": "Discover Your",
     "titleHighlight": "Beauty",

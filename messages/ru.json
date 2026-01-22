@@ -101,6 +101,21 @@
     "switchToDark": "Переключить на тёмный режим",
     "selectTheme": "Выбрать тему"
   },
+  "accessibility": {
+    "skipToContent": "Перейти к основному содержимому",
+    "loading": "Загрузка",
+    "close": "Закрыть",
+    "openMenu": "Открыть меню",
+    "closeMenu": "Закрыть меню",
+    "expandSection": "Развернуть раздел",
+    "collapseSection": "Свернуть раздел",
+    "required": "Обязательное поле",
+    "optional": "Необязательно",
+    "error": "Ошибка",
+    "success": "Успешно",
+    "warning": "Предупреждение",
+    "info": "Информация"
+  },
   "hero": {
     "title": "Откройте для себя",
     "titleHighlight": "Красоту",

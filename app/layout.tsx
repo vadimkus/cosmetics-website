@@ -44,6 +44,7 @@ import MobileWebHeader from '@/components/MobileWebHeader'
 import PWASplashScreen from '@/components/PWASplashScreen'
 import { SyncStatusIndicator } from '@/components/SyncStatusIndicator'
 import NetworkStatus from '@/components/NetworkStatus'
+import SkipToContent from '@/components/SkipToContent'
 import { getSiteUrl } from '@/lib/siteConfig'
 
 const inter = Inter({ 
@@ -305,6 +306,8 @@ export default function RootLayout({
         </Script>
       </head>
       <body className={`${inter.className} ${inter.variable} flex flex-col min-h-screen antialiased`} suppressHydrationWarning>
+        {/* Skip to content link for keyboard/screen reader users */}
+        <SkipToContent />
         <LocaleManifest />
         <OrganizationSchema />
         <LocalBusinessSchema />
@@ -322,7 +325,7 @@ export default function RootLayout({
                       <PWAHeader />
                       <MobileWebHeader />
                       <Header />
-                      <main className="flex-1">
+                      <main id="main-content" className="flex-1" role="main" tabIndex={-1}>
                         <ErrorBoundary>
                           <PullToRefresh>
                             <PageTransition>

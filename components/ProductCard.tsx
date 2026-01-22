@@ -45,6 +45,12 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
   const [showLoginModal, setShowLoginModal] = useState(false)
   const [isLoginMode, setIsLoginMode] = useState(true)
   const [isMobile, setIsMobile] = useState(false)
+  const [addedToCartMessage, setAddedToCartMessage] = useState('')
+  
+  // Generate unique IDs for accessibility
+  const descriptionId = `product-desc-${productId}`
+  const priceId = `product-price-${productId}`
+  const stockId = `product-stock-${productId}`
   
   // Detect mobile for "Add to Bag" text
   useEffect(() => {
@@ -69,9 +75,15 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
     haptic.success() // Haptic feedback on add to cart
     setIsAdding(true)
     addItem(product, 1, '', '')
+    // Set message for screen readers
+    setAddedToCartMessage(`${product.name} ${t('product.addedToCart') || 'added to cart'}`)
     // Simulate a brief loading state
-    setTimeout(() => setIsAdding(false), 500)
-  }, [addItem, product, haptic])
+    setTimeout(() => {
+      setIsAdding(false)
+      // Clear message after announcement
+      setTimeout(() => setAddedToCartMessage(''), 1000)
+    }, 500)
+  }, [addItem, product, haptic, t])
 
   const handleFavorite = useCallback(async (e?: React.MouseEvent | React.TouchEvent) => {
     e?.preventDefault()
@@ -110,11 +122,34 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
     transition: { duration: 0.3 }
   } : {}
 
+  // Build comprehensive aria-label for the product card
+  const productAriaLabel = [
+    product.name,
+    translateCategory(product.category, locale),
+    product.inStock ? t('product.inStock') : t('product.soldOut'),
+    canUserSeePrices(user) && !product.isPriceOnRequest 
+      ? `${calculateDiscountedPrice(product, user).discountedPrice.toFixed(2)} AED`
+      : '',
+  ].filter(Boolean).join(', ')
+
   return (
     <MotionWrapper 
       {...animationProps}
       className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow flex flex-col"
+      role="article"
+      aria-label={productAriaLabel}
+      aria-describedby={`${descriptionId} ${priceId} ${stockId}`}
     >
+      {/* Live region for screen reader announcements */}
+      <div 
+        role="status" 
+        aria-live="polite" 
+        aria-atomic="true" 
+        className="sr-only"
+      >
+        {addedToCartMessage}
+      </div>
+      
       <div className="relative overflow-hidden">
         {/* Product Image - Use direct navigation for PWA, Link for web */}
         {isPWA ? (
@@ -257,21 +292,29 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
               {t('product.size')}: {product.id === '37' ? '38g x 5ea (5 masks, 1 box)' : translateSize(product.size, locale, product.category)}
             </span>
           )}
-          {product.inStock && (
-            <span className="inline-flex items-center px-2 py-1 rounded-full text-[10px] md:text-xs font-medium bg-green-100 text-green-800">
-              {product.id === '47' ? t('products.orderByRequest') : t('product.inStock')}
-            </span>
-          )}
+          <span 
+            id={stockId}
+            className={`inline-flex items-center px-2 py-1 rounded-full text-[10px] md:text-xs font-medium ${
+              product.inStock ? 'bg-green-100 text-green-800' : 'sr-only'
+            }`}
+            aria-label={product.inStock ? t('product.inStock') : t('product.soldOut')}
+          >
+            {product.inStock 
+              ? (product.id === '47' ? t('products.orderByRequest') : t('product.inStock'))
+              : t('product.soldOut')
+            }
+          </span>
         </div>
         
         <p 
+          id={descriptionId}
           className="text-gray-600 text-xs md:text-sm mb-3 md:mb-4 line-clamp-4 md:line-clamp-2"
         >
           {description ? description.replace(/<[^>]*>/g, '').trim() : ''}
         </p>
         
         {/* Price Section - Above Button */}
-        <div className="mb-3">
+        <div className="mb-3" id={priceId}>
           <div className="flex items-center justify-between mb-2">
             {product.isPriceOnRequest ? (
               <div className="flex items-center gap-1 text-amber-600">

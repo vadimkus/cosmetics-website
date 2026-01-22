@@ -87,6 +87,21 @@
     "switchToDark": "التبديل إلى الوضع الداكن",
     "selectTheme": "اختر المظهر"
   },
+  "accessibility": {
+    "skipToContent": "انتقل إلى المحتوى الرئيسي",
+    "loading": "جاري التحميل",
+    "close": "إغلاق",
+    "openMenu": "فتح القائمة",
+    "closeMenu": "إغلاق القائمة",
+    "expandSection": "توسيع القسم",
+    "collapseSection": "طي القسم",
+    "required": "حقل مطلوب",
+    "optional": "اختياري",
+    "error": "خطأ",
+    "success": "نجاح",
+    "warning": "تحذير",
+    "info": "معلومات"
+  },
   "hero": {
     "title": "اكتشف",
     "titleHighlight": "جمالك",

@@ -58,14 +58,24 @@ export default function ProfileForm({
           
           {/* Name */}
           <div className="space-y-1 md:space-y-2">
-            <label className="text-xs md:text-sm font-medium text-gray-700">{t('profile.fullName')}</label>
+            <label htmlFor="profile-name" className="text-xs md:text-sm font-medium text-gray-700">
+              {t('profile.fullName')}
+            </label>
             {isEditing ? (
-              <input
-                type="text"
-                value={editData.name}
-                onChange={(e) => handleInputChange('name', e.target.value)}
-                className="w-full px-3 md:px-4 py-2 md:py-3 text-sm md:text-base border border-gray-200 rounded-lg md:rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent bg-white"
-              />
+              <>
+                <input
+                  id="profile-name"
+                  type="text"
+                  value={editData.name}
+                  onChange={(e) => handleInputChange('name', e.target.value)}
+                  className="w-full px-3 md:px-4 py-2 md:py-3 text-sm md:text-base border border-gray-200 rounded-lg md:rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent bg-white"
+                  aria-describedby="name-hint"
+                  autoComplete="name"
+                />
+                <p id="name-hint" className="sr-only">
+                  {t('profile.enterYourFullName') || 'Enter your full name as it appears on official documents'}
+                </p>
+              </>
             ) : (
               <div className="px-3 md:px-4 py-2 md:py-3 bg-gray-50 rounded-lg md:rounded-xl border border-gray-100">
                 <p className="text-sm md:text-base text-gray-800">{user.name}</p>
@@ -137,14 +147,25 @@ export default function ProfileForm({
 
           {/* Phone */}
           <div className="space-y-1 md:space-y-2">
-            <label className="text-xs md:text-sm font-medium text-gray-700">{t('profile.phone')}</label>
+            <label htmlFor="profile-phone" className="text-xs md:text-sm font-medium text-gray-700">
+              {t('profile.phone')}
+            </label>
             {isEditing ? (
-              <input
-                type="tel"
-                value={editData.phone}
-                onChange={(e) => handleInputChange('phone', e.target.value)}
-                className="w-full px-3 md:px-4 py-2 md:py-3 text-sm md:text-base border border-gray-200 rounded-lg md:rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent bg-white"
-              />
+              <>
+                <input
+                  id="profile-phone"
+                  type="tel"
+                  value={editData.phone}
+                  onChange={(e) => handleInputChange('phone', e.target.value)}
+                  className="w-full px-3 md:px-4 py-2 md:py-3 text-sm md:text-base border border-gray-200 rounded-lg md:rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent bg-white"
+                  aria-describedby="phone-hint"
+                  autoComplete="tel"
+                  placeholder="+971 XX XXX XXXX"
+                />
+                <p id="phone-hint" className="text-[10px] md:text-xs text-gray-500 mt-1">
+                  {t('profile.phoneHint') || 'Enter your UAE phone number for delivery updates'}
+                </p>
+              </>
             ) : (
               <div className="px-3 md:px-4 py-2 md:py-3 bg-gray-50 rounded-lg md:rounded-xl border border-gray-100">
                 <p className="text-sm md:text-base text-gray-800">{user.phone || t('profile.notProvided')}</p>
@@ -154,14 +175,24 @@ export default function ProfileForm({
 
           {/* Birthday */}
           <div className="space-y-1 md:space-y-2">
-            <label className="text-xs md:text-sm font-medium text-gray-700">{t('profile.birthday')}</label>
+            <label htmlFor="profile-birthday" className="text-xs md:text-sm font-medium text-gray-700">
+              {t('profile.birthday')}
+            </label>
             {isEditing ? (
-              <input
-                type="date"
-                value={editData.birthday}
-                onChange={(e) => handleInputChange('birthday', e.target.value)}
-                className="w-full px-3 md:px-4 py-2 md:py-3 text-sm md:text-base border border-gray-200 rounded-lg md:rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent bg-white"
-              />
+              <>
+                <input
+                  id="profile-birthday"
+                  type="date"
+                  value={editData.birthday}
+                  onChange={(e) => handleInputChange('birthday', e.target.value)}
+                  className="w-full px-3 md:px-4 py-2 md:py-3 text-sm md:text-base border border-gray-200 rounded-lg md:rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent bg-white"
+                  aria-describedby="birthday-hint"
+                  autoComplete="bday"
+                />
+                <p id="birthday-hint" className="text-[10px] md:text-xs text-gray-500 mt-1">
+                  {t('profile.birthdayHint') || 'Get special offers on your birthday'}
+                </p>
+              </>
             ) : (
               <div className="px-3 md:px-4 py-2 md:py-3 bg-gray-50 rounded-lg md:rounded-xl border border-gray-100">
                 <p className="text-sm md:text-base text-gray-800">
@@ -177,15 +208,25 @@ export default function ProfileForm({
 
           {/* Address */}
           <div className="space-y-1 md:space-y-2 md:col-span-2">
-            <label className="text-xs md:text-sm font-medium text-gray-700">{t('profile.address')}</label>
+            <label htmlFor="profile-address" className="text-xs md:text-sm font-medium text-gray-700">
+              {t('profile.address')}
+            </label>
             {isEditing ? (
-              <textarea
-                value={editData.address}
-                onChange={(e) => handleInputChange('address', e.target.value)}
-                rows={2}
-                className="w-full px-3 md:px-4 py-2 md:py-3 text-sm md:text-base border border-gray-200 rounded-lg md:rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent bg-white resize-none"
-                placeholder={t('profile.enterYourAddress')}
-              />
+              <>
+                <textarea
+                  id="profile-address"
+                  value={editData.address}
+                  onChange={(e) => handleInputChange('address', e.target.value)}
+                  rows={2}
+                  className="w-full px-3 md:px-4 py-2 md:py-3 text-sm md:text-base border border-gray-200 rounded-lg md:rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent bg-white resize-none"
+                  placeholder={t('profile.enterYourAddress')}
+                  aria-describedby="address-hint"
+                  autoComplete="street-address"
+                />
+                <p id="address-hint" className="text-[10px] md:text-xs text-gray-500 mt-1">
+                  {t('profile.addressHint') || 'Include building name, apartment number, and area for faster delivery'}
+                </p>
+              </>
             ) : (
               <div className="px-3 md:px-4 py-2 md:py-3 bg-gray-50 rounded-lg md:rounded-xl border border-gray-100">
                 <p className="text-sm md:text-base text-gray-800">{user.address || t('profile.notProvided')}</p>

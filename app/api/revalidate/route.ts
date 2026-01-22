@@ -16,9 +16,9 @@ export async function POST(request: NextRequest) {
 
     const results: string[] = []
 
-    // Revalidate by tag if provided
+    // Revalidate by tag if provided (Next.js 16 requires 'max' profile)
     if (tag) {
-      revalidateTag(tag)
+      revalidateTag(tag, 'max')
       results.push(`Tag '${tag}' revalidated`)
     }
 
@@ -68,9 +68,9 @@ export async function GET(request: NextRequest) {
 
     const results: string[] = []
 
-    // Revalidate by tag if provided
+    // Revalidate by tag if provided (Next.js 16 requires 'max' profile)
     if (tag) {
-      revalidateTag(tag)
+      revalidateTag(tag, 'max')
       results.push(`Tag '${tag}' revalidated`)
     }
 

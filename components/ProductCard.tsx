@@ -352,26 +352,27 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
         
         {/* Button Section - Always at the end */}
         <div className="mt-2">
+          {/* CTA buttons with 44pt minimum touch target for accessibility */}
           {product.isPriceOnRequest ? (
             <a
               href={`https://wa.me/971585487665?text=${encodeURIComponent(`Hi, I'm interested in ${product.name}. Could you please provide pricing information?`)}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center gap-1.5 md:gap-2 px-2 md:px-3 py-1.5 md:py-2 rounded-lg font-medium transition-colors w-full bg-green-500 text-white hover:bg-green-600 min-h-[36px] md:min-h-[40px] text-[10px] md:text-xs active:scale-[0.98]"
+              className="flex items-center justify-center gap-1.5 md:gap-2 px-2 md:px-3 py-2 md:py-2 rounded-lg font-medium transition-colors w-full bg-green-500 text-white hover:bg-green-600 min-h-[44px] md:min-h-[40px] text-body-xs active:scale-[0.98]"
               style={{ touchAction: 'manipulation' }}
             >
-              <MessageCircle className="h-3 w-3 md:h-3.5 md:w-3.5" aria-hidden="true" />
+              <MessageCircle className="h-3.5 w-3.5 md:h-3.5 md:w-3.5" aria-hidden="true" />
               <span>{t('products.requestQuote')}</span>
             </a>
           ) : !user ? (
             <button
               type="button"
               onClick={handleLoginClick}
-              className={`flex items-center justify-center gap-1.5 md:gap-2 px-2 md:px-3 py-1.5 md:py-2 rounded-lg font-medium transition-colors w-full bg-primary-600 text-white hover:bg-primary-700 min-h-[36px] md:min-h-[40px] text-[10px] md:text-xs active:scale-[0.98]`}
+              className={`flex items-center justify-center gap-1.5 md:gap-2 px-2 md:px-3 py-2 md:py-2 rounded-lg font-medium transition-colors w-full bg-primary-600 text-white hover:bg-primary-700 min-h-[44px] md:min-h-[40px] text-body-xs active:scale-[0.98]`}
               aria-label={t('product.loginToSeePrice')}
               style={{ touchAction: 'manipulation' }}
             >
-              <User className="h-3 w-3 md:h-3.5 md:w-3.5" aria-hidden="true" />
+              <User className="h-3.5 w-3.5 md:h-3.5 md:w-3.5" aria-hidden="true" />
               <span>{t('product.loginToSeePrice')}</span>
             </button>
           ) : (
@@ -380,7 +381,7 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
               onClick={handleAddToCart}
               disabled={!product.inStock || isAdding}
               aria-label={isAdding ? t('product.adding') : (useBagText ? t('product.addToBag') : t('product.addToCart'))}
-              className={`flex items-center justify-center gap-1.5 md:gap-2 px-2 md:px-3 py-1.5 md:py-2.5 rounded-lg font-medium transition-colors w-full min-h-[36px] md:min-h-[40px] text-[10px] md:text-xs active:scale-[0.98] ${
+              className={`flex items-center justify-center gap-1.5 md:gap-2 px-2 md:px-3 py-2 md:py-2.5 rounded-lg font-medium transition-colors w-full min-h-[44px] md:min-h-[40px] text-body-xs active:scale-[0.98] ${
                 product.inStock && !isAdding
                   ? 'bg-primary-600 text-white hover:bg-primary-700'
                   : 'bg-gray-300 text-gray-500 cursor-not-allowed'

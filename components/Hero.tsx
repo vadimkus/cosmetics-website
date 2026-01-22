@@ -134,7 +134,7 @@ export default function Hero({ initialLocale = 'en', initialDir = 'ltr' }: HeroP
             transition={animationsEnabled ? { duration: 0.6, ease: "easeOut" } : {}}
           >
             <motion.h1 
-              className="text-xl font-bold text-gray-800 leading-tight"
+              className="text-heading-2 font-bold text-gray-800 leading-tight font-display"
               initial={animationsEnabled ? { opacity: 0, y: 20 } : {}}
               animate={animationsEnabled ? { opacity: 1, y: 0 } : {}}
               transition={animationsEnabled ? { duration: 0.6, delay: 0.2, ease: "easeOut" } : {}}
@@ -209,11 +209,11 @@ export default function Hero({ initialLocale = 'en', initialDir = 'ltr' }: HeroP
             </div>
             
             {/* Subtitle */}
-            <p className="text-sm text-gray-600 mb-4 leading-relaxed">
+            <p className="text-body-sm text-gray-600 mb-4 leading-relaxed">
               {subtitleText}
             </p>
             
-            {/* CTA Buttons */}
+            {/* CTA Buttons - min-height ensures 44pt touch target (Apple HIG) */}
             <div className="flex flex-col gap-2.5 mb-4">
               {user ? (
                 <motion.div
@@ -223,7 +223,7 @@ export default function Hero({ initialLocale = 'en', initialDir = 'ltr' }: HeroP
                 >
                   <Link 
                     href={productsPath}
-                    className="bg-primary-600 text-white px-5 py-3 rounded-xl font-semibold hover:bg-primary-700 transition-all flex items-center justify-center text-sm shadow-lg shadow-primary-600/25 block"
+                    className="bg-primary-600 text-white px-5 py-3 min-h-[44px] rounded-xl font-semibold hover:bg-primary-700 transition-all flex items-center justify-center text-body-sm shadow-lg shadow-primary-600/25 block"
                   >
                     {orderNowText}
                     <ArrowRight className={`${dir === 'rtl' ? 'mr-2 rotate-180' : 'ml-2'} h-4 w-4`} />
@@ -235,7 +235,7 @@ export default function Hero({ initialLocale = 'en', initialDir = 'ltr' }: HeroP
                   whileHover={animationsEnabled ? { scale: 1.02, y: -2 } : {}}
                   whileTap={animationsEnabled ? { scale: 0.98 } : {}}
                   transition={animationsEnabled ? { duration: 0.2 } : {}}
-                  className="bg-primary-600 text-white px-5 py-3 rounded-xl font-semibold hover:bg-primary-700 transition-all flex items-center justify-center text-sm shadow-lg shadow-primary-600/25"
+                  className="bg-primary-600 text-white px-5 py-3 min-h-[44px] rounded-xl font-semibold hover:bg-primary-700 transition-all flex items-center justify-center text-body-sm shadow-lg shadow-primary-600/25"
                 >
                   {loginText}
                   <ArrowRight className={`${dir === 'rtl' ? 'mr-2 rotate-180' : 'ml-2'} h-4 w-4`} />
@@ -248,7 +248,7 @@ export default function Hero({ initialLocale = 'en', initialDir = 'ltr' }: HeroP
               >
                 <Link 
                   href={aboutPath}
-                  className="border-2 border-primary-600 text-primary-600 px-5 py-2.5 rounded-xl font-semibold hover:bg-primary-50 transition-all flex items-center justify-center text-sm block"
+                  className="border-2 border-primary-600 text-primary-600 px-5 py-2.5 min-h-[44px] rounded-xl font-semibold hover:bg-primary-50 transition-all flex items-center justify-center text-body-sm block"
                 >
                   {learnMoreText}
                 </Link>
@@ -277,7 +277,7 @@ export default function Hero({ initialLocale = 'en', initialDir = 'ltr' }: HeroP
 
         {/* Desktop Layout */}
         <div className="hidden md:block text-center">
-          <h1 className="text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-800 mb-4">
+          <h1 className="text-display-md font-bold text-gray-800 mb-4 font-display">
             {titleText}
             <span className="text-primary-600"> {titleHighlightText}</span>
           </h1>
@@ -322,14 +322,14 @@ export default function Hero({ initialLocale = 'en', initialDir = 'ltr' }: HeroP
             </div>
           </div>
           
-          <p className="text-xl text-gray-600 mb-6 max-w-2xl mx-auto">
+          <p className="text-body-lg text-gray-600 mb-6 max-w-2xl mx-auto leading-relaxed">
             {subtitleText}
           </p>
           <div className={`flex gap-4 justify-center items-center ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
             {user ? (
               <Link 
                 href={productsPath}
-                className="bg-primary-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-primary-700 transition-colors flex items-center text-lg"
+                className="bg-primary-600 text-white px-8 py-4 min-h-[48px] rounded-lg font-semibold hover:bg-primary-700 transition-colors flex items-center text-body-lg"
               >
                 {orderNowText}
                 <ArrowRight className={`${dir === 'rtl' ? 'mr-2 rotate-180' : 'ml-2'} h-5 w-5`} />
@@ -337,7 +337,7 @@ export default function Hero({ initialLocale = 'en', initialDir = 'ltr' }: HeroP
             ) : (
               <button
                 onClick={handleLoginClick}
-                className="bg-primary-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-primary-700 transition-colors flex items-center text-lg"
+                className="bg-primary-600 text-white px-8 py-4 min-h-[48px] rounded-lg font-semibold hover:bg-primary-700 transition-colors flex items-center text-body-lg"
               >
                 {loginText}
                 <ArrowRight className={`${dir === 'rtl' ? 'mr-2 rotate-180' : 'ml-2'} h-5 w-5`} />
@@ -345,7 +345,7 @@ export default function Hero({ initialLocale = 'en', initialDir = 'ltr' }: HeroP
             )}
             <Link 
               href={aboutPath}
-              className="border border-primary-600 text-primary-600 px-8 py-4 rounded-lg font-semibold hover:bg-primary-50 transition-colors flex items-center text-lg"
+              className="border border-primary-600 text-primary-600 px-8 py-4 min-h-[48px] rounded-lg font-semibold hover:bg-primary-50 transition-colors flex items-center text-body-lg"
             >
               {learnMoreText}
             </Link>

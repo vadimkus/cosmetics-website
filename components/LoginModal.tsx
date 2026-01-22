@@ -160,7 +160,7 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
 
   return (
     <div 
-      className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-3 md:p-4"
+      className="fixed inset-0 modal-overlay-heavy flex items-center justify-center z-50 p-3 md:p-4"
       role="dialog"
       aria-modal="true"
       aria-labelledby="modal-title"
@@ -168,7 +168,7 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
     >
       <div 
         ref={modalRef}
-        className={`bg-white rounded-xl p-4 md:p-6 max-w-sm md:max-w-md w-full max-h-[85vh] overflow-y-auto shadow-2xl ${dir === 'rtl' ? 'text-right' : ''}`}
+        className={`modal-surface-vibrancy p-4 md:p-6 max-w-sm md:max-w-md w-full max-h-[85vh] overflow-y-auto ${dir === 'rtl' ? 'text-right' : ''}`}
       >
         {/* Header */}
         <div className="relative mb-4 md:mb-5">
@@ -199,7 +199,7 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
             type="button"
             onClick={() => loginWithGoogle()}
             disabled={isLoading}
-            className={`w-full flex items-center justify-center gap-2 md:gap-3 bg-white border-2 border-gray-300 text-gray-700 ${isLoginMode ? 'py-2.5 md:py-3' : 'py-2'} rounded-lg font-semibold hover:bg-gray-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-sm ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+            className={`w-full flex items-center justify-center gap-2 md:gap-3 bg-surface border border-border-primary text-text-primary ${isLoginMode ? 'py-2.5 md:py-3' : 'py-2'} rounded-system font-semibold hover:bg-surface-secondary transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed elevation-1 hover:elevation-2 min-h-[44px] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
           >
             <svg className="h-4 w-4 md:h-5 md:w-5" viewBox="0 0 24 24">
               <path
@@ -227,7 +227,7 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
             type="button"
             onClick={() => loginWithApple()}
             disabled={isLoading}
-            className={`w-full flex items-center justify-center gap-2 md:gap-3 bg-black text-white ${isLoginMode ? 'py-2.5 md:py-3' : 'py-2'} rounded-lg font-semibold hover:bg-black/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-sm ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+            className={`w-full flex items-center justify-center gap-2 md:gap-3 bg-black text-white ${isLoginMode ? 'py-2.5 md:py-3' : 'py-2'} rounded-system font-semibold hover:bg-black/90 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed elevation-2 hover:elevation-3 min-h-[44px] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
           >
             <svg className="h-4 w-4 md:h-5 md:w-5" viewBox="0 0 814 1000" aria-hidden="true">
               <path
@@ -490,7 +490,7 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
             <button
               type="submit"
               disabled={isLoading}
-              className={`w-full bg-primary-600 text-white ${isLoginMode ? 'py-2.5 md:py-3 text-sm md:text-base' : 'py-2 text-sm'} rounded-lg font-semibold hover:bg-primary-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-sm`}
+              className={`w-full bg-primary-600 text-white ${isLoginMode ? 'py-2.5 md:py-3 text-sm md:text-base' : 'py-2 text-sm'} rounded-system font-semibold hover:bg-primary-700 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-primary hover:shadow-primary-lg min-h-[44px]`}
             >
               {isLoading ? t('login.pleaseWait') : (isLoginMode ? t('login.signIn') : t('login.createProfessionalAccount'))}
             </button>

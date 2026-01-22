@@ -2,6 +2,19 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import Script from 'next/script'
 import './globals.css'
+
+/**
+ * Typography System - Font Loading Strategy
+ * 
+ * Primary: SF Pro Display/Text (Apple devices - loaded via system font stack)
+ * Fallback: Inter (loaded as variable font for non-Apple devices)
+ * 
+ * Inter is loaded with:
+ * - Variable font support for optimal file size and flexibility
+ * - Multiple axes: weight (100-900)
+ * - Subsets: latin, latin-ext, cyrillic (for Russian support)
+ * - Display: swap for better loading performance
+ */
 import { CartProvider } from '@/components/CartProvider'
 import AuthProvider from '@/components/AuthProvider'
 import { ToastProvider } from '@/components/ToastProvider'
@@ -33,7 +46,23 @@ import { SyncStatusIndicator } from '@/components/SyncStatusIndicator'
 import NetworkStatus from '@/components/NetworkStatus'
 import { getSiteUrl } from '@/lib/siteConfig'
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ 
+  subsets: ['latin', 'latin-ext', 'cyrillic'],
+  display: 'swap',
+  variable: '--font-inter',
+  // Preload specific weights for better performance
+  // Variable fonts include all weights, but we hint the most common ones
+  preload: true,
+  fallback: [
+    '-apple-system',
+    'BlinkMacSystemFont',
+    'Segoe UI',
+    'Roboto',
+    'Helvetica Neue',
+    'Arial',
+    'sans-serif',
+  ],
+})
 
 export const metadata: Metadata = {
   metadataBase: getSiteUrl(),
@@ -147,7 +176,7 @@ export const viewport = {
   userScalable: true,
   themeColor: [
     { media: '(prefers-color-scheme: light)', color: '#ffffff' },
-    { media: '(prefers-color-scheme: dark)', color: '#1f2937' }
+    { media: '(prefers-color-scheme: dark)', color: '#1c1c1e' }
   ],
   colorScheme: 'light dark',
 }
@@ -243,6 +272,24 @@ export default function RootLayout({
             `,
           }}
         />
+        {/* Theme initialization - prevents flash of wrong theme */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var storedTheme = localStorage.getItem('genosys-theme');
+                  var systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                  var theme = storedTheme === 'dark' ? 'dark' : 
+                              storedTheme === 'light' ? 'light' : 
+                              (systemDark ? 'dark' : 'light');
+                  document.documentElement.setAttribute('data-theme', theme);
+                  document.documentElement.classList.add(theme);
+                } catch(e) {}
+              })();
+            `,
+          }}
+        />
         {/* Google Analytics */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-50SH0F79YG"
@@ -257,7 +304,7 @@ export default function RootLayout({
           `}
         </Script>
       </head>
-      <body className={`${inter.className} flex flex-col min-h-screen`} suppressHydrationWarning>
+      <body className={`${inter.className} ${inter.variable} flex flex-col min-h-screen antialiased`} suppressHydrationWarning>
         <LocaleManifest />
         <OrganizationSchema />
         <LocalBusinessSchema />

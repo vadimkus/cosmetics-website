@@ -245,12 +245,12 @@ export default function MobileFooterNav() {
         aria-label="Mobile navigation"
       >
         <div className="flex items-center justify-around h-[75px] pt-2">
-          {/* Home Tab */}
+          {/* Home Tab - min-height ensures 44pt touch target (Apple HIG) */}
           <button
             type="button"
             onClick={() => handleNavigation(getLocalizedPath('/products', locale))}
             disabled={!isReady || isNavigating}
-            className={`flex flex-col items-center justify-center flex-1 h-full px-2 transition-colors select-none active:scale-95 ${
+            className={`flex flex-col items-center justify-center flex-1 h-full min-h-[44px] px-2 transition-colors select-none active:scale-95 touch-target-exempt ${
               activeTab === 'home' ? activeColor : inactiveColor
             } ${isNavigating ? 'opacity-70' : ''}`}
             style={{ 
@@ -268,12 +268,12 @@ export default function MobileFooterNav() {
             </span>
           </button>
 
-          {/* Orders Tab */}
+          {/* Orders Tab - min-height ensures 44pt touch target (Apple HIG) */}
           <button
             type="button"
             onClick={() => handleNavigation(getLocalizedPath('/orders', locale))}
             disabled={!isReady || isNavigating}
-            className={`flex flex-col items-center justify-center flex-1 h-full px-2 transition-colors select-none active:scale-95 ${
+            className={`flex flex-col items-center justify-center flex-1 h-full min-h-[44px] px-2 transition-colors select-none active:scale-95 touch-target-exempt ${
               activeTab === 'orders' ? activeColor : inactiveColor
             } ${isNavigating ? 'opacity-70' : ''}`}
             style={{ 
@@ -291,12 +291,12 @@ export default function MobileFooterNav() {
             </span>
           </button>
 
-          {/* Bag Tab */}
+          {/* Bag Tab - min-height ensures 44pt touch target (Apple HIG) */}
           <button
             type="button"
             onClick={() => handleNavigation(getLocalizedPath('/cart', locale))}
             disabled={!isReady || isNavigating}
-            className={`flex flex-col items-center justify-center flex-1 h-full px-2 transition-colors select-none active:scale-95 ${
+            className={`flex flex-col items-center justify-center flex-1 h-full min-h-[44px] px-2 transition-colors select-none active:scale-95 touch-target-exempt ${
               hasItemsInCart 
                 ? greenColor 
                 : activeTab === 'bag' 

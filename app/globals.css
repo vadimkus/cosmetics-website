@@ -1,9 +1,102 @@
 @import "tailwindcss";
 
+/* ============================================================================
+   PROFESSIONAL TYPOGRAPHY SYSTEM
+   ============================================================================
+   
+   Font Strategy:
+   - Primary: SF Pro Display (headings) / SF Pro Text (body) on Apple devices
+   - Fallback: Inter (loaded from Google Fonts) for cross-platform consistency
+   
+   Features:
+   - Dynamic Type support for iOS accessibility
+   - Responsive typography using clamp()
+   - Proper font weight hierarchy
+   - 44pt minimum touch targets for accessibility
+   ============================================================================ */
+
 /* Tailwind CSS v4 Theme Configuration */
 @theme {
   /* Custom breakpoint */
   --breakpoint-xs: 475px;
+  
+  /* ========================================================================
+     TYPOGRAPHY - Font Families
+     ======================================================================== */
+  
+  /* Display font for headings - SF Pro Display with Inter fallback
+     var(--font-inter) is set by Next.js font loader when Inter loads */
+  --font-display: "SF Pro Display", var(--font-inter, "Inter"), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  
+  /* Body font - SF Pro Text with Inter fallback
+     var(--font-inter) is set by Next.js font loader when Inter loads */
+  --font-body: "SF Pro Text", var(--font-inter, "Inter"), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  
+  /* Monospace font for code */
+  --font-mono: "SF Mono", ui-monospace, SFMono-Regular, "Roboto Mono", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  
+  /* ========================================================================
+     TYPOGRAPHY - Font Weights
+     ======================================================================== */
+  --font-weight-thin: 100;
+  --font-weight-extralight: 200;
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+  --font-weight-black: 900;
+  
+  /* ========================================================================
+     TYPOGRAPHY - Responsive Font Sizes (Dynamic Type Support)
+     Uses clamp() for fluid typography that respects user preferences
+     ======================================================================== */
+  
+  /* Display sizes - for hero headlines */
+  --text-display-lg: clamp(2.5rem, 5vw + 1rem, 4.5rem);
+  --text-display-md: clamp(2rem, 4vw + 0.75rem, 3.5rem);
+  --text-display-sm: clamp(1.75rem, 3vw + 0.5rem, 2.5rem);
+  
+  /* Heading sizes */
+  --text-h1: clamp(1.75rem, 2.5vw + 0.5rem, 2.25rem);
+  --text-h2: clamp(1.5rem, 2vw + 0.375rem, 1.875rem);
+  --text-h3: clamp(1.25rem, 1.5vw + 0.25rem, 1.5rem);
+  --text-h4: clamp(1.125rem, 1vw + 0.25rem, 1.25rem);
+  --text-h5: clamp(1rem, 0.75vw + 0.25rem, 1.125rem);
+  --text-h6: clamp(0.875rem, 0.5vw + 0.25rem, 1rem);
+  
+  /* Body sizes */
+  --text-body-lg: clamp(1.0625rem, 0.5vw + 0.25rem, 1.125rem);
+  --text-body-md: clamp(0.9375rem, 0.25vw + 0.25rem, 1rem);
+  --text-body-sm: clamp(0.8125rem, 0.125vw + 0.25rem, 0.875rem);
+  --text-body-xs: clamp(0.6875rem, 0.1vw + 0.125rem, 0.75rem);
+  
+  /* ========================================================================
+     TYPOGRAPHY - Line Heights
+     ======================================================================== */
+  --leading-tight: 1.15;
+  --leading-snug: 1.3;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.65;
+  --leading-loose: 1.85;
+  
+  /* ========================================================================
+     TYPOGRAPHY - Letter Spacing (Tracking)
+     ======================================================================== */
+  --tracking-tighter: -0.03em;
+  --tracking-tight: -0.015em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.015em;
+  --tracking-wider: 0.03em;
+  --tracking-widest: 0.06em;
+  
+  /* ========================================================================
+     TOUCH TARGETS - Accessibility (Apple HIG: 44pt minimum)
+     ======================================================================== */
+  --touch-target-min: 44px;
+  --touch-target-comfortable: 48px;
+  --touch-target-spacious: 56px;
   
   /* Primary color palette (red) */
   --color-primary-50: #fef2f2;
@@ -40,6 +133,745 @@
   --color-gold-700: #b45309;
   --color-gold-800: #92400e;
   --color-gold-900: #78350f;
+  
+  /* ========================================================================
+     SEMANTIC COLORS - Light Mode (Default)
+     Based on Apple Human Interface Guidelines
+     ======================================================================== */
+  
+  /* Background colors - Light Mode */
+  --color-bg-primary: #ffffff;
+  --color-bg-secondary: #f9fafb;
+  --color-bg-tertiary: #f3f4f6;
+  --color-bg-elevated: #ffffff;
+  --color-bg-grouped: #f2f2f7;
+  
+  /* Surface colors - for cards, modals, overlays */
+  --color-surface: #ffffff;
+  --color-surface-secondary: #f9fafb;
+  --color-surface-tertiary: #f3f4f6;
+  --color-surface-overlay: rgba(255, 255, 255, 0.9);
+  
+  /* Text colors - Light Mode */
+  --color-text-primary: #111827;
+  --color-text-secondary: #4b5563;
+  --color-text-tertiary: #9ca3af;
+  --color-text-quaternary: #d1d5db;
+  --color-text-inverse: #ffffff;
+  
+  /* Border colors - Light Mode */
+  --color-border-primary: #e5e7eb;
+  --color-border-secondary: #d1d5db;
+  --color-border-tertiary: #f3f4f6;
+  --color-border-focus: #dc2626;
+  
+  /* Fill colors - for icons, indicators */
+  --color-fill-primary: #374151;
+  --color-fill-secondary: #6b7280;
+  --color-fill-tertiary: #9ca3af;
+  
+  /* ========================================================================
+     SHADOW DEPTH HIERARCHY - Elevation System
+     Inspired by Apple's layered interface design
+     ======================================================================== */
+  
+  /* Level 0: Flat / No elevation */
+  --shadow-none: none;
+  
+  /* Level 1: Subtle - for cards, inputs */
+  --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.03);
+  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05);
+  
+  /* Level 2: Default - for raised cards, dropdowns */
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+  --shadow-DEFAULT: var(--shadow-md);
+  
+  /* Level 3: Elevated - for modals, popovers */
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+  
+  /* Level 4: High - for overlays, sheets */
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+  
+  /* Level 5: Maximum - for critical overlays */
+  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+  
+  /* Colored shadows for branded elements */
+  --shadow-primary: 0 4px 14px 0 rgba(220, 38, 38, 0.25);
+  --shadow-primary-lg: 0 10px 25px 0 rgba(220, 38, 38, 0.3);
+  
+  /* Inner shadows for pressed states */
+  --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.05);
+  --shadow-inner-lg: inset 0 4px 6px 0 rgba(0, 0, 0, 0.1);
+  
+  /* ========================================================================
+     SYSTEM-NATIVE BORDER RADIUS (16-24px for native feel)
+     Based on iOS and macOS design language
+     ======================================================================== */
+  
+  /* Standard system radii */
+  --radius-none: 0;
+  --radius-sm: 0.375rem;      /* 6px - small elements */
+  --radius-DEFAULT: 0.5rem;   /* 8px - inputs, small buttons */
+  --radius-md: 0.75rem;       /* 12px - cards, medium elements */
+  --radius-lg: 1rem;          /* 16px - system native feel */
+  --radius-xl: 1.25rem;       /* 20px - modals, sheets */
+  --radius-2xl: 1.5rem;       /* 24px - large modals, hero cards */
+  --radius-3xl: 2rem;         /* 32px - extra large elements */
+  --radius-full: 9999px;      /* pill shape */
+  
+  /* Continuous corners (squircle-like) for iOS native feel */
+  /* Note: True continuous corners require SVG masks, these are approximations */
+  --radius-system: 1rem;      /* 16px - default system radius */
+  --radius-system-lg: 1.375rem; /* 22px - large system radius */
+  --radius-system-xl: 1.5rem; /* 24px - modal/sheet radius */
+  
+  /* ========================================================================
+     VIBRANCY / BLUR EFFECTS - Backdrop Filters
+     For glassmorphism and frosted glass effects
+     ======================================================================== */
+  
+  /* Blur intensities */
+  --blur-none: 0;
+  --blur-sm: 4px;
+  --blur-DEFAULT: 8px;
+  --blur-md: 12px;
+  --blur-lg: 16px;
+  --blur-xl: 24px;
+  --blur-2xl: 40px;
+  --blur-3xl: 64px;
+  
+  /* Vibrancy backgrounds - Light Mode */
+  --vibrancy-ultra-thin-light: rgba(255, 255, 255, 0.3);
+  --vibrancy-thin-light: rgba(255, 255, 255, 0.5);
+  --vibrancy-light: rgba(255, 255, 255, 0.7);
+  --vibrancy-thick-light: rgba(255, 255, 255, 0.85);
+  --vibrancy-chrome: rgba(255, 255, 255, 0.9);
+  
+  /* Overlay backgrounds */
+  --overlay-light: rgba(0, 0, 0, 0.4);
+  --overlay-medium: rgba(0, 0, 0, 0.5);
+  --overlay-heavy: rgba(0, 0, 0, 0.6);
+  --overlay-ultra: rgba(0, 0, 0, 0.75);
+  
+  /* ========================================================================
+     TRANSITION TOKENS - For smooth animations
+     ======================================================================== */
+  --transition-fast: 150ms;
+  --transition-DEFAULT: 200ms;
+  --transition-slow: 300ms;
+  --transition-slower: 500ms;
+  --ease-DEFAULT: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ============================================================================
+   DARK MODE - Semantic Color Overrides
+   Automatically activates based on user's system preference
+   ============================================================================ */
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    /* Background colors - Dark Mode */
+    --color-bg-primary: #000000;
+    --color-bg-secondary: #1c1c1e;
+    --color-bg-tertiary: #2c2c2e;
+    --color-bg-elevated: #1c1c1e;
+    --color-bg-grouped: #000000;
+    
+    /* Surface colors - Dark Mode */
+    --color-surface: #1c1c1e;
+    --color-surface-secondary: #2c2c2e;
+    --color-surface-tertiary: #3a3a3c;
+    --color-surface-overlay: rgba(28, 28, 30, 0.9);
+    
+    /* Text colors - Dark Mode */
+    --color-text-primary: #ffffff;
+    --color-text-secondary: #ebebf5;
+    --color-text-tertiary: #ebebf599;
+    --color-text-quaternary: #ebebf54d;
+    --color-text-inverse: #000000;
+    
+    /* Border colors - Dark Mode */
+    --color-border-primary: #38383a;
+    --color-border-secondary: #48484a;
+    --color-border-tertiary: #2c2c2e;
+    --color-border-focus: #ef4444;
+    
+    /* Fill colors - Dark Mode */
+    --color-fill-primary: #ffffff;
+    --color-fill-secondary: #ebebf5;
+    --color-fill-tertiary: #ebebf599;
+    
+    /* Shadow adjustments for dark mode */
+    --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+    --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.4), 0 1px 2px -1px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -2px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.6), 0 4px 6px -4px rgba(0, 0, 0, 0.4);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.6), 0 8px 10px -6px rgba(0, 0, 0, 0.5);
+    --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+    
+    /* Vibrancy backgrounds - Dark Mode */
+    --vibrancy-ultra-thin-light: rgba(30, 30, 30, 0.3);
+    --vibrancy-thin-light: rgba(30, 30, 30, 0.5);
+    --vibrancy-light: rgba(30, 30, 30, 0.7);
+    --vibrancy-thick-light: rgba(30, 30, 30, 0.85);
+    --vibrancy-chrome: rgba(30, 30, 30, 0.9);
+    
+    /* Overlay backgrounds - Dark Mode */
+    --overlay-light: rgba(0, 0, 0, 0.5);
+    --overlay-medium: rgba(0, 0, 0, 0.6);
+    --overlay-heavy: rgba(0, 0, 0, 0.75);
+    --overlay-ultra: rgba(0, 0, 0, 0.85);
+  }
+}
+
+/* Manual dark mode toggle support via data attribute */
+[data-theme="dark"] {
+  --color-bg-primary: #000000;
+  --color-bg-secondary: #1c1c1e;
+  --color-bg-tertiary: #2c2c2e;
+  --color-bg-elevated: #1c1c1e;
+  --color-bg-grouped: #000000;
+  --color-surface: #1c1c1e;
+  --color-surface-secondary: #2c2c2e;
+  --color-surface-tertiary: #3a3a3c;
+  --color-surface-overlay: rgba(28, 28, 30, 0.9);
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #ebebf5;
+  --color-text-tertiary: #ebebf599;
+  --color-text-quaternary: #ebebf54d;
+  --color-text-inverse: #000000;
+  --color-border-primary: #38383a;
+  --color-border-secondary: #48484a;
+  --color-border-tertiary: #2c2c2e;
+  --color-border-focus: #ef4444;
+  --color-fill-primary: #ffffff;
+  --color-fill-secondary: #ebebf5;
+  --color-fill-tertiary: #ebebf599;
+  --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.4), 0 1px 2px -1px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -2px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.6), 0 4px 6px -4px rgba(0, 0, 0, 0.4);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.6), 0 8px 10px -6px rgba(0, 0, 0, 0.5);
+  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+  --vibrancy-ultra-thin-light: rgba(30, 30, 30, 0.3);
+  --vibrancy-thin-light: rgba(30, 30, 30, 0.5);
+  --vibrancy-light: rgba(30, 30, 30, 0.7);
+  --vibrancy-thick-light: rgba(30, 30, 30, 0.85);
+  --vibrancy-chrome: rgba(30, 30, 30, 0.9);
+  --overlay-light: rgba(0, 0, 0, 0.5);
+  --overlay-medium: rgba(0, 0, 0, 0.6);
+  --overlay-heavy: rgba(0, 0, 0, 0.75);
+  --overlay-ultra: rgba(0, 0, 0, 0.85);
+}
+
+/* ============================================================================
+   SEMANTIC COLOR UTILITY CLASSES
+   ============================================================================ */
+
+/* Background utilities */
+.bg-primary { background-color: var(--color-bg-primary); }
+.bg-secondary { background-color: var(--color-bg-secondary); }
+.bg-tertiary { background-color: var(--color-bg-tertiary); }
+.bg-elevated { background-color: var(--color-bg-elevated); }
+.bg-grouped { background-color: var(--color-bg-grouped); }
+.bg-surface { background-color: var(--color-surface); }
+.bg-surface-secondary { background-color: var(--color-surface-secondary); }
+.bg-surface-tertiary { background-color: var(--color-surface-tertiary); }
+.bg-surface-overlay { background-color: var(--color-surface-overlay); }
+
+/* Text utilities */
+.text-primary { color: var(--color-text-primary); }
+.text-secondary { color: var(--color-text-secondary); }
+.text-tertiary { color: var(--color-text-tertiary); }
+.text-quaternary { color: var(--color-text-quaternary); }
+.text-inverse { color: var(--color-text-inverse); }
+
+/* Border utilities */
+.border-primary { border-color: var(--color-border-primary); }
+.border-secondary { border-color: var(--color-border-secondary); }
+.border-tertiary { border-color: var(--color-border-tertiary); }
+.border-focus { border-color: var(--color-border-focus); }
+
+/* Fill utilities */
+.fill-primary { fill: var(--color-fill-primary); }
+.fill-secondary { fill: var(--color-fill-secondary); }
+.fill-tertiary { fill: var(--color-fill-tertiary); }
+
+/* ============================================================================
+   SHADOW DEPTH UTILITY CLASSES
+   ============================================================================ */
+
+.shadow-none { box-shadow: var(--shadow-none); }
+.shadow-xs { box-shadow: var(--shadow-xs); }
+.shadow-sm { box-shadow: var(--shadow-sm); }
+.shadow-md { box-shadow: var(--shadow-md); }
+.shadow-lg { box-shadow: var(--shadow-lg); }
+.shadow-xl { box-shadow: var(--shadow-xl); }
+.shadow-2xl { box-shadow: var(--shadow-2xl); }
+.shadow-primary { box-shadow: var(--shadow-primary); }
+.shadow-primary-lg { box-shadow: var(--shadow-primary-lg); }
+.shadow-inner { box-shadow: var(--shadow-inner); }
+.shadow-inner-lg { box-shadow: var(--shadow-inner-lg); }
+
+/* Elevation levels (semantic) */
+.elevation-0 { box-shadow: var(--shadow-none); }
+.elevation-1 { box-shadow: var(--shadow-sm); }
+.elevation-2 { box-shadow: var(--shadow-md); }
+.elevation-3 { box-shadow: var(--shadow-lg); }
+.elevation-4 { box-shadow: var(--shadow-xl); }
+.elevation-5 { box-shadow: var(--shadow-2xl); }
+
+/* ============================================================================
+   SYSTEM-NATIVE BORDER RADIUS UTILITY CLASSES
+   ============================================================================ */
+
+.rounded-none { border-radius: var(--radius-none); }
+.rounded-sm { border-radius: var(--radius-sm); }
+.rounded { border-radius: var(--radius-DEFAULT); }
+.rounded-md { border-radius: var(--radius-md); }
+.rounded-lg { border-radius: var(--radius-lg); }
+.rounded-xl { border-radius: var(--radius-xl); }
+.rounded-2xl { border-radius: var(--radius-2xl); }
+.rounded-3xl { border-radius: var(--radius-3xl); }
+.rounded-full { border-radius: var(--radius-full); }
+
+/* System-native radii (iOS/macOS feel) */
+.rounded-system { border-radius: var(--radius-system); }
+.rounded-system-lg { border-radius: var(--radius-system-lg); }
+.rounded-system-xl { border-radius: var(--radius-system-xl); }
+
+/* Per-corner utilities for system radius */
+.rounded-t-system { border-top-left-radius: var(--radius-system); border-top-right-radius: var(--radius-system); }
+.rounded-b-system { border-bottom-left-radius: var(--radius-system); border-bottom-right-radius: var(--radius-system); }
+.rounded-t-system-xl { border-top-left-radius: var(--radius-system-xl); border-top-right-radius: var(--radius-system-xl); }
+.rounded-b-system-xl { border-bottom-left-radius: var(--radius-system-xl); border-bottom-right-radius: var(--radius-system-xl); }
+
+/* ============================================================================
+   VIBRANCY / GLASSMORPHISM UTILITY CLASSES
+   ============================================================================ */
+
+/* Backdrop blur utilities */
+.backdrop-blur-none { backdrop-filter: blur(var(--blur-none)); -webkit-backdrop-filter: blur(var(--blur-none)); }
+.backdrop-blur-sm { backdrop-filter: blur(var(--blur-sm)); -webkit-backdrop-filter: blur(var(--blur-sm)); }
+.backdrop-blur { backdrop-filter: blur(var(--blur-DEFAULT)); -webkit-backdrop-filter: blur(var(--blur-DEFAULT)); }
+.backdrop-blur-md { backdrop-filter: blur(var(--blur-md)); -webkit-backdrop-filter: blur(var(--blur-md)); }
+.backdrop-blur-lg { backdrop-filter: blur(var(--blur-lg)); -webkit-backdrop-filter: blur(var(--blur-lg)); }
+.backdrop-blur-xl { backdrop-filter: blur(var(--blur-xl)); -webkit-backdrop-filter: blur(var(--blur-xl)); }
+.backdrop-blur-2xl { backdrop-filter: blur(var(--blur-2xl)); -webkit-backdrop-filter: blur(var(--blur-2xl)); }
+.backdrop-blur-3xl { backdrop-filter: blur(var(--blur-3xl)); -webkit-backdrop-filter: blur(var(--blur-3xl)); }
+
+/* Vibrancy backgrounds with blur (glassmorphism) */
+.vibrancy-ultra-thin {
+  background-color: var(--vibrancy-ultra-thin-light);
+  backdrop-filter: blur(var(--blur-xl)) saturate(180%);
+  -webkit-backdrop-filter: blur(var(--blur-xl)) saturate(180%);
+}
+
+.vibrancy-thin {
+  background-color: var(--vibrancy-thin-light);
+  backdrop-filter: blur(var(--blur-lg)) saturate(180%);
+  -webkit-backdrop-filter: blur(var(--blur-lg)) saturate(180%);
+}
+
+.vibrancy {
+  background-color: var(--vibrancy-light);
+  backdrop-filter: blur(var(--blur-md)) saturate(180%);
+  -webkit-backdrop-filter: blur(var(--blur-md)) saturate(180%);
+}
+
+.vibrancy-thick {
+  background-color: var(--vibrancy-thick-light);
+  backdrop-filter: blur(var(--blur-DEFAULT)) saturate(150%);
+  -webkit-backdrop-filter: blur(var(--blur-DEFAULT)) saturate(150%);
+}
+
+.vibrancy-chrome {
+  background-color: var(--vibrancy-chrome);
+  backdrop-filter: blur(var(--blur-sm)) saturate(120%);
+  -webkit-backdrop-filter: blur(var(--blur-sm)) saturate(120%);
+}
+
+/* Modal/Overlay vibrancy presets */
+.modal-overlay {
+  background-color: var(--overlay-medium);
+  backdrop-filter: blur(var(--blur-sm));
+  -webkit-backdrop-filter: blur(var(--blur-sm));
+}
+
+.modal-overlay-heavy {
+  background-color: var(--overlay-heavy);
+  backdrop-filter: blur(var(--blur-DEFAULT));
+  -webkit-backdrop-filter: blur(var(--blur-DEFAULT));
+}
+
+.sheet-background {
+  background-color: var(--color-surface-overlay);
+  backdrop-filter: blur(var(--blur-xl)) saturate(180%);
+  -webkit-backdrop-filter: blur(var(--blur-xl)) saturate(180%);
+}
+
+/* Card with vibrancy effect */
+.card-vibrancy {
+  background-color: var(--vibrancy-thick-light);
+  backdrop-filter: blur(var(--blur-lg)) saturate(180%);
+  -webkit-backdrop-filter: blur(var(--blur-lg)) saturate(180%);
+  border: 1px solid var(--color-border-primary);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Header/Navigation vibrancy */
+.nav-vibrancy {
+  background-color: var(--vibrancy-chrome);
+  backdrop-filter: blur(var(--blur-xl)) saturate(180%);
+  -webkit-backdrop-filter: blur(var(--blur-xl)) saturate(180%);
+  border-bottom: 0.5px solid var(--color-border-tertiary);
+}
+
+/* ============================================================================
+   SURFACE COMPONENT PRESETS
+   Pre-built component styles for common patterns
+   ============================================================================ */
+
+/* Card styles */
+.card {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-system);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--color-border-tertiary);
+}
+
+.card-elevated {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-system);
+  box-shadow: var(--shadow-lg);
+}
+
+.card-inset {
+  background-color: var(--color-bg-secondary);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-inner);
+}
+
+/* Modal styles */
+.modal-surface {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-system-xl);
+  box-shadow: var(--shadow-2xl);
+}
+
+.modal-surface-vibrancy {
+  background-color: var(--vibrancy-thick-light);
+  backdrop-filter: blur(var(--blur-2xl)) saturate(180%);
+  -webkit-backdrop-filter: blur(var(--blur-2xl)) saturate(180%);
+  border-radius: var(--radius-system-xl);
+  box-shadow: var(--shadow-2xl);
+  border: 0.5px solid var(--color-border-tertiary);
+}
+
+/* Button styles with depth */
+.btn-elevated {
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow var(--transition-fast) var(--ease-out), transform var(--transition-fast) var(--ease-out);
+}
+
+.btn-elevated:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+.btn-elevated:active {
+  box-shadow: var(--shadow-xs);
+  transform: translateY(0);
+}
+
+/* Input styles */
+.input-surface {
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-primary);
+  border-radius: var(--radius-md);
+  transition: border-color var(--transition-fast) var(--ease-out), box-shadow var(--transition-fast) var(--ease-out);
+}
+
+.input-surface:focus {
+  border-color: var(--color-border-focus);
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+  outline: none;
+}
+
+/* ============================================================================
+   BASE TYPOGRAPHY STYLES
+   ============================================================================ */
+
+/* Apply font families to html and body */
+html {
+  font-family: var(--font-body);
+  /* Support for Dynamic Type on iOS */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+/* Headings use display font with proper tracking */
+h1, h2, h3, h4, h5, h6,
+.font-display {
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--tracking-tight);
+}
+
+/* Body text uses body font */
+body, p, span, div, a, li, td, th, label, input, textarea, select, button {
+  font-family: var(--font-body);
+}
+
+/* Code uses monospace font */
+code, pre, kbd, samp, .font-mono {
+  font-family: var(--font-mono);
+}
+
+/* ============================================================================
+   TYPOGRAPHY UTILITY CLASSES
+   ============================================================================ */
+
+/* Display typography - for hero headlines and splash screens */
+.text-display-lg {
+  font-size: var(--text-display-lg);
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tighter);
+}
+
+.text-display-md {
+  font-size: var(--text-display-md);
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tighter);
+}
+
+.text-display-sm {
+  font-size: var(--text-display-sm);
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--leading-snug);
+  letter-spacing: var(--tracking-tight);
+}
+
+/* Heading typography utilities */
+.text-heading-1 {
+  font-size: var(--text-h1);
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--leading-snug);
+  letter-spacing: var(--tracking-tight);
+}
+
+.text-heading-2 {
+  font-size: var(--text-h2);
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--leading-snug);
+  letter-spacing: var(--tracking-tight);
+}
+
+.text-heading-3 {
+  font-size: var(--text-h3);
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--leading-snug);
+  letter-spacing: var(--tracking-normal);
+}
+
+.text-heading-4 {
+  font-size: var(--text-h4);
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--leading-normal);
+  letter-spacing: var(--tracking-normal);
+}
+
+.text-heading-5 {
+  font-size: var(--text-h5);
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--leading-normal);
+  letter-spacing: var(--tracking-normal);
+}
+
+.text-heading-6 {
+  font-size: var(--text-h6);
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--leading-normal);
+  letter-spacing: var(--tracking-normal);
+}
+
+/* Body typography utilities */
+.text-body-lg {
+  font-size: var(--text-body-lg);
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--leading-relaxed);
+}
+
+.text-body-md {
+  font-size: var(--text-body-md);
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--leading-normal);
+}
+
+.text-body-sm {
+  font-size: var(--text-body-sm);
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--leading-normal);
+}
+
+.text-body-xs {
+  font-size: var(--text-body-xs);
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--leading-normal);
+}
+
+/* Font weight utilities */
+.font-weight-thin { font-weight: var(--font-weight-thin); }
+.font-weight-extralight { font-weight: var(--font-weight-extralight); }
+.font-weight-light { font-weight: var(--font-weight-light); }
+.font-weight-normal { font-weight: var(--font-weight-normal); }
+.font-weight-medium { font-weight: var(--font-weight-medium); }
+.font-weight-semibold { font-weight: var(--font-weight-semibold); }
+.font-weight-bold { font-weight: var(--font-weight-bold); }
+.font-weight-extrabold { font-weight: var(--font-weight-extrabold); }
+.font-weight-black { font-weight: var(--font-weight-black); }
+
+/* Line height utilities */
+.leading-display { line-height: var(--leading-tight); }
+.leading-heading { line-height: var(--leading-snug); }
+.leading-body { line-height: var(--leading-normal); }
+.leading-reading { line-height: var(--leading-relaxed); }
+.leading-spacious { line-height: var(--leading-loose); }
+
+/* Letter spacing utilities */
+.tracking-headline { letter-spacing: var(--tracking-tighter); }
+.tracking-subheading { letter-spacing: var(--tracking-tight); }
+.tracking-body { letter-spacing: var(--tracking-normal); }
+.tracking-caption { letter-spacing: var(--tracking-wide); }
+.tracking-label { letter-spacing: var(--tracking-wider); }
+.tracking-uppercase { letter-spacing: var(--tracking-widest); }
+
+/* ============================================================================
+   TOUCH TARGET UTILITIES (Apple HIG: 44pt minimum)
+   ============================================================================ */
+
+/* Minimum touch target - 44px (Apple HIG requirement) */
+.touch-target,
+.touch-target-min {
+  min-height: var(--touch-target-min);
+  min-width: var(--touch-target-min);
+}
+
+/* Comfortable touch target - 48px (Material Design recommendation) */
+.touch-target-comfortable {
+  min-height: var(--touch-target-comfortable);
+  min-width: var(--touch-target-comfortable);
+}
+
+/* Spacious touch target - 56px (extra accessibility) */
+.touch-target-spacious {
+  min-height: var(--touch-target-spacious);
+  min-width: var(--touch-target-spacious);
+}
+
+/* Button/link touch target helper - ensures 44px tap area even for smaller visual elements */
+.touch-target-area {
+  position: relative;
+}
+
+.touch-target-area::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: var(--touch-target-min);
+  min-height: var(--touch-target-min);
+  /* Transparent but clickable */
+}
+
+/* Inline touch target - for links and buttons that need to stay inline */
+.touch-target-inline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--touch-target-min);
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
+
+/* ============================================================================
+   DYNAMIC TYPE SUPPORT (iOS Accessibility)
+   ============================================================================ */
+
+/* Respect user's text size preferences */
+@supports (font: -apple-system-body) {
+  /* iOS-specific font scaling support */
+  .dynamic-type-body {
+    font: -apple-system-body;
+    font-family: var(--font-body);
+  }
+  
+  .dynamic-type-headline {
+    font: -apple-system-headline;
+    font-family: var(--font-display);
+  }
+  
+  .dynamic-type-title1 {
+    font: -apple-system-title1;
+    font-family: var(--font-display);
+  }
+  
+  .dynamic-type-title2 {
+    font: -apple-system-title2;
+    font-family: var(--font-display);
+  }
+  
+  .dynamic-type-title3 {
+    font: -apple-system-title3;
+    font-family: var(--font-display);
+  }
+  
+  .dynamic-type-caption1 {
+    font: -apple-system-caption1;
+    font-family: var(--font-body);
+  }
+  
+  .dynamic-type-caption2 {
+    font: -apple-system-caption2;
+    font-family: var(--font-body);
+  }
+  
+  .dynamic-type-footnote {
+    font: -apple-system-footnote;
+    font-family: var(--font-body);
+  }
+}
+
+/* Large text accessibility mode */
+@media (prefers-contrast: more) {
+  body {
+    font-weight: var(--font-weight-medium);
+  }
+  
+  h1, h2, h3, h4, h5, h6,
+  .font-display {
+    font-weight: var(--font-weight-extrabold);
+  }
 }
 
 /* Toast notification slide-in animation */
@@ -89,13 +921,32 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-/* PWA button fix - ensure immediate touch response */
+/* PWA button fix - ensure immediate touch response and proper touch targets */
 @media (hover: none) and (pointer: coarse) {
   button, 
   [role="button"],
   a {
     touch-action: manipulation;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Ensure interactive elements meet 44pt minimum touch target */
+  button:not(.touch-target-exempt),
+  [role="button"]:not(.touch-target-exempt),
+  input[type="checkbox"],
+  input[type="radio"],
+  select {
+    min-height: var(--touch-target-min, 44px);
+  }
+  
+  /* Ensure links in navigation areas have proper touch targets */
+  nav a,
+  footer a,
+  .nav-link,
+  .menu-item {
+    min-height: var(--touch-target-min, 44px);
+    display: inline-flex;
+    align-items: center;
   }
   
   /* Ensure buttons respond immediately without 300ms delay */
@@ -158,13 +1009,15 @@ input[type="radio"]:disabled {
   cursor: not-allowed;
 }
 
-/* Ensure white background on html and body to prevent black areas on mobile */
+/* Ensure proper background on html and body - uses semantic colors for dark mode support */
 html {
-  background-color: white;
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
 }
 
 body {
-  background-color: white;
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
 }
 
 /* Safe area support for mobile devices */
@@ -180,6 +1033,10 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overscroll-behavior-y: contain; /* Prevent native overscroll on non-iOS */
+  /* Enable font feature settings for better typography */
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+  /* Optical sizing for variable fonts */
+  font-optical-sizing: auto;
 }
 
 /* Smooth transitions for direction changes - no transition to prevent jank */

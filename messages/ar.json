@@ -76,6 +76,17 @@
     "no": "لا",
     "change": "تغيير"
   },
+  "theme": {
+    "appearance": "المظهر",
+    "chooseTheme": "اختر نظام الألوان المفضل لديك",
+    "light": "فاتح",
+    "dark": "داكن",
+    "system": "تلقائي",
+    "darkMode": "الوضع الداكن",
+    "switchToLight": "التبديل إلى الوضع الفاتح",
+    "switchToDark": "التبديل إلى الوضع الداكن",
+    "selectTheme": "اختر المظهر"
+  },
   "hero": {
     "title": "اكتشف",
     "titleHighlight": "جمالك",

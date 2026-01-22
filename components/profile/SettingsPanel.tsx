@@ -1,9 +1,10 @@
 'use client'
 
 import Link from 'next/link'
-import { ArrowLeft, Settings, Trash2, Zap, ShoppingBag, Heart, MessageCircle, RefreshCw } from 'lucide-react'
+import { ArrowLeft, Settings, Trash2, Zap, ShoppingBag, Heart, MessageCircle, RefreshCw, Sun } from 'lucide-react'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
+import { ThemeToggle } from '@/components/ThemeToggle'
 
 interface SettingsPanelProps {
   isRefreshing: boolean
@@ -22,6 +23,23 @@ export default function SettingsPanel({
   return (
     <div className="space-y-4 md:space-y-8">
       
+      {/* Appearance Settings */}
+      <div className="bg-white/70 backdrop-blur-sm rounded-xl md:rounded-2xl shadow-lg border border-white/20 p-3 sm:p-6 lg:p-8">
+        <div className="flex items-center gap-2 md:gap-3 mb-4 md:mb-6">
+          <div className="p-2 md:p-3 bg-gradient-to-r from-purple-100 to-indigo-100 rounded-lg md:rounded-xl">
+            <Sun className="h-4 w-4 md:h-6 md:w-6 text-purple-600" />
+          </div>
+          <h2 className="text-lg md:text-2xl font-bold text-gray-800">{t('theme.appearance') || 'Appearance'}</h2>
+        </div>
+
+        <div className={`${dir === 'rtl' ? 'text-right' : ''}`}>
+          <p className="text-sm md:text-base text-gray-600 mb-4">
+            {t('theme.chooseTheme') || 'Choose your preferred color scheme'}
+          </p>
+          <ThemeToggle variant="buttons" showLabels={true} />
+        </div>
+      </div>
+
       {/* Account Actions */}
       <div className="bg-white/70 backdrop-blur-sm rounded-xl md:rounded-2xl shadow-lg border border-white/20 p-3 sm:p-6 lg:p-8">
         <div className="flex items-center gap-2 md:gap-3 mb-4 md:mb-6">

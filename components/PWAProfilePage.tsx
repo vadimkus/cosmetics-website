@@ -8,6 +8,7 @@ import { useCartStore } from '@/lib/cartStore'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { ChevronRight, ChevronLeft } from 'lucide-react'
+import { ThemeToggleItem } from '@/components/ThemeToggle'
 import { SkinAnalysisCamera, SkinAnalysisResult } from './SkinAnalysisCamera'
 import { ARSkinAnalysisCamera } from './ar'
 import { debugLog } from '@/lib/logger'
@@ -688,6 +689,8 @@ export default function PWAProfilePage() {
               onClick={() => router.push(getLocalizedPath('/profile/language', locale) + '?from=profile')}
               isRTL={isRTL}
             />
+            {/* Theme/Appearance Toggle */}
+            <ThemeToggleItem isRTL={isRTL} />
             <ProfileItem
               icon={<svg className="w-5 h-5 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>}
               title={t('pwaProfile.helpAndSupport')}

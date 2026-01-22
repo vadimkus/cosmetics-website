@@ -79,6 +79,17 @@
     "no": "No",
     "change": "Change"
   },
+  "theme": {
+    "appearance": "Appearance",
+    "chooseTheme": "Choose your preferred color scheme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "Auto",
+    "darkMode": "Dark Mode",
+    "switchToLight": "Switch to light mode",
+    "switchToDark": "Switch to dark mode",
+    "selectTheme": "Select theme"
+  },
   "hero": {
     "title": "Discover Your",
     "titleHighlight": "Beauty",

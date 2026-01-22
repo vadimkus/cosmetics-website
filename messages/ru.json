@@ -90,6 +90,17 @@
     "noOrdersYetTitle": "Заказов пока нет",
     "noOrdersYetDescription": "Ваша история заказов появится здесь после вашего первого заказа."
   },
+  "theme": {
+    "appearance": "Оформление",
+    "chooseTheme": "Выберите предпочитаемую цветовую схему",
+    "light": "Светлая",
+    "dark": "Тёмная",
+    "system": "Авто",
+    "darkMode": "Тёмный режим",
+    "switchToLight": "Переключить на светлый режим",
+    "switchToDark": "Переключить на тёмный режим",
+    "selectTheme": "Выбрать тему"
+  },
   "hero": {
     "title": "Откройте для себя",
     "titleHighlight": "Красоту",

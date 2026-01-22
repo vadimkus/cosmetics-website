@@ -62,10 +62,10 @@ const locations = [
   },
   {
     slug: 'abu-dhabi',
-    name: 'Абу-Даби',
-    description: 'Профессиональная корейская дерматокосметика доставляется во все районы Абу-Даби',
-    shippingCost: '70 дирхамов',
-    deliveryTime: '48 часов через Quiqup',
+    name: 'Абу-Даби и Аль-Айн',
+    description: 'Официальный авторизованный реселлер в Абу-Даби и Аль-Айне',
+    shippingCost: '30 дирхамов',
+    deliveryTime: '24 часа через Quiqup',
   },
   {
     slug: 'sharjah',

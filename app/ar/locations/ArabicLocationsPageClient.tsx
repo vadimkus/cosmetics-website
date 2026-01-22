@@ -16,10 +16,10 @@ const locations = [
   },
   {
     slug: 'abu-dhabi',
-    name: 'أبوظبي',
-    description: 'مستحضرات التجميل الكورية المهنية يتم توصيلها إلى جميع مناطق أبوظبي',
-    shippingCost: '70 درهم',
-    deliveryTime: '48 ساعة عبر كويك أب',
+    name: 'أبوظبي والعين',
+    description: 'موزع معتمد حصري متاح في أبوظبي والعين',
+    shippingCost: '30 درهم',
+    deliveryTime: '24 ساعة عبر كويك أب',
   },
   {
     slug: 'sharjah',

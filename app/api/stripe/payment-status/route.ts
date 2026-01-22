@@ -2,8 +2,6 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getCheckoutSession } from '@/lib/stripe'
 import { prisma } from '@/lib/database'
 import { debugLog, errorLog } from '@/lib/logger'
-import { getPreferredEmail } from '@/lib/emailHelpers'
-import { findUserByEmail } from '@/lib/userStorageDb'
 
 export async function GET(request: NextRequest) {
   try {
@@ -68,122 +66,14 @@ export async function GET(request: NextRequest) {
         orderStatus = 'FAILED'
     }
 
-    // ONLY send emails if the order status is actually changing to 'paid' (first time)
-    // This prevents duplicate emails when the payment status endpoint is called multiple times
-    const isStatusChangingToPaid = paymentStatus === 'paid' && order.paymentStatus !== 'paid'
-    
-    // Send payment confirmation email for successful payments (only on first confirmation)
-    if (isStatusChangingToPaid) {
-      debugLog('📧 Order status changing to paid, sending emails for:', order.orderNumber)
-      
-      try {
-        const { sendEmail, generateStripePaymentConfirmationHTML } = await import('@/lib/email')
-        
-        // Get customer details from Stripe session
-        const customerName = session.customer_details?.name || order.customerName || 'Customer'
-        const customerEmailRaw = session.customer_email || order.customerEmail
-        const customerPhone = session.customer_details?.phone || order.customerPhone || 'N/A'
-        
-        // Fetch user to check for contactEmail (for Apple Private Relay users)
-        const user = await findUserByEmail(customerEmailRaw)
-        const customerEmail = user ? getPreferredEmail(user) : customerEmailRaw
-        
-        debugLog('📧 Stripe payment email routing:', {
-          customerEmailRaw,
-          hasUser: !!user,
-          hasContactEmail: !!(user?.contactEmail),
-          customerEmail,
-          isAppleRelay: customerEmailRaw.includes('@privaterelay.appleid.com') || customerEmailRaw.includes('@genosys.local')
-        })
-        
-        // Get delivery info from session custom fields if available
-        let emirate = 'N/A'
-        let address = 'N/A'
-        
-        if (session.custom_fields && session.custom_fields.length > 0) {
-          const emirateField = session.custom_fields.find(field => field.key === 'emirate')
-          const addressField = session.custom_fields.find(field => field.key === 'address')
-          
-          emirate = emirateField?.dropdown?.value || emirate
-          address = addressField?.text?.value || address
-        }
-
-        // Prepare order data for email template
-        const orderData = {
-          orderNumber: order.orderNumber,
-          customerName,
-          customerEmail,
-          customerPhone,
-          customerAddress: address,
-          emirate,
-          items: order.items.map(item => ({
-            name: item.productName,
-            quantity: item.quantity,
-            price: item.price,
-            total: item.price * item.quantity,
-            size: item.size || '',
-            color: item.color || ''
-          })),
-          subtotal: order.total, // Simplified for now
-          shippingCost: 0,
-          vatAmount: 0,
-          total: order.total
-        }
-
-        // Generate email HTML
-        const emailHTML = generateStripePaymentConfirmationHTML(orderData)
-        const subject = `Payment Confirmed - Order #${order.orderNumber}`
-
-        // Send the email
-        const emailResult = await sendEmail(customerEmail, subject, emailHTML)
-        
-        if (emailResult.success) {
-          debugLog('✅ Stripe payment confirmation email sent successfully:', {
-            orderId: order.orderNumber,
-            customerEmail,
-            messageId: emailResult.messageId
-          })
-        } else {
-          errorLog('❌ Failed to send Stripe payment confirmation email:', emailResult.error)
-        }
-      } catch (emailError) {
-        errorLog('❌ Error sending Stripe payment confirmation email:', emailError)
-        // Don't fail the entire request if email fails
-      }
-      
-      // Send admin notification for new paid order (only on first confirmation)
-      try {
-        const { sendAdminNewOrderNotification } = await import('@/lib/email')
-        
-        const adminOrderData = {
-          orderNumber: order.orderNumber,
-          customerName: order.customerName,
-          customerEmail: order.customerEmail,
-          customerPhone: order.customerPhone,
-          total: order.total,
-          itemCount: order.items.length,
-          items: order.items.map(item => ({
-            productName: item.productName,
-            quantity: item.quantity,
-            price: item.price,
-            image: item.image || '',
-            size: item.size || '',
-            color: item.color || ''
-          })),
-          subtotal: order.subtotal,
-          shipping: order.shipping,
-          vat: order.vat,
-          address: order.customerAddress
-        }
-        
-        await sendAdminNewOrderNotification(adminOrderData)
-        debugLog('✅ Admin notification sent for paid order:', order.orderNumber)
-        
-      } catch (adminError) {
-        errorLog('❌ Failed to send admin notification:', adminError)
-      }
+    // NOTE: All confirmation emails (both customer and admin) are sent by the Stripe webhook handler
+    // (/api/webhooks/stripe/route.ts) to avoid duplicate emails due to race conditions.
+    // This endpoint is only for checking/updating payment status, NOT for sending emails.
+    // The webhook is the single source of truth for email notifications.
+    if (paymentStatus === 'paid' && order.paymentStatus !== 'paid') {
+      debugLog('ℹ️ Order status changing to paid - emails handled by Stripe webhook for:', order.orderNumber)
     } else if (paymentStatus === 'paid') {
-      debugLog('ℹ️ Order already marked as paid, skipping duplicate emails for:', order.orderNumber)
+      debugLog('ℹ️ Order already marked as paid:', order.orderNumber)
     }
 
     // Update order status if it has changed (separate from email sending)

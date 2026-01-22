@@ -1229,3 +1229,348 @@ html[dir="rtl"] {
     flex: 1 0 auto;
   }
 }
+
+/* ============================================================================
+   APPLE-STYLE ANIMATIONS & INTERACTIONS
+   ============================================================================
+   
+   Features:
+   - iOS-style momentum scrolling with rubber-band effect
+   - Spring animations via CSS (for non-JS contexts)
+   - Swipe-to-delete visual feedback
+   - Shared element transitions
+   ============================================================================ */
+
+/* ----------------------------------------------------------------------------
+   MOMENTUM SCROLLING & RUBBER-BAND EFFECT
+   ---------------------------------------------------------------------------- */
+
+/* iOS-style momentum scrolling on touch devices */
+.momentum-scroll,
+.cart-container,
+.order-summary-container {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  scroll-behavior: smooth;
+}
+
+/* Rubber-band scroll effect for iOS */
+@supports (-webkit-touch-callout: none) {
+  .rubber-band-scroll {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: none;
+  }
+  
+  /* Add rubber-band effect on scroll containers */
+  .scroll-container {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Smooth scroll for all browsers with reduced motion respect */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  .smooth-scroll {
+    scroll-behavior: smooth;
+  }
+}
+
+/* ----------------------------------------------------------------------------
+   SWIPE-TO-DELETE ANIMATIONS
+   ---------------------------------------------------------------------------- */
+
+/* Swipe item container */
+.swipe-item {
+  position: relative;
+  overflow: hidden;
+  touch-action: pan-x;
+}
+
+/* Delete background revealed on swipe */
+.swipe-delete-bg {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100px;
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 600;
+  transform: translateX(100%);
+  transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Show delete background when swiping */
+.swipe-item.swiping .swipe-delete-bg {
+  transform: translateX(0);
+}
+
+/* Swipe item content */
+.swipe-item-content {
+  position: relative;
+  background: white;
+  z-index: 1;
+  will-change: transform;
+}
+
+/* Spring animation for snap back */
+.swipe-item-content.snap-back {
+  transition: transform 0.4s cubic-bezier(0.25, 0.1, 0.25, 1.5);
+}
+
+/* Delete animation */
+.swipe-item.deleting {
+  animation: swipe-delete 0.3s cubic-bezier(0.55, 0.055, 0.675, 0.19) forwards;
+}
+
+@keyframes swipe-delete {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+    height: auto;
+  }
+  50% {
+    transform: translateX(-100%);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateX(-100%);
+    opacity: 0;
+    height: 0;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+}
+
+/* ----------------------------------------------------------------------------
+   SPRING ANIMATIONS (CSS Fallbacks)
+   ---------------------------------------------------------------------------- */
+
+/* iOS-style spring animation using CSS */
+@keyframes spring-in {
+  0% {
+    transform: scale(0.9) translateY(20px);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.02) translateY(-2px);
+    opacity: 1;
+  }
+  80% {
+    transform: scale(0.99) translateY(1px);
+  }
+  100% {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes spring-out {
+  0% {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+  40% {
+    transform: scale(0.98) translateY(-5px);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(0.9) translateX(-100px);
+    opacity: 0;
+  }
+}
+
+@keyframes spring-bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  25% {
+    transform: translateY(-8px);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+  75% {
+    transform: translateY(-6px);
+  }
+}
+
+/* Spring animation utility classes */
+.animate-spring-in {
+  animation: spring-in 0.5s cubic-bezier(0.25, 0.1, 0.25, 1.5) forwards;
+}
+
+.animate-spring-out {
+  animation: spring-out 0.3s cubic-bezier(0.55, 0.055, 0.675, 0.19) forwards;
+}
+
+.animate-spring-bounce {
+  animation: spring-bounce 0.6s cubic-bezier(0.25, 0.1, 0.25, 1.5);
+}
+
+/* ----------------------------------------------------------------------------
+   BUTTON PRESS ANIMATIONS (iOS-style)
+   ---------------------------------------------------------------------------- */
+
+/* iOS-style button press effect */
+.btn-press {
+  transition: transform 0.15s cubic-bezier(0.25, 0.1, 0.25, 1.5),
+              box-shadow 0.15s ease-out;
+}
+
+.btn-press:active {
+  transform: scale(0.97);
+}
+
+/* Enhanced button with spring feedback */
+.btn-spring {
+  transition: transform 0.2s cubic-bezier(0.25, 0.1, 0.25, 1.5),
+              box-shadow 0.2s ease-out,
+              background-color 0.2s ease-out;
+}
+
+.btn-spring:hover {
+  transform: scale(1.02);
+}
+
+.btn-spring:active {
+  transform: scale(0.97);
+  transition-duration: 0.1s;
+}
+
+/* ----------------------------------------------------------------------------
+   CARD HOVER ANIMATIONS (iOS-style lift)
+   ---------------------------------------------------------------------------- */
+
+.card-lift {
+  transition: transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1.5),
+              box-shadow 0.3s ease-out;
+}
+
+.card-lift:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+}
+
+.card-lift:active {
+  transform: translateY(-2px) scale(0.99);
+  transition-duration: 0.15s;
+}
+
+/* ----------------------------------------------------------------------------
+   SHARED ELEMENT TRANSITIONS (Enhanced)
+   ---------------------------------------------------------------------------- */
+
+@supports (view-transition-name: none) {
+  /* Cart item transitions */
+  .cart-item {
+    view-transition-name: var(--cart-item-id);
+  }
+  
+  /* Product image shared transitions */
+  .product-image-shared {
+    view-transition-name: var(--product-image-id);
+  }
+  
+  /* Spring-like animation for shared elements */
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1.5);
+  }
+  
+  /* Image morph animation */
+  ::view-transition-old(product-image),
+  ::view-transition-new(product-image) {
+    animation-duration: 350ms;
+    animation-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1.5);
+  }
+  
+  @keyframes scale-down {
+    to {
+      transform: scale(0.95);
+    }
+  }
+  
+  @keyframes scale-up {
+    from {
+      transform: scale(0.95);
+    }
+  }
+  
+  /* Cart addition animation */
+  @keyframes fly-to-cart {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(0.5) translateY(-100px);
+      opacity: 0.8;
+    }
+    100% {
+      transform: scale(0.1) translateY(-200px) translateX(100px);
+      opacity: 0;
+    }
+  }
+  
+  .fly-to-cart {
+    animation: fly-to-cart 0.5s cubic-bezier(0.25, 0.1, 0.25, 1.5) forwards;
+  }
+}
+
+/* ----------------------------------------------------------------------------
+   LIST ITEM ANIMATIONS
+   ---------------------------------------------------------------------------- */
+
+/* Staggered list animation */
+.list-stagger > * {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.list-stagger.animate > * {
+  animation: spring-in 0.4s cubic-bezier(0.25, 0.1, 0.25, 1.5) forwards;
+}
+
+.list-stagger.animate > *:nth-child(1) { animation-delay: 0.05s; }
+.list-stagger.animate > *:nth-child(2) { animation-delay: 0.1s; }
+.list-stagger.animate > *:nth-child(3) { animation-delay: 0.15s; }
+.list-stagger.animate > *:nth-child(4) { animation-delay: 0.2s; }
+.list-stagger.animate > *:nth-child(5) { animation-delay: 0.25s; }
+.list-stagger.animate > *:nth-child(6) { animation-delay: 0.3s; }
+.list-stagger.animate > *:nth-child(7) { animation-delay: 0.35s; }
+.list-stagger.animate > *:nth-child(8) { animation-delay: 0.4s; }
+.list-stagger.animate > *:nth-child(n+9) { animation-delay: 0.45s; }
+
+/* ----------------------------------------------------------------------------
+   REDUCED MOTION RESPECT
+   ---------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-spring-in,
+  .animate-spring-out,
+  .animate-spring-bounce,
+  .btn-press,
+  .btn-spring,
+  .card-lift,
+  .swipe-item-content,
+  .swipe-delete-bg,
+  .list-stagger > * {
+    animation: none !important;
+    transition: none !important;
+  }
+  
+  .swipe-item.deleting {
+    animation: none;
+    opacity: 0;
+    height: 0;
+  }
+}

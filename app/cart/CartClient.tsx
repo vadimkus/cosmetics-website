@@ -6,6 +6,7 @@ import { useAuth } from '@/components/AuthProvider'
 import CartItem from '@/components/CartItem'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useAnimationStore } from '@/lib/animationStore'
+import { springPresets } from '@/lib/appleAnimations'
 import FreeMaskPromotion from '@/components/FreeMaskPromotion'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -268,7 +269,7 @@ export default function CartClient() {
                 transition={animationsEnabled && !isAppLikeMode ? {
                   duration: 4,
                   repeat: Infinity,
-                  ease: "easeInOut",
+                  ease: [0.25, 0.1, 0.25, 1.5], // Spring-like cubic bezier
                   times: [0, 0.5, 1]
                 } : {}}
               >
@@ -473,21 +474,42 @@ export default function CartClient() {
         <div className={`flex flex-col lg:flex-row gap-8 ${dir === 'rtl' ? 'lg:flex-row-reverse' : ''}`} style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
           {/* Cart Items */}
           <div className="lg:w-2/3">
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden cart-container" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+            <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden cart-container momentum-scroll" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
               <div className="p-3 md:p-6 border-b border-gray-200">
-                <h1 className={`text-lg md:text-2xl font-bold text-gray-900 flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
+                <motion.h1 
+                  initial={animationsEnabled ? { opacity: 0, y: -10 } : {}}
+                  animate={animationsEnabled ? { opacity: 1, y: 0 } : {}}
+                  transition={animationsEnabled ? springPresets.default : {}}
+                  className={`text-lg md:text-2xl font-bold text-gray-900 flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}
+                >
                   <ShoppingBag className="h-5 w-5 md:h-6 md:w-6 text-green-600" />
                   <span className="text-sm md:text-base lg:text-lg">{isAppLikeMode ? (t('cart.shoppingBag') || 'Shopping Bag:') : t('cart.shoppingCart')}</span> <span className="text-sm md:text-base lg:text-lg">{getTotalItems()} {getTotalItems() === 1 ? t('cart.item') : t('cart.items')}</span>
-                </h1>
+                </motion.h1>
               </div>
               
-              <div className="space-y-4" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
-                <AnimatePresence mode="popLayout">
-                  {items.map((item) => (
-                    <CartItem key={`${item.product.id}-${item.selectedColor || 'default'}-${item.selectedSize || 'default'}`} item={item} />
+              <motion.div 
+                className="space-y-4 p-3 md:p-0" 
+                style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+                initial={animationsEnabled ? { opacity: 0 } : {}}
+                animate={animationsEnabled ? { opacity: 1 } : {}}
+                transition={animationsEnabled ? { delay: 0.1, ...springPresets.default } : {}}
+              >
+                <AnimatePresence mode="popLayout" initial={false}>
+                  {items.map((item, index) => (
+                    <motion.div
+                      key={`${item.product.id}-${item.selectedColor || 'default'}-${item.selectedSize || 'default'}`}
+                      initial={animationsEnabled ? { opacity: 0, y: 20 } : {}}
+                      animate={animationsEnabled ? { opacity: 1, y: 0 } : {}}
+                      transition={animationsEnabled ? { 
+                        delay: index * 0.05,
+                        ...springPresets.default 
+                      } : {}}
+                    >
+                      <CartItem item={item} />
+                    </motion.div>
                   ))}
                 </AnimatePresence>
-              </div>
+              </motion.div>
 
               {/* Bundle Discount Block - Shows when beauty boxes in cart */}
               {user && hasBeautyBoxes && !blackFridayActive && (

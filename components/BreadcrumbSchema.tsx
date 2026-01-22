@@ -1,4 +1,4 @@
-'use client'
+import { SITE_URL } from '@/lib/siteConfig'
 
 interface BreadcrumbItem {
   name: string
@@ -9,8 +9,12 @@ interface BreadcrumbSchemaProps {
   items: BreadcrumbItem[]
 }
 
-import { SITE_URL } from '@/lib/siteConfig'
-
+/**
+ * BreadcrumbSchema - Server Component
+ * 
+ * Renders JSON-LD structured data for breadcrumb navigation.
+ * No client-side interactivity needed - pure data rendering.
+ */
 export default function BreadcrumbSchema({ items }: BreadcrumbSchemaProps) {
   const baseUrl = SITE_URL
   

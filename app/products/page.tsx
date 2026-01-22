@@ -1,6 +1,23 @@
 import type { Metadata } from 'next'
+import { Suspense } from 'react'
+import { unstable_cache } from 'next/cache'
 import ProductsPageClient from './ProductsPageClient'
 import BreadcrumbSchema from '@/components/BreadcrumbSchema'
+import { getAllProducts } from '@/lib/productsDb'
+import type { Product } from '@/types'
+import ProductsLoading from './loading'
+
+// Revalidate products every 60 seconds
+export const revalidate = 60
+
+// Cached products fetch - revalidates every 60 seconds
+const getProducts = unstable_cache(
+  async (): Promise<Product[]> => {
+    return getAllProducts()
+  },
+  ['products-list'],
+  { revalidate: 60, tags: ['products'] }
+)
 
 export const metadata: Metadata = {
   title: 'GENOSYS Products - Professional Korean Dermacosmetics Collection UAE',
@@ -61,7 +78,16 @@ export const metadata: Metadata = {
   },
 }
 
-export default function ProductsPage() {
+/**
+ * ProductsPage - Server Component with Streaming
+ * 
+ * Fetches products on the server and passes them to the client component.
+ * Uses Suspense for streaming to improve initial load time.
+ */
+export default async function ProductsPage() {
+  // Fetch products on the server (cached for 60 seconds)
+  const products = await getProducts()
+
   return (
     <>
       <BreadcrumbSchema 
@@ -70,7 +96,9 @@ export default function ProductsPage() {
           { name: 'Products', url: '/products' }
         ]}
       />
-      <ProductsPageClient />
+      <Suspense fallback={<ProductsLoading />}>
+        <ProductsPageClient initialProducts={products} />
+      </Suspense>
     </>
   )
 }

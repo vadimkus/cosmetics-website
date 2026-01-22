@@ -1,7 +1,11 @@
-'use client'
-
 import { SITE_URL } from '@/lib/siteConfig'
 
+/**
+ * OrganizationSchema - Server Component
+ * 
+ * Renders JSON-LD structured data for organization information.
+ * No client-side interactivity needed - pure data rendering.
+ */
 export default function OrganizationSchema() {
   const baseUrl = SITE_URL
   

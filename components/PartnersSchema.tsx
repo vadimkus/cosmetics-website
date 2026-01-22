@@ -1,6 +1,12 @@
-'use client'
-
 import { partnersData } from '@/lib/partners'
+import { SITE_URL } from '@/lib/siteConfig'
+
+/**
+ * PartnersSchema - Server Component
+ * 
+ * Renders JSON-LD structured data for partners page.
+ * No client-side interactivity needed - pure data rendering.
+ */
 
 function extractCity(location: string): string {
   // Extract city from location string
@@ -13,8 +19,6 @@ function extractCity(location: string): string {
   // Default to Dubai if no city found
   return 'Dubai'
 }
-
-import { SITE_URL } from '@/lib/siteConfig'
 
 export default function PartnersSchema() {
   const baseUrl = SITE_URL

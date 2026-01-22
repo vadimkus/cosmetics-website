@@ -1,7 +1,11 @@
-'use client'
-
 import { SITE_URL } from '@/lib/siteConfig'
 
+/**
+ * LocalBusinessSchema - Server Component
+ * 
+ * Renders JSON-LD structured data for local business information.
+ * No client-side interactivity needed - pure data rendering.
+ */
 export default function LocalBusinessSchema() {
   const baseUrl = SITE_URL
   

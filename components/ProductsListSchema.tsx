@@ -1,15 +1,17 @@
-'use client'
-import { warnLog } from '@/lib/logger'
-
 import { Product } from '@/types'
+import { SITE_URL } from '@/lib/siteConfig'
 
 interface ProductsListSchemaProps {
   products: Product[]
   category?: string
 }
 
-import { SITE_URL } from '@/lib/siteConfig'
-
+/**
+ * ProductsListSchema - Server Component
+ * 
+ * Renders JSON-LD structured data for product collection pages.
+ * No client-side interactivity needed - pure data rendering.
+ */
 export default function ProductsListSchema({ products, category }: ProductsListSchemaProps) {
   const baseUrl = SITE_URL
   
@@ -31,8 +33,8 @@ export default function ProductsListSchema({ products, category }: ProductsListS
             const parsedImages = JSON.parse(product.images)
             images = Array.isArray(parsedImages) && parsedImages.length > 0 ? parsedImages : [product.image]
           }
-        } catch (error) {
-          warnLog('Error parsing images for product:', product.id, error)
+        } catch {
+          // Silent fallback to main image if parsing fails
           images = [product.image]
         }
         const displayImages = images.length > 0 ? images : [product.image]

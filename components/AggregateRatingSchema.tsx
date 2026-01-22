@@ -1,6 +1,11 @@
-'use client'
-
 import { SITE_URL } from '@/lib/siteConfig'
+
+/**
+ * AggregateRatingSchema - Server Component
+ * 
+ * Renders JSON-LD structured data for aggregate ratings.
+ * No client-side interactivity needed - pure data rendering.
+ */
 
 interface AggregateRatingSchemaProps {
   ratingValue?: number

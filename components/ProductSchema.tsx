@@ -1,5 +1,3 @@
-'use client'
-
 import { Product } from '@/types'
 import { SITE_URL } from '@/lib/siteConfig'
 
@@ -7,9 +5,23 @@ interface ProductSchemaProps {
   product: Product
 }
 
+/**
+ * ProductSchema - Server Component
+ * 
+ * Renders JSON-LD structured data for individual product pages.
+ * No client-side interactivity needed - pure data rendering.
+ */
 export default function ProductSchema({ product }: ProductSchemaProps) {
-  const images = product.images ? JSON.parse(product.images) : [product.image]
-  const displayImages = images.length > 0 ? images : [product.image]
+  let parsedImages = [product.image]
+  try {
+    if (product.images) {
+      parsedImages = JSON.parse(product.images)
+    }
+  } catch {
+    // Silent fallback to main image
+    parsedImages = [product.image]
+  }
+  const displayImages = parsedImages.length > 0 ? parsedImages : [product.image]
 
   const schema = {
     "@context": "https://schema.org",

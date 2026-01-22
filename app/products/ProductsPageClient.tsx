@@ -49,15 +49,20 @@ interface FilterState {
   inStockOnly: boolean
 }
 
-export default function ProductsPageClient() {
+interface ProductsPageClientProps {
+  initialProducts?: Product[]
+}
+
+export default function ProductsPageClient({ initialProducts = [] }: ProductsPageClientProps) {
   const router = useRouter()
   const searchParams = useSearchParams()
   const { t, locale } = useTranslation()
   const { enabled: animationsEnabled } = useAnimationStore()
   const { isPWA } = usePWAMode()
   
-  const [products, setProducts] = useState<Product[]>([])
-  const [loading, setLoading] = useState(true)
+  // Use initial products from server, no need for loading state if provided
+  const [products, setProducts] = useState<Product[]>(initialProducts)
+  const [loading, setLoading] = useState(initialProducts.length === 0)
   const [error, setError] = useState<string | null>(null)
   
   // Initialize state from URL params
@@ -86,13 +91,41 @@ export default function ProductsPageClient() {
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
 
-  // Fetch products from API
+  // Initialize filters from URL params when products are available (server or client)
   useEffect(() => {
+    if (products.length > 0) {
+      const prices = products.map((p: Product) => p.price)
+      const minPrice = Math.min(...prices)
+      const maxPrice = Math.max(...prices)
+      
+      const priceMin = searchParams.get('priceMin') ? Number(searchParams.get('priceMin')) : minPrice
+      const priceMax = searchParams.get('priceMax') ? Number(searchParams.get('priceMax')) : maxPrice
+      const categories = searchParams.get('categories')?.split(',').filter(Boolean) || []
+      const minRating = searchParams.get('rating') ? Number(searchParams.get('rating')) : 0
+      const inStockOnly = searchParams.get('inStock') === 'true'
+      
+      setFilters({
+        categories,
+        priceRange: [priceMin, priceMax],
+        minRating,
+        inStockOnly
+      })
+      setLoading(false)
+    }
+  }, [products.length, searchParams])
+
+  // Fetch products from API only if no initial products were provided (fallback)
+  useEffect(() => {
+    // Skip if we already have products from server
+    if (initialProducts.length > 0) {
+      return
+    }
+    
     const fetchProducts = async () => {
       try {
         setLoading(true)
         setError(null)
-        debugLog('Fetching products...')
+        debugLog('Fetching products (client fallback)...')
         
         const response = await fetch('/api/products', {
           method: 'GET',
@@ -113,26 +146,6 @@ export default function ProductsPageClient() {
         }
         
         setProducts(productsData)
-        
-        // Initialize filters from URL or defaults after products load
-        if (productsData.length > 0) {
-          const prices = productsData.map((p: Product) => p.price)
-          const minPrice = Math.min(...prices)
-          const maxPrice = Math.max(...prices)
-          
-          const priceMin = searchParams.get('priceMin') ? Number(searchParams.get('priceMin')) : minPrice
-          const priceMax = searchParams.get('priceMax') ? Number(searchParams.get('priceMax')) : maxPrice
-          const categories = searchParams.get('categories')?.split(',').filter(Boolean) || []
-          const minRating = searchParams.get('rating') ? Number(searchParams.get('rating')) : 0
-          const inStockOnly = searchParams.get('inStock') === 'true'
-          
-          setFilters({
-            categories,
-            priceRange: [priceMin, priceMax],
-            minRating,
-            inStockOnly
-          })
-        }
       } catch (err) {
         const errorMessage = err instanceof Error ? err.message : 'Failed to fetch products'
         errorLog('Error fetching products:', err)
@@ -143,7 +156,7 @@ export default function ProductsPageClient() {
     }
 
     fetchProducts()
-  }, [])
+  }, [initialProducts.length])
 
   // Debounce timer ref to prevent URL updates from interrupting touch events
   const urlUpdateTimeoutRef = useRef<NodeJS.Timeout | null>(null)

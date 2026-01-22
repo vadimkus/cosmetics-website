@@ -1,0 +1,172 @@
+'use client'
+
+import { useState, useCallback, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
+import { Product } from '@/types'
+import { useCart } from '@/components/CartProvider'
+import { useFavorites } from '@/components/FavoritesProvider'
+import { useAuth } from '@/components/AuthProvider'
+import { useAnimationStore } from '@/lib/animationStore'
+import { useTranslation } from '@/hooks/useTranslation'
+import { usePWAMode } from '@/hooks/usePWAMode'
+import { useHapticFeedback } from '@/hooks/useHapticFeedback'
+import { usePrefetchProduct } from '@/hooks/usePrefetch'
+import { getLocalizedPath } from '@/lib/i18n'
+import { getProductTranslations } from '@/data/productTranslations'
+import { getProductTranslationsRu } from '@/data/productTranslationsRu'
+import { calculateDiscountedPrice, canUserSeePrices } from '@/lib/discountUtils'
+import { translateCategory } from '@/utils/categoryTranslations'
+import type { UseProductCardReturn } from '../types'
+
+/**
+ * useProductCard Hook
+ * 
+ * Extracts all state management, event handlers, and derived values
+ * from the ProductCard component for better separation of concerns.
+ * 
+ * @param product - The product to display
+ * @returns All state, handlers, and computed values needed by ProductCard components
+ */
+export function useProductCard(product: Product): UseProductCardReturn {
+  const router = useRouter()
+  
+  // Context hooks
+  const { addItem } = useCart()
+  const { toggleFavorite, isFavorite } = useFavorites()
+  const { user } = useAuth()
+  const { t, locale } = useTranslation()
+  const { isPWA } = usePWAMode()
+  const haptic = useHapticFeedback()
+  const { getProductPrefetchProps } = usePrefetchProduct()
+  const { enabled: animationsEnabled } = useAnimationStore()
+  
+  // Local state
+  const [isAdding, setIsAdding] = useState(false)
+  const [isTogglingFavorite, setIsTogglingFavorite] = useState(false)
+  const [showLoginModal, setShowLoginModal] = useState(false)
+  const [isLoginMode, setIsLoginMode] = useState(true)
+  const [isMobile, setIsMobile] = useState(false)
+  const [addedToCartMessage, setAddedToCartMessage] = useState('')
+  
+  // Derived values
+  const productId = product.productNumber || product.id
+  const productPath = getLocalizedPath(`/products/${productId}`, locale)
+  const prefetchProps = !isPWA ? getProductPrefetchProps(productId, locale) : {}
+  
+  // Accessibility IDs
+  const descriptionId = `product-desc-${productId}`
+  const priceId = `product-price-${productId}`
+  const stockId = `product-stock-${productId}`
+  
+  // Detect mobile for "Add to Bag" text
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768)
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+  
+  // Use "Add to Bag" for PWA and mobile web
+  const useBagText = isPWA || isMobile
+  
+  // Disable framer-motion animations in PWA mode
+  const useAnimations = animationsEnabled && !isPWA
+  
+  // Get translation for description
+  const productIdForTranslation = product.productNumber || product.id
+  const arabicTranslations = locale === 'ar' ? getProductTranslations(productIdForTranslation) : null
+  const russianTranslations = locale === 'ru' ? getProductTranslationsRu(productIdForTranslation) : null
+  const translations = arabicTranslations || russianTranslations
+  const description = translations?.description || product.description || ''
+  
+  // Build comprehensive aria-label for accessibility
+  const productAriaLabel = [
+    product.name,
+    translateCategory(product.category, locale),
+    product.inStock ? t('product.inStock') : t('product.soldOut'),
+    canUserSeePrices(user) && !product.isPriceOnRequest 
+      ? `${calculateDiscountedPrice(product, user).discountedPrice.toFixed(2)} AED`
+      : '',
+  ].filter(Boolean).join(', ')
+  
+  // Event handlers
+  const handleAddToCart = useCallback(() => {
+    haptic.success()
+    setIsAdding(true)
+    addItem(product, 1, '', '')
+    setAddedToCartMessage(`${product.name} ${t('product.addedToCart') || 'added to cart'}`)
+    
+    setTimeout(() => {
+      setIsAdding(false)
+      setTimeout(() => setAddedToCartMessage(''), 1000)
+    }, 500)
+  }, [addItem, product, haptic, t])
+  
+  const handleFavorite = useCallback((e?: React.MouseEvent | React.TouchEvent) => {
+    e?.preventDefault()
+    e?.stopPropagation()
+    haptic.double()
+    setIsTogglingFavorite(true)
+    toggleFavorite(product)
+    setTimeout(() => setIsTogglingFavorite(false), 300)
+  }, [toggleFavorite, product, haptic])
+  
+  const handleLoginClick = useCallback((e: React.MouseEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    if (isPWA) {
+      const loginPath = locale === 'en' ? '/pwa-login' : `/${locale}/pwa-login`
+      router.push(loginPath)
+    } else {
+      setShowLoginModal(true)
+    }
+  }, [isPWA, locale, router])
+  
+  const handleNavigate = useCallback(() => {
+    router.push(productPath)
+  }, [router, productPath])
+  
+  return {
+    // State
+    isAdding,
+    isTogglingFavorite,
+    showLoginModal,
+    isLoginMode,
+    isMobile,
+    addedToCartMessage,
+    
+    // Derived values
+    productId,
+    productPath,
+    description,
+    useBagText,
+    useAnimations,
+    productAriaLabel,
+    prefetchProps,
+    
+    // Accessibility IDs
+    descriptionId,
+    priceId,
+    stockId,
+    
+    // Handlers
+    handleAddToCart,
+    handleFavorite,
+    handleLoginClick,
+    handleNavigate,
+    
+    // Modal controls
+    setShowLoginModal,
+    setIsLoginMode,
+    
+    // Context values
+    user,
+    isFavorite,
+    isPWA,
+    animationsEnabled,
+    locale,
+    t,
+  }
+}
+
+export default useProductCard

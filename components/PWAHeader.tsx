@@ -279,8 +279,8 @@ export default function PWAHeader() {
                 <span className="text-white text-sm font-semibold">
                   {userInitial.toUpperCase()}
                 </span>
-                {/* Online indicator */}
-                <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-500 rounded-full border-2 border-white" />
+                {/* Online indicator - positioned inside the circle */}
+                <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 rounded-full border-[1.5px] border-white" />
               </div>
             ) : (
               <div className={`w-9 h-9 rounded-full flex items-center justify-center transition-colors ${isOnProfilePage ? 'bg-gray-200' : 'bg-gray-100'}`}>

@@ -382,7 +382,7 @@ export default async function RussianLocationPage({ params }: LocationPageProps)
             <div className="bg-gray-50 rounded-lg p-6">
               <h2 className="text-2xl font-semibold text-gray-800 mb-6 flex items-center gap-2">
                 <MapPin className="h-6 w-6 text-primary-600" />
-                {location.authorizedReseller ? 'Genosys Middle East (Дистрибьютор)' : 'Контактная информация'}
+                {location.authorizedReseller ? 'Genosys Middle East FZ-LLC (Дистрибьютор)' : 'Контактная информация'}
               </h2>
               <div className="space-y-4">
                 <div>

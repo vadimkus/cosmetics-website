@@ -3,35 +3,38 @@ import { Product } from '@/types'
 import ProductPageClientRefactored from './ProductPageClientRefactored'
 import type { Metadata } from 'next'
 import { getProductById } from '@/lib/productsDb'
-import { errorLog } from '@/lib/logger'
+import { errorLog, debugLog } from '@/lib/logger'
 import { safeJsonParse } from '@/lib/utils'
-import { unstable_cache } from 'next/cache'
+
+// Force dynamic rendering to ensure fresh data
+export const dynamic = 'force-dynamic'
+// Disable caching for this route to prevent stale 404s
+export const revalidate = 0
 
 interface ProductPageProps {
   params: Promise<{ id: string }>
 }
 
-// Cached product fetch - revalidates every 60 seconds
-const getProduct = (id: string) => unstable_cache(
-  async (): Promise<Product | null> => {
-    try {
-      // Use direct database access for better reliability
-      const product = await getProductById(id)
-      if (product) {
-        // Ensure noDiscount is explicitly set to prevent serialization issues
-        if (product.noDiscount === undefined) {
-          product.noDiscount = false
-        }
+// Direct product fetch with error logging
+async function getProduct(id: string): Promise<Product | null> {
+  try {
+    debugLog(`Fetching product with ID: ${id}`)
+    const product = await getProductById(id)
+    if (product) {
+      debugLog(`Found product: ${product.name}`)
+      // Ensure noDiscount is explicitly set to prevent serialization issues
+      if (product.noDiscount === undefined) {
+        product.noDiscount = false
       }
-      return product
-    } catch (error) {
-      errorLog('Error fetching product:', error)
-      return null
+    } else {
+      debugLog(`Product not found for ID: ${id}`)
     }
-  },
-  [`product-${id}`],
-  { revalidate: 60, tags: ['products', `product-${id}`] }
-)()
+    return product
+  } catch (error) {
+    errorLog('Error fetching product:', error)
+    return null
+  }
+}
 
 export async function generateMetadata({ params }: ProductPageProps): Promise<Metadata> {
   const { id } = await params

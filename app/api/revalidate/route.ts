@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { revalidatePath } from 'next/cache'
+import { revalidatePath, revalidateTag } from 'next/cache'
 
 export async function POST(request: NextRequest) {
   try {
-    const { path, secret } = await request.json()
+    const { path, tag, secret } = await request.json()
 
     // Optional: Add a secret to protect this endpoint
     const revalidateSecret = process.env.REVALIDATE_SECRET
@@ -14,14 +14,28 @@ export async function POST(request: NextRequest) {
       )
     }
 
+    const results: string[] = []
+
+    // Revalidate by tag if provided
+    if (tag) {
+      revalidateTag(tag)
+      results.push(`Tag '${tag}' revalidated`)
+    }
+
     // Revalidate the specified path or default to /blog
-    const pathToRevalidate = path || '/blog'
-    
-    revalidatePath(pathToRevalidate)
+    if (path) {
+      revalidatePath(path)
+      results.push(`Path '${path}' revalidated`)
+    }
+
+    if (results.length === 0) {
+      revalidatePath('/blog')
+      results.push("Path '/blog' revalidated (default)")
+    }
 
     return NextResponse.json({
       success: true,
-      message: `Path ${pathToRevalidate} revalidated successfully`,
+      message: results.join(', '),
       revalidated: true,
       now: new Date().toISOString()
     })
@@ -39,6 +53,7 @@ export async function POST(request: NextRequest) {
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url)
   const path = searchParams.get('path')
+  const tag = searchParams.get('tag')
   const secret = searchParams.get('secret')
 
   try {
@@ -51,14 +66,28 @@ export async function GET(request: NextRequest) {
       )
     }
 
-    // Revalidate the specified path or default to /blog
-    const pathToRevalidate = path || '/blog'
-    
-    revalidatePath(pathToRevalidate)
+    const results: string[] = []
+
+    // Revalidate by tag if provided
+    if (tag) {
+      revalidateTag(tag)
+      results.push(`Tag '${tag}' revalidated`)
+    }
+
+    // Revalidate the specified path
+    if (path) {
+      revalidatePath(path)
+      results.push(`Path '${path}' revalidated`)
+    }
+
+    if (results.length === 0) {
+      revalidatePath('/blog')
+      results.push("Path '/blog' revalidated (default)")
+    }
 
     return NextResponse.json({
       success: true,
-      message: `Path ${pathToRevalidate} revalidated successfully`,
+      message: results.join(', '),
       revalidated: true,
       now: new Date().toISOString()
     })

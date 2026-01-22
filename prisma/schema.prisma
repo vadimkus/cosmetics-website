@@ -34,9 +34,41 @@ model User {
   orders              Order[]
   passwordResetTokens PasswordResetToken[]
   reviews             ProductReview[]
-  addresses          Address[] // Multiple addresses support
+  addresses           Address[] // Multiple addresses support
+  passkeys            Passkey[] // WebAuthn passkeys for passwordless auth
 
   @@map("users")
+}
+
+// WebAuthn Passkeys - enables Face ID/Touch ID authentication
+model Passkey {
+  id              String    @id @default(cuid())
+  
+  // Link to user
+  userId          String
+  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  // WebAuthn credential data
+  credentialId    String    @unique @db.Text  // Base64url encoded credential ID
+  publicKey       String    @db.Text          // Base64url encoded public key (COSE format)
+  counter         BigInt    @default(0)       // Signature counter for replay attack protection
+  
+  // Credential metadata
+  transports      String?   @db.Text          // JSON array of transports (usb, nfc, ble, internal, hybrid)
+  
+  // Device info (for user management UI)
+  deviceType      String?                     // "platform" (built-in) or "cross-platform" (security key)
+  deviceName      String?                     // User-friendly name (e.g., "MacBook Pro", "iPhone 15")
+  
+  // Backup state (PRF extension)
+  backedUp        Boolean   @default(false)   // Whether credential is backed up to iCloud/Google
+  
+  createdAt       DateTime  @default(now())
+  lastUsedAt      DateTime?
+  
+  @@index([userId])
+  @@index([credentialId])
+  @@map("passkeys")
 }
 
 model Address {

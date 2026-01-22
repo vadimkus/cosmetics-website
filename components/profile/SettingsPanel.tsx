@@ -5,6 +5,7 @@ import { ArrowLeft, Settings, Trash2, Zap, ShoppingBag, Heart, MessageCircle, Re
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { ThemeToggle } from '@/components/ThemeToggle'
+import PasskeySettings from './PasskeySettings'
 
 interface SettingsPanelProps {
   isRefreshing: boolean
@@ -23,6 +24,9 @@ export default function SettingsPanel({
   return (
     <div className="space-y-4 md:space-y-8">
       
+      {/* Passkey Settings - Face ID / Touch ID */}
+      <PasskeySettings />
+
       {/* Appearance Settings */}
       <div className="bg-white/70 backdrop-blur-sm rounded-xl md:rounded-2xl shadow-lg border border-white/20 p-3 sm:p-6 lg:p-8">
         <div className="flex items-center gap-2 md:gap-3 mb-4 md:mb-6">

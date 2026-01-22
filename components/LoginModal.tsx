@@ -1,11 +1,12 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
-import { X, Eye, EyeOff, Gift } from 'lucide-react'
+import { useState, useEffect, useRef, useCallback } from 'react'
+import { X, Eye, EyeOff, Gift, Fingerprint } from 'lucide-react'
 import { useAuth } from './AuthProvider'
 import Link from 'next/link'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
+import { usePasskey } from '@/hooks/usePasskey'
 
 interface LoginModalProps {
   isOpen: boolean
@@ -16,8 +17,17 @@ interface LoginModalProps {
 }
 
 export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMode, promoCode }: LoginModalProps) {
-  const { login, register, loginWithGoogle, loginWithApple, isLoading } = useAuth()
+  const { login, register, loginWithGoogle, loginWithApple, isLoading, forceRefreshUser } = useAuth()
   const { t, locale, dir } = useTranslation()
+  const { 
+    isPlatformAuthenticatorAvailable, 
+    checkPasskeyExists, 
+    loginWithPasskey,
+    isLoading: isPasskeyLoading,
+    error: passkeyError,
+    clearError: clearPasskeyError
+  } = usePasskey()
+  
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -31,10 +41,12 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
   const [error, setError] = useState('')
   const [showPrivacyPolicy, setShowPrivacyPolicy] = useState(false)
   const [privacyConsent, setPrivacyConsent] = useState(false)
+  const [hasPasskey, setHasPasskey] = useState(false)
   const normalizedPromo = String(promoCode || '').trim().toUpperCase()
   const modalRef = useRef<HTMLDivElement>(null)
   const firstInputRef = useRef<HTMLInputElement>(null)
   const lastInputRef = useRef<HTMLInputElement>(null)
+  const emailCheckTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   // Focus management for accessibility
   useEffect(() => {
@@ -42,6 +54,52 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
       firstInputRef.current.focus()
     }
   }, [isOpen])
+
+  // Check if user has passkeys when email changes (in login mode)
+  useEffect(() => {
+    if (!isLoginMode || !isPlatformAuthenticatorAvailable) {
+      setHasPasskey(false)
+      return
+    }
+
+    // Clear previous timeout
+    if (emailCheckTimeoutRef.current) {
+      clearTimeout(emailCheckTimeoutRef.current)
+    }
+
+    const email = formData.email.trim()
+    if (!email || !email.includes('@')) {
+      setHasPasskey(false)
+      return
+    }
+
+    // Debounce the check
+    emailCheckTimeoutRef.current = setTimeout(async () => {
+      const exists = await checkPasskeyExists(email)
+      setHasPasskey(exists)
+    }, 500)
+
+    return () => {
+      if (emailCheckTimeoutRef.current) {
+        clearTimeout(emailCheckTimeoutRef.current)
+      }
+    }
+  }, [formData.email, isLoginMode, isPlatformAuthenticatorAvailable, checkPasskeyExists])
+
+  // Handle passkey login
+  const handlePasskeyLogin = useCallback(async () => {
+    clearPasskeyError()
+    setError('')
+    
+    const result = await loginWithPasskey(formData.email)
+    if (result && result.user) {
+      await forceRefreshUser()
+      onClose()
+      setFormData({ name: '', email: '', password: '', phone: '', address: '', emirate: '', birthday: '' })
+    } else if (passkeyError) {
+      setError(passkeyError)
+    }
+  }, [formData.email, loginWithPasskey, forceRefreshUser, onClose, passkeyError, clearPasskeyError])
 
   // Handle escape key and focus trap
   useEffect(() => {
@@ -249,6 +307,20 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
           </div>
 
           <form onSubmit={handleSubmit} className={`${isLoginMode ? 'space-y-3 md:space-y-4' : 'space-y-2 md:space-y-3'}`}>
+            {/* Passkey Login Button - Shows when user has a passkey and device supports it */}
+            {isLoginMode && hasPasskey && isPlatformAuthenticatorAvailable && (
+              <button
+                type="button"
+                onClick={handlePasskeyLogin}
+                disabled={isLoading || isPasskeyLoading}
+                className={`w-full flex items-center justify-center gap-2 md:gap-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-2.5 md:py-3 rounded-system font-semibold hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed elevation-2 hover:elevation-3 min-h-[44px] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+              >
+                <Fingerprint className="h-5 w-5" aria-hidden="true" />
+                <span className="text-xs md:text-sm">
+                  {isPasskeyLoading ? t('login.pleaseWait') : (t('login.signInWithPasskey') || 'Sign in with Face ID / Touch ID')}
+                </span>
+              </button>
+            )}
             {/* Promo banner (when opening via /signup?promo=XXXX) */}
             {!isLoginMode && normalizedPromo ? (
               <div className={`bg-green-50 border border-green-200 text-green-700 px-3 py-2 rounded-lg text-xs md:text-sm ${dir === 'rtl' ? 'text-right' : ''}`}>

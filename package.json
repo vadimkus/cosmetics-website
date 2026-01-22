@@ -37,6 +37,8 @@
     "@prisma/client": "^7.2.0",
     "@react-oauth/google": "^0.12.2",
     "@sentry/nextjs": "^10.22.0",
+    "@simplewebauthn/browser": "^13.2.2",
+    "@simplewebauthn/server": "^13.2.2",
     "@tailwindcss/postcss": "^4.1.18",
     "@tensorflow-models/face-landmarks-detection": "^1.0.6",
     "@tensorflow/tfjs": "^4.22.0",

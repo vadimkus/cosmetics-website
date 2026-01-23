@@ -853,8 +853,8 @@ export default function CheckoutClient() {
                   </div>
                 </div>
 
-                {/* Payment Information - PWA Version */}
-                {isPWAClient && isPWA ? (
+                {/* Payment Information - PWA & Mobile Web Version */}
+                {(isPWAClient && isPWA) || isMobileWeb ? (
                   <div className="space-y-4">
                     <h2 className={`text-base font-semibold text-gray-900 flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                       <CreditCard className="h-5 w-5 text-red-600" />
@@ -941,7 +941,7 @@ export default function CheckoutClient() {
                     )}
                   </div>
                 ) : (
-                  /* Payment Information - Desktop/Mobile Browser Version */
+                  /* Payment Information - Desktop Browser Version */
                   <div className="space-y-3 md:space-y-4">
                     <h2 className={`text-base md:text-lg font-semibold text-gray-900 flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                       <CreditCard className="h-4 w-4 md:h-5 md:w-5 text-green-600" />

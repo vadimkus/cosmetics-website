@@ -193,7 +193,7 @@ export default function OrderTrackingClient({ orderNumber }: OrderTrackingClient
               className="min-w-[80px] flex justify-end"
             >
               <div className="relative">
-                <div className="w-8 h-8 rounded-full bg-gray-400 flex items-center justify-center">
+                <div className="w-9 h-9 rounded-full bg-gray-400 flex items-center justify-center">
                   <span className="text-sm font-semibold text-white">G</span>
                 </div>
               </div>
@@ -234,7 +234,7 @@ export default function OrderTrackingClient({ orderNumber }: OrderTrackingClient
               className="min-w-[80px] flex justify-end"
             >
               <div className="relative">
-                <div className="w-8 h-8 rounded-full bg-gray-400 flex items-center justify-center">
+                <div className="w-9 h-9 rounded-full bg-gray-400 flex items-center justify-center">
                   <span className="text-sm font-semibold text-white">G</span>
                 </div>
               </div>
@@ -295,14 +295,14 @@ export default function OrderTrackingClient({ orderNumber }: OrderTrackingClient
             className="min-w-[80px] flex justify-end"
           >
             <div className="relative">
-              <div className="w-8 h-8 rounded-full bg-red-600 flex items-center justify-center">
+              <div className="w-9 h-9 rounded-full bg-red-600 flex items-center justify-center">
                 <span className="text-sm font-semibold text-white">
                   {trackingData?.customerFirstName?.charAt(0) || 'G'}
                 </span>
               </div>
               {/* Green online dot - only when tracking data exists (implies logged in order) */}
               {trackingData && (
-                <div className="absolute bottom-0 right-0 w-2 h-2 bg-green-500 rounded-full border-[1.5px] border-white" />
+                <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 rounded-full border-[1.5px] border-white" />
               )}
             </div>
           </button>

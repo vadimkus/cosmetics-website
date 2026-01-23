@@ -171,14 +171,14 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
             onClick={() => router.push(getLocalizedPath('/profile', locale))}
           >
             <div className="relative">
-              <div className={`w-8 h-8 rounded-full flex items-center justify-center ${user ? 'bg-red-600' : 'bg-gray-400'}`}>
+              <div className={`w-9 h-9 rounded-full flex items-center justify-center ${user ? 'bg-red-600' : 'bg-gray-400'}`}>
                 <span className="text-sm font-semibold text-white">
                   {user?.name?.charAt(0)?.toUpperCase() || 'G'}
                 </span>
               </div>
               {/* Green online dot - only when logged in */}
               {user && (
-                <div className="absolute bottom-0 right-0 w-2 h-2 bg-green-500 rounded-full border-[1.5px] border-white" />
+                <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 rounded-full border-[1.5px] border-white" />
               )}
             </div>
           </button>

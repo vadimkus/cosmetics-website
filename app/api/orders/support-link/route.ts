@@ -263,8 +263,8 @@ export async function POST(request: NextRequest) {
       address: customerAddress,
       emirate: emirate,
       deviceType,
-      paymentStatus: 'COD',
-      paymentMethod: 'Support Link (COD)'
+      paymentStatus: 'PENDING',
+      paymentMethod: 'Pay by Link (Awaiting Payment)'
     }).then((adminResult) => {
       if (adminResult.success) {
         debugLog('✅ Admin notification sent for support-link order:', orderNumber)

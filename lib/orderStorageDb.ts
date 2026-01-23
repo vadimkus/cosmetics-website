@@ -128,29 +128,34 @@ export const generateOrderId = async (): Promise<string> => {
 // Add order
 export const addOrder = async (orderData: OrderData): Promise<Order> => {
   try {
+    // Normalize email to lowercase and trim whitespace for consistent matching
+    const normalizedEmail = orderData.customerEmail.trim().toLowerCase()
+    
     // First, ensure the customer exists in the database
+    // IMPORTANT: canSeePrices defaults to true for new customers (guest checkout)
+    // This ensures they can see prices when they later create an account
     await prisma.user.upsert({
-      where: { email: orderData.customerEmail },
+      where: { email: normalizedEmail },
       update: {
         name: orderData.customerName,
         phone: orderData.customerPhone,
         address: orderData.customerAddress,
       },
       create: {
-        email: orderData.customerEmail,
+        email: normalizedEmail,
         name: orderData.customerName,
         password: 'temp-password', // Temporary password for guest orders
         phone: orderData.customerPhone,
         address: orderData.customerAddress,
         isAdmin: false,
-        canSeePrices: false,
+        canSeePrices: true, // Default to true - customers should see prices
       }
     })
 
     return await prisma.order.create({
       data: {
         orderNumber: orderData.orderNumber,
-        customerEmail: orderData.customerEmail,
+        customerEmail: normalizedEmail, // Use normalized email for consistency
         customerName: orderData.customerName,
         customerPhone: orderData.customerPhone,
         customerEmirate: orderData.customerEmirate,

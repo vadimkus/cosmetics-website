@@ -6,6 +6,32 @@ import { Camera, X, RefreshCw, Check, Sparkles, AlertCircle, Loader2, Sun, Moon,
 import { useTranslation } from '@/hooks/useTranslation'
 import { useHapticFeedback } from '@/hooks/useHapticFeedback'
 import { cn } from '@/lib/utils'
+import {
+  analyzeMultipleZones, 
+  getBlemishLevelLabel, 
+  analyzeWrinkles,
+  analyzePigmentation,
+  analyzeGender,
+  // P2 imports
+  analyzePores,
+  analyzeUnderEye,
+  analyzeFirmness,
+  analyzeSunDamage,
+  analyzeLips,
+  analyzeEyebrows,
+  estimateAge,
+  analyzeFitzpatrick,
+  type WrinkleAnalysis,
+  type PigmentationAnalysis,
+  type PoreAnalysis,
+  type UnderEyeAnalysis,
+  type FirmnessAnalysis,
+  type SunDamageAnalysis,
+  type LipAnalysis,
+  type EyebrowAnalysis,
+  type AgeEstimation,
+  type FitzpatrickAnalysis,
+} from '@/lib/skinAnalysis'
 
 // Skin analysis result types
 export interface SkinAnalysisResult {
@@ -27,6 +53,54 @@ export interface SkinAnalysisResult {
   cheekHydration: number // 0-100
   estimatedSkinAge: number
   lightingQuality: 'poor' | 'fair' | 'good' | 'excellent'
+  // P1-2: Acne/Blemish Detection
+  blemishAnalysis?: BlemishAnalysis
+  // P1-3: Wrinkle/Fine Lines Analysis
+  wrinkleAnalysis?: WrinkleAnalysis
+  // P1-4: Pigmentation/Dark Spot Analysis
+  pigmentationAnalysis?: PigmentationAnalysis
+  // Gender Detection
+  gender?: 'male' | 'female' | 'unknown'
+  genderConfidence?: number
+  // P2 Advanced Analysis
+  poreAnalysis?: PoreAnalysis
+  underEyeAnalysis?: UnderEyeAnalysis
+  firmnessAnalysis?: FirmnessAnalysis
+  sunDamageAnalysis?: SunDamageAnalysis
+  lipAnalysis?: LipAnalysis
+  eyebrowAnalysis?: EyebrowAnalysis
+  ageEstimation?: AgeEstimation
+  fitzpatrickType?: FitzpatrickAnalysis
+}
+
+// P1-2: Blemish/Acne Analysis
+export interface BlemishAnalysis {
+  // Overall blemish score (0 = clear, 100 = severe)
+  severity: number
+  // Estimated count of detected blemishes
+  count: number
+  // Blemish level classification
+  level: 'clear' | 'minimal' | 'mild' | 'moderate' | 'severe'
+  // Types of blemishes detected
+  types: BlemishType[]
+  // Affected zones
+  affectedZones: string[]
+  // Detailed blemish data (positions, types)
+  details?: BlemishDetail[]
+}
+
+export interface BlemishType {
+  type: 'acne' | 'blackhead' | 'whitehead' | 'scar' | 'dark-spot' | 'redness'
+  confidence: number // 0-100
+  count: number
+}
+
+export interface BlemishDetail {
+  type: 'acne' | 'blackhead' | 'whitehead' | 'scar' | 'dark-spot' | 'redness'
+  x: number
+  y: number
+  size: number // radius in pixels
+  severity: number // 0-100
 }
 
 interface SkinAnalysisCameraProps {
@@ -91,6 +165,10 @@ export function SkinAnalysisCamera({
     cheeks: locale === 'ar' ? 'الخدين' : locale === 'ru' ? 'Щеки' : 'Cheeks',
     viewDetails: locale === 'ar' ? 'عرض التفاصيل' : locale === 'ru' ? 'Подробнее' : 'View Details',
     hideDetails: locale === 'ar' ? 'إخفاء التفاصيل' : locale === 'ru' ? 'Скрыть' : 'Hide Details',
+    // P1-2: Blemish translations
+    skinClarity: locale === 'ar' ? 'صفاء البشرة' : locale === 'ru' ? 'Чистота кожи' : 'Skin Clarity',
+    blemishes: locale === 'ar' ? 'البثور' : locale === 'ru' ? 'Высыпания' : 'Blemishes',
+    blemishCount: locale === 'ar' ? 'عدد البثور' : locale === 'ru' ? 'Количество' : 'Detected',
     lowLight: locale === 'ar' ? 'الإضاءة ضعيفة' : locale === 'ru' ? 'Мало света' : 'Low light detected',
     betterLight: locale === 'ar' ? 'توجه للإضاءة' : locale === 'ru' ? 'Найдите свет' : 'Move to better lighting',
     years: locale === 'ar' ? 'سنة' : locale === 'ru' ? 'лет' : 'years',
@@ -240,7 +318,8 @@ export function SkinAnalysisCamera({
         throw new Error('Camera API not supported')
       }
 
-      const stream = await navigator.mediaDevices.getUserMedia({
+      // Add timeout for camera access (15 seconds)
+      const cameraPromise = navigator.mediaDevices.getUserMedia({
         video: {
           facingMode,
           width: { ideal: 1920 },
@@ -249,18 +328,66 @@ export function SkinAnalysisCamera({
         audio: false,
       })
 
+      const timeoutPromise = new Promise<never>((_, reject) => {
+        setTimeout(() => reject(new Error('Camera access timed out')), 15000)
+      })
+
+      const stream = await Promise.race([cameraPromise, timeoutPromise])
+
       streamRef.current = stream
 
       if (videoRef.current) {
         videoRef.current.srcObject = stream
-        await videoRef.current.play()
+        // Wait for video to be ready with proper timeout handling
+        await new Promise<void>((resolve, reject) => {
+          if (!videoRef.current) {
+            reject(new Error('Video element not available'))
+            return
+          }
+          const video = videoRef.current
+          let resolved = false
+          
+          const handleReady = () => {
+            if (resolved) return
+            resolved = true
+            video.play()
+              .then(() => resolve())
+              .catch(reject)
+          }
+          
+          // Try multiple approaches to detect video readiness
+          video.onloadedmetadata = handleReady
+          video.onloadeddata = handleReady
+          video.oncanplay = handleReady
+          
+          video.onerror = () => {
+            if (!resolved) {
+              resolved = true
+              reject(new Error('Video failed to load'))
+            }
+          }
+          
+          // Timeout for video load
+          setTimeout(() => {
+            if (!resolved) {
+              resolved = true
+              reject(new Error('Video load timed out'))
+            }
+          }, 10000)
+        })
         setCameraState('ready')
       }
     } catch (err) {
       console.error('Camera init error:', err)
+      const errorMessage = (err as Error).message || ''
+      const errorName = (err as Error).name || ''
       
-      if ((err as Error).name === 'NotAllowedError') {
+      if (errorName === 'NotAllowedError' || errorMessage.includes('Permission denied')) {
         setError(t.permissionDenied)
+      } else if (errorName === 'NotFoundError' || errorMessage.includes('NotFoundError')) {
+        setError(locale === 'ar' ? 'لم يتم العثور على كاميرا' : locale === 'ru' ? 'Камера не найдена' : 'No camera found')
+      } else if (errorMessage.includes('timed out')) {
+        setError(locale === 'ar' ? 'انتهت مهلة الكاميرا' : locale === 'ru' ? 'Истекло время ожидания' : 'Camera timed out - please try again')
       } else {
         setError(t.cameraError)
       }
@@ -345,7 +472,173 @@ export function SkinAnalysisCamera({
     })
 
     setTimeout(() => {
+      // Perform base skin analysis
       const result = performAdvancedSkinAnalysis(pixels, width, height)
+      
+      // Define zones for analysis (used by multiple analyzers)
+      const zones = [
+        { name: 'forehead', x: width * 0.35, y: height * 0.2, width: width * 0.3, height: height * 0.12 },
+        { name: 'nose', x: width * 0.42, y: height * 0.35, width: width * 0.16, height: height * 0.2 },
+        { name: 'leftCheek', x: width * 0.2, y: height * 0.35, width: width * 0.18, height: height * 0.18 },
+        { name: 'rightCheek', x: width * 0.62, y: height * 0.35, width: width * 0.18, height: height * 0.18 },
+        { name: 'chin', x: width * 0.38, y: height * 0.6, width: width * 0.24, height: height * 0.12 },
+      ]
+      
+      // P1-2: Add blemish analysis
+      try {
+        const blemishResult = analyzeMultipleZones(ctx, zones)
+        result.blemishAnalysis = blemishResult
+        
+        // Add acne-blemishes concern if detected
+        if (blemishResult.level === 'moderate' || blemishResult.level === 'severe') {
+          if (!result.concerns.includes('acne-blemishes')) {
+            result.concerns.push('acne-blemishes')
+          }
+        }
+      } catch (error) {
+        console.warn('Blemish analysis failed:', error)
+        // Continue without blemish data
+      }
+      
+      // P1-3: Add wrinkle analysis
+      try {
+        const wrinkleResult = analyzeWrinkles(ctx, width, height)
+        result.wrinkleAnalysis = wrinkleResult
+        
+        // Add anti-aging concern if wrinkles detected
+        if (wrinkleResult.level === 'moderate' || wrinkleResult.level === 'advanced') {
+          if (!result.concerns.includes('anti-aging')) {
+            result.concerns.push('anti-aging')
+          }
+        }
+        
+        // Adjust estimated skin age based on wrinkle analysis
+        if (wrinkleResult.skinAgeImpact > 0) {
+          result.estimatedSkinAge = Math.min(65, result.estimatedSkinAge + wrinkleResult.skinAgeImpact)
+        }
+      } catch (error) {
+        console.warn('Wrinkle analysis failed:', error)
+        // Continue without wrinkle data
+      }
+      
+      // P1-4: Add pigmentation analysis
+      try {
+        const pigmentResult = analyzePigmentation(ctx, zones)
+        result.pigmentationAnalysis = pigmentResult
+        
+        // Add brightening concern if uneven pigmentation detected
+        if (pigmentResult.level === 'moderate' || pigmentResult.level === 'significant') {
+          if (!result.concerns.includes('brightening')) {
+            result.concerns.push('brightening')
+          }
+        }
+        
+        // Update evenness score based on pigmentation analysis
+        result.evenness = pigmentResult.uniformityScore
+      } catch (error) {
+        console.warn('Pigmentation analysis failed:', error)
+        // Continue without pigmentation data
+      }
+      
+      // P1-5: Add gender detection
+      try {
+        const genderResult = analyzeGender(imageData)
+        result.gender = genderResult.gender
+        result.genderConfidence = genderResult.confidence
+      } catch (error) {
+        console.warn('Gender analysis failed:', error)
+        // Continue without gender data
+      }
+      
+      // P2-1: Pore Size Analysis
+      try {
+        result.poreAnalysis = analyzePores(imageData, width, height)
+        // Update pore visibility based on analysis
+        if (result.poreAnalysis.visibility > 50) {
+          result.poreVisibility = 'visible'
+        } else if (result.poreAnalysis.visibility > 25) {
+          result.poreVisibility = 'moderate'
+        } else {
+          result.poreVisibility = 'minimal'
+        }
+      } catch (error) {
+        console.warn('Pore analysis failed:', error)
+      }
+      
+      // P2-2: Under-Eye Analysis
+      try {
+        result.underEyeAnalysis = analyzeUnderEye(imageData, width, height)
+      } catch (error) {
+        console.warn('Under-eye analysis failed:', error)
+      }
+      
+      // P2-3: Skin Firmness/Elasticity
+      try {
+        result.firmnessAnalysis = analyzeFirmness(imageData, width, height)
+      } catch (error) {
+        console.warn('Firmness analysis failed:', error)
+      }
+      
+      // P2-4: Sun Damage Assessment
+      try {
+        result.sunDamageAnalysis = analyzeSunDamage(imageData, width, height)
+      } catch (error) {
+        console.warn('Sun damage analysis failed:', error)
+      }
+      
+      // P2-5: Lip Condition Analysis
+      try {
+        result.lipAnalysis = analyzeLips(imageData, width, height)
+      } catch (error) {
+        console.warn('Lip analysis failed:', error)
+      }
+      
+      // P2-6: Eyebrow Health
+      try {
+        result.eyebrowAnalysis = analyzeEyebrows(imageData, width, height)
+      } catch (error) {
+        console.warn('Eyebrow analysis failed:', error)
+      }
+      
+      // P2-7: Advanced Age Estimation (uses other analyses)
+      try {
+        const ageAnalysisInput: {
+          wrinkles?: { severity: number };
+          firmness?: { firmness: number };
+          underEye?: { healthScore: number };
+          pores?: { visibility: number };
+          pigmentation?: { unevenness: number };
+        } = {}
+        if (result.wrinkleAnalysis) ageAnalysisInput.wrinkles = { severity: result.wrinkleAnalysis.severity }
+        if (result.firmnessAnalysis) ageAnalysisInput.firmness = { firmness: result.firmnessAnalysis.firmness }
+        if (result.underEyeAnalysis) ageAnalysisInput.underEye = { healthScore: result.underEyeAnalysis.healthScore }
+        if (result.poreAnalysis) ageAnalysisInput.pores = { visibility: result.poreAnalysis.visibility }
+        if (result.pigmentationAnalysis) ageAnalysisInput.pigmentation = { unevenness: result.pigmentationAnalysis.unevenness }
+        
+        result.ageEstimation = estimateAge(imageData, ageAnalysisInput)
+        // Update estimated skin age with more accurate calculation
+        result.estimatedSkinAge = result.ageEstimation.estimatedAge
+        // Map middle-age to adult for SkinAnalysisResult compatibility
+        const ageGroup = result.ageEstimation.ageGroup
+        result.ageGroup = ageGroup === 'middle-age' ? 'adult' : ageGroup
+      } catch (error) {
+        console.warn('Age estimation failed:', error)
+      }
+      
+      // P2-8: Fitzpatrick Skin Type Classification
+      try {
+        result.fitzpatrickType = analyzeFitzpatrick(imageData, width, height)
+        // Update skin tone based on Fitzpatrick
+        const fitzType = result.fitzpatrickType.type
+        if (fitzType <= 2) result.skinTone = 'fair'
+        else if (fitzType === 3) result.skinTone = 'light'
+        else if (fitzType === 4) result.skinTone = 'medium'
+        else if (fitzType === 5) result.skinTone = 'tan'
+        else result.skinTone = 'deep'
+      } catch (error) {
+        console.warn('Fitzpatrick analysis failed:', error)
+      }
+      
       setAnalysisResult(result)
       setCameraState('complete')
       haptic.success()
@@ -1196,7 +1489,7 @@ export function SkinAnalysisCamera({
                     </div>
 
                     {/* Key Metrics Grid */}
-                    <div className="grid grid-cols-3 gap-3 mb-4">
+                    <div className="grid grid-cols-4 gap-2 mb-4">
                       <MetricCard
                         icon={<Droplets className="w-4 h-4" />}
                         label={t.oiliness}
@@ -1214,6 +1507,16 @@ export function SkinAnalysisCamera({
                         label={t.redness}
                         value={analysisResult.rednessLevel}
                         color="red"
+                      />
+                      {/* P1-2: Skin Clarity (inverse of blemish severity) */}
+                      <MetricCard
+                        icon={<Sparkles className="w-4 h-4" />}
+                        label={t.skinClarity}
+                        value={analysisResult.blemishAnalysis 
+                          ? 100 - analysisResult.blemishAnalysis.severity 
+                          : 85}
+                        color="green"
+                        {...(analysisResult.blemishAnalysis ? { subtitle: getBlemishLevelLabel(analysisResult.blemishAnalysis.level, locale) } : {})}
                       />
                     </div>
 
@@ -1451,16 +1754,19 @@ function MetricCard({
   label,
   value,
   color,
+  subtitle,
 }: {
   icon: React.ReactNode
   label: string
   value: number
-  color: 'amber' | 'blue' | 'red'
+  color: 'amber' | 'blue' | 'red' | 'green'
+  subtitle?: string
 }) {
   const colorClasses = {
     amber: { bg: 'bg-amber-500/20', fill: 'bg-amber-500', text: 'text-amber-400' },
     blue: { bg: 'bg-blue-500/20', fill: 'bg-blue-500', text: 'text-blue-400' },
     red: { bg: 'bg-red-500/20', fill: 'bg-red-500', text: 'text-red-400' },
+    green: { bg: 'bg-emerald-500/20', fill: 'bg-emerald-500', text: 'text-emerald-400' },
   }
 
   return (
@@ -1470,6 +1776,9 @@ function MetricCard({
       </div>
       <p className="text-white/50 text-[10px] mb-1">{label}</p>
       <p className="text-white font-semibold text-lg">{value}%</p>
+      {subtitle && (
+        <p className={cn('text-[9px] mt-0.5', colorClasses[color].text)}>{subtitle}</p>
+      )}
       <div className="h-1 bg-white/10 rounded-full overflow-hidden mt-1.5">
         <div
           className={cn('h-full rounded-full transition-all', colorClasses[color].fill)}

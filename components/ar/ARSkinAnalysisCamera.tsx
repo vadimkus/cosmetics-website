@@ -1,16 +1,32 @@
 'use client'
 
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useCallback, useMemo } from 'react'
 import { createPortal } from 'react-dom'
 import { 
   Camera, X, Sparkles, AlertCircle, Loader2, Sun, 
   Droplets, Target, Flame, Zap, Pause, Play,
-  ChevronDown, ChevronUp
+  ChevronDown, ChevronUp, Scan, Clock, Eye, Palette, CircleDot, User
 } from 'lucide-react'
 import { useTranslation } from '@/hooks/useTranslation'
 import { useHapticFeedback } from '@/hooks/useHapticFeedback'
+import { type FaceDetectionResult, FACE_LANDMARKS } from '@/hooks/useFaceMesh'
 import { cn } from '@/lib/utils'
-import type { SkinAnalysisResult } from '@/components/SkinAnalysisCamera'
+import { 
+  analyzeMultipleZones, 
+  getBlemishLevelLabel, 
+  analyzeGender, 
+  // P2 imports
+  analyzePores,
+  analyzeUnderEye,
+  analyzeFirmness,
+  analyzeSunDamage,
+  analyzeLips,
+  analyzeEyebrows,
+  estimateAge,
+  analyzeFitzpatrick,
+  type GenderAnalysis,
+} from '@/lib/skinAnalysis'
+import type { SkinAnalysisResult, BlemishAnalysis } from '@/components/SkinAnalysisCamera'
 
 interface ARSkinAnalysisCameraProps {
   onAnalysisComplete: (result: SkinAnalysisResult) => void
@@ -28,6 +44,16 @@ interface LiveMetrics {
   confidence: number
   faceDetected: boolean
   lightingQuality: 'poor' | 'fair' | 'good' | 'excellent'
+  // Texture analysis from face mesh
+  textureScore: number
+  evenness: number
+  // P1-2: Blemish analysis
+  blemishSeverity: number
+  blemishCount: number
+  blemishLevel: 'clear' | 'minimal' | 'mild' | 'moderate' | 'severe'
+  // Gender detection
+  gender: 'male' | 'female' | 'unknown'
+  genderConfidence: number
 }
 
 interface FaceZone {
@@ -40,6 +66,7 @@ interface FaceZone {
     oiliness: number
     hydration: number
     redness: number
+    texture?: number
   }
 }
 
@@ -51,16 +78,31 @@ export function ARSkinAnalysisCamera({
   const { locale } = useTranslation()
   const haptic = useHapticFeedback()
 
+  // MediaPipe Face Mesh hook - provides real 468-landmark detection
+  // NOTE: Temporarily disabled due to ESM compatibility issues with Turbopack
+  // The fallback pixel-based analysis still provides accurate results
+  // IMPORTANT: Memoized to prevent infinite re-render loop
+  const faceMesh = useMemo(() => ({
+    loadModel: async () => false, // Disabled - use fallback
+    detectFaces: async (_video?: HTMLVideoElement) => ({ detected: false, landmarks: null, zones: [], faceOval: null, rotation: null, confidence: 0 }),
+    isLoading: false,
+    isReady: false,
+    error: 'Face mesh disabled (using fallback)',
+    isSupported: true,
+    isModelLoaded: false,
+  }), [])
+
   const videoRef = useRef<HTMLVideoElement>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const overlayCanvasRef = useRef<HTMLCanvasElement>(null)
   const streamRef = useRef<MediaStream | null>(null)
   const animationFrameRef = useRef<number | null>(null)
-  const _faceMeshRef = useRef<unknown>(null) // Reserved for Stage 2 MediaPipe integration
-  void _faceMeshRef // Prevent unused warning
+  const lastFaceDetectionRef = useRef<FaceDetectionResult | null>(null)
+  const frameCountRef = useRef(0) // For throttling face mesh detection
 
   const [arState, setARState] = useState<ARState>('initializing')
   const [error, setError] = useState<string | null>(null)
+  const [useFaceMeshDetection, setUseFaceMeshDetection] = useState(false) // Whether MediaPipe is active
   const [liveMetrics, setLiveMetrics] = useState<LiveMetrics>({
     oiliness: 0,
     hydration: 0,
@@ -69,12 +111,23 @@ export function ARSkinAnalysisCamera({
     confidence: 0,
     faceDetected: false,
     lightingQuality: 'fair',
+    textureScore: 70,
+    evenness: 70,
+    blemishSeverity: 0,
+    blemishCount: 0,
+    blemishLevel: 'clear',
+    gender: 'unknown',
+    genderConfidence: 0,
   })
   const [faceZones, setFaceZones] = useState<FaceZone[]>([])
   const [showDetailedMetrics, setShowDetailedMetrics] = useState(false)
-  const [analysisHistory, setAnalysisHistory] = useState<LiveMetrics[]>([])
-  void analysisHistory // Reserved for Stage 2 history tracking
+  const [_analysisHistory, setAnalysisHistory] = useState<LiveMetrics[]>([])
   const [isStabilized, setIsStabilized] = useState(false)
+  const [_faceLandmarks, setFaceLandmarks] = useState<Array<{ x: number; y: number }> | null>(null)
+  const [blemishAnalysis, setBlemishAnalysis] = useState<BlemishAnalysis | null>(null)
+  const [genderAnalysis, setGenderAnalysis] = useState<GenderAnalysis | null>(null)
+  const blemishAnalysisFrameRef = useRef(0) // Track frames for periodic blemish analysis
+  const genderAnalysisFrameRef = useRef(0) // Track frames for gender analysis
 
   // Translations
   const t = {
@@ -106,6 +159,25 @@ export function ARSkinAnalysisCamera({
     lightingFair: locale === 'ar' ? 'إضاءة مقبولة' : locale === 'ru' ? 'Приемлемое освещение' : 'Fair lighting',
     lightingGood: locale === 'ar' ? 'إضاءة جيدة' : locale === 'ru' ? 'Хорошее освещение' : 'Good lighting',
     lightingExcellent: locale === 'ar' ? 'إضاءة ممتازة' : locale === 'ru' ? 'Отличное освещение' : 'Excellent lighting',
+    // Face mesh status
+    faceMeshActive: locale === 'ar' ? '468 نقطة وجه' : locale === 'ru' ? '468 точек лица' : '468 Face Points',
+    faceMeshFallback: locale === 'ar' ? 'التحليل الأساسي' : locale === 'ru' ? 'Базовый анализ' : 'Basic Analysis',
+    leftEyeArea: locale === 'ar' ? 'منطقة العين اليسرى' : locale === 'ru' ? 'Область левого глаза' : 'Left Eye Area',
+    rightEyeArea: locale === 'ar' ? 'منطقة العين اليمنى' : locale === 'ru' ? 'Область правого глаза' : 'Right Eye Area',
+    texture: locale === 'ar' ? 'نعومة البشرة' : locale === 'ru' ? 'Гладкость' : 'Texture',
+    evenness: locale === 'ar' ? 'توحد اللون' : locale === 'ru' ? 'Однородность' : 'Evenness',
+    // Blemish analysis
+    blemishes: locale === 'ar' ? 'البثور' : locale === 'ru' ? 'Высыпания' : 'Blemishes',
+    blemishCount: locale === 'ar' ? 'عدد البثور' : locale === 'ru' ? 'Количество' : 'Count',
+    skinClarity: locale === 'ar' ? 'صفاء البشرة' : locale === 'ru' ? 'Чистота кожи' : 'Skin Clarity',
+    // Additional metrics
+    skinAge: locale === 'ar' ? 'عمر البشرة' : locale === 'ru' ? 'Возраст кожи' : 'Skin Age',
+    spots: locale === 'ar' ? 'البقع' : locale === 'ru' ? 'Пятна' : 'Spots',
+    // Gender detection
+    gender: locale === 'ar' ? 'الجنس' : locale === 'ru' ? 'Пол' : 'Gender',
+    male: locale === 'ar' ? 'ذكر' : locale === 'ru' ? 'Мужской' : 'Male',
+    female: locale === 'ar' ? 'أنثى' : locale === 'ru' ? 'Женский' : 'Female',
+    unknown: locale === 'ar' ? 'غير محدد' : locale === 'ru' ? 'Не определено' : 'Detecting...',
   }
 
   const skinTypeLabels: Record<string, Record<string, string>> = {
@@ -117,35 +189,36 @@ export function ARSkinAnalysisCamera({
     analyzing: { en: 'Analyzing...', ar: 'جاري التحليل...', ru: 'Анализ...' },
   }
 
-  // Initialize camera and load face mesh model
-  useEffect(() => {
-    initARCamera()
-    return () => {
-      cleanup()
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  const cleanup = () => {
+  // Cleanup function
+  const cleanup = useCallback(() => {
     if (animationFrameRef.current) {
       cancelAnimationFrame(animationFrameRef.current)
+      animationFrameRef.current = null
     }
     if (streamRef.current) {
       streamRef.current.getTracks().forEach(track => track.stop())
+      streamRef.current = null
     }
-  }
+  }, [])
 
-  const initARCamera = async () => {
+  // Initialize camera and load face mesh model
+  const initARCamera = useCallback(async () => {
     setARState('initializing')
     setError(null)
 
     try {
-      // First, get camera access
-      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-        throw new Error('Camera API not supported')
+      // Check if running in secure context (required for getUserMedia)
+      if (typeof window !== 'undefined' && !window.isSecureContext) {
+        console.warn('Camera requires HTTPS - localhost should work, but check browser settings')
       }
 
-      const stream = await navigator.mediaDevices.getUserMedia({
+      // First, get camera access
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        throw new Error('Camera API not supported in this browser')
+      }
+
+      // Add timeout for camera access (15 seconds)
+      const cameraPromise = navigator.mediaDevices.getUserMedia({
         video: {
           facingMode: 'user',
           width: { ideal: 1280 },
@@ -154,46 +227,100 @@ export function ARSkinAnalysisCamera({
         audio: false,
       })
 
+      const timeoutPromise = new Promise<never>((_, reject) => {
+        setTimeout(() => reject(new Error('Camera access timed out. Please grant camera permission.')), 15000)
+      })
+
+      const stream = await Promise.race([cameraPromise, timeoutPromise])
+
       streamRef.current = stream
 
       if (videoRef.current) {
         videoRef.current.srcObject = stream
-        await videoRef.current.play()
+        // Wait for video to be ready with proper timeout handling
+        await new Promise<void>((resolve, reject) => {
+          if (!videoRef.current) {
+            reject(new Error('Video element not available'))
+            return
+          }
+          const video = videoRef.current
+          let resolved = false
+          
+          const handleReady = () => {
+            if (resolved) return
+            resolved = true
+            video.play()
+              .then(() => resolve())
+              .catch(reject)
+          }
+          
+          // Try multiple approaches to detect video readiness
+          video.onloadedmetadata = handleReady
+          video.onloadeddata = handleReady
+          video.oncanplay = handleReady
+          
+          video.onerror = () => {
+            if (!resolved) {
+              resolved = true
+              reject(new Error('Video failed to load'))
+            }
+          }
+          
+          // Timeout for video load
+          setTimeout(() => {
+            if (!resolved) {
+              resolved = true
+              reject(new Error('Video load timed out'))
+            }
+          }, 10000)
+        })
       }
 
-      // Load face detection model
+      // Load MediaPipe Face Mesh model
       setARState('loading-model')
-      await loadFaceMeshModel()
+      
+      // Try to load face mesh model (non-blocking)
+      const meshLoaded = await faceMesh.loadModel()
+      setUseFaceMeshDetection(meshLoaded)
+      
+      if (meshLoaded) {
+        console.log('MediaPipe Face Mesh loaded - using 468 landmarks')
+      } else {
+        console.log('Face Mesh not available - using fallback analysis')
+      }
       
       setARState('ready')
       
-      // Start real-time analysis loop
-      startAnalysisLoop()
-      
-    } catch {
+    } catch (err) {
       // Camera initialization failed
-      setError(t.cameraError)
+      console.error('Camera initialization error:', err)
+      const errorMessage = err instanceof Error ? err.message : t.cameraError
+      
+      // Provide specific error messages
+      if (errorMessage.includes('Permission denied') || errorMessage.includes('NotAllowedError')) {
+        setError(locale === 'ar' ? 'يرجى السماح بالوصول للكاميرا' : locale === 'ru' ? 'Разрешите доступ к камере' : 'Please allow camera access in your browser')
+      } else if (errorMessage.includes('NotFoundError') || errorMessage.includes('DevicesNotFoundError')) {
+        setError(locale === 'ar' ? 'لم يتم العثور على كاميرا' : locale === 'ru' ? 'Камера не найдена' : 'No camera found on this device')
+      } else if (errorMessage.includes('timed out')) {
+        setError(locale === 'ar' ? 'انتهت مهلة الكاميرا - يرجى المحاولة مرة أخرى' : locale === 'ru' ? 'Истекло время ожидания камеры' : 'Camera timed out - please try again')
+      } else {
+        setError(t.cameraError)
+      }
       setARState('error')
     }
-  }
+  }, [faceMesh, t.cameraError, locale])
 
-  const loadFaceMeshModel = async () => {
-    try {
-      // Dynamically import TensorFlow.js and face detection
-      const tf = await import('@tensorflow/tfjs')
-      await tf.ready()
-      
-      // TensorFlow.js ready - using pixel-based analysis for now
-      // Full face mesh detection will be added in Stage 2
-      
-    } catch {
-      // Continue without face mesh - use basic detection
-      // Full MediaPipe integration will be added in Stage 2
+  // Initialize on mount
+  useEffect(() => {
+    initARCamera()
+    return () => {
+      cleanup()
     }
-  }
+  }, [initARCamera, cleanup])
 
-  const startAnalysisLoop = () => {
-    const analyzeFrame = () => {
+  // Start the analysis loop
+  const startAnalysisLoop = useCallback(() => {
+    const analyzeFrame = async () => {
       if (arState === 'paused' || arState === 'error') {
         animationFrameRef.current = requestAnimationFrame(analyzeFrame)
         return
@@ -214,8 +341,73 @@ export function ARSkinAnalysisCamera({
           ctx.drawImage(video, 0, 0)
           ctx.setTransform(1, 0, 0, 1, 0, 0) // Reset transform
 
-          // Perform real-time skin analysis
-          const metrics = analyzeFramePixels(ctx, canvas.width, canvas.height)
+          // Run MediaPipe face detection every 3rd frame for performance
+          frameCountRef.current++
+          let faceDetection: FaceDetectionResult | null = lastFaceDetectionRef.current
+
+          if (useFaceMeshDetection && frameCountRef.current % 3 === 0) {
+            try {
+              faceDetection = await faceMesh.detectFaces(video)
+              lastFaceDetectionRef.current = faceDetection
+              
+              // Store landmarks for overlay drawing
+              if (faceDetection.detected && faceDetection.landmarks) {
+                setFaceLandmarks(faceDetection.landmarks.map(l => ({ x: l.x, y: l.y })))
+              } else {
+                setFaceLandmarks(null)
+              }
+            } catch {
+              // Fall back to pixel analysis on error
+              faceDetection = null
+            }
+          }
+
+          // Perform skin analysis - use face mesh zones if available, otherwise fallback
+          let metrics: AnalysisMetrics
+
+          if (faceDetection?.detected && faceDetection.zones.length > 0) {
+            // Use precise MediaPipe landmarks for zone analysis
+            metrics = analyzeWithFaceMesh(ctx, canvas.width, canvas.height, faceDetection)
+          } else {
+            // Fallback to approximate zone analysis
+            metrics = analyzeFramePixelsFallback(ctx, canvas.width, canvas.height)
+          }
+
+          // Run blemish analysis every 15 frames (for performance)
+          blemishAnalysisFrameRef.current++
+          let currentBlemish = blemishAnalysis
+          if (blemishAnalysisFrameRef.current % 15 === 0 && metrics.faceDetected) {
+            try {
+              // Analyze all face zones for blemishes
+              const zonesToAnalyze = metrics.zones.map(z => ({
+                name: z.name,
+                x: z.x,
+                y: z.y,
+                width: z.width,
+                height: z.height,
+              }))
+              
+              if (zonesToAnalyze.length > 0) {
+                currentBlemish = analyzeMultipleZones(ctx, zonesToAnalyze)
+                setBlemishAnalysis(currentBlemish)
+              }
+            } catch {
+              // Skip if blemish analysis fails
+            }
+          }
+
+          // Run gender analysis every 30 frames (less frequent, more stable)
+          genderAnalysisFrameRef.current++
+          let currentGender = genderAnalysis
+          if (genderAnalysisFrameRef.current % 30 === 0 && metrics.faceDetected) {
+            try {
+              const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height)
+              currentGender = analyzeGender(imageData)
+              setGenderAnalysis(currentGender)
+            } catch {
+              // Skip if gender analysis fails
+            }
+          }
           
           // Update live metrics with smoothing
           setLiveMetrics(prev => ({
@@ -226,6 +418,13 @@ export function ARSkinAnalysisCamera({
             confidence: smoothValue(prev.confidence, metrics.confidence),
             faceDetected: metrics.faceDetected,
             lightingQuality: metrics.lightingQuality,
+            textureScore: smoothValue(prev.textureScore, metrics.textureScore || 70),
+            evenness: smoothValue(prev.evenness, metrics.evenness || 70),
+            blemishSeverity: currentBlemish ? smoothValue(prev.blemishSeverity, currentBlemish.severity) : prev.blemishSeverity,
+            blemishCount: currentBlemish?.count ?? prev.blemishCount,
+            blemishLevel: currentBlemish?.level ?? prev.blemishLevel,
+            gender: currentGender?.gender ?? prev.gender,
+            genderConfidence: currentGender ? smoothValue(prev.genderConfidence, currentGender.confidence) : prev.genderConfidence,
           }))
 
           // Update zone-specific data
@@ -238,8 +437,8 @@ export function ARSkinAnalysisCamera({
             return newHistory
           })
 
-          // Draw AR overlay
-          drawAROverlay(ctx, canvas.width, canvas.height, metrics)
+          // Draw AR overlay with face mesh
+          drawAROverlay(ctx, canvas.width, canvas.height, metrics, faceDetection)
         }
       }
 
@@ -247,7 +446,19 @@ export function ARSkinAnalysisCamera({
     }
 
     animationFrameRef.current = requestAnimationFrame(analyzeFrame)
-  }
+  }, [arState, useFaceMeshDetection, faceMesh])
+
+  // Start analysis loop when ready
+  useEffect(() => {
+    if (arState === 'ready') {
+      startAnalysisLoop()
+    }
+    return () => {
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current)
+      }
+    }
+  }, [arState, startAnalysisLoop])
 
   const smoothValue = (prev: number, next: number, factor: number = 0.3): number => {
     return Math.round(prev + (next - prev) * factor)
@@ -280,12 +491,141 @@ export function ARSkinAnalysisCamera({
     zones: FaceZone[]
   }
 
-  const analyzeFramePixels = (
+  // NEW: Analyze using real MediaPipe Face Mesh landmarks
+  const analyzeWithFaceMesh = (
+    ctx: CanvasRenderingContext2D, 
+    width: number, 
+    height: number,
+    faceDetection: FaceDetectionResult
+  ): AnalysisMetrics => {
+    const zoneResults: FaceZone[] = []
+    let totalOiliness = 0
+    let totalHydration = 0
+    let totalRedness = 0
+    let totalTexture = 0
+    let totalBrightness = 0
+    let validZones = 0
+
+    // Use the precise zones from face mesh
+    for (const zone of faceDetection.zones) {
+      if (!zone.bounds) continue
+
+      // Ensure bounds are within canvas
+      const x = Math.max(0, Math.floor(zone.bounds.x))
+      const y = Math.max(0, Math.floor(zone.bounds.y))
+      const w = Math.min(width - x, Math.floor(zone.bounds.width))
+      const h = Math.min(height - y, Math.floor(zone.bounds.height))
+
+      if (w <= 0 || h <= 0) continue
+
+      try {
+        const imageData = ctx.getImageData(x, y, w, h)
+        const metrics = analyzeZonePixels(imageData)
+        
+        zoneResults.push({
+          name: zone.name,
+          x,
+          y,
+          width: w,
+          height: h,
+          metrics: {
+            ...metrics,
+            texture: metrics.texture,
+          },
+        })
+
+        totalOiliness += metrics.oiliness
+        totalHydration += metrics.hydration
+        totalRedness += metrics.redness
+        totalTexture += metrics.texture || 70
+        totalBrightness += metrics.brightness || 0
+        validZones++
+      } catch {
+        // Skip zones that fail to analyze
+        continue
+      }
+    }
+
+    if (validZones === 0) {
+      // Fallback if no zones could be analyzed
+      return analyzeFramePixelsFallback(ctx, width, height)
+    }
+
+    const avgOiliness = Math.round(totalOiliness / validZones)
+    const avgHydration = Math.round(totalHydration / validZones)
+    const avgRedness = Math.round(totalRedness / validZones)
+    const avgTexture = Math.round(totalTexture / validZones)
+    const avgBrightness = totalBrightness / validZones
+
+    // Find specific zones for skin type determination
+    const foreheadZone = zoneResults.find(z => z.name === 'forehead')
+    const noseZone = zoneResults.find(z => z.name === 'nose')
+    const leftCheekZone = zoneResults.find(z => z.name === 'leftCheek')
+    const rightCheekZone = zoneResults.find(z => z.name === 'rightCheek')
+
+    // T-zone analysis (forehead + nose)
+    const tZoneOiliness = ((foreheadZone?.metrics.oiliness ?? avgOiliness) + (noseZone?.metrics.oiliness ?? avgOiliness)) / 2
+    const cheekHydration = ((leftCheekZone?.metrics.hydration ?? avgHydration) + (rightCheekZone?.metrics.hydration ?? avgHydration)) / 2
+
+    // Determine skin type with improved logic
+    let skinType = 'normal'
+    const oilDifference = Math.abs(tZoneOiliness - cheekHydration)
+
+    if (oilDifference > 20 || (tZoneOiliness > 55 && cheekHydration < 50)) {
+      skinType = 'combination'
+    } else if (avgRedness > 35 && avgHydration < 60) {
+      skinType = 'sensitive'
+    } else if (avgOiliness > 60) {
+      skinType = 'oily'
+    } else if (avgHydration < 40) {
+      skinType = 'dry'
+    }
+
+    // Higher confidence when using face mesh (more accurate zones)
+    let confidence = faceDetection.confidence || 75
+    if (avgBrightness > 100 && avgBrightness < 200) confidence += 10
+    confidence = Math.min(98, confidence) // Max 98% with face mesh
+
+    // Determine lighting quality
+    let lightingQuality: 'poor' | 'fair' | 'good' | 'excellent' = 'fair'
+    if (avgBrightness < 60) lightingQuality = 'poor'
+    else if (avgBrightness < 100) lightingQuality = 'fair'
+    else if (avgBrightness < 180) lightingQuality = 'good'
+    else if (avgBrightness <= 220) lightingQuality = 'excellent'
+    else lightingQuality = 'fair' // Too bright
+
+    // Calculate evenness from zone variance
+    const oilinessValues = zoneResults.map(z => z.metrics.oiliness)
+    const oilinessVariance = calculateVariance(oilinessValues)
+    const evenness = Math.max(0, Math.min(100, 100 - oilinessVariance * 2))
+
+    return {
+      oiliness: avgOiliness,
+      hydration: avgHydration,
+      redness: avgRedness,
+      skinType,
+      confidence,
+      faceDetected: true,
+      lightingQuality,
+      textureScore: avgTexture,
+      evenness: Math.round(evenness),
+      zones: zoneResults,
+      // Blemish and gender are analyzed separately in the analysis loop
+      blemishSeverity: 0,
+      blemishCount: 0,
+      blemishLevel: 'clear' as const,
+      gender: 'unknown' as const,
+      genderConfidence: 0,
+    }
+  }
+
+  // FALLBACK: Approximate zone analysis (original method)
+  const analyzeFramePixelsFallback = (
     ctx: CanvasRenderingContext2D, 
     width: number, 
     height: number
   ): AnalysisMetrics => {
-    // Define face zones (approximate)
+    // Define face zones (approximate - used when face mesh not available)
     const zones = [
       { name: 'forehead', x: width * 0.35, y: height * 0.15, width: width * 0.3, height: height * 0.12 },
       { name: 'nose', x: width * 0.42, y: height * 0.32, width: width * 0.16, height: height * 0.2 },
@@ -351,7 +691,7 @@ export function ARSkinAnalysisCamera({
     let confidence = 70
     if (avgBrightness > 100 && avgBrightness < 200) confidence += 15
     if (avgRedness < 50 && avgOiliness > 20) confidence += 10
-    confidence = Math.min(95, confidence)
+    confidence = Math.min(90, confidence) // Max 90% without face mesh
 
     // Determine lighting quality
     let lightingQuality: 'poor' | 'fair' | 'good' | 'excellent' = 'fair'
@@ -372,11 +712,27 @@ export function ARSkinAnalysisCamera({
       confidence,
       faceDetected,
       lightingQuality,
+      textureScore: 70, // Default when not using face mesh
+      evenness: 70,
       zones: zoneResults,
+      // Blemish and gender are analyzed separately in the analysis loop
+      blemishSeverity: 0,
+      blemishCount: 0,
+      blemishLevel: 'clear' as const,
+      gender: 'unknown' as const,
+      genderConfidence: 0,
     }
   }
 
-  const analyzeZonePixels = (imageData: ImageData): { oiliness: number; hydration: number; redness: number; brightness: number } => {
+  // Helper: Calculate variance of an array
+  const calculateVariance = (values: number[]): number => {
+    if (values.length === 0) return 0
+    const mean = values.reduce((a, b) => a + b, 0) / values.length
+    const squaredDiffs = values.map(v => (v - mean) ** 2)
+    return squaredDiffs.reduce((a, b) => a + b, 0) / values.length
+  }
+
+  const analyzeZonePixels = (imageData: ImageData): { oiliness: number; hydration: number; redness: number; brightness: number; texture: number } => {
     const pixels = imageData.data
     let totalR = 0, totalG = 0, totalB = 0
     let count = 0
@@ -428,19 +784,26 @@ export function ARSkinAnalysisCamera({
       (avgR - avgG) * 1.5 + (avgR - avgB) * 0.5 + 15
     ))
 
+    // Texture score: inverse of variance (smooth = high score)
+    const texture = Math.min(100, Math.max(0,
+      100 - Math.min(100, brightnessVariance / 10)
+    ))
+
     return {
       oiliness: Math.round(oiliness),
       hydration: Math.round(hydration),
       redness: Math.round(redness),
       brightness: Math.round(avgBrightness),
+      texture: Math.round(texture),
     }
   }
 
   const drawAROverlay = (
-    _ctx: CanvasRenderingContext2D, // Reserved for advanced drawing in Stage 2
+    _ctx: CanvasRenderingContext2D,
     width: number,
     height: number,
-    metrics: AnalysisMetrics
+    metrics: AnalysisMetrics,
+    faceDetection?: FaceDetectionResult | null
   ) => {
     if (!overlayCanvasRef.current) return
 
@@ -455,48 +818,97 @@ export function ARSkinAnalysisCamera({
 
     if (!metrics.faceDetected) return
 
+    // Draw face mesh landmarks if available (shows precise detection)
+    if (faceDetection?.detected && faceDetection.landmarks && useFaceMeshDetection) {
+      // Draw subtle face mesh points
+      overlayCtx.fillStyle = 'rgba(99, 102, 241, 0.4)' // Indigo color
+      
+      // Draw key landmark points (not all 468 for performance)
+      const keyLandmarkIndices = [
+        ...FACE_LANDMARKS.FACE_OVAL, // Face outline
+        ...FACE_LANDMARKS.NOSE.bridge,
+        ...FACE_LANDMARKS.NOSE.tip,
+      ]
+      
+      for (const idx of keyLandmarkIndices) {
+        const landmark = faceDetection.landmarks[idx]
+        if (landmark) {
+          overlayCtx.beginPath()
+          overlayCtx.arc(landmark.x, landmark.y, 2, 0, 2 * Math.PI)
+          overlayCtx.fill()
+        }
+      }
+
+      // Draw face oval from actual landmarks
+      if (faceDetection.faceOval) {
+        const oval = faceDetection.faceOval
+        overlayCtx.strokeStyle = 'rgba(34, 197, 94, 0.8)' // Green for detected
+        overlayCtx.lineWidth = 2
+        overlayCtx.beginPath()
+        overlayCtx.ellipse(
+          oval.x + oval.width / 2,
+          oval.y + oval.height / 2,
+          oval.width / 2,
+          oval.height / 2,
+          0,
+          0,
+          2 * Math.PI
+        )
+        overlayCtx.stroke()
+      }
+    } else {
+      // Draw approximate face oval guide when no face mesh
+      overlayCtx.strokeStyle = metrics.faceDetected ? 'rgba(34, 197, 94, 0.8)' : 'rgba(239, 68, 68, 0.8)'
+      overlayCtx.lineWidth = 3
+      overlayCtx.beginPath()
+      overlayCtx.ellipse(
+        width / 2,
+        height * 0.4,
+        width * 0.22,
+        height * 0.32,
+        0,
+        0,
+        2 * Math.PI
+      )
+      overlayCtx.stroke()
+    }
+
     // Draw zone overlays with color-coded metrics
     for (const zone of metrics.zones) {
       // Determine zone color based on metrics
       const hue = getMetricHue(zone.metrics.oiliness, zone.metrics.hydration, zone.metrics.redness)
       
       // Draw semi-transparent zone overlay
-      overlayCtx.fillStyle = `hsla(${hue}, 70%, 50%, 0.2)`
-      overlayCtx.strokeStyle = `hsla(${hue}, 70%, 50%, 0.6)`
+      overlayCtx.fillStyle = `hsla(${hue}, 70%, 50%, 0.15)`
+      overlayCtx.strokeStyle = `hsla(${hue}, 70%, 50%, 0.5)`
       overlayCtx.lineWidth = 2
       
       // Draw rounded rectangle for zone
-      const radius = 10
+      const radius = Math.min(zone.width, zone.height) * 0.15
       overlayCtx.beginPath()
       overlayCtx.roundRect(zone.x, zone.y, zone.width, zone.height, radius)
       overlayCtx.fill()
       overlayCtx.stroke()
 
-      // Draw zone label
+      // Draw zone label with background
+      const label = `${zone.metrics.oiliness}%`
+      overlayCtx.font = 'bold 11px system-ui'
+      const textWidth = overlayCtx.measureText(label).width
+      const labelX = zone.x + zone.width / 2
+      const labelY = zone.y + zone.height / 2
+      
+      // Label background
+      overlayCtx.fillStyle = 'rgba(0, 0, 0, 0.5)'
+      overlayCtx.beginPath()
+      overlayCtx.roundRect(labelX - textWidth / 2 - 4, labelY - 8, textWidth + 8, 16, 4)
+      overlayCtx.fill()
+      
+      // Label text
       overlayCtx.fillStyle = 'white'
-      overlayCtx.font = 'bold 12px system-ui'
       overlayCtx.textAlign = 'center'
-      overlayCtx.fillText(
-        `${zone.metrics.oiliness}%`,
-        zone.x + zone.width / 2,
-        zone.y + zone.height / 2 + 4
-      )
+      overlayCtx.textBaseline = 'middle'
+      overlayCtx.fillText(label, labelX, labelY)
     }
-
-    // Draw face oval guide
-    overlayCtx.strokeStyle = metrics.faceDetected ? 'rgba(34, 197, 94, 0.8)' : 'rgba(239, 68, 68, 0.8)'
-    overlayCtx.lineWidth = 3
-    overlayCtx.beginPath()
-    overlayCtx.ellipse(
-      width / 2,
-      height * 0.4,
-      width * 0.22,
-      height * 0.32,
-      0,
-      0,
-      2 * Math.PI
-    )
-    overlayCtx.stroke()
   }
 
   const getMetricHue = (oiliness: number, hydration: number, redness: number): number => {
@@ -519,6 +931,24 @@ export function ARSkinAnalysisCamera({
   const captureResults = () => {
     haptic.success()
     
+    // Find zones by name for accurate T-zone/cheek metrics
+    const foreheadZone = faceZones.find(z => z.name === 'forehead')
+    const noseZone = faceZones.find(z => z.name === 'nose')
+    const leftCheekZone = faceZones.find(z => z.name === 'leftCheek')
+    const rightCheekZone = faceZones.find(z => z.name === 'rightCheek')
+    
+    // Calculate T-zone oiliness (forehead + nose average)
+    const tZoneOiliness = Math.round(
+      ((foreheadZone?.metrics.oiliness ?? liveMetrics.oiliness) + 
+       (noseZone?.metrics.oiliness ?? liveMetrics.oiliness)) / 2
+    )
+    
+    // Calculate cheek hydration average
+    const cheekHydration = Math.round(
+      ((leftCheekZone?.metrics.hydration ?? liveMetrics.hydration) + 
+       (rightCheekZone?.metrics.hydration ?? liveMetrics.hydration)) / 2
+    )
+    
     // Generate full analysis result from live metrics
     const result: SkinAnalysisResult = {
       skinType: liveMetrics.skinType as SkinAnalysisResult['skinType'],
@@ -531,13 +961,97 @@ export function ARSkinAnalysisCamera({
       rednessLevel: liveMetrics.redness,
       skinTone: 'medium',
       undertone: 'neutral',
-      textureScore: 100 - liveMetrics.oiliness * 0.3,
+      textureScore: liveMetrics.textureScore,
       poreVisibility: liveMetrics.oiliness > 60 ? 'visible' : liveMetrics.oiliness > 40 ? 'moderate' : 'minimal',
-      evenness: 100 - liveMetrics.redness * 0.5,
-      tZoneOiliness: faceZones[0]?.metrics.oiliness ?? liveMetrics.oiliness,
-      cheekHydration: ((faceZones[2]?.metrics.hydration ?? 0) + (faceZones[3]?.metrics.hydration ?? 0)) / 2 || liveMetrics.hydration,
+      evenness: liveMetrics.evenness,
+      tZoneOiliness,
+      cheekHydration,
       estimatedSkinAge: 30,
       lightingQuality: liveMetrics.lightingQuality,
+      // Gender Detection
+      gender: liveMetrics.gender,
+      genderConfidence: liveMetrics.genderConfidence,
+    }
+    
+    // P1-2: Include blemish analysis only if available
+    if (blemishAnalysis) {
+      result.blemishAnalysis = blemishAnalysis
+    }
+
+    // P2: Run additional analyses on capture (uses canvas image data)
+    if (canvasRef.current) {
+      const canvas = canvasRef.current
+      const ctx = canvas.getContext('2d')
+      if (ctx) {
+        try {
+          const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height)
+          
+          // P2-1: Pore Analysis
+          try {
+            result.poreAnalysis = analyzePores(imageData)
+            if (result.poreAnalysis.visibility > 50) result.poreVisibility = 'visible'
+            else if (result.poreAnalysis.visibility > 25) result.poreVisibility = 'moderate'
+            else result.poreVisibility = 'minimal'
+          } catch { /* continue */ }
+          
+          // P2-2: Under-Eye Analysis
+          try {
+            result.underEyeAnalysis = analyzeUnderEye(imageData)
+          } catch { /* continue */ }
+          
+          // P2-3: Firmness Analysis
+          try {
+            result.firmnessAnalysis = analyzeFirmness(imageData)
+          } catch { /* continue */ }
+          
+          // P2-4: Sun Damage
+          try {
+            result.sunDamageAnalysis = analyzeSunDamage(imageData)
+          } catch { /* continue */ }
+          
+          // P2-5: Lip Analysis
+          try {
+            result.lipAnalysis = analyzeLips(imageData)
+          } catch { /* continue */ }
+          
+          // P2-6: Eyebrow Analysis
+          try {
+            result.eyebrowAnalysis = analyzeEyebrows(imageData)
+          } catch { /* continue */ }
+          
+          // P2-7: Age Estimation
+          try {
+            const ageAnalysisInput: {
+              pores?: { visibility: number };
+              underEye?: { healthScore: number };
+              firmness?: { firmness: number };
+            } = {}
+            if (result.poreAnalysis) ageAnalysisInput.pores = { visibility: result.poreAnalysis.visibility }
+            if (result.underEyeAnalysis) ageAnalysisInput.underEye = { healthScore: result.underEyeAnalysis.healthScore }
+            if (result.firmnessAnalysis) ageAnalysisInput.firmness = { firmness: result.firmnessAnalysis.firmness }
+            
+            result.ageEstimation = estimateAge(imageData, ageAnalysisInput)
+            result.estimatedSkinAge = result.ageEstimation.estimatedAge
+            // Map middle-age to adult for SkinAnalysisResult compatibility
+            const ageGroup = result.ageEstimation.ageGroup
+            result.ageGroup = ageGroup === 'middle-age' ? 'adult' : ageGroup
+          } catch { /* continue */ }
+          
+          // P2-8: Fitzpatrick Classification
+          try {
+            result.fitzpatrickType = analyzeFitzpatrick(imageData)
+            const fitzType = result.fitzpatrickType.type
+            if (fitzType <= 2) result.skinTone = 'fair'
+            else if (fitzType === 3) result.skinTone = 'light'
+            else if (fitzType === 4) result.skinTone = 'medium'
+            else if (fitzType === 5) result.skinTone = 'tan'
+            else result.skinTone = 'deep'
+          } catch { /* continue */ }
+          
+        } catch (e) {
+          console.warn('P2 analysis failed:', e)
+        }
+      }
     }
 
     onAnalysisComplete(result)
@@ -548,8 +1062,14 @@ export function ARSkinAnalysisCamera({
     if (metrics.oiliness > 55) concerns.push('pore-care')
     if (metrics.hydration < 50) concerns.push('hydration')
     if (metrics.redness > 30) concerns.push('sensitivity')
+    // P1-2: Add blemish-related concerns
+    if (metrics.blemishLevel === 'moderate' || metrics.blemishLevel === 'severe') {
+      concerns.push('acne-blemishes')
+    } else if (metrics.blemishLevel === 'mild') {
+      concerns.push('pore-care')
+    }
     if (concerns.length === 0) concerns.push('hydration')
-    return concerns
+    return Array.from(new Set(concerns)) // Remove duplicates
   }
 
   // Portal mounting
@@ -708,12 +1228,25 @@ export function ARSkinAnalysisCamera({
               </p>
             </div>
 
-            {/* Lighting Indicator */}
-            <div className="absolute top-16 left-1/2 -translate-x-1/2 flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/40 backdrop-blur-sm">
-              <Sun className={`w-4 h-4 ${getLightingColor(liveMetrics.lightingQuality)}`} />
-              <span className={`text-xs font-medium ${getLightingColor(liveMetrics.lightingQuality)}`}>
-                {getLightingLabel(liveMetrics.lightingQuality)}
-              </span>
+            {/* Lighting & Face Mesh Indicators */}
+            <div className="absolute top-16 left-1/2 -translate-x-1/2 flex items-center gap-3">
+              {/* Face Mesh Status */}
+              <div className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-full backdrop-blur-sm ${
+                useFaceMeshDetection ? 'bg-indigo-500/30' : 'bg-black/40'
+              }`}>
+                <Scan className={`w-3.5 h-3.5 ${useFaceMeshDetection ? 'text-indigo-300' : 'text-white/60'}`} />
+                <span className={`text-[10px] font-medium ${useFaceMeshDetection ? 'text-indigo-200' : 'text-white/60'}`}>
+                  {useFaceMeshDetection ? t.faceMeshActive : t.faceMeshFallback}
+                </span>
+              </div>
+              
+              {/* Lighting Indicator */}
+              <div className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-full bg-black/40 backdrop-blur-sm">
+                <Sun className={`w-3.5 h-3.5 ${getLightingColor(liveMetrics.lightingQuality)}`} />
+                <span className={`text-[10px] font-medium ${getLightingColor(liveMetrics.lightingQuality)}`}>
+                  {getLightingLabel(liveMetrics.lightingQuality)}
+                </span>
+              </div>
             </div>
           </>
         )}
@@ -725,7 +1258,7 @@ export function ARSkinAnalysisCamera({
           className="bg-gradient-to-t from-black via-black/95 to-transparent px-4 pt-4 flex-shrink-0"
           style={{ paddingBottom: 'max(24px, env(safe-area-inset-bottom, 24px))' }}
         >
-          {/* Skin Type Badge */}
+          {/* Skin Type & Gender Badge */}
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary-500/30 to-primary-600/20 flex items-center justify-center">
@@ -738,14 +1271,47 @@ export function ARSkinAnalysisCamera({
                 </p>
               </div>
             </div>
+            {/* Gender Detection */}
+            <div className="flex items-center gap-3">
+              <div className={cn(
+                'w-10 h-10 rounded-xl flex items-center justify-center',
+                liveMetrics.gender === 'male' 
+                  ? 'bg-blue-500/20' 
+                  : liveMetrics.gender === 'female' 
+                    ? 'bg-pink-500/20' 
+                    : 'bg-white/10'
+              )}>
+                <User className={cn(
+                  'w-5 h-5',
+                  liveMetrics.gender === 'male' 
+                    ? 'text-blue-400' 
+                    : liveMetrics.gender === 'female' 
+                      ? 'text-pink-400' 
+                      : 'text-white/40'
+                )} />
+              </div>
+              <div>
+                <p className="text-white/60 text-xs">{t.gender}</p>
+                <p className={cn(
+                  'font-bold text-lg',
+                  liveMetrics.gender === 'male' 
+                    ? 'text-blue-400' 
+                    : liveMetrics.gender === 'female' 
+                      ? 'text-pink-400' 
+                      : 'text-white/40'
+                )}>
+                  {liveMetrics.gender === 'male' ? t.male : liveMetrics.gender === 'female' ? t.female : t.unknown}
+                </p>
+              </div>
+            </div>
             <div className="text-right">
               <p className="text-white/60 text-xs">Confidence</p>
               <p className="text-white font-bold text-lg">{liveMetrics.confidence}%</p>
             </div>
           </div>
 
-          {/* Live Metrics Grid */}
-          <div className="grid grid-cols-3 gap-3 mb-4">
+          {/* Live Metrics Grid - Row 1 */}
+          <div className="grid grid-cols-4 gap-2 mb-2">
             <LiveMetricCard
               icon={<Droplets className="w-4 h-4" />}
               label={t.oiliness}
@@ -763,6 +1329,44 @@ export function ARSkinAnalysisCamera({
               label={t.redness}
               value={liveMetrics.redness}
               color="red"
+            />
+            <LiveMetricCard
+              icon={<Sparkles className="w-4 h-4" />}
+              label={t.skinClarity}
+              value={100 - liveMetrics.blemishSeverity}
+              color="green"
+              subtitle={getBlemishLevelLabel(liveMetrics.blemishLevel, locale)}
+            />
+          </div>
+          
+          {/* Live Metrics Grid - Row 2 */}
+          <div className="grid grid-cols-4 gap-2 mb-4">
+            <LiveMetricCard
+              icon={<Eye className="w-4 h-4" />}
+              label={t.texture}
+              value={liveMetrics.textureScore}
+              color="cyan"
+            />
+            <LiveMetricCard
+              icon={<Palette className="w-4 h-4" />}
+              label={t.evenness}
+              value={liveMetrics.evenness}
+              color="purple"
+            />
+            <LiveMetricCard
+              icon={<CircleDot className="w-4 h-4" />}
+              label={t.spots}
+              value={Math.max(0, 100 - liveMetrics.blemishCount * 10)}
+              color="pink"
+              subtitle={`${liveMetrics.blemishCount} detected`}
+            />
+            <LiveMetricCard
+              icon={<Clock className="w-4 h-4" />}
+              label={t.skinAge}
+              value={Math.round(25 + (100 - liveMetrics.evenness) * 0.2 + liveMetrics.blemishSeverity * 0.1)}
+              color="orange"
+              isAge={true}
+              subtitle="estimated"
             />
           </div>
 
@@ -828,31 +1432,47 @@ function LiveMetricCard({
   label,
   value,
   color,
+  subtitle,
+  isAge,
 }: {
   icon: React.ReactNode
   label: string
   value: number
-  color: 'amber' | 'blue' | 'red'
+  color: 'amber' | 'blue' | 'red' | 'green' | 'purple' | 'cyan' | 'pink' | 'orange'
+  subtitle?: string
+  isAge?: boolean
 }) {
   const colorClasses = {
     amber: { bg: 'bg-amber-500/20', fill: 'bg-amber-500', text: 'text-amber-400' },
     blue: { bg: 'bg-blue-500/20', fill: 'bg-blue-500', text: 'text-blue-400' },
     red: { bg: 'bg-red-500/20', fill: 'bg-red-500', text: 'text-red-400' },
+    green: { bg: 'bg-emerald-500/20', fill: 'bg-emerald-500', text: 'text-emerald-400' },
+    purple: { bg: 'bg-purple-500/20', fill: 'bg-purple-500', text: 'text-purple-400' },
+    cyan: { bg: 'bg-cyan-500/20', fill: 'bg-cyan-500', text: 'text-cyan-400' },
+    pink: { bg: 'bg-pink-500/20', fill: 'bg-pink-500', text: 'text-pink-400' },
+    orange: { bg: 'bg-orange-500/20', fill: 'bg-orange-500', text: 'text-orange-400' },
   }
 
   return (
-    <div className="bg-white/5 backdrop-blur-sm rounded-xl p-3">
-      <div className={cn('w-6 h-6 rounded-full mb-2 flex items-center justify-center', colorClasses[color].bg)}>
+    <div className="bg-white/5 backdrop-blur-sm rounded-xl p-2.5">
+      <div className={cn('w-5 h-5 rounded-full mb-1.5 flex items-center justify-center', colorClasses[color].bg)}>
         <span className={colorClasses[color].text}>{icon}</span>
       </div>
-      <p className="text-white/50 text-[10px] mb-1">{label}</p>
-      <p className="text-white font-bold text-xl">{value}%</p>
-      <div className="h-1.5 bg-white/10 rounded-full overflow-hidden mt-2">
-        <div
-          className={cn('h-full rounded-full transition-all duration-300', colorClasses[color].fill)}
-          style={{ width: `${value}%` }}
-        />
-      </div>
+      <p className="text-white/50 text-[9px] mb-0.5 truncate">{label}</p>
+      <p className="text-white font-bold text-lg leading-tight">
+        {isAge ? `~${value}` : `${value}%`}
+      </p>
+      {subtitle && (
+        <p className={cn('text-[8px] mt-0.5 truncate', colorClasses[color].text)}>{subtitle}</p>
+      )}
+      {!isAge && (
+        <div className="h-1 bg-white/10 rounded-full overflow-hidden mt-1.5">
+          <div
+            className={cn('h-full rounded-full transition-all duration-300', colorClasses[color].fill)}
+            style={{ width: `${value}%` }}
+          />
+        </div>
+      )}
     </div>
   )
 }

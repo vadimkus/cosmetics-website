@@ -4,7 +4,7 @@ import { useState, useMemo, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useSearchParams, useRouter } from 'next/navigation'
-import { ShoppingCart, Heart, Sparkles, ArrowRight, ArrowLeft, CheckCircle2, Info, Star, Camera, Scan, Droplets, Target, Flame, Eye, Palette, Clock, Zap, Video } from 'lucide-react'
+import { ShoppingCart, Heart, Sparkles, ArrowRight, ArrowLeft, CheckCircle2, Info, Star, Camera, Scan, Droplets, Target, Flame, Eye, Eye as EyeIcon, Palette, Clock, Zap, Video, CircleDot, Sun, User } from 'lucide-react'
 import { SkinAnalysisCamera, SkinAnalysisResult } from '@/components/SkinAnalysisCamera'
 import { ARSkinAnalysisCamera } from '@/components/ar'
 import { useCart } from '@/components/CartProvider'
@@ -482,6 +482,20 @@ export default function SkinRecommendationClient() {
                     {SKIN_TYPES.find(st => st.value === cameraResult.skinType)?.label || cameraResult.skinType}
                   </p>
                 </div>
+                {/* Gender */}
+                {cameraResult.gender && cameraResult.gender !== 'unknown' && (
+                  <div className="text-center">
+                    <p className="text-primary-100 text-sm mb-1">
+                      {locale === 'ar' ? 'الجنس' : locale === 'ru' ? 'Пол' : 'Gender'}
+                    </p>
+                    <p className={`text-2xl font-bold ${cameraResult.gender === 'male' ? 'text-blue-200' : 'text-pink-200'}`}>
+                      {cameraResult.gender === 'male' 
+                        ? (locale === 'ar' ? '♂ ذكر' : locale === 'ru' ? '♂ Мужской' : '♂ Male')
+                        : (locale === 'ar' ? '♀ أنثى' : locale === 'ru' ? '♀ Женский' : '♀ Female')
+                      }
+                    </p>
+                  </div>
+                )}
                 <div className="text-right">
                   <p className="text-primary-100 text-sm mb-1">
                     {locale === 'ar' ? 'دقة التحليل' : locale === 'ru' ? 'Точность' : 'Confidence'}
@@ -582,6 +596,119 @@ export default function SkinRecommendationClient() {
                 </div>
               </div>
             </div>
+
+            {/* P2: Advanced Analysis Section */}
+            {(cameraResult.poreAnalysis || cameraResult.underEyeAnalysis || cameraResult.firmnessAnalysis || 
+              cameraResult.sunDamageAnalysis || cameraResult.lipAnalysis || cameraResult.fitzpatrickType) && (
+              <div className="px-6 pb-6">
+                <h3 className={`text-lg font-semibold text-gray-900 mb-4 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                  {locale === 'ar' ? 'التحليل المتقدم' : locale === 'ru' ? 'Расширенный анализ' : 'Advanced Analysis'}
+                </h3>
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                  
+                  {/* Pore Size */}
+                  {cameraResult.poreAnalysis && (
+                    <div className="bg-slate-50 rounded-xl p-4">
+                      <div className="flex items-center gap-2 mb-2">
+                        <CircleDot className="w-5 h-5 text-slate-600" />
+                        <span className="text-sm font-medium text-slate-800">
+                          {locale === 'ar' ? 'حجم المسام' : locale === 'ru' ? 'Размер пор' : 'Pore Size'}
+                        </span>
+                      </div>
+                      <p className="text-xl font-bold text-slate-700 capitalize">{cameraResult.poreAnalysis.level}</p>
+                      <div className="h-2 bg-slate-100 rounded-full mt-2 overflow-hidden">
+                        <div className="h-full bg-slate-500 rounded-full" style={{ width: `${cameraResult.poreAnalysis.visibility}%` }} />
+                      </div>
+                    </div>
+                  )}
+                  
+                  {/* Under-Eye Health */}
+                  {cameraResult.underEyeAnalysis && (
+                    <div className="bg-indigo-50 rounded-xl p-4">
+                      <div className="flex items-center gap-2 mb-2">
+                        <EyeIcon className="w-5 h-5 text-indigo-600" />
+                        <span className="text-sm font-medium text-indigo-800">
+                          {locale === 'ar' ? 'منطقة العين' : locale === 'ru' ? 'Область глаз' : 'Under-Eye'}
+                        </span>
+                      </div>
+                      <p className="text-xl font-bold text-indigo-700 capitalize">{cameraResult.underEyeAnalysis.level}</p>
+                      <p className="text-xs text-indigo-600 mt-1">
+                        {locale === 'ar' ? `هالات: ${cameraResult.underEyeAnalysis.darkCircles}%` : 
+                         locale === 'ru' ? `Круги: ${cameraResult.underEyeAnalysis.darkCircles}%` : 
+                         `Dark circles: ${cameraResult.underEyeAnalysis.darkCircles}%`}
+                      </p>
+                    </div>
+                  )}
+                  
+                  {/* Firmness */}
+                  {cameraResult.firmnessAnalysis && (
+                    <div className="bg-teal-50 rounded-xl p-4">
+                      <div className="flex items-center gap-2 mb-2">
+                        <Sparkles className="w-5 h-5 text-teal-600" />
+                        <span className="text-sm font-medium text-teal-800">
+                          {locale === 'ar' ? 'مرونة البشرة' : locale === 'ru' ? 'Упругость' : 'Firmness'}
+                        </span>
+                      </div>
+                      <p className="text-2xl font-bold text-teal-700">{cameraResult.firmnessAnalysis.firmness}%</p>
+                      <div className="h-2 bg-teal-100 rounded-full mt-2 overflow-hidden">
+                        <div className="h-full bg-teal-500 rounded-full" style={{ width: `${cameraResult.firmnessAnalysis.firmness}%` }} />
+                      </div>
+                    </div>
+                  )}
+                  
+                  {/* Sun Damage */}
+                  {cameraResult.sunDamageAnalysis && (
+                    <div className="bg-orange-50 rounded-xl p-4">
+                      <div className="flex items-center gap-2 mb-2">
+                        <Sun className="w-5 h-5 text-orange-600" />
+                        <span className="text-sm font-medium text-orange-800">
+                          {locale === 'ar' ? 'أضرار الشمس' : locale === 'ru' ? 'УФ-повреждение' : 'Sun Damage'}
+                        </span>
+                      </div>
+                      <p className="text-xl font-bold text-orange-700 capitalize">{cameraResult.sunDamageAnalysis.level}</p>
+                      <p className="text-xs text-orange-600 mt-1">
+                        {locale === 'ar' ? `النمش: ${cameraResult.sunDamageAnalysis.indicators.frecklingIntensity}%` : 
+                         locale === 'ru' ? `Веснушки: ${cameraResult.sunDamageAnalysis.indicators.frecklingIntensity}%` : 
+                         `Freckling: ${cameraResult.sunDamageAnalysis.indicators.frecklingIntensity}%`}
+                      </p>
+                    </div>
+                  )}
+                  
+                  {/* Lip Health */}
+                  {cameraResult.lipAnalysis && (
+                    <div className="bg-rose-50 rounded-xl p-4">
+                      <div className="flex items-center gap-2 mb-2">
+                        <Heart className="w-5 h-5 text-rose-600" />
+                        <span className="text-sm font-medium text-rose-800">
+                          {locale === 'ar' ? 'صحة الشفاه' : locale === 'ru' ? 'Здоровье губ' : 'Lip Health'}
+                        </span>
+                      </div>
+                      <p className="text-xl font-bold text-rose-700 capitalize">{cameraResult.lipAnalysis.level}</p>
+                      <p className="text-xs text-rose-600 mt-1">
+                        {locale === 'ar' ? `ترطيب: ${cameraResult.lipAnalysis.hydration}%` : 
+                         locale === 'ru' ? `Увлажн.: ${cameraResult.lipAnalysis.hydration}%` : 
+                         `Hydration: ${cameraResult.lipAnalysis.hydration}%`}
+                      </p>
+                    </div>
+                  )}
+                  
+                  {/* Fitzpatrick Skin Type */}
+                  {cameraResult.fitzpatrickType && (
+                    <div className="bg-amber-50 rounded-xl p-4">
+                      <div className="flex items-center gap-2 mb-2">
+                        <User className="w-5 h-5 text-amber-600" />
+                        <span className="text-sm font-medium text-amber-800">
+                          {locale === 'ar' ? 'نوع البشرة' : locale === 'ru' ? 'Фототип' : 'Skin Phototype'}
+                        </span>
+                      </div>
+                      <p className="text-xl font-bold text-amber-700">{cameraResult.fitzpatrickType.typeName}</p>
+                      <p className="text-xs text-amber-600 mt-1">{cameraResult.fitzpatrickType.description}</p>
+                    </div>
+                  )}
+                  
+                </div>
+              </div>
+            )}
 
             {/* Concerns */}
             {cameraResult.concerns.length > 0 && (

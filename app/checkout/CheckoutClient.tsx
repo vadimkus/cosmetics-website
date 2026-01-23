@@ -2,7 +2,7 @@
 
 import { useCart } from '@/components/CartProvider'
 import { useAuth } from '@/components/AuthProvider'
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import { ArrowLeft, CreditCard, Lock, MapPin, Truck, MessageCircle, Building, ChevronDown } from 'lucide-react'
 import Link from 'next/link'
@@ -20,6 +20,8 @@ export default function CheckoutClient() {
   const { t, locale, dir } = useTranslation()
   const { isPWA, isClient: isPWAClient } = usePWAMode()
   const [isProcessing, setIsProcessing] = useState(false)
+  // Use ref for synchronous double-submission prevention (state updates are async)
+  const isSubmittingRef = useRef(false)
   const [isMobileWeb, setIsMobileWeb] = useState(false)
   
   // Detect mobile web (non-PWA mobile)
@@ -206,6 +208,13 @@ export default function CheckoutClient() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    
+    // Synchronous double-submission prevention (ref check is instant, unlike state)
+    if (isSubmittingRef.current) {
+      debugLog('⚠️ Duplicate submission blocked - already processing')
+      return
+    }
+    isSubmittingRef.current = true
     setIsProcessing(true)
 
     try {
@@ -217,6 +226,7 @@ export default function CheckoutClient() {
 
       // Allow COD, Stripe, and Support Link
       if (!['cod', 'stripe', 'support-link'].includes(paymentMethod)) {
+        isSubmittingRef.current = false
         setIsProcessing(false)
         return
       }
@@ -285,6 +295,7 @@ export default function CheckoutClient() {
           const csrfToken = await fetchCsrfToken()
           if (!csrfToken) {
             alert(t('checkout.securityError'))
+            isSubmittingRef.current = false
             setIsProcessing(false)
             return
           }
@@ -320,6 +331,7 @@ export default function CheckoutClient() {
         }
         
         // Always redirect to success page (emails are non-blocking)
+        isSubmittingRef.current = false
         setIsProcessing(false)
         router.push(`${getLocalizedPath('/success', locale)}?payment=support-link&order_id=${supportOrderNumber}`)
         return
@@ -365,6 +377,7 @@ export default function CheckoutClient() {
           const csrfToken = await fetchCsrfToken()
           if (!csrfToken) {
             alert(t('checkout.securityError'))
+            isSubmittingRef.current = false
             setIsProcessing(false)
             return
           }
@@ -423,6 +436,7 @@ export default function CheckoutClient() {
         } catch (error) {
           errorLog('❌ Stripe payment error:', error)
           alert(error instanceof Error ? error.message : 'Payment processing failed. Please try again.')
+          isSubmittingRef.current = false
           setIsProcessing(false)
           return
         }
@@ -488,6 +502,7 @@ export default function CheckoutClient() {
         const csrfToken = await fetchCsrfToken()
         if (!csrfToken) {
           alert('Security error: Could not verify request. Please refresh the page and try again.')
+          isSubmittingRef.current = false
           setIsProcessing(false)
           return
         }
@@ -532,10 +547,12 @@ export default function CheckoutClient() {
       }
       
       // Always redirect to success page (emails are non-blocking)
+      isSubmittingRef.current = false
       setIsProcessing(false)
       router.push(`${getLocalizedPath('/success', locale)}?order_id=${codOrderNumber}&payment=cod`)
     } catch (error) {
       errorLog('Order processing failed:', error)
+      isSubmittingRef.current = false
       setIsProcessing(false)
     }
   }

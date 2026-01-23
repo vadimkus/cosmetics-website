@@ -10,6 +10,7 @@ import { generateUniqueOrderNumber } from '@/lib/orderNumber'
 import { getPreferredEmail } from '@/lib/emailHelpers'
 import { findUserByEmail } from '@/lib/userStorageDb'
 import { calculateMobileShipping, calculateVatIncluded } from '@/lib/mobileCheckoutConfig'
+import { prisma } from '@/lib/prisma'
 
 interface CheckoutItem {
   product: Product
@@ -99,6 +100,39 @@ export async function POST(request: NextRequest) {
     const discountAmount = 0
     const total = subtotal - discountAmount + shipping
     const vat = calculateVatIncluded(total)
+
+    // Idempotency check: Look for recent pending CARD orders from same customer with same total
+    // This prevents duplicate orders from double-clicks or network retries
+    const recentDuplicateCheck = await prisma.order.findFirst({
+      where: {
+        customerEmail: customerEmail.trim().toLowerCase(),
+        paymentMethod: 'stripe',
+        paymentStatus: 'pending',
+        total: total,
+        createdAt: {
+          gte: new Date(Date.now() - 5 * 60 * 1000) // Within last 5 minutes
+        }
+      },
+      orderBy: { createdAt: 'desc' }
+    })
+
+    if (recentDuplicateCheck) {
+      debugLog('⚠️ Duplicate order detected, returning existing session:', {
+        existingOrderNumber: recentDuplicateCheck.orderNumber,
+        customerEmail,
+        total
+      })
+      
+      // Return existing session info if available
+      if (recentDuplicateCheck.stripeSessionId) {
+        return NextResponse.json({ 
+          sessionId: recentDuplicateCheck.stripeSessionId,
+          orderId: recentDuplicateCheck.orderNumber,
+          message: 'Using existing checkout session',
+          isDuplicate: true
+        })
+      }
+    }
 
     // Generate canonical order number (Card + Website)
     const orderId = await generateUniqueOrderNumber({ channel: 'W', payment: 'CARD' })

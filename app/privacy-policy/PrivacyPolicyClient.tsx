@@ -137,7 +137,7 @@ export default function PrivacyPolicyClient() {
                   {userInitial.toUpperCase()}
                 </span>
               </div>
-              <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 rounded-full border-2 border-white" />
+              <div className="absolute bottom-0 right-0 w-2 h-2 bg-green-500 rounded-full border-[1.5px] border-white" />
             </div>
           </button>
         </div>

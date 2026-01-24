@@ -354,7 +354,9 @@ async function sendConfirmationEmails(order: OrderWithItems) {
       total: order.total || 0,
       address: order.customerAddress || '',
       emirate: order.customerEmirate || '',
-      locale: order.locale || 'en'
+      locale: order.locale || 'en',
+      discountPercentage: user?.discountPercentage ?? undefined,
+      discountAmount: order.discountAmount ?? undefined
     })
 
     debugLog('✅ Customer confirmation email sent for order:', order.orderNumber)

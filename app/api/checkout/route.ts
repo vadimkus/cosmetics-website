@@ -227,7 +227,9 @@ export async function POST(request: NextRequest) {
       total: order.total || 0,
       address: order.customerAddress || '',
       emirate: order.customerEmirate || '',
-      locale: order.locale || 'en'
+      locale: order.locale || 'en',
+      discountPercentage: hasUserDiscount ? userDiscountPct : undefined,
+      discountAmount: discountAmount > 0 ? discountAmount : undefined
     }).then(() => {
       debugLog('✅ Order confirmation email sent to:', emailToUse)
     }).catch((emailError) => {

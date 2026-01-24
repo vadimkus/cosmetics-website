@@ -488,7 +488,9 @@ export async function POST(request: NextRequest) {
       total: order.total,
       address: order.customerAddress,
       emirate: order.customerEmirate,
-      locale: order.locale || 'en'
+      locale: order.locale || 'en',
+      discountPercentage: user?.discountPercentage ?? undefined,
+      discountAmount: order.discountAmount ?? undefined
     }).then(() => {
       debugLog('[MOBILE_ORDERS] ✅ Order confirmation email sent to:', order.customerEmail)
     }).catch((emailError) => {

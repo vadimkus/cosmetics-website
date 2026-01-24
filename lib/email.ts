@@ -1600,6 +1600,7 @@ export const sendOrderConfirmationEmail = async (orderData: OrderConfirmationEma
   try {
     debugLog(`📧 Sending order confirmation email to: ${orderData.customerEmail}`)
     debugLog(`📧 Order: ${orderData.orderNumber}, Customer: ${orderData.customerName}`)
+    debugLog(`🎟️ CUSTOMER EMAIL DISCOUNT DATA: discountPercentage=${orderData.discountPercentage}, discountAmount=${orderData.discountAmount}`)
     
     const template = emailTemplates.orderConfirmation(orderData)
     debugLog(`📧 Template generated, subject: ${template.subject}`)
@@ -1702,8 +1703,11 @@ export const sendAdminNewOrderNotification = async (orderData: AdminNewOrderEmai
       orderNumber: orderData.orderNumber,
       customerName: orderData.customerName,
       total: orderData.total,
-      itemCount: orderData.itemCount
+      itemCount: orderData.itemCount,
+      discountPercentage: orderData.discountPercentage,
+      discountAmount: orderData.discountAmount
     }, null, 2))
+    debugLog(`🎟️ ADMIN EMAIL DISCOUNT DATA: discountPercentage=${orderData.discountPercentage}, discountAmount=${orderData.discountAmount}`)
     
     let customerEmailForAdmin = String(orderData.customerEmail || '').trim()
     try {

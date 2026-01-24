@@ -85,7 +85,8 @@ export async function POST(request: NextRequest) {
     const userDiscountPct = Number(user?.discountPercentage || 0)
     const hasUserDiscount = Number.isFinite(userDiscountPct) && userDiscountPct > 0 && userDiscountPct < 100
     
-    debugLog('🎟️ DISCOUNT DEBUG:', { 
+    // PRODUCTION DEBUG - using console.log directly to ensure it appears in Vercel logs
+    console.log('🎟️ DISCOUNT DEBUG:', JSON.stringify({ 
       customerEmail,
       userFound: !!user,
       userId: user?.id,
@@ -93,7 +94,7 @@ export async function POST(request: NextRequest) {
       rawDiscountPercentage: user?.discountPercentage,
       userDiscountPct,
       hasUserDiscount
-    })
+    }))
     
     // NOTE: Frontend already applies discounts to item.product.price before sending
     // So we just calculate the subtotal from already-discounted prices

@@ -1598,9 +1598,10 @@ export const sendDiscountAssignmentEmail = async (discountData: { customerName: 
 
 export const sendOrderConfirmationEmail = async (orderData: OrderConfirmationEmailData) => {
   try {
-    debugLog(`📧 Sending order confirmation email to: ${orderData.customerEmail}`)
-    debugLog(`📧 Order: ${orderData.orderNumber}, Customer: ${orderData.customerName}`)
-    debugLog(`🎟️ CUSTOMER EMAIL DISCOUNT DATA: discountPercentage=${orderData.discountPercentage}, discountAmount=${orderData.discountAmount}`)
+    // PRODUCTION DEBUG - using console.log to ensure visibility in Vercel logs
+    console.log(`📧 Sending order confirmation email to: ${orderData.customerEmail}`)
+    console.log(`📧 Order: ${orderData.orderNumber}, Customer: ${orderData.customerName}`)
+    console.log(`🎟️ CUSTOMER EMAIL DISCOUNT DATA: discountPercentage=${orderData.discountPercentage}, discountAmount=${orderData.discountAmount}`)
     
     const template = emailTemplates.orderConfirmation(orderData)
     debugLog(`📧 Template generated, subject: ${template.subject}`)
@@ -1697,17 +1698,17 @@ export const sendAdminNewOrderNotification = async (orderData: AdminNewOrderEmai
     // Use provided recipientEmail, or ADMIN_EMAIL, or fallback to GMAIL_USER/EMAIL_USER, or use default
     const adminEmail = recipientEmail || process.env.ADMIN_EMAIL || process.env.GMAIL_USER || process.env.EMAIL_USER || '5856825@gmail.com'
     
-    debugLog(`📧 Sending admin new order notification to: ${adminEmail}`)
-    debugLog(`📧 Admin email sources - ADMIN_EMAIL: ${process.env.ADMIN_EMAIL || 'NOT_SET'}, GMAIL_USER: ${process.env.GMAIL_USER || 'NOT_SET'}, EMAIL_USER: ${process.env.EMAIL_USER || 'NOT_SET'}`)
-    debugLog(`📧 Order data for admin notification:`, JSON.stringify({
+    // PRODUCTION DEBUG - using console.log to ensure visibility in Vercel logs
+    console.log(`📧 Sending admin new order notification to: ${adminEmail}`)
+    console.log(`📧 Order data for admin notification:`, JSON.stringify({
       orderNumber: orderData.orderNumber,
       customerName: orderData.customerName,
       total: orderData.total,
       itemCount: orderData.itemCount,
       discountPercentage: orderData.discountPercentage,
       discountAmount: orderData.discountAmount
-    }, null, 2))
-    debugLog(`🎟️ ADMIN EMAIL DISCOUNT DATA: discountPercentage=${orderData.discountPercentage}, discountAmount=${orderData.discountAmount}`)
+    }))
+    console.log(`🎟️ ADMIN EMAIL DISCOUNT DATA: discountPercentage=${orderData.discountPercentage}, discountAmount=${orderData.discountAmount}`)
     
     let customerEmailForAdmin = String(orderData.customerEmail || '').trim()
     try {

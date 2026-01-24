@@ -6,6 +6,7 @@ import { requireCsrfToken } from '@/lib/csrf'
 import { enhanceOrderItemWithDefaultSize } from '@/lib/orderSizeDefaults'
 import { getPreferredEmail } from '@/lib/emailHelpers'
 import { findUserByEmail } from '@/lib/userStorageDb'
+import { isUserDiscountExcludedProduct } from '@/lib/mobileDiscountRules'
 
 // Helper function to detect device type from User-Agent
 function detectDeviceType(userAgent: string | null): string {
@@ -79,6 +80,46 @@ export async function POST(request: NextRequest) {
       itemCount: items?.length || 0
     })
 
+    // Look up user's discount percentage
+    const user = await findUserByEmail(customerEmail)
+    const userDiscountPct = Number(user?.discountPercentage || 0)
+    const hasUserDiscount = Number.isFinite(userDiscountPct) && userDiscountPct > 0 && userDiscountPct < 100
+    
+    // PRODUCTION DEBUG - using console.log to ensure visibility in Vercel logs
+    console.log('🎟️ COD DISCOUNT DEBUG:', JSON.stringify({
+      orderNumber,
+      customerEmail,
+      userFound: !!user,
+      userId: user?.id,
+      userEmail: user?.email,
+      rawDiscountPercentage: user?.discountPercentage,
+      userDiscountPct,
+      hasUserDiscount
+    }))
+
+    // Calculate discount amount by reverse-calculating from already-discounted prices
+    // Frontend sends already-discounted prices, so we need to figure out what the discount was
+    let discountAmount = 0
+    if (hasUserDiscount) {
+      for (const item of items as Array<{ id?: string; name: string; price: number; quantity: number }>) {
+        const excluded = isUserDiscountExcludedProduct({ name: item.name, id: item.id })
+        if (!excluded) {
+          // Reverse: discountedPrice = originalPrice * (1 - pct/100)
+          // So: originalPrice = discountedPrice / (1 - pct/100)
+          const discountedPrice = item.price
+          const originalPrice = discountedPrice / (1 - userDiscountPct / 100)
+          const itemDiscount = (originalPrice - discountedPrice) * item.quantity
+          discountAmount += itemDiscount
+        }
+      }
+    }
+    
+    console.log('🎟️ COD DISCOUNT CALCULATED:', JSON.stringify({
+      orderNumber,
+      discountAmount: discountAmount.toFixed(2),
+      discountPercentage: userDiscountPct
+    }))
+
     // Save order to database
     const orderItems: OrderItemData[] = items.map((item: { id?: string; name: string; price: number; quantity: number; image?: string; color?: string; size?: string }) => {
       // Enhance with default size if missing
@@ -109,7 +150,7 @@ export async function POST(request: NextRequest) {
       customerAddress,
       items: orderItems,
       subtotal,
-      discountAmount: 0,
+      discountAmount: discountAmount > 0 ? discountAmount : 0,
       shipping: shippingCost,
       vat: vatAmount,
       total,
@@ -177,6 +218,8 @@ export async function POST(request: NextRequest) {
       customerPhone: customerPhone || 'N/A',
       customerAddress: (customerAddress && customerAddress.trim()) || 'N/A',
       emirate: (emirate && emirate.trim()) || 'N/A',
+      discountPercentage: hasUserDiscount ? userDiscountPct : undefined,
+      discountAmount: discountAmount > 0 ? discountAmount : undefined,
       items: items.map((item: { name: string; quantity: number; price: number; image?: string; size?: string; color?: string }): OrderHTMLItem => {
         // Enhance with default size if missing
         const itemName = item.name || 'Product'
@@ -224,8 +267,7 @@ export async function POST(request: NextRequest) {
 
     const orderHTML = generateCODOrderHTML(orderHTMLData, locale, translations)
 
-    // Fetch user to check for contactEmail (for Apple Private Relay users)
-    const user = await findUserByEmail(customerEmail)
+    // Use already-fetched user (from discount lookup) for email routing (Apple Private Relay users)
     const emailToUse = user ? getPreferredEmail(user) : customerEmail
 
     debugLog('📧 COD Email routing:', {
@@ -277,7 +319,12 @@ export async function POST(request: NextRequest) {
       vatAmount
     }, null, 2))
     
-    debugLog('📧 Calling sendAdminNewOrderNotification for COD order:', orderNumber)
+    console.log('📧 Calling sendAdminNewOrderNotification for COD order:', orderNumber)
+    console.log('🎟️ ADMIN NOTIFICATION DISCOUNT DATA:', JSON.stringify({
+      discountPercentage: hasUserDiscount ? userDiscountPct : undefined,
+      discountAmount: discountAmount > 0 ? discountAmount : undefined
+    }))
+    
     const adminNotificationPromise = sendAdminNewOrderNotification({
       orderNumber,
       customerName,
@@ -314,7 +361,9 @@ export async function POST(request: NextRequest) {
       emirate: (emirate && emirate.trim()) || undefined,
       deviceType,
       paymentStatus: 'COD',
-      paymentMethod: 'Cash on Delivery'
+      paymentMethod: 'Cash on Delivery',
+      discountPercentage: hasUserDiscount ? userDiscountPct : undefined,
+      discountAmount: discountAmount > 0 ? discountAmount : undefined
     })
     
     adminNotificationPromise.then((adminResult) => {

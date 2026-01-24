@@ -121,7 +121,7 @@ export default function ArabicAboutPageClient() {
               </h3>
               <div className={`space-y-0.5 md:space-y-2 text-gray-600 text-xs md:text-base ${dir === 'rtl' ? 'text-right' : ''}`}>
                 <div><span className="font-semibold text-gray-800">{t('about.officialDistributor')}:</span> DTSMG Co., Ltd, Korea</div>
-                <div><span className="font-semibold text-gray-800">{t('about.certification')}:</span> {t('about.dubaiMunicipality')} (<PDFLinkButton href="/Genosys_UAE_Montaji_Registration.pdf" filename="Genosys_UAE_Montaji_Registration.pdf" download="Genosys_UAE_Montaji_Registration.pdf" className="text-primary-600 hover:text-primary-700 underline">Montaji</PDFLinkButton>)</div>
+                <div><span className="font-semibold text-gray-800">{t('about.certification')}:</span> {t('about.dubaiMunicipality')} (<PDFLinkButton href="/documents/Genosys_UAE_Montaji_Registration.pdf" filename="Genosys_UAE_Montaji_Registration.pdf" download="Genosys_UAE_Montaji_Registration.pdf" className="text-primary-600 hover:text-primary-700 underline">Montaji</PDFLinkButton>)</div>
                 <div><span className="font-semibold text-gray-800">{t('about.products')}:</span> {t('about.premiumKoreanDermacosmetics')}</div>
                 <div><span className="font-semibold text-gray-800">{t('about.serviceArea')}:</span> {t('about.unitedArabEmirates')}</div>
               </div>

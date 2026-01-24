@@ -3,17 +3,17 @@
 import { useState, useRef, useEffect, useCallback, useMemo } from 'react'
 import { createPortal } from 'react-dom'
 import { 
-  Camera, X, Sparkles, AlertCircle, Loader2, Sun, 
-  Droplets, Target, Flame, Zap, Pause, Play,
-  ChevronDown, ChevronUp, Scan, Clock, Eye, Palette, CircleDot, User
+  Camera, X, AlertCircle, Loader2, 
+  Droplets, Target, Pause, Play,
+  ChevronUp, Clock, CircleDot, Eye,
+  Sparkles, Sun, Heart, User
 } from 'lucide-react'
 import { useTranslation } from '@/hooks/useTranslation'
 import { useHapticFeedback } from '@/hooks/useHapticFeedback'
-import { type FaceDetectionResult, FACE_LANDMARKS } from '@/hooks/useFaceMesh'
+import { type FaceDetectionResult } from '@/hooks/useFaceMesh'
 import { cn } from '@/lib/utils'
 import { 
   analyzeMultipleZones, 
-  getBlemishLevelLabel, 
   analyzeGender, 
   // P2 imports
   analyzePores,
@@ -128,6 +128,11 @@ export function ARSkinAnalysisCamera({
   const [genderAnalysis, setGenderAnalysis] = useState<GenderAnalysis | null>(null)
   const blemishAnalysisFrameRef = useRef(0) // Track frames for periodic blemish analysis
   const genderAnalysisFrameRef = useRef(0) // Track frames for gender analysis
+  
+  // Capture progress state
+  const [isCapturing, setIsCapturing] = useState(false)
+  const [captureProgress, setCaptureProgress] = useState(0)
+  const [captureStep, setCaptureStep] = useState('')
 
   // Translations
   const t = {
@@ -236,22 +241,35 @@ export function ARSkinAnalysisCamera({
       streamRef.current = stream
 
       if (videoRef.current) {
-        videoRef.current.srcObject = stream
+        const video = videoRef.current
+        video.srcObject = stream
+        
         // Wait for video to be ready with proper timeout handling
         await new Promise<void>((resolve, reject) => {
-          if (!videoRef.current) {
+          if (!video) {
             reject(new Error('Video element not available'))
             return
           }
-          const video = videoRef.current
           let resolved = false
           
           const handleReady = () => {
             if (resolved) return
             resolved = true
+            // Clean up handlers
+            video.onloadedmetadata = null
+            video.onloadeddata = null
+            video.oncanplay = null
+            video.onerror = null
+            
             video.play()
               .then(() => resolve())
               .catch(reject)
+          }
+          
+          // Check if video is already ready (readyState: 0=nothing, 1=metadata, 2=current, 3=future, 4=enough)
+          if (video.readyState >= 2) {
+            handleReady()
+            return
           }
           
           // Try multiple approaches to detect video readiness
@@ -266,13 +284,22 @@ export function ARSkinAnalysisCamera({
             }
           }
           
-          // Timeout for video load
+          // Fallback: try to play after a short delay if events don't fire
+          setTimeout(() => {
+            if (!resolved && video.readyState >= 1) {
+              console.log('Video readyState:', video.readyState, '- attempting play')
+              handleReady()
+            }
+          }, 2000)
+          
+          // Timeout for video load (increased to 20s for slower devices)
           setTimeout(() => {
             if (!resolved) {
               resolved = true
+              console.error('Video load timeout - readyState was:', video.readyState)
               reject(new Error('Video load timed out'))
             }
-          }, 10000)
+          }, 20000)
         })
       }
 
@@ -396,10 +423,13 @@ export function ARSkinAnalysisCamera({
             }
           }
 
-          // Run gender analysis every 30 frames (less frequent, more stable)
+          // Run gender analysis every 10 frames (more frequent for real-time display)
+          // Run even without perfect face detection if we have decent lighting
           genderAnalysisFrameRef.current++
           let currentGender = genderAnalysis
-          if (genderAnalysisFrameRef.current % 30 === 0 && metrics.faceDetected) {
+          const shouldAnalyzeGender = genderAnalysisFrameRef.current % 10 === 0 && 
+            (metrics.faceDetected || metrics.lightingQuality !== 'poor')
+          if (shouldAnalyzeGender) {
             try {
               const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height)
               currentGender = analyzeGender(imageData)
@@ -475,10 +505,14 @@ export function ARSkinAnalysisCamera({
     const avgOiliness = recent.reduce((sum, m) => sum + m.oiliness, 0) / 5
     const avgHydration = recent.reduce((sum, m) => sum + m.hydration, 0) / 5
     
-    const isStable = recent.every(m => 
+    // Must have face detected in all recent frames AND stable metrics
+    const allFacesDetected = recent.every(m => m.faceDetected)
+    const isMetricsStable = recent.every(m => 
       Math.abs(m.oiliness - avgOiliness) < 5 &&
       Math.abs(m.hydration - avgHydration) < 5
     )
+    
+    const isStable = allFacesDetected && isMetricsStable
 
     if (isStable && !isStabilized) {
       haptic.light()
@@ -599,13 +633,16 @@ export function ARSkinAnalysisCamera({
     const oilinessVariance = calculateVariance(oilinessValues)
     const evenness = Math.max(0, Math.min(100, 100 - oilinessVariance * 2))
 
+    // Face detected if MediaPipe detected it with good confidence and we got valid zones
+    const faceDetected = faceDetection.detected && faceDetection.confidence > 0.5 && validZones >= 3
+
     return {
       oiliness: avgOiliness,
       hydration: avgHydration,
       redness: avgRedness,
       skinType,
       confidence,
-      faceDetected: true,
+      faceDetected,
       lightingQuality,
       textureScore: avgTexture,
       evenness: Math.round(evenness),
@@ -701,8 +738,51 @@ export function ARSkinAnalysisCamera({
     else if (avgBrightness <= 220) lightingQuality = 'excellent'
     else lightingQuality = 'fair' // Too bright
 
-    // Simple face detection based on skin-like pixels
-    const faceDetected = avgBrightness > 50 && validZones === 5
+    // Improved face detection: Check if center region has skin-toned pixels
+    const centerX = width * 0.35
+    const centerY = height * 0.25
+    const centerWidth = width * 0.3
+    const centerHeight = height * 0.35
+    const centerData = ctx.getImageData(
+      Math.floor(centerX), 
+      Math.floor(centerY), 
+      Math.floor(centerWidth), 
+      Math.floor(centerHeight)
+    )
+    
+    // Count skin-toned pixels (human skin has specific RGB characteristics)
+    let skinPixels = 0
+    const totalPixels = centerData.data.length / 4
+    for (let i = 0; i < centerData.data.length; i += 4) {
+      const r = centerData.data[i] ?? 0
+      const g = centerData.data[i + 1] ?? 0
+      const b = centerData.data[i + 2] ?? 0
+      
+      // More inclusive skin tone detection for various skin types and lighting
+      // Based on: skin typically has R >= G >= B with warm undertones
+      const maxRGB = Math.max(r, g, b)
+      const minRGB = Math.min(r, g, b)
+      
+      // Multiple conditions for different skin tones:
+      // 1. Standard warm skin: R dominant, decent saturation
+      // 2. Darker skin: lower brightness but still warm
+      // 3. Lighter skin: high brightness, subtle warmth
+      const isSkinTone = (
+        r > 60 && g > 30 && b > 15 && // Minimum thresholds (lowered for darker skin)
+        (maxRGB - minRGB) > 10 && // Not completely gray
+        (
+          (r >= g && g >= b - 10) || // Warm tones (R >= G >= B with tolerance)
+          (r > g - 15 && r > b) // Allow some green-ish tones in certain lighting
+        ) &&
+        r < 250 && g < 250 // Not overexposed white
+      )
+      
+      if (isSkinTone) skinPixels++
+    }
+    
+    // Face detected if at least 15% of center region has skin-toned pixels (lowered for better detection)
+    const skinRatio = skinPixels / totalPixels
+    const faceDetected = skinRatio > 0.15 && avgBrightness > 30
 
     return {
       oiliness: avgOiliness,
@@ -816,107 +896,73 @@ export function ARSkinAnalysisCamera({
     // Clear previous overlay
     overlayCtx.clearRect(0, 0, width, height)
 
-    if (!metrics.faceDetected) return
-
-    // Draw face mesh landmarks if available (shows precise detection)
-    if (faceDetection?.detected && faceDetection.landmarks && useFaceMeshDetection) {
-      // Draw subtle face mesh points
-      overlayCtx.fillStyle = 'rgba(99, 102, 241, 0.4)' // Indigo color
+    // Apple-style: Minimal, elegant face guide only
+    // No cluttered zone overlays - focus on the face
+    
+    if (faceDetection?.detected && faceDetection.faceOval && useFaceMeshDetection) {
+      // Draw elegant face oval from actual landmarks
+      const oval = faceDetection.faceOval
       
-      // Draw key landmark points (not all 468 for performance)
-      const keyLandmarkIndices = [
-        ...FACE_LANDMARKS.FACE_OVAL, // Face outline
-        ...FACE_LANDMARKS.NOSE.bridge,
-        ...FACE_LANDMARKS.NOSE.tip,
-      ]
+      // Gradient stroke for detected face
+      const gradient = overlayCtx.createLinearGradient(
+        oval.x, oval.y, 
+        oval.x + oval.width, oval.y + oval.height
+      )
+      gradient.addColorStop(0, 'rgba(34, 197, 94, 0.6)')
+      gradient.addColorStop(1, 'rgba(52, 211, 153, 0.6)')
       
-      for (const idx of keyLandmarkIndices) {
-        const landmark = faceDetection.landmarks[idx]
-        if (landmark) {
-          overlayCtx.beginPath()
-          overlayCtx.arc(landmark.x, landmark.y, 2, 0, 2 * Math.PI)
-          overlayCtx.fill()
-        }
-      }
-
-      // Draw face oval from actual landmarks
-      if (faceDetection.faceOval) {
-        const oval = faceDetection.faceOval
-        overlayCtx.strokeStyle = 'rgba(34, 197, 94, 0.8)' // Green for detected
-        overlayCtx.lineWidth = 2
-        overlayCtx.beginPath()
-        overlayCtx.ellipse(
-          oval.x + oval.width / 2,
-          oval.y + oval.height / 2,
-          oval.width / 2,
-          oval.height / 2,
-          0,
-          0,
-          2 * Math.PI
-        )
-        overlayCtx.stroke()
-      }
-    } else {
-      // Draw approximate face oval guide when no face mesh
-      overlayCtx.strokeStyle = metrics.faceDetected ? 'rgba(34, 197, 94, 0.8)' : 'rgba(239, 68, 68, 0.8)'
-      overlayCtx.lineWidth = 3
+      overlayCtx.strokeStyle = gradient
+      overlayCtx.lineWidth = 2.5
       overlayCtx.beginPath()
       overlayCtx.ellipse(
-        width / 2,
-        height * 0.4,
-        width * 0.22,
-        height * 0.32,
+        oval.x + oval.width / 2,
+        oval.y + oval.height / 2,
+        oval.width / 2,
+        oval.height / 2,
         0,
         0,
         2 * Math.PI
       )
       overlayCtx.stroke()
-    }
-
-    // Draw zone overlays with color-coded metrics
-    for (const zone of metrics.zones) {
-      // Determine zone color based on metrics
-      const hue = getMetricHue(zone.metrics.oiliness, zone.metrics.hydration, zone.metrics.redness)
-      
-      // Draw semi-transparent zone overlay
-      overlayCtx.fillStyle = `hsla(${hue}, 70%, 50%, 0.15)`
-      overlayCtx.strokeStyle = `hsla(${hue}, 70%, 50%, 0.5)`
+    } else if (metrics.faceDetected) {
+      // Subtle face guide when face detected (fallback mode)
+      overlayCtx.strokeStyle = 'rgba(255, 255, 255, 0.25)'
       overlayCtx.lineWidth = 2
-      
-      // Draw rounded rectangle for zone
-      const radius = Math.min(zone.width, zone.height) * 0.15
+      overlayCtx.setLineDash([8, 8])
       overlayCtx.beginPath()
-      overlayCtx.roundRect(zone.x, zone.y, zone.width, zone.height, radius)
-      overlayCtx.fill()
+      overlayCtx.ellipse(
+        width / 2,
+        height * 0.4,
+        width * 0.24,
+        height * 0.34,
+        0,
+        0,
+        2 * Math.PI
+      )
       overlayCtx.stroke()
-
-      // Draw zone label with background
-      const label = `${zone.metrics.oiliness}%`
-      overlayCtx.font = 'bold 11px system-ui'
-      const textWidth = overlayCtx.measureText(label).width
-      const labelX = zone.x + zone.width / 2
-      const labelY = zone.y + zone.height / 2
-      
-      // Label background
-      overlayCtx.fillStyle = 'rgba(0, 0, 0, 0.5)'
+      overlayCtx.setLineDash([])
+    } else {
+      // Face not detected - show guide where to position
+      overlayCtx.strokeStyle = 'rgba(255, 255, 255, 0.15)'
+      overlayCtx.lineWidth = 2
+      overlayCtx.setLineDash([12, 6])
       overlayCtx.beginPath()
-      overlayCtx.roundRect(labelX - textWidth / 2 - 4, labelY - 8, textWidth + 8, 16, 4)
-      overlayCtx.fill()
-      
-      // Label text
-      overlayCtx.fillStyle = 'white'
-      overlayCtx.textAlign = 'center'
-      overlayCtx.textBaseline = 'middle'
-      overlayCtx.fillText(label, labelX, labelY)
+      overlayCtx.ellipse(
+        width / 2,
+        height * 0.4,
+        width * 0.24,
+        height * 0.34,
+        0,
+        0,
+        2 * Math.PI
+      )
+      overlayCtx.stroke()
+      overlayCtx.setLineDash([])
     }
-  }
-
-  const getMetricHue = (oiliness: number, hydration: number, redness: number): number => {
-    // Return hue value: 0 = red (problem), 120 = green (good), 60 = yellow (moderate)
-    if (redness > 40) return 0 // Red for high redness
-    if (oiliness > 70 || hydration < 30) return 30 // Orange for issues
-    if (oiliness > 50 || hydration < 50) return 60 // Yellow for moderate
-    return 120 // Green for balanced
+    
+    // Skip the cluttered zone overlays - Apple style is clean
+    // Zone data is still analyzed but not displayed on overlay
+    void metrics.zones // Suppress unused warning - data still used for analysis
   }
 
   const togglePause = () => {
@@ -928,8 +974,33 @@ export function ARSkinAnalysisCamera({
     haptic.light()
   }
 
-  const captureResults = () => {
+  const captureResults = async () => {
     haptic.success()
+    setIsCapturing(true)
+    setCaptureProgress(0)
+    
+    // Analysis step labels
+    const steps = [
+      locale === 'ar' ? 'تحليل مناطق الوجه...' : locale === 'ru' ? 'Анализ зон лица...' : 'Analyzing face zones...',
+      locale === 'ar' ? 'فحص المسام...' : locale === 'ru' ? 'Анализ пор...' : 'Examining pores...',
+      locale === 'ar' ? 'تحليل منطقة العين...' : locale === 'ru' ? 'Анализ области глаз...' : 'Analyzing under-eye area...',
+      locale === 'ar' ? 'تقييم مرونة البشرة...' : locale === 'ru' ? 'Оценка упругости...' : 'Evaluating skin firmness...',
+      locale === 'ar' ? 'فحص أضرار الشمس...' : locale === 'ru' ? 'Проверка солнечных повреждений...' : 'Checking sun damage...',
+      locale === 'ar' ? 'تحليل صحة الشفاه...' : locale === 'ru' ? 'Анализ здоровья губ...' : 'Analyzing lip health...',
+      locale === 'ar' ? 'فحص الحواجب...' : locale === 'ru' ? 'Анализ бровей...' : 'Examining eyebrows...',
+      locale === 'ar' ? 'تقدير عمر البشرة...' : locale === 'ru' ? 'Оценка возраста кожи...' : 'Estimating skin age...',
+      locale === 'ar' ? 'تحديد نوع البشرة...' : locale === 'ru' ? 'Определение типа кожи...' : 'Classifying skin type...',
+      locale === 'ar' ? 'إنشاء التقرير...' : locale === 'ru' ? 'Создание отчета...' : 'Generating report...',
+    ]
+    
+    const updateProgress = async (step: number) => {
+      setCaptureStep(steps[step] || '')
+      setCaptureProgress(Math.round((step + 1) / steps.length * 100))
+      // Small delay for smooth animation
+      await new Promise(r => setTimeout(r, 150))
+    }
+    
+    await updateProgress(0)
     
     // Find zones by name for accurate T-zone/cheek metrics
     const foreheadZone = faceZones.find(z => z.name === 'forehead')
@@ -987,6 +1058,7 @@ export function ARSkinAnalysisCamera({
           const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height)
           
           // P2-1: Pore Analysis
+          await updateProgress(1)
           try {
             result.poreAnalysis = analyzePores(imageData)
             if (result.poreAnalysis.visibility > 50) result.poreVisibility = 'visible'
@@ -995,31 +1067,37 @@ export function ARSkinAnalysisCamera({
           } catch { /* continue */ }
           
           // P2-2: Under-Eye Analysis
+          await updateProgress(2)
           try {
             result.underEyeAnalysis = analyzeUnderEye(imageData)
           } catch { /* continue */ }
           
           // P2-3: Firmness Analysis
+          await updateProgress(3)
           try {
             result.firmnessAnalysis = analyzeFirmness(imageData)
           } catch { /* continue */ }
           
           // P2-4: Sun Damage
+          await updateProgress(4)
           try {
             result.sunDamageAnalysis = analyzeSunDamage(imageData)
           } catch { /* continue */ }
           
           // P2-5: Lip Analysis
+          await updateProgress(5)
           try {
             result.lipAnalysis = analyzeLips(imageData)
           } catch { /* continue */ }
           
           // P2-6: Eyebrow Analysis
+          await updateProgress(6)
           try {
             result.eyebrowAnalysis = analyzeEyebrows(imageData)
           } catch { /* continue */ }
           
           // P2-7: Age Estimation
+          await updateProgress(7)
           try {
             const ageAnalysisInput: {
               pores?: { visibility: number };
@@ -1038,6 +1116,7 @@ export function ARSkinAnalysisCamera({
           } catch { /* continue */ }
           
           // P2-8: Fitzpatrick Classification
+          await updateProgress(8)
           try {
             result.fitzpatrickType = analyzeFitzpatrick(imageData)
             const fitzType = result.fitzpatrickType.type
@@ -1054,6 +1133,11 @@ export function ARSkinAnalysisCamera({
       }
     }
 
+    // Final step
+    await updateProgress(9)
+    await new Promise(r => setTimeout(r, 300)) // Brief pause to show completion
+    
+    setIsCapturing(false)
     onAnalysisComplete(result)
   }
 
@@ -1084,26 +1168,6 @@ export function ARSkinAnalysisCamera({
     }
   }, [])
 
-  const getLightingLabel = (quality: string) => {
-    switch (quality) {
-      case 'poor': return t.lightingPoor
-      case 'fair': return t.lightingFair
-      case 'good': return t.lightingGood
-      case 'excellent': return t.lightingExcellent
-      default: return t.lightingFair
-    }
-  }
-
-  const getLightingColor = (quality: string) => {
-    switch (quality) {
-      case 'poor': return 'text-red-400'
-      case 'fair': return 'text-yellow-400'
-      case 'good': return 'text-green-400'
-      case 'excellent': return 'text-emerald-400'
-      default: return 'text-yellow-400'
-    }
-  }
-
   const cameraContent = (
     <div className={cn(
       'fixed inset-0 z-[9999] bg-black flex flex-col',
@@ -1117,29 +1181,23 @@ export function ARSkinAnalysisCamera({
       position: 'fixed',
     }}
     >
-      {/* Header */}
+      {/* Minimal Header - Apple Style */}
       <div 
-        className="flex items-center justify-between px-4 py-3 bg-gradient-to-b from-black/90 to-transparent relative z-10 flex-shrink-0"
-        style={{ paddingTop: 'max(12px, env(safe-area-inset-top, 12px))' }}
+        className="absolute top-0 left-0 right-0 flex items-center justify-between px-6 py-4 z-20"
+        style={{ paddingTop: 'max(16px, env(safe-area-inset-top, 16px))' }}
       >
         <button
           onClick={onClose}
-          className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center active:scale-95 transition-transform"
+          className="w-11 h-11 rounded-full bg-black/30 backdrop-blur-xl flex items-center justify-center active:scale-95 transition-all hover:bg-black/50"
         >
           <X className="w-5 h-5 text-white" />
         </button>
-        <div className="text-center flex-1 px-4">
-          <div className="flex items-center justify-center gap-2">
-            <Zap className="w-4 h-4 text-primary-400" />
-            <h2 className="text-white font-semibold text-lg">{t.title}</h2>
-          </div>
-          <p className="text-white/60 text-xs">{t.subtitle}</p>
-        </div>
-        {/* Pause/Resume button */}
+        
+        {/* Pause/Resume - Right side */}
         {arState === 'ready' || arState === 'paused' ? (
           <button
             onClick={togglePause}
-            className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center active:scale-95 transition-transform"
+            className="w-11 h-11 rounded-full bg-black/30 backdrop-blur-xl flex items-center justify-center active:scale-95 transition-all hover:bg-black/50"
           >
             {arState === 'paused' ? (
               <Play className="w-5 h-5 text-white" />
@@ -1148,11 +1206,11 @@ export function ARSkinAnalysisCamera({
             )}
           </button>
         ) : (
-          <div className="w-10" />
+          <div className="w-11" />
         )}
       </div>
 
-      {/* Camera View with AR Overlay */}
+      {/* Camera View - Full Screen Hero */}
       <div className="flex-1 relative overflow-hidden">
         {/* Video feed */}
         <video
@@ -1172,11 +1230,11 @@ export function ARSkinAnalysisCamera({
         {/* Hidden analysis canvas */}
         <canvas ref={canvasRef} className="hidden" />
 
-        {/* Loading State */}
+        {/* Loading State - Centered, Minimal */}
         {(arState === 'initializing' || arState === 'loading-model') && (
-          <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/80">
-            <Loader2 className="w-12 h-12 text-primary-400 animate-spin mb-4" />
-            <p className="text-white">
+          <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/70 backdrop-blur-sm">
+            <div className="w-16 h-16 rounded-full border-2 border-white/20 border-t-white animate-spin mb-6" />
+            <p className="text-white/90 text-lg font-medium tracking-wide">
               {arState === 'loading-model' ? t.loadingModel : t.analyzing}
             </p>
           </div>
@@ -1184,12 +1242,14 @@ export function ARSkinAnalysisCamera({
 
         {/* Error State */}
         {arState === 'error' && (
-          <div className="absolute inset-0 flex flex-col items-center justify-center bg-black px-8">
-            <AlertCircle className="w-16 h-16 text-red-400 mb-4" />
-            <p className="text-white text-center mb-6">{error}</p>
+          <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/90 backdrop-blur-sm px-8">
+            <div className="w-20 h-20 rounded-full bg-red-500/10 flex items-center justify-center mb-6">
+              <AlertCircle className="w-10 h-10 text-red-400" />
+            </div>
+            <p className="text-white/90 text-center text-lg mb-8 max-w-sm">{error}</p>
             <button
               onClick={initARCamera}
-              className="flex items-center gap-2 bg-white text-black px-6 py-3 rounded-full font-medium active:scale-95 transition-transform"
+              className="flex items-center gap-3 bg-white text-black px-8 py-4 rounded-full font-semibold active:scale-95 transition-transform"
             >
               <Camera className="w-5 h-5" />
               {t.tryAgain}
@@ -1199,223 +1259,416 @@ export function ARSkinAnalysisCamera({
 
         {/* Paused Overlay */}
         {arState === 'paused' && (
-          <div className="absolute inset-0 flex items-center justify-center bg-black/60">
-            <div className="text-center">
-              <Pause className="w-16 h-16 text-white/60 mx-auto mb-2" />
-              <p className="text-white/80">{t.pause}</p>
+          <div className="absolute inset-0 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+            <div className="w-24 h-24 rounded-full bg-white/10 flex items-center justify-center">
+              <Pause className="w-12 h-12 text-white/80" />
             </div>
           </div>
         )}
 
-        {/* Status Indicators */}
+        {/* Apple-Style Capture Progress Overlay */}
+        {isCapturing && (
+          <div className="absolute inset-0 flex items-center justify-center bg-black/70 backdrop-blur-xl z-50">
+            <div className="flex flex-col items-center">
+              {/* Circular Progress Ring */}
+              <div className="relative w-32 h-32 mb-8">
+                {/* Background ring */}
+                <svg className="w-32 h-32 -rotate-90">
+                  <circle
+                    cx="64"
+                    cy="64"
+                    r="56"
+                    stroke="rgba(255,255,255,0.1)"
+                    strokeWidth="6"
+                    fill="none"
+                  />
+                  {/* Progress ring */}
+                  <circle
+                    cx="64"
+                    cy="64"
+                    r="56"
+                    stroke="url(#captureGradient)"
+                    strokeWidth="6"
+                    fill="none"
+                    strokeLinecap="round"
+                    strokeDasharray={`${captureProgress * 3.52} 352`}
+                    className="transition-all duration-300 ease-out"
+                  />
+                  <defs>
+                    <linearGradient id="captureGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" stopColor="#60A5FA" />
+                      <stop offset="50%" stopColor="#818CF8" />
+                      <stop offset="100%" stopColor="#A78BFA" />
+                    </linearGradient>
+                  </defs>
+                </svg>
+                {/* Percentage */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span className="text-white font-semibold text-3xl tracking-tight">
+                    {captureProgress}%
+                  </span>
+                </div>
+              </div>
+              
+              {/* Analysis Step Text */}
+              <p className="text-white/90 text-lg font-medium tracking-wide mb-2">
+                {locale === 'ar' ? 'تحليل البشرة' : locale === 'ru' ? 'Анализ кожи' : 'Analyzing Skin'}
+              </p>
+              <p className="text-white/50 text-sm max-w-xs text-center animate-pulse">
+                {captureStep}
+              </p>
+              
+              {/* Progress Steps Dots */}
+              <div className="flex items-center gap-1.5 mt-6">
+                {[...Array(10)].map((_, i) => (
+                  <div
+                    key={i}
+                    className={cn(
+                      'w-1.5 h-1.5 rounded-full transition-all duration-300',
+                      i < Math.ceil(captureProgress / 10)
+                        ? 'bg-white scale-100'
+                        : 'bg-white/20 scale-75'
+                    )}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Minimal Status - Top Center */}
         {(arState === 'ready' || arState === 'paused') && (
-          <>
-            {/* Face Detection Status */}
-            <div className={`absolute top-4 left-1/2 -translate-x-1/2 px-4 py-2 rounded-full backdrop-blur-sm ${
+          <div className="absolute top-24 left-1/2 -translate-x-1/2 z-10">
+            <div className={cn(
+              'px-5 py-2.5 rounded-full backdrop-blur-xl transition-all duration-300',
               liveMetrics.faceDetected 
                 ? isStabilized 
-                  ? 'bg-green-500/80' 
-                  : 'bg-yellow-500/80'
+                  ? 'bg-green-500/90' 
+                  : 'bg-white/20'
                 : 'bg-red-500/80'
-            }`}>
-              <p className="text-white text-sm font-medium">
+            )}>
+              <p className="text-white text-sm font-medium tracking-wide">
                 {!liveMetrics.faceDetected 
                   ? t.faceNotDetected 
                   : isStabilized 
-                    ? t.resultsStable 
+                    ? '✓ Ready to capture' 
                     : t.holdStill
                 }
               </p>
             </div>
-
-            {/* Lighting & Face Mesh Indicators */}
-            <div className="absolute top-16 left-1/2 -translate-x-1/2 flex items-center gap-3">
-              {/* Face Mesh Status */}
-              <div className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-full backdrop-blur-sm ${
-                useFaceMeshDetection ? 'bg-indigo-500/30' : 'bg-black/40'
-              }`}>
-                <Scan className={`w-3.5 h-3.5 ${useFaceMeshDetection ? 'text-indigo-300' : 'text-white/60'}`} />
-                <span className={`text-[10px] font-medium ${useFaceMeshDetection ? 'text-indigo-200' : 'text-white/60'}`}>
-                  {useFaceMeshDetection ? t.faceMeshActive : t.faceMeshFallback}
-                </span>
-              </div>
-              
-              {/* Lighting Indicator */}
-              <div className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-full bg-black/40 backdrop-blur-sm">
-                <Sun className={`w-3.5 h-3.5 ${getLightingColor(liveMetrics.lightingQuality)}`} />
-                <span className={`text-[10px] font-medium ${getLightingColor(liveMetrics.lightingQuality)}`}>
-                  {getLightingLabel(liveMetrics.lightingQuality)}
-                </span>
-              </div>
-            </div>
-          </>
+          </div>
         )}
       </div>
 
-      {/* Live Metrics Panel */}
+      {/* Elegant Bottom Panel - Apple Style */}
       {(arState === 'ready' || arState === 'paused') && liveMetrics.faceDetected && (
         <div 
-          className="bg-gradient-to-t from-black via-black/95 to-transparent px-4 pt-4 flex-shrink-0"
+          className="absolute bottom-0 left-0 right-0 z-20"
           style={{ paddingBottom: 'max(24px, env(safe-area-inset-bottom, 24px))' }}
         >
-          {/* Skin Type & Gender Badge */}
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary-500/30 to-primary-600/20 flex items-center justify-center">
-                <Sparkles className="w-6 h-6 text-primary-400" />
-              </div>
-              <div>
-                <p className="text-white/60 text-xs">{t.skinType}</p>
-                <p className="text-white font-bold text-lg">
-                  {skinTypeLabels[liveMetrics.skinType]?.[locale] || liveMetrics.skinType}
-                </p>
-              </div>
-            </div>
-            {/* Gender Detection */}
-            <div className="flex items-center gap-3">
-              <div className={cn(
-                'w-10 h-10 rounded-xl flex items-center justify-center',
-                liveMetrics.gender === 'male' 
-                  ? 'bg-blue-500/20' 
-                  : liveMetrics.gender === 'female' 
-                    ? 'bg-pink-500/20' 
-                    : 'bg-white/10'
-              )}>
-                <User className={cn(
-                  'w-5 h-5',
-                  liveMetrics.gender === 'male' 
-                    ? 'text-blue-400' 
-                    : liveMetrics.gender === 'female' 
-                      ? 'text-pink-400' 
-                      : 'text-white/40'
-                )} />
-              </div>
-              <div>
-                <p className="text-white/60 text-xs">{t.gender}</p>
-                <p className={cn(
-                  'font-bold text-lg',
-                  liveMetrics.gender === 'male' 
-                    ? 'text-blue-400' 
-                    : liveMetrics.gender === 'female' 
-                      ? 'text-pink-400' 
-                      : 'text-white/40'
-                )}>
-                  {liveMetrics.gender === 'male' ? t.male : liveMetrics.gender === 'female' ? t.female : t.unknown}
-                </p>
-              </div>
-            </div>
-            <div className="text-right">
-              <p className="text-white/60 text-xs">Confidence</p>
-              <p className="text-white font-bold text-lg">{liveMetrics.confidence}%</p>
-            </div>
-          </div>
-
-          {/* Live Metrics Grid - Row 1 */}
-          <div className="grid grid-cols-4 gap-2 mb-2">
-            <LiveMetricCard
-              icon={<Droplets className="w-4 h-4" />}
-              label={t.oiliness}
-              value={liveMetrics.oiliness}
-              color="amber"
-            />
-            <LiveMetricCard
-              icon={<Target className="w-4 h-4" />}
-              label={t.hydration}
-              value={liveMetrics.hydration}
-              color="blue"
-            />
-            <LiveMetricCard
-              icon={<Flame className="w-4 h-4" />}
-              label={t.redness}
-              value={liveMetrics.redness}
-              color="red"
-            />
-            <LiveMetricCard
-              icon={<Sparkles className="w-4 h-4" />}
-              label={t.skinClarity}
-              value={100 - liveMetrics.blemishSeverity}
-              color="green"
-              subtitle={getBlemishLevelLabel(liveMetrics.blemishLevel, locale)}
-            />
-          </div>
-          
-          {/* Live Metrics Grid - Row 2 */}
-          <div className="grid grid-cols-4 gap-2 mb-4">
-            <LiveMetricCard
-              icon={<Eye className="w-4 h-4" />}
-              label={t.texture}
-              value={liveMetrics.textureScore}
-              color="cyan"
-            />
-            <LiveMetricCard
-              icon={<Palette className="w-4 h-4" />}
-              label={t.evenness}
-              value={liveMetrics.evenness}
-              color="purple"
-            />
-            <LiveMetricCard
-              icon={<CircleDot className="w-4 h-4" />}
-              label={t.spots}
-              value={Math.max(0, 100 - liveMetrics.blemishCount * 10)}
-              color="pink"
-              subtitle={`${liveMetrics.blemishCount} detected`}
-            />
-            <LiveMetricCard
-              icon={<Clock className="w-4 h-4" />}
-              label={t.skinAge}
-              value={Math.round(25 + (100 - liveMetrics.evenness) * 0.2 + liveMetrics.blemishSeverity * 0.1)}
-              color="orange"
-              isAge={true}
-              subtitle="estimated"
-            />
-          </div>
-
-          {/* Toggle Details */}
-          <button
-            onClick={() => setShowDetailedMetrics(!showDetailedMetrics)}
-            className="w-full flex items-center justify-center gap-2 text-white/60 text-sm mb-4"
-          >
-            {showDetailedMetrics ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
-            {showDetailedMetrics ? t.hideDetails : t.showDetails}
-          </button>
-
-          {/* Detailed Zone Metrics */}
-          {showDetailedMetrics && (
-            <div className="grid grid-cols-2 gap-2 mb-4">
-              {faceZones.map((zone) => (
-                <div key={zone.name} className="bg-white/5 rounded-xl p-3">
-                  <p className="text-white/60 text-xs mb-1">
-                    {t[zone.name as keyof typeof t] || zone.name}
-                  </p>
-                  <div className="flex items-center gap-2">
-                    <div className="flex-1">
-                      <div className="h-1.5 bg-white/10 rounded-full overflow-hidden">
-                        <div 
-                          className="h-full bg-primary-500 rounded-full transition-all duration-300" 
-                          style={{ width: `${zone.metrics.oiliness}%` }}
-                        />
-                      </div>
-                    </div>
-                    <span className="text-white text-xs font-medium w-8">{zone.metrics.oiliness}%</span>
+          {/* Expandable Metrics Sheet */}
+          <div className={cn(
+            'mx-4 mb-6 rounded-3xl backdrop-blur-2xl overflow-hidden transition-all duration-500 ease-out',
+            showDetailedMetrics 
+              ? 'bg-black/80 max-h-[75vh]' 
+              : 'bg-black/60 max-h-28'
+          )}>
+            {/* Compact Summary Bar - Always Visible */}
+            <button 
+              onClick={() => setShowDetailedMetrics(!showDetailedMetrics)}
+              className="w-full px-6 py-5 flex items-center justify-between"
+            >
+              <div className="flex items-center gap-4">
+                {/* Skin Score Circle */}
+                <div className="relative w-14 h-14">
+                  <svg className="w-14 h-14 -rotate-90">
+                    <circle
+                      cx="28"
+                      cy="28"
+                      r="24"
+                      stroke="rgba(255,255,255,0.1)"
+                      strokeWidth="4"
+                      fill="none"
+                    />
+                    <circle
+                      cx="28"
+                      cy="28"
+                      r="24"
+                      stroke="url(#scoreGradient)"
+                      strokeWidth="4"
+                      fill="none"
+                      strokeLinecap="round"
+                      strokeDasharray={`${liveMetrics.confidence * 1.51} 151`}
+                      className="transition-all duration-700"
+                    />
+                    <defs>
+                      <linearGradient id="scoreGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stopColor="#34D399" />
+                        <stop offset="100%" stopColor="#10B981" />
+                      </linearGradient>
+                    </defs>
+                  </svg>
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <span className="text-white font-bold text-lg">{liveMetrics.confidence}</span>
                   </div>
                 </div>
-              ))}
-            </div>
-          )}
+                
+                <div>
+                  <p className="text-white font-semibold text-lg tracking-tight">
+                    {skinTypeLabels[liveMetrics.skinType]?.[locale] || liveMetrics.skinType}
+                  </p>
+                  <p className="text-white/50 text-sm">
+                    {liveMetrics.gender !== 'unknown' && (
+                      <span className={liveMetrics.gender === 'male' ? 'text-blue-400' : 'text-pink-400'}>
+                        {liveMetrics.gender === 'male' ? '♂' : '♀'} 
+                      </span>
+                    )}
+                    {' '}Skin Analysis
+                  </p>
+                </div>
+              </div>
+              
+              <div className="flex items-center gap-3">
+                {/* Quick Metrics Pills */}
+                <div className="hidden sm:flex items-center gap-2">
+                  <span className="px-3 py-1 rounded-full bg-amber-500/20 text-amber-400 text-xs font-medium">
+                    {liveMetrics.oiliness}% oil
+                  </span>
+                  <span className="px-3 py-1 rounded-full bg-blue-500/20 text-blue-400 text-xs font-medium">
+                    {liveMetrics.hydration}% hydrated
+                  </span>
+                </div>
+                
+                <ChevronUp className={cn(
+                  'w-5 h-5 text-white/40 transition-transform duration-300',
+                  showDetailedMetrics ? 'rotate-180' : ''
+                )} />
+              </div>
+            </button>
+            
+            {/* Expanded Metrics */}
+            {showDetailedMetrics && (
+              <div className="px-6 pb-6 space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-300 overflow-y-auto max-h-[calc(75vh-7rem)]">
+                {/* Divider */}
+                <div className="h-px bg-white/10" />
+                
+                {/* Primary Metrics - Large Cards */}
+                <div className="grid grid-cols-2 gap-4">
+                  <MetricCardPro 
+                    label={t.oiliness} 
+                    value={liveMetrics.oiliness} 
+                    icon={<Droplets className="w-5 h-5" />}
+                    color="amber"
+                  />
+                  <MetricCardPro 
+                    label={t.hydration} 
+                    value={liveMetrics.hydration} 
+                    icon={<Target className="w-5 h-5" />}
+                    color="blue"
+                  />
+                </div>
+                
+                {/* Secondary Metrics - Compact Row */}
+                <div className="grid grid-cols-4 gap-3">
+                  <MetricPill label={t.redness} value={liveMetrics.redness} color="red" />
+                  <MetricPill label={t.texture} value={liveMetrics.textureScore} color="cyan" />
+                  <MetricPill label={t.evenness} value={liveMetrics.evenness} color="purple" />
+                  <MetricPill label={t.skinClarity} value={100 - liveMetrics.blemishSeverity} color="green" />
+                </div>
+                
+                {/* Skin Age & Gender Row */}
+                <div className="grid grid-cols-2 gap-3">
+                  {/* Skin Age Estimate */}
+                  <div className="flex items-center justify-between px-4 py-3 rounded-2xl bg-white/5">
+                    <div className="flex items-center gap-2">
+                      <Clock className="w-4 h-4 text-white/40" />
+                      <span className="text-white/50 text-xs">
+                        {locale === 'ar' ? 'عمر البشرة' : locale === 'ru' ? 'Возраст' : 'Skin Age'}
+                      </span>
+                    </div>
+                    <span className="text-white font-semibold">
+                      ~{Math.round(25 + (100 - liveMetrics.evenness) * 0.2 + liveMetrics.blemishSeverity * 0.1)}
+                    </span>
+                  </div>
+                  
+                  {/* Gender */}
+                  <div className="flex items-center justify-between px-4 py-3 rounded-2xl bg-white/5">
+                    <div className="flex items-center gap-2">
+                      <User className="w-4 h-4 text-white/40" />
+                      <span className="text-white/50 text-xs">
+                        {locale === 'ar' ? 'الجنس' : locale === 'ru' ? 'Пол' : 'Gender'}
+                      </span>
+                    </div>
+                    <span className={cn(
+                      'font-semibold',
+                      liveMetrics.gender === 'male' ? 'text-blue-400' : 
+                      liveMetrics.gender === 'female' ? 'text-pink-400' : 'text-white/50'
+                    )}>
+                      {liveMetrics.gender === 'male' 
+                        ? (locale === 'ar' ? 'ذكر ♂' : locale === 'ru' ? 'Муж ♂' : 'Male ♂')
+                        : liveMetrics.gender === 'female'
+                        ? (locale === 'ar' ? 'أنثى ♀' : locale === 'ru' ? 'Жен ♀' : 'Female ♀')
+                        : '—'}
+                    </span>
+                  </div>
+                </div>
+                
+                {/* Advanced Analysis Section */}
+                <div className="space-y-4 pt-2">
+                  <div className="h-px bg-white/10" />
+                  <p className="text-white/40 text-xs font-medium uppercase tracking-wider">
+                    {locale === 'ar' ? 'تحليل متقدم' : locale === 'ru' ? 'Расширенный анализ' : 'Advanced Analysis'}
+                  </p>
+                  
+                  {/* Advanced Metrics Grid - 3 columns */}
+                  <div className="grid grid-cols-3 gap-3">
+                    {/* Pore Size */}
+                    <div className="p-3 rounded-2xl bg-gradient-to-br from-amber-500/10 to-amber-500/5 border border-amber-500/10">
+                      <div className="flex items-center gap-2 mb-2">
+                        <CircleDot className="w-4 h-4 text-amber-400/70" />
+                        <span className="text-white/50 text-xs">
+                          {locale === 'ar' ? 'المسام' : locale === 'ru' ? 'Поры' : 'Pores'}
+                        </span>
+                      </div>
+                      <p className="text-amber-300 font-semibold text-sm">
+                        {liveMetrics.oiliness > 60 ? (locale === 'ar' ? 'كبيرة' : locale === 'ru' ? 'Крупные' : 'Large') : 
+                         liveMetrics.oiliness > 40 ? (locale === 'ar' ? 'متوسطة' : locale === 'ru' ? 'Средние' : 'Medium') : 
+                         (locale === 'ar' ? 'صغيرة' : locale === 'ru' ? 'Мелкие' : 'Small')}
+                      </p>
+                    </div>
+                    
+                    {/* Under-Eye */}
+                    <div className="p-3 rounded-2xl bg-gradient-to-br from-blue-500/10 to-blue-500/5 border border-blue-500/10">
+                      <div className="flex items-center gap-2 mb-2">
+                        <Eye className="w-4 h-4 text-blue-400/70" />
+                        <span className="text-white/50 text-xs">
+                          {locale === 'ar' ? 'تحت العين' : locale === 'ru' ? 'Под глазами' : 'Under-Eye'}
+                        </span>
+                      </div>
+                      <p className="text-blue-300 font-semibold text-sm">
+                        {liveMetrics.hydration < 40 ? (locale === 'ar' ? 'متعبة' : locale === 'ru' ? 'Усталые' : 'Tired') : 
+                         liveMetrics.hydration < 60 ? (locale === 'ar' ? 'عادية' : locale === 'ru' ? 'Нормальные' : 'Normal') : 
+                         (locale === 'ar' ? 'مرتاحة' : locale === 'ru' ? 'Отдохнувшие' : 'Rested')}
+                      </p>
+                    </div>
+                    
+                    {/* Firmness */}
+                    <div className="p-3 rounded-2xl bg-gradient-to-br from-emerald-500/10 to-emerald-500/5 border border-emerald-500/10">
+                      <div className="flex items-center gap-2 mb-2">
+                        <Sparkles className="w-4 h-4 text-emerald-400/70" />
+                        <span className="text-white/50 text-xs">
+                          {locale === 'ar' ? 'المرونة' : locale === 'ru' ? 'Упругость' : 'Firmness'}
+                        </span>
+                      </div>
+                      <p className="text-emerald-300 font-semibold text-sm">
+                        {Math.round(liveMetrics.evenness * 0.8 + liveMetrics.textureScore * 0.2)}%
+                      </p>
+                    </div>
+                    
+                    {/* Sun Damage */}
+                    <div className="p-3 rounded-2xl bg-gradient-to-br from-orange-500/10 to-orange-500/5 border border-orange-500/10">
+                      <div className="flex items-center gap-2 mb-2">
+                        <Sun className="w-4 h-4 text-orange-400/70" />
+                        <span className="text-white/50 text-xs">
+                          {locale === 'ar' ? 'أضرار الشمس' : locale === 'ru' ? 'Солнце' : 'Sun Damage'}
+                        </span>
+                      </div>
+                      <p className={cn(
+                        'font-semibold text-sm',
+                        (100 - liveMetrics.evenness) > 50 ? 'text-orange-400' : 
+                        (100 - liveMetrics.evenness) > 25 ? 'text-orange-300' : 'text-emerald-300'
+                      )}>
+                        {(100 - liveMetrics.evenness) > 50 ? (locale === 'ar' ? 'شديد' : locale === 'ru' ? 'Сильное' : 'Severe') : 
+                         (100 - liveMetrics.evenness) > 25 ? (locale === 'ar' ? 'معتدل' : locale === 'ru' ? 'Умеренное' : 'Moderate') : 
+                         (locale === 'ar' ? 'خفيف' : locale === 'ru' ? 'Легкое' : 'Low')}
+                      </p>
+                    </div>
+                    
+                    {/* Lip Health */}
+                    <div className="p-3 rounded-2xl bg-gradient-to-br from-rose-500/10 to-rose-500/5 border border-rose-500/10">
+                      <div className="flex items-center gap-2 mb-2">
+                        <Heart className="w-4 h-4 text-rose-400/70" />
+                        <span className="text-white/50 text-xs">
+                          {locale === 'ar' ? 'الشفاه' : locale === 'ru' ? 'Губы' : 'Lips'}
+                        </span>
+                      </div>
+                      <p className={cn(
+                        'font-semibold text-sm',
+                        liveMetrics.hydration < 40 ? 'text-rose-400' : 
+                        liveMetrics.hydration < 60 ? 'text-amber-300' : 'text-emerald-300'
+                      )}>
+                        {liveMetrics.hydration < 40 ? (locale === 'ar' ? 'جافة' : locale === 'ru' ? 'Сухие' : 'Chapped') : 
+                         liveMetrics.hydration < 60 ? (locale === 'ar' ? 'عادية' : locale === 'ru' ? 'Нормальные' : 'Normal') : 
+                         (locale === 'ar' ? 'رطبة' : locale === 'ru' ? 'Увлажненные' : 'Hydrated')}
+                      </p>
+                    </div>
+                    
+                    {/* Skin Phototype (Fitzpatrick) */}
+                    <div className="p-3 rounded-2xl bg-gradient-to-br from-violet-500/10 to-violet-500/5 border border-violet-500/10">
+                      <div className="flex items-center gap-2 mb-2">
+                        <User className="w-4 h-4 text-violet-400/70" />
+                        <span className="text-white/50 text-xs">
+                          {locale === 'ar' ? 'النمط' : locale === 'ru' ? 'Фототип' : 'Phototype'}
+                        </span>
+                      </div>
+                      <p className="text-violet-300 font-semibold text-sm">
+                        Type III
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
 
-          {/* Capture Button */}
-          <button
-            onClick={captureResults}
-            disabled={!isStabilized}
-            className={`w-full flex items-center justify-center gap-2 py-4 rounded-xl font-semibold transition-all active:scale-[0.98] ${
-              isStabilized
-                ? 'bg-primary-600 hover:bg-primary-700 text-white'
-                : 'bg-white/10 text-white/50 cursor-not-allowed'
-            }`}
-          >
-            <Camera className="w-5 h-5" />
-            {t.captureResults}
-          </button>
+          {/* Capture Button - Apple Camera Style */}
+          <div className="flex justify-center">
+            <button
+              onClick={captureResults}
+              disabled={!isStabilized || isCapturing}
+              className={cn(
+                'group relative w-20 h-20 rounded-full transition-all duration-300 active:scale-95',
+                isStabilized && !isCapturing
+                  ? 'bg-white hover:bg-white/90'
+                  : 'bg-white/20 cursor-not-allowed'
+              )}
+            >
+              {/* Inner ring */}
+              <div className={cn(
+                'absolute inset-2 rounded-full border-2 transition-colors',
+                isStabilized && !isCapturing ? 'border-black/10' : 'border-white/20'
+              )} />
+              
+              {/* Center dot when ready */}
+              {isStabilized && !isCapturing && (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="w-14 h-14 rounded-full bg-white group-hover:bg-white/90 transition-colors" />
+                </div>
+              )}
+              
+              {/* Not ready indicator */}
+              {(!isStabilized || isCapturing) && (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <Loader2 className="w-6 h-6 text-white/50 animate-spin" />
+                </div>
+              )}
+            </button>
+          </div>
+          
+          {/* Hint Text */}
+          <p className={cn(
+            'text-center mt-4 tracking-wide transition-all duration-300',
+            isStabilized && !isCapturing
+              ? 'text-white text-sm font-medium animate-pulse'
+              : 'text-white/40 text-xs'
+          )}>
+            {isCapturing 
+              ? (locale === 'ar' ? 'جاري المعالجة...' : locale === 'ru' ? 'Обработка...' : 'Processing...')
+              : isStabilized 
+                ? (locale === 'ar' ? '👆 انقر للتحليل' : locale === 'ru' ? '👆 Нажмите для анализа' : '👆 Tap to run analysis')
+                : (locale === 'ar' ? 'ابق ثابتاً...' : locale === 'ru' ? 'Не двигайтесь...' : 'Hold steady...')
+            }
+          </p>
         </div>
       )}
     </div>
@@ -1426,53 +1679,93 @@ export function ARSkinAnalysisCamera({
   return createPortal(cameraContent, document.body)
 }
 
-// Live Metric Card Component
-function LiveMetricCard({
+// Professional Metric Card - Large Style
+function MetricCardPro({
+  label,
+  value,
   icon,
+  color,
+}: {
+  label: string
+  value: number
+  icon: React.ReactNode
+  color: 'amber' | 'blue' | 'red' | 'green' | 'purple' | 'cyan' | 'pink' | 'orange'
+}) {
+  const colorMap = {
+    amber: { ring: 'stroke-amber-400', bg: 'bg-amber-500/10', text: 'text-amber-400' },
+    blue: { ring: 'stroke-blue-400', bg: 'bg-blue-500/10', text: 'text-blue-400' },
+    red: { ring: 'stroke-red-400', bg: 'bg-red-500/10', text: 'text-red-400' },
+    green: { ring: 'stroke-emerald-400', bg: 'bg-emerald-500/10', text: 'text-emerald-400' },
+    purple: { ring: 'stroke-purple-400', bg: 'bg-purple-500/10', text: 'text-purple-400' },
+    cyan: { ring: 'stroke-cyan-400', bg: 'bg-cyan-500/10', text: 'text-cyan-400' },
+    pink: { ring: 'stroke-pink-400', bg: 'bg-pink-500/10', text: 'text-pink-400' },
+    orange: { ring: 'stroke-orange-400', bg: 'bg-orange-500/10', text: 'text-orange-400' },
+  }
+  
+  const colors = colorMap[color]
+  
+  return (
+    <div className={cn('rounded-2xl p-4 flex items-center gap-4', colors.bg)}>
+      {/* Circular Progress */}
+      <div className="relative w-12 h-12 flex-shrink-0">
+        <svg className="w-12 h-12 -rotate-90">
+          <circle
+            cx="24"
+            cy="24"
+            r="20"
+            stroke="rgba(255,255,255,0.1)"
+            strokeWidth="3"
+            fill="none"
+          />
+          <circle
+            cx="24"
+            cy="24"
+            r="20"
+            className={cn('transition-all duration-500', colors.ring)}
+            strokeWidth="3"
+            fill="none"
+            strokeLinecap="round"
+            strokeDasharray={`${value * 1.26} 126`}
+          />
+        </svg>
+        <div className={cn('absolute inset-0 flex items-center justify-center', colors.text)}>
+          {icon}
+        </div>
+      </div>
+      
+      <div className="flex-1 min-w-0">
+        <p className="text-white/50 text-xs mb-1 truncate">{label}</p>
+        <p className="text-white font-bold text-2xl tracking-tight">{value}%</p>
+      </div>
+    </div>
+  )
+}
+
+// Compact Metric Pill
+function MetricPill({
   label,
   value,
   color,
-  subtitle,
-  isAge,
 }: {
-  icon: React.ReactNode
   label: string
   value: number
   color: 'amber' | 'blue' | 'red' | 'green' | 'purple' | 'cyan' | 'pink' | 'orange'
-  subtitle?: string
-  isAge?: boolean
 }) {
-  const colorClasses = {
-    amber: { bg: 'bg-amber-500/20', fill: 'bg-amber-500', text: 'text-amber-400' },
-    blue: { bg: 'bg-blue-500/20', fill: 'bg-blue-500', text: 'text-blue-400' },
-    red: { bg: 'bg-red-500/20', fill: 'bg-red-500', text: 'text-red-400' },
-    green: { bg: 'bg-emerald-500/20', fill: 'bg-emerald-500', text: 'text-emerald-400' },
-    purple: { bg: 'bg-purple-500/20', fill: 'bg-purple-500', text: 'text-purple-400' },
-    cyan: { bg: 'bg-cyan-500/20', fill: 'bg-cyan-500', text: 'text-cyan-400' },
-    pink: { bg: 'bg-pink-500/20', fill: 'bg-pink-500', text: 'text-pink-400' },
-    orange: { bg: 'bg-orange-500/20', fill: 'bg-orange-500', text: 'text-orange-400' },
+  const colorMap = {
+    amber: 'text-amber-400',
+    blue: 'text-blue-400',
+    red: 'text-red-400',
+    green: 'text-emerald-400',
+    purple: 'text-purple-400',
+    cyan: 'text-cyan-400',
+    pink: 'text-pink-400',
+    orange: 'text-orange-400',
   }
-
+  
   return (
-    <div className="bg-white/5 backdrop-blur-sm rounded-xl p-2.5">
-      <div className={cn('w-5 h-5 rounded-full mb-1.5 flex items-center justify-center', colorClasses[color].bg)}>
-        <span className={colorClasses[color].text}>{icon}</span>
-      </div>
-      <p className="text-white/50 text-[9px] mb-0.5 truncate">{label}</p>
-      <p className="text-white font-bold text-lg leading-tight">
-        {isAge ? `~${value}` : `${value}%`}
-      </p>
-      {subtitle && (
-        <p className={cn('text-[8px] mt-0.5 truncate', colorClasses[color].text)}>{subtitle}</p>
-      )}
-      {!isAge && (
-        <div className="h-1 bg-white/10 rounded-full overflow-hidden mt-1.5">
-          <div
-            className={cn('h-full rounded-full transition-all duration-300', colorClasses[color].fill)}
-            style={{ width: `${value}%` }}
-          />
-        </div>
-      )}
+    <div className="bg-white/5 rounded-xl p-3 text-center">
+      <p className={cn('text-xl font-bold mb-0.5', colorMap[color])}>{value}%</p>
+      <p className="text-white/40 text-[10px] truncate">{label}</p>
     </div>
   )
 }

@@ -7,6 +7,10 @@ import { useSearchParams, useRouter } from 'next/navigation'
 import { ShoppingCart, Heart, Sparkles, ArrowRight, ArrowLeft, CheckCircle2, Info, Star, Camera, Scan, Droplets, Target, Flame, Eye, Eye as EyeIcon, Palette, Clock, Zap, Video, CircleDot, Sun, User } from 'lucide-react'
 import { SkinAnalysisCamera, SkinAnalysisResult } from '@/components/SkinAnalysisCamera'
 import { ARSkinAnalysisCamera } from '@/components/ar'
+import dynamic from 'next/dynamic'
+
+// Lazy load Power Animal game
+const PowerAnimalGame = dynamic(() => import('@/components/PowerAnimalGame'), { ssr: false })
 import { useCart } from '@/components/CartProvider'
 import { useAuth } from '@/components/AuthProvider'
 import { useFavorites } from '@/components/FavoritesProvider'
@@ -60,6 +64,7 @@ export default function SkinRecommendationClient() {
   const [analysisMode, setAnalysisMode] = useState<'photo' | 'live'>('photo') // Toggle between modes
   const [cameraResult, setCameraResult] = useState<SkinAnalysisResult | null>(null)
   const [showAnalysisReport, setShowAnalysisReport] = useState(false)
+  const [showPowerAnimal, setShowPowerAnimal] = useState(false) // Power Animal game
 
   // Load analysis data from URL params and sessionStorage
   useEffect(() => {
@@ -452,6 +457,14 @@ export default function SkinRecommendationClient() {
         />
       )}
 
+      {/* Power Animal Game Modal */}
+      {showPowerAnimal && (
+        <PowerAnimalGame
+          locale={locale}
+          onClose={() => setShowPowerAnimal(false)}
+        />
+      )}
+
       {/* Analysis Report - Shown when coming from camera analysis */}
       {showAnalysisReport && cameraResult && !showResults ? (
         <div className="mb-8">
@@ -813,33 +826,29 @@ export default function SkinRecommendationClient() {
                   </div>
                 </div>
 
-                {/* Analysis Mode Toggle - Photo vs Live AR */}
+                {/* Analysis Mode Toggle - Power Animal vs Live AR */}
                 <div className="mt-4 mb-4">
-                  <div className="bg-white/50 rounded-xl p-1 flex gap-1">
+                  <div className="flex gap-3">
+                    {/* Power Animal Button */}
                     <button
-                      onClick={() => setAnalysisMode('photo')}
-                      className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg text-sm font-medium transition-all ${
-                        analysisMode === 'photo'
-                          ? 'bg-white text-primary-700 shadow-sm'
-                          : 'text-gray-600 hover:text-gray-800'
-                      } ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+                      onClick={() => setShowPowerAnimal(true)}
+                      className={`flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-sm font-semibold transition-all border-2 border-amber-200 bg-gradient-to-r from-amber-50 to-orange-50 text-amber-700 hover:border-amber-300 hover:shadow-md active:scale-[0.98] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
                     >
-                      <Camera className="w-4 h-4" />
-                      {locale === 'ar' ? 'صورة' : locale === 'ru' ? 'Фото' : 'Photo'}
+                      <span className="text-lg">🦁</span>
+                      {locale === 'ar' ? 'حيوان القوة' : locale === 'ru' ? 'Тотем' : 'Power Animal'}
                     </button>
+                    
+                    {/* Live AR Button */}
                     <button
                       onClick={() => setAnalysisMode('live')}
-                      className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg text-sm font-medium transition-all ${
+                      className={`flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-sm font-semibold transition-all border-2 ${
                         analysisMode === 'live'
-                          ? 'bg-white text-primary-700 shadow-sm'
-                          : 'text-gray-600 hover:text-gray-800'
-                      } ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+                          ? 'border-primary-300 bg-gradient-to-r from-primary-50 to-red-50 text-primary-700 shadow-md'
+                          : 'border-gray-200 bg-white text-gray-600 hover:border-primary-200 hover:text-primary-600'
+                      } active:scale-[0.98] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
                     >
                       <Zap className="w-4 h-4" />
                       {locale === 'ar' ? 'مباشر AR' : locale === 'ru' ? 'Live AR' : 'Live AR'}
-                      <span className="bg-gradient-to-r from-primary-500 to-primary-600 text-white text-[10px] px-1.5 py-0.5 rounded-full font-bold">
-                        NEW
-                      </span>
                     </button>
                   </div>
                 </div>

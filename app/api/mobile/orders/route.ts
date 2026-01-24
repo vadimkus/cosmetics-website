@@ -531,7 +531,9 @@ export async function POST(request: NextRequest) {
       shipping: order.shipping,
       vat: order.vat,
       address: order.customerAddress,
-      emirate: order.customerEmirate
+      emirate: order.customerEmirate,
+      discountPercentage: user?.discountPercentage ?? 0,
+      discountAmount: order.discountAmount ?? 0
     }).then((adminResult) => {
       if (adminResult.success) {
         debugLog('[MOBILE_ORDERS] ✅ Admin notification sent for new order:', order.orderNumber)

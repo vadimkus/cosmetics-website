@@ -264,7 +264,9 @@ export async function POST(request: NextRequest) {
       emirate: emirate,
       deviceType,
       paymentStatus: 'PENDING',
-      paymentMethod: 'Pay by Link (Awaiting Payment)'
+      paymentMethod: 'Pay by Link (Awaiting Payment)',
+      discountPercentage: user?.discountPercentage ?? 0,
+      discountAmount: 0 // Support link orders calculate discount on items already
     }).then((adminResult) => {
       if (adminResult.success) {
         debugLog('✅ Admin notification sent for support-link order:', orderNumber)

@@ -101,6 +101,8 @@ export interface AdminNewOrderEmailData {
   deviceType?: string | undefined
   paymentMethod?: string | undefined
   paymentStatus?: 'PAID' | 'PENDING' | 'COD' | undefined
+  discountPercentage?: number | undefined
+  discountAmount?: number | undefined
 }
 
 // Email configuration
@@ -1178,6 +1180,18 @@ export const emailTemplates = {
                               <tr>
                                 <td style="color: #374151; font-size: 14px;">Subtotal:</td>
                                 <td align="right" style="color: #374151; font-size: 14px; font-weight: 500;">AED ${orderData.subtotal.toFixed(2)}</td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+            ` : ''}
+            ${orderData.discountPercentage && orderData.discountPercentage > 0 ? `
+                        <tr>
+                          <td style="padding: 8px 0; border-top: 1px solid #e5e7eb;">
+                            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                              <tr>
+                                <td style="color: #059669; font-size: 14px; font-weight: 600;">🏷️ Discount (${orderData.discountPercentage}%):</td>
+                                <td align="right" style="color: #059669; font-size: 14px; font-weight: 600;">-AED ${orderData.discountAmount ? orderData.discountAmount.toFixed(2) : '0.00'}</td>
                               </tr>
                             </table>
                           </td>

@@ -703,36 +703,61 @@ export default function CheckoutClient() {
               </div>
             </button>
             
-            {/* Expandable Order Summary Content */}
+            {/* Expandable Order Summary Content - Full Details */}
             {orderSummaryExpanded && (
               <div className="bg-white border border-t-0 border-gray-200 rounded-b-xl p-4 shadow-md">
-                {/* Items Preview */}
-                <div className="space-y-2 mb-3">
-                  {items.slice(0, 3).map((item) => {
+                {/* Items with discount info */}
+                <div className="space-y-3 mb-4">
+                  <h4 className={`text-xs font-semibold text-gray-500 uppercase tracking-wide ${dir === 'rtl' ? 'text-right' : ''}`}>
+                    {locale === 'ar' ? 'المنتجات' : locale === 'ru' ? 'Товары' : 'ITEMS'}:
+                  </h4>
+                  {items.map((item) => {
                     const pricing = calculateDiscountedPrice(item.product, user)
+                    const quantity = item.quantity || 1
                     return (
-                      <div key={item.product.id} className={`flex justify-between text-sm ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                        <span className="text-gray-700 truncate flex-1 mr-2">{item.product.name} × {item.quantity}</span>
-                        <span className="text-gray-900 font-medium">AED {(pricing.discountedPrice * item.quantity).toFixed(2)}</span>
+                      <div key={item.product.id} className={`flex justify-between items-start ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                        <div className="flex-1 min-w-0 pr-2">
+                          <div className="text-sm font-medium text-gray-900">{item.product.name}</div>
+                          <div className={`flex items-center gap-2 mt-0.5 flex-wrap ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                            <span className="text-xs text-gray-500">{locale === 'ar' ? 'الكمية' : locale === 'ru' ? 'Кол-во' : 'Qty'}: {quantity}</span>
+                            {pricing.hasDiscount && (
+                              <span className="text-xs text-green-600 font-medium">
+                                ({pricing.discountPercentage}% {locale === 'ar' ? 'خصم' : locale === 'ru' ? 'скидка' : 'OFF'}{pricing.isBeautyBox ? ` - ${locale === 'ar' ? 'خصم الطقم' : locale === 'ru' ? 'Скидка набора' : 'Bundle Discount'}` : ''})
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                        <span className="text-sm font-semibold text-gray-900">AED {(pricing.discountedPrice * quantity).toFixed(2)}</span>
                       </div>
                     )
                   })}
-                  {items.length > 3 && (
-                    <div className="text-xs text-gray-500 text-center">
-                      +{items.length - 3} {locale === 'ar' ? 'منتجات أخرى' : locale === 'ru' ? 'ещё товаров' : 'more items'}
+                  {/* Free masks */}
+                  {freeMasks.map((mask) => (
+                    <div key={mask.id} className={`flex justify-between items-start ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                      <div className="flex-1 min-w-0 pr-2">
+                        <div className="text-sm font-medium text-gray-900">{mask.name}</div>
+                        <span className="text-xs text-gray-500">{locale === 'ar' ? 'الكمية' : locale === 'ru' ? 'Кол-во' : 'Qty'}: {mask.quantity}</span>
+                      </div>
+                      <span className="text-sm font-semibold text-green-600">{locale === 'ar' ? 'مجاني' : locale === 'ru' ? 'Бесплатно' : 'FREE'}</span>
                     </div>
-                  )}
+                  ))}
                 </div>
                 
                 {/* Totals */}
-                <div className="border-t border-gray-100 pt-3 space-y-1.5">
+                <div className="border-t border-gray-200 pt-3 space-y-2">
                   <div className={`flex justify-between text-sm ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                    <span className="text-gray-600">{locale === 'ar' ? 'المجموع الفرعي' : locale === 'ru' ? 'Подытог' : 'Subtotal'}</span>
-                    <span className="text-gray-900">AED {subtotal.toFixed(2)}</span>
+                    <span className="text-gray-600">
+                      {locale === 'ar' ? 'المجموع الفرعي' : locale === 'ru' ? 'Подытог' : 'Subtotal'}: ({getTotalItems()} {getTotalItems() === 1 ? (locale === 'ar' ? 'منتج' : locale === 'ru' ? 'товар' : 'item') : (locale === 'ar' ? 'منتجات' : locale === 'ru' ? 'товаров' : 'items')})
+                      {freeMasks.length > 0 && <span className="block text-xs">+ {freeMasks.length} {locale === 'ar' ? 'هدايا مجانية' : locale === 'ru' ? 'бесплатных масок' : 'free masks'}</span>}
+                    </span>
+                    <span className="text-gray-900 font-medium">AED {subtotal.toFixed(2)}</span>
                   </div>
                   <div className={`flex justify-between text-sm ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                    <span className="text-gray-600">{locale === 'ar' ? 'الشحن' : locale === 'ru' ? 'Доставка' : 'Shipping'}</span>
-                    <span className={shippingCost === 0 ? 'text-green-600 font-medium' : 'text-gray-900'}>
+                    <span className="text-gray-600 flex items-center gap-1">
+                      <Truck className="h-3.5 w-3.5 text-green-600" />
+                      {locale === 'ar' ? 'الشحن إلى' : locale === 'ru' ? 'Доставка в' : 'Shipping to'} {selectedEmirate ? getEmirateDisplayName(selectedEmirate) : ''}
+                    </span>
+                    <span className={shippingCost === 0 ? 'text-green-600 font-semibold' : 'text-gray-900'}>
                       {shippingCost === 0 ? (locale === 'ar' ? 'مجاني' : locale === 'ru' ? 'Бесплатно' : 'FREE') : `AED ${shippingCost}`}
                     </span>
                   </div>
@@ -740,8 +765,11 @@ export default function CheckoutClient() {
                     <span className="text-gray-600">{locale === 'ar' ? 'ضريبة القيمة المضافة (5%)' : locale === 'ru' ? 'НДС (5%)' : 'VAT (5%)'}</span>
                     <span className="text-gray-900">AED {vatAmount.toFixed(2)}</span>
                   </div>
+                  <div className={`text-xs text-red-600 py-1 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                    {locale === 'ar' ? 'جميع الأسعار شاملة 5% ضريبة القيمة المضافة' : locale === 'ru' ? 'Все цены включают 5% НДС' : 'All prices include 5% VAT'}
+                  </div>
                   <div className={`flex justify-between text-base font-bold pt-2 border-t border-gray-200 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                    <span className="text-gray-900">{locale === 'ar' ? 'الإجمالي' : locale === 'ru' ? 'Итого' : 'Total'}</span>
+                    <span className="text-gray-900">{locale === 'ar' ? 'الإجمالي' : locale === 'ru' ? 'Итого' : 'Total'}:</span>
                     <span className="text-primary-600">AED {total.toFixed(2)}</span>
                   </div>
                 </div>
@@ -1087,8 +1115,8 @@ export default function CheckoutClient() {
             </div>
           </div>
 
-          {/* Order Summary - Hidden on Mobile Web (already shown in chevron above) */}
-          <div className={`lg:w-1/3 ${isMobileWeb ? 'hidden' : ''}`}>
+          {/* Order Summary - Hidden on Mobile Web and PWA (already shown in chevron above) */}
+          <div className={`lg:w-1/3 ${(isMobileWeb || (isPWAClient && isPWA)) ? 'hidden' : ''}`}>
             <div className="bg-white rounded-lg md:rounded-xl shadow-md md:shadow-lg border border-gray-100 sticky top-4 order-summary-container" style={{ overflow: 'hidden', overflowY: 'hidden', overflowX: 'hidden' }}>
               {/* Header - Hidden in PWA (moved to top of page), shown on desktop */}
               {!(isPWAClient && isPWA) && (

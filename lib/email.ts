@@ -1772,11 +1772,12 @@ export interface OrderHTMLItem {
   name: string
   quantity: number
   price: number
+  originalPrice?: number | undefined // Original price before discount (for display)
   image?: string
   total?: number
   size?: string
   color?: string
-  discountLabel?: string // e.g., "50% OFF" or "15% OFF - Bundle Discount"
+  discountLabel?: string | undefined // e.g., "50% OFF" or "15% OFF - Bundle Discount"
 }
 
 export interface OrderHTMLData {
@@ -1814,8 +1815,26 @@ export const generateCODOrderHTML = (order: OrderHTMLData, locale: string = 'en'
     ? `مرحباً ${firstName}،<br><br>شكراً لطلبك. ستدفع نقداً عند الاستلام عند وصول طلبك. سنخبرك عندما يتم شحنه.`
     : `Hi ${firstName},<br><br>Thank you for your order. You'll pay via Cash on Delivery when your order arrives. We'll notify you when it ships.`
 
-  // Generate items HTML
-  const itemsHTML = order.items.map(item => `
+  // Calculate original prices for items if discount exists
+  // If item has originalPrice, use it; otherwise calculate from discountPercentage
+  const itemsWithOriginalPrices = order.items.map(item => {
+    let displayPrice = item.price
+    if (order.discountPercentage && order.discountPercentage > 0 && item.discountLabel) {
+      // This item was discounted - calculate original price
+      displayPrice = item.originalPrice || (item.price / (1 - order.discountPercentage / 100))
+    } else if (item.originalPrice) {
+      displayPrice = item.originalPrice
+    }
+    return { ...item, displayPrice }
+  })
+  
+  // Calculate original subtotal (before discount)
+  const originalSubtotal = order.discountAmount && order.discountAmount > 0 
+    ? order.subtotal + order.discountAmount 
+    : order.subtotal
+
+  // Generate items HTML - show original prices
+  const itemsHTML = itemsWithOriginalPrices.map(item => `
     <tr>
       <td style="padding: 16px 0; border-bottom: 1px solid #f5f5f7; vertical-align: top;">
         <div style="font-size: 15px; font-weight: 500; color: #1d1d1f; letter-spacing: -0.01em; text-align: ${textAlign};">${item.name}</div>
@@ -1823,7 +1842,7 @@ export const generateCODOrderHTML = (order: OrderHTMLData, locale: string = 'en'
         ${item.discountLabel ? `<div style="font-size: 12px; color: #34c759; font-weight: 500; margin-top: 4px; text-align: ${textAlign};">(${item.discountLabel})</div>` : ''}
       </td>
       <td style="padding: 16px 12px; border-bottom: 1px solid #f5f5f7; text-align: center; font-size: 15px; color: #1d1d1f; vertical-align: top;">×${item.quantity}</td>
-      <td style="padding: 16px 0; border-bottom: 1px solid #f5f5f7; text-align: ${textAlignReverse}; font-size: 15px; color: #1d1d1f; font-weight: 500; vertical-align: top;">AED ${(item.price * item.quantity).toFixed(2)}</td>
+      <td style="padding: 16px 0; border-bottom: 1px solid #f5f5f7; text-align: ${textAlignReverse}; font-size: 15px; color: #1d1d1f; font-weight: 500; vertical-align: top;">AED ${(item.displayPrice * item.quantity).toFixed(2)}</td>
     </tr>
   `).join('')
 
@@ -1919,7 +1938,7 @@ export const generateCODOrderHTML = (order: OrderHTMLData, locale: string = 'en'
                   <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif;">
                     <tr>
                       <td style="padding: 8px 0; font-size: 15px; color: #86868b; text-align: ${textAlign};">${t.subtotal || 'Subtotal'}</td>
-                      <td style="padding: 8px 0; font-size: 15px; color: #1d1d1f; text-align: ${textAlignReverse};">AED ${order.subtotal.toFixed(2)}</td>
+                      <td style="padding: 8px 0; font-size: 15px; color: #1d1d1f; text-align: ${textAlignReverse};">AED ${originalSubtotal.toFixed(2)}</td>
                     </tr>
                     ${order.discountAmount && order.discountAmount > 0 ? `
                     <tr>
@@ -1932,7 +1951,7 @@ export const generateCODOrderHTML = (order: OrderHTMLData, locale: string = 'en'
                       <td style="padding: 8px 0; font-size: 15px; color: #1d1d1f; text-align: ${textAlignReverse};">${order.shippingCost === 0 ? (t.free || 'FREE') : `AED ${order.shippingCost.toFixed(2)}`}</td>
                     </tr>
                     <tr>
-                      <td style="padding: 8px 0; font-size: 15px; color: #86868b; text-align: ${textAlign};">${t.vat || 'VAT (5%)'}</td>
+                      <td style="padding: 8px 0; font-size: 15px; color: #86868b; text-align: ${textAlign};">${t.vat || 'VAT (5%)'} ${locale === 'ar' ? '(مشمول)' : locale === 'ru' ? '(включено)' : '(incl.)'}</td>
                       <td style="padding: 8px 0; font-size: 15px; color: #1d1d1f; text-align: ${textAlignReverse};">AED ${order.vatAmount.toFixed(2)}</td>
                     </tr>
                     <tr>
@@ -2001,18 +2020,36 @@ export const generateSupportLinkOrderHTML = (order: OrderHTMLData, locale: strin
   const isRTL = locale === 'ar'
   const dir = isRTL ? 'rtl' : 'ltr'
   const textAlign = isRTL ? 'right' : 'left'
+  const textAlignReverse = isRTL ? 'left' : 'right'
   const siteUrl = SITE_URL
   const productsUrl = locale === 'ar' ? `${siteUrl}/ar/products` : `${siteUrl}/products`
 
-  // Apple-style minimalist item rows
-  const itemsHTML = order.items.map((item) => `
+  // Calculate original prices for items if discount exists
+  const itemsWithOriginalPrices = order.items.map(item => {
+    let displayPrice = item.price
+    if (order.discountPercentage && order.discountPercentage > 0 && item.discountLabel) {
+      displayPrice = item.originalPrice || (item.price / (1 - order.discountPercentage / 100))
+    } else if (item.originalPrice) {
+      displayPrice = item.originalPrice
+    }
+    return { ...item, displayPrice }
+  })
+  
+  // Calculate original subtotal (before discount)
+  const originalSubtotal = order.discountAmount && order.discountAmount > 0 
+    ? order.subtotal + order.discountAmount 
+    : order.subtotal
+
+  // Apple-style minimalist item rows - show original prices
+  const itemsHTML = itemsWithOriginalPrices.map((item) => `
     <tr>
       <td style="padding: 16px 0; border-bottom: 1px solid #f5f5f7; vertical-align: top;">
         <div style="font-size: 15px; font-weight: 500; color: #1d1d1f; letter-spacing: -0.01em; text-align: ${textAlign};">${item.name || 'Product'}</div>
         ${item.size || item.color ? `<div style="font-size: 13px; color: #86868b; margin-top: 4px; text-align: ${textAlign};">${item.size ? `Size: ${item.size}` : ''}${item.size && item.color ? ' · ' : ''}${item.color ? `Color: ${item.color}` : ''}</div>` : ''}
+        ${item.discountLabel ? `<div style="font-size: 12px; color: #34c759; font-weight: 500; margin-top: 4px; text-align: ${textAlign};">(${item.discountLabel})</div>` : ''}
       </td>
       <td style="padding: 16px 12px; border-bottom: 1px solid #f5f5f7; text-align: center; font-size: 15px; color: #1d1d1f; vertical-align: top;">×${item.quantity || 0}</td>
-      <td style="padding: 16px 0; border-bottom: 1px solid #f5f5f7; text-align: ${isRTL ? 'left' : 'right'}; font-size: 15px; color: #1d1d1f; font-weight: 500; vertical-align: top;">AED ${(item.total || ((item.price || 0) * (item.quantity || 0))).toFixed(2)}</td>
+      <td style="padding: 16px 0; border-bottom: 1px solid #f5f5f7; text-align: ${textAlignReverse}; font-size: 15px; color: #1d1d1f; font-weight: 500; vertical-align: top;">AED ${(item.displayPrice * (item.quantity || 1)).toFixed(2)}</td>
     </tr>
   `).join('')
 
@@ -2085,15 +2122,21 @@ export const generateSupportLinkOrderHTML = (order: OrderHTMLData, locale: strin
                   <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif;">
                     <tr>
                       <td style="padding: 8px 0; font-size: 15px; color: #86868b; text-align: ${textAlign};">Subtotal</td>
-                      <td style="padding: 8px 0; font-size: 15px; color: #1d1d1f; text-align: ${isRTL ? 'left' : 'right'};">AED ${(order.subtotal || 0).toFixed(2)}</td>
+                      <td style="padding: 8px 0; font-size: 15px; color: #1d1d1f; text-align: ${textAlignReverse};">AED ${originalSubtotal.toFixed(2)}</td>
                     </tr>
+                    ${order.discountAmount && order.discountAmount > 0 ? `
+                    <tr>
+                      <td style="padding: 8px 0; font-size: 15px; color: #34c759; text-align: ${textAlign};">🏷️ Discount${order.discountPercentage ? ` (${order.discountPercentage}%)` : ''}</td>
+                      <td style="padding: 8px 0; font-size: 15px; color: #34c759; font-weight: 500; text-align: ${textAlignReverse};">-AED ${order.discountAmount.toFixed(2)}</td>
+                    </tr>
+                    ` : ''}
                     <tr>
                       <td style="padding: 8px 0; font-size: 15px; color: #86868b; text-align: ${textAlign};">Shipping</td>
-                      <td style="padding: 8px 0; font-size: 15px; color: #1d1d1f; text-align: ${isRTL ? 'left' : 'right'};">${(order.shippingCost || 0) === 0 ? 'Free' : `AED ${(order.shippingCost || 0).toFixed(2)}`}</td>
+                      <td style="padding: 8px 0; font-size: 15px; color: #1d1d1f; text-align: ${textAlignReverse};">${(order.shippingCost || 0) === 0 ? 'Free' : `AED ${(order.shippingCost || 0).toFixed(2)}`}</td>
                     </tr>
                     <tr>
-                      <td style="padding: 8px 0; font-size: 15px; color: #86868b; text-align: ${textAlign};">VAT (5%)</td>
-                      <td style="padding: 8px 0; font-size: 15px; color: #1d1d1f; text-align: ${isRTL ? 'left' : 'right'};">AED ${(order.vatAmount || 0).toFixed(2)}</td>
+                      <td style="padding: 8px 0; font-size: 15px; color: #86868b; text-align: ${textAlign};">VAT (5%) (incl.)</td>
+                      <td style="padding: 8px 0; font-size: 15px; color: #1d1d1f; text-align: ${textAlignReverse};">AED ${(order.vatAmount || 0).toFixed(2)}</td>
                     </tr>
                     <tr>
                       <td colspan="2" style="padding: 16px 0 8px 0;">
@@ -2102,7 +2145,7 @@ export const generateSupportLinkOrderHTML = (order: OrderHTMLData, locale: strin
                     </tr>
                     <tr>
                       <td style="padding: 8px 0; font-size: 17px; font-weight: 600; color: #1d1d1f; text-align: ${textAlign}; letter-spacing: -0.01em;">Total</td>
-                      <td style="padding: 8px 0; font-size: 17px; font-weight: 600; color: #1d1d1f; text-align: ${isRTL ? 'left' : 'right'}; letter-spacing: -0.01em;">AED ${(order.total || 0).toFixed(2)}</td>
+                      <td style="padding: 8px 0; font-size: 17px; font-weight: 600; color: #1d1d1f; text-align: ${textAlignReverse}; letter-spacing: -0.01em;">AED ${(order.total || 0).toFixed(2)}</td>
                     </tr>
                   </table>
                 </td>

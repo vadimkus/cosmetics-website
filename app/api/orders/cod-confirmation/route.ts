@@ -220,7 +220,7 @@ export async function POST(request: NextRequest) {
       emirate: (emirate && emirate.trim()) || 'N/A',
       discountPercentage: hasUserDiscount ? userDiscountPct : undefined,
       discountAmount: discountAmount > 0 ? discountAmount : undefined,
-      items: items.map((item: { name: string; quantity: number; price: number; image?: string; size?: string; color?: string }): OrderHTMLItem => {
+      items: items.map((item: { id?: string; name: string; quantity: number; price: number; image?: string; size?: string; color?: string }): OrderHTMLItem => {
         // Enhance with default size if missing
         const itemName = item.name || 'Product'
         const originalSize = (item.size && item.size.trim()) || null
@@ -230,15 +230,27 @@ export async function POST(request: NextRequest) {
           color: (item.color && item.color.trim()) || null
         })
         
+        // Check if this item is discounted (not excluded from user discount)
+        const isExcluded = isUserDiscountExcludedProduct({ name: itemName, id: item.id })
+        const isItemDiscounted = hasUserDiscount && !isExcluded
+        
+        // Calculate original price if item is discounted
+        const originalPrice = isItemDiscounted 
+          ? item.price / (1 - userDiscountPct / 100) 
+          : item.price
+        
         debugLog(`📦 COD Order Item: ${itemName}`)
         debugLog(`   Original size: ${originalSize || 'none'}`)
         debugLog(`   Enhanced size: ${enhanced.size || 'none'}`)
         debugLog(`   Color: ${enhanced.color || 'none'}`)
+        debugLog(`   Discounted: ${isItemDiscounted}, Original: ${originalPrice.toFixed(2)}, Current: ${item.price}`)
         
         const orderItem: OrderHTMLItem = {
           name: itemName,
           quantity: item.quantity,
-          price: item.price
+          price: item.price,
+          originalPrice: isItemDiscounted ? originalPrice : undefined,
+          discountLabel: isItemDiscounted ? `${userDiscountPct}% OFF` : undefined
         }
         if (item.image) {
           orderItem.image = item.image

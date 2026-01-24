@@ -198,11 +198,24 @@ export async function POST(request: NextRequest) {
       emirate: (emirate && emirate.trim()) || 'N/A',
       discountPercentage: hasUserDiscount ? userDiscountPct : undefined,
       discountAmount: discountAmount > 0 ? discountAmount : undefined,
-      items: items.map((item: { name: string; quantity: number; price: number; total?: number; image?: string; size?: string; color?: string }): OrderHTMLItem => {
+      items: items.map((item: { id?: string; name: string; quantity: number; price: number; total?: number; image?: string; size?: string; color?: string }): OrderHTMLItem => {
+        const itemName = item.name || 'Product'
+        
+        // Check if this item is discounted (not excluded from user discount)
+        const isExcluded = isUserDiscountExcludedProduct({ name: itemName, id: item.id })
+        const isItemDiscounted = hasUserDiscount && !isExcluded
+        
+        // Calculate original price if item is discounted
+        const originalPrice = isItemDiscounted 
+          ? item.price / (1 - userDiscountPct / 100) 
+          : item.price
+        
         const orderItem: OrderHTMLItem = {
-          name: item.name || 'Product',
+          name: itemName,
           quantity: item.quantity,
           price: item.price,
+          originalPrice: isItemDiscounted ? originalPrice : undefined,
+          discountLabel: isItemDiscounted ? `${userDiscountPct}% OFF` : undefined,
           total: item.total || (item.price * item.quantity)
         }
         if (item.image) {

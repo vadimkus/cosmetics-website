@@ -7,6 +7,7 @@ import { trackUserAction } from '@/lib/analyticsServer'
 import { debugLog, errorLog, warnLog } from '@/lib/logger'
 import { getPreferredEmail } from '@/lib/emailHelpers'
 import { findUserByEmail } from '@/lib/userStorageDb'
+import { isUserDiscountExcludedProduct } from '@/lib/mobileDiscountRules'
 import Stripe from 'stripe'
 
 // Disable body parsing for webhooks
@@ -335,19 +336,30 @@ async function sendConfirmationEmails(order: OrderWithItems) {
       isAppleRelay: order.customerEmail.includes('@privaterelay.appleid.com')
     })
 
+    // Calculate discount info for items
+    const userDiscountPct = Number(user?.discountPercentage || 0)
+    const hasUserDiscount = Number.isFinite(userDiscountPct) && userDiscountPct > 0 && userDiscountPct < 100
+    
     // Send customer confirmation email
     await sendOrderConfirmationEmail({
       orderNumber: order.orderNumber,
       customerName: order.customerName,
       customerEmail: emailToUse, // Use preferred email
-      items: order.items.map((item) => ({
-        productName: item.productName,
-        quantity: item.quantity,
-        price: item.price,
-        image: item.image || '',
-        ...(item.size ? { size: item.size } : {}),
-        ...(item.color ? { color: item.color } : {})
-      })),
+      items: order.items.map((item) => {
+        // Check if this item was discounted (use productName for exclusion check)
+        const isExcluded = isUserDiscountExcludedProduct({ name: item.productName })
+        const isItemDiscounted = hasUserDiscount && !isExcluded
+        
+        return {
+          productName: item.productName,
+          quantity: item.quantity,
+          price: item.price,
+          image: item.image || '',
+          ...(item.size ? { size: item.size } : {}),
+          ...(item.color ? { color: item.color } : {}),
+          ...(isItemDiscounted ? { discountLabel: `${userDiscountPct}% OFF` } : {})
+        }
+      }),
       subtotal: order.subtotal || 0,
       shipping: order.shipping || 0,
       vat: order.vat || 0,
@@ -355,7 +367,7 @@ async function sendConfirmationEmails(order: OrderWithItems) {
       address: order.customerAddress || '',
       emirate: order.customerEmirate || '',
       locale: order.locale || 'en',
-      discountPercentage: user?.discountPercentage ?? undefined,
+      discountPercentage: hasUserDiscount ? userDiscountPct : undefined,
       discountAmount: order.discountAmount ?? undefined
     })
 

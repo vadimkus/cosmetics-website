@@ -64,10 +64,11 @@ export interface OrderConfirmationEmailData {
     productName: string
     quantity: number
     price: number
+    originalPrice?: number | undefined // Original price before discount
     image: string
     size?: string
     color?: string
-    discountLabel?: string // e.g., "50% OFF" or "15% OFF - Bundle Discount"
+    discountLabel?: string | undefined // e.g., "50% OFF" or "15% OFF - Bundle Discount"
   }>
   subtotal: number
   shipping: number
@@ -645,9 +646,26 @@ export const emailTemplates = {
   orderConfirmation: (orderData: OrderConfirmationEmailData) => {
     const isRTL = orderData.locale === 'ar'
     const textAlign = isRTL ? 'right' : 'left'
+    const textAlignReverse = isRTL ? 'left' : 'right'
     
-    // Generate items HTML
-    const itemsHTML = orderData.items.map(item => `
+    // Calculate original prices for items if discount exists
+    const itemsWithOriginalPrices = orderData.items.map(item => {
+      let displayPrice = item.price
+      if (orderData.discountPercentage && orderData.discountPercentage > 0 && item.discountLabel) {
+        displayPrice = item.originalPrice || (item.price / (1 - orderData.discountPercentage / 100))
+      } else if (item.originalPrice) {
+        displayPrice = item.originalPrice
+      }
+      return { ...item, displayPrice }
+    })
+    
+    // Calculate original subtotal (before discount)
+    const originalSubtotal = orderData.discountAmount && orderData.discountAmount > 0 
+      ? orderData.subtotal + orderData.discountAmount 
+      : orderData.subtotal
+
+    // Generate items HTML - show original prices
+    const itemsHTML = itemsWithOriginalPrices.map(item => `
       <tr>
         <td style="padding: 16px 0; border-bottom: 1px solid #f5f5f7; vertical-align: top;">
           <div style="font-size: 15px; font-weight: 500; color: #1d1d1f; letter-spacing: -0.01em; text-align: ${textAlign};">${item.productName}</div>
@@ -655,7 +673,7 @@ export const emailTemplates = {
           ${item.discountLabel ? `<div style="font-size: 12px; color: #34c759; font-weight: 500; margin-top: 4px; text-align: ${textAlign};">(${item.discountLabel})</div>` : ''}
         </td>
         <td style="padding: 16px 12px; border-bottom: 1px solid #f5f5f7; text-align: center; font-size: 15px; color: #1d1d1f; vertical-align: top;">×${item.quantity}</td>
-        <td style="padding: 16px 0; border-bottom: 1px solid #f5f5f7; text-align: ${isRTL ? 'left' : 'right'}; font-size: 15px; color: #1d1d1f; font-weight: 500; vertical-align: top;">AED ${(item.price * item.quantity).toFixed(2)}</td>
+        <td style="padding: 16px 0; border-bottom: 1px solid #f5f5f7; text-align: ${textAlignReverse}; font-size: 15px; color: #1d1d1f; font-weight: 500; vertical-align: top;">AED ${(item.displayPrice * item.quantity).toFixed(2)}</td>
       </tr>
     `).join('')
     
@@ -739,21 +757,21 @@ export const emailTemplates = {
                     <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif;">
                       <tr>
                         <td style="padding: 8px 0; font-size: 15px; color: #86868b; text-align: ${textAlign};">Subtotal</td>
-                        <td style="padding: 8px 0; font-size: 15px; color: #1d1d1f; text-align: ${isRTL ? 'left' : 'right'};">AED ${orderData.subtotal.toFixed(2)}</td>
+                        <td style="padding: 8px 0; font-size: 15px; color: #1d1d1f; text-align: ${textAlignReverse};">AED ${originalSubtotal.toFixed(2)}</td>
                       </tr>
                       ${orderData.discountAmount && orderData.discountAmount > 0 ? `
                       <tr>
                         <td style="padding: 8px 0; font-size: 15px; color: #34c759; text-align: ${textAlign};">🏷️ Discount${orderData.discountPercentage ? ` (${orderData.discountPercentage}%)` : ''}</td>
-                        <td style="padding: 8px 0; font-size: 15px; color: #34c759; font-weight: 500; text-align: ${isRTL ? 'left' : 'right'};">-AED ${orderData.discountAmount.toFixed(2)}</td>
+                        <td style="padding: 8px 0; font-size: 15px; color: #34c759; font-weight: 500; text-align: ${textAlignReverse};">-AED ${orderData.discountAmount.toFixed(2)}</td>
                       </tr>
                       ` : ''}
                       <tr>
                         <td style="padding: 8px 0; font-size: 15px; color: #86868b; text-align: ${textAlign};">Shipping</td>
-                        <td style="padding: 8px 0; font-size: 15px; color: #1d1d1f; text-align: ${isRTL ? 'left' : 'right'};">${orderData.shipping === 0 ? 'Free' : `AED ${orderData.shipping.toFixed(2)}`}</td>
+                        <td style="padding: 8px 0; font-size: 15px; color: #1d1d1f; text-align: ${textAlignReverse};">${orderData.shipping === 0 ? 'Free' : `AED ${orderData.shipping.toFixed(2)}`}</td>
                       </tr>
                       <tr>
-                        <td style="padding: 8px 0; font-size: 15px; color: #86868b; text-align: ${textAlign};">VAT (5%)</td>
-                        <td style="padding: 8px 0; font-size: 15px; color: #1d1d1f; text-align: ${isRTL ? 'left' : 'right'};">AED ${orderData.vat.toFixed(2)}</td>
+                        <td style="padding: 8px 0; font-size: 15px; color: #86868b; text-align: ${textAlign};">VAT (5%) (incl.)</td>
+                        <td style="padding: 8px 0; font-size: 15px; color: #1d1d1f; text-align: ${textAlignReverse};">AED ${orderData.vat.toFixed(2)}</td>
                       </tr>
                       <tr>
                         <td colspan="2" style="padding: 16px 0 8px 0;">

@@ -201,21 +201,36 @@ export async function POST(request: NextRequest) {
       items: items.map((item: { id?: string; name: string; quantity: number; price: number; total?: number; image?: string; size?: string; color?: string }): OrderHTMLItem => {
         const itemName = item.name || 'Product'
         
-        // Check if this item is discounted (not excluded from user discount)
-        const isExcluded = isUserDiscountExcludedProduct({ name: itemName, id: item.id })
-        const isItemDiscounted = hasUserDiscount && !isExcluded
+        // Check item type for discount labeling
+        const isFreeItem = item.price === 0 || itemName.toLowerCase().includes('(free)')
+        const isBundle = itemName.toLowerCase().includes('beauty box') || itemName.toLowerCase().includes('bundle')
+        const isExcludedFromUserDiscount = isUserDiscountExcludedProduct({ name: itemName, id: item.id })
+        const hasUserDiscountApplied = hasUserDiscount && !isExcludedFromUserDiscount && !isFreeItem
         
-        // Calculate original price if item is discounted
-        const originalPrice = isItemDiscounted 
-          ? item.price / (1 - userDiscountPct / 100) 
-          : item.price
+        // Determine discount label and original price
+        let discountLabel: string | undefined = undefined
+        let originalPrice: number | undefined = undefined
+        
+        if (isFreeItem) {
+          // Free items - no discount label needed
+          discountLabel = undefined
+          originalPrice = undefined
+        } else if (isBundle) {
+          // Bundles have 15% discount
+          discountLabel = '15% OFF - Bundle'
+          originalPrice = item.price / (1 - 0.15)
+        } else if (hasUserDiscountApplied) {
+          // Regular items with user discount
+          discountLabel = `${userDiscountPct}% OFF`
+          originalPrice = item.price / (1 - userDiscountPct / 100)
+        }
         
         const orderItem: OrderHTMLItem = {
           name: itemName,
           quantity: item.quantity,
           price: item.price,
-          originalPrice: isItemDiscounted ? originalPrice : undefined,
-          discountLabel: isItemDiscounted ? `${userDiscountPct}% OFF` : undefined,
+          originalPrice,
+          discountLabel,
           total: item.total || (item.price * item.quantity)
         }
         if (item.image) {

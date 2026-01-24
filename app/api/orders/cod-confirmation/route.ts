@@ -230,27 +230,43 @@ export async function POST(request: NextRequest) {
           color: (item.color && item.color.trim()) || null
         })
         
-        // Check if this item is discounted (not excluded from user discount)
-        const isExcluded = isUserDiscountExcludedProduct({ name: itemName, id: item.id })
-        const isItemDiscounted = hasUserDiscount && !isExcluded
+        // Check item type for discount labeling
+        const isFreeItem = item.price === 0 || itemName.toLowerCase().includes('(free)')
+        const isBundle = itemName.toLowerCase().includes('beauty box') || itemName.toLowerCase().includes('bundle')
+        const isExcludedFromUserDiscount = isUserDiscountExcludedProduct({ name: itemName, id: item.id })
+        const hasUserDiscountApplied = hasUserDiscount && !isExcludedFromUserDiscount && !isFreeItem
         
-        // Calculate original price if item is discounted
-        const originalPrice = isItemDiscounted 
-          ? item.price / (1 - userDiscountPct / 100) 
-          : item.price
+        // Determine discount label and original price
+        let discountLabel: string | undefined = undefined
+        let originalPrice: number | undefined = undefined
+        
+        if (isFreeItem) {
+          // Free items - no discount label needed
+          discountLabel = undefined
+          originalPrice = undefined
+        } else if (isBundle) {
+          // Bundles have 15% discount
+          discountLabel = '15% OFF - Bundle'
+          originalPrice = item.price / (1 - 0.15) // Reverse calculate from 15% discount
+        } else if (hasUserDiscountApplied) {
+          // Regular items with user discount
+          discountLabel = `${userDiscountPct}% OFF`
+          originalPrice = item.price / (1 - userDiscountPct / 100)
+        }
         
         debugLog(`📦 COD Order Item: ${itemName}`)
         debugLog(`   Original size: ${originalSize || 'none'}`)
         debugLog(`   Enhanced size: ${enhanced.size || 'none'}`)
         debugLog(`   Color: ${enhanced.color || 'none'}`)
-        debugLog(`   Discounted: ${isItemDiscounted}, Original: ${originalPrice.toFixed(2)}, Current: ${item.price}`)
+        debugLog(`   Free: ${isFreeItem}, Bundle: ${isBundle}, UserDiscount: ${hasUserDiscountApplied}`)
+        debugLog(`   DiscountLabel: ${discountLabel || 'none'}, Original: ${originalPrice?.toFixed(2) || 'N/A'}, Current: ${item.price}`)
         
         const orderItem: OrderHTMLItem = {
           name: itemName,
           quantity: item.quantity,
           price: item.price,
-          originalPrice: isItemDiscounted ? originalPrice : undefined,
-          discountLabel: isItemDiscounted ? `${userDiscountPct}% OFF` : undefined
+          originalPrice,
+          discountLabel
         }
         if (item.image) {
           orderItem.image = item.image

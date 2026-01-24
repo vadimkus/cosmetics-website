@@ -346,18 +346,32 @@ async function sendConfirmationEmails(order: OrderWithItems) {
       customerName: order.customerName,
       customerEmail: emailToUse, // Use preferred email
       items: order.items.map((item) => {
-        // Check if this item was discounted (use productName for exclusion check)
-        const isExcluded = isUserDiscountExcludedProduct({ name: item.productName })
-        const isItemDiscounted = hasUserDiscount && !isExcluded
+        const itemName = item.productName || 'Product'
+        
+        // Check item type for discount labeling
+        const isFreeItem = item.price === 0 || itemName.toLowerCase().includes('(free)')
+        const isBundle = itemName.toLowerCase().includes('beauty box') || itemName.toLowerCase().includes('bundle')
+        const isExcludedFromUserDiscount = isUserDiscountExcludedProduct({ name: itemName })
+        const hasUserDiscountApplied = hasUserDiscount && !isExcludedFromUserDiscount && !isFreeItem
+        
+        // Determine discount label
+        let discountLabel: string | undefined = undefined
+        if (isFreeItem) {
+          discountLabel = undefined
+        } else if (isBundle) {
+          discountLabel = '15% OFF - Bundle'
+        } else if (hasUserDiscountApplied) {
+          discountLabel = `${userDiscountPct}% OFF`
+        }
         
         return {
-          productName: item.productName,
+          productName: itemName,
           quantity: item.quantity,
           price: item.price,
           image: item.image || '',
           ...(item.size ? { size: item.size } : {}),
           ...(item.color ? { color: item.color } : {}),
-          ...(isItemDiscounted ? { discountLabel: `${userDiscountPct}% OFF` } : {})
+          ...(discountLabel ? { discountLabel } : {})
         }
       }),
       subtotal: order.subtotal || 0,

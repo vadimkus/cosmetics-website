@@ -112,7 +112,7 @@ export default function OrderDetails({ order, onBack, onUpdateStatus }: OrderDet
             </div>
             {order.discountAmount > 0 && (
               <div className="flex justify-between text-green-600">
-                <span>Discount:</span>
+                <span>Discount ({Math.round((order.discountAmount / (order.subtotal + order.discountAmount)) * 100)}%):</span>
                 <span className="font-medium">-{formatCurrency(order.discountAmount)}</span>
               </div>
             )}

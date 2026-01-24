@@ -585,14 +585,17 @@ export default function OrdersPage() {
                         </div>
 
                         {/* Discount - only show if there's a discount */}
-                        {Number(order.discountAmount) > 0 && (
-                          <div className={`flex justify-between text-sm ${isRTL ? 'flex-row-reverse' : ''}`}>
-                            <span className="text-green-600">
-                              {locale === 'ar' ? 'الخصم' : locale === 'ru' ? 'Скидка' : 'Discount'}
-                            </span>
-                            <span className="text-green-600">-{formatCurrency(Number(order.discountAmount))}</span>
-                          </div>
-                        )}
+                        {Number(order.discountAmount) > 0 && (() => {
+                          const discountPct = Math.round((Number(order.discountAmount) / (Number(order.subtotal) + Number(order.discountAmount))) * 100)
+                          return (
+                            <div className={`flex justify-between text-sm ${isRTL ? 'flex-row-reverse' : ''}`}>
+                              <span className="text-green-600">
+                                {locale === 'ar' ? `الخصم (${discountPct}%)` : locale === 'ru' ? `Скидка (${discountPct}%)` : `Discount (${discountPct}%)`}
+                              </span>
+                              <span className="text-green-600">-{formatCurrency(Number(order.discountAmount))}</span>
+                            </div>
+                          )
+                        })()}
 
                         {/* Shipping */}
                         <div className={`flex justify-between text-sm ${isRTL ? 'flex-row-reverse' : ''}`}>

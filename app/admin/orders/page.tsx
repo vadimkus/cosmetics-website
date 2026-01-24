@@ -328,7 +328,7 @@ export default function AdminOrdersPage() {
                     </div>
                     {order.discountAmount && order.discountAmount > 0 && (
                       <div>
-                        <span className="text-green-600">🏷️ Discount:</span>
+                        <span className="text-green-600">🏷️ Discount ({Math.round((order.discountAmount / ((order.subtotal || 0) + order.discountAmount)) * 100)}%):</span>
                         <span className="ml-1 font-semibold text-green-600">-{formatCurrency(order.discountAmount)}</span>
                       </div>
                     )}

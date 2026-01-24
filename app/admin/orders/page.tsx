@@ -164,6 +164,7 @@ export default function AdminOrdersPage() {
   const totalSubtotal = orders.reduce((sum, order) => sum + (order.subtotal || 0), 0)
   const totalShipping = orders.reduce((sum, order) => sum + (order.shipping || 0), 0)
   const totalVat = orders.reduce((sum, order) => sum + (order.vat || 0), 0)
+  const totalDiscount = orders.reduce((sum, order) => sum + (order.discountAmount || 0), 0)
   const totalItems = orders.reduce((sum, order) => sum + order.itemCount, 0)
 
   return (
@@ -184,7 +185,7 @@ export default function AdminOrdersPage() {
       {!loading && orders.length > 0 && (
         <div className="bg-gradient-to-r from-red-600 to-red-700 rounded-lg shadow-lg p-6 mb-6 text-white">
           <h2 className="text-xl font-bold mb-4">Order Summary</h2>
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-6 gap-4">
             <div>
               <p className="text-sm opacity-90">Total Orders</p>
               <p className="text-2xl font-bold">{orders.length}</p>
@@ -197,6 +198,12 @@ export default function AdminOrdersPage() {
               <p className="text-sm opacity-90">Total Subtotal</p>
               <p className="text-xl font-semibold">{formatCurrency(totalSubtotal)}</p>
             </div>
+            {totalDiscount > 0 && (
+              <div>
+                <p className="text-sm opacity-90">🏷️ Total Discounts</p>
+                <p className="text-xl font-semibold text-green-200">-{formatCurrency(totalDiscount)}</p>
+              </div>
+            )}
             <div>
               <p className="text-sm opacity-90">Total Shipping</p>
               <p className="text-xl font-semibold">{formatCurrency(totalShipping)}</p>
@@ -314,11 +321,17 @@ export default function AdminOrdersPage() {
                 
                 {/* Order Breakdown Summary */}
                 <div className="bg-gray-50 rounded-lg p-3 text-xs mt-4">
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+                  <div className="grid grid-cols-2 md:grid-cols-5 gap-2">
                     <div>
                       <span className="text-gray-500">Subtotal:</span>
                       <span className="ml-1 font-medium">{formatCurrency(order.subtotal || 0)}</span>
                     </div>
+                    {order.discountAmount && order.discountAmount > 0 && (
+                      <div>
+                        <span className="text-green-600">🏷️ Discount:</span>
+                        <span className="ml-1 font-semibold text-green-600">-{formatCurrency(order.discountAmount)}</span>
+                      </div>
+                    )}
                     <div>
                       <span className="text-gray-500">Shipping:</span>
                       <span className="ml-1 font-medium">{formatCurrency(order.shipping || 0)}</span>

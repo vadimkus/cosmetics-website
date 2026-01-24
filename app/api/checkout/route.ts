@@ -12,6 +12,7 @@ import { getPreferredEmail } from '@/lib/emailHelpers'
 import { findUserByEmail } from '@/lib/userStorageDb'
 import { calculateMobileShipping, calculateVatIncluded } from '@/lib/mobileCheckoutConfig'
 import { sendWhatsAppOrderConfirmation, isTwilioConfigured } from '@/lib/twilio'
+import { isUserDiscountExcludedProduct } from '@/lib/mobileDiscountRules'
 
 interface CheckoutItem {
   product: Product
@@ -80,13 +81,41 @@ export async function POST(request: NextRequest) {
     debugLog('🔍 Order calculation debug:')
     debugLog('Items received:', JSON.stringify(items, null, 2))
     
-    const subtotal = items.reduce((total: number, item: CheckoutItem) => {
-      const itemTotal = item.product.price * item.quantity
-      debugLog(`Item: ${item.product.name} - Price: ${item.product.price} x Qty: ${item.quantity} = ${itemTotal}`)
-      return total + itemTotal
-    }, 0)
+    // Get user's discount percentage
+    const userDiscountPct = Number(user?.discountPercentage || 0)
+    const hasUserDiscount = Number.isFinite(userDiscountPct) && userDiscountPct > 0 && userDiscountPct < 100
+    
+    debugLog('User discount:', { hasUserDiscount, userDiscountPct, userId: user?.id })
+    
+    let subtotal = 0
+    let discountAmount = 0
+    
+    for (const item of items as CheckoutItem[]) {
+      const basePrice = item.product.price
+      const excluded = isUserDiscountExcludedProduct(item.product)
+      
+      // Apply discount only if user has discount AND product is not excluded
+      const shouldDiscount = hasUserDiscount && !excluded
+      const discountedPrice = shouldDiscount ? basePrice * (1 - userDiscountPct / 100) : basePrice
+      const itemTotal = discountedPrice * item.quantity
+      
+      subtotal += itemTotal
+      
+      if (shouldDiscount) {
+        const itemDiscount = (basePrice - discountedPrice) * item.quantity
+        discountAmount += itemDiscount
+        debugLog(`Item: ${item.product.name} - Price: ${basePrice} → ${discountedPrice.toFixed(2)} (${userDiscountPct}% off) x Qty: ${item.quantity} = ${itemTotal.toFixed(2)} (saved: ${itemDiscount.toFixed(2)})`)
+      } else {
+        debugLog(`Item: ${item.product.name} - Price: ${basePrice} x Qty: ${item.quantity} = ${itemTotal} ${excluded ? '(excluded from discount)' : ''}`)
+      }
+    }
+    
+    // Round to 2 decimal places
+    subtotal = Math.round(subtotal * 100) / 100
+    discountAmount = Math.round(discountAmount * 100) / 100
     
     debugLog('Subtotal calculated:', subtotal)
+    debugLog('Discount amount:', discountAmount)
     
     // Use shared mobile checkout config for consistency
     const shipping = calculateMobileShipping(subtotal, customerEmirate)
@@ -94,11 +123,9 @@ export async function POST(request: NextRequest) {
     debugLog('Emirate:', customerEmirate)
     debugLog('Final shipping:', shipping)
     
-    const discountAmount = 0 // You can add discount logic here if needed
-    const total = subtotal - discountAmount + shipping
+    const total = subtotal + shipping
     const vat = calculateVatIncluded(total)
 
-    debugLog('Discount amount:', discountAmount)
     debugLog('Subtotal (VAT included):', subtotal)
     debugLog('Shipping (VAT included):', shipping)
     debugLog('VAT amount (calculated from inclusive prices):', vat)

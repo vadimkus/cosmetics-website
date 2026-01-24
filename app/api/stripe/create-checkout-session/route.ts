@@ -11,6 +11,7 @@ import { getPreferredEmail } from '@/lib/emailHelpers'
 import { findUserByEmail } from '@/lib/userStorageDb'
 import { calculateMobileShipping, calculateVatIncluded } from '@/lib/mobileCheckoutConfig'
 import { prisma } from '@/lib/prisma'
+import { isUserDiscountExcludedProduct } from '@/lib/mobileDiscountRules'
 
 interface CheckoutItem {
   product: Product
@@ -89,16 +90,42 @@ export async function POST(request: NextRequest) {
       isAppleRelay: customerEmail.includes('@privaterelay.appleid.com')
     })
 
-    // Calculate order totals
-    const subtotal = items.reduce((total: number, item: CheckoutItem) => {
-      return total + (item.product.price * item.quantity)
-    }, 0)
+    // Get user's discount percentage
+    const userDiscountPct = Number(user?.discountPercentage || 0)
+    const hasUserDiscount = Number.isFinite(userDiscountPct) && userDiscountPct > 0 && userDiscountPct < 100
+    
+    debugLog('User discount for Stripe:', { hasUserDiscount, userDiscountPct, userId: user?.id })
+    
+    // Calculate order totals with discount
+    let subtotal = 0
+    let discountAmount = 0
+    
+    for (const item of items as CheckoutItem[]) {
+      const basePrice = item.product.price
+      const excluded = isUserDiscountExcludedProduct(item.product)
+      
+      // Apply discount only if user has discount AND product is not excluded
+      const shouldDiscount = hasUserDiscount && !excluded
+      const discountedPrice = shouldDiscount ? basePrice * (1 - userDiscountPct / 100) : basePrice
+      const itemTotal = discountedPrice * item.quantity
+      
+      subtotal += itemTotal
+      
+      if (shouldDiscount) {
+        const itemDiscount = (basePrice - discountedPrice) * item.quantity
+        discountAmount += itemDiscount
+        debugLog(`Stripe item: ${item.product.name} - Price: ${basePrice} → ${discountedPrice.toFixed(2)} (${userDiscountPct}% off) x Qty: ${item.quantity}`)
+      }
+    }
+    
+    // Round to 2 decimal places
+    subtotal = Math.round(subtotal * 100) / 100
+    discountAmount = Math.round(discountAmount * 100) / 100
 
     // Use shared mobile checkout config for consistency
     const shipping = calculateMobileShipping(subtotal, customerEmirate)
     
-    const discountAmount = 0
-    const total = subtotal - discountAmount + shipping
+    const total = subtotal + shipping
     const vat = calculateVatIncluded(total)
 
     // Idempotency check: Look for recent pending CARD orders from same customer with same total

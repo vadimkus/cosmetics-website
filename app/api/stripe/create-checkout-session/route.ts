@@ -96,25 +96,28 @@ export async function POST(request: NextRequest) {
     
     debugLog('User discount for Stripe:', { hasUserDiscount, userDiscountPct, userId: user?.id })
     
-    // Calculate order totals with discount
+    // NOTE: Frontend already applies discounts to item.product.price before sending
+    // So we just calculate the subtotal from already-discounted prices
+    // But we also calculate what the discount amount was for record-keeping
     let subtotal = 0
     let discountAmount = 0
     
     for (const item of items as CheckoutItem[]) {
-      const basePrice = item.product.price
-      const excluded = isUserDiscountExcludedProduct(item.product)
-      
-      // Apply discount only if user has discount AND product is not excluded
-      const shouldDiscount = hasUserDiscount && !excluded
-      const discountedPrice = shouldDiscount ? basePrice * (1 - userDiscountPct / 100) : basePrice
-      const itemTotal = discountedPrice * item.quantity
-      
+      const itemPrice = item.product.price // Already discounted by frontend
+      const itemTotal = itemPrice * item.quantity
       subtotal += itemTotal
       
-      if (shouldDiscount) {
-        const itemDiscount = (basePrice - discountedPrice) * item.quantity
-        discountAmount += itemDiscount
-        debugLog(`Stripe item: ${item.product.name} - Price: ${basePrice} → ${discountedPrice.toFixed(2)} (${userDiscountPct}% off) x Qty: ${item.quantity}`)
+      // Calculate what the discount was (for record-keeping only)
+      if (hasUserDiscount) {
+        const excluded = isUserDiscountExcludedProduct(item.product)
+        if (!excluded) {
+          // Reverse: discountedPrice = originalPrice * (1 - pct/100)
+          // So: originalPrice = discountedPrice / (1 - pct/100)
+          const originalPrice = itemPrice / (1 - userDiscountPct / 100)
+          const itemDiscount = (originalPrice - itemPrice) * item.quantity
+          discountAmount += itemDiscount
+          debugLog(`Stripe item: ${item.product.name} - Original: ${originalPrice.toFixed(2)} → ${itemPrice} (${userDiscountPct}% off)`)
+        }
       }
     }
     

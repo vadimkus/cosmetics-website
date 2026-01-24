@@ -87,26 +87,33 @@ export async function POST(request: NextRequest) {
     
     debugLog('User discount:', { hasUserDiscount, userDiscountPct, userId: user?.id })
     
+    // NOTE: Frontend already applies discounts to item.product.price before sending
+    // So we just calculate the subtotal from already-discounted prices
+    // But we also calculate what the discount amount was for record-keeping
     let subtotal = 0
     let discountAmount = 0
     
     for (const item of items as CheckoutItem[]) {
-      const basePrice = item.product.price
-      const excluded = isUserDiscountExcludedProduct(item.product)
-      
-      // Apply discount only if user has discount AND product is not excluded
-      const shouldDiscount = hasUserDiscount && !excluded
-      const discountedPrice = shouldDiscount ? basePrice * (1 - userDiscountPct / 100) : basePrice
-      const itemTotal = discountedPrice * item.quantity
-      
+      const itemPrice = item.product.price // Already discounted by frontend
+      const itemTotal = itemPrice * item.quantity
       subtotal += itemTotal
       
-      if (shouldDiscount) {
-        const itemDiscount = (basePrice - discountedPrice) * item.quantity
-        discountAmount += itemDiscount
-        debugLog(`Item: ${item.product.name} - Price: ${basePrice} → ${discountedPrice.toFixed(2)} (${userDiscountPct}% off) x Qty: ${item.quantity} = ${itemTotal.toFixed(2)} (saved: ${itemDiscount.toFixed(2)})`)
+      // Calculate what the discount was (for record-keeping only)
+      // Frontend sends discounted price, so we reverse-calculate original price
+      if (hasUserDiscount) {
+        const excluded = isUserDiscountExcludedProduct(item.product)
+        if (!excluded) {
+          // Reverse: discountedPrice = originalPrice * (1 - pct/100)
+          // So: originalPrice = discountedPrice / (1 - pct/100)
+          const originalPrice = itemPrice / (1 - userDiscountPct / 100)
+          const itemDiscount = (originalPrice - itemPrice) * item.quantity
+          discountAmount += itemDiscount
+          debugLog(`Item: ${item.product.name} - Original: ${originalPrice.toFixed(2)} → ${itemPrice} (${userDiscountPct}% off) x Qty: ${item.quantity} = ${itemTotal.toFixed(2)} (saved: ${itemDiscount.toFixed(2)})`)
+        } else {
+          debugLog(`Item: ${item.product.name} - Price: ${itemPrice} x Qty: ${item.quantity} = ${itemTotal} (excluded from discount)`)
+        }
       } else {
-        debugLog(`Item: ${item.product.name} - Price: ${basePrice} x Qty: ${item.quantity} = ${itemTotal} ${excluded ? '(excluded from discount)' : ''}`)
+        debugLog(`Item: ${item.product.name} - Price: ${itemPrice} x Qty: ${item.quantity} = ${itemTotal}`)
       }
     }
     
@@ -115,7 +122,7 @@ export async function POST(request: NextRequest) {
     discountAmount = Math.round(discountAmount * 100) / 100
     
     debugLog('Subtotal calculated:', subtotal)
-    debugLog('Discount amount:', discountAmount)
+    debugLog('Discount amount (saved):', discountAmount)
     
     // Use shared mobile checkout config for consistency
     const shipping = calculateMobileShipping(subtotal, customerEmirate)

@@ -85,7 +85,15 @@ export async function POST(request: NextRequest) {
     const userDiscountPct = Number(user?.discountPercentage || 0)
     const hasUserDiscount = Number.isFinite(userDiscountPct) && userDiscountPct > 0 && userDiscountPct < 100
     
-    debugLog('User discount:', { hasUserDiscount, userDiscountPct, userId: user?.id })
+    debugLog('🎟️ DISCOUNT DEBUG:', { 
+      customerEmail,
+      userFound: !!user,
+      userId: user?.id,
+      userEmail: user?.email,
+      rawDiscountPercentage: user?.discountPercentage,
+      userDiscountPct,
+      hasUserDiscount
+    })
     
     // NOTE: Frontend already applies discounts to item.product.price before sending
     // So we just calculate the subtotal from already-discounted prices

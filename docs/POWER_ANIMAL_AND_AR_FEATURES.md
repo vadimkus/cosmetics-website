@@ -300,12 +300,127 @@ docs/
 
 ---
 
-## 9. Changelog
+## 9. Blog Post Details
 
-### January 2026
-- Initial Power Animal game implementation (20 animals)
-- Live AR skin analysis with P1 & P2 metrics
-- Animated result screen with floating emojis and sparkles
-- Simplified UI with two direct-action buttons
-- Blog post created and published
+### Content Structure (Styled HTML)
+
+The blog post uses Tailwind CSS classes for proper formatting:
+
+```html
+<div class="blog-content space-y-8">
+  <!-- Gradient intro section -->
+  <div class="intro-section bg-gradient-to-br from-amber-50 via-orange-50 to-red-50 ...">
+    <h2>🚀 The Future of Skincare is Here!</h2>
+  </div>
+  
+  <!-- Feature sections with cards -->
+  <div class="bg-white border border-gray-200 rounded-xl p-6">
+    <!-- Grid layouts for metrics -->
+  </div>
+  
+  <!-- Numbered steps with styled circles -->
+  <ol class="space-y-2">
+    <li class="flex items-start gap-3">
+      <span class="bg-primary-600 text-white w-6 h-6 rounded-full ...">1</span>
+      <span>Step description</span>
+    </li>
+  </ol>
+  
+  <!-- CTA button -->
+  <div class="cta-section bg-gradient-to-r from-primary-600 to-red-600 rounded-xl p-8">
+    <a href="/skin-recommendation" class="inline-block bg-white ...">Get Started →</a>
+  </div>
+</div>
+```
+
+### Scripts
+
+| Script | Purpose |
+|--------|---------|
+| `scripts/create-ar-blog-post.ts` | Create new blog post |
+| `scripts/update-ar-blog-post.ts` | Update existing blog post with styled HTML |
+
+### Running Scripts
+
+```bash
+# Create blog post
+PRISMA_DATABASE_URL="prisma+postgres://..." npx tsx scripts/create-ar-blog-post.ts
+
+# Update blog post formatting
+PRISMA_DATABASE_URL="prisma+postgres://..." npx tsx scripts/update-ar-blog-post.ts
+```
+
+---
+
+## 10. Document Management
+
+### Montaji Registration PDF
+
+**Location**: `/public/documents/Genosys_UAE_Montaji_Registration.pdf`
+
+**URL**: https://genosys.ae/documents/Genosys_UAE_Montaji_Registration.pdf
+
+**Referenced in**:
+- `app/about/AboutPageClient.tsx` (English about page)
+- `app/ar/about/ArabicAboutPageClient.tsx` (Arabic about page)
+
+**Update Process**:
+1. Replace file in `public/documents/` folder
+2. Commit and push to git
+3. File automatically deployed via Vercel
+
+---
+
+## 11. Changelog
+
+### January 24, 2026
+
+#### Power Animal Game
+- Initial implementation with 20 animals
+- Animated result screen with:
+  - Floating emoji animation
+  - Sparkle particles
+  - Score pop-in effect
+  - Dynamic gradient backgrounds per animal
+- Camera capture flow
+- Share functionality
+- Lazy loading with `next/dynamic`
+
+#### Live AR Skin Analysis
+- P1 metrics: Hydration, Oiliness, Clarity, Texture, Evenness, Age, Gender
+- P2 metrics: Pores, Under-Eye, Firmness, Sun Damage, Lips, Fitzpatrick Scale
+- Apple-style progress bar during capture
+- Face detection with skin tone analysis
+- Stability check before capture
+
+#### UI Changes
+- Simplified two-button layout (Power Animal + Live AR)
+- Removed "Start Live Analysis" button
+- Added descriptions under each button
 - Full localization (EN/AR/RU)
+
+#### Blog Post
+- Created and published blog post
+- URL: https://genosys.ae/blog/ar-skin-analysis-power-animal-tools
+- Styled with Tailwind CSS cards, grids, and gradients
+- Contact email: sales@genosys.ae
+
+#### Documents
+- Updated Montaji Registration PDF
+- Path: `/documents/Genosys_UAE_Montaji_Registration.pdf`
+
+---
+
+## 12. Git Commits (Session Summary)
+
+| Commit | Description |
+|--------|-------------|
+| `bcb2e4a6` | Add Power Animal game with 20 animals and animated result screen |
+| `5d6fb43a` | Simplify skin analysis UI with direct action buttons |
+| `a31a8950` | Add comprehensive documentation |
+| `69844afa` | Add blog post image |
+| `c128c244` | Add script to update blog post with HTML formatting |
+| `d3d60666` | Update blog post script with proper Tailwind CSS styling |
+| `d731bf8b` | Update Genosys UAE Montaji Registration document |
+| `fb7769c8` | Update Montaji PDF link to new location |
+| `26c8b7c7` | Revert Montaji PDF to documents folder location |

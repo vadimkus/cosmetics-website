@@ -1195,12 +1195,12 @@ export const emailTemplates = {
                           </td>
                         </tr>
             ` : ''}
-            ${orderData.discountPercentage && orderData.discountPercentage > 0 ? `
+            ${(orderData.discountPercentage && orderData.discountPercentage > 0) || (orderData.discountAmount && orderData.discountAmount > 0) ? `
                         <tr>
                           <td style="padding: 8px 0; border-top: 1px solid #e5e7eb;">
                             <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                               <tr>
-                                <td style="color: #059669; font-size: 14px; font-weight: 600;">🏷️ Discount (${orderData.discountPercentage}%):</td>
+                                <td style="color: #059669; font-size: 14px; font-weight: 600;">🏷️ Discount${orderData.discountPercentage ? ` (${orderData.discountPercentage}%)` : ''}:</td>
                                 <td align="right" style="color: #059669; font-size: 14px; font-weight: 600;">-AED ${orderData.discountAmount ? orderData.discountAmount.toFixed(2) : '0.00'}</td>
                               </tr>
                             </table>
@@ -1597,8 +1597,32 @@ export const sendDiscountAssignmentEmail = async (discountData: { customerName: 
 }
 
 export const sendOrderConfirmationEmail = async (orderData: OrderConfirmationEmailData) => {
-  const template = emailTemplates.orderConfirmation(orderData)
-  return await sendEmail(orderData.customerEmail, template.subject, template.html)
+  try {
+    debugLog(`📧 Sending order confirmation email to: ${orderData.customerEmail}`)
+    debugLog(`📧 Order: ${orderData.orderNumber}, Customer: ${orderData.customerName}`)
+    
+    const template = emailTemplates.orderConfirmation(orderData)
+    debugLog(`📧 Template generated, subject: ${template.subject}`)
+    
+    const result = await sendEmail(orderData.customerEmail, template.subject, template.html)
+    
+    if (!result.success) {
+      errorLog(`❌ FAILED to send order confirmation email to ${orderData.customerEmail}`)
+      errorLog(`❌ Error:`, result.error)
+      errorLog(`❌ Order number:`, orderData.orderNumber)
+    } else {
+      debugLog(`✅ Order confirmation email sent successfully to ${orderData.customerEmail}`)
+      debugLog(`✅ Message ID:`, result.messageId)
+    }
+    
+    return result
+  } catch (error) {
+    errorLog(`❌ EXCEPTION in sendOrderConfirmationEmail:`)
+    errorLog(`❌ Error:`, error)
+    errorLog(`❌ Order number:`, orderData.orderNumber)
+    errorLog(`❌ Stack:`, error instanceof Error ? error.stack : 'No stack')
+    return { success: false, error: error instanceof Error ? error.message : 'Unknown error' }
+  }
 }
 
 export const sendAdminNewUserNotification = async (

@@ -301,27 +301,40 @@ export async function POST(request: NextRequest) {
       customerPhone,
       total,
       itemCount: items.length,
-      items: items.map((item: { name: string; quantity: number; price: number; image?: string; size?: string; color?: string }) => {
-        const emailItem: {
-          productName: string
-          quantity: number
-          price: number
-          image: string
-          size?: string
-          color?: string
-        } = {
-          productName: item.name || 'Product',
+      items: items.map((item: { id?: string; name: string; quantity: number; price: number; image?: string; size?: string; color?: string }) => {
+        const itemName = item.name || 'Product'
+        
+        // Check item type for discount labeling (same logic as customer email)
+        const isFreeItem = item.price === 0 || itemName.toLowerCase().includes('(free)')
+        const isBundle = itemName.toLowerCase().includes('beauty box') || itemName.toLowerCase().includes('bundle')
+        const isExcludedFromUserDiscount = isUserDiscountExcludedProduct({ name: itemName, id: item.id })
+        const hasUserDiscountApplied = hasUserDiscount && !isExcludedFromUserDiscount && !isFreeItem
+        
+        // Determine discount label and original price
+        let discountLabel: string | undefined = undefined
+        let originalPrice: number | undefined = undefined
+        
+        if (isFreeItem) {
+          discountLabel = undefined
+          originalPrice = undefined
+        } else if (isBundle) {
+          discountLabel = '15% OFF - Bundle'
+          originalPrice = item.price / (1 - 0.15)
+        } else if (hasUserDiscountApplied) {
+          discountLabel = `${userDiscountPct}% OFF`
+          originalPrice = item.price / (1 - userDiscountPct / 100)
+        }
+        
+        return {
+          productName: itemName,
           quantity: item.quantity,
           price: item.price,
-          image: item.image || '/images/default-product.jpg'
+          originalPrice,
+          image: item.image || '/images/default-product.jpg',
+          ...(item.size ? { size: item.size } : {}),
+          ...(item.color ? { color: item.color } : {}),
+          ...(discountLabel ? { discountLabel } : {})
         }
-        if (item.size) {
-          emailItem.size = item.size
-        }
-        if (item.color) {
-          emailItem.color = item.color
-        }
-        return emailItem
       }),
       subtotal,
       shipping: shippingCost,

@@ -93,9 +93,11 @@ export interface AdminNewOrderEmailData {
     productName: string
     quantity: number
     price: number
+    originalPrice?: number | undefined // Original price before discount
     image: string
     size?: string
     color?: string
+    discountLabel?: string | undefined // e.g., "50% OFF" or "15% OFF - Bundle"
   }> | undefined
   subtotal?: number | undefined
   shipping?: number | undefined
@@ -1169,16 +1171,19 @@ export const emailTemplates = {
               </tr>
             </thead>
             <tbody>
-              ${orderData.items.map(item => `
+              ${orderData.items.map(item => {
+                // Use original price if available, otherwise use current price
+                const displayPrice = item.originalPrice || item.price
+                return `
                             <tr style="border-bottom: 1px solid #e5e7eb;">
                               <td style="padding: 12px 8px; color: #111827; font-size: 14px;">
-                                ${item.productName}${item.size ? `<br><span style="color: #6b7280; font-size: 12px;">Size: ${item.size}</span>` : ''}${item.color ? `<br><span style="color: #6b7280; font-size: 12px;">Color: ${item.color}</span>` : ''}
+                                ${item.productName}${item.size ? `<br><span style="color: #6b7280; font-size: 12px;">Size: ${item.size}</span>` : ''}${item.color ? `<br><span style="color: #6b7280; font-size: 12px;">Color: ${item.color}</span>` : ''}${item.discountLabel ? `<br><span style="color: #059669; font-size: 12px; font-weight: 600;">(${item.discountLabel})</span>` : ''}
                               </td>
                               <td style="padding: 12px 8px; text-align: center; color: #111827; font-size: 14px; font-weight: 500;">${item.quantity}</td>
-                              <td style="padding: 12px 8px; text-align: right; color: #111827; font-size: 14px;">AED ${item.price.toFixed(2)}</td>
-                              <td style="padding: 12px 8px; text-align: right; color: #111827; font-size: 14px; font-weight: 600;">AED ${(item.quantity * item.price).toFixed(2)}</td>
+                              <td style="padding: 12px 8px; text-align: right; color: #111827; font-size: 14px;">AED ${displayPrice.toFixed(2)}</td>
+                              <td style="padding: 12px 8px; text-align: right; color: #111827; font-size: 14px; font-weight: 600;">AED ${(item.quantity * displayPrice).toFixed(2)}</td>
                 </tr>
-              `).join('')}
+              `}).join('')}
             </tbody>
           </table>
         </div>
@@ -1207,7 +1212,7 @@ export const emailTemplates = {
                             <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                               <tr>
                                 <td style="color: #374151; font-size: 14px;">Subtotal:</td>
-                                <td align="right" style="color: #374151; font-size: 14px; font-weight: 500;">AED ${orderData.subtotal.toFixed(2)}</td>
+                                <td align="right" style="color: #374151; font-size: 14px; font-weight: 500;">AED ${(orderData.subtotal + (orderData.discountAmount || 0)).toFixed(2)}</td>
                               </tr>
                             </table>
                           </td>
@@ -1242,7 +1247,7 @@ export const emailTemplates = {
                           <td style="padding: 8px 0; border-top: 1px solid #e5e7eb;">
                             <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                               <tr>
-                                <td style="color: #374151; font-size: 14px;">VAT (5%):</td>
+                                <td style="color: #374151; font-size: 14px;">VAT (5%) (incl.):</td>
                                 <td align="right" style="color: #374151; font-size: 14px; font-weight: 500;">AED ${orderData.vat.toFixed(2)}</td>
                               </tr>
                             </table>

@@ -395,14 +395,41 @@ async function sendConfirmationEmails(order: OrderWithItems) {
       customerPhone: order.customerPhone ?? undefined,
       total: order.total,
       itemCount: order.items.length,
-      items: order.items.map((item) => ({
-        productName: item.productName,
-        quantity: item.quantity,
-        price: item.price,
-        image: item.image || '',
-        ...(item.size ? { size: item.size } : {}),
-        ...(item.color ? { color: item.color } : {})
-      })),
+      items: order.items.map((item) => {
+        const itemName = item.productName || 'Product'
+        
+        // Check item type for discount labeling (same logic as customer email)
+        const isFreeItem = item.price === 0 || itemName.toLowerCase().includes('(free)')
+        const isBundle = itemName.toLowerCase().includes('beauty box') || itemName.toLowerCase().includes('bundle')
+        const isExcludedFromUserDiscount = isUserDiscountExcludedProduct({ name: itemName })
+        const hasUserDiscountApplied = hasUserDiscount && !isExcludedFromUserDiscount && !isFreeItem
+        
+        // Determine discount label and original price
+        let discountLabel: string | undefined = undefined
+        let originalPrice: number | undefined = undefined
+        
+        if (isFreeItem) {
+          discountLabel = undefined
+          originalPrice = undefined
+        } else if (isBundle) {
+          discountLabel = '15% OFF - Bundle'
+          originalPrice = item.price / (1 - 0.15)
+        } else if (hasUserDiscountApplied) {
+          discountLabel = `${userDiscountPct}% OFF`
+          originalPrice = item.price / (1 - userDiscountPct / 100)
+        }
+        
+        return {
+          productName: itemName,
+          quantity: item.quantity,
+          price: item.price,
+          originalPrice,
+          image: item.image || '',
+          ...(item.size ? { size: item.size } : {}),
+          ...(item.color ? { color: item.color } : {}),
+          ...(discountLabel ? { discountLabel } : {})
+        }
+      }),
       subtotal: order.subtotal ?? undefined,
       shipping: order.shipping ?? undefined,
       vat: order.vat ?? undefined,
@@ -410,7 +437,7 @@ async function sendConfirmationEmails(order: OrderWithItems) {
       emirate: order.customerEmirate ?? undefined,
       paymentStatus: 'PAID',
       paymentMethod: order.paymentMethod ?? 'Stripe',
-      discountPercentage: user?.discountPercentage ?? 0,
+      discountPercentage: hasUserDiscount ? userDiscountPct : 0,
       discountAmount: order.discountAmount ?? 0
     })
 

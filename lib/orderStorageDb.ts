@@ -23,6 +23,7 @@ export interface OrderData {
   orderNotes?: string | null // Optional order notes from customer
   items: OrderItemData[]
   subtotal: number
+  discountPercentage?: number
   discountAmount?: number
   shipping?: number
   vat: number
@@ -59,6 +60,7 @@ export const readOrders = async (): Promise<Order[]> => {
         customerAddress: true,
         orderNotes: true,
         subtotal: true,
+        discountPercentage: true,
         discountAmount: true,
         shipping: true,
         vat: true,
@@ -161,6 +163,7 @@ export const addOrder = async (orderData: OrderData): Promise<Order> => {
         customerEmirate: orderData.customerEmirate,
         customerAddress: orderData.customerAddress,
         subtotal: orderData.subtotal,
+        discountPercentage: orderData.discountPercentage || 0,
         discountAmount: orderData.discountAmount || 0,
         shipping: orderData.shipping || 0,
         vat: orderData.vat,

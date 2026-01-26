@@ -195,6 +195,7 @@ model Order {
   customerAddress String
   orderNotes      String?     @db.Text
   subtotal        Float
+  discountPercentage Float?   // User's discount percentage at time of order
   discountAmount  Float       @default(0)
   shipping        Float       @default(0)
   vat             Float

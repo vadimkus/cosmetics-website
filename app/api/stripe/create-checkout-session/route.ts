@@ -275,6 +275,7 @@ export async function POST(request: NextRequest) {
       customerAddress,
       items: orderItems,
       subtotal,
+      discountPercentage: hasUserDiscount ? userDiscountPct : 0,
       discountAmount,
       shipping,
       vat,

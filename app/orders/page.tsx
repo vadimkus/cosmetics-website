@@ -572,15 +572,27 @@ export default function OrdersPage() {
                                 const isFreeItem = Number(item.price) === 0 || item.productName.toLowerCase().includes('(free)')
                                 const isBundle = item.productName.toLowerCase().includes('beauty box') || item.productName.toLowerCase().includes('bundle')
                                 
-                                // Determine discount label using stored discountPercentage
+                                // Determine discount label
+                                // Priority: 1) stored discountPercentage, 2) calculate from discountAmount
                                 let discountLabel = ''
                                 if (!isFreeItem) {
                                   if (isBundle) {
                                     discountLabel = locale === 'ar' ? '(خصم 15% - باقة)' : locale === 'ru' ? '(15% СКИДКА - Набор)' : '(15% OFF - Bundle Discount)'
-                                  } else if (order.discountPercentage && Number(order.discountPercentage) > 0) {
-                                    // Use the stored user discount percentage directly
-                                    const userDiscountPct = Math.round(Number(order.discountPercentage))
-                                    discountLabel = locale === 'ar' ? `(خصم ${userDiscountPct}%)` : locale === 'ru' ? `(${userDiscountPct}% СКИДКА)` : `(${userDiscountPct}% OFF)`
+                                  } else {
+                                    // Check for stored discount percentage first
+                                    let userDiscountPct = 0
+                                    if (order.discountPercentage && Number(order.discountPercentage) > 0) {
+                                      userDiscountPct = Math.round(Number(order.discountPercentage))
+                                    } else if (order.discountAmount && Number(order.discountAmount) > 0) {
+                                      // Fallback: calculate from total discount amount
+                                      // This is less accurate for mixed orders but better than nothing
+                                      const totalBeforeDiscount = Number(order.subtotal) + Number(order.discountAmount)
+                                      userDiscountPct = Math.round((Number(order.discountAmount) / totalBeforeDiscount) * 100)
+                                    }
+                                    
+                                    if (userDiscountPct > 0) {
+                                      discountLabel = locale === 'ar' ? `(خصم ${userDiscountPct}%)` : locale === 'ru' ? `(${userDiscountPct}% СКИДКА)` : `(${userDiscountPct}% OFF)`
+                                    }
                                   }
                                 }
 

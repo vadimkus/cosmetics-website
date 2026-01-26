@@ -305,7 +305,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
                     controls
                     playsInline
                     preload="metadata"
-                    poster="/logo/Full.png"
+                    poster="/logo/BIGLogo-high.png"
                   >
                     <source src="/videos/Cleanser_02.mp4" type="video/mp4" />
                     {t('product.videoNotSupported') || 'Your browser does not support the video tag.'}

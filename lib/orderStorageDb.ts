@@ -50,52 +50,13 @@ export const readOrders = async (): Promise<Order[]> => {
   try {
     debugLog('🔍 readOrders: Starting query...')
     const orders = await prisma.order.findMany({
-      select: {
-        id: true,
-        orderNumber: true,
-        customerEmail: true,
-        customerName: true,
-        customerPhone: true,
-        customerEmirate: true,
-        customerAddress: true,
-        orderNotes: true,
-        subtotal: true,
-        discountPercentage: true,
-        discountAmount: true,
-        shipping: true,
-        vat: true,
-        total: true,
-        status: true,
-        locale: true,
-        sessionId: true,
-        paymentMethod: true,
-        paymentStatus: true,
-        stripeSessionId: true,
-        stripePaymentIntentId: true,
-        stripeCustomerId: true,
-        paidAt: true,
-        refundedAt: true,
-        refundAmount: true,
-        paymentMetadata: true,
-        createdAt: true,
-        updatedAt: true,
-        items: {
-          select: {
-            id: true,
-            productId: true,
-            productName: true,
-            price: true,
-            quantity: true,
-            image: true,
-            color: true,
-            size: true
-          }
-        }
+      include: {
+        items: true
       },
       orderBy: { createdAt: 'desc' }
     })
     debugLog(`✅ readOrders: Found ${orders.length} orders`)
-    return orders
+    return orders as Order[]
   } catch (error) {
     errorLog('❌ Error reading orders:', error)
     errorLog('❌ Error details:', error instanceof Error ? error.message : String(error))

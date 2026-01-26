@@ -1,0 +1,55 @@
+---
+description: Read project documentation before making changes
+globs:
+alwaysApply: true
+---
+
+# Documentation First Rule
+
+## Required Reading
+
+Before making any changes to this project, you MUST read the relevant documentation:
+
+1. **Start with**: `docs/README.md` - Documentation index for AI
+2. **Then read**: `docs/PROJECT_GUIDE.md` - Master project guide
+
+## Documentation Location
+
+All documentation is centralized in `/docs/`:
+
+### Critical Documents (Always Read)
+- `docs/README.md` - **AI documentation index** (start here!)
+- `docs/PROJECT_GUIDE.md` - Tech stack, patterns, hooks, testing
+- `docs/DESIGN_SYSTEM.md` - Colors, typography, UI components
+
+### Feature-Specific Documents
+- `docs/EMAIL_TEMPLATES.md` - Order email format specification
+- `docs/ORDERS_PAGE.md` - Orders page display format
+- `docs/MOBILE_API_ENHANCED_DOCUMENTATION.md` - API documentation
+- `docs/STRIPE_SETUP_GUIDE.md` - Payment integration
+- `docs/PWA_IMPLEMENTATION_SUMMARY.md` - PWA features
+- `docs/TRANSLATION_SETUP.md` - i18n setup
+
+## Project Context
+
+GENOSYS Professional cosmetics e-commerce website (genosys.ae):
+- **Tech Stack**: Next.js 16, TypeScript, Tailwind CSS, Prisma, PostgreSQL
+- **Three Display Modes**: Desktop Web, Mobile Web, PWA
+- **Three Languages**: English (default), Arabic (RTL), Russian
+- **Hosting**: Vercel with Neon PostgreSQL
+
+## Before Making Changes
+
+1. ✅ Read `docs/README.md` first
+2. ✅ Check relevant feature docs
+3. ✅ Review existing code patterns in `PROJECT_GUIDE.md`
+4. ✅ Test all three display modes (Desktop, Mobile Web, PWA)
+5. ✅ Test all three languages (EN, AR, RU)
+6. ✅ Update documentation if making significant changes
+
+## After Making Changes
+
+1. Update relevant docs if behavior changed
+2. Add new docs to `docs/README.md` index if created
+3. All new `.md` files go in `/docs/` folder
+4. Update `docs/EMAIL_CHANGELOG.md` for email changes

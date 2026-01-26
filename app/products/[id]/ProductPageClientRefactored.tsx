@@ -299,13 +299,13 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
             {/* Product Video - Only for Product ID 10 (Snow O2 Cleanser) */}
             {(product.id === '10' || product.productNumber === '10') && (
               <div className="mt-4 lg:mt-6 lg:max-w-sm lg:mx-auto">
-                <div className="rounded-xl overflow-hidden shadow-lg bg-gray-900">
+                <div className="rounded-xl overflow-hidden shadow-lg bg-white">
                   <video
-                    className="w-full aspect-video object-cover lg:aspect-auto lg:object-contain"
+                    className="w-full aspect-video object-contain lg:aspect-auto bg-white"
                     controls
                     playsInline
-                    preload="metadata"
-                    poster="/images/products/10.png"
+                    preload="none"
+                    poster="/logo/BlackG.png"
                   >
                     <source src="/videos/Cleanser_02.mp4" type="video/mp4" />
                     {t('product.videoNotSupported') || 'Your browser does not support the video tag.'}

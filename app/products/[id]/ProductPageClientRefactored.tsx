@@ -299,7 +299,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
             {/* Product Video - Only for Product ID 10 (Snow O2 Cleanser) */}
             {(product.id === '10' || product.productNumber === '10') && (
               <div className="mt-4 lg:mt-6 lg:max-w-sm lg:mx-auto">
-                <div className="rounded-xl overflow-hidden shadow-lg bg-gray-900">
+                <div className="rounded-xl overflow-hidden shadow-lg bg-black">
                   <video
                     className="w-full aspect-video object-contain lg:aspect-auto"
                     controls

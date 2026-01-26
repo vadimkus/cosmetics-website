@@ -573,21 +573,22 @@ export default function OrdersPage() {
                                 const isBundle = item.productName.toLowerCase().includes('beauty box') || item.productName.toLowerCase().includes('bundle')
                                 
                                 // Determine discount label
-                                // Priority: 1) stored discountPercentage, 2) calculate from discountAmount
+                                // Priority: 1) stored order.discountPercentage, 2) user's current discountPercentage, 3) skip
                                 let discountLabel = ''
                                 if (!isFreeItem) {
                                   if (isBundle) {
                                     discountLabel = locale === 'ar' ? '(خصم 15% - باقة)' : locale === 'ru' ? '(15% СКИДКА - Набор)' : '(15% OFF - Bundle Discount)'
-                                  } else {
-                                    // Check for stored discount percentage first
+                                  } else if (order.discountAmount && Number(order.discountAmount) > 0) {
+                                    // Only show discount label if there was actually a discount applied
                                     let userDiscountPct = 0
+                                    
+                                    // 1) Use stored order discount percentage if available
                                     if (order.discountPercentage && Number(order.discountPercentage) > 0) {
                                       userDiscountPct = Math.round(Number(order.discountPercentage))
-                                    } else if (order.discountAmount && Number(order.discountAmount) > 0) {
-                                      // Fallback: calculate from total discount amount
-                                      // This is less accurate for mixed orders but better than nothing
-                                      const totalBeforeDiscount = Number(order.subtotal) + Number(order.discountAmount)
-                                      userDiscountPct = Math.round((Number(order.discountAmount) / totalBeforeDiscount) * 100)
+                                    } 
+                                    // 2) Fallback to user's current discount (for old orders)
+                                    else if (user?.discountPercentage && Number(user.discountPercentage) > 0) {
+                                      userDiscountPct = Math.round(Number(user.discountPercentage))
                                     }
                                     
                                     if (userDiscountPct > 0) {

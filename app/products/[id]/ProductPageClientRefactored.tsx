@@ -301,7 +301,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
               <div className="mt-4 lg:mt-6">
                 <div className="rounded-xl overflow-hidden shadow-lg bg-gray-900">
                   <video
-                    className="w-full aspect-video object-cover"
+                    className="w-full aspect-video object-cover lg:aspect-auto lg:object-contain"
                     controls
                     playsInline
                     preload="metadata"

@@ -124,13 +124,19 @@ export default function MobileWebFooterNav() {
     if (!pathname) return false
     const isLoginPage = pathname === '/login' || pathname === '/ru/login' || pathname === '/ar/login' || pathname.endsWith('/login')
     const isAuthPage = pathname.includes('/signup') || pathname.includes('/forgot-password') || pathname.includes('/reset-password')
+    const isCartPage = pathname.includes('/cart')
+    const isCheckoutPage = pathname.includes('/checkout')
+    const isSuccessPage = pathname.includes('/success')
     return /\/products\/[a-zA-Z0-9_-]+$/.test(pathname) || 
            pathname.includes('/pdf-viewer') || 
            pathname.includes('/pwa-login') ||
            pathname.includes('/skin-recommendation') ||
            pathname.includes('/blog') ||
            isLoginPage ||
-           isAuthPage
+           isAuthPage ||
+           isCartPage ||
+           isCheckoutPage ||
+           isSuccessPage
   }, [pathname])
 
   const activeTab = useMemo(() => {

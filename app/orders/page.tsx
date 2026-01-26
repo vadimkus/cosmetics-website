@@ -15,9 +15,11 @@ import BreadcrumbSchema from '@/components/BreadcrumbSchema'
 import { usePWAMode } from '@/hooks/usePWAMode'
 import { QuickReorderButton } from '@/components/QuickReorderButton'
 
-// Custom type that includes the items relation
+// Custom type that includes the items relation and discount fields
 type OrderWithItems = Order & {
   items: OrderItem[]
+  discountPercentage?: number | null
+  discountAmount?: number | null
 }
 
 // Status translations
@@ -570,16 +572,15 @@ export default function OrdersPage() {
                                 const isFreeItem = Number(item.price) === 0 || item.productName.toLowerCase().includes('(free)')
                                 const isBundle = item.productName.toLowerCase().includes('beauty box') || item.productName.toLowerCase().includes('bundle')
                                 
-                                // Determine discount label
+                                // Determine discount label using stored discountPercentage
                                 let discountLabel = ''
                                 if (!isFreeItem) {
                                   if (isBundle) {
                                     discountLabel = locale === 'ar' ? '(خصم 15% - باقة)' : locale === 'ru' ? '(15% СКИДКА - Набор)' : '(15% OFF - Bundle Discount)'
-                                  } else if (Number(order.discountAmount) > 0) {
-                                    const discountPct = Math.round((Number(order.discountAmount) / (Number(order.subtotal) + Number(order.discountAmount))) * 100)
-                                    if (discountPct > 0) {
-                                      discountLabel = locale === 'ar' ? `(خصم ${discountPct}%)` : locale === 'ru' ? `(${discountPct}% СКИДКА)` : `(${discountPct}% OFF)`
-                                    }
+                                  } else if (order.discountPercentage && Number(order.discountPercentage) > 0) {
+                                    // Use the stored user discount percentage directly
+                                    const userDiscountPct = Math.round(Number(order.discountPercentage))
+                                    discountLabel = locale === 'ar' ? `(خصم ${userDiscountPct}%)` : locale === 'ru' ? `(${userDiscountPct}% СКИДКА)` : `(${userDiscountPct}% OFF)`
                                   }
                                 }
 

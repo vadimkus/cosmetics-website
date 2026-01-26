@@ -844,6 +844,8 @@
     "increaseQuantity": "Увеличить количество",
     "removeFromFavorites": "Удалить из избранного",
     "addToFavorites": "Добавить в избранное",
+    "videoNotSupported": "Ваш браузер не поддерживает воспроизведение видео.",
+    "watchHowToUse": "Посмотреть, как использовать",
     "dermatologicallyTested": "Дерматологически протестировано",
     "productDescription": "Описание продукта",
     "kitIncludes": "Набор включает:",

@@ -889,6 +889,8 @@
     "increaseQuantity": "Increase quantity",
     "removeFromFavorites": "Remove from favorites",
     "addToFavorites": "Add to favorites",
+    "videoNotSupported": "Your browser does not support the video tag.",
+    "watchHowToUse": "Watch how to use",
     "dermatologicallyTested": "Dermatologically tested",
     "productDescription": "Product Description",
     "kitIncludes": "Kit includes:",

@@ -820,6 +820,8 @@
     "increaseQuantity": "زيادة الكمية",
     "removeFromFavorites": "إزالة من المفضلة",
     "addToFavorites": "إضافة إلى المفضلة",
+    "videoNotSupported": "متصفحك لا يدعم تشغيل الفيديو.",
+    "watchHowToUse": "شاهد طريقة الاستخدام",
     "dermatologicallyTested": "مختبر طبياً",
     "productDescription": "وصف المنتج",
     "kitIncludes": "يشمل الطقم:",

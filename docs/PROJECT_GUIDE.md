@@ -165,11 +165,14 @@ The `MobileWebFooterNav` hides on certain pages. Check `shouldHide` in:
 `components/MobileWebFooterNav.tsx`
 
 Currently hidden on:
-- `/login` and auth pages
+- `/login` and auth pages (`/signup`, `/forgot-password`, `/reset-password`)
 - `/blog` pages
 - `/skin-recommendation`
 - `/pwa-login`
 - `/pdf-viewer`
+- `/cart` (bag page)
+- `/checkout` (checkout flow)
+- `/success` (order confirmation)
 - Product detail pages (`/products/[id]`)
 
 ### Pages with Hidden Header

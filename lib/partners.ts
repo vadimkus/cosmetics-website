@@ -372,6 +372,18 @@ export const partnersData: Partner[] = [
     theme: "pink"
   },
   {
+    id: "arfi-nails-jumeirah-garden",
+    name: "ARFI NAILS, JUMEIRAH GARDEN",
+    type: "Nail Salon",
+    description: "Second location of professional nail salon offering comprehensive nail care services including manicures, pedicures, and nail art in Al Satwa.",
+    location: "The Flagship Two - 22B St - Al Satwa - Dubai",
+    phone: "+971 55 640 4732",
+    website: "https://www.instagram.com/arfinails/",
+    directions: "https://www.google.com/maps/place/Arfi+Nails+Jumeirah+Garden/data=!4m2!3m1!1s0x0:0xd8b2df13e035ed08?sa=X&ved=1t:2428&ictx=111",
+    logo: "/images/partners/arfi.png",
+    theme: "pink"
+  },
+  {
     id: "fayy-health",
     name: "FAYY HEALTH, ONE CENTRAL OFFICES",
     type: "Holistic Health & Wellness Clinic",

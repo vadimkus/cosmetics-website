@@ -47,6 +47,9 @@ export default function CartClient() {
   // Combined flag for PWA or mobile web
   const isAppLikeMode = isPWA || isMobileWeb
   
+  // Compute total items directly from items array for reactivity
+  const totalItemCount = items.reduce((total, item) => total + item.quantity, 0)
+  
   // Start video after 3 seconds on mobile (for cart with items)
   useEffect(() => {
     if (items.length > 0) {
@@ -483,7 +486,7 @@ export default function CartClient() {
                   className={`text-lg md:text-2xl font-bold text-gray-900 flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}
                 >
                   <ShoppingBag className="h-5 w-5 md:h-6 md:w-6 text-green-600" />
-                  <span className="text-sm md:text-base lg:text-lg">{isAppLikeMode ? (t('cart.shoppingBag') || 'Shopping Bag:') : t('cart.shoppingCart')}</span> <span className="text-sm md:text-base lg:text-lg">{getTotalItems()} {getTotalItems() === 1 ? t('cart.item') : t('cart.items')}</span>
+                  <span className="text-sm md:text-base lg:text-lg">{isAppLikeMode ? (t('cart.shoppingBag') || 'Shopping Bag:') : t('cart.shoppingCart')}</span> <span className="text-sm md:text-base lg:text-lg">{totalItemCount} {totalItemCount === 1 ? t('cart.item') : t('cart.items')}</span>
                 </motion.h1>
               </div>
               

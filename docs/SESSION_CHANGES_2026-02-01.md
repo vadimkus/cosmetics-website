@@ -2,7 +2,7 @@
 
 ## Summary
 
-Multiple fixes and enhancements for mobile web experience, cart functionality, new product creation, and product recommendations.
+Multiple fixes and enhancements for mobile web experience, cart functionality, new product creation, product recommendations, and category improvements.
 
 ---
 
@@ -33,13 +33,21 @@ Moved footer styles from inline to CSS class in `globals.css`:
   position: -webkit-sticky;  /* WebKit prefix for Chrome iOS */
   position: sticky;
   bottom: 0;
-  /* ... other styles */
+  /* ... other styles - NO margin-top: auto */
 }
 ```
 
+### Additional Fix: Whitespace at Bottom of Page
+
+**Problem**: After the initial fix, scrolling to the bottom of product pages showed large white space between content and footer.
+
+**Root Cause**: `margin-top: auto` was causing extra space when content was long enough to fill the page.
+
+**Solution**: Removed `margin-top: auto` from footer CSS. The flex container setup (body with `min-height: 100dvh`, main with `flex: 1`) already handles footer positioning correctly.
+
 ### Files Changed
 - `components/MobileWebFooterNav.tsx` - Changed to use CSS class, changed `<div>` to `<nav>`
-- `app/globals.css` - Added `.mobile-web-footer-nav` CSS class with vendor prefixes
+- `app/globals.css` - Added `.mobile-web-footer-nav` CSS class with vendor prefixes, removed `margin-top: auto`
 
 ### Documentation Updated
 - `docs/MOBILE_FOOTER_IMPLEMENTATION.md`
@@ -147,12 +155,51 @@ Removed the `perfectCombination`, `perfectCombinationId`, and `perfectCombinatio
 
 ---
 
+## 6. Hair Devices in Scalp/Hair Category
+
+### Enhancement
+Added Hair-GENTRON (product 48) and HairGen BOOSTER (product 3) to appear in the Scalp/Hair category in addition to their primary Device category.
+
+### Rationale
+These devices are specifically designed for hair/scalp treatment and should be discoverable when users browse the Scalp/Hair category.
+
+### Implementation
+Added special filter logic in the products page to include these specific product IDs when the Scalp/Hair category is selected:
+
+```typescript
+// Hair/Scalp related device products that should also show in Scalp/Hair category
+const hairDeviceProducts = ['3', '48'] // HairGen BOOSTER (3), Hair-GENTRON (48)
+
+filtered = filtered.filter(product => {
+  return filters.categories.some(catId => {
+    // Special handling: Show hair devices in Scalp/Hair category
+    if (catId === 'scalp-hair' && hairDeviceProducts.includes(product.id)) {
+      return true
+    }
+    // ... normal category matching
+  })
+})
+```
+
+### Products Added to Scalp/Hair
+| Product ID | Name | Primary Category | Price |
+|------------|------|------------------|-------|
+| 3 | HairGen BOOSTER | Device | 1,800 AED |
+| 48 | Hair-GENTRON | Device | 3,300 AED |
+
+### Files Changed
+- `app/products/ProductsPageClient.tsx` - Added `hairDeviceProducts` array and filter logic
+
+---
+
 ## Testing Checklist
 
 ### Mobile Footer
-- [ ] Chrome iOS - Scroll up/down, footer stays at bottom
-- [ ] Safari iOS - Footer behavior consistent
-- [ ] Chrome Android - Footer behavior consistent
+- [x] Chrome iOS - Scroll up/down, footer stays at bottom
+- [x] Safari iOS - Footer behavior consistent
+- [x] Chrome Android - Footer behavior consistent
+- [x] No whitespace at bottom of long pages
+- [x] Footer at bottom on short pages
 
 ### Cart
 - [ ] Add item - count increases
@@ -170,15 +217,40 @@ Removed the `perfectCombination`, `perfectCombinationId`, and `perfectCombinatio
 - [ ] Links to product 22
 - [ ] EN/RU/AR translations display correctly
 
+### Scalp/Hair Category
+- [ ] Hair-GENTRON visible in Scalp/Hair category
+- [ ] HairGen BOOSTER visible in Scalp/Hair category
+- [ ] Both products still visible in Device category
+
 ---
 
 ## Git Commits
 
-1. `Fix mobile web footer jumping on Chrome scroll` (reverted)
+1. `Fix mobile web footer jumping on Chrome scroll` (reverted - made it worse)
 2. `Revert "Fix mobile web footer jumping on Chrome scroll"`
 3. `Move mobile footer styles to CSS for proper -webkit-sticky prefix`
 4. `Fix closing tag: div -> nav`
+5. `Add comprehensive documentation for Feb 1, 2026 session`
+6. `Fix whitespace at bottom of page - remove margin-top:auto from footer`
+7. `Show Hair-GENTRON and HairGen BOOSTER in Scalp/Hair category`
+
+---
+
+## Key Learnings
+
+### Mobile Footer Positioning (Chrome iOS)
+1. **Never use `position: fixed`** - causes glitches when address bar shows/hides
+2. **Use `position: sticky`** with `-webkit-sticky` vendor prefix
+3. **CSS classes required** - inline styles can't include vendor prefixes
+4. **Avoid `margin-top: auto`** on sticky elements - causes whitespace on long pages
+5. **Flex container setup** handles positioning: `body { display: flex; min-height: 100dvh }` + `main { flex: 1 }`
+
+### Multi-Category Products
+- Products have single `category` field in database
+- For multi-category display, use filter logic with product ID whitelist
+- Maintains data integrity while improving discoverability
 
 ---
 
 *Session Date: February 1, 2026*
+*Last Updated: 19:45 GST*

@@ -53,7 +53,7 @@ The cosmetics website features a mobile-only sticky footer navigation that provi
   align-items: center;
   justify-content: space-around;
   padding-bottom: 10px;
-  margin-top: auto;
+  /* NOTE: Do NOT use margin-top: auto - causes whitespace at bottom of long pages */
 }
 
 /* Make body flex container for sticky footer on mobile */
@@ -67,7 +67,7 @@ The cosmetics website features a mobile-only sticky footer navigation that provi
   
   body > main,
   main.flex-1 {
-    flex: 1 0 auto;
+    flex: 1 0 auto;  /* This handles pushing footer to bottom */
   }
 }
 
@@ -78,6 +78,15 @@ The cosmetics website features a mobile-only sticky footer navigation that provi
   }
 }
 ```
+
+### Common Pitfall: margin-top: auto
+
+**DO NOT use `margin-top: auto`** on the footer! While it seems logical for pushing the footer down, it causes a large white space at the bottom of pages with long content.
+
+The flex container setup handles footer positioning correctly:
+- `body { display: flex; flex-direction: column; min-height: 100dvh }` - Makes body a flex column
+- `main { flex: 1 0 auto }` - Main content grows to fill available space
+- Footer naturally sits at the bottom without needing `margin-top: auto`
 
 ### Why CSS Classes Instead of Inline Styles
 
@@ -221,6 +230,7 @@ Custom SVG icons matching native app design:
 5. **Use CSS classes for sticky** - inline styles cannot include `-webkit-sticky` prefix
 6. **Never use GPU compositing** (`transform: translate3d`) on sticky footer - it makes glitches worse
 7. **Use semantic `<nav>` element** for accessibility
+8. **Never use `margin-top: auto`** on footer - causes whitespace at bottom of long pages
 
 ## Changelog
 
@@ -229,7 +239,8 @@ Custom SVG icons matching native app design:
 | Jan 13, 2026 | Initial sticky implementation | Fixed Chrome iOS glitches |
 | Feb 1, 2026 | Moved styles to CSS class | Enable `-webkit-sticky` vendor prefix |
 | Feb 1, 2026 | Changed `<div>` to `<nav>` | Semantic HTML for accessibility |
+| Feb 1, 2026 | Removed `margin-top: auto` | Fixed whitespace at bottom of long pages |
 
 ---
 
-*Last updated: February 1, 2026*
+*Last updated: February 1, 2026 (19:50 GST)*

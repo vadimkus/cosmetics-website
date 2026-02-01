@@ -223,6 +223,6 @@ export default function MobileWebFooterNav() {
           {t('tabs.bag') || 'Bag'}
         </span>
       </button>
-    </div>
+    </nav>
   )
 }

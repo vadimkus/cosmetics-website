@@ -1227,6 +1227,8 @@ html[dir="rtl"] {
   body > main,
   main.flex-1 {
     flex: 1 0 auto;
+    /* Add padding for fixed mobile footer - 80px height + safe area */
+    padding-bottom: calc(80px + env(safe-area-inset-bottom, 0px));
   }
 }
 

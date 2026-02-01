@@ -447,6 +447,19 @@ export default function ProductRecommendation({
       }
     }
 
+    // Bio-Ferment Mask + Anti-Wrinkle Serum combination (51 + 22)
+    if (currentProduct.id === '51' && recommendedProduct.id === '22') {
+      return {
+        intro: t('product.pc51Intro', { currentName: `<strong>${currentName}</strong>`, recommendedName: `<strong>${recommendedName}</strong>` }),
+        benefits: [
+          { title: t('product.pc51Benefit1Title'), text: t('product.pc51Benefit1Text') },
+          { title: t('product.pc51Benefit2Title'), text: t('product.pc51Benefit2Text') },
+          { title: t('product.pc51Benefit3Title'), text: t('product.pc51Benefit3Text') },
+          { title: t('product.pc51Benefit4Title'), text: t('product.pc51Benefit4Text') }
+        ]
+      }
+    }
+
     // Default generic description
     return {
       intro: t('product.pcDefaultIntro', { currentName: `<strong>${currentName}</strong>`, recommendedName: `<strong>${recommendedName}</strong>` }),

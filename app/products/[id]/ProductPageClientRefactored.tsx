@@ -628,6 +628,16 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
               </div>
             )}
 
+            {/* Product Recommendation Section - Bio-Ferment Mask (51) → Anti-Wrinkle Serum (22) - Desktop only */}
+            {(product.id === '51') && (
+              <div className="hidden lg:block">
+                <ProductRecommendation 
+                  recommendedProductId="22"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+
             {/* Skincare Routine Block - Only for Problem Skin Care Beauty Box (product 55) - Desktop only */}
             {(product.id === '55' || product.productNumber === '55') && (
               <div className="hidden lg:block bg-blue-50 border-2 border-blue-200 rounded-xl p-3 sm:p-4 md:p-6 shadow-md mt-4">
@@ -1106,6 +1116,16 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
               <div className="lg:hidden">
                 <ProductRecommendation 
                   recommendedProductId="43"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+
+            {/* Product Recommendation Section - Bio-Ferment Mask (51) → Anti-Wrinkle Serum (22) - Mobile only */}
+            {(product.id === '51') && (
+              <div className="lg:hidden">
+                <ProductRecommendation 
+                  recommendedProductId="22"
                   currentProduct={product}
                 />
               </div>

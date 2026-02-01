@@ -176,26 +176,9 @@ export default function MobileWebFooterNav() {
   }
 
   return (
-    <div 
-      style={{
-        position: 'sticky',
-        bottom: 0,
-        left: 0,
-        right: 0,
-        width: '100%',
-        height: 80,
-        backgroundColor: '#fff',
-        borderTop: '1px solid #e5e7eb',
-        boxShadow: '0 -4px 20px rgba(0,0,0,0.1)',
-        zIndex: 9999,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-around',
-        paddingBottom: 10,
-        marginTop: 'auto',
-      }}
+    <nav 
+      className="mobile-web-footer-nav"
       dir={dir}
-      role="navigation"
       aria-label="Mobile navigation"
     >
       <button style={buttonStyle} onClick={() => handleNavigation(getLocalizedPath('/products', locale))}>

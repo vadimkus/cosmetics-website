@@ -237,7 +237,32 @@ const selectFields = {
 
 ---
 
-## 8. Hair Devices in Scalp/Hair Category
+## 8. Cart Page Footer Visibility
+
+### Enhancement
+Changed footer visibility behavior on cart page based on cart contents.
+
+### Before
+Footer was always hidden on cart page.
+
+### After
+- **Empty cart**: Show footer (Home, Orders, Bag) - allows easy navigation
+- **Cart with items**: Hide footer - user focuses on checkout flow
+
+### Implementation
+```typescript
+// On cart page: show footer when empty, hide when has items
+if (isCartPage) {
+  return cartCount > 0 // Hide footer only when cart has items
+}
+```
+
+### Files Changed
+- `components/MobileWebFooterNav.tsx` - Added conditional cart page logic
+
+---
+
+## 9. Hair Devices in Scalp/Hair Category
 
 ### Enhancement
 Added Hair-GENTRON (product 48) and HairGen BOOSTER (product 3) to appear in the Scalp/Hair category in addition to their primary Device category.
@@ -309,6 +334,10 @@ filtered = filtered.filter(product => {
 - [ ] Admin panel shows customer profile pictures
 - [ ] Database stores profile pictures correctly (verified: Milya has 366KB picture)
 
+### Cart Page Footer
+- [ ] Empty cart - footer visible
+- [ ] Cart with items - footer hidden
+
 ---
 
 ## Git Commits
@@ -323,6 +352,8 @@ filtered = filtered.filter(product => {
 8. `Update documentation with all Feb 1, 2026 changes`
 9. `Fix profile picture not persisting after page reload`
 10. `Include profilePicture in admin users API response`
+11. `Update documentation with profile picture fixes`
+12. `Show footer on empty cart, hide when cart has items`
 
 ---
 
@@ -351,4 +382,4 @@ filtered = filtered.filter(product => {
 ---
 
 *Session Date: February 1, 2026*
-*Last Updated: 22:30 GST*
+*Last Updated: 22:45 GST*

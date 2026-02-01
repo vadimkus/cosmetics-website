@@ -434,6 +434,19 @@ export default function ProductRecommendation({
       }
     }
 
+    // Scalp brush + hair tonic combination (61 + 43)
+    if ((currentProduct.productNumber === '61') && recommendedProduct.id === '43') {
+      return {
+        intro: t('product.pc61Intro', { currentName: `<strong>${currentName}</strong>`, recommendedName: `<strong>${recommendedName}</strong>` }),
+        benefits: [
+          { title: t('product.pc61Benefit1Title'), text: t('product.pc61Benefit1Text') },
+          { title: t('product.pc61Benefit2Title'), text: t('product.pc61Benefit2Text') },
+          { title: t('product.pc61Benefit3Title'), text: t('product.pc61Benefit3Text') },
+          { title: t('product.pc61Benefit4Title'), text: t('product.pc61Benefit4Text') }
+        ]
+      }
+    }
+
     // Default generic description
     return {
       intro: t('product.pcDefaultIntro', { currentName: `<strong>${currentName}</strong>`, recommendedName: `<strong>${recommendedName}</strong>` }),

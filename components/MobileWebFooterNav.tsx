@@ -178,7 +178,7 @@ export default function MobileWebFooterNav() {
   return (
     <div 
       style={{
-        position: 'fixed',
+        position: 'sticky',
         bottom: 0,
         left: 0,
         right: 0,
@@ -191,7 +191,8 @@ export default function MobileWebFooterNav() {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-around',
-        paddingBottom: 'max(10px, env(safe-area-inset-bottom))',
+        paddingBottom: 10,
+        marginTop: 'auto',
       }}
       dir={dir}
       role="navigation"

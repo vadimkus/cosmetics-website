@@ -150,8 +150,9 @@ export default function AuthProvider({ children }: AuthProviderProps) {
             canSeePrices: user.canSeePrices,
             discountType: user.discountType,
             discountPercentage: user.discountPercentage,
-            birthday: user.birthday
-            // Exclude: address, profilePicture, createdAt (not needed for session)
+            birthday: user.birthday,
+            profilePicture: user.profilePicture // Include profile picture for display
+            // Exclude: address, createdAt (not needed for session)
           }
           localStorage.setItem('genosys_user', JSON.stringify(essentialUserData))
         } else {
@@ -355,11 +356,12 @@ export default function AuthProvider({ children }: AuthProviderProps) {
             // Ensure server data overrides these critical fields
             canSeePrices: data.user.canSeePrices,
             isAdmin: data.user.isAdmin,
-            // Ensure all server fields are included (like birthday)
+            // Ensure all server fields are included (like birthday, profilePicture)
             birthday: data.user.birthday,
             name: data.user.name,
             phone: data.user.phone,
-            address: data.user.address
+            address: data.user.address,
+            profilePicture: data.user.profilePicture
           }
           setUser(mergedUser)
         }

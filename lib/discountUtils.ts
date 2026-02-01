@@ -20,6 +20,7 @@ const BEAUTY_BOX_REGULAR_PRICES: { [key: string]: number } = {
   '57': 1520,    // CHARMING LOOK BEAUTY BOX (1519 rounded)
   '58': 1390,    // ANTI-AGING BEAUTY BOX (1390 rounded)
   '59': 1318,    // DEEP MOISTURIZING BEAUTY BOX
+  '62': 1696,    // SENSITIVE SKIN BEAUTY BOX
 }
 
 const BEAUTY_BOX_DISCOUNT_PERCENTAGE = 15
@@ -40,7 +41,7 @@ export function calculateDiscountedPrice(product: Product, user: ApiUser | User 
     const isBeautyBox = false
 
   // Beauty box products excluded from Black Friday discounts specifically
-  const BLACK_FRIDAY_EXCLUDED_PRODUCT_NUMBERS = ['55', '56', '57', '58', '59']
+  const BLACK_FRIDAY_EXCLUDED_PRODUCT_NUMBERS = ['55', '56', '57', '58', '59', '62']
   
   // Check if this is a beauty box product
   const isBeautyBoxProduct = product.category === 'Beauty Boxes' || 

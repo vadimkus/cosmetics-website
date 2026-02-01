@@ -2,7 +2,7 @@
 
 ## Summary
 
-Multiple fixes and enhancements for mobile web experience, cart functionality, new product creation, product recommendations, and category improvements.
+Multiple fixes and enhancements for mobile web experience, cart functionality, new product creation, product recommendations, category improvements, and profile picture persistence.
 
 ---
 
@@ -155,7 +155,89 @@ Removed the `perfectCombination`, `perfectCombinationId`, and `perfectCombinatio
 
 ---
 
-## 6. Hair Devices in Scalp/Hair Category
+## 6. Profile Picture Persistence Fix
+
+### Problem
+When a user uploaded a profile picture, saved it, closed the profile and reopened - the picture disappeared.
+
+### Root Cause
+In `AuthProvider.tsx`, `profilePicture` was explicitly **excluded** from the essential user data saved to localStorage to save space:
+
+```typescript
+const essentialUserData = {
+  id: user.id,
+  email: user.email,
+  // ... other fields
+  // Exclude: address, profilePicture, createdAt (not needed for session) ❌
+}
+```
+
+This caused the following bug:
+1. Profile page saves user with `profilePicture` to localStorage
+2. AuthProvider's useEffect immediately overwrites it WITHOUT `profilePicture`
+3. On page reload, localStorage has no `profilePicture`
+
+### Solution
+Include `profilePicture` in the essential user data:
+
+```typescript
+const essentialUserData = {
+  id: user.id,
+  email: user.email,
+  // ... other fields
+  profilePicture: user.profilePicture // Include for display ✅
+}
+```
+
+Also added `profilePicture` to the explicit fields in `refreshUser()` function.
+
+### Files Changed
+- `components/AuthProvider.tsx` - Added `profilePicture` to essential user data and refreshUser merge
+
+### Database Verification
+Confirmed profile pictures ARE stored in the database correctly:
+```
+User: Milya (zaripovam18@gmail.com)
+Profile picture: YES (366,750 characters, base64 PNG)
+```
+
+---
+
+## 7. Admin Customer Profile Picture Fix
+
+### Problem
+In the admin panel, customer profile pictures were not showing even though they were stored in the database.
+
+### Root Cause
+The admin users API (`/api/admin/users/route.ts`) had `profilePicture` **commented out** to reduce response size:
+
+```typescript
+const selectFields = {
+  id: true,
+  email: true,
+  // profilePicture: true, // Excluded to reduce response size ❌
+  // ...
+}
+```
+
+### Solution
+Uncommented `profilePicture` in the select fields:
+
+```typescript
+const selectFields = {
+  id: true,
+  email: true,
+  profilePicture: true, // Include for customer profile display ✅
+  // ...
+}
+```
+
+### Files Changed
+- `app/api/admin/users/route.ts` - Enabled `profilePicture` in select fields
+
+---
+
+## 8. Hair Devices in Scalp/Hair Category
 
 ### Enhancement
 Added Hair-GENTRON (product 48) and HairGen BOOSTER (product 3) to appear in the Scalp/Hair category in addition to their primary Device category.
@@ -222,6 +304,11 @@ filtered = filtered.filter(product => {
 - [ ] HairGen BOOSTER visible in Scalp/Hair category
 - [ ] Both products still visible in Device category
 
+### Profile Pictures
+- [ ] User uploads profile picture - persists after page reload
+- [ ] Admin panel shows customer profile pictures
+- [ ] Database stores profile pictures correctly (verified: Milya has 366KB picture)
+
 ---
 
 ## Git Commits
@@ -233,6 +320,9 @@ filtered = filtered.filter(product => {
 5. `Add comprehensive documentation for Feb 1, 2026 session`
 6. `Fix whitespace at bottom of page - remove margin-top:auto from footer`
 7. `Show Hair-GENTRON and HairGen BOOSTER in Scalp/Hair category`
+8. `Update documentation with all Feb 1, 2026 changes`
+9. `Fix profile picture not persisting after page reload`
+10. `Include profilePicture in admin users API response`
 
 ---
 
@@ -250,7 +340,15 @@ filtered = filtered.filter(product => {
 - For multi-category display, use filter logic with product ID whitelist
 - Maintains data integrity while improving discoverability
 
+### Profile Picture Storage
+- Profile pictures stored as base64 strings in PostgreSQL `Text` field
+- Can be large (300KB+ for high-res images)
+- Must be included in:
+  - localStorage essential user data (for client-side persistence)
+  - API responses (for admin panel display)
+  - Session API (for page reload recovery)
+
 ---
 
 *Session Date: February 1, 2026*
-*Last Updated: 19:45 GST*
+*Last Updated: 22:30 GST*

@@ -20,24 +20,43 @@ The cosmetics website features a mobile-only sticky footer navigation that provi
 
 ### Position: Sticky (Final Solution)
 
-```typescript
-<div 
-  style={{
-    position: 'sticky',
-    bottom: 0,
-    width: '100%',
-    height: 80,
-    backgroundColor: '#fff',
-    marginTop: 'auto',
-  }}
+**IMPORTANT**: Styles are defined in CSS (not inline) for proper vendor prefix support.
+
+```tsx
+// Component uses CSS class for styling
+<nav 
+  className="mobile-web-footer-nav"
+  dir={dir}
+  aria-label="Mobile navigation"
 >
   {/* Navigation buttons */}
-</div>
+</nav>
 ```
 
 ### Required CSS (globals.css)
 
 ```css
+/* Mobile web footer navigation - sticky at bottom */
+.mobile-web-footer-nav {
+  position: -webkit-sticky;  /* CRITICAL: WebKit prefix for Chrome iOS */
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 80px;
+  background-color: #fff;
+  border-top: 1px solid #e5e7eb;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding-bottom: 10px;
+  margin-top: auto;
+}
+
+/* Make body flex container for sticky footer on mobile */
 @media (max-width: 767px) {
   body {
     display: flex;
@@ -46,11 +65,28 @@ The cosmetics website features a mobile-only sticky footer navigation that provi
     min-height: 100dvh; /* Dynamic viewport height for mobile */
   }
   
+  body > main,
   main.flex-1 {
     flex: 1 0 auto;
   }
 }
+
+/* Hide on desktop */
+@media (min-width: 768px) {
+  .mobile-web-footer-nav {
+    display: none !important;
+  }
+}
 ```
+
+### Why CSS Classes Instead of Inline Styles
+
+| Approach | Vendor Prefixes | Browser Support |
+|----------|-----------------|-----------------|
+| Inline styles | ❌ Cannot use `-webkit-sticky` | Limited |
+| CSS classes | ✅ Full vendor prefix support | Full |
+
+**Critical**: Chrome iOS uses WebKit engine and requires `-webkit-sticky` prefix for proper sticky positioning. Inline React styles cannot include vendor prefixes properly.
 
 ### Why `position: sticky` Instead of `position: fixed`
 
@@ -70,6 +106,7 @@ When using `position: fixed` on Chrome iOS:
 - Viewport height changes dynamically
 - Fixed elements move with viewport changes
 - Results in visual glitches ("slowly changing" icons)
+- Footer appears to "jump" or float in middle of screen
 
 ### Failed Attempts
 
@@ -79,13 +116,32 @@ When using `position: fixed` on Chrome iOS:
 4. **React Portal** to body - No effect
 5. **`!important` everywhere** - No effect
 6. **Disable transitions** (`transition: none`) - No effect
+7. **`position: fixed` with padding-bottom on content** - Footer still jumps (Feb 2026)
 
 ### Working Solution
 
-Switch from `position: fixed` to `position: sticky`:
+Switch from `position: fixed` to `position: sticky` with proper vendor prefixes:
+
+1. **Use CSS classes** (not inline styles) for vendor prefix support
+2. **Add `-webkit-sticky`** prefix before `sticky` for Chrome iOS (WebKit engine)
+3. **Body must be flex container** with `min-height: 100dvh`
+4. **Use `<nav>` semantic element** for accessibility
+
+```css
+.mobile-web-footer-nav {
+  position: -webkit-sticky;  /* WebKit (Chrome iOS, Safari) */
+  position: sticky;          /* Standard */
+  bottom: 0;
+  margin-top: auto;
+}
+```
+
+### Why This Works
+
 - Sticky elements are positioned relative to their scroll container
-- Not affected by viewport height changes
-- Requires body to be a flex container with `min-height: 100dvh`
+- Not affected by viewport height changes (address bar)
+- `-webkit-sticky` ensures Chrome iOS (which uses WebKit) applies sticky correctly
+- `margin-top: auto` in flex container pushes footer to bottom when content is short
 
 ## Visibility Logic
 
@@ -162,7 +218,18 @@ Custom SVG icons matching native app design:
 2. **Always use `100dvh`** instead of `100vh` on mobile
 3. **Flex container required** for sticky footer to work
 4. **Test on Chrome iOS** specifically after any footer changes
+5. **Use CSS classes for sticky** - inline styles cannot include `-webkit-sticky` prefix
+6. **Never use GPU compositing** (`transform: translate3d`) on sticky footer - it makes glitches worse
+7. **Use semantic `<nav>` element** for accessibility
+
+## Changelog
+
+| Date | Change | Reason |
+|------|--------|--------|
+| Jan 13, 2026 | Initial sticky implementation | Fixed Chrome iOS glitches |
+| Feb 1, 2026 | Moved styles to CSS class | Enable `-webkit-sticky` vendor prefix |
+| Feb 1, 2026 | Changed `<div>` to `<nav>` | Semantic HTML for accessibility |
 
 ---
 
-*Last updated: January 13, 2026*
+*Last updated: February 1, 2026*

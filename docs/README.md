@@ -149,6 +149,7 @@
 | [AR_SKIN_ANALYSIS_ENHANCEMENT.md](./AR_SKIN_ANALYSIS_ENHANCEMENT.md) | AR skin analysis feature |
 | [POWER_ANIMAL_AND_AR_FEATURES.md](./POWER_ANIMAL_AND_AR_FEATURES.md) | Power animal & AR features |
 | [TWILIO_WHATSAPP_INTEGRATION.md](./TWILIO_WHATSAPP_INTEGRATION.md) | WhatsApp integration |
+| [SESSION_CHANGES_2026-02-01.md](./SESSION_CHANGES_2026-02-01.md) | **NEW** Mobile footer fix, cart reactivity, Beauty Box 62 |
 | [SESSION_CHANGES_2026-01-26.md](./SESSION_CHANGES_2026-01-26.md) | Product video implementation (ID 10) |
 
 ---
@@ -215,6 +216,7 @@
 
 | File | Description |
 |------|-------------|
+| [SESSION_CHANGES_2026-02-01.md](./SESSION_CHANGES_2026-02-01.md) | **NEW** Mobile footer Chrome fix, cart reactivity, Beauty Box 62, Product 51 recommendation |
 | [SESSION_CHANGES_2026-01-26.md](./SESSION_CHANGES_2026-01-26.md) | Product video, footer nav fix, docs |
 | [SESSION_CHANGES_2026-01-15-VOICE-SEARCH.md](./SESSION_CHANGES_2026-01-15-VOICE-SEARCH.md) | Voice search feature |
 | [SESSION_CHANGES_2026-01-15.md](./SESSION_CHANGES_2026-01-15.md) | Jan 15 changes |

@@ -221,10 +221,19 @@ export default function ProductsPageClient({ initialProducts = [] }: ProductsPag
         'beauty-boxes': 'Beauty Boxes'
       }
       
+      // Hair/Scalp related device products that should also show in Scalp/Hair category
+      const hairDeviceProducts = ['3', '48'] // HairGen BOOSTER (3), Hair-GENTRON (48)
+      
       filtered = filtered.filter(product => {
         return filters.categories.some(catId => {
           const expectedCategory = categoryMapping[catId] || 
             catId.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')
+          
+          // Special handling: Show hair devices in Scalp/Hair category
+          if (catId === 'scalp-hair' && hairDeviceProducts.includes(product.id)) {
+            return true
+          }
+          
           return product.category.toLowerCase().includes(expectedCategory.toLowerCase())
         })
       })

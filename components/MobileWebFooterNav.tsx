@@ -127,6 +127,12 @@ export default function MobileWebFooterNav() {
     const isCartPage = pathname.includes('/cart')
     const isCheckoutPage = pathname.includes('/checkout')
     const isSuccessPage = pathname.includes('/success')
+    
+    // On cart page: show footer when empty, hide when has items
+    if (isCartPage) {
+      return cartCount > 0 // Hide footer only when cart has items
+    }
+    
     return /\/products\/[a-zA-Z0-9_-]+$/.test(pathname) || 
            pathname.includes('/pdf-viewer') || 
            pathname.includes('/pwa-login') ||
@@ -134,10 +140,9 @@ export default function MobileWebFooterNav() {
            pathname.includes('/blog') ||
            isLoginPage ||
            isAuthPage ||
-           isCartPage ||
            isCheckoutPage ||
            isSuccessPage
-  }, [pathname])
+  }, [pathname, cartCount])
 
   const activeTab = useMemo(() => {
     if (!pathname) return 'home'

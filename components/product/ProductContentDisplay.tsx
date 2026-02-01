@@ -149,6 +149,13 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
       'MOISTURE REPLENISHING HYALURON CREAM': '29',
       'Moisture Replenishing Hyaluron cream': '29',
       'Moisture Replenishing Hyaluron Cream': '29',
+      // Sensitive Skin Beauty Box items
+      'ALL FOR SENSITIVE SERUM': '21',
+      'All For Sensitive Serum': '21',
+      'SKIN BARRIER PROTECTING CREAM WITH CERAMIDES': '31',
+      'Skin Barrier Protecting Cream with Ceramides': '31',
+      'EGF REPAIR OXYMASK': '52',
+      'EGF Repair Oxymask': '52',
     }
     
     // Normalize product name for matching (uppercase, remove extra spaces)

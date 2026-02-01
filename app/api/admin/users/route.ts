@@ -44,15 +44,14 @@ export async function GET(request: NextRequest) {
     
     debugLog('📊 Where clause:', JSON.stringify(whereClause))
     
-    // Build query options - exclude profilePicture to reduce response size
-    // Profile pictures can be fetched separately if needed
+    // Build query options - include profilePicture for customer profiles
     const selectFields = {
       id: true,
       email: true,
       name: true,
       phone: true,
       address: true,
-      // profilePicture: true, // Excluded to reduce response size - fetch separately if needed
+      profilePicture: true, // Include for customer profile display
       isAdmin: true,
       canSeePrices: true,
       discountType: true,

@@ -1233,7 +1233,7 @@ html[dir="rtl"] {
   align-items: center;
   justify-content: space-around;
   padding-bottom: 10px;
-  margin-top: auto;
+  /* Note: margin-top:auto removed - was causing whitespace at bottom of long pages */
 }
 
 /* Make body flex container for sticky footer on mobile */

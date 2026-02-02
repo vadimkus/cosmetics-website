@@ -127,6 +127,7 @@ export default function MobileWebFooterNav() {
     const isCartPage = pathname.includes('/cart')
     const isCheckoutPage = pathname.includes('/checkout')
     const isSuccessPage = pathname.includes('/success')
+    const isBundleBuilder = pathname.includes('/bundle-builder')
     
     // On cart page: show footer when empty, hide when has items
     if (isCartPage) {
@@ -141,7 +142,8 @@ export default function MobileWebFooterNav() {
            isLoginPage ||
            isAuthPage ||
            isCheckoutPage ||
-           isSuccessPage
+           isSuccessPage ||
+           isBundleBuilder
   }, [pathname, cartCount])
 
   const activeTab = useMemo(() => {

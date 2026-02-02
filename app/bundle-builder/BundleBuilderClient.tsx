@@ -638,8 +638,8 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
               </div>
             )}
             
-            {/* Navigation Buttons */}
-            <div className="flex items-center justify-between mt-8 pt-6 border-t border-gray-100">
+            {/* Navigation Buttons - Desktop Only */}
+            <div className="hidden lg:flex items-center justify-between mt-8 pt-6 border-t border-gray-100">
               <button
                 onClick={handlePrevStep}
                 disabled={currentStep === 0}
@@ -702,62 +702,89 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
         </div>
       </div>
       
-      {/* Mobile Bottom Bar */}
+      {/* Mobile Bottom Bar - Navigation Only */}
       {isMobile && (
         <div className="bundle-builder-mobile-bar">
-          {items.length > 0 ? (
-            <>
-              <div className="flex items-center justify-between mb-3">
-                <div>
-                  <span className="text-sm text-gray-500">{items.length} {t('bundleBuilder.items')}</span>
-                  {showPrices && pricing.discountPercent > 0 && (
-                    <span className="ml-2 text-xs text-green-600 font-medium">
-                      {pricing.discountPercent}% {t('bundleBuilder.off')}
-                    </span>
-                  )}
-                </div>
-                {showPrices ? (
-                  <div className="text-right">
-                    <span className="text-lg font-bold text-gray-900">
-                      {pricing.total.toFixed(2)} {t('common.aed')}
-                    </span>
-                    <p className="text-[10px] text-gray-400">{t('product.vatIncluded')}</p>
-                  </div>
-                ) : (
-                  <span className="text-xs text-gray-500">
-                    {t('product.loginToSeePrice')}
+          {/* Summary Line */}
+          {items.length > 0 && (
+            <div className="flex items-center justify-between mb-3 pb-3 border-b border-gray-100">
+              <button
+                onClick={() => setShowMobileSummary(true)}
+                className="flex items-center gap-2 text-sm text-gray-600"
+              >
+                <span className="font-medium">{items.length} {t('bundleBuilder.items')}</span>
+                {showPrices && pricing.discountPercent > 0 && (
+                  <span className="text-xs text-green-600 font-medium">
+                    {pricing.discountPercent}% {t('bundleBuilder.off')}
                   </span>
                 )}
-              </div>
-              <div className="flex gap-3">
-                {currentStep < ROUTINE_STEPS.length - 1 && (
-                  <button
-                    onClick={handleNextStep}
-                    className="flex-1 py-3 bg-primary-600 text-white rounded-xl font-medium text-sm active:scale-[0.98] transition-all hover:bg-primary-700"
-                  >
-                    {t('bundleBuilder.nextStep')} →
-                  </button>
-                )}
+              </button>
+              {showPrices ? (
                 <button
                   onClick={() => setShowMobileSummary(true)}
-                  className={`${currentStep < ROUTINE_STEPS.length - 1 ? 'flex-1' : 'w-full'} py-3 bg-gray-900 text-white rounded-xl font-medium text-sm active:scale-[0.98] transition-all hover:bg-gray-800`}
+                  className="text-right"
                 >
-                  {t('bundleBuilder.viewBundle')}
+                  <span className="text-base font-bold text-gray-900">
+                    {pricing.total.toFixed(2)} {t('common.aed')}
+                  </span>
+                  <p className="text-[10px] text-gray-400">{t('product.vatIncluded')}</p>
                 </button>
-              </div>
-            </>
-          ) : (
-            <button
-              onClick={handleNextStep}
-              disabled={currentStep >= ROUTINE_STEPS.length - 1}
-              className="w-full py-3 bg-primary-600 text-white rounded-xl font-medium text-sm active:scale-[0.98] transition-all hover:bg-primary-700 disabled:bg-gray-300 disabled:text-gray-500"
-            >
-              {currentStep < ROUTINE_STEPS.length - 1 
-                ? `${t('bundleBuilder.nextStep')} →` 
-                : t('bundleBuilder.lastStep')
-              }
-            </button>
+              ) : (
+                <span className="text-xs text-gray-500">
+                  {t('product.loginToSeePrice')}
+                </span>
+              )}
+            </div>
           )}
+          
+          {/* Navigation: Previous | Skip | Next */}
+          <div className="flex items-center justify-between">
+            {/* Previous */}
+            <button
+              onClick={handlePrevStep}
+              disabled={currentStep === 0}
+              className={`
+                flex items-center gap-1.5 px-3 py-2.5 rounded-xl font-medium text-sm
+                transition-all duration-200
+                ${currentStep === 0
+                  ? 'text-gray-300 cursor-not-allowed'
+                  : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100 active:scale-[0.98]'
+                }
+              `}
+            >
+              <ArrowLeft className="w-4 h-4" />
+              {t('bundleBuilder.previous')}
+            </button>
+            
+            {/* Skip (for optional steps) */}
+            {!currentStepData?.required && !hasItemForStep(currentStepData?.id || '') && currentStep < ROUTINE_STEPS.length - 1 && (
+              <button
+                onClick={handleNextStep}
+                className="text-sm text-gray-400 hover:text-gray-600 transition-colors px-3 py-2.5"
+              >
+                {t('bundleBuilder.skip')}
+              </button>
+            )}
+            
+            {/* Next / View Bundle */}
+            {currentStep < ROUTINE_STEPS.length - 1 ? (
+              <button
+                onClick={handleNextStep}
+                className="flex items-center gap-1.5 px-4 py-2.5 bg-primary-600 text-white rounded-xl font-medium text-sm active:scale-[0.98] transition-all hover:bg-primary-700"
+              >
+                {t('bundleBuilder.next')}
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            ) : (
+              <button
+                onClick={() => setShowMobileSummary(true)}
+                className="flex items-center gap-1.5 px-4 py-2.5 bg-primary-600 text-white rounded-xl font-medium text-sm active:scale-[0.98] transition-all hover:bg-primary-700"
+              >
+                {t('bundleBuilder.viewBundle')}
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            )}
+          </div>
         </div>
       )}
       

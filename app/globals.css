@@ -1234,16 +1234,16 @@ html[dir="rtl"] {
   padding-bottom: env(safe-area-inset-bottom, 10px);
 }
 
-/* Mobile layout - no special height constraints to avoid white space issues */
+/* Mobile layout - fixed footer solution */
 @media (max-width: 767px) {
-  /* Override min-h-screen on mobile to prevent white space when address bar shows/hides */
+  /* Override min-h-screen on mobile - causes white space with dynamic viewport */
   .min-h-screen {
     min-height: auto !important;
   }
   
-  /* Add padding to body bottom to account for fixed footer */
-  body {
-    padding-bottom: 90px !important;
+  /* Main content padding for fixed footer */
+  #main-content {
+    padding-bottom: 90px;
   }
 }
 
@@ -1271,7 +1271,7 @@ html[dir="rtl"] {
 
 /* Spacer for bundle builder mobile bar */
 .bundle-builder-spacer {
-  height: 140px; /* Approximate height of mobile bar */
+  height: 100px; /* Space for mobile bar */
   display: block;
 }
 

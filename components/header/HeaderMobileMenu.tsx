@@ -64,6 +64,13 @@ export default function HeaderMobileMenu({
           >
             {t('navigation.products')}
           </Link>
+          <Link 
+            href={getLocalizedPath('/bundle-builder', locale)} 
+            className={`${linkClass} text-primary-600 font-medium`}
+            onClick={handleLinkClick}
+          >
+            🎁 {t('bundleBuilder.title')}
+          </Link>
           {isClient && user && (
             <Link 
               href={getLocalizedPath('/training', locale)} 

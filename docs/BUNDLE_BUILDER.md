@@ -1,0 +1,198 @@
+# Bundle Builder Feature
+
+## Overview
+
+The Bundle Builder is a professional tool that allows customers to create personalized skincare routines by selecting products from different categories. Customers receive tiered discounts based on the number of products they add to their bundle.
+
+## Access Points
+
+1. **Standalone Page**: `/bundle-builder` (also `/ar/bundle-builder` and `/ru/bundle-builder`)
+2. **Beauty Boxes Category**: A "Build Your Own Set" banner appears when viewing the Beauty Boxes category on the products page
+
+## Features
+
+### Routine Steps
+
+Products are organized by skincare routine steps:
+
+| Step | Emoji | Category | Required |
+|------|-------|----------|----------|
+| Cleanser | 🧴 | Cleanser | ✅ Yes |
+| Peeling | ✨ | Peeling | Optional |
+| Toner/Mist | 💧 | Toner/Mist | Optional |
+| Serum | 💎 | Serum | ✅ Yes |
+| Cream | 🤍 | Cream | ✅ Yes |
+| Eye Care | 👁️ | Eye care | Optional |
+| Mask | 🧖 | Mask | Optional |
+| Sun Protection | ☀️ | Sun | Optional |
+
+### Multiple Product Selection
+
+Users can select **multiple products from the same category/step**. The selection works as a toggle:
+- Click to add a product
+- Click again to remove it
+- Step indicator shows count when multiple items selected (e.g., "✓ 2")
+
+### Discount Tiers
+
+| Items | Discount |
+|-------|----------|
+| 2 products | 5% off |
+| 3 products | 10% off |
+| 4 products | 15% off |
+| 5+ products | 20% off |
+
+### Product Exclusions
+
+The following products are **excluded** from the Bundle Builder:
+
+1. **Beauty Boxes** - They are bundles themselves
+2. **PRO Solution category** - Professional products only
+3. **Price on Request products** - Professional products (`isPriceOnRequest: true`)
+4. **"SKIN RENEWAL PEELING SYSTEM"** - Professional product explicitly excluded
+5. **Hidden products** - Not visible to customers
+6. **Out of stock products** - Currently unavailable
+
+### Price Visibility (Authentication Required)
+
+Prices are **hidden for non-logged-in users**:
+
+| Element | Logged In | Not Logged In |
+|---------|-----------|---------------|
+| Product card price | Shows price | "Login to see price" |
+| Bundle summary prices | Full pricing breakdown | Item count only |
+| Mobile bottom bar | Shows total | "Login to see price" |
+| Add to Cart button | Enabled (if ≥2 items) | Hidden |
+
+This follows the same pattern as the rest of the website where prices require authentication.
+
+### UI/UX Design
+
+- **Apple-like design**: Clean, minimal, professional appearance
+- **Corporate branding**: Uses website's primary red color palette for the banner
+- **Not advertisement-like**: Focused on being a useful tool
+- **Mobile-first**: Fully responsive with bottom sheet for bundle summary on mobile
+- **Progressive disclosure**: Step-by-step guidance through routine categories
+- **Real-time pricing**: Dynamic discount calculation as products are added (for logged-in users)
+- **Sticky step indicator**: Stays visible when scrolling through products
+
+## Technical Implementation
+
+### Files Created
+
+```
+lib/bundleStore.ts                          # Zustand store for bundle state
+app/bundle-builder/page.tsx                 # Server component (data fetching)
+app/bundle-builder/BundleBuilderClient.tsx  # Client component (UI)
+app/ar/bundle-builder/page.tsx              # Arabic version
+app/ru/bundle-builder/page.tsx              # Russian version
+components/products/BuildYourSetBanner.tsx  # Entry point banner
+```
+
+### Store API (bundleStore.ts)
+
+```typescript
+interface BundleState {
+  items: BundleItem[]
+  currentStep: number
+  isOpen: boolean
+  
+  // Actions
+  addItem: (product: Product, step: string) => void  // Toggle behavior: adds or removes
+  removeItem: (productId: string) => void
+  clearBundle: () => void
+  setCurrentStep: (step: number) => void
+  
+  // Computed
+  getPricing: () => BundlePricing
+  getItemForStep: (stepId: string) => BundleItem | undefined
+  getItemsForStep: (stepId: string) => BundleItem[]  // Returns all items for a step
+  getItemCountForStep: (stepId: string) => number    // Returns count for a step
+  hasItemForStep: (stepId: string) => boolean
+  canAddToCart: () => boolean
+}
+```
+
+### Authentication Integration
+
+The `BundleBuilderClient` component integrates with authentication:
+
+```typescript
+import { useAuth } from '@/components/AuthProvider'
+import { canUserSeePrices } from '@/lib/discountUtils'
+
+// In component:
+const { user } = useAuth()
+const showPrices = canUserSeePrices(user)
+
+// Pass to child components:
+<BundleProductCard showPrices={showPrices} />
+<BundleSummary showPrices={showPrices} />
+```
+
+### Translations
+
+Added to all three language files (`messages/en.json`, `messages/ar.json`, `messages/ru.json`):
+
+- `bundleBuilder.title`
+- `bundleBuilder.steps.*` (for each routine step)
+- `bundleBuilder.stepDescriptions.*`
+- `bundleBuilder.discountTiers.*`
+- `bundleBuilder.selected` (for item count display)
+- Plus ~30 other keys for UI elements
+
+## Integration
+
+### Products Page Integration
+
+The `BuildYourSetBanner` component is conditionally rendered in `ProductsPageClient.tsx` when the `beauty-boxes` category filter is active:
+
+```tsx
+{filters.categories.includes('beauty-boxes') && (
+  <div className="mb-6">
+    <BuildYourSetBanner />
+  </div>
+)}
+```
+
+### Cart Integration
+
+When a bundle is added to cart, each product is added individually. The bundle discount logic should be applied at checkout (similar to how beauty box discounts work).
+
+## Mobile Responsiveness
+
+- **Desktop**: Side-by-side layout with sticky summary sidebar
+- **Mobile**: Full-width product grid with floating bottom bar and slide-up summary sheet
+- **Touch targets**: Minimum 44px for all interactive elements
+- **Safe area insets**: Properly handled for iOS devices
+
+## Future Enhancements
+
+1. **AI Recommendations**: Suggest products based on skin type or previous purchases
+2. **Save Bundles**: Allow users to save and share their bundles
+3. **Bundle Templates**: Pre-built routine suggestions users can start from
+4. **Skin Analysis Integration**: Connect to existing skin analysis feature for personalized recommendations
+
+---
+
+## Changelog
+
+### January 28, 2026
+
+**Initial Release**
+- Created Bundle Builder feature with standalone page and Beauty Boxes integration
+- Implemented 8 skincare routine steps with product filtering
+- Added tiered discount system (5%/10%/15%/20%)
+- Full localization for EN, AR, RU languages
+- Mobile-responsive design with bottom sheet summary
+
+**Updates**
+- Added multiple product selection per step (toggle behavior)
+- Implemented price hiding for non-logged-in users
+- Updated banner to use corporate red color palette
+- Excluded professional products from bundle builder:
+  - PRO Solution category
+  - Price on Request products
+  - SKIN RENEWAL PEELING SYSTEM
+- Changed emojis: Mask (🎭 → 🧖), Cream (🌸 → 🤍)
+- Made step indicator sticky for better UX when scrolling

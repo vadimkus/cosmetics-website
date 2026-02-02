@@ -13,6 +13,7 @@ import ProductSearch from '@/components/products/ProductSearch'
 import ProductFilters from '@/components/products/ProductFilters'
 import ProductSort, { SortOption } from '@/components/products/ProductSort'
 import BlackFridayMini from '@/components/BlackFridayMini'
+import BuildYourSetBanner from '@/components/products/BuildYourSetBanner'
 import { useState, useMemo, useCallback, useEffect, useRef } from 'react'
 import { Product } from '@/types'
 import ProductsListSchema from '@/components/ProductsListSchema'
@@ -492,6 +493,13 @@ export default function ProductsPageClient({ initialProducts = [] }: ProductsPag
                 <ProductSort sortBy={sortBy} onSortChange={handleSortChange} />
               </div>
             </div>
+
+            {/* Build Your Set Banner - Show when Beauty Boxes category is selected */}
+            {filters.categories.includes('beauty-boxes') && (
+              <div className="mb-6">
+                <BuildYourSetBanner />
+              </div>
+            )}
 
             {/* Products Grid */}
             {filteredAndSortedProducts.length > 0 ? (

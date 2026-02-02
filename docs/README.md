@@ -154,6 +154,14 @@
 
 ---
 
+### 🛍️ Products & Bundles
+
+| File | Description |
+|------|-------------|
+| [BUNDLE_BUILDER.md](./BUNDLE_BUILDER.md) | **NEW** Bundle Builder feature - custom routine creation with tiered discounts |
+
+---
+
 ### 🔐 Security & Authentication
 
 | File | Description |
@@ -216,7 +224,8 @@
 
 | File | Description |
 |------|-------------|
-| [SESSION_CHANGES_2026-02-01.md](./SESSION_CHANGES_2026-02-01.md) | **NEW** Mobile footer Chrome fix, cart reactivity, Beauty Box 62, Product 51 recommendation |
+| [SESSION_CHANGES_2026-02-02.md](./SESSION_CHANGES_2026-02-02.md) | **NEW** Bundle Builder feature, price hiding, corporate colors |
+| [SESSION_CHANGES_2026-02-01.md](./SESSION_CHANGES_2026-02-01.md) | Mobile footer Chrome fix, cart reactivity, Beauty Box 62, Product 51 recommendation |
 | [SESSION_CHANGES_2026-01-26.md](./SESSION_CHANGES_2026-01-26.md) | Product video, footer nav fix, docs |
 | [SESSION_CHANGES_2026-01-15-VOICE-SEARCH.md](./SESSION_CHANGES_2026-01-15-VOICE-SEARCH.md) | Voice search feature |
 | [SESSION_CHANGES_2026-01-15.md](./SESSION_CHANGES_2026-01-15.md) | Jan 15 changes |

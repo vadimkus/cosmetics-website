@@ -338,6 +338,14 @@ export default function MobileWebHeader() {
                 </Link>
                 
                 <Link 
+                  href={getLocalizedPath('/bundle-builder', locale)} 
+                  className={`py-2.5 text-red-600 hover:text-red-700 transition-colors text-sm font-medium ${isRTL ? 'text-right' : ''}`}
+                  onClick={() => setShowMobileMenu(false)}
+                >
+                  🎁 {t('bundleBuilder.title')}
+                </Link>
+                
+                <Link 
                   href={getLocalizedPath('/orders', locale)} 
                   className={`py-2.5 text-gray-800 hover:text-red-600 transition-colors text-sm font-medium ${isRTL ? 'text-right' : ''}`}
                   onClick={() => setShowMobileMenu(false)}

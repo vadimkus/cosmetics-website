@@ -231,16 +231,39 @@ Custom SVG icons matching native app design:
 6. **Never use GPU compositing** (`transform: translate3d`) on sticky footer - it makes glitches worse
 7. **Use semantic `<nav>` element** for accessibility
 8. **Never use `margin-top: auto`** on footer - causes whitespace at bottom of long pages
+9. **Add `flex-shrink: 0` and `min-height`** to prevent compression in flex containers
+10. **Clear browser cache** when testing footer changes - stale CSS causes misleading behavior
+
+## Debugging White Space Issues
+
+If white space appears below the footer when scrolling:
+
+### ❌ Things That Don't Work
+
+| Approach | Why It Fails |
+|----------|--------------|
+| `position: fixed` with body padding | Chrome iOS address bar glitches |
+| Inline styles | Can't use `-webkit-sticky` vendor prefix |
+| Override `min-h-screen` | Doesn't address root cause |
+| Viewport height JS fix (`--vh`) | Adds complexity, doesn't solve issue |
+| `overscroll-behavior: none` | May break expected scroll behavior |
+
+### ✅ What Works
+
+1. Use documented sticky implementation (see CSS above)
+2. Clear browser cache and restart browser
+3. Ensure `flex-shrink: 0` on footer to prevent compression
 
 ## Changelog
 
 | Date | Change | Reason |
 |------|--------|--------|
 | Jan 13, 2026 | Initial sticky implementation | Fixed Chrome iOS glitches |
+| Jan 28, 2026 | Added `min-height: 80px` and `flex-shrink: 0` | Prevent footer compression |
 | Feb 1, 2026 | Moved styles to CSS class | Enable `-webkit-sticky` vendor prefix |
 | Feb 1, 2026 | Changed `<div>` to `<nav>` | Semantic HTML for accessibility |
 | Feb 1, 2026 | Removed `margin-top: auto` | Fixed whitespace at bottom of long pages |
 
 ---
 
-*Last updated: February 1, 2026 (19:50 GST)*
+*Last updated: January 28, 2026*

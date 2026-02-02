@@ -175,9 +175,59 @@ When a bundle is added to cart, each product is added individually. The bundle d
 
 ---
 
+## Navigation Access
+
+### Hamburger Menu (Mobile Web)
+
+Bundle Builder is accessible from the mobile web hamburger menu:
+- Location: After "Products" link
+- Style: Highlighted in corporate red with 🎁 emoji
+- Text: "🎁 Build Your Set"
+
+**Files**:
+- `components/MobileWebHeader.tsx` - Mobile web hamburger menu
+- `components/header/HeaderMobileMenu.tsx` - Standard mobile menu
+
+---
+
+## Checkout Flow
+
+### After Adding Bundle to Cart
+
+When user clicks "Add Bundle to Cart":
+1. All bundle items are added to cart individually
+2. Bundle is cleared from the builder
+3. User is **automatically redirected to checkout page**
+
+This ensures a smooth purchase flow without requiring additional navigation.
+
+---
+
 ## Changelog
 
-### January 28, 2026
+### January 28, 2026 (Session 2)
+
+**Mobile UX Improvements**
+- Simplified mobile bottom bar: Previous | Skip | Next
+- "View Bundle" shown on last step
+- Hide inline navigation on mobile (desktop only)
+- Summary line clickable to open bundle sheet
+
+**User Discount Display**
+- Show user's personal discount badge (e.g., "-50%")
+- Display discounted price in red, original struck through
+- "5% VAT inclusive" text on all prices
+- Prices formatted as `1292.00 AED`
+
+**Checkout Integration**
+- Auto-redirect to checkout after adding bundle to cart
+- Bundle cleared after adding to cart
+
+**Hamburger Menu Integration**
+- Added "🎁 Build Your Set" to mobile web hamburger menu
+- Highlighted in corporate red
+
+### January 28, 2026 (Session 1)
 
 **Initial Release**
 - Created Bundle Builder feature with standalone page and Beauty Boxes integration

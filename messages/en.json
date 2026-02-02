@@ -1745,6 +1745,8 @@
     "addMoreItems": "Add {count} more for discount",
     "clearAll": "Clear All",
     "viewBundle": "View Bundle",
+    "nextStep": "Next Step",
+    "lastStep": "Last Step",
     "selected": "selected",
     "addedToCart": "Bundle added to cart!",
     "previous": "Previous",

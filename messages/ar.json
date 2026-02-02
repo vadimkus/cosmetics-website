@@ -1701,6 +1701,8 @@
     "addMoreItems": "أضف {count} للحصول على خصم",
     "clearAll": "مسح الكل",
     "viewBundle": "عرض المجموعة",
+    "nextStep": "الخطوة التالية",
+    "lastStep": "الخطوة الأخيرة",
     "selected": "محدد",
     "addedToCart": "تمت إضافة المجموعة للسلة!",
     "previous": "السابق",

@@ -1725,6 +1725,8 @@
     "addMoreItems": "Добавьте ещё {count} для скидки",
     "clearAll": "Очистить всё",
     "viewBundle": "Просмотр набора",
+    "nextStep": "Следующий шаг",
+    "lastStep": "Последний шаг",
     "selected": "выбрано",
     "addedToCart": "Набор добавлен в корзину!",
     "previous": "Назад",

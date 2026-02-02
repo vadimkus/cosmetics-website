@@ -11,8 +11,9 @@ import { useCartStore } from '@/lib/cartStore'
 import { useAnimationStore } from '@/lib/animationStore'
 import { useBundleStore, ROUTINE_STEPS, type RoutineStep, type BundlePricing } from '@/lib/bundleStore'
 import { useAuth } from '@/components/AuthProvider'
-import { canUserSeePrices } from '@/lib/discountUtils'
+import { canUserSeePrices, calculateDiscountedPrice } from '@/lib/discountUtils'
 import { Product } from '@/types'
+import type { User } from '@/types/user'
 
 interface BundleBuilderClientProps {
   products: Product[]
@@ -84,14 +85,19 @@ function BundleProductCard({
   isSelected,
   onSelect,
   showPrices,
+  user,
 }: {
   product: Product
   isSelected: boolean
   onSelect: () => void
   showPrices: boolean
+  user: User | null
 }) {
   const { t } = useTranslation()
   const { enabled: animationsEnabled } = useAnimationStore()
+  
+  // Calculate user's discounted price
+  const pricing = useMemo(() => calculateDiscountedPrice(product, user), [product, user])
   
   const MotionDiv = animationsEnabled ? motion.div : 'div'
   
@@ -119,6 +125,13 @@ function BundleProductCard({
         </div>
       )}
       
+      {/* Discount Badge */}
+      {showPrices && pricing.hasDiscount && (
+        <div className="absolute top-3 left-3 z-10 bg-green-600 text-white text-xs font-medium px-2 py-1 rounded-full">
+          -{pricing.discountPercentage}%
+        </div>
+      )}
+      
       {/* Product Image */}
       <div className="relative aspect-square bg-gray-50 p-4">
         <Image
@@ -135,23 +148,43 @@ function BundleProductCard({
         <h3 className="text-sm font-medium text-gray-900 line-clamp-2 min-h-[2.5rem]">
           {product.name}
         </h3>
-        <div className="mt-2 flex items-center justify-between">
+        <div className="mt-2">
           {showPrices ? (
-            <span className="text-base font-semibold text-gray-900">
-              {product.price} {t('common.aed')}
-            </span>
+            <div className="flex flex-col">
+              {pricing.hasDiscount ? (
+                <>
+                  <div className="flex items-center gap-2">
+                    <span className="text-base font-semibold text-primary-600">
+                      {pricing.discountedPrice.toFixed(2)} {t('common.aed')}
+                    </span>
+                    <span className="text-xs text-gray-400 line-through">
+                      {pricing.originalPrice.toFixed(2)}
+                    </span>
+                  </div>
+                </>
+              ) : (
+                <span className="text-base font-semibold text-gray-900">
+                  {product.price.toFixed(2)} {t('common.aed')}
+                </span>
+              )}
+              <span className="text-[10px] text-gray-400 mt-0.5">
+                {t('product.vatIncluded')}
+              </span>
+            </div>
           ) : (
             <span className="text-xs text-gray-500">
               {t('product.loginToSeePrice')}
             </span>
           )}
-          {!isSelected && showPrices && (
+        </div>
+        {!isSelected && showPrices && (
+          <div className="mt-2 flex justify-end">
             <span className="text-xs text-gray-500 flex items-center gap-1">
               <Plus className="w-3 h-3" />
               {t('bundleBuilder.add')}
             </span>
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </MotionDiv>
   )
@@ -165,11 +198,13 @@ function BundleSummary({
   onClear,
   showPrices,
   pricing,
+  user,
 }: {
   onAddToCart: () => void
   onClear: () => void
   showPrices: boolean
   pricing: BundlePricing
+  user: User | null
 }) {
   const { t } = useTranslation()
   const { items, removeItem, canAddToCart } = useBundleStore()
@@ -191,47 +226,50 @@ function BundleSummary({
     <div className="flex flex-col h-full">
       {/* Items List */}
       <div className="flex-1 overflow-y-auto space-y-3 pb-4">
-        {items.map((item, index) => (
-          <motion.div
-            key={item.product.id}
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -20 }}
-            transition={{ delay: index * 0.05 }}
-            className="flex items-center gap-3 bg-gray-50 rounded-xl p-3"
-          >
-            <div className="relative w-14 h-14 flex-shrink-0 bg-white rounded-lg overflow-hidden">
-              <Image
-                src={item.product.image}
-                alt={item.product.name}
-                fill
-                className="object-contain p-1"
-              />
-            </div>
-            <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium text-gray-900 truncate">
-                {item.product.name}
-              </p>
-              <p className="text-xs text-gray-500">
-                {t(`bundleBuilder.steps.${item.step}`)}
-              </p>
-            </div>
-            <div className="flex items-center gap-2">
-              {showPrices && (
-                <span className="text-sm font-medium text-gray-900">
-                  {item.product.price}
-                </span>
-              )}
-              <button
-                onClick={() => removeItem(item.product.id)}
-                className="p-1.5 rounded-full hover:bg-gray-200 transition-colors"
-                aria-label={t('common.delete')}
-              >
-                <X className="w-4 h-4 text-gray-400" />
-              </button>
-            </div>
-          </motion.div>
-        ))}
+        {items.map((item, index) => {
+          const itemPricing = calculateDiscountedPrice(item.product, user)
+          return (
+            <motion.div
+              key={item.product.id}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ delay: index * 0.05 }}
+              className="flex items-center gap-3 bg-gray-50 rounded-xl p-3"
+            >
+              <div className="relative w-14 h-14 flex-shrink-0 bg-white rounded-lg overflow-hidden">
+                <Image
+                  src={item.product.image}
+                  alt={item.product.name}
+                  fill
+                  className="object-contain p-1"
+                />
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-medium text-gray-900 truncate">
+                  {item.product.name}
+                </p>
+                <p className="text-xs text-gray-500">
+                  {t(`bundleBuilder.steps.${item.step}`)}
+                </p>
+              </div>
+              <div className="flex items-center gap-2">
+                {showPrices && (
+                  <span className="text-sm font-medium text-gray-900">
+                    {itemPricing.discountedPrice.toFixed(2)}
+                  </span>
+                )}
+                <button
+                  onClick={() => removeItem(item.product.id)}
+                  className="p-1.5 rounded-full hover:bg-gray-200 transition-colors"
+                  aria-label={t('common.delete')}
+                >
+                  <X className="w-4 h-4 text-gray-400" />
+                </button>
+              </div>
+            </motion.div>
+          )
+        })}
       </div>
       
       {/* Pricing Summary - Only show if user can see prices */}
@@ -240,16 +278,16 @@ function BundleSummary({
           {/* Subtotal */}
           <div className="flex justify-between text-sm">
             <span className="text-gray-500">{t('bundleBuilder.subtotal')}</span>
-            <span className="text-gray-900">{pricing.subtotal} {t('common.aed')}</span>
+            <span className="text-gray-900">{pricing.subtotal.toFixed(2)} {t('common.aed')}</span>
           </div>
           
-          {/* Discount */}
+          {/* Bundle Discount */}
           {pricing.discountPercent > 0 && (
             <div className="flex justify-between text-sm">
               <span className="text-green-600">
                 {t('bundleBuilder.discount')} ({pricing.discountPercent}%)
               </span>
-              <span className="text-green-600">-{pricing.discountAmount} {t('common.aed')}</span>
+              <span className="text-green-600">-{pricing.discountAmount.toFixed(2)} {t('common.aed')}</span>
             </div>
           )}
           
@@ -266,11 +304,14 @@ function BundleSummary({
           
           {/* Total */}
           <div className="flex justify-between items-center pt-2 border-t border-gray-100">
-            <span className="text-base font-semibold text-gray-900">
-              {t('bundleBuilder.total')}
-            </span>
+            <div>
+              <span className="text-base font-semibold text-gray-900">
+                {t('bundleBuilder.total')}
+              </span>
+              <p className="text-[10px] text-gray-400">{t('product.vatIncluded')}</p>
+            </div>
             <span className="text-xl font-bold text-gray-900">
-              {pricing.total} {t('common.aed')}
+              {pricing.total.toFixed(2)} {t('common.aed')}
             </span>
           </div>
           
@@ -278,7 +319,7 @@ function BundleSummary({
           {pricing.discountAmount > 0 && (
             <div className="text-center">
               <span className="inline-block bg-green-100 text-green-700 text-xs font-medium px-3 py-1 rounded-full">
-                {t('bundleBuilder.youSave', { amount: pricing.discountAmount })}
+                {t('bundleBuilder.youSave', { amount: pricing.discountAmount.toFixed(2) })}
               </span>
             </div>
           )}
@@ -361,7 +402,7 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
     clearBundle,
   } = useBundleStore()
   
-  // Compute pricing reactively based on items
+  // Compute pricing reactively based on items (using user's discounted prices)
   const pricing: BundlePricing = useMemo(() => {
     const DISCOUNT_TIERS = [
       { minItems: 2, discount: 5 },
@@ -371,7 +412,12 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
     ]
     
     const itemCount = items.length
-    const subtotal = items.reduce((sum, item) => sum + (item.product?.price || 0), 0)
+    
+    // Calculate subtotal using user's discounted prices
+    const subtotal = items.reduce((sum, item) => {
+      const itemPricing = calculateDiscountedPrice(item.product, user)
+      return sum + itemPricing.discountedPrice
+    }, 0)
     
     let discountPercent = 0
     for (const tier of DISCOUNT_TIERS) {
@@ -380,8 +426,9 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
       }
     }
     
-    const discountAmount = Math.round((subtotal * discountPercent) / 100)
-    const total = subtotal - discountAmount
+    // Apply bundle discount on top of user's discounted price
+    const discountAmount = Math.round((subtotal * discountPercent) / 100 * 100) / 100
+    const total = Math.round((subtotal - discountAmount) * 100) / 100
     
     let nextTierItems: number | null = null
     let nextTierDiscount: number | null = null
@@ -395,7 +442,7 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
     }
     
     return {
-      subtotal,
+      subtotal: Math.round(subtotal * 100) / 100,
       discountPercent,
       discountAmount,
       total,
@@ -403,7 +450,7 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
       nextTierItems,
       nextTierDiscount,
     }
-  }, [items])
+  }, [items, user])
   
   const [showMobileSummary, setShowMobileSummary] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
@@ -579,6 +626,7 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
                     isSelected={selectedProductIds.includes(product.id)}
                     onSelect={() => handleProductSelect(product)}
                     showPrices={showPrices}
+                    user={user}
                   />
                 ))}
               </div>
@@ -647,6 +695,7 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
                 onClear={handleClear}
                 showPrices={showPrices}
                 pricing={pricing}
+                user={user}
               />
             </div>
           </aside>
@@ -666,9 +715,12 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
               )}
             </div>
             {showPrices ? (
-              <span className="text-lg font-bold text-gray-900">
-                {pricing.total} {t('common.aed')}
-              </span>
+              <div className="text-right">
+                <span className="text-lg font-bold text-gray-900">
+                  {pricing.total.toFixed(2)} {t('common.aed')}
+                </span>
+                <p className="text-[10px] text-gray-400">{t('product.vatIncluded')}</p>
+              </div>
             ) : (
               <span className="text-xs text-gray-500">
                 {t('product.loginToSeePrice')}
@@ -736,6 +788,7 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
                   }}
                   showPrices={showPrices}
                   pricing={pricing}
+                  user={user}
                 />
               </div>
             </motion.div>

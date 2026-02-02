@@ -9,7 +9,7 @@ import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { useCartStore } from '@/lib/cartStore'
 import { useAnimationStore } from '@/lib/animationStore'
-import { useBundleStore, ROUTINE_STEPS, type RoutineStep } from '@/lib/bundleStore'
+import { useBundleStore, ROUTINE_STEPS, type RoutineStep, type BundlePricing } from '@/lib/bundleStore'
 import { useAuth } from '@/components/AuthProvider'
 import { canUserSeePrices } from '@/lib/discountUtils'
 import { Product } from '@/types'
@@ -164,14 +164,15 @@ function BundleSummary({
   onAddToCart,
   onClear,
   showPrices,
+  pricing,
 }: {
   onAddToCart: () => void
   onClear: () => void
   showPrices: boolean
+  pricing: BundlePricing
 }) {
   const { t } = useTranslation()
-  const { items, getPricing, removeItem, canAddToCart } = useBundleStore()
-  const pricing = getPricing()
+  const { items, removeItem, canAddToCart } = useBundleStore()
   
   if (items.length === 0) {
     return (
@@ -357,9 +358,52 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
     addItem,
     hasItemForStep,
     getItemCountForStep,
-    getPricing,
     clearBundle,
   } = useBundleStore()
+  
+  // Compute pricing reactively based on items
+  const pricing: BundlePricing = useMemo(() => {
+    const DISCOUNT_TIERS = [
+      { minItems: 2, discount: 5 },
+      { minItems: 3, discount: 10 },
+      { minItems: 4, discount: 15 },
+      { minItems: 5, discount: 20 },
+    ]
+    
+    const itemCount = items.length
+    const subtotal = items.reduce((sum, item) => sum + (item.product?.price || 0), 0)
+    
+    let discountPercent = 0
+    for (const tier of DISCOUNT_TIERS) {
+      if (itemCount >= tier.minItems) {
+        discountPercent = tier.discount
+      }
+    }
+    
+    const discountAmount = Math.round((subtotal * discountPercent) / 100)
+    const total = subtotal - discountAmount
+    
+    let nextTierItems: number | null = null
+    let nextTierDiscount: number | null = null
+    
+    for (const tier of DISCOUNT_TIERS) {
+      if (itemCount < tier.minItems) {
+        nextTierItems = tier.minItems - itemCount
+        nextTierDiscount = tier.discount
+        break
+      }
+    }
+    
+    return {
+      subtotal,
+      discountPercent,
+      discountAmount,
+      total,
+      itemCount,
+      nextTierItems,
+      nextTierDiscount,
+    }
+  }, [items])
   
   const [showMobileSummary, setShowMobileSummary] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
@@ -441,8 +485,6 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
     clearBundle()
     setCurrentStep(0)
   }
-  
-  const pricing = getPricing()
   
   return (
     <div className="min-h-screen bg-white">
@@ -604,6 +646,7 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
                 onAddToCart={handleAddToCart}
                 onClear={handleClear}
                 showPrices={showPrices}
+                pricing={pricing}
               />
             </div>
           </aside>
@@ -692,6 +735,7 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
                     setShowMobileSummary(false)
                   }}
                   showPrices={showPrices}
+                  pricing={pricing}
                 />
               </div>
             </motion.div>

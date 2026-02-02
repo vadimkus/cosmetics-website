@@ -1241,13 +1241,19 @@ html[dir="rtl"] {
   body {
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
-    min-height: 100dvh;
+    /* Use auto instead of 100dvh to prevent white space when address bar shows */
+    min-height: auto !important;
   }
   
   body > main,
   main.flex-1 {
     flex: 1 0 auto;
+  }
+  
+  /* CRITICAL: Override min-h-screen on mobile to prevent white space issue */
+  /* When viewport height changes (Chrome iOS address bar), min-h-screen causes extra space */
+  .min-h-screen {
+    min-height: auto !important;
   }
 }
 

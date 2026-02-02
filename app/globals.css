@@ -1236,6 +1236,12 @@ html[dir="rtl"] {
 
 /* Mobile layout - fixed footer solution */
 @media (max-width: 767px) {
+  /* Prevent overscroll bounce that shows white space */
+  html, body {
+    overscroll-behavior: none;
+    overflow-x: hidden;
+  }
+  
   /* Override min-h-screen on mobile - causes white space with dynamic viewport */
   .min-h-screen {
     min-height: auto !important;

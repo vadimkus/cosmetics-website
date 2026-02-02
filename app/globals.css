@@ -1216,10 +1216,9 @@ html[dir="rtl"] {
   }
 }
 
-/* Mobile web footer navigation - sticky at bottom */
+/* Mobile web footer navigation - fixed at bottom */
 .mobile-web-footer-nav {
-  position: -webkit-sticky;
-  position: sticky;
+  position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
@@ -1232,28 +1231,19 @@ html[dir="rtl"] {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  padding-bottom: 10px;
-  /* Note: margin-top:auto removed - was causing whitespace at bottom of long pages */
+  padding-bottom: env(safe-area-inset-bottom, 10px);
 }
 
-/* Make body flex container for sticky footer on mobile */
+/* Mobile layout - no special height constraints to avoid white space issues */
 @media (max-width: 767px) {
-  body {
-    display: flex;
-    flex-direction: column;
-    /* Use auto instead of 100dvh to prevent white space when address bar shows */
-    min-height: auto !important;
-  }
-  
-  body > main,
-  main.flex-1 {
-    flex: 1 0 auto;
-  }
-  
-  /* CRITICAL: Override min-h-screen on mobile to prevent white space issue */
-  /* When viewport height changes (Chrome iOS address bar), min-h-screen causes extra space */
+  /* Override min-h-screen on mobile to prevent white space when address bar shows/hides */
   .min-h-screen {
     min-height: auto !important;
+  }
+  
+  /* Add padding to body bottom to account for fixed footer */
+  body {
+    padding-bottom: 90px !important;
   }
 }
 

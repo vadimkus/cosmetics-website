@@ -1251,10 +1251,9 @@ html[dir="rtl"] {
   }
 }
 
-/* Bundle Builder mobile bottom bar - sticky positioning for Chrome iOS */
+/* Bundle Builder mobile bottom bar - fixed at bottom for mobile */
 .bundle-builder-mobile-bar {
-  position: -webkit-sticky;
-  position: sticky;
+  position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
@@ -1271,6 +1270,18 @@ html[dir="rtl"] {
 @media (min-width: 1024px) {
   .bundle-builder-mobile-bar {
     display: none !important;
+  }
+}
+
+/* Spacer for bundle builder mobile bar */
+.bundle-builder-spacer {
+  height: 140px; /* Approximate height of mobile bar */
+  display: block;
+}
+
+@media (min-width: 1024px) {
+  .bundle-builder-spacer {
+    display: none;
   }
 }
 

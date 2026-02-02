@@ -3,6 +3,7 @@
 import { useState, useMemo, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { ArrowLeft, Check, Plus, X, ShoppingBag, ChevronRight, Sparkles } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useTranslation } from '@/hooks/useTranslation'
@@ -386,6 +387,7 @@ function BundleSummary({
  */
 export default function BundleBuilderClient({ products }: BundleBuilderClientProps) {
   const { t, locale } = useTranslation()
+  const router = useRouter()
   const { addItem: addToCart } = useCartStore()
   const { user } = useAuth()
   
@@ -454,7 +456,6 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
   
   const [showMobileSummary, setShowMobileSummary] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
-  const [addedToCart, setAddedToCart] = useState(false)
   
   // Check if mobile
   useEffect(() => {
@@ -514,17 +515,18 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
     }
   }
   
-  // Handle add bundle to cart
+  // Handle add bundle to cart - then redirect to checkout
   const handleAddToCart = () => {
     // Add each item to cart - discount will be applied at checkout based on bundle detection
     items.forEach(item => {
       addToCart(item.product, 1)
     })
     
-    setAddedToCart(true)
-    setTimeout(() => {
-      setAddedToCart(false)
-    }, 2000)
+    // Clear the bundle after adding to cart
+    clearBundle()
+    
+    // Redirect to checkout
+    router.push(getLocalizedPath('/checkout', locale))
   }
   
   // Handle clear
@@ -534,7 +536,7 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
   }
   
   return (
-    <div className="min-h-screen bg-white">
+    <div className="bg-white">
       {/* Header */}
       <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-lg border-b border-gray-100">
         <div className="container mx-auto px-4">
@@ -593,8 +595,8 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
         </div>
       </div>
       
-      {/* Main Content - pb-32 for mobile bottom bar space */}
-      <div className="container mx-auto px-4 py-6 lg:py-8 pb-32 lg:pb-8">
+      {/* Main Content */}
+      <div className="container mx-auto px-4 py-6 lg:py-8">
         <div className="flex gap-8">
           {/* Product Selection Area */}
           <div className="flex-1">
@@ -701,6 +703,9 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
           </aside>
         </div>
       </div>
+      
+      {/* Spacer for fixed mobile bottom bar */}
+      {isMobile && <div className="bundle-builder-spacer" />}
       
       {/* Mobile Bottom Bar - Navigation Only */}
       {isMobile && (
@@ -848,20 +853,6 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
         )}
       </AnimatePresence>
       
-      {/* Success Toast */}
-      <AnimatePresence>
-        {addedToCart && (
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 50 }}
-            className="fixed bottom-24 left-1/2 -translate-x-1/2 z-50 bg-gray-900 text-white px-6 py-3 rounded-full shadow-lg flex items-center gap-2"
-          >
-            <Check className="w-5 h-5 text-green-400" />
-            <span>{t('bundleBuilder.addedToCart')}</span>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </div>
   )
 }

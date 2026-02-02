@@ -205,7 +205,7 @@ This ensures a smooth purchase flow without requiring additional navigation.
 
 ## Changelog
 
-### January 28, 2026 (Session 2)
+### February 3, 2026
 
 **Mobile UX Improvements**
 - Simplified mobile bottom bar: Previous | Skip | Next
@@ -227,7 +227,7 @@ This ensures a smooth purchase flow without requiring additional navigation.
 - Added "🎁 Build Your Set" to mobile web hamburger menu
 - Highlighted in corporate red
 
-### January 28, 2026 (Session 1)
+### February 2, 2026
 
 **Initial Release**
 - Created Bundle Builder feature with standalone page and Beauty Boxes integration

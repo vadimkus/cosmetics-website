@@ -224,7 +224,7 @@
 
 | File | Description |
 |------|-------------|
-| [SESSION_CHANGES_2026-01-28.md](./SESSION_CHANGES_2026-01-28.md) | **NEW** Bundle Builder mobile UX, checkout redirect, footer debugging |
+| [SESSION_CHANGES_2026-02-03.md](./SESSION_CHANGES_2026-02-03.md) | **NEW** Bundle Builder mobile UX, checkout redirect, footer debugging |
 | [SESSION_CHANGES_2026-02-02.md](./SESSION_CHANGES_2026-02-02.md) | Bundle Builder feature, price hiding, corporate colors |
 | [SESSION_CHANGES_2026-02-01.md](./SESSION_CHANGES_2026-02-01.md) | Mobile footer Chrome fix, cart reactivity, Beauty Box 62, Product 51 recommendation |
 | [SESSION_CHANGES_2026-01-26.md](./SESSION_CHANGES_2026-01-26.md) | Product video, footer nav fix, docs |

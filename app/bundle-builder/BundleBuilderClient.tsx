@@ -709,22 +709,7 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
       
       {/* Mobile Bottom Bar - Navigation Only */}
       {isMobile && (
-        <div 
-          className="bundle-builder-mobile-bar"
-          style={{
-            position: 'fixed',
-            bottom: 0,
-            left: 0,
-            right: 0,
-            width: '100%',
-            backgroundColor: '#fff',
-            borderTop: '1px solid #e5e7eb',
-            boxShadow: '0 -4px 20px rgba(0, 0, 0, 0.1)',
-            zIndex: 40,
-            padding: '12px 16px',
-            paddingBottom: 'calc(12px + env(safe-area-inset-bottom, 0px))',
-          }}
-        >
+        <div className="bundle-builder-mobile-bar">
           {/* Summary Line */}
           {items.length > 0 && (
             <div className="flex items-center justify-between mb-3 pb-3 border-b border-gray-100">

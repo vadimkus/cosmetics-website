@@ -182,28 +182,9 @@ export default function MobileWebFooterNav() {
     cursor: 'pointer',
   }
 
-  // Inline styles to guarantee fixed positioning (CSS class as backup)
-  const navStyle: React.CSSProperties = {
-    position: 'fixed',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    width: '100%',
-    height: 80,
-    backgroundColor: '#fff',
-    borderTop: '1px solid #e5e7eb',
-    boxShadow: '0 -4px 20px rgba(0, 0, 0, 0.1)',
-    zIndex: 9999,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-around',
-    paddingBottom: 'env(safe-area-inset-bottom, 10px)',
-  }
-
   return (
     <nav 
       className="mobile-web-footer-nav"
-      style={navStyle}
       dir={dir}
       aria-label="Mobile navigation"
     >

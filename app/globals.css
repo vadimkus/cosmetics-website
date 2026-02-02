@@ -1216,9 +1216,10 @@ html[dir="rtl"] {
   }
 }
 
-/* Mobile web footer navigation - fixed at bottom */
+/* Mobile web footer navigation - sticky at bottom */
 .mobile-web-footer-nav {
-  position: fixed;
+  position: -webkit-sticky;
+  position: sticky;
   bottom: 0;
   left: 0;
   right: 0;
@@ -1231,25 +1232,22 @@ html[dir="rtl"] {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  padding-bottom: env(safe-area-inset-bottom, 10px);
+  padding-bottom: 10px;
+  /* Note: margin-top:auto removed - was causing whitespace at bottom of long pages */
 }
 
-/* Mobile layout - fixed footer solution */
+/* Make body flex container for sticky footer on mobile */
 @media (max-width: 767px) {
-  /* Prevent overscroll bounce that shows white space */
-  html, body {
-    overscroll-behavior: none;
-    overflow-x: hidden;
+  body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    min-height: 100dvh;
   }
   
-  /* Override min-h-screen on mobile - causes white space with dynamic viewport */
-  .min-h-screen {
-    min-height: auto !important;
-  }
-  
-  /* Main content padding for fixed footer */
-  #main-content {
-    padding-bottom: 90px;
+  body > main,
+  main.flex-1 {
+    flex: 1 0 auto;
   }
 }
 
@@ -1277,7 +1275,7 @@ html[dir="rtl"] {
 
 /* Spacer for bundle builder mobile bar */
 .bundle-builder-spacer {
-  height: 100px; /* Space for mobile bar */
+  height: 140px; /* Approximate height of mobile bar */
   display: block;
 }
 

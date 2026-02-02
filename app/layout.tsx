@@ -291,24 +291,6 @@ export default function RootLayout({
             `,
           }}
         />
-        {/* Mobile viewport height fix - handles Chrome iOS address bar */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                function setVH() {
-                  var vh = window.innerHeight * 0.01;
-                  document.documentElement.style.setProperty('--vh', vh + 'px');
-                }
-                setVH();
-                window.addEventListener('resize', setVH);
-                window.addEventListener('orientationchange', function() {
-                  setTimeout(setVH, 100);
-                });
-              })();
-            `,
-          }}
-        />
         {/* Google Analytics */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-50SH0F79YG"
@@ -323,7 +305,7 @@ export default function RootLayout({
           `}
         </Script>
       </head>
-      <body className={`${inter.className} ${inter.variable} flex flex-col antialiased`} suppressHydrationWarning>
+      <body className={`${inter.className} ${inter.variable} flex flex-col min-h-screen antialiased`} suppressHydrationWarning>
         {/* Skip to content link for keyboard/screen reader users */}
         <SkipToContent />
         <LocaleManifest />

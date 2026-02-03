@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect, useCallback } from 'react'
 import { useChat } from '@ai-sdk/react'
+import { useRouter } from 'next/navigation'
 import { useTranslation } from '@/hooks/useTranslation'
 import { MessageCircle, X, Send, Loader2, Bot, User, Minimize2 } from 'lucide-react'
 
@@ -18,44 +19,64 @@ function getMessageText(message: { parts?: Array<{ type: string; text?: string }
     .join('')
 }
 
-// Helper to render text with markdown links as clickable elements
-function renderMessageWithLinks(text: string): React.ReactNode {
-  // Match markdown links: [text](url)
-  const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g
-  const parts: React.ReactNode[] = []
-  let lastIndex = 0
-  let match
-  let keyIndex = 0
+// Helper to check if URL is internal (same site)
+function isInternalUrl(url: string): boolean {
+  try {
+    const urlObj = new URL(url, window.location.origin)
+    // Check if it's a genosys.ae link or relative path
+    return urlObj.hostname === 'genosys.ae' || 
+           urlObj.hostname === 'www.genosys.ae' ||
+           urlObj.hostname === window.location.hostname ||
+           url.startsWith('/')
+  } catch {
+    // If URL parsing fails, treat as internal if it starts with /
+    return url.startsWith('/')
+  }
+}
 
-  while ((match = linkRegex.exec(text)) !== null) {
-    // Add text before the link
-    if (match.index > lastIndex) {
-      parts.push(text.slice(lastIndex, match.index))
+// Helper to get internal path from URL
+function getInternalPath(url: string): string {
+  try {
+    const urlObj = new URL(url, window.location.origin)
+    // Return pathname + search + hash for internal navigation
+    return urlObj.pathname + urlObj.search + urlObj.hash
+  } catch {
+    return url
+  }
+}
+
+// Component to render a single link (internal or external)
+function ChatLink({ 
+  url, 
+  children, 
+  onInternalClick 
+}: { 
+  url: string
+  children: React.ReactNode
+  onInternalClick: (path: string) => void
+}) {
+  const isInternal = isInternalUrl(url)
+  
+  const handleClick = (e: React.MouseEvent) => {
+    if (isInternal) {
+      e.preventDefault()
+      const path = getInternalPath(url)
+      onInternalClick(path)
     }
-    
-    // Add the link
-    const [, linkText, url] = match
-    parts.push(
-      <a
-        key={keyIndex++}
-        href={url}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="text-red-600 dark:text-red-400 underline hover:text-red-700 dark:hover:text-red-300 font-medium"
-      >
-        {linkText}
-      </a>
-    )
-    
-    lastIndex = match.index + match[0].length
+    // External links will open in new tab naturally
   }
   
-  // Add remaining text
-  if (lastIndex < text.length) {
-    parts.push(text.slice(lastIndex))
-  }
-  
-  return parts.length > 0 ? parts : text
+  return (
+    <a
+      href={url}
+      onClick={handleClick}
+      target={isInternal ? undefined : '_blank'}
+      rel={isInternal ? undefined : 'noopener noreferrer'}
+      className="text-red-600 dark:text-red-400 underline hover:text-red-700 dark:hover:text-red-300 font-medium cursor-pointer"
+    >
+      {children}
+    </a>
+  )
 }
 
 // Helper to get user's time context for personalized greetings
@@ -90,6 +111,7 @@ function getUserContext() {
 
 export default function ChatWidget({ className = '' }: ChatWidgetProps) {
   const { locale, dir } = useTranslation()
+  const router = useRouter()
   const isRTL = dir === 'rtl'
   
   const [isOpen, setIsOpen] = useState(false)
@@ -102,6 +124,45 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
   
   // Get user context for personalized greetings (used for welcome message)
   const userContext = getUserContext()
+  
+  // Handle internal link navigation
+  const handleInternalLinkClick = useCallback((path: string) => {
+    router.push(path)
+  }, [router])
+  
+  // Render text with markdown links
+  const renderMessageWithLinks = useCallback((text: string): React.ReactNode => {
+    const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g
+    const parts: React.ReactNode[] = []
+    let lastIndex = 0
+    let match
+    let keyIndex = 0
+
+    while ((match = linkRegex.exec(text)) !== null) {
+      if (match.index > lastIndex) {
+        parts.push(text.slice(lastIndex, match.index))
+      }
+      
+      const [, linkText = '', url = ''] = match
+      parts.push(
+        <ChatLink
+          key={keyIndex++}
+          url={url}
+          onInternalClick={handleInternalLinkClick}
+        >
+          {linkText}
+        </ChatLink>
+      )
+      
+      lastIndex = match.index + match[0].length
+    }
+    
+    if (lastIndex < text.length) {
+      parts.push(text.slice(lastIndex))
+    }
+    
+    return parts.length > 0 ? parts : text
+  }, [handleInternalLinkClick])
   
   const { messages, status, error, sendMessage, setMessages } = useChat({
     id: 'genosys-chat',
@@ -134,6 +195,25 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
       setShowWelcome(false)
     }
   }, [messages])
+  
+  // Hide/show footer when chat is open/closed
+  useEffect(() => {
+    const footer = document.querySelector('footer')
+    if (footer) {
+      if (isOpen && !isMinimized) {
+        footer.style.display = 'none'
+      } else {
+        footer.style.display = ''
+      }
+    }
+    // Cleanup on unmount
+    return () => {
+      const footer = document.querySelector('footer')
+      if (footer) {
+        footer.style.display = ''
+      }
+    }
+  }, [isOpen, isMinimized])
 
   const handleOpen = () => {
     setIsOpen(true)

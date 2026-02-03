@@ -12,6 +12,7 @@
 | 🔴 **CRITICAL** | [DESIGN_SYSTEM.md](./DESIGN_SYSTEM.md) | Colors, typography, components |
 | 🟡 **Important** | [EMAIL_TEMPLATES.md](./EMAIL_TEMPLATES.md) | Order email format specification |
 | 🟡 **Important** | [ORDERS_PAGE.md](./ORDERS_PAGE.md) | Orders page display format |
+| 🟢 **Feature** | [CHATBOT_SETUP.md](./CHATBOT_SETUP.md) | AI Chatbot setup and configuration |
 
 ---
 
@@ -57,6 +58,22 @@
 | [STRIPE_SETUP_GUIDE.md](./STRIPE_SETUP_GUIDE.md) | Stripe integration setup |
 | [STRIPE_WEBHOOK_SETUP.md](./STRIPE_WEBHOOK_SETUP.md) | Webhook configuration |
 | [MOBILE_STRIPE_CHECKOUT_IMPLEMENTATION.md](./MOBILE_STRIPE_CHECKOUT_IMPLEMENTATION.md) | Mobile app Stripe integration |
+
+---
+
+### 🤖 AI Chatbot
+
+| File | Description |
+|------|-------------|
+| [CHATBOT_SETUP.md](./CHATBOT_SETUP.md) | **Complete chatbot documentation** - Setup, configuration, features |
+
+**Key Features:**
+- GPT-4o-mini powered beauty advisor
+- Product recommendations with clickable links
+- Educational skincare facts
+- Bundle Builder & AI Skin Analysis promotion
+- Multi-language support (EN, AR, RU)
+- Rate limiting and cost estimation
 
 ---
 

@@ -100,22 +100,11 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
   
-  // Get user context for personalized greetings
+  // Get user context for personalized greetings (used for welcome message)
   const userContext = getUserContext()
   
   const { messages, status, error, sendMessage, setMessages } = useChat({
     id: 'genosys-chat',
-    fetch: async (url, options) => {
-      // Add locale and context to the request body
-      const body = options?.body ? JSON.parse(options.body as string) : {}
-      body.locale = locale
-      body.context = userContext
-      
-      return fetch(url, {
-        ...options,
-        body: JSON.stringify(body),
-      })
-    },
     onError: (error) => {
       console.error('Chat error:', error)
     },

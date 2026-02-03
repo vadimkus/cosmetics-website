@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useRef, useEffect, useCallback } from 'react'
+import React, { useState, useRef, useEffect, useCallback } from 'react'
 import { useChat } from '@ai-sdk/react'
 import { useTranslation } from '@/hooks/useTranslation'
 import { MessageCircle, X, Send, Loader2, Bot, User, Minimize2 } from 'lucide-react'
@@ -16,6 +16,46 @@ function getMessageText(message: { parts?: Array<{ type: string; text?: string }
     .filter((part) => part.type === 'text')
     .map((part) => part.text || '')
     .join('')
+}
+
+// Helper to render text with markdown links as clickable elements
+function renderMessageWithLinks(text: string): React.ReactNode {
+  // Match markdown links: [text](url)
+  const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g
+  const parts: React.ReactNode[] = []
+  let lastIndex = 0
+  let match
+  let keyIndex = 0
+
+  while ((match = linkRegex.exec(text)) !== null) {
+    // Add text before the link
+    if (match.index > lastIndex) {
+      parts.push(text.slice(lastIndex, match.index))
+    }
+    
+    // Add the link
+    const [, linkText, url] = match
+    parts.push(
+      <a
+        key={keyIndex++}
+        href={url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-red-600 dark:text-red-400 underline hover:text-red-700 dark:hover:text-red-300 font-medium"
+      >
+        {linkText}
+      </a>
+    )
+    
+    lastIndex = match.index + match[0].length
+  }
+  
+  // Add remaining text
+  if (lastIndex < text.length) {
+    parts.push(text.slice(lastIndex))
+  }
+  
+  return parts.length > 0 ? parts : text
 }
 
 export default function ChatWidget({ className = '' }: ChatWidgetProps) {
@@ -271,7 +311,9 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
                       ? 'bg-red-600 text-white rounded-tr-none'
                       : 'bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-tl-none'
                   }`}>
-                    <p className="text-sm whitespace-pre-wrap">{messageText}</p>
+                    <p className="text-sm whitespace-pre-wrap">
+                      {message.role === 'assistant' ? renderMessageWithLinks(messageText) : messageText}
+                    </p>
                   </div>
                 </div>
               )

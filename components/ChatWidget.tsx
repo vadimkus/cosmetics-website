@@ -1,0 +1,357 @@
+'use client'
+
+import { useState, useRef, useEffect, useCallback } from 'react'
+import { useChat } from '@ai-sdk/react'
+import { useTranslation } from '@/hooks/useTranslation'
+import { MessageCircle, X, Send, Loader2, Bot, User, Minimize2 } from 'lucide-react'
+
+interface ChatWidgetProps {
+  className?: string
+}
+
+// Helper to extract text from UIMessage parts
+function getMessageText(message: { parts?: Array<{ type: string; text?: string }> }): string {
+  if (!message.parts) return ''
+  return message.parts
+    .filter((part) => part.type === 'text')
+    .map((part) => part.text || '')
+    .join('')
+}
+
+export default function ChatWidget({ className = '' }: ChatWidgetProps) {
+  const { t, locale, dir } = useTranslation()
+  const isRTL = dir === 'rtl'
+  
+  const [isOpen, setIsOpen] = useState(false)
+  const [isMinimized, setIsMinimized] = useState(false)
+  const [showWelcome, setShowWelcome] = useState(true)
+  const [inputValue, setInputValue] = useState('')
+  
+  const messagesEndRef = useRef<HTMLDivElement>(null)
+  const inputRef = useRef<HTMLInputElement>(null)
+  
+  const { messages, status, error, sendMessage, setMessages } = useChat({
+    id: 'genosys-chat',
+    onError: (error) => {
+      console.error('Chat error:', error)
+    },
+  })
+
+  const isLoading = status === 'streaming' || status === 'submitted'
+
+  // Auto-scroll to bottom when new messages arrive
+  const scrollToBottom = useCallback(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }, [])
+
+  useEffect(() => {
+    scrollToBottom()
+  }, [messages, scrollToBottom])
+
+  // Focus input when chat opens
+  useEffect(() => {
+    if (isOpen && !isMinimized) {
+      setTimeout(() => inputRef.current?.focus(), 100)
+    }
+  }, [isOpen, isMinimized])
+
+  // Clear welcome message after first user message
+  useEffect(() => {
+    if (messages.length > 0) {
+      setShowWelcome(false)
+    }
+  }, [messages])
+
+  const handleOpen = () => {
+    setIsOpen(true)
+    setIsMinimized(false)
+  }
+
+  const handleClose = () => {
+    setIsOpen(false)
+    setIsMinimized(false)
+  }
+
+  const handleMinimize = () => {
+    setIsMinimized(!isMinimized)
+  }
+
+  const handleClearChat = () => {
+    setMessages([])
+    setShowWelcome(true)
+    setInputValue('')
+  }
+
+  const onSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (inputValue.trim() && !isLoading) {
+      const message = inputValue.trim()
+      setInputValue('')
+      await sendMessage({ text: message })
+    }
+  }
+
+  const handleQuickAction = (text: string) => {
+    setInputValue(text)
+  }
+
+  // Get translations with fallbacks
+  const chatTitle = t('chat.title') || 'GENOSYS Assistant'
+  const chatWelcome = t('chat.welcome') || 'Hi! I\'m your GENOSYS Beauty Advisor. How can I help you today?'
+  const chatPlaceholder = t('chat.placeholder') || 'Ask about products, skincare routines...'
+  const chatSend = t('chat.send') || 'Send'
+  const chatTyping = t('chat.typing') || 'Typing...'
+  const chatError = t('chat.error') || 'Something went wrong. Please try again.'
+  const chatClear = t('chat.clear') || 'Clear chat'
+
+  // Floating button (when closed)
+  if (!isOpen) {
+    return (
+      <button
+        onClick={handleOpen}
+        className={`
+          fixed z-50 p-4 rounded-full shadow-lg
+          bg-gradient-to-r from-red-600 to-red-500
+          hover:from-red-700 hover:to-red-600
+          text-white transition-all duration-300
+          hover:scale-110 active:scale-95
+          ${isRTL ? 'left-4 md:left-6' : 'right-4 md:right-6'}
+          bottom-20 md:bottom-6
+          ${className}
+        `}
+        aria-label={chatTitle}
+      >
+        <MessageCircle className="w-6 h-6" />
+        {/* Notification dot */}
+        <span className="absolute top-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white" />
+      </button>
+    )
+  }
+
+  // Chat window
+  return (
+    <div
+      className={`
+        fixed z-50 bg-white dark:bg-gray-900 rounded-2xl shadow-2xl
+        flex flex-col overflow-hidden
+        transition-all duration-300 ease-out
+        ${isRTL ? 'left-4 md:left-6' : 'right-4 md:right-6'}
+        ${isMinimized 
+          ? 'bottom-20 md:bottom-6 w-72 h-14' 
+          : 'bottom-20 md:bottom-6 w-[calc(100%-2rem)] md:w-96 h-[500px] max-h-[70vh]'
+        }
+        ${className}
+      `}
+      dir={dir}
+    >
+      {/* Header */}
+      <div className="flex items-center justify-between px-4 py-3 bg-gradient-to-r from-red-600 to-red-500 text-white">
+        <div className="flex items-center gap-2">
+          <Bot className="w-5 h-5" />
+          <span className="font-semibold text-sm">{chatTitle}</span>
+        </div>
+        <div className="flex items-center gap-1">
+          <button
+            onClick={handleMinimize}
+            className="p-1.5 hover:bg-white/20 rounded-lg transition-colors"
+            aria-label={isMinimized ? 'Expand' : 'Minimize'}
+          >
+            <Minimize2 className="w-4 h-4" />
+          </button>
+          <button
+            onClick={handleClose}
+            className="p-1.5 hover:bg-white/20 rounded-lg transition-colors"
+            aria-label="Close chat"
+          >
+            <X className="w-4 h-4" />
+          </button>
+        </div>
+      </div>
+
+      {/* Chat content (hidden when minimized) */}
+      {!isMinimized && (
+        <>
+          {/* Messages area */}
+          <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50 dark:bg-gray-800">
+            {/* Welcome message */}
+            {showWelcome && messages.length === 0 && (
+              <div className={`flex gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
+                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-red-100 dark:bg-red-900 flex items-center justify-center">
+                  <Bot className="w-4 h-4 text-red-600 dark:text-red-400" />
+                </div>
+                <div className="flex-1 bg-white dark:bg-gray-700 rounded-2xl rounded-tl-none px-4 py-3 shadow-sm">
+                  <p className="text-sm text-gray-700 dark:text-gray-200">{chatWelcome}</p>
+                  {/* Quick action buttons */}
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    <QuickActionButton
+                      onClick={() => handleQuickAction(
+                        locale === 'ar' ? 'ما المنتجات التي تنصحين بها للبشرة الجافة؟' :
+                        locale === 'ru' ? 'Какие продукты вы рекомендуете для сухой кожи?' :
+                        'What products do you recommend for dry skin?'
+                      )}
+                    >
+                      {locale === 'ar' ? 'للبشرة الجافة' : locale === 'ru' ? 'Для сухой кожи' : 'Dry skin'}
+                    </QuickActionButton>
+                    <QuickActionButton
+                      onClick={() => handleQuickAction(
+                        locale === 'ar' ? 'ما المنتجات التي تنصحين بها للبشرة الدهنية؟' :
+                        locale === 'ru' ? 'Какие продукты вы рекомендуете для жирной кожи?' :
+                        'What products do you recommend for oily skin?'
+                      )}
+                    >
+                      {locale === 'ar' ? 'للبشرة الدهنية' : locale === 'ru' ? 'Для жирной кожи' : 'Oily skin'}
+                    </QuickActionButton>
+                    <QuickActionButton
+                      onClick={() => handleQuickAction(
+                        locale === 'ar' ? 'أخبريني عن منتجات مكافحة الشيخوخة' :
+                        locale === 'ru' ? 'Расскажите мне об антивозрастных продуктах' :
+                        'Tell me about anti-aging products'
+                      )}
+                    >
+                      {locale === 'ar' ? 'مكافحة الشيخوخة' : locale === 'ru' ? 'Антивозрастные' : 'Anti-aging'}
+                    </QuickActionButton>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Chat messages */}
+            {messages.map((message) => {
+              const messageText = getMessageText(message)
+              if (!messageText) return null
+              
+              return (
+                <div
+                  key={message.id}
+                  className={`flex gap-3 ${message.role === 'user' ? (isRTL ? 'flex-row' : 'flex-row-reverse') : (isRTL ? 'flex-row-reverse' : '')}`}
+                >
+                  <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center ${
+                    message.role === 'user' 
+                      ? 'bg-gray-200 dark:bg-gray-600' 
+                      : 'bg-red-100 dark:bg-red-900'
+                  }`}>
+                    {message.role === 'user' 
+                      ? <User className="w-4 h-4 text-gray-600 dark:text-gray-300" />
+                      : <Bot className="w-4 h-4 text-red-600 dark:text-red-400" />
+                    }
+                  </div>
+                  <div className={`flex-1 max-w-[80%] rounded-2xl px-4 py-3 shadow-sm ${
+                    message.role === 'user'
+                      ? 'bg-red-600 text-white rounded-tr-none'
+                      : 'bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-tl-none'
+                  }`}>
+                    <p className="text-sm whitespace-pre-wrap">{messageText}</p>
+                  </div>
+                </div>
+              )
+            })}
+
+            {/* Loading indicator */}
+            {isLoading && (
+              <div className={`flex gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
+                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-red-100 dark:bg-red-900 flex items-center justify-center">
+                  <Bot className="w-4 h-4 text-red-600 dark:text-red-400" />
+                </div>
+                <div className="bg-white dark:bg-gray-700 rounded-2xl rounded-tl-none px-4 py-3 shadow-sm">
+                  <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    {chatTyping}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Error message */}
+            {error && (
+              <div className="bg-red-50 dark:bg-red-900/30 text-red-600 dark:text-red-400 rounded-lg px-4 py-2 text-sm text-center">
+                {chatError}
+              </div>
+            )}
+
+            <div ref={messagesEndRef} />
+          </div>
+
+          {/* Input area */}
+          <div className="p-4 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700">
+            <form onSubmit={onSubmit} className="flex gap-2">
+              <input
+                ref={inputRef}
+                type="text"
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+                placeholder={chatPlaceholder}
+                disabled={isLoading}
+                className={`
+                  flex-1 px-4 py-2.5 rounded-full
+                  bg-gray-100 dark:bg-gray-800
+                  border border-gray-200 dark:border-gray-700
+                  text-sm text-gray-900 dark:text-gray-100
+                  placeholder-gray-500 dark:placeholder-gray-400
+                  focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent
+                  disabled:opacity-50 disabled:cursor-not-allowed
+                  ${isRTL ? 'text-right' : 'text-left'}
+                `}
+                dir={dir}
+              />
+              <button
+                type="submit"
+                disabled={isLoading || !inputValue.trim()}
+                className="
+                  p-2.5 rounded-full
+                  bg-red-600 hover:bg-red-700
+                  text-white
+                  transition-colors
+                  disabled:opacity-50 disabled:cursor-not-allowed
+                  flex items-center justify-center
+                "
+                aria-label={chatSend}
+              >
+                {isLoading ? (
+                  <Loader2 className="w-5 h-5 animate-spin" />
+                ) : (
+                  <Send className={`w-5 h-5 ${isRTL ? 'rotate-180' : ''}`} />
+                )}
+              </button>
+            </form>
+            
+            {/* Clear chat button */}
+            {messages.length > 0 && (
+              <button
+                onClick={handleClearChat}
+                className="w-full mt-2 text-xs text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+              >
+                {chatClear}
+              </button>
+            )}
+          </div>
+        </>
+      )}
+    </div>
+  )
+}
+
+// Quick action button component
+function QuickActionButton({ 
+  children, 
+  onClick 
+}: { 
+  children: React.ReactNode
+  onClick: () => void 
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="
+        px-3 py-1.5 rounded-full
+        bg-gray-100 dark:bg-gray-600
+        text-xs text-gray-600 dark:text-gray-200
+        hover:bg-red-100 hover:text-red-600
+        dark:hover:bg-red-900 dark:hover:text-red-400
+        transition-colors
+      "
+    >
+      {children}
+    </button>
+  )
+}

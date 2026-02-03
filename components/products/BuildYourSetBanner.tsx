@@ -1,11 +1,12 @@
 'use client'
 
 import Link from 'next/link'
-import { ArrowRight, Sparkles } from 'lucide-react'
+import { ArrowRight, Gift } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { useAnimationStore } from '@/lib/animationStore'
+import { useState, useEffect } from 'react'
 
 /**
  * Build Your Set Banner
@@ -13,16 +14,76 @@ import { useAnimationStore } from '@/lib/animationStore'
  * Displays on the Beauty Boxes category page as an entry point
  * to the Bundle Builder feature.
  * 
- * Apple-like design: Clean, minimal, professional - not advertisement-like
+ * Compact mobile design, expanded desktop design
  */
 export default function BuildYourSetBanner() {
   const { t, locale } = useTranslation()
   const { enabled: animationsEnabled } = useAnimationStore()
+  const [isMobile, setIsMobile] = useState(false)
+  
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768)
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
   
   const isRTL = locale === 'ar'
   
   const MotionLink = animationsEnabled ? motion(Link) : Link
   
+  // Compact Mobile Design
+  if (isMobile) {
+    return (
+      <MotionLink
+        href={getLocalizedPath('/bundle-builder', locale)}
+        {...(animationsEnabled ? {
+          initial: { opacity: 0, y: 5 },
+          animate: { opacity: 1, y: 0 },
+          whileTap: { scale: 0.98 },
+          transition: { duration: 0.2 }
+        } : {})}
+        className={`
+          flex items-center gap-3 p-3 rounded-xl
+          bg-gradient-to-r from-primary-50 to-red-50
+          border border-primary-100
+          active:bg-primary-100 transition-colors
+          ${isRTL ? 'flex-row-reverse' : ''}
+        `}
+      >
+        {/* Icon */}
+        <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-primary-600 flex items-center justify-center">
+          <Gift className="w-5 h-5 text-white" />
+        </div>
+        
+        {/* Text */}
+        <div className={`flex-1 min-w-0 ${isRTL ? 'text-right' : ''}`}>
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="font-semibold text-gray-900 text-sm">
+              {t('bundleBuilder.buildYourOwn')}
+            </span>
+            <span className="text-xs text-primary-600 font-medium">
+              {t('bundleBuilder.saveUpTo')}
+            </span>
+          </div>
+          <div className={`flex items-center gap-1.5 mt-0.5 text-[11px] text-gray-500 ${isRTL ? 'flex-row-reverse' : ''}`}>
+            <span>2+ → 5%</span>
+            <span>•</span>
+            <span>3+ → 10%</span>
+            <span>•</span>
+            <span>4+ → 15%</span>
+            <span>•</span>
+            <span>5+ → 20%</span>
+          </div>
+        </div>
+        
+        {/* Arrow */}
+        <ArrowRight className={`w-5 h-5 text-primary-600 flex-shrink-0 ${isRTL ? 'rotate-180' : ''}`} />
+      </MotionLink>
+    )
+  }
+  
+  // Desktop Design (unchanged)
   return (
     <MotionLink
       href={getLocalizedPath('/bundle-builder', locale)}
@@ -53,7 +114,7 @@ export default function BuildYourSetBanner() {
         <div className={`flex items-start gap-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
           {/* Icon */}
           <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-white/80 shadow-sm flex items-center justify-center border border-primary-100">
-            <Sparkles className="w-6 h-6 text-primary-600" />
+            <Gift className="w-6 h-6 text-primary-600" />
           </div>
           
           {/* Text */}

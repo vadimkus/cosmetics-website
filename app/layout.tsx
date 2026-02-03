@@ -45,6 +45,7 @@ import PWASplashScreen from '@/components/PWASplashScreen'
 import { SyncStatusIndicator } from '@/components/SyncStatusIndicator'
 import NetworkStatus from '@/components/NetworkStatus'
 import SkipToContent from '@/components/SkipToContent'
+import ChatWidget from '@/components/ChatWidget'
 import { getSiteUrl } from '@/lib/siteConfig'
 
 const inter = Inter({ 
@@ -343,6 +344,7 @@ export default function RootLayout({
                     <StorageQuotaMonitor />
                     <SyncStatusIndicator />
                     <NetworkStatus />
+                    <ChatWidget />
                   </ServiceWorkerProvider>
                 </CartProvider>
               </FavoritesProvider>

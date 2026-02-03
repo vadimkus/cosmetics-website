@@ -1756,6 +1756,7 @@
     "nextTierHint": "Add {items} more item(s) for {discount}% off!",
     "buildYourOwn": "Build Your Own Set",
     "buildYourOwnSubtitle": "Create a custom routine and save up to 20%",
+    "saveUpTo": "Save up to 20%",
     "startBuilding": "Start Building",
     "steps": {
       "cleanser": "Cleanser",
@@ -1782,6 +1783,20 @@
       "tier2": "3 items: 10% off",
       "tier3": "4 items: 15% off",
       "tier4": "5+ items: 20% off"
+    }
+  },
+  "chat": {
+    "title": "GENOSYS Assistant",
+    "welcome": "Hi! I'm your GENOSYS Beauty Advisor. How can I help you today?",
+    "placeholder": "Ask about products, skincare routines...",
+    "send": "Send",
+    "typing": "Typing...",
+    "error": "Something went wrong. Please try again.",
+    "clear": "Clear chat",
+    "quickActions": {
+      "drySkin": "Dry skin",
+      "oilySkin": "Oily skin",
+      "antiAging": "Anti-aging"
     }
   },
   "pwaProfile": {

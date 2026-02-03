@@ -202,24 +202,42 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
   }, [addItem, showToast])
   
   // Render text with markdown links and Add to Cart buttons
-  // Parses: [Product Name](url){{id:NUMBER}} format
+  // Parses: [Product Name](url){{id:NUMBER}} format (with optional ** markdown bold)
   const renderMessageWithLinks = useCallback((text: string): React.ReactNode => {
-    // Match: [text](url) optionally followed by {{id:number}}
-    const linkRegex = /\[([^\]]+)\]\(([^)]+)\)(\{\{id:(\d+)\}\})?/g
+    // First, clean up the text - remove {{id:NUMBER}} that appears separately and extract IDs
+    // The AI sometimes outputs: **[Product Name](url)**{{id:15}} instead of [Product Name](url){{id:15}}
+    
+    // Match: [text](url) optionally followed by {{id:number}} (with possible ** around it)
+    const linkRegex = /\[([^\]]+)\]\(([^)]+)\)\*{0,2}\s*\{\{id:(\d+)\}\}/g
+    const simpleLinkRegex = /\[([^\]]+)\]\(([^)]+)\)/g
+    
+    // First pass: find all links with product IDs
+    const productLinks: Map<string, string> = new Map()
+    let productMatch
+    while ((productMatch = linkRegex.exec(text)) !== null) {
+      const [, linkText, url, productId] = productMatch
+      if (url.includes('/products/')) {
+        productLinks.set(url, productId)
+      }
+    }
+    
+    // Clean the text - remove standalone {{id:NUMBER}} patterns
+    let cleanedText = text.replace(/\*{0,2}\s*\{\{id:\d+\}\}/g, '')
+    
+    // Now parse the cleaned text for links
     const parts: React.ReactNode[] = []
     let lastIndex = 0
     let match
     let keyIndex = 0
 
-    while ((match = linkRegex.exec(text)) !== null) {
+    while ((match = simpleLinkRegex.exec(cleanedText)) !== null) {
       if (match.index > lastIndex) {
-        parts.push(text.slice(lastIndex, match.index))
+        parts.push(cleanedText.slice(lastIndex, match.index))
       }
       
-      const [fullMatch, linkText = '', url = '', , productId] = match
-      
-      // Check if this is a product link (has {{id:NUMBER}})
-      const isProductLink = !!productId && url.includes('/products/')
+      const [fullMatch, linkText = '', url = ''] = match
+      const productId = productLinks.get(url)
+      const isProductLink = !!productId
       
       parts.push(
         <span key={keyIndex++} className="inline-flex items-center flex-wrap gap-1">
@@ -242,11 +260,11 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
       lastIndex = match.index + fullMatch.length
     }
     
-    if (lastIndex < text.length) {
-      parts.push(text.slice(lastIndex))
+    if (lastIndex < cleanedText.length) {
+      parts.push(cleanedText.slice(lastIndex))
     }
     
-    return parts.length > 0 ? parts : text
+    return parts.length > 0 ? parts : cleanedText
   }, [handleInternalLinkClick, handleAddToCart])
   
   const { messages, status, error, sendMessage, setMessages } = useChat({

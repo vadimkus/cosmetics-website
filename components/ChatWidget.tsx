@@ -4,7 +4,6 @@ import React, { useState, useRef, useEffect, useCallback } from 'react'
 import { useChat } from '@ai-sdk/react'
 import { useRouter } from 'next/navigation'
 import { useTranslation } from '@/hooks/useTranslation'
-import { usePWAMode } from '@/hooks/usePWAMode'
 import { MessageCircle, X, Send, Loader2, Bot, User, Minimize2 } from 'lucide-react'
 
 interface ChatWidgetProps {
@@ -113,25 +112,15 @@ function getUserContext() {
 export default function ChatWidget({ className = '' }: ChatWidgetProps) {
   const { locale, dir } = useTranslation()
   const router = useRouter()
-  const { isPWA } = usePWAMode()
   const isRTL = dir === 'rtl'
   
   const [isOpen, setIsOpen] = useState(false)
   const [isMinimized, setIsMinimized] = useState(false)
   const [showWelcome, setShowWelcome] = useState(true)
   const [inputValue, setInputValue] = useState('')
-  const [isMobile, setIsMobile] = useState(false)
   
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
-  
-  // Detect mobile device
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768)
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-    return () => window.removeEventListener('resize', checkMobile)
-  }, [])
   
   // Get user context for personalized greetings (used for welcome message)
   const userContext = getUserContext()
@@ -206,48 +195,6 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
       setShowWelcome(false)
     }
   }, [messages])
-  
-  // Hide/show footer and mobile nav when chat is open/closed
-  useEffect(() => {
-    const shouldHide = isOpen && !isMinimized
-    
-    // Desktop footer
-    const footer = document.querySelector('footer')
-    // Mobile web footer nav
-    const mobileWebNav = document.querySelector('.mobile-web-footer-nav') as HTMLElement
-    // PWA mobile footer nav (has aria-label="Mobile navigation" and fixed position)
-    const pwaNav = document.querySelector('nav[aria-label="Mobile navigation"]') as HTMLElement
-    // PWA spacer div (the sibling before pwaNav, has h-[117px])
-    const pwaSpacer = pwaNav?.previousElementSibling as HTMLElement
-    
-    if (footer) {
-      (footer as HTMLElement).style.display = shouldHide ? 'none' : ''
-    }
-    if (mobileWebNav) {
-      mobileWebNav.style.display = shouldHide ? 'none' : ''
-    }
-    if (pwaNav) {
-      pwaNav.style.display = shouldHide ? 'none' : ''
-    }
-    if (pwaSpacer && pwaSpacer.getAttribute('aria-hidden') === 'true') {
-      pwaSpacer.style.display = shouldHide ? 'none' : ''
-    }
-    
-    // Cleanup on unmount
-    return () => {
-      const footer = document.querySelector('footer')
-      const mobileWebNav = document.querySelector('.mobile-web-footer-nav') as HTMLElement
-      const pwaNav = document.querySelector('nav[aria-label="Mobile navigation"]') as HTMLElement
-      const pwaSpacer = pwaNav?.previousElementSibling as HTMLElement
-      
-      if (footer) (footer as HTMLElement).style.display = ''
-      if (mobileWebNav) mobileWebNav.style.display = ''
-      if (pwaNav) pwaNav.style.display = ''
-      if (pwaSpacer && pwaSpacer.getAttribute('aria-hidden') === 'true') {
-        pwaSpacer.style.display = ''
-      }
-    }
-  }, [isOpen, isMinimized])
 
   const handleOpen = () => {
     setIsOpen(true)
@@ -377,21 +324,6 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
   const chatError = strings.error
   const chatClear = strings.clear
 
-  // Calculate bottom position based on mode
-  // PWA mode: needs safe area padding, mobile web: above footer (when closed) or at bottom (when open)
-  const getBottomPosition = (isOpenState: boolean, isMinimizedState: boolean) => {
-    if (!isMobile) return 'bottom-6' // Desktop always at bottom-6
-    
-    if (!isOpenState || isMinimizedState) {
-      // Closed or minimized: position above the mobile footer
-      return isPWA ? 'bottom-[100px]' : 'bottom-20'
-    }
-    
-    // Open: expand to bottom (footer is hidden)
-    // PWA needs safe area, mobile web can go to bottom-4
-    return isPWA ? 'bottom-[env(safe-area-inset-bottom,0px)]' : 'bottom-4'
-  }
-
   // Floating button (when closed)
   if (!isOpen) {
     return (
@@ -404,11 +336,10 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
           text-white transition-all duration-300
           hover:scale-110 active:scale-95
           ${isRTL ? 'left-4 md:left-6' : 'right-4 md:right-6'}
-          ${getBottomPosition(false, false)}
+          bottom-20 md:bottom-6
           ${className}
         `}
         aria-label={chatTitle}
-        style={isPWA && isMobile ? { bottom: 'calc(100px + env(safe-area-inset-bottom, 0px))' } : undefined}
       >
         <MessageCircle className="w-6 h-6" />
         {/* Notification dot */}
@@ -421,29 +352,16 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
   return (
     <div
       className={`
-        fixed z-50 bg-white dark:bg-gray-900 shadow-2xl
+        fixed z-50 bg-white dark:bg-gray-900 rounded-2xl shadow-2xl
         flex flex-col overflow-hidden
         transition-all duration-300 ease-out
         ${isRTL ? 'left-4 md:left-6' : 'right-4 md:right-6'}
         ${isMinimized 
-          ? `${getBottomPosition(true, true)} w-72 h-14 rounded-2xl` 
-          : `w-[calc(100%-2rem)] md:w-96 md:bottom-6 md:h-[500px] md:max-h-[70vh] md:rounded-2xl ${isMobile ? 'rounded-t-2xl rounded-b-none' : 'rounded-2xl'}`
+          ? 'bottom-20 md:bottom-6 w-72 h-14' 
+          : 'bottom-20 md:bottom-6 w-[calc(100%-2rem)] md:w-96 h-[500px] max-h-[70vh]'
         }
         ${className}
       `}
-      style={
-        !isMinimized && isMobile
-          ? {
-              bottom: isPWA ? 'env(safe-area-inset-bottom, 0px)' : '1rem',
-              height: isPWA 
-                ? 'calc(100vh - 4rem - env(safe-area-inset-bottom, 0px) - env(safe-area-inset-top, 0px))' 
-                : 'calc(100vh - 6rem)',
-              paddingBottom: isPWA ? 'env(safe-area-inset-bottom, 0px)' : undefined,
-            }
-          : isMinimized && isMobile && isPWA
-            ? { bottom: 'calc(100px + env(safe-area-inset-bottom, 0px))' }
-            : undefined
-      }
       dir={dir}
     >
       {/* Header */}

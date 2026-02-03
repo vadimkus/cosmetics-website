@@ -1004,30 +1004,52 @@ export default function SkinRecommendationClient() {
                     <div className="grid md:grid-cols-2 gap-4">
                       {/* AM Routine */}
                       <div className="bg-amber-50 rounded-xl p-4 border border-amber-200">
-                        <h5 className="font-medium text-amber-800 mb-2 flex items-center gap-2">
+                        <h5 className="font-medium text-amber-800 mb-3 flex items-center gap-2">
                           <Sun className="w-4 h-4" />
                           {locale === 'ar' ? 'الصباح' : locale === 'ru' ? 'Утро' : 'Morning'}
                         </h5>
-                        <ol className="space-y-1 text-sm text-gray-700">
-                          {aiAnalysisResult.routine.am?.map((step, idx) => (
-                            <li key={idx} className={dir === 'rtl' ? 'text-right' : ''}>
-                              {idx + 1}. {step}
-                            </li>
-                          ))}
+                        <ol className="space-y-3">
+                          {aiAnalysisResult.routine.am?.map((step, idx) => {
+                            // Clean up any markdown links and {{id:XX}} patterns
+                            const cleanStep = step
+                              .replace(/\{\{id:\d+\}\}/g, '') // Remove {{id:XX}}
+                              .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1') // Convert [text](url) to just text
+                              .trim()
+                            
+                            return (
+                              <li key={idx} className="flex items-start gap-2">
+                                <span className="flex-shrink-0 w-5 h-5 rounded-full bg-amber-200 text-amber-800 text-xs font-bold flex items-center justify-center">
+                                  {idx + 1}
+                                </span>
+                                <span className="text-sm text-gray-700">{cleanStep}</span>
+                              </li>
+                            )
+                          })}
                         </ol>
                       </div>
                       {/* PM Routine */}
                       <div className="bg-indigo-50 rounded-xl p-4 border border-indigo-200">
-                        <h5 className="font-medium text-indigo-800 mb-2 flex items-center gap-2">
+                        <h5 className="font-medium text-indigo-800 mb-3 flex items-center gap-2">
                           <Moon className="w-4 h-4" />
                           {locale === 'ar' ? 'المساء' : locale === 'ru' ? 'Вечер' : 'Evening'}
                         </h5>
-                        <ol className="space-y-1 text-sm text-gray-700">
-                          {aiAnalysisResult.routine.pm?.map((step, idx) => (
-                            <li key={idx} className={dir === 'rtl' ? 'text-right' : ''}>
-                              {idx + 1}. {step}
-                            </li>
-                          ))}
+                        <ol className="space-y-3">
+                          {aiAnalysisResult.routine.pm?.map((step, idx) => {
+                            // Clean up any markdown links and {{id:XX}} patterns
+                            const cleanStep = step
+                              .replace(/\{\{id:\d+\}\}/g, '') // Remove {{id:XX}}
+                              .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1') // Convert [text](url) to just text
+                              .trim()
+                            
+                            return (
+                              <li key={idx} className="flex items-start gap-2">
+                                <span className="flex-shrink-0 w-5 h-5 rounded-full bg-indigo-200 text-indigo-800 text-xs font-bold flex items-center justify-center">
+                                  {idx + 1}
+                                </span>
+                                <span className="text-sm text-gray-700">{cleanStep}</span>
+                              </li>
+                            )
+                          })}
                         </ol>
                       </div>
                     </div>

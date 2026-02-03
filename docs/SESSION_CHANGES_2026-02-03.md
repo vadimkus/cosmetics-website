@@ -2,13 +2,99 @@
 
 ## Summary
 
-Continued development of **Bundle Builder** feature with mobile UX improvements, hamburger menu integration, and extensive mobile footer debugging.
+Continued development of **Bundle Builder** feature with mobile UX improvements, hamburger menu integration, extensive mobile footer debugging, **Build Your Set banner redesign**, **ChatWidget translations**, and **comprehensive translation additions**.
 
 ---
 
 ## New Features & Enhancements
 
-### 1. Bundle Builder - User Discounts Display
+### 1. Build Your Set Banner - Compact Mobile Redesign
+
+**Before**: Large vertical banner with icon, title, subtitle, discount badges, and CTA button.
+
+**After (Mobile Only)**:
+- Single row horizontal layout
+- Gift icon with red background (left)
+- Title + "Save up to 20%" badge inline
+- Discount tiers in small text: `2+→5% • 3+→10% • 4+→15% • 5+→20%`
+- Arrow indicator (right)
+- Much less vertical space
+
+**Desktop**: Unchanged (full expanded design)
+
+**Files Modified**:
+- `components/products/BuildYourSetBanner.tsx`
+- `messages/en.json`, `ar.json`, `ru.json` (added `bundleBuilder.saveUpTo`)
+
+---
+
+### 2. ChatWidget - Full Translations (AR/RU)
+
+**Added translations for**:
+- "Add" / "Added" buttons on product recommendations
+- Button tooltips ("Add to bag", "Added to bag!")
+- Toast messages (success and error)
+
+**Already translated** (existed before):
+- Title, welcome message, placeholder, send button
+- Quick action buttons
+- Time-based greetings
+
+**Files Modified**:
+- `components/ChatWidget.tsx`
+
+---
+
+### 3. Missing Translations - Comprehensive Addition
+
+**Analysis**: Found 68 missing keys in Arabic, 62 missing keys in Russian.
+
+**Added to Arabic (ar.json)**:
+- `common`: backHome, aed, continueShopping
+- `checkout`: 33 new keys for payment flow, verification, cancellation
+
+**Added to Russian (ru.json)**:
+- `common`: backHome, aed, continueShopping  
+- `checkout`: 27 new keys for payment flow, verification, cancellation
+
+**Keys Include**:
+- `customerInfo`, `name`, `email`, `quantity`, `size`
+- `verifyingPayment`, `pleaseWait`, `paymentSuccessful`
+- `orderConfirmed`, `nextSteps`, `confirmationEmailSent`
+- `paymentCancelled`, `noCharges`, `canReturnAnytime`
+- `whatHappened`, `cancelledExplanation1-3`
+- `alternativeOptions`, `tryDifferentCard`
+- `cashOnDeliveryAvailable`, `contactSupportForHelp`
+- `reviewCart`, `tryAgainCheckout`
+
+**Files Modified**:
+- `messages/ar.json`
+- `messages/ru.json`
+
+---
+
+### 4. Bundle Builder - Product Descriptions
+
+**Added**: Product descriptions to Bundle Builder product cards.
+
+**Display**:
+- 2-line truncated text (`line-clamp-2`)
+- Small gray color (`text-[11px] text-gray-400`)
+- Appears below product size
+
+**Product Card Now Shows**:
+1. Product name
+2. Product size
+3. **Product description** (NEW)
+4. Price
+5. Add button
+
+**Files Modified**:
+- `app/bundle-builder/BundleBuilderClient.tsx`
+
+---
+
+### 5. Bundle Builder - User Discounts Display
 
 **Requirement**: Show user's personal discount (e.g., 50% off) in Bundle Builder.
 
@@ -115,16 +201,18 @@ Multiple approaches were tried and reverted:
 
 | File | Changes |
 |------|---------|
-| `app/bundle-builder/BundleBuilderClient.tsx` | User discounts, mobile nav, checkout redirect |
+| `app/bundle-builder/BundleBuilderClient.tsx` | User discounts, mobile nav, checkout redirect, **product descriptions** |
 | `app/globals.css` | Footer CSS fixes, bundle builder mobile bar |
 | `components/MobileWebHeader.tsx` | Bundle Builder menu link |
 | `components/header/HeaderMobileMenu.tsx` | Bundle Builder menu link |
 | `components/MobileWebFooterNav.tsx` | Reverted inline styles |
+| `components/products/BuildYourSetBanner.tsx` | **Compact mobile redesign** |
+| `components/ChatWidget.tsx` | **Full AR/RU translations for buttons & toasts** |
 | `app/layout.tsx` | Reverted viewport height script |
 | `app/checkout/page.tsx` | Reverted min-h-screen removal |
-| `messages/en.json` | New translation keys |
-| `messages/ar.json` | New translation keys |
-| `messages/ru.json` | New translation keys |
+| `messages/en.json` | New translation keys, `bundleBuilder.saveUpTo` |
+| `messages/ar.json` | **36 new keys**: common (3), checkout (33) |
+| `messages/ru.json` | **30 new keys**: common (3), checkout (27) |
 
 ---
 

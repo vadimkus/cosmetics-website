@@ -77,11 +77,16 @@ Respond in this JSON structure:
     }
   ],
   "routine": {
-    "am": ["Step 1: Product", "Step 2: Product"],
-    "pm": ["Step 1: Product", "Step 2: Product"]
+    "am": ["Cleanse with SNOW O₂ CLEANSER", "Apply HYALURON SERUM", "Finish with SPF 50+"],
+    "pm": ["Double cleanse", "Apply treatment serum", "Moisturize with cream"]
   },
   "tips": ["Personalized tip 1", "Personalized tip 2"]
 }
+
+IMPORTANT FOR ROUTINE:
+- In the "routine" arrays, use PLAIN TEXT only - just the product names without markdown links or {{id:XX}}
+- Example: "Apply MOISTURE REPLENISHING HYALURON SERUM" NOT "[MOISTURE...](url){{id:18}}"
+- Keep routine steps short and actionable (e.g., "Cleanse with SNOW O₂ CLEANSER")
 
 Be professional, evidence-based, and reference specific ingredients when explaining recommendations.`
 

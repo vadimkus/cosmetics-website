@@ -169,14 +169,16 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
   }
 
   // Time-based greeting helper
-  const getTimeGreeting = (timeOfDay: string, lang: string) => {
+  const getTimeGreeting = (timeOfDay: string, lang: string): string => {
     const greetings: Record<string, Record<string, string>> = {
       morning: { en: 'Good morning! ☀️', ar: 'صباح الخير! ☀️', ru: 'Доброе утро! ☀️' },
       afternoon: { en: 'Good afternoon!', ar: 'مساء الخير!', ru: 'Добрый день!' },
       evening: { en: 'Good evening!', ar: 'مساء الخير!', ru: 'Добрый вечер!' },
       night: { en: 'Hello!', ar: 'مرحباً!', ru: 'Здравствуйте!' },
     }
-    return greetings[timeOfDay]?.[lang] || greetings.afternoon[lang]
+    const timeGreet = greetings[timeOfDay]
+    const fallback = greetings['afternoon']
+    return timeGreet?.[lang] ?? fallback?.[lang] ?? 'Hello!'
   }
 
   // Weekend message

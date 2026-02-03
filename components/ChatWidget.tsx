@@ -187,8 +187,8 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
   // Handle add to cart from chat
   const handleAddToCart = useCallback(async (productId: string, productName: string) => {
     try {
-      // Fetch product data from API
-      const response = await fetch(`/api/mobile/products/${productId}`)
+      // Fetch product data from public API
+      const response = await fetch(`/api/products/${productId}`)
       if (response.ok) {
         const product = await response.json()
         addItem(product, 1)

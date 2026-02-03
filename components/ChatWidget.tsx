@@ -168,60 +168,88 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
     setInputValue(text)
   }
 
-  // Time-based greeting helper
+  // Time-based greeting helper with emojis
   const getTimeGreeting = (timeOfDay: string, lang: string): string => {
     const greetings: Record<string, Record<string, string>> = {
       morning: { en: 'Good morning! ☀️', ar: 'صباح الخير! ☀️', ru: 'Доброе утро! ☀️' },
-      afternoon: { en: 'Good afternoon!', ar: 'مساء الخير!', ru: 'Добрый день!' },
-      evening: { en: 'Good evening!', ar: 'مساء الخير!', ru: 'Добрый вечер!' },
-      night: { en: 'Hello!', ar: 'مرحباً!', ru: 'Здравствуйте!' },
+      afternoon: { en: 'Good afternoon! 🌤️', ar: 'مساء الخير! 🌤️', ru: 'Добрый день! 🌤️' },
+      evening: { en: 'Good evening! 🌅', ar: 'مساء الخير! 🌅', ru: 'Добрый вечер! 🌅' },
+      night: { en: 'Hello! 🌙', ar: 'مرحباً! 🌙', ru: 'Здравствуйте! 🌙' },
     }
     const timeGreet = greetings[timeOfDay]
     const fallback = greetings['afternoon']
-    return timeGreet?.[lang] ?? fallback?.[lang] ?? 'Hello!'
+    return timeGreet?.[lang] ?? fallback?.[lang] ?? 'Hello! 👋'
   }
 
-  // Weekend message
-  const getWeekendMessage = (isWeekend: boolean, lang: string) => {
-    if (!isWeekend) return ''
-    const messages: Record<string, string> = {
-      en: ' Happy weekend! 🌟',
-      ar: ' عطلة نهاية أسبوع سعيدة! 🌟',
-      ru: ' Хороших выходных! 🌟',
+  // Weekend/weekday message
+  const getContextMessage = (isWeekend: boolean, timeOfDay: string, lang: string) => {
+    if (isWeekend) {
+      const messages: Record<string, string> = {
+        en: 'Happy weekend! Perfect time for some skincare self-care 💆‍♀️✨',
+        ar: 'عطلة سعيدة! وقت مثالي للعناية ببشرتك 💆‍♀️✨',
+        ru: 'Хороших выходных! Идеальное время для ухода за собой 💆‍♀️✨',
+      }
+      return messages[lang] || messages.en
     }
-    return messages[lang] || messages.en
+    
+    // Weekday time-specific messages
+    const weekdayMessages: Record<string, Record<string, string>> = {
+      morning: {
+        en: 'Ready to start your day with glowing skin? 🌟',
+        ar: 'مستعد لبدء يومك ببشرة متألقة؟ 🌟',
+        ru: 'Готовы начать день с сияющей кожей? 🌟',
+      },
+      afternoon: {
+        en: 'How can I help with your skincare today? 💫',
+        ar: 'كيف يمكنني مساعدتك في العناية ببشرتك اليوم؟ 💫',
+        ru: 'Чем могу помочь с уходом за кожей сегодня? 💫',
+      },
+      evening: {
+        en: 'Evening is perfect for skincare rituals! 🌙✨',
+        ar: 'المساء مثالي لروتين العناية بالبشرة! 🌙✨',
+        ru: 'Вечер идеален для ритуала ухода! 🌙✨',
+      },
+      night: {
+        en: 'Night is when your skin regenerates most! 💤✨',
+        ar: 'الليل هو وقت تجدد بشرتك! 💤✨',
+        ru: 'Ночь - время регенерации кожи! 💤✨',
+      },
+    }
+    const timeMsg = weekdayMessages[timeOfDay]
+    const fallbackMsg = weekdayMessages['afternoon']
+    return timeMsg?.[lang] ?? fallbackMsg?.[lang] ?? 'How can I help you today? 💫'
   }
 
   // Hardcoded translations by locale with contextual greetings
   const timeGreeting = getTimeGreeting(userContext.timeOfDay, locale)
-  const weekendMsg = getWeekendMessage(userContext.isWeekend, locale)
+  const contextMsg = getContextMessage(userContext.isWeekend, userContext.timeOfDay, locale)
   
   const chatStrings = {
     en: {
-      title: 'GENOSYS Assistant',
-      welcome: `${timeGreeting}${weekendMsg} I'm your GENOSYS Beauty Advisor. How can I help you today?`,
-      placeholder: 'Ask about products, skincare routines...',
+      title: 'GENOSYS Beauty Advisor 💄',
+      welcome: `${timeGreeting}\n\n${contextMsg}\n\nI'm your personal GENOSYS skincare expert. Ask me anything about Korean dermacosmetics, routines, or ingredients! 🇰🇷`,
+      placeholder: 'Ask about skincare, ingredients, routines...',
       send: 'Send',
-      typing: 'Typing...',
-      error: 'Something went wrong. Please try again.',
+      typing: 'Thinking...',
+      error: 'Oops! Something went wrong. Please try again.',
       clear: 'Clear chat',
     },
     ar: {
-      title: 'مساعد جينوسيس',
-      welcome: `${timeGreeting}${weekendMsg} أنا مستشار التجميل الخاص بك في جينوسيس. كيف يمكنني مساعدتك اليوم؟`,
-      placeholder: 'اسأل عن المنتجات، روتين العناية بالبشرة...',
+      title: 'مستشار جمال جينوسيس 💄',
+      welcome: `${timeGreeting}\n\n${contextMsg}\n\nأنا خبير العناية بالبشرة الخاص بك في جينوسيس. اسألني أي شيء عن مستحضرات التجميل الكورية! 🇰🇷`,
+      placeholder: 'اسأل عن العناية بالبشرة، المكونات...',
       send: 'إرسال',
-      typing: 'جاري الكتابة...',
-      error: 'حدث خطأ ما. يرجى المحاولة مرة أخرى.',
+      typing: 'جاري التفكير...',
+      error: 'حدث خطأ! يرجى المحاولة مرة أخرى.',
       clear: 'مسح المحادثة',
     },
     ru: {
-      title: 'Ассистент GENOSYS',
-      welcome: 'Привет! Я ваш консультант по красоте GENOSYS. Чем могу помочь сегодня?',
-      placeholder: 'Спросите о продуктах, уходе за кожей...',
+      title: 'Консультант GENOSYS 💄',
+      welcome: `${timeGreeting}\n\n${contextMsg}\n\nЯ ваш личный эксперт по уходу за кожей GENOSYS. Спрашивайте о корейской косметике! 🇰🇷`,
+      placeholder: 'Спросите об уходе, ингредиентах...',
       send: 'Отправить',
-      typing: 'Печатает...',
-      error: 'Что-то пошло не так. Пожалуйста, попробуйте снова.',
+      typing: 'Думаю...',
+      error: 'Упс! Что-то пошло не так. Попробуйте снова.',
       clear: 'Очистить чат',
     },
   }
@@ -312,7 +340,7 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
                 </div>
                 <div className="flex-1 bg-white dark:bg-gray-700 rounded-2xl rounded-tl-none px-4 py-3 shadow-sm">
                   <p className="text-sm text-gray-700 dark:text-gray-200">{chatWelcome}</p>
-                  {/* Quick action buttons */}
+                  {/* Quick action buttons - row 1: skin types */}
                   <div className="mt-3 flex flex-wrap gap-2">
                     <QuickActionButton
                       onClick={() => handleQuickAction(
@@ -320,8 +348,9 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
                         locale === 'ru' ? 'Какие продукты вы рекомендуете для сухой кожи?' :
                         'What products do you recommend for dry skin?'
                       )}
+                      emoji="💧"
                     >
-                      {locale === 'ar' ? 'للبشرة الجافة' : locale === 'ru' ? 'Для сухой кожи' : 'Dry skin'}
+                      {locale === 'ar' ? 'بشرة جافة' : locale === 'ru' ? 'Сухая кожа' : 'Dry skin'}
                     </QuickActionButton>
                     <QuickActionButton
                       onClick={() => handleQuickAction(
@@ -329,8 +358,9 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
                         locale === 'ru' ? 'Какие продукты вы рекомендуете для жирной кожи?' :
                         'What products do you recommend for oily skin?'
                       )}
+                      emoji="🧴"
                     >
-                      {locale === 'ar' ? 'للبشرة الدهنية' : locale === 'ru' ? 'Для жирной кожи' : 'Oily skin'}
+                      {locale === 'ar' ? 'بشرة دهنية' : locale === 'ru' ? 'Жирная кожа' : 'Oily skin'}
                     </QuickActionButton>
                     <QuickActionButton
                       onClick={() => handleQuickAction(
@@ -338,8 +368,62 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
                         locale === 'ru' ? 'Расскажите мне об антивозрастных продуктах' :
                         'Tell me about anti-aging products'
                       )}
+                      emoji="✨"
                     >
                       {locale === 'ar' ? 'مكافحة الشيخوخة' : locale === 'ru' ? 'Антивозрастные' : 'Anti-aging'}
+                    </QuickActionButton>
+                    <QuickActionButton
+                      onClick={() => handleQuickAction(
+                        locale === 'ar' ? 'أريد بشرة زجاجية كورية!' :
+                        locale === 'ru' ? 'Как добиться корейской стеклянной кожи?' :
+                        'How do I get Korean glass skin?'
+                      )}
+                      emoji="🪞"
+                    >
+                      {locale === 'ar' ? 'بشرة زجاجية' : locale === 'ru' ? 'Стеклянная кожа' : 'Glass skin'}
+                    </QuickActionButton>
+                  </div>
+                  {/* Quick action buttons - row 2: concerns & info */}
+                  <div className="mt-2 flex flex-wrap gap-2">
+                    <QuickActionButton
+                      onClick={() => handleQuickAction(
+                        locale === 'ar' ? 'لدي حب الشباب وبشرة حساسة' :
+                        locale === 'ru' ? 'У меня акне и чувствительная кожа' :
+                        'I have acne and sensitive skin'
+                      )}
+                      emoji="🌿"
+                    >
+                      {locale === 'ar' ? 'حساسة/حب الشباب' : locale === 'ru' ? 'Акне' : 'Acne/Sensitive'}
+                    </QuickActionButton>
+                    <QuickActionButton
+                      onClick={() => handleQuickAction(
+                        locale === 'ar' ? 'ما هو روتين العناية اليومي المثالي؟' :
+                        locale === 'ru' ? 'Какой идеальный ежедневный уход?' :
+                        'What\'s the perfect daily skincare routine?'
+                      )}
+                      emoji="📋"
+                    >
+                      {locale === 'ar' ? 'روتين يومي' : locale === 'ru' ? 'Ежедневный уход' : 'Daily routine'}
+                    </QuickActionButton>
+                    <QuickActionButton
+                      onClick={() => handleQuickAction(
+                        locale === 'ar' ? 'ما الذي يميز جينوسيس؟' :
+                        locale === 'ru' ? 'Что особенного в GENOSYS?' :
+                        'What makes GENOSYS special?'
+                      )}
+                      emoji="🏆"
+                    >
+                      {locale === 'ar' ? 'لماذا جينوسيس؟' : locale === 'ru' ? 'Почему GENOSYS?' : 'Why GENOSYS?'}
+                    </QuickActionButton>
+                    <QuickActionButton
+                      onClick={() => handleQuickAction(
+                        locale === 'ar' ? 'أفضل المنتجات للحماية من الشمس' :
+                        locale === 'ru' ? 'Лучшая защита от солнца?' :
+                        'Best sun protection for UAE weather?'
+                      )}
+                      emoji="☀️"
+                    >
+                      {locale === 'ar' ? 'حماية الشمس' : locale === 'ru' ? 'Защита от солнца' : 'Sun protection'}
                     </QuickActionButton>
                   </div>
                 </div>
@@ -463,13 +547,15 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
   )
 }
 
-// Quick action button component
+// Quick action button component with emoji support
 function QuickActionButton({ 
   children, 
-  onClick 
+  onClick,
+  emoji
 }: { 
   children: React.ReactNode
-  onClick: () => void 
+  onClick: () => void
+  emoji?: string
 }) {
   return (
     <button
@@ -481,9 +567,14 @@ function QuickActionButton({
         text-xs text-gray-600 dark:text-gray-200
         hover:bg-red-100 hover:text-red-600
         dark:hover:bg-red-900 dark:hover:text-red-400
-        transition-colors
+        transition-all duration-200
+        hover:scale-105 active:scale-95
+        border border-transparent hover:border-red-200
+        dark:hover:border-red-700
+        flex items-center gap-1
       "
     >
+      {emoji && <span>{emoji}</span>}
       {children}
     </button>
   )

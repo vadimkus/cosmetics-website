@@ -391,7 +391,7 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
         ${isRTL ? 'left-4 md:left-6' : 'right-4 md:right-6'}
         ${isMinimized 
           ? 'bottom-20 md:bottom-6 w-72 h-14' 
-          : 'bottom-20 md:bottom-6 w-[calc(100%-2rem)] md:w-96 h-[500px] max-h-[70vh]'
+          : 'bottom-4 md:bottom-6 w-[calc(100%-2rem)] md:w-96 h-[calc(100vh-6rem)] md:h-[500px] md:max-h-[70vh]'
         }
         ${className}
       `}

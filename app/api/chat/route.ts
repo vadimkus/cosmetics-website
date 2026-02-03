@@ -70,7 +70,17 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json()
-    const { messages, locale = 'en' } = body as { messages: ChatMessage[]; locale?: string }
+    const { messages, locale = 'en', context } = body as { 
+      messages: ChatMessage[]
+      locale?: string
+      context?: {
+        timeOfDay?: string // 'morning' | 'afternoon' | 'evening' | 'night'
+        dayOfWeek?: string // 'Monday', 'Tuesday', etc.
+        isWeekend?: boolean
+        localTime?: string // e.g., "14:30"
+        timezone?: string
+      }
+    }
 
     if (!messages || !Array.isArray(messages) || messages.length === 0) {
       return NextResponse.json(
@@ -121,9 +131,19 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Add locale context to system prompt
-    const localizedSystemPrompt = `${SYSTEM_PROMPT}
+    // Build context string for personalized greetings
+    const contextInfo = context ? `
+## Current Context (use this for personalized greetings!)
+- Time of day: ${context.timeOfDay || 'unknown'}
+- Local time: ${context.localTime || 'unknown'}
+- Day: ${context.dayOfWeek || 'unknown'}
+- Weekend: ${context.isWeekend ? 'Yes (Friday/Saturday in UAE)' : 'No (weekday)'}
+- Timezone: ${context.timezone || 'UAE (GMT+4)'}
+` : ''
 
+    // Add locale and context to system prompt
+    const localizedSystemPrompt = `${SYSTEM_PROMPT}
+${contextInfo}
 Current user locale: ${locale}
 ${locale === 'ar' ? 'The user is browsing in Arabic. Respond in Arabic if they write in Arabic.' : ''}
 ${locale === 'ru' ? 'The user is browsing in Russian. Respond in Russian if they write in Russian.' : ''}`

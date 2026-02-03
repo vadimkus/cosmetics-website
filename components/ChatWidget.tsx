@@ -58,6 +58,36 @@ function renderMessageWithLinks(text: string): React.ReactNode {
   return parts.length > 0 ? parts : text
 }
 
+// Helper to get user's time context for personalized greetings
+function getUserContext() {
+  const now = new Date()
+  const hour = now.getHours()
+  const dayOfWeek = now.toLocaleDateString('en-US', { weekday: 'long' })
+  
+  // Determine time of day
+  let timeOfDay: string
+  if (hour >= 5 && hour < 12) {
+    timeOfDay = 'morning'
+  } else if (hour >= 12 && hour < 17) {
+    timeOfDay = 'afternoon'
+  } else if (hour >= 17 && hour < 21) {
+    timeOfDay = 'evening'
+  } else {
+    timeOfDay = 'night'
+  }
+  
+  // UAE weekend is Friday-Saturday
+  const isWeekend = dayOfWeek === 'Friday' || dayOfWeek === 'Saturday'
+  
+  return {
+    timeOfDay,
+    dayOfWeek,
+    isWeekend,
+    localTime: now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false }),
+    timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+  }
+}
+
 export default function ChatWidget({ className = '' }: ChatWidgetProps) {
   const { locale, dir } = useTranslation()
   const isRTL = dir === 'rtl'
@@ -70,8 +100,15 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
   
+  // Get user context for personalized greetings
+  const userContext = getUserContext()
+  
   const { messages, status, error, sendMessage, setMessages } = useChat({
     id: 'genosys-chat',
+    body: {
+      locale,
+      context: userContext,
+    },
     onError: (error) => {
       console.error('Chat error:', error)
     },
@@ -135,11 +172,36 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
     setInputValue(text)
   }
 
-  // Hardcoded translations by locale (JSON translations have caching issues with Turbopack)
+  // Time-based greeting helper
+  const getTimeGreeting = (timeOfDay: string, lang: string) => {
+    const greetings: Record<string, Record<string, string>> = {
+      morning: { en: 'Good morning! ☀️', ar: 'صباح الخير! ☀️', ru: 'Доброе утро! ☀️' },
+      afternoon: { en: 'Good afternoon!', ar: 'مساء الخير!', ru: 'Добрый день!' },
+      evening: { en: 'Good evening!', ar: 'مساء الخير!', ru: 'Добрый вечер!' },
+      night: { en: 'Hello!', ar: 'مرحباً!', ru: 'Здравствуйте!' },
+    }
+    return greetings[timeOfDay]?.[lang] || greetings.afternoon[lang]
+  }
+
+  // Weekend message
+  const getWeekendMessage = (isWeekend: boolean, lang: string) => {
+    if (!isWeekend) return ''
+    const messages: Record<string, string> = {
+      en: ' Happy weekend! 🌟',
+      ar: ' عطلة نهاية أسبوع سعيدة! 🌟',
+      ru: ' Хороших выходных! 🌟',
+    }
+    return messages[lang] || messages.en
+  }
+
+  // Hardcoded translations by locale with contextual greetings
+  const timeGreeting = getTimeGreeting(userContext.timeOfDay, locale)
+  const weekendMsg = getWeekendMessage(userContext.isWeekend, locale)
+  
   const chatStrings = {
     en: {
       title: 'GENOSYS Assistant',
-      welcome: 'Hi! I\'m your GENOSYS Beauty Advisor. How can I help you today?',
+      welcome: `${timeGreeting}${weekendMsg} I'm your GENOSYS Beauty Advisor. How can I help you today?`,
       placeholder: 'Ask about products, skincare routines...',
       send: 'Send',
       typing: 'Typing...',
@@ -148,7 +210,7 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
     },
     ar: {
       title: 'مساعد جينوسيس',
-      welcome: 'مرحباً! أنا مستشار التجميل الخاص بك في جينوسيس. كيف يمكنني مساعدتك اليوم؟',
+      welcome: `${timeGreeting}${weekendMsg} أنا مستشار التجميل الخاص بك في جينوسيس. كيف يمكنني مساعدتك اليوم؟`,
       placeholder: 'اسأل عن المنتجات، روتين العناية بالبشرة...',
       send: 'إرسال',
       typing: 'جاري الكتابة...',

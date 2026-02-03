@@ -95,14 +95,45 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
     setInputValue(text)
   }
 
-  // Get translations with fallbacks
-  const chatTitle = t('chat.title') || 'GENOSYS Assistant'
-  const chatWelcome = t('chat.welcome') || 'Hi! I\'m your GENOSYS Beauty Advisor. How can I help you today?'
-  const chatPlaceholder = t('chat.placeholder') || 'Ask about products, skincare routines...'
-  const chatSend = t('chat.send') || 'Send'
-  const chatTyping = t('chat.typing') || 'Typing...'
-  const chatError = t('chat.error') || 'Something went wrong. Please try again.'
-  const chatClear = t('chat.clear') || 'Clear chat'
+  // Hardcoded translations by locale (JSON translations have caching issues with Turbopack)
+  const chatStrings = {
+    en: {
+      title: 'GENOSYS Assistant',
+      welcome: 'Hi! I\'m your GENOSYS Beauty Advisor. How can I help you today?',
+      placeholder: 'Ask about products, skincare routines...',
+      send: 'Send',
+      typing: 'Typing...',
+      error: 'Something went wrong. Please try again.',
+      clear: 'Clear chat',
+    },
+    ar: {
+      title: 'مساعد جينوسيس',
+      welcome: 'مرحباً! أنا مستشار التجميل الخاص بك في جينوسيس. كيف يمكنني مساعدتك اليوم؟',
+      placeholder: 'اسأل عن المنتجات، روتين العناية بالبشرة...',
+      send: 'إرسال',
+      typing: 'جاري الكتابة...',
+      error: 'حدث خطأ ما. يرجى المحاولة مرة أخرى.',
+      clear: 'مسح المحادثة',
+    },
+    ru: {
+      title: 'Ассистент GENOSYS',
+      welcome: 'Привет! Я ваш консультант по красоте GENOSYS. Чем могу помочь сегодня?',
+      placeholder: 'Спросите о продуктах, уходе за кожей...',
+      send: 'Отправить',
+      typing: 'Печатает...',
+      error: 'Что-то пошло не так. Пожалуйста, попробуйте снова.',
+      clear: 'Очистить чат',
+    },
+  }
+  
+  const strings = chatStrings[locale as keyof typeof chatStrings] || chatStrings.en
+  const chatTitle = strings.title
+  const chatWelcome = strings.welcome
+  const chatPlaceholder = strings.placeholder
+  const chatSend = strings.send
+  const chatTyping = strings.typing
+  const chatError = strings.error
+  const chatClear = strings.clear
 
   // Floating button (when closed)
   if (!isOpen) {

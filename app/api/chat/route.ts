@@ -4,10 +4,11 @@ import { streamText } from 'ai'
 import { SYSTEM_PROMPT, CHATBOT_CONFIG } from '@/lib/chatbot/config'
 import { debugLog, errorLog } from '@/lib/logger'
 
-// Message type for chat API - supports both simple string content and UIMessage parts array
+// Message type for chat API - supports AI SDK v6 UIMessage format with parts array
 interface ChatMessage {
   role: 'user' | 'assistant' | 'system'
-  content: string | MessagePart[]
+  content?: string | MessagePart[] // Legacy format
+  parts?: MessagePart[] // AI SDK v6 format
 }
 
 interface MessagePart {
@@ -79,22 +80,33 @@ export async function POST(request: NextRequest) {
     }
 
     // Validate and transform messages to the expected format
-    // Handle both simple string content and UIMessage parts array
+    // Handle AI SDK v6 format (parts array) and legacy format (content string/array)
     const validatedMessages = messages
       .filter((msg) => msg.role === 'user' || msg.role === 'assistant')
       .map((msg) => {
-        // Extract content - handle both string and parts array formats
+        // Extract content - handle AI SDK v6 parts format and legacy content format
         let content = ''
-        if (typeof msg.content === 'string') {
+        
+        // AI SDK v6 uses 'parts' array
+        if (msg.parts && Array.isArray(msg.parts)) {
+          content = msg.parts
+            .filter((part) => part.type === 'text')
+            .map((part) => part.text || '')
+            .join('')
+        }
+        // Legacy format - content as string
+        else if (typeof msg.content === 'string') {
           content = msg.content
-        } else if (Array.isArray(msg.content)) {
-          // UIMessage format - extract text from parts
+        }
+        // Legacy format - content as parts array
+        else if (msg.content && Array.isArray(msg.content)) {
           const parts = msg.content as MessagePart[]
           content = parts
             .filter((part) => part.type === 'text')
             .map((part) => part.text || '')
             .join('')
         }
+        
         return {
           role: msg.role as 'user' | 'assistant',
           content,

@@ -105,9 +105,16 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
   
   const { messages, status, error, sendMessage, setMessages } = useChat({
     id: 'genosys-chat',
-    body: {
-      locale,
-      context: userContext,
+    fetch: async (url, options) => {
+      // Add locale and context to the request body
+      const body = options?.body ? JSON.parse(options.body as string) : {}
+      body.locale = locale
+      body.context = userContext
+      
+      return fetch(url, {
+        ...options,
+        body: JSON.stringify(body),
+      })
     },
     onError: (error) => {
       console.error('Chat error:', error)

@@ -214,10 +214,23 @@ The AI is trained on the complete GENOSYS product catalog with correct IDs:
 - **Sections:**
   - Analysis text
   - Concerns (tags)
-  - Product recommendations (with Add to Bag)
+  - Product recommendations (with images, prices, Add to Bag)
   - Daily routine (AM/PM cards)
   - Tips (checklist)
 - **Footer:** "Back to Report" link
+
+### Product Recommendation Cards
+Each product card displays:
+- **Product Image:** 112x112px from product catalog
+- **Product Name:** Clickable link to product page
+- **Price:** AED format (e.g., "AED 330")
+- **Reason:** AI explanation of why this product helps
+- **Add to Bag Button:** Purple button with shopping bag icon
+
+Card layout is horizontal with:
+- Image on the left (96x96px mobile, 112x112px desktop)
+- Product info on the right
+- Responsive design for mobile/desktop
 
 ## Security Considerations
 

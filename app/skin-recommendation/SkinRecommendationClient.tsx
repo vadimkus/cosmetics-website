@@ -4,7 +4,7 @@ import { useState, useMemo, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useSearchParams, useRouter } from 'next/navigation'
-import { ShoppingCart, Heart, Sparkles, ArrowRight, ArrowLeft, CheckCircle2, Info, Star, Scan, Droplets, Target, Flame, Eye, Eye as EyeIcon, Palette, Clock, Zap, CircleDot, Sun, User } from 'lucide-react'
+import { ShoppingCart, Heart, Sparkles, ArrowRight, ArrowLeft, CheckCircle2, Info, Star, Scan, Droplets, Target, Flame, Eye, Eye as EyeIcon, Palette, Clock, Zap, CircleDot, Sun, Moon, User, Brain, Loader2, ShoppingBag, Check } from 'lucide-react'
 import { SkinAnalysisCamera, SkinAnalysisResult } from '@/components/SkinAnalysisCamera'
 import { ARSkinAnalysisCamera } from '@/components/ar'
 import dynamic from 'next/dynamic'
@@ -64,6 +64,20 @@ export default function SkinRecommendationClient() {
   const [cameraResult, setCameraResult] = useState<SkinAnalysisResult | null>(null)
   const [showAnalysisReport, setShowAnalysisReport] = useState(false)
   const [showPowerAnimal, setShowPowerAnimal] = useState(false) // Power Animal game
+  
+  // AI Expert Analysis state
+  const [capturedImage, setCapturedImage] = useState<string | null>(null)
+  const [aiAnalysisLoading, setAiAnalysisLoading] = useState(false)
+  const [aiAnalysisResult, setAiAnalysisResult] = useState<{
+    skinType: string
+    healthScore: number
+    concerns: string[]
+    analysis: string
+    recommendations: Array<{ product: string; reason: string }>
+    routine?: { am: string[]; pm: string[] }
+    tips?: string[]
+  } | null>(null)
+  const [showAiAnalysis, setShowAiAnalysis] = useState(false)
 
   // Load analysis data from URL params and sessionStorage
   useEffect(() => {
@@ -136,8 +150,9 @@ export default function SkinRecommendationClient() {
   }, [searchParams])
 
   // Handle camera analysis completion
-  const handleCameraAnalysisComplete = (result: SkinAnalysisResult) => {
+  const handleCameraAnalysisComplete = (result: SkinAnalysisResult, image?: string) => {
     setCameraResult(result)
+    setCapturedImage(image || null)
     setShowCamera(false)
     setShowARCamera(false) // Also close AR camera
     
@@ -158,6 +173,38 @@ export default function SkinRecommendationClient() {
     
     // Show analysis report
     setShowAnalysisReport(true)
+  }
+
+  // Handle AI Expert Analysis
+  const handleAIExpertAnalysis = async () => {
+    if (!capturedImage) return
+    
+    setAiAnalysisLoading(true)
+    try {
+      const response = await fetch('/api/skin-analysis/ai', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ image: capturedImage }),
+      })
+      
+      if (!response.ok) {
+        const error = await response.json()
+        throw new Error(error.error || 'Failed to analyze')
+      }
+      
+      const { data } = await response.json()
+      setAiAnalysisResult(data)
+      setShowAiAnalysis(true)
+    } catch (error) {
+      errorLog('AI Analysis Error:', error)
+      alert(locale === 'ar' 
+        ? 'فشل التحليل بالذكاء الاصطناعي. حاول مرة أخرى.' 
+        : locale === 'ru' 
+          ? 'Ошибка AI-анализа. Попробуйте ещё раз.'
+          : 'AI analysis failed. Please try again.')
+    } finally {
+      setAiAnalysisLoading(false)
+    }
   }
 
   // Get translated data arrays
@@ -742,6 +789,225 @@ export default function SkinRecommendationClient() {
               </div>
             )}
           </div>
+
+          {/* AI Expert Analysis Section */}
+          {capturedImage && !showAiAnalysis && (
+            <div className="mb-8 bg-gradient-to-br from-violet-50 to-purple-100 rounded-2xl p-6 border border-violet-200">
+              <div className={`flex items-start gap-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center flex-shrink-0 shadow-lg shadow-violet-200">
+                  <Brain className="w-7 h-7 text-white" />
+                </div>
+                <div className={`flex-1 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                  <h3 className="text-lg font-bold text-gray-900 mb-1">
+                    {locale === 'ar' ? '🧬 تحليل خبير الذكاء الاصطناعي' : locale === 'ru' ? '🧬 Экспертный AI-анализ' : '🧬 AI Expert Analysis'}
+                  </h3>
+                  <p className="text-sm text-gray-600 mb-4">
+                    {locale === 'ar' 
+                      ? 'احصل على تحليل احترافي للبشرة مع توصيات منتجات مخصصة من خبيرنا الذكي'
+                      : locale === 'ru'
+                        ? 'Получите профессиональный анализ кожи с персональными рекомендациями продуктов от нашего AI-эксперта'
+                        : 'Get a professional skin analysis with personalized product recommendations from our AI dermatologist expert'}
+                  </p>
+                  <button
+                    onClick={handleAIExpertAnalysis}
+                    disabled={aiAnalysisLoading}
+                    className={`inline-flex items-center gap-2 bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700 text-white font-semibold px-6 py-3 rounded-xl transition-all shadow-lg shadow-violet-200 active:scale-[0.98] disabled:opacity-50 disabled:cursor-wait ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+                  >
+                    {aiAnalysisLoading ? (
+                      <>
+                        <Loader2 className="w-5 h-5 animate-spin" />
+                        {locale === 'ar' ? 'جاري التحليل...' : locale === 'ru' ? 'Анализируем...' : 'Analyzing...'}
+                      </>
+                    ) : (
+                      <>
+                        <Sparkles className="w-5 h-5" />
+                        {locale === 'ar' ? 'احصل على تحليل الخبير' : locale === 'ru' ? 'Получить анализ эксперта' : 'Get Expert Analysis'}
+                      </>
+                    )}
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* AI Expert Analysis Results */}
+          {showAiAnalysis && aiAnalysisResult && (
+            <div className="mb-8 bg-gradient-to-br from-violet-50 to-purple-100 rounded-2xl overflow-hidden border border-violet-200">
+              {/* Header */}
+              <div className="bg-gradient-to-r from-violet-600 to-purple-600 px-6 py-4 text-white">
+                <div className={`flex items-center justify-between ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                  <div className={`flex items-center gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                    <Brain className="w-6 h-6" />
+                    <div>
+                      <h3 className="font-bold text-lg">
+                        {locale === 'ar' ? 'تحليل خبير الذكاء الاصطناعي' : locale === 'ru' ? 'Экспертный AI-анализ' : 'AI Expert Analysis'}
+                      </h3>
+                      <p className="text-violet-100 text-sm">
+                        {locale === 'ar' ? 'تحليل احترافي لبشرتك' : locale === 'ru' ? 'Профессиональный анализ вашей кожи' : 'Professional analysis of your skin'}
+                      </p>
+                    </div>
+                  </div>
+                  {aiAnalysisResult.healthScore && (
+                    <div className="text-center">
+                      <p className="text-violet-100 text-xs">
+                        {locale === 'ar' ? 'صحة البشرة' : locale === 'ru' ? 'Здоровье' : 'Health Score'}
+                      </p>
+                      <p className="text-2xl font-bold">{aiAnalysisResult.healthScore}/10</p>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              <div className="p-6">
+                {/* Analysis Text */}
+                <div className={`mb-6 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                  <h4 className="font-semibold text-gray-900 mb-2">
+                    {locale === 'ar' ? '📋 التحليل' : locale === 'ru' ? '📋 Анализ' : '📋 Analysis'}
+                  </h4>
+                  <p className="text-gray-700 leading-relaxed">{aiAnalysisResult.analysis}</p>
+                </div>
+
+                {/* Concerns */}
+                {aiAnalysisResult.concerns && aiAnalysisResult.concerns.length > 0 && (
+                  <div className={`mb-6 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                    <h4 className="font-semibold text-gray-900 mb-2">
+                      {locale === 'ar' ? '⚠️ المخاوف الرئيسية' : locale === 'ru' ? '⚠️ Основные проблемы' : '⚠️ Key Concerns'}
+                    </h4>
+                    <div className={`flex flex-wrap gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                      {aiAnalysisResult.concerns.map((concern, idx) => (
+                        <span key={idx} className="px-3 py-1 bg-amber-100 text-amber-800 rounded-full text-sm font-medium">
+                          {concern}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Product Recommendations */}
+                {aiAnalysisResult.recommendations && aiAnalysisResult.recommendations.length > 0 && (
+                  <div className={`mb-6 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                    <h4 className="font-semibold text-gray-900 mb-3">
+                      {locale === 'ar' ? '✨ المنتجات الموصى بها' : locale === 'ru' ? '✨ Рекомендуемые продукты' : '✨ Recommended Products'}
+                    </h4>
+                    <div className="space-y-3">
+                      {aiAnalysisResult.recommendations.map((rec, idx) => {
+                        // Parse product link [Name](url){{id:XX}}
+                        const linkMatch = rec.product.match(/\[([^\]]+)\]\(([^)]+)\)\{\{id:(\d+)\}\}/)
+                        const productName = linkMatch ? linkMatch[1] : rec.product
+                        const productUrl = linkMatch ? linkMatch[2] : null
+                        const productId = linkMatch ? linkMatch[3] : null
+                        
+                        return (
+                          <div key={idx} className="bg-white rounded-xl p-4 shadow-sm border border-violet-100">
+                            <div className={`flex items-start gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                              <span className="text-lg">💜</span>
+                              <div className="flex-1">
+                                {productUrl ? (
+                                  <a 
+                                    href={productUrl}
+                                    className="font-medium text-violet-700 hover:text-violet-900 hover:underline"
+                                  >
+                                    {productName}
+                                  </a>
+                                ) : (
+                                  <span className="font-medium text-gray-900">{productName}</span>
+                                )}
+                                <p className="text-sm text-gray-600 mt-1">{rec.reason}</p>
+                                {productId && (
+                                  <button
+                                    onClick={async () => {
+                                      try {
+                                        const response = await fetch(`/api/products/${productId}`)
+                                        if (response.ok) {
+                                          const product = await response.json()
+                                          addItem(product, 1)
+                                          alert(locale === 'ar' ? 'تمت الإضافة إلى السلة! 🛍️' : locale === 'ru' ? 'Добавлено в корзину! 🛍️' : 'Added to bag! 🛍️')
+                                        }
+                                      } catch { /* ignore */ }
+                                    }}
+                                    className={`mt-2 inline-flex items-center gap-1 text-xs text-violet-600 hover:text-violet-800 font-medium ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+                                  >
+                                    <ShoppingBag className="w-3 h-3" />
+                                    {locale === 'ar' ? 'أضف إلى السلة' : locale === 'ru' ? 'В корзину' : 'Add to Bag'}
+                                  </button>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                        )
+                      })}
+                    </div>
+                  </div>
+                )}
+
+                {/* Daily Routine */}
+                {aiAnalysisResult.routine && (
+                  <div className={`mb-6 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                    <h4 className="font-semibold text-gray-900 mb-3">
+                      {locale === 'ar' ? '🌅 روتينك اليومي' : locale === 'ru' ? '🌅 Ваш ежедневный уход' : '🌅 Your Daily Routine'}
+                    </h4>
+                    <div className="grid md:grid-cols-2 gap-4">
+                      {/* AM Routine */}
+                      <div className="bg-amber-50 rounded-xl p-4 border border-amber-200">
+                        <h5 className="font-medium text-amber-800 mb-2 flex items-center gap-2">
+                          <Sun className="w-4 h-4" />
+                          {locale === 'ar' ? 'الصباح' : locale === 'ru' ? 'Утро' : 'Morning'}
+                        </h5>
+                        <ol className="space-y-1 text-sm text-gray-700">
+                          {aiAnalysisResult.routine.am?.map((step, idx) => (
+                            <li key={idx} className={dir === 'rtl' ? 'text-right' : ''}>
+                              {idx + 1}. {step}
+                            </li>
+                          ))}
+                        </ol>
+                      </div>
+                      {/* PM Routine */}
+                      <div className="bg-indigo-50 rounded-xl p-4 border border-indigo-200">
+                        <h5 className="font-medium text-indigo-800 mb-2 flex items-center gap-2">
+                          <Moon className="w-4 h-4" />
+                          {locale === 'ar' ? 'المساء' : locale === 'ru' ? 'Вечер' : 'Evening'}
+                        </h5>
+                        <ol className="space-y-1 text-sm text-gray-700">
+                          {aiAnalysisResult.routine.pm?.map((step, idx) => (
+                            <li key={idx} className={dir === 'rtl' ? 'text-right' : ''}>
+                              {idx + 1}. {step}
+                            </li>
+                          ))}
+                        </ol>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Tips */}
+                {aiAnalysisResult.tips && aiAnalysisResult.tips.length > 0 && (
+                  <div className={dir === 'rtl' ? 'text-right' : ''}>
+                    <h4 className="font-semibold text-gray-900 mb-2">
+                      {locale === 'ar' ? '💡 نصائح مخصصة' : locale === 'ru' ? '💡 Персональные советы' : '💡 Personalized Tips'}
+                    </h4>
+                    <ul className="space-y-2">
+                      {aiAnalysisResult.tips.map((tip, idx) => (
+                        <li key={idx} className="flex items-start gap-2 text-sm text-gray-700">
+                          <Check className="w-4 h-4 text-green-600 flex-shrink-0 mt-0.5" />
+                          {tip}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {/* Close AI Analysis */}
+                <div className="mt-6 pt-4 border-t border-violet-200 text-center">
+                  <button
+                    onClick={() => setShowAiAnalysis(false)}
+                    className="text-violet-600 hover:text-violet-800 font-medium text-sm"
+                  >
+                    {locale === 'ar' ? '← العودة إلى التقرير' : locale === 'ru' ? '← Назад к отчёту' : '← Back to Report'}
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* Get Recommendations Button */}
           <div className="text-center">

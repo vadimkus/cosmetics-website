@@ -104,7 +104,7 @@ export interface BlemishDetail {
 }
 
 interface SkinAnalysisCameraProps {
-  onAnalysisComplete: (result: SkinAnalysisResult) => void
+  onAnalysisComplete: (result: SkinAnalysisResult, capturedImage?: string) => void
   onClose: () => void
   className?: string
 }
@@ -1138,7 +1138,7 @@ export function SkinAnalysisCamera({
       console.error('Error saving skin analysis:', error)
     } finally {
       setIsSaving(false)
-      onAnalysisComplete(analysisResult)
+      onAnalysisComplete(analysisResult, capturedImage || undefined)
     }
   }
 

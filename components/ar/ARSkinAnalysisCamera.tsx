@@ -29,7 +29,7 @@ import {
 import type { SkinAnalysisResult, BlemishAnalysis } from '@/components/SkinAnalysisCamera'
 
 interface ARSkinAnalysisCameraProps {
-  onAnalysisComplete: (result: SkinAnalysisResult) => void
+  onAnalysisComplete: (result: SkinAnalysisResult, capturedImage?: string) => void
   onClose: () => void
   className?: string
 }
@@ -1137,8 +1137,18 @@ export function ARSkinAnalysisCamera({
     await updateProgress(9)
     await new Promise(r => setTimeout(r, 300)) // Brief pause to show completion
     
+    // Capture image for AI analysis
+    let capturedImageUrl: string | undefined
+    if (canvasRef.current) {
+      try {
+        capturedImageUrl = canvasRef.current.toDataURL('image/jpeg', 0.9)
+      } catch {
+        // Canvas may be tainted, continue without image
+      }
+    }
+    
     setIsCapturing(false)
-    onAnalysisComplete(result)
+    onAnalysisComplete(result, capturedImageUrl)
   }
 
   const generateConcerns = (metrics: LiveMetrics): string[] => {

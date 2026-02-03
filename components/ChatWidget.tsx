@@ -19,7 +19,7 @@ function getMessageText(message: { parts?: Array<{ type: string; text?: string }
 }
 
 export default function ChatWidget({ className = '' }: ChatWidgetProps) {
-  const { t, locale, dir } = useTranslation()
+  const { locale, dir } = useTranslation()
   const isRTL = dir === 'rtl'
   
   const [isOpen, setIsOpen] = useState(false)

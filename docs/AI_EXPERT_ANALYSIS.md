@@ -139,7 +139,32 @@ const [aiAnalysisResult, setAiAnalysisResult] = useState<{
   tips?: string[]
 } | null>(null)
 const [showAiAnalysis, setShowAiAnalysis] = useState(false)
+
+// Product details fetched from API for display (images, prices, sizes)
+const [aiProductDetails, setAiProductDetails] = useState<Map<string, any>>(new Map())
 ```
+
+### Product Data Fetching
+
+When AI analysis completes, product details are fetched in parallel:
+
+```typescript
+// Fetch product details for each recommendation
+await Promise.all(
+  recommendations.map(async (rec) => {
+    const productId = extractProductId(rec.product)
+    const response = await fetch(`/api/products/${productId}`)
+    const product = await response.json()
+    productDetailsMap.set(productId, product)
+  })
+)
+```
+
+This provides:
+- Product images from catalog
+- Current prices
+- Product sizes (e.g., "50ml")
+- Full product data for Add to Bag functionality
 
 ## Cost Analysis
 
@@ -210,27 +235,58 @@ The AI is trained on the complete GENOSYS product catalog with correct IDs:
 - **States:** Default, Loading (with spinner)
 
 ### AI Analysis Results Card
-- **Header:** Purple gradient with health score
-- **Sections:**
-  - Analysis text
-  - Concerns (tags)
-  - Product recommendations (with images, prices, Add to Bag)
-  - Daily routine (AM/PM cards)
-  - Tips (checklist)
-- **Footer:** "Back to Report" link
+
+**Header Section:**
+- Purple gradient background (`from-violet-600 to-purple-600`)
+- Brain icon with title "AI Expert Analysis"
+- Subtitle: "Professional analysis of your skin"
+- Health Score badge (1-10) on the right
+
+**Content Sections:**
+
+1. **📋 Analysis** - Professional 2-3 sentence skin assessment
+2. **⚠️ Key Concerns** - Amber tags (e.g., "dehydration", "fine lines", "oiliness")
+3. **✨ Recommended Products** - Product cards with images, prices, sizes, Add to Bag
+4. **🌅 Your Daily Routine** - Morning/Evening routine cards with numbered steps
+5. **💡 Personalized Tips** - Green checkmark list with skincare advice
+
+**Footer:**
+- "← Back to Report" link to return to instant analysis
 
 ### Product Recommendation Cards
 Each product card displays:
-- **Product Image:** 112x112px from product catalog
-- **Product Name:** Clickable link to product page
-- **Price:** AED format (e.g., "AED 330")
-- **Reason:** AI explanation of why this product helps
+- **Product Image:** 96x96px mobile, 112x112px desktop
+- **Product Size:** Displayed below image (e.g., "50ml", "30ml")
+- **Product Name:** Clickable violet link to product page
+- **Price:** Bold AED format (e.g., "AED 330")
+- **Reason:** AI explanation of why this product helps (2-line clamp)
 - **Add to Bag Button:** Purple button with shopping bag icon
 
-Card layout is horizontal with:
-- Image on the left (96x96px mobile, 112x112px desktop)
-- Product info on the right
-- Responsive design for mobile/desktop
+Card layout:
+```
+┌─────────────────────────────────────────┐
+│ ┌─────────┐  PRODUCT NAME               │
+│ │  Image  │  AED 330                    │
+│ │         │  This product helps...      │
+│ └─────────┘  [🛍️ Add to Bag]            │
+│   50ml                                  │
+└─────────────────────────────────────────┘
+```
+
+### Daily Routine Cards
+Morning and Evening routines display:
+- **Morning Card:** Amber/yellow theme with sun icon
+- **Evening Card:** Indigo/purple theme with moon icon
+- **Numbered Steps:** Colored circular badges (1, 2, 3...)
+- **Clean Text:** Plain product names without markdown links
+
+Example routine step display:
+```
+① Apply MOISTURE REPLENISHING HYALURON SERUM
+② Finish with ULTRA SHIELD SUN CREAM SPF 50+
+```
+
+The API prompt instructs GPT to return plain text routine steps (not markdown links).
 
 ## Security Considerations
 
@@ -249,16 +305,43 @@ OPENAI_API_KEY=sk-proj-xxx
 
 ### Manual Testing Checklist
 
-- [ ] Camera capture passes image to AI analysis
-- [ ] AR camera capture passes image to AI analysis
-- [ ] Loading state displays correctly
-- [ ] Results render all sections (analysis, recommendations, routine, tips)
-- [ ] Product links work correctly
-- [ ] Add to Bag buttons function
-- [ ] Rate limiting works (test with 11+ requests)
-- [ ] Error handling displays user-friendly messages
-- [ ] RTL layout works for Arabic
-- [ ] All three languages display correctly
+**Camera & Image Capture:**
+- [ ] Standard camera captures and passes image to AI analysis
+- [ ] AR camera captures and passes image to AI analysis
+- [ ] Loading spinner displays during analysis
+
+**AI Analysis Results:**
+- [ ] Health score displays correctly (1-10)
+- [ ] Analysis text renders properly
+- [ ] Concerns display as amber tags
+- [ ] "Back to Report" link works
+
+**Product Recommendations:**
+- [ ] Product images load from catalog
+- [ ] Product sizes display below images (e.g., "50ml")
+- [ ] Prices display in AED format
+- [ ] Product names link to product pages
+- [ ] "Add to Bag" buttons add products to cart
+- [ ] Toast notification shows on add to bag
+
+**Daily Routine:**
+- [ ] Morning routine displays with amber theme
+- [ ] Evening routine displays with indigo theme
+- [ ] Steps show numbered badges (1, 2, 3...)
+- [ ] No raw markdown links visible (clean text only)
+
+**Personalized Tips:**
+- [ ] Tips display with green checkmarks
+- [ ] Text is readable and helpful
+
+**Error Handling:**
+- [ ] Rate limiting shows user-friendly error
+- [ ] API errors display retry message
+
+**Internationalization:**
+- [ ] English layout correct
+- [ ] Arabic RTL layout correct
+- [ ] Russian layout correct
 
 ### Test URL
 ```

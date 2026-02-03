@@ -121,7 +121,7 @@ function AddToCartButton({
           : 'bg-red-100 text-red-700 hover:bg-red-200 dark:bg-red-900 dark:text-red-300 dark:hover:bg-red-800'
         }
       `}
-      title={added ? 'Added to cart!' : `Add ${productName} to cart`}
+      title={added ? 'Added to bag!' : `Add ${productName} to bag`}
     >
       {added ? (
         <>
@@ -199,7 +199,7 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
       if (response.ok) {
         const product = await response.json()
         addItem(product, 1)
-        showToast(`${productName} added to cart! 🛒`, 'success')
+        showToast(`${productName} added to bag! 🛍️`, 'success')
       } else {
         showToast('Could not add product. Please try again.', 'error')
       }

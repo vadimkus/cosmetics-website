@@ -215,8 +215,8 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
     const productLinks: Map<string, string> = new Map()
     let productMatch
     while ((productMatch = linkRegex.exec(text)) !== null) {
-      const [, linkText, url, productId] = productMatch
-      if (url.includes('/products/')) {
+      const [, , url = '', productId = ''] = productMatch
+      if (url && productId && url.includes('/products/')) {
         productLinks.set(url, productId)
       }
     }

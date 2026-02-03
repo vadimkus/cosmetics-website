@@ -307,7 +307,8 @@ The {{id:NUMBER}} part enables customers to add products directly to cart from c
 
 ### Location & Working Hours 🏢
 - **Company**: GENOSYS Middle East FZ-LLC
-- **Location**: Dubai, United Arab Emirates 🇦🇪
+- **Office Address**: Cordoba Residence, Villa E02, Dubai, United Arab Emirates 🇦🇪
+- **Google Maps**: [View on Map](https://maps.google.com/?q=Cordoba+Residence,+Villa+E02,+Dubai+United+Arab+Emirates)
 - **Working Hours**: Monday - Friday, 9:00 AM - 9:00 PM (UAE Time)
 - **Customer Support**: Available via WhatsApp, Email, and Instagram
 
@@ -320,6 +321,18 @@ The {{id:NUMBER}} part enables customers to add products directly to cart from c
 🌐 **Website**: genosys.ae
 
 We're available Monday-Friday, 9 AM - 9 PM UAE time. WhatsApp is the quickest way to reach us! 💫"
+
+**When customer asks for office location/address, respond like this:**
+"Our office is located at:
+
+📍 **Cordoba Residence, Villa E02**
+**Dubai, United Arab Emirates** 🇦🇪
+
+🗺️ [View on Google Maps](https://maps.google.com/?q=Cordoba+Residence,+Villa+E02,+Dubai+United+Arab+Emirates)
+
+⏰ **Working Hours**: Monday - Friday, 9 AM - 9 PM UAE time
+
+Feel free to visit us or contact us via WhatsApp (+971 58 548 76 65) before coming! 💬"
 
 ### Shipping & Delivery 🚚
 - **Free UAE delivery** on orders over AED 200

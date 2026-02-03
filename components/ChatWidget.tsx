@@ -92,11 +92,13 @@ function ChatLink({
 function AddToCartButton({ 
   productId, 
   productName,
-  onAddToCart 
+  onAddToCart,
+  locale
 }: { 
   productId: string
   productName: string
-  onAddToCart: (id: string, name: string) => void 
+  onAddToCart: (id: string, name: string) => void
+  locale: string
 }) {
   const [added, setAdded] = useState(false)
   
@@ -108,6 +110,14 @@ function AddToCartButton({
       setTimeout(() => setAdded(false), 3000)
     }
   }
+  
+  // Translations for button
+  const buttonText = {
+    en: { add: 'Add', added: 'Added', addTitle: 'Add to bag', addedTitle: 'Added to bag!' },
+    ar: { add: 'أضف', added: 'تمت الإضافة', addTitle: 'أضف إلى السلة', addedTitle: 'تمت الإضافة!' },
+    ru: { add: 'Добавить', added: 'Добавлено', addTitle: 'В корзину', addedTitle: 'Добавлено!' },
+  }
+  const text = buttonText[locale as keyof typeof buttonText] || buttonText.en
   
   return (
     <button
@@ -121,17 +131,17 @@ function AddToCartButton({
           : 'bg-red-100 text-red-700 hover:bg-red-200 dark:bg-red-900 dark:text-red-300 dark:hover:bg-red-800'
         }
       `}
-      title={added ? 'Added to bag!' : `Add ${productName} to bag`}
+      title={added ? text.addedTitle : `${text.addTitle}: ${productName}`}
     >
       {added ? (
         <>
           <Check className="w-3 h-3" />
-          <span>Added</span>
+          <span>{text.added}</span>
         </>
       ) : (
         <>
           <ShoppingCart className="w-3 h-3" />
-          <span>Add</span>
+          <span>{text.add}</span>
         </>
       )}
     </button>
@@ -191,6 +201,14 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
     router.push(path)
   }, [router])
   
+  // Toast translations
+  const toastStrings = {
+    en: { addedToBag: 'added to bag! 🛍️', error: 'Could not add product. Please try again.' },
+    ar: { addedToBag: 'تمت الإضافة إلى السلة! 🛍️', error: 'تعذرت إضافة المنتج. يرجى المحاولة مرة أخرى.' },
+    ru: { addedToBag: 'добавлено в корзину! 🛍️', error: 'Не удалось добавить. Попробуйте снова.' },
+  }
+  const toastText = toastStrings[locale as keyof typeof toastStrings] || toastStrings.en
+
   // Handle add to cart from chat
   const handleAddToCart = useCallback(async (productId: string, productName: string) => {
     try {
@@ -199,14 +217,14 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
       if (response.ok) {
         const product = await response.json()
         addItem(product, 1)
-        showToast(`${productName} added to bag! 🛍️`, 'success')
+        showToast(`${productName} ${toastText.addedToBag}`, 'success')
       } else {
-        showToast('Could not add product. Please try again.', 'error')
+        showToast(toastText.error, 'error')
       }
     } catch {
-      showToast('Could not add product. Please try again.', 'error')
+      showToast(toastText.error, 'error')
     }
-  }, [addItem, showToast])
+  }, [addItem, showToast, toastText])
   
   // Render text with markdown links and Add to Cart buttons
   // Parses: [Product Name](url){{id:NUMBER}} format (with optional ** markdown bold)
@@ -259,6 +277,7 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
               productId={productId}
               productName={linkText}
               onAddToCart={handleAddToCart}
+              locale={locale}
             />
           )}
         </span>
@@ -272,7 +291,7 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
     }
     
     return parts.length > 0 ? parts : cleanedText
-  }, [handleInternalLinkClick, handleAddToCart])
+  }, [handleInternalLinkClick, handleAddToCart, locale])
   
   const { messages, status, error, sendMessage, setMessages } = useChat({
     id: 'genosys-chat',

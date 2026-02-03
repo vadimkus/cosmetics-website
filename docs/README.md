@@ -13,6 +13,7 @@
 | 🟡 **Important** | [EMAIL_TEMPLATES.md](./EMAIL_TEMPLATES.md) | Order email format specification |
 | 🟡 **Important** | [ORDERS_PAGE.md](./ORDERS_PAGE.md) | Orders page display format |
 | 🟢 **Feature** | [CHATBOT_SETUP.md](./CHATBOT_SETUP.md) | AI Chatbot setup and configuration |
+| 🟢 **Feature** | [AI_EXPERT_ANALYSIS.md](./AI_EXPERT_ANALYSIS.md) | AI Expert Skin Analysis with GPT-4o vision |
 
 ---
 
@@ -74,6 +75,22 @@
 - Bundle Builder & AI Skin Analysis promotion
 - Multi-language support (EN, AR, RU)
 - Rate limiting and cost estimation
+
+---
+
+### 🧬 AI Expert Skin Analysis
+
+| File | Description |
+|------|-------------|
+| [AI_EXPERT_ANALYSIS.md](./AI_EXPERT_ANALYSIS.md) | **GPT-4o-mini vision skin analysis** - Professional dermatologist-level analysis |
+
+**Key Features:**
+- GPT-4o-mini vision for photo analysis
+- Professional skin assessment (type, concerns, health score)
+- Personalized product recommendations with Add to Bag
+- AM/PM skincare routine generation
+- Rate limiting (10/hour per IP)
+- Cost: ~$0.002-0.005 per analysis
 
 ---
 

@@ -188,12 +188,34 @@ Multiple approaches were tried and reverted:
 
 ## Translations Added
 
-**New keys** in `messages/en.json`, `messages/ar.json`, `messages/ru.json`:
+### Bundle Builder Keys
 
 | Key | EN | AR | RU |
 |-----|----|----|-----|
 | `bundleBuilder.nextStep` | Next Step | الخطوة التالية | Следующий шаг |
 | `bundleBuilder.lastStep` | Last Step | الخطوة الأخيرة | Последний шаг |
+| `bundleBuilder.saveUpTo` | Save up to 20% | وفر حتى 20% | Скидка до 20% |
+
+### Common Keys (AR/RU)
+
+| Key | AR | RU |
+|-----|----|----|
+| `common.backHome` | العودة للرئيسية | На главную |
+| `common.aed` | درهم | AED |
+| `common.continueShopping` | متابعة التسوق | Продолжить покупки |
+
+### Checkout Keys (AR/RU) - 27-33 keys each
+
+Key categories added:
+- **Customer Info**: customerInfo, name, email, quantity, size
+- **Payment Status**: verifyingPayment, pleaseWait, paymentSuccessful, paymentProcessing
+- **Order Confirmation**: orderConfirmed, nextSteps, confirmationEmailSent, orderBeingProcessed
+- **Delivery**: trackingInfoSent, deliveryTime
+- **Cancellation**: paymentCancelled, noCharges, canReturnAnytime, whatHappened
+- **Explanations**: cancelledExplanation1, cancelledExplanation2, cancelledExplanation3
+- **Alternatives**: alternativeOptions, tryDifferentCard, cashOnDeliveryAvailable
+- **Actions**: contactSupportForHelp, reviewCart, tryAgainCheckout
+- **Verification**: verificationFailed, verificationError, supportedCards
 
 ---
 

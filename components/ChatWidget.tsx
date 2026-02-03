@@ -4,7 +4,9 @@ import React, { useState, useRef, useEffect, useCallback } from 'react'
 import { useChat } from '@ai-sdk/react'
 import { useRouter } from 'next/navigation'
 import { useTranslation } from '@/hooks/useTranslation'
-import { MessageCircle, X, Send, Loader2, Bot, User, Minimize2 } from 'lucide-react'
+import { useCartStore } from '@/lib/cartStore'
+import { useToast } from '@/components/ToastProvider'
+import { MessageCircle, X, Send, Loader2, Bot, User, Minimize2, ShoppingCart, Check } from 'lucide-react'
 
 interface ChatWidgetProps {
   className?: string
@@ -79,6 +81,56 @@ function ChatLink({
   )
 }
 
+// Add to Cart button component
+function AddToCartButton({ 
+  productId, 
+  productName,
+  onAddToCart 
+}: { 
+  productId: string
+  productName: string
+  onAddToCart: (id: string, name: string) => void 
+}) {
+  const [added, setAdded] = useState(false)
+  
+  const handleClick = () => {
+    if (!added) {
+      onAddToCart(productId, productName)
+      setAdded(true)
+      // Reset after 3 seconds
+      setTimeout(() => setAdded(false), 3000)
+    }
+  }
+  
+  return (
+    <button
+      onClick={handleClick}
+      disabled={added}
+      className={`
+        inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium
+        transition-all duration-200 ml-1
+        ${added 
+          ? 'bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300' 
+          : 'bg-red-100 text-red-700 hover:bg-red-200 dark:bg-red-900 dark:text-red-300 dark:hover:bg-red-800'
+        }
+      `}
+      title={added ? 'Added to cart!' : `Add ${productName} to cart`}
+    >
+      {added ? (
+        <>
+          <Check className="w-3 h-3" />
+          <span>Added</span>
+        </>
+      ) : (
+        <>
+          <ShoppingCart className="w-3 h-3" />
+          <span>Add</span>
+        </>
+      )}
+    </button>
+  )
+}
+
 // Helper to get user's time context for personalized greetings
 function getUserContext() {
   const now = new Date()
@@ -112,6 +164,8 @@ function getUserContext() {
 export default function ChatWidget({ className = '' }: ChatWidgetProps) {
   const { locale, dir } = useTranslation()
   const router = useRouter()
+  const addItem = useCartStore((state) => state.addItem)
+  const { showToast } = useToast()
   const isRTL = dir === 'rtl'
   
   const [isOpen, setIsOpen] = useState(false)
@@ -130,9 +184,28 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
     router.push(path)
   }, [router])
   
-  // Render text with markdown links
+  // Handle add to cart from chat
+  const handleAddToCart = useCallback(async (productId: string, productName: string) => {
+    try {
+      // Fetch product data from API
+      const response = await fetch(`/api/mobile/products/${productId}`)
+      if (response.ok) {
+        const product = await response.json()
+        addItem(product, 1)
+        showToast(`${productName} added to cart! 🛒`, 'success')
+      } else {
+        showToast('Could not add product. Please try again.', 'error')
+      }
+    } catch {
+      showToast('Could not add product. Please try again.', 'error')
+    }
+  }, [addItem, showToast])
+  
+  // Render text with markdown links and Add to Cart buttons
+  // Parses: [Product Name](url){{id:NUMBER}} format
   const renderMessageWithLinks = useCallback((text: string): React.ReactNode => {
-    const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g
+    // Match: [text](url) optionally followed by {{id:number}}
+    const linkRegex = /\[([^\]]+)\]\(([^)]+)\)(\{\{id:(\d+)\}\})?/g
     const parts: React.ReactNode[] = []
     let lastIndex = 0
     let match
@@ -143,18 +216,30 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
         parts.push(text.slice(lastIndex, match.index))
       }
       
-      const [, linkText = '', url = ''] = match
+      const [fullMatch, linkText = '', url = '', , productId] = match
+      
+      // Check if this is a product link (has {{id:NUMBER}})
+      const isProductLink = !!productId && url.includes('/products/')
+      
       parts.push(
-        <ChatLink
-          key={keyIndex++}
-          url={url}
-          onInternalClick={handleInternalLinkClick}
-        >
-          {linkText}
-        </ChatLink>
+        <span key={keyIndex++} className="inline-flex items-center flex-wrap gap-1">
+          <ChatLink
+            url={url}
+            onInternalClick={handleInternalLinkClick}
+          >
+            {linkText}
+          </ChatLink>
+          {isProductLink && (
+            <AddToCartButton
+              productId={productId}
+              productName={linkText}
+              onAddToCart={handleAddToCart}
+            />
+          )}
+        </span>
       )
       
-      lastIndex = match.index + match[0].length
+      lastIndex = match.index + fullMatch.length
     }
     
     if (lastIndex < text.length) {
@@ -162,7 +247,7 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
     }
     
     return parts.length > 0 ? parts : text
-  }, [handleInternalLinkClick])
+  }, [handleInternalLinkClick, handleAddToCart])
   
   const { messages, status, error, sendMessage, setMessages } = useChat({
     id: 'genosys-chat',

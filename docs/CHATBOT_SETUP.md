@@ -158,8 +158,10 @@ Every response includes:
 ### 6. Mobile Responsive
 - Works on Desktop, Mobile Web, and PWA
 - Floating button with minimizable window
-- Compact 500px height (max 70vh)
-- Positioned above mobile footer navigation
+- **Mobile:** 65vh height (65% of viewport)
+- **Desktop:** 500px height (max 70vh)
+- Positioned above mobile footer navigation (`bottom-20`)
+- Footer stays visible when chat is open
 
 ## Bundle Builder Promotion
 

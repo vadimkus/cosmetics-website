@@ -390,7 +390,7 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
   
   const chatStrings = {
     en: {
-      title: 'GENOSYS Beauty Advisor 💄',
+      title: 'GENOSYS Beauty Advisor ✨',
       welcome: `${timeGreeting}\n\n${contextMsg}\n\nI'm your personal GENOSYS skincare expert. Ask me anything about Korean dermacosmetics, routines, or ingredients! 🇰🇷`,
       placeholder: 'Ask about skincare, ingredients, routines...',
       send: 'Send',

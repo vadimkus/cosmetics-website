@@ -149,6 +149,12 @@ function BundleProductCard({
         <h3 className="text-sm font-medium text-gray-900 line-clamp-2 min-h-[2.5rem]">
           {product.name}
         </h3>
+        {/* Product Size */}
+        {product.size && (
+          <p className="text-xs text-gray-500 mt-1">
+            {product.size}
+          </p>
+        )}
         <div className="mt-2">
           {showPrices ? (
             <div className="flex flex-col">
@@ -169,7 +175,7 @@ function BundleProductCard({
                 </span>
               )}
               <span className="text-[10px] text-gray-400 mt-0.5">
-                {t('product.vatIncluded')}
+                5% {t('product.vatIncluded')}
               </span>
             </div>
           ) : (

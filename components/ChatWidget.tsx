@@ -196,22 +196,36 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
     }
   }, [messages])
   
-  // Hide/show footer when chat is open/closed
+  // Hide/show footer and mobile nav when chat is open/closed
   useEffect(() => {
+    const shouldHide = isOpen && !isMinimized
+    
+    // Desktop footer
     const footer = document.querySelector('footer')
+    // Mobile web footer nav
+    const mobileWebNav = document.querySelector('.mobile-web-footer-nav') as HTMLElement
+    // PWA mobile footer nav (has aria-label="Mobile navigation" and fixed position)
+    const pwaNav = document.querySelector('nav[aria-label="Mobile navigation"]') as HTMLElement
+    
     if (footer) {
-      if (isOpen && !isMinimized) {
-        footer.style.display = 'none'
-      } else {
-        footer.style.display = ''
-      }
+      (footer as HTMLElement).style.display = shouldHide ? 'none' : ''
     }
+    if (mobileWebNav) {
+      mobileWebNav.style.display = shouldHide ? 'none' : ''
+    }
+    if (pwaNav) {
+      pwaNav.style.display = shouldHide ? 'none' : ''
+    }
+    
     // Cleanup on unmount
     return () => {
       const footer = document.querySelector('footer')
-      if (footer) {
-        footer.style.display = ''
-      }
+      const mobileWebNav = document.querySelector('.mobile-web-footer-nav') as HTMLElement
+      const pwaNav = document.querySelector('nav[aria-label="Mobile navigation"]') as HTMLElement
+      
+      if (footer) (footer as HTMLElement).style.display = ''
+      if (mobileWebNav) mobileWebNav.style.display = ''
+      if (pwaNav) pwaNav.style.display = ''
     }
   }, [isOpen, isMinimized])
 
@@ -506,6 +520,31 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
                       {locale === 'ar' ? 'حماية الشمس' : locale === 'ru' ? 'Защита от солнца' : 'Sun protection'}
                     </QuickActionButton>
                   </div>
+                  {/* Quick action buttons - row 3: special features */}
+                  <div className="mt-2 flex flex-wrap gap-2">
+                    <QuickActionButton
+                      onClick={() => handleQuickAction(
+                        locale === 'ar' ? 'كيف أحصل على خصم 20%؟ أخبريني عن بناء الطقم' :
+                        locale === 'ru' ? 'Как получить скидку 20%? Расскажите о создании набора' :
+                        'How do I get 20% off? Tell me about Build Your Set'
+                      )}
+                      emoji="🎁"
+                      highlight
+                    >
+                      {locale === 'ar' ? '20% خصم!' : locale === 'ru' ? '20% скидка!' : '20% OFF!'}
+                    </QuickActionButton>
+                    <QuickActionButton
+                      onClick={() => handleQuickAction(
+                        locale === 'ar' ? 'لا أعرف نوع بشرتي، هل يمكنك تحليلها؟' :
+                        locale === 'ru' ? 'Не знаю свой тип кожи, можете проанализировать?' :
+                        'I don\'t know my skin type, can you analyze it with AI?'
+                      )}
+                      emoji="📸"
+                      highlight
+                    >
+                      {locale === 'ar' ? 'تحليل AI للبشرة' : locale === 'ru' ? 'AI анализ кожи' : 'AI Skin Analysis'}
+                    </QuickActionButton>
+                  </div>
                 </div>
               </div>
             )}
@@ -631,28 +670,29 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
 function QuickActionButton({ 
   children, 
   onClick,
-  emoji
+  emoji,
+  highlight
 }: { 
   children: React.ReactNode
   onClick: () => void
   emoji?: string
+  highlight?: boolean
 }) {
   return (
     <button
       type="button"
       onClick={onClick}
-      className="
+      className={`
         px-3 py-1.5 rounded-full
-        bg-gray-100 dark:bg-gray-600
-        text-xs text-gray-600 dark:text-gray-200
-        hover:bg-red-100 hover:text-red-600
-        dark:hover:bg-red-900 dark:hover:text-red-400
+        text-xs font-medium
         transition-all duration-200
         hover:scale-105 active:scale-95
-        border border-transparent hover:border-red-200
-        dark:hover:border-red-700
         flex items-center gap-1
-      "
+        ${highlight 
+          ? 'bg-gradient-to-r from-red-500 to-red-600 text-white shadow-md hover:from-red-600 hover:to-red-700 border border-red-400'
+          : 'bg-gray-100 dark:bg-gray-600 text-gray-600 dark:text-gray-200 hover:bg-red-100 hover:text-red-600 dark:hover:bg-red-900 dark:hover:text-red-400 border border-transparent hover:border-red-200 dark:hover:border-red-700'
+        }
+      `}
     >
       {emoji && <span>{emoji}</span>}
       {children}

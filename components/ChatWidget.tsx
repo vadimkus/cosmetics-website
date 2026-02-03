@@ -21,10 +21,17 @@ function getMessageText(message: { parts?: Array<{ type: string; text?: string }
     .join('')
 }
 
-// Helper to check if URL is internal (same site)
+// Helper to check if URL is internal (same site) - excludes documents/PDFs
 function isInternalUrl(url: string): boolean {
   try {
     const urlObj = new URL(url, window.location.origin)
+    const pathname = urlObj.pathname.toLowerCase()
+    
+    // Documents and PDFs should open in new tab, not internal navigation
+    if (pathname.includes('/documents/') || pathname.endsWith('.pdf')) {
+      return false
+    }
+    
     // Check if it's a genosys.ae link or relative path
     return urlObj.hostname === 'genosys.ae' || 
            urlObj.hostname === 'www.genosys.ae' ||
@@ -32,7 +39,7 @@ function isInternalUrl(url: string): boolean {
            url.startsWith('/')
   } catch {
     // If URL parsing fails, treat as internal if it starts with /
-    return url.startsWith('/')
+    return url.startsWith('/') && !url.toLowerCase().includes('/documents/')
   }
 }
 

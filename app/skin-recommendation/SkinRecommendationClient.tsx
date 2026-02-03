@@ -930,19 +930,27 @@ export default function SkinRecommendationClient() {
                         return (
                           <div key={idx} className="bg-white rounded-xl overflow-hidden shadow-sm border border-violet-100">
                             <div className={`flex ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                              {/* Product Image */}
-                              <div className="w-24 h-24 sm:w-28 sm:h-28 flex-shrink-0 bg-gray-50">
-                                {productDetails?.image ? (
-                                  <Image
-                                    src={productDetails.image}
-                                    alt={productDetails.name || productName || 'Product'}
-                                    width={112}
-                                    height={112}
-                                    className="w-full h-full object-cover"
-                                  />
-                                ) : (
-                                  <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-violet-100 to-purple-100">
-                                    <Sparkles className="w-8 h-8 text-violet-400" />
+                              {/* Product Image & Size */}
+                              <div className="flex-shrink-0 flex flex-col">
+                                <div className="w-24 h-24 sm:w-28 sm:h-28 bg-gray-50">
+                                  {productDetails?.image ? (
+                                    <Image
+                                      src={productDetails.image}
+                                      alt={productDetails.name || productName || 'Product'}
+                                      width={112}
+                                      height={112}
+                                      className="w-full h-full object-cover"
+                                    />
+                                  ) : (
+                                    <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-violet-100 to-purple-100">
+                                      <Sparkles className="w-8 h-8 text-violet-400" />
+                                    </div>
+                                  )}
+                                </div>
+                                {/* Product Size */}
+                                {productDetails?.size && (
+                                  <div className="bg-gray-100 px-2 py-1 text-center">
+                                    <span className="text-xs text-gray-600">{productDetails.size}</span>
                                   </div>
                                 )}
                               </div>

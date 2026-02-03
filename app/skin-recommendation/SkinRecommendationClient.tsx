@@ -78,6 +78,8 @@ export default function SkinRecommendationClient() {
     tips?: string[]
   } | null>(null)
   const [showAiAnalysis, setShowAiAnalysis] = useState(false)
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [aiProductDetails, setAiProductDetails] = useState<Map<string, any>>(new Map())
 
   // Load analysis data from URL params and sessionStorage
   useEffect(() => {
@@ -194,6 +196,33 @@ export default function SkinRecommendationClient() {
       
       const { data } = await response.json()
       setAiAnalysisResult(data)
+      
+      // Fetch product details for recommendations
+      if (data.recommendations && data.recommendations.length > 0) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const productDetailsMap = new Map<string, any>()
+        
+        await Promise.all(
+          data.recommendations.map(async (rec: { product: string; reason: string }) => {
+            const linkMatch = rec.product.match(/\[([^\]]+)\]\(([^)]+)\)\{\{id:(\d+)\}\}/)
+            if (linkMatch && linkMatch[3]) {
+              const productId: string = linkMatch[3]
+              try {
+                const productResponse = await fetch(`/api/products/${productId}`)
+                if (productResponse.ok) {
+                  const product = await productResponse.json()
+                  productDetailsMap.set(productId, product)
+                }
+              } catch {
+                // Ignore errors for individual products
+              }
+            }
+          })
+        )
+        
+        setAiProductDetails(productDetailsMap)
+      }
+      
       setShowAiAnalysis(true)
     } catch (error) {
       errorLog('AI Analysis Error:', error)
@@ -889,45 +918,71 @@ export default function SkinRecommendationClient() {
                     <h4 className="font-semibold text-gray-900 mb-3">
                       {locale === 'ar' ? '✨ المنتجات الموصى بها' : locale === 'ru' ? '✨ Рекомендуемые продукты' : '✨ Recommended Products'}
                     </h4>
-                    <div className="space-y-3">
+                    <div className="space-y-4">
                       {aiAnalysisResult.recommendations.map((rec, idx) => {
                         // Parse product link [Name](url){{id:XX}}
                         const linkMatch = rec.product.match(/\[([^\]]+)\]\(([^)]+)\)\{\{id:(\d+)\}\}/)
                         const productName = linkMatch ? linkMatch[1] : rec.product
                         const productUrl = linkMatch ? linkMatch[2] : null
                         const productId = linkMatch ? linkMatch[3] : null
+                        const productDetails = productId ? aiProductDetails.get(productId) : null
                         
                         return (
-                          <div key={idx} className="bg-white rounded-xl p-4 shadow-sm border border-violet-100">
-                            <div className={`flex items-start gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                              <span className="text-lg">💜</span>
-                              <div className="flex-1">
-                                {productUrl ? (
-                                  <a 
-                                    href={productUrl}
-                                    className="font-medium text-violet-700 hover:text-violet-900 hover:underline"
-                                  >
-                                    {productName}
-                                  </a>
+                          <div key={idx} className="bg-white rounded-xl overflow-hidden shadow-sm border border-violet-100">
+                            <div className={`flex ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                              {/* Product Image */}
+                              <div className="w-24 h-24 sm:w-28 sm:h-28 flex-shrink-0 bg-gray-50">
+                                {productDetails?.image ? (
+                                  <Image
+                                    src={productDetails.image}
+                                    alt={productDetails.name || productName || 'Product'}
+                                    width={112}
+                                    height={112}
+                                    className="w-full h-full object-cover"
+                                  />
                                 ) : (
-                                  <span className="font-medium text-gray-900">{productName}</span>
+                                  <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-violet-100 to-purple-100">
+                                    <Sparkles className="w-8 h-8 text-violet-400" />
+                                  </div>
                                 )}
-                                <p className="text-sm text-gray-600 mt-1">{rec.reason}</p>
-                                {productId && (
-                                  <button
-                                    onClick={async () => {
-                                      try {
-                                        const response = await fetch(`/api/products/${productId}`)
-                                        if (response.ok) {
-                                          const product = await response.json()
-                                          addItem(product, 1)
-                                          alert(locale === 'ar' ? 'تمت الإضافة إلى السلة! 🛍️' : locale === 'ru' ? 'Добавлено в корзину! 🛍️' : 'Added to bag! 🛍️')
-                                        }
-                                      } catch { /* ignore */ }
-                                    }}
-                                    className={`mt-2 inline-flex items-center gap-1 text-xs text-violet-600 hover:text-violet-800 font-medium ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+                              </div>
+                              
+                              {/* Product Info */}
+                              <div className={`flex-1 p-3 sm:p-4 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                                {/* Product Name */}
+                                {productUrl ? (
+                                  <Link 
+                                    href={productUrl}
+                                    className="font-semibold text-violet-700 hover:text-violet-900 hover:underline text-sm sm:text-base line-clamp-2"
                                   >
-                                    <ShoppingBag className="w-3 h-3" />
+                                    {productDetails?.name || productName}
+                                  </Link>
+                                ) : (
+                                  <span className="font-semibold text-gray-900 text-sm sm:text-base line-clamp-2">
+                                    {productName}
+                                  </span>
+                                )}
+                                
+                                {/* Price */}
+                                {productDetails?.price && (
+                                  <p className="text-primary-600 font-bold text-base sm:text-lg mt-1">
+                                    AED {Number(productDetails.price).toFixed(0)}
+                                  </p>
+                                )}
+                                
+                                {/* Reason */}
+                                <p className="text-xs sm:text-sm text-gray-600 mt-1 line-clamp-2">{rec.reason}</p>
+                                
+                                {/* Add to Bag Button */}
+                                {productId && productDetails && (
+                                  <button
+                                    onClick={() => {
+                                      addItem(productDetails, 1)
+                                      alert(locale === 'ar' ? 'تمت الإضافة إلى السلة! 🛍️' : locale === 'ru' ? 'Добавлено в корзину! 🛍️' : 'Added to bag! 🛍️')
+                                    }}
+                                    className={`mt-2 inline-flex items-center gap-1.5 px-3 py-1.5 bg-violet-600 hover:bg-violet-700 text-white text-xs font-medium rounded-lg transition-colors ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+                                  >
+                                    <ShoppingBag className="w-3.5 h-3.5" />
                                     {locale === 'ar' ? 'أضف إلى السلة' : locale === 'ru' ? 'В корзину' : 'Add to Bag'}
                                   </button>
                                 )}

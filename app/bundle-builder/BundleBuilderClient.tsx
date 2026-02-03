@@ -155,6 +155,12 @@ function BundleProductCard({
             {product.size}
           </p>
         )}
+        {/* Product Description */}
+        {product.description && (
+          <p className="text-[11px] text-gray-400 mt-1.5 line-clamp-2 leading-relaxed">
+            {product.description}
+          </p>
+        )}
         <div className="mt-2">
           {showPrices ? (
             <div className="flex flex-col">

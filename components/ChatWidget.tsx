@@ -88,63 +88,167 @@ function ChatLink({
   )
 }
 
-// Add to Cart button component
-function AddToCartButton({ 
+// Product Card component for chat - shows image, name, price, size
+interface ProductData {
+  id: string
+  name: string
+  price: number
+  image: string
+  size?: string
+}
+
+function ChatProductCard({ 
   productId, 
   productName,
+  productUrl,
   onAddToCart,
+  onInternalClick,
   locale
 }: { 
   productId: string
   productName: string
+  productUrl: string
   onAddToCart: (id: string, name: string) => void
+  onInternalClick: () => void
   locale: string
 }) {
+  const [product, setProduct] = useState<ProductData | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(false)
   const [added, setAdded] = useState(false)
   
-  const handleClick = () => {
-    if (!added) {
-      onAddToCart(productId, productName)
+  // Fetch product data
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const res = await fetch(`/api/products/${productId}`)
+        if (res.ok) {
+          const data = await res.json()
+          setProduct(data)
+        } else {
+          setError(true)
+        }
+      } catch {
+        setError(true)
+      } finally {
+        setLoading(false)
+      }
+    }
+    fetchProduct()
+  }, [productId])
+  
+  const handleAddToCart = () => {
+    if (!added && product) {
+      onAddToCart(productId, product.name)
       setAdded(true)
-      // Reset after 3 seconds
       setTimeout(() => setAdded(false), 3000)
     }
   }
   
-  // Translations for button
-  const buttonText = {
-    en: { add: 'Add', added: 'Added', addTitle: 'Add to bag', addedTitle: 'Added to bag!' },
-    ar: { add: 'أضف', added: 'تمت الإضافة', addTitle: 'أضف إلى السلة', addedTitle: 'تمت الإضافة!' },
-    ru: { add: 'Добавить', added: 'Добавлено', addTitle: 'В корзину', addedTitle: 'Добавлено!' },
+  const handleCardClick = () => {
+    onInternalClick()
+    window.location.href = productUrl
   }
-  const text = buttonText[locale as keyof typeof buttonText] || buttonText.en
   
+  // Translations
+  const cardText = {
+    en: { add: 'Add to Bag', added: 'Added!', aed: 'AED' },
+    ar: { add: 'أضف للسلة', added: 'تمت الإضافة!', aed: 'درهم' },
+    ru: { add: 'В корзину', added: 'Добавлено!', aed: 'AED' },
+  }
+  const text = cardText[locale as keyof typeof cardText] || cardText.en
+  
+  // Loading state - compact skeleton
+  if (loading) {
+    return (
+      <div className="inline-flex items-center gap-2 p-2 bg-gray-50 dark:bg-gray-800 rounded-lg animate-pulse my-1">
+        <div className="w-12 h-12 bg-gray-200 dark:bg-gray-700 rounded-md" />
+        <div className="flex flex-col gap-1">
+          <div className="w-24 h-3 bg-gray-200 dark:bg-gray-700 rounded" />
+          <div className="w-16 h-2 bg-gray-200 dark:bg-gray-700 rounded" />
+        </div>
+      </div>
+    )
+  }
+  
+  // Error state - fallback to simple link
+  if (error || !product) {
+    return (
+      <span className="inline-flex items-center gap-1">
+        <a 
+          href={productUrl}
+          onClick={(e) => { e.preventDefault(); handleCardClick() }}
+          className="text-red-600 hover:text-red-700 underline"
+        >
+          {productName}
+        </a>
+      </span>
+    )
+  }
+  
+  // Product card - compact inline design
   return (
-    <button
-      onClick={handleClick}
-      disabled={added}
-      className={`
-        inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium
-        transition-all duration-200 ml-1
-        ${added 
-          ? 'bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300' 
-          : 'bg-red-100 text-red-700 hover:bg-red-200 dark:bg-red-900 dark:text-red-300 dark:hover:bg-red-800'
-        }
-      `}
-      title={added ? text.addedTitle : `${text.addTitle}: ${productName}`}
-    >
-      {added ? (
-        <>
-          <Check className="w-3 h-3" />
-          <span>{text.added}</span>
-        </>
-      ) : (
-        <>
-          <ShoppingCart className="w-3 h-3" />
-          <span>{text.add}</span>
-        </>
-      )}
-    </button>
+    <div className="flex items-center gap-2 p-2 bg-gradient-to-r from-gray-50 to-white dark:from-gray-800 dark:to-gray-750 rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm my-1.5 max-w-[280px] hover:shadow-md transition-shadow">
+      {/* Product Image */}
+      <a 
+        href={productUrl}
+        onClick={(e) => { e.preventDefault(); handleCardClick() }}
+        className="flex-shrink-0"
+      >
+        <img 
+          src={product.image || '/images/placeholder.jpg'}
+          alt={product.name}
+          className="w-14 h-14 object-cover rounded-lg border border-gray-100 dark:border-gray-600 hover:scale-105 transition-transform"
+        />
+      </a>
+      
+      {/* Product Info */}
+      <div className="flex-1 min-w-0">
+        <a 
+          href={productUrl}
+          onClick={(e) => { e.preventDefault(); handleCardClick() }}
+          className="block"
+        >
+          <p className="text-xs font-medium text-gray-800 dark:text-gray-200 line-clamp-2 hover:text-red-600 dark:hover:text-red-400 transition-colors leading-tight">
+            {product.name}
+          </p>
+        </a>
+        <div className="flex items-center justify-between mt-1 gap-2">
+          <div>
+            <p className="text-xs font-bold text-red-600 dark:text-red-400">
+              {text.aed} {product.price}
+            </p>
+            {product.size && (
+              <p className="text-[10px] text-gray-400">{product.size}</p>
+            )}
+          </div>
+          <button
+            onClick={handleAddToCart}
+            disabled={added}
+            className={`
+              flex items-center gap-1 px-2 py-1 rounded-full text-[10px] font-medium
+              transition-all duration-200 whitespace-nowrap
+              ${added 
+                ? 'bg-green-500 text-white' 
+                : 'bg-red-600 text-white hover:bg-red-700'
+              }
+            `}
+          >
+            {added ? (
+              <>
+                <Check className="w-3 h-3" />
+                {text.added}
+              </>
+            ) : (
+              <>
+                <ShoppingCart className="w-3 h-3" />
+                {text.add}
+              </>
+            )}
+          </button>
+        </div>
+      </div>
+    </div>
   )
 }
 
@@ -264,24 +368,31 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
       const productId = productLinks.get(url)
       const isProductLink = !!productId
       
-      parts.push(
-        <span key={keyIndex++} className="inline-flex items-center flex-wrap gap-1">
+      if (isProductLink) {
+        // Product link - render as product card with image
+        parts.push(
+          <ChatProductCard
+            key={keyIndex++}
+            productId={productId}
+            productName={linkText}
+            productUrl={url}
+            onAddToCart={handleAddToCart}
+            onInternalClick={() => handleInternalLinkClick(url.replace('https://genosys.ae', ''))}
+            locale={locale}
+          />
+        )
+      } else {
+        // Regular link - render as text link
+        parts.push(
           <ChatLink
+            key={keyIndex++}
             url={url}
             onInternalClick={handleInternalLinkClick}
           >
             {linkText}
           </ChatLink>
-          {isProductLink && (
-            <AddToCartButton
-              productId={productId}
-              productName={linkText}
-              onAddToCart={handleAddToCart}
-              locale={locale}
-            />
-          )}
-        </span>
-      )
+        )
+      }
       
       lastIndex = match.index + fullMatch.length
     }

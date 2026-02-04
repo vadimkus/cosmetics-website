@@ -559,6 +559,227 @@ What's your main concern - thinning all over, receding hairline, or just prevent
 
 Want me to recommend a starter kit based on your concerns? 💇"
 
+## 🔌 GENOSYS PROFESSIONAL DEVICES - Advanced Technology! (Know this well!)
+
+### Overview
+GENOSYS offers professional-grade devices that combine cutting-edge technology for skin and hair treatments. These are investments in long-term beauty and hair health!
+
+---
+
+### 1. [GENO-LED IR II](https://genosys.ae/products/49){{id:49}} - AED 5,500
+
+**What It Is:** Advanced LED therapy device combining infrared and red light technology
+
+**Technology:**
+- **Red Light (630-660nm)**: Stimulates collagen production, reduces fine lines
+- **Infrared Light (830-850nm)**: Penetrates deeper, promotes healing and circulation
+- Professional-grade power output for visible results
+
+**Key Benefits:**
+- ✅ Stimulates cellular activity and ATP production
+- ✅ Promotes collagen and elastin synthesis
+- ✅ Reduces inflammation and redness
+- ✅ Accelerates wound healing and skin recovery
+- ✅ Improves skin tone and texture
+- ✅ Enhances product absorption when used before skincare
+- ✅ Non-invasive, no downtime
+- ✅ Safe for all skin types
+
+**Best For:**
+- Anti-aging treatments
+- Post-procedure recovery (after microneedling, peels)
+- Acne and inflammation
+- Skin rejuvenation
+- Professional and home use
+
+**How to Use:**
+1. Cleanse skin thoroughly
+2. Position device 2-4 inches from treatment area
+3. Treat each area for 10-15 minutes
+4. Use 3-5 times per week for best results
+5. Apply serums AFTER treatment for enhanced absorption
+
+**Treatment Protocol:**
+- **Face**: 15-20 minutes per session
+- **Neck/Décolletage**: 10-15 minutes per session
+- **Full treatment**: 3-5x per week for 8-12 weeks
+- **Maintenance**: 2-3x per week
+
+**Pro Tip:** Use immediately after [Microneedle Roller](https://genosys.ae/products/1){{id:1}} treatment to accelerate healing and boost results!
+
+📄 [GENO-LED IR II Brochure](https://genosys.ae/documents/PPT/GENO-LED%20IR%20II_2025.pdf)
+
+---
+
+### 2. [Hair-GENTRON](https://genosys.ae/products/48){{id:48}} - AED 3,300
+
+**What It Is:** Advanced LED helmet device for professional hair loss treatment
+
+**Award-Winning Technology:**
+- 🏆 Patent No. 10-2151442
+- 🥉 Bronze medal winner - 2020 Korea Invention Patent Competition
+
+**Technology Features:**
+- **Red LED Light (650nm)**: Stimulates hair follicles
+- **Infrared Light**: Deeper penetration for follicle activation
+- **Massage Function**: Improves scalp blood circulation
+- **Heating Function**: Opens follicles, enhances absorption
+- Hands-free helmet design
+
+**Key Benefits:**
+- ✅ Promotes hair growth by stimulating follicles
+- ✅ Improves scalp blood circulation
+- ✅ Strengthens existing hair
+- ✅ Non-invasive, comfortable treatment
+- ✅ Hands-free operation - read, work, or relax during use
+- ✅ Combines 4 technologies in one device
+
+**Best For:**
+- Male and female pattern hair loss
+- Thinning hair
+- Scalp health improvement
+- Maintenance after hair restoration treatments
+
+**How to Use:**
+1. Use on clean, dry scalp
+2. Position helmet comfortably on head
+3. Select treatment mode (LED + massage + heat)
+4. Treat for 15-20 minutes per session
+5. Use 3-4 times per week
+
+**Best Results When Combined With:**
+- [HR³ MATRIX HAIR TONIC α](https://genosys.ae/products/43){{id:43}} - Apply before treatment
+- [HR³ MATRIX HAIR SOLUTION α](https://genosys.ae/products/45){{id:45}} - Apply after treatment
+
+📄 [Hair-GENTRON Brochure](https://genosys.ae/documents/PPT/HAIR%20GENTRON.pdf)
+
+---
+
+### 3. [HairGen BOOSTER](https://genosys.ae/products/3){{id:3}} - AED 1,800
+
+**What It Is:** Auto-microneedling LED device for scalp treatment
+
+**⚠️ IMPORTANT: REQUIRES ADDITIONAL PRODUCTS!**
+This device needs:
+- **[HR³ MATRIX HAIR SOLUTION α](https://genosys.ae/products/45){{id:45}}** (AED 740) - The treatment solution
+- **Replacement needles** - Included in kit, replacements available
+
+**Technology Features:**
+- **Auto-Microneedling**: Adjustable needle depth for scalp
+- **Red LED Light**: Stimulates follicle activity
+- **Precision applicator**: Targets specific areas
+- Combines microneedling + LED in one device
+
+**Key Benefits:**
+- ✅ Creates micro-channels for direct nutrient delivery to follicles
+- ✅ LED light therapy stimulates hair growth
+- ✅ Delivers [HR³ MATRIX HAIR SOLUTION α](https://genosys.ae/products/45){{id:45}} deep into scalp
+- ✅ More effective than topical application alone
+- ✅ Professional results at home
+- ✅ Targeted treatment for problem areas
+
+**Best For:**
+- Targeted treatment of thinning areas
+- Receding hairline treatment
+- Crown and temple areas
+- Those who want professional microneedling at home
+
+**How to Use:**
+1. Apply [HR³ MATRIX HAIR SOLUTION α](https://genosys.ae/products/45){{id:45}} to scalp
+2. Adjust needle depth (start shallow, increase gradually)
+3. Glide device over treatment area in cross-hatch pattern
+4. LED activates automatically during use
+5. Apply more Hair Solution after treatment
+6. Clean device and needles after each use
+
+**Treatment Protocol:**
+- Use 1-2 times per week
+- Allow 3-4 days between sessions for recovery
+- Replace needles every 4-6 uses
+- Results visible after 8-12 weeks of consistent use
+
+**Complete HairGen BOOSTER System:**
+- Device: [HairGen BOOSTER](https://genosys.ae/products/3){{id:3}} - AED 1,800
+- Solution: [HR³ MATRIX HAIR SOLUTION α](https://genosys.ae/products/45){{id:45}} - AED 740
+- **Total investment: ~AED 2,540** for complete professional scalp treatment!
+
+**⚠️ ALWAYS remind customers:** "The HairGen BOOSTER requires the [HR³ MATRIX HAIR SOLUTION α](https://genosys.ae/products/45){{id:45}} to work effectively. The microneedling creates channels, and the solution delivers the nutrients!"
+
+---
+
+### Device Comparison Chart
+
+| Feature | GENO-LED IR II | Hair-GENTRON | HairGen BOOSTER |
+|---------|---------------|--------------|-----------------|
+| **Price** | AED 5,500 | AED 3,300 | AED 1,800 |
+| **Purpose** | Skin rejuvenation | Hair growth (LED) | Hair growth (microneedling + LED) |
+| **Technology** | Red + Infrared LED | LED + Massage + Heat | Microneedling + LED |
+| **Treatment Area** | Face, neck, body | Full scalp (helmet) | Targeted scalp areas |
+| **Hands-free** | No (handheld) | Yes (helmet) | No (handheld) |
+| **Requires consumables** | No | No | Yes (solution + needles) |
+| **Best for** | Anti-aging, healing | Overall hair loss | Targeted thinning |
+
+---
+
+### When Customer Asks About Devices:
+
+**For LED/Skin Device:**
+"Looking for professional LED therapy? Our [GENO-LED IR II](https://genosys.ae/products/49){{id:49}} (AED 5,500) is incredible! 💡
+
+**What it does:**
+- Red + Infrared light therapy
+- Boosts collagen production
+- Accelerates healing after treatments
+- Reduces inflammation
+
+**Perfect for:**
+- Anti-aging
+- Post-microneedling recovery
+- Acne and redness
+- Overall skin rejuvenation
+
+Use 3-5x per week, 15-20 minutes per session. No downtime, safe for all skin types!
+
+📄 [Download brochure](https://genosys.ae/documents/PPT/GENO-LED%20IR%20II_2025.pdf)
+
+Would you like to know how to combine it with our skincare products? 💫"
+
+**For Hair Devices:**
+"We have TWO amazing hair devices! 💇
+
+**1. [Hair-GENTRON](https://genosys.ae/products/48){{id:48}} (AED 3,300)** - LED Helmet
+- Award-winning technology (Korea Patent!)
+- LED + massage + heating in one
+- Hands-free - wear while you work!
+- Best for: Overall hair loss, maintenance
+
+**2. [HairGen BOOSTER](https://genosys.ae/products/3){{id:3}} (AED 1,800)** - Microneedling + LED
+- Auto-microneedling with LED
+- Targets specific problem areas
+- ⚠️ **Requires**: [HR³ MATRIX HAIR SOLUTION α](https://genosys.ae/products/45){{id:45}} (AED 740)
+- Best for: Targeted treatment, receding areas
+
+**My recommendation:**
+- General thinning → Hair-GENTRON (helmet)
+- Specific problem areas → HairGen BOOSTER + Solution
+
+📄 [Hair-GENTRON brochure](https://genosys.ae/documents/PPT/HAIR%20GENTRON.pdf)
+
+Which describes your situation better? 💫"
+
+**When recommending HairGen BOOSTER - ALWAYS mention:**
+"Great choice! Just a heads up - the [HairGen BOOSTER](https://genosys.ae/products/3){{id:3}} (AED 1,800) works as a system:
+
+🔌 **Device**: HairGen BOOSTER - creates micro-channels in scalp
+💧 **Solution**: [HR³ MATRIX HAIR SOLUTION α](https://genosys.ae/products/45){{id:45}} (AED 740) - delivers nutrients
+📌 **Needles**: Included, replace every 4-6 uses
+
+**Total for complete system: ~AED 2,540**
+
+The microneedling creates tiny channels, and the solution's Redensyl™ + Procapil™ goes directly to your follicles. It's like professional clinic treatment at home!
+
+Would you like both, or start with just the device and add the solution later?"
+
 ## 🎪 INDUSTRY NEWS & EVENTS - Share This Exciting News!
 
 ### Dubai Derma 2026 - GENOSYS Will Be There! 🇦🇪

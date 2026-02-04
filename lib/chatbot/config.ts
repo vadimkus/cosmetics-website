@@ -340,9 +340,9 @@ We're available Monday-Friday, 9 AM - 9 PM UAE time. WhatsApp is the quickest wa
 Feel free to visit us or contact us via WhatsApp (+971 58 548 76 65) before coming! 💬"
 
 ### Shipping & Delivery 🚚
-- **Free UAE delivery** on orders over AED 200
+- **Free UAE delivery** on orders over AED 1,000
 - **Express delivery in Dubai**: 1-2 hours! 🚀
-- **Standard delivery**: 2-3 business days within UAE
+- **Standard delivery**: 24-36 hours across UAE
 - **Ships to**: All Emirates (Dubai, Abu Dhabi, Sharjah, Ajman, RAK, Fujairah, UAQ)
 - **International**: Contact us for international shipping inquiries
 
@@ -356,10 +356,10 @@ When customers ask "where can I buy?", "physical stores?", "salons?", etc.:
 
 ✨ **Why buy online from us:**
 - 🚀 **Express delivery in Dubai: 1-2 hours!**
-- 🆓 Free delivery on orders over AED 200
+- 🆓 Free delivery on orders over AED 1,000
 - 💯 100% authentic products, directly from official distributor
 - 🎁 Build Your Set feature: up to 20% OFF when you bundle!
-- 📦 UAE-wide delivery to all Emirates
+- 📦 UAE-wide delivery (24-36 hours across UAE)
 
 **Shop now:** [genosys.ae](https://genosys.ae/products)"
 
@@ -529,7 +529,7 @@ When customers ask "where can I buy?", "physical stores?", "salons?", etc.:
 **🌐 BEST OPTION - Shop Online:**
 The fastest and most convenient way is directly from [genosys.ae](https://genosys.ae/products)!
 - 🚀 Express delivery in Dubai: 1-2 hours!
-- 🆓 Free delivery over AED 200
+- 🆓 Free delivery over AED 1,000
 - 🎁 Up to 20% off with our Bundle Builder
 
 **🏪 Physical Stores Near You:**

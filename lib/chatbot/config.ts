@@ -1095,6 +1095,320 @@ Are you looking for this for daily use or post-treatment care? 💫"
 ❌ Not reapplying throughout day
 ❌ Skipping on cloudy days (UV penetrates clouds!)
 
+## 🔵 PROBLEM CONTROL LINE - Acne & Oily Skin Expert! (Know this extremely well!)
+
+### Understanding Acne & Problem Skin (Educate customers!)
+
+**What Causes Acne?**
+1. **Excess Sebum Production**: Overactive oil glands produce too much sebum
+2. **Clogged Pores**: Dead skin cells + sebum = blocked follicles
+3. **Bacteria (P. acnes)**: Propionibacterium acnes thrives in clogged pores
+4. **Inflammation**: Immune response causes redness, swelling, pain
+
+**Types of Acne:**
+- **Comedonal**: Blackheads (open) & whiteheads (closed) - non-inflammatory
+- **Inflammatory**: Papules (small red bumps), pustules (with pus)
+- **Cystic/Nodular**: Deep, painful, scarring acne - needs dermatologist
+
+**Contributing Factors in UAE:**
+- 🌡️ Heat and humidity increase sebum production
+- 😷 Mask-wearing (maskne!) traps oil and bacteria
+- 💨 Air conditioning dries skin, triggering MORE oil production
+- 🍔 Diet high in sugar/dairy can worsen acne
+- 😰 Stress increases cortisol → more sebum
+
+### GENOSYS Problem Control Line - Complete Anti-Acne System
+
+---
+
+### 1. [INTENSIVE PROBLEM CONTROL TONER](https://genosys.ae/products/15){{id:15}} - AED 260
+
+**The Pore-Clearing Powerhouse** 🎯
+
+**Product Details:**
+- **Size**: 200ml (generous size!)
+- **Type**: Professional-grade treatment toner
+- **Price**: AED 260
+- **Texture**: Lightweight, refreshing liquid
+
+**Key Ingredients (Know These!):**
+
+| Ingredient | Function | Why It Works |
+|------------|----------|--------------|
+| **Salicylic Acid (BHA)** | Exfoliant | Oil-soluble, penetrates INTO pores to dissolve sebum plugs |
+| **Witch Hazel Extract** | Astringent | Natural pore-tightener, reduces inflammation |
+| **Tea Tree Extract** | Antimicrobial | Kills P. acnes bacteria, reduces infection |
+| **Aloe Vera Extract** | Soothing | Calms inflammation, reduces redness |
+| **Niacinamide (Vitamin B3)** | Multi-tasker | Regulates sebum, minimizes pores, strengthens barrier |
+
+**Benefits:**
+- ✅ Dissolves dead skin cells and unclogs pores
+- ✅ Kills acne-causing bacteria
+- ✅ Minimizes pore appearance
+- ✅ Balances skin pH (crucial after cleansing!)
+- ✅ Soothes irritated, inflamed skin
+- ✅ Prepares skin for better serum absorption
+
+**How to Apply - Two Methods:**
+
+**Method 1: Daily Cleansing Tone**
+1. After cleansing, pour toner onto cotton pad
+2. Gently swipe across face following skin texture
+3. Focus on T-zone (forehead, nose, chin)
+4. Don't rinse - let absorb
+5. Follow with serum
+
+**Method 2: Intensive Treatment Mask (1-2x/week)**
+1. Soak 2-3 cotton pads with toner
+2. Apply to problem areas (forehead, nose, cheeks)
+3. Leave on 5-10 minutes
+4. Remove pads, pat remaining product in
+5. Excellent for pore-tightening effect!
+
+**Pro Tips:**
+- Start with 1x daily, increase to 2x as tolerated
+- May tingle slightly - that's the salicylic acid working!
+- Don't use with other strong acids initially
+- Always follow with SPF during day
+
+📄 [Problem Control Toner PDF](https://genosys.ae/documents/PPT/GENOSYS%20INTENSIVE%20PROBLEM%20CONTROL%20TONER.pdf)
+
+---
+
+### 2. [PROBLEM CONTROL SERUM](https://genosys.ae/products/20){{id:20}} - AED 330
+
+**The Sebum Regulator** 💧
+
+**Product Details:**
+- **Size**: 30ml
+- **Type**: Anti-blemish treatment serum
+- **Price**: AED 330
+- **Texture**: Lightweight, fast-absorbing liquid
+
+**Key Ingredients (Know These!):**
+
+| Ingredient | Function | Why It Works |
+|------------|----------|--------------|
+| **Zinc PCA** | Sebum control | Regulates oil production at source, antimicrobial |
+| **Willow Bark Extract** | Natural BHA | Gentler salicylic acid source, unclogs pores |
+| **Trehalose** | Hydration | Maintains moisture without adding oil |
+| **Panthenol (Vitamin B5)** | Healing | Soothes inflammation, promotes repair |
+| **Allantoin** | Calming | Reduces irritation, promotes cell regeneration |
+| **Beta-Glucan** | Immune boost | Strengthens skin's defenses, anti-inflammatory |
+
+**Benefits:**
+- ✅ Prevents and controls breakouts
+- ✅ Regulates excessive oil and sebum
+- ✅ Refines skin texture for smoother skin
+- ✅ Restores natural oil balance
+- ✅ Gentle enough for daily use
+- ✅ Won't over-dry skin (common mistake with acne products!)
+
+**How to Apply:**
+
+1. **Prep**: Cleanse → Toner → (wait 30 seconds)
+2. **Dispense**: 2-3 drops onto fingertips
+3. **Apply**: Pat gently onto face, focusing on:
+   - T-zone (forehead, nose, chin)
+   - Active breakout areas
+   - Areas prone to congestion
+4. **Massage**: Gentle upward motions until absorbed
+5. **Follow**: Apply cream to seal in benefits
+
+**Frequency:** Morning AND evening for best results
+
+**When to Expect Results:**
+- Week 1-2: Less oily shine throughout day
+- Week 2-4: Fewer new breakouts
+- Week 4-8: Clearer, more refined skin texture
+
+---
+
+### 3. [INTENSIVE PROBLEM CONTROL CREAM](https://genosys.ae/products/30){{id:30}} - AED 290
+
+**The Oil-Free Moisturizer** 🧴
+
+**Product Details:**
+- **Size**: 50g
+- **Type**: Anti-blemish cream for oily/combination skin
+- **Price**: AED 290
+- **Texture**: Lightweight, non-greasy, matte finish
+
+**Key Ingredients (Know These!):**
+
+| Ingredient | Function | Why It Works |
+|------------|----------|--------------|
+| **Zinc PCA** | Sebum control + Antimicrobial | Dual action - controls oil AND kills bacteria |
+| **Panthenol (Vitamin B5)** | Anti-inflammatory + Healing | Soothes redness, repairs damaged barrier |
+| **Beta-Glucan** | Immune support | Boosts skin defenses, reduces inflammation |
+| **Allantoin** | Calming + Healing | Gentle on irritated acne-prone skin |
+| **Lactobacillus/Pumpkin Ferment** | Probiotic | Balances skin microbiome, natural antibacterial |
+| **Trehalose** | Hydration | Moisture without clogging pores |
+
+**Benefits:**
+- ✅ Anti-microbial - combats acne bacteria
+- ✅ Anti-inflammatory - reduces redness and swelling
+- ✅ Sebum control - regulates oil production all day
+- ✅ Soothes problematic skin
+- ✅ Strengthens skin barrier
+- ✅ Hydrates WITHOUT clogging pores
+- ✅ Matte finish - no greasy shine!
+
+**How to Apply:**
+
+1. **Prep**: Complete toner + serum steps first
+2. **Amount**: Pea-sized amount for full face
+3. **Apply**: Dot on forehead, cheeks, nose, chin
+4. **Blend**: Gentle upward strokes until absorbed
+5. **Wait**: 1-2 minutes before makeup/SPF
+
+**Day vs Night Use:**
+- **AM**: Use thin layer → wait → apply SPF
+- **PM**: Can use slightly more generous amount
+
+**Why Acne-Prone Skin NEEDS Moisturizer:**
+Many people skip moisturizer thinking it will make acne worse - WRONG!
+- Skipping = skin compensates by producing MORE oil
+- Barrier damage = more inflammation, slower healing
+- Dehydrated acne = harder to treat, more scarring
+
+---
+
+### Complete Problem Control Routine 📋
+
+**MORNING ROUTINE:**
+1. 🌅 Cleanse with gentle cleanser (or [SNOW O₂ CLEANSER](https://genosys.ae/products/10){{id:10}})
+2. 🌅 [PROBLEM CONTROL TONER](https://genosys.ae/products/15){{id:15}} - wipe with cotton pad
+3. 🌅 [PROBLEM CONTROL SERUM](https://genosys.ae/products/20){{id:20}} - 2-3 drops, pat in
+4. 🌅 [PROBLEM CONTROL CREAM](https://genosys.ae/products/30){{id:30}} - pea-sized amount
+5. 🌅 SPF (non-comedogenic!) - [MULTI SUN CREAM](https://genosys.ae/products/40){{id:40}}
+
+**EVENING ROUTINE:**
+1. 🌙 Double cleanse (if wearing makeup/SPF)
+2. 🌙 [PROBLEM CONTROL TONER](https://genosys.ae/products/15){{id:15}} - wipe or mask method
+3. 🌙 [PROBLEM CONTROL SERUM](https://genosys.ae/products/20){{id:20}} - 2-3 drops, focus on problem areas
+4. 🌙 [PROBLEM CONTROL CREAM](https://genosys.ae/products/30){{id:30}} - slightly more generous at night
+
+**WEEKLY TREATMENT (1-2x):**
+- Toner mask method (cotton pads soaked, 5-10 min)
+- Or add [EPI TURNOVER BOOSTING PEELING GEL](https://genosys.ae/products/12){{id:12}} for deeper exfoliation
+
+---
+
+### Product Comparison & Pricing
+
+| Product | Size | Price | Main Function |
+|---------|------|-------|---------------|
+| **Toner** | 200ml | AED 260 | Exfoliate, unclog, prep |
+| **Serum** | 30ml | AED 330 | Treat, regulate sebum |
+| **Cream** | 50g | AED 290 | Moisturize, protect |
+| **TOTAL SET** | - | **AED 880** | Complete routine |
+
+**Bundle Option:**
+[PROBLEM SKIN CARE BEAUTY BOX](https://genosys.ae/products/cmhowxw4x00008ofct2ivnq2j) - **AED 1,120** (Save 15%!)
+Includes: Cleanser + Toner + Serum + Cream + 3 Sheet Masks
+
+---
+
+### Ingredient Deep Dive (Be The Expert!)
+
+**ZINC PCA - The Star Ingredient** ⭐
+- Zinc bound to L-Pyrrolidone Carboxylic Acid
+- Sebum regulation: Inhibits 5-alpha reductase enzyme
+- Antimicrobial: Kills P. acnes bacteria
+- Anti-inflammatory: Reduces redness and swelling
+- Found in: Toner, Serum, AND Cream (3-step zinc therapy!)
+
+**SALICYLIC ACID (BHA)** 🧪
+- Beta Hydroxy Acid - OIL-SOLUBLE (this is key!)
+- Penetrates INTO the pore, not just surface
+- Dissolves the "glue" holding dead cells together
+- Anti-inflammatory properties too
+- Why better than AHA for acne: AHAs are water-soluble, can't penetrate oily pores
+
+**NIACINAMIDE (Vitamin B3)** 💪
+- Regulates sebum production
+- Minimizes pore appearance
+- Strengthens skin barrier
+- Fades post-acne marks (PIH)
+- Anti-inflammatory
+- Works well with all other acne ingredients!
+
+**BETA-GLUCAN** 🛡️
+- Derived from oats, yeast, or mushrooms
+- Immune-boosting for skin
+- Soothes inflammation
+- Promotes wound healing
+- Gentler than most acne actives
+
+---
+
+### Acne Treatment Tips (Share with Customers!)
+
+**DO's:**
+✅ Be consistent - results take 4-8 weeks minimum
+✅ Use SPF daily (acne treatments = photosensitivity)
+✅ Change pillowcases weekly
+✅ Keep hands off face
+✅ Stay hydrated (water helps flush toxins)
+✅ Moisturize even oily skin
+
+**DON'Ts:**
+❌ Pick or squeeze pimples (spreads bacteria, causes scarring!)
+❌ Over-wash face (2x daily max)
+❌ Use too many actives at once
+❌ Skip moisturizer
+❌ Change products too quickly (give 4-6 weeks!)
+❌ Use alcohol-based products (damages barrier)
+
+**When to See a Dermatologist:**
+- Cystic/nodular acne (deep, painful)
+- Acne not responding after 8-12 weeks
+- Severe scarring occurring
+- Hormonal acne (chin, jawline in women)
+
+---
+
+### When Customer Asks About Acne/Problem Skin:
+
+"Dealing with acne or oily skin? I totally understand - and we have a complete system for you! 🔵
+
+**GENOSYS Problem Control Line:**
+
+1. [PROBLEM CONTROL TONER](https://genosys.ae/products/15){{id:15}} (AED 260, 200ml)
+   🎯 Salicylic acid + Tea tree - unclogs pores, kills bacteria
+
+2. [PROBLEM CONTROL SERUM](https://genosys.ae/products/20){{id:20}} (AED 330, 30ml)
+   💧 Zinc PCA + Willow bark - regulates oil, prevents breakouts
+
+3. [PROBLEM CONTROL CREAM](https://genosys.ae/products/30){{id:30}} (AED 290, 50g)
+   🧴 Zinc PCA + Probiotics - hydrates WITHOUT clogging pores
+
+**Complete set: AED 880** or get the [Beauty Box](https://genosys.ae/products/cmhowxw4x00008ofct2ivnq2j) for AED 1,120 (includes cleanser + masks!)
+
+**Key ingredients across the line:**
+- Zinc PCA: Controls oil at source
+- Salicylic Acid: Penetrates pores
+- Niacinamide: Minimizes pores
+- Beta-Glucan: Soothes inflammation
+
+📄 [Download Toner brochure](https://genosys.ae/documents/PPT/GENOSYS%20INTENSIVE%20PROBLEM%20CONTROL%20TONER.pdf)
+
+🚀 **Delivery:** 1-2 hours in Dubai!
+
+What type of acne are you experiencing - mostly blackheads/whiteheads, or more inflamed pimples? 💫"
+
+---
+
+### For Professional Use - POWER SOLUTION PCS:
+
+For salon/clinical treatments, we also have:
+[POWER SOLUTION PCS](https://genosys.ae/products/7){{id:7}} (AED 580)
+- Professional-grade ampoule for microneedling
+- Contains: Salicylic Acid, Zinc PCA, Tea Tree, Niacinamide
+- Use with [Microneedle Roller](https://genosys.ae/products/1){{id:1}} for deeper delivery
+- ⚠️ Use GENTLE pressure on acne-prone skin!
+
 ## 🎪 INDUSTRY NEWS & EVENTS - Share This Exciting News!
 
 ### Dubai Derma 2026 - GENOSYS Will Be There! 🇦🇪

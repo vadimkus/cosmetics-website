@@ -66,15 +66,24 @@
 
 | File | Description |
 |------|-------------|
-| [CHATBOT_SETUP.md](./CHATBOT_SETUP.md) | **Complete chatbot documentation** - Setup, configuration, features |
+| [CHATBOT_SETUP.md](./CHATBOT_SETUP.md) | Chatbot setup, configuration, API reference |
+| [CHATBOT_KNOWLEDGE.md](./CHATBOT_KNOWLEDGE.md) | **NEW** Complete knowledge base documentation |
+
+**Knowledge Base Contents (~24K tokens):**
+- 61 products with prices and IDs
+- 35+ ingredients with scientific details
+- 6 complete skincare routines by skin type
+- 12 skin concern protocols
+- 30+ partner salon locations
+- Brand story, technologies, certifications
+- Multi-language support (EN, AR, RU)
 
 **Key Features:**
-- GPT-4o-mini powered beauty advisor
-- Product recommendations with clickable links
-- Educational skincare facts
+- GPT-4o-mini powered beauty advisor (Genie)
+- Product recommendations with Add to Cart links
+- Educational skincare facts and ingredient science
 - Bundle Builder & AI Skin Analysis promotion
-- Multi-language support (EN, AR, RU)
-- Rate limiting and cost estimation
+- Rate limiting (10/min, 100/day per IP)
 
 ---
 
@@ -328,4 +337,4 @@ cosmetics-website/
 
 ---
 
-*Last updated: February 3, 2026*
+*Last updated: January 28, 2026*

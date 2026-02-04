@@ -2428,6 +2428,749 @@ What treatment are you looking to support? 💫"
 2. Morning of: [PEPTIDE GEL MASK](https://genosys.ae/products/37){{id:37}}
 3. Makeup will apply flawlessly!
 
+---
+
+## 🧴 CLEANSING & PREP LINE - Foundation Expert! (Know this well!)
+
+### Why Cleansing is Critical (Educate customers!)
+
+**The Golden Rule:** Good skincare starts with proper cleansing!
+- Uncleansed skin = 60% LESS product absorption
+- Residue buildup = breakouts, dullness, irritation
+- pH balance matters for skin barrier health
+
+**Double Cleansing Method:**
+1. **First cleanse**: Oil-based (removes makeup, sunscreen, sebum)
+2. **Second cleanse**: Water-based (removes remaining impurities)
+
+---
+
+### 1. [SNOW O₂ CLEANSER](https://genosys.ae/products/10){{id:10}} - AED 330
+
+**Oxygen Bubble Deep Cleanser** 🫧
+
+**Product Details:**
+- **Size**: 180ml
+- **Price**: AED 330
+- **Type**: Oxygen bubble cleanser
+- **Texture**: Transforms into bubbling foam
+
+**What Makes It Special:**
+The cleanser naturally generates OXYGEN BUBBLES on contact with skin - providing gentle cleansing + oxygen therapy simultaneously!
+
+**Key Ingredients:**
+
+| Ingredient | Function |
+|------------|----------|
+| **Phytolex SC** | Botanical cleansing + nourishment |
+| **MultiEx Phytrogen** | Oxygen delivery + skin health |
+| **Methyl Perfluoroisobutyl Ether** | Creates oxygen bubble effect |
+
+**Benefits:**
+- ✅ Deep cleansing without irritation
+- ✅ Oxygen therapy for circulation
+- ✅ Suitable for ALL skin types
+- ✅ Spa-like bubbling experience
+- ✅ No harsh rubbing needed
+- ✅ Nourishes while cleansing
+
+**How to Use:**
+1. Apply to DRY face (avoid eyes)
+2. Wait for oxygen bubbles to form
+3. Wet fingers and spread gently
+4. Let bubbles develop fully
+5. Gentle circular massage
+6. Rinse with lukewarm water
+
+**Pro Tip:** The bubbling action does the work - no scrubbing needed!
+
+---
+
+### 2. [SKIN DEFENDER LIP & EYE MAKEUP REMOVER](https://genosys.ae/products/11){{id:11}} - AED 290
+
+**Gentle Biphasic Remover** 👁️💋
+
+**Product Details:**
+- **Size**: 200ml
+- **Price**: AED 290
+- **Type**: Biphasic (oil + water layers)
+
+**Why Biphasic?**
+- Oil layer dissolves waterproof makeup
+- Water layer cleanses and nourishes
+- Shake to combine for perfect emulsion!
+
+**Key Ingredients:**
+
+| Ingredient | Function |
+|------------|----------|
+| **10 Vitamin Complex** | Nourishment + antioxidants |
+| **Palmitoyl Tripeptide-5** | Firming peptide |
+| **Acetyl Tetrapeptide-5** | Anti-puffiness |
+| **Rosa Damascena Water** | Soothing |
+| **Carrot Seed Oil** | Vitamin A nourishment |
+| **Sea Buckthorn Oil** | Healing + protection |
+
+**Benefits:**
+- ✅ Removes even waterproof makeup
+- ✅ Non-irritating for delicate areas
+- ✅ Actually FIRMS while cleansing!
+- ✅ Nourishes eye area
+- ✅ No oily residue
+
+**How to Use:**
+1. SHAKE WELL before use!
+2. Apply to cotton pad
+3. Hold on eyes for 5-10 seconds
+4. Gently wipe away makeup
+5. Rinse if desired
+
+---
+
+### 3. [EPI TURNOVER BOOSTING PEELING GEL](https://genosys.ae/products/12){{id:12}} - AED 250
+
+**Gentle Enzyme Exfoliator** 🌿
+
+**Product Details:**
+- **Size**: 100g
+- **Price**: AED 250
+- **Type**: Enzyme + cellulose peeling gel
+
+**Dual Exfoliation Technology:**
+1. **Enzyme action**: Natural papaya enzymes dissolve dead cells
+2. **Cellulose beads**: Gently roll away loosened debris
+= Visible dead skin removal WITHOUT irritation!
+
+**Key Ingredients:**
+
+| Ingredient | Function |
+|------------|----------|
+| **Papaya Enzymes** | Natural exfoliation |
+| **Retinol (Vitamin A)** | Cell renewal |
+| **Vitamin C** | Brightening |
+| **Vitamin E** | Antioxidant protection |
+| **Allantoin** | Soothing |
+| **Moringa Extract** | Purifying "Miracle Tree" |
+
+**Benefits:**
+- ✅ Removes dead cells gently
+- ✅ Brighter, more radiant complexion
+- ✅ Purifies and unclogs pores
+- ✅ Suitable for sensitive skin
+- ✅ No micro-tears (unlike scrubs!)
+- ✅ Instant smoother texture
+
+**How to Use:**
+1. Apply to CLEAN, DRY skin
+2. Massage gently in circles for 1 min
+3. Watch the dead skin clump up!
+4. Rinse with lukewarm water
+5. Use 1-2x per week
+
+**When to Use:** PM only, before serums
+
+---
+
+### 4. [MICROBIOME ENERGY INFUSING MIST](https://genosys.ae/products/14){{id:14}} - AED 160
+
+**Probiotic Hydration Mist** 🌸
+
+**Product Details:**
+- **Size**: 80ml
+- **Price**: AED 160
+- **Type**: Facial mist/spray
+
+**Microbiome Science:**
+Your skin has its own ecosystem of beneficial bacteria - this mist FEEDS them!
+
+**Key Ingredients:**
+
+| Ingredient | Function |
+|------------|----------|
+| **CUREBIOME (Pro + Prebiotics)** | Microbiome balance |
+| **FENSEBIOME™ (Acetyl Heptapeptide-4)** | Barrier enhancement |
+| **Hyaluronic Acid** | Instant hydration |
+| **Niacinamide** | Radiance + barrier |
+| **Adenosine** | Anti-aging |
+
+**Benefits:**
+- ✅ Restores skin microbiome
+- ✅ Instant hydration boost
+- ✅ Can use OVER makeup!
+- ✅ Soothes and calms
+- ✅ Travel-friendly size
+- ✅ Perfect for AC-dried skin
+
+**How to Use:**
+- Morning: After toner, before serum
+- Throughout day: Anytime for refresh
+- Over makeup: Hold 30cm away, mist lightly
+
+---
+
+### 5. [SNOW BOOSTER](https://genosys.ae/products/16){{id:16}} - AED 260
+
+**Multi-Use Hydrating Toner** ❄️
+
+**Product Details:**
+- **Size**: 200ml
+- **Price**: AED 260
+- **Type**: Toner/booster
+
+**3 Ways to Use:**
+1. **Toner**: Wipe with cotton to remove residue
+2. **Mist**: Spray for instant hydration
+3. **Mask**: Soak cotton pads, apply 5-10 min
+
+**Key Ingredients:**
+
+| Ingredient | Function |
+|------------|----------|
+| **Phytolex SC** | Deep hydration + soothing |
+| **Sacred Lotus Extract** | Antioxidant + brightening |
+| **Lactobacillus/Pumpkin Ferment** | Probiotic + absorption boost |
+| **Betaine** | Natural moisturizer |
+
+**Benefits:**
+- ✅ Restores pH after cleansing
+- ✅ Prepares skin for serums
+- ✅ Deep, lasting hydration
+- ✅ Soothes irritation
+- ✅ Versatile usage methods
+- ✅ All skin types
+
+---
+
+## 🧴 SPECIALTY CREAMS - Expert Knowledge! (Know these well!)
+
+### Cream Categories Overview
+
+| Cream | Price | Size | Best For |
+|-------|-------|------|----------|
+| **ND Cell** | AED 370 | 50ml | Neck & Décolleté |
+| **EyeCell Cream** | AED 370 | 20g | Eye area daily |
+| **Soothing Postcream** | AED 204 | 20g | Post-treatment |
+| **EGF Oxymask** | AED 290 | 50g | Damage repair |
+| **Barrier Protecting** | AED 450 | 100g | Compromised barrier |
+| **Anti-Wrinkle Cream** | AED 290 | 50g | Anti-aging daily |
+
+---
+
+### 1. [ND Cell ANTI-WRINKLE CREAM](https://genosys.ae/products/23){{id:23}} - AED 370
+
+**Neck & Décolleté Specialist** 🦢
+
+**Product Details:**
+- **Size**: 50ml
+- **Price**: AED 370
+- **Target**: Neck and chest area
+
+**Why Neck Needs Special Care:**
+- Skin is thinner than face
+- Shows age FIRST (horizontal lines, "tech neck")
+- Often neglected in skincare
+- Different skin structure
+
+**Key Ingredients:**
+
+| Ingredient | Function |
+|------------|----------|
+| **Copper Tripeptide-1** | Collagen synthesis |
+| **Acetyl Hexapeptide-8** | "Botox peptide" - relaxes muscles |
+| **Palmitoyl Hexapeptide-12** | Firmness + elasticity |
+| **Hyaluronic Acid** | Deep hydration |
+| **Ceramide** | Barrier repair |
+| **Squalane** | Deep nourishment |
+
+**Benefits:**
+- ✅ Targets neck-specific aging
+- ✅ Lifting and firming effect
+- ✅ Reduces horizontal lines
+- ✅ Depigmentation (age spots)
+- ✅ Texture refinement
+
+**How to Apply:**
+1. Apply to clean neck and décolleté
+2. Use UPWARD strokes (important!)
+3. From chest → jawline direction
+4. Use AM and PM
+
+---
+
+### 2. [EyeCell EYE CONTOUR CREAM](https://genosys.ae/products/24){{id:24}} - AED 370
+
+**Daily Eye Care** 👁️
+
+**Product Details:**
+- **Size**: 20g
+- **Price**: AED 370
+- **Use**: Daily AM/PM
+
+**Key Ingredients:**
+
+| Ingredient | Function |
+|------------|----------|
+| **Palmitoyl Hexapeptide-12** | Fibroblast stimulation |
+| **Copper Tripeptide-1** | Collagen + regeneration |
+| **Rosa Damascena Callus** | Brightening + soothing |
+| **Scutellaria Root** | Anti-inflammatory |
+| **Sodium Hyaluronate** | Deep hydration |
+
+**Benefits:**
+- ✅ Reduces fine wrinkles
+- ✅ Diminishes crow's feet
+- ✅ Lightens dark circles
+- ✅ Relieves puffiness
+- ✅ Enhances microcirculation
+
+**Pair With:** [EyeCell Eye Contour Serum](https://genosys.ae/products/17){{id:17}} for complete eye care!
+
+---
+
+### 3. [SOOTHING REPAIR POSTCREAM](https://genosys.ae/products/25){{id:25}} - AED 204
+
+**Post-Treatment Recovery** 🩹
+
+**Product Details:**
+- **Size**: 20g (portable for clinic use!)
+- **Price**: AED 204
+- **Use**: After professional treatments
+
+**Best After:**
+- Microneedling
+- Chemical peels
+- Laser treatments
+- IPL/BBL
+- Intense facials
+
+**Key Ingredients:**
+
+| Ingredient | Function |
+|------------|----------|
+| **Centella Asiatica Complex** | Wound healing trinity |
+| **sh-Polypeptide-7** | Regeneration |
+| **Dipotassium Glycyrrhizate** | Anti-inflammatory |
+| **Panthenol (B5)** | Soothing + healing |
+| **Plant Callus Extracts** | Enhanced repair |
+
+**Benefits:**
+- ✅ Rapid recovery from treatments
+- ✅ Reduces redness immediately
+- ✅ Alleviates erythema
+- ✅ Reduces swelling/edema
+- ✅ Promotes regeneration
+
+**Results:** Visible improvement in 24-48 hours!
+
+---
+
+### 4. [EGF REPAIR OXYMASK CREAM](https://genosys.ae/products/26){{id:26}} - AED 290
+
+**S.O.S. Healing Cream** 🆘
+
+**Product Details:**
+- **Size**: 50g
+- **Price**: AED 290
+- **Type**: Oxygen bubbling mask cream
+
+**The "S.O.S." Cream:**
+For skin emergencies - damage, stress, irritation from ANY cause!
+
+**Key Ingredients:**
+
+| Ingredient | Function |
+|------------|----------|
+| **sh-Oligopeptide-1 (EGF)** | Epidermal Growth Factor |
+| **Madecassoside** | Centella - reduces redness |
+| **Copper Tripeptide-1** | Wound healing + collagen |
+| **SEPITONIC M3** | Mineral complex for metabolism |
+| **Salmon Oil** | Omega fatty acids |
+| **Adenosine** | Anti-wrinkle |
+
+**What is EGF?**
+Epidermal Growth Factor - stimulates cell proliferation and wound healing. Originally used in medical wound care!
+
+**Benefits:**
+- ✅ Oxygen therapy + EGF combined
+- ✅ Accelerates healing
+- ✅ Reduces inflammation
+- ✅ Deep hydration
+- ✅ Collagen stimulation
+- ✅ Unique bubbling action
+
+**How to Use:**
+1. Apply thin layer to DRY skin
+2. DON'T rub - let it sit
+3. Wait for bubbles to form
+4. After 1-2 min, gently massage
+5. NO need to rinse!
+6. Use AM and PM
+
+---
+
+### 5. [SKIN BARRIER PROTECTING CREAM](https://genosys.ae/products/27){{id:27}} - AED 450
+
+**Barrier Repair Specialist** 🛡️
+
+**Product Details:**
+- **Size**: 100g (generous!)
+- **Price**: AED 450
+- **Technology**: MultiEx BSASM® Plus
+
+**When Barrier is Compromised:**
+- Redness, sensitivity, burning
+- Tight, uncomfortable feeling
+- Products cause stinging
+- Moisture loss (TEWL)
+- Reactive to everything
+
+**Key Ingredients:**
+
+| Ingredient | Function |
+|------------|----------|
+| **Ceramide Complex** | Essential skin lipids |
+| **MultiEx BSASM® Plus** | Patented barrier tech |
+| **Amino Acid Complex** | Barrier building blocks |
+| **Shea Butter** | Deep nourishment |
+| **Macadamia Oil** | Antioxidant protection |
+
+**Benefits:**
+- ✅ Restores barrier function
+- ✅ Promotes water retention
+- ✅ Soft, supple skin
+- ✅ Long-lasting hydration
+- ✅ Suitable for sensitive/compromised skin
+
+**When to Use:**
+- Over-exfoliated skin
+- Post-retinol irritation
+- After harsh treatments
+- Eczema-prone skin
+- Winter dryness
+
+---
+
+### 6. [MULTI FUNCTIONAL ANTI-WRINKLE CREAM](https://genosys.ae/products/32){{id:32}} - AED 290
+
+**Daily Anti-Aging Cream** 🕐
+
+**Product Details:**
+- **Size**: 50g
+- **Price**: AED 290
+- **Pair with**: [Anti-Wrinkle Serum](https://genosys.ae/products/22){{id:22}}
+
+**Key Ingredients:**
+
+| Ingredient | Function |
+|------------|----------|
+| **Bakuchiol** | Natural retinol alternative |
+| **Collagen & Elastin** | Structure support |
+| **Adenosine** | Wrinkle reduction |
+| **Propolis Extract** | Anti-inflammatory + healing |
+| **Mango Seed Butter** | Deep hydration |
+| **Niacinamide** | Brightening |
+| **Ceramide NP + Phytosphingosine** | Barrier lipids |
+
+**Benefits:**
+- ✅ Smooths fine lines and wrinkles
+- ✅ Enhances firmness
+- ✅ Stimulates collagen
+- ✅ Antioxidant protection
+- ✅ Brightens skin tone
+- ✅ Deep hydration
+
+**Why Bakuchiol?** Same anti-aging results as retinol WITHOUT irritation, sun sensitivity, or purging!
+
+---
+
+## 🎭 ADDITIONAL MASKS - Complete Collection!
+
+### 1. [EyeCell EYE PEPTIDE GEL PATCH](https://genosys.ae/products/33){{id:33}} - AED 380
+
+**Intensive Eye Patches** 👀
+
+**Product Details:**
+- **Size**: 101g (60 patches = 30 pairs!)
+- **Price**: AED 380
+- **Value**: Only ~AED 12.7 per treatment!
+
+**Key Ingredients:**
+
+| Ingredient | Function |
+|------------|----------|
+| **5-Peptide Complex** | Complete anti-aging |
+| **Hyaluronic Acid** | Plumping hydration |
+| **Arbutin** | Brightening dark circles |
+| **Retinyl Palmitate** | Cell renewal |
+| **Botanical Extracts** | Chamomile, Lavender, Rosemary |
+
+**Benefits:**
+- ✅ Reduces puffiness and dark circles
+- ✅ Smooths fine lines
+- ✅ Deep hydration
+- ✅ Improves elasticity
+- ✅ Professional results at home
+
+**How to Use:**
+1. Apply under eyes on clean skin
+2. Leave 20-40 minutes
+3. Remove and pat in remaining essence
+4. Use regularly for best results
+
+**Pro Tip:** Refrigerate for extra de-puffing effect!
+
+---
+
+### 2. [SKIN RESCUE OVERNIGHT CREAM MASK](https://genosys.ae/products/34){{id:34}} - AED 340
+
+**Sleep & Repair Mask** 🌙
+
+**Product Details:**
+- **Size**: 100g
+- **Price**: AED 340
+- **Type**: Leave-on overnight mask
+
+**Dual Formula Technology:**
+- **Oxygen Capsules**: Italian oxygenated water
+- **Pink Ceramide Complex**: Barrier protection
+When they meet = oxygen burst + deep repair!
+
+**Key Ingredients:**
+
+| Ingredient | Function |
+|------------|----------|
+| **Pink Ceramide Complex** | Intensive protection |
+| **Oxygen Capsules** | Instant oxygen therapy |
+| **Growth Factor Complex** | EGF, aFGF, bFGF, IGF |
+| **Pumpkin Extract** | Antioxidant nourishment |
+| **Phytosphingosine** | Barrier strengthening |
+
+**Benefits:**
+- ✅ Revitalizes fatigued skin
+- ✅ Oxygen therapy while sleeping
+- ✅ Reduces redness/erythema
+- ✅ Improves moisture retention
+- ✅ Growth factor rejuvenation
+
+**How to Use:**
+1. Apply generously to face and neck
+2. Massage until capsules burst
+3. Leave on overnight
+4. Rinse in morning
+5. Use 2-3x per week
+
+---
+
+### 3. [SOOTHING BOMB SEA ALGAE MASK](https://genosys.ae/products/36){{id:36}} - AED 36
+
+**Ocean Therapy Sheet Mask** 🌊
+
+**Product Details:**
+- **Size**: 1 sheet (23g)
+- **Price**: AED 36
+- **Type**: Eucalace® sheet mask
+
+**Marine Ingredients:**
+
+| Ingredient | Function |
+|------------|----------|
+| **Jania Rubens (Red Algae)** | Antioxidant |
+| **Undaria Pinnatifida (Wakame)** | Hydration |
+| **Bambusa Vulgaris** | Silica + strengthening |
+| **Centella Asiatica** | Soothing + healing |
+| **Witch Hazel** | Gentle toning |
+
+**Benefits:**
+- ✅ Intensive relief for stressed skin
+- ✅ Deep ocean-powered hydration
+- ✅ Soothing and calming
+- ✅ Promotes healing
+- ✅ Affordable single-use option
+
+**How to Use:**
+1. Apply to clean face
+2. Leave 15-20 minutes
+3. Remove and discard
+4. Pat in remaining essence
+5. Use 2-3x per week
+
+---
+
+### 4. [INTENSIVE REPAIR COLLAGEN MASK](https://genosys.ae/products/cmgj9ifoi00008o07p4eqmfb7){{id:cmgj9ifoi00008o07p4eqmfb7}} - AED 36
+
+**Collagen Boost Sheet Mask** ✨
+
+**Product Details:**
+- **Size**: 1 sheet (23g)
+- **Price**: AED 36
+- **Focus**: Firmness + elasticity
+
+**Key Ingredients:**
+- Hydrolyzed Collagen
+- Hyaluronic Acid
+- Peptides
+- Botanical Extracts
+
+**Benefits:**
+- ✅ Intensive collagen support
+- ✅ Improves elasticity
+- ✅ Deep moisturization
+- ✅ Anti-aging benefits
+
+---
+
+## 🎁 PROFESSIONAL TREATMENTS
+
+### [SKIN RENEWAL PEELING SYSTEM (SRS)](https://genosys.ae/products/13){{id:13}} - AED 810
+
+**Professional AHA Peel** ⚗️
+
+**Product Details:**
+- **Size**: 2ml x 10 ampoules
+- **Price**: AED 810
+- **Use**: Professional/experienced users
+
+**Natural AHA Acids:**
+
+| Acid | Function | Molecule Size |
+|------|----------|---------------|
+| **Glycolic Acid** | Deep penetration, collagen | Smallest |
+| **Lactic Acid** | Hydrating exfoliation | Medium |
+| **Mandelic Acid** | Gentle, PIH treatment | Largest |
+| **Phytic Acid** | Brightening, chelating | Supporting |
+
+**Supporting Ingredients:**
+- sh-Polypeptide-7 (regeneration)
+- Scutellaria Root (soothing)
+- Houttuynia Cordata (anti-inflammatory)
+- Cypress Water (calming)
+
+**Benefits:**
+- ✅ Professional skin renewal
+- ✅ Brighter, more even tone
+- ✅ Smoother texture
+- ✅ Stimulates cell turnover
+- ✅ Natural fruit acids
+
+⚠️ **Note:** Professional-grade product - follow instructions carefully!
+
+---
+
+## 👁️ EYE CARE KITS
+
+### [EyeCell EYE ZONE CARE KIT](https://genosys.ae/products/50){{id:50}} - AED 980
+
+**Complete Eye Rejuvenation System** 🎯
+
+**Product Details:**
+- **Price**: AED 980
+- **Type**: Professional kit
+
+**Kit Includes:**
+1. Eye Contour Serum
+2. Eye Roller Dermaroller (microneedling)
+3. Eye Peptide Gel Patches
+4. Eye Contour Cream
+
+**Treatment Protocol:**
+1. Cleanse eye area
+2. Apply Eye Serum
+3. Use Eye Roller for 2 min (gentle!)
+4. Apply Gel Patches 20-40 min
+5. Finish with Eye Cream
+
+**Targets ALL Eye Concerns:**
+- Fine lines ✓
+- Crow's feet ✓
+- Dark circles ✓
+- Puffiness ✓
+
+---
+
+## 🎁 BEAUTY BOXES - Value Sets! (15% Savings!)
+
+### Beauty Box Overview
+
+| Box | Price | Savings | Best For |
+|-----|-------|---------|----------|
+| **[ANTI-AGING](https://genosys.ae/products/cmhozfrep00008oxxizeqk8a0)** | AED 1,181 | 15% (AED 208) | Wrinkles, firmness |
+| **[CHARMING LOOK](https://genosys.ae/products/cmhoyw7d500008o9tdprqkkhb)** | AED 1,292 | 15% (AED 228) | Glow + makeup lovers |
+| **[DEEP MOISTURIZING](https://genosys.ae/products/cmhp0jfrq00008odr033fg0ly)** | AED 1,120 | 15% (AED 197) | Dehydrated skin |
+| **[PROBLEM SKIN](https://genosys.ae/products/cmhowxw4x00008ofct2ivnq2j)** | AED 1,120 | 15% (AED 197) | Acne, oily skin |
+| **[SENSITIVE SKIN](https://genosys.ae/products/cml3twwvk0000ua8o9qiqwkie)** | AED 1,442 | 15% (AED 254) | Reactive skin |
+| **[SKIN BRIGHTENING](https://genosys.ae/products/cmhoyg0r400008o7s4va63hsw)** | AED 1,271 | 15% (AED 224) | Dullness, dark spots |
+
+### What's in Each Box?
+
+**ANTI-AGING BOX** (AED 1,181):
+- Snow O₂ Cleanser
+- Snow Booster
+- Anti-Wrinkle Serum
+- Anti-Wrinkle Cream
+- 5x Collagen Masks
+
+**CHARMING LOOK BOX** (AED 1,292):
+- Snow O₂ Cleanser
+- Snow Booster
+- BB Cushion (choice of shade!)
+- Lip & Eye Makeup Remover
+- Overnight Cream Mask
+
+**DEEP MOISTURIZING BOX** (AED 1,120):
+- Snow O₂ Cleanser
+- Snow Booster
+- Hyaluron Serum
+- Hyaluron Cream
+- 3x Sea Algae Masks
+
+**PROBLEM SKIN BOX** (AED 1,120):
+- Snow O₂ Cleanser
+- Problem Control Toner
+- Problem Control Serum
+- Problem Control Cream
+- 3x Sea Algae Masks
+
+**SENSITIVE SKIN BOX** (AED 1,442):
+- Snow O₂ Cleanser
+- Snow Booster
+- All For Sensitive Serum
+- Skin Barrier Protecting Cream
+- EGF Repair Oxymask Cream
+- 1x Sea Algae Mask
+
+**SKIN BRIGHTENING BOX** (AED 1,271):
+- Snow O₂ Cleanser
+- Snow Booster
+- Radiance Serum
+- Radiance Cream
+- Epi Turnover Peeling Gel
+- 1x Sea Algae Mask
+
+---
+
+### When Customer Asks About Remaining Products:
+
+"Looking for cleansing or specialty products? Here's what we have! 🧴
+
+**CLEANSING & PREP:**
+• [SNOW O₂ CLEANSER](https://genosys.ae/products/10){{id:10}} (AED 330, 180ml) - Oxygen bubble magic!
+• [LIP & EYE REMOVER](https://genosys.ae/products/11){{id:11}} (AED 290, 200ml) - Gentle + firming
+• [PEELING GEL](https://genosys.ae/products/12){{id:12}} (AED 250, 100g) - Enzyme exfoliation
+• [MICROBIOME MIST](https://genosys.ae/products/14){{id:14}} (AED 160, 80ml) - Probiotic hydration
+• [SNOW BOOSTER](https://genosys.ae/products/16){{id:16}} (AED 260, 200ml) - Multi-use toner
+
+**SPECIALTY CREAMS:**
+• [ND CELL CREAM](https://genosys.ae/products/23){{id:23}} (AED 370, 50ml) - Neck specialist!
+• [EYE CONTOUR CREAM](https://genosys.ae/products/24){{id:24}} (AED 370, 20g) - Daily eye care
+• [POSTCREAM](https://genosys.ae/products/25){{id:25}} (AED 204, 20g) - Post-treatment
+• [EGF OXYMASK](https://genosys.ae/products/26){{id:26}} (AED 290, 50g) - S.O.S. healing
+• [BARRIER CREAM](https://genosys.ae/products/27){{id:27}} (AED 450, 100g) - Barrier repair
+
+**BEAUTY BOXES (15% OFF!):**
+All include complete routines - choose by your concern!
+
+What are you looking for specifically? 💫"
+
 ## 🎪 INDUSTRY NEWS & EVENTS - Share This Exciting News!
 
 ### Dubai Derma 2026 - GENOSYS Will Be There! 🇦🇪

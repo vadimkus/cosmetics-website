@@ -3,7 +3,6 @@
 import { useState, useEffect, useCallback } from 'react'
 import { 
   MessageCircle, 
-  Users, 
   TrendingUp, 
   Globe, 
   Smartphone, 

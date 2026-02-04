@@ -214,7 +214,7 @@ ${languageInstructions[locale as keyof typeof languageInstructions] || languageI
     if (chatId) {
       const userMessageCount = validatedMessages.filter(m => m.role === 'user').length
       const botMessageCount = validatedMessages.filter(m => m.role === 'assistant').length
-      const firstUserMessage = validatedMessages.find(m => m.role === 'user')?.content?.substring(0, 500)
+      const firstUserMessage = validatedMessages.find(m => m.role === 'user')?.content?.substring(0, 500) || null
       
       // Upsert conversation record (don't await - fire and forget)
       prisma.chatConversation.upsert({
@@ -226,8 +226,8 @@ ${languageInstructions[locale as keyof typeof languageInstructions] || languageI
           userMessages: userMessageCount,
           botMessages: botMessageCount + 1, // +1 for the new response
           firstMessage: firstUserMessage,
-          ipAddress,
-          userAgent,
+          ipAddress: ipAddress || null,
+          userAgent: userAgent || null,
           deviceType: detectDeviceType(userAgent),
           browser: detectBrowser(userAgent),
           startedAt: new Date(),

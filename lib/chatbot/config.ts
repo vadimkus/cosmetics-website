@@ -1294,6 +1294,431 @@ Have you used microneedling before? I can share tips for beginners if needed! �
 
 Remember: Every response should educate, engage, and end with a question! Make skincare exciting! 💫
 
+## 🧴 COMPLETE SKINCARE ROUTINES BY SKIN TYPE
+
+### DRY SKIN ROUTINE
+**Morning:**
+1. Gentle cleanse: [SNOW O₂ CLEANSER](https://genosys.ae/products/10){{id:10}} or just water
+2. Hydrating toner: [SNOW BOOSTER](https://genosys.ae/products/16){{id:16}} - 2-3 layers!
+3. Serum: [HYALURON SERUM](https://genosys.ae/products/18){{id:18}} - on damp skin
+4. Moisturizer: [SKIN BARRIER PROTECTING CREAM](https://genosys.ae/products/27){{id:27}}
+5. SPF: [MULTI SUN CREAM SPF 40](https://genosys.ae/products/40){{id:40}}
+
+**Evening:**
+1. Double cleanse if wearing makeup
+2. Hydrating toner - multiple layers
+3. Serum: Hyaluron or [ALL FOR SENSITIVE SERUM](https://genosys.ae/products/19){{id:19}}
+4. Rich cream: Barrier Protecting Cream
+5. Weekly: [SKIN RESCUE OVERNIGHT MASK](https://genosys.ae/products/34){{id:34}} 2-3x
+
+**Key tips:** No hot water, humidifier at home, apply products on damp skin
+
+### OILY/ACNE-PRONE SKIN ROUTINE
+**Morning:**
+1. Cleanse: [SNOW O₂ CLEANSER](https://genosys.ae/products/10){{id:10}}
+2. Toner: [INTENSIVE PROBLEM CONTROL TONER](https://genosys.ae/products/15){{id:15}} - Zinc PCA controls sebum
+3. Serum: [PROBLEM CONTROL SERUM](https://genosys.ae/products/20){{id:20}}
+4. Moisturizer: [HYALURON CREAM](https://genosys.ae/products/29){{id:29}} - yes, oily skin needs moisture!
+5. SPF: [ULTRA SHIELD SPF 50+](https://genosys.ae/products/39){{id:39}}
+
+**Evening:**
+1. Double cleanse (essential for SPF removal)
+2. Problem Control Toner
+3. Problem Control Serum
+4. Light moisturizer
+5. Weekly: [EPI TURNOVER PEELING GEL](https://genosys.ae/products/12){{id:12}} 2-3x
+
+**Key tips:** Don't over-cleanse (triggers more oil), never skip moisturizer, change pillowcase weekly
+
+### COMBINATION SKIN ROUTINE
+**Morning:**
+1. Gentle cleanse
+2. Toner: Problem Control on T-zone, Snow Booster on cheeks
+3. Serum: [HYALURON SERUM](https://genosys.ae/products/18){{id:18}} all over
+4. Moisturizer: [HYALURON CREAM](https://genosys.ae/products/29){{id:29}}
+5. SPF: Ultra Shield SPF 50+
+
+**Evening:**
+1. Double cleanse
+2. Zone-specific toner
+3. Serum by concern
+4. Moisturizer - can use richer on dry areas
+
+**Key tips:** Multi-masking is your friend, treat zones differently
+
+### SENSITIVE SKIN ROUTINE
+**Morning:**
+1. Splash with lukewarm water or very gentle cleanse
+2. Skip toner or use [SNOW BOOSTER](https://genosys.ae/products/16){{id:16}} (no actives)
+3. Serum: [ALL FOR SENSITIVE SERUM](https://genosys.ae/products/19){{id:19}}
+4. Moisturizer: [SKIN BARRIER PROTECTING CREAM](https://genosys.ae/products/27){{id:27}}
+5. Mineral SPF: [MULTI SUN CREAM SPF 40](https://genosys.ae/products/40){{id:40}}
+
+**Evening:**
+1. Gentle cleanse only
+2. Sensitive Serum
+3. Barrier cream - thicker layer
+
+**Key tips:** Patch test everything, no fragrance, minimal actives, focus on barrier repair
+
+### ANTI-AGING/MATURE SKIN ROUTINE (35+)
+**Morning:**
+1. Gentle cleanse
+2. Hydrating toner - multiple layers
+3. Serum: [MULTI FUNCTIONAL ANTI-WRINKLE SERUM](https://genosys.ae/products/22){{id:22}}
+4. Eye: [EyeCell EYE CONTOUR CREAM](https://genosys.ae/products/24){{id:24}}
+5. Moisturizer: [ND Cell ANTI-WRINKLE CREAM](https://genosys.ae/products/23){{id:23}}
+6. SPF: [ULTRA SHIELD SPF 50+](https://genosys.ae/products/39){{id:39}} - non-negotiable!
+
+**Evening:**
+1. Double cleanse
+2. Toner
+3. Anti-wrinkle serum
+4. Eye cream (ring finger, pat gently)
+5. Rich night cream
+6. Weekly: [PEPTIDE GEL MASK](https://genosys.ae/products/37){{id:37}}, [EZ CO₂ MASK](https://genosys.ae/products/38){{id:38}}
+
+**Key tips:** SPF is #1 anti-aging, neck & hands show age first, consistency > intensity
+
+### BRIGHTENING/HYPERPIGMENTATION ROUTINE
+**Morning:**
+1. Cleanse
+2. Toner
+3. Serum: [MULTI VITA RADIANCE SERUM](https://genosys.ae/products/21){{id:21}} - Vitamin C
+4. Moisturizer: [MULTI VITA RADIANCE CREAM](https://genosys.ae/products/31){{id:31}}
+5. SPF 50+ - mandatory (sun = more pigmentation!)
+
+**Evening:**
+1. Double cleanse
+2. [EPI TURNOVER PEELING GEL](https://genosys.ae/products/12){{id:12}} 2x/week
+3. Radiance Serum
+4. Radiance Cream
+
+**Key tips:** Results take 8-12 weeks, SPF every day or progress reverses, consistent exfoliation helps
+
+## 🔬 EXPANDED INGREDIENT DATABASE
+
+### BAKUCHIOL - Natural Retinol Alternative
+- Plant-derived from Psoralea corylifolia seeds
+- Same collagen-boosting benefits as retinol WITHOUT irritation
+- Safe for pregnancy, breastfeeding, and sensitive skin
+- Can use AM and PM (doesn't increase sun sensitivity)
+- Found in: Our Anti-Wrinkle line
+
+### SQUALANE - The Moisture Locker
+- Originally from shark liver, now plant-derived (olives, sugarcane)
+- Identical to skin's natural sebum - absorbs perfectly
+- Lightweight yet deeply moisturizing
+- Won't clog pores (non-comedogenic)
+- Great for ALL skin types including oily
+
+### ALLANTOIN - The Soother
+- Derived from comfrey plant
+- Promotes cell turnover and wound healing
+- Calms irritation and redness
+- Often used in post-procedure products
+- Very gentle - suitable for babies
+
+### PANTHENOL (Vitamin B5) - The Healer
+- Converts to pantothenic acid in skin
+- Deep hydration + barrier repair
+- Reduces inflammation and itching
+- Speeds wound healing
+- Works synergistically with Hyaluronic Acid
+
+### ADENOSINE - The Wrinkle Fighter
+- Naturally occurring in body (ATP energy)
+- Clinically proven to reduce wrinkles
+- Boosts collagen synthesis
+- Very gentle - no irritation
+- Found in many Korean anti-aging products
+
+### BETA-GLUCAN - The Immune Booster
+- Derived from oats, mushrooms, or yeast
+- Stimulates skin's immune system
+- Better moisture retention than Hyaluronic Acid
+- Calms inflammation and redness
+- Excellent for sensitive, reactive skin
+
+### TRANEXAMIC ACID - The Pigmentation Fighter
+- Originally used for bleeding disorders
+- Blocks melanin transfer to skin cells
+- Effective for melasma and sun spots
+- Gentle alternative to hydroquinone
+- Can be combined with Vitamin C for enhanced results
+
+### ALPHA ARBUTIN - The Brightener
+- Derived from bearberry plant
+- Inhibits tyrosinase (melanin-producing enzyme)
+- Safer, gentler than hydroquinone
+- Effective at 1-2% concentration
+- Best combined with Vitamin C and Niacinamide
+
+### AZELAIC ACID - The Multi-Tasker
+- Derived from grains (wheat, barley)
+- Anti-acne, anti-rosacea, anti-pigmentation
+- Kills acne bacteria
+- Brightens without irritation
+- Safe for pregnancy
+
+### LICORICE ROOT EXTRACT - The Soother & Brightener
+- Contains glabridin - potent brightening agent
+- Anti-inflammatory properties
+- Calms redness and irritation
+- Good for sensitive skin brightening
+- Often paired with other brighteners
+
+### SNAIL MUCIN - The Repairer
+- Glycoproteins, hyaluronic acid, and glycolic acid naturally
+- Promotes healing and cell regeneration
+- Deep hydration
+- Reduces acne scars
+- Popular in K-beauty
+
+### PROPOLIS - The Protector
+- Bee-derived resin
+- Antibacterial and antifungal
+- Promotes wound healing
+- Rich in flavonoids (antioxidants)
+- Great for acne and damaged skin
+
+### FERMENTED INGREDIENTS - Enhanced Potency
+- Fermentation breaks down molecules for better absorption
+- Increases antioxidant content
+- Creates beneficial metabolites
+- Common: fermented rice, soy, yeast
+- Found in: [BIO-FERMENT AGE DEFYING POWDER MASK](https://genosys.ae/products/51){{id:51}}
+
+### TEA TREE OIL - The Acne Fighter
+- Antibacterial and antifungal
+- Effective against P. acnes bacteria
+- Use at 5% concentration for acne
+- Can be drying - always moisturize
+- Avoid if skin is very sensitive
+
+### WITCH HAZEL - The Astringent
+- Natural astringent and anti-inflammatory
+- Tightens pores temporarily
+- Soothes irritation
+- Caution: alcohol-free versions only!
+- Not for very dry/sensitive skin
+
+### MADECASSOSIDE - The Cica Component
+- Active compound from Centella Asiatica
+- Promotes collagen synthesis
+- Anti-inflammatory and wound healing
+- Strengthens skin barrier
+- Key ingredient in "cica" products
+
+### COPPER PEPTIDES (GHK-Cu) - The Regenerator
+- Naturally occurring in body
+- Stimulates collagen and elastin
+- Promotes wound healing
+- Anti-inflammatory
+- One of the most researched anti-aging ingredients
+- Found in: [POWER SOLUTION CTS](https://genosys.ae/products/6){{id:6}}
+
+### GROWTH FACTORS (EGF, FGF, IGF) - The Cell Communicators
+- Proteins that regulate cell growth
+- EGF: Epidermal growth - speeds cell turnover
+- FGF: Fibroblast growth - boosts collagen
+- IGF: Insulin-like - promotes healing
+- Found in: [POWER SOLUTION HES](https://genosys.ae/products/4){{id:4}}
+
+### SALICYLIC ACID (BHA) - The Pore Cleaner
+- Oil-soluble - penetrates into pores
+- Dissolves sebum and dead skin
+- Anti-inflammatory
+- Best for oily, acne-prone skin
+- Use 0.5-2% concentration
+
+### GLYCOLIC ACID (AHA) - The Resurfacer
+- Smallest AHA molecule - deepest penetration
+- Dissolves dead skin cells
+- Stimulates collagen
+- Can be irritating - start low (5-10%)
+- Always use SPF after
+
+### LACTIC ACID (AHA) - The Gentle Exfoliator
+- Larger molecule than glycolic - gentler
+- Hydrating properties
+- Good for dry and sensitive skin
+- Derived from milk
+- Effective at 5-10%
+
+### UREA - The Moisture Binder
+- Naturally in skin's NMF (Natural Moisturizing Factor)
+- Attracts and binds water
+- At 10%+: exfoliating properties
+- Excellent for very dry, rough skin
+- Often used for feet and elbows
+
+### VITAMIN E (TOCOPHEROL) - The Protector
+- Fat-soluble antioxidant
+- Protects cell membranes from damage
+- Synergistic with Vitamin C (8x more effective together)
+- Moisturizing properties
+- Helps stabilize other ingredients
+
+### FERULIC ACID - The Booster
+- Plant-derived antioxidant
+- Stabilizes Vitamin C and E
+- Combined: 8x more photoprotection
+- Anti-inflammatory
+- Found in rice bran, oats
+
+### RESVERATROL - The Wine Ingredient
+- Found in grape skins, red wine
+- Powerful antioxidant
+- Activates sirtuins (longevity genes)
+- Anti-inflammatory
+- Calms redness
+
+### COENZYME Q10 (UBIQUINONE) - The Energizer
+- Naturally in every cell (decreases with age)
+- Powers cellular energy production
+- Antioxidant protection
+- Reduces appearance of wrinkles
+- Particularly good for mature skin
+
+## 🎯 SKIN CONCERNS - DETAILED PROTOCOLS
+
+### ACNE (Mild to Moderate)
+**Causes:** Excess sebum, P. acnes bacteria, clogged pores, inflammation
+**Protocol:**
+1. AM: Gentle cleanser → Problem Control Toner → Niacinamide serum → Light moisturizer → SPF
+2. PM: Double cleanse → Problem Control Toner → Problem Control Serum → Light moisturizer
+3. Weekly: Gentle exfoliation 2x, [EZ CO₂ MASK](https://genosys.ae/products/38){{id:38}} 1x
+**Products:** Problem Control line, Zinc PCA, Salicylic acid
+**Timeline:** Improvement in 4-6 weeks, clear in 8-12 weeks
+**Don'ts:** Picking, over-cleansing, skipping moisturizer, harsh scrubs
+
+### HYPERPIGMENTATION / DARK SPOTS
+**Types:** PIH (post-acne), melasma, sun spots, age spots
+**Protocol:**
+1. AM: Cleanse → Vitamin C serum → Brightening cream → SPF 50+ (mandatory!)
+2. PM: Cleanse → Exfoliating toner 2-3x/week → Brightening serum → Brightening cream
+3. Weekly: Chemical exfoliation
+**Products:** Radiance line, Niacinamide, Vitamin C, Arbutin
+**Timeline:** Fading starts 4-6 weeks, significant improvement 12+ weeks
+**Key:** SPF every single day or progress reverses!
+
+### DEHYDRATION (Lack of Water)
+**Signs:** Tight feeling, dull skin, fine lines appear worse, makeup doesn't sit well
+**Note:** Different from dry skin (lack of oil) - can affect oily skin too!
+**Protocol:**
+1. Use hydrating products on DAMP skin
+2. Layer lightweight hydrators (7-skin method: apply toner 7 times)
+3. Seal with moisturizer
+4. Humidifier in bedroom
+**Products:** Hyaluron Serum, Snow Booster (multiple layers), Hyaluron Cream
+**Timeline:** Improvement in 2-3 days with proper routine
+
+### ENLARGED PORES
+**Causes:** Genetics, age (loss of elasticity), sun damage, excess sebum
+**Truth:** Can't permanently shrink pores, but can minimize appearance
+**Protocol:**
+1. Keep pores clean: double cleanse, regular exfoliation
+2. Control sebum: Niacinamide, Zinc PCA
+3. Boost collagen: Peptides, Retinoids (tightens around pores)
+4. Daily SPF: Sun damage enlarges pores
+**Products:** Problem Control Toner, Niacinamide products, Peeling Gel
+**Timeline:** Visible improvement in 4-8 weeks
+
+### FINE LINES & WRINKLES
+**Prevention > Treatment** (easier to prevent than reverse)
+**Protocol:**
+1. SPF 50+ daily - 80% of aging is sun damage
+2. Peptides and growth factors - signal collagen production
+3. Retinoids/Bakuchiol - increase cell turnover
+4. Deep hydration - plumps skin, reduces appearance
+5. Don't forget neck, chest, hands!
+**Products:** Anti-Wrinkle line, EyeCell for eyes, Peptide Masks
+**Timeline:** Prevention immediate, reversal 12+ weeks for visible change
+
+### DULL, TIRED SKIN
+**Causes:** Dehydration, dead skin buildup, poor circulation, lack of sleep
+**Quick fixes:**
+1. Exfoliate: [EPI TURNOVER PEELING GEL](https://genosys.ae/products/12){{id:12}}
+2. Hydrate: Hyaluron Serum + multiple toner layers
+3. Boost circulation: [EZ CO₂ MASK](https://genosys.ae/products/38){{id:38}} - instant glow!
+4. Brighten: Vitamin C serum
+**Products:** Peeling Gel, CO₂ Mask, Radiance line
+**Timeline:** Instant improvement from exfoliation and masks
+
+### REDNESS / ROSACEA-PRONE SKIN
+**Triggers:** Heat, spicy food, alcohol, stress, harsh products
+**Protocol:**
+1. Ultra-gentle routine - minimal products
+2. NO fragrance, alcohol, or harsh actives
+3. Mineral SPF (chemical can trigger)
+4. Barrier-focused care
+5. Calming ingredients: Centella, Niacinamide, Allantoin
+**Products:** Sensitive Serum, Barrier Cream, Multi Sun (mineral)
+**Timeline:** Calming in days, long-term management
+**Note:** Severe rosacea = see dermatologist
+
+### LOSS OF FIRMNESS / SAGGING
+**Causes:** Collagen/elastin loss, gravity, fat redistribution, muscle weakening
+**Protocol:**
+1. Peptides daily - signal collagen production
+2. Growth factors - stimulate fibroblasts
+3. Facial massage - improves circulation
+4. SPF - prevents further collagen breakdown
+5. Consider professional treatments: microneedling, LED, RF
+**Products:** Anti-Wrinkle line, PDRN products, Peptide masks, Microneedle roller
+**Timeline:** Maintenance ongoing, visible lift 8-12 weeks
+
+### UNEVEN SKIN TEXTURE
+**Causes:** Dead skin buildup, acne scars, enlarged pores, dehydration
+**Protocol:**
+1. Regular exfoliation: AHA/BHA or peeling gel 2-3x/week
+2. Hydration: Smooths surface appearance
+3. Niacinamide: Refines texture
+4. Retinoids: Increase cell turnover
+5. Professional: Microneedling for scarring
+**Products:** Peeling Gel, Hyaluron line, Microneedle Roller
+**Timeline:** Smoother in 2-4 weeks, scars need 3-6 months
+
+### DARK CIRCLES
+**Types:** 
+- Pigmented (brown) - genetics, sun damage → brightening ingredients
+- Vascular (blue/purple) - thin skin, blood vessels → caffeine, Vitamin K
+- Structural (shadows) - hollows, bags → fillers (professional)
+**Protocol:**
+1. Identify type first!
+2. Gentle eye cream with peptides
+3. Caffeine for puffiness
+4. Brighteners for pigmented circles
+5. Sleep, hydration, less salt
+**Products:** [EyeCell EYE CONTOUR SERUM](https://genosys.ae/products/17){{id:17}}, [EyeCell EYE CONTOUR CREAM](https://genosys.ae/products/24){{id:24}}, [EyeCell PEPTIDE GEL PATCH](https://genosys.ae/products/33){{id:33}}
+**Timeline:** Puffiness improves quickly, pigmentation 8-12 weeks
+
+### POST-ACNE MARKS (PIH/PIE)
+**PIH (Post-Inflammatory Hyperpigmentation):** Brown marks - excess melanin
+**PIE (Post-Inflammatory Erythema):** Red/pink marks - damaged blood vessels
+**Protocol for PIH:**
+1. Vitamin C, Niacinamide, Arbutin, Tranexamic Acid
+2. Gentle exfoliation
+3. SPF 50+ (sun darkens PIH)
+**Protocol for PIE:**
+1. Time is the main healer
+2. Azelaic Acid, Niacinamide
+3. Centella/Cica products
+4. Don't pick at skin!
+**Timeline:** PIH 3-6 months, PIE 6-12 months
+
+### COMPROMISED SKIN BARRIER
+**Signs:** Stinging on product application, redness, sensitivity, tight/dry feeling, increased breakouts
+**Causes:** Over-exfoliation, harsh products, hot water, retinoid overuse
+**Protocol:**
+1. STOP all actives (Vitamin C, retinoids, AHAs, BHAs)
+2. Simplify to: gentle cleanser, hydrating serum, barrier cream
+3. Focus on: Ceramides, fatty acids, cholesterol, Panthenol
+4. Give it 2-4 weeks to recover
+**Products:** [SKIN BARRIER PROTECTING CREAM](https://genosys.ae/products/27){{id:27}}, Sensitive Serum, Hyaluron Serum
+**Timeline:** Recovery in 2-4 weeks with proper care
+
 
 ## ARABIC TRANSLATIONS (للعربية)
 

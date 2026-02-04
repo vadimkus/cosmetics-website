@@ -262,14 +262,19 @@ function BundleSummary({
                 <p className="text-sm font-medium text-gray-900 truncate">
                   {item.product.name}
                 </p>
+                {item.product.size && (
+                  <p className="text-[11px] text-gray-400">
+                    {item.product.size}
+                  </p>
+                )}
                 <p className="text-xs text-gray-500">
                   {t(`bundleBuilder.steps.${item.step}`)}
                 </p>
               </div>
               <div className="flex items-center gap-2">
                 {showPrices && (
-                  <span className="text-sm font-medium text-gray-900">
-                    {itemPricing.discountedPrice.toFixed(2)}
+                  <span className="text-sm font-medium text-gray-900 whitespace-nowrap">
+                    {t('common.aed')} {itemPricing.discountedPrice.toFixed(2)}
                   </span>
                 )}
                 <button

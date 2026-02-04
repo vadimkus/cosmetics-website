@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation'
 import { useTranslation } from '@/hooks/useTranslation'
 import { useCartStore } from '@/lib/cartStore'
 import { useToast } from '@/components/ToastProvider'
-import { MessageCircle, X, Send, Loader2, Bot, User, Minimize2, ShoppingCart, Check } from 'lucide-react'
+import { MessageCircle, X, Send, Loader2, Sparkles, User, Minimize2, ShoppingCart, Check } from 'lucide-react'
 
 interface ChatWidgetProps {
   className?: string
@@ -416,30 +416,30 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
   
   const chatStrings = {
     en: {
-      title: 'GENOSYS Beauty Advisor ✨',
-      welcome: `${timeGreeting}\n\n${contextMsg}\n\nI'm your personal GENOSYS skincare expert. Ask me anything about Korean dermacosmetics, routines, or ingredients! 🇰🇷`,
-      placeholder: 'Ask about skincare, ingredients, routines...',
+      title: 'Genie ✨ Your Beauty Genie',
+      welcome: `${timeGreeting}\n\n${contextMsg}\n\nHi lovely! I'm Genie, your GENOSYS Beauty Genie! ✨ Your wish for beautiful skin is my command! Ask me anything about Korean dermacosmetics, routines, or ingredients - I'm here to help! 💫`,
+      placeholder: 'Ask Genie about skincare, routines...',
       send: 'Send',
-      typing: 'Thinking...',
-      error: 'Oops! Something went wrong. Please try again.',
+      typing: 'Genie is working magic... ✨',
+      error: 'Oops! Even genies have off moments. Please try again! 💫',
       clear: 'Clear chat',
     },
     ar: {
-      title: 'مستشار جمال جينوسيس 💄',
-      welcome: `${timeGreeting}\n\n${contextMsg}\n\nأنا خبير العناية بالبشرة الخاص بك في جينوسيس. اسألني أي شيء عن مستحضرات التجميل الكورية! 🇰🇷`,
-      placeholder: 'اسأل عن العناية بالبشرة، المكونات...',
+      title: 'جيني ✨ مساعدة الجمال',
+      welcome: `${timeGreeting}\n\n${contextMsg}\n\nأهلاً! أنا جيني، مساعدة الجمال من جينوسيس! ✨ أمنيتك بالبشرة الجميلة هي أمري! اسأليني عن مستحضرات التجميل الكورية! 💫`,
+      placeholder: 'اسألي جيني عن العناية بالبشرة...',
       send: 'إرسال',
-      typing: 'جاري التفكير...',
-      error: 'حدث خطأ! يرجى المحاولة مرة أخرى.',
+      typing: 'جيني تحضر السحر... ✨',
+      error: 'عذراً! حتى الجنيات لديهن لحظات صعبة. حاولي مرة أخرى! 💫',
       clear: 'مسح المحادثة',
     },
     ru: {
-      title: 'Консультант GENOSYS 💄',
-      welcome: `${timeGreeting}\n\n${contextMsg}\n\nЯ ваш личный эксперт по уходу за кожей GENOSYS. Спрашивайте о корейской косметике! 🇰🇷`,
-      placeholder: 'Спросите об уходе, ингредиентах...',
+      title: 'Джинни ✨ Ваш Бьюти-Джинн',
+      welcome: `${timeGreeting}\n\n${contextMsg}\n\nПривет, красотка! Я Джинни, ваш бьюти-джинн от GENOSYS! ✨ Ваше желание красивой кожи - мой приказ! Спрашивайте о корейской косметике! 💫`,
+      placeholder: 'Спросите Джинни об уходе...',
       send: 'Отправить',
-      typing: 'Думаю...',
-      error: 'Упс! Что-то пошло не так. Попробуйте снова.',
+      typing: 'Джинни творит магию... ✨',
+      error: 'Ой! Даже джинны ошибаются. Попробуйте снова! 💫',
       clear: 'Очистить чат',
     },
   }
@@ -496,7 +496,7 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
       {/* Header */}
       <div className="flex items-center justify-between px-4 py-3 bg-gradient-to-r from-red-600 to-red-500 text-white">
         <div className="flex items-center gap-2">
-          <Bot className="w-5 h-5" />
+          <Sparkles className="w-5 h-5" />
           <span className="font-semibold text-sm">{chatTitle}</span>
         </div>
         <div className="flex items-center gap-1">
@@ -526,7 +526,7 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
             {showWelcome && messages.length === 0 && (
               <div className={`flex gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
                 <div className="flex-shrink-0 w-8 h-8 rounded-full bg-red-100 dark:bg-red-900 flex items-center justify-center">
-                  <Bot className="w-4 h-4 text-red-600 dark:text-red-400" />
+                  <Sparkles className="w-4 h-4 text-red-600 dark:text-red-400" />
                 </div>
                 <div className="flex-1 bg-white dark:bg-gray-700 rounded-2xl rounded-tl-none px-4 py-3 shadow-sm">
                   <p className="text-sm text-gray-700 dark:text-gray-200">{chatWelcome}</p>
@@ -662,7 +662,7 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
                   }`}>
                     {message.role === 'user' 
                       ? <User className="w-4 h-4 text-gray-600 dark:text-gray-300" />
-                      : <Bot className="w-4 h-4 text-red-600 dark:text-red-400" />
+                      : <Sparkles className="w-4 h-4 text-red-600 dark:text-red-400" />
                     }
                   </div>
                   <div className={`flex-1 max-w-[80%] rounded-2xl px-4 py-3 shadow-sm ${
@@ -682,7 +682,7 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
             {isLoading && (
               <div className={`flex gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
                 <div className="flex-shrink-0 w-8 h-8 rounded-full bg-red-100 dark:bg-red-900 flex items-center justify-center">
-                  <Bot className="w-4 h-4 text-red-600 dark:text-red-400" />
+                  <Sparkles className="w-4 h-4 text-red-600 dark:text-red-400" />
                 </div>
                 <div className="bg-white dark:bg-gray-700 rounded-2xl rounded-tl-none px-4 py-3 shadow-sm">
                   <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">

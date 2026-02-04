@@ -437,6 +437,16 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
       console.error('Chat error:', error)
     },
   })
+  
+  // Wrapper to send message with locale and context
+  const sendMessageWithLocale = useCallback(async (message: { text: string }) => {
+    await sendMessage(message, {
+      body: {
+        locale,
+        context: userContext,
+      },
+    })
+  }, [sendMessage, locale, userContext])
 
   const isLoading = status === 'streaming' || status === 'submitted'
 
@@ -488,7 +498,7 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
     if (inputValue.trim() && !isLoading) {
       const message = inputValue.trim()
       setInputValue('')
-      await sendMessage({ text: message })
+      await sendMessageWithLocale({ text: message })
     }
   }
 

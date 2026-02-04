@@ -1652,7 +1652,7 @@ The gel transforms from solid to fluid at skin temperature (37°C), ensuring MAX
 **Professional Cooling Peel-Off** 🧊
 
 **Product Details:**
-- **Size**: Professional kit
+- **Size**: 1kg (many treatments!)
 - **Type**: Powder modeling mask
 - **Price**: AED 300
 - **Technology**: Alginate-based peel-off
@@ -1750,7 +1750,7 @@ At AED 250 for 300g, this provides 20+ treatments! Compare to single-use sheet m
 |------|-------|------|----------|----------------|
 | **EZ CO₂ MASK** | AED 460 | Kit | Pre-treatment, brightening | Carboxy/Bohr Effect |
 | **PEPTIDE GEL** | AED 380 | 5 sheets | Post-treatment cooling | Thermo-sensitive gel |
-| **HYDRO COOL** | AED 300 | Kit | Post-treatment, pores | Alginate peel-off |
+| **HYDRO COOL** | AED 300 | 1kg | Post-treatment, pores | Alginate peel-off |
 | **BIO-FERMENT** | AED 250 | 300g | Anti-aging, renewal | K-fermentation |
 
 ---

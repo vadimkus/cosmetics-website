@@ -1971,7 +1971,7 @@ The {{id:NUMBER}} part enables customers to add products directly to cart from c
 ### Masks
 - [EyeCell EYE PEPTIDE GEL PATCH](https://genosys.ae/products/33){{id:33}} - AED 380 - Eye patches
 - [SKIN RESCUE OVERNIGHT CREAM MASK](https://genosys.ae/products/34){{id:34}} - AED 340 - Overnight mask
-- [HYDRO COOL MODELING MASK](https://genosys.ae/products/35){{id:35}} - AED 300 - Cooling mask
+- [HYDRO COOL MODELING MASK](https://genosys.ae/products/35){{id:35}} - AED 300 (1kg) - Cooling modeling mask
 - [SOOTHING BOMB SEA ALGAE MASK](https://genosys.ae/products/36){{id:36}} - AED 36 - Sheet mask
 - [PEPTIDE GEL MASK](https://genosys.ae/products/37){{id:37}} - AED 380 - Gel mask
 - [EZ CO₂ MASK KIT](https://genosys.ae/products/38){{id:38}} - AED 460 - CO2 carboxy therapy

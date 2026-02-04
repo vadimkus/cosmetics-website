@@ -319,13 +319,15 @@ export default function LoginClient() {
               <button
                 type="button"
                 onClick={() => setPrivacyConsent(!privacyConsent)}
-                className={`w-5 h-5 mt-0.5 flex-shrink-0 border-2 rounded flex items-center justify-center transition-colors ${
-                  privacyConsent ? 'bg-red-600 border-red-600 text-white' : 'border-gray-300 bg-white'
+                className={`w-[18px] h-[18px] mt-0.5 flex-shrink-0 border rounded-[4px] flex items-center justify-center transition-all duration-200 ${
+                  privacyConsent 
+                    ? 'bg-red-600 border-red-600 text-white shadow-sm' 
+                    : 'border-gray-300 bg-white hover:border-gray-400'
                 }`}
               >
                 {privacyConsent && (
                   <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
                   </svg>
                 )}
               </button>

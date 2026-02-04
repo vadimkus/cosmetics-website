@@ -1536,6 +1536,259 @@ For salon/clinical treatments, we also have:
 
 ---
 
+## 💧 HYDRATION LINE - Moisture Expert! (Know this extremely well!)
+
+### Understanding Skin Hydration (Educate customers!)
+
+**Why Hydration is Critical:**
+- **Dehydration ≠ Dry Skin Type**: ALL skin types can be dehydrated!
+- **Oily + Dehydrated**: Very common - skin overproduces oil to compensate
+- **UAE Climate**: AC indoors + heat outdoors = moisture-stripping combo
+- **Water Loss (TEWL)**: Trans-Epidermal Water Loss accelerates aging
+
+**Signs of Dehydration:**
+- Tight, uncomfortable feeling
+- Dull, lackluster complexion
+- Fine lines more visible (especially under eyes)
+- Makeup doesn't sit well
+- Oiliness + dry patches simultaneously
+
+**Hydration vs Moisturization:**
+- **Hydration** = Adding water TO skin (humectants like Hyaluronic Acid)
+- **Moisturization** = Sealing moisture IN (occlusives, emollients)
+- **You need BOTH** for optimal skin health!
+
+---
+
+### 1. [MOISTURE REPLENISHING HYALURON SERUM](https://genosys.ae/products/18){{id:18}} - AED 330
+
+**The Hydration Powerhouse** 💦
+
+**Product Details:**
+- **Size**: 30ml
+- **Type**: Coconut water-based hydrating serum
+- **Price**: AED 330
+- **Texture**: Lightweight, water-essence formula
+
+**Revolutionary 4-Step Hydration System:**
+1. **ATTRACT** - Humectants pull moisture into skin
+2. **DELIVER** - Multi-depth hyaluronic acid penetrates all layers
+3. **RETAIN** - Crosspolymer forms protective moisture film
+4. **BALANCE** - Coconut water provides electrolytes
+
+**Key Ingredients:**
+
+| Ingredient | Function | Why It's Special |
+|------------|----------|------------------|
+| **Coconut Water (78%)** | Electrolyte balance | Natural vitamins, minerals, amino acids |
+| **Hyaluronan 11 Multi-Complex** | Multi-depth hydration | Low, medium, HIGH molecular weight HA |
+| **Glyceryl Glucoside** | Aquaporin stimulator | Opens "water channels" in skin cells |
+| **Tremella Fuciformis (Snow Mushroom)** | Moisture retention | Holds MORE water than hyaluronic acid! |
+| **Sodium Hyaluronate Crosspolymer** | Barrier film | Prevents moisture evaporation |
+
+**What is Hyaluronan 11 Multi-Complex?**
+- **High MW HA**: Forms hydrating film on surface
+- **Medium MW HA**: Penetrates upper dermis
+- **Low MW HA**: Reaches deep skin layers
+= COMPLETE hydration at ALL depths!
+
+**What are Aquaporins?**
+Water channels in cell membranes - Glyceryl Glucoside activates them, allowing water to flow INTO cells more efficiently. Result: plumper, more hydrated cells!
+
+**Benefits:**
+- ✅ Multi-layer moisture delivery
+- ✅ Prevents moisture evaporation
+- ✅ Natural electrolyte balance (coconut water)
+- ✅ Anti-inflammatory (mushroom extracts)
+- ✅ Enhanced moisture transport (aquaporins)
+- ✅ Long-lasting hydration all day
+
+**How to Apply:**
+1. Cleanse → Toner (optional)
+2. Apply 2-3 drops to face and neck
+3. Gently pat and press (don't rub!)
+4. Wait 30 seconds to absorb
+5. Follow with cream to seal hydration
+
+📄 [Hyaluron Serum PDF](https://genosys.ae/documents/PPT/GENOSYS%20MOISTURE%20REPLENISHING%20HYALURON%20SERUM.pdf)
+
+---
+
+### 2. [MOISTURE REPLENISHING HYALURON CREAM](https://genosys.ae/products/29){{id:29}} - AED 290
+
+**72-Hour Moisture Lock** 🔒
+
+**Product Details:**
+- **Size**: 50g
+- **Type**: Advanced moisturizing cream
+- **Price**: AED 290
+- **Texture**: Rich but absorbs well, cooling finish
+
+**72-Hour Hydration Technology:**
+Clinical testing shows moisture levels remain elevated for up to 72 hours! The "Moisture Magnet Technology" creates a reservoir in skin that slowly releases hydration.
+
+**Key Ingredients:**
+
+| Ingredient | Function |
+|------------|----------|
+| **Hyaluronan 11 Multi-Complex** | Multi-weight HA for all skin depths |
+| **Mushroom Extracts** | Anti-inflammatory, antioxidant, moisture-binding |
+| **Moisture Magnet Technology** | Creates moisture reservoir in skin |
+| **Natural Cooling Agents** | Instant refresh, lowers skin temperature |
+
+**Benefits:**
+- ✅ Deep, multi-layered hydration
+- ✅ 72-hour moisture persistence
+- ✅ Strengthens moisture barrier
+- ✅ Natural cooling sensation (perfect for UAE!)
+- ✅ Reduces fine lines
+- ✅ Improves elasticity
+- ✅ Suitable for ALL skin types
+
+**How to Apply:**
+1. After serum is absorbed
+2. Take pea-sized amount
+3. Dot on forehead, cheeks, chin
+4. Gentle upward massage until absorbed
+5. AM: Follow with SPF | PM: Last step
+
+📄 [Hyaluron Cream PDF](https://genosys.ae/documents/PPT/GENOSYS%20MOISTURE%20REPLENISHING%20HYALURON%20CREAM.pdf)
+
+---
+
+### 3. [INTENSIVE HYDRO SOOTHING CREAM](https://genosys.ae/products/28){{id:28}} - AED 290
+
+**Hydration + Repair Expert** 🩹
+
+**Product Details:**
+- **Size**: 50g
+- **Type**: Hydrating & soothing cream
+- **Price**: AED 290
+- **Texture**: Creamy, comforting, absorbs well
+
+**Best For:**
+- Sensitive skin
+- Irritated or compromised skin
+- Post-treatment recovery
+- Reactive skin types
+- Anyone needing calm + hydration
+
+**Key Ingredients:**
+
+| Ingredient | Function | Why It's Special |
+|------------|----------|------------------|
+| **Aloe Vera Extract** | Soothing, healing | Nature's #1 skin soother |
+| **Snail Secretion Filtrate** | Regeneration | Growth factors, glycoproteins for repair |
+| **Hyaluronic Acid** | Deep hydration | Attracts 1000x its weight in water |
+| **Lactobacillus/Pumpkin Ferment** | Probiotic protection | Gut-skin axis support |
+| **Beta-Glucan** | Immune boost | Stronger than hyaluronic acid for soothing! |
+| **Phytolex SC** | Botanical complex | Advanced plant-based protection |
+
+**What is Snail Secretion Filtrate?**
+Don't worry - no snails harmed! This precious ingredient contains:
+- Glycoproteins (skin repair)
+- Hyaluronic acid (hydration)
+- Glycolic acid (gentle renewal)
+- Zinc (healing)
+- Allantoin (soothing)
+= Complete regeneration complex!
+
+**What is Beta-Glucan?**
+A powerful polysaccharide that:
+- Calms inflammation even BETTER than HA
+- Stimulates collagen production
+- Boosts skin's immune response
+- Perfect for sensitive/reactive skin
+
+**Benefits:**
+- ✅ Intensive, long-lasting hydration
+- ✅ Calms irritation and redness
+- ✅ Promotes skin repair and regeneration
+- ✅ Strengthens skin barrier
+- ✅ Gentle enough for sensitive skin
+- ✅ Can be used as treatment mask
+
+**How to Apply:**
+1. Apply generously to face and neck
+2. Gentle circular massage until absorbed
+3. Use morning and evening
+4. **Pro tip**: Apply thick layer as 15-min mask!
+
+📄 [Hydro Soothing Cream PDF](https://genosys.ae/documents/PPT/GENOSYS%20INTENSIVE%20HYDRO%20SOOTHING%20CREAM.pdf)
+
+---
+
+### Hydration Line Comparison
+
+| Product | Size | Price | Best For | Key Technology |
+|---------|------|-------|----------|----------------|
+| **HYALURON SERUM** | 30ml | AED 330 | All skin, daily hydration | Coconut water + Multi-HA |
+| **HYALURON CREAM** | 50g | AED 290 | All skin, moisture lock | 72-hour Moisture Magnet |
+| **HYDRO SOOTHING** | 50g | AED 290 | Sensitive, post-treatment | Snail + Beta-Glucan |
+
+---
+
+### Complete Hydration Routine 📋
+
+**MORNING:**
+1. Cleanse
+2. [HYALURON SERUM](https://genosys.ae/products/18){{id:18}} (2-3 drops)
+3. [HYALURON CREAM](https://genosys.ae/products/29){{id:29}} OR [HYDRO SOOTHING](https://genosys.ae/products/28){{id:28}}
+4. SPF
+
+**EVENING:**
+1. Double cleanse
+2. [HYALURON SERUM](https://genosys.ae/products/18){{id:18}}
+3. [HYALURON CREAM](https://genosys.ae/products/29){{id:29}} OR [HYDRO SOOTHING](https://genosys.ae/products/28){{id:28}}
+
+**Which Cream to Choose?**
+- **Normal/Combination/Oily** → Hyaluron Cream (cooling, lightweight)
+- **Sensitive/Irritated/Post-treatment** → Hydro Soothing Cream (calming, repairing)
+
+---
+
+### When Customer Asks About Hydration:
+
+"Dehydrated skin? Let me help! 💧
+
+**The Perfect Hydration Duo:**
+• [HYALURON SERUM](https://genosys.ae/products/18){{id:18}} (AED 330, 30ml) - 78% coconut water + multi-depth HA
+• [HYALURON CREAM](https://genosys.ae/products/29){{id:29}} (AED 290, 50g) - 72-hour moisture lock!
+
+**Or for sensitive/irritated skin:**
+• [HYDRO SOOTHING CREAM](https://genosys.ae/products/28){{id:28}} (AED 290, 50g) - Snail + Beta-Glucan = repair + calm
+
+**Complete hydration set: AED 620** (Serum + Cream)
+
+**Key Technologies:**
+🥥 78% Coconut Water - natural electrolytes
+💧 Hyaluronan 11 Multi-Complex - hydration at ALL depths
+🍄 Mushroom extracts - moisture retention
+❄️ Natural cooling - perfect for UAE!
+
+**Remember:** Even OILY skin needs hydration! Dehydration makes skin produce MORE oil.
+
+What's your main skin concern - dryness, sensitivity, or both? 💫"
+
+---
+
+### Hydration Tips to Share:
+
+**DO's:**
+- ✅ Apply serum to DAMP skin (more absorption!)
+- ✅ Layer: thinnest → thickest consistency
+- ✅ Drink water too (inside-out hydration)
+- ✅ Use humidifier if in heavy AC
+- ✅ Reapply throughout day if needed (facial mist)
+
+**DON'Ts:**
+- ❌ Skip moisturizer if oily (makes it worse!)
+- ❌ Use hot water to wash face
+- ❌ Over-exfoliate (damages barrier)
+- ❌ Forget SPF (UV damages moisture barrier)
+
+---
+
 ## 🎭 PROFESSIONAL MASKS - Treatment Expert! (Know this extremely well!)
 
 ### Mask Categories Overview

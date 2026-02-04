@@ -3,6 +3,7 @@ import { openai } from '@ai-sdk/openai'
 import { streamText } from 'ai'
 import { SYSTEM_PROMPT, CHATBOT_CONFIG } from '@/lib/chatbot/config'
 import { debugLog, errorLog } from '@/lib/logger'
+import { prisma } from '@/lib/prisma'
 
 // Message type for chat API - supports AI SDK v6 UIMessage format with parts array
 interface ChatMessage {
@@ -70,9 +71,10 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json()
-    const { messages, locale = 'en', context } = body as { 
+    const { messages, locale = 'en', context, chatId } = body as { 
       messages: ChatMessage[]
       locale?: string
+      chatId?: string // Chat session ID for tracking
       context?: {
         timeOfDay?: string // 'morning' | 'afternoon' | 'evening' | 'night'
         dayOfWeek?: string // 'Monday', 'Tuesday', etc.
@@ -80,6 +82,30 @@ export async function POST(request: NextRequest) {
         localTime?: string // e.g., "14:30"
         timezone?: string
       }
+    }
+    
+    // Extract device info from request headers
+    const userAgent = request.headers.get('user-agent') || undefined
+    const forwarded = request.headers.get('x-forwarded-for')
+    const ipAddress = forwarded ? forwarded.split(',')[0]?.trim() : undefined
+    
+    // Detect device type from user agent
+    const detectDeviceType = (ua: string | undefined): string => {
+      if (!ua) return 'unknown'
+      if (/mobile/i.test(ua)) return 'mobile'
+      if (/tablet|ipad/i.test(ua)) return 'tablet'
+      return 'desktop'
+    }
+    
+    // Detect browser from user agent
+    const detectBrowser = (ua: string | undefined): string => {
+      if (!ua) return 'unknown'
+      if (/chrome/i.test(ua) && !/edge/i.test(ua)) return 'Chrome'
+      if (/firefox/i.test(ua)) return 'Firefox'
+      if (/safari/i.test(ua) && !/chrome/i.test(ua)) return 'Safari'
+      if (/edge/i.test(ua)) return 'Edge'
+      if (/opera|opr/i.test(ua)) return 'Opera'
+      return 'Other'
     }
 
     if (!messages || !Array.isArray(messages) || messages.length === 0) {
@@ -183,6 +209,43 @@ ${languageInstructions[locale as keyof typeof languageInstructions] || languageI
       locale,
       lastMessage: validatedMessages[validatedMessages.length - 1]?.content?.substring(0, 50)
     })
+
+    // Track conversation in database (non-blocking)
+    if (chatId) {
+      const userMessageCount = validatedMessages.filter(m => m.role === 'user').length
+      const botMessageCount = validatedMessages.filter(m => m.role === 'assistant').length
+      const firstUserMessage = validatedMessages.find(m => m.role === 'user')?.content?.substring(0, 500)
+      
+      // Upsert conversation record (don't await - fire and forget)
+      prisma.chatConversation.upsert({
+        where: { sessionId: chatId },
+        create: {
+          sessionId: chatId,
+          locale,
+          messageCount: validatedMessages.length + 1, // +1 for the new bot response
+          userMessages: userMessageCount,
+          botMessages: botMessageCount + 1, // +1 for the new response
+          firstMessage: firstUserMessage,
+          ipAddress,
+          userAgent,
+          deviceType: detectDeviceType(userAgent),
+          browser: detectBrowser(userAgent),
+          startedAt: new Date(),
+          lastMessageAt: new Date(),
+        },
+        update: {
+          messageCount: validatedMessages.length + 1,
+          userMessages: userMessageCount,
+          botMessages: botMessageCount + 1,
+          lastMessageAt: new Date(),
+          // Update first message only if not set
+          ...(firstUserMessage && { firstMessage: firstUserMessage }),
+        },
+      }).catch((err) => {
+        // Log but don't fail the request
+        errorLog('[CHAT] Failed to track conversation:', err)
+      })
+    }
 
     // Use Vercel AI SDK to stream the response
     const result = streamText({

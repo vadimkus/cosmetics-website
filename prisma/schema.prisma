@@ -488,6 +488,49 @@ model NotificationRead {
   @@map("notification_reads")
 }
 
+// Chatbot Analytics - tracks conversations and messages for admin insights
+model ChatConversation {
+  id              String   @id @default(cuid())
+  sessionId       String   // Chat session ID (unique per conversation)
+  userId          String?  // User ID if logged in
+  userEmail       String?  // User email if available
+  locale          String   @default("en") // User's language preference
+  
+  // Conversation metrics
+  messageCount    Int      @default(0) // Total messages in conversation
+  userMessages    Int      @default(0) // Messages from user
+  botMessages     Int      @default(0) // Messages from bot
+  
+  // Topics/keywords (JSON array of detected topics)
+  topics          String?  @db.Text // e.g., ["skincare", "products", "delivery"]
+  
+  // First user message (for quick preview in admin)
+  firstMessage    String?  @db.Text
+  
+  // Device/location info
+  ipAddress       String?
+  country         String?
+  city            String?
+  userAgent       String?  @db.Text
+  deviceType      String?  // mobile, desktop, tablet
+  browser         String?
+  
+  // Timestamps
+  startedAt       DateTime @default(now())
+  lastMessageAt   DateTime @default(now())
+  endedAt         DateTime? // When conversation ended (if detectable)
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@unique([sessionId])
+  @@index([startedAt])
+  @@index([locale])
+  @@index([userId])
+  @@index([lastMessageAt])
+  @@map("chat_conversations")
+}
+
 // Skin Analysis - stores user skin analysis results with photos
 model SkinAnalysis {
   id                String   @id @default(cuid())

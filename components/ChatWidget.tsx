@@ -431,6 +431,16 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
     return parts.length > 0 ? parts : cleanedText
   }, [handleInternalLinkClick, handleAddToCart, locale])
   
+  // Generate unique chat session ID (persists across page refreshes within session)
+  const [chatSessionId] = useState(() => {
+    if (typeof window === 'undefined') return `chat_${Date.now()}`
+    const stored = sessionStorage.getItem('genosys_chat_id')
+    if (stored) return stored
+    const newId = `chat_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`
+    sessionStorage.setItem('genosys_chat_id', newId)
+    return newId
+  })
+
   const { messages, status, error, sendMessage, setMessages } = useChat({
     id: 'genosys-chat',
     onError: (error) => {
@@ -438,15 +448,16 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
     },
   })
   
-  // Wrapper to send message with locale and context
+  // Wrapper to send message with locale, context, and chatId for tracking
   const sendMessageWithLocale = useCallback(async (message: { text: string }) => {
     await sendMessage(message, {
       body: {
         locale,
         context: userContext,
+        chatId: chatSessionId,
       },
     })
-  }, [sendMessage, locale, userContext])
+  }, [sendMessage, locale, userContext, chatSessionId])
 
   const isLoading = status === 'streaming' || status === 'submitted'
 

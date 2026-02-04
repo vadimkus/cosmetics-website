@@ -1,8 +1,8 @@
 'use client'
 
-import { BarChart3, FileText, Users, Package, ShoppingBag, Filter, Megaphone } from 'lucide-react'
+import { BarChart3, FileText, Users, Package, ShoppingBag, Filter, Megaphone, MessageCircle } from 'lucide-react'
 
-type AdminTab = 'analytics' | 'reporting' | 'segmentation' | 'users' | 'orders' | 'products' | 'promo' | 'blog'
+type AdminTab = 'analytics' | 'reporting' | 'segmentation' | 'users' | 'orders' | 'products' | 'promo' | 'blog' | 'chatbot'
 
 interface AdminTabNavigationProps {
   activeTab: AdminTab
@@ -74,6 +74,13 @@ export default function AdminTabNavigation({
       label: 'Blog', 
       icon: FileText, 
       description: 'Content management',
+      count: undefined
+    },
+    { 
+      id: 'chatbot' as AdminTab, 
+      label: 'Chatbot', 
+      icon: MessageCircle, 
+      description: 'Genie chatbot analytics',
       count: undefined
     }
   ]

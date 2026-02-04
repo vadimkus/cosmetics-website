@@ -141,12 +141,35 @@ export async function POST(request: NextRequest) {
 - Timezone: ${context.timezone || 'UAE (GMT+4)'}
 ` : ''
 
-    // Add locale and context to system prompt
+    // Add locale and context to system prompt with strong language instructions
+    const languageInstructions = {
+      ar: `
+## IMPORTANT: ARABIC LANGUAGE MODE
+The user's browser is set to Arabic. Follow these rules:
+1. If the user writes in Arabic → Respond ENTIRELY in Arabic
+2. Use the Arabic translations provided in the prompt for skincare terms
+3. Keep product names in English (brand names)
+4. Use "درهم" for AED currency
+5. Be warm and professional in Arabic tone
+6. Use RTL-appropriate punctuation`,
+      ru: `
+## IMPORTANT: RUSSIAN LANGUAGE MODE
+The user's browser is set to Russian. Follow these rules:
+1. If the user writes in Russian → Respond ENTIRELY in Russian
+2. Use the Russian translations provided in the prompt for skincare terms
+3. Keep product names in English (brand names)
+4. Use "AED" for currency (standard in UAE)
+5. Be warm and professional in Russian tone
+6. Use formal "вы" form for politeness`,
+      en: `
+## LANGUAGE MODE: English (default)
+Respond in English unless the user writes in another language.`
+    }
+
     const localizedSystemPrompt = `${SYSTEM_PROMPT}
 ${contextInfo}
 Current user locale: ${locale}
-${locale === 'ar' ? 'The user is browsing in Arabic. Respond in Arabic if they write in Arabic.' : ''}
-${locale === 'ru' ? 'The user is browsing in Russian. Respond in Russian if they write in Russian.' : ''}`
+${languageInstructions[locale as keyof typeof languageInstructions] || languageInstructions.en}`
 
     debugLog('[CHAT] Processing chat request', { 
       messageCount: validatedMessages.length,

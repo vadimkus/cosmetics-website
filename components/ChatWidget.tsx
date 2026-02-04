@@ -338,7 +338,6 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
     
     // Match: [text](url) optionally followed by {{id:number}} (with possible ** around it)
     const linkRegex = /\[([^\]]+)\]\(([^)]+)\)\*{0,2}\s*\{\{id:(\d+)\}\}/g
-    const simpleLinkRegex = /\[([^\]]+)\]\(([^)]+)\)/g
     
     // First pass: find all links with product IDs
     const productLinks: Map<string, string> = new Map()
@@ -353,45 +352,73 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
     // Clean the text - remove standalone {{id:NUMBER}} patterns
     let cleanedText = text.replace(/\*{0,2}\s*\{\{id:\d+\}\}/g, '')
     
-    // Now parse the cleaned text for links
+    // Combined regex to match both images and links in order
+    // Images: ![alt](url)
+    // Links: [text](url)
+    const combinedRegex = /(!?\[([^\]]*)\]\(([^)]+)\))/g
+    
     const parts: React.ReactNode[] = []
     let lastIndex = 0
     let match
     let keyIndex = 0
 
-    while ((match = simpleLinkRegex.exec(cleanedText)) !== null) {
+    while ((match = combinedRegex.exec(cleanedText)) !== null) {
       if (match.index > lastIndex) {
         parts.push(cleanedText.slice(lastIndex, match.index))
       }
       
-      const [fullMatch, linkText = '', url = ''] = match
-      const productId = productLinks.get(url)
-      const isProductLink = !!productId
+      const [fullMatch, , innerText = '', url = ''] = match
+      const isImage = fullMatch.startsWith('!')
       
-      if (isProductLink) {
-        // Product link - render as product card with image
+      if (isImage) {
+        // Render image with nice styling
         parts.push(
-          <ChatProductCard
-            key={keyIndex++}
-            productId={productId}
-            productName={linkText}
-            productUrl={url}
-            onAddToCart={handleAddToCart}
-            onInternalClick={() => handleInternalLinkClick(url.replace('https://genosys.ae', ''))}
-            locale={locale}
-          />
+          <div key={keyIndex++} className="my-2">
+            <img 
+              src={url}
+              alt={innerText || 'Skincare image'}
+              className="max-w-full w-auto max-h-48 rounded-xl shadow-md border border-gray-100 dark:border-gray-700 object-cover"
+              loading="lazy"
+              onError={(e) => {
+                // Hide broken images
+                (e.target as HTMLImageElement).style.display = 'none'
+              }}
+            />
+            {innerText && (
+              <p className="text-xs text-gray-500 dark:text-gray-400 mt-1 italic">{innerText}</p>
+            )}
+          </div>
         )
       } else {
-        // Regular link - render as text link
-        parts.push(
-          <ChatLink
-            key={keyIndex++}
-            url={url}
-            onInternalClick={handleInternalLinkClick}
-          >
-            {linkText}
-          </ChatLink>
-        )
+        // It's a link
+        const productId = productLinks.get(url)
+        const isProductLink = !!productId
+        
+        if (isProductLink) {
+          // Product link - render as product card with image
+          parts.push(
+            <ChatProductCard
+              key={keyIndex++}
+              productId={productId}
+              productName={innerText}
+              productUrl={url}
+              onAddToCart={handleAddToCart}
+              onInternalClick={() => handleInternalLinkClick(url.replace('https://genosys.ae', ''))}
+              locale={locale}
+            />
+          )
+        } else {
+          // Regular link - render as text link
+          parts.push(
+            <ChatLink
+              key={keyIndex++}
+              url={url}
+              onInternalClick={handleInternalLinkClick}
+            >
+              {innerText}
+            </ChatLink>
+          )
+        }
       }
       
       lastIndex = match.index + fullMatch.length

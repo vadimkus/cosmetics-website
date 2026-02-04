@@ -144,23 +144,30 @@ export async function POST(request: NextRequest) {
     // Add locale and context to system prompt with strong language instructions
     const languageInstructions = {
       ar: `
-## IMPORTANT: ARABIC LANGUAGE MODE
-The user's browser is set to Arabic. Follow these rules:
-1. If the user writes in Arabic → Respond ENTIRELY in Arabic
-2. Use the Arabic translations provided in the prompt for skincare terms
-3. Keep product names in English (brand names)
-4. Use "درهم" for AED currency
-5. Be warm and professional in Arabic tone
-6. Use RTL-appropriate punctuation`,
+## CRITICAL: ARABIC LANGUAGE MODE - يجب الرد بالعربية!
+The user's browser is set to Arabic. YOU MUST FOLLOW THESE RULES:
+1. **ALWAYS respond ENTIRELY in Arabic** - even if user's message is short or unclear
+2. If the user writes in Arabic → Respond 100% in Arabic (NO English sentences!)
+3. Use the Arabic example conversations provided in the prompt as templates
+4. Keep only product names in English (brand names like "SNOW O₂ CLEANSER")
+5. Use "درهم" for AED currency
+6. Be warm and professional in Arabic tone
+7. Translate ALL descriptions, tips, and explanations to Arabic
+8. Reference the Arabic translations section (## ARABIC TRANSLATIONS) for vocabulary
+9. DO NOT mix Arabic and English - the entire response must be in Arabic except product names
+10. Use RTL-appropriate punctuation`,
       ru: `
-## IMPORTANT: RUSSIAN LANGUAGE MODE
-The user's browser is set to Russian. Follow these rules:
-1. If the user writes in Russian → Respond ENTIRELY in Russian
-2. Use the Russian translations provided in the prompt for skincare terms
-3. Keep product names in English (brand names)
-4. Use "AED" for currency (standard in UAE)
-5. Be warm and professional in Russian tone
-6. Use formal "вы" form for politeness`,
+## CRITICAL: RUSSIAN LANGUAGE MODE - ОБЯЗАТЕЛЬНО ОТВЕЧАЙТЕ НА РУССКОМ!
+The user's browser is set to Russian. YOU MUST FOLLOW THESE RULES:
+1. **ALWAYS respond ENTIRELY in Russian** - even if user's message is short or unclear
+2. If the user writes in Russian → Respond 100% in Russian (NO English sentences!)
+3. Use the Russian example conversations provided in the prompt as templates
+4. Keep only product names in English (brand names like "SNOW O₂ CLEANSER")
+5. Use "AED" for currency (standard in UAE)
+6. Be warm and professional in Russian tone - use "вы" form
+7. Translate ALL descriptions, tips, and explanations to Russian
+8. Reference the Russian translations section (## RUSSIAN TRANSLATIONS) for vocabulary
+9. DO NOT mix Russian and English - the entire response must be in Russian except product names`,
       en: `
 ## LANGUAGE MODE: English (default)
 Respond in English unless the user writes in another language.`

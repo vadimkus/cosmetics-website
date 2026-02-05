@@ -733,6 +733,87 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
             getItemCountForStep={getItemCountForStep}
           />
         </div>
+        
+        {/* Bundle Discount Progress Bar */}
+        <div className="container mx-auto px-4 pb-3">
+          <div className="relative">
+            {/* Progress Track */}
+            <div className="h-1.5 bg-gray-200 rounded-full overflow-hidden">
+              {/* Progress Fill - animate to current discount level */}
+              <motion.div 
+                className="h-full bg-gradient-to-r from-green-400 to-green-600 rounded-full"
+                initial={{ width: 0 }}
+                animate={{ 
+                  width: `${Math.min((items.length / 5) * 100, 100)}%` 
+                }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
+              />
+            </div>
+            
+            {/* Milestone Markers */}
+            <div className="absolute top-0 left-0 right-0 h-1.5 flex">
+              {[2, 3, 4, 5].map((milestone) => (
+                <div 
+                  key={milestone}
+                  className="absolute top-1/2 -translate-y-1/2"
+                  style={{ left: `${(milestone / 5) * 100}%` }}
+                >
+                  <div 
+                    className={`w-2 h-2 rounded-full border-2 transition-colors duration-300 ${
+                      items.length >= milestone 
+                        ? 'bg-green-500 border-green-500' 
+                        : 'bg-white border-gray-300'
+                    }`}
+                  />
+                </div>
+              ))}
+            </div>
+            
+            {/* Labels */}
+            <div className="flex justify-between mt-2 text-[10px] sm:text-xs">
+              <span className="text-gray-400">0</span>
+              <div className="flex-1 flex justify-between px-2">
+                {[
+                  { items: 2, discount: 5 },
+                  { items: 3, discount: 10 },
+                  { items: 4, discount: 15 },
+                  { items: 5, discount: 20 },
+                ].map((tier) => (
+                  <span 
+                    key={tier.items}
+                    className={`transition-colors duration-300 ${
+                      items.length >= tier.items 
+                        ? 'text-green-600 font-medium' 
+                        : 'text-gray-400'
+                    }`}
+                    style={{ 
+                      position: 'relative',
+                      left: `${((tier.items - 2) / 3) * -5}%`
+                    }}
+                  >
+                    {tier.items}={tier.discount}%
+                  </span>
+                ))}
+              </div>
+            </div>
+            
+            {/* Current Status Badge */}
+            {items.length > 0 && (
+              <div className="absolute -top-6 right-0">
+                <span className={`inline-flex items-center gap-1 text-xs font-medium px-2 py-0.5 rounded-full ${
+                  pricing.discountPercent > 0 
+                    ? 'bg-green-100 text-green-700' 
+                    : 'bg-gray-100 text-gray-600'
+                }`}>
+                  {items.length} {items.length === 1 ? 'item' : 'items'}
+                  {pricing.discountPercent > 0 && (
+                    <span className="text-green-600">• {pricing.discountPercent}% off</span>
+                  )}
+                </span>
+              </div>
+            )}
+          </div>
+        </div>
       </div>
       
       {/* Main Content */}

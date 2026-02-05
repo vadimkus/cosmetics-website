@@ -496,8 +496,8 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
   
-  // Hide chatbot on cart/checkout pages on mobile web to improve UX
-  const hiddenPages = ['/cart', '/bag', '/checkout']
+  // Hide chatbot on critical pages on mobile web to improve UX
+  const hiddenPages = ['/cart', '/bag', '/checkout', '/profile', '/login']
   const isHiddenPage = hiddenPages.some(page => 
     pathname === page || 
     pathname?.startsWith(`/en${page}`) || 

@@ -375,13 +375,25 @@ export default function CheckoutClient() {
           // Prepare items for Stripe payment intent
           const itemsWithFreeMasks = [
             ...items.map(item => {
-              const pricing = calculateDiscountedPrice(item.product, user)
               const itemSize = (item.selectedSize && item.selectedSize.trim()) || (item.product.size && item.product.size.trim()) || undefined
               const itemColor = (item.selectedColor && item.selectedColor.trim()) || undefined
+              
+              // Calculate the correct price: bundle discount takes priority, then user discount
+              let finalPrice = item.product.price
+              if (item.fromBundle && item.bundleDiscountPercent && item.bundleDiscountPercent > 0) {
+                // Apply bundle discount
+                const bundleDiscountAmount = (item.product.price * item.bundleDiscountPercent) / 100
+                finalPrice = item.product.price - bundleDiscountAmount
+              } else {
+                // Apply user discount if no bundle discount
+                const pricing = calculateDiscountedPrice(item.product, user)
+                finalPrice = pricing.discountedPrice
+              }
+              
               return {
                 product: {
                   ...item.product,
-                  price: pricing.discountedPrice // Use discounted price for Stripe
+                  price: finalPrice // Use correctly discounted price for Stripe
                 },
                 quantity: item.quantity,
                 selectedColor: itemColor,
@@ -1236,8 +1248,47 @@ export default function CheckoutClient() {
                   {items.length > 0 || freeMasks.length > 0 ? (
                     <div className="space-y-3 md:space-y-4">
                       {items.map((item) => {
-                        const pricing = calculateDiscountedPrice(item.product, user)
                         const quantity = item.quantity || 1
+                        
+                        // Handle bundle items with their stored discount
+                        if (item.fromBundle && item.bundleDiscountPercent && item.bundleDiscountPercent > 0) {
+                          const originalPrice = item.product.price
+                          const bundleDiscountAmount = (originalPrice * item.bundleDiscountPercent) / 100
+                          const discountedPrice = originalPrice - bundleDiscountAmount
+                          const total = discountedPrice * quantity
+                          
+                          return (
+                            <div key={`${item.product.id}-bundle`} className={`flex items-start justify-between ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                              <div className="flex-1 min-w-0">
+                                <h4 className={`text-xs md:text-sm font-medium text-gray-900 leading-tight ${dir === 'rtl' ? 'text-right' : ''}`}>
+                                  {item.product.name}
+                                </h4>
+                                <div className={`flex items-center gap-1.5 md:gap-2 mt-0.5 md:mt-1 flex-wrap ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                                  <span className="text-[9px] md:text-xs text-gray-500">{t('checkout.qty')} {quantity}</span>
+                                  {item.selectedColor && item.selectedColor.trim() && (item.product.id === '41' || item.product.productNumber === '41') && (
+                                    <span className="text-[9px] md:text-xs text-purple-600 font-medium bg-purple-50 border border-purple-200 rounded px-1.5 py-0.5">
+                                      {t('product.color')}: {item.selectedColor}
+                                    </span>
+                                  )}
+                                  <span className="text-[10px] md:text-xs text-purple-600 font-medium">
+                                    ✨ {item.bundleDiscountPercent}% {t('products.bundleDiscount')}
+                                  </span>
+                                </div>
+                              </div>
+                              <div className={dir === 'rtl' ? 'text-left mr-2 md:mr-3' : 'text-right ml-2 md:ml-3'}>
+                                <div className="text-xs md:text-sm font-semibold text-purple-700">
+                                  AED {total.toFixed(2)}
+                                </div>
+                                <div className="text-[9px] md:text-xs text-gray-400 line-through">
+                                  AED {(originalPrice * quantity).toFixed(2)}
+                                </div>
+                              </div>
+                            </div>
+                          )
+                        }
+                        
+                        // Standard pricing for non-bundle items
+                        const pricing = calculateDiscountedPrice(item.product, user)
                         const total = pricing.discountedPrice * quantity
                         return (
                           <div key={item.product.id} className={`flex items-start justify-between ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>

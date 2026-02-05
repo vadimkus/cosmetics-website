@@ -309,38 +309,27 @@ export default function PWALoginPage() {
 
           {/* Privacy Consent */}
           <div className={`flex items-start gap-3 py-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
-            <button
-              type="button"
-              onClick={() => setPrivacyConsent(!privacyConsent)}
-              className="relative mt-0.5 flex-shrink-0"
-              style={{ width: '18px', height: '18px' }}
+            <div 
+              className="flex-shrink-0 mt-0.5"
+              style={{ width: '18px', height: '18px', minWidth: '18px', minHeight: '18px', maxWidth: '18px', maxHeight: '18px' }}
             >
-              <span 
-                className={`absolute inset-0 rounded border-[1.5px] flex items-center justify-center transition-all duration-200 ${
+              <button
+                type="button"
+                onClick={() => setPrivacyConsent(!privacyConsent)}
+                className={`w-full h-full rounded border-[1.5px] flex items-center justify-center transition-all duration-200 ${
                   privacyConsent 
                     ? 'bg-red-600 border-red-600' 
-                    : 'bg-white border-gray-300 hover:border-gray-400'
+                    : 'bg-white border-gray-300 active:border-gray-400'
                 }`}
+                style={{ padding: 0, margin: 0 }}
               >
                 {privacyConsent && (
-                  <svg 
-                    className="text-white" 
-                    width="10" 
-                    height="10" 
-                    viewBox="0 0 12 12" 
-                    fill="none"
-                  >
-                    <path 
-                      d="M2 6L5 9L10 3" 
-                      stroke="currentColor" 
-                      strokeWidth="2" 
-                      strokeLinecap="round" 
-                      strokeLinejoin="round"
-                    />
+                  <svg width="10" height="10" viewBox="0 0 12 12" fill="none">
+                    <path d="M2 6L5 9L10 3" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
                 )}
-              </span>
-            </button>
+              </button>
+            </div>
             <p className={`text-[13px] text-gray-500 flex-1 leading-snug ${isRTL ? 'text-right' : ''}`}>
               {t('authScreen.privacyConsentPrefix')}{' '}
               <Link 

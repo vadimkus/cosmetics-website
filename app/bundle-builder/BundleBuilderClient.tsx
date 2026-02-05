@@ -288,7 +288,6 @@ function BundleSummary({
       {/* Items List */}
       <div className="flex-1 overflow-y-auto space-y-3 pb-4">
         {items.map((item, index) => {
-          const itemPricing = calculateDiscountedPrice(item.product, user)
           // Calculate bundle discounted price for display
           const bundleDiscountedPrice = pricing.discountPercent > 0 
             ? item.product.price * (1 - pricing.discountPercent / 100)

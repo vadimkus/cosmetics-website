@@ -289,6 +289,10 @@ function BundleSummary({
       <div className="flex-1 overflow-y-auto space-y-3 pb-4">
         {items.map((item, index) => {
           const itemPricing = calculateDiscountedPrice(item.product, user)
+          // Calculate bundle discounted price for display
+          const bundleDiscountedPrice = pricing.discountPercent > 0 
+            ? item.product.price * (1 - pricing.discountPercent / 100)
+            : item.product.price
           return (
             <motion.div
               key={item.product.id}
@@ -298,32 +302,49 @@ function BundleSummary({
               transition={{ delay: index * 0.05 }}
               className="flex items-center gap-3 bg-gray-50 rounded-xl p-3"
             >
-              <div className="relative w-14 h-14 flex-shrink-0 bg-white rounded-lg overflow-hidden">
-                <Image
-                  src={item.product.image}
-                  alt={item.product.name}
-                  fill
-                  className="object-contain p-1"
-                />
+              {/* Image with size below */}
+              <div className="flex flex-col items-center flex-shrink-0">
+                <div className="relative w-14 h-14 bg-white rounded-lg overflow-hidden">
+                  <Image
+                    src={item.product.image}
+                    alt={item.product.name}
+                    fill
+                    className="object-contain p-1"
+                  />
+                </div>
+                {item.product.size && (
+                  <p className="text-[9px] text-gray-400 mt-0.5 text-center">
+                    {item.product.size}
+                  </p>
+                )}
               </div>
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-medium text-gray-900 truncate">
                   {item.product.name}
                 </p>
-                {item.product.size && (
-                  <p className="text-[11px] text-gray-400">
-                    {item.product.size}
-                  </p>
-                )}
                 <p className="text-xs text-gray-500">
                   {t(`bundleBuilder.steps.${item.step}`)}
                 </p>
-              </div>
-              <div className="flex items-center gap-2">
-                {showPrices && (
-                  <span className="text-sm font-medium text-gray-900 whitespace-nowrap">
-                    {t('common.aed')} {itemPricing.discountedPrice.toFixed(2)}
+                {/* Bundle discount badge per item */}
+                {showPrices && pricing.discountPercent > 0 && (
+                  <span className="inline-flex items-center gap-1 text-[10px] text-green-600 font-medium mt-0.5">
+                    <Sparkles className="w-2.5 h-2.5" />
+                    -{pricing.discountPercent}%
                   </span>
+                )}
+              </div>
+              <div className="flex flex-col items-end gap-1">
+                {showPrices && (
+                  <div className="text-right">
+                    <span className="text-sm font-medium text-gray-900 whitespace-nowrap">
+                      {t('common.aed')} {bundleDiscountedPrice.toFixed(2)}
+                    </span>
+                    {pricing.discountPercent > 0 && (
+                      <p className="text-[10px] text-gray-400 line-through">
+                        {t('common.aed')} {item.product.price.toFixed(2)}
+                      </p>
+                    )}
+                  </div>
                 )}
                 <button
                   onClick={() => removeItem(item.product.id)}

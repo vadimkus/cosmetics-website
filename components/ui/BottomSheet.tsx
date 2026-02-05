@@ -71,15 +71,20 @@ export default function BottomSheet({
   // Swipe-down gesture handlers
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
     if (!enableSwipeDown) return
-    touchStartY.current = e.touches[0].clientY
-    currentY.current = e.touches[0].clientY
+    const touch = e.touches[0]
+    if (!touch) return
+    touchStartY.current = touch.clientY
+    currentY.current = touch.clientY
     setIsDragging(true)
   }, [enableSwipeDown])
   
   const handleTouchMove = useCallback((e: React.TouchEvent) => {
     if (!enableSwipeDown || !isDragging) return
     
-    currentY.current = e.touches[0].clientY
+    const touch = e.touches[0]
+    if (!touch) return
+    
+    currentY.current = touch.clientY
     const deltaY = currentY.current - touchStartY.current
     
     // Only allow dragging down (positive deltaY)

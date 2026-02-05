@@ -205,6 +205,78 @@ This ensures a smooth purchase flow without requiring additional navigation.
 
 ## Changelog
 
+### February 5, 2026
+
+**Bundle Discount Progress Bar**
+- Added horizontal progress bar below step indicator
+- Green gradient fill showing progress toward max discount
+- Milestone markers at 2, 3, 4, 5 items (dots turn green when reached)
+- Labels: `0` - `2=5%` - `3=10%` - `4=15%` - `5=20%`
+- Status badge showing current items count and discount percentage
+- Animated fill with smooth transitions
+- Works on both mobile and desktop
+
+**Detailed Discount Breakdown (Your Bundle Summary)**
+- Show retail price (original) when user has personal discount
+- Show user's personal discount separately (purple text)
+- Show bundle discount (green text) applied on top
+- Show total savings including both discounts
+- Mobile footer now shows "You save X AED" hint
+- Translations added for EN, RU, AR (`retailPrice`, `yourDiscount`)
+
+**Example breakdown for user with 50% discount + 5% bundle:**
+```
+Retail Price:          620.00 AED (struck through)
+Your Discount:        -310.00 AED (purple)
+Subtotal:              310.00 AED
+Bundle Discount (5%):  -15.50 AED (green)
+─────────────────────────────────
+Total:                 294.50 AED
+5% VAT included
+
+       You save 325.50 AED
+```
+
+**Product Detail Bottom Sheet (Mobile)**
+- Single tap on product card opens detail sheet with:
+  - Centered product image (max 200px)
+  - Product size below image
+  - Full product name
+  - Bundle discount badge (shows % that will apply when added)
+  - "when added" hint for items not yet in bundle
+  - Full localized description (EN/RU/AR)
+  - Price with discounts
+  - "Add to Set" / "Added to Set" button
+  - "Continue Browsing" link
+- Double-tap for quick add/remove (power users)
+- "Double-tap to quick add" hint shown on first mobile visit
+- Translations added: `addToSet`, `addedToSet`, `continueBrowsing`, `doubleTapHint`
+
+**Bottom Sheet Swipe-Down Gesture**
+- Reduced swipe threshold from 100px to 50px
+- Added velocity detection: fast swipe closes with just 20px drag
+- Made drag handle larger (wider bar, more padding)
+- Smoother, more responsive dismissal
+
+**UI Improvements**
+- Centered "Build Your Set" title in header (absolute positioning)
+- Centered "+ Add" button on product cards
+- Added "5%" to "VAT included" text
+- Removed duplicate "X items Y% OFF" from header (kept in progress bar only)
+- Product size moved under image in bundle summary items
+- Bundle discount badge (-X%) shown per item in summary
+
+**Mobile Bag Icon**
+- Reduced digit size for item count badge (was too large)
+- Styling: `text-[10px]` with `min-w-[16px] h-4`
+
+**Chatbot**
+- Hidden on `/bundle-builder` page on mobile web (cleaner UX)
+
+**Bug Fixes**
+- Fixed unused variable TypeScript errors (`itemPricing`, `user`)
+- Fixed swipe gesture null check for touch events
+
 ### February 3, 2026
 
 **Mobile UX Improvements**

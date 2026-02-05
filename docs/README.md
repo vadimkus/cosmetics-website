@@ -268,7 +268,8 @@
 
 | File | Description |
 |------|-------------|
-| [SESSION_CHANGES_2026-02-03.md](./SESSION_CHANGES_2026-02-03.md) | **UPDATED** Bundle Builder UX, Build Your Set banner, ChatWidget i18n, 66+ AR/RU translations |
+| [SESSION_CHANGES_2026-02-05.md](./SESSION_CHANGES_2026-02-05.md) | **NEW** Bundle progress bar, discount breakdown, product detail sheet, swipe gestures |
+| [SESSION_CHANGES_2026-02-03.md](./SESSION_CHANGES_2026-02-03.md) | Bundle Builder UX, Build Your Set banner, ChatWidget i18n, 66+ AR/RU translations |
 | [SESSION_CHANGES_2026-02-02.md](./SESSION_CHANGES_2026-02-02.md) | Bundle Builder feature, price hiding, corporate colors |
 | [SESSION_CHANGES_2026-02-01.md](./SESSION_CHANGES_2026-02-01.md) | Mobile footer Chrome fix, cart reactivity, Beauty Box 62, Product 51 recommendation |
 | [SESSION_CHANGES_2026-01-26.md](./SESSION_CHANGES_2026-01-26.md) | Product video, footer nav fix, docs |
@@ -338,4 +339,4 @@ cosmetics-website/
 
 ---
 
-*Last updated: January 28, 2026*
+*Last updated: February 5, 2026*

@@ -291,34 +291,10 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
   const isRTL = dir === 'rtl'
   
   const [isOpen, setIsOpen] = useState(false)
-  const [isMobileWeb, setIsMobileWeb] = useState(false)
-  
-  // Detect mobile web
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobileWeb(window.innerWidth < 768)
-    }
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-    return () => window.removeEventListener('resize', checkMobile)
-  }, [])
-  
-  // Hide chatbot on cart/checkout pages on mobile web to improve UX
-  const hiddenPages = ['/cart', '/bag', '/checkout']
-  const isHiddenPage = hiddenPages.some(page => 
-    pathname === page || 
-    pathname?.startsWith(`/en${page}`) || 
-    pathname?.startsWith(`/ar${page}`) || 
-    pathname?.startsWith(`/ru${page}`)
-  )
-  
-  // Don't render chatbot on mobile web for cart/checkout pages
-  if (isMobileWeb && isHiddenPage) {
-    return null
-  }
   const [isMinimized, setIsMinimized] = useState(false)
   const [showWelcome, setShowWelcome] = useState(true)
   const [inputValue, setInputValue] = useState('')
+  const [isMobileWeb, setIsMobileWeb] = useState(false)
   
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
@@ -509,6 +485,30 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
       setShowWelcome(false)
     }
   }, [messages])
+
+  // Detect mobile web
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobileWeb(window.innerWidth < 768)
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+  
+  // Hide chatbot on cart/checkout pages on mobile web to improve UX
+  const hiddenPages = ['/cart', '/bag', '/checkout']
+  const isHiddenPage = hiddenPages.some(page => 
+    pathname === page || 
+    pathname?.startsWith(`/en${page}`) || 
+    pathname?.startsWith(`/ar${page}`) || 
+    pathname?.startsWith(`/ru${page}`)
+  )
+  
+  // Don't render chatbot on mobile web for cart/checkout pages
+  if (isMobileWeb && isHiddenPage) {
+    return null
+  }
 
   const handleOpen = () => {
     setIsOpen(true)

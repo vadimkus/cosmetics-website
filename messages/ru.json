@@ -1771,6 +1771,11 @@
     "buildYourOwnSubtitle": "Соберите персональный уход и сэкономьте до 20%",
     "saveUpTo": "Скидка до 20%",
     "startBuilding": "Начать",
+    "addToSet": "Добавить в набор",
+    "addedToSet": "Добавлено в набор",
+    "continueBrowsing": "Продолжить выбор",
+    "doubleTapHint": "Двойное нажатие для быстрого добавления",
+    "tapToViewDetails": "Нажмите на карточку для подробностей",
     "steps": {
       "cleanser": "Очищение",
       "peeling": "Пилинг",

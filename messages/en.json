@@ -1762,6 +1762,11 @@
     "buildYourOwnSubtitle": "Create a custom routine and save up to 20%",
     "saveUpTo": "Save up to 20%",
     "startBuilding": "Start Building",
+    "addToSet": "Add to Set",
+    "addedToSet": "Added to Set",
+    "continueBrowsing": "Continue Browsing",
+    "doubleTapHint": "Double-tap to quick add",
+    "tapToViewDetails": "Tap a card to see full details",
     "steps": {
       "cleanser": "Cleanser",
       "peeling": "Peeling",

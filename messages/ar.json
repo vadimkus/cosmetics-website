@@ -1753,6 +1753,11 @@
     "buildYourOwnSubtitle": "أنشئ روتينك المخصص ووفر حتى 20%",
     "saveUpTo": "وفر حتى 20%",
     "startBuilding": "ابدأ الآن",
+    "addToSet": "أضف إلى المجموعة",
+    "addedToSet": "تمت الإضافة",
+    "continueBrowsing": "متابعة التصفح",
+    "doubleTapHint": "انقر مرتين للإضافة السريعة",
+    "tapToViewDetails": "انقر على البطاقة لرؤية التفاصيل",
     "steps": {
       "cleanser": "منظف",
       "peeling": "مقشر",

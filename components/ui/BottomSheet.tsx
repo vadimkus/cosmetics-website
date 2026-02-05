@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useCallback } from 'react'
+import { useEffect, useRef, useCallback, useState } from 'react'
 import { X } from 'lucide-react'
 
 interface BottomSheetProps {
@@ -11,6 +11,7 @@ interface BottomSheetProps {
   showCloseButton?: boolean
   closeOnBackdropClick?: boolean
   height?: 'auto' | 'full' | 'medium' | 'large'
+  enableSwipeDown?: boolean
 }
 
 export default function BottomSheet({
@@ -20,9 +21,17 @@ export default function BottomSheet({
   title,
   showCloseButton = true,
   closeOnBackdropClick = true,
-  height = 'large'
+  height = 'large',
+  enableSwipeDown = true
 }: BottomSheetProps) {
   const sheetRef = useRef<HTMLDivElement>(null)
+  const dragHandleRef = useRef<HTMLDivElement>(null)
+  
+  // Swipe-down gesture state
+  const [dragY, setDragY] = useState(0)
+  const [isDragging, setIsDragging] = useState(false)
+  const touchStartY = useRef(0)
+  const currentY = useRef(0)
 
   // Handle escape key
   useEffect(() => {
@@ -43,6 +52,14 @@ export default function BottomSheet({
       document.body.style.overflow = ''
     }
   }, [isOpen, onClose])
+  
+  // Reset drag state when sheet opens/closes
+  useEffect(() => {
+    if (!isOpen) {
+      setDragY(0)
+      setIsDragging(false)
+    }
+  }, [isOpen])
 
   // Handle backdrop click
   const handleBackdropClick = useCallback((e: React.MouseEvent) => {
@@ -50,6 +67,40 @@ export default function BottomSheet({
       onClose()
     }
   }, [closeOnBackdropClick, onClose])
+  
+  // Swipe-down gesture handlers
+  const handleTouchStart = useCallback((e: React.TouchEvent) => {
+    if (!enableSwipeDown) return
+    touchStartY.current = e.touches[0].clientY
+    currentY.current = e.touches[0].clientY
+    setIsDragging(true)
+  }, [enableSwipeDown])
+  
+  const handleTouchMove = useCallback((e: React.TouchEvent) => {
+    if (!enableSwipeDown || !isDragging) return
+    
+    currentY.current = e.touches[0].clientY
+    const deltaY = currentY.current - touchStartY.current
+    
+    // Only allow dragging down (positive deltaY)
+    if (deltaY > 0) {
+      setDragY(deltaY)
+    }
+  }, [enableSwipeDown, isDragging])
+  
+  const handleTouchEnd = useCallback(() => {
+    if (!enableSwipeDown || !isDragging) return
+    
+    setIsDragging(false)
+    
+    // If dragged more than 100px, close the sheet
+    if (dragY > 100) {
+      onClose()
+    }
+    
+    // Reset drag position with animation
+    setDragY(0)
+  }, [enableSwipeDown, isDragging, dragY, onClose])
 
   // Height classes
   const heightClasses = {
@@ -76,6 +127,9 @@ export default function BottomSheet({
           transition-opacity duration-300
           ${isOpen ? 'opacity-100' : 'opacity-0'}
         `}
+        style={{
+          opacity: isDragging ? Math.max(0.5 - dragY / 400, 0.1) : undefined
+        }}
       />
       
       {/* Sheet */}
@@ -83,20 +137,33 @@ export default function BottomSheet({
         ref={sheetRef}
         className={`
           relative w-full max-w-lg bg-white rounded-t-3xl shadow-2xl
-          transform transition-transform duration-300 ease-out
-          ${isOpen ? 'translate-y-0' : 'translate-y-full'}
+          ${!isDragging ? 'transition-transform duration-300 ease-out' : ''}
           ${heightClasses[height]}
           flex flex-col
         `}
+        style={{
+          transform: `translateY(${isOpen ? dragY : '100%'}px)`
+        }}
       >
-        {/* Drag handle indicator */}
-        <div className="flex justify-center pt-3 pb-1">
+        {/* Drag handle indicator - touchable area for swipe */}
+        <div 
+          ref={dragHandleRef}
+          className="flex justify-center pt-3 pb-1 cursor-grab active:cursor-grabbing touch-none"
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
           <div className="w-10 h-1 bg-gray-300 rounded-full" />
         </div>
 
-        {/* Header */}
+        {/* Header - also draggable */}
         {(title || showCloseButton) && (
-          <div className="flex items-center justify-between px-6 py-3 border-b border-gray-100">
+          <div 
+            className="flex items-center justify-between px-6 py-3 border-b border-gray-100 touch-none"
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+          >
             {title && (
               <h2 
                 id="bottom-sheet-title" 

@@ -186,7 +186,7 @@ export default function SkinRecommendationClient() {
       const response = await fetch('/api/skin-analysis/ai', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ image: capturedImage }),
+        body: JSON.stringify({ image: capturedImage, locale }),
       })
       
       if (!response.ok) {
@@ -253,6 +253,18 @@ export default function SkinRecommendationClient() {
       'prominent': { en: 'Prominent', ru: 'Выраженный', ar: 'بارز' },
       'fine': { en: 'Fine', ru: 'Тонкий', ar: 'ناعم' },
       'normal': { en: 'Normal', ru: 'Нормальный', ar: 'طبيعي' },
+      // Pore sizes
+      'small': { en: 'Small', ru: 'Маленькие', ar: 'صغيرة' },
+      'medium': { en: 'Medium', ru: 'Средние', ar: 'متوسطة' },
+      'large': { en: 'Large', ru: 'Большие', ar: 'كبيرة' },
+      // Lip health
+      'chapped': { en: 'Chapped', ru: 'Сухие', ar: 'متشققة' },
+      'dry': { en: 'Dry', ru: 'Сухие', ar: 'جافة' },
+      'hydrated': { en: 'Hydrated', ru: 'Увлажнённые', ar: 'مرطبة' },
+      // General conditions
+      'sensitive': { en: 'Sensitive', ru: 'Чувствительный', ar: 'حساسة' },
+      'balanced': { en: 'Balanced', ru: 'Сбалансированный', ar: 'متوازن' },
+      'oily': { en: 'Oily', ru: 'Жирный', ar: 'دهنية' },
     }
     const key = level.toLowerCase()
     const translation = levelTranslations[key]
@@ -262,9 +274,44 @@ export default function SkinRecommendationClient() {
     return level // Return original if no translation found
   }
 
+  // Helper function to translate AI analysis concerns
+  const translateConcern = (concern: string): string => {
+    const concernTranslations: Record<string, { en: string; ru: string; ar: string }> = {
+      'dehydration': { en: 'Dehydration', ru: 'Обезвоживание', ar: 'جفاف' },
+      'fine lines': { en: 'Fine lines', ru: 'Мелкие морщины', ar: 'خطوط دقيقة' },
+      'pores': { en: 'Pores', ru: 'Поры', ar: 'المسام' },
+      'wrinkles': { en: 'Wrinkles', ru: 'Морщины', ar: 'تجاعيد' },
+      'acne': { en: 'Acne', ru: 'Акне', ar: 'حب الشباب' },
+      'dark spots': { en: 'Dark spots', ru: 'Тёмные пятна', ar: 'بقع داكنة' },
+      'pigmentation': { en: 'Pigmentation', ru: 'Пигментация', ar: 'تصبغات' },
+      'redness': { en: 'Redness', ru: 'Покраснение', ar: 'احمرار' },
+      'sensitivity': { en: 'Sensitivity', ru: 'Чувствительность', ar: 'حساسية' },
+      'dullness': { en: 'Dullness', ru: 'Тусклость', ar: 'بهتان' },
+      'uneven tone': { en: 'Uneven tone', ru: 'Неровный тон', ar: 'لون غير متساوي' },
+      'oiliness': { en: 'Oiliness', ru: 'Жирность', ar: 'دهنية' },
+      'dryness': { en: 'Dryness', ru: 'Сухость', ar: 'جفاف' },
+      'texture': { en: 'Texture', ru: 'Текстура', ar: 'الملمس' },
+      'enlarged pores': { en: 'Enlarged pores', ru: 'Расширенные поры', ar: 'مسام واسعة' },
+      'sagging': { en: 'Sagging', ru: 'Дряблость', ar: 'ترهل' },
+      'loss of firmness': { en: 'Loss of firmness', ru: 'Потеря упругости', ar: 'فقدان المرونة' },
+      'dark circles': { en: 'Dark circles', ru: 'Тёмные круги', ar: 'هالات سوداء' },
+      'puffiness': { en: 'Puffiness', ru: 'Отёчность', ar: 'انتفاخ' },
+      'sun damage': { en: 'Sun damage', ru: 'Фотоповреждение', ar: 'أضرار الشمس' },
+      'blackheads': { en: 'Blackheads', ru: 'Чёрные точки', ar: 'الرؤوس السوداء' },
+      'blemishes': { en: 'Blemishes', ru: 'Несовершенства', ar: 'شوائب' },
+    }
+    const key = concern.toLowerCase()
+    const translation = concernTranslations[key]
+    if (translation) {
+      return translation[locale as 'en' | 'ru' | 'ar'] || translation.en
+    }
+    return concern // Return original if no translation found
+  }
+
   // Helper function to translate Fitzpatrick skin type
   const translateFitzpatrick = (typeName: string, description: string): { name: string; desc: string } => {
-    const fitzpatrickTranslations: Record<string, { name: { ru: string; ar: string }; desc: { ru: string; ar: string } }> = {
+    // Translations for full format "Type X - Description"
+    const fitzpatrickFullTranslations: Record<string, { name: { ru: string; ar: string }; desc: { ru: string; ar: string } }> = {
       'Type I - Very Fair': {
         name: { ru: 'Тип I - Очень светлая', ar: 'النوع الأول - فاتحة جداً' },
         desc: { ru: 'Всегда обгорает, никогда не загорает', ar: 'دائماً تحترق، لا تسمر أبداً' }
@@ -291,18 +338,47 @@ export default function SkinRecommendationClient() {
       }
     }
     
+    // Translations for short format "Type X" only
+    const fitzpatrickTypeTranslations: Record<string, { ru: string; ar: string }> = {
+      'Type I': { ru: 'Тип I', ar: 'النوع الأول' },
+      'Type II': { ru: 'Тип II', ar: 'النوع الثاني' },
+      'Type III': { ru: 'Тип III', ar: 'النوع الثالث' },
+      'Type IV': { ru: 'Тип IV', ar: 'النوع الرابع' },
+      'Type V': { ru: 'Тип V', ar: 'النوع الخامس' },
+      'Type VI': { ru: 'Тип VI', ar: 'النوع السادس' },
+    }
+    
+    // Translations for skin tone descriptions
+    const skinToneTranslations: Record<string, { ru: string; ar: string }> = {
+      'Very Fair': { ru: 'Очень светлая', ar: 'فاتحة جداً' },
+      'Fair': { ru: 'Светлая', ar: 'فاتحة' },
+      'Medium': { ru: 'Средняя', ar: 'متوسطة' },
+      'Olive': { ru: 'Оливковая', ar: 'زيتونية' },
+      'Brown': { ru: 'Смуглая', ar: 'بنية' },
+      'Dark': { ru: 'Тёмная', ar: 'داكنة' },
+    }
+    
     if (locale === 'en') {
       return { name: typeName, desc: description }
     }
     
-    const translation = fitzpatrickTranslations[typeName]
-    if (translation) {
+    // First try full format translation
+    const fullTranslation = fitzpatrickFullTranslations[typeName]
+    if (fullTranslation) {
       return {
-        name: translation.name[locale as 'ru' | 'ar'] || typeName,
-        desc: translation.desc[locale as 'ru' | 'ar'] || description
+        name: fullTranslation.name[locale as 'ru' | 'ar'] || typeName,
+        desc: fullTranslation.desc[locale as 'ru' | 'ar'] || description
       }
     }
-    return { name: typeName, desc: description }
+    
+    // Try short type format (e.g., "Type III")
+    const typeTranslation = fitzpatrickTypeTranslations[typeName]
+    const descTranslation = skinToneTranslations[description]
+    
+    return {
+      name: typeTranslation ? typeTranslation[locale as 'ru' | 'ar'] : typeName,
+      desc: descTranslation ? descTranslation[locale as 'ru' | 'ar'] : description
+    }
   }
 
   // Get translated data arrays
@@ -981,7 +1057,7 @@ export default function SkinRecommendationClient() {
                     <div className={`flex flex-wrap gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                       {aiAnalysisResult.concerns.map((concern, idx) => (
                         <span key={idx} className="px-3 py-1 bg-amber-100 text-amber-800 rounded-full text-sm font-medium">
-                          {concern}
+                          {translateConcern(concern)}
                         </span>
                       ))}
                     </div>

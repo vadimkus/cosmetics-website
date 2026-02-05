@@ -29,6 +29,17 @@ function checkRateLimit(key: string): boolean {
   return true
 }
 
+const getLanguageInstruction = (locale: string): string => {
+  switch (locale) {
+    case 'ru':
+      return `IMPORTANT: You MUST respond in RUSSIAN language. All text fields (analysis, concerns, routine steps, tips, product reasons) MUST be written in Russian. Product names should stay in English but reasons and descriptions must be in Russian.`
+    case 'ar':
+      return `IMPORTANT: You MUST respond in ARABIC language. All text fields (analysis, concerns, routine steps, tips, product reasons) MUST be written in Arabic. Product names should stay in English but reasons and descriptions must be in Arabic.`
+    default:
+      return `Respond in English.`
+  }
+}
+
 const SKIN_ANALYSIS_PROMPT = `You are an expert dermatologist and cosmetic scientist specializing in skin analysis. Analyze the provided face photo and give a professional skin assessment.
 
 ## Your Analysis Should Include:
@@ -103,7 +114,7 @@ export async function POST(request: NextRequest) {
 
     // Parse request body
     const body = await request.json()
-    const { image } = body
+    const { image, locale = 'en' } = body
 
     if (!image) {
       return NextResponse.json(
@@ -120,6 +131,10 @@ export async function POST(request: NextRequest) {
       )
     }
 
+    // Build prompt with language instruction
+    const languageInstruction = getLanguageInstruction(locale)
+    const fullPrompt = `${languageInstruction}\n\n${SKIN_ANALYSIS_PROMPT}`
+
     // Call GPT-4o-mini with vision
     const result = await generateText({
       model: openai('gpt-4o-mini'),
@@ -129,7 +144,7 @@ export async function POST(request: NextRequest) {
           content: [
             {
               type: 'text',
-              text: SKIN_ANALYSIS_PROMPT,
+              text: fullPrompt,
             },
             {
               type: 'image',

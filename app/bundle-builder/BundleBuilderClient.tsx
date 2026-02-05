@@ -678,11 +678,11 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
       {/* Header */}
       <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-lg border-b border-gray-100">
         <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between h-14 sm:h-16">
+          <div className="relative flex items-center justify-between h-14 sm:h-16">
             {/* Back Button */}
             <Link
               href={getLocalizedPath('/products?categories=beauty-boxes', locale)}
-              className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
+              className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors z-10"
             >
               <ArrowLeft className="w-5 h-5" />
               <span className="hidden sm:inline text-sm font-medium">
@@ -690,15 +690,15 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
               </span>
             </Link>
             
-            {/* Title */}
-            <h1 className="text-base sm:text-lg font-semibold text-gray-900">
+            {/* Title - Centered absolutely */}
+            <h1 className="absolute left-1/2 -translate-x-1/2 text-base sm:text-lg font-semibold text-gray-900">
               {t('bundleBuilder.title')}
             </h1>
             
             {/* Cart Preview (Mobile) */}
             <button
               onClick={() => setShowMobileSummary(true)}
-              className="lg:hidden relative flex items-center gap-1 text-gray-600 hover:text-gray-900 transition-colors"
+              className="lg:hidden relative flex items-center gap-1 text-gray-600 hover:text-gray-900 transition-colors z-10"
             >
               <ShoppingBag className="w-5 h-5" />
               {items.length > 0 && (

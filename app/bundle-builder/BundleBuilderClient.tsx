@@ -707,16 +707,6 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
                 </span>
               )}
             </button>
-            
-            {/* Desktop: Show total */}
-            <div className="hidden lg:flex items-center gap-2 text-sm">
-              <span className="text-gray-500">{items.length} {t('bundleBuilder.items')}</span>
-              {pricing.discountPercent > 0 && (
-                <span className="bg-green-100 text-green-700 px-2 py-0.5 rounded-full text-xs font-medium">
-                  {pricing.discountPercent}% {t('bundleBuilder.off')}
-                </span>
-              )}
-            </div>
           </div>
         </div>
       </header>

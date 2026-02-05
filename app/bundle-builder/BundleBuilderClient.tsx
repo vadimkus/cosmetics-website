@@ -233,13 +233,13 @@ function BundleProductCard({
           )}
         </div>
         {!isSelected && showPrices && (
-          <div className="mt-2 flex justify-end">
+          <div className="mt-2 flex justify-center">
             <button
               onClick={(e) => {
                 e.stopPropagation()
                 onSelect()
               }}
-              className="text-xs text-gray-500 hover:text-gray-700 flex items-center gap-1 px-2 py-1 -mr-2 rounded-lg hover:bg-gray-100 active:bg-gray-200 transition-colors"
+              className="text-xs text-gray-500 hover:text-gray-700 flex items-center gap-1 px-3 py-1.5 rounded-lg hover:bg-gray-100 active:bg-gray-200 transition-colors"
             >
               <Plus className="w-3 h-3" />
               {t('bundleBuilder.add')}

@@ -55,12 +55,15 @@ When user has a personal discount, the pricing summary now shows a complete brea
 
 ---
 
-### 3. Product Detail Bottom Sheet (Mobile)
+### 3. Product Detail View (Desktop & Mobile)
 
-**Trigger**: Single tap on product card opens detail sheet
+**Trigger**: Single click/tap on product card opens detail view
+
+**Desktop**: Centered modal with backdrop blur
+**Mobile**: Bottom sheet (swipe-down to close)
 
 **Features**:
-- Centered product image (max 200px × 200px)
+- Centered product image (max 250px × 250px)
 - Product size displayed below image
 - Full product name
 - Bundle discount badge showing % that will apply
@@ -70,8 +73,8 @@ When user has a personal discount, the pricing summary now shows a complete brea
 - "Add to Set" / "Added to Set" button
 - "Continue Browsing" link
 
-**Double-tap**: Quick add/remove for power users
-**First-time hint**: "Double-tap to quick add" shown via localStorage flag
+**Double-click/tap**: Quick add/remove for power users (both platforms)
+**First-time hint**: "Double-tap/click to quick add" shown via localStorage flag
 
 **Files Modified**:
 - `app/bundle-builder/BundleBuilderClient.tsx`

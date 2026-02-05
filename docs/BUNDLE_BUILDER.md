@@ -273,6 +273,13 @@ Total:                 294.50 AED
 **Chatbot**
 - Hidden on `/bundle-builder` page on mobile web (cleaner UX)
 
+**Desktop Product Detail Modal**
+- Single click on product card now opens detail modal on desktop (same as mobile bottom sheet)
+- Double-click quick-adds product to set (both desktop and mobile)
+- Modal features: centered image, full description, bundle discount preview, add button
+- Animated entrance/exit with backdrop blur
+- Click outside or X button to close
+
 **Bug Fixes**
 - Fixed unused variable TypeScript errors (`itemPricing`, `user`)
 - Fixed swipe gesture null check for touch events

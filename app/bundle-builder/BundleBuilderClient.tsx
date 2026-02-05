@@ -90,8 +90,9 @@ function getLocalizedDescription(product: Product, locale: string): string | und
 
 /**
  * Product Card for Bundle Selection
- * Single click/tap opens product detail view
- * Double click/tap quick-adds to set
+ * - Single click on unselected item: opens detail view
+ * - Single click on selected item: deselects it
+ * - Double click/tap: toggles selection (quick add/remove)
  */
 function BundleProductCard({
   product,
@@ -121,14 +122,17 @@ function BundleProductCard({
   const pricing = useMemo(() => calculateDiscountedPrice(product, user), [product, user])
   
   const handleClick = () => {
-    // Both desktop and mobile: detect double-tap/click for quick add
     const now = Date.now()
     if (now - lastTapRef.current < DOUBLE_TAP_DELAY) {
-      // Double tap/click - quick add/remove
+      // Double tap/click - quick add/remove (toggle)
+      onSelect()
+      lastTapRef.current = 0
+    } else if (isSelected) {
+      // Single click on selected item - deselect it
       onSelect()
       lastTapRef.current = 0
     } else {
-      // Single tap/click - open detail view
+      // Single click on unselected item - open detail view
       onViewDetails(product)
       lastTapRef.current = now
     }

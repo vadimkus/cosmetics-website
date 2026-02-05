@@ -1124,7 +1124,7 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
             return (
               <div className="flex flex-col h-full">
                 {/* Product Image */}
-                <div className="relative aspect-square bg-gray-50 rounded-2xl overflow-hidden max-h-[200px]">
+                <div className="relative aspect-square bg-gray-50 rounded-2xl overflow-hidden max-h-[200px] max-w-[200px] mx-auto">
                   <Image
                     src={detailProduct.image}
                     alt={detailProduct.name}

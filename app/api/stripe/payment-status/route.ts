@@ -2,6 +2,11 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getCheckoutSession, getPaymentIntent } from '@/lib/stripe'
 import { prisma } from '@/lib/database'
 import { debugLog, errorLog } from '@/lib/logger'
+import { sendOrderConfirmationEmail, sendAdminNewOrderNotification } from '@/lib/email'
+import { getPreferredEmail } from '@/lib/emailHelpers'
+import { findUserByEmail } from '@/lib/userStorageDb'
+import { isUserDiscountExcludedProduct } from '@/lib/mobileDiscountRules'
+import { trackUserAction } from '@/lib/analyticsServer'
 
 export async function GET(request: NextRequest) {
   try {
@@ -236,6 +241,10 @@ async function handlePaymentIntentStatus(paymentIntentId: string, orderId: strin
         orderStatus = 'FAILED'
     }
 
+    // Track if this is a new payment confirmation (to avoid duplicate emails)
+    const wasNotPaidBefore = order.paymentStatus !== 'paid'
+    const isNowPaid = paymentStatus === 'paid'
+    
     // Update order status if it has changed
     if (order.paymentStatus !== paymentStatus || order.status !== orderStatus) {
       try {
@@ -257,6 +266,147 @@ async function handlePaymentIntentStatus(paymentIntentId: string, orderId: strin
           paymentStatus,
           orderStatus
         })
+        
+        // Send confirmation emails if payment just became successful
+        // This ensures emails are sent even if webhook is delayed or fails
+        if (wasNotPaidBefore && isNowPaid) {
+          debugLog('📧 Sending confirmation emails for embedded payment:', order.orderNumber)
+          
+          try {
+            // Get user for discount tier info and preferred email
+            const user = order.customerEmail 
+              ? await findUserByEmail(order.customerEmail)
+              : null
+            
+            // Get preferred email address (use user's contactEmail if available for Apple Private Relay)
+            const emailToUse = user ? getPreferredEmail(user) : order.customerEmail || ''
+            
+            // Calculate discount info for items
+            const userDiscountPct = Number(user?.discountPercentage || 0)
+            const hasUserDiscount = Number.isFinite(userDiscountPct) && userDiscountPct > 0 && userDiscountPct < 100
+            
+            // Send customer confirmation email
+            if (emailToUse) {
+              await sendOrderConfirmationEmail({
+                orderNumber: order.orderNumber,
+                customerName: order.customerName,
+                customerEmail: emailToUse,
+                items: order.items.map((item) => {
+                  const itemName = item.productName || 'Product'
+                  
+                  // Check item type for discount labeling
+                  const isFreeItem = item.price === 0 || itemName.toLowerCase().includes('(free)')
+                  const isBundle = itemName.toLowerCase().includes('beauty box') || itemName.toLowerCase().includes('bundle')
+                  const isExcludedFromUserDiscount = isUserDiscountExcludedProduct({ name: itemName })
+                  const hasUserDiscountApplied = hasUserDiscount && !isExcludedFromUserDiscount && !isFreeItem
+                  
+                  // Determine discount label
+                  let discountLabel: string | undefined = undefined
+                  if (isFreeItem) {
+                    discountLabel = undefined
+                  } else if (isBundle) {
+                    discountLabel = '15% OFF - Bundle'
+                  } else if (hasUserDiscountApplied) {
+                    discountLabel = `${userDiscountPct}% OFF`
+                  }
+                  
+                  return {
+                    productName: itemName,
+                    quantity: item.quantity,
+                    price: item.price,
+                    image: item.image || '',
+                    ...(item.size ? { size: item.size } : {}),
+                    ...(item.color ? { color: item.color } : {}),
+                    ...(discountLabel ? { discountLabel } : {})
+                  }
+                }),
+                subtotal: order.subtotal || 0,
+                shipping: order.shipping || 0,
+                vat: order.vat || 0,
+                total: order.total || 0,
+                address: order.customerAddress || '',
+                emirate: order.customerEmirate || '',
+                locale: order.locale || 'en',
+                discountPercentage: hasUserDiscount ? userDiscountPct : undefined,
+                discountAmount: order.discountAmount ?? undefined
+              })
+              
+              debugLog('📧 Customer email sent for order:', order.orderNumber)
+              
+              // Track email sent
+              if (order.customerEmail) {
+                await trackUserAction({
+                  userEmail: order.customerEmail,
+                  action: 'order_confirmation_email_sent',
+                  metadata: {
+                    orderNumber: order.orderNumber,
+                    source: 'payment-status-route'
+                  }
+                })
+              }
+            }
+            
+            // Send admin notification email
+            await sendAdminNewOrderNotification({
+              orderNumber: order.orderNumber,
+              customerName: order.customerName,
+              customerEmail: emailToUse,
+              customerPhone: order.customerPhone ?? undefined,
+              total: order.total,
+              itemCount: order.items.length,
+              items: order.items.map((item) => {
+                const itemName = item.productName || 'Product'
+                
+                // Check item type for discount labeling
+                const isFreeItem = item.price === 0 || itemName.toLowerCase().includes('(free)')
+                const isBundle = itemName.toLowerCase().includes('beauty box') || itemName.toLowerCase().includes('bundle')
+                const isExcludedFromUserDiscount = isUserDiscountExcludedProduct({ name: itemName })
+                const hasUserDiscountApplied = hasUserDiscount && !isExcludedFromUserDiscount && !isFreeItem
+                
+                // Determine discount label and original price
+                let discountLabel: string | undefined = undefined
+                let originalPrice: number | undefined = undefined
+                
+                if (isFreeItem) {
+                  discountLabel = undefined
+                  originalPrice = undefined
+                } else if (isBundle) {
+                  discountLabel = '15% OFF - Bundle'
+                  originalPrice = item.price / (1 - 0.15)
+                } else if (hasUserDiscountApplied) {
+                  discountLabel = `${userDiscountPct}% OFF`
+                  originalPrice = item.price / (1 - userDiscountPct / 100)
+                }
+                
+                return {
+                  productName: itemName,
+                  quantity: item.quantity,
+                  price: item.price,
+                  originalPrice,
+                  image: item.image || '',
+                  ...(item.size ? { size: item.size } : {}),
+                  ...(item.color ? { color: item.color } : {}),
+                  ...(discountLabel ? { discountLabel } : {})
+                }
+              }),
+              subtotal: order.subtotal ?? undefined,
+              shipping: order.shipping ?? undefined,
+              vat: order.vat ?? undefined,
+              address: order.customerAddress ?? undefined,
+              emirate: order.customerEmirate ?? undefined,
+              paymentStatus: 'PAID',
+              paymentMethod: order.paymentMethod ?? 'Stripe',
+              discountPercentage: hasUserDiscount ? userDiscountPct : 0,
+              discountAmount: order.discountAmount ?? 0
+            })
+            
+            debugLog('📧 Admin notification sent for order:', order.orderNumber)
+            
+          } catch (emailError) {
+            // Don't fail the request if email fails
+            errorLog('❌ Failed to send confirmation emails:', emailError)
+          }
+        }
       } catch (updateError) {
         errorLog('❌ Failed to update order status:', updateError)
       }

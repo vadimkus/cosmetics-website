@@ -316,27 +316,21 @@ export default function LoginClient() {
 
             {/* Privacy Consent */}
             <div className={`flex items-start gap-3 py-1 ${isRTL ? 'flex-row-reverse' : ''}`}>
-              <div 
-                className="flex-shrink-0 mt-0.5"
-                style={{ width: '18px', height: '18px', minWidth: '18px', minHeight: '18px', maxWidth: '18px', maxHeight: '18px' }}
+              <button
+                type="button"
+                onClick={() => setPrivacyConsent(!privacyConsent)}
+                className={`touch-target-exempt flex-shrink-0 mt-0.5 w-[18px] h-[18px] rounded border-[1.5px] flex items-center justify-center transition-all duration-200 ${
+                  privacyConsent 
+                    ? 'bg-red-600 border-red-600' 
+                    : 'bg-white border-gray-300 active:border-gray-400'
+                }`}
               >
-                <button
-                  type="button"
-                  onClick={() => setPrivacyConsent(!privacyConsent)}
-                  className={`w-full h-full rounded border-[1.5px] flex items-center justify-center transition-all duration-200 ${
-                    privacyConsent 
-                      ? 'bg-red-600 border-red-600' 
-                      : 'bg-white border-gray-300 active:border-gray-400'
-                  }`}
-                  style={{ padding: 0, margin: 0 }}
-                >
-                  {privacyConsent && (
-                    <svg width="10" height="10" viewBox="0 0 12 12" fill="none">
-                      <path d="M2 6L5 9L10 3" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                  )}
-                </button>
-              </div>
+                {privacyConsent && (
+                  <svg width="10" height="10" viewBox="0 0 12 12" fill="none">
+                    <path d="M2 6L5 9L10 3" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                )}
+              </button>
               <p className={`text-[13px] text-gray-500 flex-1 leading-snug ${isRTL ? 'text-right' : ''}`}>
                 {t('authScreen.privacyConsentPrefix') || 'I agree to the'}{' '}
                 <Link 

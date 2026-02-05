@@ -312,21 +312,40 @@ export default function PWALoginPage() {
             <button
               type="button"
               onClick={() => setPrivacyConsent(!privacyConsent)}
-              className={`w-6 h-6 flex-shrink-0 border-2 rounded-md flex items-center justify-center transition-colors ${
-                privacyConsent ? 'bg-red-600 border-red-600 text-white' : 'border-gray-300'
-              }`}
+              className="relative mt-0.5 flex-shrink-0"
+              style={{ width: '18px', height: '18px' }}
             >
-              {privacyConsent && (
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                </svg>
-              )}
+              <span 
+                className={`absolute inset-0 rounded border-[1.5px] flex items-center justify-center transition-all duration-200 ${
+                  privacyConsent 
+                    ? 'bg-red-600 border-red-600' 
+                    : 'bg-white border-gray-300 hover:border-gray-400'
+                }`}
+              >
+                {privacyConsent && (
+                  <svg 
+                    className="text-white" 
+                    width="10" 
+                    height="10" 
+                    viewBox="0 0 12 12" 
+                    fill="none"
+                  >
+                    <path 
+                      d="M2 6L5 9L10 3" 
+                      stroke="currentColor" 
+                      strokeWidth="2" 
+                      strokeLinecap="round" 
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                )}
+              </span>
             </button>
-            <p className={`text-sm text-gray-600 flex-1 ${isRTL ? 'text-right' : ''}`}>
+            <p className={`text-[13px] text-gray-500 flex-1 leading-snug ${isRTL ? 'text-right' : ''}`}>
               {t('authScreen.privacyConsentPrefix')}{' '}
               <Link 
                 href={getLocalizedPath('/privacy-policy', locale)} 
-                className="text-red-600 underline"
+                className="text-red-600 underline font-medium"
               >
                 {t('authScreen.privacyPolicyLink')}
               </Link>{' '}

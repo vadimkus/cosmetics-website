@@ -802,11 +802,19 @@ export default function CheckoutClient() {
                   {items.map((item) => {
                     const quantity = item.quantity || 1
                     
-                    // Handle bundle items with their stored discount
+                    // Handle bundle items - apply user discount first, then bundle discount
                     if (item.fromBundle && item.bundleDiscountPercent && item.bundleDiscountPercent > 0) {
                       const originalPrice = item.product.price
-                      const bundleDiscountAmount = (originalPrice * item.bundleDiscountPercent) / 100
-                      const discountedPrice = originalPrice - bundleDiscountAmount
+                      // First apply user discount
+                      const userPricing = calculateDiscountedPrice(item.product, user)
+                      // Then apply bundle discount on top
+                      const bundleDiscountAmount = (userPricing.discountedPrice * item.bundleDiscountPercent) / 100
+                      const finalPrice = userPricing.discountedPrice - bundleDiscountAmount
+                      
+                      // Show combined discount info
+                      const discountText = userPricing.hasDiscount 
+                        ? `${userPricing.discountPercentage}% + ${item.bundleDiscountPercent}%`
+                        : `${item.bundleDiscountPercent}%`
                       
                       return (
                         <div key={`${item.product.id}-bundle`} className={`flex justify-between items-start ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
@@ -815,12 +823,12 @@ export default function CheckoutClient() {
                             <div className={`flex items-center gap-2 mt-0.5 flex-wrap ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                               <span className="text-xs text-gray-500">{locale === 'ar' ? 'الكمية' : locale === 'ru' ? 'Кол-во' : 'Qty'}: {quantity}</span>
                               <span className="text-xs text-purple-600 font-medium">
-                                ✨ {item.bundleDiscountPercent}% {locale === 'ar' ? 'خصم المجموعة' : locale === 'ru' ? 'Скидка набора' : 'Bundle Discount'}
+                                ✨ {discountText} {locale === 'ar' ? 'خصم المجموعة' : locale === 'ru' ? 'Скидка набора' : 'Bundle Discount'}
                               </span>
                             </div>
                           </div>
                           <div className="text-right">
-                            <span className="text-sm font-semibold text-purple-700">AED {(discountedPrice * quantity).toFixed(2)}</span>
+                            <span className="text-sm font-semibold text-purple-700">AED {(finalPrice * quantity).toFixed(2)}</span>
                             <div className="text-xs text-gray-400 line-through">AED {(originalPrice * quantity).toFixed(2)}</div>
                           </div>
                         </div>
@@ -1254,12 +1262,20 @@ export default function CheckoutClient() {
                       {items.map((item) => {
                         const quantity = item.quantity || 1
                         
-                        // Handle bundle items with their stored discount
+                        // Handle bundle items - apply user discount first, then bundle discount
                         if (item.fromBundle && item.bundleDiscountPercent && item.bundleDiscountPercent > 0) {
                           const originalPrice = item.product.price
-                          const bundleDiscountAmount = (originalPrice * item.bundleDiscountPercent) / 100
-                          const discountedPrice = originalPrice - bundleDiscountAmount
-                          const total = discountedPrice * quantity
+                          // First apply user discount
+                          const userPricing = calculateDiscountedPrice(item.product, user)
+                          // Then apply bundle discount on top
+                          const bundleDiscountAmount = (userPricing.discountedPrice * item.bundleDiscountPercent) / 100
+                          const finalPrice = userPricing.discountedPrice - bundleDiscountAmount
+                          const total = finalPrice * quantity
+                          
+                          // Show combined discount info
+                          const discountText = userPricing.hasDiscount 
+                            ? `${userPricing.discountPercentage}% + ${item.bundleDiscountPercent}%`
+                            : `${item.bundleDiscountPercent}%`
                           
                           return (
                             <div key={`${item.product.id}-bundle`} className={`flex items-start justify-between ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
@@ -1275,7 +1291,7 @@ export default function CheckoutClient() {
                                     </span>
                                   )}
                                   <span className="text-[10px] md:text-xs text-purple-600 font-medium">
-                                    ✨ {item.bundleDiscountPercent}% {t('products.bundleDiscount')}
+                                    ✨ {discountText} {t('products.bundleDiscount')}
                                   </span>
                                 </div>
                               </div>

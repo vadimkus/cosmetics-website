@@ -63,7 +63,7 @@ export default function BottomSheet({
 
   return (
     <div 
-      className="fixed inset-0 z-50 flex items-end justify-center"
+      className="fixed inset-0 z-[60] flex items-end justify-center"
       onClick={handleBackdropClick}
       role="dialog"
       aria-modal="true"

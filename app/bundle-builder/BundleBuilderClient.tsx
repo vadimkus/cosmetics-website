@@ -528,18 +528,19 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
   
   // Show double-tap hint on first mobile visit
   useEffect(() => {
-    if (isMobile) {
-      const hasSeenHint = localStorage.getItem('bundleDoubleTapHint')
-      if (!hasSeenHint) {
-        setShowDoubleTapHint(true)
-        // Auto-hide after 5 seconds
-        const timer = setTimeout(() => {
-          setShowDoubleTapHint(false)
-          localStorage.setItem('bundleDoubleTapHint', 'true')
-        }, 5000)
-        return () => clearTimeout(timer)
-      }
-    }
+    if (!isMobile) return
+    
+    const hasSeenHint = localStorage.getItem('bundleDoubleTapHint')
+    if (hasSeenHint) return
+    
+    setShowDoubleTapHint(true)
+    // Auto-hide after 5 seconds
+    const timer = setTimeout(() => {
+      setShowDoubleTapHint(false)
+      localStorage.setItem('bundleDoubleTapHint', 'true')
+    }, 5000)
+    
+    return () => clearTimeout(timer)
   }, [isMobile])
   
   const currentStepData = ROUTINE_STEPS[currentStep]

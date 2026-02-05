@@ -958,10 +958,31 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
             const detailPricing = calculateDiscountedPrice(detailProduct, user)
             const isProductSelected = selectedProductIds.includes(detailProduct.id)
             
+            // Calculate bundle discount for this item
+            // If item is already selected, show current discount
+            // If not selected, show what discount would be after adding
+            const currentItemCount = items.length
+            const newItemCount = isProductSelected ? currentItemCount : currentItemCount + 1
+            
+            // Discount tiers
+            const DISCOUNT_TIERS = [
+              { minItems: 2, discount: 5 },
+              { minItems: 3, discount: 10 },
+              { minItems: 4, discount: 15 },
+              { minItems: 5, discount: 20 },
+            ]
+            
+            let bundleDiscountForItem = 0
+            for (const tier of DISCOUNT_TIERS) {
+              if (newItemCount >= tier.minItems) {
+                bundleDiscountForItem = tier.discount
+              }
+            }
+            
             return (
               <div className="flex flex-col h-full">
                 {/* Product Image */}
-                <div className="relative aspect-square bg-gray-50 rounded-2xl overflow-hidden mb-4 max-h-[200px]">
+                <div className="relative aspect-square bg-gray-50 rounded-2xl overflow-hidden max-h-[200px]">
                   <Image
                     src={detailProduct.image}
                     alt={detailProduct.name}
@@ -983,16 +1004,31 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
                   )}
                 </div>
                 
+                {/* Product Size - Under Image */}
+                {detailProduct.size && (
+                  <p className="text-xs text-gray-500 text-center mt-2 mb-2">
+                    {detailProduct.size}
+                  </p>
+                )}
+                
                 {/* Product Name */}
                 <h3 className="text-lg font-semibold text-gray-900 mb-1">
                   {detailProduct.name}
                 </h3>
                 
-                {/* Product Size */}
-                {detailProduct.size && (
-                  <p className="text-sm text-gray-500 mb-3">
-                    {detailProduct.size}
-                  </p>
+                {/* Bundle Discount Badge */}
+                {showPrices && bundleDiscountForItem > 0 && (
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="inline-flex items-center gap-1 bg-purple-100 text-purple-700 text-xs font-medium px-2 py-1 rounded-full">
+                      <Sparkles className="w-3 h-3" />
+                      {bundleDiscountForItem}% {t('bundleBuilder.discount')}
+                    </span>
+                    {!isProductSelected && currentItemCount >= 1 && (
+                      <span className="text-xs text-gray-400">
+                        {locale === 'ru' ? 'при добавлении' : locale === 'ar' ? 'عند الإضافة' : 'when added'}
+                      </span>
+                    )}
+                  </div>
                 )}
                 
                 {/* Full Description */}

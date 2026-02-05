@@ -419,7 +419,7 @@ function BundleSummary({
                     <span className="text-base font-semibold text-gray-900">
                       {t('bundleBuilder.total')}
                     </span>
-                    <p className="text-[10px] text-gray-400">{t('product.vatIncluded')}</p>
+                    <p className="text-[10px] text-gray-400">5% {t('product.vatIncluded')}</p>
                   </div>
                   <span className="text-xl font-bold text-gray-900">
                     {pricing.total.toFixed(2)} {t('common.aed')}
@@ -958,7 +958,7 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
                   <span className="text-base font-bold text-gray-900">
                     {pricing.total.toFixed(2)} {t('common.aed')}
                   </span>
-                  <p className="text-[10px] text-gray-400">{t('product.vatIncluded')}</p>
+                  <p className="text-[10px] text-gray-400">5% {t('product.vatIncluded')}</p>
                 </button>
               ) : (
                 <span className="text-xs text-gray-500">

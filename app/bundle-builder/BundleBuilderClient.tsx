@@ -90,8 +90,8 @@ function getLocalizedDescription(product: Product, locale: string): string | und
 
 /**
  * Product Card for Bundle Selection
- * On mobile: single-tap opens detail sheet, double-tap quick-adds
- * On desktop: single-click selects/deselects
+ * Single click/tap opens product detail view
+ * Double click/tap quick-adds to set
  */
 function BundleProductCard({
   product,
@@ -101,7 +101,6 @@ function BundleProductCard({
   showPrices,
   user,
   locale,
-  isMobile,
 }: {
   product: Product
   isSelected: boolean
@@ -110,7 +109,6 @@ function BundleProductCard({
   showPrices: boolean
   user: User | null
   locale: string
-  isMobile: boolean
 }) {
   const { t } = useTranslation()
   const { enabled: animationsEnabled } = useAnimationStore()
@@ -123,20 +121,14 @@ function BundleProductCard({
   const pricing = useMemo(() => calculateDiscountedPrice(product, user), [product, user])
   
   const handleClick = () => {
-    if (!isMobile) {
-      // Desktop: single click to select
-      onSelect()
-      return
-    }
-    
-    // Mobile: detect double-tap
+    // Both desktop and mobile: detect double-tap/click for quick add
     const now = Date.now()
     if (now - lastTapRef.current < DOUBLE_TAP_DELAY) {
-      // Double tap - quick add/remove
+      // Double tap/click - quick add/remove
       onSelect()
       lastTapRef.current = 0
     } else {
-      // Single tap - open detail sheet
+      // Single tap/click - open detail view
       onViewDetails(product)
       lastTapRef.current = now
     }
@@ -580,10 +572,8 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
   
-  // Show double-tap hint on first mobile visit
+  // Show double-click/tap hint on first visit
   useEffect(() => {
-    if (!isMobile) return
-    
     const hasSeenHint = localStorage.getItem('bundleDoubleTapHint')
     if (hasSeenHint) return
     
@@ -595,7 +585,7 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
     }, 5000)
     
     return () => clearTimeout(timer)
-  }, [isMobile])
+  }, [])
   
   const currentStepData = ROUTINE_STEPS[currentStep]
   
@@ -840,7 +830,6 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
                     showPrices={showPrices}
                     user={user}
                     locale={locale}
-                    isMobile={isMobile}
                   />
                 ))}
               </div>
@@ -1078,15 +1067,183 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
         )}
       </AnimatePresence>
       
-      {/* Product Detail Bottom Sheet (Mobile) */}
+      {/* Product Detail View (Modal on Desktop, Bottom Sheet on Mobile) */}
       {detailProduct && (
-        <BottomSheet
-          isOpen={!!detailProduct}
-          onClose={() => setDetailProduct(null)}
-          height="large"
-          showCloseButton={false}
-        >
-          {(() => {
+        <>
+          {/* Desktop Modal */}
+          {!isMobile && (
+            <div 
+              className="fixed inset-0 z-[60] flex items-center justify-center p-4"
+              onClick={(e) => e.target === e.currentTarget && setDetailProduct(null)}
+            >
+              {/* Backdrop */}
+              <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
+              
+              {/* Modal */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.2 }}
+                className="relative bg-white rounded-2xl shadow-2xl max-w-md w-full max-h-[85vh] overflow-hidden flex flex-col"
+              >
+                {/* Close Button */}
+                <button
+                  onClick={() => setDetailProduct(null)}
+                  className="absolute top-4 right-4 z-10 p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
+                >
+                  <X className="w-5 h-5 text-gray-500" />
+                </button>
+                
+                {/* Content */}
+                <div className="flex-1 overflow-y-auto p-6">
+                  {(() => {
+                    const detailPricing = calculateDiscountedPrice(detailProduct, user)
+                    const isProductSelected = selectedProductIds.includes(detailProduct.id)
+                    const currentItemCount = items.length
+                    const newItemCount = isProductSelected ? currentItemCount : currentItemCount + 1
+                    
+                    const DISCOUNT_TIERS = [
+                      { minItems: 2, discount: 5 },
+                      { minItems: 3, discount: 10 },
+                      { minItems: 4, discount: 15 },
+                      { minItems: 5, discount: 20 },
+                    ]
+                    
+                    let bundleDiscountForItem = 0
+                    for (const tier of DISCOUNT_TIERS) {
+                      if (newItemCount >= tier.minItems) {
+                        bundleDiscountForItem = tier.discount
+                      }
+                    }
+                    
+                    return (
+                      <div className="flex flex-col h-full">
+                        {/* Product Image */}
+                        <div className="relative aspect-square bg-gray-50 rounded-2xl overflow-hidden max-h-[250px] max-w-[250px] mx-auto mb-4">
+                          <Image
+                            src={detailProduct.image}
+                            alt={detailProduct.name}
+                            fill
+                            className="object-contain p-4"
+                            sizes="250px"
+                          />
+                          {showPrices && detailPricing.hasDiscount && (
+                            <div className="absolute top-3 left-3 bg-green-600 text-white text-xs font-medium px-2 py-1 rounded-full">
+                              -{detailPricing.discountPercentage}%
+                            </div>
+                          )}
+                          {isProductSelected && (
+                            <div className="absolute top-3 right-3 bg-gray-900 text-white rounded-full p-1.5">
+                              <Check className="w-4 h-4" />
+                            </div>
+                          )}
+                        </div>
+                        
+                        {detailProduct.size && (
+                          <p className="text-sm text-gray-500 text-center mb-2">{detailProduct.size}</p>
+                        )}
+                        
+                        <h3 className="text-xl font-semibold text-gray-900 mb-2 text-center">
+                          {detailProduct.name}
+                        </h3>
+                        
+                        {showPrices && bundleDiscountForItem > 0 && (
+                          <div className="flex items-center justify-center gap-2 mb-3">
+                            <span className="inline-flex items-center gap-1 bg-purple-100 text-purple-700 text-xs font-medium px-2 py-1 rounded-full">
+                              <Sparkles className="w-3 h-3" />
+                              {bundleDiscountForItem}% {t('bundleBuilder.discount')}
+                            </span>
+                            {!isProductSelected && currentItemCount >= 1 && (
+                              <span className="text-xs text-gray-400">
+                                {locale === 'ru' ? 'при добавлении' : locale === 'ar' ? 'عند الإضافة' : 'when added'}
+                              </span>
+                            )}
+                          </div>
+                        )}
+                        
+                        {getLocalizedDescription(detailProduct, locale) && (
+                          <div className="mb-4 flex-1 overflow-y-auto">
+                            <p className="text-sm text-gray-600 leading-relaxed">
+                              {getLocalizedDescription(detailProduct, locale)}
+                            </p>
+                          </div>
+                        )}
+                        
+                        <div className="mb-4 text-center">
+                          {showPrices ? (
+                            <div className="flex flex-col items-center">
+                              {detailPricing.hasDiscount ? (
+                                <div className="flex items-center gap-2">
+                                  <span className="text-2xl font-bold text-primary-600">
+                                    {detailPricing.discountedPrice.toFixed(2)} {t('common.aed')}
+                                  </span>
+                                  <span className="text-sm text-gray-400 line-through">
+                                    {detailPricing.originalPrice.toFixed(2)}
+                                  </span>
+                                </div>
+                              ) : (
+                                <span className="text-2xl font-bold text-gray-900">
+                                  {detailProduct.price.toFixed(2)} {t('common.aed')}
+                                </span>
+                              )}
+                              <span className="text-xs text-gray-400 mt-1">5% {t('product.vatIncluded')}</span>
+                            </div>
+                          ) : (
+                            <span className="text-sm text-gray-500">{t('product.loginToSeePrice')}</span>
+                          )}
+                        </div>
+                        
+                        <div className="flex flex-col gap-2 pt-4 border-t border-gray-100">
+                          <button
+                            onClick={() => {
+                              handleProductSelect(detailProduct)
+                              setDetailProduct(null)
+                            }}
+                            className={`
+                              w-full py-3.5 rounded-xl font-medium text-sm transition-all hover:scale-[1.02] active:scale-[0.98]
+                              ${isProductSelected
+                                ? 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                                : 'bg-gray-900 text-white hover:bg-gray-800'
+                              }
+                            `}
+                          >
+                            {isProductSelected ? (
+                              <span className="flex items-center justify-center gap-2">
+                                <Check className="w-4 h-4" />
+                                {t('bundleBuilder.addedToSet')}
+                              </span>
+                            ) : (
+                              <span className="flex items-center justify-center gap-2">
+                                <Plus className="w-4 h-4" />
+                                {t('bundleBuilder.addToSet')}
+                              </span>
+                            )}
+                          </button>
+                          <button
+                            onClick={() => setDetailProduct(null)}
+                            className="w-full py-2.5 text-sm text-gray-500 hover:text-gray-700 transition-colors"
+                          >
+                            {t('bundleBuilder.continueBrowsing')}
+                          </button>
+                        </div>
+                      </div>
+                    )
+                  })()}
+                </div>
+              </motion.div>
+            </div>
+          )}
+          
+          {/* Mobile Bottom Sheet */}
+          {isMobile && (
+            <BottomSheet
+              isOpen={!!detailProduct}
+              onClose={() => setDetailProduct(null)}
+              height="large"
+              showCloseButton={false}
+            >
+              {(() => {
             const detailPricing = calculateDiscountedPrice(detailProduct, user)
             const isProductSelected = selectedProductIds.includes(detailProduct.id)
             
@@ -1238,12 +1395,14 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
               </div>
             )
           })()}
-        </BottomSheet>
+            </BottomSheet>
+          )}
+        </>
       )}
       
-      {/* Double-tap Hint (Mobile) */}
+      {/* Double-tap/click Hint */}
       <AnimatePresence>
-        {showDoubleTapHint && isMobile && (
+        {showDoubleTapHint && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}

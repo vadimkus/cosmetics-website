@@ -1,8 +1,8 @@
 'use client'
 
 import { User } from '@/types/user'
-import { ShoppingCart, Heart, Minus, Plus, MessageCircle } from 'lucide-react'
-import { useState, useEffect } from 'react'
+import { ShoppingCart, Heart, Minus, Plus, MessageCircle, Share2, Check } from 'lucide-react'
+import { useState, useEffect, useCallback } from 'react'
 import { useTranslation } from '@/hooks/useTranslation'
 import { usePWAMode } from '@/hooks/usePWAMode'
 
@@ -14,6 +14,7 @@ interface ProductQuantityCartProps {
   inStock?: boolean
   isPriceOnRequest?: boolean
   productName?: string
+  productUrl?: string
 }
 
 export default function ProductQuantityCart({
@@ -23,13 +24,15 @@ export default function ProductQuantityCart({
   isFavorite,
   inStock = true,
   isPriceOnRequest = false,
-  productName = ''
+  productName = '',
+  productUrl = ''
 }: ProductQuantityCartProps) {
   const { t, dir } = useTranslation()
   const { isPWA } = usePWAMode()
   const [quantity, setQuantity] = useState(1)
   const [isAdding, setIsAdding] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
+  const [shareStatus, setShareStatus] = useState<'idle' | 'copied'>('idle')
   
   // Detect mobile for "Add to Bag" text
   useEffect(() => {
@@ -44,6 +47,42 @@ export default function ProductQuantityCart({
 
   const handleIncrease = () => setQuantity(prev => prev + 1)
   const handleDecrease = () => setQuantity(prev => (prev > 1 ? prev - 1 : 1))
+
+  // Share functionality
+  const handleShare = useCallback(async () => {
+    const shareUrl = productUrl || (typeof window !== 'undefined' ? window.location.href : '')
+    const shareData = {
+      title: productName,
+      text: `${t('product.checkOutProduct') || 'Check out'}: ${productName} - GENOSYS Professional`,
+      url: shareUrl
+    }
+
+    // Try native share API first (mobile devices)
+    if (typeof navigator !== 'undefined' && navigator.share && navigator.canShare?.(shareData)) {
+      try {
+        await navigator.share(shareData)
+      } catch {
+        // User cancelled or share failed - silently ignore
+      }
+    } else {
+      // Fallback: copy to clipboard
+      try {
+        await navigator.clipboard.writeText(shareUrl)
+        setShareStatus('copied')
+        setTimeout(() => setShareStatus('idle'), 2000)
+      } catch {
+        // Fallback for older browsers
+        const textArea = document.createElement('textarea')
+        textArea.value = shareUrl
+        document.body.appendChild(textArea)
+        textArea.select()
+        document.execCommand('copy')
+        document.body.removeChild(textArea)
+        setShareStatus('copied')
+        setTimeout(() => setShareStatus('idle'), 2000)
+      }
+    }
+  }, [productName, productUrl, t])
 
   const handleAddToCart = async () => {
     setIsAdding(true)
@@ -80,6 +119,24 @@ export default function ProductQuantityCart({
             aria-label={isFavorite ? t('product.removeFromFavorites') : t('product.addToFavorites')}
           >
             <Heart className={`h-4 w-4 md:h-5 md:w-5 ${isFavorite ? 'fill-current' : ''}`} />
+          </button>
+          
+          {/* Share Button */}
+          <button
+            onClick={handleShare}
+            className={`px-4 md:px-6 py-2.5 md:py-3 rounded-lg font-medium transition-colors border-2 touch-manipulation flex items-center justify-center ${
+              shareStatus === 'copied'
+                ? 'border-green-500 bg-green-50 text-green-600'
+                : 'border-gray-300 text-gray-700 hover:border-gray-400 hover:bg-gray-50'
+            }`}
+            aria-label={t('product.shareProduct') || 'Share'}
+            title={shareStatus === 'copied' ? (t('product.linkCopied') || 'Link copied!') : (t('product.shareProduct') || 'Share')}
+          >
+            {shareStatus === 'copied' ? (
+              <Check className="h-4 w-4 md:h-5 md:w-5" />
+            ) : (
+              <Share2 className="h-4 w-4 md:h-5 md:w-5" />
+            )}
           </button>
         </div>
       </div>
@@ -138,6 +195,24 @@ export default function ProductQuantityCart({
           aria-label={isFavorite ? t('product.removeFromFavorites') : t('product.addToFavorites')}
         >
           <Heart className={`h-4 w-4 md:h-5 md:w-5 ${isFavorite ? 'fill-current' : ''}`} />
+        </button>
+        
+        {/* Share Button */}
+        <button
+          onClick={handleShare}
+          className={`px-4 md:px-6 py-2.5 md:py-3 rounded-lg font-medium transition-colors border-2 touch-manipulation flex items-center justify-center ${
+            shareStatus === 'copied'
+              ? 'border-green-500 bg-green-50 text-green-600'
+              : 'border-gray-300 text-gray-700 hover:border-gray-400 hover:bg-gray-50'
+          }`}
+          aria-label={t('product.shareProduct') || 'Share'}
+          title={shareStatus === 'copied' ? (t('product.linkCopied') || 'Link copied!') : (t('product.shareProduct') || 'Share')}
+        >
+          {shareStatus === 'copied' ? (
+            <Check className="h-4 w-4 md:h-5 md:w-5" />
+          ) : (
+            <Share2 className="h-4 w-4 md:h-5 md:w-5" />
+          )}
         </button>
       </div>
     </div>

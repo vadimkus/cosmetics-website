@@ -6,7 +6,7 @@ import { useCart } from '@/components/cart/CartProvider'
 import { useFavorites } from '@/components/FavoritesProvider'
 import { useAuth } from '@/components/auth/AuthProvider'
 import ErrorPage from '@/components/ErrorPage'
-import { ArrowLeft, Sparkles, Star, Minus, Plus, ShoppingCart, Heart, Check, MessageCircle } from 'lucide-react'
+import { ArrowLeft, Sparkles, Star, Minus, Plus, ShoppingCart, Heart, Check, MessageCircle, Share2 } from 'lucide-react'
 import Link from 'next/link'
 import { useState, useCallback, useEffect } from 'react'
 import { Product } from '@/types'
@@ -72,6 +72,45 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
   const [mobileQuantity, setMobileQuantity] = useState(1)
   const [isAddingMobile, setIsAddingMobile] = useState(false)
   const [isAddedMobile, setIsAddedMobile] = useState(false)
+  
+  // Share state
+  const [shareStatus, setShareStatus] = useState<'idle' | 'copied'>('idle')
+  
+  // Share handler
+  const handleShare = useCallback(async () => {
+    const shareUrl = typeof window !== 'undefined' ? window.location.href : `/products/${product.id}`
+    const shareData = {
+      title: product.name,
+      text: `${t('product.checkOutProduct') || 'Check out'}: ${product.name} - GENOSYS Professional`,
+      url: shareUrl
+    }
+
+    // Try native share API first (mobile devices)
+    if (typeof navigator !== 'undefined' && navigator.share && navigator.canShare?.(shareData)) {
+      try {
+        await navigator.share(shareData)
+      } catch {
+        // User cancelled or share failed - silently ignore
+      }
+    } else {
+      // Fallback: copy to clipboard
+      try {
+        await navigator.clipboard.writeText(shareUrl)
+        setShareStatus('copied')
+        setTimeout(() => setShareStatus('idle'), 2000)
+      } catch {
+        // Fallback for older browsers
+        const textArea = document.createElement('textarea')
+        textArea.value = shareUrl
+        document.body.appendChild(textArea)
+        textArea.select()
+        document.execCommand('copy')
+        document.body.removeChild(textArea)
+        setShareStatus('copied')
+        setTimeout(() => setShareStatus('idle'), 2000)
+      }
+    }
+  }, [product.id, product.name, t])
   
   // Calculate current price based on selected variant
   const currentPrice = useCallback(() => {
@@ -350,6 +389,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
                 inStock={product.inStock}
                 isPriceOnRequest={product.isPriceOnRequest ?? false}
                 productName={product.name}
+                productUrl={typeof window !== 'undefined' ? `${window.location.origin}/products/${product.id}` : `/products/${product.id}`}
               />
             </div>
 
@@ -1281,6 +1321,24 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
               aria-label={isFavorite(product.id) ? t('product.removeFromFavorites') : t('product.addToFavorites')}
             >
               <Heart className={`h-5 w-5 ${isFavorite(product.id) ? 'fill-current' : ''}`} />
+            </button>
+            
+            {/* Share Button */}
+            <button
+              onClick={handleShare}
+              className={`p-3 rounded-lg transition-colors border-2 touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center ${
+                shareStatus === 'copied'
+                  ? 'border-green-500 bg-green-50 text-green-600'
+                  : 'border-gray-300 text-gray-600 hover:border-gray-400 active:bg-gray-50'
+              }`}
+              aria-label={t('product.shareProduct') || 'Share'}
+              title={shareStatus === 'copied' ? (t('product.linkCopied') || 'Link copied!') : (t('product.shareProduct') || 'Share')}
+            >
+              {shareStatus === 'copied' ? (
+                <Check className="h-5 w-5" />
+              ) : (
+                <Share2 className="h-5 w-5" />
+              )}
             </button>
           </div>
         </div>

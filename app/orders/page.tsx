@@ -11,6 +11,7 @@ import { fetchCsrfToken, getCsrfHeaders, addCsrfToBody } from '@/lib/csrfClient'
 import { errorLog } from '@/lib/logger'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
+import { translateSize } from '@/utils/sizeTranslations'
 import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import { usePWAMode } from '@/hooks/usePWAMode'
 import { QuickReorderButton } from '@/components/QuickReorderButton'
@@ -611,7 +612,7 @@ export default function OrdersPage() {
                                       </p>
                                       {(item.size || item.color) && (
                                         <p className="text-xs text-gray-400 mt-0.5">
-                                          {item.size && `${locale === 'ar' ? 'المقاس' : locale === 'ru' ? 'Размер' : 'Size'}: ${item.size}`}
+                                          {item.size && `${locale === 'ar' ? 'المقاس' : locale === 'ru' ? 'Размер' : 'Size'}: ${translateSize(item.size, locale)}`}
                                           {item.size && item.color && ' · '}
                                           {item.color && `${locale === 'ar' ? 'اللون' : locale === 'ru' ? 'Цвет' : 'Color'}: ${item.color}`}
                                         </p>

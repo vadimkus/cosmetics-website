@@ -8,6 +8,7 @@ import { Package, Truck, CheckCircle, XCircle, Clock, ArrowLeft, RefreshCw, Cred
 import { usePWAMode } from '@/hooks/usePWAMode'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
+import { translateSize } from '@/utils/sizeTranslations'
 
 interface TrackingData {
   orderNumber: string
@@ -490,7 +491,7 @@ export default function OrderTrackingClient({ orderNumber }: OrderTrackingClient
                   <p className="font-medium text-gray-900 truncate">{item.name}</p>
                   <div className="flex items-center gap-3 text-sm text-gray-500 mt-1">
                     <span>Qty: {item.quantity}</span>
-                    {item.size && <span>Size: {item.size}</span>}
+                    {item.size && <span>Size: {translateSize(item.size, locale)}</span>}
                     {item.color && <span>Color: {item.color}</span>}
                   </div>
                 </div>

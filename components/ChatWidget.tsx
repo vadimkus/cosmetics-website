@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect, useCallback } from 'react'
 import { useChat } from '@ai-sdk/react'
-import { useRouter } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
 import { useTranslation } from '@/hooks/useTranslation'
 import { useCartStore } from '@/lib/cartStore'
 import { useToast } from '@/components/ToastProvider'
@@ -285,11 +285,37 @@ function getUserContext() {
 export default function ChatWidget({ className = '' }: ChatWidgetProps) {
   const { locale, dir } = useTranslation()
   const router = useRouter()
+  const pathname = usePathname()
   const addItem = useCartStore((state) => state.addItem)
   const { showToast } = useToast()
   const isRTL = dir === 'rtl'
   
   const [isOpen, setIsOpen] = useState(false)
+  const [isMobileWeb, setIsMobileWeb] = useState(false)
+  
+  // Detect mobile web
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobileWeb(window.innerWidth < 768)
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+  
+  // Hide chatbot on cart/checkout pages on mobile web to improve UX
+  const hiddenPages = ['/cart', '/bag', '/checkout']
+  const isHiddenPage = hiddenPages.some(page => 
+    pathname === page || 
+    pathname?.startsWith(`/en${page}`) || 
+    pathname?.startsWith(`/ar${page}`) || 
+    pathname?.startsWith(`/ru${page}`)
+  )
+  
+  // Don't render chatbot on mobile web for cart/checkout pages
+  if (isMobileWeb && isHiddenPage) {
+    return null
+  }
   const [isMinimized, setIsMinimized] = useState(false)
   const [showWelcome, setShowWelcome] = useState(true)
   const [inputValue, setInputValue] = useState('')

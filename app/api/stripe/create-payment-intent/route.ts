@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { requireCsrfToken } from '@/lib/csrf'
 import { requireBodySizeLimit, getSizeLimitForContentType } from '@/lib/requestSizeLimit'
-import { createCheckoutSession, aedToFils, getCheckoutSession } from '@/lib/stripe'
+import { createPaymentIntent, getPaymentIntent } from '@/lib/stripe'
 import { addOrder, OrderData, OrderItemData } from '@/lib/orderStorageDb'
 import { enhanceOrderItemWithDefaultSize } from '@/lib/orderSizeDefaults'
 import { debugLog, errorLog } from '@/lib/logger'
@@ -18,17 +18,6 @@ interface CheckoutItem {
   quantity: number
   selectedColor?: string
   selectedSize?: string
-}
-
-interface StripeProductData {
-  name: string
-  description: string
-  metadata?: {
-    product_id: string
-    color: string
-    size: string
-  }
-  images?: string[]
 }
 
 export async function POST(request: NextRequest) {
@@ -56,7 +45,7 @@ export async function POST(request: NextRequest) {
       locale 
     } = await request.json()
 
-    debugLog('🔄 Creating Stripe checkout session:', {
+    debugLog('🔄 Creating Stripe payment intent:', {
       customerEmail,
       customerName,
       itemCount: items.length,
@@ -82,7 +71,7 @@ export async function POST(request: NextRequest) {
     const user = await findUserByEmail(customerEmail)
     const emailToUse = user ? getPreferredEmail(user) : customerEmail
 
-    debugLog('📧 Email routing for Stripe:', {
+    debugLog('📧 Email routing for Payment Intent:', {
       customerEmail,
       hasUser: !!user,
       hasContactEmail: !!(user?.contactEmail),
@@ -94,45 +83,36 @@ export async function POST(request: NextRequest) {
     const userDiscountPct = Number(user?.discountPercentage || 0)
     const hasUserDiscount = Number.isFinite(userDiscountPct) && userDiscountPct > 0 && userDiscountPct < 100
     
-    debugLog('User discount for Stripe:', { hasUserDiscount, userDiscountPct, userId: user?.id })
+    debugLog('User discount for Payment Intent:', { hasUserDiscount, userDiscountPct, userId: user?.id })
     
-    // NOTE: Frontend already applies discounts to item.product.price before sending
-    // So we just calculate the subtotal from already-discounted prices
-    // But we also calculate what the discount amount was for record-keeping
+    // Calculate totals from already-discounted prices
     let subtotal = 0
     let discountAmount = 0
     
     for (const item of items as CheckoutItem[]) {
-      const itemPrice = item.product.price // Already discounted by frontend
+      const itemPrice = item.product.price
       const itemTotal = itemPrice * item.quantity
       subtotal += itemTotal
       
-      // Calculate what the discount was (for record-keeping only)
       if (hasUserDiscount) {
         const excluded = isUserDiscountExcludedProduct(item.product)
         if (!excluded) {
-          // Reverse: discountedPrice = originalPrice * (1 - pct/100)
-          // So: originalPrice = discountedPrice / (1 - pct/100)
           const originalPrice = itemPrice / (1 - userDiscountPct / 100)
           const itemDiscount = (originalPrice - itemPrice) * item.quantity
           discountAmount += itemDiscount
-          debugLog(`Stripe item: ${item.product.name} - Original: ${originalPrice.toFixed(2)} → ${itemPrice} (${userDiscountPct}% off)`)
         }
       }
     }
     
-    // Round to 2 decimal places
     subtotal = Math.round(subtotal * 100) / 100
     discountAmount = Math.round(discountAmount * 100) / 100
 
-    // Use shared mobile checkout config for consistency
+    // Calculate shipping and total
     const shipping = calculateMobileShipping(subtotal, customerEmirate)
-    
     const total = subtotal + shipping
     const vat = calculateVatIncluded(total)
 
     // Idempotency check: Look for recent pending CARD orders from same customer with same total
-    // This prevents duplicate orders from double-clicks or network retries
     const recentDuplicateCheck = await prisma.order.findFirst({
       where: {
         customerEmail: customerEmail.trim().toLowerCase(),
@@ -140,52 +120,48 @@ export async function POST(request: NextRequest) {
         paymentStatus: 'pending',
         total: total,
         createdAt: {
-          gte: new Date(Date.now() - 5 * 60 * 1000) // Within last 5 minutes
+          gte: new Date(Date.now() - 5 * 60 * 1000)
         }
       },
       orderBy: { createdAt: 'desc' }
     })
 
     if (recentDuplicateCheck) {
-      debugLog('⚠️ Duplicate order detected, returning existing session:', {
+      debugLog('⚠️ Duplicate order detected for payment intent:', {
         existingOrderNumber: recentDuplicateCheck.orderNumber,
         customerEmail,
         total
       })
       
-      // Return existing session info if available
-      if (recentDuplicateCheck.stripeSessionId) {
+      // Return existing payment intent if available and still valid
+      if (recentDuplicateCheck.stripePaymentIntentId) {
         try {
-          // Retrieve the existing session from Stripe to get the URL
-          const existingSession = await getCheckoutSession(recentDuplicateCheck.stripeSessionId)
+          const existingIntent = await getPaymentIntent(recentDuplicateCheck.stripePaymentIntentId)
           
-          // Check if the session is still active (not expired)
-          if (existingSession.status === 'open' && existingSession.url) {
-            debugLog('✅ Returning existing active session URL:', {
-              sessionId: existingSession.id,
-              url: existingSession.url
+          // Check if the payment intent is still active
+          if (existingIntent.status === 'requires_payment_method' || existingIntent.status === 'requires_action') {
+            debugLog('✅ Returning existing active payment intent:', {
+              paymentIntentId: existingIntent.id
             })
             return NextResponse.json({ 
-              sessionId: recentDuplicateCheck.stripeSessionId,
-              url: existingSession.url,
+              clientSecret: existingIntent.client_secret,
               orderId: recentDuplicateCheck.orderNumber,
-              message: 'Using existing checkout session',
+              total: total,
+              message: 'Using existing payment intent',
               isDuplicate: true
             })
           }
           
-          // Session is expired or completed, proceed to create a new one
-          debugLog('⚠️ Existing session is no longer active, creating new session:', {
-            sessionStatus: existingSession.status
+          debugLog('⚠️ Existing payment intent is no longer active, creating new one:', {
+            intentStatus: existingIntent.status
           })
-        } catch (sessionError) {
-          // Failed to retrieve session (might be deleted), proceed to create new
-          debugLog('⚠️ Could not retrieve existing session, creating new one:', sessionError)
+        } catch (intentError) {
+          debugLog('⚠️ Could not retrieve existing payment intent, creating new one:', intentError)
         }
       }
     }
 
-    // Generate canonical order number (Card + Website)
+    // Generate order number
     const orderId = await generateUniqueOrderNumber({ channel: 'W', payment: 'CARD' })
 
     // Create order items for database
@@ -207,86 +183,25 @@ export async function POST(request: NextRequest) {
       }
     })
 
-    // Create Stripe line items
-    const lineItems = items.map((item: CheckoutItem) => {
-      // Ensure image URL is absolute and valid
-      let imageUrl: string | undefined
-      try {
-        if (item.product.image) {
-          if (item.product.image.startsWith('http')) {
-            // Already absolute URL
-            new URL(item.product.image) // Validate URL
-            imageUrl = item.product.image
-          } else {
-            // Make relative URL absolute
-            const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
-            const fullUrl = `${baseUrl}${item.product.image.startsWith('/') ? '' : '/'}${item.product.image}`
-            new URL(fullUrl) // Validate URL
-            imageUrl = fullUrl
-          }
-        }
-      } catch (error) {
-        // If image URL is invalid, don't include it (Stripe will show default)
-        debugLog('⚠️ Invalid image URL for product, skipping:', item.product.name, item.product.image)
-        imageUrl = undefined
-      }
-      
-      const productData: StripeProductData = {
-        name: item.product.name,
-        description: item.product.description.substring(0, 300), // Stripe has limits
-        metadata: {
-          product_id: item.product.id,
-          color: item.selectedColor || '',
-          size: item.selectedSize || ''
-        }
-      }
-      
-      // Only add images if we have a valid URL
-      if (imageUrl) {
-        productData.images = [imageUrl]
-      }
-      
-      return {
-        price_data: {
-          currency: 'aed',
-          product_data: productData,
-          unit_amount: aedToFils(item.product.price), // Convert AED to fils
-        },
-        quantity: item.quantity,
-      }
-    })
+    // Build description for Stripe
+    const itemNames = items.slice(0, 3).map((item: CheckoutItem) => item.product.name).join(', ')
+    const description = items.length > 3 
+      ? `${itemNames} and ${items.length - 3} more items` 
+      : itemNames
 
-    // Add shipping as a line item if applicable
-    if (shipping > 0) {
-      lineItems.push({
-        price_data: {
-          currency: 'aed',
-          product_data: {
-            name: `Shipping to ${customerEmirate}`,
-            description: 'Standard delivery',
-          },
-          unit_amount: aedToFils(shipping),
-        },
-        quantity: 1,
-      })
-    }
-
-    // Create Stripe checkout session (use preferred email)
-    const session = await createCheckoutSession({
-      lineItems,
-      customerEmail: emailToUse, // Use preferred email for Stripe
+    // Create Stripe payment intent
+    const paymentIntent = await createPaymentIntent({
+      amount: total,
+      customerEmail: emailToUse,
       customerName,
       customerPhone,
-      shippingAddress: {
-        line1: customerAddress,
-        city: customerEmirate,
-        country: 'AE', // UAE
-      },
+      customerEmirate,
       orderNumber: orderId,
-      locale: locale || 'en'
+      locale: locale || 'en',
+      description: `Order ${orderId}: ${description}`
     })
 
-    // Create order in database with PENDING status and Stripe session ID
+    // Create order in database with PENDING status
     const order: OrderData = {
       orderNumber: orderId,
       customerEmail,
@@ -304,30 +219,29 @@ export async function POST(request: NextRequest) {
       status: 'PENDING',
       paymentMethod: 'stripe',
       paymentStatus: 'pending',
-      stripeSessionId: session.id,
+      stripePaymentIntentId: paymentIntent.id,
       locale: locale || 'en'
     }
 
     // Store the order
     await addOrder(order)
 
-    debugLog('✅ Order created with Stripe session:', {
+    debugLog('✅ Order created with payment intent:', {
       orderId,
-      sessionId: session.id,
+      paymentIntentId: paymentIntent.id,
       total,
       customerEmail
     })
 
-    // Return session details for frontend
+    // Return client secret for frontend
     return NextResponse.json({ 
-      sessionId: session.id,
-      url: session.url,
+      clientSecret: paymentIntent.client_secret,
       orderId: orderId,
-      message: 'Checkout session created successfully'
+      total: total,
+      message: 'Payment intent created successfully'
     })
 
   } catch (error) {
-    // Type guard for Stripe-like errors with additional properties
     interface StripeErrorLike extends Error {
       code?: string
       statusCode?: number
@@ -340,10 +254,9 @@ export async function POST(request: NextRequest) {
       return err instanceof Error && ('type' in err || 'code' in err)
     }
     
-    // Extract error details safely
     const stripeErr = isStripeError(error) ? error : null
     
-    errorLog('❌ Error creating Stripe checkout session:', {
+    errorLog('❌ Error creating payment intent:', {
       message: error instanceof Error ? error.message : 'Unknown error',
       stack: error instanceof Error ? error.stack : undefined,
       type: error instanceof Error ? error.constructor.name : typeof error,
@@ -355,7 +268,6 @@ export async function POST(request: NextRequest) {
       fullError: error
     })
     
-    // Return user-friendly error message with more details for debugging
     if (error instanceof Error && error.message.includes('Invalid API key')) {
       return NextResponse.json(
         { error: 'Payment service configuration error. Please try again later.' },
@@ -363,11 +275,10 @@ export async function POST(request: NextRequest) {
       )
     }
     
-    // Provide more detailed error in development
     const isDev = process.env.NODE_ENV === 'development'
     return NextResponse.json(
       { 
-        error: 'Failed to create payment session. Please try again.',
+        error: 'Failed to create payment. Please try again.',
         details: isDev ? {
           message: error instanceof Error ? error.message : 'Unknown error',
           type: error instanceof Error ? error.constructor.name : typeof error,

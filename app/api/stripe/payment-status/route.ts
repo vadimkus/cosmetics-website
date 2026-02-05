@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getCheckoutSession } from '@/lib/stripe'
+import { getCheckoutSession, getPaymentIntent } from '@/lib/stripe'
 import { prisma } from '@/lib/database'
 import { debugLog, errorLog } from '@/lib/logger'
 
@@ -7,10 +7,18 @@ export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url)
     const sessionId = searchParams.get('session_id')
+    const paymentIntentId = searchParams.get('payment_intent')
+    const orderId = searchParams.get('order_id')
     
+    // Handle payment intent (embedded checkout flow)
+    if (paymentIntentId) {
+      return await handlePaymentIntentStatus(paymentIntentId, orderId)
+    }
+    
+    // Handle session ID (hosted checkout flow)
     if (!sessionId) {
       return NextResponse.json(
-        { error: 'Session ID is required' },
+        { error: 'Session ID or Payment Intent is required' },
         { status: 400 }
       )
     }
@@ -145,6 +153,157 @@ export async function GET(request: NextRequest) {
     if (error instanceof Error && error.message.includes('No such checkout session')) {
       return NextResponse.json(
         { error: 'Invalid session ID' },
+        { status: 404 }
+      )
+    }
+    
+    return NextResponse.json(
+      { error: 'Failed to check payment status' },
+      { status: 500 }
+    )
+  }
+}
+
+// Handle payment intent status (for embedded checkout flow)
+async function handlePaymentIntentStatus(paymentIntentId: string, orderId: string | null) {
+  try {
+    debugLog('🔍 Checking payment status for payment intent:', paymentIntentId)
+
+    // Get payment intent details from Stripe
+    const paymentIntent = await getPaymentIntent(paymentIntentId)
+    
+    if (!paymentIntent) {
+      return NextResponse.json(
+        { error: 'Payment intent not found' },
+        { status: 404 }
+      )
+    }
+
+    // Get order from database using payment intent ID or order ID
+    let order = await prisma.order.findFirst({
+      where: {
+        stripePaymentIntentId: paymentIntentId
+      },
+      include: {
+        items: true
+      }
+    })
+
+    // Fallback: try to find by order ID if not found by payment intent
+    if (!order && orderId) {
+      order = await prisma.order.findFirst({
+        where: {
+          orderNumber: orderId
+        },
+        include: {
+          items: true
+        }
+      })
+    }
+
+    if (!order) {
+      return NextResponse.json(
+        { error: 'Order not found' },
+        { status: 404 }
+      )
+    }
+
+    // Determine payment status based on Stripe payment intent
+    let paymentStatus = 'pending'
+    let orderStatus = order.status
+    
+    switch (paymentIntent.status) {
+      case 'succeeded':
+        paymentStatus = 'paid'
+        orderStatus = 'CONFIRMED'
+        break
+      case 'processing':
+        paymentStatus = 'processing'
+        orderStatus = 'PENDING'
+        break
+      case 'requires_payment_method':
+      case 'requires_confirmation':
+      case 'requires_action':
+        paymentStatus = 'pending'
+        orderStatus = 'PENDING'
+        break
+      case 'canceled':
+        paymentStatus = 'cancelled'
+        orderStatus = 'CANCELLED'
+        break
+      default:
+        paymentStatus = 'failed'
+        orderStatus = 'FAILED'
+    }
+
+    // Update order status if it has changed
+    if (order.paymentStatus !== paymentStatus || order.status !== orderStatus) {
+      try {
+        const updateData = {
+          paymentStatus: paymentStatus,
+          status: orderStatus,
+          stripePaymentIntentId: paymentIntentId,
+          paidAt: paymentStatus === 'paid' ? new Date() : null,
+          updatedAt: new Date()
+        }
+        
+        await prisma.order.update({
+          where: { id: order.id },
+          data: updateData
+        })
+
+        debugLog('✅ Order status updated successfully (payment intent):', {
+          orderId: order.orderNumber,
+          paymentStatus,
+          orderStatus
+        })
+      } catch (updateError) {
+        errorLog('❌ Failed to update order status:', updateError)
+      }
+    }
+
+    // Return comprehensive payment status
+    return NextResponse.json({
+      paymentIntentId,
+      orderId: order.orderNumber,
+      paymentStatus,
+      orderStatus,
+      session: {
+        id: paymentIntent.id,
+        payment_status: paymentStatus,
+        status: paymentIntent.status,
+        amount_total: paymentIntent.amount,
+        currency: paymentIntent.currency,
+        customer_email: paymentIntent.receipt_email,
+        created: paymentIntent.created,
+        expires_at: null
+      },
+      order: {
+        id: order.id,
+        orderNumber: order.orderNumber,
+        customerEmail: order.customerEmail,
+        customerName: order.customerName,
+        total: order.total,
+        status: orderStatus,
+        paymentMethod: order.paymentMethod,
+        paymentStatus,
+        createdAt: order.createdAt,
+        items: order.items.map(item => ({
+          productName: item.productName,
+          quantity: item.quantity,
+          price: item.price,
+          color: item.color || '',
+          size: item.size || ''
+        }))
+      }
+    })
+
+  } catch (error) {
+    errorLog('❌ Error checking payment intent status:', error)
+    
+    if (error instanceof Error && error.message.includes('No such payment_intent')) {
+      return NextResponse.json(
+        { error: 'Invalid payment intent ID' },
         { status: 404 }
       )
     }

@@ -12,6 +12,9 @@ import { fetchCsrfToken, getCsrfHeaders, addCsrfToBody } from '@/lib/csrfClient'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { usePWAMode } from '@/hooks/usePWAMode'
+import BottomSheet from '@/components/ui/BottomSheet'
+import StripeProvider from '@/components/stripe/StripeProvider'
+import PaymentForm from '@/components/stripe/PaymentForm'
 
 export default function CheckoutClient() {
   const { items, getTotalPrice, getTotalItems, selectedEmirate } = useCart()
@@ -37,6 +40,12 @@ export default function CheckoutClient() {
   const [freeMasks, setFreeMasks] = useState<Array<{ id: string; name: string; price: number; quantity: number; image: string }>>([])
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<string>('cod')
   const [orderSummaryExpanded, setOrderSummaryExpanded] = useState(false) // Collapsed by default for PWA
+  
+  // Payment sheet state for embedded Stripe checkout
+  const [isPaymentSheetOpen, setIsPaymentSheetOpen] = useState(false)
+  const [paymentClientSecret, setPaymentClientSecret] = useState<string | null>(null)
+  const [paymentOrderId, setPaymentOrderId] = useState<string | null>(null)
+  const [paymentTotal, setPaymentTotal] = useState<number>(0)
 
   // Fetch CSRF token on mount
   useEffect(() => {
@@ -337,12 +346,12 @@ export default function CheckoutClient() {
         return
       }
 
-      // Handle Stripe payment
+      // Handle Stripe payment - open embedded payment sheet
       if (paymentMethod === 'stripe') {
         try {
-          debugLog('💳 Processing Stripe payment')
+          debugLog('💳 Processing Stripe payment with embedded checkout')
           
-          // Prepare items for Stripe checkout
+          // Prepare items for Stripe payment intent
           const itemsWithFreeMasks = [
             ...items.map(item => {
               const pricing = calculateDiscountedPrice(item.product, user)
@@ -382,9 +391,9 @@ export default function CheckoutClient() {
             return
           }
 
-          debugLog('🔄 Creating Stripe checkout session...')
+          debugLog('🔄 Creating Stripe payment intent...')
           
-          const response = await fetch('/api/stripe/create-checkout-session', {
+          const response = await fetch('/api/stripe/create-payment-intent', {
             method: 'POST',
             headers: getCsrfHeaders(),
             body: JSON.stringify(addCsrfToBody({
@@ -403,14 +412,14 @@ export default function CheckoutClient() {
             try {
               const errorData = await response.json()
               errorDetails = errorData.error || errorData.message || errorDetails
-              errorLog('❌ Stripe session creation failed:', {
+              errorLog('❌ Payment intent creation failed:', {
                 status: response.status,
                 statusText: response.statusText,
                 errorData: errorData
               })
             } catch (parseError) {
               const responseText = await response.text().catch(() => 'Unable to read response')
-              errorLog('❌ Stripe session creation failed (parse error):', {
+              errorLog('❌ Payment intent creation failed (parse error):', {
                 status: response.status,
                 statusText: response.statusText,
                 responseText: responseText,
@@ -421,16 +430,23 @@ export default function CheckoutClient() {
             throw new Error(errorDetails)
           }
 
-          const { url } = await response.json()
+          const { clientSecret, orderId, total } = await response.json()
           
-          if (!url) {
-            throw new Error('No checkout URL received from Stripe')
+          if (!clientSecret) {
+            throw new Error('No client secret received from Stripe')
           }
 
-          debugLog('✅ Stripe session created, redirecting to:', url)
+          debugLog('✅ Payment intent created, opening payment sheet:', { orderId, total })
           
-          // Redirect to Stripe Checkout
-          window.location.href = url
+          // Set payment sheet state and open it
+          setPaymentClientSecret(clientSecret)
+          setPaymentOrderId(orderId)
+          setPaymentTotal(total)
+          setIsPaymentSheetOpen(true)
+          
+          // Reset processing state - user will complete payment in the sheet
+          isSubmittingRef.current = false
+          setIsProcessing(false)
           return
 
         } catch (error) {
@@ -1290,6 +1306,39 @@ export default function CheckoutClient() {
           </div>
         </div>
       </div>
+
+      {/* Payment Bottom Sheet */}
+      <BottomSheet
+        isOpen={isPaymentSheetOpen}
+        onClose={() => {
+          setIsPaymentSheetOpen(false)
+          setPaymentClientSecret(null)
+          setPaymentOrderId(null)
+          setPaymentTotal(0)
+        }}
+        title={locale === 'ar' ? 'الدفع الآمن' : 'Secure Payment'}
+        height="large"
+      >
+        {paymentClientSecret && paymentOrderId && (
+          <StripeProvider clientSecret={paymentClientSecret} locale={locale}>
+            <PaymentForm
+              total={paymentTotal}
+              orderId={paymentOrderId}
+              locale={locale}
+              onSuccess={(paymentIntentId) => {
+                debugLog('✅ Payment successful:', { paymentIntentId, orderId: paymentOrderId })
+                setIsPaymentSheetOpen(false)
+                // Redirect to success page with payment intent
+                router.push(`${getLocalizedPath('/checkout/success', locale)}?payment_intent=${paymentIntentId}&order_id=${paymentOrderId}`)
+              }}
+              onError={(error) => {
+                errorLog('❌ Payment failed:', error)
+                // Error is shown in the form, sheet stays open
+              }}
+            />
+          </StripeProvider>
+        )}
+      </BottomSheet>
     </div>
   )
 }

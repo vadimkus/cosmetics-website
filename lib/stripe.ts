@@ -161,6 +161,58 @@ export async function createCheckoutSession(params: {
   }
 }
 
+// Create payment intent for embedded checkout
+export async function createPaymentIntent(params: {
+  amount: number // Amount in AED
+  customerEmail: string
+  customerName: string
+  customerPhone: string
+  customerEmirate: string
+  orderNumber: string
+  locale: string
+  description?: string
+}): Promise<Stripe.PaymentIntent> {
+  try {
+    debugLog('Creating Stripe payment intent:', {
+      orderNumber: params.orderNumber,
+      customerEmail: params.customerEmail,
+      amount: params.amount
+    })
+
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: aedToFils(params.amount),
+      currency: STRIPE_CONFIG.currency,
+      payment_method_types: ['card', 'link'],
+      description: params.description || `Order ${params.orderNumber}`,
+      metadata: {
+        orderNumber: params.orderNumber,
+        customerName: params.customerName,
+        customerPhone: params.customerPhone,
+        customerEmail: params.customerEmail,
+        customerEmirate: params.customerEmirate,
+        locale: params.locale,
+      },
+      receipt_email: params.customerEmail,
+    })
+
+    debugLog('✅ Stripe payment intent created:', {
+      paymentIntentId: paymentIntent.id,
+      clientSecret: paymentIntent.client_secret ? '***' : 'missing',
+      orderNumber: params.orderNumber
+    })
+
+    return paymentIntent
+    
+  } catch (error) {
+    errorLog('❌ Failed to create Stripe payment intent:', error)
+    if (error instanceof Error) {
+      errorLog('❌ Detailed error message:', error.message)
+      errorLog('❌ Error stack:', error.stack)
+    }
+    throw new Error(`Failed to create payment intent: ${error instanceof Error ? error.message : 'Unknown error'}`)
+  }
+}
+
 // Retrieve payment intent details
 export async function getPaymentIntent(paymentIntentId: string): Promise<Stripe.PaymentIntent> {
   try {

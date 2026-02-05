@@ -48,6 +48,8 @@ export default function StripeSuccessClient() {
   const { t, locale, dir } = useTranslation()
   const searchParams = useSearchParams()
   const sessionId = searchParams.get('session_id')
+  const paymentIntentId = searchParams.get('payment_intent')
+  const orderId = searchParams.get('order_id')
   const { clearCart } = useCartStore()
   
   const [orderDetails, setOrderDetails] = useState<OrderDetails | null>(null)
@@ -57,14 +59,26 @@ export default function StripeSuccessClient() {
 
   useEffect(() => {
     async function verifyPayment() {
-      if (!sessionId) {
-        setError('Missing session information')
+      // Support both session_id (hosted checkout) and payment_intent (embedded checkout)
+      if (!sessionId && !paymentIntentId) {
+        setError('Missing payment information')
         setLoading(false)
         return
       }
 
       try {
-        const response = await fetch(`/api/stripe/payment-status?session_id=${sessionId}`)
+        // Build the API URL based on available parameters
+        let apiUrl = '/api/stripe/payment-status?'
+        if (sessionId) {
+          apiUrl += `session_id=${sessionId}`
+        } else if (paymentIntentId) {
+          apiUrl += `payment_intent=${paymentIntentId}`
+          if (orderId) {
+            apiUrl += `&order_id=${orderId}`
+          }
+        }
+
+        const response = await fetch(apiUrl)
         
         if (!response.ok) {
           throw new Error('Failed to verify payment')
@@ -110,7 +124,7 @@ export default function StripeSuccessClient() {
     }
 
     verifyPayment()
-  }, [sessionId, clearCart])
+  }, [sessionId, paymentIntentId, orderId, clearCart])
 
   if (loading) {
     return (

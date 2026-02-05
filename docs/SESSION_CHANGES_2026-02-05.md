@@ -57,13 +57,17 @@ When user has a personal discount, the pricing summary now shows a complete brea
 
 ### 3. Product Detail View (Desktop & Mobile)
 
-**Trigger**: Single click/tap on product card opens detail view
-
-**Desktop**: Centered modal with backdrop blur
+**Desktop**: Centered modal with backdrop blur, animated entrance/exit
 **Mobile**: Bottom sheet (swipe-down to close)
 
+**Click Behavior**:
+| Action | On Unselected Item | On Selected Item |
+|--------|-------------------|------------------|
+| Single click/tap | Opens detail view | Deselects item |
+| Double click/tap | Quick add (toggle) | Quick remove (toggle) |
+
 **Features**:
-- Centered product image (max 250px × 250px)
+- Centered product image (250×250px desktop, 200×200px mobile)
 - Product size displayed below image
 - Full product name
 - Bundle discount badge showing % that will apply
@@ -72,8 +76,8 @@ When user has a personal discount, the pricing summary now shows a complete brea
 - Price with all applicable discounts
 - "Add to Set" / "Added to Set" button
 - "Continue Browsing" link
+- Close via X button, backdrop click, or swipe-down (mobile)
 
-**Double-click/tap**: Quick add/remove for power users (both platforms)
 **First-time hint**: "Double-tap/click to quick add" shown via localStorage flag
 
 **Files Modified**:
@@ -136,6 +140,8 @@ Each item in "Your Bundle" summary now shows:
 | Unused `user` prop in BundleSummary | Removed from component and call sites |
 | TypeScript error in useEffect | Restructured with early returns |
 | Touch event undefined check | Added null check for `e.touches[0]` |
+| Images not loading in detail view | Changed from `max-h/max-w` to explicit `w-[200px] h-[200px]` dimensions |
+| Cannot deselect items on desktop | Single click on selected item now deselects it |
 
 ---
 
@@ -185,23 +191,39 @@ docs/SESSION_CHANGES_2026-02-05.md          # This file
 9. `fix: Remove duplicate items/discount display in desktop header`
 10. `fix: Add 5% to VAT included text in bundle builder`
 11. `fix: Center 'Build Your Set' title in header`
+12. `feat(bundle-builder): Add desktop product detail modal`
+13. `docs: Update bundle builder documentation with desktop modal feature`
+14. `fix(bundle-builder): Fix product images not loading in detail view`
+15. `fix(bundle-builder): Allow deselecting items by clicking on them`
 
 ---
 
 ## Testing Checklist
 
-- [ ] Desktop: Progress bar displays correctly
-- [ ] Desktop: Discount breakdown shows all tiers
-- [ ] Desktop: "Build Your Set" title centered
-- [ ] Mobile: Single tap opens product detail sheet
-- [ ] Mobile: Double tap quick-adds product
-- [ ] Mobile: Swipe down closes bottom sheet (50px or fast swipe)
-- [ ] Mobile: Product image centered in detail sheet
-- [ ] Mobile: Chatbot hidden on bundle builder
-- [ ] All languages: New translations display correctly
-- [ ] User with discount: Both discounts shown in breakdown
+### Desktop
+- [ ] Progress bar displays correctly with milestones
+- [ ] Discount breakdown shows all tiers for users with personal discounts
+- [ ] "Build Your Set" title centered in header
+- [ ] Single click on unselected product opens detail modal
+- [ ] Single click on selected product deselects it
+- [ ] Double-click toggles selection (quick add/remove)
+- [ ] Product images load correctly in detail modal
+- [ ] Modal closes on X button click or backdrop click
+
+### Mobile
+- [ ] Single tap on unselected product opens detail sheet
+- [ ] Single tap on selected product deselects it
+- [ ] Double tap quick-adds product
+- [ ] Swipe down closes bottom sheet (50px or fast swipe)
+- [ ] Product images load correctly in detail sheet (200×200px)
+- [ ] Chatbot hidden on bundle builder page
+
+### Cross-Platform
+- [ ] All languages: New translations display correctly (EN, RU, AR)
+- [ ] User with discount: Both personal + bundle discounts shown
 - [ ] User without discount: Only bundle discount shown
+- [ ] First-time hint appears for double-click/tap feature
 
 ---
 
-*Last updated: February 5, 2026*
+*Last updated: February 5, 2026 (evening)*

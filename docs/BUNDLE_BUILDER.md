@@ -275,12 +275,18 @@ Total:                 294.50 AED
 
 **Desktop Product Detail Modal**
 - Single click on product card now opens detail modal on desktop (same as mobile bottom sheet)
-- Double-click quick-adds product to set (both desktop and mobile)
-- Modal features: centered image, full description, bundle discount preview, add button
+- Modal features: centered image (250×250px), full description, bundle discount preview, add button
 - Animated entrance/exit with backdrop blur
 - Click outside or X button to close
 
+**Smart Click Behavior**
+- Single click on **unselected** item: opens detail view (learn about product)
+- Single click on **selected** item: deselects it (removes tick)
+- Double-click/tap: toggles selection (quick add/remove)
+
 **Bug Fixes**
+- Fixed product images not loading in detail view (explicit dimensions required for Next.js Image fill mode)
+- Fixed cannot deselect items on desktop (click on selected item now deselects)
 - Fixed unused variable TypeScript errors (`itemPricing`, `user`)
 - Fixed swipe gesture null check for touch events
 

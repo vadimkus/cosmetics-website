@@ -312,14 +312,14 @@ export default function PWALoginPage() {
             <button
               type="button"
               onClick={() => setPrivacyConsent(!privacyConsent)}
-              className={`touch-target-exempt flex-shrink-0 mt-0.5 w-[18px] h-[18px] rounded border-[1.5px] flex items-center justify-center transition-all duration-200 ${
+              className={`touch-target-exempt flex-shrink-0 mt-0.5 w-[22px] h-[22px] rounded border-[1.5px] flex items-center justify-center transition-all duration-200 ${
                 privacyConsent 
                   ? 'bg-red-600 border-red-600' 
                   : 'bg-white border-gray-300 active:border-gray-400'
               }`}
             >
               {privacyConsent && (
-                <svg width="10" height="10" viewBox="0 0 12 12" fill="none">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
                   <path d="M2 6L5 9L10 3" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               )}
@@ -364,7 +364,7 @@ export default function PWALoginPage() {
 
         {/* Toggle Login/Register */}
         <div className="text-center mt-6">
-          <span className="text-gray-600 text-sm">
+          <span className="text-gray-500 text-sm block">
             {isLoginMode ? t('authScreen.dontHaveAccount') : t('authScreen.alreadyHaveAccount')}
           </span>
           <button
@@ -373,7 +373,7 @@ export default function PWALoginPage() {
               setIsLoginMode(!isLoginMode)
               setError('')
             }}
-            className="text-red-600 font-semibold text-sm"
+            className="text-red-600 font-semibold text-sm mt-1"
           >
             {isLoginMode ? t('authScreen.signUp') : t('authScreen.signIn')}
           </button>

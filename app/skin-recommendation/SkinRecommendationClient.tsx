@@ -11,12 +11,12 @@ import dynamic from 'next/dynamic'
 
 // Lazy load Power Animal game
 const PowerAnimalGame = dynamic(() => import('@/components/PowerAnimalGame'), { ssr: false })
-import { useCart } from '@/components/CartProvider'
-import { useAuth } from '@/components/AuthProvider'
+import { useCart } from '@/components/cart/CartProvider'
+import { useAuth } from '@/components/auth/AuthProvider'
 import { useFavorites } from '@/components/FavoritesProvider'
 import { usePWAMode } from '@/hooks/usePWAMode'
 import { errorLog } from '@/lib/logger'
-import BreadcrumbSchema from '@/components/BreadcrumbSchema'
+import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import { calculateDiscountedPrice, canUserSeePrices } from '@/lib/discountUtils'
 import type { Product } from '@/types'
 import { useTranslation } from '@/hooks/useTranslation'

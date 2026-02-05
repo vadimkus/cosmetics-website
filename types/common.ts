@@ -225,3 +225,34 @@ export interface AppConfig {
     maxItemsPerPage: number
   }
 }
+
+// Next.js Page Props types (shared across locale routes)
+// These are used by dynamic route pages [id], [slug], etc.
+
+/**
+ * Props for product detail pages (/products/[id], /ar/products/[id], /ru/products/[id])
+ */
+export interface ProductPageProps {
+  params: Promise<{ id: string }>
+}
+
+/**
+ * Props for blog post pages (/blog/[slug], /ar/blog/[slug], /ru/blog/[slug])
+ */
+export interface BlogPostPageProps {
+  params: Promise<{ slug: string }>
+}
+
+/**
+ * Props for location pages (/locations/[city], /ar/locations/[city], /ru/locations/[city])
+ */
+export interface LocationPageProps {
+  params: Promise<{ city: string }>
+}
+
+/**
+ * Props for pages with generic string ID parameter
+ */
+export interface DynamicPageProps<T extends string = string> {
+  params: Promise<{ [K in T]: string }>
+}

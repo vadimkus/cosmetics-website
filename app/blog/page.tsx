@@ -1,4 +1,4 @@
-import BreadcrumbSchema from '@/components/BreadcrumbSchema'
+import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import { BlogErrorBoundary } from '@/components/error-boundaries'
 import type { Metadata } from 'next'
 import { prisma } from '@/lib/prisma'

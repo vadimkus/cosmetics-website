@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { X, Eye, EyeOff, Gift, Fingerprint } from 'lucide-react'
-import { useAuth } from './AuthProvider'
+import { useAuth } from './auth/AuthProvider'
 import Link from 'next/link'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'

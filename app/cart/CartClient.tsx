@@ -1,9 +1,9 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
-import { useCart } from '@/components/CartProvider'
-import { useAuth } from '@/components/AuthProvider'
-import CartItem from '@/components/CartItem'
+import { useCart } from '@/components/cart/CartProvider'
+import { useAuth } from '@/components/auth/AuthProvider'
+import CartItem from '@/components/cart/CartItem'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useAnimationStore } from '@/lib/animationStore'
 import { springPresets } from '@/lib/appleAnimations'

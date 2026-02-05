@@ -2,7 +2,7 @@
 
 import { Product } from '@/types'
 import { useProductPricing } from '@/hooks/useProductPricing'
-import { useAuth } from '@/components/AuthProvider'
+import { useAuth } from '@/components/auth/AuthProvider'
 
 interface ProductPricingProps {
   product: Product

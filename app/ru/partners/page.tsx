@@ -1,9 +1,9 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ArrowLeft, Handshake } from 'lucide-react'
-import BreadcrumbSchema from '@/components/BreadcrumbSchema'
+import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import PartnersList from '@/components/partners/PartnersList'
-import PartnersSchema from '@/components/PartnersSchema'
+import PartnersSchema from '@/components/schema/PartnersSchema'
 
 export const metadata: Metadata = {
   title: 'Партнеры GENOSYS в ОАЭ - Надежные дистрибьюторы корейской дерматокосметики | Genosys Middle East',

@@ -42,8 +42,24 @@ export interface TokenPayload {
 }
 
 /**
- * Generate JWT-like token for mobile authentication
- * Using base64 encoding with HMAC signature for simplicity
+ * Generates a JWT token for mobile app authentication.
+ * Token expires after 30 days and uses HS256 HMAC signature.
+ * 
+ * @param user - User data to encode in the token
+ * @returns JWT token string (header.payload.signature)
+ * @throws Never throws - returns empty string on error
+ * 
+ * @example
+ * ```ts
+ * const token = generateMobileToken({
+ *   id: user.id,
+ *   email: user.email,
+ *   name: user.name,
+ *   isAdmin: false,
+ *   canSeePrices: true
+ * })
+ * res.json({ token })
+ * ```
  */
 export function generateMobileToken(user: {
   id: string
@@ -147,9 +163,24 @@ export function extractTokenFromHeader(authHeader: string | null): string | null
 }
 
 /**
- * Middleware to validate mobile API key and JWT token
+ * Result of mobile authentication validation
  */
-export function validateMobileAuth(apiKey: string | null, token: string | null) {
+export interface MobileAuthResult {
+  valid: boolean
+  error?: string
+  status?: number
+  payload?: TokenPayload | null
+}
+
+/**
+ * Middleware to validate mobile API key and JWT token.
+ * Returns validation result with optional user payload.
+ * 
+ * @param apiKey - The API key from request header (X-API-Key)
+ * @param token - The JWT token from Authorization header (optional)
+ * @returns Validation result with status code and optional user payload
+ */
+export function validateMobileAuth(apiKey: string | null, token: string | null): MobileAuthResult {
   // Check API key first
   const expectedKey = process.env.MOBILE_APP_KEY
   if (!expectedKey) {

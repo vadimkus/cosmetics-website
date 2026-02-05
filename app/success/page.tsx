@@ -1,5 +1,5 @@
 import SuccessClient from './SuccessClient'
-import BreadcrumbSchema from '@/components/BreadcrumbSchema'
+import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {

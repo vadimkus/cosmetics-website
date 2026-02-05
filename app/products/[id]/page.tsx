@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation'
 import { Product } from '@/types'
+import { ProductPageProps } from '@/types/common'
 import ProductPageClientRefactored from './ProductPageClientRefactored'
 import type { Metadata } from 'next'
 import { getProductById } from '@/lib/productsDb'
@@ -10,10 +11,6 @@ import { safeJsonParse } from '@/lib/utils'
 export const dynamic = 'force-dynamic'
 // Disable caching for this route to prevent stale 404s
 export const revalidate = 0
-
-interface ProductPageProps {
-  params: Promise<{ id: string }>
-}
 
 // Direct product fetch with error logging
 async function getProduct(id: string): Promise<Product | null> {

@@ -1,4 +1,4 @@
-import BreadcrumbSchema from '@/components/BreadcrumbSchema'
+import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import type { Metadata } from 'next'
 import LocationsPageClient from './LocationsPageClient'
 

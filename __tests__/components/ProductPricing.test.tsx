@@ -3,7 +3,7 @@ import { Product } from '@/types'
 
 // Mock AuthProvider
 const mockUseAuth = jest.fn()
-jest.mock('@/components/AuthProvider', () => ({
+jest.mock('@/components/auth/AuthProvider', () => ({
   useAuth: () => mockUseAuth()
 }))
 

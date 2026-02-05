@@ -3,7 +3,7 @@
 import { useState, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import { RefreshCw, Check, AlertCircle, ShoppingBag } from 'lucide-react'
-import { useCart } from '@/components/CartProvider'
+import { useCart } from '@/components/cart/CartProvider'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { cn } from '@/lib/utils'

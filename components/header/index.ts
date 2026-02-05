@@ -1,13 +1,10 @@
-import HeaderMobileIcons from './HeaderMobileIcons'
-import HeaderDesktopNav from './HeaderDesktopNav'
-import HeaderDesktopIcons from './HeaderDesktopIcons'
-import HeaderDesktopBranding from './HeaderDesktopBranding'
-import HeaderMobileMenu from './HeaderMobileMenu'
-
-export {
-  HeaderMobileIcons,
-  HeaderDesktopNav,
-  HeaderDesktopIcons,
-  HeaderDesktopBranding,
-  HeaderMobileMenu
-}
+// Header components
+export { default as HeaderMobileIcons } from './HeaderMobileIcons'
+export { default as HeaderDesktopNav } from './HeaderDesktopNav'
+export { default as HeaderDesktopIcons } from './HeaderDesktopIcons'
+export { default as HeaderDesktopBranding } from './HeaderDesktopBranding'
+export { default as HeaderMobileMenu } from './HeaderMobileMenu'
+export { default as Header } from './Header'
+export { default as HeaderRussianDesktop } from './HeaderRussianDesktop'
+export { default as HeaderRussianMobile, HeaderRussianMobileMenu } from './HeaderRussianMobile'
+export { default as MobileWebHeader } from './MobileWebHeader'

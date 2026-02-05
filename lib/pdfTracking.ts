@@ -1,5 +1,5 @@
 import { errorLog } from '@/lib/logger'
-import { useAuth } from '@/components/AuthProvider'
+import { useAuth } from '@/components/auth/AuthProvider'
 
 export interface PDFDownloadData {
   filename: string

@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import ProductsPageClient from '../../products/ProductsPageClient'
-import BreadcrumbSchema from '@/components/BreadcrumbSchema'
+import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 
 export const metadata: Metadata = {
   title: 'Продукция GENOSYS - Профессиональная корейская дерматокосметика ОАЭ',

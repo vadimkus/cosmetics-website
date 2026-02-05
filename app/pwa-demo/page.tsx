@@ -1,4 +1,4 @@
-import PWAFeaturesDemo from '@/components/PWAFeaturesDemo'
+import PWAFeaturesDemo from '@/components/pwa/PWAFeaturesDemo'
 import ProductShareButton from '@/components/ProductShareButton'
 import ShareButton from '@/components/ShareButton'
 import LocaleDebugger from '@/components/LocaleDebugger'

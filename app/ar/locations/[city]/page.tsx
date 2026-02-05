@@ -1,7 +1,8 @@
 import Link from 'next/link'
 import { MapPin, Phone, Mail, Truck, ArrowLeft, Instagram, Globe, Award, FileText } from 'lucide-react'
-import BreadcrumbSchema from '@/components/BreadcrumbSchema'
+import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import type { Metadata } from 'next'
+import { LocationPageProps } from '@/types/common'
 import { notFound } from 'next/navigation'
 
 interface AuthorizedReseller {
@@ -131,10 +132,6 @@ const locations: Record<string, {
     shippingCost: '70 درهم (مجاني للطلبات التي تزيد عن 1000 درهم)',
     deliveryTime: '48 ساعة عبر كويك أب',
   },
-}
-
-interface LocationPageProps {
-  params: Promise<{ city: string }>
 }
 
 export async function generateMetadata({ params }: LocationPageProps): Promise<Metadata> {

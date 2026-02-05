@@ -1,7 +1,7 @@
 'use client'
 
 import { useCallback, useState, useTransition } from 'react'
-import { useCart } from '@/components/CartProvider'
+import { useCart } from '@/components/cart/CartProvider'
 import { Product } from '@/types'
 import { debugLog, errorLog } from '@/lib/logger'
 

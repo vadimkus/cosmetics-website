@@ -2,8 +2,8 @@
 
 import { useState, useRef, useCallback } from 'react'
 import { CartItem as CartItemType } from '@/types'
-import { useCart } from './CartProvider'
-import { useAuth } from './AuthProvider'
+import { useCart } from '@/components/cart/CartProvider'
+import { useAuth } from '@/components/auth/AuthProvider'
 import { Minus, Plus, Trash2, Lock } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'

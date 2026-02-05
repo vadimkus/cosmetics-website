@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { MapPin, ArrowLeft } from 'lucide-react'
-import BreadcrumbSchema from '@/components/BreadcrumbSchema'
+import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 
 export const metadata: Metadata = {
   title: 'Локации GENOSYS - Обслуживание всех эмиратов ОАЭ | Genosys Middle East FZ-LLC',

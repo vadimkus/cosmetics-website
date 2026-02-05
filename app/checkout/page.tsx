@@ -1,5 +1,5 @@
 import CheckoutClient from './CheckoutClient'
-import BreadcrumbSchema from '@/components/BreadcrumbSchema'
+import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import { CheckoutErrorBoundary } from '@/components/error-boundaries'
 import type { Metadata } from 'next'
 

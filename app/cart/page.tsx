@@ -1,5 +1,5 @@
 import CartClient from './CartClient'
-import BreadcrumbSchema from '@/components/BreadcrumbSchema'
+import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import { CartErrorBoundary } from '@/components/error-boundaries'
 import type { Metadata } from 'next'
 

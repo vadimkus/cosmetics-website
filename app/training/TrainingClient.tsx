@@ -7,7 +7,7 @@ import { ArrowLeft, Download, FileText, Play, ChevronLeft } from 'lucide-react'
 import PDFDownloadButton from '@/components/PDFDownloadButton'
 import { usePWAMode } from '@/hooks/usePWAMode'
 import { useTranslation } from '@/hooks/useTranslation'
-import { useAuth } from '@/components/AuthProvider'
+import { useAuth } from '@/components/auth/AuthProvider'
 import { useRouter } from 'next/navigation'
 
 // Training documents data

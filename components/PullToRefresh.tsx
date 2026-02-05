@@ -4,7 +4,7 @@ import { ReactNode, useEffect, useCallback } from 'react'
 import { RefreshCw } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { usePullToRefresh } from '@/hooks/usePullToRefresh'
-import { useServiceWorkerContext } from '@/components/ServiceWorkerProvider'
+import { useServiceWorkerContext } from '@/components/pwa/ServiceWorkerProvider'
 import { useTranslation } from '@/hooks/useTranslation'
 import { errorLog } from '@/lib/logger'
 

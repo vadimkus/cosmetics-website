@@ -1,14 +1,11 @@
 import { notFound } from 'next/navigation'
 import { Product } from '@/types'
+import { ProductPageProps } from '@/types/common'
 import ProductPageClientRefactored from '@/app/products/[id]/ProductPageClientRefactored'
 import type { Metadata } from 'next'
 import { getProductById } from '@/lib/productsDb'
 import { errorLog } from '@/lib/logger'
 import { safeJsonParse } from '@/lib/utils'
-
-interface ProductPageProps {
-  params: Promise<{ id: string }>
-}
 
 async function getProduct(id: string): Promise<Product | null> {
   try {

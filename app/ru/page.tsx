@@ -1,5 +1,5 @@
 import Hero from '@/components/Hero'
-import BreadcrumbSchema from '@/components/BreadcrumbSchema'
+import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import MobileRedirect from '@/components/MobileRedirect'
 import type { Metadata } from 'next'
 

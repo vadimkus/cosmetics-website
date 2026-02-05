@@ -12,7 +12,7 @@ import { getLocalizedPath } from '@/lib/i18n'
 import { motion } from 'framer-motion'
 import { useAnimationStore } from '@/lib/animationStore'
 import { fetchCsrfToken, getCsrfHeaders, addCsrfToBody } from '@/lib/csrfClient'
-import { useAuth } from '@/components/AuthProvider'
+import { useAuth } from '@/components/auth/AuthProvider'
 import { errorLog } from '@/lib/logger'
 
 // Custom type that includes the items relation

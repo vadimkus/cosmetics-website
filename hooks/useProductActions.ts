@@ -1,9 +1,9 @@
 import { errorLog } from '@/lib/logger'
 import { useState, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
-import { useCart } from '@/components/CartProvider'
+import { useCart } from '@/components/cart/CartProvider'
 import { useFavorites } from '@/components/FavoritesProvider'
-import { useAuth } from '@/components/AuthProvider'
+import { useAuth } from '@/components/auth/AuthProvider'
 import { Product } from '@/types'
 
 export interface UseProductActionsReturn {

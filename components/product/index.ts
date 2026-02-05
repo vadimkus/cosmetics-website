@@ -1,0 +1,12 @@
+// Product detail components
+export { default as ProductContentDisplay } from './ProductContentDisplay'
+export { default as ProductDescription } from './ProductDescription'
+export { default as ProductDetails } from './ProductDetails'
+export { default as ProductImageGallery } from './ProductImageGallery'
+export { default as ProductInfo } from './ProductInfo'
+export { default as ProductPriceDisplay } from './ProductPriceDisplay'
+export { default as ProductQuantityCart } from './ProductQuantityCart'
+export { default as ProductRecommendation } from './ProductRecommendation'
+export { default as ProductReviews } from './ProductReviews'
+export { default as ProductVariantSelector } from './ProductVariantSelector'
+export { default as TrustBadges } from './TrustBadges'

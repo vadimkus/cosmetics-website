@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { ArrowLeft, Shield, Mail, Phone } from 'lucide-react'
 import type { Metadata } from 'next'
-import BreadcrumbSchema from '@/components/BreadcrumbSchema'
+import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 
 export const metadata: Metadata = {
   title: 'Политика конфиденциальности - GENOSYS Middle East FZ-LLC | Защита данных и ваши права',

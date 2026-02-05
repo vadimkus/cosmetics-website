@@ -160,7 +160,21 @@ function deriveOrigin(product: Product): string {
 }
 
 /**
- * Calculate complete pricing for a product including VAT and discounts
+ * Calculates complete pricing for a product including VAT and discounts.
+ * Handles size/color variants and applies user-specific discounts (Black Friday, customer discounts).
+ * 
+ * @param product - The product to calculate pricing for
+ * @param user - Optional user for personalized discounts (null for guest pricing)
+ * @param selectedSize - Optional size variant (e.g., "50ml", "100ml")
+ * @param selectedColor - Optional color variant
+ * @returns Complete pricing data including VAT, discounts, and display prices
+ * 
+ * @example
+ * ```ts
+ * const pricing = calculateProductPricing(product, user, "100ml")
+ * console.log(pricing.displayPrice) // Final price after discounts
+ * console.log(pricing.priceIncludingVat) // Price with 5% UAE VAT
+ * ```
  */
 export function calculateProductPricing(
   product: Product,
@@ -236,7 +250,19 @@ export function calculateProductPricing(
 }
 
 /**
- * Generate dynamic badges for a product
+ * Generates dynamic badges for a product based on its properties and pricing.
+ * Badges are sorted by priority (sale > Black Friday > new > best seller > professional).
+ * 
+ * @param product - The product to generate badges for
+ * @param _user - Optional user (reserved for future personalized badges)
+ * @param pricingData - Optional pre-calculated pricing data
+ * @returns Array of badges sorted by priority
+ * 
+ * @example
+ * ```ts
+ * const badges = generateProductBadges(product, user, pricingData)
+ * // Returns: [{ text: "20% OFF", color: "red", priority: 1, type: "sale" }]
+ * ```
  */
 export function generateProductBadges(
   product: Product,
@@ -323,7 +349,21 @@ export function generateProductBadges(
 }
 
 /**
- * Generate product variants with calculated pricing
+ * Generates product variants (size/color options) with calculated pricing.
+ * Prioritizes database variants over config file variants for flexibility.
+ * 
+ * @param product - The product to generate variants for
+ * @param user - Optional user for personalized pricing
+ * @returns Array of variants with pricing and availability
+ * 
+ * @example
+ * ```ts
+ * const variants = generateProductVariants(product, user)
+ * // Returns: [
+ * //   { size: "50ml", price: 250, isDefault: true, available: true },
+ * //   { size: "100ml", price: 450, isDefault: false, available: true }
+ * // ]
+ * ```
  */
 export function generateProductVariants(
   product: Product,
@@ -388,7 +428,19 @@ export function generateProductVariants(
 }
 
 /**
- * Generate enhanced product data for mobile app consumption
+ * Generates enhanced product data for mobile app consumption.
+ * Combines pricing, variants, badges, and product specifications into a single object.
+ * 
+ * @param product - The product to enhance
+ * @param user - Optional user for personalized pricing and badges
+ * @returns Enhanced product data ready for API response
+ * 
+ * @example
+ * ```ts
+ * const enhanced = generateEnhancedProductData(product, user)
+ * // Use in API response for mobile app
+ * res.json(enhanced)
+ * ```
  */
 export function generateEnhancedProductData(
   product: Product,
@@ -500,7 +552,18 @@ export function generateEnhancedProductData(
 }
 
 /**
- * Batch generate enhanced data for multiple products (optimized for API responses)
+ * Batch generates enhanced data for multiple products.
+ * Optimized for product listing API responses.
+ * 
+ * @param products - Array of products to enhance
+ * @param user - Optional user for personalized pricing
+ * @returns Array of enhanced product data
+ * 
+ * @example
+ * ```ts
+ * const enhanced = generateBatchEnhancedProductData(products, user)
+ * res.json({ products: enhanced })
+ * ```
  */
 export function generateBatchEnhancedProductData(
   products: Product[],

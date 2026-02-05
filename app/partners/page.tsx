@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
-import BreadcrumbSchema from '@/components/BreadcrumbSchema'
-import PartnersSchema from '@/components/PartnersSchema'
+import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
+import PartnersSchema from '@/components/schema/PartnersSchema'
 import PartnersPageClient from './PartnersPageClient'
 
 export const metadata: Metadata = {

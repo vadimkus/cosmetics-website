@@ -1,14 +1,14 @@
 'use client'
 
 import { useSearchParams, useRouter } from 'next/navigation'
-import { useCart } from '@/components/CartProvider'
+import { useCart } from '@/components/cart/CartProvider'
 import { useEffect, Suspense, useState } from 'react'
 import Link from 'next/link'
 import { ShoppingBag, ArrowLeft, MessageCircle, ChevronLeft } from 'lucide-react'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { usePWAMode } from '@/hooks/usePWAMode'
-import { useAuth } from '@/components/AuthProvider'
+import { useAuth } from '@/components/auth/AuthProvider'
 import { useHapticFeedback } from '@/hooks/useHapticFeedback'
 import ConfettiCelebration from '@/components/ConfettiCelebration'
 

@@ -1,13 +1,10 @@
-import BreadcrumbSchema from '@/components/BreadcrumbSchema'
+import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import type { Metadata } from 'next'
+import { BlogPostPageProps } from '@/types/common'
 import { prisma } from '@/lib/prisma'
 import { notFound } from 'next/navigation'
 import { errorLog } from '@/lib/logger'
 import RussianBlogPostClient from './RussianBlogPostClient'
-
-interface BlogPostPageProps {
-  params: Promise<{ slug: string }>
-}
 
 type BlogPostWithComments = {
   id: string

@@ -350,7 +350,7 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
     }
     
     // Clean the text - remove standalone {{id:NUMBER}} patterns
-    let cleanedText = text.replace(/\*{0,2}\s*\{\{id:\d+\}\}/g, '')
+    const cleanedText = text.replace(/\*{0,2}\s*\{\{id:\d+\}\}/g, '')
     
     // Combined regex to match both images and links in order
     // Images: ![alt](url)

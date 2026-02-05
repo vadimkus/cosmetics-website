@@ -4,11 +4,11 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
 import Logo from '@/components/Logo'
-import BreadcrumbSchema from '@/components/BreadcrumbSchema'
+import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import PDFLinkButton from '@/components/PDFLinkButton'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
-import PWAPageWrapper from '@/components/PWAPageWrapper'
+import PWAPageWrapper from '@/components/pwa/PWAPageWrapper'
 import { usePWAMode } from '@/hooks/usePWAMode'
 
 export default function AboutPageClient() {

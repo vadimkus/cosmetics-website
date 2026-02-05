@@ -26,10 +26,24 @@ const BEAUTY_BOX_REGULAR_PRICES: { [key: string]: number } = {
 const BEAUTY_BOX_DISCOUNT_PERCENTAGE = 15
 
 /**
- * Calculate discounted price for a product based on user's discount settings and Black Friday sale
+ * Calculates discounted price for a product based on multiple discount sources.
+ * 
+ * Discount priority (only one applies):
+ * 1. Beauty Box bundle discount (15% built-in)
+ * 2. Black Friday sale (if active and product not excluded)
+ * 3. User-specific discount (based on user.discountType/discountPercentage)
+ * 
  * @param product - The product to calculate discount for
- * @param user - The user with discount settings
- * @returns DiscountedPrice object with pricing details
+ * @param user - The user with discount settings (null for guest pricing)
+ * @returns DiscountedPrice object with original/discounted prices and discount details
+ * 
+ * @example
+ * ```ts
+ * const pricing = calculateDiscountedPrice(product, user)
+ * if (pricing.hasDiscount) {
+ *   console.log(`Save ${pricing.discountPercentage}%!`)
+ * }
+ * ```
  */
 export function calculateDiscountedPrice(product: Product, user: ApiUser | User | null): DiscountedPrice {
   const originalPrice = product.price

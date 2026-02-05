@@ -38,7 +38,8 @@ describe('ProductImageGallery', () => {
       />
     )
 
-    expect(screen.getByAltText('Test Product')).toBeInTheDocument()
+    // Component now uses enhanced SEO alt text format
+    expect(screen.getByAltText(/Test Product - GENOSYS professional/i)).toBeInTheDocument()
   })
 
   it('renders thumbnail images when multiple images exist', () => {
@@ -50,8 +51,9 @@ describe('ProductImageGallery', () => {
       />
     )
 
-    expect(screen.getByAltText('Test Product 1')).toBeInTheDocument()
-    expect(screen.getByAltText('Test Product 2')).toBeInTheDocument()
+    // Thumbnails use format: "Product Name - GENOSYS product thumbnail view N"
+    expect(screen.getByAltText(/Test Product - GENOSYS product thumbnail view 1/i)).toBeInTheDocument()
+    expect(screen.getByAltText(/Test Product - GENOSYS product thumbnail view 2/i)).toBeInTheDocument()
   })
 
   it('calls onImageSelect when thumbnail is clicked', () => {
@@ -65,7 +67,7 @@ describe('ProductImageGallery', () => {
       />
     )
 
-    const thumbnail = screen.getByAltText('Test Product 2')
+    const thumbnail = screen.getByAltText(/Test Product - GENOSYS product thumbnail view 2/i)
     fireEvent.click(thumbnail)
 
     expect(mockOnImageSelect).toHaveBeenCalledWith(1)
@@ -80,7 +82,7 @@ describe('ProductImageGallery', () => {
       />
     )
 
-    const selectedThumbnail = screen.getByAltText('Test Product 2').closest('button')
+    const selectedThumbnail = screen.getByAltText(/Test Product - GENOSYS product thumbnail view 2/i).closest('button')
     expect(selectedThumbnail).toHaveClass('border-primary-600')
   })
 

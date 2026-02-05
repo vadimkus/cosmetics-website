@@ -1,4 +1,4 @@
-import BreadcrumbSchema from '@/components/BreadcrumbSchema'
+import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import TrainingClient from './TrainingClient'
 import type { Metadata } from 'next'
 

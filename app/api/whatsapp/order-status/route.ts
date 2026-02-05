@@ -150,9 +150,9 @@ export async function POST(request: NextRequest) {
       })
     }
 
-    // Check user's WhatsApp notification preference (if we add this field)
-    // For now, we'll send to all customers with phone numbers
-    // TODO: Add whatsappNotifications preference to User model
+    // NOTE: Currently sends to all customers with phone numbers.
+    // Future enhancement: Add whatsappNotifications boolean field to User model
+    // to allow customers to opt-out of WhatsApp order notifications.
 
     // Send the WhatsApp notification
     const result = await sendOrderStatusWhatsApp(

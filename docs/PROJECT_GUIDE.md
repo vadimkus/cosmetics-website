@@ -34,9 +34,23 @@ cosmetics-website/
 │   ├── skin-recommendation/ # AI Skin Analysis
 │   ├── ar/                # Arabic locale routes
 │   └── ru/                # Russian locale routes
-├── components/            # Reusable React components
-│   ├── ar/               # AR/3D components (TensorFlow, Three.js)
-│   └── ...               # Other components
+├── components/            # React components (organized by feature)
+│   ├── admin/             # Admin dashboard components
+│   ├── ar/                # AR/3D components (TensorFlow, Three.js)
+│   ├── auth/              # Authentication (AuthProvider, useAuth)
+│   ├── blog/              # Blog components (BlogComments)
+│   ├── cart/              # Shopping cart (CartItem, CartProvider)
+│   ├── error-boundaries/  # Error boundary components
+│   ├── footer/            # Footer components
+│   ├── header/            # Header components (all variants)
+│   ├── partners/          # Partner/salon components
+│   ├── product/           # Product detail components
+│   ├── ProductCard/       # Product card component & hooks
+│   ├── products/          # Product listing components
+│   ├── profile/           # Profile page components
+│   ├── pwa/               # PWA components & ServiceWorker
+│   ├── schema/            # SEO schema components
+│   └── shared/            # Shared UI (Button, Card, etc.)
 ├── hooks/                 # Custom React hooks
 ├── lib/                   # Utility libraries
 ├── messages/              # i18n translation files (en.json, ar.json, ru.json)
@@ -44,6 +58,20 @@ cosmetics-website/
 ├── public/                # Static assets
 ├── scripts/               # Build & maintenance scripts
 └── docs/                  # Documentation
+```
+
+### Component Organization
+
+Components are organized by **feature/domain** with barrel files (`index.ts`) for clean imports:
+
+```tsx
+// Import from barrel files
+import { AuthProvider, useAuth } from '@/components/auth'
+import { CartItem, useCart } from '@/components/cart'
+import { ProductSchema, OrganizationSchema } from '@/components/schema'
+import { PWAHeader, ServiceWorkerProvider } from '@/components/pwa'
+import { Header, MobileWebHeader } from '@/components/header'
+import { Footer, MobileFooterNav } from '@/components/footer'
 ```
 
 ---
@@ -61,11 +89,11 @@ The website operates in THREE different modes. **Always consider all three when 
 | **PWA (Installed App)** | `display-mode: standalone` | `PWAHeader` | `MobileFooterNav` |
 
 **Key files:**
-- `components/Header.tsx` - Desktop header
-- `components/MobileWebHeader.tsx` - Mobile web header (hamburger menu)
-- `components/MobileWebFooterNav.tsx` - Mobile web bottom nav (Home, Orders, Bag)
-- `components/PWAHeader.tsx` - PWA header
-- `components/MobileFooterNav.tsx` - PWA bottom nav
+- `components/header/Header.tsx` - Desktop header
+- `components/header/MobileWebHeader.tsx` - Mobile web header (hamburger menu)
+- `components/footer/MobileWebFooterNav.tsx` - Mobile web bottom nav (Home, Orders, Bag)
+- `components/pwa/PWAHeader.tsx` - PWA header
+- `components/footer/MobileFooterNav.tsx` - PWA bottom nav
 
 ### 2. Localization (i18n)
 

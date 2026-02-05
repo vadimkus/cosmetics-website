@@ -12,7 +12,7 @@ import { motion } from 'framer-motion'
 import { useAnimationStore } from '@/lib/animationStore'
 import { usePWAMode } from '@/hooks/usePWAMode'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { useAuth } from '@/components/AuthProvider'
+import { useAuth } from '@/components/auth/AuthProvider'
 
 // Mobile device detection
 function isMobileDevice(): boolean {

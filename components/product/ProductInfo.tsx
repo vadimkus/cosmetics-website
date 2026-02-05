@@ -1,10 +1,10 @@
 'use client'
 
-import { useAuth } from '@/components/AuthProvider'
+import { useAuth } from '@/components/auth/AuthProvider'
 import { useRouter } from 'next/navigation'
 import { Star, ShoppingCart, Minus, Plus, Heart, Lock, MessageCircle, AlertTriangle, Share2, Check } from 'lucide-react'
 import { Product } from '@/types'
-import { useCart } from '@/components/CartProvider'
+import { useCart } from '@/components/cart/CartProvider'
 import { useFavorites } from '@/components/FavoritesProvider'
 import { useState, useCallback, useEffect } from 'react'
 import { calculateDiscountedPrice, canUserSeePrices } from '@/lib/discountUtils'

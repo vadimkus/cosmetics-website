@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
-import { useAuth } from '@/components/AuthProvider'
+import { useAuth } from '@/components/auth/AuthProvider'
 import InstallLink from '@/components/InstallLink'
 
 interface HeaderMobileMenuProps {

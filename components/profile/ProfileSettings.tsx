@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import { Bell, Shield, Eye, Lock, Key, AlertTriangle } from 'lucide-react'
 import { fetchCsrfToken, getCsrfHeaders } from '@/lib/csrfClient'
-import { useAuth } from '@/components/AuthProvider'
+import { useAuth } from '@/components/auth/AuthProvider'
 
 interface ProfileSettingsProps {
   user: {

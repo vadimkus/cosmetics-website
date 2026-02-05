@@ -2,6 +2,9 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import { useRouter } from 'next/navigation'
 import PDFLinkButton from '@/components/PDFLinkButton'
 
+// Mutable locale for tests
+let mockLocale = 'en'
+
 // Mock the hooks and modules
 jest.mock('next/navigation', () => ({
   useRouter: jest.fn(),
@@ -9,9 +12,9 @@ jest.mock('next/navigation', () => ({
 
 jest.mock('@/hooks/useTranslation', () => ({
   useTranslation: () => ({
-    locale: 'en',
+    locale: mockLocale,
     t: (key: string) => key,
-    dir: 'ltr'
+    dir: mockLocale === 'ar' ? 'rtl' : 'ltr'
   }),
 }))
 
@@ -34,6 +37,9 @@ const mockRouter = useRouter as jest.MockedFunction<typeof useRouter>
 
 describe('PDFLinkButton', () => {
   beforeEach(() => {
+    // Reset locale to default
+    mockLocale = 'en'
+    
     mockRouter.mockReturnValue({
       push: mockPush,
       back: jest.fn(),
@@ -43,7 +49,7 @@ describe('PDFLinkButton', () => {
       prefetch: jest.fn(),
     } as any)
     
-    // Mock window.matchMedia for PWA detection
+    // Mock window.matchMedia for PWA detection - default to non-PWA
     Object.defineProperty(window, 'matchMedia', {
       writable: true,
       value: jest.fn().mockImplementation(query => ({
@@ -81,28 +87,10 @@ describe('PDFLinkButton', () => {
   })
 
   it('navigates to correct localized PDF viewer route for Russian', async () => {
-    // Mock Russian locale
-    jest.doMock('@/hooks/useTranslation', () => ({
-      useTranslation: () => ({
-        locale: 'ru',
-        t: (key: string) => key,
-        dir: 'ltr'
-      }),
-    }))
-
-    // Re-import component with new mock
-    const { default: PDFLinkButtonRu } = await import('@/components/PDFLinkButton')
-
-    render(
-      <PDFLinkButtonRu
-        href="/documents/test.pdf"
-        filename="test.pdf"
-      >
-        Просмотреть PDF
-      </PDFLinkButtonRu>
-    )
-
-    // Mock PWA mode
+    // Set Russian locale
+    mockLocale = 'ru'
+    
+    // Mock PWA mode - requires mobile user agent + standalone mode
     Object.defineProperty(window, 'matchMedia', {
       writable: true,
       value: jest.fn().mockImplementation(query => ({
@@ -116,6 +104,21 @@ describe('PDFLinkButton', () => {
         dispatchEvent: jest.fn(),
       })),
     })
+    
+    // Mock mobile user agent (required for isPWA() to return true)
+    Object.defineProperty(navigator, 'userAgent', {
+      writable: true,
+      value: 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/605.1.15',
+    })
+
+    render(
+      <PDFLinkButton
+        href="/documents/test.pdf"
+        filename="test.pdf"
+      >
+        Просмотреть PDF
+      </PDFLinkButton>
+    )
 
     const button = screen.getByRole('link')
     fireEvent.click(button)
@@ -126,28 +129,10 @@ describe('PDFLinkButton', () => {
   })
 
   it('navigates to correct localized PDF viewer route for Arabic', async () => {
-    // Mock Arabic locale
-    jest.doMock('@/hooks/useTranslation', () => ({
-      useTranslation: () => ({
-        locale: 'ar',
-        t: (key: string) => key,
-        dir: 'rtl'
-      }),
-    }))
-
-    // Re-import component with new mock
-    const { default: PDFLinkButtonAr } = await import('@/components/PDFLinkButton')
-
-    render(
-      <PDFLinkButtonAr
-        href="/documents/test.pdf"
-        filename="test.pdf"
-      >
-        عرض PDF
-      </PDFLinkButtonAr>
-    )
-
-    // Mock PWA mode
+    // Set Arabic locale
+    mockLocale = 'ar'
+    
+    // Mock PWA mode - requires mobile user agent + standalone mode
     Object.defineProperty(window, 'matchMedia', {
       writable: true,
       value: jest.fn().mockImplementation(query => ({
@@ -161,6 +146,21 @@ describe('PDFLinkButton', () => {
         dispatchEvent: jest.fn(),
       })),
     })
+    
+    // Mock mobile user agent (required for isPWA() to return true)
+    Object.defineProperty(navigator, 'userAgent', {
+      writable: true,
+      value: 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/605.1.15',
+    })
+
+    render(
+      <PDFLinkButton
+        href="/documents/test.pdf"
+        filename="test.pdf"
+      >
+        عرض PDF
+      </PDFLinkButton>
+    )
 
     const button = screen.getByRole('link')
     fireEvent.click(button)
@@ -171,16 +171,9 @@ describe('PDFLinkButton', () => {
   })
 
   it('uses default English route for English locale', async () => {
-    render(
-      <PDFLinkButton
-        href="/documents/test.pdf"
-        filename="test.pdf"
-      >
-        View PDF
-      </PDFLinkButton>
-    )
-
-    // Mock PWA mode
+    // mockLocale is already 'en' from beforeEach
+    
+    // Mock PWA mode - requires mobile user agent + standalone mode
     Object.defineProperty(window, 'matchMedia', {
       writable: true,
       value: jest.fn().mockImplementation(query => ({
@@ -194,6 +187,21 @@ describe('PDFLinkButton', () => {
         dispatchEvent: jest.fn(),
       })),
     })
+    
+    // Mock mobile user agent (required for isPWA() to return true)
+    Object.defineProperty(navigator, 'userAgent', {
+      writable: true,
+      value: 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/605.1.15',
+    })
+
+    render(
+      <PDFLinkButton
+        href="/documents/test.pdf"
+        filename="test.pdf"
+      >
+        View PDF
+      </PDFLinkButton>
+    )
 
     const button = screen.getByRole('link')
     fireEvent.click(button)

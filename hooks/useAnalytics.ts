@@ -1,6 +1,6 @@
 import { errorLog } from '@/lib/logger'
 import { useCallback } from 'react'
-import { useAuth } from '@/components/AuthProvider'
+import { useAuth } from '@/components/auth/AuthProvider'
 
 export function useAnalytics() {
   const { user } = useAuth()

@@ -32,7 +32,19 @@ export const FILE_LIMITS = {
 } as const
 
 /**
- * Validate string length
+ * Validates that a string value does not exceed a maximum length.
+ * Used to prevent DoS attacks via oversized input.
+ * 
+ * @param value - The string to validate (null/undefined passes validation)
+ * @param maxLength - Maximum allowed character length
+ * @param fieldName - Name of the field for error messages
+ * @returns Validation result with optional error message
+ * 
+ * @example
+ * ```ts
+ * const result = validateLength(name, INPUT_LIMITS.USER_NAME, 'Name')
+ * if (!result.valid) throw new Error(result.error)
+ * ```
  */
 export function validateLength(value: string | undefined | null, maxLength: number, fieldName: string): {
   valid: boolean
@@ -57,7 +69,17 @@ export function validateLength(value: string | undefined | null, maxLength: numb
 }
 
 /**
- * Validate price range
+ * Validates that a price is within acceptable range (0.01 - 1,000,000 AED).
+ * Uses string-based decimal check to avoid JavaScript floating-point issues.
+ * 
+ * @param price - The price to validate
+ * @returns Validation result with optional error message
+ * 
+ * @example
+ * ```ts
+ * const result = validatePrice(product.price)
+ * if (!result.valid) return res.status(400).json({ error: result.error })
+ * ```
  */
 export function validatePrice(price: number | undefined | null): {
   valid: boolean
@@ -80,7 +102,11 @@ export function validatePrice(price: number | undefined | null): {
   }
   
   // Check for too many decimal places (max 2 for currency)
-  if (price % 0.01 !== 0) {
+  // Note: Using string-based check to avoid floating-point precision issues
+  // (e.g., 100 % 0.01 !== 0 in JavaScript due to IEEE 754 floating-point)
+  const priceString = price.toString()
+  const decimalPart = priceString.split('.')[1]
+  if (decimalPart && decimalPart.length > 2) {
     return { valid: false, error: 'Price can have at most 2 decimal places' }
   }
   

@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { ShoppingCart, Heart, User, LogOut } from 'lucide-react'
 import { useCartStore } from '@/lib/cartStore'
-import { useAuth } from '@/components/AuthProvider'
+import { useAuth } from '@/components/auth/AuthProvider'
 import { useFavorites } from '@/components/FavoritesProvider'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
 import { useTranslation } from '@/hooks/useTranslation'

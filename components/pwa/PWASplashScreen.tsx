@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 import Image from 'next/image'
 import { usePWAMode } from '@/hooks/usePWAMode'
-import { useAuth } from './AuthProvider'
+import { useAuth } from '@/components/auth/AuthProvider'
 
 const COMPANY_NAME = 'Genosys Middle East FZ-LLC'
 const MINIMUM_DISPLAY_MS = 600 // Minimum time to show splash screen

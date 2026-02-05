@@ -1,6 +1,6 @@
 'use client'
 import { useEffect } from 'react'
-import { useAuth } from './AuthProvider'
+import { useAuth } from './auth/AuthProvider'
 
 export function useUserRefresh() {
   const { user, refreshUser } = useAuth()

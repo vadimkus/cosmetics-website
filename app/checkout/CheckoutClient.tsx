@@ -1,7 +1,7 @@
 'use client'
 
-import { useCart } from '@/components/CartProvider'
-import { useAuth } from '@/components/AuthProvider'
+import { useCart } from '@/components/cart/CartProvider'
+import { useAuth } from '@/components/auth/AuthProvider'
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import { ArrowLeft, CreditCard, Lock, MapPin, Truck, MessageCircle, Building, ChevronDown } from 'lucide-react'

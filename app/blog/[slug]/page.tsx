@@ -1,11 +1,12 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { Calendar, User, ArrowLeft } from 'lucide-react'
-import BreadcrumbSchema from '@/components/BreadcrumbSchema'
+import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import BlogComments from '@/components/blog/BlogComments'
 import BlackFridayCountdown from '@/components/BlackFridayCountdown'
 import BlogPostClient from './BlogPostClient'
 import type { Metadata } from 'next'
+import { BlogPostPageProps } from '@/types/common'
 import { prisma } from '@/lib/prisma'
 import { notFound } from 'next/navigation'
 import { errorLog } from '@/lib/logger'
@@ -13,10 +14,6 @@ import { sanitizeHtml } from '@/lib/sanitize'
 
 // Revalidate blog post every 60 seconds to show updates quickly
 export const revalidate = 60
-
-interface BlogPostPageProps {
-  params: Promise<{ slug: string }>
-}
 
 type BlogPostWithComments = {
   id: string

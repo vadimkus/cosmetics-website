@@ -1,7 +1,8 @@
 import Link from 'next/link'
 import { MapPin, Phone, Mail, Truck, ArrowLeft, Instagram, Globe, Award, FileText } from 'lucide-react'
-import BreadcrumbSchema from '@/components/BreadcrumbSchema'
+import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import type { Metadata } from 'next'
+import { LocationPageProps } from '@/types/common'
 
 interface AuthorizedReseller {
   name: string
@@ -120,10 +121,6 @@ const locations: Record<string, {
     shippingCost: '70 AED (Free for orders over 1000 AED)',
     deliveryTime: '48 hours via Quiqup',
   },
-}
-
-interface LocationPageProps {
-  params: Promise<{ city: string }>
 }
 
 export async function generateMetadata({ params }: LocationPageProps): Promise<Metadata> {

@@ -31,6 +31,29 @@ function buildOrderNumber(channel: OrderChannel, payment: PaymentKind, datePart:
   return `GENCard${channel}${datePart}${random4()}`
 }
 
+/**
+ * Generates a unique order number with collision detection.
+ * 
+ * Format: `{PREFIX}{CHANNEL}YYMMDD####`
+ * - COD mobile: `CODM2512160421`
+ * - COD website: `CODW2512160421`
+ * - Card mobile: `GENCardM2512160421`
+ * - Card website: `GENCardW2512160421`
+ * 
+ * @param args.channel - 'M' for mobile app, 'W' for website
+ * @param args.payment - 'COD' for cash on delivery, 'CARD' for card payment
+ * @param args.date - Optional date for the order (defaults to now)
+ * @returns Unique order number string
+ * 
+ * @example
+ * ```ts
+ * const orderNumber = await generateUniqueOrderNumber({
+ *   channel: 'W',
+ *   payment: 'COD'
+ * })
+ * // Returns: "CODW2501280421"
+ * ```
+ */
 export async function generateUniqueOrderNumber(args: {
   channel: OrderChannel
   payment: PaymentKind

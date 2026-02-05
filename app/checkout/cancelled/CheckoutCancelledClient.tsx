@@ -5,7 +5,7 @@ import { XCircle, ShoppingCart, Home, ArrowLeft } from 'lucide-react'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { useIsMobile } from '@/hooks/useIsMobile'
-import { useAuth } from '@/components/AuthProvider'
+import { useAuth } from '@/components/auth/AuthProvider'
 import { useRouter } from 'next/navigation'
 
 export default function CheckoutCancelledClient() {

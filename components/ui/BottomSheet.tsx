@@ -32,6 +32,7 @@ export default function BottomSheet({
   const [isDragging, setIsDragging] = useState(false)
   const touchStartY = useRef(0)
   const currentY = useRef(0)
+  const touchStartTime = useRef(0)
 
   // Handle escape key
   useEffect(() => {
@@ -75,6 +76,7 @@ export default function BottomSheet({
     if (!touch) return
     touchStartY.current = touch.clientY
     currentY.current = touch.clientY
+    touchStartTime.current = Date.now()
     setIsDragging(true)
   }, [enableSwipeDown])
   
@@ -98,8 +100,16 @@ export default function BottomSheet({
     
     setIsDragging(false)
     
-    // If dragged more than 100px, close the sheet
-    if (dragY > 100) {
+    // Calculate velocity (pixels per millisecond)
+    const timeDelta = Date.now() - touchStartTime.current
+    const velocity = dragY / Math.max(timeDelta, 1)
+    
+    // Close if:
+    // 1. Dragged more than 50px (lower threshold), OR
+    // 2. Fast swipe (velocity > 0.3) with at least 20px drag
+    const shouldClose = dragY > 50 || (velocity > 0.3 && dragY > 20)
+    
+    if (shouldClose) {
       onClose()
     }
     
@@ -150,15 +160,15 @@ export default function BottomSheet({
           transform: `translateY(${isOpen ? dragY : '100%'}px)`
         }}
       >
-        {/* Drag handle indicator - touchable area for swipe */}
+        {/* Drag handle indicator - larger touchable area for swipe */}
         <div 
           ref={dragHandleRef}
-          className="flex justify-center pt-3 pb-1 cursor-grab active:cursor-grabbing touch-none"
+          className="flex justify-center pt-4 pb-2 cursor-grab active:cursor-grabbing touch-none"
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
         >
-          <div className="w-10 h-1 bg-gray-300 rounded-full" />
+          <div className="w-12 h-1.5 bg-gray-300 rounded-full" />
         </div>
 
         {/* Header - also draggable */}

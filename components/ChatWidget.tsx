@@ -509,6 +509,9 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
   if (isMobileWeb && isHiddenPage) {
     return null
   }
+  
+  // Check if on product detail page (has sticky footer on mobile)
+  const isProductPage = pathname?.match(/^\/(en|ar|ru)?\/products\/\d+/) || pathname?.match(/^\/products\/\d+/)
 
   const handleOpen = () => {
     setIsOpen(true)
@@ -640,6 +643,9 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
 
   // Floating button (when closed)
   if (!isOpen) {
+    // Position higher on product pages (mobile) to avoid sticky footer overlap
+    const mobileBottomClass = isMobileWeb && isProductPage ? 'bottom-28' : 'bottom-20'
+    
     return (
       <button
         onClick={handleOpen}
@@ -650,7 +656,7 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
           text-white transition-all duration-300
           hover:scale-110 active:scale-95
           ${isRTL ? 'left-4 md:left-6' : 'right-4 md:right-6'}
-          bottom-20 md:bottom-6
+          ${mobileBottomClass} md:bottom-6
           ${className}
         `}
         aria-label={chatTitle}

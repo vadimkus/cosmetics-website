@@ -181,7 +181,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
   const availableColors = colorOptions
 
   return (
-    <div className="bg-white min-h-screen pb-24 lg:pb-0" dir={dir}>
+    <div className="bg-white min-h-[100dvh] pb-24 lg:pb-0" dir={dir}>
       <ProductSchema product={product} />
       <BreadcrumbSchema 
         items={[

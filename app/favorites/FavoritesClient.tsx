@@ -67,7 +67,7 @@ export default function FavoritesClient() {
 
   if (favorites.length === 0) {
     return (
-      <div className={`${isAppLikeMode ? 'min-h-screen bg-white pb-32' : ''}`} dir={dir}>
+      <div className={`${isAppLikeMode ? 'min-h-[100dvh] bg-white pb-32' : ''}`} dir={dir}>
         {/* PWA/Mobile Web Simple Navigation Header */}
         {isAppLikeMode && (
           <div className={`flex items-center justify-between px-5 py-4 bg-white ${isRTL ? 'flex-row-reverse' : ''}`}>
@@ -213,7 +213,7 @@ export default function FavoritesClient() {
   }
 
   return (
-    <div className={`${isAppLikeMode ? 'min-h-screen bg-white pb-32' : ''}`} dir={dir}>
+    <div className={`${isAppLikeMode ? 'min-h-[100dvh] bg-white pb-32' : ''}`} dir={dir}>
       {/* PWA/Mobile Web Simple Navigation Header */}
       {isAppLikeMode && (
         <div className={`flex items-center justify-between px-5 py-4 bg-white ${isRTL ? 'flex-row-reverse' : ''}`}>

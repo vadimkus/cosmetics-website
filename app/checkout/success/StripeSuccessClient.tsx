@@ -128,7 +128,7 @@ export default function StripeSuccessClient() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center" dir={dir}>
+      <div className="min-h-[100dvh] flex items-center justify-center" dir={dir}>
         <div className="text-center p-8">
           <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-primary-600 mx-auto mb-4"></div>
           <h2 className="text-xl font-semibold text-gray-900 mb-2">
@@ -144,7 +144,7 @@ export default function StripeSuccessClient() {
 
   if (error || !orderDetails) {
     return (
-      <div className="min-h-screen flex items-center justify-center" dir={dir}>
+      <div className="min-h-[100dvh] flex items-center justify-center" dir={dir}>
         <div className="text-center p-8 max-w-md mx-auto">
           <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
             <RefreshCw className="w-8 h-8 text-red-600" />
@@ -177,7 +177,7 @@ export default function StripeSuccessClient() {
   const isPaymentSuccessful = orderDetails.paymentStatus === 'paid'
 
   return (
-    <div className="min-h-screen py-12" dir={dir}>
+    <div className="min-h-[100dvh] py-12" dir={dir}>
       {/* Confetti Celebration */}
       <ConfettiCelebration 
         trigger={showConfetti}

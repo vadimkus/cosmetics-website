@@ -104,7 +104,7 @@ export default function FAQClient() {
       title={locale === 'ar' ? 'الأسئلة الشائعة' : locale === 'ru' ? 'Помощь' : 'Help & Support'}
       defaultBackPath="/products"
     >
-    <div className={`bg-gradient-to-b from-gray-50 to-white min-h-screen ${isAppLikeMode ? 'pb-32' : ''}`} dir={dir}>
+    <div className={`bg-gradient-to-b from-gray-50 to-white min-h-[100dvh] ${isAppLikeMode ? 'pb-32' : ''}`} dir={dir}>
       <BreadcrumbSchema 
         items={[
           { name: t('common.home'), url: getLocalizedPath('/', locale) },

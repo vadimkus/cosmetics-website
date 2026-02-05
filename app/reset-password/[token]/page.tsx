@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { useRouter, useParams } from 'next/navigation'
+import { Lock, ArrowLeft, CheckCircle2, XCircle, Eye, EyeOff, KeyRound } from 'lucide-react'
 import { fetchCsrfToken, getCsrfHeaders, addCsrfToBody } from '@/lib/csrfClient'
 import { errorLog } from '@/lib/logger'
 import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
@@ -10,13 +11,15 @@ import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 
 export default function ResetPasswordClient() {
-  const { t, locale } = useTranslation()
+  const { t, locale, dir } = useTranslation()
   const params = useParams()
   const router = useRouter()
   const token = params?.token as string | undefined
   
   const [newPassword, setNewPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const [loading, setLoading] = useState(false)
   const [verifying, setVerifying] = useState(true)
   const [tokenValid, setTokenValid] = useState(false)
@@ -43,12 +46,10 @@ export default function ResetPasswordClient() {
         if (data.valid) {
           setTokenValid(true)
         } else {
-          // Show the actual error message from the API
           setError(data.error || 'Invalid or expired token')
         }
       } catch (err) {
         errorLog('Token verification error:', err)
-        // Show more specific error message
         const errorMessage = err instanceof Error ? err.message : 'Failed to verify reset link'
         setError(`Failed to verify reset link: ${errorMessage}`)
       } finally {
@@ -70,41 +71,39 @@ export default function ResetPasswordClient() {
     let feedback = ''
 
     if (newPassword.length >= 8) score++
-    else feedback = 'At least 8 characters'
+    else feedback = t('auth.minCharacters') || 'At least 8 characters'
 
     if (/[a-z]/.test(newPassword)) score++
     if (/[A-Z]/.test(newPassword)) score++
     if (/[0-9]/.test(newPassword)) score++
     if (/[^a-zA-Z0-9]/.test(newPassword)) score++
 
-    if (score === 0) feedback = 'At least 8 characters'
-    else if (score <= 2) feedback = 'Weak password'
-    else if (score <= 3) feedback = 'Fair password'
-    else if (score <= 4) feedback = 'Good password'
-    else feedback = 'Strong password'
+    if (score === 0) feedback = t('auth.minCharacters') || 'At least 8 characters'
+    else if (score <= 2) feedback = t('auth.weakPassword') || 'Weak password'
+    else if (score <= 3) feedback = t('auth.fairPassword') || 'Fair password'
+    else if (score <= 4) feedback = t('auth.goodPassword') || 'Good password'
+    else feedback = t('auth.strongPassword') || 'Strong password'
 
     setPasswordStrength({ score, feedback })
-  }, [newPassword])
+  }, [newPassword, t])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError(null)
 
-    // Validation
     if (newPassword.length < 8) {
-      setError('Password must be at least 8 characters long')
+      setError(t('auth.passwordMinLength') || 'Password must be at least 8 characters long')
       return
     }
 
     if (newPassword !== confirmPassword) {
-      setError('Passwords do not match')
+      setError(t('auth.passwordsDoNotMatch') || 'Passwords do not match')
       return
     }
 
     setLoading(true)
 
     try {
-      // Fetch CSRF token
       await fetchCsrfToken()
 
       const response = await fetch(`/api/auth/reset-password/${token}`, {
@@ -124,9 +123,8 @@ export default function ResetPasswordClient() {
 
       setSuccess(true)
       
-      // Redirect to login after 3 seconds
       setTimeout(() => {
-        router.push('/login')
+        router.push(getLocalizedPath('/login', locale))
       }, 3000)
     } catch (err) {
       errorLog('Reset password error:', err)
@@ -136,19 +134,22 @@ export default function ResetPasswordClient() {
     }
   }
 
+  // Verifying state
   if (verifying) {
     return (
-      <div className="container mx-auto px-4 py-8 md:py-16">
-        <div className="max-w-md mx-auto">
-          <div className="bg-white rounded-lg shadow-lg border border-gray-200 p-8">
+      <div className="min-h-[100dvh] bg-gray-50 flex flex-col items-center justify-center px-4" dir={dir}>
+        <div className="w-full max-w-md">
+          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 md:p-8">
             <div className="text-center">
-              <div className="h-16 w-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4 animate-pulse">
-                <svg className="h-8 w-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                </svg>
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-gray-100 rounded-full mb-5 animate-pulse">
+                <Lock className="w-8 h-8 text-gray-400" />
               </div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">Verifying Reset Link...</h2>
-              <p className="text-gray-600">Please wait while we verify your password reset link.</p>
+              <h1 className="text-2xl font-bold text-gray-900 mb-3">
+                {t('auth.verifyingLink') || 'Verifying Reset Link...'}
+              </h1>
+              <p className="text-gray-600">
+                {t('auth.pleaseWait') || 'Please wait while we verify your password reset link.'}
+              </p>
             </div>
           </div>
         </div>
@@ -156,9 +157,10 @@ export default function ResetPasswordClient() {
     )
   }
 
+  // Invalid token state
   if (!tokenValid) {
     return (
-      <div className="container mx-auto px-4 py-8 md:py-16">
+      <div className="min-h-[100dvh] bg-gray-50 flex flex-col" dir={dir}>
         <BreadcrumbSchema 
           items={[
             { name: t('common.home'), url: getLocalizedPath('/', locale) },
@@ -166,55 +168,50 @@ export default function ResetPasswordClient() {
             { name: t('auth.resetPassword'), url: getLocalizedPath(`/reset-password/${token || ''}`, locale) }
           ]}
         />
-        {/* Navigation Breadcrumb */}
-        <nav className="flex items-center gap-2 text-sm md:text-base text-gray-600 mb-8" aria-label="Breadcrumb">
-          <Link
-            href="/"
-            className="hover:text-primary-600 transition-colors flex items-center"
-          >
-            Home
+        
+        {/* Desktop breadcrumb */}
+        <nav className="hidden md:flex container mx-auto px-4 py-4 items-center gap-2 text-sm text-gray-600" aria-label="Breadcrumb">
+          <Link href={getLocalizedPath('/', locale)} className="hover:text-primary-600 transition-colors">
+            {t('common.home')}
           </Link>
-          <span className="flex items-center">/</span>
-          <Link
-            href="/login"
-            className="hover:text-primary-600 transition-colors flex items-center"
-          >
-            Login
+          <span>/</span>
+          <Link href={getLocalizedPath('/login', locale)} className="hover:text-primary-600 transition-colors">
+            {t('common.login')}
           </Link>
-          <span className="flex items-center">/</span>
-          <span className="text-gray-900 font-medium flex items-center">
-            Reset Password
-          </span>
+          <span>/</span>
+          <span className="text-gray-900 font-medium">{t('auth.resetPassword')}</span>
         </nav>
 
-        <div className="max-w-md mx-auto">
-          <div className="bg-white rounded-lg shadow-lg border border-red-200 p-8">
-            <div className="text-center">
-              <div className="h-16 w-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="h-8 w-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">Invalid Reset Link</h2>
-              <p className="text-gray-600 mb-6">
-                {error || 'This password reset link is invalid or has expired.'}
-              </p>
-              <p className="text-sm text-gray-500 mb-6">
-                Password reset links expire after 30 minutes. Please request a new one.
-              </p>
-              <div className="space-y-3">
-                <Link
-                  href="/forgot-password"
-                  className="block w-full bg-primary-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-primary-700 transition-colors text-center"
-                >
-                  Request New Reset Link
-                </Link>
-                <Link
-                  href="/login"
-                  className="block w-full bg-gray-100 text-gray-700 py-3 px-4 rounded-lg font-semibold hover:bg-gray-200 transition-colors text-center"
-                >
-                  Back to Login
-                </Link>
+        <div className="flex-1 flex items-center justify-center px-4 py-8">
+          <div className="w-full max-w-md">
+            <div className="bg-white rounded-2xl shadow-sm border border-red-100 p-6 md:p-8">
+              <div className="text-center">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-red-100 rounded-full mb-5">
+                  <XCircle className="w-8 h-8 text-red-600" />
+                </div>
+                <h1 className="text-2xl font-bold text-gray-900 mb-3">
+                  {t('auth.invalidResetLink') || 'Invalid Reset Link'}
+                </h1>
+                <p className="text-gray-600 mb-2">
+                  {error || t('auth.linkExpiredMessage') || 'This password reset link is invalid or has expired.'}
+                </p>
+                <p className="text-sm text-gray-500 mb-6">
+                  {t('auth.linksExpireIn30') || 'Password reset links expire after 30 minutes. Please request a new one.'}
+                </p>
+                <div className="space-y-3">
+                  <Link
+                    href={getLocalizedPath('/forgot-password', locale)}
+                    className="block w-full bg-primary-600 text-white py-3.5 px-4 rounded-xl font-semibold hover:bg-primary-700 transition-colors text-center"
+                  >
+                    {t('auth.requestNewLink') || 'Request New Reset Link'}
+                  </Link>
+                  <Link
+                    href={getLocalizedPath('/login', locale)}
+                    className="block w-full bg-gray-100 text-gray-700 py-3.5 px-4 rounded-xl font-semibold hover:bg-gray-200 transition-colors text-center"
+                  >
+                    {t('auth.backToLogin') || 'Back to Login'}
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
@@ -223,9 +220,10 @@ export default function ResetPasswordClient() {
     )
   }
 
+  // Success state
   if (success) {
     return (
-      <div className="container mx-auto px-4 py-8 md:py-16">
+      <div className="min-h-[100dvh] bg-gray-50 flex flex-col" dir={dir}>
         <BreadcrumbSchema 
           items={[
             { name: t('common.home'), url: getLocalizedPath('/', locale) },
@@ -233,48 +231,43 @@ export default function ResetPasswordClient() {
             { name: t('auth.resetPassword'), url: getLocalizedPath(`/reset-password/${token || ''}`, locale) }
           ]}
         />
-        {/* Navigation Breadcrumb */}
-        <nav className="flex items-center gap-2 text-sm md:text-base text-gray-600 mb-8" aria-label="Breadcrumb">
-          <Link
-            href="/"
-            className="hover:text-primary-600 transition-colors flex items-center"
-          >
-            Home
+        
+        {/* Desktop breadcrumb */}
+        <nav className="hidden md:flex container mx-auto px-4 py-4 items-center gap-2 text-sm text-gray-600" aria-label="Breadcrumb">
+          <Link href={getLocalizedPath('/', locale)} className="hover:text-primary-600 transition-colors">
+            {t('common.home')}
           </Link>
-          <span className="flex items-center">/</span>
-          <Link
-            href="/login"
-            className="hover:text-primary-600 transition-colors flex items-center"
-          >
-            Login
+          <span>/</span>
+          <Link href={getLocalizedPath('/login', locale)} className="hover:text-primary-600 transition-colors">
+            {t('common.login')}
           </Link>
-          <span className="flex items-center">/</span>
-          <span className="text-gray-900 font-medium flex items-center">
-            Reset Password
-          </span>
+          <span>/</span>
+          <span className="text-gray-900 font-medium">{t('auth.resetPassword')}</span>
         </nav>
 
-        <div className="max-w-md mx-auto">
-          <div className="bg-white rounded-lg shadow-lg border border-green-200 p-8">
-            <div className="text-center">
-              <div className="h-16 w-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="h-8 w-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
+        <div className="flex-1 flex items-center justify-center px-4 py-8">
+          <div className="w-full max-w-md">
+            <div className="bg-white rounded-2xl shadow-sm border border-green-100 p-6 md:p-8">
+              <div className="text-center">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-full mb-5">
+                  <CheckCircle2 className="w-8 h-8 text-green-600" />
+                </div>
+                <h1 className="text-2xl font-bold text-gray-900 mb-3">
+                  {t('auth.passwordResetSuccess') || 'Password Reset Successful!'}
+                </h1>
+                <p className="text-gray-600 mb-2">
+                  {t('auth.canNowLogin') || 'Your password has been reset successfully. You can now log in with your new password.'}
+                </p>
+                <p className="text-sm text-gray-500 mb-6">
+                  {t('auth.redirectingToLogin') || 'Redirecting to login page...'}
+                </p>
+                <Link
+                  href={getLocalizedPath('/login', locale)}
+                  className="block w-full bg-primary-600 text-white py-3.5 px-4 rounded-xl font-semibold hover:bg-primary-700 transition-colors text-center"
+                >
+                  {t('auth.goToLogin') || 'Go to Login'}
+                </Link>
               </div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">Password Reset Successful!</h2>
-              <p className="text-gray-600 mb-6">
-                Your password has been reset successfully. You can now log in with your new password.
-              </p>
-              <p className="text-sm text-gray-500 mb-6">
-                Redirecting to login page...
-              </p>
-              <Link
-                href="/login"
-                className="block w-full bg-primary-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-primary-700 transition-colors text-center"
-              >
-                Go to Login
-              </Link>
             </div>
           </div>
         </div>
@@ -282,129 +275,181 @@ export default function ResetPasswordClient() {
     )
   }
 
+  // Main form state
   return (
-    <div className="container mx-auto px-4 py-8 md:py-16">
+    <div className="min-h-[100dvh] bg-gray-50 flex flex-col" dir={dir}>
       <BreadcrumbSchema 
         items={[
-          { name: 'Home', url: '/' },
-          { name: 'Login', url: '/login' },
-          { name: 'Reset Password', url: `/reset-password/${token || ''}` }
+          { name: t('common.home'), url: getLocalizedPath('/', locale) },
+          { name: t('common.login'), url: getLocalizedPath('/login', locale) },
+          { name: t('auth.resetPassword'), url: getLocalizedPath(`/reset-password/${token || ''}`, locale) }
         ]}
       />
-      {/* Navigation Breadcrumb */}
-      <nav className="flex items-center gap-2 text-sm md:text-base text-gray-600 mb-8" aria-label="Breadcrumb">
-        <Link
-          href="/"
-          className="hover:text-primary-600 transition-colors flex items-center"
-        >
-          Home
+      
+      {/* Desktop breadcrumb - hidden on mobile */}
+      <nav className="hidden md:flex container mx-auto px-4 py-4 items-center gap-2 text-sm text-gray-600" aria-label="Breadcrumb">
+        <Link href={getLocalizedPath('/', locale)} className="hover:text-primary-600 transition-colors">
+          {t('common.home')}
         </Link>
-        <span className="flex items-center">/</span>
-        <Link
-          href="/login"
-          className="hover:text-primary-600 transition-colors flex items-center"
-        >
-          Login
+        <span>/</span>
+        <Link href={getLocalizedPath('/login', locale)} className="hover:text-primary-600 transition-colors">
+          {t('common.login')}
         </Link>
-        <span className="flex items-center">/</span>
-        <span className="text-gray-900 font-medium flex items-center">
-          Reset Password
-        </span>
+        <span>/</span>
+        <span className="text-gray-900 font-medium">{t('auth.resetPassword')}</span>
       </nav>
 
-      <div className="max-w-md mx-auto">
-        <div className="bg-white rounded-lg shadow-lg border border-gray-200 p-8">
-          <div className="text-center mb-8">
-            <div className="h-16 w-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="h-8 w-8 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
-              </svg>
+      <div className="flex-1 flex items-center justify-center px-4 py-8">
+        <div className="w-full max-w-md">
+          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 md:p-8">
+            {/* Header */}
+            <div className="text-center mb-6">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-primary-50 rounded-full mb-5">
+                <KeyRound className="w-8 h-8 text-primary-600" />
+              </div>
+              <h1 className="text-2xl font-bold text-gray-900 mb-2">
+                {t('auth.createNewPassword') || 'Create New Password'}
+              </h1>
+              <p className="text-gray-600 text-sm">
+                {t('auth.enterNewPasswordBelow') || 'Enter your new password below'}
+              </p>
             </div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">Secret Page</h2>
-            <p className="text-gray-600">
-              Enter your new password below
-            </p>
-          </div>
 
-          {error && (
-            <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg">
-              <p className="text-sm text-red-800">{error}</p>
-            </div>
-          )}
+            {/* Error message */}
+            {error && (
+              <div className="mb-4 p-4 bg-red-50 border border-red-100 rounded-xl">
+                <p className="text-sm text-red-700">{error}</p>
+              </div>
+            )}
 
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label htmlFor="newPassword" className="block text-sm font-medium text-gray-700 mb-2">
-                New Password
-              </label>
-              <input
-                id="newPassword"
-                type="password"
-                value={newPassword}
-                onChange={(e) => setNewPassword(e.target.value)}
-                required
-                minLength={8}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                placeholder="At least 8 characters"
-                disabled={loading}
-              />
-              {newPassword && (
-                <div className="mt-2">
-                  <div className="flex items-center gap-2 mb-1">
-                    <div className="flex-1 bg-gray-200 rounded-full h-2">
-                      <div
-                        className={`h-2 rounded-full transition-all ${
-                          passwordStrength.score <= 2
-                            ? 'bg-red-500'
-                            : passwordStrength.score <= 3
-                            ? 'bg-yellow-500'
-                            : 'bg-green-500'
-                        }`}
-                        style={{ width: `${(passwordStrength.score / 5) * 100}%` }}
-                      />
-                    </div>
-                    <span className="text-xs text-gray-600">{passwordStrength.feedback}</span>
+            {/* Form */}
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div>
+                <label htmlFor="newPassword" className="block text-sm font-medium text-gray-700 mb-2">
+                  {t('auth.newPassword') || 'New Password'}
+                </label>
+                <div className="relative">
+                  <div className={`absolute inset-y-0 ${dir === 'rtl' ? 'right-0 pr-3.5' : 'left-0 pl-3.5'} flex items-center pointer-events-none`}>
+                    <Lock className="w-5 h-5 text-gray-400" />
                   </div>
+                  <input
+                    id="newPassword"
+                    type={showPassword ? 'text' : 'password'}
+                    value={newPassword}
+                    onChange={(e) => setNewPassword(e.target.value)}
+                    required
+                    minLength={8}
+                    className={`w-full ${dir === 'rtl' ? 'pr-11 pl-11' : 'pl-11 pr-11'} py-3.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all bg-gray-50 focus:bg-white`}
+                    placeholder={t('auth.minCharactersPlaceholder') || 'At least 8 characters'}
+                    disabled={loading}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className={`absolute inset-y-0 ${dir === 'rtl' ? 'left-0 pl-3.5' : 'right-0 pr-3.5'} flex items-center`}
+                  >
+                    {showPassword ? (
+                      <EyeOff className="w-5 h-5 text-gray-400 hover:text-gray-600" />
+                    ) : (
+                      <Eye className="w-5 h-5 text-gray-400 hover:text-gray-600" />
+                    )}
+                  </button>
                 </div>
-              )}
+                {newPassword && (
+                  <div className="mt-2">
+                    <div className="flex items-center gap-2">
+                      <div className="flex-1 bg-gray-200 rounded-full h-1.5">
+                        <div
+                          className={`h-1.5 rounded-full transition-all ${
+                            passwordStrength.score <= 2
+                              ? 'bg-red-500'
+                              : passwordStrength.score <= 3
+                              ? 'bg-yellow-500'
+                              : 'bg-green-500'
+                          }`}
+                          style={{ width: `${(passwordStrength.score / 5) * 100}%` }}
+                        />
+                      </div>
+                      <span className={`text-xs ${
+                        passwordStrength.score <= 2
+                          ? 'text-red-600'
+                          : passwordStrength.score <= 3
+                          ? 'text-yellow-600'
+                          : 'text-green-600'
+                      }`}>{passwordStrength.feedback}</span>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <div>
+                <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-2">
+                  {t('auth.confirmPassword') || 'Confirm Password'}
+                </label>
+                <div className="relative">
+                  <div className={`absolute inset-y-0 ${dir === 'rtl' ? 'right-0 pr-3.5' : 'left-0 pl-3.5'} flex items-center pointer-events-none`}>
+                    <Lock className="w-5 h-5 text-gray-400" />
+                  </div>
+                  <input
+                    id="confirmPassword"
+                    type={showConfirmPassword ? 'text' : 'password'}
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    required
+                    minLength={8}
+                    className={`w-full ${dir === 'rtl' ? 'pr-11 pl-11' : 'pl-11 pr-11'} py-3.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all bg-gray-50 focus:bg-white`}
+                    placeholder={t('auth.confirmPasswordPlaceholder') || 'Confirm your new password'}
+                    disabled={loading}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    className={`absolute inset-y-0 ${dir === 'rtl' ? 'left-0 pl-3.5' : 'right-0 pr-3.5'} flex items-center`}
+                  >
+                    {showConfirmPassword ? (
+                      <EyeOff className="w-5 h-5 text-gray-400 hover:text-gray-600" />
+                    ) : (
+                      <Eye className="w-5 h-5 text-gray-400 hover:text-gray-600" />
+                    )}
+                  </button>
+                </div>
+                {confirmPassword && newPassword !== confirmPassword && (
+                  <p className="mt-1.5 text-sm text-red-600">{t('auth.passwordsDoNotMatch') || 'Passwords do not match'}</p>
+                )}
+                {confirmPassword && newPassword === confirmPassword && confirmPassword.length >= 8 && (
+                  <p className="mt-1.5 text-sm text-green-600 flex items-center gap-1">
+                    <CheckCircle2 className="w-4 h-4" />
+                    {t('auth.passwordsMatch') || 'Passwords match'}
+                  </p>
+                )}
+              </div>
+
+              <button
+                type="submit"
+                disabled={loading || newPassword.length < 8 || newPassword !== confirmPassword}
+                className="w-full bg-primary-600 text-white py-3.5 px-4 rounded-xl font-semibold hover:bg-primary-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              >
+                {loading ? (
+                  <>
+                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                    {t('auth.resettingPassword') || 'Resetting Password...'}
+                  </>
+                ) : (
+                  t('auth.resetPassword') || 'Reset Password'
+                )}
+              </button>
+            </form>
+
+            {/* Back to login link */}
+            <div className="mt-6 text-center">
+              <Link
+                href={getLocalizedPath('/login', locale)}
+                className={`inline-flex items-center gap-1.5 text-primary-600 hover:text-primary-700 font-medium text-sm transition-colors ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+              >
+                <ArrowLeft className="w-4 h-4" />
+                {t('auth.backToLogin') || 'Back to Login'}
+              </Link>
             </div>
-
-            <div>
-              <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-2">
-                Confirm Password
-              </label>
-              <input
-                id="confirmPassword"
-                type="password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                required
-                minLength={8}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                placeholder="Confirm your new password"
-                disabled={loading}
-              />
-              {confirmPassword && newPassword !== confirmPassword && (
-                <p className="mt-1 text-sm text-red-600">Passwords do not match</p>
-              )}
-            </div>
-
-            <button
-              type="submit"
-              disabled={loading || newPassword.length < 8 || newPassword !== confirmPassword}
-              className="w-full bg-primary-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-primary-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {loading ? 'Resetting Password...' : 'Reset Password'}
-            </button>
-          </form>
-
-          <div className="mt-6 text-center">
-            <Link
-              href="/login"
-              className="text-primary-600 hover:text-primary-700 font-medium text-sm"
-            >
-              ← Back to Login
-            </Link>
           </div>
         </div>
       </div>

@@ -144,7 +144,7 @@ export default function LoginClient() {
   // Clean mobile login UI
   if (isMobileClient && isMobile && !user) {
     return (
-      <div className={`min-h-screen bg-white flex flex-col ${isRTL ? 'rtl' : 'ltr'}`} dir={dir}>
+      <div className={`min-h-[100dvh] bg-white flex flex-col ${isRTL ? 'rtl' : 'ltr'}`} dir={dir}>
         {/* Language Selector */}
         <div className={`pt-12 px-6 ${isRTL ? 'text-right' : 'text-left'}`}>
           <div className="relative inline-block">

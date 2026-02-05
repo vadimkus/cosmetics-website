@@ -173,7 +173,7 @@ export default function OrderTrackingClient({ orderNumber }: OrderTrackingClient
 
   if (loading) {
     return (
-      <div className={`min-h-screen bg-gray-50 ${isMobileWeb ? 'pb-32' : ''}`} dir={dir}>
+      <div className={`min-h-[100dvh] bg-gray-50 ${isMobileWeb ? 'pb-32' : ''}`} dir={dir}>
         {/* Mobile Header for Loading State */}
         {isMobileWeb && (
           <div className={`sticky top-0 z-40 flex items-center justify-between px-5 py-4 bg-white border-b border-gray-100 ${isRTL ? 'flex-row-reverse' : ''}`}>
@@ -202,7 +202,7 @@ export default function OrderTrackingClient({ orderNumber }: OrderTrackingClient
           </div>
         )}
         
-        <div className={`flex items-center justify-center p-4 ${isMobileWeb ? 'min-h-[calc(100vh-180px)]' : 'min-h-screen'}`}>
+        <div className={`flex items-center justify-center p-4 ${isMobileWeb ? 'min-h-[calc(100dvh-180px)]' : 'min-h-[100dvh]'}`}>
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto mb-4"></div>
             <p className="text-gray-600">{t('common.loading') || 'Loading tracking information...'}</p>
@@ -214,7 +214,7 @@ export default function OrderTrackingClient({ orderNumber }: OrderTrackingClient
 
   if (error) {
     return (
-      <div className={`min-h-screen bg-gray-50 ${isMobileWeb ? 'pb-32' : ''}`} dir={dir}>
+      <div className={`min-h-[100dvh] bg-gray-50 ${isMobileWeb ? 'pb-32' : ''}`} dir={dir}>
         {/* Mobile Header for Error State */}
         {isMobileWeb && (
           <div className={`sticky top-0 z-40 flex items-center justify-between px-5 py-4 bg-white border-b border-gray-100 ${isRTL ? 'flex-row-reverse' : ''}`}>
@@ -243,7 +243,7 @@ export default function OrderTrackingClient({ orderNumber }: OrderTrackingClient
           </div>
         )}
         
-        <div className={`flex items-center justify-center p-4 ${isMobileWeb ? 'min-h-[calc(100vh-180px)]' : 'min-h-screen'}`}>
+        <div className={`flex items-center justify-center p-4 ${isMobileWeb ? 'min-h-[calc(100dvh-180px)]' : 'min-h-[100dvh]'}`}>
           <div className="bg-white rounded-lg shadow-lg p-8 max-w-md w-full text-center">
             <XCircle className="w-16 h-16 text-red-500 mx-auto mb-4" />
             <h1 className="text-xl font-semibold text-gray-900 mb-2">{t('orders.orderNotFound') || 'Order Not Found'}</h1>
@@ -275,7 +275,7 @@ export default function OrderTrackingClient({ orderNumber }: OrderTrackingClient
   const statusDisplay = getStatusDisplay(trackingData.status)
 
   return (
-    <div className={`min-h-screen bg-gray-50 ${isAppLikeMode ? 'pb-32' : ''}`} dir={dir}>
+    <div className={`min-h-[100dvh] bg-gray-50 ${isAppLikeMode ? 'pb-32' : ''}`} dir={dir}>
       {/* Mobile Header */}
       {isAppLikeMode && (
         <div className={`sticky top-0 z-40 flex items-center justify-between px-5 py-4 bg-white border-b border-gray-100 ${isRTL ? 'flex-row-reverse' : ''}`}>

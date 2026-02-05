@@ -497,7 +497,7 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
   }, [])
   
   // Hide chatbot on critical pages on mobile web to improve UX
-  const hiddenPages = ['/cart', '/bag', '/checkout', '/profile', '/login', '/bundle-builder']
+  const hiddenPages = ['/cart', '/bag', '/checkout', '/profile', '/login', '/bundle-builder', '/success', '/forgot-password', '/reset-password']
   const isHiddenPage = hiddenPages.some(page => 
     pathname === page || 
     pathname?.startsWith(`/en${page}`) || 

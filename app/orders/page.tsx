@@ -250,7 +250,7 @@ export default function OrdersPage() {
   // Loading state - wait for auth to finish loading before showing content
   if (!isClient || authLoading || !user) {
     return (
-      <div className="min-h-screen bg-white flex items-center justify-center">
+      <div className="min-h-[100dvh] bg-white flex items-center justify-center">
         <div className="flex flex-col items-center gap-3">
           <div className="animate-spin rounded-full h-10 w-10 border-2 border-gray-200 border-t-red-600"></div>
           <p className="text-sm text-gray-500">{authLoading ? 'Loading...' : 'Checking authentication...'}</p>

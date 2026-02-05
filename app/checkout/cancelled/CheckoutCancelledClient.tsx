@@ -16,7 +16,7 @@ export default function CheckoutCancelledClient() {
   const isRTL = dir === 'rtl'
 
   return (
-    <div className={`min-h-screen bg-white ${isMobile ? '' : 'py-12'}`} dir={dir}>
+    <div className={`min-h-[100dvh] bg-white ${isMobile ? '' : 'py-12'}`} dir={dir}>
       {/* Mobile Header */}
       {isClient && isMobile && (
         <div className={`flex items-center justify-between px-5 py-4 bg-white border-b border-gray-100 sticky top-0 z-10 ${isRTL ? 'flex-row-reverse' : ''}`}>

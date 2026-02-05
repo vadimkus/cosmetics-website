@@ -335,7 +335,7 @@ export default function ProductsPageClient({ initialProducts = [] }: ProductsPag
   debugLog('Products loaded:', products.length, 'Filtered:', filteredAndSortedProducts.length)
 
   return (
-    <div className="bg-white min-h-screen" suppressHydrationWarning>
+    <div className="bg-white min-h-[100dvh]" suppressHydrationWarning>
       <ProductsListSchema products={filteredAndSortedProducts} category="" />
       <BreadcrumbSchema 
         items={[

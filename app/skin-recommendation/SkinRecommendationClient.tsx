@@ -236,6 +236,75 @@ export default function SkinRecommendationClient() {
     }
   }
 
+  // Helper function to translate analysis levels
+  const translateLevel = (level: string): string => {
+    const levelTranslations: Record<string, { en: string; ru: string; ar: string }> = {
+      'minimal': { en: 'Minimal', ru: 'Минимальный', ar: 'ضئيل' },
+      'low': { en: 'Low', ru: 'Низкий', ar: 'منخفض' },
+      'moderate': { en: 'Moderate', ru: 'Умеренный', ar: 'معتدل' },
+      'high': { en: 'High', ru: 'Высокий', ar: 'عالي' },
+      'severe': { en: 'Severe', ru: 'Выраженный', ar: 'شديد' },
+      'good': { en: 'Good', ru: 'Хороший', ar: 'جيد' },
+      'fair': { en: 'Fair', ru: 'Средний', ar: 'معقول' },
+      'poor': { en: 'Poor', ru: 'Плохой', ar: 'ضعيف' },
+      'excellent': { en: 'Excellent', ru: 'Отличный', ar: 'ممتاز' },
+      'healthy': { en: 'Healthy', ru: 'Здоровый', ar: 'صحي' },
+      'visible': { en: 'Visible', ru: 'Заметный', ar: 'واضح' },
+      'prominent': { en: 'Prominent', ru: 'Выраженный', ar: 'بارز' },
+      'fine': { en: 'Fine', ru: 'Тонкий', ar: 'ناعم' },
+      'normal': { en: 'Normal', ru: 'Нормальный', ar: 'طبيعي' },
+    }
+    const key = level.toLowerCase()
+    const translation = levelTranslations[key]
+    if (translation) {
+      return translation[locale as 'en' | 'ru' | 'ar'] || translation.en
+    }
+    return level // Return original if no translation found
+  }
+
+  // Helper function to translate Fitzpatrick skin type
+  const translateFitzpatrick = (typeName: string, description: string): { name: string; desc: string } => {
+    const fitzpatrickTranslations: Record<string, { name: { ru: string; ar: string }; desc: { ru: string; ar: string } }> = {
+      'Type I - Very Fair': {
+        name: { ru: 'Тип I - Очень светлая', ar: 'النوع الأول - فاتحة جداً' },
+        desc: { ru: 'Всегда обгорает, никогда не загорает', ar: 'دائماً تحترق، لا تسمر أبداً' }
+      },
+      'Type II - Fair': {
+        name: { ru: 'Тип II - Светлая', ar: 'النوع الثاني - فاتحة' },
+        desc: { ru: 'Легко обгорает, загорает минимально', ar: 'تحترق بسهولة، تسمر قليلاً' }
+      },
+      'Type III - Medium': {
+        name: { ru: 'Тип III - Средняя', ar: 'النوع الثالث - متوسطة' },
+        desc: { ru: 'Иногда обгорает, загорает постепенно', ar: 'تحترق أحياناً، تسمر تدريجياً' }
+      },
+      'Type IV - Olive': {
+        name: { ru: 'Тип IV - Оливковая', ar: 'النوع الرابع - زيتونية' },
+        desc: { ru: 'Редко обгорает, легко загорает', ar: 'نادراً تحترق، تسمر بسهولة' }
+      },
+      'Type V - Brown': {
+        name: { ru: 'Тип V - Смуглая', ar: 'النوع الخامس - بنية' },
+        desc: { ru: 'Очень редко обгорает, загорает интенсивно', ar: 'نادراً جداً تحترق، تسمر بكثافة' }
+      },
+      'Type VI - Dark': {
+        name: { ru: 'Тип VI - Тёмная', ar: 'النوع السادس - داكنة' },
+        desc: { ru: 'Никогда не обгорает, глубокий загар', ar: 'لا تحترق أبداً، سمرة عميقة' }
+      }
+    }
+    
+    if (locale === 'en') {
+      return { name: typeName, desc: description }
+    }
+    
+    const translation = fitzpatrickTranslations[typeName]
+    if (translation) {
+      return {
+        name: translation.name[locale as 'ru' | 'ar'] || typeName,
+        desc: translation.desc[locale as 'ru' | 'ar'] || description
+      }
+    }
+    return { name: typeName, desc: description }
+  }
+
   // Get translated data arrays
   const SKIN_TYPES = [
     { 
@@ -559,36 +628,43 @@ export default function SkinRecommendationClient() {
           {/* Main Results Card */}
           <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden mb-6">
             {/* Skin Type Header */}
-            <div className="bg-gradient-to-r from-primary-500 to-primary-600 px-6 py-5 text-white">
-              <div className={`flex items-center justify-between ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                <div>
-                  <p className="text-primary-100 text-sm mb-1">
+            <div className="bg-gradient-to-r from-primary-500 to-primary-600 px-4 sm:px-6 py-4 sm:py-5 text-white">
+              {/* Mobile: Stack vertically, Desktop: Row */}
+              <div className={`flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4 ${dir === 'rtl' ? 'sm:flex-row-reverse' : ''}`}>
+                {/* Skin Type - Always on top/first */}
+                <div className={`${dir === 'rtl' ? 'text-right' : ''}`}>
+                  <p className="text-primary-100 text-xs sm:text-sm mb-1">
                     {locale === 'ar' ? 'نوع بشرتك' : locale === 'ru' ? 'Тип вашей кожи' : 'Your Skin Type'}
                   </p>
-                  <p className="text-2xl md:text-3xl font-bold">
+                  <p className="text-xl sm:text-2xl md:text-3xl font-bold leading-tight">
                     {SKIN_TYPES.find(st => st.value === cameraResult.skinType)?.icon}{' '}
                     {SKIN_TYPES.find(st => st.value === cameraResult.skinType)?.label || cameraResult.skinType}
                   </p>
                 </div>
-                {/* Gender */}
-                {cameraResult.gender && cameraResult.gender !== 'unknown' && (
-                  <div className="text-center">
-                    <p className="text-primary-100 text-sm mb-1">
-                      {locale === 'ar' ? 'الجنس' : locale === 'ru' ? 'Пол' : 'Gender'}
+                
+                {/* Gender and Confidence - Row on all screens */}
+                <div className={`flex items-center gap-4 sm:gap-6 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                  {/* Gender */}
+                  {cameraResult.gender && cameraResult.gender !== 'unknown' && (
+                    <div className={`${dir === 'rtl' ? 'text-right' : ''}`}>
+                      <p className="text-primary-100 text-xs sm:text-sm mb-0.5 sm:mb-1">
+                        {locale === 'ar' ? 'الجنس' : locale === 'ru' ? 'Пол' : 'Gender'}
+                      </p>
+                      <p className={`text-lg sm:text-xl font-bold ${cameraResult.gender === 'male' ? 'text-blue-200' : 'text-pink-200'}`}>
+                        {cameraResult.gender === 'male' 
+                          ? (locale === 'ar' ? '♂ ذكر' : locale === 'ru' ? '♂ М' : '♂ Male')
+                          : (locale === 'ar' ? '♀ أنثى' : locale === 'ru' ? '♀ Ж' : '♀ Female')
+                        }
+                      </p>
+                    </div>
+                  )}
+                  {/* Confidence */}
+                  <div className={`${dir === 'rtl' ? 'text-right' : 'text-right'}`}>
+                    <p className="text-primary-100 text-xs sm:text-sm mb-0.5 sm:mb-1">
+                      {locale === 'ar' ? 'الدقة' : locale === 'ru' ? 'Точность' : 'Confidence'}
                     </p>
-                    <p className={`text-2xl font-bold ${cameraResult.gender === 'male' ? 'text-blue-200' : 'text-pink-200'}`}>
-                      {cameraResult.gender === 'male' 
-                        ? (locale === 'ar' ? '♂ ذكر' : locale === 'ru' ? '♂ Мужской' : '♂ Male')
-                        : (locale === 'ar' ? '♀ أنثى' : locale === 'ru' ? '♀ Женский' : '♀ Female')
-                      }
-                    </p>
+                    <p className="text-lg sm:text-xl font-bold">{cameraResult.confidence}%</p>
                   </div>
-                )}
-                <div className="text-right">
-                  <p className="text-primary-100 text-sm mb-1">
-                    {locale === 'ar' ? 'دقة التحليل' : locale === 'ru' ? 'Точность' : 'Confidence'}
-                  </p>
-                  <p className="text-2xl font-bold">{cameraResult.confidence}%</p>
                 </div>
               </div>
             </div>
@@ -703,7 +779,7 @@ export default function SkinRecommendationClient() {
                           {locale === 'ar' ? 'حجم المسام' : locale === 'ru' ? 'Размер пор' : 'Pore Size'}
                         </span>
                       </div>
-                      <p className="text-xl font-bold text-slate-700 capitalize">{cameraResult.poreAnalysis.level}</p>
+                      <p className="text-xl font-bold text-slate-700 capitalize">{translateLevel(cameraResult.poreAnalysis.level)}</p>
                       <div className="h-2 bg-slate-100 rounded-full mt-2 overflow-hidden">
                         <div className="h-full bg-slate-500 rounded-full" style={{ width: `${cameraResult.poreAnalysis.visibility}%` }} />
                       </div>
@@ -719,7 +795,7 @@ export default function SkinRecommendationClient() {
                           {locale === 'ar' ? 'منطقة العين' : locale === 'ru' ? 'Область глаз' : 'Under-Eye'}
                         </span>
                       </div>
-                      <p className="text-xl font-bold text-indigo-700 capitalize">{cameraResult.underEyeAnalysis.level}</p>
+                      <p className="text-xl font-bold text-indigo-700 capitalize">{translateLevel(cameraResult.underEyeAnalysis.level)}</p>
                       <p className="text-xs text-indigo-600 mt-1">
                         {locale === 'ar' ? `هالات: ${cameraResult.underEyeAnalysis.darkCircles}%` : 
                          locale === 'ru' ? `Круги: ${cameraResult.underEyeAnalysis.darkCircles}%` : 
@@ -753,7 +829,7 @@ export default function SkinRecommendationClient() {
                           {locale === 'ar' ? 'أضرار الشمس' : locale === 'ru' ? 'УФ-повреждение' : 'Sun Damage'}
                         </span>
                       </div>
-                      <p className="text-xl font-bold text-orange-700 capitalize">{cameraResult.sunDamageAnalysis.level}</p>
+                      <p className="text-xl font-bold text-orange-700 capitalize">{translateLevel(cameraResult.sunDamageAnalysis.level)}</p>
                       <p className="text-xs text-orange-600 mt-1">
                         {locale === 'ar' ? `النمش: ${cameraResult.sunDamageAnalysis.indicators.frecklingIntensity}%` : 
                          locale === 'ru' ? `Веснушки: ${cameraResult.sunDamageAnalysis.indicators.frecklingIntensity}%` : 
@@ -771,7 +847,7 @@ export default function SkinRecommendationClient() {
                           {locale === 'ar' ? 'صحة الشفاه' : locale === 'ru' ? 'Здоровье губ' : 'Lip Health'}
                         </span>
                       </div>
-                      <p className="text-xl font-bold text-rose-700 capitalize">{cameraResult.lipAnalysis.level}</p>
+                      <p className="text-xl font-bold text-rose-700 capitalize">{translateLevel(cameraResult.lipAnalysis.level)}</p>
                       <p className="text-xs text-rose-600 mt-1">
                         {locale === 'ar' ? `ترطيب: ${cameraResult.lipAnalysis.hydration}%` : 
                          locale === 'ru' ? `Увлажн.: ${cameraResult.lipAnalysis.hydration}%` : 
@@ -789,8 +865,8 @@ export default function SkinRecommendationClient() {
                           {locale === 'ar' ? 'نوع البشرة' : locale === 'ru' ? 'Фототип' : 'Skin Phototype'}
                         </span>
                       </div>
-                      <p className="text-xl font-bold text-amber-700">{cameraResult.fitzpatrickType.typeName}</p>
-                      <p className="text-xs text-amber-600 mt-1">{cameraResult.fitzpatrickType.description}</p>
+                      <p className="text-xl font-bold text-amber-700">{translateFitzpatrick(cameraResult.fitzpatrickType.typeName, cameraResult.fitzpatrickType.description).name}</p>
+                      <p className="text-xs text-amber-600 mt-1">{translateFitzpatrick(cameraResult.fitzpatrickType.typeName, cameraResult.fitzpatrickType.description).desc}</p>
                     </div>
                   )}
                   

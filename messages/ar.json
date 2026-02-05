@@ -1734,6 +1734,8 @@
     "required": "مطلوب",
     "subtotal": "المجموع الفرعي",
     "discount": "خصم المجموعة",
+    "retailPrice": "سعر التجزئة",
+    "yourDiscount": "خصمك",
     "total": "الإجمالي",
     "youSave": "وفرت {amount} درهم",
     "addToCart": "أضف المجموعة للسلة",

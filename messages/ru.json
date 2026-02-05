@@ -1752,6 +1752,8 @@
     "required": "Обязательно",
     "subtotal": "Подытог",
     "discount": "Скидка на набор",
+    "retailPrice": "Розничная цена",
+    "yourDiscount": "Ваша скидка",
     "total": "Итого",
     "youSave": "Вы экономите {amount} AED",
     "addToCart": "Добавить набор в корзину",

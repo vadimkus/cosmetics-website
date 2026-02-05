@@ -361,55 +361,85 @@ function BundleSummary({
       
       {/* Pricing Summary - Only show if user can see prices */}
       {showPrices ? (
-        <div className="border-t border-gray-200 pt-4 space-y-3">
-          {/* Subtotal */}
-          <div className="flex justify-between text-sm">
-            <span className="text-gray-500">{t('bundleBuilder.subtotal')}</span>
-            <span className="text-gray-900">{pricing.subtotal.toFixed(2)} {t('common.aed')}</span>
-          </div>
-          
-          {/* Bundle Discount */}
-          {pricing.discountPercent > 0 && (
-            <div className="flex justify-between text-sm">
-              <span className="text-green-600">
-                {t('bundleBuilder.discount')} ({pricing.discountPercent}%)
-              </span>
-              <span className="text-green-600">-{pricing.discountAmount.toFixed(2)} {t('common.aed')}</span>
-            </div>
-          )}
-          
-          {/* Next Tier Hint */}
-          {pricing.nextTierItems !== null && pricing.nextTierDiscount !== null && (
-            <div className="bg-amber-50 text-amber-800 rounded-lg p-3 text-xs">
-              <Sparkles className="w-4 h-4 inline mr-1" />
-              {t('bundleBuilder.nextTierHint', { 
-                items: pricing.nextTierItems, 
-                discount: pricing.nextTierDiscount 
-              })}
-            </div>
-          )}
-          
-          {/* Total */}
-          <div className="flex justify-between items-center pt-2 border-t border-gray-100">
-            <div>
-              <span className="text-base font-semibold text-gray-900">
-                {t('bundleBuilder.total')}
-              </span>
-              <p className="text-[10px] text-gray-400">{t('product.vatIncluded')}</p>
-            </div>
-            <span className="text-xl font-bold text-gray-900">
-              {pricing.total.toFixed(2)} {t('common.aed')}
-            </span>
-          </div>
-          
-          {/* Savings Badge */}
-          {pricing.discountAmount > 0 && (
-            <div className="text-center">
-              <span className="inline-block bg-green-100 text-green-700 text-xs font-medium px-3 py-1 rounded-full">
-                {t('bundleBuilder.youSave', { amount: pricing.discountAmount.toFixed(2) })}
-              </span>
-            </div>
-          )}
+        <div className="border-t border-gray-200 pt-4 space-y-2">
+          {(() => {
+            // Calculate original retail price (before user discount)
+            const originalRetailTotal = items.reduce((sum, item) => sum + item.product.price, 0)
+            const userDiscountAmount = originalRetailTotal - pricing.subtotal
+            const hasUserDiscount = userDiscountAmount > 0.01
+            const totalSavings = originalRetailTotal - pricing.total
+            
+            return (
+              <>
+                {/* Original Retail Price (only show if user has discount) */}
+                {hasUserDiscount && (
+                  <div className="flex justify-between text-sm">
+                    <span className="text-gray-400">{t('bundleBuilder.retailPrice')}</span>
+                    <span className="text-gray-400 line-through">{originalRetailTotal.toFixed(2)} {t('common.aed')}</span>
+                  </div>
+                )}
+                
+                {/* User Discount */}
+                {hasUserDiscount && (
+                  <div className="flex justify-between text-sm">
+                    <span className="text-purple-600">
+                      {t('bundleBuilder.yourDiscount')}
+                    </span>
+                    <span className="text-purple-600">-{userDiscountAmount.toFixed(2)} {t('common.aed')}</span>
+                  </div>
+                )}
+                
+                {/* Subtotal (after user discount) */}
+                <div className="flex justify-between text-sm">
+                  <span className="text-gray-500">{t('bundleBuilder.subtotal')}</span>
+                  <span className="text-gray-900">{pricing.subtotal.toFixed(2)} {t('common.aed')}</span>
+                </div>
+                
+                {/* Bundle Discount */}
+                {pricing.discountPercent > 0 && (
+                  <div className="flex justify-between text-sm">
+                    <span className="text-green-600">
+                      {t('bundleBuilder.discount')} ({pricing.discountPercent}%)
+                    </span>
+                    <span className="text-green-600">-{pricing.discountAmount.toFixed(2)} {t('common.aed')}</span>
+                  </div>
+                )}
+                
+                {/* Next Tier Hint */}
+                {pricing.nextTierItems !== null && pricing.nextTierDiscount !== null && (
+                  <div className="bg-amber-50 text-amber-800 rounded-lg p-3 text-xs mt-2">
+                    <Sparkles className="w-4 h-4 inline mr-1" />
+                    {t('bundleBuilder.nextTierHint', { 
+                      items: pricing.nextTierItems, 
+                      discount: pricing.nextTierDiscount 
+                    })}
+                  </div>
+                )}
+                
+                {/* Total */}
+                <div className="flex justify-between items-center pt-3 mt-2 border-t border-gray-100">
+                  <div>
+                    <span className="text-base font-semibold text-gray-900">
+                      {t('bundleBuilder.total')}
+                    </span>
+                    <p className="text-[10px] text-gray-400">{t('product.vatIncluded')}</p>
+                  </div>
+                  <span className="text-xl font-bold text-gray-900">
+                    {pricing.total.toFixed(2)} {t('common.aed')}
+                  </span>
+                </div>
+                
+                {/* Total Savings Badge */}
+                {totalSavings > 0.01 && (
+                  <div className="text-center pt-1">
+                    <span className="inline-block bg-green-100 text-green-700 text-xs font-medium px-3 py-1 rounded-full">
+                      {t('bundleBuilder.youSave', { amount: totalSavings.toFixed(2) })}
+                    </span>
+                  </div>
+                )}
+              </>
+            )
+          })()}
           
           {/* Action Buttons */}
           <div className="space-y-2 pt-2">
@@ -829,14 +859,29 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
             <div className="flex items-center justify-between mb-3 pb-3 border-b border-gray-100">
               <button
                 onClick={() => setShowMobileSummary(true)}
-                className="flex items-center gap-2 text-sm text-gray-600"
+                className="flex flex-col items-start text-sm text-gray-600"
               >
-                <span className="font-medium">{items.length} {t('bundleBuilder.items')}</span>
-                {showPrices && pricing.discountPercent > 0 && (
-                  <span className="text-xs text-green-600 font-medium">
-                    {pricing.discountPercent}% {t('bundleBuilder.off')}
-                  </span>
-                )}
+                <div className="flex items-center gap-2">
+                  <span className="font-medium">{items.length} {t('bundleBuilder.items')}</span>
+                  {showPrices && pricing.discountPercent > 0 && (
+                    <span className="text-xs text-green-600 font-medium">
+                      {pricing.discountPercent}% {t('bundleBuilder.off')}
+                    </span>
+                  )}
+                </div>
+                {/* Show total savings hint */}
+                {showPrices && (() => {
+                  const originalRetailTotal = items.reduce((sum, item) => sum + item.product.price, 0)
+                  const totalSavings = originalRetailTotal - pricing.total
+                  if (totalSavings > 0.01) {
+                    return (
+                      <span className="text-[10px] text-green-600">
+                        {t('bundleBuilder.youSave', { amount: totalSavings.toFixed(0) })}
+                      </span>
+                    )
+                  }
+                  return null
+                })()}
               </button>
               {showPrices ? (
                 <button

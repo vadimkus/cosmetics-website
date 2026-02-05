@@ -1743,6 +1743,8 @@
     "required": "Required",
     "subtotal": "Subtotal",
     "discount": "Bundle Discount",
+    "retailPrice": "Retail Price",
+    "yourDiscount": "Your Discount",
     "total": "Total",
     "youSave": "You save {amount} AED",
     "addToCart": "Add Bundle to Cart",

@@ -79,6 +79,15 @@ function StepIndicator({
 }
 
 /**
+ * Get localized description based on locale
+ */
+function getLocalizedDescription(product: Product, locale: string): string | undefined {
+  if (locale === 'ru' && product.descriptionRu) return product.descriptionRu
+  if (locale === 'ar' && product.descriptionAr) return product.descriptionAr
+  return product.description
+}
+
+/**
  * Product Card for Bundle Selection
  */
 function BundleProductCard({
@@ -87,12 +96,14 @@ function BundleProductCard({
   onSelect,
   showPrices,
   user,
+  locale,
 }: {
   product: Product
   isSelected: boolean
   onSelect: () => void
   showPrices: boolean
   user: User | null
+  locale: string
 }) {
   const { t } = useTranslation()
   const { enabled: animationsEnabled } = useAnimationStore()
@@ -156,9 +167,9 @@ function BundleProductCard({
           </p>
         )}
         {/* Product Description */}
-        {product.description && (
+        {getLocalizedDescription(product, locale) && (
           <p className="text-[11px] text-gray-400 mt-1.5 line-clamp-2 leading-relaxed">
-            {product.description}
+            {getLocalizedDescription(product, locale)}
           </p>
         )}
         <div className="mt-2">
@@ -646,6 +657,7 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
                     onSelect={() => handleProductSelect(product)}
                     showPrices={showPrices}
                     user={user}
+                    locale={locale}
                   />
                 ))}
               </div>

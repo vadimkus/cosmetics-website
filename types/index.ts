@@ -83,8 +83,12 @@ export interface Product {
   id: string
   productNumber?: string | null
   name: string
+  nameRu?: string | null
+  nameAr?: string | null
   price: number
   description: string
+  descriptionRu?: string | null
+  descriptionAr?: string | null
   image: string
   images?: string | null // JSON array of all images
   category: string

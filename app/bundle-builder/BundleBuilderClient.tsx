@@ -1120,7 +1120,7 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
                     return (
                       <div className="flex flex-col h-full">
                         {/* Product Image */}
-                        <div className="relative aspect-square bg-gray-50 rounded-2xl overflow-hidden max-h-[250px] max-w-[250px] mx-auto mb-4">
+                        <div className="relative w-[250px] h-[250px] bg-gray-50 rounded-2xl overflow-hidden mx-auto mb-4">
                           <Image
                             src={detailProduct.image}
                             alt={detailProduct.name}
@@ -1271,13 +1271,13 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
             return (
               <div className="flex flex-col h-full">
                 {/* Product Image */}
-                <div className="relative aspect-square bg-gray-50 rounded-2xl overflow-hidden max-h-[200px] max-w-[200px] mx-auto">
+                <div className="relative w-[200px] h-[200px] bg-gray-50 rounded-2xl overflow-hidden mx-auto">
                   <Image
                     src={detailProduct.image}
                     alt={detailProduct.name}
                     fill
                     className="object-contain p-4"
-                    sizes="(max-width: 768px) 100vw, 400px"
+                    sizes="200px"
                   />
                   {/* Discount Badge */}
                   {showPrices && detailPricing.hasDiscount && (

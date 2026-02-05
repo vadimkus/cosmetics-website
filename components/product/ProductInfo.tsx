@@ -2,7 +2,7 @@
 
 import { useAuth } from '@/components/AuthProvider'
 import { useRouter } from 'next/navigation'
-import { Star, ShoppingCart, Minus, Plus, Heart, Lock, MessageCircle, AlertTriangle } from 'lucide-react'
+import { Star, ShoppingCart, Minus, Plus, Heart, Lock, MessageCircle, AlertTriangle, Share2, Check } from 'lucide-react'
 import { Product } from '@/types'
 import { useCart } from '@/components/CartProvider'
 import { useFavorites } from '@/components/FavoritesProvider'
@@ -36,6 +36,7 @@ export default function ProductInfo({
   const { toggleFavorite, isFavorite } = useFavorites()
   const [isAdding, setIsAdding] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
+  const [shareStatus, setShareStatus] = useState<'idle' | 'copied'>('idle')
   
   // Detect mobile for "Add to Bag" text
   useEffect(() => {
@@ -99,6 +100,41 @@ export default function ProductInfo({
     }
     toggleFavorite(product)
   }, [toggleFavorite, product, user, router])
+
+  const handleShare = useCallback(async () => {
+    const shareUrl = typeof window !== 'undefined' ? window.location.href : ''
+    const shareData = {
+      title: product.name,
+      text: `${t('product.checkOutProduct')}: ${product.name} - GENOSYS Professional`,
+      url: shareUrl
+    }
+
+    // Try native share API first (mobile devices)
+    if (typeof navigator !== 'undefined' && navigator.share && navigator.canShare?.(shareData)) {
+      try {
+        await navigator.share(shareData)
+      } catch {
+        // User cancelled or share failed - silently ignore
+      }
+    } else {
+      // Fallback: copy to clipboard
+      try {
+        await navigator.clipboard.writeText(shareUrl)
+        setShareStatus('copied')
+        setTimeout(() => setShareStatus('idle'), 2000)
+      } catch {
+        // Fallback for older browsers
+        const textArea = document.createElement('textarea')
+        textArea.value = shareUrl
+        document.body.appendChild(textArea)
+        textArea.select()
+        document.execCommand('copy')
+        document.body.removeChild(textArea)
+        setShareStatus('copied')
+        setTimeout(() => setShareStatus('idle'), 2000)
+      }
+    }
+  }, [product.name, t])
 
   return (
     <div className="lg:col-span-1">
@@ -380,6 +416,22 @@ export default function ProductInfo({
           aria-label={isFavorite(product.id) ? t('product.removeFromFavorites') : t('product.addToFavorites')}
         >
           <Heart className={`h-5 w-5 ${isFavorite(product.id) ? 'fill-current' : ''}`} />
+        </button>
+        <button
+          onClick={handleShare}
+          className={`p-3 rounded-lg border transition-colors flex items-center justify-center ${
+            shareStatus === 'copied'
+              ? 'border-green-500 bg-green-50 text-green-600'
+              : 'border-gray-300 text-gray-600 hover:border-gray-400'
+          }`}
+          aria-label={t('product.shareProduct')}
+          title={shareStatus === 'copied' ? t('product.linkCopied') : t('product.shareProduct')}
+        >
+          {shareStatus === 'copied' ? (
+            <Check className="h-5 w-5" />
+          ) : (
+            <Share2 className="h-5 w-5" />
+          )}
         </button>
       </div>
     </div>

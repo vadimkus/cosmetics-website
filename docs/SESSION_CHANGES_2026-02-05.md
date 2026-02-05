@@ -142,6 +142,25 @@ Each item in "Your Bundle" summary now shows:
 | Touch event undefined check | Added null check for `e.touches[0]` |
 | Images not loading in detail view | Changed from `max-h/max-w` to explicit `w-[200px] h-[200px]` dimensions |
 | Cannot deselect items on desktop | Single click on selected item now deselects it |
+| **CRITICAL: User discount lost for bundle items** | Apply user discount first, then bundle discount on top |
+
+### Critical Bug Fix: User Discount + Bundle Discount
+
+**Problem**: When a user with a personal discount (e.g., 50% off) added bundle items to cart, only the bundle discount (5%) was applied - the user's 50% discount was completely lost.
+
+**Root Cause**: The code was applying bundle discount to the original price instead of the user-discounted price.
+
+**Correct Calculation**:
+```
+Original Price:     250 AED
+User Discount 50%: -125 AED → 125 AED
+Bundle Discount 5%: -6.25 AED → 118.75 AED (final)
+```
+
+**Files Fixed**:
+- `lib/cartStore.ts` - `getTotalPrice()` now applies user discount first
+- `app/checkout/CheckoutClient.tsx` - Order summary and Stripe payment
+- `components/cart/CartItem.tsx` - Price display shows combined discount (e.g., "50% + 5% off")
 
 ---
 
@@ -195,6 +214,8 @@ docs/SESSION_CHANGES_2026-02-05.md          # This file
 13. `docs: Update bundle builder documentation with desktop modal feature`
 14. `fix(bundle-builder): Fix product images not loading in detail view`
 15. `fix(bundle-builder): Allow deselecting items by clicking on them`
+16. `docs: Update session documentation with latest bug fixes`
+17. `fix(bundle): Apply user discount before bundle discount (CRITICAL)`
 
 ---
 

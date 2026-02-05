@@ -285,10 +285,19 @@ Total:                 294.50 AED
 - Double-click/tap: toggles selection (quick add/remove)
 
 **Bug Fixes**
+- **CRITICAL**: Fixed user discount being lost for bundle items (now applies user discount first, then bundle discount)
 - Fixed product images not loading in detail view (explicit dimensions required for Next.js Image fill mode)
 - Fixed cannot deselect items on desktop (click on selected item now deselects)
 - Fixed unused variable TypeScript errors (`itemPricing`, `user`)
 - Fixed swipe gesture null check for touch events
+
+**Discount Stacking (Correct Behavior)**
+```
+Original Price:     250 AED
+User Discount 50%: -125 AED → 125 AED
+Bundle Discount 5%: -6.25 AED → 118.75 AED (final)
+```
+Cart displays combined discount as "50% + 5% off"
 
 ### February 3, 2026
 

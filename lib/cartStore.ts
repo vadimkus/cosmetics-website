@@ -166,16 +166,17 @@ export const useCartStore = create<CartState>()(
       
       getTotalPrice: (user?: User | null) => {
         return get().items.reduce((total, item) => {
-          // For bundle items, use the stored bundle discount instead of recalculating
-          if (item.fromBundle && item.bundleDiscountPercent && item.bundleDiscountPercent > 0) {
-            const originalPrice = item.product.price
-            const bundleDiscountAmount = (originalPrice * item.bundleDiscountPercent) / 100
-            const discountedPrice = originalPrice - bundleDiscountAmount
-            return total + (discountedPrice * item.quantity)
-          }
-          // For non-bundle items, use the standard discount calculation
+          // First, calculate user's discounted price
           const pricing = calculateDiscountedPrice(item.product, user || null)
-          return total + (pricing.discountedPrice * item.quantity)
+          let finalPrice = pricing.discountedPrice
+          
+          // For bundle items, apply bundle discount ON TOP of user discount
+          if (item.fromBundle && item.bundleDiscountPercent && item.bundleDiscountPercent > 0) {
+            const bundleDiscountAmount = (finalPrice * item.bundleDiscountPercent) / 100
+            finalPrice = finalPrice - bundleDiscountAmount
+          }
+          
+          return total + (finalPrice * item.quantity)
         }, 0)
       },
       

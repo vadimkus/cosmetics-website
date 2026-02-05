@@ -263,26 +263,29 @@ export default function CheckoutClient() {
               const itemSize = (item.selectedSize && item.selectedSize.trim()) || (item.product.size && item.product.size.trim()) || undefined
               const itemColor = (item.selectedColor && item.selectedColor.trim()) || undefined
               
-              // Handle bundle items with stored discount
+              // First calculate user's discounted price
+              const pricing = calculateDiscountedPrice(item.product, user)
+              let finalPrice = pricing.discountedPrice
+              
+              // For bundle items, apply bundle discount ON TOP of user discount
               if (item.fromBundle && item.bundleDiscountPercent && item.bundleDiscountPercent > 0) {
-                const originalPrice = item.product.price
-                const bundleDiscountAmount = (originalPrice * item.bundleDiscountPercent) / 100
-                const discountedPrice = originalPrice - bundleDiscountAmount
+                const bundleDiscountAmount = (finalPrice * item.bundleDiscountPercent) / 100
+                finalPrice = finalPrice - bundleDiscountAmount
                 return {
                   id: item.product.id,
                   name: item.product.name,
-                  price: discountedPrice,
+                  price: finalPrice,
                   quantity: item.quantity,
-                  total: discountedPrice * item.quantity,
+                  total: finalPrice * item.quantity,
                   image: item.product.image,
                   color: itemColor,
                   size: itemSize,
-                  bundleDiscount: item.bundleDiscountPercent
+                  bundleDiscount: item.bundleDiscountPercent,
+                  userDiscount: pricing.discountPercentage
                 }
               }
               
               // Standard pricing for non-bundle items
-              const pricing = calculateDiscountedPrice(item.product, user)
               return {
                 id: item.product.id,
                 name: item.product.name,
@@ -378,16 +381,14 @@ export default function CheckoutClient() {
               const itemSize = (item.selectedSize && item.selectedSize.trim()) || (item.product.size && item.product.size.trim()) || undefined
               const itemColor = (item.selectedColor && item.selectedColor.trim()) || undefined
               
-              // Calculate the correct price: bundle discount takes priority, then user discount
-              let finalPrice = item.product.price
+              // First apply user discount, then bundle discount on top
+              const pricing = calculateDiscountedPrice(item.product, user)
+              let finalPrice = pricing.discountedPrice
+              
+              // For bundle items, apply bundle discount ON TOP of user discount
               if (item.fromBundle && item.bundleDiscountPercent && item.bundleDiscountPercent > 0) {
-                // Apply bundle discount
-                const bundleDiscountAmount = (item.product.price * item.bundleDiscountPercent) / 100
-                finalPrice = item.product.price - bundleDiscountAmount
-              } else {
-                // Apply user discount if no bundle discount
-                const pricing = calculateDiscountedPrice(item.product, user)
-                finalPrice = pricing.discountedPrice
+                const bundleDiscountAmount = (finalPrice * item.bundleDiscountPercent) / 100
+                finalPrice = finalPrice - bundleDiscountAmount
               }
               
               return {
@@ -509,26 +510,29 @@ export default function CheckoutClient() {
             const itemSize = (item.selectedSize && item.selectedSize.trim()) || (item.product.size && item.product.size.trim()) || undefined
             const itemColor = (item.selectedColor && item.selectedColor.trim()) || undefined
             
-            // Handle bundle items with stored discount
+            // First calculate user's discounted price
+            const pricing = calculateDiscountedPrice(item.product, user)
+            let finalPrice = pricing.discountedPrice
+            
+            // For bundle items, apply bundle discount ON TOP of user discount
             if (item.fromBundle && item.bundleDiscountPercent && item.bundleDiscountPercent > 0) {
-              const originalPrice = item.product.price
-              const bundleDiscountAmount = (originalPrice * item.bundleDiscountPercent) / 100
-              const discountedPrice = originalPrice - bundleDiscountAmount
+              const bundleDiscountAmount = (finalPrice * item.bundleDiscountPercent) / 100
+              finalPrice = finalPrice - bundleDiscountAmount
               return {
                 id: item.product.id,
                 name: item.product.name,
-                price: discountedPrice,
+                price: finalPrice,
                 quantity: item.quantity,
-                total: discountedPrice * item.quantity,
+                total: finalPrice * item.quantity,
                 image: item.product.image,
                 color: itemColor,
                 size: itemSize,
-                bundleDiscount: item.bundleDiscountPercent
+                bundleDiscount: item.bundleDiscountPercent,
+                userDiscount: pricing.discountPercentage
               }
             }
             
             // Standard pricing for non-bundle items
-            const pricing = calculateDiscountedPrice(item.product, user)
             return {
               id: item.product.id,
               name: item.product.name,

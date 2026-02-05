@@ -243,13 +243,22 @@ export default function CartItem({ item }: CartItemProps) {
           {canUserSeePrices(user) ? (
             <div className="mt-2">
               {(() => {
-                // For bundle items, apply the bundle discount instead of the standard discount
+                // For bundle items, apply user discount first, then bundle discount on top
                 if (fromBundle && bundleDiscountPercent && bundleDiscountPercent > 0) {
-                  const originalPrice = product.price
-                  const bundleDiscountAmount = (originalPrice * bundleDiscountPercent) / 100
-                  const discountedPrice = originalPrice - bundleDiscountAmount
-                  const totalPrice = discountedPrice * quantity
-                  const originalTotalPrice = originalPrice * quantity
+                  // First apply user discount
+                  const userPricing = calculateDiscountedPrice(product, user)
+                  const userDiscountedPrice = userPricing.discountedPrice
+                  
+                  // Then apply bundle discount on top of user-discounted price
+                  const bundleDiscountAmount = (userDiscountedPrice * bundleDiscountPercent) / 100
+                  const finalPrice = userDiscountedPrice - bundleDiscountAmount
+                  const totalPrice = finalPrice * quantity
+                  const originalTotalPrice = product.price * quantity
+                  
+                  // Calculate combined discount percentage for display
+                  const combinedDiscount = userPricing.hasDiscount 
+                    ? `${userPricing.discountPercentage}% + ${bundleDiscountPercent}%`
+                    : `${bundleDiscountPercent}%`
                   
                   return (
                     <div>
@@ -268,7 +277,7 @@ export default function CartItem({ item }: CartItemProps) {
                       </div>
                       <div className={`flex items-center mt-0.5 flex-nowrap ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                         <span className="text-[10px] md:text-xs whitespace-nowrap">
-                          <span className="font-medium text-purple-600">{bundleDiscountPercent}% {t('product.off')}</span>
+                          <span className="font-medium text-purple-600">{combinedDiscount} {t('product.off')}</span>
                           <span className="text-red-600"> {t('product.vatIncluded')}</span>
                         </span>
                       </div>

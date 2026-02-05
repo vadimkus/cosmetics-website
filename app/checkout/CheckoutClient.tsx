@@ -259,10 +259,30 @@ export default function CheckoutClient() {
           // Combine regular items with free masks
           const allItems = [
             ...items.map(item => {
-              const pricing = calculateDiscountedPrice(item.product, user)
               // Use selectedSize if available, otherwise fallback to product.size
               const itemSize = (item.selectedSize && item.selectedSize.trim()) || (item.product.size && item.product.size.trim()) || undefined
               const itemColor = (item.selectedColor && item.selectedColor.trim()) || undefined
+              
+              // Handle bundle items with stored discount
+              if (item.fromBundle && item.bundleDiscountPercent && item.bundleDiscountPercent > 0) {
+                const originalPrice = item.product.price
+                const bundleDiscountAmount = (originalPrice * item.bundleDiscountPercent) / 100
+                const discountedPrice = originalPrice - bundleDiscountAmount
+                return {
+                  id: item.product.id,
+                  name: item.product.name,
+                  price: discountedPrice,
+                  quantity: item.quantity,
+                  total: discountedPrice * item.quantity,
+                  image: item.product.image,
+                  color: itemColor,
+                  size: itemSize,
+                  bundleDiscount: item.bundleDiscountPercent
+                }
+              }
+              
+              // Standard pricing for non-bundle items
+              const pricing = calculateDiscountedPrice(item.product, user)
               return {
                 id: item.product.id,
                 name: item.product.name,
@@ -473,10 +493,30 @@ export default function CheckoutClient() {
         // Combine regular items with free masks
         const allItems = [
           ...items.map(item => {
-            const pricing = calculateDiscountedPrice(item.product, user)
             // Use selectedSize if available, otherwise fallback to product.size
             const itemSize = (item.selectedSize && item.selectedSize.trim()) || (item.product.size && item.product.size.trim()) || undefined
             const itemColor = (item.selectedColor && item.selectedColor.trim()) || undefined
+            
+            // Handle bundle items with stored discount
+            if (item.fromBundle && item.bundleDiscountPercent && item.bundleDiscountPercent > 0) {
+              const originalPrice = item.product.price
+              const bundleDiscountAmount = (originalPrice * item.bundleDiscountPercent) / 100
+              const discountedPrice = originalPrice - bundleDiscountAmount
+              return {
+                id: item.product.id,
+                name: item.product.name,
+                price: discountedPrice,
+                quantity: item.quantity,
+                total: discountedPrice * item.quantity,
+                image: item.product.image,
+                color: itemColor,
+                size: itemSize,
+                bundleDiscount: item.bundleDiscountPercent
+              }
+            }
+            
+            // Standard pricing for non-bundle items
+            const pricing = calculateDiscountedPrice(item.product, user)
             return {
               id: item.product.id,
               name: item.product.name,
@@ -744,8 +784,35 @@ export default function CheckoutClient() {
                     {locale === 'ar' ? 'المنتجات' : locale === 'ru' ? 'Товары' : 'ITEMS'}:
                   </h4>
                   {items.map((item) => {
-                    const pricing = calculateDiscountedPrice(item.product, user)
                     const quantity = item.quantity || 1
+                    
+                    // Handle bundle items with their stored discount
+                    if (item.fromBundle && item.bundleDiscountPercent && item.bundleDiscountPercent > 0) {
+                      const originalPrice = item.product.price
+                      const bundleDiscountAmount = (originalPrice * item.bundleDiscountPercent) / 100
+                      const discountedPrice = originalPrice - bundleDiscountAmount
+                      
+                      return (
+                        <div key={`${item.product.id}-bundle`} className={`flex justify-between items-start ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                          <div className="flex-1 min-w-0 pr-2">
+                            <div className="text-sm font-medium text-gray-900">{item.product.name}</div>
+                            <div className={`flex items-center gap-2 mt-0.5 flex-wrap ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                              <span className="text-xs text-gray-500">{locale === 'ar' ? 'الكمية' : locale === 'ru' ? 'Кол-во' : 'Qty'}: {quantity}</span>
+                              <span className="text-xs text-purple-600 font-medium">
+                                ✨ {item.bundleDiscountPercent}% {locale === 'ar' ? 'خصم المجموعة' : locale === 'ru' ? 'Скидка набора' : 'Bundle Discount'}
+                              </span>
+                            </div>
+                          </div>
+                          <div className="text-right">
+                            <span className="text-sm font-semibold text-purple-700">AED {(discountedPrice * quantity).toFixed(2)}</span>
+                            <div className="text-xs text-gray-400 line-through">AED {(originalPrice * quantity).toFixed(2)}</div>
+                          </div>
+                        </div>
+                      )
+                    }
+                    
+                    // Standard pricing for non-bundle items
+                    const pricing = calculateDiscountedPrice(item.product, user)
                     return (
                       <div key={item.product.id} className={`flex justify-between items-start ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                         <div className="flex-1 min-w-0 pr-2">

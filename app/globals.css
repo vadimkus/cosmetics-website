@@ -930,9 +930,9 @@ code, pre, kbd, samp, .font-mono {
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
   }
   
-  /* Ensure interactive elements meet 44pt minimum touch target */
-  button:not(.touch-target-exempt),
-  [role="button"]:not(.touch-target-exempt),
+  /* Ensure interactive elements meet 44pt minimum touch target
+     IMPORTANT: Exclude buttons with explicit dimensions (w-*, h-*) to prevent stretching
+     Icon buttons and buttons with fixed sizes handle their own touch targets */
   input[type="checkbox"],
   input[type="radio"],
   select {

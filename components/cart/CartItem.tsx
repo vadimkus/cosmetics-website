@@ -27,7 +27,7 @@ export default function CartItem({ item }: CartItemProps) {
   const { updateQuantity, removeItem, updateColor } = useCart()
   const { user } = useAuth()
   const { t, dir, locale } = useTranslation()
-  const { product, quantity, selectedColor, selectedSize } = item
+  const { product, quantity, selectedColor, selectedSize, fromBundle, bundleDiscountPercent } = item
   const { enabled: animationsEnabled } = useAnimationStore()
   
   // Swipe-to-delete state
@@ -243,6 +243,40 @@ export default function CartItem({ item }: CartItemProps) {
           {canUserSeePrices(user) ? (
             <div className="mt-2">
               {(() => {
+                // For bundle items, apply the bundle discount instead of the standard discount
+                if (fromBundle && bundleDiscountPercent && bundleDiscountPercent > 0) {
+                  const originalPrice = product.price
+                  const bundleDiscountAmount = (originalPrice * bundleDiscountPercent) / 100
+                  const discountedPrice = originalPrice - bundleDiscountAmount
+                  const totalPrice = discountedPrice * quantity
+                  const originalTotalPrice = originalPrice * quantity
+                  
+                  return (
+                    <div>
+                      {/* Bundle Discount Badge */}
+                      <div className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-purple-100 text-purple-700 text-[10px] md:text-xs font-medium mb-1 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                        <span>✨</span>
+                        <span>{t('products.bundleDiscount') || 'Bundle Discount'}</span>
+                      </div>
+                      <div className={`flex items-baseline gap-1.5 flex-nowrap ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                        <p className="text-sm md:text-lg font-bold text-purple-600 md:text-purple-700 whitespace-nowrap">
+                          {totalPrice.toFixed(2)} AED
+                        </p>
+                        <p className="text-xs md:text-sm text-gray-500 line-through whitespace-nowrap">
+                          {originalTotalPrice.toFixed(2)} AED
+                        </p>
+                      </div>
+                      <div className={`flex items-center mt-0.5 flex-nowrap ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                        <span className="text-[10px] md:text-xs whitespace-nowrap">
+                          <span className="font-medium text-purple-600">{bundleDiscountPercent}% {t('product.off')}</span>
+                          <span className="text-red-600"> {t('product.vatIncluded')}</span>
+                        </span>
+                      </div>
+                    </div>
+                  )
+                }
+                
+                // Standard pricing for non-bundle items
                 const pricing = calculateDiscountedPrice(product, user)
                 const totalPrice = pricing.discountedPrice * quantity
                 const originalTotalPrice = pricing.originalPrice * quantity

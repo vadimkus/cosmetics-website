@@ -30,29 +30,49 @@ export const useCartStore = create<CartState>()(
     (set, get) => ({
       items: [],
       selectedEmirate: 'Dubai',
+      _hasHydrated: false,
       
-      addItem: (product: Product, quantity = 1, selectedColor?: string, selectedSize?: string) => {
+      setHasHydrated: (state: boolean) => {
+        set({ _hasHydrated: state })
+      },
+      
+      addItem: (product: Product, quantity = 1, selectedColor?: string, selectedSize?: string, bundleInfo?: { fromBundle: boolean; bundleDiscountPercent: number }) => {
         const items = get().items
         const normalizedColor = selectedColor || ''
         const normalizedSize = selectedSize || ''
+        
+        // For bundle items, we need to check both product ID and bundle status
+        // Bundle items should NOT merge with individually added items (different discounts)
         const existingItem = items.find(item => 
           item.product.id === product.id && 
           item.selectedColor === normalizedColor && 
-          item.selectedSize === normalizedSize
+          item.selectedSize === normalizedSize &&
+          // Only match if both are bundle items with same discount, or both are non-bundle
+          (item.fromBundle === bundleInfo?.fromBundle) &&
+          (item.bundleDiscountPercent === bundleInfo?.bundleDiscountPercent)
         )
         
         if (existingItem) {
           const newItems = items.map(item =>
             item.product.id === product.id && 
             item.selectedColor === normalizedColor && 
-            item.selectedSize === normalizedSize
+            item.selectedSize === normalizedSize &&
+            item.fromBundle === bundleInfo?.fromBundle &&
+            item.bundleDiscountPercent === bundleInfo?.bundleDiscountPercent
               ? { ...item, quantity: item.quantity + quantity }
               : item
           )
           set({ items: newItems })
           updateCartBadge(newItems)
         } else {
-          const newItems = [...items, { product, quantity, selectedColor: normalizedColor, selectedSize: normalizedSize }]
+          const newItem = { 
+            product, 
+            quantity, 
+            selectedColor: normalizedColor, 
+            selectedSize: normalizedSize,
+            ...(bundleInfo && { fromBundle: bundleInfo.fromBundle, bundleDiscountPercent: bundleInfo.bundleDiscountPercent })
+          }
+          const newItems = [...items, newItem]
           set({ items: newItems })
           updateCartBadge(newItems)
         }
@@ -146,6 +166,14 @@ export const useCartStore = create<CartState>()(
       
       getTotalPrice: (user?: User | null) => {
         return get().items.reduce((total, item) => {
+          // For bundle items, use the stored bundle discount instead of recalculating
+          if (item.fromBundle && item.bundleDiscountPercent && item.bundleDiscountPercent > 0) {
+            const originalPrice = item.product.price
+            const bundleDiscountAmount = (originalPrice * item.bundleDiscountPercent) / 100
+            const discountedPrice = originalPrice - bundleDiscountAmount
+            return total + (discountedPrice * item.quantity)
+          }
+          // For non-bundle items, use the standard discount calculation
           const pricing = calculateDiscountedPrice(item.product, user || null)
           return total + (pricing.discountedPrice * item.quantity)
         }, 0)
@@ -161,6 +189,10 @@ export const useCartStore = create<CartState>()(
     }),
     {
       name: 'cart-storage',
+      onRehydrateStorage: () => (state) => {
+        // Called when hydration from localStorage is complete
+        state?.setHasHydrated(true)
+      },
     }
   )
 )

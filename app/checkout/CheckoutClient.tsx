@@ -17,7 +17,7 @@ import StripeProvider from '@/components/stripe/StripeProvider'
 import PaymentForm from '@/components/stripe/PaymentForm'
 
 export default function CheckoutClient() {
-  const { items, getTotalPrice, getTotalItems, selectedEmirate } = useCart()
+  const { items, getTotalPrice, getTotalItems, selectedEmirate, _hasHydrated } = useCart()
   const { user, isLoading: authLoading } = useAuth()
   const router = useRouter()
   const { t, locale, dir } = useTranslation()
@@ -201,12 +201,13 @@ export default function CheckoutClient() {
     }
   }, [subtotal, user, getFreeMasks])
 
-  // Redirect if cart is empty
+  // Redirect if cart is empty - but only after hydration is complete
+  // This prevents false redirects during the initial SSR->client hydration
   useEffect(() => {
-    if (items.length === 0) {
+    if (_hasHydrated && items.length === 0) {
       router.push(getLocalizedPath('/cart', locale))
     }
-  }, [items.length, router, locale])
+  }, [items.length, router, locale, _hasHydrated])
 
   // Redirect if user is not logged in - wait for auth to finish loading first
   useEffect(() => {
@@ -571,6 +572,21 @@ export default function CheckoutClient() {
       isSubmittingRef.current = false
       setIsProcessing(false)
     }
+  }
+
+  // Show loading state while cart is hydrating from localStorage
+  if (!_hasHydrated) {
+    return (
+      <div className={`container mx-auto px-4 py-8 md:py-16 ${dir === 'rtl' ? 'text-right' : ''}`} dir={dir}>
+        <div className="max-w-4xl mx-auto text-center py-16">
+          <div className="animate-pulse">
+            <div className="h-24 w-24 bg-gray-200 rounded-full mx-auto mb-4" />
+            <div className="h-8 bg-gray-200 rounded w-48 mx-auto mb-4" />
+            <div className="h-4 bg-gray-200 rounded w-64 mx-auto" />
+          </div>
+        </div>
+      </div>
+    )
   }
 
   if (items.length === 0) {

@@ -20,7 +20,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 
 
 export default function CartClient() {
-  const { items, getTotalPrice, getTotalItems, selectedEmirate, setSelectedEmirate } = useCart()
+  const { items, getTotalPrice, getTotalItems, selectedEmirate, setSelectedEmirate, _hasHydrated } = useCart()
   const { user } = useAuth()
   const { t, locale, dir } = useTranslation()
   const { isPWA } = usePWAMode()
@@ -196,6 +196,33 @@ export default function CartClient() {
 
     return () => clearInterval(timer)
   }, [])
+
+  // Show loading state while cart is hydrating from localStorage
+  if (!_hasHydrated) {
+    return (
+      <div className={isAppLikeMode ? 'min-h-screen bg-white pb-32' : ''}>
+        {/* PWA / Mobile Web Simple Navigation Header */}
+        {isAppLikeMode && (
+          <div className={`flex items-center justify-between px-5 py-4 bg-white ${isRTL ? 'flex-row-reverse' : ''}`}>
+            <div className="min-w-[80px]" />
+            <span className="text-base font-semibold text-gray-900">
+              {t('pwaProfile.bag') || 'Bag'}
+            </span>
+            <div className="min-w-[80px]" />
+          </div>
+        )}
+        <div className="container mx-auto px-4 py-8">
+          <div className="max-w-4xl mx-auto text-center py-8">
+            <div className="animate-pulse">
+              <div className="h-16 w-16 bg-gray-200 rounded-full mx-auto mb-4" />
+              <div className="h-6 bg-gray-200 rounded w-32 mx-auto mb-2" />
+              <div className="h-4 bg-gray-200 rounded w-48 mx-auto" />
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
 
   if (items.length === 0) {
     return (

@@ -124,12 +124,16 @@ export interface CartItem {
   quantity: number
   selectedColor?: string
   selectedSize?: string
+  // Bundle tracking - items added from Bundle Builder
+  fromBundle?: boolean
+  bundleDiscountPercent?: number
 }
 
 export interface CartState {
   items: CartItem[]
   selectedEmirate: string
-  addItem: (product: Product, quantity?: number, selectedColor?: string, selectedSize?: string) => void
+  _hasHydrated: boolean
+  addItem: (product: Product, quantity?: number, selectedColor?: string, selectedSize?: string, bundleInfo?: { fromBundle: boolean; bundleDiscountPercent: number }) => void
   removeItem: (productId: string, selectedColor?: string, selectedSize?: string) => void
   updateQuantity: (productId: string, quantity: number, selectedColor?: string, selectedSize?: string) => void
   updateColor: (productId: string, newColor: string, oldColor?: string, selectedSize?: string) => void
@@ -137,5 +141,6 @@ export interface CartState {
   getTotalPrice: (user?: User | null) => number
   getTotalItems: () => number
   setSelectedEmirate: (emirate: string) => void
+  setHasHydrated: (state: boolean) => void
 }
 

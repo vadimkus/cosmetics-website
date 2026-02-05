@@ -545,9 +545,15 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
   
   // Handle add bundle to cart - then redirect to checkout
   const handleAddToCart = () => {
-    // Add each item to cart - discount will be applied at checkout based on bundle detection
+    // Use the computed pricing (with user discounts) to get the bundle discount percentage
+    const bundleDiscountPercent = pricing.discountPercent
+    
+    // Add each item to cart with bundle info (discount percentage at time of adding)
     items.forEach(item => {
-      addToCart(item.product, 1)
+      addToCart(item.product, 1, undefined, undefined, {
+        fromBundle: true,
+        bundleDiscountPercent: bundleDiscountPercent
+      })
     })
     
     // Clear the bundle after adding to cart

@@ -132,10 +132,19 @@
 
 ---
 
+### 🔐 User Authentication
+
+| File | Description |
+|------|-------------|
+| [AUTH_PAGES.md](./AUTH_PAGES.md) | **NEW** Forgot/reset password pages, API, security |
+
+---
+
 ### 📲 Mobile Web & Mobile App API
 
 | File | Description |
 |------|-------------|
+| [MOBILE_VIEWPORT_FIX.md](./MOBILE_VIEWPORT_FIX.md) | **NEW** 100dvh fix for iOS scroll bounce |
 | [MOBILE_WEB_UX_IMPLEMENTATION.md](./MOBILE_WEB_UX_IMPLEMENTATION.md) | Mobile web UX patterns |
 | [MOBILE_FOOTER_IMPLEMENTATION.md](./MOBILE_FOOTER_IMPLEMENTATION.md) | Bottom navigation bar |
 | [MOBILE_LOGIN_DESIGN.md](./MOBILE_LOGIN_DESIGN.md) | Mobile login screen |

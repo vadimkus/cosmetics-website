@@ -58,6 +58,7 @@
 |------|-------------|
 | [STRIPE_SETUP_GUIDE.md](./STRIPE_SETUP_GUIDE.md) | Stripe integration setup |
 | [STRIPE_WEBHOOK_SETUP.md](./STRIPE_WEBHOOK_SETUP.md) | Webhook configuration |
+| [EMBEDDED_STRIPE_CHECKOUT.md](./EMBEDDED_STRIPE_CHECKOUT.md) | **NEW** Embedded checkout with bottom sheet UI |
 | [MOBILE_STRIPE_CHECKOUT_IMPLEMENTATION.md](./MOBILE_STRIPE_CHECKOUT_IMPLEMENTATION.md) | Mobile app Stripe integration |
 
 ---

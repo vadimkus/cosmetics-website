@@ -973,9 +973,9 @@ export default function SkinRecommendationClient() {
 
           {/* AI Expert Analysis Section */}
           {capturedImage && !showAiAnalysis && (
-            <div className="mb-8 bg-gradient-to-br from-violet-50 to-purple-100 rounded-2xl p-6 border border-violet-200">
+            <div className="mb-8 bg-gradient-to-br from-primary-50 to-red-100 rounded-2xl p-6 border border-primary-200">
               <div className={`flex items-start gap-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center flex-shrink-0 shadow-lg shadow-violet-200">
+                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary-500 to-primary-600 flex items-center justify-center flex-shrink-0 shadow-lg shadow-primary-200">
                   <Brain className="w-7 h-7 text-white" />
                 </div>
                 <div className={`flex-1 ${dir === 'rtl' ? 'text-right' : ''}`}>
@@ -992,7 +992,7 @@ export default function SkinRecommendationClient() {
                   <button
                     onClick={handleAIExpertAnalysis}
                     disabled={aiAnalysisLoading}
-                    className={`inline-flex items-center gap-2 bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700 text-white font-semibold px-6 py-3 rounded-xl transition-all shadow-lg shadow-violet-200 active:scale-[0.98] disabled:opacity-50 disabled:cursor-wait ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+                    className={`inline-flex items-center gap-2 bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white font-semibold px-6 py-3 rounded-xl transition-all shadow-lg shadow-primary-200 active:scale-[0.98] disabled:opacity-50 disabled:cursor-wait ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
                   >
                     {aiAnalysisLoading ? (
                       <>
@@ -1013,9 +1013,9 @@ export default function SkinRecommendationClient() {
 
           {/* AI Expert Analysis Results */}
           {showAiAnalysis && aiAnalysisResult && (
-            <div className="mb-8 bg-gradient-to-br from-violet-50 to-purple-100 rounded-2xl overflow-hidden border border-violet-200">
+            <div className="mb-8 bg-gradient-to-br from-primary-50 to-red-100 rounded-2xl overflow-hidden border border-primary-200">
               {/* Header */}
-              <div className="bg-gradient-to-r from-violet-600 to-purple-600 px-6 py-4 text-white">
+              <div className="bg-gradient-to-r from-primary-600 to-primary-700 px-6 py-4 text-white">
                 <div className={`flex items-center justify-between ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                   <div className={`flex items-center gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                     <Brain className="w-6 h-6" />
@@ -1023,14 +1023,14 @@ export default function SkinRecommendationClient() {
                       <h3 className="font-bold text-lg">
                         {locale === 'ar' ? 'تحليل خبير الذكاء الاصطناعي' : locale === 'ru' ? 'Экспертный AI-анализ' : 'AI Expert Analysis'}
                       </h3>
-                      <p className="text-violet-100 text-sm">
+                      <p className="text-primary-100 text-sm">
                         {locale === 'ar' ? 'تحليل احترافي لبشرتك' : locale === 'ru' ? 'Профессиональный анализ вашей кожи' : 'Professional analysis of your skin'}
                       </p>
                     </div>
                   </div>
                   {aiAnalysisResult.healthScore && (
                     <div className="text-center">
-                      <p className="text-violet-100 text-xs">
+                      <p className="text-primary-100 text-xs">
                         {locale === 'ar' ? 'صحة البشرة' : locale === 'ru' ? 'Здоровье' : 'Health Score'}
                       </p>
                       <p className="text-2xl font-bold">{aiAnalysisResult.healthScore}/10</p>
@@ -1080,7 +1080,7 @@ export default function SkinRecommendationClient() {
                         const productDetails = productId ? aiProductDetails.get(productId) : null
                         
                         return (
-                          <div key={idx} className="bg-white rounded-xl overflow-hidden shadow-sm border border-violet-100">
+                          <div key={idx} className="bg-white rounded-xl overflow-hidden shadow-sm border border-primary-100">
                             <div className={`flex ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                               {/* Product Image & Size */}
                               <div className="flex-shrink-0 flex flex-col">
@@ -1094,8 +1094,8 @@ export default function SkinRecommendationClient() {
                                       className="w-full h-full object-cover"
                                     />
                                   ) : (
-                                    <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-violet-100 to-purple-100">
-                                      <Sparkles className="w-8 h-8 text-violet-400" />
+                                    <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary-100 to-red-100">
+                                      <Sparkles className="w-8 h-8 text-primary-400" />
                                     </div>
                                   )}
                                 </div>
@@ -1113,7 +1113,7 @@ export default function SkinRecommendationClient() {
                                 {productUrl ? (
                                   <Link 
                                     href={productUrl}
-                                    className="font-semibold text-violet-700 hover:text-violet-900 hover:underline text-sm sm:text-base line-clamp-2"
+                                    className="font-semibold text-primary-700 hover:text-primary-900 hover:underline text-sm sm:text-base line-clamp-2"
                                   >
                                     {productDetails?.name || productName}
                                   </Link>
@@ -1140,7 +1140,7 @@ export default function SkinRecommendationClient() {
                                       addItem(productDetails, 1)
                                       alert(locale === 'ar' ? 'تمت الإضافة إلى السلة! 🛍️' : locale === 'ru' ? 'Добавлено в корзину! 🛍️' : 'Added to bag! 🛍️')
                                     }}
-                                    className={`mt-2 inline-flex items-center gap-1.5 px-3 py-1.5 bg-violet-600 hover:bg-violet-700 text-white text-xs font-medium rounded-lg transition-colors ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+                                    className={`mt-2 inline-flex items-center gap-1.5 px-3 py-1.5 bg-primary-600 hover:bg-primary-700 text-white text-xs font-medium rounded-lg transition-colors ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
                                   >
                                     <ShoppingBag className="w-3.5 h-3.5" />
                                     {locale === 'ar' ? 'أضف إلى السلة' : locale === 'ru' ? 'В корзину' : 'Add to Bag'}
@@ -1234,10 +1234,10 @@ export default function SkinRecommendationClient() {
                 )}
 
                 {/* Close AI Analysis */}
-                <div className="mt-6 pt-4 border-t border-violet-200 text-center">
+                <div className="mt-6 pt-4 border-t border-primary-200 text-center">
                   <button
                     onClick={() => setShowAiAnalysis(false)}
-                    className="text-violet-600 hover:text-violet-800 font-medium text-sm"
+                    className="text-primary-600 hover:text-primary-800 font-medium text-sm"
                   >
                     {locale === 'ar' ? '← العودة إلى التقرير' : locale === 'ru' ? '← Назад к отчёту' : '← Back to Report'}
                   </button>

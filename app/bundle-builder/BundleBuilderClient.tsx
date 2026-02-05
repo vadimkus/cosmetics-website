@@ -259,13 +259,11 @@ function BundleSummary({
   onClear,
   showPrices,
   pricing,
-  user,
 }: {
   onAddToCart: () => void
   onClear: () => void
   showPrices: boolean
   pricing: BundlePricing
-  user: User | null
 }) {
   const { t } = useTranslation()
   const { items, removeItem, canAddToCart } = useBundleStore()
@@ -921,7 +919,6 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
                 onClear={handleClear}
                 showPrices={showPrices}
                 pricing={pricing}
-                user={user}
               />
             </div>
           </aside>
@@ -1084,7 +1081,6 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
                   }}
                   showPrices={showPrices}
                   pricing={pricing}
-                  user={user}
                 />
               </div>
             </motion.div>

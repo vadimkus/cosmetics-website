@@ -433,7 +433,7 @@ export default function ProductsPageClient({ initialProducts = [] }: ProductsPag
                       })
                     }
                   }}
-                  className={`px-3 py-1.5 rounded-full text-xs font-medium whitespace-nowrap min-h-[44px] min-w-[48px] flex items-center justify-center select-none transition-all duration-150 active:scale-95 ${
+                  className={`px-3 py-1.5 rounded-full text-xs font-medium whitespace-nowrap min-h-[44px] min-w-[48px] flex items-center justify-center gap-1.5 select-none transition-all duration-150 active:scale-95 ${
                     isActive
                       ? 'bg-primary-600 text-white shadow-sm'
                       : 'bg-gray-100 text-gray-700 active:bg-gray-300'
@@ -444,6 +444,15 @@ export default function ProductsPageClient({ initialProducts = [] }: ProductsPag
                   }}
                 >
                   {category.name}
+                  {category.id === 'beauty-boxes' && (
+                    <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded-full ${
+                      isActive 
+                        ? 'bg-white/20 text-white' 
+                        : 'bg-green-500 text-white'
+                    }`}>
+                      {t('common.new')}
+                    </span>
+                  )}
                 </button>
               )
             })}

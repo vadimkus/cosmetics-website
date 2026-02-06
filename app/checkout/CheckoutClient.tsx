@@ -1437,8 +1437,8 @@ export default function CheckoutClient() {
               onSuccess={(paymentIntentId) => {
                 debugLog('✅ Payment successful:', { paymentIntentId, orderId: paymentOrderId })
                 setIsPaymentSheetOpen(false)
-                // Redirect to success page with payment intent
-                router.push(`${getLocalizedPath('/checkout/success', locale)}?payment_intent=${paymentIntentId}&order_id=${paymentOrderId}`)
+                // Redirect to main success page (unified enhanced layout)
+                router.push(`${getLocalizedPath('/success', locale)}?payment=card&order_id=${paymentOrderId}`)
               }}
               onError={(error) => {
                 errorLog('❌ Payment failed:', error)

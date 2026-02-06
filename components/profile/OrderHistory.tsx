@@ -73,13 +73,21 @@ export default function OrderHistory({ orders, loadingOrders, onCancelOrder }: O
           image: item.image,
           price: item.price,
           quantity: item.quantity,
-          total: item.price * item.quantity
+          total: item.price * item.quantity,
+          size: item.size,
+          color: item.color
         })),
         subtotal: order.subtotal,
         shippingCost: order.shipping,
         vatAmount: order.vat,
         total: order.total,
-        locale: order.locale || locale
+        locale: order.locale || locale,
+        // Pass discount data for waterfall breakdown display
+        ...(order.discountAmount ? { discountAmount: order.discountAmount } : {}),
+        ...(order.bundleDiscountPercentage ? { bundleDiscountPercentage: order.bundleDiscountPercentage } : {}),
+        ...(order.bundleDiscountAmount ? { bundleDiscountAmount: order.bundleDiscountAmount } : {}),
+        // User discount percentage from the user object (if available)
+        ...(user?.discountPercentage ? { discountPercentage: Number(user.discountPercentage) } : {})
       }
 
       const response = await fetch('/api/invoice/generate', {

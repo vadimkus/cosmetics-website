@@ -117,7 +117,7 @@ function SuccessContent() {
   useEffect(() => {
     let timer: NodeJS.Timeout | undefined
     
-    if (paymentMethod === 'cod' || paymentMethod === 'support-link' || sessionId) {
+    if (paymentMethod === 'cod' || paymentMethod === 'support-link' || paymentMethod === 'card' || sessionId) {
       setShowConfetti(true)
       timer = setTimeout(() => {
         setShowConfetti(false)
@@ -132,7 +132,7 @@ function SuccessContent() {
   useEffect(() => {
     let timeout: NodeJS.Timeout | undefined
 
-    if (paymentMethod === 'cod') {
+    if (paymentMethod === 'cod' || paymentMethod === 'card') {
       clearCart()
     } else if (paymentMethod === 'support-link') {
       timeout = setTimeout(() => {
@@ -217,9 +217,11 @@ function SuccessContent() {
             <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-green-600 mb-2">
               {paymentMethod === 'support-link' 
                 ? (t('success.orderRequestSubmitted') || 'Order Request Submitted!')
-                : paymentMethod === 'cod'
-                  ? (t('success.orderSuccess') || 'Order Confirmed!')
-                  : (t('success.paymentSuccessful') || 'Payment Successful!')}
+                : paymentMethod === 'card'
+                  ? (t('success.paymentSuccessful') || 'Payment Successful!')
+                  : paymentMethod === 'cod'
+                    ? (t('success.orderSuccess') || 'Order Confirmed!')
+                    : (t('success.paymentSuccessful') || 'Payment Successful!')}
             </h1>
             <p className="text-sm md:text-base text-gray-600">
               {t('success.orderBeingProcessed') || 'Your order has been confirmed and is being processed.'}

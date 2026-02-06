@@ -141,6 +141,42 @@ router.push(`/success?payment=support-link&order_id=GENCardW2602066303`)
 
 ---
 
+## Phase 7: Invoice Template Complete Rewrite
+
+### Problem
+The invoice email template (`app/api/invoice/generate/route.ts`) was completely outdated:
+- Used CSS `<style>` blocks and `flex` layouts (not email-client safe)
+- No product images
+- No discount badges or strikethrough prices
+- No waterfall discount breakdown
+- Missing Russian locale support for template body
+- Used inconsistent design language vs. other templates
+
+### Solution
+Completely rewrote the invoice template to match the enhanced `orderConfirmation` design:
+
+| Feature | Before | After |
+|---------|--------|-------|
+| Layout | CSS flex + `<style>` block | Inline styles + table layout |
+| Product images | None | 56×56 thumbnails |
+| Discount badges | None | VIP (purple) + Bundle (green) |
+| Strikethrough prices | None | Original price struck through, green discount price |
+| Combined discount % | None | "(60% OFF)" per item |
+| Waterfall breakdown | None | Retail Price → VIP → Bundle → Net → Shipping → VAT → Total |
+| "You saved" banner | None | Green banner with total savings |
+| Localization | en/ar only (via JSON import) | en/ar/ru inline translations |
+| RTL support | Basic | Full (matching orderConfirmation) |
+| Design | Generic | Apple-style (matching all other templates) |
+
+### Files Changed
+
+| File | Change |
+|------|--------|
+| `app/api/invoice/generate/route.ts` | Complete rewrite — Apple-style, images, badges, strikethrough, waterfall breakdown, 3-language inline translations |
+| `components/profile/OrderHistory.tsx` | Now passes `size`, `color`, `discountAmount`, `bundleDiscountPercentage`, `bundleDiscountAmount`, `discountPercentage` to invoice API |
+
+---
+
 ## Miscellaneous Fixes
 
 - **`app/profile/page.tsx`**: Fixed `customerNumber` type error (`number` → `String()` for `.replace()`)

@@ -13,9 +13,11 @@ export const LOGO_URL = `${SITE_URL}/_next/image?url=%2FLogo%2FFull.png&w=640&q=
 /**
  * Load email translations for a given locale and section
  */
-export function loadEmailTranslations(locale: string, section: EmailTranslationSection): Record<string, string> {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function loadEmailTranslations(locale: string, section: EmailTranslationSection): Record<string, any> {
   try {
-    let messages: { default?: { orderEmail?: Record<string, Record<string, string>> }; orderEmail?: Record<string, Record<string, string>> }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let messages: any
     if (locale === 'ar') {
       messages = require('@/messages/ar.json')
     } else if (locale === 'ru') {

@@ -116,6 +116,10 @@ function ChatProductCard({
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
   const [added, setAdded] = useState(false)
+  const addedTimerRef = useRef<NodeJS.Timeout | null>(null)
+
+  // Clean up timer on unmount
+  useEffect(() => () => { if (addedTimerRef.current) clearTimeout(addedTimerRef.current) }, [])
   
   // Fetch product data
   useEffect(() => {
@@ -141,7 +145,7 @@ function ChatProductCard({
     if (!added && product) {
       onAddToCart(productId, product.name)
       setAdded(true)
-      setTimeout(() => setAdded(false), 3000)
+      addedTimerRef.current = setTimeout(() => setAdded(false), 3000)
     }
   }
   
@@ -298,6 +302,7 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
   
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
+  const focusTimerRef = useRef<NodeJS.Timeout | null>(null)
   
   // Get user context for personalized greetings (used for welcome message)
   const userContext = getUserContext()
@@ -475,8 +480,9 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
   // Focus input when chat opens
   useEffect(() => {
     if (isOpen && !isMinimized) {
-      setTimeout(() => inputRef.current?.focus(), 100)
+      focusTimerRef.current = setTimeout(() => inputRef.current?.focus(), 100)
     }
+    return () => { if (focusTimerRef.current) clearTimeout(focusTimerRef.current) }
   }, [isOpen, isMinimized])
 
   // Clear welcome message after first user message

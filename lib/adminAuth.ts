@@ -1,12 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { findUserByEmail } from '@/lib/userStorageDb'
 import { errorLog, debugLog } from '@/lib/logger'
+import { ADMIN_SESSION_SECRET as ENV_ADMIN_SESSION_SECRET, JWT_SECRET } from '@/lib/envValidation'
 import crypto from 'crypto'
 
 // Admin session secret - uses ADMIN_SESSION_SECRET or JWT_SECRET from env
 // In production, one of these MUST be set for secure admin authentication
 const ADMIN_SESSION_SECRET = (() => {
-  const secret = process.env.ADMIN_SESSION_SECRET || process.env.JWT_SECRET
+  const secret = ENV_ADMIN_SESSION_SECRET || JWT_SECRET
   if (!secret && process.env.NODE_ENV === 'production') {
     errorLog('⚠️ CRITICAL: ADMIN_SESSION_SECRET and JWT_SECRET are both missing in production! Admin auth will not work.')
   }

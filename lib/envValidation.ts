@@ -27,6 +27,24 @@ interface EnvConfig {
   APPLE_PRIVATE_KEY?: string
   // Site configuration
   NEXT_PUBLIC_SITE_URL?: string
+  NEXT_PUBLIC_BASE_URL?: string
+  // Email configuration
+  EMAIL_HOST?: string
+  EMAIL_PORT?: string
+  EMAIL_SECURE?: string
+  EMAIL_USER?: string
+  EMAIL_PASSWORD?: string
+  EMAIL_FROM?: string
+  GMAIL_USER?: string
+  GMAIL_APP_PASSWORD?: string
+  // Push notifications
+  NEXT_PUBLIC_VAPID_PUBLIC_KEY?: string
+  VAPID_PRIVATE_KEY?: string
+  VAPID_EMAIL?: string
+  // AI
+  OPENAI_API_KEY?: string
+  // Admin auth
+  ADMIN_SESSION_SECRET?: string
 }
 
 function validateEnvironment(): EnvConfig {
@@ -55,7 +73,25 @@ function validateEnvironment(): EnvConfig {
     APPLE_KEY_ID: process.env.APPLE_KEY_ID,
     APPLE_PRIVATE_KEY: process.env.APPLE_PRIVATE_KEY,
     // Site configuration
-    NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL
+    NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
+    NEXT_PUBLIC_BASE_URL: process.env.NEXT_PUBLIC_BASE_URL,
+    // Email configuration
+    EMAIL_HOST: process.env.EMAIL_HOST,
+    EMAIL_PORT: process.env.EMAIL_PORT,
+    EMAIL_SECURE: process.env.EMAIL_SECURE,
+    EMAIL_USER: process.env.EMAIL_USER,
+    EMAIL_PASSWORD: process.env.EMAIL_PASSWORD,
+    EMAIL_FROM: process.env.EMAIL_FROM,
+    GMAIL_USER: process.env.GMAIL_USER,
+    GMAIL_APP_PASSWORD: process.env.GMAIL_APP_PASSWORD,
+    // Push notifications
+    NEXT_PUBLIC_VAPID_PUBLIC_KEY: process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY,
+    VAPID_PRIVATE_KEY: process.env.VAPID_PRIVATE_KEY,
+    VAPID_EMAIL: process.env.VAPID_EMAIL,
+    // AI
+    OPENAI_API_KEY: process.env.OPENAI_API_KEY,
+    // Admin auth
+    ADMIN_SESSION_SECRET: process.env.ADMIN_SESSION_SECRET,
   }
 
   // Check required variables
@@ -188,7 +224,25 @@ export const {
   APPLE_TEAM_ID,
   APPLE_KEY_ID,
   APPLE_PRIVATE_KEY,
-  NEXT_PUBLIC_SITE_URL
+  NEXT_PUBLIC_SITE_URL,
+  NEXT_PUBLIC_BASE_URL,
+  // Email
+  EMAIL_HOST,
+  EMAIL_PORT,
+  EMAIL_SECURE,
+  EMAIL_USER,
+  EMAIL_PASSWORD,
+  EMAIL_FROM,
+  GMAIL_USER,
+  GMAIL_APP_PASSWORD,
+  // Push notifications
+  NEXT_PUBLIC_VAPID_PUBLIC_KEY,
+  VAPID_PRIVATE_KEY,
+  VAPID_EMAIL,
+  // AI
+  OPENAI_API_KEY,
+  // Admin auth
+  ADMIN_SESSION_SECRET,
 } = env
 
 // Helper to check if OAuth providers are configured

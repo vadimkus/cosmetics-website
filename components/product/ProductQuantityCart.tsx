@@ -2,7 +2,7 @@
 
 import { User } from '@/types/user'
 import { ShoppingCart, Heart, Minus, Plus, MessageCircle, Share2, Check } from 'lucide-react'
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { useTranslation } from '@/hooks/useTranslation'
 import { usePWAMode } from '@/hooks/usePWAMode'
 
@@ -33,6 +33,10 @@ export default function ProductQuantityCart({
   const [isAdding, setIsAdding] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
   const [shareStatus, setShareStatus] = useState<'idle' | 'copied'>('idle')
+  const shareTimerRef = useRef<NodeJS.Timeout | null>(null)
+
+  // Clean up timer on unmount
+  useEffect(() => () => { if (shareTimerRef.current) clearTimeout(shareTimerRef.current) }, [])
   
   // Detect mobile for "Add to Bag" text
   useEffect(() => {
@@ -69,7 +73,7 @@ export default function ProductQuantityCart({
       try {
         await navigator.clipboard.writeText(shareUrl)
         setShareStatus('copied')
-        setTimeout(() => setShareStatus('idle'), 2000)
+        shareTimerRef.current = setTimeout(() => setShareStatus('idle'), 2000)
       } catch {
         // Fallback for older browsers
         const textArea = document.createElement('textarea')
@@ -79,7 +83,7 @@ export default function ProductQuantityCart({
         document.execCommand('copy')
         document.body.removeChild(textArea)
         setShareStatus('copied')
-        setTimeout(() => setShareStatus('idle'), 2000)
+        shareTimerRef.current = setTimeout(() => setShareStatus('idle'), 2000)
       }
     }
   }, [productName, productUrl, t])

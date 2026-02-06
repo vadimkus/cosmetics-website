@@ -1897,6 +1897,42 @@
     "signOutConfirm": "Are you sure you want to sign out?",
     "version": "Version",
     "genosysMobile": "Genosys Mobile",
-    "notifications": "Notifications"
+    "notifications": "Notifications",
+    "pushNotConfigured": "Push notifications are not configured. Please contact support.",
+    "pushLoginRequired": "Please log in again to enable notifications.",
+    "pushFailedPrefix": "Failed to enable notifications:"
+  },
+  "paySuccess": {
+    "title": "Payment Successful!",
+    "subtitle": "Your order has been confirmed and is being processed",
+    "loadingDetails": "Loading order details...",
+    "orderNumber": "Order Number",
+    "customer": "Customer",
+    "email": "Email",
+    "total": "Total",
+    "status": "Status",
+    "paid": "Paid",
+    "processing": "Processing",
+    "orderNotFound": "Order number not found. Please check your email for confirmation.",
+    "confirmationEmail": "A confirmation email has been sent to your email address with order details and tracking information.",
+    "returnToApp": "Return to App",
+    "continueShopping": "Continue Shopping",
+    "viewOrderHistory": "View Order History",
+    "needHelp": "Need help? Contact us at"
+  },
+  "share": {
+    "noContentTitle": "No Content Shared",
+    "noContentDescription": "Share a link or text with Genosys UAE to see it here.",
+    "goToHomepage": "Go to Homepage",
+    "sharedWithGenosys": "Shared with Genosys",
+    "sharedContent": "You shared the following content",
+    "labelTitle": "Title",
+    "labelText": "Text",
+    "labelUrl": "URL",
+    "copied": "Copied!",
+    "copyAll": "Copy All",
+    "browseProducts": "Browse Products",
+    "backToHomepage": "Back to Homepage",
+    "loadingSharedContent": "Loading shared content..."
   }
 }

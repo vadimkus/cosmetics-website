@@ -5,6 +5,7 @@ import { prisma } from '@/lib/database'
 import { sendOrderConfirmationEmail, sendAdminNewOrderNotification } from '@/lib/email'
 import { trackUserAction } from '@/lib/analyticsServer'
 import { debugLog, errorLog, warnLog } from '@/lib/logger'
+import { STRIPE_WEBHOOK_SECRET } from '@/lib/envValidation'
 import { getPreferredEmail } from '@/lib/emailHelpers'
 import { findUserByEmail } from '@/lib/userStorageDb'
 import { isUserDiscountExcludedProduct } from '@/lib/mobileDiscountRules'
@@ -28,7 +29,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    if (!process.env.STRIPE_WEBHOOK_SECRET) {
+    if (!STRIPE_WEBHOOK_SECRET) {
       errorLog('❌ Missing STRIPE_WEBHOOK_SECRET environment variable')
       return NextResponse.json(
         { error: 'Webhook configuration error' },
@@ -39,7 +40,7 @@ export async function POST(request: NextRequest) {
     // Verify webhook signature
     let event: Stripe.Event
     try {
-      event = validateWebhookSignature(body, signature, process.env.STRIPE_WEBHOOK_SECRET)
+      event = validateWebhookSignature(body, signature, STRIPE_WEBHOOK_SECRET)
     } catch (error) {
       errorLog('❌ Webhook signature verification failed:', error)
       return NextResponse.json(
@@ -318,6 +319,8 @@ interface OrderWithItems {
   paymentStatus?: string | null | undefined
   paymentMethod?: string | null | undefined
   discountAmount?: number | null | undefined
+  bundleDiscountPercentage?: number | null | undefined
+  bundleDiscountAmount?: number | null | undefined
   items: OrderItem[]
 }
 
@@ -382,7 +385,9 @@ async function sendConfirmationEmails(order: OrderWithItems) {
       emirate: order.customerEmirate || '',
       locale: order.locale || 'en',
       discountPercentage: hasUserDiscount ? userDiscountPct : undefined,
-      discountAmount: order.discountAmount ?? undefined
+      discountAmount: order.discountAmount ?? undefined,
+      bundleDiscountPercentage: order.bundleDiscountPercentage ?? undefined,
+      bundleDiscountAmount: order.bundleDiscountAmount ?? undefined
     })
 
     debugLog('✅ Customer confirmation email sent for order:', order.orderNumber)
@@ -438,7 +443,9 @@ async function sendConfirmationEmails(order: OrderWithItems) {
       paymentStatus: 'PAID',
       paymentMethod: order.paymentMethod ?? 'Stripe',
       discountPercentage: hasUserDiscount ? userDiscountPct : 0,
-      discountAmount: order.discountAmount ?? 0
+      discountAmount: order.discountAmount ?? 0,
+      bundleDiscountPercentage: order.bundleDiscountPercentage ?? undefined,
+      bundleDiscountAmount: order.bundleDiscountAmount ?? undefined
     })
 
     debugLog('✅ Admin notification sent for order:', order.orderNumber)

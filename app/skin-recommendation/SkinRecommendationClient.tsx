@@ -5,10 +5,18 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useSearchParams, useRouter } from 'next/navigation'
 import { ShoppingCart, Heart, Sparkles, ArrowRight, ArrowLeft, CheckCircle2, Info, Star, Scan, Droplets, Target, Flame, Eye, Eye as EyeIcon, Palette, Clock, Zap, CircleDot, Sun, Moon, User, Brain, Loader2, ShoppingBag, Check } from 'lucide-react'
-import { SkinAnalysisCamera, SkinAnalysisResult } from '@/components/SkinAnalysisCamera'
-import { ARSkinAnalysisCamera } from '@/components/ar'
+import type { SkinAnalysisResult } from '@/components/SkinAnalysisCamera'
 import dynamic from 'next/dynamic'
 
+// Lazy load heavy camera/analysis components (~1800 lines each, camera/AR/AI deps)
+const SkinAnalysisCamera = dynamic(
+  () => import('@/components/SkinAnalysisCamera').then(mod => ({ default: mod.SkinAnalysisCamera })),
+  { ssr: false }
+)
+const ARSkinAnalysisCamera = dynamic(
+  () => import('@/components/ar/ARSkinAnalysisCamera'),
+  { ssr: false }
+)
 // Lazy load Power Animal game
 const PowerAnimalGame = dynamic(() => import('@/components/PowerAnimalGame'), { ssr: false })
 import { useCart } from '@/components/cart/CartProvider'

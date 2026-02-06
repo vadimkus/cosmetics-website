@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useCallback } from 'react'
+import React, { useState, useCallback, useRef, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { RefreshCw, Check, AlertCircle, ShoppingBag } from 'lucide-react'
 import { useCart } from '@/components/cart/CartProvider'
@@ -36,7 +36,7 @@ interface ReorderResult {
   failedItems: string[]
 }
 
-export function QuickReorderButton({
+export const QuickReorderButton = React.memo(function QuickReorderButton({
   orderItems,
   orderNumber: _orderNumber, // Kept for future analytics
   className,
@@ -49,7 +49,11 @@ export function QuickReorderButton({
   const haptic = useHapticFeedback()
   const [status, setStatus] = useState<ReorderStatus>('idle')
   const [result, setResult] = useState<ReorderResult | null>(null)
+  const resetTimerRef = useRef<NodeJS.Timeout | null>(null)
   const isRTL = dir === 'rtl'
+
+  // Clean up timer on unmount
+  useEffect(() => () => { if (resetTimerRef.current) clearTimeout(resetTimerRef.current) }, [])
 
   // Translations
   const translations = {
@@ -138,7 +142,7 @@ export function QuickReorderButton({
       }
 
       // Reset after delay
-      setTimeout(() => {
+      resetTimerRef.current = setTimeout(() => {
         setStatus('idle')
         setResult(null)
       }, 3000)
@@ -146,7 +150,7 @@ export function QuickReorderButton({
     } catch {
       setStatus('error')
       haptic.error()
-      setTimeout(() => {
+      resetTimerRef.current = setTimeout(() => {
         setStatus('idle')
         setResult(null)
       }, 3000)
@@ -294,7 +298,7 @@ export function QuickReorderButton({
       )}
     </div>
   )
-}
+})
 
 /**
  * Buy Again Section - Shows previous orders for quick reorder

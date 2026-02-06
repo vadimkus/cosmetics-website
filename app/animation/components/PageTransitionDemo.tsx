@@ -111,7 +111,7 @@ export default function PageTransitionDemo() {
           {Object.keys(pageVariants).map((type) => (
             <motion.button
               key={type}
-              onClick={() => setTransitionType(type as any)}
+              onClick={() => setTransitionType(type as 'slideLeft' | 'fade' | 'flip')}
               className={`
                 px-4 py-2 rounded-md text-sm font-medium transition-all
                 ${transitionType === type ? 'bg-white shadow-md text-gray-800' : 'text-gray-600 hover:text-gray-800'}

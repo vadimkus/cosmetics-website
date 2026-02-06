@@ -1906,6 +1906,42 @@
     "signOutConfirm": "Вы уверены, что хотите выйти?",
     "version": "Версия",
     "genosysMobile": "Genosys Mobile",
-    "notifications": "Уведомления"
+    "notifications": "Уведомления",
+    "pushNotConfigured": "Push-уведомления не настроены. Пожалуйста, обратитесь в поддержку.",
+    "pushLoginRequired": "Пожалуйста, войдите снова, чтобы включить уведомления.",
+    "pushFailedPrefix": "Не удалось включить уведомления:"
+  },
+  "paySuccess": {
+    "title": "Оплата прошла успешно!",
+    "subtitle": "Ваш заказ подтверждён и обрабатывается",
+    "loadingDetails": "Загрузка деталей заказа...",
+    "orderNumber": "Номер заказа",
+    "customer": "Клиент",
+    "email": "Эл. почта",
+    "total": "Итого",
+    "status": "Статус",
+    "paid": "Оплачен",
+    "processing": "В обработке",
+    "orderNotFound": "Номер заказа не найден. Пожалуйста, проверьте вашу электронную почту для подтверждения.",
+    "confirmationEmail": "На ваш адрес электронной почты отправлено письмо с подтверждением заказа и информацией об отслеживании.",
+    "returnToApp": "Вернуться в приложение",
+    "continueShopping": "Продолжить покупки",
+    "viewOrderHistory": "История заказов",
+    "needHelp": "Нужна помощь? Свяжитесь с нами по адресу"
+  },
+  "share": {
+    "noContentTitle": "Нет общего контента",
+    "noContentDescription": "Поделитесь ссылкой или текстом с Genosys UAE, чтобы увидеть его здесь.",
+    "goToHomepage": "На главную",
+    "sharedWithGenosys": "Поделились с Genosys",
+    "sharedContent": "Вы поделились следующим содержимым",
+    "labelTitle": "Заголовок",
+    "labelText": "Текст",
+    "labelUrl": "Ссылка",
+    "copied": "Скопировано!",
+    "copyAll": "Копировать всё",
+    "browseProducts": "Просмотр товаров",
+    "backToHomepage": "Вернуться на главную",
+    "loadingSharedContent": "Загрузка общего контента..."
   }
 }

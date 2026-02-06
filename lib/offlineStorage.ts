@@ -18,7 +18,7 @@ export interface OfflineFavorite {
 
 export interface OfflineAction {
   type: 'add_to_cart' | 'remove_from_cart' | 'add_favorite' | 'remove_favorite'
-  data: any
+  data: Record<string, unknown>
   timestamp: number
   synced: boolean
 }
@@ -135,7 +135,7 @@ class OfflineStorage {
   }
 
   // Offline actions tracking
-  private addOfflineAction(type: OfflineAction['type'], data: any): void {
+  private addOfflineAction(type: OfflineAction['type'], data: OfflineAction['data']): void {
     try {
       const actions = this.getOfflineActions()
       actions.push({

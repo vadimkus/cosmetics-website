@@ -12,6 +12,7 @@ import { useTranslation } from '@/hooks/useTranslation'
 import { useHapticFeedback } from '@/hooks/useHapticFeedback'
 import { type FaceDetectionResult } from '@/hooks/useFaceMesh'
 import { cn } from '@/lib/utils'
+import { debugLog } from '@/lib/logger'
 import { 
   analyzeMultipleZones, 
   analyzeGender, 
@@ -287,7 +288,7 @@ export function ARSkinAnalysisCamera({
           // Fallback: try to play after a short delay if events don't fire
           setTimeout(() => {
             if (!resolved && video.readyState >= 1) {
-              console.log('Video readyState:', video.readyState, '- attempting play')
+              debugLog('Video readyState:', video.readyState, '- attempting play')
               handleReady()
             }
           }, 2000)
@@ -311,9 +312,9 @@ export function ARSkinAnalysisCamera({
       setUseFaceMeshDetection(meshLoaded)
       
       if (meshLoaded) {
-        console.log('MediaPipe Face Mesh loaded - using 468 landmarks')
+        debugLog('MediaPipe Face Mesh loaded - using 468 landmarks')
       } else {
-        console.log('Face Mesh not available - using fallback analysis')
+        debugLog('Face Mesh not available - using fallback analysis')
       }
       
       setARState('ready')

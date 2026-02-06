@@ -342,6 +342,9 @@ export function useVoiceSearch(options: UseVoiceSearchOptions = {}): UseVoiceSea
     setStatus('idle')
   }, [])
 
+  // Clean up on unmount
+  useEffect(() => () => { stopListening() }, [stopListening])
+
   const toggleListening = useCallback(() => {
     if (isListening) {
       stopListening()

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { sendEmail, generateSupportLinkOrderHTML } from '@/lib/email'
+import { sendEmail, generateSupportLinkOrderHTML, type OrderHTMLData } from '@/lib/email'
 import { errorLog, debugLog } from '@/lib/logger'
 import { prisma } from '@/lib/database'
 import { requireDevelopment } from '@/lib/apiErrorHandler'
@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
     const { email, orderNumber } = await request.json()
     const testEmail = email || 'f.this.that@gmail.com'
 
-    let supportOrderData: any
+    let supportOrderData: OrderHTMLData
 
     // If orderNumber is provided, fetch from database
     if (orderNumber) {

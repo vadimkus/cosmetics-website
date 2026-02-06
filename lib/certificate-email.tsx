@@ -4,6 +4,7 @@
  */
 
 import { SITE_URL } from '@/lib/siteConfig'
+import { EMAIL_HOST, EMAIL_PORT, EMAIL_SECURE, EMAIL_USER, EMAIL_PASSWORD, EMAIL_FROM } from '@/lib/envValidation'
 
 interface CertificateEmailProps {
   recipientName?: string
@@ -205,12 +206,12 @@ export async function sendCertificateEmail(props: CertificateEmailProps): Promis
     
     // Create transporter (configure with your SMTP settings)
     const transporter = nodemailer.createTransport({
-      host: process.env.EMAIL_HOST,
-      port: Number(process.env.EMAIL_PORT || 587),
-      secure: process.env.EMAIL_SECURE === 'true',
+      host: EMAIL_HOST,
+      port: Number(EMAIL_PORT || 587),
+      secure: EMAIL_SECURE === 'true',
       auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASSWORD,
+        user: EMAIL_USER,
+        pass: EMAIL_PASSWORD,
       },
     })
 
@@ -218,7 +219,7 @@ export async function sendCertificateEmail(props: CertificateEmailProps): Promis
 
     // Send email
     await transporter.sendMail({
-      from: `"GENOSYS Middle East" <${process.env.EMAIL_FROM || 'sales@genosys.ae'}>`,
+      from: `"GENOSYS Middle East" <${EMAIL_FROM || 'sales@genosys.ae'}>`,
       to: props.recipientEmail,
       subject,
       text,

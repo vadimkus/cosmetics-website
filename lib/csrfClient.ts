@@ -77,7 +77,7 @@ export function getCsrfHeaders(): HeadersInit {
 /**
  * Add CSRF token to form data
  */
-export function addCsrfToBody(body: Record<string, any>): Record<string, any> {
+export function addCsrfToBody(body: Record<string, unknown>): Record<string, unknown> {
   const token = getCsrfToken()
   if (token) {
     return {

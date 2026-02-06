@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
 import SkinRecommendationClient from './SkinRecommendationClient'
+import { SkinRecommendationErrorBoundary } from '@/components/error-boundaries'
 
 export const metadata: Metadata = {
   title: 'Personalized Skin Recommendation | GENOSYS Professional Korean Dermacosmetics',
@@ -61,6 +62,10 @@ export const metadata: Metadata = {
 }
 
 export default function SkinRecommendationPage() {
-  return <SkinRecommendationClient />
+  return (
+    <SkinRecommendationErrorBoundary>
+      <SkinRecommendationClient />
+    </SkinRecommendationErrorBoundary>
+  )
 }
 

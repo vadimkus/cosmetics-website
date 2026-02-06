@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { errorLog, debugLog } from '@/lib/logger'
+import { STRIPE_SECRET_KEY, MOBILE_APP_KEY, NEXT_PUBLIC_BASE_URL } from '@/lib/envValidation'
 import Stripe from 'stripe'
 import { validateMobileAuth, extractTokenFromHeader } from '@/lib/jwt'
 import { findUserByEmail } from '@/lib/userStorageDb'
@@ -19,7 +20,7 @@ import { isUserDiscountExcludedProduct } from '@/lib/mobileDiscountRules'
  * Optional: x-user-id header for user context
  */
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+const stripe = new Stripe(STRIPE_SECRET_KEY!, {
   apiVersion: '2025-09-30.clover'
 })
 
@@ -64,7 +65,7 @@ export async function POST(request: NextRequest) {
   try {
     // Security: Validate API Key
     const apiKey = request.headers.get('x-api-key')
-    const expectedKey = process.env.MOBILE_APP_KEY
+    const expectedKey = MOBILE_APP_KEY
     
     if (!expectedKey) {
       errorLog('[MOBILE_STRIPE] MOBILE_APP_KEY not configured')
@@ -83,7 +84,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Validate Stripe configuration
-    if (!process.env.STRIPE_SECRET_KEY) {
+    if (!STRIPE_SECRET_KEY) {
       errorLog('[MOBILE_STRIPE] Stripe secret key not configured')
       return NextResponse.json(
         { success: false, error: 'Payment service unavailable' },
@@ -210,7 +211,7 @@ export async function POST(request: NextRequest) {
       const serverTotal = serverSubtotal + serverShipping
       const serverVatAmount = calculateVatIncluded(serverTotal)
 
-      const lineItems: Stripe.Checkout.SessionCreateParams.LineItem[] = existing.items.map((it: any) => ({
+      const lineItems: Stripe.Checkout.SessionCreateParams.LineItem[] = existing.items.map((it) => ({
         price_data: {
           currency: 'aed',
           unit_amount: Math.round((Number(it.price) || 0) * 100),
@@ -241,8 +242,8 @@ export async function POST(request: NextRequest) {
         })
       }
 
-      const successUrl = `${process.env.NEXT_PUBLIC_BASE_URL || 'https://genosys.ae'}/pay/success?orderNumber=${existing.orderNumber}`
-      const cancelUrl = `${process.env.NEXT_PUBLIC_BASE_URL || 'https://genosys.ae'}/pay/cancel?orderNumber=${existing.orderNumber}`
+      const successUrl = `${NEXT_PUBLIC_BASE_URL || 'https://genosys.ae'}/pay/success?orderNumber=${existing.orderNumber}`
+      const cancelUrl = `${NEXT_PUBLIC_BASE_URL || 'https://genosys.ae'}/pay/cancel?orderNumber=${existing.orderNumber}`
 
       const session = await stripe.checkout.sessions.create({
         mode: 'payment',
@@ -331,6 +332,10 @@ export async function POST(request: NextRequest) {
     let discountAmount = 0
     const validatedItems: CheckoutItem[] = []
 
+    // User discount (constant across all items)
+    const pct = Number(user.discountPercentage)
+    const hasUserDiscount = Number.isFinite(pct) && pct > 0 && pct < 100
+
     for (const item of items) {
       // Verify product exists and get current price
       const product = await prisma.product.findFirst({
@@ -376,8 +381,6 @@ export async function POST(request: NextRequest) {
       const qty = Number(item.quantity) || 0
 
       // Apply user discount unless product is excluded
-      const pct = Number(user.discountPercentage)
-      const hasUserDiscount = Number.isFinite(pct) && pct > 0 && pct < 100
       const excluded = isPromo ? true : isUserDiscountExcludedProduct(product)
       const discountedUnit = (!isPromo && !excluded && hasUserDiscount) ? (baseUnit * (1 - pct / 100)) : baseUnit
       const unitPrice = Number(discountedUnit)
@@ -400,6 +403,13 @@ export async function POST(request: NextRequest) {
       })
     }
 
+    // Round accumulated values to 2 decimal places (prevent floating-point drift)
+    serverSubtotal = Math.round(serverSubtotal * 100) / 100
+    discountAmount = Math.round(discountAmount * 100) / 100
+
+    // Capture user discount percentage at time of order for waterfall display
+    const userDiscountPctForOrder = (hasUserDiscount && pct > 0) ? pct : null
+
     const serverShipping: number = calculateMobileShipping(serverSubtotal, emirate)
     const serverTotal: number = serverSubtotal + serverShipping
     const serverVatAmount: number = calculateVatIncluded(serverTotal)
@@ -407,6 +417,7 @@ export async function POST(request: NextRequest) {
     debugLog('[MOBILE_STRIPE] Server-calculated totals:', {
       subtotal: serverSubtotal,
       discountAmount,
+      discountPercentage: userDiscountPctForOrder,
       shipping: serverShipping,
       vat: serverVatAmount,
       total: serverTotal
@@ -430,7 +441,10 @@ export async function POST(request: NextRequest) {
           customerEmirate: emirate,
           orderNotes: orderNotes ? String(orderNotes).trim() : null,
           subtotal: serverSubtotal,
+          discountPercentage: userDiscountPctForOrder,
           discountAmount: discountAmount,
+          // bundleDiscountPercentage / bundleDiscountAmount default to 0/null in schema
+          // (native mobile app does not currently support customer-built bundles)
           shipping: serverShipping,
           vat: serverVatAmount,
           total: serverTotal,
@@ -457,7 +471,10 @@ export async function POST(request: NextRequest) {
           customerEmirate: emirate,
           orderNotes: orderNotes ? String(orderNotes).trim() : null,
           subtotal: serverSubtotal,
+          discountPercentage: userDiscountPctForOrder,
           discountAmount: discountAmount,
+          // bundleDiscountPercentage / bundleDiscountAmount default to 0/null in schema
+          // (native mobile app does not currently support customer-built bundles)
           shipping: serverShipping,
           vat: serverVatAmount,
           total: serverTotal,
@@ -521,8 +538,8 @@ export async function POST(request: NextRequest) {
     }
 
     // Create Stripe Checkout Session
-    const successUrl = `${process.env.NEXT_PUBLIC_BASE_URL || 'https://genosys.ae'}/pay/success?orderNumber=${orderNumber}`
-    const cancelUrl = `${process.env.NEXT_PUBLIC_BASE_URL || 'https://genosys.ae'}/pay/cancel?orderNumber=${orderNumber}`
+    const successUrl = `${NEXT_PUBLIC_BASE_URL || 'https://genosys.ae'}/pay/success?orderNumber=${orderNumber}`
+    const cancelUrl = `${NEXT_PUBLIC_BASE_URL || 'https://genosys.ae'}/pay/cancel?orderNumber=${orderNumber}`
 
     const session = await stripe.checkout.sessions.create({
       mode: 'payment',

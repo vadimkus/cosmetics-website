@@ -219,7 +219,7 @@ export const trackUserAction = async (data: {
   userEmail?: string;
   details?: string;
   userId?: string;
-  metadata?: any;
+  metadata?: Record<string, unknown>;
 }) => {
   // This function is for server-side tracking
   // For client-side tracking, use the gtag functions in analytics.ts

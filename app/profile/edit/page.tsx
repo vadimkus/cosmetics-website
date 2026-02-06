@@ -69,6 +69,14 @@ export default function EditProfilePage() {
   const [profilePicture, setProfilePicture] = useState<string | null>(null)
   const [isUploadingPhoto, setIsUploadingPhoto] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
+  const profileEventTimerRef = useRef<NodeJS.Timeout | null>(null)
+  const deleteRedirectTimerRef = useRef<NodeJS.Timeout | null>(null)
+  
+  // Clean up timers on unmount
+  useEffect(() => () => {
+    if (profileEventTimerRef.current) clearTimeout(profileEventTimerRef.current)
+    if (deleteRedirectTimerRef.current) clearTimeout(deleteRedirectTimerRef.current)
+  }, [])
   
   // Toast notification state
   const [toasts, setToasts] = useState<Toast[]>([])
@@ -226,7 +234,7 @@ export default function EditProfilePage() {
         // Also refresh user data in auth context
         if (window.location) {
           // Give a moment for the toast to show, then refresh auth state
-          setTimeout(() => {
+          profileEventTimerRef.current = setTimeout(() => {
             window.dispatchEvent(new CustomEvent('profile-updated'))
           }, 500)
         }
@@ -289,7 +297,7 @@ export default function EditProfilePage() {
         setShowDeleteModal(false)
         showToast(locale === 'ar' ? 'تم حذف حسابك بنجاح.' : locale === 'ru' ? 'Ваш аккаунт успешно удален.' : 'Your account has been deleted successfully.', 'success')
         // Redirect to login page after a short delay
-        setTimeout(() => {
+        deleteRedirectTimerRef.current = setTimeout(() => {
           router.push(getLocalizedPath('/login', locale))
         }, 1000)
       } else {

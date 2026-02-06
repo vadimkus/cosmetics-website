@@ -85,6 +85,9 @@ export default function EnhancedProductImage({
     'f3f4f6'
   )
 
+  // Clean up hover timeout on unmount
+  useEffect(() => () => { if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current) }, [])
+
   // Handle hover for multiple images
   useEffect(() => {
     if (!enableHover || productImages.length <= 1) return

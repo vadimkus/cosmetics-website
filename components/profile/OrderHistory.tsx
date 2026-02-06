@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { Package, ShoppingBag, Calendar, X, CreditCard, Truck, CheckCircle, Clock, Fish, FileText, Loader2, MapPin } from 'lucide-react'
 import { Order, OrderItem } from '@prisma/client'
 import StatusBadge from '@/components/shared/StatusBadge'
@@ -33,6 +33,10 @@ export default function OrderHistory({ orders, loadingOrders, onCancelOrder }: O
   const [generatingInvoiceId, setGeneratingInvoiceId] = useState<string | null>(null)
   const [invoiceSuccess, setInvoiceSuccess] = useState<string | null>(null)
   const [invoiceError, setInvoiceError] = useState<string | null>(null)
+  const invoiceTimerRef = useRef<NodeJS.Timeout | null>(null)
+
+  // Clean up timer on unmount
+  useEffect(() => () => { if (invoiceTimerRef.current) clearTimeout(invoiceTimerRef.current) }, [])
 
   // Generate and send invoice for a completed order
   const generateInvoice = async (order: OrderWithItems) => {
@@ -86,14 +90,14 @@ export default function OrderHistory({ orders, loadingOrders, onCancelOrder }: O
 
       if (response.ok) {
         setInvoiceSuccess(order.id)
-        setTimeout(() => setInvoiceSuccess(null), 3000)
+        invoiceTimerRef.current = setTimeout(() => setInvoiceSuccess(null), 3000)
       } else {
         throw new Error('Failed to generate invoice')
       }
     } catch (error) {
       errorLog('Error generating invoice:', error)
       setInvoiceError(order.id)
-      setTimeout(() => setInvoiceError(null), 3000)
+      invoiceTimerRef.current = setTimeout(() => setInvoiceError(null), 3000)
     } finally {
       setGeneratingInvoiceId(null)
     }

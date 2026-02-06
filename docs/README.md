@@ -10,6 +10,7 @@
 |----------|----------|-------------|
 | 🔴 **CRITICAL** | [PROJECT_GUIDE.md](./PROJECT_GUIDE.md) | **Start here!** Tech stack, project structure, patterns |
 | 🔴 **CRITICAL** | [DESIGN_SYSTEM.md](./DESIGN_SYSTEM.md) | Colors, typography, components |
+| 🟡 **Important** | [PRICING_DISCOUNT_AUDIT.md](./PRICING_DISCOUNT_AUDIT.md) | Pricing logic, discount rules, calculation reference |
 | 🟡 **Important** | [EMAIL_TEMPLATES.md](./EMAIL_TEMPLATES.md) | Order email format specification |
 | 🟡 **Important** | [ORDERS_PAGE.md](./ORDERS_PAGE.md) | Orders page display format |
 | 🟡 **Important** | [SUCCESS_PAGE.md](./SUCCESS_PAGE.md) | Order success page - design, API, translations |
@@ -45,7 +46,8 @@
 
 | File | Description |
 |------|-------------|
-| [SUCCESS_PAGE.md](./SUCCESS_PAGE.md) | **NEW** Order success page - design, API, translations |
+| [PRICING_DISCOUNT_AUDIT.md](./PRICING_DISCOUNT_AUDIT.md) | **NEW** Full pricing/discount audit across all channels (web + mobile) |
+| [SUCCESS_PAGE.md](./SUCCESS_PAGE.md) | Order success page - design, API, translations |
 | [ORDERS_PAGE.md](./ORDERS_PAGE.md) | Customer orders page display format |
 | [ADMIN_ORDERS_BUGS_FIXED.md](./ADMIN_ORDERS_BUGS_FIXED.md) | Admin orders panel fixes |
 | [MOBILE_ORDER_DELETION_SUMMARY.md](./MOBILE_ORDER_DELETION_SUMMARY.md) | Order cancellation feature |
@@ -228,6 +230,14 @@
 
 ---
 
+### 🛠️ Codebase Quality
+
+| File | Description |
+|------|-------------|
+| [CODEBASE_IMPROVEMENTS_P1_P3.md](./CODEBASE_IMPROVEMENTS_P1_P3.md) | **NEW** P1-P3 improvements: file splits, SWR, service layer, error boundaries, setTimeout cleanup, env centralization, translations (105 files, build passing) |
+
+---
+
 ### 🔍 SEO & Blog
 
 | File | Description |
@@ -279,7 +289,8 @@
 
 | File | Description |
 |------|-------------|
-| [SESSION_CHANGES_2026-02-05.md](./SESSION_CHANGES_2026-02-05.md) | **NEW** Bundle progress bar, discount breakdown, product detail sheet, swipe gestures |
+| [SESSION_CHANGES_2026-02-06.md](./SESSION_CHANGES_2026-02-06.md) | **NEW** Mobile API pricing audit, discount parity, comprehensive documentation |
+| [SESSION_CHANGES_2026-02-05.md](./SESSION_CHANGES_2026-02-05.md) | Bundle progress bar, discount breakdown, product detail sheet, swipe gestures |
 | [SESSION_CHANGES_2026-02-03.md](./SESSION_CHANGES_2026-02-03.md) | Bundle Builder UX, Build Your Set banner, ChatWidget i18n, 66+ AR/RU translations |
 | [SESSION_CHANGES_2026-02-02.md](./SESSION_CHANGES_2026-02-02.md) | Bundle Builder feature, price hiding, corporate colors |
 | [SESSION_CHANGES_2026-02-01.md](./SESSION_CHANGES_2026-02-01.md) | Mobile footer Chrome fix, cart reactivity, Beauty Box 62, Product 51 recommendation |
@@ -350,4 +361,4 @@ cosmetics-website/
 
 ---
 
-*Last updated: February 5, 2026*
+*Last updated: February 6, 2026*

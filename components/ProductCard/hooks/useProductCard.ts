@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useCallback, useEffect } from 'react'
+import { useState, useCallback, useEffect, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import { Product } from '@/types'
 import { useCart } from '@/components/cart/CartProvider'
@@ -47,6 +47,16 @@ export function useProductCard(product: Product): UseProductCardReturn {
   const [isLoginMode, setIsLoginMode] = useState(true)
   const [isMobile, setIsMobile] = useState(false)
   const [addedToCartMessage, setAddedToCartMessage] = useState('')
+  const addTimerRef = useRef<NodeJS.Timeout | null>(null)
+  const messageTimerRef = useRef<NodeJS.Timeout | null>(null)
+  const favoriteTimerRef = useRef<NodeJS.Timeout | null>(null)
+
+  // Clean up timers on unmount
+  useEffect(() => () => {
+    if (addTimerRef.current) clearTimeout(addTimerRef.current)
+    if (messageTimerRef.current) clearTimeout(messageTimerRef.current)
+    if (favoriteTimerRef.current) clearTimeout(favoriteTimerRef.current)
+  }, [])
   
   // Derived values
   const productId = product.productNumber || product.id
@@ -96,9 +106,9 @@ export function useProductCard(product: Product): UseProductCardReturn {
     addItem(product, 1, '', '')
     setAddedToCartMessage(`${product.name} ${t('product.addedToCart') || 'added to cart'}`)
     
-    setTimeout(() => {
+    addTimerRef.current = setTimeout(() => {
       setIsAdding(false)
-      setTimeout(() => setAddedToCartMessage(''), 1000)
+      messageTimerRef.current = setTimeout(() => setAddedToCartMessage(''), 1000)
     }, 500)
   }, [addItem, product, haptic, t])
   
@@ -108,7 +118,7 @@ export function useProductCard(product: Product): UseProductCardReturn {
     haptic.double()
     setIsTogglingFavorite(true)
     toggleFavorite(product)
-    setTimeout(() => setIsTogglingFavorite(false), 300)
+    favoriteTimerRef.current = setTimeout(() => setIsTogglingFavorite(false), 300)
   }, [toggleFavorite, product, haptic])
   
   const handleLoginClick = useCallback((e: React.MouseEvent) => {

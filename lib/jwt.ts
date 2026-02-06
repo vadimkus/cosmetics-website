@@ -1,13 +1,14 @@
 // Simple JWT implementation since jsonwebtoken is not installed
 // For production use, install jsonwebtoken: npm install jsonwebtoken @types/jsonwebtoken
 import { errorLog, debugLog, warnLog } from '@/lib/logger'
+import { JWT_SECRET as ENV_JWT_SECRET, DATABASE_URL as ENV_DATABASE_URL, MOBILE_APP_KEY } from '@/lib/envValidation'
 import crypto from 'crypto'
 
 // JWT configuration - checked at runtime to avoid build-time errors
 let _jwtSecretWarned = false
 
 function getJwtSecret(): string {
-  const secret = process.env.JWT_SECRET
+  const secret = ENV_JWT_SECRET
   
   if (!secret) {
     // Warn once about missing JWT_SECRET (don't throw - let fallback work)
@@ -21,8 +22,8 @@ function getJwtSecret(): string {
       _jwtSecretWarned = true
     }
     // Use a deterministic fallback based on other env vars if available
-    const fallback = process.env.DATABASE_URL 
-      ? `fallback-${Buffer.from(process.env.DATABASE_URL).toString('base64').slice(0, 32)}`
+    const fallback = ENV_DATABASE_URL 
+      ? `fallback-${Buffer.from(ENV_DATABASE_URL).toString('base64').slice(0, 32)}`
       : 'fallback-secret-for-development-only'
     return fallback
   }
@@ -182,7 +183,7 @@ export interface MobileAuthResult {
  */
 export function validateMobileAuth(apiKey: string | null, token: string | null): MobileAuthResult {
   // Check API key first
-  const expectedKey = process.env.MOBILE_APP_KEY
+  const expectedKey = MOBILE_APP_KEY
   if (!expectedKey) {
     return {
       valid: false,

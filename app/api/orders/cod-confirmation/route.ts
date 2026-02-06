@@ -53,9 +53,7 @@ export async function POST(request: NextRequest) {
       shippingCost,
       vatAmount,
       total,
-      locale = 'en',
-      bundleDiscountPercentage,
-      bundleDiscountAmount
+      locale = 'en'
     } = orderData
 
     // Validate required fields
@@ -87,8 +85,8 @@ export async function POST(request: NextRequest) {
     const userDiscountPct = Number(user?.discountPercentage || 0)
     const hasUserDiscount = Number.isFinite(userDiscountPct) && userDiscountPct > 0 && userDiscountPct < 100
     
-    // PRODUCTION DEBUG - using console.log to ensure visibility in Vercel logs
-    console.log('🎟️ COD DISCOUNT DEBUG:', JSON.stringify({
+    // Production debug logging
+    debugLog('🎟️ COD DISCOUNT DEBUG:', JSON.stringify({
       orderNumber,
       customerEmail,
       userFound: !!user,
@@ -99,27 +97,56 @@ export async function POST(request: NextRequest) {
       hasUserDiscount
     }))
 
-    // Calculate discount amount by reverse-calculating from already-discounted prices
-    // Frontend sends already-discounted prices, so we need to figure out what the discount was
-    let discountAmount = 0
-    if (hasUserDiscount) {
-      for (const item of items as Array<{ id?: string; name: string; price: number; quantity: number }>) {
-        const excluded = isUserDiscountExcludedProduct({ name: item.name, id: item.id })
+    // Calculate discount amounts by reverse-calculating from already-discounted prices
+    // Frontend sends already-discounted prices (after both VIP and bundle), so we reverse
+    // both discount layers to get the original amounts for each discount type.
+    // This matches the logic in /api/stripe/create-payment-intent/route.ts
+    let discountAmount = 0  // User discount
+    let bundleDiscountAmountCalc = 0  // Bundle discount (calculated server-side)
+    let bundleDiscountPercentCalc: number | null = null
+
+    for (const item of items as Array<{ id?: string; name: string; price: number; quantity: number; bundleDiscount?: number }>) {
+      const itemPrice = item.price  // Already the final discounted price
+
+      if (item.bundleDiscount && item.bundleDiscount > 0) {
+        // Bundle item: reverse both discounts in correct order
+        bundleDiscountPercentCalc = item.bundleDiscount
+
+        // Step 1: Reverse bundle discount → price after user discount only
+        const priceBeforeBundleDiscount = itemPrice / (1 - item.bundleDiscount / 100)
+        const itemBundleDiscount = (priceBeforeBundleDiscount - itemPrice) * item.quantity
+        bundleDiscountAmountCalc += itemBundleDiscount
+
+        // Step 2: Reverse user discount → original list price
+        if (hasUserDiscount) {
+          const excluded = isUserDiscountExcludedProduct({ name: item.name })
+          if (!excluded) {
+            const originalPrice = priceBeforeBundleDiscount / (1 - userDiscountPct / 100)
+            const itemUserDiscount = (originalPrice - priceBeforeBundleDiscount) * item.quantity
+            discountAmount += itemUserDiscount
+          }
+        }
+      } else if (hasUserDiscount) {
+        // Non-bundle item with user discount only
+        const excluded = isUserDiscountExcludedProduct({ name: item.name })
         if (!excluded) {
-          // Reverse: discountedPrice = originalPrice * (1 - pct/100)
-          // So: originalPrice = discountedPrice / (1 - pct/100)
-          const discountedPrice = item.price
-          const originalPrice = discountedPrice / (1 - userDiscountPct / 100)
-          const itemDiscount = (originalPrice - discountedPrice) * item.quantity
+          const originalPrice = itemPrice / (1 - userDiscountPct / 100)
+          const itemDiscount = (originalPrice - itemPrice) * item.quantity
           discountAmount += itemDiscount
         }
       }
     }
+
+    // Round to 2 decimal places
+    discountAmount = Math.round(discountAmount * 100) / 100
+    bundleDiscountAmountCalc = Math.round(bundleDiscountAmountCalc * 100) / 100
     
-    console.log('🎟️ COD DISCOUNT CALCULATED:', JSON.stringify({
+    debugLog('🎟️ COD DISCOUNT CALCULATED:', JSON.stringify({
       orderNumber,
       discountAmount: discountAmount.toFixed(2),
-      discountPercentage: userDiscountPct
+      discountPercentage: userDiscountPct,
+      bundleDiscountAmount: bundleDiscountAmountCalc.toFixed(2),
+      bundleDiscountPercentage: bundleDiscountPercentCalc
     }))
 
     // Save order to database
@@ -154,8 +181,8 @@ export async function POST(request: NextRequest) {
       subtotal,
       discountPercentage: hasUserDiscount ? userDiscountPct : 0,
       discountAmount: discountAmount > 0 ? discountAmount : 0,
-      ...(bundleDiscountPercentage ? { bundleDiscountPercentage } : {}),
-      bundleDiscountAmount: bundleDiscountAmount || 0,
+      ...(bundleDiscountPercentCalc ? { bundleDiscountPercentage: bundleDiscountPercentCalc } : {}),
+      bundleDiscountAmount: bundleDiscountAmountCalc,
       shipping: shippingCost,
       vat: vatAmount,
       total,
@@ -188,8 +215,8 @@ export async function POST(request: NextRequest) {
         subtotal: dbOrder.subtotal,
         discountPercentage: dbOrder.discountPercentage ?? 0,
         discountAmount: dbOrder.discountAmount ?? 0,
-        bundleDiscountPercentage: dbOrder.bundleDiscountPercentage ?? null,
-        bundleDiscountAmount: dbOrder.bundleDiscountAmount ?? 0,
+        bundleDiscountPercentage: bundleDiscountPercentCalc,
+        bundleDiscountAmount: bundleDiscountAmountCalc,
         shipping: dbOrder.shipping ?? 0,
         vat: dbOrder.vat,
         total: dbOrder.total,
@@ -228,6 +255,8 @@ export async function POST(request: NextRequest) {
       emirate: (emirate && emirate.trim()) || 'N/A',
       discountPercentage: hasUserDiscount ? userDiscountPct : undefined,
       discountAmount: discountAmount > 0 ? discountAmount : undefined,
+      bundleDiscountPercentage: bundleDiscountPercentCalc ?? undefined,
+      bundleDiscountAmount: bundleDiscountAmountCalc > 0 ? bundleDiscountAmountCalc : undefined,
       items: items.map((item: { id?: string; name: string; quantity: number; price: number; image?: string; size?: string; color?: string }): OrderHTMLItem => {
         // Enhance with default size if missing
         const itemName = item.name || 'Product'
@@ -241,7 +270,7 @@ export async function POST(request: NextRequest) {
         // Check item type for discount labeling
         const isFreeItem = item.price === 0 || itemName.toLowerCase().includes('(free)')
         const isBundle = itemName.toLowerCase().includes('beauty box') || itemName.toLowerCase().includes('bundle')
-        const isExcludedFromUserDiscount = isUserDiscountExcludedProduct({ name: itemName, id: item.id })
+        const isExcludedFromUserDiscount = isUserDiscountExcludedProduct({ name: itemName })
         const hasUserDiscountApplied = hasUserDiscount && !isExcludedFromUserDiscount && !isFreeItem
         
         // Determine discount label and original price
@@ -355,8 +384,8 @@ export async function POST(request: NextRequest) {
       vatAmount
     }, null, 2))
     
-    console.log('📧 Calling sendAdminNewOrderNotification for COD order:', orderNumber)
-    console.log('🎟️ ADMIN NOTIFICATION DISCOUNT DATA:', JSON.stringify({
+    debugLog('📧 Calling sendAdminNewOrderNotification for COD order:', orderNumber)
+    debugLog('🎟️ ADMIN NOTIFICATION DISCOUNT DATA:', JSON.stringify({
       discountPercentage: hasUserDiscount ? userDiscountPct : undefined,
       discountAmount: discountAmount > 0 ? discountAmount : undefined
     }))
@@ -412,7 +441,9 @@ export async function POST(request: NextRequest) {
       paymentStatus: 'COD',
       paymentMethod: 'Cash on Delivery',
       discountPercentage: hasUserDiscount ? userDiscountPct : undefined,
-      discountAmount: discountAmount > 0 ? discountAmount : undefined
+      discountAmount: discountAmount > 0 ? discountAmount : undefined,
+      bundleDiscountPercentage: bundleDiscountPercentCalc ?? undefined,
+      bundleDiscountAmount: bundleDiscountAmountCalc > 0 ? bundleDiscountAmountCalc : undefined
     })
     
     adminNotificationPromise.then((adminResult) => {

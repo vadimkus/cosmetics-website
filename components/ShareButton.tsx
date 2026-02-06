@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { Share2, Check, Copy, MessageCircle, Send, Instagram } from 'lucide-react'
 import { useWebShare } from '@/hooks/useWebShare'
 import { cn } from '@/lib/utils'
@@ -29,6 +29,10 @@ export default function ShareButton({
   const [isSharing, setIsSharing] = useState(false)
   const [showSuccess, setShowSuccess] = useState(false)
   const [showFallbackMenu, setShowFallbackMenu] = useState(false)
+  const successTimerRef = useRef<NodeJS.Timeout | null>(null)
+
+  // Clean up timer on unmount
+  useEffect(() => () => { if (successTimerRef.current) clearTimeout(successTimerRef.current) }, [])
 
   const shareUrl = url || (typeof window !== 'undefined' ? window.location.href : '')
 
@@ -39,7 +43,7 @@ export default function ShareButton({
       
       if (success) {
         setShowSuccess(true)
-        setTimeout(() => setShowSuccess(false), 2000)
+        successTimerRef.current = setTimeout(() => setShowSuccess(false), 2000)
       }
       setIsSharing(false)
     } else if (showFallback) {
@@ -52,7 +56,7 @@ export default function ShareButton({
       await navigator.clipboard.writeText(`${title}\n\n${text}\n\n${shareUrl}`)
       setShowSuccess(true)
       setShowFallbackMenu(false)
-      setTimeout(() => setShowSuccess(false), 2000)
+      successTimerRef.current = setTimeout(() => setShowSuccess(false), 2000)
     } catch (error) {
       errorLog('Failed to copy to clipboard:', error)
     }

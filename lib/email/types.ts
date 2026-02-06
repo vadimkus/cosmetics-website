@@ -4,102 +4,14 @@
  */
 
 // Email translation sections
-export type EmailTranslationSection = 
-  | 'cod' 
-  | 'supportLink' 
-  | 'stripePaymentConfirmation' 
-  | 'statusUpdate' 
-  | 'welcome' 
-  | 'passwordReset' 
+export type EmailTranslationSection =
+  | 'cod'
+  | 'supportLink'
+  | 'stripePaymentConfirmation'
+  | 'statusUpdate'
+  | 'welcome'
+  | 'passwordReset'
   | 'discountAssigned'
-
-// Order item in emails
-export interface OrderEmailItem {
-  productName: string
-  quantity: number
-  price: number
-  image?: string
-  size?: string
-  color?: string
-}
-
-// Order confirmation email data
-export interface OrderConfirmationEmailData {
-  orderNumber: string
-  customerName: string
-  customerEmail: string
-  items: OrderEmailItem[]
-  subtotal: number
-  shipping: number
-  vat: number
-  total: number
-  address: string
-  emirate: string
-  locale?: string
-}
-
-// Admin new order notification data
-export interface AdminNewOrderEmailData {
-  orderNumber: string
-  customerName: string
-  customerEmail: string
-  customerPhone?: string
-  total: number
-  itemCount: number
-  orderNotes?: string
-  items?: OrderEmailItem[]
-  subtotal?: number
-  shipping?: number
-  vat?: number
-  address?: string
-  emirate?: string
-  paymentMethod?: string
-  paymentStatus?: string
-  locale?: string
-}
-
-// Admin new user notification data
-export interface AdminNewUserEmailData {
-  userName: string
-  userEmail: string
-  userPhone?: string
-  registrationSource?: string
-}
-
-// Order HTML data for generators
-export interface OrderHTMLData {
-  orderNumber: string
-  customerName: string
-  customerEmail: string
-  customerPhone?: string
-  items: OrderEmailItem[]
-  subtotal: number
-  shipping: number
-  vat: number
-  total: number
-  address?: string
-  emirate?: string
-  orderNotes?: string
-  paymentMethod?: string
-  paymentStatus?: string
-  id?: string
-}
-
-// Discount assignment email data
-export interface DiscountEmailData {
-  customerName: string
-  customerEmail: string
-  discountType: 'CLINIC' | 'VIP'
-  discountPercentage: number
-  locale?: string
-}
-
-// Email send result
-export interface EmailSendResult {
-  success: boolean
-  error?: string
-  messageId?: string
-}
 
 // Locale settings for RTL/LTR support
 export interface LocaleSettings {
@@ -110,14 +22,103 @@ export interface LocaleSettings {
   dateLocale: string
 }
 
-// Nodemailer error type
-export interface NodemailerError {
-  code?: string
-  command?: string
+// Order confirmation email data
+export interface OrderConfirmationEmailData {
+  orderNumber: string
+  customerName: string
+  customerEmail: string
+  items: Array<{
+    productName: string
+    quantity: number
+    price: number
+    originalPrice?: number | undefined // Original price before discount
+    image: string
+    size?: string
+    color?: string
+    discountLabel?: string | undefined // e.g., "50% OFF" or "15% OFF - Bundle Discount"
+  }>
+  subtotal: number
+  shipping: number
+  vat: number
+  total: number
+  address: string
+  emirate: string
+  locale?: string
+  discountPercentage?: number | undefined
+  discountAmount?: number | undefined
+  bundleDiscountPercentage?: number | undefined
+  bundleDiscountAmount?: number | undefined
 }
 
-// Email template result
-export interface EmailTemplateResult {
-  subject: string
-  html: string
+// Admin new order notification data
+export interface AdminNewOrderEmailData {
+  orderNumber: string
+  customerName: string
+  customerEmail: string
+  customerPhone?: string | undefined
+  total: number
+  itemCount: number
+  orderNotes?: string | undefined
+  items?: Array<{
+    productName: string
+    quantity: number
+    price: number
+    originalPrice?: number | undefined // Original price before discount
+    image: string
+    size?: string
+    color?: string
+    discountLabel?: string | undefined
+  }> | undefined
+  subtotal?: number | undefined
+  shipping?: number | undefined
+  vat?: number | undefined
+  address?: string | undefined
+  emirate?: string | undefined
+  deviceType?: string | undefined
+  paymentMethod?: string | undefined
+  paymentStatus?: 'PAID' | 'PENDING' | 'COD' | undefined
+  discountPercentage?: number | undefined
+  discountAmount?: number | undefined
+  bundleDiscountPercentage?: number | undefined
+  bundleDiscountAmount?: number | undefined
+}
+
+// Order status update email data
+export interface OrderStatusUpdateEmailData {
+  orderNumber: string
+  customerName: string
+  customerEmail: string
+  status: string
+}
+
+// Order HTML item for HTML generation
+export interface OrderHTMLItem {
+  name: string
+  quantity: number
+  price: number
+  originalPrice?: number | undefined // Original price before discount (for display)
+  image?: string | undefined
+  total?: number | undefined
+  size?: string | undefined
+  color?: string | undefined
+  discountLabel?: string | undefined // e.g., "50% OFF" or "15% OFF - Bundle Discount"
+}
+
+// Order HTML data for HTML generation
+export interface OrderHTMLData {
+  orderNumber: string
+  customerName: string
+  customerEmail: string
+  customerPhone: string
+  customerAddress: string
+  emirate: string
+  items: OrderHTMLItem[]
+  subtotal: number
+  shippingCost: number
+  vatAmount: number
+  total: number
+  discountPercentage?: number | undefined
+  discountAmount?: number | undefined
+  bundleDiscountPercentage?: number | undefined
+  bundleDiscountAmount?: number | undefined
 }

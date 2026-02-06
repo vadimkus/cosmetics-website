@@ -1,6 +1,7 @@
 'use client'
 
 import { useRef, useState, useCallback, useEffect } from 'react'
+import { debugLog } from '@/lib/logger'
 
 /**
  * Face Mesh Hook - MediaPipe Face Landmarks Integration
@@ -167,7 +168,7 @@ export function useFaceMesh(options: UseFaceMeshOptions = {}) {
   const loadModel = useCallback(async (): Promise<boolean> => {
     // Face mesh is temporarily disabled due to package compatibility issues
     // The pixel-based fallback in ARSkinAnalysisCamera provides accurate results
-    console.log('Face mesh disabled - using pixel-based analysis fallback')
+    debugLog('Face mesh disabled - using pixel-based analysis fallback')
     
     setState(prev => ({ 
       ...prev, 

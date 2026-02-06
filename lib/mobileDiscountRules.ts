@@ -9,12 +9,19 @@
  *   - Any product marked noDiscount=true
  */
 
+/** Minimal product shape needed for discount rule checks */
+interface DiscountCheckProduct {
+  category?: string | null
+  name?: string | null
+  noDiscount?: boolean
+}
+
 export const normalizeText = (v: unknown) =>
   String(v ?? '')
     .trim()
     .toLowerCase();
 
-export const isBeautyBoxProduct = (product: any): boolean => {
+export const isBeautyBoxProduct = (product: DiscountCheckProduct): boolean => {
   const catRaw = normalizeText(product?.category);
   const name = normalizeText(product?.name);
   const catCompact = catRaw.replace(/[^a-z0-9]/g, '');
@@ -25,7 +32,7 @@ export const isBeautyBoxProduct = (product: any): boolean => {
   return false;
 };
 
-export const isDeviceProduct = (product: any): boolean => {
+export const isDeviceProduct = (product: DiscountCheckProduct): boolean => {
   const cat = normalizeText(product?.category);
   if (cat === 'device' || cat.includes('device')) return true;
 
@@ -38,12 +45,12 @@ export const isDeviceProduct = (product: any): boolean => {
   );
 };
 
-export const isHydroCoolMask = (product: any): boolean => {
+export const isHydroCoolMask = (product: DiscountCheckProduct): boolean => {
   const name = normalizeText(product?.name);
   return name.includes('hydro') && name.includes('cool') && name.includes('mask');
 };
 
-export const isUserDiscountExcludedProduct = (product: any): boolean => {
+export const isUserDiscountExcludedProduct = (product: DiscountCheckProduct): boolean => {
   if (!product) return false;
   if (product?.noDiscount === true) return true;
   return isBeautyBoxProduct(product) || isDeviceProduct(product) || isHydroCoolMask(product);

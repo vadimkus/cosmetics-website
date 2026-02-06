@@ -76,7 +76,7 @@ export const deepClone = <T>(obj: T): T => {
 /**
  * Check if value is empty
  */
-export const isEmpty = (value: any): boolean => {
+export const isEmpty = (value: unknown): boolean => {
   if (value === null || value === undefined) return true
   if (typeof value === 'string') return value.trim().length === 0
   if (Array.isArray(value)) return value.length === 0
@@ -210,7 +210,7 @@ export const safeJsonParse = <T>(json: string, fallback: T): T => {
 /**
  * Safe JSON stringify
  */
-export const safeJsonStringify = (obj: any, fallback: string = '{}'): string => {
+export const safeJsonStringify = (obj: unknown, fallback: string = '{}'): string => {
   try {
     return JSON.stringify(obj)
   } catch (error) {

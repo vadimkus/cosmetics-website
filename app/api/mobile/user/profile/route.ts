@@ -153,7 +153,7 @@ export async function PUT(request: NextRequest) {
     
     // Validate and sanitize updates
     const allowedFields = ['name', 'phone', 'address', 'birthday', 'profilePicture', 'gender', 'contactEmail']
-    const sanitizedUpdates: any = {}
+    const sanitizedUpdates: Record<string, unknown> = {}
     
     for (const field of allowedFields) {
       if (updates[field] !== undefined) {

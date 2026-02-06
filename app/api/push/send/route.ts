@@ -3,12 +3,17 @@ import { prisma } from '@/lib/database'
 import { debugLog, errorLog } from '@/lib/logger'
 import { requireAdminAuth } from '@/lib/adminAuth'
 import { requireCsrfToken } from '@/lib/csrf'
+import {
+  NEXT_PUBLIC_VAPID_PUBLIC_KEY as ENV_VAPID_PUBLIC,
+  VAPID_PRIVATE_KEY as ENV_VAPID_PRIVATE,
+  VAPID_EMAIL as ENV_VAPID_EMAIL,
+} from '@/lib/envValidation'
 import webpush from 'web-push'
 
 // Configure web-push with VAPID keys
-const VAPID_PUBLIC_KEY = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY || ''
-const VAPID_PRIVATE_KEY = process.env.VAPID_PRIVATE_KEY || ''
-const VAPID_EMAIL = process.env.VAPID_EMAIL || 'mailto:support@genosys.ae'
+const VAPID_PUBLIC_KEY = ENV_VAPID_PUBLIC || ''
+const VAPID_PRIVATE_KEY = ENV_VAPID_PRIVATE || ''
+const VAPID_EMAIL = ENV_VAPID_EMAIL || 'mailto:support@genosys.ae'
 
 if (VAPID_PUBLIC_KEY && VAPID_PRIVATE_KEY) {
   webpush.setVapidDetails(VAPID_EMAIL, VAPID_PUBLIC_KEY, VAPID_PRIVATE_KEY)
@@ -181,12 +186,14 @@ export async function POST(request: NextRequest) {
             JSON.stringify(pushPayload)
           )
           successCount++
-        } catch (error: any) {
+        } catch (error: unknown) {
           failCount++
-          errorLog(`[PUSH_SEND] Failed to send to ${sub.endpoint.substring(0, 50)}:`, error.message)
+          const errMsg = error instanceof Error ? error.message : String(error)
+          errorLog(`[PUSH_SEND] Failed to send to ${sub.endpoint.substring(0, 50)}:`, errMsg)
           
           // If subscription is expired/invalid (410 Gone or 404), remove it
-          if (error.statusCode === 410 || error.statusCode === 404) {
+          const statusCode = (error as { statusCode?: number }).statusCode
+          if (statusCode === 410 || statusCode === 404) {
             failedEndpoints.push(sub.endpoint)
           }
         }

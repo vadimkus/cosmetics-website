@@ -698,70 +698,160 @@ export default function OrdersPage() {
                           {/* Divider */}
                           <div className="h-px bg-gray-100" />
 
-                          {/* Summary Section */}
+                          {/* Summary Section - Waterfall Discount Breakdown */}
                           <div className="space-y-2">
-                            {/* Subtotal with item count */}
                             {(() => {
                               const paidItems = order.items.filter(item => Number(item.price) > 0 && !item.productName.toLowerCase().includes('(free)'))
                               const freeItems = order.items.filter(item => Number(item.price) === 0 || item.productName.toLowerCase().includes('(free)'))
                               const paidItemCount = paidItems.reduce((sum, item) => sum + item.quantity, 0)
                               const freeItemCount = freeItems.reduce((sum, item) => sum + item.quantity, 0)
+                              const _discountAmount = Number(order.discountAmount || 0)
+                              const _bundleDiscountAmount = Number(order.bundleDiscountAmount || 0)
+                              const _hasUserDiscount = _discountAmount > 0
+                              const _hasBundleDiscount = _bundleDiscountAmount > 0
+                              const _hasAnyDiscount = _hasUserDiscount || _hasBundleDiscount
+                              const _retailTotal = Number(order.subtotal) + _discountAmount + _bundleDiscountAmount
+                              const _afterVipSubtotal = _retailTotal - _discountAmount
+                              const _totalSaved = _discountAmount + _bundleDiscountAmount
+                              
+                              // Get discount percentages
+                              let _userDiscountPct = 0
+                              if (order.discountPercentage && Number(order.discountPercentage) > 0) {
+                                _userDiscountPct = Math.round(Number(order.discountPercentage))
+                              } else if (user?.discountPercentage && Number(user.discountPercentage) > 0) {
+                                _userDiscountPct = Math.round(Number(user.discountPercentage))
+                              }
+                              const _bundleDiscountPct = order.bundleDiscountPercentage ? Math.round(Number(order.bundleDiscountPercentage)) : 0
+                              
+                              const retailPriceLabel = locale === 'ar' ? 'سعر التجزئة' : locale === 'ru' ? 'Розничная цена' : 'Retail Price'
+                              const yourDiscountLabel = locale === 'ar' ? 'خصمك' : locale === 'ru' ? 'Ваша скидка' : 'Your Discount'
+                              const bundleDiscountLabel = locale === 'ar' ? 'خصم الباقة' : locale === 'ru' ? 'Скидка набора' : 'Bundle Discount'
+                              const netSubtotalLabel = locale === 'ar' ? 'المجموع الفرعي الصافي' : locale === 'ru' ? 'Подытог' : 'Net Subtotal'
+                              const subtotalLabel = locale === 'ar' ? 'المجموع الفرعي' : locale === 'ru' ? 'Подытог' : 'Subtotal'
+                              const youSavedLabel = locale === 'ar' ? 'وفرت' : locale === 'ru' ? 'Вы сэкономили' : 'You saved'
                               
                               return (
-                                <div className={`flex justify-between items-start ${isRTL ? 'flex-row-reverse' : ''}`}>
-                                  <div className={isRTL ? 'text-right' : ''}>
-                                    <span className="text-sm text-gray-500">
-                                      {locale === 'ar' ? `المجموع الفرعي: (${paidItemCount} منتجات)` : locale === 'ru' ? `Подытог: (${paidItemCount} товаров)` : `Subtotal: (${paidItemCount} ${paidItemCount === 1 ? 'item' : 'items'})`}
+                                <>
+                                  {/* Retail Price or Subtotal */}
+                                  {_hasAnyDiscount ? (
+                                    <div className={`flex justify-between items-start ${isRTL ? 'flex-row-reverse' : ''}`}>
+                                      <div className={isRTL ? 'text-right' : ''}>
+                                        <span className="text-sm text-gray-500">
+                                          {retailPriceLabel}: ({paidItemCount} {paidItemCount === 1 ? (locale === 'ar' ? 'منتج' : locale === 'ru' ? 'товар' : 'item') : (locale === 'ar' ? 'منتجات' : locale === 'ru' ? 'товаров' : 'items')})
+                                        </span>
+                                        {freeItemCount > 0 && (
+                                          <p className="text-xs text-green-600 font-medium mt-0.5">
+                                            + {freeItemCount} {locale === 'ar' ? 'ماسكات مجانية' : locale === 'ru' ? 'бесплатных масок' : `free ${freeItemCount === 1 ? 'mask' : 'masks'}`}
+                                          </p>
+                                        )}
+                                      </div>
+                                      <span className="text-sm font-medium text-gray-400 line-through">AED {_retailTotal.toFixed(2)}</span>
+                                    </div>
+                                  ) : (
+                                    <div className={`flex justify-between items-start ${isRTL ? 'flex-row-reverse' : ''}`}>
+                                      <div className={isRTL ? 'text-right' : ''}>
+                                        <span className="text-sm text-gray-500">
+                                          {subtotalLabel}: ({paidItemCount} {paidItemCount === 1 ? (locale === 'ar' ? 'منتج' : locale === 'ru' ? 'товар' : 'item') : (locale === 'ar' ? 'منتجات' : locale === 'ru' ? 'товаров' : 'items')})
+                                        </span>
+                                        {freeItemCount > 0 && (
+                                          <p className="text-xs text-green-600 font-medium mt-0.5">
+                                            + {freeItemCount} {locale === 'ar' ? 'ماسكات مجانية' : locale === 'ru' ? 'бесплатных масок' : `free ${freeItemCount === 1 ? 'mask' : 'masks'}`}
+                                          </p>
+                                        )}
+                                      </div>
+                                      <span className="text-sm font-medium text-gray-900">AED {Number(order.subtotal).toFixed(2)}</span>
+                                    </div>
+                                  )}
+
+                                  {/* VIP Discount */}
+                                  {_hasUserDiscount && (
+                                    <div className={`flex justify-between items-center ${isRTL ? 'flex-row-reverse' : ''}`}>
+                                      <span className="text-sm text-purple-600 font-medium">
+                                        🏷️ {yourDiscountLabel}{_userDiscountPct > 0 ? ` (${_userDiscountPct}%)` : ''}
+                                      </span>
+                                      <span className="text-sm font-medium text-purple-600">-AED {_discountAmount.toFixed(2)}</span>
+                                    </div>
+                                  )}
+
+                                  {/* Intermediate Subtotal (when both discounts) */}
+                                  {_hasUserDiscount && _hasBundleDiscount && (
+                                    <div className={`flex justify-between items-center ${isRTL ? 'flex-row-reverse' : ''}`}>
+                                      <span className="text-xs text-gray-400">{subtotalLabel}</span>
+                                      <span className="text-xs text-gray-400">AED {_afterVipSubtotal.toFixed(2)}</span>
+                                    </div>
+                                  )}
+
+                                  {/* Bundle Discount */}
+                                  {_hasBundleDiscount && (
+                                    <div className={`flex justify-between items-center ${isRTL ? 'flex-row-reverse' : ''}`}>
+                                      <span className="text-sm text-green-600 font-medium">
+                                        📦 {bundleDiscountLabel}{_bundleDiscountPct > 0 ? ` (${_bundleDiscountPct}%)` : ''}
+                                      </span>
+                                      <span className="text-sm font-medium text-green-600">-AED {_bundleDiscountAmount.toFixed(2)}</span>
+                                    </div>
+                                  )}
+
+                                  {/* Net Subtotal separator */}
+                                  {_hasAnyDiscount && (
+                                    <>
+                                      <div className="h-px bg-gray-200" />
+                                      <div className={`flex justify-between items-center ${isRTL ? 'flex-row-reverse' : ''}`}>
+                                        <span className="text-sm font-semibold text-gray-900">{netSubtotalLabel}</span>
+                                        <span className="text-sm font-semibold text-gray-900">AED {Number(order.subtotal).toFixed(2)}</span>
+                                      </div>
+                                    </>
+                                  )}
+
+                                  {/* Shipping */}
+                                  <div className={`flex justify-between items-center ${isRTL ? 'flex-row-reverse' : ''}`}>
+                                    <span className="text-sm text-gray-500 flex items-center gap-1">
+                                      <Truck className="w-4 h-4 text-green-600" />
+                                      {locale === 'ar' ? `الشحن إلى ${order.customerEmirate}` : locale === 'ru' ? `Доставка в ${order.customerEmirate}` : `Shipping to ${order.customerEmirate}`}
                                     </span>
-                                    {freeItemCount > 0 && (
-                                      <p className="text-xs text-green-600 font-medium mt-0.5">
-                                        + {freeItemCount} {locale === 'ar' ? 'ماسكات مجانية' : locale === 'ru' ? 'бесплатных масок' : `free ${freeItemCount === 1 ? 'mask' : 'masks'}`}
-                                      </p>
-                                    )}
+                                    <span className={`text-sm font-semibold ${Number(order.shipping) === 0 ? 'text-green-600' : 'text-gray-900'}`}>
+                                      {Number(order.shipping) === 0 ? 'FREE' : `AED ${Number(order.shipping).toFixed(2)}`}
+                                    </span>
                                   </div>
-                                  <span className="text-sm font-medium text-gray-900">AED {Number(order.subtotal).toFixed(2)}</span>
-                                </div>
+
+                                  {/* VAT */}
+                                  <div className={`flex justify-between items-center ${isRTL ? 'flex-row-reverse' : ''}`}>
+                                    <span className="text-sm text-gray-500">
+                                      {locale === 'ar' ? 'ضريبة القيمة المضافة (5%)' : locale === 'ru' ? 'НДС (5%)' : 'VAT (5%)'}
+                                    </span>
+                                    <span className="text-sm font-medium text-gray-900">AED {Number(order.vat).toFixed(2)}</span>
+                                  </div>
+
+                                  {/* VAT Notice Box */}
+                                  <div className="bg-amber-50 border border-amber-200 rounded-lg px-3 py-2 text-center">
+                                    <span className="text-xs text-amber-700 font-medium">
+                                      {locale === 'ar' ? 'جميع الأسعار تشمل ضريبة القيمة المضافة 5%' : locale === 'ru' ? 'Все цены включают НДС 5%' : 'All prices include 5% VAT'}
+                                    </span>
+                                  </div>
+
+                                  {/* Total Divider */}
+                                  <div className="h-0.5 bg-gray-900 my-2" />
+
+                                  {/* Total */}
+                                  <div className={`flex justify-between items-center ${isRTL ? 'flex-row-reverse' : ''}`}>
+                                    <span className="text-base font-bold text-gray-900">
+                                      {locale === 'ar' ? 'الإجمالي:' : locale === 'ru' ? 'Итого:' : 'Total:'}
+                                    </span>
+                                    <span className="text-lg font-bold text-red-600">
+                                      AED {Number(order.total).toFixed(2)}
+                                    </span>
+                                  </div>
+
+                                  {/* You Saved */}
+                                  {_hasAnyDiscount && (
+                                    <div className="bg-green-50 border border-green-200 rounded-lg px-3 py-2 text-center mt-1">
+                                      <span className="text-xs text-green-700 font-semibold">
+                                        💰 {youSavedLabel}: AED {_totalSaved.toFixed(2)}
+                                      </span>
+                                    </div>
+                                  )}
+                                </>
                               )
                             })()}
-
-                            {/* Shipping */}
-                            <div className={`flex justify-between items-center ${isRTL ? 'flex-row-reverse' : ''}`}>
-                              <span className="text-sm text-gray-500 flex items-center gap-1">
-                                <Truck className="w-4 h-4 text-green-600" />
-                                {locale === 'ar' ? `الشحن إلى ${order.customerEmirate}` : locale === 'ru' ? `Доставка в ${order.customerEmirate}` : `Shipping to ${order.customerEmirate}`}
-                              </span>
-                              <span className={`text-sm font-semibold ${Number(order.shipping) === 0 ? 'text-green-600' : 'text-gray-900'}`}>
-                                {Number(order.shipping) === 0 ? 'FREE' : `AED ${Number(order.shipping).toFixed(2)}`}
-                              </span>
-                            </div>
-
-                            {/* VAT */}
-                            <div className={`flex justify-between items-center ${isRTL ? 'flex-row-reverse' : ''}`}>
-                              <span className="text-sm text-gray-500">
-                                {locale === 'ar' ? 'ضريبة القيمة المضافة (5%)' : locale === 'ru' ? 'НДС (5%)' : 'VAT (5%)'}
-                              </span>
-                              <span className="text-sm font-medium text-gray-900">AED {Number(order.vat).toFixed(2)}</span>
-                            </div>
-
-                            {/* VAT Notice Box */}
-                            <div className="bg-amber-50 border border-amber-200 rounded-lg px-3 py-2 text-center">
-                              <span className="text-xs text-amber-700 font-medium">
-                                {locale === 'ar' ? 'جميع الأسعار تشمل ضريبة القيمة المضافة 5%' : locale === 'ru' ? 'Все цены включают НДС 5%' : 'All prices include 5% VAT'}
-                              </span>
-                            </div>
-
-                            {/* Total Divider */}
-                            <div className="h-0.5 bg-gray-900 my-2" />
-
-                            {/* Total */}
-                            <div className={`flex justify-between items-center ${isRTL ? 'flex-row-reverse' : ''}`}>
-                              <span className="text-base font-bold text-gray-900">
-                                {locale === 'ar' ? 'الإجمالي:' : locale === 'ru' ? 'Итого:' : 'Total:'}
-                              </span>
-                              <span className="text-lg font-bold text-red-600">
-                                AED {Number(order.total).toFixed(2)}
-                              </span>
-                            </div>
                           </div>
                         </div>
                       </div>

@@ -26,12 +26,12 @@ export default function MobileOptimizedDemo() {
   }, [])
   
   // Performance-based animation configs
-  const getAnimationConfig = (baseConfig: any) => {
+  const getAnimationConfig = (baseConfig: Record<string, unknown> & { duration?: number }) => {
     if (prefersReducedMotion) return { duration: 0 }
     
     switch (performanceMode) {
       case 'low':
-        return { ...baseConfig, duration: baseConfig.duration * 0.5 }
+        return { ...baseConfig, duration: (baseConfig.duration ?? 0) * 0.5 }
       case 'high':
         return { ...baseConfig, type: "spring", stiffness: 150 }
       default:
@@ -81,7 +81,7 @@ export default function MobileOptimizedDemo() {
             {['mobile', 'desktop'].map((type) => (
               <motion.button
                 key={type}
-                onClick={() => setDeviceType(type as any)}
+                onClick={() => setDeviceType(type as 'mobile' | 'desktop')}
                 className={`
                   px-4 py-2 rounded-md text-sm font-medium transition-all flex items-center space-x-2
                   ${deviceType === type ? 'bg-white shadow-md text-gray-800' : 'text-gray-600'}
@@ -103,7 +103,7 @@ export default function MobileOptimizedDemo() {
             {['low', 'standard', 'high'].map((mode) => (
               <motion.button
                 key={mode}
-                onClick={() => setPerformanceMode(mode as any)}
+                onClick={() => setPerformanceMode(mode as 'high' | 'standard' | 'low')}
                 className={`
                   px-3 py-2 rounded-md text-sm font-medium transition-all
                   ${performanceMode === mode ? 'bg-white shadow-md text-gray-800' : 'text-gray-600'}

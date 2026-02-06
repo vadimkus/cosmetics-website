@@ -121,7 +121,7 @@ export async function POST(request: NextRequest) {
     const now = new Date()
     let promoApplied: { code: string; discountPercent: number; discountType: string } | null = null
 
-    let createdUser: any = null
+    let createdUser: Record<string, unknown> | null = null
     try {
       createdUser = await prisma.$transaction(async (tx) => {
         let discountType: string | null = null
@@ -231,7 +231,7 @@ export async function POST(request: NextRequest) {
       }
       
       // Build additionalInfo object, only including defined values
-      const additionalInfo: any = {}
+      const additionalInfo: Record<string, string | number> = {}
       if (ipAddress) additionalInfo.ipAddress = ipAddress
       if (geoData?.country) additionalInfo.country = geoData.country
       if (geoData?.city) additionalInfo.city = geoData.city

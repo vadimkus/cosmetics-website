@@ -9,7 +9,7 @@ import { getPreferredEmail } from '@/lib/emailHelpers'
 import { calculateMobileShipping, calculateVatIncluded } from '@/lib/mobileCheckoutConfig'
 import { isUserDiscountExcludedProduct } from '@/lib/mobileDiscountRules'
 
-const extractPaymentFlow = (order: any): string | null => {
+const extractPaymentFlow = (order: { paymentMetadata?: string | Record<string, unknown> | null; payment_metadata?: string | Record<string, unknown> | null }): string | null => {
   const raw = order?.paymentMetadata ?? order?.payment_metadata ?? null
   if (!raw) return null
   try {
@@ -138,7 +138,10 @@ export async function GET(request: NextRequest) {
         paymentStatus: order.paymentStatus,
         orderNotes: order.orderNotes || '',
         subtotal: order.subtotal,
+        discountPercentage: order.discountPercentage || null,
         discountAmount: order.discountAmount,
+        bundleDiscountPercentage: order.bundleDiscountPercentage || null,
+        bundleDiscountAmount: order.bundleDiscountAmount || 0,
         shipping: order.shipping,
         vat: order.vat,
         total: order.total,
@@ -175,7 +178,7 @@ export async function GET(request: NextRequest) {
     const skip = (page - 1) * limit
     
     // Build where clause
-    const whereClause: any = {
+    const whereClause: Record<string, unknown> = {
       customerEmail: user.email
     }
     
@@ -206,7 +209,10 @@ export async function GET(request: NextRequest) {
       paymentFlow: extractPaymentFlow(order),
       orderNotes: order.orderNotes || '',
       subtotal: order.subtotal,
+      discountPercentage: order.discountPercentage || null,
       discountAmount: order.discountAmount,
+      bundleDiscountPercentage: order.bundleDiscountPercentage || null,
+      bundleDiscountAmount: order.bundleDiscountAmount || 0,
       shipping: order.shipping,
       vat: order.vat,
       total: order.total,
@@ -407,6 +413,10 @@ export async function POST(request: NextRequest) {
         discountAmount += (baseUnit - unitPrice) * quantity
       }
 
+      // Note: Native mobile app currently does not support customer-built bundles,
+      // so bundle discount is always 0 here. If bundles are added to the mobile app,
+      // this section must be updated to match the web checkout logic.
+
       validatedItems.push({
         productId,
         productName: item.productName || item.name || product.name,
@@ -418,6 +428,14 @@ export async function POST(request: NextRequest) {
         size: isPromo ? '__PROMO__' : (item.size || null)
       })
     }
+
+    // Round accumulated values to 2 decimal places (prevent floating-point drift)
+    subtotal = Math.round(subtotal * 100) / 100
+    discountAmount = Math.round(discountAmount * 100) / 100
+
+    // Capture user discount percentage at time of order for waterfall display
+    const pctForOrder = Number(user?.discountPercentage)
+    const userDiscountPctForOrder = (Number.isFinite(pctForOrder) && pctForOrder > 0 && pctForOrder < 100) ? pctForOrder : null
 
     // Calculate order totals (must match mobile UI: VAT INCLUDED; shipping from shared rates)
     const emirate = String(orderData.customerEmirate || 'Dubai')
@@ -454,7 +472,10 @@ export async function POST(request: NextRequest) {
         customerAddress: orderData.customerAddress,
         orderNotes: orderNotes || null,
         subtotal,
+        discountPercentage: userDiscountPctForOrder,
         discountAmount,
+        // bundleDiscountPercentage / bundleDiscountAmount default to 0/null in schema
+        // (native mobile app does not currently support customer-built bundles)
         shipping,
         vat,
         total,
@@ -489,8 +510,10 @@ export async function POST(request: NextRequest) {
       address: order.customerAddress,
       emirate: order.customerEmirate,
       locale: order.locale || 'en',
-      discountPercentage: user?.discountPercentage ?? undefined,
-      discountAmount: order.discountAmount ?? undefined
+      discountPercentage: userDiscountPctForOrder ?? undefined,
+      discountAmount: order.discountAmount ?? undefined,
+      bundleDiscountPercentage: order.bundleDiscountPercentage ?? undefined,
+      bundleDiscountAmount: (order.bundleDiscountAmount || 0) > 0 ? order.bundleDiscountAmount : undefined
     }).then(() => {
       debugLog('[MOBILE_ORDERS] ✅ Order confirmation email sent to:', order.customerEmail)
     }).catch((emailError) => {
@@ -534,8 +557,10 @@ export async function POST(request: NextRequest) {
       vat: order.vat,
       address: order.customerAddress,
       emirate: order.customerEmirate,
-      discountPercentage: user?.discountPercentage ?? 0,
-      discountAmount: order.discountAmount ?? 0
+      discountPercentage: userDiscountPctForOrder ?? 0,
+      discountAmount: order.discountAmount ?? 0,
+      bundleDiscountPercentage: order.bundleDiscountPercentage ?? undefined,
+      bundleDiscountAmount: (order.bundleDiscountAmount || 0) > 0 ? order.bundleDiscountAmount : undefined
     }).then((adminResult) => {
       if (adminResult.success) {
         debugLog('[MOBILE_ORDERS] ✅ Admin notification sent for new order:', order.orderNumber)
@@ -555,7 +580,10 @@ export async function POST(request: NextRequest) {
       paymentMethod: order.paymentMethod,
       paymentStatus: order.paymentStatus,
       subtotal: order.subtotal,
+      discountPercentage: order.discountPercentage || null,
       discountAmount: order.discountAmount,
+      bundleDiscountPercentage: order.bundleDiscountPercentage || null,
+      bundleDiscountAmount: order.bundleDiscountAmount || 0,
       shipping: order.shipping,
       vat: order.vat,
       total: order.total,

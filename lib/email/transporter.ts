@@ -2,12 +2,9 @@
  * Email Transporter Configuration
  * SMTP configuration and core email sending functionality
  */
-
 import nodemailer from 'nodemailer'
 import { debugLog, errorLog } from '@/lib/logger'
-import { findUserByEmail } from '@/lib/userStorageDb'
-import { getPreferredEmail } from '@/lib/emailHelpers'
-import type { EmailSendResult, NodemailerError } from './types'
+import { EMAIL_USER, GMAIL_USER, EMAIL_PASSWORD, GMAIL_APP_PASSWORD } from '@/lib/envValidation'
 
 // Email configuration - Gmail SMTP
 const transporter = nodemailer.createTransport({
@@ -15,12 +12,12 @@ const transporter = nodemailer.createTransport({
   port: 587,
   secure: false, // true for 465, false for other ports
   auth: {
-    user: process.env.EMAIL_USER || process.env.GMAIL_USER,
-    pass: process.env.EMAIL_PASSWORD || process.env.GMAIL_APP_PASSWORD,
+    user: EMAIL_USER || GMAIL_USER,
+    pass: EMAIL_PASSWORD || GMAIL_APP_PASSWORD,
   },
 })
 
-// Verify connection configuration on startup
+// Verify connection configuration
 transporter.verify((error, _success) => {
   if (error) {
     debugLog('❌ SMTP connection error:', error)
@@ -29,45 +26,58 @@ transporter.verify((error, _success) => {
   }
 })
 
+// NodemailerError type for SMTP error handling
+interface NodemailerError {
+  code?: string
+  command?: string
+}
+
 /**
- * Send an email using the configured transporter
- * Handles contact email preferences and error logging
+ * Send an email using the configured SMTP transporter
+ * Validates environment configuration before sending
  */
-export const sendEmail = async (to: string, subject: string, html: string): Promise<EmailSendResult> => {
+export const sendEmail = async (to: string, subject: string, html: string) => {
   try {
-    // Check if user has a different preferred contact email
-    let recipientEmail = to
-    try {
-      const user = await findUserByEmail(to)
-      if (user) {
-        recipientEmail = getPreferredEmail(user)
-      }
-    } catch {
-      // Ignore lookup failures; fall back to provided email
+    debugLog('📧 Attempting to send email to:', to)
+    debugLog('📧 Using Gmail service')
+    
+    // Check if email configuration is set (support both EMAIL_* and GMAIL_* variables)
+    const emailUser = EMAIL_USER || GMAIL_USER
+    const emailPassword = EMAIL_PASSWORD || GMAIL_APP_PASSWORD
+    
+    debugLog('📧 Using email user:', emailUser)
+    
+    if (!emailUser) {
+      const errorMsg = 'EMAIL_USER or GMAIL_USER environment variable is not set'
+      errorLog('❌', errorMsg)
+      return { success: false, error: errorMsg }
+    }
+
+    if (!emailPassword) {
+      const errorMsg = 'EMAIL_PASSWORD or GMAIL_APP_PASSWORD environment variable is not set'
+      errorLog('❌', errorMsg)
+      return { success: false, error: errorMsg }
     }
     
-    debugLog(`📧 Sending email to: ${recipientEmail}`)
-    debugLog(`   Subject: ${subject}`)
-    debugLog(`   Original email: ${to}`)
-    if (recipientEmail !== to) {
-      debugLog(`   Using contact email instead: ${recipientEmail}`)
-    }
-    
-    const mailOptions = {
-      from: {
-        name: 'GENOSYS',
-        address: process.env.EMAIL_USER || process.env.GMAIL_USER || 'noreply@genosys.ae'
-      },
-      to: recipientEmail,
+    const mailOptions: nodemailer.SendMailOptions = {
+      from: `"Genosys Middle East FZ-LLC" <${emailUser}>`,
+      to,
       subject,
       html,
     }
 
-    const info = await transporter.sendMail(mailOptions)
-    debugLog('✅ Email sent successfully!')
-    debugLog(`   Message ID: ${info.messageId}`)
-    debugLog(`   Response: ${info.response}`)
-    return { success: true, messageId: info.messageId }
+    debugLog('📧 Sending email with options:', {
+      from: mailOptions.from,
+      to: mailOptions.to,
+      subject: mailOptions.subject,
+      hasHtml: !!mailOptions.html
+    })
+
+    const result = await transporter.sendMail(mailOptions)
+    debugLog('✅ Email sent successfully')
+    debugLog('✅ Message ID:', result.messageId)
+    debugLog('✅ Response:', result.response)
+    return { success: true, messageId: result.messageId }
   } catch (error) {
     errorLog('❌ Error sending email')
     errorLog('❌ Error type:', error instanceof Error ? error.constructor.name : typeof error)
@@ -83,11 +93,4 @@ export const sendEmail = async (to: string, subject: string, html: string): Prom
     }
     return { success: false, error: error instanceof Error ? error.message : 'Unknown error' }
   }
-}
-
-/**
- * Get the configured transporter for advanced use cases
- */
-export function getTransporter() {
-  return transporter
 }

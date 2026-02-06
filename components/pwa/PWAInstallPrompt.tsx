@@ -58,7 +58,7 @@ export default function PWAInstallPrompt({
       if (success) {
         setIsVisible(false)
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       errorLog('Install failed:', error)
     } finally {
       setIsInstalling(false)

@@ -70,7 +70,7 @@ export const preload = {
   /**
    * Preload component
    */
-  component: (importFunc: () => Promise<any>) => {
+  component: (importFunc: () => Promise<unknown>) => {
     // Start loading in the background
     importFunc().catch(warnLog)
   },

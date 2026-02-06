@@ -58,8 +58,8 @@ export const enhancedErrorTracking = {
     context?: {
       userId?: string
       userEmail?: string
-      requestBody?: any
-      responseBody?: any
+      requestBody?: unknown
+      responseBody?: unknown
     }
   ): Promise<void> => {
     await addBreadcrumb(`API Error: ${method} ${endpoint}`, 'api-error', 'error')
@@ -297,9 +297,11 @@ export const withErrorTracking = <P extends object>(
 /**
  * API route error tracking wrapper
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any -- Legacy Pages Router handler pattern
 export const withApiErrorTracking = (
   handler: (req: any, res: any) => Promise<any>
 ) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return async (req: any, res: any) => {
     try {
       return await handler(req, res)

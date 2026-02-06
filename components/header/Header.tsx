@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, memo } from 'react'
+import { useState, useEffect, useRef, memo } from 'react'
 import { useTranslation } from '@/hooks/useTranslation'
 import { usePWAMode } from '@/hooks/usePWAMode'
 import { usePathname, useRouter } from 'next/navigation'
@@ -30,6 +30,7 @@ const Header = memo(function Header() {
   const [showMobileMenu, setShowMobileMenu] = useState(false)
   const [isClient, setIsClient] = useState(false)
   const [isHeartBeating, setIsHeartBeating] = useState(false)
+  const heartbeatTimerRef = useRef<NodeJS.Timeout | null>(null)
 
   // Determine layout direction
   const isRTL = locale === 'ar'
@@ -79,13 +80,16 @@ const Header = memo(function Header() {
 
     const startHeartbeat = () => {
       setIsHeartBeating(true)
-      setTimeout(() => setIsHeartBeating(false), 600)
+      heartbeatTimerRef.current = setTimeout(() => setIsHeartBeating(false), 600)
     }
 
     startHeartbeat()
     const interval = setInterval(startHeartbeat, 16000)
 
-    return () => clearInterval(interval)
+    return () => {
+      clearInterval(interval)
+      if (heartbeatTimerRef.current) clearTimeout(heartbeatTimerRef.current)
+    }
   }, [isClient])
 
   // Hide header completely on PWA pages with their own light header

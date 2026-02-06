@@ -142,6 +142,44 @@ No database migrations required. Changes are purely presentational in email temp
 
 ---
 
+## Version 1.7.0 - Mobile Route Discount Parity (February 6, 2026)
+
+### Fixes
+
+1. **Mobile COD emails now include bundle discount fields** - `bundleDiscountPercentage` and `bundleDiscountAmount` passed to both customer and admin email functions for template consistency
+2. **Mobile COD admin notifications** now pass bundle discount fields
+3. **`discountPercentage` stored for all mobile orders** - Previously missing from mobile COD, Stripe, and Apple Pay routes; now stored in DB so emails can display "VIP X% OFF" waterfall line
+
+### Technical Changes
+
+- `app/api/mobile/orders/route.ts` - Email calls now pass `bundleDiscountPercentage` and `bundleDiscountAmount`
+- All 3 mobile order creation routes now store `discountPercentage` in the Order record
+
+---
+
+## Version 1.6.0 - Bundle Discount Waterfall & Cross-Route Consistency (February 5, 2026)
+
+### Features Added
+
+1. **Waterfall discount display** in all emails - Shows sequential breakdown: Retail → VIP Discount → Bundle Discount → Net Subtotal
+2. **Bundle discount support in COD and Support-Link routes** - Two-step reverse calculation to derive both user and bundle discount amounts from already-discounted frontend prices
+3. **Stripe webhook bundle discount passthrough** - `OrderWithItems` interface extended; bundle discount data now flows from DB to confirmation emails
+
+### Fixes
+
+1. **COD route** - Previously couldn't calculate bundle discount amounts (didn't receive bundle data from frontend)
+2. **Support-Link route** - Same issue; now mirrors the Stripe route's correct two-step reverse-calculation
+3. **Stripe webhook** - Confirmation emails now include bundle discount waterfall lines
+4. **Frontend payloads** - `CheckoutClient.tsx` now sends `bundleDiscountPercentage`, `bundleDiscountAmount`, and item-level `fromBundle`/`bundleDiscountPercent` to all backend routes
+
+### Technical Changes
+
+- Centralized discount exclusion rules via `lib/mobileDiscountRules.ts` (single source of truth)
+- Centralized shipping/VAT via `lib/mobileCheckoutConfig.ts` (single source of truth)
+- All email types (`OrderConfirmationEmailData`, `AdminNewOrderEmailData`, `OrderHTMLData`) support `bundleDiscountPercentage` and `bundleDiscountAmount`
+
+---
+
 ## Version 1.5.0 - Discount Support (January 2026)
 
 ### Features Added

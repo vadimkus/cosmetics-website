@@ -1,6 +1,7 @@
 import { User, ApiUser } from '@/types/user'
 import { Product } from '@/types'
 import { isBlackFridaySaleActive, BLACK_FRIDAY_DISCOUNT_PERCENTAGE } from './blackFridayUtils'
+import { isUserDiscountExcludedProduct } from './mobileDiscountRules'
 
 export interface DiscountedPrice {
   originalPrice: number
@@ -78,10 +79,9 @@ export function calculateDiscountedPrice(product: Product, user: ApiUser | User 
   }
   
   // Check if product should be excluded from all discounts
-  // Exclude if: noDiscount flag is true OR category is "Beauty Boxes"
-  // Product-specific exclusions are now handled via the noDiscount database flag
-  const isExcludedFromDiscount = product.noDiscount === true || 
-    product.category === 'Beauty Boxes'
+  // Single source of truth: uses isUserDiscountExcludedProduct from mobileDiscountRules.ts
+  // Excludes: noDiscount=true, Beauty Boxes, Devices (GenoLED, Gentron, HairGen), Hydro Cool Mask
+  const isExcludedFromDiscount = isUserDiscountExcludedProduct(product)
   
   // Check if product should be excluded from Black Friday discounts specifically
   const isExcludedFromBlackFriday = isExcludedFromDiscount ||

@@ -1888,7 +1888,43 @@
     "signOutConfirm": "هل أنت متأكد أنك تريد تسجيل الخروج؟",
     "version": "الإصدار",
     "genosysMobile": "Genosys Mobile",
-    "notifications": "الإشعارات"
+    "notifications": "الإشعارات",
+    "pushNotConfigured": "إشعارات الدفع غير مكوّنة. يرجى التواصل مع الدعم.",
+    "pushLoginRequired": "يرجى تسجيل الدخول مرة أخرى لتفعيل الإشعارات.",
+    "pushFailedPrefix": "فشل تفعيل الإشعارات:"
+  },
+  "paySuccess": {
+    "title": "تمت عملية الدفع بنجاح!",
+    "subtitle": "تم تأكيد طلبك وجاري معالجته",
+    "loadingDetails": "جاري تحميل تفاصيل الطلب...",
+    "orderNumber": "رقم الطلب",
+    "customer": "العميل",
+    "email": "البريد الإلكتروني",
+    "total": "المجموع",
+    "status": "الحالة",
+    "paid": "مدفوع",
+    "processing": "قيد المعالجة",
+    "orderNotFound": "لم يتم العثور على رقم الطلب. يرجى التحقق من بريدك الإلكتروني للتأكيد.",
+    "confirmationEmail": "تم إرسال رسالة تأكيد إلى بريدك الإلكتروني تتضمن تفاصيل الطلب ومعلومات التتبع.",
+    "returnToApp": "العودة إلى التطبيق",
+    "continueShopping": "متابعة التسوق",
+    "viewOrderHistory": "عرض سجل الطلبات",
+    "needHelp": "تحتاج مساعدة؟ تواصل معنا على"
+  },
+  "share": {
+    "noContentTitle": "لا يوجد محتوى مشترك",
+    "noContentDescription": "شارك رابطًا أو نصًا مع Genosys UAE لرؤيته هنا.",
+    "goToHomepage": "الذهاب إلى الصفحة الرئيسية",
+    "sharedWithGenosys": "تمت المشاركة مع Genosys",
+    "sharedContent": "لقد شاركت المحتوى التالي",
+    "labelTitle": "العنوان",
+    "labelText": "النص",
+    "labelUrl": "الرابط",
+    "copied": "تم النسخ!",
+    "copyAll": "نسخ الكل",
+    "browseProducts": "تصفح المنتجات",
+    "backToHomepage": "العودة إلى الصفحة الرئيسية",
+    "loadingSharedContent": "جاري تحميل المحتوى المشترك..."
   }
 }
 

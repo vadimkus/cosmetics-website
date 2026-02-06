@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useRouter, useParams } from 'next/navigation'
 import { Lock, ArrowLeft, CheckCircle2, XCircle, Eye, EyeOff, KeyRound } from 'lucide-react'
 import { fetchCsrfToken, getCsrfHeaders, addCsrfToBody } from '@/lib/csrfClient'
@@ -25,10 +25,14 @@ export default function ResetPasswordClient() {
   const [tokenValid, setTokenValid] = useState(false)
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const redirectTimerRef = useRef<NodeJS.Timeout | null>(null)
   const [passwordStrength, setPasswordStrength] = useState<{
     score: number
     feedback: string
   }>({ score: 0, feedback: '' })
+
+  // Clean up redirect timer on unmount
+  useEffect(() => () => { if (redirectTimerRef.current) clearTimeout(redirectTimerRef.current) }, [])
 
   // Verify token on mount
   useEffect(() => {
@@ -123,7 +127,7 @@ export default function ResetPasswordClient() {
 
       setSuccess(true)
       
-      setTimeout(() => {
+      redirectTimerRef.current = setTimeout(() => {
         router.push(getLocalizedPath('/login', locale))
       }, 3000)
     } catch (err) {

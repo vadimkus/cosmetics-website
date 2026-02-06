@@ -44,6 +44,13 @@ export default function AdminOrdersPage() {
   const [resending, setResending] = useState<string | null>(null)
   const [toasts, setToasts] = useState<Toast[]>([])
   const toastIdCounter = useRef(0)
+  const toastTimersRef = useRef<Map<number, NodeJS.Timeout>>(new Map())
+
+  // Clean up all toast timers on unmount
+  useEffect(() => () => {
+    toastTimersRef.current.forEach(timer => clearTimeout(timer))
+    toastTimersRef.current.clear()
+  }, [])
 
   // Add toast notification
   const showToast = (message: string, type: ToastType = 'success') => {
@@ -51,9 +58,11 @@ export default function AdminOrdersPage() {
     setToasts(prev => [...prev, { id, message, type }])
     
     // Auto-remove after 4 seconds
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       setToasts(prev => prev.filter(toast => toast.id !== id))
+      toastTimersRef.current.delete(id)
     }, 4000)
+    toastTimersRef.current.set(id, timer)
   }
 
   // Remove toast manually

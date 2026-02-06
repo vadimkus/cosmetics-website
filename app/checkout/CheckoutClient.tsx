@@ -4,17 +4,23 @@ import { useCart } from '@/components/cart/CartProvider'
 import { useAuth } from '@/components/auth/AuthProvider'
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { useRouter } from 'next/navigation'
-import { ArrowLeft, CreditCard, Lock, MapPin, Truck, MessageCircle, Building, ChevronDown } from 'lucide-react'
+import { ArrowLeft, CreditCard, Lock, MapPin, Truck, MessageCircle, ChevronDown } from 'lucide-react'
 import Link from 'next/link'
+import CheckoutHeader from '@/components/checkout/CheckoutHeader'
+import PaymentMethodSelector from '@/components/checkout/PaymentMethodSelector'
 import { calculateDiscountedPrice } from '@/lib/discountUtils'
+import { calculateMobileShipping, calculateVatIncluded } from '@/lib/mobileCheckoutConfig'
 import { errorLog, debugLog } from '@/lib/logger'
 import { fetchCsrfToken, getCsrfHeaders, addCsrfToBody } from '@/lib/csrfClient'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { usePWAMode } from '@/hooks/usePWAMode'
-import BottomSheet from '@/components/ui/BottomSheet'
-import StripeProvider from '@/components/stripe/StripeProvider'
-import PaymentForm from '@/components/stripe/PaymentForm'
+import dynamic from 'next/dynamic'
+
+// Lazy load heavy checkout components (Stripe SDK + BottomSheet only needed conditionally)
+const BottomSheet = dynamic(() => import('@/components/ui/BottomSheet'), { ssr: false })
+const StripeProvider = dynamic(() => import('@/components/stripe/StripeProvider'), { ssr: false })
+const PaymentForm = dynamic(() => import('@/components/stripe/PaymentForm'), { ssr: false })
 
 export default function CheckoutClient() {
   const { items, getTotalPrice, getTotalItems, selectedEmirate, _hasHydrated } = useCart()
@@ -105,16 +111,6 @@ export default function CheckoutClient() {
 
   const checkoutEmail = getCheckoutEmail()
 
-  // Emirates list with shipping costs
-  const emirates = [
-    { name: 'Dubai', shippingCost: 45 },
-    { name: 'Abu Dhabi', shippingCost: 70 },
-    { name: 'Sharjah', shippingCost: 70 },
-    { name: 'Ajman', shippingCost: 70 },
-    { name: 'Ras Al Khaimah', shippingCost: 70 },
-    { name: 'Fujairah', shippingCost: 70 },
-    { name: 'Umm Al Quwain', shippingCost: 70 }
-  ]
 
   // Function to translate emirate names based on locale
   const getEmirateDisplayName = (emirateName: string): string => {
@@ -133,13 +129,54 @@ export default function CheckoutClient() {
     return emirateName
   }
 
-  const selectedEmirateData = emirates.find(e => e.name === selectedEmirate)
   const subtotal = getTotalPrice(user)
-  const shippingCost = subtotal >= 1000 ? 0 : (selectedEmirateData?.shippingCost || 45)
-  // Calculate VAT amount from VAT-inclusive prices
-  // VAT = (VAT-inclusive amount / 1.05) * 0.05
-  const vatAmount = Math.round(((subtotal + shippingCost) / 1.05) * 0.05 * 100) / 100
+  // Shipping & VAT — single source of truth from mobileCheckoutConfig (matches backend)
+  const shippingCost = calculateMobileShipping(subtotal, selectedEmirate)
   const total = subtotal + shippingCost // Total is VAT-inclusive
+  const vatAmount = Math.round(calculateVatIncluded(total) * 100) / 100
+
+  // Waterfall discount breakdown: compute retail total, VIP discount, and bundle discount
+  const { retailTotal, userDiscountTotal, bundleDiscountTotal, afterVipSubtotal, userDiscountPct, bundleDiscountPct } = (() => {
+    let _retailTotal = 0
+    let _userDiscountTotal = 0
+    let _bundleDiscountTotal = 0
+    let _userDiscountPct = 0
+    let _bundleDiscountPct = 0
+    
+    items.forEach(item => {
+      const quantity = item.quantity || 1
+      const originalPrice = item.product.price
+      _retailTotal += originalPrice * quantity
+      
+      const pricing = calculateDiscountedPrice(item.product, user)
+      
+      // Track user discount
+      if (pricing.hasDiscount && !pricing.isBeautyBox) {
+        _userDiscountTotal += pricing.discountAmount * quantity
+        if (pricing.discountPercentage > 0) _userDiscountPct = pricing.discountPercentage
+      }
+      
+      // Track bundle discount (applied on top of user discount)
+      if (item.fromBundle && item.bundleDiscountPercent && item.bundleDiscountPercent > 0) {
+        const bundleDiscount = (pricing.discountedPrice * item.bundleDiscountPercent) / 100
+        _bundleDiscountTotal += bundleDiscount * quantity
+        if (item.bundleDiscountPercent > 0) _bundleDiscountPct = item.bundleDiscountPercent
+      }
+    })
+    
+    return {
+      retailTotal: Math.round(_retailTotal * 100) / 100,
+      userDiscountTotal: Math.round(_userDiscountTotal * 100) / 100,
+      bundleDiscountTotal: Math.round(_bundleDiscountTotal * 100) / 100,
+      afterVipSubtotal: Math.round((_retailTotal - _userDiscountTotal) * 100) / 100,
+      userDiscountPct: _userDiscountPct,
+      bundleDiscountPct: _bundleDiscountPct
+    }
+  })()
+  const hasUserDiscount = userDiscountTotal > 0
+  const hasBundleDiscount = bundleDiscountTotal > 0
+  const hasAnyDiscount = hasUserDiscount || hasBundleDiscount
+  const totalSaved = Math.round((userDiscountTotal + bundleDiscountTotal) * 100) / 100
 
   // Function to get free masks based on subtotal
   const getFreeMasks = useCallback(async (subtotal: number) => {
@@ -321,7 +358,10 @@ export default function CheckoutClient() {
           shippingCost,
           vatAmount,
           total,
-          locale
+          locale,
+          // Bundle discount data for proper waterfall display
+          ...(bundleDiscountPct > 0 ? { bundleDiscountPercentage: bundleDiscountPct } : {}),
+          ...(bundleDiscountTotal > 0 ? { bundleDiscountAmount: bundleDiscountTotal } : {})
         }
 
           // Ensure CSRF token is available
@@ -398,7 +438,10 @@ export default function CheckoutClient() {
                 },
                 quantity: item.quantity,
                 selectedColor: itemColor,
-                selectedSize: itemSize
+                selectedSize: itemSize,
+                // Pass bundle flags so backend can properly reverse-calculate discount amounts
+                ...(item.fromBundle ? { fromBundle: true } : {}),
+                ...(item.bundleDiscountPercent ? { bundleDiscountPercent: item.bundleDiscountPercent } : {})
               }
             }),
             ...freeMasks.map(mask => ({
@@ -568,7 +611,10 @@ export default function CheckoutClient() {
           shippingCost,
           vatAmount,
           total,
-          locale
+          locale,
+          // Bundle discount data for proper waterfall display
+          ...(bundleDiscountPct > 0 ? { bundleDiscountPercentage: bundleDiscountPct } : {}),
+          ...(bundleDiscountTotal > 0 ? { bundleDiscountAmount: bundleDiscountTotal } : {})
         }
 
         // Ensure CSRF token is available
@@ -695,76 +741,15 @@ export default function CheckoutClient() {
 
   return (
     <div className="container mx-auto px-4 py-2 md:py-8 lg:py-16" dir={dir}>
-      {/* PWA / Mobile Web Light Header */}
-      {(isPWAClient && isPWA) || isMobileWeb ? (
-        <div className={`flex items-center justify-between px-1 py-4 mb-4 border-b border-gray-100 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-          {/* Back to Bag */}
-          <Link 
-            href={getLocalizedPath('/cart', locale)}
-            className={`flex items-center gap-1 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
-          >
-            <ArrowLeft className={`w-5 h-5 text-red-600 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
-            <span className="text-base text-red-600">{t('common.bag') || 'Bag'}</span>
-          </Link>
-          
-          {/* Page Title */}
-          <h1 className="text-lg font-semibold text-gray-900">
-            {t('checkout.checkout')}
-          </h1>
-          
-          {/* Profile Icon - green dot only when logged in */}
-          <button 
-            onClick={() => router.push(getLocalizedPath('/profile', locale))}
-            className="min-w-[44px] flex justify-end"
-          >
-            <div className="relative">
-              <div className={`w-9 h-9 rounded-full flex items-center justify-center ${user ? 'bg-red-600' : 'bg-gray-400'}`}>
-                <span className="text-sm font-semibold text-white">
-                  {user?.name?.charAt(0)?.toUpperCase() || 'G'}
-                </span>
-              </div>
-              {/* Green online dot - only when logged in */}
-              {user && (
-                <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 rounded-full border-[1.5px] border-white" />
-              )}
-            </div>
-          </button>
-        </div>
-      ) : null}
-
-      {/* Navigation Breadcrumb - Hide in PWA mode and mobile web */}
-      {!(isPWAClient && isPWA) && !isMobileWeb && (
-        <div className={`${dir === 'rtl' ? 'flex justify-end' : ''}`}>
-          <nav className={`inline-flex items-baseline gap-1.5 md:gap-2 text-xs md:text-base text-gray-600 mb-1.5 md:mb-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`} aria-label="Breadcrumb">
-            <span className="hover:text-primary-600 transition-colors">
-              <Link href={getLocalizedPath('/', locale)}>{t('checkout.home')}</Link>
-            </span>
-            <span>/</span>
-            <span className="hover:text-primary-600 transition-colors">
-              <Link href={getLocalizedPath('/products', locale)}>{t('checkout.products')}</Link>
-            </span>
-            <span>/</span>
-            <span className="hover:text-primary-600 transition-colors">
-              <Link href={getLocalizedPath('/cart', locale)}>{t('checkout.cart')}</Link>
-            </span>
-            <span>/</span>
-            <span className="text-gray-900 font-medium">{t('checkout.checkout')}</span>
-          </nav>
-        </div>
-      )}
-      
-      {/* Back to Cart - Hide in PWA mode and mobile web */}
-      {!(isPWAClient && isPWA) && !isMobileWeb && (
-        <div className={`mb-4 md:mb-8 ${dir === 'rtl' ? 'flex justify-end' : ''}`}>
-          <Link 
-            href={getLocalizedPath('/cart', locale)} 
-            className={`inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
-          >
-            <ArrowLeft className={`h-3 w-3 md:h-4 md:w-4 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
-            <span>{t('checkout.backToCart')}</span>
-          </Link>
-        </div>
-      )}
+      <CheckoutHeader
+        isPWA={isPWA}
+        isPWAClient={isPWAClient}
+        isMobileWeb={isMobileWeb}
+        locale={locale}
+        dir={dir}
+        t={t}
+        user={user}
+      />
 
       <div className="max-w-6xl mx-auto">
         {/* Order Number & Summary - PWA and Mobile Web (Above Form) */}
@@ -866,15 +851,57 @@ export default function CheckoutClient() {
                   ))}
                 </div>
                 
-                {/* Totals */}
+                {/* Totals - Waterfall Discount Breakdown */}
                 <div className="border-t border-gray-200 pt-3 space-y-2">
-                  <div className={`flex justify-between text-sm ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                    <span className="text-gray-600">
-                      {locale === 'ar' ? 'المجموع الفرعي' : locale === 'ru' ? 'Подытог' : 'Subtotal'}: ({getTotalItems()} {getTotalItems() === 1 ? (locale === 'ar' ? 'منتج' : locale === 'ru' ? 'товар' : 'item') : (locale === 'ar' ? 'منتجات' : locale === 'ru' ? 'товаров' : 'items')})
-                      {freeMasks.length > 0 && <span className="block text-xs">+ {freeMasks.length} {locale === 'ar' ? 'هدايا مجانية' : locale === 'ru' ? 'бесплатных масок' : 'free masks'}</span>}
-                    </span>
-                    <span className="text-gray-900 font-medium">AED {subtotal.toFixed(2)}</span>
-                  </div>
+                  {/* Retail Price or Subtotal */}
+                  {hasAnyDiscount ? (
+                    <div className={`flex justify-between text-sm ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                      <span className="text-gray-600">
+                        {locale === 'ar' ? 'سعر التجزئة' : locale === 'ru' ? 'Розничная цена' : 'Retail Price'}: ({getTotalItems()} {getTotalItems() === 1 ? (locale === 'ar' ? 'منتج' : locale === 'ru' ? 'товар' : 'item') : (locale === 'ar' ? 'منتجات' : locale === 'ru' ? 'товаров' : 'items')})
+                        {freeMasks.length > 0 && <span className="block text-xs">+ {freeMasks.length} {locale === 'ar' ? 'هدايا مجانية' : locale === 'ru' ? 'бесплатных масок' : 'free masks'}</span>}
+                      </span>
+                      <span className="text-gray-400 line-through">AED {retailTotal.toFixed(2)}</span>
+                    </div>
+                  ) : (
+                    <div className={`flex justify-between text-sm ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                      <span className="text-gray-600">
+                        {locale === 'ar' ? 'المجموع الفرعي' : locale === 'ru' ? 'Подытог' : 'Subtotal'}: ({getTotalItems()} {getTotalItems() === 1 ? (locale === 'ar' ? 'منتج' : locale === 'ru' ? 'товар' : 'item') : (locale === 'ar' ? 'منتجات' : locale === 'ru' ? 'товаров' : 'items')})
+                        {freeMasks.length > 0 && <span className="block text-xs">+ {freeMasks.length} {locale === 'ar' ? 'هدايا مجانية' : locale === 'ru' ? 'бесплатных масок' : 'free masks'}</span>}
+                      </span>
+                      <span className="text-gray-900 font-medium">AED {subtotal.toFixed(2)}</span>
+                    </div>
+                  )}
+                  {/* VIP Discount */}
+                  {hasUserDiscount && (
+                    <div className={`flex justify-between text-sm text-purple-600 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                      <span className="font-medium">🏷️ {locale === 'ar' ? 'خصمك' : locale === 'ru' ? 'Ваша скидка' : 'Your Discount'}{userDiscountPct > 0 ? ` (${userDiscountPct}%)` : ''}</span>
+                      <span className="font-medium">-AED {userDiscountTotal.toFixed(2)}</span>
+                    </div>
+                  )}
+                  {/* Intermediate Subtotal */}
+                  {hasUserDiscount && hasBundleDiscount && (
+                    <div className={`flex justify-between text-xs text-gray-400 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                      <span>{locale === 'ar' ? 'المجموع الفرعي' : locale === 'ru' ? 'Подытог' : 'Subtotal'}</span>
+                      <span>AED {afterVipSubtotal.toFixed(2)}</span>
+                    </div>
+                  )}
+                  {/* Bundle Discount */}
+                  {hasBundleDiscount && (
+                    <div className={`flex justify-between text-sm text-green-600 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                      <span className="font-medium">📦 {locale === 'ar' ? 'خصم الباقة' : locale === 'ru' ? 'Скидка набора' : 'Bundle Discount'}{bundleDiscountPct > 0 ? ` (${bundleDiscountPct}%)` : ''}</span>
+                      <span className="font-medium">-AED {bundleDiscountTotal.toFixed(2)}</span>
+                    </div>
+                  )}
+                  {/* Net Subtotal */}
+                  {hasAnyDiscount && (
+                    <>
+                      <div className="h-px bg-gray-200" />
+                      <div className={`flex justify-between text-sm ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                        <span className="text-gray-900 font-semibold">{locale === 'ar' ? 'المجموع الفرعي الصافي' : locale === 'ru' ? 'Подытог' : 'Net Subtotal'}</span>
+                        <span className="text-gray-900 font-semibold">AED {subtotal.toFixed(2)}</span>
+                      </div>
+                    </>
+                  )}
                   <div className={`flex justify-between text-sm ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                     <span className="text-gray-600 flex items-center gap-1">
                       <Truck className="h-3.5 w-3.5 text-green-600" />
@@ -895,6 +922,14 @@ export default function CheckoutClient() {
                     <span className="text-gray-900">{locale === 'ar' ? 'الإجمالي' : locale === 'ru' ? 'Итого' : 'Total'}:</span>
                     <span className="text-primary-600">AED {total.toFixed(2)}</span>
                   </div>
+                  {/* You Saved */}
+                  {hasAnyDiscount && (
+                    <div className="bg-green-50 border border-green-200 rounded-lg px-3 py-1.5 text-center">
+                      <span className="text-xs text-green-700 font-semibold">
+                        💰 {locale === 'ar' ? 'وفرت' : locale === 'ru' ? 'Вы сэкономили' : 'You saved'}: AED {totalSaved.toFixed(2)}
+                      </span>
+                    </div>
+                  )}
                 </div>
               </div>
             )}
@@ -1021,165 +1056,16 @@ export default function CheckoutClient() {
                   </div>
                 </div>
 
-                {/* Payment Information - PWA & Mobile Web Version */}
-                {(isPWAClient && isPWA) || isMobileWeb ? (
-                  <div className="space-y-4">
-                    <h2 className={`text-base font-semibold text-gray-900 flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                      <CreditCard className="h-5 w-5 text-red-600" />
-                      {t('checkout.paymentInformation') || 'Payment Method'}
-                    </h2>
-                    
-                    {/* Payment Toggle Buttons - 3 Horizontal Buttons */}
-                    <div className="bg-gray-100 p-1.5 rounded-2xl">
-                      <div className={`flex gap-1.5 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                        {/* Cash on Delivery */}
-                        <button
-                          type="button"
-                          onClick={() => setSelectedPaymentMethod('cod')}
-                          className={`flex-1 py-3.5 px-2 rounded-xl font-semibold text-xs transition-all touch-manipulation ${
-                            selectedPaymentMethod === 'cod'
-                              ? 'bg-red-600 text-white shadow-lg'
-                              : 'bg-white text-gray-600 hover:bg-gray-50'
-                          }`}
-                        >
-                          <div className="flex flex-col items-center gap-1.5">
-                            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
-                            </svg>
-                            <span>{locale === 'ar' ? 'عند الاستلام' : locale === 'ru' ? 'Наличные' : 'Cash'}</span>
-                          </div>
-                        </button>
-                        <input type="hidden" name="payment" value={selectedPaymentMethod} />
-
-                        {/* Online Payment */}
-                        <button
-                          type="button"
-                          onClick={() => setSelectedPaymentMethod('stripe')}
-                          className={`flex-1 py-3.5 px-2 rounded-xl font-semibold text-xs transition-all touch-manipulation ${
-                            selectedPaymentMethod === 'stripe'
-                              ? 'bg-red-600 text-white shadow-lg'
-                              : 'bg-white text-gray-600 hover:bg-gray-50'
-                          }`}
-                        >
-                          <div className="flex flex-col items-center gap-1.5">
-                            <CreditCard className="w-6 h-6" />
-                            <span>{locale === 'ar' ? 'أونلاين' : locale === 'ru' ? 'Онлайн' : 'Online'}</span>
-                          </div>
-                        </button>
-
-                        {/* Payment Link */}
-                        <button
-                          type="button"
-                          onClick={() => setSelectedPaymentMethod('support-link')}
-                          className={`flex-1 py-3.5 px-2 rounded-xl font-semibold text-xs transition-all touch-manipulation ${
-                            selectedPaymentMethod === 'support-link'
-                              ? 'bg-red-600 text-white shadow-lg'
-                              : 'bg-white text-gray-600 hover:bg-gray-50'
-                          }`}
-                        >
-                          <div className="flex flex-col items-center gap-1.5">
-                            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
-                            </svg>
-                            <span>{locale === 'ar' ? 'رابط دفع' : locale === 'ru' ? 'Ссылка' : 'Link'}</span>
-                          </div>
-                        </button>
-                      </div>
-                    </div>
-
-                    {/* Payment method description */}
-                    <div className="text-center text-xs text-gray-500 min-h-[32px]">
-                      {selectedPaymentMethod === 'cod' && (
-                        <span>{locale === 'ar' ? 'ادفع نقداً عند استلام طلبك' : locale === 'ru' ? 'Оплата наличными при получении' : 'Pay cash when your order arrives'}</span>
-                      )}
-                      {selectedPaymentMethod === 'stripe' && (
-                        <span>Visa, Mastercard, Apple Pay, Google Pay</span>
-                      )}
-                      {selectedPaymentMethod === 'support-link' && (
-                        <span>{locale === 'ar' ? 'سنرسل لك رابط دفع آمن' : locale === 'ru' ? 'Мы отправим вам ссылку для оплаты' : 'We\'ll send you a secure payment link'}</span>
-                      )}
-                    </div>
-
-                    {/* Security Note - Only show for online/link payments, not cash */}
-                    {selectedPaymentMethod !== 'cod' && (
-                      <div className={`flex items-center justify-center gap-2 text-xs text-gray-400 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                        <Lock className="w-3.5 h-3.5" />
-                        <span>{locale === 'ar' ? 'دفع آمن ومشفر' : locale === 'ru' ? 'Безопасная оплата' : 'Secure & encrypted'}</span>
-                      </div>
-                    )}
-                  </div>
-                ) : (
-                  /* Payment Information - Desktop Browser Version */
-                  <div className="space-y-3 md:space-y-4">
-                    <h2 className={`text-base md:text-lg font-semibold text-gray-900 flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                      <CreditCard className="h-4 w-4 md:h-5 md:w-5 text-green-600" />
-                      {t('checkout.paymentInformation')}
-                    </h2>
-                    
-                    <div className="p-3 md:p-4 bg-blue-50 border border-blue-200 rounded-lg">
-                      <div className={`flex items-center gap-2 text-blue-800 mb-1.5 md:mb-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                        <Building className="h-4 w-4 md:h-5 md:w-5" />
-                        <span className="font-semibold text-sm md:text-base">{t('checkout.payment')}</span>
-                      </div>
-                      <p className={`text-xs md:text-sm text-blue-700 ${dir === 'rtl' ? 'text-right' : ''}`}>
-                        {t('checkout.paymentDescription')}
-                      </p>
-                    </div>
-                    
-                    <div className="space-y-2 md:space-y-3">
-                      <label className={`flex items-start gap-2.5 md:gap-3 p-2.5 md:p-4 rounded-lg cursor-pointer transition-colors ${selectedPaymentMethod === 'stripe' ? 'border-2 border-primary-400 hover:bg-primary-50 bg-primary-50/50' : 'border border-gray-300 hover:bg-gray-50'} ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                        <input
-                          type="radio"
-                          name="payment"
-                          value="stripe"
-                          checked={selectedPaymentMethod === 'stripe'}
-                          onChange={(e) => setSelectedPaymentMethod(e.target.value)}
-                          className="focus:ring-primary-500 mt-0.5 flex-shrink-0 w-4 h-4"
-                        />
-                        <div className={`flex-1 ${dir === 'rtl' ? 'text-right' : ''}`}>
-                          <div className="font-medium text-gray-900 text-[10px] md:text-base flex items-center">
-                            <CreditCard className="w-3 h-3 md:w-4 md:h-4 mr-1.5 text-primary-600" />
-                            {t('checkout.stripeCheckout')}
-                          </div>
-                          <div className="text-[9px] md:text-sm text-gray-600">{t('checkout.secureCardPayment')}</div>
-                          <div className="text-[8px] md:text-xs text-gray-500 mt-1">
-                            {t('checkout.payOnlineWith') || 'Pay online with'}: Visa, Mastercard, Apple Pay, Google Pay.
-                          </div>
-                        </div>
-                      </label>
-                      
-                      <label className={`flex items-start gap-2.5 md:gap-3 p-2.5 md:p-4 rounded-lg cursor-pointer transition-colors ${selectedPaymentMethod === 'cod' ? 'border-2 border-primary-400 hover:bg-primary-50 bg-primary-50/50' : 'border border-gray-300 hover:bg-gray-50'} ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                        <input
-                          type="radio"
-                          name="payment"
-                          value="cod"
-                          checked={selectedPaymentMethod === 'cod'}
-                          onChange={(e) => setSelectedPaymentMethod(e.target.value)}
-                          className="focus:ring-primary-500 mt-0.5 flex-shrink-0 w-4 h-4"
-                        />
-                        <div className={`flex-1 ${dir === 'rtl' ? 'text-right' : ''}`}>
-                          <div className="font-medium text-gray-900 text-[10px] md:text-base">{t('checkout.cod')}</div>
-                          <div className="text-[9px] md:text-sm text-gray-600">{t('checkout.payWhenDelivered')}</div>
-                        </div>
-                      </label>
-
-                      <label className={`flex items-start gap-2.5 md:gap-3 p-2.5 md:p-4 rounded-lg cursor-pointer transition-colors ${selectedPaymentMethod === 'support-link' ? 'border-2 border-primary-400 hover:bg-primary-50 bg-primary-50/50' : 'border border-gray-300 hover:bg-gray-50'} ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                        <input
-                          type="radio"
-                          name="payment"
-                          value="support-link"
-                          checked={selectedPaymentMethod === 'support-link'}
-                          onChange={(e) => setSelectedPaymentMethod(e.target.value)}
-                          className="focus:ring-primary-500 mt-0.5 flex-shrink-0 w-4 h-4"
-                        />
-                        <div className={`flex-1 ${dir === 'rtl' ? 'text-right' : ''}`}>
-                          <div className="font-medium text-gray-900 text-[10px] md:text-base">{t('checkout.generateLinkForPayment')}</div>
-                          <div className="text-[9px] md:text-sm text-gray-600">{t('checkout.supportTeamWillShareLink')}</div>
-                        </div>
-                      </label>
-                    </div>
-                  </div>
-                )}
+                <PaymentMethodSelector
+                  isPWA={isPWA}
+                  isPWAClient={isPWAClient}
+                  isMobileWeb={isMobileWeb}
+                  locale={locale}
+                  dir={dir}
+                  t={t}
+                  selectedPaymentMethod={selectedPaymentMethod}
+                  setSelectedPaymentMethod={setSelectedPaymentMethod}
+                />
 
                 {/* Order Notes */}
                 <div>
@@ -1371,21 +1257,69 @@ export default function CheckoutClient() {
                   )}
                 </div>
                 
-                {/* Price Breakdown */}
+                {/* Price Breakdown - Waterfall Discount */}
                 <div className="space-y-2 md:space-y-3 mb-4 md:mb-6">
-                  <div className={`flex justify-between items-start py-1.5 md:py-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                    <div className={`flex flex-col ${dir === 'rtl' ? 'text-right' : ''}`}>
-                      <span className={`text-[10px] md:text-sm text-gray-600 ${dir === 'rtl' ? 'text-right' : ''}`}>
-                        {t('checkout.subtotal')}: ({getTotalItems()} {getTotalItems() === 1 ? t('checkout.item') : t('checkout.items')})
-                      </span>
-                      {freeMasks.length > 0 && (
+                  {/* Retail Price or Subtotal */}
+                  {hasAnyDiscount ? (
+                    <div className={`flex justify-between items-start py-1.5 md:py-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                      <div className={`flex flex-col ${dir === 'rtl' ? 'text-right' : ''}`}>
                         <span className={`text-[10px] md:text-sm text-gray-600 ${dir === 'rtl' ? 'text-right' : ''}`}>
-                          + {freeMasks.length} {freeMasks.length === 1 ? t('checkout.freeMask') : t('checkout.freeMasks')}
+                          {locale === 'ar' ? 'سعر التجزئة' : locale === 'ru' ? 'Розничная цена' : 'Retail Price'}: ({getTotalItems()} {getTotalItems() === 1 ? t('checkout.item') : t('checkout.items')})
                         </span>
-                      )}
+                        {freeMasks.length > 0 && (
+                          <span className={`text-[10px] md:text-sm text-gray-600 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                            + {freeMasks.length} {freeMasks.length === 1 ? t('checkout.freeMask') : t('checkout.freeMasks')}
+                          </span>
+                        )}
+                      </div>
+                      <span className="text-[10px] md:text-sm font-medium text-gray-400 line-through">AED {retailTotal.toFixed(2)}</span>
                     </div>
-                    <span className="text-[10px] md:text-sm font-medium text-gray-900">AED {subtotal.toFixed(2)}</span>
-                  </div>
+                  ) : (
+                    <div className={`flex justify-between items-start py-1.5 md:py-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                      <div className={`flex flex-col ${dir === 'rtl' ? 'text-right' : ''}`}>
+                        <span className={`text-[10px] md:text-sm text-gray-600 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                          {t('checkout.subtotal')}: ({getTotalItems()} {getTotalItems() === 1 ? t('checkout.item') : t('checkout.items')})
+                        </span>
+                        {freeMasks.length > 0 && (
+                          <span className={`text-[10px] md:text-sm text-gray-600 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                            + {freeMasks.length} {freeMasks.length === 1 ? t('checkout.freeMask') : t('checkout.freeMasks')}
+                          </span>
+                        )}
+                      </div>
+                      <span className="text-[10px] md:text-sm font-medium text-gray-900">AED {subtotal.toFixed(2)}</span>
+                    </div>
+                  )}
+                  {/* VIP Discount */}
+                  {hasUserDiscount && (
+                    <div className={`flex justify-between items-center py-1 md:py-1.5 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                      <span className="text-[10px] md:text-sm text-purple-600 font-medium">🏷️ {locale === 'ar' ? 'خصمك' : locale === 'ru' ? 'Ваша скидка' : 'Your Discount'}{userDiscountPct > 0 ? ` (${userDiscountPct}%)` : ''}</span>
+                      <span className="text-[10px] md:text-sm text-purple-600 font-medium">-AED {userDiscountTotal.toFixed(2)}</span>
+                    </div>
+                  )}
+                  {/* Intermediate Subtotal */}
+                  {hasUserDiscount && hasBundleDiscount && (
+                    <div className={`flex justify-between items-center py-0.5 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                      <span className="text-[9px] md:text-xs text-gray-400">{locale === 'ar' ? 'المجموع الفرعي' : locale === 'ru' ? 'Подытог' : 'Subtotal'}</span>
+                      <span className="text-[9px] md:text-xs text-gray-400">AED {afterVipSubtotal.toFixed(2)}</span>
+                    </div>
+                  )}
+                  {/* Bundle Discount */}
+                  {hasBundleDiscount && (
+                    <div className={`flex justify-between items-center py-1 md:py-1.5 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                      <span className="text-[10px] md:text-sm text-green-600 font-medium">📦 {locale === 'ar' ? 'خصم الباقة' : locale === 'ru' ? 'Скидка набора' : 'Bundle Discount'}{bundleDiscountPct > 0 ? ` (${bundleDiscountPct}%)` : ''}</span>
+                      <span className="text-[10px] md:text-sm text-green-600 font-medium">-AED {bundleDiscountTotal.toFixed(2)}</span>
+                    </div>
+                  )}
+                  {/* Net Subtotal */}
+                  {hasAnyDiscount && (
+                    <>
+                      <div className="h-px bg-gray-200" />
+                      <div className={`flex justify-between items-center py-1 md:py-1.5 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                        <span className="text-[10px] md:text-sm font-semibold text-gray-900">{locale === 'ar' ? 'المجموع الفرعي الصافي' : locale === 'ru' ? 'Подытог' : 'Net Subtotal'}</span>
+                        <span className="text-[10px] md:text-sm font-semibold text-gray-900">AED {subtotal.toFixed(2)}</span>
+                      </div>
+                    </>
+                  )}
                   
                   <div className={`flex justify-between items-center py-1.5 md:py-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                     <div className={`flex items-center gap-1.5 md:gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
@@ -1412,6 +1346,14 @@ export default function CheckoutClient() {
                       <span className="text-base md:text-xl font-bold text-primary-600">AED {total.toFixed(2)}</span>
                     </div>
                   </div>
+                  {/* You Saved */}
+                  {hasAnyDiscount && (
+                    <div className="bg-green-50 border border-green-200 rounded-lg px-3 py-1.5 text-center mt-1">
+                      <span className="text-[10px] md:text-xs text-green-700 font-semibold">
+                        💰 {locale === 'ar' ? 'وفرت' : locale === 'ru' ? 'Вы сэкономили' : 'You saved'}: AED {totalSaved.toFixed(2)}
+                      </span>
+                    </div>
+                  )}
                 </div>
 
 

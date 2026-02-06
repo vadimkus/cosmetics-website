@@ -6,7 +6,7 @@ import { Star, ShoppingCart, Minus, Plus, Heart, Lock, MessageCircle, AlertTrian
 import { Product } from '@/types'
 import { useCart } from '@/components/cart/CartProvider'
 import { useFavorites } from '@/components/FavoritesProvider'
-import { useState, useCallback, useEffect } from 'react'
+import { useState, useCallback, useEffect, useRef } from 'react'
 import { calculateDiscountedPrice, canUserSeePrices } from '@/lib/discountUtils'
 import { errorLog } from '@/lib/logger'
 import { useTranslation } from '@/hooks/useTranslation'
@@ -37,6 +37,10 @@ export default function ProductInfo({
   const [isAdding, setIsAdding] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
   const [shareStatus, setShareStatus] = useState<'idle' | 'copied'>('idle')
+  const shareTimerRef = useRef<NodeJS.Timeout | null>(null)
+
+  // Clean up timer on unmount
+  useEffect(() => () => { if (shareTimerRef.current) clearTimeout(shareTimerRef.current) }, [])
   
   // Detect mobile for "Add to Bag" text
   useEffect(() => {
@@ -121,7 +125,7 @@ export default function ProductInfo({
       try {
         await navigator.clipboard.writeText(shareUrl)
         setShareStatus('copied')
-        setTimeout(() => setShareStatus('idle'), 2000)
+        shareTimerRef.current = setTimeout(() => setShareStatus('idle'), 2000)
       } catch {
         // Fallback for older browsers
         const textArea = document.createElement('textarea')
@@ -131,7 +135,7 @@ export default function ProductInfo({
         document.execCommand('copy')
         document.body.removeChild(textArea)
         setShareStatus('copied')
-        setTimeout(() => setShareStatus('idle'), 2000)
+        shareTimerRef.current = setTimeout(() => setShareStatus('idle'), 2000)
       }
     }
   }, [product.name, t])

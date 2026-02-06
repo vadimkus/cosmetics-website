@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { useBackgroundSync } from '@/hooks/useBackgroundSync'
 import { usePWAMode } from '@/hooks/usePWAMode'
 import { Cloud, CloudOff, RefreshCw, Check, AlertCircle } from 'lucide-react'
@@ -22,14 +22,18 @@ export function SyncStatusIndicator({
   const [showSuccess, setShowSuccess] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
   const [lastPendingCount, setLastPendingCount] = useState(0)
+  const successTimerRef = useRef<NodeJS.Timeout | null>(null)
 
   // Show success animation when sync completes
   useEffect(() => {
     if (lastPendingCount > 0 && pendingCount === 0 && !isSyncing) {
       setShowSuccess(true)
-      setTimeout(() => setShowSuccess(false), 2000)
+      successTimerRef.current = setTimeout(() => setShowSuccess(false), 2000)
     }
     setLastPendingCount(pendingCount)
+    return () => {
+      if (successTimerRef.current) clearTimeout(successTimerRef.current)
+    }
   }, [pendingCount, isSyncing, lastPendingCount])
 
   // Determine visibility

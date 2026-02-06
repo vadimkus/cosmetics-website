@@ -114,7 +114,7 @@ export async function POST(request: NextRequest) {
           const geoData = await getGeolocationData(ipAddress)
           
           // Build additionalInfo object, only including defined values
-          const additionalInfo: any = {}
+          const additionalInfo: Record<string, string | number> = {}
           if (ipAddress) additionalInfo.ipAddress = ipAddress
           if (geoData?.country) additionalInfo.country = geoData.country
           if (geoData?.city) additionalInfo.city = geoData.city

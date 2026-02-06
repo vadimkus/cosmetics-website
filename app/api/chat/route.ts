@@ -4,6 +4,7 @@ import { streamText } from 'ai'
 import { SYSTEM_PROMPT, CHATBOT_CONFIG } from '@/lib/chatbot/config'
 import { debugLog, errorLog } from '@/lib/logger'
 import { prisma } from '@/lib/prisma'
+import { OPENAI_API_KEY } from '@/lib/envValidation'
 
 // Message type for chat API - supports AI SDK v6 UIMessage format with parts array
 interface ChatMessage {
@@ -51,7 +52,7 @@ function checkRateLimit(key: string): { allowed: boolean; remaining: number } {
 export async function POST(request: NextRequest) {
   try {
     // Check if OpenAI API key is configured
-    if (!process.env.OPENAI_API_KEY) {
+    if (!OPENAI_API_KEY) {
       errorLog('[CHAT] OpenAI API key not configured')
       return NextResponse.json(
         { error: 'Chat service not configured. Please add OPENAI_API_KEY to environment variables.' },
@@ -287,7 +288,7 @@ ${languageInstructions[locale as keyof typeof languageInstructions] || languageI
 
 // Health check endpoint
 export async function GET() {
-  const configured = !!process.env.OPENAI_API_KEY
+  const configured = !!OPENAI_API_KEY
   
   return NextResponse.json({
     service: 'GENOSYS AI Chat',

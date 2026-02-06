@@ -294,45 +294,89 @@ function SuccessContent() {
                 </div>
               </div>
 
-              {/* Price Breakdown */}
+              {/* Price Breakdown - Waterfall Discount */}
               <div className="px-4 py-4 border-b border-gray-100 bg-gray-50">
-                <div className="space-y-2 text-sm">
-                  <div className={`flex justify-between ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                    <span className="text-gray-600">{t('cart.subtotal') || 'Subtotal'} ({orderData.itemCount} {orderData.itemCount === 1 ? 'item' : 'items'})</span>
-                    <span className="text-gray-900">{orderData.subtotal.toFixed(2)} AED</span>
-                  </div>
-                  {/* User Discount (Personal VIP/Clinic discount) */}
-                  {orderData.discountAmount > 0 && (
-                    <div className={`flex justify-between text-purple-600 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                      <span>{t('cart.userDiscount') || 'Your Discount'} {orderData.discountPercentage ? `(${orderData.discountPercentage}%)` : ''}</span>
-                      <span>-{orderData.discountAmount.toFixed(2)} AED</span>
+                {(() => {
+                  const hasUserDiscount = orderData.discountAmount > 0
+                  const hasBundleDiscount = orderData.bundleDiscountAmount > 0
+                  const hasAnyDiscount = hasUserDiscount || hasBundleDiscount
+                  const retailTotal = orderData.subtotal + (orderData.discountAmount || 0) + (orderData.bundleDiscountAmount || 0)
+                  const afterVipSubtotal = retailTotal - (orderData.discountAmount || 0)
+                  const totalSaved = (orderData.discountAmount || 0) + (orderData.bundleDiscountAmount || 0)
+                  
+                  return (
+                    <div className="space-y-2 text-sm">
+                      {/* Retail Price or Subtotal */}
+                      {hasAnyDiscount ? (
+                        <div className={`flex justify-between ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                          <span className="text-gray-600">{t('cart.retailPrice') || 'Retail Price'} ({orderData.itemCount} {orderData.itemCount === 1 ? 'item' : 'items'})</span>
+                          <span className="text-gray-400 line-through">{retailTotal.toFixed(2)} AED</span>
+                        </div>
+                      ) : (
+                        <div className={`flex justify-between ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                          <span className="text-gray-600">{t('cart.subtotal') || 'Subtotal'} ({orderData.itemCount} {orderData.itemCount === 1 ? 'item' : 'items'})</span>
+                          <span className="text-gray-900">{orderData.subtotal.toFixed(2)} AED</span>
+                        </div>
+                      )}
+                      {/* VIP Discount */}
+                      {hasUserDiscount && (
+                        <div className={`flex justify-between text-purple-600 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                          <span>{t('cart.userDiscount') || 'Your Discount'} {orderData.discountPercentage ? `(${orderData.discountPercentage}%)` : ''}</span>
+                          <span>-{orderData.discountAmount.toFixed(2)} AED</span>
+                        </div>
+                      )}
+                      {/* Intermediate Subtotal (when both discounts) */}
+                      {hasUserDiscount && hasBundleDiscount && (
+                        <div className={`flex justify-between ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                          <span className="text-gray-400 text-xs">{t('cart.subtotal') || 'Subtotal'}</span>
+                          <span className="text-gray-400 text-xs">{afterVipSubtotal.toFixed(2)} AED</span>
+                        </div>
+                      )}
+                      {/* Bundle Discount */}
+                      {hasBundleDiscount && (
+                        <div className={`flex justify-between text-green-600 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                          <span>{t('cart.bundleDiscount') || 'Bundle Discount'} {orderData.bundleDiscountPercentage ? `(${orderData.bundleDiscountPercentage}%)` : ''}</span>
+                          <span>-{orderData.bundleDiscountAmount.toFixed(2)} AED</span>
+                        </div>
+                      )}
+                      {/* Net Subtotal (when discounts exist) */}
+                      {hasAnyDiscount && (
+                        <>
+                          <div className="border-t border-gray-200" />
+                          <div className={`flex justify-between ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                            <span className="text-gray-900 font-semibold">{t('cart.netSubtotal') || 'Net Subtotal'}</span>
+                            <span className="text-gray-900 font-semibold">{orderData.subtotal.toFixed(2)} AED</span>
+                          </div>
+                        </>
+                      )}
+                      <div className={`flex justify-between ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                        <span className="text-gray-600 flex items-center gap-1">
+                          <Truck className="w-4 h-4" />
+                          {t('cart.shipping') || 'Shipping'} ({orderData.customerEmirate})
+                        </span>
+                        <span className="text-gray-900">{orderData.shipping > 0 ? `${orderData.shipping.toFixed(2)} AED` : 'Free'}</span>
+                      </div>
+                      <div className={`flex justify-between ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                        <span className="text-gray-600">{t('cart.vat') || 'VAT (5%)'}</span>
+                        <span className="text-gray-900">{orderData.vat.toFixed(2)} AED</span>
+                      </div>
+                      <div className="pt-2 border-t border-gray-200">
+                        <div className={`flex justify-between text-base font-bold ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                          <span className="text-gray-900">{t('cart.total') || 'Total'}</span>
+                          <span className="text-green-600">{orderData.total.toFixed(2)} AED</span>
+                        </div>
+                      </div>
+                      {/* You Saved */}
+                      {hasAnyDiscount && (
+                        <div className="bg-green-50 border border-green-200 rounded-lg px-3 py-2 text-center mt-1">
+                          <span className="text-sm text-green-700 font-semibold">
+                            {t('cart.youSaved') || 'You saved'}: {totalSaved.toFixed(2)} AED
+                          </span>
+                        </div>
+                      )}
                     </div>
-                  )}
-                  {/* Bundle Discount */}
-                  {orderData.bundleDiscountAmount > 0 && (
-                    <div className={`flex justify-between text-green-600 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                      <span>{t('cart.bundleDiscount') || 'Bundle Discount'} {orderData.bundleDiscountPercentage ? `(${orderData.bundleDiscountPercentage}%)` : ''}</span>
-                      <span>-{orderData.bundleDiscountAmount.toFixed(2)} AED</span>
-                    </div>
-                  )}
-                  <div className={`flex justify-between ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                    <span className="text-gray-600 flex items-center gap-1">
-                      <Truck className="w-4 h-4" />
-                      {t('cart.shipping') || 'Shipping'} ({orderData.customerEmirate})
-                    </span>
-                    <span className="text-gray-900">{orderData.shipping > 0 ? `${orderData.shipping.toFixed(2)} AED` : 'Free'}</span>
-                  </div>
-                  <div className={`flex justify-between ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                    <span className="text-gray-600">{t('cart.vat') || 'VAT (5%)'}</span>
-                    <span className="text-gray-900">{orderData.vat.toFixed(2)} AED</span>
-                  </div>
-                  <div className="pt-2 border-t border-gray-200">
-                    <div className={`flex justify-between text-base font-bold ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                      <span className="text-gray-900">{t('cart.total') || 'Total'}</span>
-                      <span className="text-green-600">{orderData.total.toFixed(2)} AED</span>
-                    </div>
-                  </div>
-                </div>
+                  )
+                })()}
               </div>
 
               {/* Delivery Address */}

@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { debugLog } from '@/lib/logger'
 
 /**
  * Hook to detect if the app is running in PWA/standalone mode
@@ -45,7 +46,7 @@ export function usePWAMode() {
       
       // Debug logging (remove in production)
       if (typeof window !== 'undefined' && window.location.hostname === 'localhost') {
-        console.log('PWA Detection:', {
+        debugLog('PWA Detection:', {
           isStandalone,
           isIOSStandalone,
           isFullscreen,

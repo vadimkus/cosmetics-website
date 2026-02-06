@@ -65,7 +65,7 @@ export async function PUT(request: NextRequest) {
     const billingAddressRaw = body?.billingAddress
     const vatNumberRaw = body?.vatNumber
 
-    const updates: any = {}
+    const updates: Record<string, string | null> = {}
     if (billingAddressRaw !== undefined) {
       if (billingAddressRaw === null || billingAddressRaw === '') updates.billingAddress = null
       else if (typeof billingAddressRaw !== 'string') {

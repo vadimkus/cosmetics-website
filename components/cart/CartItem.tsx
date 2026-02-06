@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useRef, useCallback } from 'react'
+import React, { useState, useRef, useCallback } from 'react'
 import { CartItem as CartItemType } from '@/types'
 import { useCart } from '@/components/cart/CartProvider'
 import { useAuth } from '@/components/auth/AuthProvider'
@@ -23,7 +23,7 @@ interface CartItemProps {
   item: CartItemType
 }
 
-export default function CartItem({ item }: CartItemProps) {
+function CartItemComponent({ item }: CartItemProps) {
   const { updateQuantity, removeItem, updateColor } = useCart()
   const { user } = useAuth()
   const { t, dir, locale } = useTranslation()
@@ -389,3 +389,18 @@ export default function CartItem({ item }: CartItemProps) {
     </motion.div>
   )
 }
+
+function areCartItemsEqual(prevProps: CartItemProps, nextProps: CartItemProps): boolean {
+  const prev = prevProps.item
+  const next = nextProps.item
+  return (
+    prev.product.id === next.product.id &&
+    prev.quantity === next.quantity &&
+    prev.selectedColor === next.selectedColor &&
+    prev.selectedSize === next.selectedSize &&
+    prev.fromBundle === next.fromBundle &&
+    prev.bundleDiscountPercent === next.bundleDiscountPercent
+  )
+}
+
+export default React.memo(CartItemComponent, areCartItemsEqual)

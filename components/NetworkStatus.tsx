@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 /**
  * NetworkStatus Component
@@ -17,6 +17,7 @@ import { useState, useEffect } from 'react'
 export default function NetworkStatus() {
   const [isOnline, setIsOnline] = useState(true)
   const [showIndicator, setShowIndicator] = useState(false)
+  const hideTimerRef = useRef<NodeJS.Timeout | null>(null)
 
   useEffect(() => {
     // Check initial online status
@@ -30,7 +31,7 @@ export default function NetworkStatus() {
     const handleOnline = () => {
       setIsOnline(true)
       // Delay hiding to allow user to see "Back online" message
-      setTimeout(() => {
+      hideTimerRef.current = setTimeout(() => {
         setShowIndicator(false)
       }, 2000)
     }
@@ -46,6 +47,7 @@ export default function NetworkStatus() {
     return () => {
       window.removeEventListener('online', handleOnline)
       window.removeEventListener('offline', handleOffline)
+      if (hideTimerRef.current) clearTimeout(hideTimerRef.current)
     }
   }, [])
 

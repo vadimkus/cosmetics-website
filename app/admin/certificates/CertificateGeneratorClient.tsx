@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { Gift, Copy, ExternalLink, RefreshCw, Check } from 'lucide-react'
 import { errorLog } from '@/lib/logger'
 
@@ -14,6 +14,10 @@ export default function CertificateGeneratorClient() {
   const [amount, setAmount] = useState<number>(200)
   const [generatedCertificate, setGeneratedCertificate] = useState<GeneratedCertificate | null>(null)
   const [copied, setCopied] = useState(false)
+  const copyTimerRef = useRef<NodeJS.Timeout | null>(null)
+
+  // Clean up timer on unmount
+  useEffect(() => () => { if (copyTimerRef.current) clearTimeout(copyTimerRef.current) }, [])
 
   const generateCode = () => {
     // Generate a random 5-character alphanumeric code
@@ -44,7 +48,7 @@ export default function CertificateGeneratorClient() {
     try {
       await navigator.clipboard.writeText(text)
       setCopied(true)
-      setTimeout(() => setCopied(false), 2000)
+      copyTimerRef.current = setTimeout(() => setCopied(false), 2000)
     } catch (err) {
       errorLog('Failed to copy:', err)
     }

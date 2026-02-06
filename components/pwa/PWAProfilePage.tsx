@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/components/auth/AuthProvider'
@@ -142,6 +142,14 @@ export default function PWAProfilePage() {
   const [showARSkinAnalysis, setShowARSkinAnalysis] = useState(false)
   const [lastSkinType, setLastSkinType] = useState<string | null>(null)
   const [showAnalysisSuccess, setShowAnalysisSuccess] = useState(false)
+  const analysisSuccessTimerRef = useRef<NodeJS.Timeout | null>(null)
+  const analysisNavTimerRef = useRef<NodeJS.Timeout | null>(null)
+
+  // Clean up timers on unmount
+  useEffect(() => () => {
+    if (analysisSuccessTimerRef.current) clearTimeout(analysisSuccessTimerRef.current)
+    if (analysisNavTimerRef.current) clearTimeout(analysisNavTimerRef.current)
+  }, [])
   
   const isRTL = dir === 'rtl'
   const cartCount = getTotalItems()
@@ -312,18 +320,18 @@ export default function PWAProfilePage() {
             alert(t('pwaProfile.pushDenied') || 'Push notifications were denied. Please enable them in your browser settings.')
           }
         }
-      } catch (error: any) {
+      } catch (error: unknown) {
         console.error('[PUSH] Error:', error)
         setPushNotifications(false)
         
         // Show more specific error message
-        const errorMessage = error?.message || 'Unknown error'
+        const errorMessage = error instanceof Error ? error.message : 'Unknown error'
         if (errorMessage.includes('VAPID')) {
-          alert('Push notifications are not configured. Please contact support.')
+          alert(t('pwaProfile.pushNotConfigured') || 'Push notifications are not configured. Please contact support.')
         } else if (errorMessage.includes('Authentication')) {
-          alert('Please log in again to enable notifications.')
+          alert(t('pwaProfile.pushLoginRequired') || 'Please log in again to enable notifications.')
         } else {
-          alert(`Failed to enable notifications: ${errorMessage}`)
+          alert(`${t('pwaProfile.pushFailedPrefix') || 'Failed to enable notifications:'} ${errorMessage}`)
         }
       }
     } else {
@@ -357,7 +365,7 @@ export default function PWAProfilePage() {
     
     // Show success message
     setShowAnalysisSuccess(true)
-    setTimeout(() => setShowAnalysisSuccess(false), 3000)
+    analysisSuccessTimerRef.current = setTimeout(() => setShowAnalysisSuccess(false), 3000)
     
     // Store full analysis result in sessionStorage for the recommendation page
     if (typeof window !== 'undefined') {
@@ -365,7 +373,7 @@ export default function PWAProfilePage() {
     }
     
     // Navigate to recommendations with results
-    setTimeout(() => {
+    analysisNavTimerRef.current = setTimeout(() => {
       router.push(getLocalizedPath('/skin-recommendation', locale) + `?skinType=${result.skinType}&concerns=${result.concerns.join(',')}&fromAnalysis=true`)
     }, 500)
   }
@@ -377,7 +385,7 @@ export default function PWAProfilePage() {
     
     // Show success message
     setShowAnalysisSuccess(true)
-    setTimeout(() => setShowAnalysisSuccess(false), 3000)
+    analysisSuccessTimerRef.current = setTimeout(() => setShowAnalysisSuccess(false), 3000)
     
     // Store full analysis result in sessionStorage for the recommendation page
     if (typeof window !== 'undefined') {
@@ -385,7 +393,7 @@ export default function PWAProfilePage() {
     }
     
     // Navigate to recommendations with results
-    setTimeout(() => {
+    analysisNavTimerRef.current = setTimeout(() => {
       router.push(getLocalizedPath('/skin-recommendation', locale) + `?skinType=${result.skinType}&concerns=${result.concerns.join(',')}&fromAnalysis=true&mode=ar`)
     }, 500)
   }

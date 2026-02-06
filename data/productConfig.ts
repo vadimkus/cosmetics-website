@@ -106,7 +106,8 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     sizes: [
       { value: '180ml', label: '180ml', available: true },
       { value: '500ml', label: '500ml', available: true }
-    ]
+    ],
+    images: ['/images/SNOW.jpg', '/images/Second/cleanser_big.jpg']
   },
   '12': {
     id: '12',
@@ -221,7 +222,8 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     id: '26',
     pricing: {
       basePrice: 450
-    }
+    },
+    images: ['/images/EGF.jpg', '/images/Second/egf_big.jpg']
   },
   '27': {
     id: '27',

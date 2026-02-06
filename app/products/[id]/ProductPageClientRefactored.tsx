@@ -350,9 +350,24 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
                     {t('product.videoNotSupported') || 'Your browser does not support the video tag.'}
                   </video>
                 </div>
-                <p className="text-center text-sm text-gray-500 mt-2">
-                  {t('product.watchHowToUse') || 'Watch how to use'}
-                </p>
+              </div>
+            )}
+
+            {/* Product Video - Only for Product ID 26 (EGF Repair Oxymask Cream) */}
+            {(product.id === '26' || product.productNumber === '26') && (
+              <div className="mt-4 lg:mt-6 lg:max-w-sm lg:mx-auto">
+                <div className="rounded-xl overflow-hidden shadow-lg bg-black">
+                  <video
+                    className="w-full aspect-video object-contain lg:aspect-auto"
+                    controls
+                    playsInline
+                    preload="none"
+                    poster="/Logo/BlackG.png"
+                  >
+                    <source src="/videos/egf.mp4" type="video/mp4" />
+                    {t('product.videoNotSupported') || 'Your browser does not support the video tag.'}
+                  </video>
+                </div>
               </div>
             )}
             

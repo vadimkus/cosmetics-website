@@ -38,8 +38,10 @@ const ProductImage = memo(function ProductImage({
   
   const imageAlt = `${product.name} - GENOSYS Korean ${product.category || 'dermacosmetics'} professional skincare product UAE`
   
-  // Products whose card images need object-contain (banner-style images that crop poorly)
+  // Products whose card images need object-contain (banner-style / composite images that crop poorly)
   const useContain = product.name.includes('INTENSIVE REPAIR COLLAGEN MASK')
+    || product.category?.toLowerCase().includes('beauty box')
+    || product.name.toLowerCase().includes('beauty box')
   const imageClass = useContain
     ? 'w-full h-24 sm:h-32 md:h-40 lg:h-48 object-contain bg-gray-50 p-2'
     : 'w-full h-24 sm:h-32 md:h-40 lg:h-48 object-cover'

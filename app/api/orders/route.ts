@@ -1,9 +1,52 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { cookies } from 'next/headers'
 import { getOrdersByEmail, getOrdersCountByEmail } from '@/lib/orderStorageDb'
+import { findUserByEmail } from '@/lib/userStorageDb'
+import { verifySessionToken } from '@/lib/jwt'
 import { errorLog, debugLog } from '@/lib/logger'
+
+/**
+ * Get the authenticated user from the session cookie.
+ * Returns null if no valid session exists.
+ */
+async function getUserFromSession(): Promise<{ email: string; userId: string; isAdmin: boolean } | null> {
+  try {
+    const cookieStore = await cookies()
+    const sessionCookie = cookieStore.get('genosys_session')
+    
+    if (!sessionCookie?.value) {
+      return null
+    }
+    
+    const sessionData = verifySessionToken(sessionCookie.value)
+    
+    if (!sessionData?.email) {
+      return null
+    }
+    
+    return {
+      email: sessionData.email,
+      userId: sessionData.id,
+      isAdmin: sessionData.isAdmin || false,
+    }
+  } catch (error) {
+    errorLog('[ORDERS] Session parse error:', error)
+    return null
+  }
+}
 
 export async function GET(request: NextRequest) {
   try {
+    // ---- Authentication check ----
+    const session = await getUserFromSession()
+    
+    if (!session) {
+      return NextResponse.json(
+        { error: 'Authentication required. Please log in.' },
+        { status: 401 }
+      )
+    }
+
     const { searchParams } = new URL(request.url)
     const email = searchParams.get('email')
     const contactEmail = searchParams.get('contactEmail') // Additional email for Apple users
@@ -19,6 +62,42 @@ export async function GET(request: NextRequest) {
       )
     }
 
+    // ---- Authorization check ----
+    // Non-admin users can only query their own orders.
+    // We verify the requested email matches the session user's email or contactEmail.
+    if (!session.isAdmin) {
+      const sessionUser = await findUserByEmail(session.email)
+      
+      // Build the set of emails this user is allowed to query
+      const allowedEmails = new Set<string>()
+      allowedEmails.add(session.email.trim().toLowerCase())
+      if (sessionUser?.contactEmail) {
+        allowedEmails.add(sessionUser.contactEmail.trim().toLowerCase())
+      }
+      
+      const requestedEmail = email.trim().toLowerCase()
+      const requestedContactEmail = contactEmail?.trim().toLowerCase()
+      
+      // Check that the requested email is one of the user's own emails
+      if (!allowedEmails.has(requestedEmail)) {
+        debugLog(`[ORDERS] Unauthorized: session user ${session.email} tried to query orders for ${email}`)
+        return NextResponse.json(
+          { error: 'You can only view your own orders.' },
+          { status: 403 }
+        )
+      }
+      
+      // If a contactEmail was provided, verify it too
+      if (requestedContactEmail && requestedContactEmail !== requestedEmail && !allowedEmails.has(requestedContactEmail)) {
+        debugLog(`[ORDERS] Unauthorized contact email: session user ${session.email} tried to query with contactEmail ${contactEmail}`)
+        return NextResponse.json(
+          { error: 'You can only view your own orders.' },
+          { status: 403 }
+        )
+      }
+    }
+
+    // ---- Fetch orders ----
     // Collect all emails to search (auth email + contact email if different)
     const emailsToSearch: string[] = [email]
     if (contactEmail && contactEmail.trim() && contactEmail.trim().toLowerCase() !== email.trim().toLowerCase()) {

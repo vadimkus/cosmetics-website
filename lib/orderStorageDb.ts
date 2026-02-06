@@ -1,6 +1,7 @@
 import { debugLog, errorLog } from '@/lib/logger'
 import { prisma } from './database'
 import { Order } from '@prisma/client'
+import crypto from 'crypto'
 
 export interface OrderItemData {
   productId: string
@@ -109,7 +110,7 @@ export const addOrder = async (orderData: OrderData): Promise<Order> => {
       create: {
         email: normalizedEmail,
         name: orderData.customerName,
-        password: 'temp-password', // Temporary password for guest orders
+        password: crypto.randomBytes(32).toString('hex'), // Random password for guest orders - user must register/reset to log in
         phone: orderData.customerPhone,
         address: orderData.customerAddress,
         isAdmin: false,

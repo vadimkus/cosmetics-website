@@ -3,8 +3,16 @@ import { findUserByEmail } from '@/lib/userStorageDb'
 import { errorLog, debugLog } from '@/lib/logger'
 import crypto from 'crypto'
 
-// Admin session secret - must be set in production
-const ADMIN_SESSION_SECRET = process.env.ADMIN_SESSION_SECRET || process.env.JWT_SECRET || 'admin-session-fallback-dev-only'
+// Admin session secret - uses ADMIN_SESSION_SECRET or JWT_SECRET from env
+// In production, one of these MUST be set for secure admin authentication
+const ADMIN_SESSION_SECRET = (() => {
+  const secret = process.env.ADMIN_SESSION_SECRET || process.env.JWT_SECRET
+  if (!secret && process.env.NODE_ENV === 'production') {
+    errorLog('⚠️ CRITICAL: ADMIN_SESSION_SECRET and JWT_SECRET are both missing in production! Admin auth will not work.')
+  }
+  // In development, use a dev-only fallback (never used in production)
+  return secret || (process.env.NODE_ENV === 'production' ? '' : 'dev-only-not-for-production')
+})()
 
 /**
  * Generate a signed admin session token

@@ -1595,8 +1595,13 @@ export const sendAdminNewUserNotification = async (
     gender?: string
   }
 ) => {
-  // Use ADMIN_EMAIL, or fallback to GMAIL_USER/EMAIL_USER, or use default
-  const adminEmail = process.env.ADMIN_EMAIL || process.env.GMAIL_USER || process.env.EMAIL_USER || '5856825@gmail.com'
+  // Use ADMIN_EMAIL, or fallback to GMAIL_USER/EMAIL_USER
+  const adminEmail = process.env.ADMIN_EMAIL || process.env.GMAIL_USER || process.env.EMAIL_USER
+  
+  if (!adminEmail) {
+    errorLog('📧 ⚠️ Cannot send admin new user notification: No admin email configured (set ADMIN_EMAIL, GMAIL_USER, or EMAIL_USER)')
+    return
+  }
   
   debugLog(`📧 ===== ADMIN NEW USER NOTIFICATION =====`)
   debugLog(`📧 Sending admin new user notification to: ${adminEmail}`)
@@ -1645,8 +1650,13 @@ export const sendAdminNewUserNotification = async (
 
 export const sendAdminNewOrderNotification = async (orderData: AdminNewOrderEmailData, recipientEmail?: string) => {
   try {
-    // Use provided recipientEmail, or ADMIN_EMAIL, or fallback to GMAIL_USER/EMAIL_USER, or use default
-    const adminEmail = recipientEmail || process.env.ADMIN_EMAIL || process.env.GMAIL_USER || process.env.EMAIL_USER || '5856825@gmail.com'
+    // Use provided recipientEmail, or ADMIN_EMAIL, or fallback to GMAIL_USER/EMAIL_USER
+    const adminEmail = recipientEmail || process.env.ADMIN_EMAIL || process.env.GMAIL_USER || process.env.EMAIL_USER
+    
+    if (!adminEmail) {
+      errorLog('📧 ⚠️ Cannot send admin order notification: No admin email configured (set ADMIN_EMAIL, GMAIL_USER, or EMAIL_USER)')
+      return { success: false, error: 'No admin email configured' }
+    }
     
     debugLog(`📧 Sending admin new order notification to: ${adminEmail}`)
     debugLog(`📧 Admin email sources - ADMIN_EMAIL: ${process.env.ADMIN_EMAIL || 'NOT_SET'}, GMAIL_USER: ${process.env.GMAIL_USER || 'NOT_SET'}, EMAIL_USER: ${process.env.EMAIL_USER || 'NOT_SET'}`)

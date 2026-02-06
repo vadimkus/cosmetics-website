@@ -1,6 +1,7 @@
 import { errorLog } from '@/lib/logger'
 import fs from 'fs'
 import path from 'path'
+import crypto from 'crypto'
 import { User } from '@/types/user'
 
 // Use environment-specific data directory
@@ -41,13 +42,15 @@ export const readUsers = (): User[] => {
         return templateUsers
       }
       
-      // Fallback: Create minimal initial users
+      // Fallback: Create minimal initial admin user with a random password
+      // NOTE: This is a legacy file-based storage fallback. The admin must
+      // reset their password via the proper auth flow before they can log in.
       const initialUsers = [
         {
           id: 'admin-user',
           name: 'Admin User',
           email: 'admin@genosys.ae',
-          password: 'admin5',
+          password: crypto.randomBytes(32).toString('hex'),
           phone: '+971 50 000 0000',
           address: 'Dubai, UAE',
           createdAt: new Date().toISOString(),

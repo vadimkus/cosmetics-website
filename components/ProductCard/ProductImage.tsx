@@ -38,6 +38,12 @@ const ProductImage = memo(function ProductImage({
   
   const imageAlt = `${product.name} - GENOSYS Korean ${product.category || 'dermacosmetics'} professional skincare product UAE`
   
+  // Products whose card images need object-contain (banner-style images that crop poorly)
+  const useContain = product.name.includes('INTENSIVE REPAIR COLLAGEN MASK')
+  const imageClass = useContain
+    ? 'w-full h-24 sm:h-32 md:h-40 lg:h-48 object-contain bg-gray-50 p-2'
+    : 'w-full h-24 sm:h-32 md:h-40 lg:h-48 object-cover'
+  
   // PWA-specific touch handling styles
   const pwaStyles = {
     touchAction: 'manipulation' as const,
@@ -71,7 +77,7 @@ const ProductImage = memo(function ProductImage({
               alt={imageAlt}
               width={300}
               height={300}
-              className="w-full h-24 sm:h-32 md:h-40 lg:h-48 object-cover"
+              className={imageClass}
               placeholder="blur"
               blurDataURL={BLUR_DATA_URL}
               priority={false}
@@ -93,7 +99,7 @@ const ProductImage = memo(function ProductImage({
               alt={imageAlt}
               width={300}
               height={300}
-              className="w-full h-24 sm:h-32 md:h-40 lg:h-48 object-cover cursor-pointer"
+              className={`${imageClass} cursor-pointer`}
               placeholder="blur"
               blurDataURL={BLUR_DATA_URL}
               priority={false}

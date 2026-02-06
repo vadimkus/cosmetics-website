@@ -232,6 +232,8 @@
     "shippingTo": "الشحن إلى",
     "shipping": "الشحن",
     "discount": "الخصم",
+    "userDiscount": "خصمك الخاص",
+    "bundleDiscount": "خصم الحزمة",
     "vat": "ضريبة القيمة المضافة (5%)",
     "allPricesIncludeVat": "جميع الأسعار تشمل ضريبة القيمة المضافة 5%",
     "freeDelivery": "توصيل مجاني",

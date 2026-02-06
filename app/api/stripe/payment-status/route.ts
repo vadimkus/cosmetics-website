@@ -328,7 +328,9 @@ async function handlePaymentIntentStatus(paymentIntentId: string, orderId: strin
                 emirate: order.customerEmirate || '',
                 locale: order.locale || 'en',
                 discountPercentage: hasUserDiscount ? userDiscountPct : undefined,
-                discountAmount: order.discountAmount ?? undefined
+                discountAmount: order.discountAmount ?? undefined,
+                bundleDiscountPercentage: order.bundleDiscountPercentage ?? undefined,
+                bundleDiscountAmount: order.bundleDiscountAmount ?? undefined
               })
               
               debugLog('📧 Customer email sent for order:', order.orderNumber)
@@ -397,7 +399,9 @@ async function handlePaymentIntentStatus(paymentIntentId: string, orderId: strin
               paymentStatus: 'PAID',
               paymentMethod: order.paymentMethod ?? 'Stripe',
               discountPercentage: hasUserDiscount ? userDiscountPct : 0,
-              discountAmount: order.discountAmount ?? 0
+              discountAmount: order.discountAmount ?? 0,
+              bundleDiscountPercentage: order.bundleDiscountPercentage ?? undefined,
+              bundleDiscountAmount: order.bundleDiscountAmount ?? undefined
             })
             
             debugLog('📧 Admin notification sent for order:', order.orderNumber)

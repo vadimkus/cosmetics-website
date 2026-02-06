@@ -197,6 +197,8 @@ model Order {
   subtotal        Float
   discountPercentage Float?   // User's discount percentage at time of order
   discountAmount  Float       @default(0)
+  bundleDiscountPercentage Float?   // Bundle discount percentage (e.g., 20% for 5+ items)
+  bundleDiscountAmount Float       @default(0)  // Bundle discount amount in AED
   shipping        Float       @default(0)
   vat             Float
   total           Float

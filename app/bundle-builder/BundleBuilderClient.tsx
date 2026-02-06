@@ -255,11 +255,13 @@ function BundleSummary({
   onClear,
   showPrices,
   pricing,
+  userDiscountPercent,
 }: {
   onAddToCart: () => void
   onClear: () => void
   showPrices: boolean
   pricing: BundlePricing
+  userDiscountPercent?: number
 }) {
   const { t } = useTranslation()
   const { items, removeItem, canAddToCart } = useBundleStore()
@@ -376,7 +378,7 @@ function BundleSummary({
                 {hasUserDiscount && (
                   <div className="flex justify-between text-sm">
                     <span className="text-purple-600">
-                      {t('bundleBuilder.yourDiscount')}
+                      {t('bundleBuilder.yourDiscount')} {userDiscountPercent ? `(${userDiscountPercent}%)` : ''}
                     </span>
                     <span className="text-purple-600">-{userDiscountAmount.toFixed(2)} {t('common.aed')}</span>
                   </div>
@@ -902,6 +904,7 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
                 onClear={handleClear}
                 showPrices={showPrices}
                 pricing={pricing}
+                {...(user?.discountPercentage ? { userDiscountPercent: user.discountPercentage } : {})}
               />
             </div>
           </aside>
@@ -1064,6 +1067,7 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
                   }}
                   showPrices={showPrices}
                   pricing={pricing}
+                  {...(user?.discountPercentage ? { userDiscountPercent: user.discountPercentage } : {})}
                 />
               </div>
             </motion.div>

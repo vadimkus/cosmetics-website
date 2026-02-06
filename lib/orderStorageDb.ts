@@ -23,8 +23,10 @@ export interface OrderData {
   orderNotes?: string | null // Optional order notes from customer
   items: OrderItemData[]
   subtotal: number
-  discountPercentage?: number
-  discountAmount?: number
+  discountPercentage?: number  // User's personal discount percentage (e.g., 50)
+  discountAmount?: number      // User's personal discount amount in AED
+  bundleDiscountPercentage?: number  // Bundle discount percentage (e.g., 20)
+  bundleDiscountAmount?: number      // Bundle discount amount in AED
   shipping?: number
   vat: number
   total: number
@@ -126,6 +128,8 @@ export const addOrder = async (orderData: OrderData): Promise<Order> => {
         subtotal: orderData.subtotal,
         discountPercentage: orderData.discountPercentage || 0,
         discountAmount: orderData.discountAmount || 0,
+        bundleDiscountPercentage: orderData.bundleDiscountPercentage || null,
+        bundleDiscountAmount: orderData.bundleDiscountAmount || 0,
         shipping: orderData.shipping || 0,
         vat: orderData.vat,
         total: orderData.total,

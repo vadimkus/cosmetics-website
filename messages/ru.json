@@ -246,6 +246,8 @@
     "shippingTo": "Доставка в",
     "shipping": "Доставка",
     "discount": "Скидка",
+    "userDiscount": "Ваша скидка",
+    "bundleDiscount": "Скидка на набор",
     "vat": "НДС (5%)",
     "allPricesIncludeVat": "Все цены включают 5% НДС",
     "freeDelivery": "Бесплатно",

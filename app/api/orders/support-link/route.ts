@@ -128,6 +128,7 @@ export async function POST(request: NextRequest) {
       subtotal,
       discountPercentage: hasUserDiscount ? userDiscountPct : 0,
       discountAmount: discountAmount > 0 ? discountAmount : 0,
+      bundleDiscountAmount: 0, // Support link orders don't have bundle discounts
       shipping: shippingCost,
       vat: vatAmount,
       total,
@@ -162,6 +163,8 @@ export async function POST(request: NextRequest) {
         subtotal: dbOrder.subtotal,
         discountPercentage: dbOrder.discountPercentage ?? 0,
         discountAmount: dbOrder.discountAmount ?? 0,
+        bundleDiscountPercentage: dbOrder.bundleDiscountPercentage ?? null,
+        bundleDiscountAmount: dbOrder.bundleDiscountAmount ?? 0,
         shipping: dbOrder.shipping ?? 0,
         vat: dbOrder.vat,
         total: dbOrder.total,

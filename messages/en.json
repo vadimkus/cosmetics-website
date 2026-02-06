@@ -232,6 +232,8 @@
     "shippingTo": "Shipping to",
     "shipping": "Shipping",
     "discount": "Discount",
+    "userDiscount": "Your Discount",
+    "bundleDiscount": "Bundle Discount",
     "vat": "VAT (5%)",
     "allPricesIncludeVat": "All prices include 5% VAT",
     "freeDelivery": "Free Delivery",

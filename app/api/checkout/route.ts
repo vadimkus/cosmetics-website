@@ -19,6 +19,8 @@ interface CheckoutItem {
   quantity: number
   selectedColor?: string
   selectedSize?: string
+  fromBundle?: boolean
+  bundleDiscountPercent?: number
 }
 
 export async function POST(request: NextRequest) {
@@ -98,22 +100,47 @@ export async function POST(request: NextRequest) {
     
     // NOTE: Frontend already applies discounts to item.product.price before sending
     // So we just calculate the subtotal from already-discounted prices
-    // But we also calculate what the discount amount was for record-keeping
+    // But we also calculate what the discount amounts were for record-keeping
+    // Track both user discount and bundle discount separately
     let subtotal = 0
-    let discountAmount = 0
+    let discountAmount = 0  // User discount
+    let bundleDiscountAmount = 0  // Bundle discount
+    let bundleDiscountPercent: number | null = null  // Bundle discount percentage (same for all bundle items)
     
     for (const item of items as CheckoutItem[]) {
-      const itemPrice = item.product.price // Already discounted by frontend
+      const itemPrice = item.product.price  // Already the final discounted price
       const itemTotal = itemPrice * item.quantity
       subtotal += itemTotal
       
-      // Calculate what the discount was (for record-keeping only)
-      // Frontend sends discounted price, so we reverse-calculate original price
-      if (hasUserDiscount) {
+      // Check if this is a bundle item
+      if (item.fromBundle && item.bundleDiscountPercent && item.bundleDiscountPercent > 0) {
+        bundleDiscountPercent = item.bundleDiscountPercent
+        
+        // Calculate what the price was before bundle discount
+        // Final price = (user discounted price) * (1 - bundleDiscount/100)
+        // So: user discounted price = final price / (1 - bundleDiscount/100)
+        const priceBeforeBundleDiscount = itemPrice / (1 - item.bundleDiscountPercent / 100)
+        const itemBundleDiscount = (priceBeforeBundleDiscount - itemPrice) * item.quantity
+        bundleDiscountAmount += itemBundleDiscount
+        
+        debugLog(`Bundle item: ${item.product.name} - Bundle discount: ${item.bundleDiscountPercent}% = ${itemBundleDiscount.toFixed(2)} AED`)
+        
+        // Also calculate user discount if applicable
+        if (hasUserDiscount) {
+          const excluded = isUserDiscountExcludedProduct(item.product)
+          if (!excluded) {
+            // User discounted price = original price * (1 - userDiscount/100)
+            // So: original price = price before bundle discount / (1 - userDiscount/100)
+            const originalPrice = priceBeforeBundleDiscount / (1 - userDiscountPct / 100)
+            const itemUserDiscount = (originalPrice - priceBeforeBundleDiscount) * item.quantity
+            discountAmount += itemUserDiscount
+            debugLog(`  User discount: ${userDiscountPct}% = ${itemUserDiscount.toFixed(2)} AED`)
+          }
+        }
+      } else if (hasUserDiscount) {
+        // Non-bundle item with user discount
         const excluded = isUserDiscountExcludedProduct(item.product)
         if (!excluded) {
-          // Reverse: discountedPrice = originalPrice * (1 - pct/100)
-          // So: originalPrice = discountedPrice / (1 - pct/100)
           const originalPrice = itemPrice / (1 - userDiscountPct / 100)
           const itemDiscount = (originalPrice - itemPrice) * item.quantity
           discountAmount += itemDiscount
@@ -129,9 +156,15 @@ export async function POST(request: NextRequest) {
     // Round to 2 decimal places
     subtotal = Math.round(subtotal * 100) / 100
     discountAmount = Math.round(discountAmount * 100) / 100
+    bundleDiscountAmount = Math.round(bundleDiscountAmount * 100) / 100
     
     debugLog('Subtotal calculated:', subtotal)
-    debugLog('Discount amount (saved):', discountAmount)
+    debugLog('Discount breakdown:', { 
+      userDiscount: discountAmount, 
+      bundleDiscount: bundleDiscountAmount, 
+      bundleDiscountPercent,
+      total: discountAmount + bundleDiscountAmount 
+    })
     
     // Use shared mobile checkout config for consistency
     const shipping = calculateMobileShipping(subtotal, customerEmirate)
@@ -180,7 +213,10 @@ export async function POST(request: NextRequest) {
       customerAddress,
       items: orderItems,
       subtotal,
+      discountPercentage: hasUserDiscount ? userDiscountPct : 0,
       discountAmount,
+      ...(bundleDiscountPercent ? { bundleDiscountPercentage: bundleDiscountPercent } : {}),
+      bundleDiscountAmount,
       shipping,
       vat,
       total,
@@ -238,7 +274,9 @@ export async function POST(request: NextRequest) {
       emirate: order.customerEmirate || '',
       locale: order.locale || 'en',
       discountPercentage: hasUserDiscount ? userDiscountPct : undefined,
-      discountAmount: discountAmount > 0 ? discountAmount : undefined
+      discountAmount: discountAmount > 0 ? discountAmount : undefined,
+      bundleDiscountPercentage: bundleDiscountPercent || undefined,
+      bundleDiscountAmount: bundleDiscountAmount > 0 ? bundleDiscountAmount : undefined
     }).then(() => {
       debugLog('✅ Order confirmation email sent to:', emailToUse)
     }).catch((emailError) => {
@@ -284,7 +322,9 @@ export async function POST(request: NextRequest) {
       paymentStatus: 'COD',
       paymentMethod: 'Cash on Delivery',
       discountPercentage: user?.discountPercentage || 0,
-      discountAmount: order.discountAmount || 0
+      discountAmount: order.discountAmount || 0,
+      bundleDiscountPercentage: bundleDiscountPercent || undefined,
+      bundleDiscountAmount: bundleDiscountAmount > 0 ? bundleDiscountAmount : undefined
     }).then((adminResult) => {
       if (adminResult.success) {
         debugLog('✅ Admin notification sent for new order:', order.orderNumber)

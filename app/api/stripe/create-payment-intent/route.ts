@@ -18,6 +18,8 @@ interface CheckoutItem {
   quantity: number
   selectedColor?: string
   selectedSize?: string
+  fromBundle?: boolean
+  bundleDiscountPercent?: number
 }
 
 export async function POST(request: NextRequest) {
@@ -86,15 +88,44 @@ export async function POST(request: NextRequest) {
     debugLog('User discount for Payment Intent:', { hasUserDiscount, userDiscountPct, userId: user?.id })
     
     // Calculate totals from already-discounted prices
+    // Track both user discount and bundle discount separately
     let subtotal = 0
-    let discountAmount = 0
+    let discountAmount = 0  // User discount
+    let bundleDiscountAmount = 0  // Bundle discount
+    let bundleDiscountPercent: number | null = null  // Bundle discount percentage (same for all bundle items)
     
     for (const item of items as CheckoutItem[]) {
-      const itemPrice = item.product.price
+      const itemPrice = item.product.price  // Already the final discounted price
       const itemTotal = itemPrice * item.quantity
       subtotal += itemTotal
       
-      if (hasUserDiscount) {
+      // Check if this is a bundle item
+      if (item.fromBundle && item.bundleDiscountPercent && item.bundleDiscountPercent > 0) {
+        bundleDiscountPercent = item.bundleDiscountPercent
+        
+        // Calculate what the price was before bundle discount
+        // Final price = (user discounted price) * (1 - bundleDiscount/100)
+        // So: user discounted price = final price / (1 - bundleDiscount/100)
+        const priceBeforeBundleDiscount = itemPrice / (1 - item.bundleDiscountPercent / 100)
+        const itemBundleDiscount = (priceBeforeBundleDiscount - itemPrice) * item.quantity
+        bundleDiscountAmount += itemBundleDiscount
+        
+        debugLog(`Bundle item: ${item.product.name} - Bundle discount: ${item.bundleDiscountPercent}% = ${itemBundleDiscount.toFixed(2)} AED`)
+        
+        // Also calculate user discount if applicable
+        if (hasUserDiscount) {
+          const excluded = isUserDiscountExcludedProduct(item.product)
+          if (!excluded) {
+            // User discounted price = original price * (1 - userDiscount/100)
+            // So: original price = price before bundle discount / (1 - userDiscount/100)
+            const originalPrice = priceBeforeBundleDiscount / (1 - userDiscountPct / 100)
+            const itemUserDiscount = (originalPrice - priceBeforeBundleDiscount) * item.quantity
+            discountAmount += itemUserDiscount
+            debugLog(`  User discount: ${userDiscountPct}% = ${itemUserDiscount.toFixed(2)} AED`)
+          }
+        }
+      } else if (hasUserDiscount) {
+        // Non-bundle item with user discount
         const excluded = isUserDiscountExcludedProduct(item.product)
         if (!excluded) {
           const originalPrice = itemPrice / (1 - userDiscountPct / 100)
@@ -106,6 +137,14 @@ export async function POST(request: NextRequest) {
     
     subtotal = Math.round(subtotal * 100) / 100
     discountAmount = Math.round(discountAmount * 100) / 100
+    bundleDiscountAmount = Math.round(bundleDiscountAmount * 100) / 100
+    
+    debugLog('Discount breakdown:', { 
+      userDiscount: discountAmount, 
+      bundleDiscount: bundleDiscountAmount, 
+      bundleDiscountPercent,
+      total: discountAmount + bundleDiscountAmount 
+    })
 
     // Calculate shipping and total
     const shipping = calculateMobileShipping(subtotal, customerEmirate)
@@ -213,6 +252,8 @@ export async function POST(request: NextRequest) {
       subtotal,
       discountPercentage: hasUserDiscount ? userDiscountPct : 0,
       discountAmount,
+      ...(bundleDiscountPercent ? { bundleDiscountPercentage: bundleDiscountPercent } : {}),
+      bundleDiscountAmount,
       shipping,
       vat,
       total,

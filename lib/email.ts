@@ -79,6 +79,8 @@ export interface OrderConfirmationEmailData {
   locale?: string
   discountPercentage?: number | undefined
   discountAmount?: number | undefined
+  bundleDiscountPercentage?: number | undefined
+  bundleDiscountAmount?: number | undefined
 }
 
 export interface AdminNewOrderEmailData {
@@ -109,6 +111,8 @@ export interface AdminNewOrderEmailData {
   paymentStatus?: 'PAID' | 'PENDING' | 'COD' | undefined
   discountPercentage?: number | undefined
   discountAmount?: number | undefined
+  bundleDiscountPercentage?: number | undefined
+  bundleDiscountAmount?: number | undefined
 }
 
 // Email configuration
@@ -761,6 +765,18 @@ export const emailTemplates = {
                         </td>
                         <td style="padding: 8px 0; font-size: 15px; color: #1d1d1f; font-weight: 500; text-align: ${textAlignReverse}; vertical-align: top;">AED ${orderData.subtotal.toFixed(2)}</td>
                       </tr>
+                      ${orderData.discountAmount && orderData.discountAmount > 0 ? `
+                      <tr>
+                        <td style="padding: 8px 0; font-size: 15px; color: #9b5de5; text-align: ${textAlign};">🏷️ Your Discount${orderData.discountPercentage ? ` (${orderData.discountPercentage}%)` : ''}</td>
+                        <td style="padding: 8px 0; font-size: 15px; color: #9b5de5; font-weight: 500; text-align: ${textAlignReverse};">-AED ${orderData.discountAmount.toFixed(2)}</td>
+                      </tr>
+                      ` : ''}
+                      ${orderData.bundleDiscountAmount && orderData.bundleDiscountAmount > 0 ? `
+                      <tr>
+                        <td style="padding: 8px 0; font-size: 15px; color: #34c759; text-align: ${textAlign};">📦 Bundle Discount${orderData.bundleDiscountPercentage ? ` (${orderData.bundleDiscountPercentage}%)` : ''}</td>
+                        <td style="padding: 8px 0; font-size: 15px; color: #34c759; font-weight: 500; text-align: ${textAlignReverse};">-AED ${orderData.bundleDiscountAmount.toFixed(2)}</td>
+                      </tr>
+                      ` : ''}
                       <tr>
                         <td style="padding: 8px 0; font-size: 15px; color: #6b7280; text-align: ${textAlign};">🚚 Shipping to ${orderData.emirate}</td>
                         <td style="padding: 8px 0; font-size: 15px; text-align: ${textAlignReverse}; font-weight: 500; ${orderData.shipping === 0 ? 'color: #34c759;' : 'color: #1d1d1f;'}">${orderData.shipping === 0 ? 'FREE' : `AED ${orderData.shipping.toFixed(2)}`}</td>
@@ -1817,6 +1833,8 @@ export interface OrderHTMLData {
   total: number
   discountPercentage?: number | undefined
   discountAmount?: number | undefined
+  bundleDiscountPercentage?: number | undefined
+  bundleDiscountAmount?: number | undefined
 }
 
 // Order HTML template generation functions - Apple style
@@ -2342,8 +2360,14 @@ export const generateStripePaymentConfirmationHTML = (order: OrderHTMLData, loca
                     </tr>
                     ${order.discountAmount && order.discountAmount > 0 ? `
                     <tr>
-                      <td style="padding: 8px 0; font-size: 15px; color: #34c759; text-align: ${textAlign};">🏷️ Discount${order.discountPercentage ? ` (${order.discountPercentage}%)` : ''}</td>
-                      <td style="padding: 8px 0; font-size: 15px; color: #34c759; font-weight: 500; text-align: ${isRTL ? 'left' : 'right'};">-AED ${order.discountAmount.toFixed(2)}</td>
+                      <td style="padding: 8px 0; font-size: 15px; color: #9b5de5; text-align: ${textAlign};">🏷️ Your Discount${order.discountPercentage ? ` (${order.discountPercentage}%)` : ''}</td>
+                      <td style="padding: 8px 0; font-size: 15px; color: #9b5de5; font-weight: 500; text-align: ${isRTL ? 'left' : 'right'};">-AED ${order.discountAmount.toFixed(2)}</td>
+                    </tr>
+                    ` : ''}
+                    ${order.bundleDiscountAmount && order.bundleDiscountAmount > 0 ? `
+                    <tr>
+                      <td style="padding: 8px 0; font-size: 15px; color: #34c759; text-align: ${textAlign};">📦 Bundle Discount${order.bundleDiscountPercentage ? ` (${order.bundleDiscountPercentage}%)` : ''}</td>
+                      <td style="padding: 8px 0; font-size: 15px; color: #34c759; font-weight: 500; text-align: ${isRTL ? 'left' : 'right'};">-AED ${order.bundleDiscountAmount.toFixed(2)}</td>
                     </tr>
                     ` : ''}
                     <tr>

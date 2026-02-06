@@ -1,11 +1,11 @@
 'use client'
 
-import { useSearchParams, useRouter } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 import { useCart } from '@/components/cart/CartProvider'
 import { useEffect, Suspense, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { ShoppingBag, ArrowLeft, MessageCircle, ChevronLeft, CheckCircle2, Mail, MapPin, Clock, Truck, Package } from 'lucide-react'
+import { ShoppingBag, ArrowLeft, MessageCircle, CheckCircle2, Mail, MapPin, Clock, Truck, Package } from 'lucide-react'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { usePWAMode } from '@/hooks/usePWAMode'
@@ -40,8 +40,12 @@ interface OrderData {
   shipping: number
   vat: number
   total: number
+  // User discount
   discountPercentage: number | null
   discountAmount: number
+  // Bundle discount
+  bundleDiscountPercentage: number | null
+  bundleDiscountAmount: number
   items: OrderItem[]
   deliveryEstimate: {
     time: string
@@ -52,11 +56,10 @@ interface OrderData {
 
 function SuccessContent() {
   const searchParams = useSearchParams()
-  const router = useRouter()
   const { clearCart } = useCart()
   const { t, locale, dir } = useTranslation()
   const { isPWA, isClient: isPWAClient } = usePWAMode()
-  const { user } = useAuth()
+  useAuth() // Keep auth context for potential future use
   const haptic = useHapticFeedback()
   const sessionId = searchParams.get('session_id')
   const orderId = searchParams.get('order_id')
@@ -175,30 +178,8 @@ function SuccessContent() {
         colors={['#dc2626', '#ffffff', '#fbbf24', '#f97316', '#10b981']}
       />
 
-      {/* PWA/Mobile Web Light Header */}
-      {isAppLikeMode && (
-        <div className="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-gray-100 px-4 py-3 safe-area-top">
-          <div className={`flex items-center justify-between ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-            <button
-              onClick={() => router.push(getLocalizedPath('/products', locale))}
-              className={`flex items-center gap-1 text-gray-700 hover:text-gray-900 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
-            >
-              <ChevronLeft className={`w-5 h-5 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
-              <span className="text-sm font-medium">{t('common.home')}</span>
-            </button>
-            
-            <h1 className="text-base font-semibold text-gray-900">
-              {t('success.title') || 'Order Confirmed'}
-            </h1>
-            
-            <Link href={getLocalizedPath('/profile', locale)} className="relative">
-              <div className="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center text-white text-sm font-semibold">
-                {user?.name?.charAt(0).toUpperCase() || 'G'}
-              </div>
-            </Link>
-          </div>
-        </div>
-      )}
+      {/* PWA/Mobile Web Light Header - Hidden for cleaner success page experience */}
+      {/* Header removed per user request - success page should be clean without navigation */}
 
       <div className="container mx-auto px-3 md:px-4 py-4 md:py-8 lg:py-12 pb-24 md:pb-16">
         {/* Navigation Breadcrumb - Hide in PWA/Mobile Web */}
@@ -320,10 +301,18 @@ function SuccessContent() {
                     <span className="text-gray-600">{t('cart.subtotal') || 'Subtotal'} ({orderData.itemCount} {orderData.itemCount === 1 ? 'item' : 'items'})</span>
                     <span className="text-gray-900">{orderData.subtotal.toFixed(2)} AED</span>
                   </div>
+                  {/* User Discount (Personal VIP/Clinic discount) */}
                   {orderData.discountAmount > 0 && (
-                    <div className={`flex justify-between text-green-600 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                      <span>{t('cart.discount') || 'Discount'} {orderData.discountPercentage ? `(${orderData.discountPercentage}%)` : ''}</span>
+                    <div className={`flex justify-between text-purple-600 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                      <span>{t('cart.userDiscount') || 'Your Discount'} {orderData.discountPercentage ? `(${orderData.discountPercentage}%)` : ''}</span>
                       <span>-{orderData.discountAmount.toFixed(2)} AED</span>
+                    </div>
+                  )}
+                  {/* Bundle Discount */}
+                  {orderData.bundleDiscountAmount > 0 && (
+                    <div className={`flex justify-between text-green-600 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                      <span>{t('cart.bundleDiscount') || 'Bundle Discount'} {orderData.bundleDiscountPercentage ? `(${orderData.bundleDiscountPercentage}%)` : ''}</span>
+                      <span>-{orderData.bundleDiscountAmount.toFixed(2)} AED</span>
                     </div>
                   )}
                   <div className={`flex justify-between ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>

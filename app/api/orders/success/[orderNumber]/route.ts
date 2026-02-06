@@ -76,8 +76,12 @@ export async function GET(
       shipping: order.shipping,
       vat: order.vat,
       total: order.total,
+      // User discount
       discountPercentage: order.discountPercentage,
       discountAmount: order.discountAmount,
+      // Bundle discount
+      bundleDiscountPercentage: order.bundleDiscountPercentage,
+      bundleDiscountAmount: order.bundleDiscountAmount,
       // Items with full details
       items: order.items.map(item => ({
         id: item.id,

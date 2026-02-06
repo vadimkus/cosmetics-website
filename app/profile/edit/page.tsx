@@ -28,11 +28,12 @@ const GENDER_VALUES = {
 export default function EditProfilePage() {
   const router = useRouter()
   const searchParams = useSearchParams()
-  const { user } = useAuth()
+  const { user, isLoading: authLoading } = useAuth()
   const { locale, dir } = useTranslation()
   const { isPWA } = usePWAMode()
   const isRTL = dir === 'rtl'
   const [isMobileWeb, setIsMobileWeb] = useState(false)
+  const [isFormLoaded, setIsFormLoaded] = useState(false)
   
   // Detect mobile web (non-PWA mobile)
   useEffect(() => {
@@ -123,6 +124,7 @@ export default function EditProfilePage() {
       setFormData(nextForm)
       setInitialSnapshot(nextForm)
       setProfilePicture(user.profilePicture || null)
+      setIsFormLoaded(true)
     }
   }, [user])
 
@@ -338,10 +340,41 @@ export default function EditProfilePage() {
     deleting: locale === 'ar' ? 'جارٍ الحذف...' : locale === 'ru' ? 'Удаление...' : 'Deleting...',
   }
 
+  // Show loading state while auth is loading
+  if (authLoading) {
+    return (
+      <div className="min-h-[100dvh] bg-white flex flex-col items-center justify-center">
+        <div className="w-8 h-8 border-2 border-gray-200 border-t-red-600 rounded-full animate-spin mb-3" />
+        <p className="text-gray-500 text-sm">
+          {locale === 'ar' ? 'جارٍ التحميل...' : locale === 'ru' ? 'Загрузка...' : 'Loading...'}
+        </p>
+      </div>
+    )
+  }
+
+  // Show sign in message if not authenticated
   if (!user) {
     return (
-      <div className="min-h-screen bg-white flex items-center justify-center">
-        <p className="text-gray-500">{locale === 'ar' ? 'يرجى تسجيل الدخول' : locale === 'ru' ? 'Пожалуйста, войдите' : 'Please sign in'}</p>
+      <div className="min-h-[100dvh] bg-white flex flex-col items-center justify-center">
+        <p className="text-gray-500 mb-4">{locale === 'ar' ? 'يرجى تسجيل الدخول' : locale === 'ru' ? 'Пожалуйста, войдите' : 'Please sign in'}</p>
+        <button
+          onClick={() => router.push(getLocalizedPath('/login', locale))}
+          className="px-6 py-2 bg-red-600 text-white rounded-lg font-medium active:opacity-80"
+        >
+          {locale === 'ar' ? 'تسجيل الدخول' : locale === 'ru' ? 'Войти' : 'Sign In'}
+        </button>
+      </div>
+    )
+  }
+
+  // Show loading state while form data is loading
+  if (!isFormLoaded) {
+    return (
+      <div className="min-h-[100dvh] bg-white flex flex-col items-center justify-center">
+        <div className="w-8 h-8 border-2 border-gray-200 border-t-red-600 rounded-full animate-spin mb-3" />
+        <p className="text-gray-500 text-sm">
+          {locale === 'ar' ? 'جارٍ تحميل الملف الشخصي...' : locale === 'ru' ? 'Загрузка профиля...' : 'Loading profile...'}
+        </p>
       </div>
     )
   }

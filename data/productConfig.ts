@@ -505,6 +505,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     pricing: {
       basePrice: 880
     },
+    images: ['/images/BFAD.png', '/images/Second/ferment_big.jpg'],
     documentation: [
       {
         title: 'BIO-FERMENT AGE DEFYING POWDER MASK Guide',

@@ -2,13 +2,21 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { User, Camera, Mail, Calendar, ChevronDown, ArrowLeft, X, AlertTriangle, Trash2 } from 'lucide-react'
+import { User, Camera, Mail, Calendar, ChevronDown, ArrowLeft, X, AlertTriangle, Trash2, CheckCircle, AlertCircle } from 'lucide-react'
 import { useAuth } from '@/components/auth/AuthProvider'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { usePWAMode } from '@/hooks/usePWAMode'
 import { errorLog } from '@/lib/logger'
 import { isApplePrivateRelayEmail } from '@/lib/emailHelpers'
+
+// Toast notification type
+type ToastType = 'success' | 'error'
+type Toast = {
+  id: number
+  message: string
+  type: ToastType
+}
 
 const GENDER_VALUES = {
   MALE: 'male',
@@ -60,6 +68,26 @@ export default function EditProfilePage() {
   const [profilePicture, setProfilePicture] = useState<string | null>(null)
   const [isUploadingPhoto, setIsUploadingPhoto] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
+  
+  // Toast notification state
+  const [toasts, setToasts] = useState<Toast[]>([])
+  const toastIdCounter = useRef(0)
+  
+  // Add toast notification
+  const showToast = (message: string, type: ToastType = 'success') => {
+    const id = toastIdCounter.current++
+    setToasts(prev => [...prev, { id, message, type }])
+    
+    // Auto-remove after 3 seconds
+    setTimeout(() => {
+      setToasts(prev => prev.filter(toast => toast.id !== id))
+    }, 3000)
+  }
+  
+  // Remove toast manually
+  const removeToast = (id: number) => {
+    setToasts(prev => prev.filter(toast => toast.id !== id))
+  }
 
   // Gender options with translations
   const genderOptions = [
@@ -109,13 +137,13 @@ export default function EditProfilePage() {
 
     // Validate file type
     if (!file.type.startsWith('image/')) {
-      alert(locale === 'ar' ? 'يرجى اختيار صورة صالحة' : locale === 'ru' ? 'Пожалуйста, выберите изображение' : 'Please select a valid image')
+      showToast(locale === 'ar' ? 'يرجى اختيار صورة صالحة' : locale === 'ru' ? 'Пожалуйста, выберите изображение' : 'Please select a valid image', 'error')
       return
     }
 
     // Validate file size (max 2MB for base64 storage)
     if (file.size > 2 * 1024 * 1024) {
-      alert(locale === 'ar' ? 'حجم الصورة كبير جداً (الحد الأقصى 2 ميجابايت)' : locale === 'ru' ? 'Изображение слишком большое (макс. 2 МБ)' : 'Image is too large (max 2MB)')
+      showToast(locale === 'ar' ? 'حجم الصورة كبير جداً (الحد الأقصى 2 ميجابايت)' : locale === 'ru' ? 'Изображение слишком большое (макс. 2 МБ)' : 'Image is too large (max 2MB)', 'error')
       return
     }
 
@@ -158,13 +186,13 @@ export default function EditProfilePage() {
 
   const handleSave = async () => {
     if (!formData.firstName.trim() || !formData.lastName.trim() || !formData.contactEmail.trim() || !formData.phone.trim()) {
-      alert(locale === 'ar' ? 'يرجى ملء جميع الحقول المطلوبة' : locale === 'ru' ? 'Пожалуйста, заполните все обязательные поля' : 'Please fill in all required fields')
+      showToast(locale === 'ar' ? 'يرجى ملء جميع الحقول المطلوبة' : locale === 'ru' ? 'Пожалуйста, заполните все обязательные поля' : 'Please fill in all required fields', 'error')
       return
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     if (!emailRegex.test(formData.contactEmail)) {
-      alert(locale === 'ar' ? 'يرجى إدخال بريد إلكتروني صحيح' : locale === 'ru' ? 'Пожалуйста, введите действительный email' : 'Please enter a valid email address')
+      showToast(locale === 'ar' ? 'يرجى إدخال بريد إلكتروني صحيح' : locale === 'ru' ? 'Пожалуйста, введите действительный email' : 'Please enter a valid email address', 'error')
       return
     }
 
@@ -192,13 +220,21 @@ export default function EditProfilePage() {
       
       if (response.ok) {
         setInitialSnapshot(formData)
-        alert(locale === 'ar' ? 'تم حفظ الملف الشخصي بنجاح' : locale === 'ru' ? 'Профиль успешно сохранен' : 'Profile saved successfully')
+        showToast(locale === 'ar' ? 'تم حفظ الملف الشخصي بنجاح' : locale === 'ru' ? 'Профиль успешно сохранен' : 'Profile saved successfully', 'success')
+        // Also refresh user data in auth context
+        if (window.location) {
+          // Give a moment for the toast to show, then refresh auth state
+          setTimeout(() => {
+            window.dispatchEvent(new CustomEvent('profile-updated'))
+          }, 500)
+        }
       } else {
         const data = await response.json()
-        alert(data?.error || (locale === 'ar' ? 'فشل التحديث' : locale === 'ru' ? 'Ошибка обновления' : 'Update failed'))
+        showToast(data?.error || (locale === 'ar' ? 'فشل التحديث' : locale === 'ru' ? 'Ошибка обновления' : 'Update failed'), 'error')
       }
     } catch (error) {
-      alert(locale === 'ar' ? 'حدث خطأ' : locale === 'ru' ? 'Произошла ошибка' : 'An error occurred')
+      errorLog('Profile save error:', error)
+      showToast(locale === 'ar' ? 'حدث خطأ' : locale === 'ru' ? 'Произошла ошибка' : 'An error occurred', 'error')
     } finally {
       setIsSaving(false)
     }
@@ -249,15 +285,18 @@ export default function EditProfilePage() {
       
       if (response.ok) {
         setShowDeleteModal(false)
-        alert(locale === 'ar' ? 'تم حذف حسابك بنجاح.' : locale === 'ru' ? 'Ваш аккаунт успешно удален.' : 'Your account has been deleted successfully.')
-        // Redirect to login page
-        router.push(getLocalizedPath('/login', locale))
+        showToast(locale === 'ar' ? 'تم حذف حسابك بنجاح.' : locale === 'ru' ? 'Ваш аккаунт успешно удален.' : 'Your account has been deleted successfully.', 'success')
+        // Redirect to login page after a short delay
+        setTimeout(() => {
+          router.push(getLocalizedPath('/login', locale))
+        }, 1000)
       } else {
         const data = await response.json()
-        alert(data?.error || (locale === 'ar' ? 'فشل حذف الحساب. يرجى المحاولة مرة أخرى.' : locale === 'ru' ? 'Не удалось удалить аккаунт. Попробуйте ещё раз.' : 'Failed to delete account. Please try again.'))
+        showToast(data?.error || (locale === 'ar' ? 'فشل حذف الحساب. يرجى المحاولة مرة أخرى.' : locale === 'ru' ? 'Не удалось удалить аккаунт. Попробуйте ещё раз.' : 'Failed to delete account. Please try again.'), 'error')
       }
     } catch (error) {
-      alert(locale === 'ar' ? 'حدث خطأ أثناء حذف الحساب.' : locale === 'ru' ? 'Произошла ошибка при удалении аккаунта.' : 'An error occurred while deleting your account.')
+      errorLog('Delete account error:', error)
+      showToast(locale === 'ar' ? 'حدث خطأ أثناء حذف الحساب.' : locale === 'ru' ? 'Произошла ошибка при удалении аккаунта.' : 'An error occurred while deleting your account.', 'error')
     } finally {
       setIsDeleting(false)
     }
@@ -308,9 +347,33 @@ export default function EditProfilePage() {
   }
 
   return (
-    <div className={`min-h-screen bg-white ${isAppLikeMode ? 'pb-32' : ''}`} dir={dir}>
+    <div className={`min-h-[100dvh] bg-white ${isAppLikeMode ? 'pb-32' : ''}`} dir={dir}>
+      {/* Toast Notifications */}
+      <div className="fixed top-4 left-4 right-4 z-[60] flex flex-col gap-2 pointer-events-none safe-area-top">
+        {toasts.map(toast => (
+          <div
+            key={toast.id}
+            className={`
+              pointer-events-auto flex items-center gap-2 px-4 py-3 rounded-xl shadow-lg
+              transform transition-all duration-300 animate-spring-in
+              ${toast.type === 'success' ? 'bg-green-50 border border-green-200' : 'bg-red-50 border border-red-200'}
+            `}
+            onClick={() => removeToast(toast.id)}
+          >
+            {toast.type === 'success' ? (
+              <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0" />
+            ) : (
+              <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0" />
+            )}
+            <span className={`text-sm font-medium ${toast.type === 'success' ? 'text-green-800' : 'text-red-800'}`}>
+              {toast.message}
+            </span>
+          </div>
+        ))}
+      </div>
+
       {/* Header */}
-      <div className={`flex items-center justify-between px-5 py-4 border-b border-gray-200 ${isRTL ? 'flex-row-reverse' : ''}`}>
+      <div className={`sticky top-0 z-50 bg-white flex items-center justify-between px-5 py-4 border-b border-gray-200 safe-area-top ${isRTL ? 'flex-row-reverse' : ''}`}>
         <button 
           onClick={handleBack}
           className={`flex items-center gap-1.5 ${isRTL ? 'flex-row-reverse' : ''}`}
@@ -322,14 +385,14 @@ export default function EditProfilePage() {
         <button 
           onClick={handleSave}
           disabled={isSaving || !isDirty()}
-          className={`text-sm font-semibold ${isSaving || !isDirty() ? 'text-gray-400' : 'text-red-600'}`}
+          className={`text-sm font-semibold min-w-[60px] text-right ${isSaving || !isDirty() ? 'text-gray-400' : 'text-red-600 active:opacity-70'}`}
         >
           {isSaving ? translations.saving : translations.save}
         </button>
       </div>
 
-      {/* Content */}
-      <div className="overflow-y-auto">
+      {/* Content - Remove overflow-y-auto to allow native scrolling on iOS */}
+      <div>
         {/* Profile Picture Section */}
         <div className="py-6 border-b border-gray-100">
           <div className={`px-5 flex items-center gap-3 mb-4 ${isRTL ? 'flex-row-reverse' : ''}`}>

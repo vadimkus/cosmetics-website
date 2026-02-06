@@ -371,8 +371,8 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
               </div>
             )}
             
-            {/* Size and Price - Below Image (Mobile only, desktop shows in right column) */}
-            <div className="mt-1.5 flex justify-center lg:hidden">
+            {/* Size and Price - Below Image */}
+            <div className="mt-1.5 lg:mt-4 flex justify-center">
               <ProductPriceDisplay 
                 product={product}
                 basePrice={currentPrice()}
@@ -380,8 +380,8 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
               />
             </div>
 
-            {/* Variant Selectors - Below Price (Mobile only, desktop shows in right column) */}
-            <div className="mt-1.5 lg:hidden">
+            {/* Variant Selectors - Below Price */}
+            <div className="mt-1.5 lg:mt-4">
               <ProductVariantSelector
                 product={product}
                 selectedSize={selectedSize}
@@ -392,6 +392,25 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
                 onColorChange={setSelectedColor}
                 user={user}
               />
+            </div>
+
+            {/* Quantity and Cart - Below Variants (Desktop only, mobile uses fixed footer) */}
+            <div className="hidden lg:block mt-4">
+              <ProductQuantityCart
+                user={user}
+                onAddToCart={handleAddToCart}
+                onToggleFavorite={handleToggleFavorite}
+                isFavorite={isFavorite(product.id)}
+                inStock={product.inStock}
+                isPriceOnRequest={product.isPriceOnRequest ?? false}
+                productName={product.name}
+                productUrl={typeof window !== 'undefined' ? `${window.location.origin}/products/${product.id}` : `/products/${product.id}`}
+              />
+            </div>
+
+            {/* Trust Badges - Below Cart (Desktop only, mobile shows after recommendations) */}
+            <div className="hidden lg:block mt-4">
+              <TrustBadges />
             </div>
 
             {/* Product Recommendation Section - Only for product 22 - Desktop only */}
@@ -973,46 +992,6 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
 
           {/* Right Column - Product Details and Content */}
           <div className={`space-y-6 ${dir === 'rtl' ? 'lg:col-start-1 lg:row-start-1' : ''}`}>
-            
-            {/* Purchase Controls - Desktop only (moved from left column) */}
-            <div className="hidden lg:block space-y-4">
-              {/* Price */}
-              <div className="flex justify-center">
-                <ProductPriceDisplay 
-                  product={product}
-                  basePrice={currentPrice()}
-                  user={user}
-                />
-              </div>
-
-              {/* Variant Selectors */}
-              <ProductVariantSelector
-                product={product}
-                selectedSize={selectedSize}
-                selectedColor={selectedColor}
-                availableSizes={availableSizes}
-                availableColors={availableColors}
-                onSizeChange={setSelectedSize}
-                onColorChange={setSelectedColor}
-                user={user}
-              />
-
-              {/* Quantity and Cart */}
-              <ProductQuantityCart
-                user={user}
-                onAddToCart={handleAddToCart}
-                onToggleFavorite={handleToggleFavorite}
-                isFavorite={isFavorite(product.id)}
-                inStock={product.inStock}
-                isPriceOnRequest={product.isPriceOnRequest ?? false}
-                productName={product.name}
-                productUrl={typeof window !== 'undefined' ? `${window.location.origin}/products/${product.id}` : `/products/${product.id}`}
-              />
-
-              {/* Trust Badges */}
-              <TrustBadges />
-            </div>
-
             {/* Product Details - Hidden on desktop (info shown in desktop header above image in left column) */}
             {/* Hidden on mobile (info shown in mobile header above image) */}
             <div className="hidden">

@@ -48,6 +48,12 @@ interface EnvConfig {
 }
 
 function validateEnvironment(): EnvConfig {
+  // On the client side, server-only env vars (without NEXT_PUBLIC_ prefix) are
+  // undefined by design. Skip strict validation when running in the browser so
+  // that client components importing public vars (e.g. NEXT_PUBLIC_SITE_URL)
+  // don't crash on missing DATABASE_URL etc.
+  const isClient = typeof window !== 'undefined'
+
   const requiredVars = {
     DATABASE_URL: process.env.DATABASE_URL,
     NODE_ENV: process.env.NODE_ENV || 'development'
@@ -94,19 +100,22 @@ function validateEnvironment(): EnvConfig {
     ADMIN_SESSION_SECRET: process.env.ADMIN_SESSION_SECRET,
   }
 
-  // Check required variables
-  const missingVars: string[] = []
-  Object.entries(requiredVars).forEach(([key, value]) => {
-    if (!value) {
-      missingVars.push(key)
-    }
-  })
+  // Only validate server-only required vars on the server.
+  // Client bundles never have access to non-NEXT_PUBLIC_ vars.
+  if (!isClient) {
+    const missingVars: string[] = []
+    Object.entries(requiredVars).forEach(([key, value]) => {
+      if (!value) {
+        missingVars.push(key)
+      }
+    })
 
-  if (missingVars.length > 0) {
-    throw new Error(
-      `Missing required environment variables: ${missingVars.join(', ')}\n` +
-      'Please check your .env.local file and ensure all required variables are set.'
-    )
+    if (missingVars.length > 0) {
+      throw new Error(
+        `Missing required environment variables: ${missingVars.join(', ')}\n` +
+        'Please check your .env.local file and ensure all required variables are set.'
+      )
+    }
   }
 
   // Validate DATABASE_URL format
@@ -130,7 +139,9 @@ function validateEnvironment(): EnvConfig {
   }
 
   // Warn about missing admin credentials in production
-  if (requiredVars.NODE_ENV === 'production') {
+  // Skip warnings during Next.js build phase (env vars aren't available during static generation)
+  const isBuildPhase = process.env.NEXT_PHASE === 'phase-production-build'
+  if (requiredVars.NODE_ENV === 'production' && !isBuildPhase) {
     if (!optionalVars.ADMIN_EMAIL || !optionalVars.ADMIN_PASSWORD) {
       warnLog(
         '⚠️  WARNING: ADMIN_EMAIL and ADMIN_PASSWORD not set in production.\n' +

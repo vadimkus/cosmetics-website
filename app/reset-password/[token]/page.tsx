@@ -38,7 +38,7 @@ export default function ResetPasswordClient() {
   useEffect(() => {
     const verifyToken = async () => {
       if (!token) {
-        setError('Invalid reset link')
+        setError(t('errors.invalidResetLink'))
         setVerifying(false)
         return
       }
@@ -50,7 +50,7 @@ export default function ResetPasswordClient() {
         if (data.valid) {
           setTokenValid(true)
         } else {
-          setError(data.error || 'Invalid or expired token')
+          setError(data.error || t('errors.invalidOrExpiredToken'))
         }
       } catch (err) {
         errorLog('Token verification error:', err)
@@ -132,7 +132,7 @@ export default function ResetPasswordClient() {
       }, 3000)
     } catch (err) {
       errorLog('Reset password error:', err)
-      setError(err instanceof Error ? err.message : 'An error occurred. Please try again.')
+      setError(err instanceof Error ? err.message : t('errors.genericError'))
     } finally {
       setLoading(false)
     }

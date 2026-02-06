@@ -1,5 +1,51 @@
 # Email & Orders System Changelog
 
+## Version 3.0.0 - Enhanced Per-Item Breakdown with Product Images (February 6, 2026)
+
+### Summary
+
+Major upgrade to all email templates and the order success page. Every item now displays a product image, per-item price breakdown with original price strikethrough, combined discount percentage, and colored discount badges — matching a unified visual format across all customer-facing surfaces.
+
+### What Changed
+
+#### New: Shared Item Renderer (`renderEnhancedItemRows()`)
+- Created in `lib/email/htmlGenerators.ts` as a single source of truth for item rendering
+- Used by all 3 HTML generators: COD, Support-Link, Stripe
+- Generates consistent per-item rows matching the success page layout
+
+#### Per-Item Format (All Templates)
+
+Each item now shows:
+1. **Product image** (56×56px, rounded, light gray background)
+2. **Product name** (uppercase, bold)
+3. **Detail line**: "Quantity: 1 • 180ml" (qty + size/color combined)
+4. **Combined discount %**: "(60% OFF)" in green
+5. **Discount badges**: purple "-50% VIP" and/or green "-20% Bundle"
+6. **Price**: original strikethrough + discounted in green (or "FREE")
+
+#### Files Modified
+
+| File | Changes |
+|------|---------|
+| `lib/email/htmlGenerators.ts` | Added `renderEnhancedItemRows()` shared function; refactored all 3 generators to use it |
+| `lib/email/templates.ts` | Updated `orderConfirmation` item format (image + badges + strikethrough); updated `adminNewOrder` item format (image + badges + 3-col table) |
+| `lib/email/statusUpdate.ts` | Updated shipped/delivered email items with image + improved layout |
+| `app/success/SuccessClient.tsx` | Restored product images; redesigned item layout to flex with image + detail + price |
+
+#### Localization
+
+- Item rendering is fully localized for EN, AR (RTL), RU
+- "Quantity" label translates to "Количество" (RU) / "الكمية" (AR)
+- "FREE" label translates to "БЕСПЛАТНО" (RU) / "مجاني" (AR)
+- RTL padding and alignment handled automatically
+
+#### Admin Email Changes
+- Reduced from 4 columns (Product, Qty, Price, Total) to 3 columns (Product, Qty, Total)
+- Product column now includes image, name, size/color, discount %, badges
+- Total column shows strikethrough original + green discounted price
+
+---
+
 ## Version 2.1.0 - Orders Page Unified Format (January 26, 2026)
 
 ### New Features

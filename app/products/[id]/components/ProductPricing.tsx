@@ -3,6 +3,7 @@
 import { Product } from '@/types'
 import { useProductPricing } from '@/hooks/useProductPricing'
 import { useAuth } from '@/components/auth/AuthProvider'
+import { useTranslation } from '@/hooks/useTranslation'
 
 interface ProductPricingProps {
   product: Product
@@ -16,12 +17,13 @@ export default function ProductPricing({
   selectedColor 
 }: ProductPricingProps) {
   const { user } = useAuth()
+  const { t } = useTranslation()
   const { currentPrice } = useProductPricing(product, selectedSize, selectedColor)
 
   if (!user) {
     return (
       <div className="flex items-center text-gray-500">
-        <span className="text-sm">Please login to view pricing</span>
+        <span className="text-sm">{t('errors.loginToViewPricing')}</span>
       </div>
     )
   }

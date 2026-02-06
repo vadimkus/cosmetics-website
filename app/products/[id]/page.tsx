@@ -15,10 +15,8 @@ export const revalidate = 0
 // Direct product fetch with error logging
 async function getProduct(id: string): Promise<Product | null> {
   try {
-    debugLog(`Fetching product with ID: ${id}`)
     const product = await getProductById(id)
     if (product) {
-      debugLog(`Found product: ${product.name}`)
       // Ensure noDiscount is explicitly set to prevent serialization issues
       if (product.noDiscount === undefined) {
         product.noDiscount = false

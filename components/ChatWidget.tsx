@@ -867,9 +867,9 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
                       ? 'bg-red-600 text-white rounded-tr-none'
                       : 'bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-tl-none'
                   }`}>
-                    <p className="text-sm whitespace-pre-wrap">
+                    <div className="text-sm whitespace-pre-wrap">
                       {message.role === 'assistant' ? renderMessageWithLinks(messageText) : messageText}
-                    </p>
+                    </div>
                   </div>
                 </div>
               )

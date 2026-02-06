@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { X, RefreshCw, Download } from 'lucide-react'
 import { debugLog, errorLog } from '@/lib/logger'
+import { useTranslation } from '@/hooks/useTranslation'
 
 interface ServiceWorkerUpdateNotificationProps {
   className?: string
@@ -11,6 +12,7 @@ interface ServiceWorkerUpdateNotificationProps {
 export default function ServiceWorkerUpdateNotification({ 
   className = '' 
 }: ServiceWorkerUpdateNotificationProps) {
+  const { t } = useTranslation()
   const [showUpdate, setShowUpdate] = useState(false)
   const [isUpdating, setIsUpdating] = useState(false)
   const [registration, setRegistration] = useState<ServiceWorkerRegistration | null>(null)
@@ -101,12 +103,12 @@ export default function ServiceWorkerUpdateNotification({
               {isUpdating ? (
                 <>
                   <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                  <span>Updating...</span>
+                  <span>{t('pwaUi.updating')}</span>
                 </>
               ) : (
                 <>
                   <Download className="w-4 h-4" />
-                  <span>Update Now</span>
+                  <span>{t('pwaUi.updateNow')}</span>
                 </>
               )}
             </button>
@@ -140,7 +142,7 @@ export default function ServiceWorkerUpdateNotification({
             <div className="flex-1 h-1 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
               <div className="h-full bg-blue-600 rounded-full animate-progress" />
             </div>
-            <span>Applying update...</span>
+            <span>{t('pwaUi.applyingUpdate')}</span>
           </div>
         </div>
       )}

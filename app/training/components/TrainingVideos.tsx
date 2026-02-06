@@ -1,12 +1,17 @@
+'use client'
+
 import Image from 'next/image'
 import { Play, Clock, Award } from 'lucide-react'
 import { TrainingVideo } from '../types/training'
+import { useTranslation } from '@/hooks/useTranslation'
 
 interface TrainingVideosProps {
   videos: TrainingVideo[]
 }
 
 export default function TrainingVideos({ videos }: TrainingVideosProps) {
+  const { t } = useTranslation()
+
   return (
     <div className="mb-16">
       <div className="text-center mb-12">
@@ -71,7 +76,7 @@ export default function TrainingVideos({ videos }: TrainingVideosProps) {
                   </div>
                   <div className="flex items-center gap-1">
                     <Award className="h-4 w-4" />
-                    <span>Certification Available</span>
+                    <span>{t('training.certificationAvailable')}</span>
                   </div>
                 </div>
 

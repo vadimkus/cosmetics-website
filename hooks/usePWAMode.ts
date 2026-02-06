@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { debugLog } from '@/lib/logger'
+// debugLog import removed - logging commented out to reduce console noise
 
 /**
  * Hook to detect if the app is running in PWA/standalone mode
@@ -44,19 +44,9 @@ export function usePWAMode() {
       
       const result = isStandalone || isIOSStandalone || isFullscreen || isMinimalUI || (isIOS && hasNoURLBar && isLaunchedFromHomeScreen)
       
-      // Debug logging (remove in production)
-      if (typeof window !== 'undefined' && window.location.hostname === 'localhost') {
-        debugLog('PWA Detection:', {
-          isStandalone,
-          isIOSStandalone,
-          isFullscreen,
-          isMinimalUI,
-          isIOS,
-          hasNoURLBar,
-          navStandalone: nav.standalone,
-          result
-        })
-      }
+      // Debug logging disabled - was spamming console with ~50+ component instances
+      // Uncomment for debugging PWA detection issues:
+      // debugLog('PWA Detection:', { isStandalone, isIOSStandalone, result })
       
       return result
     }

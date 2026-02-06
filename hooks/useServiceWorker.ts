@@ -57,7 +57,7 @@ async function registerPeriodicSync(registration: ServiceWorkerRegistration) {
     })
 
     if (status.state !== 'granted') {
-      debugLog('Periodic Background Sync permission not granted:', status.state)
+      // debugLog('Periodic Background Sync permission not granted:', status.state)
       return
     }
 
@@ -128,7 +128,7 @@ export function useServiceWorker() {
           error: null,
         }))
 
-        debugLog('Service Worker registered successfully:', registration)
+        // debugLog('Service Worker registered successfully:', registration)
 
         // Handle updates
         registration.addEventListener('updatefound', () => {
@@ -160,9 +160,9 @@ export function useServiceWorker() {
 
     // Deferred registration - wait for page load, then idle time
     const deferredRegister = () => {
-      debugLog('Deferring service worker registration until idle...')
+      // debugLog('Deferring service worker registration until idle...')
       idleCallbackRef.current = deferUntilIdle(() => {
-        debugLog('Browser idle, registering service worker...')
+        // debugLog('Browser idle, registering service worker...')
         registerSW()
       })
     }
@@ -182,7 +182,7 @@ export function useServiceWorker() {
     } else {
       // Wait for page to fully load
       const handleLoad = () => {
-        debugLog('Page loaded, scheduling deferred SW registration...')
+        // debugLog('Page loaded, scheduling deferred SW registration...')
         deferredRegister()
       }
       window.addEventListener('load', handleLoad)

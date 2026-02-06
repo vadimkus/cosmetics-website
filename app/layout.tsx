@@ -191,7 +191,7 @@ export default function RootLayout({
 }) {
   // Default to English, will be updated by client-side locale detection
   return (
-    <html lang="en" dir="ltr" suppressHydrationWarning>
+    <html lang="en" dir="ltr" suppressHydrationWarning data-scroll-behavior="smooth">
       <head>
         {/* Preconnect to external domains for faster resource loading */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />

@@ -1,14 +1,16 @@
 /**
  * Site configuration
  * Centralizes site URLs and other configuration
+ *
+ * NOTE: This file is imported by client components (e.g. BreadcrumbSchema).
+ * It must NOT import from envValidation.ts, which triggers server-only
+ * validation (DATABASE_URL etc.) that crashes on the client.
+ * Instead, read NEXT_PUBLIC_* env vars directly — they are inlined into
+ * client bundles by Next.js.
  */
-import {
-  NEXT_PUBLIC_SITE_URL,
-  NEXT_PUBLIC_VAPID_PUBLIC_KEY as ENV_VAPID_PUBLIC_KEY,
-} from '@/lib/envValidation'
 
 // Site URL - uses environment variable with fallback
-export const SITE_URL = NEXT_PUBLIC_SITE_URL || 'https://genosys.ae'
+export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://genosys.ae'
 
 // Get the site URL as a URL object (useful for metadata)
 export function getSiteUrl(): URL {
@@ -35,4 +37,4 @@ export const SOCIAL_LINKS = {
 }
 
 // Push notifications VAPID key
-export const VAPID_PUBLIC_KEY = ENV_VAPID_PUBLIC_KEY || ''
+export const VAPID_PUBLIC_KEY = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY || ''

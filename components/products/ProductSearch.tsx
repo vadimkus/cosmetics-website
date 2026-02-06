@@ -122,6 +122,8 @@ export default function ProductSearch({ products, onSearchChange, searchQuery }:
         <Search className={`absolute ${dir === 'rtl' ? 'right-4' : 'left-4'} top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400`} />
         <input
           ref={inputRef}
+          id="product-search"
+          name="product-search"
           type="text"
           placeholder={isListening ? t('voiceSearch.listening') : t('products.searchPlaceholder')}
           value={searchQuery}
@@ -129,6 +131,7 @@ export default function ProductSearch({ products, onSearchChange, searchQuery }:
           onFocus={() => setIsFocused(true)}
           className={`w-full ${dir === 'rtl' ? 'pr-12 pl-24' : 'pl-12 pr-24'} py-3 border ${isListening ? 'border-red-400 ring-2 ring-red-200' : 'border-gray-300'} rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm md:text-base text-gray-900 bg-white placeholder:text-gray-400 transition-all duration-200`}
           aria-label={t('products.searchPlaceholder')}
+          autoComplete="off"
         />
         
         {/* Voice Search Button */}

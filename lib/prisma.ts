@@ -38,7 +38,7 @@ if (globalForPrisma.prisma) {
         // No manual pool configuration needed - Accelerate handles this
         prismaInstance = new PrismaClient({
           accelerateUrl: databaseUrl,
-          log: process.env.NODE_ENV === 'development' ? ['query', 'error', 'warn'] : ['error']
+          log: process.env.NODE_ENV === 'development' ? ['error', 'warn'] : ['error']
         })
         debugLog('✅ Created new Prisma client instance with Prisma Accelerate')
         debugLog('   Connection pooling: Managed by Prisma Accelerate')
@@ -69,7 +69,7 @@ if (globalForPrisma.prisma) {
         const adapter = new PrismaPg(pool)
         prismaInstance = new PrismaClient({
           adapter,
-          log: process.env.NODE_ENV === 'development' ? ['query', 'error', 'warn'] : ['error']
+          log: process.env.NODE_ENV === 'development' ? ['error', 'warn'] : ['error']
         })
         
         debugLog('✅ Created new Prisma client instance with connection pooling')

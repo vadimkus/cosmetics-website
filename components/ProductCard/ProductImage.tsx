@@ -5,7 +5,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { Heart } from 'lucide-react'
-import { debugLog, errorLog } from '@/lib/logger'
+import { errorLog } from '@/lib/logger'
 import type { ProductImageProps } from './types'
 
 /**
@@ -78,7 +78,6 @@ const ProductImage = memo(function ProductImage({
               quality={85}
               sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
               onError={() => errorLog('Image failed to load:', product.image)}
-              onLoad={() => debugLog('Image loaded successfully:', product.image)}
             />
           </div>
         </div>
@@ -101,7 +100,6 @@ const ProductImage = memo(function ProductImage({
               quality={85}
               sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
               onError={() => errorLog('Image failed to load:', product.image)}
-              onLoad={() => debugLog('Image loaded successfully:', product.image)}
             />
           </motion.div>
         </Link>

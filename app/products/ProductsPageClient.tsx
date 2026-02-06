@@ -332,8 +332,6 @@ export default function ProductsPageClient({ initialProducts = [] }: ProductsPag
       )
     : { min: 0, max: 10000 }
 
-  debugLog('Products loaded:', products.length, 'Filtered:', filteredAndSortedProducts.length)
-
   return (
     <div className="bg-white min-h-[100dvh]" suppressHydrationWarning>
       <ProductsListSchema products={filteredAndSortedProducts} category="" />
@@ -382,6 +380,7 @@ export default function ProductsPageClient({ initialProducts = [] }: ProductsPag
                 width={200}
                 height={80}
                 className="object-contain"
+                style={{ width: 'auto', height: 'auto' }}
                 priority
               />
             </div>

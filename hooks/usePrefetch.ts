@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation'
 import { useCallback, useRef } from 'react'
-import { debugLog } from '@/lib/logger'
+// debugLog import removed - logging commented out to reduce console noise
 
 interface PrefetchOptions {
   /** Delay in ms before prefetching (debounce) */
@@ -31,7 +31,7 @@ export function usePrefetch(options: PrefetchOptions = {}) {
     }
 
     timeoutRef.current = setTimeout(() => {
-      debugLog('Prefetching route:', href)
+      // debugLog('Prefetching route:', href)
       router.prefetch(href)
       prefetchedRoutes.current.add(href)
     }, delay)

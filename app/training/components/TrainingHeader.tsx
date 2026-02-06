@@ -1,6 +1,11 @@
+'use client'
+
 import Image from 'next/image'
+import { useTranslation } from '@/hooks/useTranslation'
 
 export default function TrainingHeader() {
+  const { t } = useTranslation()
+
   return (
     <div className="text-center">
       <div className="flex justify-center mb-6">
@@ -27,19 +32,19 @@ export default function TrainingHeader() {
       <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
         <div className="bg-primary-50 border border-primary-200 rounded-lg px-6 py-4 text-center">
           <div className="text-2xl font-bold text-primary-600 mb-1">6+</div>
-          <div className="text-sm text-primary-700">Training Documents</div>
+          <div className="text-sm text-primary-700">{t('training.trainingDocuments')}</div>
         </div>
         <div className="bg-primary-50 border border-primary-200 rounded-lg px-6 py-4 text-center">
           <div className="text-2xl font-bold text-primary-600 mb-1">3+</div>
-          <div className="text-sm text-primary-700">Video Lessons</div>
+          <div className="text-sm text-primary-700">{t('training.videoLessons')}</div>
         </div>
         <div className="bg-primary-50 border border-primary-200 rounded-lg px-6 py-4 text-center">
           <div className="text-2xl font-bold text-primary-600 mb-1">8+</div>
-          <div className="text-sm text-primary-700">Categories</div>
+          <div className="text-sm text-primary-700">{t('training.categories')}</div>
         </div>
         <div className="bg-primary-50 border border-primary-200 rounded-lg px-6 py-4 text-center">
           <div className="text-2xl font-bold text-primary-600 mb-1">✓</div>
-          <div className="text-sm text-primary-700">Certification</div>
+          <div className="text-sm text-primary-700">{t('training.certification')}</div>
         </div>
       </div>
     </div>

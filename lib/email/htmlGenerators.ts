@@ -6,6 +6,97 @@ import { SITE_URL } from '@/lib/siteConfig'
 import { loadEmailTranslations, LOGO_URL } from './utils'
 import type { OrderHTMLData } from './types'
 
+/**
+ * Shared enhanced item renderer for all email templates.
+ * Matches the success page layout: image + name + "Quantity: X • size" + (XX% OFF) + badges + strikethrough price
+ */
+function renderEnhancedItemRows(
+  order: OrderHTMLData,
+  locale: string,
+  opts: { qtyLabel?: string; freeLabel?: string }
+): string {
+  const isRTL = locale === 'ar'
+  const textAlign = isRTL ? 'right' : 'left'
+  const textAlignReverse = isRTL ? 'left' : 'right'
+  
+  const qtyLabel = opts.qtyLabel || (locale === 'ru' ? 'Количество' : locale === 'ar' ? 'الكمية' : 'Quantity')
+  const freeLabel = opts.freeLabel || (locale === 'ru' ? 'БЕСПЛАТНО' : locale === 'ar' ? 'مجاني' : 'FREE')
+  
+  // Extract discount percentages from order-level data
+  const userDiscountPct = order.discountPercentage || 0
+  const bundleDiscountPct = order.bundleDiscountPercentage || 0
+  const hasUserDiscount = userDiscountPct > 0
+  const hasBundleDiscount = bundleDiscountPct > 0
+  const hasAnyDiscount = hasUserDiscount || hasBundleDiscount
+  
+  return order.items.map(item => {
+    const isFreeItem = item.price === 0 || item.name.toLowerCase().includes('(free)')
+    const imageUrl = item.image ? (item.image.startsWith('http') ? item.image : `${SITE_URL}${item.image}`) : ''
+    
+    // Reverse-calculate original price from stored discounted price
+    let originalPrice = item.price
+    if (hasUserDiscount && !isFreeItem) {
+      originalPrice = originalPrice / (1 - userDiscountPct / 100)
+    }
+    if (hasBundleDiscount && !isFreeItem) {
+      originalPrice = originalPrice / (1 - bundleDiscountPct / 100)
+    }
+    
+    const hasDiscount = hasAnyDiscount && !isFreeItem
+    const itemTotal = item.price * item.quantity
+    const originalTotal = originalPrice * item.quantity
+    const totalDiscountPct = hasDiscount
+      ? Math.round((1 - item.price / originalPrice) * 100)
+      : 0
+    
+    // Build discount badges
+    const badges: string[] = []
+    if (hasUserDiscount && !isFreeItem) {
+      badges.push(`<span style="display: inline-block; background: #f3e8ff; color: #9333ea; font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 4px; margin-${isRTL ? 'left' : 'right'}: 4px;">-${userDiscountPct}% VIP</span>`)
+    }
+    if (hasBundleDiscount && !isFreeItem) {
+      badges.push(`<span style="display: inline-block; background: #dcfce7; color: #16a34a; font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 4px;">-${bundleDiscountPct}% Bundle</span>`)
+    }
+    
+    // Price column
+    const priceDisplay = isFreeItem
+      ? `<span style="color: #16a34a; font-weight: 700; font-size: 14px;">${freeLabel}</span>`
+      : hasDiscount
+        ? `<div style="text-align: ${textAlignReverse};">
+            <span style="color: #9ca3af; text-decoration: line-through; font-size: 12px;">AED ${originalTotal.toFixed(2)}</span>
+            <br/>
+            <span style="color: #16a34a; font-weight: 700; font-size: 15px;">AED ${itemTotal.toFixed(2)}</span>
+          </div>`
+        : `<span style="font-weight: 600; font-size: 15px; color: #1d1d1f;">AED ${itemTotal.toFixed(2)}</span>`
+    
+    // Qty + size/color combined line (matching success page: "Quantity: 1 • 180ml")
+    const detailParts: string[] = [`${qtyLabel}: ${item.quantity}`]
+    if (item.size) detailParts.push(item.size)
+    if (item.color) detailParts.push(item.color)
+    const detailLine = detailParts.join(' • ')
+    
+    return `
+    <tr>
+      <td style="padding: 12px 0; border-bottom: 1px solid #f5f5f7; vertical-align: top;">
+        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+          <tr>
+            ${imageUrl ? `<td style="width: 56px; vertical-align: top; padding-${isRTL ? 'left' : 'right'}: 12px;">
+              <img src="${imageUrl}" alt="${item.name}" width="56" height="56" style="width: 56px; height: 56px; object-fit: contain; border-radius: 8px; background-color: #f9fafb; display: block;" />
+            </td>` : ''}
+            <td style="vertical-align: top;">
+              <div style="font-size: 14px; font-weight: 700; color: #1d1d1f; text-transform: uppercase; letter-spacing: 0.02em; text-align: ${textAlign}; line-height: 1.3;">${item.name}</div>
+              <div style="font-size: 12px; color: #6b7280; margin-top: 3px; text-align: ${textAlign};">${detailLine}</div>
+              ${totalDiscountPct > 0 ? `<div style="font-size: 12px; font-weight: 700; color: #16a34a; margin-top: 2px; text-align: ${textAlign};">(${totalDiscountPct}% OFF)</div>` : ''}
+              ${badges.length > 0 ? `<div style="margin-top: 4px; text-align: ${textAlign};">${badges.join('')}</div>` : ''}
+            </td>
+            <td style="text-align: ${textAlignReverse}; vertical-align: top; white-space: nowrap; padding-${isRTL ? 'right' : 'left'}: 12px;">${priceDisplay}</td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  `}).join('')
+}
+
 // Order HTML template generation functions - Apple style
 export const generateCODOrderHTML = (order: OrderHTMLData, locale: string = 'en', _translations?: Record<string, unknown>): string => {
   const t = loadEmailTranslations(locale, 'cod')
@@ -15,8 +106,6 @@ export const generateCODOrderHTML = (order: OrderHTMLData, locale: string = 'en'
   const firstName = (order.customerName || 'Customer').split(' ')[0]
   
   // Localized labels
-  const sizeLabel = t.size || 'Size:'
-  const colorLabel = t.color || 'Color:'
   const orderConfirmedText = locale === 'ru' ? 'Заказ подтвержден' : locale === 'ar' ? 'تم تأكيد الطلب' : 'Order Confirmed'
   const codPaymentText = locale === 'ru' ? '💵 Оплата: При получении' : locale === 'ar' ? '💵 الدفع: عند الاستلام' : '💵 Payment: Cash on Delivery'
   const greetingText = locale === 'ru' 
@@ -31,26 +120,8 @@ export const generateCODOrderHTML = (order: OrderHTMLData, locale: string = 'en'
   const paidItemCount = paidItems.reduce((sum, item) => sum + item.quantity, 0)
   const freeItemCount = freeItems.reduce((sum, item) => sum + item.quantity, 0)
 
-  // Generate items HTML - show discounted prices (what customer pays)
-  // Format: Product Name, then Qty line with discount label
-  const itemsHTML = order.items.map(item => {
-    const isFreeItem = item.price === 0 || item.name.toLowerCase().includes('(free)')
-    const priceDisplay = isFreeItem 
-      ? `<span style="color: #34c759; font-weight: 600;">FREE</span>`
-      : `AED ${(item.price * item.quantity).toFixed(2)}`
-    
-    return `
-    <tr>
-      <td style="padding: 12px 0; border-bottom: 1px solid #f5f5f7; vertical-align: top;">
-        <div style="font-size: 15px; font-weight: 600; color: #1d1d1f; text-transform: uppercase; letter-spacing: 0.02em; text-align: ${textAlign};">${item.name}</div>
-        <div style="font-size: 13px; color: #6b7280; margin-top: 4px; text-align: ${textAlign};">
-          Qty: ${item.quantity}${item.discountLabel ? `  <span style="color: #34c759; font-weight: 500;">(${item.discountLabel})</span>` : ''}
-        </div>
-        ${item.size || item.color ? `<div style="font-size: 12px; color: #86868b; margin-top: 2px; text-align: ${textAlign};">${item.size ? `${sizeLabel} ${item.size}` : ''}${item.size && item.color ? ' · ' : ''}${item.color ? `${colorLabel} ${item.color}` : ''}</div>` : ''}
-      </td>
-      <td style="padding: 12px 0; border-bottom: 1px solid #f5f5f7; text-align: ${textAlignReverse}; font-size: 15px; color: #1d1d1f; font-weight: 500; vertical-align: top; white-space: nowrap;">${priceDisplay}</td>
-    </tr>
-  `}).join('')
+  // Generate items HTML using shared enhanced renderer (matches success page)
+  const itemsHTML = renderEnhancedItemRows(order, locale, {})
 
   return `
     <!DOCTYPE html>
@@ -263,7 +334,7 @@ export const generateCODOrderHTML = (order: OrderHTMLData, locale: string = 'en'
               <!-- CTA Button -->
               <tr>
                 <td style="text-align: center; padding-top: 40px;">
-                  <a href="${SITE_URL}/track/${order.orderNumber}" style="display: inline-block; background-color: #0071e3; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 17px; font-weight: 500; text-decoration: none; padding: 12px 24px; border-radius: 980px;">
+                  <a href="${SITE_URL}/${locale === 'en' ? '' : locale + '/'}track/${order.orderNumber}" style="display: inline-block; background-color: #0071e3; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 17px; font-weight: 500; text-decoration: none; padding: 12px 24px; border-radius: 980px;">
                     ${locale === 'ru' ? 'Посмотреть заказ' : locale === 'ar' ? 'عرض الطلب' : 'View Order'}
                   </a>
                 </td>
@@ -304,26 +375,8 @@ export const generateSupportLinkOrderHTML = (order: OrderHTMLData, locale: strin
   const paidItemCount = paidItems.reduce((sum, item) => sum + (item.quantity || 0), 0)
   const freeItemCount = freeItems.reduce((sum, item) => sum + (item.quantity || 0), 0)
 
-  // Generate items HTML - show discounted prices (what customer pays)
-  const itemsHTML = order.items.map((item) => {
-    const itemName = item.name || 'Product'
-    const isFreeItem = item.price === 0 || itemName.toLowerCase().includes('(free)')
-    const priceDisplay = isFreeItem 
-      ? `<span style="color: #34c759; font-weight: 600;">FREE</span>`
-      : `AED ${(item.price * (item.quantity || 1)).toFixed(2)}`
-    
-    return `
-    <tr>
-      <td style="padding: 12px 0; border-bottom: 1px solid #f5f5f7; vertical-align: top;">
-        <div style="font-size: 15px; font-weight: 600; color: #1d1d1f; text-transform: uppercase; letter-spacing: 0.02em; text-align: ${textAlign};">${itemName}</div>
-        <div style="font-size: 13px; color: #6b7280; margin-top: 4px; text-align: ${textAlign};">
-          Qty: ${item.quantity || 0}${item.discountLabel ? `  <span style="color: #34c759; font-weight: 500;">(${item.discountLabel})</span>` : ''}
-        </div>
-        ${item.size || item.color ? `<div style="font-size: 12px; color: #86868b; margin-top: 2px; text-align: ${textAlign};">${item.size ? `Size: ${item.size}` : ''}${item.size && item.color ? ' · ' : ''}${item.color ? `Color: ${item.color}` : ''}</div>` : ''}
-      </td>
-      <td style="padding: 12px 0; border-bottom: 1px solid #f5f5f7; text-align: ${textAlignReverse}; font-size: 15px; color: #1d1d1f; font-weight: 500; vertical-align: top; white-space: nowrap;">${priceDisplay}</td>
-    </tr>
-  `}).join('')
+  // Generate items HTML using shared enhanced renderer (matches success page)
+  const itemsHTML = renderEnhancedItemRows(order, locale, {})
 
   return `
     <!DOCTYPE html>
@@ -536,18 +589,8 @@ export const generateStripePaymentConfirmationHTML = (order: OrderHTMLData, loca
   const textAlign = isRTL ? 'right' : 'left'
   const siteUrl = SITE_URL
 
-  // Generate items HTML
-  const itemsHTML = order.items.map(item => `
-    <tr>
-      <td style="padding: 16px 0; border-bottom: 1px solid #f5f5f7; vertical-align: top;">
-        <div style="font-size: 15px; font-weight: 500; color: #1d1d1f; letter-spacing: -0.01em; text-align: ${textAlign};">${item.name || 'Product'}</div>
-        ${item.size || item.color ? `<div style="font-size: 13px; color: #86868b; margin-top: 4px; text-align: ${textAlign};">${item.size ? `Size: ${item.size}` : ''}${item.size && item.color ? ' · ' : ''}${item.color ? `Color: ${item.color}` : ''}</div>` : ''}
-        ${item.discountLabel ? `<div style="font-size: 12px; color: #34c759; font-weight: 500; margin-top: 4px; text-align: ${textAlign};">(${item.discountLabel})</div>` : ''}
-      </td>
-      <td style="padding: 16px 12px; border-bottom: 1px solid #f5f5f7; text-align: center; font-size: 15px; color: #1d1d1f; vertical-align: top;">×${item.quantity || 0}</td>
-      <td style="padding: 16px 0; border-bottom: 1px solid #f5f5f7; text-align: ${isRTL ? 'left' : 'right'}; font-size: 15px; color: #1d1d1f; font-weight: 500; vertical-align: top;">AED ${((item.price || 0) * (item.quantity || 0)).toFixed(2)}</td>
-    </tr>
-  `).join('')
+  // Generate items HTML using shared enhanced renderer (matches success page)
+  const itemsHTML = renderEnhancedItemRows(order, locale, {})
 
   return `
     <!DOCTYPE html>

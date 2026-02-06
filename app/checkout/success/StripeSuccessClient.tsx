@@ -61,7 +61,7 @@ export default function StripeSuccessClient() {
     async function verifyPayment() {
       // Support both session_id (hosted checkout) and payment_intent (embedded checkout)
       if (!sessionId && !paymentIntentId) {
-        setError('Missing payment information')
+        setError(t('errors.missingPaymentInfo'))
         setLoading(false)
         return
       }
@@ -117,7 +117,7 @@ export default function StripeSuccessClient() {
 
       } catch (error) {
         errorLog('Payment verification error:', error)
-        setError('Failed to verify payment status')
+        setError(t('errors.failedToVerifyPayment'))
       } finally {
         setLoading(false)
       }

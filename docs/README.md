@@ -289,7 +289,7 @@
 
 | File | Description |
 |------|-------------|
-| [SESSION_CHANGES_2026-02-06.md](./SESSION_CHANGES_2026-02-06.md) | **NEW** Mobile API pricing audit, discount parity, comprehensive documentation |
+| [SESSION_CHANGES_2026-02-06.md](./SESSION_CHANGES_2026-02-06.md) | **NEW** Mobile API pricing audit, email template overhaul (images + breakdowns), success page enhancement, localization fixes, support-link order number mismatch fix |
 | [SESSION_CHANGES_2026-02-05.md](./SESSION_CHANGES_2026-02-05.md) | Bundle progress bar, discount breakdown, product detail sheet, swipe gestures |
 | [SESSION_CHANGES_2026-02-03.md](./SESSION_CHANGES_2026-02-03.md) | Bundle Builder UX, Build Your Set banner, ChatWidget i18n, 66+ AR/RU translations |
 | [SESSION_CHANGES_2026-02-02.md](./SESSION_CHANGES_2026-02-02.md) | Bundle Builder feature, price hiding, corporate colors |
@@ -321,12 +321,16 @@ UI often differs between:
 - **Logged out** - Grey profile icon, no green dot
 - **Logged in** - Red profile icon, green online dot
 
-### Unified Order Format
-Both **email templates** and **Orders page** use the same format:
-- Items show discounted prices
+### Unified Order Item Format
+All **email templates**, **success page**, and **Orders page** use the same enhanced format:
+- 56×56 product image thumbnail
+- Product name (UPPERCASE, bold)
+- Combined detail line: "Quantity: 1 • 180ml"
+- Combined discount %: "(60% OFF)" in green
+- Discount badges: "-50% VIP" (purple), "-20% Bundle" (green)
+- Original price strikethrough + discounted price in green
 - Free items display "FREE" in green
-- Discount labels: `(50% OFF)`, `(15% OFF - Bundle Discount)`
-- Summary: item counts, free masks, VAT notice, red total
+- Summary: retail total, VIP discount, bundle discount, net subtotal, shipping, VAT, "You Saved" banner, total
 
 ---
 

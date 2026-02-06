@@ -118,30 +118,33 @@ function validateEnvironment(): EnvConfig {
     }
   }
 
-  // Validate DATABASE_URL format
-  const databaseUrl = requiredVars.DATABASE_URL
-  if (!databaseUrl) {
-    throw new Error('DATABASE_URL is required')
-  }
-  try {
-    new URL(databaseUrl)
-  } catch (error) {
-    throw new Error('Invalid DATABASE_URL format. Must be a valid URL.')
-  }
-
-  // Validate PRISMA_DATABASE_URL if provided
-  if (optionalVars.PRISMA_DATABASE_URL) {
+  // All remaining server-only validations: skip on client
+  if (!isClient) {
+    // Validate DATABASE_URL format
+    const databaseUrl = requiredVars.DATABASE_URL
+    if (!databaseUrl) {
+      throw new Error('DATABASE_URL is required')
+    }
     try {
-      new URL(optionalVars.PRISMA_DATABASE_URL)
+      new URL(databaseUrl)
     } catch (error) {
-      throw new Error('Invalid PRISMA_DATABASE_URL format. Must be a valid URL.')
+      throw new Error('Invalid DATABASE_URL format. Must be a valid URL.')
+    }
+
+    // Validate PRISMA_DATABASE_URL if provided
+    if (optionalVars.PRISMA_DATABASE_URL) {
+      try {
+        new URL(optionalVars.PRISMA_DATABASE_URL)
+      } catch (error) {
+        throw new Error('Invalid PRISMA_DATABASE_URL format. Must be a valid URL.')
+      }
     }
   }
 
   // Warn about missing admin credentials in production
   // Skip warnings during Next.js build phase (env vars aren't available during static generation)
   const isBuildPhase = process.env.NEXT_PHASE === 'phase-production-build'
-  if (requiredVars.NODE_ENV === 'production' && !isBuildPhase) {
+  if (!isClient && requiredVars.NODE_ENV === 'production' && !isBuildPhase) {
     if (!optionalVars.ADMIN_EMAIL || !optionalVars.ADMIN_PASSWORD) {
       warnLog(
         '⚠️  WARNING: ADMIN_EMAIL and ADMIN_PASSWORD not set in production.\n' +

@@ -208,14 +208,14 @@ export default function TrainingClient() {
           {!isAppLikeMode && (
             <>
               <nav className="text-xs md:text-base text-gray-600 mb-2 md:mb-4" aria-label="Breadcrumb">
-                <Link href="/" className="hover:text-primary-600 transition-colors">Home</Link>
+                <Link href="/" className="hover:text-primary-600 transition-colors">{t('training.home')}</Link>
                 <span> / </span>
-                <span className="text-gray-900 font-medium">Training</span>
+                <span className="text-gray-900 font-medium">{t('training.trainingDocuments')}</span>
               </nav>
               
               <Link href="/" className="inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 mb-4 md:mb-8">
                 <ArrowLeft className="h-3 w-3 md:h-4 md:w-4" />
-                <span>Back to Home</span>
+                <span>{t('training.backToHome')}</span>
               </Link>
 
               {/* Logo - hidden on mobile */}

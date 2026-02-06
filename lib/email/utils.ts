@@ -89,8 +89,8 @@ export function getProductsUrl(locale: string): string {
 }
 
 /**
- * Get track order URL
+ * Get track order URL (locale-aware)
  */
-export function getTrackOrderUrl(orderNumber: string): string {
-  return `${SITE_URL}/track/${orderNumber}`
+export function getTrackOrderUrl(orderNumber: string, locale: string = 'en'): string {
+  return locale === 'en' ? `${SITE_URL}/track/${orderNumber}` : `${SITE_URL}/${locale}/track/${orderNumber}`
 }

@@ -160,6 +160,8 @@ const ProductFilters = memo(function ProductFilters({
                     <div className="space-y-3">
                       <div className="flex items-center gap-3">
                         <input
+                          id="price-min"
+                          name="price-min"
                           type="number"
                           min={priceRange.min}
                           max={priceRange.max}
@@ -170,6 +172,8 @@ const ProductFilters = memo(function ProductFilters({
                         />
                         <span className="text-gray-500">-</span>
                         <input
+                          id="price-max"
+                          name="price-max"
                           type="number"
                           min={priceRange.min}
                           max={priceRange.max}

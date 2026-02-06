@@ -7,7 +7,7 @@ import { useState, useRef, useEffect } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Order, OrderItem } from '@prisma/client'
 import { fetchCsrfToken, getCsrfHeaders, addCsrfToBody } from '@/lib/csrfClient'
-import { errorLog, debugLog } from '@/lib/logger'
+import { errorLog } from '@/lib/logger'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
@@ -179,36 +179,12 @@ export default function ProfilePageRefactored() {
   // Initialize profile picture and customer number when user loads
   useEffect(() => {
     if (user) {
-      // Debug: Log profile picture to help troubleshoot
-      debugLog('[PROFILE_PAGE] User data:', {
-        email: user.email,
-        name: user.name,
-        profilePicture: user.profilePicture,
-        hasProfilePicture: !!user.profilePicture,
-        profilePictureType: typeof user.profilePicture,
-        profilePictureLength: user.profilePicture?.length || 0,
-        fullUser: user
-      })
-      
       // Check profile picture via debug endpoint (only if NOT editing to avoid disruption)
       if (!isEditing) {
         fetch('/api/debug/profile-picture')
           .then(res => res.json())
           .then(data => {
-            debugLog('[PROFILE_PAGE] Debug Profile Picture API Response:', JSON.stringify(data, null, 2))
-            debugLog('[PROFILE_PAGE] Profile Picture Details:', {
-              exists: data.profilePicture?.exists,
-              value: data.profilePicture?.value,
-              isNull: data.profilePicture?.isNull,
-              isUndefined: data.profilePicture?.isUndefined,
-              length: data.profilePicture?.length,
-              preview: data.profilePicture?.preview,
-              userFromDB: data.userFromDatabase?.profilePicture
-            })
             if (data.success && data.profilePicture.exists && !user.profilePicture && !isEditing) {
-              debugLog('[PROFILE_PAGE] Profile picture exists in DB but not in user object - refreshing...')
-              debugLog('[PROFILE_PAGE] DB has:', data.profilePicture.value)
-              debugLog('[PROFILE_PAGE] User object has:', user.profilePicture)
               forceRefreshUser().catch(err => {
                 errorLog('[PROFILE_PAGE] Error refreshing user:', err)
               })
@@ -221,7 +197,6 @@ export default function ProfilePageRefactored() {
       
       // If no profile picture but user is logged in, try to refresh from server
       if (!user.profilePicture && !isEditing) {
-        debugLog('[PROFILE_PAGE] No profile picture found in user object, attempting to refresh user data...')
         forceRefreshUser().catch(err => {
           errorLog('[PROFILE_PAGE] Error refreshing user:', err)
         })
@@ -307,12 +282,12 @@ export default function ProfilePageRefactored() {
     const file = event.target.files?.[0]
     if (file) {
       if (!file.type.startsWith('image/')) {
-        showToast('Please select an image file', 'error')
+        showToast(t('profileActions.selectImageFile'), 'error')
         return
       }
       
       if (file.size > MAX_IMAGE_SIZE) {
-        showToast(`Image size should be less than ${MAX_IMAGE_SIZE / (1024 * 1024)}MB`, 'error')
+        showToast(t('profileActions.imageTooLarge').replace('{maxSize}', String(MAX_IMAGE_SIZE / (1024 * 1024))), 'error')
         return
       }
 
@@ -337,14 +312,14 @@ export default function ProfilePageRefactored() {
   const handleSave = async () => {
     try {
       if (!user?.id) {
-        showToast('User ID not found. Please try logging out and back in.', 'error')
+        showToast(t('profileActions.userIdNotFound'), 'error')
         return
       }
 
       // Ensure CSRF token is available
       const csrfToken = await fetchCsrfToken()
       if (!csrfToken) {
-        showToast('Security error: Could not verify request. Please refresh the page and try again.', 'error')
+        showToast(t('profileActions.securityError'), 'error')
         return
       }
 
@@ -371,7 +346,7 @@ export default function ProfilePageRefactored() {
         const updatedUser = { ...user, ...editData, profilePicture }
         localStorage.setItem(LOCAL_STORAGE_KEYS.USER, JSON.stringify(updatedUser))
         setIsEditing(false)
-        showToast('Profile updated successfully', 'success')
+        showToast(t('profileActions.profileUpdated'), 'success')
         forceRefreshUser()
       } else {
         errorLog('Failed to update profile:', response.status, responseData)
@@ -380,7 +355,7 @@ export default function ProfilePageRefactored() {
         if (responseData?.errors && Array.isArray(responseData.errors) && responseData.errors.length > 0) {
           errorMessage = responseData.errors.join('\n')
         }
-        showToast(`Failed to update profile: ${errorMessage}`, 'error')
+        showToast(t('profileActions.failedToUpdate').replace('{error}', errorMessage), 'error')
       }
     } catch (error) {
       handleApiError(error, 'Error updating profile')
@@ -414,7 +389,7 @@ export default function ProfilePageRefactored() {
       // Ensure CSRF token is available
       const csrfToken = await fetchCsrfToken()
       if (!csrfToken) {
-        showToast('Security error: Could not verify request. Please refresh the page and try again.', 'error')
+        showToast(t('profileActions.securityError'), 'error')
         setIsDeleting(false)
         return
       }
@@ -430,14 +405,14 @@ export default function ProfilePageRefactored() {
         localStorage.removeItem(LOCAL_STORAGE_KEYS.USER)
         localStorage.removeItem(LOCAL_STORAGE_KEYS.CUSTOMER_NUMBER(user.id))
         
-        showToast('Your account has been deleted. Signing out...', 'success')
+        showToast(t('profileActions.accountDeleted'), 'success')
         // Small delay before logout to show the message
         setTimeout(async () => {
           await logout()
         }, 1500)
       } else {
         const data = await response.json()
-        showToast(data.error || 'Failed to delete account. Please try again.', 'error')
+        showToast(data.error || t('profileActions.failedToDelete'), 'error')
       }
     } catch (error) {
       handleApiError(error, 'Error deleting account')
@@ -459,7 +434,7 @@ export default function ProfilePageRefactored() {
       // Ensure CSRF token is available
       const csrfToken = await fetchCsrfToken()
       if (!csrfToken) {
-        showToast('Security error: Could not verify request. Please refresh the page and try again.', 'error')
+        showToast(t('profileActions.securityError'), 'error')
         setShowCancelOrderConfirm(false)
         setOrderToCancel(null)
         return
@@ -476,10 +451,10 @@ export default function ProfilePageRefactored() {
         setOrders(orders.filter(order => order.id !== orderToCancel))
         setShowCancelOrderConfirm(false)
         setOrderToCancel(null)
-        showToast('Order cancelled successfully', 'success')
+        showToast(t('profileActions.orderCancelled'), 'success')
       } else {
         const errorData = await response.json()
-        showToast(`Failed to cancel order: ${errorData.error || 'Unknown error'}`, 'error')
+        showToast(t('profileActions.failedToCancel').replace('{error}', errorData.error || 'Unknown error'), 'error')
       }
     } catch (error) {
       handleApiError(error, 'Failed to cancel order')
@@ -498,18 +473,8 @@ export default function ProfilePageRefactored() {
 
   // Show loading or nothing while redirecting (only for non-PWA)
   if (!user) {
-    debugLog('[PROFILE_PAGE] No user found, redirecting to login...')
     return null
   }
-  
-  // Always log user data when profile page renders
-  debugLog('[PROFILE_PAGE] Profile Page Rendered - User:', {
-    email: user.email,
-    name: user.name,
-    profilePicture: user.profilePicture,
-    hasProfilePicture: !!user.profilePicture,
-    profilePictureURL: user.profilePicture || 'NO PICTURE'
-  })
 
   return (
     <div className="min-h-[100dvh] bg-white">
@@ -629,7 +594,7 @@ export default function ProfilePageRefactored() {
                   className="flex items-center gap-2 px-4 py-3 bg-white/50 text-gray-600 rounded-xl font-medium hover:bg-white/70 transition-all disabled:opacity-50"
                 >
                   <RefreshCw className={`h-5 w-5 ${isRefreshing ? 'animate-spin' : ''}`} />
-                  <span>Refresh</span>
+                  <span>{t('profileActions.refresh')}</span>
                 </button>
                 <button
                   onClick={() => setIsEditing(!isEditing)}
@@ -638,7 +603,7 @@ export default function ProfilePageRefactored() {
                   }`}
                 >
                   <Edit3 className="h-5 w-5" />
-                  <span>{isEditing ? 'Cancel' : 'Edit'}</span>
+                  <span>{isEditing ? t('profileActions.cancel') : t('profileActions.edit')}</span>
                 </button>
               </div>
             </div>
@@ -723,23 +688,23 @@ export default function ProfilePageRefactored() {
               <div className="p-3 bg-red-100 rounded-xl">
                 <Trash2 className="h-8 w-8 text-red-600" />
               </div>
-              <h3 className="text-xl font-bold text-gray-800">Delete Account</h3>
+              <h3 className="text-xl font-bold text-gray-800">{t('profileActions.deleteAccountTitle')}</h3>
             </div>
             
             <div className="mb-8">
               <p className="text-gray-600 mb-4">
-                Are you sure you want to delete your account? This action cannot be undone.
+                {t('profileActions.deleteAccountConfirm')}
               </p>
               <div className="bg-red-50 border border-red-200 rounded-xl p-4">
-                <p className="text-red-800 font-medium mb-2">This will remove your personal data and disable your account:</p>
+                <p className="text-red-800 font-medium mb-2">{t('profileActions.deleteAccountWarning')}</p>
                 <ul className="text-red-700 text-sm space-y-1">
-                  <li>• Your profile and personal information</li>
-                  <li>• Login access to this account</li>
-                  <li>• Your customer number (#{customerNumber})</li>
-                  <li>• All saved preferences and data</li>
+                  <li>• {t('profileActions.deleteProfileInfo')}</li>
+                  <li>• {t('profileActions.deleteLoginAccess')}</li>
+                  <li>• {t('profileActions.deleteCustomerNumber').replace('{customerNumber}', String(customerNumber || ''))}</li>
+                  <li>• {t('profileActions.deletePreferences')}</li>
                 </ul>
                 <p className="text-red-800 text-sm mt-3">
-                  Note: Orders are preserved for legal/operational reasons, but will no longer be tied to your personal details.
+                  {t('profileActions.deleteOrdersNote')}
                 </p>
               </div>
             </div>
@@ -750,13 +715,13 @@ export default function ProfilePageRefactored() {
                 disabled={isDeleting}
                 className="flex-1 bg-red-600 text-white py-3 px-6 rounded-xl font-semibold hover:bg-red-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed min-h-[44px] touch-manipulation"
               >
-                {isDeleting ? 'Deleting...' : 'Delete Account'}
+                {isDeleting ? t('profileActions.deleting') : t('profileActions.deleteAccount')}
               </button>
               <button
                 onClick={() => setShowDeleteConfirm(false)}
                 className="flex-1 bg-gray-200 text-gray-800 py-3 px-6 rounded-xl font-semibold hover:bg-gray-300 transition-colors min-h-[44px] touch-manipulation"
               >
-                Cancel
+                {t('profileActions.cancel')}
               </button>
             </div>
           </div>
@@ -771,19 +736,19 @@ export default function ProfilePageRefactored() {
               <div className="p-3 bg-red-100 rounded-xl">
                 <X className="h-8 w-8 text-red-600" />
               </div>
-              <h3 className="text-xl font-bold text-gray-800">Cancel Order</h3>
+              <h3 className="text-xl font-bold text-gray-800">{t('profileActions.cancelOrderTitle')}</h3>
             </div>
             
             <div className="mb-8">
               <p className="text-gray-600 mb-4">
-                Are you sure you want to cancel this order? The order will be permanently removed from your history. This action cannot be undone.
+                {t('profileActions.cancelOrderConfirm')}
               </p>
               <div className="bg-red-50 border border-red-200 rounded-xl p-4">
-                <p className="text-red-800 font-medium mb-2">This will:</p>
+                <p className="text-red-800 font-medium mb-2">{t('profileActions.cancelOrderWarning')}</p>
                 <ul className="text-red-700 text-sm space-y-1">
-                  <li>• Permanently cancel the order</li>
-                  <li>• Remove it from your order history</li>
-                  <li>• Cannot be restored</li>
+                  <li>• {t('profileActions.cancelPermanently')}</li>
+                  <li>• {t('profileActions.cancelRemoveHistory')}</li>
+                  <li>• {t('profileActions.cancelCannotRestore')}</li>
                 </ul>
               </div>
             </div>
@@ -794,7 +759,7 @@ export default function ProfilePageRefactored() {
                 className="flex-1 flex items-center justify-center gap-2 bg-red-600 text-white py-3 px-6 rounded-xl font-semibold hover:bg-red-700 transition-colors min-h-[44px] touch-manipulation"
               >
                 <X className="h-5 w-5" />
-                Yes, Cancel Order
+                {t('profileActions.yesCancelOrder')}
               </button>
               <button
                 onClick={() => {
@@ -803,7 +768,7 @@ export default function ProfilePageRefactored() {
                 }}
                 className="px-6 py-3 bg-gray-200 text-gray-700 rounded-xl font-semibold hover:bg-gray-300 transition-colors min-h-[44px] touch-manipulation"
               >
-                Cancel
+                {t('profileActions.cancel')}
               </button>
             </div>
           </div>

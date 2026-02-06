@@ -521,7 +521,9 @@ export const emailTemplates = {
 
   // Order confirmation email - Apple style (unified format)
   orderConfirmation: (orderData: OrderConfirmationEmailData) => {
-    const isRTL = orderData.locale === 'ar'
+    const locale = orderData.locale || 'en'
+    const t = loadEmailTranslations(locale, 'cod')
+    const isRTL = locale === 'ar'
     const textAlign = isRTL ? 'right' : 'left'
     const textAlignReverse = isRTL ? 'left' : 'right'
     
@@ -536,6 +538,7 @@ export const emailTemplates = {
     const bundleDiscountPct = orderData.bundleDiscountPercentage || 0
     const hasUserDiscount = userDiscountPct > 0
     const hasBundleDiscount = bundleDiscountPct > 0
+    const hasAnyDiscount = hasUserDiscount || hasBundleDiscount
 
     // Generate items HTML - show discounted prices with per-line discount info
     const itemsHTML = orderData.items.map(item => {
@@ -566,7 +569,7 @@ export const emailTemplates = {
       }
       
       const priceDisplay = isFreeItem 
-        ? `<span style="color: #34c759; font-weight: 600;">FREE</span>`
+        ? `<span style="color: #34c759; font-weight: 600;">${t.free || 'FREE'}</span>`
         : hasDiscount
           ? `<div style="text-align: ${textAlignReverse};">
               <span style="color: #9ca3af; text-decoration: line-through; font-size: 13px;">AED ${originalTotal.toFixed(2)}</span>
@@ -575,29 +578,51 @@ export const emailTemplates = {
             </div>`
           : `AED ${itemTotal.toFixed(2)}`
       
+      const imageUrl = item.image ? (item.image.startsWith('http') ? item.image : `${SITE_URL}${item.image}`) : ''
+      
+      // Combined discount percentage
+      const totalDiscountPct = hasAnyDiscount && !isFreeItem
+        ? Math.round((1 - item.price / originalPrice) * 100)
+        : 0
+      
+      // Qty + size/color combined line (matching success page: "Quantity: 1 • 180ml")
+      const detailParts: string[] = [`${t.qty || 'Quantity'}: ${item.quantity}`]
+      if (item.size) detailParts.push(item.size)
+      if (item.color) detailParts.push(item.color)
+      const detailLine = detailParts.join(' • ')
+      
       return `
       <tr>
         <td style="padding: 12px 0; border-bottom: 1px solid #f5f5f7; vertical-align: top;">
-          <div style="font-size: 15px; font-weight: 600; color: #1d1d1f; text-transform: uppercase; letter-spacing: 0.02em; text-align: ${textAlign};">${item.productName}</div>
-          <div style="font-size: 13px; color: #6b7280; margin-top: 4px; text-align: ${textAlign};">
-            Qty: ${item.quantity}${item.discountLabel ? `  <span style="color: #34c759; font-weight: 500;">(${item.discountLabel})</span>` : ''}
-          </div>
-          ${item.size || item.color ? `<div style="font-size: 12px; color: #86868b; margin-top: 2px; text-align: ${textAlign};">${item.size ? `Size: ${item.size}` : ''}${item.size && item.color ? ' · ' : ''}${item.color ? `Color: ${item.color}` : ''}</div>` : ''}
-          ${discountBadges.length > 0 ? `<div style="margin-top: 4px; text-align: ${textAlign};">${discountBadges.join('')}</div>` : ''}
+          <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+            <tr>
+              ${imageUrl ? `<td style="width: 56px; vertical-align: top; padding-${isRTL ? 'left' : 'right'}: 12px;">
+                <img src="${imageUrl}" alt="${item.productName}" width="56" height="56" style="width: 56px; height: 56px; object-fit: contain; border-radius: 8px; background-color: #f9fafb; display: block;" />
+              </td>` : ''}
+              <td style="vertical-align: top;">
+                <div style="font-size: 14px; font-weight: 700; color: #1d1d1f; text-transform: uppercase; letter-spacing: 0.02em; text-align: ${textAlign}; line-height: 1.3;">${item.productName}</div>
+                <div style="font-size: 12px; color: #6b7280; margin-top: 3px; text-align: ${textAlign};">${detailLine}</div>
+                ${totalDiscountPct > 0 ? `<div style="font-size: 12px; font-weight: 700; color: #16a34a; margin-top: 2px; text-align: ${textAlign};">(${totalDiscountPct}% OFF)</div>` : ''}
+                ${discountBadges.length > 0 ? `<div style="margin-top: 4px; text-align: ${textAlign};">${discountBadges.join('')}</div>` : ''}
+              </td>
+              <td style="text-align: ${textAlignReverse}; vertical-align: top; white-space: nowrap; padding-${isRTL ? 'right' : 'left'}: 12px;">${priceDisplay}</td>
+            </tr>
+          </table>
         </td>
-        <td style="padding: 12px 0; border-bottom: 1px solid #f5f5f7; text-align: ${textAlignReverse}; font-size: 15px; color: #1d1d1f; font-weight: 500; vertical-align: top; white-space: nowrap;">${priceDisplay}</td>
       </tr>
     `}).join('')
     
+    const subjectText = (t.subject || 'Order Confirmation #{orderNumber} - GENOSYS Professional').replace('{orderNumber}', orderData.orderNumber)
+    
     return {
-    subject: `Order Confirmation #${orderData.orderNumber}`,
+    subject: subjectText,
     html: `
       <!DOCTYPE html>
-      <html lang="${orderData.locale || 'en'}" dir="${isRTL ? 'rtl' : 'ltr'}">
+      <html lang="${locale}" dir="${isRTL ? 'rtl' : 'ltr'}">
       <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Order Confirmation</title>
+        <title>${t.orderConfirmed || 'Order Confirmed'}</title>
       </head>
       <body style="margin: 0; padding: 0; background-color: #ffffff; -webkit-font-smoothing: antialiased;">
         <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #ffffff;">
@@ -625,7 +650,7 @@ export const emailTemplates = {
                 <tr>
                   <td style="text-align: center; padding-bottom: 12px;">
                     <h1 style="margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif; font-size: 32px; font-weight: 600; color: #1d1d1f; letter-spacing: -0.02em;">
-                      Order Confirmed
+                      ${t.orderConfirmed || 'Order Confirmed'}
                     </h1>
                   </td>
                 </tr>
@@ -642,8 +667,8 @@ export const emailTemplates = {
                 <!-- Greeting -->
                 <tr>
                   <td style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 17px; line-height: 1.5; color: #1d1d1f; text-align: ${textAlign}; padding-bottom: 24px;">
-                    Hi ${orderData.customerName.split(' ')[0]},<br><br>
-                    Thank you for your order. We're preparing it now and will notify you when it ships.
+                    ${(t.greeting || 'Hi {firstName},').replace('{firstName}', orderData.customerName.split(' ')[0])}<br><br>
+                    ${t.greetingMessage || "Thank you for your order. We're preparing it now and will notify you when it ships."}
                   </td>
                 </tr>
                 
@@ -679,8 +704,8 @@ export const emailTemplates = {
                       <!-- Retail Price (original before discounts) -->
                       <tr>
                         <td style="padding: 8px 0; font-size: 15px; color: #6b7280; text-align: ${textAlign};">
-                          Retail Price: (${paidItemCount} ${paidItemCount === 1 ? 'item' : 'items'})
-                          ${freeItemCount > 0 ? `<br><span style="color: #34c759;">+ ${freeItemCount} free ${freeItemCount === 1 ? 'mask' : 'masks'}</span>` : ''}
+                          ${t.retailPrice || 'Retail Price'}: (${paidItemCount} ${paidItemCount === 1 ? (t.item || 'item') : (t.items || 'items')})
+                          ${freeItemCount > 0 ? `<br><span style="color: #34c759;">+ ${freeItemCount} ${t.free || 'free'} ${freeItemCount === 1 ? (t.mask || 'mask') : (t.masks || 'masks')}</span>` : ''}
                         </td>
                         <td style="padding: 8px 0; font-size: 15px; color: #9ca3af; font-weight: 500; text-align: ${textAlignReverse}; vertical-align: top; text-decoration: line-through;">AED ${_retailTotal.toFixed(2)}</td>
                       </tr>
@@ -688,8 +713,8 @@ export const emailTemplates = {
                       <!-- Subtotal (no discounts) -->
                       <tr>
                         <td style="padding: 8px 0; font-size: 15px; color: #6b7280; text-align: ${textAlign};">
-                          Subtotal: (${paidItemCount} ${paidItemCount === 1 ? 'item' : 'items'})
-                          ${freeItemCount > 0 ? `<br><span style="color: #34c759;">+ ${freeItemCount} free ${freeItemCount === 1 ? 'mask' : 'masks'}</span>` : ''}
+                          ${t.subtotal || 'Subtotal'}: (${paidItemCount} ${paidItemCount === 1 ? (t.item || 'item') : (t.items || 'items')})
+                          ${freeItemCount > 0 ? `<br><span style="color: #34c759;">+ ${freeItemCount} ${t.free || 'free'} ${freeItemCount === 1 ? (t.mask || 'mask') : (t.masks || 'masks')}</span>` : ''}
                         </td>
                         <td style="padding: 8px 0; font-size: 15px; color: #1d1d1f; font-weight: 500; text-align: ${textAlignReverse}; vertical-align: top;">AED ${orderData.subtotal.toFixed(2)}</td>
                       </tr>
@@ -697,21 +722,21 @@ export const emailTemplates = {
                       ${_hasUserDiscount ? `
                       <!-- VIP Discount -->
                       <tr>
-                        <td style="padding: 8px 0; font-size: 15px; color: #9b5de5; text-align: ${textAlign};">🏷️ Your Discount${orderData.discountPercentage ? ` (${orderData.discountPercentage}%)` : ''}</td>
+                        <td style="padding: 8px 0; font-size: 15px; color: #9b5de5; text-align: ${textAlign};">🏷️ ${t.yourDiscount || 'Your Discount'}${orderData.discountPercentage ? ` (${orderData.discountPercentage}%)` : ''}</td>
                         <td style="padding: 8px 0; font-size: 15px; color: #9b5de5; font-weight: 500; text-align: ${textAlignReverse};">-AED ${(orderData.discountAmount || 0).toFixed(2)}</td>
                       </tr>
                       ` : ''}
                       ${_hasUserDiscount && _hasBundleDiscount ? `
                       <!-- Intermediate Subtotal (after VIP, before bundle) -->
                       <tr>
-                        <td style="padding: 4px 0; font-size: 13px; color: #9ca3af; text-align: ${textAlign};">Subtotal</td>
+                        <td style="padding: 4px 0; font-size: 13px; color: #9ca3af; text-align: ${textAlign};">${t.subtotal || 'Subtotal'}</td>
                         <td style="padding: 4px 0; font-size: 13px; color: #9ca3af; font-weight: 500; text-align: ${textAlignReverse};">AED ${_afterVipSubtotal.toFixed(2)}</td>
                       </tr>
                       ` : ''}
                       ${_hasBundleDiscount ? `
                       <!-- Bundle Discount -->
                       <tr>
-                        <td style="padding: 8px 0; font-size: 15px; color: #16a34a; text-align: ${textAlign};">📦 Bundle Discount${orderData.bundleDiscountPercentage ? ` (${orderData.bundleDiscountPercentage}%)` : ''}</td>
+                        <td style="padding: 8px 0; font-size: 15px; color: #16a34a; text-align: ${textAlign};">📦 ${t.bundleDiscount || 'Bundle Discount'}${orderData.bundleDiscountPercentage ? ` (${orderData.bundleDiscountPercentage}%)` : ''}</td>
                         <td style="padding: 8px 0; font-size: 15px; color: #16a34a; font-weight: 500; text-align: ${textAlignReverse};">-AED ${(orderData.bundleDiscountAmount || 0).toFixed(2)}</td>
                       </tr>
                       ` : ''}
@@ -724,22 +749,22 @@ export const emailTemplates = {
                       </tr>
                       <!-- Net Subtotal -->
                       <tr>
-                        <td style="padding: 8px 0; font-size: 15px; color: #1d1d1f; font-weight: 600; text-align: ${textAlign};">Net Subtotal</td>
+                        <td style="padding: 8px 0; font-size: 15px; color: #1d1d1f; font-weight: 600; text-align: ${textAlign};">${t.netSubtotal || 'Net Subtotal'}</td>
                         <td style="padding: 8px 0; font-size: 15px; color: #1d1d1f; font-weight: 600; text-align: ${textAlignReverse};">AED ${orderData.subtotal.toFixed(2)}</td>
                       </tr>
                       ` : ''}
                       <tr>
-                        <td style="padding: 8px 0; font-size: 15px; color: #6b7280; text-align: ${textAlign};">🚚 Shipping to ${orderData.emirate}</td>
-                        <td style="padding: 8px 0; font-size: 15px; text-align: ${textAlignReverse}; font-weight: 500; ${orderData.shipping === 0 ? 'color: #34c759;' : 'color: #1d1d1f;'}">${orderData.shipping === 0 ? 'FREE' : `AED ${orderData.shipping.toFixed(2)}`}</td>
+                        <td style="padding: 8px 0; font-size: 15px; color: #6b7280; text-align: ${textAlign};">🚚 ${(t.shippingTo || 'Shipping to {emirate}').replace('{emirate}', orderData.emirate)}</td>
+                        <td style="padding: 8px 0; font-size: 15px; text-align: ${textAlignReverse}; font-weight: 500; ${orderData.shipping === 0 ? 'color: #34c759;' : 'color: #1d1d1f;'}">${orderData.shipping === 0 ? (t.free || 'FREE') : `AED ${orderData.shipping.toFixed(2)}`}</td>
                       </tr>
                       <tr>
-                        <td style="padding: 8px 0; font-size: 15px; color: #6b7280; text-align: ${textAlign};">VAT (5%)</td>
+                        <td style="padding: 8px 0; font-size: 15px; color: #6b7280; text-align: ${textAlign};">${t.vat || 'VAT (5%)'}</td>
                         <td style="padding: 8px 0; font-size: 15px; color: #1d1d1f; font-weight: 500; text-align: ${textAlignReverse};">AED ${orderData.vat.toFixed(2)}</td>
                       </tr>
                       <tr>
                         <td colspan="2" style="padding: 8px 0;">
                           <div style="background-color: #fef3c7; border-radius: 6px; padding: 8px 12px; text-align: center;">
-                            <span style="font-size: 13px; color: #d97706;">All prices include 5% VAT</span>
+                            <span style="font-size: 13px; color: #d97706;">${t.allPricesIncludeVat || 'All prices include 5% VAT'}</span>
                           </div>
                         </td>
                       </tr>
@@ -749,7 +774,7 @@ export const emailTemplates = {
                         </td>
                       </tr>
                       <tr>
-                        <td style="padding: 8px 0; font-size: 18px; font-weight: 700; color: #1d1d1f; text-align: ${textAlign};">Total:</td>
+                        <td style="padding: 8px 0; font-size: 18px; font-weight: 700; color: #1d1d1f; text-align: ${textAlign};">${t.totalLabel || 'Total:'}</td>
                         <td style="padding: 8px 0; font-size: 18px; font-weight: 700; color: #dc2626; text-align: ${textAlignReverse};">AED ${orderData.total.toFixed(2)}</td>
                       </tr>
                       ${_hasAnyDiscount ? `
@@ -757,7 +782,7 @@ export const emailTemplates = {
                       <tr>
                         <td colspan="2" style="padding: 12px 0 0 0;">
                           <div style="background-color: #dcfce7; border-radius: 8px; padding: 10px 16px; text-align: center;">
-                            <span style="font-size: 14px; color: #16a34a; font-weight: 600;">💰 You saved: AED ${_totalSaved.toFixed(2)}</span>
+                            <span style="font-size: 14px; color: #16a34a; font-weight: 600;">💰 ${t.youSaved || 'You saved'}: AED ${_totalSaved.toFixed(2)}</span>
                           </div>
                         </td>
                       </tr>
@@ -773,7 +798,7 @@ export const emailTemplates = {
                     <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #f5f5f7; border-radius: 12px;">
                       <tr>
                         <td style="padding: 24px;">
-                          <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 13px; font-weight: 600; color: #86868b; text-transform: uppercase; letter-spacing: 0.02em; margin-bottom: 12px; text-align: ${textAlign};">Delivery Details</div>
+                          <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 13px; font-weight: 600; color: #86868b; text-transform: uppercase; letter-spacing: 0.02em; margin-bottom: 12px; text-align: ${textAlign};">${t.deliveryDetails || 'Delivery Details'}</div>
                           <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 15px; color: #1d1d1f; line-height: 1.5; text-align: ${textAlign};">
                             ${orderData.customerName}<br>
                             ${orderData.address}<br>
@@ -788,8 +813,8 @@ export const emailTemplates = {
                 <!-- CTA Button -->
                 <tr>
                   <td style="text-align: center; padding-top: 40px;">
-                    <a href="${SITE_URL}/track/${orderData.orderNumber}" style="display: inline-block; background-color: #0071e3; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 17px; font-weight: 500; text-decoration: none; padding: 12px 24px; border-radius: 980px;">
-                      View Order
+                    <a href="${SITE_URL}/${locale === 'en' ? '' : locale + '/'}track/${orderData.orderNumber}" style="display: inline-block; background-color: #0071e3; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 17px; font-weight: 500; text-decoration: none; padding: 12px 24px; border-radius: 980px;">
+                      ${t.viewOrder || 'View Order'}
                     </a>
                   </td>
                 </tr>
@@ -799,8 +824,8 @@ export const emailTemplates = {
                   <td style="padding-top: 64px; text-align: center;">
                     <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 12px; color: #86868b; line-height: 1.6;">
                       Genosys Middle East FZ-LLC<br>
-                      Official Distributor in the UAE<br><br>
-                      © 2026 All rights reserved.
+                      ${t.officialDistributor || 'Official Distributor in the UAE'}<br><br>
+                      ${t.copyright || '© 2026 All rights reserved.'}
           </div>
                   </td>
                 </tr>
@@ -1145,7 +1170,6 @@ export const emailTemplates = {
                           <tr style="background-color: #f9fafb;">
                             <th style="padding: 12px 8px; text-align: left; color: #111827; font-size: 13px; font-weight: 600; border-bottom: 1px solid #e5e7eb;">Product</th>
                             <th style="padding: 12px 8px; text-align: center; color: #111827; font-size: 13px; font-weight: 600; border-bottom: 1px solid #e5e7eb;">Qty</th>
-                            <th style="padding: 12px 8px; text-align: right; color: #111827; font-size: 13px; font-weight: 600; border-bottom: 1px solid #e5e7eb;">Price</th>
                             <th style="padding: 12px 8px; text-align: right; color: #111827; font-size: 13px; font-weight: 600; border-bottom: 1px solid #e5e7eb;">Total</th>
               </tr>
             </thead>
@@ -1172,32 +1196,47 @@ export const emailTemplates = {
                   const hasDiscount = (hasUserDiscount || hasBundleDiscount) && !isFreeItem
                   const itemTotal = item.price * item.quantity
                   const originalTotal = originalPrice * item.quantity
+                  const totalDiscountPct = hasDiscount ? Math.round((1 - item.price / originalPrice) * 100) : 0
                   
                   // Build discount badges for admin email
-                  const discountBadges = []
+                  const discountBadges: string[] = []
                   if (hasUserDiscount && !isFreeItem) {
-                    discountBadges.push(`<span style="display: inline-block; background: #f3e8ff; color: #9333ea; font-size: 10px; font-weight: 600; padding: 2px 6px; border-radius: 4px; margin-right: 4px;">-${userDiscountPct}% VIP</span>`)
+                    discountBadges.push(`<span style="display: inline-block; background: #f3e8ff; color: #9333ea; font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 4px; margin-right: 4px;">-${userDiscountPct}% VIP</span>`)
                   }
                   if (hasBundleDiscount && !isFreeItem) {
-                    discountBadges.push(`<span style="display: inline-block; background: #dcfce7; color: #16a34a; font-size: 10px; font-weight: 600; padding: 2px 6px; border-radius: 4px;">-${bundleDiscountPct}% Bundle</span>`)
+                    discountBadges.push(`<span style="display: inline-block; background: #dcfce7; color: #16a34a; font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 4px;">-${bundleDiscountPct}% Bundle</span>`)
                   }
                   
-                  const priceDisplay = isFreeItem ? 'FREE' : hasDiscount
-                    ? `<span style="color: #9ca3af; text-decoration: line-through; font-size: 12px;">AED ${originalPrice.toFixed(2)}</span><br><span style="color: #16a34a;">AED ${item.price.toFixed(2)}</span>`
-                    : `AED ${item.price.toFixed(2)}`
-                  const totalDisplay = isFreeItem ? 'FREE' : hasDiscount
-                    ? `<span style="color: #9ca3af; text-decoration: line-through; font-size: 12px;">AED ${originalTotal.toFixed(2)}</span><br><span style="color: #16a34a; font-weight: 600;">AED ${itemTotal.toFixed(2)}</span>`
+                  const totalDisplay = isFreeItem ? '<span style="color: #059669; font-weight: 700;">FREE</span>' : hasDiscount
+                    ? `<span style="color: #9ca3af; text-decoration: line-through; font-size: 12px;">AED ${originalTotal.toFixed(2)}</span><br><span style="color: #16a34a; font-weight: 700;">AED ${itemTotal.toFixed(2)}</span>`
                     : `AED ${itemTotal.toFixed(2)}`
-                  const priceStyle = isFreeItem ? 'color: #059669; font-weight: 600;' : 'color: #111827;'
+                  
+                  const imageUrl = item.image ? (item.image.startsWith('http') ? item.image : `${SITE_URL}${item.image}`) : ''
+                  
+                  // Detail line: size + color
+                  const details: string[] = []
+                  if (item.size) details.push(`Size: ${item.size}`)
+                  if (item.color) details.push(`Color: ${item.color}`)
                   
                   return `
                             <tr style="border-bottom: 1px solid #e5e7eb;">
                               <td style="padding: 12px 8px; color: #111827; font-size: 14px;">
-                                ${item.productName}${item.size ? `<br><span style="color: #6b7280; font-size: 12px;">Size: ${item.size}</span>` : ''}${item.color ? `<br><span style="color: #6b7280; font-size: 12px;">Color: ${item.color}</span>` : ''}${item.discountLabel ? `<br><span style="color: #059669; font-size: 12px; font-weight: 600;">(${item.discountLabel})</span>` : ''}${discountBadges.length > 0 ? `<br>${discountBadges.join('')}` : ''}
+                                <table role="presentation" cellspacing="0" cellpadding="0" border="0">
+                                  <tr>
+                                    ${imageUrl ? `<td style="width: 48px; vertical-align: top; padding-right: 10px;">
+                                      <img src="${imageUrl}" alt="${item.productName}" width="48" height="48" style="width: 48px; height: 48px; object-fit: contain; border-radius: 6px; background-color: #f9fafb; display: block;" />
+                                    </td>` : ''}
+                                    <td style="vertical-align: top;">
+                                      <div style="font-weight: 600; text-transform: uppercase; font-size: 13px;">${item.productName}</div>
+                                      ${details.length > 0 ? `<div style="color: #6b7280; font-size: 12px; margin-top: 2px;">${details.join(' · ')}</div>` : ''}
+                                      ${totalDiscountPct > 0 ? `<div style="color: #16a34a; font-size: 12px; font-weight: 700; margin-top: 2px;">(${totalDiscountPct}% OFF)</div>` : ''}
+                                      ${discountBadges.length > 0 ? `<div style="margin-top: 3px;">${discountBadges.join('')}</div>` : ''}
+                                    </td>
+                                  </tr>
+                                </table>
                               </td>
                               <td style="padding: 12px 8px; text-align: center; color: #111827; font-size: 14px; font-weight: 500;">${item.quantity}</td>
-                              <td style="padding: 12px 8px; text-align: right; font-size: 14px; ${priceStyle}">${priceDisplay}</td>
-                              <td style="padding: 12px 8px; text-align: right; font-size: 14px; ${priceStyle}">${totalDisplay}</td>
+                              <td style="padding: 12px 8px; text-align: right; font-size: 14px; vertical-align: top;">${totalDisplay}</td>
                 </tr>
                 `}).join('')
               })()}

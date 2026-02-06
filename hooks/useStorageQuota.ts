@@ -82,7 +82,7 @@ export function useStorageQuota(): UseStorageQuotaReturn {
         warnLog(`Storage quota warning: ${(percentUsed * 100).toFixed(2)}%`)
       }
 
-      debugLog('Storage quota checked:', newStatus)
+      // debugLog('Storage quota checked:', newStatus)
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Failed to check storage quota'
       errorLog('Storage quota check failed:', err)

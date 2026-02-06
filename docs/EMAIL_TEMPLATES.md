@@ -1,49 +1,81 @@
 # Email Templates Documentation
 
+> **Last Updated**: February 6, 2026
+
 ## Overview
 
-This document describes the unified email template system used for order confirmations and notifications across the GENOSYS Professional cosmetics website.
+This document describes the unified email template system used for order confirmations and notifications across the GENOSYS Professional cosmetics website. All email templates feature product images, per-item price breakdowns with original price strikethrough, discount badges, and full i18n support (EN, AR, RU).
 
 ## Template Types
 
 | Template | Recipient | Trigger | File Location |
 |----------|-----------|---------|---------------|
-| COD Order Confirmation | Customer | Cash on Delivery order placed | `lib/email.ts` → `generateCODOrderHTML()` |
-| Stripe Order Confirmation | Customer | Successful Stripe payment | `lib/email.ts` → `emailTemplates.orderConfirmation()` |
-| Support-Link Order Confirmation | Customer | Support-link order submitted | `lib/email.ts` → `generateSupportLinkOrderHTML()` |
-| Admin New Order Notification | Admin | Any new order created | `lib/email.ts` → `emailTemplates.adminNewOrder()` |
+| COD Order Confirmation | Customer | Cash on Delivery order placed | `lib/email/htmlGenerators.ts` → `generateCODOrderHTML()` |
+| Stripe Order Confirmation | Customer | Successful Stripe payment | `lib/email/templates.ts` → `emailTemplates.orderConfirmation()` |
+| Support-Link Order Confirmation | Customer | Support-link order submitted | `lib/email/htmlGenerators.ts` → `generateSupportLinkOrderHTML()` |
+| Stripe Payment Confirmed | Customer | Stripe webhook confirms payment | `lib/email/htmlGenerators.ts` → `generateStripePaymentConfirmationHTML()` |
+| Admin New Order Notification | Admin | Any new order created | `lib/email/templates.ts` → `emailTemplates.adminNewOrder()` |
+| Order Status Update | Customer | Order shipped/delivered | `lib/email/statusUpdate.ts` |
 
-## Unified Format Specification
-
-All templates follow a consistent format for displaying order information:
-
-### Items Section
+## Architecture
 
 ```
-PRODUCT NAME                              AED XXX.XX
-Qty: 1  (50% OFF)
+lib/email/
+├── types.ts              # TypeScript interfaces (OrderConfirmationEmailData, AdminNewOrderEmailData, OrderHTMLData, OrderHTMLItem)
+├── utils.ts              # Shared utilities (loadEmailTranslations, LOGO_URL, getTrackOrderUrl)
+├── htmlGenerators.ts     # COD, Support-Link, Stripe HTML generators + shared renderEnhancedItemRows()
+├── templates.ts          # Stripe orderConfirmation + adminNewOrder templates
+├── statusUpdate.ts       # Order status update emails (shipped, delivered)
+└── index.ts              # Re-exports
+```
 
-BEAUTY BOX                                AED XXX.XX
-Qty: 1  (15% OFF - Bundle Discount)
+### Shared Item Renderer
 
-FREE MASK                                 FREE
-Qty: 1
+All email templates use a shared `renderEnhancedItemRows()` function (in `htmlGenerators.ts`) that generates consistent per-item HTML matching the success page layout. This ensures a single source of truth for item formatting.
+
+## Unified Item Format (Per-Line Breakdown)
+
+Each order item in every email template now displays:
+
+```
+┌───────┬──────────────────────────────────┬─────────────┐
+│ IMAGE │  PRODUCT NAME (UPPERCASE, BOLD)  │  AED 330.00 │ ← strikethrough original
+│ 56×56 │  Quantity: 1 • 180ml             │  AED 132.00 │ ← green discounted price
+│       │  (60% OFF)                       │             │ ← green combined discount %
+│       │  [-50% VIP] [-20% Bundle]        │             │ ← colored discount badges
+└───────┴──────────────────────────────────┴─────────────┘
 ```
 
 **Key Rules:**
-- Product names are displayed in **UPPERCASE** with bold styling
-- Prices shown are **discounted prices** (what the customer actually pays)
-- Free items display "FREE" in green instead of "AED 0.00"
-- Quantity is shown on a separate line below the product name
-- Discount labels appear inline with quantity in green text
+- **Product image**: 56×56px rounded thumbnail (absolute URL using `SITE_URL`)
+- **Product name**: UPPERCASE, bold, 14px
+- **Detail line**: "Quantity: X • size • color" combined on one line
+- **Combined discount %**: "(60% OFF)" in green - computed from original vs final price
+- **Discount badges**: Purple `-50% VIP` and/or green `-20% Bundle` pill badges
+- **Price column**:
+  - Original price struck through (gray) if discounted
+  - Final price in bold green below
+  - "FREE" label for free items
+- Prices are **per-item totals** (price × quantity)
+- All text is localized for EN, AR (RTL), RU
 
-### Discount Labels
+### Price Calculation (Reverse)
 
-| Item Type | Discount Label | Example |
-|-----------|----------------|---------|
-| Regular item with user discount | `(XX% OFF)` | `(50% OFF)` |
-| Bundle/Beauty Box | `(15% OFF - Bundle Discount)` | Fixed 15% bundle discount |
-| Free promotional item | No label | Free masks show no discount label |
+Email templates reverse-calculate the original price from the stored discounted price:
+
+```
+originalPrice = item.price / (1 - userDiscountPct/100) / (1 - bundleDiscountPct/100)
+```
+
+This uses `order.discountPercentage` and `order.bundleDiscountPercentage` passed from the API routes.
+
+### Discount Badges
+
+| Badge | Color | Condition |
+|-------|-------|-----------|
+| `-50% VIP` | Purple (`#9333ea` on `#f3e8ff`) | User has VIP discount |
+| `-20% Bundle` | Green (`#16a34a` on `#dcfce7`) | Order has bundle discount |
+| `FREE` | Green (`#16a34a`) | Item price is 0 or name contains "(free)" |
 
 ### Summary Section
 

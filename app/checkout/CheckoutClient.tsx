@@ -283,13 +283,16 @@ export default function CheckoutClient() {
 
       // Handle different payment methods
       if (paymentMethod === 'support-link') {
-                // Generate professional order number for support link request
-                const now = new Date()
-                const year = now.getFullYear().toString().slice(-2)
-                const month = (now.getMonth() + 1).toString().padStart(2, '0')
-                const day = now.getDate().toString().padStart(2, '0')
-                const sequence = Math.floor(Math.random() * 10000).toString().padStart(4, '0')
-                const supportOrderNumber = `SUP${year}${month}${day}${sequence}`
+        // Generate fallback order number for support link request
+        const now = new Date()
+        const year = now.getFullYear().toString().slice(-2)
+        const month = (now.getMonth() + 1).toString().padStart(2, '0')
+        const day = now.getDate().toString().padStart(2, '0')
+        const sequence = Math.floor(Math.random() * 10000).toString().padStart(4, '0')
+        const supportOrderNumber = `SUP${year}${month}${day}${sequence}`
+        
+        // Will be replaced by server-generated canonical order number
+        let serverOrderNumber = supportOrderNumber
         
         // Send support link order request email
         try {
@@ -387,7 +390,16 @@ export default function CheckoutClient() {
 
             clearTimeout(timeoutId)
 
-            if (!response.ok) {
+            if (response.ok) {
+              try {
+                const data = await response.json()
+                if (data.orderNumber) {
+                  serverOrderNumber = data.orderNumber
+                }
+              } catch {
+                // JSON parse failed, use fallback
+              }
+            } else {
               const errorText = await response.text()
               errorLog('Failed to send support-link order request:', errorText)
             }
@@ -399,14 +411,15 @@ export default function CheckoutClient() {
               errorLog('Error sending support-link order request:', fetchError)
             }
           }
+        
         } catch (error) {
           errorLog('Error in support-link order processing:', error)
         }
         
-        // Always redirect to success page (emails are non-blocking)
+        // Always redirect to success page using server order number (emails are non-blocking)
         isSubmittingRef.current = false
         setIsProcessing(false)
-        router.push(`${getLocalizedPath('/success', locale)}?payment=support-link&order_id=${supportOrderNumber}`)
+        router.push(`${getLocalizedPath('/success', locale)}?payment=support-link&order_id=${serverOrderNumber}`)
         return
       }
 
@@ -528,7 +541,7 @@ export default function CheckoutClient() {
 
         } catch (error) {
           errorLog('❌ Stripe payment error:', error)
-          alert(error instanceof Error ? error.message : 'Payment processing failed. Please try again.')
+          alert(error instanceof Error ? error.message : t('errors.paymentFailed'))
           isSubmittingRef.current = false
           setIsProcessing(false)
           return
@@ -620,7 +633,7 @@ export default function CheckoutClient() {
         // Ensure CSRF token is available
         const csrfToken = await fetchCsrfToken()
         if (!csrfToken) {
-          alert('Security error: Could not verify request. Please refresh the page and try again.')
+          alert(t('errors.securityError'))
           isSubmittingRef.current = false
           setIsProcessing(false)
           return

@@ -217,14 +217,16 @@ function SuccessContent() {
             <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-green-600 mb-2">
               {paymentMethod === 'support-link' 
                 ? (t('success.orderRequestSubmitted') || 'Order Request Submitted!')
-                : (t('success.paymentSuccessful') || 'Payment Successful!')}
+                : paymentMethod === 'cod'
+                  ? (t('success.orderSuccess') || 'Order Confirmed!')
+                  : (t('success.paymentSuccessful') || 'Payment Successful!')}
             </h1>
             <p className="text-sm md:text-base text-gray-600">
               {t('success.orderBeingProcessed') || 'Your order has been confirmed and is being processed.'}
             </p>
             {orderId && (
               <div className="mt-3 inline-block bg-gray-100 text-gray-700 px-4 py-2 rounded-lg text-sm font-mono">
-                Order #: <span className="font-semibold">{orderId}</span>
+                {t('success.orderNumber') || 'Order'} #: <span className="font-semibold">{orderId}</span>
               </div>
             )}
           </div>
@@ -262,36 +264,99 @@ function SuccessContent() {
 
               {/* Order Items */}
               <div className="px-4 py-4 border-b border-gray-100">
-                <h3 className="text-sm font-medium text-gray-500 mb-3">{t('cart.items') || 'Items'}</h3>
-                <div className="space-y-3">
-                  {orderData.items.map((item) => (
-                    <div key={item.id} className={`flex gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                      {/* Product Image */}
-                      <div className="relative w-16 h-16 flex-shrink-0 bg-gray-50 rounded-lg overflow-hidden">
-                        <Image
-                          src={item.image || '/images/placeholder-product.png'}
-                          alt={item.productName}
-                          fill
-                          className="object-contain p-1"
-                          sizes="64px"
-                        />
+                <h3 className={`text-base font-bold text-gray-900 mb-3 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                  {t('orders.orderItems') || 'Order Items'} ({orderData.itemCount} {orderData.itemCount === 1 ? (t('cart.item') || 'item') : (t('orders.items') || 'items')})
+                </h3>
+                {(() => {
+                  const userDiscountPct = orderData.discountPercentage || 0
+                  const bundleDiscountPct = orderData.bundleDiscountPercentage || 0
+                  const hasUserDiscount = userDiscountPct > 0
+                  const hasBundleDiscount = bundleDiscountPct > 0
+                  const hasAnyDiscount = hasUserDiscount || hasBundleDiscount
+
+                  return (
+                    <>
+                      <div className="divide-y divide-gray-100">
+                        {orderData.items.map((item) => {
+                          const isFreeItem = item.price === 0 || item.productName.toLowerCase().includes('(free)')
+                          
+                          // Reverse-calculate original price from stored discounted price
+                          let originalPrice = item.price
+                          if (hasUserDiscount && !isFreeItem) {
+                            originalPrice = originalPrice / (1 - userDiscountPct / 100)
+                          }
+                          if (hasBundleDiscount && !isFreeItem) {
+                            originalPrice = originalPrice / (1 - bundleDiscountPct / 100)
+                          }
+                          
+                          const itemTotal = item.price * item.quantity
+                          const originalTotal = originalPrice * item.quantity
+                          const totalDiscountPct = hasAnyDiscount && !isFreeItem
+                            ? Math.round((1 - item.price / originalPrice) * 100)
+                            : 0
+
+                          return (
+                            <div key={item.id} className={`flex gap-3 py-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                              {/* Product Image */}
+                              <div className="relative w-14 h-14 flex-shrink-0 bg-gray-50 rounded-lg overflow-hidden">
+                                <Image
+                                  src={item.image || '/images/placeholder-product.png'}
+                                  alt={item.productName}
+                                  fill
+                                  className="object-contain p-1"
+                                  sizes="56px"
+                                />
+                              </div>
+                              {/* Product Info + Price */}
+                              <div className="flex-1 min-w-0">
+                                <div className={`flex justify-between gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                                  <p className="text-sm font-semibold text-gray-900 uppercase tracking-wide leading-tight flex-1">{item.productName}</p>
+                                  {/* Price */}
+                                  <div className={`whitespace-nowrap ${dir === 'rtl' ? 'text-left' : 'text-right'}`}>
+                                    {isFreeItem ? (
+                                      <span className="text-sm font-bold text-green-600">{t('cart.free') || 'FREE'}</span>
+                                    ) : hasAnyDiscount ? (
+                                      <div>
+                                        <span className="text-xs text-gray-400 line-through block">AED {originalTotal.toFixed(2)}</span>
+                                        <span className="text-sm font-bold text-green-600">AED {itemTotal.toFixed(2)}</span>
+                                      </div>
+                                    ) : (
+                                      <span className="text-sm font-semibold text-gray-900">{itemTotal.toFixed(2)} AED</span>
+                                    )}
+                                  </div>
+                                </div>
+                                <div className="flex flex-wrap gap-x-2 mt-0.5 text-xs text-gray-500">
+                                  <span>{t('checkout.quantity') || 'Qty'}: {item.quantity}</span>
+                                  {item.size && <span>• {item.size}</span>}
+                                  {item.color && <span>• {item.color}</span>}
+                                </div>
+                                {/* Discount info */}
+                                {totalDiscountPct > 0 && (
+                                  <p className="text-xs font-semibold text-green-600 mt-0.5">({totalDiscountPct}% OFF)</p>
+                                )}
+                                {/* Discount badges */}
+                                {hasAnyDiscount && !isFreeItem && (
+                                  <div className={`flex flex-wrap gap-1 mt-1 ${dir === 'rtl' ? 'justify-end' : ''}`}>
+                                    {hasUserDiscount && (
+                                      <span className="inline-block bg-purple-100 text-purple-700 text-[10px] font-bold px-1.5 py-0.5 rounded">
+                                        -{userDiscountPct}% VIP
+                                      </span>
+                                    )}
+                                    {hasBundleDiscount && (
+                                      <span className="inline-block bg-green-100 text-green-700 text-[10px] font-bold px-1.5 py-0.5 rounded">
+                                        -{bundleDiscountPct}% Bundle
+                                      </span>
+                                    )}
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+                          )
+                        })}
                       </div>
-                      {/* Product Details */}
-                      <div className={`flex-1 min-w-0 ${dir === 'rtl' ? 'text-right' : ''}`}>
-                        <p className="text-sm font-medium text-gray-900 line-clamp-2">{item.productName}</p>
-                        <div className="flex flex-wrap gap-2 mt-1 text-xs text-gray-500">
-                          <span>Qty: {item.quantity}</span>
-                          {item.size && <span>• {item.size}</span>}
-                          {item.color && <span>• {item.color}</span>}
-                        </div>
-                      </div>
-                      {/* Price */}
-                      <div className={`text-sm font-semibold text-gray-900 whitespace-nowrap ${dir === 'rtl' ? 'text-left' : 'text-right'}`}>
-                        {item.price.toFixed(2)} AED
-                      </div>
-                    </div>
-                  ))}
-                </div>
+                    </>
+                  )
+                })()}
               </div>
 
               {/* Price Breakdown - Waterfall Discount */}
@@ -439,8 +504,8 @@ function SuccessContent() {
                   {t('success.estimatedDelivery') || 'Estimated delivery'}: {' '}
                   <span className="text-blue-700">
                     {orderData.customerEmirate?.toLowerCase() === 'dubai' 
-                      ? '1-2 hours' 
-                      : '1-2 business days'}
+                      ? (t('success.deliveryDubai') || '1-2 hours')
+                      : (t('success.deliveryOther') || '1-2 business days')}
                   </span>
                 </span>
               </div>

@@ -194,14 +194,36 @@ export const sendOrderStatusUpdate = async (order: { orderNumber: string; custom
     let appleItemsHTML = ''
     if (order.items && order.items.length > 0) {
       const itemRows = order.items.map(item => {
+        const imageUrl = item.image ? (item.image.startsWith('http') ? item.image : `${SITE_URL}${item.image}`) : ''
+        const itemTotal = item.price * item.quantity
+        const isFreeItem = item.price === 0 || item.productName.toLowerCase().includes('(free)')
+        
+        // Qty + size/color combined line
+        const detailParts: string[] = [`Qty: ${item.quantity}`]
+        if (item.size) detailParts.push(item.size)
+        if (item.color) detailParts.push(item.color)
+        const detailLine = detailParts.join(' • ')
+        
+        const priceDisplay = isFreeItem
+          ? `<span style="color: #16a34a; font-weight: 700;">FREE</span>`
+          : `<span style="font-weight: 600; font-size: 15px; color: #1d1d1f;">AED ${itemTotal.toFixed(2)}</span>`
+        
         return `
           <tr>
-            <td style="padding: 16px 0; border-bottom: 1px solid #f5f5f7; vertical-align: top;">
-              <div style="font-size: 15px; font-weight: 500; color: #1d1d1f; letter-spacing: -0.01em; text-align: ${textAlign};">${item.productName}</div>
-              ${item.size || item.color ? `<div style="font-size: 13px; color: #86868b; margin-top: 4px; text-align: ${textAlign};">${item.size ? `Size: ${item.size}` : ''}${item.size && item.color ? ' · ' : ''}${item.color ? `Color: ${item.color}` : ''}</div>` : ''}
+            <td style="padding: 12px 0; border-bottom: 1px solid #f5f5f7; vertical-align: top;">
+              <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                <tr>
+                  ${imageUrl ? `<td style="width: 48px; vertical-align: top; padding-${isRTL ? 'left' : 'right'}: 10px;">
+                    <img src="${imageUrl}" alt="${item.productName}" width="48" height="48" style="width: 48px; height: 48px; object-fit: contain; border-radius: 6px; background-color: #f9fafb; display: block;" />
+                  </td>` : ''}
+                  <td style="vertical-align: top;">
+                    <div style="font-size: 14px; font-weight: 700; color: #1d1d1f; text-transform: uppercase; letter-spacing: 0.02em; text-align: ${textAlign}; line-height: 1.3;">${item.productName}</div>
+                    <div style="font-size: 12px; color: #6b7280; margin-top: 3px; text-align: ${textAlign};">${detailLine}</div>
                   </td>
-            <td style="padding: 16px 12px; border-bottom: 1px solid #f5f5f7; text-align: center; font-size: 15px; color: #1d1d1f; vertical-align: top;">×${item.quantity}</td>
-            <td style="padding: 16px 0; border-bottom: 1px solid #f5f5f7; text-align: ${isRTL ? 'left' : 'right'}; font-size: 15px; color: #1d1d1f; font-weight: 500; vertical-align: top;">AED ${(item.price * item.quantity).toFixed(2)}</td>
+                  <td style="text-align: ${isRTL ? 'left' : 'right'}; vertical-align: top; white-space: nowrap; padding-${isRTL ? 'right' : 'left'}: 12px;">${priceDisplay}</td>
+                </tr>
+              </table>
+            </td>
           </tr>
         `
       }).join('')

@@ -1,11 +1,11 @@
 # Success Page Documentation
 
-> **Last Updated**: February 2026
+> **Last Updated**: February 6, 2026
 > **Status**: Production Ready
 
 ## Overview
 
-The success page (`/success`) is displayed to customers after successfully completing an order. It provides a professional, enjoyable experience that confirms the payment and displays comprehensive order details.
+The success page (`/success`) is displayed to customers after successfully completing an order. It provides a professional, enjoyable experience that confirms the payment and displays comprehensive order details with per-item price breakdowns matching the email confirmation format.
 
 ---
 
@@ -13,17 +13,28 @@ The success page (`/success`) is displayed to customers after successfully compl
 
 ### 1. Payment Confirmation
 - Animated checkmark with confetti celebration
-- Clear "Payment Successful!" message
+- **COD orders**: "Order Confirmed!" message (not "Payment Successful!")
+- **Stripe orders**: "Payment Successful!" message
 - Order number prominently displayed
 
 ### 2. Order Summary Card
 - **Customer Information**: Name, email
-- **Order Items**: Product images, names, quantities, sizes/colors, individual prices
+- **Order Items** (enhanced per-item breakdown):
+  - 56×56 product image thumbnail
+  - Product name in UPPERCASE bold
+  - Combined detail line: "Quantity: 1 • 180ml" (qty + size + color)
+  - Combined discount percentage: "(60% OFF)" in green
+  - Discount badges: "-50% VIP" (purple) and "-20% Bundle" (green)
+  - Price with original strikethrough + discounted in green
+  - "FREE" label for complimentary items
 - **Price Breakdown**:
-  - Subtotal (with item count)
-  - Discount (if applicable, with percentage)
+  - Retail Price (if discounted, with item count)
+  - VIP Discount (purple, with percentage)
+  - Bundle Discount (green, with percentage)
+  - Net Subtotal
   - Shipping (with emirate name)
   - VAT (5%)
+  - "You Saved" banner (green, with total savings)
   - Total (highlighted in green)
 - **Delivery Address**: Full address with emirate
 
@@ -31,7 +42,7 @@ The success page (`/success`) is displayed to customers after successfully compl
 - Email confirmation sent notification
 - Order being prepared status
 - Tracking info delivery method (email/WhatsApp)
-- **Estimated Delivery**:
+- **Estimated Delivery** (localized):
   - Dubai: 1-2 hours
   - Other Emirates: 1-2 business days
 
@@ -215,17 +226,19 @@ const hiddenPages = ['/cart', '/bag', '/checkout', '/profile', '/login', '/bundl
 
 | Parameter | Required | Description |
 |-----------|----------|-------------|
-| `orderId` | Yes | The order number (e.g., `GENCardW2602057728`) |
+| `order_id` | Yes | The canonical order number (e.g., `GENCardW2602057728`, `CODW2602051234`) |
 | `payment` | No | Payment method indicator (`card`, `cod`, `support-link`) |
 | `session_id` | No | Stripe session ID (for card payments) |
 
 **Example URLs:**
 
 ```
-/success?orderId=GENCardW2602057728&payment=card
-/success?orderId=GENCOD2602051234&payment=cod
-/success?orderId=GENSUP2602054567&payment=support-link
+/success?payment=card&order_id=GENCardW2602057728
+/success?payment=cod&order_id=CODW2602051234
+/success?payment=support-link&order_id=GENCardW2602066303
 ```
+
+> **Note:** Support-link orders use the canonical `GENCardW...` number returned by the server API, not the temporary `SUP...` number generated client-side. The checkout client reads `orderNumber` from the `/api/orders/support-link` response to ensure the success page displays the same order number used in emails and the database.
 
 ---
 
@@ -253,13 +266,13 @@ const hiddenPages = ['/cart', '/bag', '/checkout', '/profile', '/login', '/bundl
 
 ```bash
 # Card payment success
-http://localhost:3000/success?orderId=GENCardW2602057728&payment=card
+http://localhost:3000/success?payment=card&order_id=GENCardW2602057728
 
 # COD order success  
-http://localhost:3000/success?orderId=GENCOD2602051234&payment=cod
+http://localhost:3000/success?payment=cod&order_id=CODW2602051234
 
-# Support link order
-http://localhost:3000/success?orderId=GENSUP2602054567&payment=support-link
+# Support link order (uses canonical GENCardW number from server)
+http://localhost:3000/success?payment=support-link&order_id=GENCardW2602066303
 ```
 
 ### API Testing

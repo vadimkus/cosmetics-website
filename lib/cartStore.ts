@@ -4,17 +4,21 @@ import { CartState, Product } from '@/types'
 import { calculateDiscountedPrice } from '@/lib/discountUtils'
 import { User } from '@/types/user'
 
-// Import app badge functionality
+// App badge functionality (direct API call, no hook needed in a store)
 let updateAppBadge: ((count: number) => void) | null = null
 
-// Dynamically import app badge hook (client-side only)
-if (typeof window !== 'undefined') {
-  import('@/hooks/useAppBadge').then(({ useAppBadge }) => {
-    const { setBadge } = useAppBadge()
-    updateAppBadge = setBadge
-  }).catch(() => {
-    // App badge not supported, ignore
-  })
+if (typeof window !== 'undefined' && 'setAppBadge' in navigator) {
+  updateAppBadge = (count: number) => {
+    try {
+      if (count <= 0) {
+        (navigator as Navigator & { clearAppBadge: () => Promise<void> }).clearAppBadge()
+      } else {
+        (navigator as Navigator & { setAppBadge: (n: number) => Promise<void> }).setAppBadge(count)
+      }
+    } catch {
+      // App badge not supported or failed, ignore
+    }
+  }
 }
 
 // Helper function to update app badge with cart count

@@ -3,6 +3,7 @@
 import { useStorageQuota } from '@/hooks/useStorageQuota'
 import { AlertTriangle, HardDrive, Trash2, RefreshCw } from 'lucide-react'
 import { useState } from 'react'
+import { useTranslation } from '@/hooks/useTranslation'
 
 interface StorageQuotaMonitorProps {
   className?: string
@@ -13,6 +14,7 @@ export default function StorageQuotaMonitor({
   className = '',
   showDetails = false 
 }: StorageQuotaMonitorProps) {
+  const { t } = useTranslation()
   const { status, isLoading, error, checkQuota, clearOldCaches, isWarning, isCritical } = useStorageQuota()
   const [isClearing, setIsClearing] = useState(false)
 
@@ -57,12 +59,12 @@ export default function StorageQuotaMonitor({
               {isClearing ? (
                 <>
                   <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                  <span>Clearing...</span>
+                  <span>{t('pwaUi.clearing')}</span>
                 </>
               ) : (
                 <>
                   <Trash2 className="w-4 h-4" />
-                  <span>Clear Caches</span>
+                  <span>{t('pwaUi.clearCaches')}</span>
                 </>
               )}
             </button>
@@ -97,12 +99,12 @@ export default function StorageQuotaMonitor({
               {isClearing ? (
                 <>
                   <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                  <span>Clearing...</span>
+                  <span>{t('pwaUi.clearing')}</span>
                 </>
               ) : (
                 <>
                   <Trash2 className="w-4 h-4" />
-                  <span>Clear Caches</span>
+                  <span>{t('pwaUi.clearCaches')}</span>
                 </>
               )}
             </button>
@@ -151,7 +153,7 @@ export default function StorageQuotaMonitor({
             {/* Progress bar */}
             <div className="pt-2">
               <div className="flex justify-between text-xs text-gray-600 dark:text-gray-400 mb-1">
-                <span>Usage</span>
+                <span>{t('pwaUi.usage')}</span>
                 <span>{(status.percentUsed * 100).toFixed(1)}%</span>
               </div>
               <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
@@ -177,19 +179,19 @@ export default function StorageQuotaMonitor({
                 {isClearing ? (
                   <>
                     <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                    <span>Clearing...</span>
+                    <span>{t('pwaUi.clearing')}</span>
                   </>
                 ) : (
                   <>
                     <Trash2 className="w-4 h-4" />
-                    <span>Clear Old Caches</span>
+                    <span>{t('pwaUi.clearOldCaches')}</span>
                   </>
                 )}
               </button>
             )}
           </div>
         ) : (
-          <p className="text-sm text-gray-500 dark:text-gray-400">Loading...</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400">{t('pwaUi.loading')}</p>
         )}
       </div>
     )

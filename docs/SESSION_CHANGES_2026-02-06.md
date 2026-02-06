@@ -2,72 +2,154 @@
 
 ## Summary
 
-Full pricing/discount audit of native mobile app API routes, aligning them with the web checkout routes fixed on February 5. Created comprehensive documentation covering the complete pricing architecture.
+Three major workstreams completed:
+1. **Phase 2 pricing audit** — Fixed native mobile app API routes for discount parity with web
+2. **Email template overhaul** — Added product images, per-item price breakdowns (strikethrough + badges) to ALL email templates
+3. **Success page enhancement** — Restored product images, enhanced item layout to match email format
+4. **Localization fixes** — Fixed COD message, missing translations, email localization, order tracking page for RU/AR
 
 ---
 
-## Changes Made
-
-### Mobile API Route Fixes
+## Phase 1: Mobile API Route Fixes (Pricing Audit)
 
 **1. `/api/mobile/orders/route.ts`** (Native app COD orders)
-- Added `Math.round(x * 100) / 100` rounding for `subtotal` and `discountAmount` after accumulation loops to prevent floating-point drift (e.g., `187.4999999` → `187.50`)
-- Now stores `discountPercentage` in DB order record (field existed in schema but was never populated by mobile routes)
-- Customer confirmation email now passes `bundleDiscountPercentage` and `bundleDiscountAmount` for template consistency
-- Admin notification email now passes same bundle discount fields
-- GET single-order response now includes `discountPercentage`, `bundleDiscountPercentage`, `bundleDiscountAmount`
-- GET order-list response now includes same three fields
-- POST response now includes same three fields
+- Added `Math.round(x * 100) / 100` rounding for `subtotal` and `discountAmount`
+- Now stores `discountPercentage` in DB order record
+- Customer/admin emails now pass `bundleDiscountPercentage` and `bundleDiscountAmount`
+- GET responses now include discount fields
 
 **2. `/api/mobile/checkout/stripe/route.ts`** (Native app Stripe card payments)
 - Added rounding for `serverSubtotal` and `discountAmount`
-- Now stores `discountPercentage` in DB on both CREATE and UPDATE order paths
+- Now stores `discountPercentage` in DB
 
 **3. `/api/mobile/payments/applepay/intent/route.ts`** (Native app Apple Pay)
-- Added rounding for `serverSubtotal` and `discountAmount`
-- Now stores `discountPercentage` in DB on both CREATE and UPDATE order paths
-
-### Documentation Created
-
-**1. `docs/PRICING_DISCOUNT_AUDIT.md`** (NEW)
-- Complete architecture diagram (web vs mobile channels)
-- Discount types (VIP, Bundle, Black Friday)
-- Discount exclusion rules and single sources of truth
-- Web checkout flow (forward + reverse calculations)
-- Native mobile app flow (server-authoritative)
-- All audit findings from Phase 1 (web, Feb 5) and Phase 2 (mobile, Feb 6)
-- Calculation logic reference with formulas
-- Database schema reference
-- Testing checklist
-- Complete file modification log
-
-**2. `docs/EMAIL_CHANGELOG.md`** (UPDATED)
-- Added Version 1.7.0 (mobile route discount parity)
-- Added Version 1.6.0 (bundle discount waterfall & cross-route consistency)
-
-**3. `docs/README.md`** (UPDATED)
-- Added `PRICING_DISCOUNT_AUDIT.md` to Quick Links (Important priority)
-- Added to Orders & Checkout section
-- Updated last-modified date
-
-**4. `docs/SESSION_CHANGES_2026-02-06.md`** (NEW)
-- This file
+- Added rounding and `discountPercentage` storage
 
 ---
 
-## Context
+## Phase 2: Dev Server Cleanup & Bug Fixes
 
-This was the second phase of a two-session pricing audit:
+### Console Error Fixes
+- **`cartStore.ts`**: Refactored app badge logic to use direct `navigator.setAppBadge` instead of React hook
+- **`ChatWidget.tsx`**: Fixed hydration error (`<div>` inside `<p>`) by changing wrapper to `<div>`
+- **`app/layout.tsx`**: Added `data-scroll-behavior="smooth"` to silence Next.js warning
+- **`lib/envValidation.ts`**: Added `isClient` guard for server-only env validation
+- **`lib/siteConfig.ts`**: Removed problematic import chain, direct `process.env` access
 
-- **Phase 1 (Feb 5)**: Audited and fixed web checkout routes (COD, Support-Link, Stripe, Stripe webhook) for discount calculation discrepancies, especially around bundle discount handling and waterfall display
-- **Phase 2 (Feb 6)**: Audited and fixed native mobile app API routes for the same class of issues, ensuring all channels write consistent data to the shared database and produce consistent emails
-
-### Key Finding
-
-Mobile web users (Safari/Chrome on phone) were **already covered** by Phase 1 fixes because they use the same responsive website and web API routes as desktop users. Phase 2 specifically targeted the native mobile app API routes (`/api/mobile/*`).
+### Debug Log Cleanup
+- Removed verbose logging from: `usePWAMode.ts`, `ProductsPageClient.tsx`, `ProductImage.tsx`, `useStorageQuota.ts`, `PageViewTracker.tsx`, `useServiceWorker.ts`, `usePrefetch.ts`, `app/profile/page.tsx`, `products/[id]/page.tsx`
+- Removed `'query'` from Prisma log levels in `lib/prisma.ts`
 
 ---
 
-## TypeScript Compilation
+## Phase 3: Localization & Translation Fixes
 
-All modified files pass TypeScript compilation with zero errors. The only TS errors in the project are pre-existing test file issues in `__tests__/` (unrelated to these changes).
+### Success Page (`app/success/SuccessClient.tsx`)
+- COD orders now show "Order Confirmed!" instead of "Payment Successful!"
+- Added missing translation keys: `cart.retailPrice`, `cart.netSubtotal`, `cart.youSaved`, `success.orderNumber`, `success.deliveryDubai`, `success.deliveryOther`
+- Localized delivery time estimates
+
+### Email Localization (`lib/email/templates.ts`)
+- `orderConfirmation` template now fully uses `loadEmailTranslations()` for all text
+- Locale-aware tracking URLs in all emails
+
+### Order Tracking Page
+- Created `app/ru/track/[orderNumber]/page.tsx` for Russian locale
+- Created `app/ar/track/[orderNumber]/page.tsx` for Arabic locale
+- Created `app/ar/success/page.tsx` for Arabic success route
+- Fully localized `OrderTrackingClient.tsx` (timeline labels, date formatting, WhatsApp messages)
+
+### Translation Keys Added
+- Added 30+ keys to `en.json`, `ar.json`, `ru.json` across `orders.*`, `cart.*`, `success.*`, `orderEmail.cod.*` namespaces
+
+---
+
+## Phase 4: Enhanced Per-Item Breakdown (Product Images + Price Details)
+
+### Success Page Item Layout
+- **Restored product images** (56×56 thumbnails) next to each item
+- Redesigned to flex layout: image → (name + qty/size + discount% + badges) → price
+- Original price strikethrough with green discounted price
+- Combined discount percentage: "(60% OFF)"
+- Discount badges: "-50% VIP" (purple) + "-20% Bundle" (green)
+
+### Email Templates — Shared Renderer
+- **Created `renderEnhancedItemRows()`** in `htmlGenerators.ts` as single source of truth
+- Format matches success page: image + name + "Quantity: 1 • 180ml" + discount% + badges + strikethrough price
+- Used by all 3 HTML generators: `generateCODOrderHTML`, `generateSupportLinkOrderHTML`, `generateStripePaymentConfirmationHTML`
+
+### Templates Updated
+
+| File | What Changed |
+|------|-------------|
+| `lib/email/htmlGenerators.ts` | New shared `renderEnhancedItemRows()`, all 3 generators refactored |
+| `lib/email/templates.ts` | `orderConfirmation` — image + badges + strikethrough + combined %; `adminNewOrder` — image + badges + 3-col table |
+| `lib/email/statusUpdate.ts` | Status emails now show image + improved single-line layout |
+| `app/success/SuccessClient.tsx` | Product images restored, flex layout, enhanced breakdown |
+
+### Price Calculation
+
+All templates reverse-calculate original price from stored discounted price:
+```
+originalPrice = item.price / (1 - userDiscountPct/100) / (1 - bundleDiscountPct/100)
+totalDiscountPct = Math.round((1 - item.price / originalPrice) * 100)
+```
+
+---
+
+## Phase 5: Documentation Updates
+
+| Document | Changes |
+|----------|---------|
+| `docs/EMAIL_TEMPLATES.md` | Complete rewrite — new architecture section, shared renderer docs, enhanced item format spec |
+| `docs/SUCCESS_PAGE.md` | Updated features list with enhanced item breakdown |
+| `docs/EMAIL_CHANGELOG.md` | Added Version 3.0.0 entry |
+| `docs/SESSION_CHANGES_2026-02-06.md` | This file (comprehensive session log) |
+| `docs/PRICING_DISCOUNT_AUDIT.md` | Created (complete pricing architecture) |
+
+---
+
+## Phase 6: Support-Link Order Number Mismatch Fix
+
+### Problem
+Support-link orders showed a **wrong order number** on the success page:
+- Client generated a temporary `SUP2602069854` number
+- API server saw `SUP` doesn't match canonical `GENCardW\d{10}` pattern, so it generated a new `GENCardW2602066303`
+- Server stored the canonical number in the database and used it in the confirmation email
+- Client **ignored** the server response and redirected to `/success?order_id=SUP2602069854`
+- Result: email showed `#GENCardW2602066303`, success page showed `#SUP2602069854`
+- Order data fetch (`/api/orders/success/SUP...`) failed because order was stored under `GENCardW...`
+
+### Root Cause
+In `CheckoutClient.tsx`, the support-link flow called the API but never read the `orderNumber` from the JSON response. It always used the locally-generated `SUP...` number for the redirect.
+
+### Fix
+| File | Change |
+|------|--------|
+| `app/checkout/CheckoutClient.tsx` | Read `orderNumber` from `/api/orders/support-link` response; use canonical server number for success page redirect; fall back to `SUP...` only if API fails |
+
+### Before / After
+```
+# Before
+router.push(`/success?payment=support-link&order_id=SUP2602069854`)
+# Email: #GENCardW2602066303  ← mismatch!
+
+# After
+router.push(`/success?payment=support-link&order_id=GENCardW2602066303`)
+# Email: #GENCardW2602066303  ← matches ✓
+```
+
+---
+
+## Miscellaneous Fixes
+
+- **`app/profile/page.tsx`**: Fixed `customerNumber` type error (`number` → `String()` for `.replace()`)
+- **`app/locations/[city]/page.tsx`**: Fixed unused import TS error
+- **`next.config.js`**: Added `quality: 85` to images config
+- **`components/products/ProductSearch.tsx`** + **`ProductFilters.tsx`**: Added `id`/`name` to inputs
+
+---
+
+## Build Status
+
+All changes pass `npm run build` with zero TypeScript errors and zero compilation errors.

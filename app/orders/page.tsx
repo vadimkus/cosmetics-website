@@ -32,6 +32,80 @@ const statusLabels: Record<string, Record<string, string>> = {
   cancelled: { en: 'Cancelled', ar: 'ملغاة', ru: 'Отменено' },
 }
 
+// Order item image component with fallback
+function OrderItemImage({ 
+  image, 
+  productName, 
+  productId,
+  zIndex 
+}: { 
+  image: string | null | undefined
+  productName: string
+  productId: string
+  zIndex: number 
+}) {
+  const [imgSrc, setImgSrc] = useState<string | null>(null)
+  const [hasError, setHasError] = useState(false)
+
+  useEffect(() => {
+    // Reset state when image changes
+    setHasError(false)
+    
+    // Check if image is valid (not empty, not just whitespace)
+    if (image && image.trim() && image.trim() !== '') {
+      setImgSrc(image)
+    } else {
+      // If no stored image, try to fetch from product
+      fetchProductImage()
+    }
+  }, [image, productId])
+
+  const fetchProductImage = async () => {
+    try {
+      const response = await fetch(`/api/products/${productId}`)
+      if (response.ok) {
+        const product = await response.json()
+        if (product.image) {
+          setImgSrc(product.image)
+          return
+        }
+      }
+    } catch (err) {
+      // Silently fail - will show fallback
+    }
+    setHasError(true)
+  }
+
+  const handleImageError = () => {
+    // If stored image fails, try fetching from product
+    if (imgSrc === image) {
+      fetchProductImage()
+    } else {
+      setHasError(true)
+    }
+  }
+
+  return (
+    <div 
+      className="w-12 h-12 rounded-lg bg-gray-100 border-2 border-white overflow-hidden flex-shrink-0"
+      style={{ zIndex }}
+    >
+      {imgSrc && !hasError ? (
+        <img
+          src={imgSrc}
+          alt={productName}
+          className="w-full h-full object-cover"
+          onError={handleImageError}
+        />
+      ) : (
+        <div className="w-full h-full flex items-center justify-center bg-red-50">
+          <Package className="w-5 h-5 text-red-400" />
+        </div>
+      )}
+    </div>
+  )
+}
+
 // Status badge component
 function StatusBadge({ status, locale = 'en' }: { status: string; locale?: string }) {
   const statusKey = status.toLowerCase()
@@ -493,25 +567,13 @@ export default function OrdersPage() {
                       {/* Product Images */}
                       <div className={`flex ${isRTL ? 'space-x-reverse -space-x-2' : '-space-x-2'}`}>
                         {order.items.slice(0, 3).map((item, idx) => (
-                          <div 
+                          <OrderItemImage 
                             key={idx}
-                            className="w-12 h-12 rounded-lg bg-gray-100 border-2 border-white overflow-hidden flex-shrink-0"
-                            style={{ zIndex: 3 - idx }}
-                          >
-                            {item.image ? (
-                              <Image
-                                src={item.image}
-                                alt={item.productName}
-                                width={48}
-                                height={48}
-                                className="w-full h-full object-cover"
-                              />
-                            ) : (
-                              <div className="w-full h-full flex items-center justify-center">
-                                <Package className="w-5 h-5 text-gray-400" />
-                              </div>
-                            )}
-                          </div>
+                            image={item.image}
+                            productName={item.productName}
+                            productId={item.productId}
+                            zIndex={3 - idx}
+                          />
                         ))}
                         {order.items.length > 3 && (
                           <div 

@@ -126,6 +126,7 @@ model Product {
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
   images        String?
+  videoUrl      String?  // Video URL path (e.g., /videos/egf.mp4) – served to mobile app dynamically
   noDiscount    Boolean  @default(false) // Exclude from discount calculations
   isHidden      Boolean  @default(false) // Hide product from public listings
   isPriceOnRequest Boolean @default(false) // Professional products with price available on request only

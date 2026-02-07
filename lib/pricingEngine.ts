@@ -66,6 +66,7 @@ export interface EnhancedProductData {
   description: string
   image: string
   images?: string | null          // Additional product images (JSON array)
+  videoUrl?: string | null        // Video URL (e.g., /videos/egf.mp4) – dynamic, no app update needed
   category: string
   stock: boolean
   rating: number
@@ -491,6 +492,7 @@ export function generateEnhancedProductData(
     description: product.description,
     image: product.image,
     images: product.images ?? null,
+    videoUrl: product.videoUrl ?? null,
     category: product.category,
     stock: product.inStock,
     rating: product.rating || 5.0,

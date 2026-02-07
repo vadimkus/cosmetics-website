@@ -91,6 +91,7 @@ export interface Product {
   descriptionAr?: string | null
   image: string
   images?: string | null // JSON array of all images
+  videoUrl?: string | null // Video URL path (e.g., /videos/egf.mp4)
   category: string
   inStock: boolean
   size?: string | null

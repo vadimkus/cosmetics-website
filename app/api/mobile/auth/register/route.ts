@@ -31,9 +31,9 @@ const mobileRegisterLimiter = rateLimitSimple({
  * - name: User full name
  * - email: User email
  * - password: User password (min 6 characters)
- * - phone: User phone number
- * - address: User address
- * - emirate: UAE emirate
+ * - phone: (optional) User phone number
+ * - address: (optional) User address
+ * - emirate: (optional) UAE emirate
  * - birthday: (optional) User birthday
  * 
  * Returns:
@@ -84,12 +84,12 @@ export async function POST(request: NextRequest) {
     const { name, email, password, phone, address, emirate, birthday, gender, promoCode, locale = 'en' } = await request.json()
     const promo = String(promoCode || '').trim().toUpperCase()
 
-    // Validate required fields
-    if (!name || !email || !password || !phone || !address || !emirate) {
+    // Validate required fields (phone, address, emirate are optional at registration)
+    if (!name || !email || !password) {
       return NextResponse.json(
         { 
           success: false, 
-          error: 'Name, email, password, phone, address and emirate are required' 
+          error: 'Name, email and password are required' 
         },
         { status: 400 }
       )
@@ -123,40 +123,47 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const phoneValidation = validateLength(phone, INPUT_LIMITS.USER_PHONE, 'Phone')
-    if (!phoneValidation.valid) {
-      return NextResponse.json(
-        { success: false, error: phoneValidation.error },
-        { status: 400 }
-      )
+    // Validate optional fields only if provided
+    if (phone) {
+      const phoneValidation = validateLength(phone, INPUT_LIMITS.USER_PHONE, 'Phone')
+      if (!phoneValidation.valid) {
+        return NextResponse.json(
+          { success: false, error: phoneValidation.error },
+          { status: 400 }
+        )
+      }
     }
 
-    const addressValidation = validateLength(address, INPUT_LIMITS.USER_ADDRESS, 'Address')
-    if (!addressValidation.valid) {
-      return NextResponse.json(
-        { success: false, error: addressValidation.error },
-        { status: 400 }
-      )
+    if (address) {
+      const addressValidation = validateLength(address, INPUT_LIMITS.USER_ADDRESS, 'Address')
+      if (!addressValidation.valid) {
+        return NextResponse.json(
+          { success: false, error: addressValidation.error },
+          { status: 400 }
+        )
+      }
     }
 
-    const emirateValidation = validateLength(emirate, INPUT_LIMITS.USER_EMIRATE, 'Emirate')
-    if (!emirateValidation.valid) {
-      return NextResponse.json(
-        { success: false, error: emirateValidation.error },
-        { status: 400 }
-      )
-    }
+    if (emirate) {
+      const emirateValidation = validateLength(emirate, INPUT_LIMITS.USER_EMIRATE, 'Emirate')
+      if (!emirateValidation.valid) {
+        return NextResponse.json(
+          { success: false, error: emirateValidation.error },
+          { status: 400 }
+        )
+      }
 
-    // Validate emirate is one of the valid UAE emirates
-    const validEmirates = ['Dubai', 'Abu Dhabi', 'Sharjah', 'Ajman', 'Ras Al Khaimah', 'Fujairah', 'Umm Al Quwain']
-    if (!validEmirates.includes(emirate)) {
-      return NextResponse.json(
-        { 
-          success: false, 
-          error: 'Please select a valid emirate' 
-        },
-        { status: 400 }
-      )
+      // Validate emirate is one of the valid UAE emirates
+      const validEmirates = ['Dubai', 'Abu Dhabi', 'Sharjah', 'Ajman', 'Ras Al Khaimah', 'Fujairah', 'Umm Al Quwain']
+      if (!validEmirates.includes(emirate)) {
+        return NextResponse.json(
+          { 
+            success: false, 
+            error: 'Please select a valid emirate' 
+          },
+          { status: 400 }
+        )
+      }
     }
 
     // Check if user already exists
@@ -175,7 +182,9 @@ export async function POST(request: NextRequest) {
     const hashedPassword = await bcrypt.hash(password, 12)
 
     // Create new user
-    const fullAddress = `${address}, ${emirate}`
+    const fullAddress = address && emirate
+      ? `${address}, ${emirate}`
+      : address || emirate || null
     
     const now = new Date()
     let promoApplied: { code: string; discountPercent: number; discountType: string } | null = null
@@ -218,7 +227,7 @@ export async function POST(request: NextRequest) {
         name,
         email,
         password: hashedPassword,
-        phone,
+        phone: phone || null,
         address: fullAddress,
         profilePicture: null,
         isAdmin: false,
@@ -297,8 +306,8 @@ export async function POST(request: NextRequest) {
       const adminResult = await sendAdminNewUserNotification(
         name, 
         email, 
-        phone, 
-        fullAddress, 
+        phone || '', 
+        fullAddress || '', 
         'Mobile App',
         additionalInfo
       )

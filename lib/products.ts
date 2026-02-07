@@ -214,7 +214,7 @@ export const products: Product[] = [
     price: 330,
     description: '30ml. Skin brightening serum with multi vitamins and patented melanin care complex, MELAZERO®. It helps even skin tone, revive skin\'s natural brightness and radiance with multi vitamins and patented melanin care complex, MELAZERO®. It gives skin a natural glow by forming a moisturizing barrier thanks to panthenol-rich formula. Key ingredients: 3-O-Ethyl Ascorbic Acid (derivative of pure vitamin C), VITA 12 Complex, MELAZERO®, Panthenol, Niacinamide, Glutathione, Gluconolactone (PHA), Anti-inflammatory Herb Complex. Dermatologically tested. Efficacy test on improving skin surface melanin.',
     image: '/images/RADS.jpg',
-    images: null,
+    images: JSON.stringify(['/images/RADS.jpg', '/images/Second/rd_big.jpg']),
     category: 'Serum',
     inStock: true,
     size: '30ml',

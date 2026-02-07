@@ -178,6 +178,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
   },
   '21': {
     id: '21',
+    images: ['/images/RADS.jpg', '/images/Second/rd_big.jpg'],
     pricing: {
       basePrice: 490
     },

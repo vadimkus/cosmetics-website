@@ -132,7 +132,7 @@ export const products: Product[] = [
     description: '2ml x 10ea. Professional peeling with naturally occurring AHA acids. It is a professional peeling system for smoother, brighter and more even skin tone. Naturally occurring acids found in fruits and other foods help remove dead cells on the surface of the skin, encouraging cell turnover and bringing new healthy cells to the surface. Key ingredients: Naturally occurring AHA complex (Glycolic Acid, Lactic Acid, Mandelic Acid, Phytic Acid), sh-Polypeptide-7, Scutellaria Baicalensis Root Extract, Houttuynia Cordata Extract, Chamaecyparis Obtusa Water. Dermatologically tested.',
     image: '/images/SRS.jpg',
     images: null,
-    category: 'Peeling',
+    category: 'Peeling, PRO Solution',
     inStock: true,
   },
   {

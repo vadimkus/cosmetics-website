@@ -147,6 +147,48 @@ export function verifyMobileToken(token: string): TokenPayload | null {
 }
 
 /**
+ * Verify JWT token signature WITHOUT checking expiration.
+ * Used by the token refresh endpoint to accept expired-but-authentic tokens.
+ * Returns the payload if the signature is valid, or null if tampered/malformed.
+ */
+export function verifyMobileTokenIgnoreExpiration(token: string): (TokenPayload & { expired?: boolean }) | null {
+  try {
+    const parts = token.split('.')
+    if (parts.length !== 3 || !parts[0] || !parts[1] || !parts[2]) {
+      debugLog('Invalid mobile token format (refresh)')
+      return null
+    }
+
+    const [headerEncoded, payloadEncoded, signature] = parts
+
+    // Verify signature (proves the token was issued by us)
+    const data = `${headerEncoded}.${payloadEncoded}`
+    const expectedSignature = crypto
+      .createHmac('sha256', getJwtSecret())
+      .update(data)
+      .digest('base64url')
+    
+    if (signature !== expectedSignature) {
+      debugLog('Invalid mobile token signature (refresh)')
+      return null
+    }
+
+    // Decode payload
+    const payload = JSON.parse(Buffer.from(payloadEncoded, 'base64url').toString()) as TokenPayload
+
+    // Mark whether it's expired (but don't reject it)
+    const now = Math.floor(Date.now() / 1000)
+    const expired = !!(payload.exp && payload.exp < now)
+
+    return { ...payload, expired }
+  } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error'
+    debugLog('Error verifying mobile token (refresh):', errorMessage)
+    return null
+  }
+}
+
+/**
  * Extract token from Authorization header
  */
 export function extractTokenFromHeader(authHeader: string | null): string | null {

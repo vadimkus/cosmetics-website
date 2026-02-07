@@ -114,10 +114,10 @@ export default function ProductImageGallery({ product }: ProductImageGalleryProp
   }, [selectedImage])
 
   return (
-    <div className="space-y-2 md:space-y-4">
+    <div className="space-y-2 md:space-y-3">
       {/* Main Image or Video */}
       <div 
-        className="w-full max-w-xs md:max-w-md mx-auto aspect-square bg-gray-100 rounded-lg overflow-hidden relative cursor-zoom-in group"
+        className="w-full max-w-[280px] md:max-w-[360px] lg:max-w-[400px] mx-auto aspect-square bg-gray-100 rounded-lg overflow-hidden relative cursor-zoom-in group"
         onClick={() => !(product.id === '3' && selectedImage === 2 && videoUrl) && openLightbox(selectedImage)}
       >
         {/* Stock Badge */}
@@ -187,7 +187,7 @@ export default function ProductImageGallery({ product }: ProductImageGalleryProp
                   }}
                 />
                 {/* Zoom indicator */}
-                <div className="absolute bottom-12 md:bottom-14 right-2 md:right-3 bg-black/50 text-white p-1.5 md:p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity z-20">
+                <div className="absolute bottom-3 md:bottom-4 right-2 md:right-3 bg-black/50 text-white p-1.5 md:p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity z-20">
                   <ZoomIn className="w-4 h-4 md:w-5 md:h-5" />
                 </div>
               </>
@@ -248,12 +248,12 @@ export default function ProductImageGallery({ product }: ProductImageGalleryProp
 
       {/* Thumbnail Navigation */}
       {productImages.length > 1 && (
-        <div className="flex gap-1.5 md:gap-2 justify-center">
+        <div className="flex gap-1.5 md:gap-2 justify-center flex-wrap max-w-[280px] md:max-w-[360px] lg:max-w-[400px] mx-auto">
           {productImages.map((img, index) => (
             <button
               key={index}
               onClick={() => setSelectedImage(index)}
-              className={`w-12 h-12 md:w-16 md:h-16 rounded-md md:rounded-lg overflow-hidden border-2 transition-colors ${
+              className={`w-11 h-11 md:w-14 md:h-14 rounded-md md:rounded-lg overflow-hidden border-2 transition-colors flex-shrink-0 ${
                 selectedImage === index
                   ? 'border-primary-600'
                   : 'border-gray-200 hover:border-gray-300'
@@ -331,7 +331,7 @@ export default function ProductImageGallery({ product }: ProductImageGalleryProp
 
           {/* Lightbox Image */}
           <div 
-            className="relative w-full h-full max-w-4xl max-h-[85vh] mx-4 flex items-center justify-center"
+            className="relative w-full h-full max-w-4xl max-h-[75vh] mx-4 flex items-center justify-center"
             onClick={(e) => e.stopPropagation()}
           >
             <Image

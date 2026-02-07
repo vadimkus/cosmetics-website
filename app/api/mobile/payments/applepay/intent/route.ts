@@ -110,7 +110,11 @@ export async function POST(request: NextRequest) {
     if (!user) {
       return NextResponse.json({ success: false, error: 'User not found' }, { status: 404 })
     }
-    if (String(user.email || '').trim().toLowerCase() !== String(customer.email || '').trim().toLowerCase()) {
+    const customerEmailLower = String(customer.email || '').trim().toLowerCase()
+    const userEmailLower = String(user.email || '').trim().toLowerCase()
+    const contactEmailLower = String((user as any).contactEmail || '').trim().toLowerCase()
+    // Accept either the auth email or the user's contactEmail (for Apple Private Relay users)
+    if (customerEmailLower !== userEmailLower && (!contactEmailLower || customerEmailLower !== contactEmailLower)) {
       return NextResponse.json({ success: false, error: 'Customer email does not match authenticated user' }, { status: 403 })
     }
 

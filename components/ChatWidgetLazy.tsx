@@ -7,7 +7,7 @@ import { usePathname } from 'next/navigation'
 const ChatWidget = dynamic(() => import('@/components/ChatWidget'), { ssr: false })
 
 // Pages where chatbot should be hidden
-const HIDDEN_PAGES = ['/success', '/checkout/success']
+const HIDDEN_PAGES = ['/success', '/checkout/success', '/skin-recommendation', '/skin-analysis']
 
 export default function ChatWidgetLazy() {
   const pathname = usePathname()

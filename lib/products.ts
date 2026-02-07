@@ -432,7 +432,7 @@ export const products: Product[] = [
     price: 250,
     description: '50g. Natural coverage cream that helps cover redness and express natural skin tone. It is a natural coverage cream that protects skin from the harmful environmental factors. It covers redness and blemishes after the dermatological treatment and helps express natural skin tone. Key ingredients: Adenosine, Allantoin, Origanum Vulgare Leaf Extract, Phytolex SC. Dermatologically tested.',
     image: '/images/BLEM.jpg',
-    images: null,
+    images: JSON.stringify(['/images/BLEM.jpg', '/images/Second/bbbig.jpg']),
     category: 'Cushion BB',
     inStock: true,
   },

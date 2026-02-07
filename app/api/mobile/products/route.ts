@@ -27,6 +27,7 @@ interface DbProduct {
   rating: number | null
   size: string | null
   noDiscount: boolean
+  isPriceOnRequest: boolean
   createdAt: Date
   updatedAt: Date
   skinType: string | null
@@ -219,6 +220,7 @@ export async function GET(request: NextRequest) {
         rating: true,
         size: true,
         noDiscount: true,  // Needed for discount calculations
+        isPriceOnRequest: true, // Professional products with price on request only
         createdAt: true,   // Needed for "new" badge logic
         updatedAt: true,
         // Product specifications for mobile app
@@ -332,6 +334,8 @@ export async function GET(request: NextRequest) {
         p.description ||
         ''
       const extras = extrasById.get(productId) || { recommendedProductId: null, note: null }
+      // Look up isPriceOnRequest from the original DB row
+      const dbRow = typedProducts.find((dbp) => String(dbp.id) === productId)
       return {
         ...p,
         localizedName,
@@ -345,6 +349,7 @@ export async function GET(request: NextRequest) {
         directions: fileTranslations?.directions ?? p.directions,
         recommendedProductId: extras.recommendedProductId,
         note: extras.note,
+        isPriceOnRequest: dbRow?.isPriceOnRequest ?? false,
       }
     })
     

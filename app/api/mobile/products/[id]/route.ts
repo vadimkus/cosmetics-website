@@ -26,6 +26,7 @@ interface DbProduct {
   rating: number | null
   size: string | null
   noDiscount: boolean
+  isPriceOnRequest: boolean
   createdAt: Date
   updatedAt: Date
   skinType: string | null
@@ -223,6 +224,7 @@ export async function GET(
         rating: true,
         size: true,
         noDiscount: true,
+        isPriceOnRequest: true, // Professional products with price on request only
         createdAt: true,
         updatedAt: true,
         // Product specifications for mobile app detail pages
@@ -306,6 +308,7 @@ export async function GET(
       directions: fileTranslations?.directions ?? enhancedProduct.directions,
       recommendedProductId: getRecommendedProductId(typedProduct.productNumber || typedProduct.id),
       note: extractNoteFromProductDetails(typedProduct.productDetails),
+      isPriceOnRequest: typedProduct.isPriceOnRequest ?? false,
     }
     const enhancementDuration = Date.now() - enhancementStartTime
     

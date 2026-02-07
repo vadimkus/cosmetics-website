@@ -373,6 +373,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
   },
   '39': {
     id: '39',
+    images: ['/images/SPF50.jpg', '/images/Second/50big.jpg'],
     pricing: {
       basePrice: 260
     },
@@ -386,6 +387,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
   },
   '40': {
     id: '40',
+    images: ['/images/SSUN.jpg', '/images/Second/40big.jpg'],
     pricing: {
       basePrice: 230
     }

@@ -335,8 +335,8 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
               <ProductImageGallery product={product} />
             </div>
 
-            {/* Product Video - Only for Product ID 10 (Snow O2 Cleanser) */}
-            {(product.id === '10' || product.productNumber === '10') && (
+            {/* Product Video — dynamic from DB videoUrl field */}
+            {product.videoUrl && (
               <div className="mt-4 lg:mt-6 lg:max-w-sm lg:mx-auto">
                 <div className="rounded-xl overflow-hidden shadow-lg bg-black">
                   <video
@@ -346,25 +346,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
                     preload="none"
                     poster="/Logo/BlackG.png"
                   >
-                    <source src="/videos/Cleanser_02.mp4" type="video/mp4" />
-                    {t('product.videoNotSupported') || 'Your browser does not support the video tag.'}
-                  </video>
-                </div>
-              </div>
-            )}
-
-            {/* Product Video - Only for Product ID 26 (EGF Repair Oxymask Cream) */}
-            {(product.id === '26' || product.productNumber === '26') && (
-              <div className="mt-4 lg:mt-6 lg:max-w-sm lg:mx-auto">
-                <div className="rounded-xl overflow-hidden shadow-lg bg-black">
-                  <video
-                    className="w-full aspect-video object-contain lg:aspect-auto"
-                    controls
-                    playsInline
-                    preload="none"
-                    poster="/Logo/BlackG.png"
-                  >
-                    <source src="/videos/egf.mp4" type="video/mp4" />
+                    <source src={product.videoUrl} type="video/mp4" />
                     {t('product.videoNotSupported') || 'Your browser does not support the video tag.'}
                   </video>
                 </div>

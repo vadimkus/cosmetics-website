@@ -121,7 +121,7 @@ export const products: Product[] = [
     price: 250,
     description: '100g. Mild peeling gel combining enzymatic peeling and cellulose peeling. It is the enzyme peeling gel that removes dead skin cells without irritation. Moringa, so-called "Miracle Tree" purifies and nourishes skin and the plant complex from desert moisturizes and soothes skin. Key ingredients: Carica Papaya (Papaya) Fruit Extract, Moringa Pterygosperma Seed Extract, Hyaluronic Acid, Simmondsia Chinensis (Jojoba) Seed Oil, Desert Complex. Dermatologically tested.',
     image: '/images/EPI.jpg',
-    images: null,
+    images: JSON.stringify(['/images/EPI.jpg', '/images/Second/eppi_big.jpg']),
     category: 'Peeling',
     inStock: true,
   },

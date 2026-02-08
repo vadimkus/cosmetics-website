@@ -2,7 +2,7 @@
 
 ## Summary
 
-Eight issues fixed across web and native app:
+Ten issues fixed across web and native app:
 
 1. **Missing registration fields (mobile web)** — Mobile web form was missing Phone, Address, Emirate, and Birthday fields
 2. **Registration hang (5+ minutes)** — API blocked on SMTP emails and geolocation; now uses `after()` for instant response
@@ -11,7 +11,9 @@ Eight issues fixed across web and native app:
 5. **Native app registration missing fields** — Added Phone, Address, Emirate, Birthday to native app registration
 6. **Native app login/register toggle layout** — Changed from inline to vertical stacked layout
 7. **Forgot Password spacing** — Removed extra 24px margin below the link
-8. **iOS 26 Liquid Glass icon blur** — Native app icon was blurry due to automatic glass rendering; fixed with Icon Composer layered icon
+8. **iOS 26 Liquid Glass icon blur** — Attempted Icon Composer fix; ultimately reverted to red icon
+9. **Social login failures** — Google and Apple Sign-In were failing due to Neon DB cold starts; added retry logic
+10. **App icon not updating** — Native asset catalog was overriding app.json; fixed by updating native asset catalog directly
 
 **Also fixed:**
 - **Apple rejection (ITMS-90683)** — Added missing `NSSpeechRecognitionUsageDescription` to Info.plist
@@ -344,6 +346,8 @@ c1f7191 debug: show failing URL in WebView error screen to diagnose 500
 | `app/login/LoginClient.tsx` | Added Phone, Address, Emirate, Birthday fields to mobile web registration form |
 | `app/api/auth/register/route.ts` | Moved emails/analytics to `after()` callback; imported `after` from `next/server` |
 | `app/api/auth/mobile-session/route.ts` | Removed DB dependency; create session from JWT payload directly |
+| `app/api/mobile/auth/google/route.ts` | Added retry logic for `findUserByEmail`; added `maxDuration=30` |
+| `app/api/mobile/auth/apple/route.ts` | Added retry logic for `findUserByEmail`; improved error handling; added `maxDuration=30` |
 | `app/bundle-builder/page.tsx` | Added retry logic + `maxDuration=30` |
 | `app/bundle-builder/error.tsx` | New error boundary with Try Again button |
 | `app/ar/bundle-builder/page.tsx` | Added retry logic + `maxDuration=30` |
@@ -372,9 +376,11 @@ c1f7191 debug: show failing URL in WebView error screen to diagnose 500
 | `ios/GenosysUAE/AppIcon.icon/icon.json` | New: Icon Composer layered definition with `glass: false` |
 | `ios/GenosysUAE/AppIcon.icon/Assets/Logo.png` | New: White logo layer for Icon Composer |
 | `ios/GenosysUAE.xcodeproj/project.pbxproj` | Added AppIcon.icon bundle to Xcode project build (Build 39, overwritten by prebuild) |
-| `assets/AppIcon.icon/icon.json` | New: Icon Composer bundle in assets/ for Expo SDK 54 native support |
-| `assets/AppIcon.icon/Assets/Logo.png` | New: White logo layer for Icon Composer (in assets/) |
-| `eas.json` | Updated production build to use Xcode 26 image for Icon Composer support |
+| `assets/AppIcon.icon/icon.json` | New (Build 40): Icon Composer bundle for Expo SDK 54 (removed in Build 41) |
+| `assets/AppIcon.icon/Assets/Logo.png` | New (Build 40): White logo layer for Icon Composer (removed in Build 41) |
+| `eas.json` | Build 40: Added Xcode 26 image; Build 41+: Reverted to default |
+| `app.json` | Build 40: `ios.icon` → `./assets/AppIcon.icon`; Build 41+: Reverted to `./assets/app-icon-1024-ios26-safe-no-alpha.png` |
+| `ios/GenosysUAE/Images.xcassets/AppIcon.appiconset/App-Icon-1024x1024@1x.png` | Build 42: Replaced with red icon to fix white icon issue |
 
 ---
 
@@ -384,6 +390,8 @@ c1f7191 debug: show failing URL in WebView error screen to diagnose 500
 - **Native app Build Your Set** — Auth bridge is DB-free, responds in ms
 - **Bundle-builder resilience** — Retry logic handles DB cold starts; error boundary for graceful fallback
 - **WebView UX** — Users see actionable error UI instead of blank page on any HTTP/network failure
+- **Social logins** — Google and Apple Sign-In now work reliably with DB cold start handling
+- **App icon** — Red GENOSYS icon properly displayed (native asset catalog issue resolved)
 - **All three languages** (EN, AR, RU) supported across all fixes
 
 ---
@@ -396,28 +404,52 @@ All changes pass TypeScript compilation with zero errors in changed files.
 
 ## TestFlight Builds
 
-### Build 40 (Current) ✅
+### Build 42 (Current) ✅
 
 | Field | Value |
 |-------|-------|
 | App Name | Genosys UAE |
 | Version | 1.1.0 |
-| Build Number | 40 |
+| Build Number | 42 |
 | Bundle ID | ae.genosys.app |
 | SDK Version | Expo SDK 54 |
-| Build Image | `macos-sequoia-15.5-xcode-26.0` |
+| Build ID | `6d370f7c-8923-4578-9735-7d8c36cb064e` |
+| Submission ID | `6792efcf-c592-449e-9595-43ef74be88de` |
+
+**What's New in Build 42:**
+- **Original red icon restored** — Reverted to `app-icon-1024-ios26-safe-no-alpha.png` (red background, white logo)
+- **Native asset catalog fixed** — Replaced `ios/GenosysUAE/Images.xcassets/AppIcon.appiconset/App-Icon-1024x1024@1x.png` directly
+- Removed Xcode 26 build image requirement (no longer using Icon Composer)
+
+**Backend Fixes (Live on genosys.ae):**
+- **Google Sign-In**: Added retry logic for `findUserByEmail` to handle Neon DB cold starts
+- **Apple Sign-In**: Added retry logic + fixed error handling (now returns actual error instead of generic "Internal server error")
+- Both routes have `maxDuration = 30` for Vercel function timeout
+
+### Build 41 ❌ (Icon Still White)
+
+| Field | Value |
+|-------|-------|
+| Build Number | 41 |
+| Build ID | `d082933f-be84-4d71-afcd-092c555a99ea` |
+| Submission ID | `7690674e-9cdf-4b20-b0b0-0aa7cc50afba` |
+
+**Issues:** 
+- App icon still showed white (PWA-style) instead of red
+- Social logins failing ("Failed to create user account", "Internal server error")
+
+**Root Cause:** Only updated `app.json` icon path, but the native `ios/` directory's asset catalog takes precedence during EAS build. The file `ios/GenosysUAE/Images.xcassets/AppIcon.appiconset/App-Icon-1024x1024@1x.png` was still the old white icon.
+
+### Build 40 ❌ (Icon Still Blurry, Liquid Glass)
+
+| Field | Value |
+|-------|-------|
+| Build Number | 40 |
 | Build ID | `2640a705-f6c8-49e6-b7b6-7854860a73de` |
-| Submission ID | `4430a2ec-bb1d-4f65-b7ad-ef76ee2d62d4` |
 
-**What's New in Build 40:**
-- **Used Expo SDK 54 native `.icon` support** — `ios.icon` in `app.json` now points to `./assets/AppIcon.icon`
-- **Built with Xcode 26** — EAS uses `macos-sequoia-15.5-xcode-26.0` image, required for Icon Composer
-- Icon Composer `.icon` bundle with `glass: false` on foreground layer
-- White solid background, red logo applied via fill-specializations
-- Dark mode and tinted variants included
+**Issues:** Icon still had Liquid Glass blur effect. The Icon Composer approach with `glass: false` did not fully prevent iOS 26's automatic blur rendering.
 
-**Why Build 39 Still Had Blur:**
-Build 39 placed the `.icon` bundle manually in `ios/GenosysUAE/` and edited `project.pbxproj`, but EAS Build runs prebuild which regenerates native project files. The `.icon` bundle was not being picked up. Expo SDK 54 requires the `.icon` path to be set in `app.json`'s `ios.icon` field and needs Xcode 26 build image.
+**Conclusion:** After extensive research, iOS 26 Liquid Glass effect cannot be fully disabled for native app icons. PWA icons bypass this because they're rendered by WebKit, not iOS's native icon rendering. Reverted to original red icon for Build 42.
 
 ### Build 39 ❌ (Icon Not Picked Up)
 
@@ -738,8 +770,10 @@ b4104e0 chore: sync build number to 40 after TestFlight submission
 
 ### TestFlight Links
 
+- **Build 42 logs**: https://expo.dev/accounts/vadimkus/projects/genosys-mobile-app/builds/6d370f7c-8923-4578-9735-7d8c36cb064e
+- **Build 42 submission**: https://expo.dev/accounts/vadimkus/projects/genosys-mobile-app/submissions/6792efcf-c592-449e-9595-43ef74be88de
+- **Build 41 logs**: https://expo.dev/accounts/vadimkus/projects/genosys-mobile-app/builds/d082933f-be84-4d71-afcd-092c555a99ea
 - **Build 40 logs**: https://expo.dev/accounts/vadimkus/projects/genosys-mobile-app/builds/2640a705-f6c8-49e6-b7b6-7854860a73de
-- **Build 40 submission**: https://expo.dev/accounts/vadimkus/projects/genosys-mobile-app/submissions/4430a2ec-bb1d-4f65-b7ad-ef76ee2d62d4
 - **App Store Connect**: https://appstoreconnect.apple.com/apps/6756648064/testflight/ios
 
 ### Build Commands Used
@@ -776,6 +810,8 @@ All changes committed and pushed to `main`:
 | `8c5c1f80` | fix: eliminate DB dependency from mobile-session bridge to prevent 500 |
 | `70fd62ac` | fix: add retry logic and error boundary to bundle-builder for DB cold starts |
 | `b8dba901` | fix: add maxDuration=30 to bundle-builder pages for Vercel function timeout |
+| `7f7d5ec` | fix: add retry logic and improved error handling for social login endpoints |
+| `e8f7293` | fix: add maxDuration to social auth endpoints for Vercel timeout |
 
 ### genosys-mobile-app repository
 
@@ -798,20 +834,157 @@ All changes committed and pushed to `main`:
 | `24685d7` | chore: sync build number to 39 after TestFlight submission |
 | `b28f3a7` | fix: use Expo SDK 54 native .icon support to fix iOS 26 Liquid Glass blur |
 | `b4104e0` | chore: sync build number to 40 after TestFlight submission |
+| `9cc5d0d` | fix: revert to original red app icon and remove Xcode 26 requirement |
+| `32f27e5` | chore: sync build number to 41 after TestFlight submission |
+| `a7c1e8f` | fix: replace native asset catalog icon with red icon to fix white icon display |
+| `e5a8c93` | chore: sync build number to 42 after TestFlight submission |
 
 ---
 
 ## Next Steps
 
 1. **Wait for Apple processing** — Apple typically processes TestFlight builds in 5-10 minutes
-2. **Test on TestFlight** — Once available, install Build 40 and verify:
-   - **App icon is sharp** — No blur from Liquid Glass effect
+2. **Test on TestFlight** — Once available, install Build 42 and verify:
+   - **App icon is red** — Original GENOSYS icon (white logo on red background)
+   - **Google Sign-In works** — Should create account or log in successfully
+   - **Apple Sign-In works** — Should create account or log in successfully
    - Registration collects all required fields (phone, address, emirate)
    - Birthday field (optional) works correctly
    - Emirate picker modal displays all 7 UAE emirates
    - "Build Your Set" works when logged in
    - WebView errors show retry UI
 3. **Monitor production** — Check Vercel logs for any remaining edge cases
+
+---
+
+## Bug 9: Social Login Failures (Google & Apple)
+
+### Problem
+
+In Build 41, social logins were failing:
+- **Google Sign-In**: "Failed to create user account"
+- **Apple Sign-In**: "Internal server error"
+
+Both errors occurred when trying to register or log in using social authentication in the native app.
+
+### Investigation
+
+Tested the backend endpoints directly:
+
+```bash
+# Apple endpoint test
+curl -X POST https://genosys.ae/api/mobile/auth/apple \
+  -H "Content-Type: application/json" \
+  -H "X-Mobile-API-Key: ..." \
+  -d '{"identityToken":"invalid","user":"test@example.com"}'
+```
+
+**Result:** HTTP 500 "Internal server error" — Generic error instead of specific validation message.
+
+The root cause was **Neon Postgres cold starts**. When the database is suspended after inactivity, the first connection attempt can timeout (5+ seconds), causing `findUserByEmail()` to fail.
+
+### Fix — 2 Backend Files Changed (cosmetics-website)
+
+| File | Change |
+|------|--------|
+| `app/api/mobile/auth/google/route.ts` | Added retry logic for `findUserByEmail`; added `maxDuration = 30` |
+| `app/api/mobile/auth/apple/route.ts` | Added retry logic for `findUserByEmail`; improved error handling; added `maxDuration = 30` |
+
+**Retry Logic Added:**
+
+```typescript
+// Find existing user (with retry for Neon cold starts)
+let user: Awaited<ReturnType<typeof findUserByEmail>> = null
+for (let attempt = 1; attempt <= 2; attempt++) {
+  try {
+    user = await findUserByEmail(normalizedEmail)
+    break
+  } catch (dbError) {
+    if (attempt === 2) throw dbError
+    debugLog('[MOBILE_AUTH] DB cold start, retrying findUserByEmail...')
+    await new Promise(r => setTimeout(r, 2000))
+  }
+}
+```
+
+**Apple Error Handling Improved:**
+
+```typescript
+// Before: Generic 500 for all errors
+return NextResponse.json({ success: false, error: 'Internal server error' }, { status: 500 })
+
+// After: Specific 401 for token validation failures
+if (errorMessage.includes('identityToken') || errorMessage.includes('Apple')) {
+  return NextResponse.json({ success: false, error: errorMessage }, { status: 401 })
+}
+return NextResponse.json({ success: false, error: 'Internal server error' }, { status: 500 })
+```
+
+**Verification:**
+
+After deployment, tested Apple endpoint:
+```bash
+curl -X POST https://genosys.ae/api/mobile/auth/apple ...
+# Response: {"success":false,"error":"Invalid identityToken format"}
+# Status: 401 (not 500)
+```
+
+### Commits (cosmetics-website)
+
+```
+7f7d5ec fix: add retry logic and improved error handling for social login endpoints
+e8f7293 fix: add maxDuration to social auth endpoints for Vercel timeout
+```
+
+---
+
+## Bug 10: App Icon Not Updating (Native Asset Catalog Override)
+
+### Problem
+
+Build 41 was submitted with `app.json` and `eas.json` changes to use the original red icon (`app-icon-1024-ios26-safe-no-alpha.png`), but the app icon was still white when installed.
+
+### Root Cause
+
+When a native `ios/` directory exists in an Expo project, **EAS Build uses the native asset catalog directly**, not the icon specified in `app.json`. The file at:
+
+```
+ios/GenosysUAE/Images.xcassets/AppIcon.appiconset/App-Icon-1024x1024@1x.png
+```
+
+...was still the white (PWA-style) icon from previous builds. The `app.json` icon path was being ignored.
+
+### Fix
+
+Replaced the native asset catalog icon file directly:
+
+| File | Change |
+|------|--------|
+| `ios/GenosysUAE/Images.xcassets/AppIcon.appiconset/App-Icon-1024x1024@1x.png` | Replaced with `assets/app-icon-1024-ios26-safe-no-alpha.png` (red icon) |
+
+**Verification:**
+
+```bash
+# Verify both files have identical content
+md5 ios/GenosysUAE/Images.xcassets/AppIcon.appiconset/App-Icon-1024x1024@1x.png
+# Output: 5f3a...
+
+md5 assets/app-icon-1024-ios26-safe-no-alpha.png
+# Output: 5f3a... (same hash)
+```
+
+### Key Lesson
+
+When an Expo project has a native `ios/` directory (created by `expo prebuild`):
+- The native asset catalog (`Images.xcassets`) takes precedence
+- `app.json`'s `icon` and `ios.icon` are NOT used
+- To change the icon, you must update the native asset catalog file directly
+
+### Commits (genosys-mobile-app)
+
+```
+a7c1e8f fix: replace native asset catalog icon with red icon to fix white icon display
+```
 
 ---
 

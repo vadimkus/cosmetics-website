@@ -388,23 +388,37 @@ All changes pass TypeScript compilation with zero errors in changed files.
 
 ## TestFlight Builds
 
-### Build 36 (Current) ✅
-
-Build 35 was rejected by Apple due to missing `NSSpeechRecognitionUsageDescription` in Info.plist. Build 36 fixes this.
+### Build 37 (Current) ✅
 
 | Field | Value |
 |-------|-------|
 | App Name | Genosys UAE |
 | Version | 1.1.0 |
-| Build Number | 36 |
+| Build Number | 37 |
 | Bundle ID | ae.genosys.app |
 | SDK Version | Expo SDK 54 |
+| Build ID | `5ce0c61c-e7c3-4ca5-acae-39910c3a9973` |
+| Submission ID | `93149025-7152-4fd8-8dbb-45ecbb576fab` |
+
+**What's New in Build 37:**
+- Added Phone, Address, Emirate (required) and Birthday (optional) fields to registration form
+- Emirate picker modal with all 7 UAE emirates
+- Vertical layout for "Already have an account? Sign In" toggle
+- Removed extra spacing below "Forgot Password" link
+- 12 new translation keys for EN, AR, RU
+
+### Build 36 ✅
+
+| Field | Value |
+|-------|-------|
+| Build Number | 36 |
 | Build ID | `108d27d3-b987-4747-8ee8-964c077c18ca` |
 | Submission ID | `05b81c13-fd64-4d16-a8c3-c413664bd8da` |
 
-**Fix Applied:**
+**Fixes:**
 - Added `NSSpeechRecognitionUsageDescription` to `ios/GenosysUAE/Info.plist`
 - Updated `NSMicrophoneUsageDescription` to match app.json description
+- Correct PWA-style app icon (white bg, red logo)
 
 ### Build 35 (Rejected by Apple) ❌
 
@@ -526,8 +540,8 @@ There was unnecessary blank space (24px margin) below the "Forgot Password?" lin
 
 ### TestFlight Links
 
-- **Build 36 logs**: https://expo.dev/accounts/vadimkus/projects/genosys-mobile-app/builds/108d27d3-b987-4747-8ee8-964c077c18ca
-- **Build 36 submission**: https://expo.dev/accounts/vadimkus/projects/genosys-mobile-app/submissions/05b81c13-fd64-4d16-a8c3-c413664bd8da
+- **Build 37 logs**: https://expo.dev/accounts/vadimkus/projects/genosys-mobile-app/builds/5ce0c61c-e7c3-4ca5-acae-39910c3a9973
+- **Build 37 submission**: https://expo.dev/accounts/vadimkus/projects/genosys-mobile-app/submissions/93149025-7152-4fd8-8dbb-45ecbb576fab
 - **App Store Connect**: https://appstoreconnect.apple.com/apps/6756648064/testflight/ios
 
 ### Build Commands Used
@@ -578,28 +592,19 @@ All changes committed and pushed to `main`:
 | `86f3636` | fix: add NSSpeechRecognitionUsageDescription to Info.plist for App Store compliance |
 | `01644e6` | chore: sync build number to 36 after TestFlight submission |
 | `6cfc786` | fix: replace native iOS app icon with correct PWA-style icon (white bg, red logo) |
-
-**Uncommitted changes (ready to commit):**
-- `app/auth/login.js` — Registration fields + vertical toggle layout + Forgot Password margin fix
-- `contexts/AuthContext.js` — Pass extra fields to register
-- `services/authService.js` — Send extra fields to API
-- `i18n/messages/en.json` — 12 new translation keys
-- `i18n/messages/ar.json` — 12 new translation keys
-- `i18n/messages/ru.json` — 12 new translation keys
+| `e5d4b68` | feat: add phone, address, emirate, birthday fields to native registration |
+| `2405b5b` | chore: sync build number to 37 after TestFlight submission |
 
 ---
 
 ## Next Steps
 
-1. **Commit pending native app changes** — Registration fields, toggle layout, forgot password spacing
-2. **Build & submit to TestFlight** — Create Build 37 with all native app fixes:
-   - New registration fields (phone, address, emirate, birthday)
-   - Vertical login/register toggle layout
-   - Removed Forgot Password margin
-   - Correct app icon (already in Build 36)
-3. **Test on TestFlight** — Verify:
-   - Registration collects all required fields
+1. **Wait for Apple processing** — Apple typically processes TestFlight builds in 5-10 minutes
+2. **Test on TestFlight** — Once available, install Build 37 and verify:
+   - Registration collects all required fields (phone, address, emirate)
+   - Birthday field (optional) works correctly
+   - Emirate picker modal displays all 7 UAE emirates
    - "Build Your Set" works when logged in
    - WebView errors show retry UI
-   - App icon displays correctly
-4. **Monitor production** — Check Vercel logs for any remaining edge cases
+   - App icon displays correctly (white bg, red logo)
+3. **Monitor production** — Check Vercel logs for any remaining edge cases

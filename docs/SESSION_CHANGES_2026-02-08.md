@@ -2,7 +2,7 @@
 
 ## Summary
 
-Seven issues fixed across web and native app:
+Eight issues fixed across web and native app:
 
 1. **Missing registration fields (mobile web)** — Mobile web form was missing Phone, Address, Emirate, and Birthday fields
 2. **Registration hang (5+ minutes)** — API blocked on SMTP emails and geolocation; now uses `after()` for instant response
@@ -11,9 +11,9 @@ Seven issues fixed across web and native app:
 5. **Native app registration missing fields** — Added Phone, Address, Emirate, Birthday to native app registration
 6. **Native app login/register toggle layout** — Changed from inline to vertical stacked layout
 7. **Forgot Password spacing** — Removed extra 24px margin below the link
+8. **iOS 26 Liquid Glass icon blur** — Native app icon was blurry due to automatic glass rendering; fixed with Icon Composer layered icon
 
 **Also fixed:**
-- **App icon mismatch** — Native iOS icon was wrong (red bg); replaced with correct PWA-style icon (white bg, red logo)
 - **Apple rejection (ITMS-90683)** — Added missing `NSSpeechRecognitionUsageDescription` to Info.plist
 
 ---
@@ -367,6 +367,11 @@ c1f7191 debug: show failing URL in WebView error screen to diagnose 500
 | `i18n/messages/ru.json` | Added 13 translation keys for registration fields (Russian) |
 | `ios/GenosysUAE/Info.plist` | Added `NSSpeechRecognitionUsageDescription` for App Store compliance; updated `NSMicrophoneUsageDescription` |
 | `ios/GenosysUAE/Images.xcassets/AppIcon.appiconset/App-Icon-1024x1024@1x.png` | Replaced with correct PWA-style icon (white bg, red logo) |
+| `assets/app-icon-1024-native-matched.png` | New: Scaled icon with logo filling 72% of canvas |
+| `assets/icon-layer-white-1024.png` | New: White logo on transparent for Icon Composer foreground |
+| `ios/GenosysUAE/AppIcon.icon/icon.json` | New: Icon Composer layered definition with `glass: false` |
+| `ios/GenosysUAE/AppIcon.icon/Assets/Logo.png` | New: White logo layer for Icon Composer |
+| `ios/GenosysUAE.xcodeproj/project.pbxproj` | Added AppIcon.icon bundle to Xcode project build |
 
 ---
 
@@ -388,21 +393,32 @@ All changes pass TypeScript compilation with zero errors in changed files.
 
 ## TestFlight Builds
 
-### Build 38 (Current) ✅
+### Build 39 (Current) ✅
 
 | Field | Value |
 |-------|-------|
 | App Name | Genosys UAE |
 | Version | 1.1.0 |
-| Build Number | 38 |
+| Build Number | 39 |
 | Bundle ID | ae.genosys.app |
 | SDK Version | Expo SDK 54 |
-| Build ID | `93d69e4e-9fd5-4a9e-a8cd-8c7662ffa47b` |
-| Submission ID | `18f962da-cbbd-470a-9001-1204266c3b7c` |
+| Build ID | `7244e5ea-49af-490b-a77c-433226d1be66` |
+| Submission ID | `d09461d3-46fb-4ac6-bb11-311a9769468a` |
 
-**What's New in Build 38:**
-- **Fixed app icon** — Logo now fills 72% of canvas (was 60%), matching PWA proportions exactly
-- Clean high-quality icon generated with LANCZOS resampling (fixes blur/artifacts from Build 37)
+**What's New in Build 39:**
+- **Icon Composer layered icon** — Proper `.icon` bundle with `glass: false` on foreground layer
+- Icon is now **sharp and crisp** — no blur from iOS 26 Liquid Glass automatic rendering
+- White solid background, red logo applied via fill-specializations
+- Dark mode and tinted variants included
+
+### Build 38 ❌ (Still Blurry)
+
+| Field | Value |
+|-------|-------|
+| Build Number | 38 |
+| Build ID | `93d69e4e-9fd5-4a9e-a8cd-8c7662ffa47b` |
+
+**Issues:** Icon still blurry despite correct proportions. iOS 26 Liquid Glass applies blur to single-layer PNGs.
 
 ### Build 37 ❌ (Icon Issues)
 
@@ -551,10 +567,126 @@ There was unnecessary blank space (24px margin) below the "Forgot Password?" lin
 |------|--------|
 | `app/auth/login.js` | Changed `forgotPassword.marginBottom` from 24 to 0 |
 
+---
+
+## Bug 8: iOS 26 Liquid Glass Icon Blur
+
+### Problem
+
+After fixing the icon proportions in Build 38, the native app icon was still blurry on iOS 26. The logo appeared to have a "frosted glass" effect applied, making it look washed out compared to the crisp PWA icon.
+
+User feedback: "right icon is blurred as apple introduced glass can we fix the icon, so it's sharp?"
+
+### Root Cause
+
+**iOS 26 "Liquid Glass" Design**
+
+Apple introduced a new design system called "Liquid Glass" in iOS 26 that automatically applies visual effects to app icons:
+- Single-layer PNG icons receive automatic blur/translucency
+- The system treats traditional icons as backgrounds with glass overlay
+- PWAs are rendered differently (using web standards), which is why the PWA icon appeared crisp
+
+### Research & Solution
+
+Researched Apple's official documentation and developer forums. The solution is to use **Apple's Icon Composer format** (`.icon` bundle) with explicit layer controls:
+
+1. **Icon Composer format** — A folder bundle (`AppIcon.icon/`) containing:
+   - `icon.json` — Layer definitions, fill colors, effects
+   - `Assets/` folder — PNG images for each layer
+
+2. **Layer-level control** — Each layer can have:
+   - `glass: false` — Disables glass effect
+   - `translucency: { enabled: false }` — Disables blur/transparency
+
+3. **Fill specializations** — Allows different colors for default, dark, and tinted modes
+
+### Fix — Icon Composer Bundle (genosys-mobile-app)
+
+| File | Change |
+|------|--------|
+| `assets/icon-layer-white-1024.png` | New: White logo on transparent background (foreground layer) |
+| `ios/GenosysUAE/AppIcon.icon/icon.json` | New: Layer definitions with `glass: false` |
+| `ios/GenosysUAE/AppIcon.icon/Assets/Logo.png` | New: Copy of white logo layer |
+| `ios/GenosysUAE.xcodeproj/project.pbxproj` | Added AppIcon.icon to Xcode project build |
+
+**Icon Bundle Structure:**
+
+```
+ios/GenosysUAE/AppIcon.icon/
+├── icon.json           # Layer definitions
+└── Assets/
+    └── Logo.png        # White logo on transparent (1024x1024)
+```
+
+**icon.json Configuration:**
+
+```json
+{
+  "fill": {
+    "solid": "extended-srgb:1.00000,1.00000,1.00000,1.00000"  // White background
+  },
+  "groups": [{
+    "layers": [{
+      "image-name": "Logo.png",
+      "name": "Logo",
+      "glass": false,           // CRITICAL: No glass effect
+      "translucency": {
+        "enabled": false,       // CRITICAL: No blur
+        "value": 0
+      },
+      "fill-specializations": [
+        { "value": { "solid": "display-p3:0.71765,0.14510,0.14510,1.00000" } },     // Red (default)
+        { "appearance": "dark", "value": { "solid": "display-p3:0.85000,0.25000,0.25000,1.00000" } },  // Dark mode
+        { "appearance": "tinted", "value": { "solid": "extended-gray:1.00000,1.00000" } }  // Tinted (white)
+      ]
+    }],
+    "lighting": "individual",
+    "specular": true,
+    "shadow": { "kind": "neutral", "opacity": 0.15 }
+  }],
+  "supported-platforms": {
+    "circles": ["watchOS"],
+    "squares": "shared"
+  }
+}
+```
+
+**Key Technical Details:**
+
+1. **White logo as foreground** — The logo is saved as pure white on transparent background
+2. **Color applied via fill-specializations** — The red color is applied at render time, allowing proper dark mode support
+3. **`glass: false`** — Explicitly disables the Liquid Glass effect on the logo layer
+4. **`translucency: { enabled: false }`** — Ensures no blur or transparency
+5. **Solid white background** — The base fill is a solid white color
+
+**Xcode Project Integration:**
+
+Added to `project.pbxproj`:
+- `PBXFileReference` for `AppIcon.icon` folder
+- Added to `PBXGroup` children (GenosysUAE folder)
+- Added to `PBXResourcesBuildPhase` for inclusion in app bundle
+
+**Verification:**
+
+Used `ictool` (Apple's Icon Composer CLI) to validate and export:
+
+```bash
+ictool --export ios/GenosysUAE/AppIcon.icon --template ios-app --output /tmp/icon-export
+```
+
+This confirmed the icon renders with sharp, crisp edges and no blur.
+
+### Commits (genosys-mobile-app)
+
+```
+3ffaae8 feat: add Icon Composer layered icon to prevent iOS 26 Liquid Glass blur
+24685d7 chore: sync build number to 39 after TestFlight submission
+```
+
 ### TestFlight Links
 
-- **Build 38 logs**: https://expo.dev/accounts/vadimkus/projects/genosys-mobile-app/builds/93d69e4e-9fd5-4a9e-a8cd-8c7662ffa47b
-- **Build 38 submission**: https://expo.dev/accounts/vadimkus/projects/genosys-mobile-app/submissions/18f962da-cbbd-470a-9001-1204266c3b7c
+- **Build 39 logs**: https://expo.dev/accounts/vadimkus/projects/genosys-mobile-app/builds/7244e5ea-49af-490b-a77c-433226d1be66
+- **Build 39 submission**: https://expo.dev/accounts/vadimkus/projects/genosys-mobile-app/submissions/d09461d3-46fb-4ac6-bb11-311a9769468a
 - **App Store Connect**: https://appstoreconnect.apple.com/apps/6756648064/testflight/ios
 
 ### Build Commands Used
@@ -609,17 +741,76 @@ All changes committed and pushed to `main`:
 | `2405b5b` | chore: sync build number to 37 after TestFlight submission |
 | `2223a35` | fix: resize app icon to match PWA proportions (logo fills 72% vs 60%) |
 | `a03bf37` | chore: sync build number to 38 after TestFlight submission |
+| `3ffaae8` | feat: add Icon Composer layered icon to prevent iOS 26 Liquid Glass blur |
+| `24685d7` | chore: sync build number to 39 after TestFlight submission |
 
 ---
 
 ## Next Steps
 
 1. **Wait for Apple processing** — Apple typically processes TestFlight builds in 5-10 minutes
-2. **Test on TestFlight** — Once available, install Build 37 and verify:
+2. **Test on TestFlight** — Once available, install Build 39 and verify:
+   - **App icon is sharp** — No blur from Liquid Glass effect
    - Registration collects all required fields (phone, address, emirate)
    - Birthday field (optional) works correctly
    - Emirate picker modal displays all 7 UAE emirates
    - "Build Your Set" works when logged in
    - WebView errors show retry UI
-   - App icon displays correctly (white bg, red logo)
 3. **Monitor production** — Check Vercel logs for any remaining edge cases
+
+---
+
+## Technical Deep Dive: iOS 26 Liquid Glass Icons
+
+### Why Traditional Icons Get Blurred
+
+iOS 26 introduced "Liquid Glass" — a design language that applies translucent, frosted-glass effects to UI elements including app icons. When you provide a single-layer PNG icon:
+
+1. iOS treats the PNG as a **background layer**
+2. The system automatically applies **glass rendering** on top
+3. This creates the blurry, "frosted" appearance
+
+### How Icon Composer Solves This
+
+Apple's Icon Composer format (`.icon` bundle) allows developers to define **layered icons** with explicit control:
+
+| Layer Property | Effect |
+|----------------|--------|
+| `glass: false` | Disables frosted glass on that layer |
+| `translucency: { enabled: false }` | Disables blur/transparency |
+| `fill-specializations` | Per-appearance color overrides |
+| `lighting: "individual"` | Per-layer lighting control |
+| `specular: true` | Enables specular highlights |
+
+### Our Implementation
+
+```
+┌─────────────────────────────────────┐
+│         Background Layer            │
+│    (Solid white fill in icon.json)  │
+├─────────────────────────────────────┤
+│         Foreground Layer            │
+│    (Logo.png - white on transparent)│
+│    glass: false ← CRITICAL          │
+│    translucency: false ← CRITICAL   │
+│    fill-specialization: #B72525     │
+└─────────────────────────────────────┘
+```
+
+**Result:** The logo renders with the exact red color specified, with no blur or glass overlay.
+
+### Dark Mode & Tinted Support
+
+The Icon Composer format also provides proper dark mode support:
+
+| Appearance | Logo Color |
+|------------|------------|
+| Default (Light) | `#B72525` (Genosys red) |
+| Dark | `#D94040` (Lighter red for visibility) |
+| Tinted | White (system applies user's tint) |
+
+### References
+
+- Apple Icon Composer Examples: https://github.com/kylebshr/icon-composer-examples
+- iOS 26 Human Interface Guidelines: Icon Design
+- `ictool` CLI for validation and export

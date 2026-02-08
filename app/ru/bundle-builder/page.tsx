@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
 import { getAllProducts } from '@/lib/productsDb'
+import { errorLog } from '@/lib/logger'
 import BundleBuilderClient from '../../bundle-builder/BundleBuilderClient'
 
 export const metadata: Metadata = {
@@ -29,8 +30,22 @@ const EXCLUDED_PRODUCTS = [
   'SKIN RENEWAL PEELING SYSTEM',
 ]
 
+/** Retry wrapper for Neon Postgres cold starts */
+async function getProductsWithRetry(maxRetries = 2) {
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    try {
+      return await getAllProducts()
+    } catch (error) {
+      errorLog(`[BundleBuilder/ru] getAllProducts attempt ${attempt}/${maxRetries} failed:`, error)
+      if (attempt === maxRetries) throw error
+      await new Promise(resolve => setTimeout(resolve, 2000))
+    }
+  }
+  throw new Error('Failed to fetch products')
+}
+
 export default async function RussianBundleBuilderPage() {
-  const products = await getAllProducts()
+  const products = await getProductsWithRetry()
   
   const eligibleProducts = products.filter(product => 
     product.category !== 'Beauty Boxes' && 

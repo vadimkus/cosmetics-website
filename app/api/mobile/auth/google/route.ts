@@ -7,6 +7,8 @@ import { debugLog, errorLog } from '@/lib/logger'
 import { trackUserAction } from '@/lib/analyticsServer'
 import { sendAdminNewUserNotification } from '@/lib/email'
 
+export const maxDuration = 30
+
 // Rate limiting for mobile Google OAuth
 const mobileGoogleLimiter = rateLimitSimple({
   windowMs: 15 * 60 * 1000, // 15 minutes
@@ -103,8 +105,18 @@ export async function POST(request: NextRequest) {
       'User'
     debugLog('[MOBILE_AUTH] Google user verified:', { email: normalizedEmail })
 
-    // Find existing user or create new one
-    let user = await findUserByEmail(normalizedEmail)
+    // Find existing user or create new one (with retry for Neon cold starts)
+    let user: Awaited<ReturnType<typeof findUserByEmail>> = null
+    for (let attempt = 1; attempt <= 2; attempt++) {
+      try {
+        user = await findUserByEmail(normalizedEmail)
+        break
+      } catch (dbError) {
+        if (attempt === 2) throw dbError
+        debugLog('[MOBILE_AUTH] DB cold start, retrying findUserByEmail...')
+        await new Promise(r => setTimeout(r, 2000))
+      }
+    }
     let isNewUser = false
 
     if (!user) {

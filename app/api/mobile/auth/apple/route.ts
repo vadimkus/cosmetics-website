@@ -6,6 +6,8 @@ import { generateMobileToken } from '@/lib/jwt'
 import { verifyAppleIdentityToken } from '@/lib/appleIdentityToken'
 import { sendAdminNewUserNotification } from '@/lib/email'
 
+export const maxDuration = 30
+
 /**
  * Mobile Apple Sign-In Endpoint
  * POST /api/mobile/auth/apple
@@ -53,7 +55,18 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    let user = await findUserByEmail(email)
+    // DB lookup with retry for Neon cold starts
+    let user: Awaited<ReturnType<typeof findUserByEmail>> = null
+    for (let attempt = 1; attempt <= 2; attempt++) {
+      try {
+        user = await findUserByEmail(email)
+        break
+      } catch (dbError) {
+        if (attempt === 2) throw dbError
+        debugLog('[MOBILE_AUTH] DB cold start, retrying findUserByEmail...')
+        await new Promise(r => setTimeout(r, 2000))
+      }
+    }
     const nowIso = new Date().toISOString()
 
     if (!user) {
@@ -117,11 +130,18 @@ export async function POST(request: NextRequest) {
     })
   } catch (error) {
     const duration = Date.now() - startTime
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error'
     errorLog('[MOBILE_AUTH] Apple login error:', {
-      error: error instanceof Error ? error.message : 'Unknown error',
+      error: errorMessage,
       duration: `${duration}ms`,
       stack: error instanceof Error ? error.stack : undefined,
     })
+
+    // Return specific error for token validation failures (not generic 500)
+    if (errorMessage.includes('identityToken') || errorMessage.includes('Apple')) {
+      return NextResponse.json({ success: false, error: errorMessage }, { status: 401 })
+    }
+
     return NextResponse.json({ success: false, error: 'Internal server error' }, { status: 500 })
   }
 }

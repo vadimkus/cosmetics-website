@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { verifyMobileToken } from '@/lib/jwt'
-import { createSessionToken } from '@/lib/jwt'
-import { findUserById } from '@/lib/userStorageDb'
+import { verifyMobileToken, createSessionToken } from '@/lib/jwt'
 import { MOBILE_APP_KEY } from '@/lib/envValidation'
 import { debugLog, errorLog } from '@/lib/logger'
 
@@ -12,9 +10,13 @@ import { debugLog, errorLog } from '@/lib/logger'
  * Used by the native app's WebView to establish an authenticated session before
  * loading pages like /bundle-builder that require the `genosys_session` cookie.
  *
- * Returns a tiny HTML page that sets the cookie (via Set-Cookie header) and
- * then navigates to the target page via JavaScript. This avoids 302-redirect
- * + Set-Cookie issues that some WebView implementations handle poorly.
+ * IMPORTANT: This route must NEVER return 500. It must ALWAYS return 200 with
+ * an HTML redirect page. If anything fails, it redirects without a session.
+ *
+ * The mobile JWT already contains userId, email, name, isAdmin, canSeePrices
+ * (set at login time), so we create the session directly from the verified token
+ * payload — no database query needed. This makes the route fast and immune to
+ * DB cold-start issues.
  *
  * Query params:
  *   - token: Mobile JWT token (required)
@@ -23,18 +25,21 @@ import { debugLog, errorLog } from '@/lib/logger'
  *   - locale: Locale prefix (optional, e.g. "ar", "ru")
  */
 export async function GET(request: NextRequest) {
-  const { searchParams } = new URL(request.url)
-  const redirect = searchParams.get('redirect') || '/bundle-builder'
-  const locale = searchParams.get('locale') || ''
-  const token = searchParams.get('token')
-  const apiKey = searchParams.get('apiKey')
-
-  // Build the final target URL
-  const localePrefix = locale && locale !== 'en' ? `/${locale}` : ''
-  const redirectPath = redirect.startsWith('/') ? redirect : `/${redirect}`
-  const targetPath = `${localePrefix}${redirectPath}`
+  // Default redirect target — set BEFORE any parsing so it's always available
+  let targetPath = '/bundle-builder'
 
   try {
+    const { searchParams } = new URL(request.url)
+    const redirect = searchParams.get('redirect') || '/bundle-builder'
+    const locale = searchParams.get('locale') || ''
+    const token = searchParams.get('token')
+    const apiKey = searchParams.get('apiKey')
+
+    // Build the final target URL
+    const localePrefix = locale && locale !== 'en' ? `/${locale}` : ''
+    const redirectPath = redirect.startsWith('/') ? redirect : `/${redirect}`
+    targetPath = `${localePrefix}${redirectPath}`
+
     // Validate required params
     if (!token || !apiKey) {
       debugLog('[MOBILE-SESSION] Missing token or apiKey')
@@ -48,7 +53,7 @@ export async function GET(request: NextRequest) {
       return htmlRedirect(targetPath)
     }
 
-    // Verify mobile JWT token
+    // Verify mobile JWT token — this also checks expiration
     const payload = verifyMobileToken(token)
     if (!payload) {
       debugLog('[MOBILE-SESSION] Invalid or expired mobile token')
@@ -57,24 +62,19 @@ export async function GET(request: NextRequest) {
 
     debugLog('[MOBILE-SESSION] Token valid for userId:', payload.userId)
 
-    // Look up user in database to get latest data
-    const user = await findUserById(payload.userId)
-    if (!user) {
-      debugLog('[MOBILE-SESSION] User not found for userId:', payload.userId)
-      return htmlRedirect(targetPath)
-    }
-
-    // Create a web session token (same format as regular login)
+    // Create a web session token directly from the verified JWT payload.
+    // No DB lookup needed — the mobile JWT was signed by us and contains
+    // all the fields we need (userId, email, name, isAdmin, canSeePrices).
     const sessionToken = createSessionToken({
-      id: user.id,
-      email: user.email,
-      name: user.name || '',
-      isAdmin: user.isAdmin || false,
-      canSeePrices: user.canSeePrices !== false,
-      profilePicture: user.profilePicture || null,
+      id: payload.userId,
+      email: payload.email,
+      name: payload.name || '',
+      isAdmin: payload.isAdmin || false,
+      canSeePrices: payload.canSeePrices !== false,
+      profilePicture: null,
     })
 
-    debugLog('[MOBILE-SESSION] Session created for user:', user.email)
+    debugLog('[MOBILE-SESSION] Session created for user:', payload.email)
 
     // Return HTML page that will navigate to the target — cookie is set via header
     const response = htmlRedirect(targetPath)
@@ -88,7 +88,8 @@ export async function GET(request: NextRequest) {
 
     return response
   } catch (error) {
-    errorLog('[MOBILE-SESSION] Error:', error)
+    errorLog('[MOBILE-SESSION] Unexpected error:', error)
+    // ALWAYS return a redirect — never let this route return 500
     return htmlRedirect(targetPath)
   }
 }

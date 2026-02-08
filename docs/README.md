@@ -289,7 +289,8 @@
 
 | File | Description |
 |------|-------------|
-| [SESSION_CHANGES_2026-02-06.md](./SESSION_CHANGES_2026-02-06.md) | **NEW** Mobile API pricing audit, email template overhaul (images + breakdowns), success page enhancement, localization fixes, support-link order number mismatch fix |
+| [SESSION_CHANGES_2026-02-08.md](./SESSION_CHANGES_2026-02-08.md) | **NEW** Mobile web registration fix — missing fields + 5-min hang resolved via after() |
+| [SESSION_CHANGES_2026-02-06.md](./SESSION_CHANGES_2026-02-06.md) | Mobile API pricing audit, email template overhaul (images + breakdowns), success page enhancement, localization fixes, support-link order number mismatch fix |
 | [SESSION_CHANGES_2026-02-05.md](./SESSION_CHANGES_2026-02-05.md) | Bundle progress bar, discount breakdown, product detail sheet, swipe gestures |
 | [SESSION_CHANGES_2026-02-03.md](./SESSION_CHANGES_2026-02-03.md) | Bundle Builder UX, Build Your Set banner, ChatWidget i18n, 66+ AR/RU translations |
 | [SESSION_CHANGES_2026-02-02.md](./SESSION_CHANGES_2026-02-02.md) | Bundle Builder feature, price hiding, corporate colors |
@@ -365,4 +366,4 @@ cosmetics-website/
 
 ---
 
-*Last updated: February 6, 2026*
+*Last updated: February 8, 2026*

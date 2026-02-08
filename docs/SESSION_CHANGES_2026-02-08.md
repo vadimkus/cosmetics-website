@@ -367,3 +367,89 @@ c1f7191 debug: show failing URL in WebView error screen to diagnose 500
 ## Build Status
 
 All changes pass TypeScript compilation with zero errors in changed files.
+
+---
+
+## TestFlight Build
+
+A new iOS build was submitted to TestFlight with all the fixes from this session.
+
+### Build Details
+
+| Field | Value |
+|-------|-------|
+| App Name | Genosys UAE |
+| Version | 1.1.0 |
+| Build Number | 35 |
+| Bundle ID | ae.genosys.app |
+| SDK Version | Expo SDK 54 |
+| Build ID | `b56ff869-ab9c-4265-9af9-4eaf880fadce` |
+| Submission ID | `5f5615a8-5c55-4f75-8b55-2305a0a38d3c` |
+
+### What's Included
+
+All fixes from this session are included in Build 35:
+
+1. **WebView error handling** — Users now see a retry UI instead of blank page on HTTP/network errors
+2. **Failing URL display** — Error screen shows the URL that failed, aiding debugging
+
+### TestFlight Links
+
+- **Build logs**: https://expo.dev/accounts/vadimkus/projects/genosys-mobile-app/builds/b56ff869-ab9c-4265-9af9-4eaf880fadce
+- **Submission logs**: https://expo.dev/accounts/vadimkus/projects/genosys-mobile-app/submissions/5f5615a8-5c55-4f75-8b55-2305a0a38d3c
+- **App Store Connect**: https://appstoreconnect.apple.com/apps/6756648064/testflight/ios
+
+### Build Commands Used
+
+```bash
+# Build iOS for production
+eas build --platform ios --profile production --non-interactive
+
+# Submit to TestFlight
+eas submit --platform ios --latest --non-interactive
+```
+
+### Commits (genosys-mobile-app)
+
+```
+21e8978 chore: bump iOS build number to 34 for TestFlight
+8eb5fc9 chore: sync build number to 35 after TestFlight submission
+```
+
+---
+
+## Git Summary
+
+### cosmetics-website repository
+
+All changes committed and pushed to `main`:
+
+| Commit | Description |
+|--------|-------------|
+| `d3965cd2` | fix: add missing registration fields to mobile web login form |
+| `98cb13db` | fix: resolve registration hang by making emails non-blocking |
+| `8c5c1f80` | fix: eliminate DB dependency from mobile-session bridge to prevent 500 |
+| `70fd62ac` | fix: add retry logic and error boundary to bundle-builder for DB cold starts |
+| `b8dba901` | fix: add maxDuration=30 to bundle-builder pages for Vercel function timeout |
+
+### genosys-mobile-app repository
+
+All changes committed and pushed to `main`:
+
+| Commit | Description |
+|--------|-------------|
+| `15508ba` | fix: add error handling with retry to WebView screen |
+| `c1f7191` | debug: show failing URL in WebView error screen to diagnose 500 |
+| `21e8978` | chore: bump iOS build number to 34 for TestFlight |
+| `8eb5fc9` | chore: sync build number to 35 after TestFlight submission |
+
+---
+
+## Next Steps
+
+1. **Wait for Apple processing** — Apple typically processes TestFlight builds in 5-10 minutes
+2. **Test on TestFlight** — Once available, install Build 35 and verify:
+   - "Build Your Set" works when logged in
+   - WebView errors show retry UI (can test by disconnecting network)
+   - Registration works on mobile web
+3. **Monitor production** — Check Vercel logs for any remaining edge cases

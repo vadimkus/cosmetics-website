@@ -371,7 +371,10 @@ c1f7191 debug: show failing URL in WebView error screen to diagnose 500
 | `assets/icon-layer-white-1024.png` | New: White logo on transparent for Icon Composer foreground |
 | `ios/GenosysUAE/AppIcon.icon/icon.json` | New: Icon Composer layered definition with `glass: false` |
 | `ios/GenosysUAE/AppIcon.icon/Assets/Logo.png` | New: White logo layer for Icon Composer |
-| `ios/GenosysUAE.xcodeproj/project.pbxproj` | Added AppIcon.icon bundle to Xcode project build |
+| `ios/GenosysUAE.xcodeproj/project.pbxproj` | Added AppIcon.icon bundle to Xcode project build (Build 39, overwritten by prebuild) |
+| `assets/AppIcon.icon/icon.json` | New: Icon Composer bundle in assets/ for Expo SDK 54 native support |
+| `assets/AppIcon.icon/Assets/Logo.png` | New: White logo layer for Icon Composer (in assets/) |
+| `eas.json` | Updated production build to use Xcode 26 image for Icon Composer support |
 
 ---
 
@@ -393,23 +396,37 @@ All changes pass TypeScript compilation with zero errors in changed files.
 
 ## TestFlight Builds
 
-### Build 39 (Current) ✅
+### Build 40 (Current) ✅
 
 | Field | Value |
 |-------|-------|
 | App Name | Genosys UAE |
 | Version | 1.1.0 |
-| Build Number | 39 |
+| Build Number | 40 |
 | Bundle ID | ae.genosys.app |
 | SDK Version | Expo SDK 54 |
-| Build ID | `7244e5ea-49af-490b-a77c-433226d1be66` |
-| Submission ID | `d09461d3-46fb-4ac6-bb11-311a9769468a` |
+| Build Image | `macos-sequoia-15.5-xcode-26.0` |
+| Build ID | `2640a705-f6c8-49e6-b7b6-7854860a73de` |
+| Submission ID | `4430a2ec-bb1d-4f65-b7ad-ef76ee2d62d4` |
 
-**What's New in Build 39:**
-- **Icon Composer layered icon** — Proper `.icon` bundle with `glass: false` on foreground layer
-- Icon is now **sharp and crisp** — no blur from iOS 26 Liquid Glass automatic rendering
+**What's New in Build 40:**
+- **Used Expo SDK 54 native `.icon` support** — `ios.icon` in `app.json` now points to `./assets/AppIcon.icon`
+- **Built with Xcode 26** — EAS uses `macos-sequoia-15.5-xcode-26.0` image, required for Icon Composer
+- Icon Composer `.icon` bundle with `glass: false` on foreground layer
 - White solid background, red logo applied via fill-specializations
 - Dark mode and tinted variants included
+
+**Why Build 39 Still Had Blur:**
+Build 39 placed the `.icon` bundle manually in `ios/GenosysUAE/` and edited `project.pbxproj`, but EAS Build runs prebuild which regenerates native project files. The `.icon` bundle was not being picked up. Expo SDK 54 requires the `.icon` path to be set in `app.json`'s `ios.icon` field and needs Xcode 26 build image.
+
+### Build 39 ❌ (Icon Not Picked Up)
+
+| Field | Value |
+|-------|-------|
+| Build Number | 39 |
+| Build ID | `7244e5ea-49af-490b-a77c-433226d1be66` |
+
+**Issues:** `.icon` bundle was placed in `ios/GenosysUAE/` directory and referenced in `project.pbxproj`, but EAS prebuild overwrites native project files. The Icon Composer bundle was never included in the built app.
 
 ### Build 38 ❌ (Still Blurry)
 
@@ -676,17 +693,53 @@ ictool --export ios/GenosysUAE/AppIcon.icon --template ios-app --output /tmp/ico
 
 This confirmed the icon renders with sharp, crisp edges and no blur.
 
+### Build 39 Attempt (Failed — .icon Not Picked Up by EAS)
+
+The first attempt (Build 39) placed the `.icon` bundle inside the native `ios/GenosysUAE/` directory and manually edited `project.pbxproj`. This didn't work because **EAS Build runs `npx expo prebuild`**, which regenerates the native Xcode project from `app.json`. The manual `project.pbxproj` edits were overwritten.
+
+### Build 40 Fix (Correct Approach)
+
+Expo SDK 54 has **native support** for Icon Composer `.icon` files. The correct approach is:
+
+1. Place the `.icon` bundle in `assets/` (not in `ios/`)
+2. Set `ios.icon` in `app.json` to `"./assets/AppIcon.icon"`
+3. Use **Xcode 26** build image on EAS (required for Icon Composer)
+
+```json
+// app.json
+{
+  "expo": {
+    "ios": {
+      "icon": "./assets/AppIcon.icon"  // Expo SDK 54 picks this up
+    }
+  }
+}
+
+// eas.json
+{
+  "build": {
+    "production": {
+      "ios": {
+        "image": "macos-sequoia-15.5-xcode-26.0"  // Required for .icon support
+      }
+    }
+  }
+}
+```
+
 ### Commits (genosys-mobile-app)
 
 ```
 3ffaae8 feat: add Icon Composer layered icon to prevent iOS 26 Liquid Glass blur
 24685d7 chore: sync build number to 39 after TestFlight submission
+b28f3a7 fix: use Expo SDK 54 native .icon support to fix iOS 26 Liquid Glass blur
+b4104e0 chore: sync build number to 40 after TestFlight submission
 ```
 
 ### TestFlight Links
 
-- **Build 39 logs**: https://expo.dev/accounts/vadimkus/projects/genosys-mobile-app/builds/7244e5ea-49af-490b-a77c-433226d1be66
-- **Build 39 submission**: https://expo.dev/accounts/vadimkus/projects/genosys-mobile-app/submissions/d09461d3-46fb-4ac6-bb11-311a9769468a
+- **Build 40 logs**: https://expo.dev/accounts/vadimkus/projects/genosys-mobile-app/builds/2640a705-f6c8-49e6-b7b6-7854860a73de
+- **Build 40 submission**: https://expo.dev/accounts/vadimkus/projects/genosys-mobile-app/submissions/4430a2ec-bb1d-4f65-b7ad-ef76ee2d62d4
 - **App Store Connect**: https://appstoreconnect.apple.com/apps/6756648064/testflight/ios
 
 ### Build Commands Used
@@ -743,13 +796,15 @@ All changes committed and pushed to `main`:
 | `a03bf37` | chore: sync build number to 38 after TestFlight submission |
 | `3ffaae8` | feat: add Icon Composer layered icon to prevent iOS 26 Liquid Glass blur |
 | `24685d7` | chore: sync build number to 39 after TestFlight submission |
+| `b28f3a7` | fix: use Expo SDK 54 native .icon support to fix iOS 26 Liquid Glass blur |
+| `b4104e0` | chore: sync build number to 40 after TestFlight submission |
 
 ---
 
 ## Next Steps
 
 1. **Wait for Apple processing** — Apple typically processes TestFlight builds in 5-10 minutes
-2. **Test on TestFlight** — Once available, install Build 39 and verify:
+2. **Test on TestFlight** — Once available, install Build 40 and verify:
    - **App icon is sharp** — No blur from Liquid Glass effect
    - Registration collects all required fields (phone, address, emirate)
    - Birthday field (optional) works correctly

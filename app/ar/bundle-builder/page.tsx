@@ -24,6 +24,7 @@ export const metadata: Metadata = {
 
 export const dynamic = 'force-dynamic'
 export const revalidate = 0
+export const maxDuration = 30
 
 // Products excluded from bundle builder (professional products, kits, etc.)
 const EXCLUDED_PRODUCTS = [

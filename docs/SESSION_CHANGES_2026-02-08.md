@@ -351,6 +351,7 @@ c1f7191 debug: show failing URL in WebView error screen to diagnose 500
 | File | Changes |
 |------|---------|
 | `app/webview.js` | Added `onHttpError`/`onError` handlers, error screen with retry, URL display |
+| `ios/GenosysUAE/Info.plist` | Added `NSSpeechRecognitionUsageDescription` for App Store compliance; updated `NSMicrophoneUsageDescription` |
 
 ---
 
@@ -370,33 +371,51 @@ All changes pass TypeScript compilation with zero errors in changed files.
 
 ---
 
-## TestFlight Build
+## TestFlight Builds
 
-A new iOS build was submitted to TestFlight with all the fixes from this session.
+### Build 36 (Current) ✅
 
-### Build Details
+Build 35 was rejected by Apple due to missing `NSSpeechRecognitionUsageDescription` in Info.plist. Build 36 fixes this.
 
 | Field | Value |
 |-------|-------|
 | App Name | Genosys UAE |
 | Version | 1.1.0 |
-| Build Number | 35 |
+| Build Number | 36 |
 | Bundle ID | ae.genosys.app |
 | SDK Version | Expo SDK 54 |
+| Build ID | `108d27d3-b987-4747-8ee8-964c077c18ca` |
+| Submission ID | `05b81c13-fd64-4d16-a8c3-c413664bd8da` |
+
+**Fix Applied:**
+- Added `NSSpeechRecognitionUsageDescription` to `ios/GenosysUAE/Info.plist`
+- Updated `NSMicrophoneUsageDescription` to match app.json description
+
+### Build 35 (Rejected by Apple) ❌
+
+Apple rejected Build 35 with error `ITMS-90683: Missing purpose string in Info.plist`:
+> Your app's code references one or more APIs that access sensitive user data... The Info.plist file should contain a NSSpeechRecognitionUsageDescription key.
+
+**Root Cause:** The `expo-speech-recognition` plugin was included in `app.json`, but the native `ios/GenosysUAE/Info.plist` was missing the required privacy description. When an `ios/` directory exists, EAS uses the native Info.plist directly instead of generating it from app.json.
+
+| Field | Value |
+|-------|-------|
+| Build Number | 35 |
 | Build ID | `b56ff869-ab9c-4265-9af9-4eaf880fadce` |
-| Submission ID | `5f5615a8-5c55-4f75-8b55-2305a0a38d3c` |
+| Status | ❌ Rejected |
 
-### What's Included
+### What's Included in Build 36
 
-All fixes from this session are included in Build 35:
+All fixes from this session:
 
-1. **WebView error handling** — Users now see a retry UI instead of blank page on HTTP/network errors
+1. **WebView error handling** — Users see retry UI instead of blank page on HTTP/network errors
 2. **Failing URL display** — Error screen shows the URL that failed, aiding debugging
+3. **Speech recognition privacy** — Added required `NSSpeechRecognitionUsageDescription`
 
 ### TestFlight Links
 
-- **Build logs**: https://expo.dev/accounts/vadimkus/projects/genosys-mobile-app/builds/b56ff869-ab9c-4265-9af9-4eaf880fadce
-- **Submission logs**: https://expo.dev/accounts/vadimkus/projects/genosys-mobile-app/submissions/5f5615a8-5c55-4f75-8b55-2305a0a38d3c
+- **Build 36 logs**: https://expo.dev/accounts/vadimkus/projects/genosys-mobile-app/builds/108d27d3-b987-4747-8ee8-964c077c18ca
+- **Build 36 submission**: https://expo.dev/accounts/vadimkus/projects/genosys-mobile-app/submissions/05b81c13-fd64-4d16-a8c3-c413664bd8da
 - **App Store Connect**: https://appstoreconnect.apple.com/apps/6756648064/testflight/ios
 
 ### Build Commands Used
@@ -414,6 +433,8 @@ eas submit --platform ios --latest --non-interactive
 ```
 21e8978 chore: bump iOS build number to 34 for TestFlight
 8eb5fc9 chore: sync build number to 35 after TestFlight submission
+86f3636 fix: add NSSpeechRecognitionUsageDescription to Info.plist for App Store compliance
+01644e6 chore: sync build number to 36 after TestFlight submission
 ```
 
 ---
@@ -442,6 +463,8 @@ All changes committed and pushed to `main`:
 | `c1f7191` | debug: show failing URL in WebView error screen to diagnose 500 |
 | `21e8978` | chore: bump iOS build number to 34 for TestFlight |
 | `8eb5fc9` | chore: sync build number to 35 after TestFlight submission |
+| `86f3636` | fix: add NSSpeechRecognitionUsageDescription to Info.plist for App Store compliance |
+| `01644e6` | chore: sync build number to 36 after TestFlight submission |
 
 ---
 

@@ -21,6 +21,9 @@ export default function PWALoginPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [name, setName] = useState('')
+  const [phone, setPhone] = useState('')
+  const [address, setAddress] = useState('')
+  const [emirate, setEmirate] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [privacyConsent, setPrivacyConsent] = useState(false)
   const [error, setError] = useState('')
@@ -99,12 +102,11 @@ export default function PWALoginPage() {
           setError(t('authScreen.invalidCredentials'))
         }
       } else {
-        if (!name) {
+        if (!name || !phone.trim() || !address.trim() || !emirate.trim()) {
           setError(t('login.fillAllFields'))
           return
         }
-        // Register requires more parameters - use defaults for PWA simplified flow
-        const success = await register(name, email, password, '', '', '', '')
+        const success = await register(name, email, password, phone, address, emirate, '')
         if (success) {
           router.replace(getLocalizedPath('/products', locale))
         } else {
@@ -281,6 +283,62 @@ export default function PWALoginPage() {
               dir="ltr"
             />
           </div>
+
+          {/* Phone, Address, Emirate (only for registration) */}
+          {!isLoginMode && (
+            <>
+              <div>
+                <label className={`block text-sm font-medium text-gray-700 mb-1.5 ${isRTL ? 'text-right' : ''}`}>
+                  {t('login.uaePhoneNumber')} *
+                </label>
+                <input
+                  type="tel"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  placeholder={t('login.uaePhoneNumberPlaceholder')}
+                  className={`w-full px-4 py-3 bg-white text-gray-900 border border-gray-200 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all placeholder:text-gray-400 ${isRTL ? 'text-right' : ''}`}
+                  style={{ WebkitTextFillColor: '#111827', opacity: 1 }}
+                  dir="ltr"
+                  required
+                />
+              </div>
+              <div>
+                <label className={`block text-sm font-medium text-gray-700 mb-1.5 ${isRTL ? 'text-right' : ''}`}>
+                  {t('login.uaeAddress')} *
+                </label>
+                <input
+                  type="text"
+                  value={address}
+                  onChange={(e) => setAddress(e.target.value)}
+                  placeholder={t('login.uaeAddressPlaceholder')}
+                  className={`w-full px-4 py-3 bg-white text-gray-900 border border-gray-200 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all placeholder:text-gray-400 ${isRTL ? 'text-right' : ''}`}
+                  style={{ WebkitTextFillColor: '#111827', opacity: 1 }}
+                  dir={dir}
+                  required
+                />
+              </div>
+              <div>
+                <label className={`block text-sm font-medium text-gray-700 mb-1.5 ${isRTL ? 'text-right' : ''}`}>
+                  {t('login.selectEmirate')} *
+                </label>
+                <select
+                  value={emirate}
+                  onChange={(e) => setEmirate(e.target.value)}
+                  className={`w-full px-4 py-3 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all ${emirate ? 'text-gray-900' : 'text-gray-400'} ${isRTL ? 'text-right' : ''}`}
+                  required
+                >
+                  <option value="">{t('login.selectEmirate')}</option>
+                  <option value="Dubai">Dubai</option>
+                  <option value="Abu Dhabi">Abu Dhabi</option>
+                  <option value="Sharjah">Sharjah</option>
+                  <option value="Ajman">Ajman</option>
+                  <option value="Ras Al Khaimah">Ras Al Khaimah</option>
+                  <option value="Fujairah">Fujairah</option>
+                  <option value="Umm Al Quwain">Umm Al Quwain</option>
+                </select>
+              </div>
+            </>
+          )}
 
           {/* Password */}
           <div>

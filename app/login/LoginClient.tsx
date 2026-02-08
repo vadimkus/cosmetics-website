@@ -288,6 +288,78 @@ export default function LoginClient() {
               />
             </div>
 
+            {/* Phone, Address, Emirate (only for registration) */}
+            {!isLoginMode && (
+              <>
+                <div>
+                  <label className={`block text-sm font-medium text-gray-700 mb-1.5 ${isRTL ? 'text-right' : ''}`}>
+                    {t('login.uaePhoneNumber')} *
+                  </label>
+                  <input
+                    type="tel"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleInputChange}
+                    placeholder={t('login.uaePhoneNumberPlaceholder')}
+                    className={`w-full px-4 py-3.5 bg-white text-gray-900 border border-gray-200 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all placeholder:text-gray-400 ${isRTL ? 'text-right' : ''}`}
+                    required
+                    dir="ltr"
+                  />
+                </div>
+                <div>
+                  <label className={`block text-sm font-medium text-gray-700 mb-1.5 ${isRTL ? 'text-right' : ''}`}>
+                    {t('login.uaeAddress')} *
+                  </label>
+                  <input
+                    type="text"
+                    name="address"
+                    value={formData.address}
+                    onChange={handleInputChange}
+                    placeholder={t('login.uaeAddressPlaceholder')}
+                    className={`w-full px-4 py-3.5 bg-white text-gray-900 border border-gray-200 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all placeholder:text-gray-400 ${isRTL ? 'text-right' : ''}`}
+                    required
+                    dir={dir}
+                  />
+                </div>
+                <div>
+                  <label className={`block text-sm font-medium text-gray-700 mb-1.5 ${isRTL ? 'text-right' : ''}`}>
+                    {t('login.selectEmirate')} *
+                  </label>
+                  <select
+                    name="emirate"
+                    value={formData.emirate}
+                    onChange={handleInputChange}
+                    className={`w-full px-4 py-3.5 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all ${formData.emirate ? 'text-gray-900' : 'text-gray-400'} ${isRTL ? 'text-right' : ''}`}
+                    required
+                  >
+                    <option value="">{t('login.selectEmirate')}</option>
+                    <option value="Dubai">Dubai</option>
+                    <option value="Abu Dhabi">Abu Dhabi</option>
+                    <option value="Sharjah">Sharjah</option>
+                    <option value="Ajman">Ajman</option>
+                    <option value="Ras Al Khaimah">Ras Al Khaimah</option>
+                    <option value="Fujairah">Fujairah</option>
+                    <option value="Umm Al Quwain">Umm Al Quwain</option>
+                  </select>
+                </div>
+                <div>
+                  <label className={`block text-sm font-medium text-gray-700 mb-1.5 ${isRTL ? 'text-right' : ''}`}>
+                    {t('login.birthday')}
+                  </label>
+                  <input
+                    type="date"
+                    name="birthday"
+                    value={formData.birthday}
+                    onChange={handleInputChange}
+                    className={`w-full px-4 py-3.5 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all ${formData.birthday ? 'text-gray-900' : 'text-gray-400'} ${isRTL ? 'text-right' : ''}`}
+                  />
+                  <p className={`text-xs text-gray-500 mt-1 flex items-center gap-1 ${isRTL ? 'flex-row-reverse justify-end' : ''}`}>
+                    {t('login.birthdayMessage')} <Gift className="h-3 w-3 text-red-500" />
+                  </p>
+                </div>
+              </>
+            )}
+
             {/* Password */}
             <div>
               <label className={`block text-sm font-medium text-gray-700 mb-1.5 ${isRTL ? 'text-right' : ''}`}>

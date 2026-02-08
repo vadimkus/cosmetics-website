@@ -2,11 +2,19 @@
 
 ## Summary
 
-Four critical bugs fixed across web and native app:
-1. **Missing registration fields** — Mobile web form was missing Phone, Address, Emirate, and Birthday fields, preventing users from registering
-2. **Registration hang (5+ minutes)** — API blocked on SMTP emails and geolocation before returning response; users saw infinite spinner
-3. **Native app "Build Your Set" 500 error** — Mobile-session auth bridge hit cold Neon DB, causing 500; eliminated DB dependency entirely
+Seven issues fixed across web and native app:
+
+1. **Missing registration fields (mobile web)** — Mobile web form was missing Phone, Address, Emirate, and Birthday fields
+2. **Registration hang (5+ minutes)** — API blocked on SMTP emails and geolocation; now uses `after()` for instant response
+3. **Native app "Build Your Set" 500 error** — Mobile-session auth bridge hit cold Neon DB; eliminated DB dependency
 4. **WebView error handling** — Native app WebView showed blank page on errors; now shows retry UI
+5. **Native app registration missing fields** — Added Phone, Address, Emirate, Birthday to native app registration
+6. **Native app login/register toggle layout** — Changed from inline to vertical stacked layout
+7. **Forgot Password spacing** — Removed extra 24px margin below the link
+
+**Also fixed:**
+- **App icon mismatch** — Native iOS icon was wrong (red bg); replaced with correct PWA-style icon (white bg, red logo)
+- **Apple rejection (ITMS-90683)** — Added missing `NSSpeechRecognitionUsageDescription` to Info.plist
 
 ---
 
@@ -351,7 +359,14 @@ c1f7191 debug: show failing URL in WebView error screen to diagnose 500
 | File | Changes |
 |------|---------|
 | `app/webview.js` | Added `onHttpError`/`onError` handlers, error screen with retry, URL display |
+| `app/auth/login.js` | Added Phone, Address, Emirate, Birthday fields; vertical toggle layout; removed Forgot Password margin |
+| `contexts/AuthContext.js` | Updated `register()` to accept extra fields object |
+| `services/authService.js` | Updated `registerUser()` to send phone, address, emirate, birthday to API |
+| `i18n/messages/en.json` | Added 13 translation keys for registration fields |
+| `i18n/messages/ar.json` | Added 13 translation keys for registration fields (Arabic) |
+| `i18n/messages/ru.json` | Added 13 translation keys for registration fields (Russian) |
 | `ios/GenosysUAE/Info.plist` | Added `NSSpeechRecognitionUsageDescription` for App Store compliance; updated `NSMicrophoneUsageDescription` |
+| `ios/GenosysUAE/Images.xcassets/AppIcon.appiconset/App-Icon-1024x1024@1x.png` | Replaced with correct PWA-style icon (white bg, red logo) |
 
 ---
 
@@ -406,11 +421,108 @@ Apple rejected Build 35 with error `ITMS-90683: Missing purpose string in Info.p
 
 ### What's Included in Build 36
 
-All fixes from this session:
-
 1. **WebView error handling** — Users see retry UI instead of blank page on HTTP/network errors
 2. **Failing URL display** — Error screen shows the URL that failed, aiding debugging
 3. **Speech recognition privacy** — Added required `NSSpeechRecognitionUsageDescription`
+
+---
+
+## Bug 5: Native App Registration Missing Fields
+
+### Problem
+
+The native Expo app's registration form (in `app/auth/login.js`) only had 3 fields:
+- Full Name
+- Email
+- Password
+
+The mobile web and PWA versions had additional required fields (Phone, Address, Emirate) and an optional Birthday field. Users registering via the native app would have incomplete profiles.
+
+### Fix — 4 Files Changed (genosys-mobile-app)
+
+| File | Change |
+|------|--------|
+| `app/auth/login.js` | Added Phone, Address, Emirate (required) and Birthday (optional) fields to registration form |
+| `contexts/AuthContext.js` | Updated `register()` to accept and pass extra fields object |
+| `services/authService.js` | Updated `registerUser()` to send phone, address, emirate, birthday to API |
+| `i18n/messages/en.json` | Added 13 translation keys for new fields |
+| `i18n/messages/ar.json` | Added 13 translation keys for new fields (Arabic) |
+| `i18n/messages/ru.json` | Added 13 translation keys for new fields (Russian) |
+
+**New Registration Fields:**
+
+| Field | Type | Required | Details |
+|-------|------|----------|---------|
+| UAE Phone Number | `phone-pad` | Yes | Always LTR, placeholder: +971 50 123 4567 |
+| Delivery Address | `text` | Yes | RTL-aware |
+| Emirate | Modal picker | Yes | All 7 UAE emirates with checkmark selection |
+| Birthday | `text` | No | YYYY-MM-DD format, with gift hint |
+
+**UI Improvements:**
+- Required fields marked with red asterisk (*)
+- Emirate picker modal with proper styling
+- Birthday field has hint: "Get a special gift on your birthday! 🎁"
+- Full RTL support for Arabic
+
+**Translation Keys Added (authScreen):**
+
+```json
+"phoneLabel": "UAE Phone Number",
+"phonePlaceholder": "+971 50 123 4567",
+"phoneRequired": "Please enter your phone number",
+"addressLabel": "Delivery Address",
+"addressPlaceholder": "Building, street, area",
+"addressRequired": "Please enter your address",
+"emirateLabel": "Emirate",
+"selectEmirate": "Select Emirate",
+"emirateRequired": "Please select your emirate",
+"birthdayLabel": "Birthday (optional)",
+"birthdayPlaceholder": "YYYY-MM-DD",
+"birthdayHint": "Get a special gift on your birthday! 🎁"
+```
+
+---
+
+## Bug 6: Native App Login/Register Toggle Layout
+
+### Problem
+
+The "Don't have an account? Sign Up" / "Already have an account? Sign In" text and link were displayed inline on the same line, which looked cramped.
+
+### Fix
+
+Changed layout so the question text and action link are stacked vertically:
+- "Don't have an account?" on one line (centered)
+- "Sign Up" button below it (centered, larger, bolder)
+
+| File | Change |
+|------|--------|
+| `app/auth/login.js` | Changed `switchMode` from row to column layout; removed `switchModeRTL`; added `switchModeButtonWrap` |
+
+**Style Changes:**
+```javascript
+// Before
+switchMode: { flexDirection: 'row', ... }
+
+// After
+switchMode: { alignItems: 'center', ... }
+switchModeButtonWrap: { marginTop: 6 }
+switchModeButton: { fontSize: 15, fontWeight: '700' }
+```
+
+---
+
+## Bug 7: Extra Space Below "Forgot Password"
+
+### Problem
+
+There was unnecessary blank space (24px margin) below the "Forgot Password?" link.
+
+### Fix
+
+| File | Change |
+|------|--------|
+| `app/auth/login.js` | Changed `forgotPassword.marginBottom` from 24 to 0 |
 
 ### TestFlight Links
 
@@ -465,14 +577,29 @@ All changes committed and pushed to `main`:
 | `8eb5fc9` | chore: sync build number to 35 after TestFlight submission |
 | `86f3636` | fix: add NSSpeechRecognitionUsageDescription to Info.plist for App Store compliance |
 | `01644e6` | chore: sync build number to 36 after TestFlight submission |
+| `6cfc786` | fix: replace native iOS app icon with correct PWA-style icon (white bg, red logo) |
+
+**Uncommitted changes (ready to commit):**
+- `app/auth/login.js` — Registration fields + vertical toggle layout + Forgot Password margin fix
+- `contexts/AuthContext.js` — Pass extra fields to register
+- `services/authService.js` — Send extra fields to API
+- `i18n/messages/en.json` — 12 new translation keys
+- `i18n/messages/ar.json` — 12 new translation keys
+- `i18n/messages/ru.json` — 12 new translation keys
 
 ---
 
 ## Next Steps
 
-1. **Wait for Apple processing** — Apple typically processes TestFlight builds in 5-10 minutes
-2. **Test on TestFlight** — Once available, install Build 35 and verify:
+1. **Commit pending native app changes** — Registration fields, toggle layout, forgot password spacing
+2. **Build & submit to TestFlight** — Create Build 37 with all native app fixes:
+   - New registration fields (phone, address, emirate, birthday)
+   - Vertical login/register toggle layout
+   - Removed Forgot Password margin
+   - Correct app icon (already in Build 36)
+3. **Test on TestFlight** — Verify:
+   - Registration collects all required fields
    - "Build Your Set" works when logged in
-   - WebView errors show retry UI (can test by disconnecting network)
-   - Registration works on mobile web
-3. **Monitor production** — Check Vercel logs for any remaining edge cases
+   - WebView errors show retry UI
+   - App icon displays correctly
+4. **Monitor production** — Check Vercel logs for any remaining edge cases

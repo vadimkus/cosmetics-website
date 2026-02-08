@@ -15,6 +15,9 @@ const transporter = nodemailer.createTransport({
     user: EMAIL_USER || GMAIL_USER,
     pass: EMAIL_PASSWORD || GMAIL_APP_PASSWORD,
   },
+  connectionTimeout: 10000,  // 10s to establish connection
+  greetingTimeout: 10000,    // 10s for SMTP greeting
+  socketTimeout: 30000,      // 30s for socket inactivity (default was 10 MINUTES!)
 })
 
 // Verify connection configuration

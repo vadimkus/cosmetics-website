@@ -307,11 +307,28 @@ export default function AuthProvider({ children }: AuthProviderProps) {
         return false
       }
 
-      const response = await fetch('/api/auth/register', {
-        method: 'POST',
-        headers: getCsrfHeaders(),
-        body: JSON.stringify(addCsrfToBody({ name, email, password, phone, address, emirate, birthday: birthday || '', promoCode: promoCode || '' })),
-      })
+      // Add timeout to prevent hanging (matches login timeout)
+      const controller = new AbortController()
+      const timeoutId = setTimeout(() => controller.abort(), 30000) // 30 second timeout
+
+      let response
+      try {
+        response = await fetch('/api/auth/register', {
+          method: 'POST',
+          headers: getCsrfHeaders(),
+          body: JSON.stringify(addCsrfToBody({ name, email, password, phone, address, emirate, birthday: birthday || '', promoCode: promoCode || '' })),
+          signal: controller.signal
+        })
+      } catch (error) {
+        clearTimeout(timeoutId)
+        if (error instanceof Error && error.name === 'AbortError') {
+          showToast(t('auth.registrationTimeout') || 'Registration is taking too long. Please try again.', 'error')
+        } else {
+          throw error
+        }
+        return false
+      }
+      clearTimeout(timeoutId)
 
       const data = await response.json()
 

@@ -17,11 +17,16 @@ export async function getCountryFromIP(ipAddress: string): Promise<string | null
       return 'Local'
     }
 
+    const controller = new AbortController()
+    const timeoutId = setTimeout(() => controller.abort(), 5000) // 5s timeout
+
     const response = await fetch(`https://ipapi.co/${ipAddress}/json/`, {
       headers: {
         'User-Agent': 'Cosmetics-Website-Analytics/1.0'
-      }
+      },
+      signal: controller.signal
     })
+    clearTimeout(timeoutId)
 
     if (!response.ok) {
       warnLog(`Failed to get geolocation for IP ${ipAddress}: ${response.status}`)
@@ -37,6 +42,10 @@ export async function getCountryFromIP(ipAddress: string): Promise<string | null
 
     return data.country_name || null
   } catch (error) {
+    if (error instanceof Error && error.name === 'AbortError') {
+      warnLog(`Geolocation timeout for IP ${ipAddress} (5s)`)
+      return null
+    }
     errorLog(`Error getting geolocation for IP ${ipAddress}:`, error)
     return null
   }
@@ -70,11 +79,16 @@ export async function getGeolocationData(ipAddress: string): Promise<Geolocation
       }
     }
 
+    const controller = new AbortController()
+    const timeoutId = setTimeout(() => controller.abort(), 5000) // 5s timeout
+
     const response = await fetch(`https://ipapi.co/${ipAddress}/json/`, {
       headers: {
         'User-Agent': 'Cosmetics-Website-Analytics/1.0'
-      }
+      },
+      signal: controller.signal
     })
+    clearTimeout(timeoutId)
 
     if (!response.ok) {
       return null
@@ -93,6 +107,10 @@ export async function getGeolocationData(ipAddress: string): Promise<Geolocation
       region: data.region || 'Unknown'
     }
   } catch (error) {
+    if (error instanceof Error && error.name === 'AbortError') {
+      warnLog(`Geolocation data timeout for IP ${ipAddress} (5s)`)
+      return null
+    }
     errorLog(`Error getting geolocation data for IP ${ipAddress}:`, error)
     return null
   }

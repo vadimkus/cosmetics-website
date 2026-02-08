@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server'
+import { NextRequest, NextResponse, after } from 'next/server'
 import { Prisma } from '@prisma/client'
 import { findUserByEmail } from '@/lib/userStorageDb'
 import { prisma } from '@/lib/database'
@@ -184,86 +184,94 @@ export async function POST(request: NextRequest) {
       throw error
     }
 
-    // Track user registration
-    await trackUserAction({
-      action: 'user_registered',
-      userEmail: normalizedEmail,
-      details: `New user registered: ${name}`
-    })
+    // Return success response immediately (without password)
+    // Don't make the user wait for emails/analytics - run them in background
+    const { password: __, ...userWithoutPassword } = createdUser
 
-    // Send welcome email to user (skip Apple Private Relay emails)
-    if (isApplePrivateRelayEmail(normalizedEmail)) {
-      debugLog('⏭️ Skipping welcome email for Apple Private Relay user:', normalizedEmail)
-    } else {
+    // Capture request headers before returning response (headers may not be available in after())
+    const userAgent = request.headers.get('user-agent') || 'Unknown'
+    const ipAddress = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
+                      request.headers.get('x-real-ip') ||
+                      'Unknown'
+
+    // Run background tasks AFTER the response is sent using Next.js after() API
+    // This ensures the user gets an instant response while emails/analytics run in background
+    after(async () => {
+      // Track user registration
       try {
-        await sendWelcomeEmail(name, normalizedEmail, password, locale)
-        debugLog('✅ Welcome email sent to:', normalizedEmail)
-      } catch (emailError) {
-        errorLog('❌ Failed to send welcome email:', emailError)
-        // Don't fail registration if email fails
+        await trackUserAction({
+          action: 'user_registered',
+          userEmail: normalizedEmail,
+          details: `New user registered: ${name}`
+        })
+      } catch (err) {
+        errorLog('❌ Failed to track user registration:', err)
       }
-    }
 
-    // Send admin notification
-    try {
-      // Extract device and location information
-      const userAgent = request.headers.get('user-agent') || 'Unknown'
-      const ipAddress = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
-                        request.headers.get('x-real-ip') ||
-                        'Unknown'
-      
-      // Parse device information
-      const deviceInfo = parseUserAgent(userAgent)
-      
-      // Get geolocation data
-      const geoData = await getGeolocationData(ipAddress)
-      
-      // Calculate age from birthday if available
-      let age: number | undefined
-      if (birthday) {
-        const birthDate = new Date(birthday)
-        const today = new Date()
-        age = today.getFullYear() - birthDate.getFullYear()
-        const monthDiff = today.getMonth() - birthDate.getMonth()
-        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
-          age--
+      // Send welcome email to user (skip Apple Private Relay emails)
+      if (isApplePrivateRelayEmail(normalizedEmail)) {
+        debugLog('⏭️ Skipping welcome email for Apple Private Relay user:', normalizedEmail)
+      } else {
+        try {
+          await sendWelcomeEmail(name, normalizedEmail, password, locale)
+          debugLog('✅ Welcome email sent to:', normalizedEmail)
+        } catch (emailError) {
+          errorLog('❌ Failed to send welcome email:', emailError)
         }
       }
-      
-      // Build additionalInfo object, only including defined values
-      const additionalInfo: Record<string, string | number> = {}
-      if (ipAddress) additionalInfo.ipAddress = ipAddress
-      if (geoData?.country) additionalInfo.country = geoData.country
-      if (geoData?.city) additionalInfo.city = geoData.city
-      additionalInfo.deviceType = deviceInfo.deviceType as string
-      if (deviceInfo.deviceModel) additionalInfo.deviceModel = deviceInfo.deviceModel
-      if (deviceInfo.os) additionalInfo.os = deviceInfo.os
-      if (deviceInfo.browser) additionalInfo.browser = deviceInfo.browser
-      if (age) additionalInfo.age = age
-      
-      const adminResult = await sendAdminNewUserNotification(
-        name, 
-        normalizedEmail, 
-        phone, 
-        fullAddress, 
-        'Email/Password',
-        additionalInfo
-      )
-      
-      if (adminResult && adminResult.success) {
-        debugLog('✅ Admin notification sent for new user:', normalizedEmail)
-      } else {
-        errorLog('❌ Failed to send admin notification:', adminResult?.error || 'Unknown error')
-        errorLog('❌ Admin notification error details:', JSON.stringify(adminResult, null, 2))
-      }
-    } catch (emailError) {
-      errorLog('❌ Exception sending admin notification:', emailError)
-      errorLog('❌ Exception details:', emailError instanceof Error ? emailError.message : String(emailError))
-      // Don't fail registration if email fails
-    }
 
-    // Return success response (without password)
-    const { password: __, ...userWithoutPassword } = createdUser
+      // Send admin notification
+      try {
+        // Parse device information
+        const deviceInfo = parseUserAgent(userAgent)
+        
+        // Get geolocation data
+        const geoData = await getGeolocationData(ipAddress)
+        
+        // Calculate age from birthday if available
+        let age: number | undefined
+        if (birthday) {
+          const birthDate = new Date(birthday)
+          const today = new Date()
+          age = today.getFullYear() - birthDate.getFullYear()
+          const monthDiff = today.getMonth() - birthDate.getMonth()
+          if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+            age--
+          }
+        }
+        
+        // Build additionalInfo object, only including defined values
+        const additionalInfo: Record<string, string | number> = {}
+        if (ipAddress) additionalInfo.ipAddress = ipAddress
+        if (geoData?.country) additionalInfo.country = geoData.country
+        if (geoData?.city) additionalInfo.city = geoData.city
+        additionalInfo.deviceType = deviceInfo.deviceType as string
+        if (deviceInfo.deviceModel) additionalInfo.deviceModel = deviceInfo.deviceModel
+        if (deviceInfo.os) additionalInfo.os = deviceInfo.os
+        if (deviceInfo.browser) additionalInfo.browser = deviceInfo.browser
+        if (age) additionalInfo.age = age
+        
+        const adminResult = await sendAdminNewUserNotification(
+          name, 
+          normalizedEmail, 
+          phone, 
+          fullAddress, 
+          'Email/Password',
+          additionalInfo
+        )
+        
+        if (adminResult && adminResult.success) {
+          debugLog('✅ Admin notification sent for new user:', normalizedEmail)
+        } else {
+          errorLog('❌ Failed to send admin notification:', adminResult?.error || 'Unknown error')
+          errorLog('❌ Admin notification error details:', JSON.stringify(adminResult, null, 2))
+        }
+      } catch (emailError) {
+        errorLog('❌ Exception sending admin notification:', emailError)
+        errorLog('❌ Exception details:', emailError instanceof Error ? emailError.message : String(emailError))
+      }
+    })
+
     return NextResponse.json({
       success: true,
       user: userWithoutPassword,

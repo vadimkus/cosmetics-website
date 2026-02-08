@@ -34,15 +34,11 @@ export function usePWAMode() {
       // Check minimal-ui mode
       const isMinimalUI = window.matchMedia('(display-mode: minimal-ui)').matches
       
-      // Additional iOS PWA detection - check if running in iOS standalone via URL bar absence
-      // On iOS PWA, the window.innerHeight is closer to screen.height
-      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as Window & { MSStream?: unknown }).MSStream
-      const hasNoURLBar = isIOS && (window.innerHeight / screen.height > 0.85)
-      
-      // Check if launched from home screen via referrer (some PWAs set this)
-      const isLaunchedFromHomeScreen = document.referrer === '' && !document.hidden
-      
-      const result = isStandalone || isIOSStandalone || isFullscreen || isMinimalUI || (isIOS && hasNoURLBar && isLaunchedFromHomeScreen)
+      // Only use reliable PWA detection methods.
+      // The previous heuristic (innerHeight/screen.height + empty referrer) caused
+      // false positives for Chrome/Safari on iOS, incorrectly routing regular mobile
+      // web users to the PWA login page.
+      const result = isStandalone || isIOSStandalone || isFullscreen || isMinimalUI
       
       // Debug logging disabled - was spamming console with ~50+ component instances
       // Uncomment for debugging PWA detection issues:

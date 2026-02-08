@@ -46,28 +46,50 @@ export async function GET(request: NextRequest) {
     }
 
     // Verify mobile JWT token
-    const payload = verifyMobileToken(token)
+    let payload
+    try {
+      payload = verifyMobileToken(token)
+    } catch (tokenErr) {
+      errorLog('[MOBILE-SESSION] Token verification threw:', tokenErr)
+      return redirectWithoutSession(redirect, locale, request)
+    }
     if (!payload) {
       debugLog('[MOBILE-SESSION] Invalid or expired mobile token')
       return redirectWithoutSession(redirect, locale, request)
     }
 
+    debugLog('[MOBILE-SESSION] Token valid for userId:', payload.userId)
+
     // Look up user in database to get latest data
-    const user = await findUserById(payload.userId)
+    let user
+    try {
+      user = await findUserById(payload.userId)
+    } catch (dbErr) {
+      errorLog('[MOBILE-SESSION] DB lookup failed:', dbErr)
+      return redirectWithoutSession(redirect, locale, request)
+    }
     if (!user) {
       debugLog('[MOBILE-SESSION] User not found for userId:', payload.userId)
       return redirectWithoutSession(redirect, locale, request)
     }
 
+    debugLog('[MOBILE-SESSION] User found:', user.email)
+
     // Create a web session token (same format as regular login)
-    const sessionToken = createSessionToken({
-      id: user.id,
-      email: user.email,
-      name: user.name,
-      isAdmin: user.isAdmin || false,
-      canSeePrices: user.canSeePrices !== undefined ? user.canSeePrices : true,
-      profilePicture: user.profilePicture || null,
-    })
+    let sessionToken
+    try {
+      sessionToken = createSessionToken({
+        id: user.id,
+        email: user.email,
+        name: user.name || '',
+        isAdmin: user.isAdmin || false,
+        canSeePrices: user.canSeePrices !== false,
+        profilePicture: user.profilePicture || null,
+      })
+    } catch (sessionErr) {
+      errorLog('[MOBILE-SESSION] Session token creation failed:', sessionErr)
+      return redirectWithoutSession(redirect, locale, request)
+    }
 
     debugLog('[MOBILE-SESSION] Session created for user:', user.email)
 
@@ -76,8 +98,12 @@ export async function GET(request: NextRequest) {
     const redirectPath = redirect.startsWith('/') ? redirect : `/${redirect}`
     const finalUrl = `${localePrefix}${redirectPath}`
 
+    // Build absolute redirect URL
+    const origin = new URL(request.url).origin
+    const absoluteRedirectUrl = `${origin}${finalUrl}`
+
     // Create redirect response with session cookie
-    const response = NextResponse.redirect(new URL(finalUrl, request.url), 302)
+    const response = NextResponse.redirect(absoluteRedirectUrl, 302)
 
     response.cookies.set('genosys_session', sessionToken, {
       httpOnly: true,
@@ -89,10 +115,16 @@ export async function GET(request: NextRequest) {
 
     return response
   } catch (error) {
-    errorLog('[MOBILE-SESSION] Error:', error)
+    errorLog('[MOBILE-SESSION] Unhandled error:', error)
     // On any error, just redirect without session
-    const redirect = new URL(request.url).searchParams.get('redirect') || '/bundle-builder'
-    return NextResponse.redirect(new URL(redirect, request.url), 302)
+    try {
+      const parsedUrl = new URL(request.url)
+      const fallbackRedirect = parsedUrl.searchParams.get('redirect') || '/bundle-builder'
+      return NextResponse.redirect(`${parsedUrl.origin}${fallbackRedirect}`, 302)
+    } catch {
+      // Last resort: redirect to home
+      return NextResponse.redirect('https://genosys.ae/bundle-builder', 302)
+    }
   }
 }
 
@@ -107,6 +139,7 @@ function redirectWithoutSession(
 ): NextResponse {
   const localePrefix = locale && locale !== 'en' ? `/${locale}` : ''
   const redirectPath = redirect.startsWith('/') ? redirect : `/${redirect}`
-  const finalUrl = `${localePrefix}${redirectPath}`
-  return NextResponse.redirect(new URL(finalUrl, request.url), 302)
+  const finalPath = `${localePrefix}${redirectPath}`
+  const origin = new URL(request.url).origin
+  return NextResponse.redirect(`${origin}${finalPath}`, 302)
 }

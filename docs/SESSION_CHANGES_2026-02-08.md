@@ -388,20 +388,33 @@ All changes pass TypeScript compilation with zero errors in changed files.
 
 ## TestFlight Builds
 
-### Build 37 (Current) ✅
+### Build 38 (Current) ✅
 
 | Field | Value |
 |-------|-------|
 | App Name | Genosys UAE |
 | Version | 1.1.0 |
-| Build Number | 37 |
+| Build Number | 38 |
 | Bundle ID | ae.genosys.app |
 | SDK Version | Expo SDK 54 |
-| Build ID | `5ce0c61c-e7c3-4ca5-acae-39910c3a9973` |
-| Submission ID | `93149025-7152-4fd8-8dbb-45ecbb576fab` |
+| Build ID | `93d69e4e-9fd5-4a9e-a8cd-8c7662ffa47b` |
+| Submission ID | `18f962da-cbbd-470a-9001-1204266c3b7c` |
 
-**What's New in Build 37:**
-- Added Phone, Address, Emirate (required) and Birthday (optional) fields to registration form
+**What's New in Build 38:**
+- **Fixed app icon** — Logo now fills 72% of canvas (was 60%), matching PWA proportions exactly
+- Clean high-quality icon generated with LANCZOS resampling (fixes blur/artifacts from Build 37)
+
+### Build 37 ❌ (Icon Issues)
+
+| Field | Value |
+|-------|-------|
+| Build Number | 37 |
+| Build ID | `5ce0c61c-e7c3-4ca5-acae-39910c3a9973` |
+
+**Issues:** Icon appeared smaller and blurry compared to PWA. Logo only filled 60% of canvas.
+
+**Features (carried to Build 38):**
+- Phone, Address, Emirate (required) and Birthday (optional) fields in registration
 - Emirate picker modal with all 7 UAE emirates
 - Vertical layout for "Already have an account? Sign In" toggle
 - Removed extra spacing below "Forgot Password" link
@@ -540,8 +553,8 @@ There was unnecessary blank space (24px margin) below the "Forgot Password?" lin
 
 ### TestFlight Links
 
-- **Build 37 logs**: https://expo.dev/accounts/vadimkus/projects/genosys-mobile-app/builds/5ce0c61c-e7c3-4ca5-acae-39910c3a9973
-- **Build 37 submission**: https://expo.dev/accounts/vadimkus/projects/genosys-mobile-app/submissions/93149025-7152-4fd8-8dbb-45ecbb576fab
+- **Build 38 logs**: https://expo.dev/accounts/vadimkus/projects/genosys-mobile-app/builds/93d69e4e-9fd5-4a9e-a8cd-8c7662ffa47b
+- **Build 38 submission**: https://expo.dev/accounts/vadimkus/projects/genosys-mobile-app/submissions/18f962da-cbbd-470a-9001-1204266c3b7c
 - **App Store Connect**: https://appstoreconnect.apple.com/apps/6756648064/testflight/ios
 
 ### Build Commands Used
@@ -594,6 +607,8 @@ All changes committed and pushed to `main`:
 | `6cfc786` | fix: replace native iOS app icon with correct PWA-style icon (white bg, red logo) |
 | `e5d4b68` | feat: add phone, address, emirate, birthday fields to native registration |
 | `2405b5b` | chore: sync build number to 37 after TestFlight submission |
+| `2223a35` | fix: resize app icon to match PWA proportions (logo fills 72% vs 60%) |
+| `a03bf37` | chore: sync build number to 38 after TestFlight submission |
 
 ---
 

@@ -1,5 +1,78 @@
 # Session Changes - February 9, 2026
 
+## iOS App Store Launch & Download Links
+
+### Summary
+The Genosys UAE iOS app was approved and published to the App Store. Added official "Download on the App Store" badges throughout the website to promote the app.
+
+### App Details
+
+| Field | Value |
+|-------|-------|
+| App Name | Genosys UAE |
+| Version | 1.1.0 |
+| Platform | iOS |
+| App SKU | GENOSYSUAE001 |
+| Apple ID | 6756648064 |
+| App Store URL | https://apps.apple.com/app/id6756648064 |
+
+### Features Added
+
+1. **Homepage App Store Badge** (`components/Hero.tsx`)
+   - Official Apple badge design (black rounded rectangle)
+   - Apple logo + two-line text: "Download on the" / "App Store"
+   - Positioned below AI Skin Analysis link
+   - Both mobile and desktop layouts
+   - Localized for EN, AR, RU
+
+2. **Mobile Web Hamburger Menu** (`components/header/MobileWebHeader.tsx`)
+   - Centered badge with subtle border
+   - Compact, elegant design matching Apple guidelines
+   - Positioned after AI Skin Analysis / Training links
+   - Vertically centered Apple icon
+
+### Badge Design
+
+```jsx
+// Official Apple App Store badge style
+<a 
+  href="https://apps.apple.com/app/id6756648064"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="inline-flex items-center gap-2 bg-black text-white px-4 py-2 rounded-lg"
+>
+  <AppleIcon className="w-6 h-6" />
+  <div className="flex flex-col leading-tight">
+    <span className="text-[10px]">Download on the</span>
+    <span className="text-base font-semibold">App Store</span>
+  </div>
+</a>
+```
+
+### Translations
+
+| Language | "Download on the" |
+|----------|-------------------|
+| English | Download on the |
+| Arabic | حمّل من |
+| Russian | Загрузите в |
+
+### Files Changed
+
+| File | Change Type | Description |
+|------|-------------|-------------|
+| `components/Hero.tsx` | Modified | Added App Store badge (mobile + desktop) |
+| `components/header/MobileWebHeader.tsx` | Modified | Added App Store button in hamburger menu |
+
+### Commits
+
+1. `8a62f955` - feat: add App Store download links for iOS app launch
+2. `24d57b0a` - style: update App Store badge to official Apple design
+3. `cac00ed1` - style: refine App Store badge in hamburger menu
+4. `a292efc6` - fix: center Apple icon vertically in App Store badge
+
+---
+
 ## Admin Online Users Feature
 
 ### Summary

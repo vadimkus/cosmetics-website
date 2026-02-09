@@ -134,6 +134,25 @@
 
 ---
 
+### 📲 iOS Native App
+
+**App Store:** [Genosys UAE](https://apps.apple.com/app/id6756648064)
+
+| Detail | Value |
+|--------|-------|
+| App Name | Genosys UAE |
+| Version | 1.1.0 |
+| Apple ID | 6756648064 |
+| SKU | GENOSYSUAE001 |
+| Status | **Live on App Store** (Feb 9, 2026) |
+
+**Website Integration:**
+- App Store badge on homepage (Hero component)
+- Download link in mobile hamburger menu
+- Localized for EN, AR, RU
+
+---
+
 ### 🔐 User Authentication
 
 | File | Description |

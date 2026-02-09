@@ -643,6 +643,9 @@
     }
   },
   "training": {
+    "title": "التدريب المهني",
+    "documents": "مستندات التدريب",
+    "videos": "فيديوهات التدريب",
     "trainingDocuments": "مستندات التدريب",
     "videoLessons": "دروس فيديو",
     "categories": "الفئات",

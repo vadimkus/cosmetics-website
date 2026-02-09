@@ -830,6 +830,9 @@
     "phoneHint": "Your phone number"
   },
   "training": {
+    "title": "Professional Training",
+    "documents": "Training Documents",
+    "videos": "Training Videos",
     "trainingDocuments": "Training Documents",
     "videoLessons": "Video Lessons",
     "categories": "Categories",

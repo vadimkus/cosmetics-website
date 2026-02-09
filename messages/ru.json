@@ -875,6 +875,9 @@
     "requestNewLink": "Запросить новую ссылку"
   },
   "training": {
+    "title": "Профессиональное обучение",
+    "documents": "Учебные материалы",
+    "videos": "Видеоуроки",
     "trainingDocuments": "Учебные материалы",
     "videoLessons": "Видеоуроки",
     "categories": "Категории",

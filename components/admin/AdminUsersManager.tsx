@@ -16,10 +16,38 @@ interface User {
   discountType?: string | null
   discountPercentage?: number | null
   lastLoginAt?: string | null
+  lastActiveAt?: string | null // For online status tracking
   createdAt: string
   orderCount?: number
   totalSpent?: number
   lastOrderDate?: string | null
+}
+
+// Helper function to check if user is online (active within last 5 minutes)
+function isUserOnline(lastActiveAt: string | null | undefined): boolean {
+  if (!lastActiveAt) return false
+  const fiveMinutesAgo = Date.now() - 5 * 60 * 1000
+  return new Date(lastActiveAt).getTime() > fiveMinutesAgo
+}
+
+// Helper function to format last active time
+function formatLastActive(lastActiveAt: string | null | undefined): string {
+  if (!lastActiveAt) return 'Never'
+  
+  const now = Date.now()
+  const timestamp = new Date(lastActiveAt).getTime()
+  const diffMs = now - timestamp
+  const diffMinutes = Math.floor(diffMs / (60 * 1000))
+  const diffHours = Math.floor(diffMs / (60 * 60 * 1000))
+  const diffDays = Math.floor(diffMs / (24 * 60 * 60 * 1000))
+
+  if (diffMinutes < 5) return 'Online now'
+  if (diffMinutes < 60) return `${diffMinutes}m ago`
+  if (diffHours < 24) return `${diffHours}h ago`
+  if (diffDays === 1) return 'Yesterday'
+  if (diffDays < 7) return `${diffDays}d ago`
+  
+  return new Date(lastActiveAt).toLocaleDateString()
 }
 
 interface AdminUsersManagerProps {
@@ -100,7 +128,11 @@ export default function AdminUsersManager({
             <div>
               <h2 className="text-xl font-bold text-gray-900">Users</h2>
               <p className="text-sm text-gray-500">Manage registered users</p>
-              <div className="flex items-center gap-3 mt-2 text-xs">
+              <div className="flex items-center gap-3 mt-2 text-xs flex-wrap">
+                <div className="flex items-center gap-1">
+                  <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                  <span className="text-gray-600">Online</span>
+                </div>
                 <div className="flex items-center gap-1">
                   <div className="w-4 h-4 bg-green-50 border border-green-200 rounded"></div>
                   <span className="text-gray-600">Has orders</span>
@@ -173,16 +205,34 @@ export default function AdminUsersManager({
                         >
                         <td className="px-2 sm:px-3 md:px-6 py-4 whitespace-nowrap">
                           <div className="flex items-center">
-                            <div className="flex-shrink-0 h-10 w-10">
+                            <div className="flex-shrink-0 h-10 w-10 relative">
                               <div className="h-10 w-10 rounded-full bg-gray-200 flex items-center justify-center">
                                 <span className="text-sm font-medium text-gray-700">
                                   {user.name?.charAt(0)?.toUpperCase() || '?'}
                                 </span>
                               </div>
+                              {/* Online indicator */}
+                              {isUserOnline(user.lastActiveAt) && (
+                                <div 
+                                  className="absolute -bottom-0.5 -right-0.5 h-3.5 w-3.5 bg-green-500 border-2 border-white rounded-full"
+                                  title="Online now"
+                                />
+                              )}
                             </div>
                             <div className="ml-4">
-                              <div className="text-sm font-medium text-gray-900">{user.name || 'Unknown'}</div>
+                              <div className="text-sm font-medium text-gray-900 flex items-center gap-2">
+                                {user.name || 'Unknown'}
+                                {isUserOnline(user.lastActiveAt) && (
+                                  <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium bg-green-100 text-green-700">
+                                    Online
+                                  </span>
+                                )}
+                              </div>
                               <div className="text-sm text-gray-500">{user.email}</div>
+                              {/* Last active time */}
+                              <div className="text-xs text-gray-400">
+                                {formatLastActive(user.lastActiveAt)}
+                              </div>
                             </div>
                           </div>
                         </td>

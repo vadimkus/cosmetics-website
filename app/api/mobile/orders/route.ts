@@ -8,6 +8,7 @@ import { generateUniqueOrderNumber } from '@/lib/orderNumber'
 import { getPreferredEmail } from '@/lib/emailHelpers'
 import { calculateMobileShipping, calculateVatIncluded } from '@/lib/mobileCheckoutConfig'
 import { isUserDiscountExcludedProduct } from '@/lib/mobileDiscountRules'
+import { trackUserActivity } from '@/lib/activityTracker'
 
 const extractPaymentFlow = (order: { paymentMetadata?: string | Record<string, unknown> | null; payment_metadata?: string | Record<string, unknown> | null }): string | null => {
   const raw = order?.paymentMetadata ?? order?.payment_metadata ?? null
@@ -99,6 +100,9 @@ export async function GET(request: NextRequest) {
         { status: 404 }
       )
     }
+
+    // Track user activity (throttled, non-blocking)
+    trackUserActivity(user.id)
 
     // Parse query parameters
     const { searchParams } = new URL(request.url)

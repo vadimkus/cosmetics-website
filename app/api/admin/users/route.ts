@@ -58,6 +58,7 @@ export async function GET(request: NextRequest) {
       discountPercentage: true,
       birthday: true,
       lastLoginAt: true,
+      lastActiveAt: true, // For online status in admin dashboard
       createdAt: true,
       updatedAt: true
     }
@@ -65,6 +66,12 @@ export async function GET(request: NextRequest) {
     let users
     let totalCount
     
+    // Sort by lastActiveAt (online users first), then by createdAt
+    const orderBy = [
+      { lastActiveAt: 'desc' as const }, // Online/recently active users first
+      { createdAt: 'desc' as const }     // Then by registration date
+    ]
+
     if (search && search.length > 0) {
       // Search query with where clause
       debugLog('🔍 Executing search query')
@@ -72,7 +79,7 @@ export async function GET(request: NextRequest) {
         prisma.user.findMany({
           where: whereClause,
           select: selectFields,
-          orderBy: { createdAt: 'desc' },
+          orderBy,
           take: limit,
           skip: offset
         }),
@@ -86,7 +93,7 @@ export async function GET(request: NextRequest) {
       const [userResults, count] = await Promise.all([
         prisma.user.findMany({
           select: selectFields,
-          orderBy: { createdAt: 'desc' },
+          orderBy,
           take: limit,
           skip: offset
         }),

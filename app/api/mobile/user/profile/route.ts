@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { validateMobileAuth, extractTokenFromHeader } from '@/lib/jwt'
 import { findUserByEmail, updateUser } from '@/lib/userStorageDb'
 import { debugLog, errorLog } from '@/lib/logger'
+import { trackUserActivity } from '@/lib/activityTracker'
 
 /**
  * Mobile User Profile Endpoint
@@ -61,6 +62,9 @@ export async function GET(request: NextRequest) {
         { status: 404 }
       )
     }
+
+    // Track user activity (throttled, non-blocking)
+    trackUserActivity(user.id)
 
     // Return user profile (without password)
     const { password: __, ...userProfile } = user

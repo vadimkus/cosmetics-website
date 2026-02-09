@@ -3,6 +3,7 @@ import { findUserByEmail, updateUser } from '@/lib/userStorageDb'
 import { generateMobileToken, validateMobileAuth } from '@/lib/jwt'
 import { rateLimitSimple, getClientIdentifierFromNextRequest } from '@/lib/rateLimitSimple'
 import { debugLog, errorLog } from '@/lib/logger'
+import { trackUserActivityNow } from '@/lib/activityTracker'
 import bcrypt from 'bcryptjs'
 
 // Rate limiting for mobile login
@@ -128,9 +129,11 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Update last login timestamp
+    // Update last login timestamp and activity
     try {
       await updateUser(user.id, { lastLoginAt: new Date().toISOString() })
+      // Also update lastActiveAt immediately on login
+      await trackUserActivityNow(user.id)
     } catch (error) {
       errorLog('Error updating last login timestamp:', error)
       // Don't fail login if timestamp update fails

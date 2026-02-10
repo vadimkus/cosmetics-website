@@ -8,6 +8,7 @@ import { prisma } from '@/lib/prisma'
 import { requireAdminAuth } from '@/lib/adminAuth'
 import { requireCsrfToken } from '@/lib/csrf'
 import { isTwilioConfigured } from '@/lib/twilio'
+import { sendOrderStatusPushNotification, isValidExpoPushToken, OrderStatus, Locale } from '@/lib/expoPush'
 
 export async function PUT(
   request: NextRequest,
@@ -134,6 +135,42 @@ export async function PUT(
         errorLog('❌ Exception sending WhatsApp notification:', whatsappError)
         // Don't fail the status update if WhatsApp fails
       }
+    }
+
+    // Send Expo Push Notification to mobile app (non-blocking)
+    try {
+      // Find user to get their Expo push token
+      const userForPush = await findUserByEmail(order.customerEmail)
+      
+      if (userForPush?.expoPushToken && isValidExpoPushToken(userForPush.expoPushToken)) {
+        const pushResult = await sendOrderStatusPushNotification({
+          expoPushToken: userForPush.expoPushToken,
+          orderNumber: order.orderNumber,
+          status: status as OrderStatus,
+          orderId: id,
+          locale: (order.locale || 'en') as Locale,
+        })
+        
+        if (pushResult.success) {
+          debugLog(`✅ Push notification sent for order ${id} (ticket: ${pushResult.ticketId})`)
+        } else {
+          errorLog(`❌ Push notification failed for order ${id}:`, pushResult.error)
+          
+          // If device is no longer registered, clear the token
+          if (pushResult.error === 'DeviceNotRegistered') {
+            debugLog(`🗑️ Clearing invalid push token for user ${userForPush.email}`)
+            await prisma.user.update({
+              where: { id: userForPush.id },
+              data: { expoPushToken: null },
+            })
+          }
+        }
+      } else {
+        debugLog(`⏭️ No valid push token for user ${order.customerEmail}, skipping push notification`)
+      }
+    } catch (pushError) {
+      errorLog('❌ Exception sending push notification:', pushError)
+      // Don't fail the status update if push fails
     }
 
     return NextResponse.json({ 

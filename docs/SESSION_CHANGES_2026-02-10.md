@@ -393,4 +393,95 @@ When `x-user-id` header is provided:
 
 ---
 
+---
+
+## Expo Push Notifications for Order Status Updates
+
+### Summary
+When an admin changes an order's status (e.g., Confirmed, Shipped, Delivered), the customer's mobile app now receives a beautiful push notification with localized text. Tapping the notification opens the Orders page.
+
+### Backend Changes
+
+#### New Service: `lib/expoPush.ts`
+Expo push notification service using `expo-server-sdk`.
+
+Features:
+- Beautiful localized notification messages for all 6 statuses (EN, AR, RU)
+- Token validation using `Expo.isExpoPushToken()`
+- Automatic cleanup of invalid tokens (`DeviceNotRegistered` → clears from DB)
+- Batch sending support for future promotional notifications
+- Receipt checking for delivery verification
+
+#### Notification Messages
+
+| Status | English | Emoji |
+|--------|---------|-------|
+| PENDING | "We've received your order #123. We'll confirm it shortly." | 🛒 |
+| CONFIRMED | "Great news! Your order #123 has been confirmed and is being prepared." | ✅ |
+| PAID | "Thank you! Payment for order #123 has been received." | 💳 |
+| SHIPPED | "Your order #123 is on its way! Track your delivery in the app." | 📦 |
+| DELIVERED | "Your order #123 has been delivered. Enjoy your GENOSYS products!" | 🎉 |
+| CANCELLED | "Your order #123 has been cancelled. Contact us if you have questions." | ❌ |
+
+All messages available in Arabic and Russian as well.
+
+#### Integration: `app/api/admin/orders/[id]/route.ts`
+Added push notification sending after email + WhatsApp notifications:
+1. Looks up user by order email
+2. Checks if user has a valid Expo push token
+3. Sends localized notification based on order locale
+4. If token is expired (`DeviceNotRegistered`), clears it from database
+5. Non-blocking — order status update succeeds even if push fails
+
+### Mobile App Changes
+
+#### New Context: `contexts/NotificationContext.js`
+Centralized notification handling:
+- **Foreground listener**: Receives notifications while app is open (vibrates on Android)
+- **Tap listener**: Navigates to `/profile/orders` when user taps notification
+- **Cold start**: Checks if app was opened from a notification and navigates accordingly
+- **Android channel**: Creates "orders" channel with high importance, vibration, and red LED
+
+#### Updated: `app/_layout.js`
+- Added `NotificationProvider` wrapping the app
+- Notifications are now handled globally
+
+#### Updated: `services/pushNotificationsService.js`
+- Changed `shouldPlaySound: false` → `shouldPlaySound: true` for foreground notifications
+
+### Architecture Flow
+
+```
+Admin changes order status
+  → PUT /api/admin/orders/[id]
+    → Update DB status
+    → Send email notification (existing)
+    → Send WhatsApp notification (existing)
+    → NEW: Send Expo push notification
+      → Look up user.expoPushToken
+      → Build localized message (EN/AR/RU)
+      → Send via Expo push service
+      → Customer sees notification on iPhone/Android
+        → Tap → opens app → navigates to Orders page
+```
+
+### Files Changed
+
+| File | Repo | Type | Description |
+|------|------|------|-------------|
+| `lib/expoPush.ts` | website | **New** | Expo push notification service |
+| `app/api/admin/orders/[id]/route.ts` | website | Modified | Sends push on status change |
+| `package.json` | website | Modified | Added `expo-server-sdk` dependency |
+| `contexts/NotificationContext.js` | mobile | **New** | Notification listeners + navigation |
+| `app/_layout.js` | mobile | Modified | Added NotificationProvider |
+| `services/pushNotificationsService.js` | mobile | Modified | Enabled sound for foreground |
+
+### Dependencies
+
+| Package | Version | Repo |
+|---------|---------|------|
+| `expo-server-sdk` | latest | website |
+
+---
+
 *Session completed: February 10, 2026*

@@ -22,6 +22,7 @@ export interface UserData {
   discountPercentage?: number | null
   birthday?: string | null
   lastLoginAt?: string | null
+  lastLoginSource?: string | null // desktop_web, mobile_web, mobile_app
   createdAt?: string
 }
 

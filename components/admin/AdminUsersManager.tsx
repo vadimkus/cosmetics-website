@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useCallback } from 'react'
-import { Users, Search, RefreshCw, Edit, Trash2 } from 'lucide-react'
+import { Users, Search, RefreshCw, Edit, Trash2, Monitor, Smartphone, TabletSmartphone } from 'lucide-react'
 import { errorLog } from '@/lib/logger'
 
 interface User {
@@ -16,11 +16,42 @@ interface User {
   discountType?: string | null
   discountPercentage?: number | null
   lastLoginAt?: string | null
+  lastLoginSource?: string | null // desktop_web, mobile_web, mobile_app
   lastActiveAt?: string | null // For online status tracking
   createdAt: string
   orderCount?: number
   totalSpent?: number
   lastOrderDate?: string | null
+}
+
+// Helper function to get login source icon and label
+function getLoginSourceInfo(source: string | null | undefined): { icon: React.ReactNode; label: string; color: string } {
+  switch (source) {
+    case 'mobile_app':
+      return {
+        icon: <Smartphone className="h-3.5 w-3.5" />,
+        label: 'Mobile App',
+        color: 'text-purple-600'
+      }
+    case 'mobile_web':
+      return {
+        icon: <TabletSmartphone className="h-3.5 w-3.5" />,
+        label: 'Mobile Web',
+        color: 'text-blue-600'
+      }
+    case 'desktop_web':
+      return {
+        icon: <Monitor className="h-3.5 w-3.5" />,
+        label: 'Desktop',
+        color: 'text-gray-600'
+      }
+    default:
+      return {
+        icon: null,
+        label: '',
+        color: ''
+      }
+  }
 }
 
 // Helper function to check if user is online (active within last 5 minutes)
@@ -141,6 +172,18 @@ export default function AdminUsersManager({
                   <div className="w-4 h-4 bg-white border border-gray-200 rounded"></div>
                   <span className="text-gray-600">No orders</span>
                 </div>
+                <div className="flex items-center gap-1 ml-2 border-l pl-2 border-gray-300">
+                  <Monitor className="h-3 w-3 text-gray-600" />
+                  <span className="text-gray-600">Desktop</span>
+                </div>
+                <div className="flex items-center gap-1">
+                  <TabletSmartphone className="h-3 w-3 text-blue-600" />
+                  <span className="text-gray-600">Mobile Web</span>
+                </div>
+                <div className="flex items-center gap-1">
+                  <Smartphone className="h-3 w-3 text-purple-600" />
+                  <span className="text-gray-600">App</span>
+                </div>
               </div>
             </div>
           </div>
@@ -229,9 +272,17 @@ export default function AdminUsersManager({
                                 )}
                               </div>
                               <div className="text-sm text-gray-500">{user.email}</div>
-                              {/* Last active time */}
-                              <div className="text-xs text-gray-400">
+                              {/* Last active time with login source icon */}
+                              <div className="text-xs text-gray-400 flex items-center gap-1.5">
                                 {formatLastActive(user.lastActiveAt)}
+                                {user.lastLoginSource && (() => {
+                                  const { icon, label, color } = getLoginSourceInfo(user.lastLoginSource)
+                                  return icon ? (
+                                    <span className={`${color} flex items-center`} title={label}>
+                                      {icon}
+                                    </span>
+                                  ) : null
+                                })()}
                               </div>
                             </div>
                           </div>

@@ -153,10 +153,18 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // Update last login timestamp
+    // Detect login source from User-Agent
+    const userAgent = request.headers.get('user-agent') || ''
+    const isMobileDevice = /mobile|android|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent.toLowerCase())
+    const loginSource = isMobileDevice ? 'mobile_web' : 'desktop_web'
+
+    // Update last login timestamp and source
     let updatedUser = user
     try {
-      await updateUser(user.id, { lastLoginAt: new Date().toISOString() })
+      await updateUser(user.id, { 
+        lastLoginAt: new Date().toISOString(),
+        lastLoginSource: loginSource
+      })
       // Fetch updated user to get the latest lastLoginAt value
       const refreshedUser = await findUserByEmail(email)
       if (refreshedUser) {

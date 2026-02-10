@@ -157,6 +157,11 @@ export async function POST(request: NextRequest) {
           }
         }
 
+        // Detect registration source from User-Agent
+        const userAgent = request.headers.get('user-agent') || ''
+        const isMobileDevice = /mobile|android|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent.toLowerCase())
+        const loginSource = isMobileDevice ? 'mobile_web' : 'desktop_web'
+        
         const userData: Prisma.UserCreateInput = {
           name,
           email: normalizedEmail,
@@ -170,6 +175,7 @@ export async function POST(request: NextRequest) {
           discountPercentage,
           birthday: birthday || null,
           lastLoginAt: now,
+          lastLoginSource: loginSource,
         }
         return await tx.user.create({ data: userData })
       })

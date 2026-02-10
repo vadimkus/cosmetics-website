@@ -58,6 +58,7 @@ export async function GET(request: NextRequest) {
       discountPercentage: true,
       birthday: true,
       lastLoginAt: true,
+      lastLoginSource: true, // For showing login source icon (desktop_web, mobile_web, mobile_app)
       lastActiveAt: true, // For online status in admin dashboard
       createdAt: true,
       updatedAt: true

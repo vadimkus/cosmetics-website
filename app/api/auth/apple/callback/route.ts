@@ -277,6 +277,11 @@ async function handleAppleCallback(request: NextRequest, params: {
               }
             }
 
+            // Detect login source from User-Agent for new user
+            const userAgent = request.headers.get('user-agent') || ''
+            const isMobileDevice = /mobile|android|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent.toLowerCase())
+            const loginSource = isMobileDevice ? 'mobile_web' : 'desktop_web'
+            
             return await tx.user.create({
               data: {
                 name: fullName,
@@ -291,11 +296,17 @@ async function handleAppleCallback(request: NextRequest, params: {
                 discountType,
                 discountPercentage,
                 lastLoginAt: now,
+                lastLoginSource: loginSource,
               } as Prisma.UserCreateInput,
             })
           })
           isNewUser = true
         } else {
+          // Detect login source from User-Agent for new user (fallback path)
+          const userAgent = request.headers.get('user-agent') || ''
+          const isMobileDevice = /mobile|android|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent.toLowerCase())
+          const loginSourceFallback = isMobileDevice ? 'mobile_web' : 'desktop_web'
+          
           user = await addUser({
             name: fullName,
             email,
@@ -307,6 +318,7 @@ async function handleAppleCallback(request: NextRequest, params: {
             isAdmin: false,
             canSeePrices: true,
             lastLoginAt: new Date().toISOString(),
+            lastLoginSource: loginSourceFallback,
           })
           isNewUser = true
         }
@@ -330,8 +342,16 @@ async function handleAppleCallback(request: NextRequest, params: {
         }
       }
     } else {
+      // Detect login source from User-Agent
+      const userAgent = request.headers.get('user-agent') || ''
+      const isMobileDevice = /mobile|android|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent.toLowerCase())
+      const loginSource = isMobileDevice ? 'mobile_web' : 'desktop_web'
+      
       try {
-        await updateUser(user.id, { lastLoginAt: new Date().toISOString() })
+        await updateUser(user.id, { 
+          lastLoginAt: new Date().toISOString(),
+          lastLoginSource: loginSource
+        })
       } catch (error) {
         errorLog('[APPLE_CALLBACK] Failed to update lastLoginAt:', error)
         // don't fail login

@@ -129,9 +129,12 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Update last login timestamp and activity
+    // Update last login timestamp, source, and activity
     try {
-      await updateUser(user.id, { lastLoginAt: new Date().toISOString() })
+      await updateUser(user.id, { 
+        lastLoginAt: new Date().toISOString(),
+        lastLoginSource: 'mobile_app'
+      })
       // Also update lastActiveAt immediately on login
       await trackUserActivityNow(user.id)
     } catch (error) {

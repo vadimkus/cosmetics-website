@@ -1,8 +1,9 @@
 # Admin Online Users Feature
 
-> **Date**: February 9, 2026  
+> **Date**: February 9-10, 2026  
 > **Status**: Implemented and tested  
 > **Build**: Passing
+> **Updated**: February 10, 2026 - Added login source tracking
 
 ## Overview
 
@@ -175,11 +176,92 @@ npm run build
 
 Build passes with 0 errors in modified files.
 
+---
+
+## Login Source Tracking (Added February 10, 2026)
+
+### Overview
+
+Administrators can now see which platform/device each user last logged in from. This helps identify whether customers are using the desktop website, mobile website, or native mobile app.
+
+### Login Source Icons
+
+| Icon | Label | Value | Color |
+|------|-------|-------|-------|
+| 🖥️ Monitor | Desktop | `desktop_web` | Gray |
+| 📱 TabletSmartphone | Mobile Web | `mobile_web` | Blue |
+| 📱 Smartphone | Mobile App | `mobile_app` | Purple |
+
+### Detection Logic
+
+**Mobile App** (`/api/mobile/auth/login`):
+- Always sets `lastLoginSource: 'mobile_app'`
+- No detection needed - this endpoint is only called by the native app
+
+**Web Login** (`/api/auth/login`):
+```typescript
+const userAgent = request.headers.get('user-agent') || ''
+const isMobileDevice = /mobile|android|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent.toLowerCase())
+const loginSource = isMobileDevice ? 'mobile_web' : 'desktop_web'
+```
+
+**Apple Sign-In** (`/api/auth/apple/callback`):
+- Same User-Agent detection as web login
+- Works for both new users and returning users
+
+**Registration** (`/api/auth/register`):
+- Sets `lastLoginSource` on account creation
+- Uses same User-Agent detection
+
+### Database Schema
+
+```prisma
+model User {
+  // ... existing fields
+  lastLoginSource    String?   // desktop_web, mobile_web, mobile_app
+}
+```
+
+### Admin UI Display
+
+The login source icon appears next to the "last active" timestamp:
+
+```
+┌─────────────────────────────────────────────────────────┐
+│ [Avatar]● │ John Doe [Online]        │ Contact │ Orders │
+│           │ john@email.com           │         │        │
+│           │ 5m ago 📱                │         │        │
+└─────────────────────────────────────────────────────────┘
+```
+
+### Legend Update
+
+```
+● Online    🖥️ Desktop    📱 Mobile Web    📱 Mobile App    
+[green bg] Has orders    [white bg] No orders
+```
+
+### Files Changed for Login Source
+
+| File | Change |
+|------|--------|
+| `prisma/schema.prisma` | Added `lastLoginSource String?` |
+| `app/api/mobile/auth/login/route.ts` | Sets `mobile_app` |
+| `app/api/auth/login/route.ts` | Detects desktop_web/mobile_web |
+| `app/api/auth/apple/callback/route.ts` | Detects for Apple Sign-In |
+| `app/api/auth/register/route.ts` | Sets on registration |
+| `app/api/admin/users/route.ts` | Returns `lastLoginSource` |
+| `lib/userStorageDb.ts` | Added to UserData interface |
+| `components/admin/AdminUsersManager.tsx` | Added icons and legend |
+
+---
+
 ## Future Enhancements
 
 Potential improvements for later:
 - Real-time updates via WebSocket (polling currently)
 - Filter toggle to show "Online only" users
+- Filter by login source (show only mobile app users)
 - Activity heatmap (most active hours)
 - Export online users list
 - Push notification to admin when VIP customer comes online
@@ -194,4 +276,5 @@ If needed, to rollback this feature:
 
 ---
 
-*Documentation created: February 9, 2026*
+*Documentation created: February 9, 2026*  
+*Updated: February 10, 2026 - Added login source tracking*

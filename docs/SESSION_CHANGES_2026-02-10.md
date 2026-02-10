@@ -484,4 +484,210 @@ Admin changes order status
 
 ---
 
+## User Login Source Tracking (Admin Users Page)
+
+### Summary
+Added the ability to see which platform/device users last logged in from on the Admin Users page. The system now tracks whether users logged in via Desktop Web, Mobile Web, or the Native Mobile App, displaying a corresponding icon next to each user.
+
+### Database Changes
+
+**New Field in User Model:**
+```prisma
+// prisma/schema.prisma
+model User {
+  // ... existing fields
+  lastLoginSource    String?   // Tracks login source: desktop_web, mobile_web, mobile_app
+}
+```
+
+**Database Migration:**
+The column was added directly to the production database:
+```sql
+ALTER TABLE "users" ADD COLUMN "lastLoginSource" TEXT
+```
+
+### Login Source Values
+
+| Value | Source | Icon |
+|-------|--------|------|
+| `desktop_web` | Website on desktop browser | 🖥️ Monitor |
+| `mobile_web` | Website on mobile browser | 📱 TabletSmartphone |
+| `mobile_app` | Native iOS/Android app | 📱 Smartphone (purple) |
+
+### Detection Logic
+
+**Mobile App Login** (`app/api/mobile/auth/login/route.ts`):
+- Always sets `lastLoginSource: 'mobile_app'`
+
+**Web Login** (`app/api/auth/login/route.ts`):
+- Detects device from User-Agent header
+- Mobile regex: `/mobile|android|iphone|ipad|ipod|blackberry|iemobile|opera mini/i`
+- Sets `mobile_web` or `desktop_web` accordingly
+
+**Apple Sign-In** (`app/api/auth/apple/callback/route.ts`):
+- Same User-Agent detection for web-based Apple Sign-In
+- Updated for both new users and existing user logins
+
+**Web Registration** (`app/api/auth/register/route.ts`):
+- Sets `lastLoginSource` when creating new users
+
+### Admin UI Changes
+
+**Component:** `components/admin/AdminUsersManager.tsx`
+
+New features:
+- Import: `Monitor`, `Smartphone`, `TabletSmartphone` icons from lucide-react
+- Helper function `getLoginSourceInfo(source)` returns icon, label, and color
+- Icon displayed next to "last active" time (e.g., "6m ago 📱")
+- Legend added to header showing what each icon means
+
+**Icon Colors:**
+- Desktop: Gray (`text-gray-600`)
+- Mobile Web: Blue (`text-blue-600`)
+- Mobile App: Purple (`text-purple-600`)
+
+### Files Changed
+
+| File | Type | Description |
+|------|------|-------------|
+| `prisma/schema.prisma` | Modified | Added `lastLoginSource String?` field |
+| `app/api/mobile/auth/login/route.ts` | Modified | Sets `lastLoginSource: 'mobile_app'` |
+| `app/api/auth/login/route.ts` | Modified | Detects and sets `desktop_web` or `mobile_web` |
+| `app/api/auth/apple/callback/route.ts` | Modified | Sets login source for Apple Sign-In |
+| `app/api/auth/register/route.ts` | Modified | Sets login source on registration |
+| `app/api/admin/users/route.ts` | Modified | Returns `lastLoginSource` field |
+| `lib/userStorageDb.ts` | Modified | Added `lastLoginSource` to `UserData` interface |
+| `components/admin/AdminUsersManager.tsx` | Modified | Added icons + legend for login source |
+
+### User Experience
+
+When viewing the Users tab in Admin:
+1. Each user row shows their login source icon next to the "last active" time
+2. The header has a legend explaining the three icons
+3. Existing users show no icon until they log in again
+4. New logins automatically track and display the source
+
+---
+
+## Admin Login Rate Limit Increase
+
+### Summary
+Increased the admin login rate limit from 3 attempts to 10 attempts per 15-minute window. This prevents admins from being locked out too quickly during troubleshooting.
+
+### Change
+
+**File:** `app/api/auth/admin-login/route.ts`
+
+```typescript
+// Before
+const adminLoginLimiter = rateLimitSimple({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 3, // 3 attempts per window
+  ...
+})
+
+// After
+const adminLoginLimiter = rateLimitSimple({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 10, // 10 attempts per window
+  ...
+})
+```
+
+### Rationale
+The strict 3-attempt limit was causing lockouts during legitimate troubleshooting. 10 attempts provides adequate security while allowing for typos and testing.
+
+---
+
+## Database Query Retry Logic (Neon Cold Starts)
+
+### Summary
+Added retry logic to `findUserByEmail()` to handle Neon database cold start timeouts gracefully.
+
+### Change
+
+**File:** `lib/userStorageDb.ts`
+
+The function now:
+1. Has a `maxRetries` parameter (default: 2)
+2. Catches timeout errors
+3. Waits 2 seconds between retries
+4. Logs retry attempts for debugging
+5. Only fails after all retries exhausted
+
+This helps prevent login failures when the Neon serverless database is waking up from a cold start.
+
+---
+
+## Session Commits Summary
+
+| Commit | Description |
+|--------|-------------|
+| `30d59148` | feat: add Abeer Mekki as certified reseller on partners page with certificate |
+| `111f5bd0` | feat: add Bundle Builder API for mobile app |
+| `8b2b05c3` | feat: send push notifications to mobile app on order status change |
+| `c125fd8b` | fix: increase admin login rate limit from 3 to 10 attempts |
+
+---
+
+## Database Query Retry Logic (Neon Cold Starts)
+
+### Summary
+Added retry logic to `findUserByEmail()` to handle Neon serverless database cold start timeouts gracefully. This prevents "User not found" errors when the database is waking up from suspension.
+
+### Problem
+When Neon database has been idle:
+1. First query can take 3-8 seconds while compute instance wakes up
+2. The 10-second timeout fires, `Promise.race` rejects
+3. `findUserByEmail` returns `null` (user appears not to exist)
+4. API returns 404 "User not found" for a valid, existing user
+
+### Solution
+
+**File:** `lib/userStorageDb.ts`
+
+Added retry loop with configurable `maxRetries` (default: 2):
+1. First attempt may timeout during cold start
+2. Wait 2 seconds (database is now awake)
+3. Retry — query succeeds immediately
+4. Only return `null` after all retries exhausted
+
+```typescript
+export const findUserByEmail = async (email: string, maxRetries = 2): Promise<User | null> => {
+  const normalizedEmail = normalizeEmail(email)
+  if (!normalizedEmail) return null
+
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    try {
+      // ... existing query logic with 10s timeout ...
+      return await Promise.race([queryPromise, timeoutPromise])
+    } catch (error) {
+      const isTimeout = error instanceof Error && error.message === 'Database query timeout'
+      if (isTimeout && attempt < maxRetries) {
+        debugLog(`⏳ Database query timed out, retrying (attempt ${attempt + 1}/${maxRetries})...`)
+        await new Promise(resolve => setTimeout(resolve, 2000))
+        continue
+      }
+      errorLog('Error finding user by email:', error)
+      return null
+    }
+  }
+  return null
+}
+```
+
+### Benefits
+- Silent retries — users don't see errors during cold starts
+- Non-breaking — existing code paths unchanged
+- Logged for debugging — can track cold start frequency
+- Configurable — can increase retries if needed
+
+### Files Changed
+
+| File | Type | Description |
+|------|------|-------------|
+| `lib/userStorageDb.ts` | Modified | Added retry loop to `findUserByEmail()` |
+
+---
+
 *Session completed: February 10, 2026*

@@ -7,7 +7,7 @@ import { generateAdminSessionToken } from '@/lib/adminAuth'
 
 const adminLoginLimiter = rateLimitSimple({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 3, // 3 attempts per window for admin
+  max: 10, // 10 attempts per window for admin
   message: 'Too many admin login attempts. Please try again later.'
 })
 

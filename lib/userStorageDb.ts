@@ -97,55 +97,65 @@ export const addUser = async (userData: UserData): Promise<User> => {
   }
 }
 
-// Find user by email
-export const findUserByEmail = async (email: string): Promise<User | null> => {
-  try {
-    const normalizedEmail = normalizeEmail(email)
-    if (!normalizedEmail) return null
+// Find user by email (with retry for Neon cold starts)
+export const findUserByEmail = async (email: string, maxRetries = 2): Promise<User | null> => {
+  const normalizedEmail = normalizeEmail(email)
+  if (!normalizedEmail) return null
 
-    // Add timeout to prevent hanging
-    const timeoutPromise = new Promise<User | null>((_, reject) => {
-      setTimeout(() => reject(new Error('Database query timeout')), 10000) // 10 second timeout
-    })
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    try {
+      // Add timeout to prevent hanging
+      const timeoutPromise = new Promise<User | null>((_, reject) => {
+        setTimeout(() => reject(new Error('Database query timeout')), 10000) // 10 second timeout
+      })
 
-    const queryPromise = (async () => {
-      // 1) Fast path: exact match on normalized email (works if DB stores normalized emails)
-      const exact = await prisma.user.findUnique({ where: { email: normalizedEmail } })
-      if (exact) return exact
+      const queryPromise = (async () => {
+        // 1) Fast path: exact match on normalized email (works if DB stores normalized emails)
+        const exact = await prisma.user.findUnique({ where: { email: normalizedEmail } })
+        if (exact) return exact
 
-      // 2) Case-insensitive match (best for existing mixed-case emails)
-      try {
-        const insensitive = await prisma.user.findFirst({
-          where: { email: { equals: normalizedEmail, mode: 'insensitive' } },
-          orderBy: { createdAt: 'desc' },
-        })
-        if (insensitive) return insensitive
-      } catch (error) {
-        // Some Prisma providers/versions might not support mode: 'insensitive' — fall through.
+        // 2) Case-insensitive match (best for existing mixed-case emails)
+        try {
+          const insensitive = await prisma.user.findFirst({
+            where: { email: { equals: normalizedEmail, mode: 'insensitive' } },
+            orderBy: { createdAt: 'desc' },
+          })
+          if (insensitive) return insensitive
+        } catch (error) {
+          // Some Prisma providers/versions might not support mode: 'insensitive' — fall through.
+        }
+
+        // 3) Raw SQL fallback (Postgres)
+        try {
+          const rows = await prisma.$queryRaw<User[]>`
+            SELECT * FROM "users"
+            WHERE LOWER(TRIM("email")) = LOWER(TRIM(${normalizedEmail}))
+            ORDER BY "createdAt" DESC
+            LIMIT 1
+          `
+          return rows?.[0] || null
+        } catch (error) {
+          return null
+        }
+      })()
+
+      return await Promise.race([queryPromise, timeoutPromise])
+    } catch (error) {
+      const isTimeout = error instanceof Error && error.message === 'Database query timeout'
+      if (isTimeout && attempt < maxRetries) {
+        // Neon cold start — wait briefly and retry
+        debugLog(`⏳ Database query timed out for ${email}, retrying (attempt ${attempt + 1}/${maxRetries})...`)
+        await new Promise(resolve => setTimeout(resolve, 2000))
+        continue
       }
-
-      // 3) Raw SQL fallback (Postgres)
-      try {
-        const rows = await prisma.$queryRaw<User[]>`
-          SELECT * FROM "users"
-          WHERE LOWER(TRIM("email")) = LOWER(TRIM(${normalizedEmail}))
-          ORDER BY "createdAt" DESC
-          LIMIT 1
-        `
-        return rows?.[0] || null
-      } catch (error) {
-        return null
+      errorLog('Error finding user by email:', error)
+      if (isTimeout) {
+        errorLog('⚠️ Database query timed out for email:', email)
       }
-    })()
-
-    return await Promise.race([queryPromise, timeoutPromise])
-  } catch (error) {
-    errorLog('Error finding user by email:', error)
-    if (error instanceof Error && error.message === 'Database query timeout') {
-      errorLog('⚠️ Database query timed out for email:', email)
+      return null
     }
-    return null
   }
+  return null
 }
 
 // Find user by ID

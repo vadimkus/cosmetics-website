@@ -263,8 +263,9 @@
 |------|-------------|
 | [SEO_IMPROVEMENTS_SUMMARY.md](./SEO_IMPROVEMENTS_SUMMARY.md) | SEO optimizations |
 | [BLOG_POST_CACHE_STATUS.md](./BLOG_POST_CACHE_STATUS.md) | Blog caching |
-| [IOS_APP_BLOG_POST_PUBLISHED.md](./IOS_APP_BLOG_POST_PUBLISHED.md) | iOS app launch blog |
-| [IOS_APP_LAUNCH_BLOG_POST_SUMMARY.md](./IOS_APP_LAUNCH_BLOG_POST_SUMMARY.md) | Blog post summary |
+| [SESSION_IOS_APP_BLOG_UPDATE_2026-02-09.md](./SESSION_IOS_APP_BLOG_UPDATE_2026-02-09.md) | **NEW** iOS app blog refresh (AI features, new images, RU metadata fix) |
+| [IOS_APP_BLOG_POST_PUBLISHED.md](./IOS_APP_BLOG_POST_PUBLISHED.md) | iOS app launch blog (original) |
+| [IOS_APP_LAUNCH_BLOG_POST_SUMMARY.md](./IOS_APP_LAUNCH_BLOG_POST_SUMMARY.md) | Blog post summary (original) |
 
 ---
 
@@ -316,7 +317,8 @@
 
 | File | Description |
 |------|-------------|
-| [SESSION_CHANGES_2026-02-09.md](./SESSION_CHANGES_2026-02-09.md) | **NEW** Admin online users feature - activity tracking, green indicators |
+| [SESSION_IOS_APP_BLOG_UPDATE_2026-02-09.md](./SESSION_IOS_APP_BLOG_UPDATE_2026-02-09.md) | **iOS App Blog Update** - AI features, new images, RU metadata fix |
+| [SESSION_CHANGES_2026-02-09.md](./SESSION_CHANGES_2026-02-09.md) | Admin online users feature - activity tracking, green indicators |
 | [SESSION_CHANGES_2026-02-08.md](./SESSION_CHANGES_2026-02-08.md) | Mobile web registration fix — missing fields + 5-min hang resolved via after() |
 | [SESSION_CHANGES_2026-02-06.md](./SESSION_CHANGES_2026-02-06.md) | Mobile API pricing audit, email template overhaul (images + breakdowns), success page enhancement, localization fixes, support-link order number mismatch fix |
 | [SESSION_CHANGES_2026-02-05.md](./SESSION_CHANGES_2026-02-05.md) | Bundle progress bar, discount breakdown, product detail sheet, swipe gestures |

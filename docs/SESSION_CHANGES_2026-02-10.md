@@ -218,4 +218,76 @@ Mobile app FAQ  → GET /api/mobile/faq → JSON response
 
 ---
 
+## Abeer Mekki - Authorized Reseller Added to Partners Page
+
+### Summary
+Added **Abeer Mekki Beauty Ladies Center** as a certified authorized reseller to the Partners page (`/partners`). This is the same reseller already displayed on the Abu Dhabi locations page. The partner card now includes a "View Certificate" button linking to the PDF certificate.
+
+### New Partner Details
+
+| Field | Value |
+|-------|-------|
+| ID | `abeer-mekki-beauty` |
+| Name | ABEER MEKKI BEAUTY LADIES CENTER, Abu Dhabi & Al Ain |
+| Type | Certified Authorized Reseller |
+| Location | Abu Dhabi & Al Ain, United Arab Emirates |
+| Phone | +971 55 671 75 64 |
+| Theme | Emerald (green) |
+| Certificate | `/documents/GENOSYS_Authorized_Reseller_ABEER_MEKKI.pdf` |
+
+Position: After "Body & Mind City Walk" (last in the partners list)
+
+### Partner Type Extension
+
+Added optional `certificateUrl` field to the Partner interface:
+
+```typescript
+// types/partner.ts
+export interface Partner {
+  // ... existing fields
+  certificateUrl?: string;  // NEW - link to PDF certificate
+}
+```
+
+### PartnerCard Component Enhancement
+
+Updated `components/partners/PartnerCard.tsx` to display a "View Certificate" button when `certificateUrl` is present:
+
+- Amber/gold button styling (matches locations page certificate button)
+- Opens PDF in new tab
+- Uses `FileText` icon from lucide-react
+- Localized button text in all 3 languages
+
+### Translation Keys Added
+
+| File | Key | Value |
+|------|-----|-------|
+| `messages/en.json` | `common.viewCertificate` | "View Certificate" |
+| `messages/ar.json` | `common.viewCertificate` | "عرض الشهادة" |
+| `messages/ru.json` | `common.viewCertificate` | "Сертификат" |
+
+### Files Changed
+
+| File | Type | Description |
+|------|------|-------------|
+| `types/partner.ts` | Modified | Added `certificateUrl?: string` |
+| `lib/partners.ts` | Modified | Added Abeer Mekki partner entry |
+| `components/partners/PartnerCard.tsx` | Modified | Added View Certificate button |
+| `messages/en.json` | Modified | Added `viewCertificate` translation |
+| `messages/ar.json` | Modified | Added `viewCertificate` translation |
+| `messages/ru.json` | Modified | Added `viewCertificate` translation |
+| `public/images/partners/abeer-mekki.png` | **New** | Partner logo (AM monogram) |
+
+### Related Pages
+
+The new partner automatically appears on:
+- `/partners` (English)
+- `/ar/partners` (Arabic)  
+- `/ru/partners` (Russian)
+- Mobile app via `/api/mobile/partners`
+
+The certificate PDF already existed at `/documents/GENOSYS_Authorized_Reseller_ABEER_MEKKI.pdf` (was already used on the Abu Dhabi locations page).
+
+---
+
 *Session completed: February 10, 2026*

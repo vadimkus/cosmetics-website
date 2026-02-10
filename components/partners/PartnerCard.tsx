@@ -1,6 +1,6 @@
 'use client'
 
-import { Phone, Globe, MapPin } from 'lucide-react'
+import { Phone, Globe, MapPin, FileText } from 'lucide-react'
 import Image from 'next/image'
 import { Partner } from '@/types/partner'
 import { useTranslation } from '@/hooks/useTranslation'
@@ -154,6 +154,17 @@ export default function PartnerCard({ partner }: PartnerCardProps) {
             >
               <Globe className="h-3.5 w-3.5 md:h-4 md:w-4" />
               {websiteButtonText}
+            </a>
+          )}
+          {partner.certificateUrl && (
+            <a 
+              href={partner.certificateUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 bg-amber-600 hover:bg-amber-700 text-white px-3 py-2 md:px-4 md:py-2.5 rounded-lg text-xs md:text-sm font-semibold transition-colors min-h-[40px] md:min-h-[44px] touch-manipulation shadow-sm"
+            >
+              <FileText className="h-3.5 w-3.5 md:h-4 md:w-4" />
+              {t('common.viewCertificate')}
             </a>
           )}
         </div>

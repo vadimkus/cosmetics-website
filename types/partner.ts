@@ -9,4 +9,5 @@ export interface Partner {
   directions?: string;
   logo: string;
   theme: 'emerald' | 'pink' | 'blue' | 'purple';
+  certificateUrl?: string;
 }

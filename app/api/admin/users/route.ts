@@ -66,9 +66,10 @@ export async function GET(request: NextRequest) {
     let users
     let totalCount
     
-    // Sort by lastActiveAt (online users first), then by createdAt
+    // Sort by lastActiveAt (online users first, nulls last), then by createdAt
+    // Prisma supports { sort: 'desc', nulls: 'last' } syntax for null handling
     const orderBy = [
-      { lastActiveAt: 'desc' as const }, // Online/recently active users first
+      { lastActiveAt: { sort: 'desc' as const, nulls: 'last' as const } }, // Online/recently active first, never-active last
       { createdAt: 'desc' as const }     // Then by registration date
     ]
 

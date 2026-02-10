@@ -290,4 +290,107 @@ The certificate PDF already existed at `/documents/GENOSYS_Authorized_Reseller_A
 
 ---
 
+## Bundle Builder API for Mobile App
+
+### Summary
+Created a new API endpoint for the native mobile app Bundle Builder ("Build Your Set") feature. This allows the mobile app to fetch all eligible products grouped by skincare routine step, with localized content and user-specific pricing.
+
+### New API Endpoint
+
+**Endpoint:** `GET /api/mobile/bundle-builder`  
+**File:** `app/api/mobile/bundle-builder/route.ts`
+
+| Header | Required | Description |
+|--------|----------|-------------|
+| `x-api-key` | Yes | Mobile app API key |
+| `x-locale` | No | `en` / `ar` / `ru` (default: `en`) |
+| `x-user-id` | No | User ID for personalized pricing |
+
+**Response Structure:**
+```json
+{
+  "steps": [
+    {
+      "id": "cleanser",
+      "name": "Cleanser",
+      "description": "Start with a clean slate",
+      "required": true,
+      "icon": "🧴",
+      "products": [
+        {
+          "id": "...",
+          "name": "PURIFYING CLEANSER",
+          "description": "...",
+          "image": "https://genosys.ae/images/...",
+          "price": 150,
+          "displayPrice": 75,
+          "originalPrice": 150,
+          "userDiscountPct": 50,
+          "size": "180ml",
+          "variants": [...]
+        }
+      ],
+      "productCount": 8
+    }
+  ],
+  "discountTiers": [
+    { "minItems": 2, "discount": 5 },
+    { "minItems": 3, "discount": 10 },
+    { "minItems": 4, "discount": 15 },
+    { "minItems": 5, "discount": 20 }
+  ],
+  "stats": {
+    "totalProducts": 45,
+    "totalSteps": 8,
+    "requiredSteps": 3,
+    "maxDiscount": 20
+  },
+  "locale": "en"
+}
+```
+
+### Routine Steps
+
+| Step ID | Name | Required | Category Match |
+|---------|------|----------|----------------|
+| `cleanser` | Cleanser | ✅ | Cleanser |
+| `peeling` | Peeling | ❌ | Peeling |
+| `toner` | Toner / Mist | ❌ | Toner OR Mist |
+| `serum` | Serum | ✅ | Serum |
+| `cream` | Cream | ✅ | Cream |
+| `eye-care` | Eye Care | ❌ | Eye |
+| `mask` | Mask | ❌ | Mask |
+| `sun` | Sun Protection | ❌ | Sun |
+
+### Product Filtering (same as website Bundle Builder)
+
+Excluded from API response:
+- Category = "Beauty Boxes" (bundles themselves)
+- Category = "PRO Solution" (professional only)
+- `isHidden = true`
+- `inStock = false`
+- `isPriceOnRequest = true`
+- Name contains "SKIN RENEWAL PEELING SYSTEM"
+
+### User-Specific Pricing
+
+When `x-user-id` header is provided:
+1. Fetches user's `discountType` and `discountPercentage` from database
+2. Applies user discount to `displayPrice` for products where `noDiscount = false`
+3. Returns `originalPrice` and `userDiscountPct` for strikethrough pricing in UI
+
+### Localization
+
+- Step names and descriptions localized based on `x-locale` header
+- Product names use translation files (`getProductTranslations`, `getProductTranslationsRu`)
+- Falls back to database `nameAr`/`nameRu` fields if no translation file entry
+
+### Files Changed
+
+| File | Type | Description |
+|------|------|-------------|
+| `app/api/mobile/bundle-builder/route.ts` | **New** | Bundle Builder API endpoint |
+
+---
+
 *Session completed: February 10, 2026*

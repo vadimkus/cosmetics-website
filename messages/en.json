@@ -578,7 +578,7 @@
       },
       "shipToAllEmirates": {
         "q": "Do you ship to all UAE emirates?",
-        "a": "Yes, we ship to all 7 UAE emirates: Dubai, Abu Dhabi, Sharjah, Ajman, Ras Al Khaimah, Fujairah, and Umm Al Quwain. Shipping costs vary by emirate, and orders over 1000 AED qualify for free shipping. Delivery typically takes 1-3 business days depending on your location."
+        "a": "Yes, we ship to all 7 UAE emirates. Shipping rates:\n- Dubai: 45 AED (1–2 hours via Careem/QuipQup)\n- Abu Dhabi: 70 AED (24–36 hours)\n- Sharjah: 70 AED (24–36 hours)\n- Ajman: 70 AED (24–36 hours)\n- Ras Al Khaimah: 70 AED (24–36 hours)\n- Fujairah: 70 AED (24–36 hours)\n- Umm Al Quwain: 70 AED (24–36 hours)\nOrders over 1,000 AED qualify for free shipping across all emirates."
       },
       "suitableForHomeUse": {
         "q": "Are GENOSYS products suitable for home use?",
@@ -590,7 +590,7 @@
       },
       "shippingTime": {
         "q": "How long does shipping take?",
-        "a": "Shipping times vary by emirate: Dubai, Sharjah (1-2 hours by Careem), Abu Dhabi and other emirates (48 hours via Quiqup). We process all orders on the same day. Free shipping is available for orders over 1000 AED."
+        "a": "Delivery times by emirate:\n- Dubai: 1–2 hours (same-day express via Careem/QuipQup)\n- Abu Dhabi & Al Ain: 24–36 hours\n- Sharjah: 24–36 hours\n- Ajman: 24–36 hours\n- Ras Al Khaimah: 24–36 hours\n- Fujairah: 24–36 hours\n- Umm Al Quwain: 24–36 hours\nWe process all orders on the same day. Free shipping is available for orders over 1,000 AED."
       },
       "returnExchange": {
         "q": "Can I return or exchange products?",
@@ -639,6 +639,10 @@
       "haveBlog": {
         "q": "Do you have a blog?",
         "a": "Yes! Our GENOSYS Blog features expert insights on Korean skincare, professional dermacosmetics, beauty industry trends, and product information. Learn about the latest innovations, skincare tips, ingredient benefits, and treatment protocols."
+      },
+      "deleteAccount": {
+        "q": "Can I delete my account?",
+        "a": "Yes, you can delete your account at any time. Go to your Profile and select \"Delete Account\". Once confirmed, all your personal data — including order history, saved addresses, and preferences — will be permanently deleted. This action cannot be undone. If you need assistance, contact our support team at sales@genosys.ae or WhatsApp +971 58 548 76 65."
       }
     }
   },

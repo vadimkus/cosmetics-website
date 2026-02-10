@@ -10,7 +10,17 @@ import { getLocalizedPath } from '@/lib/i18n'
 import { sanitizeHtml } from '@/lib/sanitize'
 import { usePWAMode } from '@/hooks/usePWAMode'
 
-export default function FAQClient() {
+interface FaqItemData {
+  id: string
+  questionEn: string
+  answerEn: string
+  questionAr: string | null
+  answerAr: string | null
+  questionRu: string | null
+  answerRu: string | null
+}
+
+export default function FAQClient({ faqItems }: { faqItems: FaqItemData[] }) {
   const { t, locale, dir } = useTranslation()
   const { isPWA, isClient } = usePWAMode()
   const [openIndex, setOpenIndex] = useState<number | null>(null)
@@ -22,76 +32,21 @@ export default function FAQClient() {
     }
   }, [isClient, isPWA])
 
-  const faqs = [
-    {
-      question: t('faq.questions.whatIsGenosys.q'),
-      answer: t('faq.questions.whatIsGenosys.a'),
-    },
-    {
-      question: t('faq.questions.shipToAllEmirates.q'),
-      answer: t('faq.questions.shipToAllEmirates.a'),
-    },
-    {
-      question: t('faq.questions.suitableForHomeUse.q'),
-      answer: t('faq.questions.suitableForHomeUse.a'),
-    },
-    {
-      question: t('faq.questions.paymentMethods.q'),
-      answer: t('faq.questions.paymentMethods.a'),
-    },
-    {
-      question: t('faq.questions.shippingTime.q'),
-      answer: t('faq.questions.shippingTime.a'),
-    },
-    {
-      question: t('faq.questions.returnExchange.q'),
-      answer: t('faq.questions.returnExchange.a'),
-    },
-    {
-      question: t('faq.questions.professionalTraining.q'),
-      answer: t('faq.questions.professionalTraining.a'),
-    },
-    {
-      question: t('faq.questions.productsCertified.q'),
-      answer: t('faq.questions.productsCertified.a'),
-    },
-    {
-      question: t('faq.questions.trackOrder.q'),
-      answer: t('faq.questions.trackOrder.a'),
-    },
-    {
-      question: t('faq.questions.returnPolicy.q'),
-      answer: t('faq.questions.returnPolicy.a'),
-    },
-    {
-      question: t('faq.questions.bulkDiscounts.q'),
-      answer: t('faq.questions.bulkDiscounts.a'),
-    },
-    {
-      question: t('faq.questions.becomeRegistered.q'),
-      answer: t('faq.questions.becomeRegistered.a'),
-    },
-    {
-      question: t('faq.questions.sensitiveSkin.q'),
-      answer: t('faq.questions.sensitiveSkin.a'),
-    },
-    {
-      question: t('faq.questions.internationalShipping.q'),
-      answer: t('faq.questions.internationalShipping.a'),
-    },
-    {
-      question: t('faq.questions.contactSupport.q'),
-      answer: t('faq.questions.contactSupport.a'),
-    },
-    {
-      question: t('faq.questions.whyChooseGenosys.q'),
-      answer: t('faq.questions.whyChooseGenosys.a'),
-    },
-    {
-      question: t('faq.questions.haveBlog.q'),
-      answer: t('faq.questions.haveBlog.a'),
-    },
-  ]
+  // Build FAQ list from DB data with locale selection
+  const faqs = faqItems.map((item) => {
+    let question = item.questionEn
+    let answer = item.answerEn
+
+    if (locale === 'ar' && item.questionAr) {
+      question = item.questionAr
+      answer = item.answerAr || item.answerEn
+    } else if (locale === 'ru' && item.questionRu) {
+      question = item.questionRu
+      answer = item.answerRu || item.answerEn
+    }
+
+    return { question, answer }
+  })
 
   const toggleFAQ = (index: number) => {
     setOpenIndex(openIndex === index ? null : index)

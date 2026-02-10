@@ -1,4 +1,5 @@
 import FAQClient from '../../faq/FAQClient'
+import { prisma } from '@/lib/prisma'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -57,8 +58,22 @@ export const metadata: Metadata = {
   },
 }
 
-export default function RussianFAQPage() {
-  return <FAQClient />
+export default async function RussianFAQPage() {
+  const faqItems = await prisma.faqItem.findMany({
+    where: { isActive: true },
+    orderBy: { sortOrder: 'asc' },
+    select: {
+      id: true,
+      questionEn: true,
+      answerEn: true,
+      questionAr: true,
+      answerAr: true,
+      questionRu: true,
+      answerRu: true,
+    },
+  })
+
+  return <FAQClient faqItems={faqItems} />
 }
 
 

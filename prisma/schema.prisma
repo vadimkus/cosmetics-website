@@ -586,3 +586,28 @@ model SkinAnalysis {
   @@index([skinType])
   @@map("skin_analyses")
 }
+
+// FAQ Items - stores frequently asked questions with multilingual support
+model FaqItem {
+  id          String   @id @default(cuid())
+  sortOrder   Int      @default(0)
+  isActive    Boolean  @default(true)
+
+  // English (required)
+  questionEn  String
+  answerEn    String   @db.Text
+
+  // Arabic (optional)
+  questionAr  String?
+  answerAr    String?  @db.Text
+
+  // Russian (optional)
+  questionRu  String?
+  answerRu    String?  @db.Text
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([isActive, sortOrder])
+  @@map("faq_items")
+}

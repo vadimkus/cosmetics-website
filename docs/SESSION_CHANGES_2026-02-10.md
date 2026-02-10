@@ -1,692 +1,150 @@
 # Session Changes - February 10, 2026
 
-## FAQ Database Migration & Admin Management
+## Native Blog API for Mobile App
 
 ### Summary
-Moved FAQ content from static translation files to a proper database table (`faq_items`) with full admin CRUD management. Updated delivery timings and pricing per emirate. Added account deletion FAQ. Both the website and native mobile app now read FAQ data from the database — update once in admin, changes appear everywhere automatically.
-
-### Database Changes
-
-**New Prisma Model: `FaqItem`** (`prisma/schema.prisma`)
-
-```prisma
-model FaqItem {
-  id          String   @id @default(cuid())
-  sortOrder   Int      @default(0)
-  isActive    Boolean  @default(true)
-  questionEn  String
-  answerEn    String   @db.Text
-  questionAr  String?
-  answerAr    String?  @db.Text
-  questionRu  String?
-  answerRu    String?  @db.Text
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  @@index([isActive, sortOrder])
-  @@map("faq_items")
-}
-```
-
-**Seeded Data:** 18 FAQ items in all 3 languages (EN, AR, RU)
+Added two new API endpoints to support fully native blog reading and commenting in the iOS app. Previously, tapping a blog post in the app opened Safari. Now the app renders articles natively with full commenting support.
 
 ### New API Endpoints
 
-#### Mobile FAQ API
-**Endpoint:** `GET /api/mobile/faq`  
-**File:** `app/api/mobile/faq/route.ts`
+#### 1. Blog Post Detail — `GET /api/mobile/blog/[slug]`
 
-| Header | Required | Description |
-|--------|----------|-------------|
-| `x-api-key` | Yes | Mobile app API key |
-| `x-locale` | No | `en` / `ar` / `ru` (default: `en`) |
+Returns the full blog post content with comments for native rendering.
+
+**Headers:**
+- `x-api-key` (required)
+- `x-locale: en|ar|ru` (optional, default: en)
 
 **Response:**
 ```json
 {
-  "title": "FAQ",
-  "subtitle": "Frequently Asked Questions",
-  "description": "Find answers to common questions...",
-  "items": [
-    { "id": 1, "question": "What is GENOSYS?", "answer": "..." }
-  ],
-  "total": 18,
+  "post": {
+    "id": "cmju2jrx...",
+    "title": "Post Title",
+    "slug": "post-slug",
+    "excerpt": "Short description...",
+    "content": "<div class=\"blog-content\">Full HTML...</div>",
+    "featuredImage": "/blog/image.png",
+    "authorName": "GENOSYS Team",
+    "publishedAt": "2026-02-09T06:00:00.000Z",
+    "views": 65,
+    "tags": ["iOS App", "Mobile Shopping"]
+  },
+  "comments": [...],
+  "commentCount": 5,
   "locale": "en"
 }
 ```
 
-#### Admin FAQ CRUD APIs
-**List + Create:** `GET/POST /api/admin/faq-items`  
-**Update + Delete:** `PUT/DELETE /api/admin/faq-items/[id]`  
-**Files:** `app/api/admin/faq-items/route.ts`, `app/api/admin/faq-items/[id]/route.ts`
+**Features:**
+- Localized content (EN/AR/RU via `titleAr`, `contentAr`, etc.)
+- HTML sanitization via `sanitizeHtml()`
+- Removes duplicate featured image from content body
+- Parses `tags` JSON field
+- Auto-increments view count (non-blocking `update()`)
+- Returns only approved comments
 
-All admin endpoints follow the existing pattern:
-- `requireAdminAuth` for authentication
-- `requireCsrfToken` for CSRF protection
-- `{ success: boolean, error?: string }` response format
+**File:** `app/api/mobile/blog/[slug]/route.ts`
 
-### Admin Panel - FAQ Tab
+#### 2. Blog Comments — `GET/POST /api/mobile/blog/comments`
 
-**New Component:** `components/admin/AdminFaqManager.tsx`
+**GET** — Fetch approved comments for a post
 
-Features:
-- List all FAQ items with expand/collapse to preview content
-- Create new FAQ items (all 3 languages)
-- Edit inline with full form (question + answer × 3 languages)
-- Delete with confirmation
-- Toggle active/inactive per item (eye icon)
-- Reorder with up/down arrows (swap sort order)
-- Refresh button
-- Item count with active/total breakdown
+Query params: `postId` (required)
 
-**Tab added to:** `components/admin/AdminTabNavigation.tsx` and `app/admin/page.tsx`
+**POST** — Submit a new comment (requires authentication)
 
-### Website FAQ Pages Updated
+Headers:
+- `x-api-key` (required)
+- `Authorization: Bearer <JWT_TOKEN>` (required)
 
-All 3 locale pages now fetch from DB server-side:
-
-| File | Change |
-|------|--------|
-| `app/faq/page.tsx` | Added `prisma.faqItem.findMany()`, passes data as props |
-| `app/ar/faq/page.tsx` | Same DB query, passes `faqItems` prop |
-| `app/ru/faq/page.tsx` | Same DB query, passes `faqItems` prop |
-| `app/faq/FAQClient.tsx` | Accepts `faqItems: FaqItemData[]` prop, locale-selects Q&A |
-
-### FAQ Content Updates
-
-#### Delivery Timings (updated in all 3 locales)
-
-| Emirate | Delivery Time | Shipping Cost |
-|---------|--------------|---------------|
-| Dubai | 1–2 hours (Careem/QuipQup) | 45 AED |
-| Abu Dhabi & Al Ain | 24–36 hours | 70 AED |
-| Sharjah | 24–36 hours | 70 AED |
-| Ajman | 24–36 hours | 70 AED |
-| Ras Al Khaimah | 24–36 hours | 70 AED |
-| Fujairah | 24–36 hours | 70 AED |
-| Umm Al Quwain | 24–36 hours | 70 AED |
-
-Free shipping on orders over 1,000 AED.
-
-#### New FAQ: Account Deletion
-
-> **Q:** Can I delete my account?  
-> **A:** Yes, you can delete your account at any time. Go to your Profile and select "Delete Account". Once confirmed, all your personal data — including order history, saved addresses, and preferences — will be permanently deleted. This action cannot be undone.
-
-Available in EN, AR, RU.
-
-### Translation Files Updated
-
-| File | Changes |
-|------|---------|
-| `messages/en.json` | Updated `shipToAllEmirates`, `shippingTime` answers; added `deleteAccount` |
-| `messages/ar.json` | Same updates in Arabic |
-| `messages/ru.json` | Same updates in Russian |
-
-Note: Translation files retain the FAQ content for backward compatibility (chatbot, help page), but the FAQ page and mobile API now read exclusively from the database.
-
-### Files Changed (Website)
-
-| File | Type | Description |
-|------|------|-------------|
-| `prisma/schema.prisma` | Modified | Added `FaqItem` model |
-| `app/api/mobile/faq/route.ts` | **New** | Mobile FAQ API (DB-driven) |
-| `app/api/admin/faq-items/route.ts` | **New** | Admin GET list + POST create |
-| `app/api/admin/faq-items/[id]/route.ts` | **New** | Admin PUT update + DELETE |
-| `components/admin/AdminFaqManager.tsx` | **New** | Admin FAQ management UI |
-| `components/admin/AdminTabNavigation.tsx` | Modified | Added FAQ tab |
-| `app/admin/page.tsx` | Modified | Added AdminFaqManager + FAQ tab type |
-| `app/faq/page.tsx` | Modified | Server-side DB fetch |
-| `app/faq/FAQClient.tsx` | Modified | Accepts `faqItems` prop from DB |
-| `app/ar/faq/page.tsx` | Modified | Server-side DB fetch |
-| `app/ru/faq/page.tsx` | Modified | Server-side DB fetch |
-| `messages/en.json` | Modified | Updated delivery FAQ + account deletion |
-| `messages/ar.json` | Modified | Updated delivery FAQ + account deletion |
-| `messages/ru.json` | Modified | Updated delivery FAQ + account deletion |
-
-### Commits
-
-1. `e5922d3a` - feat: move FAQ to database with admin management
-
----
-
-## Mobile App Changes (genosys-mobile-app)
-
-### FAQ Screen - API-Driven
-
-**File:** `app/faq.js`
-
-The FAQ screen was rewritten to fetch content from the website's `/api/mobile/faq` endpoint instead of using local translation files.
-
-Features:
-- Loading state with spinner
-- Error state with retry button
-- Pull-to-refresh
-- Haptic feedback on accordion toggle and CTA buttons
-- Formatted answers (bullet lists, numbered lists, paragraphs)
-- Question mark icon removed (kept simple)
-
-### Standalone About Page
-
-**File:** `app/about.js` (new)
-
-Created a standalone About page for hamburger menu navigation. Same content as `app/profile/about.js` but with:
-- Generic back arrow (`←`) instead of "< Account" text
-- Footer with tappable `www.genosys.ae` link + copyright
-- App version display
-
-The original `app/profile/about.js` is untouched — navigating from Profile/Account still shows "< Account".
-
-### NavigationDrawer Updated
-
-**File:** `components/NavigationDrawer.js`
-
-- "About" link changed from `/profile/about` to `/about` (standalone)
-
-### Files Changed (Mobile App)
-
-| File | Type | Description |
-|------|------|-------------|
-| `app/faq.js` | Modified | Rewritten to fetch from API |
-| `app/about.js` | **New** | Standalone about page with generic back arrow |
-| `components/NavigationDrawer.js` | Modified | About route updated |
-
-### Commits
-
-1. `75ac10e` - feat: add haptic feedback to FAQ page
-2. `02b8442` - feat: FAQ from API, standalone about page
-
----
-
-## Architecture: Before vs After
-
-### Before (FAQ in Translation Files)
-```
-Website FAQ page → reads messages/en.json → hardcoded array
-Mobile app FAQ  → reads i18n/messages/en.json → hardcoded array
-Admin           → no way to manage FAQ without code changes
-```
-
-### After (FAQ in Database)
-```
-Admin panel     → CRUD /api/admin/faq-items → faq_items table
-Website FAQ page → prisma.faqItem.findMany() → server-side render
-Mobile app FAQ  → GET /api/mobile/faq → JSON response
-                  All read from the same faq_items table
-```
-
-**Key benefit:** Add, edit, reorder, or deactivate FAQ items from the admin panel. No code changes, no redeployment needed. Both website and mobile app update automatically.
-
----
-
-## Abeer Mekki - Authorized Reseller Added to Partners Page
-
-### Summary
-Added **Abeer Mekki Beauty Ladies Center** as a certified authorized reseller to the Partners page (`/partners`). This is the same reseller already displayed on the Abu Dhabi locations page. The partner card now includes a "View Certificate" button linking to the PDF certificate.
-
-### New Partner Details
-
-| Field | Value |
-|-------|-------|
-| ID | `abeer-mekki-beauty` |
-| Name | ABEER MEKKI BEAUTY LADIES CENTER, Abu Dhabi & Al Ain |
-| Type | Certified Authorized Reseller |
-| Location | Abu Dhabi & Al Ain, United Arab Emirates |
-| Phone | +971 55 671 75 64 |
-| Theme | Emerald (green) |
-| Certificate | `/documents/GENOSYS_Authorized_Reseller_ABEER_MEKKI.pdf` |
-
-Position: After "Body & Mind City Walk" (last in the partners list)
-
-### Partner Type Extension
-
-Added optional `certificateUrl` field to the Partner interface:
-
-```typescript
-// types/partner.ts
-export interface Partner {
-  // ... existing fields
-  certificateUrl?: string;  // NEW - link to PDF certificate
-}
-```
-
-### PartnerCard Component Enhancement
-
-Updated `components/partners/PartnerCard.tsx` to display a "View Certificate" button when `certificateUrl` is present:
-
-- Amber/gold button styling (matches locations page certificate button)
-- Opens PDF in new tab
-- Uses `FileText` icon from lucide-react
-- Localized button text in all 3 languages
-
-### Translation Keys Added
-
-| File | Key | Value |
-|------|-----|-------|
-| `messages/en.json` | `common.viewCertificate` | "View Certificate" |
-| `messages/ar.json` | `common.viewCertificate` | "عرض الشهادة" |
-| `messages/ru.json` | `common.viewCertificate` | "Сертификат" |
-
-### Files Changed
-
-| File | Type | Description |
-|------|------|-------------|
-| `types/partner.ts` | Modified | Added `certificateUrl?: string` |
-| `lib/partners.ts` | Modified | Added Abeer Mekki partner entry |
-| `components/partners/PartnerCard.tsx` | Modified | Added View Certificate button |
-| `messages/en.json` | Modified | Added `viewCertificate` translation |
-| `messages/ar.json` | Modified | Added `viewCertificate` translation |
-| `messages/ru.json` | Modified | Added `viewCertificate` translation |
-| `public/images/partners/abeer-mekki.png` | **New** | Partner logo (AM monogram) |
-
-### Related Pages
-
-The new partner automatically appears on:
-- `/partners` (English)
-- `/ar/partners` (Arabic)  
-- `/ru/partners` (Russian)
-- Mobile app via `/api/mobile/partners`
-
-The certificate PDF already existed at `/documents/GENOSYS_Authorized_Reseller_ABEER_MEKKI.pdf` (was already used on the Abu Dhabi locations page).
-
----
-
-## Bundle Builder API for Mobile App
-
-### Summary
-Created a new API endpoint for the native mobile app Bundle Builder ("Build Your Set") feature. This allows the mobile app to fetch all eligible products grouped by skincare routine step, with localized content and user-specific pricing.
-
-### New API Endpoint
-
-**Endpoint:** `GET /api/mobile/bundle-builder`  
-**File:** `app/api/mobile/bundle-builder/route.ts`
-
-| Header | Required | Description |
-|--------|----------|-------------|
-| `x-api-key` | Yes | Mobile app API key |
-| `x-locale` | No | `en` / `ar` / `ru` (default: `en`) |
-| `x-user-id` | No | User ID for personalized pricing |
-
-**Response Structure:**
+Body:
 ```json
 {
-  "steps": [
-    {
-      "id": "cleanser",
-      "name": "Cleanser",
-      "description": "Start with a clean slate",
-      "required": true,
-      "icon": "🧴",
-      "products": [
-        {
-          "id": "...",
-          "name": "PURIFYING CLEANSER",
-          "description": "...",
-          "image": "https://genosys.ae/images/...",
-          "price": 150,
-          "displayPrice": 75,
-          "originalPrice": 150,
-          "userDiscountPct": 50,
-          "size": "180ml",
-          "variants": [...]
-        }
-      ],
-      "productCount": 8
-    }
-  ],
-  "discountTiers": [
-    { "minItems": 2, "discount": 5 },
-    { "minItems": 3, "discount": 10 },
-    { "minItems": 4, "discount": 15 },
-    { "minItems": 5, "discount": 20 }
-  ],
-  "stats": {
-    "totalProducts": 45,
-    "totalSteps": 8,
-    "requiredSteps": 3,
-    "maxDiscount": 20
-  },
-  "locale": "en"
+  "postId": "blog-post-id",
+  "content": "Comment text"
 }
 ```
 
-### Routine Steps
+**Features:**
+- JWT token validation via `validateMobileAuth()`
+- User lookup via `findUserByEmail()`
+- Input sanitization via `sanitizeText()`
+- Auto-approves comments from registered users
+- Returns newly created comment in response
 
-| Step ID | Name | Required | Category Match |
-|---------|------|----------|----------------|
-| `cleanser` | Cleanser | ✅ | Cleanser |
-| `peeling` | Peeling | ❌ | Peeling |
-| `toner` | Toner / Mist | ❌ | Toner OR Mist |
-| `serum` | Serum | ✅ | Serum |
-| `cream` | Cream | ✅ | Cream |
-| `eye-care` | Eye Care | ❌ | Eye |
-| `mask` | Mask | ❌ | Mask |
-| `sun` | Sun Protection | ❌ | Sun |
+**File:** `app/api/mobile/blog/comments/route.ts`
 
-### Product Filtering (same as website Bundle Builder)
+### Security
 
-Excluded from API response:
-- Category = "Beauty Boxes" (bundles themselves)
-- Category = "PRO Solution" (professional only)
-- `isHidden = true`
-- `inStock = false`
-- `isPriceOnRequest = true`
-- Name contains "SKIN RENEWAL PEELING SYSTEM"
+| Endpoint | Auth Level |
+|----------|------------|
+| GET `/api/mobile/blog/[slug]` | API key only |
+| GET `/api/mobile/blog/comments` | API key only |
+| POST `/api/mobile/blog/comments` | API key + JWT token |
 
-### User-Specific Pricing
+All endpoints:
+- Validate `MOBILE_APP_KEY` via `x-api-key` header
+- Return proper HTTP status codes (401, 404, 500)
+- Log errors via `errorLog()`
 
-When `x-user-id` header is provided:
-1. Fetches user's `discountType` and `discountPercentage` from database
-2. Applies user discount to `displayPrice` for products where `noDiscount = false`
-3. Returns `originalPrice` and `userDiscountPct` for strikethrough pricing in UI
+### Database Models Used
 
-### Localization
-
-- Step names and descriptions localized based on `x-locale` header
-- Product names use translation files (`getProductTranslations`, `getProductTranslationsRu`)
-- Falls back to database `nameAr`/`nameRu` fields if no translation file entry
-
-### Files Changed
-
-| File | Type | Description |
-|------|------|-------------|
-| `app/api/mobile/bundle-builder/route.ts` | **New** | Bundle Builder API endpoint |
-
----
-
----
-
-## Expo Push Notifications for Order Status Updates
-
-### Summary
-When an admin changes an order's status (e.g., Confirmed, Shipped, Delivered), the customer's mobile app now receives a beautiful push notification with localized text. Tapping the notification opens the Orders page.
-
-### Backend Changes
-
-#### New Service: `lib/expoPush.ts`
-Expo push notification service using `expo-server-sdk`.
-
-Features:
-- Beautiful localized notification messages for all 6 statuses (EN, AR, RU)
-- Token validation using `Expo.isExpoPushToken()`
-- Automatic cleanup of invalid tokens (`DeviceNotRegistered` → clears from DB)
-- Batch sending support for future promotional notifications
-- Receipt checking for delivery verification
-
-#### Notification Messages
-
-| Status | English | Emoji |
-|--------|---------|-------|
-| PENDING | "We've received your order #123. We'll confirm it shortly." | 🛒 |
-| CONFIRMED | "Great news! Your order #123 has been confirmed and is being prepared." | ✅ |
-| PAID | "Thank you! Payment for order #123 has been received." | 💳 |
-| SHIPPED | "Your order #123 is on its way! Track your delivery in the app." | 📦 |
-| DELIVERED | "Your order #123 has been delivered. Enjoy your GENOSYS products!" | 🎉 |
-| CANCELLED | "Your order #123 has been cancelled. Contact us if you have questions." | ❌ |
-
-All messages available in Arabic and Russian as well.
-
-#### Integration: `app/api/admin/orders/[id]/route.ts`
-Added push notification sending after email + WhatsApp notifications:
-1. Looks up user by order email
-2. Checks if user has a valid Expo push token
-3. Sends localized notification based on order locale
-4. If token is expired (`DeviceNotRegistered`), clears it from database
-5. Non-blocking — order status update succeeds even if push fails
-
-### Mobile App Changes
-
-#### New Context: `contexts/NotificationContext.js`
-Centralized notification handling:
-- **Foreground listener**: Receives notifications while app is open (vibrates on Android)
-- **Tap listener**: Navigates to `/profile/orders` when user taps notification
-- **Cold start**: Checks if app was opened from a notification and navigates accordingly
-- **Android channel**: Creates "orders" channel with high importance, vibration, and red LED
-
-#### Updated: `app/_layout.js`
-- Added `NotificationProvider` wrapping the app
-- Notifications are now handled globally
-
-#### Updated: `services/pushNotificationsService.js`
-- Changed `shouldPlaySound: false` → `shouldPlaySound: true` for foreground notifications
-
-### Architecture Flow
-
-```
-Admin changes order status
-  → PUT /api/admin/orders/[id]
-    → Update DB status
-    → Send email notification (existing)
-    → Send WhatsApp notification (existing)
-    → NEW: Send Expo push notification
-      → Look up user.expoPushToken
-      → Build localized message (EN/AR/RU)
-      → Send via Expo push service
-      → Customer sees notification on iPhone/Android
-        → Tap → opens app → navigates to Orders page
-```
-
-### Files Changed
-
-| File | Repo | Type | Description |
-|------|------|------|-------------|
-| `lib/expoPush.ts` | website | **New** | Expo push notification service |
-| `app/api/admin/orders/[id]/route.ts` | website | Modified | Sends push on status change |
-| `package.json` | website | Modified | Added `expo-server-sdk` dependency |
-| `contexts/NotificationContext.js` | mobile | **New** | Notification listeners + navigation |
-| `app/_layout.js` | mobile | Modified | Added NotificationProvider |
-| `services/pushNotificationsService.js` | mobile | Modified | Enabled sound for foreground |
-
-### Dependencies
-
-| Package | Version | Repo |
-|---------|---------|------|
-| `expo-server-sdk` | latest | website |
-
----
-
-## User Login Source Tracking (Admin Users Page)
-
-### Summary
-Added the ability to see which platform/device users last logged in from on the Admin Users page. The system now tracks whether users logged in via Desktop Web, Mobile Web, or the Native Mobile App, displaying a corresponding icon next to each user.
-
-### Database Changes
-
-**New Field in User Model:**
 ```prisma
-// prisma/schema.prisma
-model User {
-  // ... existing fields
-  lastLoginSource    String?   // Tracks login source: desktop_web, mobile_web, mobile_app
+model BlogPost {
+  id            String        @id @default(cuid())
+  title         String
+  titleAr       String?
+  titleRu       String?
+  slug          String        @unique
+  excerpt       String?
+  excerptAr     String?
+  excerptRu     String?
+  content       String        @db.Text
+  contentAr     String?       @db.Text
+  contentRu     String?       @db.Text
+  featuredImage String?
+  authorName    String?
+  published     Boolean       @default(false)
+  publishedAt   DateTime?
+  views         Int           @default(0)
+  tags          String?       // JSON array
+  comments      BlogComment[]
+}
+
+model BlogComment {
+  id        String   @id @default(cuid())
+  postId    String
+  userId    String?
+  userName  String
+  userEmail String?
+  content   String   @db.Text
+  approved  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  post      BlogPost @relation(...)
 }
 ```
 
-**Database Migration:**
-The column was added directly to the production database:
-```sql
-ALTER TABLE "users" ADD COLUMN "lastLoginSource" TEXT
+### Files Added
+
+```
+app/api/mobile/blog/
+├── route.ts              # Existing - blog list
+├── [slug]/
+│   └── route.ts          # NEW - blog post detail
+└── comments/
+    └── route.ts          # NEW - comments GET/POST
 ```
 
-### Login Source Values
+### Deployment
 
-| Value | Source | Icon |
-|-------|--------|------|
-| `desktop_web` | Website on desktop browser | 🖥️ Monitor |
-| `mobile_web` | Website on mobile browser | 📱 TabletSmartphone |
-| `mobile_app` | Native iOS/Android app | 📱 Smartphone (purple) |
+Pushed to `main` branch → Auto-deployed to Vercel.
 
-### Detection Logic
-
-**Mobile App Login** (`app/api/mobile/auth/login/route.ts`):
-- Always sets `lastLoginSource: 'mobile_app'`
-
-**Web Login** (`app/api/auth/login/route.ts`):
-- Detects device from User-Agent header
-- Mobile regex: `/mobile|android|iphone|ipad|ipod|blackberry|iemobile|opera mini/i`
-- Sets `mobile_web` or `desktop_web` accordingly
-
-**Apple Sign-In** (`app/api/auth/apple/callback/route.ts`):
-- Same User-Agent detection for web-based Apple Sign-In
-- Updated for both new users and existing user logins
-
-**Web Registration** (`app/api/auth/register/route.ts`):
-- Sets `lastLoginSource` when creating new users
-
-### Admin UI Changes
-
-**Component:** `components/admin/AdminUsersManager.tsx`
-
-New features:
-- Import: `Monitor`, `Smartphone`, `TabletSmartphone` icons from lucide-react
-- Helper function `getLoginSourceInfo(source)` returns icon, label, and color
-- Icon displayed next to "last active" time (e.g., "6m ago 📱")
-- Legend added to header showing what each icon means
-
-**Icon Colors:**
-- Desktop: Gray (`text-gray-600`)
-- Mobile Web: Blue (`text-blue-600`)
-- Mobile App: Purple (`text-purple-600`)
-
-### Files Changed
-
-| File | Type | Description |
-|------|------|-------------|
-| `prisma/schema.prisma` | Modified | Added `lastLoginSource String?` field |
-| `app/api/mobile/auth/login/route.ts` | Modified | Sets `lastLoginSource: 'mobile_app'` |
-| `app/api/auth/login/route.ts` | Modified | Detects and sets `desktop_web` or `mobile_web` |
-| `app/api/auth/apple/callback/route.ts` | Modified | Sets login source for Apple Sign-In |
-| `app/api/auth/register/route.ts` | Modified | Sets login source on registration |
-| `app/api/admin/users/route.ts` | Modified | Returns `lastLoginSource` field |
-| `lib/userStorageDb.ts` | Modified | Added `lastLoginSource` to `UserData` interface |
-| `components/admin/AdminUsersManager.tsx` | Modified | Added icons + legend for login source |
-
-### User Experience
-
-When viewing the Users tab in Admin:
-1. Each user row shows their login source icon next to the "last active" time
-2. The header has a legend explaining the three icons
-3. Existing users show no icon until they log in again
-4. New logins automatically track and display the source
-
----
-
-## Admin Login Rate Limit Increase
-
-### Summary
-Increased the admin login rate limit from 3 attempts to 10 attempts per 15-minute window. This prevents admins from being locked out too quickly during troubleshooting.
-
-### Change
-
-**File:** `app/api/auth/admin-login/route.ts`
-
-```typescript
-// Before
-const adminLoginLimiter = rateLimitSimple({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 3, // 3 attempts per window
-  ...
-})
-
-// After
-const adminLoginLimiter = rateLimitSimple({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 10, // 10 attempts per window
-  ...
-})
+Verified working:
+```bash
+curl -H "x-api-key: ..." "https://genosys.ae/api/mobile/blog/genosys-ios-app-2026"
+# Returns full post JSON with content and comments
 ```
-
-### Rationale
-The strict 3-attempt limit was causing lockouts during legitimate troubleshooting. 10 attempts provides adequate security while allowing for typos and testing.
-
----
-
-## Database Query Retry Logic (Neon Cold Starts)
-
-### Summary
-Added retry logic to `findUserByEmail()` to handle Neon database cold start timeouts gracefully.
-
-### Change
-
-**File:** `lib/userStorageDb.ts`
-
-The function now:
-1. Has a `maxRetries` parameter (default: 2)
-2. Catches timeout errors
-3. Waits 2 seconds between retries
-4. Logs retry attempts for debugging
-5. Only fails after all retries exhausted
-
-This helps prevent login failures when the Neon serverless database is waking up from a cold start.
-
----
-
-## Session Commits Summary
-
-| Commit | Description |
-|--------|-------------|
-| `30d59148` | feat: add Abeer Mekki as certified reseller on partners page with certificate |
-| `111f5bd0` | feat: add Bundle Builder API for mobile app |
-| `8b2b05c3` | feat: send push notifications to mobile app on order status change |
-| `c125fd8b` | fix: increase admin login rate limit from 3 to 10 attempts |
-
----
-
-## Database Query Retry Logic (Neon Cold Starts)
-
-### Summary
-Added retry logic to `findUserByEmail()` to handle Neon serverless database cold start timeouts gracefully. This prevents "User not found" errors when the database is waking up from suspension.
-
-### Problem
-When Neon database has been idle:
-1. First query can take 3-8 seconds while compute instance wakes up
-2. The 10-second timeout fires, `Promise.race` rejects
-3. `findUserByEmail` returns `null` (user appears not to exist)
-4. API returns 404 "User not found" for a valid, existing user
-
-### Solution
-
-**File:** `lib/userStorageDb.ts`
-
-Added retry loop with configurable `maxRetries` (default: 2):
-1. First attempt may timeout during cold start
-2. Wait 2 seconds (database is now awake)
-3. Retry — query succeeds immediately
-4. Only return `null` after all retries exhausted
-
-```typescript
-export const findUserByEmail = async (email: string, maxRetries = 2): Promise<User | null> => {
-  const normalizedEmail = normalizeEmail(email)
-  if (!normalizedEmail) return null
-
-  for (let attempt = 1; attempt <= maxRetries; attempt++) {
-    try {
-      // ... existing query logic with 10s timeout ...
-      return await Promise.race([queryPromise, timeoutPromise])
-    } catch (error) {
-      const isTimeout = error instanceof Error && error.message === 'Database query timeout'
-      if (isTimeout && attempt < maxRetries) {
-        debugLog(`⏳ Database query timed out, retrying (attempt ${attempt + 1}/${maxRetries})...`)
-        await new Promise(resolve => setTimeout(resolve, 2000))
-        continue
-      }
-      errorLog('Error finding user by email:', error)
-      return null
-    }
-  }
-  return null
-}
-```
-
-### Benefits
-- Silent retries — users don't see errors during cold starts
-- Non-breaking — existing code paths unchanged
-- Logged for debugging — can track cold start frequency
-- Configurable — can increase retries if needed
-
-### Files Changed
-
-| File | Type | Description |
-|------|------|-------------|
-| `lib/userStorageDb.ts` | Modified | Added retry loop to `findUserByEmail()` |
 
 ---
 

@@ -126,8 +126,8 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
     }
   }
 
-  const title = post.title
-  const excerpt = post.excerpt || post.content.substring(0, 160)
+  const title = post.titleRu || post.title
+  const excerpt = post.excerptRu || post.excerpt || post.content.substring(0, 160)
 
   return {
     title: `${title} | Блог GENOSYS`,

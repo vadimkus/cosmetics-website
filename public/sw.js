@@ -3,13 +3,13 @@
  * Provides offline functionality and caching strategies
  */
 
-const CACHE_NAME = 'genosys-cache-v0.1.0-2cf434be'
-const STATIC_CACHE = 'genosys-static-v0.1.0-2cf434be'
-const DYNAMIC_CACHE = 'genosys-dynamic-v0.1.0-2cf434be'
-const IMAGE_CACHE = 'genosys-images-v0.1.0-2cf434be'
-const PRODUCTS_CACHE = 'genosys-products-v0.1.0-2cf434be'
-const API_CACHE = 'genosys-api-v0.1.0-2cf434be'
-const PAGE_CACHE = 'genosys-pages-v0.1.0-2cf434be'
+const CACHE_NAME = 'genosys-cache-v0.1.0-5f366b1e'
+const STATIC_CACHE = 'genosys-static-v0.1.0-5f366b1e'
+const DYNAMIC_CACHE = 'genosys-dynamic-v0.1.0-5f366b1e'
+const IMAGE_CACHE = 'genosys-images-v0.1.0-5f366b1e'
+const PRODUCTS_CACHE = 'genosys-products-v0.1.0-5f366b1e'
+const API_CACHE = 'genosys-api-v0.1.0-5f366b1e'
+const PAGE_CACHE = 'genosys-pages-v0.1.0-5f366b1e'
 
 // IndexedDB configuration for offline data storage
 const DB_NAME = 'genosys-offline-db'

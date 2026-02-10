@@ -281,42 +281,6 @@ const content = `<div class="blog-content">
     </div>
   </div>
 
-  <!-- What Users Say -->
-  <div class="mb-10">
-    <h3 class="text-2xl md:text-3xl font-bold text-gray-900 mb-8 text-center">What Our Customers Say</h3>
-    
-    <div class="grid md:grid-cols-2 gap-5">
-      <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-        <div class="flex items-center gap-1 mb-3 text-yellow-400">
-          <span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span>
-        </div>
-        <p class="text-gray-700 italic mb-4 leading-relaxed">"Apple Pay checkout is a game changer. I added a serum to my cart and paid with Face ID — the whole thing took maybe 8 seconds. Incredible."</p>
-        <p class="text-sm font-semibold text-gray-900">Sarah M. — Dubai</p>
-      </div>
-      <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-        <div class="flex items-center gap-1 mb-3 text-yellow-400">
-          <span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span>
-        </div>
-        <p class="text-gray-700 italic mb-4 leading-relaxed">"I love that it recommends products based on what I've bought before. The Arabic language support is excellent — feels like the app was made for the UAE market."</p>
-        <p class="text-sm font-semibold text-gray-900">Fatima A. — Abu Dhabi</p>
-      </div>
-      <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-        <div class="flex items-center gap-1 mb-3 text-yellow-400">
-          <span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span>
-        </div>
-        <p class="text-gray-700 italic mb-4 leading-relaxed">"As a clinic owner, I reorder supplies weekly. The quick reorder feature saves me so much time. Best beauty app in the region, hands down."</p>
-        <p class="text-sm font-semibold text-gray-900">Dr. Ahmed R. — Dubai</p>
-      </div>
-      <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-        <div class="flex items-center gap-1 mb-3 text-yellow-400">
-          <span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span>
-        </div>
-        <p class="text-gray-700 italic mb-4 leading-relaxed">"Push notifications let me know the moment new products drop. I got the new Beauty Box set before it even appeared on the website. Love it!"</p>
-        <p class="text-sm font-semibold text-gray-900">Maria K. — Sharjah</p>
-      </div>
-    </div>
-  </div>
-
   <!-- FAQ -->
   <div class="mb-10">
     <h3 class="text-2xl md:text-3xl font-bold text-gray-900 mb-8 text-center">Frequently Asked Questions</h3>
@@ -340,7 +304,7 @@ const content = `<div class="blog-content">
       </div>
       <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
         <p class="font-bold text-gray-900 mb-2">Do you ship across the UAE?</p>
-        <p class="text-gray-600">Yes! We deliver to all emirates. Free shipping on orders over 1,000 AED. Most orders in Dubai arrive within 1-2 business days.</p>
+        <p class="text-gray-600">Yes! We deliver to all emirates — Dubai orders arrive within 1–2 hours. Free shipping on orders over 1,000 AED. Check delivery timings for your area on <a href="https://genosys.ae" class="text-emerald-600 hover:underline font-medium">genosys.ae</a>.</p>
       </div>
     </div>
   </div>
@@ -734,27 +698,6 @@ const contentRu = `<div class="blog-content">
       <div>
         <p class="text-4xl font-bold text-emerald-400 mb-1">Бесплатно</p>
         <p class="text-sm text-gray-400">Скачать и использовать</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- Reviews -->
-  <div class="mb-10">
-    <h3 class="text-2xl md:text-3xl font-bold text-gray-900 mb-8 text-center">Что говорят наши клиенты</h3>
-    <div class="grid md:grid-cols-2 gap-5">
-      <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-        <div class="flex items-center gap-1 mb-3 text-yellow-400">
-          <span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span>
-        </div>
-        <p class="text-gray-700 italic mb-4">"Оплата через Apple Pay — это нечто. Добавила сыворотку и оплатила через Face ID за 8 секунд. Невероятно."</p>
-        <p class="text-sm font-semibold text-gray-900">Сара М. — Дубай</p>
-      </div>
-      <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-        <div class="flex items-center gap-1 mb-3 text-yellow-400">
-          <span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span>
-        </div>
-        <p class="text-gray-700 italic mb-4">"Как владелец клиники, я заказываю каждую неделю. Быстрый повторный заказ экономит мне массу времени."</p>
-        <p class="text-sm font-semibold text-gray-900">Доктор Ахмед Р. — Дубай</p>
       </div>
     </div>
   </div>

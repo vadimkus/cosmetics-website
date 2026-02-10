@@ -309,7 +309,28 @@
 
 | File | Description |
 |------|-------------|
-| [ADMIN_ONLINE_USERS_FEATURE.md](./ADMIN_ONLINE_USERS_FEATURE.md) | **NEW** Online users tracking - green indicator, timestamps, smart sorting |
+| [ADMIN_ONLINE_USERS_FEATURE.md](./ADMIN_ONLINE_USERS_FEATURE.md) | Online users tracking - green indicator, timestamps, smart sorting |
+| [SESSION_CHANGES_2026-02-10.md](./SESSION_CHANGES_2026-02-10.md) | **NEW** FAQ database migration & admin management (see FAQ section below) |
+
+---
+
+### ❓ FAQ Management
+
+FAQ content is stored in the `faq_items` database table and managed through the admin panel.
+
+| Detail | Value |
+|--------|-------|
+| Database Table | `faq_items` |
+| Admin Tab | FAQ (in admin dashboard) |
+| Mobile API | `GET /api/mobile/faq` |
+| Admin API | `GET/POST /api/admin/faq-items`, `PUT/DELETE /api/admin/faq-items/[id]` |
+| Languages | English (required), Arabic, Russian (optional) |
+| Current Items | 18 FAQ items |
+
+**How to manage:**
+1. Go to Admin Dashboard → FAQ tab
+2. Add, edit, reorder, toggle, or delete FAQ items
+3. Changes appear on website and mobile app automatically
 
 ---
 
@@ -317,7 +338,8 @@
 
 | File | Description |
 |------|-------------|
-| [SESSION_IOS_APP_BLOG_UPDATE_2026-02-09.md](./SESSION_IOS_APP_BLOG_UPDATE_2026-02-09.md) | **iOS App Blog Update** - AI features, new images, RU metadata fix |
+| [SESSION_CHANGES_2026-02-10.md](./SESSION_CHANGES_2026-02-10.md) | **NEW** FAQ database migration, admin management, delivery timings, account deletion FAQ |
+| [SESSION_IOS_APP_BLOG_UPDATE_2026-02-09.md](./SESSION_IOS_APP_BLOG_UPDATE_2026-02-09.md) | iOS App Blog Update - AI features, new images, RU metadata fix |
 | [SESSION_CHANGES_2026-02-09.md](./SESSION_CHANGES_2026-02-09.md) | Admin online users feature - activity tracking, green indicators |
 | [SESSION_CHANGES_2026-02-08.md](./SESSION_CHANGES_2026-02-08.md) | Mobile web registration fix — missing fields + 5-min hang resolved via after() |
 | [SESSION_CHANGES_2026-02-06.md](./SESSION_CHANGES_2026-02-06.md) | Mobile API pricing audit, email template overhaul (images + breakdowns), success page enhancement, localization fixes, support-link order number mismatch fix |
@@ -396,4 +418,4 @@ cosmetics-website/
 
 ---
 
-*Last updated: February 9, 2026*
+*Last updated: February 10, 2026*

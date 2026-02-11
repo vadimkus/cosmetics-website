@@ -275,8 +275,6 @@ function SuccessContent() {
                   const bundleDiscountPct = orderData.bundleDiscountPercentage || 0
                   const hasUserDiscount = userDiscountPct > 0
                   const hasBundleDiscount = bundleDiscountPct > 0
-                  const hasAnyDiscount = hasUserDiscount || hasBundleDiscount
-
                   // Products excluded from user VIP discount but with their own built-in discount
                   const isExcludedFromUserDiscount = (name: string): boolean => {
                     const n = (name || '').trim().toLowerCase()
@@ -329,17 +327,28 @@ function SuccessContent() {
                             itemDiscountPct = BEAUTY_BOX_DISCOUNT_PCT
                             showDiscount = true
                           } else if (!excludedFromUserDiscount && !isFreeItem) {
-                            // Regular item: show user/bundle discount
-                            if (hasUserDiscount) {
-                              originalPrice = originalPrice / (1 - userDiscountPct / 100)
-                            }
-                            if (hasBundleDiscount) {
+                            // Bundle and VIP discounts are mutually exclusive per item:
+                            // - Bundle items get ONLY bundle discount on retail price
+                            // - Regular items get ONLY VIP discount on retail price
+                            // When order has both discounts (mixed cart), we apply the
+                            // appropriate one per item. Since we can't distinguish per-item,
+                            // prefer bundle discount when present (bundle items are the
+                            // discounted items in a bundle order).
+                            if (hasBundleDiscount && hasUserDiscount) {
+                              // Mixed cart: show only the bundle discount for bundle items
+                              // (VIP discount total is shown separately in the summary)
                               originalPrice = originalPrice / (1 - bundleDiscountPct / 100)
+                              showDiscount = true
+                              itemDiscountPct = bundleDiscountPct
+                            } else if (hasBundleDiscount) {
+                              originalPrice = originalPrice / (1 - bundleDiscountPct / 100)
+                              showDiscount = true
+                              itemDiscountPct = bundleDiscountPct
+                            } else if (hasUserDiscount) {
+                              originalPrice = originalPrice / (1 - userDiscountPct / 100)
+                              showDiscount = true
+                              itemDiscountPct = userDiscountPct
                             }
-                            showDiscount = hasAnyDiscount
-                            itemDiscountPct = showDiscount
-                              ? Math.round((1 - item.price / originalPrice) * 100)
-                              : 0
                           }
 
                           const itemTotal = item.price * item.quantity
@@ -391,20 +400,15 @@ function SuccessContent() {
                                       <span className="inline-block bg-orange-100 text-orange-700 text-[10px] font-bold px-1.5 py-0.5 rounded">
                                         -{BEAUTY_BOX_DISCOUNT_PCT}% Box
                                       </span>
-                                    ) : (
-                                      <>
-                                        {hasUserDiscount && (
-                                          <span className="inline-block bg-purple-100 text-purple-700 text-[10px] font-bold px-1.5 py-0.5 rounded">
-                                            -{userDiscountPct}% VIP
-                                          </span>
-                                        )}
-                                        {hasBundleDiscount && (
-                                          <span className="inline-block bg-green-100 text-green-700 text-[10px] font-bold px-1.5 py-0.5 rounded">
-                                            -{bundleDiscountPct}% Bundle
-                                          </span>
-                                        )}
-                                      </>
-                                    )}
+                                    ) : hasBundleDiscount ? (
+                                      <span className="inline-block bg-green-100 text-green-700 text-[10px] font-bold px-1.5 py-0.5 rounded">
+                                        -{bundleDiscountPct}% Bundle
+                                      </span>
+                                    ) : hasUserDiscount ? (
+                                      <span className="inline-block bg-purple-100 text-purple-700 text-[10px] font-bold px-1.5 py-0.5 rounded">
+                                        -{userDiscountPct}% VIP
+                                      </span>
+                                    ) : null}
                                   </div>
                                 )}
                               </div>

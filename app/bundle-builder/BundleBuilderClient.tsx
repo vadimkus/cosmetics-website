@@ -14,7 +14,6 @@ import { useBundleStore, ROUTINE_STEPS, type RoutineStep, type BundlePricing } f
 import { useAuth } from '@/components/auth/AuthProvider'
 import { canUserSeePrices, calculateDiscountedPrice } from '@/lib/discountUtils'
 import { Product } from '@/types'
-import type { User } from '@/types/user'
 import BottomSheet from '@/components/ui/BottomSheet'
 
 interface BundleBuilderClientProps {
@@ -100,7 +99,6 @@ function BundleProductCard({
   onSelect,
   onViewDetails,
   showPrices,
-  user,
   locale,
 }: {
   product: Product
@@ -108,7 +106,6 @@ function BundleProductCard({
   onSelect: () => void
   onViewDetails: (product: Product) => void
   showPrices: boolean
-  user: User | null
   locale: string
 }) {
   const { t } = useTranslation()
@@ -117,9 +114,6 @@ function BundleProductCard({
   // Double-tap detection for mobile
   const lastTapRef = useRef<number>(0)
   const DOUBLE_TAP_DELAY = 300 // ms
-  
-  // Calculate user's discounted price
-  const pricing = useMemo(() => calculateDiscountedPrice(product, user), [product, user])
   
   const handleClick = () => {
     const now = Date.now()
@@ -240,13 +234,11 @@ function BundleSummary({
   onClear,
   showPrices,
   pricing,
-  userDiscountPercent,
 }: {
   onAddToCart: () => void
   onClear: () => void
   showPrices: boolean
   pricing: BundlePricing
-  userDiscountPercent?: number
 }) {
   const { t } = useTranslation()
   const { items, removeItem, canAddToCart } = useBundleStore()
@@ -806,7 +798,6 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
                     onSelect={() => handleProductSelect(product)}
                     onViewDetails={(p) => setDetailProduct(p)}
                     showPrices={showPrices}
-                    user={user}
                     locale={locale}
                   />
                 ))}
@@ -876,7 +867,6 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
                 onClear={handleClear}
                 showPrices={showPrices}
                 pricing={pricing}
-                {...(user?.discountPercentage ? { userDiscountPercent: user.discountPercentage } : {})}
               />
             </div>
           </aside>
@@ -1039,7 +1029,6 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
                   }}
                   showPrices={showPrices}
                   pricing={pricing}
-                  {...(user?.discountPercentage ? { userDiscountPercent: user.discountPercentage } : {})}
                 />
               </div>
             </motion.div>

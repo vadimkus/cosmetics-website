@@ -35,20 +35,23 @@ export default function SalesChartModal({ isOpen, onClose }: SalesChartModalProp
       setError(null)
       
       const response = await fetch('/api/admin/reports/sales?days=all', {
+        credentials: 'include',
         headers: {
           'x-admin-email': localStorage.getItem('adminEmail') || ''
         }
       })
       
       if (!response.ok) {
-        throw new Error('Failed to fetch sales data')
+        const errorData = await response.json().catch(() => ({}))
+        throw new Error(errorData.error || `HTTP ${response.status}`)
       }
       
       const result = await response.json()
       setData(result.revenueByMonth || [])
     } catch (err) {
       errorLog('Error fetching sales data:', err)
-      setError('Failed to load sales data')
+      const message = err instanceof Error ? err.message : 'Failed to load sales data'
+      setError(message)
     } finally {
       setLoading(false)
     }

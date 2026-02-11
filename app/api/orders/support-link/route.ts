@@ -76,9 +76,9 @@ export async function POST(request: NextRequest) {
       hasUserDiscount
     }))
 
-    // Calculate discount amounts by reverse-calculating from already-discounted prices
-    // Frontend sends already-discounted prices (after both VIP and bundle), so we reverse
-    // both discount layers to get the original amounts for each discount type.
+    // Calculate discount amounts by reverse-calculating from already-discounted prices.
+    // VIP and bundle discounts are mutually exclusive per item — each item has at most
+    // one discount type applied, so we reverse only the applicable discount.
     // This matches the logic in /api/stripe/create-payment-intent/route.ts
     let discountAmount = 0  // User discount
     let bundleDiscountAmountCalc = 0  // Bundle discount (calculated server-side)

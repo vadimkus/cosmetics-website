@@ -563,14 +563,12 @@ export default function CheckoutClient() {
             const itemSize = (item.selectedSize && item.selectedSize.trim()) || (item.product.size && item.product.size.trim()) || undefined
             const itemColor = (item.selectedColor && item.selectedColor.trim()) || undefined
             
-            // First calculate user's discounted price
-            const pricing = calculateDiscountedPrice(item.product, user)
-            let finalPrice = pricing.discountedPrice
+            const isBundleItem = item.fromBundle && item.bundleDiscountPercent && item.bundleDiscountPercent > 0
             
-            // For bundle items, apply bundle discount ON TOP of user discount
-            if (item.fromBundle && item.bundleDiscountPercent && item.bundleDiscountPercent > 0) {
-              const bundleDiscountAmount = (finalPrice * item.bundleDiscountPercent) / 100
-              finalPrice = finalPrice - bundleDiscountAmount
+            // Bundle items: only bundle discount on retail price (no VIP)
+            if (isBundleItem) {
+              const retailPrice = item.product.price
+              const finalPrice = Math.round(retailPrice * (1 - item.bundleDiscountPercent! / 100) * 100) / 100
               return {
                 id: item.product.id,
                 name: item.product.name,
@@ -580,12 +578,12 @@ export default function CheckoutClient() {
                 image: item.product.image,
                 color: itemColor,
                 size: itemSize,
-                bundleDiscount: item.bundleDiscountPercent,
-                userDiscount: pricing.discountPercentage
+                bundleDiscount: item.bundleDiscountPercent
               }
             }
             
-            // Standard pricing for non-bundle items
+            // Non-bundle items: apply user discount
+            const pricing = calculateDiscountedPrice(item.product, user)
             return {
               id: item.product.id,
               name: item.product.name,
@@ -797,19 +795,11 @@ export default function CheckoutClient() {
                   {items.map((item) => {
                     const quantity = item.quantity || 1
                     
-                    // Handle bundle items - apply user discount first, then bundle discount
+                    // Handle bundle items - only bundle discount on retail price (no VIP)
                     if (item.fromBundle && item.bundleDiscountPercent && item.bundleDiscountPercent > 0) {
-                      const originalPrice = item.product.price
-                      // First apply user discount
-                      const userPricing = calculateDiscountedPrice(item.product, user)
-                      // Then apply bundle discount on top
-                      const bundleDiscountAmount = (userPricing.discountedPrice * item.bundleDiscountPercent) / 100
-                      const finalPrice = userPricing.discountedPrice - bundleDiscountAmount
-                      
-                      // Show combined discount info
-                      const discountText = userPricing.hasDiscount 
-                        ? `${userPricing.discountPercentage}% + ${item.bundleDiscountPercent}%`
-                        : `${item.bundleDiscountPercent}%`
+                      const retailPrice = item.product.price
+                      const finalPrice = Math.round(retailPrice * (1 - item.bundleDiscountPercent / 100) * 100) / 100
+                      const discountText = `${item.bundleDiscountPercent}%`
                       
                       return (
                         <div key={`${item.product.id}-bundle`} className={`flex justify-between items-start ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
@@ -824,7 +814,7 @@ export default function CheckoutClient() {
                           </div>
                           <div className="text-right">
                             <span className="text-sm font-semibold text-purple-700">AED {(finalPrice * quantity).toFixed(2)}</span>
-                            <div className="text-xs text-gray-400 line-through">AED {(originalPrice * quantity).toFixed(2)}</div>
+                            <div className="text-xs text-gray-400 line-through">AED {(retailPrice * quantity).toFixed(2)}</div>
                           </div>
                         </div>
                       )
@@ -1167,20 +1157,12 @@ export default function CheckoutClient() {
                       {items.map((item) => {
                         const quantity = item.quantity || 1
                         
-                        // Handle bundle items - apply user discount first, then bundle discount
+                        // Handle bundle items - only bundle discount on retail price (no VIP)
                         if (item.fromBundle && item.bundleDiscountPercent && item.bundleDiscountPercent > 0) {
                           const originalPrice = item.product.price
-                          // First apply user discount
-                          const userPricing = calculateDiscountedPrice(item.product, user)
-                          // Then apply bundle discount on top
-                          const bundleDiscountAmount = (userPricing.discountedPrice * item.bundleDiscountPercent) / 100
-                          const finalPrice = userPricing.discountedPrice - bundleDiscountAmount
+                          const finalPrice = Math.round(originalPrice * (1 - item.bundleDiscountPercent / 100) * 100) / 100
                           const total = finalPrice * quantity
-                          
-                          // Show combined discount info
-                          const discountText = userPricing.hasDiscount 
-                            ? `${userPricing.discountPercentage}% + ${item.bundleDiscountPercent}%`
-                            : `${item.bundleDiscountPercent}%`
+                          const discountText = `${item.bundleDiscountPercent}%`
                           
                           return (
                             <div key={`${item.product.id}-bundle`} className={`flex items-start justify-between ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>

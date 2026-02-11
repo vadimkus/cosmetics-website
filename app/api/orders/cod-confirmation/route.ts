@@ -109,23 +109,13 @@ export async function POST(request: NextRequest) {
       const itemPrice = item.price  // Already the final discounted price
 
       if (item.bundleDiscount && item.bundleDiscount > 0) {
-        // Bundle item: reverse both discounts in correct order
+        // Bundle item: ONLY bundle discount on retail price (no VIP)
         bundleDiscountPercentCalc = item.bundleDiscount
 
-        // Step 1: Reverse bundle discount → price after user discount only
-        const priceBeforeBundleDiscount = itemPrice / (1 - item.bundleDiscount / 100)
-        const itemBundleDiscount = (priceBeforeBundleDiscount - itemPrice) * item.quantity
+        const retailPrice = itemPrice / (1 - item.bundleDiscount / 100)
+        const itemBundleDiscount = (retailPrice - itemPrice) * item.quantity
         bundleDiscountAmountCalc += itemBundleDiscount
-
-        // Step 2: Reverse user discount → original list price
-        if (hasUserDiscount) {
-          const excluded = isUserDiscountExcludedProduct({ name: item.name })
-          if (!excluded) {
-            const originalPrice = priceBeforeBundleDiscount / (1 - userDiscountPct / 100)
-            const itemUserDiscount = (originalPrice - priceBeforeBundleDiscount) * item.quantity
-            discountAmount += itemUserDiscount
-          }
-        }
+        // No user/VIP discount for bundle items
       } else if (hasUserDiscount) {
         // Non-bundle item with user discount only
         const excluded = isUserDiscountExcludedProduct({ name: item.name })

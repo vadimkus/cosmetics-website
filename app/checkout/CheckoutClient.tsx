@@ -148,19 +148,20 @@ export default function CheckoutClient() {
       const originalPrice = item.product.price
       _retailTotal += originalPrice * quantity
       
-      const pricing = calculateDiscountedPrice(item.product, user)
+      const isBundleItem = item.fromBundle && item.bundleDiscountPercent && item.bundleDiscountPercent > 0
       
-      // Track user discount
-      if (pricing.hasDiscount && !pricing.isBeautyBox) {
-        _userDiscountTotal += pricing.discountAmount * quantity
-        if (pricing.discountPercentage > 0) _userDiscountPct = pricing.discountPercentage
-      }
-      
-      // Track bundle discount (applied on top of user discount)
-      if (item.fromBundle && item.bundleDiscountPercent && item.bundleDiscountPercent > 0) {
-        const bundleDiscount = (pricing.discountedPrice * item.bundleDiscountPercent) / 100
+      if (isBundleItem) {
+        // Bundle items: ONLY bundle discount on retail price (no VIP)
+        const bundleDiscount = (originalPrice * item.bundleDiscountPercent!) / 100
         _bundleDiscountTotal += bundleDiscount * quantity
-        if (item.bundleDiscountPercent > 0) _bundleDiscountPct = item.bundleDiscountPercent
+        if (item.bundleDiscountPercent! > 0) _bundleDiscountPct = item.bundleDiscountPercent!
+      } else {
+        // Non-bundle items: apply user/VIP discount
+        const pricing = calculateDiscountedPrice(item.product, user)
+        if (pricing.hasDiscount && !pricing.isBeautyBox) {
+          _userDiscountTotal += pricing.discountAmount * quantity
+          if (pricing.discountPercentage > 0) _userDiscountPct = pricing.discountPercentage
+        }
       }
     })
     
@@ -303,14 +304,12 @@ export default function CheckoutClient() {
               const itemSize = (item.selectedSize && item.selectedSize.trim()) || (item.product.size && item.product.size.trim()) || undefined
               const itemColor = (item.selectedColor && item.selectedColor.trim()) || undefined
               
-              // First calculate user's discounted price
-              const pricing = calculateDiscountedPrice(item.product, user)
-              let finalPrice = pricing.discountedPrice
+              const isBundleItem = item.fromBundle && item.bundleDiscountPercent && item.bundleDiscountPercent > 0
               
-              // For bundle items, apply bundle discount ON TOP of user discount
-              if (item.fromBundle && item.bundleDiscountPercent && item.bundleDiscountPercent > 0) {
-                const bundleDiscountAmount = (finalPrice * item.bundleDiscountPercent) / 100
-                finalPrice = finalPrice - bundleDiscountAmount
+              // Bundle items: only bundle discount on retail price (no VIP)
+              if (isBundleItem) {
+                const retailPrice = item.product.price
+                const finalPrice = Math.round(retailPrice * (1 - item.bundleDiscountPercent! / 100) * 100) / 100
                 return {
                   id: item.product.id,
                   name: item.product.name,
@@ -320,12 +319,12 @@ export default function CheckoutClient() {
                   image: item.product.image,
                   color: itemColor,
                   size: itemSize,
-                  bundleDiscount: item.bundleDiscountPercent,
-                  userDiscount: pricing.discountPercentage
+                  bundleDiscount: item.bundleDiscountPercent
                 }
               }
               
-              // Standard pricing for non-bundle items
+              // Non-bundle items: apply user discount
+              const pricing = calculateDiscountedPrice(item.product, user)
               return {
                 id: item.product.id,
                 name: item.product.name,
@@ -434,20 +433,18 @@ export default function CheckoutClient() {
               const itemSize = (item.selectedSize && item.selectedSize.trim()) || (item.product.size && item.product.size.trim()) || undefined
               const itemColor = (item.selectedColor && item.selectedColor.trim()) || undefined
               
-              // First apply user discount, then bundle discount on top
-              const pricing = calculateDiscountedPrice(item.product, user)
-              let finalPrice = pricing.discountedPrice
+              const isBundleItem = item.fromBundle && item.bundleDiscountPercent && item.bundleDiscountPercent > 0
               
-              // For bundle items, apply bundle discount ON TOP of user discount
-              if (item.fromBundle && item.bundleDiscountPercent && item.bundleDiscountPercent > 0) {
-                const bundleDiscountAmount = (finalPrice * item.bundleDiscountPercent) / 100
-                finalPrice = finalPrice - bundleDiscountAmount
-              }
+              // Bundle items: only bundle discount on retail price (no VIP)
+              // Non-bundle items: apply user discount
+              const finalPrice = isBundleItem
+                ? Math.round(item.product.price * (1 - item.bundleDiscountPercent! / 100) * 100) / 100
+                : calculateDiscountedPrice(item.product, user).discountedPrice
               
               return {
                 product: {
                   ...item.product,
-                  price: finalPrice // Use correctly discounted price for Stripe
+                  price: finalPrice
                 },
                 quantity: item.quantity,
                 selectedColor: itemColor,

@@ -61,17 +61,6 @@ export async function GET(request: NextRequest) {
     }
 
     const locale = request.headers.get('x-locale') || 'en'
-    const userId = request.headers.get('x-user-id') || null
-
-    // Fetch user for discount pricing
-    let userDiscount: { discountType: string | null, discountPercentage: number | null } | null = null
-    if (userId) {
-      const user = await prisma.user.findUnique({
-        where: { id: userId },
-        select: { discountType: true, discountPercentage: true },
-      })
-      if (user) userDiscount = user
-    }
 
     // Fetch all eligible products
     const products = await prisma.product.findMany({

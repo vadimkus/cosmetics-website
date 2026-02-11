@@ -58,7 +58,6 @@ function renderEnhancedItemRows(
   const bundleDiscountPct = order.bundleDiscountPercentage || 0
   const hasUserDiscount = userDiscountPct > 0
   const hasBundleDiscount = bundleDiscountPct > 0
-  const hasAnyDiscount = hasUserDiscount || hasBundleDiscount
   
   return order.items.map(item => {
     const isFreeItem = item.price === 0 || item.name.toLowerCase().includes('(free)')
@@ -81,14 +80,15 @@ function renderEnhancedItemRows(
       totalDiscountPct = BEAUTY_BOX_DISCOUNT_PCT
       showDiscount = true
     } else if (!isFixedPrice && !isFreeItem) {
-      // Regular item: show user/bundle discount if applicable
-      if (hasUserDiscount) {
-        originalPrice = originalPrice / (1 - userDiscountPct / 100)
-      }
+      // Bundle and VIP discounts are mutually exclusive per item.
+      // Prefer bundle discount when present (bundle items don't get VIP).
       if (hasBundleDiscount) {
         originalPrice = originalPrice / (1 - bundleDiscountPct / 100)
+        showDiscount = true
+      } else if (hasUserDiscount) {
+        originalPrice = originalPrice / (1 - userDiscountPct / 100)
+        showDiscount = true
       }
-      showDiscount = hasAnyDiscount
       totalDiscountPct = showDiscount
         ? Math.round((1 - item.price / originalPrice) * 100)
         : 0
@@ -103,11 +103,11 @@ function renderEnhancedItemRows(
     if (isBeautyBox) {
       badges.push(`<span style="display: inline-block; background: #fff7ed; color: #c2410c; font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 4px; margin-${isRTL ? 'left' : 'right'}: 4px;">-${BEAUTY_BOX_DISCOUNT_PCT}% Box</span>`)
     } else if (!isFixedPrice && !isFreeItem) {
-      if (hasUserDiscount) {
-        badges.push(`<span style="display: inline-block; background: #f3e8ff; color: #9333ea; font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 4px; margin-${isRTL ? 'left' : 'right'}: 4px;">-${userDiscountPct}% VIP</span>`)
-      }
+      // Show only one badge: bundle OR VIP (mutually exclusive)
       if (hasBundleDiscount) {
         badges.push(`<span style="display: inline-block; background: #dcfce7; color: #16a34a; font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 4px;">-${bundleDiscountPct}% Bundle</span>`)
+      } else if (hasUserDiscount) {
+        badges.push(`<span style="display: inline-block; background: #f3e8ff; color: #9333ea; font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 4px; margin-${isRTL ? 'left' : 'right'}: 4px;">-${userDiscountPct}% VIP</span>`)
       }
     }
     

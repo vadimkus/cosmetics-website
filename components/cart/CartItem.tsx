@@ -243,22 +243,14 @@ function CartItemComponent({ item }: CartItemProps) {
           {canUserSeePrices(user) ? (
             <div className="mt-2">
               {(() => {
-                // For bundle items, apply user discount first, then bundle discount on top
+                // For bundle items: bundle discount ONLY on retail price — no VIP/user discount
                 if (fromBundle && bundleDiscountPercent && bundleDiscountPercent > 0) {
-                  // First apply user discount
-                  const userPricing = calculateDiscountedPrice(product, user)
-                  const userDiscountedPrice = userPricing.discountedPrice
-                  
-                  // Then apply bundle discount on top of user-discounted price
-                  const bundleDiscountAmount = (userDiscountedPrice * bundleDiscountPercent) / 100
-                  const finalPrice = userDiscountedPrice - bundleDiscountAmount
+                  const retailPrice = product.price
+                  const finalPrice = retailPrice * (1 - bundleDiscountPercent / 100)
                   const totalPrice = finalPrice * quantity
-                  const originalTotalPrice = product.price * quantity
+                  const originalTotalPrice = retailPrice * quantity
                   
-                  // Calculate combined discount percentage for display
-                  const combinedDiscount = userPricing.hasDiscount 
-                    ? `${userPricing.discountPercentage}% + ${bundleDiscountPercent}%`
-                    : `${bundleDiscountPercent}%`
+                  const combinedDiscount = `${bundleDiscountPercent}%`
                   
                   return (
                     <div>

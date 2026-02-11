@@ -372,3 +372,117 @@ style={{
 - [ ] Scroll down in menu, then swipe up — should scroll content, not close
 - [ ] Scroll to top in menu, then swipe up — should close menu
 - [ ] Verify drag handle pill is visible at top of menu
+
+---
+
+### 7. Bundle Discount Alignment — Mobile API Routes
+
+**Context**: As part of cross-platform alignment between the website and native app, the mobile API routes were updated to apply bundle discounts correctly using the "waterfall" approach (VIP discount first, then bundle discount on top).
+
+**Files Modified**:
+
+| File | Changes |
+|------|---------|
+| `app/api/mobile/orders/route.ts` | Waterfall discount logic for COD orders |
+| `app/api/mobile/checkout/stripe/route.ts` | Waterfall discount logic for Stripe card payments |
+| `app/api/mobile/payments/applepay/intent/route.ts` | Waterfall discount logic for Apple Pay |
+
+**Waterfall Discount Logic** (same in all three files):
+```typescript
+// Per-item bundle handling
+const itemBundlePct = (item.fromBundle && item.bundleDiscountPercent) 
+  ? item.bundleDiscountPercent / 100 
+  : 0
+
+// Waterfall: VIP first, then bundle on top
+const afterVip = baseUnit * (1 - vipDiscountMultiplier)
+const unitPrice = itemBundlePct > 0 
+  ? afterVip * (1 - itemBundlePct) 
+  : afterVip
+```
+
+**TypeScript Interface Updates** — Added missing fields to `CheckoutItem` interface:
+```typescript
+interface CheckoutItem {
+  // ... existing fields ...
+  fromBundle?: boolean
+  bundleDiscountPercent?: number
+  originalPrice?: number
+}
+```
+
+---
+
+### 8. TypeScript Build Errors — Vercel Deployment Fixes
+
+**Commit**: `d0341fc9` — "fix: resolve TypeScript build errors for Vercel deployment"
+
+**Errors Fixed**:
+
+| File | Line | Error | Fix |
+|------|------|-------|-----|
+| `app/actions/profile.ts` | 23 | Unused `AddressInput` type import | Removed import |
+| `app/actions/profile.ts` | 117 | `label` could be `undefined` but Prisma expects `string \| null` | Added `?? null` coalescing |
+| `components/header/MobileWebHeader.tsx` | 141 | `e.touches[0]` possibly `undefined` | Added optional chaining (`?.`) |
+| `lib/jwt.ts` | 4 | Unused `ENV_DATABASE_URL` import | Removed import |
+| `lib/cartStore.ts` | 190 | Invalid `as Record<string, unknown>` cast on `CartItem` | Removed unnecessary filter (promo items never enter website cart) |
+
+---
+
+### 9. CRITICAL: JWT Secret Non-Deterministic Fallback Bug
+
+**Commit**: `c7fcf9da` — "fix: restore deterministic JWT fallback — fixes Google login on production"
+
+**Symptom**: After deploying `fb5d1f52`, Google login on production would complete the OAuth flow but users remained logged out. Localhost worked fine.
+
+**Root Cause**: In `lib/jwt.ts`, the production fallback secret was changed to:
+```typescript
+return `insecure-fallback-${Date.now()}`
+```
+
+This generated a **different secret on every call** because `Date.now()` changes every millisecond:
+1. User completes Google login → session token signed with `insecure-fallback-1739295000000`
+2. User's next request → server verifies with `insecure-fallback-1739295000001`
+3. Verification **fails** → user appears logged out
+
+**Why Localhost Worked**: In development (`NODE_ENV !== 'production'`), the code used a static `'development-only-secret-do-not-use-in-production'` string — always consistent.
+
+**Fix**: Restored the original deterministic fallback derived from `DATABASE_URL`:
+```typescript
+const dbUrl = process.env.DATABASE_URL
+const fallback = dbUrl 
+  ? `fallback-${Buffer.from(dbUrl).toString('base64').slice(0, 32)}`
+  : 'fallback-secret-for-development-only'
+return fallback
+```
+
+**Permanent Solution**: Set `JWT_SECRET` environment variable in Vercel dashboard:
+1. Go to Vercel → cosmetics-website → Settings → Environment Variables
+2. Add `JWT_SECRET` with a secure 64-character value
+3. Enable for Production, Preview, and Development environments
+4. Redeploy
+
+**JWT_SECRET Added**:
+- Vercel dashboard: ✅ (user added manually)
+- Local `.env.local`: ✅ (added automatically)
+
+**Impact**: All users with sessions created during the broken deployment period will need to log in again. After the fix + `JWT_SECRET` setup, sessions are stable.
+
+---
+
+## Commits Made (This Session)
+
+| Commit | Message | Key Changes |
+|--------|---------|-------------|
+| `fb5d1f52` | feat: align bundle discount logic across all mobile API routes | Waterfall discounts in Stripe/COD/Apple Pay routes |
+| `d0341fc9` | fix: resolve TypeScript build errors for Vercel deployment | Remove unused imports, fix type errors |
+| `c7fcf9da` | fix: restore deterministic JWT fallback — fixes Google login on production | **Critical auth fix** — Date.now() → DATABASE_URL-derived fallback |
+
+---
+
+## Security Recommendations
+
+1. **Set `JWT_SECRET` in Vercel** — Done ✅
+2. **Never use `Date.now()` in secrets** — The token signing secret must be deterministic across all requests
+3. **Test auth flows after any jwt.ts changes** — Small changes can have big auth impact
+4. **Use at least 32-character secrets** — Current: 64 characters ✅

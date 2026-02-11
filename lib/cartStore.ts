@@ -170,14 +170,16 @@ export const useCartStore = create<CartState>()(
       
       getTotalPrice: (user?: User | null) => {
         return get().items.reduce((total, item) => {
-          // First, calculate user's discounted price
-          const pricing = calculateDiscountedPrice(item.product, user || null)
-          let finalPrice = pricing.discountedPrice
+          let finalPrice: number
           
-          // For bundle items, apply bundle discount ON TOP of user discount
           if (item.fromBundle && item.bundleDiscountPercent && item.bundleDiscountPercent > 0) {
-            const bundleDiscountAmount = (finalPrice * item.bundleDiscountPercent) / 100
-            finalPrice = finalPrice - bundleDiscountAmount
+            // Bundle items: bundle discount ONLY on retail price — NO VIP/user discount
+            const retailPrice = item.product.price
+            finalPrice = retailPrice * (1 - item.bundleDiscountPercent / 100)
+          } else {
+            // Regular items: apply user discount as usual
+            const pricing = calculateDiscountedPrice(item.product, user || null)
+            finalPrice = pricing.discountedPrice
           }
           
           return total + (finalPrice * item.quantity)

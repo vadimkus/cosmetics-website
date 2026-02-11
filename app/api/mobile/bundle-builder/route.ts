@@ -130,14 +130,9 @@ export async function GET(request: NextRequest) {
         else if (p.nameRu) name = p.nameRu
       }
 
-      // Calculate user pricing
-      let displayPrice = p.price
-      let originalPrice = p.price
-      let userDiscountPct = 0
-      if (userDiscount?.discountPercentage && !p.noDiscount) {
-        userDiscountPct = userDiscount.discountPercentage
-        displayPrice = Math.round((p.price * (1 - userDiscountPct / 100)) * 100) / 100
-      }
+      // Bundle builder: NO user/VIP discount — only bundle tier discount applies.
+      // Display price = retail price (bundle discount is applied at checkout based on item count).
+      const displayPrice = p.price
 
       return {
         id: p.id,
@@ -150,8 +145,8 @@ export async function GET(request: NextRequest) {
         size: p.size,
         price: p.price,
         displayPrice,
-        originalPrice: userDiscountPct > 0 ? originalPrice : null,
-        userDiscountPct: userDiscountPct > 0 ? userDiscountPct : null,
+        originalPrice: null,
+        userDiscountPct: null,
         noDiscount: p.noDiscount,
         rating: p.rating,
         variants: p.variants.filter(v => v.available).map(v => ({

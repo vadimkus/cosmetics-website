@@ -393,7 +393,7 @@ export async function POST(request: NextRequest) {
       // Apply user discount unless product is excluded
       const excluded = isPromo ? true : isUserDiscountExcludedProduct(product)
 
-      // "Build Your Set" bundle items: waterfall discount (VIP first, then bundle on top) — matches COD route
+      // "Build Your Set" bundle items: bundle discount ONLY — no VIP/user discount stacking.
       const isBundleItem = item?.fromBundle === true
       const itemBundlePct = Number(item?.bundleDiscountPercent) || 0
       const hasBundleDiscountForItem = isBundleItem && itemBundlePct > 0 && itemBundlePct < 100
@@ -402,12 +402,8 @@ export async function POST(request: NextRequest) {
       if (isPromo) {
         unitPrice = 0
       } else if (hasBundleDiscountForItem) {
-        // Waterfall: VIP discount first, then bundle discount on top
-        let afterVip = baseUnit
-        if (!excluded && hasUserDiscount) {
-          afterVip = baseUnit * (1 - pct / 100)
-          discountAmount += (baseUnit - afterVip) * qty
-        }
+        // Bundle items: apply ONLY bundle discount on retail price (no VIP)
+        const afterVip = baseUnit  // no VIP applied
         unitPrice = Math.round(afterVip * (1 - itemBundlePct / 100) * 100) / 100
         bundleDiscountAmount += (afterVip - unitPrice) * qty
         bundleDiscountPct = itemBundlePct
@@ -421,6 +417,16 @@ export async function POST(request: NextRequest) {
       const itemSubtotal = unitPrice * qty
       serverSubtotal += itemSubtotal
 
+      // Build discount description for Stripe line item
+      let discountDesc = ''
+      if (!isPromo && unitPrice < baseUnit) {
+        if (hasBundleDiscountForItem) {
+          discountDesc = `${Math.round(itemBundlePct)}% Bundle discount applied (was AED ${baseUnit.toFixed(2)})`
+        } else if (!excluded && hasUserDiscount) {
+          discountDesc = `${Math.round(pct)}% discount applied (was AED ${baseUnit.toFixed(2)})`
+        }
+      }
+
       validatedItems.push({
         id: product.id,
         name: product.name,
@@ -429,7 +435,8 @@ export async function POST(request: NextRequest) {
         image: item.image || product.image,
         // Preserve a stable promo marker so mobile UI can reliably show "FREE"
         size: isPromo ? '__PROMO__' : item.size,
-        color: item.color
+        color: item.color,
+        discountDesc,
       })
     }
 
@@ -542,6 +549,7 @@ export async function POST(request: NextRequest) {
         unit_amount: Math.round(item.price * 100), // Convert AED to fils
         product_data: {
           name: item.name + (item.size ? ` (${item.size})` : '') + (item.color ? ` - ${item.color}` : ''),
+          ...(item.discountDesc ? { description: item.discountDesc } : {}),
           images: item.image.startsWith('http') ? [item.image] : [`https://genosys.ae${item.image}`],
           metadata: {
             product_id: item.id,

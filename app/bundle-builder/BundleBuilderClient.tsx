@@ -164,12 +164,7 @@ function BundleProductCard({
         </div>
       )}
       
-      {/* Discount Badge */}
-      {showPrices && pricing.hasDiscount && (
-        <div className="absolute top-3 left-3 z-10 bg-green-600 text-white text-xs font-medium px-2 py-1 rounded-full">
-          -{pricing.discountPercentage}%
-        </div>
-      )}
+      {/* No VIP discount badge in bundle builder — only bundle discount applies at checkout */}
       
       {/* Product Image */}
       <div className="relative aspect-square bg-gray-50 p-4">
@@ -202,18 +197,8 @@ function BundleProductCard({
         <div className="mt-2">
           {showPrices ? (
             <div className="flex flex-col">
-              {pricing.hasDiscount ? (
-                <>
-                  <div className="flex items-center gap-2">
-                    <span className="text-base font-semibold text-primary-600">
-                      {pricing.discountedPrice.toFixed(2)} {t('common.aed')}
-                    </span>
-                    <span className="text-xs text-gray-400 line-through">
-                      {pricing.originalPrice.toFixed(2)}
-                    </span>
-                  </div>
-                </>
-              ) : (
+              {/* Bundle builder: show retail price only — no VIP discount */}
+              {(
                 <span className="text-base font-semibold text-gray-900">
                   {product.price.toFixed(2)} {t('common.aed')}
                 </span>
@@ -358,37 +343,24 @@ function BundleSummary({
       {showPrices ? (
         <div className="border-t border-gray-200 pt-4 space-y-2">
           {(() => {
-            // Calculate original retail price (before user discount)
-            const originalRetailTotal = items.reduce((sum, item) => sum + item.product.price, 0)
-            const userDiscountAmount = originalRetailTotal - pricing.subtotal
-            const hasUserDiscount = userDiscountAmount > 0.01
-            const totalSavings = originalRetailTotal - pricing.total
+            // Bundle builder: no VIP discount — only bundle tier discount on retail price
+            const totalSavings = pricing.subtotal - pricing.total
             
             return (
               <>
-                {/* Original Retail Price (only show if user has discount) */}
-                {hasUserDiscount && (
+                {/* Retail Subtotal */}
+                {pricing.discountPercent > 0 && (
                   <div className="flex justify-between text-sm">
-                    <span className="text-gray-400">{t('bundleBuilder.retailPrice')}</span>
-                    <span className="text-gray-400 line-through">{originalRetailTotal.toFixed(2)} {t('common.aed')}</span>
+                    <span className="text-gray-500">{t('bundleBuilder.subtotal')}</span>
+                    <span className="text-gray-400 line-through">{pricing.subtotal.toFixed(2)} {t('common.aed')}</span>
                   </div>
                 )}
-                
-                {/* User Discount */}
-                {hasUserDiscount && (
+                {pricing.discountPercent === 0 && (
                   <div className="flex justify-between text-sm">
-                    <span className="text-purple-600">
-                      {t('bundleBuilder.yourDiscount')} {userDiscountPercent ? `(${userDiscountPercent}%)` : ''}
-                    </span>
-                    <span className="text-purple-600">-{userDiscountAmount.toFixed(2)} {t('common.aed')}</span>
+                    <span className="text-gray-500">{t('bundleBuilder.subtotal')}</span>
+                    <span className="text-gray-900">{pricing.subtotal.toFixed(2)} {t('common.aed')}</span>
                   </div>
                 )}
-                
-                {/* Subtotal (after user discount) */}
-                <div className="flex justify-between text-sm">
-                  <span className="text-gray-500">{t('bundleBuilder.subtotal')}</span>
-                  <span className="text-gray-900">{pricing.subtotal.toFixed(2)} {t('common.aed')}</span>
-                </div>
                 
                 {/* Bundle Discount */}
                 {pricing.discountPercent > 0 && (

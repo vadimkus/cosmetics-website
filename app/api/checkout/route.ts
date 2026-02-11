@@ -112,31 +112,18 @@ export async function POST(request: NextRequest) {
       const itemTotal = itemPrice * item.quantity
       subtotal += itemTotal
       
-      // Check if this is a bundle item
+      // Check if this is a bundle item — bundle discount ONLY, no VIP/user discount
       if (item.fromBundle && item.bundleDiscountPercent && item.bundleDiscountPercent > 0) {
         bundleDiscountPercent = item.bundleDiscountPercent
         
-        // Calculate what the price was before bundle discount
-        // Final price = (user discounted price) * (1 - bundleDiscount/100)
-        // So: user discounted price = final price / (1 - bundleDiscount/100)
-        const priceBeforeBundleDiscount = itemPrice / (1 - item.bundleDiscountPercent / 100)
-        const itemBundleDiscount = (priceBeforeBundleDiscount - itemPrice) * item.quantity
+        // Bundle items: price already has bundle discount baked in (retail * (1 - bundlePct/100))
+        // Reverse-engineer the bundle discount amount for record-keeping
+        const retailPrice = itemPrice / (1 - item.bundleDiscountPercent / 100)
+        const itemBundleDiscount = (retailPrice - itemPrice) * item.quantity
         bundleDiscountAmount += itemBundleDiscount
         
-        debugLog(`Bundle item: ${item.product.name} - Bundle discount: ${item.bundleDiscountPercent}% = ${itemBundleDiscount.toFixed(2)} AED`)
-        
-        // Also calculate user discount if applicable
-        if (hasUserDiscount) {
-          const excluded = isUserDiscountExcludedProduct(item.product)
-          if (!excluded) {
-            // User discounted price = original price * (1 - userDiscount/100)
-            // So: original price = price before bundle discount / (1 - userDiscount/100)
-            const originalPrice = priceBeforeBundleDiscount / (1 - userDiscountPct / 100)
-            const itemUserDiscount = (originalPrice - priceBeforeBundleDiscount) * item.quantity
-            discountAmount += itemUserDiscount
-            debugLog(`  User discount: ${userDiscountPct}% = ${itemUserDiscount.toFixed(2)} AED`)
-          }
-        }
+        debugLog(`Bundle item: ${item.product.name} - Bundle discount: ${item.bundleDiscountPercent}% = ${itemBundleDiscount.toFixed(2)} AED (no VIP applied)`)
+        // No user/VIP discount for bundle items
       } else if (hasUserDiscount) {
         // Non-bundle item with user discount
         const excluded = isUserDiscountExcludedProduct(item.product)

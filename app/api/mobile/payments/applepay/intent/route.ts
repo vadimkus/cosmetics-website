@@ -183,7 +183,7 @@ export async function POST(request: NextRequest) {
       // Apply user discount unless product is excluded
       const excluded = isPromo ? true : isUserDiscountExcludedProduct(product)
 
-      // "Build Your Set" bundle items: waterfall discount (VIP first, then bundle on top) — matches COD route
+      // "Build Your Set" bundle items: bundle discount ONLY — no VIP/user discount stacking.
       const isBundleItem = item?.fromBundle === true
       const itemBundlePct = Number(item?.bundleDiscountPercent) || 0
       const hasBundleDiscountForItem = isBundleItem && itemBundlePct > 0 && itemBundlePct < 100
@@ -192,12 +192,8 @@ export async function POST(request: NextRequest) {
       if (isPromo) {
         unitPrice = 0
       } else if (hasBundleDiscountForItem) {
-        // Waterfall: VIP discount first, then bundle discount on top
-        let afterVip = baseUnit
-        if (!excluded && hasUserDiscount) {
-          afterVip = baseUnit * (1 - pct / 100)
-          discountAmount += (baseUnit - afterVip) * qty
-        }
+        // Bundle items: apply ONLY bundle discount on retail price (no VIP)
+        const afterVip = baseUnit  // no VIP applied
         unitPrice = Math.round(afterVip * (1 - itemBundlePct / 100) * 100) / 100
         bundleDiscountAmount += (afterVip - unitPrice) * qty
         bundleDiscountPct = itemBundlePct

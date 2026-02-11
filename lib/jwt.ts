@@ -11,24 +11,24 @@ function getJwtSecret(): string {
   const secret = ENV_JWT_SECRET
   
   if (!secret) {
-    // In production, fail hard - never use a fallback secret
-    if (process.env.NODE_ENV === 'production') {
-      if (!_jwtSecretWarned) {
-        errorLog('CRITICAL: JWT_SECRET is not set in production! Authentication is compromised.')
-        errorLog('Set JWT_SECRET environment variable in Vercel dashboard immediately.')
-        _jwtSecretWarned = true
-      }
-      // Still provide a fallback to prevent crashes, but log every time
-      errorLog('JWT operation using insecure fallback - ALL sessions should be considered compromised')
-      return `insecure-fallback-${Date.now()}`
-    }
-    
-    // In development, warn once and use a deterministic fallback
+    // Warn once about missing JWT_SECRET (don't throw - let fallback work)
     if (!_jwtSecretWarned) {
-      warnLog('JWT_SECRET not set - using development fallback. Set JWT_SECRET for production.')
+      if (process.env.NODE_ENV === 'production') {
+        errorLog('⚠️ SECURITY WARNING: JWT_SECRET not set in production!')
+        errorLog('⚠️ Using deterministic fallback - sessions may be vulnerable. Set JWT_SECRET env var.')
+      } else {
+        warnLog('JWT_SECRET not set - using development fallback. Set JWT_SECRET for production.')
+      }
       _jwtSecretWarned = true
     }
-    return 'development-only-secret-do-not-use-in-production'
+    // Use a deterministic fallback based on DATABASE_URL if available.
+    // CRITICAL: This MUST be deterministic (same on every call) so that tokens
+    // created in one request can be verified in subsequent requests.
+    const dbUrl = process.env.DATABASE_URL
+    const fallback = dbUrl 
+      ? `fallback-${Buffer.from(dbUrl).toString('base64').slice(0, 32)}`
+      : 'fallback-secret-for-development-only'
+    return fallback
   }
   
   // Warn if secret is too short

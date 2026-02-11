@@ -7,6 +7,7 @@ import { SITE_URL } from '@/lib/siteConfig'
 import { loadEmailTranslations, LOGO_URL } from './utils'
 import { sendEmail } from './transporter'
 import { emailTemplates } from './templates'
+import enFallbackMessages from '@/messages/en.json'
 
 export const sendOrderStatusUpdate = async (order: { orderNumber: string; customerName: string; customerEmail: string; id?: string; items?: Array<{ productName: string; quantity: number; price: number; image?: string; color?: string; size?: string }>; total?: number; customerAddress?: string; customerEmirate?: string; locale?: string }, newStatus: string): Promise<{ success: boolean; error?: string; messageId?: string }> => {
   try {
@@ -106,8 +107,9 @@ export const sendOrderStatusUpdate = async (order: { orderNumber: string; custom
       errorLog('Failed to load translations for order status update, using fallback')
       // Fallback to English
       try {
-        const enMessages = require('@/messages/en.json')
-        t = enMessages.default?.orderEmail?.statusUpdate || enMessages.orderEmail?.statusUpdate
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const enMsgs = enFallbackMessages as Record<string, any>
+        t = enMsgs.default?.orderEmail?.statusUpdate || enMsgs.orderEmail?.statusUpdate
       } catch (fallbackError) {
         errorLog('Failed to load fallback translations:', fallbackError)
         // Hardcoded fallback

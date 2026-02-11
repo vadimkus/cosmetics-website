@@ -6,6 +6,7 @@ import { useEffect, Suspense, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { ShoppingBag, ArrowLeft, MessageCircle, CheckCircle2, Mail, MapPin, Clock, Truck, Package } from 'lucide-react'
+import { errorLog } from '@/lib/logger'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { usePWAMode } from '@/hooks/usePWAMode'
@@ -99,7 +100,7 @@ function SuccessContent() {
           setOrderData(result.data)
         }
       } catch (error) {
-        console.error('Failed to fetch order details:', error)
+        errorLog('Failed to fetch order details:', error)
       } finally {
         setLoading(false)
       }
@@ -276,26 +277,73 @@ function SuccessContent() {
                   const hasBundleDiscount = bundleDiscountPct > 0
                   const hasAnyDiscount = hasUserDiscount || hasBundleDiscount
 
+                  // Products excluded from user VIP discount but with their own built-in discount
+                  const isExcludedFromUserDiscount = (name: string): boolean => {
+                    const n = (name || '').trim().toLowerCase()
+                    if (!n) return false
+                    if (n.includes('beauty box') || n.includes('beautybox')) return true
+                    if (n.includes('hydro') && n.includes('cool') && n.includes('mask')) return true
+                    if (n.includes('genoled') || n.includes('gentron') || n.includes('hairgen')) return true
+                    return false
+                  }
+
+                  // Beauty boxes have a built-in 15% bundle discount with known original prices
+                  const BEAUTY_BOX_ORIGINAL_PRICES: Record<string, number> = {
+                    'problem skin care beauty box': 1318,
+                    'skin brightening beauty box': 1496,
+                    'charming look beauty box': 1520,
+                    'anti-aging beauty box': 1390,
+                    'deep moisturizing beauty box': 1318,
+                    'sensitive skin beauty box': 1696,
+                  }
+                  const BEAUTY_BOX_DISCOUNT_PCT = 15
+
+                  const getBeautyBoxOriginalPrice = (name: string): number | null => {
+                    const n = (name || '').trim().toLowerCase()
+                    for (const [key, price] of Object.entries(BEAUTY_BOX_ORIGINAL_PRICES)) {
+                      if (n.includes(key)) return price
+                    }
+                    return null
+                  }
+
                   return (
                     <>
                       <div className="divide-y divide-gray-100">
                         {orderData.items.map((item) => {
                           const isFreeItem = item.price === 0 || item.productName.toLowerCase().includes('(free)')
+                          const excludedFromUserDiscount = isExcludedFromUserDiscount(item.productName)
                           
+                          // Check if this is a beauty box with its own built-in discount
+                          const beautyBoxOriginal = getBeautyBoxOriginalPrice(item.productName)
+                          const isBeautyBox = beautyBoxOriginal !== null
+
                           // Reverse-calculate original price from stored discounted price
+                          // ONLY for items that actually had the user/bundle discount applied
                           let originalPrice = item.price
-                          if (hasUserDiscount && !isFreeItem) {
-                            originalPrice = originalPrice / (1 - userDiscountPct / 100)
+                          let itemDiscountPct = 0
+                          let showDiscount = false
+
+                          if (isBeautyBox && beautyBoxOriginal) {
+                            // Beauty box: show the built-in 15% bundle discount
+                            originalPrice = beautyBoxOriginal
+                            itemDiscountPct = BEAUTY_BOX_DISCOUNT_PCT
+                            showDiscount = true
+                          } else if (!excludedFromUserDiscount && !isFreeItem) {
+                            // Regular item: show user/bundle discount
+                            if (hasUserDiscount) {
+                              originalPrice = originalPrice / (1 - userDiscountPct / 100)
+                            }
+                            if (hasBundleDiscount) {
+                              originalPrice = originalPrice / (1 - bundleDiscountPct / 100)
+                            }
+                            showDiscount = hasAnyDiscount
+                            itemDiscountPct = showDiscount
+                              ? Math.round((1 - item.price / originalPrice) * 100)
+                              : 0
                           }
-                          if (hasBundleDiscount && !isFreeItem) {
-                            originalPrice = originalPrice / (1 - bundleDiscountPct / 100)
-                          }
-                          
+
                           const itemTotal = item.price * item.quantity
                           const originalTotal = originalPrice * item.quantity
-                          const totalDiscountPct = hasAnyDiscount && !isFreeItem
-                            ? Math.round((1 - item.price / originalPrice) * 100)
-                            : 0
 
                           return (
                             <div key={item.id} className={`flex gap-3 py-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
@@ -317,7 +365,7 @@ function SuccessContent() {
                                   <div className={`whitespace-nowrap ${dir === 'rtl' ? 'text-left' : 'text-right'}`}>
                                     {isFreeItem ? (
                                       <span className="text-sm font-bold text-green-600">{t('cart.free') || 'FREE'}</span>
-                                    ) : hasAnyDiscount ? (
+                                    ) : showDiscount ? (
                                       <div>
                                         <span className="text-xs text-gray-400 line-through block">AED {originalTotal.toFixed(2)}</span>
                                         <span className="text-sm font-bold text-green-600">AED {itemTotal.toFixed(2)}</span>
@@ -333,21 +381,29 @@ function SuccessContent() {
                                   {item.color && <span>• {item.color}</span>}
                                 </div>
                                 {/* Discount info */}
-                                {totalDiscountPct > 0 && (
-                                  <p className="text-xs font-semibold text-green-600 mt-0.5">({totalDiscountPct}% OFF)</p>
+                                {itemDiscountPct > 0 && (
+                                  <p className="text-xs font-semibold text-green-600 mt-0.5">({itemDiscountPct}% OFF)</p>
                                 )}
                                 {/* Discount badges */}
-                                {hasAnyDiscount && !isFreeItem && (
+                                {showDiscount && !isFreeItem && (
                                   <div className={`flex flex-wrap gap-1 mt-1 ${dir === 'rtl' ? 'justify-end' : ''}`}>
-                                    {hasUserDiscount && (
-                                      <span className="inline-block bg-purple-100 text-purple-700 text-[10px] font-bold px-1.5 py-0.5 rounded">
-                                        -{userDiscountPct}% VIP
+                                    {isBeautyBox ? (
+                                      <span className="inline-block bg-orange-100 text-orange-700 text-[10px] font-bold px-1.5 py-0.5 rounded">
+                                        -{BEAUTY_BOX_DISCOUNT_PCT}% Box
                                       </span>
-                                    )}
-                                    {hasBundleDiscount && (
-                                      <span className="inline-block bg-green-100 text-green-700 text-[10px] font-bold px-1.5 py-0.5 rounded">
-                                        -{bundleDiscountPct}% Bundle
-                                      </span>
+                                    ) : (
+                                      <>
+                                        {hasUserDiscount && (
+                                          <span className="inline-block bg-purple-100 text-purple-700 text-[10px] font-bold px-1.5 py-0.5 rounded">
+                                            -{userDiscountPct}% VIP
+                                          </span>
+                                        )}
+                                        {hasBundleDiscount && (
+                                          <span className="inline-block bg-green-100 text-green-700 text-[10px] font-bold px-1.5 py-0.5 rounded">
+                                            -{bundleDiscountPct}% Bundle
+                                          </span>
+                                        )}
+                                      </>
                                     )}
                                   </div>
                                 )}

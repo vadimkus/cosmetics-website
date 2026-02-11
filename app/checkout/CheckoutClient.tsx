@@ -848,7 +848,16 @@ export default function CheckoutClient() {
                             )}
                           </div>
                         </div>
-                        <span className="text-sm font-semibold text-gray-900">AED {(pricing.discountedPrice * quantity).toFixed(2)}</span>
+                        <div className="shrink-0">
+                          {pricing.hasDiscount ? (
+                            <div className="text-right">
+                              <div className="text-xs text-gray-400 line-through">AED {((pricing.originalPrice ?? pricing.discountedPrice) * quantity).toFixed(2)}</div>
+                              <div className="text-sm font-semibold text-green-600">AED {(pricing.discountedPrice * quantity).toFixed(2)}</div>
+                            </div>
+                          ) : (
+                            <span className="text-sm font-semibold text-gray-900">AED {(pricing.discountedPrice * quantity).toFixed(2)}</span>
+                          )}
+                        </div>
                       </div>
                     )
                   })}
@@ -1230,9 +1239,20 @@ export default function CheckoutClient() {
                               </div>
                             </div>
                             <div className={dir === 'rtl' ? 'text-left mr-2 md:mr-3' : 'text-right ml-2 md:ml-3'}>
-                              <div className="text-xs md:text-sm font-semibold text-gray-900">
-                                AED {total.toFixed(2)}
-                              </div>
+                              {pricing.hasDiscount ? (
+                                <div>
+                                  <div className="text-[10px] md:text-xs text-gray-400 line-through">
+                                    AED {(pricing.originalPrice! * quantity).toFixed(2)}
+                                  </div>
+                                  <div className="text-xs md:text-sm font-semibold text-green-600">
+                                    AED {total.toFixed(2)}
+                                  </div>
+                                </div>
+                              ) : (
+                                <div className="text-xs md:text-sm font-semibold text-gray-900">
+                                  AED {total.toFixed(2)}
+                                </div>
+                              )}
                             </div>
                           </div>
                         )

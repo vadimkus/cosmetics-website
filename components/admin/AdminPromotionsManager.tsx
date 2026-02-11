@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Megaphone, Save, PlusCircle, RefreshCw, CheckCircle2, Bell, Send, Users, Eye, Trash2 } from 'lucide-react'
+import { errorLog } from '@/lib/logger'
 import { addCsrfToBody, fetchCsrfToken } from '@/lib/csrfClient'
 import RichTextEditor from './RichTextEditor'
 
@@ -103,7 +104,7 @@ export default function AdminPromotionsManager({
 
       const parsed = await parseJsonResponse(res)
       if (!parsed.isJson) {
-        console.error('Non-JSON response from /api/admin/promotions:', {
+        errorLog('Non-JSON response from /api/admin/promotions:', {
           status: res.status,
           statusText: res.statusText,
           contentType: parsed.contentType,
@@ -127,7 +128,7 @@ export default function AdminPromotionsManager({
       setPromotions(Array.isArray(body.promotions) ? body.promotions : [])
     } catch (e: unknown) {
       const err = e as Error
-      console.error('Error loading promotions:', err)
+      errorLog('Error loading promotions:', err)
       showToast(err?.message || 'Failed to load promotions', 'error')
     } finally {
       setLoading(false)
@@ -173,7 +174,7 @@ export default function AdminPromotionsManager({
 
       const parsed = await parseJsonResponse(res)
       if (!parsed.isJson) {
-        console.error('Non-JSON response from PUT /api/admin/promotions:', {
+        errorLog('Non-JSON response from PUT /api/admin/promotions:', {
           status: res.status,
           statusText: res.statusText,
           contentType: parsed.contentType,
@@ -221,7 +222,7 @@ export default function AdminPromotionsManager({
 
       const parsed = await parseJsonResponse(res)
       if (!parsed.isJson) {
-        console.error('Non-JSON response from POST /api/admin/promotions:', {
+        errorLog('Non-JSON response from POST /api/admin/promotions:', {
           status: res.status,
           statusText: res.statusText,
           contentType: parsed.contentType,
@@ -263,7 +264,7 @@ export default function AdminPromotionsManager({
         }
       }
     } catch (e: unknown) {
-      console.error('Error loading notifications:', e)
+      errorLog('Error loading notifications:', e)
     } finally {
       setPushLoading(false)
     }

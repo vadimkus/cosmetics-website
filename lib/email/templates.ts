@@ -540,32 +540,62 @@ export const emailTemplates = {
     const hasBundleDiscount = bundleDiscountPct > 0
     const hasAnyDiscount = hasUserDiscount || hasBundleDiscount
 
+    // Helpers for beauty box and fixed-price item detection
+    const BEAUTY_BOX_PRICES: Record<string, number> = {
+      'problem skin care beauty box': 1318, 'skin brightening beauty box': 1496,
+      'charming look beauty box': 1520, 'anti-aging beauty box': 1390,
+      'deep moisturizing beauty box': 1318, 'sensitive skin beauty box': 1696,
+    }
+    const BEAUTY_BOX_DISC = 15
+    const getBBOriginal = (name: string): number | null => {
+      const n = (name || '').trim().toLowerCase()
+      for (const [k, p] of Object.entries(BEAUTY_BOX_PRICES)) { if (n.includes(k)) return p }
+      return null
+    }
+    const isFixedPrice = (name: string): boolean => {
+      const n = (name || '').trim().toLowerCase()
+      if (n.includes('hydro') && n.includes('cool') && n.includes('mask')) return true
+      if (n.includes('genoled') || n.includes('gentron') || n.includes('hairgen')) return true
+      return false
+    }
+
     // Generate items HTML - show discounted prices with per-line discount info
     const itemsHTML = orderData.items.map(item => {
       const isFreeItem = item.price === 0 || item.productName.toLowerCase().includes('(free)')
+      const bbOriginal = getBBOriginal(item.productName)
+      const isBeautyBox = bbOriginal !== null
+      const isFixed = isFixedPrice(item.productName)
       
-      // Calculate original price (before discounts) from the stored discounted price
-      // item.price is already the final price customer pays
-      // originalPrice = finalPrice / (1 - userDiscount/100) / (1 - bundleDiscount/100)
       let originalPrice = item.price
-      if (hasUserDiscount) {
-        originalPrice = originalPrice / (1 - userDiscountPct / 100)
-      }
-      if (hasBundleDiscount) {
-        originalPrice = originalPrice / (1 - bundleDiscountPct / 100)
+      let totalDiscountPct = 0
+      let showDiscount = false
+
+      if (isBeautyBox && bbOriginal) {
+        originalPrice = bbOriginal
+        totalDiscountPct = BEAUTY_BOX_DISC
+        showDiscount = true
+      } else if (!isFixed && !isFreeItem) {
+        if (hasUserDiscount) originalPrice = originalPrice / (1 - userDiscountPct / 100)
+        if (hasBundleDiscount) originalPrice = originalPrice / (1 - bundleDiscountPct / 100)
+        showDiscount = hasAnyDiscount
+        totalDiscountPct = showDiscount ? Math.round((1 - item.price / originalPrice) * 100) : 0
       }
       
-      const hasDiscount = (hasUserDiscount || hasBundleDiscount) && !isFreeItem
+      const hasDiscount = showDiscount && !isFreeItem
       const itemTotal = item.price * item.quantity
       const originalTotal = originalPrice * item.quantity
       
       // Build discount badges
       const discountBadges = []
-      if (hasUserDiscount && !isFreeItem) {
-        discountBadges.push(`<span style="display: inline-block; background: #f3e8ff; color: #9333ea; font-size: 10px; font-weight: 600; padding: 2px 6px; border-radius: 4px; margin-${isRTL ? 'left' : 'right'}: 4px;">-${userDiscountPct}% VIP</span>`)
-      }
-      if (hasBundleDiscount && !isFreeItem) {
-        discountBadges.push(`<span style="display: inline-block; background: #dcfce7; color: #16a34a; font-size: 10px; font-weight: 600; padding: 2px 6px; border-radius: 4px;">-${bundleDiscountPct}% Bundle</span>`)
+      if (isBeautyBox) {
+        discountBadges.push(`<span style="display: inline-block; background: #fff7ed; color: #c2410c; font-size: 10px; font-weight: 600; padding: 2px 6px; border-radius: 4px; margin-${isRTL ? 'left' : 'right'}: 4px;">-${BEAUTY_BOX_DISC}% Box</span>`)
+      } else if (!isFixed && !isFreeItem) {
+        if (hasUserDiscount) {
+          discountBadges.push(`<span style="display: inline-block; background: #f3e8ff; color: #9333ea; font-size: 10px; font-weight: 600; padding: 2px 6px; border-radius: 4px; margin-${isRTL ? 'left' : 'right'}: 4px;">-${userDiscountPct}% VIP</span>`)
+        }
+        if (hasBundleDiscount) {
+          discountBadges.push(`<span style="display: inline-block; background: #dcfce7; color: #16a34a; font-size: 10px; font-weight: 600; padding: 2px 6px; border-radius: 4px;">-${bundleDiscountPct}% Bundle</span>`)
+        }
       }
       
       const priceDisplay = isFreeItem 
@@ -579,11 +609,6 @@ export const emailTemplates = {
           : `AED ${itemTotal.toFixed(2)}`
       
       const imageUrl = item.image ? (item.image.startsWith('http') ? item.image : `${SITE_URL}${item.image}`) : ''
-      
-      // Combined discount percentage
-      const totalDiscountPct = hasAnyDiscount && !isFreeItem
-        ? Math.round((1 - item.price / originalPrice) * 100)
-        : 0
       
       // Qty + size/color combined line (matching success page: "Quantity: 1 • 180ml")
       const detailParts: string[] = [`${t.qty || 'Quantity'}: ${item.quantity}`]
@@ -1181,30 +1206,61 @@ export const emailTemplates = {
                 const hasUserDiscount = userDiscountPct > 0
                 const hasBundleDiscount = bundleDiscountPct > 0
                 
+                // Beauty box original prices and helpers (same as customer email)
+                const BB_PRICES: Record<string, number> = {
+                  'problem skin care beauty box': 1318, 'skin brightening beauty box': 1496,
+                  'charming look beauty box': 1520, 'anti-aging beauty box': 1390,
+                  'deep moisturizing beauty box': 1318, 'sensitive skin beauty box': 1696,
+                }
+                const BB_DISC = 15
+                const getBBOrig = (name: string): number | null => {
+                  const n = (name || '').trim().toLowerCase()
+                  for (const [k, p] of Object.entries(BB_PRICES)) { if (n.includes(k)) return p }
+                  return null
+                }
+                const isFixed = (name: string): boolean => {
+                  const n = (name || '').trim().toLowerCase()
+                  if (n.includes('hydro') && n.includes('cool') && n.includes('mask')) return true
+                  if (n.includes('genoled') || n.includes('gentron') || n.includes('hairgen')) return true
+                  return false
+                }
+                
                 return orderData.items.map(item => {
                   const isFreeItem = item.price === 0 || item.productName.toLowerCase().includes('(free)')
+                  const bbOriginal = getBBOrig(item.productName)
+                  const isBeautyBox = bbOriginal !== null
+                  const isFixedItem = isFixed(item.productName)
                   
-                  // Calculate original price from discounted price
                   let originalPrice = item.price
-                  if (hasUserDiscount) {
-                    originalPrice = originalPrice / (1 - userDiscountPct / 100)
-                  }
-                  if (hasBundleDiscount) {
-                    originalPrice = originalPrice / (1 - bundleDiscountPct / 100)
+                  let totalDiscountPct = 0
+                  let showDiscount = false
+
+                  if (isBeautyBox && bbOriginal) {
+                    originalPrice = bbOriginal
+                    totalDiscountPct = BB_DISC
+                    showDiscount = true
+                  } else if (!isFixedItem && !isFreeItem) {
+                    if (hasUserDiscount) originalPrice = originalPrice / (1 - userDiscountPct / 100)
+                    if (hasBundleDiscount) originalPrice = originalPrice / (1 - bundleDiscountPct / 100)
+                    showDiscount = hasUserDiscount || hasBundleDiscount
+                    totalDiscountPct = showDiscount ? Math.round((1 - item.price / originalPrice) * 100) : 0
                   }
                   
-                  const hasDiscount = (hasUserDiscount || hasBundleDiscount) && !isFreeItem
+                  const hasDiscount = showDiscount && !isFreeItem
                   const itemTotal = item.price * item.quantity
                   const originalTotal = originalPrice * item.quantity
-                  const totalDiscountPct = hasDiscount ? Math.round((1 - item.price / originalPrice) * 100) : 0
                   
                   // Build discount badges for admin email
                   const discountBadges: string[] = []
-                  if (hasUserDiscount && !isFreeItem) {
-                    discountBadges.push(`<span style="display: inline-block; background: #f3e8ff; color: #9333ea; font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 4px; margin-right: 4px;">-${userDiscountPct}% VIP</span>`)
-                  }
-                  if (hasBundleDiscount && !isFreeItem) {
-                    discountBadges.push(`<span style="display: inline-block; background: #dcfce7; color: #16a34a; font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 4px;">-${bundleDiscountPct}% Bundle</span>`)
+                  if (isBeautyBox) {
+                    discountBadges.push(`<span style="display: inline-block; background: #fff7ed; color: #c2410c; font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 4px; margin-right: 4px;">-${BB_DISC}% Box</span>`)
+                  } else if (!isFixedItem && !isFreeItem) {
+                    if (hasUserDiscount) {
+                      discountBadges.push(`<span style="display: inline-block; background: #f3e8ff; color: #9333ea; font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 4px; margin-right: 4px;">-${userDiscountPct}% VIP</span>`)
+                    }
+                    if (hasBundleDiscount) {
+                      discountBadges.push(`<span style="display: inline-block; background: #dcfce7; color: #16a34a; font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 4px;">-${bundleDiscountPct}% Bundle</span>`)
+                    }
                   }
                   
                   const totalDisplay = isFreeItem ? '<span style="color: #059669; font-weight: 700;">FREE</span>' : hasDiscount

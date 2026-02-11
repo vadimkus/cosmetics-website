@@ -108,7 +108,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
       { value: '180ml', label: '180ml', available: true },
       { value: '500ml', label: '500ml', available: true }
     ],
-    images: ['/images/SNOW.jpg', '/images/Second/cleanser_big.jpg']
+    images: ['/images/SNOW.jpg', '/images/Second/cleanser_big.jpg', '/images/Second/cleanserboth.jpg']
   },
   '12': {
     id: '12',
@@ -558,6 +558,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
   },
   '15': {
     id: '15',
+    images: ['/images/PRS.jpg', '/images/Second/problem_both.jpg'],
     pricing: {
       basePrice: 260,
       sizeVariants: {
@@ -579,6 +580,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
   },
   '16': {
     id: '16',
+    images: ['/images/BOOS.jpg', '/images/Second/booster_both.jpg'],
     pricing: {
       basePrice: 260,
       sizeVariants: {

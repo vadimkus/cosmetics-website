@@ -6,6 +6,9 @@
 import { errorLog } from '@/lib/logger'
 import { SITE_URL } from '@/lib/siteConfig'
 import type { EmailTranslationSection, LocaleSettings } from './types'
+import enMessages from '@/messages/en.json'
+import arMessages from '@/messages/ar.json'
+import ruMessages from '@/messages/ru.json'
 
 // Logo URL using site URL configuration
 export const LOGO_URL = `${SITE_URL}/_next/image?url=%2FLogo%2FFull.png&w=640&q=75`
@@ -19,11 +22,11 @@ export function loadEmailTranslations(locale: string, section: EmailTranslationS
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let messages: any
     if (locale === 'ar') {
-      messages = require('@/messages/ar.json')
+      messages = arMessages
     } else if (locale === 'ru') {
-      messages = require('@/messages/ru.json')
+      messages = ruMessages
     } else {
-      messages = require('@/messages/en.json')
+      messages = enMessages
     }
     
     const translations = messages.default?.orderEmail?.[section] || messages.orderEmail?.[section]
@@ -36,8 +39,7 @@ export function loadEmailTranslations(locale: string, section: EmailTranslationS
   
   // Fallback to English
   try {
-    const enMessages = require('@/messages/en.json')
-    return enMessages.default?.orderEmail?.[section] || enMessages.orderEmail?.[section] || {}
+    return (enMessages as Record<string, any>).default?.orderEmail?.[section] || (enMessages as Record<string, any>).orderEmail?.[section] || {}
   } catch {
     return {}
   }

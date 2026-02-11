@@ -107,6 +107,54 @@ export async function GET(request: NextRequest) {
     
     debugLog('📊 Found', users.length, 'users' + (search ? ` (search: "${search}")` : ''), `Total: ${totalCount}`)
     
+    // Backfill lastLoginSource: only set mobile_app for users with expoPushToken (reliable signal).
+    // Reset any inaccurate desktop_web values (from earlier bad backfill) back to null.
+    // Users with null will show no device badge until their next login correctly sets it.
+    try {
+      let needsRefetch = false
+
+      // 1. Users with expoPushToken are confirmed app users — tag them correctly
+      const appFromNull = await prisma.user.updateMany({
+        where: { lastLoginSource: null, expoPushToken: { not: null } },
+        data: { lastLoginSource: 'mobile_app' }
+      })
+      const appFromDesktop = await prisma.user.updateMany({
+        where: { lastLoginSource: 'desktop_web', expoPushToken: { not: null } },
+        data: { lastLoginSource: 'mobile_app' }
+      })
+
+      // 2. Reset desktop_web users without expoPushToken who haven't logged in since today
+      //    (these were incorrectly backfilled — we don't actually know their device)
+      const cutoff = new Date()
+      cutoff.setHours(0, 0, 0, 0) // Start of today
+      const resetBadBackfill = await prisma.user.updateMany({
+        where: {
+          lastLoginSource: 'desktop_web',
+          expoPushToken: null,
+          OR: [
+            { lastLoginAt: null },
+            { lastLoginAt: { lt: cutoff } }
+          ]
+        },
+        data: { lastLoginSource: null }
+      })
+
+      const totalChanged = appFromNull.count + appFromDesktop.count + resetBadBackfill.count
+      if (totalChanged > 0) {
+        debugLog(`✅ Login source fix: ${appFromNull.count + appFromDesktop.count} → mobile_app, ${resetBadBackfill.count} desktop_web → null (unknown)`)
+        needsRefetch = true
+      }
+
+      if (needsRefetch) {
+        const refetchQuery = search && search.length > 0
+          ? prisma.user.findMany({ where: whereClause, select: selectFields, orderBy, take: limit, skip: offset })
+          : prisma.user.findMany({ select: selectFields, orderBy, take: limit, skip: offset })
+        users = await refetchQuery
+      }
+    } catch (backfillError) {
+      errorLog('⚠️ Backfill lastLoginSource failed (non-fatal):', backfillError)
+    }
+
     // Enhance users with order statistics using a single aggregation query (fixes N+1 problem)
     const userEmails = users.map(u => u.email)
     

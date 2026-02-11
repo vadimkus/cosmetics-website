@@ -10,13 +10,13 @@ const DEBUG_LOG_ENABLED = process.env.DEBUG_LOG === 'true' || isDevelopment
  * Write log to file (server-side only)
  * Uses dynamic import to avoid bundling fs in client code
  */
-function writeToFile(level: string, ...args: unknown[]): void {
+async function writeToFile(level: string, ...args: unknown[]): Promise<void> {
   if (typeof window !== 'undefined') return // Skip in browser
   
   // Use dynamic import to avoid bundling fs in client code
   try {
-    const fs = require('fs')
-    const path = require('path')
+    const fs = await import('fs')
+    const path = await import('path')
     
     const LOG_DIR = path.join(process.cwd(), 'logs')
     const LOG_FILE = path.join(LOG_DIR, 'google-oauth.log')

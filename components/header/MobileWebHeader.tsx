@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { useState, useEffect, useRef, useCallback } from 'react'
+import { useState, useEffect, useRef, useCallback, TouchEvent as ReactTouchEvent } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 import { Menu, Heart, ChevronDown, X } from 'lucide-react'
 import { useAuth } from '@/components/auth/AuthProvider'
@@ -34,6 +34,14 @@ export default function MobileWebHeader() {
   const [isMobile, setIsMobile] = useState(false)
   const lastClickTime = useRef(0)
   const menuButtonRef = useRef<HTMLButtonElement>(null)
+  const menuPanelRef = useRef<HTMLDivElement>(null)
+  
+  // Swipe-to-close state
+  const [swipeOffset, setSwipeOffset] = useState(0)
+  const [isSwiping, setIsSwiping] = useState(false)
+  const touchStartY = useRef(0)
+  const touchStartTime = useRef(0)
+  const isScrolledToTop = useRef(true)
   
   // Check if mobile device
   useEffect(() => {
@@ -121,6 +129,75 @@ export default function MobileWebHeader() {
     setShowMobileMenu(prev => !prev)
   }, [])
   
+  // Swipe-up-to-close handlers for menu panel
+  const handleMenuTouchStart = useCallback((e: ReactTouchEvent<HTMLDivElement>) => {
+    const panel = menuPanelRef.current
+    // Only initiate swipe tracking when scrolled to top (or not scrollable)
+    if (panel && panel.scrollTop <= 0) {
+      isScrolledToTop.current = true
+    } else {
+      isScrolledToTop.current = false
+    }
+    touchStartY.current = e.touches[0].clientY
+    touchStartTime.current = Date.now()
+    setIsSwiping(false)
+  }, [])
+
+  const handleMenuTouchMove = useCallback((e: ReactTouchEvent<HTMLDivElement>) => {
+    if (!isScrolledToTop.current) return
+    
+    const deltaY = touchStartY.current - e.touches[0].clientY // positive = swipe up
+    
+    if (deltaY > 10) {
+      // Swiping up - apply offset with resistance
+      setIsSwiping(true)
+      setSwipeOffset(Math.min(deltaY * 0.6, 300))
+    } else {
+      // Swiping down or barely moved - reset
+      if (isSwiping) {
+        setSwipeOffset(0)
+        setIsSwiping(false)
+      }
+    }
+  }, [isSwiping])
+
+  const handleMenuTouchEnd = useCallback(() => {
+    if (!isSwiping) {
+      setSwipeOffset(0)
+      return
+    }
+    
+    const elapsed = Date.now() - touchStartTime.current
+    const velocity = swipeOffset / Math.max(elapsed, 1)
+    
+    // Close if swiped far enough (>80px) or fast enough (velocity > 0.3)
+    if (swipeOffset > 80 || velocity > 0.3) {
+      // Animate out then close
+      setSwipeOffset(500)
+      setTimeout(() => {
+        setShowMobileMenu(false)
+        setSwipeOffset(0)
+        setIsSwiping(false)
+      }, 200)
+    } else {
+      // Snap back
+      setSwipeOffset(0)
+      setIsSwiping(false)
+    }
+  }, [isSwiping, swipeOffset, setShowMobileMenu])
+
+  // Reset swipe state when menu closes + lock body scroll when open
+  useEffect(() => {
+    if (showMobileMenu) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+      setSwipeOffset(0)
+      setIsSwiping(false)
+    }
+    return () => { document.body.style.overflow = '' }
+  }, [showMobileMenu])
+
   // Only render on mobile web (not PWA, not desktop)
   // Hide on pages that have their own simple header
   if (!isClient || isPWA || !isMobile || isOnSimpleHeaderPage) {
@@ -317,16 +394,28 @@ export default function MobileWebHeader() {
             onClick={() => setShowMobileMenu(false)}
           />
           
-          {/* Menu Content - Slide from top */}
+          {/* Menu Content - Slide from top, swipe up to close */}
           <div 
+            ref={menuPanelRef}
             className={`relative bg-white rounded-b-2xl shadow-2xl max-h-[70vh] overflow-y-auto ${isRTL ? 'text-right' : 'text-left'}`}
             dir={dir}
             style={{ 
-              animation: 'slideDown 0.2s ease-out',
+              animation: !isSwiping && swipeOffset === 0 ? 'slideDown 0.2s ease-out' : undefined,
+              transform: swipeOffset > 0 ? `translateY(-${swipeOffset}px)` : undefined,
+              transition: isSwiping ? 'none' : 'transform 0.25s ease-out',
+              opacity: swipeOffset > 0 ? Math.max(1 - swipeOffset / 400, 0) : 1,
             }}
+            onTouchStart={handleMenuTouchStart}
+            onTouchMove={handleMenuTouchMove}
+            onTouchEnd={handleMenuTouchEnd}
           >
+            {/* Swipe indicator handle - hints at swipe-up-to-close */}
+            <div className="flex justify-center pt-2 pb-1">
+              <div className="w-10 h-1 bg-gray-300 rounded-full" />
+            </div>
+            
             {/* 2-Column Navigation Grid */}
-            <nav className="p-4">
+            <nav className="p-4 pt-2">
               <div className="grid grid-cols-2 gap-x-4 gap-y-2">
                 {/* Column 1 */}
                 <Link 
@@ -504,7 +593,7 @@ export default function MobileWebHeader() {
               </div>
             </nav>
 
-            {/* Bottom Safe Area */}
+            {/* Bottom spacing */}
             <div className="h-2" />
           </div>
         </div>
@@ -523,6 +612,7 @@ export default function MobileWebHeader() {
           }
         }
       `}</style>
+
 
       {/* Spacer to prevent content from being hidden behind fixed header */}
       <div 

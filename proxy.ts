@@ -2,8 +2,30 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import { locales, defaultLocale } from './i18n'
 
+// Generate a unique request ID for correlation/debugging
+function generateRequestId(): string {
+  const timestamp = Date.now().toString(36)
+  const random = Math.random().toString(36).slice(2, 10)
+  return `req_${timestamp}_${random}`
+}
+
+// Apply security headers to a response
+function withSecurityHeaders(response: NextResponse, requestId: string): NextResponse {
+  response.headers.set('X-Frame-Options', 'SAMEORIGIN')
+  response.headers.set('X-Content-Type-Options', 'nosniff')
+  response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin')
+  response.headers.set(
+    'Permissions-Policy',
+    'camera=(self), microphone=(), geolocation=(), payment=(self "https://js.stripe.com")'
+  )
+  response.headers.set('X-DNS-Prefetch-Control', 'on')
+  response.headers.set('X-Request-Id', requestId)
+  return response
+}
+
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
+  const requestId = generateRequestId()
 
   // Redirect /en to root (English is default, no prefix needed)
   if (pathname === '/en' || pathname.startsWith('/en/')) {
@@ -11,7 +33,7 @@ export function proxy(request: NextRequest) {
     const response = NextResponse.redirect(new URL(newPath, request.url))
     // Set cookie to 'en' when accessing English version
     response.cookies.set('NEXT_LOCALE', 'en', { path: '/', maxAge: 31536000, sameSite: 'lax' })
-    return response
+    return withSecurityHeaders(response, requestId)
   }
   
   // If user visits root path (English homepage), set cookie to 'en' to ensure consistency
@@ -20,7 +42,7 @@ export function proxy(request: NextRequest) {
     if (localeCookie !== 'en') {
       const response = NextResponse.next()
       response.cookies.set('NEXT_LOCALE', 'en', { path: '/', maxAge: 31536000, sameSite: 'lax' })
-      return response
+      return withSecurityHeaders(response, requestId)
     }
   }
   
@@ -54,7 +76,7 @@ export function proxy(request: NextRequest) {
 
   // Handle redirects first (before locale handling)
   if (redirects[pathname]) {
-    return NextResponse.redirect(new URL(redirects[pathname], request.url))
+    return withSecurityHeaders(NextResponse.redirect(new URL(redirects[pathname], request.url)), requestId)
   }
 
   // Don't redirect root path - it's already English (default)
@@ -77,12 +99,12 @@ export function proxy(request: NextRequest) {
     // This prevents redirecting when clicking links from the English homepage
     if (isFromEnglishPage && pathname !== '/') {
       // User is on English page, let them stay in English
-      return NextResponse.next()
+      return withSecurityHeaders(NextResponse.next(), requestId)
     }
     
     // If cookie is set to 'en', don't redirect - let English pages through
     if (localeCookie === 'en') {
-      return NextResponse.next()
+      return withSecurityHeaders(NextResponse.next(), requestId)
     }
     
     // If cookie exists and is valid, use it
@@ -102,16 +124,16 @@ export function proxy(request: NextRequest) {
     // But for English (default), don't add prefix - just let it through
     if (preferredLocale === 'ar') {
       const newPath = `/ar${pathname}`
-      return NextResponse.redirect(new URL(newPath, request.url))
+      return withSecurityHeaders(NextResponse.redirect(new URL(newPath, request.url)), requestId)
     }
     if (preferredLocale === 'ru') {
       const newPath = `/ru${pathname}`
-      return NextResponse.redirect(new URL(newPath, request.url))
+      return withSecurityHeaders(NextResponse.redirect(new URL(newPath, request.url)), requestId)
     }
     // For English, just let it through without prefix
   }
 
-  return NextResponse.next()
+  return withSecurityHeaders(NextResponse.next(), requestId)
 }
 
 export const config = {

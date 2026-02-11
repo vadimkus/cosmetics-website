@@ -38,6 +38,10 @@ interface CheckoutItem {
   selectedSize?: string | undefined
   selectedColor?: string | undefined
   isPromotionItem?: boolean | undefined
+  // Bundle ("Build Your Set") fields — sent by native app per item
+  fromBundle?: boolean | undefined
+  bundleDiscountPercent?: number | undefined
+  originalPrice?: number | undefined
 }
 
 interface CheckoutRequest {
@@ -334,6 +338,8 @@ export async function POST(request: NextRequest) {
     // SERVER-SIDE CALCULATION: Recompute totals (authoritative, MUST match mobile UI)
     let serverSubtotal = 0
     let discountAmount = 0
+    let bundleDiscountAmount = 0
+    let bundleDiscountPct = 0
     const validatedItems: CheckoutItem[] = []
 
     // User discount (constant across all items)
@@ -386,14 +392,34 @@ export async function POST(request: NextRequest) {
 
       // Apply user discount unless product is excluded
       const excluded = isPromo ? true : isUserDiscountExcludedProduct(product)
-      const discountedUnit = (!isPromo && !excluded && hasUserDiscount) ? (baseUnit * (1 - pct / 100)) : baseUnit
-      const unitPrice = Number(discountedUnit)
+
+      // "Build Your Set" bundle items: waterfall discount (VIP first, then bundle on top) — matches COD route
+      const isBundleItem = item?.fromBundle === true
+      const itemBundlePct = Number(item?.bundleDiscountPercent) || 0
+      const hasBundleDiscountForItem = isBundleItem && itemBundlePct > 0 && itemBundlePct < 100
+
+      let unitPrice: number
+      if (isPromo) {
+        unitPrice = 0
+      } else if (hasBundleDiscountForItem) {
+        // Waterfall: VIP discount first, then bundle discount on top
+        let afterVip = baseUnit
+        if (!excluded && hasUserDiscount) {
+          afterVip = baseUnit * (1 - pct / 100)
+          discountAmount += (baseUnit - afterVip) * qty
+        }
+        unitPrice = Math.round(afterVip * (1 - itemBundlePct / 100) * 100) / 100
+        bundleDiscountAmount += (afterVip - unitPrice) * qty
+        bundleDiscountPct = itemBundlePct
+      } else if (!excluded && hasUserDiscount) {
+        unitPrice = baseUnit * (1 - pct / 100)
+        discountAmount += (baseUnit - unitPrice) * qty
+      } else {
+        unitPrice = baseUnit
+      }
+
       const itemSubtotal = unitPrice * qty
       serverSubtotal += itemSubtotal
-
-      if (!isPromo && !excluded && hasUserDiscount) {
-        discountAmount += (baseUnit - unitPrice) * qty
-      }
 
       validatedItems.push({
         id: product.id,
@@ -410,6 +436,7 @@ export async function POST(request: NextRequest) {
     // Round accumulated values to 2 decimal places (prevent floating-point drift)
     serverSubtotal = Math.round(serverSubtotal * 100) / 100
     discountAmount = Math.round(discountAmount * 100) / 100
+    bundleDiscountAmount = Math.round(bundleDiscountAmount * 100) / 100
 
     // Capture user discount percentage at time of order for waterfall display
     const userDiscountPctForOrder = (hasUserDiscount && pct > 0) ? pct : null
@@ -447,8 +474,8 @@ export async function POST(request: NextRequest) {
           subtotal: serverSubtotal,
           discountPercentage: userDiscountPctForOrder,
           discountAmount: discountAmount,
-          // bundleDiscountPercentage / bundleDiscountAmount default to 0/null in schema
-          // (native mobile app does not currently support customer-built bundles)
+          bundleDiscountPercentage: bundleDiscountPct > 0 ? bundleDiscountPct : null,
+          bundleDiscountAmount: bundleDiscountAmount > 0 ? bundleDiscountAmount : 0,
           shipping: serverShipping,
           vat: serverVatAmount,
           total: serverTotal,
@@ -477,8 +504,8 @@ export async function POST(request: NextRequest) {
           subtotal: serverSubtotal,
           discountPercentage: userDiscountPctForOrder,
           discountAmount: discountAmount,
-          // bundleDiscountPercentage / bundleDiscountAmount default to 0/null in schema
-          // (native mobile app does not currently support customer-built bundles)
+          bundleDiscountPercentage: bundleDiscountPct > 0 ? bundleDiscountPct : null,
+          bundleDiscountAmount: bundleDiscountAmount > 0 ? bundleDiscountAmount : 0,
           shipping: serverShipping,
           vat: serverVatAmount,
           total: serverTotal,

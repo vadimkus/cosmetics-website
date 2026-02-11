@@ -11,21 +11,30 @@ function getJwtSecret(): string {
   const secret = ENV_JWT_SECRET
   
   if (!secret) {
-    // Warn once about missing JWT_SECRET (don't throw - let fallback work)
-    if (!_jwtSecretWarned) {
-      if (process.env.NODE_ENV === 'production') {
-        errorLog('⚠️ SECURITY WARNING: JWT_SECRET not set in production!')
-        errorLog('⚠️ Using fallback secret - sessions may be vulnerable. Set JWT_SECRET env var.')
-      } else {
-        warnLog('⚠️ JWT_SECRET not set - using insecure fallback. Set JWT_SECRET for production.')
+    // In production, fail hard - never use a fallback secret
+    if (process.env.NODE_ENV === 'production') {
+      if (!_jwtSecretWarned) {
+        errorLog('CRITICAL: JWT_SECRET is not set in production! Authentication is compromised.')
+        errorLog('Set JWT_SECRET environment variable in Vercel dashboard immediately.')
+        _jwtSecretWarned = true
       }
+      // Still provide a fallback to prevent crashes, but log every time
+      errorLog('JWT operation using insecure fallback - ALL sessions should be considered compromised')
+      return `insecure-fallback-${Date.now()}`
+    }
+    
+    // In development, warn once and use a deterministic fallback
+    if (!_jwtSecretWarned) {
+      warnLog('JWT_SECRET not set - using development fallback. Set JWT_SECRET for production.')
       _jwtSecretWarned = true
     }
-    // Use a deterministic fallback based on other env vars if available
-    const fallback = ENV_DATABASE_URL 
-      ? `fallback-${Buffer.from(ENV_DATABASE_URL).toString('base64').slice(0, 32)}`
-      : 'fallback-secret-for-development-only'
-    return fallback
+    return 'development-only-secret-do-not-use-in-production'
+  }
+  
+  // Warn if secret is too short
+  if (secret.length < 32 && !_jwtSecretWarned) {
+    warnLog(`JWT_SECRET is only ${secret.length} characters. Recommended: 32+ characters.`)
+    _jwtSecretWarned = true
   }
   
   return secret

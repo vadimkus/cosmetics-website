@@ -269,6 +269,9 @@ export const updateUser = async (userId: string, updates: Partial<UserData>): Pr
     if (updates.lastLoginAt !== undefined) {
       updateData.lastLoginAt = updates.lastLoginAt ? new Date(updates.lastLoginAt) : null
     }
+    if (updates.lastLoginSource !== undefined) {
+      updateData.lastLoginSource = updates.lastLoginSource === '' ? null : updates.lastLoginSource
+    }
     
     // Allow password updates (needed for password reset and password upgrades)
     if (updates.password !== undefined && updates.password !== null) {

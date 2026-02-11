@@ -10,6 +10,37 @@ import type { OrderHTMLData } from './types'
  * Shared enhanced item renderer for all email templates.
  * Matches the success page layout: image + name + "Quantity: X • size" + (XX% OFF) + badges + strikethrough price
  */
+/**
+ * Check if an item name indicates a product that is excluded from user VIP discounts.
+ * Devices and Hydro Cool Mask have fixed pricing — no discount display at all.
+ */
+function isFixedPriceItem(itemName: string): boolean {
+  const name = (itemName || '').trim().toLowerCase()
+  if (!name) return false
+  if (name.includes('hydro') && name.includes('cool') && name.includes('mask')) return true
+  if (name.includes('genoled') || name.includes('gentron') || name.includes('hairgen')) return true
+  return false
+}
+
+/** Beauty box original prices (before the built-in 15% bundle discount) */
+const BEAUTY_BOX_ORIGINAL_PRICES: Record<string, number> = {
+  'problem skin care beauty box': 1318,
+  'skin brightening beauty box': 1496,
+  'charming look beauty box': 1520,
+  'anti-aging beauty box': 1390,
+  'deep moisturizing beauty box': 1318,
+  'sensitive skin beauty box': 1696,
+}
+const BEAUTY_BOX_DISCOUNT_PCT = 15
+
+function getBeautyBoxOriginalPrice(itemName: string): number | null {
+  const n = (itemName || '').trim().toLowerCase()
+  for (const [key, price] of Object.entries(BEAUTY_BOX_ORIGINAL_PRICES)) {
+    if (n.includes(key)) return price
+  }
+  return null
+}
+
 function renderEnhancedItemRows(
   order: OrderHTMLData,
   locale: string,
@@ -33,29 +64,51 @@ function renderEnhancedItemRows(
     const isFreeItem = item.price === 0 || item.name.toLowerCase().includes('(free)')
     const imageUrl = item.image ? (item.image.startsWith('http') ? item.image : `${SITE_URL}${item.image}`) : ''
     
-    // Reverse-calculate original price from stored discounted price
+    // Check if this is a beauty box (has its own built-in 15% discount)
+    const beautyBoxOriginal = getBeautyBoxOriginalPrice(item.name)
+    const isBeautyBox = beautyBoxOriginal !== null
+    // Devices and Hydro Cool Mask — fixed price, no discount display
+    const isFixedPrice = isFixedPriceItem(item.name)
+    
+    // Calculate original price and discount percentage per item
     let originalPrice = item.price
-    if (hasUserDiscount && !isFreeItem) {
-      originalPrice = originalPrice / (1 - userDiscountPct / 100)
-    }
-    if (hasBundleDiscount && !isFreeItem) {
-      originalPrice = originalPrice / (1 - bundleDiscountPct / 100)
+    let totalDiscountPct = 0
+    let showDiscount = false
+    
+    if (isBeautyBox && beautyBoxOriginal) {
+      // Beauty box: show the built-in 15% bundle discount
+      originalPrice = beautyBoxOriginal
+      totalDiscountPct = BEAUTY_BOX_DISCOUNT_PCT
+      showDiscount = true
+    } else if (!isFixedPrice && !isFreeItem) {
+      // Regular item: show user/bundle discount if applicable
+      if (hasUserDiscount) {
+        originalPrice = originalPrice / (1 - userDiscountPct / 100)
+      }
+      if (hasBundleDiscount) {
+        originalPrice = originalPrice / (1 - bundleDiscountPct / 100)
+      }
+      showDiscount = hasAnyDiscount
+      totalDiscountPct = showDiscount
+        ? Math.round((1 - item.price / originalPrice) * 100)
+        : 0
     }
     
-    const hasDiscount = hasAnyDiscount && !isFreeItem
+    const hasDiscount = showDiscount && !isFreeItem
     const itemTotal = item.price * item.quantity
     const originalTotal = originalPrice * item.quantity
-    const totalDiscountPct = hasDiscount
-      ? Math.round((1 - item.price / originalPrice) * 100)
-      : 0
     
     // Build discount badges
     const badges: string[] = []
-    if (hasUserDiscount && !isFreeItem) {
-      badges.push(`<span style="display: inline-block; background: #f3e8ff; color: #9333ea; font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 4px; margin-${isRTL ? 'left' : 'right'}: 4px;">-${userDiscountPct}% VIP</span>`)
-    }
-    if (hasBundleDiscount && !isFreeItem) {
-      badges.push(`<span style="display: inline-block; background: #dcfce7; color: #16a34a; font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 4px;">-${bundleDiscountPct}% Bundle</span>`)
+    if (isBeautyBox) {
+      badges.push(`<span style="display: inline-block; background: #fff7ed; color: #c2410c; font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 4px; margin-${isRTL ? 'left' : 'right'}: 4px;">-${BEAUTY_BOX_DISCOUNT_PCT}% Box</span>`)
+    } else if (!isFixedPrice && !isFreeItem) {
+      if (hasUserDiscount) {
+        badges.push(`<span style="display: inline-block; background: #f3e8ff; color: #9333ea; font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 4px; margin-${isRTL ? 'left' : 'right'}: 4px;">-${userDiscountPct}% VIP</span>`)
+      }
+      if (hasBundleDiscount) {
+        badges.push(`<span style="display: inline-block; background: #dcfce7; color: #16a34a; font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 4px;">-${bundleDiscountPct}% Bundle</span>`)
+      }
     }
     
     // Price column

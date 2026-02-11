@@ -7,6 +7,7 @@ import { useTranslation } from '@/hooks/useTranslation'
 import { useCartStore } from '@/lib/cartStore'
 import { useToast } from '@/components/ToastProvider'
 import { MessageCircle, X, Send, Loader2, Sparkles, User, Minimize2, ShoppingCart, Check } from 'lucide-react'
+import { errorLog } from '@/lib/logger'
 
 interface ChatWidgetProps {
   className?: string
@@ -451,7 +452,7 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
   const { messages, status, error, sendMessage, setMessages } = useChat({
     id: 'genosys-chat',
     onError: (error) => {
-      console.error('Chat error:', error)
+      errorLog('Chat error:', error)
     },
   })
   

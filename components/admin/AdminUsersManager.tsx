@@ -91,6 +91,10 @@ interface AdminUsersManagerProps {
   getAdminHeaders: (additionalHeaders?: Record<string, string>) => HeadersInit
 }
 
+// Filter types
+type StatusFilter = 'online' | 'hasOrders' | 'noOrders' | null
+type DeviceFilter = 'desktop_web' | 'mobile_web' | 'mobile_app' | null
+
 export default function AdminUsersManager({
   users,
   userSearch,
@@ -101,6 +105,16 @@ export default function AdminUsersManager({
   getAdminHeaders
 }: AdminUsersManagerProps) {
   const [deletingUser, setDeletingUser] = useState<string | null>(null)
+  const [statusFilter, setStatusFilter] = useState<StatusFilter>(null)
+  const [deviceFilter, setDeviceFilter] = useState<DeviceFilter>(null)
+
+  // Toggle filter - clicking same filter again clears it
+  const toggleStatusFilter = (filter: StatusFilter) => {
+    setStatusFilter(prev => prev === filter ? null : filter)
+  }
+  const toggleDeviceFilter = (filter: DeviceFilter) => {
+    setDeviceFilter(prev => prev === filter ? null : filter)
+  }
 
   // Format currency in AED
   const formatCurrency = (amount: number) => {
@@ -143,8 +157,19 @@ export default function AdminUsersManager({
     }
     
     // Apply search filter
-    return user.name.toLowerCase().includes(userSearch.toLowerCase()) ||
+    const matchesSearch = user.name.toLowerCase().includes(userSearch.toLowerCase()) ||
       user.email.toLowerCase().includes(userSearch.toLowerCase())
+    if (!matchesSearch) return false
+
+    // Apply status filter
+    if (statusFilter === 'online' && !isUserOnline(user.lastActiveAt)) return false
+    if (statusFilter === 'hasOrders' && (!user.orderCount || user.orderCount === 0)) return false
+    if (statusFilter === 'noOrders' && user.orderCount && user.orderCount > 0) return false
+
+    // Apply device filter
+    if (deviceFilter && user.lastLoginSource !== deviceFilter) return false
+
+    return true
   })
 
   return (
@@ -159,31 +184,96 @@ export default function AdminUsersManager({
             <div>
               <h2 className="text-xl font-bold text-gray-900">Users</h2>
               <p className="text-sm text-gray-500">Manage registered users</p>
-              <div className="flex items-center gap-3 mt-2 text-xs flex-wrap">
-                <div className="flex items-center gap-1">
-                  <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                  <span className="text-gray-600">Online</span>
-                </div>
-                <div className="flex items-center gap-1">
-                  <div className="w-4 h-4 bg-green-50 border border-green-200 rounded"></div>
-                  <span className="text-gray-600">Has orders</span>
-                </div>
-                <div className="flex items-center gap-1">
-                  <div className="w-4 h-4 bg-white border border-gray-200 rounded"></div>
-                  <span className="text-gray-600">No orders</span>
-                </div>
-                <div className="flex items-center gap-1 ml-2 border-l pl-2 border-gray-300">
+              <div className="flex items-center gap-2 mt-2 text-xs flex-wrap">
+                {/* Status Filters */}
+                <button
+                  onClick={() => toggleStatusFilter('online')}
+                  className={`flex items-center gap-1 px-2 py-1 rounded-full border transition-all cursor-pointer ${
+                    statusFilter === 'online'
+                      ? 'bg-green-100 border-green-400 ring-2 ring-green-300'
+                      : 'border-gray-200 hover:border-green-300 hover:bg-green-50'
+                  }`}
+                  title="Filter: Online users"
+                >
+                  <div className="w-2.5 h-2.5 bg-green-500 rounded-full"></div>
+                  <span className="text-gray-700">Online</span>
+                </button>
+                <button
+                  onClick={() => toggleStatusFilter('hasOrders')}
+                  className={`flex items-center gap-1 px-2 py-1 rounded-full border transition-all cursor-pointer ${
+                    statusFilter === 'hasOrders'
+                      ? 'bg-green-100 border-green-400 ring-2 ring-green-300'
+                      : 'border-gray-200 hover:border-green-300 hover:bg-green-50'
+                  }`}
+                  title="Filter: Users with orders"
+                >
+                  <div className="w-3 h-3 bg-green-50 border border-green-300 rounded"></div>
+                  <span className="text-gray-700">Has orders</span>
+                </button>
+                <button
+                  onClick={() => toggleStatusFilter('noOrders')}
+                  className={`flex items-center gap-1 px-2 py-1 rounded-full border transition-all cursor-pointer ${
+                    statusFilter === 'noOrders'
+                      ? 'bg-gray-200 border-gray-400 ring-2 ring-gray-300'
+                      : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'
+                  }`}
+                  title="Filter: Users without orders"
+                >
+                  <div className="w-3 h-3 bg-white border border-gray-300 rounded"></div>
+                  <span className="text-gray-700">No orders</span>
+                </button>
+
+                {/* Separator */}
+                <div className="h-4 w-px bg-gray-300 mx-1"></div>
+
+                {/* Device Filters */}
+                <button
+                  onClick={() => toggleDeviceFilter('desktop_web')}
+                  className={`flex items-center gap-1 px-2 py-1 rounded-full border transition-all cursor-pointer ${
+                    deviceFilter === 'desktop_web'
+                      ? 'bg-gray-200 border-gray-400 ring-2 ring-gray-300'
+                      : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'
+                  }`}
+                  title="Filter: Desktop users"
+                >
                   <Monitor className="h-3 w-3 text-gray-600" />
-                  <span className="text-gray-600">Desktop</span>
-                </div>
-                <div className="flex items-center gap-1">
+                  <span className="text-gray-700">Desktop</span>
+                </button>
+                <button
+                  onClick={() => toggleDeviceFilter('mobile_web')}
+                  className={`flex items-center gap-1 px-2 py-1 rounded-full border transition-all cursor-pointer ${
+                    deviceFilter === 'mobile_web'
+                      ? 'bg-blue-100 border-blue-400 ring-2 ring-blue-300'
+                      : 'border-gray-200 hover:border-blue-300 hover:bg-blue-50'
+                  }`}
+                  title="Filter: Mobile Web users"
+                >
                   <TabletSmartphone className="h-3 w-3 text-blue-600" />
-                  <span className="text-gray-600">Mobile Web</span>
-                </div>
-                <div className="flex items-center gap-1">
+                  <span className="text-gray-700">Mobile Web</span>
+                </button>
+                <button
+                  onClick={() => toggleDeviceFilter('mobile_app')}
+                  className={`flex items-center gap-1 px-2 py-1 rounded-full border transition-all cursor-pointer ${
+                    deviceFilter === 'mobile_app'
+                      ? 'bg-purple-100 border-purple-400 ring-2 ring-purple-300'
+                      : 'border-gray-200 hover:border-purple-300 hover:bg-purple-50'
+                  }`}
+                  title="Filter: Mobile App users"
+                >
                   <Smartphone className="h-3 w-3 text-purple-600" />
-                  <span className="text-gray-600">App</span>
-                </div>
+                  <span className="text-gray-700">App</span>
+                </button>
+
+                {/* Clear Filters */}
+                {(statusFilter || deviceFilter) && (
+                  <button
+                    onClick={() => { setStatusFilter(null); setDeviceFilter(null); }}
+                    className="flex items-center gap-1 px-2 py-1 rounded-full border border-red-200 bg-red-50 hover:bg-red-100 text-red-600 transition-all cursor-pointer ml-1"
+                    title="Clear all filters"
+                  >
+                    <span>Clear</span>
+                  </button>
+                )}
               </div>
             </div>
           </div>
@@ -212,6 +302,15 @@ export default function AdminUsersManager({
 
       {/* Users List */}
       <div className="bg-white rounded-lg border">
+        {/* Results count when filters are active */}
+        {(statusFilter || deviceFilter || userSearch) && (
+          <div className="px-4 py-2 bg-gray-50 border-b text-sm text-gray-600">
+            Showing {filteredUsers.length} of {users.filter(u => u.name !== 'Deleted User' && !u.email.includes('deleted+')).length} users
+            {statusFilter && <span className="ml-2 text-green-600">• {statusFilter === 'online' ? 'Online' : statusFilter === 'hasOrders' ? 'Has orders' : 'No orders'}</span>}
+            {deviceFilter && <span className="ml-2 text-blue-600">• {deviceFilter === 'desktop_web' ? 'Desktop' : deviceFilter === 'mobile_web' ? 'Mobile Web' : 'App'}</span>}
+            {userSearch && <span className="ml-2 text-purple-600">• Search: &quot;{userSearch}&quot;</span>}
+          </div>
+        )}
         {filteredUsers.length === 0 ? (
           <div className="text-center py-12">
             <div className="bg-gray-100 rounded-full w-24 h-24 flex items-center justify-center mx-auto mb-4">
@@ -219,8 +318,18 @@ export default function AdminUsersManager({
             </div>
             <h3 className="text-xl font-semibold mb-2">No users found</h3>
             <p className="text-gray-400">
-              {userSearch ? 'Try adjusting your search criteria.' : 'Users will appear here as they register.'}
+              {(statusFilter || deviceFilter || userSearch) 
+                ? 'Try adjusting your filters or search criteria.' 
+                : 'Users will appear here as they register.'}
             </p>
+            {(statusFilter || deviceFilter) && (
+              <button
+                onClick={() => { setStatusFilter(null); setDeviceFilter(null); }}
+                className="mt-4 px-4 py-2 text-sm bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg transition-colors"
+              >
+                Clear filters
+              </button>
+            )}
           </div>
         ) : (
           <div className="overflow-x-auto -mx-3 sm:-mx-4 md:mx-0 scrollbar-hide">
@@ -263,26 +372,38 @@ export default function AdminUsersManager({
                               )}
                             </div>
                             <div className="ml-4">
-                              <div className="text-sm font-medium text-gray-900 flex items-center gap-2">
+                              <div className="text-sm font-medium text-gray-900 flex items-center gap-2 flex-wrap">
                                 {user.name || 'Unknown'}
                                 {isUserOnline(user.lastActiveAt) && (
                                   <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium bg-green-100 text-green-700">
                                     Online
                                   </span>
                                 )}
+                                {/* Login source device badge */}
+                                {(() => {
+                                  const { icon, label, color } = getLoginSourceInfo(user.lastLoginSource)
+                                  if (icon) {
+                                    const bgMap: Record<string, string> = {
+                                      'text-purple-600': 'bg-purple-50 border-purple-200 text-purple-700',
+                                      'text-blue-600': 'bg-blue-50 border-blue-200 text-blue-700',
+                                      'text-gray-600': 'bg-gray-50 border-gray-200 text-gray-600',
+                                    }
+                                    const badgeStyle = bgMap[color] || 'bg-gray-50 border-gray-200 text-gray-600'
+                                    return (
+                                      <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded border text-[10px] font-medium ${badgeStyle}`} title={label}>
+                                        {icon}
+                                        <span className="hidden sm:inline">{label}</span>
+                                      </span>
+                                    )
+                                  }
+                                  // No login source data yet — will be set on next login
+                                  return null
+                                })()}
                               </div>
                               <div className="text-sm text-gray-500">{user.email}</div>
-                              {/* Last active time with login source icon */}
-                              <div className="text-xs text-gray-400 flex items-center gap-1.5">
+                              {/* Last active time */}
+                              <div className="text-xs text-gray-400">
                                 {formatLastActive(user.lastActiveAt)}
-                                {user.lastLoginSource && (() => {
-                                  const { icon, label, color } = getLoginSourceInfo(user.lastLoginSource)
-                                  return icon ? (
-                                    <span className={`${color} flex items-center`} title={label}>
-                                      {icon}
-                                    </span>
-                                  ) : null
-                                })()}
                               </div>
                             </div>
                           </div>

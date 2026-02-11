@@ -340,6 +340,8 @@ export async function POST(request: NextRequest) {
     // Validate each item and calculate totals (server-authoritative; MUST match mobile UI)
     let subtotal = 0
     let discountAmount = 0
+    let bundleDiscountAmount = 0
+    let bundleDiscountPct = 0
     const validatedItems = []
 
     for (const item of orderData.items) {
@@ -404,22 +406,36 @@ export async function POST(request: NextRequest) {
       const pct = Number(user?.discountPercentage)
       const hasUserDiscount = Number.isFinite(pct) && pct > 0 && pct < 100
       const excluded = isUserDiscountExcludedProduct(product)
-      const discountedUnit =
-        (!isPromo && !excluded && hasUserDiscount)
-          ? baseUnit * (1 - pct / 100)
-          : baseUnit
 
-      const unitPrice = Number(discountedUnit)
-      const itemTotal = unitPrice * quantity
-      subtotal += itemTotal
+      // "Build Your Set" bundle items: waterfall discount (VIP first, then bundle on top) — matches website
+      const isBundleItem = item?.fromBundle === true
+      const itemBundlePct = Number(item?.bundleDiscountPercent) || 0
+      const hasBundleDiscountForItem = isBundleItem && itemBundlePct > 0 && itemBundlePct < 100
 
-      if (!isPromo && !excluded && hasUserDiscount) {
+      let unitPrice: number
+      if (isPromo) {
+        unitPrice = 0
+      } else if (hasBundleDiscountForItem) {
+        // Waterfall: VIP discount first, then bundle discount on top (matching website checkout)
+        let afterVip = baseUnit
+        if (!excluded && hasUserDiscount) {
+          afterVip = baseUnit * (1 - pct / 100)
+          discountAmount += (baseUnit - afterVip) * quantity
+        }
+        // Then apply bundle discount on the VIP-discounted price
+        unitPrice = Math.round(afterVip * (1 - itemBundlePct / 100) * 100) / 100
+        bundleDiscountAmount += (afterVip - unitPrice) * quantity
+        bundleDiscountPct = itemBundlePct // capture the tier %
+      } else if (!excluded && hasUserDiscount) {
+        // Regular items get user VIP discount
+        unitPrice = baseUnit * (1 - pct / 100)
         discountAmount += (baseUnit - unitPrice) * quantity
+      } else {
+        unitPrice = baseUnit
       }
 
-      // Note: Native mobile app currently does not support customer-built bundles,
-      // so bundle discount is always 0 here. If bundles are added to the mobile app,
-      // this section must be updated to match the web checkout logic.
+      const itemTotal = unitPrice * quantity
+      subtotal += itemTotal
 
       validatedItems.push({
         productId,
@@ -436,6 +452,7 @@ export async function POST(request: NextRequest) {
     // Round accumulated values to 2 decimal places (prevent floating-point drift)
     subtotal = Math.round(subtotal * 100) / 100
     discountAmount = Math.round(discountAmount * 100) / 100
+    bundleDiscountAmount = Math.round(bundleDiscountAmount * 100) / 100
 
     // Capture user discount percentage at time of order for waterfall display
     const pctForOrder = Number(user?.discountPercentage)
@@ -478,8 +495,8 @@ export async function POST(request: NextRequest) {
         subtotal,
         discountPercentage: userDiscountPctForOrder,
         discountAmount,
-        // bundleDiscountPercentage / bundleDiscountAmount default to 0/null in schema
-        // (native mobile app does not currently support customer-built bundles)
+        bundleDiscountPercentage: bundleDiscountPct > 0 ? bundleDiscountPct : null,
+        bundleDiscountAmount: bundleDiscountAmount > 0 ? bundleDiscountAmount : 0,
         shipping,
         vat,
         total,

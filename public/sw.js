@@ -3,13 +3,25 @@
  * Provides offline functionality and caching strategies
  */
 
-const CACHE_NAME = 'genosys-cache-v0.1.0-5f366b1e'
-const STATIC_CACHE = 'genosys-static-v0.1.0-5f366b1e'
-const DYNAMIC_CACHE = 'genosys-dynamic-v0.1.0-5f366b1e'
-const IMAGE_CACHE = 'genosys-images-v0.1.0-5f366b1e'
-const PRODUCTS_CACHE = 'genosys-products-v0.1.0-5f366b1e'
-const API_CACHE = 'genosys-api-v0.1.0-5f366b1e'
-const PAGE_CACHE = 'genosys-pages-v0.1.0-5f366b1e'
+// Cache versioning - generated at build time via npm run build
+const CACHE_VERSION = self.__SW_VERSION || 'dev';
+const CACHE_NAMES = {
+  static: `genosys-static-${CACHE_VERSION}`,
+  dynamic: `genosys-dynamic-${CACHE_VERSION}`,
+  images: `genosys-images-${CACHE_VERSION}`,
+  products: `genosys-products-${CACHE_VERSION}`,
+  api: `genosys-api-${CACHE_VERSION}`,
+  pages: `genosys-pages-${CACHE_VERSION}`,
+};
+
+// Backward-compatible aliases
+const CACHE_NAME = CACHE_NAMES.static
+const STATIC_CACHE = CACHE_NAMES.static
+const DYNAMIC_CACHE = CACHE_NAMES.dynamic
+const IMAGE_CACHE = CACHE_NAMES.images
+const PRODUCTS_CACHE = CACHE_NAMES.products
+const API_CACHE = CACHE_NAMES.api
+const PAGE_CACHE = CACHE_NAMES.pages
 
 // IndexedDB configuration for offline data storage
 const DB_NAME = 'genosys-offline-db'
@@ -115,18 +127,19 @@ self.addEventListener('activate', (event) => {
   
   event.waitUntil(
     Promise.all([
-      // Clean up old caches
-      caches.keys()
-        .then((cacheNames) => {
-          return Promise.all(
-            cacheNames.map((cacheName) => {
-              if (!currentCaches.includes(cacheName)) {
-                console.log('Deleting old cache:', cacheName)
-                return caches.delete(cacheName)
-              }
+      // Clean up old caches from previous versions
+      (async () => {
+        const cacheWhitelist = Object.values(CACHE_NAMES);
+        const cacheNames = await caches.keys();
+        await Promise.all(
+          cacheNames
+            .filter(name => name.startsWith('genosys-') && !cacheWhitelist.includes(name))
+            .map(name => {
+              console.log('[SW] Deleting old cache:', name);
+              return caches.delete(name);
             })
-          )
-        }),
+        );
+      })(),
       // Check storage quota
       checkStorageQuota(),
       // Pre-cache product catalog for offline viewing
@@ -202,13 +215,27 @@ async function handleImageRequest(request) {
     
     // Only cache full responses (200 status), not partial responses (206)
     if (networkResponse.ok && networkResponse.status === 200) {
-      cache.put(request, networkResponse.clone())
+      // Clone before caching to avoid consuming the response body
+      const responseToCache = networkResponse.clone()
+      cache.put(request, responseToCache).catch(err => {
+        console.warn('[SW] Failed to cache image:', err.message)
+      })
     }
     
     return networkResponse
   } catch (error) {
-    console.error('Image request failed:', error)
-    return new Response('Image not available offline', { status: 404 })
+    // Try to return a cached version as fallback
+    try {
+      const cache = await caches.open(IMAGE_CACHE)
+      const cachedResponse = await cache.match(request)
+      if (cachedResponse) return cachedResponse
+    } catch (_) { /* ignore secondary errors */ }
+    
+    console.error('[SW] Image request failed:', request.url, error.message)
+    return new Response('Image not available offline', { 
+      status: 503,
+      headers: { 'Content-Type': 'text/plain' }
+    })
   }
 }
 
@@ -332,13 +359,26 @@ async function handleStaticRequest(request) {
     
     // Only cache full responses (200 status), not partial responses (206)
     if (networkResponse.ok && networkResponse.status === 200) {
-      cache.put(request, networkResponse.clone())
+      const responseToCache = networkResponse.clone()
+      cache.put(request, responseToCache).catch(err => {
+        console.warn('[SW] Failed to cache static asset:', err.message)
+      })
     }
     
     return networkResponse
   } catch (error) {
-    console.error('Static asset request failed:', error)
-    return new Response('Asset not available offline', { status: 404 })
+    // Try to return a cached version as fallback
+    try {
+      const cache = await caches.open(STATIC_CACHE)
+      const cachedResponse = await cache.match(request)
+      if (cachedResponse) return cachedResponse
+    } catch (_) { /* ignore secondary errors */ }
+    
+    console.error('[SW] Static asset request failed:', request.url, error.message)
+    return new Response('Asset not available offline', { 
+      status: 503,
+      headers: { 'Content-Type': 'text/plain' }
+    })
   }
 }
 
@@ -355,35 +395,51 @@ async function handlePageRequest(request) {
     // Don't cache navigation requests - let browser handle history
     if (networkResponse.ok && networkResponse.status === 200 && !isNavigation) {
       const cache = await caches.open(DYNAMIC_CACHE)
-      cache.put(request, networkResponse.clone())
+      cache.put(request, networkResponse.clone()).catch(err => {
+        console.warn('[SW] Failed to cache page:', err.message)
+      })
     }
     
     return networkResponse
   } catch (error) {
-    console.log('Network failed, trying cache for page request')
+    console.log('[SW] Network failed, trying cache for:', request.url)
     
-    // For navigation, only use cache as last resort
-    if (isNavigation) {
+    try {
+      // For navigation, only use cache as last resort
+      if (isNavigation) {
+        const cache = await caches.open(DYNAMIC_CACHE)
+        const cachedResponse = await cache.match(request)
+        
+        if (cachedResponse) {
+          return cachedResponse
+        }
+        
+        // Return offline page
+        const offlinePage = await caches.match('/offline')
+        if (offlinePage) return offlinePage
+        
+        // Ultimate fallback if offline page isn't cached
+        return new Response(
+          '<html><body><h1>Offline</h1><p>Please check your connection.</p></body></html>',
+          { status: 503, headers: { 'Content-Type': 'text/html' } }
+        )
+      }
+      
+      // For non-navigation, try cache
       const cache = await caches.open(DYNAMIC_CACHE)
       const cachedResponse = await cache.match(request)
       
       if (cachedResponse) {
         return cachedResponse
       }
-      
-      // Return offline page
-      return caches.match('/offline')
+    } catch (cacheError) {
+      console.error('[SW] Cache fallback also failed:', cacheError.message)
     }
     
-    // For non-navigation, try cache
-    const cache = await caches.open(DYNAMIC_CACHE)
-    const cachedResponse = await cache.match(request)
-    
-    if (cachedResponse) {
-      return cachedResponse
-    }
-    
-    return new Response('Page not available offline', { status: 404 })
+    return new Response('Page not available offline', { 
+      status: 503,
+      headers: { 'Content-Type': 'text/plain' }
+    })
   }
 }
 

@@ -12,7 +12,7 @@ import { useCartStore } from '@/lib/cartStore'
 import { useAnimationStore } from '@/lib/animationStore'
 import { useBundleStore, ROUTINE_STEPS, type RoutineStep, type BundlePricing } from '@/lib/bundleStore'
 import { useAuth } from '@/components/auth/AuthProvider'
-import { canUserSeePrices, calculateDiscountedPrice } from '@/lib/discountUtils'
+import { canUserSeePrices } from '@/lib/discountUtils'
 import { Product } from '@/types'
 import BottomSheet from '@/components/ui/BottomSheet'
 
@@ -490,10 +490,9 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
     
     const itemCount = items.length
     
-    // Calculate subtotal using user's discounted prices
+    // Calculate subtotal using retail prices only (no VIP discount in bundle builder)
     const subtotal = items.reduce((sum, item) => {
-      const itemPricing = calculateDiscountedPrice(item.product, user)
-      return sum + itemPricing.discountedPrice
+      return sum + (item.product.price || 0)
     }, 0)
     
     let discountPercent = 0
@@ -503,7 +502,7 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
       }
     }
     
-    // Apply bundle discount on top of user's discounted price
+    // Apply bundle discount on retail subtotal (no VIP discount stacking)
     const discountAmount = Math.round((subtotal * discountPercent) / 100 * 100) / 100
     const total = Math.round((subtotal - discountAmount) * 100) / 100
     
@@ -527,7 +526,7 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
       nextTierItems,
       nextTierDiscount,
     }
-  }, [items, user])
+  }, [items])
   
   const [showMobileSummary, setShowMobileSummary] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
@@ -1067,7 +1066,6 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
                 {/* Content */}
                 <div className="flex-1 overflow-y-auto p-6">
                   {(() => {
-                    const detailPricing = calculateDiscountedPrice(detailProduct, user)
                     const isProductSelected = selectedProductIds.includes(detailProduct.id)
                     const currentItemCount = items.length
                     const newItemCount = isProductSelected ? currentItemCount : currentItemCount + 1
@@ -1097,11 +1095,6 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
                             className="object-contain p-4"
                             sizes="250px"
                           />
-                          {showPrices && detailPricing.hasDiscount && (
-                            <div className="absolute top-3 left-3 bg-green-600 text-white text-xs font-medium px-2 py-1 rounded-full">
-                              -{detailPricing.discountPercentage}%
-                            </div>
-                          )}
                           {isProductSelected && (
                             <div className="absolute top-3 right-3 bg-gray-900 text-white rounded-full p-1.5">
                               <Check className="w-4 h-4" />
@@ -1142,20 +1135,9 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
                         <div className="mb-4 text-center">
                           {showPrices ? (
                             <div className="flex flex-col items-center">
-                              {detailPricing.hasDiscount ? (
-                                <div className="flex items-center gap-2">
-                                  <span className="text-2xl font-bold text-primary-600">
-                                    {detailPricing.discountedPrice.toFixed(2)} {t('common.aed')}
-                                  </span>
-                                  <span className="text-sm text-gray-400 line-through">
-                                    {detailPricing.originalPrice.toFixed(2)}
-                                  </span>
-                                </div>
-                              ) : (
-                                <span className="text-2xl font-bold text-gray-900">
-                                  {detailProduct.price.toFixed(2)} {t('common.aed')}
-                                </span>
-                              )}
+                              <span className="text-2xl font-bold text-gray-900">
+                                {detailProduct.price.toFixed(2)} {t('common.aed')}
+                              </span>
                               <span className="text-xs text-gray-400 mt-1">5% {t('product.vatIncluded')}</span>
                             </div>
                           ) : (
@@ -1213,7 +1195,6 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
               showCloseButton={false}
             >
               {(() => {
-            const detailPricing = calculateDiscountedPrice(detailProduct, user)
             const isProductSelected = selectedProductIds.includes(detailProduct.id)
             
             // Calculate bundle discount for this item
@@ -1248,12 +1229,6 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
                     className="object-contain p-4"
                     sizes="200px"
                   />
-                  {/* Discount Badge */}
-                  {showPrices && detailPricing.hasDiscount && (
-                    <div className="absolute top-3 left-3 bg-green-600 text-white text-xs font-medium px-2 py-1 rounded-full">
-                      -{detailPricing.discountPercentage}%
-                    </div>
-                  )}
                   {/* Selected Badge */}
                   {isProductSelected && (
                     <div className="absolute top-3 right-3 bg-gray-900 text-white rounded-full p-1.5">
@@ -1298,24 +1273,13 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
                   </div>
                 )}
                 
-                {/* Price */}
+                {/* Price — retail only in bundle builder (no VIP discount) */}
                 <div className="mb-4">
                   {showPrices ? (
                     <div className="flex flex-col">
-                      {detailPricing.hasDiscount ? (
-                        <div className="flex items-center gap-2">
-                          <span className="text-xl font-bold text-primary-600">
-                            {detailPricing.discountedPrice.toFixed(2)} {t('common.aed')}
-                          </span>
-                          <span className="text-sm text-gray-400 line-through">
-                            {detailPricing.originalPrice.toFixed(2)} {t('common.aed')}
-                          </span>
-                        </div>
-                      ) : (
-                        <span className="text-xl font-bold text-gray-900">
-                          {detailProduct.price.toFixed(2)} {t('common.aed')}
-                        </span>
-                      )}
+                      <span className="text-xl font-bold text-gray-900">
+                        {detailProduct.price.toFixed(2)} {t('common.aed')}
+                      </span>
                       <span className="text-xs text-gray-400 mt-0.5">
                         5% {t('product.vatIncluded')}
                       </span>

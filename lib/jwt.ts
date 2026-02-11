@@ -1,7 +1,7 @@
 // Simple JWT implementation since jsonwebtoken is not installed
 // For production use, install jsonwebtoken: npm install jsonwebtoken @types/jsonwebtoken
 import { errorLog, debugLog, warnLog } from '@/lib/logger'
-import { JWT_SECRET as ENV_JWT_SECRET, DATABASE_URL as ENV_DATABASE_URL, MOBILE_APP_KEY } from '@/lib/envValidation'
+import { JWT_SECRET as ENV_JWT_SECRET, MOBILE_APP_KEY } from '@/lib/envValidation'
 import crypto from 'crypto'
 
 // JWT configuration - checked at runtime to avoid build-time errors

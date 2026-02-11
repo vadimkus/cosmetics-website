@@ -185,10 +185,9 @@ export const useCartStore = create<CartState>()(
       },
       
       getTotalItems: () => {
-        // Exclude promo items from badge count (matching native app behavior)
-        return get().items
-          .filter(item => !(item as Record<string, unknown>).isPromotionItem)
-          .reduce((total, item) => total + item.quantity, 0)
+        // Website cart never contains promotion items (those are native-app-only),
+        // so a simple sum of quantities is correct and aligned with native app behavior.
+        return get().items.reduce((total, item) => total + item.quantity, 0)
       },
       
       setSelectedEmirate: (emirate: string) => {

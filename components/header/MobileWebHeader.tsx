@@ -138,7 +138,7 @@ export default function MobileWebHeader() {
     } else {
       isScrolledToTop.current = false
     }
-    touchStartY.current = e.touches[0].clientY
+    touchStartY.current = e.touches[0]?.clientY ?? 0
     touchStartTime.current = Date.now()
     setIsSwiping(false)
   }, [])
@@ -146,7 +146,8 @@ export default function MobileWebHeader() {
   const handleMenuTouchMove = useCallback((e: ReactTouchEvent<HTMLDivElement>) => {
     if (!isScrolledToTop.current) return
     
-    const deltaY = touchStartY.current - e.touches[0].clientY // positive = swipe up
+    const currentY = e.touches[0]?.clientY ?? 0
+    const deltaY = touchStartY.current - currentY // positive = swipe up
     
     if (deltaY > 10) {
       // Swiping up - apply offset with resistance

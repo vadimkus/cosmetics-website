@@ -20,7 +20,7 @@
 import { cookies } from 'next/headers'
 import { revalidatePath } from 'next/cache'
 import { verifySessionToken } from '@/lib/jwt'
-import { addressSchema, type AddressInput } from '@/lib/validation/schemas'
+import { addressSchema } from '@/lib/validation/schemas'
 
 /**
  * Get the current authenticated user from session cookie
@@ -114,7 +114,7 @@ export async function addAddressAction(
       data: {
         userId: user.id,
         type: data.type,
-        label: data.label,
+        label: data.label ?? null,
         name: data.name,
         phone: data.phone,
         addressLine1: data.addressLine1,

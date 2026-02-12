@@ -72,6 +72,24 @@ This pings Google, Bing, and Yandex with the sitemap URL.
 
 ---
 
+## Structured Data
+
+The site uses JSON-LD structured data for:
+- **Organization**, **LocalBusiness** (with aggregateRating)
+- **Product** (on product pages, with offers, return policy, shipping)
+- **CollectionPage** (concern/category pages, with ItemList)
+- **BreadcrumbList**, **FAQPage**, **WebSite**
+
+**Fixes applied (Feb 2026):**
+- Removed standalone `AggregateRatingSchema` (invalid root type)
+- Removed fake reviews from LocalBusinessSchema
+- Replaced `@type: Product` in offer catalogs with `OfferCatalog`/`Service` to avoid "invalid items"
+- Product `aggregateRating` disabled until real review system exists
+
+See [SESSION_CHANGES_2026-02-12.md](./SESSION_CHANGES_2026-02-12.md#part-3-structured-data-fixes--google-merchant-center-feed) for details.
+
+---
+
 ## Related Tools
 
 | Tool | Purpose |
@@ -101,5 +119,7 @@ This pings Google, Bing, and Yandex with the sitemap URL.
 
 ## Related Documentation
 
+- [GOOGLE_MERCHANT_CENTER_FEED.md](./GOOGLE_MERCHANT_CENTER_FEED.md) — Product feed for Merchant Center
 - [SEO_CONCERN_LANDING_PAGES.md](./SEO_CONCERN_LANDING_PAGES.md) — Concern/category pages in sitemap
 - [SEO_IMPROVEMENTS_SUMMARY.md](./SEO_IMPROVEMENTS_SUMMARY.md) — General SEO overview
+- [SESSION_CHANGES_2026-02-12.md](./SESSION_CHANGES_2026-02-12.md) — Structured data fixes (Part 3)

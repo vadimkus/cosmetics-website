@@ -247,3 +247,98 @@ All changes in this session are **web-only**:
 - No Stripe flow changes
 - No auth/social login changes
 - Product page response shape unchanged (only internal deduplication)
+
+---
+
+## Part 3: Structured Data Fixes & Google Merchant Center Feed
+
+### Summary
+
+Resolved all Google Search Console structured data issues (Review snippets, Product snippets) and added a dedicated RSS 2.0 product feed for Google Merchant Center. All changes are **web-only** — native app has **zero risk**.
+
+---
+
+### 1. Review Snippets — Critical Fixes
+
+**Issues reported by Search Console:**
+- "Invalid object type for field \<parent_node\>"
+- "Multiple reviews without aggregateRating object"
+
+**Root causes:**
+1. **AggregateRatingSchema** — Output `@type: "AggregateRating"` as the **root** of a JSON-LD block. Google forbids `AggregateRating` as a standalone root; it must be nested inside a parent entity (LocalBusiness, Product, etc.).
+2. **LocalBusinessSchema** — Had a fake `review[]` array with fabricated names; Google penalizes fabricated reviews. Also required `aggregateRating` to accompany multiple reviews.
+3. **ProductSchema** — Emitted `aggregateRating` with only `ratingValue`; Google requires `reviewCount` or `ratingCount`. No real review system exists yet.
+
+**Fixes:**
+
+| File | Change |
+|------|--------|
+| `app/layout.tsx` | Removed `AggregateRatingSchema` import and usage |
+| `components/schema/LocalBusinessSchema.tsx` | Removed fake `review[]` array; kept only `aggregateRating` with `ratingCount` |
+| `components/schema/ProductSchema.tsx` | Disabled `aggregateRating` emission until real review system exists |
+| `components/schema/index.ts` | Removed `AggregateRatingSchema` export |
+
+---
+
+### 2. Product Snippets — Invalid Items Fix
+
+**Issue:** "4 invalid items detected" on homepage — Generic offer catalog items (Microneedling Devices, Korean Skincare Products, Professional Training, GENOSYS Professional Skincare Products) used `@type: "Product"` without the required `offers`/`review`/`aggregateRating`.
+
+**Fixes:**
+
+| File | Change |
+|------|--------|
+| `components/schema/LocalBusinessSchema.tsx` | Changed `hasOfferCatalog` items from `Offer` + `Product` to `OfferCatalog` (simple category names) |
+| `components/schema/OrganizationSchema.tsx` | Changed `makesOffer.itemOffered` from `Product` to `Service` |
+
+---
+
+### 3. CollectionPageSchema — TypeScript Fix
+
+**Issue:** `exactOptionalPropertyTypes: true` — `price: p.price > 0 ? p.price : undefined` produced `number | undefined`, incompatible with `price?: number`.
+
+**Fix:** Build `CollectionItem` object and only set `price` when `p.price > 0`.
+
+---
+
+### 4. Google Merchant Center Product Feed
+
+**New endpoint:** `https://genosys.ae/feed/products.xml`
+
+| Detail | Value |
+|--------|-------|
+| Format | RSS 2.0 with `g:` namespace |
+| Route | `app/feed/products.xml/route.ts` |
+| Data | `getAllProducts()` from productsDb |
+| Excludes | `isPriceOnRequest`, `price <= 0` |
+| Cache | 1h s-maxage, 24h stale-while-revalidate |
+| Fields | id, title, description, link, image_link, price, availability, condition, brand, mpn, product_type, google_product_category, shipping (free to UAE), additional_image_link, size, multilingual titles (ar, ru) |
+
+**Merchant Center setup:**
+- Products & store → Products → Add product source
+- Add products from a file → Enter a link to your file
+- URL: `https://genosys.ae/feed/products.xml`
+- Schedule: Every 24 hours at 12:00 AM
+- Country: United Arab Emirates; Language: English
+
+**First fetch result:** 61 products updated, 3 new products added (Feb 12, 2026).
+
+**Documentation:** [GOOGLE_MERCHANT_CENTER_FEED.md](./GOOGLE_MERCHANT_CENTER_FEED.md)
+
+---
+
+### 5. Commits Pushed (Part 3)
+
+| Commit | Description |
+|--------|-------------|
+| `daa128b3` | fix: resolve Google Search Console review snippets structured data errors |
+| `8d2d0d84` | fix: remove @type:Product from offer catalogs to fix product snippets errors |
+| `72349e28` | feat: add Google Merchant Center product feed (RSS 2.0) |
+
+---
+
+### 6. Search Console — Next Steps
+
+1. **Validate fix** — In Search Console, go to the Review snippets and Product snippets issue reports; click "Validate Fix".
+2. **Request indexing** — URL Inspection → `https://genosys.ae/` → "Request Indexing".
+3. **Wait** — Validation typically takes a few days to 2 weeks; Google will email when complete.

@@ -46,7 +46,7 @@ const ProductImage = memo(function ProductImage({
     || productNum === '63'
   const isRevitaGlow = productNum === '63'
   const imageClass = useContain
-    ? `w-full h-24 sm:h-32 md:h-40 lg:h-48 object-contain ${isRevitaGlow ? 'bg-white p-1 scale-110' : 'bg-gray-50 p-2'}`
+    ? `w-full h-24 sm:h-32 md:h-40 lg:h-48 object-contain ${isRevitaGlow ? 'bg-white p-1 scale-110' : 'bg-white p-2'}`
     : 'w-full h-24 sm:h-32 md:h-40 lg:h-48 object-cover'
   
   // PWA-specific touch handling styles

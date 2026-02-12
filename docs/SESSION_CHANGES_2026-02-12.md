@@ -99,10 +99,21 @@ Implemented condition-based SEO landing pages, product grid enhancements, corpor
 
 ### 9. Admin Analytics Dashboard
 
-- **Error handling**: Added `fetchError` state when API returns non-200
-- **Display**: Shows actual error message in red box instead of generic "No analytics data available"
-- **Retry button**: Added to retry without full page refresh
-- **Logging**: `errorLog` for failed API responses
+**Error handling (UI):**
+- Added `fetchError` state when API returns non-200
+- Display: Shows actual error message in red box instead of generic "No analytics data available"
+- Retry button: Re-fetch without full page refresh
+- Parses `detail` from API error JSON for clearer display
+
+**500 error fix (API):**
+- **Cause**: `prisma.userSession.findMany()` returned 5.01MB, exceeding Prisma Accelerate's 5MB limit
+- **Fix**: Replaced `findMany()` with `count()` and `aggregate()` — returns only computed values, not all rows
+- **Affected**: `overview` and `ux-metrics` endpoints in `app/api/analytics/route.ts`
+
+**Default time range:**
+- Changed from `'all'` to `30` days — avoids heavy "all time" queries that can timeout on Vercel
+
+**Documentation**: [ADMIN_ANALYTICS_DASHBOARD.md](./ADMIN_ANALYTICS_DASHBOARD.md)
 
 ---
 
@@ -118,3 +129,4 @@ Implemented condition-based SEO landing pages, product grid enhancements, corpor
 
 - **New**: [SEO_CONCERN_LANDING_PAGES.md](./SEO_CONCERN_LANDING_PAGES.md) — full feature reference
 - **New**: [GOOGLE_SEARCH_CONSOLE_SETUP.md](./GOOGLE_SEARCH_CONSOLE_SETUP.md) — GSC verification, sitemap, ping API
+- **New**: [ADMIN_ANALYTICS_DASHBOARD.md](./ADMIN_ANALYTICS_DASHBOARD.md) — analytics 5MB fix, aggregate queries, error handling

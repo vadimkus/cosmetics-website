@@ -311,8 +311,9 @@
 
 | File | Description |
 |------|-------------|
+| [ADMIN_ANALYTICS_DASHBOARD.md](./ADMIN_ANALYTICS_DASHBOARD.md) | **NEW** Analytics tab — 5MB fix (findMany → aggregate), error handling, API types |
 | [ADMIN_ONLINE_USERS_FEATURE.md](./ADMIN_ONLINE_USERS_FEATURE.md) | Online users tracking - green indicator, timestamps, smart sorting |
-| [SESSION_CHANGES_2026-02-10.md](./SESSION_CHANGES_2026-02-10.md) | **NEW** FAQ database migration & admin management (see FAQ section below) |
+| [SESSION_CHANGES_2026-02-10.md](./SESSION_CHANGES_2026-02-10.md) | FAQ database migration & admin management (see FAQ section below) |
 
 ---
 

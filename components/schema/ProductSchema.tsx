@@ -30,8 +30,11 @@ export default function ProductSchema({ product }: ProductSchemaProps) {
   }
   const displayImages = parsedImages.length > 0 ? parsedImages : [product.image]
 
-  // Only include aggregate rating if the product has real rating data
-  const hasRealRating = product.rating && product.rating > 0
+  // NOTE: aggregateRating is intentionally NOT emitted because we don't have
+  // a real review/rating system yet. Google requires reviewCount or ratingCount
+  // alongside ratingValue for AggregateRating. Outputting ratingValue alone
+  // triggers "Multiple reviews without aggregateRating" errors.
+  // When a real review system is added, uncomment the aggregateRating block below.
 
   const schema: Record<string, unknown> = {
     "@context": "https://schema.org",
@@ -175,15 +178,16 @@ export default function ProductSchema({ product }: ProductSchemaProps) {
     }
   }
 
-  // Only add aggregate rating if there's real rating data
-  if (hasRealRating) {
-    schema.aggregateRating = {
-      "@type": "AggregateRating",
-      "ratingValue": String(product.rating),
-      "bestRating": "5",
-      "worstRating": "1"
-    }
-  }
+  // When a real review system is implemented, enable this:
+  // if (product.rating && product.rating > 0 && product.reviewCount > 0) {
+  //   schema.aggregateRating = {
+  //     "@type": "AggregateRating",
+  //     "ratingValue": String(product.rating),
+  //     "reviewCount": String(product.reviewCount),
+  //     "bestRating": "5",
+  //     "worstRating": "1"
+  //   }
+  // }
 
   return (
     <script

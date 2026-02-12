@@ -121,37 +121,10 @@ export default function LocalBusinessSchema() {
       "@type": "AggregateRating",
       "ratingValue": "4.8",
       "reviewCount": "127",
+      "ratingCount": "127",
       "bestRating": "5",
       "worstRating": "1"
     },
-    "review": [
-      {
-        "@type": "Review",
-        "reviewRating": {
-          "@type": "Rating",
-          "ratingValue": "5",
-          "bestRating": "5"
-        },
-        "author": {
-          "@type": "Person",
-          "name": "Dr. Sarah Ahmed"
-        },
-        "reviewBody": "Excellent professional products and outstanding customer service. Highly recommended for dermatology clinics."
-      },
-      {
-        "@type": "Review",
-        "reviewRating": {
-          "@type": "Rating",
-          "ratingValue": "4",
-          "bestRating": "5"
-        },
-        "author": {
-          "@type": "Person",
-          "name": "Maria Santos"
-        },
-        "reviewBody": "Great quality Korean skincare products. Fast delivery and professional service."
-      }
-    ],
     "sameAs": [
       "https://www.genosys.info/",
       "https://www.instagram.com/genosys.uae/",

@@ -50,14 +50,19 @@ export default function CollectionPageSchema({
 
   // Convert products to items format if products prop is provided
   // Only include price for products that have a real price (not price-on-request)
-  const items: CollectionItem[] = rawItems || (products || []).map(p => ({
-    name: p.name,
-    url: `/products/${p.id}`,
-    image: p.image,
-    price: p.price > 0 ? p.price : undefined,
-    currency: 'AED',
-    description: p.description,
-  }))
+  const items: CollectionItem[] = rawItems || (products || []).map(p => {
+    const item: CollectionItem = {
+      name: p.name,
+      url: `/products/${p.id}`,
+      image: p.image,
+      currency: 'AED',
+      description: p.description,
+    }
+    if (p.price > 0) {
+      item.price = p.price
+    }
+    return item
+  })
 
   const schema = {
     "@context": "https://schema.org",

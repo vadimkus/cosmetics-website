@@ -147,10 +147,10 @@ const ProductImage = memo(function ProductImage({
         </div>
       )}
 
-      {/* New Badge - Mobile web only for Revita Glow BB Cream (product 63) */}
+      {/* New Badge for Revita Glow BB Cream (product 63) */}
       {(product.productNumber === '63' || product.id === '63') && (
-        <div className={`absolute top-2 ${locale === 'ar' ? 'right-2' : 'left-2'} z-20 md:hidden`}>
-          <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-green-500 text-white font-bold text-[10px] shadow-sm uppercase tracking-wide">
+        <div className={`absolute top-2 ${locale === 'ar' ? 'right-2' : 'left-2'} z-20`}>
+          <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-green-500 text-white font-bold text-[10px] md:text-xs shadow-sm uppercase tracking-wide">
             {t('common.new')}
           </span>
         </div>

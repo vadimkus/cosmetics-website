@@ -308,7 +308,7 @@ export const products: Product[] = [
     price: 290,
     description: '50g (Homecare) / 250g (Professional). Anti-blemish cream for combination, oily acne-prone skin. It helps control blemish-prone skin by regulating excessive oil and sebum while keeping the skin hydrated with zinc PCA, xylitol and panthenol. Key ingredients: Zinc PCA, Xylitol, Trehalose, Panthenol, Phytolex SC, Allantoin, Beta-Glucan. Dermatologically tested. Efficacy test on improving excessive sebum production.',
     image: '/images/PRB.jpg',
-    images: null,
+    images: JSON.stringify(['/images/PRB.jpg', '/images/Second/problem_duo.jpg']),
     category: 'Cream',
     inStock: true,
   },

@@ -223,9 +223,11 @@ export async function GET(request: NextRequest) {
         return NextResponse.json({ error: 'Invalid type parameter' }, { status: 400 })
     }
   } catch (error) {
-    errorLog('Error fetching analytics:', error)
+    const errorMessage = error instanceof Error ? error.message : String(error)
+    const errorStack = error instanceof Error ? error.stack : undefined
+    errorLog('Error fetching analytics:', { message: errorMessage, stack: errorStack })
     return NextResponse.json(
-      { error: 'Failed to fetch analytics data' },
+      { error: 'Failed to fetch analytics data', detail: errorMessage },
       { status: 500 }
     )
   }

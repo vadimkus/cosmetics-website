@@ -131,7 +131,7 @@ export default function AnalyticsDashboard({ onCustomerClick }: AnalyticsDashboa
   const [loading, setLoading] = useState(true)
   const [refreshing, setRefreshing] = useState(false)
   const [fetchError, setFetchError] = useState<string | null>(null)
-  const [timeRange, setTimeRange] = useState<'all' | number>('all')
+  const [timeRange, setTimeRange] = useState<'all' | number>(30)
   const [activeSection, setActiveSection] = useState<ActiveSection>('overview')
   const [showSalesChart, setShowSalesChart] = useState(false)
 
@@ -157,7 +157,12 @@ export default function AnalyticsDashboard({ onCustomerClick }: AnalyticsDashboa
       } else {
         const errorText = await analyticsRes.text().catch(() => 'Unknown error')
         errorLog('Analytics API error:', { status: analyticsRes.status, error: errorText })
-        setFetchError(`Analytics API returned ${analyticsRes.status}: ${errorText.slice(0, 200)}`)
+        try {
+          const errorJson = JSON.parse(errorText)
+          setFetchError(`Analytics API returned ${analyticsRes.status}: ${errorJson.detail || errorJson.error || errorText.slice(0, 200)}`)
+        } catch {
+          setFetchError(`Analytics API returned ${analyticsRes.status}: ${errorText.slice(0, 200)}`)
+        }
       }
 
       if (citiesRes.ok) {

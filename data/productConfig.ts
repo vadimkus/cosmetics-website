@@ -605,6 +605,24 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
         type: 'pdf'
       }
     ]
+  },
+  '62': {
+    id: '62',
+    pricing: {
+      basePrice: 250
+    },
+    images: ['/images/REVITA_GLOW_BB_CREAM_01_BRIGHT.png', '/images/REVITA_GLOW_BB_CREAM_02_NATURAL.png', '/images/Color_revita.png'],
+    colors: [
+      { value: 'Bright', label: '#01 Bright', available: true },
+      { value: 'Natural', label: '#02 Natural', available: true }
+    ],
+    documentation: [
+      {
+        title: 'REVITA GLOW BLEMISH BALM CREAM Guide',
+        url: '/documents/ppt/GENOSYS_REVITA_GLOW_BB_CREAM.pdf',
+        type: 'pdf'
+      }
+    ]
   }
 }
 
@@ -670,7 +688,8 @@ const documentationTitleTranslations: Record<string, string> = {
   'SKIN REBOOT PDRN MASK PACK Guide': 'Руководство по SKIN REBOOT PDRN MASK PACK',
   'SKIN DEFENDER Product Guide': 'Руководство по продукту SKIN DEFENDER',
   'INTENSIVE PROBLEM CONTROL TONER': 'Руководство по INTENSIVE PROBLEM CONTROL TONER',
-  'BIO MESO PDRN EXPERT AMPOULE 60000 Guide': 'Руководство по BIO MESO PDRN EXPERT AMPOULE 60000'
+  'BIO MESO PDRN EXPERT AMPOULE 60000 Guide': 'Руководство по BIO MESO PDRN EXPERT AMPOULE 60000',
+  'REVITA GLOW BLEMISH BALM CREAM Guide': 'Руководство по REVITA GLOW BLEMISH BALM CREAM'
 }
 
 export const getProductDocumentation = (productId: string, locale: string = 'en'): Array<{

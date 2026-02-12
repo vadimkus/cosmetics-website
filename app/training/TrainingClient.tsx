@@ -78,6 +78,7 @@ const productDocuments = [
   { id: 'hyaluron-serum', title: 'MOISTURE REPLENISHING HYALURON SERUM', size: '1.9 MB', href: '/documents/ppt/GENOSYS%20MOISTURE%20REPLENISHING%20HYALURON%20SERUM.pdf', image: '/images/HRS.jpg', productId: '18' },
   { id: 'hyaluron-cream', title: 'MOISTURE REPLENISHING HYALURON CREAM', size: '2.0 MB', href: '/documents/ppt/GENOSYS%20MOISTURE%20REPLENISHING%20HYALURON%20CREAM.pdf', image: '/images/HER.jpg', productId: '29' },
   { id: 'bb-cushion', title: 'SKIN CARING BLEMISH BALM CUSHION', size: '1.2 MB', href: '/documents/ppt/GENOSYS%20SKIN%20CARING%20BLEMISH%20BALM%20CUSHION.pdf', image: '/images/BBC.jpg', productId: '41' },
+  { id: 'revita-glow-bb', title: 'REVITA GLOW BLEMISH BALM CREAM', size: '2.0 MB', href: '/documents/ppt/GENOSYS_REVITA_GLOW_BB_CREAM.pdf', image: '/images/REVITA_GLOW_BB_CREAM_01_BRIGHT.png', productId: '62' },
   { id: 'eye-patch', title: 'EyeCell EYE PEPTIDE GEL PATCH', size: '1.4 MB', href: '/documents/ppt/GENOSYS%20EyeCell%20EYE%20PEPTIDE%20GEL%20PATCH.pdf', image: '/images/Patch.jpg', productId: '33' },
   { id: 'bio-ferment', title: 'BIO-FERMENT AGE DEFYING POWDER MASK', size: '2.1 MB', href: '/documents/ppt/GENOSYS%20BIO-FERMENT%20AGE%20DEFYING%20POWDER%20MASK.pdf', image: '/images/BFAD.png', productId: '51' },
   { id: 'hair-gentron', title: 'HAIR GENTRON', size: '1.8 MB', href: '/documents/ppt/HAIR%20GENTRON.pdf', image: '/images/gen.jpg', productId: '48' },

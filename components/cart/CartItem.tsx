@@ -44,19 +44,21 @@ function CartItemComponent({ item }: CartItemProps) {
   // Check if this is CHARMING LOOK BEAUTY BOX (productNumber '57')
   const isCharmingLookBeautyBox = product.productNumber === '57' || product.id === '57'
   
-  // Check if this is the cushion product (ID 41)
+  // Check if this is a product with color variants (ID 41 or 62)
   const isCushionProduct = product.id === '41' || product.productNumber === '41'
+  const isRevitaGlowBB = product.id === '62' || product.productNumber === '62'
+  const hasColorVariant = isCharmingLookBeautyBox || isCushionProduct || isRevitaGlowBB
   
-  // Get cushion color options (product 41 has colors: Beige, Ivory, Camel)
-  const cushionColorOptions = (isCharmingLookBeautyBox || isCushionProduct) ? getProductColorOptions('41') : []
+  // Get color options for the specific product
+  const cushionColorOptions = hasColorVariant ? getProductColorOptions(isCushionProduct ? '41' : isRevitaGlowBB ? '62' : '41') : []
   
   // Use selectedSize/selectedColor if available, otherwise fallback to product size
   const displaySize = (selectedSize && selectedSize.trim()) || (product.size && product.size.trim()) || null
   const displayColor = (selectedColor && selectedColor.trim()) || null
   const currentCushionColor = displayColor || (cushionColorOptions.length > 0 && cushionColorOptions[0] ? cushionColorOptions[0].value : null)
   
-  // Show color selector if: beauty box OR cushion product (always show for both)
-  const showColorSelector = (isCharmingLookBeautyBox || isCushionProduct) && cushionColorOptions.length > 0
+  // Show color selector if: beauty box OR product with color variants (always show for all)
+  const showColorSelector = hasColorVariant && cushionColorOptions.length > 0
   
   // Swipe gesture handlers
   const handleDragStart = useCallback(() => {

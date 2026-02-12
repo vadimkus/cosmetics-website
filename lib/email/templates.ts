@@ -543,7 +543,7 @@ export const emailTemplates = {
     const BEAUTY_BOX_PRICES: Record<string, number> = {
       'problem skin care beauty box': 1318, 'skin brightening beauty box': 1496,
       'charming look beauty box': 1520, 'anti-aging beauty box': 1390,
-      'deep moisturizing beauty box': 1318, 'sensitive skin beauty box': 1696,
+      'deep moisturizing beauty box': 1318,
     }
     const BEAUTY_BOX_DISC = 15
     const getBBOriginal = (name: string): number | null => {
@@ -1214,7 +1214,7 @@ export const emailTemplates = {
                 const BB_PRICES: Record<string, number> = {
                   'problem skin care beauty box': 1318, 'skin brightening beauty box': 1496,
                   'charming look beauty box': 1520, 'anti-aging beauty box': 1390,
-                  'deep moisturizing beauty box': 1318, 'sensitive skin beauty box': 1696,
+                  'deep moisturizing beauty box': 1318,
                 }
                 const BB_DISC = 15
                 const getBBOrig = (name: string): number | null => {

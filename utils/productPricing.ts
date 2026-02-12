@@ -5,33 +5,35 @@ import { Product } from '@/types'
  * This handles all the product-specific pricing logic
  */
 export function getPriceForSize(product: Product, size: string): number {
+  const pid = product.productNumber || product.id
+  
   // Product 1 - Microneedle Roller (all sizes same price)
-  if (product.id === '1') {
+  if (pid === '1') {
     return 230
   }
   
   // Product 10 - Two size options
-  if (product.id === '10') {
+  if (pid === '10') {
     return size === '180ml' ? 330 : 510
   }
   
   // Products 30, 29, 32, 28, 31 - Two size options
-  if (product.id === '30' || product.id === '29' || product.id === '32' || product.id === '28' || product.id === '31') {
+  if (pid === '30' || pid === '29' || pid === '32' || pid === '28' || pid === '31') {
     return size === '50g' ? 290 : 420
   }
   
   // Product 15 - Two size options
-  if (product.id === '15') {
+  if (pid === '15') {
     return size === '200ml' ? 260 : 490
   }
   
   // Product 16 - Two size options
-  if (product.id === '16') {
+  if (pid === '16') {
     return size === '200ml' ? 260 : 490
   }
   
   // Product 25 - Two size options
-  if (product.id === '25') {
+  if (pid === '25') {
     return size === '20g' ? 204 : 440
   }
   
@@ -50,7 +52,7 @@ export function hasProductSizeVariants(productId: string): boolean {
  * Check if a product has color variants
  */
 export function hasProductColorVariants(productId: string): boolean {
-  return productId === '41'
+  return productId === '41' || productId === '62'
 }
 
 /**
@@ -121,6 +123,13 @@ export function getProductColorOptions(productId: string): Array<{ value: string
       { value: 'Beige', label: 'Beige', hex: '#E6D5B8' }, // Beige color - more visible tan
       { value: 'Ivory', label: 'Ivory', hex: '#F5E6D3' }, // Ivory color - light cream with slight warmth
       { value: 'Camel', label: 'Camel', hex: '#A67C52' }  // Camel color - darker brownish tan for visibility
+    ]
+  }
+  
+  if (productId === '62') {
+    return [
+      { value: 'Bright', label: '#01 Bright', hex: '#FFF5E6' },  // Bright - luminous light tone
+      { value: 'Natural', label: '#02 Natural', hex: '#E8D5B7' }  // Natural - warm healthy tone
     ]
   }
   

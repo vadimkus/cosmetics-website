@@ -632,7 +632,7 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
         </div>
       )}
 
-      {/* Available Colors - Only for BB Cushion (product 41) */}
+      {/* Available Colors - For BB Cushion (product 41) */}
       {(product.id === '41' || product.productNumber === '41') && (
         <div className="bg-rose-50 border border-rose-200 rounded-lg p-2 lg:p-4 mb-2 lg:mb-4">
           <h3 className="font-semibold text-rose-800 mb-1.5 lg:mb-3 text-xs lg:text-sm" dir={dir} style={{ textAlign: dir === 'rtl' ? 'right' : 'left' }}>
@@ -658,6 +658,31 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
               <div>
                 <strong>{locale === 'ar' ? 'كاميل' : locale === 'ru' ? 'Кэмел' : 'Camel'}:</strong>{' '}
                 {locale === 'ar' ? 'للحصول على مظهر سمرة خفيفة رائعة' : locale === 'ru' ? 'Для красивого легкого загорелого оттенка' : 'For gorgeous light tan expression'}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Available Shades - For Revita Glow BB Cream (product 62) */}
+      {(product.id === '62' || product.productNumber === '62') && (
+        <div className="bg-rose-50 border border-rose-200 rounded-lg p-2 lg:p-4 mb-2 lg:mb-4">
+          <h3 className="font-semibold text-rose-800 mb-1.5 lg:mb-3 text-xs lg:text-sm" dir={dir} style={{ textAlign: dir === 'rtl' ? 'right' : 'left' }}>
+            {locale === 'ar' ? 'الظلال المتوفرة' : locale === 'ru' ? 'Доступные оттенки' : 'Available Shades'}
+          </h3>
+          <div className="space-y-2 lg:space-y-3 text-xs lg:text-sm text-rose-800">
+            <div className="flex items-start gap-2">
+              <span className="w-4 h-4 lg:w-5 lg:h-5 rounded-full bg-[#FFF5E6] border border-rose-300 flex-shrink-0 mt-0.5"></span>
+              <div>
+                <strong>#01 Bright:</strong>{' '}
+                {locale === 'ar' ? 'توهج مضيء لبشرة مشرقة وصافية' : locale === 'ru' ? 'Сияющий блеск для чистого, лучезарного цвета лица' : 'Illuminating glow for a clear, radiant complexion'}
+              </div>
+            </div>
+            <div className="flex items-start gap-2">
+              <span className="w-4 h-4 lg:w-5 lg:h-5 rounded-full bg-[#E8D5B7] border border-rose-300 flex-shrink-0 mt-0.5"></span>
+              <div>
+                <strong>#02 Natural:</strong>{' '}
+                {locale === 'ar' ? 'توهج طبيعي لبشرة صحية ومشرقة' : locale === 'ru' ? 'Утончённое сияние для естественного, здорового цвета лица' : 'Refined glow for a natural, healthy-looking complexion'}
               </div>
             </div>
           </div>

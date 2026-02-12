@@ -1172,7 +1172,7 @@ export default function CheckoutClient() {
                                 </h4>
                                 <div className={`flex items-center gap-1.5 md:gap-2 mt-0.5 md:mt-1 flex-wrap ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                                   <span className="text-[9px] md:text-xs text-gray-500">{t('checkout.qty')} {quantity}</span>
-                                  {item.selectedColor && item.selectedColor.trim() && (item.product.id === '41' || item.product.productNumber === '41') && (
+                                  {item.selectedColor && item.selectedColor.trim() && (item.product.id === '41' || item.product.productNumber === '41' || item.product.id === '62' || item.product.productNumber === '62') && (
                                     <span className="text-[9px] md:text-xs text-purple-600 font-medium bg-purple-50 border border-purple-200 rounded px-1.5 py-0.5">
                                       {t('product.color')}: {item.selectedColor}
                                     </span>
@@ -1205,7 +1205,7 @@ export default function CheckoutClient() {
                               </h4>
                               <div className={`flex items-center gap-1.5 md:gap-2 mt-0.5 md:mt-1 flex-wrap ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                                 <span className="text-[9px] md:text-xs text-gray-500">{t('checkout.qty')} {quantity}</span>
-                                {item.selectedColor && item.selectedColor.trim() && (item.product.id === '41' || item.product.productNumber === '41') && (
+                                {item.selectedColor && item.selectedColor.trim() && (item.product.id === '41' || item.product.productNumber === '41' || item.product.id === '62' || item.product.productNumber === '62') && (
                                   <span className="text-[9px] md:text-xs text-purple-600 font-medium bg-purple-50 border border-purple-200 rounded px-1.5 py-0.5">
                                     {t('product.color')}: {item.selectedColor}
                                   </span>

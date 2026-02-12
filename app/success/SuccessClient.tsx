@@ -292,7 +292,6 @@ function SuccessContent() {
                     'charming look beauty box': 1520,
                     'anti-aging beauty box': 1390,
                     'deep moisturizing beauty box': 1318,
-                    'sensitive skin beauty box': 1696,
                   }
                   const BEAUTY_BOX_DISCOUNT_PCT = 15
 

@@ -214,6 +214,7 @@ Complete reference of all knowledge embedded in the AI chatbot (Genie).
 | 39 | ULTRA SHIELD SUN CREAM | 250 | SPF 50+ |
 | 42 | INTENSIVE BLEMISH BALM CREAM | 250 | SPF 30 |
 | 41 | SKIN CARING BLEMISH BALM CUSHION | 300 | SPF 50+ |
+| 62 | REVITA GLOW BLEMISH BALM CREAM | 250 | SPF 38 |
 
 #### Masks (8 products)
 | ID | Product | Price (AED) |
@@ -276,6 +277,7 @@ Complete reference of all knowledge embedded in the AI chatbot (Genie).
 - SKIN DEFENDER LIP & EYE MAKEUP REMOVER
 - SKIN RESCUE OVERNIGHT CREAM MASK
 - SKIN CARING BLEMISH BALM CUSHION
+- REVITA GLOW BLEMISH BALM CREAM
 - BIO-FERMENT AGE DEFYING POWDER MASK
 
 #### Hair Care PDFs (4 products)

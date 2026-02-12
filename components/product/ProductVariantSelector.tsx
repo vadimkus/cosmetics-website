@@ -16,7 +16,7 @@ interface ProductVariantSelectorProps {
 }
 
 export default function ProductVariantSelector({
-  product,
+  product: _product,
   selectedSize,
   selectedColor,
   availableSizes,
@@ -29,8 +29,8 @@ export default function ProductVariantSelector({
   
   return (
     <div dir={dir}>
-      {/* Color Selection - Only for product ID 41 */}
-      {product.id === '41' && availableColors.length > 0 && (
+      {/* Color Selection - For products with color variants */}
+      {availableColors.length > 0 && (
         <div className="space-y-3">
           <div className={`flex items-center justify-between ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
             <label className="block text-sm font-medium text-gray-700">{t('product.color')}</label>

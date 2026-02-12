@@ -39,11 +39,14 @@ const ProductImage = memo(function ProductImage({
   const imageAlt = `${product.name} - GENOSYS Korean ${product.category || 'dermacosmetics'} professional skincare product UAE`
   
   // Products whose card images need object-contain (banner-style / composite images that crop poorly)
+  const productNum = product.productNumber || product.id
   const useContain = product.name.includes('INTENSIVE REPAIR COLLAGEN MASK')
     || product.category?.toLowerCase().includes('beauty box')
     || product.name.toLowerCase().includes('beauty box')
+    || productNum === '62'
+  const isRevitaGlow = productNum === '62'
   const imageClass = useContain
-    ? 'w-full h-24 sm:h-32 md:h-40 lg:h-48 object-contain bg-gray-50 p-2'
+    ? `w-full h-24 sm:h-32 md:h-40 lg:h-48 object-contain bg-gray-50 ${isRevitaGlow ? 'p-1 scale-110' : 'p-2'}`
     : 'w-full h-24 sm:h-32 md:h-40 lg:h-48 object-cover'
   
   // PWA-specific touch handling styles

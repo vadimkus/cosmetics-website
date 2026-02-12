@@ -49,11 +49,12 @@ export default function CollectionPageSchema({
   const pageUrl = url.startsWith('http') ? url : `${baseUrl}${url}`
 
   // Convert products to items format if products prop is provided
+  // Only include price for products that have a real price (not price-on-request)
   const items: CollectionItem[] = rawItems || (products || []).map(p => ({
     name: p.name,
     url: `/products/${p.id}`,
     image: p.image,
-    price: p.price,
+    price: p.price > 0 ? p.price : undefined,
     currency: 'AED',
     description: p.description,
   }))
@@ -84,12 +85,24 @@ export default function CollectionPageSchema({
           "name": item.name,
         }
 
-        // Include Product schema within the list item for richer results
-        if (item.price || item.image) {
+        // Only include Product schema when we have a price (offers).
+        // Google requires "offers", "review", or "aggregateRating" for @type:Product.
+        // Products without price (e.g. price-on-request) are listed as simple links.
+        if (item.price && item.price > 0) {
           const product: Record<string, unknown> = {
             "@type": "Product",
             "name": item.name,
             "url": itemUrl,
+            "brand": {
+              "@type": "Brand",
+              "name": "GENOSYS",
+            },
+            "offers": {
+              "@type": "Offer",
+              "price": item.price,
+              "priceCurrency": item.currency || "AED",
+              "availability": "https://schema.org/InStock",
+            },
           }
           if (item.image) {
             product.image = item.image.startsWith('http') 
@@ -98,18 +111,6 @@ export default function CollectionPageSchema({
           }
           if (item.description) {
             product.description = item.description
-          }
-          if (item.price) {
-            product.offers = {
-              "@type": "Offer",
-              "price": item.price,
-              "priceCurrency": item.currency || "AED",
-              "availability": "https://schema.org/InStock",
-            }
-          }
-          product.brand = {
-            "@type": "Brand",
-            "name": "GENOSYS",
           }
           listItem.item = product
         }

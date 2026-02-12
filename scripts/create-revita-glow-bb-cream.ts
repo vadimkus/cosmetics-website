@@ -106,7 +106,8 @@ Soothing and hydrating sheet mask with sea algae complex. Provides intensive hyd
     image: '/images/bright.jpg',
     images: JSON.stringify([
       '/images/bright.jpg',
-      '/images/natural.jpg'
+      '/images/natural.jpg',
+      '/images/vita_color.jpg'
     ]),
     inStock: true,
     size: '50g',

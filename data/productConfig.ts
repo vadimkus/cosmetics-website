@@ -611,7 +611,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     pricing: {
       basePrice: 250
     },
-    images: ['/images/bright.jpg', '/images/natural.jpg'],
+    images: ['/images/bright.jpg', '/images/natural.jpg', '/images/vita_color.jpg'],
     colors: [
       { value: 'Bright', label: '#01 Bright', available: true },
       { value: 'Natural', label: '#02 Natural', available: true }

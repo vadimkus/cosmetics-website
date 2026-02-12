@@ -1,18 +1,112 @@
 import { prisma } from '../lib/prisma'
 
 async function main() {
-  const productData = {
+  // ── Step 1: Restore Sensitive Skin Beauty Box as product 62 ──
+  console.log('\n── Restoring SENSITIVE SKIN BEAUTY BOX (product 62) ──')
+  const beautyBoxData = {
     productNumber: '62',
+    name: 'SENSITIVE SKIN BEAUTY BOX',
+    nameAr: 'صندوق الجمال للبشرة الحساسة',
+    nameRu: 'НАБОР ДЛЯ ЧУВСТВИТЕЛЬНОЙ КОЖИ',
+    price: 1442,
+    category: 'Beauty Boxes',
+    image: '/images/beauty_boxes/sskin_beauty_box.png',
+    images: JSON.stringify(['/images/beauty_boxes/sskin_beauty_box.png']),
+    inStock: true,
+    size: '1 set',
+    description: `A powerful soothing collection for sensitive and reactive skin. Calms, protects, and strengthens the skin barrier with gentle, clinically proven ingredients suited for even the most sensitive skin types.
+
+Regular Price: 1,696 AED | Box Price: 1,442 AED | Save 15% (254 AED)
+
+💗 Beauty Box: For Sensitive Skin
+
+Kit includes:
+
+1. Snow O2 180ml (1 pc) = 330 AED
+All-in-one gentle cleanser with oxygen bubbles. A gentle and effective cleanser that provides an excellent therapeutic feel. Naturally generated oxygen bubbles clean makeup, dirt, and impurities from the skin without excessive cleansing motions or skin irritation. Features oxygen therapy mechanism for deep cleansing and nourishment. Key Ingredients: Phytolex SC, MultiEx Phytrogen, Methyl Perfluoroisobutyl Ether.
+
+2. Snow Booster 200ml (1 pc) = 260 AED
+Daily hydrating and skin-refining toner for all skin types. Contains various plant extracts to hydrate and soothe the skin. Helps refine skin texture while balancing pH levels after cleansing. Key Ingredients: Phytolex SC, Lotus Flower Extract, Fermented Pumpkin Extract, Betaine.
+
+3. All For Sensitive Serum 30ml (1 pc) = 330 AED
+Calming serum for sensitive and reactive skin with CELLASURE™ 5X technology. Specially designed for sensitive skin prone to redness or irritation. Soothes the skin and strengthens its protective barrier while reducing sensitivity. Key Ingredients: CELLASURE™ 5X, calming plant extracts, Panthenol.
+
+4. Skin Barrier Protecting Cream with Ceramides 100ml (1 pc) = 450 AED
+Rich cream with ceramides to strengthen and protect the skin barrier. Provides intensive, long-lasting hydration while protecting skin from external irritants. Ideal for sensitive and dry skin. Key Ingredients: 5-Ceramide Complex, Hyaluronic Acid, Shea Butter, Squalane.
+
+5. EGF Repair Oxymask 50ml (1 pc) = 290 AED
+Intensive repair mask with Epidermal Growth Factor (EGF) and oxygen bubbles. Revitalizes and regenerates sensitive, tired skin with deep nourishment. Key Ingredients: EGF, Oxygen Capsules, Panthenol, Hyaluronic Acid.
+
+6. Soothing Bomb Sea Algae Mask (1 pc) = 36 AED
+Soothing and hydrating sheet mask with sea algae complex. Provides intensive hydration and instant soothing for sensitive, irritated skin. Key Ingredients: Sea Algae Extract, Hyaluronic Acid, Calming Plant Extracts.`,
+    descriptionAr: 'مجموعة مهدئة قوية للبشرة الحساسة والمتفاعلة. تعمل على تهدئة وحماية وتقوية حاجز البشرة مع مكونات لطيفة مثبتة إكلينيكياً تناسب أكثر أنواع البشرة حساسية.',
+    descriptionRu: 'Комплексный набор для ухода за чувствительной и реактивной кожей. Мягкая, но эффективная формула успокаивает, защищает и укрепляет защитный барьер кожи с клинически проверенными ингредиентами.',
+    productDetails: JSON.stringify({
+      form: 'Sensitive Skin Beauty Box',
+      target: 'Comprehensive sensitive and reactive skin care',
+      technology: 'Soothing and barrier-strengthening ingredients',
+      keyBenefits: 'Soothing, Protection, Barrier Strengthening, Deep Hydration',
+      usage: 'Daily use for sensitive skin',
+      skinType: 'Sensitive and reactive skin',
+      application: 'Use products according to instructions',
+      origin: 'South Korea'
+    }),
+    benefits: JSON.stringify([
+      'Skin soothing - calms and reduces redness and irritation',
+      'Barrier strengthening - strengthens and enhances the skin\'s protective barrier',
+      'Deep hydration - provides intensive, long-lasting moisture',
+      'Protection from irritants - protects skin from harmful external factors',
+      'Reduced sensitivity - helps reduce skin reactivity',
+      'Skin regeneration - supports regeneration of sensitive skin cells',
+      'Gentle ingredients - contains safe ingredients for sensitive skin',
+      'Comprehensive care - provides complete care for sensitive skin'
+    ]),
+    ingredients: null,
+    howToUse: 'Use products according to the enclosed instructions. Typically used as part of a daily skincare routine.',
+    directions: 'This product is suitable for sensitive and reactive skin. Use regularly for best results. Store in a cool, dry place.',
+    skinType: 'sensitive',
+    targetConcerns: JSON.stringify(['sensitivity', 'redness', 'barrier-repair', 'hydration', 'soothing']),
+    usage: 'daily',
+    ageGroup: 'adult',
+    rating: 5,
+    noDiscount: false,
+    isHidden: false,
+    isPriceOnRequest: false
+  }
+
+  const existingBeautyBox = await prisma.product.findUnique({
+    where: { productNumber: '62' }
+  })
+
+  if (existingBeautyBox) {
+    // Product 62 exists but was overwritten with BB cream data - restore it
+    console.log('⚠️  Product 62 exists as:', existingBeautyBox.name)
+    console.log('   Restoring SENSITIVE SKIN BEAUTY BOX...')
+    const restored = await prisma.product.update({
+      where: { productNumber: '62' },
+      data: beautyBoxData
+    })
+    console.log('✅ Restored:', restored.name, '(ID:', restored.id, ')')
+  } else {
+    const created = await prisma.product.create({
+      data: beautyBoxData
+    })
+    console.log('✅ Created:', created.name, '(ID:', created.id, ')')
+  }
+
+  // ── Step 2: Create Revita Glow BB Cream as product 63 ──
+  console.log('\n── Creating REVITA GLOW BB CREAM (product 63) ──')
+  const productData = {
+    productNumber: '63',
     name: 'REVITA GLOW BLEMISH BALM CREAM [SPF 38 PA+++]',
     nameAr: 'كريم ريفيتا جلو BB [SPF 38 PA+++]',
     nameRu: 'REVITA GLOW BB КРЕМ [SPF 38 PA+++]',
     price: 250,
     category: 'Cream, Sun, Cushion BB',
-    image: '/images/REVITA_GLOW_BB_CREAM_01_BRIGHT.png',
+    image: '/images/bright.jpg',
     images: JSON.stringify([
-      '/images/REVITA_GLOW_BB_CREAM_01_BRIGHT.png',
-      '/images/REVITA_GLOW_BB_CREAM_02_NATURAL.png',
-      '/images/Color_revita.png'
+      '/images/bright.jpg',
+      '/images/natural.jpg'
     ]),
     inStock: true,
     size: '50g',
@@ -105,18 +199,18 @@ Available Shades:
 
   console.log('Creating REVITA GLOW BLEMISH BALM CREAM [SPF 38 PA+++]...')
 
-  // Check if product with productNumber '62' already exists
+  // Check if product with productNumber '63' already exists
   const existing = await prisma.product.findUnique({
-    where: { productNumber: '62' }
+    where: { productNumber: '63' }
   })
 
   if (existing) {
-    console.log('⚠️  Product with productNumber 62 already exists:', existing.name)
+    console.log('⚠️  Product with productNumber 63 already exists:', existing.name)
     console.log('   ID:', existing.id)
     console.log('   Updating product...')
     
     const updated = await prisma.product.update({
-      where: { productNumber: '62' },
+      where: { productNumber: '63' },
       data: productData
     })
     

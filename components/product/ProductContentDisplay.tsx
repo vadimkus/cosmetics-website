@@ -664,8 +664,8 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
         </div>
       )}
 
-      {/* Available Shades - For Revita Glow BB Cream (product 62) */}
-      {(product.id === '62' || product.productNumber === '62') && (
+      {/* Available Shades - For Revita Glow BB Cream (product 63) */}
+      {(product.id === '63' || product.productNumber === '63') && (
         <div className="bg-rose-50 border border-rose-200 rounded-lg p-2 lg:p-4 mb-2 lg:mb-4">
           <h3 className="font-semibold text-rose-800 mb-1.5 lg:mb-3 text-xs lg:text-sm" dir={dir} style={{ textAlign: dir === 'rtl' ? 'right' : 'left' }}>
             {locale === 'ar' ? 'الظلال المتوفرة' : locale === 'ru' ? 'Доступные оттенки' : 'Available Shades'}
@@ -759,7 +759,7 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
       {howToUse && typeof howToUse === 'string' && (
         <div className="lg:bg-transparent lg:border-0 lg:p-0 bg-blue-50 border border-blue-200 rounded-lg p-2 lg:p-0 lg:mb-0 mb-2 lg:mb-4">
           <h4 className="font-semibold text-blue-800 lg:text-gray-800 mb-1.5 lg:mb-2 text-xs lg:text-sm" dir={dir} style={{ textAlign: dir === 'rtl' ? 'right' : 'left' }}>{t('product.directions')}</h4>
-          <p className="text-blue-700 lg:text-gray-600 mb-0 lg:mb-0 text-xs lg:text-sm">
+          <p className="text-blue-700 lg:text-gray-600 mb-0 lg:mb-0 text-xs lg:text-sm whitespace-pre-line">
             {howToUse}
           </p>
         </div>

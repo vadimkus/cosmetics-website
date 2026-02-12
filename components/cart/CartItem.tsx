@@ -46,11 +46,11 @@ function CartItemComponent({ item }: CartItemProps) {
   
   // Check if this is a product with color variants (ID 41 or 62)
   const isCushionProduct = product.id === '41' || product.productNumber === '41'
-  const isRevitaGlowBB = product.id === '62' || product.productNumber === '62'
+  const isRevitaGlowBB = product.id === '63' || product.productNumber === '63'
   const hasColorVariant = isCharmingLookBeautyBox || isCushionProduct || isRevitaGlowBB
   
   // Get color options for the specific product
-  const cushionColorOptions = hasColorVariant ? getProductColorOptions(isCushionProduct ? '41' : isRevitaGlowBB ? '62' : '41') : []
+  const cushionColorOptions = hasColorVariant ? getProductColorOptions(isCushionProduct ? '41' : isRevitaGlowBB ? '63' : '41') : []
   
   // Use selectedSize/selectedColor if available, otherwise fallback to product size
   const displaySize = (selectedSize && selectedSize.trim()) || (product.size && product.size.trim()) || null

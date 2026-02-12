@@ -606,12 +606,12 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
       }
     ]
   },
-  '62': {
-    id: '62',
+  '63': {
+    id: '63',
     pricing: {
       basePrice: 250
     },
-    images: ['/images/REVITA_GLOW_BB_CREAM_01_BRIGHT.png', '/images/REVITA_GLOW_BB_CREAM_02_NATURAL.png', '/images/Color_revita.png'],
+    images: ['/images/bright.jpg', '/images/natural.jpg'],
     colors: [
       { value: 'Bright', label: '#01 Bright', available: true },
       { value: 'Natural', label: '#02 Natural', available: true }

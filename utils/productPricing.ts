@@ -52,7 +52,7 @@ export function hasProductSizeVariants(productId: string): boolean {
  * Check if a product has color variants
  */
 export function hasProductColorVariants(productId: string): boolean {
-  return productId === '41' || productId === '62'
+  return productId === '41' || productId === '63'
 }
 
 /**
@@ -126,7 +126,7 @@ export function getProductColorOptions(productId: string): Array<{ value: string
     ]
   }
   
-  if (productId === '62') {
+  if (productId === '63') {
     return [
       { value: 'Bright', label: '#01 Bright', hex: '#FFF5E6' },  // Bright - luminous light tone
       { value: 'Natural', label: '#02 Natural', hex: '#E8D5B7' }  // Natural - warm healthy tone

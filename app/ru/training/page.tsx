@@ -703,9 +703,9 @@ export default function RussianTrainingPage() {
                   <div className="group border border-gray-200 rounded-md md:rounded-lg p-2 md:p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
                     <div className="flex items-center gap-2 md:gap-3">
                       <div className="w-8 h-8 md:w-10 md:h-10 bg-gray-100 rounded-md md:rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
-                        <Link href="/ru/products/62">
+                        <Link href="/ru/products/63">
                           <Image
-                            src="/images/REVITA_GLOW_BB_CREAM_01_BRIGHT.png"
+                            src="/images/bright.jpg"
                             alt="REVITA GLOW BLEMISH BALM CREAM"
                             width={500}
                             height={300} className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"

@@ -160,8 +160,6 @@ export default function ProductSchema({ product }: ProductSchemaProps) {
     ],
     "sku": product.id,
     "mpn": product.productNumber || product.id,
-    // Google Merchant Center: availability as text (for AI crawlers)
-    "availability": product.inStock ? "In Stock" : "Out of Stock",
     // Multilingual product names (helps AI serve correct language)
     ...(product.nameAr ? { "alternateName": [product.nameAr, product.nameRu].filter(Boolean) } : {}),
     "url": `${SITE_URL}/products/${product.id}`,

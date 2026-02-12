@@ -140,6 +140,11 @@ cosmetics-website/
 
 A section at the bottom of the products listing page with links to all 8 concern pages.
 
+**Visibility**:
+- **Desktop/tablet** (640px+): Visible — `sm:block`
+- **Mobile web**: Hidden — `hidden` to reduce clutter
+- **Crawlers**: Still in DOM, so links remain indexable for SEO
+
 **Design** (corporate colors):
 - Section background: `bg-primary-50`
 - Border: `border-primary-100`

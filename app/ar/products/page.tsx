@@ -74,7 +74,7 @@ export default function ArabicProductsPage() {
       />
       <ProductsPageClient />
 
-      <section className="bg-primary-50 py-10 px-4 mt-8 border-t border-primary-100" dir="rtl">
+      <section className="hidden sm:block bg-primary-50 py-10 px-4 mt-8 border-t border-primary-100" dir="rtl">
         <div className="max-w-6xl mx-auto text-center">
           <h2 className="text-2xl font-bold text-gray-900 mb-2">تسوق حسب مشكلة البشرة</h2>
           <p className="text-gray-500 mb-6">اعثر على المنتجات المناسبة لاحتياجات بشرتك</p>

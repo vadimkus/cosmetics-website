@@ -74,7 +74,7 @@ export default function RussianProductsPage() {
       />
       <ProductsPageClient />
 
-      <section className="bg-primary-50 py-10 px-4 mt-8 border-t border-primary-100">
+      <section className="hidden sm:block bg-primary-50 py-10 px-4 mt-8 border-t border-primary-100">
         <div className="max-w-6xl mx-auto text-center">
           <h2 className="text-2xl font-bold text-gray-900 mb-2">Выбор по проблеме кожи</h2>
           <p className="text-gray-500 mb-6">Найдите подходящие продукты для ваших потребностей</p>

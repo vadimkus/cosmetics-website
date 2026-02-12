@@ -4,7 +4,7 @@
 
 ### Summary
 
-Implemented condition-based SEO landing pages, product grid enhancements, and corporate styling for the Shop by Skin Concern block. All changes are **web-only** — native app has **zero risk**.
+Implemented condition-based SEO landing pages, product grid enhancements, corporate styling, Google Search Console setup, and admin analytics error handling. All changes are **web-only** — native app has **zero risk**.
 
 ---
 
@@ -90,6 +90,31 @@ Implemented condition-based SEO landing pages, product grid enhancements, and co
 
 ---
 
-### 8. Documentation
+### 8. Shop by Skin Concern — Mobile
+
+- **Hidden on mobile web**: Added `hidden sm:block` to the section on all three locale pages (EN, AR, RU)
+- **Visibility**: Visible on tablet/desktop (640px+); hidden on phones; still in DOM for crawlers
+
+---
+
+### 9. Admin Analytics Dashboard
+
+- **Error handling**: Added `fetchError` state when API returns non-200
+- **Display**: Shows actual error message in red box instead of generic "No analytics data available"
+- **Retry button**: Added to retry without full page refresh
+- **Logging**: `errorLog` for failed API responses
+
+---
+
+### 10. Google Search Console
+
+- **Verification file**: Moved from `public/seo/google564054d5967aa69e.html` to `public/google564054d5967aa69e.html` (root required by Google)
+- **Sitemap**: Submitted `https://genosys.ae/sitemap.xml` in Search Console
+- **Documentation**: [GOOGLE_SEARCH_CONSOLE_SETUP.md](./GOOGLE_SEARCH_CONSOLE_SETUP.md)
+
+---
+
+### 11. Documentation
 
 - **New**: [SEO_CONCERN_LANDING_PAGES.md](./SEO_CONCERN_LANDING_PAGES.md) — full feature reference
+- **New**: [GOOGLE_SEARCH_CONSOLE_SETUP.md](./GOOGLE_SEARCH_CONSOLE_SETUP.md) — GSC verification, sitemap, ping API

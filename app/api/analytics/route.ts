@@ -21,35 +21,21 @@ export async function GET(request: NextRequest) {
       case 'overview': {
         const analyticsData = await getAnalyticsData(days)
         
-        // Fetch UX metrics
-        const sessions = await prisma.userSession.findMany({
-          where: {
-            ...(startDate ? { startTime: { gte: startDate } } : {})
-          }
-        })
+        // Fetch UX metrics using aggregate queries (not findMany) to avoid 5MB response limit
+        const sessionWhere = startDate ? { startTime: { gte: startDate } } : {}
         
-        const totalSessions = sessions.length
-        const bounceSessions = sessions.filter(s => s.isBounce).length
+        const [totalSessions, bounceSessions, sessionAggregates] = await Promise.all([
+          prisma.userSession.count({ where: sessionWhere }),
+          prisma.userSession.count({ where: { ...sessionWhere, isBounce: true } }),
+          prisma.userSession.aggregate({
+            where: sessionWhere,
+            _avg: { duration: true, pageViews: true },
+          }),
+        ])
+        
         const bounceRate = totalSessions > 0 ? (bounceSessions / totalSessions) * 100 : 0
-        
-        // Calculate average session duration (for active sessions, use current time - startTime)
-        const now = new Date()
-        const avgSessionDuration = sessions.length > 0 
-          ? sessions.reduce((sum, s) => {
-              if (s.duration) {
-                return sum + s.duration
-              } else if (!s.endTime) {
-                // Active session - calculate duration from startTime to now
-                const duration = Math.floor((now.getTime() - s.startTime.getTime()) / 1000)
-                return sum + duration
-              }
-              return sum
-            }, 0) / sessions.length 
-          : 0
-        
-        const avgPageViewsPerSession = sessions.length > 0
-          ? sessions.reduce((sum, s) => sum + s.pageViews, 0) / sessions.length
-          : 0
+        const avgSessionDuration = sessionAggregates._avg.duration || 0
+        const avgPageViewsPerSession = sessionAggregates._avg.pageViews || 0
         
         // Merge UX metrics into analytics data
         const analyticsWithUX = {
@@ -131,39 +117,31 @@ export async function GET(request: NextRequest) {
       }
       
       case 'ux-metrics': {
-        const sessions = await prisma.userSession.findMany({
-          where: {
-            ...(startDate ? { startTime: { gte: startDate } } : {})
-          }
-        })
+        // Use aggregate queries (not findMany) to avoid 5MB response limit
+        const uxSessionWhere = startDate ? { startTime: { gte: startDate } } : {}
         
-        const totalSessions = sessions.length
-        const bounceSessions = sessions.filter(s => s.isBounce).length
-        const bounceRate = totalSessions > 0 ? (bounceSessions / totalSessions) * 100 : 0
-        
-        const avgSessionDuration = sessions.length > 0 
-          ? sessions.reduce((sum, s) => sum + (s.duration || 0), 0) / sessions.length 
-          : 0
-        
-        const avgPageViewsPerSession = sessions.length > 0
-          ? sessions.reduce((sum, s) => sum + s.pageViews, 0) / sessions.length
-          : 0
-        
-        // Get non-cancelled orders count for consistency
-        const nonCancelledOrders = await prisma.order.count({
-          where: {
-            ...(startDate ? { createdAt: { gte: startDate } } : {}),
-            status: {
-              not: 'CANCELLED'
+        const [uxTotalSessions, uxBounceSessions, uxAggregates, nonCancelledOrders] = await Promise.all([
+          prisma.userSession.count({ where: uxSessionWhere }),
+          prisma.userSession.count({ where: { ...uxSessionWhere, isBounce: true } }),
+          prisma.userSession.aggregate({
+            where: uxSessionWhere,
+            _avg: { duration: true, pageViews: true },
+          }),
+          prisma.order.count({
+            where: {
+              ...(startDate ? { createdAt: { gte: startDate } } : {}),
+              status: { not: 'CANCELLED' }
             }
-          }
-        })
+          })
+        ])
+        
+        const uxBounceRate = uxTotalSessions > 0 ? (uxBounceSessions / uxTotalSessions) * 100 : 0
         
         return NextResponse.json({
-          bounceRate: Math.round(bounceRate * 100) / 100,
-          avgSessionDuration: Math.round(avgSessionDuration),
-          avgPageViewsPerSession: Math.round(avgPageViewsPerSession * 100) / 100,
-          totalSessions,
+          bounceRate: Math.round(uxBounceRate * 100) / 100,
+          avgSessionDuration: Math.round(uxAggregates._avg.duration || 0),
+          avgPageViewsPerSession: Math.round((uxAggregates._avg.pageViews || 0) * 100) / 100,
+          totalSessions: uxTotalSessions,
           ordersPlaced: nonCancelledOrders
         })
       }

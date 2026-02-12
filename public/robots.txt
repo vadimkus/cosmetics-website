@@ -230,3 +230,7 @@ Disallow: /
 
 Sitemap: https://genosys.ae/sitemap.xml
 Sitemap: https://genosys.ae/sitemap-index.xml
+
+# Google Merchant Center Product Feed
+# Add this URL in Merchant Center > Products > Feeds > Scheduled fetch
+# Feed: https://genosys.ae/feed/products.xml

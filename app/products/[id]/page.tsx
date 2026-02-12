@@ -3,7 +3,7 @@ import { Product } from '@/types'
 import { ProductPageProps } from '@/types/common'
 import ProductPageClientRefactored from './ProductPageClientRefactored'
 import type { Metadata } from 'next'
-import { getProductById } from '@/lib/productsDb'
+import { getProductByIdCached } from '@/lib/productsDb'
 import { errorLog, debugLog } from '@/lib/logger'
 import { safeJsonParse } from '@/lib/utils'
 
@@ -12,10 +12,12 @@ export const dynamic = 'force-dynamic'
 // Disable caching for this route to prevent stale 404s
 export const revalidate = 0
 
-// Direct product fetch with error logging
+// Product fetch using React cache() to deduplicate across
+// generateMetadata, page component, opengraph-image, and twitter-image.
+// All four share a single DB call per request.
 async function getProduct(id: string): Promise<Product | null> {
   try {
-    const product = await getProductById(id)
+    const product = await getProductByIdCached(id)
     if (product) {
       // Ensure noDiscount is explicitly set to prevent serialization issues
       if (product.noDiscount === undefined) {

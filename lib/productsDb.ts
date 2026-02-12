@@ -1,3 +1,4 @@
+import { cache } from 'react'
 import { debugLog, errorLog } from '@/lib/logger'
 import { prisma } from './prisma'
 import type { Product } from '@/types'
@@ -60,6 +61,16 @@ export async function getProductById(id: string): Promise<Product | null> {
     throw new Error('Failed to fetch product')
   }
 }
+
+/**
+ * React cache()-wrapped version of getProductById.
+ * Deduplicates DB calls within a single server request lifecycle.
+ * Use this in page.tsx, generateMetadata, opengraph-image, twitter-image
+ * so all four share one DB call instead of four separate ones.
+ */
+export const getProductByIdCached = cache(async (id: string): Promise<Product | null> => {
+  return getProductById(id)
+})
 
 export async function getProductsByCategory(category: string): Promise<Product[]> {
   try {

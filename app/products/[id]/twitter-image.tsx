@@ -1,5 +1,5 @@
 import { ImageResponse } from 'next/og'
-import { getProductById } from '@/lib/productsDb'
+import { getProductByIdCached } from '@/lib/productsDb'
 
 // Twitter card image metadata
 export const alt = 'GENOSYS Product'
@@ -11,7 +11,7 @@ export const contentType = 'image/png'
 
 export default async function Image({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
-  const product = await getProductById(id)
+  const product = await getProductByIdCached(id)
 
   if (!product) {
     return new ImageResponse(

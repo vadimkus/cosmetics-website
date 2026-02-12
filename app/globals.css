@@ -1032,15 +1032,19 @@ html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overscroll-behavior-y: none; /* Prevent rubber-band overscroll on all platforms */
   /* Enable font feature settings for better typography */
   font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
   /* Optical sizing for variable fonts */
   font-optical-sizing: auto;
 }
 
-body {
-  overscroll-behavior-y: none; /* Prevent iOS Safari bounce/overscroll */
+/* Only disable overscroll in PWA standalone mode (prevents iOS rubber-band bounce).
+   In regular mobile browsers (Chrome, Safari tab), keep native overscroll
+   so pull-to-refresh works normally. */
+@media all and (display-mode: standalone) {
+  html, body {
+    overscroll-behavior-y: none;
+  }
 }
 
 /* ========================================================================

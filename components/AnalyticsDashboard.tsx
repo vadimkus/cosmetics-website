@@ -130,6 +130,7 @@ export default function AnalyticsDashboard({ onCustomerClick }: AnalyticsDashboa
   const [pdfDownloads, setPdfDownloads] = useState<PDFDownloadData | null>(null)
   const [loading, setLoading] = useState(true)
   const [refreshing, setRefreshing] = useState(false)
+  const [fetchError, setFetchError] = useState<string | null>(null)
   const [timeRange, setTimeRange] = useState<'all' | number>('all')
   const [activeSection, setActiveSection] = useState<ActiveSection>('overview')
   const [showSalesChart, setShowSalesChart] = useState(false)
@@ -141,6 +142,7 @@ export default function AnalyticsDashboard({ onCustomerClick }: AnalyticsDashboa
       } else {
         setLoading(true)
       }
+      setFetchError(null)
       
       const daysParam = timeRange === 'all' ? 'all' : timeRange.toString()
       const [analyticsRes, citiesRes, pdfDownloadsRes] = await Promise.all([
@@ -152,6 +154,10 @@ export default function AnalyticsDashboard({ onCustomerClick }: AnalyticsDashboa
       if (analyticsRes.ok) {
         const analyticsData = await analyticsRes.json()
         setAnalytics(analyticsData)
+      } else {
+        const errorText = await analyticsRes.text().catch(() => 'Unknown error')
+        errorLog('Analytics API error:', { status: analyticsRes.status, error: errorText })
+        setFetchError(`Analytics API returned ${analyticsRes.status}: ${errorText.slice(0, 200)}`)
       }
 
       if (citiesRes.ok) {
@@ -170,6 +176,7 @@ export default function AnalyticsDashboard({ onCustomerClick }: AnalyticsDashboa
       }
     } catch (error) {
       errorLog('Error fetching analytics:', error)
+      setFetchError(`Network error: ${error instanceof Error ? error.message : String(error)}`)
     } finally {
       setLoading(false)
       setRefreshing(false)
@@ -255,7 +262,19 @@ export default function AnalyticsDashboard({ onCustomerClick }: AnalyticsDashboa
     return (
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 md:p-8">
         <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-4">Analytics Dashboard</h2>
-        <p className="text-gray-600">No analytics data available.</p>
+        <p className="text-gray-600 mb-3">No analytics data available.</p>
+        {fetchError && (
+          <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-4">
+            <p className="text-sm font-medium text-red-800 mb-1">Error loading analytics:</p>
+            <p className="text-xs text-red-600 font-mono break-all">{fetchError}</p>
+          </div>
+        )}
+        <button
+          onClick={() => fetchAnalytics()}
+          className="px-4 py-2 bg-primary-600 text-white text-sm rounded-lg hover:bg-primary-700 transition-colors"
+        >
+          Retry
+        </button>
       </div>
     )
   }

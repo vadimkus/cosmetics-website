@@ -1,5 +1,7 @@
 import Hero from '@/components/Hero'
 import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
+import SpeakableSchema from '@/components/schema/SpeakableSchema'
+import GeoFaqSchema, { GENOSYS_FAQ_RU } from '@/components/schema/GeoFaqSchema'
 import MobileRedirect from '@/components/MobileRedirect'
 import type { Metadata } from 'next'
 
@@ -39,7 +41,7 @@ export const metadata: Metadata = {
     siteName: 'GENOSYS Middle East FZ-LLC',
     images: [
       {
-        url: '/images/genosys-products.jpg',
+        url: 'https://genosys.ae/images/genosys-products.jpg',
         width: 1200,
         height: 630,
         alt: 'Премиальная корейская дерматокосметика GENOSYS',
@@ -53,7 +55,7 @@ export const metadata: Metadata = {
     creator: '@genosys_official',
     title: 'GENOSYS Middle East FZ-LLC | Официальный дистрибьютор корейской дерматокосметики в ОАЭ',
     description: 'Откройте для себя премиальную корейскую дерматокосметику от GENOSYS. Официальный дистрибьютор в ОАЭ.',
-    images: ['/images/genosys-products.jpg'],
+    images: ['https://genosys.ae/images/genosys-products.jpg'],
   },
   alternates: {
     canonical: 'https://genosys.ae/ru',
@@ -74,6 +76,8 @@ export default function RussianHome() {
             { name: 'Главная', url: '/ru' }
           ]}
         />
+        <SpeakableSchema url="/ru" />
+        <GeoFaqSchema items={GENOSYS_FAQ_RU} pageUrl="/ru" language="ru" />
         <Hero initialLocale="ru" initialDir="ltr" />
       </div>
     </MobileRedirect>

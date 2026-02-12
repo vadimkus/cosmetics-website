@@ -1,5 +1,7 @@
 import Hero from '@/components/Hero'
 import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
+import SpeakableSchema from '@/components/schema/SpeakableSchema'
+import GeoFaqSchema, { GENOSYS_FAQ_AR } from '@/components/schema/GeoFaqSchema'
 import MobileRedirect from '@/components/MobileRedirect'
 import type { Metadata } from 'next'
 
@@ -39,7 +41,7 @@ export const metadata: Metadata = {
     siteName: 'GENOSYS Middle East FZ-LLC',
     images: [
       {
-        url: '/images/genosys-products.jpg',
+        url: 'https://genosys.ae/images/genosys-products.jpg',
         width: 1200,
         height: 630,
         alt: 'GENOSYS مستحضرات التجميل الكورية المميزة',
@@ -53,7 +55,7 @@ export const metadata: Metadata = {
     creator: '@genosys_official',
     title: 'GENOSYS Middle East FZ-LLC | الموزع الرسمي لمستحضرات التجميل الكورية المهنية في الإمارات',
     description: 'اكتشف مستحضرات التجميل الكورية المميزة من GENOSYS. الموزع الرسمي في الإمارات.',
-    images: ['/images/genosys-products.jpg'],
+    images: ['https://genosys.ae/images/genosys-products.jpg'],
   },
   alternates: {
     canonical: 'https://genosys.ae/ar',
@@ -74,6 +76,8 @@ export default function ArabicHome() {
             { name: 'الرئيسية', url: '/ar' }
           ]}
         />
+        <SpeakableSchema url="/ar" />
+        <GeoFaqSchema items={GENOSYS_FAQ_AR} pageUrl="/ar" language="ar" />
         <Hero initialLocale="ar" initialDir="rtl" />
       </div>
     </MobileRedirect>

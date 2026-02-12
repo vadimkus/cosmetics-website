@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: '/images/genosys-products.jpg',
+        url: 'https://genosys.ae/images/genosys-products.jpg',
         width: 1200,
         height: 630,
         alt: 'GENOSYS Skin Recommendation System',
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     creator: '@genosys_official',
     title: 'Personalized Skin Recommendation | GENOSYS Professional',
     description: 'Discover your perfect GENOSYS products tailored to your unique skin needs.',
-    images: ['/images/genosys-products.jpg'],
+    images: ['https://genosys.ae/images/genosys-products.jpg'],
   },
   alternates: {
     canonical: 'https://genosys.ae/skin-recommendation',

@@ -1,4 +1,5 @@
 import { Metadata } from 'next'
+import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import SkinRecommendationClient from '@/app/skin-recommendation/SkinRecommendationClient'
 
 export const metadata: Metadata = {
@@ -40,6 +41,16 @@ export const metadata: Metadata = {
 }
 
 export default function ArabicSkinRecommendationPage() {
-  return <SkinRecommendationClient />
+  return (
+    <>
+      <BreadcrumbSchema
+        items={[
+          { name: 'الرئيسية', url: '/ar' },
+          { name: 'توصيات البشرة', url: '/ar/skin-recommendation' },
+        ]}
+      />
+      <SkinRecommendationClient />
+    </>
+  )
 }
 

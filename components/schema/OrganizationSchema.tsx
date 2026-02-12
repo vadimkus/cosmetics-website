@@ -5,6 +5,11 @@ import { SITE_URL } from '@/lib/siteConfig'
  * 
  * Renders JSON-LD structured data for organization information.
  * No client-side interactivity needed - pure data rendering.
+ * 
+ * Enhanced with:
+ * - inLanguage for multilingual support (EN/AR/RU)
+ * - Russian added to availableLanguage
+ * - Consistent sameAs links
  */
 export default function OrganizationSchema() {
   const baseUrl = SITE_URL
@@ -13,7 +18,12 @@ export default function OrganizationSchema() {
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "GENOSYS Middle East FZ-LLC",
-    "alternateName": "GENOSYS",
+    "alternateName": [
+      "GENOSYS",
+      "GENOSYS UAE",
+      "جينوسيس الشرق الأوسط",
+      "ГЕНОСИС Ближний Восток"
+    ],
     "description": "Official distributor of GENOSYS professional Korean dermacosmetics in the United Arab Emirates. Providing high-quality skincare products for professional and home use.",
     "url": baseUrl,
     "logo": {
@@ -39,23 +49,25 @@ export default function OrganizationSchema() {
         "@type": "ContactPoint",
         "telephone": "+971-58-548-7665",
         "contactType": "sales",
-        "availableLanguage": ["English", "Arabic"],
+        "availableLanguage": ["English", "Arabic", "Russian"],
         "areaServed": "AE"
       },
       {
         "@type": "ContactPoint",
         "email": "sales@genosys.ae",
         "contactType": "customer service",
-        "availableLanguage": ["English", "Arabic"]
+        "availableLanguage": ["English", "Arabic", "Russian"]
       }
     ],
     "sameAs": [
+      "https://www.instagram.com/genosys.uae/",
+      "https://www.instagram.com/genosys.ae/",
       "https://wa.me/971585487665",
-      "https://www.genosys.info/",
-      "https://www.instagram.com/genosys.uae/"
+      "https://www.genosys.info/"
     ],
     "foundingDate": "2019",
     "slogan": "Professional Korean Dermacosmetics & Microneedling Devices",
+    "inLanguage": ["en", "ar", "ru"],
     "knowsAbout": [
       "Korean Skincare",
       "Dermacosmetics",
@@ -64,7 +76,9 @@ export default function OrganizationSchema() {
       "Beauty Devices",
       "Microneedling",
       "Professional Training",
-      "Korean Beauty Trends"
+      "Korean Beauty Trends",
+      "K-Beauty",
+      "Dermatological Skincare"
     ],
     "hasCredential": [
       {

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import ArabicTrainingPageClient from './ArabicTrainingPageClient'
 
 export const metadata: Metadata = {
@@ -19,7 +20,7 @@ export const metadata: Metadata = {
     siteName: 'GENOSYS Middle East FZ-LLC',
     images: [
       {
-        url: '/images/genosys-logo.png',
+        url: 'https://genosys.ae/images/genosys-logo.png',
         width: 400,
         height: 200,
         alt: 'التدريب المهني GENOSYS',
@@ -44,7 +45,7 @@ export const metadata: Metadata = {
     creator: '@genosys_official',
     title: 'التدريب المهني - تدريب GENOSYS للعناية بالبشرة',
     description: 'موارد التدريب المهني لمنتجات العناية بالبشرة GENOSYS. قم بتنزيل وثائق التدريب، ومشاهدة دروس الفيديو، وإتقان التقنيات المهنية.',
-    images: ['/images/genosys-logo.png'],
+    images: ['https://genosys.ae/images/genosys-logo.png'],
   },
   alternates: {
     canonical: 'https://genosys.ae/ar/training',
@@ -57,6 +58,16 @@ export const metadata: Metadata = {
 }
 
 export default function ArabicTrainingPage() {
-  return <ArabicTrainingPageClient />
+  return (
+    <>
+      <BreadcrumbSchema
+        items={[
+          { name: 'الرئيسية', url: '/ar' },
+          { name: 'التدريب', url: '/ar/training' },
+        ]}
+      />
+      <ArabicTrainingPageClient />
+    </>
+  )
 }
 

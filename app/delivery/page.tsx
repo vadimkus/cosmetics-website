@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     locale: 'en_AE',
     images: [
       {
-        url: '/images/genosys-products.jpg',
+        url: 'https://genosys.ae/images/genosys-products.jpg',
         width: 1200,
         height: 630,
         alt: 'GENOSYS Delivery Service UAE',
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     creator: '@genosys_official',
     title: 'Delivery Information - Fast Shipping UAE',
     description: 'Fast and reliable delivery service across the UAE. 1 hour delivery in Dubai, 24-36 hours across UAE.',
-    images: ['/images/genosys-products.jpg'],
+    images: ['https://genosys.ae/images/genosys-products.jpg'],
   },
   alternates: {
     canonical: 'https://genosys.ae/delivery',

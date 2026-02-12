@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: '/images/genosys-logo.png',
+        url: 'https://genosys.ae/images/genosys-logo.png',
         width: 400,
         height: 200,
         alt: 'Профессиональное обучение GENOSYS',
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     creator: '@genosys_official',
     title: 'Профессиональное обучение - Обучение GENOSYS уходу за кожей',
     description: 'Ресурсы профессионального обучения для продуктов GENOSYS для ухода за кожей. Скачайте учебные документы, смотрите видеоуроки и освойте профессиональные техники.',
-    images: ['/images/genosys-logo.png'],
+    images: ['https://genosys.ae/images/genosys-logo.png'],
   },
   alternates: {
     canonical: 'https://genosys.ae/ru/training',

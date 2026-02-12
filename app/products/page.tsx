@@ -1,10 +1,12 @@
 import type { Metadata } from 'next'
 import { Suspense } from 'react'
+import Link from 'next/link'
 import { unstable_cache } from 'next/cache'
 import ProductsPageClient from './ProductsPageClient'
 import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import { ProductsErrorBoundary } from '@/components/error-boundaries'
 import { getAllProducts } from '@/lib/productsDb'
+import { CONCERN_PAGES } from '@/lib/concernsData'
 import type { Product } from '@/types'
 import ProductsLoading from './loading'
 
@@ -54,7 +56,7 @@ export const metadata: Metadata = {
     locale: 'en_AE',
     images: [
       {
-        url: '/images/genosys-products.jpg',
+        url: 'https://genosys.ae/images/genosys-products.jpg',
         width: 1200,
         height: 630,
         alt: 'GENOSYS Products Collection',
@@ -67,7 +69,7 @@ export const metadata: Metadata = {
     creator: '@genosys_official',
     title: 'GENOSYS Products - Professional Korean Dermacosmetics Collection UAE',
     description: 'Shop GENOSYS professional Korean dermacosmetics. Complete collection of microneedling devices, serums, creams, and more.',
-    images: ['/images/genosys-products.jpg'],
+    images: ['https://genosys.ae/images/genosys-products.jpg'],
   },
   alternates: {
     canonical: 'https://genosys.ae/products',
@@ -102,6 +104,30 @@ export default async function ProductsPage() {
           <ProductsPageClient initialProducts={products} />
         </Suspense>
       </ProductsErrorBoundary>
+
+      {/* Shop by Concern - Server-rendered for SEO link equity */}
+      <section className="bg-primary-50 py-10 px-4 mt-8 border-t border-primary-100">
+        <div className="max-w-6xl mx-auto text-center">
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">Shop by Skin Concern</h2>
+          <p className="text-gray-500 mb-6">Find the right products for your specific skin needs</p>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            {CONCERN_PAGES.map(concern => (
+              <Link
+                key={concern.slug}
+                href={`/products/concern/${concern.slug}`}
+                className="block p-4 bg-white rounded-xl border border-primary-100 hover:border-primary-300 hover:shadow-md transition-all duration-200 group"
+              >
+                <h3 className="font-semibold text-gray-900 text-sm sm:text-base group-hover:text-primary-600 transition-colors">
+                  {concern.seo.en.h1}
+                </h3>
+                <p className="text-xs text-gray-400 mt-1 line-clamp-1">
+                  {concern.seo.en.keywords[0]}
+                </p>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
     </>
   )
 }

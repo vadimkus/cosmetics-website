@@ -1,5 +1,8 @@
 import Hero from '@/components/Hero'
 import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
+import SpeakableSchema from '@/components/schema/SpeakableSchema'
+import ArticleDateSchema from '@/components/schema/ArticleDateSchema'
+import GeoFaqSchema, { GENOSYS_FAQ_EN } from '@/components/schema/GeoFaqSchema'
 import MobileRedirect from '@/components/MobileRedirect'
 import type { Metadata } from 'next'
 
@@ -39,7 +42,7 @@ export const metadata: Metadata = {
     siteName: 'GENOSYS Middle East FZ-LLC',
     images: [
       {
-        url: '/images/genosys-products.jpg',
+        url: 'https://genosys.ae/images/genosys-products.jpg',
         width: 1200,
         height: 630,
         alt: 'GENOSYS Premium Korean Dermacosmetics',
@@ -53,7 +56,7 @@ export const metadata: Metadata = {
     creator: '@genosys_official',
     title: 'GENOSYS Middle East FZ-LLC | Official Korean Dermacosmetics Distributor UAE',
     description: 'Official distributor of GENOSYS professional Korean dermacosmetics in UAE. Premium microneedling devices and skincare products.',
-    images: ['/images/genosys-products.jpg'],
+    images: ['https://genosys.ae/images/genosys-products.jpg'],
   },
   alternates: {
     canonical: 'https://genosys.ae',
@@ -74,6 +77,13 @@ export default function Home() {
             { name: 'Home', url: '/' }
           ]}
         />
+        <SpeakableSchema url="/" />
+        <ArticleDateSchema
+          datePublished="2024-01-01T00:00:00.000Z"
+          dateModified={new Date().toISOString()}
+          url="https://genosys.ae"
+        />
+        <GeoFaqSchema items={GENOSYS_FAQ_EN} pageUrl="/" language="en" />
         <Hero initialLocale="en" initialDir="ltr" />
       </div>
     </MobileRedirect>

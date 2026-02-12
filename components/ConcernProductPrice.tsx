@@ -1,0 +1,93 @@
+'use client'
+
+import { useAuth } from '@/components/auth/AuthProvider'
+import { calculateDiscountedPrice, canUserSeePrices } from '@/lib/discountUtils'
+import type { Product } from '@/types'
+
+interface ConcernProductPriceProps {
+  product: Product
+  aedLabel: string
+  priceOnRequestLabel: string
+  inStockLabel: string
+  offLabel?: string
+}
+
+/**
+ * ConcernProductPrice - Client Component
+ * 
+ * Renders the price for a product card on concern/category landing pages.
+ * Uses the auth context to apply user-specific discounts (e.g. 50% off).
+ * Falls back to the base price for guests / crawlers (SSR).
+ */
+export default function ConcernProductPrice({
+  product,
+  aedLabel,
+  priceOnRequestLabel,
+  inStockLabel,
+  offLabel = 'OFF',
+}: ConcernProductPriceProps) {
+  const { user } = useAuth()
+
+  if (product.isPriceOnRequest) {
+    return (
+      <div className="flex items-center justify-between">
+        <span className="text-sm font-medium text-gray-600">{priceOnRequestLabel}</span>
+        {product.inStock && (
+          <span className="text-xs text-green-600">{inStockLabel}</span>
+        )}
+      </div>
+    )
+  }
+
+  // Apply user discount if logged in
+  if (canUserSeePrices(user)) {
+    const pricing = calculateDiscountedPrice(product, user)
+
+    if (pricing.hasDiscount) {
+      return (
+        <div>
+          <div className="flex items-center gap-1.5 flex-wrap">
+            <span className="text-sm sm:text-base font-bold text-primary-600">
+              {aedLabel} {pricing.discountedPrice.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 })}
+            </span>
+            <span className="text-xs text-gray-400 line-through">
+              {aedLabel} {pricing.originalPrice.toLocaleString()}
+            </span>
+          </div>
+          <div className="flex items-center justify-between mt-0.5">
+            <span className="text-[10px] text-green-600 font-medium">
+              {pricing.discountPercentage}% {offLabel}
+            </span>
+            {product.inStock && (
+              <span className="text-xs text-green-600">{inStockLabel}</span>
+            )}
+          </div>
+        </div>
+      )
+    }
+
+    // No discount, but user can see prices
+    return (
+      <div className="flex items-center justify-between">
+        <span className="text-sm sm:text-base font-bold text-gray-900">
+          {aedLabel} {pricing.originalPrice.toLocaleString()}
+        </span>
+        {product.inStock && (
+          <span className="text-xs text-green-600">{inStockLabel}</span>
+        )}
+      </div>
+    )
+  }
+
+  // Guest / not logged in - show base price
+  return (
+    <div className="flex items-center justify-between">
+      <span className="text-sm sm:text-base font-bold text-gray-900">
+        {aedLabel} {product.price.toLocaleString()}
+      </span>
+      {product.inStock && (
+        <span className="text-xs text-green-600">{inStockLabel}</span>
+      )}
+    </div>
+  )
+}

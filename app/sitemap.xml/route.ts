@@ -3,87 +3,128 @@ import { getAllProducts } from '@/lib/productsDb'
 import { errorLog } from '@/lib/logger'
 import { Product } from '@/types/index'
 import { prisma } from '@/lib/prisma'
-// import { getOptimizedUrl } from '@/lib/urlUtils' // Unused for now
+
+/**
+ * Dynamic XML Sitemap with multilingual support (EN/AR/RU)
+ * 
+ * Features:
+ * - All public pages with hreflang tags for 3 languages
+ * - x-default pointing to English version
+ * - Product pages from database
+ * - Blog posts from database (with real lastmod dates)
+ * - Location pages for all UAE emirates
+ * - Additional SEO-friendly pages (partners, skin-recommendation, etc.)
+ * - Proper lastmod based on content type
+ */
 
 export async function GET(_request: NextRequest) {
   try {
     const baseUrl = 'https://genosys.ae'
     const currentDate = new Date().toISOString()
     
-    // Static pages (existing URLs)
+    // Use a fixed date for truly static pages (update when content actually changes)
+    // This is more honest than using currentDate which misleads crawlers
+    const staticContentDate = '2026-02-12T00:00:00.000Z'
+    
+    // Static pages with their actual update frequencies
     const staticPages = [
       {
         url: '',
-        lastmod: currentDate,
+        lastmod: currentDate, // Homepage changes frequently (new products, promotions)
         changefreq: 'daily',
         priority: '1.0'
       },
       {
         url: '/about',
-        lastmod: currentDate,
+        lastmod: staticContentDate,
         changefreq: 'monthly',
         priority: '0.8'
       },
       {
         url: '/brand',
-        lastmod: currentDate,
+        lastmod: staticContentDate,
         changefreq: 'monthly',
         priority: '0.8'
       },
       {
         url: '/products',
-        lastmod: currentDate,
+        lastmod: currentDate, // Products list changes as inventory updates
         changefreq: 'daily',
         priority: '0.9'
       },
       {
         url: '/blog',
-        lastmod: currentDate,
+        lastmod: currentDate, // Blog updates regularly
         changefreq: 'weekly',
         priority: '0.8'
       },
       {
         url: '/faq',
-        lastmod: currentDate,
+        lastmod: staticContentDate,
         changefreq: 'monthly',
         priority: '0.7'
       },
       {
         url: '/locations',
-        lastmod: currentDate,
+        lastmod: staticContentDate,
         changefreq: 'monthly',
         priority: '0.7'
       },
       {
         url: '/training',
-        lastmod: currentDate,
+        lastmod: staticContentDate,
         changefreq: 'monthly',
         priority: '0.7'
       },
       {
         url: '/contact',
-        lastmod: currentDate,
+        lastmod: staticContentDate,
         changefreq: 'monthly',
         priority: '0.8'
       },
       {
         url: '/delivery',
-        lastmod: currentDate,
+        lastmod: staticContentDate,
         changefreq: 'monthly',
         priority: '0.6'
       },
       {
         url: '/genosys',
-        lastmod: currentDate,
+        lastmod: staticContentDate,
         changefreq: 'monthly',
         priority: '0.7'
       },
       {
         url: '/documents',
-        lastmod: currentDate,
+        lastmod: staticContentDate,
         changefreq: 'monthly',
         priority: '0.6'
-      }
+      },
+      // Additional pages that exist in AR/RU
+      {
+        url: '/partners',
+        lastmod: staticContentDate,
+        changefreq: 'monthly',
+        priority: '0.6'
+      },
+      {
+        url: '/skin-recommendation',
+        lastmod: staticContentDate,
+        changefreq: 'monthly',
+        priority: '0.6'
+      },
+      {
+        url: '/privacy-policy',
+        lastmod: staticContentDate,
+        changefreq: 'yearly',
+        priority: '0.3'
+      },
+      {
+        url: '/bundle-builder',
+        lastmod: staticContentDate,
+        changefreq: 'monthly',
+        priority: '0.5'
+      },
     ]
 
     // Get all products for dynamic URLs
@@ -99,13 +140,14 @@ export async function GET(_request: NextRequest) {
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">`
 
-    // Helper function to add URL with hreflang tags
+    // Helper function to add URL with hreflang tags for all 3 languages + x-default
     const addUrlWithHreflang = (url: string, lastmod: string, changefreq: string, priority: string) => {
       // Handle home page (empty URL)
       const enUrl = url === '' ? `${baseUrl}/` : `${baseUrl}${url}`
       const arUrl = url === '' ? `${baseUrl}/ar` : `${baseUrl}/ar${url}`
       const ruUrl = url === '' ? `${baseUrl}/ru` : `${baseUrl}/ru${url}`
       
+      // English version
       sitemap += `
   <url>
     <loc>${enUrl}</loc>
@@ -116,7 +158,10 @@ export async function GET(_request: NextRequest) {
     <xhtml:link rel="alternate" hreflang="ar" href="${arUrl}" />
     <xhtml:link rel="alternate" hreflang="ru" href="${ruUrl}" />
     <xhtml:link rel="alternate" hreflang="x-default" href="${enUrl}" />
-  </url>
+  </url>`
+      
+      // Arabic version
+      sitemap += `
   <url>
     <loc>${arUrl}</loc>
     <lastmod>${lastmod}</lastmod>
@@ -126,7 +171,10 @@ export async function GET(_request: NextRequest) {
     <xhtml:link rel="alternate" hreflang="ar" href="${arUrl}" />
     <xhtml:link rel="alternate" hreflang="ru" href="${ruUrl}" />
     <xhtml:link rel="alternate" hreflang="x-default" href="${enUrl}" />
-  </url>
+  </url>`
+      
+      // Russian version
+      sitemap += `
   <url>
     <loc>${ruUrl}</loc>
     <lastmod>${lastmod}</lastmod>
@@ -144,7 +192,7 @@ export async function GET(_request: NextRequest) {
       addUrlWithHreflang(page.url, page.lastmod, page.changefreq, page.priority)
     })
 
-    // Add optimized URLs (these redirect to the static pages above)
+    // Add optimized SEO URLs (English only - these are redirect URLs)
     const optimizedUrls = [
       { url: '/about-genosys-middle-east', priority: '0.8' },
       { url: '/genosys-brand-story', priority: '0.8' },
@@ -156,12 +204,11 @@ export async function GET(_request: NextRequest) {
       { url: '/professional-documents', priority: '0.6' }
     ]
 
-    // Add optimized URLs (English only - these are redirect URLs)
     optimizedUrls.forEach(page => {
       sitemap += `
   <url>
     <loc>${baseUrl}${page.url}</loc>
-    <lastmod>${currentDate}</lastmod>
+    <lastmod>${staticContentDate}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>${page.priority}</priority>
   </url>`
@@ -170,20 +217,34 @@ export async function GET(_request: NextRequest) {
     // Add product pages with multilingual support
     products.forEach(product => {
       const productPath = `/products/${product.id}`
-      addUrlWithHreflang(productPath, currentDate, 'weekly', '0.8')
+      // Use product's updatedAt if available, otherwise current date
+      const productLastmod = product.updatedAt 
+        ? new Date(product.updatedAt).toISOString() 
+        : currentDate
+      addUrlWithHreflang(productPath, productLastmod, 'weekly', '0.8')
+    })
+
+    // Add concern-based SEO landing pages with multilingual support
+    const concerns = ['sun-protection', 'acne-treatment', 'pigmentation', 'scars-treatment', 'hair-loss', 'anti-aging', 'hydration', 'sensitivity']
+    concerns.forEach(concern => {
+      addUrlWithHreflang(`/products/concern/${concern}`, currentDate, 'weekly', '0.8')
+    })
+
+    // Add category SEO landing pages with multilingual support
+    const categoryPages = ['microneedling', 'pro-solution', 'cleanser', 'peeling', 'toner-mist', 'serum', 'cream', 'mask', 'sun', 'cushion-bb', 'scalp-hair', 'eye-care', 'device', 'bio-meso']
+    categoryPages.forEach(cat => {
+      addUrlWithHreflang(`/products/category/${cat}`, currentDate, 'weekly', '0.7')
     })
 
     // Add location pages with multilingual support
     const locations = ['dubai', 'abu-dhabi', 'sharjah', 'ras-al-khaimah', 'ajman', 'fujairah', 'umm-al-quwain']
     locations.forEach(location => {
       const locationPath = `/locations/${location}`
-      addUrlWithHreflang(locationPath, currentDate, 'monthly', '0.6')
+      addUrlWithHreflang(locationPath, staticContentDate, 'monthly', '0.6')
     })
 
     // Add blog posts (if table exists)
     try {
-      // Check if blog_posts table exists by attempting to query it
-      // Using type assertion for Prisma client that may not have updated types
       type PrismaWithBlogPost = typeof prisma & {
         blogPost?: {
           findMany: (args: {
@@ -197,7 +258,7 @@ export async function GET(_request: NextRequest) {
       const blogPosts = await prismaWithBlogPost.blogPost?.findMany({
         where: { published: true },
         select: { slug: true, updatedAt: true },
-        take: 100,
+        take: 500, // Increased limit for growing blog
       }) || []
       
       if (Array.isArray(blogPosts)) {
@@ -207,7 +268,6 @@ export async function GET(_request: NextRequest) {
         })
       }
     } catch (error) {
-      // Table might not exist yet - that's okay, sitemap will still work
       errorLog('Error fetching blog posts for sitemap (table may not exist yet):', error)
     }
 

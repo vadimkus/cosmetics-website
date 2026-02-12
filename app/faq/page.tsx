@@ -1,5 +1,6 @@
 import FAQClient from './FAQClient'
 import { prisma } from '@/lib/prisma'
+import GeoFaqSchema, { GENOSYS_FAQ_EN } from '@/components/schema/GeoFaqSchema'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -22,7 +23,7 @@ export const metadata: Metadata = {
     locale: 'en_AE',
     images: [
       {
-        url: '/images/genosys-products.jpg',
+        url: 'https://genosys.ae/images/genosys-products.jpg',
         width: 1200,
         height: 630,
         alt: 'GENOSYS FAQ - Frequently Asked Questions',
@@ -46,7 +47,7 @@ export const metadata: Metadata = {
     creator: '@genosys_official',
     title: 'FAQ - Frequently Asked Questions | GENOSYS Middle East FZ-LLC',
     description: 'Frequently asked questions about GENOSYS Korean dermacosmetics, shipping, orders, and professional training in UAE.',
-    images: ['/images/genosys-products.jpg'],
+    images: ['https://genosys.ae/images/genosys-products.jpg'],
   },
   alternates: {
     canonical: 'https://genosys.ae/faq',
@@ -73,6 +74,11 @@ export default async function FAQPage() {
     },
   })
 
-  return <FAQClient faqItems={faqItems} />
+  return (
+    <>
+      <GeoFaqSchema items={GENOSYS_FAQ_EN} pageUrl="/faq" language="en" />
+      <FAQClient faqItems={faqItems} />
+    </>
+  )
 }
 

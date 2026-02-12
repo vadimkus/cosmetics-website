@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: '/images/genosys-products.jpg',
+        url: 'https://genosys.ae/images/genosys-products.jpg',
         width: 1200,
         height: 630,
         alt: 'مدونة GENOSYS',
@@ -65,7 +65,7 @@ export const metadata: Metadata = {
     creator: '@genosys_official',
     title: 'مدونة GENOSYS - نصائح العناية بالبشرة الكورية ورؤى الجمال المهنية',
     description: 'مقالات الخبراء حول العناية بالبشرة الكورية، منتجات العناية بالبشرة المهنية، تقنيات المايكرونيدلينغ، واتجاهات صناعة الجمال في الإمارات.',
-    images: ['/images/genosys-products.jpg'],
+    images: ['https://genosys.ae/images/genosys-products.jpg'],
   },
   alternates: {
     canonical: 'https://genosys.ae/ar/blog',

@@ -1,9 +1,50 @@
 # GENOSYS Middle East FZ-LLC - Professional Korean Dermacosmetics
 # Official Distributor in the UAE - Microneedling Devices & Skincare Products
+# AI-friendly: llms.txt available at https://genosys.ae/llms.txt
 
 # Allow all search engines to crawl the site
 User-agent: *
 Allow: /
+
+# Allow multilingual content explicitly
+Allow: /ar/
+Allow: /ru/
+
+# Allow important content directories
+Allow: /products/
+Allow: /blog/
+Allow: /locations/
+Allow: /documents/
+Allow: /images/
+Allow: /videos/
+Allow: /faq/
+Allow: /about
+Allow: /brand
+Allow: /training
+Allow: /contact
+Allow: /delivery
+Allow: /genosys
+Allow: /partners
+Allow: /skin-recommendation
+
+# Allow concern-based and category landing pages
+Allow: /products/concern/
+Allow: /products/category/
+
+# Allow optimized SEO pages
+Allow: /korean-dermacosmetics-products/
+Allow: /about-genosys-middle-east
+Allow: /genosys-brand-story
+Allow: /professional-skincare-training
+Allow: /contact-genosys-uae
+Allow: /delivery-shipping-uae
+Allow: /genosys-official
+Allow: /professional-documents
+
+# Allow essential files
+Allow: /favicon.ico
+Allow: /manifest.json
+Allow: /llms.txt
 
 # Disallow admin and private areas
 Disallow: /admin/
@@ -17,47 +58,33 @@ Disallow: /favorites/
 Disallow: /checkout/
 Disallow: /success/
 Disallow: /login/
+Disallow: /signup/
 Disallow: /offline/
 Disallow: /pwa-demo/
+Disallow: /pwa/
+Disallow: /pwa-login/
 Disallow: /test-analytics/
+Disallow: /pdf-viewer/
 
-# Allow important directories and files
-Allow: /products/
-Allow: /documents/
-Allow: /images/
-Allow: /videos/
-Allow: /favicon.ico
-Allow: /manifest.json
+# ============================================================
+# SEARCH ENGINES
+# ============================================================
 
-# Sitemap locations
-Sitemap: https://genosys.ae/sitemap.xml
-Sitemap: https://genosys.ae/sitemap-index.xml
-
-# Allow optimized SEO pages
-Allow: /korean-dermacosmetics-products/
-Allow: /products/category/
-Allow: /about-genosys-middle-east
-Allow: /genosys-brand-story
-Allow: /professional-skincare-training
-Allow: /contact-genosys-uae
-Allow: /delivery-shipping-uae
-Allow: /genosys-official
-Allow: /professional-documents
-
-# Allow legacy pages (will redirect)
-Allow: /about
-Allow: /brand
-Allow: /training
-Allow: /contact
-Allow: /delivery
-Allow: /genosys
-
-# Specific instructions for major search engines
 User-agent: Googlebot
+Allow: /
+
+# Google's additional crawlers for AI and indexing
+User-agent: Google-Extended
+Allow: /
+
+User-agent: GoogleOther
+Allow: /
+
+User-agent: Bingbot
 Allow: /
 Crawl-delay: 1
 
-User-agent: Bingbot
+User-agent: Yandex
 Allow: /
 Crawl-delay: 1
 
@@ -65,17 +92,124 @@ User-agent: Slurp
 Allow: /
 Crawl-delay: 1
 
-# Block unwanted bots and scrapers
-User-agent: AhrefsBot
-Disallow: /
+# Brave Search
+User-agent: Bravebot
+Allow: /
 
-User-agent: MJ12bot
-Disallow: /
+# ============================================================
+# AI SEARCH & ASSISTANTS (drive citations and referral traffic)
+# ============================================================
+
+# OpenAI (ChatGPT search, training)
+User-agent: GPTBot
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /profile/
+Disallow: /cart/
+Disallow: /checkout/
+
+# ChatGPT user-triggered browsing
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /profile/
+Disallow: /cart/
+Disallow: /checkout/
+
+# Perplexity AI search
+User-agent: PerplexityBot
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /profile/
+Disallow: /cart/
+Disallow: /checkout/
+
+# Anthropic (Claude)
+User-agent: ClaudeBot
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /profile/
+Disallow: /cart/
+Disallow: /checkout/
+
+User-agent: anthropic-ai
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /profile/
+Disallow: /cart/
+Disallow: /checkout/
+
+# Apple (Siri, Apple Intelligence, Safari suggestions)
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+# Amazon (Alexa, product recommendations)
+User-agent: Amazonbot
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /profile/
+Disallow: /cart/
+Disallow: /checkout/
+
+# Meta AI
+User-agent: Meta-ExternalAgent
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /profile/
+Disallow: /cart/
+Disallow: /checkout/
+
+# Common Crawl (used by many AI systems)
+User-agent: CCBot
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /profile/
+Disallow: /cart/
+Disallow: /checkout/
+
+# DeepSeek AI
+User-agent: DeepSeekBot
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+
+# Cohere AI
+User-agent: cohere-ai
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+
+# ============================================================
+# SEO MONITORING TOOLS
+# ============================================================
+
+User-agent: AhrefsBot
+Allow: /
+Crawl-delay: 2
+
+User-agent: SemrushBot
+Allow: /
+Crawl-delay: 2
+
+# ============================================================
+# BLOCKED BOTS (scrapers with no value)
+# ============================================================
 
 User-agent: DotBot
 Disallow: /
 
-User-agent: SemrushBot
+User-agent: MJ12bot
 Disallow: /
 
 User-agent: BLEXBot
@@ -84,5 +218,15 @@ Disallow: /
 User-agent: DataForSeoBot
 Disallow: /
 
-# Note: Host directive is not supported in robots.txt
-# Use canonical URLs in HTML instead
+User-agent: PetalBot
+Disallow: /
+
+User-agent: Bytespider
+Disallow: /
+
+# ============================================================
+# SITEMAPS & AI CONTENT
+# ============================================================
+
+Sitemap: https://genosys.ae/sitemap.xml
+Sitemap: https://genosys.ae/sitemap-index.xml

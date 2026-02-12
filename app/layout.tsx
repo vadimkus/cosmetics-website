@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Inter, Noto_Sans_Arabic } from 'next/font/google'
 import Script from 'next/script'
 import './globals.css'
 
@@ -8,12 +8,18 @@ import './globals.css'
  * 
  * Primary: SF Pro Display/Text (Apple devices - loaded via system font stack)
  * Fallback: Inter (loaded as variable font for non-Apple devices)
+ * Arabic: Noto Sans Arabic (loaded for Arabic language support)
  * 
  * Inter is loaded with:
  * - Variable font support for optimal file size and flexibility
  * - Multiple axes: weight (100-900)
  * - Subsets: latin, latin-ext, cyrillic (for Russian support)
  * - Display: swap for better loading performance
+ * 
+ * Noto Sans Arabic is loaded with:
+ * - Variable font for Arabic script
+ * - Subset: arabic
+ * - Display: swap for performance
  */
 import { CartProvider } from '@/components/cart/CartProvider'
 import AuthProvider from '@/components/auth/AuthProvider'
@@ -27,6 +33,7 @@ import PageViewTracker from '@/components/PageViewTracker'
 import OrganizationSchema from '@/components/schema/OrganizationSchema'
 import LocalBusinessSchema from '@/components/schema/LocalBusinessSchema'
 import AggregateRatingSchema from '@/components/schema/AggregateRatingSchema'
+import WebSiteSchema from '@/components/schema/WebSiteSchema'
 import ErrorBoundary from '@/components/ErrorBoundary'
 import LocaleWrapper from '@/components/LocaleWrapper'
 import Footer from '@/components/footer/Footer'
@@ -67,6 +74,19 @@ const inter = Inter({
   ],
 })
 
+const notoSansArabic = Noto_Sans_Arabic({
+  subsets: ['arabic'],
+  display: 'swap',
+  variable: '--font-arabic',
+  weight: ['300', '400', '500', '600', '700'],
+  preload: true,
+  fallback: [
+    'Tahoma',
+    'Arial',
+    'sans-serif',
+  ],
+})
+
 export const metadata: Metadata = {
   metadataBase: getSiteUrl(),
   title: 'GENOSYS Middle East FZ-LLC - Professional Korean Dermacosmetics & Microneedling Devices UAE',
@@ -87,6 +107,15 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: 'GENOSYS Middle East FZ-LLC' }],
   creator: 'GENOSYS Middle East FZ-LLC',
+  // Search engine verification codes (replace with actual codes from each platform)
+  // Get these from: Google Search Console, Bing Webmaster, Yandex Webmaster
+  verification: {
+    // google: 'YOUR_GOOGLE_VERIFICATION_CODE',
+    // yandex: 'YOUR_YANDEX_VERIFICATION_CODE',
+    other: {
+      // 'msvalidate.01': 'YOUR_BING_VERIFICATION_CODE',
+    },
+  },
   publisher: 'GENOSYS Middle East FZ-LLC',
   robots: {
     index: true,
@@ -105,6 +134,7 @@ export const metadata: Metadata = {
       'en': 'https://genosys.ae',
       'ar': 'https://genosys.ae/ar',
       'ru': 'https://genosys.ae/ru',
+      'x-default': 'https://genosys.ae',
     },
   },
   icons: {
@@ -133,6 +163,20 @@ export const metadata: Metadata = {
   },
   formatDetection: {
     telephone: false,
+  },
+  // Geo-targeting meta tags for UAE/Dubai market
+  // Search console verification placeholders (replace with actual values)
+  other: {
+    'geo.region': 'AE-DU',
+    'geo.placename': 'Dubai',
+    'geo.position': '25.2048;55.2708',
+    'ICBM': '25.2048, 55.2708',
+    // Google Search Console verification (replace YOUR_CODE with actual verification code)
+    // 'google-site-verification': 'YOUR_GOOGLE_VERIFICATION_CODE',
+    // Bing Webmaster Tools verification (replace YOUR_CODE with actual verification code)
+    // 'msvalidate.01': 'YOUR_BING_VERIFICATION_CODE',
+    // Yandex Webmaster verification (replace YOUR_CODE with actual verification code)
+    // 'yandex-verification': 'YOUR_YANDEX_VERIFICATION_CODE',
   },
   openGraph: {
     type: 'website',
@@ -307,10 +351,11 @@ export default function RootLayout({
           `}
         </Script>
       </head>
-      <body className={`${inter.className} ${inter.variable} flex flex-col min-h-screen antialiased`} suppressHydrationWarning>
+      <body className={`${inter.className} ${inter.variable} ${notoSansArabic.variable} flex flex-col min-h-screen antialiased`} suppressHydrationWarning>
         {/* Skip to content link for keyboard/screen reader users */}
         <SkipToContent />
         <LocaleManifest />
+        <WebSiteSchema />
         <OrganizationSchema />
         <LocalBusinessSchema />
         <AggregateRatingSchema />

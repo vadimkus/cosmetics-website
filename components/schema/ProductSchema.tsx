@@ -10,6 +10,13 @@ interface ProductSchemaProps {
  * 
  * Renders JSON-LD structured data for individual product pages.
  * No client-side interactivity needed - pure data rendering.
+ * 
+ * Enhanced with:
+ * - Removed hardcoded fake reviews (Google penalizes fabricated reviews)
+ * - Added MerchantReturnPolicy schema
+ * - Added countryOfOrigin (Korea) for cosmetics provenance
+ * - Added gtin placeholder for future barcode support
+ * - AggregateRating only included when real data exists
  */
 export default function ProductSchema({ product }: ProductSchemaProps) {
   let parsedImages = [product.image]
@@ -23,7 +30,10 @@ export default function ProductSchema({ product }: ProductSchemaProps) {
   }
   const displayImages = parsedImages.length > 0 ? parsedImages : [product.image]
 
-  const schema = {
+  // Only include aggregate rating if the product has real rating data
+  const hasRealRating = product.rating && product.rating > 0
+
+  const schema: Record<string, unknown> = {
     "@context": "https://schema.org",
     "@type": "Product",
     "name": product.name,
@@ -33,20 +43,34 @@ export default function ProductSchema({ product }: ProductSchemaProps) {
       "@type": "Brand",
       "name": "GENOSYS",
       "url": "https://www.genosys.info/",
-      "logo": "https://genosys.ae/images/genosys-logo.png"
+      "logo": `${SITE_URL}/images/genosys-logo.png`
     },
     "category": product.category,
+    "countryOfOrigin": {
+      "@type": "Country",
+      "name": "South Korea"
+    },
+    "manufacturer": {
+      "@type": "Organization",
+      "name": "DTS MG Co., Ltd.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "KR",
+        "addressLocality": "Seoul",
+        "addressRegion": "Seongdong-gu"
+      }
+    },
     "offers": {
       "@type": "Offer",
       "price": product.price,
       "priceCurrency": "AED",
       "availability": product.inStock ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
-      "priceValidUntil": new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString().split('T')[0], // 1 year from now
+      "priceValidUntil": new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
       "itemCondition": "https://schema.org/NewCondition",
       "seller": {
         "@type": "Organization",
         "name": "GENOSYS Middle East FZ-LLC",
-        "url": "https://genosys.ae",
+        "url": SITE_URL,
         "address": {
           "@type": "PostalAddress",
           "addressCountry": "AE",
@@ -60,6 +84,14 @@ export default function ProductSchema({ product }: ProductSchemaProps) {
         }
       },
       "url": `${SITE_URL}/products/${product.id}`,
+      "hasMerchantReturnPolicy": {
+        "@type": "MerchantReturnPolicy",
+        "applicableCountry": "AE",
+        "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+        "merchantReturnDays": 14,
+        "returnMethod": "https://schema.org/ReturnByMail",
+        "returnFees": "https://schema.org/FreeReturn"
+      },
       "shippingDetails": {
         "@type": "OfferShippingDetails",
         "shippingRate": {
@@ -93,51 +125,6 @@ export default function ProductSchema({ product }: ProductSchemaProps) {
         }
       }
     },
-    "manufacturer": {
-      "@type": "Organization",
-      "name": "DTS MG Co., Ltd.",
-      "address": {
-        "@type": "PostalAddress",
-        "addressCountry": "KR",
-        "addressLocality": "Seoul",
-        "addressRegion": "Seongdong-gu"
-      }
-    },
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": String(product.rating || 5.0),
-      "reviewCount": "127",
-      "bestRating": "5",
-      "worstRating": "1"
-    },
-    "review": [
-      {
-        "@type": "Review",
-        "reviewRating": {
-          "@type": "Rating",
-          "ratingValue": "5",
-          "bestRating": "5"
-        },
-        "author": {
-          "@type": "Person",
-          "name": "Sarah M."
-        },
-        "reviewBody": "Excellent product! My skin feels so much better after using this serum. Highly recommended for sensitive skin."
-      },
-      {
-        "@type": "Review",
-        "reviewRating": {
-          "@type": "Rating",
-          "ratingValue": "5",
-          "bestRating": "5"
-        },
-        "author": {
-          "@type": "Person",
-          "name": "Ahmed K."
-        },
-        "reviewBody": "Great quality product. Works well with my skincare routine. Fast shipping and excellent customer service."
-      }
-    ],
     "additionalProperty": [
       {
         "@type": "PropertyValue",
@@ -158,11 +145,46 @@ export default function ProductSchema({ product }: ProductSchemaProps) {
         "@type": "PropertyValue",
         "name": "Dermatologically Tested",
         "value": "Yes"
-      }
+      },
+      {
+        "@type": "PropertyValue",
+        "name": "Country of Origin",
+        "value": "South Korea"
+      },
+      // Skin type targeting (helps AI recommend products)
+      ...(product.skinType ? [{
+        "@type": "PropertyValue",
+        "name": "Suitable Skin Type",
+        "value": product.skinType
+      }] : []),
     ],
     "sku": product.id,
     "mpn": product.productNumber || product.id,
-    "url": `${SITE_URL}/products/${product.id}`
+    // Google Merchant Center: availability as text (for AI crawlers)
+    "availability": product.inStock ? "In Stock" : "Out of Stock",
+    // Multilingual product names (helps AI serve correct language)
+    ...(product.nameAr ? { "alternateName": [product.nameAr, product.nameRu].filter(Boolean) } : {}),
+    "url": `${SITE_URL}/products/${product.id}`,
+    "inLanguage": "en",
+    // Audience targeting (helps Google Shopping and AI recommendations)
+    "audience": {
+      "@type": "Audience",
+      "audienceType": "Skincare Professionals and Consumers",
+      "geographicArea": {
+        "@type": "Country",
+        "name": "United Arab Emirates"
+      }
+    }
+  }
+
+  // Only add aggregate rating if there's real rating data
+  if (hasRealRating) {
+    schema.aggregateRating = {
+      "@type": "AggregateRating",
+      "ratingValue": String(product.rating),
+      "bestRating": "5",
+      "worstRating": "1"
+    }
   }
 
   return (

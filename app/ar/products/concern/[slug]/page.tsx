@@ -1,0 +1,175 @@
+import { notFound } from 'next/navigation'
+import type { Metadata } from 'next'
+import Link from 'next/link'
+import { unstable_cache } from 'next/cache'
+import { getConcernBySlug, getAllConcernSlugs, CONCERN_PAGES } from '@/lib/concernsData'
+import { getProductsByConcern } from '@/lib/productsDb'
+import ConcernProductGrid from '@/components/ConcernProductGrid'
+import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
+import CollectionPageSchema from '@/components/schema/CollectionPageSchema'
+import GeoFaqSchema from '@/components/schema/GeoFaqSchema'
+import type { Product } from '@/types'
+
+export const revalidate = 3600
+
+export function generateStaticParams() {
+  return getAllConcernSlugs().map(slug => ({ slug }))
+}
+
+export async function generateMetadata(
+  { params }: { params: Promise<{ slug: string }> }
+): Promise<Metadata> {
+  const { slug } = await params
+  const concern = getConcernBySlug(slug)
+  if (!concern) return {}
+  
+  const seo = concern.seo.ar
+  const baseUrl = 'https://genosys.ae'
+  
+  return {
+    title: seo.title,
+    description: seo.description,
+    keywords: seo.keywords,
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 },
+    },
+    openGraph: {
+      title: seo.title,
+      description: seo.description,
+      type: 'website',
+      url: `${baseUrl}/ar/products/concern/${slug}`,
+      siteName: 'GENOSYS الشرق الأوسط FZ-LLC',
+      locale: 'ar_AE',
+      images: [{ url: `${baseUrl}/images/genosys-products.jpg`, width: 1200, height: 630, alt: seo.h1 }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: seo.title,
+      description: seo.description,
+      images: [`${baseUrl}/images/genosys-products.jpg`],
+    },
+    alternates: {
+      canonical: `${baseUrl}/ar/products/concern/${slug}`,
+      languages: {
+        'en': `${baseUrl}/products/concern/${slug}`,
+        'ar': `${baseUrl}/ar/products/concern/${slug}`,
+        'ru': `${baseUrl}/ru/products/concern/${slug}`,
+        'x-default': `${baseUrl}/products/concern/${slug}`,
+      },
+    },
+  }
+}
+
+const getConcernProducts = unstable_cache(
+  async (concernKeys: string[], categoryFallbacks: string[]): Promise<Product[]> => {
+    return getProductsByConcern(concernKeys, categoryFallbacks)
+  },
+  ['concern-products'],
+  { revalidate: 3600, tags: ['products'] }
+)
+
+export default async function ArabicConcernPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
+  const concern = getConcernBySlug(slug)
+  if (!concern) notFound()
+  
+  const products = await getConcernProducts(concern.concernKeys, concern.categoryFallbacks)
+  const seo = concern.seo.ar
+  const faq = concern.faq.ar
+  
+  const relatedConcerns = concern.relatedConcerns
+    .map(s => CONCERN_PAGES.find(c => c.slug === s))
+    .filter(Boolean)
+
+  return (
+    <div className="min-h-screen bg-white" dir="rtl">
+      <BreadcrumbSchema
+        items={[
+          { name: 'الرئيسية', url: '/ar' },
+          { name: 'المنتجات', url: '/ar/products' },
+          { name: seo.h1, url: `/ar/products/concern/${slug}` },
+        ]}
+      />
+      {products.length > 0 && (
+        <CollectionPageSchema
+          name={seo.h1}
+          description={seo.description}
+          url={`https://genosys.ae/ar/products/concern/${slug}`}
+          products={products}
+        />
+      )}
+      <GeoFaqSchema items={faq} pageUrl={`/ar/products/concern/${slug}`} language="ar" />
+
+      <section className="bg-gradient-to-b from-gray-50 to-white py-12 sm:py-16 px-4">
+        <div className="max-w-6xl mx-auto text-center">
+          <nav className="text-sm text-gray-500 mb-4">
+            <Link href="/ar" className="hover:text-gray-700">الرئيسية</Link>
+            <span className="mx-2">/</span>
+            <Link href="/ar/products" className="hover:text-gray-700">المنتجات</Link>
+            <span className="mx-2">/</span>
+            <span className="text-gray-900">{seo.h1}</span>
+          </nav>
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+            {seo.h1}
+          </h1>
+          <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            {seo.intro}
+          </p>
+        </div>
+      </section>
+
+      <section className="py-8 sm:py-12 px-4">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-6">
+            المنتجات الموصى بها ({products.length})
+          </h2>
+          <ConcernProductGrid products={products} locale="ar" dir="rtl" />
+        </div>
+      </section>
+
+      {faq.length > 0 && (
+        <section className="py-8 sm:py-12 px-4 bg-gray-50">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-6">
+              الأسئلة الشائعة
+            </h2>
+            <div className="space-y-4">
+              {faq.map((item, i) => (
+                <details key={i} className="bg-white rounded-lg border border-gray-200 overflow-hidden group">
+                  <summary className="px-6 py-4 cursor-pointer font-medium text-gray-900 hover:bg-gray-50 list-none flex items-center justify-between">
+                    {item.question}
+                    <svg className="w-5 h-5 text-gray-500 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </summary>
+                  <div className="px-6 pb-4 text-gray-600 leading-relaxed">{item.answer}</div>
+                </details>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {relatedConcerns.length > 0 && (
+        <section className="py-8 sm:py-12 px-4">
+          <div className="max-w-6xl mx-auto">
+            <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-6">
+              مشاكل البشرة ذات الصلة
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              {relatedConcerns.map(related => related && (
+                <Link key={related.slug} href={`/ar/products/concern/${related.slug}`}
+                  className="block p-6 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors border border-gray-100">
+                  <h3 className="font-semibold text-gray-900 mb-1">{related.seo.ar.h1}</h3>
+                  <p className="text-sm text-gray-500 line-clamp-2">{related.seo.ar.description}</p>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+    </div>
+  )
+}

@@ -523,3 +523,65 @@ export async function getSkinRecommendations(filters: {
   }
 }
 
+// ─── SEO Landing Page Queries ──────────────────────────────────
+
+/**
+ * Parse a JSON array string safely, returning empty array on failure.
+ * Handles both JSON arrays and comma-separated strings.
+ */
+function parseJsonArray(value: string | null | undefined): string[] {
+  if (!value) return []
+  try {
+    const parsed = JSON.parse(value)
+    if (Array.isArray(parsed)) return parsed
+    return []
+  } catch {
+    // Try comma-separated fallback
+    return value.split(',').map(s => s.trim()).filter(Boolean)
+  }
+}
+
+/**
+ * Get products matching specific skin concerns.
+ * Used by /products/concern/[slug] SEO landing pages.
+ * 
+ * Matches via three strategies:
+ * 1. Product's targetConcerns database field
+ * 2. GENOSYS curated concern mappings (GENOSYS_PRODUCT_CONCERNS)
+ * 3. Category fallbacks (e.g., "sun" category for sun-protection concern)
+ */
+export async function getProductsByConcern(
+  concernKeys: string[],
+  categoryFallbacks: string[] = []
+): Promise<Product[]> {
+  try {
+    const allProducts = await getAllProducts()
+    
+    return allProducts.filter(product => {
+      // Strategy 1: Match by targetConcerns field in database
+      const dbConcerns = parseJsonArray(product.targetConcerns)
+      if (dbConcerns.some(c => concernKeys.includes(c))) return true
+      
+      // Strategy 2: Match by GENOSYS curated product-to-concern mapping
+      const curatedConcerns = GENOSYS_PRODUCT_CONCERNS[product.name] || []
+      if (curatedConcerns.some(c => concernKeys.includes(c))) return true
+      
+      // Strategy 3: Match by category fallback
+      if (categoryFallbacks.length > 0) {
+        const productCategory = (product.category || '').toLowerCase()
+        if (categoryFallbacks.some(cat => productCategory === cat || productCategory.includes(cat))) {
+          return true
+        }
+      }
+      
+      return false
+    })
+  } catch (error) {
+    errorLog('Error fetching products by concern:', error)
+    return []
+  }
+}
+
+// Note: getProductsByCategory already exists at the top of this file (line ~64)
+// It's used by both the admin API and the new SEO landing pages.
+

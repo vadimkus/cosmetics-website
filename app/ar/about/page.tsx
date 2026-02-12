@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import ArabicAboutPageClient from './ArabicAboutPageClient'
 
 export const metadata: Metadata = {
@@ -28,7 +29,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: '/images/genosys-logo.png',
+        url: 'https://genosys.ae/images/genosys-logo.png',
         width: 400,
         height: 400,
         alt: 'شعار GENOSYS Middle East FZ-LLC',
@@ -44,7 +45,7 @@ export const metadata: Metadata = {
     creator: '@genosys_official',
     title: 'من نحن - GENOSYS Middle East FZ-LLC | الموزع الرسمي لمستحضرات التجميل الكورية المهنية',
     description: 'تعرف على شركة GENOSYS الشرق الأوسط FZ-LLC، الموزع الرسمي لشركة DTSMG Co., Ltd كوريا في الإمارات.',
-    images: ['/images/genosys-logo.png'],
+    images: ['https://genosys.ae/images/genosys-logo.png'],
   },
   alternates: {
     canonical: 'https://genosys.ae/ar/about',
@@ -57,6 +58,16 @@ export const metadata: Metadata = {
 }
 
 export default function ArabicAboutPage() {
-  return <ArabicAboutPageClient />
+  return (
+    <>
+      <BreadcrumbSchema
+        items={[
+          { name: 'الرئيسية', url: '/ar' },
+          { name: 'من نحن', url: '/ar/about' },
+        ]}
+      />
+      <ArabicAboutPageClient />
+    </>
+  )
 }
 

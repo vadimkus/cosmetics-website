@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     locale: 'en_AE',
     images: [
       {
-        url: '/images/genosys-logo.png',
+        url: 'https://genosys.ae/images/genosys-logo.png',
         width: 400,
         height: 400,
         alt: 'GENOSYS Middle East FZ-LLC Contact',
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     creator: '@genosys_official',
     title: 'Contact GENOSYS Middle East FZ-LLC - Get in Touch',
     description: 'Contact GENOSYS Middle East FZ-LLC for professional Korean dermacosmetics. Phone: +971 58 548 76 65, Email: sales@genosys.ae.',
-    images: ['/images/genosys-logo.png'],
+    images: ['https://genosys.ae/images/genosys-logo.png'],
   },
   alternates: {
     canonical: 'https://genosys.ae/contact',

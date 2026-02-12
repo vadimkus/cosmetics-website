@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: '/images/genosys-logo.png',
+        url: 'https://genosys.ae/images/genosys-logo.png',
         width: 400,
         height: 400,
         alt: 'اتصال GENOSYS Middle East FZ-LLC',
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     creator: '@genosys_official',
     title: 'اتصل بنا - GENOSYS Middle East FZ-LLC | تواصل معنا',
     description: 'تواصل مع شركة GENOSYS الشرق الأوسط FZ-LLC لمستحضرات التجميل الكورية المهنية. الهاتف: +971 58 548 76 65، البريد الإلكتروني: sales@genosys.ae.',
-    images: ['/images/genosys-logo.png'],
+    images: ['https://genosys.ae/images/genosys-logo.png'],
   },
   alternates: {
     canonical: 'https://genosys.ae/ar/contact',

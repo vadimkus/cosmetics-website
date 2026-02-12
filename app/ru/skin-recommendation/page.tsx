@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
 import SkinRecommendationClient from '@/app/skin-recommendation/SkinRecommendationClient'
+import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 
 export const metadata: Metadata = {
   title: 'Персональные рекомендации для кожи | GENOSYS Professional',
@@ -25,7 +26,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: '/images/genosys-products.jpg',
+        url: 'https://genosys.ae/images/genosys-products.jpg',
         width: 1200,
         height: 630,
         alt: 'Персонализированные рекомендации по уходу за кожей GENOSYS',
@@ -38,7 +39,7 @@ export const metadata: Metadata = {
     creator: '@genosys_official',
     title: 'Персональные рекомендации для кожи | GENOSYS Professional',
     description: 'Откройте для себя идеальные продукты GENOSYS, специально разработанные для ваших уникальных потребностей кожи.',
-    images: ['/images/genosys-products.jpg'],
+    images: ['https://genosys.ae/images/genosys-products.jpg'],
   },
   alternates: {
     canonical: 'https://genosys.ae/ru/skin-recommendation',
@@ -51,7 +52,17 @@ export const metadata: Metadata = {
 }
 
 export default function RussianSkinRecommendationPage() {
-  return <SkinRecommendationClient />
+  return (
+    <>
+      <BreadcrumbSchema
+        items={[
+          { name: 'Главная', url: '/ru' },
+          { name: 'Рекомендации для кожи', url: '/ru/skin-recommendation' }
+        ]}
+      />
+      <SkinRecommendationClient />
+    </>
+  )
 }
 
 

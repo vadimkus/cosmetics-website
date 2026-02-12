@@ -1039,6 +1039,25 @@ html {
   font-optical-sizing: auto;
 }
 
+/* ========================================================================
+   ARABIC TYPOGRAPHY
+   When the page is in Arabic, use Noto Sans Arabic as the primary font.
+   var(--font-arabic) is set by Next.js font loader when Noto Sans Arabic loads.
+   ======================================================================== */
+html[lang="ar"],
+html[lang="ar"] body {
+  font-family: var(--font-arabic, "Noto Sans Arabic"), "Tahoma", "Arial", sans-serif;
+}
+
+html[lang="ar"] h1,
+html[lang="ar"] h2,
+html[lang="ar"] h3,
+html[lang="ar"] h4,
+html[lang="ar"] h5,
+html[lang="ar"] h6 {
+  font-family: var(--font-arabic, "Noto Sans Arabic"), "Tahoma", "Arial", sans-serif;
+}
+
 /* Smooth transitions for direction changes - no transition to prevent jank */
 html[dir="ltr"],
 html[dir="rtl"] {

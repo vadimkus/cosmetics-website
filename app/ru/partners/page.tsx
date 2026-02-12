@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     siteName: 'GENOSYS Middle East FZ-LLC',
     images: [
       {
-        url: '/images/genosys-products.jpg',
+        url: 'https://genosys.ae/images/genosys-products.jpg',
         width: 1200,
         height: 630,
         alt: 'Сеть партнеров GENOSYS в ОАЭ',
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     creator: '@genosys_official',
     title: 'Партнеры GENOSYS в ОАЭ - Надежные дистрибьюторы корейской дерматокосметики',
     description: 'Найдите авторизованных партнеров GENOSYS по всему ОАЭ. Дистрибьюторы профессиональной корейской дерматокосметики.',
-    images: ['/images/genosys-products.jpg'],
+    images: ['https://genosys.ae/images/genosys-products.jpg'],
   },
   alternates: {
     canonical: 'https://genosys.ae/ru/partners',

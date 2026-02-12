@@ -44,7 +44,7 @@ function CartItemComponent({ item }: CartItemProps) {
   // Check if this is CHARMING LOOK BEAUTY BOX (productNumber '57')
   const isCharmingLookBeautyBox = product.productNumber === '57' || product.id === '57'
   
-  // Check if this is a product with color variants (ID 41 or 62)
+  // Check if this is a product with color variants (ID 41 or 63)
   const isCushionProduct = product.id === '41' || product.productNumber === '41'
   const isRevitaGlowBB = product.id === '63' || product.productNumber === '63'
   const hasColorVariant = isCharmingLookBeautyBox || isCushionProduct || isRevitaGlowBB

@@ -442,7 +442,7 @@ export default function ProductsPageClient({ initialProducts = [] }: ProductsPag
                     WebkitTapHighlightColor: 'transparent'
                   }}
                 >
-                  {category.id === 'beauty-boxes' && (
+                  {(category.id === 'beauty-boxes' || category.id === 'cream') && (
                     <span className={`absolute -top-2 left-1/2 -translate-x-1/2 text-[8px] font-bold px-1.5 py-0.5 rounded-full ${
                       isActive 
                         ? 'bg-white text-primary-600' 

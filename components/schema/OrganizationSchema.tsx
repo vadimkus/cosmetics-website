@@ -99,7 +99,7 @@ export default function OrganizationSchema() {
     "makesOffer": {
       "@type": "Offer",
       "itemOffered": {
-        "@type": "Product",
+        "@type": "Service",
         "name": "GENOSYS Professional Skincare Products",
         "description": "Complete range of professional Korean dermacosmetics"
       },

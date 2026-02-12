@@ -92,28 +92,19 @@ export default function LocalBusinessSchema() {
       "name": "GENOSYS Professional Korean Dermacosmetics",
       "itemListElement": [
         {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Product",
-            "name": "Microneedling Devices",
-            "description": "Professional microneedling devices and rollers"
-          }
+          "@type": "OfferCatalog",
+          "name": "Microneedling Devices",
+          "description": "Professional microneedling devices and rollers"
         },
         {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Product",
-            "name": "Korean Skincare Products",
-            "description": "Professional Korean dermacosmetics and skincare"
-          }
+          "@type": "OfferCatalog",
+          "name": "Korean Skincare Products",
+          "description": "Professional Korean dermacosmetics and skincare"
         },
         {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Product",
-            "name": "Professional Training",
-            "description": "Skincare and beauty treatment training"
-          }
+          "@type": "OfferCatalog",
+          "name": "Professional Training",
+          "description": "Skincare and beauty treatment training"
         }
       ]
     },

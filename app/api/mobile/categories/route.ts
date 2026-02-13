@@ -68,12 +68,22 @@ export async function GET(request: NextRequest) {
       .filter(Boolean)
       .sort((a, b) => a.localeCompare(b))
     
+    // Categories with "New" badge (matches website: ProductsPageClient.tsx)
+    // Update this list when new products are added to a category
+    const CATEGORIES_WITH_NEW_BADGE = ['Cream', 'Beauty Boxes']
+    
+    const categoriesWithBadges = categories.map(cat => ({
+      name: cat,
+      badge: CATEGORIES_WITH_NEW_BADGE.includes(cat) ? 'new' : null
+    }))
+
     const duration = Date.now() - startTime
     debugLog(`[MOBILE_API_CATEGORIES] SUCCESS: Retrieved ${categories.length} categories in ${duration}ms`)
     
     return NextResponse.json({
       success: true,
-      data: categories,
+      data: categories, // backward compatible: plain string array
+      categoriesWithBadges, // enhanced: includes badge metadata
       meta: {
         count: categories.length,
         timestamp: new Date().toISOString(),

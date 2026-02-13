@@ -199,3 +199,28 @@ On iOS, `expo-av` defaults to respecting the physical mute switch — videos pla
 
 - **genosys-mobile-app** repo: `docs/core/SESSION_LOG_2026_02_13.md`
 - **genosys-mobile-app** repo: `docs/core/PRODUCT_DETAIL_UPDATES.md` — Section 5
+
+---
+
+## Additional Product Content (Later in Session)
+
+### Product 31: Second Image (radiance_both.jpg)
+
+- **Product:** MULTI VITA RADIANCE CREAM
+- **Image:** `public/images/Second/radiance_both.jpg`
+- **Changes:** Added as 2nd image to productConfig
+- **Commit:** `d4a5b0ba`
+
+### Product 40: Video (sun.mp4)
+
+- **Product:** MULTI SUN CREAM [SPF 40 PA++]
+- **Video:** `public/videos/sun.mp4` (10MB)
+- **Changes:** Added `videoUrl: '/videos/sun.mp4'` to productConfig; set in database via `set-product-video.ts`
+- **Commit:** `65e7e031`
+
+### Product 52: Third Image (pdrn_big2.jpg)
+
+- **Product:** SKIN REBOOT PDRN MASK PACK
+- **Image:** `public/images/Second/pdrn_big2.jpg`
+- **Changes:** Added as 3rd image to productConfig: `['/images/PDRN.png', '/images/Second/pdrnnn.jpg', '/images/Second/pdrn_big2.jpg']`
+- **Commit:** `e4f0b2f5`

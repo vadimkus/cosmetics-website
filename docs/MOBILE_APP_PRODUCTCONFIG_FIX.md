@@ -66,7 +66,7 @@ The website worked because it uses `lib/products.ts` (static data) where `id` is
 | 42 | SKIN CARING BLEMISH BALM CUSHION | 2 |
 | 50 | EYE ZONE CARE KIT | 2 |
 | 51 | BIO-FERMENT AGE DEFYING POWDER MASK | 2 |
-| 52 | SKIN REBOOT PDRN MASK PACK | 2 |
+| 52 | SKIN REBOOT PDRN MASK PACK | 3 |
 | 63 | REVITA GLOW BB CREAM | 3 + colors |
 
 ### Products with Color Variants
@@ -135,6 +135,19 @@ if (configImages.length > 0) {
 const colors = getProductColors(configKey)  // was: getProductColors(product.id)
 ```
 
+### 5. Merged productConfig videoUrl into API Response (February 13, 2026)
+
+**Before**: API returned only `product.videoUrl` from DB.
+
+**After**: Same priority as images — productConfig first, then DB:
+
+```typescript
+const configVideoUrl = getProductVideoUrl(configKey)
+const mergedVideoUrl = configVideoUrl || product.videoUrl || null
+```
+
+This allows adding videos via `productConfig` without requiring a DB update. Product 27 (SKIN BARRIER PROTECTING CREAM) uses `barrier.mp4` — see [SESSION_CHANGES_2026-02-13.md](./SESSION_CHANGES_2026-02-13.md#product-27-video-addition-barriermp4).
+
 ---
 
 ## Deployment & Rebuild Requirements
@@ -178,10 +191,12 @@ The response structure did not change — only the *content* of existing fields:
 
 | File | Changes |
 |------|---------|
-| `lib/pricingEngine.ts` | Added `resolveConfigKey()`, applied to all config lookups; merged productConfig images into `generateEnhancedProductData` |
-| `data/productConfig.ts` | (Earlier session) Added `images` for products 25, 27; added `.gitignore` exception for `productConfig.ts` |
+| `lib/pricingEngine.ts` | Added `resolveConfigKey()`, applied to all config lookups; merged productConfig images and videoUrl into `generateEnhancedProductData` |
+| `data/productConfig.ts` | (Earlier session) Added `images` for products 25, 27; added `videoUrl` for product 27; added `.gitignore` exception for `productConfig.ts` |
 | `public/images/Second/soothrep.png` | (Earlier session) Second image for product 25 |
 | `public/images/Second/bar_big.jpg` | (Earlier session) Second image for product 27 |
+| `public/videos/barrier.mp4` | (Feb 13) Product video for SKIN BARRIER PROTECTING CREAM |
+| `scripts/set-product-video.ts` | (Feb 13) Script to set product videoUrl in database |
 
 ---
 
@@ -209,6 +224,22 @@ The response structure did not change — only the *content* of existing fields:
    }
    ```
 3. Commit and push — no app rebuild needed
+
+---
+
+## Adding New Product Videos
+
+1. Place MP4 in `public/videos/` (e.g. `myproduct.mp4`)
+2. Run: `npx tsx scripts/set-product-video.ts <productNumber> /videos/myproduct.mp4` (requires `DATABASE_URL` in `.env.local`)
+3. Add to `data/productConfig.ts`:
+   ```typescript
+   'XX': {
+     id: 'XX',
+     videoUrl: '/videos/myproduct.mp4',
+     ...
+   }
+   ```
+4. Commit and push — website and native app will show the video (no app rebuild needed)
 
 ---
 

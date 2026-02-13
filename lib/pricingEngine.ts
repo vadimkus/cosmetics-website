@@ -13,7 +13,7 @@
 
 import { Product } from '@/types'
 import { User, ApiUser } from '@/types/user'
-import { getProductConfig, getProductSizes, getProductColors } from '@/data/productConfig'
+import { getProductConfig, getProductSizes, getProductColors, getProductImages } from '@/data/productConfig'
 import { calculateDiscountedPrice } from '@/lib/discountUtils'
 import { debugLog } from '@/lib/logger'
 
@@ -449,6 +449,9 @@ export function generateEnhancedProductData(
 ): EnhancedProductData {
   debugLog('🚀 Generating enhanced product data:', { productId: product.id, userId: user?.id })
   
+  // Use productNumber for config lookups (DB id is CUID, config keys are product numbers)
+  const configKey = product.productNumber || product.id
+  
   // Calculate pricing for base product.
   // If DB variants exist, use the DEFAULT DB variant as the product-level price source,
   // so list views and detail headers reflect the same pricing as the default selection.
@@ -464,8 +467,8 @@ export function generateEnhancedProductData(
   // Generate variants with pricing
   const variants = generateProductVariants(product, user)
   
-  // Get color variants
-  const colors = getProductColors(product.id)
+  // Get color variants (use configKey so DB products with CUID ids can match productConfig)
+  const colors = getProductColors(configKey)
   const colorVariants = colors.map(color => {
     let hex: string | undefined
     if (color.value === 'Beige') hex = '#E6D5B8'
@@ -486,12 +489,22 @@ export function generateEnhancedProductData(
   const isNewProduct = badges.some(badge => badge.type === 'new')
   const isBestSeller = badges.some(badge => badge.type === 'best_seller')
   
+  // Merge images: prioritize productConfig images (like the website does),
+  // then fall back to DB product.images, then just the main image.
+  const configImages = getProductImages(configKey)
+  let mergedImages: string | null = null
+  if (configImages.length > 0) {
+    mergedImages = JSON.stringify(configImages)
+  } else if (product.images) {
+    mergedImages = product.images
+  }
+
   const enhancedData: EnhancedProductData = {
     id: product.id,
     name: product.name,
     description: product.description,
     image: product.image,
-    images: product.images ?? null,
+    images: mergedImages,
     videoUrl: product.videoUrl ?? null,
     category: product.category,
     stock: product.inStock,

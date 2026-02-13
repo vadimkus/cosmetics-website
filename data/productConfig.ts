@@ -220,7 +220,8 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     sizes: [
       { value: '20g', label: '20g', available: true },
       { value: '100g', label: '100g', available: true }
-    ]
+    ],
+    images: ['/images/SRC.jpg', '/images/Second/soothrep.png']
   },
   '26': {
     id: '26',

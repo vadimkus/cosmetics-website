@@ -120,3 +120,82 @@ COD, Stripe, Support-link, Admin new order confirmation.
 
 - [EMAIL_CHANGELOG.md](./EMAIL_CHANGELOG.md) — Version 3.0.1
 - [EMAIL_TEMPLATES.md](./EMAIL_TEMPLATES.md) — Updated discount display rules
+
+---
+
+## Product 27: Video Addition (barrier.mp4)
+
+### Summary
+
+Added product video for SKIN BARRIER PROTECTING CREAM (product 27). Video displays on website and native app — no app rebuild required.
+
+### What Was Done
+
+1. **Video file**: `public/videos/barrier.mp4` (8.6MB)
+2. **Database**: Set `videoUrl = '/videos/barrier.mp4'` via `scripts/set-product-video.ts`
+3. **productConfig**: Added `videoUrl: '/videos/barrier.mp4'` to product 27 entry
+4. **pricingEngine**: Merged `videoUrl` from productConfig (same pattern as images) — API now returns video from productConfig OR database
+
+### How Product Videos Work
+
+| Source | Website | Native App |
+|--------|---------|------------|
+| DB `product.videoUrl` | Product page renders `<video>` below gallery | API passes through to app |
+| productConfig `videoUrl` | Not used directly (website uses DB) | API merges via `getProductVideoUrl(configKey)` |
+
+The website product page (`ProductPageClientRefactored.tsx`) renders a video player when `product.videoUrl` is set. The mobile API's `generateEnhancedProductData` returns `videoUrl` from either productConfig or DB.
+
+### Script: set-product-video.ts
+
+To add or update a product video in the database:
+
+```bash
+npx tsx scripts/set-product-video.ts <productNumber> <videoUrl>
+# Example:
+npx tsx scripts/set-product-video.ts 27 /videos/barrier.mp4
+```
+
+Requires `DATABASE_URL` in `.env.local`.
+
+### Files Modified
+
+| File | Change |
+|------|--------|
+| `public/videos/barrier.mp4` | New video file |
+| `data/productConfig.ts` | Added `videoUrl` for product 27 |
+| `lib/pricingEngine.ts` | Import `getProductVideoUrl`, merge videoUrl from productConfig |
+| `scripts/set-product-video.ts` | New script to set product video in DB |
+
+### Adding Videos to Other Products
+
+1. Place MP4 in `public/videos/` (e.g. `myproduct.mp4`)
+2. Run: `npx tsx scripts/set-product-video.ts <productNumber> /videos/myproduct.mp4`
+3. Add to `data/productConfig.ts`: `videoUrl: '/videos/myproduct.mp4'`
+4. Commit and push — website and native app will show the video
+
+---
+
+## Native App: Product Video Sound Fix
+
+### Summary
+
+Product videos in the native app played without sound (web/mobile web had audio). Fixed in `genosys-mobile-app` by calling `Audio.setAudioModeAsync({ playsInSilentModeIOS: true })` before playback.
+
+### Root Cause
+
+On iOS, `expo-av` defaults to respecting the physical mute switch — videos play muted when the silent switch is on.
+
+### Fix
+
+- **Repo:** `genosys-mobile-app`
+- **File:** `app/product/[id].js`
+- **Change:** Import `Audio` from `expo-av`; call `Audio.setAudioModeAsync({ playsInSilentModeIOS: true })` in `ProductVideo`'s `handlePlay` before starting playback
+
+### Deployment
+
+**App rebuild required** — client-side change. Rebuild and submit to TestFlight.
+
+### Documentation
+
+- **genosys-mobile-app** repo: `docs/core/SESSION_LOG_2026_02_13.md`
+- **genosys-mobile-app** repo: `docs/core/PRODUCT_DETAIL_UPDATES.md` — Section 5

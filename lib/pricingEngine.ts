@@ -333,7 +333,7 @@ export function generateProductBadges(
   }
   
   // New product badge (products created in last 30 days or manually flagged)
-  const newProductIds = ['52', 'cmgj9ifoi00008o07p4eqmfb7'] // Recently added
+  const newProductIds = ['52', '63', 'cmgj9ifoi00008o07p4eqmfb7'] // Recently added
   if (newProductIds.includes(badgeKey) || newProductIds.includes(product.id)) {
     badges.push({
       text: 'NEW',

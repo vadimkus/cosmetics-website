@@ -533,7 +533,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     pricing: {
       basePrice: 450
     },
-    images: ['/images/PDRN.png', '/images/Second/pdrnnn.jpg', '/images/Second/pdrn_big2.jpg'],
+    images: ['/images/PDRN.png', '/images/Second/pdrnnn.jpg', '/images/Second/pdrn_big2.jpg', '/images/Second/pdrn22.jpg'],
     documentation: [
       {
         title: 'SKIN REBOOT PDRN MASK PACK Guide',

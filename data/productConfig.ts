@@ -301,6 +301,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
       { value: '50g', label: '50g', available: true },
       { value: '230g', label: '230g', available: true }
     ],
+    images: ['/images/RAA.jpg', '/images/Second/radiance_both.jpg'],
     documentation: [
       {
         title: 'MULTI VITA RADIANCE CREAM Guide',

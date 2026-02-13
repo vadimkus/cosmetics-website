@@ -17,6 +17,15 @@ import { getProductConfig, getProductSizes, getProductColors, getProductImages }
 import { calculateDiscountedPrice } from '@/lib/discountUtils'
 import { debugLog } from '@/lib/logger'
 
+/**
+ * Resolves the correct key for productConfig lookups.
+ * DB products use CUID as `id`, but productConfig keys are product numbers (e.g. '25').
+ * This helper returns productNumber when available, falling back to id.
+ */
+function resolveConfigKey(product: { id: string; productNumber?: string | null }): string {
+  return product.productNumber || product.id
+}
+
 // UAE VAT rate (5%)
 export const UAE_VAT_RATE = 0.05
 
@@ -190,7 +199,7 @@ export function calculateProductPricing(
   
   // Apply size variant pricing if selected
   if (selectedSize) {
-    const config = getProductConfig(product.id)
+    const config = getProductConfig(resolveConfigKey(product))
     if (config?.pricing?.sizeVariants?.[selectedSize]) {
       basePrice = config.pricing.sizeVariants[selectedSize]
     }
@@ -199,7 +208,7 @@ export function calculateProductPricing(
   // Apply color variant pricing if needed (future expansion)
   if (selectedColor) {
     // Color variants typically don't affect price but can in the future
-    const config = getProductConfig(product.id)
+    const config = getProductConfig(resolveConfigKey(product))
     if (config?.pricing?.colorVariants?.[selectedColor]) {
       basePrice = config.pricing.colorVariants[selectedColor]
     }
@@ -298,9 +307,12 @@ export function generateProductBadges(
     }
   }
   
+  // Use productNumber for badge ID matching (DB id is CUID, badge lists use product numbers)
+  const badgeKey = resolveConfigKey(product)
+  
   // Professional products badge
   if (product.category.toLowerCase().includes('professional') || 
-      ['47', '48', '49', '50', '51'].includes(product.id)) {
+      ['47', '48', '49', '50', '51'].includes(badgeKey)) {
     badges.push({
       text: 'PROFESSIONAL',
       color: '#7C3AED', // purple-600
@@ -311,7 +323,7 @@ export function generateProductBadges(
   
   // Best seller badge (based on product performance or manual flagging)
   const bestSellerIds = ['1', '10', '18', '21', '29', '31', '41'] // Top selling products
-  if (bestSellerIds.includes(product.id)) {
+  if (bestSellerIds.includes(badgeKey)) {
     badges.push({
       text: 'BEST SELLER',
       color: '#059669', // green-600
@@ -322,7 +334,7 @@ export function generateProductBadges(
   
   // New product badge (products created in last 30 days or manually flagged)
   const newProductIds = ['52', 'cmgj9ifoi00008o07p4eqmfb7'] // Recently added
-  if (newProductIds.includes(product.id)) {
+  if (newProductIds.includes(badgeKey) || newProductIds.includes(product.id)) {
     badges.push({
       text: 'NEW',
       color: '#059669', // green-600
@@ -333,7 +345,7 @@ export function generateProductBadges(
   
   // Limited edition badge
   const limitedEditionIds = ['38', '47', '48'] // Special/limited products
-  if (limitedEditionIds.includes(product.id)) {
+  if (limitedEditionIds.includes(badgeKey)) {
     badges.push({
       text: 'LIMITED EDITION',
       color: '#DC2626', // red-600
@@ -401,7 +413,7 @@ export function generateProductVariants(
   }
   
   // FALLBACK: Use config file variants (for backward compatibility)
-  const sizes = getProductSizes(product.id)
+  const sizes = getProductSizes(resolveConfigKey(product))
   
   if (sizes.length === 0) {
     // No size variants, return default variant
@@ -450,7 +462,7 @@ export function generateEnhancedProductData(
   debugLog('🚀 Generating enhanced product data:', { productId: product.id, userId: user?.id })
   
   // Use productNumber for config lookups (DB id is CUID, config keys are product numbers)
-  const configKey = product.productNumber || product.id
+  const configKey = resolveConfigKey(product)
   
   // Calculate pricing for base product.
   // If DB variants exist, use the DEFAULT DB variant as the product-level price source,

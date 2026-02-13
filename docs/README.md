@@ -344,7 +344,7 @@ FAQ content is stored in the `faq_items` database table and managed through the 
 
 | File | Description |
 |------|-------------|
-| [SESSION_CHANGES_2026-02-13.md](./SESSION_CHANGES_2026-02-13.md) | **NEW** Native app productConfig fix — images & color variants for 23 products |
+| [SESSION_CHANGES_2026-02-13.md](./SESSION_CHANGES_2026-02-13.md) | **NEW** Native app productConfig fix, category pill badges, email duplicate discount fix |
 | [SESSION_CHANGES_2026-02-12.md](./SESSION_CHANGES_2026-02-12.md) | SEO concern/category pages; Part 2: perf, pull-to-refresh, chat icon; Part 3: structured data fixes, Merchant Center feed |
 | [SESSION_LOG_2026_02_11.md](./SESSION_LOG_2026_02_11.md) | Beauty box 15% discount display fix, product images (10, 15), checkout strikethrough prices |
 | [SESSION_CHANGES_2026-02-10.md](./SESSION_CHANGES_2026-02-10.md) | FAQ DB, Abeer Mekki partner, Bundle Builder API, Push notifications, Login source tracking |
@@ -388,8 +388,7 @@ All **email templates**, **success page**, and **Orders page** use the same enha
 - 56×56 product image thumbnail
 - Product name (UPPERCASE, bold)
 - Combined detail line: "Quantity: 1 • 180ml"
-- Combined discount %: "(60% OFF)" in green
-- Discount badges: "-50% VIP" (purple), "-20% Bundle" (green)
+- Discount display: **only one** — badge (`-50% VIP`, `-15% Bundle`, `-15% Box`) or generic `(XX% OFF)` text (never both)
 - Original price strikethrough + discounted price in green
 - Free items display "FREE" in green
 - Summary: retail total, VIP discount, bundle discount, net subtotal, shipping, VAT, "You Saved" banner, total

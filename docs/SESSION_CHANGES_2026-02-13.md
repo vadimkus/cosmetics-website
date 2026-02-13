@@ -97,3 +97,26 @@ const CATEGORIES_WITH_NEW_BADGE = ['Cream', 'Beauty Boxes']  // add/remove categ
 ```
 
 Also update the website's `app/products/ProductsPageClient.tsx` line 445 to match.
+
+---
+
+## Email: Duplicate Discount Display Fix
+
+### Summary
+
+Order confirmation emails (customer + admin) were showing both `(50% OFF)` in green text and `-50% VIP` as a purple badge for VIP customers — redundant. Fixed to show only one: the badge when present, otherwise the generic `(XX% OFF)` text.
+
+### Fix Applied
+
+- `lib/email/htmlGenerators.ts` — `renderEnhancedItemRows()`: badge takes priority; `(XX% OFF)` only when no badge
+- `lib/email/templates.ts` — COD order confirmation item renderer: same logic
+- `lib/email/templates.ts` — Admin new order item renderer: same logic
+
+### Affected Emails
+
+COD, Stripe, Support-link, Admin new order confirmation.
+
+### Documentation
+
+- [EMAIL_CHANGELOG.md](./EMAIL_CHANGELOG.md) — Version 3.0.1
+- [EMAIL_TEMPLATES.md](./EMAIL_TEMPLATES.md) — Updated discount display rules

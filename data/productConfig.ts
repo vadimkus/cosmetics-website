@@ -235,7 +235,8 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     pricing: {
       basePrice: 430
     },
-    images: ['/images/BRR.jpg', '/images/Second/bar_big.jpg']
+    images: ['/images/BRR.jpg', '/images/Second/bar_big.jpg'],
+    videoUrl: '/videos/barrier.mp4'
   },
   '28': {
     id: '28',

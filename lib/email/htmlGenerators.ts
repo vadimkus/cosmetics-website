@@ -139,8 +139,11 @@ function renderEnhancedItemRows(
             <td style="vertical-align: top;">
               <div style="font-size: 14px; font-weight: 700; color: #1d1d1f; text-transform: uppercase; letter-spacing: 0.02em; text-align: ${textAlign}; line-height: 1.3;">${item.name}</div>
               <div style="font-size: 12px; color: #6b7280; margin-top: 3px; text-align: ${textAlign};">${detailLine}</div>
-              ${totalDiscountPct > 0 ? `<div style="font-size: 12px; font-weight: 700; color: #16a34a; margin-top: 2px; text-align: ${textAlign};">(${totalDiscountPct}% OFF)</div>` : ''}
-              ${badges.length > 0 ? `<div style="margin-top: 4px; text-align: ${textAlign};">${badges.join('')}</div>` : ''}
+              ${badges.length > 0
+                ? `<div style="margin-top: 4px; text-align: ${textAlign};">${badges.join('')}</div>`
+                : totalDiscountPct > 0
+                  ? `<div style="font-size: 12px; font-weight: 700; color: #16a34a; margin-top: 2px; text-align: ${textAlign};">(${totalDiscountPct}% OFF)</div>`
+                  : ''}
             </td>
             <td style="text-align: ${textAlignReverse}; vertical-align: top; white-space: nowrap; padding-${isRTL ? 'right' : 'left'}: 12px;">${priceDisplay}</td>
           </tr>

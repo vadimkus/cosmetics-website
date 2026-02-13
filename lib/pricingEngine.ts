@@ -13,7 +13,7 @@
 
 import { Product } from '@/types'
 import { User, ApiUser } from '@/types/user'
-import { getProductConfig, getProductSizes, getProductColors, getProductImages } from '@/data/productConfig'
+import { getProductConfig, getProductSizes, getProductColors, getProductImages, getProductVideoUrl } from '@/data/productConfig'
 import { calculateDiscountedPrice } from '@/lib/discountUtils'
 import { debugLog } from '@/lib/logger'
 
@@ -511,13 +511,17 @@ export function generateEnhancedProductData(
     mergedImages = product.images
   }
 
+  // Merge videoUrl: prioritize productConfig, fall back to DB
+  const configVideoUrl = getProductVideoUrl(configKey)
+  const mergedVideoUrl = configVideoUrl || product.videoUrl || null
+
   const enhancedData: EnhancedProductData = {
     id: product.id,
     name: product.name,
     description: product.description,
     image: product.image,
     images: mergedImages,
-    videoUrl: product.videoUrl ?? null,
+    videoUrl: mergedVideoUrl,
     category: product.category,
     stock: product.inStock,
     rating: product.rating || 5.0,

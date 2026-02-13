@@ -1,5 +1,51 @@
 # Email & Orders System Changelog
 
+## Version 3.0.1 - Single Discount Display (February 13, 2026)
+
+### Summary
+
+Fixed duplicate discount display in order confirmation emails. Previously, VIP and bundle discounts showed both `(50% OFF)` in green text and `-50% VIP` (or `-20% Bundle`) as a badge — redundant. Now only one is shown: the badge when present, otherwise the generic `(XX% OFF)` text.
+
+### Problem
+
+For VIP customers, order confirmation emails (customer + admin) displayed:
+1. Green text: `(50% OFF)`
+2. Purple badge: `-50% VIP`
+
+Both conveyed the same discount, causing visual clutter.
+
+### Fix Applied
+
+**Logic change:** Show the discount badge (VIP, Bundle, or Box) when available; otherwise show the generic `(XX% OFF)` text. Never both.
+
+| Scenario | Before | After |
+|----------|--------|-------|
+| VIP discount | `(50% OFF)` + `-50% VIP` | `-50% VIP` only |
+| Bundle discount | `(15% OFF)` + `-15% Bundle` | `-15% Bundle` only |
+| Beauty Box | `(15% OFF)` + `-15% Box` | `-15% Box` only |
+| Other discount (no badge) | `(XX% OFF)` | `(XX% OFF)` (unchanged) |
+
+### Files Modified
+
+| File | Location | Change |
+|------|----------|--------|
+| `lib/email/htmlGenerators.ts` | `renderEnhancedItemRows()` | Badge takes priority; `(XX% OFF)` only when no badge |
+| `lib/email/templates.ts` | COD order confirmation item renderer | Same logic |
+| `lib/email/templates.ts` | Admin new order item renderer | Same logic |
+
+### Affected Emails
+
+- COD order confirmation (customer)
+- Stripe order confirmation (customer)
+- Support-link order confirmation (customer)
+- Admin new order notification
+
+### Deployment
+
+Vercel auto-deploy on push to main. No database or config changes.
+
+---
+
 ## Version 3.0.0 - Enhanced Per-Item Breakdown with Product Images (February 6, 2026)
 
 ### Summary

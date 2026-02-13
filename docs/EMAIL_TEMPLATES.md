@@ -1,6 +1,6 @@
 # Email Templates Documentation
 
-> **Last Updated**: February 6, 2026
+> **Last Updated**: February 13, 2026
 
 ## Overview
 
@@ -50,8 +50,8 @@ Each order item in every email template now displays:
 - **Product image**: 56×56px rounded thumbnail (absolute URL using `SITE_URL`)
 - **Product name**: UPPERCASE, bold, 14px
 - **Detail line**: "Quantity: X • size • color" combined on one line
-- **Combined discount %**: "(60% OFF)" in green - computed from original vs final price
-- **Discount badges**: Purple `-50% VIP` and/or green `-20% Bundle` pill badges
+- **Discount display**: Show **only one** — either the badge (`-50% VIP`, `-15% Bundle`, `-15% Box`) or the generic `(XX% OFF)` text. Never both. Badge takes priority when present.
+- **Discount badges**: Purple `-50% VIP`, green `-20% Bundle`, or orange `-15% Box` pill badges
 - **Price column**:
   - Original price struck through (gray) if discounted
   - Final price in bold green below

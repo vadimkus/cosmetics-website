@@ -107,6 +107,14 @@ export default function CollectionPageSchema({
               "price": item.price,
               "priceCurrency": item.currency || "AED",
               "availability": "https://schema.org/InStock",
+              "hasMerchantReturnPolicy": {
+                "@type": "MerchantReturnPolicy",
+                "applicableCountry": "AE",
+                "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+                "merchantReturnDays": 14,
+                "returnMethod": "https://schema.org/ReturnByMail",
+                "returnFees": "https://schema.org/FreeReturn",
+              },
             },
           }
           if (item.image) {

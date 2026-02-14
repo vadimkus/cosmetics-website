@@ -62,7 +62,15 @@ export default function ProductsListSchema({ products, category }: ProductsListS
                 "name": "GENOSYS Middle East FZ-LLC",
                 "url": baseUrl
               },
-              "url": `${baseUrl}/products/${product.id}`
+              "url": `${baseUrl}/products/${product.id}`,
+              "hasMerchantReturnPolicy": {
+                "@type": "MerchantReturnPolicy",
+                "applicableCountry": "AE",
+                "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+                "merchantReturnDays": 14,
+                "returnMethod": "https://schema.org/ReturnByMail",
+                "returnFees": "https://schema.org/FreeReturn",
+              },
             },
             "sku": product.id,
             "mpn": product.productNumber || product.id,

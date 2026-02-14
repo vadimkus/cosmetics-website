@@ -15,6 +15,11 @@ interface ProductsListSchemaProps {
 export default function ProductsListSchema({ products, category }: ProductsListSchemaProps) {
   const baseUrl = SITE_URL
   
+  // Filter to only products with valid prices — Google requires "offers", "review",
+  // or "aggregateRating" for @type:Product. Products with price=0 or isPriceOnRequest
+  // generate invalid Product snippets (GSC error: "Either offers, review, or aggregateRating should be specified").
+  const validProducts = products.filter(p => p.price > 0 && !p.isPriceOnRequest)
+  
   const schema = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
@@ -25,8 +30,8 @@ export default function ProductsListSchema({ products, category }: ProductsListS
     "url": `${baseUrl}/products${category ? `?category=${category}` : ''}`,
     "mainEntity": {
       "@type": "ItemList",
-      "numberOfItems": products.length,
-      "itemListElement": products.map((product, index) => {
+      "numberOfItems": validProducts.length,
+      "itemListElement": validProducts.map((product, index) => {
         let images = [product.image]
         try {
           if (product.images) {

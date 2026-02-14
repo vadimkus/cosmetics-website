@@ -19,6 +19,13 @@ interface ProductSchemaProps {
  * - AggregateRating only included when real data exists
  */
 export default function ProductSchema({ product }: ProductSchemaProps) {
+  // Skip Product schema entirely for products without a valid price.
+  // Google requires "offers", "review", or "aggregateRating" for @type:Product.
+  // Products with price = 0 or isPriceOnRequest generate invalid Product snippets.
+  if (!product.price || product.price <= 0 || product.isPriceOnRequest) {
+    return null
+  }
+
   let parsedImages = [product.image]
   try {
     if (product.images) {

@@ -91,10 +91,10 @@ export default function HeaderMobileIcons({
       <Image
         src="/Logo/upLOGO.png"
         alt="GENOSYS Logo"
-        width={180}
-        height={54}
+        width={120}
+        height={36}
         className="w-[120px] h-auto"
-        style={{ width: 'auto', height: 'auto' }}
+        priority
       />
     </Link>
   )

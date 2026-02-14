@@ -163,6 +163,7 @@ export default function Hero({ initialLocale = 'en', initialDir = 'ltr' }: HeroP
                   muted
                   playsInline
                   preload="auto"
+                  poster="/images/genosys-video-poster.jpg"
                   onError={() => {
                     warnLog('Video failed to load, showing fallback')
                     setVideoError(true)
@@ -183,7 +184,7 @@ export default function Hero({ initialLocale = 'en', initialDir = 'ltr' }: HeroP
                       width={200}
                       height={200}
                       className="mx-auto mb-4 opacity-80"
-                      style={{ width: 'auto', height: 'auto' }}
+                      priority
                     />
                   </div>
                 </div>
@@ -201,9 +202,8 @@ export default function Hero({ initialLocale = 'en', initialDir = 'ltr' }: HeroP
                 src="/images/genosys-logo.png" 
                 alt="GENOSYS Middle East FZ-LLC - Official Korean Dermacosmetics Distributor UAE" 
                 width={120}
-                height={120}
+                height={48}
                 className="h-12 w-auto"
-                style={{ width: 'auto', height: 'auto' }}
                 priority
               />
             </div>
@@ -319,6 +319,7 @@ export default function Hero({ initialLocale = 'en', initialDir = 'ltr' }: HeroP
                   muted
                   playsInline
                   preload="auto"
+                  poster="/images/genosys-video-poster.jpg"
                   onError={() => {
                     warnLog('Video failed to load, showing fallback')
                     setVideoError(true)
@@ -339,7 +340,7 @@ export default function Hero({ initialLocale = 'en', initialDir = 'ltr' }: HeroP
                       width={300}
                       height={300}
                       className="mx-auto mb-4 opacity-80"
-                      style={{ width: 'auto', height: 'auto' }}
+                      priority
                     />
                   </div>
                 </div>

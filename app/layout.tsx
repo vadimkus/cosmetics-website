@@ -241,99 +241,23 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+        {/* Preload hero video poster for instant LCP on homepage */}
+        <link rel="preload" href="/images/genosys-video-poster.jpg" as="image" fetchPriority="high" />
+        {/* Preload critical above-the-fold logo image */}
+        <link rel="preload" href="/images/genosys-logo.png" as="image" />
         
         {/* iOS Splash Screens for PWA */}
         <AppleSplashScreens />
-        {/* Set locale and direction IMMEDIATELY - This script MUST run before any React code */}
-        {/* Using blocking script tag (not Next.js Script) to ensure it runs synchronously */}
-        {/* This script runs synchronously and blocks rendering until it completes */}
+        {/* Set locale and direction IMMEDIATELY - minimal blocking script for LCP */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                try {
-                  // Run IMMEDIATELY - this must execute before React hydrates
-                  // Try multiple ways to get the path
-                  var path = (window.location && window.location.pathname) || 
-                            (document.location && document.location.pathname) || 
-                            (typeof location !== 'undefined' && location.pathname) || '';
-                  
-                  // Check if path starts with /ar or /ru
-                  var isArabic = path.startsWith('/ar');
-                  var isRussian = path.startsWith('/ru');
-                  var lang = isArabic ? 'ar' : (isRussian ? 'ru' : 'en');
-                  var dir = isArabic ? 'rtl' : 'ltr';
-                  
-                  // Get HTML element - it should exist immediately
-                  var html = document.documentElement;
-                  if (!html) return;
-                  
-                  // Set all possible ways to ensure it sticks - do this synchronously
-                  html.setAttribute('lang', lang);
-                  html.setAttribute('dir', dir);
-                  html.setAttribute('data-locale', lang);
-                  html.setAttribute('data-dir', dir);
-                  if (html.lang !== undefined) html.lang = lang;
-                  if (html.dir !== undefined) html.dir = dir;
-                  html.style.setProperty('direction', dir, 'important');
-                  
-                  // Also set on body if it exists
-                  if (document.body) {
-                    document.body.setAttribute('dir', dir);
-                    document.body.setAttribute('data-dir', dir);
-                    document.body.style.setProperty('direction', dir, 'important');
-                  }
-                  
-                  // Watch for body creation if it doesn't exist yet
-                  if (!document.body) {
-                    var observer = new MutationObserver(function(mutations) {
-                      try {
-                        // Check if body exists and has a parentNode before accessing it
-                        if (document.body && document.body.parentNode) {
-                          document.body.setAttribute('dir', dir);
-                          document.body.setAttribute('data-dir', dir);
-                          document.body.style.setProperty('direction', dir, 'important');
-                          observer.disconnect();
-                        }
-                      } catch(e) {
-                        // Silently fail if there's an error accessing body
-                        observer.disconnect();
-                      }
-                    });
-                    // Only observe if documentElement exists and has a parentNode
-                    if (document.documentElement && document.documentElement.parentNode) {
-                      observer.observe(document.documentElement, { childList: true });
-                    }
-                  }
-                  
-                  // Store in a way that's immediately accessible
-                  if (typeof window !== 'undefined') {
-                    window.__GENOSYS_DIR__ = dir;
-                    window.__GENOSYS_LANG__ = lang;
-                  }
-                } catch(e) {
-                  // Silently fail - don't break the page
-                }
-              })();
-            `,
+            __html: `(function(){try{var p=location.pathname,a=p.startsWith('/ar'),r=p.startsWith('/ru'),l=a?'ar':r?'ru':'en',d=a?'rtl':'ltr',h=document.documentElement;h.lang=l;h.dir=d;h.setAttribute('data-locale',l);h.setAttribute('data-dir',d);h.style.setProperty('direction',d,'important');window.__GENOSYS_DIR__=d;window.__GENOSYS_LANG__=l;if(document.body){document.body.dir=d;document.body.setAttribute('data-dir',d);document.body.style.setProperty('direction',d,'important')}else{new MutationObserver(function(m,o){if(document.body){document.body.dir=d;document.body.setAttribute('data-dir',d);document.body.style.setProperty('direction',d,'important');o.disconnect()}}).observe(h,{childList:true})}}catch(e){}})()`,
           }}
         />
-        {/* Theme initialization - prevents flash of wrong theme */}
+        {/* Theme initialization - prevents flash of wrong theme (minified for LCP) */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                try {
-                  var storedTheme = localStorage.getItem('genosys-theme');
-                  var systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-                  var theme = storedTheme === 'dark' ? 'dark' : 
-                              storedTheme === 'light' ? 'light' : 
-                              (systemDark ? 'dark' : 'light');
-                  document.documentElement.setAttribute('data-theme', theme);
-                  document.documentElement.classList.add(theme);
-                } catch(e) {}
-              })();
-            `,
+            __html: `(function(){try{var s=localStorage.getItem('genosys-theme'),d=window.matchMedia('(prefers-color-scheme:dark)').matches,t=s==='dark'?'dark':s==='light'?'light':d?'dark':'light';document.documentElement.setAttribute('data-theme',t);document.documentElement.classList.add(t)}catch(e){}})()`,
           }}
         />
         {/* Google Analytics */}

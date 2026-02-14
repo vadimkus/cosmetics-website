@@ -19,7 +19,6 @@ export default function Logo({ className = '', showText: _showText = true, size 
             width={size === 'sm' ? 128 : size === 'md' ? 240 : 400}
             height={size === 'sm' ? 128 : size === 'md' ? 240 : 400}
             className="object-contain"
-            style={{ width: 'auto', height: 'auto' }}
             priority
           />
         </div>

@@ -15,7 +15,6 @@ export default function TrainingHeader() {
           width={400} 
           height={200} 
           className="object-contain w-full max-w-xs sm:max-w-sm md:max-w-md"
-          style={{ width: 'auto', height: 'auto' }}
           priority
         />
       </div>

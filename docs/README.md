@@ -263,8 +263,9 @@
 
 | File | Description |
 |------|-------------|
-| [GOOGLE_SEARCH_CONSOLE_SETUP.md](./GOOGLE_SEARCH_CONSOLE_SETUP.md) | **NEW** Google Search Console verification, sitemap submission, ping API |
-| [GOOGLE_MERCHANT_CENTER_FEED.md](./GOOGLE_MERCHANT_CENTER_FEED.md) | **NEW** Product feed XML at /feed/products.xml — RSS 2.0 for Merchant Center scheduled fetch |
+| [CORE_WEB_VITALS_FIX.md](./CORE_WEB_VITALS_FIX.md) | **NEW** Fix CLS >0.1 & LCP >2.5s on mobile (56 URLs) — image style overrides, video poster, preload hints, minified scripts, cache headers |
+| [GOOGLE_SEARCH_CONSOLE_SETUP.md](./GOOGLE_SEARCH_CONSOLE_SETUP.md) | Google Search Console verification, sitemap submission, ping API |
+| [GOOGLE_MERCHANT_CENTER_FEED.md](./GOOGLE_MERCHANT_CENTER_FEED.md) | Product feed XML at /feed/products.xml — RSS 2.0 for Merchant Center scheduled fetch |
 | [SEO_CONCERN_LANDING_PAGES.md](./SEO_CONCERN_LANDING_PAGES.md) | Concern & category landing pages, product grid, discount logic, native app risk |
 | [SEO_IMPROVEMENTS_SUMMARY.md](./SEO_IMPROVEMENTS_SUMMARY.md) | SEO optimizations |
 | [BLOG_POST_CACHE_STATUS.md](./BLOG_POST_CACHE_STATUS.md) | Blog caching |

@@ -380,7 +380,6 @@ export default function ProductsPageClient({ initialProducts = [] }: ProductsPag
                 width={200}
                 height={80}
                 className="object-contain"
-                style={{ width: 'auto', height: 'auto' }}
                 priority
               />
             </div>

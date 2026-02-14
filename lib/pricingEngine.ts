@@ -505,13 +505,29 @@ export function generateEnhancedProductData(
   const isBestSeller = badges.some(badge => badge.type === 'best_seller')
   
   // Merge images: prioritize productConfig images (like the website does),
-  // then fall back to DB product.images, then just the main image.
+  // then fall back to DB product.images (combined with main image), then just the main image.
+  // IMPORTANT: productConfig images already include the main image as the first element.
+  // DB product.images only contains gallery images (not the main image), so we must
+  // prepend product.image to match the web's ProductImageGallery behavior.
   const configImages = getProductImages(configKey)
   let mergedImages: string | null = null
   if (configImages.length > 0) {
     mergedImages = JSON.stringify(configImages)
   } else if (product.images) {
-    mergedImages = product.images
+    // DB images are gallery-only — combine main image + gallery, avoiding duplicates
+    try {
+      const galleryImages = JSON.parse(product.images)
+      if (Array.isArray(galleryImages) && galleryImages.length > 0) {
+        const mainImage = product.image
+        const combined = [mainImage, ...galleryImages.filter((img: string) => img !== mainImage)]
+        mergedImages = JSON.stringify(combined)
+      } else {
+        mergedImages = product.images
+      }
+    } catch {
+      // If parsing fails, pass through as-is
+      mergedImages = product.images
+    }
   }
 
   // Merge videoUrl: prioritize productConfig, fall back to DB

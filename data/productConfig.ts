@@ -451,6 +451,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     pricing: {
       basePrice: 550
     },
+    images: ['/images/HHR.jpg', '/images/Second/hair_alpha.jpg'],
     documentation: [
       {
         title: 'HR³ MATRIX HAIR SOLUTION α Guide',

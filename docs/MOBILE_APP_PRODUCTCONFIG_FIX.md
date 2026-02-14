@@ -115,8 +115,8 @@ function resolveConfigKey(product: { id: string; productNumber?: string | null }
 **Before**: API returned only `product.images` from DB (often `null`).
 
 **After**: Same priority as website:
-1. `productConfig.images` (if present)
-2. `product.images` from DB
+1. `productConfig.images` (if present — already includes main image)
+2. `product.images` from DB **combined with** `product.image` (main image prepended, deduped)
 3. Fallback: single main image
 
 ```typescript
@@ -125,9 +125,15 @@ let mergedImages: string | null = null
 if (configImages.length > 0) {
   mergedImages = JSON.stringify(configImages)
 } else if (product.images) {
-  mergedImages = product.images
+  // DB images are gallery-only — combine main image + gallery, avoiding duplicates
+  const galleryImages = JSON.parse(product.images)
+  const mainImage = product.image
+  const combined = [mainImage, ...galleryImages.filter(img => img !== mainImage)]
+  mergedImages = JSON.stringify(combined)
 }
 ```
+
+> **Note (Feb 14, 2026)**: The DB `product.images` field stores gallery images only (not the main image). Prior to this fix, the API passed DB images through as-is, causing the native app to show only gallery images without the main product photo. Now the API prepends `product.image` to match the web's `ProductImageGallery` behavior. See [SESSION_CHANGES_2026-02-14.md](./SESSION_CHANGES_2026-02-14.md#part-3).
 
 ### 4. Color Variants Now Use configKey
 
@@ -290,4 +296,4 @@ The response structure did not change — only the *content* of existing fields:
 
 ---
 
-*Last updated: February 13, 2026*
+*Last updated: February 14, 2026 — Added main image merging for DB gallery images*

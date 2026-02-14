@@ -143,4 +143,95 @@ Added `trackUserActivityNow()` to every login/registration path, and added `trac
 
 ---
 
-*Commit: `17eac5f3` — fix: track user activity across all login methods for accurate online status*
+## Part 3: Fix Native App Showing Only 1 Product Image (Gallery Missing Main Image)
+
+### Summary
+
+Products with gallery images in the database (but no `productConfig` override) showed only **1 image** in the native app instead of 2. The mobile web showed both correctly. The fix is server-side — no app rebuild needed.
+
+### Root Cause
+
+The mobile API (`pricingEngine.ts`) passed through DB `product.images` as-is when no `productConfig` images existed. The DB `images` field contains only **gallery images** (e.g., `["/images/Second/tonicc.jpg"]`), not the main product image. The API sent this directly, so the native app received a 1-image array.
+
+The mobile web handled this correctly because `ProductImageGallery.tsx` combines `[mainImage, ...galleryImages]` client-side. The native app's `getProductImages()` trusted the API array as-is.
+
+### Affected Products
+
+| Product # | Product Name | `image` (main) | `images` (DB gallery) |
+|-----------|-------------|-----------------|----------------------|
+| 43 | HR³ MATRIX HAIR TONIC α | `/images/HT.jpg` | `["/images/Second/tonicc.jpg"]` |
+| 45 | SCALP PEELING | `/images/scal.jpg` | `["/images/Second/pp.jpg"]` |
+
+Product 44 (HR³ MATRIX HAIR SOLUTION α) also has DB `images`, but has a `productConfig` override that already includes the main image — so it was unaffected.
+
+### Fix
+
+**File**: `lib/pricingEngine.ts` — `generateEnhancedProductData()`
+
+When DB `images` are used (no productConfig override), the API now combines the main image with gallery images, matching the web's behavior:
+
+```typescript
+// Before: passed through raw DB images (gallery only)
+mergedImages = product.images
+
+// After: combines main + gallery, avoiding duplicates
+const galleryImages = JSON.parse(product.images)
+const mainImage = product.image
+const combined = [mainImage, ...galleryImages.filter(img => img !== mainImage)]
+mergedImages = JSON.stringify(combined)
+```
+
+### API Response Before vs After
+
+**Before** (product 43):
+```json
+{
+  "image": "/images/HT.jpg",
+  "images": "[\"/images/Second/tonicc.jpg\"]"
+}
+```
+App saw 1 image (and it was the wrong one — the secondary, not the main).
+
+**After** (product 43):
+```json
+{
+  "image": "/images/HT.jpg",
+  "images": "[\"/images/HT.jpg\",\"/images/Second/tonicc.jpg\"]"
+}
+```
+App now shows 2 images in the gallery carousel with pagination dots.
+
+### Web Compatibility
+
+The web's `ProductImageGallery.tsx` does `[mainImage, ...parsedImages.filter(img !== mainImage)]` — so even with the main image now included in `images`, the deduplication prevents duplicates. No change in web behavior.
+
+### Risk Assessment
+
+- **No app rebuild needed** — server-side only fix
+- **No web changes** — deduplication in `ProductImageGallery.tsx` handles the new format
+- **No breaking changes** — `images` field format is unchanged (JSON string array)
+- **Worst-case failure** — If JSON.parse fails, falls back to raw `product.images` (same as before)
+
+### Files Changed
+
+| File | Change |
+|------|--------|
+| `lib/pricingEngine.ts` | Combine `product.image` + `product.images` gallery (deduped) when no productConfig override |
+
+---
+
+### Related Documentation
+
+- [MOBILE_APP_PRODUCTCONFIG_FIX.md](./MOBILE_APP_PRODUCTCONFIG_FIX.md) — Full productConfig images/colors/docs fix reference
+- [ADMIN_ONLINE_USERS_FEATURE.md](./ADMIN_ONLINE_USERS_FEATURE.md) — Full activity tracking feature reference
+- [ADMIN_USER_MANAGEMENT.md](./ADMIN_USER_MANAGEMENT.md) — Admin page reference
+
+---
+
+### Commits
+
+| Commit | Description |
+|--------|-------------|
+| `17eac5f3` | fix: track user activity across all login methods for accurate online status |
+| `4855feee` | docs: update activity tracking and admin user management documentation |
+| `af6f01be` | fix: include main image in API gallery for products with DB images |

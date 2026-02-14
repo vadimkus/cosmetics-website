@@ -262,6 +262,18 @@ All authentication actions are tracked in your analytics system:
 - `mobile_user_registered` - New user registration
 - `mobile_user_logout` - User logout
 
+## 📱 lastLoginSource (Admin User Management)
+
+All mobile auth endpoints set `lastLoginSource: 'mobile_app'` on the user record. This enables the admin User Management page to show the "Mobile App" device badge next to users who registered or logged in via the native app.
+
+| Endpoint | When Set |
+|----------|----------|
+| `POST /api/mobile/auth/login` | On every login |
+| `POST /api/mobile/auth/register` | On registration |
+| `POST /api/mobile/auth/google` | On registration and login |
+
+See [ADMIN_USER_MANAGEMENT.md](./ADMIN_USER_MANAGEMENT.md) for full reference.
+
 ## 🎉 Ready to Use!
 
 Your mobile authentication system is now fully integrated with:

@@ -228,6 +228,8 @@ The backfill now runs on every admin users fetch and applies three rules:
 
 **Key Principle**: Better to show **no badge** than an inaccurate one. All users will get correctly tagged on their next login now that `userStorageDb.ts` is fixed.
 
+**Related (Feb 14, 2026)**: A follow-up fix addressed `addUser()` also dropping `lastLoginSource` — see [SESSION_CHANGES_2026-02-14.md](./SESSION_CHANGES_2026-02-14.md). Google OAuth and mobile register flows now set the field correctly.
+
 ---
 
 ## Files Changed Summary (Final)

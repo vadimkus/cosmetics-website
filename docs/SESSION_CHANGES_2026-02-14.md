@@ -22,6 +22,61 @@ Fixed a bug where users registering or logging in via Google OAuth (both mobile 
 
 ---
 
+### Code Changes (Exact)
+
+#### 1. lib/userStorageDb.ts — addUser()
+
+Added to `baseData`:
+
+```typescript
+lastLoginSource: userData.lastLoginSource || null,
+lastLoginAt: userData.lastLoginAt ? new Date(userData.lastLoginAt) : null,
+```
+
+#### 2. app/api/mobile/auth/google/route.ts
+
+**New user** (addUser call):
+
+```typescript
+lastLoginSource: 'mobile_app',
+```
+
+**Existing user** (updateUser call):
+
+```typescript
+await updateUser(user.id, { 
+  lastLoginAt: new Date().toISOString(),
+  lastLoginSource: 'mobile_app',
+})
+```
+
+#### 3. app/api/mobile/auth/register/route.ts
+
+Added to `UserCreateInput`:
+
+```typescript
+lastLoginSource: 'mobile_app',
+```
+
+#### 4. app/api/auth/google/callback/route.ts
+
+Device detection (before find/create):
+
+```typescript
+const callbackUserAgent = request.headers.get('user-agent') || ''
+const isMobileCallback = /mobile|android|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(callbackUserAgent.toLowerCase())
+const loginSource = isMobileCallback ? 'mobile_web' : 'desktop_web'
+```
+
+New user: `lastLoginAt`, `lastLoginSource: loginSource` in addUser().  
+Existing user: `lastLoginSource: loginSource` in updateUser().
+
+#### 5. app/api/auth/google/verify/route.ts
+
+Same pattern as callback — device detection + `loginSource` for addUser and updateUser.
+
+---
+
 ### Files Changed
 
 | File | Change |
@@ -39,7 +94,7 @@ Fixed a bug where users registering or logging in via Google OAuth (both mobile 
 | Endpoint | Source Set | Method |
 |----------|-----------|--------|
 | `/api/auth/register` | `desktop_web` / `mobile_web` | User-Agent detection |
-| `/api/auth/login` | _(not checked — verify separately)_ | — |
+| `/api/auth/login` | `desktop_web` / `mobile_web` | User-Agent detection |
 | `/api/auth/google/callback` | `desktop_web` / `mobile_web` | User-Agent detection (NEW) |
 | `/api/auth/google/verify` | `desktop_web` / `mobile_web` | User-Agent detection (NEW) |
 | `/api/auth/apple/callback` | `desktop_web` / `mobile_web` | User-Agent detection (already existed) |
@@ -54,6 +109,14 @@ Fixed a bug where users registering or logging in via Google OAuth (both mobile 
 - **No breaking changes** — All modifications are additive (setting a nullable field that was previously left `null`)
 - **Worst-case failure** — Wrong badge or no badge; never a failed registration
 - **No schema changes** — `lastLoginSource` column already exists in the database
+
+---
+
+### Related Documentation
+
+- [ADMIN_USER_MANAGEMENT.md](./ADMIN_USER_MANAGEMENT.md) — Full user management reference
+- [ADMIN_ONLINE_USERS_FEATURE.md](./ADMIN_ONLINE_USERS_FEATURE.md) — Online users + login source tracking
+- [SESSION_LOG_2026_02_11.md](./SESSION_LOG_2026_02_11.md) — Previous fix: updateUser() not saving lastLoginSource
 
 ---
 

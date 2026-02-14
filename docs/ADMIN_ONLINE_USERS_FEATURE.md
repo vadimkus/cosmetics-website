@@ -194,9 +194,10 @@ Administrators can now see which platform/device each user last logged in from. 
 
 ### Detection Logic
 
-**Mobile App** (`/api/mobile/auth/login`):
+**Mobile App** (all `/api/mobile/auth/*` endpoints):
 - Always sets `lastLoginSource: 'mobile_app'`
-- No detection needed - this endpoint is only called by the native app
+- Endpoints: `login`, `register`, `google`
+- No detection needed — identified by `x-api-key` header
 
 **Web Login** (`/api/auth/login`):
 ```typescript
@@ -209,9 +210,15 @@ const loginSource = isMobileDevice ? 'mobile_web' : 'desktop_web'
 - Same User-Agent detection as web login
 - Works for both new users and returning users
 
+**Web Google OAuth** (`/api/auth/google/callback`, `/api/auth/google/verify`):
+- Same User-Agent detection (added Feb 14, 2026)
+- Works for both new users and returning users
+
 **Registration** (`/api/auth/register`):
 - Sets `lastLoginSource` on account creation
 - Uses same User-Agent detection
+
+**addUser() fix (Feb 14, 2026)**: `lib/userStorageDb.ts` previously dropped `lastLoginSource` and `lastLoginAt` in `addUser()` — now both are passed to Prisma. See [SESSION_CHANGES_2026-02-14.md](./SESSION_CHANGES_2026-02-14.md).
 
 ### Database Schema
 
@@ -247,11 +254,15 @@ The login source icon appears next to the "last active" timestamp:
 |------|--------|
 | `prisma/schema.prisma` | Added `lastLoginSource String?` |
 | `app/api/mobile/auth/login/route.ts` | Sets `mobile_app` |
+| `app/api/mobile/auth/register/route.ts` | Sets `mobile_app` (Feb 14) |
+| `app/api/mobile/auth/google/route.ts` | Sets `mobile_app` for reg + login (Feb 14) |
 | `app/api/auth/login/route.ts` | Detects desktop_web/mobile_web |
+| `app/api/auth/google/callback/route.ts` | Detects for Google OAuth (Feb 14) |
+| `app/api/auth/google/verify/route.ts` | Detects for Google OAuth (Feb 14) |
 | `app/api/auth/apple/callback/route.ts` | Detects for Apple Sign-In |
 | `app/api/auth/register/route.ts` | Sets on registration |
-| `app/api/admin/users/route.ts` | Returns `lastLoginSource` |
-| `lib/userStorageDb.ts` | Added to UserData interface |
+| `app/api/admin/users/route.ts` | Returns `lastLoginSource`, backfill logic |
+| `lib/userStorageDb.ts` | UserData interface, addUser() + updateUser() mapping |
 | `components/admin/AdminUsersManager.tsx` | Added icons and legend |
 
 ---
@@ -277,4 +288,5 @@ If needed, to rollback this feature:
 ---
 
 *Documentation created: February 9, 2026*  
-*Updated: February 10, 2026 - Added login source tracking*
+*Updated: February 10, 2026 - Added login source tracking*  
+*Updated: February 14, 2026 - Google OAuth + mobile register + addUser fix — see [SESSION_CHANGES_2026-02-14.md](./SESSION_CHANGES_2026-02-14.md)*

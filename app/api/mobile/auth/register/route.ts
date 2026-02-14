@@ -236,6 +236,7 @@ export async function POST(request: NextRequest) {
         discountPercentage,
         birthday: birthday || null,
         lastLoginAt: now,
+        lastLoginSource: 'mobile_app',
       }
       return await tx.user.create({ data: userData })
     })

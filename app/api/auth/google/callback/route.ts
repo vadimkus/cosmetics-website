@@ -136,6 +136,11 @@ export async function GET(request: NextRequest) {
     const normalizedEmail = String(googleUser.email || '').trim().toLowerCase()
     let user = await findUserByEmail(normalizedEmail)
 
+    // Detect login source from User-Agent
+    const callbackUserAgent = request.headers.get('user-agent') || ''
+    const isMobileCallback = /mobile|android|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(callbackUserAgent.toLowerCase())
+    const loginSource = isMobileCallback ? 'mobile_web' : 'desktop_web'
+
     if (!user) {
       // Create new user with Google data
       debugLog('[GOOGLE_CALLBACK] Creating new user...')
@@ -149,6 +154,8 @@ export async function GET(request: NextRequest) {
           address: null,
           isAdmin: false,
           canSeePrices: true,
+          lastLoginAt: new Date().toISOString(),
+          lastLoginSource: loginSource,
         })
         debugLog('[GOOGLE_CALLBACK] New user created:', { 
           id: user.id, 
@@ -261,8 +268,11 @@ export async function GET(request: NextRequest) {
         debugLog('[GOOGLE_CALLBACK] No picture provided by Google, skipping update')
       }
 
-      // Update last login timestamp
-      await updateUser(user.id, { lastLoginAt: new Date().toISOString() })
+      // Update last login timestamp and source
+      await updateUser(user.id, { 
+        lastLoginAt: new Date().toISOString(),
+        lastLoginSource: loginSource,
+      })
     }
 
     // Detect locale from cookie or referer, default to English

@@ -81,6 +81,8 @@ export const addUser = async (userData: UserData): Promise<User> => {
       billingAddress: userData.billingAddress || null,
       vatNumber: userData.vatNumber || null,
       expoPushToken: userData.expoPushToken || null,
+      lastLoginSource: userData.lastLoginSource || null,
+      lastLoginAt: userData.lastLoginAt ? new Date(userData.lastLoginAt) : null,
     }
     
     const createData = {

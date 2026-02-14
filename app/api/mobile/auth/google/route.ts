@@ -137,7 +137,8 @@ export async function POST(request: NextRequest) {
           discountType: null,
           discountPercentage: null,
           birthday: null,
-          lastLoginAt: new Date().toISOString()
+          lastLoginAt: new Date().toISOString(),
+          lastLoginSource: 'mobile_app',
         })
         
         debugLog('[MOBILE_AUTH] New user created:', { id: user.id, email: user.email })
@@ -231,9 +232,12 @@ export async function POST(request: NextRequest) {
         }
       }
 
-      // Update last login timestamp
+      // Update last login timestamp and source
       try {
-        await updateUser(user.id, { lastLoginAt: new Date().toISOString() })
+        await updateUser(user.id, { 
+          lastLoginAt: new Date().toISOString(),
+          lastLoginSource: 'mobile_app',
+        })
       } catch (error) {
         errorLog('[MOBILE_AUTH] Error updating last login timestamp:', error)
         // Don't fail login if timestamp update fails

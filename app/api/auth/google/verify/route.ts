@@ -65,6 +65,11 @@ export async function POST(request: NextRequest) {
     // Find or create user
     let user = await findUserByEmail(googleUser.email)
 
+    // Detect login source from User-Agent
+    const verifyUserAgent = request.headers.get('user-agent') || ''
+    const isMobileVerify = /mobile|android|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(verifyUserAgent.toLowerCase())
+    const loginSource = isMobileVerify ? 'mobile_web' : 'desktop_web'
+
     if (!user) {
       // Create new user with Google data
       debugLog('[GOOGLE_VERIFY] Creating new user...')
@@ -78,6 +83,8 @@ export async function POST(request: NextRequest) {
           address: null,
           isAdmin: false,
           canSeePrices: true,
+          lastLoginAt: new Date().toISOString(),
+          lastLoginSource: loginSource,
         })
         debugLog('[GOOGLE_VERIFY] New user created:', { id: user.id, email: user.email })
 
@@ -162,8 +169,11 @@ export async function POST(request: NextRequest) {
         user.profilePicture = googleUser.picture
       }
 
-      // Update last login timestamp
-      await updateUser(user.id, { lastLoginAt: new Date().toISOString() })
+      // Update last login timestamp and source
+      await updateUser(user.id, { 
+        lastLoginAt: new Date().toISOString(),
+        lastLoginSource: loginSource,
+      })
     }
 
     // Return user data (excluding sensitive fields)

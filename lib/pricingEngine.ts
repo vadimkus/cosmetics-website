@@ -13,7 +13,7 @@
 
 import { Product } from '@/types'
 import { User, ApiUser } from '@/types/user'
-import { getProductConfig, getProductSizes, getProductColors, getProductImages, getProductVideoUrl } from '@/data/productConfig'
+import { getProductConfig, getProductSizes, getProductColors, getProductImages, getProductVideoUrl, getProductDocumentation } from '@/data/productConfig'
 import { calculateDiscountedPrice } from '@/lib/discountUtils'
 import { debugLog } from '@/lib/logger'
 
@@ -123,6 +123,9 @@ export interface EnhancedProductData {
   targetConcerns?: string | null  // JSON array of concerns like ["anti-aging", "acne", "hydration"]
   usage?: string | null           // morning, evening, all-day, morning-evening
   ageGroup?: string | null        // teen, young-adult, adult, mature
+  
+  // Product documentation (PDF guides, etc.)
+  documentation?: Array<{ title: string; url: string; type: string }> | null
 }
 
 /**
@@ -515,6 +518,10 @@ export function generateEnhancedProductData(
   const configVideoUrl = getProductVideoUrl(configKey)
   const mergedVideoUrl = configVideoUrl || product.videoUrl || null
 
+  // Get product documentation (PDF guides) from productConfig
+  const docs = getProductDocumentation(configKey)
+  const documentation = docs.length > 0 ? docs : null
+
   const enhancedData: EnhancedProductData = {
     id: product.id,
     name: product.name,
@@ -568,7 +575,10 @@ export function generateEnhancedProductData(
     // Skin recommendation fields
     targetConcerns: product.targetConcerns ?? null,
     usage: product.usage ?? null,
-    ageGroup: product.ageGroup ?? null
+    ageGroup: product.ageGroup ?? null,
+    
+    // Product documentation (PDF guides)
+    documentation
   }
   
   debugLog('✅ Enhanced product data generated:', { 

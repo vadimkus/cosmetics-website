@@ -5,7 +5,7 @@
 
 ## Overview
 
-The Admin User Management page (`/admin` → Users tab) displays all registered users with their contact info, order statistics, status badges, and device/login source. Administrators can search, filter, edit, and delete users.
+The Admin User Management page (`/admin` → Users tab) displays all registered users with their contact info, order statistics, status badges, activity timestamps, and device/login source. Administrators can search, filter, edit, and delete users.
 
 ---
 
@@ -15,11 +15,23 @@ The Admin User Management page (`/admin` → Users tab) displays all registered 
 
 | Column | Content |
 |--------|---------|
-| **User** | Avatar, name, email, online indicator, device badge, last active time |
+| **User** | Avatar (with online dot), name, email, online badge, device badge, last active time, last login time, registration date |
 | **Contact** | Phone, address |
 | **Orders** | Order count, total spent (AED) |
 | **Status** | Admin badge, "Can see prices", discount badge (e.g. CLINIC 50%) |
 | **Actions** | Edit, Delete |
+
+### User Column Details
+
+Each user row displays:
+1. **Avatar** — First letter of name, with pulsing green dot if online
+2. **Name line** — Name + "Online" badge (if active) + device badge (Desktop/Mobile Web/App)
+3. **Email** — Truncated if too long
+4. **Timestamps line** (three items):
+   - Clock icon + relative time since last activity ("Online now", "5m ago", "2h ago", "Yesterday", etc.)
+   - "Login" + formatted last login date/time
+   - UserPlus icon + registration date
+   - All timestamps show full precision on hover
 
 ### Badges
 
@@ -37,9 +49,9 @@ The Admin User Management page (`/admin` → Users tab) displays all registered 
 |------|-------|-------|-------|
 | Monitor | Desktop | `desktop_web` | Gray |
 | TabletSmartphone | Mobile Web | `mobile_web` | Blue |
-| Smartphone | Mobile App | `mobile_app` | Purple |
+| Smartphone | App | `mobile_app` | Purple |
 
-No badge shown when `lastLoginSource` is `null` (unknown).
+No badge shown when `lastLoginSource` is `null` (unknown — will be set on next login).
 
 ---
 
@@ -61,6 +73,37 @@ No badge shown when `lastLoginSource` is `null` (unknown).
 | Mobile Web | `lastLoginSource === 'mobile_web'` |
 | App | `lastLoginSource === 'mobile_app'` |
 
+Filters are toggle-style (click to activate, click again to deactivate). A "Clear" button appears when any filter is active, showing the count of matching users.
+
+---
+
+## Timestamp Display
+
+### Relative Time Format (`formatRelativeTime`)
+
+| Time Since Activity | Display |
+|---------------------|---------|
+| < 1 minute | "Just now" |
+| < 5 minutes | "Online now" |
+| < 60 minutes | "Xm ago" |
+| < 24 hours | "Xh ago" |
+| 1 day | "Yesterday" |
+| < 7 days | "Xd ago" |
+| < 30 days | "Xw ago" |
+| Older | Formatted date |
+
+### Date/Time Format (`formatDateTime`)
+
+| Condition | Format | Example |
+|-----------|--------|---------|
+| Today | Time only | "09:30 PM" |
+| This year | Month day + time | "Feb 14, 09:30 PM" |
+| Older | Full date | "Dec 15, 2025" |
+
+### Tooltip (hover)
+
+All timestamps show full precision on hover: "Feb 14, 2026, 09:30:45 PM"
+
 ---
 
 ## Data Sources
@@ -76,8 +119,10 @@ No badge shown when `lastLoginSource` is `null` (unknown).
 
 | Field | Source | Notes |
 |-------|--------|-------|
-| `lastLoginSource` | User model | Set on login/registration |
-| `lastActiveAt` | Activity tracker | Throttled updates |
+| `lastActiveAt` | Activity tracker | Updated on every authenticated request (throttled to 1x/min) |
+| `lastLoginAt` | Auth routes | Set once per login |
+| `lastLoginSource` | Auth routes | Set on login/registration |
+| `createdAt` | User model | Set on registration |
 | `canSeePrices` | User model | Admin-editable |
 | `discountType`, `discountPercentage` | User model | Admin-editable |
 
@@ -87,16 +132,20 @@ No badge shown when `lastLoginSource` is `null` (unknown).
 
 ### All Auth Endpoints (as of Feb 14, 2026)
 
-| Endpoint | Source Set | Method |
-|----------|-----------|--------|
-| `/api/auth/register` | `desktop_web` / `mobile_web` | User-Agent detection |
-| `/api/auth/login` | `desktop_web` / `mobile_web` | User-Agent detection |
-| `/api/auth/google/callback` | `desktop_web` / `mobile_web` | User-Agent detection |
-| `/api/auth/google/verify` | `desktop_web` / `mobile_web` | User-Agent detection |
-| `/api/auth/apple/callback` | `desktop_web` / `mobile_web` | User-Agent detection |
-| `/api/mobile/auth/login` | `mobile_app` | Hardcoded |
-| `/api/mobile/auth/register` | `mobile_app` | Hardcoded |
-| `/api/mobile/auth/google` | `mobile_app` | Hardcoded |
+| Endpoint | Source Set | Method | Activity Tracked |
+|----------|-----------|--------|-----------------|
+| `/api/auth/register` | `desktop_web` / `mobile_web` | User-Agent detection | `trackUserActivityNow()` |
+| `/api/auth/login` | `desktop_web` / `mobile_web` | User-Agent detection | `trackUserActivityNow()` |
+| `/api/auth/google/callback` | `desktop_web` / `mobile_web` | User-Agent detection | `trackUserActivityNow()` |
+| `/api/auth/apple/callback` | `desktop_web` / `mobile_web` | User-Agent detection | `trackUserActivityNow()` |
+| `/api/auth/passkey/login-verify` | `desktop_web` / `mobile_web` | User-Agent detection | `trackUserActivityNow()` |
+| `/api/auth/session` | — (not a login) | — | `trackUserActivity()` (heartbeat) |
+| `/api/mobile/auth/login` | `mobile_app` | Hardcoded | `trackUserActivityNow()` |
+| `/api/mobile/auth/register` | `mobile_app` | Hardcoded | (via addUser) |
+| `/api/mobile/auth/google` | `mobile_app` | Hardcoded | `trackUserActivityNow()` |
+| `/api/mobile/auth/apple` | `mobile_app` | Hardcoded | `trackUserActivityNow()` |
+| `/api/mobile/user/profile` | — (not a login) | — | `trackUserActivity()` (heartbeat) |
+| `/api/mobile/orders` | — (not a login) | — | `trackUserActivity()` (heartbeat) |
 
 ### Detection Logic
 
@@ -112,16 +161,10 @@ const loginSource = isMobile ? 'mobile_web' : 'desktop_web'
 
 ### Backfill Logic (Admin Users API)
 
-When `GET /api/admin/users` is called:
+When `GET /api/admin/users` is called, a lightweight idempotent backfill runs:
+- Users with `expoPushToken` and `lastLoginSource: null` → Set to `'mobile_app'`
 
-1. **expoPushToken users** → Set `lastLoginSource: 'mobile_app'` (reliable signal)
-2. **desktop_web users without expoPushToken** who haven't logged in today → Reset to `null` (avoid stale wrong data)
-
-### Key Implementation Details
-
-- **addUser()** (`lib/userStorageDb.ts`): Must include `lastLoginSource` and `lastLoginAt` in `baseData` — previously these were silently dropped.
-- **updateUser()**: Correctly maps `lastLoginSource` (fixed Feb 11, 2026).
-- **Direct Prisma creates** (e.g. mobile register): Must explicitly add `lastLoginSource: 'mobile_app'` to `UserCreateInput`.
+This only affects users who registered before login source tracking was added.
 
 ---
 
@@ -143,25 +186,26 @@ When `GET /api/admin/users` is called:
   "users": [
     {
       "id": "...",
-      "email": "...",
-      "name": "...",
-      "phone": "...",
-      "address": "...",
+      "email": "user@example.com",
+      "name": "John Doe",
+      "phone": "585507717",
+      "address": "Jlt, Dubai",
       "profilePicture": "...",
       "isAdmin": false,
       "canSeePrices": true,
       "discountType": "CLINIC",
       "discountPercentage": 50,
-      "lastLoginAt": "...",
-      "lastLoginSource": "mobile_app",
-      "lastActiveAt": "...",
-      "createdAt": "...",
-      "orderCount": 0,
-      "totalSpent": 0,
-      "lastOrderDate": null
+      "lastLoginAt": "2026-02-14T17:30:00.000Z",
+      "lastLoginSource": "mobile_web",
+      "lastActiveAt": "2026-02-14T17:35:00.000Z",
+      "createdAt": "2026-01-12T10:00:00.000Z",
+      "updatedAt": "2026-02-14T17:35:00.000Z",
+      "orderCount": 3,
+      "totalSpent": 745.00,
+      "lastOrderDate": "2026-02-10T12:00:00.000Z"
     }
   ],
-  "total": 42,
+  "total": 378,
   "limit": 1000,
   "offset": 0,
   "hasMore": false
@@ -185,11 +229,11 @@ When `GET /api/admin/users` is called:
 | File | Purpose |
 |------|---------|
 | `app/admin/page.tsx` | Admin dashboard, fetches users |
-| `components/admin/AdminUsersManager.tsx` | User table, filters, badges |
-| `app/api/admin/users/route.ts` | GET users, order stats, backfill |
+| `components/admin/AdminUsersManager.tsx` | User table, filters, badges, timestamps |
+| `app/api/admin/users/route.ts` | GET users API — order stats, backfill, sorting |
 | `app/api/admin/users/[id]/route.ts` | PUT/DELETE user |
-| `lib/activityTracker.ts` | Online status, lastActiveAt |
-| `lib/userStorageDb.ts` | addUser, updateUser, findUserByEmail |
+| `lib/activityTracker.ts` | Activity tracking — `lastActiveAt` updates |
+| `lib/userStorageDb.ts` | `addUser()`, `updateUser()`, `findUserByEmail()` |
 
 ---
 
@@ -199,4 +243,5 @@ When `GET /api/admin/users` is called:
 |------|--------|
 | Feb 9–10, 2026 | Online users, lastActiveAt, login source tracking |
 | Feb 11, 2026 | Fixed updateUser() not saving lastLoginSource |
-| Feb 14, 2026 | Fixed addUser() dropping lastLoginSource; added Google OAuth + mobile register coverage |
+| Feb 14, 2026 (AM) | Fixed addUser() dropping lastLoginSource; added Google OAuth + mobile register coverage |
+| Feb 14, 2026 (PM) | Added `trackUserActivityNow()` to ALL auth routes. Added session heartbeat for web users. Fixed passkey + mobile Apple missing fields. Improved admin UI with login timestamps, registration dates, and relative time formatting. Simplified backfill logic. |

@@ -3,52 +3,69 @@
 > **Date**: February 9-10, 2026  
 > **Status**: Implemented and tested  
 > **Build**: Passing
-> **Updated**: February 10, 2026 - Added login source tracking
+> **Updated**: February 14, 2026 — Full activity tracking across all auth routes + admin UI improvements
 
 ## Overview
 
-This feature adds real-time online status tracking for users in the admin portal. Administrators can now see which users are currently active on the website or mobile app, with visual indicators and activity timestamps.
+This feature adds real-time online status tracking for users in the admin portal. Administrators can now see which users are currently active on the website or mobile app, with visual indicators, activity timestamps, login timestamps, and registration dates.
 
 ## Features
 
 ### 1. Online Status Indicator
-- **Green dot** on user avatar when online
+- **Pulsing green dot** on user avatar when online
 - **"Online" badge** next to user name
 - Users are considered online if active within the last **5 minutes**
 
-### 2. Last Active Timestamp
-- Shows human-readable time since last activity
-- Examples: "Online now", "5m ago", "2h ago", "Yesterday", "3d ago"
-- Falls back to date format for older activity
+### 2. Activity Timestamps
+- **Last active**: Relative time since last activity (e.g., "Just now", "Online now", "5m ago", "2h ago", "Yesterday", "3d ago", "2w ago")
+- **Last login**: Formatted date/time of last login (e.g., "Feb 14, 09:30 PM")
+- **Registration date**: When the user first registered (e.g., "Jan 12, 2026")
+- Full datetime visible on hover tooltip for all timestamps
 
 ### 3. Smart Sorting
 - Online/recently active users automatically appear **at the top** of the users list
+- Users who have never been active sort to the bottom
 - Secondary sort by registration date
 
-### 4. Legend
-- Updated with green dot indicator explanation
-- Located in the Users section header
+### 4. Login Source Badges
+- **Desktop** (gray badge with Monitor icon) — `desktop_web`
+- **Mobile Web** (blue badge with TabletSmartphone icon) — `mobile_web`
+- **App** (purple badge with Smartphone icon) — `mobile_app`
+- No badge shown when `lastLoginSource` is `null`
+
+### 5. Filters
+- **Status filters**: Online, Has orders, No orders
+- **Device filters**: Desktop, Mobile Web, App
+- **Clear** button when any filter is active
+
+---
 
 ## Technical Implementation
 
 ### Database Schema
 
-Added `lastActiveAt` field to the User model:
+Three fields on the User model power this feature:
 
 ```prisma
 model User {
   // ... existing fields
-  lastActiveAt DateTime? // Tracks last user activity for online status
+  lastLoginAt        DateTime? // Set on every login
+  lastLoginSource    String?   // desktop_web, mobile_web, mobile_app
+  lastActiveAt       DateTime? // Tracks ongoing activity for online status
   // ...
 }
 ```
+
+**Difference between `lastLoginAt` and `lastActiveAt`:**
+- `lastLoginAt` — Updated once per login (set in auth routes). Shows "when did they last log in?"
+- `lastActiveAt` — Updated continuously while user is active (throttled to 1x/minute). Shows "are they online right now?"
 
 ### Activity Tracking Library
 
 **File**: `lib/activityTracker.ts`
 
 ```typescript
-// Throttled activity update (max once per minute)
+// Throttled activity update (max once per minute per user)
 trackUserActivity(userId: string): Promise<void>
 
 // Immediate update (for login events)
@@ -65,52 +82,100 @@ formatLastActive(lastActiveAt: Date | null): string
 - **Fail-safe**: Never throws, never blocks requests
 - **Throttled**: Updates DB at most once per minute per user
 - **Lightweight**: Minimal performance impact
-- **Non-blocking**: Uses fire-and-forget pattern
+- **Non-blocking**: Uses fire-and-forget pattern for throttled calls
 
-### API Endpoints Updated
+### How Activity Tracking Works
 
-Activity tracking is integrated into key authenticated endpoints:
+#### On Login (Immediate)
+Every login route calls `trackUserActivityNow(userId)` which immediately sets `lastActiveAt = now()`:
 
-| Endpoint | Tracking Type |
-|----------|---------------|
-| `POST /api/mobile/auth/login` | Immediate (`trackUserActivityNow`) |
-| `GET /api/mobile/user/profile` | Throttled (`trackUserActivity`) |
-| `GET /api/mobile/orders` | Throttled (`trackUserActivity`) |
+| Endpoint | Login Source Set | Activity Tracked |
+|----------|-----------------|-----------------|
+| `POST /api/auth/login` | `desktop_web` / `mobile_web` | `trackUserActivityNow()` |
+| `GET /api/auth/google/callback` | `desktop_web` / `mobile_web` | `trackUserActivityNow()` |
+| `POST /api/auth/apple/callback` | `desktop_web` / `mobile_web` | `trackUserActivityNow()` |
+| `POST /api/auth/passkey/login-verify` | `desktop_web` / `mobile_web` | `trackUserActivityNow()` |
+| `POST /api/auth/register` | `desktop_web` / `mobile_web` | `trackUserActivityNow()` |
+| `POST /api/mobile/auth/login` | `mobile_app` | `trackUserActivityNow()` |
+| `POST /api/mobile/auth/google` | `mobile_app` | `trackUserActivityNow()` |
+| `POST /api/mobile/auth/apple` | `mobile_app` | `trackUserActivityNow()` |
 
-### Admin API Changes
+#### Ongoing Activity (Heartbeat)
+
+**Web users**: The `GET /api/auth/session` endpoint is called every ~5 minutes by `UserRefreshWrapper` on the client side. It now calls `trackUserActivity(userId)` (throttled) to keep `lastActiveAt` fresh while the user has the tab open. No new client-side code was needed — piggybacks on existing session refresh.
+
+**Mobile app users**: The `GET /api/mobile/user/profile` and `GET /api/mobile/orders` endpoints call `trackUserActivity(userId)` (throttled).
+
+### Login Source Detection
+
+**Web endpoints** — detected from User-Agent:
+```typescript
+const userAgent = request.headers.get('user-agent') || ''
+const isMobileDevice = /mobile|android|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent.toLowerCase())
+const loginSource = isMobileDevice ? 'mobile_web' : 'desktop_web'
+```
+
+**Mobile app endpoints** — always hardcoded:
+```typescript
+lastLoginSource: 'mobile_app'
+```
+
+### Admin API
 
 **File**: `app/api/admin/users/route.ts`
 
-- Added `lastActiveAt` to returned user fields
-- Changed sorting to: `lastActiveAt DESC, createdAt DESC`
+- Returns `lastActiveAt`, `lastLoginAt`, `lastLoginSource`, `createdAt` for each user
+- Sorts by: `lastActiveAt DESC NULLS LAST`, then `createdAt DESC`
+- Backfill: Tags users with `expoPushToken` as `mobile_app` if `lastLoginSource` is null
 
 ### Frontend Component
 
 **File**: `components/admin/AdminUsersManager.tsx`
 
-Changes:
-1. Added `lastActiveAt` to User interface
-2. Added `isUserOnline()` and `formatLastActive()` helper functions
-3. Green dot indicator on avatar (absolute positioned)
-4. "Online" badge next to user name
-5. Last active timestamp below email
-6. Updated legend with online indicator
+Key display elements per user row:
+1. **Avatar** with pulsing green dot if online
+2. **Name** with "Online" badge and device badge
+3. **Email**
+4. **Activity line** showing:
+   - Clock icon + relative time (last active)
+   - "Login" + formatted login time
+   - UserPlus icon + registration date
+5. Full datetime on hover tooltip for all timestamps
+
+Helper functions:
+- `isUserOnline(lastActiveAt)` — Checks if within 5 minutes
+- `formatRelativeTime(dateStr)` — "Just now", "5m ago", "2h ago", "Yesterday", "3d ago", "2w ago", or formatted date
+- `formatDateTime(dateStr)` — "09:30 PM" (today), "Feb 14, 09:30 PM" (this year), "Feb 14, 2025" (older)
+- `formatFullDateTime(dateStr)` — Full precision for tooltips
+
+---
 
 ## Visual Design
 
-### Online User Row
+### User Row (Online)
 ```
-┌─────────────────────────────────────────────────────────┐
-│ [Avatar]● │ John Doe [Online]        │ Contact │ Orders │
-│           │ john@email.com           │         │        │
-│           │ Online now               │         │        │
-└─────────────────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────────────────┐
+│ [Avatar]●  │ John Doe [Online] [📱 App]  │ Contact │ Orders │ Status │
+│            │ john@email.com               │         │        │        │
+│            │ 🕐 Online now · Login 09:30 PM · 👤 Jan 12   │        │
+└──────────────────────────────────────────────────────────────────────┘
 ```
 
-### Legend
+### User Row (Recently Active)
 ```
-● Online    [green bg] Has orders    [white bg] No orders
+┌──────────────────────────────────────────────────────────────────────┐
+│ [Avatar]   │ Jane Smith [🖥️ Desktop]     │ Contact │ Orders │ Status │
+│            │ jane@email.com               │         │        │        │
+│            │ 🕐 2h ago · Login Feb 14, 09:30 PM · 👤 Feb 1  │        │
+└──────────────────────────────────────────────────────────────────────┘
 ```
+
+### Filter Bar
+```
+● Online    ◻ Has orders    ◻ No orders  |  🖥️ Desktop    📱 Mobile Web    📱 App    [Clear]
+```
+
+---
 
 ## Configuration
 
@@ -118,152 +183,74 @@ Changes:
 
 | Setting | Value | Location |
 |---------|-------|----------|
-| Online threshold | 5 minutes | `lib/activityTracker.ts` |
+| Online threshold | 5 minutes | `lib/activityTracker.ts` + `AdminUsersManager.tsx` |
 | Throttle period | 1 minute | `lib/activityTracker.ts` |
 | Memory cleanup | >1000 entries | `lib/activityTracker.ts` |
+| Session heartbeat | ~5 minutes | `UserRefreshWrapper` (client-side) |
 
-### Customization
+---
 
-To change the online threshold (e.g., to 10 minutes):
+## Files
 
-```typescript
-// In lib/activityTracker.ts
-export function isUserOnline(lastActiveAt: Date | null | undefined): boolean {
-  if (!lastActiveAt) return false
-  const tenMinutesAgo = Date.now() - 10 * 60 * 1000  // Changed from 5
-  return new Date(lastActiveAt).getTime() > tenMinutesAgo
-}
-```
+| File | Purpose |
+|------|---------|
+| `prisma/schema.prisma` | `lastActiveAt`, `lastLoginAt`, `lastLoginSource` fields on User model |
+| `lib/activityTracker.ts` | Activity tracking library — throttled + immediate updates |
+| `app/api/auth/session/route.ts` | Web heartbeat — calls `trackUserActivity()` on session check |
+| `app/api/auth/login/route.ts` | Web login — `trackUserActivityNow()` + `lastLoginSource` |
+| `app/api/auth/google/callback/route.ts` | Web Google OAuth — `trackUserActivityNow()` + `lastLoginSource` |
+| `app/api/auth/apple/callback/route.ts` | Web Apple Sign-In — `trackUserActivityNow()` + `lastLoginSource` |
+| `app/api/auth/passkey/login-verify/route.ts` | Web passkey — `trackUserActivityNow()` + `lastLoginSource` |
+| `app/api/auth/register/route.ts` | Web registration — `trackUserActivityNow()` + `lastLoginSource` |
+| `app/api/mobile/auth/login/route.ts` | Mobile login — `trackUserActivityNow()` + `lastLoginSource` |
+| `app/api/mobile/auth/google/route.ts` | Mobile Google OAuth — `trackUserActivityNow()` + `lastLoginSource` |
+| `app/api/mobile/auth/apple/route.ts` | Mobile Apple Sign-In — `trackUserActivityNow()` + `lastLoginSource` |
+| `app/api/mobile/user/profile/route.ts` | Mobile heartbeat — `trackUserActivity()` (throttled) |
+| `app/api/mobile/orders/route.ts` | Mobile heartbeat — `trackUserActivity()` (throttled) |
+| `app/api/admin/users/route.ts` | Admin API — returns all user fields, sorted by activity |
+| `components/admin/AdminUsersManager.tsx` | Admin UI — table with timestamps, badges, filters |
 
-## Files Changed
-
-| File | Change |
-|------|--------|
-| `prisma/schema.prisma` | Added `lastActiveAt` field to User model |
-| `lib/activityTracker.ts` | **NEW** - Activity tracking library |
-| `app/api/admin/users/route.ts` | Added `lastActiveAt` to select, updated sorting |
-| `app/api/mobile/auth/login/route.ts` | Added immediate activity tracking on login |
-| `app/api/mobile/user/profile/route.ts` | Added throttled activity tracking |
-| `app/api/mobile/orders/route.ts` | Added throttled activity tracking |
-| `components/admin/AdminUsersManager.tsx` | UI updates for online indicator |
+---
 
 ## Testing
 
 ### Manual Testing
 
-1. **Login Test**:
+1. **Web Login Test**:
+   - Log in via email/password, Google, Apple, or passkey on web
+   - Check admin portal — user should show "Online now" immediately
+   - `lastLoginSource` should show "Desktop" or "Mobile Web" depending on device
+
+2. **Web Heartbeat Test**:
+   - Stay logged in with the tab open for 5+ minutes
+   - Refresh admin portal — user should still show "Online now"
+   - Close the tab, wait 5+ minutes — should show "Xm ago"
+
+3. **Mobile App Login Test**:
    - Log in via mobile app
-   - Check admin portal - user should show "Online" immediately
+   - Check admin portal — should show "Online now" with "App" badge
 
-2. **Activity Test**:
-   - Use the app (view profile, orders)
-   - Verify "Online" status persists
+4. **Timestamp Test**:
+   - Verify "Last login" shows correct date/time
+   - Verify "Registered" date shows when user created their account
+   - Hover over timestamps to see full precision
 
-3. **Timeout Test**:
-   - Wait 5+ minutes without activity
-   - Refresh admin portal - should show "Xm ago" instead of "Online"
-
-4. **Sorting Test**:
-   - Verify online users appear at top of list
-   - Verify recently active users sort above inactive users
-
-### Build Verification
-
-```bash
-cd /Users/vadimkus/cosmetics-website
-npm run build
-```
-
-Build passes with 0 errors in modified files.
+5. **Sorting Test**:
+   - Online users appear at top of list
+   - Recently active users sort above inactive users
+   - Users who never logged in appear at bottom
 
 ---
 
-## Login Source Tracking (Added February 10, 2026)
+## Changelog
 
-### Overview
-
-Administrators can now see which platform/device each user last logged in from. This helps identify whether customers are using the desktop website, mobile website, or native mobile app.
-
-### Login Source Icons
-
-| Icon | Label | Value | Color |
-|------|-------|-------|-------|
-| 🖥️ Monitor | Desktop | `desktop_web` | Gray |
-| 📱 TabletSmartphone | Mobile Web | `mobile_web` | Blue |
-| 📱 Smartphone | Mobile App | `mobile_app` | Purple |
-
-### Detection Logic
-
-**Mobile App** (all `/api/mobile/auth/*` endpoints):
-- Always sets `lastLoginSource: 'mobile_app'`
-- Endpoints: `login`, `register`, `google`
-- No detection needed — identified by `x-api-key` header
-
-**Web Login** (`/api/auth/login`):
-```typescript
-const userAgent = request.headers.get('user-agent') || ''
-const isMobileDevice = /mobile|android|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent.toLowerCase())
-const loginSource = isMobileDevice ? 'mobile_web' : 'desktop_web'
-```
-
-**Apple Sign-In** (`/api/auth/apple/callback`):
-- Same User-Agent detection as web login
-- Works for both new users and returning users
-
-**Web Google OAuth** (`/api/auth/google/callback`, `/api/auth/google/verify`):
-- Same User-Agent detection (added Feb 14, 2026)
-- Works for both new users and returning users
-
-**Registration** (`/api/auth/register`):
-- Sets `lastLoginSource` on account creation
-- Uses same User-Agent detection
-
-**addUser() fix (Feb 14, 2026)**: `lib/userStorageDb.ts` previously dropped `lastLoginSource` and `lastLoginAt` in `addUser()` — now both are passed to Prisma. See [SESSION_CHANGES_2026-02-14.md](./SESSION_CHANGES_2026-02-14.md).
-
-### Database Schema
-
-```prisma
-model User {
-  // ... existing fields
-  lastLoginSource    String?   // desktop_web, mobile_web, mobile_app
-}
-```
-
-### Admin UI Display
-
-The login source icon appears next to the "last active" timestamp:
-
-```
-┌─────────────────────────────────────────────────────────┐
-│ [Avatar]● │ John Doe [Online]        │ Contact │ Orders │
-│           │ john@email.com           │         │        │
-│           │ 5m ago 📱                │         │        │
-└─────────────────────────────────────────────────────────┘
-```
-
-### Legend Update
-
-```
-● Online    🖥️ Desktop    📱 Mobile Web    📱 Mobile App    
-[green bg] Has orders    [white bg] No orders
-```
-
-### Files Changed for Login Source
-
-| File | Change |
+| Date | Change |
 |------|--------|
-| `prisma/schema.prisma` | Added `lastLoginSource String?` |
-| `app/api/mobile/auth/login/route.ts` | Sets `mobile_app` |
-| `app/api/mobile/auth/register/route.ts` | Sets `mobile_app` (Feb 14) |
-| `app/api/mobile/auth/google/route.ts` | Sets `mobile_app` for reg + login (Feb 14) |
-| `app/api/auth/login/route.ts` | Detects desktop_web/mobile_web |
-| `app/api/auth/google/callback/route.ts` | Detects for Google OAuth (Feb 14) |
-| `app/api/auth/google/verify/route.ts` | Detects for Google OAuth (Feb 14) |
-| `app/api/auth/apple/callback/route.ts` | Detects for Apple Sign-In |
-| `app/api/auth/register/route.ts` | Sets on registration |
-| `app/api/admin/users/route.ts` | Returns `lastLoginSource`, backfill logic |
-| `lib/userStorageDb.ts` | UserData interface, addUser() + updateUser() mapping |
-| `components/admin/AdminUsersManager.tsx` | Added icons and legend |
+| Feb 9, 2026 | Initial online users feature — `lastActiveAt`, activity tracker, green indicators |
+| Feb 10, 2026 | Added login source tracking — `lastLoginSource`, device badges, detection logic |
+| Feb 11, 2026 | Fixed `updateUser()` not saving `lastLoginSource` |
+| Feb 14, 2026 (AM) | Fixed `addUser()` dropping `lastLoginSource`; added Google OAuth + mobile register coverage |
+| Feb 14, 2026 (PM) | **Major fix**: Added `trackUserActivityNow()` to ALL auth routes (web + mobile). Added session heartbeat for web users. Fixed missing `lastLoginSource` in passkey and mobile Apple routes. Improved admin UI with login timestamps and registration dates. Simplified backfill logic. |
 
 ---
 
@@ -271,22 +258,11 @@ The login source icon appears next to the "last active" timestamp:
 
 Potential improvements for later:
 - Real-time updates via WebSocket (polling currently)
-- Filter toggle to show "Online only" users
-- Filter by login source (show only mobile app users)
 - Activity heatmap (most active hours)
 - Export online users list
 - Push notification to admin when VIP customer comes online
 
-## Rollback
-
-If needed, to rollback this feature:
-
-1. Remove `lastActiveAt` from `prisma/schema.prisma`
-2. Run `npx prisma db push` to remove the column
-3. Revert changes to the 6 files listed above
-
 ---
 
 *Documentation created: February 9, 2026*  
-*Updated: February 10, 2026 - Added login source tracking*  
-*Updated: February 14, 2026 - Google OAuth + mobile register + addUser fix — see [SESSION_CHANGES_2026-02-14.md](./SESSION_CHANGES_2026-02-14.md)*
+*Last updated: February 14, 2026*

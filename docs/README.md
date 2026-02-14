@@ -314,9 +314,9 @@
 
 | File | Description |
 |------|-------------|
-| [ADMIN_USER_MANAGEMENT.md](./ADMIN_USER_MANAGEMENT.md) | **NEW** User management — badges, filters, lastLoginSource, order stats, API reference |
+| [ADMIN_USER_MANAGEMENT.md](./ADMIN_USER_MANAGEMENT.md) | User management — badges, filters, timestamps, lastLoginSource, order stats, API reference |
 | [ADMIN_ANALYTICS_DASHBOARD.md](./ADMIN_ANALYTICS_DASHBOARD.md) | Analytics tab — 5MB fix (findMany → aggregate), error handling, API types |
-| [ADMIN_ONLINE_USERS_FEATURE.md](./ADMIN_ONLINE_USERS_FEATURE.md) | Online users tracking - green indicator, timestamps, smart sorting, login source |
+| [ADMIN_ONLINE_USERS_FEATURE.md](./ADMIN_ONLINE_USERS_FEATURE.md) | Online users — activity tracking, session heartbeat, login source, all auth routes covered |
 | [SESSION_CHANGES_2026-02-10.md](./SESSION_CHANGES_2026-02-10.md) | FAQ database migration & admin management (see FAQ section below) |
 
 ---
@@ -345,7 +345,7 @@ FAQ content is stored in the `faq_items` database table and managed through the 
 
 | File | Description |
 |------|-------------|
-| [SESSION_CHANGES_2026-02-14.md](./SESSION_CHANGES_2026-02-14.md) | **NEW** lastLoginSource fix — addUser(), Google OAuth, mobile register; device badges now correct |
+| [SESSION_CHANGES_2026-02-14.md](./SESSION_CHANGES_2026-02-14.md) | lastLoginSource fix + **full activity tracking rework** — all auth routes now track online status, session heartbeat for web users, admin UI with timestamps |
 | [SESSION_CHANGES_2026-02-13.md](./SESSION_CHANGES_2026-02-13.md) | Native app productConfig fix, category pill badges, email duplicate discount fix, product 27/31/40/52 content (videos, images), native app video sound fix, **product documentation API fix** |
 | [SESSION_CHANGES_2026-02-12.md](./SESSION_CHANGES_2026-02-12.md) | SEO concern/category pages; Part 2: perf, pull-to-refresh, chat icon; Part 3: structured data fixes, Merchant Center feed |
 | [SESSION_LOG_2026_02_11.md](./SESSION_LOG_2026_02_11.md) | Beauty box 15% discount display fix, product images (10, 15), checkout strikethrough prices |

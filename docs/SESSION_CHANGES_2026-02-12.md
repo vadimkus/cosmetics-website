@@ -342,3 +342,63 @@ Resolved all Google Search Console structured data issues (Review snippets, Prod
 1. **Validate fix** — In Search Console, go to the Review snippets and Product snippets issue reports; click "Validate Fix".
 2. **Request indexing** — URL Inspection → `https://genosys.ae/` → "Request Indexing".
 3. **Wait** — Validation typically takes a few days to 2 weeks; Google will email when complete.
+
+---
+
+### 7. Mobile Web UX, Product Cards & Translations (Part 4)
+
+#### 7.1 Admin Dashboard — Monthly Sales Report Modal
+
+**Problem:** Modal showed "Failed to load sales data" on genosys.ae/admin.
+
+**Fixes:**
+- Added `credentials: 'include'` to fetch so cookies (admin-session) are sent
+- Improved error display: now shows actual server error message instead of generic text
+
+**File:** `components/admin/SalesChartModal.tsx`
+
+---
+
+#### 7.2 Beauty Box Product Cards — White Background
+
+**Change:** Product card image area for Beauty Boxes (and products using `object-contain`) changed from `bg-gray-50` to `bg-white`.
+
+**File:** `components/ProductCard/ProductImage.tsx`
+
+---
+
+#### 7.3 Revita Glow BB Cream (Product 63) — New Badge on Desktop
+
+**Change:** "New" badge was previously `md:hidden` (mobile only). Now visible on all screen sizes with slightly larger font on desktop (`md:text-xs`).
+
+**File:** `components/ProductCard/ProductImage.tsx`
+
+---
+
+#### 7.4 Russian Translation — New Badge
+
+**Change:** Corrected Russian translation for the "New" badge from "Новое" to "Новинка".
+
+**File:** `messages/ru.json` — `common.new`
+
+---
+
+#### 7.5 Mobile Web — Overscroll Bounce Fix
+
+**Problem:** On mobile web (Chrome on iOS), users could scroll past the top of the page, revealing rubber-band overscroll and content appearing above the browser address bar.
+
+**Fix:** Set `overscroll-behavior-y: none` on both `html` and `body` in `app/globals.css`. This disables the elastic bounce effect on iOS Safari/Chrome (WebKit).
+
+**Files:** `app/globals.css`
+
+---
+
+#### 7.6 Commits Pushed (Part 4)
+
+| Commit | Description |
+|--------|-------------|
+| `79168b13` | fix: improve sales report modal with credentials and error details |
+| `295f383b` | fix: change Beauty Box product card background from gray to white |
+| `af5e603d` | fix: show New badge on Revita Glow BB Cream on desktop too |
+| `ee62dc02` | fix: correct Russian translation for New badge — Новинка instead of Новое |
+| `b467e031` | fix: disable overscroll bounce on mobile web to prevent scroll past header |

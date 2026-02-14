@@ -108,14 +108,9 @@ export default function LocalBusinessSchema() {
         }
       ]
     },
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "4.8",
-      "reviewCount": "127",
-      "ratingCount": "127",
-      "bestRating": "5",
-      "worstRating": "1"
-    },
+    // NOTE: aggregateRating intentionally removed — Google penalizes fabricated
+    // ratings without real user reviews. When a real review system is implemented,
+    // re-add aggregateRating here with actual data from the database.
     "sameAs": [
       "https://www.genosys.info/",
       "https://www.instagram.com/genosys.uae/",

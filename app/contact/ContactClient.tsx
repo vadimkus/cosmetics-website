@@ -63,69 +63,53 @@ export default function ContactClient() {
 
             {/* Contact Grid - 2 columns on mobile */}
             <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-6 mb-4 md:mb-12">
-              <a 
-                href="https://wa.me/971585487665"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-center p-3 md:p-6 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
-              >
-                <Phone className="h-5 w-5 md:h-8 md:w-8 text-green-600 mx-auto mb-1.5 md:mb-4" />
-                <h3 className="text-xs md:text-lg font-semibold text-gray-800 mb-0.5 md:mb-2">WhatsApp</h3>
-                <span className="text-[10px] md:text-base text-gray-600">+971 58 548 76 65</span>
-              </a>
+              <div className="text-center p-3 md:p-6 bg-gray-50 rounded-lg select-text">
+                <a href="https://wa.me/971585487665" target="_blank" rel="noopener noreferrer" className="inline-block hover:opacity-70 transition-opacity">
+                  <Phone className="h-5 w-5 md:h-8 md:w-8 text-green-600 mx-auto" />
+                </a>
+                <h3 className="text-xs md:text-lg font-semibold text-gray-800 mt-1.5 md:mt-4 mb-0.5 md:mb-2">WhatsApp</h3>
+                <p className="text-[10px] md:text-base text-gray-600 cursor-text">+971 58 548 76 65</p>
+              </div>
 
-              <a 
-                href="mailto:sales@genosys.ae"
-                className="text-center p-3 md:p-6 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
-              >
-                <Mail className="h-5 w-5 md:h-8 md:w-8 text-primary-600 mx-auto mb-1.5 md:mb-4" />
-                <h3 className="text-xs md:text-lg font-semibold text-gray-800 mb-0.5 md:mb-2">Email</h3>
-                <span className="text-[10px] md:text-base text-gray-600 break-all">sales@genosys.ae</span>
-              </a>
+              <div className="text-center p-3 md:p-6 bg-gray-50 rounded-lg select-text">
+                <a href="mailto:sales@genosys.ae" className="inline-block hover:opacity-70 transition-opacity">
+                  <Mail className="h-5 w-5 md:h-8 md:w-8 text-primary-600 mx-auto" />
+                </a>
+                <h3 className="text-xs md:text-lg font-semibold text-gray-800 mt-1.5 md:mt-4 mb-0.5 md:mb-2">Email</h3>
+                <p className="text-[10px] md:text-base text-gray-600 break-all cursor-text">sales@genosys.ae</p>
+              </div>
 
-              <a 
-                href="https://genosys.ae"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-center p-3 md:p-6 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
-              >
-                <Globe className="h-5 w-5 md:h-8 md:w-8 text-blue-600 mx-auto mb-1.5 md:mb-4" />
-                <h3 className="text-xs md:text-lg font-semibold text-gray-800 mb-0.5 md:mb-2">{t('common.website')}</h3>
-                <span className="text-[10px] md:text-base text-gray-600">genosys.ae</span>
-              </a>
+              <div className="text-center p-3 md:p-6 bg-gray-50 rounded-lg select-text">
+                <a href="https://genosys.ae" target="_blank" rel="noopener noreferrer" className="inline-block hover:opacity-70 transition-opacity">
+                  <Globe className="h-5 w-5 md:h-8 md:w-8 text-blue-600 mx-auto" />
+                </a>
+                <h3 className="text-xs md:text-lg font-semibold text-gray-800 mt-1.5 md:mt-4 mb-0.5 md:mb-2">{t('common.website')}</h3>
+                <p className="text-[10px] md:text-base text-gray-600 cursor-text">genosys.ae</p>
+              </div>
 
-              <a 
-                href="https://instagram.com/genosys.uae"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-center p-3 md:p-6 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
-              >
-                <Instagram className="h-5 w-5 md:h-8 md:w-8 text-pink-600 mx-auto mb-1.5 md:mb-4" />
-                <h3 className="text-xs md:text-lg font-semibold text-gray-800 mb-0.5 md:mb-2">Instagram</h3>
-                <span className="text-[10px] md:text-base text-gray-600">@genosys.uae</span>
-              </a>
+              <div className="text-center p-3 md:p-6 bg-gray-50 rounded-lg select-text">
+                <a href="https://instagram.com/genosys.uae" target="_blank" rel="noopener noreferrer" className="inline-block hover:opacity-70 transition-opacity">
+                  <Instagram className="h-5 w-5 md:h-8 md:w-8 text-pink-600 mx-auto" />
+                </a>
+                <h3 className="text-xs md:text-lg font-semibold text-gray-800 mt-1.5 md:mt-4 mb-0.5 md:mb-2">Instagram</h3>
+                <p className="text-[10px] md:text-base text-gray-600 cursor-text">@genosys.uae</p>
+              </div>
 
-              <a 
-                href="https://www.facebook.com/genosys.ae"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-center p-3 md:p-6 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
-              >
-                <Facebook className="h-5 w-5 md:h-8 md:w-8 text-blue-600 mx-auto mb-1.5 md:mb-4" />
-                <h3 className="text-xs md:text-lg font-semibold text-gray-800 mb-0.5 md:mb-2">Facebook</h3>
-                <span className="text-[10px] md:text-base text-gray-600">genosys.ae</span>
-              </a>
+              <div className="text-center p-3 md:p-6 bg-gray-50 rounded-lg select-text">
+                <a href="https://www.facebook.com/genosys.ae" target="_blank" rel="noopener noreferrer" className="inline-block hover:opacity-70 transition-opacity">
+                  <Facebook className="h-5 w-5 md:h-8 md:w-8 text-blue-600 mx-auto" />
+                </a>
+                <h3 className="text-xs md:text-lg font-semibold text-gray-800 mt-1.5 md:mt-4 mb-0.5 md:mb-2">Facebook</h3>
+                <p className="text-[10px] md:text-base text-gray-600 cursor-text">genosys.ae</p>
+              </div>
 
-              <a 
-                href="https://maps.google.com/?q=Cordoba+Residence,+Villa+E02,+Dubai+United+Arab+Emirates"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-center p-3 md:p-6 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors col-span-2 lg:col-span-1"
-              >
-                <MapPin className="h-5 w-5 md:h-8 md:w-8 text-red-600 mx-auto mb-1.5 md:mb-4" />
-                <h3 className="text-xs md:text-lg font-semibold text-gray-800 mb-0.5 md:mb-2">{t('common.locations')}</h3>
-                <span className="text-[10px] md:text-base text-gray-600">Cordoba Residence, E02, Dubai, UAE</span>
-              </a>
+              <div className="text-center p-3 md:p-6 bg-gray-50 rounded-lg select-text col-span-2 lg:col-span-1">
+                <a href="https://maps.google.com/?q=Cordoba+Residence,+Villa+E02,+Dubai+United+Arab+Emirates" target="_blank" rel="noopener noreferrer" className="inline-block hover:opacity-70 transition-opacity">
+                  <MapPin className="h-5 w-5 md:h-8 md:w-8 text-red-600 mx-auto" />
+                </a>
+                <h3 className="text-xs md:text-lg font-semibold text-gray-800 mt-1.5 md:mt-4 mb-0.5 md:mb-2">{t('common.locations')}</h3>
+                <p className="text-[10px] md:text-base text-gray-600 cursor-text">Cordoba Residence, E02, Dubai, UAE</p>
+              </div>
             </div>
 
             {/* Official Distributor Section */}

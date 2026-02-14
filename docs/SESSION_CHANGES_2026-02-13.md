@@ -224,3 +224,56 @@ On iOS, `expo-av` defaults to respecting the physical mute switch — videos pla
 - **Image:** `public/images/Second/pdrn_big2.jpg`
 - **Changes:** Added as 3rd image to productConfig: `['/images/PDRN.png', '/images/Second/pdrnnn.jpg', '/images/Second/pdrn_big2.jpg']`
 - **Commit:** `e4f0b2f5`
+
+---
+
+## Product Documentation — Native App Fix
+
+### Summary
+
+The native app did not show the product documentation section (PDF guides) for all products with documentation. For example, product 63 (REVITA GLOW BLEMISH BALM CREAM) had documentation on the website but no download section on the product detail page in the native app.
+
+### Root Cause
+
+- The mobile API did not include `documentation` in its response
+- The native app relied entirely on a hardcoded local `PRODUCT_DOCS` object in `data/productConfig.js`, which was out of sync with the website's `productConfig.ts` (22 entries vs 23 — product 63 was missing)
+
+### Fix Applied
+
+**1. API side** (`cosmetics-website`):
+
+- Added `documentation` field to `EnhancedProductData` interface in `lib/pricingEngine.ts`
+- Populated it from `getProductDocumentation(configKey)` in `generateEnhancedProductData()`
+- All 23 products with documentation in `productConfig.ts` are now served via the API
+
+**2. Native app side** (`genosys-mobile-app`):
+
+- Updated `getProductDocs(productId, product)` to accept an optional `product` parameter
+- **Priority 1:** API-provided `product.documentation` (dynamic — no app update needed for future docs)
+- **Priority 2:** Hardcoded `PRODUCT_DOCS` (static fallback)
+- Added product 63 to local `PRODUCT_DOCS` as fallback
+- Product detail page now passes `product` to `getProductDocs()`
+
+### Products with Documentation (23 total)
+
+1, 11, 12, 14, 15, 18, 21, 29, 31, 33, 38, 39, 41, 43, 45, 46, 48, 49, 50, 51, 52, 60, 63
+
+### Deployment
+
+- **Vercel:** Auto-deploy on push to main (API change)
+- **Native app:** **Rebuild required** — client-side change to read API docs
+
+### Adding Documentation to New Products (Future)
+
+1. Add to `data/productConfig.ts` in cosmetics-website:
+   ```typescript
+   documentation: [
+     { title: 'Product Name Guide', url: '/documents/ppt/FILENAME.pdf', type: 'pdf' }
+   ]
+   ```
+2. Push to main — API will serve it automatically
+3. **No app rebuild needed** for future additions — app prefers API data
+
+### Documentation
+
+- [MOBILE_APP_PRODUCTCONFIG_FIX.md](./MOBILE_APP_PRODUCTCONFIG_FIX.md) — Section 6

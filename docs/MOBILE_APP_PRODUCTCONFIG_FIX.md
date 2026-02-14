@@ -148,6 +148,21 @@ const mergedVideoUrl = configVideoUrl || product.videoUrl || null
 
 This allows adding videos via `productConfig` without requiring a DB update. Product 27 (SKIN BARRIER PROTECTING CREAM) uses `barrier.mp4` — see [SESSION_CHANGES_2026-02-13.md](./SESSION_CHANGES_2026-02-13.md#product-27-video-addition-barriermp4).
 
+### 6. Merged productConfig documentation into API Response (February 13, 2026)
+
+**Before:** API did not include product documentation (PDF guides) in its response. The native app relied on a hardcoded local `PRODUCT_DOCS` object, which was out of sync (e.g., product 63 was missing).
+
+**After:** Same priority as images and video — productConfig first:
+
+```typescript
+const docs = getProductDocumentation(configKey)
+const documentation = docs.length > 0 ? docs : null
+```
+
+The API now returns a `documentation` array of `{ title, url, type }` objects. The native app's `getProductDocs(productId, product)` prefers API-provided docs over local config, so future documentation additions on the website appear in the app without an app rebuild.
+
+**Products with documentation:** 1, 11, 12, 14, 15, 18, 21, 29, 31, 33, 38, 39, 41, 43, 45, 46, 48, 49, 50, 51, 52, 60, 63
+
 ---
 
 ## Deployment & Rebuild Requirements
@@ -173,6 +188,10 @@ The response structure did not change — only the *content* of existing fields:
     "id": "...",
     "image": "/images/SRC.jpg",
     "images": "[\"/images/SRC.jpg\",\"/images/Second/soothrep.png\"]",
+    "videoUrl": "/videos/barrier.mp4",
+    "documentation": [
+      { "title": "Product Name Guide", "url": "/documents/ppt/GUIDE.pdf", "type": "pdf" }
+    ],
     "colorVariants": [
       { "value": "Bright", "label": "#01 Bright" },
       { "value": "Natural", "label": "#02 Natural" }
@@ -183,6 +202,8 @@ The response structure did not change — only the *content* of existing fields:
 ```
 
 - `images`: JSON string array of image URLs (unchanged format)
+- `videoUrl`: Product video URL (from productConfig or DB)
+- `documentation`: Array of `{ title, url, type }` for PDF guides (from productConfig)
 - `colorVariants`: Array of `{ value, label, hex? }` (unchanged format)
 
 ---
@@ -191,7 +212,7 @@ The response structure did not change — only the *content* of existing fields:
 
 | File | Changes |
 |------|---------|
-| `lib/pricingEngine.ts` | Added `resolveConfigKey()`, applied to all config lookups; merged productConfig images and videoUrl into `generateEnhancedProductData` |
+| `lib/pricingEngine.ts` | Added `resolveConfigKey()`, applied to all config lookups; merged productConfig images, videoUrl, and documentation into `generateEnhancedProductData` |
 | `data/productConfig.ts` | (Earlier session) Added `images` for products 25, 27; added `videoUrl` for product 27; added `.gitignore` exception for `productConfig.ts` |
 | `public/images/Second/soothrep.png` | (Earlier session) Second image for product 25 |
 | `public/images/Second/bar_big.jpg` | (Earlier session) Second image for product 27 |
@@ -240,6 +261,24 @@ The response structure did not change — only the *content* of existing fields:
    }
    ```
 4. Commit and push — website and native app will show the video (no app rebuild needed)
+
+---
+
+## Adding New Product Documentation (PDF Guides)
+
+1. Add PDF file to `public/documents/ppt/` (e.g., `GENOSYS_PRODUCT_GUIDE.pdf`)
+2. Update `data/productConfig.ts`:
+   ```typescript
+   'XX': {
+     id: 'XX',
+     documentation: [
+       { title: 'Product Name Guide', url: '/documents/ppt/GENOSYS_PRODUCT_GUIDE.pdf', type: 'pdf' }
+     ],
+     ...
+   }
+   ```
+3. Commit and push — API will include documentation in product response
+4. **No app rebuild needed** — native app prefers API-provided docs over local config
 
 ---
 

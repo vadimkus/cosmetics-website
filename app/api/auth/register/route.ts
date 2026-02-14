@@ -12,6 +12,7 @@ import { validateLength, INPUT_LIMITS } from '@/lib/validation'
 import { requireBodySizeLimit, getSizeLimitForContentType } from '@/lib/requestSizeLimit'
 import { parseUserAgent } from '@/lib/deviceDetection'
 import { getGeolocationData } from '@/lib/geolocation'
+import { trackUserActivityNow } from '@/lib/activityTracker'
 
 const normalizePromo = (promo: unknown) => String(promo || '').trim().toUpperCase()
 
@@ -188,6 +189,11 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ error: 'User with this email already exists' }, { status: 400 })
       }
       throw error
+    }
+
+    // Update lastActiveAt immediately for online status tracking
+    if (createdUser?.id) {
+      await trackUserActivityNow(createdUser.id as string)
     }
 
     // Return success response immediately (without password)

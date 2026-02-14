@@ -5,6 +5,7 @@ import { requireCsrfToken } from '@/lib/csrf'
 import { requireBodySizeLimit, getSizeLimitForContentType } from '@/lib/requestSizeLimit'
 import { debugLog, errorLog, warnLog } from '@/lib/logger'
 import { createSessionToken } from '@/lib/jwt'
+import { trackUserActivityNow } from '@/lib/activityTracker'
 import bcrypt from 'bcryptjs'
 
 const loginLimiter = rateLimitSimple({
@@ -158,13 +159,15 @@ export async function POST(request: NextRequest) {
     const isMobileDevice = /mobile|android|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent.toLowerCase())
     const loginSource = isMobileDevice ? 'mobile_web' : 'desktop_web'
 
-    // Update last login timestamp and source
+    // Update last login timestamp, source, and activity
     let updatedUser = user
     try {
       await updateUser(user.id, { 
         lastLoginAt: new Date().toISOString(),
         lastLoginSource: loginSource
       })
+      // Update lastActiveAt immediately on login (for online status tracking)
+      await trackUserActivityNow(user.id)
       // Fetch updated user to get the latest lastLoginAt value
       const refreshedUser = await findUserByEmail(email)
       if (refreshedUser) {

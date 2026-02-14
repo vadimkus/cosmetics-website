@@ -6,6 +6,7 @@ import { rateLimitSimple, getClientIdentifierFromNextRequest } from '@/lib/rateL
 import { debugLog, errorLog } from '@/lib/logger'
 import { trackUserAction } from '@/lib/analyticsServer'
 import { sendAdminNewUserNotification } from '@/lib/email'
+import { trackUserActivityNow } from '@/lib/activityTracker'
 
 export const maxDuration = 30
 
@@ -143,6 +144,9 @@ export async function POST(request: NextRequest) {
         
         debugLog('[MOBILE_AUTH] New user created:', { id: user.id, email: user.email })
 
+        // Update lastActiveAt immediately for online status tracking
+        await trackUserActivityNow(user.id)
+
         // Track user registration
         try {
           await trackUserAction({
@@ -232,12 +236,14 @@ export async function POST(request: NextRequest) {
         }
       }
 
-      // Update last login timestamp and source
+      // Update last login timestamp, source, and activity
       try {
         await updateUser(user.id, { 
           lastLoginAt: new Date().toISOString(),
           lastLoginSource: 'mobile_app',
         })
+        // Update lastActiveAt immediately for online status tracking
+        await trackUserActivityNow(user.id)
       } catch (error) {
         errorLog('[MOBILE_AUTH] Error updating last login timestamp:', error)
         // Don't fail login if timestamp update fails

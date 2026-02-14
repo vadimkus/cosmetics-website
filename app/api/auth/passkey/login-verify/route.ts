@@ -3,6 +3,7 @@ import { verifyAuthenticationResponse } from '@simplewebauthn/server'
 import { prisma } from '@/lib/prisma'
 import { createSessionToken } from '@/lib/jwt'
 import { errorLog, debugLog } from '@/lib/logger'
+import { trackUserActivityNow } from '@/lib/activityTracker'
 
 // WebAuthn configuration
 const rpID = process.env.NODE_ENV === 'production' ? 'genosys.ae' : 'localhost'
@@ -112,11 +113,21 @@ export async function POST(request: NextRequest) {
       }
     })
 
-    // Update user's last login timestamp
+    // Detect login source from User-Agent
+    const userAgent = request.headers.get('user-agent') || ''
+    const isMobileDevice = /mobile|android|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent.toLowerCase())
+    const loginSource = isMobileDevice ? 'mobile_web' : 'desktop_web'
+
+    // Update user's last login timestamp, source, and activity
     await prisma.user.update({
       where: { id: passkey.user.id },
-      data: { lastLoginAt: new Date() }
+      data: { 
+        lastLoginAt: new Date(),
+        lastLoginSource: loginSource
+      }
     })
+    // Update lastActiveAt immediately for online status tracking
+    await trackUserActivityNow(passkey.user.id)
 
     // Create session token (same as regular login)
     const sessionToken = createSessionToken({

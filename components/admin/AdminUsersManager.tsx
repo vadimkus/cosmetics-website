@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useCallback } from 'react'
-import { Users, Search, RefreshCw, Edit, Trash2, Monitor, Smartphone, TabletSmartphone } from 'lucide-react'
+import { Users, Search, RefreshCw, Edit, Trash2, Monitor, Smartphone, TabletSmartphone, Clock, UserPlus } from 'lucide-react'
 import { errorLog } from '@/lib/logger'
 
 interface User {
@@ -30,7 +30,7 @@ function getLoginSourceInfo(source: string | null | undefined): { icon: React.Re
     case 'mobile_app':
       return {
         icon: <Smartphone className="h-3.5 w-3.5" />,
-        label: 'Mobile App',
+        label: 'App',
         color: 'text-purple-600'
       }
     case 'mobile_web':
@@ -61,24 +61,82 @@ function isUserOnline(lastActiveAt: string | null | undefined): boolean {
   return new Date(lastActiveAt).getTime() > fiveMinutesAgo
 }
 
-// Helper function to format last active time
-function formatLastActive(lastActiveAt: string | null | undefined): string {
-  if (!lastActiveAt) return 'Never'
+// Helper function to format relative time (e.g., "5m ago", "2h ago")
+function formatRelativeTime(dateStr: string | null | undefined): string {
+  if (!dateStr) return 'Never'
   
   const now = Date.now()
-  const timestamp = new Date(lastActiveAt).getTime()
+  const timestamp = new Date(dateStr).getTime()
+  if (isNaN(timestamp)) return 'Never'
+  
   const diffMs = now - timestamp
   const diffMinutes = Math.floor(diffMs / (60 * 1000))
   const diffHours = Math.floor(diffMs / (60 * 60 * 1000))
   const diffDays = Math.floor(diffMs / (24 * 60 * 60 * 1000))
 
+  if (diffMinutes < 1) return 'Just now'
   if (diffMinutes < 5) return 'Online now'
   if (diffMinutes < 60) return `${diffMinutes}m ago`
   if (diffHours < 24) return `${diffHours}h ago`
   if (diffDays === 1) return 'Yesterday'
   if (diffDays < 7) return `${diffDays}d ago`
+  if (diffDays < 30) return `${Math.floor(diffDays / 7)}w ago`
   
-  return new Date(lastActiveAt).toLocaleDateString()
+  return formatDateTime(dateStr)
+}
+
+// Helper function to format a date/time stamp in short format
+function formatDateTime(dateStr: string | null | undefined): string {
+  if (!dateStr) return '—'
+  const date = new Date(dateStr)
+  if (isNaN(date.getTime())) return '—'
+  
+  const now = new Date()
+  const isThisYear = date.getFullYear() === now.getFullYear()
+  
+  // Show time if within last 24 hours
+  const diffMs = now.getTime() - date.getTime()
+  const isToday = diffMs < 24 * 60 * 60 * 1000
+  
+  if (isToday) {
+    return date.toLocaleTimeString('en-US', { 
+      hour: '2-digit', 
+      minute: '2-digit',
+      hour12: true 
+    })
+  }
+  
+  if (isThisYear) {
+    return date.toLocaleDateString('en-US', { 
+      month: 'short', 
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true
+    })
+  }
+  
+  return date.toLocaleDateString('en-US', { 
+    year: 'numeric',
+    month: 'short', 
+    day: 'numeric'
+  })
+}
+
+// Helper function to format date for tooltip (full precision)
+function formatFullDateTime(dateStr: string | null | undefined): string {
+  if (!dateStr) return 'Never'
+  const date = new Date(dateStr)
+  if (isNaN(date.getTime())) return 'Never'
+  return date.toLocaleString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: true
+  })
 }
 
 interface AdminUsersManagerProps {
@@ -349,6 +407,7 @@ export default function AdminUsersManager({
                     {filteredUsers.map((user) => {
                       // Determine if user has orders
                       const hasOrders = (user.orderCount || 0) > 0
+                      const online = isUserOnline(user.lastActiveAt)
                       
                       return (
                         <tr 
@@ -363,18 +422,18 @@ export default function AdminUsersManager({
                                   {user.name?.charAt(0)?.toUpperCase() || '?'}
                                 </span>
                               </div>
-                              {/* Online indicator */}
-                              {isUserOnline(user.lastActiveAt) && (
+                              {/* Online indicator dot */}
+                              {online && (
                                 <div 
-                                  className="absolute -bottom-0.5 -right-0.5 h-3.5 w-3.5 bg-green-500 border-2 border-white rounded-full"
+                                  className="absolute -bottom-0.5 -right-0.5 h-3.5 w-3.5 bg-green-500 border-2 border-white rounded-full animate-pulse"
                                   title="Online now"
                                 />
                               )}
                             </div>
-                            <div className="ml-4">
-                              <div className="text-sm font-medium text-gray-900 flex items-center gap-2 flex-wrap">
+                            <div className="ml-4 min-w-0">
+                              <div className="text-sm font-medium text-gray-900 flex items-center gap-1.5 flex-wrap">
                                 {user.name || 'Unknown'}
-                                {isUserOnline(user.lastActiveAt) && (
+                                {online && (
                                   <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium bg-green-100 text-green-700">
                                     Online
                                   </span>
@@ -390,20 +449,41 @@ export default function AdminUsersManager({
                                     }
                                     const badgeStyle = bgMap[color] || 'bg-gray-50 border-gray-200 text-gray-600'
                                     return (
-                                      <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded border text-[10px] font-medium ${badgeStyle}`} title={label}>
+                                      <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded border text-[10px] font-medium ${badgeStyle}`} title={`Last login via ${label}`}>
                                         {icon}
                                         <span className="hidden sm:inline">{label}</span>
                                       </span>
                                     )
                                   }
-                                  // No login source data yet — will be set on next login
                                   return null
                                 })()}
                               </div>
-                              <div className="text-sm text-gray-500">{user.email}</div>
-                              {/* Last active time */}
-                              <div className="text-xs text-gray-400">
-                                {formatLastActive(user.lastActiveAt)}
+                              <div className="text-sm text-gray-500 truncate">{user.email}</div>
+                              {/* Activity & timestamps row */}
+                              <div className="flex items-center gap-2 mt-0.5 text-[11px] text-gray-400 flex-wrap">
+                                {/* Last active / online status */}
+                                <span 
+                                  className={`inline-flex items-center gap-0.5 ${online ? 'text-green-600 font-medium' : ''}`}
+                                  title={`Last active: ${formatFullDateTime(user.lastActiveAt)}`}
+                                >
+                                  <Clock className="h-3 w-3" />
+                                  {formatRelativeTime(user.lastActiveAt)}
+                                </span>
+                                {/* Last login timestamp */}
+                                {user.lastLoginAt && (
+                                  <>
+                                    <span className="text-gray-300">·</span>
+                                    <span title={`Last login: ${formatFullDateTime(user.lastLoginAt)}`}>
+                                      Login {formatDateTime(user.lastLoginAt)}
+                                    </span>
+                                  </>
+                                )}
+                                {/* Registration date */}
+                                <span className="text-gray-300 hidden lg:inline">·</span>
+                                <span className="hidden lg:inline" title={`Registered: ${formatFullDateTime(user.createdAt)}`}>
+                                  <UserPlus className="h-3 w-3 inline mr-0.5" />
+                                  {formatDateTime(user.createdAt)}
+                                </span>
                               </div>
                             </div>
                           </div>

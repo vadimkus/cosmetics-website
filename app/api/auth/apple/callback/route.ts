@@ -8,6 +8,7 @@ import { prisma } from '@/lib/database'
 import { createSessionToken } from '@/lib/jwt'
 import { Prisma } from '@prisma/client'
 import { sendAdminNewUserNotification } from '@/lib/email'
+import { trackUserActivityNow } from '@/lib/activityTracker'
 
 // Types for Apple OAuth responses
 interface AppleTokenResponse {
@@ -301,6 +302,8 @@ async function handleAppleCallback(request: NextRequest, params: {
             })
           })
           isNewUser = true
+          // Update lastActiveAt immediately for online status tracking
+          if (user) await trackUserActivityNow(user.id)
         } else {
           // Detect login source from User-Agent for new user (fallback path)
           const userAgent = request.headers.get('user-agent') || ''
@@ -321,6 +324,8 @@ async function handleAppleCallback(request: NextRequest, params: {
             lastLoginSource: loginSourceFallback,
           })
           isNewUser = true
+          // Update lastActiveAt immediately for online status tracking
+          await trackUserActivityNow(user.id)
         }
       } catch (error) {
         errorLog('[APPLE_CALLBACK] User create failed, attempting recovery:', error)
@@ -352,6 +357,8 @@ async function handleAppleCallback(request: NextRequest, params: {
           lastLoginAt: new Date().toISOString(),
           lastLoginSource: loginSource
         })
+        // Update lastActiveAt immediately for online status tracking
+        await trackUserActivityNow(user.id)
       } catch (error) {
         errorLog('[APPLE_CALLBACK] Failed to update lastLoginAt:', error)
         // don't fail login

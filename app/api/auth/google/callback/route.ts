@@ -6,6 +6,7 @@ import { rateLimitSimple, getClientIdentifierFromNextRequest } from '@/lib/rateL
 import { sendAdminNewUserNotification } from '@/lib/email'
 import { trackUserAction } from '@/lib/analyticsServer'
 import { createSessionToken } from '@/lib/jwt'
+import { trackUserActivityNow } from '@/lib/activityTracker'
 
 const googleCallbackLimiter = rateLimitSimple({
   windowMs: 15 * 60 * 1000, // 15 minutes
@@ -164,6 +165,9 @@ export async function GET(request: NextRequest) {
           hasProfilePicture: !!user.profilePicture
         })
 
+        // Update lastActiveAt immediately for online status tracking
+        await trackUserActivityNow(user.id)
+
         // Track user registration
         try {
           await trackUserAction({
@@ -268,11 +272,13 @@ export async function GET(request: NextRequest) {
         debugLog('[GOOGLE_CALLBACK] No picture provided by Google, skipping update')
       }
 
-      // Update last login timestamp and source
+      // Update last login timestamp, source, and activity
       await updateUser(user.id, { 
         lastLoginAt: new Date().toISOString(),
         lastLoginSource: loginSource,
       })
+      // Update lastActiveAt immediately for online status tracking
+      await trackUserActivityNow(user.id)
     }
 
     // Detect locale from cookie or referer, default to English

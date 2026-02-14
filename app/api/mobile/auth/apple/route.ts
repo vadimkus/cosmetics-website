@@ -5,6 +5,7 @@ import { findUserByEmail, addUser, updateUser } from '@/lib/userStorageDb'
 import { generateMobileToken } from '@/lib/jwt'
 import { verifyAppleIdentityToken } from '@/lib/appleIdentityToken'
 import { sendAdminNewUserNotification } from '@/lib/email'
+import { trackUserActivityNow } from '@/lib/activityTracker'
 
 export const maxDuration = 30
 
@@ -84,8 +85,11 @@ export async function POST(request: NextRequest) {
         discountPercentage: null,
         birthday: null,
         lastLoginAt: nowIso,
+        lastLoginSource: 'mobile_app',
       })
       user = created
+      // Update lastActiveAt immediately for online status tracking
+      await trackUserActivityNow(created.id)
 
       // Send admin notification for new user registration via Apple Sign-In
       try {
@@ -102,9 +106,14 @@ export async function POST(request: NextRequest) {
         errorLog('[MOBILE_AUTH] Failed to send admin notification for new Apple user:', emailError)
       }
     } else {
-      // Update last login timestamp
+      // Update last login timestamp, source, and activity
       try {
-        await updateUser(user.id, { lastLoginAt: nowIso })
+        await updateUser(user.id, { 
+          lastLoginAt: nowIso,
+          lastLoginSource: 'mobile_app'
+        })
+        // Update lastActiveAt immediately for online status tracking
+        await trackUserActivityNow(user.id)
       } catch (error) {
         errorLog('[MOBILE_AUTH] Apple login: failed to update lastLoginAt', error)
       }

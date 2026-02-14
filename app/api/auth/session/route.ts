@@ -2,11 +2,16 @@ import { NextRequest, NextResponse } from 'next/server'
 import { findUserByEmail, findUserById } from '@/lib/userStorageDb'
 import { errorLog, debugLog } from '@/lib/logger'
 import { verifySessionToken } from '@/lib/jwt'
+import { trackUserActivity } from '@/lib/activityTracker'
 
 /**
  * GET /api/auth/session
  * Returns the current user from the session cookie (set after Google OAuth or regular login)
  * Now supports signed JWT tokens for tamper protection
+ * 
+ * Also serves as a heartbeat for web user activity tracking.
+ * Called every ~5 minutes by UserRefreshWrapper on the client side,
+ * so we piggyback activity tracking here (throttled to 1 DB write per minute).
  */
 export async function GET(request: NextRequest) {
   try {
@@ -37,21 +42,12 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ user: null })
     }
 
+    // Track web user activity (throttled — updates DB at most once per minute)
+    // This serves as a heartbeat since UserRefreshWrapper calls this endpoint periodically
+    trackUserActivity(user.id)
+
     // Return user data (without password)
     const { password: __, ...userWithoutPassword } = user
-    
-    // Debug logging for profile picture (always log for troubleshooting)
-    debugLog('[SESSION_API] User profile picture:', {
-      email: user.email,
-      profilePicture: user.profilePicture,
-      profilePictureType: typeof user.profilePicture,
-      isNull: user.profilePicture === null,
-      isUndefined: user.profilePicture === undefined,
-      hasProfilePicture: !!user.profilePicture,
-      profilePictureLength: user.profilePicture?.length || 0,
-      profilePicturePreview: user.profilePicture ? user.profilePicture.substring(0, 50) + '...' : 'N/A',
-      fullUserObject: JSON.stringify(userWithoutPassword, null, 2)
-    })
     
     return NextResponse.json({ 
       user: userWithoutPassword 

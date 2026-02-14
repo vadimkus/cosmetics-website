@@ -250,7 +250,8 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     sizes: [
       { value: '50g', label: '50g', available: true },
       { value: '250g', label: '250g', available: true }
-    ]
+    ],
+    images: ['/images/HSC.jpg', '/images/Second/hydro_second.jpg']
   },
   '29': {
     id: '29',

@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server'
+import { NextRequest, NextResponse, after } from 'next/server'
 import { addOrder, OrderData, OrderItemData } from '@/lib/orderStorageDb'
 import { debugLog, errorLog } from '@/lib/logger'
 import { trackUserAction } from '@/lib/analyticsServer'
@@ -217,166 +217,169 @@ export async function POST(request: NextRequest) {
     // Store the order
     await addOrder(order)
 
-    // Track order creation in database (non-blocking)
-    trackUserAction({
-      action: 'order_created',
-      userEmail: customerEmail,
-      details: `Order #${orderId} - ${items.length} items - Total: ${total} AED`
-    }).catch(err => {
-      errorLog('❌ Failed to track order creation:', err)
-    })
-
-    // Track purchase in Google Analytics (server-side)
-    // Note: This will be called on the server, so we need to handle it differently
-    // The actual Google Analytics tracking should happen on the client side
-    debugLog('📊 Purchase tracking data prepared for client-side Google Analytics:', {
-      orderId,
-      total,
-      items: orderItems.map(item => ({
-        id: item.productId,
-        name: item.productName,
-        category: 'cosmetics', // You can make this dynamic based on product data
-        price: item.price,
-        quantity: item.quantity
-      }))
-    })
-
-    // Create order in MoySklad (non-blocking - fire and forget)
-    if (isMoySkladEnabled()) {
-      createMoySkladOrder({
-        orderNumber: orderId,
-        customerName,
-        customerEmail,
-        customerPhone,
-        customerAddress,
-        customerEmirate,
-        items: orderItems.map(item => ({
-          productName: item.productName,
-          quantity: item.quantity,
-          price: item.price,
-        })),
-        total,
-        shipping,
-        paymentMethod: 'cod',
-      }).then(result => {
-        if (result.success) {
-          debugLog('✅ MoySklad: COD order synced:', result.moySkladOrderId)
-        } else {
-          errorLog('❌ MoySklad: COD order sync failed:', result.error)
-        }
-      }).catch(err => {
-        errorLog('❌ MoySklad: COD order sync exception:', err)
-      })
-    }
-
-    // Send order confirmation email to customer using new template (non-blocking - fire and forget)
-    sendOrderConfirmationEmail({
-      orderNumber: order.orderNumber,
-      customerName: order.customerName,
-      customerEmail: emailToUse, // Use preferred email (contactEmail if set, else regular email)
-      items: order.items.map(item => ({
-        productName: item.productName,
-        quantity: item.quantity,
-        price: item.price,
-        image: item.image || '',
-        ...(item.size ? { size: item.size } : {}),
-        ...(item.color ? { color: item.color } : {})
-      })),
-      subtotal: order.subtotal || 0,
-      shipping: order.shipping || 0,
-      vat: order.vat || 0,
-      total: order.total || 0,
-      address: order.customerAddress || '',
-      emirate: order.customerEmirate || '',
-      locale: order.locale || 'en',
-      discountPercentage: hasUserDiscount ? userDiscountPct : undefined,
-      discountAmount: discountAmount > 0 ? discountAmount : undefined,
-      bundleDiscountPercentage: bundleDiscountPercent || undefined,
-      bundleDiscountAmount: bundleDiscountAmount > 0 ? bundleDiscountAmount : undefined
-    }).then(() => {
-      debugLog('✅ Order confirmation email sent to:', emailToUse)
-    }).catch((emailError) => {
-      errorLog('❌ Failed to send order confirmation email:', emailError)
-      // Don't fail order creation if email fails
-    })
-
-    // Send admin notification for new order (non-blocking - fire and forget)
-    sendAdminNewOrderNotification({
-      orderNumber: order.orderNumber,
-      customerName: order.customerName,
-      customerEmail: emailToUse,
-      customerPhone: customerPhone,
-      total: order.total,
-      itemCount: order.items.length,
-      items: order.items.map(item => {
-        const emailItem: {
-          productName: string
-          quantity: number
-          price: number
-          image: string
-          size?: string
-          color?: string
-        } = {
-          productName: item.productName,
-          quantity: item.quantity,
-          price: item.price,
-          image: item.image
-        }
-        if (item.size) {
-          emailItem.size = item.size
-        }
-        if (item.color) {
-          emailItem.color = item.color
-        }
-        return emailItem
-      }),
-      subtotal: order.subtotal,
-      shipping: order.shipping,
-      vat: order.vat,
-      address: order.customerAddress,
-      emirate: order.customerEmirate,
-      paymentStatus: 'COD',
-      paymentMethod: 'Cash on Delivery',
-      discountPercentage: user?.discountPercentage || 0,
-      discountAmount: order.discountAmount || 0,
-      bundleDiscountPercentage: bundleDiscountPercent || undefined,
-      bundleDiscountAmount: bundleDiscountAmount > 0 ? bundleDiscountAmount : undefined
-    }).then((adminResult) => {
-      if (adminResult.success) {
-        debugLog('✅ Admin notification sent for new order:', order.orderNumber)
-      } else {
-        errorLog('❌ Failed to send admin notification:', adminResult.error)
-        errorLog('❌ Admin notification error details:', JSON.stringify(adminResult, null, 2))
+    // Schedule all background tasks with after() so Vercel keeps the function alive
+    // until they complete. Without this, serverless functions can be killed after
+    // the response is sent, causing emails and MoySklad sync to silently fail.
+    after(async () => {
+      // Track order creation in database
+      try {
+        await trackUserAction({
+          action: 'order_created',
+          userEmail: customerEmail,
+          details: `Order #${orderId} - ${items.length} items - Total: ${total} AED`
+        })
+      } catch (err) {
+        errorLog('❌ Failed to track order creation:', err)
       }
-    }).catch((emailError) => {
-      errorLog('❌ Exception sending admin notification:', emailError)
-      errorLog('❌ Exception details:', emailError instanceof Error ? emailError.message : String(emailError))
-      // Don't fail order creation if email fails
+
+      debugLog('📊 Purchase tracking data prepared for client-side Google Analytics:', {
+        orderId,
+        total,
+        items: orderItems.map(item => ({
+          id: item.productId,
+          name: item.productName,
+          category: 'cosmetics',
+          price: item.price,
+          quantity: item.quantity
+        }))
+      })
+
+      // Create order in MoySklad
+      if (isMoySkladEnabled()) {
+        try {
+          const msResult = await createMoySkladOrder({
+            orderNumber: orderId,
+            customerName,
+            customerEmail,
+            customerPhone,
+            customerAddress,
+            customerEmirate,
+            items: orderItems.map(item => ({
+              productName: item.productName,
+              quantity: item.quantity,
+              price: item.price,
+            })),
+            total,
+            shipping,
+            paymentMethod: 'cod',
+          })
+          if (msResult.success) {
+            debugLog('✅ MoySklad: COD order synced:', msResult.moySkladOrderId)
+          } else {
+            errorLog('❌ MoySklad: COD order sync failed:', msResult.error)
+          }
+        } catch (err) {
+          errorLog('❌ MoySklad: COD order sync exception:', err)
+        }
+      }
+
+      // Send order confirmation email to customer
+      try {
+        await sendOrderConfirmationEmail({
+          orderNumber: order.orderNumber,
+          customerName: order.customerName,
+          customerEmail: emailToUse,
+          items: order.items.map(item => ({
+            productName: item.productName,
+            quantity: item.quantity,
+            price: item.price,
+            image: item.image || '',
+            ...(item.size ? { size: item.size } : {}),
+            ...(item.color ? { color: item.color } : {})
+          })),
+          subtotal: order.subtotal || 0,
+          shipping: order.shipping || 0,
+          vat: order.vat || 0,
+          total: order.total || 0,
+          address: order.customerAddress || '',
+          emirate: order.customerEmirate || '',
+          locale: order.locale || 'en',
+          discountPercentage: hasUserDiscount ? userDiscountPct : undefined,
+          discountAmount: discountAmount > 0 ? discountAmount : undefined,
+          bundleDiscountPercentage: bundleDiscountPercent || undefined,
+          bundleDiscountAmount: bundleDiscountAmount > 0 ? bundleDiscountAmount : undefined
+        })
+        debugLog('✅ Order confirmation email sent to:', emailToUse)
+      } catch (emailError) {
+        errorLog('❌ Failed to send order confirmation email:', emailError)
+      }
+
+      // Send admin notification for new order
+      try {
+        const adminResult = await sendAdminNewOrderNotification({
+          orderNumber: order.orderNumber,
+          customerName: order.customerName,
+          customerEmail: emailToUse,
+          customerPhone: customerPhone,
+          total: order.total,
+          itemCount: order.items.length,
+          items: order.items.map(item => {
+            const emailItem: {
+              productName: string
+              quantity: number
+              price: number
+              image: string
+              size?: string
+              color?: string
+            } = {
+              productName: item.productName,
+              quantity: item.quantity,
+              price: item.price,
+              image: item.image
+            }
+            if (item.size) {
+              emailItem.size = item.size
+            }
+            if (item.color) {
+              emailItem.color = item.color
+            }
+            return emailItem
+          }),
+          subtotal: order.subtotal,
+          shipping: order.shipping,
+          vat: order.vat,
+          address: order.customerAddress,
+          emirate: order.customerEmirate,
+          paymentStatus: 'COD',
+          paymentMethod: 'Cash on Delivery',
+          discountPercentage: user?.discountPercentage || 0,
+          discountAmount: order.discountAmount || 0,
+          bundleDiscountPercentage: bundleDiscountPercent || undefined,
+          bundleDiscountAmount: bundleDiscountAmount > 0 ? bundleDiscountAmount : undefined
+        })
+        if (adminResult.success) {
+          debugLog('✅ Admin notification sent for new order:', order.orderNumber)
+        } else {
+          errorLog('❌ Failed to send admin notification:', adminResult.error)
+        }
+      } catch (emailError) {
+        errorLog('❌ Exception sending admin notification:', emailError)
+      }
+
+      // Send WhatsApp order confirmation
+      if (isTwilioConfigured() && customerPhone) {
+        try {
+          const whatsappResult = await sendWhatsAppOrderConfirmation(customerPhone, {
+            customerName: order.customerName,
+            orderNumber: order.orderNumber,
+            total: order.total,
+            itemCount: order.items.length,
+            locale: order.locale
+          })
+          if (whatsappResult.success) {
+            debugLog('✅ WhatsApp order confirmation sent to:', customerPhone)
+          } else if (whatsappResult.skipped) {
+            debugLog('⏭️ WhatsApp notification skipped:', whatsappResult.reason)
+          } else {
+            errorLog('❌ Failed to send WhatsApp notification:', whatsappResult.error)
+          }
+        } catch (whatsappError) {
+          errorLog('❌ Exception sending WhatsApp notification:', whatsappError)
+        }
+      }
     })
 
-    // Send WhatsApp order confirmation (non-blocking - fire and forget)
-    if (isTwilioConfigured() && customerPhone) {
-      sendWhatsAppOrderConfirmation(customerPhone, {
-        customerName: order.customerName,
-        orderNumber: order.orderNumber,
-        total: order.total,
-        itemCount: order.items.length,
-        locale: order.locale
-      }).then((whatsappResult) => {
-        if (whatsappResult.success) {
-          debugLog('✅ WhatsApp order confirmation sent to:', customerPhone)
-        } else if (whatsappResult.skipped) {
-          debugLog('⏭️ WhatsApp notification skipped:', whatsappResult.reason)
-        } else {
-          errorLog('❌ Failed to send WhatsApp notification:', whatsappResult.error)
-        }
-      }).catch((whatsappError) => {
-        errorLog('❌ Exception sending WhatsApp notification:', whatsappError)
-        // Don't fail order creation if WhatsApp fails
-      })
-    }
-
-    // Return success response immediately (emails are sent asynchronously)
+    // Return success response immediately — after() guarantees background tasks complete
     return NextResponse.json({ 
       orderId: orderId,
       message: 'Order created successfully'

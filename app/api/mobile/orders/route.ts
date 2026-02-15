@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server'
+import { NextRequest, NextResponse, after } from 'next/server'
 import { validateMobileAuth, extractTokenFromHeader } from '@/lib/jwt'
 import { findUserByEmail } from '@/lib/userStorageDb'
 import { debugLog, errorLog } from '@/lib/logger'
@@ -508,115 +508,119 @@ export async function POST(request: NextRequest) {
       }
     })
 
-    // Send order confirmation email to customer (non-blocking - fire and forget)
-    sendOrderConfirmationEmail({
-      orderNumber: order.orderNumber,
-      customerName: order.customerName,
-      customerEmail: preferredEmail,  // Send to preferred email (contactEmail if set)
-      items: order.items.map(item => ({
-        productName: item.productName,
-        quantity: item.quantity,
-        price: item.price,
-        image: item.image || '',
-        ...(item.size ? { size: item.size } : {}),
-        ...(item.color ? { color: item.color } : {})
-      })),
-      subtotal: order.subtotal,
-      shipping: order.shipping,
-      vat: order.vat,
-      total: order.total,
-      address: order.customerAddress,
-      emirate: order.customerEmirate,
-      locale: order.locale || 'en',
-      discountPercentage: userDiscountPctForOrder ?? undefined,
-      discountAmount: order.discountAmount ?? undefined,
-      bundleDiscountPercentage: order.bundleDiscountPercentage ?? undefined,
-      bundleDiscountAmount: (order.bundleDiscountAmount || 0) > 0 ? order.bundleDiscountAmount : undefined
-    }).then(() => {
-      debugLog('[MOBILE_ORDERS] ✅ Order confirmation email sent to:', order.customerEmail)
-    }).catch((emailError) => {
-      errorLog('[MOBILE_ORDERS] ❌ Failed to send order confirmation email:', emailError)
-      // Don't fail order creation if email fails
-    })
-
-    // Send admin notification for new order (non-blocking - fire and forget)
-    sendAdminNewOrderNotification({
-      orderNumber: order.orderNumber,
-      customerName: order.customerName,
-      customerEmail: preferredEmail,  // Send preferred (real) email to admin
-      customerPhone: order.customerPhone,
-      total: order.total,
-      itemCount: order.items.length,
-      orderNotes: orderNotes || undefined,
-      items: order.items.map(item => {
-        const emailItem: {
-          productName: string
-          quantity: number
-          price: number
-          image: string
-          size?: string
-          color?: string
-        } = {
-          productName: item.productName,
-          quantity: item.quantity,
-          price: item.price,
-          image: item.image || ''
-        }
-        if (item.size) {
-          emailItem.size = item.size
-        }
-        if (item.color) {
-          emailItem.color = item.color
-        }
-        return emailItem
-      }),
-      subtotal: order.subtotal,
-      shipping: order.shipping,
-      vat: order.vat,
-      address: order.customerAddress,
-      emirate: order.customerEmirate,
-      discountPercentage: userDiscountPctForOrder ?? 0,
-      discountAmount: order.discountAmount ?? 0,
-      bundleDiscountPercentage: order.bundleDiscountPercentage ?? undefined,
-      bundleDiscountAmount: (order.bundleDiscountAmount || 0) > 0 ? order.bundleDiscountAmount : undefined
-    }).then((adminResult) => {
-      if (adminResult.success) {
-        debugLog('[MOBILE_ORDERS] ✅ Admin notification sent for new order:', order.orderNumber)
-      } else {
-        errorLog('[MOBILE_ORDERS] ❌ Failed to send admin notification:', adminResult.error)
+    // Schedule background tasks with after() so Vercel keeps the function alive
+    after(async () => {
+      // Send order confirmation email to customer
+      try {
+        await sendOrderConfirmationEmail({
+          orderNumber: order.orderNumber,
+          customerName: order.customerName,
+          customerEmail: preferredEmail,
+          items: order.items.map(item => ({
+            productName: item.productName,
+            quantity: item.quantity,
+            price: item.price,
+            image: item.image || '',
+            ...(item.size ? { size: item.size } : {}),
+            ...(item.color ? { color: item.color } : {})
+          })),
+          subtotal: order.subtotal,
+          shipping: order.shipping,
+          vat: order.vat,
+          total: order.total,
+          address: order.customerAddress,
+          emirate: order.customerEmirate,
+          locale: order.locale || 'en',
+          discountPercentage: userDiscountPctForOrder ?? undefined,
+          discountAmount: order.discountAmount ?? undefined,
+          bundleDiscountPercentage: order.bundleDiscountPercentage ?? undefined,
+          bundleDiscountAmount: (order.bundleDiscountAmount || 0) > 0 ? order.bundleDiscountAmount : undefined
+        })
+        debugLog('[MOBILE_ORDERS] ✅ Order confirmation email sent to:', order.customerEmail)
+      } catch (emailError) {
+        errorLog('[MOBILE_ORDERS] ❌ Failed to send order confirmation email:', emailError)
       }
-    }).catch((emailError) => {
-      errorLog('[MOBILE_ORDERS] ❌ Exception sending admin notification:', emailError)
-      // Don't fail order creation if email fails
-    })
 
-    // Create order in MoySklad (non-blocking - fire and forget)
-    if (isMoySkladEnabled()) {
-      createMoySkladOrder({
-        orderNumber: order.orderNumber,
-        customerName: order.customerName,
-        customerEmail: order.customerEmail,
-        customerPhone: order.customerPhone || '',
-        customerAddress: order.customerAddress || '',
-        customerEmirate: order.customerEmirate || '',
-        items: order.items.map(item => ({
-          productName: item.productName,
-          quantity: item.quantity,
-          price: item.price,
-        })),
-        total: order.total,
-        shipping: order.shipping || 0,
-        paymentMethod: order.paymentMethod || 'cod',
-      }).then(result => {
-        if (result.success) {
-          debugLog('[MOBILE_ORDERS] ✅ MoySklad: Order synced:', result.moySkladOrderId)
+      // Send admin notification for new order
+      try {
+        const adminResult = await sendAdminNewOrderNotification({
+          orderNumber: order.orderNumber,
+          customerName: order.customerName,
+          customerEmail: preferredEmail,
+          customerPhone: order.customerPhone,
+          total: order.total,
+          itemCount: order.items.length,
+          orderNotes: orderNotes || undefined,
+          items: order.items.map(item => {
+            const emailItem: {
+              productName: string
+              quantity: number
+              price: number
+              image: string
+              size?: string
+              color?: string
+            } = {
+              productName: item.productName,
+              quantity: item.quantity,
+              price: item.price,
+              image: item.image || ''
+            }
+            if (item.size) {
+              emailItem.size = item.size
+            }
+            if (item.color) {
+              emailItem.color = item.color
+            }
+            return emailItem
+          }),
+          subtotal: order.subtotal,
+          shipping: order.shipping,
+          vat: order.vat,
+          address: order.customerAddress,
+          emirate: order.customerEmirate,
+          discountPercentage: userDiscountPctForOrder ?? 0,
+          discountAmount: order.discountAmount ?? 0,
+          bundleDiscountPercentage: order.bundleDiscountPercentage ?? undefined,
+          bundleDiscountAmount: (order.bundleDiscountAmount || 0) > 0 ? order.bundleDiscountAmount : undefined
+        })
+        if (adminResult.success) {
+          debugLog('[MOBILE_ORDERS] ✅ Admin notification sent for new order:', order.orderNumber)
         } else {
-          errorLog('[MOBILE_ORDERS] ❌ MoySklad: Order sync failed:', result.error)
+          errorLog('[MOBILE_ORDERS] ❌ Failed to send admin notification:', adminResult.error)
         }
-      }).catch(err => {
-        errorLog('[MOBILE_ORDERS] ❌ MoySklad: Order sync exception:', err)
-      })
-    }
+      } catch (emailError) {
+        errorLog('[MOBILE_ORDERS] ❌ Exception sending admin notification:', emailError)
+      }
+
+      // Create order in MoySklad
+      if (isMoySkladEnabled()) {
+        try {
+          const msResult = await createMoySkladOrder({
+            orderNumber: order.orderNumber,
+            customerName: order.customerName,
+            customerEmail: order.customerEmail,
+            customerPhone: order.customerPhone || '',
+            customerAddress: order.customerAddress || '',
+            customerEmirate: order.customerEmirate || '',
+            items: order.items.map(item => ({
+              productName: item.productName,
+              quantity: item.quantity,
+              price: item.price,
+            })),
+            total: order.total,
+            shipping: order.shipping || 0,
+            paymentMethod: order.paymentMethod || 'cod',
+          })
+          if (msResult.success) {
+            debugLog('[MOBILE_ORDERS] ✅ MoySklad: Order synced:', msResult.moySkladOrderId)
+          } else {
+            errorLog('[MOBILE_ORDERS] ❌ MoySklad: Order sync failed:', msResult.error)
+          }
+        } catch (err) {
+          errorLog('[MOBILE_ORDERS] ❌ MoySklad: Order sync exception:', err)
+        }
+      }
+    })
 
     // Format response
     const formattedOrder = {

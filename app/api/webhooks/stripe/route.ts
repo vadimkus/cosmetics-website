@@ -178,32 +178,33 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) 
         errorLog('❌ Failed to track order completion:', err)
       })
 
-      // Create order in MoySklad (non-blocking - fire and forget)
+      // Create order in MoySklad (awaited to ensure completion before function ends)
       if (isMoySkladEnabled()) {
-        createMoySkladOrder({
-          orderNumber: order.orderNumber,
-          customerName: order.customerName,
-          customerEmail: order.customerEmail,
-          customerPhone: order.customerPhone || '',
-          customerAddress: order.customerAddress || '',
-          customerEmirate: order.customerEmirate || '',
-          items: order.items.map((item: { productName: string; quantity: number; price: number }) => ({
-            productName: item.productName,
-            quantity: item.quantity,
-            price: item.price,
-          })),
-          total: order.total,
-          shipping: order.shipping || 0,
-          paymentMethod: 'stripe',
-        }).then(result => {
-          if (result.success) {
-            debugLog('✅ MoySklad: Stripe order synced:', result.moySkladOrderId)
+        try {
+          const msResult = await createMoySkladOrder({
+            orderNumber: order.orderNumber,
+            customerName: order.customerName,
+            customerEmail: order.customerEmail,
+            customerPhone: order.customerPhone || '',
+            customerAddress: order.customerAddress || '',
+            customerEmirate: order.customerEmirate || '',
+            items: order.items.map((item: { productName: string; quantity: number; price: number }) => ({
+              productName: item.productName,
+              quantity: item.quantity,
+              price: item.price,
+            })),
+            total: order.total,
+            shipping: order.shipping || 0,
+            paymentMethod: 'stripe',
+          })
+          if (msResult.success) {
+            debugLog('✅ MoySklad: Stripe order synced:', msResult.moySkladOrderId)
           } else {
-            errorLog('❌ MoySklad: Stripe order sync failed:', result.error)
+            errorLog('❌ MoySklad: Stripe order sync failed:', msResult.error)
           }
-        }).catch(err => {
+        } catch (err) {
           errorLog('❌ MoySklad: Stripe order sync exception:', err)
-        })
+        }
       }
     } else if (wasAlreadyPaid) {
       debugLog('ℹ️ Order already marked as paid, skipping duplicate emails:', order.orderNumber)

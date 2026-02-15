@@ -9,6 +9,7 @@ import { getPreferredEmail } from '@/lib/emailHelpers'
 import { calculateMobileShipping, calculateVatIncluded } from '@/lib/mobileCheckoutConfig'
 import { isUserDiscountExcludedProduct } from '@/lib/mobileDiscountRules'
 import { trackUserActivity } from '@/lib/activityTracker'
+import { createMoySkladOrder, isMoySkladEnabled } from '@/lib/moysklad'
 
 const extractPaymentFlow = (order: { paymentMetadata?: string | Record<string, unknown> | null; payment_metadata?: string | Record<string, unknown> | null }): string | null => {
   const raw = order?.paymentMetadata ?? order?.payment_metadata ?? null
@@ -588,6 +589,34 @@ export async function POST(request: NextRequest) {
       errorLog('[MOBILE_ORDERS] ❌ Exception sending admin notification:', emailError)
       // Don't fail order creation if email fails
     })
+
+    // Create order in MoySklad (non-blocking - fire and forget)
+    if (isMoySkladEnabled()) {
+      createMoySkladOrder({
+        orderNumber: order.orderNumber,
+        customerName: order.customerName,
+        customerEmail: order.customerEmail,
+        customerPhone: order.customerPhone || '',
+        customerAddress: order.customerAddress || '',
+        customerEmirate: order.customerEmirate || '',
+        items: order.items.map(item => ({
+          productName: item.productName,
+          quantity: item.quantity,
+          price: item.price,
+        })),
+        total: order.total,
+        shipping: order.shipping || 0,
+        paymentMethod: order.paymentMethod || 'cod',
+      }).then(result => {
+        if (result.success) {
+          debugLog('[MOBILE_ORDERS] ✅ MoySklad: Order synced:', result.moySkladOrderId)
+        } else {
+          errorLog('[MOBILE_ORDERS] ❌ MoySklad: Order sync failed:', result.error)
+        }
+      }).catch(err => {
+        errorLog('[MOBILE_ORDERS] ❌ MoySklad: Order sync exception:', err)
+      })
+    }
 
     // Format response
     const formattedOrder = {

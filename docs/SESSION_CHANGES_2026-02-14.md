@@ -270,3 +270,62 @@ User added second and third images (`cvs_big1.jpg`, `cvs_big2.jpg`) to product 5
 |--------|-------------|
 | `09e555ba` | Add gallery images for POWER SOLUTION CVS (product 5) — static file only |
 | `51a8b7f1` | docs: add product gallery DB update to GSC fixes documentation |
+
+---
+
+## Part 5: MoySklad (МойСклад) Accounting Integration
+
+### Problem
+
+Customer orders placed on genosys.ae needed to be manually entered into MoySklad accounting system. This was error-prone and time-consuming.
+
+### Solution
+
+Built an automatic one-way sync: **genosys.ae → MoySklad**.
+
+When a customer places an order (via any checkout flow), a corresponding customer order is automatically created in MoySklad with:
+- Customer as counterparty (found by phone/email or auto-created)
+- Line items mapped to MoySklad product IDs (55+ products mapped)
+- Organization: Genosys Middle East FZ-LLC
+- Warehouse: Genosys Warehouse
+- Currency: AED
+- State: Новый (New)
+
+### Integration Points
+
+| Checkout Flow | File | Trigger |
+|--------------|------|---------|
+| Web COD | `app/api/checkout/route.ts` | After order saved |
+| Stripe (web + mobile) | `app/api/webhooks/stripe/route.ts` | After payment confirmed |
+| Mobile COD | `app/api/mobile/orders/route.ts` | After order saved |
+
+### Safety Features
+
+- **Non-blocking**: MoySklad calls are fire-and-forget — never blocks checkout
+- **No overwrites**: Never modifies existing MoySklad data
+- **Graceful degradation**: Silently disabled if env vars not set
+- **Idempotent counterparties**: Searches before creating
+
+### Files Created/Modified
+
+| File | Change |
+|------|--------|
+| `lib/moysklad.ts` | **NEW** — Main integration module (API client, product mapping, order creation) |
+| `app/api/checkout/route.ts` | Added MoySklad sync after COD order creation |
+| `app/api/webhooks/stripe/route.ts` | Added MoySklad sync after Stripe payment confirmation |
+| `app/api/mobile/orders/route.ts` | Added MoySklad sync after mobile COD order creation |
+| `.env.example` | Added `MOYSKLAD_LOGIN` and `MOYSKLAD_PASSWORD` template |
+| `docs/MOYSKLAD_INTEGRATION.md` | **NEW** — Full integration documentation |
+
+### Env Vars Required (ACTION NEEDED)
+
+Add these to **Vercel Dashboard → Project Settings → Environment Variables**:
+
+```
+MOYSKLAD_LOGIN=vadimkus@ikosmetologist
+MOYSKLAD_PASSWORD=***
+```
+
+### Documentation
+
+- [MOYSKLAD_INTEGRATION.md](./MOYSKLAD_INTEGRATION.md) — Full integration documentation

@@ -13,6 +13,7 @@ import { findUserByEmail } from '@/lib/userStorageDb'
 import { calculateMobileShipping, calculateVatIncluded } from '@/lib/mobileCheckoutConfig'
 import { sendWhatsAppOrderConfirmation, isTwilioConfigured } from '@/lib/twilio'
 import { isUserDiscountExcludedProduct } from '@/lib/mobileDiscountRules'
+import { createMoySkladOrder, isMoySkladEnabled } from '@/lib/moysklad'
 
 interface CheckoutItem {
   product: Product
@@ -239,6 +240,34 @@ export async function POST(request: NextRequest) {
         quantity: item.quantity
       }))
     })
+
+    // Create order in MoySklad (non-blocking - fire and forget)
+    if (isMoySkladEnabled()) {
+      createMoySkladOrder({
+        orderNumber: orderId,
+        customerName,
+        customerEmail,
+        customerPhone,
+        customerAddress,
+        customerEmirate,
+        items: orderItems.map(item => ({
+          productName: item.productName,
+          quantity: item.quantity,
+          price: item.price,
+        })),
+        total,
+        shipping,
+        paymentMethod: 'cod',
+      }).then(result => {
+        if (result.success) {
+          debugLog('✅ MoySklad: COD order synced:', result.moySkladOrderId)
+        } else {
+          errorLog('❌ MoySklad: COD order sync failed:', result.error)
+        }
+      }).catch(err => {
+        errorLog('❌ MoySklad: COD order sync exception:', err)
+      })
+    }
 
     // Send order confirmation email to customer using new template (non-blocking - fire and forget)
     sendOrderConfirmationEmail({

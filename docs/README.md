@@ -54,6 +54,7 @@
 | [MOBILE_ORDER_DELETION_SUMMARY.md](./MOBILE_ORDER_DELETION_SUMMARY.md) | Order cancellation feature |
 | [CONTACT_EMAIL_FEATURE_DOCUMENTATION.md](./CONTACT_EMAIL_FEATURE_DOCUMENTATION.md) | Checkout contact email feature |
 | [WEB_CHECKOUT_CONTACTEMAIL_COMPLETE.md](./WEB_CHECKOUT_CONTACTEMAIL_COMPLETE.md) | Contact email implementation |
+| [MOYSKLAD_INTEGRATION.md](./MOYSKLAD_INTEGRATION.md) | **NEW** MoySklad (МойСклад) accounting integration — auto-creates orders |
 
 ---
 

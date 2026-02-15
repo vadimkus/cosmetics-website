@@ -421,60 +421,59 @@ function SuccessContent() {
                 })()}
               </div>
 
-              {/* Price Breakdown - Waterfall Discount */}
+              {/* Price Breakdown */}
               <div className="px-4 py-4 border-b border-gray-100 bg-gray-50">
                 {(() => {
                   const hasUserDiscount = orderData.discountAmount > 0
                   const hasBundleDiscount = orderData.bundleDiscountAmount > 0
                   const hasAnyDiscount = hasUserDiscount || hasBundleDiscount
+                  const totalSaved = (orderData.discountAmount || 0) + (orderData.bundleDiscountAmount || 0)
+                  
+                  // Show the waterfall (Retail → Discount → Net) ONLY when there
+                  // is a bundle discount. For VIP-only discounts the per-item
+                  // strikethrough + badge already communicates the discount, so we
+                  // just show the net subtotal to avoid duplication.
+                  const showWaterfall = hasBundleDiscount
                   const retailTotal = orderData.subtotal + (orderData.discountAmount || 0) + (orderData.bundleDiscountAmount || 0)
                   const afterVipSubtotal = retailTotal - (orderData.discountAmount || 0)
-                  const totalSaved = (orderData.discountAmount || 0) + (orderData.bundleDiscountAmount || 0)
                   
                   return (
                     <div className="space-y-2 text-sm">
-                      {/* Retail Price or Subtotal */}
-                      {hasAnyDiscount ? (
-                        <div className={`flex justify-between ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                          <span className="text-gray-600">{t('cart.retailPrice') || 'Retail Price'} ({orderData.itemCount} {orderData.itemCount === 1 ? 'item' : 'items'})</span>
-                          <span className="text-gray-400 line-through">{retailTotal.toFixed(2)} AED</span>
-                        </div>
-                      ) : (
-                        <div className={`flex justify-between ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                          <span className="text-gray-600">{t('cart.subtotal') || 'Subtotal'} ({orderData.itemCount} {orderData.itemCount === 1 ? 'item' : 'items'})</span>
-                          <span className="text-gray-900">{orderData.subtotal.toFixed(2)} AED</span>
-                        </div>
-                      )}
-                      {/* VIP Discount */}
-                      {hasUserDiscount && (
-                        <div className={`flex justify-between text-purple-600 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                          <span>{t('cart.userDiscount') || 'Your Discount'} {orderData.discountPercentage ? `(${orderData.discountPercentage}%)` : ''}</span>
-                          <span>-{orderData.discountAmount.toFixed(2)} AED</span>
-                        </div>
-                      )}
-                      {/* Intermediate Subtotal (when both discounts) */}
-                      {hasUserDiscount && hasBundleDiscount && (
-                        <div className={`flex justify-between ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                          <span className="text-gray-400 text-xs">{t('cart.subtotal') || 'Subtotal'}</span>
-                          <span className="text-gray-400 text-xs">{afterVipSubtotal.toFixed(2)} AED</span>
-                        </div>
-                      )}
-                      {/* Bundle Discount */}
-                      {hasBundleDiscount && (
-                        <div className={`flex justify-between text-green-600 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                          <span>{t('cart.bundleDiscount') || 'Bundle Discount'} {orderData.bundleDiscountPercentage ? `(${orderData.bundleDiscountPercentage}%)` : ''}</span>
-                          <span>-{orderData.bundleDiscountAmount.toFixed(2)} AED</span>
-                        </div>
-                      )}
-                      {/* Net Subtotal (when discounts exist) */}
-                      {hasAnyDiscount && (
+                      {showWaterfall ? (
                         <>
+                          {/* Full waterfall for bundle / mixed orders */}
+                          <div className={`flex justify-between ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                            <span className="text-gray-600">{t('cart.retailPrice') || 'Retail Price'} ({orderData.itemCount} {orderData.itemCount === 1 ? 'item' : 'items'})</span>
+                            <span className="text-gray-400 line-through">{retailTotal.toFixed(2)} AED</span>
+                          </div>
+                          {hasUserDiscount && (
+                            <div className={`flex justify-between text-purple-600 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                              <span>{t('cart.userDiscount') || 'Your Discount'} {orderData.discountPercentage ? `(${orderData.discountPercentage}%)` : ''}</span>
+                              <span>-{orderData.discountAmount.toFixed(2)} AED</span>
+                            </div>
+                          )}
+                          {hasUserDiscount && hasBundleDiscount && (
+                            <div className={`flex justify-between ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                              <span className="text-gray-400 text-xs">{t('cart.subtotal') || 'Subtotal'}</span>
+                              <span className="text-gray-400 text-xs">{afterVipSubtotal.toFixed(2)} AED</span>
+                            </div>
+                          )}
+                          <div className={`flex justify-between text-green-600 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                            <span>{t('cart.bundleDiscount') || 'Bundle Discount'} {orderData.bundleDiscountPercentage ? `(${orderData.bundleDiscountPercentage}%)` : ''}</span>
+                            <span>-{orderData.bundleDiscountAmount.toFixed(2)} AED</span>
+                          </div>
                           <div className="border-t border-gray-200" />
                           <div className={`flex justify-between ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                             <span className="text-gray-900 font-semibold">{t('cart.netSubtotal') || 'Net Subtotal'}</span>
                             <span className="text-gray-900 font-semibold">{orderData.subtotal.toFixed(2)} AED</span>
                           </div>
                         </>
+                      ) : (
+                        /* Simple subtotal — discount already visible per-item */
+                        <div className={`flex justify-between ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                          <span className="text-gray-600">{t('cart.netSubtotal') || 'Net Subtotal'}</span>
+                          <span className="text-gray-900 font-semibold">{orderData.subtotal.toFixed(2)} AED</span>
+                        </div>
                       )}
                       <div className={`flex justify-between ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                         <span className="text-gray-600 flex items-center gap-1">

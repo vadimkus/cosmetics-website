@@ -96,6 +96,38 @@ async function moySkladFetch(
 }
 
 // ============================================================================
+// Shipping / Delivery Service Mapping
+// ============================================================================
+
+/**
+ * Maps emirates to MoySklad delivery service UUIDs.
+ * These are services (not products) in MoySklad — referenced as entity/service.
+ */
+const DELIVERY_SERVICE_MAP: Record<string, string> = {
+  'dubai':    'a97cfeeb-814e-11ea-0a80-004a001516bd', // Excellent Delivery Dubai — 45 AED
+  'sharjah':  '52864050-59a7-11eb-0a80-022e00579624', // Delivery Sharjah — 70 AED
+  'abu dhabi':'212036af-814f-11ea-0a80-011700157c7d', // Delivery Abu Dhabi — 70 AED
+  'al ain':   '41b80390-814f-11ea-0a80-03ae0014ec85', // Delivery Al Ain — 80 AED
+  'fujairah': '557d2277-814f-11ea-0a80-03ae0014ed65', // Delivery Fujairah — 80 AED
+  'rak':      'a9d199bf-b909-11ea-0a80-03ec0015b2d7', // Delivery RAK — 80 AED
+  'ras al khaimah': 'a9d199bf-b909-11ea-0a80-03ec0015b2d7', // alias for RAK
+}
+
+/**
+ * Resolve MoySklad delivery service ID from emirate name.
+ */
+function getMoySkladDeliveryServiceId(emirate: string): string | null {
+  const lower = (emirate || '').trim().toLowerCase()
+  if (DELIVERY_SERVICE_MAP[lower]) return DELIVERY_SERVICE_MAP[lower]!
+
+  // Fuzzy match
+  for (const [key, value] of Object.entries(DELIVERY_SERVICE_MAP)) {
+    if (lower.includes(key) || key.includes(lower)) return value
+  }
+  return null
+}
+
+// ============================================================================
 // Product Mapping
 // ============================================================================
 
@@ -400,6 +432,23 @@ export async function createMoySkladOrder(
       })
     }
 
+    // Step 2b: Add shipping as a service line item (if applicable)
+    if (orderData.shipping > 0) {
+      const deliveryServiceId = getMoySkladDeliveryServiceId(orderData.customerEmirate)
+      if (deliveryServiceId) {
+        positions.push({
+          quantity: 1,
+          price: Math.round(orderData.shipping * 100),
+          assortment: entityMeta('service', deliveryServiceId),
+          vat: 0,
+          vatEnabled: false,
+        })
+        debugLog(`📦 MoySklad: Added delivery service for ${orderData.customerEmirate} (${orderData.shipping} AED)`)
+      } else {
+        warnLog(`⚠️ MoySklad: No delivery service mapping for emirate "${orderData.customerEmirate}"`)
+      }
+    }
+
     // Step 3: Build order description
     const paymentLabel = orderData.paymentMethod === 'cod' ? 'Cash on Delivery' 
       : orderData.paymentMethod === 'stripe' ? 'Stripe (Card)'
@@ -409,8 +458,10 @@ export async function createMoySkladOrder(
     const descParts = [
       `genosys.ae order #${orderData.orderNumber}`,
       `Payment: ${paymentLabel}`,
-      `Shipping: ${orderData.shipping} AED`,
     ]
+    if (orderData.shipping > 0) {
+      descParts.push(`Shipping: ${orderData.shipping} AED (${orderData.customerEmirate})`)
+    }
     if (unmappedItems.length > 0) {
       descParts.push(`Unmapped items: ${unmappedItems.join(', ')}`)
     }

@@ -88,18 +88,8 @@ export async function GET(_request: NextRequest) {
         changefreq: 'monthly',
         priority: '0.6'
       },
-      {
-        url: '/genosys',
-        lastmod: staticContentDate,
-        changefreq: 'monthly',
-        priority: '0.7'
-      },
-      {
-        url: '/documents',
-        lastmod: staticContentDate,
-        changefreq: 'monthly',
-        priority: '0.6'
-      },
+      // NOTE: /genosys and /documents are English-only (no AR/RU versions exist).
+      // They are added below as single-language URLs to avoid 404s on /ar/genosys, /ar/documents, etc.
       // Additional pages that exist in AR/RU
       {
         url: '/partners',
@@ -205,6 +195,21 @@ export async function GET(_request: NextRequest) {
     ]
 
     optimizedUrls.forEach(page => {
+      sitemap += `
+  <url>
+    <loc>${baseUrl}${page.url}</loc>
+    <lastmod>${staticContentDate}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>${page.priority}</priority>
+  </url>`
+    })
+
+    // English-only pages (no AR/RU versions exist — would 404)
+    const englishOnlyPages = [
+      { url: '/genosys', priority: '0.7' },
+      { url: '/documents', priority: '0.6' },
+    ]
+    englishOnlyPages.forEach(page => {
       sitemap += `
   <url>
     <loc>${baseUrl}${page.url}</loc>

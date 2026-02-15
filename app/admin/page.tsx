@@ -857,6 +857,17 @@ export default function AdminPage() {
                       showToast('Failed to update order status', 'error')
                     }
                   }}
+                  getAdminHeaders={getAdminHeaders}
+                  showToast={showToast}
+                  onMoySkladPushed={(orderId, moySkladOrderId) => {
+                    // Update orders list to reflect the sync
+                    setOrders(orders.map(order =>
+                      order.id === orderId ? { ...order, moySkladOrderId } : order
+                    ))
+                    if (selectedOrder && selectedOrder.id === orderId) {
+                      setSelectedOrder({ ...selectedOrder, moySkladOrderId })
+                    }
+                  }}
                 />
               ) : (
                 <AdminOrdersManager

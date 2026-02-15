@@ -1,7 +1,10 @@
 'use client'
 
-import { ArrowLeft } from 'lucide-react'
+import { useState } from 'react'
+import { ArrowLeft, Upload, CheckCircle } from 'lucide-react'
 import { Order, OrderItem } from '@prisma/client'
+import { fetchCsrfToken, addCsrfToBody } from '@/lib/csrfClient'
+import { errorLog } from '@/lib/logger'
 
 // Custom type that includes the items relation
 type OrderWithItems = Order & {
@@ -12,6 +15,9 @@ interface OrderDetailsProps {
   order: OrderWithItems
   onBack: () => void
   onUpdateStatus: (orderId: string, status: string) => void
+  getAdminHeaders: (additionalHeaders?: Record<string, string>) => HeadersInit
+  showToast: (message: string, type: 'success' | 'error' | 'warning') => void
+  onMoySkladPushed?: (orderId: string, moySkladOrderId: string) => void
 }
 
 const formatCurrency = (amount: number) => {
@@ -21,7 +27,42 @@ const formatCurrency = (amount: number) => {
   }).format(amount)
 }
 
-export default function OrderDetails({ order, onBack, onUpdateStatus }: OrderDetailsProps) {
+export default function OrderDetails({ order, onBack, onUpdateStatus, getAdminHeaders, showToast, onMoySkladPushed }: OrderDetailsProps) {
+  const [pushingToMoySklad, setPushingToMoySklad] = useState(false)
+  const [moySkladId, setMoySkladId] = useState<string | null>(order.moySkladOrderId)
+
+  const pushToMoySklad = async () => {
+    try {
+      const csrfToken = await fetchCsrfToken()
+      if (!csrfToken) {
+        showToast('Security error: Could not verify request. Please refresh the page.', 'error')
+        return
+      }
+
+      setPushingToMoySklad(true)
+      const response = await fetch(`/api/admin/orders/${order.id}/push-moysklad`, {
+        method: 'POST',
+        headers: getAdminHeaders(),
+        body: JSON.stringify(addCsrfToBody({})),
+      })
+
+      const result = await response.json()
+
+      if (result.success) {
+        showToast(`Order #${order.orderNumber} pushed to MoySklad!`, 'success')
+        setMoySkladId(result.moySkladOrderId)
+        onMoySkladPushed?.(order.id, result.moySkladOrderId)
+      } else {
+        showToast(`MoySklad push failed: ${result.error}`, 'error')
+      }
+    } catch (error) {
+      errorLog('Error pushing to MoySklad:', error)
+      showToast('Error pushing order to MoySklad', 'error')
+    } finally {
+      setPushingToMoySklad(false)
+    }
+  }
+
   return (
     <div className="space-y-4 sm:space-y-6">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
@@ -68,6 +109,24 @@ export default function OrderDetails({ order, onBack, onUpdateStatus }: OrderDet
                 </select>
               </div>
               <div className="break-words"><span className="font-medium">Total:</span> {formatCurrency(order.total)}</div>
+              {/* MoySklad Push Button */}
+              <div className="mt-3 pt-3 border-t border-gray-200">
+                {moySkladId ? (
+                  <div className="flex items-center gap-2 text-green-700 bg-green-50 border border-green-200 rounded-lg px-3 py-2">
+                    <CheckCircle className="h-4 w-4 flex-shrink-0" />
+                    <span className="text-xs sm:text-sm font-medium">Synced to MoySklad</span>
+                  </div>
+                ) : (
+                  <button
+                    onClick={pushToMoySklad}
+                    disabled={pushingToMoySklad}
+                    className="flex items-center gap-2 px-4 py-2.5 bg-orange-50 text-orange-700 border border-orange-300 rounded-lg hover:bg-orange-100 active:bg-orange-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-xs sm:text-sm font-medium w-full sm:w-auto justify-center touch-manipulation"
+                  >
+                    <Upload className="h-4 w-4" />
+                    {pushingToMoySklad ? 'Pushing to MoySklad...' : 'Push to MoySklad'}
+                  </button>
+                )}
+              </div>
             </div>
           </div>
         </div>

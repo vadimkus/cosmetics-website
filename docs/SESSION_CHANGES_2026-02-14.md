@@ -235,3 +235,38 @@ The web's `ProductImageGallery.tsx` does `[mainImage, ...parsedImages.filter(img
 | `17eac5f3` | fix: track user activity across all login methods for accurate online status |
 | `4855feee` | docs: update activity tracking and admin user management documentation |
 | `af6f01be` | fix: include main image in API gallery for products with DB images |
+
+---
+
+## Part 4: Product Gallery — POWER SOLUTION CVS (Product 5) Not Updating
+
+### Summary
+
+User added second and third images (`cvs_big1.jpg`, `cvs_big2.jpg`) to product 5 via `lib/products.ts` and pushed to main. After hard refresh, **no change** on https://genosys.ae/products/5 — still showed only the main image.
+
+### Root Cause
+
+**Production loads product data from the PostgreSQL database (Prisma), not from `lib/products.ts`.** The static file is for seeding/reference only. The product's `images` column in the database was `null`, so only the single `image` field was displayed.
+
+### Fix
+
+1. **Direct database update** — Ran SQL via `pg` to set `images` and `productNumber`:
+   - `images`: `null` → `["/images/CVS.jpg","/images/Second/cvs_big1.jpg","/images/Second/cvs_big2.jpg"]`
+   - `productNumber`: `null` → `"5"`
+
+2. **Static file** — `lib/products.ts` was already updated (commit `09e555ba`) for consistency.
+
+### Key Lesson
+
+> **Always update product data in the database, not just `lib/products.ts`.** Production data comes exclusively from PostgreSQL via Prisma.
+
+### Documentation
+
+- [GSC_FIXES_2026-02-14.md](./GSC_FIXES_2026-02-14.md) — Section 7 documents this fix in full
+
+### Commits
+
+| Commit | Description |
+|--------|-------------|
+| `09e555ba` | Add gallery images for POWER SOLUTION CVS (product 5) — static file only |
+| `51a8b7f1` | docs: add product gallery DB update to GSC fixes documentation |

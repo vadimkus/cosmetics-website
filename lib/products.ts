@@ -49,7 +49,7 @@ export const products: Product[] = [
     price: 580,
     description: '2ml x 10ea. Skin revitalizing ampoule for microneedling treatment. Dermatologically tested. Efficacy test on moisturizing. Features: It is a skin revitalizing ampoule specially formulated for microneedling treatment that supplies nutrients to the skin, soothes and hydrates skin with sh-polypeptide-7 (human growth hormone-like peptide), botanical stem cell extracts and panthenol. Skin-Friendly Formulation: Not containing harmful additives considering the increased skin permeability by microneedling (no-paraben, ethanol, artificial fragrance, artificial pigment, sulfate). Dermatologically tested. Key Ingredients: sh-polypeptide-7, Palmitoyl Tripeptide-1, Lactobacillus/Soymilk Ferment Filtrate, Panthenol, Allantoin, Hyaluronic Acid, Vitis Vinifera (Grape) Callus Culture Extract, Rosa Damascena Callus Culture Extract, Lactobacillus Ferment Lysate Filtrate. Manufactured in South Korea.',
     image: '/images/CVS.jpg',
-    images: null,
+    images: JSON.stringify(['/images/CVS.jpg', '/images/Second/cvs_big1.jpg', '/images/Second/cvs_big2.jpg']),
     category: 'PRO Solution',
     inStock: true,
   },

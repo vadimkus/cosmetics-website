@@ -2,7 +2,7 @@
 
 ## Overview
 
-Orders placed on **genosys.ae** are automatically synced to MoySklad (МойСклад) accounting system.
+Orders placed on **genosys.ae** can be manually pushed to MoySklad (МойСклад) accounting system via the admin panel.
 
 This is a **one-way sync**: genosys.ae → MoySklad. The integration only **creates** new customer orders and counterparties — it never modifies or deletes existing MoySklad data.
 
@@ -15,27 +15,52 @@ Order saved to PostgreSQL database
          ↓
 Email confirmations sent (customer + admin)
          ↓
-MoySklad order created (fire-and-forget, non-blocking)
+Admin opens order in /admin panel
+         ↓
+Admin clicks "Push to MoySklad" button
          ↓
 Customer/counterparty found or created in MoySklad
          ↓
 Order with line items appears in MoySklad
+         ↓
+moySkladOrderId saved to order in database
+(button changes to green "Synced to MoySklad" badge)
 ```
 
-### Integration Points (3 checkout flows)
+### Manual Push via Admin Panel
 
-| Flow | Route | Payment | When MoySklad order is created |
-|------|-------|---------|-------------------------------|
-| **Web COD** | `app/api/checkout/route.ts` | Cash on Delivery | Immediately after order is saved |
-| **Stripe (Web + Mobile)** | `app/api/webhooks/stripe/route.ts` | Card / Apple Pay | After Stripe confirms payment (`checkout.session.completed`, `payment_status === 'paid'`) |
-| **Mobile COD** | `app/api/mobile/orders/route.ts` | Cash on Delivery | Immediately after order is saved |
+Orders are pushed to MoySklad **manually** by clicking the "Push to MoySklad" button on the order detail view in the admin panel (`/admin` → Orders tab → click order → "Push to MoySklad").
+
+**Why manual instead of automatic?**
+- Automatic sync via checkout routes was unreliable on Vercel's serverless runtime (fire-and-forget promises and `after()` were getting terminated before completion)
+- Manual push keeps the live checkout flow clean and fast
+- Admins can verify orders before pushing to accounting
+- No risk of interfering with customer checkout experience
+
+### API Endpoint
+
+| Method | Route | Purpose |
+|--------|-------|---------|
+| POST | `/api/admin/orders/[id]/push-moysklad` | Push a single order to MoySklad |
+
+**Security**: Requires admin authentication + CSRF token.
+
+**Idempotent**: Returns 409 if order was already pushed (prevents duplicates).
+
+### Database Fields
+
+| Column | Type | Purpose |
+|--------|------|---------|
+| `moySkladOrderId` | String (nullable) | MoySklad order UUID after push |
+| `moySkladSyncedAt` | DateTime (nullable) | Timestamp of when order was pushed |
 
 ### Safety Guarantees
 
-- **Non-blocking**: MoySklad call is `fire-and-forget` — if MoySklad is down or returns an error, the customer's checkout is NOT affected
+- **Non-blocking checkout**: MoySklad is completely decoupled from the checkout flow
 - **No overwrites**: Existing MoySklad products, counterparties, and orders are never modified
 - **Idempotent counterparties**: Customers are searched by phone → email → name before creating a new one
-- **Graceful degradation**: If `MOYSKLAD_LOGIN` / `MOYSKLAD_PASSWORD` env vars are not set, the integration is silently disabled
+- **Duplicate protection**: Once pushed, the button changes to a "Synced" badge and the API rejects re-pushes
+- **Graceful degradation**: If `MOYSKLAD_LOGIN` / `MOYSKLAD_PASSWORD` env vars are not set, the push endpoint returns a clear error
 
 ## MoySklad Account Configuration
 
@@ -113,14 +138,14 @@ MOYSKLAD_PASSWORD=your-password-here
 | File | Purpose |
 |------|---------|
 | `lib/moysklad.ts` | Main integration module — API client, product mapping, order creation |
-| `app/api/checkout/route.ts` | Web COD checkout — calls `createMoySkladOrder()` |
-| `app/api/webhooks/stripe/route.ts` | Stripe webhook — calls `createMoySkladOrder()` on payment confirmation |
-| `app/api/mobile/orders/route.ts` | Mobile COD — calls `createMoySkladOrder()` |
+| `app/api/admin/orders/[id]/push-moysklad/route.ts` | Admin API endpoint to push an order to MoySklad |
+| `components/admin/OrderDetails.tsx` | Admin order detail view with "Push to MoySklad" button |
+| `prisma/schema.prisma` | `moySkladOrderId` and `moySkladSyncedAt` fields on Order model |
 | `.env.example` | Template showing `MOYSKLAD_LOGIN` and `MOYSKLAD_PASSWORD` |
 
 ## Customer / Counterparty Handling
 
-When an order is placed, the integration handles the customer (counterparty) as follows:
+When an order is pushed, the integration handles the customer (counterparty) as follows:
 
 ### Lookup Flow (never modifies existing counterparties)
 
@@ -156,7 +181,7 @@ New counterparties appear under: **Контрагенты** (Counterparties) →
 
 Each order created in MoySklad includes:
 
-- **Name**: Order number (e.g., `W-COD-20260214-001`)
+- **Name**: Order number (e.g., `CODW2602155957`)
 - **Organization**: Genosys Middle East FZ-LLC
 - **Counterparty**: Customer (found by phone/email or created)
 - **Store**: Genosys Warehouse
@@ -172,19 +197,24 @@ Each order created in MoySklad includes:
 ### Orders not appearing in MoySklad
 
 1. Check that `MOYSKLAD_LOGIN` and `MOYSKLAD_PASSWORD` are set in Vercel env vars
-2. Check server logs for "MoySklad" entries
-3. Verify the product name in the webapp matches the `PRODUCT_MAP` keys
+2. Open the order in admin panel and click "Push to MoySklad"
+3. Check toast notification for error message
+4. Check Vercel server logs for "MoySklad" entries
+5. Verify the product name in the webapp matches the `PRODUCT_MAP` keys
 
 ### "Unmapped items" in order description
 
 This means the webapp product name wasn't found in `PRODUCT_MAP`. The order is still created, but without those line items. Add the mapping as described above.
 
+### Button shows "Synced to MoySklad" but order not in MoySklad
+
+The `moySkladOrderId` was saved to the database. Check MoySklad directly using the UUID stored in the database.
+
 ### Duplicate orders
 
 This shouldn't happen because:
-- Web Stripe: Only creates on `checkout.session.completed` with `payment_status === 'paid'` and only if `!wasAlreadyPaid`
-- COD: Only creates once per checkout request
-- Mobile COD: Only creates once per order
+- The API returns 409 if `moySkladOrderId` is already set
+- The UI shows "Synced" badge instead of push button after successful push
 
 ## API Reference
 
@@ -200,6 +230,12 @@ MoySklad JSON API 1.2: https://dev.moysklad.ru/doc/api/remap/1.2/
 | POST | `/entity/counterparty` | Create new customer |
 | POST | `/entity/customerorder` | Create customer order |
 
+## History
+
+- **Feb 14, 2026**: Integration created with automatic sync from checkout routes
+- **Feb 15, 2026**: Refactored to manual admin push (automatic sync was unreliable on Vercel serverless)
+
 ---
 
 *Integration created: February 14, 2026*
+*Refactored to manual push: February 15, 2026*

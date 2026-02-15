@@ -217,63 +217,11 @@ export async function POST(request: NextRequest) {
     // Store the order
     await addOrder(order)
 
-    // Schedule all background tasks with after() so Vercel keeps the function alive
-    // until they complete. Without this, serverless functions can be killed after
-    // the response is sent, causing emails and MoySklad sync to silently fail.
+    // Schedule all background tasks with after() so Vercel keeps the function alive.
+    // CRITICAL: Emails run first (most important), MoySklad runs last (least critical).
+    // Each task is wrapped in try/catch so one failure can't break the others.
     after(async () => {
-      // Track order creation in database
-      try {
-        await trackUserAction({
-          action: 'order_created',
-          userEmail: customerEmail,
-          details: `Order #${orderId} - ${items.length} items - Total: ${total} AED`
-        })
-      } catch (err) {
-        errorLog('❌ Failed to track order creation:', err)
-      }
-
-      debugLog('📊 Purchase tracking data prepared for client-side Google Analytics:', {
-        orderId,
-        total,
-        items: orderItems.map(item => ({
-          id: item.productId,
-          name: item.productName,
-          category: 'cosmetics',
-          price: item.price,
-          quantity: item.quantity
-        }))
-      })
-
-      // Create order in MoySklad
-      if (isMoySkladEnabled()) {
-        try {
-          const msResult = await createMoySkladOrder({
-            orderNumber: orderId,
-            customerName,
-            customerEmail,
-            customerPhone,
-            customerAddress,
-            customerEmirate,
-            items: orderItems.map(item => ({
-              productName: item.productName,
-              quantity: item.quantity,
-              price: item.price,
-            })),
-            total,
-            shipping,
-            paymentMethod: 'cod',
-          })
-          if (msResult.success) {
-            debugLog('✅ MoySklad: COD order synced:', msResult.moySkladOrderId)
-          } else {
-            errorLog('❌ MoySklad: COD order sync failed:', msResult.error)
-          }
-        } catch (err) {
-          errorLog('❌ MoySklad: COD order sync exception:', err)
-        }
-      }
-
-      // Send order confirmation email to customer
+      // 1. Send order confirmation email to customer (HIGHEST PRIORITY)
       try {
         await sendOrderConfirmationEmail({
           orderNumber: order.orderNumber,
@@ -304,7 +252,7 @@ export async function POST(request: NextRequest) {
         errorLog('❌ Failed to send order confirmation email:', emailError)
       }
 
-      // Send admin notification for new order
+      // 2. Send admin notification for new order
       try {
         const adminResult = await sendAdminNewOrderNotification({
           orderNumber: order.orderNumber,
@@ -356,7 +304,7 @@ export async function POST(request: NextRequest) {
         errorLog('❌ Exception sending admin notification:', emailError)
       }
 
-      // Send WhatsApp order confirmation
+      // 3. Send WhatsApp order confirmation
       if (isTwilioConfigured() && customerPhone) {
         try {
           const whatsappResult = await sendWhatsAppOrderConfirmation(customerPhone, {
@@ -375,6 +323,46 @@ export async function POST(request: NextRequest) {
           }
         } catch (whatsappError) {
           errorLog('❌ Exception sending WhatsApp notification:', whatsappError)
+        }
+      }
+
+      // 4. Track order creation in database
+      try {
+        await trackUserAction({
+          action: 'order_created',
+          userEmail: customerEmail,
+          details: `Order #${orderId} - ${items.length} items - Total: ${total} AED`
+        })
+      } catch (err) {
+        errorLog('❌ Failed to track order creation:', err)
+      }
+
+      // 5. Create order in MoySklad (LOWEST PRIORITY — external API, can be slow)
+      if (isMoySkladEnabled()) {
+        try {
+          const msResult = await createMoySkladOrder({
+            orderNumber: orderId,
+            customerName,
+            customerEmail,
+            customerPhone,
+            customerAddress,
+            customerEmirate,
+            items: orderItems.map(item => ({
+              productName: item.productName,
+              quantity: item.quantity,
+              price: item.price,
+            })),
+            total,
+            shipping,
+            paymentMethod: 'cod',
+          })
+          if (msResult.success) {
+            debugLog('✅ MoySklad: COD order synced:', msResult.moySkladOrderId)
+          } else {
+            errorLog('❌ MoySklad: COD order sync failed:', msResult.error)
+          }
+        } catch (err) {
+          errorLog('❌ MoySklad: COD order sync exception:', err)
         }
       }
     })

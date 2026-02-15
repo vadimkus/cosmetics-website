@@ -508,9 +508,9 @@ export async function POST(request: NextRequest) {
       }
     })
 
-    // Schedule background tasks with after() so Vercel keeps the function alive
+    // Schedule background tasks with after() — emails first, MoySklad last
     after(async () => {
-      // Send order confirmation email to customer
+      // 1. Send order confirmation email to customer (HIGHEST PRIORITY)
       try {
         await sendOrderConfirmationEmail({
           orderNumber: order.orderNumber,

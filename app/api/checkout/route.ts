@@ -337,37 +337,39 @@ export async function POST(request: NextRequest) {
         errorLog('❌ Failed to track order creation:', err)
       }
 
-      // 5. Create order in MoySklad (LOWEST PRIORITY — external API, can be slow)
-      if (isMoySkladEnabled()) {
-        try {
-          const msResult = await createMoySkladOrder({
-            orderNumber: orderId,
-            customerName,
-            customerEmail,
-            customerPhone,
-            customerAddress,
-            customerEmirate,
-            items: orderItems.map(item => ({
-              productName: item.productName,
-              quantity: item.quantity,
-              price: item.price,
-            })),
-            total,
-            shipping,
-            paymentMethod: 'cod',
-          })
-          if (msResult.success) {
-            debugLog('✅ MoySklad: COD order synced:', msResult.moySkladOrderId)
-          } else {
-            errorLog('❌ MoySklad: COD order sync failed:', msResult.error)
-          }
-        } catch (err) {
-          errorLog('❌ MoySklad: COD order sync exception:', err)
-        }
-      }
     })
 
-    // Return success response immediately — after() guarantees background tasks complete
+    // Create order in MoySklad (outside after(), runs before response)
+    // Using await so it completes before the function returns
+    if (isMoySkladEnabled()) {
+      try {
+        const msResult = await createMoySkladOrder({
+          orderNumber: orderId,
+          customerName,
+          customerEmail,
+          customerPhone,
+          customerAddress,
+          customerEmirate,
+          items: orderItems.map(item => ({
+            productName: item.productName,
+            quantity: item.quantity,
+            price: item.price,
+          })),
+          total,
+          shipping,
+          paymentMethod: 'cod',
+        })
+        if (msResult.success) {
+          debugLog('✅ MoySklad: COD order synced:', msResult.moySkladOrderId)
+        } else {
+          errorLog('❌ MoySklad: COD order sync failed:', msResult.error)
+        }
+      } catch (err) {
+        errorLog('❌ MoySklad: COD order sync exception:', err)
+      }
+    }
+
+    // Return success response — emails run in after(), MoySklad already completed
     return NextResponse.json({ 
       orderId: orderId,
       message: 'Order created successfully'

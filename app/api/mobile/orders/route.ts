@@ -592,35 +592,36 @@ export async function POST(request: NextRequest) {
         errorLog('[MOBILE_ORDERS] ❌ Exception sending admin notification:', emailError)
       }
 
-      // Create order in MoySklad
-      if (isMoySkladEnabled()) {
-        try {
-          const msResult = await createMoySkladOrder({
-            orderNumber: order.orderNumber,
-            customerName: order.customerName,
-            customerEmail: order.customerEmail,
-            customerPhone: order.customerPhone || '',
-            customerAddress: order.customerAddress || '',
-            customerEmirate: order.customerEmirate || '',
-            items: order.items.map(item => ({
-              productName: item.productName,
-              quantity: item.quantity,
-              price: item.price,
-            })),
-            total: order.total,
-            shipping: order.shipping || 0,
-            paymentMethod: order.paymentMethod || 'cod',
-          })
-          if (msResult.success) {
-            debugLog('[MOBILE_ORDERS] ✅ MoySklad: Order synced:', msResult.moySkladOrderId)
-          } else {
-            errorLog('[MOBILE_ORDERS] ❌ MoySklad: Order sync failed:', msResult.error)
-          }
-        } catch (err) {
-          errorLog('[MOBILE_ORDERS] ❌ MoySklad: Order sync exception:', err)
-        }
-      }
     })
+
+    // Create order in MoySklad (outside after(), awaited before response)
+    if (isMoySkladEnabled()) {
+      try {
+        const msResult = await createMoySkladOrder({
+          orderNumber: order.orderNumber,
+          customerName: order.customerName,
+          customerEmail: order.customerEmail,
+          customerPhone: order.customerPhone || '',
+          customerAddress: order.customerAddress || '',
+          customerEmirate: order.customerEmirate || '',
+          items: order.items.map(item => ({
+            productName: item.productName,
+            quantity: item.quantity,
+            price: item.price,
+          })),
+          total: order.total,
+          shipping: order.shipping || 0,
+          paymentMethod: order.paymentMethod || 'cod',
+        })
+        if (msResult.success) {
+          debugLog('[MOBILE_ORDERS] ✅ MoySklad: Order synced:', msResult.moySkladOrderId)
+        } else {
+          errorLog('[MOBILE_ORDERS] ❌ MoySklad: Order sync failed:', msResult.error)
+        }
+      } catch (err) {
+        errorLog('[MOBILE_ORDERS] ❌ MoySklad: Order sync exception:', err)
+      }
+    }
 
     // Format response
     const formattedOrder = {

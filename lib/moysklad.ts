@@ -30,10 +30,10 @@ const MOYSKLAD_STATE_NEW_ID = 'e1a0abf2-33c5-11ea-0a80-043f000b275a' // "Нов�
 // ============================================================================
 
 function getAuthHeader(): string | null {
-  const login = process.env.MOYSKLAD_LOGIN
-  const password = process.env.MOYSKLAD_PASSWORD
+  const login = process.env.MOYSKLAD_LOGIN?.trim()
+  const password = process.env.MOYSKLAD_PASSWORD?.trim()
   if (!login || !password) {
-    errorLog('❌ MoySklad: MOYSKLAD_LOGIN or MOYSKLAD_PASSWORD not set')
+    errorLog('❌ MoySklad: MOYSKLAD_LOGIN or MOYSKLAD_PASSWORD not set. Login present:', !!process.env.MOYSKLAD_LOGIN, 'Password present:', !!process.env.MOYSKLAD_PASSWORD)
     return null
   }
   const encoded = Buffer.from(`${login}:${password}`).toString('base64')
@@ -465,5 +465,7 @@ export async function createMoySkladOrder(
 // ============================================================================
 
 export function isMoySkladEnabled(): boolean {
-  return !!(process.env.MOYSKLAD_LOGIN && process.env.MOYSKLAD_PASSWORD)
+  const enabled = !!(process.env.MOYSKLAD_LOGIN && process.env.MOYSKLAD_PASSWORD)
+  debugLog('🔍 MoySklad: isMoySkladEnabled =', enabled, '| LOGIN present:', !!process.env.MOYSKLAD_LOGIN, '| PASSWORD present:', !!process.env.MOYSKLAD_PASSWORD)
+  return enabled
 }

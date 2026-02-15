@@ -9,7 +9,48 @@ import { isMoySkladEnabled, createMoySkladOrder } from '@/lib/moysklad'
  * DELETE THIS FILE after debugging is complete.
  */
 
-export async function GET() {
+export async function GET(request: Request) {
+  const url = new URL(request.url)
+  const testOrder = url.searchParams.get('test') === 'order'
+
+  // If ?test=order, run the POST logic
+  if (testOrder) {
+    if (!isMoySkladEnabled()) {
+      return NextResponse.json({ error: 'MoySklad not enabled — env vars missing' }, { status: 500 })
+    }
+    try {
+      const result = await createMoySkladOrder({
+        orderNumber: 'TEST-API-CHECK-DELETE-ME-2',
+        customerName: 'API Test Customer',
+        customerEmail: 'test@genosys.ae',
+        customerPhone: '+971500000000',
+        customerAddress: 'Test Address',
+        customerEmirate: 'Dubai',
+        items: [{
+          productName: 'EGF REPAIR OXYMASK CREAM',
+          quantity: 1,
+          price: 145,
+        }],
+        total: 190,
+        shipping: 45,
+        paymentMethod: 'cod',
+      })
+      return NextResponse.json({
+        success: result.success,
+        moySkladOrderId: result.moySkladOrderId,
+        error: result.error,
+        timestamp: new Date().toISOString(),
+      })
+    } catch (err) {
+      return NextResponse.json({
+        error: err instanceof Error ? err.message : String(err),
+        stack: err instanceof Error ? err.stack : undefined,
+        timestamp: new Date().toISOString(),
+      }, { status: 500 })
+    }
+  }
+
+  // Default: check env vars
   const login = process.env.MOYSKLAD_LOGIN
   const password = process.env.MOYSKLAD_PASSWORD
   const enabled = isMoySkladEnabled()
@@ -22,6 +63,7 @@ export async function GET() {
     passwordPresent: !!password,
     passwordLength: password?.length || 0,
     timestamp: new Date().toISOString(),
+    hint: 'Add ?test=order to test MoySklad order creation',
   })
 }
 

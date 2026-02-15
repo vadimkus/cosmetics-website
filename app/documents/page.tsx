@@ -36,11 +36,11 @@ const documents = [
 
 export default function DocumentsPage() {
   // Group documents by category
-  const grouped = documents.reduce((acc, doc) => {
+  const grouped = documents.reduce<Record<string, typeof documents>>((acc, doc) => {
     if (!acc[doc.category]) acc[doc.category] = []
-    acc[doc.category].push(doc)
+    acc[doc.category]!.push(doc)
     return acc
-  }, {} as Record<string, typeof documents>)
+  }, {})
 
   return (
     <div className="bg-white min-h-screen">

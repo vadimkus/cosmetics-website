@@ -243,8 +243,7 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://www.google-analytics.com" />
         {/* Preload hero video poster for instant LCP on homepage */}
         <link rel="preload" href="/images/genosys-video-poster.jpg" as="image" fetchPriority="high" />
-        {/* Preload critical above-the-fold logo image */}
-        <link rel="preload" href="/images/genosys-logo.png" as="image" />
+        {/* Logo is preloaded automatically by Next.js <Image priority> in Logo.tsx */}
         
         {/* iOS Splash Screens for PWA */}
         <AppleSplashScreens />

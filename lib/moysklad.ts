@@ -425,7 +425,13 @@ export async function createMoySkladOrder(
       organization: entityMeta('organization', MOYSKLAD_ORG_ID),
       agent: { meta: counterparty.meta },
       store: entityMeta('store', MOYSKLAD_STORE_ID),
-      state: entityMeta('customerorder/metadata/states', MOYSKLAD_STATE_NEW_ID),
+      state: {
+        meta: {
+          href: `${MOYSKLAD_API_BASE}/entity/customerorder/metadata/states/${MOYSKLAD_STATE_NEW_ID}`,
+          type: 'state',
+          mediaType: 'application/json'
+        }
+      },
       vatEnabled: true,
       vatIncluded: true,
       rate: {

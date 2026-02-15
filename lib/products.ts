@@ -69,7 +69,7 @@ export const products: Product[] = [
     price: 580,
     description: '2ml x 10ea. Anti-blemish ampoule for microneedling treatment. Dermatologically tested. Efficacy test on improving excessive sebum production. Features: It is an anti-blemish ampoule specially formulated for microneedling treatment that controls excessive oil and sebum production and helps prevent skin breakout with sh-polypeptide-7 (human growth hormone-like peptide), with hazel leaf extract and houttuynia cordata extract. Skin-Friendly Formulation: Not containing harmful additives considering the increased skin permeability by microneedling (no-paraben, ethanol, artificial fragrance, artificial pigment, sulfate). Key Ingredients: sh-Polypeptide-7, Acetyl Hexapeptide-8, Palmitoyl Hexapeptide-12, Palmitoyl Tripeptide-1, Hamamelis Virginiana (Witch Hazel) Leaf Extract, Vitis Vinifera (Grape) Callus Culture Extract, Rosa Damascena Callus Culture Extract, Pinus Radiata Bark Extract, Houttuynia Cordata Extract. Manufactured in South Korea.',
     image: '/images/PCS.jpg',
-    images: null,
+    images: JSON.stringify(['/images/PCS.jpg', '/images/Second/pcs_big1.jpg', '/images/Second/pcs_big2.jpg']),
     category: 'PRO Solution',
     inStock: true,
   },

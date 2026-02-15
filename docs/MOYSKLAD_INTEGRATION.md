@@ -106,7 +106,7 @@ MOYSKLAD_PASSWORD=your-password-here
 | Local dev | `.env` file |
 | Production (Vercel) | Vercel Dashboard → Project Settings → Environment Variables |
 
-**IMPORTANT**: You must add `MOYSKLAD_LOGIN` and `MOYSKLAD_PASSWORD` to Vercel environment variables for the integration to work in production.
+**STATUS**: Vercel environment variables were added on Feb 14, 2026. Integration is **LIVE** in production.
 
 ## Files
 
@@ -117,6 +117,40 @@ MOYSKLAD_PASSWORD=your-password-here
 | `app/api/webhooks/stripe/route.ts` | Stripe webhook — calls `createMoySkladOrder()` on payment confirmation |
 | `app/api/mobile/orders/route.ts` | Mobile COD — calls `createMoySkladOrder()` |
 | `.env.example` | Template showing `MOYSKLAD_LOGIN` and `MOYSKLAD_PASSWORD` |
+
+## Customer / Counterparty Handling
+
+When an order is placed, the integration handles the customer (counterparty) as follows:
+
+### Lookup Flow (never modifies existing counterparties)
+
+```
+1. Search by PHONE (cleaned, no spaces) → found? use it
+         ↓ not found
+2. Search by EMAIL                      → found? use it
+         ↓ not found
+3. Search by NAME                       → found? use it
+         ↓ not found
+4. CREATE new counterparty
+```
+
+### New Counterparty Fields
+
+| Field | Value | Source |
+|-------|-------|--------|
+| `name` | Customer full name | Checkout form |
+| `email` | Customer email | Checkout form |
+| `phone` | Phone (spaces stripped) | Checkout form |
+| `companyType` | `individual` | Hardcoded |
+| `description` | `"Created from genosys.ae order"` | Hardcoded |
+
+### Returning Customers
+
+If a customer has ordered before (same phone or email), they are matched to their existing MoySklad counterparty. No duplicate counterparties are created, and existing counterparty data is never overwritten.
+
+### Where Counterparties Appear in MoySklad
+
+New counterparties appear under: **Контрагенты** (Counterparties) → type **Физлицо** (Individual).
 
 ## MoySklad Order Format
 

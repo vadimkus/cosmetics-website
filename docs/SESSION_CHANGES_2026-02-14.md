@@ -317,14 +317,38 @@ When a customer places an order (via any checkout flow), a corresponding custome
 | `.env.example` | Added `MOYSKLAD_LOGIN` and `MOYSKLAD_PASSWORD` template |
 | `docs/MOYSKLAD_INTEGRATION.md` | **NEW** — Full integration documentation |
 
-### Env Vars Required (ACTION NEEDED)
+### Env Vars Required
 
-Add these to **Vercel Dashboard → Project Settings → Environment Variables**:
+Added to **Vercel Dashboard → Project Settings → Environment Variables** (completed Feb 14, 2026):
 
 ```
 MOYSKLAD_LOGIN=vadimkus@ikosmetologist
 MOYSKLAD_PASSWORD=***
 ```
+
+Status: **LIVE** — integration is active in production after Vercel redeploy.
+
+### Risk Assessment
+
+| Area | Risk | Reason |
+|------|------|--------|
+| Login/auth flow | **ZERO** | Not touched |
+| Mobile app (auth, products, profile) | **ZERO** | Not touched |
+| Cart/bag | **ZERO** | Not touched |
+| Stripe payment processing | **ZERO** | Payment logic unchanged |
+| Order saving to database | **ZERO** | MoySklad code runs AFTER order is saved |
+| Email confirmations | **ZERO** | MoySklad code runs independently |
+| Web COD checkout response | **NEAR ZERO** | Fire-and-forget with `.catch()` |
+| Stripe webhook response | **NEAR ZERO** | Fire-and-forget with `.catch()` |
+| Mobile COD checkout response | **NEAR ZERO** | Fire-and-forget with `.catch()` |
+
+**Pattern used**: Identical to existing email sending — `.then().catch()` with no `await`. Even if MoySklad API goes offline, all existing app functionality continues unaffected. Build passed with zero TypeScript errors.
+
+### Commits
+
+| Commit | Description |
+|--------|-------------|
+| `9825eed0` | feat: integrate MoySklad accounting — auto-create orders on checkout |
 
 ### Documentation
 

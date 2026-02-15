@@ -220,6 +220,10 @@ model Order {
   refundAmount    Float?      // Amount refunded (can be partial)
   paymentMetadata String?     @db.Text // JSON metadata from payment provider
   
+  // MoySklad (accounting system) integration
+  moySkladOrderId String?     // MoySklad order UUID after manual push from admin
+  moySkladSyncedAt DateTime?  // When order was pushed to MoySklad
+  
   createdAt       DateTime    @default(now())
   updatedAt       DateTime    @updatedAt
   items           OrderItem[]

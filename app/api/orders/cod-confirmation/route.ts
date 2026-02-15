@@ -222,6 +222,8 @@ export async function POST(request: NextRequest) {
         refundedAt: null,
         refundAmount: null,
         paymentMetadata: null,
+        moySkladOrderId: null,
+        moySkladSyncedAt: null,
         createdAt: new Date(),
         updatedAt: new Date(),
         items: []

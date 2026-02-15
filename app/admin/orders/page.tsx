@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useCallback, useRef } from 'react'
-import { RefreshCw, Mail, AlertCircle, Check, X as XIcon } from 'lucide-react'
+import { RefreshCw, Mail, AlertCircle, Check, X as XIcon, Upload, CheckCircle } from 'lucide-react'
 import { fetchCsrfToken, getCsrfHeaders, addCsrfToBody } from '@/lib/csrfClient'
 import { errorLog } from '@/lib/logger'
 
@@ -15,9 +15,11 @@ interface OrderItem {
 }
 
 interface Order {
+  id: string
   orderNumber: string
   customerName: string
   customerEmail: string
+  customerPhone?: string
   total: number
   subtotal?: number
   shipping?: number
@@ -28,6 +30,8 @@ interface Order {
   status: string
   createdAt: string
   items?: OrderItem[]
+  paymentMethod?: string
+  moySkladOrderId?: string | null
 }
 
 // Toast notification types
@@ -42,6 +46,7 @@ export default function AdminOrdersPage() {
   const [orders, setOrders] = useState<Order[]>([])
   const [loading, setLoading] = useState(true)
   const [resending, setResending] = useState<string | null>(null)
+  const [pushingToMoySklad, setPushingToMoySklad] = useState<string | null>(null)
   const [toasts, setToasts] = useState<Toast[]>([])
   const toastIdCounter = useRef(0)
   const toastTimersRef = useRef<Map<number, NodeJS.Timeout>>(new Map())
@@ -153,6 +158,43 @@ export default function AdminOrdersPage() {
     showToast('Error sending notification', 'error')
   } finally {
       setResending(null)
+    }
+  }
+
+  const pushToMoySklad = async (orderId: string, orderNumber: string) => {
+    try {
+      // Ensure CSRF token is available
+      const csrfToken = await fetchCsrfToken()
+      if (!csrfToken) {
+        showToast('Security error: Could not verify request. Please refresh the page.', 'error')
+        return
+      }
+
+      setPushingToMoySklad(orderId)
+      const response = await fetch(`/api/admin/orders/${orderId}/push-moysklad`, {
+        method: 'POST',
+        headers: getAdminHeaders(),
+        body: JSON.stringify(addCsrfToBody({})),
+      })
+
+      const result = await response.json()
+
+      if (result.success) {
+        showToast(`Order #${orderNumber} pushed to MoySklad!`, 'success')
+        // Update the order in state to reflect the sync
+        setOrders(prev => prev.map(o => 
+          o.id === orderId 
+            ? { ...o, moySkladOrderId: result.moySkladOrderId } 
+            : o
+        ))
+      } else {
+        showToast(`MoySklad push failed: ${result.error}`, 'error')
+      }
+    } catch (error) {
+      errorLog('Error pushing to MoySklad:', error)
+      showToast('Error pushing order to MoySklad', 'error')
+    } finally {
+      setPushingToMoySklad(null)
     }
   }
 
@@ -268,6 +310,21 @@ export default function AdminOrdersPage() {
                       <Mail className="w-4 h-4 mr-1" />
                       {resending === order.orderNumber ? 'Sending...' : 'Resend Email'}
                     </button>
+                    {order.moySkladOrderId ? (
+                      <span className="px-3 py-1 text-sm text-green-700 bg-green-50 border border-green-200 rounded-md flex items-center" title={`MoySklad ID: ${order.moySkladOrderId}`}>
+                        <CheckCircle className="w-4 h-4 mr-1" />
+                        In MoySklad
+                      </span>
+                    ) : (
+                      <button
+                        onClick={() => pushToMoySklad(order.id, order.orderNumber)}
+                        disabled={pushingToMoySklad === order.id}
+                        className="px-3 py-1 text-sm border border-orange-300 bg-orange-50 text-orange-700 rounded-md hover:bg-orange-100 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
+                      >
+                        <Upload className="w-4 h-4 mr-1" />
+                        {pushingToMoySklad === order.id ? 'Pushing...' : 'Push to MoySklad'}
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>

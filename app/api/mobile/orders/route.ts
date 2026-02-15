@@ -9,7 +9,6 @@ import { getPreferredEmail } from '@/lib/emailHelpers'
 import { calculateMobileShipping, calculateVatIncluded } from '@/lib/mobileCheckoutConfig'
 import { isUserDiscountExcludedProduct } from '@/lib/mobileDiscountRules'
 import { trackUserActivity } from '@/lib/activityTracker'
-import { createMoySkladOrder, isMoySkladEnabled } from '@/lib/moysklad'
 
 const extractPaymentFlow = (order: { paymentMetadata?: string | Record<string, unknown> | null; payment_metadata?: string | Record<string, unknown> | null }): string | null => {
   const raw = order?.paymentMetadata ?? order?.payment_metadata ?? null
@@ -508,7 +507,8 @@ export async function POST(request: NextRequest) {
       }
     })
 
-    // Schedule background tasks with after() — emails first, MoySklad last
+    // Schedule background tasks with after() — emails
+    // MoySklad sync is done manually via admin panel "Push to MoySklad" button
     after(async () => {
       // 1. Send order confirmation email to customer (HIGHEST PRIORITY)
       try {
@@ -593,35 +593,6 @@ export async function POST(request: NextRequest) {
       }
 
     })
-
-    // Create order in MoySklad (outside after(), awaited before response)
-    if (isMoySkladEnabled()) {
-      try {
-        const msResult = await createMoySkladOrder({
-          orderNumber: order.orderNumber,
-          customerName: order.customerName,
-          customerEmail: order.customerEmail,
-          customerPhone: order.customerPhone || '',
-          customerAddress: order.customerAddress || '',
-          customerEmirate: order.customerEmirate || '',
-          items: order.items.map(item => ({
-            productName: item.productName,
-            quantity: item.quantity,
-            price: item.price,
-          })),
-          total: order.total,
-          shipping: order.shipping || 0,
-          paymentMethod: order.paymentMethod || 'cod',
-        })
-        if (msResult.success) {
-          debugLog('[MOBILE_ORDERS] ✅ MoySklad: Order synced:', msResult.moySkladOrderId)
-        } else {
-          errorLog('[MOBILE_ORDERS] ❌ MoySklad: Order sync failed:', msResult.error)
-        }
-      } catch (err) {
-        errorLog('[MOBILE_ORDERS] ❌ MoySklad: Order sync exception:', err)
-      }
-    }
 
     // Format response
     const formattedOrder = {

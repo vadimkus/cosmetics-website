@@ -13,7 +13,6 @@ import { findUserByEmail } from '@/lib/userStorageDb'
 import { calculateMobileShipping, calculateVatIncluded } from '@/lib/mobileCheckoutConfig'
 import { sendWhatsAppOrderConfirmation, isTwilioConfigured } from '@/lib/twilio'
 import { isUserDiscountExcludedProduct } from '@/lib/mobileDiscountRules'
-import { createMoySkladOrder, isMoySkladEnabled } from '@/lib/moysklad'
 
 interface CheckoutItem {
   product: Product
@@ -339,37 +338,8 @@ export async function POST(request: NextRequest) {
 
     })
 
-    // Create order in MoySklad (outside after(), runs before response)
-    // Using await so it completes before the function returns
-    if (isMoySkladEnabled()) {
-      try {
-        const msResult = await createMoySkladOrder({
-          orderNumber: orderId,
-          customerName,
-          customerEmail,
-          customerPhone,
-          customerAddress,
-          customerEmirate,
-          items: orderItems.map(item => ({
-            productName: item.productName,
-            quantity: item.quantity,
-            price: item.price,
-          })),
-          total,
-          shipping,
-          paymentMethod: 'cod',
-        })
-        if (msResult.success) {
-          debugLog('✅ MoySklad: COD order synced:', msResult.moySkladOrderId)
-        } else {
-          errorLog('❌ MoySklad: COD order sync failed:', msResult.error)
-        }
-      } catch (err) {
-        errorLog('❌ MoySklad: COD order sync exception:', err)
-      }
-    }
-
-    // Return success response — emails run in after(), MoySklad already completed
+    // Return success response — emails run in after()
+    // MoySklad sync is done manually via admin panel "Push to MoySklad" button
     return NextResponse.json({ 
       orderId: orderId,
       message: 'Order created successfully'

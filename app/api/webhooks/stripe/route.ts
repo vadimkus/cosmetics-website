@@ -9,7 +9,6 @@ import { STRIPE_WEBHOOK_SECRET } from '@/lib/envValidation'
 import { getPreferredEmail } from '@/lib/emailHelpers'
 import { findUserByEmail } from '@/lib/userStorageDb'
 import { isUserDiscountExcludedProduct } from '@/lib/mobileDiscountRules'
-import { createMoySkladOrder, isMoySkladEnabled } from '@/lib/moysklad'
 import Stripe from 'stripe'
 
 // Disable body parsing for webhooks
@@ -178,34 +177,7 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) 
         errorLog('❌ Failed to track order completion:', err)
       })
 
-      // Create order in MoySklad (awaited to ensure completion before function ends)
-      if (isMoySkladEnabled()) {
-        try {
-          const msResult = await createMoySkladOrder({
-            orderNumber: order.orderNumber,
-            customerName: order.customerName,
-            customerEmail: order.customerEmail,
-            customerPhone: order.customerPhone || '',
-            customerAddress: order.customerAddress || '',
-            customerEmirate: order.customerEmirate || '',
-            items: order.items.map((item: { productName: string; quantity: number; price: number }) => ({
-              productName: item.productName,
-              quantity: item.quantity,
-              price: item.price,
-            })),
-            total: order.total,
-            shipping: order.shipping || 0,
-            paymentMethod: 'stripe',
-          })
-          if (msResult.success) {
-            debugLog('✅ MoySklad: Stripe order synced:', msResult.moySkladOrderId)
-          } else {
-            errorLog('❌ MoySklad: Stripe order sync failed:', msResult.error)
-          }
-        } catch (err) {
-          errorLog('❌ MoySklad: Stripe order sync exception:', err)
-        }
-      }
+      // MoySklad sync is done manually via admin panel "Push to MoySklad" button
     } else if (wasAlreadyPaid) {
       debugLog('ℹ️ Order already marked as paid, skipping duplicate emails:', order.orderNumber)
     }

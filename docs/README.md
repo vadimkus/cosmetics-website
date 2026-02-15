@@ -263,7 +263,7 @@
 
 | File | Description |
 |------|-------------|
-| [GSC_FIXES_2026-02-14.md](./GSC_FIXES_2026-02-14.md) | **NEW** Full GSC audit: CLS & LCP fixes (56 URLs), Product Snippets invalid items fix (236 items), Merchant Listings return policy (48 items) |
+| [GSC_FIXES_2026-02-14.md](./GSC_FIXES_2026-02-14.md) | **NEW** Full GSC audit: Core Web Vitals (CLS/LCP), Product Snippets (236), Merchant Listings (48), Review Snippets (290), Page Indexing 404s (9), plus informational reports |
 | [GOOGLE_SEARCH_CONSOLE_SETUP.md](./GOOGLE_SEARCH_CONSOLE_SETUP.md) | Google Search Console verification, sitemap submission, ping API |
 | [GOOGLE_MERCHANT_CENTER_FEED.md](./GOOGLE_MERCHANT_CENTER_FEED.md) | Product feed XML at /feed/products.xml — RSS 2.0 for Merchant Center scheduled fetch |
 | [SEO_CONCERN_LANDING_PAGES.md](./SEO_CONCERN_LANDING_PAGES.md) | Concern & category landing pages, product grid, discount logic, native app risk |

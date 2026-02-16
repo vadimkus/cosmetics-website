@@ -250,6 +250,32 @@ The video renders below the image gallery using the existing `<video>` player in
 | `lib/products.ts` | Added `videoUrl: '/videos/spf50.mp4'` to product 39 |
 | `public/videos/spf50.mp4` | **NEW** — Product video file (~5.5 MB) |
 
+### Bug Fix: Video Not Appearing
+
+The initial commit (`a4af9e8d`) only added `videoUrl` to `lib/products.ts`, which is the **static fallback** data. However, the product page loads data through `pricingEngine.ts`, which reads `videoUrl` from `data/productConfig.ts` first (priority source via `getProductVideoUrl()`). Since `productConfig['39']` had no `videoUrl`, the merge logic resolved to `null`.
+
+**Fix** (`9b33ae21`): Added `videoUrl: '/videos/spf50.mp4'` to `data/productConfig.ts` under the `'39'` entry — matching the pattern used by products 27, 28, 29, and 40.
+
+### Video Data Flow (Reference)
+
+```
+productConfig.videoUrl  →  (priority)
+        ↓ if undefined
+product.videoUrl (DB)   →  (fallback)
+        ↓ if null
+null                    →  video element not rendered
+```
+
+Source: `lib/pricingEngine.ts` lines 533-535
+
+### Files Changed
+
+| File | Change |
+|------|--------|
+| `lib/products.ts` | Added `videoUrl: '/videos/spf50.mp4'` to product 39 (static fallback) |
+| `data/productConfig.ts` | Added `videoUrl: '/videos/spf50.mp4'` to product 39 config (actual source) |
+| `public/videos/spf50.mp4` | **NEW** — Product video file (~5.5 MB) |
+
 ### Pattern
 
 Uses the existing `videoUrl` field on the `Product` type (`types/index.ts` line 94). The product page component already renders a `<video>` element when `product.videoUrl` is set.
@@ -304,5 +330,7 @@ Geographic and audience targeting is already communicated through other valid fi
 | `961ec66b` | fix: add shippingDetails structured data to resolve Google Search Console warning |
 | `5559fc11` | fix: add priceValidUntil and itemCondition to listing/collection schema offers |
 | `dc435a93` | docs: update session log with delivery mapping and GSC structured data fixes |
-| `a4af9e8d` | add product video for ULTRA SHIELD SUN CREAM SPF 50+ (product 39) |
+| `a4af9e8d` | add product video for ULTRA SHIELD SUN CREAM SPF 50+ (product 39) — lib/products.ts only |
 | `f10104ad` | fix: remove invalid audience field from Product structured data |
+| `7326f407` | docs: add SPF 50+ video and audience field fix to session log |
+| `9b33ae21` | fix: add spf50 video to productConfig for product 39 — actual fix (data/productConfig.ts) |

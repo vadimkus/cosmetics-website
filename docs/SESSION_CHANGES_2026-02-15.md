@@ -235,6 +235,62 @@ Rates match `lib/mobileCheckoutConfig.ts`:
 
 ---
 
+## Part 6: Product Video — ULTRA SHIELD SUN CREAM SPF 50+ (Product 39)
+
+### Change
+
+Added product video `spf50.mp4` to [genosys.ae/products/39](https://genosys.ae/products/39) (ULTRA SHIELD SUN CREAM [SPF 50+ PA++++]).
+
+The video renders below the image gallery using the existing `<video>` player in `ProductPageClientRefactored.tsx` (controls, playsInline, preload="none", GENOSYS logo poster).
+
+### Files Changed
+
+| File | Change |
+|------|--------|
+| `lib/products.ts` | Added `videoUrl: '/videos/spf50.mp4'` to product 39 |
+| `public/videos/spf50.mp4` | **NEW** — Product video file (~5.5 MB) |
+
+### Pattern
+
+Uses the existing `videoUrl` field on the `Product` type (`types/index.ts` line 94). The product page component already renders a `<video>` element when `product.videoUrl` is set.
+
+---
+
+## Part 7: GSC Fix — Remove Invalid `audience` Field from Product Schema
+
+### Problem
+
+Google Search Console flagged **"Invalid object type for field audience"** in Merchant listings structured data. The `audience` property with `@type: "Audience"` is not a recognized field on `schema.org/Product` for Google's Merchant listings validator.
+
+### Fix
+
+Removed the entire `audience` block from `components/schema/ProductSchema.tsx`:
+
+```json
+// REMOVED:
+"audience": {
+  "@type": "Audience",
+  "audienceType": "Skincare Professionals and Consumers",
+  "geographicArea": {
+    "@type": "Country",
+    "name": "United Arab Emirates"
+  }
+}
+```
+
+Geographic and audience targeting is already communicated through other valid fields:
+- `seller.address.addressCountry: "AE"` — seller location
+- `shippingDetails.shippingDestination.addressCountry: "AE"` — shipping region
+- Google Search Console geo-targeting settings
+
+### Files Changed
+
+| File | Change |
+|------|--------|
+| `components/schema/ProductSchema.tsx` | Removed `audience` block (9 lines) |
+
+---
+
 ## Commits
 
 | Hash | Message |
@@ -247,3 +303,6 @@ Rates match `lib/mobileCheckoutConfig.ts`:
 | `87611e2b` | feat: add delivery service as line item in MoySklad orders |
 | `961ec66b` | fix: add shippingDetails structured data to resolve Google Search Console warning |
 | `5559fc11` | fix: add priceValidUntil and itemCondition to listing/collection schema offers |
+| `dc435a93` | docs: update session log with delivery mapping and GSC structured data fixes |
+| `a4af9e8d` | add product video for ULTRA SHIELD SUN CREAM SPF 50+ (product 39) |
+| `f10104ad` | fix: remove invalid audience field from Product structured data |

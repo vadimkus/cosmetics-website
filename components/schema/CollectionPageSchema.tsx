@@ -107,6 +107,8 @@ export default function CollectionPageSchema({
               "price": item.price,
               "priceCurrency": item.currency || "AED",
               "availability": "https://schema.org/InStock",
+              "priceValidUntil": new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+              "itemCondition": "https://schema.org/NewCondition",
               "hasMerchantReturnPolicy": {
                 "@type": "MerchantReturnPolicy",
                 "applicableCountry": "AE",

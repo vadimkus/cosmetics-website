@@ -76,6 +76,23 @@ export default function ProductsListSchema({ products, category }: ProductsListS
                 "returnMethod": "https://schema.org/ReturnByMail",
                 "returnFees": "https://schema.org/FreeReturn",
               },
+              "shippingDetails": {
+                "@type": "OfferShippingDetails",
+                "shippingRate": {
+                  "@type": "MonetaryAmount",
+                  "value": "45",
+                  "currency": "AED"
+                },
+                "shippingDestination": {
+                  "@type": "DefinedRegion",
+                  "addressCountry": "AE"
+                },
+                "deliveryTime": {
+                  "@type": "ShippingDeliveryTime",
+                  "handlingTime": { "@type": "QuantitativeValue", "minValue": 0, "maxValue": 1, "unitCode": "DAY" },
+                  "transitTime": { "@type": "QuantitativeValue", "minValue": 0, "maxValue": 2, "unitCode": "DAY" }
+                }
+              },
             },
             "sku": product.id,
             "mpn": product.productNumber || product.id,

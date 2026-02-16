@@ -102,38 +102,73 @@ export default function ProductSchema({ product }: ProductSchemaProps) {
         "returnMethod": "https://schema.org/ReturnByMail",
         "returnFees": "https://schema.org/FreeReturn"
       },
-      "shippingDetails": {
-        "@type": "OfferShippingDetails",
-        "shippingRate": {
-          "@type": "MonetaryAmount",
-          "value": "0",
-          "currency": "AED"
-        },
-        "shippingDestination": {
-          "@type": "DefinedRegion",
-          "addressCountry": "AE"
-        },
-        "deliveryTime": {
-          "@type": "ShippingDeliveryTime",
-          "businessDays": {
-            "@type": "OpeningHoursSpecification",
-            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
+      "shippingDetails": [
+        {
+          "@type": "OfferShippingDetails",
+          "shippingRate": {
+            "@type": "MonetaryAmount",
+            "value": "45",
+            "currency": "AED"
           },
-          "cutoffTime": "14:00",
-          "handlingTime": {
-            "@type": "QuantitativeValue",
-            "minValue": 1,
-            "maxValue": 2,
-            "unitCode": "DAY"
+          "shippingDestination": {
+            "@type": "DefinedRegion",
+            "addressCountry": "AE",
+            "addressRegion": "Dubai"
           },
-          "transitTime": {
-            "@type": "QuantitativeValue",
-            "minValue": 1,
-            "maxValue": 3,
-            "unitCode": "DAY"
+          "deliveryTime": {
+            "@type": "ShippingDeliveryTime",
+            "businessDays": {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+            },
+            "cutoffTime": "14:00",
+            "handlingTime": {
+              "@type": "QuantitativeValue",
+              "minValue": 0,
+              "maxValue": 1,
+              "unitCode": "DAY"
+            },
+            "transitTime": {
+              "@type": "QuantitativeValue",
+              "minValue": 0,
+              "maxValue": 1,
+              "unitCode": "DAY"
+            }
+          }
+        },
+        {
+          "@type": "OfferShippingDetails",
+          "shippingRate": {
+            "@type": "MonetaryAmount",
+            "value": "70",
+            "currency": "AED"
+          },
+          "shippingDestination": {
+            "@type": "DefinedRegion",
+            "addressCountry": "AE"
+          },
+          "deliveryTime": {
+            "@type": "ShippingDeliveryTime",
+            "businessDays": {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
+            },
+            "cutoffTime": "14:00",
+            "handlingTime": {
+              "@type": "QuantitativeValue",
+              "minValue": 0,
+              "maxValue": 1,
+              "unitCode": "DAY"
+            },
+            "transitTime": {
+              "@type": "QuantitativeValue",
+              "minValue": 1,
+              "maxValue": 2,
+              "unitCode": "DAY"
+            }
           }
         }
-      }
+      ]
     },
     "additionalProperty": [
       {

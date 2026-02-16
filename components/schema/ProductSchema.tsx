@@ -209,15 +209,6 @@ export default function ProductSchema({ product }: ProductSchemaProps) {
     ...(product.nameAr ? { "alternateName": [product.nameAr, product.nameRu].filter(Boolean) } : {}),
     "url": `${SITE_URL}/products/${product.id}`,
     "inLanguage": "en",
-    // Audience targeting (helps Google Shopping and AI recommendations)
-    "audience": {
-      "@type": "Audience",
-      "audienceType": "Skincare Professionals and Consumers",
-      "geographicArea": {
-        "@type": "Country",
-        "name": "United Arab Emirates"
-      }
-    }
   }
 
   // When a real review system is implemented, enable this:

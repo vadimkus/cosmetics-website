@@ -125,6 +125,116 @@ Bundle orders still show the full waterfall breakdown.
 
 ---
 
+## Part 4: MoySklad Delivery Service Mapping
+
+### Change
+
+When an order is pushed to MoySklad from the admin panel, the shipping charge is now added as a **service line item** (not just a text description). This ensures MoySklad's accounting totals match the website order total exactly.
+
+### Mapping
+
+| Emirate | Shipping (AED) | MoySklad Service UUID |
+|---------|---------------|----------------------|
+| Dubai | 45 | `a97cfeeb-814e-11ea-0a80-004a001516bd` |
+| Sharjah | 70 | `52864050-59a7-11eb-0a80-022e00579624` |
+| Abu Dhabi | 70 | `212036af-814f-11ea-0a80-011700157c7d` |
+| Al Ain | 80 | `41b80390-814f-11ea-0a80-03ae0014ec85` |
+| Fujairah | 80 | `557d2277-814f-11ea-0a80-03ae0014ed65` |
+| RAK | 80 | `a9d199bf-b909-11ea-0a80-03ec0015b2d7` |
+
+### Files Changed
+
+| File | Change |
+|------|--------|
+| `lib/moysklad.ts` | Added `DELIVERY_SERVICE_MAP`, `getMoySkladDeliveryServiceId()`, and shipping line-item logic in `createMoySkladOrder` |
+
+### Technical Details
+
+- Shipping is added as `@type: service` (not `product`) in MoySklad positions
+- VAT is set to 0 / disabled for shipping line items
+- If no emirate mapping is found, a warning is logged and shipping is mentioned in the description only
+- Uses fuzzy matching (`.includes()`) for emirate name variations
+
+---
+
+## Part 5: Google Search Console — Structured Data Fixes
+
+### Problem
+
+Google Search Console flagged two sets of issues on genosys.ae product pages:
+
+**Issue Set 1 — Merchant Listings:**
+| Issue | Severity | Status |
+|-------|----------|--------|
+| Missing field `shippingDetails` (in `offers`) | Non-critical | **Fixed** |
+
+**Issue Set 2 — Product Snippets:**
+| Issue | Severity | Status |
+|-------|----------|--------|
+| Missing field `priceValidUntil` (in `offers`) | Non-critical | **Fixed** |
+| Missing field `aggregateRating` | Non-critical | **Cannot fix** (no real reviews) |
+| Missing field `review` | Non-critical | **Cannot fix** (no real reviews) |
+
+### Fix 1: shippingDetails (Merchant Listings)
+
+The existing `shippingDetails` in `ProductSchema.tsx` was hardcoded with `"value": "0"` (free shipping), which was inaccurate — shipping is only free for orders over 1000 AED.
+
+**Replaced** with an array of two accurate shipping options:
+
+```json
+"shippingDetails": [
+  {
+    "@type": "OfferShippingDetails",
+    "shippingRate": { "value": "45", "currency": "AED" },
+    "shippingDestination": { "addressCountry": "AE", "addressRegion": "Dubai" },
+    "deliveryTime": { "transitTime": { "minValue": 0, "maxValue": 1 } }
+  },
+  {
+    "@type": "OfferShippingDetails",
+    "shippingRate": { "value": "70", "currency": "AED" },
+    "shippingDestination": { "addressCountry": "AE" },
+    "deliveryTime": { "transitTime": { "minValue": 1, "maxValue": 2 } }
+  }
+]
+```
+
+Also added `shippingDetails` to `ProductsListSchema.tsx` and `CollectionPageSchema.tsx` (previously missing entirely).
+
+### Fix 2: priceValidUntil (Product Snippets)
+
+`priceValidUntil` was already present in `ProductSchema.tsx` (individual product pages) but **missing** from the listing and collection page schemas. Added to both.
+
+Also added `itemCondition: "https://schema.org/NewCondition"` for completeness.
+
+### Why aggregateRating and review Cannot Be Fixed
+
+These fields require **real customer review data**. Google explicitly prohibits fabricated reviews in structured data and can penalize sites that include them. The code in `ProductSchema.tsx` (lines 223-232) is already pre-wired to include `aggregateRating` when a real review system is implemented — just uncomment the block and connect real data.
+
+### Files Changed
+
+| File | Change |
+|------|--------|
+| `components/schema/ProductSchema.tsx` | Replaced fake free-shipping `shippingDetails` with accurate Dubai (45 AED) + UAE (70 AED) array |
+| `components/schema/ProductsListSchema.tsx` | Added `shippingDetails`, `priceValidUntil`, `itemCondition` to listing offers |
+| `components/schema/CollectionPageSchema.tsx` | Added `shippingDetails`, `priceValidUntil`, `itemCondition` to collection offers |
+
+### Shipping Rates Reference
+
+Rates match `lib/mobileCheckoutConfig.ts`:
+
+| Emirate | Shipping (AED) |
+|---------|---------------|
+| Dubai | 45 |
+| Abu Dhabi | 70 |
+| Sharjah | 70 |
+| Ajman | 70 |
+| Ras Al Khaimah | 70 |
+| Fujairah | 70 |
+| Umm Al Quwain | 70 |
+| **Free threshold** | **1,000 AED** |
+
+---
+
 ## Commits
 
 | Hash | Message |
@@ -133,3 +243,7 @@ Bundle orders still show the full waterfall breakdown.
 | `9adf3fac` | fix: add Push to MoySklad button to the actual OrderDetails view |
 | `8cc35bcf` | add gallery images for POWER SOLUTION PCS (product 7) |
 | `3034a16b` | fix: remove duplicate discount display on order success page |
+| `9958d70a` | docs: add session log for Feb 15 and update MoySklad integration docs |
+| `87611e2b` | feat: add delivery service as line item in MoySklad orders |
+| `961ec66b` | fix: add shippingDetails structured data to resolve Google Search Console warning |
+| `5559fc11` | fix: add priceValidUntil and itemCondition to listing/collection schema offers |

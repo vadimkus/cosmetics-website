@@ -21,39 +21,81 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     id: '4',
     pricing: {
       basePrice: 550
-    }
+    },
+    documentation: [
+      {
+        title: 'Microneedling Protocols (Carboxy + Power Solutions)',
+        url: 'https://genosys.ae/documents/ppt/GENOSYS_Microneedling_Protocols.pdf',
+        type: 'pdf'
+      }
+    ]
   },
   '5': {
     id: '5',
     pricing: {
       basePrice: 550
-    }
+    },
+    documentation: [
+      {
+        title: 'Microneedling Protocols (Carboxy + Power Solutions)',
+        url: 'https://genosys.ae/documents/ppt/GENOSYS_Microneedling_Protocols.pdf',
+        type: 'pdf'
+      }
+    ]
   },
   '6': {
     id: '6',
     images: ['/images/CTS.jpg', '/images/Second/cts_big.jpg', '/images/Second/cts_big2.jpg'],
     pricing: {
       basePrice: 550
-    }
+    },
+    documentation: [
+      {
+        title: 'Microneedling Protocols (Carboxy + Power Solutions)',
+        url: 'https://genosys.ae/documents/ppt/GENOSYS_Microneedling_Protocols.pdf',
+        type: 'pdf'
+      }
+    ]
   },
   '7': {
     id: '7',
     pricing: {
       basePrice: 550
-    }
+    },
+    documentation: [
+      {
+        title: 'Microneedling Protocols (Carboxy + Power Solutions)',
+        url: 'https://genosys.ae/documents/ppt/GENOSYS_Microneedling_Protocols.pdf',
+        type: 'pdf'
+      }
+    ]
   },
   '8': {
     id: '8',
     pricing: {
       basePrice: 550
-    }
+    },
+    documentation: [
+      {
+        title: 'Microneedling Protocols (Carboxy + Power Solutions)',
+        url: 'https://genosys.ae/documents/ppt/GENOSYS_Microneedling_Protocols.pdf',
+        type: 'pdf'
+      }
+    ]
   },
   '9': {
     id: '9',
     pricing: {
       basePrice: 550
     },
-    images: ['/images/AWS.jpg', '/images/Second/aws1.jpg', '/images/Second/aws2.jpg']
+    images: ['/images/AWS.jpg', '/images/Second/aws1.jpg', '/images/Second/aws2.jpg'],
+    documentation: [
+      {
+        title: 'Microneedling Protocols (Carboxy + Power Solutions)',
+        url: 'https://genosys.ae/documents/ppt/GENOSYS_Microneedling_Protocols.pdf',
+        type: 'pdf'
+      }
+    ]
   },
   '1': {
     id: '1',
@@ -129,7 +171,14 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     pricing: {
       basePrice: 730
     },
-    images: ['/images/SRS.jpg', '/images/Second/sss1.jpg', '/images/Second/sss2.jpg']
+    images: ['/images/SRS.jpg', '/images/Second/sss1.jpg', '/images/Second/sss2.jpg'],
+    documentation: [
+      {
+        title: 'Microneedling Protocols (Carboxy + Power Solutions)',
+        url: 'https://genosys.ae/documents/ppt/GENOSYS_Microneedling_Protocols.pdf',
+        type: 'pdf'
+      }
+    ]
   },
   '14': {
     id: '14',
@@ -702,7 +751,8 @@ const documentationTitleTranslations: Record<string, string> = {
   'SKIN DEFENDER Product Guide': 'Руководство по продукту SKIN DEFENDER',
   'INTENSIVE PROBLEM CONTROL TONER': 'Руководство по INTENSIVE PROBLEM CONTROL TONER',
   'BIO MESO PDRN EXPERT AMPOULE 60000 Guide': 'Руководство по BIO MESO PDRN EXPERT AMPOULE 60000',
-  'REVITA GLOW BLEMISH BALM CREAM Guide': 'Руководство по REVITA GLOW BLEMISH BALM CREAM'
+  'REVITA GLOW BLEMISH BALM CREAM Guide': 'Руководство по REVITA GLOW BLEMISH BALM CREAM',
+  'Microneedling Protocols (Carboxy + Power Solutions)': 'Протоколы микронидлинга (Карбокси + Power Solutions)'
 }
 
 export const getProductDocumentation = (productId: string, locale: string = 'en'): Array<{

@@ -5,6 +5,7 @@ import { generateEnhancedProductData } from '@/lib/pricingEngine'
 import { ApiUser } from '@/types/user'
 import { getProductTranslations } from '@/data/productTranslations'
 import { getProductTranslationsRu } from '@/data/productTranslationsRu'
+import { getProductDocumentation } from '@/data/productConfig'
 
 /**
  * Database product type - matches Prisma query select fields
@@ -309,6 +310,7 @@ export async function GET(
       recommendedProductId: getRecommendedProductId(typedProduct.productNumber || typedProduct.id),
       note: extractNoteFromProductDetails(typedProduct.productDetails),
       isPriceOnRequest: typedProduct.isPriceOnRequest ?? false,
+      documentation: getProductDocumentation(productIdForTranslation, locale),
     }
     const enhancementDuration = Date.now() - enhancementStartTime
     

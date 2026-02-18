@@ -42,7 +42,7 @@ export default async function PDFViewerPage({ params }: PageProps) {
     notFound()
   }
   
-  const pdfUrl = `/documents/ppt/${encodeURIComponent(decodedFilename)}`
+  const pdfUrl = `/documents/PPT/${encodeURIComponent(decodedFilename)}`
   
   return (
     <PDFViewerClient 

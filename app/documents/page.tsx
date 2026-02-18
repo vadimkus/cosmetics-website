@@ -64,7 +64,7 @@ export default function DocumentsPage() {
                 {docs.map((doc) => (
                   <Link
                     key={doc.name}
-                    href={`/documents/ppt/${encodeURIComponent(doc.name + '.pdf')}`}
+                    href={`/documents/PPT/${encodeURIComponent(doc.name + '.pdf')}`}
                     className="flex items-center gap-3 p-4 rounded-lg border border-gray-200 hover:border-primary-300 hover:bg-primary-50 transition-colors group"
                   >
                     <FileText className="h-5 w-5 text-gray-400 group-hover:text-primary-600 flex-shrink-0" />

@@ -247,6 +247,9 @@
 |------|-------------|
 | [protocols/CLINIC_971_MICRONEEDLING_PROTOCOLS.md](./protocols/CLINIC_971_MICRONEEDLING_PROTOCOLS.md) | **NEW** Complete microneedling protocols for Clinic 971 — 8 protocols (Anti-Wrinkle, Anti-Pigmentation, Acne, Rejuvenation, SRS Peeling, Hydration, Neck/Décolleté, Eye Area) with Carboxy + Power Solutions core |
 | [protocols/UNDERARM_BRIGHTENING.md](./protocols/UNDERARM_BRIGHTENING.md) | Underarm brightening protocol — EZ CO₂ + SWS + home care |
+| [protocols/EPI_PEELING_HOME_CARE_EN.md](./protocols/EPI_PEELING_HOME_CARE_EN.md) | **NEW** EPI TURNOVER PEELING GEL — home care protocol (EN), ingredients, skincare sets by skin type |
+| [protocols/EPI_PEELING_HOME_CARE_RU.md](./protocols/EPI_PEELING_HOME_CARE_RU.md) | **NEW** EPI TURNOVER PEELING GEL — домашний протокол (RU), составы, наборы по типам кожи |
+| [protocols/SUN_PROTECTION_HOME_CARE_EN.md](./protocols/SUN_PROTECTION_HOME_CARE_EN.md) | **NEW** Sun Protection home care protocol (EN) — daily AM/PM routine for UAE climate, 5 SPF products, 4 lifestyle sets, reapplication guide, ingredients |
 | [PROTOCOL_UNDERARM_BRIGHTENING.md](./PROTOCOL_UNDERARM_BRIGHTENING.md) | Underarm brightening protocol (original version) |
 
 **Microneedling Protocol Document:**

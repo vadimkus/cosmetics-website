@@ -47,8 +47,8 @@ export const CONCERN_PAGES: ConcernPage[] = [
   // ─── SUN PROTECTION ──────────────────────────────────────────
   {
     slug: 'sun-protection',
-    concernKeys: ['sensitivity'],
-    categoryFallbacks: ['sun'],
+    concernKeys: ['sun-protection'],
+    categoryFallbacks: ['sun', 'cushion bb'],
     relatedConcerns: ['pigmentation', 'sensitivity', 'anti-aging'],
     seo: {
       en: {

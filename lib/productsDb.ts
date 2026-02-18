@@ -216,12 +216,12 @@ const GENOSYS_PRODUCT_CONCERNS: Record<string, string[]> = {
   'SKIN REBOOT PDRN MASK PACK': ['anti-aging', 'hydration'],
   
   // Sun Protection
-  'ULTRA SHIELD SUN CREAM': ['sensitivity'],
-  'MULTI SUN CREAM': ['sensitivity'],
+  'ULTRA SHIELD SUN CREAM': ['sun-protection', 'sensitivity'],
+  'MULTI SUN CREAM': ['sun-protection', 'sensitivity'],
   
-  // BB Cushion
-  'SKIN CARING BLEMISH BALM CUSHION': ['sensitivity', 'brightening'],
-  'INTENSIVE BLEMISH BALM CREAM': ['sensitivity', 'brightening'],
+  // BB Cushion (with SPF sun protection)
+  'SKIN CARING BLEMISH BALM CUSHION': ['sun-protection', 'sensitivity', 'brightening'],
+  'INTENSIVE BLEMISH BALM CREAM': ['sun-protection', 'sensitivity', 'brightening'],
   
   // PRO Solutions (for microneedling - higher tier recommendations)
   'POWER SOLUTION HES': ['hydration', 'anti-aging'],

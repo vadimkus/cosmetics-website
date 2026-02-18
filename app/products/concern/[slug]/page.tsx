@@ -137,16 +137,6 @@ export default async function ConcernPage({ params }: { params: Promise<{ slug: 
         </div>
       </section>
 
-      {/* Products Grid */}
-      <section className="py-8 sm:py-12 px-4">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-6">
-            Recommended Products ({products.length})
-          </h2>
-          <ConcernProductGrid products={products} locale="en" />
-        </div>
-      </section>
-
       {/* Protocol PDF Download */}
       {concern.protocolPdf && (
         <section className="py-8 sm:py-12 px-4">
@@ -187,6 +177,16 @@ export default async function ConcernPage({ params }: { params: Promise<{ slug: 
           </div>
         </section>
       )}
+
+      {/* Products Grid */}
+      <section className="py-8 sm:py-12 px-4">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-6">
+            Recommended Products ({products.length})
+          </h2>
+          <ConcernProductGrid products={products} locale="en" />
+        </div>
+      </section>
 
       {/* FAQ Section (visible to users AND structured data for AI) */}
       {faq.length > 0 && (

@@ -447,6 +447,20 @@ export const CONCERN_PAGES: ConcernPage[] = [
     concernKeys: ['acne-blemishes'],
     categoryFallbacks: [],
     relatedConcerns: ['scars-treatment', 'pigmentation', 'sensitivity'],
+    protocolPdf: {
+      url: '/documents/PPT/Protocol_acne.pdf',
+      title: {
+        en: 'Acne & Blemish Home Care Protocol',
+        ar: 'بروتوكول العناية المنزلية لحب الشباب والبثور',
+        ru: 'Протокол домашнего ухода при акне',
+      },
+      description: {
+        en: 'Complete morning & evening routine for acne-prone skin — Problem Control system, exfoliation schedule, product sets by severity, and UAE-specific tips.',
+        ar: 'روتين صباحي ومسائي كامل للبشرة المعرضة لحب الشباب — نظام التحكم في المشاكل، جدول التقشير، مجموعات المنتجات حسب الشدة، ونصائح خاصة بالإمارات.',
+        ru: 'Полный утренний и вечерний уход для кожи, склонной к акне — система Problem Control, график пилинга, наборы по степени тяжести и советы для климата ОАЭ.',
+      },
+      fileSize: '160 KB',
+    },
     why: {
       en: {
         title: 'Why Acne Needs a Targeted Approach in the UAE',

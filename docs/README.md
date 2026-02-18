@@ -251,6 +251,12 @@
 | [protocols/EPI_PEELING_HOME_CARE_RU.md](./protocols/EPI_PEELING_HOME_CARE_RU.md) | **NEW** EPI TURNOVER PEELING GEL — домашний протокол (RU), составы, наборы по типам кожи |
 | [protocols/SUN_PROTECTION_HOME_CARE_EN.md](./protocols/SUN_PROTECTION_HOME_CARE_EN.md) | **NEW** Sun Protection home care protocol (EN) — daily AM/PM routine for UAE climate, 5 SPF products, 4 lifestyle sets, reapplication guide, ingredients |
 | [protocols/ACNE_BLEMISH_HOME_CARE_EN.md](./protocols/ACNE_BLEMISH_HOME_CARE_EN.md) | **NEW** Acne & Blemish Treatment home care protocol (EN) — AM/PM routine, Problem Control line system, 3 severity sets, UAE-specific tips, expected timeline |
+| [protocols/PIGMENTATION_BRIGHTENING_HOME_CARE_EN.md](./protocols/PIGMENTATION_BRIGHTENING_HOME_CARE_EN.md) | **NEW** Pigmentation & Brightening home care protocol (EN) — Multi Vita Radiance routine, 3 severity sets, vitamin C + niacinamide + arbutin |
+| [protocols/ANTI_AGING_HOME_CARE_EN.md](./protocols/ANTI_AGING_HOME_CARE_EN.md) | **NEW** Anti-Aging home care protocol (EN) — EGF + peptide routine, 3 age-based sets, ND Cell vs Multi Functional guide |
+| [protocols/HYDRATION_HOME_CARE_EN.md](./protocols/HYDRATION_HOME_CARE_EN.md) | **NEW** Hydration home care protocol (EN) — triple-weight hyaluronic acid routine, barrier repair, desert + AC climate tips |
+| [protocols/SENSITIVITY_HOME_CARE_EN.md](./protocols/SENSITIVITY_HOME_CARE_EN.md) | **NEW** Sensitive Skin home care protocol (EN) — centella + ceramide routine, barrier repair, temperature-shock recovery |
+| [protocols/HAIR_LOSS_HOME_CARE_EN.md](./protocols/HAIR_LOSS_HOME_CARE_EN.md) | **NEW** Hair Loss home care protocol (EN) — HR3 MATRIX system, scalp peeling, 3 severity sets, hard-water tips |
+| [protocols/SCARS_TREATMENT_HOME_CARE_EN.md](./protocols/SCARS_TREATMENT_HOME_CARE_EN.md) | **NEW** Scar Treatment home care protocol (EN) — EGF repair routine, scar types guide, 3 severity sets, UV protection emphasis |
 | [PROTOCOL_UNDERARM_BRIGHTENING.md](./PROTOCOL_UNDERARM_BRIGHTENING.md) | Underarm brightening protocol (original version) |
 
 **Microneedling Protocol Document:**

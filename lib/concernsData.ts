@@ -191,8 +191,184 @@ export const CONCERN_PAGES: ConcernPage[] = [
           ],
         },
       ],
-      ar: [],
-      ru: [],
+      ar: [
+        {
+          title: 'الروتين الصباحي',
+          subtitle: 'حماية يومية من الشمس — 5 دقائق فقط',
+          steps: [
+            {
+              step: 1, title: 'التنظيف', duration: 'دقيقة واحدة',
+              summary: 'إزالة الزيوت الليلية حتى يلتصق واقي الشمس بشكل صحيح.',
+              detail: 'ضعي على الوجه الجاف، دعي فقاعات الأكسجين تتشكل طبيعياً — ترفع الشوائب من المسام بدون فرك. اشطفي بماء فاتر وجففي بالتربيت.',
+              products: [{ name: 'SNOW O₂ CLEANSER', url: '/products/10', price: '330 AED' }],
+            },
+            {
+              step: 2, title: 'التونر والترطيب', duration: '30 ثانية',
+              summary: 'استعادة توازن الحموضة وإنشاء قاعدة رطبة. واقي الشمس ينتشر بشكل أفضل على البشرة المرطبة.',
+              detail: 'ضعي باليدين أو بقطنة، واضغطي برفق على البشرة. انتقلي للخطوة التالية فوراً — لا حاجة للانتظار.',
+              products: [{ name: 'SNOW BOOSTER', url: '/products/16', price: '260 AED' }],
+            },
+            {
+              step: 3, title: 'السيروم', duration: '30 ثانية',
+              summary: 'إضافة طبقة علاجية نشطة. مضادات الأكسدة تعمل بالتآزر مع SPF ضد الأشعة فوق البنفسجية والتلوث.',
+              detail: 'ضعي 2-3 قطرات واربتي برفق على البشرة. انتظري 30 ثانية للامتصاص. اختاري حسب حاجتك: سيروم الهيالورون للجفاف، سيروم الحساسية للاحمرار، سيروم الإشراق للبقع الداكنة، سيروم مكافحة التجاعيد للخطوط الدقيقة.',
+              products: [
+                { name: 'MOISTURE REPLENISHING HYALURON SERUM', url: '/products/18', price: '330 AED' },
+                { name: 'ALL FOR SENSITIVE SERUM', url: '/products/19', price: '330 AED' },
+                { name: 'MULTI VITA RADIANCE SERUM', url: '/products/21', price: '330 AED' },
+                { name: 'MULTI FUNCTIONAL ANTI-WRINKLE SERUM', url: '/products/22', price: '330 AED' },
+              ],
+            },
+            {
+              step: 4, title: 'الحماية من الشمس', duration: '30 ثانية',
+              summary: 'الخطوة الأهم. ضعي بكمية كافية — معظم الناس يضعون كمية أقل بنسبة 50% من المطلوب.',
+              detail: 'الخيار أ: كريم الشمس فقط (ULTRA SHIELD SPF 50+ أو MULTI SUN SPF 40) — ضعي شريط بطول إصبعين على الوجه والرقبة. الخيار ب: كريم BB/كوشن للتغطية + SPF. الخيار ج: طبقتين — كريم الشمس كقاعدة، انتظري دقيقة، ثم BB فوقه للحماية القصوى مع مظهر مثالي.',
+              products: [
+                { name: 'ULTRA SHIELD SUN CREAM SPF 50+', url: '/products/39', price: '250 AED' },
+                { name: 'MULTI SUN CREAM SPF 40', url: '/products/40', price: '210 AED' },
+                { name: 'REVITA GLOW BB CREAM SPF 38', url: '/products/63', price: '250 AED' },
+                { name: 'SKIN CARING BB CUSHION SPF 50+', url: '/products/41', price: '300 AED' },
+              ],
+            },
+            {
+              step: 5, title: 'الانتعاش خلال اليوم', duration: 'حسب الحاجة',
+              summary: 'رذاذ فوق واقي الشمس والمكياج لإعادة الترطيب. حرارة الإمارات تسحب الرطوبة بسرعة.',
+              detail: 'رشي 2-3 مرات من مسافة 20 سم. يمكن استخدامه فوق المكياج طوال اليوم. يحتوي على البريبايوتكس والبروبيوتكس لدعم ميكروبيوم البشرة.',
+              products: [{ name: 'MICROBIOME ENERGY INFUSING MIST', url: '/products/14', price: '160 AED' }],
+            },
+          ],
+        },
+        {
+          title: 'الروتين المسائي',
+          subtitle: 'إصلاح الأضرار الدقيقة من الأشعة فوق البنفسجية والاستعداد للغد',
+          steps: [
+            {
+              step: 1, title: 'التنظيف المزدوج', duration: 'دقيقتان',
+              summary: 'إزالة واقي الشمس بالكامل — بقايا SPF على البشرة تسد المسام.',
+              detail: 'التنظيف الأول: مزيل المكياج لإذابة SPF من منطقة العين والشفاه. التنظيف الثاني: منظف الأكسجين لتنظيف عميق لبقايا SPF والشوائب.',
+              products: [
+                { name: 'SKIN DEFENDER LIP & EYE MAKEUP REMOVER', url: '/products/11', price: '290 AED' },
+                { name: 'SNOW O₂ CLEANSER', url: '/products/10', price: '330 AED' },
+              ],
+            },
+            {
+              step: 2, title: 'التونر', duration: '30 ثانية',
+              summary: 'إعادة توازن الحموضة بعد التنظيف.',
+              detail: 'نفس التونر الصباحي — ضعي باليدين أو بقطنة.',
+              products: [{ name: 'SNOW BOOSTER', url: '/products/16', price: '260 AED' }],
+            },
+            {
+              step: 3, title: 'سيروم المساء', duration: '30 ثانية',
+              summary: 'علاج مستهدف أثناء إصلاح بشرتك ليلاً.',
+              detail: 'استخدمي نفس سيروم الصباح، أو اختاري خياراً أكثر استهدافاً: سيروم الإشراق لتفتيح بقع الشمس، سيروم الهيالورون للترطيب العميق، سيروم مكافحة التجاعيد لمكافحة الشيخوخة الليلية.',
+              products: [
+                { name: 'MULTI VITA RADIANCE SERUM', url: '/products/21', price: '330 AED' },
+                { name: 'MOISTURE REPLENISHING HYALURON SERUM', url: '/products/18', price: '330 AED' },
+                { name: 'MULTI FUNCTIONAL ANTI-WRINKLE SERUM', url: '/products/22', price: '330 AED' },
+              ],
+            },
+            {
+              step: 4, title: 'كريم الليل', duration: '30 ثانية',
+              summary: 'حبس المكونات النشطة وحماية بشرتك المتجددة طوال الليل.',
+              detail: 'اختاري حسب نوع بشرتك: كريم حماية الحاجز لجميع الأنواع، كريم الهيالورون للبشرة الجافة، كريم الإشراق للبشرة الباهتة والمصبوغة.',
+              products: [
+                { name: 'SKIN BARRIER PROTECTING CREAM', url: '/products/27', price: '450 AED' },
+                { name: 'MOISTURE REPLENISHING HYALURON CREAM', url: '/products/29', price: '290 AED' },
+                { name: 'MULTI VITA RADIANCE CREAM', url: '/products/31', price: '290 AED' },
+              ],
+            },
+          ],
+        },
+      ],
+      ru: [
+        {
+          title: 'Утренний уход',
+          subtitle: 'Ежедневная защита от солнца — всего 5 минут',
+          steps: [
+            {
+              step: 1, title: 'Очищение', duration: '1 мин',
+              summary: 'Удалите ночные масла, чтобы солнцезащитный крем лучше держался.',
+              detail: 'Нанесите на сухое лицо, дайте кислородным пузырькам образоваться естественно — они поднимают загрязнения из пор без трения. Смойте тёплой водой и промокните полотенцем.',
+              products: [{ name: 'SNOW O₂ CLEANSER', url: '/products/10', price: '330 AED' }],
+            },
+            {
+              step: 2, title: 'Тоник и увлажнение', duration: '30 сек',
+              summary: 'Восстановите pH и создайте увлажнённую базу. Санскрин ложится ровнее на увлажнённую кожу.',
+              detail: 'Нанесите руками или ватным диском, мягко вдавливая в кожу. Переходите к следующему шагу сразу — ждать не нужно.',
+              products: [{ name: 'SNOW BOOSTER', url: '/products/16', price: '260 AED' }],
+            },
+            {
+              step: 3, title: 'Сыворотка', duration: '30 сек',
+              summary: 'Добавьте активный лечебный слой. Антиоксиданты работают в синергии с SPF против УФ и загрязнений.',
+              detail: 'Нанесите 2–3 капли и аккуратно вбейте в кожу. Подождите 30 секунд для впитывания. Выбирайте по потребности: Гиалуроновая сыворотка при обезвоживании, Сыворотка для чувствительной кожи при покраснениях, Сыворотка для сияния при пигментации, Антивозрастная сыворотка при мелких морщинах.',
+              products: [
+                { name: 'MOISTURE REPLENISHING HYALURON SERUM', url: '/products/18', price: '330 AED' },
+                { name: 'ALL FOR SENSITIVE SERUM', url: '/products/19', price: '330 AED' },
+                { name: 'MULTI VITA RADIANCE SERUM', url: '/products/21', price: '330 AED' },
+                { name: 'MULTI FUNCTIONAL ANTI-WRINKLE SERUM', url: '/products/22', price: '330 AED' },
+              ],
+            },
+            {
+              step: 4, title: 'Защита от солнца', duration: '30 сек',
+              summary: 'Самый важный шаг. Наносите щедро — большинство людей наносят на 50% меньше нужного.',
+              detail: 'Вариант А: Только солнцезащитный крем (ULTRA SHIELD SPF 50+ или MULTI SUN SPF 40) — нанесите полоску длиной в два пальца на лицо и шею. Вариант Б: BB-крем/кушон для покрытия + SPF. Вариант В: Оба слоя — санскрин как база, подождите минуту, затем BB сверху для максимальной защиты с безупречным финишем.',
+              products: [
+                { name: 'ULTRA SHIELD SUN CREAM SPF 50+', url: '/products/39', price: '250 AED' },
+                { name: 'MULTI SUN CREAM SPF 40', url: '/products/40', price: '210 AED' },
+                { name: 'REVITA GLOW BB CREAM SPF 38', url: '/products/63', price: '250 AED' },
+                { name: 'SKIN CARING BB CUSHION SPF 50+', url: '/products/41', price: '300 AED' },
+              ],
+            },
+            {
+              step: 5, title: 'Освежение в течение дня', duration: 'по мере необходимости',
+              summary: 'Распылите поверх санскрина и макияжа для увлажнения. Жара ОАЭ быстро лишает кожу влаги.',
+              detail: 'Распылите 2–3 раза с расстояния 20 см. Можно использовать поверх макияжа в течение дня. Содержит пре/пробиотики для поддержки микробиома кожи.',
+              products: [{ name: 'MICROBIOME ENERGY INFUSING MIST', url: '/products/14', price: '160 AED' }],
+            },
+          ],
+        },
+        {
+          title: 'Вечерний уход',
+          subtitle: 'Восстановление после УФ-повреждений и подготовка к завтрашнему дню',
+          steps: [
+            {
+              step: 1, title: 'Двойное очищение', duration: '2 мин',
+              summary: 'Тщательно удалите санскрин — остатки SPF на коже забивают поры.',
+              detail: 'Первое очищение: средство для снятия макияжа для растворения SPF в зоне глаз и губ. Второе очищение: кислородный очиститель для глубокой очистки от остатков SPF и загрязнений.',
+              products: [
+                { name: 'SKIN DEFENDER LIP & EYE MAKEUP REMOVER', url: '/products/11', price: '290 AED' },
+                { name: 'SNOW O₂ CLEANSER', url: '/products/10', price: '330 AED' },
+              ],
+            },
+            {
+              step: 2, title: 'Тоник', duration: '30 сек',
+              summary: 'Восстановите баланс pH после очищения.',
+              detail: 'Тот же тоник, что и утром — нанесите руками или ватным диском.',
+              products: [{ name: 'SNOW BOOSTER', url: '/products/16', price: '260 AED' }],
+            },
+            {
+              step: 3, title: 'Вечерняя сыворотка', duration: '30 сек',
+              summary: 'Целенаправленный уход, пока кожа восстанавливается ночью.',
+              detail: 'Используйте ту же сыворотку, что и утром, или выберите более целенаправленный вариант: Сыворотка для сияния для осветления солнечных пятен, Гиалуроновая сыворотка для глубокого увлажнения, Антивозрастная сыворотка для ночного anti-age ухода.',
+              products: [
+                { name: 'MULTI VITA RADIANCE SERUM', url: '/products/21', price: '330 AED' },
+                { name: 'MOISTURE REPLENISHING HYALURON SERUM', url: '/products/18', price: '330 AED' },
+                { name: 'MULTI FUNCTIONAL ANTI-WRINKLE SERUM', url: '/products/22', price: '330 AED' },
+              ],
+            },
+            {
+              step: 4, title: 'Ночной крем', duration: '30 сек',
+              summary: 'Запечатайте активные ингредиенты и защитите обновлённую кожу на ночь.',
+              detail: 'Выбирайте по типу кожи: Крем для защиты барьера для всех типов, Гиалуроновый крем для сухой/обезвоженной, Крем для сияния для тусклой/пигментированной кожи.',
+              products: [
+                { name: 'SKIN BARRIER PROTECTING CREAM', url: '/products/27', price: '450 AED' },
+                { name: 'MOISTURE REPLENISHING HYALURON CREAM', url: '/products/29', price: '290 AED' },
+                { name: 'MULTI VITA RADIANCE CREAM', url: '/products/31', price: '290 AED' },
+              ],
+            },
+          ],
+        },
+      ],
     },
     why: {
       en: {
@@ -271,11 +447,283 @@ export const CONCERN_PAGES: ConcernPage[] = [
     concernKeys: ['acne-blemishes'],
     categoryFallbacks: [],
     relatedConcerns: ['scars-treatment', 'pigmentation', 'sensitivity'],
+    why: {
+      en: {
+        title: 'Why Acne Needs a Targeted Approach in the UAE',
+        items: [
+          { icon: '🌡️', label: 'Heat & Humidity', detail: 'UAE\'s 40°C+ climate and high humidity supercharge sebum production — generic cleansers can\'t keep up' },
+          { icon: '🔬', label: 'Salicylic Acid + Niacinamide', detail: 'GENOSYS Problem Control line uses BHA to unclog pores and niacinamide to calm inflammation simultaneously' },
+          { icon: '🛡️', label: 'Barrier-Safe Formula', detail: 'Treats acne without stripping the skin barrier — no dryness, no rebound oiliness' },
+          { icon: '🧪', label: 'Clinic-Grade at Home', detail: 'The same formulas used by dermatologists in Dubai clinics, now available for your daily routine' },
+        ],
+      },
+      ar: {
+        title: 'لماذا يحتاج حب الشباب نهجاً مستهدفاً في الإمارات',
+        items: [
+          { icon: '🌡️', label: 'الحرارة والرطوبة', detail: 'مناخ الإمارات بدرجات حرارة 40+ ورطوبة عالية يزيد إفراز الدهون — المنظفات العادية لا تكفي' },
+          { icon: '🔬', label: 'حمض الساليسيليك + النياسيناميد', detail: 'خط GENOSYS يستخدم BHA لفتح المسام والنياسيناميد لتهدئة الالتهاب في آن واحد' },
+          { icon: '🛡️', label: 'تركيبة آمنة للحاجز', detail: 'يعالج حب الشباب دون تجريد حاجز البشرة — بدون جفاف أو دهون مرتدة' },
+          { icon: '🧪', label: 'مستوى العيادة في المنزل', detail: 'نفس التركيبات المستخدمة من أطباء الجلدية في عيادات دبي' },
+        ],
+      },
+      ru: {
+        title: 'Почему акне требует целенаправленного подхода в ОАЭ',
+        items: [
+          { icon: '🌡️', label: 'Жара и влажность', detail: 'Климат ОАЭ с температурой 40°C+ и высокой влажностью усиливает выработку кожного сала — обычные средства не справляются' },
+          { icon: '🔬', label: 'Салициловая кислота + ниацинамид', detail: 'Линейка GENOSYS использует BHA для очищения пор и ниацинамид для снятия воспаления одновременно' },
+          { icon: '🛡️', label: 'Безопасно для барьера', detail: 'Лечит акне без повреждения защитного барьера кожи — без сухости, без обратной жирности' },
+          { icon: '🧪', label: 'Клинический уровень дома', detail: 'Те же формулы, которые используют дерматологи в клиниках Дубая' },
+        ],
+      },
+    },
+    routine: {
+      en: [
+        {
+          title: 'Morning Routine',
+          subtitle: 'Control oil & prevent new breakouts — takes 5 minutes',
+          steps: [
+            {
+              step: 1, title: 'Gentle Cleanse', duration: '1 min',
+              summary: 'Remove overnight oil without stripping the skin barrier. A damaged barrier makes acne worse.',
+              detail: 'Apply SNOW O₂ CLEANSER to dry face. Let the oxygen bubbles lift impurities from pores naturally — no rubbing needed. This avoids spreading bacteria from active breakouts. Rinse with lukewarm water (never hot) and pat dry with a clean towel.',
+              products: [{ name: 'SNOW O₂ CLEANSER', url: '/products/10', price: '330 AED' }],
+            },
+            {
+              step: 2, title: 'Acne Control Toner', duration: '30 sec',
+              summary: 'Balance pH and begin sebum regulation. This is the foundation of the Problem Control system.',
+              detail: 'Soak a cotton pad and sweep across the T-zone, chin, and jawline — areas where breakouts concentrate in the UAE climate. The toner contains salicylic acid to dissolve pore-clogging debris and niacinamide to calm redness. Can also be used as a spot compress: hold a soaked pad on a cystic spot for 30 seconds.',
+              products: [{ name: 'INTENSIVE PROBLEM CONTROL TONER', url: '/products/15', price: '260 AED' }],
+            },
+            {
+              step: 3, title: 'Problem Control Serum', duration: '30 sec',
+              summary: 'Targeted treatment that reduces inflammation and prevents new lesions from forming.',
+              detail: 'Apply 2–3 drops to the entire face, concentrating on active breakout zones. The serum penetrates deeper than the toner, delivering anti-inflammatory and sebum-regulating actives into the follicle. Wait 30 seconds for absorption before the next step. For severe breakouts, apply an extra drop directly onto each lesion.',
+              products: [{ name: 'PROBLEM CONTROL SERUM', url: '/products/20', price: '330 AED' }],
+            },
+            {
+              step: 4, title: 'Lightweight Moisturiser', duration: '30 sec',
+              summary: 'Even oily, acne-prone skin needs hydration. Skipping moisturiser triggers more oil production.',
+              detail: 'Apply a thin layer of Problem Control Cream. It\'s oil-free and non-comedogenic — formulated specifically for acne-prone skin. It seals in the serum actives while controlling shine throughout the day. Avoid heavy creams or oils that clog pores.',
+              products: [{ name: 'INTENSIVE PROBLEM CONTROL CREAM', url: '/products/30', price: '290 AED' }],
+            },
+            {
+              step: 5, title: 'Sun Protection', duration: '30 sec',
+              summary: 'UV exposure darkens acne marks and causes post-inflammatory hyperpigmentation (PIH). SPF is non-negotiable.',
+              detail: 'Apply ULTRA SHIELD SUN CREAM generously to face and neck. Its lightweight, non-greasy formula won\'t clog pores or trigger breakouts. This is especially critical in the UAE where UV index exceeds 11 year-round — without SPF, every cleared blemish leaves a dark mark.',
+              products: [{ name: 'ULTRA SHIELD SUN CREAM SPF 50+', url: '/products/39', price: '250 AED' }],
+            },
+          ],
+        },
+        {
+          title: 'Evening Routine',
+          subtitle: 'Deep cleanse, treat & repair overnight',
+          steps: [
+            {
+              step: 1, title: 'Double Cleanse', duration: '2 min',
+              summary: 'Remove SPF, sweat, and environmental debris. Leftover sunscreen mixed with sebum is a breakout trigger.',
+              detail: 'First cleanse: Use makeup remover on eye and lip area to dissolve SPF and makeup. Second cleanse: SNOW O₂ CLEANSER on the entire face to remove residual sunscreen, sweat, and pollution particles trapped in pores during the day.',
+              products: [
+                { name: 'SKIN DEFENDER LIP & EYE MAKEUP REMOVER', url: '/products/11', price: '290 AED' },
+                { name: 'SNOW O₂ CLEANSER', url: '/products/10', price: '330 AED' },
+              ],
+            },
+            {
+              step: 2, title: 'Exfoliate (2–3× per week)', duration: '2 min',
+              summary: 'Remove dead skin cells that trap sebum and bacteria inside pores. Essential for preventing new breakouts.',
+              detail: 'Apply EPI TURNOVER PEELING GEL to dry skin. Massage in circular motions for 1–2 minutes — you\'ll see dead skin cells ball up. This gentle chemical + physical exfoliation unclogs pores without micro-tears. Skip this step on nights when your skin feels irritated or if you have open lesions. Use 2–3 times per week maximum.',
+              products: [{ name: 'EPI TURNOVER BOOSTING PEELING GEL', url: '/products/12', price: '250 AED' }],
+            },
+            {
+              step: 3, title: 'Acne Control Toner', duration: '30 sec',
+              summary: 'Second application resets skin pH after cleansing and delivers another dose of BHA.',
+              detail: 'Same technique as morning — sweep across problem areas with a soaked cotton pad. The evening application is particularly effective because the actives work overnight without UV interference.',
+              products: [{ name: 'INTENSIVE PROBLEM CONTROL TONER', url: '/products/15', price: '260 AED' }],
+            },
+            {
+              step: 4, title: 'Problem Control Serum', duration: '30 sec',
+              summary: 'Overnight treatment when skin repair is most active. Actives work 2× harder during sleep.',
+              detail: 'Apply 3–4 drops (slightly more than morning). The serum works with your skin\'s natural overnight repair cycle. For stubborn spots, apply an extra drop as a spot treatment after the full-face application.',
+              products: [{ name: 'PROBLEM CONTROL SERUM', url: '/products/20', price: '330 AED' }],
+            },
+            {
+              step: 5, title: 'Night Moisturiser', duration: '30 sec',
+              summary: 'Lock in treatment actives and support barrier recovery while you sleep.',
+              detail: 'Apply Problem Control Cream. The lightweight formula won\'t clog pores overnight. If your skin feels particularly dry (common with acne treatments), you can mix one drop of Hyaluron Serum into the cream for extra hydration without adding oil.',
+              products: [
+                { name: 'INTENSIVE PROBLEM CONTROL CREAM', url: '/products/30', price: '290 AED' },
+                { name: 'MOISTURE REPLENISHING HYALURON SERUM', url: '/products/18', price: '330 AED' },
+              ],
+            },
+          ],
+        },
+      ],
+      ar: [
+        {
+          title: 'الروتين الصباحي',
+          subtitle: 'التحكم في الدهون ومنع البثور الجديدة — 5 دقائق',
+          steps: [
+            {
+              step: 1, title: 'تنظيف لطيف', duration: 'دقيقة واحدة',
+              summary: 'إزالة الزيوت الليلية دون تجريد حاجز البشرة. الحاجز التالف يزيد حب الشباب سوءاً.',
+              detail: 'ضعي SNOW O₂ CLEANSER على الوجه الجاف. دعي فقاعات الأكسجين ترفع الشوائب من المسام طبيعياً — بدون فرك. هذا يتجنب نشر البكتيريا من البثور النشطة. اشطفي بماء فاتر (ليس ساخناً أبداً) وجففي بمنشفة نظيفة.',
+              products: [{ name: 'SNOW O₂ CLEANSER', url: '/products/10', price: '330 AED' }],
+            },
+            {
+              step: 2, title: 'تونر مكافحة حب الشباب', duration: '30 ثانية',
+              summary: 'موازنة الحموضة وبدء تنظيم الدهون. هذا أساس نظام التحكم في المشاكل.',
+              detail: 'بللي قطنة وامسحي منطقة T والذقن والفك — المناطق التي تتركز فيها البثور في مناخ الإمارات. يحتوي التونر على حمض الساليسيليك لإذابة الرواسب المسدودة للمسام والنياسيناميد لتهدئة الاحمرار. يمكن استخدامه ككمادة موضعية: ضعي قطنة مبللة على البثرة لمدة 30 ثانية.',
+              products: [{ name: 'INTENSIVE PROBLEM CONTROL TONER', url: '/products/15', price: '260 AED' }],
+            },
+            {
+              step: 3, title: 'سيروم التحكم في المشاكل', duration: '30 ثانية',
+              summary: 'علاج مستهدف يقلل الالتهاب ويمنع تكون آفات جديدة.',
+              detail: 'ضعي 2-3 قطرات على الوجه بالكامل مع التركيز على مناطق البثور النشطة. يخترق السيروم أعمق من التونر لإيصال المكونات المضادة للالتهاب والمنظمة للدهون إلى البصيلة. انتظري 30 ثانية للامتصاص. للبثور الشديدة، ضعي قطرة إضافية مباشرة على كل بثرة.',
+              products: [{ name: 'PROBLEM CONTROL SERUM', url: '/products/20', price: '330 AED' }],
+            },
+            {
+              step: 4, title: 'مرطب خفيف', duration: '30 ثانية',
+              summary: 'حتى البشرة الدهنية المعرضة لحب الشباب تحتاج ترطيب. تخطي المرطب يحفز إنتاج المزيد من الدهون.',
+              detail: 'ضعي طبقة رقيقة من كريم التحكم في المشاكل. خالٍ من الزيوت وغير مسبب للكوميدونات — مصمم خصيصاً للبشرة المعرضة لحب الشباب. يحبس المكونات النشطة من السيروم ويتحكم في اللمعان طوال اليوم.',
+              products: [{ name: 'INTENSIVE PROBLEM CONTROL CREAM', url: '/products/30', price: '290 AED' }],
+            },
+            {
+              step: 5, title: 'الحماية من الشمس', duration: '30 ثانية',
+              summary: 'الأشعة فوق البنفسجية تغمق آثار حب الشباب وتسبب فرط التصبغ التالي للالتهاب. SPF غير قابل للتفاوض.',
+              detail: 'ضعي ULTRA SHIELD SUN CREAM بكمية كافية على الوجه والرقبة. تركيبته الخفيفة لن تسد المسام أو تحفز البثور. هذا مهم بشكل خاص في الإمارات حيث مؤشر UV يتجاوز 11 طوال العام — بدون SPF، كل بثرة تُشفى تترك علامة داكنة.',
+              products: [{ name: 'ULTRA SHIELD SUN CREAM SPF 50+', url: '/products/39', price: '250 AED' }],
+            },
+          ],
+        },
+        {
+          title: 'الروتين المسائي',
+          subtitle: 'تنظيف عميق وعلاج وإصلاح ليلي',
+          steps: [
+            {
+              step: 1, title: 'التنظيف المزدوج', duration: 'دقيقتان',
+              summary: 'إزالة SPF والعرق والملوثات البيئية. واقي الشمس المتبقي مع الدهون يحفز البثور.',
+              detail: 'التنظيف الأول: مزيل المكياج لمنطقة العين والشفاه لإذابة SPF والمكياج. التنظيف الثاني: SNOW O₂ CLEANSER على الوجه بالكامل لإزالة بقايا واقي الشمس والعرق وجسيمات التلوث المحتبسة في المسام.',
+              products: [
+                { name: 'SKIN DEFENDER LIP & EYE MAKEUP REMOVER', url: '/products/11', price: '290 AED' },
+                { name: 'SNOW O₂ CLEANSER', url: '/products/10', price: '330 AED' },
+              ],
+            },
+            {
+              step: 2, title: 'التقشير (2-3 مرات أسبوعياً)', duration: 'دقيقتان',
+              summary: 'إزالة خلايا الجلد الميتة التي تحبس الدهون والبكتيريا داخل المسام. ضروري لمنع البثور الجديدة.',
+              detail: 'ضعي EPI TURNOVER PEELING GEL على البشرة الجافة. دلكي بحركات دائرية لمدة 1-2 دقيقة — سترين خلايا الجلد الميتة تتكور. تقشير كيميائي وفيزيائي لطيف ينظف المسام بدون تمزقات دقيقة. تجاوزي هذه الخطوة في الليالي التي تشعرين فيها بتهيج البشرة. بحد أقصى 3 مرات أسبوعياً.',
+              products: [{ name: 'EPI TURNOVER BOOSTING PEELING GEL', url: '/products/12', price: '250 AED' }],
+            },
+            {
+              step: 3, title: 'تونر مكافحة حب الشباب', duration: '30 ثانية',
+              summary: 'التطبيق الثاني يعيد توازن الحموضة بعد التنظيف ويوصل جرعة أخرى من BHA.',
+              detail: 'نفس تقنية الصباح — امسحي المناطق المشكلة بقطنة مبللة. التطبيق المسائي فعال بشكل خاص لأن المكونات النشطة تعمل ليلاً بدون تداخل الأشعة فوق البنفسجية.',
+              products: [{ name: 'INTENSIVE PROBLEM CONTROL TONER', url: '/products/15', price: '260 AED' }],
+            },
+            {
+              step: 4, title: 'سيروم التحكم في المشاكل', duration: '30 ثانية',
+              summary: 'علاج ليلي عندما يكون إصلاح البشرة في أقصى نشاطه. المكونات النشطة تعمل بضعف الفعالية أثناء النوم.',
+              detail: 'ضعي 3-4 قطرات (أكثر قليلاً من الصباح). يعمل السيروم مع دورة إصلاح البشرة الطبيعية أثناء الليل. للبثور العنيدة، ضعي قطرة إضافية كعلاج موضعي بعد التطبيق الكامل.',
+              products: [{ name: 'PROBLEM CONTROL SERUM', url: '/products/20', price: '330 AED' }],
+            },
+            {
+              step: 5, title: 'مرطب ليلي', duration: '30 ثانية',
+              summary: 'حبس المكونات العلاجية النشطة ودعم تعافي الحاجز أثناء النوم.',
+              detail: 'ضعي كريم التحكم في المشاكل. التركيبة الخفيفة لن تسد المسام ليلاً. إذا شعرتِ بجفاف البشرة (شائع مع علاجات حب الشباب)، يمكنك مزج قطرة من سيروم الهيالورون مع الكريم لترطيب إضافي بدون زيوت.',
+              products: [
+                { name: 'INTENSIVE PROBLEM CONTROL CREAM', url: '/products/30', price: '290 AED' },
+                { name: 'MOISTURE REPLENISHING HYALURON SERUM', url: '/products/18', price: '330 AED' },
+              ],
+            },
+          ],
+        },
+      ],
+      ru: [
+        {
+          title: 'Утренний уход',
+          subtitle: 'Контроль жирности и предотвращение новых высыпаний — 5 минут',
+          steps: [
+            {
+              step: 1, title: 'Бережное очищение', duration: '1 мин',
+              summary: 'Удалите ночной жир, не повреждая защитный барьер. Повреждённый барьер усиливает акне.',
+              detail: 'Нанесите SNOW O₂ CLEANSER на сухое лицо. Дайте кислородным пузырькам поднять загрязнения из пор естественным образом — без трения. Это предотвращает распространение бактерий от активных воспалений. Смойте тёплой водой (никогда горячей) и промокните чистым полотенцем.',
+              products: [{ name: 'SNOW O₂ CLEANSER', url: '/products/10', price: '330 AED' }],
+            },
+            {
+              step: 2, title: 'Тоник против акне', duration: '30 сек',
+              summary: 'Баланс pH и начало регуляции себума. Это основа системы Problem Control.',
+              detail: 'Смочите ватный диск и проведите по Т-зоне, подбородку и линии челюсти — зонам, где высыпания концентрируются в климате ОАЭ. Тоник содержит салициловую кислоту для растворения закупоривающих поры пробок и ниацинамид для снятия покраснений. Можно использовать как точечный компресс: прижмите смоченный диск к кистозному воспалению на 30 секунд.',
+              products: [{ name: 'INTENSIVE PROBLEM CONTROL TONER', url: '/products/15', price: '260 AED' }],
+            },
+            {
+              step: 3, title: 'Сыворотка Problem Control', duration: '30 сек',
+              summary: 'Целенаправленное лечение, которое снимает воспаление и предотвращает образование новых элементов.',
+              detail: 'Нанесите 2–3 капли на всё лицо, концентрируясь на зонах активных высыпаний. Сыворотка проникает глубже тоника, доставляя противовоспалительные и себорегулирующие активы в фолликул. Подождите 30 секунд для впитывания. При сильных высыпаниях нанесите дополнительную каплю непосредственно на каждый элемент.',
+              products: [{ name: 'PROBLEM CONTROL SERUM', url: '/products/20', price: '330 AED' }],
+            },
+            {
+              step: 4, title: 'Лёгкий увлажняющий крем', duration: '30 сек',
+              summary: 'Даже жирная кожа, склонная к акне, нуждается в увлажнении. Пропуск увлажнения провоцирует ещё больше жира.',
+              detail: 'Нанесите тонкий слой крема Problem Control. Он безмасляный и некомедогенный — создан специально для проблемной кожи. Запечатывает активы сыворотки и контролирует жирный блеск в течение дня. Избегайте плотных кремов или масел, которые забивают поры.',
+              products: [{ name: 'INTENSIVE PROBLEM CONTROL CREAM', url: '/products/30', price: '290 AED' }],
+            },
+            {
+              step: 5, title: 'Защита от солнца', duration: '30 сек',
+              summary: 'УФ-лучи затемняют следы от акне и вызывают поствоспалительную гиперпигментацию. SPF обязателен.',
+              detail: 'Нанесите ULTRA SHIELD SUN CREAM щедро на лицо и шею. Лёгкая нежирная формула не забивает поры и не провоцирует высыпания. Это особенно важно в ОАЭ, где УФ-индекс превышает 11 круглый год — без SPF каждое заживлённое воспаление оставляет тёмное пятно.',
+              products: [{ name: 'ULTRA SHIELD SUN CREAM SPF 50+', url: '/products/39', price: '250 AED' }],
+            },
+          ],
+        },
+        {
+          title: 'Вечерний уход',
+          subtitle: 'Глубокое очищение, лечение и ночное восстановление',
+          steps: [
+            {
+              step: 1, title: 'Двойное очищение', duration: '2 мин',
+              summary: 'Удалите SPF, пот и загрязнения. Остатки санскрина с себумом — триггер высыпаний.',
+              detail: 'Первое очищение: средство для снятия макияжа для зоны глаз и губ, чтобы растворить SPF и макияж. Второе очищение: SNOW O₂ CLEANSER на всё лицо для удаления остатков санскрина, пота и частиц загрязнений, застрявших в порах за день.',
+              products: [
+                { name: 'SKIN DEFENDER LIP & EYE MAKEUP REMOVER', url: '/products/11', price: '290 AED' },
+                { name: 'SNOW O₂ CLEANSER', url: '/products/10', price: '330 AED' },
+              ],
+            },
+            {
+              step: 2, title: 'Пилинг (2–3 раза в неделю)', duration: '2 мин',
+              summary: 'Удалите мёртвые клетки кожи, которые удерживают себум и бактерии в порах. Необходимо для профилактики.',
+              detail: 'Нанесите EPI TURNOVER PEELING GEL на сухую кожу. Массируйте круговыми движениями 1–2 минуты — вы увидите, как мёртвые клетки скатываются. Мягкий химический + физический пилинг очищает поры без микроповреждений. Пропустите этот шаг, если кожа раздражена или есть открытые воспаления. Максимум 3 раза в неделю.',
+              products: [{ name: 'EPI TURNOVER BOOSTING PEELING GEL', url: '/products/12', price: '250 AED' }],
+            },
+            {
+              step: 3, title: 'Тоник против акне', duration: '30 сек',
+              summary: 'Второе нанесение восстанавливает pH после очищения и доставляет ещё одну дозу BHA.',
+              detail: 'Та же техника, что и утром — проведите по проблемным зонам смоченным ватным диском. Вечернее нанесение особенно эффективно, потому что активы работают ночью без вмешательства УФ-лучей.',
+              products: [{ name: 'INTENSIVE PROBLEM CONTROL TONER', url: '/products/15', price: '260 AED' }],
+            },
+            {
+              step: 4, title: 'Сыворотка Problem Control', duration: '30 сек',
+              summary: 'Ночное лечение, когда восстановление кожи наиболее активно. Активы работают вдвое эффективнее во сне.',
+              detail: 'Нанесите 3–4 капли (чуть больше, чем утром). Сыворотка работает с естественным ночным циклом восстановления кожи. Для упорных элементов нанесите дополнительную каплю как точечное средство после нанесения на всё лицо.',
+              products: [{ name: 'PROBLEM CONTROL SERUM', url: '/products/20', price: '330 AED' }],
+            },
+            {
+              step: 5, title: 'Ночной увлажняющий крем', duration: '30 сек',
+              summary: 'Запечатайте лечебные активы и поддержите восстановление барьера во сне.',
+              detail: 'Нанесите крем Problem Control. Лёгкая формула не забьёт поры за ночь. Если кожа ощущается особенно сухой (обычное явление при лечении акне), можно смешать одну каплю гиалуроновой сыворотки с кремом для дополнительного увлажнения без масел.',
+              products: [
+                { name: 'INTENSIVE PROBLEM CONTROL CREAM', url: '/products/30', price: '290 AED' },
+                { name: 'MOISTURE REPLENISHING HYALURON SERUM', url: '/products/18', price: '330 AED' },
+              ],
+            },
+          ],
+        },
+      ],
+    },
     seo: {
       en: {
         title: 'Acne Treatment Products UAE | Blemish Control Dubai | GENOSYS',
         description: 'Professional Korean acne treatment solutions for UAE. GENOSYS problem control serums, creams & toners target breakouts, blemishes & oily skin. Dermatologically tested. Free shipping over 1000 AED.',
         h1: 'Acne & Blemish Treatment',
+        heroShort: 'Professional-grade Korean acne treatment — clinically proven toner, serum & cream that control breakouts without damaging your skin barrier.',
         intro: 'Acne and blemishes are among the most common skin concerns in the UAE, worsened by heat, humidity, and environmental factors. GENOSYS Intensive Problem Control line offers a clinically proven approach to acne management — professional-grade toners, serums, and creams that target breakouts at the source while protecting the skin barrier. Our Korean dermacosmetics use active ingredients like salicylic acid and niacinamide to control excess sebum, reduce inflammation, and prevent post-acne marks.',
         keywords: ['acne treatment UAE', 'acne skincare Dubai', 'blemish control UAE', 'Korean acne products', 'problem control serum', 'acne cream Dubai', 'professional acne treatment UAE'],
       },
@@ -283,6 +731,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
         title: 'منتجات علاج حب الشباب الإمارات | مكافحة البثور دبي | GENOSYS',
         description: 'حلول احترافية كورية لعلاج حب الشباب في الإمارات. سيرومات وكريمات GENOSYS للتحكم في البثور والبشرة الدهنية. مختبرة طبياً. توصيل مجاني فوق 1000 درهم.',
         h1: 'علاج حب الشباب والبثور',
+        heroShort: 'علاج كوري احترافي لحب الشباب — تونر وسيروم وكريم مثبتون سريرياً يتحكمون في البثور دون الإضرار بحاجز البشرة.',
         intro: 'حب الشباب والبثور من أكثر مشاكل البشرة شيوعاً في الإمارات، وتتفاقم بسبب الحرارة والرطوبة والعوامل البيئية. خط GENOSYS للتحكم المكثف في المشاكل يقدم نهجاً مثبتاً سريرياً لإدارة حب الشباب.',
         keywords: ['علاج حب الشباب الإمارات', 'مكافحة البثور دبي', 'سيروم حب الشباب', 'منتجات كورية للبثور'],
       },
@@ -290,6 +739,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
         title: 'Средства от акне ОАЭ | Лечение прыщей Дубай | GENOSYS',
         description: 'Профессиональные корейские средства от акне в ОАЭ. Сыворотки и кремы GENOSYS для контроля высыпаний и жирной кожи. Дерматологически протестированы. Бесплатная доставка от 1000 дирхамов.',
         h1: 'Лечение акне и высыпаний',
+        heroShort: 'Профессиональное корейское лечение акне — клинически доказанные тоник, сыворотка и крем, которые контролируют высыпания, не повреждая защитный барьер кожи.',
         intro: 'Акне и высыпания — одни из самых распространённых проблем кожи в ОАЭ, усугубляемые жарой, влажностью и экологическими факторами. Линейка GENOSYS Intensive Problem Control предлагает клинически доказанный подход к лечению акне — профессиональные тоники, сыворотки и кремы.',
         keywords: ['средства от акне ОАЭ', 'лечение прыщей Дубай', 'корейская косметика от акне', 'сыворотка от высыпаний'],
       },
@@ -297,13 +747,23 @@ export const CONCERN_PAGES: ConcernPage[] = [
     faq: {
       en: [
         { question: 'What is the best Korean treatment for acne in UAE?', answer: 'GENOSYS Intensive Problem Control line is specifically formulated for acne-prone skin. The Problem Control Serum and Problem Control Cream work together to reduce breakouts, control oil production, and minimize pore appearance. These products are used by professional dermatologists in Dubai clinics and are available for home use through genosys.ae.' },
-        { question: 'Does humidity in Dubai make acne worse?', answer: 'Yes, high humidity combined with heat increases sebum production, clogging pores and triggering breakouts. GENOSYS Problem Control products contain oil-regulating active ingredients that work effectively in the UAE climate. The Intensive Problem Control Toner is particularly effective as a daily prep step to balance skin pH.' },
+        { question: 'Does humidity in Dubai make acne worse?', answer: 'Yes, high humidity combined with heat increases sebum production, clogging pores and triggering breakouts. GENOSYS Problem Control products contain oil-regulating active ingredients that work effectively in the UAE climate. The Intensive Problem Control Toner is particularly effective as a daily prep step to balance skin pH and deliver salicylic acid to congested pores.' },
+        { question: 'How long does it take to see results with the Problem Control line?', answer: 'Most users notice reduced oiliness and fewer new breakouts within 1–2 weeks of consistent use. Existing blemishes begin to flatten and fade within 2–4 weeks. For full clearing and post-acne mark reduction, expect 6–8 weeks. The key is consistency: use the Toner → Serum → Cream system both morning and evening without skipping steps.' },
+        { question: 'Can I use acne products if I have sensitive skin?', answer: 'Yes. The GENOSYS Problem Control line is formulated to be effective against acne while protecting the skin barrier. The concentrations of salicylic acid and niacinamide are calibrated to treat without causing irritation, peeling, or dryness. If you have very sensitive skin, start with the Toner and Cream first, then introduce the Serum after one week once your skin has adjusted.' },
+        { question: 'Should I still moisturise if I have oily, acne-prone skin?', answer: 'Absolutely. Skipping moisturiser sends a signal to your skin to produce even more oil, making breakouts worse. The Intensive Problem Control Cream is oil-free, non-comedogenic, and specifically designed for oily/combination skin. It hydrates without clogging pores and helps maintain the skin barrier that acne treatments can compromise.' },
+        { question: 'What is the difference between Problem Control Toner, Serum, and Cream?', answer: 'The Toner (260 AED) is a pH-balancing first step that delivers salicylic acid across the entire face to dissolve pore-clogging debris. The Serum (330 AED) is a concentrated treatment that penetrates deeper into the follicle to reduce inflammation and prevent new lesions. The Cream (290 AED) is a lightweight, oil-free moisturiser that seals in the actives and controls shine. All three work as a system — each step amplifies the next.' },
       ],
       ar: [
-        { question: 'ما هو أفضل علاج كوري لحب الشباب في الإمارات؟', answer: 'خط GENOSYS للتحكم المكثف في المشاكل مصمم خصيصاً للبشرة المعرضة لحب الشباب. سيروم التحكم في المشاكل وكريم التحكم في المشاكل يعملان معاً لتقليل البثور والتحكم في إفراز الدهون.' },
+        { question: 'ما هو أفضل علاج كوري لحب الشباب في الإمارات؟', answer: 'خط GENOSYS للتحكم المكثف في المشاكل مصمم خصيصاً للبشرة المعرضة لحب الشباب. سيروم التحكم في المشاكل وكريم التحكم في المشاكل يعملان معاً لتقليل البثور والتحكم في إفراز الدهون. هذه المنتجات مستخدمة من أطباء الجلدية في عيادات دبي.' },
+        { question: 'هل الرطوبة في دبي تزيد حب الشباب سوءاً؟', answer: 'نعم، الرطوبة العالية مع الحرارة تزيد إفراز الدهون وتسد المسام وتحفز البثور. منتجات GENOSYS تحتوي على مكونات فعالة لتنظيم الدهون تعمل بفعالية في مناخ الإمارات.' },
+        { question: 'كم يستغرق ظهور النتائج مع خط التحكم في المشاكل؟', answer: 'يلاحظ معظم المستخدمين انخفاض الدهون وتقليل البثور الجديدة خلال أسبوع إلى أسبوعين. البثور الموجودة تبدأ بالتسطح والتلاشي خلال 2-4 أسابيع. للتنظيف الكامل، توقع 6-8 أسابيع من الاستخدام المنتظم.' },
+        { question: 'هل يجب أن أرطب بشرتي إذا كانت دهنية ومعرضة لحب الشباب؟', answer: 'بالتأكيد. تخطي المرطب يرسل إشارة لبشرتك لإنتاج المزيد من الدهون. كريم التحكم المكثف خالٍ من الزيوت وغير مسبب للكوميدونات ومصمم خصيصاً للبشرة الدهنية والمختلطة.' },
       ],
       ru: [
-        { question: 'Какое корейское средство от акне лучше всего подходит для ОАЭ?', answer: 'Линейка GENOSYS Intensive Problem Control специально разработана для кожи, склонной к акне. Сыворотка Problem Control и крем Problem Control работают вместе для уменьшения высыпаний и контроля выработки кожного сала.' },
+        { question: 'Какое корейское средство от акне лучше всего подходит для ОАЭ?', answer: 'Линейка GENOSYS Intensive Problem Control специально разработана для кожи, склонной к акне. Сыворотка Problem Control и крем Problem Control работают вместе для уменьшения высыпаний и контроля выработки кожного сала. Эти средства используются дерматологами в клиниках Дубая.' },
+        { question: 'Сколько времени нужно, чтобы увидеть результаты?', answer: 'Большинство пользователей замечают снижение жирности и меньше новых высыпаний через 1–2 недели регулярного использования. Существующие воспаления начинают уменьшаться через 2–4 недели. Для полного очищения ожидайте 6–8 недель. Ключ — постоянство: используйте систему Тоник → Сыворотка → Крем утром и вечером.' },
+        { question: 'Можно ли использовать средства от акне при чувствительной коже?', answer: 'Да. Линейка Problem Control разработана так, чтобы эффективно бороться с акне, защищая при этом барьер кожи. Концентрации салициловой кислоты и ниацинамида подобраны для лечения без раздражения и сухости. При очень чувствительной коже начните с Тоника и Крема, а через неделю добавьте Сыворотку.' },
+        { question: 'Нужно ли увлажнять жирную кожу, склонную к акне?', answer: 'Обязательно. Пропуск увлажнения сигнализирует коже вырабатывать ещё больше сала. Крем Intensive Problem Control — безмасляный, некомедогенный, специально разработан для жирной и комбинированной кожи.' },
       ],
     },
   },

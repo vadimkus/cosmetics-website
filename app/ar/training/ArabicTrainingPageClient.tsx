@@ -151,7 +151,7 @@ export default function ArabicTrainingPageClient() {
                       </p>
                       </div>
                       <PDFDownloadButton
-                        href="/documents/PPT/GENOSYS%20FACIAL%20TREATMENT_Homecare_2025.pdf"
+                        href="/documents/ppt/GENOSYS%20FACIAL%20TREATMENT_Homecare_2025.pdf"
                         filename="Facial Treatment Homecare 2026"
                         external={true}
                         className={`inline-flex items-center px-2 md:px-3 py-1 md:py-1.5 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-md hover:from-green-700 hover:to-green-800 transition-colors text-[10px] md:text-xs font-medium flex-shrink-0 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
@@ -176,7 +176,7 @@ export default function ArabicTrainingPageClient() {
                         </p>
                       </div>
                       <PDFDownloadButton
-                        href="/documents/PPT/GENOSYS%20FACIAL%20TREATMENT_Professional_2025.pdf"
+                        href="/documents/ppt/GENOSYS%20FACIAL%20TREATMENT_Professional_2025.pdf"
                         filename="Facial Treatment Professional 2026"
                         external={true}
                         className={`inline-flex items-center px-2 md:px-3 py-1 md:py-1.5 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-md hover:from-green-700 hover:to-green-800 transition-colors text-[10px] md:text-xs font-medium flex-shrink-0 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
@@ -201,7 +201,7 @@ export default function ArabicTrainingPageClient() {
                         </p>
                       </div>
                       <PDFDownloadButton
-                        href="/documents/PPT/Achieve%20Korean%20Glass%20Skin%20with%20GENOSYS%20approach_F.pdf"
+                        href="/documents/ppt/Achieve%20Korean%20Glass%20Skin%20with%20GENOSYS%20approach_F.pdf"
                         filename="Achieve Korean Glass Skin with GENOSYS approach"
                         external={true}
                         className={`inline-flex items-center px-2 md:px-3 py-1 md:py-1.5 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-md hover:from-green-700 hover:to-green-800 transition-colors text-[10px] md:text-xs font-medium flex-shrink-0 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
@@ -226,7 +226,7 @@ export default function ArabicTrainingPageClient() {
                         </p>
                       </div>
                       <PDFDownloadButton
-                        href="/documents/PPT/Bio-Meso%20PDRN%20Expert_Treatment%20guide_for%20print_S.pdf"
+                        href="/documents/ppt/Bio-Meso%20PDRN%20Expert_Treatment%20guide_for%20print_S.pdf"
                         filename="Bio-Meso PDRN Expert Treatment Guide"
                         external={true}
                         className={`inline-flex items-center px-2 md:px-3 py-1 md:py-1.5 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-md hover:from-green-700 hover:to-green-800 transition-colors text-[10px] md:text-xs font-medium flex-shrink-0 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
@@ -252,30 +252,30 @@ export default function ArabicTrainingPageClient() {
                 <div className="space-y-1.5 md:space-y-2">
                   {/* Product documentation items - keeping product names in English as they are brand names */}
                   {[
-                    { id: 31, image: '/images/RAA.jpg', name: 'MULTI VITA RADIANCE CREAM', size: '2.1 MB', href: '/documents/PPT/GENOSYS%20MULTI%20VITA%20RADIANCE%20CREAM.pdf' },
-                    { id: 50, image: '/images/EYEZ.jpg', name: 'EyeCell EYE ZONE CARE SYSTEM', size: '1.8 MB', href: '/documents/PPT/GENOSYS%20EyeCell%20EYE%20ZONE%20CARE%20SYSTEM.pdf' },
-                    { id: 12, image: '/images/EPI.jpg', name: 'EPI TURNOVER BOOSTING PEELING GEL', size: '3.8 MB', href: '/documents/PPT/GENOSYS%20EPI%20TURNOVER%20BOOSTING%20PEELING%20GEL.pdf' },
-                    { id: 21, image: '/images/RADS.jpg', name: 'MULTI VITA RADIANCE SERUM', size: '1.5 MB', href: '/documents/PPT/GENOSYS%20MULTI%20VITA%20RADIANCE%20SERUM.pdf' },
-                    { id: 11, image: '/images/DEF.jpg', name: 'SKIN DEFENDER LIP & EYE MAKEUP REMOVER', size: '0.7 MB', href: '/documents/PPT/GENOSYS%20SKIN%20DEFENDER%20LIP%20%26%20EYE%20MAKEUP%20REMOVER.pdf' },
-                    { id: 14, image: '/images/mist.jpg', name: 'MICROBIOME ENERGY INFUSING MIST', size: '0.8 MB', href: '/documents/PPT/GENOSYS%20MICROBIOME%20ENERGY%20INFUSING%20MIST.pdf' },
-                    { id: 34, image: '/images/SKIN.jpg', name: 'SKIN RESCUE OVERNIGHT CREAM MASK', size: '1.3 MB', href: '/documents/PPT/GENOSYS%20SKIN%20RESCUE%20OVERNIGHT%20CREAM%20MASK.pdf' },
-                    { id: 15, image: '/images/PRS.jpg', name: 'INTENSIVE PROBLEM CONTROL TONER', size: '1.0 MB', href: '/documents/PPT/GENOSYS%20INTENSIVE%20PROBLEM%20CONTROL%20TONER.pdf' },
-                    { id: 39, image: '/images/SPF50.jpg', name: 'ULTRA SHIELD SUN CREAM', size: '0.6 MB', href: '/documents/PPT/GENOSYS%20ULTRA%20SHIELD%20SUN%20CREAM.pdf' },
-                    { id: 44, image: '/images/Sham.jpg', name: 'HR³ MATRIX SCALP SHAMPOO α', size: '2.3 MB', href: '/documents/PPT/GENOSYS%20HR3%20MATRIX%20SCALP%20SHAMPOO%20ALPHA.pdf' },
-                    { id: 18, image: '/images/HRS.jpg', name: 'MOISTURE REPLENISHING HYALURON SERUM', size: '1.9 MB', href: '/documents/PPT/GENOSYS%20MOISTURE%20REPLENISHING%20HYALURON%20SERUM.pdf' },
-                    { id: 29, image: '/images/HER.jpg', name: 'MOISTURE REPLENISHING HYALURON CREAM', size: '2.0 MB', href: '/documents/PPT/GENOSYS%20MOISTURE%20REPLENISHING%20HYALURON%20CREAM.pdf' },
-                    { id: 41, image: '/images/BBC.jpg', name: 'SKIN CARING BLEMISH BALM CUSHION', size: '1.2 MB', href: '/documents/PPT/GENOSYS%20SKIN%20CARING%20BLEMISH%20BALM%20CUSHION.pdf' },
-                    { id: 63, image: '/images/bright.jpg', name: 'REVITA GLOW BLEMISH BALM CREAM', size: '2.0 MB', href: '/documents/PPT/GENOSYS_REVITA_GLOW_BB_CREAM.pdf' },
-                    { id: 33, image: '/images/Patch.jpg', name: 'EyeCell EYE PEPTIDE GEL PATCH', size: '1.4 MB', href: '/documents/PPT/GENOSYS%20EyeCell%20EYE%20PEPTIDE%20GEL%20PATCH.pdf' },
-                    { id: 51, image: '/images/BFAD.png', name: 'BIO-FERMENT AGE DEFYING POWDER MASK', size: '2.1 MB', href: '/documents/PPT/GENOSYS%20BIO-FERMENT%20AGE%20DEFYING%20POWDER%20MASK.pdf' },
-                    { id: 48, image: '/images/gen.jpg', name: 'HAIR GENTRON', size: '1.8 MB', href: '/documents/PPT/HAIR%20GENTRON.pdf' },
-                    { id: 45, image: '/images/HHR.jpg', name: 'HR³ MATRIX HAIR SOLUTION α', size: '2.3 MB', href: '/documents/PPT/GENOSYS%20HR3%20MATRIX%20HAIR%20SOLUTION%20ALPHA.pdf' },
-                    { id: 43, image: '/images/HT.jpg', name: 'HR³ MATRIX HAIR TONIC α', size: '1.9 MB', href: '/documents/PPT/GENOSYS%20HR3%20MATRIX%20HAIR%20TONIC%20ALPHA.pdf' },
-                    { id: 46, image: '/images/scal.jpg', name: 'HR³ MATRIX SCALP PEELING α', size: '2.1 MB', href: '/documents/PPT/GENOSYS%20HR3%20MATRIX%20SCALP%20PEELING%20ALPHA.pdf' },
-                    { id: 49, image: '/images/LEDD.jpg', name: 'GENO-LED IR II', size: '4.6 MB', href: '/documents/PPT/GENO-LED%20IR%20II_2025.pdf' },
-                    { id: 52, image: '/images/PDRN.png', name: 'SKIN REBOOT PDRN MASK PACK', size: '1.2 MB', href: '/documents/PPT/GENOSYS%20SKIN%20REBOOT%20PDRN%20MASK%20PACK.pdf' },
-                    { id: 38, image: '/images/EZE.jpg', name: 'EZ CO₂ MASK KIT', size: '0.5 MB', href: '/documents/PPT/Genosys%20Ez%20Co2%20Mask.pdf' },
-                    { id: 1, image: '/images/genosys-microneedling-devices.jpg', name: 'Microneedle Roller', size: '1.5 MB', href: '/documents/PPT/Overview%20of%20Microneedling_S.pdf' },
+                    { id: 31, image: '/images/RAA.jpg', name: 'MULTI VITA RADIANCE CREAM', size: '2.1 MB', href: '/documents/ppt/GENOSYS%20MULTI%20VITA%20RADIANCE%20CREAM.pdf' },
+                    { id: 50, image: '/images/EYEZ.jpg', name: 'EyeCell EYE ZONE CARE SYSTEM', size: '1.8 MB', href: '/documents/ppt/GENOSYS%20EyeCell%20EYE%20ZONE%20CARE%20SYSTEM.pdf' },
+                    { id: 12, image: '/images/EPI.jpg', name: 'EPI TURNOVER BOOSTING PEELING GEL', size: '3.8 MB', href: '/documents/ppt/GENOSYS%20EPI%20TURNOVER%20BOOSTING%20PEELING%20GEL.pdf' },
+                    { id: 21, image: '/images/RADS.jpg', name: 'MULTI VITA RADIANCE SERUM', size: '1.5 MB', href: '/documents/ppt/GENOSYS%20MULTI%20VITA%20RADIANCE%20SERUM.pdf' },
+                    { id: 11, image: '/images/DEF.jpg', name: 'SKIN DEFENDER LIP & EYE MAKEUP REMOVER', size: '0.7 MB', href: '/documents/ppt/GENOSYS%20SKIN%20DEFENDER%20LIP%20%26%20EYE%20MAKEUP%20REMOVER.pdf' },
+                    { id: 14, image: '/images/mist.jpg', name: 'MICROBIOME ENERGY INFUSING MIST', size: '0.8 MB', href: '/documents/ppt/GENOSYS%20MICROBIOME%20ENERGY%20INFUSING%20MIST.pdf' },
+                    { id: 34, image: '/images/SKIN.jpg', name: 'SKIN RESCUE OVERNIGHT CREAM MASK', size: '1.3 MB', href: '/documents/ppt/GENOSYS%20SKIN%20RESCUE%20OVERNIGHT%20CREAM%20MASK.pdf' },
+                    { id: 15, image: '/images/PRS.jpg', name: 'INTENSIVE PROBLEM CONTROL TONER', size: '1.0 MB', href: '/documents/ppt/GENOSYS%20INTENSIVE%20PROBLEM%20CONTROL%20TONER.pdf' },
+                    { id: 39, image: '/images/SPF50.jpg', name: 'ULTRA SHIELD SUN CREAM', size: '0.6 MB', href: '/documents/ppt/GENOSYS%20ULTRA%20SHIELD%20SUN%20CREAM.pdf' },
+                    { id: 44, image: '/images/Sham.jpg', name: 'HR³ MATRIX SCALP SHAMPOO α', size: '2.3 MB', href: '/documents/ppt/GENOSYS%20HR3%20MATRIX%20SCALP%20SHAMPOO%20ALPHA.pdf' },
+                    { id: 18, image: '/images/HRS.jpg', name: 'MOISTURE REPLENISHING HYALURON SERUM', size: '1.9 MB', href: '/documents/ppt/GENOSYS%20MOISTURE%20REPLENISHING%20HYALURON%20SERUM.pdf' },
+                    { id: 29, image: '/images/HER.jpg', name: 'MOISTURE REPLENISHING HYALURON CREAM', size: '2.0 MB', href: '/documents/ppt/GENOSYS%20MOISTURE%20REPLENISHING%20HYALURON%20CREAM.pdf' },
+                    { id: 41, image: '/images/BBC.jpg', name: 'SKIN CARING BLEMISH BALM CUSHION', size: '1.2 MB', href: '/documents/ppt/GENOSYS%20SKIN%20CARING%20BLEMISH%20BALM%20CUSHION.pdf' },
+                    { id: 63, image: '/images/bright.jpg', name: 'REVITA GLOW BLEMISH BALM CREAM', size: '2.0 MB', href: '/documents/ppt/GENOSYS_REVITA_GLOW_BB_CREAM.pdf' },
+                    { id: 33, image: '/images/Patch.jpg', name: 'EyeCell EYE PEPTIDE GEL PATCH', size: '1.4 MB', href: '/documents/ppt/GENOSYS%20EyeCell%20EYE%20PEPTIDE%20GEL%20PATCH.pdf' },
+                    { id: 51, image: '/images/BFAD.png', name: 'BIO-FERMENT AGE DEFYING POWDER MASK', size: '2.1 MB', href: '/documents/ppt/GENOSYS%20BIO-FERMENT%20AGE%20DEFYING%20POWDER%20MASK.pdf' },
+                    { id: 48, image: '/images/gen.jpg', name: 'HAIR GENTRON', size: '1.8 MB', href: '/documents/ppt/HAIR%20GENTRON.pdf' },
+                    { id: 45, image: '/images/HHR.jpg', name: 'HR³ MATRIX HAIR SOLUTION α', size: '2.3 MB', href: '/documents/ppt/GENOSYS%20HR3%20MATRIX%20HAIR%20SOLUTION%20ALPHA.pdf' },
+                    { id: 43, image: '/images/HT.jpg', name: 'HR³ MATRIX HAIR TONIC α', size: '1.9 MB', href: '/documents/ppt/GENOSYS%20HR3%20MATRIX%20HAIR%20TONIC%20ALPHA.pdf' },
+                    { id: 46, image: '/images/scal.jpg', name: 'HR³ MATRIX SCALP PEELING α', size: '2.1 MB', href: '/documents/ppt/GENOSYS%20HR3%20MATRIX%20SCALP%20PEELING%20ALPHA.pdf' },
+                    { id: 49, image: '/images/LEDD.jpg', name: 'GENO-LED IR II', size: '4.6 MB', href: '/documents/ppt/GENO-LED%20IR%20II_2025.pdf' },
+                    { id: 52, image: '/images/PDRN.png', name: 'SKIN REBOOT PDRN MASK PACK', size: '1.2 MB', href: '/documents/ppt/GENOSYS%20SKIN%20REBOOT%20PDRN%20MASK%20PACK.pdf' },
+                    { id: 38, image: '/images/EZE.jpg', name: 'EZ CO₂ MASK KIT', size: '0.5 MB', href: '/documents/ppt/Genosys%20Ez%20Co2%20Mask.pdf' },
+                    { id: 1, image: '/images/genosys-microneedling-devices.jpg', name: 'Microneedle Roller', size: '1.5 MB', href: '/documents/ppt/Overview%20of%20Microneedling_S.pdf' },
                   ].map((product) => (
                     <div key={product.id} className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
                       <div className={`flex items-center gap-2 md:gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>

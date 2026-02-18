@@ -60,6 +60,13 @@ const trainingDocuments = [
     size: '8.9 MB',
     href: '/documents/ppt/Bio-Meso%20PDRN%20Expert_Treatment%20guide_for%20print_S.pdf',
     type: 'training'
+  },
+  {
+    id: 'microneedling-protocols',
+    title: 'Microneedling Protocols (Carboxy + Power Solutions)',
+    size: '1.2 MB',
+    href: '/documents/ppt/GENOSYS_Microneedling_Protocols.pdf',
+    type: 'training'
   }
 ]
 

@@ -89,6 +89,17 @@ const trainingDocuments = [
     icon: 'flask',
     category: 'training',
   },
+  {
+    id: 'microneedling-protocols',
+    title: 'Microneedling Protocols (Carboxy + Power Solutions)',
+    description: 'Complete microneedling protocols for Clinic 971: Anti-Wrinkle, Anti-Pigmentation, Acne, Rejuvenation, SRS Peeling, Hydration, Neck/Décolleté, and Eye Area.',
+    descriptionAr: 'بروتوكولات الميكرونيدلينج الكاملة لعيادة 971: مكافحة التجاعيد، مكافحة التصبغ، حب الشباب، تجديد البشرة، التقشير، الترطيب، الرقبة/الصدر، ومنطقة العين.',
+    descriptionRu: 'Полные протоколы микронидлинга для Clinic 971: против морщин, против пигментации, акне, омоложение, SRS пилинг, гидратация, шея/декольте и область глаз.',
+    downloadUrl: `${BASE_URL}/documents/ppt/GENOSYS_Microneedling_Protocols.pdf`,
+    fileSize: '1.2 MB',
+    icon: 'medkit',
+    category: 'training',
+  },
 ]
 
 // Product documentation - each linked to a product with image
